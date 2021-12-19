@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 395 
-- nombre d'exos interactifReady 540 
+- nombre d'exos amcReady 400 
+- nombre d'exos interactifReady 544 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -46,7 +46,7 @@
 |2N41-5|Développer (a-b)²|KO|KO|OK|mathLive|
 |2N51-4|Équations du premier degré|OK|AMCHybride|OK|mathLive|
 |2N51-5|Équations du premier degré (utilisant la distributivité)|KO|KO|OK|mathLive|
-|2S10-1|Effectifs et proportions|KO|KO|OK|mathLive|
+|2S10-1|Effectifs et proportions|OK|AMCNum|OK|mathLive|
 |2S11-1|Calculer un CM à partir d'un taux d'évolution et inversement|KO|KO|OK|mathLive|
 |2S11-2|Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale|KO|KO|OK|mathLive|
 |2S12-1|Evolutions successives|KO|KO|OK|mathLive|
@@ -155,6 +155,7 @@
 |5G10|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
 |5G11-4|Trouver les coordonnée de l’image d’un point par une symétrie centrale|OK|AMCHybride|OK|mathLive|
 |5G11-5|Trouver les coordonnée de l’image d’un point par une symétrie axiale ou centrale|OK|AMCHybride|OK|mathLive|
+|5G11-6|Compléter un nuage de points symétriques|OK|AMCOpenNum|OK|custom|
 |5G11|Trouver l’image d’un point par une symétrie axiale ou centrale|OK|AMCHybride|OK|mathLive|
 |5G12-1|Symétrique d’une figure dans un pavage|OK|AMCHybride|OK|mathLive|
 |5G12-2|Trouver les symétries successives dans un damiers|OK|AMCOpen|OK|mathLive|
@@ -222,6 +223,7 @@
 |6G14|Utiliser les propriétés des droites perpendiculaires|OK|AMCOpen|KO|KO|
 |6G23-1|Mesurer un angle|OK|qcmMono|OK|qcm|
 |6G24-2|Construire le symétrique d’une figure par rapport à une droite (cas simples)|OK|AMCOpen|KO|KO|
+|6G24-4|Compléter un nuage de points symétriques|OK|AMCOpenNum|OK|custom|
 |6G24|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
 |6G25-1|Utiliser des symétries axiales en pavage triangulaire|OK|qcmMono|OK|qcm|
 |6G25-2|Trouver l’image d’une figure par une symétrie axiale dans un pavage carré|OK|AMCHybride|OK|mathLive|
@@ -468,6 +470,7 @@
 |can5D01|Convertir en heures/minutes|OK|AMCNum|OK|mathLive|
 |can5G01|Trouver le symétrique d’un point 5e|KO|KO|OK|mathLive|
 |can5G02|Calculer un angle dans un triangle isocèle|KO|KO|OK|mathLive|
+|can5G03|Compter les points symétriques manquant|OK|AMCNum|OK|mathLive|
 |can5L01|Trouver $a+1$ ou $a-1$ connaissant $2a$|KO|KO|OK|mathLive|
 |can5N01|Calculer la somme de nombres décimaux|OK|AMCNum|OK|mathLive|
 |can5N02|Passer de la fraction décimale à l’écriture décimale*|OK|AMCNum|OK|mathLive|
@@ -475,6 +478,7 @@
 |can5P02|Déterminer (ou calculer avec) un pourcentage de proportion|OK|AMCNum|OK|mathLive|
 |can5P03|Résoudre un problème de proportionnalité|OK|AMCNum|OK|mathLive|
 |can5P04|Calculer avec une proportion|OK|AMCNum|OK|mathLive|
+|can5P05|Prendre t % d’une quantité|KO|KO|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |can6C01|Trouver un ordre de grandeur (QCM)|OK|qcmMono|OK|qcm|
 |can6C02|Multiplier un nombre pair par 5|OK|AMCNum|OK|mathLive|
@@ -515,6 +519,7 @@
 |can6G04|Résoudre un problème de longueurs|OK|AMCNum|OK|mathLive|
 |can6G05|Résoudre un problème de longueurs (inverse)|OK|AMCNum|OK|mathLive|
 |can6G06|Trouver le nombre de faces ou d'arêtes d’un solide|OK|AMCNum|OK|mathLive|
+|can6G07|Compter les points symétriques manquant|OK|AMCNum|OK|mathLive|
 |can6M01|Comparer des périmètres (V/F)|OK|qcmMono|OK|qcm|
 |can6M02|Trouver la bonne unité|OK|qcmMono|OK|qcm|
 |can6M03|Convertir en mètres|OK|AMCNum|OK|mathLive|

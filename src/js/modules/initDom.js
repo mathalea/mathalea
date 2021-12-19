@@ -4,6 +4,7 @@ import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setS
 import { getDureeFromUrl, getLogFromUrl, getZoomFromUrl, getVueFromUrl, getUrlVars, goTabVue, replaceQueryParam } from './gestionUrl'
 import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
+import { modalTimer } from './modalTimer'
 import { zoomAffichage } from './zoom'
 
 const boutonMAJ = () => {
@@ -482,6 +483,12 @@ export async function initDom () {
     })
     document.getElementById('btnPrev').addEventListener('click', () => {
       questionPrecedente()
+    })
+    document.getElementById('btnDiapTimer').addEventListener('click', async () => {
+      modalTimer()
+      document.addEventListener('nouveauTimer', () => {
+        gestionTimerDiap()
+      })
     })
     document.addEventListener('exercicesAffiches', () => {
       liToDiv()

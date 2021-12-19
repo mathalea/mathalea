@@ -31,7 +31,7 @@ export default function TableauDeValeurs () {
   this.correctionDetailleeDisponible = true
 
   this.nouvelleVersion = function () {
-    this.spacing = this.interactif ? 3 : 1
+    this.spacing = this.interactif ? 2 : 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -208,24 +208,24 @@ export default function TableauDeValeurs () {
           break
       }
 
-      texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$. Compléter le tableau de valeurs suivant.`
+      texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$. ${this.interactif ? '<br>Calculer les images par $f$ suivantes.' : '<br>Compléter le tableau de valeurs suivant.<br><br>'}`
       texteCorr = ''
-      texte += '<br><br>'
+      // texte += '<br>'
       if (context.isHtml) {
-        texte += '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n'
+        if (!this.interactif) texte += '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n'
       } else {
         texte += '$\\begin{array}{|l|c|c|c|}\n'
       }
-
-      texte += '\\hline\n'
-      texte += `x & ${listeDeX[i][0]} & ${listeDeX[i][1]} & ${listeDeX[i][2]} \\\\\n`
-      texte += '\\hline\n'
-      texte += `${nomdef}(x) & \\phantom{-10} & \\phantom{-10} & \\phantom{-10} \\\\\n`
-      texte += '\\hline\n'
-      texte += '\\end{array}\n$'
-
+      if (!this.interactif || !context.isHtml) {
+        texte += '\\hline\n'
+        texte += `x & ${listeDeX[i][0]} & ${listeDeX[i][1]} & ${listeDeX[i][2]} \\\\\n`
+        texte += '\\hline\n'
+        texte += `${nomdef}(x) & \\phantom{-10} & \\phantom{-10} & \\phantom{-10} \\\\\n`
+        texte += '\\hline\n'
+        texte += '\\end{array}\n$'
+      }
       if (context.isHtml) {
-        texteCorr = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n'
+        if (!this.interactif) texteCorr = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n'
       } else {
         texteCorr = '$\\begin{array}{|l|c|c|c|}\n'
       }

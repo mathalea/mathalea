@@ -148,7 +148,55 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
 export function point (x, y, A, labelPosition = 'above') {
   return new Point(x, y, A, labelPosition)
 }
-
+/**
+ * @author Jean-Claude Lhote
+ * @param {number} x abscisse
+ * @param {number} y ordonnée
+ * @param {object} param2 permet de définir le rayon du 'plot', sa couleur, sa couleur de remplissage
+ */
+function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = 'black', opacite = 1, opaciteDeRemplissage = 1 } = {}) {
+  ObjetMathalea2D.call(this)
+  this.color = couleur
+  this.couleurDeRemplissage = couleurDeRemplissage
+  this.rayon = rayon
+  this.x = x
+  this.y = y
+  this.opacite = opacite
+  this.opaciteDeRemplissage = opaciteDeRemplissage
+  this.svg = function (coeff) {
+    if (this.couleurDeRemplissage === '') {
+      return `\n\t <circle cx="${arrondi(this.x * coeff, 1)}" cy="${arrondi(-this.y * coeff, 1)}" r="${arrondi(this.rayon * coeff, 2)}" stroke="${this.color}" stroke-opacity="${this.opacite || 1}"/>`
+    } else {
+      return `\n\t <circle cx="${arrondi(this.x * coeff, 1)}" cy="${arrondi(-this.y * coeff, 1)}" r="${arrondi(this.rayon * coeff, 2)}" stroke="${this.color}" fill="${this.couleurDeRemplissage}" stroke-opacity="${this.opacite || 1}" fill-opacity="${this.opaciteDeRemplissage || 1}"/>`
+    }
+  }
+  this.tikz = function () {
+    const tableauOptions = []
+    if (this.color.length > 1 && this.color !== 'black') {
+      tableauOptions.push(this.color)
+    }
+    if (this.epaisseur !== 1) {
+      tableauOptions.push(`line-width=${this.epaisseur}`)
+    }
+    if (this.opacite !== 1) {
+      tableauOptions.push(`opacity=${this.opacite}`)
+    }
+    if (this.opaciteDeRemplissage !== 1) {
+      tableauOptions.push(`fill opacity=${this.opaciteDeRemplissage}`)
+    }
+    if (this.couleurDeRemplissage !== '') {
+      tableauOptions.push(`fill=${this.couleurDeRemplissage}`)
+    }
+    let optionsDraw = []
+    if (tableauOptions.length > 0) {
+      optionsDraw = '[' + tableauOptions.join(',') + ']'
+    }
+    return `\n\t \\filldraw${optionsDraw} (${arrondi(this.x, 2)},${arrondi(this.y, 2)}) circle (${arrondi(this.rayon, 2)});`
+  }
+}
+export function plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = 'black', opacite = 1, opaciteDeRemplissage = 1 } = {}) {
+  return new Plot(x, y, { rayon: rayon, couleur: couleur, couleurDeRemplissage: couleurDeRemplissage, opacite: opacite, opaciteDeRemplissage: opaciteDeRemplissage })
+}
 /**
  * tracePoint(A) // Place une croix à l'emplacement du point A
  * tracePoint(A,B,C,D) // Place une croix pour les différents points
@@ -222,6 +270,8 @@ function TracePoint (...points) {
           s1.epaisseur = this.epaisseur
           s1.opacite = this.opacite
           objetssvg.push(s1)
+        } else if (this.style === '.') {
+          s1 = plot(A.y, A.y, { couleur: this.color, rayon: this.epaisseur * 0.05, couleurDeRemplissage: this.couleurDeRemplissage })
         }
       }
     }
@@ -6261,7 +6311,124 @@ function Seyes (xmin = 0, ymin = 0, xmax = 15, ymax = 15, opacite1 = 0.5, opacit
 export function seyes (...args) {
   return new Seyes(...args)
 }
+function PapierPointe ({
+  xmin = -10,
+  xmax = 10,
+  ymin = -10,
+  ymax = 10,
+  xstep = 1,
+  ystep = 1,
+  type = 'quad',
+  pointColor = 'black',
+  pointRayon = 0.05,
+  opacite = 1,
+  opaciteDeRemplissage = 1
+}) {
+  ObjetMathalea2D.call(this)
+  this.listeCoords = []
+  const plots = []
+  let xstep1, xstep2, ystep1, stepper
+  switch (type) {
+    case 'quad':
+      for (let x = xmin; x <= xmax; x += xstep) {
+        for (let y = ymin; y <= ymax; y += ystep) {
+          plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+          this.listeCoords.push([x, y])
+        }
+      }
+      break
+    case 'hexa':
+      stepper = false
+      ystep1 = Math.min(xstep, ystep)
+      xstep1 = arrondi(0.866 * ystep1, 2)
+      xstep2 = arrondi(1.732 * ystep1, 2)
+      for (let x = xmin; x <= xmax; x += xstep2) {
+        for (let y = ymin; y <= ymax; y += arrondi(1.5 * ystep1, 2)) {
+          stepper = !stepper
+          if (stepper) {
+            plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1 * 1.5, 2), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            this.listeCoords.push([x, y], [arrondi(x + xstep1, 2), arrondi(y + ystep1 / 2, 2)], [arrondi(x + xstep1, 2), arrondi(y + ystep1 * 1.5, 2)])
+          } else {
+            plots.push(plot(x, arrondi(y + ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            this.listeCoords.push([x, arrondi(y + ystep1 / 2, 2)])
+          }
+        }
+        stepper = !stepper
+      }
+      break
+    case 'equi':
+      stepper = false
+      ystep1 = Math.min(xstep, ystep)
+      xstep1 = arrondi(0.866 * ystep1, 2)
+      xstep2 = arrondi(1.732 * ystep1, 2)
+      for (let x = xmin; x <= xmax; x = arrondi(x + xstep2)) {
+        for (let y = ymin; y <= ymax; y = arrondi(y + 1.5 * ystep1, 2)) {
+          stepper = !stepper
+          if (stepper) {
+            plots.push(plot(x, y, { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(x, arrondi(y + ystep1, 2), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1 * 1.5, 2), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            this.listeCoords.push([x, y], [x, arrondi(y + ystep1, 2)], [arrondi(x + xstep1, 2), arrondi(y + ystep1 / 2, 2)], [arrondi(x + xstep1, 2), arrondi(y + ystep1 * 1.5, 2)])
+          } else {
+            plots.push(plot(arrondi(x + xstep1, 2), arrondi(y + ystep1), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            plots.push(plot(x, arrondi(y + ystep1 / 2, 2), { rayon: pointRayon, couleur: pointColor, opacite: opacite, couleurDeRemplissage: '', opaciteDeRemplissage: opaciteDeRemplissage }))
+            this.listeCoords.push([arrondi(x + xstep1, 2), arrondi(y + ystep1)], [x, arrondi(y + ystep1 / 2, 2)])
+          }
+        }
+        stepper = !stepper
+      }
+      break
+  }
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of plots) {
+      code += objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of plots) {
+      code += objet.tikz()
+    }
+    return code
+  }
+}
 
+export function papierPointe ({
+  xmin = -10,
+  xmax = 10,
+  ymin = -10,
+  ymax = 10,
+  xstep = 1,
+  ystep = 1,
+  type = 'quad',
+  pointColor = 'black',
+  pointRayon = 0.05,
+  opacite = 0.4,
+  opaciteDeRemplissage = 0.4
+}) {
+  return new PapierPointe({
+    xmin: xmin,
+    xmax: xmax,
+    ymin: ymin,
+    ymax: ymax,
+    xstep: xstep,
+    ystep: ystep,
+    type: type,
+    pointColor: pointColor,
+    pointRayon: pointRayon,
+    opacite: opacite,
+    opaciteDeRemplissage: opaciteDeRemplissage
+  })
+}
+
+/**
+ * La fonction Repere n'est pas documentée. Elle est remplacée par la fonction Repere2 qui l'est. Voir ci-dessous.
+ */
 function Repere ({
   xmin = -10,
   xmax = 10,

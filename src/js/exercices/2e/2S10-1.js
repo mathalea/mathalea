@@ -1,9 +1,12 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, texPrix } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Effectifs et proportions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true // Pour en bénéficier avec le générateur AMC
+export const amcType = 'AMCNum' // Les réponses sont des valeurs numériques à encoder
 export const dateDePublication = '9/12/2021'
 
 /**
@@ -16,6 +19,7 @@ export const dateDePublication = '9/12/2021'
 * * Retrouver l'effectif de la population totale'
 * * Mélange des 3 types de problèmes
 * @author Florence Tapiero
+* * ajout de lignes pour l'export AMC par Jean-Claude Lhote
 * 2S10-1
 */
 export default function Proportions () {
@@ -35,6 +39,7 @@ export default function Proportions () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = [] // Cette ligne doit être ajoutée afin de vider les précédentes valeurs pour AMC
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['sous-population']
@@ -53,7 +58,7 @@ export default function Proportions () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const typesDeSituations = combinaisonListes(situationsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let prénom, espèces
-    for (let i = 0, texte, texteCorr, sous, sous2, totale, taux, p, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, sous, sous2, totale, taux, p, reponse, paramAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typesDeSituations[i]) {
         case 'spectacle':
           // Le nombre de spectateurs doit être entier
@@ -94,9 +99,10 @@ export default function Proportions () {
                   texteCorr += `<br>Comme $${100 - taux}~\\%$ des $${texNombre(totale)}$ personnes sont majeures, le nombre de personnes majeures est donné par :`
                   texteCorr += `<br>$\\dfrac{${100 - taux}}{100} \\times ${texNombre(totale)} = ${texNombre(calcul(1 - p))} \\times ${texNombre(totale)} = ${texNombre(sous2)}$`
                   texteCorr += `<br>Il y a donc $${texNombre(sous2)}$ personnes majeures dans le public.`
-                  reponse = sous
+                  reponse = sous2
                   break
               }
+              paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // on mets 4 chiffres même si la plupart des réponses n'en ont que 3 pour ne pas contraindre les réponses
               break
             case 'population-totale':
               texte = `Lors d'un concert, il y a $${texNombre(sous)}$ spectacteurs de plus de $60$ ans, ce qui représente $${taux}~\\%$ du public. <br>Combien de spectateurs ont assisté au concert ?`
@@ -109,12 +115,14 @@ export default function Proportions () {
               \\end{aligned}$`
               texteCorr += `<br>Il y avait donc $${texNombre(totale)}$ spectateurs.`
               reponse = totale
+              paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // Le nombre attendu a bien 4 chiffres maxi
               break
             case 'proportion':
               texte = `Parmi les $${texNombre(totale)}$ spectacteurs d'un concert, $${texNombre(sous)}$ ont moins de $18$ ans. <br>Calculer la proportion des personnes mineures dans le public en pourcentage.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous)}}{${texNombre(totale)}} = ${texNombre(p)}$.`
               texteCorr += `<br>$${texNombre(p)}=\\dfrac{${texNombre(taux)}}{100}$. Il y a donc $${taux}~\\%$ de personnes mineures dans le public.`
               reponse = taux
+              paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%
               break
           }
           break
@@ -144,6 +152,7 @@ export default function Proportions () {
               texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale)} = ${texNombre(p)} \\times ${texNombre(totale)}=${texNombre(sous)}$`
               texteCorr += `<br>Ma participation au cadeau est de $${texPrix(sous)}$ €.`
               reponse = sous
+              paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 } // la participation n'a que 2 chiffres mais on ne contraint pas la réponse
               break
             case 'population-totale':
               texte = `Pour le cadeau de ${prénom}, j'ai donné $${texPrix(sous)}$ €. Cela représente $${taux}~\\%$ du prix total du cadeau. <br>Quel est le montant du cadeau ?`
@@ -156,12 +165,14 @@ export default function Proportions () {
               \\end{aligned}$`
               texteCorr += `<br>Le cadeau coûte $${texPrix(totale)}$ €.`
               reponse = totale
+              paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 }
               break
             case 'proportion':
               texte = `Le cadeau commun que nous souhaitons faire à ${prénom} coûte $${texPrix(totale)}$ €. Je participe à hauteur de $${texPrix(sous)}$ €. <br>Calculer la proportion de ma participation sur le prix total du cadeau.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texPrix(sous)}}{${texPrix(totale)}} = ${texNombre(p)}$.`
               texteCorr += `<br>$${texNombre(p)}=\\dfrac{${texNombre(taux)}}{100}$. J'ai donc donné $${taux}~\\%$ du montant total du cadeau.`
               reponse = taux
+              paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%
               break
           }
           break
@@ -192,6 +203,8 @@ export default function Proportions () {
               texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale)} = ${texNombre(p)} \\times ${texNombre(totale)}=${texNombre(sous)}$`
               texteCorr += `<br>Il y a $${texNombre(sous)}$ ${espèces} dans la réserve.`
               reponse = sous
+              paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // on mets 4 chiffres même si la plupart des réponses n'en ont que 3 pour ne pas contraindre les réponses
+
               break
             case 'population-totale':
               texte = `Dans une réserve de protection d'oiseaux, il y a $${texNombre(sous)}$ ${espèces}, ce qui représente $${taux}~\\%$ du nombre total d'oiseaux. <br>Quel est le nombre d'oiseaux de cette réserve ?`
@@ -204,19 +217,27 @@ export default function Proportions () {
                 \\end{aligned}$`
               texteCorr += `<br>Il y a $${texNombre(totale)}$ oiseaux dans la réserve.`
               reponse = totale
+              paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // population à 4 chiffres (souvent)
+
               break
             case 'proportion':
               texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale)}$ individus d'oiseaux. On dénombre $${texNombre(sous)}$ ${espèces}. <br>Calculer la proportion de ${espèces} dans la réserve.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous)}}{${texNombre(totale)}} = ${texNombre(p)}$.`
               texteCorr += `<br>$${texNombre(p)}=\\dfrac{${texNombre(taux)}}{100}$. Le pourcentage de ${espèces} dans la réserve est donc de $${taux}~\\%$.`
               reponse = taux
+              paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%
               break
           }
           break
       }
-      setReponse(this, i, reponse)
-      texte += ajouteChampTexteMathLive(this, i)
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      setReponse(this, i, reponse, paramAMC)
+      if (context.isAmc && listeTypeDeQuestions[i] === 'proportion') {
+        this.autoCorrection[i].reponse.textePosition = 'left'
+        this.autoCorrection[i].reponse.texte = '\\\\En \\% : '
+      }
+      texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline')
+      // à cause de ajouteChampTexteMathLive qui inclus un Id unique, toutes les questions sont différentes, comparer les textes ne suffit plus
+      if (this.questionJamaisPosee(i, taux, totale, sous)) { // on utilise donc cette fonction basée sur les variables aléatoires pour éviter les doublons
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

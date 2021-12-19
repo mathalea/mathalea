@@ -3,13 +3,12 @@ import Exercice from '../Exercice.js'
 import { randint, texNombrec, miseEnEvidence, texteGras, sp, prenom, itemize, texteEnCouleur, numAlpha, listeQuestionsToContenu, combinaisonListes, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
 
 export const titre = 'Modéliser une situation  à l\'aide d\'une équation'
-
+export const dateDePublication = '16/12/2021'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
  * Référence
- * A DEPLACER EN 2N50-3 !!!!!!!!!!!!!!!!!
-*/
+ */
 export default function modeliserEquations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
@@ -55,9 +54,9 @@ export default function modeliserEquations () {
                   ${numAlpha(1)} Déterminer le salaire du commercial au mois de janvier (arrondir à l'euro près).<br>
               `
 
-          texteCorr = `Le salaire du mois de janvier en fonction de $x$ est : $x+${j}$.<br>
+          texteCorr = `${numAlpha(0)} Le salaire du mois de janvier en fonction de $x$ est : $x+${j}$.<br>
             Le salaire du mois de février en fonction de $x$ est : $\\left(1+${taux.texFraction}\\right)x+${f}=${texNombrec(1 + t / 100)}x+${f}$.<br>
-            Globalement, le salaire au mois
+            ${numAlpha(1)} Globalement, le salaire au mois
                   de février a augmenté de $${a}$ € par rapport à celui du mois de janvier, cela signifie que le salaire du
                    mois de janvier augmenté de $${a}$ € est donc égal au salaire du mois de février.<br>
             Ainsi, $(x+${j})+${a}=${texNombrec(1 + t / 100)}x+${f}$<br>
@@ -96,7 +95,7 @@ export default function modeliserEquations () {
                 $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c)}$ € par km parcouru ;<br>
                 $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d)}$ € par km parcouru ;<br>
           
-                       Pour combien de km (arrondi à l'unité), les deux forfaits donnent-t-ils le même tarif ?<br>
+                       Pour combien de km (arrondi à l'unité), les deux tarifs sont-ils égaux ?<br>
                                       `
           texteCorr = `En notant $x$, le nombre de km parcourus, on a :<br>
                 $\\bullet$ Avec le tarif A, le prix à payer est : $${reduireAxPlusB(c, a)}$ ;<br>
@@ -143,7 +142,7 @@ export default function modeliserEquations () {
           texteCorr = `
       $\\bullet$ La recette est donnée par : $${texNombrec(c)}\\times x=${texNombrec(c)}x$ ;<br>
       $\\bullet$ Les coûts de fabrication sont donnés par : $${texNombrec(a)}x+${texNombrec(b)}$ ;<br>
-      $\\bullet$ Le résultat net est donné par la différence entre la recette et les coût, donc par :<br>
+      $\\bullet$ Le résultat net est donné par la différence entre la recette et les coûts, donc par :<br>
        $${texNombrec(c)}x-(${texNombrec(a)}x+${texNombrec(b)})=${texNombrec(c)}x-${texNombrec(a)}x-${texNombrec(b)}=${texNombrec(c - a)}x-${texNombrec(b)}$.<br>
             Le résultat est nul lorsque  : $${texNombrec(c - a)}x-${texNombrec(b)}=0$<br>
             On résout l'équation :<br>
@@ -335,7 +334,7 @@ export default function modeliserEquations () {
                         `
           texte += itemize(['Choisir un nombre', `Multiplier par $${c}$ `, `Ajouter $${d}$`])
           texte += `<br>On entre le même nombre dans chacun des deux programmes de calcul et on effectue le produit de ces deux nombres. <br>
-              Quel(s) nombre(s) doit-on entrer pour que ce produit soit nul ?.<br><br>`
+              Quel(s) nombre(s) doit-on entrer pour que ce produit soit nul ?<br><br>`
           texteCorr = `En notant $x$ le nombre choisi au départ : <br>
                    
                    On obtient avec le ${texteGras('programme 1 :')} :<br>

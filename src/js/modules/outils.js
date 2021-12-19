@@ -2,7 +2,7 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate, isPrime, max, gcd } from 'mathjs'
+import { format, evaluate, isPrime, max, gcd, round } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 import { elimineDoublons, setReponse } from './gestionInteractif.js'
@@ -248,7 +248,7 @@ export function inferieurouegal (a, b, tolerance = epsilon) {
  * @return {boolean}
  */
 export function estentier (a, tolerance = epsilon) {
-  return (Math.abs(a - Math.round(a)) < tolerance)
+  return (Math.abs(a - round(a)) < tolerance)
 }
 
 /**
@@ -1282,8 +1282,9 @@ export function unSiPositifMoinsUnSinon (a) {
  * @return {number}
  */
 export function arrondi (nombre, precision = 2) {
-  const tmp = Math.pow(10, precision)
-  return Math.round(nombre * tmp) / tmp
+  return round(nombre, precision)
+  // const tmp = Math.pow(10, precision)
+  // return Math.round(nombre * tmp) / tmp
 }
 /**
  * Retourne la troncature signée de nombre.
@@ -1310,8 +1311,8 @@ export function abs (a) {
 * @author Rémi Angot
 */
 export function arrondiVirgule (nombre, precision = 2) { //
-  const tmp = Math.pow(10, precision)
-  return String(Math.round(nombre * tmp) / tmp).replace('.', ',')
+  // const tmp = Math.pow(10, precision)
+  return String(round(nombre, precision)).replace('.', ',')
 }
 
 /**
@@ -2534,7 +2535,7 @@ export function texNombre3 (nb) {
 export function sp (nb = 1) {
   let s = ''
   for (let i = 0; i < nb; i++) {
-    if (context.isHtml) s += '&nbsp'
+    if (context.isHtml) s += '&nbsp;'
     else s += '~'
   }
   return s
@@ -3385,7 +3386,7 @@ export function ecriturePuissance (a, b, n) {
     case 1:
       return `$${puissance(b, n)}$`
     default:
-      return `$${String(Math.round(a * 1000) / 1000).replace('.', '{,}')} \\times ${puissance(b, n)}$`.replace('.', '{,}')
+      return `$${String(round(a, 3)).replace('.', '{,}')} \\times ${puissance(b, n)}$`.replace('.', '{,}')
   }
 }
 
@@ -7459,7 +7460,7 @@ export function exportQcmAmc (exercice, idExo) {
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n\\end{multicols}\n\\end{minipage}\n}\n\n'
           id += 2
-        } else if (valeurAMCNum.num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
+        } else if (valeurAMCNum.num !== undefined) { // Si une fraction a été passée à AMCNum, on met un seul AMCNumericChoice particulier
           texQr += `\\element{${ref}}{\n`
           texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
           texQr += `${autoCorrection[j].enonce} \n`
@@ -7523,6 +7524,7 @@ export function exportQcmAmc (exercice, idExo) {
           if (autoCorrection[j].propositions !== undefined) {
             texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
           }
+          if (autoCorrection[j].reponse.textePosition === 'left') texQr += `${autoCorrection[j].reponse.texte} `
           texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${nbChiffresPe + nbChiffresPd},decimals=${nbChiffresPd},sign=${autoCorrection[j].reponse.param.signe},`
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
             texQr += `exponent=${nbChiffresExpo},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
@@ -7540,7 +7542,11 @@ export function exportQcmAmc (exercice, idExo) {
           if (autoCorrection[j].reponse.param.vhead !== undefined && autoCorrection[j].reponse.param.vhead) {
             texQr += `vhead=${autoCorrection[j].reponse.param.vhead},`
           }
-          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={,}}\n'
+          if (autoCorrection[j].reponse.param.tpoint !== undefined && autoCorrection[j].reponse.param.tpoint) {
+            texQr += `Tpoint={${autoCorrection[j].reponse.param.tpoint}},`
+          }
+          texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1} '
+          if (autoCorrection[j].reponse.textePosition === 'right') texQr += `${autoCorrection[j].reponse.texte}\n`
           texQr += '\\end{questionmultx}\n }\n\n'
           id++
         }
@@ -7570,8 +7576,11 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].propositions !== undefined) {
           texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
         }
-        texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
-        texQr += '\\end{question}\n\\end{minipage}\n'
+        texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}`
+        if (!(isNaN(autoCorrection[j].propositions[0].sanscadre))) {
+          texQr += `[${autoCorrection[j].propositions[0].sanscadre}]` // le statut contiendra le nombre de lignes pour ce type
+        }
+        texQr += '\n\t\\end{question}\n\\end{minipage}\n'
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
           if (autoCorrection[j].reponse.param.digits === 0) {
             nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(valeurAMCNum)
@@ -7607,7 +7616,10 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].reponse.param.vhead !== undefined && autoCorrection[j].reponse.param.vhead) {
           texQr += `vhead=${autoCorrection[j].reponse.param.vhead},`
         }
-        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,},vertical=true}\n'
+        if (autoCorrection[j].reponse.param.tpoint !== undefined && autoCorrection[j].reponse.param.tpoint) {
+          texQr += `Tpoint={${autoCorrection[j].reponse.param.tpoint}},`
+        }
+        texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,vertical=true}\n'
         texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
         id++
         break
@@ -8050,7 +8062,10 @@ export function exportQcmAmc (exercice, idExo) {
                 if (rep.param.vhead !== undefined && rep.param.vhead) {
                   texQr += `vhead=${rep.param.vhead},`
                 }
-                texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={,}}\n'
+                if (rep.param.tpoint !== undefined && rep.param.tpoint) {
+                  texQr += `Tpoint={${rep.param.tpoint}},`
+                }
+                texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1}\n'
                 if (!(propositions[0].alignement === undefined)) {
                   texQr += '\\end{'
                   texQr += `${propositions[0].alignement}}`

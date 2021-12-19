@@ -1,4 +1,34 @@
 export default {
+  "1AN10-1": {
+    "titre": "Nombre dérivé de fonctions de références",
+    "url": "/exercices/1e/1AN10-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1AN10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "1AN11": {
+    "titre": "Equation de tangente",
+    "url": "/exercices/1e/1AN11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1AN11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "1E10": {
     "titre": "Calcul du discriminant d’une équation du second degré",
     "url": "/exercices/1e/1E10.js",
@@ -1576,6 +1606,36 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2N50-3": {
+    "titre": "Modéliser une situation  à l'aide d'une équation",
+    "url": "/exercices/2e/2N50-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N50-3",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N50-4": {
+    "titre": "Modéliser une situation géométrique à l'aide d'une équation",
+    "url": "/exercices/2e/2N50-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N50-4",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2N51-1": {
     "titre": "Tester si un nombre est solution d'une équation",
     "url": "/exercices/2e/2N51-1.js",
@@ -1764,7 +1824,10 @@ export default {
   "2S10-1": {
     "titre": "Effectifs et proportions",
     "url": "/exercices/2e/2S10-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "2S10-1",
@@ -4890,6 +4953,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "5G11-6": {
+    "titre": "Compléter un nuage de points symétriques",
+    "url": "/exercices/5e/5G11-6.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "5G11-6",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "5G11": {
     "titre": "Trouver l’image d’un point par une symétrie axiale ou centrale",
     "url": "/exercices/5e/5G11.js",
@@ -7206,6 +7288,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6G24-4": {
+    "titre": "Compléter un nuage de points symétriques",
+    "url": "/exercices/6e/6G24-4.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "6G24-4",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6G24": {
     "titre": "Trouver l’image d’un point par une symétrie axiale",
     "url": "/exercices/6e/6G24.js",
@@ -8219,7 +8320,7 @@ export default {
     "interactifType": "numerique",
     "name": "6N23-6",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9619,36 +9720,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta2F31",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "beta2N60-X1": {
-    "titre": "Modéliser une situation  à l'aide d'une équation",
-    "url": "/exercices/beta/beta2N60-X1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2N60-X1",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "beta2N60-X2": {
-    "titre": "Modéliser une situation géométrique à l'aide d'une équation",
-    "url": "/exercices/beta/beta2N60-X2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2N60-X2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -13018,6 +13089,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can5G03": {
+    "titre": "Compter les points symétriques manquant",
+    "url": "/exercices/can/5e/can5G03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5G03",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can5L01": {
     "titre": "Trouver $a+1$ ou $a-1$ connaissant $2a$",
     "url": "/exercices/can/5e/can5L01.js",
@@ -13141,6 +13231,22 @@ export default {
     "name": "can5P04",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can5P05": {
+    "titre": "Prendre t % d’une quantité",
+    "url": "/exercices/can/5e/can5P05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5P05",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13892,6 +13998,25 @@ export default {
     "name": "can6G06",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6G07": {
+    "titre": "Compter les points symétriques manquant",
+    "url": "/exercices/can/6e/can6G07.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6G07",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
