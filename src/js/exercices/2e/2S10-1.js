@@ -9,7 +9,7 @@ export const dateDePublication = '9/12/2021'
 /**
 * Problèmes de proportions
 *
-* * Situations variées : spectacle, restaurant, bonbons
+* * Situations variées : spectacle, cadeau, réserve
 *
 * * Déterminer l'effectif de la sous population
 * * Calculer une proportion
