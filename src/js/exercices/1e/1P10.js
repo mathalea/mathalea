@@ -38,9 +38,9 @@ export default function ProbabilitésConditionnelles () {
           texte += '<br> Les clients choisissent leur moyen de transport : train ou avion.'
           texte += '<br> De plus, s\'ils le souhaitent, ils peuvent compléter leur formule par l\'option "visites guidées".'
           texte += '<br> Une étude a produit les données suivantes:'
-          texte += `<br> $\\bullet~~$ ${a}\\% des clients optent pour l'avion;`
-          texte += `<br> $\\bullet~~$ Parmi   les clients ayant choisi le train, ${v}\\% choisissent aussi l'option "visites guidées".`
-          texte += `<br> $\\bullet~~$ ${av}\\% des clients ont choisi à la fois l'avion et l'option "visites guidées".<br>`
+          texte += `<br> $\\bullet~~ ${a}$% des clients optent pour l'avion;`
+          texte += `<br> $\\bullet~~$ Parmi   les clients ayant choisi le train, $${v}$ % choisissent aussi l'option "visites guidées".`
+          texte += `<br> $\\bullet~~ ${av}$% des clients ont choisi à la fois l'avion et l'option "visites guidées".<br>`
           texte += '<br> On interroge au hasard un client de l\'agence ayant souscrit à une formule week-end à Londres.'
           texte += '<br> On considère les évènements suivants:'
           texte += '<br> $\\bullet~~$ $A$ :  le client a choisi l\'avion.'
