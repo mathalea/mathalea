@@ -159,7 +159,7 @@ export default function Proportions () {
               break
             case 'proportion':
               texte = `Le cadeau commun que nous souhaitons faire à ${prénom} coûte $${texPrix(totale)}$ €. Je participe à hauteur de $${texPrix(sous)}$ €. <br>Calculer la proportion de ma participation sur le prix total du cadeau.`
-              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texPrix(sous)}}{${texPrix}} = ${texNombre(p)}$.`
+              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texPrix(sous)}}{${texPrix(totale)}} = ${texNombre(p)}$.`
               texteCorr += `<br>$${texNombre(p)}=\\dfrac{${texNombre(taux)}}{100}$. J'ai donc donné $${taux}~\\%$ du montant total du cadeau.`
               reponse = taux
               break

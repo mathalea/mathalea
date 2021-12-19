@@ -52,7 +52,7 @@
 ||5N11-4|||2N51-2|||betaModele11_parametrable|
 ||5N14-2|||2N51-3|||betaModele20_plusieurs_types_de_questions|
 ||5N15|||2N51-3v2|||betaModele21_parametrables|
-||5N20-0|||2N52-1|||betaModele30_constructions_géométriques|
+||5N20-0|||2N52-1|||betaModele30_constructions_géométriques|
 ||5P10|||2N52-2|||betaModele31_parametrables|
 ||5P12|||2N52-4|||betaModele40_tableau_proportionnalite|
 ||5R10-0|||2N60-4|||betaModele41_tableau_signes_variations|
