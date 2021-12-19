@@ -75,58 +75,6 @@ export default function DeriveeProduit () {
           expression = `(${rienSi1(a)} x^2  ${ecritureAlgebriqueSauf1(b)} x  ${ecritureAlgebrique(c)})(${rienSi1(d)} x^2  ${ecritureAlgebriqueSauf1(e)} x  ${ecritureAlgebrique(f)})`
           ensembleDerivation = '\\mathbb{R}'
           break
-        case 'xn+1/x':
-          n = randint(2, 10)
-          expression = `x^${n}+1/x`
-          ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
-          break
-        case 'xn+1/xm':
-          n = randint(2, 10)
-          m = randint(2, 10, m)
-          expression = `x^${n}+1/x^${m}`
-          ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
-          break
-        case 'xn+xm':
-          n = randint(2, 10)
-          m = randint(2, 10, m)
-          expression = `x^${n}+x^${m}`
-          ensembleDerivation = '\\mathbb{R}'
-          break
-        case 'axn':
-          a = randint(-10, 10, [0, 1, -1])
-          n = randint(2, 10)
-          expression = `${a}x^${n}`
-          ensembleDerivation = '\\mathbb{R}'
-          break
-        case '1/x':
-          expression = '1/x'
-          ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
-          break
-        case 'a/x':
-          a = randint(-10, 10, [0, 1])
-          expression = `${a}/x`
-          ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
-          break
-        case '1/xn':
-          n = randint(2, 10)
-          expression = `${1}/x^${n}`
-          ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
-          break
-        case 'a/xn':
-          a = randint(-10, 10, [1, 0])
-          n = randint(2, 10)
-          expression = `${a}/x^${n}`
-          ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
-          break
-        case 'racine(x)':
-          expression = 'sqrt(x)'
-          ensembleDerivation = '[0,+\\infin['
-          break
-        case 'racine(ax)':
-          a = randint(2, 10, [4, 9])
-          expression = `sqrt(${rienSi1(a)}x)`
-          ensembleDerivation = '[0,+\\infin['
-          break
       }
 
       texte = `$${lettreMinusculeDepuisChiffre(i + 6)}:x\\longmapsto ${math.parse(expression).toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')}$`
