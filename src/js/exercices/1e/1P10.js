@@ -34,7 +34,7 @@ export default function ProbabilitésConditionnelles () {
         case 'type1':
           a = randint(30, 70)// p(A)
           v = randint(30, 70)// P_T(V)
-          av = randint(30, 70)// P(A \cap V)
+          av = randint(20, a - 5)// P(A \cap V)
           A = point(4, 3, 'A') // 1er noeud Avion
           B = point(4, 1, '$\\bar A$')// 1er noeud événement contraire \bar A
           O = point(2, 2, '$\\Omega$')// Univers, point de départ de l'arbre
@@ -77,7 +77,7 @@ export default function ProbabilitésConditionnelles () {
           k2 = 1 - (av / 100 + (1 - a / 100) * v / 100)
           texteCorr += `<br>Donc $P_{\\bar{V}}(A)=\\dfrac{${a / 100} \\times ${texFraction(a - av, a)}}{${texNombre(k2)}} \\approx ${arrondi(((a / 100) * k1) / k2)}$.`
           texteCorr += `<br><br>4. On a vu que $P(\\bar{V})=1-${k2}=${1 - k2}$.`
-          texteCorr += 'Comme les deux événements sont indépendants, $P(\\bar{V_1}\\cap\\bar{V_2})=P(\\bar{V_1}\\times P(\\bar{V_2})$'
+          texteCorr += '<br>Comme les deux événements sont indépendants, $P(\\bar{V_1}\\cap\\bar{V_2})=P(\\bar{V_1}\\times P(\\bar{V_2})$'
           texteCorr += `<br>La probabilité cherchée est donc égale à $${1 - k2} \\times ${1 - k2}\\approx ${arrondi((1 - k2) ** 2)}$.`
 
           break
