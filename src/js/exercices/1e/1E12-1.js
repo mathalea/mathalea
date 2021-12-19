@@ -22,6 +22,7 @@ export default function LireElementsCarac () {
   // this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   // this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   // this.video = '' // Id YouTube ou url
+  this.sup = 4
 
   this.nouvelleVersion = function (numeroExercice) {
     const pixelsParCm = 20
@@ -131,7 +132,7 @@ export default function LireElementsCarac () {
         xmax: Xmax + 1,
         ymin: svgYmin,
         ymax: svgYmax + 2,
-        pixelsParCm: pixelsParCm,
+        pixelsParCm,
         scale: 0.6
       },
       courbe(F, Xmin, Xmax, 'blue', 1.5, r), r)
