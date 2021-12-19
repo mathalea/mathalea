@@ -140,9 +140,11 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
     const changeEtatPoint = (etat) => {
       this.etat = etat
     }
-    // On initialise avec le style de out ou de click suivant l'état
-    for (const key in out) {
-      groupe.style[key] = (this.etat) ? click[key] : out[key]
+    if (groupe) {
+      // On initialise avec le style de out ou de click suivant l'état
+      for (const key in out) {
+        groupe.style[key] = (this.etat) ? click[key] : out[key]
+      }
     }
     if (groupe && cliquable) {
       groupe.addEventListener('mouseover', mouseOverEffect)
