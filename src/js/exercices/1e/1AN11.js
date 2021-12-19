@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebrique, randint, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebrique, randint, ecritureParentheseSiNegatif, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../modules/outils.js'
 export const titre = 'Equation de tangente'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -38,7 +38,7 @@ export default function equationdetangente () {
         case 2 :// Sans formule
           a = randint(-5, 5)
           b = randint(-5, 5)// f(a)
-          c = randint(-5, 5, [1])// f'(a)
+          c = randint(-5, 5)// f'(a)
           texte = 'Soit $f$ une fonction dérivable sur $[-5;5]$ et $\\mathcal{C}_f$ sa courbe représentative.<br>'
           texte += `On sait que  $f(${a})=${b}~~$ et que $~~f'(${a})=${c}$.`
           texte += `<br>Déterminer une équation de la tangente $(T)$ à la courbe $\\mathcal{C}_f$ au point d'abscisse $${a}$,`
@@ -50,8 +50,8 @@ export default function equationdetangente () {
           texteCorr += '<br>$\\bullet$ Détermination de $m$ :'
           texteCorr += `<br>On sait que le nombre dérivé en $${a}$ est par définition, le coefficient directeur de la tangente au point d'abscisse $${a}$.`
           texteCorr += `<br>Par conséquent, on a déjà : $m=f'(${a})=${c}$.`
-          texteCorr += `<br> On en déduit que  $(T) : y= ${c} x + p$. `
-          texteCorr += '<br>$\\bullet$ Détermination de $p$:'
+          texteCorr += `<br> On en déduit que  $(T) : y= ${c} x + p$`
+          texteCorr += '<br>$\\bullet$ Détermination de $p$ :'
           texteCorr += `<br> Pour cela, on utilise que si $f(${a})=${b}~~$, alors le point $A$ de coordonnées $(${a};${b})$ appartient à $\\mathcal{C}_f$ mais aussi à $(T)$.`
           texteCorr += `<br> On peut écrire $A(${a};${b}) = \\mathcal{C}_f \\cap (T)$.`
           texteCorr += `<br> On remplace alors les coordonnées de $A(${a};${b})$ dans l'équation  $(T) : y= ${c} x + p$.`
@@ -61,7 +61,7 @@ export default function equationdetangente () {
           texteCorr += ` \\iff& p=${b} ${ecritureAlgebriqueSauf1(-c * a)}   \\\\`
           texteCorr += ` \\iff& p=${b - c * a}\\\\`
           texteCorr += '\\end{aligned}$'
-          texteCorr += `<br>On peut conclure que : $(T) : y=${c}x ${ecritureAlgebrique(b - c * a)}$.`
+          texteCorr += `<br>On peut conclure que : $(T) : y=${reduireAxPlusB(c,b - c * a)}$.`
           break
         case 1 :// 'formule':
           a = randint(-5, 5)
@@ -78,10 +78,10 @@ export default function equationdetangente () {
           texteCorr += `(T) : y&=f'(${a})(x-${ecritureParentheseSiNegatif(a)})+f(${a})&\\text{On applique à l'énoncé.}\\\\ `
           texteCorr += `(T) : y&=${c}(x-${ecritureParentheseSiNegatif(a)})${ecritureAlgebrique(b)}&\\text{On remplace les valeurs connues.}\\\\ `
           if (a < 0) { texteCorr += `(T) : y&=${c}(x${ecritureAlgebrique(-a)})${ecritureAlgebrique(b)}&\\text{On simplifie l'expression.}\\\\ ` }
-          texteCorr += `(T) : y&=${c}x${ecritureAlgebrique(-a * c)}${ecritureAlgebrique(b)}&\\text{On développe.}\\\\ `
+          texteCorr += `(T) : y&=${reduireAxPlusB(c,-a * c)}${ecritureAlgebrique(b)}&\\text{On développe.}\\\\ `
 
           texteCorr += '\\end{aligned}$'
-          texteCorr += `<br>On peut conclure que : $(T) : y=${c}x ${ecritureAlgebrique(b - c * a)}$.`
+          texteCorr += `<br>On peut conclure que : $(T) : y=${reduireAxPlusB(c,b - c * a)}$.`
           break
       }
 
@@ -95,5 +95,5 @@ export default function equationdetangente () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Consigne :', 2, '1 : avec formule. 2 : avec démonstration.']
+  this.besoinFormulaireNumerique = ['Consigne ', 2, '1 : avec formule. 2 : avec démonstration.']
 }
