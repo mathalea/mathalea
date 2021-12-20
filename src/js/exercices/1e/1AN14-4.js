@@ -18,6 +18,7 @@ export const titre = 'Dérivée d\'un produit'
 function monome (a) {
   return a === 0 ? '' : `${ecritureAlgebriqueSauf1(a)}x`
 }
+
 export default function DeriveeProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -41,17 +42,12 @@ export default function DeriveeProduit () {
     if (this.sup === 1) {
       listeTypeDeQuestionsDisponibles = ['affaff', 'affquadra', 'quadraquadra']//, 'quadracub']
     } else {
-      listeTypeDeQuestionsDisponibles = ['affaff', 'affquadra', 'quadraquadra']//, 'racinespoly', '']
+      listeTypeDeQuestionsDisponibles = ['affaff', 'affquadra', 'quadraquadra', 'racinespoly', 'puissancepoly']//, ]
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
 
     for (let i = 0, texte, texteCorr, a, b, c, d, e, f, expression, ensembleDerivation, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
-        case 'general':
-          // TODO
-          expression = 'x'
-          ensembleDerivation = '\\mathbb{R}'
-          break
         case 'affaff':
           a = randint(-10, 10, 0)
           b = randint(-10, 10)
@@ -83,10 +79,15 @@ export default function DeriveeProduit () {
           expression = `(${rienSi1(a)} x^2  ${monome(b)}  ${ecritureAlgebrique(c)})(${rienSi1(d)} x^2  ${monome(e)}  ${ecritureAlgebrique(f)})`
           ensembleDerivation = '\\mathbb{R}'
           break
+        default:
+          // TODO
+          expression = 'x'
+          ensembleDerivation = '\\mathbb{R}'
+          break
       }
 
       texte = `$${lettreMinusculeDepuisChiffre(i + 6)}:x\\longmapsto ${math.parse(expression).toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')}$`
-      texteCorr = `$${lettreMinusculeDepuisChiffre(i + 6)}$ est dérivable sur $${ensembleDerivation}$ et`
+      texteCorr = `$${lettreMinusculeDepuisChiffre(i + 6)}$ est dérivable sur $${ensembleDerivation}$ et `
       texteCorr += `$ ${lettreMinusculeDepuisChiffre(i + 6)}':x\\longmapsto ${math.simplify(math.derivative(expression, 'x'), reglesDeSimplifications).toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')}$`
 
       texte = texte.replaceAll('frac', 'dfrac')
