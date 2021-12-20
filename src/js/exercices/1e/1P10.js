@@ -77,8 +77,8 @@ export default function ProbabilitésConditionnelles () {
           k2 = 1 - (av / 100 + (1 - a / 100) * v / 100)
           texteCorr += `<br>Donc $P_{\\bar{V}}(A)=\\dfrac{${a / 100} \\times ${texFraction(a - av, a)}}{${texNombre(k2)}} \\approx ${arrondi(((a / 100) * k1) / k2)}$.`
           texteCorr += `<br><br>4. On a vu que $P(\\bar{V})=1-${k2}=${1 - k2}$.`
-          texteCorr += '<br>Comme les deux événements sont indépendants, $P(\\bar{V_1}\\cap\\bar{V_2})=P(\\bar{V_1}\\times P(\\bar{V_2})$'
-          texteCorr += `<br>La probabilité cherchée est donc égale à $${1 - k2} \\times ${1 - k2}\\approx ${arrondi((1 - k2) ** 2)}$.`
+          texteCorr += '<br>Comme les deux événements sont indépendants, en les appelant $\\bar {V_1}$ et $\\bar{V_2}$, on a : $P(\\bar{V_1}\\cap\\bar{V_2})=P(\\bar{V_1})\\times P(\\bar{V_2})$'
+          texteCorr += `<br>La probabilité cherchée est donc égale à $P(\\bar{V_1}\\cap\\bar{V_2})=${1 - k2} \\times ${1 - k2}\\approx ${arrondi((1 - k2) ** 2)}$.`
 
           break
       }
