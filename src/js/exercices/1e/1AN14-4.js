@@ -28,13 +28,14 @@ function prettyTex (expression) {
  * Retourne un polynôme de degré deg. Si deg>=3, retourne un monôme.
  * @param {number} deg degré du polynôme
  * @returns {string} expression du polynôme
+ * @author Jean-Léon Henry
  */
 function randomPol (deg) {
   let result = ''
   const a = randint(-10, 10, 0)
   const b = randint(-10, 10)
   const c = randint(-10, 10)
-  // Sinon
+
   switch (deg) {
     case 2:
       result = `${rienSi1(a)} x^2  ${monome(b)} ${c === 0 ? '' : ecritureAlgebrique(c)}`
@@ -56,7 +57,7 @@ export default function DeriveeProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
-  this.nbQuestions = 10
+  this.nbQuestions = 5
   this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
   this.sup = 1
@@ -76,21 +77,35 @@ export default function DeriveeProduit () {
     if (this.sup === 1) {
       listeTypeDeQuestionsDisponibles = [[1, 1], [1, 2], [2, 2]]
     } else {
-      listeTypeDeQuestionsDisponibles = [[1, 1], [1, 2], [2, 2], 'racinepoly', 'puissancepoly']
+      listeTypeDeQuestionsDisponibles = [[1, 1], [1, 2], [2, 2], 'racine/poly']
       if (this.sup2 === true) {
-        listeTypeDeQuestionsDisponibles.push('exppoly', 'expracine')
+        listeTypeDeQuestionsDisponibles.push('poly/exp', 'puissance/exp')
       }
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
-
     for (let i = 0, texte, texteCorr, terme1, terme2, expression, ensembleDerivation, namef, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      // On commence par générer des fonctions qui pourrait servir
+      const dictFonctions = {
+        exp: 'e^x',
+        racine: 'sqrt(x)',
+        puissance: randomPol(randint(3, 10)),
+        poly: randomPol(randint(1, 2))
+      }
       if (this.sup === 1 || typeof listeTypeDeQuestions[i] !== 'string') {
+        // Cas de produit de polynômes
         const deg1 = listeTypeDeQuestions[i][0]
         const deg2 = listeTypeDeQuestions[i][1]
         terme1 = `(${randomPol(deg1)})`
         terme2 = `(${randomPol(deg2)})`
         ensembleDerivation = '\\mathbb{R}'
+      } else {
+        // Cas général
+        const listeTypeFonctions = listeTypeDeQuestions[i].split('/')
+        terme1 = `(${dictFonctions[listeTypeFonctions[0]]})`
+        terme2 = `(${dictFonctions[listeTypeFonctions[1]]})`
+        ensembleDerivation = listeTypeFonctions[0] === 'racine' ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
       }
+
       // 1ère étape de la dérivation
       expression = terme1 + terme2
       const derivee1m = math.simplify(math.derivative(terme1, 'x'))
