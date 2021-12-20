@@ -53,7 +53,7 @@ export default function DeriveeProduit () {
           b = randint(-10, 10)
           c = randint(-10, 10, 0)
           d = randint(-10, 10)
-          expression = `(${rienSi1(a)}x ${ecritureAlgebrique(b)})*(${rienSi1(c)}x ${ecritureAlgebrique(d)})`
+          expression = `(${rienSi1(a)}x ${b === 0 ? '' : ecritureAlgebrique(b)})*(${rienSi1(c)}x ${d === 0 ? '' : ecritureAlgebrique(d)})`
           ensembleDerivation = '\\mathbb{R}'
           break
         case 'affquadra':
