@@ -9,6 +9,15 @@ export const titre = 'Dérivée d\'un produit'
  * @author Jean-Léon Henry
  * Référence 1AN14-4
 */
+
+/**
+* Ecriture propre d'un monome ax
+* @Example
+* //+2x, x, rien si a=0
+*/
+function monome (a) {
+  return a === 0 ? '' : `${ecritureAlgebriqueSauf1(a)}x`
+}
 export default function DeriveeProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -32,11 +41,11 @@ export default function DeriveeProduit () {
     if (this.sup === 1) {
       listeTypeDeQuestionsDisponibles = ['affaff', 'affquadra', 'quadraquadra']//, 'quadracub']
     } else {
-      listeTypeDeQuestionsDisponibles = ['general']
+      listeTypeDeQuestionsDisponibles = ['affaff', 'affquadra', 'quadraquadra']//, 'racinespoly', '']
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
 
-    for (let i = 0, texte, texteCorr, a, b, c, d, e, f, n, m, expression, ensembleDerivation, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, b, c, d, e, f, expression, ensembleDerivation, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case 'general':
           // TODO
@@ -44,7 +53,6 @@ export default function DeriveeProduit () {
           ensembleDerivation = '\\mathbb{R}'
           break
         case 'affaff':
-          // Problèmes avec la correction
           a = randint(-10, 10, 0)
           b = randint(-10, 10)
           c = randint(-10, 10, 0)
@@ -60,25 +68,26 @@ export default function DeriveeProduit () {
           c = randint(-10, 10, 0)
           d = randint(-10, 10)
           e = randint(-10, 10)
-          expression = `(${rienSi1(c)} x^2  ${ecritureAlgebriqueSauf1(d)} x  ${ecritureAlgebrique(e)})(${a}x ${ecritureAlgebrique(b)})`
+          expression = `(${a}x ${ecritureAlgebrique(b)})(${rienSi1(c)} x^2  ${monome(d)} ${ecritureAlgebrique(e)})`
           ensembleDerivation = '\\mathbb{R}'
           break
         case 'quadraquadra':
-          // Coefficients de la fonction affine
+          // Coefficients de la quadratique
           a = randint(-10, 10, 0)
           b = randint(-10, 10)
           c = randint(-10, 10)
-          // Coefficients de la quadratique
+          // Coefficients de la quadratique n°2
           d = randint(-10, 10, 0)
           e = randint(-10, 10)
           f = randint(-10, 10)
-          expression = `(${rienSi1(a)} x^2  ${ecritureAlgebriqueSauf1(b)} x  ${ecritureAlgebrique(c)})(${rienSi1(d)} x^2  ${ecritureAlgebriqueSauf1(e)} x  ${ecritureAlgebrique(f)})`
+          expression = `(${rienSi1(a)} x^2  ${monome(b)}  ${ecritureAlgebrique(c)})(${rienSi1(d)} x^2  ${monome(e)}  ${ecritureAlgebrique(f)})`
           ensembleDerivation = '\\mathbb{R}'
           break
       }
 
       texte = `$${lettreMinusculeDepuisChiffre(i + 6)}:x\\longmapsto ${math.parse(expression).toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')}$`
-      texteCorr = `$${lettreMinusculeDepuisChiffre(i + 6)}$ est dérivable sur $${ensembleDerivation}$ et $ ${lettreMinusculeDepuisChiffre(i + 6)}':x\\longmapsto ${math.simplify(math.derivative(expression, 'x'), reglesDeSimplifications).toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')}$`
+      texteCorr = `$${lettreMinusculeDepuisChiffre(i + 6)}$ est dérivable sur $${ensembleDerivation}$ et`
+      texteCorr += `$ ${lettreMinusculeDepuisChiffre(i + 6)}':x\\longmapsto ${math.simplify(math.derivative(expression, 'x'), reglesDeSimplifications).toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')}$`
 
       texte = texte.replaceAll('frac', 'dfrac')
       texteCorr = texteCorr.replaceAll('frac', 'dfrac')
@@ -93,5 +102,6 @@ export default function DeriveeProduit () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Produits de polynôme \n2 : Cas général']
+  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Produits de polynôme \n2 : Cas général']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 1, '1 : Produits de polynôme']// \n2 : Cas général']
 }
