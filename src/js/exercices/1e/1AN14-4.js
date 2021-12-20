@@ -8,6 +8,8 @@ export const titre = 'Dérivée d\'un produit'
  * Calculer la dérivée d'un produit
  * @author Jean-Léon Henry
  * Référence 1AN14-4
+ * @todo Finir la correction dans le cas d'un produit de polynômes
+ * @todo Implémenter le cas général : this.sup === 2
 */
 
 /**
@@ -34,11 +36,11 @@ function randomPol (deg) {
   const c = randint(-10, 10)
   // Sinon
   switch (deg) {
-    case 1:
-      result = `${rienSi1(a)} x ${b === 0 ? '' : ecritureAlgebrique(b)}`
-      break
     case 2:
       result = `${rienSi1(a)} x^2  ${monome(b)} ${c === 0 ? '' : ecritureAlgebrique(c)}`
+      break
+    case 1:
+      result = `${rienSi1(a)} x ${b === 0 ? '' : ecritureAlgebrique(b)}`
       break
     case 0:
       result = `${a}`
@@ -82,18 +84,21 @@ export default function DeriveeProduit () {
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
 
     for (let i = 0, texte, texteCorr, terme1, terme2, expression, ensembleDerivation, namef, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      if (this.sup === 1) {
+      if (this.sup === 1 || typeof listeTypeDeQuestions[i] !== 'string') {
         const deg1 = listeTypeDeQuestions[i][0]
         const deg2 = listeTypeDeQuestions[i][1]
         terme1 = `(${randomPol(deg1)})`
         terme2 = `(${randomPol(deg2)})`
         ensembleDerivation = '\\mathbb{R}'
       }
+      // 1ère étape de la dérivation
       expression = terme1 + terme2
       const derivee1m = math.simplify(math.derivative(terme1, 'x'))
       const derivee2m = math.simplify(math.derivative(terme2, 'x'))
       const intermediaire = `(${derivee1m})${terme2}+${terme1}(${derivee2m})`
+
       namef = lettreMinusculeDepuisChiffre(i + 6)
+      // Correction
       texte = `$${namef}:x\\longmapsto ${prettyTex(math.parse(expression))}$`
       texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
       texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a $${namef}'(x)=${prettyTex(math.simplify(intermediaire, reglesDeSimplifications))}$.<br>`
