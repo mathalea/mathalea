@@ -21,6 +21,10 @@ function monome (a) {
   return a === 0 ? '' : `${ecritureAlgebriqueSauf1(a)}x`
 }
 
+function prettyTex (expression) {
+  return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
+}
+
 export default function DeriveeProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -34,7 +38,6 @@ export default function DeriveeProduit () {
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
   reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
-  console.log(reglesDeSimplifications)
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
@@ -95,14 +98,14 @@ export default function DeriveeProduit () {
       expression = terme1 + terme2
       const derivee1m = math.simplify(math.derivative(terme1, 'x'))
       const derivee2m = math.simplify(math.derivative(terme2, 'x'))
+      const intermediaire = `(${derivee1m})${terme2}+${terme1}(${derivee2m})`
       // derivee1 = derivee1m.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
       // derivee2 = derivee2m.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
-      const intermediaire = `(${derivee1m})${terme2}+${terme1}(${derivee2m})`
       // const intermediairem = `(${derivee1m})${terme2}+${terme1}(${derivee2m})`
       namef = lettreMinusculeDepuisChiffre(i + 6)
-      texte = `$${namef}:x\\longmapsto ${math.parse(expression).toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')}$`
+      texte = `$${namef}:x\\longmapsto ${prettyTex(math.parse(expression))}$`
       texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
-      texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a $${namef}'(x)=${math.simplify(intermediaire, reglesDeSimplifications).toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')}$.<br>`
+      texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a $${namef}'(x)=${prettyTex(math.simplify(intermediaire, reglesDeSimplifications))}$.<br>`
       // texte = texte.replaceAll('frac', 'dfrac')
       // texteCorr = texteCorr.replaceAll('frac', 'dfrac')
 
