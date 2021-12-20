@@ -8,6 +8,8 @@ export const titre = 'Dérivée d\'un produit'
  * Calculer la dérivée d'un produit
  * @author Jean-Léon Henry
  * Référence 1AN14-4
+ * @todo
+ * - présence paramétrable de l'exponentielle
 */
 
 /**
@@ -31,7 +33,8 @@ export default function DeriveeProduit () {
   const reglesDeSimplifications = math.simplify.rules.slice()
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
-  //    reglesDeSimplifications.push({l:"-(n1*v^2)",r:"-n1*v^2"})
+  reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
+  console.log(reglesDeSimplifications)
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
@@ -46,25 +49,27 @@ export default function DeriveeProduit () {
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
 
-    for (let i = 0, texte, texteCorr, a, b, c, d, e, f, expression, ensembleDerivation, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, b, c, d, e, f, terme1, terme2, expression, ensembleDerivation, namef, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case 'affaff':
           a = randint(-10, 10, 0)
           b = randint(-10, 10)
           c = randint(-10, 10, 0)
           d = randint(-10, 10)
-          expression = `(${rienSi1(a)}x ${b === 0 ? '' : ecritureAlgebrique(b)})*(${rienSi1(c)}x ${d === 0 ? '' : ecritureAlgebrique(d)})`
+          terme1 = `(${rienSi1(a)}x ${b === 0 ? '' : ecritureAlgebrique(b)})`
+          terme2 = `(${rienSi1(c)}x ${d === 0 ? '' : ecritureAlgebrique(d)})`
           ensembleDerivation = '\\mathbb{R}'
           break
         case 'affquadra':
           // Coefficients de la fonction affine
           a = randint(-10, 10, 0)
-          b = randint(-10, 10, 0)
+          b = randint(-10, 10)
           // Coefficients de la quadratique
           c = randint(-10, 10, 0)
           d = randint(-10, 10)
           e = randint(-10, 10)
-          expression = `(${a}x ${ecritureAlgebrique(b)})(${rienSi1(c)} x^2  ${monome(d)} ${ecritureAlgebrique(e)})`
+          terme1 = `(${a}x ${b === 0 ? '' : ecritureAlgebrique(b)})`
+          terme2 = `(${rienSi1(c)} x^2  ${monome(d)} ${ecritureAlgebrique(e)})`
           ensembleDerivation = '\\mathbb{R}'
           break
         case 'quadraquadra':
@@ -76,22 +81,30 @@ export default function DeriveeProduit () {
           d = randint(-10, 10, 0)
           e = randint(-10, 10)
           f = randint(-10, 10)
-          expression = `(${rienSi1(a)} x^2  ${monome(b)}  ${ecritureAlgebrique(c)})(${rienSi1(d)} x^2  ${monome(e)}  ${ecritureAlgebrique(f)})`
+          terme1 = `(${rienSi1(a)} x^2  ${monome(b)}  ${ecritureAlgebrique(c)})`
+          terme2 = `(${rienSi1(d)} x^2  ${monome(e)}  ${ecritureAlgebrique(f)})`
           ensembleDerivation = '\\mathbb{R}'
           break
         default:
           // TODO
-          expression = 'x'
+          terme1 = 'x'
+          terme2 = 'x'
           ensembleDerivation = '\\mathbb{R}'
           break
       }
-
-      texte = `$${lettreMinusculeDepuisChiffre(i + 6)}:x\\longmapsto ${math.parse(expression).toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')}$`
-      texteCorr = `$${lettreMinusculeDepuisChiffre(i + 6)}$ est dérivable sur $${ensembleDerivation}$ et `
-      texteCorr += `$ ${lettreMinusculeDepuisChiffre(i + 6)}':x\\longmapsto ${math.simplify(math.derivative(expression, 'x'), reglesDeSimplifications).toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')}$`
-
-      texte = texte.replaceAll('frac', 'dfrac')
-      texteCorr = texteCorr.replaceAll('frac', 'dfrac')
+      expression = terme1 + terme2
+      const derivee1m = math.simplify(math.derivative(terme1, 'x'))
+      const derivee2m = math.simplify(math.derivative(terme2, 'x'))
+      // derivee1 = derivee1m.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
+      // derivee2 = derivee2m.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
+      const intermediaire = `(${derivee1m})${terme2}+${terme1}(${derivee2m})`
+      // const intermediairem = `(${derivee1m})${terme2}+${terme1}(${derivee2m})`
+      namef = lettreMinusculeDepuisChiffre(i + 6)
+      texte = `$${namef}:x\\longmapsto ${math.parse(expression).toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')}$`
+      texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
+      texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a $${namef}'(x)=${math.simplify(intermediaire, reglesDeSimplifications).toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')}$.<br>`
+      // texte = texte.replaceAll('frac', 'dfrac')
+      // texteCorr = texteCorr.replaceAll('frac', 'dfrac')
 
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
