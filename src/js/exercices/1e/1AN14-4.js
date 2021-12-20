@@ -8,14 +8,11 @@ export const titre = 'Dérivée d\'un produit'
  * Calculer la dérivée d'un produit
  * @author Jean-Léon Henry
  * Référence 1AN14-4
- * @todo
- * - présence paramétrable de l'exponentielle
 */
 
 /**
 * Ecriture propre d'un monome ax
-* @Example
-* //+2x, x, rien si a=0
+* @returns Rien si a=0, ax sinon
 */
 function monome (a) {
   return a === 0 ? '' : `${ecritureAlgebriqueSauf1(a)}x`
@@ -25,14 +22,43 @@ function prettyTex (expression) {
   return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
 }
 
+/**
+ * Retourne un polynôme de degré deg. Si deg>=3, retourne un monôme.
+ * @param {number} deg degré du polynôme
+ * @returns {string} expression du polynôme
+ */
+function randomPol (deg) {
+  let result = ''
+  const a = randint(-10, 10, 0)
+  const b = randint(-10, 10)
+  const c = randint(-10, 10)
+  // Sinon
+  switch (deg) {
+    case 1:
+      result = `${rienSi1(a)} x ${b === 0 ? '' : ecritureAlgebrique(b)}`
+      break
+    case 2:
+      result = `${rienSi1(a)} x^2  ${monome(b)} ${c === 0 ? '' : ecritureAlgebrique(c)}`
+      break
+    case 0:
+      result = `${a}`
+      break
+    default:
+      result = `${rienSi1(a)}x^${deg}`
+      break
+  }
+  return result
+}
+
 export default function DeriveeProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
-  this.nbQuestions = 5
+  this.nbQuestions = 10
   this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
   this.sup = 1
+  this.sup2 = false
   // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
   const reglesDeSimplifications = math.simplify.rules.slice()
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
@@ -46,62 +72,27 @@ export default function DeriveeProduit () {
 
     let listeTypeDeQuestionsDisponibles
     if (this.sup === 1) {
-      listeTypeDeQuestionsDisponibles = ['affaff', 'affquadra', 'quadraquadra']//, 'quadracub']
+      listeTypeDeQuestionsDisponibles = [[1, 1], [1, 2], [2, 2]]
     } else {
-      listeTypeDeQuestionsDisponibles = ['affaff', 'affquadra', 'quadraquadra', 'racinespoly', 'puissancepoly']//, ]
+      listeTypeDeQuestionsDisponibles = [[1, 1], [1, 2], [2, 2], 'racinepoly', 'puissancepoly']
+      if (this.sup2 === true) {
+        listeTypeDeQuestionsDisponibles.push('exppoly', 'expracine')
+      }
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
 
-    for (let i = 0, texte, texteCorr, a, b, c, d, e, f, terme1, terme2, expression, ensembleDerivation, namef, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (listeTypeDeQuestions[i]) {
-        case 'affaff':
-          a = randint(-10, 10, 0)
-          b = randint(-10, 10)
-          c = randint(-10, 10, 0)
-          d = randint(-10, 10)
-          terme1 = `(${rienSi1(a)}x ${b === 0 ? '' : ecritureAlgebrique(b)})`
-          terme2 = `(${rienSi1(c)}x ${d === 0 ? '' : ecritureAlgebrique(d)})`
-          ensembleDerivation = '\\mathbb{R}'
-          break
-        case 'affquadra':
-          // Coefficients de la fonction affine
-          a = randint(-10, 10, 0)
-          b = randint(-10, 10)
-          // Coefficients de la quadratique
-          c = randint(-10, 10, 0)
-          d = randint(-10, 10)
-          e = randint(-10, 10)
-          terme1 = `(${a}x ${b === 0 ? '' : ecritureAlgebrique(b)})`
-          terme2 = `(${rienSi1(c)} x^2  ${monome(d)} ${ecritureAlgebrique(e)})`
-          ensembleDerivation = '\\mathbb{R}'
-          break
-        case 'quadraquadra':
-          // Coefficients de la quadratique
-          a = randint(-10, 10, 0)
-          b = randint(-10, 10)
-          c = randint(-10, 10)
-          // Coefficients de la quadratique n°2
-          d = randint(-10, 10, 0)
-          e = randint(-10, 10)
-          f = randint(-10, 10)
-          terme1 = `(${rienSi1(a)} x^2  ${monome(b)}  ${ecritureAlgebrique(c)})`
-          terme2 = `(${rienSi1(d)} x^2  ${monome(e)}  ${ecritureAlgebrique(f)})`
-          ensembleDerivation = '\\mathbb{R}'
-          break
-        default:
-          // TODO
-          terme1 = 'x'
-          terme2 = 'x'
-          ensembleDerivation = '\\mathbb{R}'
-          break
+    for (let i = 0, texte, texteCorr, terme1, terme2, expression, ensembleDerivation, namef, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      if (this.sup === 1) {
+        const deg1 = listeTypeDeQuestions[i][0]
+        const deg2 = listeTypeDeQuestions[i][1]
+        terme1 = `(${randomPol(deg1)})`
+        terme2 = `(${randomPol(deg2)})`
+        ensembleDerivation = '\\mathbb{R}'
       }
       expression = terme1 + terme2
       const derivee1m = math.simplify(math.derivative(terme1, 'x'))
       const derivee2m = math.simplify(math.derivative(terme2, 'x'))
       const intermediaire = `(${derivee1m})${terme2}+${terme1}(${derivee2m})`
-      // derivee1 = derivee1m.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
-      // derivee2 = derivee2m.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
-      // const intermediairem = `(${derivee1m})${terme2}+${terme1}(${derivee2m})`
       namef = lettreMinusculeDepuisChiffre(i + 6)
       texte = `$${namef}:x\\longmapsto ${prettyTex(math.parse(expression))}$`
       texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
@@ -119,6 +110,6 @@ export default function DeriveeProduit () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Produits de polynôme \n2 : Cas général']
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 1, '1 : Produits de polynôme']// \n2 : Cas général']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Produits de polynôme\n2 : Cas général']
+  this.besoinFormulaire2CaseACocher = ['Inclure l\'exponentielle']
 }
