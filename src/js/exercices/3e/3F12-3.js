@@ -145,7 +145,7 @@ export default function TableauDeValeurs () {
             calculs += '=' + texFractionReduite(a, c * x3 + d) + '$<br>'
           }
           f = x => a / (c * x + d)
-          reponse = [fraction(a, c * x1 + d), fraction(a, c * x2 + d), fraction(a, c * x3 + d)]
+          reponse = [fraction(a, c * x1 + d).simplifie(), fraction(a, c * x2 + d).simplifie(), fraction(a, c * x3 + d).simplifie()]
           break
         case 'ax+b/cx+d':
           this.spacingCorr = 3
@@ -177,7 +177,7 @@ export default function TableauDeValeurs () {
             calculs += '=' + texFractionReduite(a * x3 + b, c * x3 + d) + '$<br>'
           }
           f = x => (a * x + b) / (c * x + d)
-          reponse = [fraction(a * x1 + b, c * x1 + d), fraction(a * x2 + b, c * x2 + d), fraction(a * x3 + b, c * x3 + d)]
+          reponse = [fraction(a * x1 + b, c * x1 + d).simplifie(), fraction(a * x2 + b, c * x2 + d).simplifie(), fraction(a * x3 + b, c * x3 + d).simplifie()]
           break
         case '(ax+b)(cx+d)':
           a = randint(-5, 5, [0, 1, -1])
@@ -250,7 +250,7 @@ export default function TableauDeValeurs () {
                 statut: '',
                 reponse: {
                   texte: `a) $f(${listeDeX[i][0]})$`,
-                  valeur: [reponse[0].simplifie()],
+                  valeur: [reponse[0]],
                   param: {
                     signe: true,
                     approx: 0
@@ -265,7 +265,7 @@ export default function TableauDeValeurs () {
                 statut: '',
                 reponse: {
                   texte: `b) $f(${listeDeX[i][1]})$`,
-                  valeur: [reponse[1].simplifie()],
+                  valeur: [reponse[1]],
                   param: {
                     signe: true,
                     approx: 0
@@ -280,7 +280,7 @@ export default function TableauDeValeurs () {
                 statut: '',
                 reponse: {
                   texte: `c) $f(${listeDeX[i][2]})$`,
-                  valeur: [reponse[2].simplifie()],
+                  valeur: [reponse[2]],
                   param: {
                     signe: true,
                     approx: 0
