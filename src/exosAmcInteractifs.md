@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 401 
-- nombre d'exos interactifReady 546 
+- nombre d'exos amcReady 402 
+- nombre d'exos interactifReady 547 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -352,6 +352,7 @@
 |can2C09|Calculer le "milieu" entre 1 et une fraction|KO|KO|OK|mathLive|
 |can2C10|Passer du taux d’évolution au coefficient multiplicateur|KO|KO|OK|mathLive|
 |can2C11|Passer du coefficient multiplicateur au taux d’évolution|KO|KO|OK|mathLive|
+|can2C12|Déterminer un taux global d’évolution|OK|AMCNum|OK|mathLive|
 |can2F01|Calculer une image avec le second degré|KO|KO|OK|mathLive|
 |can2F02|Calculer une image avec un quotient|KO|KO|OK|mathLive|
 |can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
