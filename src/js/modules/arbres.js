@@ -30,8 +30,9 @@ export class Arbre {
   }
 
   /**
+   * Fonction récursive qui cherche dans la descendance complète un arbre nommé.
    * @param {String} nom Le nom de l'Arbre recherché dans les fils
-   * @returns l'Arbre-Fils portant ce nom.
+   * @returns l'Arbre descendant portant ce nom.
    * Exemple : const unArbre = pin.getFils('sylvestre')
    */
   getFils (nom) {
@@ -50,6 +51,8 @@ export class Arbre {
  * @param {String} nom Le nom de l'Arbre recherché dans les fils
  * @returns La probabilité du fils pour le père.
  * Exemple : const p = Pin.getFilsProba('sylvestre') // ->  0.8
+ * contrairement à la méthode getProba() celle-ci ne va pas plus loin que les fils direct.
+ * Pour chercher dans la descendance complète il faudra utiliser getProba().
  */
   getFilsProba (nom) {
     const arbre = this.getFils(nom)
