@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texNombre, arrondi } from '../../modules/outils.js'
-import { labelPoint, mathalea2d, point, segment } from '../../modules/2d.js'
+import { labelPoint, latexParCoordonnees, mathalea2d, point, segment, texteParPoint } from '../../modules/2d.js'
 export const titre = 'Nom de l\'exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -29,21 +29,39 @@ export default function ProbabilitésConditionnelles () {
     const typeQuestionsDisponibles = ['type1'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, a, v, av, A, B, O, pA, pA1, s, s1, k1, k2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, a, v, v1, av, l, A, B, A1, A2, A3, A4, O, p1, p2, p3, p4, pA, pA1, pA2, pA3, s, s1, s2, s3, s4, s5, k1, k2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':
           a = randint(30, 70)// p(A)
           v = randint(30, 70)// P_T(V)
+
           av = randint(20, a - 5)// P(A \cap V)
-          A = point(4, 3, 'A') // 1er noeud Avion
-          B = point(4, 1, '$\\bar A$')// 1er noeud événement contraire \bar A
-          O = point(2, 2, '$\\Omega$')// Univers, point de départ de l'arbre
-          pA = point(3, 2, '$0,4$')// proba de A, ici ${a}
-          pA1 = point(3, 1, '$0,6$')// proba de \\bar A 1-${a}
+          A = point(5, 5, '$A$') // 1er noeud Avion
+          B = point(5, 1, '$\\bar A$')// 1er noeud événement contraire \bar A
+          O = point(0.6, 2.3, '$\\Omega$')// Univers, point de départ de l'arbre
+          pA = point(3, 4.4, `$${a}/100$`)// proba de A, ici ${a}
+          pA1 = point(3, 0.8, `$${100 - a}/100$`)// proba de \\bar A 1-${a}
+          pA2 = point(6.6, 5.5, `$${100 - v}/100$`)// proba de B sachant A
+          pA3 = point(6.6, 3.3, `$${v}/100$`)// proba de B sachant A  \\bar A
+          A1 = point(8, 6.5, '$B$') // 2ème noeud issu de A
+          A2 = point(8, 4, '$\\bar B$')// 2ème noeud issu de A
+          A3 = point(8, 2.5, '$B$') // 2ème noeud issu de \bar A
+          A4 = point(8, 0, '$\\bar B$')// 2ème noeud issu de \bar A
+          p1 = latexParCoordonnees(a / 100, 3, 4.4)
+          p2 = latexParCoordonnees(1 - a / 100, 3, 0.8)
+          p3 = latexParCoordonnees(1 - v / 100, 6.6, 5.5)
+          p4 = latexParCoordonnees(v / 100, 6.6, 3.3)
+          // p2 = texteParPoint(Number(1 - a / 100).toString(), pA1)
+          // p3 = texteParPoint((1 - v / 100).toString(), pA2)
+          // p4 = texteParPoint(Number(v / 100).toString(), pA3)
           // Il manque le 2ème noeud avec  V et \\bar V
-          labelPoint(pA, pA1, O, A, B)
+          l = labelPoint(A, O, B, A1, A2)
           s = segment(O, A, 'blue')
-          s1 = segment(O, B, 'red')
+          s1 = segment(O, B, 'blue')
+          s2 = segment(A, A1, 'blue')
+          s3 = segment(A, A2, 'blue')
+          s4 = segment(B, A3, 'blue')
+          s5 = segment(B, A4, 'blue')
           texte = 'Une agence de voyage propose deux formules week-end pour se rendre à Londres depuis Paris.'
           texte += '<br> Les clients choisissent leur moyen de transport : train ou avion.'
           texte += '<br> De plus, s\'ils le souhaitent, ils peuvent compléter leur formule par l\'option "visites guidées".'
@@ -67,7 +85,8 @@ export default function ProbabilitésConditionnelles () {
           texteCorr += `<br>On a donc $P_{A}(V)=\\dfrac{P(A \\cap V)}{P(A)}=\\dfrac{${av / 100}}{${a / 100}}=${texFraction(av, a)} $.`
           texteCorr += '<br><br>2. Comme $A$ et $\\bar A$ forment une partition de l\'univers, d\'après la loi des probabilités totales :'
           texteCorr += ' <br>$P(V)=P(A \\cap V)+P(\\bar{A} \\cap V) . $'
-          texteCorr += mathalea2d(-10, -10, 20, 20, A, B, O, pA1, pA, s, s1)
+          texteCorr += ' <br>On peut construire cet arbre pondéré : <br>'
+          texteCorr += mathalea2d({ xmin: -5, ymin: -5, xmax: 12, ymax: 12 }, l, s, s1, s2, s3, s4, s5, p1, p2, p3, p4)
           texteCorr += `<br>Or $P(\\bar{A} \\cap V)=P(\\bar{A}) \\times P_{\\bar{A}}(V)=(1-${a / 100}) \\times ${v / 100}=${texNombre((1 - a / 100) * v / 100)}$.`
           texteCorr += `<br>Donc $P(V)=${av / 100}+${(1 - a / 100) * v / 100}=${texNombre(av / 100 + (1 - a / 100) * v / 100)}$.`
           texteCorr += '<br><br>3. On a $P_{\\bar{V}}(A)=\\dfrac{P(\\bar{V} \\cap A)}{P(\\bar{V})}=\\dfrac{P(A \\cap \\bar{V})}{P(\\bar{V})}=\\dfrac{P(A) \\times P_A(\\bar{V})}{P(\\bar{V})}$.'
