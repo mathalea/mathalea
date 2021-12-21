@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texNombre, arrondi, texNombrec } from '../../modules/outils.js'
-import { fractionParPosition, labelPoint, latexParCoordonnees, mathalea2d, point, segment } from '../../modules/2d.js'
+import { latexParCoordonnees, mathalea2d, point, segment } from '../../modules/2d.js'
 export const titre = 'Nom de l\'exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -20,8 +20,9 @@ export default function ProbabilitésConditionnelles () {
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-
-  this.nouvelleVersion = function (numeroExercice) {
+  this.besoinFormulaireCaseACocher = ['Probabilités fractionnaires', false]
+  this.sup = false
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -29,7 +30,7 @@ export default function ProbabilitésConditionnelles () {
     const typeQuestionsDisponibles = ['type1'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, a, v, av, l, A, B, A1, A2, A3, A4, O, p1, p2, p3, p4, pA1, pA2, pA3, s, s1, s2, s3, s4, s5, k1, k2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, a, v, av, A, B, A1, A2, A3, A4, O, k1, k2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       objets = []
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':
@@ -55,20 +56,23 @@ export default function ProbabilitésConditionnelles () {
           objets.push(latexParCoordonnees('A', 5, 5)) // 1er noeud Avion) = A
           objets.push(latexParCoordonnees('\\bar A', 5, 1, 'black', 30, 12, 'white'))// 1er noeud événement contraire \bar A
           objets.push(latexParCoordonnees('\\Omega', 0, 2.3))// Univers, point de départ de l'arbre Omega
-          objets.push(latexParCoordonnees(`\\dfrac{${a}}{100}`, 2.5, 4.5, 'black', 20, 12, 'white'))// proba de A, ici ${a}
-          pA1 = latexParCoordonnees(`\\dfrac{${100 - a}}{100}`, 2.5, 1.8, 'black', 20, 12, 'white')// proba de \\bar A 1-${a}
-          pA2 = latexParCoordonnees(`\\dfrac{${100 - v}}{100}`, 7, 6.5, 'black', 20, 12, 'white')// proba de B sachant A
-          pA3 = latexParCoordonnees(`\\dfrac{${v}}{100}`, 7, 4.5, 'black', 20, 12, 'white')// proba de B sachant A  \\bar A
-          // une autre façon de faire qui n'économise pas ces noms de variable
-          objets.push(pA1, pA2, pA3)
+          if (this.sup) {
+            objets.push(latexParCoordonnees(`\\dfrac{${a}}{100}`, 2.5, 4.5, 'black', 20, 12, 'white'))// proba de A, ici ${a}
+            objets.push(latexParCoordonnees(`\\dfrac{${100 - a}}{100}`, 2.5, 1.8, 'black', 20, 12, 'white'))// proba de \\bar A 1-${a}
+            objets.push(latexParCoordonnees(`\\dfrac{${100 - v}}{100}`, 7, 6.5, 'black', 20, 12, 'white'))// proba de B sachant A
+            objets.push(latexParCoordonnees(`\\dfrac{${v}}{100}`, 7, 4.5, 'black', 20, 12, 'white'))// proba de B sachant A  \\bar A
+          } else {
+            objets.push(latexParCoordonnees(texNombrec(a / 100), 2.5, 3.8, 'black', 20, 12, 'white'))
+            objets.push(latexParCoordonnees(texNombrec(1 - a / 100), 2.5, 1.8, 'black', 20, 12, 'white'))
+            objets.push(latexParCoordonnees(texNombrec(1 - v / 100), 6.6, 5.7, 'black', 20, 12, 'white'))
+            objets.push(latexParCoordonnees(texNombrec(v / 100), 6.6, 4.3, 'black', 20, 12, 'white'))
+          }
+
           objets.push(latexParCoordonnees('B', 9, 6.5)) // 2ème noeud issu de A
           objets.push(latexParCoordonnees('\\bar B', 9, 4))// 2ème noeud issu de A
           objets.push(latexParCoordonnees('B', 9, 2.5)) // 2ème noeud issu de \bar A
           objets.push(latexParCoordonnees('\\bar B', 9, 0))// 2ème noeud issu de \bar A
-          // objets.push(latexParCoordonnees(texNombrec(a / 100), 3, 4.4))
-          // objets.push(latexParCoordonnees(texNombrec(1 - a / 100), 3, 0.8))
-          // objets.push(latexParCoordonnees(texNombrec(1 - v / 100), 6.6, 5.5))
-          // objets.push(latexParCoordonnees(texNombrec(v / 100), 6.6, 3.3))
+
           // p2 = texteParPoint(Number(1 - a / 100).toString(), pA1)
           // p3 = texteParPoint((1 - v / 100).toString(), pA2)
           // p4 = texteParPoint(Number(v / 100).toString(), pA3)
