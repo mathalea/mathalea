@@ -38,7 +38,7 @@ export default function ProbabilitésConditionnelles () {
           v = randint(30, 70)// P_T(V)
 
           av = randint(20, a - 5)// P(A \cap V)
-          // ici on économise des variables qui ne servent qu'une fois en les stoquant dans un tableau.
+          // ici on économise des variables qui ne servent qu'une fois en les stoquant dans un tableau. (Jean-Claude Lhote)
           O = point(0.6, 2.3)
           A = point(5, 5)
           B = point(5, 1)
@@ -46,7 +46,7 @@ export default function ProbabilitésConditionnelles () {
           A2 = point(9, 4)
           A3 = point(9, 2.5)
           A4 = point(9, 0)
-          // On met les segments d'abord pour ne pas qu'ils passent par dessus le texte.
+          // On met les segments d'abord pour ne pas qu'ils passent par dessus le texte.(Jean-Claude Lhote)
           objets.push(segment(O, A, 'blue'))
           objets.push(segment(O, B, 'blue'))
           objets.push(segment(A, A1, 'blue'))
