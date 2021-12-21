@@ -105,9 +105,9 @@ const config = {
   entry: {
 
     mathalea: ['./src/js/firstLoaded.js', './src/js/mathalea.js'],
-    mathalea2d: './src/js/modules/mathalea2d-gui.js',
-    mathalea2iep: './src/js/modules/mathalea2iep-gui.js',
-    alacarte: './src/js/alacarte.js'
+    mathalea2d: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2d-gui.js'],
+    mathalea2iep: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2iep-gui.js'],
+    alacarte: ['./src/js/firstLoaded.js', './src/js/alacarte.js']
   },
   output: {
     // on vide build avant chaque compilation

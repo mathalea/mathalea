@@ -7,7 +7,6 @@ import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 import { elimineDoublons, setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
-import Bugsnag from '@bugsnag/js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
