@@ -43,7 +43,7 @@ export default function ConstruireParSymetrie () {
         count++
       } while (((hA < 2 && lieu[0] !== 'sur') || dessousDessus(d, A) !== lieu[0]) && count < 50)
       if (count === 50) {
-        console.log('A pas trouvé', lieu[0])
+        window.notify('Choisi3Points : Impossible de trouver le premier des 3 points', { lieu, d })
       }
       count = 0
       do { // on vérifie que le point est du bon côté et à distance suffisante de la droite.
@@ -54,7 +54,7 @@ export default function ConstruireParSymetrie () {
         count++
       } while (((hB < 2 && lieu[1] !== 'sur') || dessousDessus(d, B) !== lieu[1]) && count < 50)
       if (count === 50) {
-        console.log('B pas trouvé', lieu[1])
+        window.notify('Choisi3Points : Impossible de trouver le deuxième des 3 points', { lieu, d })
       }
       count = 0
       do { // on vérifie que le point est du bon côté et à distance suffisante de la droite.
@@ -65,7 +65,7 @@ export default function ConstruireParSymetrie () {
         count++
       } while (((hC < 2 && lieu[2] !== 'sur') || dessousDessus(d, C) !== lieu[2]) && count < 50)
       if (count === 50) {
-        console.log('C pas trouvé', lieu[2])
+        window.notify('Choisi3Points : Impossible de trouver le troisième des 3 points', { lieu, d })
       }
       lAB = longueur(pA, pB)
       lAC = longueur(pA, pC)
@@ -73,8 +73,7 @@ export default function ConstruireParSymetrie () {
       count3++
     } while ((lAB < 2 || lAC < 2 || lBC < 2 || aireTriangle(polygone(A, B, C)) < 15) && count3 < 20)
     if (count3 === 50) { // si on en est là, c'est qu'il y a trop de contraintes
-      console.log('trop de contraintes')
-      console.log('Problème avec ', d)
+      window.notify('Choisi3Points : Impossible de trouver 3 points', { lieu, d })
     }
     return [A, B, C] // Il y aura quand même trois points, même si ils ne conviennent pas au regard des contraintes
   }
@@ -504,7 +503,7 @@ export default function ConstruireParSymetrie () {
         case 6: // 3 symétries centrales de points
           p1nom = creerNomDePolygone(4, 'PQX')
           B = point(7, randint(-1, 1), `${p1nom[1]}`, 'above')
-          d = droiteParPointEtPente(B, randint(-2, 2));
+          d = droiteParPointEtPente(B, 0);
           [A, C, D] = choisi3Points(d, choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']]))
           A.nom = p1nom[0]
           A.positionLabel = 'above'
@@ -544,7 +543,7 @@ export default function ConstruireParSymetrie () {
         case 7: // Symétrie centrale de triangle
           p1nom = creerNomDePolygone(4, 'PQX')
           B = point(7, randint(-1, 1), `${p1nom[1]}`, 'above')
-          d = droiteParPointEtPente(B, randint(-2, 2));
+          d = droiteParPointEtPente(B, 0);
           [A, C, D] = choisi3Points(d, choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']]))
           A.nom = p1nom[0]
           A.positionLabel = 'above'
