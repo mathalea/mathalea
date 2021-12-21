@@ -101,7 +101,9 @@ export default function ConservationSymetrie () {
           imageA = symetrieAxiale(A, d, 'A\'')
           imageB = symetrieAxiale(B, d, 'B\'')
           imageC = symetrieAxiale(C, d, 'C\'')
-          objetsCorrectionOnly.push(droite(symetrieAxiale(point(d1.x1, d1.y1), d), symetrieAxiale(point(d1.x2, d1.y2), d), '$(d_1\')$'))
+          if (d1 !== '') {
+            objetsCorrectionOnly.push(droite(symetrieAxiale(point(d1.x1, d1.y1), d), symetrieAxiale(point(d1.x2, d1.y2), d), '$(d_1\')$'))
+          }
           figureRetournee = false
           break
         case 'symetrieCentrale':
