@@ -9156,7 +9156,7 @@ function LatexParCoordonnees (texte, x, y, color = 'black', size = 200, hauteurL
   this.svg = function (coeff) {
     const demiSize = calcul(this.size / 2)
     const centrage = 0.25 * context.pixelsParCm
-    if (colorBackground !== '') {
+    if (this.colorBackground !== '') {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff, 2) - this.hauteurLigne / 2 - centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">
     $\\colorbox{${this.colorBackground}}{$\\color{${color}}{${this.texte}}$}$</div></foreignObject>`
     } else {
@@ -9167,7 +9167,7 @@ function LatexParCoordonnees (texte, x, y, color = 'black', size = 200, hauteurL
   this.tikz = function () {
     // let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
     let code
-    if (colorBackground !== '') {
+    if (this.colorBackground !== '') {
       code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}};`
     } else {
       code = `\\draw (${x},${y}) node[anchor = center] {$\\color{${color}}{${texte}}$};`
