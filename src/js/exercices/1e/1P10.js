@@ -41,10 +41,10 @@ export default function ProbabilitésConditionnelles () {
           O = point(0.6, 2.3)
           A = point(5, 5)
           B = point(5, 1)
-          A1 = point(8, 6.5)
-          A2 = point(8, 4)
-          A3 = point(8, 2.5)
-          A4 = point(8, 0)
+          A1 = point(9, 6.5)
+          A2 = point(9, 4)
+          A3 = point(9, 2.5)
+          A4 = point(9, 0)
           // On met les segments d'abord pour ne pas qu'ils passent par dessus le texte.
           objets.push(segment(O, A, 'blue'))
           objets.push(segment(O, B, 'blue'))
@@ -54,17 +54,17 @@ export default function ProbabilitésConditionnelles () {
           objets.push(segment(B, A4, 'blue'))
           objets.push(latexParCoordonnees('A', 5, 5)) // 1er noeud Avion) = A
           objets.push(latexParCoordonnees('\\bar A', 5, 1, 'black', 30, 12, 'white'))// 1er noeud événement contraire \bar A
-          objets.push(latexParCoordonnees('\\Omega', 0.6, 2.3))// Univers, point de départ de l'arbre Omega
-          objets.push(latexParCoordonnees(`\\dfrac{${a}}{100}`, 3, 4.4, 'black', 40, 25, 'white'))// proba de A, ici ${a}
-          pA1 = fractionParPosition({ x: 3, y: 0.8, fraction: { num: 100 - a, den: 100 } })// proba de \\bar A 1-${a}
-          pA2 = fractionParPosition({ x: 6.6, y: 5.5, fraction: { num: 100 - v, den: 100 } })// proba de B sachant A
-          pA3 = fractionParPosition({ x: 6.6, y: 3.3, fraction: { num: v, den: 100 } })// proba de B sachant A  \\bar A
+          objets.push(latexParCoordonnees('\\Omega', 0, 2.3))// Univers, point de départ de l'arbre Omega
+          objets.push(latexParCoordonnees(`\\dfrac{${a}}{100}`, 2.5, 4.5, 'black', 20, 12, 'white'))// proba de A, ici ${a}
+          pA1 = latexParCoordonnees(`\\dfrac{${100 - a}}{100}`, 2.5, 1.8, 'black', 20, 12, 'white')// proba de \\bar A 1-${a}
+          pA2 = latexParCoordonnees(`\\dfrac{${100 - v}}{100}`, 7, 6.5, 'black', 20, 12, 'white')// proba de B sachant A
+          pA3 = latexParCoordonnees(`\\dfrac{${v}}{100}`, 7, 4.5, 'black', 20, 12, 'white')// proba de B sachant A  \\bar A
           // une autre façon de faire qui n'économise pas ces noms de variable
           objets.push(pA1, pA2, pA3)
-          objets.push(latexParCoordonnees('B', 8, 6.5)) // 2ème noeud issu de A
-          objets.push(latexParCoordonnees('\\bar B', 8, 4))// 2ème noeud issu de A
-          objets.push(latexParCoordonnees('B', 8, 2.5)) // 2ème noeud issu de \bar A
-          objets.push(latexParCoordonnees('\\bar B', 8, 0))// 2ème noeud issu de \bar A
+          objets.push(latexParCoordonnees('B', 9, 6.5)) // 2ème noeud issu de A
+          objets.push(latexParCoordonnees('\\bar B', 9, 4))// 2ème noeud issu de A
+          objets.push(latexParCoordonnees('B', 9, 2.5)) // 2ème noeud issu de \bar A
+          objets.push(latexParCoordonnees('\\bar B', 9, 0))// 2ème noeud issu de \bar A
           // objets.push(latexParCoordonnees(texNombrec(a / 100), 3, 4.4))
           // objets.push(latexParCoordonnees(texNombrec(1 - a / 100), 3, 0.8))
           // objets.push(latexParCoordonnees(texNombrec(1 - v / 100), 6.6, 5.5))
