@@ -42,9 +42,9 @@ export default function ProbabilitésConditionnelles () {
           O = point(0.6, 2.3)
           A = point(5, 5)
           B = point(5, 1)
-          A1 = point(9, 6.5)
+          A1 = point(9, 7.5)
           A2 = point(9, 4)
-          A3 = point(9, 2.5)
+          A3 = point(9, 3)
           A4 = point(9, 0)
           // On met les segments d'abord pour ne pas qu'ils passent par dessus le texte.(Jean-Claude Lhote)
           objets.push(segment(O, A, 'blue'))
@@ -53,25 +53,25 @@ export default function ProbabilitésConditionnelles () {
           objets.push(segment(A, A2, 'blue'))
           objets.push(segment(B, A3, 'blue'))
           objets.push(segment(B, A4, 'blue'))
-          objets.push(latexParCoordonnees('A', 5, 5)) // 1er noeud Avion) = A
-          objets.push(latexParCoordonnees('\\bar A', 5, 1, 'black', 30, 12, 'white'))// 1er noeud événement contraire \bar A
+          objets.push(latexParCoordonnees('A', 5, 5.2, 'black', 20, 12, 'white', 10)) // 1er noeud Avion) = A
+          objets.push(latexParCoordonnees('\\bar A', 5, 1.3, 'black', 20, 12, 'white', 10))// 1er noeud événement contraire \bar A
           objets.push(latexParCoordonnees('\\Omega', 0, 2.3))// Univers, point de départ de l'arbre Omega
           if (this.sup) {
-            objets.push(latexParCoordonnees(`\\dfrac{${a}}{100}`, 2.5, 4.5, 'black', 20, 12, 'white'))// proba de A, ici ${a}
-            objets.push(latexParCoordonnees(`\\dfrac{${100 - a}}{100}`, 2.5, 1.8, 'black', 20, 12, 'white'))// proba de \\bar A 1-${a}
-            objets.push(latexParCoordonnees(`\\dfrac{${100 - v}}{100}`, 7, 6.5, 'black', 20, 12, 'white'))// proba de B sachant A
-            objets.push(latexParCoordonnees(`\\dfrac{${v}}{100}`, 7, 4.5, 'black', 20, 12, 'white'))// proba de B sachant A  \\bar A
+            objets.push(latexParCoordonnees(`\\dfrac{${a}}{100}`, 2.5, 4.1, 'black', 20, 20, 'white', 6))// proba de A, ici ${a}
+            objets.push(latexParCoordonnees(`\\dfrac{${100 - a}}{100}`, 2.5, 2.1, 'black', 20, 20, 'white', 6))// proba de \\bar A 1-${a}
+            objets.push(latexParCoordonnees(`\\dfrac{${100 - v}}{100}`, 6.8, 6.8, 'black', 20, 20, 'white', 6))// proba de B sachant A
+            objets.push(latexParCoordonnees(`\\dfrac{${v}}{100}`, 6.8, 4.9, 'black', 20, 20, 'white', 6))// proba de B sachant A  \\bar A
           } else {
-            objets.push(latexParCoordonnees(texNombrec(a / 100), 2.5, 3.8, 'black', 20, 12, 'white'))
-            objets.push(latexParCoordonnees(texNombrec(1 - a / 100), 2.5, 1.8, 'black', 20, 12, 'white'))
-            objets.push(latexParCoordonnees(texNombrec(1 - v / 100), 6.6, 5.7, 'black', 20, 12, 'white'))
-            objets.push(latexParCoordonnees(texNombrec(v / 100), 6.6, 4.3, 'black', 20, 12, 'white'))
+            objets.push(latexParCoordonnees(texNombrec(a / 100), 2.5, 4, 'black', 20, 12, 'white', 6))
+            objets.push(latexParCoordonnees(texNombrec(1 - a / 100), 2.5, 2, 'black', 20, 12, 'white', 6))
+            objets.push(latexParCoordonnees(texNombrec(1 - v / 100), 6.8, 6.5, 'black', 20, 12, 'white', 6))
+            objets.push(latexParCoordonnees(texNombrec(v / 100), 6.8, 4.8, 'black', 20, 12, 'white', 6))
           }
 
-          objets.push(latexParCoordonnees('B', 9, 6.5)) // 2ème noeud issu de A
-          objets.push(latexParCoordonnees('\\bar B', 9, 4))// 2ème noeud issu de A
-          objets.push(latexParCoordonnees('B', 9, 2.5)) // 2ème noeud issu de \bar A
-          objets.push(latexParCoordonnees('\\bar B', 9, 0))// 2ème noeud issu de \bar A
+          objets.push(latexParCoordonnees('B', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A
+          objets.push(latexParCoordonnees('\\bar B', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
+          objets.push(latexParCoordonnees('B', 9, 3.1, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de \bar A
+          objets.push(latexParCoordonnees('\\bar B', 9, 0.2, 'black', 20, 12, 'white', 10))// 2ème noeud issu de \bar A
 
           // p2 = texteParPoint(Number(1 - a / 100).toString(), pA1)
           // p3 = texteParPoint((1 - v / 100).toString(), pA2)
@@ -102,7 +102,8 @@ export default function ProbabilitésConditionnelles () {
           texteCorr += '<br><br>2. Comme $A$ et $\\bar A$ forment une partition de l\'univers, d\'après la loi des probabilités totales :'
           texteCorr += ' <br>$P(V)=P(A \\cap V)+P(\\bar{A} \\cap V) . $'
           texteCorr += ' <br>On peut construire cet arbre pondéré : <br>'
-          texteCorr += mathalea2d({ xmin: -5, ymin: -5, xmax: 12, ymax: 12 }, objets)
+          // texteCorr += mathalea2d({ xmin: -5, ymin: -1, xmax: 12, ymax: 7 }, objets)
+          texte = mathalea2d({ xmin: -5, ymin: -1, xmax: 12, ymax: 8 }, objets)
           texteCorr += `<br>Or $P(\\bar{A} \\cap V)=P(\\bar{A}) \\times P_{\\bar{A}}(V)=(1-${a / 100}) \\times ${v / 100}=${texNombre((1 - a / 100) * v / 100)}$.`
           texteCorr += `<br>Donc $P(V)=${av / 100}+${(1 - a / 100) * v / 100}=${texNombre(av / 100 + (1 - a / 100) * v / 100)}$.`
           texteCorr += '<br><br>3. On a $P_{\\bar{V}}(A)=\\dfrac{P(\\bar{V} \\cap A)}{P(\\bar{V})}=\\dfrac{P(A \\cap \\bar{V})}{P(\\bar{V})}=\\dfrac{P(A) \\times P_A(\\bar{V})}{P(\\bar{V})}$.'
