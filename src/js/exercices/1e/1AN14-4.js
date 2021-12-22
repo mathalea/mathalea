@@ -8,8 +8,8 @@ export const titre = 'Dérivée d\'un produit'
  * Calculer la dérivée d'un produit
  * @author Jean-Léon Henry
  * Référence 1AN14-4
- * @todo Finir la correction dans le cas d'un produit de polynômes
- * @todo Implémenter le cas général : this.sup === 2
+ * @todo Corrections
+ * @todo Etoffer le catalogue des cas
 */
 
 /**
@@ -26,29 +26,34 @@ function prettyTex (expression) {
 
 /**
  * Retourne un polynôme de degré deg. Si deg>=3, retourne un monôme.
- * @param {number} deg degré du polynôme
- * @returns {string} expression du polynôme
+ * @param {number} deg Degré du polynôme
+ * @param {boolean} mon Si on ne veut qu'un monôme
+ * @returns {string} Expression du polynôme
  * @author Jean-Léon Henry
  */
-function randomPol (deg) {
+function randomPol (deg, mon = false) {
   let result = ''
   const a = randint(-10, 10, 0)
   const b = randint(-10, 10)
   const c = randint(-10, 10)
 
-  switch (deg) {
-    case 2:
-      result = `${rienSi1(a)} x^2  ${monome(b)} ${c === 0 ? '' : ecritureAlgebrique(c)}`
-      break
-    case 1:
-      result = `${rienSi1(a)} x ${b === 0 ? '' : ecritureAlgebrique(b)}`
-      break
-    case 0:
-      result = `${a}`
-      break
-    default:
-      result = `${rienSi1(a)}x^${deg}`
-      break
+  if (mon) {
+    result = deg >= 2 ? `${rienSi1(a)}x^${deg}` : `${rienSi1(a)}x`
+  } else {
+    switch (deg) {
+      case 2:
+        result = `${rienSi1(a)} x^2  ${monome(b)} ${c === 0 ? '' : ecritureAlgebrique(c)}`
+        break
+      case 1:
+        result = `${rienSi1(a)} x ${b === 0 ? '' : ecritureAlgebrique(b)}`
+        break
+      case 0:
+        result = `${a}`
+        break
+      default:
+        result = `${rienSi1(a)}x^${deg}`
+        break
+    }
   }
   return result
 }
@@ -58,8 +63,9 @@ export default function DeriveeProduit () {
   this.titre = titre
   this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
   this.nbQuestions = 5
-  this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
-  this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
+  // Sortie LaTeX
+  this.nbCols = 2 // Nombre de colonnes
+  this.nbColsCorr = 2 // Nombre de colonnes dans la correction
   this.sup = 1
   this.sup2 = false
   // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
@@ -69,6 +75,7 @@ export default function DeriveeProduit () {
   reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
+    this.sup2 = Boolean(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
@@ -77,7 +84,7 @@ export default function DeriveeProduit () {
     if (this.sup === 1) {
       listeTypeDeQuestionsDisponibles = [[1, 1], [1, 2], [2, 2]]
     } else {
-      listeTypeDeQuestionsDisponibles = [[1, 1], [1, 2], [2, 2], 'racine/poly']
+      listeTypeDeQuestionsDisponibles = [[randint(1, 2), randint(1, 2)], 'racine/poly']
       if (this.sup2 === true) {
         listeTypeDeQuestionsDisponibles.push('poly/exp', 'puissance/exp')
       }
@@ -88,7 +95,9 @@ export default function DeriveeProduit () {
       const dictFonctions = {
         exp: 'e^x',
         racine: 'sqrt(x)',
-        puissance: randomPol(randint(3, 10)),
+        puissance: randomPol(randint(3, 5)),
+        // poly1: randomPol(1),
+        // poly2: randomPol(2),
         poly: randomPol(randint(1, 2))
       }
       if (this.sup === 1 || typeof listeTypeDeQuestions[i] !== 'string') {
@@ -101,13 +110,23 @@ export default function DeriveeProduit () {
       } else {
         // Cas général
         const listeTypeFonctions = listeTypeDeQuestions[i].split('/')
-        terme1 = `(${dictFonctions[listeTypeFonctions[0]]})`
-        terme2 = `(${dictFonctions[listeTypeFonctions[1]]})`
+        // On randomise l'ordre des termes
+        const f1 = randint(0, 1)
+        const f2 = 1 - f1
+        const typef1 = listeTypeFonctions[f1]
+        const typef2 = listeTypeFonctions[f2]
+        // On crée les deux termes en gérant les parenthèses autour des fonctions spéciales
+        const dell1 = typef1 === 'racine' || typef1 === 'exp' ? '' : '('
+        const delr1 = typef1 === 'racine' || typef1 === 'exp' ? '' : ')'
+        terme1 = `${dell1}${dictFonctions[typef1]}${delr1}`
+        const dell2 = typef2 === 'racine' || typef2 === 'exp' ? '' : '('
+        const delr2 = typef2 === 'racine' || typef2 === 'exp' ? '' : ')'
+        terme2 = `${dell2}${dictFonctions[typef2]}${delr2}`
         ensembleDerivation = listeTypeFonctions[0] === 'racine' ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
       }
 
       // 1ère étape de la dérivation
-      expression = terme1 + terme2
+      expression = terme1 + '*' + terme2
       const derivee1m = math.simplify(math.derivative(terme1, 'x'))
       const derivee2m = math.simplify(math.derivative(terme2, 'x'))
       const intermediaire = `(${derivee1m})${terme2}+${terme1}(${derivee2m})`
@@ -130,6 +149,6 @@ export default function DeriveeProduit () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Produits de polynôme\n2 : Cas général']
-  this.besoinFormulaire2CaseACocher = ['Inclure l\'exponentielle']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Produits de polynôme\n2 : Polynômes, racine']
+  this.besoinFormulaire2CaseACocher = ['Inclure l\'exponentielle dans le niveau 2']
 }
