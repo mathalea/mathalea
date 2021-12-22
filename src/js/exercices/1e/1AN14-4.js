@@ -104,8 +104,8 @@ export default function DeriveeProduit () {
         exp: 'e^x',
         racine: 'sqrt(x)',
         puissance: randomPol(randint(3, 5)),
-        poly1: randomPol(1),
-        poly2: randomPol(2),
+        // poly1: randomPol(1),
+        // poly2: randomPol(2),
         poly2centre: randomPol(2, true) + `${constRienSi0(randint(-10, 10))}`,
         monome2: randomPol(2, true),
         poly: randomPol(randint(1, 2))
@@ -130,11 +130,11 @@ export default function DeriveeProduit () {
         askFacto = typef1 === 'exp' || typef2 === 'exp'
         askFormule = false
         // On crée les deux termes en gérant les parenthèses autour des fonctions spéciales
-        const dell1 = typef1 === 'racine' || typef1 === 'exp' || typef1 === 'monome2' ? '' : '('
-        const delr1 = typef1 === 'racine' || typef1 === 'exp' || typef1 === 'monome2' ? '' : ')'
+        const dell1 = ['racine', 'exp', 'monome2'].includes(typef1) ? '' : '('
+        const delr1 = ['racine', 'exp', 'monome2'].includes(typef1) ? '' : ')'
         terme1 = `${dell1}${dictFonctions[typef1]}${delr1}`
-        const dell2 = typef2 === 'racine' || typef2 === 'exp' || typef2 === 'monome2' ? '' : '('
-        const delr2 = typef2 === 'racine' || typef2 === 'exp' || typef2 === 'monome2' ? '' : ')'
+        const dell2 = ['racine', 'exp', 'monome2'].includes(typef2) ? '' : '('
+        const delr2 = ['racine', 'exp', 'monome2'].includes(typef2) ? '' : ')'
         terme2 = `${dell2}${dictFonctions[typef2]}${delr2}`
         ensembleDerivation = listeTypeFonctions[0] === 'racine' ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
       }
