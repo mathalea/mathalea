@@ -1,5 +1,4 @@
-import {fraction, multiply} from 'mathjs'
-
+import { number, fraction, multiply } from 'mathjs'
 
 /**
  * classe pour faire des arbres de probabilités
@@ -12,11 +11,12 @@ import {fraction, multiply} from 'mathjs'
  * Exemple: const pin = new Arbre(null, 'pin', 1) (c'est une forêt de pins)
  */
 export class Arbre {
-  constructor (parent, nom, proba) {
+  constructor (parent, nom, proba, rationnel = true) {
     this.parent = parent
     this.enfants = []
     this.nom = nom
-    this.proba = proba
+    this.rationnel = rationnel
+    this.proba = rationnel ? fraction(proba) : number(proba)
   }
 
   // questionnement : est-ce qu'on vérifie à chaque ajout que la somme des probabilités ne dépasse pas 1 ?
@@ -26,8 +26,8 @@ export class Arbre {
    * @returns l'Arbre-fils créé
    * Exemple : const sylvestre = pin.setFils('sylvestre', 0.8) un 'pin' a une probabilité de 0.8 d'être 'sylvestre'.
    */
-  setFils (nom, proba) {
-    const arbre = new Arbre(this, nom, proba)
+  setFils (nom, proba, rationnel) {
+    const arbre = new Arbre(this, nom, proba, (rationnel || this.rationnel))
     this.enfants.push(arbre)
     return arbre
   }
@@ -59,7 +59,7 @@ export class Arbre {
  */
   getFilsProba (nom) {
     const arbre = this.getFils(nom)
-    return arbre ? arbre.proba : 0
+    return arbre ? arbre.proba : undefined
   }
 
   // est-ce qu'on vérifie si la somme des probabilités ne dépasse pas 1 ?
@@ -69,12 +69,12 @@ export class Arbre {
    * @param {Number} proba La probabilité du fils pour le père.
    * @returns l'Arbre-fils.
    */
-  setFilsProba (nom, proba) { // si le fils nommé nom existe, on fixe sa proba (en gros, on la modifie)
+  setFilsProba (nom, proba, rationnel) { // si le fils nommé nom existe, on fixe sa proba (en gros, on la modifie)
     let arbre = this.getFils(nom)
     if (arbre) {
-      arbre.proba = proba
+      arbre.proba = (rationnel || this.rationnel) ? fraction(proba) : number(proba)
     } else { // sinon on ajoute ce fils.
-      arbre = new Arbre(this, nom, proba)
+      arbre = new Arbre(this, nom, proba, (rationnel || this.rationnel))
       this.enfants.push(arbre)
     }
     return arbre
@@ -91,30 +91,39 @@ export class Arbre {
    * alors pin.getProba('malade')===0.4 et sylvestre.getProba('malade')===0.4 aussi ! par contre
    * sylvestre.getProba('malade', 1)= 0.5
    */
-  getProba (nom, proba) {
-    if (proba === undefined) proba = this.proba
+  getProba (nom, proba, rationnel) {
+    if (proba === undefined) {
+      if (rationnel || this.rationnel) {
+        proba = fraction(this.proba)
+      } else {
+        proba = number(this.proba)
+      }
+    } else {
+      if (rationnel || this.rationnel) {
+        proba = fraction(proba)
+      } else {
+        proba = number(proba)
+      }
+    }
     let probaArbre
     for (const arbre of this.enfants) {
-      if (arbre.nom === nom) return multiply(proba, arbre.proba)
+      if (arbre.nom === nom) return (rationnel || this.rationnel) ? fraction(multiply(proba, arbre.proba)) : number(multiply(proba, arbre.proba))
       else {
         probaArbre = arbre.getProba(nom)
-        if (probaArbre !== undefined) return multiply(probaArbre, proba)
+        if (probaArbre !== undefined) return (rationnel || this.rationnel) ? fraction(multiply(probaArbre, proba)) : number(multiply(probaArbre, proba))
       }
     }
     return undefined
   }
-  branches(){
-    let nbBranches=1
-    if (this.enfants.length===0) return 1
+
+  branches () {
+    let nbBranches = 1
+    if (this.enfants.length === 0) return 1
     else {
-      for (const enfant of this.enfants){
-        nbBranches+=enfant.branches()
+      for (const enfant of this.enfants) {
+        nbBranches += enfant.branches()
       }
     }
     return nbBranches
   }
 }
-
-
-
-
