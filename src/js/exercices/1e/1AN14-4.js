@@ -9,7 +9,6 @@ export const titre = 'Dérivée d\'un produit'
  * @author Jean-Léon Henry
  * Référence 1AN14-4
  * @todo Corrections
- * @todo Etoffer le catalogue des cas
 */
 
 /**
@@ -58,7 +57,11 @@ function randomPol (deg, mon = false) {
   }
   return result
 }
-
+/**
+ * Retourne une constante formattée, rien si 0
+ * @param {number} a Nombre à formatter
+ * @returns Rien si a=0, a formatté sinon
+ */
 function constRienSi0 (a) {
   return a === 0 ? '' : ecritureAlgebrique(a)
 }
@@ -95,7 +98,7 @@ export default function DeriveeProduit () {
       }
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, terme1, terme2, expression, ensembleDerivation, namef, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, terme1, terme2, expression, askFacto, askFormule, ensembleDerivation, namef, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On commence par générer des fonctions qui pourrait servir
       const dictFonctions = {
         exp: 'e^x',
@@ -114,6 +117,8 @@ export default function DeriveeProduit () {
         terme1 = `(${randomPol(deg1)})`
         terme2 = `(${randomPol(deg2)})`
         ensembleDerivation = '\\mathbb{R}'
+        askFacto = false
+        askFormule = true
       } else {
         // Cas général
         const listeTypeFonctions = listeTypeDeQuestions[i].split('/')
@@ -122,29 +127,34 @@ export default function DeriveeProduit () {
         const f2 = 1 - f1
         const typef1 = listeTypeFonctions[f1]
         const typef2 = listeTypeFonctions[f2]
+        askFacto = typef1 === 'exp' || typef2 === 'exp'
+        askFormule = false
         // On crée les deux termes en gérant les parenthèses autour des fonctions spéciales
-        const dell1 = typef1 === 'racine' || typef1 === 'exp' ? '' : '('
-        const delr1 = typef1 === 'racine' || typef1 === 'exp' ? '' : ')'
+        const dell1 = typef1 === 'racine' || typef1 === 'exp' || typef1 === 'monome2' ? '' : '('
+        const delr1 = typef1 === 'racine' || typef1 === 'exp' || typef1 === 'monome2' ? '' : ')'
         terme1 = `${dell1}${dictFonctions[typef1]}${delr1}`
-        const dell2 = typef2 === 'racine' || typef2 === 'exp' ? '' : '('
-        const delr2 = typef2 === 'racine' || typef2 === 'exp' ? '' : ')'
+        const dell2 = typef2 === 'racine' || typef2 === 'exp' || typef2 === 'monome2' ? '' : '('
+        const delr2 = typef2 === 'racine' || typef2 === 'exp' || typef2 === 'monome2' ? '' : ')'
         terme2 = `${dell2}${dictFonctions[typef2]}${delr2}`
         ensembleDerivation = listeTypeFonctions[0] === 'racine' ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
       }
 
       // 1ère étape de la dérivation
       expression = terme1 + '*' + terme2
-      console.log(expression)
+      // console.log(expression)
       const derivee1m = math.simplify(math.derivative(terme1, 'x'))
       const derivee2m = math.simplify(math.derivative(terme2, 'x'))
       const intermediaire = `(${derivee1m})${terme2}+${terme1}(${derivee2m})`
 
       namef = lettreMinusculeDepuisChiffre(i + 6)
       // Correction
-      texte = `$${namef}:x\\longmapsto ${prettyTex(math.parse(expression))}$`
+      texte = askFacto ? 'Dans cette question, on demande la réponse sous forme factorisée.<br>' : ''
+      texte = askFormule ? 'Dans cette question, on demande d\'utiliser la formule de dérivation d\'un produit.<br>' : texte
+      texte += `$${namef}:x\\longmapsto ${prettyTex(math.parse(expression))}$`
+      // texte += askFacto ? ' (On factorisera la réponse)' : '' // Si l'un des termes est une exponentielle
       texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
       texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a \\[${namef}'(x)=${prettyTex(math.simplify(intermediaire, reglesDeSimplifications))}.\\]`
-      
+
       // texte = texte.replaceAll('frac', 'dfrac')
       // texteCorr = texteCorr.replaceAll('frac', 'dfrac')
 
