@@ -633,7 +633,6 @@ export function labelPoint (...args) {
 /**
  * labelPoint(A,B) pour nommer les points A et B
  * Le nombre d'arguments n'est pas limité
- * Ici on utilise LatexParCoordonnees() qui permet des labels Latex, mais qui ne réagit pas bien au zoom Mathalea (note de Jean-Claude Lhote)
  * A utiliser par exemple si le label est A_1
  * @author Rémi Angot & Jean-Claude Lhote
  */
@@ -666,28 +665,28 @@ function LabelLatexPoint (...points) {
       y = A.y
       switch (A.positionLabel) {
         case 'left':
-          code += latexParCoordonnees(A.nom, arrondi(x - offset / coeff, 2), y, this.color, this.largeur, this.taille, '', 8).svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, arrondi(x - offset / coeff, 2), y, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'right':
-          code += latexParCoordonnees(A.nom, arrondi(x + offset / coeff, 2), y, this.color, this.largeur, this.taille, '', 8).svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, arrondi(x + offset / coeff, 2), y, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'below':
-          code += latexParCoordonnees(A.nom, x, arrondi(y - offset / coeff, 2), this.color, this.largeur, this.taille, '', 8).svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x, arrondi(y - offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'above':
-          code += latexParCoordonnees(A.nom, x, arrondi(y + offset / coeff, 2), this.color, this.largeur, this.taille, '', 8).svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, x, arrondi(y + offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'above right':
-          code += latexParCoordonnees(A.nom, arrondi(x + offset / coeff, 2), arrondi(y + offset / coeff, 2), this.color, this.largeur, this.taille, '', 8).svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, arrondi(x + offset / coeff, 2), arrondi(y + offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'below left':
-          code += latexParCoordonnees(A.nom, arrondi(x - offset / coeff, 2), arrondi(y - offset / coeff, 2), this.color, this.largeur, this.taille, '', 8).svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, arrondi(x - offset / coeff, 2), arrondi(y - offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         case 'below right':
-          code += latexParCoordonnees(A.nom, arrondi(x + offset / coeff, 2), arrondi(y - offset / coeff, 2), this.color, this.largeur, this.taille, '', 8).svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, arrondi(x + offset / coeff, 2), arrondi(y - offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
         default:
-          code += latexParCoordonnees(A.nom, arrondi(x - offset / coeff, 2), arrondi(y + offset / coeff, 2), this.color, this.largeur, this.taille, '', 8).svg(coeff) + '\n'
+          code += latexParCoordonnees(A.nom, arrondi(x - offset / coeff, 2), arrondi(y + offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
           break
       }
     }
@@ -8984,9 +8983,8 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
   this.couleurDeRemplissage = color
   this.opaciteDeRemplissage = this.opacite
   if (texte.charAt(0) === '$') {
-    A.positionLabel = 'centre'
     this.svg = function (coeff) {
-      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '').svg(coeff)
+      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 10, '', this.taille).svg(coeff)
     }
     this.tikz = function () {
       let code = ''
@@ -9087,7 +9085,7 @@ export function texteParPointEchelle (texte, A, orientation = 'milieu', color = 
   return new TexteParPointEchelle(texte, A, orientation, color, scale, ancrageDeRotation, mathOn, scaleFigure)
 }
 export function texteParPositionEchelle (texte, x, y, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, scaleFigure = 1) {
-  return texteParPointEchelle(texte, point(x, y), orientation, color, scale, ancrageDeRotation, mathOn, scaleFigure)
+  return texteParPointEchelle(texte, point(x, y, '', 'center'), orientation, color, scale, ancrageDeRotation, mathOn, scaleFigure)
 }
 /**
  * texteParPoint('mon texte',x,y) // Écrit 'mon texte' avec le point de coordonnées (x,y) au centre du texte
@@ -9107,7 +9105,7 @@ export function texteParPosition (texte, x, y, orientation = 'milieu', color, sc
  * si colorBackground="", le fond est transparent.
  * @author Rémi Angot
  */
-export function latexParPoint (texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white', tailleCaracteres = 10) {
+export function latexParPoint (texte, A, color = 'black', largeur = 20, hauteur = 12, colorBackground = 'white', tailleCaracteres = 10) {
   let x; let y; const coeff = context.pixelsParCm
   const offset = arrondi(15 * Math.log10(tailleCaracteres), 2)
   switch (A.positionLabel) {
@@ -9142,15 +9140,15 @@ export function latexParPoint (texte, A, color = 'black', size = 200, hauteurLig
       x = A.x; y = A.y
       break
   }
-  return latexParCoordonnees(texte, x, y, color, size, hauteurLigne, colorBackground, tailleCaracteres)
+  return latexParCoordonnees(texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres)
 }
 
-function LatexParCoordonnees (texte, x, y, color, size, hauteurLigne, colorBackground, tailleCaracteres) {
+function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres) {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
-  this.size = arrondi(size * Math.log10(2 * tailleCaracteres), 2)
-  this.hauteurLigne = arrondi(hauteurLigne * Math.log10(tailleCaracteres), 2)
+  this.largeur = arrondi(largeur * Math.log10(2 * tailleCaracteres), 2)
+  this.hauteur = arrondi(hauteur * Math.log10(tailleCaracteres), 2)
   this.colorBackground = colorBackground
   this.color = color
   this.texte = texte
@@ -9167,13 +9165,13 @@ function LatexParCoordonnees (texte, x, y, color, size, hauteurLigne, colorBackg
     else if (this.tailleCaracteres < 9) taille = '\\footnotesize'
     else if (this.tailleCaracteres < 10) taille = '\\small'
     else taille = '\\normalsize'
-    const demiSize = calcul(this.size / 2)
+    const demiLargeur = calcul(this.largeur / 2)
     const centrage = arrondi(0.05 * context.pixelsParCm * Math.log10(tailleCaracteres), 2)
     if (this.colorBackground !== '') {
-      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff - centrage - this.hauteurLigne / 2, 2)}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">
+      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiLargeur}" y="${arrondi(-this.y * coeff - centrage - this.hauteur / 2, 2)}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="margin:auto;width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
     $\\colorbox{${this.colorBackground}}{$\\color{${color}}{${taille} ${this.texte}}$}$</div></foreignObject>`
     } else {
-      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff - centrage - this.hauteurLigne / 2, 2)}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">
+      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiLargeur}" y="${arrondi(-this.y * coeff - centrage - this.hauteur / 2, 2)}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
       $\\color{${this.color}}{${taille} ${this.texte}}$</div></foreignObject>`
     }
   }
@@ -9189,8 +9187,8 @@ function LatexParCoordonnees (texte, x, y, color, size, hauteurLigne, colorBackg
   }
 }
 
-export function latexParCoordonnees (texte, x, y, color = 'black', size = 50, hauteurLigne = 20, colorBackground = 'white', tailleCaracteres = 10) {
-  return new LatexParCoordonnees(texte, x, y, color, size, hauteurLigne, colorBackground, tailleCaracteres)
+export function latexParCoordonnees (texte, x, y, color = 'black', largeur = 50, hauteurLigne = 20, colorBackground = 'white', tailleCaracteres = 8) {
+  return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
 }
 
 /**
