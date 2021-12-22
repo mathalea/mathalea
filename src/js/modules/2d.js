@@ -8984,7 +8984,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
   this.opaciteDeRemplissage = this.opacite
   if (texte.charAt(0) === '$') {
     this.svg = function (coeff) {
-      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 10, '', this.taille).svg(coeff)
+      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 10, '', this.taille * 0.8).svg(coeff)
     }
     this.tikz = function () {
       let code = ''
@@ -9107,7 +9107,7 @@ export function texteParPosition (texte, x, y, orientation = 'milieu', color, sc
  */
 export function latexParPoint (texte, A, color = 'black', largeur = 20, hauteur = 12, colorBackground = 'white', tailleCaracteres = 10) {
   let x; let y; const coeff = context.pixelsParCm
-  const offset = arrondi(15 * Math.log10(tailleCaracteres), 2)
+  const offset = arrondi(10 * Math.log10(tailleCaracteres), 2)
   switch (A.positionLabel) {
     case 'above':
       x = A.x; y = A.y + offset / coeff
@@ -9140,7 +9140,7 @@ export function latexParPoint (texte, A, color = 'black', largeur = 20, hauteur 
       x = A.x; y = A.y
       break
   }
-  return latexParCoordonnees(texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres)
+  return latexParCoordonnees(texte, arrondi(x, 2), arrondi(y, 2), color, largeur, hauteur, colorBackground, tailleCaracteres)
 }
 
 function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres) {
