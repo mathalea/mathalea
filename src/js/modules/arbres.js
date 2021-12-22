@@ -1,3 +1,6 @@
+import {fraction, multiply} from 'mathjs'
+
+
 /**
  * classe pour faire des arbres de probabilités
  * @author Jean-Claude Lhote
@@ -92,34 +95,26 @@ export class Arbre {
     if (proba === undefined) proba = this.proba
     let probaArbre
     for (const arbre of this.enfants) {
-      if (arbre.nom === nom) return proba * arbre.proba
+      if (arbre.nom === nom) return multiply(proba, arbre.proba)
       else {
         probaArbre = arbre.getProba(nom)
-        if (probaArbre !== undefined) return probaArbre * proba
+        if (probaArbre !== undefined) return multiply(probaArbre, proba)
       }
     }
     return undefined
   }
+  branches(){
+    let nbBranches=1
+    if (this.enfants.length===0) return 1
+    else {
+      for (const enfant of this.enfants){
+        nbBranches+=enfant.branches()
+      }
+    }
+    return nbBranches
+  }
 }
-/**
- * fonction pour tester les méthodes ci-dessus.
- * @param {String} nom Nom d'un arbre pour tester
- */
-function testArbre (nom) {
-  const pin = new Arbre(null, 'Omega', 1)
-  const sylvestre = pin.setFils('sylvestre', 0.8)
-  const maritime = pin.setFils('maritime', 0.3)
-  const B = sylvestre.setFils('B', 0.5)
-  const A = sylvestre.setFils('A', 0.5)
-  const C = maritime.setFils('C', 0.4)
-  const D = maritime.setFils('D', 0.6)
-  const E = D.setFils('E', 0.25)
-  const F = D.setFils('F', 0.75)
-  const G = F.setFils('G', 0.5)
-  console.log(pin.getFils(nom))
-  console.log(pin.getProba(nom))
-  console.log(sylvestre.getProba(nom, 1)) // on met 1 pour calculer la proba conditionnelle ici le pin est sylvestre. Si nom ==='A', alors le résultat est 0.5
-  console.log(sylvestre.getProba(nom)) // on prend la proba sylvestre = 0.8, c'est donc equivalent à pin.getProba(nom). Si nom ==='A' alors le résultat est 0.8*0.5 = 0.4
-  console.log(maritime.getProba(nom))
-  console.log(B.getProba(nom))
-}
+
+
+
+
