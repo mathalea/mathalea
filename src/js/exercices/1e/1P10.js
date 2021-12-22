@@ -27,13 +27,13 @@ export default function ProbabilitésConditionnelles () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let objets
-    const typeQuestionsDisponibles = ['type1'] // On créé 3 types de questions
+    const typeQuestionsDisponibles = ['sujetE3C1'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, a, v, av, A, B, A1, A2, A3, A4, O, k1, k2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, a, c, ec, ce, v, av, A, B, A1, A2, A3, A4, O, k1, k2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       objets = []
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'type1':
+        case 'sujetE3C1':
           a = randint(30, 70)// p(A)
           v = randint(30, 70)// P_T(V)
 
@@ -59,19 +59,26 @@ export default function ProbabilitésConditionnelles () {
           if (this.sup) {
             objets.push(latexParCoordonnees(`\\dfrac{${a}}{100}`, 2.5, 4.1, 'black', 20, 20, 'white', 6))// proba de A, ici ${a}
             objets.push(latexParCoordonnees(`\\dfrac{${100 - a}}{100}`, 2.5, 2.1, 'black', 20, 20, 'white', 6))// proba de \\bar A 1-${a}
-            objets.push(latexParCoordonnees(`\\dfrac{${100 - v}}{100}`, 6.8, 6.8, 'black', 20, 20, 'white', 6))// proba de B sachant A
-            objets.push(latexParCoordonnees(`\\dfrac{${v}}{100}`, 6.8, 4.9, 'black', 20, 20, 'white', 6))// proba de B sachant A  \\bar A
+            // objets.push(latexParCoordonnees(`\\dfrac{${100 - v}}{100}`, 6.8, 6.8, 'black', 20, 20, 'white', 6))// proba de B sachant A
+            // objets.push(latexParCoordonnees(`\\dfrac{${v}}{100}`, 6.8, 4.9, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant A
+            objets.push(latexParCoordonnees(`\\dfrac{${100 - v}}{100}`, 6.8, 0.9, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant \\bar A
+            objets.push(latexParCoordonnees(`\\dfrac{${v}}{100}`, 6.8, 2.7, 'black', 20, 20, 'white', 6))// proba de B sachant \\bar A
+            objets.push(latexParCoordonnees(`P(A\\cap V)=\\dfrac{${av}}{100}`, 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
           } else {
             objets.push(latexParCoordonnees(texNombrec(a / 100), 2.5, 4, 'black', 20, 12, 'white', 6))
             objets.push(latexParCoordonnees(texNombrec(1 - a / 100), 2.5, 2, 'black', 20, 12, 'white', 6))
-            objets.push(latexParCoordonnees(texNombrec(1 - v / 100), 6.8, 6.5, 'black', 20, 12, 'white', 6))
-            objets.push(latexParCoordonnees(texNombrec(v / 100), 6.8, 4.8, 'black', 20, 12, 'white', 6))
+            // objets.push(latexParCoordonnees(texNombrec(1 - v / 100), 6.8, 6.5, 'black', 20, 12, 'white', 6))
+            // objets.push(latexParCoordonnees(texNombrec(v / 100), 6.8, 4.8, 'black', 20, 12, 'white', 6))
+            objets.push(latexParCoordonnees(texNombrec((100 - v) / 100), 6.8, 0.7, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant \\bar A
+            objets.push(latexParCoordonnees(texNombrec(v / 100), 6.8, 2.5, 'black', 20, 20, 'white', 6))// proba de B sachant \\bar A
+            objets.push(latexParCoordonnees('P(A\\cap V)=', 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
+            objets.push(latexParCoordonnees(texNombrec(av / 100), 14.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
           }
 
-          objets.push(latexParCoordonnees('B', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A
-          objets.push(latexParCoordonnees('\\bar B', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
-          objets.push(latexParCoordonnees('B', 9, 3.1, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de \bar A
-          objets.push(latexParCoordonnees('\\bar B', 9, 0.2, 'black', 20, 12, 'white', 10))// 2ème noeud issu de \bar A
+          objets.push(latexParCoordonnees('V', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A
+          objets.push(latexParCoordonnees('\\bar V', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
+          objets.push(latexParCoordonnees('V', 9, 3.1, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de \bar A
+          objets.push(latexParCoordonnees('\\bar V', 9, 0.2, 'black', 20, 12, 'white', 10))// 2ème noeud issu de \bar A
 
           // p2 = texteParPoint(Number(1 - a / 100).toString(), pA1)
           // p3 = texteParPoint((1 - v / 100).toString(), pA2)
@@ -98,12 +105,13 @@ export default function ProbabilitésConditionnelles () {
           texteCorr += `<br> $P(A)=${a / 100}$`
           texteCorr += `<br> $P_{\\bar{A}}(V)=${v / 100}$`
           texteCorr += `<br> $P(A \\cap V)=${av / 100}$`
-          texteCorr += `<br>On a donc $P_{A}(V)=\\dfrac{P(A \\cap V)}{P(A)}=\\dfrac{${av / 100}}{${a / 100}}=${texFraction(av, a)} $.`
+          texteCorr += ' <br>On peut alors construire cet arbre pondéré : <br>'
+          // texteCorr += mathalea2d({ xmin: -5, ymin: -1, xmax: 12, ymax: 7 }, objets)
+          texteCorr += mathalea2d({ xmin: -5, ymin: -1, xmax: 18, ymax: 10 }, objets)
+          texteCorr += `<br>On a donc $P_{A}(V)=\\dfrac{P(A \\cap V)}{P(A)}=\\dfrac{${av / 100}}{${a / 100}=${texFraction(av, a)} $.`
           texteCorr += '<br><br>2. Comme $A$ et $\\bar A$ forment une partition de l\'univers, d\'après la loi des probabilités totales :'
           texteCorr += ' <br>$P(V)=P(A \\cap V)+P(\\bar{A} \\cap V) . $'
-          texteCorr += ' <br>On peut construire cet arbre pondéré : <br>'
-          // texteCorr += mathalea2d({ xmin: -5, ymin: -1, xmax: 12, ymax: 7 }, objets)
-          texte = mathalea2d({ xmin: -5, ymin: -1, xmax: 12, ymax: 8 }, objets)
+
           texteCorr += `<br>Or $P(\\bar{A} \\cap V)=P(\\bar{A}) \\times P_{\\bar{A}}(V)=(1-${a / 100}) \\times ${v / 100}=${texNombre((1 - a / 100) * v / 100)}$.`
           texteCorr += `<br>Donc $P(V)=${av / 100}+${(1 - a / 100) * v / 100}=${texNombre(av / 100 + (1 - a / 100) * v / 100)}$.`
           texteCorr += '<br><br>3. On a $P_{\\bar{V}}(A)=\\dfrac{P(\\bar{V} \\cap A)}{P(\\bar{V})}=\\dfrac{P(A \\cap \\bar{V})}{P(\\bar{V})}=\\dfrac{P(A) \\times P_A(\\bar{V})}{P(\\bar{V})}$.'
@@ -115,7 +123,26 @@ export default function ProbabilitésConditionnelles () {
           texteCorr += `<br><br>4. On a vu que $P(\\bar{V})=1-${k2}=${1 - k2}$.`
           texteCorr += '<br>Comme les deux événements sont indépendants, en les appelant $\\bar {V_1}$ et $\\bar{V_2}$, on a : $P(\\bar{V_1}\\cap\\bar{V_2})=P(\\bar{V_1})\\times P(\\bar{V_2})$'
           texteCorr += `<br>La probabilité cherchée est donc égale à $P(\\bar{V_1}\\cap\\bar{V_2})=${1 - k2} \\times ${1 - k2}\\approx ${arrondi((1 - k2) ** 2)}$.`
+          break
+        case 'sujetE3C2':
+          c = randint(30, 70)// p(C)
+          v = randint(30, 70)// P_T(V)
+          ec = randint(20, 95 - c)// P_\bar C(E)
+          ce = randint(20, 95 - c)// P(E \cap C)
+          texte = 'Une chaîne de salons de coiffure propose à ses clients qui viennent pour une coupe deux prestations supplémentaires cumulables:'
+          texte += '$<br>\\bullet$ Une coloration naturelle à base de plantes appelée "couleur-soin",'
+          texte += '$<br>\\bullet$  Des mèches blondes pour donner du relief à la chevelure, appelées  "effet coup de soleil".'
+          texte += `<br> Il apparaît que ${c}~%$ des clients demandent une "couleur-soin".`
+          texte += `<br>Parmi ceux qui ne veule nt pas de "couleur soin" ${ec}~%$ des clients demandent un "effet coup de soleil"`
+          texte += `<br> Par ailleurs, ${ce}%$ des clients demandent une "couleur soin" et un "effet coup de soleil" .`
+          texte += '<br>On interroge un client au hasard.'
+          texte += 'On notera $C$ l\'évènement : Le client souhaite une "couleur-soin."'
+          texte += 'On notera $E$ l\'évènement Le client souhaite un "effet coup de soleil."'
 
+          texte += '$1.$ Donner les valeurs de $P(C)$, $P( C \\cap E)$ et $P_{\\overline{C}}(E)$.'
+          texte += '$2.$ Calculer la probabilité que le client ne souhaite ni une "couleur-soin", ni un "effet coup de soleil".'
+          texte += '$3.$ Montrer que la probabilité de l\'évènement $E$ est égale à $0,42$.'
+          texte += '$4.$ Les évènements $C$ et $E$ sont-ils indépendants ?'
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
