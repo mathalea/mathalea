@@ -9106,32 +9106,33 @@ export function texteParPosition (texte, x, y, orientation = 'milieu', color, sc
  * si colorBackground="", le fond est transparent.
  * @author Rémi Angot
  */
-export function latexParPoint (texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white') {
+export function latexParPoint (texte, A, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white', tailleCaracteres = 10) {
   let x; let y; const coeff = context.pixelsParCm
+  const offset = arrondi(15 * Math.log10(tailleCaracteres), 2)
   switch (A.positionLabel) {
     case 'above':
       x = A.x; y = A.y + 15 / coeff
       break
     case 'below':
-      x = A.x; y = A.y - 15 / coeff
+      x = A.x; y = A.y - offset / coeff
       break
     case 'left':
-      x = A.x - 15 / coeff; y = A.y
+      x = A.x - offset / coeff; y = A.y
       break
     case 'right':
-      x = A.x + 15 / coeff; y = A.y
+      x = A.x + offset / coeff; y = A.y
       break
     case 'above right':
-      x = A.x + 15 / coeff; y = A.y + 15 / coeff
+      x = A.x + offset / coeff; y = A.y + offset / coeff
       break
     case 'above left':
-      x = A.x - 15 / coeff; y = A.y + 15 / coeff
+      x = A.x - offset / coeff; y = A.y + offset / coeff
       break
     case 'below right':
-      x = A.x + 15 / coeff; y = A.y - 15 / coeff
+      x = A.x + offset / coeff; y = A.y - offset / coeff
       break
     case 'below left':
-      x = A.x - 15 / coeff; y = A.y - 15 / coeff
+      x = A.x - offset / coeff; y = A.y - offset / coeff
       break
     case 'center':
       x = A.x; y = A.y
@@ -9140,15 +9141,15 @@ export function latexParPoint (texte, A, color = 'black', size = 200, hauteurLig
       x = A.x; y = A.y
       break
   }
-  return latexParCoordonnees(texte, x, y, color, size, hauteurLigne, colorBackground)
+  return latexParCoordonnees(texte, x, y, color, size, hauteurLigne, colorBackground, tailleCaracteres)
 }
 
-function LatexParCoordonnees (texte, x, y, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white', tailleCaracteres) {
+function LatexParCoordonnees (texte, x, y, color, size, hauteurLigne, colorBackground, tailleCaracteres) {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
-  this.size = size
-  this.hauteurLigne = hauteurLigne
+  this.size = arrondi(size * Math.log10(2 * tailleCaracteres), 2)
+  this.hauteurLigne = arrondi(hauteurLigne * Math.log10(tailleCaracteres), 2)
   this.colorBackground = colorBackground
   this.color = color
   this.texte = texte
@@ -9166,12 +9167,12 @@ function LatexParCoordonnees (texte, x, y, color = 'black', size = 200, hauteurL
     else if (this.tailleCaracteres < 10) taille = '\\small'
     else taille = '\\normalsize'
     const demiSize = calcul(this.size / 2)
-    const centrage = 0.25 * context.pixelsParCm
+    const centrage = arrondi(0.05 * context.pixelsParCm * Math.log10(tailleCaracteres), 2)
     if (this.colorBackground !== '') {
-      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff, 2) - this.hauteurLigne / 2 - centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">
+      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff - centrage - this.hauteurLigne / 2, 2)}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="margin:auto;width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">
     $\\colorbox{${this.colorBackground}}{$\\color{${color}}{${taille} ${this.texte}}$}$</div></foreignObject>`
     } else {
-      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff, 2) - this.hauteurLigne / 2 - centrage}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">
+      return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiSize}" y="${arrondi(-this.y * coeff - centrage - this.hauteurLigne / 2, 2)}"  width="${this.size}" height="${this.hauteurLigne}" id="${this.id}" ><div style="width:${this.size}px;height:${this.hauteurLigne}px;position:fixed!important; text-align:center">
       $\\color{${this.color}}{${taille} ${this.texte}}$</div></foreignObject>`
     }
   }
@@ -9187,7 +9188,7 @@ function LatexParCoordonnees (texte, x, y, color = 'black', size = 200, hauteurL
   }
 }
 
-export function latexParCoordonnees (texte, x, y, color = 'black', size = 200, hauteurLigne = 12, colorBackground = 'white', tailleCaracteres = 10) {
+export function latexParCoordonnees (texte, x, y, color = 'black', size = 50, hauteurLigne = 20, colorBackground = 'white', tailleCaracteres = 10) {
   return new LatexParCoordonnees(texte, x, y, color, size, hauteurLigne, colorBackground, tailleCaracteres)
 }
 
