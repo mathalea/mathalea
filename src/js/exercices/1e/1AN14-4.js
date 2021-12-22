@@ -32,6 +32,7 @@ function prettyTex (expression) {
  * @author Jean-Léon Henry
  */
 function randomPol (deg, mon = false) {
+  if (deg <= 0) { deg = 1 }
   let result = ''
   const a = randint(-10, 10, 0)
   const b = randint(-10, 10)
@@ -42,10 +43,10 @@ function randomPol (deg, mon = false) {
   } else {
     switch (deg) {
       case 2:
-        result = `${rienSi1(a)} x^2  ${monome(b)} ${c === 0 ? '' : ecritureAlgebrique(c)}`
+        result = `${rienSi1(a)} x^2  ${monome(b)} ${constRienSi0(c)}`
         break
       case 1:
-        result = `${rienSi1(a)} x ${b === 0 ? '' : ecritureAlgebrique(b)}`
+        result = `${rienSi1(a)} x ${constRienSi0(b)}`
         break
       case 0:
         result = `${a}`
@@ -58,11 +59,15 @@ function randomPol (deg, mon = false) {
   return result
 }
 
+function constRienSi0 (a) {
+  return a === 0 ? '' : ecritureAlgebrique(a)
+}
+
 export default function DeriveeProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
-  this.nbQuestions = 5
+  this.nbQuestions = 10
   // Sortie LaTeX
   this.nbCols = 2 // Nombre de colonnes
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction
@@ -84,9 +89,9 @@ export default function DeriveeProduit () {
     if (this.sup === 1) {
       listeTypeDeQuestionsDisponibles = [[1, 1], [1, 2], [2, 2]]
     } else {
-      listeTypeDeQuestionsDisponibles = [[randint(1, 2), randint(1, 2)], 'racine/poly']
+      listeTypeDeQuestionsDisponibles = [[randint(1, 2), randint(1, 2)], 'racine/poly', 'racine/poly2centre', 'racine/monome2']
       if (this.sup2 === true) {
-        listeTypeDeQuestionsDisponibles.push('poly/exp', 'puissance/exp')
+        listeTypeDeQuestionsDisponibles.push('exp/poly', 'exp/poly2centre')
       }
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
@@ -96,8 +101,10 @@ export default function DeriveeProduit () {
         exp: 'e^x',
         racine: 'sqrt(x)',
         puissance: randomPol(randint(3, 5)),
-        // poly1: randomPol(1),
-        // poly2: randomPol(2),
+        poly1: randomPol(1),
+        poly2: randomPol(2),
+        poly2centre: randomPol(2, true) + `${constRienSi0(randint(-10, 10))}`,
+        monome2: randomPol(2, true),
         poly: randomPol(randint(1, 2))
       }
       if (this.sup === 1 || typeof listeTypeDeQuestions[i] !== 'string') {
@@ -127,6 +134,7 @@ export default function DeriveeProduit () {
 
       // 1ère étape de la dérivation
       expression = terme1 + '*' + terme2
+      console.log(expression)
       const derivee1m = math.simplify(math.derivative(terme1, 'x'))
       const derivee2m = math.simplify(math.derivative(terme2, 'x'))
       const intermediaire = `(${derivee1m})${terme2}+${terme1}(${derivee2m})`
@@ -135,7 +143,8 @@ export default function DeriveeProduit () {
       // Correction
       texte = `$${namef}:x\\longmapsto ${prettyTex(math.parse(expression))}$`
       texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
-      texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a $${namef}'(x)=${prettyTex(math.simplify(intermediaire, reglesDeSimplifications))}$.<br>`
+      texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a \\[${namef}'(x)=${prettyTex(math.simplify(intermediaire, reglesDeSimplifications))}.\\]`
+      
       // texte = texte.replaceAll('frac', 'dfrac')
       // texteCorr = texteCorr.replaceAll('frac', 'dfrac')
 
