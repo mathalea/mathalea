@@ -53,7 +53,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       }
     ]
   }
-function 
   function texProba (proba, rationnel) {
     return rationnel ? fraction(proba).toLatex().replace('frac', 'dfrac') : number(proba).toString().replace('.', '{,}')
   }
