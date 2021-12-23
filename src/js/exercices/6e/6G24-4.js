@@ -98,8 +98,10 @@ export default function CompleterParSymetrie6e () {
       pointsPossibles = papier.listeCoords.slice()
       // on prépare les points cliquables pour la version interactive
       // over, out et click sont des ojets pour le style css des évènements de la souris, radius, width, color, size, style sont les paramètres possibles pour la trace du point
-      for (let p = 0; p < papier.listeCoords.length; p++) {
-        pointsCliquables[i].push(pointCliquable(papier.listeCoords[p][0], papier.listeCoords[p][1], { radius: 0.2, color: 'red', width: 2, opacite: 0.7 }))
+      if (this.interactif && context.isHtml) {
+        for (let p = 0; p < papier.listeCoords.length; p++) {
+          pointsCliquables[i].push(pointCliquable(papier.listeCoords[p][0], papier.listeCoords[p][1], { radius: 0.2, color: 'red', width: 2, opacite: 0.7 }))
+        }
       }
       while (pointsPossibles.length > 1) { // si il n'en reste qu'un, on ne peut pas trouver de symétrique
         image = symetrieAxiale(point(pointsPossibles[0][0], pointsPossibles[0][1]), d)
