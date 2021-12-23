@@ -160,13 +160,12 @@ export default function CompleterParSymetrie6e () {
       texte = context.isAmc
         ? 'Voici une grille contenant des points et un axe de symétrie.<br>Ajouter un minimum de points afin que la figure soit symétrique par rapport à l\'axe.<br>Écrire le nombre de points ajoutés dans le cadre. Coder ensuite ce nombre de points.<br>'
         : 'Voici une grille contenant des points et un axe de symétrie.<br>Ajouter un minimum de points afin que la figure soit symétrique par rapport à l\'axe.<br>'
-      texteCorr = ''
       // On prépare la figure...
       texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.7 }, ...objetsEnonce[i], ...pointsCliquables[i])
       if (this.interactif && context.isHtml) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
-      texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.7, style: 'inline', id: `correction_Q${i}` }, ...objetsEnonce[i], ...pointsCliques[i]) + ' ' + mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5, style: 'inline' }, ...objetsEnonce, ...objetsCorrection[i])
+      texteCorr = mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5, style: 'inline' }, ...objetsEnonce, ...objetsCorrection[i])
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -232,7 +231,7 @@ export default function CompleterParSymetrie6e () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type d\'axes', 5, '1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique /\n4 : Axe oblique \\\n4 : Mélange']
+  this.besoinFormulaireNumerique = ['Type d\'axes', 5, '1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique /\n4 : Axe oblique \\\n5 : Mélange']
   this.besoinFormulaire2Numerique = ['Type de papier pointé', 4, '1 : Carrés\n2 : Hexagones\n3 : Triangles équilatéraux\n4 : Mélange']
   this.besoinFormulaire3CaseACocher = ['Axe centré', true]
 }
