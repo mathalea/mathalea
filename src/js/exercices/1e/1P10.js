@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texNombre, arrondi, texNombrec } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texNombre, arrondi, texNombrec, calcul } from '../../modules/outils.js'
 import { latexParCoordonnees, mathalea2d, point, segment } from '../../modules/2d.js'
+import { number, fraction, multiply, add, subtract } from 'mathjs'
 export const titre = 'Nom de l\'exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -22,6 +23,16 @@ export default function ProbabilitésConditionnelles () {
   this.video = '' // Id YouTube ou url
   this.besoinFormulaireCaseACocher = ['Probabilités fractionnaires', false]
   this.sup = false
+  /**
+   *
+   * @param {Number} proba La probabilité à afficher
+   * @param {Boolean} rationnel Si true alors // \\dfrac sinon 0,..
+   * @returns la chaine latex pour écrire la proba.
+   * version arrondie au millième
+   */
+  function texProba (proba, rationnel) {
+    return rationnel ? fraction(arrondi(proba, 3)).toLatex().replace('frac', 'dfrac') : number(arrondi(proba, 3)).toString().replace('.', '{,}')
+  }
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -56,15 +67,15 @@ export default function ProbabilitésConditionnelles () {
           objets.push(latexParCoordonnees('A', 5, 5.2, 'black', 20, 12, 'white', 10)) // 1er noeud Avion) = A
           objets.push(latexParCoordonnees('\\bar A', 5, 1.3, 'black', 20, 12, 'white', 10))// 1er noeud événement contraire \bar A
           objets.push(latexParCoordonnees('\\Omega', 0, 2.3))// Univers, point de départ de l'arbre Omega
-          if (this.sup) {
-            objets.push(latexParCoordonnees(`\\dfrac{${a}}{100}`, 2.5, 4.1, 'black', 20, 20, 'white', 6))// proba de A, ici ${a}
-            objets.push(latexParCoordonnees(`\\dfrac{${100 - a}}{100}`, 2.5, 2.1, 'black', 20, 20, 'white', 6))// proba de \\bar A 1-${a}
-            // objets.push(latexParCoordonnees(`\\dfrac{${100 - v}}{100}`, 6.8, 6.8, 'black', 20, 20, 'white', 6))// proba de B sachant A
-            // objets.push(latexParCoordonnees(`\\dfrac{${v}}{100}`, 6.8, 4.9, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant A
-            objets.push(latexParCoordonnees(`\\dfrac{${100 - v}}{100}`, 6.8, 0.9, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant \\bar A
-            objets.push(latexParCoordonnees(`\\dfrac{${v}}{100}`, 6.8, 2.7, 'black', 20, 20, 'white', 6))// proba de B sachant \\bar A
-            objets.push(latexParCoordonnees(`P(A\\cap V)=\\dfrac{${av}}{100}`, 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
-          } else {
+          // if (this.sup) {
+          objets.push(latexParCoordonnees(texProba(a / 100, this.sup), 2.5, 4.1, 'black', 20, 20, 'white', 6))// proba de A, ici ${a}
+          objets.push(latexParCoordonnees(texProba(1 - a / 100, this.sup), 2.5, 2.1, 'black', 20, 20, 'white', 6))// proba de \\bar A 1-${a}
+          // objets.push(latexParCoordonnees(`\\dfrac{${100 - v}}{100}`, 6.8, 6.8, 'black', 20, 20, 'white', 6))// proba de B sachant A
+          // objets.push(latexParCoordonnees(`\\dfrac{${v}}{100}`, 6.8, 4.9, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant A
+          objets.push(latexParCoordonnees(texProba(1 - v / 100, this.sup), 6.8, 0.9, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant \\bar A
+          objets.push(latexParCoordonnees(texProba(v / 100, this.sup), 6.8, 2.7, 'black', 20, 20, 'white', 6))// proba de B sachant \\bar A
+          objets.push(latexParCoordonnees(`P(A\\cap V)=${texProba(av / 100, this.sup)}`, 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
+          /*  } else {
             objets.push(latexParCoordonnees(texNombrec(a / 100), 2.5, 4, 'black', 20, 12, 'white', 6))
             objets.push(latexParCoordonnees(texNombrec(1 - a / 100), 2.5, 2, 'black', 20, 12, 'white', 6))
             // objets.push(latexParCoordonnees(texNombrec(1 - v / 100), 6.8, 6.5, 'black', 20, 12, 'white', 6))
@@ -74,7 +85,7 @@ export default function ProbabilitésConditionnelles () {
             objets.push(latexParCoordonnees('P(A\\cap V)=', 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
             objets.push(latexParCoordonnees(texNombrec(av / 100), 14.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
           }
-
+*/
           objets.push(latexParCoordonnees('V', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A
           objets.push(latexParCoordonnees('\\bar V', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
           objets.push(latexParCoordonnees('V', 9, 3.1, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de \bar A
@@ -102,27 +113,27 @@ export default function ProbabilitésConditionnelles () {
           texte += '<br> 4. On interroge au hasard deux clients de manière aléatoire et indépendante.'
           texte += '<br> Quelle est la probabilité qu\'aucun des deux ne prennent l\'option "visites guidées" ?'
           texteCorr = '1. De l\'énoncé on déduit que :'
-          texteCorr += `<br> $P(A)=${a / 100}$`
-          texteCorr += `<br> $P_{\\bar{A}}(V)=${v / 100}$`
-          texteCorr += `<br> $P(A \\cap V)=${av / 100}$`
+          texteCorr += `<br> $P(A)=${texProba(a / 100, this.sup)}$`
+          texteCorr += `<br> $P_{\\bar{A}}(V)=${texProba(v / 100, this.sup)}$`
+          texteCorr += `<br> $P(A \\cap V)=${texProba(av / 100, this.sup)}$`
           texteCorr += ' <br>On peut alors construire cet arbre pondéré : <br>'
           // texteCorr += mathalea2d({ xmin: -5, ymin: -1, xmax: 12, ymax: 7 }, objets)
           texteCorr += mathalea2d({ xmin: -5, ymin: -1, xmax: 18, ymax: 10 }, objets)
-          texteCorr += `<br>On a donc $P_{A}(V)=\\dfrac{P(A \\cap V)}{P(A)}=\\dfrac{${av / 100}}{${a / 100}=${texFraction(av, a)} $.`
+          texteCorr += `<br>On a donc $P_{A}(V)=\\dfrac{P(A \\cap V)}{P(A)}=\\dfrac{${texProba(av / 100, this.sup)}}{${texProba(a / 100, this.sup)}}=${texFraction(av, a)} $.`
           texteCorr += '<br><br>2. Comme $A$ et $\\bar A$ forment une partition de l\'univers, d\'après la loi des probabilités totales :'
           texteCorr += ' <br>$P(V)=P(A \\cap V)+P(\\bar{A} \\cap V) . $'
 
-          texteCorr += `<br>Or $P(\\bar{A} \\cap V)=P(\\bar{A}) \\times P_{\\bar{A}}(V)=(1-${a / 100}) \\times ${v / 100}=${texNombre((1 - a / 100) * v / 100)}$.`
-          texteCorr += `<br>Donc $P(V)=${av / 100}+${(1 - a / 100) * v / 100}=${texNombre(av / 100 + (1 - a / 100) * v / 100)}$.`
+          texteCorr += `<br>Or $P(\\bar{A} \\cap V)=P(\\bar{A}) \\times P_{\\bar{A}}(V)=(1-${texProba(a / 100, this.sup)}) \\times ${texProba(v / 100, this.sup)}=${texProba((1 - a / 100) * v / 100, this.sup)}$.`
+          texteCorr += `<br>Donc $P(V)=${texProba(av / 100, this.sup)}+${texProba((1 - a / 100) * v / 100, this.sup)}=${texProba(av / 100 + (1 - a / 100) * v / 100, this.sup)}$.`
           texteCorr += '<br><br>3. On a $P_{\\bar{V}}(A)=\\dfrac{P(\\bar{V} \\cap A)}{P(\\bar{V})}=\\dfrac{P(A \\cap \\bar{V})}{P(\\bar{V})}=\\dfrac{P(A) \\times P_A(\\bar{V})}{P(\\bar{V})}$.'
-          texteCorr += `<br>Or d'après la question précédente: $P(\\bar{V})=1-P(V)=1-${texNombre(av / 100 + (1 - a / 100) * v / 100)}=${texNombre(1 - (av / 100 + (1 - a / 100) * v / 100))}$`
+          texteCorr += `<br>Or d'après la question précédente: $P(\\bar{V})=1-P(V)=1-${texProba(av / 100 + (1 - a / 100) * v / 100, this.sup)}=${texProba(1 - (av / 100 + (1 - a / 100) * v / 100), this.sup)}$`
           texteCorr += `<br>et d'après la question $1: P_{A}(\\bar{V})=1-P_{A}(V)=1-${texFraction(av, a)}=${texFraction(a - av, a)}$.`
-          k1 = (a - av) / a
-          k2 = 1 - (av / 100 + (1 - a / 100) * v / 100)
-          texteCorr += `<br>Donc $P_{\\bar{V}}(A)=\\dfrac{${a / 100} \\times ${texFraction(a - av, a)}}{${texNombre(k2)}} \\approx ${arrondi(((a / 100) * k1) / k2)}$.`
-          texteCorr += `<br><br>4. On a vu que $P(\\bar{V})=1-${k2}=${1 - k2}$.`
+          k1 = calcul((a - av) / a)
+          k2 = calcul(1 - (av / 100 + (1 - a / 100) * v / 100))
+          texteCorr += `<br>Donc $P_{\\bar{V}}(A)=\\dfrac{${texProba(a / 100, this.sup)} \\times ${texFraction(a - av, a)}}{${texProba(k2, this.sup)}} ${((a / 100) * k1) / k2 === arrondi(((a / 100) * k1) / k2, 3) ? '=' : '\\approx'}${texProba(((a / 100) * k1) / k2, false)}$.`
+          texteCorr += `<br><br>4. On a vu que $P(\\bar{V})=1-${texProba(k2, this.sup)}=${texProba(1 - k2, this.sup)}$.`
           texteCorr += '<br>Comme les deux événements sont indépendants, en les appelant $\\bar {V_1}$ et $\\bar{V_2}$, on a : $P(\\bar{V_1}\\cap\\bar{V_2})=P(\\bar{V_1})\\times P(\\bar{V_2})$'
-          texteCorr += `<br>La probabilité cherchée est donc égale à $P(\\bar{V_1}\\cap\\bar{V_2})=${1 - k2} \\times ${1 - k2}\\approx ${arrondi((1 - k2) ** 2)}$.`
+          texteCorr += `<br>La probabilité cherchée est donc égale à $P(\\bar{V_1}\\cap\\bar{V_2})=${texProba(1 - k2, this.sup)} \\times ${texProba(1 - k2, this.sup)}\\approx${texProba((1 - k2) ** 2, false)}$.`
           break
         case 'sujetE3C2':
           c = randint(30, 70)// p(C)
