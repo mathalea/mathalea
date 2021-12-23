@@ -1283,10 +1283,7 @@ export function unSiPositifMoinsUnSinon (a) {
  */
 export function arrondi (nombre, precision = 2) {
   if (isNaN(nombre)) {
-    console.log("Voila ce qu'il y a dans nombre : ", nombre)
-    // Ancienne version retournant NaN si nombre n'en est pas un
-    // const tmp = Math.pow(10, precision)
-    // return Math.round(nombre * tmp) / tmp
+    window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', { nombre, precision })
     return NaN
   } else {
     return round(nombre, precision)

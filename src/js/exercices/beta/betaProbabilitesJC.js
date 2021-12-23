@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, texNombre } from '../../modules/outils.js'
-import { number, fraction, multiply, add, subtract } from 'mathjs'
+import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
+import { number, fraction, add, subtract } from 'mathjs'
 import { Arbre } from '../../modules/arbres.js'
 export const titre = 'Probabilités simples'
 
@@ -19,30 +19,41 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   // this.sup = 1; // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  /**
- * fonction pour tester les méthodes ci-dessus.
- * @param {String} nom Nom d'un arbre pour tester
- */
-  /* function testArbre (nom) {
-    const pin = new Arbre(null, 'Omega', 1)
-    const sylvestre = pin.setFils('sylvestre', fraction(0.8))
-    const maritime = pin.setFils('maritime', fraction(0.3))
-    const B = sylvestre.setFils('B', fraction(0.5))
-    const A = sylvestre.setFils('A', fraction(0.5))
-    const C = maritime.setFils('C', fraction(0.4))
-    const D = maritime.setFils('D', fraction(0.6))
-    const E = D.setFils('E', fraction(0.25))
-    const F = D.setFils('F', fraction(0.75))
-    const G = F.setFils('G', fraction(0.5))
-    console.log('nombres de branches : ',pin.getFils(nom).branches())
-    console.log(pin.getFils(nom))
-    console.log(pin.getProba(nom))
-    console.log(sylvestre.getProba(nom, 1)) // on met 1 pour calculer la proba conditionnelle ici le pin est sylvestre. Si nom ==='A', alors le résultat est 0.5
-    console.log(sylvestre.getProba(nom)) // on prend la proba sylvestre = 0.8, c'est donc equivalent à pin.getProba(nom). Si nom ==='A' alors le résultat est 0.8*0.5 = 0.4
-    console.log(maritime.getProba(nom))
-    console.log(B.getProba(nom))
+  const foret = {
+    nom: 'pin',
+    proba: 1,
+    enfants: [
+      {
+        nom: 'maritime',
+        proba: 0.6,
+        enfants: [
+          {
+            nom: 'pin des Landes',
+            proba: 0.5
+          },
+          {
+            nom: "pin d'Ecosse",
+            proba: 0.5
+          }
+        ]
+      },
+      {
+        nom: 'noir',
+        proba: 0.4,
+        enfants: [
+          {
+            nom: "d'Autriche",
+            proba: 0.8
+          },
+          {
+            nom: 'de Turkie',
+            proba: 0.2
+          }
+        ]
+      }
+    ]
   }
-*/
+function 
   function texProba (proba, rationnel) {
     return rationnel ? fraction(proba).toLatex().replace('frac', 'dfrac') : number(proba).toString().replace('.', '{,}')
   }
@@ -71,7 +82,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     const question1 = 'Quelle est la probabilité, pour cette équipe, de gagner le match ?'
     let correction1 = 'Notons M l\'événement "Mener à la mi-temps" et nonM l\'événement contraire.<br>'
-    correction1 += 'Notons G l\"événement "Gagner le match" et nonP l\'événement contraire "Ne pas gagner le match".<br>'
+    correction1 += 'Notons G l\'événement "Gagner le match" et nonP l\'événement contraire "Ne pas gagner le match".<br>'
     correction1 += `$\\phantom{\\text{P("Ne pas perdre le match")}} = ${texProba(pM, this.sup)} + $${texProba(pG, this.sup)}$ <br> `
     correction1 += `$\\phantom{\\text{P("Ne pas perdre le match")}}= ${texProba(add(pM, pG), this.sup)}$  <br>`
     const question2 = 'Quelle est la probabilité, pour cette équipe, de perdre le match ?'

@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 402 
-- nombre d'exos interactifReady 547 
+- nombre d'exos interactifReady 549 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -339,6 +339,8 @@
 |can2F04|Trouver les valeurs interdites d’une fonction|KO|KO|OK|mathLive|
 |can2F05|Déterminer un antécédent avec la racine carrée|KO|KO|OK|mathLive|
 |can2F06|Dresser le tableau de signes d’une fonction affine|KO|KO|OK|qcm|
+|can2F07|Lire les extremums dans un tableau de variations|KO|KO|OK|mathLive|
+|can2F08|Encadrer en utilisant un tableau de variations|KO|KO|OK|mathLive|
 |can2G01|Déterminer un agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
 |can2G02|Calculer une longueur avec le théorème de Pythagore|KO|KO|OK|mathLive|
 |can2G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|

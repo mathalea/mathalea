@@ -403,6 +403,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2F32-3": {
+    "titre": "Déterminer un extremum ou encadrer par lecture d’un tableau de variations",
+    "url": "/exercices/2e/2F32-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F32-3",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F32": {
     "titre": "Lecture graphique",
     "url": "/exercices/2e/2F32.js",
@@ -9551,6 +9566,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "betaProbabilitesJC": {
+    "titre": "Probabilités simples",
+    "url": "/exercices/beta/betaProbabilitesJC.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaProbabilitesJC",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "betaPuissances": {
     "titre": "Exercice exemple",
     "url": "/exercices/beta/betaPuissances.js",
@@ -10410,6 +10440,38 @@ export default {
     "interactifReady": true,
     "interactifType": "qcm",
     "name": "can2F06",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F07": {
+    "titre": "Lire les extremums dans un tableau de variations",
+    "url": "/exercices/can/2e/can2F07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2F07",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F08": {
+    "titre": "Encadrer en utilisant un tableau de variations",
+    "url": "/exercices/can/2e/can2F08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2F08",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
