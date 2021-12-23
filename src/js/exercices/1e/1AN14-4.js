@@ -9,6 +9,7 @@ export const titre = 'Dérivée d\'un produit'
  * @author Jean-Léon Henry
  * Référence 1AN14-4
  * @todo Corrections
+ * @todo Gestion correcte de l'ensemble de dérivabilité
 */
 
 /**
@@ -67,7 +68,7 @@ function constRienSi0 (a) {
 }
 
 export default function DeriveeProduit () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
   this.nbQuestions = 10
@@ -81,6 +82,7 @@ export default function DeriveeProduit () {
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
   reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
+
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.sup2 = Boolean(this.sup2)
@@ -88,6 +90,7 @@ export default function DeriveeProduit () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
+    // Types d'énoncés
     const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
     if (this.sup === 2) {
       listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
@@ -96,7 +99,7 @@ export default function DeriveeProduit () {
       }
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, terme1, terme2, expression, askFacto, askFormule, ensembleDerivation, namef, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, terme1, terme2, expression, askFacto, askFormule, askQuotient, ensembleDerivation, namef, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On commence par générer des fonctions qui pourrait servir
       const dictFonctions = {
         exp: 'e^x',
@@ -113,6 +116,7 @@ export default function DeriveeProduit () {
       // On précise les énoncés
       askFacto = listeTypeFonctions.includes('exp')
       askFormule = listeTypeFonctions.includes('poly1')
+      askQuotient = listeTypeFonctions.includes('inv')
       // On randomise l'ordre des termes, sauf pour l'inverse et un monome devant une racine
       let f1 = 0
       let f2 = 1
@@ -131,6 +135,7 @@ export default function DeriveeProduit () {
       const dell2 = nopar2 ? '' : '('
       const delr2 = nopar2 ? '' : ')'
       terme2 = `${dell2}${dictFonctions[typef2]}${delr2}`
+
       ensembleDerivation = '\\mathbb{R}'
 
       // 1ère étape de la dérivation
@@ -143,7 +148,7 @@ export default function DeriveeProduit () {
       namef = lettreMinusculeDepuisChiffre(i + 6)
       // Correction
       texte = askFacto ? 'Dans cette question, on demande la réponse sous forme factorisée.<br>' : ''
-      texte = askFormule ? 'Dans cette question, on demande d\'utiliser la formule de dérivation d\'un produit.<br>' : texte
+      texte = askFormule ? `Dans cette question, on demande d'utiliser la formule de dérivation d'un produit. ${askQuotient ? 'Mettre le résultat sous forme d\'un quotient.' : ''}<br>` : texte
       texte += `$${namef}:x\\longmapsto ${prettyTex(math.parse(expression))}$`
       // texte += askFacto ? ' (On factorisera la réponse)' : '' // Si l'un des termes est une exponentielle
       texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
@@ -162,6 +167,6 @@ export default function DeriveeProduit () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Produits de polynôme\n2 : Polynômes, racine']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Affine*inverse, affine*ax^2\n2 : Niveau 1 et polynômes, racine']
   this.besoinFormulaire2CaseACocher = ['Inclure l\'exponentielle dans le niveau 2']
 }
