@@ -378,6 +378,7 @@ function TracePointSurDroite (A, O) {
   // else taille = 0.2/scale
 
   if (O.constructor === Point) {
+    if (longueur(A, O) < 0.001) window.notify('TracePointSurDroite : points trop rapprochés pour définir une droite', { A, O })
     M = pointSurSegment(A, O, 1)
     this.direction = rotation(M, A, 90)
   }
@@ -424,6 +425,7 @@ export function traceMilieuSegment (A, B) {
  * @author Rémi Angot
  */
 export function milieu (A, B, nom, positionLabel = 'above') {
+  if (Number(longueur(A, B)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   const x = calcul((A.x + B.x) / 2)
   const y = calcul((A.y + B.y) / 2)
   return new Point(x, y, nom, positionLabel)
@@ -439,6 +441,7 @@ export function milieu (A, B, nom, positionLabel = 'above') {
  * @author Rémi Angot
  */
 export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
+  if (Number(longueur(A, B)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   if (l === undefined || typeof l === 'string') {
     l = calcul((longueur(A, B) * randint(15, 85)) / 100)
   }
@@ -446,27 +449,37 @@ export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
 }
 
 /**
- *
  * Est-ce que le point C appartien au segment [AB]
  * C'est ce que dira cette fonction
  * @author Jean-Claude Lhote
  */
 
 export function appartientSegment (C, A, B) {
+  if (Number(longueur(A, B)).isNaN() || Number(longueur(A, C)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
   const prodscalABAB = (B.x - A.x) ** 2 + (B.y - A.y) ** 2
   if (prodvect === 0 && prodscal > 0 && prodscal < prodscalABAB) return true
   else return false
 }
-
+/**
+ * Est-ce que le point C appartien à la droite (AB)
+ * C'est ce que dira cette fonction
+ * @author Jean-Claude Lhote
+ */
 export function appartientDroite (C, A, B) {
+  if (Number(longueur(A, B)).isNaN() || Number(longueur(A, C)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   if (prodvect === 0) return true
   else return false
 }
-
+/**
+ * Est-ce que le point C appartien à la demi-droite [AB)]
+ * C'est ce que dira cette fonction
+ * @author Jean-Claude Lhote
+ */
 export function appartientDemiDroite (C, A, B) {
+  if (Number(longueur(A, B)).isNaN() || Number(longueur(A, C)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
   if (prodvect === 0 && prodscal > 0) return true
@@ -564,6 +577,9 @@ function LabelPoint (...points) {
     points.length--
   } else {
     this.color = 'black'
+  }
+  for (const unPoint of points) {
+    if (unPoint.typeObjet !== 'point3d' && unPoint.typeObjet !== 'point') window.notify('LabelPoint : argument invalide', { ...points })
   }
   this.svg = function (coeff) {
     let code = ''; let x; let y, A
