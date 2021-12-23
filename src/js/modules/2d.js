@@ -118,9 +118,11 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
   if (arguments.length === 1) {
     this.nom = arg1
   } else if (arguments.length === 2) {
+    if (isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
     this.x = arrondi(arg1, 3)
     this.y = arrondi(arg2, 3)
   } else {
+    if (isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
     this.x = arrondi(arg1, 3)
     this.y = arrondi(arg2, 3)
     this.nom = arg3
@@ -156,6 +158,7 @@ export function point (x, y, A, labelPosition = 'above') {
  */
 function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = 'black', opacite = 1, opaciteDeRemplissage = 1 } = {}) {
   ObjetMathalea2D.call(this)
+  if (isNaN(x) || isNaN(y)) window.notify('Plot : les coordonnées ne sont pas valides', { x, y })
   this.color = couleur
   this.couleurDeRemplissage = couleurDeRemplissage
   this.rayon = rayon
@@ -758,6 +761,7 @@ function Droite (arg1, arg2, arg3, arg4) {
 
   ObjetMathalea2D.call(this)
   if (arguments.length === 2) {
+    if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Droite : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
     this.nom = ''
     this.x1 = arg1.x
     this.y1 = arg1.y
@@ -770,6 +774,8 @@ function Droite (arg1, arg2, arg3, arg4) {
     )
   } else if (arguments.length === 3) {
     if (typeof arg1 === 'number') {
+      if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3)) window.notify('Droite : (attendus : a, b et c) les arguments de sont pas des nombres valides', { arg1, arg2, arg3 })
+
       // droite d'équation ax +by +c =0
       this.nom = ''
       this.a = arg1
@@ -795,6 +801,7 @@ function Droite (arg1, arg2, arg3, arg4) {
         this.y2 = calcul((-c - a) / b)
       }
     } else {
+      if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Droite : (attendus : A, B et "nom") les arguments de sont pas des points valides', { arg1, arg2 })
       this.x1 = arg1.x
       this.y1 = arg1.y
       this.x2 = arg2.x
@@ -808,6 +815,7 @@ function Droite (arg1, arg2, arg3, arg4) {
     }
   } else if (arguments.length === 4) {
     if (typeof arg1 === 'number') {
+      if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3)) window.notify('Droite : (attendus : a, b, c et "nom") les arguments de sont pas des nombres valides', { arg1, arg2, arg3 })
       this.a = arg1
       this.b = arg2
       this.c = arg3
@@ -832,6 +840,7 @@ function Droite (arg1, arg2, arg3, arg4) {
         this.y2 = calcul((-c - a) / b)
       }
     } else {
+      if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Droite : (attendus : A, B, "nom" et "couleur") les arguments de sont pas des points valides', { arg1, arg2 })
       this.x1 = arg1.x
       this.y1 = arg1.y
       this.x2 = arg2.x
@@ -1795,12 +1804,15 @@ function Segment (arg1, arg2, arg3, arg4, color) {
   this.styleExtremites = ''
   this.tailleExtremites = 4
   if (arguments.length === 2) {
+    if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Segment : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
     this.x1 = arrondi(arg1.x, 2)
     this.y1 = arrondi(arg1.y, 2)
     this.x2 = arrondi(arg2.x, 2)
     this.y2 = arrondi(arg2.y, 2)
     this.bordure = [arg1, arg2]
   } else if (arguments.length === 3) {
+    if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Segment : (attendus : A, B et "couleur") les arguments de sont pas des points valides', { arg1, arg2 })
+
     this.x1 = arrondi(arg1.x, 2)
     this.y1 = arrondi(arg1.y, 2)
     this.x2 = arrondi(arg2.x, 2)
@@ -1808,6 +1820,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     this.bordure = [arg1, arg2]
     this.color = arg3
   } else if (arguments.length === 4) {
+    if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3) || isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', { arg1, arg2 })
     this.x1 = arrondi(arg1, 2)
     this.y1 = arrondi(arg2, 2)
     this.x2 = arrondi(arg3, 2)
@@ -1815,6 +1828,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     this.bordure = [point(arg1, arg2), point(arg3, arg4)]
   } else {
     // 5 arguments
+    if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3) || isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2, y2 et "couleur") les arguments de sont pas des nombres valides', { arg1, arg2 })
     this.x1 = arrondi(arg1, 2)
     this.y1 = arrondi(arg2, 2)
     this.x2 = arrondi(arg3, 2)
