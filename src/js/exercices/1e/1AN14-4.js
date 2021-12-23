@@ -10,7 +10,16 @@ export const titre = 'Dérivée d\'un produit'
  * Référence 1AN14-4
  * @todo Corrections
  * @todo Gestion correcte de l'ensemble de dérivabilité
-*/
+ */
+
+/**
+ * Retourne une constante formattée, rien si 0
+ * @param {number} a Nombre à formatter
+ * @returns Rien si a=0, a formatté sinon
+ */
+function constRienSi0 (a) {
+  return a === 0 ? '' : ecritureAlgebrique(a)
+}
 
 /**
 * Ecriture propre d'un monome ax
@@ -28,14 +37,14 @@ class Polynome {
   constructor (deg, mon = false, centre = false) {
     this.deg = deg
     this.monomes = []
-    if (!mon) {
-      for (let i = 0; i < deg; i++) {
-        if (deg === 2 && i === 1 && centre) {
-          this.monomes.push(0)
-          continue
-        }
-        this.monomes.push(randint(-10, 10))
+    for (let i = 0; i < deg; i++) {
+      if (deg === 2 && i === 1 && centre) {
+        this.monomes.push(0)
+        continue
       }
+      if (!mon) {
+        this.monomes.push(randint(-10, 10))
+      } else { this.monomes.push(0) }
     }
     this.monomes.push(randint(-10, 10, 0))
   }
@@ -45,6 +54,9 @@ class Polynome {
     let maj = ''
     for (const [i, c] of this.monomes.entries()) {
       switch (i) {
+        case this.deg:
+          maj = this.deg === 1 ? `${rienSi1(c)}x` : `${rienSi1(c)}x^${i}`
+          break
         case 0:
           maj = constRienSi0(c)
           break
@@ -61,8 +73,8 @@ class Polynome {
   }
 }
 // Petit test
-// const p = new Polynome(2, false, true)
-// console.log(p.toMathExpr())
+const p = new Polynome(2, true)
+console.log(p.toMathExpr())
 
 /**
  * Retourne un polynôme de degré deg. Si deg>=3, retourne un monôme.
@@ -71,40 +83,8 @@ class Polynome {
  * @returns {string} Expression du polynôme
  * @author Jean-Léon Henry
  */
-function randomPol (deg, mon = false) {
-  // if (deg <= 0) { deg = 1 }
-  let result = ''
-  const a = randint(-10, 10, 0)
-  const b = randint(-10, 10)
-  const c = randint(-10, 10)
-
-  if (mon) {
-    result = deg >= 2 ? `${rienSi1(a)}x^${deg}` : `${rienSi1(a)}x`
-  } else {
-    switch (deg) {
-      case 2:
-        result = `${rienSi1(a)} x^2  ${monome(b)} ${constRienSi0(c)}`
-        break
-      case 1:
-        result = `${rienSi1(a)} x ${constRienSi0(b)}`
-        break
-      case 0:
-        result = `${a}`
-        break
-      default:
-        result = `${rienSi1(a)}x^${deg}`
-        break
-    }
-  }
-  return result
-}
-/**
- * Retourne une constante formattée, rien si 0
- * @param {number} a Nombre à formatter
- * @returns Rien si a=0, a formatté sinon
- */
-function constRienSi0 (a) {
-  return a === 0 ? '' : ecritureAlgebrique(a)
+function randomPol (deg, mon = false, centre = false) {
+  return new Polynome(deg, mon, centre)
 }
 
 export default function DeriveeProduit () {
@@ -131,7 +111,7 @@ export default function DeriveeProduit () {
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
-    const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
+    const listeTypeDeQuestionsDisponibles = ['inv/poly1', 'monome2/poly1']
     if (this.sup === 2) {
       listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
       if (this.sup2 === true) {
@@ -148,7 +128,7 @@ export default function DeriveeProduit () {
         puissance: randomPol(randint(3, 5)),
         poly1: randomPol(1),
         // poly2: randomPol(2),
-        poly2centre: randomPol(2, true) + `${constRienSi0(randint(-10, 10))}`,
+        poly2centre: randomPol(2, false, true),
         monome2: randomPol(2, true),
         poly: randomPol(randint(1, 2))
       }
@@ -160,21 +140,26 @@ export default function DeriveeProduit () {
       // On randomise l'ordre des termes, sauf pour l'inverse et un monome devant une racine
       let f1 = 0
       let f2 = 1
-      if (!(['monome2/racine', 'inv/poly1'].includes(listeTypeDeQuestions[i]))) {
+      if (!(['monome2/racine', 'monome2/poly1', 'inv/poly1'].includes(listeTypeDeQuestions[i]))) {
         f1 = randint(0, 1)
         f2 = 1 - f1
       }
       const typef1 = listeTypeFonctions[f1]
       const typef2 = listeTypeFonctions[f2]
-      // On crée les deux termes en gérant les parenthèses autour des fonctions spéciales
+      // On gère les parenthèses autour des fonctions spéciales
       const nopar1 = ['racine', 'exp', 'monome2', 'inv'].includes(typef1)
       const nopar2 = ['racine', 'exp', 'monome2', 'inv'].includes(typef2)
       const dell1 = nopar1 ? '' : '('
       const delr1 = nopar1 ? '' : ')'
-      terme1 = `${dell1}${dictFonctions[typef1]}${delr1}`
       const dell2 = nopar2 ? '' : '('
       const delr2 = nopar2 ? '' : ')'
-      terme2 = `${dell2}${dictFonctions[typef2]}${delr2}`
+      // On crée les expressions des fonctions
+      const exprf1 = ['poly', 'mono'].includes(typef1.substring(0, 4)) ? dictFonctions[typef1].toMathExpr() : dictFonctions[typef1]
+      const exprf2 = ['poly', 'mono'].includes(typef2.substring(0, 4)) ? dictFonctions[typef2].toMathExpr() : dictFonctions[typef2]
+      terme1 = `${dell1}${exprf1}${delr1}`
+      terme2 = `${dell2}${exprf2}${delr2}`
+      console.log(typef1, terme1)
+      console.log(typef2, terme2)
 
       ensembleDerivation = '\\mathbb{R}'
 
