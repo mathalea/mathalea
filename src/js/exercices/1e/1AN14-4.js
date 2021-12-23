@@ -88,11 +88,9 @@ export default function DeriveeProduit () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
-    let listeTypeDeQuestionsDisponibles
-    if (this.sup === 1) {
-      listeTypeDeQuestionsDisponibles = [[1, 1], [1, 2], [2, 2]]
-    } else {
-      listeTypeDeQuestionsDisponibles = [[randint(1, 2), randint(1, 2)], 'racine/poly', 'racine/poly2centre', 'racine/monome2']
+    const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
+    if (this.sup === 2) {
+      listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
       if (this.sup2 === true) {
         listeTypeDeQuestionsDisponibles.push('exp/poly', 'exp/poly2centre')
       }
@@ -103,41 +101,37 @@ export default function DeriveeProduit () {
       const dictFonctions = {
         exp: 'e^x',
         racine: 'sqrt(x)',
+        inv: '1/x',
         puissance: randomPol(randint(3, 5)),
-        // poly1: randomPol(1),
+        poly1: randomPol(1),
         // poly2: randomPol(2),
         poly2centre: randomPol(2, true) + `${constRienSi0(randint(-10, 10))}`,
         monome2: randomPol(2, true),
         poly: randomPol(randint(1, 2))
       }
-      if (this.sup === 1 || typeof listeTypeDeQuestions[i] !== 'string') {
-        // Cas de produit de polynômes
-        const deg1 = listeTypeDeQuestions[i][0]
-        const deg2 = listeTypeDeQuestions[i][1]
-        terme1 = `(${randomPol(deg1)})`
-        terme2 = `(${randomPol(deg2)})`
-        ensembleDerivation = '\\mathbb{R}'
-        askFacto = false
-        askFormule = true
-      } else {
-        // Cas général
-        const listeTypeFonctions = listeTypeDeQuestions[i].split('/')
-        // On randomise l'ordre des termes
-        const f1 = randint(0, 1)
-        const f2 = 1 - f1
-        const typef1 = listeTypeFonctions[f1]
-        const typef2 = listeTypeFonctions[f2]
-        askFacto = typef1 === 'exp' || typef2 === 'exp'
-        askFormule = false
-        // On crée les deux termes en gérant les parenthèses autour des fonctions spéciales
-        const dell1 = ['racine', 'exp', 'monome2'].includes(typef1) ? '' : '('
-        const delr1 = ['racine', 'exp', 'monome2'].includes(typef1) ? '' : ')'
-        terme1 = `${dell1}${dictFonctions[typef1]}${delr1}`
-        const dell2 = ['racine', 'exp', 'monome2'].includes(typef2) ? '' : '('
-        const delr2 = ['racine', 'exp', 'monome2'].includes(typef2) ? '' : ')'
-        terme2 = `${dell2}${dictFonctions[typef2]}${delr2}`
-        ensembleDerivation = listeTypeFonctions[0] === 'racine' ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
+      const listeTypeFonctions = listeTypeDeQuestions[i].split('/')
+      // On précise les énoncés
+      askFacto = listeTypeFonctions.includes('exp')
+      askFormule = listeTypeFonctions.includes('poly1')
+      // On randomise l'ordre des termes, sauf pour l'inverse et un monome devant une racine
+      let f1 = 0
+      let f2 = 1
+      if (!(['monome2/racine', 'inv/poly1'].includes(listeTypeDeQuestions[i]))) {
+        f1 = randint(0, 1)
+        f2 = 1 - f1
       }
+      const typef1 = listeTypeFonctions[f1]
+      const typef2 = listeTypeFonctions[f2]
+      // On crée les deux termes en gérant les parenthèses autour des fonctions spéciales
+      const nopar1 = ['racine', 'exp', 'monome2', 'inv'].includes(typef1)
+      const nopar2 = ['racine', 'exp', 'monome2', 'inv'].includes(typef2)
+      const dell1 = nopar1 ? '' : '('
+      const delr1 = nopar1 ? '' : ')'
+      terme1 = `${dell1}${dictFonctions[typef1]}${delr1}`
+      const dell2 = nopar2 ? '' : '('
+      const delr2 = nopar2 ? '' : ')'
+      terme2 = `${dell2}${dictFonctions[typef2]}${delr2}`
+      ensembleDerivation = '\\mathbb{R}'
 
       // 1ère étape de la dérivation
       expression = terme1 + '*' + terme2
