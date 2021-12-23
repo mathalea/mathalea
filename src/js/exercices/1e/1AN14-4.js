@@ -24,6 +24,46 @@ function prettyTex (expression) {
   return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
 }
 
+class Polynome {
+  constructor (deg, mon = false, centre = false) {
+    this.deg = deg
+    this.monomes = []
+    if (!mon) {
+      for (let i = 0; i < deg; i++) {
+        if (deg === 2 && i === 1 && centre) {
+          this.monomes.push(0)
+          continue
+        }
+        this.monomes.push(randint(-10, 10))
+      }
+    }
+    this.monomes.push(randint(-10, 10, 0))
+  }
+
+  toMathExpr () {
+    let res = ''
+    let maj = ''
+    for (const [i, c] of this.monomes.entries()) {
+      switch (i) {
+        case 0:
+          maj = constRienSi0(c)
+          break
+        case 1:
+          maj = monome(c)
+          break
+        default:
+          maj = `${ecritureAlgebriqueSauf1(c)}x^${i}`
+          break
+      }
+      res = maj + res
+    }
+    return res
+  }
+}
+// Petit test
+// const p = new Polynome(2, false, true)
+// console.log(p.toMathExpr())
+
 /**
  * Retourne un polynôme de degré deg. Si deg>=3, retourne un monôme.
  * @param {number} deg Degré du polynôme
@@ -32,7 +72,7 @@ function prettyTex (expression) {
  * @author Jean-Léon Henry
  */
 function randomPol (deg, mon = false) {
-  if (deg <= 0) { deg = 1 }
+  // if (deg <= 0) { deg = 1 }
   let result = ''
   const a = randint(-10, 10, 0)
   const b = randint(-10, 10)
