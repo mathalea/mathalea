@@ -217,6 +217,10 @@ function TracePoint (...points) {
     this.color = points[points.length - 1]
     points.length--
   } else this.color = 'black'
+  for (const unPoint of points) {
+    if (unPoint.typeObjet !== 'point3d' && unPoint.typeObjet !== 'point') window.notify('TracePoint : argument invalide', { ...points })
+  }
+
   this.svg = function (coeff) {
     const objetssvg = []; let s1; let s2; let p1; let p2; let c, A
     for (const unPoint of points) {
@@ -1199,6 +1203,7 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
  * @author Rémi Angot
  */
 export function mediatrice (A, B, nom = '', color = 'black') {
+  if (longueur(A, B) < 0.001) window.notify('Mediatrice : Points trop rapprochés pour créer cet objet', { A, B })
   const O = milieu(A, B)
   const M = rotation(A, O, 90)
   const N = rotation(A, O, -90)
@@ -1211,6 +1216,7 @@ export function mediatrice (A, B, nom = '', color = 'black') {
  * @author Rémi Angot
  */
 function CodageMediatrice (A, B, color = 'black', mark = '×') {
+  if (longueur(A, B) < 0.1) window.notify('CodageMediatrice : Points trop rapprochés pour créer ce codage', { A, B })
   ObjetMathalea2D.call(this)
   this.color = color
   const O = milieu(A, B)
@@ -1243,6 +1249,7 @@ export function codageMediatrice (...args) {
  * @author Jean-Claude Lhote
  */
 function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
+  if (longueur(A, B) < 0.1) window.notify('CodageMilieu : Points trop rapprochés pour créer ce codage', { A, B })
   ObjetMathalea2D.call(this)
   this.color = color
   const O = milieu(A, B)
@@ -1292,6 +1299,8 @@ function ConstructionMediatrice (
   couleurMediatrice = 'red',
   epaisseurMediatrice = 2
 ) {
+  if (longueur(A, B) < 0.1) window.notify('ConstructionMediatrice : Points trop rapprochés pour créer cet objet', { A, B })
+
   ObjetMathalea2D.call(this)
   const O = milieu(A, B)
   const m = rotation(A, O, 90)
@@ -1409,7 +1418,7 @@ export function codageBissectrice (...args) {
 }
 
 /**
- * m = constructionMediatrice(A,B,false,'blue','×') // Trace et code la médiatrice en laissant apparent les traits de construction au compas
+ * m = constructionBissectrice(A,O,B,false,'blue','×',tailleLosange,couleurBissectrice,epaisseurBissectrice) // Trace et code la bissectrice en laissant apparent les traits de construction au compas
  *
  * @author Rémi Angot
  */
@@ -1424,6 +1433,7 @@ function ConstructionBissectrice (
   couleurBissectrice = 'red',
   epaiseurBissectrice = 2
 ) {
+  if (longueur(A, O) < 0.001 || longueur(O, B) < 0.001) window.notify('ConstructionBissectrice : points confondus', { A, O, B })
   const M = pointSurSegment(O, A, tailleLosange)
   const N = pointSurSegment(O, B, tailleLosange)
   const sOM = segment(O, M)
