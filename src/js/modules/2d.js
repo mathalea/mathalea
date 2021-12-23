@@ -9117,9 +9117,10 @@ export function texteParPosition (texte, x, y, orientation = 'milieu', color, sc
  * latexParPoint('\\dfrac{3}{5}',A,'black',12,20,"white") Ecrit la fraction 3/5 à l'emplacement du label du point A en noir, avec un fond blanc.
  * 12 est la largeur en pixels 20 la hauteur en pixels (utilisé à des fins de centrage). Pour un bon centrage sur A, il faut que A.positionLabel='center'.
  * si colorBackground="", le fond est transparent.
+ * tailleCaracteres est à 8 par défaut et correspond à \footnotesize. tailleCaracteres va de 5 = \small à 20 = \huge
  * @author Rémi Angot
  */
-export function latexParPoint (texte, A, color = 'black', largeur = 20, hauteur = 12, colorBackground = 'white', tailleCaracteres = 10) {
+export function latexParPoint (texte, A, color = 'black', largeur = 20, hauteur = 12, colorBackground = 'white', tailleCaracteres = 8) {
   let x; let y; const coeff = context.pixelsParCm
   const offset = arrondi(10 * Math.log10(tailleCaracteres), 2)
   switch (A.positionLabel) {
@@ -9156,7 +9157,16 @@ export function latexParPoint (texte, A, color = 'black', largeur = 20, hauteur 
   }
   return latexParCoordonnees(texte, arrondi(x, 2), arrondi(y, 2), color, largeur, hauteur, colorBackground, tailleCaracteres)
 }
-
+/**
+ * @param {String} texte Le code latex qui sera mis en mode math en ligne. Ex : '\\dfrac{4}{5}\\text{cm}'
+ * @param {Number} x abscisse du point de centrage
+ * @param {Number} y ordonnée du point de centrage
+ * @param {String} color couleur
+ * @param {Number} largeur Dimensions de la 'box' rectangulaire conteneur de la formule en pixels en considérant la taille de caractère 8='\footnotesize'
+ * @param {Number} hauteur Idem pour la hauteur de la box. Prévoir 20 par exemple pour une fraction. Permet le centrage correct.
+ * @param {String} colorBackground Couleur du fond de la box. Chaine vide pour un fond transparent.
+ * @param {Number} tailleCaracteres Taille de la police utilisée de 5 = \small à 20=\huge... agit sur la box en en modifiant les paramètres hauteur et largeur
+ */
 function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres) {
   ObjetMathalea2D.call(this)
   this.x = x
@@ -9206,6 +9216,7 @@ export function latexParCoordonnees (texte, x, y, color = 'black', largeur = 50,
 }
 
 /**
+ * Fonction dépréciée depuis que latexParCoordonnees() est au point.
  * x,y sont les coordonnées du début du trait de fraction, 0;0 par défaut
  * num et den sont les numérateurs et dénominateurs (1 et 2) par défaut
  * On peut changer la couleur (noir par défaut)
@@ -9255,17 +9266,6 @@ export function fractionParPosition (arg) {
   return new FractionParPosition(arg)
 }
 
-function Print2d (helloworld) {
-  if (typeof (helloworld) === 'number') return texteParPosition(helloworld.toString(), 0, 0, 'droite')
-  else texteParPosition(helloworld, 0, 0, 'droite')
-}
-export function print2d (...args) {
-  const objects = []
-  for (let j = 0; j < args.length; j++) {
-    objects.push(Print2d(args[j]))
-  }
-  return objects
-}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% LES FONCTIONS - CALCULS %%%%%%%%
