@@ -98,8 +98,10 @@ export default function CompleterParSymetrie6e () {
       pointsPossibles = papier.listeCoords.slice()
       // on prépare les points cliquables pour la version interactive
       // over, out et click sont des ojets pour le style css des évènements de la souris, radius, width, color, size, style sont les paramètres possibles pour la trace du point
-      for (let p = 0; p < papier.listeCoords.length; p++) {
-        pointsCliquables[i].push(pointCliquable(papier.listeCoords[p][0], papier.listeCoords[p][1], { radius: 0.2, color: 'red', width: 2, opacite: 0.7 }))
+      if (this.interactif && context.isHtml) {
+        for (let p = 0; p < papier.listeCoords.length; p++) {
+          pointsCliquables[i].push(pointCliquable(papier.listeCoords[p][0], papier.listeCoords[p][1], { radius: 0.2, color: 'red', width: 2, opacite: 0.7 }))
+        }
       }
       while (pointsPossibles.length > 1) { // si il n'en reste qu'un, on ne peut pas trouver de symétrique
         image = symetrieAxiale(point(pointsPossibles[0][0], pointsPossibles[0][1]), d)
@@ -160,13 +162,12 @@ export default function CompleterParSymetrie6e () {
       texte = context.isAmc
         ? 'Voici une grille contenant des points et un axe de symétrie.<br>Ajouter un minimum de points afin que la figure soit symétrique par rapport à l\'axe.<br>Écrire le nombre de points ajoutés dans le cadre. Coder ensuite ce nombre de points.<br>'
         : 'Voici une grille contenant des points et un axe de symétrie.<br>Ajouter un minimum de points afin que la figure soit symétrique par rapport à l\'axe.<br>'
-      texteCorr = ''
       // On prépare la figure...
       texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.7 }, ...objetsEnonce[i], ...pointsCliquables[i])
       if (this.interactif && context.isHtml) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
-      texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.7, style: 'inline', id: `correction_Q${i}` }, ...objetsEnonce[i], ...pointsCliques[i]) + ' ' + mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5, style: 'inline' }, ...objetsEnonce, ...objetsCorrection[i])
+      texteCorr = mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5, style: 'inline' }, ...objetsEnonce, ...objetsCorrection[i])
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -232,7 +233,7 @@ export default function CompleterParSymetrie6e () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type d\'axes', 5, '1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique /\n4 : Axe oblique \\\n4 : Mélange']
+  this.besoinFormulaireNumerique = ['Type d\'axes', 5, '1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique /\n4 : Axe oblique \\\n5 : Mélange']
   this.besoinFormulaire2Numerique = ['Type de papier pointé', 4, '1 : Carrés\n2 : Hexagones\n3 : Triangles équilatéraux\n4 : Mélange']
   this.besoinFormulaire3CaseACocher = ['Axe centré', true]
 }

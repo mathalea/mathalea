@@ -217,6 +217,10 @@ function TracePoint (...points) {
     this.color = points[points.length - 1]
     points.length--
   } else this.color = 'black'
+  for (const unPoint of points) {
+    if (unPoint.typeObjet !== 'point3d' && unPoint.typeObjet !== 'point') window.notify('TracePoint : argument invalide', { ...points })
+  }
+
   this.svg = function (coeff) {
     const objetssvg = []; let s1; let s2; let p1; let p2; let c, A
     for (const unPoint of points) {
@@ -374,6 +378,7 @@ function TracePointSurDroite (A, O) {
   // else taille = 0.2/scale
 
   if (O.constructor === Point) {
+    if (longueur(A, O) < 0.001) window.notify('TracePointSurDroite : points trop rapprochés pour définir une droite', { A, O })
     M = pointSurSegment(A, O, 1)
     this.direction = rotation(M, A, 90)
   }
@@ -420,6 +425,7 @@ export function traceMilieuSegment (A, B) {
  * @author Rémi Angot
  */
 export function milieu (A, B, nom, positionLabel = 'above') {
+  if (Number(longueur(A, B)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   const x = calcul((A.x + B.x) / 2)
   const y = calcul((A.y + B.y) / 2)
   return new Point(x, y, nom, positionLabel)
@@ -435,6 +441,7 @@ export function milieu (A, B, nom, positionLabel = 'above') {
  * @author Rémi Angot
  */
 export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
+  if (Number(longueur(A, B)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   if (l === undefined || typeof l === 'string') {
     l = calcul((longueur(A, B) * randint(15, 85)) / 100)
   }
@@ -442,27 +449,37 @@ export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
 }
 
 /**
- *
  * Est-ce que le point C appartien au segment [AB]
  * C'est ce que dira cette fonction
  * @author Jean-Claude Lhote
  */
 
 export function appartientSegment (C, A, B) {
+  if (Number(longueur(A, B)).isNaN() || Number(longueur(A, C)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
   const prodscalABAB = (B.x - A.x) ** 2 + (B.y - A.y) ** 2
   if (prodvect === 0 && prodscal > 0 && prodscal < prodscalABAB) return true
   else return false
 }
-
+/**
+ * Est-ce que le point C appartien à la droite (AB)
+ * C'est ce que dira cette fonction
+ * @author Jean-Claude Lhote
+ */
 export function appartientDroite (C, A, B) {
+  if (Number(longueur(A, B)).isNaN() || Number(longueur(A, C)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   if (prodvect === 0) return true
   else return false
 }
-
+/**
+ * Est-ce que le point C appartien à la demi-droite [AB)]
+ * C'est ce que dira cette fonction
+ * @author Jean-Claude Lhote
+ */
 export function appartientDemiDroite (C, A, B) {
+  if (Number(longueur(A, B)).isNaN() || Number(longueur(A, C)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
   if (prodvect === 0 && prodscal > 0) return true
@@ -560,6 +577,9 @@ function LabelPoint (...points) {
     points.length--
   } else {
     this.color = 'black'
+  }
+  for (const unPoint of points) {
+    if (unPoint.typeObjet !== 'point3d' && unPoint.typeObjet !== 'point') window.notify('LabelPoint : argument invalide', { ...points })
   }
   this.svg = function (coeff) {
     let code = ''; let x; let y, A
@@ -1199,6 +1219,7 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
  * @author Rémi Angot
  */
 export function mediatrice (A, B, nom = '', color = 'black') {
+  if (longueur(A, B) < 0.001) window.notify('Mediatrice : Points trop rapprochés pour créer cet objet', { A, B })
   const O = milieu(A, B)
   const M = rotation(A, O, 90)
   const N = rotation(A, O, -90)
@@ -1211,6 +1232,7 @@ export function mediatrice (A, B, nom = '', color = 'black') {
  * @author Rémi Angot
  */
 function CodageMediatrice (A, B, color = 'black', mark = '×') {
+  if (longueur(A, B) < 0.1) window.notify('CodageMediatrice : Points trop rapprochés pour créer ce codage', { A, B })
   ObjetMathalea2D.call(this)
   this.color = color
   const O = milieu(A, B)
@@ -1243,6 +1265,7 @@ export function codageMediatrice (...args) {
  * @author Jean-Claude Lhote
  */
 function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
+  if (longueur(A, B) < 0.1) window.notify('CodageMilieu : Points trop rapprochés pour créer ce codage', { A, B })
   ObjetMathalea2D.call(this)
   this.color = color
   const O = milieu(A, B)
@@ -1292,6 +1315,8 @@ function ConstructionMediatrice (
   couleurMediatrice = 'red',
   epaisseurMediatrice = 2
 ) {
+  if (longueur(A, B) < 0.1) window.notify('ConstructionMediatrice : Points trop rapprochés pour créer cet objet', { A, B })
+
   ObjetMathalea2D.call(this)
   const O = milieu(A, B)
   const m = rotation(A, O, 90)
@@ -1409,7 +1434,7 @@ export function codageBissectrice (...args) {
 }
 
 /**
- * m = constructionMediatrice(A,B,false,'blue','×') // Trace et code la médiatrice en laissant apparent les traits de construction au compas
+ * m = constructionBissectrice(A,O,B,false,'blue','×',tailleLosange,couleurBissectrice,epaisseurBissectrice) // Trace et code la bissectrice en laissant apparent les traits de construction au compas
  *
  * @author Rémi Angot
  */
@@ -1424,6 +1449,7 @@ function ConstructionBissectrice (
   couleurBissectrice = 'red',
   epaiseurBissectrice = 2
 ) {
+  if (longueur(A, O) < 0.001 || longueur(O, B) < 0.001) window.notify('ConstructionBissectrice : points confondus', { A, O, B })
   const M = pointSurSegment(O, A, tailleLosange)
   const N = pointSurSegment(O, B, tailleLosange)
   const sOM = segment(O, M)
