@@ -56,7 +56,7 @@ class Polynome {
     this.monomes.push(randint(-10, 10, 0))
   }
 
-  toMathExpr2 () {
+  toMathExpr () {
     let res = ''
     let maj = ''
     for (const [i, c] of this.monomes.entries()) {
@@ -79,12 +79,12 @@ class Polynome {
     return res
   }
 
-  toMathExpr () {
+  toMathExpr2 () {
     // if (this.mon) console.log(this.monomes)
     const affRed = reduireAxPlusB(this.monomes[1], this.monomes[0])
     let res = affRed === '0' ? '' : affRed
     // eslint-disable-next-line no-return-assign
-    this.monomes.slice(2).forEach((el, i) => res = `${ecritureAlgebriqueSauf1(el)}x^${i + 2}` + res)
+    this.monomes.slice(2).forEach((el, i) => res = (el !== 0 ? `${i === this.monomes.slice(2).length ? el : ecritureAlgebriqueSauf1(el)}x^${i + 2}` + res : ''))
     return res
   }
 }
@@ -114,6 +114,7 @@ export default function DeriveeProduit () {
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
   reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
+  reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
 
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
@@ -159,43 +160,30 @@ export default function DeriveeProduit () {
       const typef1 = listeTypeFonctions[f1]
       const typef2 = listeTypeFonctions[f2]
       // On gère les parenthèses autour des fonctions spéciales
-      const nopar1 = ['racine', 'exp', 'monome2', 'inv'].includes(typef1)
-      const nopar2 = ['racine', 'exp', 'monome2', 'inv'].includes(typef2)
-      const dell1 = nopar1 ? '' : '('
-      const delr1 = nopar1 ? '' : ')'
-      const dell2 = nopar2 ? '' : '('
-      const delr2 = nopar2 ? '' : ')'
-      // On crée les expressions des fonctions
+      const noPar = type => ['racine', 'exp', 'monome2', 'inv'].includes(type)
+      const parenth = (expr, type) => (noPar(type) ? expr : `(${expr})`)
+      // On crée les expressions des fonctions : les polynômes dans dictFonctions ne sont pas des chaînes
       const exprf1 = ['poly', 'mono'].includes(typef1.substring(0, 4)) ? dictFonctions[typef1].toMathExpr() : dictFonctions[typef1]
       const exprf2 = ['poly', 'mono'].includes(typef2.substring(0, 4)) ? dictFonctions[typef2].toMathExpr() : dictFonctions[typef2]
-      terme1 = `${dell1}${exprf1}${delr1}`
-      terme2 = `${dell2}${exprf2}${delr2}`
-      console.log(typef1, terme1)
-      console.log(typef2, terme2)
-
+      terme1 = parenth(exprf1, typef1)
+      terme2 = parenth(exprf2, typef2)
+      // Ensemble de dérivation
       ensembleDerivation = listeTypeFonctions.includes('racine') ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
       ensembleDerivation = listeTypeFonctions.includes('inv') ? '\\mathbb{R}^*' : ensembleDerivation
 
       // 1ère étape de la dérivation
       expression = terme1 + '*' + terme2
-      const derivee1m = math.simplify(math.derivative(terme1, 'x'))
-      const derivee2m = math.simplify(math.derivative(terme2, 'x'))
-      const intermediaire = `(${derivee1m})${terme2}+(${terme1})(${derivee2m})`
+      // const derivee1m = math.simplify(math.derivative(terme1, 'x'), reglesDeSimplifications)
+      // const derivee2m = math.simplify(math.derivative(terme2, 'x'), reglesDeSimplifications)
+      // const intermediaire = `${derivee1m}*${terme2}+${terme1}*(${derivee2m})`
 
       namef = lettreMinusculeDepuisChiffre(i + 6)
       // Correction
       texte = askFacto ? 'Dans cette question, on demande la réponse sous forme factorisée.<br>' : ''
       texte = askFormule ? `Dans cette question, on demande d'utiliser la formule de dérivation d'un produit. ${askQuotient ? 'Mettre le résultat sous forme d\'un quotient.' : ''}<br>` : texte
       texte += `$${namef}:x\\longmapsto ${prettyTex(math.parse(expression))}$`
-      // texte += askFacto ? ' (On factorisera la réponse)' : '' // Si l'un des termes est une exponentielle
       texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
-      texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a \\[${namef}'(x)=${prettyTex(math.parse(intermediaire))}.\\]`
-      // Cas où la dérivée contient un quotient
-      texteCorr += 'En simplifiant le terme contenant un quotient on a alors : '
-      texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(intermediaire, reglesDeSimplifications))}.\\]`
-      if (askQuotient) {
-        texteCorr += 'Il ne reste alors qu\'à mettre la fraction sur le même dénominateur : <br>'
-      }
+      // texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a \\[${namef}'(x)=${prettyTex(math.parse(intermediaire))}.\\]`
 
       // texte = texte.replaceAll('frac', 'dfrac')
       // texteCorr = texteCorr.replaceAll('frac', 'dfrac')
