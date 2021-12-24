@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi } from '../../modules/outils.js'
 import { number, fraction, add, subtract } from 'mathjs'
 import { Arbre } from '../../modules/arbres.js'
 export const titre = 'Probabilités simples'
@@ -53,31 +53,30 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       }
     ]
   }
-  function texProba (proba, rationnel) {
-    return rationnel ? fraction(proba).toLatex().replace('frac', 'dfrac') : number(proba).toString().replace('.', '{,}')
+  function texProba (proba, rationnel, precision) {
+    return rationnel ? fraction(arrondi(proba, precision)).toLatex().replace('frac', 'dfrac') : number(arrondi(proba, precision)).toString().replace('.', '{,}')
   }
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    const ratio = this.sup
     const pM = fraction(randint(20, 60), 100)
     const pG = fraction(randint(50, 80), 100)
     const pP = fraction(randint(50, 80), 100)
     // on crée l'arbre des probabilités.
-    const match = new Arbre(null, 'Match', 1, this.sup)
-    const M = match.setFils('M', pM, this.sup)
-    const nonM = match.setFils('nonM', subtract(1, pM), this.sup)
-    const MG = M.setFils('MG', pG, this.sup)
-    const MP = M.setFils('MP', subtract(1, pG), this.sup)
-    const PP = nonM.setFils('PP', pP, this.sup)
-    const PG = nonM.setFils('PG', subtract(1, pP), this.sup)
+    const match = new Arbre(null, 'Match', 1, ratio)
+    const M = match.setFils('M', pM, ratio)
+    const nonM = match.setFils('nonM', subtract(1, pM), ratio)
+    const MG = M.setFils('MG', pG, ratio)
+    const MP = M.setFils('MP', subtract(1, pG), ratio)
+    const PP = nonM.setFils('PP', pP, ratio)
+    const PG = nonM.setFils('PG', subtract(1, pP), ratio)
     console.log(match)
-
     const sport = choice(['hand-ball', 'football', 'rugby', 'basket', 'volley-ball', 'water-polo', 'baseball'])
-    console.log(this.sup)
-    this.consigne = `Lors d'un match de ${sport}, l'équipe qui reçoit un adversaire a une probabilité de $${texProba(pM, this.sup)}$ de mener à la mi-temps.<br>`
-    this.consigne += ` Si elle mène à la mi-temps, sa probabilité de gagner le match est de $${texProba(pG, this.sup)}$.<br>`
-    this.consigne += ` Si elle perd à la mi-temps, sa probabilité de perdre le match est de $${texProba(pP, this.sup)}$.<br>`
+    this.consigne = `Lors d'un match de ${sport}, l'équipe qui reçoit un adversaire a une probabilité de $${texProba(pM, ratio, 2)}$ de mener à la mi-temps.<br>`
+    this.consigne += ` Si elle mène à la mi-temps, sa probabilité de gagner le match est de $${texProba(pG, ratio, 2)}$.<br>`
+    this.consigne += ` Si elle perd à la mi-temps, sa probabilité de perdre le match est de $${texProba(pP, ratio, 2)}$.<br>`
 
     const question1 = 'Quelle est la probabilité, pour cette équipe, de gagner le match ?'
     let correction1 = 'Notons M l\'événement "Mener à la mi-temps" et nonM l\'événement contraire.<br>'
