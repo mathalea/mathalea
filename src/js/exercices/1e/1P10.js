@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, texNombre, arrondi, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, arrondi, calcul } from '../../modules/outils.js'
 import { latexParCoordonnees, mathalea2d, point, segment } from '../../modules/2d.js'
 import { number, fraction } from 'mathjs'
 export const titre = 'Probabilités conditionnelles'
@@ -38,7 +38,7 @@ export default function ProbabilitésConditionnelles () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let objets
-    const typeQuestionsDisponibles = ['sujetE3C1', 'sujetE3C2'] // On créé 3 types de questions
+    const typeQuestionsDisponibles = ['sujetE3C1', 'sujetE3C1'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, a, c, ec, ce, v, av, A, B, A1, A2, A3, A4, O, k1, k2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
@@ -108,7 +108,7 @@ export default function ProbabilitésConditionnelles () {
           texte += '<br> $\\bullet~~$ $A$ :  le client a choisi l\'avion.'
           texte += '<br> $\\bullet~~$ $V$ : le client a choisi l\'option "visites guidées".<br>'
           texte += '<br> 1. Déterminer $P_A(V)$.'
-          texte += `<br> 2.  Démontrer que la probabilité pour que le client interrogé ait choisi l'option "visites guidées" est égale à $${texNombre(av / 100 + (1 - a / 100) * v / 100)}$.`
+          texte += `<br> 2.  Démontrer que la probabilité pour que le client interrogé ait choisi l'option "visites guidées" est environ égale à $${texProba(av / 100 + (1 - a / 100) * v / 100, false)}$.`
           texte += '<br> 3. Calculer la probabilité pour que le client interrogé ait pris l\'avion sachant qu\'il n\'a pas choisi l\'option "visites guidées". Arrondir le résultat au centième.'
           texte += '<br> 4. On interroge au hasard deux clients de manière aléatoire et indépendante.'
           texte += '<br> Quelle est la probabilité qu\'aucun des deux ne prennent l\'option "visites guidées" ?'
