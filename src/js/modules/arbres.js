@@ -138,7 +138,7 @@ export class Arbre {
       ? xOrigine
       : xOrigine + decalage + this.taille * echelle / 2
     , vertical
-      ? yOrigine + decalage + this.taille * echelle / 2
+      ? yOrigine + decalage - this.taille * echelle / 2
       : yOrigine
     , '', 'center')
     const B = point(vertical
@@ -161,10 +161,11 @@ export class Arbre {
           ? xOrigine + sens * 7
           : xOrigine + decalage + this.taille * echelle / 2
         , vertical
-          ? yOrigine + decalage + this.taille * echelle / 2
+          ? yOrigine + decalage - this.taille * echelle / 2
           : yOrigine + sens * 7
-        ,
-        calcul(echelle * ((i - this.enfants.length / 2) * this.enfants[i].taille)),
+        , vertical
+          ? calcul(echelle * ((this.enfants.length / 2 - i) * this.enfants[i].taille))
+          : calcul(echelle * ((i - this.enfants.length / 2) * this.enfants[i].taille)),
         echelle, vertical, sens))
       }
       if (this.racine) {
