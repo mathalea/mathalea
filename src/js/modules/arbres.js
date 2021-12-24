@@ -1,5 +1,5 @@
 import { add, number, fraction, multiply } from 'mathjs'
-import { barycentre, latexParCoordonnees, latexParPoint, milieu, point, polygone, segment } from './2d'
+import { barycentre, latexParPoint, point, polygone, segment } from './2d'
 import { arrondi, calcul } from './outils'
 
 export function texProba (proba, rationnel, precision) {
@@ -106,6 +106,7 @@ export class Arbre {
     }
   }
 
+  // méthode pour compter les descendants de l'arbre (le nombre de feuilles terminales).
   branches () {
     let nbBranches = 0
     if (this.enfants.length === 0) return 1
@@ -117,11 +118,12 @@ export class Arbre {
     return nbBranches
   }
 
-  setPosition () {
+  // Methode à appeler avant de représenter l'arbre car elle va récursivement définir toutes les tailles...
+  setTailles () {
     try {
       this.taille = this.branches()
       for (const arbre of this.enfants) {
-        arbre.setPosition()
+        arbre.setTailles()
       }
     } catch (error) {
       console.log(error)
@@ -130,9 +132,14 @@ export class Arbre {
     return true
   }
 
-  // vertical est un booléen. Si true, alors l'arbre sera construit de bas en haut ou de haut en bas, sinon, il sera construit de gauche à droite ou de droite à gauche.
-  // sens indique la direction de pousse : 1 positif, -1 négatif.
-  represente (xOrigine = 0, yOrigine = 0, decalage, echelle = 1, vertical = false, sens = -1) {
+  /**
+   * xOrigine et yOrigine définissent le point de référence de l'arbre... c'est un angle du cadre dans lequel l'arbre est construit par la position de la racine
+   * decalage vaut 0 lors de l'appel initial... cette valeur est modifiée pendant le parcours de l'arbre.
+   * echelle est à fixé à 3 si on utilise des fractions et peut être déscendu à 2 si on utilise des nombres décimaux... echelle peut être décimal.
+   * vertical est un booléen. Si true, alors l'arbre sera construit de bas en haut ou de haut en bas, sinon, il sera construit de gauche à droite ou de droite à gauche.
+   * sens indique la direction de pousse : 1 positif, -1 négatif.
+   */
+  represente (xOrigine = 0, yOrigine = 0, decalage = 0, echelle = 1, vertical = false, sens = -1) {
     const objets = []
     const A = point(vertical
       ? xOrigine

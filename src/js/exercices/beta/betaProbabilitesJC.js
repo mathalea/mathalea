@@ -130,8 +130,8 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     this.autoCorrection = []
     let texte = ''
     let texteCorr = ''
-    omega.setPosition()
-    omega2.setPosition()
+    omega.setTailles()
+    omega2.setTailles()
     const probaB = omega.getProba('B', true)
     const probaR = omega.getProba('R', true)
     const probaV = omega.getProba('V', true)
