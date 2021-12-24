@@ -143,10 +143,10 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     // eslint-disable-next-line no-template-curly-in-string
     console.log("const probaB = omega.getProba('B', true)\nconst probaR = omega.getProba('R', true)\nconst probaV = omega.getProba('V', true)\nconsole.log(`P(B) = ${texProba(probaB, true)}`)\nconsole.log(`P(R) = ${texProba(probaV, true)}`)\nconsole.log(`P(V) = ${texProba(probaB, true)}`)")
 
-    const objets = omega.represente(0, 24, 0, 3, true, 1)
-    texte += mathalea2d({ xmin: -1, xmax: 20, ymin: -1, ymax: 25 }, ...objets)
-    const objets2 = omega2.represente(0, 24, 0, 3, false, -1)
-    texte += mathalea2d({ xmin: -1, xmax: 20, ymin: -1, ymax: 25 }, ...objets2)
+    const objets = omega.represente(0, 15, 0, 3, true, -1)
+    texte += mathalea2d({ xmin: -15, xmax: 1, ymin: -2, ymax: 15, style: 'inline' }, ...objets)
+    const objets2 = omega2.represente(0, 0, 0, 3, false, 1)
+    texte += mathalea2d({ xmin: 0, xmax: 18, ymin: 0, ymax: 17, style: 'inline' }, ...objets2)
     texteCorr += 'et ceci est la correction'
 
     this.listeQuestions.push(texte)
