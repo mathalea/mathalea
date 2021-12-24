@@ -16,7 +16,8 @@ export function texProba (proba, rationnel, precision) {
  * Exemple: const pin = new Arbre(null, 'pin', 1) (c'est une forêt de pins)
  */
 export class Arbre {
-  constructor ({ nom, proba, enfants, rationnel, visible, alter } = {}) {
+  constructor ({ nom, proba, enfants, rationnel, visible, alter, racine } = {}) {
+    this.racine = racine !== undefined ? Boolean(racine) : false
     this.enfants = enfants !== undefined ? Array(...enfants) : []
     this.nom = nom !== undefined ? String(nom) : ''
     this.rationnel = rationnel !== undefined ? Boolean(rationnel) : true
@@ -133,26 +134,43 @@ export class Arbre {
   // sens indique la direction de pousse : 1 positif, -1 négatif.
   represente (xOrigine = 0, yOrigine = 0, decalage, echelle = 1, vertical = false, sens = -1) {
     const objets = []
-    const A = point(xOrigine, yOrigine + decalage + this.taille * echelle / 2, '', 'center')
-    const B = point(xOrigine - sens * 7, yOrigine)
+    const A = point(vertical
+      ? xOrigine
+      : xOrigine + decalage + this.taille * echelle / 2
+    , vertical
+      ? yOrigine + decalage + this.taille * echelle / 2
+      : yOrigine
+    , '', 'center')
+    const B = point(vertical
+      ? xOrigine - sens * 7
+      : xOrigine
+    , vertical
+      ? yOrigine
+      : yOrigine - sens * 7
+    )
     const labelA = latexParPoint(this.nom, A, 'black', 8 * this.nom.length, 20, 'white', 10)
     const positionProba = barycentre(polygone(A, A, A, B, B), '', 'center') // Proba au 2/5 de [AB] en partant de A.
     const probaA = this.visible
       ? latexParPoint(texProba(this.proba, this.rationnel, 2), positionProba, 'black', 20, 24, 'white', 8)
       : latexParPoint(this.alter, positionProba, 'black', 20, 24, 'white', 8)
     if (this.enfants.length === 0) {
-      return [segment(xOrigine - sens * 7, yOrigine, A.x, A.y), labelA, probaA]
+      return [segment(B, A), labelA, probaA]
     } else {
       for (let i = 0; i < this.enfants.length; i++) {
-        objets.push(...this.enfants[i].represente(xOrigine + sens * 7,
-          yOrigine + decalage + this.taille * echelle / 2,
-          calcul(echelle * ((i - this.enfants.length / 2) * this.enfants[i].taille)),
-          echelle, vertical, sens))
+        objets.push(...this.enfants[i].represente(vertical
+          ? xOrigine + sens * 7
+          : xOrigine + decalage + this.taille * echelle / 2
+        , vertical
+          ? yOrigine + decalage + this.taille * echelle / 2
+          : yOrigine + sens * 7
+        ,
+        calcul(echelle * ((i - this.enfants.length / 2) * this.enfants[i].taille)),
+        echelle, vertical, sens))
       }
-      if (xOrigine === 0 && yOrigine === 0) {
+      if (this.racine) {
         objets.push(labelA)
       } else {
-        objets.push(segment(xOrigine - sens * 7, yOrigine, A.x, A.y), labelA, probaA)
+        objets.push(segment(B, A), labelA, probaA)
       }
     }
     return objets

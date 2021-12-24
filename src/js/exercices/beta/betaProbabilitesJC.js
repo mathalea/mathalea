@@ -21,6 +21,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   const omega = new Arbre({
+    racine: true,
     rationnel: this.sup,
     nom: '\\Omega',
     proba: fraction(1),
@@ -74,10 +75,12 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     ]
   })
   const omega2 = new Arbre({
+    racine: true,
     rationnel: false,
-    nom: '\\Omega',
+    nom: '',
     proba: 1,
     visible: false,
+    alter: '',
     enfants: [
       new Arbre(
         {
@@ -142,7 +145,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
     const objets = omega.represente(0, 0, 0, 3, true, 1)
     texte += mathalea2d({ xmin: -1, xmax: 20, ymin: -1, ymax: 25 }, ...objets)
-    const objets2 = omega2.represente(0, 0, 0, 3, true, 1)
+    const objets2 = omega2.represente(0, 24, 0, 3, false, -1)
     texte += mathalea2d({ xmin: -1, xmax: 20, ymin: -1, ymax: 25 }, ...objets2)
     texteCorr += 'et ceci est la correction'
 
