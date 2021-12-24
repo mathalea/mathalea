@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureAlgebriqueSauf1, lettreMinusculeDepuisChiffre, rienSi1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureAlgebriqueSauf1, lettreMinusculeDepuisChiffre, rienSi1, reduireAxPlusB } from '../../modules/outils.js'
 import { simplify, parse, derivative } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Dérivée d\'un produit'
@@ -33,9 +33,16 @@ function prettyTex (expression) {
   return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
 }
 
+/**
+ * Crée un objet Polynome de degré donné.
+ * @param deg degré
+ * @param mon monôme
+ * @param centre pour obtenir ax^+b
+ */
 class Polynome {
   constructor (deg, mon = false, centre = false) {
     this.deg = deg
+    this.mon = mon
     this.monomes = []
     for (let i = 0; i < deg; i++) {
       if (deg === 2 && i === 1 && centre) {
@@ -49,7 +56,7 @@ class Polynome {
     this.monomes.push(randint(-10, 10, 0))
   }
 
-  toMathExpr () {
+  toMathExpr2 () {
     let res = ''
     let maj = ''
     for (const [i, c] of this.monomes.entries()) {
@@ -71,17 +78,22 @@ class Polynome {
     }
     return res
   }
+
+  toMathExpr () {
+    // if (this.mon) console.log(this.monomes)
+    const affRed = reduireAxPlusB(this.monomes[1], this.monomes[0])
+    let res = affRed === '0' ? '' : affRed
+    // eslint-disable-next-line no-return-assign
+    this.monomes.slice(2).forEach((el, i) => res = `${ecritureAlgebriqueSauf1(el)}x^${i + 2}` + res)
+    return res
+  }
 }
 // Petit test
 const p = new Polynome(2, true)
 console.log(p.toMathExpr())
 
 /**
- * Retourne un polynôme de degré deg. Si deg>=3, retourne un monôme.
- * @param {number} deg Degré du polynôme
- * @param {boolean} mon Si on ne veut qu'un monôme
- * @returns {string} Expression du polynôme
- * @author Jean-Léon Henry
+ * Retourne un polynôme de degré deg.
  */
 function randomPol (deg, mon = false, centre = false) {
   return new Polynome(deg, mon, centre)
@@ -161,14 +173,14 @@ export default function DeriveeProduit () {
       console.log(typef1, terme1)
       console.log(typef2, terme2)
 
-      ensembleDerivation = '\\mathbb{R}'
+      ensembleDerivation = listeTypeFonctions.includes('racine') ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
+      ensembleDerivation = listeTypeFonctions.includes('inv') ? '\\mathbb{R}^*' : ensembleDerivation
 
       // 1ère étape de la dérivation
       expression = terme1 + '*' + terme2
-      // console.log(expression)
       const derivee1m = math.simplify(math.derivative(terme1, 'x'))
       const derivee2m = math.simplify(math.derivative(terme2, 'x'))
-      const intermediaire = `(${derivee1m})${terme2}+${terme1}(${derivee2m})`
+      const intermediaire = `(${derivee1m})${terme2}+(${terme1})(${derivee2m})`
 
       namef = lettreMinusculeDepuisChiffre(i + 6)
       // Correction
@@ -177,7 +189,13 @@ export default function DeriveeProduit () {
       texte += `$${namef}:x\\longmapsto ${prettyTex(math.parse(expression))}$`
       // texte += askFacto ? ' (On factorisera la réponse)' : '' // Si l'un des termes est une exponentielle
       texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
-      texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a \\[${namef}'(x)=${prettyTex(math.simplify(intermediaire, reglesDeSimplifications))}.\\]`
+      texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a \\[${namef}'(x)=${prettyTex(math.parse(intermediaire))}.\\]`
+      // Cas où la dérivée contient un quotient
+      texteCorr += 'En simplifiant le terme contenant un quotient on a alors : '
+      texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(intermediaire, reglesDeSimplifications))}.\\]`
+      if (askQuotient) {
+        texteCorr += 'Il ne reste alors qu\'à mettre la fraction sur le même dénominateur : <br>'
+      }
 
       // texte = texte.replaceAll('frac', 'dfrac')
       // texteCorr = texteCorr.replaceAll('frac', 'dfrac')
