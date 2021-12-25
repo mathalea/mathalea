@@ -97,7 +97,6 @@ export class Arbre {
           if (rationnel) {
             probaArbre = add(fraction(probaArbre), multiply(fraction(arbre.proba), fraction(arbre.getProba(nom, true))))
           } else {
-            console.log('que fait-on ici dans les nombres ?')
             probaArbre = number(probaArbre) + number(multiply(arbre.proba, number(arbre.getProba(nom, false))))
           }
         }
