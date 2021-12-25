@@ -4,6 +4,7 @@ import { number, fraction, add, subtract } from 'mathjs'
 import { Arbre, texProba } from '../../../modules/arbres.js'
 import { mathalea2d } from '../../../modules/2d.js'
 import { ajouteChampFractionMathLive, ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
+import { context } from '../../../modules/context.js'
 export const titre = 'Arbre de probabilité'
 export const dateDePublication = "25/12/2021"
 export const interactifReady = true
