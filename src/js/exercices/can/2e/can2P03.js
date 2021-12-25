@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, centrage } from '../../../modules/outils.js'
 import { number, fraction, add, subtract } from 'mathjs'
 import { Arbre, texProba } from '../../../modules/arbres.js'
 import { mathalea2d } from '../../../modules/2d.js'
@@ -33,10 +33,11 @@ export default function CalculProbaArbre2e () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    for (let i = 0,cpt=0,pA,pAC,pBC,omega,texte,texteCorr,objets,pC; i<this.nbQuestions&& cpt<50;){
+    for (let i = 0,cpt=0,pA,pB,pAC,pBC,omega,texte,texteCorr,objets,pC; i<this.nbQuestions&& cpt<50;){
       objets = []
       // On choisit les probas de l'arbre
       pA = number(randint(2,8)/10)
+      pB=number(1-pA)
       pAC = number(randint(2,8)/10)
       pBC = number(randint(2,8)/10)
       // On définit l'arbre complet
@@ -93,11 +94,14 @@ export default function CalculProbaArbre2e () {
     omega.setTailles() // On calcule les tailles des arbres.
     objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
     pC = omega.getProba('C',false) // on calcule P(C) décimale.
-    texte = `On donne l\'arbre de probabilités ci dessous et $P(C)=${texProba(pC)}$.`
-    texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7}, ...objets)
-    texte += `$x=$ ${(this.interactif || !context.isHtml) ? ajouteChampTexteMathLive(this,i,'largeur10 inline') : '\\ldots'}`
-    texteCorr =''
-    texteCorr += `$x=${texProba(pBC)}$`
+    texte = `On donne l\'arbre de probabilités ci dessous et $P(C)=${texProba(pC)}$.<br>$\\phantom{1. On donne ceci}$`
+    texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline'}, ...objets)
+    texte += `<br>$\\phantom{1. On donne ceci}x=$ ${(this.interactif || !context.isHtml) ? ajouteChampTexteMathLive(this,i,'largeur10 inline') : '\\ldots'}`
+    texteCorr ='Comme $A$ et $\\bar A$ forment une partition de l\'univers, d\'après la loi des probabilités totales :<br>'
+    texteCorr +=`$P(C)=P(A \\cap C)+P(\\bar{A} \\cap C)$.<br>`
+    texteCorr += `Or $P(\\bar{A} \\cap C)=P(\\bar{A}) \\times P_{\\bar{A}}(C)=${texProba(pB, false)}x$.<br>`
+    texteCorr += `Donc $${texProba(pB, false)}x=P(C)-P(A \\cap C)=${texProba(pC,false)}-${texProba(pA,false)}\\times ${texProba(pAC,false)}=${texProba(pC,false)}-${texProba(pA*pAC,false)}=${texProba(pC-pA*pAC,false)}$.<br>`
+    texteCorr += `Donc $x=\\dfrac{${texProba(pC-pA*pAC,false)}}{${texProba(pB,false)}}=${texProba(pBC)}$`
     setReponse(this,i,pBC)
     if (this.questionJamaisPosee(i,pA,pAC,pBC)){
       this.listeQuestions.push(texte)
