@@ -9238,7 +9238,8 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
 }
 
 export function latexParCoordonnees (texte, x, y, color = 'black', largeur = 50, hauteurLigne = 20, colorBackground = 'white', tailleCaracteres = 8) {
-  return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
+ if (texte==='') return vide2d()
+ else return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
 }
 
 /**

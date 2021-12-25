@@ -149,11 +149,11 @@ export class Arbre {
       : yOrigine
     , '', 'center')
     const B = point(vertical
-      ? xOrigine - sens * 7
+      ? xOrigine - sens * 5
       : xOrigine
     , vertical
       ? yOrigine
-      : yOrigine - sens * 7
+      : yOrigine - sens * 5
     )
     const labelA = latexParPoint(this.nom, A, 'black', 8 * this.nom.length, 20, 'white', 10)
     const positionProba = barycentre(polygone(A, A, A, B, B), '', 'center') // Proba au 2/5 de [AB] en partant de A.
@@ -165,11 +165,11 @@ export class Arbre {
     } else {
       for (let i = 0; i < this.enfants.length; i++) {
         objets.push(...this.enfants[i].represente(vertical
-          ? xOrigine + sens * 7
+          ? xOrigine + sens * 5
           : xOrigine + decalage + this.taille * echelle / 2
         , vertical
           ? yOrigine + decalage - this.taille * echelle / 2
-          : yOrigine + sens * 7
+          : yOrigine + sens * 5
         , vertical
           ? calcul(echelle * ((this.enfants.length / 2 - i) * this.enfants[i].taille))
           : calcul(echelle * ((i - this.enfants.length / 2) * this.enfants[i].taille)),
