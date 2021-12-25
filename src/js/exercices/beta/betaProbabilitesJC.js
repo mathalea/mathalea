@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, arrondi } from '../../modules/outils.js'
 import { number, fraction, add, subtract } from 'mathjs'
-import { Arbre } from '../../modules/arbres.js'
+import { Arbre, texProba } from '../../modules/arbres.js'
+import { mathalea2d } from '../../modules/2d.js'
 export const titre = 'Probabilités simples'
 
 /**
@@ -19,79 +20,137 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   // this.sup = 1; // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  const foret = {
-    nom: 'pin',
-    proba: 1,
+  const omega = new Arbre({
+    racine: true,
+    rationnel: this.sup,
+    nom: '\\Omega',
+    proba: fraction(1),
     enfants: [
-      {
-        nom: 'maritime',
-        proba: 0.6,
-        enfants: [
-          {
-            nom: 'pin des Landes',
-            proba: 0.5
-          },
-          {
-            nom: "pin d'Ecosse",
-            proba: 0.5
-          }
+      new Arbre(
+        {
+          rationnel: this.sup,
+          nom: 'Pile',
+          proba: fraction(0.5),
+          enfants: [new Arbre(
+            {
+              rationnel: this.sup,
+              nom: 'B',
+              proba: fraction(0.5)
+            }),
+          new Arbre(
+            {
+              rationnel: this.sup,
+              nom: 'R',
+              proba: fraction(1, 3)
+            }),
+          new Arbre(
+            {
+              rationnel: this.sup,
+              nom: 'V',
+              proba: fraction(1, 6)
+            })
+          ]
+        }),
+      new Arbre({
+        rationnel: this.sup,
+        nom: 'Face',
+        proba: fraction(0.5),
+        enfants: [new Arbre({
+          rationnel: this.sup,
+          nom: 'B',
+          proba: fraction(1, 3)
+        }),
+        new Arbre({
+          rationnel: this.sup,
+          nom: 'R',
+          proba: fraction(1, 6)
+        }),
+        new Arbre({
+          rationnel: this.sup,
+          nom: 'V',
+          proba: fraction(0.5)
+        })
         ]
-      },
-      {
-        nom: 'noir',
-        proba: 0.4,
-        enfants: [
-          {
-            nom: "d'Autriche",
-            proba: 0.8
-          },
-          {
-            nom: 'de Turkie',
-            proba: 0.2
-          }
-        ]
-      }
+      })
     ]
-  }
-  function texProba (proba, rationnel, precision) {
-    return rationnel ? fraction(arrondi(proba, precision)).toLatex().replace('frac', 'dfrac') : number(arrondi(proba, precision)).toString().replace('.', '{,}')
-  }
+  })
+  const omega2 = new Arbre({
+    racine: true,
+    rationnel: false,
+    nom: '',
+    proba: 1,
+    visible: false,
+    alter: '',
+    enfants: [
+      new Arbre(
+        {
+          rationnel: false,
+          nom: 'A',
+          proba: 0.2,
+          enfants: [new Arbre(
+            {
+              rationnel: false,
+              nom: 'C',
+              proba: number(0.6)
+            }),
+          new Arbre(
+            {
+              rationnel: false,
+              nom: '\\bar C',
+              proba: 0.4
+            })
+          ]
+        }),
+      new Arbre({
+        rationnel: false,
+        nom: '\\bar A',
+        proba: 0.8,
+        enfants: [new Arbre({
+          rationnel: false,
+          nom: 'C',
+          proba: 0.45,
+          visible: false,
+          alter: 'x'
+        }),
+        new Arbre({
+          rationnel: false,
+          nom: '\\bar C',
+          proba: 0.55,
+          visible: false,
+          alter: '1 - x'
+        })
+        ]
+      })
+    ]
+  })
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const ratio = this.sup
-    const pM = fraction(randint(20, 60), 100)
-    const pG = fraction(randint(50, 80), 100)
-    const pP = fraction(randint(50, 80), 100)
-    // on crée l'arbre des probabilités.
-    const match = new Arbre(null, 'Match', 1, ratio)
-    const M = match.setFils('M', pM, ratio)
-    const nonM = match.setFils('nonM', subtract(1, pM), ratio)
-    const MG = M.setFils('MG', pG, ratio)
-    const MP = M.setFils('MP', subtract(1, pG), ratio)
-    const PP = nonM.setFils('PP', pP, ratio)
-    const PG = nonM.setFils('PG', subtract(1, pP), ratio)
-    console.log(match)
-    const sport = choice(['hand-ball', 'football', 'rugby', 'basket', 'volley-ball', 'water-polo', 'baseball'])
-    this.consigne = `Lors d'un match de ${sport}, l'équipe qui reçoit un adversaire a une probabilité de $${texProba(pM, ratio, 2)}$ de mener à la mi-temps.<br>`
-    this.consigne += ` Si elle mène à la mi-temps, sa probabilité de gagner le match est de $${texProba(pG, ratio, 2)}$.<br>`
-    this.consigne += ` Si elle perd à la mi-temps, sa probabilité de perdre le match est de $${texProba(pP, ratio, 2)}$.<br>`
+    let texte = ''
+    let texteCorr = ''
+    omega.setTailles()
+    omega2.setTailles()
+    const probaB = omega.getProba('B', true)
+    const probaR = omega.getProba('R', true)
+    const probaV = omega.getProba('V', true)
+    const probaC = omega2.getProba('C', false)
+    console.log(`P(B) = ${texProba(probaB, true)}`)
+    console.log(`P(R) = ${texProba(probaR, true)}`)
+    console.log(`P(V) = ${texProba(probaV, true)}`)
+    console.log(`P(C) = ${texProba(probaC, false)}`)
+    // eslint-disable-next-line no-template-curly-in-string
+    console.log("const probaB = omega.getProba('B', true)\nconst probaR = omega.getProba('R', true)\nconst probaV = omega.getProba('V', true)\nconsole.log(`P(B) = ${texProba(probaB, true)}`)\nconsole.log(`P(R) = ${texProba(probaV, true)}`)\nconsole.log(`P(V) = ${texProba(probaB, true)}`)")
 
-    const question1 = 'Quelle est la probabilité, pour cette équipe, de gagner le match ?'
-    let correction1 = 'Notons M l\'événement "Mener à la mi-temps" et nonM l\'événement contraire.<br>'
-    correction1 += 'Notons G l\'événement "Gagner le match" et nonP l\'événement contraire "Ne pas gagner le match".<br>'
-    correction1 += `$\\phantom{\\text{P("Ne pas perdre le match")}} = ${texProba(pM, this.sup)} + $${texProba(pG, this.sup)}$ <br> `
-    correction1 += `$\\phantom{\\text{P("Ne pas perdre le match")}}= ${texProba(add(pM, pG), this.sup)}$  <br>`
-    const question2 = 'Quelle est la probabilité, pour cette équipe, de perdre le match ?'
-    let correction2 = 'L\'évènement "Perdre le match" est l\'évènement contraire de "Ne pas perdre le match", on peut donc affirmer que : <br> <br>'
-    correction2 += '$ \\text{P("Perdre le match") + } \\text{P("Ne pas perdre le match")} = 1$ <br>'
-    correction2 += '$ \\phantom{\\text{P("Ne pas perdre le match") + }} \\text{P("Perdre le match")} = 1 - \\text{P("Ne pas perdre le match")}$ <br>'
-    correction2 += `$ \\phantom{\\text{P("Ne pas perdre le match") + }} \\text{P("Perdre le match")} = 1 - $${texProba(add(pM, pG), this.sup)}$  <br>`
-    correction2 += `$ \\phantom{\\text{P("Ne pas perdre le match") + }} \\text{P("Perdre le match")} = $${texProba(subtract(1, add(pM, pG)), this.sup)}$ <br>`
+    const objets = omega.represente(0, 15, 0, 3, true, -1)
+    texte += mathalea2d({ xmin: -15, xmax: 1, ymin: -2, ymax: 15, style: 'inline' }, ...objets)
+    const objets2 = omega2.represente(0, 0, 0, 3, false, 1)
+    texte += mathalea2d({ xmin: 0, xmax: 18, ymin: 0, ymax: 17, style: 'inline' }, ...objets2)
+    texteCorr += 'et ceci est la correction'
 
-    this.listeQuestions.push(question1, question2)
-    this.listeCorrections.push(correction1, correction2)
+    this.listeQuestions.push(texte)
+    this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireCaseACocher = ['Proba rationnelle', true]
