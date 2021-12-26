@@ -1139,6 +1139,7 @@ export function afficheScoreCan (exercice, nbBonnesReponses, nbMauvaisesReponses
   // const exercice = { id: 'can', sup: document.location.href + 'serie=' + context.graine }
   const divScore = addElement(document.querySelector('#menuEval'), 'div', { className: 'score', id: 'scoreTotal' })
   divScore.innerHTML = `Résultat : ${nbBonnesReponses} / ${nbBonnesReponses + nbMauvaisesReponses}`
+  window.parent.postMessage({ url: window.location.href, graine: context.graine, titre: exercice.titre, nbBonnesReponses: nbBonnesReponses, nbMauvaisesReponses: nbMauvaisesReponses }, '*')
   // Arrête le timer
   if (context.timer) {
     clearInterval(context.timer)
