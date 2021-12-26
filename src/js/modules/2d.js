@@ -596,10 +596,10 @@ function LabelPoint (...points) {
   for (const unPoint of points) {
     if (unPoint.typeObjet !== 'point3d' && unPoint.typeObjet !== 'point') window.notify('LabelPoint : argument invalide', { ...points })
     lePoint = unPoint.typeObjet === 'point' ? unPoint : unPoint.p2d
-    xmin = Math.min(xmin, lePoint.x - 1)
-    xmax = Math.max(xmax, lePoint.x + 1)
-    ymin = Math.min(ymin, lePoint.y - 1)
-    ymax = Math.max(ymax, lePoint.y + 1)
+    xmin = Math.min(xmin, lePoint.x - lePoint.positionLabel.indexOf('left') !== -1 ? 1 : 0)
+    xmax = Math.max(xmax, lePoint.x + lePoint.positionLabel.indexOf('right') !== -1 ? 1 : 0)
+    ymin = Math.min(ymin, lePoint.y - lePoint.positionLabel.indexOf('below') !== -1 ? 1 : 0)
+    ymax = Math.max(ymax, lePoint.y + lePoint.positionLabel.indexOf('above') !== -1 ? 1 : 0)
   }
   this.bordures = [xmin, ymin, xmax, ymax]
   this.svg = function (coeff) {
@@ -1110,7 +1110,8 @@ export function fixeBordures (objets) {
       xmax = Math.max(xmax, objet.bordures[2])
       ymin = Math.min(ymin, objet.bordures[1])
       ymax = Math.max(ymax, objet.bordures[3])
-    } else if (typeof objet.bordure !== 'undefined') {
+    } /*
+    else if (typeof objet.bordure !== 'undefined') {
       if (typeof objet.bordure[Symbol.iterator] === 'function') {
         for (const obj of objet.bordure) {
           xmin = Math.min(xmin, obj.x - 1 || 0)
@@ -1130,6 +1131,7 @@ export function fixeBordures (objets) {
       ymin = Math.min(ymin, objet.y - 1 || 0)
       ymax = Math.max(ymax, objet.y + 1 || 0)
     }
+    */
   }
   return { xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax }
 }
