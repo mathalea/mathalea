@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { polygone, segment, ObjetMathalea2D, texteParPoint, point, mathalea2d, texteParPosition } from '../../modules/2d.js'
+import { polygone, segment, ObjetMathalea2D, texteParPoint, point, mathalea2d, texteParPosition, fixeBordures } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { decompositionFacteursPremiers, listeEntiersSommeConnue, choice, randint, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { multiply, divide, matrix, isPrime, sum, ceil, gcd, fraction, round, max } from 'mathjs'
@@ -11,6 +11,7 @@ export const dateDePublication = '12/12/2021' // La date de publication initiale
 function TraceBarre (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
   ObjetMathalea2D.call(this)
   this.bordure = [point(x - epaisseur / 2, 0), point(x - epaisseur / 2, y * unite), point(x + epaisseur / 2, y * unite), point(x + epaisseur / 2, 0)]
+  this.bordures = [x - epaisseur / 2, 0, x + epaisseur / 2, y * unite]
   const p = polygone(...this.bordure)
   p.couleurDeRemplissage = couleurDeRemplissage
   p.opaciteDeRemplissage = opaciteDeRemplissage
@@ -44,7 +45,7 @@ function fraction2Tex (fraction) {
   const signe = fraction.s === 1 ? '' : '-'
   return fraction.d !== 1 ? String.raw`${signe}\dfrac{${num(fraction.n)}}{${num(fraction.d)}}` : String.raw`${signe}${num(fraction.n)}`
 }
-
+/*
 function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = undefined, rymax = undefined, rzoom = 1 } = {}) {
   rxmin = rxmin !== undefined ? rxmin : -1
   rymin = rymin !== undefined ? rymin : -1
@@ -74,7 +75,7 @@ function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = u
   }
   return { xmin: xmin * rzoom, xmax: xmax * rzoom, ymin: ymin * rzoom, ymax: ymax * rzoom }
 }
-
+*/
 function Axes (
   xmin = -30,
   ymin = -30,
