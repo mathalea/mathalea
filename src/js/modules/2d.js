@@ -1102,7 +1102,7 @@ export function estSurDroite (A, d) {
  * @param {object} objets
  * @returns {object} {xmin, ymin, xmax, ymax}
  */
-export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = undefined, rymax = undefined } = {}) {
+export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = undefined, rymax = undefined, rzoom = 1 } = {}) {
   let xmin = 1000; let ymin = 1000; let xmax = -1000; let ymax = -1000
   rxmin = rxmin !== undefined ? rxmin : -0.5
   rymin = rymin !== undefined ? rymin : -0.5
@@ -1137,7 +1137,7 @@ export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rx
     }
     */
   }
-  return { xmin: xmin + rxmin, xmax: xmax + rxmax, ymin: ymin + rymin, ymax: ymax + rymax }
+  return { xmin: xmin + rxmin * rzoom, xmax: xmax + rxmax * rzoom, ymin: ymin + rymin * rzoom, ymax: ymax + rymax * rzoom }
 }
 
 /**
