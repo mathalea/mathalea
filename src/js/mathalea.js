@@ -299,7 +299,26 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
     }
   }
   if (!isdiaporama) {
-    if (obj.typeExercice === 'dnb') {
+    if (obj.typeExercice === 'crpe') {
+      contenuUnExercice += ` Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`
+      contenuUnExercice += '<div><div class="question">'
+      for (const png of obj.png) {
+        contenuUnExercice += `<img width="90%" src="${png}">`
+      }
+      contenuUnExercice += '</div></div>'
+      contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${
+        obj.numeroInitial} - Correction par la Copirelem</h3>`
+      if (obj.correctionIsCachee) {
+        contenuUneCorrection += obj.correctionIsCachee ? '<div><div class="correction">Correction masquée</div></div>' : `<div><div class="correction"><img width="90%" src="${obj.pngcor}"></div></div>`
+      } else {
+        contenuUneCorrection += '<div><div class="correction">'
+        for (const png of obj.pngCor) {
+          contenuUneCorrection += `<img width="90%" src="${png}">`
+        }
+        contenuUneCorrection += '</div></div>'
+      }
+      obj.video = false
+    } else if (obj.typeExercice === 'dnb') {
       contenuUnExercice += ` Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroExercice})</h3>`
       contenuUnExercice += `<div><div class="question"><img width="90%" src="${obj.png}"></div></div>`
       contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${
@@ -1385,6 +1404,12 @@ async function miseAJourDeLaListeDesExercices (preview) {
               listeObjetsExercice[i].contenuCorrection = listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : data
             })
         )
+      } else if (dictionnaireDesExercices[id].typeExercice === 'crpe') {
+        listeObjetsExercice[i] = dictionnaireDesExercices[id]
+        listeObjetsExercice[i].nbQuestionsModifiable = false
+        listeObjetsExercice[i].video = ''
+        listeObjetsExercice[i].titre = id
+        listeObjetsExercice[i].contenu = ''
       } else {
         // avec webpack on ne peut pas faire de import(url), car il faut lui indiquer quels fichiers sont susceptibles d'être chargés
         // ici il ne peut s'agir que de js contenus dans exercices (dnb déjà traité dans le if au dessus)
