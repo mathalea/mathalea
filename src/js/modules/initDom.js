@@ -349,7 +349,7 @@ export async function initDom () {
       for (const ol of ols) {
         setStyles(ol, 'padding:0;')
       }
-      window.parent.postMessage({ url: window.location.href, graine: context.graine }, '*')
+      window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
     })
     // On récupère tous les paramètres de chaque exos dans un tableau d'objets
     const paramsAllExos = Object.entries(getUrlVars())
@@ -448,6 +448,7 @@ export async function initDom () {
         gestionTimer(divTimer)
       }
       document.querySelector('button[data-num="1"]').classList.add('blue')
+      window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
     })
     document.getElementById('btnCorrection').addEventListener('click', () => {
       document.getElementById('corrections').style.display = 'block'
