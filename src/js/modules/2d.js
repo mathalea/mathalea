@@ -118,11 +118,11 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
   if (arguments.length === 1) {
     this.nom = arg1
   } else if (arguments.length === 2) {
-    if (isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
+    if (Number.isNaN(arg1) || Number.isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
     this.x = arrondi(arg1, 3)
     this.y = arrondi(arg2, 3)
   } else {
-    if (isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
+    if (Number.isNaN(arg1) || Number.isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
     this.x = arrondi(arg1, 3)
     this.y = arrondi(arg2, 3)
     this.nom = arg3
@@ -158,7 +158,7 @@ export function point (x, y, A, labelPosition = 'above') {
  */
 function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = 'black', opacite = 1, opaciteDeRemplissage = 1 } = {}) {
   ObjetMathalea2D.call(this)
-  if (isNaN(x) || isNaN(y)) window.notify('Plot : les coordonnées ne sont pas valides', { x, y })
+  if (Number.isNaN(x) || Number.isNaN(y)) window.notify('Plot : les coordonnées ne sont pas valides', { x, y })
   this.color = couleur
   this.couleurDeRemplissage = couleurDeRemplissage
   this.rayon = rayon
@@ -435,7 +435,7 @@ export function traceMilieuSegment (A, B) {
  * @author Rémi Angot
  */
 export function milieu (A, B, nom, positionLabel = 'above') {
-  if (Number(longueur(A, B)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
+  if (Number.isNaN(longueur(A, B))) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   const x = calcul((A.x + B.x) / 2)
   const y = calcul((A.y + B.y) / 2)
   return new Point(x, y, nom, positionLabel)
@@ -451,7 +451,7 @@ export function milieu (A, B, nom, positionLabel = 'above') {
  * @author Rémi Angot
  */
 export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
-  if (Number(longueur(A, B)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
+  if (Number.isNaN(longueur(A, B))) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   if (l === undefined || typeof l === 'string') {
     l = calcul((longueur(A, B) * randint(15, 85)) / 100)
   }
@@ -465,7 +465,7 @@ export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
  */
 
 export function appartientSegment (C, A, B) {
-  if (Number(longueur(A, B)).isNaN() || Number(longueur(A, C)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
+  if (Number.isNaN(longueur(A, B)) || Number.isNaN(longueur(A, C))) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
   const prodscalABAB = (B.x - A.x) ** 2 + (B.y - A.y) ** 2
@@ -478,7 +478,7 @@ export function appartientSegment (C, A, B) {
  * @author Jean-Claude Lhote
  */
 export function appartientDroite (C, A, B) {
-  if (Number(longueur(A, B)).isNaN() || Number(longueur(A, C)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
+  if (Number.isNaN(longueur(A, B)) || Number.isNaN(longueur(A, C))) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   if (prodvect === 0) return true
   else return false
@@ -489,7 +489,7 @@ export function appartientDroite (C, A, B) {
  * @author Jean-Claude Lhote
  */
 export function appartientDemiDroite (C, A, B) {
-  if (Number(longueur(A, B)).isNaN() || Number(longueur(A, C)).isNaN()) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
+  if (Number.isNaN(longueur(A, B)) || Number.isNaN(longueur(A, C))) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
   if (prodvect === 0 && prodscal > 0) return true
@@ -802,7 +802,7 @@ function Droite (arg1, arg2, arg3, arg4) {
 
   ObjetMathalea2D.call(this)
   if (arguments.length === 2) {
-    if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Droite : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
+    if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Droite : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
     this.nom = ''
     this.x1 = arg1.x
     this.y1 = arg1.y
@@ -815,7 +815,7 @@ function Droite (arg1, arg2, arg3, arg4) {
     )
   } else if (arguments.length === 3) {
     if (typeof arg1 === 'number') {
-      if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3)) window.notify('Droite : (attendus : a, b et c) les arguments de sont pas des nombres valides', { arg1, arg2, arg3 })
+      if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3)) window.notify('Droite : (attendus : a, b et c) les arguments de sont pas des nombres valides', { arg1, arg2, arg3 })
 
       // droite d'équation ax +by +c =0
       this.nom = ''
@@ -842,7 +842,7 @@ function Droite (arg1, arg2, arg3, arg4) {
         this.y2 = calcul((-c - a) / b)
       }
     } else {
-      if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Droite : (attendus : A, B et "nom") les arguments de sont pas des points valides', { arg1, arg2 })
+      if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Droite : (attendus : A, B et "nom") les arguments de sont pas des points valides', { arg1, arg2 })
       this.x1 = arg1.x
       this.y1 = arg1.y
       this.x2 = arg2.x
@@ -856,7 +856,7 @@ function Droite (arg1, arg2, arg3, arg4) {
     }
   } else if (arguments.length === 4) {
     if (typeof arg1 === 'number') {
-      if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3)) window.notify('Droite : (attendus : a, b, c et "nom") les arguments de sont pas des nombres valides', { arg1, arg2, arg3 })
+      if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3)) window.notify('Droite : (attendus : a, b, c et "nom") les arguments de sont pas des nombres valides', { arg1, arg2, arg3 })
       this.a = arg1
       this.b = arg2
       this.c = arg3
@@ -881,7 +881,7 @@ function Droite (arg1, arg2, arg3, arg4) {
         this.y2 = calcul((-c - a) / b)
       }
     } else {
-      if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Droite : (attendus : A, B, "nom" et "couleur") les arguments de sont pas des points valides', { arg1, arg2 })
+      if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Droite : (attendus : A, B, "nom" et "couleur") les arguments de sont pas des points valides', { arg1, arg2 })
       this.x1 = arg1.x
       this.y1 = arg1.y
       this.x2 = arg2.x
@@ -1857,14 +1857,14 @@ function Segment (arg1, arg2, arg3, arg4, color) {
   this.styleExtremites = ''
   this.tailleExtremites = 4
   if (arguments.length === 2) {
-    if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Segment : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
+    if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Segment : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
     this.x1 = arrondi(arg1.x, 2)
     this.y1 = arrondi(arg1.y, 2)
     this.x2 = arrondi(arg2.x, 2)
     this.y2 = arrondi(arg2.y, 2)
     this.bordure = [arg1, arg2]
   } else if (arguments.length === 3) {
-    if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Segment : (attendus : A, B et "couleur") les arguments de sont pas des points valides', { arg1, arg2 })
+    if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Segment : (attendus : A, B et "couleur") les arguments de sont pas des points valides', { arg1, arg2 })
 
     this.x1 = arrondi(arg1.x, 2)
     this.y1 = arrondi(arg1.y, 2)
@@ -1873,7 +1873,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     this.bordure = [arg1, arg2]
     this.color = arg3
   } else if (arguments.length === 4) {
-    if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3) || isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', { arg1, arg2 })
+    if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', { arg1, arg2 })
     this.x1 = arrondi(arg1, 2)
     this.y1 = arrondi(arg2, 2)
     this.x2 = arrondi(arg3, 2)
@@ -1881,7 +1881,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     this.bordure = [point(arg1, arg2), point(arg3, arg4)]
   } else {
     // 5 arguments
-    if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3) || isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2, y2 et "couleur") les arguments de sont pas des nombres valides', { arg1, arg2 })
+    if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2, y2 et "couleur") les arguments de sont pas des nombres valides', { arg1, arg2 })
     this.x1 = arrondi(arg1, 2)
     this.y1 = arrondi(arg2, 2)
     this.x2 = arrondi(arg3, 2)
@@ -1889,6 +1889,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     this.bordure = [point(arg1, arg2), point(arg3, arg4)]
     this.color = color
   }
+  this.bordures = [Math.min(this.x1,this.x2)-0.2,Math.min(this.y1,this.y2)-0.2,Math.max(this.x1,this.x2)+0.2,Math.max(this.y1,this.y2)+0.2]
   this.extremite1 = point(this.x1, this.y1)
   this.extremite2 = point(this.x2, this.y2)
   this.longueur = calcul(
@@ -3256,7 +3257,8 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
-  this.bordure = rotation(M, Omega, angle / 2)
+  this.bordure = rotation(M, Omega, angle / 2) // doit disparaitre, mais je vais utiliser ce point pour déterminer this.bordures
+  const med = rotation(M, Omega, angle / 2)
   if (typeof (angle) !== 'number') {
     angle = arrondi(angleOriente(M, Omega, angle), 1)
   }
@@ -3279,6 +3281,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     sweep = 1 - (angle > 0)
   }
   const N = rotation(M, Omega, angle)
+  this.bordures = [Math.min(M.x,N.x,med.x)-0.1,Math.min(M.y,N.y,med.y)-0.1,Math.max(M.x,N.x,med.x)+0.1,Math.max(M.y,N.y,med.y)+0.1]
   if (rayon) {
     this.svg = function (coeff) {
       this.style = ''
@@ -5136,16 +5139,16 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
   this.extremite1 = A
   this.extremite2 = B
   this.distance = d
-
-  this.svg = function (coeff) {
-    const O = milieu(this.extremite1, this.extremite2)
+  const O = milieu(this.extremite1, this.extremite2)
     const M = rotation(this.extremite1, O, -90)
-    const N = pointSurSegment(O, M, (this.distance * 20) / coeff)
-    let angle
-    const s = segment(this.extremite1, this.extremite2)
-    s.isVisible = false
     const l = stringNombre(arrondi(s.longueur, 1))
-    if (this.extremite2.x > this.extremite1.x) {
+    const s = segment(this.extremite1, this.extremite2)
+    let angle
+    s.isVisible = false
+    
+  this.svg = function (coeff) {
+    const N = pointSurSegment(O, M, (this.distance * 20) / coeff)
+     if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale
     } else {
       angle = 180 - s.angleAvecHorizontale
@@ -5154,13 +5157,7 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
   }
 
   this.tikz = function () {
-    const O = milieu(this.extremite1, this.extremite2)
-    const M = rotation(this.extremite1, O, -90)
     const N = pointSurSegment(O, M, this.distance / context.scale)
-    let angle
-    const s = segment(this.extremite1, this.extremite2)
-    s.isVisible = false
-    const l = stringNombre(arrondi(s.longueur, 1))
     if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale
     } else {
@@ -5189,12 +5186,21 @@ export function afficheLongueurSegment (...args) {
  */
 function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
   ObjetMathalea2D.call(this)
-  this.color = color
+  if (longueur(A,B)<0.1) window.notify('TexteSurSegment : Points trop proches pour cette fonction',{A,B})
+  this.color = color 
   this.extremite1 = A
   this.extremite2 = B
   this.distance = d
   this.texte = texte
-  this.bordure = pointSurSegment(milieu(this.extremite1, this.extremite2), rotation(this.extremite1, milieu(this.extremite1, this.extremite2), -90), this.distance)
+  const O = milieu(this.extremite1, this.extremite2)
+  const M = rotation(this.extremite1, O, -90)
+  const s = segment(this.extremite1, this.extremite2)
+  s.isVisible = false
+  let angle
+   this.bordure = pointSurSegment(O, M, this.distance)
+  const pos = pointSurSegment(O, M, this.distance)
+  const space=0.2*texte.length
+  this.bordures = [pos.x-space,pos.y-space,pos.x+space,pos.y+space]
   /* let O = milieu(A, B);
    let M = rotation(A, O, -90);
    let N = pointSurSegment(O, M, d);
@@ -5209,12 +5215,9 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
    return texteParPoint(texte, N, angle, this.color);
    */
   this.svg = function (coeff) {
-    const O = milieu(this.extremite1, this.extremite2)
-    const M = rotation(this.extremite1, O, -90)
-    const N = pointSurSegment(O, M, this.distance * 20 / coeff)
-    const s = segment(this.extremite1, this.extremite2)
-    s.isVisible = false
-    let angle
+ 
+   
+  const N = pointSurSegment(O, M, this.distance * 20 / coeff)
     if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale
     } else {
@@ -5227,12 +5230,7 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
     }
   }
   this.tikz = function () {
-    const O = milieu(this.extremite1, this.extremite2)
-    const M = rotation(this.extremite1, O, -90)
-    const N = pointSurSegment(O, M, this.distance / context.scale)
-    const s = segment(this.extremite1, this.extremite2)
-    s.isVisible = false
-    let angle
+   const N = pointSurSegment(O, M, this.distance / context.scale)
     if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale
     } else {
@@ -5279,13 +5277,15 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
   const Omegay = calcul((-f.c + (d1.c * f.a) / d1.a) / (f.b - (f.a * d1.b) / d1.a))
   const Omegax = calcul(-d1.c / d1.a - (d1.b * Omegay) / d1.a)
   const Omega = point(Omegax, Omegay)
-  this.bordure = rotation(A, Omega, angle / 2)
+  const s = segment(this.extremite1, this.extremite2)
+  s.isVisible = false
+  const pos = pointSurSegment(rotation(A, Omega, anglerot / 2), Omega, this.distance)
+  this.bordure =  pos
+  const space=0.2*texte.length
+  this.bordures = [pos.x-space,pos.y-space,pos.x+space,pos.y+space]
   this.svg = function (coeff) {
-    const N = pointSurSegment(this.bordure, Omega, this.distance * 20 / coeff)
-    const s = segment(this.extremite1, this.extremite2)
-    s.isVisible = false
-    let angle
-    if (this.extremite2.x > this.extremite1.x) {
+   const N = pointSurSegment(rotation(A, Omega, anglerot / 2), Omega, this.distance * 20 / coeff)
+   if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale
     } else {
       angle = 180 - s.angleAvecHorizontale
@@ -5297,11 +5297,8 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
     }
   }
   this.tikz = function () {
-    const N = pointSurSegment(this.bordure, Omega, this.distance / context.scale)
-    const s = segment(this.extremite1, this.extremite2)
-    s.isVisible = false
-    let angle
-    if (this.extremite2.x > this.extremite1.x) {
+     const N = pointSurSegment(rotation(A, Omega, angle / 2), Omega, this.distance / context.scale)
+   if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale
     } else {
       angle = 180 - s.angleAvecHorizontale
