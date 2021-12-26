@@ -1082,13 +1082,14 @@ export function estSurDroite (A, d) {
  * @returns {object} {xmin, ymin, xmax, ymax}
  */
 export function fixeBordures (objets) {
-  let xmin = 0; let ymin = 0; let xmax = 0; let ymax = 0
+  let xmin = 1000; let ymin = 1000; let xmax = -1000; let ymax = -1000
   for (const objet of objets) {
-    xmin = Math.min(xmin, objet.x - 1 || 0)
-    xmax = Math.max(xmax, objet.x + 1 || 0)
-    ymin = Math.min(ymin, objet.y - 1 || 0)
-    ymax = Math.max(ymax, objet.y + 1 || 0)
-    if (typeof objet.bordure !== 'undefined') {
+    if (Array.isArray(objet.bordures)) {
+      xmin = Math.min(xmin, objet.bordures[0])
+      xmax = Math.max(xmax, objet.bordures[2])
+      ymin = Math.min(ymin, objet.bordures[1])
+      ymax = Math.max(ymax, objet.bordures[3])
+    } else if (typeof objet.bordure !== 'undefined') {
       if (typeof objet.bordure[Symbol.iterator] === 'function') {
         for (const obj of objet.bordure) {
           xmin = Math.min(xmin, obj.x - 1 || 0)
@@ -1102,8 +1103,13 @@ export function fixeBordures (objets) {
         ymin = Math.min(ymin, objet.bordure.y - 1 || 0)
         ymax = Math.max(ymax, objet.bordure.y + 1 || 0)
       }
-    }
+    } else {
+    xmin = Math.min(xmin, objet.x - 1 || 0)
+    xmax = Math.max(xmax, objet.x + 1 || 0)
+    ymin = Math.min(ymin, objet.y - 1 || 0)
+    ymax = Math.max(ymax, objet.y + 1 || 0)
   }
+}
   return { xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax }
 }
 
