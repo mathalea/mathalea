@@ -1102,8 +1102,12 @@ export function estSurDroite (A, d) {
  * @param {object} objets
  * @returns {object} {xmin, ymin, xmax, ymax}
  */
-export function fixeBordures (objets) {
+export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = undefined, rymax = undefined } = {}) {
   let xmin = 1000; let ymin = 1000; let xmax = -1000; let ymax = -1000
+  rxmin = rxmin !== undefined ? rxmin : -0.5
+  rymin = rymin !== undefined ? rymin : -0.5
+  rxmax = rxmax !== undefined ? rxmax : 0.5
+  rymax = rymax !== undefined ? rymax : 0.5
   for (const objet of objets) {
     if (Array.isArray(objet.bordures)) {
       xmin = Math.min(xmin, objet.bordures[0])
@@ -1133,7 +1137,7 @@ export function fixeBordures (objets) {
     }
     */
   }
-  return { xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax }
+  return { xmin: xmin + rxmin, xmax: xmax + rxmax, ymin: ymin + rymin, ymax: ymax + rymax }
 }
 
 /**
