@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureAlgebriqueSauf1, lettreMinusculeDepuisChiffre, rienSi1, reduireAxPlusB } from '../../modules/outils.js'
-import { simplify, parse, derivative } from 'mathjs'
-const math = { simplify: simplify, parse: parse, derivative: derivative }
+import { simplify, parse, derivative, chain } from 'mathjs'
+const math = { simplify: simplify, parse: parse, derivative: derivative, chain: chain }
 export const titre = 'Dérivée d\'un produit'
 
 /**
@@ -9,7 +9,6 @@ export const titre = 'Dérivée d\'un produit'
  * @author Jean-Léon Henry
  * Référence 1AN14-4
  * @todo Corrections
- * @todo Gestion correcte de l'ensemble de dérivabilité
  */
 
 /**
@@ -35,9 +34,9 @@ function prettyTex (expression) {
 
 /**
  * Crée un objet Polynome de degré donné.
- * @param deg degré
- * @param mon monôme
- * @param centre pour obtenir ax^+b
+ * @param {number} deg degré
+ * @param {boolean} mon monôme
+ * @param {boolean} centre pour obtenir ax^2+b quand deg=2
  */
 class Polynome {
   constructor (deg, mon = false, centre = false) {
@@ -49,12 +48,13 @@ class Polynome {
         this.monomes.push(0)
         continue
       }
-      if (!mon) {
-        this.monomes.push(randint(-10, 10))
-      } else { this.monomes.push(0) }
+      if (!mon) this.monomes.push(randint(-10, 10))
+      else this.monomes.push(0)
     }
     this.monomes.push(randint(-10, 10, 0))
   }
+
+  get coeffs () { return this.monomes }
 
   toMathExpr () {
     let res = ''
@@ -79,25 +79,26 @@ class Polynome {
     return res
   }
 
-  toMathExpr2 () {
-    // if (this.mon) console.log(this.monomes)
-    const affRed = reduireAxPlusB(this.monomes[1], this.monomes[0])
-    let res = affRed === '0' ? '' : affRed
-    // eslint-disable-next-line no-return-assign
-    this.monomes.slice(2).forEach((el, i) => res = (el !== 0 ? `${i === this.monomes.slice(2).length ? el : ecritureAlgebriqueSauf1(el)}x^${i + 2}` + res : ''))
-    return res
-  }
+  // toMathExpr2 () {
+  //   // if (this.mon) console.log(this.monomes)
+  //   const affRed = reduireAxPlusB(this.monomes[1], this.monomes[0])
+  //   let res = affRed === '0' ? '' : affRed
+  //   const iMin = this.monomes.findIndex(el => el !== 0)
+  //   // eslint-disable-next-line no-return-assign
+  //   this.monomes.slice(iMin).forEach((el, i) => res = (el !== 0 ? `${i === this.monomes.slice(iMin).length ? el : ecritureAlgebriqueSauf1(el)}x^${i + iMin}` + res : ''))
+  //   return res
+  // }
 }
 // Petit test
-const p = new Polynome(2, true)
-console.log(p.toMathExpr())
+// const p = new Polynome(2, true)
+// console.log(p.toMathExpr())
 
 /**
  * Retourne un polynôme de degré deg.
  */
-function randomPol (deg, mon = false, centre = false) {
-  return new Polynome(deg, mon, centre)
-}
+// function randomPol (deg, mon = false, centre = false) {
+//   return new Polynome(deg, mon, centre)
+// }
 
 export default function DeriveeProduit () {
   Exercice.call(this)
@@ -124,7 +125,7 @@ export default function DeriveeProduit () {
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
-    const listeTypeDeQuestionsDisponibles = ['inv/poly1', 'monome2/poly1']
+    const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']// ,
     if (this.sup === 2) {
       listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
       if (this.sup2 === true) {
@@ -138,19 +139,17 @@ export default function DeriveeProduit () {
         exp: 'e^x',
         racine: 'sqrt(x)',
         inv: '1/x',
-        puissance: randomPol(randint(3, 5)),
-        poly1: randomPol(1),
-        // poly2: randomPol(2),
-        poly2centre: randomPol(2, false, true),
-        monome2: randomPol(2, true),
-        poly: randomPol(randint(1, 2))
+        poly1: new Polynome(1),
+        poly2centre: new Polynome(2, false, true),
+        monome2: new Polynome(2, true),
+        poly: new Polynome(randint(1, 2))
       }
       const listeTypeFonctions = listeTypeDeQuestions[i].split('/')
       // On précise les énoncés
       askFacto = listeTypeFonctions.includes('exp')
       askFormule = listeTypeFonctions.includes('poly1')
       askQuotient = listeTypeFonctions.includes('inv')
-      // On randomise l'ordre des termes, sauf pour l'inverse et un monome devant une racine
+      // On randomise l'ordre des termes, sauf pour l'inverse et un monome devant une racine/une affine
       let f1 = 0
       let f2 = 1
       if (!(['monome2/racine', 'monome2/poly1', 'inv/poly1'].includes(listeTypeDeQuestions[i]))) {
@@ -173,20 +172,41 @@ export default function DeriveeProduit () {
 
       // 1ère étape de la dérivation
       expression = terme1 + '*' + terme2
-      // const derivee1m = math.simplify(math.derivative(terme1, 'x'), reglesDeSimplifications)
-      // const derivee2m = math.simplify(math.derivative(terme2, 'x'), reglesDeSimplifications)
-      // const intermediaire = `${derivee1m}*${terme2}+${terme1}*(${derivee2m})`
 
-      namef = lettreMinusculeDepuisChiffre(i + 6)
       // Correction
+      namef = lettreMinusculeDepuisChiffre(i + 6)
       texte = askFacto ? 'Dans cette question, on demande la réponse sous forme factorisée.<br>' : ''
       texte = askFormule ? `Dans cette question, on demande d'utiliser la formule de dérivation d'un produit. ${askQuotient ? 'Mettre le résultat sous forme d\'un quotient.' : ''}<br>` : texte
       texte += `$${namef}:x\\longmapsto ${prettyTex(math.parse(expression))}$`
       texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
-      // texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a \\[${namef}'(x)=${prettyTex(math.parse(intermediaire))}.\\]`
-
-      // texte = texte.replaceAll('frac', 'dfrac')
-      // texteCorr = texteCorr.replaceAll('frac', 'dfrac')
+      const derivee1m = math.simplify(math.derivative(terme1, 'x'), reglesDeSimplifications)
+      const derivee2m = math.simplify(math.derivative(terme2, 'x'), reglesDeSimplifications)
+      const intermediaire = `${derivee1m}*${terme2}+${terme1}*(${derivee2m})`
+      switch (listeTypeDeQuestions[i]) {
+        case 'inv/poly1': {
+          const b = dictFonctions[typef2].monomes[0]
+          const a = dictFonctions[typef2].monomes[1]
+          texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a \\[${namef}'(x)=${prettyTex(math.parse(intermediaire))}.\\]`
+          texteCorr += `Ce qui donne, en simplifiant : \\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}}{x}.\\]`
+          texteCorr += 'On additionne les deux fractions pour obtenir : '
+          texteCorr += `\\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}x}{x^2}=\\frac{${reduireAxPlusB(-a, -b)}${ecritureAlgebrique(a)}x}{x^2}.\\]`
+          texteCorr += 'Des termes se simplifient au numérateur et on a : '
+          texteCorr += `\\[${namef}'(x)=\\frac{${reduireAxPlusB(0, -b)}}{x^2}.\\]`
+          break
+        }
+        case 'monome2/poly1': {
+          const b = dictFonctions[typef2].monomes[0]
+          const a = dictFonctions[typef2].monomes[1]
+          const m = dictFonctions[typef1].monomes[2]
+          // const aff = dictFonctions[typef1]
+          texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a \\[${namef}'(x)=${reduireAxPlusB(2 * m, 0)}(${exprf2})${ecritureAlgebrique(m)}x^2(${b}).\\]`
+          texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${2 * m * a}x^2${ecritureAlgebrique(2 * m * b)}x${ecritureAlgebrique(m * a)}x^2.\\]`
+          texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${2 * m * a + m * a}x^2${ecritureAlgebrique(2 * m * b)}x.\\]`
+          break
+        }
+      }
+      texte = texte.replaceAll('frac', 'dfrac')
+      texteCorr = texteCorr.replaceAll('frac', 'dfrac')
 
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
