@@ -204,6 +204,25 @@ export default function DeriveeProduit () {
           else texteCorr += `\\frac{${texNombrec2(abs(m / 2))}x^2}{\\sqrt{x}}.\\]`
           break
         }
+        case 'racine/poly2centre': {
+          const racineGauche = typef1 === 'racine'
+          const poly = dictFonctions.poly2centre
+          // notation poly = ax^2+b
+          const a = poly.monomes[2]
+          const b = poly.monomes[0]
+          // 1ère étape : application de la formule
+          let intermediaire
+          if (racineGauche) intermediaire = `\\frac{1}{2\\sqrt{x}}(${poly.toMathExpr()})+\\sqrt{x}(${monome(2 * a)})`
+          else intermediaire = `(${rienSi1(2 * a)}x)\\sqrt{x}+(${poly.toMathExpr()})\\frac{1}{2\\sqrt{x}}`
+          texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a \\[${namef}'(x)=${intermediaire}.\\]`
+          // 2ème étape : simplification
+          let interm2
+          if (racineGauche) interm2 = `\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}${ecritureAlgebriqueSauf1(2 * a)}x\\sqrt{x}` // @todo
+          else interm2 = `${rienSi1(2 * a)}x\\sqrt{x}+\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}`
+          texteCorr += 'L\'énoncé ne demandant rien de plus, on se contente de simplifier l\'expression :'
+          texteCorr += `\\[${namef}'(x)=${interm2}\\]`
+        }
+          break
         default:
           texteCorr += 'Correction non encore implémentée.'
           break
