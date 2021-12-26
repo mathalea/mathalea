@@ -449,6 +449,7 @@ export async function initDom () {
       }
       document.querySelector('button[data-num="1"]').classList.add('blue')
       window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
+      document.getElementById('corrections').style.display = 'none'
     })
     document.getElementById('btnCorrection').addEventListener('click', () => {
       document.getElementById('corrections').style.display = 'block'
