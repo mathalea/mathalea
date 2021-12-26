@@ -164,6 +164,7 @@ function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = '
   this.rayon = rayon
   this.x = x
   this.y = y
+  this.bordures = [x - rayon, y - rayon, x + rayon, y + rayon]
   this.opacite = opacite
   this.opaciteDeRemplissage = opaciteDeRemplissage
   this.svg = function (coeff) {
@@ -212,15 +213,24 @@ function TracePoint (...points) {
   this.epaisseur = 1
   this.opacite = 0.8
   this.style = 'x'
-
+  let xmin = 1000
+  let xmax = -1000
+  let ymin = 1000
+  let ymax = -1000
+  let lePoint
   if (typeof points[points.length - 1] === 'string') {
     this.color = points[points.length - 1]
     points.length--
   } else this.color = 'black'
   for (const unPoint of points) {
     if (unPoint.typeObjet !== 'point3d' && unPoint.typeObjet !== 'point') window.notify('TracePoint : argument invalide', { ...points })
+    lePoint = unPoint.typeObjet === 'point' ? unPoint : unPoint.p2d
+    xmin = Math.min(xmin, lePoint.x - this.taille / context.pixelsParCm)
+    xmax = Math.max(xmax, lePoint.x + this.taille / context.pixelsParCm)
+    ymin = Math.min(ymin, lePoint.y - this.taille / context.pixelsParCm)
+    ymax = Math.max(ymax, lePoint.y + this.taille / context.pixelsParCm)
   }
-
+  this.bordures = [xmin, ymin, xmax, ymax]
   this.svg = function (coeff) {
     const objetssvg = []; let s1; let s2; let p1; let p2; let c, A
     for (const unPoint of points) {
@@ -578,9 +588,20 @@ function LabelPoint (...points) {
   } else {
     this.color = 'black'
   }
+  let xmin = 1000
+  let xmax = -1000
+  let ymin = 1000
+  let ymax = -1000
+  let lePoint
   for (const unPoint of points) {
     if (unPoint.typeObjet !== 'point3d' && unPoint.typeObjet !== 'point') window.notify('LabelPoint : argument invalide', { ...points })
+    lePoint = unPoint.typeObjet === 'point' ? unPoint : unPoint.p2d
+    xmin = Math.min(xmin, lePoint.x - 1)
+    xmax = Math.max(xmax, lePoint.x + 1)
+    ymin = Math.min(ymin, lePoint.y - 1)
+    ymax = Math.max(ymax, lePoint.y + 1)
   }
+  this.bordures = [xmin, ymin, xmax, ymax]
   this.svg = function (coeff) {
     let code = ''; let x; let y, A
     if (Array.isArray(points[0])) {
