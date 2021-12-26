@@ -192,21 +192,27 @@ export default function DeriveeProduit () {
           texteCorr += `\\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}x}{x^2}=\\frac{${reduireAxPlusB(-a, -b)}${ecritureAlgebrique(a)}x}{x^2}.\\]`
           texteCorr += 'Des termes se simplifient au numérateur et on a : '
           texteCorr += `\\[${namef}'(x)=\\frac{${reduireAxPlusB(0, -b)}}{x^2}.\\]`
+          const fExpand = math.simplify(`${a}${ecritureAlgebrique(b)}/x`)
+          texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${prettyTex(fExpand)}$.<br>`
+          texteCorr += `Et donc $${namef}'(x)=${math.simplify(math.derivative(fExpand, 'x'))}$`
           break
         }
         case 'monome2/poly1': {
-          const b = dictFonctions[typef2].monomes[0]
-          const a = dictFonctions[typef2].monomes[1]
-          const m = dictFonctions[typef1].monomes[2]
+          const b = dictFonctions[typef2].monomes[0] // coeffs du poly1 noté par ax+b
+          const a = dictFonctions[typef2].monomes[1] // coeffs du poly1 noté par ax+b
+          const m = dictFonctions[typef1].monomes[2] // coeff du monome2
           // const aff = dictFonctions[typef1]
           texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a \\[${namef}'(x)=${reduireAxPlusB(2 * m, 0)}(${exprf2})${ecritureAlgebrique(m)}x^2(${b}).\\]`
           texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${2 * m * a}x^2${ecritureAlgebrique(2 * m * b)}x${ecritureAlgebrique(m * a)}x^2.\\]`
           texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${2 * m * a + m * a}x^2${ecritureAlgebrique(2 * m * b)}x.\\]`
+          const fExpand = math.parse(`${rienSi1(m * a)}x^3${ecritureAlgebrique(m * b)}x^2`)
+          texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${prettyTex(fExpand)}$.<br>`
+          texteCorr += `Et donc $${namef}'(x)=${prettyTex(math.simplify(math.derivative(fExpand, 'x')))}$.`
           break
         }
       }
-      texte = texte.replaceAll('frac', 'dfrac')
-      texteCorr = texteCorr.replaceAll('frac', 'dfrac')
+      // texte = texte.replaceAll('frac', 'dfrac')
+      // texteCorr = texteCorr.replaceAll('frac', 'dfrac')
 
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
@@ -219,5 +225,5 @@ export default function DeriveeProduit () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Affine*inverse, affine*ax^2\n2 : Niveau 1 et polynômes, racine']
-  this.besoinFormulaire2CaseACocher = ['Inclure l\'exponentielle dans le niveau 2']
+  if (this.sup === 2) this.besoinFormulaire2CaseACocher = ['Inclure l\'exponentielle dans le niveau 2']
 }
