@@ -1125,12 +1125,12 @@ export function fixeBordures (objets) {
         ymax = Math.max(ymax, objet.bordure.y + 1 || 0)
       }
     } else {
-    xmin = Math.min(xmin, objet.x - 1 || 0)
-    xmax = Math.max(xmax, objet.x + 1 || 0)
-    ymin = Math.min(ymin, objet.y - 1 || 0)
-    ymax = Math.max(ymax, objet.y + 1 || 0)
+      xmin = Math.min(xmin, objet.x - 1 || 0)
+      xmax = Math.max(xmax, objet.x + 1 || 0)
+      ymin = Math.min(ymin, objet.y - 1 || 0)
+      ymax = Math.max(ymax, objet.y + 1 || 0)
+    }
   }
-}
   return { xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax }
 }
 
@@ -1889,7 +1889,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     this.bordure = [point(arg1, arg2), point(arg3, arg4)]
     this.color = color
   }
-  this.bordures = [Math.min(this.x1,this.x2)-0.2,Math.min(this.y1,this.y2)-0.2,Math.max(this.x1,this.x2)+0.2,Math.max(this.y1,this.y2)+0.2]
+  this.bordures = [Math.min(this.x1, this.x2) - 0.2, Math.min(this.y1, this.y2) - 0.2, Math.max(this.x1, this.x2) + 0.2, Math.max(this.y1, this.y2) + 0.2]
   this.extremite1 = point(this.x1, this.y1)
   this.extremite2 = point(this.x2, this.y2)
   this.longueur = calcul(
@@ -3281,7 +3281,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     sweep = 1 - (angle > 0)
   }
   const N = rotation(M, Omega, angle)
-  this.bordures = [Math.min(M.x,N.x,med.x)-0.1,Math.min(M.y,N.y,med.y)-0.1,Math.max(M.x,N.x,med.x)+0.1,Math.max(M.y,N.y,med.y)+0.1]
+  this.bordures = [Math.min(M.x, N.x, med.x) - 0.1, Math.min(M.y, N.y, med.y) - 0.1, Math.max(M.x, N.x, med.x) + 0.1, Math.max(M.y, N.y, med.y) + 0.1]
   if (rayon) {
     this.svg = function (coeff) {
       this.style = ''
@@ -5140,15 +5140,15 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
   this.extremite2 = B
   this.distance = d
   const O = milieu(this.extremite1, this.extremite2)
-    const M = rotation(this.extremite1, O, -90)
-    const l = stringNombre(arrondi(s.longueur, 1))
-    const s = segment(this.extremite1, this.extremite2)
-    let angle
-    s.isVisible = false
-    
+  const M = rotation(this.extremite1, O, -90)
+  const l = stringNombre(arrondi(s.longueur, 1))
+  const s = segment(this.extremite1, this.extremite2)
+  let angle
+  s.isVisible = false
+
   this.svg = function (coeff) {
     const N = pointSurSegment(O, M, (this.distance * 20) / coeff)
-     if (this.extremite2.x > this.extremite1.x) {
+    if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale
     } else {
       angle = 180 - s.angleAvecHorizontale
@@ -5186,8 +5186,8 @@ export function afficheLongueurSegment (...args) {
  */
 function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
   ObjetMathalea2D.call(this)
-  if (longueur(A,B)<0.1) window.notify('TexteSurSegment : Points trop proches pour cette fonction',{A,B})
-  this.color = color 
+  if (longueur(A, B) < 0.1) window.notify('TexteSurSegment : Points trop proches pour cette fonction', { A, B })
+  this.color = color
   this.extremite1 = A
   this.extremite2 = B
   this.distance = d
@@ -5197,10 +5197,10 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
   const s = segment(this.extremite1, this.extremite2)
   s.isVisible = false
   let angle
-   this.bordure = pointSurSegment(O, M, this.distance)
+  this.bordure = pointSurSegment(O, M, this.distance)
   const pos = pointSurSegment(O, M, this.distance)
-  const space=0.2*texte.length
-  this.bordures = [pos.x-space,pos.y-space,pos.x+space,pos.y+space]
+  const space = 0.2 * texte.length
+  this.bordures = [pos.x - space, pos.y - space, pos.x + space, pos.y + space]
   /* let O = milieu(A, B);
    let M = rotation(A, O, -90);
    let N = pointSurSegment(O, M, d);
@@ -5215,9 +5215,7 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
    return texteParPoint(texte, N, angle, this.color);
    */
   this.svg = function (coeff) {
- 
-   
-  const N = pointSurSegment(O, M, this.distance * 20 / coeff)
+    const N = pointSurSegment(O, M, this.distance * 20 / coeff)
     if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale
     } else {
@@ -5230,7 +5228,7 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
     }
   }
   this.tikz = function () {
-   const N = pointSurSegment(O, M, this.distance / context.scale)
+    const N = pointSurSegment(O, M, this.distance / context.scale)
     if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale
     } else {
@@ -5279,13 +5277,14 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
   const Omega = point(Omegax, Omegay)
   const s = segment(this.extremite1, this.extremite2)
   s.isVisible = false
-  const pos = pointSurSegment(rotation(A, Omega, anglerot / 2), Omega, this.distance)
-  this.bordure =  pos
-  const space=0.2*texte.length
-  this.bordures = [pos.x-space,pos.y-space,pos.x+space,pos.y+space]
+  const p = rotation(A, Omega, angle / 2)
+  const pos = pointSurSegment(p, Omega, this.distance)
+  this.bordure = pos
+  const space = 0.2 * texte.length
+  this.bordures = [pos.x - space, pos.y - space, pos.x + space, pos.y + space]
   this.svg = function (coeff) {
-   const N = pointSurSegment(rotation(A, Omega, anglerot / 2), Omega, this.distance * 20 / coeff)
-   if (this.extremite2.x > this.extremite1.x) {
+    const N = pointSurSegment(p, Omega, this.distance * 20 / coeff)
+    if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale
     } else {
       angle = 180 - s.angleAvecHorizontale
@@ -5297,8 +5296,8 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
     }
   }
   this.tikz = function () {
-     const N = pointSurSegment(rotation(A, Omega, angle / 2), Omega, this.distance / context.scale)
-   if (this.extremite2.x > this.extremite1.x) {
+    const N = pointSurSegment(p, Omega, this.distance / context.scale)
+    if (this.extremite2.x > this.extremite1.x) {
       angle = -s.angleAvecHorizontale
     } else {
       angle = 180 - s.angleAvecHorizontale
@@ -9262,8 +9261,8 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
 }
 
 export function latexParCoordonnees (texte, x, y, color = 'black', largeur = 50, hauteurLigne = 20, colorBackground = 'white', tailleCaracteres = 8) {
- if (texte==='') return vide2d()
- else return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
+  if (texte === '') return vide2d()
+  else return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
 }
 
 /**
