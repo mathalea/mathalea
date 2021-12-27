@@ -378,7 +378,7 @@ ${sp(50)} $-x^2${ecritureAlgebrique(b)}=${c}$`
     Ainsi, $S=\\{0\\}$. `
         }
         if (k < 0) {
-          texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(c - b)}$, alors l'équation n'a pas de solution.
+          texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}$, alors l'équation n'a pas de solution.
       <br>Ainsi, $S=\\emptyset$. `
         }
         break
