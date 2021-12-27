@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 402 
-- nombre d'exos interactifReady 549 
+- nombre d'exos amcReady 403 
+- nombre d'exos interactifReady 552 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -341,6 +341,8 @@
 |can2F06|Dresser le tableau de signes d’une fonction affine|KO|KO|OK|qcm|
 |can2F07|Lire les extremums dans un tableau de variations|KO|KO|OK|mathLive|
 |can2F08|Encadrer en utilisant un tableau de variations|KO|KO|OK|mathLive|
+|can2F09|Résoudre une équation avec une fonction de référence|KO|KO|OK|qcm|
+|can2F10|Résoudre une équation avec une fonction de référence*|KO|KO|OK|qcm|
 |can2G01|Déterminer un agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
 |can2G02|Calculer une longueur avec le théorème de Pythagore|KO|KO|OK|mathLive|
 |can2G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|
@@ -364,6 +366,7 @@
 |can2N01|Utiliser les intervalles|KO|KO|OK|mathLive|
 |can2P01|Calculer une probabilité|OK|AMCNum|OK|mathLive|
 |can2P02|Dénombrer dans une situation concrète|KO|KO|OK|mathLive|
+|can2P03|Arbre de probabilité|OK|type de question AMC non prévu|OK|mathLive|
 |can3C01|Calculer avec des puissances|OK|AMCNum|OK|mathLive|
 |can3C02|Calculer une moyenne avec des décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Rendre irréductible une fraction|OK|AMCNum|OK|mathLive|

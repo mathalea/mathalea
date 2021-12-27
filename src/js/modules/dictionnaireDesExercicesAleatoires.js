@@ -3575,7 +3575,7 @@ export default {
     "interactifType": "qcm",
     "name": "4C20-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -5990,7 +5990,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -10481,6 +10481,38 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can2F09": {
+    "titre": "Résoudre une équation avec une fonction de référence",
+    "url": "/exercices/can/2e/can2F09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2F09",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F10": {
+    "titre": "Résoudre une équation avec une fonction de référence*",
+    "url": "/exercices/can/2e/can2F10.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2F10",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can2G01": {
     "titre": "Déterminer un agrandissement/réduction avec fraction",
     "url": "/exercices/can/2e/can2G01.js",
@@ -10851,6 +10883,25 @@ export default {
     "name": "can2P02",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2P03": {
+    "titre": "Arbre de probabilité",
+    "url": "/exercices/can/2e/can2P03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "type de question AMC non prévu"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2P03",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
