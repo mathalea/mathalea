@@ -128,6 +128,7 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
     this.nom = arg3
   }
   this.positionLabel = positionLabel
+  this.bordures = [this.x, this.y, this.x, this.y]
   this.xSVG = function (coeff) {
     return arrondi(this.x * coeff, 3)
   }
@@ -8923,6 +8924,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   this.opacite = 1
   this.couleurDeRemplissage = color
   this.opaciteDeRemplissage = this.opacite
+  this.bordures = [A.x - texte.length * 0.2, A.y - 0.4, A.x + texte.length * 0.2, A.y + 0.4]
   if (typeof texte !== 'string') {
     texte = String(texte)
   }
@@ -9040,6 +9042,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
   this.opacite = 1
   this.couleurDeRemplissage = color
   this.opaciteDeRemplissage = this.opacite
+  this.bordures = [A.x - texte.length * 0.2, A.y - 0.4, A.x + texte.length * 0.2, A.y + 0.4]
   if (texte.charAt(0) === '$') {
     this.svg = function (coeff) {
       return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 10, '', this.taille * 0.8).svg(coeff)
@@ -9221,6 +9224,7 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
   this.color = color
   this.texte = texte
   this.tailleCaracteres = tailleCaracteres
+  this.bordures = [x - texte.length * 0.2, y - 0.02 * this.hauteur, x + texte.length * 0.2, y + 0.02 * this.hauteur]
 
   this.svg = function (coeff) {
     let taille
