@@ -319,11 +319,10 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       }
       obj.video = false
     } else if (obj.typeExercice === 'dnb') {
-      contenuUnExercice += ` Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroExercice})</h3>`
+      contenuUnExercice += ` Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
       contenuUnExercice += `<div><div class="question"><img width="90%" src="${obj.png}"></div></div>`
       contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${
-        obj.numeroExercice
-      },'${numeroExercice - 1}')</h3>`
+        obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
       contenuUneCorrection += obj.correctionIsCachee ? '<div><div class="correction">Correction masquée</div></div>' : `<div><div class="correction"><img width="90%" src="${obj.pngcor}"></div></div>`
       obj.video = false
     } else if (obj.typeExercice === 'simple') {
@@ -1035,7 +1034,7 @@ function miseAJourDuCode () {
     if (listeExercicesLength > 0) {
       for (let i = 0; i < listeExercicesLength; i++) {
         listeObjetsExercice[i].id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
-        if (listeObjetsExercice[i].typeExercice === 'dnb') {
+        if (listeObjetsExercice[i].typeExercice === 'dnb' || listeObjetsExercice[i].typeExercice === 'crpe') {
           listePackages.add('dnb')
           codeEnonces += '\n\n\\exo{}\n\n'
           codeEnonces += listeObjetsExercice[i].contenu
@@ -1409,7 +1408,8 @@ async function miseAJourDeLaListeDesExercices (preview) {
         listeObjetsExercice[i].nbQuestionsModifiable = false
         listeObjetsExercice[i].video = ''
         listeObjetsExercice[i].titre = id
-        listeObjetsExercice[i].contenu = ''
+        listeObjetsExercice[i].contenu = 'Exercice non disponible en version LaTeX'
+        listeObjetsExercice[i].contenuCorrection = 'Exercice non disponible en version LaTeX'
       } else {
         // avec webpack on ne peut pas faire de import(url), car il faut lui indiquer quels fichiers sont susceptibles d'être chargés
         // ici il ne peut s'agir que de js contenus dans exercices (dnb déjà traité dans le if au dessus)

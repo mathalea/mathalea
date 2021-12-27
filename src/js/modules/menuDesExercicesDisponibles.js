@@ -97,7 +97,7 @@ function listeHtmlDesExercicesDUnTheme (theme) {
 function aCrpe (id, dictionnaire, mode) {
   // donne la ligne pour un exercice d'annale de Crpe lorsqu'on les regarde par année.
 //  if (mode === 'annee') {
-  return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].lieu} -  ${dictionnaire[id].numeroInitial}</a> ${listeHtmlDesTags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
+  return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].lieu} -  ${dictionnaire[id].numeroInitial}</a> ${listeHtmlDesTags(dictionnaire[id])} </br>\n`
   // } else {
   //   return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].annee} - ${id.substr(9, 2)} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroExercice}</a> ${listeHtmlDesTags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
   // }
@@ -105,9 +105,9 @@ function aCrpe (id, dictionnaire, mode) {
 function aDnb (id, dictionnaire, mode) {
   // donne la ligne pour un exercice dnb lorsqu'on les regarde par année.
   if (mode === 'annee') {
-    return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].lieu} - ${dictionnaire[id].mois} -  Ex ${dictionnaire[id].numeroExercice}</a> ${listeHtmlDesTags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
+    return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].lieu} - ${dictionnaire[id].mois} -  Ex ${dictionnaire[id].numeroInitial}</a> ${listeHtmlDesTags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
   } else {
-    return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].annee} - ${id.substr(9, 2)} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroExercice}</a> ${listeHtmlDesTags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
+    return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].annee} - ${id.substr(9, 2)} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroInitial}</a> ${listeHtmlDesTags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
   }
 }
 function listeHtmlDesExercicesCrpeAnnee (annee) {
@@ -433,7 +433,7 @@ function ligneTableau (exercice) {
     }
   } else {
     ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}<br>${tagNew}${tagFeat}
-    </span></td> <td><a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].annee} - ${exercice.substr(9, 2)} - ${dictionnaireDesExercices[exercice].lieu} - Ex ${dictionnaireDesExercices[exercice].numeroExercice}
+    </span></td> <td><a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].annee} - ${exercice.substr(9, 2)} - ${dictionnaireDesExercices[exercice].lieu} - Ex ${dictionnaireDesExercices[exercice].numeroInitial}
     </a> ${listeHtmlDesTags(dictionnaireDesExercices[exercice])} </br>\n
     </td><td></td><td><i id=${exercice} class="eye icon icone_preview"></i></td></tr>`
   }
@@ -814,7 +814,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'Ex', 'HP', 'PE', 'C'], //, 'CRPE', 'CrpeTheme'],
+      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'Ex', 'HP', 'PE', 'C'], // 'CRPE', 'CrpeTheme'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
@@ -1049,7 +1049,7 @@ export function menuThemeDNB (theme) {
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     codeHTML +=
-      `<a style="line-height:2.5" class="item" href="/mathalea.html?ex=${id}&v=ex" target="_blank"><div class="header content"> ${dictionnaire[id].annee} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroExercice} ${listeHtmlDesTags(dictionnaire[id])} </div></a> \n`
+      `<a style="line-height:2.5" class="item" href="/mathalea.html?ex=${id}&v=ex" target="_blank"><div class="header content"> ${dictionnaire[id].annee} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroInitial} ${listeHtmlDesTags(dictionnaire[id])} </div></a> \n`
   }
   codeHTML += '\n</div>'
   return codeHTML

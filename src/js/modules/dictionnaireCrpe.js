@@ -60,7 +60,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g1-pb-cor5.png',
       'assets/crpe/2017/2017-g1-pb-cor6.png'
     ],
-    tags: ['Proportionnalité', 'Pythagore', 'Trigonométrie', 'Fonctions affines', 'Pourcentages', 'Inéquations', 'Vitesse', 'Tableur']
+    tags: ['Proportionnalité', 'Pythagore', 'Trigonométrie', 'Fonctions', 'Pourcentages', 'Inéquations', 'Vitesse', 'Tableur']
   },
   'crpe-2017-g2-ex1': {
     typeExercice: 'crpe',
@@ -74,7 +74,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g2-ex1-cor1.png',
       'assets/crpe/2017/2017-g2-ex1-cor2.png'
     ],
-    tags: []
+    tags: ['Calculs numériques', 'Pourcentages', 'Statistiques', 'Calcul littéral']
   },
   'crpe-2017-g2-ex2': {
     typeExercice: 'crpe',
@@ -88,7 +88,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g2-ex2-cor.png',
       'assets/crpe/2017/2017-g2-ex2-cor2.png'
     ],
-    tags: []
+    tags: ['Statistiques', 'Volumes']
   },
   'crpe-2017-g2-ex3': {
     typeExercice: 'crpe',
@@ -101,7 +101,7 @@ export const dictionnaireCrpe =
     pngCor: [
       'assets/crpe/2017/2017-g2-ex3-cor.png'
     ],
-    tags: []
+    tags: ['Algorithmique']
   },
   'crpe-2017-g2-ex4': {
     typeExercice: 'crpe',
@@ -114,7 +114,7 @@ export const dictionnaireCrpe =
     pngCor: [
       'assets/crpe/2017/2017-g2-ex4-cor.png'
     ],
-    tags: []
+    tags: ['Calcul littéral']
   },
   'crpe-2017-g2-pb': {
     typeExercice: 'crpe',
@@ -133,7 +133,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g2-pb-cor4.png',
       'assets/crpe/2017/2017-g2-pb-cor5.png'
     ],
-    tags: []
+    tags: ['Pythagore', 'Aires et périmètres', 'Pourcentages', 'Calcul littéral', 'Tableur', 'Fonctions']
   },
   'crpe-2017-g3-ex1': {
     typeExercice: 'crpe',
@@ -147,7 +147,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g3-ex1-cor1.png',
       'assets/crpe/2017/2017-g3-ex1-cor3.png'
     ],
-    tags: []
+    tags: ['Arithmétique', 'Pourcentages', 'Vitesses', 'Géométrie plane']
   },
   'crpe-2017-g3-ex2': {
     typeExercice: 'crpe',
@@ -162,7 +162,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g3-ex2-cor2.png',
       'assets/crpe/2017/2017-g3-ex2-cor3.png'
     ],
-    tags: []
+    tags: ['Probabilités']
   },
   'crpe-2017-g3-ex3': {
     typeExercice: 'crpe',
@@ -175,7 +175,7 @@ export const dictionnaireCrpe =
     pngCor: [
       'assets/crpe/2017/2017-g3-ex3-cor.png'
     ],
-    tags: []
+    tags: ['Algorithmique']
   },
   'crpe-2017-g3-ex4': {
     typeExercice: 'crpe',
@@ -189,7 +189,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g3-ex4-cor.png',
       'assets/crpe/2017/2017-g3-ex4-cor2.png'
     ],
-    tags: []
+    tags: ['Calcul littéral']
   },
   'crpe-2017-g3-pb': {
     typeExercice: 'crpe',
@@ -208,7 +208,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g3-pb-cor4.png',
       'assets/crpe/2017/2017-g3-pb-cor6.png'
     ],
-    tags: []
+    tags: ['Statistiques', 'Volumes', 'Pourcentages', 'Géométrie plane', 'Pythagore']
   },
   'crpe-2017-g4-ex1': {
     typeExercice: 'crpe',
@@ -222,7 +222,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g4-ex1-cor.png',
       'assets/crpe/2017/2017-g4-ex1-cor2.png'
     ],
-    tags: []
+    tags: ['Géométrie plane', 'Proportionnalité', 'Thalès', 'Calcul littéral', 'Fonctions']
   },
   'crpe-2017-g4-ex2': {
     typeExercice: 'crpe',
@@ -236,7 +236,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g4-ex2-cor.png',
       'assets/crpe/2017/2017-g4-ex2-cor2.png'
     ],
-    tags: []
+    tags: ['Probabilités']
   },
   'crpe-2017-g4-ex3': {
     typeExercice: 'crpe',
@@ -251,7 +251,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g4-ex3-cor.png',
       'assets/crpe/2017/2017-g4-ex3-cor2.png'
     ],
-    tags: []
+    tags: ['Algorithmique']
   },
   'crpe-2017-g4-ex4': {
     typeExercice: 'crpe',
@@ -259,13 +259,13 @@ export const dictionnaireCrpe =
     lieu: 'Groupement 4',
     numeroInitial: 'Ex 4',
     png: [
-      'assets/crpe/2017/2017-g4-ex4-2.png',
-      'assets/crpe/2017/2017-g4-ex4.png'
+      'assets/crpe/2017/2017-g4-ex4-1.png',
+      'assets/crpe/2017/2017-g4-ex4-2.png'
     ],
     pngCor: [
       'assets/crpe/2017/2017-g4-ex4-cor.png'
     ],
-    tags: []
+    tags: ['Géométrie dans l\'espace', 'Géométrie plane', 'Pythagore', 'Volumes', 'Agrandissement-réduction']
   },
   'crpe-2017-g4-pb': {
     typeExercice: 'crpe',
@@ -283,7 +283,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g4-pb-cor3.png',
       'assets/crpe/2017/2017-g4-pb-cor4.png'
     ],
-    tags: []
+    tags: ['Lecture graphique', 'Proportionnalité', 'Vitesses', 'Calcul littéral', 'Pourcentages', 'Grandeurs composées']
   },
   'crpe-2017-g5-ex1': {
     typeExercice: 'crpe',
@@ -296,7 +296,7 @@ export const dictionnaireCrpe =
     pngCor: [
       'assets/crpe/2017/2017-g5-ex1-cor.png'
     ],
-    tags: []
+    tags: ['Pourcentages']
   },
   'crpe-2017-g5-ex2': {
     typeExercice: 'crpe',
@@ -310,7 +310,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g5-ex2-cor1.png',
       'assets/crpe/2017/2017-g5-ex2-cor2.png'
     ],
-    tags: []
+    tags: ['Algorithmique', 'Calcul littéral']
   },
   'crpe-2017-g5-ex3': {
     typeExercice: 'crpe',
@@ -324,7 +324,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g5-ex3-cor.png',
       'assets/crpe/2017/2017-g5-ex3-cor2.png'
     ],
-    tags: []
+    tags: ['Statistiques']
   },
   'crpe-2017-g5-ex4': {
     typeExercice: 'crpe',
@@ -338,7 +338,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g5-ex4-cor.png',
       'assets/crpe/2017/2017-g5-ex4-cor2.png'
     ],
-    tags: []
+    tags: ['Nombres décimaux']
   },
   'crpe-2017-g5-pb': {
     typeExercice: 'crpe',
@@ -365,6 +365,6 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g5-pb-cor12.png',
       'assets/crpe/2017/2017-g5-pb-cor13.png'
     ],
-    tags: []
+    tags: ['Volumes', 'Aires et périmètres', 'Calcul littéral', 'Fonctions', 'Tableur', 'Lecture graphique', 'Géométrie dans l\'espace', 'Géométrie plane']
   }
 }
