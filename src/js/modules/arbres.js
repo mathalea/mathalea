@@ -1,5 +1,5 @@
 import { add, number, fraction, multiply } from 'mathjs'
-import { barycentre, latexParPoint, point, polygone, segment } from './2d'
+import { barycentre, latexParPoint, milieu, point, polygone, segment } from './2d'
 import { arrondi, calcul } from './outils'
 
 export function texProba (proba, rationnel, precision) {
@@ -88,11 +88,12 @@ export class Arbre {
    * sylvestre.getProba('malade', 1)= 0.5
    */
   getProba (nom, rationnel) {
+    let p = rationnel ? fraction(0, 1) : 0
     let probaArbre = rationnel ? fraction(0, 1) : 0
     if (this.nom === nom) return (rationnel || this.rationnel) ? fraction(this.proba) : number(this.proba)
     else {
       for (const arbre of this.enfants) {
-        if (arbre.nom === nom) return (rationnel || this.rationnel) ? fraction(arbre.proba) : number(arbre.proba)
+        if (arbre.nom === nom) p = add(p, (rationnel || this.rationnel) ? fraction(arbre.proba) : number(arbre.proba))
         else {
           if (rationnel) {
             probaArbre = add(fraction(probaArbre), multiply(fraction(arbre.proba), fraction(arbre.getProba(nom, true))))
@@ -101,8 +102,9 @@ export class Arbre {
           }
         }
       }
-      return probaArbre
+      p = add(p, (rationnel || this.rationnel) ? fraction(probaArbre) : number(probaArbre))
     }
+    return rationnel ? fraction(p) : number(p)
   }
 
   // méthode pour compter les descendants de l'arbre (le nombre de feuilles terminales).
@@ -155,7 +157,7 @@ export class Arbre {
       : yOrigine - sens * 5
     )
     const labelA = latexParPoint(this.nom, A, 'black', 8 * this.nom.length, 20, 'white', 10)
-    const positionProba = barycentre(polygone(A, A, A, B, B), '', 'center') // Proba au 2/5 de [AB] en partant de A.
+    const positionProba = vertical ? barycentre(polygone(A, A, A, B, B), '', 'center') : milieu(A, B, '', 'center') // Proba au 2/5 de [AB] en partant de A.
     const probaA = this.visible
       ? latexParPoint(texProba(this.proba, this.rationnel, 2), positionProba, 'black', 20, 24, 'white', 8)
       : latexParPoint(this.alter, positionProba, 'black', 20, 24, 'white', 8)
