@@ -5137,10 +5137,10 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
   this.distance = d
   const O = milieu(this.extremite1, this.extremite2)
   const M = rotation(this.extremite1, O, -90)
-  const l = stringNombre(arrondi(s.longueur, 1))
   const s = segment(this.extremite1, this.extremite2)
   let angle
   s.isVisible = false
+  const l = stringNombre(arrondi(s.longueur, 1))
 
   this.svg = function (coeff) {
     const N = pointSurSegment(O, M, (this.distance * 20) / coeff)
