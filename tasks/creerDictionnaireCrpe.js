@@ -37,4 +37,4 @@ fs.readdir(testFolder, (_err, files) => {
   })
 })
 
-// Pour exécuter ce script : node src/js/modules/crpe/creerDictionnaire.js
+// Pour exécuter ce script : node tasks/creerDictionnaireCrpe.js

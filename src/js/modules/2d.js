@@ -128,6 +128,7 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
     this.nom = arg3
   }
   this.positionLabel = positionLabel
+  this.bordures = [this.x, this.y, this.x, this.y]
   this.xSVG = function (coeff) {
     return arrondi(this.x * coeff, 3)
   }
@@ -224,7 +225,7 @@ function TracePoint (...points) {
   } else this.color = 'black'
   for (const unPoint of points) {
     if (unPoint.typeObjet !== 'point3d' && unPoint.typeObjet !== 'point') window.notify('TracePoint : argument invalide', { ...points })
-    lePoint = unPoint.typeObjet === 'point' ? unPoint : unPoint.p2d
+    lePoint = unPoint.typeObjet === 'point' ? unPoint : unPoint.c2d
     xmin = Math.min(xmin, lePoint.x - this.taille / context.pixelsParCm)
     xmax = Math.max(xmax, lePoint.x + this.taille / context.pixelsParCm)
     ymin = Math.min(ymin, lePoint.y - this.taille / context.pixelsParCm)
@@ -384,6 +385,7 @@ function TracePointSurDroite (A, O) {
   this.x = A.x
   this.y = A.y
   let M, d
+  this.bordures = [A.x - 0.2, A.y - 0.2, A.x + 0.2, A.x + 0.2]
   // if (context.isHtml) taille =  4/pixelsParCm; //initiallement 0.2, maintenant 0.2/pixelsParCm*20 pour que la taille soit indépendante du zoom mais ça pose problème en tikz !!!
   // else taille = 0.2/scale
 
@@ -595,7 +597,7 @@ function LabelPoint (...points) {
   let lePoint
   for (const unPoint of points) {
     if (unPoint.typeObjet !== 'point3d' && unPoint.typeObjet !== 'point') window.notify('LabelPoint : argument invalide', { ...points })
-    lePoint = unPoint.typeObjet === 'point' ? unPoint : unPoint.p2d
+    lePoint = unPoint.typeObjet === 'point' ? unPoint : unPoint.c2d
     xmin = Math.min(xmin, lePoint.x - lePoint.positionLabel.indexOf('left') !== -1 ? 1 : 0)
     xmax = Math.max(xmax, lePoint.x + lePoint.positionLabel.indexOf('right') !== -1 ? 1 : 0)
     ymin = Math.min(ymin, lePoint.y - lePoint.positionLabel.indexOf('below') !== -1 ? 1 : 0)
@@ -612,7 +614,7 @@ function LabelPoint (...points) {
     }
     for (const unPoint of this.listePoints) {
       if (unPoint.typeObjet === 'point3d') {
-        A = unPoint.p2d
+        A = unPoint.c2d
       } else {
         A = unPoint
       }
@@ -656,7 +658,7 @@ function LabelPoint (...points) {
     }
     for (const unPoint of points) {
       if (unPoint.typeObjet === 'point3d') {
-        A = unPoint.p2d
+        A = unPoint.c2d
       } else {
         A = unPoint
       }
@@ -692,7 +694,10 @@ function LabelLatexPoint (...points) {
   }
   const offset = arrondi(15 * Math.log10(8), 2)
   this.svg = function (coeff) {
-    let code = ''; let x; let y, A
+    let code = ''
+    let x
+    let y
+    let A
     if (Array.isArray(points[0])) {
       // Si le premier argument est un tableau
       this.listePoints = points[0]
@@ -1098,45 +1103,34 @@ export function estSurDroite (A, d) {
 }
 
 /**
- *
- * @param {object} objets
+ * @param {number} rxmin marge à gauche 0.5 par défaut (peut être fixée à 0 si on veut)
+ * @param {number} rxmax marge à droite 0.5 par défaut
+ * @param {number} rymin marge en bas 0.5 par défaut (peut être fixée à 0 si on veut)
+ * @param {number} rymax marge en haut 0.5 par défaut
+ * @param {number} rzoom facteur multiplicatif des marges... implémenté en cas de problème avec le zoom ?
+ * @param {[object]} objets // tableau contenant les objets à afficher
+ * Les objets affichables doivent avoir un attribut this.bordures = [xmin, ymin, xmax, ymax] 4 nombres dans cet ordre.
+ * Si this.bordures n'est pas défini ou n'est pas un tableau de 4 éléments, l'objet est ignoré
+ * Si aucun objet passé en argument n'a de "bordures" alors la fonction retourne une zone inaffichable et un message d'erreur est créé
  * @returns {object} {xmin, ymin, xmax, ymax}
  */
 export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = undefined, rymax = undefined, rzoom = 1 } = {}) {
   let xmin = 1000; let ymin = 1000; let xmax = -1000; let ymax = -1000
+  let bordures = false
   rxmin = rxmin !== undefined ? rxmin : -0.5
   rymin = rymin !== undefined ? rymin : -0.5
   rxmax = rxmax !== undefined ? rxmax : 0.5
   rymax = rymax !== undefined ? rymax : 0.5
   for (const objet of objets) {
-    if (Array.isArray(objet.bordures)) {
+    if (Array.isArray(objet.bordures) && objet.bordures.length === 4) {
       xmin = Math.min(xmin, objet.bordures[0])
       xmax = Math.max(xmax, objet.bordures[2])
       ymin = Math.min(ymin, objet.bordures[1])
       ymax = Math.max(ymax, objet.bordures[3])
-    } /*
-    else if (typeof objet.bordure !== 'undefined') {
-      if (typeof objet.bordure[Symbol.iterator] === 'function') {
-        for (const obj of objet.bordure) {
-          xmin = Math.min(xmin, obj.x - 1 || 0)
-          xmax = Math.max(xmax, obj.x + 1 || 0)
-          ymin = Math.min(ymin, obj.y - 1 || 0)
-          ymax = Math.max(ymax, obj.y + 1 || 0)
-        }
-      } else {
-        xmin = Math.min(xmin, objet.bordure.x - 1 || 0)
-        xmax = Math.max(xmax, objet.bordure.x + 1 || 0)
-        ymin = Math.min(ymin, objet.bordure.y - 1 || 0)
-        ymax = Math.max(ymax, objet.bordure.y + 1 || 0)
-      }
-    } else {
-      xmin = Math.min(xmin, objet.x - 1 || 0)
-      xmax = Math.max(xmax, objet.x + 1 || 0)
-      ymin = Math.min(ymin, objet.y - 1 || 0)
-      ymax = Math.max(ymax, objet.y + 1 || 0)
+      bordures = true
     }
-    */
   }
+  if (!bordures) window.notify('fixeBordures : aucun objet ne définit de bordures valides', { ...objets })
   return { xmin: xmin + rxmin * rzoom, xmax: xmax + rxmax * rzoom, ymin: ymin + rymin * rzoom, ymax: ymax + rymax * rzoom }
 }
 
@@ -1546,6 +1540,18 @@ function Polyline (...points) {
   } else {
     this.listePoints = points
   }
+  let xmin = 1000
+  let xmax = -1000
+  let ymin = 1000
+  let ymax = -1000
+  for (const unPoint of points) {
+    if (unPoint.typeObjet !== 'point') window.notify('TracePoint : argument invalide', { ...points })
+    xmin = Math.min(xmin, unPoint.x - this.taille / context.pixelsParCm)
+    xmax = Math.max(xmax, unPoint.x + this.taille / context.pixelsParCm)
+    ymin = Math.min(ymin, unPoint.y - this.taille / context.pixelsParCm)
+    ymax = Math.max(ymax, unPoint.y + this.taille / context.pixelsParCm)
+  }
+  this.bordures = [xmin, ymin, xmax, ymax]
   this.nom = ''
   if (points.length < 15) {
     // Ne nomme pas les ligne brisée trop grande (pratique pour les courbes de fonctions)
@@ -2193,6 +2199,18 @@ function Polygone (...points) {
     this.listePoints = points
     this.nom = this.listePoints.join()
   }
+  let xmin = 1000
+  let xmax = -1000
+  let ymin = 1000
+  let ymax = -1000
+  for (const unPoint of this.listePoints) {
+    if (unPoint.typeObjet !== 'point') window.notify('Polygone : argument invalide', { ...points })
+    xmin = Math.min(xmin, unPoint.x - unPoint.positionLabel.indexOf('left') !== -1 ? 1 : 0)
+    xmax = Math.max(xmax, unPoint.x + unPoint.positionLabel.indexOf('right') !== -1 ? 1 : 0)
+    ymin = Math.min(ymin, unPoint.y - unPoint.positionLabel.indexOf('below') !== -1 ? 1 : 0)
+    ymax = Math.max(ymax, unPoint.y + unPoint.positionLabel.indexOf('above') !== -1 ? 1 : 0)
+  }
+  this.bordures = [xmin, ymin, xmax, ymax]
 
   this.binomesXY = function (coeff) {
     let liste = ''
@@ -2364,6 +2382,11 @@ export function polygone (...args) {
 export function polygoneAvecNom (...args) {
   const p = polygone(...args)
   p.sommets = nommePolygone(p)
+  p.sommets.bordures = []
+  p.sommets.bordures[0] = p.bordures[0] - 1
+  p.sommets.bordures[1] = p.bordures[1] - 1
+  p.sommets.bordures[2] = p.bordures[2] + 1
+  p.sommets.bordures[3] = p.bordures[3] + 1
   return [p, p.sommets]
 }
 
@@ -2521,6 +2544,7 @@ class Boite {
   constructor ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteOpacite = 0.7, texteMath = false, echelleFigure = 1 } = {}) {
     ObjetMathalea2D.call(this)
     this.forme = polygone([point(Xmin, Ymin), point(Xmax, Ymin), point(Xmax, Ymax), point(Xmin, Ymax)], color)
+    this.bordures = this.forme.bordures
     if (colorFill) {
       this.forme.couleurDeRemplissage = colorFill
       this.forme.opaciteDeRemplissage = opaciteDeRemplissage
@@ -2797,6 +2821,7 @@ function Cercle (O, r, color) {
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
+  this.bordures = [O.x - r, O.y - r, O.x + r, O.y + r]
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
@@ -2967,6 +2992,7 @@ function Ellipse (O, rx, ry, color) {
   this.ry = ry
   this.couleurDeRemplissage = ''
   this.opaciteDeRemplissage = 1.1
+  this.bordures = [O.x - rx, O.y - ry, O.x + rx, O.y + ry]
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
@@ -3940,7 +3966,19 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
     objets.push(lettre)
     objets.push(chiffre)
   }
-
+  let xmin = 1000
+  let ymin = 1000
+  let xmax = -1000
+  let ymax = -1000
+  for (const objet of objets) {
+    if (objet.bordures !== undefined) {
+      xmin = Math.min(xmin, objet.bordures[0])
+      ymin = Math.min(ymin, objet.bordures[1])
+      xmax = Math.max(xmax, objet.bordures[2])
+      ymax = Math.max(ymax, objet.bordures[3])
+    }
+  }
+  this.bordures = [xmin, ymin, xmax, ymax]
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -3981,6 +4019,7 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3 }) {
   const centre = point(this.x, this.y, this.y)
   const azimut = point(this.x + this.rang * this.taille, this.y)
   const azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + 0.3)
+  this.bordures = [x - rang * taille - 1, y - rang * taille - 1, x + rang * taille + 1, y + rang * taille + 1]
   for (let i = 0; i < 8; i++) {
     rayon = segment(centre, rotation(azimut, centre, 45 * i))
     rayon.color = this.color
@@ -4071,6 +4110,8 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18
     azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
     rayon = segment(azimut, azimut2)
   }
+  this.bordures = [x - taille - 1, y - taille - 1, x + taille + 1, y + taille + 1]
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -5147,10 +5188,10 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
   this.distance = d
   const O = milieu(this.extremite1, this.extremite2)
   const M = rotation(this.extremite1, O, -90)
-  const l = stringNombre(arrondi(s.longueur, 1))
   const s = segment(this.extremite1, this.extremite2)
   let angle
   s.isVisible = false
+  const l = stringNombre(arrondi(s.longueur, 1))
 
   this.svg = function (coeff) {
     const N = pointSurSegment(O, M, (this.distance * 20) / coeff)
@@ -8934,6 +8975,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   this.opacite = 1
   this.couleurDeRemplissage = color
   this.opaciteDeRemplissage = this.opacite
+  this.bordures = [A.x - texte.length * 0.2, A.y - 0.4, A.x + texte.length * 0.2, A.y + 0.4]
   if (typeof texte !== 'string') {
     texte = String(texte)
   }
@@ -9051,6 +9093,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
   this.opacite = 1
   this.couleurDeRemplissage = color
   this.opaciteDeRemplissage = this.opacite
+  this.bordures = [A.x - texte.length * 0.2, A.y - 0.4, A.x + texte.length * 0.2, A.y + 0.4]
   if (texte.charAt(0) === '$') {
     this.svg = function (coeff) {
       return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 10, '', this.taille * 0.8).svg(coeff)
@@ -9232,6 +9275,7 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
   this.color = color
   this.texte = texte
   this.tailleCaracteres = tailleCaracteres
+  this.bordures = [x - texte.length * 0.2, y - 0.02 * this.hauteur, x + texte.length * 0.2, y + 0.02 * this.hauteur]
 
   this.svg = function (coeff) {
     let taille
