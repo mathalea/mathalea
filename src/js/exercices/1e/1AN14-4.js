@@ -176,7 +176,7 @@ export default function DeriveeProduit () {
           const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
           // Début correction
           // const intermediaire = `${derivee1m}*${terme2}+${terme1}*(${derivee2m})`
-          texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=\\underbrace{-\\frac{1}{x^2}}_{u'(x)}${prettyTex(math.parse(terme2))}+\\frac{1}{x}\\underbrace{(${a})}_{v'(x)}.\\]`
+          texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=\\underbrace{-\\frac{1}{x^2}}_{u'(x)}${prettyTex(math.parse(terme2))}+\\frac{1}{x}\\underbrace{${a > 0 ? a : `${a})`}}_{v'(x)}.\\]`
           texteCorr += `Ce qui donne, en simplifiant : \\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}}{x}.\\]`
           texteCorr += 'On additionne les deux fractions pour obtenir : '
           texteCorr += `\\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}x}{x^2}=\\frac{${reduireAxPlusB(-a, -b)}${ecritureAlgebrique(a)}x}{x^2}.\\]`
@@ -193,7 +193,7 @@ export default function DeriveeProduit () {
           const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
           const m = dictFonctions[typef1].monomes[2] // coeff du monome2
           // Début correction
-          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${reduireAxPlusB(2 * m, 0)}}_{u'(x)}(${exprf2})${ecritureAlgebrique(m)}x^2\\underbrace{(${a})}_{v'(x)}.\\]`
+          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${reduireAxPlusB(2 * m, 0)}}_{u'(x)}(${exprf2})${ecritureAlgebrique(m)}x^2\\underbrace{${a > 0 ? a : `${a})`}}_{v'(x)}.\\]`
           texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${2 * m * a}x^2${ecritureAlgebrique(2 * m * b)}x${ecritureAlgebrique(m * a)}x^2.\\]`
           texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${2 * m * a + m * a}x^2${ecritureAlgebrique(2 * m * b)}x.\\]`
           // Remarque sur la méthode alternative
@@ -215,13 +215,12 @@ export default function DeriveeProduit () {
         case 'racine/poly2centre': {
           const racineGauche = typef1 === 'racine'
           const poly = dictFonctions.poly2centre
-          // notation poly = ax^2+b
-          const a = poly.monomes[2]
+          const a = poly.monomes[2] // coefficient de degré 2
           // 1ère étape : application de la formule
           let intermediaire
-          if (racineGauche) intermediaire = `\\frac{1}{2\\sqrt{x}}(${poly.toMathExpr()})+\\sqrt{x}(${monome(2 * a)})`
-          else intermediaire = `(${rienSi1(2 * a)}x)\\sqrt{x}+(${poly.toMathExpr()})\\frac{1}{2\\sqrt{x}}`
-          texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a \\[${namef}'(x)=${intermediaire}.\\]`
+          if (racineGauche) intermediaire = `\\underbrace{\\frac{1}{2\\sqrt{x}}}_{u'(x)}(${poly.toMathExpr()})+\\sqrt{x}\\underbrace{(${rienSi1(2 * a)}x)}_{v'(x)}`
+          else intermediaire = `\\underbrace{(${rienSi1(2 * a)}x)}_{u'(x)}\\sqrt{x}+(${poly.toMathExpr()})\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}`
+          texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
           // 2ème étape : simplification
           let interm2
           if (racineGauche) interm2 = `\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}${ecritureAlgebriqueSauf1(2 * a)}x\\sqrt{x}` // @todo
@@ -230,6 +229,7 @@ export default function DeriveeProduit () {
           texteCorr += `\\[${namef}'(x)=${interm2}\\]`
         }
           break
+        case 'racine/poly':
         default:
           texteCorr += 'Correction non encore implémentée.'
           break
