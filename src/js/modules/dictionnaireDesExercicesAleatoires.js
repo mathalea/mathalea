@@ -1316,7 +1316,7 @@ export default {
     }
   },
   "2N32-3": {
-    "titre": "Ecrire le nombre proposé sous la forme $a\\sqrt{b}$",
+    "titre": "Écrire le nombre proposé sous la forme $a\\sqrt{b}$",
     "url": "/exercices/2e/2N32-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2003,6 +2003,25 @@ export default {
     "name": "2S30-4",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2S30-5": {
+    "titre": "Expérience aléatoire à deux épreuves",
+    "url": "/exercices/2e/2S30-5.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2S30-5",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10914,6 +10933,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can1P01": {
+    "titre": "Arbre de probabilité",
+    "url": "/exercices/can/1e/can1P01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "type de question AMC non prévu"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1P01",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can2C01": {
     "titre": "Trouver le nombre d’entiers entre deux valeurs",
     "url": "/exercices/can/2e/can2C01.js",
@@ -11237,6 +11275,38 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2F08",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F09": {
+    "titre": "Résoudre une équation avec une fonction de référence",
+    "url": "/exercices/can/2e/can2F09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2F09",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F10": {
+    "titre": "Résoudre une équation avec une fonction de référence*",
+    "url": "/exercices/can/2e/can2F10.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2F10",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -11616,25 +11686,6 @@ export default {
     "name": "can2P02",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "can2P03": {
-    "titre": "Arbre de probabilité",
-    "url": "/exercices/can/2e/can2P03.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "type de question AMC non prévu"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "can2P03",
-    "newEx": {
-      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
