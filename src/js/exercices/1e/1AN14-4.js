@@ -109,10 +109,10 @@ export default function DeriveeProduit () {
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
-    let listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']// ,
+    const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']// ,
     if (this.sup === 2) {
-      // listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
-      listeTypeDeQuestionsDisponibles = ['racine/poly', 'racine/poly2centre', 'monome2/racine']
+      listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
+      // listeTypeDeQuestionsDisponibles = ['racine/poly', 'racine/poly2centre', 'monome2/racine']
       if (this.sup2) {
         listeTypeDeQuestionsDisponibles.push('exp/poly', 'exp/poly2centre')
       }
@@ -193,7 +193,7 @@ export default function DeriveeProduit () {
           const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
           const m = dictFonctions[typef1].monomes[2] // coeff du monome2
           // Début correction
-          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${reduireAxPlusB(2 * m, 0)}}_{u'(x)}(${exprf2})${ecritureAlgebrique(m)}x^2\\underbrace{${a > 0 ? a : `${a})`}}_{v'(x)}.\\]`
+          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${reduireAxPlusB(2 * m, 0)}}_{u'(x)}(${exprf2})${ecritureAlgebrique(m)}x^2\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
           texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${2 * m * a}x^2${ecritureAlgebrique(2 * m * b)}x${ecritureAlgebrique(m * a)}x^2.\\]`
           texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${2 * m * a + m * a}x^2${ecritureAlgebrique(2 * m * b)}x.\\]`
           // Remarque sur la méthode alternative
@@ -248,6 +248,31 @@ export default function DeriveeProduit () {
           else interm2 = `${poly.deg === 2 ? `(${derivee})` : derivee}\\sqrt{x}+\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}`
           texteCorr += 'L\'énoncé ne demandant rien de plus, on se contente de simplifier l\'expression :'
           texteCorr += `\\[${namef}'(x)=${interm2}\\]`
+          break
+        }
+        case 'exp/poly':
+        case 'exp/poly2centre': {
+          const expGauche = typef1 === 'exp'
+          const poly = listeTypeDeQuestions[i].substring(4) === 'poly' ? dictFonctions.poly : dictFonctions.poly2centre
+          const a = poly.coeffs[poly.deg]
+          const b = poly.coeffs[poly.deg - 1]
+          const isQuadra = poly.deg === 2
+          // const c = poly.deg === 2 ? poly.coeffs[0] : undefined
+          const derivee = poly.deg === 2 ? `${reduireAxPlusB(2 * a, b)}` : `${a}`
+          console.log(derivee)
+          // 1ère étape : application de la formule
+          let intermediaire
+          if (expGauche) intermediaire = `\\underbrace{e^x}_{u'(x)}(${poly.toMathExpr()})+e^x\\underbrace{(${derivee})}_{v'(x)}`
+          else intermediaire = `\\underbrace{(${derivee})}_{u'(x)}e^x+(${poly.toMathExpr()})\\underbrace{e^x}_{v'(x)}`
+          texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
+          // 2ème étape : simplification
+          const interm2 = math.simplify(`${poly.toMathExpr()}${derivee}`, reglesDeSimplifications)
+          texteCorr += 'Factorisons l\'expression par $e^x$ :'
+          texteCorr += `\\[${namef}'(x)=e^x(${poly.toMathExpr()}${derivee}).\\]`
+          if (!isQuadra) {
+            texteCorr += '<br>C\'est-à-dire, en simplifiant : '
+            texteCorr += `\\[${namef}'(x)=e^x(${prettyTex(interm2)})\\]`
+          }
           break
         }
         default:
