@@ -453,6 +453,8 @@ function verifQuestionNumerique (exercice, i) {
 }
 
 function gestionCan (exercice) {
+  context.nbBonnesReponses = 0
+  context.nbMauvaisesReponses = 0
   for (let i = 0; i < exercice.nbQuestions; i++) {
     const button1question = document.querySelector(`#boutonVerifexercice${exercice.numeroExercice}Q${i}`)
     if (button1question) {
