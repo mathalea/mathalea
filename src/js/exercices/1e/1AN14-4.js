@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureAlgebriqueSauf1, lettreMinusculeDepuisChiffre, rienSi1, reduireAxPlusB, texNombrec2 } from '../../modules/outils.js'
-import { simplify, parse, derivative, chain, abs } from 'mathjs'
+import { simplify, parse, derivative, chain, abs, number } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative, chain: chain }
 export const titre = 'Dérivée d\'un produit'
 
@@ -204,10 +204,11 @@ export default function DeriveeProduit () {
         }
         case 'monome2/racine': {
           const m = dictFonctions[typef1].monomes[2] // coeff du monome2
-          texteCorr += `Ici on dérive $${namef}$ comme $${texNombrec2(m)}$ fois $x\\mapsto x^2\\sqrt{x}$. On a `
-          texteCorr += `\\[${namef}'(x)=${rienSi1(m)}\\left(2x\\sqrt{x}+\\frac{x^2}{2\\sqrt{x}}\\right).\\]`
-          texteCorr += 'Sans plus d\'exigences de l\'énoncé, on pourrait s\'arrêter là. Mais on peut aussi développer : '
-          texteCorr += `\\[${namef}'(x)=${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}`
+          // texteCorr += `Ici on dérive $${namef}$ comme $${texNombrec2(m)}$ fois $x\\mapsto x^2\\sqrt{x}$.`
+          texteCorr += 'On applique la  formule rappellée plus haut : '
+          texteCorr += `\\[${namef}'(x)=\\underbrace{${rienSi1(2 * m)}x}_{u'(x)}\\sqrt{x}+${rienSi1(m)}x^2\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
+          texteCorr += 'Sans plus d\'exigences de l\'énoncé, on pourrait s\'arrêter là. Mais on peut réduire un peu l\'expression : '
+          texteCorr += `\\[${namef}'(x)=${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}` // attention l'équation finit ligne suivante
           if (m % 2 !== 0) texteCorr += `\\frac{${abs(m)}x^2}{2\\sqrt{x}}.\\]`
           else texteCorr += `\\frac{${texNombrec2(abs(m / 2))}x^2}{\\sqrt{x}}.\\]`
           break
@@ -223,13 +224,32 @@ export default function DeriveeProduit () {
           texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
           // 2ème étape : simplification
           let interm2
-          if (racineGauche) interm2 = `\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}${ecritureAlgebriqueSauf1(2 * a)}x\\sqrt{x}` // @todo
+          if (racineGauche) interm2 = `\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}${ecritureAlgebriqueSauf1(2 * a)}x\\sqrt{x}`
           else interm2 = `${rienSi1(2 * a)}x\\sqrt{x}+\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}`
           texteCorr += 'L\'énoncé ne demandant rien de plus, on se contente de simplifier l\'expression :'
           texteCorr += `\\[${namef}'(x)=${interm2}\\]`
         }
           break
-        case 'racine/poly':
+        case 'racine/poly': {
+          const racineGauche = typef1 === 'racine'
+          const poly = dictFonctions.poly
+          const a = poly.coeffs[poly.deg]
+          const b = poly.coeffs[poly.deg - 1]
+          // const c = poly.deg === 2 ? poly.coeffs[0] : undefined
+          const derivee = poly.deg === 2 ? `${reduireAxPlusB(2 * a, b)}` : `${a}`
+          // 1ère étape : application de la formule
+          let intermediaire
+          if (racineGauche) intermediaire = `\\underbrace{\\frac{1}{2\\sqrt{x}}}_{u'(x)}(${poly.toMathExpr()})+\\sqrt{x}\\underbrace{(${derivee})}_{v'(x)}`
+          else intermediaire = `\\underbrace{(${derivee})}_{u'(x)}\\sqrt{x}+(${poly.toMathExpr()})\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}`
+          texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
+          // 2ème étape : simplification
+          let interm2
+          if (racineGauche) interm2 = `\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}${poly.deg === 2 ? `+(${derivee})` : ecritureAlgebriqueSauf1(number(derivee))}\\sqrt{x}`
+          else interm2 = `${poly.deg === 2 ? `(${derivee})` : derivee}\\sqrt{x}+\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}`
+          texteCorr += 'L\'énoncé ne demandant rien de plus, on se contente de simplifier l\'expression :'
+          texteCorr += `\\[${namef}'(x)=${interm2}\\]`
+          break
+        }
         default:
           texteCorr += 'Correction non encore implémentée.'
           break
