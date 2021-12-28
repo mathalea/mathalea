@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureAlgebriqueSauf1, lettreMinusculeDepuisChiffre, rienSi1, reduireAxPlusB, texNombrec2 } from '../../modules/outils.js'
-import { simplify, parse, derivative, chain, abs, number } from 'mathjs'
+import { max, simplify, parse, derivative, chain, abs, number } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative, chain: chain }
 export const titre = 'Dérivée d\'un produit'
 
@@ -41,33 +41,41 @@ function prettyTex (expression) {
  * @param {number} deg degré
  * @param {boolean} mon monôme
  * @param {boolean} centre pour obtenir ax^2+b quand deg=2
+ * @param {boolean|Array} rand true pour obtenir un polynome aléatoire, Array pour fournir les coeffs
  */
 class Polynome {
-  constructor (deg, mon = false, centre = false) {
-    this.deg = deg
+  constructor (deg, mon = false, centre = false, rand = true) {
     this.mon = mon
-    this.monomes = []
-    for (let i = 0; i < deg; i++) {
-      if (deg === 2 && i === 1 && centre) {
-        this.monomes.push(0)
-        continue
+    if ((rand && typeof rand === 'boolean') || !Array.isArray(rand)) {
+      this.deg = deg
+      this.monomes = []
+      for (let i = 0; i < deg; i++) {
+        if (deg === 2 && i === 1 && centre) {
+          this.monomes.push(0)
+          continue
+        }
+        if (!mon) this.monomes.push(randint(-10, 10))
+        else this.monomes.push(0)
       }
-      if (!mon) this.monomes.push(randint(-10, 10))
-      else this.monomes.push(0)
+      this.monomes.push(randint(-10, 10, 0))
+    } else {
+      this.monomes = rand
+      this.deg = this.monomes.length - 1
     }
-    this.monomes.push(randint(-10, 10, 0))
   }
 
   get coeffs () { return this.monomes }
 
-  toMathExpr () {
+  toMathExpr (alg = false) {
     let res = ''
     let maj = ''
     for (const [i, c] of this.monomes.entries()) {
       switch (i) {
-        case this.deg:
-          maj = this.deg === 1 ? `${rienSi1(c)}x` : `${rienSi1(c)}x^${i}`
+        case this.deg: {
+          const coeffD = alg ? ecritureAlgebriqueSauf1(c) : rienSi1(c)
+          maj = this.deg === 1 ? `${coeffD}x` : `${coeffD}x^${i}`
           break
+        }
         case 0:
           maj = constRienSi0(c)
           break
@@ -82,7 +90,28 @@ class Polynome {
     }
     return res
   }
+
+  static add (p1, p2) {
+    const degSomme = max(p1.deg, p2.deg)
+    const pInf = p1.deg === degSomme ? p2 : p1
+    const pSup = p1.deg === degSomme ? p1 : p2
+    const coeffSomme = pSup.monomes.map(function (el, index) { return index <= pInf.deg ? el + pInf.monomes[index] : el })
+    return new Polynome(degSomme, false, false, coeffSomme)
+  }
+
+  static print (coeffs, alg = false) {
+    const p = new Polynome(coeffs.length - 1, false, false, coeffs)
+    return p.toMathExpr(alg)
+  }
 }
+// Tests
+const p = new Polynome(2, false, false, [-11, 2, 1])
+const p2 = new Polynome(1, false, false, [2, 1])
+console.log('p : ', p.toMathExpr(), p.deg)
+console.log('p2 : ', p2.toMathExpr(), p2.deg)
+console.log('p+p2 : ', Polynome.add(p, p2).coeffs)
+console.log('print : ', Polynome.print([0, -1, 1]))
+console.log('print alg : ', Polynome.print([0, -1, 1], true))
 
 export default function DeriveeProduit () {
   Exercice.call(this)
@@ -252,21 +281,22 @@ export default function DeriveeProduit () {
           const poly = listeTypeDeQuestions[i].substring(4) === 'poly' ? dictFonctions.poly : dictFonctions.poly2centre
           const a = poly.coeffs[poly.deg]
           const b = poly.coeffs[poly.deg - 1]
-          const derivee = poly.deg === 2 ? `${reduireAxPlusB(2 * a, b)}` : `${a}`
-          console.log(derivee)
+          const isQuadra = poly.deg === 2
+          const derivee = isQuadra ? `${(2 * a, b)}` : `${a}`
+          const deriveeAlg = poly.deg === 2 ? `${reduireAxPlusB(2 * a, b)}` : `${ecritureAlgebrique(a)}`
+          // console.log(derivee)
           // 1ère étape : application de la formule
           let intermediaire
           if (expGauche) intermediaire = `\\underbrace{e^x}_{u'(x)}(${poly.toMathExpr()})+e^x\\underbrace{(${derivee})}_{v'(x)}`
           else intermediaire = `\\underbrace{(${derivee})}_{u'(x)}e^x+(${poly.toMathExpr()})\\underbrace{e^x}_{v'(x)}`
           texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
           // 2ème étape : simplification
-          const interm2 = math.simplify(`${poly.toMathExpr()}${derivee}`, reglesDeSimplifications)
+          const interm2 = isQuadra ? `${rienSi1(a)}x^2` : ''
           texteCorr += 'Factorisons l\'expression par $e^x$ :'
-          texteCorr += `\\[${namef}'(x)=e^x(${poly.toMathExpr()}${derivee}).\\]`
-          const isQuadra = poly.deg === 2
-          if (!isQuadra) {
+          texteCorr += `\\[${namef}'(x)=e^x(${poly.toMathExpr()}${deriveeAlg}).\\]`
+          if (isQuadra) {
             texteCorr += '<br>C\'est-à-dire, en simplifiant : '
-            texteCorr += `\\[${namef}'(x)=e^x(${prettyTex(interm2)})\\]`
+            texteCorr += `\\[${namef}'(x)=e^x(${prettyTex(math.parse(interm2))})\\]`
           }
           break
         }
