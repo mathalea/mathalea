@@ -112,7 +112,6 @@ export default function DeriveeProduit () {
     const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']// ,
     if (this.sup === 2) {
       listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
-      // listeTypeDeQuestionsDisponibles = ['racine/poly', 'racine/poly2centre', 'monome2/racine']
       if (this.sup2) {
         listeTypeDeQuestionsDisponibles.push('exp/poly', 'exp/poly2centre')
       }
@@ -168,15 +167,13 @@ export default function DeriveeProduit () {
       texteCorr += '\\[(u\\times v)\'=u\'\\times v+u\\times v\'\\]'
       texteCorr += `Ici $${namef}=u\\times v$ avec`
       texteCorr += `\\[\\begin{aligned}u&=x\\mapsto ${prettyTex(math.parse(exprf1))}\\\\ v&=x\\mapsto${prettyTex(math.parse(exprf2))}\\end{aligned}\\]`
-      // const derivee1m = math.simplify(math.derivative(terme1, 'x'), reglesDeSimplifications)
-      // const derivee2m = math.simplify(math.derivative(terme2, 'x'), reglesDeSimplifications)
       switch (listeTypeDeQuestions[i]) {
         case 'inv/poly1': {
           const b = dictFonctions[typef2].monomes[0] // coeffs du poly1
           const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
           // Début correction
-          // const intermediaire = `${derivee1m}*${terme2}+${terme1}*(${derivee2m})`
-          texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=\\underbrace{-\\frac{1}{x^2}}_{u'(x)}${prettyTex(math.parse(terme2))}+\\frac{1}{x}\\underbrace{${a > 0 ? a : `${a})`}}_{v'(x)}.\\]`
+          texteCorr += 'On utilise la formule rappelée plus haut et on a'
+          texteCorr += `\\[${namef}'(x)=\\underbrace{-\\frac{1}{x^2}}_{u'(x)}${prettyTex(math.parse(terme2))}+\\frac{1}{x}\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
           texteCorr += `Ce qui donne, en simplifiant : \\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}}{x}.\\]`
           texteCorr += 'On additionne les deux fractions pour obtenir : '
           texteCorr += `\\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}x}{x^2}=\\frac{${reduireAxPlusB(-a, -b)}${ecritureAlgebrique(a)}x}{x^2}.\\]`
@@ -206,8 +203,8 @@ export default function DeriveeProduit () {
           const m = dictFonctions[typef1].monomes[2] // coeff du monome2
           // texteCorr += `Ici on dérive $${namef}$ comme $${texNombrec2(m)}$ fois $x\\mapsto x^2\\sqrt{x}$.`
           texteCorr += 'On applique la  formule rappellée plus haut : '
-          texteCorr += `\\[${namef}'(x)=\\underbrace{${rienSi1(2 * m)}x}_{u'(x)}\\sqrt{x}+${rienSi1(m)}x^2\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
-          texteCorr += 'Sans plus d\'exigences de l\'énoncé, on pourrait s\'arrêter là. Mais on peut réduire un peu l\'expression : '
+          texteCorr += `\\[${namef}'(x)=\\underbrace{${rienSi1(2 * m)}x}_{u'(x)}\\sqrt{x}${ecritureAlgebrique(m)}x^2\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
+          texteCorr += 'On peut réduire un peu l\'expression : '
           texteCorr += `\\[${namef}'(x)=${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}` // attention l'équation finit ligne suivante
           if (m % 2 !== 0) texteCorr += `\\frac{${abs(m)}x^2}{2\\sqrt{x}}.\\]`
           else texteCorr += `\\frac{${texNombrec2(abs(m / 2))}x^2}{\\sqrt{x}}.\\]`
@@ -235,7 +232,6 @@ export default function DeriveeProduit () {
           const poly = dictFonctions.poly
           const a = poly.coeffs[poly.deg]
           const b = poly.coeffs[poly.deg - 1]
-          // const c = poly.deg === 2 ? poly.coeffs[0] : undefined
           const derivee = poly.deg === 2 ? `${reduireAxPlusB(2 * a, b)}` : `${a}`
           // 1ère étape : application de la formule
           let intermediaire
@@ -256,8 +252,6 @@ export default function DeriveeProduit () {
           const poly = listeTypeDeQuestions[i].substring(4) === 'poly' ? dictFonctions.poly : dictFonctions.poly2centre
           const a = poly.coeffs[poly.deg]
           const b = poly.coeffs[poly.deg - 1]
-          const isQuadra = poly.deg === 2
-          // const c = poly.deg === 2 ? poly.coeffs[0] : undefined
           const derivee = poly.deg === 2 ? `${reduireAxPlusB(2 * a, b)}` : `${a}`
           console.log(derivee)
           // 1ère étape : application de la formule
@@ -269,6 +263,7 @@ export default function DeriveeProduit () {
           const interm2 = math.simplify(`${poly.toMathExpr()}${derivee}`, reglesDeSimplifications)
           texteCorr += 'Factorisons l\'expression par $e^x$ :'
           texteCorr += `\\[${namef}'(x)=e^x(${poly.toMathExpr()}${derivee}).\\]`
+          const isQuadra = poly.deg === 2
           if (!isQuadra) {
             texteCorr += '<br>C\'est-à-dire, en simplifiant : '
             texteCorr += `\\[${namef}'(x)=e^x(${prettyTex(interm2)})\\]`
@@ -279,9 +274,6 @@ export default function DeriveeProduit () {
           texteCorr += 'Correction non encore implémentée.'
           break
       }
-      // texte = texte.replaceAll('frac', 'dfrac')
-      // texteCorr = texteCorr.replaceAll('frac', 'dfrac')
-
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
         this.listeQuestions.push(texte)
