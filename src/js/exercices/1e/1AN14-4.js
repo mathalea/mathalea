@@ -28,6 +28,10 @@ function monome (a) {
   return a === 0 ? '' : `${ecritureAlgebriqueSauf1(a)}x`
 }
 
+/**
+ * @param {string} expression expression parsée
+ * @returns expression en LaTeX avec multication implicite
+ */
 function prettyTex (expression) {
   return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
 }
@@ -160,15 +164,19 @@ export default function DeriveeProduit () {
       texte = askFormule ? `Dans cette question, on demande d'utiliser la formule de dérivation d'un produit. ${askQuotient ? 'Mettre le résultat sous forme d\'un quotient.' : ''}<br>` : texte
       texte += `$${namef}:x\\longmapsto ${prettyTex(math.parse(expression))}$`
       texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
-      const derivee1m = math.simplify(math.derivative(terme1, 'x'), reglesDeSimplifications)
-      const derivee2m = math.simplify(math.derivative(terme2, 'x'), reglesDeSimplifications)
-      const intermediaire = `${derivee1m}*${terme2}+${terme1}*(${derivee2m})`
+      texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$ alors leur produit est dérivable sur $I$ et on a la formule'
+      texteCorr += '\\[(u\\times v)\'=u\'\\times v+u\\times v\'\\]'
+      texteCorr += `Ici $${namef}=u\\times v$ avec`
+      texteCorr += `\\[\\begin{aligned}u&=x\\mapsto ${prettyTex(math.parse(exprf1))}\\\\ v&=x\\mapsto${prettyTex(math.parse(exprf2))}\\end{aligned}\\]`
+      // const derivee1m = math.simplify(math.derivative(terme1, 'x'), reglesDeSimplifications)
+      // const derivee2m = math.simplify(math.derivative(terme2, 'x'), reglesDeSimplifications)
       switch (listeTypeDeQuestions[i]) {
         case 'inv/poly1': {
           const b = dictFonctions[typef2].monomes[0] // coeffs du poly1
           const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
           // Début correction
-          texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a \\[${namef}'(x)=${prettyTex(math.parse(intermediaire))}.\\]`
+          // const intermediaire = `${derivee1m}*${terme2}+${terme1}*(${derivee2m})`
+          texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=\\underbrace{-\\frac{1}{x^2}}_{u'(x)}${prettyTex(math.parse(terme2))}+\\frac{1}{x}\\underbrace{(${a})}_{v'(x)}.\\]`
           texteCorr += `Ce qui donne, en simplifiant : \\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}}{x}.\\]`
           texteCorr += 'On additionne les deux fractions pour obtenir : '
           texteCorr += `\\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}x}{x^2}=\\frac{${reduireAxPlusB(-a, -b)}${ecritureAlgebrique(a)}x}{x^2}.\\]`
@@ -177,7 +185,7 @@ export default function DeriveeProduit () {
           // Remarque sur la méthode alternative
           const fExpand = math.simplify(`${a}${ecritureAlgebrique(b)}/x`)
           texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${prettyTex(fExpand)}$.<br>`
-          texteCorr += `Et donc $${namef}'(x)=${math.simplify(math.derivative(fExpand, 'x'))}$`
+          texteCorr += `Et donc $${namef}'(x)=${math.simplify(math.derivative(fExpand, 'x'))}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
           break
         }
         case 'monome2/poly1': {
@@ -185,18 +193,18 @@ export default function DeriveeProduit () {
           const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
           const m = dictFonctions[typef1].monomes[2] // coeff du monome2
           // Début correction
-          texteCorr += `Alors en dérivant $${namef}$ comme un produit, on a \\[${namef}'(x)=${reduireAxPlusB(2 * m, 0)}(${exprf2})${ecritureAlgebrique(m)}x^2(${b}).\\]`
+          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${reduireAxPlusB(2 * m, 0)}}_{u'(x)}(${exprf2})${ecritureAlgebrique(m)}x^2\\underbrace{(${a})}_{v'(x)}.\\]`
           texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${2 * m * a}x^2${ecritureAlgebrique(2 * m * b)}x${ecritureAlgebrique(m * a)}x^2.\\]`
           texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${2 * m * a + m * a}x^2${ecritureAlgebrique(2 * m * b)}x.\\]`
           // Remarque sur la méthode alternative
           const fExpand = math.parse(`${rienSi1(m * a)}x^3${ecritureAlgebrique(m * b)}x^2`)
           texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${prettyTex(fExpand)}$.<br>`
-          texteCorr += `Et donc $${namef}'(x)=${prettyTex(math.simplify(math.derivative(fExpand, 'x')))}$.`
+          texteCorr += `Et donc $${namef}'(x)=${prettyTex(math.simplify(math.derivative(fExpand, 'x')))}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
           break
         }
         case 'monome2/racine': {
           const m = dictFonctions[typef1].monomes[2] // coeff du monome2
-          texteCorr += `Alors en dérivant $${namef}$ comme $${texNombrec2(m)}$ fois $x\\mapsto x^2\\sqrt{x}$, on a`
+          texteCorr += `Ici on dérive $${namef}$ comme $${texNombrec2(m)}$ fois $x\\mapsto x^2\\sqrt{x}$. On a `
           texteCorr += `\\[${namef}'(x)=${rienSi1(m)}\\left(2x\\sqrt{x}+\\frac{x^2}{2\\sqrt{x}}\\right).\\]`
           texteCorr += 'Sans plus d\'exigences de l\'énoncé, on pourrait s\'arrêter là. Mais on peut aussi développer : '
           texteCorr += `\\[${namef}'(x)=${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}`
@@ -209,7 +217,6 @@ export default function DeriveeProduit () {
           const poly = dictFonctions.poly2centre
           // notation poly = ax^2+b
           const a = poly.monomes[2]
-          const b = poly.monomes[0]
           // 1ère étape : application de la formule
           let intermediaire
           if (racineGauche) intermediaire = `\\frac{1}{2\\sqrt{x}}(${poly.toMathExpr()})+\\sqrt{x}(${monome(2 * a)})`
