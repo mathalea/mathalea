@@ -20,7 +20,7 @@ export const amcType = 'AMCNum'
 export default function CalculProbaExperience2Epreuves3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = true
-  this.sup2 = true
+  this.sup2 = false
   this.tailleDiaporama = 2
   this.sup3 = false
   this.nbQuestions = 1
@@ -31,7 +31,7 @@ export default function CalculProbaExperience2Epreuves3e () {
     const p = []
     const choix = randint(0, 2)
     let nombres1, nombres2, n1, n2, urne1, urne2, texte, texteCorr
-    if (sup3 === 2) {
+    if (!sup3) {
       nombres1 = choice([[1, 2, 3], [1, 1, 2], [1, 2, 2], [1, 1, 3], [1, 1, 1], [2, 2, 2]])
       nombres2 = choice([[1, 2, 3], [1, 1, 2], [1, 2, 2], [1, 1, 3], [1, 1, 1], [2, 2, 2]])
     } else {
