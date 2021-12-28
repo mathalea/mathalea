@@ -2534,7 +2534,7 @@ export default {
     "interactifReady": false,
     "name": "3G13",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

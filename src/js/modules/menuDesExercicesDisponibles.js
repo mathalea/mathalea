@@ -96,11 +96,11 @@ function listeHtmlDesExercicesDUnTheme (theme) {
 }
 function aCrpe (id, dictionnaire, mode) {
   // donne la ligne pour un exercice d'annale de Crpe lorsqu'on les regarde par année.
-//  if (mode === 'annee') {
-  return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].lieu} -  ${dictionnaire[id].numeroInitial}</a> ${listeHtmlDesTags(dictionnaire[id])} </br>\n`
-  // } else {
-  //   return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].annee} - ${id.substr(9, 2)} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroExercice}</a> ${listeHtmlDesTags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
-  // }
+  if (mode === 'annee') {
+    return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].lieu} -  ${dictionnaire[id].numeroInitial}</a> ${listeHtmlDesTags(dictionnaire[id])} </br>\n`
+  } else {
+    return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].annee} - ${dictionnaire[id].lieu} -  ${dictionnaire[id].numeroInitial}</a> ${listeHtmlDesTags(dictionnaire[id])} </br>\n`
+  }
 }
 function aDnb (id, dictionnaire, mode) {
   // donne la ligne pour un exercice dnb lorsqu'on les regarde par année.
@@ -252,39 +252,6 @@ function getListeHtmlDesExercicesDNBTheme () {
 function getListeHtmlDesExercicesCrpeTheme () {
   let liste = '<div class="accordion">'
   for (const theme of tableauTags) {
-    //     [
-    //   "Agrandissement-réduction",
-    //   "Aires et périmètres",
-    //   "Algorithmique-programmation",
-    //   "Arithmétique",
-    //   "Calcul littéral",
-    //   "Calculs numériques",
-    //   "Durées",
-    //   "Équations",
-    //   "Fonctions",
-    //   "Fractions",
-    //   "Géométrie dans l'espace",
-    //   "Géométrie plane",
-    //   "Grandeurs composées",
-    //   "Lecture graphique",
-    //   "Pourcentages",
-    //   "Prise d'initiatives",
-    //   "Probabilités",
-    //   "Programme de calculs",
-    //   "Proportionnalité",
-    //   "Puissances",
-    //   "Pythagore",
-    //   "QCM",
-    //   "Recherche d'informations",
-    //   "Statistiques",
-    //   "Tableur",
-    //   "Thalès",
-    //   "Transformations",
-    //   "Trigonométrie",
-    //   "Vitesses",
-    //   "Volumes",
-    //   "Vrai-faux"
-    // ]){
     const listeHtml = listeHtmlDesExercicesCrpeTheme(theme)
     if (listeHtml.length > 1) {
       liste += `<div class="title"><i class="dropdown icon"></i> ${theme}</div><div class="content">`
