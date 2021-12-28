@@ -11,7 +11,7 @@ export const amcType = 'AMCHybride'
 /**
  * Transformations : trouver un point numéroté par une des transformations du plan. Fonction générale utilisée sur tous les niveaux
  * @author Jean-Claude Lhote
- * Pas de version LaTeX
+ *
  * Relecture : Novembre 2021 par EE
  */
 export default function Transformations () {
@@ -184,7 +184,7 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_1)$ est le point ${images[i]}.<br>`
-          objetsEnonce.push(d1, tracePoint(M[i]), latexParCoordonnees('(d_1)', 4.5, 4.2, 'green', 15, 1, ''))
+          objetsEnonce.push(d1, tracePoint(M[i]), latexParCoordonnees('(d_1)', 4.8, 4.5, 'green', 20, 10, ''))
           objetsCorrection.push(d1, tracePoint(M[i], N[i]), latexParCoordonnees('(d_1)', 3.5, 3, 'green', 15, 1, ''),
             segment(M[i], N[i], 'purple'), codeSegments('X', 'red', M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]))
           break
@@ -196,7 +196,7 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_2)$ est le point ${images[i]}.<br>`
-          objetsEnonce.push(d2, tracePoint(M[i]), latexParCoordonnees('(d_2)', 4.3, -3.7, 'green', 15, 1, ''))
+          objetsEnonce.push(d2, tracePoint(M[i]), latexParCoordonnees('(d_2)', 4.3, -3.7, 'green', 20, 10, ''))
           objetsCorrection.push(d2, tracePoint(M[i], N[i]), latexParCoordonnees('(d_2)', 4.3, -3.7, 'green', 15, 1, ''),
             segment(M[i], N[i], 'cyan'), codeSegments('|||', 'red', M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]))
           break
@@ -208,7 +208,7 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_3)$ est le point ${images[i]}.<br>`
-          objetsEnonce.push(d3, tracePoint(M[i]), latexParCoordonnees('(d_3)', -4.2, 0.5, 'green', 15, 1, ''))
+          objetsEnonce.push(d3, tracePoint(M[i]), latexParCoordonnees('(d_3)', -4.2, 0.5, 'green', 20, 10, ''))
           objetsCorrection.push(d3, tracePoint(M[i], N[i]), latexParCoordonnees('(d_3)', -4.2, 0.5, 'green', 15, 1, ''),
             segment(M[i], N[i], 'brown'), codeSegments('/', 'red', M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]))
           break
@@ -221,7 +221,7 @@ export default function Transformations () {
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_4)$ est le point ${images[i]}.<br>`
           objetsEnonce.push(d4, tracePoint(M[i]), latexParCoordonnees('(d_4)', 0.2, 4.5, 'green', 15, 1, ''))
-          objetsCorrection.push(d4, tracePoint(M[i], N[i]), latexParCoordonnees('(d_4)', 0.2, 4.5, 'green', 15, 1, ''),
+          objetsCorrection.push(d4, tracePoint(M[i], N[i]), latexParCoordonnees('(d_4)', 0.2, 4.5, 'green', 20, 10, ''),
             segment(M[i], N[i], 'yellow'), codeSegments('||', 'red', M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]))
           break
 

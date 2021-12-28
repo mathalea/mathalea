@@ -4,6 +4,7 @@ import dictionnaireDesExercicesAleatoires from './dictionnaireDesExercicesAleato
 import { dictionnaireC3 } from './dictionnaireC3.js'
 import { dictionnaireDNB } from './dictionnaireDNB.js'
 import { dictionnaireLycee } from './dictionnaireLycee.js'
+import { dictionnaireCrpe } from './dictionnaireCrpe.js'
 import $ from 'jquery'
 import 'datatables.net-dt/css/jquery.dataTables.css'
 import { getFilterFromUrl, getVueFromUrl } from './gestionUrl.js'
@@ -23,7 +24,7 @@ enleveElement(tableauTags, "Système d'équations")
 enleveElement(tableauTags, 'Hors programme')
 
 // On concatène les différentes listes d'exercices
-export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3, ...dictionnaireLycee }
+export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3, ...dictionnaireLycee, ...dictionnaireCrpe }
 let listeDesExercicesDisponibles
 if (getVueFromUrl() === 'amc') {
   const dictionnaireDesExercicesAMC = {}
@@ -93,13 +94,43 @@ function listeHtmlDesExercicesDUnTheme (theme) {
   }
   return liste
 }
+function aCrpe (id, dictionnaire, mode) {
+  // donne la ligne pour un exercice d'annale de Crpe lorsqu'on les regarde par année.
+  if (mode === 'annee') {
+    return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].lieu} -  ${dictionnaire[id].numeroInitial}</a> ${listeHtmlDesTags(dictionnaire[id])} </br>\n`
+  } else {
+    return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].annee} - ${dictionnaire[id].lieu} -  ${dictionnaire[id].numeroInitial}</a> ${listeHtmlDesTags(dictionnaire[id])} </br>\n`
+  }
+}
 function aDnb (id, dictionnaire, mode) {
   // donne la ligne pour un exercice dnb lorsqu'on les regarde par année.
   if (mode === 'annee') {
-    return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].lieu} - ${dictionnaire[id].mois} -  Ex ${dictionnaire[id].numeroExercice}</a> ${listeHtmlDesTags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
+    return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].lieu} - ${dictionnaire[id].mois} -  Ex ${dictionnaire[id].numeroInitial}</a> ${listeHtmlDesTags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
   } else {
-    return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].annee} - ${id.substr(9, 2)} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroExercice}</a> ${listeHtmlDesTags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
+    return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].annee} - ${id.substr(9, 2)} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroInitial}</a> ${listeHtmlDesTags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
   }
+}
+function listeHtmlDesExercicesCrpeAnnee (annee) {
+  let liste = ''
+  const dictionnaire = filtreDictionnaireValeurCle(dictionnaireCrpe, 'annee', annee)
+  for (const id in dictionnaire) {
+    liste += aCrpe(id, dictionnaire, 'annee')
+  }
+  return liste
+}
+function listeHtmlDesExercicesCrpeTheme (theme) {
+  let liste = ''
+  const dictionnaire = filtreDictionnaireValeurTableauCle(dictionnaireCrpe, 'tags', theme)
+  let tableauDesExercices = []
+  for (const id in dictionnaire) {
+    tableauDesExercices.push(id)
+  }
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  tableauDesExercices = tableauDesExercices.sort().reverse()
+  for (const id of tableauDesExercices) {
+    liste += aCrpe(id, dictionnaire, 'theme')
+  }
+  return liste
 }
 function listeHtmlDesExercicesDNBAnnee (annee) {
   let liste = ''
@@ -154,7 +185,16 @@ function listeHtmlDesExercicesDUnNiveauAvecSousTheme (listeDeThemes) { // liste_
   liste += '</div>'
   return liste
 }
-
+function getListeHtmlDesExercicesCrpe () {
+  let liste = '<div class="accordion">'
+  for (const annee of ['2016', '2017']) {
+    liste += `<div class="title"><i class="dropdown icon"></i> ${annee}</div><div class="content">`
+    liste += listeHtmlDesExercicesCrpeAnnee(annee)
+    liste += '</div>'
+  }
+  liste += '</div>'
+  return liste
+}
 function getListeHtmlDesExercicesDNB () {
   let liste = '<div class="accordion">'
   for (const annee of ['2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
@@ -209,6 +249,19 @@ function getListeHtmlDesExercicesDNBTheme () {
   liste += '</div>'
   return liste
 }
+function getListeHtmlDesExercicesCrpeTheme () {
+  let liste = '<div class="accordion">'
+  for (const theme of tableauTags) {
+    const listeHtml = listeHtmlDesExercicesCrpeTheme(theme)
+    if (listeHtml.length > 1) {
+      liste += `<div class="title"><i class="dropdown icon"></i> ${theme}</div><div class="content">`
+      liste += listeHtml
+      liste += '</div>'
+    }
+  }
+  liste += '</div>'
+  return liste
+}
 
 function listeHtmlDesTags (objet) {
   let result = ''
@@ -227,7 +280,7 @@ function listeHtmlDesTags (objet) {
 function divNiveau (obj, active, id) {
   // construction de la div contenant l'ensemble d'un niveau.
   let nombreExo = ''
-  if (id !== 'DNB' && id !== 'DNBtheme') {
+  if (id !== 'DNB' && id !== 'DNBtheme' && id !== 'CRPE' && id !== 'CrpeTheme') {
     nombreExo = '(' + obj.nombre_exercices_dispo + ')'
   }
   return `<div id=${id} class="${active ? 'active title fermer_niveau' : 'title ouvrir_niveau'}"><i class="dropdown icon"></i>${obj.label} ${nombreExo}</div><div id="content${id}" class="${active} content">${active ? obj.liste_html_des_exercices : ''}</div>`
@@ -347,7 +400,7 @@ function ligneTableau (exercice) {
     }
   } else {
     ligne = `<tr><td class="colonnecode"><span class="id_exercice">${exercice}<br>${tagNew}${tagFeat}
-    </span></td> <td><a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].annee} - ${exercice.substr(9, 2)} - ${dictionnaireDesExercices[exercice].lieu} - Ex ${dictionnaireDesExercices[exercice].numeroExercice}
+    </span></td> <td><a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${exercice}">${dictionnaireDesExercices[exercice].annee} - ${exercice.substr(9, 2)} - ${dictionnaireDesExercices[exercice].lieu} - Ex ${dictionnaireDesExercices[exercice].numeroInitial}
     </a> ${listeHtmlDesTags(dictionnaireDesExercices[exercice])} </br>\n
     </td><td></td><td><i id=${exercice} class="eye icon icone_preview"></i></td></tr>`
   }
@@ -591,6 +644,18 @@ export function menuDesExercicesDisponibles () {
       nombre_exercices_dispo: 0,
       liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemesHP),
       lignes_tableau: ''
+    },
+    CRPE: {
+      label: 'Concours CRPE corrigés par la Copirelem (classés par année)',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: getListeHtmlDesExercicesCrpe(),
+      lignes_tableau: ''
+    },
+    CrpeTheme: {
+      label: 'Concours CRPE corrigés par la Copirelem (classés par thème)',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: getListeHtmlDesExercicesCrpeTheme(),
+      lignes_tableau: ''
     }
   }
 
@@ -643,6 +708,11 @@ export function menuDesExercicesDisponibles () {
         objExercicesDisponibles.DNB.lignes_tableau += ligneTableau(id)
       }
     }
+    if (id[0] === 'c' && id[1] === 'r' && id[2] === 'p' && id[3] === 'e') {
+      if (filtre !== 'interactif') {
+        objExercicesDisponibles.CRPE.lignes_tableau += ligneTableau(id)
+      }
+    }
   }
 
   listeHtmlDesExercices = '<div class="ui accordion">'
@@ -663,6 +733,11 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercices += divNiveau(objExercicesDisponibles.P0, 'active', 'P0')
     listeHtmlDesExercices += '</div>'
     listeHtmlDesExercicesTab += objExercicesDisponibles.P0.lignes_tableau
+  } else if (context.vue === 'crpe') {
+    listeHtmlDesExercices += divNiveau(objExercicesDisponibles.CRPE, 'active', 'CRPE')
+    listeHtmlDesExercices += divNiveau(objExercicesDisponibles.CrpeTheme, 'active', 'CrpeTheme')
+    listeHtmlDesExercices += '</div>'
+    listeHtmlDesExercicesTab += objExercicesDisponibles.CRPE.lignes_tableau
   } else if (filtre === 'dnb') {
     listeHtmlDesExercices += divNiveau(objExercicesDisponibles.DNB, 'active', 'DNB')
     listeHtmlDesExercices += divNiveau(objExercicesDisponibles.DNBtheme, 'active', 'DNBtheme')
@@ -706,7 +781,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'Ex', 'HP', 'PE', 'C'],
+      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'Ex', 'HP', 'PE', 'C'], // 'CRPE', 'CrpeTheme'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
@@ -941,7 +1016,7 @@ export function menuThemeDNB (theme) {
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     codeHTML +=
-      `<a style="line-height:2.5" class="item" href="/mathalea.html?ex=${id}&v=ex" target="_blank"><div class="header content"> ${dictionnaire[id].annee} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroExercice} ${listeHtmlDesTags(dictionnaire[id])} </div></a> \n`
+      `<a style="line-height:2.5" class="item" href="/mathalea.html?ex=${id}&v=ex" target="_blank"><div class="header content"> ${dictionnaire[id].annee} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroInitial} ${listeHtmlDesTags(dictionnaire[id])} </div></a> \n`
   }
   codeHTML += '\n</div>'
   return codeHTML

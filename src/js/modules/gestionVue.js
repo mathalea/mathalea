@@ -1,4 +1,5 @@
 import { context } from './context'
+import { create } from './dom'
 import { getVueFromUrl, setUrl } from './gestionUrl'
 
 export async function gestionVue (vue) {
@@ -98,6 +99,25 @@ export async function gestionVue (vue) {
     if (context.vue === 'menu') { // Affichage des seuls exercices
       demasqueMenuDesExercices()
       if (btnEdit) btnEdit.style.display = 'none'
+    }
+    if (context.vue === 'crpe') { // Affichage des seuls exercices
+      const section = document.querySelector('section')
+      const divCopirelem = create('div')
+      divCopirelem.innerHTML = `<div class="ui icon message">
+      <img src="assets/images/logo_copi.png">
+      <div class="content">
+        <div class="header">
+          Les annales du CRPE et leurs corrections sont l'oeuvre de la COPIRELEM
+        </div>
+        <p>Vous pouvez commander les brochures avec des ressources plus récentes sur leur <a href="http://www.arpeme.fr/index.php?id_page=18" target="_blank">site</a>.</p>
+      </div>
+    </div>`
+      divCopirelem.style.marginBottom = '30px'
+      section.insertBefore(divCopirelem, divChoixExercices)
+      demasqueMenuDesExercices()
+      if (btnEdit) btnEdit.style.display = 'none'
+      const menuAvecFiltre = document.getElementById('exercices_disponibles')
+      if (menuAvecFiltre) menuAvecFiltre.style.display = 'none'
     }
     if (context.vue === 'alcexEtChoix') { // Affichage des seuls exercices
       masqueMenuDesExercices()

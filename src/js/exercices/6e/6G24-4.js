@@ -24,8 +24,9 @@ export default function CompleterParSymetrie6e () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1
+  this.sup3 = true
   this.nouvelleVersion = function () {
-    this.sup = contraindreValeur(1, 4, this.sup, 1)
+    this.sup = contraindreValeur(1, 5, this.sup, 1)
     this.sup2 = contraindreValeur(1, 4, this.sup2, 1)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -33,55 +34,74 @@ export default function CompleterParSymetrie6e () {
     const couples = []
     const pointsCliquables = [[]]
     let pointsPossibles
+    const objetsEnonce = []
+    const objetsCorrection = []
     const pointsChoisis = []
     const pointsAffiches = []
     const pointsEnPlusCorr = []
     const pointsNonSolution = []
     const pointsSolution = []
+    const pointsCliques = []
+    const changeAxe = []
     const typeDePapier = ['quad', 'quad', 'hexa', 'equi'] // l'élément 0 sera changé aléatoirement pour correspondre au type mélange (this.sup2 % 4)
-    for (let i = 0, cpt = 0, papier, image, d, j, trouve, texte, texteCorr, objetsEnonce, nbCouplesComplets, objetsCorrection; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0, papier, image, d, j, trouve, texte, texteCorr, nbCouplesComplets; i < this.nbQuestions && cpt < 50;) {
       typeDePapier[0] = typeDePapier[1 + i % 3]
       // on remet à vide tous les tableaux utilisés pour la question suivante
-      objetsEnonce = []
-      objetsCorrection = []
+      objetsEnonce[i] = []
+      objetsCorrection[i] = []
       pointsChoisis.length = 0
       pointsAffiches.length = 0
       pointsEnPlusCorr.length = 0
       pointsNonSolution[i] = []
       pointsSolution[i] = []
       pointsCliquables[i] = []
+      pointsCliques[i] = []
       couples.length = 0
-
+      changeAxe[i] = this.sup3 ? 0 : randint(-2, 2, 0)
       papier = papierPointe({ xmin: 0, ymin: 0, xmax: 10, ymax: 10, type: typeDePapier[this.sup2 === 4 ? 0 : this.sup2] })
 
-      objetsEnonce.push(papier)
+      objetsEnonce[i].push(papier)
 
-      switch (this.sup === 4 ? randint(1, 3) : this.sup) {
+      switch (this.sup === 5 ? randint(1, 4) : this.sup) {
         case 1:
-          if (typeDePapier[(this.sup2 === 4 ? 0 : this.sup2)] === 'quad') {
-            d = droite(point(5, 0), point(5, 10))
+          if (typeDePapier[(this.sup2 === 5 ? 0 : this.sup2)] === 'quad') {
+            d = droite(point(5 + changeAxe[i] / 2, 0), point(5 + changeAxe[i] / 2, 10))
           } else {
-            d = droite(point(4.33, 0), point(4.33, 10))
+            d = droite(point(4.33 + 0.866 * changeAxe[i], 0), point(4.33 + 0.866 * changeAxe[i], 10))
           }
           break
         case 2:
-          d = droite(point(0, 5), point(10, 5))
+          if (typeDePapier[(this.sup2 === 4 ? 0 : this.sup2)] === 'quad') {
+            d = droite(point(0, 5 + changeAxe[i] / 2), point(10, 5 + changeAxe[i] / 2))
+          } else {
+            d = droite(point(0, 5.5 + changeAxe[i] / 2), point(10, 5.5 + changeAxe[i] / 2))
+          }
           break
         case 3:
           if (typeDePapier[(this.sup2 === 4 ? 0 : this.sup2)] === 'quad') {
-            d = droite(point(0, 0), point(10, 10))
+            d = droite(point(0, 1 + changeAxe[i]), point(9 - changeAxe[i], 10))
           } else {
-            d = droite(point(0, 2), point(8.66, 7))
+            d = droite(point(0, 3 + changeAxe[i]), point(8.66, 8 + changeAxe[i]))
+          }
+          break
+        case 4:
+          if (typeDePapier[(this.sup2 === 4 ? 0 : this.sup2)] === 'quad') {
+            d = droite(point(0, 10 - changeAxe[i]), point(10 - changeAxe[i], 0))
+          } else {
+            d = droite(point(0, 8 + changeAxe[i]), point(8.66, 3 + changeAxe[i]))
           }
           break
       }
       d.epaisseur = 2
       d.color = context.isHtml ? 'blue' : 'black'
-      objetsEnonce.push(d)
+      objetsEnonce[i].push(d)
       pointsPossibles = papier.listeCoords.slice()
       // on prépare les points cliquables pour la version interactive
-      for (let p = 0; p < papier.listeCoords.length; p++) {
-        pointsCliquables[i].push(pointCliquable(papier.listeCoords[p][0], papier.listeCoords[p][1]))
+      // over, out et click sont des ojets pour le style css des évènements de la souris, radius, width, color, size, style sont les paramètres possibles pour la trace du point
+      if (this.interactif && context.isHtml) {
+        for (let p = 0; p < papier.listeCoords.length; p++) {
+          pointsCliquables[i].push(pointCliquable(papier.listeCoords[p][0], papier.listeCoords[p][1], { radius: 0.2, color: 'red', width: 2, opacite: 0.7 }))
+        }
       }
       while (pointsPossibles.length > 1) { // si il n'en reste qu'un, on ne peut pas trouver de symétrique
         image = symetrieAxiale(point(pointsPossibles[0][0], pointsPossibles[0][1]), d)
@@ -119,10 +139,10 @@ export default function CompleterParSymetrie6e () {
         }
       }
       for (let p = 0; p < pointsAffiches.length; p++) {
-        objetsEnonce.push(tracePoint(pointsAffiches[p]))
+        objetsEnonce[i].push(tracePoint(pointsAffiches[p]))
       }
       for (let p = 0; p < pointsEnPlusCorr.length; p++) {
-        objetsCorrection.push(tracePoint(pointsEnPlusCorr[p], 'red'))
+        objetsCorrection[i].push(tracePoint(pointsEnPlusCorr[p], 'red'))
       }
       for (let p = 0; p < pointsCliquables[i].length; p++) {
         trouve = false
@@ -142,13 +162,12 @@ export default function CompleterParSymetrie6e () {
       texte = context.isAmc
         ? 'Voici une grille contenant des points et un axe de symétrie.<br>Ajouter un minimum de points afin que la figure soit symétrique par rapport à l\'axe.<br>Écrire le nombre de points ajoutés dans le cadre. Coder ensuite ce nombre de points.<br>'
         : 'Voici une grille contenant des points et un axe de symétrie.<br>Ajouter un minimum de points afin que la figure soit symétrique par rapport à l\'axe.<br>'
-      texteCorr = ''
       // On prépare la figure...
-      texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.7 }, ...objetsEnonce, ...pointsCliquables[i])
+      texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.7 }, ...objetsEnonce[i], ...pointsCliquables[i])
       if (this.interactif && context.isHtml) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
-      texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5 }, ...objetsEnonce, ...objetsCorrection)
+      texteCorr = mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5, style: 'inline' }, ...objetsEnonce, ...objetsCorrection[i])
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -182,11 +201,15 @@ export default function CompleterParSymetrie6e () {
       let resultat
       let aucunMauvaisPointsCliques = true
       for (const monPoint of pointsNonSolution[i]) {
-        if (monPoint.etat) aucunMauvaisPointsCliques = false
+        if (monPoint.etat) {
+          aucunMauvaisPointsCliques = false
+          pointsCliques[i].push(tracePoint(monPoint.point, 'red')) // ça c'est pour éventuellement modifier la correction avec les points cliqués par l'utilisateur.
+        }
         monPoint.stopCliquable()
       }
       for (const monPoint of pointsSolution[i]) {
         if (!monPoint.etat) aucunMauvaisPointsCliques = false
+        else pointsCliques[i].push(tracePoint(monPoint.point, 'red')) // ça c'est pour éventuellement modifier la correction avec les points cliqués par l'utilisateur.
         monPoint.stopCliquable()
       }
       const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
@@ -204,10 +227,13 @@ export default function CompleterParSymetrie6e () {
         divFeedback.innerHTML = '☹️'
         resultat = 'KO'
       }
+      // this.listeCorrections[i] = mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.7, style: 'inline' }, ...objetsEnonce[i], ...pointsCliques[i]) + mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5, style: 'inline' }, ...objetsEnonce, ...objetsCorrection[i])
+      // le contenu est déjà prêt. Il faudra modifier les <svg> à postéreiori...
       return resultat
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type d\'axes', 4, '1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique\n4 : Mélange']
+  this.besoinFormulaireNumerique = ['Type d\'axes', 5, '1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique /\n4 : Axe oblique \\\n5 : Mélange']
   this.besoinFormulaire2Numerique = ['Type de papier pointé', 4, '1 : Carrés\n2 : Hexagones\n3 : Triangles équilatéraux\n4 : Mélange']
+  this.besoinFormulaire3CaseACocher = ['Axe centré', true]
 }

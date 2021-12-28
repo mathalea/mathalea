@@ -1282,9 +1282,12 @@ export function unSiPositifMoinsUnSinon (a) {
  * @return {number}
  */
 export function arrondi (nombre, precision = 2) {
-  return round(nombre, precision)
-  // const tmp = Math.pow(10, precision)
-  // return Math.round(nombre * tmp) / tmp
+  if (isNaN(nombre)) {
+    window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', { nombre, precision })
+    return NaN
+  } else {
+    return round(nombre, precision)
+  }
 }
 /**
  * Retourne la troncature signée de nombre.

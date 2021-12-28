@@ -34,20 +34,11 @@ export default class Alea2iep {
     this.translationX = 0
     this.translationY = 10 // Par défaut l'angle en haut à gauche est le point de coordonnées (0,10)
 
-    this.recadre = function (xmin, ymax) {
-      this.translationX = 1 - xmin
-      this.translationY = ymax + 3
-    }
-
     // Garde en mémoire les coordonnées extrêmes des objets créés
     this.xMin = 0
     this.yMin = 0
     this.xMax = 0
     this.yMax = 0
-
-    this.taille = function (width, height) {
-      this.liste_script.push(`<viewBox width="${width}" height="${height}" />`)
-    }
 
     // Sauvegarde de l'état des instruments
     this.regle = {
@@ -195,6 +186,25 @@ export default class Alea2iep {
  *** FONCTIONS COMMUNES ***
  **************************
  */
+
+  /**
+ *
+ * @param {int} xmin
+ * @param {int} ymax
+ */
+  recadre (xmin, ymax) {
+    this.translationX = 1 - xmin
+    this.translationY = ymax + 3
+  }
+
+  /**
+   *
+   * @param {int} width
+   * @param {int} height
+   */
+  taille (width, height) {
+    this.liste_script.push(`<viewBox width="${width}" height="${height}" />`)
+  }
 
   /**
    *

@@ -12,7 +12,7 @@ export const dateDePublication = '9/12/2021'
 /**
 * Problèmes de proportions
 *
-* * Situations variées : spectacle, restaurant, bonbons
+* * Situations variées : spectacle, cadeau, réserve
 *
 * * Déterminer l'effectif de la sous population
 * * Calculer une proportion
@@ -169,7 +169,7 @@ export default function Proportions () {
               break
             case 'proportion':
               texte = `Le cadeau commun que nous souhaitons faire à ${prénom} coûte $${texPrix(totale)}$ €. Je participe à hauteur de $${texPrix(sous)}$ €. <br>Calculer la proportion de ma participation sur le prix total du cadeau.`
-              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texPrix(sous)}}{${texPrix}} = ${texNombre(p)}$.`
+              texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texPrix(sous)}}{${texPrix(totale)}} = ${texNombre(p)}$.`
               texteCorr += `<br>$${texNombre(p)}=\\dfrac{${texNombre(taux)}}{100}$. J'ai donc donné $${taux}~\\%$ du montant total du cadeau.`
               reponse = taux
               paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%

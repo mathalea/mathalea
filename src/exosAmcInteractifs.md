@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 400 
-- nombre d'exos interactifReady 544 
+- nombre d'exos amcReady 404 
+- nombre d'exos interactifReady 553 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -52,6 +52,8 @@
 |2S20-1|Calculer des effectifs et des fréquences|KO|KO|OK|mathLive|
 |2S20-2|Calculer des médianes|KO|KO|OK|mathLive|
 |2S20-4|Calculer des étendues|KO|KO|OK|mathLive|
+|2S30-5|Expérience aléatoire à deux épreuves|OK|AMCNum|OK|mathLive|
+|beta2S12-1|Evolutions successives|KO|KO|OK|mathLive|
 |3A11-1|Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|
 |3A11-2|Décomposition en facteurs premiers d’un entier|KO|KO|OK|mathLive|
 |3A11|Primalité ou pas|OK|qcmMono|OK|qcm|
@@ -340,6 +342,7 @@
 |can1F02|Second degré variations (QCM)|KO|KO|OK|qcm|
 |can1L01|Discriminant|OK|AMCNum|OK|mathLive|
 |can1L02|Nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
+|can1P01|Arbre de probabilité|OK|type de question AMC non prévu|OK|mathLive|
 |can2C01|Trouver le nombre d’entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can2C02|Calculer une différence de deux carrés|OK|AMCNum|OK|mathLive|
 |can2C03|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
@@ -351,12 +354,17 @@
 |can2C09|Calculer le "milieu" entre 1 et une fraction|KO|KO|OK|mathLive|
 |can2C10|Passer du taux d’évolution au coefficient multiplicateur|KO|KO|OK|mathLive|
 |can2C11|Passer du coefficient multiplicateur au taux d’évolution|KO|KO|OK|mathLive|
+|can2C12|Déterminer un taux global d’évolution|OK|AMCNum|OK|mathLive|
 |can2F01|Calculer une image avec le second degré|KO|KO|OK|mathLive|
 |can2F02|Calculer une image avec un quotient|KO|KO|OK|mathLive|
 |can2F03|Déterminer le signe d’une fonction affine (V/F)|KO|KO|OK|qcm|
 |can2F04|Trouver les valeurs interdites d’une fonction|KO|KO|OK|mathLive|
 |can2F05|Déterminer un antécédent avec la racine carrée|KO|KO|OK|mathLive|
 |can2F06|Dresser le tableau de signes d’une fonction affine|KO|KO|OK|qcm|
+|can2F07|Lire les extremums dans un tableau de variations|KO|KO|OK|mathLive|
+|can2F08|Encadrer en utilisant un tableau de variations|KO|KO|OK|mathLive|
+|can2F09|Résoudre une équation avec une fonction de référence|KO|KO|OK|qcm|
+|can2F10|Résoudre une équation avec une fonction de référence*|KO|KO|OK|qcm|
 |can2G01|Déterminer un agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
 |can2G02|Calculer une longueur avec le théorème de Pythagore|KO|KO|OK|mathLive|
 |can2G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|
@@ -478,6 +486,7 @@
 |can5P03|Résoudre un problème de proportionnalité|OK|AMCNum|OK|mathLive|
 |can5P04|Calculer avec une proportion|OK|AMCNum|OK|mathLive|
 |can5P05|Prendre t % d’une quantité|KO|KO|OK|mathLive|
+|can5P06|Ecrire sous la forme d’un pourcentage|OK|AMCNum|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |can6C01|Trouver un ordre de grandeur (QCM)|OK|qcmMono|OK|qcm|
 |can6C02|Multiplier un nombre pair par 5|OK|AMCNum|OK|mathLive|

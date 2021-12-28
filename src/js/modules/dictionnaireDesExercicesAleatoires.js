@@ -140,6 +140,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "1E12-1": {
+    "titre": "Lecture graphique d'éléments caractéristiques d'un trinôme",
+    "url": "/exercices/1e/1E12-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1E12-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "1E12": {
     "titre": "Trouver l’équation d’une parabole",
     "url": "/exercices/1e/1E12.js",
@@ -260,6 +275,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "1P10": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/1e/1P10.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1P10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F10-1": {
     "titre": "Reconnaître une fonction affine.",
     "url": "/exercices/2e/2F10-1.js",
@@ -366,6 +396,21 @@ export default {
     "name": "2F20-1",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2F32-3": {
+    "titre": "Déterminer un extremum ou encadrer par lecture d’un tableau de variations",
+    "url": "/exercices/2e/2F32-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F32-3",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -1271,7 +1316,7 @@ export default {
     }
   },
   "2N32-3": {
-    "titre": "Ecrire le nombre proposé sous la forme $a\\sqrt{b}$",
+    "titre": "Écrire le nombre proposé sous la forme $a\\sqrt{b}$",
     "url": "/exercices/2e/2N32-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -1965,6 +2010,41 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2S30-5": {
+    "titre": "Expérience aléatoire à deux épreuves",
+    "url": "/exercices/2e/2S30-5.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2S30-5",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta2S12-1": {
+    "titre": "Evolutions successives",
+    "url": "/exercices/2e/beta2S12-1.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta2S12-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "3A10": {
     "titre": "Division Euclidienne - Diviseurs - Multiples",
     "url": "/exercices/3e/3A10.js",
@@ -2473,7 +2553,7 @@ export default {
     "interactifReady": false,
     "name": "3G13",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3514,7 +3594,7 @@ export default {
     "interactifType": "qcm",
     "name": "4C20-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3828,7 +3908,7 @@ export default {
     "interactifType": "mathLive",
     "name": "4C33-0",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -5929,7 +6009,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -9698,6 +9778,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "beta2F12-1": {
+    "titre": "Résoudre algébriquement une équation f(x)=k avec une fonction de référence.",
+    "url": "/exercices/beta/beta2F12-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2F12-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "beta2F31": {
     "titre": "Croissance de fonction ?",
     "url": "/exercices/beta/beta2F31.js",
@@ -10246,6 +10341,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaProbabilites",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betaProbabilitesJC": {
+    "titre": "Probabilités simples",
+    "url": "/exercices/beta/betaProbabilitesJC.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaProbabilitesJC",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -10823,6 +10933,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can1P01": {
+    "titre": "Arbre de probabilité",
+    "url": "/exercices/can/1e/can1P01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "type de question AMC non prévu"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1P01",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can2C01": {
     "titre": "Trouver le nombre d’entiers entre deux valeurs",
     "url": "/exercices/can/2e/can2C01.js",
@@ -11008,6 +11137,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can2C12": {
+    "titre": "Déterminer un taux global d’évolution",
+    "url": "/exercices/can/2e/can2C12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C12",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can2F01": {
     "titre": "Calculer une image avec le second degré",
     "url": "/exercices/can/2e/can2F01.js",
@@ -11095,6 +11243,70 @@ export default {
     "interactifReady": true,
     "interactifType": "qcm",
     "name": "can2F06",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F07": {
+    "titre": "Lire les extremums dans un tableau de variations",
+    "url": "/exercices/can/2e/can2F07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2F07",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F08": {
+    "titre": "Encadrer en utilisant un tableau de variations",
+    "url": "/exercices/can/2e/can2F08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2F08",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F09": {
+    "titre": "Résoudre une équation avec une fonction de référence",
+    "url": "/exercices/can/2e/can2F09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2F09",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F10": {
+    "titre": "Résoudre une équation avec une fonction de référence*",
+    "url": "/exercices/can/2e/can2F10.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2F10",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -13238,6 +13450,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can5P06": {
+    "titre": "Ecrire sous la forme d’un pourcentage",
+    "url": "/exercices/can/5e/can5P06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5P06",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "canPredef5-1": {
     "titre": "Course aux nombres début de 5e",
     "url": "/exercices/can/5e/canPredef5-1.js",
@@ -14639,7 +14870,7 @@ export default {
     "interactifType": "qcm",
     "name": "canc3C05",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14658,7 +14889,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3C06",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14709,7 +14940,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3D03",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

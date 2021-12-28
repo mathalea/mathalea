@@ -9,7 +9,7 @@ export const dateDePublication = '09/12/2021' // La date de publication initiale
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Rémi Angot
+ * @author Gilles Mora
  * Référence
 */
 export default function CoeffTaux () {
