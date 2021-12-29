@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureAlgebriqueSauf1, lettreMinusculeDepuisChiffre, rienSi1, reduireAxPlusB, texNombrec2 } from '../../modules/outils.js'
-import { max, simplify, parse, derivative, abs, number } from 'mathjs'
+import { max, simplify, parse, derivative, abs } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Dérivée d\'un produit'
 
@@ -47,6 +47,7 @@ class Polynome {
   }
 
   get coeffs () { return this.monomes }
+  isMon () { return this.monomes.filter(el => el !== 0).length === 1 }
 
   /**
    * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
@@ -241,38 +242,23 @@ export default function DeriveeProduit () {
           else texteCorr += `\\frac{${texNombrec2(abs(m / 2))}x^2}{\\sqrt{x}}.\\]`
           break
         }
-        case 'racine/poly2centre': {
-          const racineGauche = typef1 === 'racine'
-          const poly = dictFonctions.poly2centre
-          const a = poly.monomes[2] // coefficient de degré 2
-          // 1ère étape : application de la formule
-          let intermediaire
-          if (racineGauche) intermediaire = `\\underbrace{\\frac{1}{2\\sqrt{x}}}_{u'(x)}\\times(${poly.toMathExpr()})+\\sqrt{x}\\times\\underbrace{(${rienSi1(2 * a)}x)}_{v'(x)}`
-          else intermediaire = `\\underbrace{(${rienSi1(2 * a)}x)}_{u'(x)}\\times\\sqrt{x}+(${poly.toMathExpr()})\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}`
-          texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
-          // 2ème étape : simplification
-          let interm2
-          if (racineGauche) interm2 = `\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}${ecritureAlgebriqueSauf1(2 * a)}x\\sqrt{x}`
-          else interm2 = `${rienSi1(2 * a)}x\\sqrt{x}+\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}`
-          texteCorr += 'L\'énoncé ne demandant rien de plus, on se contente de simplifier l\'expression :'
-          texteCorr += `\\[${namef}'(x)=${interm2}\\]`
-        }
-          break
+        case 'racine/poly2centre': // traité ci-après
         case 'racine/poly': {
           const racineGauche = typef1 === 'racine'
-          const poly = dictFonctions.poly
+          const poly = listeTypeDeQuestions[i] === 'racine/poly2centre' ? dictFonctions.poly2centre : dictFonctions.poly
           const a = poly.coeffs[poly.deg]
           const b = poly.coeffs[poly.deg - 1]
-          const derivee = poly.deg === 2 ? `${reduireAxPlusB(2 * a, b)}` : `${a}`
+          const isQuadra = poly.deg === 2
+          const derivee = isQuadra ? new Polynome(1, false, false, [b, 2 * a]) : new Polynome(0, false, false, [a])
           // 1ère étape : application de la formule
           let intermediaire
-          if (racineGauche) intermediaire = `\\underbrace{\\frac{1}{2\\sqrt{x}}}_{u'(x)}\\times(${poly.toMathExpr()})+\\sqrt{x}\\times\\underbrace{(${derivee})}_{v'(x)}`
-          else intermediaire = `\\underbrace{(${derivee})}_{u'(x)}\\times\\sqrt{x}+(${poly.toMathExpr()})\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}`
+          if (racineGauche) intermediaire = `\\underbrace{\\frac{1}{2\\sqrt{x}}}_{u'(x)}\\times(${poly.toMathExpr()})+\\sqrt{x}\\times\\underbrace{(${derivee.toMathExpr()})}_{v'(x)}`
+          else intermediaire = `\\underbrace{(${derivee.toMathExpr()})}_{u'(x)}\\times\\sqrt{x}+(${poly.toMathExpr()})\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}`
           texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
           // 2ème étape : simplification
           let interm2
-          if (racineGauche) interm2 = `\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}${poly.deg === 2 ? `+(${derivee})` : ecritureAlgebriqueSauf1(number(derivee))}\\sqrt{x}`
-          else interm2 = `${poly.deg === 2 ? `(${derivee})` : derivee}\\sqrt{x}+\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}`
+          if (racineGauche) interm2 = `\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}${derivee.toMathExpr(true)}\\sqrt{x}`
+          else interm2 = `${!derivee.isMon() ? `(${derivee.toMathExpr()})` : derivee.toMathExpr()}\\sqrt{x}+\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}`
           texteCorr += 'L\'énoncé ne demandant rien de plus, on se contente de simplifier l\'expression :'
           texteCorr += `\\[${namef}'(x)=${interm2}\\]`
           break
@@ -312,6 +298,7 @@ export default function DeriveeProduit () {
           texteCorr += 'Correction non encore implémentée.'
           break
       }
+      texte.replaceAll('\\frac', '\\dfrac')
       texteCorr.replaceAll('\\frac', '\\dfrac')
 
       if (this.liste_valeurs.indexOf(expression) === -1) {
