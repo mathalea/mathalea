@@ -73,7 +73,16 @@ class Polynome {
       switch (i) {
         case this.deg: {
           const coeffD = alg ? ecritureAlgebriqueSauf1(c) : rienSi1(c)
-          maj = this.deg === 1 ? `${coeffD}x` : `${coeffD}x^${i}`
+          switch (this.deg) {
+            case 1:
+              maj = `${coeffD}x`
+              break
+            case 0:
+              maj = `${coeffD}`
+              break
+            default:
+              maj = `${coeffD}x^${i}`
+          }
           break
         }
         case 0:
@@ -138,11 +147,13 @@ export default function DeriveeProduit () {
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
-    const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']// ,
+    // const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
+    let listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
     if (this.sup === 2) {
       listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
       if (this.sup2) {
-        listeTypeDeQuestionsDisponibles.push('exp/poly', 'exp/poly2centre')
+        // listeTypeDeQuestionsDisponibles.push('exp/poly', 'exp/poly2centre')
+        listeTypeDeQuestionsDisponibles = ['exp/poly', 'exp/poly2centre']
       }
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
@@ -195,14 +206,14 @@ export default function DeriveeProduit () {
       texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$ alors leur produit est dérivable sur $I$ et on a la formule'
       texteCorr += '\\[(u\\times v)\'=u\'\\times v+u\\times v\'\\]'
       texteCorr += `Ici $${namef}=u\\times v$ avec`
-      texteCorr += `\\[\\begin{aligned}u&=x\\mapsto ${prettyTex(math.parse(exprf1))}\\\\ v&=x\\mapsto${prettyTex(math.parse(exprf2))}\\end{aligned}\\]`
+      texteCorr += `\\[\\begin{aligned}u&:x\\mapsto ${prettyTex(math.parse(exprf1))}\\\\ v&:x\\mapsto${prettyTex(math.parse(exprf2))}\\end{aligned}\\]`
       switch (listeTypeDeQuestions[i]) {
         case 'inv/poly1': {
           const b = dictFonctions[typef2].monomes[0] // coeffs du poly1
           const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
           // Début correction
           texteCorr += 'On utilise la formule rappelée plus haut et on a'
-          texteCorr += `\\[${namef}'(x)=\\underbrace{-\\frac{1}{x^2}}_{u'(x)}${prettyTex(math.parse(terme2))}+\\frac{1}{x}\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
+          texteCorr += `\\[${namef}'(x)=\\underbrace{-\\frac{1}{x^2}}_{u'(x)}\\times${prettyTex(math.parse(terme2))}+\\frac{1}{x}\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
           texteCorr += `Ce qui donne, en simplifiant : \\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}}{x}.\\]`
           texteCorr += 'On additionne les deux fractions pour obtenir : '
           texteCorr += `\\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}x}{x^2}=\\frac{${reduireAxPlusB(-a, -b)}${ecritureAlgebrique(a)}x}{x^2}.\\]`
@@ -211,7 +222,7 @@ export default function DeriveeProduit () {
           // Remarque sur la méthode alternative
           const fExpand = math.simplify(`${a}${ecritureAlgebrique(b)}/x`)
           texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${prettyTex(fExpand)}$.<br>`
-          texteCorr += `Et donc $${namef}'(x)=${math.simplify(math.derivative(fExpand, 'x'))}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
+          texteCorr += `Et donc $${namef}'(x)=${prettyTex(math.simplify(math.derivative(fExpand, 'x')))}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
           break
         }
         case 'monome2/poly1': {
@@ -219,7 +230,7 @@ export default function DeriveeProduit () {
           const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
           const m = dictFonctions[typef1].monomes[2] // coeff du monome2
           // Début correction
-          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${reduireAxPlusB(2 * m, 0)}}_{u'(x)}(${exprf2})${ecritureAlgebrique(m)}x^2\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
+          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${reduireAxPlusB(2 * m, 0)}}_{u'(x)}\\times(${exprf2})${ecritureAlgebriqueSauf1(m)}x^2\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
           texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${2 * m * a}x^2${ecritureAlgebrique(2 * m * b)}x${ecritureAlgebrique(m * a)}x^2.\\]`
           texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${2 * m * a + m * a}x^2${ecritureAlgebrique(2 * m * b)}x.\\]`
           // Remarque sur la méthode alternative
@@ -230,9 +241,8 @@ export default function DeriveeProduit () {
         }
         case 'monome2/racine': {
           const m = dictFonctions[typef1].monomes[2] // coeff du monome2
-          // texteCorr += `Ici on dérive $${namef}$ comme $${texNombrec2(m)}$ fois $x\\mapsto x^2\\sqrt{x}$.`
           texteCorr += 'On applique la  formule rappellée plus haut : '
-          texteCorr += `\\[${namef}'(x)=\\underbrace{${rienSi1(2 * m)}x}_{u'(x)}\\sqrt{x}${ecritureAlgebrique(m)}x^2\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
+          texteCorr += `\\[${namef}'(x)=\\underbrace{${rienSi1(2 * m)}x}_{u'(x)}\\times\\sqrt{x}${ecritureAlgebrique(m)}x^2\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
           texteCorr += 'On peut réduire un peu l\'expression : '
           texteCorr += `\\[${namef}'(x)=${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}` // attention l'équation finit ligne suivante
           if (m % 2 !== 0) texteCorr += `\\frac{${abs(m)}x^2}{2\\sqrt{x}}.\\]`
@@ -245,8 +255,8 @@ export default function DeriveeProduit () {
           const a = poly.monomes[2] // coefficient de degré 2
           // 1ère étape : application de la formule
           let intermediaire
-          if (racineGauche) intermediaire = `\\underbrace{\\frac{1}{2\\sqrt{x}}}_{u'(x)}(${poly.toMathExpr()})+\\sqrt{x}\\underbrace{(${rienSi1(2 * a)}x)}_{v'(x)}`
-          else intermediaire = `\\underbrace{(${rienSi1(2 * a)}x)}_{u'(x)}\\sqrt{x}+(${poly.toMathExpr()})\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}`
+          if (racineGauche) intermediaire = `\\underbrace{\\frac{1}{2\\sqrt{x}}}_{u'(x)}\\times(${poly.toMathExpr()})+\\sqrt{x}\\times\\underbrace{(${rienSi1(2 * a)}x)}_{v'(x)}`
+          else intermediaire = `\\underbrace{(${rienSi1(2 * a)}x)}_{u'(x)}\\times\\sqrt{x}+(${poly.toMathExpr()})\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}`
           texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
           // 2ème étape : simplification
           let interm2
@@ -264,8 +274,8 @@ export default function DeriveeProduit () {
           const derivee = poly.deg === 2 ? `${reduireAxPlusB(2 * a, b)}` : `${a}`
           // 1ère étape : application de la formule
           let intermediaire
-          if (racineGauche) intermediaire = `\\underbrace{\\frac{1}{2\\sqrt{x}}}_{u'(x)}(${poly.toMathExpr()})+\\sqrt{x}\\underbrace{(${derivee})}_{v'(x)}`
-          else intermediaire = `\\underbrace{(${derivee})}_{u'(x)}\\sqrt{x}+(${poly.toMathExpr()})\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}`
+          if (racineGauche) intermediaire = `\\underbrace{\\frac{1}{2\\sqrt{x}}}_{u'(x)}\\times(${poly.toMathExpr()})+\\sqrt{x}\\times\\underbrace{(${derivee})}_{v'(x)}`
+          else intermediaire = `\\underbrace{(${derivee})}_{u'(x)}\\times\\sqrt{x}+(${poly.toMathExpr()})\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}`
           texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
           // 2ème étape : simplification
           let interm2
@@ -275,35 +285,41 @@ export default function DeriveeProduit () {
           texteCorr += `\\[${namef}'(x)=${interm2}\\]`
           break
         }
-        case 'exp/poly':
+        case 'exp/poly': // traité ci-après
         case 'exp/poly2centre': {
           const expGauche = typef1 === 'exp'
-          const poly = listeTypeDeQuestions[i].substring(4) === 'poly' ? dictFonctions.poly : dictFonctions.poly2centre
+          const poly = listeTypeDeQuestions[i] === 'exp/poly2centre' ? dictFonctions.poly2centre : dictFonctions.poly
+          const isQuadra = poly.deg === 2
           const a = poly.coeffs[poly.deg]
           const b = poly.coeffs[poly.deg - 1]
-          const isQuadra = poly.deg === 2
-          const derivee = isQuadra ? `${(2 * a, b)}` : `${a}`
-          const deriveeAlg = poly.deg === 2 ? `${reduireAxPlusB(2 * a, b)}` : `${ecritureAlgebrique(a)}`
-          // console.log(derivee)
+          const derivee = isQuadra ? new Polynome(1, false, false, [b, 2 * a]) : new Polynome(0, false, false, [a])
+          console.log(derivee, derivee.toMathExpr())
           // 1ère étape : application de la formule
           let intermediaire
-          if (expGauche) intermediaire = `\\underbrace{e^x}_{u'(x)}(${poly.toMathExpr()})+e^x\\underbrace{(${derivee})}_{v'(x)}`
-          else intermediaire = `\\underbrace{(${derivee})}_{u'(x)}e^x+(${poly.toMathExpr()})\\underbrace{e^x}_{v'(x)}`
+          if (expGauche) intermediaire = `\\underbrace{e^x}_{u'(x)}\\times(${poly.toMathExpr()})+e^x\\times\\underbrace{(${derivee.toMathExpr()})}_{v'(x)}`
+          else intermediaire = `\\underbrace{(${derivee.toMathExpr()})}_{u'(x)}e^x+(${poly.toMathExpr()})\\underbrace{e^x}_{v'(x)}`
           texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
-          // 2ème étape : simplification
-          const interm2 = isQuadra ? `${rienSi1(a)}x^2` : ''
-          texteCorr += 'Factorisons l\'expression par $e^x$ :'
-          texteCorr += `\\[${namef}'(x)=e^x(${poly.toMathExpr()}${deriveeAlg}).\\]`
-          if (isQuadra) {
-            texteCorr += '<br>C\'est-à-dire, en simplifiant : '
-            texteCorr += `\\[${namef}'(x)=e^x(${prettyTex(math.parse(interm2))})\\]`
-          }
+          // 2ème étape : Factorisation
+          const interm2 = `(${poly.toMathExpr()}${derivee.toMathExpr(true)})`
+          let termeGauche = expGauche ? 'e^x' : interm2
+          let termeDroite = expGauche ? interm2 : 'e^x'
+          texteCorr += 'Comme demandé, on factorise l\'expression par $e^x$ : '
+          texteCorr += `\\[${namef}'(x)=${termeGauche}${termeDroite}\\]`
+          // 3e étape : Simplification
+          const interm2Simp = `(${Polynome.add(poly, derivee).toMathExpr()})`
+          termeGauche = expGauche ? 'e^x' : interm2Simp
+          termeDroite = expGauche ? interm2Simp : 'e^x'
+          texteCorr += 'On peut réduire l\'expression entre parenthèses : '
+          texteCorr += `\\[${namef}'(x)=${termeGauche}${termeDroite}\\]`
           break
         }
+
         default:
           texteCorr += 'Correction non encore implémentée.'
           break
       }
+      texteCorr.replaceAll('\\frac', '\\dfrac')
+
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
         this.listeQuestions.push(texte)
