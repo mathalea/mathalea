@@ -147,13 +147,13 @@ export default function DeriveeProduit () {
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
-    // const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
-    let listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
+    const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
+    // let listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
     if (this.sup === 2) {
       listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
       if (this.sup2) {
-        // listeTypeDeQuestionsDisponibles.push('exp/poly', 'exp/poly2centre')
-        listeTypeDeQuestionsDisponibles = ['exp/poly', 'exp/poly2centre']
+        listeTypeDeQuestionsDisponibles.push('exp/poly', 'exp/poly2centre')
+        // listeTypeDeQuestionsDisponibles = ['exp/poly', 'exp/poly2centre']
       }
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
@@ -203,16 +203,16 @@ export default function DeriveeProduit () {
       texte = askFormule ? `Dans cette question, on demande d'utiliser la formule de dérivation d'un produit. ${askQuotient ? 'Mettre le résultat sous forme d\'un quotient.' : ''}<br>` : texte
       texte += `$${namef}:x\\longmapsto ${prettyTex(math.parse(expression))}$`
       texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
-      texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$ alors leur produit est dérivable sur $I$ et on a la formule'
-      texteCorr += '\\[(u\\times v)\'=u\'\\times v+u\\times v\'\\]'
-      texteCorr += `Ici $${namef}=u\\times v$ avec`
-      texteCorr += `\\[\\begin{aligned}u&:x\\mapsto ${prettyTex(math.parse(exprf1))}\\\\ v&:x\\mapsto${prettyTex(math.parse(exprf2))}\\end{aligned}\\]`
+      texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$ alors leur produit est dérivable sur $I$ et on a la formule : '
+      texteCorr += '\\[(u\\times v)\'=u\'\\times v+u\\times v\'.\\]'
+      texteCorr += `Ici $${namef}=u\\times v$ avec : `
+      texteCorr += `\\[\\begin{aligned}u&:x\\mapsto ${prettyTex(math.parse(exprf1))}\\\\ v&:x\\mapsto${prettyTex(math.parse(exprf2))}.\\end{aligned}\\]`
       switch (listeTypeDeQuestions[i]) {
         case 'inv/poly1': {
           const b = dictFonctions[typef2].monomes[0] // coeffs du poly1
           const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
           // Début correction
-          texteCorr += 'On utilise la formule rappelée plus haut et on a'
+          texteCorr += 'On utilise la formule rappelée plus haut et on a : '
           texteCorr += `\\[${namef}'(x)=\\underbrace{-\\frac{1}{x^2}}_{u'(x)}\\times${prettyTex(math.parse(terme2))}+\\frac{1}{x}\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
           texteCorr += `Ce qui donne, en simplifiant : \\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}}{x}.\\]`
           texteCorr += 'On additionne les deux fractions pour obtenir : '
@@ -242,10 +242,10 @@ export default function DeriveeProduit () {
         case 'monome2/racine': {
           const m = dictFonctions[typef1].monomes[2] // coeff du monome2
           texteCorr += 'On applique la  formule rappellée plus haut : '
-          texteCorr += `\\[${namef}'(x)=\\underbrace{${rienSi1(2 * m)}x}_{u'(x)}\\times\\sqrt{x}${ecritureAlgebrique(m)}x^2\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
+          texteCorr += `\\[${namef}'(x)=\\underbrace{${rienSi1(2 * m)}x}_{u'(x)}\\times\\sqrt{x}${ecritureAlgebriqueSauf1(m)}x^2\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
           texteCorr += 'On peut réduire un peu l\'expression : '
           texteCorr += `\\[${namef}'(x)=${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}` // attention l'équation finit ligne suivante
-          if (m % 2 !== 0) texteCorr += `\\frac{${abs(m)}x^2}{2\\sqrt{x}}.\\]`
+          if (m % 2 !== 0) texteCorr += `\\frac{${rienSi1(abs(m))}x^2}{2\\sqrt{x}}.\\]`
           else texteCorr += `\\frac{${texNombrec2(abs(m / 2))}x^2}{\\sqrt{x}}.\\]`
           break
         }
@@ -297,20 +297,22 @@ export default function DeriveeProduit () {
           // 1ère étape : application de la formule
           let intermediaire
           if (expGauche) intermediaire = `\\underbrace{e^x}_{u'(x)}\\times(${poly.toMathExpr()})+e^x\\times\\underbrace{(${derivee.toMathExpr()})}_{v'(x)}`
-          else intermediaire = `\\underbrace{(${derivee.toMathExpr()})}_{u'(x)}e^x+(${poly.toMathExpr()})\\underbrace{e^x}_{v'(x)}`
+          else intermediaire = `\\underbrace{(${derivee.toMathExpr()})}_{u'(x)}\\times e^x+(${poly.toMathExpr()})\\times\\underbrace{e^x}_{v'(x)}`
           texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
           // 2ème étape : Factorisation
           const interm2 = `(${poly.toMathExpr()}${derivee.toMathExpr(true)})`
-          let termeGauche = expGauche ? 'e^x' : interm2
-          let termeDroite = expGauche ? interm2 : 'e^x'
+          const termeGauche = expGauche ? 'e^x' : interm2
+          const termeDroite = expGauche ? interm2 : 'e^x'
           texteCorr += 'Comme demandé, on factorise l\'expression par $e^x$ : '
           texteCorr += `\\[${namef}'(x)=${termeGauche}${termeDroite}\\]`
-          // 3e étape : Simplification
+          // 3e étape : Simplification si nécessaire
           const interm2Simp = `(${Polynome.add(poly, derivee).toMathExpr()})`
-          termeGauche = expGauche ? 'e^x' : interm2Simp
-          termeDroite = expGauche ? interm2Simp : 'e^x'
-          texteCorr += 'On peut réduire l\'expression entre parenthèses : '
-          texteCorr += `\\[${namef}'(x)=${termeGauche}${termeDroite}\\]`
+          const termeGauche2 = expGauche ? 'e^x' : interm2Simp
+          const termeDroite2 = expGauche ? interm2Simp : 'e^x'
+          if (`${termeGauche2}${termeDroite2}` !== `${termeGauche}${termeDroite}`) {
+            texteCorr += 'On peut réduire ou réordonner l\'expression entre parenthèses : '
+            texteCorr += `\\[${namef}'(x)=${termeGauche2}${termeDroite2}\\]`
+          }
           break
         }
 
