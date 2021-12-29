@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureAlgebriqueSauf1, lettreMinusculeDepuisChiffre, rienSi1, reduireAxPlusB, texNombrec2 } from '../../modules/outils.js'
-import { max, simplify, parse, derivative, chain, abs, number } from 'mathjs'
-const math = { simplify: simplify, parse: parse, derivative: derivative, chain: chain }
+import { max, simplify, parse, derivative, abs, number } from 'mathjs'
+const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Dérivée d\'un produit'
 
 /**
@@ -10,23 +10,6 @@ export const titre = 'Dérivée d\'un produit'
  * Référence 1AN14-4
  * @todo Corrections niveau 2
  */
-
-/**
- * Retourne une constante formattée, rien si 0
- * @param {number} a Nombre à formatter
- * @returns Rien si a=0, a formatté sinon
- */
-function constRienSi0 (a) {
-  return a === 0 ? '' : ecritureAlgebrique(a)
-}
-
-/**
-* Ecriture propre d'un monome ax
-* @returns Rien si a=0, ax sinon
-*/
-function monome (a) {
-  return a === 0 ? '' : `${ecritureAlgebriqueSauf1(a)}x`
-}
 
 /**
  * @param {string} expression expression parsée
@@ -66,6 +49,10 @@ class Polynome {
 
   get coeffs () { return this.monomes }
 
+  /**
+   * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
+   * @returns {string} expression mathématique
+   */
   toMathExpr (alg = false) {
     let res = ''
     let maj = ''
@@ -86,13 +73,13 @@ class Polynome {
           break
         }
         case 0:
-          maj = constRienSi0(c)
+          maj = c === 0 ? '' : ecritureAlgebrique(c)
           break
         case 1:
-          maj = monome(c)
+          maj = c === 0 ? '' : `${ecritureAlgebrique(c)}x`
           break
         default:
-          maj = `${ecritureAlgebriqueSauf1(c)}x^${i}`
+          maj = c === 0 ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
           break
       }
       res = maj + res
@@ -100,6 +87,12 @@ class Polynome {
     return res
   }
 
+  /**
+   * Addition de deux Polynome
+   * @param {Polynome} p1
+   * @param {Polynome} p2
+   * @returns Polynome p1+p2
+   */
   static add (p1, p2) {
     const degSomme = max(p1.deg, p2.deg)
     const pInf = p1.deg === degSomme ? p2 : p1
@@ -216,7 +209,7 @@ export default function DeriveeProduit () {
           texteCorr += `\\[${namef}'(x)=\\underbrace{-\\frac{1}{x^2}}_{u'(x)}\\times${prettyTex(math.parse(terme2))}+\\frac{1}{x}\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
           texteCorr += `Ce qui donne, en simplifiant : \\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}}{x}.\\]`
           texteCorr += 'On additionne les deux fractions pour obtenir : '
-          texteCorr += `\\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}x}{x^2}=\\frac{${reduireAxPlusB(-a, -b)}${ecritureAlgebrique(a)}x}{x^2}.\\]`
+          texteCorr += `\\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${Polynome.print([0, a])}}{x^2}=\\frac{${reduireAxPlusB(-a, -b)}${ecritureAlgebrique(a)}x}{x^2}.\\]`
           texteCorr += 'Des termes se simplifient au numérateur et on a : '
           texteCorr += `\\[${namef}'(x)=\\frac{${reduireAxPlusB(0, -b)}}{x^2}.\\]`
           // Remarque sur la méthode alternative
