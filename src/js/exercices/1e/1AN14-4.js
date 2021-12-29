@@ -106,14 +106,6 @@ class Polynome {
     return p.toMathExpr(alg)
   }
 }
-// Tests
-const p = new Polynome(2, false, false, [-11, 2, 1])
-const p2 = new Polynome(1, false, false, [2, 1])
-console.log('p : ', p.toMathExpr(), p.deg)
-console.log('p2 : ', p2.toMathExpr(), p2.deg)
-console.log('p+p2 : ', Polynome.add(p, p2).coeffs)
-console.log('print : ', Polynome.print([0, -1, 1]))
-console.log('print alg : ', Polynome.print([0, -1, 1], true))
 
 export default function DeriveeProduit () {
   Exercice.call(this)
@@ -183,18 +175,18 @@ export default function DeriveeProduit () {
       const exprf2 = ['poly', 'mono'].includes(typef2.substring(0, 4)) ? dictFonctions[typef2].toMathExpr() : dictFonctions[typef2]
       terme1 = parenth(exprf1, typef1)
       terme2 = parenth(exprf2, typef2)
+      // Expression finale de la fonction
+      expression = terme1 + '*' + terme2
       // Ensemble de dérivation
       ensembleDerivation = listeTypeFonctions.includes('racine') ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
       ensembleDerivation = listeTypeFonctions.includes('inv') ? '\\mathbb{R}^*' : ensembleDerivation
 
-      // 1ère étape de la dérivation
-      expression = terme1 + '*' + terme2
-
-      // Correction
+      // Enoncé
       namef = lettreMinusculeDepuisChiffre(i + 6)
       texte = askFacto ? 'Dans cette question, on demande la réponse sous forme factorisée.<br>' : ''
       texte = askFormule ? `Dans cette question, on demande d'utiliser la formule de dérivation d'un produit. ${askQuotient ? 'Mettre le résultat sous forme d\'un quotient.' : ''}<br>` : texte
       texte += `$${namef}:x\\longmapsto ${prettyTex(math.parse(expression))}$`
+      // Correction
       texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
       texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$ alors leur produit est dérivable sur $I$ et on a la formule : '
       texteCorr += '\\[(u\\times v)\'=u\'\\times v+u\\times v\'.\\]'
@@ -229,7 +221,7 @@ export default function DeriveeProduit () {
           // Remarque sur la méthode alternative
           const fExpand = math.parse(`${rienSi1(m * a)}x^3${ecritureAlgebrique(m * b)}x^2`)
           texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${prettyTex(fExpand)}$.<br>`
-          texteCorr += `Et donc $${namef}'(x)=${prettyTex(math.simplify(math.derivative(fExpand, 'x')))}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
+          texteCorr += `Et donc $${namef}'(x)=${prettyTex(math.simplify(math.derivative(fExpand, 'x'), reglesDeSimplifications))}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
           break
         }
         case 'monome2/racine': {
@@ -271,7 +263,6 @@ export default function DeriveeProduit () {
           const a = poly.coeffs[poly.deg]
           const b = poly.coeffs[poly.deg - 1]
           const derivee = isQuadra ? new Polynome(1, false, false, [b, 2 * a]) : new Polynome(0, false, false, [a])
-          console.log(derivee, derivee.toMathExpr())
           // 1ère étape : application de la formule
           let intermediaire
           if (expGauche) intermediaire = `\\underbrace{e^x}_{u'(x)}\\times(${poly.toMathExpr()})+e^x\\times\\underbrace{(${derivee.toMathExpr()})}_{v'(x)}`
