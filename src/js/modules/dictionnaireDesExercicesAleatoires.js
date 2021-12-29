@@ -9793,6 +9793,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "beta2F31-1": {
+    "titre": "Utiliser les variations des fonctions de référence pour comparer des images",
+    "url": "/exercices/beta/beta2F31-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta2F31-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "beta2F31": {
     "titre": "Croissance de fonction ?",
     "url": "/exercices/beta/beta2F31.js",
