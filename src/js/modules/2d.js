@@ -453,7 +453,7 @@ export function milieu (A, B, nom, positionLabel = 'above') {
  * @author Rémi Angot
  */
 export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
-  if (Number.isNaN(longueur(A, B))) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
+  if (Number.isNaN(longueur(A, B))) window.notify('pointSurSegment : Quelque chose ne va pas avec les points', { A, B })
   if (l === undefined || typeof l === 'string') {
     l = calcul((longueur(A, B) * randint(15, 85)) / 100)
   }
@@ -467,7 +467,6 @@ export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
  */
 
 export function appartientSegment (C, A, B) {
-  if (Number.isNaN(longueur(A, B)) || Number.isNaN(longueur(A, C))) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
   const prodscalABAB = (B.x - A.x) ** 2 + (B.y - A.y) ** 2
@@ -480,7 +479,6 @@ export function appartientSegment (C, A, B) {
  * @author Jean-Claude Lhote
  */
 export function appartientDroite (C, A, B) {
-  if (Number.isNaN(longueur(A, B)) || Number.isNaN(longueur(A, C))) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   if (prodvect === 0) return true
   else return false
@@ -491,7 +489,6 @@ export function appartientDroite (C, A, B) {
  * @author Jean-Claude Lhote
  */
 export function appartientDemiDroite (C, A, B) {
-  if (Number.isNaN(longueur(A, B)) || Number.isNaN(longueur(A, C))) window.notify('milieu : Quelque chose ne va pas avec les points', { C, A, B })
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
   if (prodvect === 0 && prodscal > 0) return true
@@ -1246,7 +1243,7 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
  * @author Rémi Angot
  */
 export function mediatrice (A, B, nom = '', color = 'black') {
-  if (longueur(A, B) < 0.001) window.notify('Mediatrice : Points trop rapprochés pour créer cet objet', { A, B })
+  if (longueur(A, B) < 0.001) window.notify('mediatrice : Points trop rapprochés pour créer cet objet', { A, B })
   const O = milieu(A, B)
   const M = rotation(A, O, 90)
   const N = rotation(A, O, -90)
@@ -1544,8 +1541,8 @@ function Polyline (...points) {
   let xmax = -1000
   let ymin = 1000
   let ymax = -1000
-  for (const unPoint of points) {
-    if (unPoint.typeObjet !== 'point') window.notify('TracePoint : argument invalide', { ...points })
+  for (const unPoint of this.listePoints) {
+    if (unPoint.typeObjet !== 'point') window.notify('Polyline : argument invalide', { ...points })
     xmin = Math.min(xmin, unPoint.x - this.taille / context.pixelsParCm)
     xmax = Math.max(xmax, unPoint.x + this.taille / context.pixelsParCm)
     ymin = Math.min(ymin, unPoint.y - this.taille / context.pixelsParCm)
