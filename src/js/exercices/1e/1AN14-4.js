@@ -8,7 +8,6 @@ export const titre = 'Dérivée d\'un produit'
  * Calculer la dérivée d'un produit
  * @author Jean-Léon Henry
  * Référence 1AN14-4
- * @todo Corrections niveau 2
  */
 
 /**
@@ -76,7 +75,7 @@ class Polynome {
           maj = c === 0 ? '' : ecritureAlgebrique(c)
           break
         case 1:
-          maj = c === 0 ? '' : `${ecritureAlgebrique(c)}x`
+          maj = c === 0 ? '' : `${ecritureAlgebriqueSauf1(c)}x`
           break
         default:
           maj = c === 0 ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
@@ -156,7 +155,7 @@ export default function DeriveeProduit () {
         exp: 'e^x',
         racine: 'sqrt(x)',
         inv: '1/x',
-        poly1: new Polynome(1),
+        poly1: new Polynome(1, false, false, [randint(-10, 10, 0), randint(-10, 10)]),
         poly2centre: new Polynome(2, false, true),
         monome2: new Polynome(2, true),
         poly: new Polynome(randint(1, 2))
