@@ -1,6 +1,5 @@
-import { multiply, inv, matrix } from 'mathjs'
-
-import { calcul, arrondi, ecritureAlgebrique, egal, randint } from './outils.js'
+import { multiply, inv, matrix, max } from 'mathjs'
+import { calcul, arrondi, ecritureAlgebrique, egal, randint, rienSi1, ecritureAlgebriqueSauf1 } from './outils.js'
 /**
 * Convertit un angle de radian vers degrés et fonction inverse
 * @Example
@@ -396,4 +395,109 @@ class SplineCatmullRom {
 
 export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 }) {
   return new SplineCatmullRom({ tabY: tabY, x0: x0, step: step })
+}
+
+/**
+* Crée un objet Polynome de degré donné.
+* @param {number} deg degré
+* @param {boolean} mon monôme
+* @param {boolean} centre pour obtenir ax^2+b quand deg=2
+* @param {boolean|Array} rand true pour obtenir un polynome aléatoire, Array pour fournir les coeffs
+* @author Jean-Léon Henry
+*/
+export class Polynome {
+  constructor (deg, mon = false, centre = false, rand = true) {
+    this.mon = mon
+    if ((rand && typeof rand === 'boolean') || !Array.isArray(rand)) {
+      this.deg = deg
+      this.monomes = []
+      for (let i = 0; i < deg; i++) {
+        if (deg === 2 && i === 1 && centre) {
+          this.monomes.push(0)
+          continue
+        }
+        if (!mon) this.monomes.push(randint(-10, 10))
+        else this.monomes.push(0)
+      }
+      this.monomes.push(randint(-10, 10, 0))
+    } else {
+      this.monomes = rand
+      this.deg = this.monomes.length - 1
+    }
+  }
+
+  get coeffs () { return this.monomes }
+  isMon () { return this.monomes.filter(el => el !== 0).length === 1 }
+
+  /**
+  * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
+  * @returns {string} expression mathématique
+  */
+  toMathExpr (alg = false) {
+    let res = ''
+    let maj = ''
+    for (const [i, c] of this.monomes.entries()) {
+      switch (i) {
+        case this.deg: {
+          const coeffD = alg ? ecritureAlgebriqueSauf1(c) : rienSi1(c)
+          switch (this.deg) {
+            case 1:
+              maj = `${coeffD}x`
+              break
+            case 0:
+              maj = `${coeffD}`
+              break
+            default:
+              maj = `${coeffD}x^${i}`
+          }
+          break
+        }
+        case 0:
+          maj = c === 0 ? '' : ecritureAlgebrique(c)
+          break
+        case 1:
+          maj = c === 0 ? '' : `${ecritureAlgebriqueSauf1(c)}x`
+          break
+        default:
+          maj = c === 0 ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
+          break
+      }
+      res = maj + res
+    }
+    return res
+  }
+
+  /**
+  * Addition de deux Polynome
+  * @param {Polynome} p
+  * @returns {Polynome} this+p
+  */
+  add (p) {
+    const degSomme = max(this.deg, p.deg)
+    const pInf = p.deg === degSomme ? this : p
+    const pSup = p.deg === degSomme ? p : this
+    const coeffSomme = pSup.monomes.map(function (el, index) { return index <= pInf.deg ? el + pInf.monomes[index] : el })
+    return new Polynome(degSomme, false, false, coeffSomme)
+  }
+
+  /**
+  * Retourne la dérivée
+  * @returns {Polynome} dérivée de this
+  */
+  derivee () {
+    const coeffDerivee = this.coeffs.map(function (el, i) { return i * el })
+    coeffDerivee.shift()
+    return new Polynome(this.deg - 1, false, false, coeffDerivee)
+  }
+
+  /**
+  * Appelle toMathExpr
+  * @param {Array} coeffs coefficients du polynôme par ordre de degré croissant
+  * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
+  * @returns {string} expression du polynome
+  */
+  static print (coeffs, alg = false) {
+    const p = new Polynome(coeffs.length - 1, false, false, coeffs)
+    return p.toMathExpr(alg)
+  }
 }

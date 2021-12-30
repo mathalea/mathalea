@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureAlgebriqueSauf1, lettreMinusculeDepuisChiffre, rienSi1, reduireAxPlusB, texNombrec2 } from '../../modules/outils.js'
-import { max, simplify, parse, derivative, abs } from 'mathjs'
+import { Polynome } from '../../modules/fonctionsMaths.js'
+import { simplify, parse, derivative, abs } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Dérivée d\'un produit'
 
@@ -16,94 +17,6 @@ export const titre = 'Dérivée d\'un produit'
  */
 function prettyTex (expression) {
   return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
-}
-
-/**
- * Crée un objet Polynome de degré donné.
- * @param {number} deg degré
- * @param {boolean} mon monôme
- * @param {boolean} centre pour obtenir ax^2+b quand deg=2
- * @param {boolean|Array} rand true pour obtenir un polynome aléatoire, Array pour fournir les coeffs
- */
-class Polynome {
-  constructor (deg, mon = false, centre = false, rand = true) {
-    this.mon = mon
-    if ((rand && typeof rand === 'boolean') || !Array.isArray(rand)) {
-      this.deg = deg
-      this.monomes = []
-      for (let i = 0; i < deg; i++) {
-        if (deg === 2 && i === 1 && centre) {
-          this.monomes.push(0)
-          continue
-        }
-        if (!mon) this.monomes.push(randint(-10, 10))
-        else this.monomes.push(0)
-      }
-      this.monomes.push(randint(-10, 10, 0))
-    } else {
-      this.monomes = rand
-      this.deg = this.monomes.length - 1
-    }
-  }
-
-  get coeffs () { return this.monomes }
-  isMon () { return this.monomes.filter(el => el !== 0).length === 1 }
-
-  /**
-   * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
-   * @returns {string} expression mathématique
-   */
-  toMathExpr (alg = false) {
-    let res = ''
-    let maj = ''
-    for (const [i, c] of this.monomes.entries()) {
-      switch (i) {
-        case this.deg: {
-          const coeffD = alg ? ecritureAlgebriqueSauf1(c) : rienSi1(c)
-          switch (this.deg) {
-            case 1:
-              maj = `${coeffD}x`
-              break
-            case 0:
-              maj = `${coeffD}`
-              break
-            default:
-              maj = `${coeffD}x^${i}`
-          }
-          break
-        }
-        case 0:
-          maj = c === 0 ? '' : ecritureAlgebrique(c)
-          break
-        case 1:
-          maj = c === 0 ? '' : `${ecritureAlgebriqueSauf1(c)}x`
-          break
-        default:
-          maj = c === 0 ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
-          break
-      }
-      res = maj + res
-    }
-    return res
-  }
-
-  /**
-   * Addition de deux Polynome
-   * @param {Polynome} p
-   * @returns {Polynome} this+p
-   */
-  add (p) {
-    const degSomme = max(this.deg, p.deg)
-    const pInf = p.deg === degSomme ? this : p
-    const pSup = p.deg === degSomme ? p : this
-    const coeffSomme = pSup.monomes.map(function (el, index) { return index <= pInf.deg ? el + pInf.monomes[index] : el })
-    return new Polynome(degSomme, false, false, coeffSomme)
-  }
-
-  static print (coeffs, alg = false) {
-    const p = new Polynome(coeffs.length - 1, false, false, coeffs)
-    return p.toMathExpr(alg)
-  }
 }
 
 export default function DeriveeProduit () {
@@ -237,10 +150,7 @@ export default function DeriveeProduit () {
         case 'racine/poly': {
           const racineGauche = typef1 === 'racine'
           const poly = listeTypeDeQuestions[i] === 'racine/poly2centre' ? dictFonctions.poly2centre : dictFonctions.poly
-          const a = poly.coeffs[poly.deg]
-          const b = poly.coeffs[poly.deg - 1]
-          const isQuadra = poly.deg === 2
-          const derivee = isQuadra ? new Polynome(1, false, false, [b, 2 * a]) : new Polynome(0, false, false, [a])
+          const derivee = poly.derivee()
           // 1ère étape : application de la formule
           let intermediaire
           if (racineGauche) intermediaire = `\\underbrace{\\frac{1}{2\\sqrt{x}}}_{u'(x)}\\times(${poly.toMathExpr()})+\\sqrt{x}\\times\\underbrace{(${derivee.toMathExpr()})}_{v'(x)}`
@@ -258,10 +168,7 @@ export default function DeriveeProduit () {
         case 'exp/poly2centre': {
           const expGauche = typef1 === 'exp'
           const poly = listeTypeDeQuestions[i] === 'exp/poly2centre' ? dictFonctions.poly2centre : dictFonctions.poly
-          const isQuadra = poly.deg === 2
-          const a = poly.coeffs[poly.deg]
-          const b = poly.coeffs[poly.deg - 1]
-          const derivee = isQuadra ? new Polynome(1, false, false, [b, 2 * a]) : new Polynome(0, false, false, [a])
+          const derivee = poly.derivee()
           // 1ère étape : application de la formule
           let intermediaire
           if (expGauche) intermediaire = `\\underbrace{e^x}_{u'(x)}\\times(${poly.toMathExpr()})+e^x\\times\\underbrace{(${derivee.toMathExpr()})}_{v'(x)}`
