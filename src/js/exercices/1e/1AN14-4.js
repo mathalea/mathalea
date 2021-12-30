@@ -89,14 +89,13 @@ class Polynome {
 
   /**
    * Addition de deux Polynome
-   * @param {Polynome} p1
-   * @param {Polynome} p2
-   * @returns Polynome p1+p2
+   * @param {Polynome} p
+   * @returns {Polynome} this+p
    */
-  static add (p1, p2) {
-    const degSomme = max(p1.deg, p2.deg)
-    const pInf = p1.deg === degSomme ? p2 : p1
-    const pSup = p1.deg === degSomme ? p1 : p2
+  add (p) {
+    const degSomme = max(this.deg, p.deg)
+    const pInf = p.deg === degSomme ? this : p
+    const pSup = p.deg === degSomme ? p : this
     const coeffSomme = pSup.monomes.map(function (el, index) { return index <= pInf.deg ? el + pInf.monomes[index] : el })
     return new Polynome(degSomme, false, false, coeffSomme)
   }
@@ -275,7 +274,7 @@ export default function DeriveeProduit () {
           texteCorr += 'Comme demandé, on factorise l\'expression par $e^x$ : '
           texteCorr += `\\[${namef}'(x)=${termeGauche}${termeDroite}\\]`
           // 3e étape : Simplification si nécessaire
-          const interm2Simp = `(${Polynome.add(poly, derivee).toMathExpr()})`
+          const interm2Simp = `(${poly.add(derivee).toMathExpr()})`
           const termeGauche2 = expGauche ? 'e^x' : interm2Simp
           const termeDroite2 = expGauche ? interm2Simp : 'e^x'
           if (`${termeGauche2}${termeDroite2}` !== `${termeGauche}${termeDroite}`) {
