@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureAlgebriqueSauf1, lettreMinusculeDepuisChiffre, rienSi1, reduireAxPlusB, texNombrec2 } from '../../modules/outils.js'
+import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, lettreMinusculeDepuisChiffre, rienSi1, reduireAxPlusB, texNombrec2 } from '../../modules/outils.js'
 import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, abs } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
@@ -125,21 +125,23 @@ export default function DeriveeProduit () {
         case 'monome2/poly1': {
           const b = dictFonctions[typef2].monomes[0] // coeffs du poly1
           const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
-          const m = dictFonctions[typef1].monomes[2] // coeff du monome2
+          const mon2 = dictFonctions[typef1]
+          const m = mon2.monomes[2] // coeff du monome2
+          const polExpand = new Polynome(3, false, false, [0, 0, m * b, m * a])
           // Début correction
-          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${reduireAxPlusB(2 * m, 0)}}_{u'(x)}\\times(${exprf2})${ecritureAlgebriqueSauf1(m)}x^2\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
+          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${mon2.derivee().toMathExpr()}}_{u'(x)}\\times(${exprf2})${mon2.toMathExpr(true)}\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
           texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${2 * m * a}x^2${ecritureAlgebrique(2 * m * b)}x${ecritureAlgebrique(m * a)}x^2.\\]`
-          texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${2 * m * a + m * a}x^2${ecritureAlgebrique(2 * m * b)}x.\\]`
+          texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${polExpand.derivee().toMathExpr()}.\\]`
           // Remarque sur la méthode alternative
-          const fExpand = math.parse(`${rienSi1(m * a)}x^3${ecritureAlgebrique(m * b)}x^2`)
-          texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${prettyTex(fExpand)}$.<br>`
-          texteCorr += `Et donc $${namef}'(x)=${prettyTex(math.simplify(math.derivative(fExpand, 'x'), reglesDeSimplifications))}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
+          texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${polExpand.toMathExpr()}$.<br>`
+          texteCorr += `Et donc $${namef}'(x)=${polExpand.derivee().toMathExpr()}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
           break
         }
         case 'monome2/racine': {
-          const m = dictFonctions[typef1].monomes[2] // coeff du monome2
+          const mon2 = dictFonctions[typef1]
+          const m = mon2.monomes[2] // coeff du monome2
           texteCorr += 'On applique la  formule rappellée plus haut : '
-          texteCorr += `\\[${namef}'(x)=\\underbrace{${rienSi1(2 * m)}x}_{u'(x)}\\times\\sqrt{x}${ecritureAlgebriqueSauf1(m)}x^2\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
+          texteCorr += `\\[${namef}'(x)=\\underbrace{${mon2.derivee().toMathExpr()}}_{u'(x)}\\times\\sqrt{x}${mon2.toMathExpr(true)}\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
           texteCorr += 'On peut réduire un peu l\'expression : '
           texteCorr += `\\[${namef}'(x)=${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}` // attention l'équation finit ligne suivante
           if (m % 2 !== 0) texteCorr += `\\frac{${rienSi1(abs(m))}x^2}{2\\sqrt{x}}.\\]`
