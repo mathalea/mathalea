@@ -1730,7 +1730,8 @@ export function nombreDecimal (expression, arrondir = false) {
 */
 
 export function texNombrec (expression) {
-  return texNombre(parseFloat(Algebrite.eval(expression)))
+  // return texNombre(parseFloat(Algebrite.eval(expression)))
+  return texNombre(arrondi(expression, 6))
 }
 
 /**
