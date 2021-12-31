@@ -1,5 +1,5 @@
 import { multiply, inv, matrix, max } from 'mathjs'
-import { calcul, arrondi, ecritureAlgebrique, egal, randint, rienSi1, ecritureAlgebriqueSauf1 } from './outils.js'
+import { calcul, arrondi, ecritureAlgebrique, egal, randint, rienSi1, ecritureAlgebriqueSauf1, choice } from './outils.js'
 /**
 * Convertit un angle de radian vers degrés et fonction inverse
 * @Example
@@ -398,35 +398,33 @@ export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 }) {
 }
 
 /**
-* Crée un objet Polynome de degré donné.
-* @param {number} deg degré
-* @param {boolean} mon monôme
-* @param {boolean} centre pour obtenir ax^2+b quand deg=2
-* @param {boolean|Array} rand true pour obtenir un polynome aléatoire, Array pour fournir les coeffs
+ * @param {boolean} rand Donner true si on veut un polynôme aléatoire
+ * @param {number} deg à fournir >=0 en plus de rand === true pour fixer le degré
+* @param {Array} coeffs liste de coefficients par ordre de degré croissant OU liste de couples [valeurMax, relatif?]
 * @author Jean-Léon Henry
+* @example Polynome({ coeffs:[0, 2, 3] }) donne 3x²+2x
+* @example Polynome({ rand:true, deg:3 }) donne un ax³+bx²+cx+d à coefficients entiers dans [-10;10]\{0}
+* @example Polynome({ rand:true, coeffs:[[10, true], [0], [5, false]] }) donne un ax²+b avec a∈[1;5] et b∈[-10;10]\{0}
 */
 export class Polynome {
-  constructor (deg, mon = false, centre = false, rand = true) {
-    this.mon = mon
-    if ((rand && typeof rand === 'boolean') || !Array.isArray(rand)) {
-      this.deg = deg
-      this.monomes = []
-      for (let i = 0; i < deg; i++) {
-        if (deg === 2 && i === 1 && centre) {
-          this.monomes.push(0)
-          continue
-        }
-        if (!mon) this.monomes.push(randint(-10, 10))
-        else this.monomes.push(0)
+  constructor ({ rand = false, deg = -1, coeffs = [[10, true], [10, true]] }) {
+    if (rand) {
+      if (deg >= 0) {
+        // on construit coeffs indépendamment de la valeur fournie
+        coeffs = new Array(deg + 1)
+        coeffs.fill([10, true])
       }
-      this.monomes.push(randint(-10, 10, 0))
+      // Création de this.monomes
+      this.monomes = coeffs.map(function (el, i) {
+        if (el[0] === 0) { return 0 } else { return el[1] ? choice([-1, 1]) * randint(1, el[0]) : randint(1, el[0]) }
+      })
     } else {
-      this.monomes = rand
-      this.deg = this.monomes.length - 1
+      // les coeffs sont fourni
+      this.monomes = coeffs
     }
+    this.deg = this.monomes.length - 1
   }
 
-  get coeffs () { return this.monomes }
   isMon () { return this.monomes.filter(el => el !== 0).length === 1 }
 
   /**
@@ -439,7 +437,7 @@ export class Polynome {
     for (const [i, c] of this.monomes.entries()) {
       switch (i) {
         case this.deg: {
-          const coeffD = alg ? ecritureAlgebriqueSauf1(c) : rienSi1(c)
+          const coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? c : rienSi1(c)
           switch (this.deg) {
             case 1:
               maj = `${coeffD}x`
@@ -477,7 +475,7 @@ export class Polynome {
     const pInf = p.deg === degSomme ? this : p
     const pSup = p.deg === degSomme ? p : this
     const coeffSomme = pSup.monomes.map(function (el, index) { return index <= pInf.deg ? el + pInf.monomes[index] : el })
-    return new Polynome(degSomme, false, false, coeffSomme)
+    return new Polynome({ coeffs: coeffSomme })
   }
 
   /**
@@ -485,9 +483,9 @@ export class Polynome {
   * @returns {Polynome} dérivée de this
   */
   derivee () {
-    const coeffDerivee = this.coeffs.map(function (el, i) { return i * el })
+    const coeffDerivee = this.monomes.map(function (el, i) { return i * el })
     coeffDerivee.shift()
-    return new Polynome(this.deg - 1, false, false, coeffDerivee)
+    return new Polynome({ coeffs: coeffDerivee })
   }
 
   /**
@@ -497,7 +495,7 @@ export class Polynome {
   * @returns {string} expression du polynome
   */
   static print (coeffs, alg = false) {
-    const p = new Polynome(coeffs.length - 1, false, false, coeffs)
+    const p = new Polynome({ coeffs })
     return p.toMathExpr(alg)
   }
 }
