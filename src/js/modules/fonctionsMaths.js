@@ -401,7 +401,7 @@ export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 }) {
  * @param {boolean} rand Donner true si on veut un polynôme aléatoire
  * @param {number} deg à fournir >=0 en plus de rand === true pour fixer le degré
 * @param {Array} coeffs liste de coefficients par ordre de degré croissant OU liste de couples [valeurMax, relatif?]
-* @author Jean-Léon Henry
+* @author Jean-Léon Henry, Jean-Claude Lhote
 * @example Polynome({ coeffs:[0, 2, 3] }) donne 3x²+2x
 * @example Polynome({ rand:true, deg:3 }) donne un ax³+bx²+cx+d à coefficients entiers dans [-10;10]\{0}
 * @example Polynome({ rand:true, coeffs:[[10, true], [0], [5, false]] }) donne un ax²+b avec a∈[1;5] et b∈[-10;10]\{0}
