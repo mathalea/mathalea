@@ -398,10 +398,13 @@ export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 }) {
 }
 
 /**
-* @param {number} deg degré
-* @param {boolean} rand
-* @param {Array} coeffs
+ * @param {boolean} rand Donner true si on veut un polynôme aléatoire
+ * @param {number} deg à fournir >=0 en plus de rand === true pour fixer le degré
+* @param {Array} coeffs liste de coefficients par ordre de degré croissant OU liste de couples [valeurMax, relatif?]
 * @author Jean-Léon Henry
+* @example Polynome({ coeffs:[0, 2, 3] }) donne 3x²+2x
+* @example Polynome({ rand:true, deg:3 }) donne un ax³+bx²+cx+d à coefficients entiers dans [-10;10]\{0}
+* @example Polynome({ rand:true, coeffs:[[10, true], [0], [5, false]] }) donne un ax²+b avec a∈[1;5] et b∈[-10;10]\{0}
 */
 export class Polynome {
   constructor ({ rand = false, deg = -1, coeffs = [[10, true], [10, true]] }) {
@@ -413,7 +416,7 @@ export class Polynome {
       }
       // Création de this.monomes
       this.monomes = coeffs.map(function (el, i) {
-        if (el[0] === 0) { return 0 } else { return el[1] ? choice([-1, 1] * randint(1, el[0])) : randint(1, el[0]) }
+        if (el[0] === 0) { return 0 } else { return el[1] ? choice([-1, 1]) * randint(1, el[0]) : randint(1, el[0]) }
       })
     } else {
       // les coeffs sont fourni
@@ -422,7 +425,6 @@ export class Polynome {
     this.deg = this.monomes.length - 1
   }
 
-  get coeffs () { return this.monomes }
   isMon () { return this.monomes.filter(el => el !== 0).length === 1 }
 
   /**
@@ -435,7 +437,7 @@ export class Polynome {
     for (const [i, c] of this.monomes.entries()) {
       switch (i) {
         case this.deg: {
-          const coeffD = alg ? ecritureAlgebriqueSauf1(c) : rienSi1(c)
+          const coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? c : rienSi1(c)
           switch (this.deg) {
             case 1:
               maj = `${coeffD}x`
@@ -481,7 +483,7 @@ export class Polynome {
   * @returns {Polynome} dérivée de this
   */
   derivee () {
-    const coeffDerivee = this.coeffs.map(function (el, i) { return i * el })
+    const coeffDerivee = this.monomes.map(function (el, i) { return i * el })
     coeffDerivee.shift()
     return new Polynome({ coeffs: coeffDerivee })
   }

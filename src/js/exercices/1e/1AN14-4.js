@@ -19,6 +19,12 @@ function prettyTex (expression) {
   return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
 }
 
+// Polynome class tests
+const p = new Polynome({ coeffs: [-3, 2] })
+console.log('p : ', p.toMathExpr())
+console.log('dp : ', p.derivee().toMathExpr(), p.derivee().monomes)
+console.log('p+dp : ', p.add(p.derivee()).toMathExpr())
+
 export default function DeriveeProduit () {
   Exercice.call(this)
   this.titre = titre
@@ -60,10 +66,10 @@ export default function DeriveeProduit () {
         exp: 'e^x',
         racine: 'sqrt(x)',
         inv: '1/x',
-        poly1: new Polynome(1, false, false, [randint(-10, 10, 0), randint(-10, 10, 0)]),
-        poly2centre: new Polynome(2, false, true),
-        monome2: new Polynome(2, true),
-        poly: new Polynome(randint(1, 2))
+        poly1: new Polynome({ rand: true, deg: 1 }),
+        poly2centre: new Polynome({ rand: true, coeffs: [[10, true], [0], [10, true]] }),
+        monome2: new Polynome({ rand: true, coeffs: [[0], [0], [10, true]] }),
+        poly: new Polynome({ rand: true, deg: randint(1, 2) })
       }
       const listeTypeFonctions = listeTypeDeQuestions[i].split('/')
       // On précise les énoncés
@@ -127,7 +133,7 @@ export default function DeriveeProduit () {
           const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
           const mon2 = dictFonctions[typef1]
           const m = mon2.monomes[2] // coeff du monome2
-          const polExpand = new Polynome(3, false, false, [0, 0, m * b, m * a])
+          const polExpand = new Polynome({ coeffs: [0, 0, m * b, m * a] })
           // Début correction
           texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${mon2.derivee().toMathExpr()}}_{u'(x)}\\times(${exprf2})${mon2.toMathExpr(true)}\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
           texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${2 * m * a}x^2${ecritureAlgebrique(2 * m * b)}x${ecritureAlgebrique(m * a)}x^2.\\]`
