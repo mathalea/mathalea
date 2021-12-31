@@ -11,17 +11,23 @@ import { getFilterFromUrl, getVueFromUrl } from './gestionUrl.js'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import { context } from './context.js'
 
-// Liste tous les tags qui ont été utilisé
-const tags = new Set()
-for (const item in dictionnaireDNB) {
-  for (const k of dictionnaireDNB[item].tags) {
-    tags.add(k)
+// Liste tous les tags qui ont été utilisé dans un dictionnaire
+function dictionnaireToTableauTags (dictionnaire) {
+  const tags = new Set()
+  for (const item in dictionnaire) {
+    for (const k of dictionnaire[item].tags) {
+      tags.add(k)
+    }
   }
+  // transforme le set en tableau dans l'ordre alphabétique
+  return ([...tags].sort((a, b) => { return a.localeCompare(b) })) // Ordre alphabétique avec localCompare pour tenir compte des accents
 }
-// transforme le set en tableau dans l'ordre alphabétique
-const tableauTags = ([...tags].sort((a, b) => { return a.localeCompare(b) })) // Ordre alphabétique avec localCompare pour tenir compte des accents
+
+const tableauTags = dictionnaireToTableauTags(dictionnaireDNB)
 enleveElement(tableauTags, "Système d'équations")
 enleveElement(tableauTags, 'Hors programme')
+
+const tableauTagsCrpe = dictionnaireToTableauTags(dictionnaireCrpe)
 
 // On concatène les différentes listes d'exercices
 export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3, ...dictionnaireLycee, ...dictionnaireCrpe }
@@ -251,7 +257,7 @@ function getListeHtmlDesExercicesDNBTheme () {
 }
 function getListeHtmlDesExercicesCrpeTheme () {
   let liste = '<div class="accordion">'
-  for (const theme of tableauTags) {
+  for (const theme of tableauTagsCrpe) {
     const listeHtml = listeHtmlDesExercicesCrpeTheme(theme)
     if (listeHtml.length > 1) {
       liste += `<div class="title"><i class="dropdown icon"></i> ${theme}</div><div class="content">`
