@@ -24,7 +24,7 @@ export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
     exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`, exercice.tailleDiaporama)
     if ((exercice.interactif && exercice.interactifReady) || getVueFromUrl() === 'eval') {
-      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
+      exercice.contenu += `<button class="ui blue button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr, 'correction')
   } else {
@@ -106,7 +106,7 @@ export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = tr
   if (context.isHtml) {
     exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing)
     if (exercice.interactif) {
-      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
+      exercice.contenu += `<button class="ui blue button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr, 'correction')
   } else {

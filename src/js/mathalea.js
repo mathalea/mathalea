@@ -394,7 +394,7 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       contenuUnExercice += (obj.nbQuestions !== 1) ? '</ol>' : ''
       contenuUneCorrection += (obj.nbQuestions !== 1) ? '</ol>' : ''
       if (obj.interactif || obj.interactifObligatoire) {
-        contenuUnExercice += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
+        contenuUnExercice += `<button class="ui button blue checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
         exerciceInteractif(obj)
       }
     } else { // Exercice classique
