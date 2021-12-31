@@ -19,12 +19,6 @@ function prettyTex (expression) {
   return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
 }
 
-// Polynome class tests
-const p = new Polynome({ coeffs: [-3, 2] })
-console.log('p : ', p.toMathExpr())
-console.log('dp : ', p.derivee().toMathExpr(), p.derivee().monomes)
-console.log('p+dp : ', p.add(p.derivee()).toMathExpr())
-
 export default function DeriveeProduit () {
   Exercice.call(this)
   this.titre = titre
@@ -51,12 +45,10 @@ export default function DeriveeProduit () {
 
     // Types d'énoncés
     const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
-    // let listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
     if (this.sup === 2) {
       listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
       if (this.sup2) {
         listeTypeDeQuestionsDisponibles.push('exp/poly', 'exp/poly2centre')
-        // listeTypeDeQuestionsDisponibles = ['exp/poly', 'exp/poly2centre']
       }
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
