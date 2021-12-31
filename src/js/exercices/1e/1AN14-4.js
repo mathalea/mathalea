@@ -30,11 +30,11 @@ export default function DeriveeProduit () {
   this.sup = 1
   this.sup2 = false
   // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
-  const reglesDeSimplifications = math.simplify.rules.slice()
-  reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
-  reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
-  reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
-  reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
+  // const reglesDeSimplifications = math.simplify.rules.slice()
+  // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
+  // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
+  // reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
+  // reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
 
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
