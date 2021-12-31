@@ -2,11 +2,12 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate, isPrime, max, gcd, round } from 'mathjs'
+import { format, evaluate, isPrime, max, gcd, round, largerEq, equal, smaller } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 import { elimineDoublons, setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
+import { toDfrac } from './fonctionsMaths.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -846,12 +847,24 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
 * @author Rémi Angot
 */
 export function rienSi1 (a) {
-  if (a === 1 || a === '1') {
-    return ''
-  } else if (a === -1 || a === '-1') {
-    return '-'
+  if (typeof a === 'object') {
+    let A
+    if (a.n !== undefined) {
+      A = a
+    } else if (a.num !== undefined) {
+      A = fraction(a.num, a.den)
+    } else window.notify('rienSi1 : type de valeur non prise en compte')
+    if (equal(A, 1)) return ''
+    else if (equal(A, -1)) return '-'
+    else return toDfrac(A)
   } else {
-    return a
+    if (a === 1 || a === '1') {
+      return ''
+    } else if (a === -1 || a === '-1') {
+      return '-'
+    } else {
+      return a
+    }
   }
 }
 
@@ -910,10 +923,24 @@ export function ecritureNombreRelatifc (a) {
 */
 export function ecritureAlgebrique (a) {
   let result = ''
-  if (a >= 0) {
-    result = '+' + texNombrec(a)
+  if (typeof a === 'object') {
+    let A
+    if (a.n !== undefined) {
+      A = a
+    } else if (a.num !== undefined) {
+      A = fraction(a.num, a.den)
+    }
+    if (largerEq(A, 0)) {
+      result = '+' + toDfrac(A)
+    } else {
+      result = toDfrac(A)
+    }
   } else {
-    result = texNombrec(a)
+    if (a >= 0) {
+      result = '+' + texNombrec(a)
+    } else {
+      result = texNombrec(a)
+    }
   }
   return result
 }
@@ -926,21 +953,37 @@ export function ecritureAlgebrique (a) {
 */
 export function ecritureAlgebriqueSauf1 (a) {
   let result = ''
-  if (a >= 0) {
-    result = '+' + texNombrec(a)
-  }
-  if (a < 0) {
-    result = texNombrec(a)
-  }
-  if (a === 1) {
-    result = '+'
-  }
-  if (a === -1) {
-    result = '-'
-  }
-  return result
-}
+  if (typeof a === 'object') {
+    let A
+    if (a.n !== undefined) {
+      A = a
+    } else if (a.num !== undefined) {
+      A = fraction(a.num, a.den)
+    }
+    if (equal(A, 1)) {
+      result = '+'
+    } else if (largerEq(A, 0)) {
+      result = '+' + toDfrac(A)
+    } else if (equal(A, -1)) {
+      result = '-'
+    } else if (smaller(A, 0)) {
+      result = toDfrac(A)
+    }
+    return result
+  } else {
+    if (a === 1) {
+      result = '+'
+    } else if (a >= 0) {
+      result = '+' + texNombrec(a)
+    } else if (a === -1) {
+      result = '-'
+    } else if (a < 0) {
+      result = texNombrec(a)
+    }
 
+    return result
+  }
+}
 /**
  * Idem ecritureAlgebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul)
  * @param {number} a
@@ -1730,7 +1773,8 @@ export function nombreDecimal (expression, arrondir = false) {
 */
 
 export function texNombrec (expression) {
-  return texNombre(parseFloat(Algebrite.eval(expression)))
+//  return texNombre(parseFloat(Algebrite.eval(expression)))
+  return arrondi(expression, 6)
 }
 
 /**
