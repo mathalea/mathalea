@@ -43,10 +43,6 @@ export default function DeriveeProduit () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
-    let poly = new Polynome({ deg: 4, rand: true })
-    poly = poly.multiply(fraction(1, 4))
-    const polyprime = poly.derivee()
-    console.log(poly.toMathExpr(), polyprime.toMathExpr())
     // Types d'énoncés
     const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
     if (this.sup === 2) {
