@@ -367,6 +367,96 @@ export const dictionnaireCrpe =
     ],
     tags: ['Volumes', 'Aires et périmètres', 'Calcul littéral', 'Fonctions', 'Tableur', 'Lecture graphique', 'Géométrie dans l\'espace', 'Géométrie plane']
   },
+  'crpe-blanc-2017-algo': {
+    typeExercice: 'crpe',
+    annee: '2017',
+    lieu: 'ESPE',
+    numeroInitial: 'Algorithmique',
+    png: [
+      'assets/crpe/2017/2017-algorithmique-1.png',
+      'assets/crpe/2017/2017-algorithmique-2.png',
+      'assets/crpe/2017/2017-algorithmique-3.png',
+      'assets/crpe/2017/2017-algorithmique-4.png',
+      'assets/crpe/2017/2017-algorithmique-5.png'
+    ],
+    pngCor: [
+      'assets/crpe/2017/2017-algorithmique-cor-01.png',
+      'assets/crpe/2017/2017-algorithmique-cor-02.png',
+      'assets/crpe/2017/2017-algorithmique-cor-03.png',
+      'assets/crpe/2017/2017-algorithmique-cor-04.png',
+      'assets/crpe/2017/2017-algorithmique-cor-05.png',
+      'assets/crpe/2017/2017-algorithmique-cor-06.png',
+      'assets/crpe/2017/2017-algorithmique-cor-07.png',
+      'assets/crpe/2017/2017-algorithmique-cor-08.png',
+      'assets/crpe/2017/2017-algorithmique-cor-09.png',
+      'assets/crpe/2017/2017-algorithmique-cor-10.png',
+      'assets/crpe/2017/2017-algorithmique-cor-11.png'
+    ],
+    tags: ['Algorithmique']
+  },
+  'crpe-blanc-2017-besancon-1': {
+    typeExercice: 'crpe',
+    annee: '2017',
+    lieu: 'ESPE Besançon',
+    numeroInitial: 'Ex 1',
+    png: [
+      'assets/crpe/2017/2017-besancon-geoGrandeurMesureProportionnalite-ex1.png'
+    ],
+    pngCor: [
+      'assets/crpe/2017/2017-besancon-geoGrandeurMesureProportionnalite-ex1-cor1.png',
+      'assets/crpe/2017/2017-besancon-geoGrandeurMesureProportionnalite-ex1-cor2.png'
+    ],
+    tags: ['Géométrie plane']
+  },
+  'crpe-blanc-2017-besancon-2': {
+    typeExercice: 'crpe',
+    annee: '2017',
+    lieu: 'ESPE Besançon',
+    numeroInitial: 'Ex 2',
+    png: [
+      'assets/crpe/2017/2017-besancon-geoGrandeurMesureProportionnalite-ex2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2017/2017-besancon-geoGrandeurMesureProportionnalite-ex2.png'
+    ],
+    tags: ['Durées', 'Nombres décimaux']
+  },
+  'crpe-blanc-2017-clermont': {
+    typeExercice: 'crpe',
+    annee: '2017',
+    lieu: 'ESPE Clermont',
+    numeroInitial: 'Ex Numération',
+    png: [
+      'assets/crpe/2017/2017-clermont-numeration.png'
+    ],
+    pngCor: [
+      'assets/crpe/2017/2017-clermont-numeration-cor-1.png',
+      'assets/crpe/2017/2017-clermont-numeration-cor-2.png'
+    ],
+    tags: ['Bases']
+  },
+  'crpe-blanc-2017-vraifaux': {
+    typeExercice: 'crpe',
+    annee: '2017',
+    lieu: 'ESPE',
+    numeroInitial: 'Vrai-faux',
+    png: [
+      'assets/crpe/2017/2017-vraifaux-1.png',
+      'assets/crpe/2017/2017-vraifaux-2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2017/2017-vraifaux-cor-1.png',
+      'assets/crpe/2017/2017-vraifaux-cor-2.png',
+      'assets/crpe/2017/2017-vraifaux-cor-3.png',
+      'assets/crpe/2017/2017-vraifaux-cor-4.png',
+      'assets/crpe/2017/2017-vraifaux-cor-5.png',
+      'assets/crpe/2017/2017-vraifaux-cor-6.png',
+      'assets/crpe/2017/2017-vraifaux-cor-7.png',
+      'assets/crpe/2017/2017-vraifaux-cor-8.png',
+      'assets/crpe/2017/2017-vraifaux-cor-9.png'
+    ],
+    tags: ['Calcul littéral', 'Arithmétique', 'Proportionnalité', 'Probabilités']
+  },
   'crpe-2016-g1-ex1': {
     typeExercice: 'crpe',
     annee: '2016',
