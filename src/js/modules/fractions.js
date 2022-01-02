@@ -78,8 +78,8 @@ export function listeFractions (...fractions) {
  * @return {Fraction}
  */
 export function fraction (a, b) {
-  const f = new Fraction()
-  f.n = a
-  f.d = b
+  const f = new Fraction(a, b)
+  // f.n = a
+  // f.d = b
   return f
 }

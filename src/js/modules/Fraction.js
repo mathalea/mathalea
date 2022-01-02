@@ -1,6 +1,7 @@
 import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, ecritureAlgebrique } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 import { Fraction, round, equal, largerEq, subtract, add, abs, multiply, number, gcd } from 'mathjs'
+import { fraction } from './fractions.js'
 
 Object.defineProperty(Fraction.prototype, 'texFraction', {
   get: function () { return this.d === 1 ? `${this.n * this.s}` : `\\dfrac{${this.n * this.s}}{${this.d}}` }
@@ -27,7 +28,7 @@ Object.defineProperty(Fraction.prototype, 'texFractionSigneeParentheses', {
   get: function () { return (this.s >= 0) ? this.texFraction : `(${this.texFractionSignee})` }
 })
 Object.defineProperty(Fraction.prototype, 'texFractionSimplifiee', {
-  get: function () { return new Fraction(this.n * this.s, this.d).texFSD }
+  get: function () { return fraction(this.n * this.s, this.d).texFSD }
 })
 Object.defineProperty(Fraction.prototype, 'ecritureAlgebrique', {
   get: function () { return this.s * this.d * this.n < 0 ? this.texFSD : '+' + this.texFSD }
@@ -35,29 +36,30 @@ Object.defineProperty(Fraction.prototype, 'ecritureAlgebrique', {
 Object.defineProperty(Fraction.prototype, 'valeurDecimale', {
   get: function () { return arrondi(number(this), 6) }
 })
-Fraction.prototype.simplifie = function () { return new Fraction(this.n * this.s, this.d) }
-Fraction.prototype.oppose = function () { return new Fraction(-1 * this.n * this.s, this.d) }
+Fraction.prototype.valeurAbsolue = function () { return fraction(abs(this.n), abs(this.d)) }
+Fraction.prototype.simplifie = function () { return fraction(this.n * this.s, this.d) }
+Fraction.prototype.oppose = function () { return fraction(-1 * this.n * this.s, this.d) }
 Fraction.prototype.fractionEgale = function (k) {
-  const f = new Fraction()
+  const f = fraction(0, 1)
   f.s = this.s
   f.d = this.d * k
   f.n = this.n * k
   return f
 }
-Fraction.prototype.estEntiere = function () { return new Fraction(this.n, this.d).d === 1 }
+Fraction.prototype.estEntiere = function () { return fraction(this.n, this.d).d === 1 }
 Fraction.prototype.estParfaite = function () { return this.racineCaree() !== false }
 Fraction.prototype.egal = function (f) { return equal(this, f) }
 Fraction.prototype.estIrreductible = function () { return gcd(this.n, this.d) === 1 }
 Fraction.prototype.differenceFraction = function (f) { return new Fraction(subtract(this, f)) }
-Fraction.prototype.multiplieEntier = function (n) { return new Fraction(this.n * n * this.s, this.d) }
-Fraction.prototype.entierDivise = function (n) { return new Fraction(this.n * this.s, n * this.d) }
-Fraction.prototype.ajouteEntier = function (n) { return new Fraction(this.n * this.s + n * this.d, n * this.d) }
-Fraction.prototype.entierMoinsFraction = function (n) { return new Fraction(n * this.d - this.n * this.signe, n * this.d) }
+Fraction.prototype.multiplieEntier = function (n) { return fraction(this.n * n * this.s, this.d) }
+Fraction.prototype.entierDivise = function (n) { return fraction(this.n * this.s, n * this.d) }
+Fraction.prototype.ajouteEntier = function (n) { return fraction(this.n * this.s + n * this.d, n * this.d) }
+Fraction.prototype.entierMoinsFraction = function (n) { return fraction(n * this.d - this.n * this.signe, n * this.d) }
 Fraction.prototype.superieurlarge = function (f) { return largerEq(this, f) }
 Fraction.prototype.stUneSimplification = function (f) { return (equal(this, f) && abs(this.n) < abs(f.n)) }
 Fraction.prototype.sommeFraction = function (f) { return new Fraction(add(this, f)) }
 Fraction.prototype.sommeFractions = function (...fractions) {
-  let s = new Fraction(this.s * this.n, this.d)
+  let s = fraction(this.s * this.n, this.d)
   for (const f of fractions) {
     s = new Fraction(add(s, f))
   }
@@ -81,18 +83,18 @@ Fraction.prototype.fractionDecimale = function () {
     if (n === 2) { n2++ } else if (n === 5) { n5++ } else { return 'NaN' }
   }
   if (n5 === n2) {
-    return new Fraction(num * signe, den)
+    return fraction(num * signe, den)
   } else if (n5 > n2) {
-    return new Fraction(signe * num * 2 ** (n5 - n2), den * 2 ** (n5 - n2))
+    return fraction(signe * num * 2 ** (n5 - n2), den * 2 ** (n5 - n2))
   } else {
-    return new Fraction(signe * num * 5 ** (n2 - n5), den * 5 ** (n2 - n5))
+    return fraction(signe * num * 5 ** (n2 - n5), den * 5 ** (n2 - n5))
   }
 }
 Fraction.prototype.racineCaree = function () {
   const factoNum = extraireRacineCarree(Math.abs(this.n))
   const factoDen = extraireRacineCarree(Math.abs(this.d))
-  const k = new Fraction(factoNum[0], factoDen[0]).simplifie()
-  const r = new Fraction(factoNum[1], factoDen[1]).simplifie()
+  const k = fraction(factoNum[0], factoDen[0]).simplifie()
+  const r = fraction(factoNum[1], factoDen[1]).simplifie()
   if (r.valeurDecimale !== 1 || this.s === -1) {
     return false
   } else {
@@ -100,7 +102,7 @@ Fraction.prototype.racineCaree = function () {
   }
 }
 
-Fraction.prototype.texRacineCaree = function (detaillee = false) {
+Fraction.prototype.texRacineCarree = function (detaillee = false) {
   if (this.s * this.d * this.n < 0) return false
   let factoDen = extraireRacineCarree(Math.abs(this.d))
   let factoNum
@@ -110,8 +112,8 @@ Fraction.prototype.texRacineCaree = function (detaillee = false) {
   } else {
     factoNum = extraireRacineCarree(Math.abs(this.n))
   }
-  const k = new Fraction(factoNum[0], factoDen[0]).simplifie()
-  const r = new Fraction(factoNum[1], factoDen[1]).simplifie()
+  const k = fraction(factoNum[0], factoDen[0]).simplifie()
+  const r = fraction(factoNum[1], factoDen[1]).simplifie()
   let etape = ''
   if (this.s === -1) {
     return false
