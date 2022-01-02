@@ -29,6 +29,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "1AN14-4": {
+    "titre": "Dérivée d'un produit",
+    "url": "/exercices/1e/1AN14-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1AN14-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "1E10": {
     "titre": "Calcul du discriminant d’une équation du second degré",
     "url": "/exercices/1e/1E10.js",
@@ -4066,7 +4081,7 @@ export default {
     "interactifReady": false,
     "name": "4G12-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -4085,7 +4100,7 @@ export default {
     "interactifType": "mathLive",
     "name": "4G12",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6598,7 +6613,7 @@ export default {
     ],
     "name": "6C12-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10097,6 +10112,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaEqValAbs",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betaEquations": {
+    "titre": "Calculs algébriques",
+    "url": "/exercices/beta/betaEquations.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaEquations",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -14581,7 +14611,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6N08",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
