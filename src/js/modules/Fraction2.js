@@ -428,5 +428,3 @@ Fraction.prototype.representation = function (x, y, rayon, depart = 0, type = 'g
   }
   return objets
 }
-
-export default Fraction

@@ -7507,7 +7507,7 @@ export function exportQcmAmc (exercice, idExo) {
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n\\end{multicols}\n\\end{minipage}\n}\n\n'
           id += 2
-        } else if (valeurAMCNum.num !== undefined) { // Si une fraction a été passée à AMCNum, on met un seul AMCNumericChoice particulier
+        } else if (valeurAMCNum.n !== undefined) { // Si une fraction a été passée à AMCNum, on met un seul AMCNumericChoice particulier
           texQr += `\\element{${ref}}{\n`
           texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
           texQr += `${autoCorrection[j].enonce} \n`
@@ -7516,19 +7516,19 @@ export function exportQcmAmc (exercice, idExo) {
           }
           let digitsNum = 0
           if (autoCorrection[j].reponse.param.digitsNum !== undefined) {
-            digitsNum = max(autoCorrection[j].reponse.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
+            digitsNum = max(autoCorrection[j].reponse.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n))
           } else if (autoCorrection[j].reponse.param.digits !== undefined) {
-            digitsNum = max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
+            digitsNum = max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n))
           } else {
-            digitsNum = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num)
+            digitsNum = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n)
           }
           let digitsDen = 0
           if (autoCorrection[j].reponse.param.digitsDen !== undefined) {
-            digitsDen = max(autoCorrection[j].reponse.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
+            digitsDen = max(autoCorrection[j].reponse.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d))
           } else if (autoCorrection[j].reponse.param.digits !== undefined) {
-            digitsDen = max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
+            digitsDen = max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d))
           } else {
-            digitsDen = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)
+            digitsDen = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)
           }
           let signeNum = true
           if (autoCorrection[j].reponse.param.signe !== undefined) {
@@ -7538,12 +7538,12 @@ export function exportQcmAmc (exercice, idExo) {
           }
           let reponseF
           let reponseAlsoCorrect
-          if (valeurAMCNum.num > 0) {
-            reponseF = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
-            reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
+          if (valeurAMCNum.n > 0) {
+            reponseF = calcul(valeurAMCNum.n + valeurAMCNum.d / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)))
+            reponseAlsoCorrect = calcul(valeurAMCNum.n - valeurAMCNum.d / (10 ** digitsDen))
           } else {
-            reponseF = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
-            reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
+            reponseF = calcul(valeurAMCNum.n - valeurAMCNum.d / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)))
+            reponseAlsoCorrect = calcul(valeurAMCNum.n - valeurAMCNum.d / (10 ** digitsDen))
           }
           texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
           texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
@@ -8017,7 +8017,7 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
                 texQr += '\\end{questionmultx}\\end{multicols}\n\\end{minipage}\n\n'
                 id += 2
-              } else if (rep.valeur[0].num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
+              } else if (rep.valeur[0].n !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
                 valeurAMCNum = rep.valeur[0]
                 texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
                 if (!(propositions[0].alignement === undefined)) {
@@ -8030,34 +8030,34 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += `${rep.texte}\n`
                 let digitsNum = 0
                 if (rep.param.digitsNum !== undefined) {
-                  digitsNum = max(rep.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
+                  digitsNum = max(rep.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n))
                 } else if (rep.param.digits !== undefined) {
-                  digitsNum = max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
+                  digitsNum = max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n))
                 } else {
-                  digitsNum = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num)
+                  digitsNum = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n)
                 }
                 let digitsDen = 0
                 if (rep.param.digitsDen !== undefined) {
-                  digitsDen = max(rep.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
+                  digitsDen = max(rep.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d))
                 } else if (rep.param.digits !== undefined) {
-                  digitsDen = max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
+                  digitsDen = max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d))
                 } else {
-                  digitsDen = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)
+                  digitsDen = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)
                 }
                 let signeNum = true
                 if (rep.param.signe !== undefined) {
                   signeNum = rep.param.signe
                 } else {
-                  signeNum = (valeurAMCNum.num * valeurAMCNum.den < 0)
+                  signeNum = (valeurAMCNum.n * valeurAMCNum.d < 0)
                 }
                 let reponseF
                 let reponseAlsoCorrect
-                if (valeurAMCNum.num > 0) {
-                  reponseF = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
-                  reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
+                if (valeurAMCNum.n > 0) {
+                  reponseF = calcul(valeurAMCNum.n + valeurAMCNum.d / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)))
+                  reponseAlsoCorrect = calcul(valeurAMCNum.n - valeurAMCNum.d / (10 ** digitsDen))
                 } else {
-                  reponseF = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
-                  reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
+                  reponseF = calcul(valeurAMCNum.n - valeurAMCNum.d / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)))
+                  reponseAlsoCorrect = calcul(valeurAMCNum.n - valeurAMCNum.d / (10 ** digitsDen))
                 }
                 texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
                 texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
