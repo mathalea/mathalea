@@ -9,7 +9,7 @@ import { getNewChangeNodes } from '../../modules/Change.js'
 // debugger
 export const titre = 'Calculs algébriques'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '01/01/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '02/01/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 function toTex (node, debug = false) {
   if (debug) {
@@ -231,7 +231,9 @@ function calculExpression (expression = '4/3+5/6', factoriser = false, debug = f
       ADD_NUMERATORS: String.raw`\text{Additionner les numérateurs}`,
       COLLECT_LIKE_TERMS: String.raw`\text{Regrouper les termes}`,
       ADD_COEFFICIENT_OF_ONE: String.raw`\text{Ajouter le coefficient }1`,
-      GROUP_COEFFICIENTS: String.raw`\text{Regrouper les coefficients}`
+      GROUP_COEFFICIENTS: String.raw`\text{Regrouper les coefficients}`,
+      FIND_GCD: String.raw`\text{Trouver le plus grand diviseur commun.}`,
+      CANCEL_GCD: String.raw`\text{Simplifier par le PGCD.}`
     }
     if (debug) {
       commentaires = Object.assign(commentaires, {
@@ -261,13 +263,15 @@ function calculExpression (expression = '4/3+5/6', factoriser = false, debug = f
     if (changement !== 'MULTIPLY_DENOMINATORS') stepsExpression.push(String.raw`&=${newNode}&&${commentaires[changement]}`)
     if (debug) console.log('changement', commentaires[changement])
   })
-  const texte = String.raw`Simplifier $${expressionPrint}$.
+  let texte = String.raw`Simplifier $${expressionPrint}$.`
+  const texteCorr = String.raw`Simplifier $${expressionPrint}$.
   <br>
   $\begin{aligned}
   ${expressionPrint}${stepsExpression.join('\\\\')}
   \end{aligned}$
   `
-  return { texte: texte, texteCorr: '' }
+  if (debug) texte = texteCorr
+  return { texte: texte, texteCorr: texteCorr }
 }
 
 function aleaEquation (equation = 'a*x+b=c*x-d', variables = { a: false, b: false, c: false, d: false, test: 'a>b or true' }) { // Ne pas oublier le signe de la multiplication
@@ -382,46 +386,26 @@ function resoudreEquation (equation = '5(x-7)=3(x+1)', debug = false) {
     }
     if (debug) console.log('changement', commentaires[changement])
   })
-  const texte = String.raw`Résoudre $${equationPrint}$.
+  let texte = String.raw`Résoudre $${equationPrint}$.`
+  const texteCorr = String.raw`Résoudre $${equationPrint}$.
   <br>
   $\begin{aligned}
   ${stepsNewEquation.join('\\\\')}
   \end{aligned}$
   `
-  return { texte: texte, texteCorr: '' }
+  if (debug) texte = texteCorr
+  return { texte: texte, texteCorr: texteCorr }
 }
 
-function programmeCalcul (nbEtapes = 3, symbolsOp = ['+', '-', '*', '/', '^'], limitPow = 3) {
-  /* const rules = simplify.rules
-  rules[13] = { l: 'n1*v1 + v1', r: '(n1+1)*v1' }
-  rules[14] = { l: 'n1*v1 + n2*v1', r: '(n1+n2)*v1' }
-  rules[17] = { l: '(-n)*n1', r: '-n*n1' }
-  rules.push({ l: '(n1 + n2)/c1', r: 'n1/c1 + n2/c1' })
-  rules.push({ l: '(n1 - n2)/c1', r: 'n1/c1 - n2/c1' })
-  rules.push({ l: '-1*v', r: '-v' })
-  rules.push({ l: 'n*c1/c2', r: 'c1/c2*n' })
-  rules.push({ l: 'n/c1', r: '1/c1*n' })
-  rules.push({ l: '1/c1*n*c2', r: 'c2/c1*n' })
-  rules.push({ l: 'n*-c1/c2', r: '-(c1/c2)*n' })
-  rules.push({ l: 'n+-n1', r: 'n-n1' })
-  rules.push({ l: '(v*c)^2', r: 'c^2*v^2' })
-  rules.push({ l: '(v/c)^2', r: 'v^2/c^2' })
-  rules.push({ l: '(-n)^2', r: 'n^2' })
-  rules.push({ l: '(v*c)^3', r: 'c^3*v^3' })
-  rules.push({ l: '(v/c)^3', r: 'v^3/c^3' })
-  rules.push({ l: '(-n)^3', r: 'n^3' })
-  rules.push({ l: '(n1*n2)^2', r: 'n1^2*n2^2' })
-  rules.push({ l: '(n1*n2)^3', r: 'n1^3*n2^3' })
-  rules.push({ l: 'n1/c+n2', r: '(n1+c*n2)/c' })
-  rules.push({ l: 'n1/c-n2', r: '(n1-c*n2)/c' })
-  rules.push({ l: 'c1/c2+c3', r: '(c1+c2*c3)/c2' })
-  rules.push({ l: 'c1/c2-c3', r: '(c1-c2*c3)/c2' })
-  rules.push({ l: '1/c1*c2', r: 'c2/c1' }) */
+function programmeCalcul (variables = { nbEtapes: 3, symbolsOp: ['+', '-', '*', '/', '^'], limitPow: 3 }, debug = false) {
+  if (variables.nbEtapes === undefined) variables.nbEtapes = 3
+  if (variables.symbolsOp === undefined) variables.symbolsOp = ['+', '-', '*', '/', '^']
+  if (variables.limitPow === undefined) variables.limitPow = 3
   const nombresAutorises1 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   const nombresAutorises2 = [2, 3, 4, 5, 6, 7, 8, 9]
   const namesOp = []
   const debutsPhrase = []
-  for (const n of symbolsOp) {
+  for (const n of variables.symbolsOp) {
     namesOp.push(n.replace('+', 'add').replace('-', 'subtract').replace('*', 'multiply').replace('/', 'divide').replace('^', 'pow'))
     debutsPhrase.push(n.replace('+', 'Ajouter ').replace('-', 'Soustraire ').replace('*', 'Multiplier par ').replace('/', 'Diviser par ').replace('^', 'Elever au '))
   }
@@ -430,9 +414,9 @@ function programmeCalcul (nbEtapes = 3, symbolsOp = ['+', '-', '*', '/', '^'], l
   const steps = ['x']
   const stepsSimplified = ['x']
   let step
-  for (let i = 1; i < nbEtapes; i++) {
-    const symbolOp = pickRandom(symbolsOp)
-    const nameOp = namesOp[symbolsOp.indexOf(symbolOp)]
+  for (let i = 1; i < variables.nbEtapes; i++) {
+    const symbolOp = pickRandom(variables.symbolsOp)
+    const nameOp = namesOp[variables.symbolsOp.indexOf(symbolOp)]
     if (symbolOp === '*' || symbolOp === '/') {
       if (symbolOp === '/') {
         step = pickRandom([new ConstantNode(pickRandom(nombresAutorises2))])
@@ -440,7 +424,7 @@ function programmeCalcul (nbEtapes = 3, symbolsOp = ['+', '-', '*', '/', '^'], l
         step = pickRandom([new ConstantNode(pickRandom(nombresAutorises2)), new SymbolNode('x')])
       }
     } else if (symbolOp === '^') {
-      step = new ConstantNode(randomInt(2, limitPow + 1))
+      step = new ConstantNode(randomInt(2, variables.limitPow + 1))
     } else {
       if (i === 1 && symbolOp === '-') {
         step = pickRandom([new ConstantNode(pickRandom(nombresAutorises1))])
@@ -448,17 +432,39 @@ function programmeCalcul (nbEtapes = 3, symbolsOp = ['+', '-', '*', '/', '^'], l
         step = pickRandom([new ConstantNode(pickRandom(nombresAutorises1)), new SymbolNode('x')])
       }
     }
-    // let node = parse(nodes[i - 1].toString())
-    let node = nodes[i - 1]
-    nodes.push(new OperatorNode(symbolOp, nameOp, [new ParenthesisNode(simplify(node)), step]))
-    step = symbolOp === '^' ? step.toString() === '2' ? 'carré' : 'cube' : step.toString() === 'x' ? 'le nombre choisi' : `$${step.toString()}$`
-    // node = parse(nodes[i].toString())
-    node = nodes[i]
-    steps.push(toTex(node))
-    stepsSimplified.push(toTex(simplify(node)))
-    phrases.push(debutsPhrase[symbolsOp.indexOf(symbolOp)] + step)
+    let nodeSimplifie = simplifyExpression(nodes[i - 1].toString({ parenthesis: 'keep' }))
+    nodeSimplifie = nodeSimplifie.length === 0 ? parse(nodes[i - 1].toString({ parenthesis: 'auto' })) : nodeSimplifie[nodeSimplifie.length - 1].newNode
+    nodes.push(new OperatorNode(symbolOp, nameOp, [new ParenthesisNode(nodeSimplifie), step]))
+    const stepPrint = symbolOp === '^' ? step.toString() === '2' ? 'carré' : 'cube' : step.toString() === 'x' ? 'le nombre choisi' : `$${step.toString()}$`
+    steps.push(toTex(nodes[i]))
+    nodeSimplifie = simplifyExpression(nodes[i].toString({ parenthesis: 'auto' }))
+    nodeSimplifie = nodeSimplifie.length === 0 ? parse(nodes[i].toString({ parenthesis: 'auto' })) : nodeSimplifie[nodeSimplifie.length - 1].newNode
+    stepsSimplified.push(toTex(nodeSimplifie))
+    phrases.push(debutsPhrase[variables.symbolsOp.indexOf(symbolOp)] + stepPrint)
   }
-  return { steps: steps, stepsSimplified: stepsSimplified, stepsPhrase: phrases }
+  const stepsSolutionDetaillee = Object.values(phrases) // Clone de phrases pour ne pas être touchée par les modifications
+  stepsSolutionDetaillee.forEach(function (step, i) {
+    stepsSolutionDetaillee[i] = '&\\bullet~\\text{' + phrases[i] + '}&'
+    phrases[i] = '&\\bullet~\\text{' + phrases[i] + '}'
+    stepsSolutionDetaillee[i] += steps[i] + '&='
+    stepsSolutionDetaillee[i] += stepsSimplified[i]
+  })
+  let texte = String.raw` Voici un programme de calcul.
+          <br>
+          $\begin{aligned}
+          ${phrases.join('\\\\')}
+          \end{aligned}$
+          <br>
+          Notons $x$ le nombre choisi.
+          <br>
+          Ecrire le résultat du programme de calcul en fonction de $x$.
+          `
+  const texteCorr = String.raw`<br>
+          $\begin{aligned}
+          ${stepsSolutionDetaillee.join('\\\\')}
+          \end{aligned}$`
+  if (debug) texte = `${texte}<br>${texteCorr}`
+  return { texte: texte, texteCorr: texteCorr }
 }
 
 /**
@@ -528,96 +534,19 @@ export default function equationsProgression () {
       }
       switch (nquestion) {
         case 1: {
-          const programme = programmeCalcul(3)
-          programme.stepsPhrase.forEach(function (step, i) {
-            programme.stepsPhrase[i] = '&\\bullet~\\text{' + programme.stepsPhrase[i] + '}&'
-            programme.stepsPhrase[i] += programme.steps[i] + '&='
-            programme.stepsPhrase[i] += programme.stepsSimplified[i]
-          })
-          const texte = String.raw` Voici un programme de calcul.
-          <br>
-          $\begin{aligned}
-          ${programme.stepsPhrase.join('\\\\')}
-          \end{aligned}$
-          <br>
-          Notons $x$ le nombre choisi.
-          <br>
-          Ecrire le résultat du programme de calcul en fonction de $x$.
-          `
-          const texteCorr = '' // `${programme.steps}<br>${programme.stepsSimplified}`
-          exercice = { texte: texte, texteCorr: texteCorr }
+          exercice = programmeCalcul({ nbEtapes: 3, symbolsOp: ['+', '*', '-', '/'] }, debug)
           break
         }
         case 2: {
-          const programme = programmeCalcul(4)
-          programme.stepsPhrase.forEach(function (step, i) {
-            programme.stepsPhrase[i] = '&\\bullet~\\text{' + programme.stepsPhrase[i] + '}&'
-            programme.stepsPhrase[i] += programme.steps[i] + '&='
-            programme.stepsPhrase[i] += programme.stepsSimplified[i]
-          })
-          const texte = String.raw` Voici un programme de calcul.
-          <br>
-          $\begin{aligned}
-          ${programme.stepsPhrase.join('\\\\')}
-          \end{aligned}$
-          <br>
-          Notons $x$ le nombre choisi.
-          <br>
-          Ecrire le résultat du programme de calcul en fonction de $x$.
-          `
-          const texteCorr = `
-          ${programme.steps}<br>
-          ${programme.stepsSimplified}
-          `
-          exercice = { texte: texte, texteCorr: texteCorr }
+          exercice = programmeCalcul({ nbEtapes: 4, symbolsOp: ['+', '*', '-', '/'] }, debug)
           break
         }
         case 3: {
-          const programme = programmeCalcul(5)
-          programme.stepsPhrase.forEach(function (step, i) {
-            programme.stepsPhrase[i] = '&\\bullet~\\text{' + programme.stepsPhrase[i] + '}&'
-            programme.stepsPhrase[i] += programme.steps[i] + '&='
-            programme.stepsPhrase[i] += programme.stepsSimplified[i]
-          })
-          const texte = String.raw` Voici un programme de calcul.
-          <br>
-          $\begin{aligned}
-          ${programme.stepsPhrase.join('\\\\')}
-          \end{aligned}$
-          <br>
-          Notons $x$ le nombre choisi.
-          <br>
-          Ecrire le résultat du programme de calcul en fonction de $x$.
-          `
-          const texteCorr = `
-          ${programme.steps}<br>
-          ${programme.stepsSimplified}
-          `
-          exercice = { texte: texte, texteCorr: texteCorr }
+          exercice = programmeCalcul({ nbEtapes: 5, symbolsOp: ['+', '*', '-', '/'] }, debug)
           break
         }
         case 4: {
-          const programme = programmeCalcul(5, ['+', '*', '-', '/'])
-          programme.stepsPhrase.forEach(function (step, i) {
-            programme.stepsPhrase[i] = '&\\bullet~\\text{' + programme.stepsPhrase[i] + '}&'
-            programme.stepsPhrase[i] += programme.steps[i] + '&='
-            programme.stepsPhrase[i] += programme.stepsSimplified[i]
-          })
-          const texte = String.raw` Voici un programme de calcul.
-          <br>
-          $\begin{aligned}
-          ${programme.stepsPhrase.join('\\\\')}
-          \end{aligned}$
-          <br>
-          Notons $x$ le nombre choisi.
-          <br>
-          Ecrire le résultat du programme de calcul en fonction de $x$.
-          `
-          const texteCorr = `
-          ${programme.steps}<br>
-          ${programme.stepsSimplified}
-          `
-          exercice = { texte: texte, texteCorr: texteCorr }
+          exercice = programmeCalcul({ nbEtapes: 3, symbolsOp: ['+', '*', '-', '^'], limitPow: 2 }, debug)
           break
         }
         case 5: {
@@ -683,39 +612,39 @@ export default function equationsProgression () {
           break
         }
         case 18: {
-          exercice = resoudreEquation(aleaEquation('x/a=y', { a: false }), debug)
+          exercice = resoudreEquation(aleaEquation('x/a=y', { a: false, test: 'a!=1' }), debug)
           break
         }
         case 19: {
-          exercice = calculExpression(aleaExpressionLitterale('a/b+c/d', aleaAssignationVariables({ a: false, b: 'randomInt(2,100)', c: false, d: 'randomInt(2,100)', test: 'a!=b and c!=d and d!=b and (d%b==0 or b%d==0)' })).toString())
+          exercice = calculExpression(aleaExpressionLitterale('a/b+c/d', aleaAssignationVariables({ a: false, b: 'randomInt(2,100)', c: false, d: 'randomInt(2,100)', test: 'a!=b and c!=d and d!=b and (d%b==0 or b%d==0)' })).toString(), false, debug)
           break
         }
         case 20: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x+b*x', aleaAssignationVariables({ a: 'randomInt(2,100)', b: 'randomInt(2,100)' })).toString())
+          exercice = calculExpression(aleaExpressionLitterale('a*x+b*x', aleaAssignationVariables({ a: 'randomInt(2,100)', b: 'randomInt(2,100)' })).toString(), false, debug)
           break
         }
         case 21: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x+b*x-c*x', aleaAssignationVariables({ a: 'randomInt(2,100)', b: 'randomInt(2,100)', c: 'randomInt(2,100)', test: 'a+b>=c' })).toString())
+          exercice = calculExpression(aleaExpressionLitterale('a*x+b*x-c*x', aleaAssignationVariables({ a: 'randomInt(2,100)', b: 'randomInt(2,100)', c: 'randomInt(2,100)', test: 'a+b>=c' })).toString(), false, debug)
           break
         }
         case 22: {
-          exercice = calculExpression(aleaExpressionLitterale('a/b*x+c/d*x', aleaAssignationVariables({ a: false, b: 'randomInt(2,100)', c: false, d: 'randomInt(2,100)', test: 'a!=b and c!=d and d!=b and (d%b==0 or b%d==0)' })).toString())
+          exercice = calculExpression(aleaExpressionLitterale('a/b*x+c/d*x', aleaAssignationVariables({ a: false, b: 'randomInt(2,100)', c: false, d: 'randomInt(2,100)', test: 'a!=b and c!=d and d!=b and (d%b==0 or b%d==0)' })).toString(), false, debug)
           break
         }
         case 23: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x^2+b*x+c*x^2', aleaAssignationVariables({ a: 'randomInt(1,20)', b: 'randomInt(1,20)', c: 'randomInt(1,20)' })).toString())
+          exercice = calculExpression(aleaExpressionLitterale('a*x^2+b*x+c*x^2', aleaAssignationVariables({ a: 'randomInt(1,20)', b: 'randomInt(1,20)', c: 'randomInt(1,20)' })).toString(), false, debug)
           break
         }
         case 24: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x^2+b*x+c', aleaAssignationVariables({ a: 'randomInt(1,15)^2', c: 'randomInt(1,15)^2', b: '2*sqrt(a)*sqrt(c)' })).toString(), true)
+          exercice = calculExpression(aleaExpressionLitterale('a*x^2+b*x+c', aleaAssignationVariables({ a: 'randomInt(1,15)^2', c: 'randomInt(1,15)^2', b: '2*sqrt(a)*sqrt(c)' })).toString(), true, debug)
           break
         }
         case 25: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x^2-b*x+c', aleaAssignationVariables({ a: 'randomInt(1,15)^2', c: 'randomInt(1,15)^2', b: '2*sqrt(a)*sqrt(c)' })).toString(), true)
+          exercice = calculExpression(aleaExpressionLitterale('a*x^2-b*x+c', aleaAssignationVariables({ a: 'randomInt(1,15)^2', c: 'randomInt(1,15)^2', b: '2*sqrt(a)*sqrt(c)' })).toString(), true, debug)
           break
         }
         case 26: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x^2-b', aleaAssignationVariables({ a: 'randomInt(1,15)^2', b: 'randomInt(1,15)^2' })).toString(), true)
+          exercice = calculExpression(aleaExpressionLitterale('a*x^2-b', aleaAssignationVariables({ a: 'randomInt(1,15)^2', b: 'randomInt(1,15)^2' })).toString(), true, debug)
           break
         }
       }
