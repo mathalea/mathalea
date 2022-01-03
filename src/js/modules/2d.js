@@ -1105,7 +1105,7 @@ export function estSurDroite (A, d) {
  * @param {number} rymin marge en bas 0.5 par défaut (peut être fixée à 0 si on veut)
  * @param {number} rymax marge en haut 0.5 par défaut
  * @param {number} rzoom facteur multiplicatif des marges... implémenté en cas de problème avec le zoom ?
- * @param {[object]} objets // tableau contenant les objets à afficher
+ * @param {object} objets // tableau contenant les objets à afficher
  * Les objets affichables doivent avoir un attribut this.bordures = [xmin, ymin, xmax, ymax] 4 nombres dans cet ordre.
  * Si this.bordures n'est pas défini ou n'est pas un tableau de 4 éléments, l'objet est ignoré
  * Si aucun objet passé en argument n'a de "bordures" alors la fonction retourne une zone inaffichable et un message d'erreur est créé

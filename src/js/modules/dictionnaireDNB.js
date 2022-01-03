@@ -2001,7 +2001,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_06_ameriquenord_1.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_06_ameriquenord_1_cor.tex',
-    tags: ['Puissances', 'Calcul littéral', 'Pourcentages', 'Agrandissement-réduction']
+    tags: ['QCM', 'Puissances', 'Calcul littéral', 'Pourcentages', 'Agrandissement-réduction']
   },
   dnb_2015_06_ameriquenord_2: {
     annee: '2015',
@@ -6446,7 +6446,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2020/tex/dnb_2020_09_antillesguyanne_2.tex',
     urlcor: '/dnb/2020/tex/dnb_2020_09_antillesguyanne_2_cor.tex',
-    tags: ['Agrandissement-réduction', 'Calcul littéral', 'Puissances', 'Fractions']
+    tags: ['QCM', 'Agrandissement-réduction', 'Calcul littéral', 'Puissances', 'Fractions']
   },
   dnb_2020_09_antillesguyanne_3: {
     annee: '2020',
