@@ -149,7 +149,8 @@ export function listeQuestionsToContenuSansNumeroEtSansConsigne (exercice) {
 export function deuxColonnes (cont1, cont2, largeur1 = 50) {
   if (context.isHtml) {
     return `
-    <div style="float:left;max-width: ${largeur1}%;margin-right: 30px">
+    <div>
+    <div class="question" style="float:left;max-width: ${largeur1}%;margin-right: 30px">
     ${cont1}
    </div>
    <div style="float:left; max-width: ${90 - largeur1}%">
@@ -157,6 +158,7 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
    </div>
    <div style="clear:both"></div>
    <div class="ui hidden divider"></div>
+   </div>
 `
   } else {
     return `\\begin{minipage}{${calcul(largeur1 / 100)}\\linewidth}

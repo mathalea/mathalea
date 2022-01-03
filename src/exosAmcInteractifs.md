@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 404 
-- nombre d'exos interactifReady 553 
+- nombre d'exos interactifReady 555 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -365,6 +365,8 @@
 |can2F08|Encadrer en utilisant un tableau de variations|KO|KO|OK|mathLive|
 |can2F09|Résoudre une équation avec une fonction de référence|KO|KO|OK|qcm|
 |can2F10|Résoudre une équation avec une fonction de référence*|KO|KO|OK|qcm|
+|can2F11|Utiliser la fonction carré pour comparer deux images|KO|KO|OK|qcm|
+|can2F12|Utiliser une fonction de référence (inverse, cube, racine) pour comparer deux images|KO|KO|OK|qcm|
 |can2G01|Déterminer un agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
 |can2G02|Calculer une longueur avec le théorème de Pythagore|KO|KO|OK|mathLive|
 |can2G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|
