@@ -88,8 +88,8 @@ export default function CoeffDirecteurDroite () {
         yA = randint(-10, 10, 0)
         this.reponse = fraction(yA, xA).simplifie()
         this.formatInteractif = 'fractionEgale'
-        this.question = `Le coefficient directeur d'une fonction linéaire passant par le point $A(${xA};${yA})$ est :<br>
-          On donnera le résultat sous la fomre d'une fraction irréductible ou d'un entier le cas échéant.`
+        this.question = `Le coefficient directeur d'une droite représentant une fonction linéaire passant par le point $A(${xA};${yA})$ est :<br>
+          On donnera le résultat sous la forme d'une fraction irréductible ou d'un entier le cas échéant.`
         this.correction = `Le coefficient directeur de la droite est donné par : $m=\\dfrac{y_A}{x_A}=\\dfrac{${yA}}{${xA}}=${this.reponse.texFraction}$.`
         break
     }
