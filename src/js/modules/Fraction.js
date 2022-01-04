@@ -39,7 +39,7 @@ if (Object.getPrototypeOf(f).texFraction === undefined) {
     get: function () { return arrondi(number(this), 6) }
   })
   Fraction.prototype.valeurAbsolue = function () { return fraction(abs(this.n), abs(this.d)) }
-  Fraction.prototype.simplifie = function () { return fraction(this.n * this.s, this.d) }
+  Fraction.prototype.simplifie = function () { return new Fraction(this.n * this.s, this.d) }
   Fraction.prototype.oppose = function () { return fraction(-1 * this.n * this.s, this.d) }
   Fraction.prototype.fractionEgale = function (k) {
     const f = fraction(0, 1)
