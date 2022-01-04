@@ -3814,7 +3814,7 @@ export default {
     }
   },
   "4C30-3": {
-    "titre": "Écriture décimale d’une puissance",
+    "titre": "Écriture décimale ou fractionnaire d'une puissance",
     "url": "/exercices/4e/4C30-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -11541,7 +11541,7 @@ export default {
     }
   },
   "can2G10": {
-    "titre": "Utiliser la relation de Chasles/réductions vectorielles (QCM)",
+    "titre": "Utiliser la relation de Chasles/réductions vectorielles",
     "url": "/exercices/can/2e/can2G10.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11552,12 +11552,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2G11": {
-    "titre": "Utiliser la relation de Chasles/réductions vectorielles* (QCM)",
+    "titre": "Utiliser la relation de Chasles/réductions vectorielles*",
     "url": "/exercices/can/2e/can2G11.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11568,7 +11568,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -11589,7 +11589,7 @@ export default {
     }
   },
   "can2G13": {
-    "titre": "Calcul de la norme d’un vecteur",
+    "titre": "Calculer la norme d’un vecteur",
     "url": "/exercices/can/2e/can2G13.js",
     "amcReady": false,
     "interactifReady": true,
@@ -12504,7 +12504,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
