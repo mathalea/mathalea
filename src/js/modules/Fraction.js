@@ -48,11 +48,14 @@ if (Object.getPrototypeOf(f).texFraction === undefined) {
     f.n = this.n * k
     return f
   }
-  Fraction.prototype.estEntiere = function () { return fraction(this.n, this.d).d === 1 }
+  Fraction.prototype.estEntiere = function () {
+    const f = new Fraction(this.n, this.d)
+    return f.d === 1
+  }
   Fraction.prototype.estParfaite = function () { return this.racineCarree() !== false }
   Fraction.prototype.egal = function (f) { return equal(this, f) }
   Fraction.prototype.estIrreductible = function () { return gcd(this.n, this.d) === 1 }
-  Fraction.prototype.differenceFraction = function (f) { return new Fraction(subtract(this, f)) }
+  Fraction.prototype.differenceFraction = function (f) { return new Fraction(subtract(this, f)) } // retourne un résultat simplifié
   Fraction.prototype.multiplieEntier = function (n) { return fraction(this.n * n * this.s, this.d) }
   Fraction.prototype.entierDivise = function (n) { return fraction(this.n * this.s, n * this.d) }
   Fraction.prototype.ajouteEntier = function (n) { return fraction(this.n * this.s + n * this.d, n * this.d) }
@@ -60,15 +63,15 @@ if (Object.getPrototypeOf(f).texFraction === undefined) {
   Fraction.prototype.superieurlarge = function (f) { return largerEq(this, f) }
   Fraction.prototype.stUneSimplification = function (f) { return (equal(this, f) && abs(this.n) < abs(f.n)) }
   Fraction.prototype.sommeFraction = function (f) { return new Fraction(add(this, f)) }
-  Fraction.prototype.sommeFractions = function (...fractions) {
+  Fraction.prototype.sommeFractions = function (...fractions) { // retourne un résultat simplifié
     let s = fraction(this.s * this.n, this.d)
     for (const f of fractions) {
       s = new Fraction(add(s, f))
     }
     return s
   }
-  Fraction.prototype.produitFraction = function (f) { return new Fraction(multiply(this, f)) }
-  Fraction.prototype.produitFractions = function (...fractions) {
+  Fraction.prototype.produitFraction = function (f) { return new Fraction(multiply(this, f)) } // retourne un résultat simplifié
+  Fraction.prototype.produitFractions = function (...fractions) { // retourne un résultat simplifié
     let s = new Fraction(this.s * this.n, this.d)
     for (const f of fractions) {
       s = new Fraction(multiply(s, f))
