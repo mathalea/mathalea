@@ -21,12 +21,12 @@ export default function OpposeDeFraction () {
   this.formatInteractif = 'fractionEgale'
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
-    const c = a.den
+    const c = a.d
     let b, d, e
 
     switch (choice(['a', 'b', 'c', 'd', 'e'])) { //
       case 'a':
-        b = a.num
+        b = a.n
         d = fraction(b, c)
         this.question = `L'opposé de $\\dfrac{${b}}{${c}}$ est : `
         this.correction = `Deux nombres sont opposés lorsque leur somme est nulle.<br>
@@ -34,7 +34,7 @@ export default function OpposeDeFraction () {
         this.reponse = d.oppose()
         break
       case 'b' :
-        b = a.num * (-1)
+        b = a.n * (-1)
         d = fraction(b, c)
         this.question = `L'opposé de $\\dfrac{${b}}{${c}}$ est : `
         this.correction = `Deux nombres sont opposés lorsque leur somme est nulle.<br>
@@ -43,7 +43,7 @@ export default function OpposeDeFraction () {
         break
 
       case 'c' :
-        b = a.num
+        b = a.n
         d = fraction(b, c)
         this.question = `L'opposé de $-\\dfrac{${b}}{${c}}$ est :`
         this.correction = `Deux nombres sont opposés lorsque leur somme est nulle.<br>
@@ -51,7 +51,7 @@ export default function OpposeDeFraction () {
         this.reponse = d
         break
       case 'd' :
-        b = a.num
+        b = a.n
         d = fraction(b, c)
         e = fraction(c, b)
         this.question = `L'inverse de $\\dfrac{${b}}{${c}}$ est :`
@@ -60,7 +60,7 @@ export default function OpposeDeFraction () {
         this.reponse = e
         break
       case 'e' :
-        b = a.num
+        b = a.n
         d = fraction(b, c)
         e = fraction(c, b)
         this.question = `L'inverse de $-\\dfrac{${b}}{${c}}$ est :`

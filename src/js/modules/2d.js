@@ -3939,7 +3939,7 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
   this.x = x
   this.y = y
   this.rang = rang
-  if (typeof (num) !== 'undefined') this.num = num
+  if (typeof (num) !== 'undefined') this.n = num
   this.taille = taille
   this.color = color
   this.opacite = opacite
@@ -3952,7 +3952,7 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
     numero.contour = true
     objets.push(numero)
   }
-  this.num = num
+  this.n = num
   let lettre, chiffre
   objets.push(grille(calcul(x - rang * this.taille / 2), calcul(y - rang * this.taille / 2), calcul(x + rang * this.taille / 2), calcul(y + rang * this.taille / 2), this.color, this.opacite, this.taille, false))
   for (let i = 0; i < rang; i++) {
@@ -4005,7 +4005,7 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3 }) {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
-  this.num = num
+  this.n = num
   this.taille = taille
   this.rang = rang
   this.opacite = 0.5
@@ -9325,9 +9325,9 @@ export function latexParCoordonnees (texte, x, y, color = 'black', largeur = 50,
 
 function FractionParPosition ({ x = 0, y = 0, fraction = { num: 1, den: 2 }, couleur = 'black' } = {}) {
   ObjetMathalea2D.call(this)
-  const num = Math.abs(fraction.num)
-  const den = Math.abs(fraction.den)
-  const signe = unSiPositifMoinsUnSinon(fraction.num) * unSiPositifMoinsUnSinon(fraction.den)
+  const num = Math.abs(fraction.n)
+  const den = Math.abs(fraction.d)
+  const signe = unSiPositifMoinsUnSinon(fraction.n) * unSiPositifMoinsUnSinon(fraction.d)
   const longueur = Math.max(Math.floor(Math.log10(num)) + 1, Math.floor(Math.log10(den)) + 1) * 10
   const offset = 10
 

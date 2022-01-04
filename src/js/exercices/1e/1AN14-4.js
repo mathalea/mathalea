@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, lettreMinusculeDepuisChiffre, rienSi1, reduireAxPlusB, texNombrec2 } from '../../modules/outils.js'
 import { Polynome } from '../../modules/fonctionsMaths.js'
-import { simplify, parse, derivative, abs } from 'mathjs'
+import { simplify, parse, derivative, abs, fraction } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Dérivée d\'un produit'
 
@@ -133,6 +133,7 @@ export default function DeriveeProduit () {
           // Remarque sur la méthode alternative
           texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${polExpand.toMathExpr()}$.<br>`
           texteCorr += `Et donc $${namef}'(x)=${polExpand.derivee().toMathExpr()}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
+          console.log(polExpand)
           break
         }
         case 'monome2/racine': {
@@ -162,7 +163,7 @@ export default function DeriveeProduit () {
           else interm2 = `${!derivee.isMon() ? `(${derivee.toMathExpr()})` : derivee.toMathExpr()}\\sqrt{x}+\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}`
           texteCorr += 'L\'énoncé ne demandant rien de plus, on se contente de simplifier l\'expression :'
           texteCorr += `\\[${namef}'(x)=${interm2}\\]`
-          break
+          console.log(poly)
         }
         case 'exp/poly': // traité ci-après
         case 'exp/poly2centre': {
