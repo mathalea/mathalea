@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, lettreMinusculeDepuisChiffre, rienSi1, reduireAxPlusB, texNombrec2 } from '../../modules/outils.js'
 import { Polynome } from '../../modules/fonctionsMaths.js'
-import { simplify, parse, derivative, abs, fraction } from 'mathjs'
+import { simplify, parse, derivative, abs } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Dérivée d\'un produit'
 
