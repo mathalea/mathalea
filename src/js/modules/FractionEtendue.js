@@ -237,7 +237,7 @@ FractionX.prototype.estIrreductible = estIrreductible
  * @param {FractionX ou Fraction} f 
  * @returns la fractionX - f résultat simplifié
  */
-function differenceFraction (f) { return  new Fraction(subtract(this, f))}
+function differenceFraction (f) { return  fraction(subtract(this, f))}
 FractionX.prototype.differenceFraction = differenceFraction // retourne un résultat simplifié
 
 /**
@@ -288,7 +288,7 @@ FractionX.prototype.estUneSimplification = estUneSimplification
  * @param {FractionX} f 
  * @returns f + FractionX
  */
-function sommeFraction(f) { return new Fraction(add(this, f)) }
+function sommeFraction(f) { return fraction(add(this, f)) }
 FractionX.prototype.sommeFraction = sommeFraction
 
 /**
@@ -298,9 +298,9 @@ FractionX.prototype.sommeFraction = sommeFraction
 function sommeFractions(...fractions) { // retourne un résultat simplifié
     let s = fraction(this.s * this.n, this.d)
     for (const f of fractions) {
-      s = new Fraction(add(s, f))
+      s = fraction(add(s, f))
     }
-    return s
+    return s.simplifie()
   }
 FractionX.prototype.sommeFractions = sommeFractions
 
@@ -308,19 +308,19 @@ FractionX.prototype.sommeFractions = sommeFractions
  * @param {FractionX} f 
  * @returns f * FractionX
  */
-function produitFraction(f){ return new Fraction(multiply(this, f))}
-FractionX.prototype.produitFraction = produitFraction // retourne un résultat simplifié
+function produitFraction(f){ return fraction(multiply(this, f))}
+FractionX.prototype.produitFraction = produitFraction
 
 /**
  * @param  {...any} fractions 
  * @returns produit de FractionX par toutes les fractions passées en argument.
  */
 function produitFractions (...fractions) { // retourne un résultat simplifié
-    let s = new Fraction(this.s * this.n, this.d)
+    let s = fraction(this.s * this.n, this.d)
     for (const f of fractions) {
-      s = new Fraction(multiply(s, f))
+      s = fraction(multiply(s, f))
     }
-    return s
+    return s.simplifie()
   }
 FractionX.prototype.produitFractions = produitFractions
 
