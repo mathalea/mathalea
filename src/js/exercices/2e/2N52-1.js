@@ -104,7 +104,7 @@ export default function EquationsProduitsNuls2 () {
           if (this.correctionDetaillee) {
             texteCorr += `$\\iff ${reduireAxPlusB(a, 0)}=${f1.multiplieEntier(-1).texFraction}$ ou $${reduireAxPlusB(b, 0)}=${f2.multiplieEntier(-1).texFraction}$<br>`
             texteCorr += `$\\iff x=${f1.multiplieEntier(-1).texFraction}\\div ${ecritureParentheseSiNegatif(a)}$ ou $x=${f2.multiplieEntier(-1).texFraction}\\div ${ecritureParentheseSiNegatif(b)}$<br>`
-            texteCorr += `$\\iff x=${f1.multiplieEntier(-1).texFraction}\\times ${fraction(1, a).texFractionSigneeParentheses}$ ou $x=${f2.multiplieEntier(-1).texFraction}\\times ${fraction(1, b).texFractionSigneeParentheses}$<br>`
+            texteCorr += `$\\iff x=${f1.multiplieEntier(-1).texFraction}\\times ${fraction(1, a).texFSP}$ ou $x=${f2.multiplieEntier(-1).texFraction}\\times ${fraction(1, b).texFSP}$<br>`
           }
           texteCorr += `$\\iff x=${f3.texFractionSimplifiee}$ ou $ x=${f4.texFractionSimplifiee}$<br>
                          On en déduit :  `
