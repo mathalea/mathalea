@@ -3,6 +3,17 @@ import { point, vecteur, segment, carre, cercle, arc, translation, rotation, tex
 import { Fraction, round, equal, largerEq, subtract, add, abs, multiply, number, gcd } from 'mathjs'
 import { fraction } from './fractions.js'
 
+export class FractionX extends Fraction {
+  constructor (...args) {
+    super(...args)
+    if (args.length === 2) {
+      this.s = 1
+      this.n = args[0]
+      this.d = args[1]
+    }
+  }
+}
+
 const f = new Fraction()
 if (Object.getPrototypeOf(f).texFraction === undefined) {
   Object.defineProperty(Fraction.prototype, 'texFraction', {

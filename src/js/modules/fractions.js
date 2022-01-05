@@ -1,4 +1,4 @@
-import Fraction from './Fraction'
+import FractionX from './FractionEtendue'
 import ListeFraction from './ListeFraction'
 
 /**
@@ -78,8 +78,6 @@ export function listeFractions (...fractions) {
  * @return {Fraction}
  */
 export function fraction (a, b) {
-  const f = new Fraction()
-  f.n = a
-  f.d = b
+  const f = new FractionX(a, b)
   return f
 }
