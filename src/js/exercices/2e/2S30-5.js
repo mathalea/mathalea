@@ -32,8 +32,8 @@ export default function CalculProbaExperience2Epreuves3e () {
     const choix = randint(0, 2)
     let nombres1, nombres2, n1, n2, urne1, urne2, texte, texteCorr
     if (!sup3) {
-      nombres1 = choice([[1, 2, 3], [1, 1, 2], [1, 2, 2], [1, 1, 3], [1, 1, 1], [2, 2, 2]])
-      nombres2 = choice([[1, 2, 3], [1, 1, 2], [1, 2, 2], [1, 1, 3], [1, 1, 1], [2, 2, 2]])
+      nombres1 = choice([[1, 2, 3], [1, 1, 2], [1, 2, 2], [1, 1, 3]])
+      nombres2 = choice([[1, 2, 3], [1, 1, 2], [1, 2, 2], [1, 1, 3]])
     } else {
       nombres1 = [1, 2, 3]
       nombres2 = [1, 2, 3]
@@ -159,7 +159,10 @@ export default function CalculProbaExperience2Epreuves3e () {
 
     for (let i = 0, cpt = 0, question; i < this.nbQuestions && cpt < 50;) {
       // On choisit les probas de l'arbre
-      console.log(fraction('0.(123)'))
+      let f = fraction(-40,80)
+      console.log(f)
+      let f2 = f.toFraction()
+      console.log(f2)
       question = cas1(this, i, this.sup, this.sup2, this.sup3)
       if (this.questionJamaisPosee(i, ...question.alea)) {
         this.listeQuestions.push(question.texte)

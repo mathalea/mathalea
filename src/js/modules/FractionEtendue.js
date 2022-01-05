@@ -113,7 +113,7 @@ export default class FractionX extends Fraction {
      */
     let texFractionSimplifiee
     definePropRo(this, 'texFractionSimplifiee', () => {
-      if (!texFractionSimplifiee) texFractionSimplifiee = (new FractionX(this.numIrred, this.denIrred)).texFSD
+      if (!texFractionSimplifiee) texFractionSimplifiee = (new FractionX(this.numIrred*this.s, this.denIrred)).texFSD
       return texFractionSimplifiee
     })
     /**
@@ -151,6 +151,8 @@ export default class FractionX extends Fraction {
   toLatex = () => super.toLatex().replace('\\frac','\\dfrac')
 }
 
+function toFraction () { return new Fraction(this.n*this.s,this.d)}
+FractionX.prototype.toFraction = toFraction
 function valeurAbsolue () { return fraction(abs(this.n), abs(this.d))}
 FractionX.prototype.valeurAbsolue = valeurAbsolue
 function simplifie () {return fraction(this.n * this.s / gcd(this.n,this.d), this.d / gcd(this.n,this.d))}
