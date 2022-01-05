@@ -3,6 +3,7 @@ import { point, vecteur, segment, carre, cercle, arc, translation, rotation, tex
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd } from 'mathjs'
 import { fraction } from './fractions.js'
 
+// Fonction écrite par Daniel Caillibaud pour créer ajouter les propriétés à la première utilisation de celles-ci.
 const definePropRo = (obj, prop, get) => {
   Object.defineProperty(obj, prop, {
     enumerable: true,
@@ -10,7 +11,17 @@ const definePropRo = (obj, prop, get) => {
     set: () => { throw Error(`${prop} est en lecture seule`) }
   })
 }
-
+/**
+ * La classe FractionX est une extension de la classe Fraction de mathjs
+ * @author Jean-Claude Lhote
+ * Merci à Daniel Caillibaud pour son aide.
+ * Pour créer une instance de la classe FractionX on peut utiliser la fonction fraction() qui se trouve dans le fichier modules/fractions.js
+ * Ou utiliser la syntaxe f = new FractionX () qui crée une fraction nulle.
+ * On peut utiliser tous les arguments utilisables par Fraction :
+ * f = new Fraction ('0.(3)') // crée la fraction $\frac{1}{3}$
+ * f = fraction(12,15) // crée la fraction $\frac{12}{15}$ (Remarque : new Fraction(12,15) crée $\frac{4}{5}$)
+ * f = fraction(0.4) // crée la fraction $\frac{2}{5}$
+ */
 export default class FractionX extends Fraction {
   constructor (...args) {
     super(...args)
@@ -148,22 +159,48 @@ export default class FractionX extends Fraction {
       return valeurDecimale
     })
   }
+  /**
+   * basé sur la méthode toLatex() de mathjs, on remplace \frac par \dfrac plus joli.
+   * @returns la chaine Latex pour écrire la fraction (signe devant)
+   */
   toLatex = () => super.toLatex().replace('\\frac','\\dfrac')
 }
 
+/**
+ * Convertit la FractionX en Fraction
+ * @returns un objet Fraction (mathjs)
+ */
 function toFraction () { return new Fraction(this.n*this.s,this.d)}
 FractionX.prototype.toFraction = toFraction
+
+/**
+ * @returns la FractionX positive.
+ */
 function valeurAbsolue () { return fraction(abs(this.n), abs(this.d))}
 FractionX.prototype.valeurAbsolue = valeurAbsolue
+
+/**
+ * @returns la FractionX irreductible
+ */
 function simplifie () {return fraction(this.n * this.s / gcd(this.n,this.d), this.d / gcd(this.n,this.d))}
 FractionX.prototype.simplifie = simplifie
+
+/**
+ * @returns l'opposé de la FractionX
+ */
 function oppose () { return fraction(-1 * this.n * this.s, this.d)}
 FractionX.prototype.oppose = oppose
+
+/**
+ * On pourra utiliser k = 0.5 pour simplifier par 2 la fraction par exemple.
+ * @param {coefficient} k 
+ * @returns La FractionX dont le numérateur et le dénominateur ont été multipliés par k.
+ */
 function fractionEgale(k) {
     const f = fraction(0, 1)
     f.s = this.s
-    f.d = this.d * k
-    f.n = this.n * k
+    f.d = arrondi(this.d * k,6)
+    f.n = arrondi(this.n * k,6)
     return f
 }
 FractionX.prototype.fractionEgale = fractionEgale
