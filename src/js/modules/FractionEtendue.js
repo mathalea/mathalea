@@ -104,7 +104,7 @@ export default class FractionX extends Fraction {
      */
     let texFractionSignee
     definePropRo(this, 'texFractionSignee', () => {
-      if (!texFractionSignee) texFractionSignee = (this.s === -1) ? this.texFraction : '+' + this.texFraction
+      if (!texFractionSignee) texFractionSignee = (this.signe === -1) ? this.texFSD : '+' + this.texFSD
       return texFractionSignee
     })
     /**
@@ -114,7 +114,7 @@ export default class FractionX extends Fraction {
      */
     let texFSP
     definePropRo(this, 'texFSP', () => {
-      if (!texFSP) texFSP = (this.s >= 0) ? this.texFraction : `(${this.texFractionSignee})`
+      if (!texFSP) texFSP = (this.signe >= 0) ? this.texFSD : `(${this.texFractionSignee})`
       return texFSP
     })
     /**
@@ -135,7 +135,7 @@ export default class FractionX extends Fraction {
      */
     let ecritureAlgebrique
     definePropRo(this, 'ecritureAlgebrique', () => {
-      if (!ecritureAlgebrique) ecritureAlgebrique = this.s === 1 ? '+' + this.texFSD : this.texFSD
+      if (!ecritureAlgebrique) ecritureAlgebrique = this.signe === 1 ? '+' + this.texFSD : this.texFSD
       return ecritureAlgebrique
     })
     /**
@@ -345,6 +345,90 @@ if (n5 === n2) {
 }
 }
 FractionX.prototype.fractionDecimale = fractionDecimale
+
+/**
+   * Retourne la chaine latex contenant la racine carrée de la fraction
+   * @param {boolean} detaillee Si detaillee est true, une étape de calcul se place avant le résultat.
+   * @return {Fraction}
+   */
+ function texRacineCarree (detaillee = false) {
+    let factoDen = extraireRacineCarree(Math.abs(this.d))
+    let factoNum
+    if (factoDen[1] !== 1) {
+      factoNum = extraireRacineCarree(Math.abs(this.n * factoDen[1]))
+      factoDen = extraireRacineCarree(Math.abs(this.d * factoDen[1]))
+    } else {
+      factoNum = extraireRacineCarree(Math.abs(this.n))
+    }
+    const k = fraction(factoNum[0], factoDen[0]).simplifie()
+    const r = fraction(factoNum[1], factoDen[1]).simplifie()
+    let etape = ''
+    if (this.s === -1) {
+      return false
+    } else if (this.s === 0) {
+      return '0'
+    } else {
+      if (detaillee) {
+        if (this.d !== 1) {
+          etape = `\\sqrt{\\dfrac{${this.n}}{${this.d}}}=`
+        } else {
+          if (factoNum[0] !== 1) {
+            etape = `\\sqrt{${this.n}}=`
+          } else {
+            etape = ''
+          }
+        }
+        if (k.valeurDecimale !== 1) {
+          if (k.d === 1) {
+            etape += `\\sqrt{${factoNum[0]}^2\\times${factoNum[1]}}=`
+          } else {
+            if (factoNum[0] !== 1) {
+              etape += `\\sqrt{\\dfrac{${factoNum[0]}^2\\times${factoNum[1]}}{${factoDen[0]}^2\\times${factoDen[1]}}}=`
+            } else {
+              if (factoDen[1] !== 1) {
+                etape += `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2\\times${factoDen[1]}}}=`
+              } else {
+                etape += `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2}}=`
+              }
+            }
+          }
+        }
+      }
+
+      if (arrondi(factoNum[1] / factoDen[1],6) === 1) {
+        return etape + k.texFraction
+      } else {
+        if (k.n === 1 && k.d !== 1) {
+          if (r.d === 1) {
+            return (k.valeurDecimale === 1 ? etape : etape + `\\dfrac{\\sqrt{${r.n}}}{${k.d}}`)
+          } else {
+            return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.texFraction}}`
+          }
+        } else {
+          return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.texFraction}}`
+        }
+      }
+    }
+  }
+  FractionX.prototype.texRacineCarree = texRacineCarree
+ 
+  /**
+   * Retourne la racine carrée de la fraction si c'est une fraction et false sinon
+   * @param {boolean} detaillee Si detaillee est true, une étape de calcul se place avant le résultat.
+   * @return {Fraction}
+   */
+  function  racineCarree () {
+    const factoNum = extraireRacineCarree(Math.abs(this.n))
+    const factoDen = extraireRacineCarree(Math.abs(this.d))
+    const k = fraction(factoNum[0], factoDen[0]).simplifie()
+    const r = fraction(factoNum[1], factoDen[1]).simplifie()
+    if (r.valeurDecimale !== 1 || this.s === -1) {
+      return false
+    } else {
+      return k
+    }
+  }
+FractionX.prototype.racineCarree = racineCarree
 
 /**
  * 
