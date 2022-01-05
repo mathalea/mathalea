@@ -56,10 +56,10 @@ export default function EquationsProduitsNuls2 () {
           f2 = fraction(-d, c)
           texteCorr += `$\\iff x=${f1.texFraction}$ ou $ x=${f2.texFraction}$<br>On en déduit :  `
           if (-b / a > -d / c) {
-            texteCorr += `$S=\\left\\{${f2.simplifie().texFraction};${f1.simplifie().texFraction}\\right\\}$`
+            texteCorr += `$S=\\left\\{${f2.texFractionSimplifiee};${f1.texFractionSimplifiee}\\right\\}$`
           } else if (-b / a < -d / c) {
-            texteCorr += `$S=\\left\\{${f1.simplifie().texFraction};${f2.simplifie().texFraction}\\right\\}$`
-          } else texteCorr += `$S=\\left\\{${f1.simplifie().texFraction}\\right\\}$`
+            texteCorr += `$S=\\left\\{${f1.texFractionSimplifiee};${f2.texFractionSimplifiee}\\right\\}$`
+          } else texteCorr += `$S=\\left\\{${f1.texFractionSimplifiee}\\right\\}$`
 
           break
         case 2:

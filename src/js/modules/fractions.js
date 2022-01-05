@@ -78,6 +78,11 @@ export function listeFractions (...fractions) {
  * @return {Fraction}
  */
 export function fraction (a, b) {
-  const f = new FractionX(a, b)
-  return f
+  if ((typeof a === 'object' && b === undefined) || (typeof a === 'number' && b=== undefined ) ){
+    return new FractionX(a)
+  } else if (typeof a === 'number' && typeof b === 'number'){
+    return new FractionX(a,b)
+  } else if (typeof a === 'string') {
+    return new FractionX(a)
+  }
 }
