@@ -147,9 +147,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
           if (this.sup3) {
-            setReponse(this, i, new FractionEtendue(a * d + c * b, b * d).simplifie(), { formatInteractif: 'fraction' })
+            setReponse(this, i, (new FractionEtendue(a * d + c * b, b * d)).simplifie(), { formatInteractif: 'fraction' })
           } else {
-            setReponse(this, i, new FractionEtendue(a * d + c * b, b * d).simplifie(), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, (new FractionEtendue(a * d + c * b, b * d)).simplifie(), { formatInteractif: 'fractionEgale' })
           }
         }
       } else { // une soustraction
@@ -215,9 +215,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
           if (this.sup3) {
-            setReponse(this, i, new FractionEtendue(Math.abs(a * d - c * b), b * d).simplifie(), { formatInteractif: 'fraction' })
+            setReponse(this, i, (new FractionEtendue(Math.abs(a * d - c * b), b * d)).simplifie(), { formatInteractif: 'fraction' })
           } else {
-            setReponse(this, i, new FractionEtendue(Math.abs(a * d - c * b), b * d).simplifie(), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, (new FractionEtendue(Math.abs(a * d - c * b), b * d)).simplifie(), { formatInteractif: 'fractionEgale' })
           }
         }
       }

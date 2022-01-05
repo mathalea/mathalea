@@ -153,7 +153,7 @@ export default class FractionX extends Fraction {
 
 function valeurAbsolue () { return fraction(abs(this.n), abs(this.d))}
 FractionX.prototype.valeurAbsolue = valeurAbsolue
-function simplifie () {return new Fraction(this.n * this.s, this.d)}
+function simplifie () {return fraction(this.n * this.s / gcd(this.n,this.d), this.d / gcd(this.n,this.d))}
 FractionX.prototype.simplifie = simplifie
 function oppose () { return fraction(-1 * this.n * this.s, this.d)}
 FractionX.prototype.oppose = oppose

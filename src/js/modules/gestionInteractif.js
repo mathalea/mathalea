@@ -219,7 +219,7 @@ function verifQuestionMathLive (exercice, i) {
         }
         if (saisieParsee[1].num && saisieParsee[2].num) {
           const fSaisie = new FractionEtendue(signeF * parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-          if (fSaisie.texFraction === reponse.texFraction) resultat = 'OK'
+          if (fSaisie.texFSD === reponse.texFSD) resultat = 'OK'
         }
       }
       // Pour les exercices où l'on attend une mesure avec une unité au choix
