@@ -30,7 +30,7 @@ if (Object.getPrototypeOf(f).texFraction === undefined) {
     get: function () { return (this.s >= 0) ? this.texFraction : `(${this.texFractionSignee})` }
   })
   Object.defineProperty(Fraction.prototype, 'texFractionSimplifiee', {
-    get: function () { return fraction(this.n * this.s, this.d).texFSD }
+    get: function () { return fraction(this.n * this.s, this.d).simplifie().texFSD }
   })
   Object.defineProperty(Fraction.prototype, 'ecritureAlgebrique', {
     get: function () { return this.s * this.d * this.n < 0 ? this.texFSD : '+' + this.texFSD }
