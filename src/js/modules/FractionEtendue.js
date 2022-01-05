@@ -204,33 +204,97 @@ function fractionEgale(k) {
     return f
 }
 FractionX.prototype.fractionEgale = fractionEgale
+
+/**
+ * @returns true si la FractionX est un entier.
+ */
 function estEntiere (){
     const f = new Fraction(this.n, this.d)
     return f.d === 1
   } 
 FractionX.prototype.estEntiere = estEntiere
+
+/**
+ * @returns true si la racine carrée de la FractionX est une FractionX
+ */
 function estParfaite () { return this.racineCarree() !== false}
 FractionX.prototype.estParfaite = estParfaite
+
+/**
+ * @param {FractionX ou Fraction} f 
+ * @returns true si la FractionX est égale à la fraction passée en argument.
+ */
 function estEgal (f) { return equal(this, f)}
 FractionX.prototype.egal = estEgal
+
+/**
+ * @returns true si la FractionX est irréductible
+ */
 function estIrreductible () { return gcd(this.n, this.d) === 1}
 FractionX.prototype.estIrreductible = estIrreductible
+
+/**
+ * @param {FractionX ou Fraction} f 
+ * @returns la fractionX - f résultat simplifié
+ */
 function differenceFraction (f) { return  new Fraction(subtract(this, f))}
 FractionX.prototype.differenceFraction = differenceFraction // retourne un résultat simplifié
+
+/**
+ * @param {coefficient} n 
+ * @returns La fractionX multipliée par n (numérateur n fois plus grand)
+ */
 function multiplieEntier (n) { return fraction(this.n * n * this.s, this.d)}
 FractionX.prototype.multiplieEntier = multiplieEntier
+
+/**
+ * @param {coefficient} n 
+ * @returns La FractionX divisée par n (denominateur n fois plus grand)
+ */
 function entierDivise (n) { return fraction(this.n * this.s, n * this.d)}
 FractionX.prototype.entierDivise = entierDivise
+/**
+ * 
+ * @param {number} n 
+ * @returns n + la FractionX
+ */
 function ajouteEntier (n) { return fraction(this.n * this.s + n * this.d, n * this.d)}
 FractionX.prototype.ajouteEntier = ajouteEntier
+
+/**
+ * @param {number} n 
+ * @returns n - la FractionX
+ */
 function entierMoinsFraction (n) { return fraction(n * this.d - this.n * this.signe, n * this.d)}
 FractionX.prototype.entierMoinsFraction = entierMoinsFraction
+/**
+ * 
+ * @param {FractionX ou Fraction ou nombre} f 
+ * @returns true si FractionX >= f
+ */
 function superieurlarge (f) { return largerEq(this, f)}
-FractionX.prototype.superieurlarge = superieurlarge
+FractionX.prototype.superieurlarge = 
+
+/**
+ * 
+ * @param {FractionX} f 
+ * @returns true si FractionX = f et FractionX est plus réduite que f
+ */
 function estUneSimplification (f) { return  (equal(fraction(this), f) && abs(this.n) < abs(f.n))}
 FractionX.prototype.estUneSimplification = estUneSimplification
+
+/**
+ * 
+ * @param {FractionX} f 
+ * @returns f + FractionX
+ */
 function sommeFraction(f) { return new Fraction(add(this, f)) }
 FractionX.prototype.sommeFraction = sommeFraction
+
+/**
+ * @param  {...any} fractions 
+ * @returns FractionX + ...fractions (ajoute plusieurs fractions à la FractionX)
+ */
 function sommeFractions(...fractions) { // retourne un résultat simplifié
     let s = fraction(this.s * this.n, this.d)
     for (const f of fractions) {
@@ -239,8 +303,18 @@ function sommeFractions(...fractions) { // retourne un résultat simplifié
     return s
   }
 FractionX.prototype.sommeFractions = sommeFractions
+
+/**
+ * @param {FractionX} f 
+ * @returns f * FractionX
+ */
 function produitFraction(f){ return new Fraction(multiply(this, f))}
 FractionX.prototype.produitFraction = produitFraction // retourne un résultat simplifié
+
+/**
+ * @param  {...any} fractions 
+ * @returns produit de FractionX par toutes les fractions passées en argument.
+ */
 function produitFractions (...fractions) { // retourne un résultat simplifié
     let s = new Fraction(this.s * this.n, this.d)
     for (const f of fractions) {
@@ -249,6 +323,10 @@ function produitFractions (...fractions) { // retourne un résultat simplifié
     return s
   }
 FractionX.prototype.produitFractions = produitFractions
+
+/**
+ * @returns NaN si la Fraction n'est pas un nombre décimal sinon retourne une FractionX avec la bonne puissance de 10 au dénominateur
+ */
 function fractionDecimale()  {
     const den = this.simplifie().d
 const num = this.simplifie().n
@@ -267,6 +345,21 @@ if (n5 === n2) {
 }
 }
 FractionX.prototype.fractionDecimale = fractionDecimale
+
+/**
+ * 
+ * @param {number} x position du dessin
+ * @param {number} y 
+ * @param {number} rayon rayon du disque
+ * @param {number} depart numéro du secteur où commence le coloriage
+ * @param {string} type type parmis : 'gateau', 'segment' et 'barre'
+ * @param {string} couleur 
+ * @param {number} unite0 Nombre marquant le départ du segment
+ * @param {number} unite1 Nombre marquant le point unité du segment
+ * @param {number} scale échelle
+ * @param {string} label ce qu'il faut écrire sous le segment ... x ?
+ * @returns objets mathalea2d
+ */
 function representationIrred(x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = ''){
     let num, k, dep, s, a, O, C
     const objets = []
@@ -400,6 +493,22 @@ function representationIrred(x, y, rayon, depart = 0, type = 'gateau', couleur =
     return objets
   }
 FractionX.prototype.representationIrred = representationIrred
+
+
+  /**
+ * 
+ * @param {number} x position du dessin
+ * @param {number} y 
+ * @param {number} rayon rayon du disque
+ * @param {number} depart numéro du secteur où commence le coloriage
+ * @param {string} type type parmis : 'gateau', 'segment' et 'barre'
+ * @param {string} couleur 
+ * @param {number} unite0 Nombre marquant le départ du segment
+ * @param {number} unite1 Nombre marquant le point unité du segment
+ * @param {number} scale échelle
+ * @param {string} label ce qu'il faut écrire sous le segment ... x ?
+ * @returns objets mathalea2d
+ */
 function representation(x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '') {
     const objets = []
     let num, k, dep, s, a, O, C
