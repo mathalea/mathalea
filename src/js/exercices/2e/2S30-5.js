@@ -159,10 +159,6 @@ export default function CalculProbaExperience2Epreuves3e () {
 
     for (let i = 0, cpt = 0, question; i < this.nbQuestions && cpt < 50;) {
       // On choisit les probas de l'arbre
-      let f = fraction(-40,80)
-      console.log(f)
-      let f2 = f.toFraction()
-      console.log(f2)
       question = cas1(this, i, this.sup, this.sup2, this.sup3)
       if (this.questionJamaisPosee(i, ...question.alea)) {
         this.listeQuestions.push(question.texte)
