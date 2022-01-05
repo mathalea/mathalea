@@ -273,7 +273,7 @@ FractionX.prototype.entierMoinsFraction = entierMoinsFraction
  * @returns true si FractionX >= f
  */
 function superieurlarge (f) { return largerEq(this, f)}
-FractionX.prototype.superieurlarge = 
+FractionX.prototype.superieurlarge = superieurlarge
 
 /**
  * 
