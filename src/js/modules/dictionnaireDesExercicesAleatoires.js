@@ -1884,10 +1884,7 @@ export default {
   "2S10-1": {
     "titre": "Effectifs et proportions",
     "url": "/exercices/2e/2S10-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
+    "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "2S10-1",
@@ -9831,6 +9828,22 @@ export default {
     "name": "beta2F31",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta2S12-1-simple": {
+    "titre": "Evolutions successives simple",
+    "url": "/exercices/beta/beta2S12-1-simple.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta2S12-1-simple",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
