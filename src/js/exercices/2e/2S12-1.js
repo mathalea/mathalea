@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, texNombrec } from '../../modules/outils.js'
-export const titre = 'Evolutions successives'
+export const titre = 'Évolutions successives'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '20/12/2021'
