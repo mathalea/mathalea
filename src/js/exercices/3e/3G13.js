@@ -19,7 +19,7 @@ export default function calculsHomothetie () {
   this.consigne = ''
   this.nbQuestions = 8 // Nombre de questions par défaut
   this.nbCols = 0 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 0 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.correctionDetailleeDisponible = true
@@ -251,7 +251,7 @@ export default function calculsHomothetie () {
                 une transformation qui multiplie
                 toutes les longueurs par ${lopposede} son rapport.
                 <br>
-                Soit $${O}${hA}=${absk} \times ${O}${A}$.
+                Soit $${O}${hA}=${signek}k \times ${O}${A}$.
                 <br>
                 Donc $${O}${hA}= ${absk} \times ${OA} =  ${OhA}~\text{cm}$.
                 `
@@ -280,9 +280,9 @@ export default function calculsHomothetie () {
               une transformation qui multiplie
               toutes les longueurs par ${lopposede} son rapport.
               <br>
-              Soit $${O}${hA}=${absk} \times ${O}${A}$.
+              Soit $${O}${hA}=${signek}k \times  ${O}${A}$.
               <br>
-              Donc $${O}${A}=\dfrac{${O}${hA}}{${absk}}=\dfrac{${OhA}}{${absk}} ${OhAtimeskinverse} = ${OA}~\text{cm}$.
+              Donc $${O}${A}=\dfrac{${O}${hA}}{${signek}k}=\dfrac{${OhA}}{${absk}} ${OhAtimeskinverse} = ${OA}~\text{cm}$.
               `
           }
           break
@@ -325,7 +325,9 @@ export default function calculsHomothetie () {
                     est une transformation qui multiplie
                     toutes les longueurs par ${lopposede} son rapport.
                     <br>
-                    Soit $${O}${hB}= ${absk} \times ${OB} = ${OhB}~\text{cm}$.
+                    Soit $${O}${hB}= ${signek}k \times ${O}${B}$.
+                    <br>
+                    Donc $${O}${hB}= ${absk} \times ${OB} = ${OhB}~\text{cm}$.
                     `
           }
           break
@@ -367,9 +369,9 @@ export default function calculsHomothetie () {
                       une transformation qui multiplie
                       toutes les longueurs par ${lopposede} son rapport.
                       <br>
-                      Soit $${O}${hB}=${absk} \times ${O}${B}$.
+                      Soit $${O}${hB}=${signek}k \times ${O}${B}$.
                       <br>
-                      Donc $${O}${B}=\dfrac{${O}${hB}}{${absk}}=\dfrac{${OhB}}{${absk}} ${OhBtimeskinverse} = ${OB}~\text{cm}$.
+                      Donc $${O}${B}=\dfrac{${O}${hB}}{${signek}k}=\dfrac{${OhB}}{${absk}} ${OhBtimeskinverse} = ${OB}~\text{cm}$.
                       `
           }
           break
