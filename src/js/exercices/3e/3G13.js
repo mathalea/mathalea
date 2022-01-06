@@ -4,7 +4,8 @@ import { context } from '../../modules/context.js'
 import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes } from '../../modules/outils.js'
 import { fraction, abs, multiply, evaluate, divide, isInteger, pow, round, subtract, max } from 'mathjs'
 export const titre = 'Homothétie (calculs)'
-
+// eslint-disable-next-line no-debugger
+// debugger
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '28/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
@@ -137,9 +138,9 @@ export default function calculsHomothetie () {
       hAire = texNum(hAire)
       hAireArrondie = texNum(hAireArrondie)
       k = texNum(k, kEstEntier)
-      absk = texNum(absk, kEstEntier)
       kAire = texNum(kAire, kEstEntier)
-      const parentheseskAire = kEstEntier ? String.raw`\left(${kAire}\right)` : kAire
+      const parentheseskAire = (absk.d === 1 || this.sup3 === 1) && kpositif ? signek + kAire : String.raw`\left(${signek}${kAire}\right)`
+      absk = texNum(absk, kEstEntier)
       OA = texNum(OA)
       AhA = texNum(abs(AhA))
       OB = texNum(OB)
@@ -378,7 +379,7 @@ export default function calculsHomothetie () {
           texte = String.raw`
                 Une figure a pour aire $ {${Aire}\text{ cm}^2}$.
                 <br>
-                Calculer l'aire de son image par une homothétie de rapport $${kAire}$ (arrondir au $ {\text{mm}^2}$ près si besoin).
+                Calculer l'aire de son image par une homothétie de rapport $${signek}${kAire}$ (arrondir au $ {\text{mm}^2}$ près si besoin).
                 `
           texteCorr = String.raw`
                 $ {${parentheseskAire}^2 \times ${Aire} ${approx} ${hAireArrondie}~\text{cm}^2}$
@@ -395,7 +396,7 @@ export default function calculsHomothetie () {
           break
         case 'aireAntécédent':
           texte = String.raw`
-                  L'image d'une figure par une homothétie de rapport $${kAire}$ a pour aire $ {${hAire}\text{ cm}^2}$.
+                  L'image d'une figure par une homothétie de rapport $${signek}${kAire}$ a pour aire $ {${hAire}\text{ cm}^2}$.
                   <br>
                   Calculer l'aire de la figure de départ.
                   `
