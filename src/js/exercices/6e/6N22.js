@@ -48,7 +48,7 @@ export default function FractionsCalculsSimples () {
           f2 = new FractionEtendue(c, b)
           f3 = new FractionEtendue(a + c, b)
           texte = `$${f1.texFraction} + ${f2.texFraction}$`
-          texteCorr = `$${f1.texFraction} + ${f2.texFraction} = ${f3.texFraction} ${(f3.estEntiere()) ? `=${f3.texFractionSimplifiee}` : ''}$`
+          texteCorr = `$${f1.texFraction} + ${f2.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
           schema = fractionCliquable(0, 0, 4, b)
           if (this.sup && context.isHtml) texte += '<br`>' + mathalea2d({ scale: 0.5, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schema)
           schemaCorr = fractionCliquable(0, 0, quotientier(a + c, b) + 1, b, { cliquable: false, liste1: rangeMinMax(1, a), liste2: rangeMinMax(a + 1, a + c) })
@@ -62,7 +62,7 @@ export default function FractionsCalculsSimples () {
           f2 = new FractionEtendue(n * b, b)
           f3 = new FractionEtendue(n * b + a, b)
           texte = `$${n} + ${f1.texFraction}$`
-          texteCorr = `$${n} + ${f1.texFraction} = ${f2.texFraction} + ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere()) ? `=${f3.texFractionSimplifiee}` : ''}$`
+          texteCorr = `$${n} + ${f1.texFraction} = ${f2.texFraction} + ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
           schema = fractionCliquable(0, 0, 4, b)
           schemaCorr = fractionCliquable(0, 0, quotientier(n * b + a, b) + 1, b, { cliquable: false, liste1: rangeMinMax(1, n * b), liste2: rangeMinMax(n * b + 1, n * b + a) })
           if (this.sup && context.isHtml) texte += '<br`>' + mathalea2d({ scale: 0.5, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schema)
@@ -75,7 +75,7 @@ export default function FractionsCalculsSimples () {
           f1 = new FractionEtendue(a, b)
           f3 = new FractionEtendue(n * a, b)
           texte = `$${n} \\times ${f1.texFraction}$`
-          texteCorr = `$${n} \\times ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere()) ? `=${f3.texFractionSimplifiee}` : ''}$`
+          texteCorr = `$${n} \\times ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
           texteCorr += '<br>'
           if (this.correctionDetaillee) {
             // Liste pour alterner les couleurs
@@ -99,7 +99,7 @@ export default function FractionsCalculsSimples () {
           f2 = new FractionEtendue(n * b, b)
           f3 = new FractionEtendue(n * b - a, b)
           texte = `$${n} - ${f1.texFraction}$`
-          texteCorr = `$${n} - ${f1.texFraction} = ${f2.texFraction} - ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere()) ? `=${f3.texFractionSimplifiee}` : ''}$`
+          texteCorr = `$${n} - ${f1.texFraction} = ${f2.texFraction} - ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
           schemaCorr = fractionCliquable(0, 0, quotientier(n * b + a, b) + 1, b, { cliquable: false, liste2: rangeMinMax(1, n * b), hachures1: true, liste1: rangeMinMax(n * b - a + 1, n * b), couleur2: context.isHtml ? '#f15929' : 'gray' })
           schema = fractionCliquable(0, 0, 4, b)
           if (this.correctionDetaillee) texteCorr += '<br>' + mathalea2d({ scale: 0.5, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schemaCorr)

@@ -60,7 +60,7 @@ if (Object.getPrototypeOf(f).texFraction === undefined) {
   Fraction.prototype.entierDivise = function (n) { return fraction(this.n * this.s, n * this.d) }
   Fraction.prototype.ajouteEntier = function (n) { return fraction(this.n * this.s + n * this.d, n * this.d) }
   Fraction.prototype.entierMoinsFraction = function (n) { return fraction(n * this.d - this.n * this.signe, n * this.d) }
-  Fraction.prototype.superieurlarge = function (f) { return largerEq(this, f) }
+  Fraction.prototype.superieurLarge = function (f) { return largerEq(this, f) }
   Fraction.prototype.estUneSimplification = function (f) { return (equal(this, f) && abs(this.n) < abs(f.n)) }
   Fraction.prototype.sommeFraction = function (f) { return new Fraction(add(this, f)) }
   Fraction.prototype.sommeFractions = function (...fractions) { // retourne un résultat simplifié

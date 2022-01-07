@@ -87,8 +87,8 @@ export default function ProblemesAdditifsFractionsBis () {
         F1.n === F2.n ||
                 F1.n === F3.n ||
                 F2.n === F3.n ||
-                F1.superieurlarge(fraction(1, 2)) ||
-                F2.superieurlarge(fraction(1, 2))
+                F1.superieurLarge(fraction(1, 2)) ||
+                F2.superieurLarge(fraction(1, 2))
       ) {
         n1 = randint(1, 6)
         d1 = choice(denomsCool3)
@@ -289,9 +289,9 @@ export default function ProblemesAdditifsFractionsBis () {
                 F2.n === F3.n ||
                 F2.n === F4.n ||
                 F3.n === F4.n ||
-                F1.superieurlarge(fraction(1, 3)) ||
-                F2.superieurlarge(fraction(1, 3)) ||
-                F3.superieurlarge(fraction(1, 3))
+                F1.superieurLarge(fraction(1, 3)) ||
+                F2.superieurLarge(fraction(1, 3)) ||
+                F3.superieurLarge(fraction(1, 3))
       ) {
         n1 = randint(1, 5)
         d1 = choice(denomsCool4)

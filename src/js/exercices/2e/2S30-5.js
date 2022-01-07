@@ -157,6 +157,11 @@ export default function CalculProbaExperience2Epreuves3e () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
+    const f = new FractionX(-6, 12)
+    console.log('const f = new FractionX(-6, 12)')
+    console.log(f)
+    // eslint-disable-next-line no-debugger
+    debugger
     for (let i = 0, cpt = 0, question; i < this.nbQuestions && cpt < 50;) {
       // On choisit les probas de l'arbre
       question = cas1(this, i, this.sup, this.sup2, this.sup3)
