@@ -266,6 +266,7 @@ export default function ExerciceTrouverInverse () {
           couplesDInverses = choice(listeFractions)
           nombreInverseNum = couplesDInverses[0]
           nombreInverseDen = couplesDInverses[1]
+          nombreChoisi = nombreInverseNum / nombreInverseDen
           if (choice([true, false])) {
             setReponse(this, i, new Fraction(nombreInverseNum, nombreInverseDen), { formatInteractif: 'fractionEgale' })
             // fraction positive
@@ -347,7 +348,6 @@ export default function ExerciceTrouverInverse () {
               nombreInverseDen
             )}$ ?`
           }
-
           break
       }
 
@@ -364,6 +364,6 @@ export default function ExerciceTrouverInverse () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     4,
-    ' 1 : Nombres entiers\n 2 : Fractions\n 3 : Nombres décimaux\n 4 : Mélange'
+    ' 1 : Nombres entiers\n 2 : Nombres décimaux\n 3 : Fractions\n 4 : Mélange'
   ]
 }

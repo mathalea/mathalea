@@ -1,6 +1,5 @@
-import { multiply, inv, matrix } from 'mathjs'
-
-import { calcul, arrondi, ecritureAlgebrique, egal, randint } from './outils.js'
+import { number, add, unequal, largerEq, fraction, equal, multiply, inv, matrix, max } from 'mathjs'
+import { calcul, arrondi, ecritureAlgebrique, egal, randint, rienSi1, ecritureAlgebriqueSauf1, choice } from './outils.js'
 /**
 * Convertit un angle de radian vers degrés et fonction inverse
 * @Example
@@ -396,4 +395,130 @@ class SplineCatmullRom {
 
 export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 }) {
   return new SplineCatmullRom({ tabY: tabY, x0: x0, step: step })
+}
+
+/**
+* @param {boolean} rand Donner true si on veut un polynôme aléatoire
+* @param {number} deg à fournir >=0 en plus de rand === true pour fixer le degré
+* @param {Array} coeffs liste de coefficients par ordre de degré croissant OU liste de couples [valeurMax, relatif?]
+* @author Jean-Léon Henry, Jean-Claude Lhote
+* @example Polynome({ coeffs:[0, 2, 3] }) donne 3x²+2x
+* @example Polynome({ rand:true, deg:3 }) donne un ax³+bx²+cx+d à coefficients entiers dans [-10;10]\{0}
+* @example Polynome({ rand:true, coeffs:[[10, true], [0], [5, false]] }) donne un ax²+b avec a∈[1;5] et b∈[-10;10]\{0}
+* Les monomes sont maintenant stockés sous forme de fractions (même pour les entiers)
+*/
+export class Polynome {
+  constructor ({ rand = false, deg = -1, coeffs = [[10, true], [10, true]] }) {
+    if (rand) {
+      if (largerEq(deg, 0)) {
+        // on construit coeffs indépendamment de la valeur fournie
+        coeffs = new Array(deg + 1)
+        coeffs.fill([10, true])
+      }
+      // Création de this.monomes
+      this.monomes = coeffs.map(function (el, i) {
+        if (equal(el[0], 0)) { return fraction(0) } else { return el[1] ? fraction(choice([-1, 1]) * randint(1, number(el[0]))) : fraction(randint(1, number(el[0]))) }
+      })
+    } else {
+      // les coeffs sont fourni
+      this.monomes = coeffs.map(function (el, i) {
+        return fraction(el)
+      })
+    }
+    this.deg = this.monomes.length - 1
+  }
+
+  isMon () { return this.monomes.filter(el => unequal(el, 0)).length === 1 }
+
+  /**
+  * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
+  * @returns {string} expression mathématique
+  */
+  toMathExpr (alg = false) {
+    let res = ''
+    let maj = ''
+    for (const [i, c] of this.monomes.entries()) {
+      switch (i) {
+        case this.deg: {
+          const coeffD = alg ? ecritureAlgebriqueSauf1(fraction(c)) : this.deg === 0 ? toDfrac(fraction(c)) : rienSi1(fraction(c))
+          switch (this.deg) {
+            case 1:
+              maj = equal(c, 0) ? '' : `${coeffD}x`
+              break
+            case 0:
+              maj = equal(c, 0) ? '' : `${coeffD}`
+              break
+            default:
+              maj = equal(c, 0) ? '' : `${coeffD}x^${i}`
+          }
+          break
+        }
+        case 0:
+          maj = equal(c, 0) ? '' : ecritureAlgebrique(fraction(c))
+          break
+        case 1:
+          maj = equal(c, 0) ? '' : `${ecritureAlgebriqueSauf1(fraction(c))}x`
+          break
+        default:
+          maj = equal(c, 0) ? '' : `${ecritureAlgebriqueSauf1(fraction(c))}x^${i}`
+          break
+      }
+      res = maj + res
+    }
+    return res
+  }
+
+  /**
+  * Addition de deux Polynome
+  * @param {Polynome} p
+  * @returns {Polynome} this+p
+  */
+  add (p) {
+    const degSomme = max(this.deg, p.deg)
+    const pInf = equal(p.deg, degSomme) ? this : p
+    const pSup = equal(p.deg, degSomme) ? p : this
+    const coeffSomme = pSup.monomes.map(function (el, index) { return index <= pInf.deg ? fraction(add(el, pInf.monomes[index])) : fraction(el) })
+    return new Polynome({ coeffs: coeffSomme })
+  }
+
+  /**
+ *
+ * @param {number} k nombre ou fraction
+ * Exemple : poly = poly.multiply(fraction(1,3)) divise tous les coefficients de poly par 3.
+ * @returns k fois this
+ */
+  multiply (k) {
+    const coeffs = this.monomes.map(function (el, i) { return fraction(multiply(el, k)) })
+    return new Polynome({ rand: false, coeffs: coeffs })
+  }
+
+  /**
+  * Retourne la dérivée
+  * @returns {Polynome} dérivée de this
+  */
+  derivee () {
+    const coeffDerivee = this.monomes.map(function (el, i) { return fraction(multiply(i, el)) })
+    coeffDerivee.shift()
+    return new Polynome({ coeffs: coeffDerivee })
+  }
+
+  /**
+  * Appelle toMathExpr
+  * @param {Array} coeffs coefficients du polynôme par ordre de degré croissant
+  * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
+  * @returns {string} expression du polynome
+  */
+  static print (coeffs, alg = false) {
+    const p = new Polynome({ coeffs })
+    return p.toMathExpr(alg)
+  }
+}
+/**
+ *
+ * @param {fraction} f f peut être un nombre, il sera converti en fraction
+ * Fraction.toLatex() produit des \frac, la fonction toDfrac() les remplace par des \dfrac
+ * @returns
+ */
+export function toDfrac (f) {
+  return fraction(f).toLatex().replaceAll('\\frac', '\\dfrac')
 }

@@ -161,8 +161,8 @@ export default function DeterminerFonctionAffine () {
             tB = tracePoint(point(x2, y2))
             tA.color = 'red'
             tB.color = 'red'
-            a = calcule(a.num / a.den)
-            b = calcule(b.num / b.den)
+            a = calcule(a.n / a.d)
+            b = calcule(b.n / b.d)
             repere = repere2({ xMin: -5, yMin: Math.round(Math.min(-5 * a + b, 5 * a + b)), xMax: 5, yMax: Math.round(Math.max(-5 * a + b, 5 * a + b)) })
             texteCorr += `<br><br>${mathalea2d({ xmin: -5, ymin: Math.round(Math.min(-5 * a + b, 5 * a + b)), xmax: 5, ymax: Math.round(Math.max(-5 * a + b, 5 * a + b)), pixelsParCm: 20, scale: 0.7 }, repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }), tA, tB)}`
           }

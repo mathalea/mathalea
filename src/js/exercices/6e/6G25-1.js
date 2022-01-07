@@ -334,8 +334,8 @@ export default function SymetrieAxialePavageTriangulaire () {
       }
     }
     for (let i = 0; i < triAngles.length; i++) {
-      triAngles[i].num = texteParPointEchelle(stringNombre(i), triAngles[i].gra, 'milieu', 'black', 0.5)
-      objetsEnonce.push(triAngles[i].tri, triAngles[i].num)
+      triAngles[i].n = texteParPointEchelle(stringNombre(i), triAngles[i].gra, 'milieu', 'black', 0.5)
+      objetsEnonce.push(triAngles[i].tri, triAngles[i].n)
     }
     paramsEnonce = { xmin: 0, ymin: -0.1, xmax: 15, ymax: 10, pixelsParCm: 30 * scaleFigure, scale: scaleFigure, mainlevee: false }
     if (parseInt(this.sup) === 1) {

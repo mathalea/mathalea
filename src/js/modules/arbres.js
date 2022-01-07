@@ -1,5 +1,10 @@
-import { number, fraction, multiply } from 'mathjs'
+import { add, number, fraction, multiply } from 'mathjs'
+import { barycentre, latexParPoint, milieu, point, polygone, segment } from './2d'
+import { arrondi, calcul } from './outils'
 
+export function texProba (proba, rationnel, precision) {
+  return rationnel ? fraction(proba).toLatex().replace('frac', 'dfrac') : number(arrondi(proba, precision)).toString().replace('.', '{,}')
+}
 /**
  * classe pour faire des arbres de probabilités
  * @author Jean-Claude Lhote
@@ -11,12 +16,16 @@ import { number, fraction, multiply } from 'mathjs'
  * Exemple: const pin = new Arbre(null, 'pin', 1) (c'est une forêt de pins)
  */
 export class Arbre {
-  constructor (parent, nom, proba, rationnel = true) {
-    this.parent = parent
-    this.enfants = []
-    this.nom = nom
-    this.rationnel = rationnel
-    this.proba = rationnel ? fraction(proba) : number(proba)
+  constructor ({ nom, proba, enfants, rationnel, visible, alter, racine } = {}) {
+    this.racine = racine !== undefined ? Boolean(racine) : false
+    this.enfants = enfants !== undefined ? Array(...enfants) : []
+    this.nom = nom !== undefined ? String(nom) : ''
+    this.rationnel = rationnel !== undefined ? Boolean(rationnel) : true
+    this.proba = proba !== undefined ? (rationnel ? fraction(proba) : number(proba)) : 0
+    this.visible = visible !== undefined ? visible : true
+    this.alter = alter !== undefined ? String(alter) : ''
+    this.taille = 0
+    this.pos = 0
   }
 
   // questionnement : est-ce qu'on vérifie à chaque ajout que la somme des probabilités ne dépasse pas 1 ?
@@ -39,27 +48,14 @@ export class Arbre {
    * Exemple : const unArbre = pin.getFils('sylvestre')
    */
   getFils (nom) {
-    let monArbre
+    const monArbre = []
     for (const arbre of this.enfants) {
-      if (arbre.nom === nom) return arbre
+      if (arbre.nom === nom) return [arbre]
       else {
-        monArbre = arbre.getFils(nom)
-        if (monArbre) return monArbre
+        monArbre.push(...arbre.getFils(nom))
       }
     }
-    return false
-  }
-
-  /**
- * @param {String} nom Le nom de l'Arbre recherché dans les fils
- * @returns La probabilité du fils pour le père.
- * Exemple : const p = Pin.getFilsProba('sylvestre') // ->  0.8
- * contrairement à la méthode getProba() celle-ci ne va pas plus loin que les fils direct.
- * Pour chercher dans la descendance complète il faudra utiliser getProba().
- */
-  getFilsProba (nom) {
-    const arbre = this.getFils(nom)
-    return arbre ? arbre.proba : undefined
+    return monArbre
   }
 
   // est-ce qu'on vérifie si la somme des probabilités ne dépasse pas 1 ?
@@ -91,33 +87,29 @@ export class Arbre {
    * alors pin.getProba('malade')===0.4 et sylvestre.getProba('malade')===0.4 aussi ! par contre
    * sylvestre.getProba('malade', 1)= 0.5
    */
-  getProba (nom, proba, rationnel) {
-    if (proba === undefined) {
-      if (rationnel || this.rationnel) {
-        proba = fraction(this.proba)
-      } else {
-        proba = number(this.proba)
+  getProba (nom, rationnel) {
+    let p = rationnel ? fraction(0, 1) : 0
+    let probaArbre = rationnel ? fraction(0, 1) : 0
+    if (this.nom === nom) return (rationnel || this.rationnel) ? fraction(this.proba) : number(this.proba)
+    else {
+      for (const arbre of this.enfants) {
+        if (arbre.nom === nom) p = add(p, (rationnel || this.rationnel) ? fraction(arbre.proba) : number(arbre.proba))
+        else {
+          if (rationnel) {
+            probaArbre = add(fraction(probaArbre), multiply(fraction(arbre.proba), fraction(arbre.getProba(nom, true))))
+          } else {
+            probaArbre = number(probaArbre) + number(multiply(arbre.proba, number(arbre.getProba(nom, false))))
+          }
+        }
       }
-    } else {
-      if (rationnel || this.rationnel) {
-        proba = fraction(proba)
-      } else {
-        proba = number(proba)
-      }
+      p = add(p, (rationnel || this.rationnel) ? fraction(probaArbre) : number(probaArbre))
     }
-    let probaArbre
-    for (const arbre of this.enfants) {
-      if (arbre.nom === nom) return (rationnel || this.rationnel) ? fraction(multiply(proba, arbre.proba)) : number(multiply(proba, arbre.proba))
-      else {
-        probaArbre = arbre.getProba(nom)
-        if (probaArbre !== undefined) return (rationnel || this.rationnel) ? fraction(multiply(probaArbre, proba)) : number(multiply(probaArbre, proba))
-      }
-    }
-    return undefined
+    return rationnel ? fraction(p) : number(p)
   }
 
+  // méthode pour compter les descendants de l'arbre (le nombre de feuilles terminales).
   branches () {
-    let nbBranches = 1
+    let nbBranches = 0
     if (this.enfants.length === 0) return 1
     else {
       for (const enfant of this.enfants) {
@@ -125,5 +117,71 @@ export class Arbre {
       }
     }
     return nbBranches
+  }
+
+  // Methode à appeler avant de représenter l'arbre car elle va récursivement définir toutes les tailles...
+  setTailles () {
+    try {
+      this.taille = this.branches()
+      for (const arbre of this.enfants) {
+        arbre.setTailles()
+      }
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+    return true
+  }
+
+  /**
+   * xOrigine et yOrigine définissent le point de référence de l'arbre... c'est un angle du cadre dans lequel l'arbre est construit par la position de la racine
+   * decalage vaut 0 lors de l'appel initial... cette valeur est modifiée pendant le parcours de l'arbre.
+   * echelle est à fixé à 3 si on utilise des fractions et peut être déscendu à 2 si on utilise des nombres décimaux... echelle peut être décimal.
+   * vertical est un booléen. Si true, alors l'arbre sera construit de bas en haut ou de haut en bas, sinon, il sera construit de gauche à droite ou de droite à gauche.
+   * sens indique la direction de pousse : 1 positif, -1 négatif.
+   */
+  represente (xOrigine = 0, yOrigine = 0, decalage = 0, echelle = 1, vertical = false, sens = -1) {
+    const objets = []
+    const A = point(vertical
+      ? xOrigine
+      : xOrigine + decalage + this.taille * echelle / 2
+    , vertical
+      ? yOrigine + decalage - this.taille * echelle / 2
+      : yOrigine
+    , '', 'center')
+    const B = point(vertical
+      ? xOrigine - sens * 5
+      : xOrigine
+    , vertical
+      ? yOrigine
+      : yOrigine - sens * 5
+    )
+    const labelA = latexParPoint(this.nom, A, 'black', 8 * this.nom.length, 20, 'white', 10)
+    const positionProba = vertical ? barycentre(polygone(A, A, A, B, B), '', 'center') : milieu(A, B, '', 'center') // Proba au 2/5 de [AB] en partant de A.
+    const probaA = this.visible
+      ? latexParPoint(texProba(this.proba, this.rationnel, 2), positionProba, 'black', 20, 24, 'white', 8)
+      : latexParPoint(this.alter, positionProba, 'black', 20, 24, 'white', 8)
+    if (this.enfants.length === 0) {
+      return [segment(B, A), labelA, probaA]
+    } else {
+      for (let i = 0; i < this.enfants.length; i++) {
+        objets.push(...this.enfants[i].represente(vertical
+          ? xOrigine + sens * 5
+          : xOrigine + decalage + this.taille * echelle / 2
+        , vertical
+          ? yOrigine + decalage - this.taille * echelle / 2
+          : yOrigine + sens * 5
+        , vertical
+          ? calcul(echelle * ((this.enfants.length / 2 - i) * this.enfants[i].taille))
+          : calcul(echelle * ((i - this.enfants.length / 2) * this.enfants[i].taille)),
+        echelle, vertical, sens))
+      }
+      if (this.racine) {
+        objets.push(labelA)
+      } else {
+        objets.push(segment(B, A), labelA, probaA)
+      }
+    }
+    return objets
   }
 }

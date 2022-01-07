@@ -82,9 +82,9 @@ export default function EquationsProduitsNuls2 () {
           }
           texteCorr += `$\\iff x=${f3.texFractionSimplifiee}$ ou $ x=${f4.texFractionSimplifiee}$<br>
                      On en déduit :  `
-          if (f3.differenceFraction(f4).signe > 0) {
+          if (f3.differenceFraction(f4).s > 0) {
             texteCorr += `$S=\\left\\{${f4.texFractionSimplifiee};${f3.texFractionSimplifiee}\\right\\}$`
-          } else if (f3.differenceFraction(f4).signe < 0) {
+          } else if (f3.differenceFraction(f4).s < 0) {
             texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}\\right\\}$`
           } else texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee}\\right\\}$`
           break
@@ -108,9 +108,9 @@ export default function EquationsProduitsNuls2 () {
           }
           texteCorr += `$\\iff x=${f3.texFractionSimplifiee}$ ou $ x=${f4.texFractionSimplifiee}$<br>
                          On en déduit :  `
-          if (f3.differenceFraction(f4).signe > 0) {
+          if (f3.differenceFraction(f4).s > 0) {
             texteCorr += `$S=\\left\\{${f4.texFractionSimplifiee};${f3.texFractionSimplifiee}\\right\\}$`
-          } else if (f3.differenceFraction(f4).signe < 0) {
+          } else if (f3.differenceFraction(f4).s < 0) {
             texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}\\right\\}$`
           } else texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee}\\right\\}$`
           break

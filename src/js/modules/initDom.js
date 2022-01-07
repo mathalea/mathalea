@@ -211,6 +211,20 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     if (vue === 'diapCorr') await addFetchHtmlToParent('templates/boutonsZoom.html', section)
     addElement(section, 'div', { id: 'containerErreur' })
+    if (vue === 'exMoodle') {
+      const divMessage = addElement(section, 'div')
+      divMessage.innerHTML = `<div class="ui icon message">
+      <i class="exclamation triangle icon"></i>
+      <div class="content">
+        <div class="header">
+          Cliquer sur « Vérifier les réponses » avant de terminer le test.
+        </div>
+        
+      </div>
+    </div>`
+      divMessage.style.marginBottom = '30px'
+      divMessage.style.marginTop = '30px'
+    }
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
     const accordions = document.getElementsByClassName('ui fluid accordion')
     for (const accordion of accordions) {
@@ -349,7 +363,7 @@ export async function initDom () {
       for (const ol of ols) {
         setStyles(ol, 'padding:0;')
       }
-      window.parent.postMessage({ url: window.location.href, graine: context.graine }, '*')
+      window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
     })
     // On récupère tous les paramètres de chaque exos dans un tableau d'objets
     const paramsAllExos = Object.entries(getUrlVars())
@@ -448,6 +462,8 @@ export async function initDom () {
         gestionTimer(divTimer)
       }
       document.querySelector('button[data-num="1"]').classList.add('blue')
+      window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
+      document.getElementById('corrections').style.display = 'none'
     })
     document.getElementById('btnCorrection').addEventListener('click', () => {
       document.getElementById('corrections').style.display = 'block'

@@ -8,9 +8,40 @@ export const titre = 'Calculs de probabilités'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '12/12/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
+function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = undefined, rymax = undefined, rzoom = 1 } = {}) {
+  rxmin = rxmin !== undefined ? rxmin : -1
+  rymin = rymin !== undefined ? rymin : -1
+  rxmax = rxmax !== undefined ? rxmax : 1
+  rymax = rymax !== undefined ? rymax : 1
+  let xmin = 0; let ymin = 0; let xmax = 0; let ymax = 0
+  for (const objet of objets) {
+    xmin = Math.min(xmin, objet.x + rxmin || 0)
+    xmax = Math.max(xmax, objet.x + rxmax || 0)
+    ymin = Math.min(ymin, objet.y + rymin || 0)
+    ymax = Math.max(ymax, objet.y + rymax || 0)
+    if (typeof objet.bordure !== 'undefined') {
+      if (typeof objet.bordure[Symbol.iterator] === 'function') {
+        for (const obj of objet.bordure) {
+          xmin = Math.min(xmin, obj.x + rxmin || 0)
+          xmax = Math.max(xmax, obj.x + rxmax || 0)
+          ymin = Math.min(ymin, obj.y + rymin || 0)
+          ymax = Math.max(ymax, obj.y + rymax || 0)
+        }
+      } else {
+        xmin = Math.min(xmin, objet.bordure.x + rxmin || 0)
+        xmax = Math.max(xmax, objet.bordure.x + rxmax || 0)
+        ymin = Math.min(ymin, objet.bordure.y + rymin || 0)
+        ymax = Math.max(ymax, objet.bordure.y + rymax || 0)
+      }
+    }
+  }
+  return { xmin: xmin * rzoom, xmax: xmax * rzoom, ymin: ymin * rzoom, ymax: ymax * rzoom }
+}
+
 function TraceBarre (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
   ObjetMathalea2D.call(this)
   this.bordure = [point(x - epaisseur / 2, 0), point(x - epaisseur / 2, y * unite), point(x + epaisseur / 2, y * unite), point(x + epaisseur / 2, 0)]
+  this.bordures = [x - epaisseur / 2, 0, x + epaisseur / 2, y * unite]
   const p = polygone(...this.bordure)
   p.couleurDeRemplissage = couleurDeRemplissage
   p.opaciteDeRemplissage = opaciteDeRemplissage
@@ -44,7 +75,7 @@ function fraction2Tex (fraction) {
   const signe = fraction.s === 1 ? '' : '-'
   return fraction.d !== 1 ? String.raw`${signe}\dfrac{${num(fraction.n)}}{${num(fraction.d)}}` : String.raw`${signe}${num(fraction.n)}`
 }
-
+/*
 function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = undefined, rymax = undefined, rzoom = 1 } = {}) {
   rxmin = rxmin !== undefined ? rxmin : -1
   rymin = rymin !== undefined ? rymin : -1
@@ -74,7 +105,7 @@ function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = u
   }
   return { xmin: xmin * rzoom, xmax: xmax * rzoom, ymin: ymin * rzoom, ymax: ymax * rzoom }
 }
-
+*/
 function Axes (
   xmin = -30,
   ymin = -30,
@@ -781,8 +812,8 @@ export default function CalculsProbabilites () {
   this.video = ''
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
-  context.isHtml ? (this.spacing = 2.5) : (this.spacing = 1.5)
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+  context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
+  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
   this.sup = 0 // Type d'exercice
   this.besoinFormulaireNumerique = [
     'Type de question', 9, [

@@ -40,7 +40,7 @@ export default function variationPolynomeDegre3 () {
     // Pour plus d'info sur le codage des variations, voir ce tuto : https://zestedesavoir.com/tutoriels/439/des-tableaux-de-variations-et-de-signes-avec-latex/
     // reste à faire les types 'Ima', 'Val' et 'Slope"
 
-    let a; let b; let c; let a1; let b1; let c1; let xx; let xxs; let rac = []; let t; let x1s; let fx1s; let x3s; let x2s
+    let a; let b; let c; let a1; let b1; let c1; let xx; let xxs; let rac = []; let tableau; let x1s; let fx1s; let x3s; let x2s
     let delta, x1, x2, x3, X1, X3, XXs, minima, mafonction, maderivee, MaFonction, solutions
     let YMAXI, YMINI, XMINI, XMAXI, texte, scalex, scaley
     const coefF = this.sup.split('/')
@@ -95,7 +95,7 @@ export default function variationPolynomeDegre3 () {
         if (maderivee(-b / 3 / a) > 0) { // la dérivée croit jusqu'à un maximum >0 , il y a deux zéros donc négatif-positif-négatif
           rac = trouverLesRacines(a1, b1, c1)
           if (this.sup3) {
-            t = tableauDeVariation({
+            tableau = tableauDeVariation({
               colorBackground: 'white',
               escpl: 5,
               delatcl: 0.8,
@@ -109,7 +109,7 @@ export default function variationPolynomeDegre3 () {
               ]
             })
           } else {
-            t = tableauDeVariation({
+            tableau = tableauDeVariation({
               colorBackground: 'white',
               escpl: 5,
               delatcl: 0.8,
@@ -152,7 +152,7 @@ export default function variationPolynomeDegre3 () {
           tangente.color = 'red'
           vecteurs.push(tangente)
         } else { //  la dérivée croit jusqu'à un maximum <0 , il n'y a pas de zéro donc négatif sur tout l'interval
-          t = tableauDeVariation({
+          tableau = tableauDeVariation({
             colorBackground: 'white',
             escpl: 5,
             delatcl: 0.8,
@@ -182,7 +182,7 @@ export default function variationPolynomeDegre3 () {
         }
       } else {
         if (maderivee(-b / 3 / a) > 0) { //  la dérivée décroit jusqu'à un minimum >0 , il n'y a pas de zéro donc positif sur tout l'interval
-          t = tableauDeVariation({
+          tableau = tableauDeVariation({
             colorBackground: 'white',
             escpl: 3.5,
             deltacl: 0.6,
@@ -212,7 +212,7 @@ export default function variationPolynomeDegre3 () {
         } else { // la dérivée décroit jusqu'à un minimum <0 , il y a deux zéros donc positif-négatif-positif
           rac = trouverLesRacines(a1, b1, c1)
           if (this.sup3) {
-            t = tableauDeVariation({
+            tableau = tableauDeVariation({
               colorBackground: 'white',
               escpl: 3.5,
               delatcl: 0.8,
@@ -225,7 +225,7 @@ export default function variationPolynomeDegre3 () {
               ]
             })
           } else {
-            t = tableauDeVariation({
+            tableau = tableauDeVariation({
               colorBackground: 'white',
               escpl: 3.5,
               delatcl: 0.8,
@@ -268,8 +268,6 @@ export default function variationPolynomeDegre3 () {
           vecteurs.push(tangente)
         }
       }
-      // Attention : pixelsParCm n'influe pas sur le latexParCoordonnees, il faudra laisser 30 !
-      // Sinon, le tableau sera réduit mais pas le texte à l'intérieur.
     } else if (b !== 0) { // degré 2
       a = b
       b = c
@@ -290,7 +288,7 @@ export default function variationPolynomeDegre3 () {
       if (a > 0) {
         if (minima < 0) { // f(x)=0 a deux solutions
           rac = trouverLesRacines(a, b, c)
-          t = tableauDeVariation({
+          tableau = tableauDeVariation({
             colorBackground: 'white',
             escpl: 3.5,
             delatcl: 0.8,
@@ -319,7 +317,7 @@ export default function variationPolynomeDegre3 () {
           tangente.color = 'blue'
           vecteurs.push(tangente)
         } else if (minima > 0) { // f(x)=0 n'a pas de solution f(x)>0 pour tout x
-          t = tableauDeVariation({
+          tableau = tableauDeVariation({
             colorBackground: 'white',
             escpl: 3.5,
             delatcl: 0.8,
@@ -346,7 +344,7 @@ export default function variationPolynomeDegre3 () {
           tangente.color = 'blue'
           vecteurs.push(tangente)
         } else { // f(x)=0 a une solution unique : minima=0
-          t = tableauDeVariation({
+          tableau = tableauDeVariation({
             colorBackground: 'white',
             escpl: 3.5,
             delatcl: 0.8,
@@ -376,7 +374,7 @@ export default function variationPolynomeDegre3 () {
       } else { // a<0
         if (minima > 0) { // f(x)=0 a deux solutions
           rac = trouverLesRacines(a, b, c)
-          t = tableauDeVariation({
+          tableau = tableauDeVariation({
             colorBackground: 'white',
             escpl: 3.5,
             delatcl: 0.8,
@@ -405,7 +403,7 @@ export default function variationPolynomeDegre3 () {
           tangente.color = 'blue'
           vecteurs.push(tangente)
         } else if (minima < 0) { // f(x)=0 n'a pas de solution f(x)<0 pour tout x
-          t = tableauDeVariation({
+          tableau = tableauDeVariation({
             colorBackground: 'white',
             escpl: 3.5,
             delatcl: 0.8,
@@ -432,7 +430,7 @@ export default function variationPolynomeDegre3 () {
           tangente.color = 'blue'
           vecteurs.push(tangente)
         } else { // f(x)=0 a une solution unique : minima=0 désigne ici un maximum
-          t = tableauDeVariation({
+          tableau = tableauDeVariation({
             colorBackground: 'white',
             escpl: 3.5,
             delatcl: 0.8,
@@ -465,7 +463,7 @@ export default function variationPolynomeDegre3 () {
       maderivee = () => c
       x2 = -d / c
       if (c > 0) { // croissante
-        t = tableauDeVariation({
+        tableau = tableauDeVariation({
           colorBackground: 'white',
           escpl: 3.5,
           delatcl: 0.8,
@@ -484,7 +482,7 @@ export default function variationPolynomeDegre3 () {
         YMINI = Math.round(mafonction(x2)) - 4
         YMAXI = Math.round(mafonction(x2)) + 4
       } else { // décroissante
-        t = tableauDeVariation({
+        tableau = tableauDeVariation({
           colorBackground: 'white',
           escpl: 3.5,
           delatcl: 0.8,
@@ -507,7 +505,7 @@ export default function variationPolynomeDegre3 () {
       mafonction = () => d
       maderivee = () => 0
 
-      t = tableauDeVariation({
+      tableau = tableauDeVariation({
         colorBackground: 'white',
         escpl: 3.5,
         delatcl: 0.8,
@@ -543,7 +541,7 @@ export default function variationPolynomeDegre3 () {
     const macourbe = courbe2(mafonction, { repere: monrepere, step: 0.1, epaisseur: 1 })
     texte = 'Étude des variations de la fonction $f(x)='
     texte += `${printlatex(fxstring)}$.<br>`
-    texte += mathalea2d({ xmin: 0, ymin: -8, xmax: 21, ymax: 1, pixelsParCm: 30 }, t)
+    texte += mathalea2d({ xmin: 0, ymin: -8, xmax: 21, ymax: 1, pixelsParCm: 30 }, tableau)
     if (this.sup2) {
       texte += '<br>' + mathalea2d({ xmin: (XMINI - 1) * scalex, ymin: (YMINI - 1) * scaley, xmax: (XMAXI + 2) * scalex, ymax: (YMAXI + 1) * scaley, pixelsParCm: 30 }, macourbe, monrepere, vecteurs) + '<br>'
       solutions = xcas('fsolve(' + fxstring + '=0,x)').replace('[', '').replace(']', '').split(',')

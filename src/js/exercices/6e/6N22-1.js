@@ -57,9 +57,9 @@ export default function RapportsSurUnSegment () {
       // Une fonction pour l'étape de simplification si rapport différent de 1
       function etapeSimp (n, m) {
         let sortie
-        const rapport = fraction(n, m).num / fraction(n, m).numIrred
+        const rapport = fraction(n, m).n / fraction(n, m).numIrred
         if (rapport !== 1) {
-          sortie = `\\dfrac{${fraction(n, m).numIrred} ${miseEnEvidence(`\\times ${fraction(n, m).num / fraction(n, m).numIrred}`)}}{${fraction(n, m).denIrred}${miseEnEvidence(`\\times ${fraction(n, m).num / fraction(n, m).numIrred}`)}}\\mathbf{=}${fraction(n, m).texFractionSimplifiee}`
+          sortie = `\\dfrac{${fraction(n, m).numIrred} ${miseEnEvidence(`\\times ${fraction(n, m).n / fraction(n, m).numIrred}`)}}{${fraction(n, m).denIrred}${miseEnEvidence(`\\times ${fraction(n, m).n / fraction(n, m).numIrred}`)}}\\mathbf{=}${fraction(n, m).texFractionSimplifiee}`
         } else {
           sortie = `${fraction(n, m).texFractionSimplifiee}`
         }
@@ -68,9 +68,9 @@ export default function RapportsSurUnSegment () {
 
       function Remarque (rapAlph, rapAlphI, n, m) {
         let sortie
-        const rapport = fraction(n, m).num / fraction(n, m).numIrred
+        const rapport = fraction(n, m).n / fraction(n, m).numIrred
         if (rapport !== 1) {
-          sortie = `Remarque : Nous verrons plus tard que $${rapAlph}=${etapeSimp(fraction(n, m).num, fraction(n, m).den)}$ et que $${rapAlphI}=${etapeSimp(fraction(m, n).num, fraction(m, n).den)}$<br>`
+          sortie = `Remarque : Nous verrons plus tard que $${rapAlph}=${etapeSimp(fraction(n, m).n, fraction(n, m).d)}$ et que $${rapAlphI}=${etapeSimp(fraction(m, n).n, fraction(m, n).d)}$<br>`
         } else {
           sortie = ''
         }

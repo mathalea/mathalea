@@ -86,7 +86,7 @@ export default function ConstruireMediatrices6e () {
     // On appelle la fonction fixBordures qui va déterminer la fenêtre Mathalea2d.
     // Ici, la cible était un objet centré sur (cible.x, cible.y) et de taille 4, on crée deux points en diagonale
     // afin qu'elle soit prise en compte dans son intégralité avec les entêtes de lignes et de colonnes.
-    const params = fixeBordures([A1, A2, B1, B2, point(cible.x - 2.5, cible.y - 2.5), point(cible.x + 2.5, cible.y + 2.5)])
+    const params = fixeBordures([nomA1, nomA2, nomB1, nomB2, point(cible.x - 2.5, cible.y - 2.5), point(cible.x + 2.5, cible.y + 2.5)])
     params.pixelsParCm = 20
     params.scale = 0.7
     objetsCorrection.push(texteParPoint('(d)', positionLabelDroite(medA, params), 'milieu', 'black', 1, 'middle', true))
