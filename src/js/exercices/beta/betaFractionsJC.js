@@ -38,7 +38,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     texte += `j'obtiens $${maFraction.texFractionSigneDevant}$ avec maFraction.texFractionSigneDevant<br>`
     texte += `j'obtiens $${maFraction.toLatex()}$ avec maFraction.toLatex() car mathjs utilise \\frac<br>`
     texte += `Voici maFraction.pourcentage : $${maFraction.pourcentage}$<br>`
-    texte += `Voici maFraction.texRacineCarree(true) : $${maFraction.texRacineCaree(true)}$<br>`
+    texte += `Voici maFraction.texRacineCarree(true) : $${maFraction.texRacineCarree(true)}$<br>`
     const f2 = multiply(maFraction, 32)
     texte += 'Je crée une nouvelle fraction f2 = multiply(maFraction, 32)<br>'
     texte += `Voici f2.texFraction : $${f2.texFraction}$ et voici f2.toLatex() : $${f2.toLatex()}$<br>`
@@ -51,7 +51,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     console.log(maFraction)
     console.log(maFraction.inverse())
     console.log(maFraction.simplifie())
-    console.log(maFraction.texRacineCaree(true))
+    console.log(maFraction.texRacineCarree(true))
     console.log(fraction(-5, 4))
     console.log(fraction(-2, -3))
     this.listeQuestions.push(texte)

@@ -84,9 +84,9 @@ export default function ProblemesAdditifsFractionsBis () {
       F2 = fraction(1, 2)
       F3 = fraction(1, 2)
       while (
-        F1.n === F2.n ||
-                F1.n === F3.n ||
-                F2.n === F3.n ||
+        F1.num === F2.num ||
+                F1.num === F3.num ||
+                F2.num === F3.num ||
                 F1.superieurLarge(fraction(1, 2)) ||
                 F2.superieurLarge(fraction(1, 2))
       ) {
@@ -154,21 +154,21 @@ export default function ProblemesAdditifsFractionsBis () {
       fracMemeDenom = enleveElementBis(listefrac.listeMemeDenominateur)
       fracMemeDenomRangees = enleveElementBis(listefrac.listeRangeeMemeDenominateur)
       fracRangees = enleveElementBis(listefrac.listeRangee)
-      denominateurCommun = listefrac.listeMemeDenominateur[0].d
+      denominateurCommun = listefrac.listeMemeDenominateur[0].den
       for (let i = 0; i < 2; i++) {
         pb3f[
           i
         ].correction = 'Il s\'agit d\'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>'
-        if (listefrac.liste[0].d === listefrac.liste[1].d) {
+        if (listefrac.liste[0].den === listefrac.liste[1].den) {
           pb3f[i].correction += 'Les fractions de l\'énoncé ont déjà le même dénominateur.<br>'
         } else {
           pb3f[i].correction += 'Réduisons les fractions de l\'énoncé au même dénominateur :  '
 
           pb3f[i].correction += `$${listefrac.liste[0].texFraction}$ `
-          if (listefrac.liste[0].d !== denominateurCommun) pb3f[i].correction += `$= ${listefrac.listeMemeDenominateur[0].texFraction}$ et `
+          if (listefrac.liste[0].den !== denominateurCommun) pb3f[i].correction += `$= ${listefrac.listeMemeDenominateur[0].texFraction}$ et `
           else pb3f[i].correction += ' et '
           pb3f[i].correction += `$${listefrac.liste[1].texFraction}$ `
-          if (listefrac.liste[1].d !== denominateurCommun) pb3f[i].correction += `$= ${listefrac.listeMemeDenominateur[1].texFraction}$.<br>`
+          if (listefrac.liste[1].den !== denominateurCommun) pb3f[i].correction += `$= ${listefrac.listeMemeDenominateur[1].texFraction}$.<br>`
           else pb3f[i].correction += '.<br>'
         }
       }
@@ -196,9 +196,9 @@ export default function ProblemesAdditifsFractionsBis () {
         ].correction += `${fraction(denominateurCommun, denominateurCommun).texFraction}-${listefrac.listeMemeDenominateur[0].texFraction}-${listefrac.listeMemeDenominateur[1].texFraction} = `
         pb3f[
           i
-        ].correction += `\\dfrac{${denominateurCommun}-${listefrac.listeMemeDenominateur[0].n}-${listefrac.listeMemeDenominateur[1].n}}{${denominateurCommun}} = `
-        pb3f[i].correction += `${fraction(denominateurCommun - listefrac.listeMemeDenominateur[0].n - listefrac.listeMemeDenominateur[1].n, denominateurCommun).texFraction}`
-        if (!(denominateurCommun === F3.d)) {
+        ].correction += `\\dfrac{${denominateurCommun}-${listefrac.listeMemeDenominateur[0].num}-${listefrac.listeMemeDenominateur[1].num}}{${denominateurCommun}} = `
+        pb3f[i].correction += `${fraction(denominateurCommun - listefrac.listeMemeDenominateur[0].num - listefrac.listeMemeDenominateur[1].num, denominateurCommun).texFraction}`
+        if (!(denominateurCommun === F3.den)) {
           pb3f[
             i
           ].correction += ` = ${pb3f[i].fractions[4].texFraction}$`
@@ -283,12 +283,12 @@ export default function ProblemesAdditifsFractionsBis () {
       F3 = fraction(1, 3)
       F4 = fraction(1, 3)
       while (
-        F1.n === F2.n ||
-                F1.n === F3.n ||
-                F1.n === F4.n ||
-                F2.n === F3.n ||
-                F2.n === F4.n ||
-                F3.n === F4.n ||
+        F1.num === F2.num ||
+                F1.num === F3.num ||
+                F1.num === F4.num ||
+                F2.num === F3.num ||
+                F2.num === F4.num ||
+                F3.num === F4.num ||
                 F1.superieurLarge(fraction(1, 3)) ||
                 F2.superieurLarge(fraction(1, 3)) ||
                 F3.superieurLarge(fraction(1, 3))
@@ -374,24 +374,24 @@ export default function ProblemesAdditifsFractionsBis () {
       fracMemeDenom = enleveElementBis(listefrac2.listeMemeDenominateur)
       fracMemeDenomRangees = enleveElementBis(listefrac2.listeRangeeMemeDenominateur)
       fracRangees = enleveElementBis(listefrac2.listeRangee)
-      denominateurCommun = listefrac2.listeMemeDenominateur[0].d
+      denominateurCommun = listefrac2.listeMemeDenominateur[0].den
       for (let i = 0; i < 3; i++) {
         pb4f[
           i
         ].correction = 'Il s\'agit d\'un problème additif. Il va être necessaire de réduire les fractions au même dénominateur pour les additionner, les soustraire ou les comparer.<br>'
 
-        if (listefrac2.liste[0].d === denominateurCommun && listefrac2.liste[1].d === denominateurCommun && listefrac2.liste[2].d === denominateurCommun) {
+        if (listefrac2.liste[0].den === denominateurCommun && listefrac2.liste[1].den === denominateurCommun && listefrac2.liste[2].den === denominateurCommun) {
           pb4f[i].correction += 'Les fractions de l\'énoncé ont déjà le même dénominateur.'
         } else {
           pb4f[i].correction += 'Réduisons les fractions de l\'énoncé au même dénominateur :  '
           pb4f[i].correction += `$${listefrac2.liste[0].texFraction}$ `
-          if (listefrac2.liste[0].d !== denominateurCommun) pb4f[i].correction += `$= ${listefrac2.listeMemeDenominateur[0].texFraction}$ ; `
+          if (listefrac2.liste[0].den !== denominateurCommun) pb4f[i].correction += `$= ${listefrac2.listeMemeDenominateur[0].texFraction}$ ; `
           else pb4f[i].correction += ' ; '
           pb4f[i].correction += `$${listefrac2.liste[1].texFraction}$ `
-          if (listefrac2.liste[1].d !== denominateurCommun) pb4f[i].correction += `$= ${listefrac2.listeMemeDenominateur[1].texFraction}$ et `
+          if (listefrac2.liste[1].den !== denominateurCommun) pb4f[i].correction += `$= ${listefrac2.listeMemeDenominateur[1].texFraction}$ et `
           else pb4f[i].correction += ' et '
           pb4f[i].correction += `$${listefrac2.liste[2].texFraction}$ `
-          if (listefrac2.liste[2].d !== denominateurCommun) pb4f[i].correction += `$= ${listefrac2.listeMemeDenominateur[2].texFraction}$.<br>`
+          if (listefrac2.liste[2].den !== denominateurCommun) pb4f[i].correction += `$= ${listefrac2.listeMemeDenominateur[2].texFraction}$.<br>`
           else pb4f[i].correction += '.<br>'
         }
       }
@@ -424,9 +424,9 @@ export default function ProblemesAdditifsFractionsBis () {
         ].correction += `\\dfrac{${denominateurCommun}}{${denominateurCommun}}-${fracMemeDenom[0].texFraction}-${fracMemeDenom[1].texFraction}-${fracMemeDenom[2].texFraction} = `
         pb4f[
           i
-        ].correction += `\\dfrac{${denominateurCommun}-${fracMemeDenom[0].n}-${fracMemeDenom[1].n}-${fracMemeDenom[2].n}}{${denominateurCommun}} = `
+        ].correction += `\\dfrac{${denominateurCommun}-${fracMemeDenom[0].num}-${fracMemeDenom[1].num}-${fracMemeDenom[2].num}}{${denominateurCommun}} = `
         pb4f[i].correction += `${fracMemeDenom[3].texFraction}`
-        if (fracMemeDenom[3].d !== pb4f[i].fractions[6].d) {
+        if (fracMemeDenom[3].den !== pb4f[i].fractions[6].den) {
           pb4f[
             i
           ].correction += ` = ${pb4f[i].fractions[6].texFraction}$`
