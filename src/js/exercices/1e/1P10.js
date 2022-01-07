@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, arrondi, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, listeTypeDeQuestions, typeQuestionsDisponibles, combinaisonListes, randint, texFraction, arrondi, calcul, contraindreValeur } from '../../modules/outils.js'
 import { latexParCoordonnees, mathalea2d, point, segment } from '../../modules/2d.js'
 import { number, fraction } from 'mathjs'
 export const titre = 'Probabilités conditionnelles'
@@ -38,9 +38,14 @@ export default function ProbabilitésConditionnelles () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let objets
-    const typeQuestionsDisponibles = ['sujetE3C1', 'sujetE3C1'] // On créé 3 types de questions
+    this.sup2 = contraindreValeur(1, 3, this.sup2, 3)
+    if (this.sup2 === 3) {
+      listeTypeDeQuestions = combinaisonListes(['sujetE3C1', 'sujetE3C2'], this.nbQuestions)
+    } else {
+      listeTypeDeQuestions = combinaisonListes([`sujetE3C${this.sup2}`], this.nbQuestions)
+    }
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    // const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, a, c, ec, ce, v, av, A, B, A1, A2, A3, A4, O, k1, k2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       objets = []
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
@@ -229,7 +234,7 @@ export default function ProbabilitésConditionnelles () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Type de questions ', 3, '1 : Sujet 1 issu E3C\n2 : Sujet 2 issu E3C\n3 : Mélange']
+  this.besoinFormulaire2Numerique = ['Choix d\'exercices : ', 3, '1 : Sujet 1 issu E3C\n2 : Sujet 2 issu E3C\n3 : Mélange']
 }
 
 // permet de repérer les points A et C sur la droite (AC)
