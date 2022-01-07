@@ -446,6 +446,7 @@ export default function ExerciceAdditionnerFractionProduit () {
             texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
           })
         }
+        if (context.isAmc) texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

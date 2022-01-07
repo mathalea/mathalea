@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, abs, pgcd, texFractionSigne, obtenirListeFractionsIrreductibles, texFraction } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Diviser des fractions'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
@@ -139,6 +140,7 @@ export default function ExerciceDiviserFractions () {
       reponse = fraction((signe === '-' ? -1 : 1) * a * d, b * c).simplifie()
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        if (context.isAmc) texte = 'calculer et donner le résultat sous forme irréductible\\\\\n' + texte
         setReponse(this, i, reponse, { formatInteractif: 'fraction', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
