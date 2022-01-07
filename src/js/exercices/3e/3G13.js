@@ -524,7 +524,7 @@ export default function calculsHomothetie () {
                       de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
                       <br>
                       ${illustrerParUneFigureAMainLevee}
-                      Calculer le rapport $k$ de cette homothétie ${figurealechelle}.
+                      Sans effectuer de calculs, encadrer $k$ le plus précisément possible ${figurealechelle}.
                       ${frapport2.enonce}
                       `
           texteCorr = String.raw`
