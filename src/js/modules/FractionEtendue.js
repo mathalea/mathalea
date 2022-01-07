@@ -300,7 +300,7 @@ FractionX.prototype.superieurLarge = superieurLarge
  * @param {FractionX} f
  * @returns true si FractionX = f et FractionX est plus réduite que f
  */
-function estUneSimplification (f) { return (equal(fraction(this), f) && abs(this.n) < abs(f.n)) }
+function estUneSimplification (f) { return (equal(this, f) && abs(this.num) < abs(f.num)) }
 FractionX.prototype.estUneSimplification = estUneSimplification
 
 /**
@@ -326,7 +326,7 @@ FractionX.prototype.sommeFractions = sommeFractions
 
 /**
  * @param {FractionX} f
- * @returns f * FractionX
+ * @returns f * FractionX  // retourne un résultat simplifié
  */
 function produitFraction (f) { return fraction(multiply(this, f)) }
 FractionX.prototype.produitFraction = produitFraction
@@ -372,61 +372,63 @@ FractionX.prototype.fractionDecimale = fractionDecimale
    * @return {Fraction}
    */
 function texRacineCarree (detaillee = false) {
-  let factoDen = extraireRacineCarree(Math.abs(this.d))
+  if (this.s === -1) return false
+  let factoDen = extraireRacineCarree(Math.abs(this.den))
   let factoNum
-  if (factoDen[1] !== 1) {
-    factoNum = extraireRacineCarree(Math.abs(this.n * factoDen[1]))
-    factoDen = extraireRacineCarree(Math.abs(this.d * factoDen[1]))
+  let etape
+  if (this.d !== 1) {
+    etape = detaillee ? `\\sqrt{\\dfrac{${this.num}}{${this.den}}}=` : ''
   } else {
-    factoNum = extraireRacineCarree(Math.abs(this.n))
+    if (factoNum[0] !== 1) {
+      etape = detaillee ? `\\sqrt{${this.num}}=` : ''
+    } else {
+      etape = ''
+    }
+  }
+  if (factoDen[1] !== 1) {
+    if (this.d !== 1) {
+      etape += detaillee ? `\\sqrt{\\dfrac{${Math.abs(this.num)}\\times ${factoDen[1]}}{${Math.abs(this.den)}\\times ${factoDen[1]}}}=` : ''
+      etape += detaillee ? `\\sqrt{\\dfrac{${Math.abs(this.num * factoDen[1])}}{${Math.abs(this.den * factoDen[1])}}}=` : ''
+    }
+    factoNum = extraireRacineCarree(Math.abs(this.num * factoDen[1]))
+    factoDen = extraireRacineCarree(Math.abs(this.den * factoDen[1]))
+  } else {
+    factoNum = extraireRacineCarree(Math.abs(this.num))
   }
   const k = fraction(factoNum[0], factoDen[0]).simplifie()
   const r = fraction(factoNum[1], factoDen[1]).simplifie()
-  let etape = ''
-  if (this.s === -1) {
-    return false
-  } else if (this.s === 0) {
-    return '0'
-  } else {
-    if (detaillee) {
-      if (this.d !== 1) {
-        etape = `\\sqrt{\\dfrac{${this.n}}{${this.d}}}=`
+
+  if (detaillee) {
+    if (k.valeurDecimale !== 1) {
+      if (k.d === 1) {
+        etape += detaillee ? `\\sqrt{${factoNum[0]}^2\\times${factoNum[1]}}=` : ''
+        etape += detaillee ? `${factoNum[0]}${factoNum[1] !== 1 ? '\\sqrt{' + factoNum[1] + '}' : '}'}` : ''
       } else {
         if (factoNum[0] !== 1) {
-          etape = `\\sqrt{${this.n}}=`
+          etape += detaillee ? `\\sqrt{\\dfrac{${factoNum[0]}^2${factoNum[1] !== 1 ? '\\times ' + factoNum[1] : ''}}{${factoDen[0]}^2${factoDen[1] !== 1 ? '\\times' + factoDen[1] : ''}}}=` : ''
+          etape += detaillee ? `\\dfrac{${factoNum[0]}${factoNum[1] !== 1 ? '\\times\\sqrt{' + factoNum[1] + '}' : ''}}{${factoDen[0]}${factoDen[1] !== 1 ? '\\times\\sqrt{' + factoDen[1] + '}' : ''}}=` : ''
         } else {
-          etape = ''
-        }
-      }
-      if (k.valeurDecimale !== 1) {
-        if (k.d === 1) {
-          etape += `\\sqrt{${factoNum[0]}^2\\times${factoNum[1]}}=`
-        } else {
-          if (factoNum[0] !== 1) {
-            etape += `\\sqrt{\\dfrac{${factoNum[0]}^2\\times${factoNum[1]}}{${factoDen[0]}^2\\times${factoDen[1]}}}=`
+          if (factoDen[1] !== 1) {
+            etape += detaillee ? `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2\\times ${factoDen[1]}}}=` : ''
           } else {
-            if (factoDen[1] !== 1) {
-              etape += `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2\\times${factoDen[1]}}}=`
-            } else {
-              etape += `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2}}=`
-            }
+            etape += detaillee ? `\\sqrt{\\dfrac{${factoNum[1]}}{${factoDen[0]}^2}}=` : ''
           }
         }
       }
     }
+  }
 
-    if (arrondi(factoNum[1] / factoDen[1], 6) === 1) {
-      return etape + k.texFraction
-    } else {
-      if (k.n === 1 && k.d !== 1) {
-        if (r.d === 1) {
-          return (k.valeurDecimale === 1 ? etape : etape + `\\dfrac{\\sqrt{${r.n}}}{${k.d}}`)
-        } else {
-          return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.texFraction}}`
-        }
+  if (arrondi(factoNum[1] / factoDen[1], 6) === 1) {
+    return etape + k.texFraction
+  } else {
+    if (k.n === 1 && k.d !== 1) {
+      if (r.d === 1) {
+        return (k.valeurDecimale === 1 ? etape : etape + `\\dfrac{\\sqrt{${r.n}}}{${k.d}}`)
       } else {
-        return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.texFraction}}`
+        return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.toLatex()}}`
       }
+    } else {
+      return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.toLatex()}}`
     }
   }
 }
@@ -438,8 +440,8 @@ FractionX.prototype.texRacineCarree = texRacineCarree
    * @return {Fraction}
    */
 function racineCarree () {
-  const factoNum = extraireRacineCarree(Math.abs(this.n))
-  const factoDen = extraireRacineCarree(Math.abs(this.d))
+  const factoNum = extraireRacineCarree(Math.abs(this.num))
+  const factoDen = extraireRacineCarree(Math.abs(this.den))
   const k = fraction(factoNum[0], factoDen[0]).simplifie()
   const r = fraction(factoNum[1], factoDen[1]).simplifie()
   if (r.valeurDecimale !== 1 || this.s === -1) {
@@ -615,8 +617,8 @@ FractionX.prototype.representationIrred = representationIrred
 function representation (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '') {
   const objets = []
   let num, k, dep, s, a, O, C
-  const n = quotientier(this.n, this.d)
-  num = this.n
+  const n = quotientier(this.num, this.den)
+  num = this.num
   const unegraduation = function (x, y, couleur = 'black', epaisseur = 1) {
     const A = point(x, y + 0.2)
     const B = point(x, y - 0.2)
@@ -631,34 +633,34 @@ function representation (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gr
       const C = cercle(O, rayon)
       objets.push(C)
       let s, a
-      for (let i = 0; i < this.d; i++) {
-        s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - i * 360 / this.d))
+      for (let i = 0; i < this.den; i++) {
+        s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - i * 360 / this.den))
         objets.push(s)
       }
-      dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - depart * 360 / this.d)
-      for (let j = 0; j < Math.min(this.d, num); j++) {
-        a = arc(dep, O, -360 / this.d, true, couleur)
+      dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - depart * 360 / this.den)
+      for (let j = 0; j < Math.min(this.den, num); j++) {
+        a = arc(dep, O, -360 / this.den, true, couleur)
         a.opacite = 0.3
-        dep = rotation(dep, O, -360 / this.d)
+        dep = rotation(dep, O, -360 / this.den)
         objets.push(a)
       }
-      num -= this.d
+      num -= this.den
     }
-    if (this.n % this.d !== 0) {
+    if (this.num % this.den !== 0) {
       const O = point(x + k * 2 * (rayon + 0.5), y)
       const C = cercle(O, rayon)
       objets.push(C)
-      for (let i = 0; i < this.d; i++) {
-        s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - i * 360 / this.d))
+      for (let i = 0; i < this.den; i++) {
+        s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - i * 360 / this.den))
         objets.push(s)
       }
 
-      dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - depart * 360 / this.d)
-      if (this.n % this.d !== 0) {
-        for (let j = 0; j < Math.min(this.d, num); j++) {
-          a = arc(dep, O, -360 / this.d, true, couleur)
+      dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - depart * 360 / this.den)
+      if (this.num % this.den !== 0) {
+        for (let j = 0; j < Math.min(this.den, num); j++) {
+          a = arc(dep, O, -360 / this.den, true, couleur)
           a.opacite = 0.3
-          dep = rotation(dep, O, -360 / this.d)
+          dep = rotation(dep, O, -360 / this.den)
           objets.push(a)
         }
       }
@@ -670,29 +672,29 @@ function representation (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gr
       s = segment(O, C)
       s.styleExtremites = '-|'
       objets.push(s)
-      for (let i = 0; i < this.d; i++) {
-        s = segment(translation(O, vecteur(i * rayon / this.d, 0)), translation(O, vecteur((i + 1) * rayon / this.d, 0)))
+      for (let i = 0; i < this.den; i++) {
+        s = segment(translation(O, vecteur(i * rayon / this.den, 0)), translation(O, vecteur((i + 1) * rayon / this.den, 0)))
         s.styleExtremites = '|-'
         objets.push(s)
       }
-      a = segment(O, point(O.x + Math.min(num, this.d) * rayon / this.d, O.y))
+      a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y))
       a.color = couleur
       a.opacite = 0.4
       a.epaisseur = 6
       objets.push(a)
-      num -= this.d
+      num -= this.den
     }
     O = point(x + k * rayon, y)
     C = translation(O, vecteur(rayon, 0))
     s = segment(O, C)
     s.styleExtremites = '-|'
     objets.push(s)
-    for (let i = 0; i < this.d; i++) {
-      s = segment(translation(O, vecteur(i * rayon / this.d, 0)), translation(O, vecteur((i + 1) * rayon / this.d, 0)))
+    for (let i = 0; i < this.den; i++) {
+      s = segment(translation(O, vecteur(i * rayon / this.den, 0)), translation(O, vecteur((i + 1) * rayon / this.den, 0)))
       s.styleExtremites = '|-'
       objets.push(s)
     }
-    a = segment(O, point(O.x + Math.min(num, this.d) * rayon / this.d, O.y))
+    a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y))
     a.color = couleur
     a.opacite = 0.4
     a.epaisseur = 6
@@ -705,15 +707,15 @@ function representation (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gr
     } else {
       if (unite0 !== '') { objets.push(texteParPosition(unite0, x, y - 0.6, 'milieu', 'black', scale)) }
       if (unite1 !== '') { objets.push(texteParPosition(unite1, x + rayon, y - 0.6, 'milieu', 'black', scale)) }
-      if (label !== '') { objets.push(texteParPosition(label, x + rayon * this.n / this.d, y - 0.6, 'milieu', 'black', scale)) }
+      if (label !== '') { objets.push(texteParPosition(label, x + rayon * this.num / this.den, y - 0.6, 'milieu', 'black', scale)) }
     }
   } else { // Type barre
     let diviseur
-    if (this.d % 6 === 0) { diviseur = 6 } else if (this.d % 5 === 0) { diviseur = 5 } else if (this.d % 4 === 0) { diviseur = 4 } else if (this.d % 3 === 0) { diviseur = 3 } else if (this.d % 2 === 0) { diviseur = 2 } else { diviseur = 1 }
+    if (this.den % 6 === 0) { diviseur = 6 } else if (this.den % 5 === 0) { diviseur = 5 } else if (this.den % 4 === 0) { diviseur = 4 } else if (this.den % 3 === 0) { diviseur = 3 } else if (this.den % 2 === 0) { diviseur = 2 } else { diviseur = 1 }
 
     for (k = 0; k < n; k++) {
       for (let j = 0; j < diviseur; j++) {
-        for (let h = 0; h < arrondi(this.d / diviseur); h++) {
+        for (let h = 0; h < arrondi(this.den / diviseur); h++) {
           O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
           C = translation(O, vecteur(rayon / diviseur, 0))
           dep = carre(O, C)
@@ -723,11 +725,11 @@ function representation (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gr
           objets.push(dep)
         }
       }
-      num -= this.d
+      num -= this.den
     }
     if (num > 0) {
       for (let j = 0; j < diviseur; j++) {
-        for (let h = 0; h < arrondi(this.d / diviseur); h++) {
+        for (let h = 0; h < arrondi(this.den / diviseur); h++) {
           O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
           C = translation(O, vecteur(rayon / diviseur, 0))
           dep = carre(O, C)

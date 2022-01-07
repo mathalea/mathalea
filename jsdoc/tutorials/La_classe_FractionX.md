@@ -45,7 +45,31 @@ f.multiplieEntier(n) // nouvel objet FractionX tel que num = num * n (note : le 
 f.entierDivise(n) // nouvel objet FractionX tel que den = den * n (note : le numérateur est le même que celui de f)
 f.ajouteEntier(n) // nouvel objet FractionX obtenu en ajoutant n * den au numérateur (note : le dénominateur est le même que celui de f)
 f.entierMoinsFraction(n) // nouvel objet FractionX obtenu en mettant n * den - num au numérateur (note : le dénominateur est le même que celui de f)
-f.superieurLarge(f2) // true si f >= f2
- 
+f.superieurLarge(f2) // true si f >= f2 (Note : f2 peut être une FractionX ou un nombre quelconque par exemple 1)
+f.estUneSimplification(f2) // true si f2 = f avec abs(f.num) < abs(f2.num)>
+f.sommeFraction(f2) // nouvel objet FractionX = f + f2 (note : le résultat est une fraction irréductible car la somme est simplifiée)
+f.sommeFractions(f2,f3,f4) // nouvel objet FractionX = f + f2 + f3 + f4 (note : le résultat est une fraction irréductible car la somme est simplifiée)
+f.produitFraction(f2) // nouvel objet FractionX = f * f2 (note : le résultat est une fraction irréductible car la somme est simplifiée)
+f.produitFractions(f2,f3,f4) // nouvel objet FractionX = f * f2 * f3 * f4 (note : le résultat est une fraction irréductible car le produit est simplifiée)
+f.fractionDecimale() // nouvel objet FractionX égal à f dont le dénominateur est la plus petite puissance de 10 permettant l'écriture de la valeur décimale de f. retourne NaN si f n'est pas un nombre décimal.
+f.texRacineCarree(detail) // retourne la chaine Latex correspondant à la racine carrée de f. Si detail est true alors, le calcul détaillé précède le résultat. Valeur par défaut detail = false.
+f.racineCarree() // false (si la racine carrée de f n'est pas une fraction) sinon l'objet FractionX correspondant à la racine carrée de f
+f.representation(x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '') // renvoie un tableau d'objets 2d qui donne une représentation de la fraction au point (x,y).
+    rayon détermine le rayon du disque ou la taille du segment ou du rectangle
+    depart détermine le n° du secteur à partir duquel le coloriage commence (par défaut 0 correspondant au 0° trigo)
+    type est au choix : 'gateau' pour un disque, 'segment' pour un segment, 'barre' pour un rectangle
+    unite0 et unite1 sont des nombres permettant de définir le pas de graduation : 
+        0 et 1 permettent de graduer un segment de longueur int(f.num/f.den)+1 en coupant chaque unité en f.den parts. 
+        0 et 10 permettent de graduer un segment d'extrémité 0 et 10 et de colorier la fraction f de ce segment. littéralement la fraction f de 10 (exemple 1/2 de 10)
+    scale est la taille pour le texte
+    label est un texte à écrire sous la graduation marquant l'extrémité droite du segment. par exemple 'x ?'
+f.representationIrred(x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '') // renvoie un tableau d'objets 
+    c'est la même chose que f.representation() mais le numérateur et le dénominateur sont simplifiés avant de graduer.
+    
+
+
+
+
+
 
 
