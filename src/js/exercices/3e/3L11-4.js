@@ -27,6 +27,8 @@ export default function FactoriserParNombreOux () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
+
     this.sup = parseInt(this.sup)
     let typesDeQuestionsDisponibles
     switch (this.sup) {

@@ -27,6 +27,7 @@ export default function ExerciceDiviserFractions () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const listeFractions = obtenirListeFractionsIrreductibles()
 
     const typesDeQuestionsDisponibles = [parseInt(this.sup)]

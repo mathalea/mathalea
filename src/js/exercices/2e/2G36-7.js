@@ -30,6 +30,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
     this.sup = parseInt(this.sup)
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     // let typesDeQuestionsDisponibles = []
     // typesDeQuestionsDisponibles = []// On complète selon le nb de cas dans l'exo (switch)
 

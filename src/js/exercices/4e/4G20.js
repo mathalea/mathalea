@@ -41,6 +41,7 @@ export default function Pythagore2D () {
     }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let listeTypeDeQuestions = []
     if (this.sup2 === 1) {
       listeTypeDeQuestions = ['BC']

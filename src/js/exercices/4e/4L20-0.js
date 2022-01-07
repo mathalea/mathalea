@@ -38,6 +38,7 @@ export default function ExerciceEquationASolutionEntiere () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let listeTypeDeQuestions
     switch (this.sup2.toString()) {
       case '1':

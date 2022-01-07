@@ -32,6 +32,7 @@ export default function ExerciceAdditionnerFractionProduit () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let typesDeQuestionsDisponibles
     const listeFractions = obtenirListeFractionsIrreductibles()
     const listeFractionsFaciles = obtenirListeFractionsIrreductiblesFaciles()

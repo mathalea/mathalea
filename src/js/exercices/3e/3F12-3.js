@@ -126,19 +126,19 @@ export default function TableauDeValeurs () {
           }
           expression = `\\dfrac{${a}}{${c}x${ecritureAlgebrique(d)}}`
           ligne2 = `${nomdef}(x) & ${texFractionReduite(a, c * listeDeX[i][0] + d)} & ${texFractionReduite(a, c * listeDeX[i][1] + d)} & ${texFractionReduite(a, c * listeDeX[i][2] + d)} \\\\\n`
-          calculs = `$${nomdef}(${x1})=\\dfrac{${a}}{${c}\\times${ecritureParentheseSiNegatif(x1)}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x1}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x1 + d}}`
+          calculs = `$${nomdef}(${x1})=\\dfrac{${a}}{${c}\\times${ecritureParentheseSiNegatif(x1)}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x1}${ecritureAlgebrique(d)}}=${fraction(a, c * x1 + d).texFSD}`
           if (pgcd(a, c * x1 + d) === 1) {
             calculs += '$<br>'
           } else {
             calculs += '=' + texFractionReduite(a, c * x1 + d) + '$<br>'
           }
-          calculs += `$${nomdef}(${x2})=\\dfrac{${a}}{${c}\\times${ecritureParentheseSiNegatif(x2)}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x2}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x2 + d}}`
+          calculs += `$${nomdef}(${x2})=\\dfrac{${a}}{${c}\\times${ecritureParentheseSiNegatif(x2)}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x2}${ecritureAlgebrique(d)}}=${fraction(a, c * x2 + d).texFSD}`
           if (pgcd(a, c * x2 + d) === 1) {
             calculs += '$<br>'
           } else {
             calculs += '=' + texFractionReduite(a, c * x2 + d) + '$<br>'
           }
-          calculs += `$${nomdef}(${x3})=\\dfrac{${a}}{${c}\\times${ecritureParentheseSiNegatif(x3)}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x3}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x3 + d}}`
+          calculs += `$${nomdef}(${x3})=\\dfrac{${a}}{${c}\\times${ecritureParentheseSiNegatif(x3)}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x3}${ecritureAlgebrique(d)}}=${fraction(a, c * x3 + d).texFSD}`
           if (pgcd(a, c * x3 + d) === 1) {
             calculs += '$<br>'
           } else {
@@ -253,7 +253,9 @@ export default function TableauDeValeurs () {
                   valeur: [reponse[0]],
                   param: {
                     signe: true,
-                    approx: 0
+                    approx: 0,
+                    decimals: 1,
+                    digits: 2
                   }
                 }
               }]
@@ -268,7 +270,9 @@ export default function TableauDeValeurs () {
                   valeur: [reponse[1]],
                   param: {
                     signe: true,
-                    approx: 0
+                    approx: 0,
+                    decimals: 1,
+                    digits: 2
                   }
                 }
               }]
@@ -283,7 +287,9 @@ export default function TableauDeValeurs () {
                   valeur: [reponse[2]],
                   param: {
                     signe: true,
-                    approx: 0
+                    approx: 0,
+                    decimals: 1,
+                    digits: 2
                   }
                 }
               }]
