@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint, calcul, texNombrec, miseEnEvidence, texFraction } from '../../modules/outils.js'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer des images'
-export const dateDePublication = '26/12/2021'
+export const dateDePublication = '07/01/2022'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
