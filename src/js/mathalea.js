@@ -782,6 +782,7 @@ function miseAJourDuCode () {
     if (listeDesExercices.length > 0) {
       for (let i = 0; i < listeDesExercices.length; i++) {
         listeObjetsExercice[i].id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
+        listeObjetsExercice[i].autoCorrection = []
         listeObjetsExercice[i].nouvelleVersion(i)
         if (listeObjetsExercice[i].typeExercice === 'simple') {
           exerciceSimpleToContenu(listeObjetsExercice[i])
