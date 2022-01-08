@@ -30,6 +30,8 @@ export default function VocabulaireNotationsFonctions () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles
     const r = repere2({ xMin: -10, xMax: 10, yMin: -10, yMax: 10 })
     switch (this.sup) {

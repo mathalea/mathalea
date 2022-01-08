@@ -1,9 +1,10 @@
-import { add, number, fraction, multiply } from 'mathjs'
+import { add, number, multiply } from 'mathjs'
 import { barycentre, latexParPoint, milieu, point, polygone, segment } from './2d'
+import { fraction } from './fractions'
 import { arrondi, calcul } from './outils'
 
 export function texProba (proba, rationnel, precision) {
-  return rationnel ? fraction(proba).toLatex().replace('frac', 'dfrac') : number(arrondi(proba, precision)).toString().replace('.', '{,}')
+  return rationnel ? fraction(proba).toLatex() : number(arrondi(proba, precision)).toString().replace('.', '{,}')
 }
 /**
  * classe pour faire des arbres de probabilités

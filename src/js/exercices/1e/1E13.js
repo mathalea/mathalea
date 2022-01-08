@@ -55,7 +55,7 @@ export default function Resolutionavecformecanonique () {
         } else {
           p = 1
         }
-        if (b2.estParfaite()) { // pas de radical, calcul rationnel
+        if (b2.estParfaite) { // pas de radical, calcul rationnel
           x1 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie().oppose()).simplifie()
           x2 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie()).simplifie()
           if (a < 0) {

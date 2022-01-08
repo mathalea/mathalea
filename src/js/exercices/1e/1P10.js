@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, listeTypeDeQuestions, typeQuestionsDisponibles, combinaisonListes, randint, texFraction, arrondi, calcul, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, arrondi, calcul, contraindreValeur } from '../../modules/outils.js'
 import { latexParCoordonnees, mathalea2d, point, segment } from '../../modules/2d.js'
 import { number, fraction } from 'mathjs'
 export const titre = 'Probabilités conditionnelles'
@@ -38,6 +38,7 @@ export default function ProbabilitésConditionnelles () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let objets
+    let listeTypeDeQuestions
     this.sup2 = contraindreValeur(1, 3, this.sup2, 3)
     if (this.sup2 === 3) {
       listeTypeDeQuestions = combinaisonListes(['sujetE3C1', 'sujetE3C2'], this.nbQuestions)
@@ -48,7 +49,7 @@ export default function ProbabilitésConditionnelles () {
     // const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, a, c, ec, ce, v, av, A, B, A1, A2, A3, A4, O, k1, k2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       objets = []
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'sujetE3C1':
           a = randint(30, 70)// p(A)
           v = randint(30, 70)// P_T(V)

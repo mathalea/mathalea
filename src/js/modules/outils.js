@@ -2,7 +2,7 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate, isPrime, max, gcd, round, largerEq, equal, smaller } from 'mathjs'
+import { format, evaluate, isPrime, gcd, round, largerEq, equal, smaller } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 import { elimineDoublons, setReponse } from './gestionInteractif.js'
@@ -7486,13 +7486,13 @@ export function exportQcmAmc (exercice, idExo) {
           }
           let digitsBase = 0
           if (autoCorrection[j].reponse.param.baseNbChiffres !== undefined) {
-            digitsBase = max(autoCorrection[j].reponse.param.baseNbChiffres, nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.param.basePuissance))
+            digitsBase = Math.max(autoCorrection[j].reponse.param.baseNbChiffres, nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.param.basePuissance))
           } else {
             digitsBase = nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.param.basePuissance)
           }
           let digitsExposant = 0
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined) {
-            digitsExposant = max(autoCorrection[j].reponse.param.exposantNbChiffres, nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.param.exposantPuissance))
+            digitsExposant = Math.max(autoCorrection[j].reponse.param.exposantNbChiffres, nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.param.exposantPuissance))
           } else {
             digitsExposant = nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.param.exposantPuissance)
           }
@@ -7509,7 +7509,7 @@ export function exportQcmAmc (exercice, idExo) {
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
           texQr += '\\end{questionmultx}\n\\end{multicols}\n\\end{minipage}\n}\n\n'
           id += 2
-        } else if (valeurAMCNum.n !== undefined) { // Si une fraction a été passée à AMCNum, on met un seul AMCNumericChoice particulier
+        } else if (valeurAMCNum.num !== undefined) { // Si une fraction a été passée à AMCNum, on met un seul AMCNumericChoice particulier
           texQr += `\\element{${ref}}{\n`
           texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
           texQr += `${autoCorrection[j].enonce} \n`
@@ -7518,19 +7518,19 @@ export function exportQcmAmc (exercice, idExo) {
           }
           let digitsNum = 0
           if (autoCorrection[j].reponse.param.digitsNum !== undefined) {
-            digitsNum = max(autoCorrection[j].reponse.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n))
+            digitsNum = Math.max(autoCorrection[j].reponse.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
           } else if (autoCorrection[j].reponse.param.digits !== undefined) {
-            digitsNum = max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n))
+            digitsNum = Math.max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
           } else {
-            digitsNum = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n)
+            digitsNum = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num)
           }
           let digitsDen = 0
           if (autoCorrection[j].reponse.param.digitsDen !== undefined) {
-            digitsDen = max(autoCorrection[j].reponse.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d))
+            digitsDen = Math.max(autoCorrection[j].reponse.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
           } else if (autoCorrection[j].reponse.param.digits !== undefined) {
-            digitsDen = max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d))
+            digitsDen = Math.max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
           } else {
-            digitsDen = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)
+            digitsDen = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)
           }
           let signeNum = true
           if (autoCorrection[j].reponse.param.signe !== undefined) {
@@ -7540,12 +7540,12 @@ export function exportQcmAmc (exercice, idExo) {
           }
           let reponseF
           let reponseAlsoCorrect
-          if (valeurAMCNum.n > 0) {
-            reponseF = calcul(valeurAMCNum.n + valeurAMCNum.d / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)))
-            reponseAlsoCorrect = calcul(valeurAMCNum.n - valeurAMCNum.d / (10 ** digitsDen))
+          if (valeurAMCNum.num > 0) {
+            reponseF = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
+            reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
           } else {
-            reponseF = calcul(valeurAMCNum.n - valeurAMCNum.d / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)))
-            reponseAlsoCorrect = calcul(valeurAMCNum.n - valeurAMCNum.d / (10 ** digitsDen))
+            reponseF = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
+            reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
           }
           texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
           texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
@@ -7554,16 +7554,16 @@ export function exportQcmAmc (exercice, idExo) {
         } else {
           let nbChiffresExpo
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) {
-            nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.decimals)
-            nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.digits - nbChiffresPd)
-            nbChiffresExpo = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(valeurAMCNum)[1]), autoCorrection[j].reponse.param.exposantNbChiffres)
+            nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.decimals)
+            nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.digits - nbChiffresPd)
+            nbChiffresExpo = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(valeurAMCNum)[1]), autoCorrection[j].reponse.param.exposantNbChiffres)
           } else {
-            nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(valeurAMCNum), autoCorrection[j].reponse.param.decimals)
-            nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(valeurAMCNum), autoCorrection[j].reponse.param.digits - nbChiffresPd)
+            nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(valeurAMCNum), autoCorrection[j].reponse.param.decimals)
+            nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(valeurAMCNum), autoCorrection[j].reponse.param.digits - nbChiffresPd)
           }
           if (autoCorrection[j].reponse.param.milieuIntervalle !== undefined) {
             const demiMediane = autoCorrection[j].reponse.param.milieuIntervalle - valeurAMCNum
-            nbChiffresPd = max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
+            nbChiffresPd = Math.max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
             valeurAMCNum = autoCorrection[j].reponse.param.milieuIntervalle
             autoCorrection[j].reponse.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? calcul(demiMediane * 10 ** nbChiffresPd - 1) : calcul(demiMediane * 10 ** nbChiffresPd)
           }
@@ -7997,13 +7997,13 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += `${rep.texte}\n \\vspace{0.25cm} \n`
                 let digitsBase = 0
                 if (rep.param.baseNbChiffres !== undefined) {
-                  digitsBase = max(rep.param.baseNbChiffres, nombreDeChiffresDansLaPartieEntiere(rep.param.basePuissance))
+                  digitsBase = Math.max(rep.param.baseNbChiffres, nombreDeChiffresDansLaPartieEntiere(rep.param.basePuissance))
                 } else {
                   digitsBase = nombreDeChiffresDansLaPartieEntiere(rep.param.basePuissance)
                 }
                 let digitsExposant = 0
                 if (rep.param.exposantNbChiffres !== undefined) {
-                  digitsExposant = max(rep.param.exposantNbChiffres, nombreDeChiffresDansLaPartieEntiere(rep.param.exposantPuissance))
+                  digitsExposant = Math.max(rep.param.exposantNbChiffres, nombreDeChiffresDansLaPartieEntiere(rep.param.exposantPuissance))
                 } else {
                   digitsExposant = nombreDeChiffresDansLaPartieEntiere(rep.param.exposantPuissance)
                 }
@@ -8019,7 +8019,7 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,Tpoint={,}}\n'
                 texQr += '\\end{questionmultx}\\end{multicols}\n\\end{minipage}\n\n'
                 id += 2
-              } else if (rep.valeur[0].n !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
+              } else if (rep.valeur[0].num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
                 valeurAMCNum = rep.valeur[0]
                 texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
                 if (!(propositions[0].alignement === undefined)) {
@@ -8032,34 +8032,34 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += `${rep.texte}\n`
                 let digitsNum = 0
                 if (rep.param.digitsNum !== undefined) {
-                  digitsNum = max(rep.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n))
+                  digitsNum = Math.max(rep.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
                 } else if (rep.param.digits !== undefined) {
-                  digitsNum = max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n))
+                  digitsNum = Math.max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
                 } else {
-                  digitsNum = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.n)
+                  digitsNum = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num)
                 }
                 let digitsDen = 0
                 if (rep.param.digitsDen !== undefined) {
-                  digitsDen = max(rep.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d))
+                  digitsDen = Math.max(rep.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
                 } else if (rep.param.digits !== undefined) {
-                  digitsDen = max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d))
+                  digitsDen = Math.max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
                 } else {
-                  digitsDen = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)
+                  digitsDen = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)
                 }
                 let signeNum = true
                 if (rep.param.signe !== undefined) {
                   signeNum = rep.param.signe
                 } else {
-                  signeNum = (valeurAMCNum.n * valeurAMCNum.d < 0)
+                  signeNum = (valeurAMCNum.num * valeurAMCNum.den < 0)
                 }
                 let reponseF
                 let reponseAlsoCorrect
-                if (valeurAMCNum.n > 0) {
-                  reponseF = calcul(valeurAMCNum.n + valeurAMCNum.d / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)))
-                  reponseAlsoCorrect = calcul(valeurAMCNum.n - valeurAMCNum.d / (10 ** digitsDen))
+                if (valeurAMCNum.num > 0) {
+                  reponseF = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
+                  reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
                 } else {
-                  reponseF = calcul(valeurAMCNum.n - valeurAMCNum.d / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.d)))
-                  reponseAlsoCorrect = calcul(valeurAMCNum.n - valeurAMCNum.d / (10 ** digitsDen))
+                  reponseF = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
+                  reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
                 }
                 texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
                 texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
@@ -8072,16 +8072,16 @@ export function exportQcmAmc (exercice, idExo) {
               } else {
                 let nbChiffresExpo
                 if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) {
-                  nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(rep.valeur[0])[0]), rep.param.decimals)
-                  nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[0]), rep.param.digits - nbChiffresPd)
-                  nbChiffresExpo = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[1]), rep.param.exposantNbChiffres)
+                  nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(rep.valeur[0])[0]), rep.param.decimals)
+                  nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[0]), rep.param.digits - nbChiffresPd)
+                  nbChiffresExpo = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[1]), rep.param.exposantNbChiffres)
                 } else {
-                  nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(rep.valeur[0]), rep.param.decimals)
-                  nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(rep.valeur[0]), rep.param.digits - nbChiffresPd)
+                  nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(rep.valeur[0]), rep.param.decimals)
+                  nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(rep.valeur[0]), rep.param.digits - nbChiffresPd)
                 }
                 if (rep.param.milieuIntervalle !== undefined) {
                   const demiMediane = rep.param.milieuIntervalle - valeurAMCNum
-                  nbChiffresPd = max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
+                  nbChiffresPd = Math.max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
                   valeurAMCNum = rep.param.milieuIntervalle
                   rep.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? calcul(demiMediane * 10 ** nbChiffresPd - 1) : calcul(demiMediane * 10 ** nbChiffresPd)
                 }

@@ -1,10 +1,10 @@
 import Exercice from '../Exercice.js'
 import { choice, listeQuestionsToContenu, randint, shuffle } from '../../modules/outils.js'
-import { fraction } from 'mathjs'
+import { fraction } from '../../modules/fractions.js'
 import { Arbre, texProba } from '../../modules/arbres.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-import Fraction from '../../modules/Fraction.js'
+import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Expérience aléatoire à deux épreuves'
 export const dateDePublication = '28/12/2021'
 export const interactifReady = true
@@ -32,8 +32,8 @@ export default function CalculProbaExperience2Epreuves3e () {
     const choix = randint(0, 2)
     let nombres1, nombres2, n1, n2, urne1, urne2, texte, texteCorr
     if (!sup3) {
-      nombres1 = choice([[1, 2, 3], [1, 1, 2], [1, 2, 2], [1, 1, 3], [1, 1, 1], [2, 2, 2]])
-      nombres2 = choice([[1, 2, 3], [1, 1, 2], [1, 2, 2], [1, 1, 3], [1, 1, 1], [2, 2, 2]])
+      nombres1 = choice([[1, 2, 3], [1, 1, 2], [1, 2, 2], [1, 1, 3]])
+      nombres2 = choice([[1, 2, 3], [1, 1, 2], [1, 2, 2], [1, 1, 3]])
     } else {
       nombres1 = [1, 2, 3]
       nombres2 = [1, 2, 3]
@@ -135,7 +135,7 @@ export default function CalculProbaExperience2Epreuves3e () {
     texte += sup ? 'On a représenté l\'expérience par l\'arbre ci-dessous' : ''
     texte += sup ? mathalea2d({ xmin: -0.1, xmax: 16, ymin: 0, ymax: 12 }, ...objets) : ''
     texte += `Donner la probabilité d'obtenir une boule ${boules[choix]}.` + ajouteChampTexteMathLive(exercice, i, 'largeur15 inline')
-    setReponse(exercice, i, new Fraction(p[choix].n, p[choix].d), { formatInteractif: 'fractionEgale' })
+    setReponse(exercice, i, new FractionX(p[choix].n, p[choix].d), { formatInteractif: 'fractionEgale' })
     texteCorr = "La probabilité que la pièce tombe sur 'Pile' est de $\\dfrac{1}{2}$ et "
     texteCorr += `la probabilité de tirer une boule ${boules[choix]} dans la première urne est de $${texProba(urne1.getProba(B[choix], true), true)}$.<br>`
     texteCorr += `La probabilité de l'issue ('Pile','${boules[choix]}') est donc : $\\dfrac{1}{2}\\times ${texProba(urne1.getProba(B[choix], true), true)}=${texProba(fraction(n1[choix], 2 * card1), true)}$.<br>`

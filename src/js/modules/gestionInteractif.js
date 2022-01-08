@@ -4,7 +4,7 @@ import { shuffleJusqua } from './outils.js'
 import { messageFeedback } from './messages.js'
 import { addElement, get, setStyles } from './dom.js'
 import { ComputeEngine, parse } from '@cortex-js/math-json'
-import Fraction from './Fraction.js'
+import FractionEtendue from './FractionEtendue.js'
 import Grandeur from './Grandeur.js'
 import { getUserIdFromUrl, getVueFromUrl } from './gestionUrl.js'
 import { number } from 'mathjs'
@@ -115,21 +115,21 @@ function verifQuestionMathLive (exercice, i) {
     if (formatInteractif === 'NumDen') {
       num = parseInt(document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`).value)
       den = parseInt(document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Den`).value)
-      fSaisie = new Fraction(num, den)
+      fSaisie = new FractionEtendue(num, den)
       if (fSaisie.egal(reponse)) {
         resultat = 'OK'
       }
     } else if (formatInteractif === 'Num') {
       num = parseInt(champTexte.value)
       den = reponse.den
-      fSaisie = new Fraction(num, den)
+      fSaisie = new FractionEtendue(num, den)
       if (fSaisie.egal(reponse)) {
         resultat = 'OK'
       }
     } else if (formatInteractif === 'Den') {
       den = parseInt(champTexte.value)
       num = reponse.num
-      fSaisie = new Fraction(num, den)
+      fSaisie = new FractionEtendue(num, den)
       if (fSaisie.egal(reponse)) {
         resultat = 'OK'
       }
@@ -179,7 +179,7 @@ function verifQuestionMathLive (exercice, i) {
           signeF = 1
         }
         if (saisieParsee[1].num && saisieParsee[2].num) {
-          const fSaisie = new Fraction(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+          const fSaisie = new FractionEtendue(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
           if (fSaisie.estUneSimplification(reponse)) resultat = 'OK'
         }
       }
@@ -199,7 +199,7 @@ function verifQuestionMathLive (exercice, i) {
           signeF = 1
         }
         if (saisieParsee[1].num && saisieParsee[2].num) {
-          fSaisie = new Fraction(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+          fSaisie = new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
           if (fSaisie.egal(reponse)) resultat = 'OK'
         }
       }
@@ -218,8 +218,8 @@ function verifQuestionMathLive (exercice, i) {
           signeF = 1
         }
         if (saisieParsee[1].num && saisieParsee[2].num) {
-          const fSaisie = new Fraction(signeF * parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-          if (fSaisie.texFraction === reponse.texFraction) resultat = 'OK'
+          const fSaisie = new FractionEtendue(signeF * parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+          if (fSaisie.texFSD === reponse.texFSD) resultat = 'OK'
         }
       }
       // Pour les exercices où l'on attend une mesure avec une unité au choix

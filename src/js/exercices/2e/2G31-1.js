@@ -26,7 +26,7 @@ export default function CoefficientDirecteurDeDroite () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
+    this.autoCorrection = []
     const typeQuestionsDisponibles = ['Droite oblique', 'Droite oblique', 'Droite oblique', 'Droite oblique', 'Droite verticale'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

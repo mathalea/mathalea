@@ -27,6 +27,8 @@ export default function ProblemesEvenementsRecurrents () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
+
     const preListePremiers = listeNombresPremiersStrictJusqua(12)
     const listePremiers = combinaisonListes(preListePremiers, this.nbQuestions * 5)
     const saveurs = combinaisonListes(['guirlande', 'voiture', 'fusée', 'restau-ciné', 'engrenages'], this.nbQuestions)

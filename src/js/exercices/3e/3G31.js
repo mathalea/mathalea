@@ -38,6 +38,8 @@ export default function CalculDAngle () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
+
     let mEp, mEp2
     if (this.sup) mEp = '<br>'
     else mEp = ''

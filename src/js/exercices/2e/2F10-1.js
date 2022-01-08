@@ -29,11 +29,9 @@ export default function Reconnaitrefonctionaffine () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let typesDeQuestionsDisponibles = []
     let bonneReponse
-    typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4, 5, 6, 7, 8, 9], this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, k = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       k = choice([-1, 1])

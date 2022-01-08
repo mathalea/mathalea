@@ -41,6 +41,8 @@ export default function VolumeBoule () {
     this.sup = Number(this.sup)
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles = [] // tableau à compléter par valeurs possibles des types de questions
     typesDeQuestionsDisponibles = [1, 2, 3, 4]
     let listeTypeDeQuestions = []
