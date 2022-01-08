@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice } from '../../modules/outils.js'
 import { mathalea2d, point, tracePoint, vecteur, polygoneAvecNom, translation, pointAdistance, longueur, homothetie, latexParPoint, similitude, translationAnimee } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
-export const titre = 'Somme de vecteurs'
+export const titre = 'Construire les images de points par une translation'
 
 /**
  * @author Jean-Claude Lhote

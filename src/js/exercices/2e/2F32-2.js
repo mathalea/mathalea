@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, combinaisonListes, randint, arrondi, texNombre
 import { antecedentInterpole, graphiqueInterpole, imageInterpolee, mathalea2d, point, repere2, segment, texteParPosition, tracePoint } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Lecture graphique'
+export const titre = 'Déterminer graphiquement les extremums'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
