@@ -5,12 +5,12 @@ import {
   miseEnEvidence
 } from '../../modules/outils.js'
 export const titre = 'Résoudre algébriquement une équation f(x)=k avec une fonction de référence.'
-export const dateDePublication = '26/12/2021'
+export const dateDePublication = '07/01/2022'
 /**
-* Répondre à des questions sur les fonctions.
-* 11/ 2021
+*
+*
 * @author Gilles Mora
-* 3F10-1
+*
 */
 export default function EquationsFonctionsRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -45,6 +45,10 @@ export default function EquationsFonctionsRef () {
         typesDeQuestionsDisponibles = ['x^2=k', 'sqrt(x)=k', '1/x=k', 'x^3=k']
         break
        //
+    }
+    function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
+      const result = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumFractionDigits }).format(a).replace(',', '{,}')
+      return a < 0 ? `(${result})` : result
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     console.log(listeTypeDeQuestions)
@@ -540,16 +544,18 @@ Ainsi,   $S=\\emptyset$.<br>
 
           switch (sousChoix[i]) { // sousChoix[i] = randint(0, 5)
             case 0:
-              k1 = randint(-10, 10)
+              k1 = choice([-10, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 10])
               k = calcul(k1 ** 3)
 
-              enonce = `Résoudre dans $\\mathbb{R}^*$ :<br>
+              enonce = `Résoudre dans $\\mathbb{R}$ :<br>
                 ${sp(50)} $x^3=${k}$`
               correction = ''
               if (this.correctionDetaillee) {
-                correction += 'Pour tout réel $k$, l\'équation $x^3=k$ admet une unique solution : $\\sqrt[3]{k}$, c\'est-à-dire le nombre dont le cube vaut $k$. <br>'
+                correction += `Pour tout réel $k$, l'équation $x^3=k$ admet pour unique solution le nombre dont le cube est égal à $k$. <br>
+                On peut noter ce nombre : $\\sqrt[3]{k}$. <br>`
               }
-              correction += `L'équation est de la forme $x^3=k$ avec $k=${k}$. Comme $k=${k}$, alors l'équation a une solution : $\\sqrt[3]{${k}}=${k1}$.<br>
+              correction += `L'équation est de la forme $x^3=k$ avec $k=${k}$. <br>
+              Le nombre dont le cube est $${k}$ est $${k1}$ car $${ecritureParentheseSiNegatif(k1)}^3=${k}$.<br>
               Ainsi,   $S=\\{${k1}\\}$.
               `
 
@@ -557,7 +563,7 @@ Ainsi,   $S=\\emptyset$.<br>
 
             case 1:
               b = randint(-10, 10, 0)
-              k1 = randint(-10, 10)
+              k1 = choice([-10, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 10])
               k = calcul(k1 ** 3)
               c = calcul(k + b)
               enonce = `Résoudre dans $\\mathbb{R}$ :<br>
@@ -578,13 +584,15 @@ Ainsi,   $S=\\emptyset$.<br>
                                                 x^3&=${c - b}                  
                                                                             \\end{aligned}$<br>`
               }
-              correction += ` L'équation est de la forme $x^3=k$ avec $k=${k}$ donc l'équation a une solution $\\sqrt[3]{${k}}=${k1}$.<br>
-                 Ainsi,  $S=\\{${k1}\\}$.
-                 `
+              correction += `L'équation est de la forme $x^3=k$ avec $k=${k}$. <br>
+              Le nombre dont le cube est $${k}$ est $${k1}$ car $${ecritureParentheseSiNegatif(k1)}^3=${k}$.<br>
+              Ainsi,   $S=\\{${k1}\\}$.
+              `
+
               break
             case 2:
               a = randint(-10, 10, [0, -1, 1])
-              k1 = randint(-10, 10)
+              k1 = choice([-10, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 10])
               k = calcul(k1 ** 3)
               c = calcul(k * a)
               enonce = `Résoudre dans $\\mathbb{R}$ :<br>
@@ -597,14 +605,15 @@ Ainsi,   $S=\\emptyset$.<br>
                       x^3&=${texFractionReduite(c, a)}\\\\              
                                                   \\end{aligned}$<br>`
 
-              correction += ` L'équation est de la forme $x^3=k$ avec $k=${k}$ donc l'équation a une solution $\\sqrt[3]{${k}}=${k1}$.<br>
-                   Ainsi,  $S=\\{${k1}\\}$.
-                   `
+              correction += `L'équation est de la forme $x^3=k$ avec $k=${k}$. <br>
+              Le nombre dont le cube est $${k}$ est $${k1}$ car $${ecritureParentheseSiNegatif(k1)}^3=${k}$.<br>
+              Ainsi,   $S=\\{${k1}\\}$.
+              `
               break
             case 3:
               a = randint(-10, 10, [0, -1, 1])
               b = randint(-10, 10, [0, -1, 1])
-              k1 = randint(-10, 10)
+              k1 = choice([-10, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 10])
               k = calcul(k1 ** 3)
               c = calcul(k * a + b)
               enonce = `Résoudre dans $\\mathbb{R}$ :<br>
@@ -629,9 +638,10 @@ Ainsi,   $S=\\emptyset$.<br>
                                                   \\end{aligned}$<br>`
               }
 
-              correction += ` L'équation est de la forme $x^3=k$ avec $k=${k}$ donc l'équation a une solution $\\sqrt[3]{${k}}=${k1}$.<br>
-                   Ainsi,  $S=\\{${k1}\\}$.
-                   `
+              correction += `L'équation est de la forme $x^3=k$ avec $k=${k}$. <br>
+              Le nombre dont le cube est $${k}$ est $${k1}$ car $${ecritureParentheseSiNegatif(k1)}^3=${k}$.<br>
+              Ainsi,   $S=\\{${k1}\\}$.
+              `
               break
           }
           break
