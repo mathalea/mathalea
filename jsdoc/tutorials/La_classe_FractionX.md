@@ -8,6 +8,8 @@ Pour définir un objet FractionX (une instance de la classe) on peut utiliser le
 
 `new Fraction(String)` // où String est une chaine décrivant un rationnel. Par exemple '0.(1)' c'est 1/9
 
+Attention : Le signe de la fraction est déterminé à partir du numérateur et du dénominateur mais ceux-ci ne sont pas modifiés. la propriété texFraction affichera la fraction avec les numérateurs et dénominateurs passés ici en argument à la création (voir les propriétés FSD, FSP ou ecritureAlgebrique pour une autre écriture)
+
 Avec la classe FractionX, le numérateur et le dénominateur peuvent aussi être des FractionX !
 
 Donc vous pouvez créer un quotient de fractions.

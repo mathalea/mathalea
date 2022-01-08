@@ -1,6 +1,6 @@
 import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
-import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd } from 'mathjs'
+import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller } from 'mathjs'
 import { fraction } from './fractions.js'
 
 // Fonction écrite par Daniel Caillibaud pour créer ajouter les propriétés à la première utilisation de celles-ci.
@@ -126,7 +126,7 @@ export default class FractionX extends Fraction {
      */
     let texFSP
     definePropRo(this, 'texFSP', () => {
-      if (!texFSP) texFSP = (this.s > 0) ? this.texFSD : `(${this.texFractionSignee})`
+      if (!texFSP) texFSP = (this.s > 0) ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
       return texFSP
     })
 
@@ -250,7 +250,7 @@ FractionX.prototype.fractionEgale = fractionEgale
  * @param {FractionX ou Fraction} f
  * @returns true si la FractionX est égale à la fraction passée en argument.
  */
-function estEgal (f) { return equal(this, f) }
+function estEgal (f2) { return equal(this, f2) }
 FractionX.prototype.egal = estEgal
 
 /**
@@ -287,28 +287,59 @@ FractionX.prototype.ajouteEntier = ajouteEntier
  */
 function entierMoinsFraction (n) { return fraction(n * this.den - this.num, this.den) }
 FractionX.prototype.entierMoinsFraction = entierMoinsFraction
+
 /**
  *
  * @param {FractionX ou Fraction ou nombre} f
  * @returns true si FractionX >= f
  */
-function superieurLarge (f) { return largerEq(this, f) }
+function superieurLarge (f2) { return largerEq(this, f2) }
 FractionX.prototype.superieurLarge = superieurLarge
 
 /**
+   * fonctions de comparaison avec une autre fraction.
+   * @param {Fraction} f2
+   * @return {boolean} true si
+   */
+function superieurstrict (f2) {
+  return (larger(this, f2))
+}
+FractionX.prototype.superieurstrict = superieurstrict
+
+/**
+   * Retourne true si la fraction courante est strictement inférieure à f2
+   * @param {Fraction} f2
+   * @return {boolean}
+   */
+function inferieurstrict (f2) {
+  return (smaller(this, f2))
+}
+FractionX.prototype.inferieurstrict = inferieurstrict
+
+/**
+   * Retourne true si la fraction courante est inférieure ou égale à f2
+   * @param {Fraction} f2
+   * @return {boolean}
+   */
+function inferieurlarge (f2) {
+  return (this.n / this.d) < (f2.n / f2.d)
+}
+FractionX.prototype.inferieurlarge = inferieurlarge
+
+/**
  *
- * @param {FractionX} f
+ * @param {FractionX} f2
  * @returns true si FractionX = f et FractionX est plus réduite que f
  */
-function estUneSimplification (f) { return (equal(this, f) && abs(this.num) < abs(f.num)) }
+function estUneSimplification (f2) { return (equal(this, f2) && abs(this.num) < abs(f2.num)) }
 FractionX.prototype.estUneSimplification = estUneSimplification
 
 /**
  *
- * @param {FractionX} f
+ * @param {FractionX} f2
  * @returns f + FractionX
  */
-function sommeFraction (f) { return fraction(add(this, f)) }
+function sommeFraction (f2) { return fraction(add(this, f2)) }
 FractionX.prototype.sommeFraction = sommeFraction
 
 /**
@@ -325,10 +356,10 @@ function sommeFractions (...fractions) { // retourne un résultat simplifié
 FractionX.prototype.sommeFractions = sommeFractions
 
 /**
- * @param {FractionX} f
+ * @param {FractionX} f2
  * @returns f * FractionX  // retourne un résultat simplifié
  */
-function produitFraction (f) { return fraction(multiply(this, f)) }
+function produitFraction (f2) { return fraction(multiply(this, f2)) }
 FractionX.prototype.produitFraction = produitFraction
 
 /**
@@ -344,17 +375,81 @@ function produitFractions (...fractions) { // retourne un résultat simplifié
 }
 FractionX.prototype.produitFractions = produitFractions
 
+/*
+   * @param {Fraction} f2 la fraction qui multiplie.
+   * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
+   */
+function texProduitFraction (f2) {
+  return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.num + '\\times' + f2.num}}{${this.den + '\\times' + f2.den}}=\\dfrac{${this.num * f2.num}}{${this.den * f2.den}}`
+}
+FractionX.prototype.texProduitFraction = texProduitFraction
+
+/**
+   * @param {number} n l'exposant de la fraction
+   * @return {Fraction} La puissance n de la fraction
+   */
+function puissanceFraction (n) {
+  return fraction(this.num ** n, this.den ** n)
+}
+FractionX.prototype.puissanceFraction = puissanceFraction
+
+/**
+ * @returns l'inverse de la fraction
+ */
+function inverse () {
+  const f = this
+  if (this.n !== 0) return new Fraction(this.den, this.num)
+  else {
+    window.notify('Fraction.inverse() : division par zéro', { f })
+    return NaN
+  }
+}
+FractionX.prototype.inverse = inverse
+
+/**
+   *
+   * @param {Fraction} f2
+   * @return {Fraction} f/f2
+   */
+function diviseFraction (f2) {
+  return this.produitFraction(f2.inverse())
+}
+FractionX.prototype.diviseFraction = diviseFraction
+
+/**
+   * @param {number} n entier divisé par la fraction
+   * @return {Fraction} n divisé par fraction
+   */
+function diviseEntier (n) {
+  return new Fraction(n * this.d, this.n)
+}
+FractionX.prototype.diviseEntier = diviseEntier
+
+/**
+   *
+   * @param {Fraction} f2
+   * @return {string} Calcul f/f2 avec les étapes mais sans simplification
+   */
+function texQuotientFraction (f2) {
+  return `${this.texFraction}\\div ${f2.texFraction}=${this.texFraction}\\times ${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + f2.den}}{${this.den + '\\times' + f2.num}}=\\dfrac{${this.num * f2.den}}{${this.den * f2.num}}`
+}
+FractionX.prototype.texQuotientFraction = texQuotientFraction
+
 /**
  * @returns NaN si la Fraction n'est pas un nombre décimal sinon retourne une FractionX avec la bonne puissance de 10 au dénominateur
  */
 function fractionDecimale () {
+  const f = this
   const den = this.simplifie().d
   const num = this.simplifie().n
   const signe = this.simplifie().s
   const liste = obtenirListeFacteursPremiers(den)
   let n2 = 0; let n5 = 0
   for (const n of liste) {
-    if (n === 2) { n2++ } else if (n === 5) { n5++ } else { return 'NaN' }
+    if (n === 2) { n2++ } else if (n === 5) { n5++ } else {
+      window.notify('Fraction.valeurDecimale : Fraction non décimale', { f })
+      return NaN
+    }
   }
   if (n5 === n2) {
     return fraction(num * signe, den)
