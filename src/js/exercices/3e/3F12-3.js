@@ -250,12 +250,13 @@ export default function TableauDeValeurs () {
                 statut: '',
                 reponse: {
                   texte: `a) $f(${listeDeX[i][0]})$`,
-                  valeur: [reponse[0]],
+                  valeur: [reponse[0].type !== 'Fraction' ? reponse[0] : reponse[0].d === 1 ? reponse[0].num : reponse[0]],
                   param: {
                     signe: true,
                     approx: 0,
                     decimals: 1,
-                    digits: 2
+                    digits: 2,
+                    formatInteractif: reponse[0].type !== 'Fraction' ? 'calcul' : reponse[0].d === 1 ? 'calcul' : 'fractionEgale'
                   }
                 }
               }]
@@ -267,12 +268,13 @@ export default function TableauDeValeurs () {
                 statut: '',
                 reponse: {
                   texte: `b) $f(${listeDeX[i][1]})$`,
-                  valeur: [reponse[1]],
+                  valeur: [reponse[1].type !== 'Fraction' ? reponse[1] : reponse[1].d === 1 ? reponse[1].num : reponse[1]],
                   param: {
                     signe: true,
                     approx: 0,
                     decimals: 1,
-                    digits: 2
+                    digits: 2,
+                    formatInteractif: reponse[1].type !== 'Fraction' ? 'calcul' : reponse[1].d === 1 ? 'calcul' : 'fractionEgale'
                   }
                 }
               }]
@@ -284,25 +286,47 @@ export default function TableauDeValeurs () {
                 statut: '',
                 reponse: {
                   texte: `c) $f(${listeDeX[i][2]})$`,
-                  valeur: [reponse[2]],
+                  valeur: [reponse[2].type !== 'Fraction' ? reponse[2] : reponse[2].d === 1 ? reponse[2].num : reponse[2]],
                   param: {
                     signe: true,
                     approx: 0,
                     decimals: 1,
-                    digits: 2
+                    digits: 2,
+                    formatInteractif: reponse[2].type !== 'Fraction' ? 'calcul' : reponse[2].d === 1 ? 'calcul' : 'fractionEgale'
                   }
                 }
               }]
             }
           ]
         }
+        if (reponse[0].type === 'Fraction') {
+          if (reponse[0].den === 1) setReponse(this, i * 3, reponse[0].num, { formatInteractif: 'calcul' })
+          else setReponse(this, i * 3, reponse[0], { formatInteractif: 'fractionEgale' })
+        } else setReponse(this, i * 3, reponse[0], { formatInteractif: 'calcul' })
+        if (reponse[1].type === 'Fraction') {
+          if (reponse[1].den === 1) setReponse(this, i * 3 + 1, reponse[1].num, { formatInteractif: 'calcul' })
+          else setReponse(this, i * 3 + 1, reponse[1], { formatInteractif: 'fractionEgale' })
+        } else setReponse(this, i * 3 + 1, reponse[1], { formatInteractif: 'calcul' })
+        if (reponse[2].type === 'Fraction') {
+          if (reponse[2].den === 1) setReponse(this, i * 3 + 2, reponse[2].num, { formatInteractif: 'calcul' })
+          else setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'fractionEgale' })
+        } else setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'calcul' })
       } else if (this.interactif) {
         texte += `<br><br>$f(${listeDeX[i][0]}) = $` + ajouteChampTexteMathLive(this, i * 3, 'largeur25 inline')
         texte += `<br><br>$f(${listeDeX[i][1]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 1, 'largeur25 inline')
         texte += `<br><br>$f(${listeDeX[i][2]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 2, 'largeur25 inline')
-        setReponse(this, i * 3, reponse[0], { formatInteractif: 'fractionEgale' })
-        setReponse(this, i * 3 + 1, reponse[1], { formatInteractif: 'fractionEgale' })
-        setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'fractionEgale' })
+        if (reponse[0].type === 'Fraction') {
+          if (reponse[0].den === 1) setReponse(this, i * 3, reponse[0].num, { formatInteractif: 'calcul' })
+          else setReponse(this, i * 3, reponse[0], { formatInteractif: 'fractionEgale' })
+        } else setReponse(this, i * 3, reponse[0], { formatInteractif: 'calcul' })
+        if (reponse[1].type === 'Fraction') {
+          if (reponse[1].den === 1) setReponse(this, i * 3 + 1, reponse[1].num, { formatInteractif: 'calcul' })
+          else setReponse(this, i * 3 + 1, reponse[1], { formatInteractif: 'fractionEgale' })
+        } else setReponse(this, i * 3 + 1, reponse[1], { formatInteractif: 'calcul' })
+        if (reponse[2].type === 'Fraction') {
+          if (reponse[2].den === 1) setReponse(this, i * 3 + 2, reponse[2].num, { formatInteractif: 'calcul' })
+          else setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'fractionEgale' })
+        } else setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'calcul' })
       }
 
       texteCorr += '\\hline\n'

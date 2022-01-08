@@ -7542,7 +7542,7 @@ export function exportQcmAmc (exercice, idExo) {
           let reponseAlsoCorrect
           if (valeurAMCNum.num > 0) {
             reponseF = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
-            reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
+            reponseAlsoCorrect = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen))
           } else {
             reponseF = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
             reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
@@ -8056,7 +8056,7 @@ export function exportQcmAmc (exercice, idExo) {
                 let reponseAlsoCorrect
                 if (valeurAMCNum.num > 0) {
                   reponseF = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
-                  reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
+                  reponseAlsoCorrect = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen))
                 } else {
                   reponseF = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
                   reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
