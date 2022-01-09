@@ -19,7 +19,7 @@ export default function ExtremumsTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 1.3
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
@@ -43,11 +43,11 @@ export default function ExtremumsTableau () {
       ligne1 = ['Var', 10, `-/$${-y1}$`, 10, `+/$${-y2}$`, 10, `-/$${-y3}$`, 10, `+/$${-y4}$`, 10]
     }
     question1 = `Voici le tableau de variations d'une fonction $f$ définie sur $[${x1};${x4}]$ :<br>`
-    question1 += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.6 }, tableauDeVariation({
+    question1 += mathalea2d({ xmin: -0.5, ymin: -7.5, xmax: 30, ymax: 0.1, scale: 0.6 }, tableauDeVariation({
       tabInit: [
         [
           // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-          ['$x$', 2, 10], ['$f(x)$', 4, 30]
+          ['$x$', 3, 8], ['$f(x)$', 4, 20]
         ],
         // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
         [`$${x1}$`, 10, `$${x2}$`, 10, `$${x3}$`, 10, `$${x4}$`, 10]
@@ -56,7 +56,7 @@ export default function ExtremumsTableau () {
       tabLines: [ligne1],
       colorBackground: '',
       espcl: 3, // taille en cm entre deux antécédents
-      deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
+      deltacl: 1.5, // distance entre la bordure et les premiers et derniers antécédents
       lgt: 3, // taille de la première colonne en cm
       hauteurLignes: [15, 15]
     }))

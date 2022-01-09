@@ -19,7 +19,7 @@ export default function EncadrerTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 1.3
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
