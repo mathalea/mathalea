@@ -105,7 +105,7 @@ export function listeDeChosesAImprimer (exercice) {
  */
 export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = true) {
   if (context.isHtml) {
-    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing)
+    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`, exercice.tailleDiaporama)
     if (exercice.interactif) {
       exercice.contenu += `<button class="ui blue button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
@@ -2431,17 +2431,13 @@ export function htmlParagraphe (texte, retourCharriot) {
 * @author Rémi Angot
 */
 export function htmlLigne (liste, spacing, classe = 'question') {
-  let result = ''
-  if (spacing > 1) {
-    // Pour garder la même hiérarchie avec listeDeQuestionsToContenu
-    // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
-    // Utile pour la vue can
-    result = `<div><div style="line-height: ${spacing};" class="${classe}">\n`
-  } else {
-    result = `<div><div class="${classe}">\n`
-  }
+  let result = '<div>'
+  const spacingTxt = (spacing > 1) ? `style="line-height: ${spacing};"` : ''
+  // Pour garder la même hiérarchie avec listeDeQuestionsToContenu
+  // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
+  // Utile pour la vue can
   for (const i in liste) {
-    result += '\t' + liste[i].replace(/\\dotfill/g, '...') + '<br>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+    result += '\t' + `<div ${spacingTxt}  class="${classe}">` + liste[i].replace(/\\dotfill/g, '...') + '</div>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     // .replace(/\\\\/g,'<br>') abandonné pour supporter les array
   }
   result += '</div></div>\n'

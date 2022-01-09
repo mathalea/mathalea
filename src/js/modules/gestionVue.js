@@ -22,7 +22,6 @@ export async function gestionVue (vue) {
     const btnEdit = document.getElementById('buttonEdit')
     // const btnMiseAJourCode = get('btn_mise_a_jour_code', false)
     // const btnCopieURL = get('btnCopieURL', false)
-    // const btnLaTeX = get('btnLaTeX', false)
     // const btnEmbed = get('btnEmbed', false)
     // const btnQRcode = get('btnQRcode', false)
     const buttonFullScreen = document.getElementById('buttonFullScreen2')
@@ -116,6 +115,10 @@ export async function gestionVue (vue) {
       section.insertBefore(divCopirelem, divChoixExercices)
       demasqueMenuDesExercices()
       if (btnEdit) btnEdit.style.display = 'none'
+      const btnLaTeX = document.getElementById('btnLaTeX')
+      if (btnLaTeX) btnLaTeX.style.display = 'none'
+      const btnTousInteractifs = document.getElementById('btnTousInteractifs')
+      if (btnTousInteractifs) btnTousInteractifs.style.display = 'none'
       const menuAvecFiltre = document.getElementById('exercices_disponibles')
       if (menuAvecFiltre) menuAvecFiltre.style.display = 'none'
     }
@@ -132,5 +135,5 @@ export async function gestionVue (vue) {
     // Met à jour l'URL avec notamment la nouvelle vue
     setUrl()
   }
-  if (document.getElementById('buttonEdit')) document.getElementById('buttonEdit').style.display = 'none'
+  if (document.getElementById('buttonEdit') && context.vue === null) document.getElementById('buttonEdit').style.display = 'none'
 }
