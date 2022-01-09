@@ -1871,7 +1871,6 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     this.y1 = arrondi(arg1.y, 2)
     this.x2 = arrondi(arg2.x, 2)
     this.y2 = arrondi(arg2.y, 2)
-    this.bordure = [arg1, arg2]
   } else if (arguments.length === 3) {
     if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Segment : (attendus : A, B et "couleur") les arguments de sont pas des points valides', { arg1, arg2 })
 
@@ -1879,7 +1878,6 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     this.y1 = arrondi(arg1.y, 2)
     this.x2 = arrondi(arg2.x, 2)
     this.y2 = arrondi(arg2.y, 2)
-    this.bordure = [arg1, arg2]
     this.color = arg3
   } else if (arguments.length === 4) {
     if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', { arg1, arg2 })
@@ -1887,7 +1885,6 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     this.y1 = arrondi(arg2, 2)
     this.x2 = arrondi(arg3, 2)
     this.y2 = arrondi(arg4, 2)
-    this.bordure = [point(arg1, arg2), point(arg3, arg4)]
   } else {
     // 5 arguments
     if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2, y2 et "couleur") les arguments de sont pas des nombres valides', { arg1, arg2 })
@@ -1895,7 +1892,6 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     this.y1 = arrondi(arg2, 2)
     this.x2 = arrondi(arg3, 2)
     this.y2 = arrondi(arg4, 2)
-    this.bordure = [point(arg1, arg2), point(arg3, arg4)]
     this.color = color
   }
   this.bordures = [Math.min(this.x1, this.x2) - 0.2, Math.min(this.y1, this.y2) - 0.2, Math.max(this.x1, this.x2) + 0.2, Math.max(this.y1, this.y2) + 0.2]
@@ -3286,7 +3282,6 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
-  this.bordure = rotation(M, Omega, angle / 2) // doit disparaitre, mais je vais utiliser ce point pour déterminer this.bordures
   const med = rotation(M, Omega, angle / 2)
   if (typeof (angle) !== 'number') {
     angle = arrondi(angleOriente(M, Omega, angle), 1)
@@ -5241,7 +5236,6 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
   const s = segment(this.extremite1, this.extremite2)
   s.isVisible = false
   let angle
-  this.bordure = pointSurSegment(O, M, this.distance)
   const pos = pointSurSegment(O, M, this.distance)
   const space = 0.2 * texte.length
   this.bordures = [pos.x - space, pos.y - space, pos.x + space, pos.y + space]
@@ -5323,7 +5317,6 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
   s.isVisible = false
   const p = rotation(A, Omega, angle / 2)
   const pos = pointSurSegment(p, Omega, this.distance)
-  this.bordure = pos
   const space = 0.2 * texte.length
   this.bordures = [pos.x - space, pos.y - space, pos.x + space, pos.y + space]
   this.svg = function (coeff) {
