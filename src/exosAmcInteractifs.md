@@ -9,7 +9,7 @@
 |1E11-3|Déterminer la forme canonique d'un polynôme du second degré|KO|KO|OK|mathLive|
 |2F10-1|Reconnaître une fonction affine.|OK|qcmMono|OK|qcm|
 |2F10-2|Lecture graphique d’une fonction affine|OK|AMCHybride|OK|mathLive|
-|2F32|Lecture graphique|OK|AMCHybride|OK|mathLive|
+|2F32-2|Déterminer graphiquement les extremums|OK|AMCHybride|OK|mathLive|
 |2G11-5|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |2G31-1|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
 |2G36-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
@@ -46,10 +46,10 @@
 |2N41-5|Développer (a-b)²|KO|KO|OK|mathLive|
 |2N51-4|Équations du premier degré|OK|AMCHybride|OK|mathLive|
 |2N51-5|Équations du premier degré (utilisant la distributivité)|KO|KO|OK|mathLive|
-|2S10-1|Effectifs et proportions|OK|AMCNum|OK|mathLive|
+|2S10-2|Calculer une proportion ou appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |2S11-1|Calculer un CM à partir d'un taux d'évolution et inversement|KO|KO|OK|mathLive|
 |2S11-2|Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale|KO|KO|OK|mathLive|
-|2S12-1|Évolutions successives|KO|KO|OK|mathLive|
+|2S12-2|Déterminer un taux d’évolution global|KO|KO|OK|mathLive|
 |2S20-1|Calculer des effectifs et des fréquences|KO|KO|OK|mathLive|
 |2S20-2|Calculer des médianes|KO|KO|OK|mathLive|
 |2S20-4|Calculer des étendues|KO|KO|OK|mathLive|

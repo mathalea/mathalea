@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, texPrix } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Effectifs et proportions'
+export const titre = 'Calculer une proportion ou appliquer un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true // Pour en bénéficier avec le générateur AMC
