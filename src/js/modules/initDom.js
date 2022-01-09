@@ -470,7 +470,7 @@ export async function initDom () {
     })
   } else if (vue === 'diap') {
     navigationAvecLesFleches()
-    context.zoom = 3
+    context.zoom = 2
     context.duree = parseInt(getDureeFromUrl())
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container', id: 'sectionPrincipale', style: 'display: none' })
