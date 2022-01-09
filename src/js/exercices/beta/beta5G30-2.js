@@ -63,7 +63,8 @@ export default function exercicesAnglesAIC () {
   const formulaire = [
     '0 : Mélange des types de questions',
     '1 : Angle alterne-interne ou correspondant ?',
-    '2 : Déterminer si des droites sont parallèles.'
+    '2 : Déterminer si des droites sont parallèles.',
+    '3 : Calculer la mesure d\'un angle.'
   ]
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
@@ -300,6 +301,163 @@ export default function exercicesAnglesAIC () {
           Les angles rouge et vert sont ${angles} et ${sont} de la même mesure.
           <br>
           Donc les droites ${sont} parallèles.
+          `
+          texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
+          exercice = { texte: texte, texteCorr: texteCorr }
+          break
+        }
+        case 3: {
+          const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
+          const objetsCorrection = [] // Idem pour la correction
+          const param = aleaVariables(
+            {
+              O: 'randomInt(0,90)',
+              A: 'randomInt(-90,90)',
+              B: 'A',
+              r1: 'pickRandom([1.5,2])',
+              r2: 'pickRandom([1.5,2])',
+              test: '70>O-A>30 and 70>O-B>30 and abs(A-B)<45'
+            }
+          )
+          const ab = aleaVariables(
+            {
+              a: 'randomInt(0,3)',
+              b: 'randomInt(0,3)',
+              test: 'a!=b and (a!=2 or b!=0) and (a!=3 or b!=1)'
+            }
+          )
+          if (dDebug) console.log(param)
+          const O = point(0, 0)
+          const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
+          const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
+          for (const i of ['a', 'b', 'c', 'd']) {
+            anglesA[i].couleurDeRemplissage = 'blue'
+            anglesB[i].couleurDeRemplissage = 'blue'
+          }
+          const a = ['a', 'b', 'c', 'd'][parseInt(ab.a)]
+          const b = ['a', 'b', 'c', 'd'][parseInt(ab.b)]
+          const epsilon = 0
+          anglesA.labela = texteSurArc(((param.O - param.A) % 180 + epsilon) + '°', anglesA.s, anglesA.x, param.O - param.A, 'black')
+          anglesA.labelb = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.x, anglesA.t, 180 - (param.O - param.A), 'black')
+          anglesA.labelc = texteSurArc((param.O - param.A + epsilon) % 180 + '°', anglesA.t, anglesA.Ox, param.O - param.A, 'black')
+          anglesA.labeld = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.Ox, anglesA.s, 180 - (param.O - param.A), 'black')
+          anglesB.labela = texteSurArc(((param.O - param.A) % 180) + '°', anglesB.s, anglesB.x, param.O - param.A, 'black')
+          anglesB.labelb = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.x, anglesB.t, 180 - (param.O - param.A), 'black')
+          anglesB.labelc = texteSurArc((param.O - param.A) % 180 + '°', anglesB.t, anglesB.Ox, param.O - param.A, 'black')
+          anglesB.labeld = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.Ox, anglesB.s, 180 - (param.O - param.A), 'black')
+          objetsEnonce.push(
+            anglesA[a],
+            anglesA.As,
+            anglesA.Ax,
+            anglesB[b],
+            anglesB.As,
+            anglesB.Ax,
+            anglesA['label' + a]
+            // anglesB['label' + b]
+          )
+          objetsEnonce.forEach(objet => {
+            objetsCorrection.push(objet)
+          })
+          objetsCorrection.push(anglesB['label' + b])
+          let angles, calculs, mesure
+          switch (a + b) {
+            case 'ab':
+              anglesB[a].couleurDeRemplissage = 'green'
+              anglesA[a].couleurDeRemplissage = 'red'
+              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
+              angles = 'correspondants'
+              calculs = `$180°- ${anglesB.labela.texte}=${anglesB.labelb.texte}$`
+              mesure = anglesB.labelb.texte
+              break
+            case 'ac':
+              anglesB[a].couleurDeRemplissage = 'green'
+              anglesA[a].couleurDeRemplissage = 'red'
+              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
+              angles = 'correspondants'
+              mesure = anglesB.labela.texte
+              break
+            case 'ad':
+              anglesB[a].couleurDeRemplissage = 'green'
+              anglesA[a].couleurDeRemplissage = 'red'
+              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
+              angles = 'correspondants'
+              calculs = `$180°-${anglesB.labela.texte}=${anglesB.labeld.texte}$`
+              mesure = anglesB.labeld.texte
+              break
+            case 'ba':
+              anglesB[a].couleurDeRemplissage = 'green'
+              anglesA[a].couleurDeRemplissage = 'red'
+              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
+              angles = 'correspondants'
+              calculs = `$180°-${anglesB.labelb.texte}=${anglesB.labela.texte}$`
+              mesure = anglesB.labela.texte
+              break
+            case 'bc':
+              anglesB[a].couleurDeRemplissage = 'green'
+              anglesA[a].couleurDeRemplissage = 'red'
+              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
+              angles = 'correspondants'
+              calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labelc.texte}$`
+              mesure = anglesB.labelc.texte
+              break
+            case 'bd':
+              anglesB[a].couleurDeRemplissage = 'green'
+              anglesA[a].couleurDeRemplissage = 'red'
+              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
+              angles = 'correspondants'
+              mesure = anglesB.labelb.texte
+              break
+            case 'cb':
+              anglesB.a.couleurDeRemplissage = 'green'
+              anglesA[a].couleurDeRemplissage = 'red'
+              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
+              angles = 'alternes-internes'
+              calculs = `$180°- ${anglesB.labela.texte}=${anglesB.labelb.texte}$`
+              mesure = anglesB.labelb.texte
+              break
+            case 'cd':
+              anglesB.a.couleurDeRemplissage = 'green'
+              anglesA[a].couleurDeRemplissage = 'red'
+              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
+              angles = 'alternes-internes'
+              calculs = `$180°-${anglesB.labela.texte}=${anglesB.labeld.texte}$`
+              mesure = anglesB.labeld.texte
+              break
+            case 'da':
+              anglesB.b.couleurDeRemplissage = 'green'
+              anglesA[a].couleurDeRemplissage = 'red'
+              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
+              angles = 'alternes-internes'
+              calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labela.texte}$`
+              mesure = anglesB.labela.texte
+              break
+            case 'dc':
+              anglesB.b.couleurDeRemplissage = 'green'
+              anglesA[a].couleurDeRemplissage = 'red'
+              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
+              calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labelc.texte}$`
+              angles = 'alternes-internes'
+              mesure = anglesB.labelc.texte
+              break
+          }
+          const paramsEnonce = fixeBordures([
+            ...Object.keys(anglesA).map(key => { return anglesA[key] }),
+            ...Object.keys(anglesB).map(key => { return anglesB[key] })
+          ])
+          let texte = `
+          Donnée : Les droites sont parallèles.
+          <br>
+          En déduire la mesure de l'angle bleu.
+          `
+          const texteCorr = mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsCorrection) + String.raw`
+          <br>
+          Les angles rouge et vert sont ${angles} et formés par des droites parallèles.
+          <br>
+          Donc ils sont de même mesure.
+          <br>
+          ${calculs !== undefined ? calculs : 'Les angles bleu et vert sont opposés par le sommet.<br> Ils sont donc de même mesure.'}
+          <br>
+          L'angle bleu mesure donc ${mesure}.
           `
           texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
           exercice = { texte: texte, texteCorr: texteCorr }
