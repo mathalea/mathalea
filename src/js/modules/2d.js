@@ -6122,7 +6122,6 @@ function AxeY (
   xmax = 30,
   ymax = 30,
   thick = 0.2,
-  xstep = 1,
   ystep = 1,
   epaisseur = 2,
   color = 'black',
@@ -6227,7 +6226,7 @@ export function labelX (...args) {
 /**
  * labelY(ymin,ymax,step,color,pos,coeff) // Place des graduations
  *
- * @author Rémi Angot
+ * @author Rémi Angot modifié par Frédéric Piou
  */
 function LabelY (
   ymin = 1,
