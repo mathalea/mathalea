@@ -1,6 +1,8 @@
-import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal } from './outils.js'
+import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
+import { fraction, max, ceil } from 'mathjs'
+
 /*
   MathALEA2D
  @name      mathalea2d.js
@@ -6100,6 +6102,78 @@ export function axes (...args) {
   return new Axes(...args)
 }
 
+/**
+ * @author Frédéric Piou
+ * @param {*} xmin
+ * @param {*} ymin
+ * @param {*} xmax
+ * @param {*} ymax
+ * @param {*} thick
+ * @param {*} xstep
+ * @param {*} ystep
+ * @param {*} epaisseur
+ * @param {*} color
+ * @param {*} ytick
+ * @param {*} titre
+ */
+function AxeY (
+  xmin = -30,
+  ymin = -30,
+  xmax = 30,
+  ymax = 30,
+  thick = 0.2,
+  xstep = 1,
+  ystep = 1,
+  epaisseur = 2,
+  color = 'black',
+  ytick = ystep,
+  titre = ''
+) {
+  ObjetMathalea2D.call(this)
+  const objets = []
+  objets.push(texteParPoint(titre, point(xmin - thick - 0.1, ymax), 'gauche', color))
+  const ordonnee = segment(-1, ymin, -1, ymax)
+  ordonnee.styleExtremites = '->'
+  ordonnee.epaisseur = epaisseur
+  objets.push(ordonnee)
+  ordonnee.color = color
+  for (let y = ymin; y < ymax; y = fraction(y).add(ystep)) {
+    const s = segment(xmin - thick, y, xmin, y)
+    s.epaisseur = epaisseur
+    s.color = color
+    objets.push(s)
+  }
+  for (let y = ymin; y < ymax; y = fraction(y).add(ystep.div(ytick))) {
+    const s = segment(xmin - thick / 2, y, xmin, y)
+    s.epaisseur = epaisseur
+    s.color = color
+    objets.push(s)
+  }
+  this.bordures = [1000, 1000, -1000, -1000]
+  for (const objet of objets) {
+    if (objet.bordures !== undefined) { this.bordures = [Math.min(this.bordures[0], objet.bordures[0]), Math.min(this.bordures[1], objet.bordures[1]), Math.max(this.bordures[2], objet.bordures[2]), Math.max(this.bordures[3], objet.bordures[3])] }
+  }
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+  this.commentaire = `Axes(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, thick = ${thick})`
+}
+
+export function axeY (...args) {
+  return new AxeY(...args)
+}
+
 function LabelX (
   xmin = 1,
   xmax = 20,
@@ -6165,6 +6239,50 @@ function LabelY (
 ) {
   ObjetMathalea2D.call(this)
   const objets = []
+  for (let y = ceil(fraction(ymin, coeff));
+    y.mul(coeff) <= ymax;
+    y = y.add(step)
+  ) {
+    objets.push(
+      texteParPoint(
+        y.mul(coeff),
+        point(pos, y),
+        'gauche',
+        color
+      )
+    )
+  }
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+  this.commentaire = `labelX(ymin=${ymin},ymax=${ymax},step=${step},color=${color},pos=${pos})`
+}
+
+export function labelY (...args) {
+  return new LabelY(...args)
+}
+/*
+function LabelY (
+  ymin = 1,
+  ymax = 20,
+  step = 1,
+  color = 'black',
+  pos = -0.6,
+  coeff = 1
+) {
+  ObjetMathalea2D.call(this)
+  const objets = []
   for (let y = Math.ceil(ymin / coeff);
     calcul(y * coeff) <= ymax;
     y = calcul(y + step)
@@ -6196,15 +6314,18 @@ function LabelY (
   }
   this.commentaire = `labelX(ymin=${ymin},ymax=${ymax},step=${step},color=${color},pos=${pos})`
 }
+*/
 
 /**
  * labelY(ymin,ymax,step,color,pos,coeff) // Place des graduations
  *
  * @author Rémi Angot
  */
+/*
 export function labelY (...args) {
   return new LabelY(...args)
 }
+*/
 
 /**
  * grille(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordonnées
@@ -8166,7 +8287,7 @@ function TraceBarre (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage
     p.hachures = hachures
   }
   const texte = texteParPosition(legende, x, -0.2, angle, 'black', 1, 'gauche')
-
+  this.bordures = [Math.min(p.bordures[0], texte.bordures[0]), Math.min(p.bordures[1], texte.bordures[1]), Math.max(p.bordures[2], texte.bordures[2]), Math.max(p.bordures[3], texte.bordures[3])]
   this.tikz = function () {
     return p.tikz() + '\n' + texte.tikz()
   }
@@ -8214,6 +8335,63 @@ export function traceBarreHorizontale (...args) {
   return new TraceBarreHorizontale(...args)
 }
 
+function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false } = {}) {
+  ObjetMathalea2D.call(this)
+  const diagramme = []
+  for (let j = 0; j < hauteursBarres.length; j++) {
+    const abscisseBarre = j * coeff
+    const hauteurBarre = hauteursBarres[j] * hauteurDiagramme / max(hauteursBarres)
+    diagramme.push(traceBarre(abscisseBarre, hauteurBarre, etiquettes[j], { couleurDeRemplissage: couleurDeRemplissage }))
+    if (reperageTraitPointille) {
+      const ligne = segment(-1, hauteurBarre, abscisseBarre, hauteurBarre)
+      ligne.pointilles = true
+      ligne.epaisseur = 0.2
+      diagramme.push(ligne)
+    }
+    diagramme.push(texteParPoint(numberFormat(hauteursBarres[j]), point(abscisseBarre, hauteurBarre + 0.3)))
+    // Calculs permettant de graduer l'axe vertical et de placer des valeurs
+    const steps = [1, 2, 5, 10, 20]
+    const yticks = [1, 2, 5, 5, 5]
+    let istep = 1
+    let step = 1
+    let ytick = 1
+    while (max(hauteursBarres) / step > 5 && istep < 5) {
+      istep += 1
+      step = steps[istep - 1]
+      ytick = yticks[istep - 1]
+    }
+    if (istep === 5) istep = 2
+    while (max(hauteursBarres) / step > 5) {
+      istep = istep + 1
+      step = istep * 10
+      ytick = 5
+    }
+    if (labelAxeVert) diagramme.push(labelY(0, max(hauteursBarres), fraction(hauteurDiagramme, max(hauteursBarres)).mul(step), 'black', -1.3, max(hauteursBarres) / hauteurDiagramme))
+    if (axeVertical) diagramme.push(axeY(-1, 0, abscisseBarre, hauteurDiagramme + 1, 0.2, abscisseBarre, fraction(hauteurDiagramme, max(hauteursBarres)).mul(step), 0.2, 'black', ytick, titreAxeVertical))
+  }
+  if (titre !== '') diagramme.push(texteParPoint(titre, point((hauteursBarres.length - 1) * coeff / 2, hauteurDiagramme + 1)))
+  this.bordures = [1000, 1000, -1000, -1000]
+  for (const objet of diagramme) {
+    if (objet.bordures !== undefined) { this.bordures = [Math.min(this.bordures[0], objet.bordures[0]), Math.min(this.bordures[1], objet.bordures[1]), Math.max(this.bordures[2], objet.bordures[2]), Math.max(this.bordures[3], objet.bordures[3])] }
+  }
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of diagramme) {
+      code += '\n\t' + objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function (coeff) {
+    let code = ''
+    for (const objet of diagramme) {
+      code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+}
+export function diagrammeBarres (...args) {
+  return new DiagrammeBarres(...args)
+}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%% LES COURBES DE FONCTIONS %%%%%%%%%

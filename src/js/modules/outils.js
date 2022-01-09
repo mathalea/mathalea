@@ -2480,6 +2480,22 @@ export function htmlConsigne (consigne) {
 export function texConsigne (consigne) {
   return '\\exo{' + consigne.replace(/<br>/g, '\\\\') + '}\n\n'
 }
+/**
+ * @author Frédéric Piou
+ * @param {number} nb
+ * @returns retourne un nombre au format français sans espace après la virgule
+ */
+export function num (nb) {
+  return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+}
+/**
+ * @author Frédéric Piou
+ * @param {number} nb
+ * @returns retourne un nombre au format français
+ */
+export function numberFormat (nb) {
+  return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ')
+}
 
 /**
 * Renvoie un nombre dans le format français (séparateur de classes)
