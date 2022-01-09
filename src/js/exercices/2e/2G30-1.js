@@ -11,7 +11,7 @@ export const amcType = 'AMCHybride'
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
- * 2G31-1, ex 2G50
+ * 2G30-1, ex 2G50
 */
 export default function CoefficientDirecteurDeDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()

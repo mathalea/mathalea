@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 /**
- 2G36-7, ex 2G50-2
+ 2G35-7, ex 2G50-2
 
 */
 export default function lecturegraphiquedeaetb (numeroExercice) {

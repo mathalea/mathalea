@@ -699,16 +699,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-1": {
+  "2G30-1": {
     "titre": "Déterminer le coefficient directeur d'une droite.",
-    "url": "/exercices/2e/2G31-1.js",
+    "url": "/exercices/2e/2G30-1.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2G31-1",
+    "name": "2G30-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -718,12 +718,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-2": {
+  "2G30-2": {
     "titre": "Déterminer une équation réduite de droite",
-    "url": "/exercices/2e/2G31-2.js",
+    "url": "/exercices/2e/2G30-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-2",
+    "name": "2G30-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -733,12 +733,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-3": {
+  "2G30-3": {
     "titre": "Déterminer une équation cartésienne de droite à partir de deux points.",
-    "url": "/exercices/2e/2G31-3.js",
+    "url": "/exercices/2e/2G30-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-3",
+    "name": "2G30-3",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -748,12 +748,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-4": {
+  "2G30-4": {
     "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur.",
-    "url": "/exercices/2e/2G31-4.js",
+    "url": "/exercices/2e/2G30-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-4",
+    "name": "2G30-4",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -763,12 +763,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-5": {
+  "2G30-5": {
     "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",
-    "url": "/exercices/2e/2G31-5.js",
+    "url": "/exercices/2e/2G30-5.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-5",
+    "name": "2G30-5",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -778,12 +778,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G34-1": {
+  "2G33-1": {
     "titre": "Alignement de 3 points.",
-    "url": "/exercices/2e/2G34-1.js",
+    "url": "/exercices/2e/2G33-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G34-1",
+    "name": "2G33-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -793,12 +793,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G34-2": {
+  "2G33-2": {
     "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
-    "url": "/exercices/2e/2G34-2.js",
+    "url": "/exercices/2e/2G33-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G34-2",
+    "name": "2G33-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -808,16 +808,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G36-7": {
+  "2G35-7": {
     "titre": "Lecture graphique des coefficients d'une équation réduite ",
-    "url": "/exercices/2e/2G36-7.js",
+    "url": "/exercices/2e/2G35-7.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2G36-7",
+    "name": "2G35-7",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"

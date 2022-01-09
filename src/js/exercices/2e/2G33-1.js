@@ -4,8 +4,7 @@ export const titre = 'Alignement de 3 points.'
 /**
  * Description didactique de l'exercice Démontrer alignement de 3 points avec coefficient directeur
  * @author Stéphane Guyon
- * Référence
- * A DEPLACER EN 2G34-1 !!!!!!!!!!!!!!!!!!!
+ * Référence 2G33-1
 */
 export default function alignementdetroispoints () {
   Exercice.call(this) // Héritage de la classe Exercice()
