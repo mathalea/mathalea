@@ -137,7 +137,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: `b)${noms[1]} : partie fractionnaire \\dfrac{\\ldots}{10}`,
+                  texte: `b)${noms[1]} : partie fractionnaire $\\dfrac{\\ldots}{10}$`,
                   valeur: calcul(10 * (x2 - Math.floor(x2))),
                   param: {
                     digits: nombreDeChiffresDansLaPartieEntiere(calcul(10 * (x2 - Math.floor(x2)))),
@@ -154,7 +154,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: `c)${noms[2]} : fraction décimale \\dfrac{\\ldots}{10}`,
+                  texte: `c)${noms[2]} : fraction décimale $\\dfrac{\\ldots}{10}$`,
                   valeur: calcul(x3 * 10),
                   param: {
                     digits: nombreDeChiffresDansLaPartieEntiere(calcul(x3 * 10)),
