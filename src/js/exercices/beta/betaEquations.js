@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { polygone, segment, ObjetMathalea2D, point, mathalea2d, texteParPosition, fixeBordures } from '../../modules/2d.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { create, all, parse } from 'mathjs'
-import { calculExpression, calculExpression2, resoudreEquation, aleaEquation, aleaExpressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
+import { calculExpression, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
 
 const math = create(all)
 math.config({
@@ -321,7 +321,7 @@ export default function equationsProgression () {
           break
         }
         case 19: {
-          exercice = calculExpression(aleaExpressionLitterale('a/b+c/d',
+          exercice = calculExpression(expressionLitterale('a/b+c/d',
             aleaVariables({
               a: false,
               b: 'randomInt(2,100)',
@@ -332,14 +332,14 @@ export default function equationsProgression () {
           break
         }
         case 20: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x+b*x', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x+b*x', aleaVariables({
             a: 'randomInt(2,100)',
             b: 'randomInt(2,100)'
           })).toString(), false, dDebug)
           break
         }
         case 21: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x+b*x-c*x', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x+b*x-c*x', aleaVariables({
             a: 'randomInt(2,100)',
             b: 'randomInt(2,100)',
             c: 'randomInt(2,100)',
@@ -348,7 +348,7 @@ export default function equationsProgression () {
           break
         }
         case 22: {
-          exercice = calculExpression(aleaExpressionLitterale('a/b*x+c/d*x', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a/b*x+c/d*x', aleaVariables({
             a: false,
             b: 'randomInt(2,100)',
             c: false,
@@ -359,7 +359,7 @@ export default function equationsProgression () {
           break
         }
         case 23: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x^2+b*x+c*x^2', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x^2+b*x+c*x^2', aleaVariables({
             a: 'randomInt(1,20)',
             b: 'randomInt(1,20)',
             c: 'randomInt(1,20)'
@@ -367,7 +367,7 @@ export default function equationsProgression () {
           break
         }
         case 24: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x^2+b*x+c', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x^2+b*x+c', aleaVariables({
             a: 'randomInt(1,15)^2',
             c: 'randomInt(1,15)^2',
             b: '2*sqrt(a)*sqrt(c)'
@@ -375,7 +375,7 @@ export default function equationsProgression () {
           break
         }
         case 25: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x^2-b*x+c', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x^2-b*x+c', aleaVariables({
             a: 'randomInt(1,15)^2',
             c: 'randomInt(1,15)^2',
             b: '2*sqrt(a)*sqrt(c)'
@@ -383,7 +383,7 @@ export default function equationsProgression () {
           break
         }
         case 26: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x^2-b', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x^2-b', aleaVariables({
             a: 'randomInt(1,15)^2',
             b: 'randomInt(1,15)^2'
           })).toString(), true, dDebug)
@@ -398,7 +398,7 @@ export default function equationsProgression () {
           break
         }
         case 29: {
-          exercice = calculExpression(aleaExpressionLitterale('a+c/d', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a+c/d', aleaVariables({
             a: false,
             b: 'randomInt(2,100)',
             c: false,
@@ -408,7 +408,7 @@ export default function equationsProgression () {
           break
         }
         case 30: {
-          exercice = calculExpression(aleaExpressionLitterale('a-c/d', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a-c/d', aleaVariables({
             a: false,
             b: 'randomInt(2,100)',
             c: false,
@@ -418,7 +418,7 @@ export default function equationsProgression () {
           break
         }
         case 31: {
-          exercice = calculExpression(aleaExpressionLitterale('a/b-c/d', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a/b-c/d', aleaVariables({
             a: false,
             b: 'randomInt(2,100)',
             c: false,
@@ -510,7 +510,7 @@ export default function equationsProgression () {
           break
         }
         case 43: {
-          exercice = calculExpression(aleaExpressionLitterale('(a/b)*(c/d)', aleaVariables({
+          exercice = calculExpression(expressionLitterale('(a/b)*(c/d)', aleaVariables({
             a: false,
             b: 'randomInt(2,100)',
             c: false,
@@ -520,7 +520,7 @@ export default function equationsProgression () {
           break
         }
         case 44: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x+b*x', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x+b*x', aleaVariables({
             a: 'round(random(1,10),1)',
             b: 'round(random(-10,10),1)',
             test: 'b!=0 and a+b>0'
@@ -528,7 +528,7 @@ export default function equationsProgression () {
           break
         }
         case 45: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x*b', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x*b', aleaVariables({
             a: false,
             b: false,
             test: 'a>1 and b>1'
@@ -536,7 +536,7 @@ export default function equationsProgression () {
           break
         }
         case 46: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x*b+c*x', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x*b+c*x', aleaVariables({
             a: false,
             b: false,
             c: true,
@@ -545,7 +545,7 @@ export default function equationsProgression () {
           break
         }
         case 47: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x*b+c*x', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x*b+c*x', aleaVariables({
             a: false,
             b: false,
             c: true,
@@ -554,7 +554,7 @@ export default function equationsProgression () {
           break
         }
         case 48: {
-          exercice = calculExpression(aleaExpressionLitterale('x*a*x*b', aleaVariables({
+          exercice = calculExpression(expressionLitterale('x*a*x*b', aleaVariables({
             a: false,
             b: false,
             test: 'b>1 and a>1'
@@ -562,7 +562,7 @@ export default function equationsProgression () {
           break
         }
         case 49: {
-          exercice = calculExpression(aleaExpressionLitterale('x*a*x+b*x^2', aleaVariables({
+          exercice = calculExpression(expressionLitterale('x*a*x+b*x^2', aleaVariables({
             a: false,
             b: true,
             test: 'a>1 and a+b>0'
@@ -570,7 +570,7 @@ export default function equationsProgression () {
           break
         }
         case 50: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x*b*x*c*x+d*x^2', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x*b*x*c*x+d*x^2', aleaVariables({
             a: false,
             b: false,
             c: false,
@@ -613,7 +613,7 @@ export default function equationsProgression () {
           break
         }
         case 57: {
-          exercice = calculExpression(aleaExpressionLitterale('a/b+c/d',
+          exercice = calculExpression(expressionLitterale('a/b+c/d',
             aleaVariables({
               a: true,
               b: 'randomInt(2,100)',
@@ -624,7 +624,7 @@ export default function equationsProgression () {
           break
         }
         case 58: {
-          exercice = calculExpression(aleaExpressionLitterale('a+c/d', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a+c/d', aleaVariables({
             a: true,
             b: 'randomInt(2,100)',
             c: true,
@@ -634,7 +634,7 @@ export default function equationsProgression () {
           break
         }
         case 59: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x+b*x', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x+b*x', aleaVariables({
             a: 'round(random(-10,10),1)',
             b: 'round(random(-10,10),1)',
             test: 'b!=0 and a!=0'
@@ -642,7 +642,7 @@ export default function equationsProgression () {
           break
         }
         case 60: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x*b', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x*b', aleaVariables({
             a: true,
             b: true,
             test: 'a!= 1 and abs(b)!=1'
@@ -650,7 +650,7 @@ export default function equationsProgression () {
           break
         }
         case 61: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x*b+c*x', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x*b+c*x', aleaVariables({
             a: true,
             b: true,
             c: true,
@@ -659,7 +659,7 @@ export default function equationsProgression () {
           break
         }
         case 62: {
-          exercice = calculExpression(aleaExpressionLitterale('x*a*x*b', aleaVariables({
+          exercice = calculExpression(expressionLitterale('x*a*x*b', aleaVariables({
             a: true,
             b: true,
             test: 'a!=1 and b!=1'
@@ -667,7 +667,7 @@ export default function equationsProgression () {
           break
         }
         case 63: {
-          exercice = calculExpression(aleaExpressionLitterale('x*a*x+b*x^2', aleaVariables({
+          exercice = calculExpression(expressionLitterale('x*a*x+b*x^2', aleaVariables({
             a: true,
             b: true,
             test: 'a!=1 and b!=1'
@@ -675,7 +675,7 @@ export default function equationsProgression () {
           break
         }
         case 64: {
-          exercice = calculExpression(aleaExpressionLitterale('a*x*b*x*c*x+d*x^2', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a*x*b*x*c*x+d*x^2', aleaVariables({
             a: true,
             b: true,
             c: true,
@@ -689,7 +689,7 @@ export default function equationsProgression () {
           break
         }
         case 66: {
-          exercice = calculExpression(aleaExpressionLitterale('a/e*x*b/f*x*c*x+d*x^2', aleaVariables({
+          exercice = calculExpression(expressionLitterale('a/e*x*b/f*x*c*x+d*x^2', aleaVariables({
             a: true,
             b: true,
             c: true,
@@ -723,7 +723,7 @@ export default function equationsProgression () {
           break
         }
         case 69: {
-          exercice = calculExpression2(aleaExpressionLitterale('(a*x+b)^2+(c*x+d)*(e*x+f)', aleaVariables({
+          exercice = calculExpression2(expressionLitterale('(a*x+b)^2+(c*x+d)*(e*x+f)', aleaVariables({
             a: true,
             b: true,
             c: true,
@@ -734,7 +734,7 @@ export default function equationsProgression () {
           break
         }
         case 70: {
-          exercice = calculExpression2(aleaExpressionLitterale('(a*x+b)^2+(c*x+d)*(c*x-d)', aleaVariables({
+          exercice = calculExpression2(expressionLitterale('(a*x+b)^2+(c*x+d)*(c*x-d)', aleaVariables({
             a: true,
             b: true,
             c: true,
@@ -743,7 +743,7 @@ export default function equationsProgression () {
           break
         }
         case 71: {
-          exercice = calculExpression2(aleaExpressionLitterale('(8*x-6)^2+(-9*x-2)*(7*x+2)', aleaVariables({
+          exercice = calculExpression2(expressionLitterale('(8*x-6)^2+(-9*x-2)*(7*x+2)', aleaVariables({
             a: true,
             b: true,
             c: true,
