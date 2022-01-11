@@ -37,7 +37,7 @@ export default function ExerciceLabyrintheNumeration () {
     const monchemin = laby.chemin
     const positions = ['unités', 'dixièmes', 'centièmes', 'millièmes', 'dizaines', 'centaines', 'unités de mille', 'dix-millièmes', 'dizaines de mille']
     let hasard
-    const listeNombresOK = []; let index = 0; let rangMax
+    const listeNombresOK = []; let index1 = 0; let index2 = 0; let rangMax
     if (this.niveau === 'CM') {
       rangMax = 5
     } else {
@@ -185,10 +185,11 @@ export default function ExerciceLabyrintheNumeration () {
           if (monchemin[k][0] === a && monchemin[k][1] === b) trouve = true
         }
         if (!trouve) {
-          laby.nombres[a - 1][b] = listeNombresOK[index + 13]
+          laby.nombres[a - 1][b] = listeNombresOK[index1 + 13]
+          index1++
         } else {
-          laby.nombres[a - 1][b] = listeNombresOK[index]
-          index++
+          laby.nombres[a - 1][b] = listeNombresOK[index2]
+          index2++
         }
       }
     } // Le tableau de nombre étant fait, on place les objets nombres.
