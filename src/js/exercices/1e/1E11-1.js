@@ -15,6 +15,7 @@ export default function NombrePairFois5 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.nouvelleVersion = function () {
+    this.autoCorrection = []
     const a = randint(1, 5) * choice([-1, 1])
     const b = randint(-5, 5)
     const c = randint(-5, 5)

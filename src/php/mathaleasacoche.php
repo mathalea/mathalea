@@ -1,5 +1,5 @@
 <!-- On affiche le contenu de alacarte -->
-<?php include('alacarte/index.html'); ?>
+<?php readfile('https://coopmaths.fr/alacarte/index.html'); ?>
 
 <!-- SACoche donne l'URL du fichier json avec ?json=http... -->
 <?php
@@ -14,8 +14,8 @@
  <!-- Le contenu du json est sauvegardé dans $array_data -->
 
 
- <script type="text/javascript">   
-   var tableauSACoche = <?php echo $file_data ?>;
+ <script type="text/javascript">  
+   const tableauSACoche = <?php echo $file_data ?>;
    // on récupère le contenu du tableau json dans notre variable JS
 
    // pour tous les élèves qui sont dans le tableau panier...
@@ -36,5 +36,5 @@
     document.getElementById('style3').checked = true; //Passe en style item1 ; item2 ; item3...
   }
   
-  $('#textarea_id_items').val(texte_des_demandes)
+  document.getElementById('textarea_id_items').value = texte_des_demandes
  </script>

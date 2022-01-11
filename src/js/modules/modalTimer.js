@@ -16,7 +16,7 @@ export const modalTimer = async () => {
       if (e.keyCode === 13) {
         e.preventDefault()
         $('#modalTimer').modal('hide')
-        context.duree = document.getElementById('inputTimer').value
+        context.duree = parseInt(document.getElementById('inputTimer').value)
         setUrl()
       }
     })
@@ -25,7 +25,11 @@ export const modalTimer = async () => {
 
   document.getElementById('submitTimer').addEventListener('click', () => {
     $('#modalTimer').modal('hide')
-    context.duree = document.getElementById('inputTimer').value
+    context.duree = parseInt(document.getElementById('inputTimer').value)
     setUrl()
+    if (context.vue === 'diap') {
+      const event = new Event('nouveauTimer')
+      document.dispatchEvent(event)
+    }
   })
 }

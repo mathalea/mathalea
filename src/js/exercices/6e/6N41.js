@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, miseEnEvidence, texFraction } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-import Fraction from '../../modules/Fraction.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 export const titre = 'Compléter les égalités entre fractions simples'
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM
@@ -232,7 +232,7 @@ export default function EgalitesEntreFractions () {
       //   texte += '<br>' + propositionsQcm(this, i).texte
       // }
       if (this.interactif && context.isHtml) {
-        setReponse(this, i, new Fraction(c, d), { formatInteractif: 'fraction' })
+        setReponse(this, i, new FractionEtendue(c, d), { formatInteractif: 'fraction' })
         texte += ajouteChampTexteMathLive(this, i)
       }
       this.listeQuestions.push(texte)

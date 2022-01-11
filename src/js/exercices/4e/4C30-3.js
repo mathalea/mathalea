@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, texNombre, puissanceEnProduit } from '../../modules/outils.js'
-export const titre = 'Écriture décimale d’une puissance'
+export const titre = 'Écriture décimale ou fractionnaire d\'une puissance'
 
 /**
  * Donner l'écriture décimale d'une puissance de 10

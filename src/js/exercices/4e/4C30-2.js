@@ -26,6 +26,7 @@ export default function EcritureDecimalePuissanceDe10 () {
     this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     let listeTypeDeQuestions
     if (this.sup === 1) {

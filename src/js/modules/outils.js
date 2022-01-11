@@ -2,11 +2,12 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate, isPrime, max, gcd } from 'mathjs'
+import { format, evaluate, isPrime, gcd, round, largerEq, equal, smaller } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 import { elimineDoublons, setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
+import { toDfrac } from './fonctionsMaths.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -24,7 +25,7 @@ export function listeQuestionsToContenu (exercice) {
   if (context.isHtml) {
     exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlEnumerate(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`, exercice.tailleDiaporama)
     if ((exercice.interactif && exercice.interactifReady) || getVueFromUrl() === 'eval') {
-      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
+      exercice.contenu += `<button class="ui blue button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
     }
     exercice.contenuCorrection = htmlParagraphe(exercice.consigneCorrection) + htmlEnumerate(exercice.listeCorrections, exercice.spacingCorr, 'correction')
   } else {
@@ -103,20 +104,25 @@ export function listeDeChosesAImprimer (exercice) {
  * @author Rémi Angot
  */
 export function listeQuestionsToContenuSansNumero (exercice, retourCharriot = true) {
-  if (context.isHtml) {
-    exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing)
-    if (exercice.interactif) {
-      exercice.contenu += `<button class="ui button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
-    }
-    exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr, 'correction')
+  // En vue diapCorr, les questions doivent toujours être numérotées car venant d'exercices différents
+  if (context.vue === 'diapCorr') {
+    listeQuestionsToContenu(exercice, retourCharriot = true)
   } else {
-    if (document.getElementById('supprimer_reference').checked === true) {
-      exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
+    if (context.isHtml) {
+      exercice.contenu = htmlConsigne(exercice.consigne) + htmlParagraphe(exercice.introduction) + htmlLigne(exercice.listeQuestions, exercice.spacing, 'question', `exercice${exercice.numeroExercice}Q`, exercice.tailleDiaporama)
+      if (exercice.interactif) {
+        exercice.contenu += `<button class="ui blue button checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px;" id="btnValidationEx${exercice.numeroExercice}-${exercice.id}">Vérifier les réponses</button>`
+      }
+      exercice.contenuCorrection = htmlConsigne(exercice.consigneCorrection) + htmlLigne(exercice.listeCorrections, exercice.spacingCorr, 'correction')
     } else {
-      exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
+      if (document.getElementById('supprimer_reference').checked === true) {
+        exercice.contenu = texConsigne(exercice.consigne) + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
+      } else {
+        exercice.contenu = texConsigne(exercice.consigne) + `\n\\marginpar{\\footnotesize ${exercice.id}}` + texIntroduction(exercice.introduction) + texMulticols(texParagraphe(exercice.listeQuestions, exercice.spacing, retourCharriot), exercice.nbCols)
+      }
+      // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
+      exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr, retourCharriot), exercice.nbColsCorr)
     }
-    // exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texEnumerateSansNumero(exercice.listeCorrections,exercice.spacingCorr),exercice.nbColsCorr)
-    exercice.contenuCorrection = texConsigne(exercice.consigneCorrection) + texMulticols(texParagraphe(exercice.listeCorrections, exercice.spacingCorr, retourCharriot), exercice.nbColsCorr)
   }
 }
 
@@ -148,7 +154,8 @@ export function listeQuestionsToContenuSansNumeroEtSansConsigne (exercice) {
 export function deuxColonnes (cont1, cont2, largeur1 = 50) {
   if (context.isHtml) {
     return `
-    <div style="float:left;max-width: ${largeur1}%;margin-right: 30px">
+    <div>
+    <div class="question" style="float:left;max-width: ${largeur1}%;margin-right: 30px">
     ${cont1}
    </div>
    <div style="float:left; max-width: ${90 - largeur1}%">
@@ -156,6 +163,7 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
    </div>
    <div style="clear:both"></div>
    <div class="ui hidden divider"></div>
+   </div>
 `
   } else {
     return `\\begin{minipage}{${calcul(largeur1 / 100)}\\linewidth}
@@ -248,7 +256,7 @@ export function inferieurouegal (a, b, tolerance = epsilon) {
  * @return {boolean}
  */
 export function estentier (a, tolerance = epsilon) {
-  return (Math.abs(a - Math.round(a)) < tolerance)
+  return (Math.abs(a - round(a)) < tolerance)
 }
 
 /**
@@ -846,12 +854,24 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
 * @author Rémi Angot
 */
 export function rienSi1 (a) {
-  if (a === 1 || a === '1') {
-    return ''
-  } else if (a === -1 || a === '-1') {
-    return '-'
+  if (typeof a === 'object') {
+    let A
+    if (a.n !== undefined) {
+      A = a
+    } else if (a.num !== undefined) {
+      A = fraction(a.num, a.den)
+    } else window.notify('rienSi1 : type de valeur non prise en compte')
+    if (equal(A, 1)) return ''
+    else if (equal(A, -1)) return '-'
+    else return toDfrac(A)
   } else {
-    return a
+    if (a === 1 || a === '1') {
+      return ''
+    } else if (a === -1 || a === '-1') {
+      return '-'
+    } else {
+      return a
+    }
   }
 }
 
@@ -910,10 +930,24 @@ export function ecritureNombreRelatifc (a) {
 */
 export function ecritureAlgebrique (a) {
   let result = ''
-  if (a >= 0) {
-    result = '+' + texNombrec(a)
+  if (typeof a === 'object') {
+    let A
+    if (a.n !== undefined) {
+      A = a
+    } else if (a.num !== undefined) {
+      A = fraction(a.num, a.den)
+    }
+    if (largerEq(A, 0)) {
+      result = '+' + toDfrac(A)
+    } else {
+      result = toDfrac(A)
+    }
   } else {
-    result = texNombrec(a)
+    if (a >= 0) {
+      result = '+' + texNombrec(a)
+    } else {
+      result = texNombrec(a)
+    }
   }
   return result
 }
@@ -926,21 +960,37 @@ export function ecritureAlgebrique (a) {
 */
 export function ecritureAlgebriqueSauf1 (a) {
   let result = ''
-  if (a >= 0) {
-    result = '+' + texNombrec(a)
-  }
-  if (a < 0) {
-    result = texNombrec(a)
-  }
-  if (a === 1) {
-    result = '+'
-  }
-  if (a === -1) {
-    result = '-'
-  }
-  return result
-}
+  if (typeof a === 'object') {
+    let A
+    if (a.n !== undefined) {
+      A = a
+    } else if (a.num !== undefined) {
+      A = fraction(a.num, a.den)
+    }
+    if (equal(A, 1)) {
+      result = '+'
+    } else if (largerEq(A, 0)) {
+      result = '+' + toDfrac(A)
+    } else if (equal(A, -1)) {
+      result = '-'
+    } else if (smaller(A, 0)) {
+      result = toDfrac(A)
+    }
+    return result
+  } else {
+    if (a === 1) {
+      result = '+'
+    } else if (a >= 0) {
+      result = '+' + texNombrec(a)
+    } else if (a === -1) {
+      result = '-'
+    } else if (a < 0) {
+      result = texNombrec(a)
+    }
 
+    return result
+  }
+}
 /**
  * Idem ecritureAlgebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul)
  * @param {number} a
@@ -1282,8 +1332,12 @@ export function unSiPositifMoinsUnSinon (a) {
  * @return {number}
  */
 export function arrondi (nombre, precision = 2) {
-  const tmp = Math.pow(10, precision)
-  return Math.round(nombre * tmp) / tmp
+  if (isNaN(nombre)) {
+    window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', { nombre, precision })
+    return NaN
+  } else {
+    return round(nombre, precision)
+  }
 }
 /**
  * Retourne la troncature signée de nombre.
@@ -1310,8 +1364,8 @@ export function abs (a) {
 * @author Rémi Angot
 */
 export function arrondiVirgule (nombre, precision = 2) { //
-  const tmp = Math.pow(10, precision)
-  return String(Math.round(nombre * tmp) / tmp).replace('.', ',')
+  // const tmp = Math.pow(10, precision)
+  return String(round(nombre, precision)).replace('.', ',')
 }
 
 /**
@@ -1726,7 +1780,8 @@ export function nombreDecimal (expression, arrondir = false) {
 */
 
 export function texNombrec (expression) {
-  return texNombre(parseFloat(Algebrite.eval(expression)))
+  // return texNombre(parseFloat(Algebrite.eval(expression)))
+  return texNombre(arrondi(expression, 6))
 }
 
 /**
@@ -2303,7 +2358,8 @@ export function texIntroduction (texte) {
 */
 export function htmlEnumerate (liste, spacing, classe = 'question', id = '', tailleDiaporama = 1) {
   let result = ''
-  if (liste.length > 1) {
+  // Pour diapCorr, on numérote les questions même si un exercice n'en comporte qu'une
+  if (liste.length > 1 || context.vue === 'diapCorr') {
     (spacing > 1) ? result = `<ol style="line-height: ${spacing};">` : result = '<ol>'
     for (const i in liste) {
       result += `<li class="${classe}" ${id ? 'id="' + id + i + '"' : ''} ${dataTaille(tailleDiaporama)}>` + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
@@ -2381,17 +2437,13 @@ export function htmlParagraphe (texte, retourCharriot) {
 * @author Rémi Angot
 */
 export function htmlLigne (liste, spacing, classe = 'question') {
-  let result = ''
-  if (spacing > 1) {
-    // Pour garder la même hiérarchie avec listeDeQuestionsToContenu
-    // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
-    // Utile pour la vue can
-    result = `<div><div style="line-height: ${spacing};" class="${classe}">\n`
-  } else {
-    result = `<div><div class="${classe}">\n`
-  }
+  let result = '<div>'
+  const spacingTxt = (spacing > 1) ? `style="line-height: ${spacing};"` : ''
+  // Pour garder la même hiérarchie avec listeDeQuestionsToContenu
+  // On met ce div inutile comme ça le grand-père de la question est toujours l'exercice
+  // Utile pour la vue can
   for (const i in liste) {
-    result += '\t' + liste[i].replace(/\\dotfill/g, '...') + '<br>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
+    result += '\t' + `<div ${spacingTxt}  class="${classe}">` + liste[i].replace(/\\dotfill/g, '...') + '</div>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     // .replace(/\\\\/g,'<br>') abandonné pour supporter les array
   }
   result += '</div></div>\n'
@@ -2429,6 +2481,22 @@ export function htmlConsigne (consigne) {
 */
 export function texConsigne (consigne) {
   return '\\exo{' + consigne.replace(/<br>/g, '\\\\') + '}\n\n'
+}
+/**
+ * @author Frédéric Piou
+ * @param {number} nb
+ * @returns retourne un nombre au format français sans espace après la virgule
+ */
+export function num (nb) {
+  return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+}
+/**
+ * @author Frédéric Piou
+ * @param {number} nb
+ * @returns retourne un nombre au format français
+ */
+export function numberFormat (nb) {
+  return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ')
 }
 
 /**
@@ -3385,7 +3453,7 @@ export function ecriturePuissance (a, b, n) {
     case 1:
       return `$${puissance(b, n)}$`
     default:
-      return `$${String(Math.round(a * 1000) / 1000).replace('.', '{,}')} \\times ${puissance(b, n)}$`.replace('.', '{,}')
+      return `$${String(round(a, 3)).replace('.', '{,}')} \\times ${puissance(b, n)}$`.replace('.', '{,}')
   }
 }
 
@@ -7436,13 +7504,13 @@ export function exportQcmAmc (exercice, idExo) {
           }
           let digitsBase = 0
           if (autoCorrection[j].reponse.param.baseNbChiffres !== undefined) {
-            digitsBase = max(autoCorrection[j].reponse.param.baseNbChiffres, nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.param.basePuissance))
+            digitsBase = Math.max(autoCorrection[j].reponse.param.baseNbChiffres, nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.param.basePuissance))
           } else {
             digitsBase = nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.param.basePuissance)
           }
           let digitsExposant = 0
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined) {
-            digitsExposant = max(autoCorrection[j].reponse.param.exposantNbChiffres, nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.param.exposantPuissance))
+            digitsExposant = Math.max(autoCorrection[j].reponse.param.exposantNbChiffres, nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.param.exposantPuissance))
           } else {
             digitsExposant = nombreDeChiffresDansLaPartieEntiere(autoCorrection[j].reponse.param.exposantPuissance)
           }
@@ -7468,17 +7536,17 @@ export function exportQcmAmc (exercice, idExo) {
           }
           let digitsNum = 0
           if (autoCorrection[j].reponse.param.digitsNum !== undefined) {
-            digitsNum = max(autoCorrection[j].reponse.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
+            digitsNum = Math.max(autoCorrection[j].reponse.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
           } else if (autoCorrection[j].reponse.param.digits !== undefined) {
-            digitsNum = max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
+            digitsNum = Math.max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
           } else {
             digitsNum = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num)
           }
           let digitsDen = 0
           if (autoCorrection[j].reponse.param.digitsDen !== undefined) {
-            digitsDen = max(autoCorrection[j].reponse.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
+            digitsDen = Math.max(autoCorrection[j].reponse.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
           } else if (autoCorrection[j].reponse.param.digits !== undefined) {
-            digitsDen = max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
+            digitsDen = Math.max(autoCorrection[j].reponse.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
           } else {
             digitsDen = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)
           }
@@ -7492,7 +7560,7 @@ export function exportQcmAmc (exercice, idExo) {
           let reponseAlsoCorrect
           if (valeurAMCNum.num > 0) {
             reponseF = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
-            reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
+            reponseAlsoCorrect = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen))
           } else {
             reponseF = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
             reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
@@ -7504,16 +7572,16 @@ export function exportQcmAmc (exercice, idExo) {
         } else {
           let nbChiffresExpo
           if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres !== 0) {
-            nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.decimals)
-            nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.digits - nbChiffresPd)
-            nbChiffresExpo = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(valeurAMCNum)[1]), autoCorrection[j].reponse.param.exposantNbChiffres)
+            nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.decimals)
+            nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(valeurAMCNum)[0]), autoCorrection[j].reponse.param.digits - nbChiffresPd)
+            nbChiffresExpo = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(valeurAMCNum)[1]), autoCorrection[j].reponse.param.exposantNbChiffres)
           } else {
-            nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(valeurAMCNum), autoCorrection[j].reponse.param.decimals)
-            nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(valeurAMCNum), autoCorrection[j].reponse.param.digits - nbChiffresPd)
+            nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(valeurAMCNum), autoCorrection[j].reponse.param.decimals)
+            nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(valeurAMCNum), autoCorrection[j].reponse.param.digits - nbChiffresPd)
           }
           if (autoCorrection[j].reponse.param.milieuIntervalle !== undefined) {
             const demiMediane = autoCorrection[j].reponse.param.milieuIntervalle - valeurAMCNum
-            nbChiffresPd = max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
+            nbChiffresPd = Math.max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
             valeurAMCNum = autoCorrection[j].reponse.param.milieuIntervalle
             autoCorrection[j].reponse.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? calcul(demiMediane * 10 ** nbChiffresPd - 1) : calcul(demiMediane * 10 ** nbChiffresPd)
           }
@@ -7575,8 +7643,11 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].propositions !== undefined) {
           texQr += `\\explain{${autoCorrection[j].propositions[0].texte}}\n`
         }
-        texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
-        texQr += '\\end{question}\n\\end{minipage}\n'
+        texQr += `\t\t\\notation{${autoCorrection[j].propositions[0].statut}}`
+        if (!(isNaN(autoCorrection[j].propositions[0].sanscadre))) {
+          texQr += `[${autoCorrection[j].propositions[0].sanscadre}]` // le statut contiendra le nombre de lignes pour ce type
+        }
+        texQr += '\n\t\\end{question}\n\\end{minipage}\n'
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== undefined && autoCorrection[j].reponse.param.exposantNbChiffres === 0) {
           if (autoCorrection[j].reponse.param.digits === 0) {
             nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(valeurAMCNum)
@@ -7944,13 +8015,13 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += `${rep.texte}\n \\vspace{0.25cm} \n`
                 let digitsBase = 0
                 if (rep.param.baseNbChiffres !== undefined) {
-                  digitsBase = max(rep.param.baseNbChiffres, nombreDeChiffresDansLaPartieEntiere(rep.param.basePuissance))
+                  digitsBase = Math.max(rep.param.baseNbChiffres, nombreDeChiffresDansLaPartieEntiere(rep.param.basePuissance))
                 } else {
                   digitsBase = nombreDeChiffresDansLaPartieEntiere(rep.param.basePuissance)
                 }
                 let digitsExposant = 0
                 if (rep.param.exposantNbChiffres !== undefined) {
-                  digitsExposant = max(rep.param.exposantNbChiffres, nombreDeChiffresDansLaPartieEntiere(rep.param.exposantPuissance))
+                  digitsExposant = Math.max(rep.param.exposantNbChiffres, nombreDeChiffresDansLaPartieEntiere(rep.param.exposantPuissance))
                 } else {
                   digitsExposant = nombreDeChiffresDansLaPartieEntiere(rep.param.exposantPuissance)
                 }
@@ -7979,17 +8050,17 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += `${rep.texte}\n`
                 let digitsNum = 0
                 if (rep.param.digitsNum !== undefined) {
-                  digitsNum = max(rep.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
+                  digitsNum = Math.max(rep.param.digitsNum, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
                 } else if (rep.param.digits !== undefined) {
-                  digitsNum = max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
+                  digitsNum = Math.max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num))
                 } else {
                   digitsNum = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.num)
                 }
                 let digitsDen = 0
                 if (rep.param.digitsDen !== undefined) {
-                  digitsDen = max(rep.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
+                  digitsDen = Math.max(rep.param.digitsDen, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
                 } else if (rep.param.digits !== undefined) {
-                  digitsDen = max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
+                  digitsDen = Math.max(rep.param.digits, nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den))
                 } else {
                   digitsDen = nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)
                 }
@@ -8003,7 +8074,7 @@ export function exportQcmAmc (exercice, idExo) {
                 let reponseAlsoCorrect
                 if (valeurAMCNum.num > 0) {
                   reponseF = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
-                  reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
+                  reponseAlsoCorrect = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen))
                 } else {
                   reponseF = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
                   reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
@@ -8019,16 +8090,16 @@ export function exportQcmAmc (exercice, idExo) {
               } else {
                 let nbChiffresExpo
                 if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) {
-                  nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(rep.valeur[0])[0]), rep.param.decimals)
-                  nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[0]), rep.param.digits - nbChiffresPd)
-                  nbChiffresExpo = max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[1]), rep.param.exposantNbChiffres)
+                  nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(rep.valeur[0])[0]), rep.param.decimals)
+                  nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[0]), rep.param.digits - nbChiffresPd)
+                  nbChiffresExpo = Math.max(nombreDeChiffresDansLaPartieEntiere(decimalToScientifique(rep.valeur[0])[1]), rep.param.exposantNbChiffres)
                 } else {
-                  nbChiffresPd = max(nombreDeChiffresDansLaPartieDecimale(rep.valeur[0]), rep.param.decimals)
-                  nbChiffresPe = max(nombreDeChiffresDansLaPartieEntiere(rep.valeur[0]), rep.param.digits - nbChiffresPd)
+                  nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(rep.valeur[0]), rep.param.decimals)
+                  nbChiffresPe = Math.max(nombreDeChiffresDansLaPartieEntiere(rep.valeur[0]), rep.param.digits - nbChiffresPd)
                 }
                 if (rep.param.milieuIntervalle !== undefined) {
                   const demiMediane = rep.param.milieuIntervalle - valeurAMCNum
-                  nbChiffresPd = max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
+                  nbChiffresPd = Math.max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
                   valeurAMCNum = rep.param.milieuIntervalle
                   rep.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? calcul(demiMediane * 10 ** nbChiffresPd - 1) : calcul(demiMediane * 10 ** nbChiffresPd)
                 }

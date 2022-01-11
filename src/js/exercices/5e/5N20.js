@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { calcul, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
-import Fraction from '../../modules/Fraction.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM
@@ -147,9 +147,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
           if (this.sup3) {
-            setReponse(this, i, new Fraction(a * d + c * b, b * d).simplifie(), { formatInteractif: 'fraction' })
+            setReponse(this, i, (new FractionEtendue(a * d + c * b, b * d)).simplifie(), { formatInteractif: 'fraction' })
           } else {
-            setReponse(this, i, new Fraction(a * d + c * b, b * d).simplifie(), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, (new FractionEtendue(a * d + c * b, b * d)).simplifie(), { formatInteractif: 'fractionEgale' })
           }
         }
       } else { // une soustraction
@@ -215,9 +215,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
           if (this.sup3) {
-            setReponse(this, i, new Fraction(Math.abs(a * d - c * b), b * d).simplifie(), { formatInteractif: 'fraction' })
+            setReponse(this, i, (new FractionEtendue(Math.abs(a * d - c * b), b * d)).simplifie(), { formatInteractif: 'fraction' })
           } else {
-            setReponse(this, i, new Fraction(Math.abs(a * d - c * b), b * d).simplifie(), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, (new FractionEtendue(Math.abs(a * d - c * b), b * d)).simplifie(), { formatInteractif: 'fractionEgale' })
           }
         }
       }

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
-export const titre = 'Ecrire le nombre proposé sous la forme $a\\sqrt{b}$'
+export const titre = 'Écrire le nombre proposé sous la forme $a\\sqrt{b}$'
 
 /**
  * 2N32-3, ex 2N11
