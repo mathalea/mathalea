@@ -2,33 +2,15 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
 import { texteSurArc, homothetie, point, rotation, mathalea2d, fixeBordures, droite, translation, vecteur, arcPointPointAngle } from '../../modules/2d.js'
-import { evaluate, pickRandom } from 'mathjs'
+import { pickRandom } from 'mathjs'
+import { aleaVariables } from '../../modules/outilsMathjs.js'
 export const titre = 'Angles et parallèles'
 // eslint-disable-next-line no-debugger
-// debugger
+debugger
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '08/01/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '08/01/2022' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-
-export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fraction(a,10)+fraction(b,100)', test: 'b!=0 and b>a>c' }, debug = false) {
-  const assignations = {}
-  let cpt = 0
-  let test = true
-  do {
-    cpt++
-    for (const v of Object.keys(variables)) {
-      if (typeof variables[v] === 'boolean') {
-        assignations[v] = evaluate('(pickRandom([-1,1]))^(n)*randomInt(1,10)', { n: variables[v] })
-      } else if (v !== 'test') {
-        assignations[v] = evaluate(variables[v], assignations)
-      }
-    }
-    if (variables.test !== undefined) test = evaluate(variables.test, assignations)
-  } while (!test && cpt < 1000)
-  if (cpt === 1000) window.notify('Attention ! 1000 essais dépassés.\n Trop de contraintes.\n Le résultat ne vérifiera pas le test.')
-  return assignations
-}
 
 function anglesSecantes (A, rot = { O: 60, A: 0 }) {
   const s = rotation(translation(A, vecteur(1, 0)), A, rot.A)

@@ -3,8 +3,7 @@ import { context } from '../../modules/context.js'
 import { polygone, segment, ObjetMathalea2D, point, mathalea2d, texteParPosition, fixeBordures } from '../../modules/2d.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { create, all, parse } from 'mathjs'
-import Algebrite from 'algebrite'
-import { calculExpression, calculExpression2, resoudreEquation, aleaEquation, aleaExpressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathsteps.js'
+import { calculExpression, calculExpression2, resoudreEquation, aleaEquation, aleaExpressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
 
 const math = create(all)
 math.config({
@@ -15,12 +14,6 @@ math.config({
 export const titre = 'Calculs algébriques'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '02/01/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-
-function developperExpression (expression) {
-  // const rules = simplify.rules
-  // rules.push({l: 'n1*(n1+n2)'})
-  return Algebrite.run(expression)
-}
 
 function TraceSchemaBarre (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
   ObjetMathalea2D.call(this)
@@ -158,7 +151,7 @@ export default function equationsProgression () {
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
   this.sup = 0 // Type d'exercice
-  this.nouvelleVersion = function (numeroExercice, dDebug = true) {
+  this.nouvelleVersion = function (numeroExercice, dDebug = false) {
     this.nbQuestions = this.NbQuestions > 0 ? this.nbQuestions : this.sup !== 0 ? 1 : formulaire.length - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
