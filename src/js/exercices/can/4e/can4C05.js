@@ -22,7 +22,7 @@ export default function SommeFractionsCompatibles () {
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 4])
-    const b = fraction(1, a.den * c)
+    const b = fraction(1, a.d * c)
     if (choice([true, false])) {
       this.question = `$${a.texFraction} + ${b.texFraction}=$`
       this.correction = `Pour additionner des fractions, on les met au même dénominateur.<br>
@@ -30,10 +30,10 @@ export default function SommeFractionsCompatibles () {
      Pour écrire $${a.texFraction}$ avec le même dénominateur que $${b.texFraction}$, 
      on multiplie son numérateur et son dénominateur par $${c}$.<br><br>
      Ainsi, $${a.texFraction} + ${b.texFraction}
-     =\\dfrac{${a.num}\\times ${c}}{${a.den}\\times ${c}}+ ${b.texFraction}
+     =\\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}+ ${b.texFraction}
     =${a.fractionEgale(c).texFraction} + ${b.texFraction}
-    =\\dfrac{${a.num * c}+${b.num}}{${b.den}}
-    =\\dfrac{${a.num * c + b.num}}{${b.den}}${simplificationDeFractionAvecEtapes(a.num * c + b.num, b.den)}$`
+    =\\dfrac{${a.n * c}+${b.n}}{${b.d}}
+    =\\dfrac{${a.n * c + b.n}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c + b.n, b.d)}$`
     } else {
       this.question = `$ ${b.texFraction}+${a.texFraction}=$`
       this.correction = `Pour additionner des fractions, on les met au même dénominateur.<br>
@@ -41,10 +41,10 @@ export default function SommeFractionsCompatibles () {
      Pour écrire $${a.texFraction}$ avec le même dénominateur que $${b.texFraction}$, 
      on multiplie son numérateur et son dénominateur par $${c}$.<br><br>
      Ainsi, $ ${b.texFraction}+${a.texFraction}
-     = ${b.texFraction}+\\dfrac{${a.num}\\times ${c}}{${a.den}\\times ${c}}
+     = ${b.texFraction}+\\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}
     =${b.texFraction}+${a.fractionEgale(c).texFraction} 
-    =\\dfrac{${b.num}+${a.num * c}}{${b.den}}
-    =\\dfrac{${b.num + a.num * c}}{${b.den}}${simplificationDeFractionAvecEtapes(a.num * c + b.num, b.den)}$`
+    =\\dfrac{${b.n}+${a.n * c}}{${b.d}}
+    =\\dfrac{${b.n + a.n * c}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c + b.n, b.d)}$`
     }
 
     this.reponse = a.sommeFraction(b).simplifie()

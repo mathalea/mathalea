@@ -94,10 +94,10 @@ export default function PointSurCourbe () {
               a = randint(-9, 9, [0, 1])
               b = randint(-9, 9, 0)
               f = choice(obtenirListeFractionsIrreductibles())
-              f1 = fraction(a * f.num + b * f.den, f.den)// ordonnée de A
-              f2 = fraction(a * f.num + b * f.den + 1, f.den)// une autre ordonnée
+              f1 = fraction(a * f.n + b * f.d, f.d)// ordonnée de A
+              f2 = fraction(a * f.n + b * f.d + 1, f.d)// une autre ordonnée
               fc = choice([f1, f2])
-              fractionb = fraction(b * f1.den, f1.den)
+              fractionb = fraction(b * f1.d, f1.d)
               enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
               ${texteCentre(`$f(x)=${reduireAxPlusB(a, b)}$`)}  
               On note $\\mathscr{C}_f$ la courbe représentative de la fonction $f$ dans un repère.<br>
@@ -116,14 +116,14 @@ export default function PointSurCourbe () {
                 if (a === -1) {
                   correction += `$${rienSi1(a)}${f.texFraction}${ecritureAlgebrique(b)}=
                   ${rienSi1(a)}${f.texFraction}${fractionb.ecritureAlgebrique} =
-                  \\dfrac{${rienSi1(a)}${f.num}${ecritureAlgebrique(b * f.den)}}{${f.den}}=
-               ${f1.texFraction}${simplificationDeFractionAvecEtapes(a * f.num + b * f.den, f.den)}=y_A$.<br>
+                  \\dfrac{${rienSi1(a)}${f.n}${ecritureAlgebrique(b * f.d)}}{${f.d}}=
+               ${f1.texFraction}${simplificationDeFractionAvecEtapes(a * f.n + b * f.d, f.d)}=y_A$.<br>
                L'image de $${f.texFraction}$ est bien l'ordonnée du point $A$, donc le point $A$ est sur $\\mathscr{C}_f$.`
                 } else {
                   correction += `$${a}\\times ${f.texFraction}${ecritureAlgebrique(b)}=
                   ${a}\\times${f.texFraction}${fractionb.ecritureAlgebrique} =
-                  \\dfrac{${a}\\times${f.num}${ecritureAlgebrique(b * f.den)}}{${f.den}}=
-               ${f1.texFraction}${simplificationDeFractionAvecEtapes(a * f.num + b * f.den, f.den)}=y_A$.<br>
+                  \\dfrac{${a}\\times${f.n}${ecritureAlgebrique(b * f.d)}}{${f.d}}=
+               ${f1.texFraction}${simplificationDeFractionAvecEtapes(a * f.n + b * f.d, f.d)}=y_A$.<br>
                L'image de $${f.texFraction}$ est bien l'ordonnée du point $A$, donc le point $A$ est sur $\\mathscr{C}_f$.`
                 }
               } else {
@@ -132,14 +132,14 @@ export default function PointSurCourbe () {
                 if (a === -1) {
                   correction += `$${rienSi1(a)}${f.texFraction}${ecritureAlgebrique(b)}=
                 ${rienSi1(a)}${f.texFraction}${fractionb.ecritureAlgebrique} =
-                \\dfrac{${rienSi1(a)}${f.num}${ecritureAlgebrique(b * f.den)}}{${f.den}}=
-             ${f.texFraction}${simplificationDeFractionAvecEtapes(a * f.num + b * f.den, f.den)}\\neq${f2.texFractionSimplifiee}$.<br>
+                \\dfrac{${rienSi1(a)}${f.n}${ecritureAlgebrique(b * f.d)}}{${f.d}}=
+             ${f.texFraction}${simplificationDeFractionAvecEtapes(a * f.n + b * f.d, f.d)}\\neq${f2.texFractionSimplifiee}$.<br>
              L'image de $${f.texFraction}$ n'est pas l'ordonnée du point $A$, donc le point $A$ n'est pas sur $\\mathscr{C}_f$.`
                 } else {
                   correction += `$${a}\\times ${f.texFraction}${ecritureAlgebrique(b)}=
                 ${a}\\times${f.texFraction}${fractionb.ecritureAlgebrique} =
-                \\dfrac{${a}\\times${f.num}${ecritureAlgebrique(b * f1.den)}}{${f1.den}}=
-             ${f1.texFraction}${simplificationDeFractionAvecEtapes(a * f.num + b * f.den, f.den)}\\neq${f2.texFractionSimplifiee}$.<br>
+                \\dfrac{${a}\\times${f.n}${ecritureAlgebrique(b * f1.d)}}{${f1.d}}=
+             ${f1.texFraction}${simplificationDeFractionAvecEtapes(a * f.n + b * f.d, f.d)}\\neq${f2.texFractionSimplifiee}$.<br>
              L'image de $${f.texFraction}$ n'est pas l'ordonnée du point $A$, donc le point $A$ n'est pas sur $\\mathscr{C}_f$.`
                 }
               }
@@ -197,12 +197,12 @@ export default function PointSurCourbe () {
               b = randint(-4, 4)
               c = randint(-4, 4, 0)
               f = choice(obtenirListeFractionsIrreductiblesFaciles())
-              f1 = fraction(a * f.num ** 2 + b * f.num * f.den + c * f.den ** 2, f.den ** 2)// ordonnée de A
-              f2 = fraction(a * f.num ** 2 + b * f.num * f.den + c * f.den ** 2 - 1, f.den ** 2)
+              f1 = fraction(a * f.n ** 2 + b * f.n * f.d + c * f.d ** 2, f.d ** 2)// ordonnée de A
+              f2 = fraction(a * f.n ** 2 + b * f.n * f.d + c * f.d ** 2 - 1, f.d ** 2)
               fc = choice([f1, f2])
-              fractionb = fraction(b * f.num, f.den)
-              fractionb2 = fraction(b * f.num * f.den, f.den ** 2)
-              fractionc = fraction(c * f.den ** 2, f.den ** 2)
+              fractionb = fraction(b * f.n, f.d)
+              fractionb2 = fraction(b * f.n * f.d, f.d ** 2)
+              fractionc = fraction(c * f.d ** 2, f.d ** 2)
               enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
               ${texteCentre(`$f(x)=${reduirePolynomeDegre3(0, a, b, c)}$`)}  
               On note $\\mathscr{C}_f$ la courbe représentative de la fonction $f$ dans un repère.<br>
@@ -219,14 +219,14 @@ export default function PointSurCourbe () {
                 $f(x_A)=f\\left(${f.texFraction}\\right)=${a}\\times \\left(${f.texFraction}\\right)^2$`
                 if (b === 0) {
                   correction += `$${ecritureAlgebrique(c)} 
-                =\\dfrac{${a}\\times ${f.num ** 2}}{${f.den ** 2}}${ecritureAlgebrique(c)}
-                =\\dfrac{${a * f.num ** 2}}{${f.den ** 2}}${fractionc.ecritureAlgebrique}=\\dfrac{${a * f.num ** 2 + fractionc.num}}{${f.den ** 2}}
-                ${simplificationDeFractionAvecEtapes(a * f.num ** 2 + fractionb2.num + fractionc.num, f.den ** 2)}$`
+                =\\dfrac{${a}\\times ${f.n ** 2}}{${f.d ** 2}}${ecritureAlgebrique(c)}
+                =\\dfrac{${a * f.n ** 2}}{${f.d ** 2}}${fractionc.ecritureAlgebrique}=\\dfrac{${a * f.n ** 2 + fractionc.n}}{${f.d ** 2}}
+                ${simplificationDeFractionAvecEtapes(a * f.n ** 2 + fractionb2.n + fractionc.n, f.d ** 2)}$`
                 } else {
                   correction += `$${ecritureAlgebrique(b)}\\times${f.texFraction}${ecritureAlgebrique(c)} 
-                  =\\dfrac{${a}\\times ${f.num ** 2}}{${f.den ** 2}}${fractionb.ecritureAlgebrique}${ecritureAlgebrique(c)}
-                  =\\dfrac{${a * f.num ** 2}}{${f.den ** 2}}${fractionb2.ecritureAlgebrique}${fractionc.ecritureAlgebrique}=\\dfrac{${a * f.num ** 2 + fractionb2.num + fractionc.num}}{${f.den ** 2}}
-                ${simplificationDeFractionAvecEtapes(a * f.num ** 2 + fractionb2.num + fractionc.num, f.den ** 2)}$`
+                  =\\dfrac{${a}\\times ${f.n ** 2}}{${f.d ** 2}}${fractionb.ecritureAlgebrique}${ecritureAlgebrique(c)}
+                  =\\dfrac{${a * f.n ** 2}}{${f.d ** 2}}${fractionb2.ecritureAlgebrique}${fractionc.ecritureAlgebrique}=\\dfrac{${a * f.n ** 2 + fractionb2.n + fractionc.n}}{${f.d ** 2}}
+                ${simplificationDeFractionAvecEtapes(a * f.n ** 2 + fractionb2.n + fractionc.n, f.d ** 2)}$`
                 }
                 if (fc === f1) {
                   correction += `$=y_A$.<br>
@@ -240,16 +240,16 @@ export default function PointSurCourbe () {
                 $f(x_A)=f\\left(${f.texFraction}\\right)=\\left(${f.texFraction}\\right)^2$`
                 if (b === 0) {
                   correction += `$${ecritureAlgebrique(c)} 
-                =\\dfrac{${f.num ** 2}}{${f.den ** 2}}${ecritureAlgebrique(c)}
-                =\\dfrac{${f.num ** 2}}{${f.den ** 2}}${fractionc.ecritureAlgebrique}=\\dfrac{${a * f.num ** 2 + fractionc.num}}{${f.den ** 2}}
-                ${simplificationDeFractionAvecEtapes(a * f.num ** 2 + fractionb2.num + fractionc.num, f.den ** 2)}$`
+                =\\dfrac{${f.n ** 2}}{${f.d ** 2}}${ecritureAlgebrique(c)}
+                =\\dfrac{${f.n ** 2}}{${f.d ** 2}}${fractionc.ecritureAlgebrique}=\\dfrac{${a * f.n ** 2 + fractionc.n}}{${f.d ** 2}}
+                ${simplificationDeFractionAvecEtapes(a * f.n ** 2 + fractionb2.n + fractionc.n, f.d ** 2)}$`
                 } else {
                   correction += `           
                $${ecritureAlgebrique(b)}\\times${f.texFraction}${ecritureAlgebrique(c)}
-                =\\dfrac{ ${f.num ** 2}}{${f.den ** 2}}${fractionb.ecritureAlgebrique}${ecritureAlgebrique(c)}
-                =\\dfrac{${a * f.num ** 2}}{${f.den ** 2}}${fractionb2.ecritureAlgebrique}${fractionc.ecritureAlgebrique}
-                =\\dfrac{${a * f.num ** 2 + fractionb2.num + fractionc.num}}{${f.den ** 2}}
-                ${simplificationDeFractionAvecEtapes(a * f.num ** 2 + fractionb2.num + fractionc.num, f.den ** 2)}$
+                =\\dfrac{ ${f.n ** 2}}{${f.d ** 2}}${fractionb.ecritureAlgebrique}${ecritureAlgebrique(c)}
+                =\\dfrac{${a * f.n ** 2}}{${f.d ** 2}}${fractionb2.ecritureAlgebrique}${fractionc.ecritureAlgebrique}
+                =\\dfrac{${a * f.n ** 2 + fractionb2.n + fractionc.n}}{${f.d ** 2}}
+                ${simplificationDeFractionAvecEtapes(a * f.n ** 2 + fractionb2.n + fractionc.n, f.d ** 2)}$
                   `
                 }
                 if (fc === f1) {
@@ -309,10 +309,10 @@ export default function PointSurCourbe () {
               b = randint(-9, 9, 0)
               abs = choice(obtenirListeFractionsIrreductiblesFaciles())
 
-              f1 = fraction(a * abs.den + b * abs.num, abs.num)// ordonnée de A
-              f2 = fraction(a * abs.den + b * abs.num - 1, abs.num)
-              fa = fraction(a * abs.den, abs.num)
-              fb = fraction(b * abs.num, abs.num)
+              f1 = fraction(a * abs.d + b * abs.n, abs.n)// ordonnée de A
+              f2 = fraction(a * abs.d + b * abs.n - 1, abs.n)
+              fa = fraction(a * abs.d, abs.n)
+              fb = fraction(b * abs.n, abs.n)
               fc = choice([f1, f2])
 
               enonce = `Soit $f$ la fonction définie sur $\\mathbb{R}^*$ par :
@@ -329,7 +329,7 @@ export default function PointSurCourbe () {
               correction += `$${abs.texFractionSimplifiee}$ est bien dans l'ensemble de définition de $f$ et :<br> 
               $f(x_A)=f\\left(${abs.texFractionSimplifiee}\\right)
               =\\dfrac{${a}}{${abs.texFractionSimplifiee}}${ecritureAlgebrique(b)}
-              =${a}\\times \\dfrac{${abs.den}}{${abs.num}}${ecritureAlgebrique(b)}=
+              =${a}\\times \\dfrac{${abs.d}}{${abs.n}}${ecritureAlgebrique(b)}=
               ${fa.texFractionSimplifiee}${ecritureAlgebrique(b)}
               =${f1.texFractionSimplifiee}
               $`

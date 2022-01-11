@@ -31,7 +31,7 @@ export default function TableauDeValeurs () {
   this.correctionDetailleeDisponible = true
 
   this.nouvelleVersion = function () {
-    this.spacing = this.interactif ? 3 : 1
+    this.spacing = this.interactif ? 2 : 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -126,26 +126,26 @@ export default function TableauDeValeurs () {
           }
           expression = `\\dfrac{${a}}{${c}x${ecritureAlgebrique(d)}}`
           ligne2 = `${nomdef}(x) & ${texFractionReduite(a, c * listeDeX[i][0] + d)} & ${texFractionReduite(a, c * listeDeX[i][1] + d)} & ${texFractionReduite(a, c * listeDeX[i][2] + d)} \\\\\n`
-          calculs = `$${nomdef}(${x1})=\\dfrac{${a}}{${c}\\times${ecritureParentheseSiNegatif(x1)}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x1}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x1 + d}}`
+          calculs = `$${nomdef}(${x1})=\\dfrac{${a}}{${c}\\times${ecritureParentheseSiNegatif(x1)}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x1}${ecritureAlgebrique(d)}}=${fraction(a, c * x1 + d).texFSD}`
           if (pgcd(a, c * x1 + d) === 1) {
             calculs += '$<br>'
           } else {
             calculs += '=' + texFractionReduite(a, c * x1 + d) + '$<br>'
           }
-          calculs += `$${nomdef}(${x2})=\\dfrac{${a}}{${c}\\times${ecritureParentheseSiNegatif(x2)}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x2}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x2 + d}}`
+          calculs += `$${nomdef}(${x2})=\\dfrac{${a}}{${c}\\times${ecritureParentheseSiNegatif(x2)}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x2}${ecritureAlgebrique(d)}}=${fraction(a, c * x2 + d).texFSD}`
           if (pgcd(a, c * x2 + d) === 1) {
             calculs += '$<br>'
           } else {
             calculs += '=' + texFractionReduite(a, c * x2 + d) + '$<br>'
           }
-          calculs += `$${nomdef}(${x3})=\\dfrac{${a}}{${c}\\times${ecritureParentheseSiNegatif(x3)}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x3}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x3 + d}}`
+          calculs += `$${nomdef}(${x3})=\\dfrac{${a}}{${c}\\times${ecritureParentheseSiNegatif(x3)}${ecritureAlgebrique(d)}}=\\dfrac{${a}}{${c * x3}${ecritureAlgebrique(d)}}=${fraction(a, c * x3 + d).texFSD}`
           if (pgcd(a, c * x3 + d) === 1) {
             calculs += '$<br>'
           } else {
             calculs += '=' + texFractionReduite(a, c * x3 + d) + '$<br>'
           }
           f = x => a / (c * x + d)
-          reponse = [fraction(a, c * x1 + d), fraction(a, c * x2 + d), fraction(a, c * x3 + d)]
+          reponse = [fraction(a, c * x1 + d).simplifie(), fraction(a, c * x2 + d).simplifie(), fraction(a, c * x3 + d).simplifie()]
           break
         case 'ax+b/cx+d':
           this.spacingCorr = 3
@@ -177,7 +177,7 @@ export default function TableauDeValeurs () {
             calculs += '=' + texFractionReduite(a * x3 + b, c * x3 + d) + '$<br>'
           }
           f = x => (a * x + b) / (c * x + d)
-          reponse = [fraction(a * x1 + b, c * x1 + d), fraction(a * x2 + b, c * x2 + d), fraction(a * x3 + b, c * x3 + d)]
+          reponse = [fraction(a * x1 + b, c * x1 + d).simplifie(), fraction(a * x2 + b, c * x2 + d).simplifie(), fraction(a * x3 + b, c * x3 + d).simplifie()]
           break
         case '(ax+b)(cx+d)':
           a = randint(-5, 5, [0, 1, -1])
@@ -208,24 +208,24 @@ export default function TableauDeValeurs () {
           break
       }
 
-      texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$. Compléter le tableau de valeurs suivant.`
+      texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$. ${this.interactif ? '<br>Calculer les images par $f$ suivantes.' : '<br>Compléter le tableau de valeurs suivant.<br><br>'}`
       texteCorr = ''
-      texte += '<br><br>'
+      // texte += '<br>'
       if (context.isHtml) {
-        texte += '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n'
+        if (!this.interactif) texte += '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n'
       } else {
         texte += '$\\begin{array}{|l|c|c|c|}\n'
       }
-
-      texte += '\\hline\n'
-      texte += `x & ${listeDeX[i][0]} & ${listeDeX[i][1]} & ${listeDeX[i][2]} \\\\\n`
-      texte += '\\hline\n'
-      texte += `${nomdef}(x) & \\phantom{-10} & \\phantom{-10} & \\phantom{-10} \\\\\n`
-      texte += '\\hline\n'
-      texte += '\\end{array}\n$'
-
+      if (!this.interactif || !context.isHtml) {
+        texte += '\\hline\n'
+        texte += `x & ${listeDeX[i][0]} & ${listeDeX[i][1]} & ${listeDeX[i][2]} \\\\\n`
+        texte += '\\hline\n'
+        texte += `${nomdef}(x) & \\phantom{-10} & \\phantom{-10} & \\phantom{-10} \\\\\n`
+        texte += '\\hline\n'
+        texte += '\\end{array}\n$'
+      }
       if (context.isHtml) {
-        texteCorr = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n'
+        if (!this.interactif) texteCorr = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n'
       } else {
         texteCorr = '$\\begin{array}{|l|c|c|c|}\n'
       }
@@ -250,10 +250,13 @@ export default function TableauDeValeurs () {
                 statut: '',
                 reponse: {
                   texte: `a) $f(${listeDeX[i][0]})$`,
-                  valeur: [reponse[0].simplifie()],
+                  valeur: [reponse[0].type !== 'Fraction' ? reponse[0] : reponse[0].d === 1 ? reponse[0].num : reponse[0]],
                   param: {
                     signe: true,
-                    approx: 0
+                    approx: 0,
+                    decimals: 1,
+                    digits: 2,
+                    formatInteractif: reponse[0].type !== 'Fraction' ? 'calcul' : reponse[0].d === 1 ? 'calcul' : 'fractionEgale'
                   }
                 }
               }]
@@ -265,10 +268,13 @@ export default function TableauDeValeurs () {
                 statut: '',
                 reponse: {
                   texte: `b) $f(${listeDeX[i][1]})$`,
-                  valeur: [reponse[1].simplifie()],
+                  valeur: [reponse[1].type !== 'Fraction' ? reponse[1] : reponse[1].d === 1 ? reponse[1].num : reponse[1]],
                   param: {
                     signe: true,
-                    approx: 0
+                    approx: 0,
+                    decimals: 1,
+                    digits: 2,
+                    formatInteractif: reponse[1].type !== 'Fraction' ? 'calcul' : reponse[1].d === 1 ? 'calcul' : 'fractionEgale'
                   }
                 }
               }]
@@ -280,23 +286,47 @@ export default function TableauDeValeurs () {
                 statut: '',
                 reponse: {
                   texte: `c) $f(${listeDeX[i][2]})$`,
-                  valeur: [reponse[2].simplifie()],
+                  valeur: [reponse[2].type !== 'Fraction' ? reponse[2] : reponse[2].d === 1 ? reponse[2].num : reponse[2]],
                   param: {
                     signe: true,
-                    approx: 0
+                    approx: 0,
+                    decimals: 1,
+                    digits: 2,
+                    formatInteractif: reponse[2].type !== 'Fraction' ? 'calcul' : reponse[2].d === 1 ? 'calcul' : 'fractionEgale'
                   }
                 }
               }]
             }
           ]
         }
+        if (reponse[0].type === 'Fraction') {
+          if (reponse[0].den === 1) setReponse(this, i * 3, reponse[0].num, { formatInteractif: 'calcul' })
+          else setReponse(this, i * 3, reponse[0], { formatInteractif: 'fractionEgale' })
+        } else setReponse(this, i * 3, reponse[0], { formatInteractif: 'calcul' })
+        if (reponse[1].type === 'Fraction') {
+          if (reponse[1].den === 1) setReponse(this, i * 3 + 1, reponse[1].num, { formatInteractif: 'calcul' })
+          else setReponse(this, i * 3 + 1, reponse[1], { formatInteractif: 'fractionEgale' })
+        } else setReponse(this, i * 3 + 1, reponse[1], { formatInteractif: 'calcul' })
+        if (reponse[2].type === 'Fraction') {
+          if (reponse[2].den === 1) setReponse(this, i * 3 + 2, reponse[2].num, { formatInteractif: 'calcul' })
+          else setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'fractionEgale' })
+        } else setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'calcul' })
       } else if (this.interactif) {
         texte += `<br><br>$f(${listeDeX[i][0]}) = $` + ajouteChampTexteMathLive(this, i * 3, 'largeur25 inline')
         texte += `<br><br>$f(${listeDeX[i][1]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 1, 'largeur25 inline')
         texte += `<br><br>$f(${listeDeX[i][2]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 2, 'largeur25 inline')
-        setReponse(this, i * 3, reponse[0], { formatInteractif: 'fractionEgale' })
-        setReponse(this, i * 3 + 1, reponse[1], { formatInteractif: 'fractionEgale' })
-        setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'fractionEgale' })
+        if (reponse[0].type === 'Fraction') {
+          if (reponse[0].den === 1) setReponse(this, i * 3, reponse[0].num, { formatInteractif: 'calcul' })
+          else setReponse(this, i * 3, reponse[0], { formatInteractif: 'fractionEgale' })
+        } else setReponse(this, i * 3, reponse[0], { formatInteractif: 'calcul' })
+        if (reponse[1].type === 'Fraction') {
+          if (reponse[1].den === 1) setReponse(this, i * 3 + 1, reponse[1].num, { formatInteractif: 'calcul' })
+          else setReponse(this, i * 3 + 1, reponse[1], { formatInteractif: 'fractionEgale' })
+        } else setReponse(this, i * 3 + 1, reponse[1], { formatInteractif: 'calcul' })
+        if (reponse[2].type === 'Fraction') {
+          if (reponse[2].den === 1) setReponse(this, i * 3 + 2, reponse[2].num, { formatInteractif: 'calcul' })
+          else setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'fractionEgale' })
+        } else setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'calcul' })
       }
 
       texteCorr += '\\hline\n'

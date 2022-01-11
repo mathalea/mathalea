@@ -4,7 +4,8 @@ import { context } from '../../modules/context.js'
 import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes } from '../../modules/outils.js'
 import { fraction, abs, multiply, evaluate, divide, isInteger, pow, round, subtract, max } from 'mathjs'
 export const titre = 'Homothétie (calculs)'
-
+// eslint-disable-next-line no-debugger
+// debugger
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '28/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
@@ -16,15 +17,15 @@ export const dateDePublication = '28/11/2021' // La date de publication initiale
 export default function calculsHomothetie () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
-  this.nbQuestions = 8 // Nombre de questions par défaut
+  this.nbQuestions = 11 // Nombre de questions par défaut
   this.nbCols = 0 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 0 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
-  context.isHtml ? (this.spacing = 2.5) : (this.spacing = 1.5)
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+  context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
+  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
   this.sup = 0 // Type d'exercice
   this.sup2 = 3 // 1 : Homothéties de rapport positif, 2: de rapport négatif 3 : mélange
   this.sup3 = 1 // Choix des valeurs
@@ -40,7 +41,9 @@ export default function calculsHomothetie () {
       '6 : Calculer une aire image',
       '7 : Calculer une aire antécédent',
       '8 : Calculer le rapport à partir des aires',
-      '9 : Calculer le rapport connaissant OA et AA\''
+      '9 : Calculer le rapport connaissant OA et AA\'',
+      '10: Encadrer le rapport k',
+      '11: Encadrer le rapport k connaissant OA et AA\''
     ].join('\n')
   ]
   this.besoinFormulaire2Numerique = [
@@ -53,15 +56,15 @@ export default function calculsHomothetie () {
     3,
     '1 : k est décimal (0.1 < k < 4) \n2 : k est une fraction k = a/b avec (a,b) in [1;9]\n3 : k est une fraction et les mesures sont des entiers'
   ]
-  this.besoinFormulaire4CaseACocher = ['Figure dans l`énoncé (1-6)', false]
+  this.besoinFormulaire4CaseACocher = ['Figure dans l`énoncé (1-6,9-11)', false]
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typeQuestionsDisponibles = []
     if (this.sup === 0) {
-      typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2']
+      typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2', 'encadrerk', 'encadrerk2']
     } else {
-      typeQuestionsDisponibles = [['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2'][this.sup - 1]]
+      typeQuestionsDisponibles = [['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2', 'encadrerk', 'encadrerk2'][this.sup - 1]]
     }
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     const kEstEntier = this.sup3 > 1
@@ -95,6 +98,8 @@ export default function calculsHomothetie () {
       const lopposede = kpositif ? '' : 'l\'opposé de '
       const lopposedu = kpositif ? 'le' : 'l\'opposé du '
       const derapportpositifet = this.sup4 ? '' : `de rapport ${positif} et `
+      const inNotin = kpositif ? '\\in' : '\\notin'
+      const illustrerParUneFigureAMainLevee = this.sup4 ? '' : 'Illustrer la situation par une figure à main levée.<br>'
       let kinverse = abs(divide(1, k))
       const OhAdivkInversed = texNum(abs(divide(OhA, kinverse.d)))
       const OhBdivkInversed = texNum(abs(divide(OhB, kinverse.d)))
@@ -137,9 +142,9 @@ export default function calculsHomothetie () {
       hAire = texNum(hAire)
       hAireArrondie = texNum(hAireArrondie)
       k = texNum(k, kEstEntier)
-      absk = texNum(absk, kEstEntier)
       kAire = texNum(kAire, kEstEntier)
-      const parentheseskAire = kEstEntier ? String.raw`\left(${kAire}\right)` : kAire
+      const parentheseskAire = (absk.d === 1 || this.sup3 === 1) && kpositif ? signek + kAire : String.raw`\left(${signek}${kAire}\right)`
+      absk = texNum(absk, kEstEntier)
       OA = texNum(OA)
       AhA = texNum(abs(AhA))
       OB = texNum(OB)
@@ -191,7 +196,7 @@ export default function calculsHomothetie () {
       const flabelsAntecedent2etapes = labelPoint(figure.O, figure.A, figure.hA, figure.B, figure.hB)
       let fAntecedent2etapes = mathalea2d(Object.assign({}, fixeBordures([figure.A, figure.O, figure.hA, figure.segmentOA, figure.segmentOhA, figure.B, figure.hB, figure.segmentOB, figure.segmentOhB, figure.legendeOA, figure.legendeOhA, figure.legendeOB, figure.legendeOhB]), { style: 'inline', scale: fscale }), figure.segmentOA, figure.segmentOhA, figure.segmentOB, figure.segmentOhB, figure.legendeOBi, figure.arcOB, figure.legendeOhB, figure.arcOhB, figure.legendeOA, figure.arcOA, figure.legendeOhA, figure.arcOhA, flabelsAntecedent2etapes)
       fAntecedent2etapes = { enonce: (this.sup4 ? fAntecedent2etapes : ''), solution: fAntecedent2etapes }
-      let frapport2 = mathalea2d(Object.assign({}, fixeBordures([figure.segmentOA, figure.segmentOhA, figure.legendeOA, figure.legendeAhA]), { style: 'inline', scale: fscale }), figure.segmentOA, figure.segmentOhA, figure.arcOA, figure.arcAhA, figure.legendeOA, figure.legendeAhA, flabelsRapport)
+      let frapport2 = mathalea2d(Object.assign({}, fixeBordures([figure.segmentOA, figure.segmentOhA, figure.legendeOA, figure.legendeAhA, flabelsRapport]), { style: 'inline', scale: fscale }), figure.segmentOA, figure.segmentOhA, figure.arcOA, figure.arcAhA, figure.legendeOA, figure.legendeAhA, flabelsRapport)
       frapport2 = { enonce: (this.sup4 ? '<br>' + frapport2 : ''), solution: frapport2 }
       switch (listeTypeQuestions[i]) {
         case 'rapport':
@@ -204,6 +209,7 @@ export default function calculsHomothetie () {
                     par une homothétie ${derapportpositifet}
                     de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
                     <br>
+                    ${illustrerParUneFigureAMainLevee}
                     Calculer le rapport $k$ de cette homothétie ${figurealechelle}.
                     ${frapport.enonce}
                     `
@@ -233,6 +239,7 @@ export default function calculsHomothetie () {
                 de centre $${O}$ et de rapport $k=${k}$
                 tel que $ {${O}${A}=${OA}\text{ cm}}$.
                 <br>
+                ${illustrerParUneFigureAMainLevee}
                 Calculer $${O}${hA}$  ${figurealechelle}.
                 <br>${fImage.enonce}
                 `
@@ -250,7 +257,7 @@ export default function calculsHomothetie () {
                 une transformation qui multiplie
                 toutes les longueurs par ${lopposede} son rapport.
                 <br>
-                Soit $${O}${hA}=${absk} \times ${O}${A}$.
+                Soit $${O}${hA}=${signek}k \times ${O}${A}$.
                 <br>
                 Donc $${O}${hA}= ${absk} \times ${OA} =  ${OhA}~\text{cm}$.
                 `
@@ -262,6 +269,7 @@ export default function calculsHomothetie () {
                 homothétie de centre $${O}$ et de rapport
                 $k=${k}$ tel que $ {${O}${hA}=${OhA}\text{ cm}}$.
                 <br>
+                ${illustrerParUneFigureAMainLevee}
                 Calculer $${O}${A}$  ${figurealechelle}.
                 <br>${fAntecedent.enonce}
                 `
@@ -279,9 +287,9 @@ export default function calculsHomothetie () {
               une transformation qui multiplie
               toutes les longueurs par ${lopposede} son rapport.
               <br>
-              Soit $${O}${hA}=${absk} \times ${O}${A}$.
+              Soit $${O}${hA}=${signek}k \times  ${O}${A}$.
               <br>
-              Donc $${O}${A}=\dfrac{${O}${hA}}{${absk}}=\dfrac{${OhA}}{${absk}} ${OhAtimeskinverse} = ${OA}~\text{cm}$.
+              Donc $${O}${A}=\dfrac{${O}${hA}}{${signek}k}=\dfrac{${OhA}}{${absk}} ${OhAtimeskinverse} = ${OA}~\text{cm}$.
               `
           }
           break
@@ -297,6 +305,7 @@ export default function calculsHomothetie () {
                     ${derapportpositifet} de centre $${O}$ tel que
                     $ {${donnee1}}$, $ {${donnee2}}$ et $ {${donnee3}}$.
                     <br>
+                    ${illustrerParUneFigureAMainLevee}
                     Calculer $${O}${hB}$ ${figurealechelle2}.
                     <br>${fImage2etapes.enonce}
                     `
@@ -324,7 +333,9 @@ export default function calculsHomothetie () {
                     est une transformation qui multiplie
                     toutes les longueurs par ${lopposede} son rapport.
                     <br>
-                    Soit $${O}${hB}= ${absk} \times ${OB} = ${OhB}~\text{cm}$.
+                    Soit $${O}${hB}= ${signek}k \times ${O}${B}$.
+                    <br>
+                    Donc $${O}${hB}= ${absk} \times ${OB} = ${OhB}~\text{cm}$.
                     `
           }
           break
@@ -340,6 +351,7 @@ export default function calculsHomothetie () {
                       de centre $${O}$ tel que
                       $ {${donnee1}}$, $ {${donnee2}}$ et $ {${donnee3}}$.
                       <br>
+                      ${illustrerParUneFigureAMainLevee}
                       Calculer $${O}${B}$ ${figurealechelle2}.
                       <br>${fAntecedent2etapes.enonce}
                       `
@@ -366,9 +378,9 @@ export default function calculsHomothetie () {
                       une transformation qui multiplie
                       toutes les longueurs par ${lopposede} son rapport.
                       <br>
-                      Soit $${O}${hB}=${absk} \times ${O}${B}$.
+                      Soit $${O}${hB}=${signek}k \times ${O}${B}$.
                       <br>
-                      Donc $${O}${B}=\dfrac{${O}${hB}}{${absk}}=\dfrac{${OhB}}{${absk}} ${OhBtimeskinverse} = ${OB}~\text{cm}$.
+                      Donc $${O}${B}=\dfrac{${O}${hB}}{${signek}k}=\dfrac{${OhB}}{${absk}} ${OhBtimeskinverse} = ${OB}~\text{cm}$.
                       `
           }
           break
@@ -378,7 +390,7 @@ export default function calculsHomothetie () {
           texte = String.raw`
                 Une figure a pour aire $ {${Aire}\text{ cm}^2}$.
                 <br>
-                Calculer l'aire de son image par une homothétie de rapport $${kAire}$ (arrondir au $ {\text{mm}^2}$ près si besoin).
+                Calculer l'aire de son image par une homothétie de rapport $${signek}${kAire}$ (arrondir au $ {\text{mm}^2}$ près si besoin).
                 `
           texteCorr = String.raw`
                 $ {${parentheseskAire}^2 \times ${Aire} ${approx} ${hAireArrondie}~\text{cm}^2}$
@@ -395,7 +407,7 @@ export default function calculsHomothetie () {
           break
         case 'aireAntécédent':
           texte = String.raw`
-                  L'image d'une figure par une homothétie de rapport $${kAire}$ a pour aire $ {${hAire}\text{ cm}^2}$.
+                  L'image d'une figure par une homothétie de rapport $${signek}${kAire}$ a pour aire $ {${hAire}\text{ cm}^2}$.
                   <br>
                   Calculer l'aire de la figure de départ.
                   `
@@ -447,6 +459,7 @@ export default function calculsHomothetie () {
                     par une homothétie ${derapportpositifet}
                     de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
                     <br>
+                    ${illustrerParUneFigureAMainLevee}
                     Calculer le rapport $k$ de cette homothétie ${figurealechelle}.
                     ${frapport2.enonce}
                     `
@@ -470,6 +483,64 @@ export default function calculsHomothetie () {
                   <br>
                   Soit $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
                   `
+          }
+          break
+        case 'encadrerk':
+          donnees = [String.raw`${O}${hA}=${OhA}\text{ cm}`, String.raw`${O}${A}=${OA}\text{ cm}`]
+          melange = combinaisonListes([0, 1])
+          donnee1 = donnees[melange[0]]
+          donnee2 = donnees[melange[1]]
+          texte = String.raw`
+                    $${hA}$ est l'image de $${A}$
+                    par une homothétie ${derapportpositifet}
+                    de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
+                    <br>
+                    ${illustrerParUneFigureAMainLevee}
+                    Sans effectuer de calculs, encadrer $k$ le plus précisément possible ${figurealechelle}.
+                    ${frapport.enonce}
+                    `
+          texteCorr = String.raw`
+                $${intervallek}$.
+                `
+          if (this.correctionDetaillee) {
+            texteCorr = String.raw`
+                  $[${O}${hA}]$ est l'image de $[${O}${A}]$
+                  et $${O} ${hA} ${plusgrandque} ${O} ${A}$
+                  donc c'est ${unAgrandissement}.
+                  <br>
+                  De plus $${hA}${inNotin}[${O};${A})$ donc ${intervallek}.
+                  <br> ${frapport.solution}
+                  `
+          }
+          break
+        case 'encadrerk2':
+          donnees = [String.raw`${A}${hA}=${AhA}\text{ cm}`, String.raw`${O}${A}=${OA}\text{ cm}`]
+          melange = combinaisonListes([0, 1])
+          donnee1 = donnees[melange[0]]
+          donnee2 = donnees[melange[1]]
+          texte = String.raw`
+                      $${hA}$ est l'image de $${A}$
+                      par une homothétie ${derapportpositifet}
+                      de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
+                      <br>
+                      ${illustrerParUneFigureAMainLevee}
+                      Sans effectuer de calculs, encadrer $k$ le plus précisément possible ${figurealechelle}.
+                      ${frapport2.enonce}
+                      `
+          texteCorr = String.raw`
+                  $${intervallek}$.
+                  `
+          if (this.correctionDetaillee) {
+            texteCorr = String.raw`
+                    $${O}${hA} = ${calculsOhA} = ${OhA}\text{ cm}$
+                    <br>
+                    $[${O}${hA}]$ est l'image de $[${O}${A}]$
+                    et $${O} ${hA} ${plusgrandque} ${O} ${A}$
+                    donc c'est ${unAgrandissement}.
+                    <br>
+                    De plus $${hA}${inNotin}[${O};${A})$ donc ${intervallek}.
+                    <br> ${frapport.solution}
+                    `
           }
           break
       }

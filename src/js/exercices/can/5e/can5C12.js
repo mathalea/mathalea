@@ -21,19 +21,19 @@ export default function FractionDEntierQuiVaBien () {
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3, 4, 5, 6])
-    const b = a.den * c
-    this.reponse = calcul(a.num * c)
+    const b = a.d * c
+    this.reponse = calcul(a.n * c)
     this.question = `$${a.texFraction}\\times ${b}$`
-    if (a.num === 1) {
-      this.correction = `$${a.texFraction}\\times ${b}=${a.num * c}$<br><br>`
+    if (a.n === 1) {
+      this.correction = `$${a.texFraction}\\times ${b}=${a.n * c}$<br><br>`
       this.correction += `${texteEnCouleur('Mentalement :')}<br>`
-      this.correction += `${texteEnCouleur('Pour multiplier $' + b + '$ par $' + a.texFraction + '$, on divise $' + b + '$ par $' + a.den + '$ : on obtient $\\dfrac{' + b + '}{' + a.den + '}=' + b / a.den + '$.')}<br>`
-      this.correction += `${texteEnCouleur('Ainsi $' + a.texFraction + '\\times ' + b + ' = \\dfrac{' + b + '}{' + a.den + '}=' + a.num * c + '$.<br>')}`
+      this.correction += `${texteEnCouleur('Pour multiplier $' + b + '$ par $' + a.texFraction + '$, on divise $' + b + '$ par $' + a.d + '$ : on obtient $\\dfrac{' + b + '}{' + a.d + '}=' + b / a.d + '$.')}<br>`
+      this.correction += `${texteEnCouleur('Ainsi $' + a.texFraction + '\\times ' + b + ' = \\dfrac{' + b + '}{' + a.d + '}=' + a.n * c + '$.<br>')}`
     } else {
-      this.correction = `$${a.texFraction}\\times ${b}=${a.num * c}$<br><br>`
+      this.correction = `$${a.texFraction}\\times ${b}=${a.n * c}$<br><br>`
       this.correction += `${texteEnCouleur('Mentalement :')}<br>`
-      this.correction += `${texteEnCouleur('Pour multiplier $' + b + '$ par $' + a.texFraction + '$, on commence par diviser  $' + b + '$ par $' + a.den + '$ (car la division "tombe juste") : on obtient $\\dfrac{' + b + '}{' + a.den + '}=' + b / a.den + '$.')}<br>`
-      this.correction += `${texteEnCouleur('Puis, on multiplie ce résultat par $' + a.num + '$, ce qui donne : $' + a.num + '\\times ' + b / a.den + '=' + a.num * c + '$.<br>')}`
+      this.correction += `${texteEnCouleur('Pour multiplier $' + b + '$ par $' + a.texFraction + '$, on commence par diviser  $' + b + '$ par $' + a.d + '$ (car la division "tombe juste") : on obtient $\\dfrac{' + b + '}{' + a.d + '}=' + b / a.d + '$.')}<br>`
+      this.correction += `${texteEnCouleur('Puis, on multiplie ce résultat par $' + a.n + '$, ce qui donne : $' + a.n + '\\times ' + b / a.d + '=' + a.n * c + '$.<br>')}`
     }
   }
 }

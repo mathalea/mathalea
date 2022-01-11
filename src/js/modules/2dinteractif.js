@@ -5,15 +5,16 @@ import { context } from './context.js'
  * @author Rémi ANGOT
  * @param {number} x abscisse du point
  * @param {number} y ordonnée du point
- * @param {object} options over, out et click sont des ojets pour le style css des évènements de la souris, radius, width, color, size, style sont les paramètres possibles pour la trace du point
+ * @param {object} options over, out et click sont des ojets pour le style css des évènements de la souris, radius, width, color, opacite, size, style sont les paramètres possibles pour la trace du point
  */
 function PointCliquable (x, y, options) {
   ObjetMathalea2D.call(this)
   const A = point(x, y)
+  this.point = A
   if (!options) options = {}
   const out = options.out || { opacity: 0 }
   const over = options.over || { opacity: 0.5 }
-  const click = options.click || { opacity: 1 }
+  const click = options.click || { opacity: options.opacite || 1 }
   this.etat = false // Pour récupérer si le point est affiché ou pas
   this.svg = function (coeff) {
     let code
@@ -139,9 +140,11 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
     const changeEtatPoint = (etat) => {
       this.etat = etat
     }
-    // On initialise avec le style de out ou de click suivant l'état
-    for (const key in out) {
-      groupe.style[key] = (this.etat) ? click[key] : out[key]
+    if (groupe) {
+      // On initialise avec le style de out ou de click suivant l'état
+      for (const key in out) {
+        groupe.style[key] = (this.etat) ? click[key] : out[key]
+      }
     }
     if (groupe && cliquable) {
       groupe.addEventListener('mouseover', mouseOverEffect)

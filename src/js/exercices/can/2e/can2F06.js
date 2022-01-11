@@ -17,7 +17,7 @@ export const dateDePublication = '15/12/2021' // La date de publication initiale
 export default function TableauSignes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
-  this.tailleDiaporama = 1
+  this.tailleDiaporama = 1.3
   this.spacing = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {

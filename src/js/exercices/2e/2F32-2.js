@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, combinaisonListes, randint, arrondi, texNombre
 import { antecedentInterpole, graphiqueInterpole, imageInterpolee, mathalea2d, point, repere2, segment, texteParPosition, tracePoint } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Lecture graphique'
+export const titre = 'Déterminer graphiquement les extremums'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -29,6 +29,7 @@ export default function LecturesGraphiques () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const typeFonctionsDisponibles = ['minimum', 'maximum', 'image', 'plusPetitAntécédent', 'plusGrandAntécédent', 'nombreAntécédents'] // On créé 3 types de questions
     const listeTypeQuestions = combinaisonListes(typeFonctionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"

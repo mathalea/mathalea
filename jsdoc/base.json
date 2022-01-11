@@ -7,7 +7,7 @@
     "include": [
       "./src/js/modules/outils.js",
       "./src/js/modules/fractions.js",
-      "./src/js/modules/Fraction.js",
+      "./src/js/modules/FractionEtendue.js",
       "./src/js/modules/ListeFraction.js",
       "./src/demarrage.md"
     ]

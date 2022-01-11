@@ -1,6 +1,6 @@
 import { droiteGraduee2, mathalea2d } from '../../../modules/2d'
 import { context } from '../../../modules/context'
-import Fraction from '../../../modules/Fraction'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { pgcd, randint, texFractionReduite } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Trouver une abscisse fractionnaire'
@@ -28,7 +28,7 @@ export default function AbscisseFractionnaire () {
     do {
       b = randint(2, a * 4 - 1) // numérateur
     } while (b % a === 0)
-    const c = new Fraction(b, a)
+    const c = new FractionEtendue(b, a)
     this.reponse = c
     this.question = 'Determiner l\'abscisse du point $A$ situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee2({
       Unite: 3,

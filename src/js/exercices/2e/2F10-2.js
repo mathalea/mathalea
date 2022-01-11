@@ -30,6 +30,7 @@ export default function lecturefonctionaffine () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     // let typesDeQuestionsDisponibles = []
     // typesDeQuestionsDisponibles = [1, 2]// On complète selon le nb de cas dans l'exo (switch)
     const o = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1)

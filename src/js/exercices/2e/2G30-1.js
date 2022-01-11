@@ -11,7 +11,7 @@ export const amcType = 'AMCHybride'
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
- * 2G31-1, ex 2G50
+ * 2G30-1, ex 2G50
 */
 export default function CoefficientDirecteurDeDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -26,7 +26,7 @@ export default function CoefficientDirecteurDeDroite () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
+    this.autoCorrection = []
     const typeQuestionsDisponibles = ['Droite oblique', 'Droite oblique', 'Droite oblique', 'Droite oblique', 'Droite verticale'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

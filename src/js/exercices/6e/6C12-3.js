@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, texNombre, texteEnCouleurEtGras, texteGras, prenomM, arrondi, prenomF, nomDuMois, jour, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texNombre, texteEnCouleurEtGras, texteGras, prenomM, arrondi, prenomF, nomDuMois, jour, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes, sp } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC
@@ -205,8 +205,8 @@ export default function ExerciceInformationsProblemes () {
           nb3 = texNombre(arrondi(randint(10, 50) / 10 + randint(1, 9) / 100))
           nb4 = randint(2, 5, [nb1])
           nb5 = texNombre(arrondi(randint(20, 40) / 10 + randint(1, 9) / 100))
-          texte += `Au marché, ${quidam} achète ${nb1} barquettes de haricots verts de ${nb2} g l'une à ${nb3}  € pièce `
-          texte += ` et ${nb4} ananas coûtant ${nb5} € l'unité.<br>`
+          texte += `Au marché, ${quidam} achète ${nb1} barquettes de haricots verts de ${nb2}${sp(1)}g chacune à ${nb3}${sp(1)}€ pièce `
+          texte += ` et ${nb4}${sp(1)}ananas coûtant ${nb5}${sp(1)}€ l'unité.<br>`
 
           switch (choixVersion) {
             case 1:

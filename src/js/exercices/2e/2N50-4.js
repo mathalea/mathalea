@@ -2,14 +2,12 @@ import Exercice from '../Exercice.js'
 import { randint, texNombrec, miseEnEvidence, listeQuestionsToContenu, combinaisonListes, sp, rienSi1, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
 import { texteSurSegment, codeSegments, codageAngleDroit, segmentAvecExtremites, milieu, labelPoint, point, segment, texteParPosition, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Modéliser une situation géométrique à l\'aide d\'une équation'
-
+export const dateDePublication = '16/12/2021'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
  * Référence
- *  * A DEPLACER EN 2N50-4 !!!!!!!!!!!!!!!!!
-
-*/
+ */
 export default function modeliserEquationsGeometrie () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

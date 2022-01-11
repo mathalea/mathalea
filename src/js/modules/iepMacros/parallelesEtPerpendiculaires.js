@@ -1,4 +1,4 @@
-import { droite, projectionOrtho, pointSurSegment, droiteParPointEtParallele, longueur, appartientDroite, homothetie, rotation, angleOriente, pointSurDroite, similitude, translation, point, vecteur, translation2Points } from '../2d'
+import { droite, projectionOrtho, pointSurSegment, droiteParPointEtParallele, longueur, appartientDroite, homothetie, rotation, angleOriente, pointSurDroite, similitude, translation, point, vecteur, translation2Points, estSurDroite, cercle, pointIntersectionLC, droiteParPointEtPerpendiculaire } from '../2d'
 import { calcul } from '../outils'
 
 /**
@@ -88,6 +88,9 @@ export const perpendiculaireRegleEquerre2points3epoint = function (A, B, C, desc
   if (A.nom === undefined) A.nom = 'A'
   if (B.nom === undefined) B.nom = 'B'
   if (appartientDroite(C, A, B)) {
+    const H = rotation(C, C, 0)
+    const dd = droiteParPointEtPerpendiculaire(C, d)
+    C = pointIntersectionLC(dd, cercle(H, 5.5), 1)
     dist = 7.5
   } else {
     const H = projectionOrtho(C, d)
@@ -95,8 +98,8 @@ export const perpendiculaireRegleEquerre2points3epoint = function (A, B, C, desc
   }
   this.equerreZoom(calcul(dist * 100 / 7.5))
   this.regleModifierLongueur(Math.max(dist * 2, 15))
-  const P1 = homothetie(A, B, 2)
-  const P2 = homothetie(B, A, 2)
+  const P1 = homothetie(A, B, 1.2)
+  const P2 = homothetie(B, A, 1.2)
   this.traitRapide(P1, P2)
   this.pointsCreer(A, B, C)
   this.perpendiculaireRegleEquerreDroitePoint(d, C, description)
@@ -112,26 +115,51 @@ export const perpendiculaireRegleEquerre2points3epoint = function (A, B, C, desc
  * @param {boolean} description
  */
 export const perpendiculaireRegleEquerreDroitePoint = function (d, P, description) {
-  const H = projectionOrtho(P, d)
-  const A = rotation(P, H, 90)
-  const B = rotation(A, H, 180)
-  const P3 = homothetie(P, H, 1.2)
-  const alpha = angleOriente(point(10000, H.y), H, B)
-  if (description) this.textePosition(`1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom} et l'autre côté de l'angle droit passant par le point ${P.nom}.`, 0, 10, { couleur: 'lightblue' })
-  this.equerreRotation(alpha)
-  this.equerreMontrer(H)
-  if (description) this.textePosition(`2. Tracer le segment de droite passant par le point ${P.nom}`, 0, 9.3, { couleur: 'lightblue' })
-  this.crayonMontrer(P)
-  this.tracer(H)
-  this.equerreMasquer()
-  if (description) this.textePosition(`3. Prolonger la perpendiculaire à ${d.nom} à la règle.`, 0, 8.6, { couleur: 'lightblue' })
-  this.regleMontrer(P3)
-  this.crayonDeplacer(P3)
-  this.regleRotation(alpha - 90)
-  this.tracer(rotation(P3, H, 180))
-  if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.9, { couleur: 'lightblue' })
-  this.regleMasquer()
-  this.codageAngleDroit(A, H, P)
+  if (!estSurDroite(P, d)) {
+    const H = projectionOrtho(P, d)
+    const A = rotation(P, H, 90)
+    const B = rotation(A, H, 180)
+    const P3 = homothetie(P, H, 1.2)
+    const alpha = angleOriente(point(10000, H.y), H, B)
+    if (description) this.textePosition(`1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom} et l'autre côté de l'angle droit passant par le point ${P.nom}.`, 0, 10, { couleur: 'lightblue' })
+    this.equerreRotation(alpha)
+    this.equerreMontrer(H)
+    if (description) this.textePosition(`2. Tracer le segment de droite passant par le point ${P.nom}`, 0, 9.3, { couleur: 'lightblue' })
+    this.crayonMontrer(P)
+    this.tracer(H)
+    this.equerreMasquer()
+    if (description) this.textePosition(`3. Prolonger la perpendiculaire à ${d.nom} à la règle.`, 0, 8.6, { couleur: 'lightblue' })
+    this.regleMontrer(P3)
+    this.regleRotation(alpha - 90)
+    this.crayonDeplacer(P3)
+    this.tracer(rotation(P3, H, 180))
+    if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.9, { couleur: 'lightblue' })
+    this.regleMasquer()
+    this.codageAngleDroit(A, H, P)
+  } else {
+    const H = P
+    const C = cercle(P, 6)
+    const A = pointSurDroite(d, -10000)
+    const B = pointSurDroite(d, 10000)
+    let P3 = rotation(pointIntersectionLC(d, C, 1), P, 90)
+    if (P3.y < P.y) P3 = rotation(P3, P, 180)
+    const alpha = angleOriente(point(10000, H.y), H, B)
+    if (description) this.textePosition(`1. Placer un côté de l'angle droit de l'équerre sur la droite ${d.nom} avec l'angle droit au point ${P.nom}.`, 0, 10, { couleur: 'lightblue' })
+    this.equerreRotation(alpha)
+    this.equerreMontrer(H)
+    if (description) this.textePosition('2. Tracer le long de l\'autre côté de l\'angle droit de l\'équerre', 0, 9.3, { couleur: 'lightblue' })
+    this.crayonMontrer(P3)
+    this.tracer(H)
+    this.equerreMasquer()
+    if (description) this.textePosition(`3. Prolonger la perpendiculaire à ${d.nom} à la règle.`, 0, 8.6, { couleur: 'lightblue' })
+    this.regleMontrer(P3)
+    this.regleRotation(alpha - 90)
+    this.crayonDeplacer(P3)
+    this.tracer(rotation(P3, H, 180))
+    if (description) this.textePosition('4. Coder l\'angle droit.', 0, 7.9, { couleur: 'lightblue' })
+    this.regleMasquer()
+    this.codageAngleDroit(A, H, P3)
+  }
 }
 /**
  * Trace la perpendiculaire à une droite passant par un point de cette droite à l'équerre et à la règle.

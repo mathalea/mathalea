@@ -34,6 +34,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
     const objetsCorrection = []
     let enonceAmc = ''
     this.listeQuestions = []
+    this.listeCorrections = []
+    this.autoCorrection = []
     this.sup = parseInt(this.sup)
     this.listeCorrections = [] // Liste de questions corrigées
     let xA; let yA; let xB; let yB; let xC; let yC; const k = []
