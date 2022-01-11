@@ -4,7 +4,7 @@ import { getNewChangeNodes } from './Change.js'
 
 const math = create(all)
 math.config({
-  number: 'number'
+  number: 'Fraction'
 })
 
 // eslint-disable-next-line no-debugger
@@ -144,6 +144,14 @@ export function aleaExpressionLitterale (expression = '(a*x+b)*(c*x-d)', assigna
   return simplify(expression, [{ l: '1*n', r: 'n' }, { l: '-1*n', r: '-n' }, { l: 'n/1', r: 'n' }, { l: 'c/c', r: '1' }, { l: '0*v', r: '0' }, { l: '0+v', r: 'v' }], assignations)
 }
 
+/**
+ * @description Retourne des valeurs aléatoires sous certaines contraintes données.
+ * @param {Object} variables // Variables et test
+ * @returns {Object} // Pour chaque variable, une valeur est retournée
+ * @see {@link https://mathjs.org/docs/expressions/syntax.html|Mathjs}
+ * @see {@link https://coopmaths/jsdoc/tutorials/outilsMathjs.html|Mathjs}
+ * @author Frédéric PIOU
+ */
 export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fraction(a,10)+fraction(b,100)', test: 'b!=0 and b>a>c' }, debug = false) {
   const assignations = {}
   let cpt = 0
