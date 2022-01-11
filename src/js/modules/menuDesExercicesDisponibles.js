@@ -740,8 +740,8 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercices += '</div>'
     listeHtmlDesExercicesTab += objExercicesDisponibles.P0.lignes_tableau
   } else if (context.vue === 'crpe') {
-    listeHtmlDesExercices += divNiveau(objExercicesDisponibles.CRPE, 'active', 'CRPE')
     listeHtmlDesExercices += divNiveau(objExercicesDisponibles.CrpeTheme, 'active', 'CrpeTheme')
+    listeHtmlDesExercices += divNiveau(objExercicesDisponibles.CRPE, 'active', 'CRPE')
     listeHtmlDesExercices += '</div>'
     listeHtmlDesExercicesTab += objExercicesDisponibles.CRPE.lignes_tableau
   } else if (filtre === 'dnb') {
