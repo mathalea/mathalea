@@ -1,14 +1,9 @@
-import { format, number, evaluate, SymbolNode, ConstantNode, OperatorNode, ParenthesisNode, simplify, parse, pickRandom, create, all } from 'mathjs'
+import { format, number, evaluate, SymbolNode, ConstantNode, OperatorNode, ParenthesisNode, simplify, parse, pickRandom } from 'mathjs'
 import { solveEquation, simplifyExpression, factor } from 'mathsteps'
 import { getNewChangeNodes } from './Change.js'
 
-const math = create(all)
-math.config({
-  number: 'Fraction'
-})
-
 // eslint-disable-next-line no-debugger
-debugger
+// debugger
 
 export function toTex (node, debug = false) {
   if (debug) {
@@ -29,7 +24,7 @@ export function toTex (node, debug = false) {
         if (node.args[1].toString()[0] === '-') { // +- devient -
           node.op = '-'
           node.fn = 'subtract'
-          node.args[1] = math.parse(node.args[1].toString().replace('-', ''))
+          node.args[1] = parse(node.args[1].toString().replace('-', ''))
         }
         if (node.args[1].toString() === '0') {
           node = node.args[0]
