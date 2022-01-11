@@ -79,6 +79,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
     let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const listeQuestionsDisponibles = range1(7)
 

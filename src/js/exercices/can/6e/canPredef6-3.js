@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1 } from '../../../modules/outils.js'
 import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
-import Fraction from '../../../modules/Fraction.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { droiteGraduee2, mathalea2d } from '../../../modules/2d.js'
 export const titre = 'Course aux nombres fin de 6e'
@@ -116,7 +116,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           b = randint(2, 25, a)
           a = calcul(a / pgcd(a, b))
           b = calcul(b / pgcd(a, b))
-          c = new Fraction(a, b)
+          c = new FractionEtendue(a, b)
           resultat = calcul(a / b)
           texte = `Quel est le nombre qui, multiplié par ${b} donne ${a} ?`
           texteCorr = `c'est $${c.texFraction}$ car $${c.texFraction}\\times ${b} = ${a}$`
@@ -401,7 +401,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
         case 'q29':
           a = randint(3, 5) // dénominateur
           b = randint(2, a * 4 - 1) // numérateur
-          c = new Fraction(b, a)
+          c = new FractionEtendue(b, a)
           resultat = calcul(b / a)
 
           texte = 'Determiner l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({

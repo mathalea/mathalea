@@ -1,8 +1,8 @@
-import Algebrite from 'algebrite'
-import { calcul, listeDiviseurs } from './outils.js'
+import { lcm } from 'mathjs'
+import { listeDiviseurs } from './outils.js'
 
 function ppcm ([...n]) {
-  return parseInt(Algebrite.run(`lcm(${n})`))
+  return parseInt(lcm(...n))
 }
 
 /**
@@ -36,8 +36,8 @@ class ListeFraction {
     let listetemp = []
     const dens = []
     this.liste.forEach(f => {
-      dens.push(f.den)
-      listetemp = listeDiviseurs(f.den)
+      dens.push(f.d)
+      listetemp = listeDiviseurs(f.d)
       listetemp.splice(0, 1)
       this.denominateurs_amis.push(listetemp)
     })
@@ -48,7 +48,7 @@ class ListeFraction {
      */
     this.listeMemeDenominateur = []
     this.liste.forEach(f => {
-      this.listeMemeDenominateur.push(f.fractionEgale(calcul(den / f.den)))
+      this.listeMemeDenominateur.push(f.fractionEgale(Math.round(den / f.d)))
     })
 
     /**
@@ -83,18 +83,18 @@ class ListeFraction {
    * @param {...Fraction}
    */
   completeListe (...frac) {
-    const dens = [this.listeMemeDenominateur[0].den]
+    const dens = [this.listeMemeDenominateur[0].d]
     for (let i = 0; i < frac.length; i++) {
       this.liste.push(frac[i])
-      dens.push(frac[i].den)
-      const listetemp = listeDiviseurs(frac[i].den)
+      dens.push(frac[i].d)
+      const listetemp = listeDiviseurs(frac[i].d)
       listetemp.splice(0, 1)
       this.denominateurs_amis.push(listetemp)
     }
     const den = ppcm(dens)
     this.listeMemeDenominateur = []
     for (let i = 0; i < this.liste.length; i++) {
-      this.listeMemeDenominateur.push(this.liste[i].fractionEgale(calcul(den / this.liste[i].den)))
+      this.listeMemeDenominateur.push(this.liste[i].fractionEgale(Math.round(den / this.liste[i].d)))
     }
     this.listeSimplifiee = []
     for (let i = 0; i < this.liste.length; i++) {

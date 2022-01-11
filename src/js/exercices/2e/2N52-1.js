@@ -56,10 +56,10 @@ export default function EquationsProduitsNuls2 () {
           f2 = fraction(-d, c)
           texteCorr += `$\\iff x=${f1.texFraction}$ ou $ x=${f2.texFraction}$<br>On en déduit :  `
           if (-b / a > -d / c) {
-            texteCorr += `$S=\\left\\{${f2.simplifie().texFraction};${f1.simplifie().texFraction}\\right\\}$`
+            texteCorr += `$S=\\left\\{${f2.texFractionSimplifiee};${f1.texFractionSimplifiee}\\right\\}$`
           } else if (-b / a < -d / c) {
-            texteCorr += `$S=\\left\\{${f1.simplifie().texFraction};${f2.simplifie().texFraction}\\right\\}$`
-          } else texteCorr += `$S=\\left\\{${f1.simplifie().texFraction}\\right\\}$`
+            texteCorr += `$S=\\left\\{${f1.texFractionSimplifiee};${f2.texFractionSimplifiee}\\right\\}$`
+          } else texteCorr += `$S=\\left\\{${f1.texFractionSimplifiee}\\right\\}$`
 
           break
         case 2:
@@ -82,9 +82,9 @@ export default function EquationsProduitsNuls2 () {
           }
           texteCorr += `$\\iff x=${f3.texFractionSimplifiee}$ ou $ x=${f4.texFractionSimplifiee}$<br>
                      On en déduit :  `
-          if (f3.differenceFraction(f4).signe > 0) {
+          if (f3.differenceFraction(f4).s > 0) {
             texteCorr += `$S=\\left\\{${f4.texFractionSimplifiee};${f3.texFractionSimplifiee}\\right\\}$`
-          } else if (f3.differenceFraction(f4).signe < 0) {
+          } else if (f3.differenceFraction(f4).s < 0) {
             texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}\\right\\}$`
           } else texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee}\\right\\}$`
           break
@@ -104,13 +104,13 @@ export default function EquationsProduitsNuls2 () {
           if (this.correctionDetaillee) {
             texteCorr += `$\\iff ${reduireAxPlusB(a, 0)}=${f1.multiplieEntier(-1).texFraction}$ ou $${reduireAxPlusB(b, 0)}=${f2.multiplieEntier(-1).texFraction}$<br>`
             texteCorr += `$\\iff x=${f1.multiplieEntier(-1).texFraction}\\div ${ecritureParentheseSiNegatif(a)}$ ou $x=${f2.multiplieEntier(-1).texFraction}\\div ${ecritureParentheseSiNegatif(b)}$<br>`
-            texteCorr += `$\\iff x=${f1.multiplieEntier(-1).texFraction}\\times ${fraction(1, a).texFractionSigneeParentheses}$ ou $x=${f2.multiplieEntier(-1).texFraction}\\times ${fraction(1, b).texFractionSigneeParentheses}$<br>`
+            texteCorr += `$\\iff x=${f1.multiplieEntier(-1).texFraction}\\times ${fraction(1, a).texFSP}$ ou $x=${f2.multiplieEntier(-1).texFraction}\\times ${fraction(1, b).texFSP}$<br>`
           }
           texteCorr += `$\\iff x=${f3.texFractionSimplifiee}$ ou $ x=${f4.texFractionSimplifiee}$<br>
                          On en déduit :  `
-          if (f3.differenceFraction(f4).signe > 0) {
+          if (f3.differenceFraction(f4).s > 0) {
             texteCorr += `$S=\\left\\{${f4.texFractionSimplifiee};${f3.texFractionSimplifiee}\\right\\}$`
-          } else if (f3.differenceFraction(f4).signe < 0) {
+          } else if (f3.differenceFraction(f4).s < 0) {
             texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}\\right\\}$`
           } else texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee}\\right\\}$`
           break

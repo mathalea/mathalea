@@ -1,13 +1,13 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, creerNomDePolygone, miseEnEvidence, choice, sp } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/gestionInteractif.js'
-export const titre = 'Utiliser la relation de Chasles/réductions vectorielles (QCM)'
+export const titre = 'Utiliser la relation de Chasles/réductions vectorielles'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '30/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-
+export const dateDeModifImportante = '03/01/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -25,27 +25,32 @@ export default function RelationChasles1 () {
     const nom = creerNomDePolygone(6, ['Q'])
     switch (choice([1, 2, 3, 4, 5, 6])) {
       case 1 :
-        texte = `$\\overrightarrow{${nom[5]}${nom[0]}}+\\overrightarrow{${nom[2]}${nom[5]}}=$`
-        this.autoCorrection[0] = {
-          enonce: texte,
-          options: { horizontal: true },
-          propositions: [
-            {
-              texte: `$\\overrightarrow{${nom[2]}${nom[0]}}$ `,
-              statut: true
-            },
-            {
-              texte: '$\\overrightarrow{0}$ ',
-              statut: false
-            },
-            {
-              texte: `$\\overrightarrow{${nom[0]}${nom[5]}}$ `,
-              statut: false
-            }
-          ]
-        }
+        if (this.interactif) {
+          texte = `$\\overrightarrow{${nom[5]}${nom[0]}}+\\overrightarrow{${nom[2]}${nom[5]}}=$`
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$\\overrightarrow{${nom[2]}${nom[0]}}$ `,
+                statut: true
+              },
+              {
+                texte: '$\\overrightarrow{0}$ ',
+                statut: false
+              },
+              {
+                texte: `$\\overrightarrow{${nom[0]}${nom[5]}}$ `,
+                statut: false
+              }
+            ]
+          }
 
-        texte += propositionsQcm(this, 0).texte
+          texte += propositionsQcm(this, 0).texte
+        } else {
+          texte = `Ecrire à l'aide d'un seul vecteur : <br>
+        $\\overrightarrow{${nom[5]}${nom[0]}}+\\overrightarrow{${nom[2]}${nom[5]}}=$`
+        }
 
         texteCorr = `On utilise la relation de Chasles :<br>
         $\\begin{aligned}
@@ -57,27 +62,32 @@ export default function RelationChasles1 () {
 
         break
       case 2 :
-        texte = `$\\overrightarrow{${nom[0]}${nom[1]}}-\\overrightarrow{${nom[1]}${nom[0]}}=$`
-        this.autoCorrection[0] = {
-          enonce: texte,
-          options: { horizontal: true },
-          propositions: [
-            {
-              texte: `$2${sp(1)}\\overrightarrow{${nom[0]}${nom[1]}}$ `,
-              statut: true
-            },
-            {
-              texte: '$\\overrightarrow{0}$ ',
-              statut: false
-            },
-            {
-              texte: `$2${sp(1)}\\overrightarrow{${nom[1]}${nom[0]}}$ `,
-              statut: false
-            }
-          ]
-        }
+        if (this.interactif) {
+          texte = `$\\overrightarrow{${nom[0]}${nom[1]}}-\\overrightarrow{${nom[1]}${nom[0]}}=$`
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$2${sp(1)}\\overrightarrow{${nom[0]}${nom[1]}}$ `,
+                statut: true
+              },
+              {
+                texte: '$\\overrightarrow{0}$ ',
+                statut: false
+              },
+              {
+                texte: `$2${sp(1)}\\overrightarrow{${nom[1]}${nom[0]}}$ `,
+                statut: false
+              }
+            ]
+          }
 
-        texte += propositionsQcm(this, 0).texte
+          texte += propositionsQcm(this, 0).texte
+        } else {
+          texte = `Ecrire à l'aide d'un seul vecteur : <br>
+        $\\overrightarrow{${nom[0]}${nom[1]}}-\\overrightarrow{${nom[1]}${nom[0]}}=$`
+        }
 
         texteCorr = `
             $\\begin{aligned}
@@ -89,27 +99,32 @@ export default function RelationChasles1 () {
 
         break
       case 3 :
-        texte = `$-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
-        this.autoCorrection[0] = {
-          enonce: texte,
-          options: { horizontal: true },
-          propositions: [
-            {
-              texte: `$2${sp(1)}\\overrightarrow{${nom[1]}${nom[0]}}$ `,
-              statut: true
-            },
-            {
-              texte: '$\\overrightarrow{0}$ ',
-              statut: false
-            },
-            {
-              texte: `$2${sp(1)}\\overrightarrow{${nom[0]}${nom[1]}}$ `,
-              statut: false
-            }
-          ]
-        }
+        if (this.interactif) {
+          texte = `$-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$2${sp(1)}\\overrightarrow{${nom[1]}${nom[0]}}$ `,
+                statut: true
+              },
+              {
+                texte: '$\\overrightarrow{0}$ ',
+                statut: false
+              },
+              {
+                texte: `$2${sp(1)}\\overrightarrow{${nom[0]}${nom[1]}}$ `,
+                statut: false
+              }
+            ]
+          }
 
-        texte += propositionsQcm(this, 0).texte
+          texte += propositionsQcm(this, 0).texte
+        } else {
+          texte = `Ecrire à l'aide d'un seul vecteur : <br>
+        $-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
+        }
 
         texteCorr = `
             $\\begin{aligned}
@@ -121,27 +136,32 @@ export default function RelationChasles1 () {
 
         break
       case 4 :
-        texte = `$-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[1]}}=$`
-        this.autoCorrection[0] = {
-          enonce: texte,
-          options: { horizontal: true },
-          propositions: [
-            {
-              texte: '$\\overrightarrow{0}$ ',
-              statut: true
-            },
-            {
-              texte: `$2${sp(1)}\\overrightarrow{${nom[1]}${nom[0]}}$ `,
-              statut: false
-            },
-            {
-              texte: `$2${sp(1)}\\overrightarrow{${nom[0]}${nom[1]}}$ `,
-              statut: false
-            }
-          ]
-        }
+        if (this.interactif) {
+          texte = `$-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[1]}}=$`
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: '$\\overrightarrow{0}$ ',
+                statut: true
+              },
+              {
+                texte: `$2${sp(1)}\\overrightarrow{${nom[1]}${nom[0]}}$ `,
+                statut: false
+              },
+              {
+                texte: `$2${sp(1)}\\overrightarrow{${nom[0]}${nom[1]}}$ `,
+                statut: false
+              }
+            ]
+          }
 
-        texte += propositionsQcm(this, 0).texte
+          texte += propositionsQcm(this, 0).texte
+        } else {
+          texte = `Ecrire à l'aide d'un seul vecteur : <br>
+        $-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[1]}}=$`
+        }
 
         texteCorr = `
                 $\\begin{aligned}
@@ -154,27 +174,32 @@ export default function RelationChasles1 () {
         break
 
       case 5 :
-        texte = `$\\overrightarrow{${nom[4]}${nom[1]}}-\\overrightarrow{${nom[4]}${nom[2]}}=$`
-        this.autoCorrection[0] = {
-          enonce: texte,
-          options: { horizontal: true },
-          propositions: [
-            {
-              texte: `$\\overrightarrow{${nom[2]}${nom[1]}}$ `,
-              statut: true
-            },
-            {
-              texte: '$\\overrightarrow{0}$ ',
-              statut: false
-            },
-            {
-              texte: `$\\overrightarrow{${nom[1]}${nom[2]}}$ `,
-              statut: false
-            }
-          ]
-        }
+        if (this.interactif) {
+          texte = `$\\overrightarrow{${nom[4]}${nom[1]}}-\\overrightarrow{${nom[4]}${nom[2]}}=$`
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$\\overrightarrow{${nom[2]}${nom[1]}}$ `,
+                statut: true
+              },
+              {
+                texte: '$\\overrightarrow{0}$ ',
+                statut: false
+              },
+              {
+                texte: `$\\overrightarrow{${nom[1]}${nom[2]}}$ `,
+                statut: false
+              }
+            ]
+          }
 
-        texte += propositionsQcm(this, 0).texte
+          texte += propositionsQcm(this, 0).texte
+        } else {
+          texte = `Ecrire à l'aide d'un seul vecteur : <br>
+        $\\overrightarrow{${nom[4]}${nom[1]}}-\\overrightarrow{${nom[4]}${nom[2]}}=$`
+        }
 
         texteCorr = `On utilise la relation de Chasles :<br>
             $\\begin{aligned}
@@ -186,27 +211,32 @@ export default function RelationChasles1 () {
 
         break
       case 6 :
-        texte = `$\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
-        this.autoCorrection[0] = {
-          enonce: texte,
-          options: { horizontal: true },
-          propositions: [
-            {
-              texte: '$\\overrightarrow{0}$ ',
-              statut: true
-            },
-            {
-              texte: `$2${sp(1)}\\overrightarrow{${nom[0]}${nom[1]}}$ `,
-              statut: false
-            },
-            {
-              texte: `$\\overrightarrow{${nom[0]}${nom[1]}}$ `,
-              statut: false
-            }
-          ]
-        }
+        if (this.interactif) {
+          texte = `$\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: '$\\overrightarrow{0}$ ',
+                statut: true
+              },
+              {
+                texte: `$2${sp(1)}\\overrightarrow{${nom[0]}${nom[1]}}$ `,
+                statut: false
+              },
+              {
+                texte: `$\\overrightarrow{${nom[0]}${nom[1]}}$ `,
+                statut: false
+              }
+            ]
+          }
 
-        texte += propositionsQcm(this, 0).texte
+          texte += propositionsQcm(this, 0).texte
+        } else {
+          texte = `Ecrire à l'aide d'un seul vecteur : <br>
+        $\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
+        }
 
         texteCorr = `
                 $\\begin{aligned}

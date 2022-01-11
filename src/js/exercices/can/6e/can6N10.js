@@ -18,7 +18,7 @@ export default function FractionDecimaleEcritureDecimale1 () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c, u
-    switch (choice(['a', 'b', 'c', 'd'])) { //,
+    switch (choice(['a', 'b', 'c', 'd', 'e'])) { //,
       case 'a':
         a = randint(1, 9)
         b = randint(1, 9)
@@ -70,6 +70,19 @@ export default function FractionDecimaleEcritureDecimale1 () {
         } else {
           this.question = `Ecrire sous forme décimale : $\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$ `
           this.correction = `$\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}=${texNombrec(c / 1000)}+${texNombrec(a / 10)}=${texNombrec(a / 10 + c / 1000)}$`
+        }
+        break
+      case 'e':
+        u = randint(1, 99)
+        b = randint(11, 99)
+        c = randint(1, 9)
+        this.reponse = calcul(u + b * 0.01 + c * 0.001)
+        if (choice([true, false])) {
+          this.question = `Ecrire sous forme décimale : $${u}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}$ `
+          this.correction = `$${u}+\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}=${u}+${texNombrec(b / 100)}+${texNombrec(c / 1000)}=${texNombrec(u + b / 100 + c / 1000)}$`
+        } else {
+          this.question = `Ecrire sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${b}}{100}$ `
+          this.correction = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${b}}{100}=${u}+${texNombrec(c / 1000)}+${texNombrec(b / 100)}=${texNombrec(u + b / 100 + c / 1000)}$`
         }
         break
     }

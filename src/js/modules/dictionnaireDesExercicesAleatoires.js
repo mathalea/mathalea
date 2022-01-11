@@ -1,4 +1,49 @@
 export default {
+  "1AN10-1": {
+    "titre": "Nombre dérivé de fonctions de références",
+    "url": "/exercices/1e/1AN10-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1AN10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "1AN11": {
+    "titre": "Equation de tangente",
+    "url": "/exercices/1e/1AN11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1AN11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "1AN14-4": {
+    "titre": "Dérivée d'un produit",
+    "url": "/exercices/1e/1AN14-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1AN14-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "1E10": {
     "titre": "Calcul du discriminant d’une équation du second degré",
     "url": "/exercices/1e/1E10.js",
@@ -101,6 +146,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "1E11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "1E12-1": {
+    "titre": "Lecture graphique d'éléments caractéristiques d'un trinôme",
+    "url": "/exercices/1e/1E12-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1E12-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -230,6 +290,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "1P10": {
+    "titre": "Probabilités conditionnelles",
+    "url": "/exercices/1e/1P10.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1P10",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F10-1": {
     "titre": "Reconnaître une fonction affine.",
     "url": "/exercices/2e/2F10-1.js",
@@ -328,6 +403,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2F12-1": {
+    "titre": "Résoudre algébriquement une équation f(x)=k avec une fonction de référence.",
+    "url": "/exercices/2e/2F12-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F12-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F20-1": {
     "titre": "Montrer qu’un point appartient ou non à une courbe",
     "url": "/exercices/2e/2F20-1.js",
@@ -343,18 +433,48 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2F32": {
-    "titre": "Lecture graphique",
-    "url": "/exercices/2e/2F32.js",
+  "2F31-1": {
+    "titre": "Utiliser les variations des fonctions de référence pour comparer des images",
+    "url": "/exercices/2e/2F31-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F31-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2F32-2": {
+    "titre": "Déterminer graphiquement les extremums",
+    "url": "/exercices/2e/2F32-2.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2F32",
+    "name": "2F32-2",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2F32-3": {
+    "titre": "Déterminer un extremum ou encadrer par lecture d’un tableau de variations",
+    "url": "/exercices/2e/2F32-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F32-3",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -519,12 +639,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G22-1": {
-    "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
-    "url": "/exercices/2e/2G22-1.js",
+  "2G21-1": {
+    "titre": "Construire les images de points par une translation",
+    "url": "/exercices/2e/2G21-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G22-1",
+    "name": "2G21-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -534,12 +654,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G23-1": {
-    "titre": "Déterminer les coordonnées d’un vecteur.",
-    "url": "/exercices/2e/2G23-1.js",
+  "2G22-1": {
+    "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
+    "url": "/exercices/2e/2G22-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G23-1",
+    "name": "2G22-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -564,12 +684,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G23": {
-    "titre": "Somme de vecteurs",
-    "url": "/exercices/2e/2G23.js",
+  "2G24-1": {
+    "titre": "Déterminer les coordonnées d’un vecteur à partir des coordonnées de deux points",
+    "url": "/exercices/2e/2G24-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G23",
+    "name": "2G24-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -579,16 +699,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-1": {
+  "2G30-1": {
     "titre": "Déterminer le coefficient directeur d'une droite.",
-    "url": "/exercices/2e/2G31-1.js",
+    "url": "/exercices/2e/2G30-1.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2G31-1",
+    "name": "2G30-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -598,12 +718,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-2": {
+  "2G30-2": {
     "titre": "Déterminer une équation réduite de droite",
-    "url": "/exercices/2e/2G31-2.js",
+    "url": "/exercices/2e/2G30-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-2",
+    "name": "2G30-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -613,12 +733,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-3": {
+  "2G30-3": {
     "titre": "Déterminer une équation cartésienne de droite à partir de deux points.",
-    "url": "/exercices/2e/2G31-3.js",
+    "url": "/exercices/2e/2G30-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-3",
+    "name": "2G30-3",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -628,12 +748,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-4": {
+  "2G30-4": {
     "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur.",
-    "url": "/exercices/2e/2G31-4.js",
+    "url": "/exercices/2e/2G30-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-4",
+    "name": "2G30-4",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -643,12 +763,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-5": {
+  "2G30-5": {
     "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",
-    "url": "/exercices/2e/2G31-5.js",
+    "url": "/exercices/2e/2G30-5.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-5",
+    "name": "2G30-5",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -658,12 +778,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G34-1": {
+  "2G33-1": {
     "titre": "Alignement de 3 points.",
-    "url": "/exercices/2e/2G34-1.js",
+    "url": "/exercices/2e/2G33-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G34-1",
+    "name": "2G33-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -673,12 +793,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G34-2": {
+  "2G33-2": {
     "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
-    "url": "/exercices/2e/2G34-2.js",
+    "url": "/exercices/2e/2G33-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G34-2",
+    "name": "2G33-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -688,16 +808,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G36-7": {
+  "2G35-7": {
     "titre": "Lecture graphique des coefficients d'une équation réduite ",
-    "url": "/exercices/2e/2G36-7.js",
+    "url": "/exercices/2e/2G35-7.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2G36-7",
+    "name": "2G35-7",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -1241,7 +1361,7 @@ export default {
     }
   },
   "2N32-3": {
-    "titre": "Ecrire le nombre proposé sous la forme $a\\sqrt{b}$",
+    "titre": "Écrire le nombre proposé sous la forme $a\\sqrt{b}$",
     "url": "/exercices/2e/2N32-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -1576,6 +1696,36 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2N50-3": {
+    "titre": "Modéliser une situation  à l'aide d'une équation",
+    "url": "/exercices/2e/2N50-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N50-3",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2N50-4": {
+    "titre": "Modéliser une situation géométrique à l'aide d'une équation",
+    "url": "/exercices/2e/2N50-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N50-4",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2N51-1": {
     "titre": "Tester si un nombre est solution d'une équation",
     "url": "/exercices/2e/2N51-1.js",
@@ -1761,15 +1911,18 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2S10-1": {
-    "titre": "Effectifs et proportions",
-    "url": "/exercices/2e/2S10-1.js",
-    "amcReady": false,
+  "2S10-2": {
+    "titre": "Calculer une proportion ou appliquer un pourcentage",
+    "url": "/exercices/2e/2S10-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2S10-1",
+    "name": "2S10-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -1802,6 +1955,22 @@ export default {
     "name": "2S11-2",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2S12-2": {
+    "titre": "Déterminer un taux d’évolution global",
+    "url": "/exercices/2e/2S12-2.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2S12-2",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -1895,6 +2064,25 @@ export default {
     "name": "2S30-4",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2S30-5": {
+    "titre": "Expérience aléatoire à deux épreuves",
+    "url": "/exercices/2e/2S30-5.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2S30-5",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -2410,7 +2598,7 @@ export default {
     "interactifReady": false,
     "name": "3G13",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3451,7 +3639,7 @@ export default {
     "interactifType": "qcm",
     "name": "4C20-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3656,7 +3844,7 @@ export default {
     }
   },
   "4C30-3": {
-    "titre": "Écriture décimale d’une puissance",
+    "titre": "Écriture décimale ou fractionnaire d'une puissance",
     "url": "/exercices/4e/4C30-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3765,7 +3953,7 @@ export default {
     "interactifType": "mathLive",
     "name": "4C33-0",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3923,7 +4111,7 @@ export default {
     "interactifReady": false,
     "name": "4G12-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3942,7 +4130,7 @@ export default {
     "interactifType": "mathLive",
     "name": "4G12",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -4597,7 +4785,7 @@ export default {
     "interactifReady": false,
     "name": "5A11-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -4874,6 +5062,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "5G11-6": {
+    "titre": "Compléter un nuage de points symétriques",
+    "url": "/exercices/5e/5G11-6.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "5G11-6",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "5G11": {
     "titre": "Trouver l’image d’un point par une symétrie axiale ou centrale",
     "url": "/exercices/5e/5G11.js",
@@ -4923,7 +5130,7 @@ export default {
     "interactifType": "mathLive",
     "name": "5G12-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -4938,7 +5145,7 @@ export default {
     "interactifReady": false,
     "name": "5G12-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -5847,7 +6054,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -6436,7 +6643,7 @@ export default {
     ],
     "name": "6C12-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6698,7 +6905,7 @@ export default {
     "interactifType": "qcm",
     "name": "6C30-8",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6829,7 +7036,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -7190,6 +7397,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6G24-4": {
+    "titre": "Compléter un nuage de points symétriques",
+    "url": "/exercices/6e/6G24-4.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpenNum"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "6G24-4",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6G24": {
     "titre": "Trouver l’image d’un point par une symétrie axiale",
     "url": "/exercices/6e/6G24.js",
@@ -7287,7 +7513,7 @@ export default {
     "interactifType": "mathLive",
     "name": "6G26",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8203,7 +8429,7 @@ export default {
     "interactifType": "numerique",
     "name": "6N23-6",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9612,36 +9838,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "beta2N60-X1": {
-    "titre": "Modéliser une situation  à l'aide d'une équation",
-    "url": "/exercices/beta/beta2N60-X1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2N60-X1",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "beta2N60-X2": {
-    "titre": "Modéliser une situation géométrique à l'aide d'une équation",
-    "url": "/exercices/beta/beta2N60-X2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2N60-X2",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
   "beta3F23": {
     "titre": "Déterminer un antécédent",
     "url": "/exercices/beta/beta3F23.js",
@@ -9755,6 +9951,21 @@ export default {
     "name": "beta4G20-4",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta5G30-2": {
+    "titre": "Angles et parallèles",
+    "url": "/exercices/beta/beta5G30-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta5G30-2",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9916,6 +10127,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaEqValAbs",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betaEquations": {
+    "titre": "Calculs algébriques",
+    "url": "/exercices/beta/betaEquations.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaEquations",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -10175,6 +10401,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaProbabilites",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betaProbabilitesJC": {
+    "titre": "Probabilités simples",
+    "url": "/exercices/beta/betaProbabilitesJC.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaProbabilitesJC",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -10752,6 +10993,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can1P01": {
+    "titre": "Arbre de probabilité",
+    "url": "/exercices/can/1e/can1P01.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "type de question AMC non prévu"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1P01",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can2C01": {
     "titre": "Trouver le nombre d’entiers entre deux valeurs",
     "url": "/exercices/can/2e/can2C01.js",
@@ -10913,7 +11173,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2C10",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10928,6 +11188,25 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2C11",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2C12": {
+    "titre": "Déterminer un taux global d’évolution",
+    "url": "/exercices/can/2e/can2C12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2C12",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -11024,6 +11303,102 @@ export default {
     "interactifReady": true,
     "interactifType": "qcm",
     "name": "can2F06",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F07": {
+    "titre": "Lire les extremums dans un tableau de variations",
+    "url": "/exercices/can/2e/can2F07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2F07",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F08": {
+    "titre": "Encadrer en utilisant un tableau de variations",
+    "url": "/exercices/can/2e/can2F08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2F08",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F09": {
+    "titre": "Résoudre une équation avec une fonction de référence",
+    "url": "/exercices/can/2e/can2F09.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2F09",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F10": {
+    "titre": "Résoudre une équation avec une fonction de référence*",
+    "url": "/exercices/can/2e/can2F10.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2F10",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F11": {
+    "titre": "Utiliser la fonction carré pour comparer deux images",
+    "url": "/exercices/can/2e/can2F11.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2F11",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F12": {
+    "titre": "Utiliser une fonction de référence (inverse, cube, racine) pour comparer deux images",
+    "url": "/exercices/can/2e/can2F12.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can2F12",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -11181,7 +11556,7 @@ export default {
     }
   },
   "can2G10": {
-    "titre": "Utiliser la relation de Chasles/réductions vectorielles (QCM)",
+    "titre": "Utiliser la relation de Chasles/réductions vectorielles",
     "url": "/exercices/can/2e/can2G10.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11192,12 +11567,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "can2G11": {
-    "titre": "Utiliser la relation de Chasles/réductions vectorielles* (QCM)",
+    "titre": "Utiliser la relation de Chasles/réductions vectorielles*",
     "url": "/exercices/can/2e/can2G11.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11208,7 +11583,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -11229,14 +11604,14 @@ export default {
     }
   },
   "can2G13": {
-    "titre": "Calcul de la norme d’un vecteur",
+    "titre": "Calculer la norme d’un vecteur",
     "url": "/exercices/can/2e/can2G13.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2G13",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11520,7 +11895,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -11536,7 +11911,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -12144,7 +12519,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -13002,6 +13377,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can5G03": {
+    "titre": "Compter les points symétriques manquant",
+    "url": "/exercices/can/5e/can5G03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5G03",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can5L01": {
     "titre": "Trouver $a+1$ ou $a-1$ connaissant $2a$",
     "url": "/exercices/can/5e/can5L01.js",
@@ -13125,6 +13519,41 @@ export default {
     "name": "can5P04",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can5P05": {
+    "titre": "Prendre t % d’une quantité",
+    "url": "/exercices/can/5e/can5P05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5P05",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can5P06": {
+    "titre": "Ecrire sous la forme d’un pourcentage",
+    "url": "/exercices/can/5e/can5P06.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5P06",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13489,7 +13918,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -13883,6 +14312,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can6G07": {
+    "titre": "Compter les points symétriques manquant",
+    "url": "/exercices/can/6e/can6G07.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6G07",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can6I01": {
     "titre": "Noter la couleur (scratch)",
     "url": "/exercices/can/6e/can6I01.js",
@@ -14210,7 +14658,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6N08",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14495,7 +14943,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3C04",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14514,7 +14962,7 @@ export default {
     "interactifType": "qcm",
     "name": "canc3C05",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14533,7 +14981,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3C06",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14584,7 +15032,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3D03",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14698,7 +15146,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3N05",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

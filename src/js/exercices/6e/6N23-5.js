@@ -177,7 +177,7 @@ export default function SensDeLaFraction () {
               statut: false
             },
             {
-              texte: `$${texFraction(Math.floor(a / b), fraction(calcul((a / b - Math.floor(a / b))) * 100, 100).fractionDecimale().num)}$`,
+              texte: `$${texFraction(Math.floor(a / b), fraction(calcul((a / b - Math.floor(a / b))) * 100, 100).fractionDecimale().n)}$`,
               statut: false
             }
           ]

@@ -26,6 +26,7 @@ export default function ReductionSiPossible () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     let typesDeQuestionsDisponibles
     context.isAmc ? typesDeQuestionsDisponibles = ['ax+b', 'ax+bx', 'ax*b', 'b*ax', 'ax+b+cx+d', 'b+ax+d+cx', 'ax+b+x'] : typesDeQuestionsDisponibles = ['ax+b', 'ax+bx', 'ax+bx2', 'ax*b', 'b*ax', 'ax+b+cx+d', 'b+ax+d+cx', 'ax+b+x']

@@ -32,6 +32,8 @@ export default function DoubleDistributivite () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles = [1, 2]
     if (this.sup === 2) {
       typesDeQuestionsDisponibles = [3, 4]

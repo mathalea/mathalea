@@ -4,7 +4,7 @@ export const titre = 'Déterminer une équation cartésienne à partir d\'un poi
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
- * Référence
+ * Référence 2G30-5
 */
 export default function Determinerequationcartesienneavecpente () {
   Exercice.call(this) // Héritage de la classe Exercice()

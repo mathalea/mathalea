@@ -12,8 +12,8 @@ RewriteEngine on
 # Règles de réécriture d'URL :
 #--------------------------------------------------
 
-# Redirection mathalea_amc.html vers mathalea_amc.php
-# RewriteRule ^mathalea_amc.html$ mathalea_amc.php
+# Redirection cm.html vers mathalea.html
+RewriteRule cm.html$ mathalea.html
 
 # Accès interdit à évaluation à la carte
 #<Files alacarte>

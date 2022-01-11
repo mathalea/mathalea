@@ -27,10 +27,10 @@ export default function SimplifieFractionOuRacinesCarrees () {
         } while (Number.isInteger((calcul(a / b))))
         k = choice([2, 4, 6, 8, 9, 10])
         maFraction = fraction(a * k, b * k)
-        k = calcul(maFraction.num / maFraction.numIrred)
+        k = calcul(maFraction.n / maFraction.numIrred)
         resultat = maFraction.simplifie()
         this.question = `Ecrire $${maFraction.texFraction}$ sous la forme d'une fraction irréductible.`
-        this.correction = `$${maFraction.texFraction}=\\dfrac{${resultat.num}\\times ${k}}{${resultat.den}\\times ${k}} =${resultat.texFraction}$.`
+        this.correction = `$${maFraction.texFraction}=\\dfrac{${resultat.n}\\times ${k}}{${resultat.d}\\times ${k}} =${resultat.texFraction}$.`
         this.reponse = resultat
         this.formatInteractif = 'fraction'
         break

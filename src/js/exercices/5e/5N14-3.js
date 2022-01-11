@@ -95,7 +95,7 @@ export default function EqResolvantesThales () {
       */
       function showFracNumDenDec (num, den) {
         const f = fraction(num, den)
-        return `\\dfrac{${texNombre2(f.num)}}{${texNombre2(f.den)}}`
+        return `\\dfrac{${texNombre2(f.n)}}{${texNombre2(f.d)}}`
       }
 
       /**
@@ -107,24 +107,24 @@ export default function EqResolvantesThales () {
       function justifyEq (bool, f, fEqOrNot) {
         let strOut
         if (bool) {
-          strOut = `D'une part, ${texNombre2(f.num)}$\\times$${texNombre2(fEqOrNot.den)} $=$ ${texteEnCouleur(texNombre2(f.num * fEqOrNot.den))}.<br>
-          D'autre part, ${texNombre2(f.den)}$\\times$${texNombre2(fEqOrNot.num)} $=$ ${texteEnCouleur(texNombre2(f.den * fEqOrNot.num))}.<br>
+          strOut = `D'une part, ${texNombre2(f.n)}$\\times$${texNombre2(fEqOrNot.d)} $=$ ${texteEnCouleur(texNombre2(f.n * fEqOrNot.d))}.<br>
+          D'autre part, ${texNombre2(f.d)}$\\times$${texNombre2(fEqOrNot.n)} $=$ ${texteEnCouleur(texNombre2(f.d * fEqOrNot.n))}.<br>
           On constate que les produits en croix sont égaux.<br>
           `
-          if (Number.isInteger(f.num)) {
+          if (Number.isInteger(f.n)) {
             strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ sont donc égales.`
           } else {
-            strOut += `Les fractions $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ sont donc égales.`
+            strOut += `Les fractions $${showFracNumDenDec(f.n, f.d)}$ et $${showFracNumDenDec(fEqOrNot.n, fEqOrNot.d)}$ sont donc égales.`
           }
         } else {
-          strOut = `D'une part, ${texNombre2(f.num)}$\\times$${texNombre2(fEqOrNot.den)} $=$ ${texteEnCouleur(texNombre2(f.num * fEqOrNot.den))}.<br>
-          D'autre part, ${texNombre2(f.den)}$\\times$${texNombre2(fEqOrNot.num)} $=$ ${texteEnCouleur(texNombre2(f.den * fEqOrNot.num))}.<br>
+          strOut = `D'une part, ${texNombre2(f.n)}$\\times$${texNombre2(fEqOrNot.d)} $=$ ${texteEnCouleur(texNombre2(f.n * fEqOrNot.d))}.<br>
+          D'autre part, ${texNombre2(f.d)}$\\times$${texNombre2(fEqOrNot.n)} $=$ ${texteEnCouleur(texNombre2(f.d * fEqOrNot.n))}.<br>
           On constate que les produits en croix ne sont pas égaux.<br>
           `
-          if (Number.isInteger(f.num)) {
+          if (Number.isInteger(f.n)) {
             strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ ne sont donc pas égales.`
           } else {
-            strOut += `Les fractions $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ ne sont donc pas égales.`
+            strOut += `Les fractions $${showFracNumDenDec(f.n, f.d)}$ et $${showFracNumDenDec(fEqOrNot.n, fEqOrNot.d)}$ ne sont donc pas égales.`
           }
         }
         return strOut
@@ -153,7 +153,7 @@ export default function EqResolvantesThales () {
           den = calcul(randint(11, 99, num) * 0.1)
           f = fracEqualOrNot(equalOrNot, num, den).frac
           fEqOrNot = fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot
-          egalite = `$${showFracNumDenDec(f.num, f.den)}=${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$`
+          egalite = `$${showFracNumDenDec(f.n, f.d)}=${showFracNumDenDec(fEqOrNot.n, fEqOrNot.d)}$`
           justification = justifyEq(equalOrNot, fracEqualOrNot(equalOrNot, num, den).frac, fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot)
           break
         case 4: // mélange
@@ -176,10 +176,10 @@ export default function EqResolvantesThales () {
             { equalOrNot: equalOrNot, num: numDec, den: denDec, k: k, f: fDec, fEqOrNot: fEqOrNotDec }
           ])
           egalite = ''
-          if (Number.isInteger(masterChoice.num)) {
+          if (Number.isInteger(masterChoice.n)) {
             egalite += `$${masterChoice.f.texFraction}=${masterChoice.fEqOrNot.texFraction}$`
           } else {
-            egalite += `$${showFracNumDenDec(masterChoice.f.num, masterChoice.f.den)}=${showFracNumDenDec(masterChoice.fEqOrNot.num, masterChoice.fEqOrNot.den)}$`
+            egalite += `$${showFracNumDenDec(masterChoice.f.n, masterChoice.f.d)}=${showFracNumDenDec(masterChoice.fEqOrNot.n, masterChoice.fEqOrNot.d)}$`
           }
           justification = justifyEq(equalOrNot, masterChoice.f, masterChoice.fEqOrNot)
           break

@@ -54,12 +54,12 @@ export default function Resolutionavecformecanonique () {
       // ******************************************************************************************************************
       texteCorr += '<br>On reconnaît le début d\'une identité remarquable :'
       texteCorr += `<br>$\\left(x ${alpha.simplifie().ecritureAlgebrique}\\right)^2`
-      // texteCorr += `${alpha.signe === 1 ? '+' : '-'}2\\times ${alpha.valeurAbsolue().simplifie().texFraction}\\times x +${alpha.simplifie().den === 1 ? alpha.simplifie().valeurAbsolue().texFraction : '\\left(' + alpha.simplifie().valeurAbsolue().texFraction + '\\right)'}^2$`
+      // texteCorr += `${alpha.s === 1 ? '+' : '-'}2\\times ${alpha.valeurAbsolue().simplifie().texFraction}\\times x +${alpha.simplifie().d === 1 ? alpha.simplifie().valeurAbsolue().texFraction : '\\left(' + alpha.simplifie().valeurAbsolue().texFraction + '\\right)'}^2$`
       // 2èmeligne correction On développe IR
-      texteCorr += `=x^2 ${alpha.signe === 1 ? '+' : '-'}${Math.abs(alpha.num * 2) === Math.abs(alpha.den) ? '' : alpha.multiplieEntier(2).valeurAbsolue().simplifie().texFraction}x+${alpha.produitFraction(alpha).simplifie().texFraction} $`
+      texteCorr += `=x^2 ${alpha.s === 1 ? '+' : '-'}${Math.abs(alpha.n * 2) === Math.abs(alpha.d) ? '' : alpha.multiplieEntier(2).valeurAbsolue().simplifie().texFraction}x+${alpha.produitFraction(alpha).simplifie().texFraction} $`
       // 3èmeligne correction On réécrrit l'expression en fct de l'IR
       texteCorr += '<br>On en déduit que :  '
-      texteCorr += `$x^2 ${alpha.signe === 1 ? '+' : '-'}${Math.abs(alpha.num * 2) === Math.abs(alpha.den) ? '' : alpha.multiplieEntier(2).valeurAbsolue().simplifie().texFraction}x= \\left(x ${alpha.simplifie().ecritureAlgebrique}\\right)^2    ${alpha.produitFraction(alpha).oppose().simplifie().ecritureAlgebrique} $`
+      texteCorr += `$x^2 ${alpha.s === 1 ? '+' : '-'}${Math.abs(alpha.n * 2) === Math.abs(alpha.d) ? '' : alpha.multiplieEntier(2).valeurAbsolue().simplifie().texFraction}x= \\left(x ${alpha.simplifie().ecritureAlgebrique}\\right)^2    ${alpha.produitFraction(alpha).oppose().simplifie().ecritureAlgebrique} $`
       // 3èmeligne correction On transforme l'équation avec l'IR
       texteCorr += '<br>Il vient alors :'
       texteCorr += `<br>$\\phantom{\\iff}\\quad x^2 ${b1.valeurDecimale === 1 ? '+ ' : b1.valeurDecimale === -1 ? '- ' : b1.simplifie().ecritureAlgebrique} x ${c1.simplifie().ecritureAlgebrique}=0$`
@@ -81,7 +81,7 @@ export default function Resolutionavecformecanonique () {
         } else {
           p = 1
         }
-        if (b2.estParfaite()) { // pas de radical, calcul rationnel
+        if (b2.estParfaite) { // pas de radical, calcul rationnel
           x1 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie().oppose()).simplifie()
           x2 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie()).simplifie()
           if (a < 0) {

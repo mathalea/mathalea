@@ -16,6 +16,9 @@ Session.vim
 # tex/png/*
 dnb/
 
+# ignorer les sujets de CRPE
+src/assets/crpe
+
 # ignorer le fichier de config de jshintrc (le projet utilise eslint
 # configuré dans le package.json)
 .jshintrc
