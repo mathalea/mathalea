@@ -26,12 +26,12 @@ export default class FractionX extends Fraction {
   constructor (...args) {
     super(...args)
     if (args.length === 2) { // deux arguments : numérateur et dénominateur qui peuvent être fractionnaires.
-      if (args[0].type.substring(0, 8) === 'Fraction') this.num = fraction(args[0].num || args[0].n * args[0].s, args[0].den || args[0].d)
+      if (['Fraction', 'FractionX'].indexOf(args[0].type) !== -1) this.num = fraction(args[0].num || args[0].n * args[0].s, args[0].den || args[0].d)
       else
       if (!Number.isNaN(args[0])) this.num = args[0]
       else window.notify('FractionX : Numérateur incorrect ', { args })
 
-      if (args[1].type.substring(0, 8) === 'Fraction') this.den = fraction(args[1].num || args[1].n * args[1].s, args[1].den || args[1].d)
+      if (['Fraction', 'FractionX'].indexOf(args[0].type) !== -1) this.den = fraction(args[1].num || args[1].n * args[1].s, args[1].den || args[1].d)
       else
       if (!Number.isNaN(args[1])) this.den = args[1]
       else window.notify('FractionX : Dénominateur incorrect ', { args })
@@ -417,7 +417,7 @@ FractionX.prototype.inverse = inverse
    * @return {Fraction} f/f2
    */
 function diviseFraction (f2) {
-  if (f2.type.substring(0, 8) !== 'Fraction') {
+  if (['Fraction', 'FractionX'].indexOf(f2.type) !== -1) {
     window.notify('FractionX.diviseFraction() : l\'argument n\'est pas une fraction', { f2 })
     if (!Number().isNaN(f2)) return this.multiplieEntier(1 / f2)
     else window.notify('FractionX.diviseFraction() : l\'argument n\'est pas un nombre', { f2 })
