@@ -348,7 +348,8 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
         contenuUnExercice += `<h4> ${obj.consigne} </h4>`
       }
       contenuUnExercice += (obj.nbQuestions !== 1) ? '<ol>' : ''
-      contenuUneCorrection += (obj.nbQuestions !== 1) ? '<ol>' : ''
+      // Pour la numérotation de diapCorr, il faut qu'il y ait toujours des listes même s'il n'y a qu'une seule question
+      contenuUneCorrection += (obj.nbQuestions !== 1 || context.vue === 'diapCorr') ? '<ol>' : ''
       for (let numQuestion = 0, cpt = 0; numQuestion < obj.nbQuestions && cpt < 50; cpt++) {
         try {
           obj.nouvelleVersion()
@@ -383,7 +384,8 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
           } else {
             setReponse(obj, numQuestion, obj.reponse)
           }
-          if (obj.nbQuestions === 1) {
+          // Pour la numérotation de diapCorr, il faut qu'il y ait toujours des listes même s'il n'y a qu'une seule question
+          if (obj.nbQuestions === 1 && context.vue !== 'diapCorr') {
             contenuUneCorrection += obj.correctionIsCachee ? 'Correction masquée' : `<div><div class="correction">${obj.correction}</div></div>`
           } else {
             contenuUneCorrection += `<li class="correction">${obj.correctionIsCachee ? 'Correction masquée' : obj.correction}</li>`

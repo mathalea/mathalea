@@ -287,6 +287,13 @@ export async function initDom () {
         tableauReponseEx1Q1 = undefined
       }
       window.parent.postMessage({ hauteur: Math.max(hauteurCorrection, hauteurIEP), reponse: tableauReponseEx1Q1 }, '*')
+      // On fusionne toutes les listes pour que la numérotation des questions soit respectées.
+      if (vue === 'diapCorr') {
+        const listes = document.querySelectorAll('#corrections li')
+        for (let i = 1; i < listes.length; i++) {
+          listes[0].append(listes[i])
+        }
+      }
     })
   } else if (vue === 'eval') {
     setOutputHtml()
