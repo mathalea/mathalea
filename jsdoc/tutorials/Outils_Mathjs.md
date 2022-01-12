@@ -217,7 +217,7 @@ Pour obtenir sa valeur décimale il suffit d'utiliser les méthodes de l'objet f
 
 La méthode `valueOf()` permet d'obtenir la valeur en `float` de `c`.
 
-`c` est la somme de a qui est un `float` et de `fraction(b)` qui est une fraction Mathjs. Pourtant on obtient une fraction Mathjs en faisant la somme !
+Dans l'exemple précédent `c` est la somme de `a` qui est un `float` et de `fraction(b)` qui est une fraction Mathjs. Pourtant on obtient une fraction Mathjs en faisant la somme. Mathjs a implicitement convertit `c` en une fraction.
 
 ```Javascript
 > aleaVariables(
@@ -230,7 +230,49 @@ La méthode `valueOf()` permet d'obtenir la valeur en `float` de `c`.
 < ► {a: 0.30000000000000004, b: 0.3, c: 0.3}
 ```
 
-Il y aurait des tests à faire mais utiliser la fonction `fraction` seulement pour le résultat ne donne pas nécessairement la valeur exacte comme dans l'exemple `c`.
+> *Remarque :* La fonction `fraction` permet de convertir un nombre décimal en une fraction avec parfois une approximation quand c'est possible.
+Pour éviter les erreurs il faut préférer le calcul de `b` au calcul de `c` dans l'exemple précédent. En effet, le calcul de `0.1+0.2` est erroné mais compensé par l'application de `fraction()`. Il faut s'attendre à ce que certaines valeurs ne soient pas simplement convertibles en une fraction et donc renvoient une erreur.
+
+Nous atteignons les limites de cette fonction avec les nombres irrationnels comme dans l'exemple suivant.
+
+```Javascript
+> aleaVariables(
+        {
+            a: 'cos(pi/3)',
+            b: Math.cos(Math.PI/3)
+        }
+    )
+< ► {a: 0.5000000000000001, b: 0.5000000000000001}
+```
+
+Dans ce dernier exemple, on constate que Mathjs ne fait pas mieux que Javascript. On pourra dans ce cas obtenir de meilleur résultat avec une bibliothèque de calculs formels comme `Algebrite`.
+
+```Javascript
+> aleaVariables(
+        {
+            a: 'cos(pi/3)',
+            b: Math.cos(Math.PI/3),
+            c: Algebrite.run('cos(pi/3)'),
+            test: 'a==c'
+        }
+    )
+< ► {a: 0.5000000000000001, b: 0.5000000000000001, c: 0.5}
+```
+
+> *Remarque :* Le `test` effectué dans aleaVariables n'est pas "gêné" par le fait que les nombres `a` et `c` ne sont pas égaux. Mathjs utilise pour les comparaisons une précision appelée `epsilon` et qui vaut `1e-12` par défaut.
+
+Autre exemple qui montre que *Algebrite* fait mieux que *Mathjs* et permet d'éviter les erreurs de conversion binaire/décimal :
+
+```Javascript
+aleaVariables(
+        {
+            a: '(sqrt(2)/2)^2',
+            b: (Math.sqrt(2)/2)**2,
+            c: Algebrite.run('(sqrt(2)/2)^2')
+        }
+    )
+< ► {a: 0.5000000000000001, b: 0.5000000000000001, c: 0.5}
+```
 
 ## Convertir une expression numérique ou littérale en latex <a id="section2"></a>
 
@@ -397,7 +439,7 @@ Nous avons vu les limites de `math.simplify()`. Voici une autre manière de tran
 
 ```Javascript
 >   node = math.simplify('a*x+c*x+e*x^2', [], {a: 1, e:-1, c:3})
-    node = node.transform(
+    node = node.transform( // Cette fonction parcourt de manière récursive tous les noeuds
         function (node, path, parent) {
             switch (node.type) {
                 case 'OperatorNode': // On ne s'intéresse qu'aux noeuds de type Operateur
@@ -417,7 +459,7 @@ Nous avons vu les limites de `math.simplify()`. Voici une autre manière de tran
                     }
                 break
             }
-            return node
+            return node // On retourne le noeud transformé
         }
     )
     node.toString()
