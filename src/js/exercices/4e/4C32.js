@@ -84,9 +84,9 @@ export default function NotationScientifique () {
 
       if (this.sup === 1) {
         if (exp > 9 || exp < 0) {
-          reponse = `${texNombrec(mantisse)}\\times10^{${exp}}`
+          reponse = `${texNombrec(mantisse)}\\times 10^{${exp}}`
         } else {
-          reponse = `${texNombrec(mantisse)}\\times10^${exp}`
+          reponse = `${texNombrec(mantisse)}\\times 10^${exp}`
         }
         texte = `$${decimalstring}${sp()}=$`
         texteCorr = `$${decimalstring} = ${scientifiquestring}$`
