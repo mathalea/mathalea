@@ -134,7 +134,7 @@ export function toTex (node, debug = false) {
   return node.toTex({ parenthesis: 'keep' }).replaceAll('\\cdot', '\\times').replaceAll('.', '{,}').replaceAll('\\frac', '\\dfrac')
 }
 
-export function aleaExpressionLitterale (expression = '(a*x+b)*(c*x-d)', assignations = { a: 1, b: 2, c: 3, d: -6 }, debug = false) {
+export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignations = { a: 1, b: 2, c: 3, d: -6 }, debug = false) {
   // Ne pas oublier le signe de la multiplication
   return simplify(expression, [{ l: '1*n', r: 'n' }, { l: '-1*n', r: '-n' }, { l: 'n/1', r: 'n' }, { l: 'c/c', r: '1' }, { l: '0*v', r: '0' }, { l: '0+v', r: 'v' }], assignations)
 }
@@ -274,8 +274,8 @@ export function aleaEquation (equation = 'a*x+b=c*x-d', variables = { a: false, 
     }
   }
   sides = equation.split(comparator)
-  const leftNode = aleaExpressionLitterale(sides[0], assignations, debug).toString()
-  const rightNode = aleaExpressionLitterale(sides[1], assignations, debug).toString()
+  const leftNode = expressionLitterale(sides[0], assignations, debug).toString()
+  const rightNode = expressionLitterale(sides[1], assignations, debug).toString()
   if (debug) {
     console.log('Equation à résoudre : ', `${leftNode}${comparator}${rightNode}`)
   }
