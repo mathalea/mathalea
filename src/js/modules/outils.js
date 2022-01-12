@@ -7611,6 +7611,8 @@ export function exportQcmAmc (exercice, idExo) {
           }
           if (autoCorrection[j].reponse.param.tpoint !== undefined && autoCorrection[j].reponse.param.tpoint) {
             texQr += `Tpoint={${autoCorrection[j].reponse.param.tpoint}},`
+          } else {
+            texQr += 'Tpoint={,},'
           }
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1} '
           if (autoCorrection[j].reponse.textePosition === 'right') texQr += `${autoCorrection[j].reponse.texte}\n`
@@ -7685,6 +7687,8 @@ export function exportQcmAmc (exercice, idExo) {
         }
         if (autoCorrection[j].reponse.param.tpoint !== undefined && autoCorrection[j].reponse.param.tpoint) {
           texQr += `Tpoint={${autoCorrection[j].reponse.param.tpoint}},`
+        } else {
+          texQr += 'Tpoint={,},'
         }
         texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,vertical=true}\n'
         texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
@@ -7908,9 +7912,16 @@ export function exportQcmAmc (exercice, idExo) {
 
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.multicols) {
-            texQr += '\\begin{multicols}{2}\n'
+            texQr += '\\setlength{\\columnseprule}{'
+            if (autoCorrection[j].options.barreseparation) {
+              texQr += '0.5'
+            } else {
+              texQr += '0'
+            }
+            texQr += 'pt}\\begin{multicols}{2}\n'
           }
         }
+        // console.log(texQr)
         for (let qr = 0, qrType, prop, propositions, rep; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les questions-reponses de l'élément j
           prop = autoCorrection[j].propositions[qr] // prop est un objet avec cette structure : {type,propositions,reponse}
           qrType = prop.type
@@ -8131,6 +8142,8 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 if (rep.param.tpoint !== undefined && rep.param.tpoint) {
                   texQr += `Tpoint={${rep.param.tpoint}},`
+                } else {
+                  texQr += 'Tpoint={,},'
                 }
                 texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1}\n'
                 if (!(propositions[0].alignement === undefined)) {

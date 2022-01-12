@@ -13,6 +13,7 @@ export const amcType = 'AMCOpen'
  * Placer un point d'abscisse décimale
  * @author Jean-Claude Lhote et Rémi Angot
  * référence : 6N30-2
+ * Relecture : Janvier 2022 par EE
  */
 export default function PlacerPointsSurAxe () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -159,7 +160,7 @@ export default function PlacerPointsSurAxe () {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
-          propositions: [{ texte: texteCorr, statut: 0, feedback: '' }]
+          propositions: [{ texte: texteCorr, statut: 0, feedback: '', sanscadre: true }]
         }
       }
 
