@@ -89,11 +89,11 @@ this.autoCorrection[i] = {
 ```js
 this.autoCorrection = [
   { 
-    enonce: 'ici la question est posée'
+    enonce: 'ici la question est posée',
     propositions: [
       { 
         texte: 'Ce qui apparaitra sur le corrigé',
-        statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+        statut: 3, //OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
         feedback: '',
         enonce: 'Texte écrit au dessus ou avant les cases à cocher', // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
         sanscadre : false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
