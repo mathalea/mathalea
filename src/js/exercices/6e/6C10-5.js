@@ -12,6 +12,7 @@ export const titre = 'Parcourir un labyrinthe de multiples'
  * Publié le 6/12/2020
  * Ref : c3C10-2 et 6C10-5
  * Parcourir un labyrinthe de nombres en passant par les multiples du nombre choisi.
+ * Relecture : Janvier 2022 par EE
  */
 
 export default function ExerciceLabyrintheMultiples () {
@@ -56,7 +57,7 @@ export default function ExerciceLabyrintheMultiples () {
     for (let q = 0, texte, params, texteCorr, monChemin, laby, trouve, listeMultiples, index; q < this.nbQuestions;) {
       laby = labyrinthe({ taille: tailleChiffre })
       laby.niveau = parseInt(this.sup3) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
-      laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
+      laby.chemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
       monChemin = laby.chemin
@@ -64,7 +65,7 @@ export default function ExerciceLabyrintheMultiples () {
 
       texte = `${texteEnCouleurEtGras('Trouve la sortie en ne passant que par les cases contenant un multiple de ', 'black')}$${table[q]}$.<br>`
       texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
-      // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
+      // Zone de construction du tableau de nombres : S'ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
       listeMultiples = []
       index = 0
       for (let i = 2; i <= maximum; i++) {
@@ -107,7 +108,7 @@ export default function ExerciceLabyrintheMultiples () {
       listeQuestionsToContenu(this)
     }
   }
-  this.besoinFormulaireNumerique = ['Tables :', 4, '1: tables de 2,5 et 10\n2: tables de 3 et 9\n3: tables de 4,6,7 et 8\n4: mélange']
+  this.besoinFormulaireNumerique = ['Tables', 4, '1: tables de 2,5 et 10\n2: tables de 3 et 9\n3: tables de 4,6,7 et 8\n4: mélange']
   this.besoinFormulaire2Numerique = ['Facteur maximum']
   this.besoinFormulaire3Numerique = ['Niveau de rapidité', 6, ' 1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
 } // Fin de l'exercice.
