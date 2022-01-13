@@ -2,13 +2,9 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { polygone, segment, ObjetMathalea2D, point, mathalea2d, texteParPosition, fixeBordures } from '../../modules/2d.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { create, all, parse } from 'mathjs'
+import { parse } from 'mathjs'
 import { calculExpression, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
 
-const math = create(all)
-math.config({
-  number: 'Fraction'
-})
 // eslint-disable-next-line no-debugger
 // debugger
 export const titre = 'Calculs algébriques'
@@ -64,79 +60,8 @@ function schemaBarre () {
 
 export default function equationsProgression () {
   Exercice.call(this)
-  const formulaire = [
-    '0 : Mélange des types de questions',
-    '1 : Programme de calcul : 3 étapes, quatre opérations, cube, carré.',
-    '2 : Programme de calcul : 4 étapes, quatre opérations, cube, carré.',
-    '3 : Programme de calcul : 5 étapes, quatre opérations, cube, carré.',
-    '4 : Programme de calcul : 5 étapes, quatre opérations.',
-    '5 : Résoudre une équation',
-    '6 : Résoudre une équation',
-    '7 : Résoudre une équation',
-    '8 : Résoudre une équation',
-    '9 : Résoudre une équation',
-    '10 : Résoudre une équation',
-    '11 : Résoudre une équation',
-    '12 : Résoudre une équation',
-    '13 : Résoudre une équation',
-    '14 : Résoudre une équation',
-    '15 : Résoudre une équation',
-    '16 : Résoudre une équation',
-    '17 : Résoudre une équation',
-    '18 : Résoudre une équation',
-    '19 : Calculer',
-    '20 : Calculer',
-    '21 : Calculer',
-    '22 : Calculer',
-    '23 : Calculer',
-    '24 : Calculer',
-    '25 : Calculer',
-    '26 : Calculer',
-    '27 : Calculer',
-    '28 : Calculer',
-    '29 : Calculer',
-    '30 : Calculer',
-    '31 : Calculer',
-    '32 : Calculer',
-    '33 : Calculer',
-    '34 : Calculer',
-    '35 : Calculer',
-    '36 : Calculer',
-    '37 : Calculer',
-    '38 : Calculer',
-    '39 : Calculer',
-    '40 : Calculer',
-    '41 : Calculer',
-    '42 : Calculer',
-    '43 : Calculer',
-    '44 : Calculer',
-    '45 : Calculer',
-    '46 : Calculer',
-    '47 : Calculer',
-    '48 : Calculer',
-    '49 : Calculer',
-    '50 : Calculer',
-    '51 : Calculer',
-    '52 : Calculer',
-    '53 : Calculer',
-    '54 : Calculer',
-    '55 : Calculer',
-    '56 : Calculer',
-    '57 : Calculer',
-    '58 : Calculer',
-    '59 : Calculer',
-    '60 : Calculer',
-    '61 : Calculer',
-    '62 : Calculer',
-    '63 : Calculer',
-    '64 : Calculer',
-    '65 : Calculer',
-    '66 : Calculer',
-    '67 : Calculer',
-    '68 : Calculer',
-    '69 : Calculer',
-    '70 : Calculer'
-  ]
+  const formulaire = []
+  for (let i = 0; i < 79; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
     'Type de question', this.nbQuestions, formulaire.join('\n')
@@ -748,6 +673,68 @@ export default function equationsProgression () {
             b: true,
             c: true,
             d: false
+          })).toString(), false, dDebug)
+          break
+        }
+        case 72: {
+          exercice = resoudreEquation(aleaEquation('a*x+b=c', { // On résoud une équation du second degré
+            a: true,
+            b: true,
+            c: true
+          }, dDebug), dDebug)
+          break
+        }
+        case 73: {
+          exercice = resoudreEquation(aleaEquation('x/a+b=c', { // On résoud une équation du second degré
+            a: true,
+            b: true,
+            c: true
+          }, dDebug), dDebug)
+          break
+        }
+        case 74: {
+          exercice = resoudreEquation(aleaEquation('c=a*x+b', { // On résoud une équation du second degré
+            a: true,
+            b: true,
+            c: true
+          }, dDebug), dDebug)
+          break
+        }
+        case 75: {
+          exercice = resoudreEquation(aleaEquation('a*(x+b)=c', { // On résoud une équation du second degré
+            a: 'randomInt(2,10)',
+            b: true,
+            c: true
+          }, dDebug), dDebug)
+          break
+        }
+        case 76: {
+          exercice = resoudreEquation(aleaEquation('a*(x+b)+d*x=c', { // On résoud une équation du second degré
+            a: 'randomInt(2,10)',
+            b: true,
+            c: true,
+            d: false,
+            test: 'a+d!=0'
+          }, dDebug), dDebug)
+          break
+        }
+        case 77: {
+          exercice = resoudreEquation(aleaEquation('a*x+b=c*x+d', { // On résoud une équation du second degré
+            a: true,
+            b: true,
+            c: true,
+            d: true,
+            test: 'a!=c'
+          }, dDebug), dDebug)
+          break
+        }
+        case 78: {
+          exercice = calculExpression(expressionLitterale('a*(b*x+c)+d*x', aleaVariables({
+            a: false,
+            b: true,
+            c: true,
+            d: true,
+            test: 'a> 1'
           })).toString(), false, dDebug)
           break
         }

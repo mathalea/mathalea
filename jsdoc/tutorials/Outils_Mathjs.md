@@ -468,3 +468,26 @@ Nous avons vu les limites de `math.simplify()`. Voici une autre manière de tran
 ```
 
 On a ainsi résolu le problème de déplacement des termes qu'il y avait avec les règles dans `math.simplify()`.
+
+## RandomSeed <a id="section5"></a>
+
+Pour pouvoir conserver la graine afin de debugger au mieux son programme, on passe la graine de mathalea à mathjs.
+
+Il faut pour cela créer une instance de mathjs.
+
+```Javascript
+// Imports nécessaires
+import {context} from '../../context.js'
+import {create, all} from 'mathjs'
+
+// Création d'une instance de mathjs
+const math = create(all)
+math.config({
+  number: 'number',
+  randomSeed: context.graine
+})
+
+// Début du programme
+const result = math.random()
+// Si context.graine = 'a' alors result = 0.43449421599986604 
+```
