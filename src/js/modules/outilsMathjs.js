@@ -1,7 +1,14 @@
-import { format, number, evaluate, SymbolNode, ConstantNode, OperatorNode, ParenthesisNode, simplify, parse, pickRandom } from 'mathjs'
+import { context } from './context.js'
+import { all, create, format, number, SymbolNode, ConstantNode, OperatorNode, ParenthesisNode, simplify, parse } from 'mathjs'
 import { solveEquation, simplifyExpression, factor } from 'mathsteps'
 import { getNewChangeNodes } from './Change.js'
-
+// import Algebrite from 'algebrite'
+// const Algebrite = require('algebrite')
+const math = create(all)
+math.config({
+  number: 'number',
+  randomSeed: context.graine
+})
 // eslint-disable-next-line no-debugger
 // debugger
 
@@ -141,10 +148,10 @@ export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignation
 
 /**
  * @description Retourne des valeurs aléatoires sous certaines contraintes données.
- * @param {Object} variables // Variables et test
- * @returns {Object} // Pour chaque variable, une valeur est retournée
+ * @param {Object} variables // Propriété réservée : test
+ * @returns {Object}
  * @see {@link https://mathjs.org/docs/expressions/syntax.html|Mathjs}
- * @see {@link https://coopmaths/jsdoc/tutorials/outilsMathjs.html|Mathjs}
+ * @see {@link https://coopmaths.fr/documentation/tutorial-Outils_Mathjs.html|Mathjs}
  * @author Frédéric PIOU
  */
 export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fraction(a,10)+fraction(b,100)', test: 'b!=0 and b>a>c' }, debug = false) {
@@ -155,14 +162,14 @@ export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fr
     cpt++
     for (const v of Object.keys(variables)) {
       if (typeof variables[v] === 'boolean') {
-        assignations[v] = evaluate('(pickRandom([-1,1]))^(n)*randomInt(1,10)', { n: variables[v] })
+        assignations[v] = math.evaluate('(pickRandom([-1,1]))^(n)*randomInt(1,10)', { n: variables[v] })
       } else if (typeof variables[v] === 'number') {
         assignations[v] = variables[v]
       } else if (v !== 'test') {
-        assignations[v] = evaluate(variables[v], assignations)
+        assignations[v] = math.evaluate(variables[v], assignations)
       }
     }
-    if (variables.test !== undefined) test = evaluate(variables.test, assignations)
+    if (variables.test !== undefined) test = math.evaluate(variables.test, assignations)
   } while (!test && cpt < 1000)
   if (cpt === 1000) window.notify('Attention ! 1000 essais dépassés.\n Trop de contraintes.\n Le résultat ne vérifiera pas le test.')
   return assignations
@@ -473,19 +480,19 @@ export function programmeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3
     let stepPrint = ''
     switch (symbolOp) {
       case '/':
-        step = new ConstantNode(pickRandom(nombresAutorises2))
+        step = new ConstantNode(math.pickRandom(nombresAutorises2))
         break
       case '*':
-        step = new ConstantNode(pickRandom(nombresAutorises2))
+        step = new ConstantNode(math.pickRandom(nombresAutorises2))
         break
       case '^':
         step = new ConstantNode(2)
         break
       case '-':
-        step = new ConstantNode(pickRandom(nombresAutorises1))
+        step = new ConstantNode(math.pickRandom(nombresAutorises1))
         break
       case '+':
-        step = new ConstantNode(pickRandom(nombresAutorises2))
+        step = new ConstantNode(math.pickRandom(nombresAutorises2))
         break
       default :
         if (symbolOp[0] === '-') symbolOp = symbolOp.replace('-', '')
@@ -736,7 +743,7 @@ export function calculExpression2 (expression = '4/3+5/6', factoriser = false, d
     if (commentairesExclus[changement] === undefined) stepsExpression.push(String.raw`&=${newNode}`)
     if (debug) console.log('changement', commentaires[changement])
   })
-  let texte = String.raw`Simplifier $${expressionPrint}$.`
+  let texte = String.raw`Développer et réduire $${expressionPrint}$.`
   const texteCorr = String.raw`Simplifier $${expressionPrint}$.
   <br>
   $\begin{aligned}
