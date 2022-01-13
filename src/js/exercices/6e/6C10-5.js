@@ -26,7 +26,7 @@ export default function ExerciceLabyrintheMultiples () {
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
-  this.tailleDiaporama = 3
+  this.tailleDiaporama = 2
   this.sup3 = 3
   this.sup = 4
   if (this.niveau === 'CM') {
@@ -51,7 +51,7 @@ export default function ExerciceLabyrintheMultiples () {
     } else {
       table = combinaisonListesSansChangerOrdre([choice([2, 5, 10]), choice([3, 9]), choice([4, 6, 7, 8]), 2, 3, 4, 5, 6, 7, 8, 9])
     }
-    const tailleChiffre = 0.8
+    const tailleChiffre = 1.5
     const maximum = parseInt(this.sup2)
 
     for (let q = 0, texte, params, texteCorr, monChemin, laby, trouve, listeMultiples, index; q < this.nbQuestions;) {
