@@ -1,8 +1,14 @@
 import { pointAdistance, point, segment, rotation, cercle, tracePoint, mathalea2d, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, arrondi, texNombre, contraindreValeur, randint, interactivite, texNombrec } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Calculer périmètre et aire de disques'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * 4 cercles sont tracés, 2 dont on connait le rayon et 2 dont on connait le diamètre.
@@ -116,13 +122,216 @@ export default function PerimetreAireDisques (pa = 3) {
             arrondi(r * r * Math.PI, 1)
           )}~\\text{cm}^2$<br>`
         }
-
         reponseL1 = arrondi(2 * r, 2)
         reponseL2 = arrondi(2 * r * Math.PI, 1)
         reponseA1 = arrondi(r * r, 2)
         reponseA2 = arrondi(r * r * Math.PI, 1)
       }
       if (this.questionJamaisPosee(i, r, type)) {
+        if (reponseL1 && !reponseA1) {
+          if (context.isHtml && this.interactif) {
+            setReponse(this, 2 * i, texNombre(reponseL1) + '\\pi', { formatInteractif: 'texte' })
+            setReponse(this, 2 * i + 1, reponseL2, { formatInteractif: 'calcul' })
+            texte += 'Périmètre : ' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteApres: ' cm' })
+            texte += ' $\\approx$' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteApres: ' cm' })
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              enonceAvantUneFois: true,
+              propositions: [
+                {
+                  type: 'AMCNum',
+                  texte: 'Périmétre (valeur exacte)',
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      textePosition: 'right',
+                      reponse: {
+                        valeur: [reponseL1],
+                        param: {
+                          texte: '$\\pi$ cm',
+                          digits: this.sup2 ? 2 : 3,
+                          decimals: this.sup2 ? 0 : 1,
+                          signe: false
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  type: 'AMCNum',
+                  texte: 'Périmétre (valeur arrondie',
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      textePosition: 'right',
+                      reponse: {
+                        valeur: [reponseL2],
+                        param: {
+                          texte: ' cm',
+                          digits: this.sup2 ? 3 : 4,
+                          signe: false,
+                          decimals: 1
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        } else if (reponseA1 && !reponseL1) {
+          if (context.isHtml && this.interactif) {
+            setReponse(this, 2 * i, texNombre(reponseA1) + '\\pi', { formatInteractif: 'texte' })
+            setReponse(this, 2 * i + 1, reponseA2, { formatInteractif: 'calcul' })
+            texte += 'Aire : ' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteApres: ' cm^2' })
+            texte += ' $\\approx$' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteApres: ' cm^2' })
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              enonceAvantUneFois: true,
+              propositions: [
+                {
+                  type: 'AMCNum',
+                  texte: 'Aire (valeur exacte)',
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      reponse: {
+                        valeur: [reponseA1],
+                        textePosition: 'right',
+                        texte: '$\\pi$ cm^2',
+                        param: {
+                          digits: this.sup2 ? 2 : 3,
+                          signe: false,
+                          decimals: this.sup2 ? 0 : 1
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  type: 'AMCNum',
+                  texte: 'Aire (valeur arrondie',
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      reponse: {
+                        texte: ' cm^2',
+                        textePosition: 'right',
+                        valeur: [reponseA2],
+                        param: {
+                          digits: this.sup2 ? 3 : 4,
+                          signe: false,
+                          decimals: 1
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        } else {
+          if (context.isHtml && this.interactif) {
+            setReponse(this, 4 * i, texNombre(reponseL1) + '\\pi', { formatInteractif: 'texte' })
+            setReponse(this, 4 * i + 1, reponseL2, { formatInteractif: 'calcul' })
+            setReponse(this, 4 * i + 2, texNombre(reponseA1) + '\\pi', { formatInteractif: 'texte' })
+            setReponse(this, 4 * i + 3, reponseA2, { formatInteractif: 'calcul' })
+            texte += 'Périmètre : ' + ajouteChampTexteMathLive(this, 4 * i, 'largeur10 inline')
+            texte += ' cm $\\approx $' + ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur10 inline') + ' cm'
+            texte += '<br>Aire : ' + ajouteChampTexteMathLive(this, 4 * i + 2, 'largeur10 inline')
+            texte += ' cm² $\\approx $' + ajouteChampTexteMathLive(this, 4 * i + 3, 'largeur10 inline') + ' cm²'
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              enonceAvantUneFois: true,
+              propositions: [
+                {
+                  type: 'AMCNum',
+                  texte: 'Périmétre (valeur exacte)',
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      reponse: {
+                        texte: '$\\pi$ cm',
+                        valeur: [reponseL1],
+                        textePosition: 'right',
+                        param: {
+                          digits: this.sup2 ? 2 : 3,
+                          decimals: this.sup2 ? 0 : 1,
+                          signe: false
+
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  type: 'AMCNum',
+                  texte: 'Périmétre (valeur arrondie',
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      reponse: {
+                        texte: ' cm',
+                        textePosition: 'right',
+                        valeur: [reponseL2],
+                        param: {
+                          digits: this.sup2 ? 3 : 4,
+                          decimals: 1,
+                          signe: false
+
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  type: 'AMCNum',
+                  texte: 'Aire (valeur exacte)',
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      reponse: {
+                        textePosition: 'right',
+                        texte: '$\\pi$ cm^2',
+                        valeur: [reponseA1],
+                        param: {
+                          digits: this.sup2 ? 2 : 3,
+                          decimals: this.sup2 ? 0 : 1,
+                          signe: false
+
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  type: 'AMCNum',
+                  texte: 'Aire (valeur arrondie',
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      reponse: {
+                        valeur: [reponseA2],
+                        textePosition: 'right',
+                        texte: ' cm^2',
+                        param: {
+                          digits: this.sup2 ? 3 : 4,
+                          decimals: 1,
+                          signe: false
+
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
