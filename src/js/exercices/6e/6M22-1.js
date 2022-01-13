@@ -1,6 +1,6 @@
 import { pointAdistance, point, segment, rotation, cercle, tracePoint, mathalea2d, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, shuffle, arrondi, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, arrondi, texNombre, contraindreValeur, randint, interactivite, texNombrec } from '../../modules/outils.js'
 
 export const titre = 'Calculer périmètre et aire de disques'
 
@@ -16,151 +16,122 @@ export const titre = 'Calculer périmètre et aire de disques'
  */
 export default function PerimetreAireDisques (pa = 3) {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.pasDeVersionLatex = true
   this.titre = titre
   this.sup = pa // 1 : périmètre, 2 : aire, 3 : périmètres et aires
+  this.sup2 = true // rayon ou périmètre entier
   this.spacing = 2
   this.spacingCorr = 2
-  this.nbQuestions = 1
+  this.nbQuestions = 4
   this.nbQuestionsModifiable = false
 
   this.nouvelleVersion = function (numeroExercice) {
+    this.sup = contraindreValeur(1, 3, this.sup, 3)
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const tableauDesRayons = shuffle([2, 3, 4, 5, 6, 7, 8]) // pour s'assurer que les 4 rayons sont différents
-    const r1 = tableauDesRayons[0]
-    const r2 = tableauDesRayons[1]
-    const r3 = tableauDesRayons[2]
-    const r4 = tableauDesRayons[3]
-    const A = point(8, 24)
-    const B = point(24, 24)
-    const C = point(8, 8)
-    const D = point(24, 8)
-    const C1 = cercle(A, r1)
-    const C2 = cercle(B, r2)
-    const C3 = cercle(C, r3)
-    const C4 = cercle(D, r4)
-    const M = pointAdistance(A, r1)
-    const N = pointAdistance(B, r2)
-    const O = pointAdistance(C, r3)
-    const P = pointAdistance(D, r4)
-    const R1 = segment(A, M)
-    R1.pointilles = 2
-    const D2 = segment(N, rotation(N, B, 180))
-    D2.pointilles = 2
-    const D3 = segment(O, rotation(O, C, 180))
-    D3.pointilles = 2
-    const R4 = segment(D, P)
-    R4.pointilles = 2
-    const texte = mathalea2d({ xmin: -1, ymin: -1, xmax: 33, ymax: 33, pixelsParCm: 15, scale: 0.5, mainlevee: false }, C1, C2, C3, C4, tracePoint(A, B, C, D), R1, R4, D2, D3,
-      afficheLongueurSegment(R1.extremite1, R1.extremite2), afficheLongueurSegment(R4.extremite1, R4.extremite2),
-      afficheLongueurSegment(D2.extremite1, D2.extremite2), afficheLongueurSegment(D3.extremite1, D3.extremite2),
-      latexParPoint('\\mathcal{C}_1', pointAdistance(A, r1 + 0.7, 145), 'black', 20, 0, ''),
-      latexParPoint('\\mathcal{C}_2', pointAdistance(B, r2 + 0.7, 145), 'black', 20, 0, ''),
-      latexParPoint('\\mathcal{C}_3', pointAdistance(C, r3 + 0.7, 145), 'black', 20, 0, ''),
-      latexParPoint('\\mathcal{C}_4', pointAdistance(D, r4 + 0.7, 145), 'black', 20, 0, '')
-    )
+    for (let i = 0, cpt = 0, r, type, A, C, M, B, S, texte, texteCorr, reponseL1, reponseL2, reponseA1, reponseA2; i < this.nbQuestions && cpt < 50;) {
+      if (this.sup2) r = randint(2, 9)
+      else r = arrondi(randint(2, 8) + randint(1, 9) / 10, 1)
+      A = point(r + 0.5, r + 0.5)
+      C = cercle(A, r)
+      M = pointAdistance(A, r)
+      B = rotation(M, A, 180)
+      if (i % 2 === 0) {
+        S = segment(A, M)
+      } else {
+        S = segment(M, B)
+      }
+      S.pointilles = 2
+      texte = mathalea2d({ xmin: 0, ymin: 0, xmax: 2 * r + 1, ymax: 2 * r + 1, pixelsParCm: arrondi(50 / r), mainlevee: true, amplitude: 0.3, scale: 0.5 }, C, tracePoint(A), S, afficheLongueurSegment(S.extremite1, S.extremite2), latexParPoint('\\mathcal{C}_1', pointAdistance(A, 1.25 * r, 130), 'black', 20, 0, ''))
 
-    if (this.sup === 1 || this.sup === '1') {
-      this.consigne = 'Calculer le périmètre des 4 cercles suivants.'
-    }
-    if (this.sup === 2 || this.sup === '2') {
-      this.consigne = "Calculer l'aire des 4 disques suivants."
-    }
-    if (this.sup === 3 || this.sup === '3') {
-      this.consigne = "Calculer le périmètre et l'aire des 4 disques suivants."
-    }
-
-    this.consigne +=
-      '<br>Donner la valeur exacte et une valeur approchée au dixième près.'
-
-    let texteCorr = ''
-    if (this.sup === 1 || this.sup === '1') {
+      if (this.sup === 1) {
+        this.consigne = this.nbQuestions > 1 ? 'Calculer le périmètre des cercles suivants.' : 'Calculer le périmètre du cercle suivant.'
+      }
+      if (this.sup === 2) {
+        this.consigne = this.nbQuestions > 1 ? "Calculer l'aire des disques suivants." : "Calculer l'aire du disque suivant."
+      }
+      if (this.sup === 3) {
+        this.consigne = this.nbQuestions > 1 ? "Calculer le périmètre et l'aire des disques suivants." : "Calculer le périmètre et l'aire du disque suivant."
+      }
+      switch (interactivite(this)) {
+        case 'AMC' :
+          this.consigne += '<br>Donner la valeur exacte et une valeur approchée au dixième près.'
+          break
+        default : this.consigne += '<br>Donner la valeur exacte et une valeur approchée au dixième près.'
+      }
+      if (this.sup === 1) {
       // si on ne demande pas les aires
-      texteCorr = `$\\mathcal{P}_1=2\\times${r1}\\times\\pi=${2 * r1
+        if (i % 2 === 0) {
+          texteCorr = `$\\mathcal{P}_1=2\\times${texNombre(r)}\\times \\pi=${texNombrec(2 * r)
         }\\pi\\approx${texNombre(
-          arrondi(2 * r1 * Math.PI, 1)
+          arrondi(2 * r * Math.PI, 1)
         )}$ cm<br>`
-      texteCorr += `$\\mathcal{P}_2=${2 * r2}\\times\\pi\\approx${texNombre(
-        arrondi(2 * r2 * Math.PI, 1)
-      )}$ cm<br>`
-      texteCorr += `$\\mathcal{P}_3=${2 * r3}\\times\\pi\\approx${texNombre(
-        arrondi(2 * r3 * Math.PI, 1)
-      )}$ cm<br>`
-      texteCorr += `$\\mathcal{P}_4=2\\times${r4}\\times\\pi=${2 * r4
+        } else {
+          texteCorr = `$\\mathcal{P}_1=${texNombrec(2 * r)}\\times \\pi=${texNombrec(2 * r)
         }\\pi\\approx${texNombre(
-          arrondi(2 * r4 * Math.PI, 1)
+          arrondi(2 * r * Math.PI, 1)
         )}$ cm<br>`
+        }
+        reponseL1 = arrondi(2 * r, 2)
+        reponseL2 = arrondi(2 * r * Math.PI, 1)
+        reponseA1 = false
+        reponseA2 = false
+      }
+      if (this.sup === 2) {
+        if (i % 2 === 0) {
+          texteCorr = `$\\mathcal{A}_1=${texNombre(r)}\\times ${texNombre(r)}\\times\\pi=${texNombrec(r * r)
+        }\\pi\\approx${texNombre(
+          arrondi(r * r * Math.PI, 1)
+        )}~\\text{cm}^2$<br>`
+        } else {
+          texteCorr = `$\\mathcal{A}_1=\\dfrac{${texNombrec(2 * r)}}{2}\\times \\dfrac{${texNombrec(2 * r)}}{2}\\times\\pi=${texNombrec(r * r)
+          }\\pi\\approx${texNombre(
+            arrondi(r * r * Math.PI, 1)
+          )}~\\text{cm}^2$<br>`
+        }
+        reponseA1 = arrondi(r * r, 2)
+        reponseA2 = arrondi(r * r * Math.PI, 1)
+        reponseL1 = false
+        reponseL2 = false
+      }
+      if (this.sup === 3) {
+        if (i % 2 === 0) {
+          texteCorr = `$\\mathcal{P}_1=2\\times${texNombre(r)}\\times \\pi=${texNombrec(2 * r)
+        }\\pi\\approx${texNombre(
+          arrondi(2 * r * Math.PI, 1)
+        )}$ cm<br>`
+          texteCorr += '<br>'
+          texteCorr += `$\\mathcal{A}_1=${texNombre(r)}\\times ${texNombre(r)}\\times \\pi=${texNombrec(r * r)
+        }\\pi\\approx${texNombre(
+          arrondi(r * r * Math.PI, 1)
+        )}~\\text{cm}^2$<br>`
+        } else {
+          texteCorr = `$\\mathcal{P}_1=${texNombrec(2 * r)}\\times \\pi=${texNombrec(2 * r)
+          }\\pi\\approx${texNombre(
+            arrondi(2 * r * Math.PI, 1)
+          )}$ cm<br>`
+          texteCorr += '<br>'
+          texteCorr += `$\\mathcal{A}_1=\\dfrac{${texNombrec(2 * r)}}{2}\\times \\dfrac{${texNombrec(2 * r)}}{2}\\times\\pi=${texNombrec(r * r)
+          }\\pi\\approx${texNombre(
+            arrondi(r * r * Math.PI, 1)
+          )}~\\text{cm}^2$<br>`
+        }
+
+        reponseL1 = arrondi(2 * r, 2)
+        reponseL2 = arrondi(2 * r * Math.PI, 1)
+        reponseA1 = arrondi(r * r, 2)
+        reponseA2 = arrondi(r * r * Math.PI, 1)
+      }
+      if (this.questionJamaisPosee(i, r, type)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
     }
-
-    if (this.sup === 2 || this.sup === '2') {
-      texteCorr += `$\\mathcal{A}_1=${r1}\\times${r1}\\times\\pi=${r1 * r1
-        }\\pi\\approx${texNombre(
-          arrondi(r1 * r1 * Math.PI, 1)
-        )}~\\text{cm}^2$<br>`
-      texteCorr += `Le diamètre de $\\mathcal{C}_2$ est ${2 * r2
-        } cm donc son rayon est ${r2} cm.<br>`
-      texteCorr += `$\\mathcal{A}_2=${r2}\\times${r2}\\times\\pi=${r2 * r2
-        }\\pi\\approx${texNombre(
-          arrondi(r2 * r2 * Math.PI, 1)
-        )}~\\text{cm}^2$<br>`
-      texteCorr += `Le diamètre de $\\mathcal{C}_3$ est ${2 * r3
-        } cm donc son rayon est ${r3} cm.<br>`
-      texteCorr += `$\\mathcal{A}_3=${r3}\\times${r3}\\times\\pi=${r3 * r3
-        }\\pi\\approx${texNombre(
-          arrondi(r3 * r3 * Math.PI, 1)
-        )}~\\text{cm}^2$<br>`
-      texteCorr += `$\\mathcal{A}_4=${r4}\\times${r4}\\times\\pi=${r4 * r4
-        }\\pi\\approx${texNombre(
-          arrondi(r4 * r4 * Math.PI, 1)
-        )}~\\text{cm}^2$<br>`
-    }
-
-    if (this.sup === 3 || this.sup === '3') {
-      texteCorr = `$\\mathcal{P}_1=2\\times${r1}\\times\\pi=${2 * r1
-        }\\pi\\approx${texNombre(
-          arrondi(2 * r1 * Math.PI, 1)
-        )}$ cm<br>`
-      texteCorr += `$\\mathcal{P}_2=${2 * r2}\\times\\pi\\approx${texNombre(
-        arrondi(2 * r2 * Math.PI, 1)
-      )}$ cm<br>`
-      texteCorr += `$\\mathcal{P}_3=${2 * r3}\\times\\pi\\approx${texNombre(
-        arrondi(2 * r3 * Math.PI, 1)
-      )}$ cm<br>`
-      texteCorr += `$\\mathcal{P}_4=2\\times${r4}\\times\\pi=${2 * r4
-        }\\pi\\approx${texNombre(
-          arrondi(2 * r4 * Math.PI, 1)
-        )}$ cm<br>`
-
-      texteCorr += '<br>'
-
-      texteCorr += `$\\mathcal{A}_1=${r1}\\times${r1}\\times\\pi=${r1 * r1
-        }\\pi\\approx${texNombre(
-          arrondi(r1 * r1 * Math.PI, 1)
-        )}~\\text{cm}^2$<br>`
-      texteCorr += `Le diamètre de $\\mathcal{C}_2$ est ${2 * r2
-        } cm donc son rayon est ${r2} cm.<br>`
-      texteCorr += `$\\mathcal{A}_2=${r2}\\times${r2}\\times\\pi=${r2 * r2
-        }\\pi\\approx${texNombre(
-          arrondi(r2 * r2 * Math.PI, 1)
-        )}~\\text{cm}^2$<br>`
-      texteCorr += `Le diamètre de $\\mathcal{C}_3$ est ${2 * r3
-        } cm donc son rayon est ${r3} cm.<br>`
-      texteCorr += `$\\mathcal{A}_3=${r3}\\times${r3}\\times\\pi=${r3 * r3
-        }\\pi\\approx${texNombre(
-          arrondi(r3 * r3 * Math.PI, 1)
-        )}~\\text{cm}^2$<br>`
-      texteCorr += `$\\mathcal{A}_4=${r4}\\times${r4}\\times\\pi=${r4 * r4
-        }\\pi\\approx${texNombre(
-          arrondi(r4 * r4 * Math.PI, 1)
-        )}~\\text{cm}^2$<br>`
-    }
-
-    this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
 
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Périmètres et aires']
+  this.besoinFormulaire2CaseACocher = ['Rayon et diamètre entier', true]
 }

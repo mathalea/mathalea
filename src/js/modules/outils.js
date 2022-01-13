@@ -17,6 +17,15 @@ const epsilon = 0.000001
  * @module
  */
 
+export function interactivite (exercice) {
+  if (context.isHtml) {
+    if (exercice.interactif) return 'I-html'
+    else return 'html'
+  } else if (context.isAmc) return 'AMC'
+  else if (exercice.interactif) return 'I-latex'
+  else return 'latex'
+}
+
 /**
  * Affecte les propriétés contenu et contenuCorrection (d'après les autres propriétés de l'exercice)
  * @param {Exercice} exercice
