@@ -9,6 +9,7 @@ Ces outils ont pour objectif d'utiliser la puissance de [Mathjs](https://mathjs.
 3. [Convertir une expression numérique ou littérale en latex](#section2)
 4. [Remplacer des variables par des valeurs](#section3)
 5. [Transformer une expression littérale](#section4)
+6. [RandomSeed](#section5)
 
 ## Documentation utile <a id="section0"></a>
 
