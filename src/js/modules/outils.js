@@ -8051,9 +8051,10 @@ export function exportQcmAmc (exercice, idExo) {
               } else if (rep.valeur[0].num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
                 valeurAMCNum = rep.valeur[0]
                 texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-                if (!(propositions[0].alignement === undefined)) {
+                console.log(propositions[0].reponse.alignement)
+                if (!(propositions[0].reponse.alignement === undefined)) {
                   texQr += '\\begin{'
-                  texQr += `${propositions[0].alignement}}`
+                  texQr += `${propositions[0].reponse.alignement}}`
                 }
                 if (propositions !== undefined) {
                   texQr += `\\explain{${propositions[0].texte}}\n`
@@ -8092,9 +8093,9 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
                 texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
-                if (!(propositions[0].alignement === undefined)) {
+                if (!(propositions[0].reponse.alignement === undefined)) {
                   texQr += '\\end{'
-                  texQr += `${propositions[0].alignement}}`
+                  texQr += `${propositions[0].reponse.alignement}}`
                 }
                 texQr += '\\end{questionmultx}\n'
                 id += 2
@@ -8119,9 +8120,9 @@ export function exportQcmAmc (exercice, idExo) {
                   texQr += `\\explain{${propositions[0].texte}}\n`
                 }
                 texQr += `${rep.texte}\n`
-                if (!(propositions[0].alignement === undefined)) {
+                if (!(propositions[0].reponse.alignement === undefined)) {
                   texQr += '\\begin{'
-                  texQr += `${propositions[0].alignement}}`
+                  texQr += `${propositions[0].reponse.alignement}}`
                 }
                 texQr += `\\AMCnumericChoices{${rep.valeur[0]}}{digits=${nbChiffresPe + nbChiffresPd},decimals=${nbChiffresPd},sign=${rep.param.signe},`
                 if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
@@ -8146,9 +8147,9 @@ export function exportQcmAmc (exercice, idExo) {
                   texQr += 'Tpoint={,},'
                 }
                 texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1}\n'
-                if (!(propositions[0].alignement === undefined)) {
+                if (!(propositions[0].reponse.alignement === undefined)) {
                   texQr += '\\end{'
-                  texQr += `${propositions[0].alignement}}`
+                  texQr += `${propositions[0].reponse.alignement}}`
                 }
                 texQr += '\\end{questionmultx}\n'
                 id++
