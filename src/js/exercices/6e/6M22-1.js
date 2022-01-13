@@ -137,6 +137,7 @@ export default function PerimetreAireDisques (pa = 3) {
             this.autoCorrection[i] = {
               enonce: 'Calculer le périmètre du cercle suivant :<br>' + texte,
               enonceAvantUneFois: true,
+              enonceAGauche: [0.3, 0.7],
               options: { multicols: true },
               propositions: [
                 {
@@ -186,6 +187,7 @@ export default function PerimetreAireDisques (pa = 3) {
             this.autoCorrection[i] = {
               enonce: "Calculer l'aire du cercle suivant :<br>" + texte,
               enonceAvantUneFois: true,
+              enonceAGauche: [0.3, 0.7],
               options: { multicols: true },
               propositions: [
                 {
@@ -238,6 +240,7 @@ export default function PerimetreAireDisques (pa = 3) {
           } else {
             this.autoCorrection[i] = {
               enonce: "Calculer le périmètre et l'aire du cercle suivant :<br>" + texte,
+              enonceAGauche: [0.3, 0.7],
               options: { multicols: true },
               propositions: [
                 {

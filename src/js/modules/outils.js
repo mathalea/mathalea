@@ -7909,8 +7909,8 @@ export function exportQcmAmc (exercice, idExo) {
           melange = autoCorrection[j].melange
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
-        if (autoCorrection[j].EnonceAGauche) {
-          texQr += '\\begin{minipage}{\\textwidth}\n'
+        if (autoCorrection[j].enonceAGauche) {
+          texQr += `\\noindent\\fbox{\\begin{minipage}{${autoCorrection[j].enonceAGauche[0]}\\linewidth}\n`
         }
         if (autoCorrection[j].enonceAvant === undefined) { // Dans une suite de questions, il se peut qu'il n'y ait pas d'énoncé général donc pas besoin de saut de ligne non plus.
           texQr += `${autoCorrection[j].enonce} \\\\\n `
@@ -7921,8 +7921,8 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += `${autoCorrection[j].enonce} \\\\\n `
           }
         }
-        if (autoCorrection[j].EnonceAGauche) {
-          texQr += '\\end{minipage}\n\\begin{minipage}{\\textwidth}\n'
+        if (autoCorrection[j].enonceAGauche) {
+          texQr += `\\end{minipage}}\n\\noindent\\begin{minipage}[t]{${autoCorrection[j].enonceAGauche[1]}\\linewidth}\n`
         }
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.multicols) {
@@ -8198,7 +8198,7 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += '\\end{multicols}\n'
           }
         }
-        if (autoCorrection[j].EnonceAGauche) {
+        if (autoCorrection[j].enonceAGauche) {
           texQr += '\\end{minipage}\n'
         }
         texQr += '}\n'
