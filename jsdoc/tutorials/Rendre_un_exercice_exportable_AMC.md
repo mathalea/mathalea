@@ -186,22 +186,21 @@ this.autoCorrection[i] = {
             valeur: nombre, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
             alignement: 'flushleft', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
             param: {
-              digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
-              decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
-              signe: false, // (présence d'une case + ou -)
-              exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
+              digits: 3, // obligatoire pour AMC (le nombre de chiffres dans le nombre, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+              decimals: 0, // obligatoire pour AMC (le nombre de chiffres dans la partie décimale du nombre, si decimals est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+              signe: false, // obligatoire pour AMC (présence d'une case + ou -)
+              exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant). Si la réponse est une puissance, exposantNbChiffres est le nombre de chiffres sur lequel on veut que AMC code l'exposant. Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur la plus adéquate.
               exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
               approx: 0, // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
               vertical : false, // facultatif. Si true, les cases à cocher seront positionnées verticalement
               nbCols : 4, // Ne fonctionne que si vertical est true. Indique le nb de colonnes dans lesquelles seront positionnées les cases à cocher.
-              vhead : 'descriptif#1', // Ne fonctionne que si vertical est true. Permet d'écrire au-dessus de la colonne de chaque série de cases à cocher un texte.
+              vhead : 'descriptif#1', // Ne fonctionne que si vertical est true. A commenter (ou supprimer) si vertical est false. Permet d'écrire au-dessus de la colonne de chaque série de cases à cocher un texte.
               tpoint : ',', // Facultatif. Permet dans AMCNum de remplacer la virgule par un autre séparateur décimal. 
               digitsNum : 2, // Facultatif. digitsNum correspond au nombre TOTAL de chiffres du numérateur à coder si la réponse est une fraction.
               digitsDen : 3, // Facultatif. digitsDencorrespond au nombre TOTAL de chiffres du dénominateur à coder si la réponse est une fraction.
               basePuissance : 5, // Si la réponse est une puissance, basePuissance correspond à la base de la réponse
               exposantPuissance : 34, // Si la réponse est une puissance, exposantPuissance correspond à l'exposant de la réponse
-              baseNbChiffres : 2, // facultatif. Si la réponse est une puissance, baseNbChiffres est le nombre de chiffres sur lequel on veut que AMC code la base. Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur la plus adéquate.
-              exposantNbChiffres : 3 // facultatif. Si la réponse est une puissance, exposantNbChiffres est le nombre de chiffres sur lequel on veut que AMC code l'exposant. Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur la plus adéquate.
+              baseNbChiffres : 2, // facultatif. Si la réponse est une puissance, baseNbChiffres est le nombre de chiffres sur lequel on veut que AMC code la base. Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur la plus adéquate. 
             }
           },
           options: {ordered: false, lastChoice: false} // options pour Qcms
@@ -220,22 +219,21 @@ this.autoCorrection[i] = {
             valeur: nombre, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
             alignement: 'flushleft', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
             param: {
-              digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
-              decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
-              signe: false, // (présence d'une case + ou -)
-              exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
+              digits: 3, // obligatoire pour AMC (le nombre de chiffres dans le nombre, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+              decimals: 0, // obligatoire pour AMC (le nombre de chiffres dans la partie décimale du nombre, si decimals est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+              signe: false, // obligatoire pour AMC (présence d'une case + ou -)
+              exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant). Si la réponse est une puissance, exposantNbChiffres est le nombre de chiffres sur lequel on veut que AMC code l'exposant. Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur la plus adéquate.
               exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
               approx: 0, // (0 = valeur exacte attendue, sinon valeur de tolérance (voir explication détaillée dans type AMCNum))
               vertical : false, // facultatif. Si true, les cases à cocher seront positionnées verticalement
               nbCols : 4, // Ne fonctionne que si vertical est true. Indique le nb de colonnes dans lesquelles seront positionnées les cases à cocher.
-              vhead : 'descriptif#1', // Ne fonctionne que si vertical est true. Permet d'écrire au-dessus de la colonne de chaque série de cases à cocher un texte.
+              vhead : 'descriptif#1', // Ne fonctionne que si vertical est true. A commenter (ou supprimer) si vertical est false. Permet d'écrire au-dessus de la colonne de chaque série de cases à cocher un texte.
               tpoint : ',', // Facultatif. Permet dans AMCNum de remplacer la virgule par un autre séparateur décimal. 
               digitsNum : 2, // Facultatif. digitsNum correspond au nombre TOTAL de chiffres du numérateur à coder si la réponse est une fraction.
               digitsDen : 3, // Facultatif. digitsDencorrespond au nombre TOTAL de chiffres du dénominateur à coder si la réponse est une fraction.
               basePuissance : 5, // Si la réponse est une puissance, basePuissance correspond à la base de la réponse
               exposantPuissance : 34, // Si la réponse est une puissance, exposantPuissance correspond à l'exposant de la réponse
-              baseNbChiffres : 2, // facultatif. Si la réponse est une puissance, baseNbChiffres est le nombre de chiffres sur lequel on veut que AMC code la base. Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur la plus adéquate.
-              exposantNbChiffres : 3 // facultatif. Si la réponse est une puissance, exposantNbChiffres est le nombre de chiffres sur lequel on veut que AMC code l'exposant. Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur la plus adéquate.
+              baseNbChiffres : 2, // facultatif. Si la réponse est une puissance, baseNbChiffres est le nombre de chiffres sur lequel on veut que AMC code la base. Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur la plus adéquate. 
             }
           },
           options: {ordered: false, lastChoice: false} // options pour Qcms
