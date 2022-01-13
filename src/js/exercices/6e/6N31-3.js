@@ -15,6 +15,7 @@ export const titre = 'Arrondir une valeur'
  * * Encadrer_puis_arrondir_une_valeur
  * * 6N31-3
  * @author Mireille Gain, s'inspirant de 6N31-1 de Sébastien Lozano
+ * Ajout Nouvel AMC : Janvier 2022 par EE
  */
 
 export default function ArrondirUneValeur () {
@@ -24,18 +25,23 @@ export default function ArrondirUneValeur () {
   this.nbCols = 2 // Valeur différente de 3 car sinon en Latex, 3 colonnes, c'est trop !
   this.nbColsCorr = 1
   this.sup = 1
-  this.sup2 = false
+  this.sup2 = 1
   this.spacingCorr = context.isHtml ? 2.5 : 3.5
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
+    this.sup2 = parseInt(this.sup2)
+    this.amcType = this.sup2 === 1 ? 'qcmMono' : 'AMCHybride'
     this.spacing = (this.interactif && this.sup === 2) ? 3 : 1
     this.autoCorrection = []
     if (!context.isAmc && !this.interactif) {
-      this.consigne = "Encadrer chaque nombre à l'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi."
+      this.consigne = 'Encadrer '
+      this.consigne += this.nbQuestions > 1 ? 'chaque' : 'ce'
+      this.consigne += " nombre à l'unité, puis au dixième, puis au centième.<br>Dans chaque cas, mettre ensuite en évidence son arrondi."
     } else {
       this.consigne = "Quels sont les encadrements où la valeur orange est la valeur arrondie du nombre à l'unité, au dixième et au centième ?"
     }
+
     const tabrep = []; const tabicone = []; const preTabRep = []; let preTabIcone = []
     let espace = ''
     if (context.isHtml) {
@@ -172,40 +178,42 @@ export default function ArrondirUneValeur () {
         tabrep.push(preTabRep[0], preTabRep[1])
         tabicone.push(preTabIcone[0], preTabIcone[1])
       }
-      this.autoCorrection[i].enonce = `Quels sont les encadrements où la valeur orange est l'arrondi de ${texte} ?\\\\ \n Réponses possibles`
-      this.autoCorrection[i].options = { vertical: true, ordered: true }
-      this.autoCorrection[i].propositions = [
-        {
-          texte: tabrep[0],
-          statut: tabicone[0],
-          feedback: ''
-        },
-        {
-          texte: tabrep[1],
-          statut: tabicone[1],
-          feedback: ''
-        },
-        {
-          texte: tabrep[2],
-          statut: tabicone[2],
-          feedback: ''
-        },
-        {
-          texte: tabrep[3],
-          statut: tabicone[3],
-          feedback: ''
-        },
-        {
-          texte: tabrep[4],
-          statut: tabicone[4],
-          feedback: ''
-        },
-        {
-          texte: tabrep[5],
-          statut: tabicone[5],
-          feedback: ''
-        }
-      ]
+      if (!context.isAmc || ((context.isAmc) && this.sup2 === 1)) {
+        this.autoCorrection[i].enonce = `Quels sont les encadrements où la valeur orange est l'arrondi de ${texte} ?\\\\ \n Réponses possibles`
+        this.autoCorrection[i].options = { vertical: true, ordered: true }
+        this.autoCorrection[i].propositions = [
+          {
+            texte: tabrep[0],
+            statut: tabicone[0],
+            feedback: ''
+          },
+          {
+            texte: tabrep[1],
+            statut: tabicone[1],
+            feedback: ''
+          },
+          {
+            texte: tabrep[2],
+            statut: tabicone[2],
+            feedback: ''
+          },
+          {
+            texte: tabrep[3],
+            statut: tabicone[3],
+            feedback: ''
+          },
+          {
+            texte: tabrep[4],
+            statut: tabicone[4],
+            feedback: ''
+          },
+          {
+            texte: tabrep[5],
+            statut: tabicone[5],
+            feedback: ''
+          }
+        ]
+      }
       if (this.modeQcm && !context.isAmc) {
         texte += '<br><br>Réponses possibles : <br>  '
         texteCorr = ''
@@ -219,7 +227,26 @@ export default function ArrondirUneValeur () {
           }
         }
       }
-
+      if ((context.isAmc) && this.sup2 !== 1) {
+        this.autoCorrection[i] = {
+          enonce: 'On s en moque !',
+          enonceAvant: false,
+          propositions: [
+            {
+              type: 'AMCOpen',
+              propositions: [{ enonce: 'Encadrer ' + texte + " à l'unité et entourer son arrondi à l'unité.", statut: 1 }]
+            },
+            {
+              type: 'AMCOpen',
+              propositions: [{ enonce: 'Encadrer ' + texte + ' au dixième et entourer son arrondi au dixième.', statut: 1 }]
+            },
+            {
+              type: 'AMCOpen',
+              propositions: [{ enonce: 'Encadrer ' + texte + ' au centième et entourer son arrondi au centième.', statut: 1 }]
+            }
+          ]
+        }
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
@@ -236,4 +263,5 @@ export default function ArrondirUneValeur () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type de nombres', 2, ' 1 : Nombres décimaux\n 2 : Fractions']
+  this.besoinFormulaire2Numerique = ['Choix de sortie AMC', 2, ' 1 : QCM\n 2 : Questions ouvertes']
 }
