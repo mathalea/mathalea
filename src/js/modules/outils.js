@@ -17,6 +17,15 @@ const epsilon = 0.000001
  * @module
  */
 
+export function interactivite (exercice) {
+  if (context.isHtml) {
+    if (exercice.interactif) return 'I-html'
+    else return 'html'
+  } else if (context.isAmc) return 'AMC'
+  else if (exercice.interactif) return 'I-latex'
+  else return 'latex'
+}
+
 /**
  * Affecte les propriétés contenu et contenuCorrection (d'après les autres propriétés de l'exercice)
  * @param {Exercice} exercice
@@ -7900,6 +7909,9 @@ export function exportQcmAmc (exercice, idExo) {
           melange = autoCorrection[j].melange
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
+        if (autoCorrection[j].enonceAGauche) {
+          texQr += `\\noindent\\fbox{\\begin{minipage}{${autoCorrection[j].enonceAGauche[0]}\\linewidth}\n`
+        }
         if (autoCorrection[j].enonceAvant === undefined) { // Dans une suite de questions, il se peut qu'il n'y ait pas d'énoncé général donc pas besoin de saut de ligne non plus.
           texQr += `${autoCorrection[j].enonce} \\\\\n `
         } else if (autoCorrection[j].enonceAvant) {
@@ -7909,7 +7921,9 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += `${autoCorrection[j].enonce} \\\\\n `
           }
         }
-
+        if (autoCorrection[j].enonceAGauche) {
+          texQr += `\\end{minipage}}\n\\noindent\\begin{minipage}[t]{${autoCorrection[j].enonceAGauche[1]}\\linewidth}\n`
+        }
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.multicols) {
             texQr += '\\setlength{\\columnseprule}{'
@@ -8183,6 +8197,9 @@ export function exportQcmAmc (exercice, idExo) {
           if (autoCorrection[j].options.multicols) {
             texQr += '\\end{multicols}\n'
           }
+        }
+        if (autoCorrection[j].enonceAGauche) {
+          texQr += '\\end{minipage}\n'
         }
         texQr += '}\n'
         break
