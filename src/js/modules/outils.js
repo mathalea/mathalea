@@ -7909,6 +7909,9 @@ export function exportQcmAmc (exercice, idExo) {
           melange = autoCorrection[j].melange
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
+        if (autoCorrection[j].EnonceAGauche) {
+          texQr += '\\begin{minipage}{\\textwidth}\n'
+        }
         if (autoCorrection[j].enonceAvant === undefined) { // Dans une suite de questions, il se peut qu'il n'y ait pas d'énoncé général donc pas besoin de saut de ligne non plus.
           texQr += `${autoCorrection[j].enonce} \\\\\n `
         } else if (autoCorrection[j].enonceAvant) {
@@ -7918,7 +7921,9 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += `${autoCorrection[j].enonce} \\\\\n `
           }
         }
-
+        if (autoCorrection[j].EnonceAGauche) {
+          texQr += '\\end{minipage}\n\\begin{minipage}{\\textwidth}\n'
+        }
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.multicols) {
             texQr += '\\setlength{\\columnseprule}{'
@@ -8192,6 +8197,9 @@ export function exportQcmAmc (exercice, idExo) {
           if (autoCorrection[j].options.multicols) {
             texQr += '\\end{multicols}\n'
           }
+        }
+        if (autoCorrection[j].EnonceAGauche) {
+          texQr += '\\end{minipage}\n'
         }
         texQr += '}\n'
         break
