@@ -28,7 +28,6 @@ export default function PerimetreAireDisques (pa = 3) {
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 4
-  this.nbQuestionsModifiable = false
 
   this.nouvelleVersion = function (numeroExercice) {
     this.sup = contraindreValeur(1, 3, this.sup, 3)
@@ -48,7 +47,7 @@ export default function PerimetreAireDisques (pa = 3) {
         S = segment(M, B)
       }
       S.pointilles = 2
-      texte = mathalea2d({ xmin: 0, ymin: 0, xmax: 2 * r + 1, ymax: 2 * r + 1, pixelsParCm: arrondi(50 / r), mainlevee: true, amplitude: 0.3, scale: 0.5 }, C, tracePoint(A), S, afficheLongueurSegment(S.extremite1, S.extremite2), latexParPoint('\\mathcal{C}_1', pointAdistance(A, 1.25 * r, 130), 'black', 20, 0, ''))
+      texte = mathalea2d({ xmin: 0, ymin: 0, xmax: 2 * r + 1, ymax: 2 * r + 1, pixelsParCm: arrondi(50 / r), scale: arrondi(2.4 / r, 2) }, C, tracePoint(A), S, afficheLongueurSegment(S.extremite1, S.extremite2), latexParPoint('\\mathcal{C}_1', pointAdistance(A, 1.25 * r, 135), 'black', 20, 0, ''))
 
       if (this.sup === 1) {
         this.consigne = this.nbQuestions > 1 ? 'Calculer le périmètre des cercles suivants.' : 'Calculer le périmètre du cercle suivant.'
@@ -80,8 +79,8 @@ export default function PerimetreAireDisques (pa = 3) {
         }
         reponseL1 = arrondi(2 * r, 2)
         reponseL2 = arrondi(2 * r * Math.PI, 1)
-        reponseA1 = false
-        reponseA2 = false
+        reponseA1 = 0
+        reponseA2 = 0
       }
       if (this.sup === 2) {
         if (i % 2 === 0) {
@@ -97,8 +96,8 @@ export default function PerimetreAireDisques (pa = 3) {
         }
         reponseA1 = arrondi(r * r, 2)
         reponseA2 = arrondi(r * r * Math.PI, 1)
-        reponseL1 = false
-        reponseL2 = false
+        reponseL1 = 0
+        reponseL2 = 0
       }
       if (this.sup === 3) {
         if (i % 2 === 0) {
@@ -128,7 +127,7 @@ export default function PerimetreAireDisques (pa = 3) {
         reponseA2 = arrondi(r * r * Math.PI, 1)
       }
       if (this.questionJamaisPosee(i, r, type)) {
-        if (reponseL1 && !reponseA1) {
+        if (this.sup === 1) {
           if (context.isHtml && this.interactif) {
             setReponse(this, 2 * i, texNombre(reponseL1) + '\\pi', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, reponseL2, { formatInteractif: 'calcul' })
@@ -136,20 +135,19 @@ export default function PerimetreAireDisques (pa = 3) {
             texte += ' $\\approx$' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteApres: ' cm' })
           } else {
             this.autoCorrection[i] = {
-              enonce: texte,
+              enonce: 'Calculer le périmètre du cercle suivant :<br>' + texte,
               enonceAvantUneFois: true,
+              options: { multicols: true },
               propositions: [
                 {
                   type: 'AMCNum',
-                  texte: 'Périmétre (valeur exacte)',
                   propositions: [
                     {
                       texte: texteCorr,
-                      textePosition: 'right',
                       reponse: {
+                        texte: 'Périmétre en cm (valeur exacte en nombre de $\\pi$)',
                         valeur: [reponseL1],
                         param: {
-                          texte: '$\\pi$ cm',
                           digits: this.sup2 ? 2 : 3,
                           decimals: this.sup2 ? 0 : 1,
                           signe: false
@@ -160,15 +158,13 @@ export default function PerimetreAireDisques (pa = 3) {
                 },
                 {
                   type: 'AMCNum',
-                  texte: 'Périmétre (valeur arrondie',
                   propositions: [
                     {
                       texte: texteCorr,
-                      textePosition: 'right',
                       reponse: {
+                        texte: 'Périmétre en cm (valeur arrondie à 0,1 près)',
                         valeur: [reponseL2],
                         param: {
-                          texte: ' cm',
                           digits: this.sup2 ? 3 : 4,
                           signe: false,
                           decimals: 1
@@ -180,7 +176,7 @@ export default function PerimetreAireDisques (pa = 3) {
               ]
             }
           }
-        } else if (reponseA1 && !reponseL1) {
+        } else if (this.sup === 2) {
           if (context.isHtml && this.interactif) {
             setReponse(this, 2 * i, texNombre(reponseA1) + '\\pi', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, reponseA2, { formatInteractif: 'calcul' })
@@ -188,19 +184,18 @@ export default function PerimetreAireDisques (pa = 3) {
             texte += ' $\\approx$' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteApres: ' cm^2' })
           } else {
             this.autoCorrection[i] = {
-              enonce: texte,
+              enonce: "Calculer l'aire du cercle suivant :<br>" + texte,
               enonceAvantUneFois: true,
+              options: { multicols: true },
               propositions: [
                 {
                   type: 'AMCNum',
-                  texte: 'Aire (valeur exacte)',
                   propositions: [
                     {
                       texte: texteCorr,
                       reponse: {
                         valeur: [reponseA1],
-                        textePosition: 'right',
-                        texte: '$\\pi$ cm^2',
+                        texte: 'Aire en cm² (valeur exacte en nombre de $\\pi$)\\\\',
                         param: {
                           digits: this.sup2 ? 2 : 3,
                           signe: false,
@@ -212,13 +207,11 @@ export default function PerimetreAireDisques (pa = 3) {
                 },
                 {
                   type: 'AMCNum',
-                  texte: 'Aire (valeur arrondie',
                   propositions: [
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: ' cm^2',
-                        textePosition: 'right',
+                        texte: 'Aire en cm² (valeur arrondie à 0,1 près)',
                         valeur: [reponseA2],
                         param: {
                           digits: this.sup2 ? 3 : 4,
@@ -244,19 +237,17 @@ export default function PerimetreAireDisques (pa = 3) {
             texte += ' cm² $\\approx $' + ajouteChampTexteMathLive(this, 4 * i + 3, 'largeur10 inline') + ' cm²'
           } else {
             this.autoCorrection[i] = {
-              enonce: texte,
-              enonceAvantUneFois: true,
+              enonce: "Calculer le périmètre et l'aire du cercle suivant :<br>" + texte,
+              options: { multicols: true },
               propositions: [
                 {
                   type: 'AMCNum',
-                  texte: 'Périmétre (valeur exacte)',
                   propositions: [
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: '$\\pi$ cm',
+                        texte: 'Périmétre en cm (valeur exacte en nombre de $\\pi$)',
                         valeur: [reponseL1],
-                        textePosition: 'right',
                         param: {
                           digits: this.sup2 ? 2 : 3,
                           decimals: this.sup2 ? 0 : 1,
@@ -269,13 +260,11 @@ export default function PerimetreAireDisques (pa = 3) {
                 },
                 {
                   type: 'AMCNum',
-                  texte: 'Périmétre (valeur arrondie',
                   propositions: [
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: ' cm',
-                        textePosition: 'right',
+                        texte: 'Périmétre en cm (valeur arrondie à 0,1 près)',
                         valeur: [reponseL2],
                         param: {
                           digits: this.sup2 ? 3 : 4,
@@ -289,13 +278,11 @@ export default function PerimetreAireDisques (pa = 3) {
                 },
                 {
                   type: 'AMCNum',
-                  texte: 'Aire (valeur exacte)',
                   propositions: [
                     {
                       texte: texteCorr,
                       reponse: {
-                        textePosition: 'right',
-                        texte: '$\\pi$ cm^2',
+                        texte: 'Aire en cm² (valeur exacte en nombre de $\\pi$)\\\\',
                         valeur: [reponseA1],
                         param: {
                           digits: this.sup2 ? 2 : 3,
@@ -309,14 +296,13 @@ export default function PerimetreAireDisques (pa = 3) {
                 },
                 {
                   type: 'AMCNum',
-                  texte: 'Aire (valeur arrondie',
+
                   propositions: [
                     {
                       texte: texteCorr,
                       reponse: {
                         valeur: [reponseA2],
-                        textePosition: 'right',
-                        texte: ' cm^2',
+                        texte: 'Aire en cm² (valeur arrondie au dixième)',
                         param: {
                           digits: this.sup2 ? 3 : 4,
                           decimals: 1,
