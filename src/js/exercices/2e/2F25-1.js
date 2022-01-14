@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, reduireAxPlusB, ecritureParentheseSiNegatif, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, reduireAxPlusB } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 import { courbe2, mathalea2d, repere2 } from '../../modules/2d.js'
@@ -46,9 +46,7 @@ export default function EtudierGraphiqueParite () {
           r = repere2({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
           C = courbe2(f, { repere: r, step: 0.25 })
           f = x => a * x + b
-          texte = 'Déterminer à partir de sa représentation graphique ci-dessous, si la fonction $f$ <br>'
-          texte += ' est paire, impaire, ou ni l\'un, ni l\'autre. <br>'
-          // texte += mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C)
+          texte = mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C)
           texteCorr = `<b>a.</b> On étudie la partité de la fonction $f$, définie sur  $D=\\mathbb{R}$ par $f(x)=${reduireAxPlusB(a, b)}$.<br>`
 
           bonneReponse = 'non'
