@@ -1947,14 +1947,14 @@ export default {
     }
   },
   "2S11-2": {
-    "titre": "Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale",
+    "titre": "Variations en pourcentage",
     "url": "/exercices/2e/2S11-2.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "2S11-2",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -1969,6 +1969,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "2S12-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2S12-3": {
+    "titre": "Déterminer un taux d’évolution réciproque",
+    "url": "/exercices/2e/2S12-3.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2S12-3",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -3090,7 +3106,7 @@ export default {
     "interactifType": "mathLive",
     "name": "3L11-7",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6776,7 +6792,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -7624,16 +7640,15 @@ export default {
   "6I10": {
     "titre": "Programmer des déplacements (Scratch)",
     "url": "/exercices/6e/6I10.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6I10",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6I11": {
@@ -8372,8 +8387,12 @@ export default {
   "6N23-3": {
     "titre": "Lire une abscisse décimale grâce à des zooms successifs",
     "url": "/exercices/6e/6N23-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N23-3",
     "newEx": {
       "isNew": false,
@@ -8387,8 +8406,12 @@ export default {
   "6N23-4": {
     "titre": "Donner l’écriture décimale d’un nombre à partir de différents textes",
     "url": "/exercices/6e/6N23-4.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N23-4",
     "newEx": {
       "isNew": false,
@@ -8618,7 +8641,10 @@ export default {
   "6N31-4": {
     "titre": "Intercaler un nombre décimal entre deux nombres décimaux",
     "url": "/exercices/6e/6N31-4.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "6N31-4",
@@ -8634,16 +8660,15 @@ export default {
   "6N31": {
     "titre": "Comparer des nombres décimaux",
     "url": "/exercices/6e/6N31.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6N31",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N32": {
@@ -9890,7 +9915,7 @@ export default {
     "interactifReady": false,
     "name": "beta3S20-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10288,12 +10313,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques",
+    "name": "betaModele30_constructions_géométriques",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -10607,7 +10632,7 @@ export default {
     "interactifType": "numerique",
     "name": "c3C10-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11304,7 +11329,7 @@ export default {
     "interactifType": "qcm",
     "name": "can2F06",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13442,7 +13467,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5N02",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14696,7 +14721,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6N10",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

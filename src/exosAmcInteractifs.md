@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 404 
-- nombre d'exos interactifReady 555 
+- nombre d'exos amcReady 409 
+- nombre d'exos interactifReady 558 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -48,8 +48,9 @@
 |2N51-5|Équations du premier degré (utilisant la distributivité)|KO|KO|OK|mathLive|
 |2S10-2|Calculer une proportion ou appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |2S11-1|Calculer un CM à partir d'un taux d'évolution et inversement|KO|KO|OK|mathLive|
-|2S11-2|Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale|KO|KO|OK|mathLive|
+|2S11-2|Variations en pourcentage|KO|KO|OK|mathLive|
 |2S12-2|Déterminer un taux d’évolution global|KO|KO|OK|mathLive|
+|2S12-3|Déterminer un taux d’évolution réciproque|KO|KO|OK|mathLive|
 |2S20-1|Calculer des effectifs et des fréquences|KO|KO|OK|mathLive|
 |2S20-2|Calculer des médianes|KO|KO|OK|mathLive|
 |2S20-4|Calculer des étendues|KO|KO|OK|mathLive|
@@ -235,6 +236,7 @@
 |6G41|Compléter une représentation en perspective cavalière|OK|AMCOpen|KO|KO|
 |6G43|Compter les cubes manquants ou pas|OK|AMCNum|OK|mathLive|
 |6G44|Compter les arêtes et les faces|OK|AMCNum|OK|mathLive|
+|6I10|Programmer des déplacements (Scratch)|OK|AMCOpen|KO|KO|
 |6I12|Trouver le bon tracé avec Scratch|OK|qcmMono|OK|custom|
 |6M10|Calculer des périmètres et des aires de figures usuelles|OK|AMCHybride|OK|mathLive|
 |6M11-1|Calculer périmètre et aire de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
@@ -263,6 +265,8 @@
 |6N23-0|Écrire un nombre décimal en chiffres ou en lettres|OK|AMCNum|OK|mathLive|
 |6N23-1|Donner différentes écritures de nombres décimaux|OK|AMCHybride|OK|mathLive|
 |6N23-2|Lire des abscisses décimales sous trois formes|OK|AMCHybride|OK|mathLive|
+|6N23-3|Lire une abscisse décimale grâce à des zooms successifs|OK|AMCHybride|OK|mathLive|
+|6N23-4|Donner l’écriture décimale d’un nombre à partir de différents textes|OK|AMCNum|OK|mathLive|
 |6N23-5|Donner une écriture fractionnaire|OK|qcmMono|OK|qcm|
 |6N23-6|Calculer la valeur décimale d'une fraction|OK|AMCNum|OK|numerique|
 |6N23-7|Recomposer un nombre décimal représenté par des fractions du cube unité|OK|AMCNum|OK|mathLive|
@@ -272,7 +276,8 @@
 |6N30-2|Placer un point d’abscisse décimale|OK|AMCOpen|OK|custom|
 |6N30|Lire l’abscisse décimale d’un point|OK|AMCOpen|OK|mathLive|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|qcm|
-|6N31-4|Intercaler un nombre décimal entre deux nombres décimaux|KO|KO|OK|mathLive|
+|6N31-4|Intercaler un nombre décimal entre deux nombres décimaux|OK|AMCOpen|OK|mathLive|
+|6N31|Comparer des nombres décimaux|OK|AMCOpen|KO|KO|
 |6N33-1|Calculer mentalement le pourcentage d’un nombre|OK|AMCNum|OK|numerique|
 |6N33-2|Résoudre des problèmes de calcul de pourcentage par complément à 100%|OK|AMCNum|OK|mathLive|
 |6N33-3|Résoudre des problèmes avec des calculs de pourcentages|OK|AMCNum|OK|mathLive|
