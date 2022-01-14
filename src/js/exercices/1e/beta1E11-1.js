@@ -4,12 +4,7 @@ import { choice, ecritureAlgebrique, ecritureAlgebriqueSauf1, randint } from '..
 export const titre = 'calculer le discriminant d\'un polynôme du second degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcReady = true
-export const amcType = 'AMCNum'
 
-/*!
- * @author Jean-Claude Lhote
- */
 export default function NombrePairFois5 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
