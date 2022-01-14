@@ -9,6 +9,8 @@ import { fraction } from '../../modules/fractions'
 export const titre = 'calculer le discriminant d\'un polynôme du second degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 export default function CalculerDiscriminant () {
   Exercice.call(this)
