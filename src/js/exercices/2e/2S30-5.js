@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { choice, listeQuestionsToContenu, randint, shuffle } from '../../modules/outils.js'
+import { choice, listeQuestionsToContenu, premiereLettreEnMajuscule, randint, shuffle } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { Arbre, texProba } from '../../modules/arbres.js'
 import { mathalea2d } from '../../modules/2d.js'
@@ -27,7 +27,7 @@ export default function CalculProbaExperience2Epreuves3e () {
   this.spacing = 2
   this.spacingCorr = 3
 
-  function cas1 (exercice, i, sup, sup2, sup3) {
+  function unePieceDeuxUrnes (exercice, i, sup, sup2, sup3) {
     const p = []
     const choix = randint(0, 2)
     let nombres1, nombres2, n1, n2, urne1, urne2, texte, texteCorr
@@ -148,10 +148,103 @@ export default function CalculProbaExperience2Epreuves3e () {
     return { texte: texte, texteCorr: texteCorr, alea: [...n1, ...n2] }
   }
 
-  /* function cas2 (exercice, i, sup, sup2, niveau) {
-    return { texte: texte, texteCorr: texteCorr, alea: [] }
+  function urneDeuxTiragesAvecRemise (exercice, i, sup, sup2, niveau) { // tirage dans une urne avec remise
+    const [b1Color, b2Color] = shuffle(['bleue', 'rouge', 'verte', 'orange', 'noire', 'jaune']).splice(0, 2)
+    const b1Char = premiereLettreEnMajuscule(b1Color.charAt(0))
+    const b2Char = premiereLettreEnMajuscule(b2Color.charAt(0))
+    const nbBoule1 = randint(1, 3)
+    const nbBoule2 = randint(1, 3, nbBoule1)
+    let texte = `Dans une urne, il y a ${nbBoule1} boules ${b1Color}s et ${nbBoule2} boules ${b2Color}.<br>`
+    texte += 'On tire successivement et avec remise deux boules.<br>'
+    texte += 'Déterminer la probabilité d\'obtenir deux boules de la même couleur'
+    let texteCorr = 'Bientôt sur vos écran'
+    texteCorr += ' : la correction !'
+    const card = nbBoule1 + nbBoule2
+    const tirage1 = []
+    for (let i = 0; i < nbBoule1; i++) {
+      tirage1.push(new Arbre({
+        nom: `${b1Char}`,
+        rationnel: true,
+        proba: fraction(1, card),
+        visible: false,
+        alter: '',
+        enfant: [],
+        racine: false
+      }))
+      for (let j = 0; j < nbBoule1; j++) {
+        tirage1[i].enfants.push(new Arbre({
+          nom: `${tirage1[i].nom}${b1Char}`,
+          rationnel: true,
+          proba: fraction(1, card),
+          visible: false,
+          alter: '',
+          enfant: [],
+          racine: false
+        }))
+      }
+      for (let j = 0; j < nbBoule2; j++) {
+        tirage1[i].enfants.push(new Arbre({
+          nom: `${tirage1[i].nom}${b2Char}`,
+          rationnel: true,
+          proba: fraction(1, card),
+          visible: false,
+          alter: '',
+          enfant: [],
+          racine: false
+        }))
+      }
+    }
+
+    for (let i = 0; i < nbBoule2; i++) {
+      tirage1.push(new Arbre({
+        nom: `${b2Char}`,
+        rationnel: true,
+        proba: fraction(1, card),
+        visible: false,
+        alter: '',
+        enfant: [],
+        racine: false
+      }))
+      for (let j = 0; j < nbBoule1; j++) {
+        tirage1[i + nbBoule1].enfants.push(new Arbre({
+          nom: `${tirage1[i + nbBoule1].nom}${b1Char}`,
+          rationnel: true,
+          proba: fraction(1, card),
+          visible: false,
+          alter: '',
+          enfant: [],
+          racine: false
+        }))
+      }
+      for (let j = 0; j < nbBoule2; j++) {
+        tirage1[i + nbBoule1].enfants.push(new Arbre({
+          nom: `${tirage1[i + nbBoule1].nom}${b2Char}`,
+          rationnel: true,
+          proba: fraction(1, card),
+          visible: false,
+          alter: '',
+          enfant: [],
+          racine: false
+        }))
+      }
+    }
+    const omega = new Arbre({
+      nom: '',
+      rationnel: true,
+      proba: 1,
+      visible: false,
+      alter: '',
+      enfants: tirage1,
+      racine: true
+    })
+    omega.setTailles() // On calcule les tailles des arbres.
+    const objets = omega.represente(0, 12, 0, sup2 ? 2.5 : 1, false, -1, 0.5) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+    texteCorr += 'On a représenté l\'expérience par l\'arbre ci-dessous'
+    texte += mathalea2d({ xmin: 0, xmax: 25, ymin: 0, ymax: 13 }, ...objets)
+
+    return { texte: texte, texteCorr: texteCorr, alea: [nbBoule1, nbBoule2, b1Char, b2Char] }
   }
-*/
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -159,7 +252,8 @@ export default function CalculProbaExperience2Epreuves3e () {
 
     for (let i = 0, cpt = 0, question; i < this.nbQuestions && cpt < 50;) {
       // On choisit les probas de l'arbre
-      question = cas1(this, i, this.sup, this.sup2, this.sup3)
+      question = unePieceDeuxUrnes(this, i, this.sup, this.sup2, this.sup3)
+      // question = urneDeuxTiragesAvecRemise(this, i, this.sup, this.sup2, this.sup3)
       if (this.questionJamaisPosee(i, ...question.alea)) {
         this.listeQuestions.push(question.texte)
         this.listeCorrections.push(question.texteCorr)
