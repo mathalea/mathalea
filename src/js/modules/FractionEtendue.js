@@ -134,6 +134,14 @@ export default class FractionX extends Fraction {
       if (!texFSP) texFSP = (this.s > 0) ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
       return texFSP
     })
+    /**
+ * retourne la fraction mis entre parenthèses notamment pour l'exponentiation.
+ */
+    let texParentheses
+    definePropRo(this, 'texParentheses', () => {
+      if (!texParentheses) texParentheses = this.den === 1 && this.s === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+      return texParentheses
+    })
 
     /**
      * le code LaTeX de la fraction simplifiée
