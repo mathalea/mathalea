@@ -1,14 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, reduireAxPlusB } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
 import { courbe2, mathalea2d, repere2 } from '../../modules/2d.js'
 
 export const titre = 'Propriétés graphiques de la parité d\'une fonction.'
-export const interactifReady = true
-export const interactifType = 'qcm'
-export const amcReady = true
-export const amcType = 'qcmMono'
 
 /**
  * Reconnaître parité fonction
@@ -31,7 +25,6 @@ export default function EtudierGraphiqueParite () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
-    let bonneReponse
     typesDeQuestionsDisponibles = [1]
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
@@ -49,31 +42,9 @@ export default function EtudierGraphiqueParite () {
           texte = mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C)
           texteCorr = `<b>a.</b> On étudie la partité de la fonction $f$, définie sur  $D=\\mathbb{R}$ par $f(x)=${reduireAxPlusB(a, b)}$.<br>`
 
-          bonneReponse = 'non'
           break
       }
-      if (this.interactif || context.isAmc) {
-        this.autoCorrection[i] = {}
-        this.autoCorrection[i].options = { ordered: true }
-        this.autoCorrection[i].enonce = `${texte}\n`
-        this.autoCorrection[i].propositions = [
-          {
-            texte: 'oui',
-            statut: bonneReponse !== 'non'
-          },
-          {
-            texte: 'non',
-            statut: bonneReponse !== 'oui'
-          },
-          {
-            texte: 'je ne sais pas',
-            statut: false
-          }
-        ]
-        if (this.interactif) {
-          texte += propositionsQcm(this, i).texte
-        }
-      }
+
       if (this.questionJamaisPosee(i, k, a, b, c, d, e)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
