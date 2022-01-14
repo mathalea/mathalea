@@ -1370,7 +1370,7 @@ export function arrondiVirgule (nombre, precision = 2) { //
 
 /**
 * Retourne égal si la valeur égal l'arrondi souhaité ou environ égal si ce n'est pas le cas
-* @author Jean-Claude L'Hote
+* @author Jean-Claude Lhote
 */
 export function egalOuApprox (a, precision) {
   return a - arrondi(a, precision) === 0 ? '=' : '\\approx'

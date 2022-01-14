@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, texNombrec, arrondi, arrondiVirgule } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, texNombrec, arrondi, egalOuApprox } from '../../modules/outils.js'
 export const titre = 'Déterminer un taux d’évolution réciproque'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -34,39 +34,31 @@ export default function EvolutionsSuccesives () {
     this.autoCorrection = [] // Cette ligne doit être ajoutée afin de vider les précédentes valeurs pour AMC
     const typesDeQuestionsDisponibles = [1]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let typesDeQuestions, CM, CMr, CMra, p, pr, nom, verber, nomr, t, tr
+    let typesDeQuestions, CM, CMr, CMra, p, pr, nom, nomr, t, tr
     for (let i = 0, texte, texteCorr, taux, tauxr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         case 1 :
-          taux = randint(-80, 80, 0)
+          taux = randint(-50, 50, 0)
           if (taux > 0) {
             nom = 'hausse'
           }
-          if (tauxr > 0) {
-            verber = 'Augmenter'
-            nomr = 'hausse'
-          }
           if (taux < 0) {
             nom = 'baisse'
-          }
-          if (tauxr < 0) {
-            verber = 'Diminuer'
-            nomr = 'baisse'
           }
           p = calcul(taux / 100)
           t = Math.abs(taux)
           CM = calcul(1 + p)
           CMr = calcul(1 / CM)
-          CMra = arrondiVirgule(CMr, 4)
-          pr = calcul(CMr - 1)
+          CMra = arrondi(CMr, 4)
+          pr = calcul(CMra - 1)
           tauxr = calcul(pr * 100)
           tr = Math.abs(tauxr)
-          if (taux > 0) {
-            nom = 'hausse'
+          if (tauxr > 0) {
+            nomr = 'hausse'
           }
-          if (taux < 0) {
-            nom = 'baisse'
+          if (tauxr < 0) {
+            nomr = 'baisse'
           }
           texte = `Le prix d'un article subit une ${nom} de $${t}~\\%$.<br>Quelle évolution devra-t-il subir pour revenir à son prix initial ?`
           texte += '<br>On donnera le taux d\'évolution en %, éventuellement arrondi à 0,01% près.'
@@ -77,14 +69,18 @@ export default function EvolutionsSuccesives () {
           if (taux < 0) {
             texteCorr += `<br>Diminuer de $${t}~\\%$ revient à multiplier par $ 1 - \\dfrac{${texNombrec(t)}}{100} = ${texNombrec(CM)}$ `
           }
-          texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc : $\\dfrac{1}{${texNombrec(CM)}} = ${texNombrec(CMra)}$.`
+          texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc : $\\dfrac{1}{${texNombrec(CM)}} ${egalOuApprox(CMr, 4)} ${texNombrec(CMra)}$.`
           if (CMr > 1) {
-            texteCorr += `<br><br>Or $${texNombrec(CMra)} = 1 + ${arrondi(texNombre(Math.abs(pr)), 4)} = 1 + \\dfrac{${arrondi(texNombrec(tr), 2)}}{100}$ ce qui correspond à une hausse de $${texNombrec(t)}~\\%$.`
+            texteCorr += `<br><br>Or $${texNombrec(CMra)} = 1 + ${texNombre(pr)} = 1 + \\dfrac{${texNombrec(tr)}}{100}$ ce qui correspond à une hausse de $${texNombrec(tr)}~\\%$.`
           }
-          if (CM < 1) {
-            texteCorr += `<br><br>Or $${arrondi(texNombrec(CMr), 4)} = 1 - ${arrondi(texNombre(Math.abs(pr)), 4)} = 1-\\dfrac{${arrondi(texNombrec(tr), 2)}}{100}$ ce qui correspond à une baisse de $${texNombrec(t)}~\\%$.`
+          if (CMr < 1) {
+            texteCorr += `<br><br>Or $${texNombrec(CMra)} = 1 - ${texNombre(Math.abs(pr))} = 1 - \\dfrac{${texNombrec(tr)}}{100}$ ce qui correspond à une baisse de $${texNombrec(tr)}~\\%$.`
           }
-          texteCorr += `<br>Il faut appliquer une ${nomr} ou ${verber} globale de $${texNombre(Math.abs(tauxr))}~\\%$ pour revenir au prix initial.`
+          if (CMr - CMra === 0) {
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${texNombre(tr)}~\\%$ pour revenir au prix initial.`
+          } else {
+            texteCorr += `<br><br>Il faut donc appliquer une ${nomr} d'environ $${texNombre(tr)}~\\%$ pour revenir au prix initial.`
+          }
           break
       }
       if (this.questionJamaisPosee(i, taux)) {
