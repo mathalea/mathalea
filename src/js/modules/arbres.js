@@ -1,5 +1,5 @@
 import { add, number, multiply } from 'mathjs'
-import { barycentre, latexParPoint, milieu, point, polygone, segment } from './2d'
+import { barycentre, latexParCoordonnees, latexParPoint, milieu, point, polygone, segment } from './2d'
 import { fraction } from './fractions'
 import { arrondi, calcul } from './outils'
 
@@ -141,7 +141,8 @@ export class Arbre {
    * vertical est un booléen. Si true, alors l'arbre sera construit de bas en haut ou de haut en bas, sinon, il sera construit de gauche à droite ou de droite à gauche.
    * sens indique la direction de pousse : 1 positif, -1 négatif.
    */
-  represente (xOrigine = 0, yOrigine = 0, decalage = 0, echelle = 1, vertical = false, sens = -1, tailleCaracteres=5) {
+  represente (xOrigine = 0, yOrigine = 0, decalage = 0, echelle = 1, vertical = false, sens = -1, tailleCaracteres) {
+    tailleCaracteres = tailleCaracteres || 5
     const objets = []
     const A = point(vertical
       ? xOrigine
@@ -157,11 +158,11 @@ export class Arbre {
       ? yOrigine
       : yOrigine - sens * 5
     )
-    const labelA = latexParPoint(this.nom, A, 'black', 8 * this.nom.length, 20, 'white', tailleCaracteres)
+    const labelA = latexParCoordonnees(this.nom, A.x, A.y, 'black', 8 * this.nom.length, 20, 'white', tailleCaracteres)
     const positionProba = vertical ? barycentre(polygone(A, A, A, B, B), '', 'center') : milieu(A, B, '', 'center') // Proba au 2/5 de [AB] en partant de A.
     const probaA = this.visible
-      ? latexParPoint(texProba(this.proba, this.rationnel, 2), positionProba, 'black', 20, 24, 'white', tailleCaracteres)
-      : latexParPoint(this.alter, positionProba, 'black', 20, 24, 'white', tailleCaracteres)
+      ? latexParCoordonnees(texProba(this.proba, this.rationnel, 2), positionProba.x, positionProba.y, 'black', 20, 24, 'white', tailleCaracteres)
+      : latexParCoordonnees(this.alter, positionProba.x, positionProba.y, 'black', 20, 24, 'white', tailleCaracteres)
     if (this.enfants.length === 0) {
       return [segment(B, A), labelA, probaA]
     } else {
@@ -175,7 +176,7 @@ export class Arbre {
         , vertical
           ? calcul(echelle * ((this.enfants.length / 2 - i) * this.enfants[i].taille))
           : calcul(echelle * ((i - this.enfants.length / 2) * this.enfants[i].taille)),
-        echelle, vertical, sens))
+        echelle, vertical, sens, tailleCaracteres))
       }
       if (this.racine) {
         objets.push(labelA)

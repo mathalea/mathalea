@@ -117,7 +117,7 @@ export default function CalculProbaExperience2Epreuves3e () {
     })
 
     omega.setTailles() // On calcule les tailles des arbres.
-    const objets = omega.represente(0, 11, 0, sup2 ? 2.5 : 1.2, false, -1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+    const objets = omega.represente(0, 11, 0, sup2 ? 2.5 : 1.2, false, -1, 5) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
     for (let j = 0; j < 3; j++) {
       p[j] = omega.getProba(B[j], true) // on calcule P(C) décimale.
     }
@@ -153,7 +153,7 @@ export default function CalculProbaExperience2Epreuves3e () {
     const b1Char = premiereLettreEnMajuscule(b1Color.charAt(0))
     const b2Char = premiereLettreEnMajuscule(b2Color.charAt(0))
     const nbBoule1 = randint(1, 3)
-    const nbBoule2 = randint(1, 3, nbBoule1)
+    const nbBoule2 = randint(1, 3) //, nbBoule1)
     let texte = `Dans une urne, il y a ${nbBoule1} boules ${b1Color}s et ${nbBoule2} boules ${b2Color}.<br>`
     texte += 'On tire successivement et avec remise deux boules.<br>'
     texte += 'Déterminer la probabilité d\'obtenir deux boules de la même couleur'
@@ -163,7 +163,7 @@ export default function CalculProbaExperience2Epreuves3e () {
     const tirage1 = []
     for (let i = 0; i < nbBoule1; i++) {
       tirage1.push(new Arbre({
-        nom: `${b1Char}`,
+        nom: `${b1Char}_${i + 1}`,
         rationnel: true,
         proba: fraction(1, card),
         visible: false,
@@ -173,7 +173,7 @@ export default function CalculProbaExperience2Epreuves3e () {
       }))
       for (let j = 0; j < nbBoule1; j++) {
         tirage1[i].enfants.push(new Arbre({
-          nom: `${tirage1[i].nom}${b1Char}`,
+          nom: `${b1Char}_${j + 1} `,
           rationnel: true,
           proba: fraction(1, card),
           visible: false,
@@ -184,7 +184,7 @@ export default function CalculProbaExperience2Epreuves3e () {
       }
       for (let j = 0; j < nbBoule2; j++) {
         tirage1[i].enfants.push(new Arbre({
-          nom: `${tirage1[i].nom}${b2Char}`,
+          nom: `${b2Char}_${j + 1}`,
           rationnel: true,
           proba: fraction(1, card),
           visible: false,
@@ -197,7 +197,7 @@ export default function CalculProbaExperience2Epreuves3e () {
 
     for (let i = 0; i < nbBoule2; i++) {
       tirage1.push(new Arbre({
-        nom: `${b2Char}`,
+        nom: `${b2Char}_${i + 1}`,
         rationnel: true,
         proba: fraction(1, card),
         visible: false,
@@ -207,7 +207,7 @@ export default function CalculProbaExperience2Epreuves3e () {
       }))
       for (let j = 0; j < nbBoule1; j++) {
         tirage1[i + nbBoule1].enfants.push(new Arbre({
-          nom: `${tirage1[i + nbBoule1].nom}${b1Char}`,
+          nom: `${b1Char}_${j + 1} `,
           rationnel: true,
           proba: fraction(1, card),
           visible: false,
@@ -218,7 +218,7 @@ export default function CalculProbaExperience2Epreuves3e () {
       }
       for (let j = 0; j < nbBoule2; j++) {
         tirage1[i + nbBoule1].enfants.push(new Arbre({
-          nom: `${tirage1[i + nbBoule1].nom}${b2Char}`,
+          nom: `${b2Char}_${j + 1} `,
           rationnel: true,
           proba: fraction(1, card),
           visible: false,
@@ -238,9 +238,9 @@ export default function CalculProbaExperience2Epreuves3e () {
       racine: true
     })
     omega.setTailles() // On calcule les tailles des arbres.
-    const objets = omega.represente(0, 12, 0, sup2 ? 2.5 : 1, false, -1, 0.5) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+    const objets = omega.represente(0, 12, 0, sup2 ? 2.5 : 1.4, false, -1, 8) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
     texteCorr += 'On a représenté l\'expérience par l\'arbre ci-dessous'
-    texte += mathalea2d({ xmin: 0, xmax: 25, ymin: 0, ymax: 13 }, ...objets)
+    texte += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8 }, ...objets)
 
     return { texte: texte, texteCorr: texteCorr, alea: [nbBoule1, nbBoule2, b1Char, b2Char] }
   }
@@ -251,7 +251,6 @@ export default function CalculProbaExperience2Epreuves3e () {
     this.autoCorrection = []
 
     for (let i = 0, cpt = 0, question; i < this.nbQuestions && cpt < 50;) {
-      // On choisit les probas de l'arbre
       question = unePieceDeuxUrnes(this, i, this.sup, this.sup2, this.sup3)
       // question = urneDeuxTiragesAvecRemise(this, i, this.sup, this.sup2, this.sup3)
       if (this.questionJamaisPosee(i, ...question.alea)) {
