@@ -1,12 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range1, combinaisonListesSansChangerOrdre, texNombrec, texFraction, contraindreValeur, compteOccurences } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range1, combinaisonListesSansChangerOrdre, texNombrec, texFraction } from '../../modules/outils.js'
 export const titre = 'Donner l’écriture décimale d’un nombre à partir de différents textes'
 
-export const dateDeModifImportante = '15/01/2022' // Ajout de paramètres
-
 /**
- * Écriture décimale à partir de différentes manières de l'énoncé
+ * Écriture décimale à partir de différentes manière de l'énoncer
  *
  * * 3 unités, 5 dixièmes et 8 centièmes
  * * 3 unités et 5 centièmes
@@ -15,39 +13,18 @@ export const dateDeModifImportante = '15/01/2022' // Ajout de paramètres
  * * 8+5/100+7/100
  * @author Rémi Angot
  * Référence 6N23-4
- * Relecture et ajout de paramètres : Janvier 2022 par EE
  */
-
 export default function NombreDecimalOraliseDeDifferentesManieres () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Donner l'écriture décimale de chaque nombre."
   this.nbQuestions = 5
-  this.besoinFormulaireTexte = ['Type des textes', ' Choix séparés par des tirets\n1 : 3 unités, 5 dixièmes et 8 centièmes\n2 : 3 unités et 5 centièmes\n3 : 5 dixièmes\n4 : 128/10\n5 : 8+5/100+7/100\n6 : Mélange']
-  this.sup = 6
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    let typesDeQuestionsDisponibles = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = range1(5)
-    } else {
-      if (typeof (this.sup) === 'number') { // Je n'ai jamais réussi à rentrer dans ce test.
-        this.sup = Math.max(Math.min(parseInt(this.sup), 6), 1)
-        typesDeQuestionsDisponibles[0] = this.sup
-      } else {
-        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 6, parseInt(typesDeQuestionsDisponibles[i]), 6)
-        }
-      }
-    }
-    console.log(this.sup)
-    console.log(typesDeQuestionsDisponibles)
-    if (compteOccurences(typesDeQuestionsDisponibles, 6) > 0) typesDeQuestionsDisponibles = range1(5) // Teste si l'utilisateur a choisi tout
-
+    const typesDeQuestionsDisponibles = range1(5)
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c, n, choix; i < this.nbQuestions && cpt < 50;) {

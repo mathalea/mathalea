@@ -213,9 +213,6 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
             texteCorr += `$=${texFraction(calcul((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((abs(a * k - c)) / s), calcul(d / s))}$`
           }
         }
-        if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
-          texte += '<br>' + propositionsQcm(this, i).texte
-        }
         if (context.isHtml && this.interactifType === 'mathLive') {
           if (this.sup3) {
             setReponse(this, i, (new FractionEtendue(Math.abs(a * d - c * b), b * d)).simplifie(), { formatInteractif: 'fraction' })
