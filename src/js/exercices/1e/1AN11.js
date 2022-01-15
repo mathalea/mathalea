@@ -61,7 +61,7 @@ export default function equationdetangente () {
           texteCorr += ` \\iff& p=${b} ${ecritureAlgebriqueSauf1(-c * a)}   \\\\`
           texteCorr += ` \\iff& p=${b - c * a}\\\\`
           texteCorr += '\\end{aligned}$'
-          texteCorr += `<br>On peut conclure que : $(T) : y=${reduireAxPlusB(c,b - c * a)}$.`
+          texteCorr += `<br>On peut conclure que : $(T) : y=${reduireAxPlusB(c, b - c * a)}$.`
           break
         case 1 :// 'formule':
           a = randint(-5, 5)
@@ -78,10 +78,10 @@ export default function equationdetangente () {
           texteCorr += `(T) : y&=f'(${a})(x-${ecritureParentheseSiNegatif(a)})+f(${a})&\\text{On applique à l'énoncé.}\\\\ `
           texteCorr += `(T) : y&=${c}(x-${ecritureParentheseSiNegatif(a)})${ecritureAlgebrique(b)}&\\text{On remplace les valeurs connues.}\\\\ `
           if (a < 0) { texteCorr += `(T) : y&=${c}(x${ecritureAlgebrique(-a)})${ecritureAlgebrique(b)}&\\text{On simplifie l'expression.}\\\\ ` }
-          texteCorr += `(T) : y&=${reduireAxPlusB(c,-a * c)}${ecritureAlgebrique(b)}&\\text{On développe.}\\\\ `
+          texteCorr += `(T) : y&=${reduireAxPlusB(c, -a * c)}${ecritureAlgebrique(b)}&\\text{On développe.}\\\\ `
 
           texteCorr += '\\end{aligned}$'
-          texteCorr += `<br>On peut conclure que : $(T) : y=${reduireAxPlusB(c,b - c * a)}$.`
+          texteCorr += `<br>On peut conclure que : $(T) : y=${reduireAxPlusB(c, b - c * a)}$.`
           break
       }
 
