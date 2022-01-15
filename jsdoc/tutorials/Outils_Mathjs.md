@@ -453,8 +453,12 @@ Nous avons vu les limites de `math.simplify()`. Voici une autre manière de tran
                             }
                             break
                         case '*': // En cas de multiplications
-                            if (node.args[0].toString() === '1' || node.args[0].toString() === '-1') { // les 1*x ou -1*x ...
-                                node = node.args[1] // ... deviennent x ou -x
+                            if (node.isOperatorNode && node.op === '*') {
+                                if (node.args[0].toString() === '1') { // Pour corriger 1*n en n
+                                    node = node.args[1]
+                                } else if (node.args[0].toString() === '-1') { // Pour convertir -1*n en -n
+                                    node = parse('-' + node.args[1].toString())
+                                }
                             }
                             break
                     }
