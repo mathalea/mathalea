@@ -1316,10 +1316,15 @@ function miseAJourDuCode () {
     listeDesExercices = formChoixDesExercices.value.replace(/\s/g, '').replace(';', ',').split(',')
     num = parseInt(num)
     if (num !== 0) {
-      ;[listeDesExercices[num - 1], listeDesExercices[num]] = [listeDesExercices[num], listeDesExercices[num - 1]]
+      const tmp = listeDesExercices[num]
+      listeDesExercices[num] = listeDesExercices[num - 1]
+      listeDesExercices[num - 1] = tmp
+      const tmpobj = listeObjetsExercice[num]
+      listeObjetsExercice[num] = listeObjetsExercice[num - 1]
+      listeObjetsExercice[num - 1] = tmpobj
       formChoixDesExercices.value = listeDesExercices.toString()
       copierExercicesFormVersAffichage(listeDesExercices)
-      miseAJourDeLaListeDesExercices()
+      miseAJourDuCode()
     }
   }
 
@@ -1329,11 +1334,16 @@ function miseAJourDuCode () {
     const formChoixDesExercices = document.getElementById('choix_des_exercices')
     listeDesExercices = formChoixDesExercices.value.replace(/\s/g, '').replace(';', ',').split(',')
     num = parseInt(num)
-    if (num !== listeDesExercices.length - 1) {
-      ;[listeDesExercices[num], listeDesExercices[num + 1]] = [listeDesExercices[num + 1], listeDesExercices[num]]
+    if (num !== listeDesExercices.length + 1) {
+      const tmp = listeDesExercices[num]
+      listeDesExercices[num] = listeDesExercices[num + 1]
+      listeDesExercices[num + 1] = tmp
+      const tmpobj = listeObjetsExercice[num]
+      listeObjetsExercice[num] = listeObjetsExercice[num + 1]
+      listeObjetsExercice[num + 1] = tmpobj
       formChoixDesExercices.value = listeDesExercices.toString()
       copierExercicesFormVersAffichage(listeDesExercices)
-      miseAJourDeLaListeDesExercices()
+      miseAJourDuCode()
     }
   }
 

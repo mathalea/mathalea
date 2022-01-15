@@ -131,8 +131,8 @@ Les concepteurs plus curieux, trouveront, aussi, dans ce chapitre :
 >>texte += ajouteChampTexteMathLive(this, i,'fixed-width-150') // Fixe la largeur du champ à 150 pixels (disponible de 50 en 50 de 100 jusqu'à 500 puis de 100 en 100 jusqu'à 1000)
 >>texte += ajouteChampTexteMathLive(this, i,'inline') // sans retour à la ligne 
 >>texte += ajouteChampTexteMathLive(this, i,'inline fixed-width-150') // mélange des deux options précédentes
->>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texte: 'avant' })) // écrit "avant" devant le champ de réponses
->>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texteApres: 'après' })) // écrit "après" derrière le champ de réponses
+>>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texte: 'avant' }) // écrit "avant" devant le champ de réponses
+>>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texteApres: 'après' }) // écrit "après" derrière le champ de réponses
 >>texte += ajouteChampTexteMathLive(this, i,'longueur') // le champ de réponses oblige l'élève à remplir une valeur numérique ET une unité de longueur (ou d'aires).
  >>```
 
@@ -143,7 +143,7 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 
 - La syntaxe complète de la fonction `setReponse()` est la suivante :
 >>```js
->>setReponse (this, i, a, {digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, formatInteractif = 'calcul'}
+>>setReponse (this, i, a, {digits : 0, decimals : 0, signe : false, exposantNbChiffres : 0, exposantSigne : false, approx : 0, formatInteractif : 'calcul'}
 >>```
 >>Les 3 premiers paramètres sont obligatoires et désignent, respectivement, l'exercice appelant, le numéro de la question dans la programmation de l'exercice et la réponse attendue.
 
