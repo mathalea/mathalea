@@ -17,6 +17,15 @@ const epsilon = 0.000001
  * @module
  */
 
+export function interactivite (exercice) {
+  if (context.isHtml) {
+    if (exercice.interactif) return 'I-html'
+    else return 'html'
+  } else if (context.isAmc) return 'AMC'
+  else if (exercice.interactif) return 'I-latex'
+  else return 'latex'
+}
+
 /**
  * Affecte les propriétés contenu et contenuCorrection (d'après les autres propriétés de l'exercice)
  * @param {Exercice} exercice
@@ -7611,6 +7620,8 @@ export function exportQcmAmc (exercice, idExo) {
           }
           if (autoCorrection[j].reponse.param.tpoint !== undefined && autoCorrection[j].reponse.param.tpoint) {
             texQr += `Tpoint={${autoCorrection[j].reponse.param.tpoint}},`
+          } else {
+            texQr += 'Tpoint={,},'
           }
           texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1} '
           if (autoCorrection[j].reponse.textePosition === 'right') texQr += `${autoCorrection[j].reponse.texte}\n`
@@ -7685,6 +7696,8 @@ export function exportQcmAmc (exercice, idExo) {
         }
         if (autoCorrection[j].reponse.param.tpoint !== undefined && autoCorrection[j].reponse.param.tpoint) {
           texQr += `Tpoint={${autoCorrection[j].reponse.param.tpoint}},`
+        } else {
+          texQr += 'Tpoint={,},'
         }
         texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreapprox=0.5,scoreexact=1,vertical=true}\n'
         texQr += '\\end{questionmultx}\n\\end{minipage}}\n'
@@ -7896,6 +7909,9 @@ export function exportQcmAmc (exercice, idExo) {
           melange = autoCorrection[j].melange
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
+        if (autoCorrection[j].enonceAGauche) {
+          texQr += `\\noindent\\fbox{\\begin{minipage}{${autoCorrection[j].enonceAGauche[0]}\\linewidth}\n`
+        }
         if (autoCorrection[j].enonceAvant === undefined) { // Dans une suite de questions, il se peut qu'il n'y ait pas d'énoncé général donc pas besoin de saut de ligne non plus.
           texQr += `${autoCorrection[j].enonce} \\\\\n `
         } else if (autoCorrection[j].enonceAvant) {
@@ -7905,12 +7921,21 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += `${autoCorrection[j].enonce} \\\\\n `
           }
         }
-
+        if (autoCorrection[j].enonceAGauche) {
+          texQr += `\\end{minipage}}\n\\noindent\\begin{minipage}[t]{${autoCorrection[j].enonceAGauche[1]}\\linewidth}\n`
+        }
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.multicols) {
-            texQr += '\\begin{multicols}{2}\n'
+            texQr += '\\setlength{\\columnseprule}{'
+            if (autoCorrection[j].options.barreseparation) {
+              texQr += '0.5'
+            } else {
+              texQr += '0'
+            }
+            texQr += 'pt}\\begin{multicols}{2}\n'
           }
         }
+        // console.log(texQr)
         for (let qr = 0, qrType, prop, propositions, rep; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les questions-reponses de l'élément j
           prop = autoCorrection[j].propositions[qr] // prop est un objet avec cette structure : {type,propositions,reponse}
           qrType = prop.type
@@ -8040,9 +8065,10 @@ export function exportQcmAmc (exercice, idExo) {
               } else if (rep.valeur[0].num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
                 valeurAMCNum = rep.valeur[0]
                 texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-                if (!(propositions[0].alignement === undefined)) {
+                console.log(propositions[0].reponse.alignement)
+                if (!(propositions[0].reponse.alignement === undefined)) {
                   texQr += '\\begin{'
-                  texQr += `${propositions[0].alignement}}`
+                  texQr += `${propositions[0].reponse.alignement}}`
                 }
                 if (propositions !== undefined) {
                   texQr += `\\explain{${propositions[0].texte}}\n`
@@ -8081,9 +8107,9 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
                 texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
-                if (!(propositions[0].alignement === undefined)) {
+                if (!(propositions[0].reponse.alignement === undefined)) {
                   texQr += '\\end{'
-                  texQr += `${propositions[0].alignement}}`
+                  texQr += `${propositions[0].reponse.alignement}}`
                 }
                 texQr += '\\end{questionmultx}\n'
                 id += 2
@@ -8108,9 +8134,9 @@ export function exportQcmAmc (exercice, idExo) {
                   texQr += `\\explain{${propositions[0].texte}}\n`
                 }
                 texQr += `${rep.texte}\n`
-                if (!(propositions[0].alignement === undefined)) {
+                if (!(propositions[0].reponse.alignement === undefined)) {
                   texQr += '\\begin{'
-                  texQr += `${propositions[0].alignement}}`
+                  texQr += `${propositions[0].reponse.alignement}}`
                 }
                 texQr += `\\AMCnumericChoices{${rep.valeur[0]}}{digits=${nbChiffresPe + nbChiffresPd},decimals=${nbChiffresPd},sign=${rep.param.signe},`
                 if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
@@ -8131,11 +8157,13 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 if (rep.param.tpoint !== undefined && rep.param.tpoint) {
                   texQr += `Tpoint={${rep.param.tpoint}},`
+                } else {
+                  texQr += 'Tpoint={,},'
                 }
                 texQr += 'borderwidth=0pt,backgroundcol=lightgray,scoreexact=1}\n'
-                if (!(propositions[0].alignement === undefined)) {
+                if (!(propositions[0].reponse.alignement === undefined)) {
                   texQr += '\\end{'
-                  texQr += `${propositions[0].alignement}}`
+                  texQr += `${propositions[0].reponse.alignement}}`
                 }
                 texQr += '\\end{questionmultx}\n'
                 id++
@@ -8169,6 +8197,9 @@ export function exportQcmAmc (exercice, idExo) {
           if (autoCorrection[j].options.multicols) {
             texQr += '\\end{multicols}\n'
           }
+        }
+        if (autoCorrection[j].enonceAGauche) {
+          texQr += '\\end{minipage}\n'
         }
         texQr += '}\n'
         break
