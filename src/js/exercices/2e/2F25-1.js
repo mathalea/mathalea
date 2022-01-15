@@ -37,8 +37,9 @@ export default function EtudierGraphiqueParite () {
           b = randint(-2, 2)
           c = randint(-8, 8, [0])
           r = repere2({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
-          C = courbe2(f, { repere: r, step: 0.25 })
+
           f = x => a * x + b
+          C = courbe2(f, { repere: r, step: 0.25 })
           texte = mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C)
           texteCorr = `<b>a.</b> On étudie la partité de la fonction $f$, définie sur  $D=\\mathbb{R}$ par $f(x)=${reduireAxPlusB(a, b)}$.<br>`
 
