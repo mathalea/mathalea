@@ -1,214 +1,21 @@
 import Exercice from '../Exercice.js'
-import { polygone, segment, ObjetMathalea2D, texteParPoint, point, mathalea2d, texteParPosition, fixeBordures } from '../../modules/2d.js'
+import { mathalea2d, fixeBordures, diagrammeBarres } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { decompositionFacteursPremiers, listeEntiersSommeConnue, choice, randint, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
-import { multiply, divide, matrix, isPrime, sum, ceil, gcd, fraction, round, max } from 'mathjs'
+import { decompositionFacteursPremiers, listeEntiersSommeConnue, choice, randint, listeQuestionsToContenu, combinaisonListes, num } from '../../modules/outils.js'
+import { multiply, divide, matrix, isPrime, sum, gcd, fraction, round } from 'mathjs'
 export const titre = 'Calculs de probabilités'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '12/12/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
-function TraceBarre (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
-  ObjetMathalea2D.call(this)
-  this.bordure = [point(x - epaisseur / 2, 0), point(x - epaisseur / 2, y * unite), point(x + epaisseur / 2, y * unite), point(x + epaisseur / 2, 0)]
-  this.bordures = [x - epaisseur / 2, 0, x + epaisseur / 2, y * unite]
-  const p = polygone(...this.bordure)
-  p.couleurDeRemplissage = couleurDeRemplissage
-  p.opaciteDeRemplissage = opaciteDeRemplissage
-  p.color = color
-  if (hachures) {
-    p.hachures = hachures
-  }
-  const texte = texteParPosition(legende, x, -0.2, angle, 'black', 1, 'gauche')
-
-  this.tikz = function () {
-    return p.tikz() + '\n' + texte.tikz()
-  }
-  this.svg = function (coeff) {
-    return p.svg(coeff) + '\n' + texte.svg(coeff)
-  }
-}
-
-function traceBarre (...args) {
-  return new TraceBarre(...args)
-}
-
-function num (nb) {
-  return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
-}
-
-function numberFormat (nb) {
-  return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ')
-}
-
 function fraction2Tex (fraction) {
   const signe = fraction.s === 1 ? '' : '-'
   return fraction.d !== 1 ? String.raw`${signe}\dfrac{${num(fraction.n)}}{${num(fraction.d)}}` : String.raw`${signe}${num(fraction.n)}`
 }
-/*
-function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = undefined, rymax = undefined, rzoom = 1 } = {}) {
-  rxmin = rxmin !== undefined ? rxmin : -1
-  rymin = rymin !== undefined ? rymin : -1
-  rxmax = rxmax !== undefined ? rxmax : 1
-  rymax = rymax !== undefined ? rymax : 1
-  let xmin = 0; let ymin = 0; let xmax = 0; let ymax = 0
-  for (const objet of objets) {
-    xmin = Math.min(xmin, objet.x + rxmin || 0)
-    xmax = Math.max(xmax, objet.x + rxmax || 0)
-    ymin = Math.min(ymin, objet.y + rymin || 0)
-    ymax = Math.max(ymax, objet.y + rymax || 0)
-    if (typeof objet.bordure !== 'undefined') {
-      if (typeof objet.bordure[Symbol.iterator] === 'function') {
-        for (const obj of objet.bordure) {
-          xmin = Math.min(xmin, obj.x + rxmin || 0)
-          xmax = Math.max(xmax, obj.x + rxmax || 0)
-          ymin = Math.min(ymin, obj.y + rymin || 0)
-          ymax = Math.max(ymax, obj.y + rymax || 0)
-        }
-      } else {
-        xmin = Math.min(xmin, objet.bordure.x + rxmin || 0)
-        xmax = Math.max(xmax, objet.bordure.x + rxmax || 0)
-        ymin = Math.min(ymin, objet.bordure.y + rymin || 0)
-        ymax = Math.max(ymax, objet.bordure.y + rymax || 0)
-      }
-    }
-  }
-  return { xmin: xmin * rzoom, xmax: xmax * rzoom, ymin: ymin * rzoom, ymax: ymax * rzoom }
-}
-*/
-function Axes (
-  xmin = -30,
-  ymin = -30,
-  xmax = 30,
-  ymax = 30,
-  thick = 0.2,
-  xstep = 1,
-  ystep = 1,
-  epaisseur = 2,
-  color = 'black',
-  ytick = ystep,
-  titre = ''
-) {
-  ObjetMathalea2D.call(this)
-  const objets = []
-  objets.push(texteParPoint(titre, point(xmin - thick - 0.1, ymax), 'gauche', color))
-  const ordonnee = segment(-1, ymin, -1, ymax)
-  ordonnee.styleExtremites = '->'
-  ordonnee.epaisseur = epaisseur
-  objets.push(ordonnee)
-  ordonnee.color = color
-  for (let y = ymin; y < ymax; y = fraction(y).add(ystep)) {
-    const s = segment(xmin - thick, y, xmin, y)
-    s.epaisseur = epaisseur
-    s.color = color
-    objets.push(s)
-  }
-  for (let y = ymin; y < ymax; y = fraction(y).add(ystep.div(ytick))) {
-    const s = segment(xmin - thick / 2, y, xmin, y)
-    s.epaisseur = epaisseur
-    s.color = color
-    objets.push(s)
-  }
-  this.svg = function (coeff) {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.svg(coeff)
-    }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.tikz()
-    }
-    return code
-  }
-  this.commentaire = `Axes(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, thick = ${thick})`
-}
 
-function axes (...args) {
-  return new Axes(...args)
-}
-
-function LabelY (
-  ymin = 1,
-  ymax = 20,
-  step = 1,
-  color = 'black',
-  pos = -0.6,
-  coeff = 1
-) {
-  ObjetMathalea2D.call(this)
-  const objets = []
-  for (let y = ceil(fraction(ymin, coeff));
-    y.mul(coeff) <= ymax;
-    y = y.add(step)
-  ) {
-    objets.push(
-      texteParPoint(
-        y.mul(coeff),
-        point(pos, y),
-        'gauche',
-        color
-      )
-    )
-  }
-  this.svg = function (coeff) {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.svg(coeff)
-    }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.tikz()
-    }
-    return code
-  }
-  this.commentaire = `labelX(ymin=${ymin},ymax=${ymax},step=${step},color=${color},pos=${pos})`
-}
-
-function labelY (...args) {
-  return new LabelY(...args)
-}
-
-function diagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false } = {}) {
-  const diagramme = []
-  for (let j = 0; j < hauteursBarres.length; j++) {
-    const abscisseBarre = j * coeff
-    const hauteurBarre = hauteursBarres[j] * hauteurDiagramme / max(hauteursBarres)
-    diagramme.push(traceBarre(abscisseBarre, hauteurBarre, etiquettes[j], { couleurDeRemplissage: couleurDeRemplissage }))
-    if (reperageTraitPointille) {
-      const ligne = segment(-1, hauteurBarre, abscisseBarre, hauteurBarre)
-      ligne.pointilles = true
-      ligne.epaisseur = 0.2
-      diagramme.push(ligne)
-    }
-    diagramme.push(texteParPoint(numberFormat(hauteursBarres[j]), point(abscisseBarre, hauteurBarre + 0.3)))
-    // Calculs permettant de graduer l'axe vertical et de placer des valeurs
-    const steps = [1, 2, 5, 10, 20]
-    const yticks = [1, 2, 5, 5, 5]
-    let istep = 1
-    let step = 1
-    let ytick = 1
-    while (max(hauteursBarres) / step > 5 && istep < 5) {
-      istep += 1
-      step = steps[istep - 1]
-      ytick = yticks[istep - 1]
-    }
-    if (istep === 5) istep = 2
-    while (max(hauteursBarres) / step > 5) {
-      istep = istep + 1
-      step = istep * 10
-      ytick = 5
-    }
-    if (labelAxeVert) diagramme.push(labelY(0, max(hauteursBarres), fraction(hauteurDiagramme, max(hauteursBarres)).mul(step), 'black', -1.3, max(hauteursBarres) / hauteurDiagramme))
-    if (axeVertical) diagramme.push(axes(-1, 0, abscisseBarre, hauteurDiagramme + 1, 0.2, abscisseBarre, fraction(hauteurDiagramme, max(hauteursBarres)).mul(step), 0.2, 'black', ytick, titreAxeVertical))
-  }
-  if (titre !== '') diagramme.push(texteParPoint(titre, point((hauteursBarres.length - 1) * coeff / 2, hauteurDiagramme + 1)))
-  return mathalea2d(Object.assign({}, fixeBordures(diagramme, { rxmin: -3, rymin: -2, rymax: 1.5 }), { style: 'inline', scale: 1 }), ...diagramme)
+function graphique (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false } = {}) {
+  const diagramme = diagrammeBarres(hauteursBarres, etiquettes, { reperageTraitPointille: reperageTraitPointille, couleurDeRemplissage: couleurDeRemplissage, titreAxeVertical: titreAxeVertical, titre: titre, hauteurDiagramme: hauteurDiagramme, coeff: coeff, axeVertical: axeVertical, etiquetteValeur: etiquetteValeur, labelAxeVert: labelAxeVert })
+  return mathalea2d(Object.assign({}, fixeBordures([diagramme], { rxmin: -3, rymin: -2, rymax: 1.5 }), { style: 'inline', scale: 1 }), diagramme)
 }
 
 function listeExhaustive (univers, ratios) {
@@ -336,7 +143,7 @@ function diagrammeCalculsFrequences (typeReponseAttendue = 0) {
   for (let j = 0; j < experience.realisees.length; j++) {
     issuesReordonnees.push(urne[experience.realisees[j]])
   }
-  const diagrammeEffectifs = diagrammeBarres(experience.effectifs, issuesReordonnees, { axeVertical: true, titreAxeVertical: 'Effectifs' })
+  const diagrammeEffectifs = graphique(experience.effectifs, issuesReordonnees, { axeVertical: true, titreAxeVertical: 'Effectifs', labelAxeVert: true })
   const choixRef = choice(experience.realisees) // Choix d'une référence
   const posRef = experience.realisees.indexOf(choixRef) // Position de la référence dans realises
   const choixIssue = urne[choixRef] // Issue correspondante à ce choix (les billes dans l'urne ne sont listées dans le même ordre)
@@ -662,7 +469,7 @@ function diagrammeEffectifsCalculsLoiGrandNombre () {
   for (let j = 0; j < experience.realisees.length; j++) {
     issuesReordonnees.push(urne[experience.realisees[j]])
   }
-  const diagrammeEffectifs = diagrammeBarres(experience.effectifs, issuesReordonnees, { axeVertical: true, titreAxeVertical: 'Effectifs' })
+  const diagrammeEffectifs = graphique(experience.effectifs, issuesReordonnees, { axeVertical: true, titreAxeVertical: 'Effectifs' })
   const choixRef = choice(experience.realisees) // Choix d'une référence
   const posRef = experience.realisees.indexOf(choixRef) // Position de la référence dans realises
   const choixIssue = urne[choixRef] // Issue correspondante à ce choix (les billes dans l'urne ne sont listées dans le même ordre)
@@ -782,8 +589,8 @@ export default function CalculsProbabilites () {
   this.video = ''
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
-  context.isHtml ? (this.spacing = 2.5) : (this.spacing = 1.5)
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
+  context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
+  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
   this.sup = 0 // Type d'exercice
   this.besoinFormulaireNumerique = [
     'Type de question', 9, [

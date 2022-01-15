@@ -115,7 +115,7 @@ export default function variationPolynomeDegre3 () {
               delatcl: 0.8,
               lgt: 3.5,
               hauteurLignes: [30, 20, 30],
-              tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ['$f(x)$', 1.5, 60]],
+              tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 1.5, 25]],
                 ['$-\\infty$', 30, `$${rac[2]}$`, 70, `$${rac[3]}$`, 70, '$+\\infty$', 30]],
               tabLines:
               [['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20],
@@ -158,7 +158,7 @@ export default function variationPolynomeDegre3 () {
             delatcl: 0.8,
             lgt: 3.5,
             hauteurLignes: [30, 20, 30],
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 30], ['$f(x)$', 2, 25]],
+            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2, 25]],
               ['$-\\infty$', 30, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, '', 0, '-', 20],
@@ -188,7 +188,7 @@ export default function variationPolynomeDegre3 () {
             deltacl: 0.6,
             lgt: 3.5,
             hauteurLignes: [30, 20, 30],
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ['$f(x)$', 2.5, 60]],
+            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
               ['$-\\infty$', 30, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, '', 0, '+', 20],
@@ -217,7 +217,7 @@ export default function variationPolynomeDegre3 () {
               escpl: 3.5,
               delatcl: 0.8,
               lgt: 3.5,
-              tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ['$f(x)$', 2.5, 60]],
+              tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
                 ['$-\\infty$', 30, `$${arrondiVirgule(rac[0])}$`, 60, `$${arrondiVirgule(rac[1])}$`, 60, '$+\\infty$', 30]],
               tabLines:
               [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
@@ -230,7 +230,7 @@ export default function variationPolynomeDegre3 () {
               escpl: 3.5,
               delatcl: 0.8,
               lgt: 3.5,
-              tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ['$f(x)$', 2.5, 60]],
+              tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
                 ['$-\\infty$', 30, `$${arrondiVirgule(rac[0])}$`, 60, `$${arrondiVirgule(rac[1])}$`, 60, '$+\\infty$', 30]],
               tabLines:
               [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
@@ -294,7 +294,7 @@ export default function variationPolynomeDegre3 () {
             delatcl: 0.8,
             lgt: 3.5,
             hauteurLignes: [20, 20, 20, 20, 20],
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ['$f(x)$', 2.5, 60]],
+            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
               ['$-\\infty$', 30, `$${rac[2]}$`, 60, `$${x2s}$`, 60, `$${rac[3]}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, 'R/', 0, '-', 20, 'R/', 0, 'z', 20, 'R/', 0, '+', 20, 'R/', 0],
@@ -323,7 +323,7 @@ export default function variationPolynomeDegre3 () {
             delatcl: 0.8,
             lgt: 3.5,
             hauteurLignes: [20, 20, 20, 20, 20],
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ['$f(x)$', 2.5, 60]],
+            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
               ['$-\\infty$', 30, `$${x2s}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, '-', 20, 'z', 20, '+', 20],
@@ -350,7 +350,7 @@ export default function variationPolynomeDegre3 () {
             delatcl: 0.8,
             lgt: 3.5,
             hauteurLignes: [20, 20, 20, 20, 20],
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ['$f(x)$', 2.5, 60]],
+            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
               ['$-\\infty$', 30, `$${x2s}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, '-', 20, 'z', 20, '+', 20],
@@ -380,7 +380,7 @@ export default function variationPolynomeDegre3 () {
             delatcl: 0.8,
             lgt: 3.5,
             hauteurLignes: [20, 20, 20, 20, 20],
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ['$f(x)$', 2.5, 60]],
+            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
               ['$-\\infty$', 30, `$${rac[2]}$`, 60, `$${x2s}$`, 60, `$${rac[3]}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, 'R/', 0, '+', 20, 'R/', 0, 'z', 20, 'R/', 0, '-', 20, 'R/', 0],
@@ -409,7 +409,7 @@ export default function variationPolynomeDegre3 () {
             delatcl: 0.8,
             lgt: 3.5,
             hauteurLignes: [20, 20, 20, 20, 20],
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ['$f(x)$', 2.5, 60]],
+            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
               ['$-\\infty$', 30, `$${x2s}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, '+', 20, 'z', 20, '-', 20],
@@ -436,7 +436,7 @@ export default function variationPolynomeDegre3 () {
             delatcl: 0.8,
             lgt: 3.5,
             hauteurLignes: [20, 20, 20, 20, 20],
-            tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ['$f(x)$', 2.5, 60]],
+            tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
               ['$-\\infty$', 30, `$${x2s}$`, 60, '$+\\infty$', 30]],
             tabLines:
               [['Line', 30, 'R/', 0, '+', 20, 'z', 20, '-', 20],
@@ -469,7 +469,7 @@ export default function variationPolynomeDegre3 () {
           delatcl: 0.8,
           lgt: 3.5,
           hauteurLignes: [20, 20, 20, 20, 20],
-          tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ['$f(x)$', 2.5, 60]],
+          tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
             ['$-\\infty$', 30, `$${texFractionSigne(-d, c)}$`, 60, '$+\\infty$', 30]],
           tabLines:
             [['Line', 30, 'R/', 0, 'R/', 0, '+', 20, 'R/', 0],
@@ -488,7 +488,7 @@ export default function variationPolynomeDegre3 () {
           delatcl: 0.8,
           lgt: 3.5,
           hauteurLignes: [20, 20, 20, 20, 20],
-          tabInit: [[['$x$', 1.5, 30], ["$f'(x)$", 1, 60], ['$f(x)$', 2.5, 60]],
+          tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
             ['$-\\infty$', 30, `$${texFractionSigne(-d, c)}$`, 60, '$+\\infty$', 30]],
           tabLines:
             [['Line', 30, 'R/', 0, 'R/', 0, '-', 20, 'R/', 0],

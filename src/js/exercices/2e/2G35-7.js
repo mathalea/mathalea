@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 /**
- 2G36-7, ex 2G50-2
+ 2G35-7, ex 2G50-2
 
 */
 export default function lecturegraphiquedeaetb (numeroExercice) {
@@ -30,6 +30,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
     this.sup = parseInt(this.sup)
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     // let typesDeQuestionsDisponibles = []
     // typesDeQuestionsDisponibles = []// On complète selon le nb de cas dans l'exo (switch)
 

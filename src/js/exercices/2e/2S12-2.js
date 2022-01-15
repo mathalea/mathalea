@@ -1,14 +1,14 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, texNombrec } from '../../modules/outils.js'
-export const titre = 'Évolutions successives'
+export const titre = 'Déterminer un taux d’évolution global'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDePublication = '20/12/2021'
+export const dateDePublication = '06/01/2022'
 
 /**
 * Problèmes d'évolutions successives'
 *
-* * Situations variées : prix, habitants,  ##
+* * Situations variées : prix, habitants, adhérents  ##
 *
 * * Déterminer un taux d'évolution global
 * * Mélange des 3 types de problèmes
@@ -94,12 +94,12 @@ export default function EvolutionsSuccesives () {
           }
           texteCorr += `<br><br>Le coefficient multiplicateur global est égal à $CM = CM_1 \\times CM_2 = ${texNombre(CM1)} \\times ${texNombre(CM2)} =${texNombre(CM)}$.`
           if (CM > 1) {
-            texteCorr += `<br><br>Or $CM =${texNombre(CM)} = 1 + ${Math.abs(p)} = 1 + \\dfrac{${texNombrec(t)}}{100}$ ce qui correspond à une hausse de $${texNombrec(t)}~\\%$.`
+            texteCorr += `<br><br>Or $CM =${texNombre(CM)} = 1 + ${texNombre(Math.abs(p))} = 1 + \\dfrac{${texNombrec(t)}}{100}$ ce qui correspond à une hausse de $${texNombrec(t)}~\\%$.`
           }
           if (CM < 1) {
-            texteCorr += `<br><br>Or $CM = ${texNombre(CM)} = 1 - ${Math.abs(p)} = 1-\\dfrac{${texNombrec(t)}}{100}$ ce qui correspond à une baisse de $${texNombrec(t)}~\\%$.`
+            texteCorr += `<br><br>Or $CM = ${texNombre(CM)} = 1 - ${texNombre(Math.abs(p))} = 1-\\dfrac{${texNombrec(t)}}{100}$ ce qui correspond à une baisse de $${texNombrec(t)}~\\%$.`
           }
-          texteCorr += `<br>Le prix de l'article a subi une ${nom} globale de $${Math.abs(taux)}~\\%$.`
+          texteCorr += `<br>Le prix de l'article a subi une ${nom} globale de $${texNombre(Math.abs(taux))}~\\%$.`
           break
         case 2 :
           taux1 = randint(-20, 20, 0)
@@ -155,12 +155,12 @@ export default function EvolutionsSuccesives () {
           }
           texteCorr += `<br><br>Le coefficient multiplicateur global est égal à $CM = CM_1 \\times CM_2 = ${texNombre(CM1)} \\times ${texNombre(CM2)} =${texNombre(CM)}$.`
           if (CM > 1) {
-            texteCorr += `<br><br>Or $CM =${texNombre(CM)} = 1 + ${Math.abs(p)} = 1 + \\dfrac{${texNombrec(t)}}{100}$ ce qui correspond à une hausse de $${texNombrec(t)}~\\%$.`
+            texteCorr += `<br><br>Or $CM =${texNombre(CM)} = 1 + ${texNombre(Math.abs(p))} = 1 + \\dfrac{${texNombrec(t)}}{100}$ ce qui correspond à une hausse de $${texNombrec(t)}~\\%$.`
           }
           if (CM < 1) {
-            texteCorr += `<br><br>Or $CM = ${texNombre(CM)} = 1 - ${Math.abs(p)} = 1-\\dfrac{${texNombrec(t)}}{100}$ ce qui correspond à une baisse de $${texNombrec(t)}~\\%$.`
+            texteCorr += `<br><br>Or $CM = ${texNombre(CM)} = 1 - ${texNombre(Math.abs(p))} = 1-\\dfrac{${texNombrec(t)}}{100}$ ce qui correspond à une baisse de $${texNombrec(t)}~\\%$.`
           }
-          texteCorr += `<br>Le nombre d'habitants de cette ville a ${nom} de $${Math.abs(taux)}~\\%$ entre $2020$ et $2022$.`
+          texteCorr += `<br>Le nombre d'habitants de cette ville a ${nom} de $${texNombre(Math.abs(taux))}~\\%$ entre $2020$ et $2022$.`
           break
         case 3 :
           taux1 = randint(-40, 40, 0)
@@ -216,12 +216,12 @@ export default function EvolutionsSuccesives () {
           }
           texteCorr += `<br><br>Le coefficient multiplicateur global est égal à $CM = CM_1 \\times CM_2 = ${texNombre(CM1)} \\times ${texNombre(CM2)} =${texNombre(CM)}$.`
           if (CM > 1) {
-            texteCorr += `<br><br>Or $CM =${texNombre(CM)} = 1 + ${Math.abs(p)} = 1 + \\dfrac{${texNombrec(t)}}{100}$ ce qui correspond à une hausse de $${texNombrec(t)}~\\%$.`
+            texteCorr += `<br><br>Or $CM =${texNombre(CM)} = 1 + ${texNombre(Math.abs(p))} = 1 + \\dfrac{${texNombrec(t)}}{100}$ ce qui correspond à une hausse de $${texNombrec(t)}~\\%$.`
           }
           if (CM < 1) {
-            texteCorr += `<br><br>Or $CM = ${texNombre(CM)} = 1 - ${Math.abs(p)} = 1-\\dfrac{${texNombrec(t)}}{100}$ ce qui correspond à une baisse de $${texNombrec(t)}~\\%$.`
+            texteCorr += `<br><br>Or $CM = ${texNombre(CM)} = 1 - ${texNombre(Math.abs(p))} = 1-\\dfrac{${texNombrec(t)}}{100}$ ce qui correspond à une baisse de $${texNombrec(t)}~\\%$.`
           }
-          texteCorr += `<br>Le nombre d'adhérents de cette association a ${nom} de $${Math.abs(taux)}~\\%$ entre $2019$ et $2021$.`
+          texteCorr += `<br>Le nombre d'adhérents de cette association a ${nom} de $${texNombre(Math.abs(taux))}~\\%$ entre $2019$ et $2021$.`
           break
       }
       if (this.questionJamaisPosee(i, taux1, taux2)) {

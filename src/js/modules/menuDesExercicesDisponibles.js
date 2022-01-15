@@ -508,11 +508,11 @@ export function menuDesExercicesDisponibles () {
       '2G24 - Calculer les coordonnées d’une somme de vecteurs, d’un produit d’un vecteur par un nombre réel',
       '2G25 - Caractériser alignement et parallélisme par la colinéarité de vecteurs',
       '2G26 - Résoudre des problèmes en utilisant la représentation la plus adaptée des vecteurs'],
-    ['2G3', '2G3 - Représenter et caractériser les droites du plan', '2G31 - Déterminer une équation de droite à partir de deux points, un point et un vecteur directeur ou un point et la pente',
-      '2G32 - Déterminer la pente ou un vecteur directeur d’une droite donnée par une équation ou une représentation graphique',
-      '2G33 - Tracer une droite connaissant son équation cartésienne ou réduite',
-      '2G34 - Établir alignement et parallélisme',
-      '2G35 - Résoudre un système de deux équations linéaires à deux inconnues, déterminer le point d’intersection de deux droites sécantes'],
+    ['2G3', '2G3 - Représenter et caractériser les droites du plan', '2G30 - Déterminer une équation de droite à partir de deux points, un point et un vecteur directeur ou un point et la pente',
+      '2G31 - Déterminer la pente ou un vecteur directeur d’une droite donnée par une équation ou une représentation graphique',
+      '2G32 - Tracer une droite connaissant son équation cartésienne ou réduite',
+      '2G33 - Établir alignement et parallélisme',
+      '2G34 - Résoudre un système de deux équations linéaires à deux inconnues, déterminer le point d’intersection de deux droites sécantes'],
     ['2N1', '2N1 - Manipuler les nombres réels', '2N10 - Associer à chaque point de la droite graduée un unique nombre réel et réciproquement',
       '2N11 - Représenter un intervalle de la droite numérique. Déterminer si un nombre réel appartient à un intervalle donné',
       '2N12 - Donner un encadrement, d’amplitude donnée, d’un nombre réel par des décimaux',
@@ -740,8 +740,8 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercices += '</div>'
     listeHtmlDesExercicesTab += objExercicesDisponibles.P0.lignes_tableau
   } else if (context.vue === 'crpe') {
-    listeHtmlDesExercices += divNiveau(objExercicesDisponibles.CRPE, 'active', 'CRPE')
     listeHtmlDesExercices += divNiveau(objExercicesDisponibles.CrpeTheme, 'active', 'CrpeTheme')
+    listeHtmlDesExercices += divNiveau(objExercicesDisponibles.CRPE, 'active', 'CRPE')
     listeHtmlDesExercices += '</div>'
     listeHtmlDesExercicesTab += objExercicesDisponibles.CRPE.lignes_tableau
   } else if (filtre === 'dnb') {

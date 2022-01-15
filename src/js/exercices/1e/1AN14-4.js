@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, lettreMinusculeDepuisChiffre, rienSi1, reduireAxPlusB, texNombrec2 } from '../../modules/outils.js'
+import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, lettreMinusculeDepuisChiffre, rienSi1, reduireAxPlusB } from '../../modules/outils.js'
 import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, abs } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
@@ -133,7 +133,6 @@ export default function DeriveeProduit () {
           // Remarque sur la méthode alternative
           texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${polExpand.toMathExpr()}$.<br>`
           texteCorr += `Et donc $${namef}'(x)=${polExpand.derivee().toMathExpr()}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
-          console.log(polExpand)
           break
         }
         case 'monome2/racine': {
@@ -144,7 +143,7 @@ export default function DeriveeProduit () {
           texteCorr += 'On peut réduire un peu l\'expression : '
           texteCorr += `\\[${namef}'(x)=${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}` // attention l'équation finit ligne suivante
           if (m % 2 !== 0) texteCorr += `\\frac{${rienSi1(abs(m))}x^2}{2\\sqrt{x}}.\\]`
-          else texteCorr += `\\frac{${texNombrec2(abs(m / 2))}x^2}{\\sqrt{x}}.\\]`
+          else texteCorr += `\\frac{${Polynome.print([0, 0, abs(m / 2)])}}{\\sqrt{x}}.\\]`
           break
         }
         case 'racine/poly2centre': // traité ci-après
@@ -163,7 +162,7 @@ export default function DeriveeProduit () {
           else interm2 = `${!derivee.isMon() ? `(${derivee.toMathExpr()})` : derivee.toMathExpr()}\\sqrt{x}+\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}`
           texteCorr += 'L\'énoncé ne demandant rien de plus, on se contente de simplifier l\'expression :'
           texteCorr += `\\[${namef}'(x)=${interm2}\\]`
-          console.log(poly)
+          break
         }
         case 'exp/poly': // traité ci-après
         case 'exp/poly2centre': {

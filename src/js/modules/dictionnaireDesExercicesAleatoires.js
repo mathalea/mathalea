@@ -291,7 +291,7 @@ export default {
     }
   },
   "1P10": {
-    "titre": "Nom de l'exercice",
+    "titre": "Probabilités conditionnelles",
     "url": "/exercices/1e/1P10.js",
     "amcReady": false,
     "interactifReady": false,
@@ -403,6 +403,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2F12-1": {
+    "titre": "Résoudre algébriquement une équation f(x)=k avec une fonction de référence.",
+    "url": "/exercices/2e/2F12-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F12-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F20-1": {
     "titre": "Montrer qu’un point appartient ou non à une courbe",
     "url": "/exercices/2e/2F20-1.js",
@@ -418,18 +433,14 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2F25-1": {
-    "titre": "Propriétés graphiques de la parité d'une fonction.",
-    "url": "/exercices/2e/2F25-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "qcmMono"
-    },
-    "interactifReady": true,
-    "interactifType": "qcm",
-    "name": "2F25-1",
+  "2F31-1": {
+    "titre": "Utiliser les variations des fonctions de référence pour comparer des images",
+    "url": "/exercices/2e/2F31-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F31-1",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -437,16 +448,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2F25-2": {
-    "titre": "Etudier la parité d'une fonction.",
-    "url": "/exercices/2e/2F25-2.js",
+  "2F32-2": {
+    "titre": "Déterminer graphiquement les extremums",
+    "url": "/exercices/2e/2F32-2.js",
     "amcReady": true,
     "amcType": {
-      "text": "qcmMono"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
-    "interactifType": "qcm",
-    "name": "2F25-2",
+    "interactifType": "mathLive",
+    "name": "2F32-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -464,25 +475,6 @@ export default {
     "name": "2F32-3",
     "newEx": {
       "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "2F32": {
-    "titre": "Lecture graphique",
-    "url": "/exercices/2e/2F32.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "2F32",
-    "newEx": {
-      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -647,12 +639,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G22-1": {
-    "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
-    "url": "/exercices/2e/2G22-1.js",
+  "2G21-1": {
+    "titre": "Construire les images de points par une translation",
+    "url": "/exercices/2e/2G21-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G22-1",
+    "name": "2G21-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -662,12 +654,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G23-1": {
-    "titre": "Déterminer les coordonnées d’un vecteur.",
-    "url": "/exercices/2e/2G23-1.js",
+  "2G22-1": {
+    "titre": "Représenter un vecteur dans un repère, à partir de ses coordonnées.",
+    "url": "/exercices/2e/2G22-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G23-1",
+    "name": "2G22-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -692,12 +684,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G23": {
-    "titre": "Somme de vecteurs",
-    "url": "/exercices/2e/2G23.js",
+  "2G24-1": {
+    "titre": "Déterminer les coordonnées d’un vecteur à partir des coordonnées de deux points",
+    "url": "/exercices/2e/2G24-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G23",
+    "name": "2G24-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -707,16 +699,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-1": {
+  "2G30-1": {
     "titre": "Déterminer le coefficient directeur d'une droite.",
-    "url": "/exercices/2e/2G31-1.js",
+    "url": "/exercices/2e/2G30-1.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2G31-1",
+    "name": "2G30-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -726,12 +718,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-2": {
+  "2G30-2": {
     "titre": "Déterminer une équation réduite de droite",
-    "url": "/exercices/2e/2G31-2.js",
+    "url": "/exercices/2e/2G30-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-2",
+    "name": "2G30-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -741,12 +733,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-3": {
+  "2G30-3": {
     "titre": "Déterminer une équation cartésienne de droite à partir de deux points.",
-    "url": "/exercices/2e/2G31-3.js",
+    "url": "/exercices/2e/2G30-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-3",
+    "name": "2G30-3",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -756,12 +748,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-4": {
+  "2G30-4": {
     "titre": "Déterminer une équation cartésienne de droite à partir d'un point et d'un vecteur directeur.",
-    "url": "/exercices/2e/2G31-4.js",
+    "url": "/exercices/2e/2G30-4.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-4",
+    "name": "2G30-4",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -771,12 +763,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G31-5": {
+  "2G30-5": {
     "titre": "Déterminer une équation cartésienne à partir d'un point et de la pente.",
-    "url": "/exercices/2e/2G31-5.js",
+    "url": "/exercices/2e/2G30-5.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G31-5",
+    "name": "2G30-5",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -786,12 +778,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G34-1": {
+  "2G33-1": {
     "titre": "Alignement de 3 points.",
-    "url": "/exercices/2e/2G34-1.js",
+    "url": "/exercices/2e/2G33-1.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G34-1",
+    "name": "2G33-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -801,12 +793,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G34-2": {
+  "2G33-2": {
     "titre": "Déterminer si des droites $(d)$ et $(d')$ sont parallèles, sécantes ou confondues :",
-    "url": "/exercices/2e/2G34-2.js",
+    "url": "/exercices/2e/2G33-2.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2G34-2",
+    "name": "2G33-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -816,16 +808,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2G36-7": {
+  "2G35-7": {
     "titre": "Lecture graphique des coefficients d'une équation réduite ",
-    "url": "/exercices/2e/2G36-7.js",
+    "url": "/exercices/2e/2G35-7.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2G36-7",
+    "name": "2G35-7",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -1919,16 +1911,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2S10-1": {
-    "titre": "Effectifs et proportions",
-    "url": "/exercices/2e/2S10-1.js",
+  "2S10-2": {
+    "titre": "Calculer une proportion ou appliquer un pourcentage",
+    "url": "/exercices/2e/2S10-2.js",
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2S10-1",
+    "name": "2S10-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -1970,13 +1962,13 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2S12-1": {
-    "titre": "Évolutions successives",
-    "url": "/exercices/2e/2S12-1.js",
+  "2S12-2": {
+    "titre": "Déterminer un taux d’évolution global",
+    "url": "/exercices/2e/2S12-2.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
-    "name": "2S12-1",
+    "name": "2S12-2",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -7632,16 +7624,15 @@ export default {
   "6I10": {
     "titre": "Programmer des déplacements (Scratch)",
     "url": "/exercices/6e/6I10.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6I10",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6I11": {
@@ -7791,8 +7782,12 @@ export default {
   "6M22-1": {
     "titre": "Calculer périmètre et aire de disques",
     "url": "/exercices/6e/6M22-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6M22-1",
     "newEx": {
       "isNew": false,
@@ -8642,16 +8637,15 @@ export default {
   "6N31": {
     "titre": "Comparer des nombres décimaux",
     "url": "/exercices/6e/6N31.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6N31",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N32": {
@@ -9081,36 +9075,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "beta2F12-1": {
-    "titre": "Résoudre algébriquement une équation f(x)=k avec une fonction de référence.",
-    "url": "/exercices/beta/beta2F12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F12-1",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "beta2F31-1": {
-    "titre": "Utiliser les variations des fonctions de référence pour comparer des images",
-    "url": "/exercices/beta/beta2F31-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta2F31-1",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
   "beta2F31": {
     "titre": "Croissance de fonction ?",
     "url": "/exercices/beta/beta2F31.js",
@@ -9180,6 +9144,109 @@ export default {
 <<<<<<< Updated upstream
 =======
     "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta3s21": {
+    "titre": "Stabilisation des fréquences",
+    "url": "/exercices/beta/beta3s21.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3s21",
+>>>>>>> Stashed changes
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+<<<<<<< Updated upstream
+  "beta3s21": {
+    "titre": "Stabilisation des fréquences",
+    "url": "/exercices/beta/beta3s21.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3s21",
+=======
+  "beta4C31": {
+    "titre": "Puissances de 10",
+    "url": "/exercices/beta/beta4C31.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta4C31",
+>>>>>>> Stashed changes
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+<<<<<<< Updated upstream
+  "beta4C31": {
+    "titre": "Puissances de 10",
+    "url": "/exercices/beta/beta4C31.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta4C31",
+=======
+  "beta4G20-3": {
+    "titre": "Calculer une valeur manquante avec l’égalité de Pythagore",
+    "url": "/exercices/beta/beta4G20-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta4G20-3",
+>>>>>>> Stashed changes
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+<<<<<<< Updated upstream
+  "beta4G20-3": {
+    "titre": "Calculer une valeur manquante avec l’égalité de Pythagore",
+    "url": "/exercices/beta/beta4G20-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta4G20-3",
+=======
+  "beta4G20-4": {
+    "titre": "Calculer la racine carrée de (x² +/- y²)",
+    "url": "/exercices/beta/beta4G20-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta4G20-4",
+>>>>>>> Stashed changes
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta5G30-2": {
+    "titre": "Angles et parallèles",
+    "url": "/exercices/beta/beta5G30-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta5G30-2",
+    "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
@@ -9188,102 +9255,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "beta3s21": {
-    "titre": "Stabilisation des fréquences",
-    "url": "/exercices/beta/beta3s21.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta3s21",
->>>>>>> Stashed changes
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-<<<<<<< Updated upstream
-  "beta3s21": {
-    "titre": "Stabilisation des fréquences",
-    "url": "/exercices/beta/beta3s21.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta3s21",
-=======
-  "beta4C31": {
-    "titre": "Puissances de 10",
-    "url": "/exercices/beta/beta4C31.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta4C31",
->>>>>>> Stashed changes
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-<<<<<<< Updated upstream
-  "beta4C31": {
-    "titre": "Puissances de 10",
-    "url": "/exercices/beta/beta4C31.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta4C31",
-=======
-  "beta4G20-3": {
-    "titre": "Calculer une valeur manquante avec l’égalité de Pythagore",
-    "url": "/exercices/beta/beta4G20-3.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta4G20-3",
->>>>>>> Stashed changes
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-<<<<<<< Updated upstream
-  "beta4G20-3": {
-    "titre": "Calculer une valeur manquante avec l’égalité de Pythagore",
-    "url": "/exercices/beta/beta4G20-3.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta4G20-3",
-=======
-  "beta4G20-4": {
-    "titre": "Calculer la racine carrée de (x² +/- y²)",
-    "url": "/exercices/beta/beta4G20-4.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta4G20-4",
->>>>>>> Stashed changes
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-<<<<<<< Updated upstream
-  "beta4G20-4": {
-    "titre": "Calculer la racine carrée de (x² +/- y²)",
-    "url": "/exercices/beta/beta4G20-4.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta4G20-4",
-=======
   "beta6C33-1": {
     "titre": "Parenthèses manquantes",
     "url": "/exercices/beta/beta6C33-1.js",
@@ -9424,14 +9395,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "betaAsymptotesObliques": {
-    "titre": "Asymptote oblique",
-    "url": "/exercices/beta/betaAsymptotesObliques.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaAsymptotesObliques",
-=======
   "betaCan2G01": {
     "titre": "Périmètres de carrés et de rectangles",
     "url": "/exercices/beta/betaCan2G01.js",
@@ -9445,7 +9408,6 @@ export default {
       "mathLive"
     ],
     "name": "betaCan2G01",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -9455,30 +9417,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "betaCan2G01": {
-    "titre": "Périmètres de carrés et de rectangles",
-    "url": "/exercices/beta/betaCan2G01.js",
-=======
   "betaCaNCM2": {
     "titre": "Course aux nombres CM2",
     "url": "/exercices/beta/betaCaNCM2.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
-<<<<<<< Updated upstream
-    "interactifType": [
-      "qcm",
-      "mathLive"
-    ],
-    "name": "betaCan2G01",
-=======
     "interactifType": "mathLive",
     "name": "betaCaNCM2",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -9516,21 +9464,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "betaEqCarreDansC": {
-    "titre": "Racine carrée nombre complexe",
-    "url": "/exercices/beta/betaEqCarreDansC.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaEqCarreDansC",
-=======
   "betaEquations": {
     "titre": "Calculs algébriques",
     "url": "/exercices/beta/betaEquations.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "betaEquations",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -9540,21 +9479,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "betaEquations": {
-    "titre": "Calculs algébriques",
-    "url": "/exercices/beta/betaEquations.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaEquations",
-=======
   "betaEquationsLog": {
     "titre": "Equations avec logarithmes",
     "url": "/exercices/beta/betaEquationsLog.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "betaEquationsLog",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -9564,21 +9494,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "betaEquationsLog": {
-    "titre": "Equations avec logarithmes",
-    "url": "/exercices/beta/betaEquationsLog.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaEquationsLog",
-=======
   "betaEqValAbs": {
     "titre": "Equation avec une valeur absolue",
     "url": "/exercices/beta/betaEqValAbs.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "betaEqValAbs",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -9636,62 +9557,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "betaExoSimpleMatthieu": {
-    "titre": "Ceci est le titre de l’exercice BetaExosimpleMatthieu",
-    "url": "/exercices/beta/betaExoSimpleMatthieu.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaExoSimpleMatthieu",
-=======
-  "betaFractionsJC": {
-    "titre": "Tests avec les fractions",
-    "url": "/exercices/beta/betaFractionsJC.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaFractionsJC",
->>>>>>> Stashed changes
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-<<<<<<< Updated upstream
-  "betaFractionsJC": {
-    "titre": "Tests avec les fractions",
-    "url": "/exercices/beta/betaFractionsJC.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaFractionsJC",
-=======
-  "betaFractionsJCback": {
-    "titre": "Tests avec les fractions",
-    "url": "/exercices/beta/betaFractionsJCback.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaFractionsJCback",
->>>>>>> Stashed changes
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-<<<<<<< Updated upstream
-  "betaFractionsJCback": {
-    "titre": "Tests avec les fractions",
-    "url": "/exercices/beta/betaFractionsJCback.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaFractionsJCback",
-=======
   "betaLicence": {
     "titre": "QCM de positionnement",
     "url": "/exercices/beta/betaLicence.js",
@@ -9832,21 +9697,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "betaModele21_parametrables": {
-    "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele21_parametrables.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaModele21_parametrables",
-=======
   "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
     "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "betaModele30_constructions_géométriques",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -10076,21 +9932,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "betaPuissances": {
-    "titre": "Exercice exemple",
-    "url": "/exercices/beta/betaPuissances.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaPuissances",
-=======
   "betarotation3d": {
     "titre": "Rotation 3d de polygones",
     "url": "/exercices/beta/betarotation3d.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "betarotation3d",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -10100,14 +9947,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "betarotation3d": {
-    "titre": "Rotation 3d de polygones",
-    "url": "/exercices/beta/betarotation3d.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betarotation3d",
-=======
   "betaSpline": {
     "titre": "Nom de l'exercice",
     "url": "/exercices/beta/betaSpline.js",
@@ -10224,31 +10063,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "betaTracerParabole": {
-    "titre": "Etude d’une parabole",
-    "url": "/exercices/beta/betaTracerParabole.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "betaTracerParabole",
-=======
-  "moule_a_exo_mathalea": {
-    "titre": "Exo zéro Mathalea",
-    "url": "/exercices/beta/moule_a_exo_mathalea.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "moule_a_exo_mathalea",
->>>>>>> Stashed changes
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-<<<<<<< Updated upstream
   "moule_a_exo_mathalea": {
     "titre": "Exo zéro Mathalea",
     "url": "/exercices/beta/moule_a_exo_mathalea.js",
@@ -11312,7 +11126,7 @@ export default {
     "name": "can2C11",
 >>>>>>> Stashed changes
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -16057,40 +15871,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "canc3C01": {
-    "titre": "Déterminer un nombre à partir d’une phrase",
-    "url": "/exercices/can/c3/canc3C01.js",
-=======
-  "canPredef6-3": {
-    "titre": "Course aux nombres fin de 6e",
-    "url": "/exercices/can/6e/canPredef6-3.js",
->>>>>>> Stashed changes
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-<<<<<<< Updated upstream
-    "name": "canc3C01",
-=======
-    "name": "canPredef6-3",
->>>>>>> Stashed changes
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-<<<<<<< Updated upstream
-  "canc3C02": {
-    "titre": "Calculer à partir d’une décomposition",
-    "url": "/exercices/can/c3/canc3C02.js",
-=======
   "canc3C01": {
     "titre": "Déterminer un nombre à partir d’une phrase",
     "url": "/exercices/can/c3/canc3C01.js",
@@ -16526,26 +16306,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "canExC02": {
-    "titre": "produit de nombres complexes",
-    "url": "/exercices/can/Ex/canExC02.js",
-=======
   "canExC01": {
     "titre": "Somme de nombres complexes",
     "url": "/exercices/can/Ex/canExC01.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
-<<<<<<< Updated upstream
-    "name": "canExC02",
-=======
     "name": "canExC01",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16555,18 +16325,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM000": {
-    "titre": "Additions et de soustractions",
-    "url": "/exercices/CM/CM000.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "numerique",
-    "name": "CM000",
-=======
   "canExC02": {
     "titre": "produit de nombres complexes",
     "url": "/exercices/can/Ex/canExC02.js",
@@ -16577,7 +16335,6 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "canExC02",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16587,27 +16344,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM001": {
-    "titre": "Tables de multiplication",
-    "url": "/exercices/CM/CM001.js",
-=======
   "CM000": {
     "titre": "Additions et de soustractions",
     "url": "/exercices/CM/CM000.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
-<<<<<<< Updated upstream
-    "interactifType": "mathLive",
-    "name": "CM001",
-=======
     "interactifType": "numerique",
     "name": "CM000",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16617,27 +16363,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM002": {
-    "titre": "Tables de divisions",
-    "url": "/exercices/CM/CM002.js",
-=======
   "CM001": {
     "titre": "Tables de multiplication",
     "url": "/exercices/CM/CM001.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
-<<<<<<< Updated upstream
-    "interactifType": "numerique",
-    "name": "CM002",
-=======
     "interactifType": "mathLive",
     "name": "CM001",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16647,27 +16382,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM003": {
-    "titre": "Tables de multiplications et de divisions",
-    "url": "/exercices/CM/CM003.js",
-=======
   "CM002": {
     "titre": "Tables de divisions",
     "url": "/exercices/CM/CM002.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
-<<<<<<< Updated upstream
-    "interactifType": "mathLive",
-    "name": "CM003",
-=======
     "interactifType": "numerique",
     "name": "CM002",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16677,27 +16401,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM004": {
-    "titre": "Les quatre opérations",
-    "url": "/exercices/CM/CM004.js",
-=======
   "CM003": {
     "titre": "Tables de multiplications et de divisions",
     "url": "/exercices/CM/CM003.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
-<<<<<<< Updated upstream
-    "interactifType": "numerique",
-    "name": "CM004",
-=======
     "interactifType": "mathLive",
     "name": "CM003",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16707,26 +16420,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM005": {
-    "titre": "Ajouter 9",
-    "url": "/exercices/CM/CM005.js",
-=======
   "CM004": {
     "titre": "Les quatre opérations",
     "url": "/exercices/CM/CM004.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
-<<<<<<< Updated upstream
-    "name": "CM005",
-=======
     "name": "CM004",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16736,26 +16439,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM006": {
-    "titre": "Soustraire 9",
-    "url": "/exercices/CM/CM006.js",
-=======
   "CM005": {
     "titre": "Ajouter 9",
     "url": "/exercices/CM/CM005.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
-<<<<<<< Updated upstream
-    "name": "CM006",
-=======
     "name": "CM005",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16765,26 +16458,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM007": {
-    "titre": "Ajouter 11",
-    "url": "/exercices/CM/CM007.js",
-=======
   "CM006": {
     "titre": "Soustraire 9",
     "url": "/exercices/CM/CM006.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
-<<<<<<< Updated upstream
-    "name": "CM007",
-=======
     "name": "CM006",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16794,26 +16477,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM008": {
-    "titre": "Soustraire 11",
-    "url": "/exercices/CM/CM008.js",
-=======
   "CM007": {
     "titre": "Ajouter 11",
     "url": "/exercices/CM/CM007.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
-<<<<<<< Updated upstream
-    "name": "CM008",
-=======
     "name": "CM007",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16823,26 +16496,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM009": {
-    "titre": "Moitié",
-    "url": "/exercices/CM/CM009.js",
-=======
   "CM008": {
     "titre": "Soustraire 11",
     "url": "/exercices/CM/CM008.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
-<<<<<<< Updated upstream
-    "name": "CM009",
-=======
     "name": "CM008",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16852,26 +16515,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM010": {
-    "titre": "Tiers",
-    "url": "/exercices/CM/CM010.js",
-=======
   "CM009": {
     "titre": "Moitié",
     "url": "/exercices/CM/CM009.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
-<<<<<<< Updated upstream
-    "name": "CM010",
-=======
     "name": "CM009",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16881,26 +16534,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM011": {
-    "titre": "Quart",
-    "url": "/exercices/CM/CM011.js",
-=======
   "CM010": {
     "titre": "Tiers",
     "url": "/exercices/CM/CM010.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
-<<<<<<< Updated upstream
-    "name": "CM011",
-=======
     "name": "CM010",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16910,26 +16553,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM012": {
-    "titre": "Complément à 100",
-    "url": "/exercices/CM/CM012.js",
-=======
   "CM011": {
     "titre": "Quart",
     "url": "/exercices/CM/CM011.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
-<<<<<<< Updated upstream
-    "name": "CM012",
-=======
     "name": "CM011",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16939,26 +16572,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM013": {
-    "titre": "Complément à une dizaine",
-    "url": "/exercices/CM/CM013.js",
-=======
   "CM012": {
     "titre": "Complément à 100",
     "url": "/exercices/CM/CM012.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
-<<<<<<< Updated upstream
-    "name": "CM013",
-=======
     "name": "CM012",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16968,26 +16591,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM014": {
-    "titre": "Double, moitié, tiers, triple",
-    "url": "/exercices/CM/CM014.js",
-=======
   "CM013": {
     "titre": "Complément à une dizaine",
     "url": "/exercices/CM/CM013.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
-<<<<<<< Updated upstream
-    "name": "CM014",
-=======
     "name": "CM013",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16997,26 +16610,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM015": {
-    "titre": "Somme de deux nombres mariés",
-    "url": "/exercices/CM/CM015.js",
-=======
   "CM014": {
     "titre": "Double, moitié, tiers, triple",
     "url": "/exercices/CM/CM014.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
-<<<<<<< Updated upstream
-    "name": "CM015",
-=======
     "name": "CM014",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17026,26 +16629,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM016": {
-    "titre": "Diviser un entier par 10, 100 ou 1000",
-    "url": "/exercices/CM/CM016.js",
-=======
   "CM015": {
     "titre": "Somme de deux nombres mariés",
     "url": "/exercices/CM/CM015.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
-<<<<<<< Updated upstream
-    "name": "CM016",
-=======
     "name": "CM015",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17055,26 +16648,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM017": {
-    "titre": "Diviser un nombre décimal par 10, 100 ou 1000",
-    "url": "/exercices/CM/CM017.js",
-=======
   "CM016": {
     "titre": "Diviser un entier par 10, 100 ou 1000",
     "url": "/exercices/CM/CM016.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
-<<<<<<< Updated upstream
-    "name": "CM017",
-=======
     "name": "CM016",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17084,26 +16667,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM018": {
-    "titre": "Somme de deux nombres mariés et un entier",
-    "url": "/exercices/CM/CM018.js",
-=======
   "CM017": {
     "titre": "Diviser un nombre décimal par 10, 100 ou 1000",
     "url": "/exercices/CM/CM017.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
       "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "numerique",
-<<<<<<< Updated upstream
-    "name": "CM018",
-=======
     "name": "CM017",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17113,40 +16686,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM019": {
-    "titre": "Générateur de compte est bon",
-    "url": "/exercices/CM/CM019.js",
-=======
   "CM018": {
     "titre": "Somme de deux nombres mariés et un entier",
     "url": "/exercices/CM/CM018.js",
->>>>>>> Stashed changes
     "amcReady": true,
     "amcType": {
-      "text": "AMCOpen"
+      "text": "AMCNum"
     },
-<<<<<<< Updated upstream
-    "interactifReady": false,
-    "name": "CM019",
-=======
     "interactifReady": true,
     "interactifType": "numerique",
     "name": "CM018",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM020": {
-    "titre": "Générateur de compte est bon version semi-aléatoire",
-    "url": "/exercices/CM/CM020.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "CM020",
-=======
   "CM019": {
     "titre": "Générateur de compte est bon",
     "url": "/exercices/CM/CM019.js",
@@ -17156,27 +16714,17 @@ export default {
     },
     "interactifReady": false,
     "name": "CM019",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
-<<<<<<< Updated upstream
-  "CM021": {
-    "titre": "Le compte est bon original",
-    "url": "/exercices/CM/CM021.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "CM021",
-=======
   "CM020": {
     "titre": "Générateur de compte est bon version semi-aléatoire",
     "url": "/exercices/CM/CM020.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "CM020",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17186,21 +16734,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "ExC100": {
-    "titre": "Equation du premier degré dans C",
-    "url": "/exercices/Ex/ExC100.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "ExC100",
-=======
   "CM021": {
     "titre": "Le compte est bon original",
     "url": "/exercices/CM/CM021.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "CM021",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17210,21 +16749,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "HPC100": {
-    "titre": "Division de polynômes",
-    "url": "/exercices/HP/HPC100.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "HPC100",
-=======
   "ExC100": {
     "titre": "Equation du premier degré dans C",
     "url": "/exercices/Ex/ExC100.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "ExC100",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17234,21 +16764,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "PEA11-1": {
-    "titre": "Passer de la base 12 ou 16 à la base 10 et inversement",
-    "url": "/exercices/PE/PEA11-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "PEA11-1",
-=======
   "HPC100": {
     "titre": "Division de polynômes",
     "url": "/exercices/HP/HPC100.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "HPC100",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17258,21 +16779,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "PEA11": {
-    "titre": "Passer de la base dix à une autre base et inversement",
-    "url": "/exercices/PE/PEA11.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "PEA11",
-=======
   "PEA11-1": {
     "titre": "Passer de la base 12 ou 16 à la base 10 et inversement",
     "url": "/exercices/PE/PEA11-1.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "PEA11-1",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17282,21 +16794,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "PEA12": {
-    "titre": "Additions et soustractions dans d'autres bases",
-    "url": "/exercices/PE/PEA12.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "PEA12",
-=======
   "PEA11": {
     "titre": "Passer de la base dix à une autre base et inversement",
     "url": "/exercices/PE/PEA11.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "PEA11",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17306,21 +16809,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "PEA13": {
-    "titre": "Multiplications dans d'autres bases",
-    "url": "/exercices/PE/PEA13.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "PEA13",
-=======
   "PEA12": {
     "titre": "Additions et soustractions dans d'autres bases",
     "url": "/exercices/PE/PEA12.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "PEA12",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17330,21 +16824,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "PEG20": {
-    "titre": "Partager un segment au compas et à la règle non graduée",
-    "url": "/exercices/PE/PEG20.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "PEG20",
-=======
   "PEA13": {
     "titre": "Multiplications dans d'autres bases",
     "url": "/exercices/PE/PEA13.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "PEA13",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17354,21 +16839,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "PEG21": {
-    "titre": "Tracer une racine au compas et à la règle non graduée à l'aide du théorème de la hauteur",
-    "url": "/exercices/PE/PEG21.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "PEG21",
-=======
   "PEG20": {
     "titre": "Partager un segment au compas et à la règle non graduée",
     "url": "/exercices/PE/PEG20.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "PEG20",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17378,21 +16854,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "PEG22": {
-    "titre": "Tracer une racine au compas et à la règle non graduée à l'aide du théorème de Pythagore",
-    "url": "/exercices/PE/PEG22.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "PEG22",
-=======
   "PEG21": {
     "titre": "Tracer une racine au compas et à la règle non graduée à l'aide du théorème de la hauteur",
     "url": "/exercices/PE/PEG21.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "PEG21",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17402,21 +16869,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "PEG23": {
-    "titre": "Réaliser le produit de deux longueurs à la règle non graduée et au compas",
-    "url": "/exercices/PE/PEG23.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "PEG23",
-=======
   "PEG22": {
     "titre": "Tracer une racine au compas et à la règle non graduée à l'aide du théorème de Pythagore",
     "url": "/exercices/PE/PEG22.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "PEG22",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17426,21 +16884,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "PEG24": {
-    "titre": "Réaliser le quotient de deux longueurs à la règle non graduée et au compas",
-    "url": "/exercices/PE/PEG24.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "PEG24",
-=======
   "PEG23": {
     "titre": "Réaliser le produit de deux longueurs à la règle non graduée et au compas",
     "url": "/exercices/PE/PEG23.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "PEG23",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17450,21 +16899,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "P003": {
-    "titre": "Tracer des droites graduées",
-    "url": "/exercices/Profs/P003.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "P003",
-=======
   "PEG24": {
     "titre": "Réaliser le quotient de deux longueurs à la règle non graduée et au compas",
     "url": "/exercices/PE/PEG24.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "PEG24",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17474,21 +16914,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "P004": {
-    "titre": "Droites graduées avec zoom",
-    "url": "/exercices/Profs/P004.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "P004",
-=======
   "P003": {
     "titre": "Tracer des droites graduées",
     "url": "/exercices/Profs/P003.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P003",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17498,21 +16929,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "P005": {
-    "titre": "Grilles décimales",
-    "url": "/exercices/Profs/P005.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "P005",
-=======
   "P004": {
     "titre": "Droites graduées avec zoom",
     "url": "/exercices/Profs/P004.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P004",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17522,21 +16944,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "P006": {
-    "titre": "Placer un nombre décimal avec des zooms successifs",
-    "url": "/exercices/Profs/P006.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "P006",
-=======
   "P005": {
     "titre": "Grilles décimales",
     "url": "/exercices/Profs/P005.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P005",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17546,21 +16959,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "P007": {
-    "titre": "Fabriquer des pavages pour travailler les transformations",
-    "url": "/exercices/Profs/P007.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "P007",
-=======
   "P006": {
     "titre": "Placer un nombre décimal avec des zooms successifs",
     "url": "/exercices/Profs/P006.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P006",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17570,21 +16974,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "P008": {
-    "titre": "Opérations posées",
-    "url": "/exercices/Profs/P008.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "P008",
-=======
   "P007": {
     "titre": "Fabriquer des pavages pour travailler les transformations",
     "url": "/exercices/Profs/P007.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P007",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17594,21 +16989,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "P009": {
-    "titre": "Simulation d’expériences aléatoires",
-    "url": "/exercices/Profs/P009.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "P009",
-=======
   "P008": {
     "titre": "Opérations posées",
     "url": "/exercices/Profs/P008.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P008",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17618,21 +17004,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "P010": {
-    "titre": "étude de fonction de degré 3",
-    "url": "/exercices/Profs/P010.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "P010",
-=======
   "P009": {
     "titre": "Simulation d’expériences aléatoires",
     "url": "/exercices/Profs/P009.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P009",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17642,21 +17019,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-  "P011": {
-    "titre": "Construis mon triangle",
-    "url": "/exercices/Profs/P011.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "P011",
-=======
   "P010": {
     "titre": "étude de fonction de degré 3",
     "url": "/exercices/Profs/P010.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "P010",
->>>>>>> Stashed changes
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -17666,8 +17034,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< Updated upstream
-=======
   "P011": {
     "titre": "Construis mon triangle",
     "url": "/exercices/Profs/P011.js",
@@ -17683,7 +17049,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
->>>>>>> Stashed changes
   "P012": {
     "titre": "Faire des camemberts pour travailler les fractions",
     "url": "/exercices/Profs/P012.js",

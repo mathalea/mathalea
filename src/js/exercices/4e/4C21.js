@@ -183,6 +183,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
       }
       reponse = fraction(num, den).simplifie()
       setReponse(this, i, reponse, { digits: 4, digitsNum: 2, digitsDen: 2, formatInteractif: 'fraction' })
+      if (context.isAmc) texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

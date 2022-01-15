@@ -30,6 +30,7 @@ export default function CalculsAvecPuissancesDeDix () {
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
+    this.autoCorrection = []
 
     if (this.sup === 1) this.consigne = 'Donner l\'écriture scientifique des nombres suivants.'
     else this.consigne = 'Compléter l\'égalité des nombres suivants.'

@@ -30,7 +30,6 @@ export default function LectureExpressionFonctionsAffines () {
   this.sup = 1
   this.sup2 = 3
   this.lineaire = false
-  this.listePackages = 'tkz-euclide'
   this.amcReady = amcReady
   this.amcType = amcType
 
@@ -40,6 +39,8 @@ export default function LectureExpressionFonctionsAffines () {
     let nbDroites = parseInt(this.sup2)
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
+
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     const listeDroites = []
