@@ -141,7 +141,8 @@ export class Arbre {
    * vertical est un booléen. Si true, alors l'arbre sera construit de bas en haut ou de haut en bas, sinon, il sera construit de gauche à droite ou de droite à gauche.
    * sens indique la direction de pousse : 1 positif, -1 négatif.
    */
-  represente (xOrigine = 0, yOrigine = 0, decalage = 0, echelle = 1, vertical = false, sens = -1, tailleCaracteres=5) {
+  represente (xOrigine = 0, yOrigine = 0, decalage = 0, echelle = 1, vertical = false, sens = -1, tailleCaracteres) {
+    tailleCaracteres = tailleCaracteres || 5
     const objets = []
     const A = point(vertical
       ? xOrigine
@@ -175,7 +176,7 @@ export class Arbre {
         , vertical
           ? calcul(echelle * ((this.enfants.length / 2 - i) * this.enfants[i].taille))
           : calcul(echelle * ((i - this.enfants.length / 2) * this.enfants[i].taille)),
-        echelle, vertical, sens))
+        echelle, vertical, sens, tailleCaracteres))
       }
       if (this.racine) {
         objets.push(labelA)
