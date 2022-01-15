@@ -20,6 +20,7 @@ export default function GraphiquesEtProportionnalite2 () {
 
   this.titre = titre
   this.consigne = ''
+  this.spacingCorr = 2
 
   this.nbCols = 1
   this.nbColsCorr = 1
