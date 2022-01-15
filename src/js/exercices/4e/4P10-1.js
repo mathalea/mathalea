@@ -61,12 +61,13 @@ export default function GraphiquesEtProportionnalite2 () {
       // pour aléatoiriser un peu le pas sur l'axe des prix
       let stepAxeSecondaire
       if (yscale === 1) stepAxeSecondaire = choice([0.5, 0.2, 0.25])
+      else stepAxeSecondaire = 1
       // on finit les appels
       const mesAppels = [
         r = repere({
           xmin: 0,
           ymin: 0,
-          ymax: situation.qte_max * situation.prix_unitaire + 4,
+          ymax: situation.qte_max * situation.prix_unitaire + 2,
           xmax: situation.qte_max,
           xscale: xscale,
           yscale: yscale,
@@ -74,7 +75,7 @@ export default function GraphiquesEtProportionnalite2 () {
           legendeY: situation.legendeY,
           grilleSecondaireVisible: true,
           grilleSecondaireDistance: stepAxeSecondaire, // 0.2,
-          positionLegendeY: [0.3, situation.qte_max * situation.prix_unitaire + 4 + 0.4]
+          positionLegendeY: [0.3, situation.qte_max * situation.prix_unitaire + 1 + 0.4]
         })
       ]
       const f = x => calcul(situation.prix_unitaire * x)
@@ -85,7 +86,7 @@ export default function GraphiquesEtProportionnalite2 () {
           xmin: -xscale,
           ymin: -yscale,
           xmax: situation.qte_max / xscale + 3,
-          ymax: (situation.qte_max * situation.prix_unitaire + 4) / 2 + 1,
+          ymax: situation.qte_max * situation.prix_unitaire + 2,
           pixelsParCm: 40
         },
         mesAppels
@@ -132,7 +133,7 @@ export default function GraphiquesEtProportionnalite2 () {
           xmin: -xscale,
           ymin: -yscale,
           xmax: situation.qte_max / xscale + 3,
-          ymax: (situation.qte_max * situation.prix_unitaire + 4) / 2 + 1,
+          ymax: situation.qte_max * situation.prix_unitaire + 2,
           pixelsParCm: 40
         },
         mesAppelsCorr
