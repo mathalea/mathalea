@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range1, combinaisonListesSansChangerOrdre, texNombrec, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range1, combinaisonListesSansChangerOrdre, texNombrec, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Donner l’écriture décimale d’un nombre à partir de différents textes'
 export const amcReady = true
@@ -39,29 +39,29 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
       switch (listeTypeDeQuestions[i]) {
         case 1: // 3 unités, 5 dixièmes et 8 centièmes
           texte = `${a} unités, ${b} dixièmes et ${c} centièmes`
-          reponseAMC = a + b / 10 + c / 100
+          reponseAMC = calcul(a + b / 10 + c / 100)
           texteCorr = `$${a}+${texFraction(b, 10)}+${texFraction(c, 100)}=${texNombrec(reponseAMC)}$`
           break
         case 2: // 3 unités et 5 centièmes
           texte = `${a} unités et ${c} centièmes`
-          reponseAMC = a + c / 100
+          reponseAMC = calcul(a + c / 100)
           texteCorr = `$${a}+${texFraction(c, 100)}=${texNombrec(reponseAMC)}$`
           break
         case 3: // 5 dixièmes / centièmes ou millièmes
           choix = randint(1, 3)
           if (choix === 1) {
             texte = `${a} dixièmes`
-            reponseAMC = a / 10
+            reponseAMC = calcul(a / 10)
             texteCorr = `$${texFraction(a, 10)}=${texNombrec(reponseAMC)}$`
           }
           if (choix === 2) {
             texte = `${a} centièmes`
-            reponseAMC = a / 100
+            reponseAMC = calcul(a / 100)
             texteCorr = `$${texFraction(a, 100)}=${texNombrec(reponseAMC)}$`
           }
           if (choix === 3) {
             texte = `${a} millièmes`
-            reponseAMC = a / 1000
+            reponseAMC = calcul(a / 1000)
             texteCorr = `$${texFraction(a, 1000)}=${texNombrec(reponseAMC)}$`
           }
           break
@@ -70,17 +70,17 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
           choix = randint(1, 3)
           if (choix === 1) {
             texte = `$${texFraction(n, 10)}$`
-            reponseAMC = n / 10
+            reponseAMC = calcul(n / 10)
             texteCorr = `$${texFraction(n, 10)}=${texNombrec(reponseAMC)}$`
           }
           if (choix === 2) {
             texte = `$${texFraction(n, 100)}$`
-            reponseAMC = n / 100
+            reponseAMC = calcul(n / 100)
             texteCorr = `$${texFraction(n, 100)}=${texNombrec(reponseAMC)}$`
           }
           if (choix === 1) {
             texte = `$${texFraction(n, 1000)}$`
-            reponseAMC = n / 1000
+            reponseAMC = calcul(n / 1000)
             texteCorr = `$${texFraction(n, 1000)}=${texNombrec(reponseAMC)}$`
           }
           break
@@ -88,12 +88,12 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
           choix = randint(1, 2)
           if (choix === 1) {
             texte = `$${a}+${texFraction(b, 100)}+${texFraction(c, 100)}$`
-            reponseAMC = a + (b + c) / 100
+            reponseAMC = calcul(a + (b + c) / 100)
             texteCorr = `$${a}+${texFraction(b, 100)}+${texFraction(c, 100)}=${a}+${texFraction(b + c, 100)}=${texNombrec(reponseAMC)}$`
           }
           if (choix === 2) {
             texte = `$${a}+${texFraction(b, 10)}+${texFraction(c, 10)}$`
-            reponseAMC = a + (b + c) / 10
+            reponseAMC = calcul(a + (b + c) / 10)
             texteCorr = `$${a}+${texFraction(b, 10)}+${texFraction(c, 10)}=${a}+${texFraction(b + c, 10)}=${a}+${texNombrec((b + c) / 10)}=${texNombrec(reponseAMC)}$`
           }
           break
