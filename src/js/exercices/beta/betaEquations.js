@@ -61,7 +61,7 @@ function schemaBarre () {
 export default function equationsProgression () {
   Exercice.call(this)
   const formulaire = []
-  for (let i = 0; i < 79; i++) formulaire.push(`${i}`)
+  for (let i = 0; i < 87; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
     'Type de question', this.nbQuestions, formulaire.join('\n')
@@ -76,7 +76,7 @@ export default function equationsProgression () {
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
   this.sup = 0 // Type d'exercice
-  this.nouvelleVersion = function (numeroExercice, dDebug = false) {
+  this.nouvelleVersion = function (numeroExercice, dDebug = true) {
     this.nbQuestions = this.NbQuestions > 0 ? this.nbQuestions : this.sup !== 0 ? 1 : formulaire.length - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -735,6 +735,97 @@ export default function equationsProgression () {
             c: true,
             d: true,
             test: 'a> 1'
+          })).toString(), false, dDebug)
+          break
+        }
+        case 79: {
+          exercice = calculExpression(expressionLitterale('(a/b)*(a/b)+c/d*(e/f)',
+            aleaVariables({
+              a: true,
+              b: 'randomInt(2,100)',
+              c: true,
+              d: 'randomInt(2,100)',
+              e: true,
+              f: false,
+              test: '(d%b==0 or b%d==0) and gcd(abs(a),b)==1 and gcd(abs(c),d)==1'
+            })).toString(), false, dDebug)
+          break
+        }
+        case 80: {
+          exercice = calculExpression(expressionLitterale('9*(-2*x)',
+            aleaVariables({
+              a: true,
+              b: 'randomInt(2,100)',
+              c: true,
+              d: 'randomInt(2,100)',
+              e: true,
+              f: false,
+              test: '(d%b==0 or b%d==0) and gcd(abs(a),b)==1 and gcd(abs(c),d)==1'
+            })).toString(), false, dDebug)
+          break
+        }
+        case 81: {
+          exercice = calculExpression(expressionLitterale('(-8/71)*(-8/71)',
+            aleaVariables({
+              a: true,
+              b: 'randomInt(2,100)',
+              c: true,
+              d: 'randomInt(2,100)',
+              e: true,
+              f: false,
+              test: '(d%b==0 or b%d==0) and gcd(abs(a),b)==1 and gcd(abs(c),d)==1'
+            })).toString(), false, dDebug)
+          break
+        }
+        case 82: {
+          exercice = resoudreEquation(aleaEquation('(-2*x+8)/8=7/2', {
+            a: true,
+            b: true,
+            c: false,
+            d: true,
+            e: false,
+            test: 'c>1 and a%c!=0 and abs(d)%e!=0'
+          }), dDebug)
+          break
+        }
+        case 83: {
+          exercice = resoudreEquation(aleaEquation('-2*x^2-14*x-24=0', { // On résoud une équation du second degré
+            s: true,
+            t: true,
+            a: true,
+            b: 'a*(-s-t)', // les racines sont des entiers (seuls gérés par mathsteps)
+            c: 'a*s*t'
+          }, dDebug), dDebug)
+          break
+        }
+        case 84: {
+          exercice = resoudreEquation(aleaEquation('-x/9=-2/3', {
+            a: false,
+            b: true,
+            c: false,
+            test: 'abs(b)%c!=0'
+          }), dDebug)
+          break
+        }
+        case 85: {
+          exercice = calculExpression(expressionLitterale('(-2/3)*(-2/3)-4*(-2/3)*(-2/3)',
+            aleaVariables({
+              a: true,
+              b: 'randomInt(2,100)',
+              c: true,
+              d: 'randomInt(2,100)',
+              e: true,
+              f: false,
+              test: '(d%b==0 or b%d==0) and gcd(abs(a),b)==1 and gcd(abs(c),d)==1'
+            })).toString(), false, dDebug)
+          break
+        }
+        case 86: {
+          exercice = calculExpression(expressionLitterale('(8*x-6)^2+(-9*x-2)*(7*x+2)', aleaVariables({
+            a: true,
+            b: true,
+            c: true,
+            d: false
           })).toString(), false, dDebug)
           break
         }
