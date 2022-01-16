@@ -32,8 +32,8 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     this.listeCorrections = []
     this.autoCorrection = []
     const angleDepart = 90 // On choisit l'orientation de départ (On pourrait en faire un paramètre de l'exo)
-    const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
-    const yDepart = 0
+    // const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
+    // const yDepart = 0
     const objetsCorrection = []
     const paramsEnonces = {}
     const paramsCorrection = {}
@@ -72,7 +72,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     // On écrit le début du programme dans l'attribut codeScratch du lutins[0][0]... cet attribut de type chaine contient le code du programme du lutin en Scratch Latex
     // A chaque instruction ajoutée dans le programme correspond une action à effectuée sur l'objet lutins[0]..
     lutins[0].codeScratch = '\\begin{scratch}[print,fill,blocks,scale=0.75]\n \\blockinit{quand \\greenflag est cliqué}\n '
-    lutins[0].codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
+    // lutins[0].codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
     lutins[0].codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n`
     lutins[0].codeScratch += '\\blockpen{stylo en position d\'écriture}\n'
     for (let i = 0; i < 5; i++) {
@@ -158,7 +158,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     const echelle = segment(0, hauteur + 0.5, 1, hauteur + 0.5)
     echelle.epaisseur = 2
     echelle.styleExtremites = '|-|'
-    objetsCorrection.push(grille(-1, -1, largeur + 1), hauteur + 1, 'gray', 0.5, 0.5)
+    objetsCorrection.push(grille(-1, -1, largeur + 1, hauteur + 1, 'gray', 0.5, 0.5))
     objetsCorrection.push(lutins[0])
     paramsEnonces.xmin = -0.5
     paramsEnonces.ymin = -1.5
