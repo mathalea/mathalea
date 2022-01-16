@@ -31,7 +31,7 @@ export default function EtudierPariteFonction () {
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
     let bonneReponse
-    typesDeQuestionsDisponibles = [6]
+    typesDeQuestionsDisponibles = [1,2,3,4,5]
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, k, i1, i2 = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
