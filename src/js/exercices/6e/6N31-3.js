@@ -70,6 +70,7 @@ export default function ArrondirUneValeur () {
           n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001)
           nb = texNombre(n)
           texte = `$${nb}$`
+
           break
         case 2:
           den = choice([7, 9, 11, 13])
@@ -79,7 +80,7 @@ export default function ArrondirUneValeur () {
           di = 10 * (troncature(n - troncature(n, 0), 1))
           ci = 100 * (troncature(n - troncature(n, 1), 2))
           mi = 1000 * (troncature(n - troncature(n, 2), 3))
-          texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${num}\\div ${den}, \\text{~elle~renvoie} : ${texNombre(n)}$.`
+          texte = `$${nb}$<br>($\\text{Quand~on~écrit~sur~la~calculatrice~} ${num}\\div ${den}, \\text{~elle~renvoie} : ${texNombre(n)}$.)`
           break
         case 3:
           rac = randint(2, 300, [listeNombresPremiersStrictJusqua(300)])
@@ -88,7 +89,7 @@ export default function ArrondirUneValeur () {
           di = 10 * (troncature(n - troncature(n, 0), 1))
           ci = 100 * (troncature(n - troncature(n, 1), 2))
           mi = 1000 * (troncature(n - troncature(n, 2), 3))
-          texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$.`
+          texte = `$${nb}$<br>($\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$.)`
           break
         case 4:
           v = randint(11, 99) / 10
@@ -101,12 +102,12 @@ export default function ArrondirUneValeur () {
             mi = 1000 * (troncature(n - troncature(n, 2), 3))
           } else {
             n = v / cos(angle)
-            nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle})}`
+            nb = `\\dfrac{${texNombre(v)}}{\\cos(${angle}\\degree)}`
             di = 10 * (troncature(n - troncature(n, 0), 1))
             ci = 100 * (troncature(n - troncature(n, 1), 2))
             mi = 1000 * (troncature(n - troncature(n, 2), 3))
           }
-          texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$.`
+          texte = `$${nb}$<br>($\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n)}$.)`
           break
       }
 
@@ -263,5 +264,7 @@ export default function ArrondirUneValeur () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type de nombres', 2, ' 1 : Nombres décimaux\n 2 : Fractions']
-  this.besoinFormulaire2Numerique = ['Choix de sortie AMC', 2, ' 1 : QCM\n 2 : Questions ouvertes']
+  if (context.isAmc) {
+    this.besoinFormulaire2Numerique = ['Choix de sortie AMC', 2, ' 1 : QCM\n 2 : Questions ouvertes']
+  }
 }
