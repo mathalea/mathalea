@@ -76,7 +76,7 @@ export default function equationsProgression () {
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
   this.sup = 0 // Type d'exercice
-  this.nouvelleVersion = function (numeroExercice, dDebug = true) {
+  this.nouvelleVersion = function (numeroExercice, dDebug = false) {
     this.nbQuestions = this.NbQuestions > 0 ? this.nbQuestions : this.sup !== 0 ? 1 : formulaire.length - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -822,6 +822,15 @@ export default function equationsProgression () {
         }
         case 86: {
           exercice = calculExpression(expressionLitterale('(8*x-6)^2+(-9*x-2)*(7*x+2)', aleaVariables({
+            a: true,
+            b: true,
+            c: true,
+            d: false
+          })).toString(), false, dDebug)
+          break
+        }
+        case 87: {
+          exercice = calculExpression(expressionLitterale('(-3)^2', aleaVariables({
             a: true,
             b: true,
             c: true,
