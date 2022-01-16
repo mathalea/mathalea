@@ -89,13 +89,11 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
             texte = `$${texFraction(n, 10)}$`
             reponseAMC = calcul(n / 10)
             texteCorr = `$${texFraction(n, 10)}=${texNombrec(reponseAMC)}$`
-          }
-          if (choix === 2) {
+          } else if (choix === 2) {
             texte = `$${texFraction(n, 100)}$`
             reponseAMC = calcul(n / 100)
             texteCorr = `$${texFraction(n, 100)}=${texNombrec(reponseAMC)}$`
-          }
-          if (choix === 1) {
+          } else {
             texte = `$${texFraction(n, 1000)}$`
             reponseAMC = calcul(n / 1000)
             texteCorr = `$${texFraction(n, 1000)}=${texNombrec(reponseAMC)}$`
@@ -107,8 +105,7 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
             texte = `$${a}+${texFraction(b, 100)}+${texFraction(c, 100)}$`
             reponseAMC = calcul(a + (b + c) / 100)
             texteCorr = `$${a}+${texFraction(b, 100)}+${texFraction(c, 100)}=${a}+${texFraction(b + c, 100)}=${texNombrec(reponseAMC)}$`
-          }
-          if (choix === 2) {
+          } else if (choix === 2) {
             texte = `$${a}+${texFraction(b, 10)}+${texFraction(c, 10)}$`
             reponseAMC = calcul(a + (b + c) / 10)
             texteCorr = `$${a}+${texFraction(b, 10)}+${texFraction(c, 10)}=${a}+${texFraction(b + c, 10)}=${a}+${texNombrec((b + c) / 10)}=${texNombrec(reponseAMC)}$`
