@@ -10,151 +10,150 @@ math.config({
   randomSeed: context.graine
 })
 // eslint-disable-next-line no-debugger
-// debugger
+debugger
 
-export function toTexOld (node, debug = false) {
-  if (debug) {
-    console.log('node.toString({ parenthesis: \'keep\' })', node.toString({ parenthesis: 'keep' }))
-    console.log('node', node)
-  }
-  node = parse(node.toString({ parenthesis: 'keep' })) // Convertir en objet mathjs les objets mathsteps
-  let nodeClone
-  do {
-    nodeClone = node.cloneDeep()
-    node = node.transform(
-      function (node, path, parent) {
-        if (node.isOperatorNode && node.op === '/') { // Enlève les parenthèses au numérateur et dénominateur d'une fraction
-          if (node.args[0].isParenthesisNode) node.args[0] = node.args[0].content
-          if (node.args[1].isParenthesisNode) node.args[1] = node.args[1].content
-        }
-        if (node.isOperatorNode && node.op === '+') { // Enlève les parenthèses aux deux termes d'une addition
-          if (node.args[0].isParenthesisNode) node.args[0] = node.args[0].content
-          if (node.args[1].isParenthesisNode &&
-          node.args[1].content.toString()[0] !== '-') node.args[1] = node.args[1].content
-          if (node.args[1].toString()[0] === '-') { // +- devient -
-            node.op = '-'
-            node.fn = 'subtract'
-            node.args[1] = parse(node.args[1].toString().replace('-', ''))
-          }
-          if (node.args[1].toString() === '0') { // Enlève les +0
-            return node.args[0]
-          }
-          if ( // Enlève les +0*n
-            node.args[1].isOperatorNode &&
-          node.args[1].op === '*' &&
-            (
-              node.args[1].args[0].toString() === '0'
-            )
-          ) {
-            node = node.args[0]
-          }
-        }
-        if (node.isOperatorNode && node.op === '-') { // Enlève les parenthèses au premier terme d'une soustraction et au second sous condition d'une /
-          if (node.args[0].isParenthesisNode) node.args[0] = node.args[0].content
-          if (
-            node.fn !== 'unaryMinus' && // On vérifie si c'est une vraie soustraction (avec deux termes)
-          node.args[1].isParenthesisNode && // On vérifie que le second terme possède une parenthèse
-          node.args[1].content.isOperatorNode && // On vérifie que le second terme contient une opération
-          (
-            node.args[1].content.op === '/' || // On teste si cette opération est une division
-            (
-              node.args[1].content.op === '*' && // On teste si c'est une multiplication
-              (
-                !node.args[1].content.args[0].isOperatorNode || // Si le premier facteur n'est pas une opération
-                (
-                  node.args[1].content.args[0].isOperatorNode && // Ou si c'est une opération
-                  node.args[1].content.args[0].fn !== 'unaryMinus' // mais que le premier argument n'est pas -blabla
-                )
-              )
-            )
-          )
-          ) node.args[1] = node.args[1].content
-        }
-        if (node.isOperatorNode && node.op === '*') { // Enlève les parenthèses aux deux facteurs d'une multiplication
-          if (node.args[0].isParenthesisNode && // On cherche à l'intérieur d'une parenthèse
-          (
-            !node.args[0].content.isOperatorNode || // Il ne faut pas d'opération
-            (node.args[0].content.isOperatorNode && node.args[0].content.op === '/') // ou alors une division
-          )
-          ) { // Si l'une des conditions est vérifiée alors :
-            node.args[0] = node.args[0].content // on enlève la parenthèse
-            node.implicit = false // on fait en sorte que la multiplication soit visible
-          }
-          if (node.args[1].isParenthesisNode &&
-          (
-            !node.args[1].content.isOperatorNode ||
-            (
-              node.args[1].content.isOperatorNode &&
-              node.args[1].content.op === '/'
-            )
-          )) {
-            node.args[1] = node.args[1].content
-            node.implicit = false
-          }
-        }
-        if (node.isOperatorNode && node.op === '*') {
-          if (node.args[0].toString() === '1') { // Pour corriger 1*n en n
-            node = node.args[1]
-          } else if (node.args[0].toString() === '-1') { // Pour convertir -1*n en -n
-            node = parse('-' + node.args[1].toString())
-          }
-        }
-        return node
+function transformNode (node, oldNode) {
+  if (oldNode === undefined || node.toString() !== oldNode.toString()) {
+    console.log('transformNode', node.toString(), oldNode !== undefined ? oldNode.toString() : '')
+    oldNode = node.clone()
+    if (node.isOperatorNode && node.op === '/') { // Enlève les parenthèses au numérateur et dénominateur d'une fraction
+      if (node.args[0].isParenthesisNode) {
+        node.args[0] = node.args[0].content
       }
+      if (node.args[1].isParenthesisNode) {
+        node.args[1] = node.args[1].content
+      }
+    }
+    if (node.isOperatorNode && node.op === '/') { // Transforme -2/n en -(2/n) mais laisse (-2)/(-n)
+      if (
+        node.args[0].type === 'OperatorNode' &&
+        node.args[0].fn === 'unaryMinus' &&
+        (node.args[0].args[0].type === 'ConstantNode' || node.args[0].args[0].type === 'SymbolNode') &&
+        !(
+          node.args[1].type === 'OperatorNode' &&
+          node.args[1].fn === 'unaryMinus'
+        )
+      ) {
+        let frac = Node.Creator.operator('/', [node.args[0].args[0], node.args[1]])
+        frac = Node.Creator.parenthesis(frac)
+        node = math.parse('-' + frac.toString())
+      }
+    }
+    if (node.isOperatorNode && node.op === '/') { // Flatten divisions
+      if (node.args[0].isOperatorNode && node.args[0].op === '*') {
+        if (node.args[0].args[0].isOperatorNode && node.args[0].args[0].op === '/') {
+          const frac1 = Node.Creator.operator('/', node.args[0].args[0].args)
+          const frac2 = Node.Creator.operator('/', [node.args[0].args[1], node.args[1]])
+          node = Node.Creator.operator('*', [frac1, frac2])
+        }
+      }
+    }
+    if (node.isOperatorNode && node.op === '+') { // Enlève les parenthèses aux deux termes d'une addition
+      if (node.args[0].isParenthesisNode) node.args[0] = node.args[0].content
+      if (node.args[1].isParenthesisNode) node.args[1] = node.args[1].content
+      if (node.args[1].toString() === '0') { // Enlève les +0
+        node = node.args[0]
+      }
+      if ( // Enlève les +0*n
+        node.args[1].isOperatorNode &&
+    node.args[1].op === '*' &&
+      (
+        node.args[1].args[0].toString() === '0'
+      )
+      ) {
+        node = node.args[0]
+      }
+    }
+    if (node.isOperatorNode && node.op === '-') { // Enlève les parenthèses au premier terme d'une soustraction et au second sous condition d'une /
+      if (node.args[0].isParenthesisNode) node.args[0] = node.args[0].content
+      if (node.args.length === 1 && node.args[0].isConstantNode && node.args[0].value < 0) { // Pour corriger --3 en -(-3)
+        node.args[0] = Node.Creator.parenthesis(node.args[0])
+      }
+      if (node.args.length === 2 && node.args[1].isConstantNode && node.args[1].value < 0) { // Pour corriger 7--3 en 7-(-3)
+        node.args[1] = Node.Creator.parenthesis(node.args[1])
+      }
+      if (
+        node.fn !== 'unaryMinus' && // On vérifie si c'est une vraie soustraction (avec deux termes)
+    node.args[1].isParenthesisNode && // On vérifie que le second terme possède une parenthèse
+    node.args[1].content.isOperatorNode && // On vérifie que le second terme contient une opération
+    (
+      node.args[1].content.op === '/' || // On teste si cette opération est une division
+      (
+        node.args[1].content.op === '*' && // On teste si c'est une multiplication
+        (
+          !node.args[1].content.args[0].isOperatorNode || // Si le premier facteur n'est pas une opération
+          (
+            node.args[1].content.args[0].isOperatorNode && // Ou si c'est une opération
+            node.args[1].content.args[0].fn !== 'unaryMinus' // mais que le premier argument n'est pas -blabla
+          )
+        )
+      )
     )
-    node = node.transform(function (node, path, parent) {
-      switch (node.type) {
-        case 'OperatorNode':
-          switch (node.op) {
-            case '/':
-              if (parent === null || parent.isParenthesisNode || (parent.op === '*')) {
-                if (node.args[0].isOperatorNode && node.args[0].fn === 'unaryMinus') {
-                  if (!(node.args[1].isOperatorNode) || (node.args[1].isOperatorNode && node.args[1].fn !== 'unaryMinus')) {
-                    const frac = new OperatorNode('/', 'divide', [node.args[0].args[0], node.args[1]])
-                    return new OperatorNode('-', 'unaryMinus', [frac])
-                  } else return node
-                } else return node
-              } else return node
-            case '*': // Les multiplications deviennent implicites
-              if (node.args[1].fn === 'unaryMinus') { // pour obtenir \times(-1)
-                node.args[1] = new ParenthesisNode(node.args[1])
-                return node
-              } else if (
-                !(
-                  (node.args[1].isParenthesisNode && node.args[1].content.fn === 'unaryMinus') ||
-                  node.args[1].isConstantNode ||
-                (node.args[1].isOperatorNode && node.args[1].op === '/') ||
-                (
-                  node.args[1].isSymbolNode &&
-                  node.args[0].isOperatorNode &&
-                  node.args[0].args[1] !== undefined &&
-                  node.args[0].args[1].isSymbolNode
-                ) ||
-                (
-                  node.args[0].isSymbolNode &&
-                  node.args[1].isSymbolNode
-                )
-                )) {
-                node.implicit = true
-                return node
-              } else return node
-            default:
-              return node
-          }
-        case 'ConstantNode':
-          return node
-        case 'SymbolNode':
-          return node
-        default:
-          return node
+      ) node.args[1] = node.args[1].content
+    }
+    if (node.isOperatorNode && node.op === '*') { // Enlève les parenthèses aux deux facteurs d'une multiplication
+      if (node.args[0].isParenthesisNode && // On cherche à l'intérieur d'une parenthèse
+    (
+      !node.args[0].content.isOperatorNode || // Il ne faut pas d'opération
+      (node.args[0].content.isOperatorNode && node.args[0].content.op === '/') || // ou alors une divisions
+      (node.args[0].content.isOperatorNode && node.args[0].content.fn === 'unaryMinus') // ou alors un -n
+    )
+      ) { // Si l'une des conditions est vérifiée alors :
+        node.args[0] = node.args[0].content // on enlève la parenthèse
+        node.implicit = false // on fait en sorte que la multiplication soit visible
       }
-    })
-  } while (node.toString() !== nodeClone.toString())
-  if (debug) {
-    console.log('***********RESULTATS***********\n node.toString() : ', node.toString())
-    console.log('node : ', node)
+      if (node.args[1].isParenthesisNode &&
+    (
+      !node.args[1].content.isOperatorNode ||
+      (
+        node.args[1].content.isOperatorNode &&
+        node.args[1].content.op === '/' &&
+        !(
+          node.args[1].content.args[0].type === 'OperatorNode' &&
+          node.args[1].content.args[0].fn === 'unaryMinus' &&
+          node.args[1].content.args[0].args[0].type === 'ConstantNode' &&
+          !(node.args[1].content.args[1].type === 'OperatorNode' && node.args[1].content.args[1].fn === 'unaryMinus')
+        )
+      )
+    )) {
+        node.args[1] = node.args[1].content
+        node.implicit = false
+      }
+    }
+    if (node.type === 'OperatorNode' && node.op === '*') { // Corrige n*-c en n*(-c)
+      if (node.args[1].toString()[0] === '-') {
+        node.args[1] = Node.Creator.parenthesis(node.args[1])
+      }
+    }
+    // Peut-être faut-il mettre à jour le mathjs de mathsteps car il semble que le code suivant ne fonctionne pas
+    // dans mathsteps lorsqu'il est placé dans print.js de mathsteps
+    // alors qu'il fonctionne avec la version mathjs de mathalea
+    if (node.isOperatorNode && node.op === '*') { // Multiplication implicite 2*x devient 2x et 2*(x+3) devient 2(x+3)
+      if (node.args[1].isParenthesisNode || node.args[1].isSymbolNode) node.implicit = true
+      if (node.args[1].isOperatorNode && node.args[1].op === '^' && node.args[1].args[0].isSymbolNode) node.implicit = true
+    }
+    if (node.isOperatorNode && node.op === '*') { // Multiplication explicite x*2 ou x*2/3
+      if (node.args[1].isConstantNode) node.implicit = false
+      if (node.args[1].isOperatorNode && node.args[1].args[0].isConstantNode) node.implicit = false
+      if (node.args[1].isOperatorNode && node.args[1].op === '/') node.implicit = false
+      if (node.args[1].isOperatorNode && node.args[1].args[0].isOperatorNode && node.args[1].args[0].op === '/') node.implicit = false
+      if (node.args[1].isParenthesisNode && node.args[1].content.isOperatorNode && node.args[1].content.fn === 'unaryMinus') node.implicit = false
+    }
+    if (
+      node.isParenthesisNode &&
+      node.content.isOperatorNode &&
+        (
+          (node.content.op === '*' || node.content.op === '^') &&
+          (node.content.toString()[0] !== '-')
+        )
+    ) node = node.content
+    if (node.isParenthesisNode && node.content.isOperatorNode && node.content.op === '/') node = node.content
+    if (node.isOperatorNode && node.fn === 'unaryMinus' && node.args[0].isParenthesisNode && node.args[0].content.isOperatorNode && node.args[0].content.op === '*') node.args[0] = node.args[0].content
+    if (node.isOperatorNode && node.fn === 'unaryMinus' && node.args[0].isOperatorNode && node.args[0].op === '*') node = Node.Creator.operator('*', [Negative.negate(node.args[0].args[0]), node.args[0].args[1]])
+    return transformNode(node, oldNode)
+  } else {
+    return node
   }
-  return node.toTex({ parenthesis: 'keep' }).replaceAll('\\cdot', '\\times').replaceAll('.', '{,}').replaceAll('\\frac', '\\dfrac')
 }
 
 export function toTex (node, debug = false) {
@@ -166,129 +165,10 @@ export function toTex (node, debug = false) {
 
   let nodeClone
   do {
-    nodeClone = node.cloneDeep()
+    nodeClone = node.cloneDeep() // Vérifier que node.clone() fonctionne (peut-être y a-t-il un problème avec implicit avec cloneDeep())
     node = node.transform(
       function (node, path, parent) {
-        if (node.isOperatorNode && node.op === '/') { // Enlève les parenthèses au numérateur et dénominateur d'une fraction
-          if (node.args[0].isParenthesisNode) {
-            node.args[0] = node.args[0].content
-          }
-          if (node.args[1].isParenthesisNode) {
-            node.args[1] = node.args[1].content
-          }
-        }
-        if (node.isOperatorNode && node.op === '/') { // Transforme -2/3 en -(2/3) ??????
-          if (parent === null || parent.isParenthesisNode || (parent.op === '*')) {
-            if (node.args[0].isOperatorNode && node.args[0].fn === 'unaryMinus') {
-              if (!(node.args[1].isOperatorNode) || (node.args[1].isOperatorNode && node.args[1].fn !== 'unaryMinus')) {
-                const frac = Node.Creator.operator('/', [node.args[0].args[0], node.args[1]])
-                return Negative.negate(frac)
-              }
-            }
-          }
-        }
-        if (node.isOperatorNode && node.op === '/') { // Flatten divisions
-          if (node.args[0].isOperatorNode && node.args[0].op === '*') {
-            if (node.args[0].args[0].isOperatorNode && node.args[0].args[0].op === '/') {
-              const frac1 = Node.Creator.operator('/', node.args[0].args[0].args)
-              const frac2 = Node.Creator.operator('/', [node.args[0].args[1], node.args[1]])
-              node = Node.Creator.operator('*', [frac1, frac2])
-            }
-          }
-        }
-        if (node.isOperatorNode && node.op === '+') { // Enlève les parenthèses aux deux termes d'une addition
-          if (node.args[0].isParenthesisNode) node.args[0] = node.args[0].content
-          if (node.args[1].isParenthesisNode &&
-          node.args[1].content.toString()[0] !== '-') node.args[1] = node.args[1].content
-          if (node.args[1].toString() === '0') { // Enlève les +0
-            node = node.args[0]
-          }
-          if ( // Enlève les +0*n
-            node.args[1].isOperatorNode &&
-          node.args[1].op === '*' &&
-            (
-              node.args[1].args[0].toString() === '0'
-            )
-          ) {
-            node = node.args[0]
-          }
-        }
-        if (node.isOperatorNode && node.op === '-') { // Enlève les parenthèses au premier terme d'une soustraction et au second sous condition d'une /
-          if (node.args[0].isParenthesisNode) node.args[0] = node.args[0].content
-          if (node.args.length === 1 && node.args[0].isConstantNode && node.args[0].value < 0) { // Pour corriger --3 en -(-3)
-            node.args[0] = Node.Creator.parenthesis(node.args[0])
-          }
-          if (node.args.length === 2 && node.args[1].isConstantNode && node.args[1].value < 0) { // Pour corriger 7--3 en 7-(-3)
-            node.args[1] = Node.Creator.parenthesis(node.args[1])
-          }
-          if (
-            node.fn !== 'unaryMinus' && // On vérifie si c'est une vraie soustraction (avec deux termes)
-          node.args[1].isParenthesisNode && // On vérifie que le second terme possède une parenthèse
-          node.args[1].content.isOperatorNode && // On vérifie que le second terme contient une opération
-          (
-            node.args[1].content.op === '/' || // On teste si cette opération est une division
-            (
-              node.args[1].content.op === '*' && // On teste si c'est une multiplication
-              (
-                !node.args[1].content.args[0].isOperatorNode || // Si le premier facteur n'est pas une opération
-                (
-                  node.args[1].content.args[0].isOperatorNode && // Ou si c'est une opération
-                  node.args[1].content.args[0].fn !== 'unaryMinus' // mais que le premier argument n'est pas -blabla
-                )
-              )
-            )
-          )
-          ) node.args[1] = node.args[1].content
-        }
-        if (node.isOperatorNode && node.op === '*') { // Enlève les parenthèses aux deux facteurs d'une multiplication
-          if (node.args[0].isParenthesisNode && // On cherche à l'intérieur d'une parenthèse
-          (
-            !node.args[0].content.isOperatorNode || // Il ne faut pas d'opération
-            (node.args[0].content.isOperatorNode && node.args[0].content.op === '/') // ou alors une division
-          )
-          ) { // Si l'une des conditions est vérifiée alors :
-            node.args[0] = node.args[0].content // on enlève la parenthèse
-            node.implicit = false // on fait en sorte que la multiplication soit visible
-          }
-          if (node.args[1].isParenthesisNode &&
-          (
-            !node.args[1].content.isOperatorNode ||
-            (
-              node.args[1].content.isOperatorNode &&
-              node.args[1].content.op === '/'
-            )
-          )) {
-            node.args[1] = node.args[1].content
-            node.implicit = false
-          }
-        }
-        if (node.isOperatorNode && node.op === '*') { // Corrige n*-c en n*(-c)
-          for (let i = 1; i < node.args.length; i++) {
-            if (node.args[i].isConstantNode && node.args[i].value < 0) { // pour obtenir \times(-3)
-              node.args[i] = Node.Creator.parenthesis(node.args[i])
-            } else if (node.args[i].isOperatorNode && node.args[i].fn === 'unaryMinus') { // pour obtenir \times(-3)
-              node.args[i] = Node.Creator.parenthesis(node.args[i])
-            }
-          }
-        }
-        // Peut-être faut-il mettre à jour le mathjs de mathsteps car il semble que le code suivant ne fonctionne pas
-        // dans mathsteps lorsqu'il est placé dans print.js de mathsteps
-        // alors qu'il fonctionne avec la version mathjs de mathalea
-        if (node.isOperatorNode && node.op === '*') { // Multiplication implicite 2*x devient 2x et 2*(x+3) devient 2(x+3)
-          if (node.args[1].isParenthesisNode || node.args[1].isSymbolNode) node.implicit = true
-          if (node.args[1].isOperatorNode && node.args[1].op === '^' && node.args[1].args[0].isSymbolNode) node.implicit = true
-        }
-        if (node.isOperatorNode && node.op === '*') { // Multiplication explicite x*2 ou x*2/3
-          if (node.args[1].isConstantNode) node.implicit = false
-          if (node.args[1].isOperatorNode && node.args[1].args[0].isConstantNode) node.implicit = false
-          if (node.args[1].isOperatorNode && node.args[1].op === '/') node.implicit = false
-          if (node.args[1].isOperatorNode && node.args[1].args[0].isOperatorNode && node.args[1].args[0].op === '/') node.implicit = false
-          if (node.args[1].isParenthesisNode && node.args[1].content.isOperatorNode && node.args[1].content.fn === 'unaryMinus') node.implicit = false
-        }
-        if (node.isParenthesisNode && node.content.isOperatorNode && (node.content.op === '*' || node.content.op === '^')) node = node.content
-        if (node.isParenthesisNode && node.content.isOperatorNode && node.content.op === '/') node = node.content
-        if (node.isOperatorNode && node.fn === 'unaryMinus' && node.args[0].isParenthesisNode && node.args[0].content.isOperatorNode && node.args[0].content.op === '*') node.args[0] = node.args[0].content
-        if (node.isOperatorNode && node.fn === 'unaryMinus' && node.args[0].isOperatorNode && node.args[0].op === '*') node = Node.Creator.operator('*', [Negative.negate(node.args[0].args[0]), node.args[0].args[1]])
+        node = transformNode(node)
         return node
       }
     )
@@ -345,88 +225,6 @@ export function traverserEtapes (steps, result = []) {
     return traverserEtapes(step.substeps, result)
   })
   return result
-}
-
-export function calculExpressionOld (expression = '4/3+5/6', factoriser = false, debug = false) {
-  const steps = factoriser ? traverserEtapes(factor(expression)) : traverserEtapes(simplifyExpression(expression))
-  if (debug) {
-    console.log('* steps :')
-    console.log(steps)
-  }
-  let repetition = 0
-  const stepsExpression = []
-  let expressionPrint = ''
-  steps.forEach(function (step, i) {
-    const changement = step.changeType
-    if (step.oldNode !== null) {
-      if (step.oldNode.toString() === step.newNode.toString()) {
-        if (changement !== 'REMOVE_ADDING_ZEROS') repetition = (repetition + 1) % 2
-      } else {
-        repetition = 0
-      }
-    }
-    const oldNode = step.oldNode !== null ? toTex(step.oldNode) : ''
-    const newNode = toTex(step.newNode)
-    if (debug) {
-      console.log(changement)
-      console.log(newNode.toString())
-    }
-    if (i === 0) {
-      expressionPrint = `${oldNode}`
-    }
-    if (debug) console.log(newNode)
-    const commentairesExclus = {
-      COLLECT_LIKE_TERMS: String.raw`\text{Regrouper les termes}`,
-      MULTIPLY_DENOMINATORS: String.raw`\text{Calculer les dénominateurs}`,
-      ADD_EXPONENT_OF_ONE: String.raw`\text{Ajouter l'exposant 1}`,
-      COLLECT_POLYNOMIAL_EXPONENTS: String.raw`\text{Ajouter l'exposant 1}`
-    }
-    let commentaires = {
-      COMMON_DENOMINATOR: String.raw`\text{Obtenir le même dénominateur}`,
-      MULTIPLY_NUMERATORS: String.raw`\text{Calculer}`,
-      COMBINE_NUMERATORS: String.raw`\text{Combiner les numérateurs}`,
-      ADD_NUMERATORS: String.raw`\text{Additionner les numérateurs}`,
-      ADD_COEFFICIENT_OF_ONE: String.raw`\text{Ajouter le coefficient }1`,
-      GROUP_COEFFICIENTS: String.raw`\text{Regrouper les coefficients}`,
-      FIND_GCD: String.raw`\text{Trouver le plus grand diviseur commun.}`,
-      CANCEL_GCD: String.raw`\text{Simplifier par le PGCD.}`
-    }
-    if (debug) {
-      commentaires = Object.assign(commentaires, {
-        STATEMENT_IS_FALSE: String.raw`\text{L'égalité est fausse}`,
-        STATEMENT_IS_TRUE: String.raw`\text{L'égalité est vraie}`,
-        DISTRIBUTE: String.raw`\text{Distribution}`,
-        SIMPLIFY_RIGHT_SIDE: String.raw`\text{Simplifier le membre de droite}`,
-        SIMPLIFY_LEFT_SIDE: String.raw`\text{Simplifier le membre de gauche}`,
-        COLLECT_AND_COMBINE_LIKE_TERMS: String.raw`\text{Regrouper et réduire les termes de même nature}`,
-        SIMPLIFY_ARITHMETIC: String.raw`\text{Calcul arithmétique}`,
-        SIMPLIFY_FRACTION: String.raw`\text{Simplifier une fraction}`,
-        REMOVE_MULTIPLYING_BY_NEGATIVE_ONE: String.raw`\text{Calculer la multiplication par }-1`,
-        REMOVE_ADDING_ZERO: String.raw`\text{Enlever des zéros}`,
-        SWAP_SIDES: String.raw`\text{Echanger les deux membres}`,
-        CANCEL_MINUSES: String.raw`\text{Annuler les signes moins}`,
-        FIND_ROOTS: String.raw`\text{Trouver la (ou les) solution(s)}`,
-        SIMPLIFY_SIGNS: String.raw`\text{Simplifier le signe}`,
-        MULTIPLY_BY_ZERO: String.raw`\text{Multiplication par zéro}`,
-        ADD_FRACTIONS: String.raw`\text{Additionner des fractions}`,
-        BREAK_UP_FRACTION: String.raw`\text{Séparer une fraction}`,
-        CANCEL_TERMS: String.raw`\text{Annuler les termes}`,
-        REMOVE_MULTIPLYING_BY_ONE: String.raw`\text{Retirer la multiplication par } 1`
-      })
-    }
-    if (commentaires[changement] === undefined) commentaires[changement] = ''
-    if (commentairesExclus[changement] === undefined) stepsExpression.push(String.raw`&=${newNode}&&\tiny${commentaires[changement]}`)
-    if (debug) console.log('changement', commentaires[changement])
-  })
-  let texte = String.raw`Simplifier $${expressionPrint}$.`
-  const texteCorr = String.raw`Simplifier $${expressionPrint}$.
-  <br>
-  $\begin{aligned}
-  ${expressionPrint}${stepsExpression.join('\\\\')}
-  \end{aligned}$
-  `
-  if (debug) texte = texteCorr
-  return { texte: texte, texteCorr: texteCorr, stepsExpression }
 }
 
 export function calculExpression (expression = '4/3+5/6', factoriser = false, debug = false) {
