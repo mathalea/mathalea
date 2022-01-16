@@ -169,6 +169,7 @@ export async function loadMathLive () {
 
       // Evite les problèmes de positionnement du clavier mathématique dans les iframes
       if (context.vue === 'exMoodle') {
+        document.body.classList.add('exMoodle')
         const events = ['focus', 'input']
         events.forEach(e => {
           mf.addEventListener(e, () => {
