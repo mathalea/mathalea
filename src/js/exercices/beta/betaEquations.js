@@ -61,7 +61,7 @@ function schemaBarre () {
 export default function equationsProgression () {
   Exercice.call(this)
   const formulaire = []
-  for (let i = 0; i < 87; i++) formulaire.push(`${i}`)
+  for (let i = 0; i < 88; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
     'Type de question', this.nbQuestions, formulaire.join('\n')
@@ -835,6 +835,18 @@ export default function equationsProgression () {
             b: true,
             c: true,
             d: false
+          })).toString(), false, dDebug)
+          break
+        }
+        case 88: {
+          exercice = calculExpression(expressionLitterale('a/d*(b/e)*(c/f)', aleaVariables({
+            a: true,
+            b: true,
+            c: true,
+            d: false,
+            e: false,
+            f: false,
+            test: 'd>1 and e>1 and f>1'
           })).toString(), false, dDebug)
           break
         }

@@ -158,6 +158,18 @@ function transformNode (node, oldNode, debug = false) {
   }
 }
 
+function correctifNodeMathsteps (node) {
+  node = node.transform(
+    function (node, path, parent) {
+      if (node.type === 'ConstantNode') {
+        return math.parse(node.toString())
+      }
+      return node
+    }
+  )
+  return node
+}
+
 export function toTex (node, debug = false) {
   if (debug) {
     console.log('node.toString({ parenthesis: \'keep\' })', node.toString({ parenthesis: 'keep' }))
@@ -168,11 +180,13 @@ export function toTex (node, debug = false) {
   // De plus comme les multiplications peuvent avoir 3 ou plus de facteurs dans mathsteps
   // et que le paramètre implicit s'applique alors à tous les facteurs
   // cela devient impossible à traiter pour 4*x*(-5) qui donnerait 4x-5 avec implicit = true.
-  // Mais il faut un pré-traitement car dans mathsteps il y les ConstantNode négatives
-  node = parse(node.toString({ parenthesis: 'all' }))
+  // Mais il faut un pré-traitement car sinon le passage de mathsteps à mathjs
+  // transforme les (-3)^2 en -3^2
+  node = correctifNodeMathsteps(node) // Convertit d'abord tous les ConstantNode au format mathjs
+  node = parse(node.toString({ parenthesis: 'all' })) // Permet d'utiliser correctement les implicit
 
   let nodeClone
-  do {
+  do { // À étudier, pour 79 et 85 et 50 cette boucle doit être maintenue
     nodeClone = node.cloneDeep() // Vérifier que node.clone() fonctionne (peut-être y a-t-il un problème avec implicit avec cloneDeep())
     node = node.transform(
       function (node, path, parent) {
