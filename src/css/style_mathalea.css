@@ -597,12 +597,13 @@ a.lien_id_exercice.exerciceactif {
 
 }
 
-div.ML__keyboard.is-visible {
+body.exMoodle div.ML__keyboard.is-visible {
 	position: absolute;
 	top: var(--keyboard-position);
+  height: revert;
 }
 
-div.ML__keyboard.is-visible .ML__keyboard--plate {
+body.exMoodle div.ML__keyboard.is-visible .ML__keyboard--plate {
 	position: static;
 	transform: none;
 }
