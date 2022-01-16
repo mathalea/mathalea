@@ -193,7 +193,7 @@ function listeHtmlDesExercicesDUnNiveauAvecSousTheme (listeDeThemes) { // liste_
 }
 function getListeHtmlDesExercicesCrpe () {
   let liste = '<div class="accordion">'
-  for (const annee of ['2016', '2017']) {
+  for (const annee of ['2019', '2018', '2017', '2016']) {
     liste += `<div class="title"><i class="dropdown icon"></i> ${annee}</div><div class="content">`
     liste += listeHtmlDesExercicesCrpeAnnee(annee)
     liste += '</div>'

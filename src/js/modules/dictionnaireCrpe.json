@@ -1,378 +1,482 @@
 {
-  "crpe-2016-g1-ex1": {
+  "crpe-2019-g1-dida": {
     "typeExercice": "crpe",
-    "annee": "2016",
+    "annee": "2019",
     "lieu": "Groupement 1",
-    "numeroInitial": "Ex 1",
+    "numeroInitial": "Situation 1",
     "png": [
-      "assets/crpe/2016/2016-g1-ex1.png"
+      "assets/crpe/2019/2019-g1-dida1.png",
+      "assets/crpe/2019/2019-g1-dida2.png",
+      "assets/crpe/2019/2019-g1-dida3-1.png",
+      "assets/crpe/2019/2019-g1-dida3-2.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-g1-ex1-cor-1.png",
-      "assets/crpe/2016/2016-g1-ex1-cor-2.png",
-      "assets/crpe/2016/2016-g1-ex1-cor-3.png",
-      "assets/crpe/2016/2016-g1-ex1-cor-4.png"
+      "assets/crpe/2019/2019-g1-dida1-cor-1.png",
+      "assets/crpe/2019/2019-g1-dida2-cor-1.png",
+      "assets/crpe/2019/2019-g1-dida2-cor-2.png",
+      "assets/crpe/2019/2019-g1-dida3-cor-1.png",
+      "assets/crpe/2019/2019-g1-dida3-cor-2.png",
+      "assets/crpe/2019/2019-g1-dida3-cor-3.png",
+      "assets/crpe/2019/2019-g1-dida3-cor-4.png"
     ],
     "tags": []
   },
-  "crpe-2016-g1-ex2": {
+  "crpe-2019-g1-dida1": {
     "typeExercice": "crpe",
-    "annee": "2016",
+    "annee": "2019",
     "lieu": "Groupement 1",
-    "numeroInitial": "Ex 2",
+    "numeroInitial": "Situation 1",
     "png": [
-      "assets/crpe/2016/2016-g1-ex2.png"
+      "assets/crpe/2019/2019-g1-dida1.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-g1-ex2-cor-1.png",
-      "assets/crpe/2016/2016-g1-ex2-cor-2.png"
+      "assets/crpe/2019/2019-g1-dida1-cor-1.png"
     ],
     "tags": []
   },
-  "crpe-2016-g1-ex3": {
+  "crpe-2019-g1-dida2": {
     "typeExercice": "crpe",
-    "annee": "2016",
+    "annee": "2019",
     "lieu": "Groupement 1",
-    "numeroInitial": "Ex 3",
+    "numeroInitial": "Situation 2",
     "png": [
-      "assets/crpe/2016/2016-g1-ex3.png"
+      "assets/crpe/2019/2019-g1-dida2.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-g1-ex3-cor-1.png",
-      "assets/crpe/2016/2016-g1-ex3-cor-2.png",
-      "assets/crpe/2016/2016-g1-ex3-cor-3.png"
+      "assets/crpe/2019/2019-g1-dida2-cor-1.png",
+      "assets/crpe/2019/2019-g1-dida2-cor-2.png"
     ],
     "tags": []
   },
-  "crpe-2016-g1-ex4": {
+  "crpe-2019-g1-dida3": {
     "typeExercice": "crpe",
-    "annee": "2016",
+    "annee": "2019",
     "lieu": "Groupement 1",
-    "numeroInitial": "Ex 4",
+    "numeroInitial": "Situation 3",
     "png": [
-      "assets/crpe/2016/2016-g1-ex4.png"
+      "assets/crpe/2019/2019-g1-dida3-1.png",
+      "assets/crpe/2019/2019-g1-dida3-2.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-g1-ex4-cor-1.png",
-      "assets/crpe/2016/2016-g1-ex4-cor-2.png",
-      "assets/crpe/2016/2016-g1-ex4-cor-3.png"
+      "assets/crpe/2019/2019-g1-dida3-cor-1.png",
+      "assets/crpe/2019/2019-g1-dida3-cor-2.png",
+      "assets/crpe/2019/2019-g1-dida3-cor-3.png",
+      "assets/crpe/2019/2019-g1-dida3-cor-4.png"
     ],
     "tags": []
   },
-  "crpe-2016-g1-pb": {
+  "crpe-2019-g2-dida": {
     "typeExercice": "crpe",
-    "annee": "2016",
-    "lieu": "Groupement 1",
-    "numeroInitial": "Problème",
-    "png": [
-      "assets/crpe/2016/2016-g1-pb-1.png",
-      "assets/crpe/2016/2016-g1-pb-2.png",
-      "assets/crpe/2016/2016-g1-pb-3.png"
-    ],
-    "pngCor": [
-      "assets/crpe/2016/2016-g1-pb-cor-1.png",
-      "assets/crpe/2016/2016-g1-pb-cor-2.png",
-      "assets/crpe/2016/2016-g1-pb-cor-3.png",
-      "assets/crpe/2016/2016-g1-pb-cor-4.png",
-      "assets/crpe/2016/2016-g1-pb-cor-5.png",
-      "assets/crpe/2016/2016-g1-pb-cor-6.png",
-      "assets/crpe/2016/2016-g1-pb-cor-7.png"
-    ],
-    "tags": []
-  },
-  "crpe-2016-g2-ex1": {
-    "typeExercice": "crpe",
-    "annee": "2016",
+    "annee": "2019",
     "lieu": "Groupement 2",
-    "numeroInitial": "Ex 1",
+    "numeroInitial": "Situation 1",
     "png": [
-      "assets/crpe/2016/2016-g2-ex1.png"
+      "assets/crpe/2019/2019-g2-dida1.png",
+      "assets/crpe/2019/2019-g2-dida2-1.png",
+      "assets/crpe/2019/2019-g2-dida2-2.png",
+      "assets/crpe/2019/2019-g2-dida3.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-g2-ex1-cor-1.png",
-      "assets/crpe/2016/2016-g2-ex1-cor-2.png",
-      "assets/crpe/2016/2016-g2-ex1-cor-3.png"
+      "assets/crpe/2019/2019-g2-dida1-cor-1.png",
+      "assets/crpe/2019/2019-g2-dida1-cor-3.png",
+      "assets/crpe/2019/2019-g2-dida2-cor-1.png",
+      "assets/crpe/2019/2019-g2-dida2-cor-2.png",
+      "assets/crpe/2019/2019-g2-dida2-cor-3.png",
+      "assets/crpe/2019/2019-g2-dida3-cor-1.png",
+      "assets/crpe/2019/2019-g2-dida3-cor-2.png",
+      "assets/crpe/2019/2019-g2-dida3-cor-3.png"
     ],
     "tags": []
   },
-  "crpe-2016-g2-ex2": {
+  "crpe-2019-g2-dida1": {
     "typeExercice": "crpe",
-    "annee": "2016",
+    "annee": "2019",
     "lieu": "Groupement 2",
-    "numeroInitial": "Ex 2",
+    "numeroInitial": "Situation 1",
     "png": [
-      "assets/crpe/2016/2016-g2-ex2.png"
+      "assets/crpe/2019/2019-g2-dida1.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-g2-ex2-cor-1.png",
-      "assets/crpe/2016/2016-g2-ex2-cor-2.png",
-      "assets/crpe/2016/2016-g2-ex2-cor-3.png"
+      "assets/crpe/2019/2019-g2-dida1-cor-1.png",
+      "assets/crpe/2019/2019-g2-dida1-cor-3.png"
     ],
     "tags": []
   },
-  "crpe-2016-g2-ex3": {
+  "crpe-2019-g2-dida2": {
     "typeExercice": "crpe",
-    "annee": "2016",
+    "annee": "2019",
     "lieu": "Groupement 2",
-    "numeroInitial": "Ex 3",
+    "numeroInitial": "Situation 2",
     "png": [
-      "assets/crpe/2016/2016-g2-ex3-1.png",
-      "assets/crpe/2016/2016-g2-ex3-2.png"
+      "assets/crpe/2019/2019-g2-dida2-1.png",
+      "assets/crpe/2019/2019-g2-dida2-2.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-g2-ex3-cor-1.png",
-      "assets/crpe/2016/2016-g2-ex3-cor-2.png",
-      "assets/crpe/2016/2016-g2-ex3-cor-3.png"
+      "assets/crpe/2019/2019-g2-dida2-cor-1.png",
+      "assets/crpe/2019/2019-g2-dida2-cor-2.png",
+      "assets/crpe/2019/2019-g2-dida2-cor-3.png"
     ],
     "tags": []
   },
-  "crpe-2016-g2-ex4": {
+  "crpe-2019-g2-dida3": {
     "typeExercice": "crpe",
-    "annee": "2016",
+    "annee": "2019",
     "lieu": "Groupement 2",
-    "numeroInitial": "Ex 4",
+    "numeroInitial": "Situation 3",
     "png": [
-      "assets/crpe/2016/2016-g2-ex4.png"
+      "assets/crpe/2019/2019-g2-dida3.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-g2-ex4-cor-1.png",
-      "assets/crpe/2016/2016-g2-ex4-cor-2.png",
-      "assets/crpe/2016/2016-g2-ex4-cor-3.png"
+      "assets/crpe/2019/2019-g2-dida3-cor-1.png",
+      "assets/crpe/2019/2019-g2-dida3-cor-2.png",
+      "assets/crpe/2019/2019-g2-dida3-cor-3.png"
     ],
     "tags": []
   },
-  "crpe-2016-g2-pb": {
+  "crpe-2019-g3-dida": {
     "typeExercice": "crpe",
-    "annee": "2016",
-    "lieu": "Groupement 2",
-    "numeroInitial": "Problème",
-    "png": [
-      "assets/crpe/2016/2016-g2-pb-1.png",
-      "assets/crpe/2016/2016-g2-pb-2.png",
-      "assets/crpe/2016/2016-g2-pb-3.png"
-    ],
-    "pngCor": [
-      "assets/crpe/2016/2016-g2-pb-cor-1.png",
-      "assets/crpe/2016/2016-g2-pb-cor-2.png",
-      "assets/crpe/2016/2016-g2-pb-cor-3.png",
-      "assets/crpe/2016/2016-g2-pb-cor-4.png",
-      "assets/crpe/2016/2016-g2-pb-cor-5.png",
-      "assets/crpe/2016/2016-g2-pb-cor-6.png",
-      "assets/crpe/2016/2016-g2-pb-cor-7.png"
-    ],
-    "tags": []
-  },
-  "crpe-2016-g3-ex1": {
-    "typeExercice": "crpe",
-    "annee": "2016",
+    "annee": "2019",
     "lieu": "Groupement 3",
-    "numeroInitial": "Ex 1",
+    "numeroInitial": "Situation 1",
     "png": [
-      "assets/crpe/2016/2016-g3-ex1.png"
+      "assets/crpe/2019/2019-g3-dida1.png",
+      "assets/crpe/2019/2019-g3-dida2.png",
+      "assets/crpe/2019/2019-g3-dida3-1.png",
+      "assets/crpe/2019/2019-g3-dida3-2.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-g3-ex1-cor-1.png",
-      "assets/crpe/2016/2016-g3-ex1-cor-2.png"
+      "assets/crpe/2019/2019-g3-dida1-cor-1.png",
+      "assets/crpe/2019/2019-g3-dida1-cor-2.png",
+      "assets/crpe/2019/2019-g3-dida1-cor-3.png",
+      "assets/crpe/2019/2019-g3-dida2-cor-1.png",
+      "assets/crpe/2019/2019-g3-dida2-cor-2.png",
+      "assets/crpe/2019/2019-g3-dida2-cor-3png.png",
+      "assets/crpe/2019/2019-g3-dida3-cor-1.png",
+      "assets/crpe/2019/2019-g3-dida3-cor-2.png"
     ],
     "tags": []
   },
-  "crpe-2016-g3-ex2": {
+  "crpe-2019-g3-dida1": {
     "typeExercice": "crpe",
-    "annee": "2016",
+    "annee": "2019",
     "lieu": "Groupement 3",
-    "numeroInitial": "Ex 2",
+    "numeroInitial": "Situation 1",
     "png": [
-      "assets/crpe/2016/2016-g3-ex2.png"
+      "assets/crpe/2019/2019-g3-dida1.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-g3-ex2-cor-1.png",
-      "assets/crpe/2016/2016-g3-ex2-cor-2.png",
-      "assets/crpe/2016/2016-g3-ex2-cor-3.png"
+      "assets/crpe/2019/2019-g3-dida1-cor-1.png",
+      "assets/crpe/2019/2019-g3-dida1-cor-2.png",
+      "assets/crpe/2019/2019-g3-dida1-cor-3.png"
     ],
     "tags": []
   },
-  "crpe-2016-g3-ex3": {
+  "crpe-2019-g3-dida2": {
     "typeExercice": "crpe",
-    "annee": "2016",
+    "annee": "2019",
     "lieu": "Groupement 3",
-    "numeroInitial": "Ex 3",
+    "numeroInitial": "Situation 2",
     "png": [
-      "assets/crpe/2016/2016-g3-ex3.png"
+      "assets/crpe/2019/2019-g3-dida2.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-g3-ex3-cor-1.png",
-      "assets/crpe/2016/2016-g3-ex3-cor-2.png"
+      "assets/crpe/2019/2019-g3-dida2-cor-1.png",
+      "assets/crpe/2019/2019-g3-dida2-cor-2.png",
+      "assets/crpe/2019/2019-g3-dida2-cor-3png.png"
     ],
     "tags": []
   },
-  "crpe-2016-g3-pb": {
+  "crpe-2019-g3-dida3": {
     "typeExercice": "crpe",
-    "annee": "2016",
+    "annee": "2019",
     "lieu": "Groupement 3",
-    "numeroInitial": "Problème",
+    "numeroInitial": "Situation 3",
     "png": [
-      "assets/crpe/2016/2016-g3-pb-1.png",
-      "assets/crpe/2016/2016-g3-pb-2.png",
-      "assets/crpe/2016/2016-g3-pb-3.png"
+      "assets/crpe/2019/2019-g3-dida3-1.png",
+      "assets/crpe/2019/2019-g3-dida3-2.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-g3-pb-cor-1.png",
-      "assets/crpe/2016/2016-g3-pb-cor-2.png",
-      "assets/crpe/2016/2016-g3-pb-cor-3.png",
-      "assets/crpe/2016/2016-g3-pb-cor-4.png",
-      "assets/crpe/2016/2016-g3-pb-cor-5.png",
-      "assets/crpe/2016/2016-g3-pb-cor-6.png"
+      "assets/crpe/2019/2019-g3-dida3-cor-1.png",
+      "assets/crpe/2019/2019-g3-dida3-cor-2.png"
     ],
     "tags": []
   },
-  "crpe-2016-cre-ex1": {
+  "crpe-2019-g4-dida": {
     "typeExercice": "crpe",
-    "annee": "2016",
-    "lieu": "Créteil",
-    "numeroInitial": "Ex 1",
+    "annee": "2019",
+    "lieu": "Groupement 4",
+    "numeroInitial": "Situation 1",
     "png": [
-      "assets/crpe/2016/2016-cre-ex1.png"
+      "assets/crpe/2019/2019-g4-dida1.png",
+      "assets/crpe/2019/2019-g4-dida2-1.png",
+      "assets/crpe/2019/2019-g4-dida2-2.png",
+      "assets/crpe/2019/2019-g4-dida3.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-cre-ex1-cor.png"
+      "assets/crpe/2019/2019-g4-dida1-cor-1.png",
+      "assets/crpe/2019/2019-g4-dida1-cor-2.png",
+      "assets/crpe/2019/2019-g4-dida1-cor-3.png",
+      "assets/crpe/2019/2019-g4-dida2-cor-2.png",
+      "assets/crpe/2019/2019-g4-dida2-cor-3.png",
+      "assets/crpe/2019/2019-g4-dida3-cor-1.png",
+      "assets/crpe/2019/2019-g4-dida3-cor-2.png",
+      "assets/crpe/2019/2019-g4-dida3-cor-3.png"
     ],
     "tags": []
   },
-  "crpe-2016-cre-ex2": {
+  "crpe-2019-g4-dida1": {
     "typeExercice": "crpe",
-    "annee": "2016",
-    "lieu": "Créteil",
-    "numeroInitial": "Ex 2",
+    "annee": "2019",
+    "lieu": "Groupement 4",
+    "numeroInitial": "Situation 1",
     "png": [
-      "assets/crpe/2016/2016-cre-ex2.png"
+      "assets/crpe/2019/2019-g4-dida1.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-cre-ex2-cor.png"
+      "assets/crpe/2019/2019-g4-dida1-cor-1.png",
+      "assets/crpe/2019/2019-g4-dida1-cor-2.png",
+      "assets/crpe/2019/2019-g4-dida1-cor-3.png"
     ],
     "tags": []
   },
-  "crpe-2016-cre-ex3": {
+  "crpe-2019-g4-dida2": {
     "typeExercice": "crpe",
-    "annee": "2016",
-    "lieu": "Créteil",
-    "numeroInitial": "Ex 3",
+    "annee": "2019",
+    "lieu": "Groupement 4",
+    "numeroInitial": "Situation 2",
     "png": [
-      "assets/crpe/2016/2016-cre-ex3.png"
+      "assets/crpe/2019/2019-g4-dida2-1.png",
+      "assets/crpe/2019/2019-g4-dida2-2.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-cre-ex3-cor-1.png",
-      "assets/crpe/2016/2016-cre-ex3-cor-2.png"
+      "assets/crpe/2019/2019-g4-dida2-cor-2.png",
+      "assets/crpe/2019/2019-g4-dida2-cor-3.png"
     ],
     "tags": []
   },
-  "crpe-2016-cre-ex4": {
+  "crpe-2019-g4-dida3": {
     "typeExercice": "crpe",
-    "annee": "2016",
-    "lieu": "Créteil",
-    "numeroInitial": "Ex 4",
+    "annee": "2019",
+    "lieu": "Groupement 4",
+    "numeroInitial": "Situation 3",
     "png": [
-      "assets/crpe/2016/2016-cre-ex4.png"
+      "assets/crpe/2019/2019-g4-dida3.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-cre-ex4-cor-1.png",
-      "assets/crpe/2016/2016-cre-ex4-cor-2.png"
+      "assets/crpe/2019/2019-g4-dida3-cor-1.png",
+      "assets/crpe/2019/2019-g4-dida3-cor-2.png",
+      "assets/crpe/2019/2019-g4-dida3-cor-3.png"
     ],
     "tags": []
   },
-  "crpe-2016-cre-pb": {
+  "crpe-2019-g5-dida": {
     "typeExercice": "crpe",
-    "annee": "2016",
-    "lieu": "Créteil",
-    "numeroInitial": "Problème",
+    "annee": "2019",
+    "lieu": "Groupement 5",
+    "numeroInitial": "Situation 1",
     "png": [
-      "assets/crpe/2016/2016-cre-pb-1.png",
-      "assets/crpe/2016/2016-cre-pb-2.png",
-      "assets/crpe/2016/2016-cre-pb-3.png",
-      "assets/crpe/2016/2016-cre-pb-4.png"
+      "assets/crpe/2019/2019-g5-dida1.png",
+      "assets/crpe/2019/2019-g5-dida2.png",
+      "assets/crpe/2019/2019-g5-dida3.png",
+      "assets/crpe/2019/2019-g5-dida4.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-cre-pb-cor-1.png",
-      "assets/crpe/2016/2016-cre-pb-cor-2.png",
-      "assets/crpe/2016/2016-cre-pb-cor-3.png",
-      "assets/crpe/2016/2016-cre-pb-cor-4.png"
+      "assets/crpe/2019/2019-g5-dida1-cor-1.png",
+      "assets/crpe/2019/2019-g5-dida1-cor-2.png",
+      "assets/crpe/2019/2019-g5-dida1-cor-3.png",
+      "assets/crpe/2019/2019-g5-dida2-cor-1.png",
+      "assets/crpe/2019/2019-g5-dida2-cor-2.png",
+      "assets/crpe/2019/2019-g5-dida3-cor-1.png",
+      "assets/crpe/2019/2019-g5-dida3-cor-2.png",
+      "assets/crpe/2019/2019-g5-dida4-cor-1.png"
     ],
     "tags": []
   },
-  "crpe-2016-pol-ex1": {
+  "crpe-2019-g5-dida1": {
     "typeExercice": "crpe",
-    "annee": "2016",
-    "lieu": "Polynésie",
-    "numeroInitial": "Ex 1",
+    "annee": "2019",
+    "lieu": "Groupement 5",
+    "numeroInitial": "Situation 1",
     "png": [
-      "assets/crpe/2016/2016-pol-ex1.png"
+      "assets/crpe/2019/2019-g5-dida1.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-pol-ex1-cor-1.png",
-      "assets/crpe/2016/2016-pol-ex1-cor-2.png"
+      "assets/crpe/2019/2019-g5-dida1-cor-1.png",
+      "assets/crpe/2019/2019-g5-dida1-cor-2.png",
+      "assets/crpe/2019/2019-g5-dida1-cor-3.png"
     ],
     "tags": []
   },
-  "crpe-2016-pol-ex2": {
+  "crpe-2019-g5-dida2": {
     "typeExercice": "crpe",
-    "annee": "2016",
-    "lieu": "Polynésie",
-    "numeroInitial": "Ex 2",
+    "annee": "2019",
+    "lieu": "Groupement 5",
+    "numeroInitial": "Situation 2",
     "png": [
-      "assets/crpe/2016/2016-pol-ex2.png"
+      "assets/crpe/2019/2019-g5-dida2.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-pol-ex2-cor.png"
+      "assets/crpe/2019/2019-g5-dida2-cor-1.png",
+      "assets/crpe/2019/2019-g5-dida2-cor-2.png"
     ],
     "tags": []
   },
-  "crpe-2016-pol-ex3": {
+  "crpe-2019-g5-dida3": {
     "typeExercice": "crpe",
-    "annee": "2016",
-    "lieu": "Polynésie",
-    "numeroInitial": "Ex 3",
+    "annee": "2019",
+    "lieu": "Groupement 5",
+    "numeroInitial": "Situation 3",
     "png": [
-      "assets/crpe/2016/2016-pol-ex3-1.png",
-      "assets/crpe/2016/2016-pol-ex3-2.png"
+      "assets/crpe/2019/2019-g5-dida3.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-pol-ex3-cor-1.png",
-      "assets/crpe/2016/2016-pol-ex3-cor-2.png"
+      "assets/crpe/2019/2019-g5-dida3-cor-1.png",
+      "assets/crpe/2019/2019-g5-dida3-cor-2.png"
     ],
     "tags": []
   },
-  "crpe-2016-pol-ex4": {
+  "crpe-2019-g5-dida4": {
     "typeExercice": "crpe",
-    "annee": "2016",
-    "lieu": "Polynésie",
-    "numeroInitial": "Ex 4",
+    "annee": "2019",
+    "lieu": "Groupement 5",
+    "numeroInitial": "Situation 4",
     "png": [
-      "assets/crpe/2016/2016-pol-ex4.png"
+      "assets/crpe/2019/2019-g5-dida4.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-pol-ex4-cor-1.png",
-      "assets/crpe/2016/2016-pol-ex4-cor-2.png"
+      "assets/crpe/2019/2019-g5-dida4-cor-1.png"
     ],
     "tags": []
   },
-  "crpe-2016-pol-pb": {
+  "crpe-2019-aix-dida": {
     "typeExercice": "crpe",
-    "annee": "2016",
-    "lieu": "Polynésie",
-    "numeroInitial": "Problème",
+    "annee": "2019",
+    "lieu": "Aix-Marseille",
+    "numeroInitial": "Situation 1",
     "png": [
-      "assets/crpe/2016/2016-pol-pb-1.png",
-      "assets/crpe/2016/2016-pol-pb-2.png",
-      "assets/crpe/2016/2016-pol-pb-3.png",
-      "assets/crpe/2016/2016-pol-pb-4.png"
+      "assets/crpe/2019/2019-aix-dida-1.png",
+      "assets/crpe/2019/2019-aix-dida-2.png",
+      "assets/crpe/2019/2019-aix-dida-3.png",
+      "assets/crpe/2019/2019-aix-dida2-1.png",
+      "assets/crpe/2019/2019-aix-dida3-1.png",
+      "assets/crpe/2019/2019-aix-dida3-2.png"
     ],
     "pngCor": [
-      "assets/crpe/2016/2016-pol-pb-cor-1.png",
-      "assets/crpe/2016/2016-pol-pb-cor-2.png",
-      "assets/crpe/2016/2016-pol-pb-cor-3.png",
-      "assets/crpe/2016/2016-pol-pb-cor-4.png",
-      "assets/crpe/2016/2016-pol-pb-cor-5.png",
-      "assets/crpe/2016/2016-pol-pb-cor-6.png",
-      "assets/crpe/2016/2016-pol-pb-cor-7.png"
+      "assets/crpe/2019/2019-aix-dida-cor-1.png",
+      "assets/crpe/2019/2019-aix-dida-cor-2.png",
+      "assets/crpe/2019/2019-aix-dida2-cor-1.png",
+      "assets/crpe/2019/2019-aix-dida2-cor-2.png",
+      "assets/crpe/2019/2019-aix-dida2-cor-3.png"
+    ],
+    "tags": []
+  },
+  "crpe-2019-aix-dida2": {
+    "typeExercice": "crpe",
+    "annee": "2019",
+    "lieu": "Aix-Marseille",
+    "numeroInitial": "Situation 2",
+    "png": [
+      "assets/crpe/2019/2019-aix-dida2-1.png"
+    ],
+    "pngCor": [
+      "assets/crpe/2019/2019-aix-dida2-cor-1.png",
+      "assets/crpe/2019/2019-aix-dida2-cor-2.png",
+      "assets/crpe/2019/2019-aix-dida2-cor-3.png"
+    ],
+    "tags": []
+  },
+  "crpe-2019-aix-dida3": {
+    "typeExercice": "crpe",
+    "annee": "2019",
+    "lieu": "Aix-Marseille",
+    "numeroInitial": "Situation 3",
+    "png": [
+      "assets/crpe/2019/2019-aix-dida3-1.png",
+      "assets/crpe/2019/2019-aix-dida3-2.png"
+    ],
+    "pngCor": [],
+    "tags": []
+  },
+  "crpe-2019-bre-dida": {
+    "typeExercice": "crpe",
+    "annee": "2019",
+    "lieu": "ESPE Bretagne",
+    "numeroInitial": "Situation 1",
+    "png": [
+      "assets/crpe/2019/2019-bre-dida-1.png",
+      "assets/crpe/2019/2019-bre-dida-2.png",
+      "assets/crpe/2019/2019-bre-dida-3.png",
+      "assets/crpe/2019/2019-bre-dida-4.png"
+    ],
+    "pngCor": [
+      "assets/crpe/2019/2019-bre-dida-cor-1.png",
+      "assets/crpe/2019/2019-bre-dida-cor-2.png"
+    ],
+    "tags": []
+  },
+  "crpe-2019-cle-dida": {
+    "typeExercice": "crpe",
+    "annee": "2019",
+    "lieu": "ESPE Clermont-Ferrand",
+    "numeroInitial": "Situation 1",
+    "png": [
+      "assets/crpe/2019/2019-cle-dida-1.png",
+      "assets/crpe/2019/2019-cle-dida-2.png",
+      "assets/crpe/2019/2019-cle-dida-3.png",
+      "assets/crpe/2019/2019-cle-dida2-1.png"
+    ],
+    "pngCor": [
+      "assets/crpe/2019/2019-cle-dida-cor-1.png",
+      "assets/crpe/2019/2019-cle-dida-cor-2.png",
+      "assets/crpe/2019/2019-cle-dida2-cor-1.png",
+      "assets/crpe/2019/2019-cle-dida2-cor-2.png"
+    ],
+    "tags": []
+  },
+  "crpe-2019-cle-dida2": {
+    "typeExercice": "crpe",
+    "annee": "2019",
+    "lieu": "ESPE Clermont-Ferrand",
+    "numeroInitial": "Situation 2",
+    "png": [
+      "assets/crpe/2019/2019-cle-dida2-1.png"
+    ],
+    "pngCor": [
+      "assets/crpe/2019/2019-cle-dida2-cor-1.png",
+      "assets/crpe/2019/2019-cle-dida2-cor-2.png"
+    ],
+    "tags": []
+  },
+  "crpe-2019-dij-dida": {
+    "typeExercice": "crpe",
+    "annee": "2019",
+    "lieu": "ESPE Dijon",
+    "numeroInitial": "Situation 1",
+    "png": [
+      "assets/crpe/2019/2019-dij-dida-1.png",
+      "assets/crpe/2019/2019-dij-dida-2.png",
+      "assets/crpe/2019/2019-dij-dida2-1.png"
+    ],
+    "pngCor": [
+      "assets/crpe/2019/2019-dij-dida-cor-1.png",
+      "assets/crpe/2019/2019-dij-dida-cor-2.png",
+      "assets/crpe/2019/2019-dij-dida-cor-3.png",
+      "assets/crpe/2019/2019-dij-dida2-cor-1.png",
+      "assets/crpe/2019/2019-dij-dida2-cor-2.png"
+    ],
+    "tags": []
+  },
+  "crpe-2019-dij-dida2": {
+    "typeExercice": "crpe",
+    "annee": "2019",
+    "lieu": "ESPE Dijon",
+    "numeroInitial": "Situation 2",
+    "png": [
+      "assets/crpe/2019/2019-dij-dida2-1.png"
+    ],
+    "pngCor": [
+      "assets/crpe/2019/2019-dij-dida2-cor-1.png",
+      "assets/crpe/2019/2019-dij-dida2-cor-2.png"
     ],
     "tags": []
   }
