@@ -293,7 +293,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2019/2019-g5-ex1-cor-1.png',
       'assets/crpe/2019/2019-g5-ex1-cor-2.png'
     ],
-    tags: ['Vrai-faux', 'Vitesse', 'Statistiques', 'Arithmétique']
+    tags: ['Vrai-faux', 'Vitesses', 'Statistiques', 'Arithmétique']
   },
   'crpe-2019-g5-ex2': {
     typeExercice: 'crpe',
@@ -427,7 +427,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2019/2019-tou-pb-cor-3.png',
       'assets/crpe/2019/2019-tou-pb-cor-4.png'
     ],
-    tags: ['Recherche d\'informations', 'Calcul littéral', 'Grandeurs composées', 'Tableur', 'Lecture graphique', 'Vitesse']
+    tags: ['Recherche d\'informations', 'Calcul littéral', 'Grandeurs composées', 'Tableur', 'Lecture graphique', 'Vitesses']
   },
   'crpe-2018-g1-ex1': {
     typeExercice: 'crpe',
@@ -441,7 +441,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g1-ex1-cor-1.png',
       'assets/crpe/2018/2018-g1-ex1-cor-2.png'
     ],
-    tags: []
+    tags: ['Volumes', 'Proportionnalité', 'Thalès']
   },
   'crpe-2018-g1-ex2': {
     typeExercice: 'crpe',
@@ -456,7 +456,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g1-ex2-cor-1.png',
       'assets/crpe/2018/2018-g1-ex2-cor-2.png'
     ],
-    tags: []
+    tags: ['Probabilités']
   },
   'crpe-2018-g1-ex3': {
     typeExercice: 'crpe',
@@ -471,7 +471,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g1-ex3-cor-2.png',
       'assets/crpe/2018/2018-g1-ex3-cor-3.png'
     ],
-    tags: []
+    tags: ['Algorithmique', 'Programme de calculs']
   },
   'crpe-2018-g1-ex4': {
     typeExercice: 'crpe',
@@ -486,7 +486,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g1-ex4-cor-2.png',
       'assets/crpe/2018/2018-g1-ex4-cor-3.png'
     ],
-    tags: []
+    tags: ['Vrai-faux', 'Aires et périmètres', 'Volumes', 'Pourcentages', 'Géométrie plane']
   },
   'crpe-2018-g1-pb': {
     typeExercice: 'crpe',
@@ -508,7 +508,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g1-pb-cor-6.png',
       'assets/crpe/2018/2018-g1-pb-cor-7.png'
     ],
-    tags: []
+    tags: ['Recherche d\'informations', 'Aires et périmètres', 'Vitesses', 'Proportionnalité', 'Durées', 'Calculs numériques']
   },
   'crpe-2018-g2-ex1': {
     typeExercice: 'crpe',
@@ -523,7 +523,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g2-ex1-cor-1.png',
       'assets/crpe/2018/2018-g2-ex1-cor-2.png'
     ],
-    tags: []
+    tags: ['Recherche d\'informations', 'Probabilités']
   },
   'crpe-2018-g2-ex2': {
     typeExercice: 'crpe',
@@ -538,7 +538,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g2-ex2-cor-1.png',
       'assets/crpe/2018/2018-g2-ex2-cor-2.png'
     ],
-    tags: []
+    tags: ['Algorithmique']
   },
   'crpe-2018-g2-ex3': {
     typeExercice: 'crpe',
@@ -552,7 +552,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g2-ex3-cor-1.png',
       'assets/crpe/2018/2018-g2-ex3-cor-2.png'
     ],
-    tags: []
+    tags: ['Calcul littéral']
   },
   'crpe-2018-g2-ex4': {
     typeExercice: 'crpe',
@@ -567,7 +567,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g2-ex4-cor-2.png',
       'assets/crpe/2018/2018-g2-ex4-cor-3.png'
     ],
-    tags: []
+    tags: ['Géométrie plane', 'Aires et périmètres', 'Pythagore', 'Trigonométrie']
   },
   'crpe-2018-g2-pb': {
     typeExercice: 'crpe',
@@ -587,7 +587,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g2-pb-cor-4.png',
       'assets/crpe/2018/2018-g2-pb-cor-5.png'
     ],
-    tags: []
+    tags: ['Volumes', 'Aires et périmètres', 'Patrons', 'Lecture graphique', 'Fonctions', 'Tableur', 'Grandeurs composées', ]
   },
   'crpe-2018-g3-ex1': {
     typeExercice: 'crpe',
@@ -601,7 +601,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g3-ex1-cor-1.png',
       'assets/crpe/2018/2018-g3-ex1-cor-2.png'
     ],
-    tags: []
+    tags: ['Géométrie plane', 'Aires et périmètres', 'Trigonométrie', 'Pythagore']
   },
   'crpe-2018-g3-ex2': {
     typeExercice: 'crpe',
@@ -616,7 +616,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g3-ex2-cor-2.png',
       'assets/crpe/2018/2018-g3-ex2-cor-3.png'
     ],
-    tags: []
+    tags: ['Vrai-faux', 'Arithmétique', 'Géométrie plane', 'Pourcentages', 'Agrandissement-réduction']
   },
   'crpe-2018-g3-ex3': {
     typeExercice: 'crpe',
@@ -629,7 +629,7 @@ export const dictionnaireCrpe =
     pngCor: [
       'assets/crpe/2018/2018-g3-ex3-cor-1.png'
     ],
-    tags: []
+    tags: ['Algorithmique']
   },
   'crpe-2018-g3-ex4': {
     typeExercice: 'crpe',
@@ -643,7 +643,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g3-ex4-cor-1.png',
       'assets/crpe/2018/2018-g3-ex4-cor-2.png'
     ],
-    tags: []
+    tags: ['Géométrie dans l\'espace', 'Volumes', 'Patrons']
   },
   'crpe-2018-g3-pb': {
     typeExercice: 'crpe',
@@ -661,7 +661,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g3-pb-cor-3.png',
       'assets/crpe/2018/2018-g3-pb-cor-4.png'
     ],
-    tags: []
+    tags: ['Recherche d\'informations', 'Aires et périmètres', 'Proportionnalité', 'Géométrie plane', 'Lecture graphique', 'Tableur', 'Vitesses', 'Pourcentages']
   },
 
   'crpe-2018-g4-ex1': {
@@ -677,7 +677,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g4-ex1-cor-2.png',
       'assets/crpe/2018/2018-g4-ex1-cor-3.png'
     ],
-    tags: []
+    tags: ['Algorithmique']
   },
   'crpe-2018-g4-ex2': {
     typeExercice: 'crpe',
@@ -691,7 +691,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g4-ex2-cor-1.png',
       'assets/crpe/2018/2018-g4-ex2-cor-2.png'
     ],
-    tags: []
+    tags: ['Calculs numériques', 'Volumes']
   },
   'crpe-2018-g4-ex3': {
     typeExercice: 'crpe',
@@ -709,7 +709,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g4-ex3-cor-5.png',
       'assets/crpe/2018/2018-g4-ex3-cor-6.png'
     ],
-    tags: []
+    tags: ['Probabilités']
   },
   'crpe-2018-g4-ex4': {
     typeExercice: 'crpe',
@@ -723,7 +723,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g4-ex4-cor-1.png',
       'assets/crpe/2018/2018-g4-ex4-cor-2.png'
     ],
-    tags: []
+    tags: ['Programme de calculs', 'Tableur', 'Calcul littéral', 'Équations']
   },
   'crpe-2018-g4-pb': {
     typeExercice: 'crpe',
@@ -743,7 +743,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g4-pb-cor-5.png',
       'assets/crpe/2018/2018-g4-pb-cor-6.png'
     ],
-    tags: []
+    tags: ['Géométrie plane', 'Proportionnalité', 'Aires et périmètres', 'Pythagore', 'Lecture graphique', 'Fonctions', 'Arithmétique']
   },
   'crpe-2018-g5-ex1': {
     typeExercice: 'crpe',
@@ -758,7 +758,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g5-ex1-cor-2.png',
       'assets/crpe/2018/2018-g5-ex1-cor-3.png'
     ],
-    tags: []
+    tags: ['QCM', 'Statistiques', 'Volumes', 'Vitesses']
   },
   'crpe-2018-g5-ex2': {
     typeExercice: 'crpe',
@@ -772,7 +772,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g5-ex2-cor-1.png',
       'assets/crpe/2018/2018-g5-ex2-cor-2.png'
     ],
-    tags: []
+    tags: ['Pourcentages', 'Proportionnalité']
   },
   'crpe-2018-g5-ex3': {
     typeExercice: 'crpe',
@@ -787,7 +787,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g5-ex3-cor-2.png',
       'assets/crpe/2018/2018-g5-ex3-cor-3.png'
     ],
-    tags: []
+    tags: ['Algorithmique', 'Programme de calculs', 'Arithmétique']
   },
   'crpe-2018-g5-ex4': {
     typeExercice: 'crpe',
@@ -801,7 +801,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g5-ex4-cor-1.png',
       'assets/crpe/2018/2018-g5-ex4-cor-2.png'
     ],
-    tags: []
+    tags: ['Géométrie plane', 'Probabilités']
   },
   'crpe-2018-g5-pb': {
     typeExercice: 'crpe',
@@ -820,7 +820,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-g5-pb-cor-5.png',
       'assets/crpe/2018/2018-g5-pb-cor-6.png'
     ],
-    tags: []
+    tags: ['Aires et périmètres', 'Volumes', 'Pythagore', 'Trigonométrie', 'Recherche d\'informations', 'Proportionnalité', 'Thalès', 'Agrandissement-réduction']
   },
   'crpe-2018-s1-ex1': {
     typeExercice: 'crpe',
@@ -835,7 +835,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-s1-ex1-cor-2.png',
       'assets/crpe/2018/2018-s1-ex1-cor-3.png'
     ],
-    tags: []
+    tags: ['Pythagore', 'Volumes', 'Thalès', 'Géométrie plane', 'Aires et périmètres', 'Patrons']
   },
   'crpe-2018-s1-ex2': {
     typeExercice: 'crpe',
@@ -853,7 +853,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-s1-ex2-cor-5.png',
       'assets/crpe/2018/2018-s1-ex2-cor-6.png'
     ],
-    tags: []
+    tags: ['Géométrie dans l\'espace', 'Patrons', 'Aires et périmètres', 'Proportionnalité']
   },
   'crpe-2018-s1-ex3': {
     typeExercice: 'crpe',
@@ -868,7 +868,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-s1-ex3-cor-2.png',
       'assets/crpe/2018/2018-s1-ex3-cor-3.png'
     ],
-    tags: []
+    tags: ['Thalès', 'Agrandissement-réduction', 'Pythagore', 'Volumes']
   },
   'crpe-2018-s1-ex4': {
     typeExercice: 'crpe',
@@ -886,7 +886,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-s1-ex4-cor-4.png',
       'assets/crpe/2018/2018-s1-ex4-cor-5.png'
     ],
-    tags: []
+    tags: ['Algorithmique', 'Probabilités']
   },
   'crpe-2018-s1-ex5': {
     typeExercice: 'crpe',
@@ -901,7 +901,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-s1-ex5-cor-2.png',
       'assets/crpe/2018/2018-s1-ex5-cor-3.png'
     ],
-    tags: []
+    tags: ['Ensembles de nombres', 'Calcul littéral', 'Calculs numériques']
   },
   'crpe-2018-s2-pb': {
     typeExercice: 'crpe',
@@ -920,7 +920,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-s2-pb-cor-4.png',
       'assets/crpe/2018/2018-s2-pb-cor-5.png'
     ],
-    tags: []
+    tags: ['Géométrie dans l\'espace', 'Géométrie plane', 'Trigonométrie', 'Aires et périmètres', 'Proportionnalité', 'Grandeurs composées', 'Lecture graphique', 'Vitesses', 'Pourcentages']
   },
   'crpe-2018-s4-pb': {
     typeExercice: 'crpe',
@@ -938,7 +938,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2018/2018-s4-pb-cor-4.png',
       'assets/crpe/2018/2018-s4-pb-cor-5.png'
     ],
-    tags: []
+    tags: ['Calculs numériques', 'Tableur', 'Pourcentages', 'Aires et périmètres', 'Volumes', 'Pythagore', 'Proportionnalité', 'Arithmétique']
   },
 
   'crpe-2017-g1-ex1': {
@@ -965,7 +965,7 @@ export const dictionnaireCrpe =
     pngCor: [
       'assets/crpe/2017/2017-g1-ex2-cor.png'
     ],
-    tags: ['Algorithmes']
+    tags: ['Algorithmique']
   },
   'crpe-2017-g1-ex3': {
     typeExercice: 'crpe',
@@ -1001,7 +1001,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g1-pb-cor5.png',
       'assets/crpe/2017/2017-g1-pb-cor6.png'
     ],
-    tags: ['Proportionnalité', 'Pythagore', 'Trigonométrie', 'Fonctions', 'Pourcentages', 'Inéquations', 'Vitesse', 'Tableur']
+    tags: ['Proportionnalité', 'Pythagore', 'Trigonométrie', 'Fonctions', 'Pourcentages', 'Inéquations', 'Vitesses', 'Tableur']
   },
   'crpe-2017-g2-ex1': {
     typeExercice: 'crpe',
@@ -1279,7 +1279,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g5-ex4-cor.png',
       'assets/crpe/2017/2017-g5-ex4-cor2.png'
     ],
-    tags: ['Nombres décimaux']
+    tags: ['Ensembles de nombres']
   },
   'crpe-2017-g5-pb': {
     typeExercice: 'crpe',
@@ -1360,7 +1360,7 @@ export const dictionnaireCrpe =
     pngCor: [
       'assets/crpe/2017/2017-besancon-geoGrandeurMesureProportionnalite-ex2.png'
     ],
-    tags: ['Durées', 'Nombres décimaux']
+    tags: ['Durées', 'Ensembles de nombres']
   },
   'crpe-blanc-2017-clermont': {
     typeExercice: 'crpe',
@@ -1538,7 +1538,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2016/2016-g2-ex4-cor-2.png',
       'assets/crpe/2016/2016-g2-ex4-cor-3.png'
     ],
-    tags: ['Vrai-faux', 'Géométrie plane', 'Pourcentage', 'Calculs numériques', 'Arithmétique']
+    tags: ['Vrai-faux', 'Géométrie plane', 'Pourcentages', 'Calculs numériques', 'Arithmétique']
   },
   'crpe-2016-g2-pb': {
     typeExercice: 'crpe',
@@ -1602,7 +1602,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2016/2016-g3-ex3-cor-1.png',
       'assets/crpe/2016/2016-g3-ex3-cor-2.png'
     ],
-    tags: ['Programme de calcul', 'Calcul littéral']
+    tags: ['Programme de calculs', 'Calcul littéral']
   },
   'crpe-2016-g3-pb': {
     typeExercice: 'crpe',
