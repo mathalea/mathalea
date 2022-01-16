@@ -12,9 +12,9 @@ math.config({
 // eslint-disable-next-line no-debugger
 debugger
 
-function transformNode (node, oldNode) {
+function transformNode (node, oldNode, debug = false) {
   if (oldNode === undefined || node.toString() !== oldNode.toString()) {
-    console.log('transformNode', node.toString(), oldNode !== undefined ? oldNode.toString() : '')
+    if (debug) console.log('transformNode', node.toString(), oldNode !== undefined ? oldNode.toString() : '')
     oldNode = node.clone()
     if (node.isOperatorNode && node.op === '/') { // Enlève les parenthèses au numérateur et dénominateur d'une fraction
       if (node.args[0].isParenthesisNode) {
@@ -146,7 +146,9 @@ function transformNode (node, oldNode) {
           (node.content.op === '*' || node.content.op === '^') &&
           (node.content.toString()[0] !== '-')
         )
-    ) node = node.content
+    ) {
+      node = node.content
+    }
     if (node.isParenthesisNode && node.content.isOperatorNode && node.content.op === '/') node = node.content
     if (node.isOperatorNode && node.fn === 'unaryMinus' && node.args[0].isParenthesisNode && node.args[0].content.isOperatorNode && node.args[0].content.op === '*') node.args[0] = node.args[0].content
     if (node.isOperatorNode && node.fn === 'unaryMinus' && node.args[0].isOperatorNode && node.args[0].op === '*') node = Node.Creator.operator('*', [Negative.negate(node.args[0].args[0]), node.args[0].args[1]])
@@ -161,7 +163,13 @@ export function toTex (node, debug = false) {
     console.log('node.toString({ parenthesis: \'keep\' })', node.toString({ parenthesis: 'keep' }))
     console.log('node', node)
   }
-  node = parse(node.toString({ parenthesis: 'all' })) // Convertir en objet mathjs les objets mathsteps
+  // La ligne suivante convertit le node au format mathjs
+  // Le format mathsteps ne permet pas a priori de modifier les implicit
+  // De plus comme les multiplications peuvent avoir 3 ou plus de facteurs dans mathsteps
+  // et que le paramètre implicit s'applique alors à tous les facteurs
+  // cela devient impossible à traiter pour 4*x*(-5) qui donnerait 4x-5 avec implicit = true.
+  // Mais il faut un pré-traitement car dans mathsteps il y les ConstantNode négatives
+  node = parse(node.toString({ parenthesis: 'all' }))
 
   let nodeClone
   do {
@@ -249,8 +257,8 @@ export function calculExpression (expression = '4/3+5/6', factoriser = false, de
     const newNode = toTex(step.newNode)
     /* const oldNode = step.oldNode !== null ? printMS.latex(step.oldNode, false) : ''
     const newNode = printMS.latex(step.newNode, false) */
-    console.log('printMS(step.newNode)', printMS.ascii(step.newNode))
-    console.log('step.newNode', step.newNode)
+    if (debug) console.log('printMS(step.newNode)', printMS.ascii(step.newNode))
+    if (debug) console.log('step.newNode', step.newNode)
     if (debug) {
       console.log(changement)
       console.log(newNode.toString())
