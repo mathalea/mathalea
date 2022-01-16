@@ -166,6 +166,20 @@ export async function loadMathLive () {
         // "onfocus": the virtual keyboard panel is displayed when the mathfield is focused
         // "off": never show the virtual keyboard panel
       })
+
+      // Evite les problèmes de positionnement du clavier mathématique dans les iframes
+      if (context.vue === 'exMoodle') {
+        const events = ['focus', 'input']
+        events.forEach(e => {
+          mf.addEventListener(e, () => {
+            setTimeout(() => { // Nécessaire pour que le calcul soit effectué après la mise à jour graphique
+              const position = jQuery(mf).offset().top + jQuery(mf).outerHeight() + 'px'
+              document.body.style.setProperty('--keyboard-position', position)
+            })
+          })
+        })
+      }
+
       if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
         // Sur les écrans tactils, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
         mf.setOptions({

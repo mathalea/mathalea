@@ -597,7 +597,15 @@ a.lien_id_exercice.exerciceactif {
 
 }
 
+div.ML__keyboard.is-visible {
+	position: absolute;
+	top: var(--keyboard-position);
+}
 
+div.ML__keyboard.is-visible .ML__keyboard--plate {
+	position: static;
+	transform: none;
+}
 
 /*
 input {
