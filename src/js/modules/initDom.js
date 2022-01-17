@@ -330,6 +330,7 @@ export async function initDom () {
           element.hasListenner = true
         }
       }
+      window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
     })
   } else if (vue === 'light' || vue === 'l') {
     setOutputHtml()
