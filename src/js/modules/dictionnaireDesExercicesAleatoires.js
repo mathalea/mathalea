@@ -433,6 +433,40 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2F25-1": {
+    "titre": "Propriétés graphiques de la parité d'une fonction.",
+    "url": "/exercices/2e/2F25-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F25-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2F25-2": {
+    "titre": "Etudier la parité d'une fonction.",
+    "url": "/exercices/2e/2F25-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "2F25-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F31-1": {
     "titre": "Utiliser les variations des fonctions de référence pour comparer des images",
     "url": "/exercices/2e/2F31-1.js",
