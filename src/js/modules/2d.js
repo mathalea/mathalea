@@ -754,7 +754,12 @@ function LabelLatexPoint ({ points = [], color = 'black', taille = 8, largeur = 
 }
 /**
  * Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
- * @param  {...any} args Points
+ * @param  {objext} points: un tableau des points dont on veut afficher les labels
+ * color: leur couleur
+ * taille: la taille du texte (voir latexParCoordonnees)
+ * largeur: la largeur en pixels du label (par défaut 10) a des fins de centrage
+ * hauteur: la hauteur en pixels du label à des fins de centrage
+ * background: transparent si '' sinon une couleur
  * @returns {LabelLatexPoint} LabelLatexPoint
  * @author Rémi Angot & Jean-Claude Lhote
  */

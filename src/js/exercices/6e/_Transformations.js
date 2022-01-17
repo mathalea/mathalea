@@ -26,7 +26,7 @@ export default function Transformations () {
   this.sup = 1
 
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 1.5)
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     let choixTransformation; let nbImages
     // Ci-dessous, on évite le point O comme point et comme nom de point.
     const nomPointsTranslationDejaUtilises = [15]; const pointsDejaUtilises = [44]
@@ -166,11 +166,9 @@ export default function Transformations () {
       n[choixTransformation[j] - 1] = antecedents[j]
     }
 
-    for (let i = 0, labAnt, labIm, labO, labM, labN, traceAnt, traceIm, traceO, traceM, traceN; i < nbImages; i++) {
+    for (let i = 0, labO, labM, labN, traceAnt, traceIm, traceO, traceM, traceN; i < nbImages; i++) {
       xu = xuPossibles[i]
       yu = yuPossibles[i]
-      labAnt = labelLatexPoint({ points: [M[i]], color: 'red', taille: 10 })
-      labIm = labelLatexPoint({ points: [N[i]], color: 'red', taille: 10 })
       traceAnt = tracePoint(M[i])
       traceIm = tracePoint(N[i])
       traceAnt.epaisseur = 2
