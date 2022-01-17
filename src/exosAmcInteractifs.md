@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 411 
-- nombre d'exos interactifReady 559 
+- nombre d'exos interactifReady 560 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -50,6 +50,7 @@
 |2S11-1|Calculer un CM à partir d'un taux d'évolution et inversement|KO|KO|OK|mathLive|
 |2S11-2|Variations en pourcentage|KO|KO|OK|mathLive|
 |2S12-2|Déterminer un taux d’évolution global|KO|KO|OK|mathLive|
+|2S12-3|Déterminer un taux d’évolution réciproque|KO|KO|OK|mathLive|
 |2S20-1|Calculer des effectifs et des fréquences|KO|KO|OK|mathLive|
 |2S20-2|Calculer des médianes|KO|KO|OK|mathLive|
 |2S20-4|Calculer des étendues|KO|KO|OK|mathLive|
