@@ -18,8 +18,10 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 export default function ExtremumsTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
+  this.nbQuestionsModifiable = false
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2
+  this.listePackages = ['tkz-tab']
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
@@ -59,18 +61,18 @@ export default function ExtremumsTableau () {
       deltacl: 1.5, // distance entre la bordure et les premiers et derniers antécédents
       lgt: 3, // taille de la première colonne en cm
       hauteurLignes: [15, 15]
-    }))
+    })) + '<br>'
     if (choice([true, false])) {
       question1 += '   Le maximum de $f$ est  : '
       if (!this.interactif) {
         question1 += '.... '
       }
-      question1 += ` ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur15 inline') + sp(0) : sp(0)} `
+      question1 += ajouteChampTexteMathLive(this, 0, 'largeur15 inline')
       question1 += '<br> Il est atteint en $x=$'
       if (!this.interactif) {
         question1 += '.... '
       }
-      question1 += ` ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur15 inline') + sp(0) : sp(0)}`
+      question1 += ajouteChampTexteMathLive(this, 1, 'largeur15 inline')
 
       if (choix === 1) {
         if (M === y1) {
@@ -102,33 +104,33 @@ export default function ExtremumsTableau () {
       if (!this.interactif) {
         question1 += '.... '
       }
-      question1 += ` ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur15 inline') + sp(0) : sp(0)} `
+      question1 += ajouteChampTexteMathLive(this, 0, 'largeur15 inline')
       question1 += '<br> Il est atteint en $x=$'
       if (!this.interactif) {
         question1 += '.... '
       }
-      question1 += ` ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur15 inline') + sp(0) : sp(0)}`
+      question1 += ajouteChampTexteMathLive(this, 1, 'largeur15 inline')
 
       if (choix === 1) {
         if (m === y2) {
-          correction1 = `<br>Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\geqslant ${y2}$, c'est-à-dire  $f(x)\\geqslant f(${x2})$.<br>
+          correction1 = `Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\geqslant ${y2}$, c'est-à-dire  $f(x)\\geqslant f(${x2})$.<br>
           Ainsi, le minimum de $f$ est $${y2}$. Il est atteint en $x=${x2}$.`
           setReponse(this, 0, y2)
           setReponse(this, 1, x2)
         } else {
-          correction1 = `<br>Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\geqslant ${y4}$, c'est-à-dire  $f(x)\\geqslant f(${x4})$.<br>
+          correction1 = `Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\geqslant ${y4}$, c'est-à-dire  $f(x)\\geqslant f(${x4})$.<br>
           Ainsi, le minimum de $f$ est $${y4}$. Il est atteint en $x=${x4}$.  `
           setReponse(this, 0, y4)
           setReponse(this, 1, x4)
         }
       } else {
         if (M === y1) {
-          correction1 = `<br>Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\geqslant ${-y1}$, c'est-à-dire  $f(x)\\geqslant f(${x1})$.<br>
+          correction1 = `Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\geqslant ${-y1}$, c'est-à-dire  $f(x)\\geqslant f(${x1})$.<br>
           Ainsi, le minimum de $f$ est $${-y1}$. Il est atteint en $x=${x1}$. `
           setReponse(this, 0, -y1)
           setReponse(this, 1, x1)
         } else {
-          correction1 = `<br>Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\geqslant ${-y3}$, c'est-à-dire  $f(x)\\geqslant f(${x3})$.<br>
+          correction1 = `Pour tout réel $x$ de $[${x1};${x4}]$, on a  $f(x)\\geqslant ${-y3}$, c'est-à-dire  $f(x)\\geqslant f(${x3})$.<br>
           Ainsi, le minimum de $f$ est $${-y3}$. Il est atteint en $x=${x3}$.  `
           setReponse(this, 0, -y3)
           setReponse(this, 1, x3)
