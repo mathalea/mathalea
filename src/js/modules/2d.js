@@ -213,6 +213,7 @@ export function plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRempliss
 function TracePoint (...points) {
   ObjetMathalea2D.call(this)
   this.taille = 3
+  this.tailleTikz = this.taille / 30
   this.epaisseur = 1
   this.opacite = 0.8
   this.style = 'x'
@@ -304,7 +305,6 @@ function TracePoint (...points) {
   }
   this.tikz = function () {
     const objetstikz = []; let s1; let s2; let p1; let p2; let c, A
-    const tailletikz = this.taille * context.scale / 20
     for (const unPoint of points) {
       if (unPoint.typeObjet === 'point3d') {
         A = unPoint.c2d
@@ -314,10 +314,10 @@ function TracePoint (...points) {
 
       if (A.constructor === Point) {
         if (this.style === 'x') {
-          s1 = segment(point(A.x - tailletikz, A.y + tailletikz),
-            point(A.x + tailletikz, A.y - tailletikz), this.color)
-          s2 = segment(point(A.x - tailletikz, A.y - tailletikz),
-            point(A.x + tailletikz, A.y + tailletikz), this.color)
+          s1 = segment(point(A.x - this.tailleTikz, A.y + this.tailleTikz),
+            point(A.x + this.tailleTikz, A.y - this.tailleTikz), this.color)
+          s2 = segment(point(A.x - this.tailleTikz, A.y - this.tailleTikz),
+            point(A.x + this.tailleTikz, A.y + this.tailleTikz), this.color)
           s1.epaisseur = this.epaisseur
           s2.epaisseur = this.epaisseur
           s1.opacite = this.opacite
@@ -325,15 +325,15 @@ function TracePoint (...points) {
           objetstikz.push(s1, s2)
         } else if (this.style === 'o') {
           p1 = point(A.x, A.y)
-          c = cercle(p1, tailletikz, this.color)
+          c = cercle(p1, this.tailleTikz, this.color)
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
           c.couleurDeRemplissage = this.color
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '#') {
-          p1 = point(A.x - tailletikz, A.y - tailletikz)
-          p2 = point(A.x + tailletikz, A.y - tailletikz)
+          p1 = point(A.x - this.tailleTikz, A.y - this.tailleTikz)
+          p2 = point(A.x + this.tailleTikz, A.y - this.tailleTikz)
           c = carreIndirect(p1, p2, this.color)
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
@@ -341,18 +341,18 @@ function TracePoint (...points) {
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '+') {
-          s1 = segment(point(A.x, A.y + tailletikz),
-            point(A.x, A.y - tailletikz), this.color)
-          s2 = segment(point(A.x - tailletikz, A.y),
-            point(A.x + tailletikz, A.y), this.color)
+          s1 = segment(point(A.x, A.y + this.tailleTikz),
+            point(A.x, A.y - this.tailleTikz), this.color)
+          s2 = segment(point(A.x - this.tailleTikz, A.y),
+            point(A.x + this.tailleTikz, A.y), this.color)
           s1.epaisseur = this.epaisseur
           s2.epaisseur = this.epaisseur
           s1.opacite = this.opacite
           s2.opacite = this.opacite
           objetstikz.push(s1, s2)
         } else if (this.style === '|') {
-          s1 = segment(point(A.x, A.y + tailletikz),
-            point(A.x, A.y - tailletikz), this.color)
+          s1 = segment(point(A.x, A.y + this.tailleTikz),
+            point(A.x, A.y - this.tailleTikz), this.color)
           s1.epaisseur = this.epaisseur
           s1.opacite = this.opacite
           objetstikz.push(s1)

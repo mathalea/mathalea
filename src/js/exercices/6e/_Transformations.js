@@ -50,7 +50,7 @@ export default function Transformations () {
     } else nbImages = 3
 
     const M = []; const N = []; let pointM; let pointN
-    let numPointN
+    let numPointN, croix
     const O = point(0, 0, 'O', 'above right')
     const d1 = droiteParPointEtPente(O, 1)
     const d3 = droiteHorizontaleParPoint(O)
@@ -76,7 +76,12 @@ export default function Transformations () {
     const objetsCorrection = []
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
-        objetsEnonce.push(tracePoint(point(j - 4, i - 4)))
+        croix = tracePoint(point(j - 4, i - 4))
+        croix.taille = 2
+        croix.color = 'gray'
+        croix.style = 'x'
+        croix.opacite = 1
+        objetsEnonce.push(croix)
         objetsCorrection.push(tracePoint(point(j - 4, i - 4)))
         objetsEnonce.push(texteParPositionEchelle(Number(j + 10 * i).toString(), j - 4.2, i - 4.2, 'milieu', 'black', 0.8, 'middle', false, 0.8))
         objetsCorrection.push(texteParPositionEchelle(Number(j + 10 * i).toString(), j - 4.2, i - 4.2, 'milieu', 'black', 0.8, 'middle', false, 0.8))
