@@ -23,7 +23,6 @@
     - `&v=e` ou `&v=embed` permet d'épurer la page, de grossir le texte, d'ajouter le logo COOPMaths et de rendre inaccessibles les paramètres, parfait pour l'intégration dans d'autres sites !
     - `&v=multi` permet d'afficher plusieurs énoncés sur toute la largeur de l'écran, notamment pour être utilisé comme questions flash.
     - `&v=diap` permet d'afficher sous forme de diaporama, une question après l'autre, un ou plusieurs exercices.
-    - `&v=cm` dirige vers l'écran de paramétrage en vue d'un affichage sous forme de diaporama. [Cette vue est amenée à disparaître au profit de `&v=diap`]
         - `&duree=10` est utilisé pour la durée des diaporamas.
 - `&z=1.5` permet d'ajuster la taille de la police. L'unité est em et est à 1.5 par défaut. Fonctionne autant avec les textes qu'avec les figures. Ne fonctionne pas avec la vue `&v=latex`.
 
