@@ -681,17 +681,15 @@ export function labelPoint (...args) {
  * A utiliser par exemple si le label est A_1
  * @author Rémi Angot & Jean-Claude Lhote
  */
-function LabelLatexPoint (...points) {
+function LabelLatexPoint ({ points = [], color = 'black', taille = 8, largeur = 10, hauteur = 10, background = '' }) {
   ObjetMathalea2D.call(this)
-  if (!this.taille) this.taille = 10
-  if (!this.largeur) this.largeur = 20
-  if (typeof points[points.length - 1] === 'string') {
-    this.color = points[points.length - 1]
-    points.length--
-  } else {
-    this.color = 'black'
-  }
-  const offset = arrondi(0.4 * Math.log10(this.taille) / context.pixelsParCm, 2) // context.pixelsParCm ne correspond pas forcément à la valeur utilisée par mathalea2d... cela peut entrainer un trés léger écart
+  this.taille = taille
+  this.largeur = largeur
+  this.hauteur = hauteur
+  this.background = background
+  this.color = color
+
+  const offset = arrondi(0.25 * Math.log10(this.taille), 2) // context.pixelsParCm ne correspond pas forcément à la valeur utilisée par mathalea2d... cela peut entrainer un trés léger écart
   let x
   let y
   let A
@@ -712,28 +710,28 @@ function LabelLatexPoint (...points) {
     y = A.y
     switch (A.positionLabel) {
       case 'left':
-        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), y, this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), y, this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
       case 'right':
-        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), y, this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), y, this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
       case 'below':
-        objets.push(latexParCoordonnees(A.nom, x, arrondi(y - offset, 2), this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, x, arrondi(y - offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
       case 'above':
-        objets.push(latexParCoordonnees(A.nom, x, arrondi(y + offset, 2), this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, x, arrondi(y + offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
       case 'above right':
-        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), arrondi(y + offset, 2), this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), arrondi(y + offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
       case 'below left':
-        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), arrondi(y - offset, 2), this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), arrondi(y - offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
       case 'below right':
-        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), arrondi(y - offset, 2), this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), arrondi(y - offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
       default:
-        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), arrondi(y + offset, 2), this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), arrondi(y + offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
     }
   }
@@ -760,8 +758,8 @@ function LabelLatexPoint (...points) {
  * @returns {LabelLatexPoint} LabelLatexPoint
  * @author Rémi Angot & Jean-Claude Lhote
  */
-export function labelLatexPoint (...args) {
-  return new LabelLatexPoint(...args)
+export function labelLatexPoint ({ points, color = 'black', taille = 8, largeur = 10, hauteur = 10, background = '' }) {
+  return new LabelLatexPoint({ points: points, color: color, taille: taille, largeur: largeur, hauteur: hauteur, background: background })
 }
 
 /**

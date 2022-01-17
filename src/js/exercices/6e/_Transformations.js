@@ -50,6 +50,7 @@ export default function Transformations () {
     } else nbImages = 3
 
     const M = []; const N = []; let pointM; let pointN
+    let numPointN
     const O = point(0, 0, 'O', 'above right')
     const d1 = droiteParPointEtPente(O, 1)
     const d3 = droiteHorizontaleParPoint(O)
@@ -168,20 +169,19 @@ export default function Transformations () {
     for (let i = 0, labAnt, labIm, labO, labM, labN, traceAnt, traceIm, traceO, traceM, traceN; i < nbImages; i++) {
       xu = xuPossibles[i]
       yu = yuPossibles[i]
-      labAnt = labelLatexPoint(M[i], 'red')
-      labIm = labelLatexPoint(N[i], 'red')
+      labAnt = labelLatexPoint({ points: [M[i]], color: 'red', taille: 10 })
+      labIm = labelLatexPoint({ points: [N[i]], color: 'red', taille: 10 })
       traceAnt = tracePoint(M[i])
       traceIm = tracePoint(N[i])
       traceAnt.epaisseur = 2
       traceAnt.opacite = 1
       traceIm.opacite = 1
       traceIm.epaisseur = 2
-      labAnt.taille = 12
-      labIm.taille = 12
+      traceIm.color = 'orange'
       traceO = tracePoint(O)
       traceO.epaisseur = 2
       traceO.opacite = 1
-      labO = labelLatexPoint(O, 'red')
+      labO = labelLatexPoint({ points: [O], color: 'red', taille: 10 })
       labO.taille = 12
       switch (choixTransformation[i]) {
         case 1:
@@ -312,14 +312,14 @@ export default function Transformations () {
         case 8:
           pointMLettre = randint(1, 26, nomPointsTranslationDejaUtilises)
           nomPointsTranslationDejaUtilises.push(pointMLettre)
-          pointN = randint(1, 26, nomPointsTranslationDejaUtilises)
-          nomPointsTranslationDejaUtilises.push(pointN)
+          numPointN = randint(1, 26, nomPointsTranslationDejaUtilises)
+          nomPointsTranslationDejaUtilises.push(numPointN)
           texte +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-            ` Donner le numéro de l'image du point ${antecedents[i]} par la translation qui transforme ${lettreDepuisChiffre(pointMLettre)} en ${lettreDepuisChiffre(pointN)}.<br>`
+            ` Donner le numéro de l'image du point ${antecedents[i]} par la translation qui transforme ${lettreDepuisChiffre(pointMLettre)} en ${lettreDepuisChiffre(numPointN)}.<br>`
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
-            ` L'image du point ${antecedents[i]} par la translation qui transforme ${lettreDepuisChiffre(pointMLettre)} en ${lettreDepuisChiffre(pointN)} est le point ${images[i]}.<br>`
+            ` L'image du point ${antecedents[i]} par la translation qui transforme ${lettreDepuisChiffre(pointMLettre)} en ${lettreDepuisChiffre(numPointN)} est le point ${images[i]}.<br>`
           aEviter = enleveElementBis(pointsDejaUtilises)
           longueurBoucle = pointsDejaUtilises.length
           for (let kk = 0; kk < longueurBoucle; kk++) {
@@ -329,19 +329,19 @@ export default function Transformations () {
           while (compteOccurences(aEviter, 44 + pointM.x + 10 * pointM.y) !== 0) {
             pointM = point(randint(-1, 2, [M[i].x, 0]), randint(-1, 2, [M[i].y, 0]), lettreDepuisChiffre(pointMLettre), 'above right')
           }
-          pointN = translation(pointM, vecteur(xu, yu), lettreDepuisChiffre(pointN), 'above right')
+          pointN = translation(pointM, vecteur(xu, yu), lettreDepuisChiffre(numPointN), 'above right')
           traceM = tracePoint(pointM)
           traceN = tracePoint(pointN)
-          traceM.epaisseur = 2
-          traceN.epaisseur = 2
-          labM = labelLatexPoint(pointM, 'red')
-          labN = labelLatexPoint(pointN, 'red')
-          labM.taille = 12
-          labN.taille = 12
+          traceM.epaisseur = 1
+          traceN.epaisseur = 1
+          labM = labelLatexPoint({ points: [pointM], color: 'red', taille: 10 })
+          labN = labelLatexPoint({ points: [pointN], color: 'red', taille: 10 })
+          labM.taille = 8
+          labN.taille = 8
           pointsDejaUtilises.push(44 + pointM.x + 10 * pointM.y)
           pointsDejaUtilises.push(44 + pointN.x + 10 * pointN.y)
           objetsEnonce.push(traceAnt, traceM, traceN, labM, labN)
-          objetsCorrection.push(traceAnt, traceIm, traceM, traceN, labM, labN, vecteur(M[i], N[i]).representant(M[i]), vecteur(M[i], N[i]).representant(pointM))
+          objetsCorrection.push(vecteur(M[i], N[i]).representant(M[i]), vecteur(M[i], N[i]).representant(pointM), traceAnt, traceIm, traceM, traceN, labM, labN)
 
           break
 
