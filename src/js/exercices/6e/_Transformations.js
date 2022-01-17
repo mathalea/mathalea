@@ -50,7 +50,7 @@ export default function Transformations () {
     } else nbImages = 3
 
     const M = []; const N = []; let pointM; let pointN
-    const O = point(0, 0, 'O', 'below')
+    const O = point(0, 0, 'O', 'above right')
     const d1 = droiteParPointEtPente(O, 1)
     const d3 = droiteHorizontaleParPoint(O)
     const d2 = droiteParPointEtPente(O, -1)
@@ -106,7 +106,7 @@ export default function Transformations () {
       }
       yu = yuPossibles[j]
       if (choixTransformation[j] === 10) {
-        k[j] = choice([2, 4]) * randint(-1, 1, [0]) // rapport d'homothétie < 1 ( 0.5 ou 0.25 )
+        k[j] = choice([2, 3, 4]) * randint(-1, 1, [0]) // rapport d'homothétie < 1 ( 0.5 ou 0.25 )
       } else if (choixTransformation[j] === 9) {
         k[j] = choice([1, 1.5, 2, 2.5, 3, 4, 5]) * randint(-1, 1, [0]) // rapport d'homothétie >=1 (1,2 ou 3)
       }
@@ -310,11 +310,11 @@ export default function Transformations () {
           for (let kk = 0; kk < longueurBoucle; kk++) {
             aEviter.push(pointsDejaUtilises[kk] - xu - 10 * yu)
           }
-          pointM = point(randint(-1, 2, [M[i].x, 0]), randint(-1, 2, [M[i].y, 0]), lettreDepuisChiffre(pointMLettre), 'below')
+          pointM = point(randint(-1, 2, [M[i].x, 0]), randint(-1, 2, [M[i].y, 0]), lettreDepuisChiffre(pointMLettre), 'above right')
           while (compteOccurences(aEviter, 44 + pointM.x + 10 * pointM.y) !== 0) {
-            pointM = point(randint(-1, 2, [M[i].x, 0]), randint(-1, 2, [M[i].y, 0]), lettreDepuisChiffre(pointMLettre), 'below')
+            pointM = point(randint(-1, 2, [M[i].x, 0]), randint(-1, 2, [M[i].y, 0]), lettreDepuisChiffre(pointMLettre), 'above right')
           }
-          pointN = translation(pointM, vecteur(xu, yu), lettreDepuisChiffre(pointN), 'below')
+          pointN = translation(pointM, vecteur(xu, yu), lettreDepuisChiffre(pointN), 'above right')
 
           pointsDejaUtilises.push(44 + pointM.x + 10 * pointM.y)
           pointsDejaUtilises.push(44 + pointN.x + 10 * pointN.y)
