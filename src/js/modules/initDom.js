@@ -256,11 +256,11 @@ export async function initDom () {
             document.getElementById(`champTexteEx0Q${i}`).textContent = valeurEnregistree
           }
           let hauteurExercice = window.document.querySelector('section').scrollHeight
-          window.parent.postMessage({ hauteurExercice }, '*')
+          window.parent.postMessage({ hauteurExercice, serie: context.graine }, '*')
           // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
           setTimeout(() => {
             hauteurExercice = window.document.querySelector('section').scrollHeight
-            window.parent.postMessage({ hauteurExercice }, '*')
+            window.parent.postMessage({ hauteurExercice, serie: context.graine }, '*')
           }, 1000)
         }
         if (window.sessionStorage.getItem('isValide' + context.graine)) {
@@ -330,6 +330,7 @@ export async function initDom () {
           element.hasListenner = true
         }
       }
+      window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
     })
   } else if (vue === 'light' || vue === 'l') {
     setOutputHtml()
