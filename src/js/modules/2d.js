@@ -691,69 +691,65 @@ function LabelLatexPoint (...points) {
   } else {
     this.color = 'black'
   }
-  const offset = arrondi(15 * Math.log10(8), 2)
+  const offset = arrondi(0.4 * Math.log10(this.taille) / context.pixelsParCm, 2) // context.pixelsParCm ne correspond pas forcément à la valeur utilisée par mathalea2d... cela peut entrainer un trés léger écart
+  let x
+  let y
+  let A
+  const objets = []
+  if (Array.isArray(points[0])) {
+    // Si le premier argument est un tableau
+    this.listePoints = points[0]
+  } else {
+    this.listePoints = points
+  }
+  for (const unPoint of this.listePoints) {
+    if (unPoint.typeObjet === 'point3d') {
+      A = unPoint.c2d
+    } else {
+      A = unPoint
+    }
+    x = A.x
+    y = A.y
+    switch (A.positionLabel) {
+      case 'left':
+        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), y, this.color, this.largeur, 10, '', this.taille))
+        break
+      case 'right':
+        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), y, this.color, this.largeur, 10, '', this.taille))
+        break
+      case 'below':
+        objets.push(latexParCoordonnees(A.nom, x, arrondi(y - offset, 2), this.color, this.largeur, 10, '', this.taille))
+        break
+      case 'above':
+        objets.push(latexParCoordonnees(A.nom, x, arrondi(y + offset, 2), this.color, this.largeur, 10, '', this.taille))
+        break
+      case 'above right':
+        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), arrondi(y + offset, 2), this.color, this.largeur, 10, '', this.taille))
+        break
+      case 'below left':
+        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), arrondi(y - offset, 2), this.color, this.largeur, 10, '', this.taille))
+        break
+      case 'below right':
+        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), arrondi(y - offset, 2), this.color, this.largeur, 10, '', this.taille))
+        break
+      default:
+        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), arrondi(y + offset, 2), this.color, this.largeur, 10, '', this.taille))
+        break
+    }
+  }
+
   this.svg = function (coeff) {
     let code = ''
-    let x
-    let y
-    let A
-    if (Array.isArray(points[0])) {
-      // Si le premier argument est un tableau
-      this.listePoints = points[0]
-    } else {
-      this.listePoints = points
-    }
-    for (const unPoint of this.listePoints) {
-      if (unPoint.typeObjet === 'point3d') {
-        A = unPoint.c2d
-      } else {
-        A = unPoint
-      }
-      x = A.x
-      y = A.y
-      switch (A.positionLabel) {
-        case 'left':
-          code += latexParCoordonnees(A.nom, arrondi(x - offset / coeff, 2), y, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-        case 'right':
-          code += latexParCoordonnees(A.nom, arrondi(x + offset / coeff, 2), y, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-        case 'below':
-          code += latexParCoordonnees(A.nom, x, arrondi(y - offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-        case 'above':
-          code += latexParCoordonnees(A.nom, x, arrondi(y + offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-        case 'above right':
-          code += latexParCoordonnees(A.nom, arrondi(x + offset / coeff, 2), arrondi(y + offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-        case 'below left':
-          code += latexParCoordonnees(A.nom, arrondi(x - offset / coeff, 2), arrondi(y - offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-        case 'below right':
-          code += latexParCoordonnees(A.nom, arrondi(x + offset / coeff, 2), arrondi(y - offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-        default:
-          code += latexParCoordonnees(A.nom, arrondi(x - offset / coeff, 2), arrondi(y + offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-      }
+    for (const objet of objets) {
+      code += objet.svg(coeff) + '\n'
     }
     code = `<g id="${this.id}">${code}</g>`
     return code
   }
   this.tikz = function () {
-    let code = ''; let A
-    let style = ''
-    if (this.color !== 'black') {
-      style = `,${this.color}`
-    }
-    for (const unPoint of points) {
-      if (unPoint.typeObjet === 'point3d') {
-        A = unPoint.c2d
-      } else {
-        A = unPoint
-      }
-      code += `\t\\draw (${A.x},${A.y}) node[${A.positionLabel}${style}] {$${A.nom}$};\n`
+    let code = ''
+    for (const objet of objets) {
+      code += objet.tikz() + '\n'
     }
     return code
   }
@@ -9443,18 +9439,17 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
   this.texte = texte
   this.tailleCaracteres = tailleCaracteres
   this.bordures = [x - texte.length * 0.2, y - 0.02 * this.hauteur, x + texte.length * 0.2, y + 0.02 * this.hauteur]
-
+  let taille
+  if (this.tailleCaracteres > 19) taille = '\\huge'
+  else if (this.tailleCaracteres > 16) taille = '\\LARGE'
+  else if (this.tailleCaracteres > 13) taille = '\\Large'
+  else if (this.tailleCaracteres > 11) taille = '\\large'
+  else if (this.tailleCaracteres < 6) taille = '\\tiny'
+  else if (this.tailleCaracteres < 8) taille = '\\scriptsize'
+  else if (this.tailleCaracteres < 9) taille = '\\footnotesize'
+  else if (this.tailleCaracteres < 10) taille = '\\small'
+  else taille = '\\normalsize'
   this.svg = function (coeff) {
-    let taille
-    if (this.tailleCaracteres > 19) taille = '\\huge'
-    else if (this.tailleCaracteres > 16) taille = '\\LARGE'
-    else if (this.tailleCaracteres > 13) taille = '\\Large'
-    else if (this.tailleCaracteres > 11) taille = '\\large'
-    else if (this.tailleCaracteres < 6) taille = '\\tiny'
-    else if (this.tailleCaracteres < 8) taille = '\\scriptsize'
-    else if (this.tailleCaracteres < 9) taille = '\\footnotesize'
-    else if (this.tailleCaracteres < 10) taille = '\\small'
-    else taille = '\\normalsize'
     const demiLargeur = calcul(this.largeur / 2)
     const centrage = arrondi(0.4 * context.pixelsParCm * Math.log10(tailleCaracteres), 2)
     if (this.colorBackground !== '') {
@@ -9469,9 +9464,9 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
     // let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
     let code
     if (this.colorBackground !== '') {
-      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}};`
+      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{${taille} ${colorBackground}}{$\\color{${color}}{${texte}}$}};`
     } else {
-      code = `\\draw (${x},${y}) node[anchor = center] {$\\color{${color}}{${texte}}$};`
+      code = `\\draw (${x},${y}) node[anchor = center] {$\\color{${color}}{${taille} ${texte}}$};`
     };
     return code
   }
