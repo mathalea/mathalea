@@ -309,7 +309,7 @@ export default function PremierOuPas4e () {
 #### <a id="attributs_sortie_autre_que_latex" href="#attributs_sortie_autre_que_latex">7. 5. Gestion de la sortie autre que LateX</a>
 ``` javascript
   this.beamer = false // booléen pour savoir si la sortie devra être un diaporama beamer
-  this.tailleDiaporama = 50 // Taille en pixels pour le calcul chronométré.
+  this.tailleDiaporama = 1 // Facteur par lequel multiplier la police pour la vue 'diap'
 ```
 #### <a id="attributs_parametres" href="#attributs_parametres">7. 6. Paramètres</a>
 ``` javascript
