@@ -452,7 +452,7 @@ Si toutefois, le concepteur de l'exercice trouve que donner le nombre exact de c
 >> // Chacun de ces paramètres est facultatif. Ne pas en mettre, c'est laisser la place à la valeur idéale.
 >>```
 
-**Remarque** : Si digits et decimals sont mal renseignés (par exemple, digits=3 et decimals=1 pour coder le nombre 456,17), alors ces valeurs ne seront pas prises en compte et les valeurs, par défaut, seront utilisés (dans l'exemple ci-dessus, digits=5 et decimals=2).
+**Remarque** : Si digits et decimals sont mal renseignés (par exemple, digits=3 et decimals=2 pour coder le nombre 456,17), alors ces valeurs ne seront pas prises en compte et les valeurs, par défaut, seront utilisés (dans l'exemple ci-dessus, digits=5 et decimals=2).
 
 Dans le cas où le concepteur souhaite que, sur AMC, la réponse numérique soit donnée sous forme d'**une puissance**, alors on doit préciser à AMC à la fois la base et à la fois l'exposant pour que les deux puissent être codés. Il suffira, pour cela, de **rajouter** à `setReponse()` des paramètres comme dans le code de l'exemple suivant.
 
