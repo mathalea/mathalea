@@ -4127,7 +4127,7 @@ export function cibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisio
 }
 
 /**
- * M = tion(O,v) //M est l'image de O dans la translation de vecteur v
+ * M = translation(O,v) //M est l'image de O dans la translation de vecteur v
  * M = translation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
  * M = translation(O,v,'M','below') //M est l'image de O dans la translation de vecteur v, se nomme M et le nom est en dessous du point
  * @param {Point} O
