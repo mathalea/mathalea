@@ -597,7 +597,16 @@ a.lien_id_exercice.exerciceactif {
 
 }
 
+body.exMoodle div.ML__keyboard.is-visible {
+	position: absolute;
+	top: var(--keyboard-position);
+  height: revert;
+}
 
+body.exMoodle div.ML__keyboard.is-visible .ML__keyboard--plate {
+	position: static;
+	transform: none;
+}
 
 /*
 input {

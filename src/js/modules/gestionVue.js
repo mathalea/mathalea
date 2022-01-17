@@ -103,15 +103,15 @@ export async function gestionVue (vue) {
       const section = document.querySelector('section')
       const divCopirelem = create('div')
       divCopirelem.innerHTML = `<div class="ui icon message">
-      <img src="assets/images/logo_copi.png">
+      <a href="https://www.copirelem.fr/ressources/pour-le-crpe/" target="_blank"><img src="assets/images/logo_copi.png"></a>
       <div class="content">
         <div class="header">
-          Les annales du CRPE rédigées par la COPIRELEM
+          Les annales du CRPE rédigées par la <a href="https://www.copirelem.fr/ressources/pour-le-crpe/" target="_blank">COPIRELEM</a>
         </div>
         <p> 
         (Commission Permanente des IREM sur l’Enseignement Élémentaire)<br>
-        Les sujets du CRPE et exercices issus d’examens dans les INSPÉ corrigés par la COPIRELEM sont classés ci-dessous par thème et par année.<br> 
-        Les annales récentes pour préparer le CRPE 2022 sont disponibles à la commande sur le <a href="http://www.arpeme.fr/index.php?id_page=18" target="_blank">site de l’ARPEME</a>.<br>
+        Les sujets du CRPE et exercices issus d’examens dans les INSPÉ corrigés par la <a href="https://www.copirelem.fr/ressources/pour-le-crpe/" target="_blank">COPIRELEM</a> sont classés ci-dessous par thème et par année.<br> 
+        Les annales récentes pour préparer le CRPE sont disponibles à la commande sur le <a href="http://www.arpeme.fr/index.php?id_page=18" target="_blank">site de l’ARPEME</a>.<br>
       </div>
     </div>`
       divCopirelem.style.marginBottom = '30px'

@@ -1,14 +1,15 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range1, combinaisonListesSansChangerOrdre, texNombrec, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range1, combinaisonListesSansChangerOrdre, texNombrec, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, contraindreValeur, compteOccurences } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Donner l’écriture décimale d’un nombre à partir de différents textes'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDeModifImportante = '15/01/2022' // Ajout de paramètres
 /**
- * Écriture décimale à partir de différentes manière de l'énoncé
+ * Écriture décimale à partir de différentes manières de l'énoncé
  *
  * * 3 unités, 5 dixièmes et 8 centièmes
  * * 3 unités et 5 centièmes
@@ -17,19 +18,35 @@ export const interactifType = 'mathLive'
  * * 8+5/100+7/100
  * @author Rémi Angot
  * Référence 6N23-4
- * Ajout Interactivité et AMC : Janvier 2022 par EE
+ * Ajout de paramètres, Interactivité et AMC : Janvier 2022 par EE
  */
 export default function NombreDecimalOraliseDeDifferentesManieres () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Donner l'écriture décimale de chaque nombre."
   this.nbQuestions = 5
+  this.besoinFormulaireTexte = ['Type des textes', ' Choix séparés par des tirets\n1 : 3 unités, 5 dixièmes et 8 centièmes\n2 : 3 unités et 5 centièmes\n3 : 5 dixièmes\n4 : 128/10\n5 : 8+5/100+7/100\n6 : Mélange']
+  this.sup = 6
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const typesDeQuestionsDisponibles = range1(5)
+    let typesDeQuestionsDisponibles = []
+    if (!this.sup) { // Si aucune liste n'est saisie
+      typesDeQuestionsDisponibles = range1(5)
+    } else {
+      if (typeof (this.sup) === 'number') { // Je n'ai jamais réussi à rentrer dans ce test.
+        this.sup = Math.max(Math.min(parseInt(this.sup), 6), 1)
+        typesDeQuestionsDisponibles[0] = this.sup
+      } else {
+        typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 6, parseInt(typesDeQuestionsDisponibles[i]), 6)
+        }
+      }
+    }
+    if (compteOccurences(typesDeQuestionsDisponibles, 6) > 0) typesDeQuestionsDisponibles = range1(5) // Teste si l'utilisateur a choisi tout
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c, reponseAMC, n, choix; i < this.nbQuestions && cpt < 50;) {
@@ -72,13 +89,11 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
             texte = `$${texFraction(n, 10)}$`
             reponseAMC = calcul(n / 10)
             texteCorr = `$${texFraction(n, 10)}=${texNombrec(reponseAMC)}$`
-          }
-          if (choix === 2) {
+          } else if (choix === 2) {
             texte = `$${texFraction(n, 100)}$`
             reponseAMC = calcul(n / 100)
             texteCorr = `$${texFraction(n, 100)}=${texNombrec(reponseAMC)}$`
-          }
-          if (choix === 1) {
+          } else {
             texte = `$${texFraction(n, 1000)}$`
             reponseAMC = calcul(n / 1000)
             texteCorr = `$${texFraction(n, 1000)}=${texNombrec(reponseAMC)}$`
@@ -90,8 +105,7 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
             texte = `$${a}+${texFraction(b, 100)}+${texFraction(c, 100)}$`
             reponseAMC = calcul(a + (b + c) / 100)
             texteCorr = `$${a}+${texFraction(b, 100)}+${texFraction(c, 100)}=${a}+${texFraction(b + c, 100)}=${texNombrec(reponseAMC)}$`
-          }
-          if (choix === 2) {
+          } else if (choix === 2) {
             texte = `$${a}+${texFraction(b, 10)}+${texFraction(c, 10)}$`
             reponseAMC = calcul(a + (b + c) / 10)
             texteCorr = `$${a}+${texFraction(b, 10)}+${texFraction(c, 10)}=${a}+${texFraction(b + c, 10)}=${a}+${texNombrec((b + c) / 10)}=${texNombrec(reponseAMC)}$`

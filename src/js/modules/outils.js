@@ -1378,6 +1378,14 @@ export function arrondiVirgule (nombre, precision = 2) { //
 }
 
 /**
+* Retourne égal si la valeur égal l'arrondi souhaité ou environ égal si ce n'est pas le cas
+* @author Jean-Claude Lhote
+*/
+export function egalOuApprox (a, precision) {
+  return a - arrondi(a, precision) === 0 ? '=' : '\\approx'
+}
+
+/**
 * Renvoie le PGCD de deux nombres
 * @author Rémi Angot
 */
@@ -1987,6 +1995,29 @@ export function lettreDepuisChiffre (i) {
 */
 export function lettreMinusculeDepuisChiffre (i) {
   return lettreDepuisChiffre(i).toLowerCase()
+}
+
+/**
+* Renvoie une lettre majuscule (éventuellement indicée) depuis un nombre compris entre 1 et... sans limite.
+* @author Eric Elter
+*@Example
+* // 0 -> @ 1->A ; 2->B...
+* // 27->A_1 ; 28 ->A_2 ...
+*/
+export function lettreIndiceeDepuisChiffre (i) {
+  const indiceLettre = quotientier(i - 1, 26) === 0 ? '' : quotientier(i - 1, 26)
+  return String.fromCharCode(64 + (i - 1) % 26 + 1) + `_{${indiceLettre}}`
+}
+
+/**
+* Renvoie une lettre minuscule (éventuellement indicée) depuis un nombre compris entre 1 et... sans limite.
+* @author EricElter
+*@Example
+* // 0 -> @ 1->a ; 2->b...
+* // 27->a_1 ; 28 ->a_2 ...
+*/
+export function lettreIndiceeMinusculeDepuisChiffre (i) {
+  return lettreIndiceeDepuisChiffre(i).toLowerCase()
 }
 
 /**
