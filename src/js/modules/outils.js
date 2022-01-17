@@ -3065,11 +3065,7 @@ export function listeDesDiviseurs (n) {
 */
 export function texFraction (a, b) {
   if (b !== 1) {
-    if (Number.isInteger(a) && Number.isInteger(b)) {
-      return `\\dfrac{${texNombre(a)}}{${texNombre(b)}}`
-    } else {
-      return `\\dfrac{${a}}{${b}}`
-    }
+    return `\\dfrac{${typeof a === 'number' ? texNombre(a) : a}}{${typeof b === 'number' ? texNombre(b) : b}}`
   } else {
     return a
   }
