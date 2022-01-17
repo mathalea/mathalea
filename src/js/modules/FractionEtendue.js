@@ -252,12 +252,12 @@ FractionX.prototype.oppose = oppose
  * @param {coefficient} k
  * @returns La FractionX dont le numérateur et le dénominateur ont été multipliés par k.
  */
-function fractionEgale (k) {
+function reduire (k) {
   const num = multiply(this.num, k)
   const den = multiply(this.den, k)
   return fraction(num, den)
 }
-FractionX.prototype.fractionEgale = fractionEgale
+FractionX.prototype.reduire = reduire
 
 /**
  * @param {FractionX ou Fraction} f

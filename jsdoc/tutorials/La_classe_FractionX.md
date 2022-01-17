@@ -71,7 +71,7 @@ console.log(f.simplifie()) // {s: -1, n: 1, d: 2, num: -1, den: 2...} nouvel obj
 
 console.log(f.oppose()) // {s: 1, n: 1, d: 2, num: 1, den: 2...} nouvel objet FractionX num -> -num
 
-console.log(f.fractionEgale(10)) // {s: -1, n: 1, d: 2, num: -60, den: 120...} multiplie le num et le den par k. k peut être un entier, un décimal, une FractionX
+console.log(f.reduire(10)) // {s: -1, n: 1, d: 2, num: -60, den: 120...} multiplie le num et le den par k. k peut être un entier, un décimal, une FractionX
 
 const f2 = fraction(1,3)
 
