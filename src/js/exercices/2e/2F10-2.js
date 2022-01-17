@@ -58,7 +58,9 @@ export default function lecturefonctionaffine () {
           xmin: -6,
           ymin: -6,
           xmax: 6,
-          ymax: 6
+          ymax: 6,
+          scale: 0.5
+
         }, r, c, o)// On trace le graphique
         if (context.isAmc) {
           this.autoCorrection[i] = {
@@ -118,7 +120,8 @@ export default function lecturefonctionaffine () {
           xmin: -6,
           ymin: -6,
           xmax: 6,
-          ymax: 6
+          ymax: 6,
+          scale: 0.5
         }, r, c, o)// On trace le graphique
       }
       if (this.sup === 2) { // cas du coeff directeur fractionnaire
@@ -134,7 +137,9 @@ export default function lecturefonctionaffine () {
           xmin: -6,
           ymin: -6,
           xmax: 6,
-          ymax: 6
+          ymax: 6,
+          scale: 0.5
+
         }, r, c, o)// On trace le graphique
 
         texteCorr = 'On sait que l\'équation réduite d\'une droite non verticale est de la forme : $y= ax+b$ avec $a$ et $b$ deux réels non tous deux nuls.<br>'
@@ -254,7 +259,8 @@ export default function lecturefonctionaffine () {
             xmin: -8,
             ymin: -10,
             xmax: 8,
-            ymax: 10
+            ymax: 10,
+            scale: 0.5
 
           }, r, s1, s2, t, l, c, o)
         }// On trace le graphique
