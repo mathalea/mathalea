@@ -1,4 +1,4 @@
-import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, labelPoint, segment, vecteur, latexParCoordonnees, codeSegments, afficheMesureAngle, milieu, translation, texteParPositionEchelle } from '../../modules/2d.js'
+import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, segment, vecteur, latexParCoordonnees, codeSegments, afficheMesureAngle, milieu, translation, texteParPositionEchelle, labelLatexPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha, rangeMinMax, contraindreValeur, lettreDepuisChiffre, calcul, enleveElementNo, enleveElementBis, compteOccurences } from '../../modules/outils.js'
@@ -50,7 +50,7 @@ export default function Transformations () {
     } else nbImages = 3
 
     const M = []; const N = []; let pointM; let pointN
-    const O = point(0, 0, 'O', 'below')
+    const O = point(0, 0, 'O', 'above right')
     const d1 = droiteParPointEtPente(O, 1)
     const d3 = droiteHorizontaleParPoint(O)
     const d2 = droiteParPointEtPente(O, -1)
@@ -106,7 +106,7 @@ export default function Transformations () {
       }
       yu = yuPossibles[j]
       if (choixTransformation[j] === 10) {
-        k[j] = choice([2, 4]) * randint(-1, 1, [0]) // rapport d'homothétie < 1 ( 0.5 ou 0.25 )
+        k[j] = choice([2, 3, 4]) * randint(-1, 1, [0]) // rapport d'homothétie < 1 ( 0.5 ou 0.25 )
       } else if (choixTransformation[j] === 9) {
         k[j] = choice([1, 1.5, 2, 2.5, 3, 4, 5]) * randint(-1, 1, [0]) // rapport d'homothétie >=1 (1,2 ou 3)
       }
@@ -154,8 +154,8 @@ export default function Transformations () {
         if (punto[j][0] - Math.floor(punto[j][0]) === 0 &&
           punto[j][1] - Math.floor(punto[j][1]) === 0) { puntoReseau = true } else { puntoReseau = false }
       }
-      N[j] = point(punto[j][0] - 4, punto[j][1] - 4)
-      M[j] = point(antecedents[j] % 10 - 4, Math.floor(antecedents[j] / 10 - 4))
+      N[j] = point(punto[j][0] - 4, punto[j][1] - 4, 'above left')
+      M[j] = point(antecedents[j] % 10 - 4, Math.floor(antecedents[j] / 10 - 4), 'above left')
       pointsDejaUtilises.push(antecedents[j])
       pointsDejaUtilises.push(calcul(punto[j][0] + 10 * punto[j][1]))
     }
@@ -165,9 +165,24 @@ export default function Transformations () {
       n[choixTransformation[j] - 1] = antecedents[j]
     }
 
-    for (let i = 0; i < nbImages; i++) {
+    for (let i = 0, labAnt, labIm, labO, labM, labN, traceAnt, traceIm, traceO, traceM, traceN; i < nbImages; i++) {
       xu = xuPossibles[i]
       yu = yuPossibles[i]
+      labAnt = labelLatexPoint(M[i], 'red')
+      labIm = labelLatexPoint(N[i], 'red')
+      traceAnt = tracePoint(M[i])
+      traceIm = tracePoint(N[i])
+      traceAnt.epaisseur = 2
+      traceAnt.opacite = 1
+      traceIm.opacite = 1
+      traceIm.epaisseur = 2
+      labAnt.taille = 12
+      labIm.taille = 12
+      traceO = tracePoint(O)
+      traceO.epaisseur = 2
+      traceO.opacite = 1
+      labO = labelLatexPoint(O, 'red')
+      labO.taille = 12
       switch (choixTransformation[i]) {
         case 1:
           texte +=
@@ -176,8 +191,8 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_1)$ est le point ${images[i]}.<br>`
-          objetsEnonce.push(d1, tracePoint(M[i]), latexParCoordonnees('(d_1)', 4.8, 4.5, 'green', 20, 10, ''))
-          objetsCorrection.push(d1, tracePoint(M[i], N[i]), latexParCoordonnees('(d_1)', 3.5, 3, 'green', 15, 1, ''),
+          objetsEnonce.push(d1, traceAnt, latexParCoordonnees('(d_1)', 4.8, 4.5, 'green', 20, 10, '', 12))
+          objetsCorrection.push(d1, traceAnt, traceIm, latexParCoordonnees('(d_1)', 3.5, 3, 'green', 15, 1, '', 12),
             segment(M[i], N[i], 'purple'), codeSegments('X', 'red', M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]))
           break
 
@@ -188,8 +203,8 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_2)$ est le point ${images[i]}.<br>`
-          objetsEnonce.push(d2, tracePoint(M[i]), latexParCoordonnees('(d_2)', 4.3, -3.7, 'green', 20, 10, ''))
-          objetsCorrection.push(d2, tracePoint(M[i], N[i]), latexParCoordonnees('(d_2)', 4.3, -3.7, 'green', 15, 1, ''),
+          objetsEnonce.push(d2, traceAnt, latexParCoordonnees('(d_2)', 4.3, -3.7, 'green', 20, 10, '', 12))
+          objetsCorrection.push(d2, traceAnt, traceIm, latexParCoordonnees('(d_2)', 4.3, -3.7, 'green', 15, 10, '', 12),
             segment(M[i], N[i], 'cyan'), codeSegments('|||', 'red', M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]))
           break
 
@@ -200,8 +215,8 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_3)$ est le point ${images[i]}.<br>`
-          objetsEnonce.push(d3, tracePoint(M[i]), latexParCoordonnees('(d_3)', -4.2, 0.5, 'green', 20, 10, ''))
-          objetsCorrection.push(d3, tracePoint(M[i], N[i]), latexParCoordonnees('(d_3)', -4.2, 0.5, 'green', 15, 1, ''),
+          objetsEnonce.push(d3, traceAnt, latexParCoordonnees('(d_3)', -4.2, 0.5, 'green', 20, 10, ''))
+          objetsCorrection.push(d3, traceAnt, traceIm, latexParCoordonnees('(d_3)', -4.2, 0.5, 'green', 15, 10, '', 12),
             segment(M[i], N[i], 'brown'), codeSegments('/', 'red', M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]))
           break
 
@@ -212,8 +227,8 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` Le symétrique du point ${antecedents[i]} par rapport à $(d_4)$ est le point ${images[i]}.<br>`
-          objetsEnonce.push(d4, tracePoint(M[i]), latexParCoordonnees('(d_4)', 0.2, 4.5, 'green', 15, 1, ''))
-          objetsCorrection.push(d4, tracePoint(M[i], N[i]), latexParCoordonnees('(d_4)', 0.2, 4.5, 'green', 20, 10, ''),
+          objetsEnonce.push(d4, traceAnt, latexParCoordonnees('(d_4)', 0.2, 4.5, 'green', 15, 10, '', 12))
+          objetsCorrection.push(d4, traceAnt, traceIm, latexParCoordonnees('(d_4)', 0.2, 4.5, 'green', 20, 10, '', 12),
             segment(M[i], N[i], 'yellow'), codeSegments('||', 'red', M[i], milieu(M[i], N[i]), milieu(M[i], N[i]), N[i]))
           break
 
@@ -224,8 +239,8 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 90° dans le sens anti-horaire est le point ${images[i]}.<br>`
-          objetsEnonce.push(tracePoint(M[i], O), labelPoint(O, 'red'))
-          objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O, 'red'), segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
+          objetsEnonce.push(traceAnt, traceO, labO)
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
           break
 
         case 6:
@@ -235,8 +250,8 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 90° dans le sens horaire est le point ${images[i]}.<br>`
-          objetsEnonce.push(tracePoint(M[i], O), labelPoint(O, 'red'))
-          objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O, 'red'), segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
+          objetsEnonce.push(traceAnt, traceO, labO)
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
           break
 
         case 7:
@@ -246,8 +261,8 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la symétrie de centre O est le point ${images[i]}.<br>`
-          objetsEnonce.push(tracePoint(M[i], O), labelPoint(O, 'red'))
-          objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O, 'red'), segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('O', 'red', M[i], O, O, N[i]))
+          objetsEnonce.push(traceAnt, traceO, labO)
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('O', 'red', M[i], O, O, N[i]))
           break
 
         case 11:
@@ -257,8 +272,8 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 60° dans le sens anti-horaire est le point ${images[i]}.<br>`
-          objetsEnonce.push(tracePoint(M[i], O), labelPoint(O, 'red'))
-          objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O, 'red'), segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
+          objetsEnonce.push(traceAnt, traceO, labO)
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
           break
 
         case 12:
@@ -268,8 +283,8 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 60° dans le sens horaire est le point ${images[i]}.<br>`
-          objetsEnonce.push(tracePoint(M[i], O), labelPoint(O, 'red'))
-          objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O, 'red'), segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
+          objetsEnonce.push(traceAnt, traceO, labO)
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
           break
 
         case 13:
@@ -279,8 +294,8 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 120° dans le sens anti-horaire est le point ${images[i]}.<br>`
-          objetsEnonce.push(tracePoint(M[i], O), labelPoint(O, 'red'))
-          objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O, 'red'), segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
+          objetsEnonce.push(traceAnt, traceO, labO)
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
           break
 
         case 14:
@@ -290,8 +305,8 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par la rotation de centre O et d'angle 120° dans le sens horaire est le point ${images[i]}.<br>`
-          objetsEnonce.push(tracePoint(M[i], O), labelPoint(O, 'red'))
-          objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O, 'red'), segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
+          objetsEnonce.push(traceAnt, traceO, labO)
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'blue'), codeSegments('||', 'red', M[i], O, O, N[i]), afficheMesureAngle(M[i], O, N[i]))
           break
 
         case 8:
@@ -310,16 +325,23 @@ export default function Transformations () {
           for (let kk = 0; kk < longueurBoucle; kk++) {
             aEviter.push(pointsDejaUtilises[kk] - xu - 10 * yu)
           }
-          pointM = point(randint(-1, 2, [M[i].x, 0]), randint(-1, 2, [M[i].y, 0]), lettreDepuisChiffre(pointMLettre), 'below')
+          pointM = point(randint(-1, 2, [M[i].x, 0]), randint(-1, 2, [M[i].y, 0]), lettreDepuisChiffre(pointMLettre), 'above right')
           while (compteOccurences(aEviter, 44 + pointM.x + 10 * pointM.y) !== 0) {
-            pointM = point(randint(-1, 2, [M[i].x, 0]), randint(-1, 2, [M[i].y, 0]), lettreDepuisChiffre(pointMLettre), 'below')
+            pointM = point(randint(-1, 2, [M[i].x, 0]), randint(-1, 2, [M[i].y, 0]), lettreDepuisChiffre(pointMLettre), 'above right')
           }
-          pointN = translation(pointM, vecteur(xu, yu), lettreDepuisChiffre(pointN), 'below')
-
+          pointN = translation(pointM, vecteur(xu, yu), lettreDepuisChiffre(pointN), 'above right')
+          traceM = tracePoint(pointM)
+          traceN = tracePoint(pointN)
+          traceM.epaisseur = 2
+          traceN.epaisseur = 2
+          labM = labelLatexPoint(pointM, 'red')
+          labN = labelLatexPoint(pointN, 'red')
+          labM.taille = 12
+          labN.taille = 12
           pointsDejaUtilises.push(44 + pointM.x + 10 * pointM.y)
           pointsDejaUtilises.push(44 + pointN.x + 10 * pointN.y)
-          objetsEnonce.push(tracePoint(M[i], pointM, pointN), labelPoint(pointM, pointN, 'red'))
-          objetsCorrection.push(tracePoint(M[i], N[i], pointM, pointN), labelPoint(pointM, pointN, 'red'), vecteur(M[i], N[i]).representant(M[i]), vecteur(M[i], N[i]).representant(pointM))
+          objetsEnonce.push(traceAnt, traceM, traceN, labM, labN)
+          objetsCorrection.push(traceAnt, traceIm, traceM, traceN, labM, labN, vecteur(M[i], N[i]).representant(M[i]), vecteur(M[i], N[i]).representant(pointM))
 
           break
 
@@ -330,8 +352,8 @@ export default function Transformations () {
           texteCorr +=
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport ${k[i]} est le point ${images[i]}.<br>`
-          objetsEnonce.push(tracePoint(M[i], O), labelPoint(O, 'red'))
-          objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O, 'red'), segment(M[i], O, 'blue'), segment(N[i], O, 'orange'))
+          objetsEnonce.push(traceAnt, traceO, labO)
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'orange'))
           break
 
         case 10:
@@ -347,8 +369,8 @@ export default function Transformations () {
               1,
               k[i]
             )}$ est le point ${images[i]}.<br>`
-          objetsEnonce.push(tracePoint(M[i], O), labelPoint(O, 'red'))
-          objetsCorrection.push(tracePoint(M[i], N[i], O), labelPoint(O, 'red'), segment(M[i], O, 'blue'), segment(N[i], O, 'orange'))
+          objetsEnonce.push(traceAnt, traceO, labO)
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'orange'))
           break
       }
 
