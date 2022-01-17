@@ -31,7 +31,7 @@ export default function SommeFractionsCompatibles () {
      on multiplie son numérateur et son dénominateur par $${c}$.<br><br>
      Ainsi, $${a.texFraction} + ${b.texFraction}
      =\\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}+ ${b.texFraction}
-    =${a.fractionEgale(c).texFraction} + ${b.texFraction}
+    =${a.reduire(c).texFraction} + ${b.texFraction}
     =\\dfrac{${a.n * c}+${b.n}}{${b.d}}
     =\\dfrac{${a.n * c + b.n}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c + b.n, b.d)}$`
     } else {
@@ -42,7 +42,7 @@ export default function SommeFractionsCompatibles () {
      on multiplie son numérateur et son dénominateur par $${c}$.<br><br>
      Ainsi, $ ${b.texFraction}+${a.texFraction}
      = ${b.texFraction}+\\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}
-    =${b.texFraction}+${a.fractionEgale(c).texFraction} 
+    =${b.texFraction}+${a.reduire(c).texFraction} 
     =\\dfrac{${b.n}+${a.n * c}}{${b.d}}
     =\\dfrac{${b.n + a.n * c}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c + b.n, b.d)}$`
     }
