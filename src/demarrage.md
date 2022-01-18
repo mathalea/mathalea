@@ -55,10 +55,10 @@ Le corollaire étant, si vous êtes bloqués par une erreur, passez en revue les
         - `Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser` pour enlever la sécurité.
         - `pnpm votreCommande` pour exécuter votre commande.
         - `Set-ExecutionPolicy -ExecutionPolicy Restricted -Scope CurrentUser` pour remettre la sécurité.
-- Installer pnpm.
+- Installer pnpm (uniquement en cas de première installation sur cet ordinateur, si vous tentez de l'installer à nouveau, il vous affichera [un message d'erreur](img/Erreur-6.png) vous prévenant qu'il est déjà installé).
     - Sur **Windows** il faut être administrateur et saisir `npm install -g pnpm` dans le terminal.
     - Sur **Mac** et **Linux** il faut le préfixer de `sudo`, ce qui donne `sudo npm install -g pnpm`.
-- De la même façon, saisir `pnpm i` pour installer les dépendances nécessaires (ça prendra un moment, faites autre chose en attendant mais ne fermez pas le logiciel pour éviter les problèmes). Il faudra le refaire lorsqu'on intègrera de nouveaux outils externes, ce qui n'arrivera pas tous les jours (on préviendra sur Slack).
+- De la même façon, saisir `pnpm i` pour installer les dépendances nécessaires (ça prendra un moment si c'est la première fois, faites autre chose en attendant mais ne fermez pas le logiciel pour éviter les problèmes). Il faudra le refaire lorsqu'on intègrera de nouveaux outils externes, ce qui n'arrivera pas tous les jours (on préviendra sur Slack).
 Il se peut que l'installation stoppe à cause d'une erreur : "server certificate verification failed". Pour remédier à ce problème vous devez installer (ou réinstaller les certificats sur votre système Linux en tapant `sudo apt-get install --reinstall ca-certificates` dans le terminal. Puis relancez la commande `pnpm i`)
 - Enfin, vous pouvez vérifier que tout fonctionne en lançant `pnpm start` qui va ouvrir votre navigateur par défaut pour afficher (au bout de quelques dizaines de secondes) la dernière version de MathAlea en développement !
 
