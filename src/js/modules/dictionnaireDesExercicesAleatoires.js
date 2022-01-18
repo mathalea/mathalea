@@ -11520,6 +11520,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can2F13": {
+    "titre": "Déterminer l’image d’un nombre par une fonction de référence.",
+    "url": "/exercices/can/2e/can2F13.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2F13",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can2G01": {
     "titre": "Déterminer un agrandissement/réduction avec fraction",
     "url": "/exercices/can/2e/can2G01.js",
