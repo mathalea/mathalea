@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureParentheseSiNegatif, texNombre, texFraction, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, ecritureParentheseSiNegatif, texNombre, texFraction, choice, arrondi } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
-export const titre = 'Déterminer l’image d’une fonction de référence.'
+export const titre = 'Déterminer l’image d’un nombre par une fonction de référence.'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -19,7 +19,6 @@ export const dateDePublication = '18/01/2022' // La date de publication initiale
 export default function ImageFonctionsRefs () {
   Exercice.call(this)
   this.nbQuestions = 8
-  this.interactif = true
 
   this.besoinFormulaireCaseACocher = ['Fonction carré']
   this.besoinFormulaire2CaseACocher = ['Fonction cube']
@@ -53,9 +52,9 @@ export default function ImageFonctionsRefs () {
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     const listePhrases = combinaisonListes([0, 1], this.nbQuestions)
     for (let i = 0, texte, texteCorr, nombre, solution, nom, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // choix du nom de la fonction : f, g, h si trois questions ou moins, sinon f_1, g_1, h_1, f_2, g_2, h_2, ...
-      nom = ['f', 'g', 'h'][i % 3]
-      this.nbQuestions > 3 && (nom += '_' + parseInt(1 + i / 3))
+      // choix du nom de la fonction : f, g, h, p, q, r si trois questions ou moins, sinon f_1, g_1, h_1, p_1, q_1, r_1, s_1, f_2, g_2, h_2, ...
+      nom = ['f', 'g', 'h', 'p', 'q', 'r', 's', 't'][i % 8]
+      this.nbQuestions > 3 && (nom += '_' + parseInt(1 + i / 8))
       switch (listeTypeQuestions[i]) {
         case 'carré':
           nombre = randint(-10, 10, [0, 1])
@@ -73,14 +72,14 @@ export default function ImageFonctionsRefs () {
           texteCorr = `$${nom}(${nombre}) = \\sqrt{${nombre}} = ${solution} $ car $ ${ecritureParentheseSiNegatif(solution)}^2 = ${nombre} $`
           break
         case 'inverse':
-          if(this.can) {
-            nombre = choice([1,2,4,5,10])
+          if (this.can) {
+            nombre = choice([1, 2, 4, 5, 10])
           } else {
-            nombre = Math.pow(2, randint(0, 5)) * Math.pow(5, randint(0, 5))
+            nombre = this.can ? choice([1, 2, 4, 5, 10]) : Math.pow(2, randint(0, 5)) * Math.pow(5, randint(0, 5))
           }
-          Math.random() < 0.25 && (nombre = 1 / nombre)
+          Math.random() < 0.25 && (nombre = arrondi(1 / nombre,6))
           Math.random() < 0.5 && (nombre *= -1)
-          solution = 1 / nombre
+          solution = arrondi(1 / nombre,6)
           texteCorr = `$${nom}(${texNombre(nombre)}) = ${texFraction(1, nombre)} = ${texNombre(solution)}$`
           break
       }

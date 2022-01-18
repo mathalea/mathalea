@@ -404,7 +404,7 @@ export default {
     }
   },
   "2F11-1": {
-    "titre": "Déterminer l’image d’une fonction de référence.",
+    "titre": "Déterminer l’image d’un nombre par une fonction de référence.",
     "url": "/exercices/2e/2F11-1.js",
     "amcReady": true,
     "amcType": {
