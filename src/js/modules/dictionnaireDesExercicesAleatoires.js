@@ -403,6 +403,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2F11-1": {
+    "titre": "Déterminer l’image d’une fonction de référence.",
+    "url": "/exercices/2e/2F11-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2F11-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F12-1": {
     "titre": "Résoudre algébriquement une équation f(x)=k avec une fonction de référence.",
     "url": "/exercices/2e/2F12-1.js",

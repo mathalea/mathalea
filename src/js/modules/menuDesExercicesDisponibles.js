@@ -485,7 +485,7 @@ export function menuDesExercicesDisponibles () {
     ['3L1', '3L1 - Calcul littéral'], ['3P1', '3P1 - Proportionnalité'], ['3S1', '3S1 - Statistiques'], ['3S2', '3S2 - Probabilités']]
   const listeThemes2 = [
     ['2F1', '2F1 - Se constituer un répertoire de fonctions de référence', '2F10 - Connaître les  fonctions affines',
-      '2F11 - Comparer des images en utilisant les fonctions de référence',
+      '2F11 - Comparer et calculer des images en utilisant les fonctions de référence',
       '2F12 - Résoudre algébriquement ou graphiquement  f(x)=k ou f(x)&lt;k avec f fonction de référence'],
     ['2F2', '2F2 - Représenter algébriquement et graphiquement les fonctions', '2F20 - Exploiter l\'équation y=f(x) d\'une courbe : appartenance, calcul de coordonnées',
       '2F21 - Modéliser par des fonctions des situations issues des mathématiques, des autres disciplines',
