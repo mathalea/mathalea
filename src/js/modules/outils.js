@@ -7,7 +7,6 @@ import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 import { elimineDoublons, setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
-import { toDfrac } from './fonctionsMaths.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -872,7 +871,7 @@ export function rienSi1 (a) {
     } else window.notify('rienSi1 : type de valeur non prise en compte')
     if (equal(A, 1)) return ''
     else if (equal(A, -1)) return '-'
-    else return toDfrac(A)
+    else return A.toLatex()
   } else {
     if (a === 1 || a === '1') {
       return ''
@@ -947,9 +946,9 @@ export function ecritureAlgebrique (a) {
       A = fraction(a.num, a.den)
     }
     if (largerEq(A, 0)) {
-      result = '+' + toDfrac(A)
+      result = '+' + A.toLatex()
     } else {
-      result = toDfrac(A)
+      result = A.toLatex()
     }
   } else {
     if (a >= 0) {
@@ -979,11 +978,11 @@ export function ecritureAlgebriqueSauf1 (a) {
     if (equal(A, 1)) {
       result = '+'
     } else if (largerEq(A, 0)) {
-      result = '+' + toDfrac(A)
+      result = '+' + A.toLatex()
     } else if (equal(A, -1)) {
       result = '-'
     } else if (smaller(A, 0)) {
-      result = toDfrac(A)
+      result = A.toLatex()
     }
     return result
   } else {
@@ -3065,11 +3064,7 @@ export function listeDesDiviseurs (n) {
 */
 export function texFraction (a, b) {
   if (b !== 1) {
-    if (Number.isInteger(a) && Number.isInteger(b)) {
-      return `\\dfrac{${texNombre(a)}}{${texNombre(b)}}`
-    } else {
-      return `\\dfrac{${a}}{${b}}`
-    }
+    return `\\dfrac{${typeof a === 'number' ? texNombre(a) : a}}{${typeof b === 'number' ? texNombre(b) : b}}`
   } else {
     return a
   }

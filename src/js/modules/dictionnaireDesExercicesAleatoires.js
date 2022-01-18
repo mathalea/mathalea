@@ -403,6 +403,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2F11-1": {
+    "titre": "Déterminer l’image d’une fonction de référence.",
+    "url": "/exercices/2e/2F11-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "2F11-1",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F12-1": {
     "titre": "Résoudre algébriquement une équation f(x)=k avec une fonction de référence.",
     "url": "/exercices/2e/2F12-1.js",
@@ -424,6 +443,40 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "2F20-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2F25-1": {
+    "titre": "Propriétés graphiques de la parité d'une fonction.",
+    "url": "/exercices/2e/2F25-1.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F25-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2F25-2": {
+    "titre": "Etudier la parité d'une fonction.",
+    "url": "/exercices/2e/2F25-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "2F25-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"

@@ -213,6 +213,7 @@ export function plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRempliss
 function TracePoint (...points) {
   ObjetMathalea2D.call(this)
   this.taille = 3
+  this.tailleTikz = this.taille / 30
   this.epaisseur = 1
   this.opacite = 0.8
   this.style = 'x'
@@ -304,7 +305,6 @@ function TracePoint (...points) {
   }
   this.tikz = function () {
     const objetstikz = []; let s1; let s2; let p1; let p2; let c, A
-    const tailletikz = this.taille * context.scale / 20
     for (const unPoint of points) {
       if (unPoint.typeObjet === 'point3d') {
         A = unPoint.c2d
@@ -314,10 +314,10 @@ function TracePoint (...points) {
 
       if (A.constructor === Point) {
         if (this.style === 'x') {
-          s1 = segment(point(A.x - tailletikz, A.y + tailletikz),
-            point(A.x + tailletikz, A.y - tailletikz), this.color)
-          s2 = segment(point(A.x - tailletikz, A.y - tailletikz),
-            point(A.x + tailletikz, A.y + tailletikz), this.color)
+          s1 = segment(point(A.x - this.tailleTikz, A.y + this.tailleTikz),
+            point(A.x + this.tailleTikz, A.y - this.tailleTikz), this.color)
+          s2 = segment(point(A.x - this.tailleTikz, A.y - this.tailleTikz),
+            point(A.x + this.tailleTikz, A.y + this.tailleTikz), this.color)
           s1.epaisseur = this.epaisseur
           s2.epaisseur = this.epaisseur
           s1.opacite = this.opacite
@@ -325,15 +325,15 @@ function TracePoint (...points) {
           objetstikz.push(s1, s2)
         } else if (this.style === 'o') {
           p1 = point(A.x, A.y)
-          c = cercle(p1, tailletikz, this.color)
+          c = cercle(p1, this.tailleTikz, this.color)
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
           c.couleurDeRemplissage = this.color
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '#') {
-          p1 = point(A.x - tailletikz, A.y - tailletikz)
-          p2 = point(A.x + tailletikz, A.y - tailletikz)
+          p1 = point(A.x - this.tailleTikz, A.y - this.tailleTikz)
+          p2 = point(A.x + this.tailleTikz, A.y - this.tailleTikz)
           c = carreIndirect(p1, p2, this.color)
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
@@ -341,18 +341,18 @@ function TracePoint (...points) {
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '+') {
-          s1 = segment(point(A.x, A.y + tailletikz),
-            point(A.x, A.y - tailletikz), this.color)
-          s2 = segment(point(A.x - tailletikz, A.y),
-            point(A.x + tailletikz, A.y), this.color)
+          s1 = segment(point(A.x, A.y + this.tailleTikz),
+            point(A.x, A.y - this.tailleTikz), this.color)
+          s2 = segment(point(A.x - this.tailleTikz, A.y),
+            point(A.x + this.tailleTikz, A.y), this.color)
           s1.epaisseur = this.epaisseur
           s2.epaisseur = this.epaisseur
           s1.opacite = this.opacite
           s2.opacite = this.opacite
           objetstikz.push(s1, s2)
         } else if (this.style === '|') {
-          s1 = segment(point(A.x, A.y + tailletikz),
-            point(A.x, A.y - tailletikz), this.color)
+          s1 = segment(point(A.x, A.y + this.tailleTikz),
+            point(A.x, A.y - this.tailleTikz), this.color)
           s1.epaisseur = this.epaisseur
           s1.opacite = this.opacite
           objetstikz.push(s1)
@@ -681,17 +681,15 @@ export function labelPoint (...args) {
  * A utiliser par exemple si le label est A_1
  * @author Rémi Angot & Jean-Claude Lhote
  */
-function LabelLatexPoint (...points) {
+function LabelLatexPoint ({ points = [], color = 'black', taille = 8, largeur = 10, hauteur = 10, background = '' }) {
   ObjetMathalea2D.call(this)
-  if (!this.taille) this.taille = 10
-  if (!this.largeur) this.largeur = 20
-  if (typeof points[points.length - 1] === 'string') {
-    this.color = points[points.length - 1]
-    points.length--
-  } else {
-    this.color = 'black'
-  }
-  const offset = arrondi(0.4 * Math.log10(this.taille) / context.pixelsParCm, 2) // context.pixelsParCm ne correspond pas forcément à la valeur utilisée par mathalea2d... cela peut entrainer un trés léger écart
+  this.taille = taille
+  this.largeur = largeur
+  this.hauteur = hauteur
+  this.background = background
+  this.color = color
+
+  const offset = arrondi(0.25 * Math.log10(this.taille), 2) // context.pixelsParCm ne correspond pas forcément à la valeur utilisée par mathalea2d... cela peut entrainer un trés léger écart
   let x
   let y
   let A
@@ -712,28 +710,28 @@ function LabelLatexPoint (...points) {
     y = A.y
     switch (A.positionLabel) {
       case 'left':
-        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), y, this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), y, this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
       case 'right':
-        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), y, this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), y, this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
       case 'below':
-        objets.push(latexParCoordonnees(A.nom, x, arrondi(y - offset, 2), this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, x, arrondi(y - offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
       case 'above':
-        objets.push(latexParCoordonnees(A.nom, x, arrondi(y + offset, 2), this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, x, arrondi(y + offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
       case 'above right':
-        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), arrondi(y + offset, 2), this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), arrondi(y + offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
       case 'below left':
-        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), arrondi(y - offset, 2), this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), arrondi(y - offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
       case 'below right':
-        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), arrondi(y - offset, 2), this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), arrondi(y - offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
       default:
-        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), arrondi(y + offset, 2), this.color, this.largeur, 10, '', this.taille))
+        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), arrondi(y + offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
         break
     }
   }
@@ -756,12 +754,17 @@ function LabelLatexPoint (...points) {
 }
 /**
  * Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
- * @param  {...any} args Points
+ * @param  {objext} points: un tableau des points dont on veut afficher les labels
+ * color: leur couleur
+ * taille: la taille du texte (voir latexParCoordonnees)
+ * largeur: la largeur en pixels du label (par défaut 10) a des fins de centrage
+ * hauteur: la hauteur en pixels du label à des fins de centrage
+ * background: transparent si '' sinon une couleur
  * @returns {LabelLatexPoint} LabelLatexPoint
  * @author Rémi Angot & Jean-Claude Lhote
  */
-export function labelLatexPoint (...args) {
-  return new LabelLatexPoint(...args)
+export function labelLatexPoint ({ points, color = 'black', taille = 8, largeur = 10, hauteur = 10, background = '' }) {
+  return new LabelLatexPoint({ points: points, color: color, taille: taille, largeur: largeur, hauteur: hauteur, background: background })
 }
 
 /**
