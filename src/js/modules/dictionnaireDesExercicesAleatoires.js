@@ -3925,6 +3925,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "4C32-0": {
+    "titre": "Ecriture décimale d'un calcul avec des puissances de 10",
+    "url": "/exercices/4e/4C32-0.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4C32-0",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "4C32-1": {
     "titre": "Calcul avec les puissances de dix",
     "url": "/exercices/4e/4C32-1.js",
