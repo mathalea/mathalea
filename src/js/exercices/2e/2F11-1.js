@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, ecritureParentheseSiNegatif, texNombre, texFraction } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 export const titre = 'Déterminer l’image d’une fonction de référence.'
@@ -51,11 +50,11 @@ export default function ImageFonctionsRefs () {
     }
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-    const listePhrases = combinaisonListes([0,1], this.nbQuestions)
+    const listePhrases = combinaisonListes([0, 1], this.nbQuestions)
     for (let i = 0, texte, texteCorr, nombre, solution, nom, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // choix du nom de la fonction : f, g, h si trois questions ou moins, sinon f_1, g_1, h_1, f_2, g_2, h_2, ...
-      nom = ['f', 'g', 'h'][i%3]
-      this.nbQuestions > 3 && (nom += '_' + parseInt(1 + i/3))
+      nom = ['f', 'g', 'h'][i % 3]
+      this.nbQuestions > 3 && (nom += '_' + parseInt(1 + i / 3))
       switch (listeTypeQuestions[i]) {
         case 'carré':
           nombre = randint(-10, 10, [0, 1])
@@ -79,7 +78,7 @@ export default function ImageFonctionsRefs () {
           texteCorr = `$${nom}(${texNombre(nombre)}) = ${texFraction(1, nombre)} = ${texNombre(solution)}$`
           break
       }
-      const phrase = listePhrases[i] ? `$${nom}(${texNombre(nombre)})$` : `l'image de $${texNombre(nombre)}$ par la fonction $${nom}$` 
+      const phrase = listePhrases[i] ? `$${nom}(${texNombre(nombre)})$` : `l'image de $${texNombre(nombre)}$ par la fonction $${nom}$`
       listePhrases[i] && (texteCorr += `<br>L'image de $${texNombre(nombre)}$ par la fonction $${nom}$ est donc ${texNombre(solution)}.`)
       texte = `Soit $${nom}$ la fonction ${listeTypeQuestions[i]}. Calculer ${phrase}.`
       texte += ajouteChampTexteMathLive(this, i, 'inline largeur20')
@@ -88,7 +87,7 @@ export default function ImageFonctionsRefs () {
       if (this.questionJamaisPosee(i, listeTypeQuestions[i], nombre)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        setReponse(this, i, solution, {digits: 6, decimals: listeTypeQuestions[i] === 'inverse' ? 6 : 0, signe: true})
+        setReponse(this, i, solution, { digits: 6, decimals: listeTypeQuestions[i] === 'inverse' ? 6 : 0, signe: true })
         i++
       }
       cpt++
