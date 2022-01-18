@@ -65,7 +65,7 @@ export default function Variationsapartirtableau () {
             hauteurLignes: [15, 15]
           }))
 
-          texteCorr = `D'après le tableau de variations, la fonction $f$ est croissante sur $[${x1};${x2}]$, `
+          texteCorr = `D'après le tableau de variations, la fonction $f$ est croissante sur $[${x1};${x2}]$,<br> `
           texteCorr += ` $${a1}\\in[${x1};${x2}]$, $${a2}\\in[${x1};${x2}]$, avec $${a1}<${a2}$.<br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 10, 't/', 10, 't/$f($x{2})$', 10, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
@@ -116,7 +116,7 @@ export default function Variationsapartirtableau () {
             hauteurLignes: [15, 15]
           }))
 
-          texteCorr = `D'après le tableau de variations, la fonction $f$ est décroissante sur $[${x2};${x3}]$, `
+          texteCorr = `D'après le tableau de variations, la fonction $f$ est décroissante sur $[${x2};${x3}]$,<br> `
           texteCorr += `  $${a3}\\in[${x2};${x3}]$,  $${a4}\\in[${x2};${x3}]$, avec $${a3}<${a4}$.<br>`
           texteCorr += 'On sait que si une fonction est décroissante sur un intervalle $[a;b]$, <br>'
           texteCorr += 'alors ses antécédents et ses images sont rangés dans l\'ordre inverse. <br>'
