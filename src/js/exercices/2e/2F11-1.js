@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureParentheseSiNegatif, texNombre, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, ecritureParentheseSiNegatif, texNombre, texFraction, choice } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 export const titre = 'Déterminer l’image d’une fonction de référence.'
 export const interactifReady = true
@@ -29,6 +29,7 @@ export default function ImageFonctionsRefs () {
   this.sup2 = true
   this.sup3 = true
   this.sup4 = true
+  this.can = false // course aux nombres, si true les calculs pourront être fait de tête
 
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -72,14 +73,19 @@ export default function ImageFonctionsRefs () {
           texteCorr = `$${nom}(${nombre}) = \\sqrt{${nombre}} = ${solution} $ car $ ${ecritureParentheseSiNegatif(solution)}^2 = ${nombre} $`
           break
         case 'inverse':
-          nombre = Math.pow(2, randint(0, 5)) * Math.pow(5, randint(0, 5))
+          if(this.can) {
+            nombre = choice([1,2,4,5,10])
+          } else {
+            nombre = Math.pow(2, randint(0, 5)) * Math.pow(5, randint(0, 5))
+          }
           Math.random() < 0.25 && (nombre = 1 / nombre)
+          Math.random() < 0.5 && (nombre *= -1)
           solution = 1 / nombre
           texteCorr = `$${nom}(${texNombre(nombre)}) = ${texFraction(1, nombre)} = ${texNombre(solution)}$`
           break
       }
       const phrase = listePhrases[i] ? `$${nom}(${texNombre(nombre)})$` : `l'image de $${texNombre(nombre)}$ par la fonction $${nom}$`
-      listePhrases[i] && (texteCorr += `<br>L'image de $${texNombre(nombre)}$ par la fonction $${nom}$ est donc ${texNombre(solution)}.`)
+      listePhrases[i] && (texteCorr += `<br>L'image de $${texNombre(nombre)}$ par la fonction $${nom}$ est donc $${texNombre(solution)}$.`)
       texte = `Soit $${nom}$ la fonction ${listeTypeQuestions[i]}. Calculer ${phrase}.`
       texte += ajouteChampTexteMathLive(this, i, 'inline largeur20')
 
