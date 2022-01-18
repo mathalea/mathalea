@@ -190,7 +190,7 @@ export default function CriteresDeDivisibilite () {
             ) // un nombre qui se termine par u, un divisible par u, un au hasard
           }
           texte = `$${texNombre(n)}$ est-il divisible par $${u}$ ?`
-          texteCorr = `On ne connait pas de critère de divisibilité par $${u}$, on calcule donc la division euclidienne de $${texNombre(
+          texteCorr = `On ne connaît pas de critère de divisibilité par $${u}$, on calcule donc la division euclidienne de $${texNombre(
             n
           )}$ par $${u}$.<br>`
           if (n % u === 0) {

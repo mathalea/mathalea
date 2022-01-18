@@ -37,7 +37,7 @@ Les lignes de commande nécessitent des "anti-sèches" au début mais ont les av
 5. Modifier les informations servant au référencement (dans les premières lignes du fichier, de l'export du titre à l'export de la fonction)
 6. Enregistrer puis lancer `pnpm build:dicos` dans un terminal pour ajouter son exercice à la liste des exercices (il faudra le refaire si vous changez le nom du fichier, le titre ou l'un de ces paramètres : amcReady, amcType, interactifReady, interactifType)
 7. Le [programmer](#programmer_un_exercice) et le tester en lançant dans un terminal `pnpm start` (Attention à ne pas oublier de modifier la ligne `if (this.questionJamaisPosee(i, a, b, c, d)` à la fin du fichier en fonction des données de l'énoncé, sinon le `pnpm start` ne fonctionnera pas).
-8. Enregistrer régulièrement son travail et faire un **commit** à chaque étape du projet en [respectant la syntaxe](#syntaxe_commit) : faire `git add .` la première fois pour ajouter le nouveau fichier aux fichiers suivis puis **commit** à chaque étape avec `git commit -am "ex: Ajout de 4A10 Reconnaitre un nombre premier"`
+8. Enregistrer régulièrement son travail et faire un **commit** à chaque étape du projet en [respectant la syntaxe](#syntaxe_commit) : faire `git add .` la première fois pour ajouter le nouveau fichier aux fichiers suivis puis **commit** à chaque étape avec `git commit -am "ex: Ajout de 4A10 Reconnaître un nombre premier"`
 9. Le partager avec les autres : `git push origin nomDeLaBranche`
 10. Une fois l'exercice terminé, faire un **Pull Request** via [github](https://github.com/mathalea/mathalea/branches) ou son interface graphique préférée (GitKraken ou GitHub Desktop).
 

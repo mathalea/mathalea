@@ -8,10 +8,10 @@ export const amcType = 'qcmMult' // QCM
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Reconnaitre un quadrilatère particulier à partir de ses propriétés'
+export const titre = 'Reconnaître un quadrilatère particulier à partir de ses propriétés'
 
 /**
- * Reconnaitre un quadrilatère particulier à partir de ses propriétés
+ * Reconnaître un quadrilatère particulier à partir de ses propriétés
  * @author Rémi Angot
  * Référence 6G33
 */
