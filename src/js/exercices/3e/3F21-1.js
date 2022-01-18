@@ -75,7 +75,7 @@ export default function LectureExpressionFonctionsAffines () {
 
     this.introduction = mathalea2d({ xmin: -5.5, ymin: -5.5, xmax: 5.5, ymax: 5.5, pixelsParCm: 30, scale: 0.75 }, objets2d)
     for (let i = 0; i < nbDroites; i++) {
-      this.listeQuestions.push(`Déterminer l'expression de la fonction $f_${i + 1}$ représentée par la droite $(d_${i + 1})$.` + ajouteChampTexteMathLive(this, i))
+      this.listeQuestions.push(`Déterminer l'expression de la fonction $f_${i + 1}$ représentée par la droite $(d_${i + 1})$.<br>` + ajouteChampTexteMathLive(this, i, 'inline largeur 50', { texte: `$f_${i + 1}(x)=$` }))
       if (this.lineaire || listeDroites[i][0] === 0) {
         explain += `La droite $(d_${i + 1})$ passe par l'origine. Elle représente donc la fonction linéaire $f_${i + 1}(x)=ax$ dont il faut déterminer le coefficient a.<br>$(d_${i + 1})$ passe par le point de coordonnées $(1;${texNombre(listeDroites[i][1])})$ donc $f_${i + 1}(1)=${texNombre(listeDroites[i][1])}$ c'est-à-dire $a\\times 1=${texNombre(listeDroites[i][1])}$ donc $a=${texNombre(listeDroites[i][1])}\\div 1$ d'où $a=${texNombre(listeDroites[i][1])}$. Ainsi $f_${i + 1}(x)=${reduireAxPlusB(listeDroites[i][1], 0)}$.`
         this.listeCorrections.push(`La droite $(d_${i + 1})$ passe par l'origine. Elle représente donc la fonction linéaire $f_${i + 1}(x)=ax$ dont il faut déterminer le coefficient a.<br>$(d_${i + 1})$ passe par le point de coordonnées $(1;${texNombre(listeDroites[i][1])})$ donc $f_${i + 1}(1)=${texNombre(listeDroites[i][1])}$ c'est-à-dire $a\\times 1=${texNombre(listeDroites[i][1])}$ donc $a=${texNombre(listeDroites[i][1])}\\div 1$ d'où $a=${texNombre(listeDroites[i][1])}$. Ainsi $f_${i + 1}(x)=${reduireAxPlusB(listeDroites[i][1], 0)}$.`)
