@@ -1387,7 +1387,10 @@ export function egalOuApprox (a, precision) {
     return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
   }
   if (!Number.isNaN(a) && !Number.isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
-  else window.notify('egalOuApprox : l\'argument n\'est pas un nombre', { a, precision })
+  else {
+    window.notify('egalOuApprox : l\'argument n\'est pas un nombre', { a, precision })
+    return 'bad number'
+  }
 }
 
 /**
