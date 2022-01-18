@@ -1,0 +1,65 @@
+import Exercice from '../Exercice.js'
+import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
+export const titre = 'Ecriture décimale d\'un calcul avec des puissances de 10'
+
+export const dateDePublication = '18/01/2022' 
+
+/**
+ * On donne un calcul avec des puissances de 10 et on en attend le résultat en écriture décimale
+ * @author Mireille Gain, copiant le 4C32-1 de Jean-Claude Lhote
+ * 4C32-0
+*/
+export default function EcritureDecimaleApresPuissancesDeDix () {
+  Exercice.call(this) 
+  this.consigne = 'Donner le résultat des calculs suivants en écriture décimale'
+  this.nbQuestions = 5 
+  this.nbCols = 2 
+  this.nbColsCorr = 2 
+  this.tailleDiaporama = 50 
+  this.video = '' 
+
+  this.nouvelleVersion = function (numeroExercice) {
+    this.listeQuestions = [] 
+    this.listeCorrections = [] 
+    this.autoCorrection = []
+
+    const typeQuestionsDisponibles = ['puissance_negative', 'puissance_positive'] 
+
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (let i = 0, a, v, av, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+        case 'type1':
+          a = randint(30, 70)// p(A)
+          v = randint(30, 70)// P_T(V)
+          av = randint(30, 70)// P(A \cap V)
+          texte = 'Une agence de voyage propose deux formules week-end pour se rendre à Londres depuis Paris.'
+          texte += '<br> Les clients choisissent leur moyen de transport : train ou avion.'
+          texte += '<br> De plus, s\'ils le souhaitent, ils peuvent compléter leur formule par l\'option "visites guidées".'
+          texte += '<br> Une étude a produit les données suivantes:'
+          texte += `<br> $\\bullet~~$ ${a}\\% des clients optent pour l'avion;`
+          texte += `<br> $\\bullet~~$ Parmi   les clients ayant choisi le train, ${v}\\% choisissent aussi l'option "visites guidées".`
+          texte += `<br> $\\bullet~~$ ${av}\\% des clients ont choisi à la fois l'avion et l'option "visites guidées".<br>`
+          texte += '<br> On interroge au hasard un client de l\'agence ayant souscrit à une formule week-end à Londres.'
+          texte += '<br> On considère les évènements suivants:'
+          texte += '<br> $\\bullet~~$ $A$ :  le client a choisi l\'avion.'
+          texte += '<br> $\\bullet~~$ $V$ : le client a choisi l\'option "visites guidées".<br>'
+
+          texte += '<br> 1. Déterminer $P_A(V)$.'
+          texte += '<br> 2.  Démontrer que la probabilité pour que le client interrogé ait choisi l\'option "visites guidées" est égale à $0,42$.'
+          texte += '<br> 3. Calculer la probabilité pour que le client interrogé ait pris l\'avion sachant qu\'il n\'a pas choisi l\'option "visites guidées". Arrondir le résultat au centième.'
+          texte += '<br> 4. On interroge au hasard deux clients de manière aléatoire et indépendante.'
+          texte += '<br> Quelle est la probabilité qu\'aucun des deux ne prennent l\'option "visites guidées" ?'
+          texteCorr = `Correction ${i + 1} de type 1`
+          break
+      }
+      // Si la question n'a jamais été posée, on l'enregistre
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
+    }
+    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+  }
+}
