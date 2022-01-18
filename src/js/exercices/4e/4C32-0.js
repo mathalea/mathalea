@@ -38,7 +38,7 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
           texte = `$${texNombrec(n)} \\times 10^{${p}}$`
           texteCorr = texte
           texteCorr += `$=${texNombrec(n * 10 ** p)}$`
-          setReponse(this, i, texNombrec(n * 10 ** p))
+          setReponse(this, i, n * 10 ** p)
           break
         case 'type2':
           n = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
@@ -46,7 +46,7 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
           texte = `$${texNombrec(n)} \\times 10^{${-p}}$`
           texteCorr = texte
           texteCorr += `$=${texNombrec(n * 10 ** (-p))}$`
-          setReponse(this, i, texNombrec(n * 10 ** (-p)))
+          setReponse(this, i, n * 10 ** (-p))
           break
         case 'type3':
           n = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
@@ -56,7 +56,7 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
           texte = `$${texNombrec(nb)} \\times 10^{${p}}$`
           texteCorr = texte
           texteCorr += `$=${texNombrec(nb * 10 ** (p))}$`
-          setReponse(this, i, texNombrec(nb * 10 ** (p)))
+          setReponse(this, i, nb * 10 ** (p))
           break
         case 'type4':
           n = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
@@ -66,7 +66,7 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
           texte = `$${texNombrec(nb)} \\times 10^{${-p}}$`
           texteCorr = texte
           texteCorr += `$=${texNombrec(nb * 10 ** (-p))}$`
-          setReponse(this, i, texNombrec(nb * 10 ** (-p)))
+          setReponse(this, i, nb * 10 ** (-p))
           break
       }
 
