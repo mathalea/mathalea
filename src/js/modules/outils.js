@@ -1378,10 +1378,16 @@ export function arrondiVirgule (nombre, precision = 2) { //
 
 /**
 * Retourne égal si la valeur égal l'arrondi souhaité ou environ égal si ce n'est pas le cas
+* le nombre a est comparé à son arrondi à précision près. Si la différence est inférieure à epsilon, alors on retourne '=' sinon '\\approx'
+* fonctionne aussi si a est une fraction : permet de finir un calcul par la valeur décimale si on veut.
 * @author Jean-Claude Lhote
 */
 export function egalOuApprox (a, precision) {
-  return a - arrondi(a, precision) === 0 ? '=' : '\\approx'
+  if (typeof a === 'object' && ['Fraction', 'FractionX'].indexOf(a.type) !== -1) {
+    return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
+  }
+  if (!Number.isNaN(a) && !Number.isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
+  else window.notify('egalOuApprox : l\'argument n\'est pas un nombre', { a, precision })
 }
 
 /**
