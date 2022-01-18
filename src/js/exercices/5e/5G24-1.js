@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, combinaisonListes, randint, choisitLettresDiff
 export const titre = 'Triangles égaux et côtés homologues'
 
 /**
- * Deux triangles égaux sont codés, il faut reconnaitre les côtés homologues
+ * Deux triangles égaux sont codés, il faut reconnaître les côtés homologues
  * @author Rémi Angot
  * Référence 5G24-1
 */

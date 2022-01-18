@@ -6,9 +6,9 @@ export const titre = 'Résoudre des problèmes utilisant le théorème de Pythag
 /**
  * Problèmes utilisant le théorème de Pythagore ou sa réciproque et des propriétés des quadrilatères particuliers.
  *
- * * Dans un losange, on connait la longueur du côté et une diagonale, il faut calculer l'autre.
- * * Dans un rectangle on connait la longueur et une diagonale, il faut calculer la largeur.
- * * Dans un rectangle on connait la longueur et la largeur, il faut calculer la diagonale.
+ * * Dans un losange, on connaît la longueur du côté et une diagonale, il faut calculer l'autre.
+ * * Dans un rectangle on connaît la longueur et une diagonale, il faut calculer la largeur.
+ * * Dans un rectangle on connaît la longueur et la largeur, il faut calculer la diagonale.
  * * Est-ce qu'un parallélogramme est un losange ? On peut démontrer que les diagonales sont perpendiculaires ou pas.
  * * Est-ce qu'un parallélogramme est un rectangle ? On peut démontrer qu'il possède un angle droit ou pas .
  * @author Rémi Angot

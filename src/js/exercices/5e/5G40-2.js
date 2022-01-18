@@ -1,7 +1,7 @@
 import { point, polygone, segment, milieu, nommePolygone, codeSegment, codeAngle, mathalea2d, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { creerNomDePolygone, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
-export const titre = 'Reconnaitre un parallélogramme à partir du codage d’une figure'
+export const titre = 'Reconnaître un parallélogramme à partir du codage d’une figure'
 
 /**
  * On doit justifier qu'un quadrilatère est un parallélogramme en citant la bonne propriété

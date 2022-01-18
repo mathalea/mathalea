@@ -440,7 +440,7 @@ export class Polynome {
     for (const [i, c] of this.monomes.entries()) {
       switch (i) {
         case this.deg: {
-          const coeffD = alg ? ecritureAlgebriqueSauf1(fraction(c)) : this.deg === 0 ? toDfrac(fraction(c)) : rienSi1(fraction(c))
+          const coeffD = alg ? ecritureAlgebriqueSauf1(fraction(c)) : this.deg === 0 ? fraction(c).toLatex() : rienSi1(fraction(c))
           switch (this.deg) {
             case 1:
               maj = equal(c, 0) ? '' : `${coeffD}x`
@@ -512,13 +512,4 @@ export class Polynome {
     const p = new Polynome({ coeffs })
     return p.toMathExpr(alg)
   }
-}
-/**
- *
- * @param {fraction} f f peut être un nombre, il sera converti en fraction
- * Fraction.toLatex() produit des \frac, la fonction toDfrac() les remplace par des \dfrac
- * @returns
- */
-export function toDfrac (f) {
-  return fraction(f).toLatex().replaceAll('\\frac', '\\dfrac')
 }

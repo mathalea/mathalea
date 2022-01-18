@@ -11,7 +11,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
- * 4 cercles sont tracés, 2 dont on connait le rayon et 2 dont on connait le diamètre.
+ * 4 cercles sont tracés, 2 dont on connaît le rayon et 2 dont on connaît le diamètre.
  * * 1 : Calculer le périmètre de cercles
  * * 2 : Calculer l'aire de disques
  * * 3 : Calculer le périmètre et l'aire de disques
