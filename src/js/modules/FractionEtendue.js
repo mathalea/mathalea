@@ -260,14 +260,14 @@ function reduire (k) {
 FractionX.prototype.reduire = reduire
 
 /**
- * @param {FractionX ou Fraction} f
+ * @param {FractionX | Fraction} f
  * @returns true si la FractionX est égale à la fraction passée en argument.
  */
 function estEgal (f2) { return equal(this, f2) }
 FractionX.prototype.egal = estEgal
 
 /**
- * @param {FractionX ou Fraction} f
+ * @param {FractionX | Fraction} f
  * @returns la fractionX - f résultat simplifié
  */
 function differenceFraction (f) { return fraction(subtract(this, f)) }
@@ -303,7 +303,7 @@ FractionX.prototype.entierMoinsFraction = entierMoinsFraction
 
 /**
  *
- * @param {FractionX ou Fraction ou nombre} f
+ * @param {FractionX | Fraction | nombre} f
  * @returns true si FractionX >= f
  */
 function superieurLarge (f2) { return largerEq(this, f2) }
@@ -311,7 +311,7 @@ FractionX.prototype.superieurLarge = superieurLarge
 
 /**
    * fonctions de comparaison avec une autre fraction.
-   * @param {FractionX ou Fraction ou nombre} f2
+   * @param {FractionX | Fraction | nombre} f2
    * @return {boolean} true si
    */
 function superieurstrict (f2) {
@@ -321,7 +321,7 @@ FractionX.prototype.superieurstrict = superieurstrict
 
 /**
    * Retourne true si la fraction courante est strictement inférieure à f2
-   * @param {FractionX ou Fraction ou nombre} f2
+   * @param {FractionX | Fraction | nombre} f2
    * @return {boolean}
    */
 function inferieurstrict (f2) {
@@ -331,7 +331,7 @@ FractionX.prototype.inferieurstrict = inferieurstrict
 
 /**
    * Retourne true si la fraction courante est inférieure ou égale à f2
-   * @param {FractionX ou Fraction ou nombre} f2
+   * @param {FractionX | Fraction | nombre} f2
    * @return {boolean}
    */
 function inferieurlarge (f2) {
@@ -349,7 +349,7 @@ FractionX.prototype.estUneSimplification = estUneSimplification
 
 /**
  *
- * @param {FractionX ou Fraction ou nombre} f2
+ * @param {FractionX | Fraction | nombre} f2
  * @returns f + FractionX
  */
 function sommeFraction (f2) {
@@ -380,7 +380,7 @@ function sommeFractions (...fractions) { // retourne un résultat simplifié
 FractionX.prototype.sommeFractions = sommeFractions
 
 /**
- * @param {FractionX ou Fraction ou nombre} f2
+ * @param {FractionX | Fraction | nombre} f2
  * @returns f * FractionX  // retourne un résultat simplifié
  */
 function produitFraction (f2) { return fraction(multiply(this, f2)) }
