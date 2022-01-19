@@ -404,7 +404,7 @@ export default {
     }
   },
   "2F11-1": {
-    "titre": "Déterminer l’image d’une fonction de référence.",
+    "titre": "Déterminer l’image d’un nombre par une fonction de référence.",
     "url": "/exercices/2e/2F11-1.js",
     "amcReady": true,
     "amcType": {
@@ -11511,6 +11511,25 @@ export default {
     "interactifReady": true,
     "interactifType": "qcm",
     "name": "can2F12",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2F13": {
+    "titre": "Déterminer l’image d’un nombre par une fonction de référence.",
+    "url": "/exercices/can/2e/can2F13.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2F13",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
