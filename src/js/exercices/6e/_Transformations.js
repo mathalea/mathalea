@@ -1,7 +1,7 @@
 import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, segment, vecteur, latexParCoordonnees, codeSegments, afficheMesureAngle, milieu, translation, texteParPositionEchelle, labelLatexPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha, rangeMinMax, contraindreValeur, lettreDepuisChiffre, calcul, enleveElementNo, enleveElementBis, compteOccurences } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha, rangeMinMax, contraindreValeur, lettreDepuisChiffre, enleveElementNo, enleveElementBis, compteOccurences, arrondi, egal } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -132,8 +132,8 @@ export default function Transformations () {
       if (choixTransformation[j] === 4 && images[j] % 10 === 4) { punto[j][0] = -1 } // Point impossible sur (d4) pour sa symétrie
 
       // pour éviter les points en dehors des clous dans homothétie de rapport 1/k
-      puntoReseau = (punto[j][0] - Math.floor(punto[j][0]) === 0 &&
-        punto[j][1] - Math.floor(punto[j][1]) === 0)
+      puntoReseau = egal(punto[j][0], Math.floor(punto[j][0]), 0.001) &&
+        egal(punto[j][1], Math.floor(punto[j][1]), 0.001)
       // On vérifie que l'image est bien un point du réseau sinon, on change.
       mauvaisAntecedents = combinaisonListes(pointsDejaUtilises, 1)
       while (punto[j][0] < 0 ||
@@ -150,20 +150,20 @@ export default function Transformations () {
           [xu, yu],
           k[j]
         )
-        images[j] = punto[j][0] + punto[j][1] * 10
+        images[j] = arrondi(punto[j][0] + punto[j][1] * 10, 0)
         // Limitation des points invariants
         if (choixTransformation[j] === 1 && images[j] % 11 === 0) { punto[j][0] = -1 } // Point impossible sur (d1) pour sa symétrie
         if (choixTransformation[j] === 3 && Math.floor(images[j] / 10 === 4)) { punto[j][0] = -1 } // Point impossible sur (d3) pour sa symétrie
         if (choixTransformation[j] === 4 && images[j] % 10 === 4) { punto[j][0] = -1 } // Point impossible sur  (d4) pour sa symétrie
 
         // pour éviter les points en dehors des clous dans homothétie de rapport 1/k
-        if (punto[j][0] - Math.floor(punto[j][0]) === 0 &&
-          punto[j][1] - Math.floor(punto[j][1]) === 0) { puntoReseau = true } else { puntoReseau = false }
+        if (egal(punto[j][0], Math.floor(punto[j][0]), 0.001) &&
+          egal(punto[j][1], Math.floor(punto[j][1]), 0.001)) { puntoReseau = true } else { puntoReseau = false }
       }
-      N[j] = point(punto[j][0] - 4, punto[j][1] - 4, 'above left')
+      N[j] = point(arrondi(punto[j][0] - 4, 0), arrondi(punto[j][1] - 4, 0), 'above left')
       M[j] = point(antecedents[j] % 10 - 4, Math.floor(antecedents[j] / 10 - 4), 'above left')
       pointsDejaUtilises.push(antecedents[j])
-      pointsDejaUtilises.push(calcul(punto[j][0] + 10 * punto[j][1]))
+      pointsDejaUtilises.push(arrondi(punto[j][0] + 10 * punto[j][1], 0))
     }
     // n[i] est un tableau contenant -1 pour la transformation d'indice i si elle n'est pas utilisée, et contenant le numéro du point concerné si la transformation i est utilisée pour ce point.
     // Je l'utilise pour faire apparaître la correction liée au point et à la transformation.

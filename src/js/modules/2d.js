@@ -1147,23 +1147,23 @@ export function positionLabelDroite (d, { xmin = 0, ymin = 0, xmax = 10, ymax = 
   } else { // la droite n'étant pas verticale, on peut chercher ses intersections avec les différents bords.
     const f = x => (-d.c - d.a * x) / d.b
     fXmax = f(xmax)
-    if (fXmax < ymax && fXmax > ymin) { // la droite coupe le bord Est entre ymin+1 et ymax-1
+    if (fXmax <= ymax && fXmax >= ymin) { // la droite coupe le bord Est entre ymin+1 et ymax-1
       xLab = xmax - 0.8
       yLab = f(xLab)
     } else {
       fXmin = f(xmin)
-      if (fXmin < ymax && fXmin > ymin) {
+      if (fXmin <= ymax && fXmin >= ymin) {
         xLab = xmin + 0.8
         yLab = f(xLab)
       } else { // la droite ne coupe ni la bordue Est ni la bordure Ouest elle coupe donc les bordures Nord et Sud
         const g = y => (-d.c - d.b * y) / d.a
         fYmax = g(ymax)
-        if (fYmax < xmax && fYmax > xmin) {
+        if (fYmax <= xmax && fYmax >= xmin) {
           yLab = ymax - 0.8
           xLab = g(yLab)
         } else {
           fYmin = g(ymin)
-          if (fYmin < xmax && fYmin > xmin) {
+          if (fYmin <= xmax && fYmin >= xmin) {
             yLab = ymin + 0.8
             xLab = g(yLab)
           } else { // La droite ne passe pas dans la fenêtre on retourne un objet vide
