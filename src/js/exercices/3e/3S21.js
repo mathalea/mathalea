@@ -22,8 +22,8 @@ export default function CalculProbaExperience2Epreuves3e () {
   this.sup = 1
   this.tailleDiaporama = 1
   this.nbQuestions = 1
-  this.spacing = 2
-  this.spacingCorr = 3
+  this.spacing = context.isHtml ? 2 : 1.5
+  this.spacingCorr = 2
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -173,8 +173,8 @@ function unePieceDeuxUrnes (exercice, NoQuestion, sup, sup2, sup3) {
     texte += `${n2[j]} boule${n2[j] > 1 ? 's' : ''} ${boules[j]}${n2[j] > 1 ? 's' : ''}, `
   }
   texte += ` et ${n2[2]} boule${n2[2] > 1 ? 's' : ''} ${boules[2]}${n2[2] > 1 ? 's' : ''}.<br>`
-  texte += sup ? 'On a représenté l\'expérience par l\'arbre ci-dessous' : ''
-  texte += sup ? mathalea2d({ xmin: -0.1, xmax: 16, ymin: 1, ymax: 12, zoom: 1.3 }, ...objets) : ''
+  texte += sup ? 'On a représenté l\'expérience par l\'arbre ci-dessous :<br>' : ''
+  texte += sup ? mathalea2d({ xmin: -0.1, xmax: 16, ymin: 0, ymax: 12, zoom: 1.3, scale: 0.5 }, ...objets) + '<br>' : ''
   texte += `Légende : ${B[0]} = ${boules[0]} ; ${B[1]} = ${boules[1]} ; ${B[2]} = ${boules[2]}<br>`
   let q = 0
   if (!exercice.interactif && !context.isAmc) {
@@ -339,8 +339,8 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, sup, sup2, niveau) { /
   texteCorr += 'Voici un tableau à double entrée qui représente toutes les issues de cette expérience.<br>'
   texteCorr += 'On a représenté l\'expérience par le tableau ci-dessous :<br>'
   texteCorr += tableau + '<br>'
-  texteCorr += 'On peut aussi présenter les deux épreuves sous la forme d\'un arbre de dénombrement :'
-  texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 2, ymax: 13, zoom: 0.8 }, ...objets)
+  texteCorr += 'On peut aussi présenter les deux épreuves sous la forme d\'un arbre de dénombrement :<br>'
+  texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8, scale: 8 / card / card }, ...objets) + '<br>'
   texteCorr += `Légende : ${b1Char} = ${b1Color} et ${b2Char} = ${b2Color}.<br>`
   texteCorr += `${numAlpha(0)} L'événement «obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}» est réalisé par l'issue {${choix[2] + choix[2]}}.`
   texteCorr += ` On comptabilise ${choix[0] ** 2} issues {${choix[2] + choix[2]}} sur ${card ** 2} issues en tout.<br>`
@@ -368,8 +368,8 @@ function urneDeuxTiragesSansRemise (exercice, NoQuestion, sup, sup2, niveau) { /
 
   const b1Char = premiereLettreEnMajuscule(b1Color.charAt(0))
   const b2Char = premiereLettreEnMajuscule(b2Color.charAt(0))
-  const nbBoule1 = randint(2, 4)
-  const nbBoule2 = randint(2, 4, nbBoule1)
+  const nbBoule1 = randint(2, 3)
+  const nbBoule2 = randint(2, 3, nbBoule1)
   const ligneEnt = ['\\text{Tirage1\\textbackslash Tirage2}']
   const colonneEnt = []
   const contenu = []
@@ -479,8 +479,8 @@ function urneDeuxTiragesSansRemise (exercice, NoQuestion, sup, sup2, niveau) { /
   let texteCorr = `L'issue «${b1Color}-${b1Color}» peut être obtenue de ${contenu[0]} façon${contenu[0] > 1 ? 's' : ''} et l'issue «${b1Color}-${b2Color}» peut être obtenue de ${contenu[1]} façon${contenu[1] > 1 ? 's' : ''}.<br>`
   texteCorr += 'On a représenté les issues de l\'expérience par le tableau ci-dessous :<br>'
   texteCorr += tableau + '<br>'
-  texteCorr += 'On peut aussi présenter les issues sous la forme d\'un arbre de dénombrement :'
-  texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8 }, ...objets)
+  texteCorr += 'On peut aussi présenter les issues sous la forme d\'un arbre de dénombrement :<br>'
+  texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8, scale: 8 / card / card }, ...objets) + '<br>'
   texteCorr += `Légende : ${b1Char} = ${b1Color} et ${b2Char} = ${b2Color}.<br>`
   texteCorr += `${numAlpha(0)} L'événement «obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}» est réalisé par l'issue {${choix[2] + choix[2]}}.`
   texteCorr += ` On comptabilise ${choix[0] ** 2 - choix[0]} issues {${choix[2] + choix[2]}} sur ${card ** 2 - card} issues en tout.<br>`
