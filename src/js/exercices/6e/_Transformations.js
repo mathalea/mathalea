@@ -1,7 +1,7 @@
 import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, segment, vecteur, latexParCoordonnees, codeSegments, afficheMesureAngle, milieu, translation, texteParPositionEchelle, labelLatexPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha, rangeMinMax, contraindreValeur, lettreDepuisChiffre, calcul, enleveElementNo, enleveElementBis, compteOccurences, arrondi, egal } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha, rangeMinMax, contraindreValeur, lettreDepuisChiffre, enleveElementNo, enleveElementBis, compteOccurences, arrondi, egal } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
