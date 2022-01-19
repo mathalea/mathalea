@@ -30,16 +30,16 @@ Les interfaces graphiques peuvent être plus faciles à prendre en main et perme
 
 Les lignes de commande nécessitent des "anti-sèches" au début mais ont les avantages d'avoir la même "interface" pour tout le monde et d'être "bavardes" en cas de problème, ce qui facilite grandement les échanges et les dépannages entre nous. D'autant plus qu'en cliquant sur [Utiliser_git_en_ligne_de_commandes](https://coopmaths.fr/documentation/tutorial-Utiliser_git_en_ligne_de_commandes.html) dans menu de gauche, vous aurez accès à des anti-sèches et à des solutions à différents messages d'erreur que vous pouvez rencontrer !
 
-1. Commencer par se placer sur le master et le mettre à jour : saisir `git checkout master` puis `git pull` dans un terminal.
+1. Commencer par se placer sur le master et le mettre à jour : saisir `git checkout master` puis `git pull` dans un terminal. [(GitKraken)](img/GitKraken-1.png)
 2. Trouver à quelle [référence](https://coopmaths.fr/pdf/CoopMaths-Referentiel.pdf) l'exercice qu'on veut créer peut être rattaché.
-3. Créer une nouvelle branche en partant d'une copie du master et en respectant la syntaxe NomDeLaPersonne-ReferenceDeLExercice-PrecisionEventuelle : `git checkout -b Nom-Reference-Precision`
+3. Créer une nouvelle branche en partant d'une copie du master et en respectant la syntaxe NomDeLaPersonne-ReferenceDeLExercice-PrecisionEventuelle : `git checkout -b Nom-Reference-Precision` [(GitKraken)](img/GitKraken-2.png)
 4. Copier l'un des [modèles](#modeles) présents dans le dossier `src/js/exercices/beta`, le renommer avec la bonne [référence](https://coopmaths.fr/pdf/CoopMaths-Referentiel.pdf) et le placer dans le dossier du niveau correspondant. (Si un exercice avec cette référence existe déjà, ajouter un tiret et incrémenter. Par exemple, si je veux créer 5A11 et qu'un exercice 5A11 existe déjà, je le nomme 5A11-1 et si 5A11-1 existe déjà, je le nomme 5A11-2 etc.)
 5. Modifier les informations servant au référencement (dans les premières lignes du fichier, de l'export du titre à l'export de la fonction)
 6. Enregistrer puis lancer `pnpm build:dicos` dans un terminal pour ajouter son exercice à la liste des exercices (il faudra le refaire si vous changez le nom du fichier, le titre ou l'un de ces paramètres : amcReady, amcType, interactifReady, interactifType)
 7. Le [programmer](#programmer_un_exercice) et le tester en lançant dans un terminal `pnpm start` (Attention à ne pas oublier de modifier la ligne `if (this.questionJamaisPosee(i, a, b, c, d)` à la fin du fichier en fonction des données de l'énoncé, sinon le `pnpm start` ne fonctionnera pas).
-8. Enregistrer régulièrement son travail et faire un **commit** à chaque étape du projet en [respectant la syntaxe](#syntaxe_commit) : faire `git add .` la première fois pour ajouter le nouveau fichier aux fichiers suivis puis **commit** à chaque étape avec `git commit -am "ex: Ajout de 4A10 Reconnaître un nombre premier"`
-9. Le partager avec les autres : `git push origin nomDeLaBranche`
-10. Une fois l'exercice terminé, faire un **Pull Request** via [github](https://github.com/mathalea/mathalea/branches) ou son interface graphique préférée (GitKraken ou GitHub Desktop).
+8. Enregistrer régulièrement son travail et faire un **commit** à chaque étape du projet en [respectant la syntaxe](#syntaxe_commit) : faire `git add .` la première fois pour ajouter le nouveau fichier aux fichiers suivis puis **commit** à chaque étape avec `git commit -am "ex: Ajout de 4A10 Reconnaître un nombre premier"`[(GitKraken)](img/GitKraken-4.png) (si cet écran n'apparaît pas, le faire apparaître [comme ceci](img/GitKraken-3.png))
+9. Le partager avec les autres : `git push origin nomDeLaBranche` (GitKraken [Partie 1](img/GitKraken-5.png) [Partie 2](img/GitKraken-6.png))
+10. Une fois l'exercice terminé, faire un **Pull Request** via [github](https://github.com/mathalea/mathalea/branches) ou son interface graphique préférée (GitKraken [Partie 1](img/GitKraken-7.png) [Partie 2](img/GitKraken-8.png)).
 
 ## <a id="modeles" href="#modeles">2. Modèles présents dans le dossier`src/js/exercices/beta`</a>
 - betaModele00_simple_Course_au_Nombres

@@ -1,6 +1,8 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 412 
 - nombre d'exos interactifReady 561 
+- nombre d'exos amcReady 413 
+- nombre d'exos interactifReady 562 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -9,8 +11,8 @@
 |1E11-3|Déterminer la forme canonique d'un polynôme du second degré|KO|KO|OK|mathLive|
 |2F10-1|Reconnaître une fonction affine.|OK|qcmMono|OK|qcm|
 |2F10-2|Lecture graphique d’une fonction affine|OK|AMCHybride|OK|mathLive|
-|2F11-1|Déterminer l’image d’une fonction de référence.|OK|AMCNum|OK|mathLive|
 |2F25-2|Etudier la parité d'une fonction.|OK|qcmMono|OK|qcm|
+|2F11-1|Déterminer l’image d’un nombre par une fonction de référence.|OK|AMCNum|OK|mathLive|
 |2F32-2|Déterminer graphiquement les extremums|OK|AMCHybride|OK|mathLive|
 |2G11-5|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |2G30-1|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
@@ -377,6 +379,7 @@
 |can2F10|Résoudre une équation avec une fonction de référence*|KO|KO|OK|qcm|
 |can2F11|Utiliser la fonction carré pour comparer deux images|KO|KO|OK|qcm|
 |can2F12|Utiliser une fonction de référence (inverse, cube, racine) pour comparer deux images|KO|KO|OK|qcm|
+|can2F13|Déterminer l’image d’un nombre par une fonction de référence.|OK|AMCNum|OK|mathLive|
 |can2G01|Déterminer un agrandissement/réduction avec fraction|OK|AMCNum|OK|mathLive|
 |can2G02|Calculer une longueur avec le théorème de Pythagore|KO|KO|OK|mathLive|
 |can2G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|

@@ -6,7 +6,7 @@ import { create, all } from 'mathjs'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
 
-export const titre = 'calculer le discriminant d\'un polynôme du second degré'
+export const titre = 'Calculer le discriminant d\'un polynôme du second degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
