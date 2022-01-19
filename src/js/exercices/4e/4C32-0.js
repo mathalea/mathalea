@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, combinaisonListes, randint, texNombrec, calcul
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Ecriture décimale d\'un calcul avec des puissances de 10'
+export const titre = 'Écriture décimale d\'un calcul avec des puissances de 10'
 export const dateDePublication = '18/01/2022'
 
 /**
@@ -19,7 +19,6 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
   this.nbColsCorr = 2
   this.tailleDiaporama = 50
   this.video = ''
-  this.interactif = true
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
