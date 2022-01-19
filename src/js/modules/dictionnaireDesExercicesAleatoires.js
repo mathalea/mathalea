@@ -60,7 +60,7 @@ export default {
     }
   },
   "1E11-1": {
-    "titre": "calculer le discriminant d'un polynôme du second degré",
+    "titre": "Calculer le discriminant d'un polynôme du second degré",
     "url": "/exercices/1e/1E11-1.js",
     "amcReady": true,
     "amcType": {
@@ -452,40 +452,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2F25-1": {
-    "titre": "Propriétés graphiques de la parité d'une fonction.",
-    "url": "/exercices/2e/2F25-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "2F25-1",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "2F25-2": {
-    "titre": "Etudier la parité d'une fonction.",
-    "url": "/exercices/2e/2F25-2.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "qcmMono"
-    },
-    "interactifReady": true,
-    "interactifType": "qcm",
-    "name": "2F25-2",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
   "2F31-1": {
     "titre": "Utiliser les variations des fonctions de référence pour comparer des images",
     "url": "/exercices/2e/2F31-1.js",
@@ -494,6 +460,21 @@ export default {
     "name": "2F31-1",
     "newEx": {
       "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "2F31-2": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/2e/2F31-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F31-2",
+    "newEx": {
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -527,7 +508,7 @@ export default {
     "interactifReady": false,
     "name": "2F32-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -5299,7 +5280,7 @@ export default {
     }
   },
   "5G20-2": {
-    "titre": "Tracer un triangle dont on connait une longueur et 2 angles",
+    "titre": "Tracer un triangle dont on connaît une longueur et 2 angles",
     "url": "/exercices/5e/5G20-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5494,7 +5475,7 @@ export default {
     }
   },
   "5G40-2": {
-    "titre": "Reconnaitre un parallélogramme à partir du codage d’une figure",
+    "titre": "Reconnaître un parallélogramme à partir du codage d’une figure",
     "url": "/exercices/5e/5G40-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -7424,7 +7405,7 @@ export default {
     }
   },
   "6G23-2": {
-    "titre": "Tracer un triangle dont on connait une longueur et 2 angles",
+    "titre": "Tracer un triangle dont on connaît une longueur et 2 angles",
     "url": "/exercices/6e/6G23-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -7636,7 +7617,7 @@ export default {
     }
   },
   "6G33": {
-    "titre": "Reconnaitre un quadrilatère particulier à partir de ses propriétés",
+    "titre": "Reconnaître un quadrilatère particulier à partir de ses propriétés",
     "url": "/exercices/6e/6G33.js",
     "amcReady": true,
     "amcType": {
@@ -11320,7 +11301,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2C12",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13615,7 +13596,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -13684,7 +13665,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5P06",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
