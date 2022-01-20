@@ -48,7 +48,7 @@ export default function DeriveeComposee () {
       listeTypeDeQuestionsDisponibles.push('exp')
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, expression, exprF, namef, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, expression, exprF, namef, deriveeF, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On génère des fonctions qui pourrait servir
       const coeffs = new Array(randint(2, 9))
       coeffs.fill(0)
@@ -75,10 +75,24 @@ export default function DeriveeComposee () {
       namef = lettreMinusculeDepuisChiffre(i + 6)
       texte = `$${namef}:x\\longmapsto ${prettyTex(math.simplify(expression, reglesDeSimplifications))}$`
       // Correction
-      // texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
       texteCorr = 'On rappelle le cours. Si $u$ est dérivable là où la fonction affine $x\\mapsto ax+b$ est $\\neq 0$ alors $v:x\\mapsto u(ax+b)$ est dérivable et on a :'
       texteCorr += '\\[v\'(x)=a\\times u\'(ax+b).\\]'
-      texteCorr += `Ici : \\[\\begin{aligned}u&:x\\mapsto ${prettyTex(math.simplify(exprF, reglesDeSimplifications))}\\\\ a&=${a}\\\\b&=${b}.\\end{aligned}\\]`
+      // Déterminons la dérivée de u
+      switch (typeF) {
+        case 'exp':
+          deriveeF = 'e^x'
+          break
+        case 'inv':
+          deriveeF = '-1/x^2'
+          break
+        case 'racine':
+          deriveeF = '1/(2*sqrt(x))'
+          break
+        case 'monome':
+          deriveeF = f.derivee().toMathExpr()
+          break
+      }
+      texteCorr += `Ici : \\[\\begin{aligned}u&:x\\mapsto ${prettyTex(math.simplify(exprF, reglesDeSimplifications))}\\\\ u'&:x\\mapsto ${prettyTex(math.simplify(deriveeF, reglesDeSimplifications))}\\\\a&=${a}\\\\b&=${b}.\\end{aligned}\\]`
       texteCorr += `Soit $x$ un réel de l'ensemble de dérivabilité de $${namef}$. On a, en appliquant la formule ci-dessus : `
       switch (typeF) {
         case 'exp':
