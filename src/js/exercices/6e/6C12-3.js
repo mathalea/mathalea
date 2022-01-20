@@ -1211,7 +1211,7 @@ export default function ExerciceInformationsProblemes () {
           nb3 = randint(7, 15)
           nb4 = randint(21, 35)
           nb5 = randint(21, 35)
-          texte += `Un cargo mesurant ${nb1} m tranporte ${nb2} gros conteneurs de ${nb3} tonnes chacun du Havre à Hong-Kong. `
+          texte += `Un cargo mesurant ${nb1} m transporte ${nb2} gros conteneurs de ${nb3} tonnes chacun du Havre à Hong-Kong. `
           texte += `Ce bateau transporte aussi ${nb4} petits conteneurs pour une masse totale de ${nb5} tonnes.<br>`
 
           switch (choixVersion) {
