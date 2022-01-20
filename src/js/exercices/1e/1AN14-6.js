@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDep
 import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, multiply, divide } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
-export const titre = 'Dérivée d\'un produit'
+export const titre = 'Dérivée d\'une composée affine'
 
 /**
  * Calculer la dérivée de x -> f(ax+b)
