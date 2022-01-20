@@ -256,11 +256,11 @@ export async function initDom () {
             document.getElementById(`champTexteEx0Q${i}`).textContent = valeurEnregistree
           }
           let hauteurExercice = window.document.querySelector('section').scrollHeight
-          window.parent.postMessage({ hauteurExercice, serie: context.graine }, '*')
+          window.parent.postMessage({ hauteurExercice, serie: context.graine, url: window.location.href }, '*')
           // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
           setTimeout(() => {
             hauteurExercice = window.document.querySelector('section').scrollHeight
-            window.parent.postMessage({ hauteurExercice, serie: context.graine }, '*')
+            window.parent.postMessage({ hauteurExercice, serie: context.graine, url: window.location.href }, '*')
           }, 1000)
         }
         if (window.sessionStorage.getItem('isValide' + context.graine)) {

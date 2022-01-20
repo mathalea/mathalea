@@ -918,16 +918,49 @@ function miseAJourDuCode () {
         const id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
         const nbQuestions = listeObjetsExercice[i].nbQuestions
         const titre = listeObjetsExercice[i].titre
-        const video = listeObjetsExercice[i].video
         const pointsParQuestions = listeObjetsExercice[i].pointsParQuestions
+        let params = ''
+        if (listeObjetsExercice[i].sup !== undefined) {
+          params += `s=${listeObjetsExercice[i].sup}`
+        }
+        if (listeObjetsExercice[i].sup2 !== undefined) {
+          params += `,s2=${listeObjetsExercice[i].sup2}`
+        }
+        if (listeObjetsExercice[i].sup3 !== undefined) {
+          params += `,s3=${listeObjetsExercice[i].sup3}`
+        }
+        if (listeObjetsExercice[i].sup4 !== undefined) {
+          params += `,s4=${listeObjetsExercice[i].sup4}`
+        }
+        if (listeObjetsExercice[i].nbQuestionsModifiable) {
+          params += `,n=${listeObjetsExercice[i].nbQuestions}`
+        }
+        // if (listeObjetsExercice[i].video.length > 1) {
+        //   params += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
+        // }
+        params += ',video=0'
+        if (listeObjetsExercice[i].correctionIsCachee) {
+          params += ',cc=1'
+        }
+        if (listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
+          params += ',cd=1'
+        }
+        if (!listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
+          params += ',cd=0'
+        }
+        params += ',i=1'
+        const idIframe = id + ',' + params
+        const idIframeCor = idIframe + 'Cor'
+        const urlIframe = `https://coopmaths.fr/mathalea.html?ex=${id},${params}&serie=${context.graine}&v=exMoodle&z=1`
+        const urlIframeCor = `https://coopmaths.fr/mathalea.html?ex=${id},${params}&serie=${context.graine}&v=correctionMoodle&z=1`
 
         codeMoodle += `<question type="shortanswer">
 <name>
-  <text>${id} - ${titre} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'}</text>
+  <text>${id} - ${titre} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'},${params}</text>
 </name>
   <questiontext format="html">
     <text><![CDATA[
-      <iframe width="600" height="400" id="iframeMathAlea" src="" frameBorder="0" allow="fullscreen"></iframe>
+      <iframe width="600" height="400" id="${idIframe}" src="" frameBorder="0" allow="fullscreen"></iframe>
 
 <script type="module">
   const champReponseMoodle = document.querySelector('[name$="_answer"]'); 
@@ -936,19 +969,21 @@ function miseAJourDuCode () {
   if (idInput) {
     idInput.style.visibility = 'hidden';
   }
-  document.getElementById('iframeMathAlea').src=\`https://coopmaths.fr/mathalea.html?ex=${id},n=${nbQuestions},i=1${video ? ',video=' + video : ''}&v=exMoodle&serie=\${idQuestion}\`;
+  document.getElementById('${idIframe}').src="${urlIframe}";
   window.addEventListener('message', (event) => { 
-    let hauteur = event.data.hauteurExercice + 50;
-    if (hauteur !== undefined) {
-      document.getElementById('iframeMathAlea').height = hauteur.toString();
-    } 
-    const labelReponse = document.querySelector('[for$="_answer"]');
-    champReponseMoodle.readOnly=true;
-    labelReponse.style.visibility = 'hidden';
-    if (event.data.score !== undefined) {
-      champReponseMoodle.value = event.data.score;
-      if (idInput) {
-        idInput.click();
+    if (event.data.url === "${urlIframe}") {
+      let hauteur = event.data.hauteurExercice + 50;
+      if (hauteur !== undefined) {
+        document.getElementById('${idIframe}').height = hauteur.toString();
+      } 
+      const labelReponse = document.querySelector('[for$="_answer"]');
+      champReponseMoodle.readOnly=true;
+      labelReponse.style.visibility = 'hidden';
+      if (event.data.score !== undefined) {
+        champReponseMoodle.value = event.data.score;
+        if (idInput) {
+          idInput.click();
+        }
       }
     }
     });  
@@ -968,17 +1003,19 @@ function miseAJourDuCode () {
         codeMoodle += `\n<defaultgrade>${nbQuestions * pointsParQuestions}</defaultgrade>`
         codeMoodle += `\n<generalfeedback>\n<text><![CDATA[
           <h4>Correction :</h4>
-          <iframe width="600" height="400" id="monIframeCorrection" src="" frameborder="0"></iframe>
+          <iframe width="600" height="400" id="${idIframeCor}" src="" frameborder="0"></iframe>
           
           <script type="module">
               const champReponseMoodle = document.querySelector('[name$="_answer"]');
               const idQuestion = champReponseMoodle.name;
-              document.getElementById('monIframeCorrection').src = \`https://coopmaths.fr/mathalea.html?ex=${id},n=${nbQuestions}&v=correctionMoodle&serie=\${idQuestion}\`;
-                  window.addEventListener('message', (event) => { 
+              document.getElementById('${idIframeCor}').src ="${urlIframeCor}";
+                  window.addEventListener('message', (event) => {
+                    if (event.data.url === "${urlIframeCor}") { 
                       if (event.data.hauteurExerciceCorrection !== undefined) {
                           const hauteur = event.data.hauteurExerciceCorrection + 50;
-                          document.getElementById('monIframeCorrection').height = hauteur.toString();
+                          document.getElementById('${idIframeCor}').height = hauteur.toString();
                       }
+                    }
                   });
           </script> 
           
