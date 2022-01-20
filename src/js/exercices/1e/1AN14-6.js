@@ -75,7 +75,7 @@ export default function DeriveeComposee () {
       namef = lettreMinusculeDepuisChiffre(i + 6)
       texte = `$${namef}:x\\longmapsto ${prettyTex(math.simplify(expression, reglesDeSimplifications))}$`
       // Correction
-      texteCorr = 'On rappelle le cours. Si $u$ est dérivable là où la fonction affine $x\\mapsto ax+b$ est $\\neq 0$ alors $v:x\\mapsto u(ax+b)$ est dérivable et on a :'
+      texteCorr = 'On rappelle le cours. Si $x$ est un nombre réel tel que $u$ soit dérivable en $ax+b$, alors $v:x\\mapsto u(ax+b)$ est dérivable en $x$ et on a :'
       texteCorr += '\\[v\'(x)=a\\times u\'(ax+b).\\]'
       // Déterminons la dérivée de u
       switch (typeF) {
