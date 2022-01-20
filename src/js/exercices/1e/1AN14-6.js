@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, rienSi1 } from '../../modules/outils.js'
 import { Polynome } from '../../modules/fonctionsMaths.js'
-import { simplify, parse, derivative } from 'mathjs'
+import { simplify, parse, derivative, multiply, divide } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Dérivée d\'un produit'
 
@@ -89,16 +89,21 @@ export default function DeriveeComposee () {
           texteCorr += 'D\'où, en simplifiant : '
           texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(`${-a}/(${polAff.toMathExpr()})^2`, reglesDeSimplifications))}.\\]`
           break
-        case 'racine':
+        case 'racine': {
           texteCorr += `\\[${namef}'(x)=${a}\\times${prettyTex(math.simplify(`1/(2*sqrt(${polAff.toMathExpr()}))`, reglesDeSimplifications))}.\\]`
-          texteCorr += 'D\'où, en simplifiant : \nTODO'
+          texteCorr += 'D\'où, en simplifiant :'
+          const num = a % 2 === 0 ? divide(a, 2) : a
+          const den = `${a % 2 === 0 ? '' : '2*'}sqrt(${polAff.toMathExpr()})`
+          texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(`${num}/(${den})`, reglesDeSimplifications))}.\\]`
           break
+        }
         case 'monome':
           texteCorr += `\\[${namef}'(x)=${a}\\times ${prettyTex(math.simplify(`${f.deg}(${polAff.toMathExpr()})${f.deg === 2 ? '' : `^(${f.deg - 1})`}`, reglesDeSimplifications))}.\\]`
           texteCorr += 'D\'où, en simplifiant : '
           texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(`${a}*${f.deg}(${polAff.toMathExpr()})${f.deg === 2 ? '' : `^(${f.deg - 1})`}`, reglesDeSimplifications))}.\\]`
           if (f.deg === 2) {
-            texteCorr += 'On développe et on réduit pour obtenir  : \n TODO'
+            texteCorr += 'On développe et on réduit pour obtenir  :'
+            texteCorr += `\\[.${namef}'(x)=${Polynome.print([multiply(2, multiply(a, b)), multiply(2, multiply(a, a))])}\\]`
           }
           break
         default:
