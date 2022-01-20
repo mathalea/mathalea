@@ -50,7 +50,7 @@ export default function DeriveeComposee () {
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, expression, exprF, namef, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On génère des fonctions qui pourrait servir
-      const coeffs = new Array(randint(1, 9))
+      const coeffs = new Array(randint(2, 9))
       coeffs.fill(0)
       coeffs.push(1)
       const dictFonctions = {
@@ -60,6 +60,8 @@ export default function DeriveeComposee () {
         monome: new Polynome({ coeffs })
       }
       const polAff = new Polynome({ rand: true, deg: 1 })
+      const a = polAff.monomes[1]
+      const b = polAff.monomes[0]
       const typeF = listeTypeDeQuestions[i]
       const f = dictFonctions[typeF]
       // Expression finale de la fonction
@@ -76,8 +78,29 @@ export default function DeriveeComposee () {
       // texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
       texteCorr = 'On rappelle le cours. Si $u$ est dérivable là où la fonction affine $x\\mapsto ax+b$ est $\\neq 0$ alors $v:x\\mapsto u(ax+b)$ est dérivable et on a :'
       texteCorr += '\\[v\'(x)=a\\times u\'(ax+b).\\]'
-      texteCorr += `Ici : \\[\\begin{aligned}u&:x\\mapsto ${prettyTex(math.simplify(exprF, reglesDeSimplifications))}\\\\ a&=${polAff.monomes[1]}\\\\b&=${polAff.monomes[0]}.\\end{aligned}\\]`
+      texteCorr += `Ici : \\[\\begin{aligned}u&:x\\mapsto ${prettyTex(math.simplify(exprF, reglesDeSimplifications))}\\\\ a&=${a}\\\\b&=${b}.\\end{aligned}\\]`
+      texteCorr += `Soit $x$ un réel de l'ensemble de dérivabilité de $${namef}$. On a, en appliquant la formule ci-dessus : `
       switch (typeF) {
+        case 'exp':
+          texteCorr += `\\[${namef}'(x)=${rienSi1(a)}${prettyTex(math.simplify(expression, reglesDeSimplifications))}.\\]`
+          break
+        case 'inv':
+          texteCorr += `\\[${namef}'(x)=${a}\\times${prettyTex(math.simplify(`-${f}(${polAff.toMathExpr()})^2`, reglesDeSimplifications))}.\\]`
+          texteCorr += 'D\'où, en simplifiant : '
+          texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(`${-a}/(${polAff.toMathExpr()})^2`, reglesDeSimplifications))}.\\]`
+          break
+        case 'racine':
+          texteCorr += `\\[${namef}'(x)=${a}\\times${prettyTex(math.simplify(`1/(2*sqrt(${polAff.toMathExpr()}))`, reglesDeSimplifications))}.\\]`
+          texteCorr += 'D\'où, en simplifiant : \nTODO'
+          break
+        case 'monome':
+          texteCorr += `\\[${namef}'(x)=${a}\\times ${prettyTex(math.simplify(`${f.deg}(${polAff.toMathExpr()})${f.deg === 2 ? '' : `^(${f.deg - 1})`}`, reglesDeSimplifications))}.\\]`
+          texteCorr += 'D\'où, en simplifiant : '
+          texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(`${a}*${f.deg}(${polAff.toMathExpr()})${f.deg === 2 ? '' : `^(${f.deg - 1})`}`, reglesDeSimplifications))}.\\]`
+          if (f.deg === 2) {
+            texteCorr += 'On développe et on réduit pour obtenir  : \n TODO'
+          }
+          break
         default:
           texteCorr += 'Correction non encore implémentée.'
           break
