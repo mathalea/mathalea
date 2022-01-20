@@ -455,8 +455,6 @@ export default {
   "2F31-1": {
     "titre": "Utiliser les variations des fonctions de référence pour comparer des images",
     "url": "/exercices/2e/2F31-1.js",
-<<<<<<< HEAD
-=======
     "amcReady": false,
     "interactifReady": false,
     "name": "2F31-1",
@@ -469,13 +467,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2F31-2": {
-    "titre": "Nom de l'exercice",
-    "url": "/exercices/2e/2F31-2.js",
->>>>>>> master
+  "2F31-3": {
+    "titre": "Comparaison d'images dans un tableau de variations",
+    "url": "/exercices/2e/2F31-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2F31-2",
+    "name": "2F31-3",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -3944,10 +3941,11 @@ export default {
     }
   },
   "4C32-0": {
-    "titre": "Ecriture décimale d'un calcul avec des puissances de 10",
+    "titre": "Écriture décimale d'un calcul avec des puissances de 10",
     "url": "/exercices/4e/4C32-0.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C32-0",
     "newEx": {
       "isNew": true,
@@ -10399,12 +10397,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques",
+    "name": "betaModele30_constructions_géométriques",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -11426,12 +11424,15 @@ export default {
   "can2F07": {
     "titre": "Lire les extremums dans un tableau de variations",
     "url": "/exercices/can/2e/can2F07.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2F07",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
