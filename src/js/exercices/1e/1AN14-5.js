@@ -19,7 +19,7 @@ function prettyTex (expression) {
   return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
 }
 
-export default function DeriveeProduit () {
+export default function DeriveeQuotient () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
