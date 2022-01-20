@@ -158,7 +158,7 @@ function unePieceDeuxUrnes (exercice, NoQuestion, sup, sup2, sup3) {
   })
 
   omega.setTailles() // On calcule les tailles des arbres.
-  const objets = omega.represente(0, 11, 0, sup2 ? 2.5 : 1.2, false, -1, 8) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+  const objets = omega.represente(0, 11, 0, sup2 ? 2.5 : 1.2, false, -1, 6) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
   for (let j = 0; j < 3; j++) {
     p[j] = omega.getProba(B[j], true) // on calcule P(C) décimale.
   }
@@ -322,7 +322,7 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, sup, sup2, niveau) { /
   const tableau = tableauColonneLigne(ligneEnt, colonneEnt, contenu)
 
   omega.setTailles() // On calcule les tailles des arbres.
-  const objets = omega.represente(0, 12, 0, sup2 ? 2.5 : 1.6, false, -1, 8) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+  const objets = omega.represente(0, 12, 0, sup2 ? 2.5 : 1.6, false, -1, 6) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
   const choix = choice([[nbBoule1, b1Color, b1Char], [nbBoule2, b2Color, b2Char]])
   const probaChoix = fraction(choix[0] ** 2, card ** 2)
   const proba1 = fraction(nbBoule1 ** 2, card ** 2)
@@ -340,7 +340,7 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, sup, sup2, niveau) { /
   texteCorr += 'On a représenté l\'expérience par le tableau ci-dessous :<br>'
   texteCorr += tableau + '<br>'
   texteCorr += 'On peut aussi présenter les deux épreuves sous la forme d\'un arbre de dénombrement :<br>'
-  texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8, scale: 8 / card / card }, ...objets) + '<br>'
+  texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8, scale: 9 / card / card }, ...objets) + '<br>'
   texteCorr += `Légende : ${b1Char} = ${b1Color} et ${b2Char} = ${b2Color}.<br>`
   texteCorr += `${numAlpha(0)} L'événement «obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}» est réalisé par l'issue {${choix[2] + choix[2]}}.`
   texteCorr += ` On comptabilise ${choix[0] ** 2} issues {${choix[2] + choix[2]}} sur ${card ** 2} issues en tout.<br>`
@@ -463,7 +463,7 @@ function urneDeuxTiragesSansRemise (exercice, NoQuestion, sup, sup2, niveau) { /
   const tableau = tableauColonneLigne(ligneEnt, colonneEnt, contenu)
 
   omega.setTailles() // On calcule les tailles des arbres.
-  const objets = omega.represente(0, 12, 0, sup2 ? 2.5 : 1.6, false, -1, 8) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+  const objets = omega.represente(0, 12, 0, sup2 ? 2.5 : 1.6, false, -1, 6) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
   const choix = choice([[nbBoule1, b1Color, b1Char], [nbBoule2, b2Color, b2Char]])
   const probaChoix = fraction(choix[0] ** 2 - choix[0], card ** 2 - card)
   const proba1 = fraction(nbBoule1 ** 2 - nbBoule1, card ** 2 - card)
@@ -480,7 +480,7 @@ function urneDeuxTiragesSansRemise (exercice, NoQuestion, sup, sup2, niveau) { /
   texteCorr += 'On a représenté les issues de l\'expérience par le tableau ci-dessous :<br>'
   texteCorr += tableau + '<br>'
   texteCorr += 'On peut aussi présenter les issues sous la forme d\'un arbre de dénombrement :<br>'
-  texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8, scale: 8 / card / card }, ...objets) + '<br>'
+  texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8, scale: 9 / card / card }, ...objets) + '<br>'
   texteCorr += `Légende : ${b1Char} = ${b1Color} et ${b2Char} = ${b2Color}.<br>`
   texteCorr += `${numAlpha(0)} L'événement «obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}» est réalisé par l'issue {${choix[2] + choix[2]}}.`
   texteCorr += ` On comptabilise ${choix[0] ** 2 - choix[0]} issues {${choix[2] + choix[2]}} sur ${card ** 2 - card} issues en tout.<br>`
