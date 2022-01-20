@@ -23,7 +23,7 @@ export default function CalculProbaExperience2Epreuves3e () {
   this.tailleDiaporama = 1
   this.nbQuestions = 1
   this.spacing = context.isHtml ? 2 : 1.5
-  this.spacingCorr = 2
+  this.spacingCorr = context.isHtml ? 2 : 1.5
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -207,10 +207,10 @@ function unePieceDeuxUrnes (exercice, NoQuestion, sup, sup2, sup3) {
   texteCorr = ''
   if (!exercice.interactif && !context.isAmc) {
     texteCorr += `${numAlpha(q)} L'issue «Pile-${boules[0]}» peut être obtenue de ${n1[0]} façon${n1[0] > 1 ? 's' : ''} et l'issue «Pile-${boules[1]}» peut être obtenue de ${n1[1]} façon${n1[1] > 1 ? 's' : ''}.<br>`
-    texteCorr += 'Voici un tableau à double entrée qui représente toutes les issues de cette expérience.<br>'
+    texteCorr += 'Voici un tableau à double entrée qui représente toutes les issues de cette expérience.<br><br>'
     q++
   }
-  texteCorr += tableau + '<br>'
+  texteCorr += tableau + '<br><br>'
   texteCorr += `${numAlpha(q)} Comme on a fait ${pileOuFace}», on va tirer une boule dans la ${urne} urne où il y a ${nbBouleC} boule${nbBouleC > 1 ? 's' : ''} ${boules[choix1]}${nbBouleC > 1 ? 's' : ''} sur ${card} boules.<br>`
   if (!context.isAMC) setReponse(exercice, NoQuestion, proba1, { formatInteractif: 'fractionEgale' })
   q++
@@ -336,9 +336,8 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, sup, sup2, niveau) { /
   texte += `${numAlpha(1)} Déterminer la probabilité d'obtenir deux boules de la même couleur.` + ajouteChampTexteMathLive(exercice, NoQuestion + 1, 'largeur10 inline') + '<br>'
   texte += `${numAlpha(2)} Déterminer la probabilité d'obtenir deux boules de couleurs différentes.` + ajouteChampTexteMathLive(exercice, NoQuestion + 2, 'largeur10 inline') + '<br>'
   let texteCorr = `L'issue «${b1Color}-${b1Color}» peut être obtenue de ${contenu[0]} façon${contenu[0] > 1 ? 's' : ''} et l'issue «${b1Color}-${b2Color}» peut être obtenue de ${contenu[1]} façon${contenu[1] > 1 ? 's' : ''}.<br>`
-  texteCorr += 'Voici un tableau à double entrée qui représente toutes les issues de cette expérience.<br>'
-  texteCorr += 'On a représenté l\'expérience par le tableau ci-dessous :<br>'
-  texteCorr += tableau + '<br>'
+  texteCorr += 'Voici un tableau à double entrée qui représente toutes les issues de cette expérience.<br><br>'
+  texteCorr += tableau + '<br><br>'
   texteCorr += 'On peut aussi présenter les deux épreuves sous la forme d\'un arbre de dénombrement :<br>'
   texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8, scale: 9 / card / card }, ...objets) + '<br>'
   texteCorr += `Légende : ${b1Char} = ${b1Color} et ${b2Char} = ${b2Color}.<br>`
@@ -477,8 +476,8 @@ function urneDeuxTiragesSansRemise (exercice, NoQuestion, sup, sup2, niveau) { /
   texte += `${numAlpha(1)} Déterminer la probabilité d'obtenir deux boules de la même couleur.` + ajouteChampTexteMathLive(exercice, NoQuestion + 1, 'largeur10 inline') + '<br>'
   texte += `${numAlpha(2)} Déterminer la probabilité d'obtenir deux boules de couleurs différentes.` + ajouteChampTexteMathLive(exercice, NoQuestion + 2, 'largeur10 inline') + '<br>'
   let texteCorr = `L'issue «${b1Color}-${b1Color}» peut être obtenue de ${contenu[0]} façon${contenu[0] > 1 ? 's' : ''} et l'issue «${b1Color}-${b2Color}» peut être obtenue de ${contenu[1]} façon${contenu[1] > 1 ? 's' : ''}.<br>`
-  texteCorr += 'On a représenté les issues de l\'expérience par le tableau ci-dessous :<br>'
-  texteCorr += tableau + '<br>'
+  texteCorr += 'On a représenté les issues de l\'expérience par le tableau ci-dessous :<br><br>'
+  texteCorr += tableau + '<br><br>'
   texteCorr += 'On peut aussi présenter les issues sous la forme d\'un arbre de dénombrement :<br>'
   texteCorr += mathalea2d({ xmin: 0, xmax: card * 8.5, ymin: 0, ymax: 13, zoom: 0.8, scale: 9 / card / card }, ...objets) + '<br>'
   texteCorr += `Légende : ${b1Char} = ${b1Color} et ${b2Char} = ${b2Color}.<br>`
