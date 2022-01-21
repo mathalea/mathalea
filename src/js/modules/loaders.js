@@ -1,3 +1,4 @@
+/* global jQuery */
 import loadjs from 'loadjs'
 import slick from '../../assets/externalJs/slick/slick'
 import { context } from './context'
@@ -157,7 +158,8 @@ export async function loadMathLive () {
         virtualKeyboards: 'collegeKeyboard roman',
         inlineShortcuts: {
           '*': { mode: 'math', value: '\\times' },
-          '.': { mode: 'math', value: ',' }
+          '.': { mode: 'math', value: ',' },
+          '%': { mode: 'math', value: '\\%' }
         },
         // virtualKeyboards: 'numeric roman',
         virtualKeyboardMode: 'manual'
@@ -306,11 +308,7 @@ const collegeKeyboardLayer = {
         { label: ';', key: ';' },
         { label: 'oui', key: 'oui' },
         { label: 'non', key: 'non' },
-        {
-          class: 'small',
-          latex: '\\frac{1}{#0}',
-          insert: '$$\\frac{1}{#0}$$'
-        }
+        { label: '%', key: '%' }
       ],
       [
         { latex: '(' },
@@ -336,6 +334,11 @@ const collegeKeyboardLayer = {
           class: 'action font-glyph',
           label: '&#x232b;',
           command: ['performWithFeedback', 'deleteBackward']
+        },
+        {
+          class: 'action font-glyph',
+          label: '&#10006;',
+          command: ['toggleVirtualKeyboard', 'toggleVirtualKeyboard']
         }
       ]
     ]

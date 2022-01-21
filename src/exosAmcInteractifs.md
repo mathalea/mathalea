@@ -1,8 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 412 
-- nombre d'exos interactifReady 561 
-- nombre d'exos amcReady 413 
-- nombre d'exos interactifReady 562 
+- nombre d'exos amcReady 414 
+- nombre d'exos interactifReady 563 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -11,12 +9,7 @@
 |1E11-3|Déterminer la forme canonique d'un polynôme du second degré|KO|KO|OK|mathLive|
 |2F10-1|Reconnaître une fonction affine.|OK|qcmMono|OK|qcm|
 |2F10-2|Lecture graphique d’une fonction affine|OK|AMCHybride|OK|mathLive|
-<<<<<<< HEAD
-|2F11-1|Déterminer l’image d’une fonction de référence.|OK|AMCNum|OK|mathLive|
-=======
-|2F25-2|Etudier la parité d'une fonction.|OK|qcmMono|OK|qcm|
 |2F11-1|Déterminer l’image d’un nombre par une fonction de référence.|OK|AMCNum|OK|mathLive|
->>>>>>> master
 |2F32-2|Déterminer graphiquement les extremums|OK|AMCHybride|OK|mathLive|
 |2G11-5|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |2G30-1|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
@@ -131,6 +124,7 @@
 |4C30-1|Encadrer avec des puissances de 10|KO|KO|OK|mathLive|
 |4C30-2|Écriture décimale d’une puissance de 10|OK|AMCNum|OK|mathLive|
 |4C30|Puissances de 10 : Le sens des règles de calculs|KO|KO|OK|mathLive|
+|4C32-0|Écriture décimale d'un calcul avec des puissances de 10|KO|KO|OK|mathLive|
 |4C32-1|Calcul avec les puissances de dix|OK|qcmMono|OK|qcm|
 |4C32|Notation scientifique|OK|AMCNum|OK|mathLive|
 |4C33-0|Utiliser la notation puissance|OK|AMCOpen|OK|mathLive|
@@ -377,7 +371,7 @@
 |can2F04|Trouver les valeurs interdites d’une fonction|KO|KO|OK|mathLive|
 |can2F05|Déterminer un antécédent avec la racine carrée|KO|KO|OK|mathLive|
 |can2F06|Dresser le tableau de signes d’une fonction affine|KO|KO|OK|qcm|
-|can2F07|Lire les extremums dans un tableau de variations|KO|KO|OK|mathLive|
+|can2F07|Lire les extremums dans un tableau de variations|OK|AMCHybride|OK|mathLive|
 |can2F08|Encadrer en utilisant un tableau de variations|KO|KO|OK|mathLive|
 |can2F09|Résoudre une équation avec une fonction de référence|KO|KO|OK|qcm|
 |can2F10|Résoudre une équation avec une fonction de référence*|KO|KO|OK|qcm|
