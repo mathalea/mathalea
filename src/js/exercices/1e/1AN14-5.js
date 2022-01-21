@@ -45,28 +45,21 @@ export default function DeriveeQuotient () {
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
-    const listeTypeDeQuestionsDisponibles = ['poly/poly1', 'mon/poly1']//, 'racine/poly1']
+    const listeTypeDeQuestionsDisponibles = ['poly/poly1', 'mon/poly1']
     if (this.sup2) {
       listeTypeDeQuestionsDisponibles.push('exp/poly1')
     }
-    if (this.sup === 2) {
-      // listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
-    }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, expression, nameF, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // On génère des fonctions qui pourrait servir
+      // On créé les coefficients d'un monome x^m qu'ont va générer
       const coeffs = new Array(randint(2, 9)) // Au moins 2 coeffs, i.e. deg >= 1
       coeffs.fill(0)
-      // on ajoute un coeff donc deg >= 2
-      coeffs.push(1)
-      // coeffs.push(randint(-10, 10, 0))
+      coeffs.push(1) // on ajoute un coeff donc deg >= 2
+      // On génère des fonctions qui pourrait servir
       const dictFonctions = {
         exp: 'e^x',
-        racine: 'sqrt(x)',
-        // inv: '1/x',
         mon: new Polynome({ coeffs }),
         poly1: new Polynome({ rand: true, deg: 1 }),
-        poly2centre: new Polynome({ rand: true, coeffs: [[10, true], [0], [10, true]] }),
         poly: new Polynome({ rand: true, deg: randint(1, 2) })
       }
       const listeTypeFonctions = listeTypeDeQuestions[i].split('/')
@@ -81,8 +74,6 @@ export default function DeriveeQuotient () {
 
       // Énoncé
       nameF = lettreMinusculeDepuisChiffre(i + 6)
-      // texte = askFacto ? 'Dans cette question, on demande la réponse sous forme factorisée.<br>' : ''
-      // texte = askFormule ? `Dans cette question, on demande d'utiliser la formule de dérivation d'un produit. ${askQuotient ? 'Mettre le résultat sous forme d\'un quotient.' : ''}<br>` : texte
       texte = ''
       texte += `$${nameF}:x\\longmapsto ${prettyTex(math.simplify(expression, ['(n1)/(n2)->n1/n2']))}$`
       // Correction
