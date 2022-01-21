@@ -114,18 +114,15 @@ export default function DeriveeQuotient () {
             const b = fNum.monomes[0]
             texteCorr += `\\[${nameF}'(x)=\\frac{${a}(${termeDen})-(${termeNum})\\times${c < 0 ? `(${c})` : c}}{(${termeDen})^2}.\\]`
             texteCorr += 'D\'où, en développant le numérateur : '
-            texteCorr += `\\[${nameF}'(x)=\\frac{${Polynome.print([a * d, a * c])}-(${Polynome.print([c * b, c * a])})}{(${termeDen})^2}.\\]`
+            texteCorr += `\\[${nameF}'(x)=\\frac{${fDen.multiply(a)}-(${fNum.multiply(c)})}{(${termeDen})^2}.\\]`
             texteCorr += 'Les termes en $x$ se compensent et on obtient : '
             texteCorr += `\\[${nameF}'(x)=\\frac{${a * d}${ecritureAlgebrique(-c * b)}}{(${termeDen})^2}.\\]`
             texteCorr += 'C\'est-à-dire : '
             texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${(a * d) - (c * b)}}{(${termeDen})^2}.}\\]`
           } else if (fNum.deg === 2) {
-            // fNum = ax²+bx+whatever
-            const a = fNum.monomes[2]
-            const b = fNum.monomes[1]
             texteCorr += `\\[${nameF}'(x)=\\frac{(${fNum.derivee()})(${termeDen})-(${termeNum})\\times${c < 0 ? `(${c})` : c}}{(${termeDen})^2}.\\]`
             texteCorr += 'D\'où, en développant le numérateur : '
-            const polyInterm = new Polynome({ coeffs: [d * b, b * c + 2 * a * d, 2 * a * c] })
+            const polyInterm = fNum.derivee().multiply(fDen)
             texteCorr += `\\[${nameF}'(x)=\\frac{${polyInterm}-(${fNum.multiply(c)})}{(${termeDen})^2}.\\]`
             texteCorr += 'On réduit le numérateur pour obtenir : '
             texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${polyInterm.add(fNum.multiply(-c))}}{(${termeDen})^2}.}\\]`
@@ -141,9 +138,9 @@ export default function DeriveeQuotient () {
           texteCorr += 'On obtient alors : '
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee()}(${fDen})-${fNum}\\times${c < 0 ? `(${c})` : c}}{(${termeDen})^2}.\\]`
           texteCorr += 'D\'où, en développant le numérateur : '
-          texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.multiply(c * fNum.deg).add(fNum.derivee().multiply(d))}${fNum.multiply(-c).toMathExpr(true)}}{(${termeDen})^2}.\\]`
+          texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee().multiply(fDen)}${fNum.multiply(-c).toMathExpr(true)}}{(${termeDen})^2}.\\]`
           texteCorr += 'On simplifie pour obtenir :'
-          texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${fNum.multiply(c * fNum.deg).add(fNum.derivee().multiply(d)).add(fNum.multiply(-c))}}{(${termeDen})^2}.}\\]`
+          texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${fNum.derivee().multiply(fDen).add(fNum.multiply(-c))}}{(${termeDen})^2}.}\\]`
           texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.'
           break
         }
@@ -178,5 +175,5 @@ export default function DeriveeQuotient () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : quotient d\'une fonction classique par une fonction affine\n2 : TODO']
-  this.besoinFormulaire2CaseACocher = ['Inclure l\'exponentielle dans le niveau 2']
+  this.besoinFormulaire2CaseACocher = ['Inclure l\'exponentielle']
 }
