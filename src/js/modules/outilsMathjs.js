@@ -12,11 +12,25 @@ math.config({
 // eslint-disable-next-line no-debugger
 debugger
 
-function transformNode (node, oldNode, debug = false) {
+function searchFirstNode (node, op) {
+  if (node.type === 'OperatorNode') {
+    return searchFirstNode(node.args[0], node.op)
+  } else if (node.type === 'ParenthesisNode') {
+    return searchFirstNode(node.content, node.op)
+  } else {
+    return { node: node, op: op }
+  }
+}
+
+function transformNode (node, oldNode, params = { suppr1: true, suppr0: true, supprPlusMoins: true }) {
+  params = Object.assign({ suppr1: true, suppr0: true, supprPlusMoins: true }, params)
   if (oldNode === undefined || node.toString() !== oldNode.toString()) {
-    if (debug) console.log('transformNode', node.toString(), oldNode !== undefined ? oldNode.toString() : '')
     oldNode = node.clone()
-    if (node.isOperatorNode && node.op === '/') { // Enlève les parenthèses au numérateur et dénominateur d'une fraction
+    /*
+    * Retirer les parenthèses au dividende et diviseur d'un quotient
+    * (n1)/(n2) devient n1/n2
+    */
+    if (node.isOperatorNode && node.op === '/') {
       if (node.args[0].isParenthesisNode) {
         node.args[0] = node.args[0].content
       }
@@ -24,7 +38,11 @@ function transformNode (node, oldNode, debug = false) {
         node.args[1] = node.args[1].content
       }
     }
-    if (node.isOperatorNode && node.op === '/') { // Transforme -2/n en -(2/n) mais laisse (-2)/(-n)
+    /*
+    * Transformer -2/n en -(2/n)
+    * Ne touche pas à (-2)/(-n)
+    */
+    if (node.isOperatorNode && node.op === '/') {
       if (
         node.args[0].type === 'OperatorNode' &&
         node.args[0].fn === 'unaryMinus' &&
@@ -39,7 +57,10 @@ function transformNode (node, oldNode, debug = false) {
         node = math.parse('-' + frac.toString())
       }
     }
-    if (node.isOperatorNode && node.op === '/') { // Flatten divisions
+    /* (Flatten divisions comme dans Mathsteps)
+    * Transformer (1/2*3)/4 en 1/2*(3/4)
+    */
+    if (node.isOperatorNode && node.op === '/') {
       if (node.args[0].isOperatorNode && node.args[0].op === '*') {
         if (node.args[0].args[0].isOperatorNode && node.args[0].args[0].op === '/') {
           const frac1 = Node.Creator.operator('/', node.args[0].args[0].args)
@@ -48,22 +69,66 @@ function transformNode (node, oldNode, debug = false) {
         }
       }
     }
-    if (node.isOperatorNode && node.op === '+') { // Enlève les parenthèses aux deux termes d'une addition
-      if (node.args[0].isParenthesisNode) node.args[0] = node.args[0].content
-      if (node.args[1].isParenthesisNode) node.args[1] = node.args[1].content
-      if (node.args[1].toString() === '0') { // Enlève les +0
+    /*
+    * Transformer (n1)+(n2) en n1+n2
+    * Utile si n1 et/ou n2 sont des unaryMinus ou des fractions
+    */
+    if (node.isOperatorNode && node.op === '+') {
+      if (params.supprPlusMoins) {
+        if (node.args[0].isParenthesisNode) node.args[0] = node.args[0].content
+        if (node.args[1].isParenthesisNode) node.args[1] = node.args[1].content
+      } else {
+        if (node.args[0].isParenthesisNode && node.args[0].content.toString()[0] !== '-') node.args[0] = node.args[0].content
+        if (node.args[1].isParenthesisNode && node.args[1].content.toString()[0] !== '-') node.args[1] = node.args[1].content
+      }
+    }
+    /*
+    * Transformer n+0 en n
+    */
+    if (params.suppr0 && node.isOperatorNode && node.op === '+') {
+      if (node.args[1].toString() === '0') {
         node = node.args[0]
       }
-      if ( // Enlève les +0*n
+    }
+    /*
+    * Transformer n1+0*n2 en n1
+    */
+    if (params.suppr0 && node.isOperatorNode && node.op === '+') {
+      if (
         node.args[1].isOperatorNode &&
-    node.args[1].op === '*' &&
-      (
-        node.args[1].args[0].toString() === '0'
-      )
+        node.args[1].op === '*' &&
+        (
+          node.args[1].args[0].toString() === '0'
+        )
       ) {
         node = node.args[0]
       }
     }
+    /*
+    * Transformer 1*n en n et -1*n en -n
+    */
+    if (params.suppr1 && node.isOperatorNode && node.op === '*' && searchFirstNode(node.args[1]).node.type !== 'ConstantNode') {
+      if (node.args[0].toString() === '1') {
+        node = node.args[1]
+      } else if (node.args[0].toString() === '-1') {
+        node = math.parse('-' + node.args[1].toString())
+      }
+    }
+    /*
+    * Transformer n/1 en n et n/-1 en -n
+    */
+    if (params.suppr1 && node.isOperatorNode && node.op === '/') {
+      if (node.args[1].toString() === '1') {
+        node = node.args[0]
+      } else if (node.args[1].toString() === '-1') {
+        node = math.parse('-' + node.args[0].toString())
+      }
+    }
+    /*
+    * Transformer (n1)-n2 en n1-n2
+    * Transformer --c en -(-c)
+    * transformer n1-(n2/n3) en n1-n2/n3
+    */
     if (node.isOperatorNode && node.op === '-') { // Enlève les parenthèses au premier terme d'une soustraction et au second sous condition d'une /
       if (node.args[0].isParenthesisNode) node.args[0] = node.args[0].content
       if (node.args.length === 1 && node.args[0].isConstantNode && node.args[0].value < 0) { // Pour corriger --3 en -(-3)
@@ -72,6 +137,9 @@ function transformNode (node, oldNode, debug = false) {
       if (node.args.length === 2 && node.args[1].isConstantNode && node.args[1].value < 0) { // Pour corriger 7--3 en 7-(-3)
         node.args[1] = Node.Creator.parenthesis(node.args[1])
       }
+      /*
+      * Code à simplifier ?
+      */
       if (
         node.fn !== 'unaryMinus' && // On vérifie si c'est une vraie soustraction (avec deux termes)
     node.args[1].isParenthesisNode && // On vérifie que le second terme possède une parenthèse
@@ -96,7 +164,7 @@ function transformNode (node, oldNode, debug = false) {
     (
       !node.args[0].content.isOperatorNode || // Il ne faut pas d'opération
       (node.args[0].content.isOperatorNode && node.args[0].content.op === '/') || // ou alors une divisions
-      (node.args[0].content.isOperatorNode && node.args[0].content.fn === 'unaryMinus') // ou alors un -n
+      (node.args[0].content.isOperatorNode && node.args[0].content.fn === 'unaryMinus' && params.supprPlusMoins) // ou alors un -n
     )
       ) { // Si l'une des conditions est vérifiée alors :
         node.args[0] = node.args[0].content // on enlève la parenthèse
@@ -152,12 +220,22 @@ function transformNode (node, oldNode, debug = false) {
     if (node.isParenthesisNode && node.content.isOperatorNode && node.content.op === '/') node = node.content
     if (node.isOperatorNode && node.fn === 'unaryMinus' && node.args[0].isParenthesisNode && node.args[0].content.isOperatorNode && node.args[0].content.op === '*') node.args[0] = node.args[0].content
     if (node.isOperatorNode && node.fn === 'unaryMinus' && node.args[0].isOperatorNode && node.args[0].op === '*') node = Node.Creator.operator('*', [Negative.negate(node.args[0].args[0]), node.args[0].args[1]])
-    return transformNode(node, oldNode)
+    if (
+      node.isOperatorNode && node.op === '*') {
+      const firstNode = searchFirstNode(node.args[1])
+      if (
+        firstNode.node.type === 'ConstantNode' &&
+        firstNode.op === '*'
+      ) { node.implicit = false }
+    }
+    return transformNode(node, oldNode, params)
   } else {
     return node
   }
 }
 
+/* Corrige le problème lié au conversions de (-3)² en -3² si on passe du format mathsteps au format mathjs
+*/
 function correctifNodeMathsteps (node) {
   node = node.transform(
     function (node, path, parent) {
@@ -170,27 +248,45 @@ function correctifNodeMathsteps (node) {
   return node
 }
 
-export function toTex (node, debug = false) {
-  if (debug) {
-    console.log('node.toString({ parenthesis: \'keep\' })', node.toString({ parenthesis: 'keep' }))
-    console.log('node', node)
+export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoins: true }) {
+  params = Object.assign({ suppr1: true, suppr0: true, supprPlusMoins: true }, params)
+  // On commence par convertir l'expression en arbre au format mathjs
+  let comparator
+  let sides = []
+  const comparators = ['<=', '>=', '=', '<', '>']
+  if (typeof node === 'string') {
+    for (let i = 0; i < comparators.length; i++) {
+      sides = node.split(comparators[i])
+      if (sides.length === 2) {
+        comparator = comparators[i]
+      }
+    }
+    if (comparator !== undefined) {
+      sides = node.split(comparator)
+    } else {
+      node = parse(node)
+    }
+  } else {
+    // Le format mathsteps s'il est en entrée ne permet pas a priori de modifier les implicit
+    // De plus comme les multiplications peuvent avoir 3 ou plus de facteurs dans mathsteps
+    // et que le paramètre implicit s'applique alors à tous les facteurs
+    // cela devient impossible à traiter pour 4*x*(-5) qui donnerait 4x-5 avec implicit = true.
+    // Mais il faut un pré-traitement car sinon le passage de mathsteps à mathjs
+    // transforme les (-3)^2 en -3^2
+    node = correctifNodeMathsteps(node) // Convertit d'abord tous les ConstantNode au format mathjs
+    node = parse(node.toString({ parenthesis: 'all' })) // Permet d'utiliser correctement les implicit
   }
-  // La ligne suivante convertit le node au format mathjs
-  // Le format mathsteps ne permet pas a priori de modifier les implicit
-  // De plus comme les multiplications peuvent avoir 3 ou plus de facteurs dans mathsteps
-  // et que le paramètre implicit s'applique alors à tous les facteurs
-  // cela devient impossible à traiter pour 4*x*(-5) qui donnerait 4x-5 avec implicit = true.
-  // Mais il faut un pré-traitement car sinon le passage de mathsteps à mathjs
-  // transforme les (-3)^2 en -3^2
-  node = correctifNodeMathsteps(node) // Convertit d'abord tous les ConstantNode au format mathjs
-  node = parse(node.toString({ parenthesis: 'all' })) // Permet d'utiliser correctement les implicit
-
+  if (sides.length === 2) {
+    const leftSide = toTex(sides[0], params)
+    const rightSide = toTex(sides[1], params)
+    return leftSide + comparator + rightSide
+  }
   let nodeClone
   do { // À étudier, pour 79 et 85 et 50 cette boucle doit être maintenue
     nodeClone = node.cloneDeep() // Vérifier que node.clone() fonctionne (peut-être y a-t-il un problème avec implicit avec cloneDeep())
     node = node.transform(
       function (node, path, parent) {
-        node = transformNode(node)
+        node = transformNode(node, undefined, params)
         return node
       }
     )
@@ -200,10 +296,6 @@ export function toTex (node, debug = false) {
 
   nodeTex = nodeTex.replace(/\s*?\+\s*?-\s*?/g, ' - ')
 
-  if (debug) {
-    console.log('***********RESULTATS***********\n node.toString() : ', node.toString())
-    console.log('node : ', node)
-  }
   return nodeTex
 }
 
@@ -241,6 +333,9 @@ export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fr
   return assignations
 }
 
+/*
+* Objet mathsteps : Permet de traverser toutes les étapes et sous-étapes
+*/
 export function traverserEtapes (steps, result = []) {
   steps.forEach(function (step, i) {
     if (step.substeps.length === 0) result.push(step)
@@ -267,8 +362,8 @@ export function calculExpression (expression = '4/3+5/6', factoriser = false, de
         repetition = 0
       }
     }
-    const oldNode = step.oldNode !== null ? toTex(step.oldNode) : ''
-    const newNode = toTex(step.newNode)
+    const oldNode = step.oldNode !== null ? toTex(step.oldNode, { suppr1: false }) : ''
+    const newNode = toTex(step.newNode, { suppr1: false })
     /* const oldNode = step.oldNode !== null ? printMS.latex(step.oldNode, false) : ''
     const newNode = printMS.latex(step.newNode, false) */
     if (debug) console.log('printMS(step.newNode)', printMS.ascii(step.newNode))
@@ -324,15 +419,131 @@ export function calculExpression (expression = '4/3+5/6', factoriser = false, de
     if (commentairesExclus[changement] === undefined) stepsExpression.push(String.raw`&=${newNode}&&\tiny${commentaires[changement]}`)
     if (debug) console.log('changement', commentaires[changement])
   })
+  if (steps[steps.length - 1].newNode.type === 'OperatorNode' &&
+  steps[steps.length - 1].newNode.op === '/' &&
+  steps[steps.length - 1].newNode.args[0].type === 'ConstantNode' &&
+  steps[steps.length - 1].newNode.args[1].type === 'ConstantNode' &&
+  (
+    Math.abs(steps[steps.length - 1].newNode.args[0].value) > steps[steps.length - 1].newNode.args[1].value ||
+    steps[steps.length - 1].newNode.args[0].value < 0
+  )
+  ) {
+    const plus = steps[steps.length - 1].newNode.args[0].value < 0 ? '-' : '+'
+    stepsExpression.push(
+      '&=' + toTex(
+        math.parse(
+          math.fraction(
+            steps[steps.length - 1].newNode.args[0].value,
+            steps[steps.length - 1].newNode.args[1].value
+          ).toFraction(true).replace(' ', plus)
+        ), { suppr1: false }
+      )
+    )
+  }
   let texte = String.raw`Simplifier $${expressionPrint}$.`
-  const texteCorr = String.raw`Simplifier $${expressionPrint}$.
-  <br>
+  const texteCorr = String.raw`
   $\begin{aligned}
   ${expressionPrint}${stepsExpression.join('\\\\')}
   \end{aligned}$
   `
   if (debug) texte = texteCorr
-  return { texte: texte, texteCorr: texteCorr, stepsExpression }
+  return { texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, expression: expressionPrint }
+}
+
+/**
+* @description Retourne toutes les étapes de calculs d'une expression numérique ou de développement-réduction d'une expression littérale
+* @param {Objet} params // Les paramètres (commentaires visibles , sous-étapes visibles, fraction-solution au format MixedNumber)
+* @param {string} expression // Une expression à calculer ou à développer
+*/
+export function calculer (expression, params) {
+  params = Object.assign({ comment: false, substeps: false, mixed: false, name: undefined }, params)
+  // La fonction simplifyExpression est une fonction mathsteps
+  // Elle renvoie toutes les étapes d'un calcul numérique ou d'un développement-réduction
+  // L'addition de deux fractions est classée dans les sous-étapes bizarrement
+  // Les calculs se font de la gauche vers la droite et dès que c'est possible dans le respect des priorités
+  // Les termes de même nature sont regroupés avant d'effectuer les calculs :
+  // Les SymbolNode par exposant décroissant, puis Les constantes et enfin les fractions
+  // Parfois les COLLECT LIKE TERMS ne donnent pas de changement ???
+  // A faire : Virer l'étape précédent un REMOVE MULTIPLYING BY ONE et lui prendre son commentaire
+  // A faire : Même chose pour REMOVE ADDING ZERO
+  // La suite de CANCEL TERMS peut être applanie
+  // Refaire la méthode transform() pour qu'elle ne modifie rien d'autre de notre noeud que ce qu'on souhaite
+  // Si ça fonctionne on peut régler le problème des implicit qui disparaissent ? des (-3)² qui deviennent -3² ?
+  // A faire : Ajouter un paramètre parenthesis à chaque noeud, ou il faudrait le faire dans Mathjs ?
+
+  const steps = params.substeps ? traverserEtapes(simplifyExpression(expression)) : simplifyExpression(expression)
+  const stepsExpression = []
+  const commentaires = []
+  let expressionPrint = ''
+  steps.forEach(function (step, i) {
+    const oldNode = step.oldNode !== null ? toTex(step.oldNode, { suppr1: true }) : ''
+    const newNode = toTex(step.newNode, { suppr1: true })
+    if (i === 0) {
+      expressionPrint = `${oldNode}`
+    }
+    if (newNode === oldNode) stepsExpression.pop()
+    if (params.comment) {
+      const commentaire = String.raw`\text{${step.changeType}}`.replaceAll('_', ' ')
+      commentaires.push(commentaire)
+      if (stepsExpression.length === 0 || i === steps.length - 1) {
+        if (params.name === undefined) {
+          stepsExpression.push(String.raw`${expressionPrint}&=${newNode}&&${commentaire}`)
+        } else {
+          if (stepsExpression.length === 0) {
+            stepsExpression.push(String.raw`${params.name}&=${expressionPrint}&&${commentaire}`)
+            stepsExpression.push(String.raw`&=${newNode}&&${commentaire}`)
+          } else {
+            stepsExpression.push(String.raw`${params.name}&=${newNode}&&${commentaire}`)
+          }
+        }
+      } else {
+        stepsExpression.push(String.raw`&=${newNode}&&${commentaire}`)
+      }
+    } else {
+      if (stepsExpression.length === 0 || i === steps.length - 1) {
+        if (params.name === undefined) {
+          stepsExpression.push(String.raw`${expressionPrint}&=${newNode}`)
+        } else {
+          if (stepsExpression.length === 0) {
+            stepsExpression.push(String.raw`${params.name}&=${expressionPrint}`)
+            stepsExpression.push(String.raw`&=${newNode}`)
+          } else {
+            stepsExpression.push(String.raw`${params.name}&=${newNode}`)
+          }
+        }
+      } else {
+        stepsExpression.push(String.raw`&=${newNode}`)
+      }
+    }
+  })
+  if (params.mixed === true && steps[steps.length - 1].newNode.type === 'OperatorNode' &&
+  steps[steps.length - 1].newNode.op === '/' &&
+  steps[steps.length - 1].newNode.args[0].type === 'ConstantNode' &&
+  steps[steps.length - 1].newNode.args[1].type === 'ConstantNode' &&
+  (
+    Math.abs(steps[steps.length - 1].newNode.args[0].value) > steps[steps.length - 1].newNode.args[1].value ||
+    steps[steps.length - 1].newNode.args[0].value < 0
+  )
+  ) {
+    const plus = steps[steps.length - 1].newNode.args[0].value < 0 ? '-' : '+'
+    stepsExpression.push(
+      '&=' + toTex(
+        math.parse(
+          math.fraction(
+            steps[steps.length - 1].newNode.args[0].value,
+            steps[steps.length - 1].newNode.args[1].value
+          ).toFraction(true).replace(' ', plus)
+        ), { suppr1: false }
+      )
+    )
+  }
+  const texte = String.raw`Calculer $${expressionPrint}$.`
+  const texteCorr = String.raw`
+  $\begin{aligned}
+  ${stepsExpression.join('\\\\')}
+  \end{aligned}$
+  `
+  return { printResult: toTex(steps[steps.length - 1].newNode), netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: commentaires, printExpression: expressionPrint, name: params.name }
 }
 
 export function aleaEquation (equation = 'a*x+b=c*x-d', variables = { a: false, b: false, c: false, d: false, test: 'a>b or true' }, debug = false) { // Ne pas oublier le signe de la multiplication
@@ -450,15 +661,14 @@ export function resoudreEquation (equation = '5(x-7)=3(x+1)', debug = false) {
     }
     if (debug) console.log('changement', commentaires[changement])
   })
-  let texte = String.raw`Résoudre $${equationPrint}$.`
-  const texteCorr = String.raw`Résoudre $${equationPrint}$.
-  <br>
+  let texte = String.raw`Résoudre $${equationPrint}$`
+  const texteCorr = String.raw`
   $\begin{aligned}
   ${stepsNewEquation.join('\\\\')}
   \end{aligned}$
   `
   if (debug) texte = texteCorr
-  return { texte: texte, texteCorr: texteCorr }
+  return { texte: texte, texteCorr: texteCorr, equation: equationPrint }
 }
 
 export function programmeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3*x', '-2*x', '-3*x', 'x^2', '-x^2', 'x', '-x', '*x', '/x'], nombreChoisi, debug = false) {
@@ -572,20 +782,20 @@ export function programmeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3
     if (step.isConstantNode) stepPrint = `$${step.toString()}$`
     let nodeSimplifie = simplify(nodes[i - 1].toString({ parenthesis: 'keep' }), rules)
     nodes.push(new OperatorNode(op, nameOp, [new ParenthesisNode(nodeSimplifie), step]))
-    steps.push(toTex(nodes[i], debug))
+    steps.push(toTex(nodes[i], { suppr1: false }, debug))
     nodeSimplifie = simplify(nodes[i].toString({ parenthesis: 'auto' }), rules)
     nodesInv.push(new OperatorNode(symbolsOpInv[nameOp], namesOpInv[nameOp], [new ParenthesisNode(nodeSimplifie), step]))
-    stepsInv.push(toTex(nodesInv[i - 1], debug))
-    stepsSimplified.push(toTex(nodeSimplifie, debug))
+    stepsInv.push(toTex(nodesInv[i - 1], { suppr1: false }, debug))
+    stepsSimplified.push(toTex(nodeSimplifie, { suppr1: false }, debug))
     const nodeSimplifieInv = parse(nodesInv[i - 1].toString({ parenthesis: 'auto' }))
-    stepsSimplifiedInv.push(toTex(nodeSimplifieInv, debug))
+    stepsSimplifiedInv.push(toTex(nodeSimplifieInv, { suppr1: false }, debug))
     phrases.push(debutPhrase + stepPrint)
     phrasesInv.push(debutPhraseInv + stepPrint)
     if (i === variables.symbolsOp.length) {
-      steps.push(toTex(nodes[i], debug))
-      stepsSimplified.push(toTex(nodeSimplifie, debug))
-      stepsInv.push(toTex(nodesInv[i - 1], debug))
-      stepsSimplifiedInv.push(toTex(nodeSimplifie, debug))
+      steps.push(toTex(nodes[i], { suppr1: false }, debug))
+      stepsSimplified.push(toTex(nodeSimplifie, { suppr1: false }, debug))
+      stepsInv.push(toTex(nodesInv[i - 1], { suppr1: false }, debug))
+      stepsSimplifiedInv.push(toTex(nodeSimplifie, { suppr1: false }, debug))
       phrases.push('Ecrire le résultat')
       // phrasesInv.push(debutPhraseInv + stepPrint)
       phrasesInv.push('Résultat du programme')
@@ -758,8 +968,8 @@ export function calculExpression2 (expression = '4/3+5/6', factoriser = false, d
       console.log(changement)
       console.log(step.newNode.toString())
     }
-    const oldNode = step.oldNode !== null ? toTex(step.oldNode, debug) : ''
-    const newNode = toTex(step.newNode, debug)
+    const oldNode = step.oldNode !== null ? toTex(step.oldNode, { suppr1: true }, debug) : ''
+    const newNode = toTex(step.newNode, { suppr1: true }, debug)
     if (debug) {
       console.log(newNode.toString())
     }

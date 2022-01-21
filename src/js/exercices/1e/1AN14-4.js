@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, lettreMinusculeDepuisChiffre, rienSi1, reduireAxPlusB } from '../../modules/outils.js'
+import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, lettreMinusculeDepuisChiffre, rienSi1, prettyTex } from '../../modules/outils.js'
 import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, abs } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
@@ -10,14 +10,6 @@ export const titre = 'Dérivée d\'un produit'
  * @author Jean-Léon Henry
  * Référence 1AN14-4
  */
-
-/**
- * @param {string} expression expression parsée
- * @returns expression en LaTeX avec multication implicite
- */
-function prettyTex (expression) {
-  return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
-}
 
 export default function DeriveeProduit () {
   Exercice.call(this)
@@ -106,14 +98,15 @@ export default function DeriveeProduit () {
         case 'inv/poly1': {
           const b = dictFonctions[typef2].monomes[0] // coeffs du poly1
           const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
+          const f2 = dictFonctions[typef2]
           // Début correction
           texteCorr += 'On utilise la formule rappelée plus haut et on a : '
           texteCorr += `\\[${namef}'(x)=\\underbrace{-\\frac{1}{x^2}}_{u'(x)}\\times${prettyTex(math.parse(terme2))}+\\frac{1}{x}\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
-          texteCorr += `Ce qui donne, en simplifiant : \\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${a}}{x}.\\]`
+          texteCorr += `Ce qui donne, en simplifiant : \\[${namef}'(x)=\\frac{${f2.multiply(-1)}}{x^2}+\\frac{${a}}{x}.\\]`
           texteCorr += 'On additionne les deux fractions pour obtenir : '
-          texteCorr += `\\[${namef}'(x)=\\frac{${reduireAxPlusB(-a, -b)}}{x^2}+\\frac{${Polynome.print([0, a])}}{x^2}=\\frac{${reduireAxPlusB(-a, -b)}${ecritureAlgebrique(a)}x}{x^2}.\\]`
+          texteCorr += `\\[${namef}'(x)=\\frac{${f2.multiply(-1)}}{x^2}+\\frac{${Polynome.print([0, a])}}{x^2}=\\frac{${f2.multiply(-1)}${Polynome.print([0, a], true)}}{x^2}.\\]`
           texteCorr += 'Des termes se simplifient au numérateur et on a : '
-          texteCorr += `\\[${namef}'(x)=\\frac{${reduireAxPlusB(0, -b)}}{x^2}.\\]`
+          texteCorr += `\\[${namef}'(x)=\\frac{${Polynome.print([-b])}}{x^2}.\\]`
           // Remarque sur la méthode alternative
           const fExpand = math.simplify(`${a}${ecritureAlgebrique(b)}/x`)
           texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${prettyTex(fExpand)}$.<br>`
@@ -121,25 +114,24 @@ export default function DeriveeProduit () {
           break
         }
         case 'monome2/poly1': {
-          const b = dictFonctions[typef2].monomes[0] // coeffs du poly1
-          const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
           const mon2 = dictFonctions[typef1]
-          const m = mon2.monomes[2] // coeff du monome2
-          const polExpand = new Polynome({ coeffs: [0, 0, m * b, m * a] })
+          const poly1 = dictFonctions[typef2]
+          const a = poly1.monomes[1]
+          const polExpand = mon2.multiply(poly1)
           // Début correction
-          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${mon2.derivee().toMathExpr()}}_{u'(x)}\\times(${exprf2})${mon2.toMathExpr(true)}\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
-          texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${2 * m * a}x^2${ecritureAlgebrique(2 * m * b)}x${ecritureAlgebrique(m * a)}x^2.\\]`
-          texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${polExpand.derivee().toMathExpr()}.\\]`
+          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${mon2.derivee()}}_{u'(x)}\\times(${exprf2})${mon2.toMathExpr(true)}\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
+          texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${mon2.derivee().multiply(poly1)}${mon2.multiply(a).toMathExpr(true)}.\\]`
+          texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${polExpand.derivee()}.\\]`
           // Remarque sur la méthode alternative
-          texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${polExpand.toMathExpr()}$.<br>`
-          texteCorr += `Et donc $${namef}'(x)=${polExpand.derivee().toMathExpr()}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
+          texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${polExpand}$.<br>`
+          texteCorr += `Et donc $${namef}'(x)=${polExpand.derivee()}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
           break
         }
         case 'monome2/racine': {
           const mon2 = dictFonctions[typef1]
           const m = mon2.monomes[2] // coeff du monome2
           texteCorr += 'On applique la  formule rappellée plus haut : '
-          texteCorr += `\\[${namef}'(x)=\\underbrace{${mon2.derivee().toMathExpr()}}_{u'(x)}\\times\\sqrt{x}${mon2.toMathExpr(true)}\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
+          texteCorr += `\\[${namef}'(x)=\\underbrace{${mon2.derivee()}}_{u'(x)}\\times\\sqrt{x}${mon2.toMathExpr(true)}\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
           texteCorr += 'On peut réduire un peu l\'expression : '
           texteCorr += `\\[${namef}'(x)=${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}` // attention l'équation finit ligne suivante
           if (m % 2 !== 0) texteCorr += `\\frac{${rienSi1(abs(m))}x^2}{2\\sqrt{x}}.\\]`
@@ -153,13 +145,13 @@ export default function DeriveeProduit () {
           const derivee = poly.derivee()
           // 1ère étape : application de la formule
           let intermediaire
-          if (racineGauche) intermediaire = `\\underbrace{\\frac{1}{2\\sqrt{x}}}_{u'(x)}\\times(${poly.toMathExpr()})+\\sqrt{x}\\times\\underbrace{(${derivee.toMathExpr()})}_{v'(x)}`
-          else intermediaire = `\\underbrace{(${derivee.toMathExpr()})}_{u'(x)}\\times\\sqrt{x}+(${poly.toMathExpr()})\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}`
+          if (racineGauche) intermediaire = `\\underbrace{\\frac{1}{2\\sqrt{x}}}_{u'(x)}\\times(${poly})+\\sqrt{x}\\times\\underbrace{(${derivee})}_{v'(x)}`
+          else intermediaire = `\\underbrace{(${derivee})}_{u'(x)}\\times\\sqrt{x}+(${poly})\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}`
           texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
           // 2ème étape : simplification
           let interm2
-          if (racineGauche) interm2 = `\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}${derivee.toMathExpr(true)}\\sqrt{x}`
-          else interm2 = `${!derivee.isMon() ? `(${derivee.toMathExpr()})` : derivee.toMathExpr()}\\sqrt{x}+\\frac{${poly.toMathExpr()}}{2\\sqrt{x}}`
+          if (racineGauche) interm2 = `\\frac{${poly}}{2\\sqrt{x}}${derivee.toMathExpr(true)}\\sqrt{x}`
+          else interm2 = `${!derivee.isMon() ? `(${derivee})` : derivee}\\sqrt{x}+\\frac{${poly}}{2\\sqrt{x}}`
           texteCorr += 'L\'énoncé ne demandant rien de plus, on se contente de simplifier l\'expression :'
           texteCorr += `\\[${namef}'(x)=${interm2}\\]`
           break
@@ -171,17 +163,17 @@ export default function DeriveeProduit () {
           const derivee = poly.derivee()
           // 1ère étape : application de la formule
           let intermediaire
-          if (expGauche) intermediaire = `\\underbrace{e^x}_{u'(x)}\\times(${poly.toMathExpr()})+e^x\\times\\underbrace{(${derivee.toMathExpr()})}_{v'(x)}`
-          else intermediaire = `\\underbrace{(${derivee.toMathExpr()})}_{u'(x)}\\times e^x+(${poly.toMathExpr()})\\times\\underbrace{e^x}_{v'(x)}`
+          if (expGauche) intermediaire = `\\underbrace{e^x}_{u'(x)}\\times(${poly})+e^x\\times\\underbrace{(${derivee})}_{v'(x)}`
+          else intermediaire = `\\underbrace{(${derivee})}_{u'(x)}\\times e^x+(${poly})\\times\\underbrace{e^x}_{v'(x)}`
           texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
           // 2ème étape : Factorisation
-          const interm2 = `(${poly.toMathExpr()}${derivee.toMathExpr(true)})`
+          const interm2 = `(${poly}${derivee.toMathExpr(true)})`
           const termeGauche = expGauche ? 'e^x' : interm2
           const termeDroite = expGauche ? interm2 : 'e^x'
           texteCorr += 'Comme demandé, on factorise l\'expression par $e^x$ : '
           texteCorr += `\\[${namef}'(x)=${termeGauche}${termeDroite}\\]`
           // 3e étape : Simplification si nécessaire
-          const interm2Simp = `(${poly.add(derivee).toMathExpr()})`
+          const interm2Simp = `(${poly.add(derivee)})`
           const termeGauche2 = expGauche ? 'e^x' : interm2Simp
           const termeDroite2 = expGauche ? interm2Simp : 'e^x'
           if (`${termeGauche2}${termeDroite2}` !== `${termeGauche}${termeDroite}`) {

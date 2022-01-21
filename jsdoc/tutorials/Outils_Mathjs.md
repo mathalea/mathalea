@@ -5,11 +5,13 @@ Ces outils ont pour objectif d'utiliser la puissance de [Mathjs](https://mathjs.
 ## Sommaire
 
 1. [Documentation utile](#section0)
-2. [La fonction aleaVariables()](#section1)
+2. [La fonction aleaVariables() de outilsMathjs](#section1)
 3. [Convertir une expression numérique ou littérale en latex](#section2)
 4. [Remplacer des variables par des valeurs](#section3)
 5. [Transformer une expression littérale](#section4)
 6. [RandomSeed](#section5)
+7. [La fonction toTex() de outilsMathjs](#section6)
+8. [La fonction calculer() de outilsMathjs](#section7)
 
 ## Documentation utile <a id="section0"></a>
 
@@ -496,3 +498,70 @@ math.config({
 const result = math.random()
 // Si context.graine = 'a' alors result = 0.43449421599986604 
 ```
+
+## La fonction toTex() de outilsMathjs <a id="section6"></a>
+
+L'objectif de cette fonction est de mettre en forme une expression mathématique (numérique ou littérale), une équation ou une inéquation décrite par une chaîne de caractères ascii. Cette chaîne est convertie au format mathjs avant traitement.
+La sortie est une chaîne de caractères décrivant l'expression au format LaTex.
+
+Elle repose sur des choix mais certains sont paramétrables :
+
+- a/b deviendra $\dfrac{a}{b}$
+- les divisions sont "applaties" : a/b*c/d qui donne $\dfrac{\dfrac{a}{b}\times c}{d}$ avec `'mathjs'`, donneront $\dfrac{a}{b}\times \dfrac{c}{d}$ avec `toTex()`.
+- $\dfrac{-2}{3}$ est converti en $-\dfrac{2}{3}$
+- les parenthèses inutiles sont supprimées
+- les 1 ou -1 sont supprimés devant une parenthèse ou une lettre (paramétrable)
+- les +0 ou +0*n sont supprimés (paramétrable)
+- 5+(-6) est converti en 5-6 (paramétrable)
+
+Voici un exemple d'utilisation et de paramétrage :
+
+```Javascript
+toTex('(4+(-6)*x)/(-8)=1*x+(-7)/3')
+toTex('(4+(-6)*x)/(-8)=1*x+(-7)/3', { supprPlusMoins: false })
+```
+Le première ligne donnera : $\dfrac{4-6x}{-8}=x-\dfrac{7}{3}$
+
+La seconde donnera : $\dfrac{4+(-6)x}{-8}=x-\dfrac{7}{3}$
+
+## La fonction calculer() de outilsMathjs <a id="section7"></a>
+
+Mathsteps est un outil reposant sur Mathjs et qui a pour objectif de donner les étapes d'un calcul.
+Il possède une fonction appelée simplifyExpression() et qui détaille l'ensemble des étapes permettant de :
+
+- calculer des sommes, différences, produits ou quotients de fractions
+- simplifier des écritures littérales en les développant et en les réduisant
+
+Il n'est plus développé par son auteur. Mathalea en héberge un fork et qui a été modifié pour notamment développer l'identité remarquable $(a+b)^2$.
+
+Voici un exemple d'exercice :
+
+```Javascript
+exercice = calculer('(5*x-3)^2', { name: 'A' })
+exercice.texte = `Développer puis réduire l'expression suivante : $${exercice.name}=${exercice.printExpression}$`
+exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.name}=${exercice.printResult}$`
+```
+
+Et voici le résultat obtenu :
+![](../static/img/outilsMathjs-betaEquations107.png)
+
+Toutes les étapes du calcul sont visibles dans un ordre prédéfini par Mathsteps. Chaque ligne correspond à une étape et une seule ce qui peut ammener à de nombreuses lignes.
+
+Certaines étapes sont masquées dans des sous-étapes :
+
+```Javascript
+exercice = calculer('2/9*(4/3+7/8)')
+exercice.texte = `Calculer : $${exercice.printExpression}$`
+exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
+```
+
+![](../static/img/outilsMathjs-betaEquations109.png)
+
+Le paramètre `substeps` permet ici de contrôler l'affichage des sous-étapes.
+L'exemple précédent ne montrait pas l'étape de mise au même dénominateur 
+
+```Javascript
+exercice = calculer('2/9*(4/3+7/8)', { substeps: true })
+```
+
+![](../static/img/outilsMathjs-betaEquations109bis.png)
