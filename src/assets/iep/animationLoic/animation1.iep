@@ -1,0 +1,26 @@
+/*
+  MathALEA2D
+ @name      animation1.js
+ @author    Loïc Geeraerts
+ @license   MIT License - CC-BY-SA
+ @homepage  À faire
+ */
+
+/* import { point } from '../../../js/modules/2d'
+import Alea2iep from '../../../js/modules/Alea2iep'
+import { pointEquidistant } from '../../../js/modules/iepMacros/MacrosLolo/pointEquidistant'
+
+const anim = new Alea2iep() */
+
+// anim.vitesse = 200
+// anim.tempo = 0
+
+const A = point(4, 1, 'A')
+anim.pointCreer(A, { dx: -1, tempo: 0 })
+anim.pointMasquer(A)
+
+const B = point(8, 0, 'B')
+anim.pointCreer(B, { dx: 1, dy: 1, tempo: 0 })
+anim.pointMasquer(B)
+// Je ne donne pas de références à ce segment car je ne m'en sers pas après
+anim.traitRapide(A, B)
