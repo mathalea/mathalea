@@ -1060,19 +1060,21 @@ export default function equationsProgression () {
           break
         }
         case 107: {
-          exercice = calculer(expressionLitterale('(8*x-6)^2+(-9*x-2)*(7*x+2)', aleaVariables({
-            a: true,
-            b: true,
-            c: true,
-            d: false
-          })).toString(), { name: 'A' })
-          exercice.texte = `Développer puis réduire l'expression suivante : $${exercice.name}=${exercice.expression}$`
+          exercice = calculer('(5*x-3)^2', { name: 'A' })
+          exercice.texte = `Développer puis réduire l'expression suivante : $${exercice.name}=${exercice.printExpression}$`
+          exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.name}=${exercice.printResult}$`
           break
         }
         case 108: {
           exercice = {}
           exercice.texte = `$${toTex('(4+(-6)*x)/(-8)=1*x+(-7)/3', { supprPlusMoins: false })}$`
           exercice.texteCorr = ''
+          break
+        }
+        case 109: {
+          exercice = calculer('9/2*(4/3+7/8)', { substeps: true })
+          exercice.texte = `Calculer : $${exercice.printExpression}$`
+          exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
           break
         }
       }

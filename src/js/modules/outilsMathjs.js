@@ -455,8 +455,8 @@ export function calculExpression (expression = '4/3+5/6', factoriser = false, de
 * @param {Objet} params // Les paramètres (commentaires visibles , sous-étapes visibles, fraction-solution au format MixedNumber)
 * @param {string} expression // Une expression à calculer ou à développer
 */
-export function calculer (expression, params = { name: undefined, comment: false, substeps: false, mixed: true }) {
-  params = Object.assign({ comment: false, substeps: false, mixed: true, name: undefined }, params)
+export function calculer (expression, params) {
+  params = Object.assign({ comment: false, substeps: false, mixed: false, name: undefined }, params)
   // La fonction simplifyExpression est une fonction mathsteps
   // Elle renvoie toutes les étapes d'un calcul numérique ou d'un développement-réduction
   // L'addition de deux fractions est classée dans les sous-étapes bizarrement
@@ -543,7 +543,7 @@ export function calculer (expression, params = { name: undefined, comment: false
   ${stepsExpression.join('\\\\')}
   \end{aligned}$
   `
-  return { texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: commentaires, expression: expressionPrint, name: params.name }
+  return { printResult: toTex(steps[steps.length - 1].newNode), netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: commentaires, printExpression: expressionPrint, name: params.name }
 }
 
 export function aleaEquation (equation = 'a*x+b=c*x-d', variables = { a: false, b: false, c: false, d: false, test: 'a>b or true' }, debug = false) { // Ne pas oublier le signe de la multiplication
