@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, ecritureAlgebrique } from '../../modules/outils.js'
 import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
@@ -45,12 +45,12 @@ export default function DeriveeQuotient () {
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
-    const listeTypeDeQuestionsDisponibles = ['poly/poly1', 'mon/poly1', 'racine/poly1']
+    const listeTypeDeQuestionsDisponibles = ['poly/poly1', 'mon/poly1']//, 'racine/poly1']
+    if (this.sup2) {
+      listeTypeDeQuestionsDisponibles.push('exp/poly1')
+    }
     if (this.sup === 2) {
       // listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
-      if (this.sup2) {
-        listeTypeDeQuestionsDisponibles.push('exp/poly1', 'exp/poly2centre')
-      }
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, expression, nameF, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -93,13 +93,39 @@ export default function DeriveeQuotient () {
       texte = ''
       texte += `$${nameF}:x\\longmapsto ${prettyTex(math.simplify(expression, reglesDeSimplifications))}$`
       // Correction
+      const derNum = math.simplify(math.derivative(termeNum, 'x'), reglesDeSimplifications)
+      const derDen = math.simplify(math.derivative(termeDen, 'x'), reglesDeSimplifications)
+      texteCorr = ''
       // texteCorr = `$${nameF}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
-      texteCorr = 'Correction non encore implémentée.'
-      // texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$ alors leur produit est dérivable sur $I$ et on a la formule : '
-      // texteCorr += '\\[(u\\times v)\'=u\'\\times v+u\\times v\'.\\]'
-      // texteCorr += `Ici $${nameF}=u\\times v$ avec : `
-      // texteCorr += `\\[\\begin{aligned}u&:x\\mapsto ${prettyTex(math.parse(exprf1))}\\\\ v&:x\\mapsto${prettyTex(math.parse(exprf2))}.\\end{aligned}\\]`
+      texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$, et que <emph>$g$ ne s\'annule pas sur $I$</emph> alors leur quotient est dérivable sur $I$ et on a la formule : '
+      texteCorr += '\\[\\left(\\frac{u}{v}\\right)\'=\\frac{u\'\\times v-u\\times v\'}{v^2}.\\]'
+      texteCorr += `Ici $${nameF}=\\frac{u}{v}$ avec : `
+      texteCorr += `\\[\\begin{aligned}u&:x\\mapsto ${prettyTex(math.parse(termeNum))},\\ u':x\\mapsto ${prettyTex(derNum)}\\\\ v&:x\\mapsto${prettyTex(math.parse(termeDen))},\\ v':x\\mapsto${prettyTex(derDen)}.\\end{aligned}\\]`
+      switch (listeTypeDeQuestions[i]) {
+        case 'poly/poly1':
+          texteCorr += 'En appliquant la formule ci-dessus, on obtient'
+          if (fNum.deg === 1) {
+            // fNum = ax+b, fDen = cx+d
+            const a = fNum.monomes[1]
+            const b = fNum.monomes[0]
+            const c = fDen.monomes[1]
+            const d = fDen.monomes[0]
+            texteCorr += `\\[${nameF}'(x)=\\frac{${a}(${termeDen})-(${termeNum})(${c})}{(${termeDen})^2}.\\]`
+            texteCorr += 'D\'où, en développant le numérateur : '
+            texteCorr += `\\[${nameF}'(x)=\\frac{${Polynome.print([a * d, a * c])}-(${Polynome.print([c * b, c * a])})}{(${termeDen})^2}.\\]`
+            texteCorr += 'Les termes en $x$ se compensent et on obtient : '
+            texteCorr += `\\[${nameF}'(x)=\\frac{${a * d}${ecritureAlgebrique(-c * b)}}{(${termeDen})^2}.\\]`
+            texteCorr += 'C\'est-à-dire : '
+            texteCorr += `\\[${nameF}'(x)=\\frac{${(a * d) - (c * b)}}{(${termeDen})^2}.\\]`
+          } else if (fNum.deg === 2) {
+            texteCorr += `\\[${nameF}'(x)=\\frac{(${prettyTex(derNum)})(${termeDen})-(${termeNum})(${prettyTex(derDen)})}{(${termeDen})^2}.\\]`
+          }
+          break
 
+        default:
+          texteCorr += 'TODO'
+          break
+      }
       texte = texte.replaceAll('\\frac', '\\dfrac')
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
 
