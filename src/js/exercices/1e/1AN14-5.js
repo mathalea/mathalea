@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, ecritureAlgebrique, prettyTex } from '../../modules/outils.js'
 import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, fraction } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative, fraction: fraction }
@@ -10,14 +10,6 @@ export const titre = 'Dérivée d\'un quotient'
  * @author Jean-Léon Henry
  * Référence 1AN14-5
  */
-
-/**
- * @param {string} expression expression parsée
- * @returns expression en LaTeX avec multication implicite
- */
-function prettyTex (expression) {
-  return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
-}
 
 export default function DeriveeQuotient () {
   Exercice.call(this)
