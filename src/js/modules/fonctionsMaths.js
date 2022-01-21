@@ -469,27 +469,57 @@ export class Polynome {
   }
 
   /**
-  * Addition de deux Polynome
-  * @param {Polynome} p
+   * Polynome type conversion to String
+   * @returns le résultat de toMathExpr()
+   */
+  toString () {
+    return this.toMathExpr()
+  }
+
+  /**
+  * Ajoute un Polynome ou une constante
+  * @param {Polynome|number|Fraction} p
+  * @example p.add(3) pour ajouter la constante 3 à p
   * @returns {Polynome} this+p
   */
   add (p) {
-    const degSomme = max(this.deg, p.deg)
-    const pInf = equal(p.deg, degSomme) ? this : p
-    const pSup = equal(p.deg, degSomme) ? p : this
-    const coeffSomme = pSup.monomes.map(function (el, index) { return index <= pInf.deg ? fraction(add(el, pInf.monomes[index])) : fraction(el) })
-    return new Polynome({ coeffs: coeffSomme })
+    if (typeof p === 'number' || p.type === 'Fraction') {
+      const coeffs = this.monomes
+      coeffs[0] = add(this.monomes[0], p)
+      return new Polynome({ coeffs })
+    } else if (p.constructor.name === 'Polynome') {
+      const degSomme = max(this.deg, p.deg)
+      const pInf = equal(p.deg, degSomme) ? this : p
+      const pSup = equal(p.deg, degSomme) ? p : this
+      const coeffSomme = pSup.monomes.map(function (el, index) { return index <= pInf.deg ? fraction(add(el, pInf.monomes[index])) : fraction(el) })
+      return new Polynome({ coeffs: coeffSomme })
+    } else {
+      window.notify('Polynome.add(arg) : l\'argument n\'est ni un nombre, ni un polynome', { p })
+    }
   }
 
   /**
  *
- * @param {number} k nombre ou fraction
- * Exemple : poly = poly.multiply(fraction(1,3)) divise tous les coefficients de poly par 3.
- * @returns k fois this
+ * @param {Polynome|number|Fraction} q Polynome, nombre ou fraction
+ * @example poly = poly.multiply(fraction(1,3)) divise tous les coefficients de poly par 3.
+ * @returns q fois this
  */
-  multiply (k) {
-    const coeffs = this.monomes.map(function (el, i) { return fraction(multiply(el, k)) })
-    return new Polynome({ rand: false, coeffs: coeffs })
+  multiply (q) {
+    let coeffs
+    if (typeof q === 'number' || q.type === 'Fraction') {
+      coeffs = this.monomes.map(function (el, i) { return fraction(multiply(el, q)) })
+    } else if (q.constructor.name === 'Polynome') {
+      coeffs = new Array(this.deg + q.deg + 1)
+      coeffs.fill(0)
+      for (let i = 0; i <= this.deg; i++) {
+        for (let j = 0; j <= q.deg; j++) {
+          coeffs[i + j] = add(coeffs[i + j], multiply(this.monomes[i], q.monomes[j]))
+        }
+      }
+    } else {
+      window.notify('Polynome.multiply(arg) : l\'argument n\'est ni un nombre, ni un polynome', { q })
+    }
+    return new Polynome({ coeffs })
   }
 
   /**

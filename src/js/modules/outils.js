@@ -8655,3 +8655,12 @@ export function listeEntiersSommeConnue (nbElements, total, valMin = 1) {
   }
   return liste
 }
+
+/**
+ * @param {string} expression expression parsée
+ * @returns expression en LaTeX avec multication implicite
+ * @author Jean-Léon Henry
+ */
+export function prettyTex (expression) {
+  return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
+}
