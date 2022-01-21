@@ -2,8 +2,8 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { polygone, segment, ObjetMathalea2D, point, mathalea2d, texteParPosition, fixeBordures } from '../../modules/2d.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { parse } from 'mathjs'
-import { calculExpression, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
+import { parse, simplify } from 'mathjs'
+import { toTex, calculer, calculExpression, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
 
 // eslint-disable-next-line no-debugger
 // debugger
@@ -61,7 +61,7 @@ function schemaBarre () {
 export default function equationsProgression () {
   Exercice.call(this)
   const formulaire = []
-  for (let i = 0; i < 88; i++) formulaire.push(`${i}`)
+  for (let i = 0; i < 109; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
     'Type de question', this.nbQuestions, formulaire.join('\n')
@@ -82,7 +82,7 @@ export default function equationsProgression () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
     let nquestion = 0
-    for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 100;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 200;) { // Boucle principale où i+1 correspond au numéro de la question
       nquestion = this.sup === 0 ? cpt + 1 : this.sup
       if (dDebug) {
         console.log(`
@@ -848,6 +848,231 @@ export default function equationsProgression () {
             f: false,
             test: 'd>1 and e>1 and f>1'
           })).toString(), false, dDebug)
+          break
+        }
+        case 89: {
+          exercice = calculer(expressionLitterale('a/d+8+x+b/e*e-7+(x-3)^2/6', aleaVariables({
+            a: true,
+            b: true,
+            c: true,
+            d: false,
+            e: false,
+            f: false,
+            test: 'd>1 and e>1 and f>1'
+          })).toString())
+          break
+        }
+        case 90: {
+          exercice = calculer(expressionLitterale('nthRoot(4)', aleaVariables({
+            a: true,
+            b: true,
+            c: true,
+            d: false,
+            e: false,
+            f: false,
+            test: 'd>1 and e>1 and f>1'
+          })).toString())
+          break
+        }
+        case 91: {
+          exercice = calculer(expressionLitterale('nthRoot(24)', aleaVariables({
+            a: true,
+            b: true,
+            c: true,
+            d: false,
+            e: false,
+            f: false,
+            test: 'd>1 and e>1 and f>1'
+          })).toString())
+          break
+        }
+        case 92: {
+          exercice = resoudreEquation(aleaEquation('5^2=AB^2+3^2', {
+            a: false,
+            b: true,
+            c: false,
+            test: 'abs(b)%c!=0'
+          }), dDebug)
+          break
+        }
+        case 93: {
+          exercice = resoudreEquation(aleaEquation('AB^2-3^2=0', {
+            a: false,
+            b: true,
+            c: false,
+            test: 'abs(b)%c!=0'
+          }), dDebug)
+          break
+        }
+        case 94: {
+          exercice = resoudreEquation(aleaEquation('AB^2-3=0', {
+            a: false,
+            b: true,
+            c: false,
+            test: 'abs(b)%c!=0'
+          }), dDebug)
+          break
+        }
+        case 95: {
+          exercice = calculer(expressionLitterale('nthRoot(24)', aleaVariables({
+            a: true,
+            b: true,
+            c: true,
+            d: false,
+            e: false,
+            f: false,
+            test: 'd>1 and e>1 and f>1'
+          })).toString())
+          break
+        }
+        case 96: {
+          exercice = calculer('(2*x-3)^2')
+          break
+        }
+        case 97: {
+          exercice = calculer('(2*x-3*x)^2')
+          break
+        }
+        case 98: {
+          exercice = calculExpression(expressionLitterale('a/d+(b/e)', aleaVariables({
+            a: 'pickRandom([-1,1])*randomInt(1,20)',
+            b: 'pickRandom([-1,1])*randomInt(1,20)',
+            // c: true,
+            d: 'randomInt(1,20)',
+            e: 'randomInt(1,20)',
+            // f: false,
+            test: 'd!=e and d>1 and e>1 and a%d!=0 and b%e!=0 and gcd(abs(a),d)==1 and gcd(abs(b),e)==1 and (d%e==0 or e%d==0)'
+          })).toString(), false, dDebug)
+          exercice.texte = `Calculer $${exercice.expression}$`
+          break
+        }
+        case 99: {
+          exercice = calculExpression(expressionLitterale('a/d+(b/e)', aleaVariables({
+            a: 'pickRandom([-1,1])*randomInt(1,10)',
+            b: 'pickRandom([-1,1])*randomInt(1,10)',
+            // c: true,
+            d: 'randomInt(1,10)',
+            e: 'randomInt(1,10)',
+            // f: false,
+            test: 'gcd(d,e)==1 and d>1 and e>1 and a%d!=0 and b%e!=0 and gcd(abs(a),d)==1 and gcd(abs(b),e)==1'
+          })).toString(), false, dDebug)
+          exercice.texte = `Calculer $${exercice.expression}$`
+          break
+        }
+        case 100: {
+          exercice = calculExpression(expressionLitterale('a+(b/e)', aleaVariables({
+            a: 'pickRandom([-1,1])*randomInt(1,20)',
+            b: 'pickRandom([-1,1])*randomInt(1,20)',
+            // c: true,
+            // d: 'randomInt(1,10)',
+            e: 'randomInt(1,10)',
+            // f: false,
+            test: 'e>1 and gcd(abs(b),e)==1 and abs(b)>e'
+          })).toString(), false, dDebug)
+          exercice.texte = `Calculer $${exercice.expression}$`
+          break
+        }
+        case 101: {
+          exercice = calculExpression(expressionLitterale('(8*x-6)^2', aleaVariables({
+            a: 'pickRandom([-1,1])*randomInt(1,20)',
+            b: 'pickRandom([-1,1])*randomInt(1,20)',
+            // c: true,
+            // d: 'randomInt(1,10)',
+            e: 'randomInt(1,10)',
+            // f: false,
+            test: 'e>1 and gcd(abs(b),e)==1 and abs(b)>e'
+          })).toString(), false, dDebug)
+          exercice.texte = `Calculer $${exercice.expression}$` + exercice.texteCorr
+          break
+        }
+        case 102: {
+          exercice = calculer('(6*x-7)^2', { comment: true, substeps: false }, dDebug)
+          break
+        }
+        case 103: {
+          exercice = {}
+          const expr = '5+1*4+1*x-1*(x^2+1*3^2+0)+0*4+0*y+(-5)*(-6)+4/1+4/5+4/(-1)+4/(-5)'
+          exercice.texte = `
+          $${toTex(expr, { suppr0: false, suppr1: false })}$
+          <br>
+          $${toTex(expr, { suppr0: true, suppr1: true })}$
+          `
+          exercice.texteCorr = ''
+          break
+        }
+        case 104: {
+          exercice = {}
+          const expr = '5+1*4+1*x-1*(x^2+1*3^2+0)+0*4+0*y+(-5)*(-6)+4/1+4/5+4/(-1)+4/(-5)'
+          exercice.texte = `
+          $${toTex(expr, { suppr0: false, suppr1: false })}$
+          <br>
+          $${toTex(expr, { suppr0: true, suppr1: true })}$
+          `
+          exercice.texteCorr = ''
+          break
+        }
+        case 105: {
+          const variables = aleaVariables(
+            {
+              a: true,
+              b: true,
+              c: true,
+              d: false,
+              e: false,
+              f: false,
+              disc: 'fraction((b/e)^2-4*(a/d)*(c/f))',
+              test: 'abs(a)!=d and abs(b)!=e and abs(c)!=f and abs(a)<6 and abs(b)<6 and abs(c)<6 and 1<=d<6 and 1<=e<6 and 1<=f<6 and gcd(abs(a),d)==1 and gcd(abs(b),e)==1 and gcd(abs(c),f)==1'
+            }
+          )
+          const polynomeTex = toTex(simplify('a/d*x^2+b/e*x+c/f', [], variables), { suppr1: true })
+          const discriminantTex = toTex(simplify('(b/e)^2-4*(a/d)*(c/f)', [], variables), { suppr1: true })
+          const stepscalculsDiscriminant = calculer(simplify('(b/e)^2-4*(a/d)*c/f', [], variables).toString(), { comments: false, mixed: false }).texteCorr
+          exercice = {}
+          exercice.texteCorr = `$\\Delta = b^2-4ac=${discriminantTex}=${toTex(variables.disc.toFraction())}$
+          <br>
+          ${stepscalculsDiscriminant}`
+          exercice.texte = `Le discriminant de $${polynomeTex}$ est : `
+          break
+        }
+        case 106: {
+          const variables = aleaVariables(
+            {
+              a: true,
+              b: true,
+              c: true,
+              d: 1,
+              e: 1,
+              f: 1,
+              disc: 'fraction((b/e)^2-4*(a/d)*(c/f))',
+              test: 'abs(a)!=d and abs(b)!=e and abs(c)!=f and abs(a)<6 and abs(b)<6 and abs(c)<6 and 1<d<6 and 1<e<6 and 1<f<6 and gcd(abs(a),d)==1 and gcd(abs(b),e)==1 and gcd(abs(c),f)==1'
+            }
+          )
+          const polynomeTex = toTex(simplify('a/d*x^2+b/e*x+c/f', [], variables), { suppr1: true })
+          const discriminantTex = toTex(simplify('(b/e)^2-4*(a/d)*(c/f)', [], variables), { suppr1: true })
+          const stepscalculsDiscriminant = calculer(simplify('(b/e)^2-4*(a/d)*c/f', [], variables).toString(), { comments: false, mixed: false, name: '\\Delta' }).texteCorr
+          exercice = {}
+          exercice.texteCorr = `$\\Delta = b^2-4ac=${discriminantTex}=${toTex(variables.disc.toFraction())}$
+          <br>
+          Calcul détaillé :
+          <br>
+          ${stepscalculsDiscriminant}`
+          exercice.texte = `Le discriminant de $${polynomeTex}$ est : `
+          break
+        }
+        case 107: {
+          exercice = calculer(expressionLitterale('(8*x-6)^2+(-9*x-2)*(7*x+2)', aleaVariables({
+            a: true,
+            b: true,
+            c: true,
+            d: false
+          })).toString(), { name: 'A' })
+          exercice.texte = `Développer puis réduire l'expression suivante : $${exercice.name}=${exercice.expression}$`
+          break
+        }
+        case 108: {
+          exercice = {}
+          exercice.texte = `$${toTex('(4+(-6)*x)/(-8)=1*x+(-7)/3', { supprPlusMoins: false })}$`
+          exercice.texteCorr = ''
           break
         }
       }
