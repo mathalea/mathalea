@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range1, combinaisonListesSansChangerOrdre, texNombrec, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, contraindreValeur, compteOccurences, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range1, texNombrec, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, contraindreValeur, compteOccurences, sp, combinaisonListes2 } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { max } from 'mathjs'
@@ -61,9 +61,8 @@ export default function sommmeFractionsDecimales () {
         }
       }
     }
-    console.log(typesDeQuestionsDisponibles)
     if (compteOccurences(typesDeQuestionsDisponibles, 7) > 0) typesDeQuestionsDisponibles = range1(6) // Teste si l'utilisateur a choisi tout
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = combinaisonListes2(typesDeQuestionsDisponibles, this.nbQuestions)
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c, reponseAMC, denAMC, numAMC, choix; i < this.nbQuestions && cpt < 50;) {
       a = randint(2, 19)
@@ -147,7 +146,6 @@ export default function sommmeFractionsDecimales () {
           b = randint(3, 50)
           c = randint(2, b - 1)
           a = randint(2, 20, [b, c])
-          console.log('b=', b, '      c=', c)
           texte = `$${a}+${texFraction(b, denAMC)}-${texFraction(c, denAMC)}$`
           numAMC = calcul(a * denAMC + b - c)
           reponseAMC = calcul(numAMC / denAMC)
