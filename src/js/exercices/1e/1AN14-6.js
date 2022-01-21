@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, rienSi1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, rienSi1, prettyTex } from '../../modules/outils.js'
 import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, multiply, divide } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
@@ -10,14 +10,6 @@ export const titre = 'Dérivée d\'une composée affine'
  * @author Jean-Léon Henry
  * Référence 1AN14-6
  */
-
-/**
- * @param {string} expression expression parsée
- * @returns expression en LaTeX avec multication implicite
- */
-function prettyTex (expression) {
-  return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')
-}
 
 export default function DeriveeComposee () {
   Exercice.call(this)
@@ -66,7 +58,7 @@ export default function DeriveeComposee () {
       const f = dictFonctions[typeF]
       // Expression finale de la fonction
       exprF = typeF === 'monome' ? f.toMathExpr() : f + '(x)'
-      expression = typeF === 'monome' ? `${rienSi1(f.monomes[f.deg])}(${polAff.toMathExpr()})^${f.deg}` : `${f}(${polAff.toMathExpr()})`
+      expression = typeF === 'monome' ? `${rienSi1(f.monomes[f.deg])}(${polAff})^${f.deg}` : `${f}(${polAff})`
       // Ensemble de dérivation
       // ensembleDerivation = typeF === 'racine' ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
       // ensembleDerivation = typeF === 'inv' ? '\\mathbb{R}^*' : ensembleDerivation
@@ -99,25 +91,25 @@ export default function DeriveeComposee () {
           texteCorr += `\\[${namef}'(x)=${rienSi1(a)}${prettyTex(math.simplify(expression, reglesDeSimplifications))}.\\]`
           break
         case 'inv':
-          texteCorr += `\\[${namef}'(x)=${a}\\times${prettyTex(math.simplify(`-${f}(${polAff.toMathExpr()})^2`, reglesDeSimplifications))}.\\]`
+          texteCorr += `\\[${namef}'(x)=${a}\\times${prettyTex(math.simplify(`-${f}(${polAff})^2`, reglesDeSimplifications))}.\\]`
           texteCorr += 'D\'où, en simplifiant : '
-          texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(`${-a}/(${polAff.toMathExpr()})^2`, reglesDeSimplifications))}.\\]`
+          texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(`${-a}/(${polAff})^2`, reglesDeSimplifications))}.\\]`
           break
         case 'racine': {
-          texteCorr += `\\[${namef}'(x)=${a}\\times${prettyTex(math.simplify(`1/(2*sqrt(${polAff.toMathExpr()}))`, reglesDeSimplifications))}.\\]`
+          texteCorr += `\\[${namef}'(x)=${a}\\times${prettyTex(math.simplify(`1/(2*sqrt(${polAff}))`, reglesDeSimplifications))}.\\]`
           texteCorr += 'D\'où, en simplifiant :'
           const num = a % 2 === 0 ? divide(a, 2) : a
-          const den = `${a % 2 === 0 ? '' : '2*'}sqrt(${polAff.toMathExpr()})`
+          const den = `${a % 2 === 0 ? '' : '2*'}sqrt(${polAff})`
           texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(`${num}/(${den})`, reglesDeSimplifications))}.\\]`
           break
         }
         case 'monome':
-          texteCorr += `\\[${namef}'(x)=${a}\\times ${prettyTex(math.simplify(`${f.deg}(${polAff.toMathExpr()})${f.deg === 2 ? '' : `^(${f.deg - 1})`}`, reglesDeSimplifications))}.\\]`
+          texteCorr += `\\[${namef}'(x)=${a}\\times ${prettyTex(math.simplify(`${f.deg}(${polAff})${f.deg === 2 ? '' : `^(${f.deg - 1})`}`, reglesDeSimplifications))}.\\]`
           texteCorr += 'D\'où, en simplifiant : '
-          texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(`${a}*${f.deg}(${polAff.toMathExpr()})${f.deg === 2 ? '' : `^(${f.deg - 1})`}`, reglesDeSimplifications))}.\\]`
+          texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(`${a}*${f.deg}(${polAff})${f.deg === 2 ? '' : `^(${f.deg - 1})`}`, reglesDeSimplifications))}.\\]`
           if (f.deg === 2) {
             texteCorr += 'On développe et on réduit pour obtenir  :'
-            texteCorr += `\\[.${namef}'(x)=${Polynome.print([multiply(2, multiply(a, b)), multiply(2, multiply(a, a))])}\\]`
+            texteCorr += `\\[.${namef}'(x)=${polAff.multiply(2 * a)}\\]`
           }
           break
         default:
