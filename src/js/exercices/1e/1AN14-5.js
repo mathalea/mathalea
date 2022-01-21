@@ -91,7 +91,7 @@ export default function DeriveeQuotient () {
       // texte = askFacto ? 'Dans cette question, on demande la réponse sous forme factorisée.<br>' : ''
       // texte = askFormule ? `Dans cette question, on demande d'utiliser la formule de dérivation d'un produit. ${askQuotient ? 'Mettre le résultat sous forme d\'un quotient.' : ''}<br>` : texte
       texte = ''
-      texte += `$${nameF}:x\\longmapsto ${prettyTex(math.simplify(expression, reglesDeSimplifications))}$`
+      texte += `$${nameF}:x\\longmapsto ${prettyTex(math.simplify(expression, ['(n1)/(n2)->n1/n2']))}$`
       // Correction
       const derNum = math.simplify(math.derivative(termeNum, 'x'), reglesDeSimplifications)
       const derDen = math.simplify(math.derivative(termeDen, 'x'), reglesDeSimplifications)
@@ -145,6 +145,19 @@ export default function DeriveeQuotient () {
           texteCorr += 'On simplifie pour obtenir :'
           texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${fNum.multiply(c * fNum.deg).add(fNum.derivee().multiply(d)).add(fNum.multiply(-c))}}{(${termeDen})^2}.}\\]`
           texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.'
+          break
+        }
+        case 'exp/poly1' : {
+          // fDen = cx+d
+          const c = fDen.monomes[1]
+          const d = fDen.monomes[0]
+          texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen}\\neq 0$. C'est-à-dire $x\\neq${math.fraction(-d / c).toLatex()}$. `
+          texteCorr += 'On obtient alors : '
+          texteCorr += `\\[${nameF}'(x)=\\frac{${fNum}(${fDen})-${fNum}(${c})}{(${termeDen})^2}.\\]`
+          texteCorr += 'On factorise par $e^x$, et on obtient : '
+          texteCorr += `\\[${nameF}'(x)=\\frac{${fNum}(${fDen}${ecritureAlgebrique(-c)})}{(${termeDen})^2},\\]`
+          texteCorr += 'ce qui donne, après réduction : '
+          texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${fNum}(${Polynome.print([d - c, c])})}{(${termeDen})^2}.}\\]`
           break
         }
         default:
