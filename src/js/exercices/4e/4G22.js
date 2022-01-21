@@ -153,12 +153,14 @@ export default function ProblemesPythagore () {
         listeTypeDeQuestions[i] === 'parallelogramme_n_est_pas_losange' ||
         listeTypeDeQuestions[i] === 'parallelogramme_n_est_pas_rectangle'
       ) {
-        c += randint(-3, 3, [0]) // on change la valeur de c
-        while (a ** 2 + b ** 2 === c ** 2) {
+        do {
+          c = triplet[2] + randint(-3, 3, [0]) // on change la valeur de c
+          while (a ** 2 + b ** 2 === c ** 2) {
           // si par hasard (est-ce possible ?) on retombe sur un triplet pythagoricien on change les valeurs
-          c += randint(-3, 3, [0]) // on change la valeur de c
-          b += randint(-3, 3, [0]) // on change la valeur de b
-        }
+            c += randint(-3, 3, [0]) // on change la valeur de c
+            b += randint(-3, 3, [0]) // on change la valeur de b
+          }
+        } while (c < a || c < b || c >= a + b)
       }
       if (a > 9 && choice([true, true, true, false])) {
         // le plus souvent on utilise des décimaux
