@@ -469,6 +469,14 @@ export class Polynome {
   }
 
   /**
+   * Polynome type conversion to String
+   * @returns le résultat de toMathExpr()
+   */
+  toString () {
+    return this.toMathExpr()
+  }
+
+  /**
   * Addition de deux Polynome
   * @param {Polynome} p
   * @returns {Polynome} this+p
