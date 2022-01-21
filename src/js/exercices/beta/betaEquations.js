@@ -61,7 +61,7 @@ function schemaBarre () {
 export default function equationsProgression () {
   Exercice.call(this)
   const formulaire = []
-  for (let i = 0; i < 109; i++) formulaire.push(`${i}`)
+  for (let i = 0; i < 110; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
     'Type de question', this.nbQuestions, formulaire.join('\n')
