@@ -97,7 +97,7 @@ export default function DeriveeQuotient () {
       const derDen = math.simplify(math.derivative(termeDen, 'x'), reglesDeSimplifications)
       texteCorr = ''
       // texteCorr = `$${nameF}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
-      texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$, et que $g$ ne s\'annule pas sur $I$ alors leur quotient est dérivable sur $I$ et on a la formule : '
+      texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$, et que $v$ ne s\'annule pas sur $I$ alors leur quotient est dérivable sur $I$ et on a la formule : '
       texteCorr += '\\[\\left(\\frac{u}{v}\\right)\'=\\frac{u\'\\times v-u\\times v\'}{v^2}.\\]'
       texteCorr += `Ici $${nameF}=\\frac{u}{v}$ avec : `
       texteCorr += `\\[\\begin{aligned}u&:x\\mapsto ${prettyTex(math.parse(termeNum))},\\ u':x\\mapsto ${prettyTex(derNum)}\\\\ v&:x\\mapsto${prettyTex(math.parse(termeDen))},\\ v':x\\mapsto${prettyTex(derDen)}.\\end{aligned}\\]`
@@ -126,13 +126,27 @@ export default function DeriveeQuotient () {
             texteCorr += `\\[${nameF}'(x)=\\frac{(${prettyTex(derNum)})(${termeDen})-(${termeNum})(${prettyTex(derDen)})}{(${termeDen})^2}.\\]`
             texteCorr += 'D\'où, en développant le numérateur : '
             const polyInterm = new Polynome({ coeffs: [d * b, b * c + 2 * a * d, 2 * a * c] })
-            texteCorr += `\\[${nameF}'(x)=\\frac{${polyInterm.toMathExpr()}-(${fNum.multiply(c).toMathExpr()})}{(${termeDen})^2}.\\]`
+            texteCorr += `\\[${nameF}'(x)=\\frac{${polyInterm}-(${fNum.multiply(c)})}{(${termeDen})^2}.\\]`
             texteCorr += 'On réduit le numérateur pour obtenir : '
-            texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${polyInterm.add(fNum.multiply(-c)).toMathExpr()}}{(${termeDen})^2}.}\\]`
+            texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${polyInterm.add(fNum.multiply(-c))}}{(${termeDen})^2}.}\\]`
+            texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur si possible, mais cela sort du cadre de cet exercice.'
           }
           break
         }
-        
+        case 'mon/poly1': {
+          // fDen = cx+d
+          const c = fDen.monomes[1]
+          const d = fDen.monomes[0]
+          texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen}\\neq 0$. C'est-à-dire $x\\neq${math.fraction(-d / c).toLatex()}$. `
+          texteCorr += 'On obtient alors : '
+          texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee()}(${fDen})-${fNum}(${c})}{(${termeDen})^2}.\\]`
+          texteCorr += 'D\'où, en développant le numérateur : '
+          texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.multiply(c * fNum.deg).add(fNum.derivee().multiply(d))}${fNum.multiply(-c).toMathExpr(true)}}{(${termeDen})^2}.\\]`
+          texteCorr += 'On simplifie pour obtenir :'
+          texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${fNum.multiply(c * fNum.deg).add(fNum.derivee().multiply(d)).add(fNum.multiply(-c))}}{(${termeDen})^2}.}\\]`
+          texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.'
+          break
+        }
         default:
           texteCorr += 'TODO'
           break
