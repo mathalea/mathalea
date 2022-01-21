@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, rienSi1, prettyTex } from '../../modules/outils.js'
 import { Polynome } from '../../modules/fonctionsMaths.js'
-import { simplify, parse, derivative, multiply, divide } from 'mathjs'
+import { simplify, parse, derivative, divide } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Dérivée d\'une composée affine'
 
@@ -59,9 +59,6 @@ export default function DeriveeComposee () {
       // Expression finale de la fonction
       exprF = typeF === 'monome' ? f.toMathExpr() : f + '(x)'
       expression = typeF === 'monome' ? `${rienSi1(f.monomes[f.deg])}(${polAff})^${f.deg}` : `${f}(${polAff})`
-      // Ensemble de dérivation
-      // ensembleDerivation = typeF === 'racine' ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
-      // ensembleDerivation = typeF === 'inv' ? '\\mathbb{R}^*' : ensembleDerivation
 
       // Enoncé
       namef = lettreMinusculeDepuisChiffre(i + 6)
