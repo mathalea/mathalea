@@ -72,21 +72,14 @@ export default function DeriveeQuotient () {
       const listeTypeFonctions = listeTypeDeQuestions[i].split('/')
       const typeNum = listeTypeFonctions[0]
       const typeDen = listeTypeFonctions[1]
-      // On précise les énoncés
-      // askFacto = listeTypeFonctions.includes('exp')
-      // askFormule = listeTypeFonctions.includes('poly1')
-      // askQuotient = listeTypeFonctions.includes('inv')
-      // Expression finale de la fonction
+      // Extraction des fonctions
       const fNum = dictFonctions[typeNum]
       const fDen = dictFonctions[typeDen]
       const termeNum = ['pol', 'mon'].includes(typeNum.substr(0, 3)) ? fNum.toMathExpr() : fNum
       const termeDen = ['pol', 'mon'].includes(typeDen.substr(0, 3)) ? fDen.toMathExpr() : fDen
       expression = `(${termeNum})/(${termeDen})`
-      // Ensemble de dérivation
-      // ensembleDerivation = listeTypeFonctions.includes('racine') ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
-      // ensembleDerivation = listeTypeFonctions.includes('inv') ? '\\mathbb{R}^*' : ensembleDerivation
 
-      // Enoncé
+      // Énoncé
       nameF = lettreMinusculeDepuisChiffre(i + 6)
       // texte = askFacto ? 'Dans cette question, on demande la réponse sous forme factorisée.<br>' : ''
       // texte = askFormule ? `Dans cette question, on demande d'utiliser la formule de dérivation d'un produit. ${askQuotient ? 'Mettre le résultat sous forme d\'un quotient.' : ''}<br>` : texte
