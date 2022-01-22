@@ -258,14 +258,14 @@ export async function initDom () {
             const valeurEnregistree = window.sessionStorage.getItem(`reponse${i}` + context.graine)
             document.getElementById(`champTexteEx0Q${i}`).textContent = valeurEnregistree
           }
-          let hauteurExercice = window.document.querySelector('section').scrollHeight
-          window.parent.postMessage({ hauteurExercice, serie: context.graine, url: window.location.href }, '*')
-          // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
-          setTimeout(() => {
-            hauteurExercice = window.document.querySelector('section').scrollHeight
-            window.parent.postMessage({ hauteurExercice, serie: context.graine, url: window.location.href }, '*')
-          }, 1000)
         }
+        let hauteurExercice = window.document.querySelector('section').scrollHeight
+        window.parent.postMessage({ hauteurExercice, serie: context.graine, iMoodle: new URLSearchParams(window.location.search).get('iMoodle') }, '*')
+        // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
+        setTimeout(() => {
+          hauteurExercice = window.document.querySelector('section').scrollHeight
+          window.parent.postMessage({ hauteurExercice, serie: context.graine, iMoodle: new URLSearchParams(window.location.search).get('iMoodle') }, '*')
+        }, 1000)
         if (window.sessionStorage.getItem('isValide' + context.graine)) {
           const exercice = context.listeObjetsExercice[0]
           const bouton = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
