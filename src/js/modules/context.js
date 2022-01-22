@@ -31,7 +31,6 @@ export function setOutputMoodle () {
   context.isAmc = false
   context.isDiaporama = false
   context.isMoodle = true
-  context.iMoodle = new URLSearchParams(window.location.search).get('IMoodle')
 }
 export function setOutputDiaporama () {
   context.isHtml = true

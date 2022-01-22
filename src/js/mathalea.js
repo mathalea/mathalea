@@ -524,7 +524,7 @@ function miseAJourDuCode () {
   const maGraine = context.seedSpecial ? context.graine + '@' : context.graine
   seedrandom(maGraine, { global: true })
   // ajout des paramètres des exercices dans l'URL et pour le bouton "copier l'url"
-  ;(function gestionURL () {
+   ;(function gestionURL () {
     if (listeDesExercices.length > 0) {
       let finUrl = ''
       if (context.isHtml && !context.isDiaporama) {
@@ -632,6 +632,12 @@ function miseAJourDuCode () {
       } catch (err) {}
       if (context.isAmc) {
         finUrl += `&f=${format}&e=${typeEntete}`
+      }
+      if (context.vue === 'exMoodle' || context.vue === 'correctionMoodle') {
+        const iMoodle = new URLSearchParams(window.location.search).get('iMoodle')
+        if (typeof iMoodle !== 'undefined') {
+          finUrl += `&iMoodle=${iMoodle}`
+        }
       }
       window.history.replaceState('', '', finUrl)
       const url = window.location.href.split('&serie')[0] + '&v=l' // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série et en ajoutant le paramètre pour le mettre en plein écran
@@ -951,12 +957,13 @@ function miseAJourDuCode () {
         params += ',i=1'
         const idIframe = id + ',' + params
         const idIframeCor = idIframe + 'Cor'
-        const urlIframe = `https://coopmaths.fr/mathalea.html?ex=${id},${params}&serie=${context.graine}&v=exMoodle&z=1`
-        const urlIframeCor = `https://coopmaths.fr/mathalea.html?ex=${id},${params}&serie=${context.graine}&v=correctionMoodle&z=1`
+        const mathAleaURL = location.origin + location.pathname
+        const urlIframe = `${mathAleaURL}?ex=${id},${params}&v=exMoodle&z=1`
+        const urlIframeCor = `${mathAleaURL}?ex=${id},${params}&v=correctionMoodle&z=1`
 
         /*
           Quelques remarques :
-          - L'extension 'es6-string-javascript permet d'obtenir la coloration syntaxique de code JS
+          - L'extension 'es6-string-javascript' permet d'obtenir la coloration syntaxique de code JS
           - Le script est un module qui est donc chargé après que le document est parsé, il peut donc accéder à des nodes après la balise script
         */
         codeMoodle += `<question type="shortanswer">
@@ -965,45 +972,47 @@ function miseAJourDuCode () {
 </name>
   <questiontext format="html">
     <text><![CDATA[
-<script defer="true">` + /* javascript */`
+<script>` + /* javascript */`
   if(typeof window.iMathAlea === 'undefined') {
+
     window.iMathAlea = [];
+
     window.addEventListener('message', (event) => {
       if(typeof event.data.iMoodle === 'number' && typeof window.iMathAlea[event.data.iMoodle] !== 'undefined') {
-        const iMathAlea = window.iMathAlea[event.data.iMoodle];
+        const iframe = window.iMathAlea[event.data.iMoodle];
         let hauteur = event.data.hauteurExercice;
         if (typeof hauteur !== 'undefined') {
           hauteur += 50;
-          iMathAlea.iframe.height = hauteur.toString();
+          iframe.height = hauteur.toString();
         }
         if (event.data.score !== undefined) {
-          iMathAlea.champReponseMoodle.value = event.data.score;
-          if (iMathAlea.inputSubmit) {
-            iMathAlea.inputSubmit.click();
-          }
+          iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score;
+          iframe.parentNode.parentNode.querySelector('[name$="_-submit"]').click();
         }
       }
     });
-  }
-  const iMathAlea = {}
-  iMathAlea.iframe = document.createElement('iframe');
-  iMathAlea.iframe.setAttribute('width', '600');
-  iMathAlea.iframe.setAttribute('height', '400');
-  iMathAlea.iframe.setAttribute('id', '${idIframe}');
-  iMathAlea.iframe.setAttribute('src', '${urlIframe}' + '&iMoodle=' + window.iMathAlea.length);
-  iMathAlea.iframe.setAttribute('frameBorder', '0');
-  iMathAlea.iframe.setAttribute('allow', 'fullscreen');
-  document.currentScript.parentNode.insertBefore(iMathAlea.iframe, document.currentScript);
 
-  iMathAlea.champReponseMoodle = document.currentScript.parentNode.parentNode.querySelector('[name$="_answer"]');
-  iMathAlea.champReponseMoodle.type = 'hidden';
-  iMathAlea.idQuestion = iMathAlea.champReponseMoodle.name;
-  iMathAlea.labelReponse = document.querySelector('[for="' + iMathAlea.idQuestion + '"]');
-  iMathAlea.labelReponse.style.display = 'none';
-  iMathAlea.inputSubmit = document.getElementById(iMathAlea.idQuestion.replace('answer','-submit'))
-  if (iMathAlea.inputSubmit) {
-    iMathAlea.inputSubmit.style.display = 'none';
+    style = document.createElement('style');
+    style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls { display: none; }';
+    document.head.appendChild(style);
+
   }
+  
+  graine = document.currentScript.parentNode.parentNode.querySelector('[name$="_:sequencecheck"]').name;
+
+  iframe = document.createElement('iframe');
+  iframe.setAttribute('width', '100%');
+  iframe.setAttribute('height', '400');
+  iframe.setAttribute('id', '${idIframe}');
+  iframe.setAttribute('src', '${urlIframe}' + '&iMoodle=' + window.iMathAlea.length + '&serie=' + graine);
+  iframe.setAttribute('frameBorder', '0');
+  iframe.setAttribute('allow', 'fullscreen');
+  document.currentScript.parentNode.insertBefore(iframe, document.currentScript);
+
+  window.iMathAlea.push(iframe);
+  
+  document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
+
   ` + `
 </script>
       `

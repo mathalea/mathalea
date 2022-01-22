@@ -225,6 +225,9 @@ export async function initDom () {
       divMessage.style.marginBottom = '30px'
       divMessage.style.marginTop = '30px'
     }
+    if (vue === 'exMoodle' || vue === 'correctionMoodle') {
+      document.body.classList.add('exMoodle')
+    }
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
     const accordions = document.getElementsByClassName('ui fluid accordion')
     for (const accordion of accordions) {
