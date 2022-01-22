@@ -1088,7 +1088,7 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
       })
     }
     const score = scoreRetenu(nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100)
-    window.parent.postMessage({ score, hauteurExercice }, '*')
+    window.parent.postMessage({ score, hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')) }, '*')
     try {
       for (let i = 0; i < exercice.nbQuestions; i++) {
         window.sessionStorage.setItem(`reponse${i}` + context.graine, document.getElementById(`champTexteEx0Q${i}`).value)

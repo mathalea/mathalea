@@ -524,7 +524,7 @@ function miseAJourDuCode () {
   const maGraine = context.seedSpecial ? context.graine + '@' : context.graine
   seedrandom(maGraine, { global: true })
   // ajout des paramètres des exercices dans l'URL et pour le bouton "copier l'url"
-  ;(function gestionURL () {
+   ;(function gestionURL () {
     if (listeDesExercices.length > 0) {
       let finUrl = ''
       if (context.isHtml && !context.isDiaporama) {
@@ -632,6 +632,12 @@ function miseAJourDuCode () {
       } catch (err) {}
       if (context.isAmc) {
         finUrl += `&f=${format}&e=${typeEntete}`
+      }
+      if (context.vue === 'exMoodle' || context.vue === 'correctionMoodle') {
+        const iMoodle = new URLSearchParams(window.location.search).get('iMoodle')
+        if (typeof iMoodle !== 'undefined') {
+          finUrl += `&iMoodle=${iMoodle}`
+        }
       }
       window.history.replaceState('', '', finUrl)
       const url = window.location.href.split('&serie')[0] + '&v=l' // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série et en ajoutant le paramètre pour le mettre en plein écran
@@ -918,40 +924,112 @@ function miseAJourDuCode () {
         const id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
         const nbQuestions = listeObjetsExercice[i].nbQuestions
         const titre = listeObjetsExercice[i].titre
-        const video = listeObjetsExercice[i].video
         const pointsParQuestions = listeObjetsExercice[i].pointsParQuestions
+        let params = ''
+        if (listeObjetsExercice[i].sup !== undefined) {
+          params += `s=${listeObjetsExercice[i].sup}`
+        }
+        if (listeObjetsExercice[i].sup2 !== undefined) {
+          params += `,s2=${listeObjetsExercice[i].sup2}`
+        }
+        if (listeObjetsExercice[i].sup3 !== undefined) {
+          params += `,s3=${listeObjetsExercice[i].sup3}`
+        }
+        if (listeObjetsExercice[i].sup4 !== undefined) {
+          params += `,s4=${listeObjetsExercice[i].sup4}`
+        }
+        if (listeObjetsExercice[i].nbQuestionsModifiable) {
+          params += `,n=${listeObjetsExercice[i].nbQuestions}`
+        }
+        // if (listeObjetsExercice[i].video.length > 1) {
+        //   params += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
+        // }
+        params += ',video=0'
+        if (listeObjetsExercice[i].correctionIsCachee) {
+          params += ',cc=1'
+        }
+        if (listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
+          params += ',cd=1'
+        }
+        if (!listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
+          params += ',cd=0'
+        }
+        params += ',i=1'
+        const mathAleaURL = location.origin + location.pathname
+        const urlIframe = `${mathAleaURL}?ex=${id},${params}&v=exMoodle&z=1`
+        const urlIframeCor = `${mathAleaURL}?ex=${id},${params}&v=correctionMoodle&z=1`
+
+        /*
+          Quelques remarques :
+          - L'extension 'es6-string-javascript' permet d'obtenir la coloration syntaxique de code JS
+          - Le script est un module qui est donc chargé après que le document est parsé, il peut donc accéder à des nodes après la balise script
+        */
+
+        const moodleInitialisationFunction = /* javascript */ `
+        if(typeof window.iMathAlea === 'undefined') {
+
+        window.iMathAlea = [];
+
+        window.addEventListener('message', (event) => {
+          if(typeof event.data.iMoodle === 'number' && typeof window.iMathAlea[event.data.iMoodle] !== 'undefined') {
+            const iframe = window.iMathAlea[event.data.iMoodle];
+            let hauteur = event.data.hauteurExercice;
+            if (typeof hauteur !== 'undefined') {
+              hauteur += 50;
+              iframe.height = hauteur.toString();
+            }
+            if (event.data.score !== undefined) {
+              iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score;
+              iframe.parentNode.parentNode.querySelector('[name$="_-submit"]').click();
+            }
+          }
+        });
+
+        style = document.createElement('style');
+        style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls { display: none; }';
+        document.head.appendChild(style);
+        }`
+
+        const moodleSearchSeed = /* javascript */ `
+        // On remonte de parent en parent depuis la balise script jusqu'à trouver le div avec le numero de la question en id
+        searchSeed = document.currentScript;
+        while(searchSeed !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
+          if(typeof searchSeed.id === 'string' && searchSeed.id.startsWith('question-')) {
+            searchSeed = searchSeed.id;
+            break; // la seed a été trouvée
+          }
+          searchSeed = searchSeed.parentNode;
+        }
+        `
+
+        const moodleCreateIframe = function (url) {
+          return /* javascript */ `
+          iframe = document.createElement('iframe');
+          iframe.setAttribute('width', '100%');
+          iframe.setAttribute('height', '400');
+          iframe.setAttribute('src', '${url}' + '&iMoodle=' + window.iMathAlea.length + '&serie=' + searchSeed);
+          iframe.setAttribute('frameBorder', '0');
+          iframe.setAttribute('allow', 'fullscreen');
+          document.currentScript.parentNode.insertBefore(iframe, document.currentScript);
+
+          window.iMathAlea.push(iframe);
+          `
+        }
 
         codeMoodle += `<question type="shortanswer">
 <name>
-  <text>${id} - ${titre} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'}</text>
+  <text>${id} - ${titre} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'},${params}</text>
 </name>
   <questiontext format="html">
     <text><![CDATA[
-      <iframe width="600" height="400" id="iframeMathAlea" src="" frameBorder="0" allow="fullscreen"></iframe>
-
-<script type="module">
-  const champReponseMoodle = document.querySelector('[name$="_answer"]'); 
-  const idQuestion = champReponseMoodle.name;
-  const idInput = document.getElementById(idQuestion.replace('answer','-submit'))
-  if (idInput) {
-    idInput.style.visibility = 'hidden';
-  }
-  document.getElementById('iframeMathAlea').src=\`https://coopmaths.fr/mathalea.html?ex=${id},n=${nbQuestions},i=1${video ? ',video=' + video : ''}&v=exMoodle&serie=\${idQuestion}\`;
-  window.addEventListener('message', (event) => { 
-    let hauteur = event.data.hauteurExercice + 50;
-    if (hauteur !== undefined) {
-      document.getElementById('iframeMathAlea').height = hauteur.toString();
-    } 
-    const labelReponse = document.querySelector('[for$="_answer"]');
-    champReponseMoodle.readOnly=true;
-    labelReponse.style.visibility = 'hidden';
-    if (event.data.score !== undefined) {
-      champReponseMoodle.value = event.data.score;
-      if (idInput) {
-        idInput.click();
-      }
-    }
-    });  
+<script>` + /* javascript */`
+  
+  ${moodleInitialisationFunction}
+  ${moodleSearchSeed}
+  ${moodleCreateIframe(urlIframe)}
+    
+  document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
+  ` + `
 </script>
       `
         codeMoodle += `]]></text>
@@ -967,20 +1045,14 @@ function miseAJourDuCode () {
         }
         codeMoodle += `\n<defaultgrade>${nbQuestions * pointsParQuestions}</defaultgrade>`
         codeMoodle += `\n<generalfeedback>\n<text><![CDATA[
-          <h4>Correction :</h4>
-          <iframe width="600" height="400" id="monIframeCorrection" src="" frameborder="0"></iframe>
-          
-          <script type="module">
-              const champReponseMoodle = document.querySelector('[name$="_answer"]');
-              const idQuestion = champReponseMoodle.name;
-              document.getElementById('monIframeCorrection').src = \`https://coopmaths.fr/mathalea.html?ex=${id},n=${nbQuestions}&v=correctionMoodle&serie=\${idQuestion}\`;
-                  window.addEventListener('message', (event) => { 
-                      if (event.data.hauteurExerciceCorrection !== undefined) {
-                          const hauteur = event.data.hauteurExerciceCorrection + 50;
-                          document.getElementById('monIframeCorrection').height = hauteur.toString();
-                      }
-                  });
-          </script> 
+          <h4>Correction :</h4>          
+  <script>` + /* javascript */ `
+    ${moodleInitialisationFunction}
+    ${moodleSearchSeed}
+    ${moodleCreateIframe(urlIframeCor)}    
+    document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
+  ` + `
+  </script> 
           
         ]]>\n</text>\n</generalfeedback>`
         codeMoodle += '\n</question>'
