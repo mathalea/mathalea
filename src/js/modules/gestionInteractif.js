@@ -880,6 +880,7 @@ export function exerciceCustom (exercice) {
             for (let i = 0; i < exercice.nbQuestions; i++) {
               exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
             }
+            afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
           }
           button.classList.add('disabled')
         })
