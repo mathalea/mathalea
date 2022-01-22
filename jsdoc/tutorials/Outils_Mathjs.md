@@ -12,6 +12,7 @@ Ces outils ont pour objectif d'utiliser la puissance de [Mathjs](https://mathjs.
 6. [RandomSeed](#section5)
 7. [La fonction toTex() de outilsMathjs](#section6)
 8. [La fonction calculer() de outilsMathjs](#section7)
+8. [La fonction resoudre() de outilsMathjs](#section8)
 
 ## Documentation utile <a id="section0"></a>
 
@@ -565,3 +566,69 @@ exercice = calculer('2/9*(4/3+7/8)', { substeps: true })
 ```
 
 ![](../static/img/outilsMathjs-betaEquations109bis.png)
+
+## La fonction resoudre() de outilsMathjs <a id="section8"></a>
+
+Cette fonction donne les étapes de résolution d'une équation du premier degré en utilisant Mathsteps.
+
+```Javascript
+exercice = resoudre('3*x+2=9*x-3')
+exercice.texte = `Résoudre l'équation $${exercice.equation}$ en détaillant les étapes.`
+exercice.texteCorr += `<br>La solution de cette équation est donc $${exercice.solution}$.`
+```
+![](../static/img/outilsMathjs-betaEquations110.png)
+
+On peut retirer la coloration en ajoutant le paramètre `{ color: false }` (qui bug parfois) ou ajouter des commentaires.
+
+On peut également modifier les commentaires.
+
+```Javascript
+const commentairesPersonnalises = {
+    CANCEL_MINUSES: 'Simplifier l\'écriture',
+    SUBTRACT_FROM_BOTH_SIDES: 'Enlever {stepChange} à chaque membre.',
+    SIMPLIFY_ARITHMETIC: ''
+}
+exercice = resoudre('3*x+2=9*x-3', { comment: true, comments: commentairesPersonnalises })
+```
+
+![](../static/img/outilsMathjs-betaEquations110bis.png)
+
+Les commentaires par défaut sont les suivants :
+
+```Javascript
+const defaultComments = {
+    MULTIPLY_BOTH_SIDES_BY_NEGATIVE_ONE: 'Multiplier les deux membres par $-1$.',
+    SUBTRACT_FROM_BOTH_SIDES: `Soustraire $${stepChange}$ à chaque membre.`,
+    ADD_TO_BOTH_SIDES: `Ajouter $${stepChange}$ à chaque membre`,
+    MULTIPLY_TO_BOTH_SIDES: `Multiplier chaque membre par $${stepChange}$.`,
+    DIVIDE_FROM_BOTH_SIDES: `Diviser chaque membre par $${stepChange}$.`,
+    MULTIPLY_BOTH_SIDES_BY_INVERSE_FRACTION: `Multiplier chaque membre par $${stepChange}$.`,
+    SWAP_SIDES: 'Echanger les deux membres.',
+    STATEMENT_IS_FALSE: 'L\'égalité est fausse.',
+    STATEMENT_IS_TRUE: 'L\'égalité est vraie.',
+    DISTRIBUTE: 'Distribution.',
+    SIMPLIFY_RIGHT_SIDE: 'Simplifier le membre de droite.',
+    SIMPLIFY_LEFT_SIDE: 'Simplifier le membre de gauche.',
+    COLLECT_AND_COMBINE_LIKE_TERMS: 'Regrouper et réduire les termes de même nature.',
+    SIMPLIFY_ARITHMETIC: 'Calcul arithmétique.',
+    SIMPLIFY_FRACTION: 'Simplifier une fraction.',
+    REMOVE_MULTIPLYING_BY_NEGATIVE_ONE: 'Calculer la multiplication par $-1$.',
+    REMOVE_ADDING_ZERO: 'Enlever des zéros.',
+    CANCEL_MINUSES: 'Annuler les signes moins.',
+    FIND_ROOTS: 'Trouver la (ou les) solution(s).',
+    SIMPLIFY_SIGNS: 'Simplifier le signe.',
+    MULTIPLY_BY_ZERO: 'Multiplication par zéro.',
+    ADD_FRACTIONS: 'Additionner des fractions.',
+    BREAK_UP_FRACTION: 'Séparer une fraction.',
+    CANCEL_TERMS: 'Annuler les termes.',
+    REMOVE_MULTIPLYING_BY_ONE: 'Retirer la multiplication par $1$.'
+  }
+```
+
+L'exemple suivant montre les étapes de résolution d'une inéquation :
+
+```Javascript
+exercice = resoudre('3*x+2<9*x-3')
+```
+
+![](../static/img/outilsMathjs-betaEquations111.png)
