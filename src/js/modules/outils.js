@@ -2830,7 +2830,7 @@ export function texteEnCouleurEtGras (texte, couleur = '#f15929') {
     return `<span style="color:${couleur};font-weight: bold;">${texte}</span>`
   } else {
     if (couleur[0] === '#') {
-      return `{\\color[HTML]{${couleur.replace('#', '')}}${texte}}`
+      return `{\\bfseries \\color[HTML]{${couleur.replace('#', '')}}${texte}}`
     } else {
       return `{\\bfseries \\color{${couleur.replace('#', '')}}${texte}}`
     }
