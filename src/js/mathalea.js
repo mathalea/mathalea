@@ -998,13 +998,21 @@ function miseAJourDuCode () {
 
   }
   
-  graine = document.currentScript.parentNode.parentNode.querySelector('[name$="_:sequencecheck"]').name;
+  // On remonte de parent en parent depuis la balise script jusqu'à trouver le div avec le numero de la question en id
+  searchSeed = document.currentScript;
+  while(searchSeed !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
+    if(typeof searchSeed.id === 'string' && searchSeed.id.startsWith('question-')) {
+      searchSeed = searchSeed.id;
+      break; // la seed a été trouvée
+    }
+    searchSeed = searchSeed.parentNode;
+  }
 
   iframe = document.createElement('iframe');
   iframe.setAttribute('width', '100%');
   iframe.setAttribute('height', '400');
   iframe.setAttribute('id', '${idIframe}');
-  iframe.setAttribute('src', '${urlIframe}' + '&iMoodle=' + window.iMathAlea.length + '&serie=' + graine);
+  iframe.setAttribute('src', '${urlIframe}' + '&iMoodle=' + window.iMathAlea.length + '&serie=' + searchSeed);
   iframe.setAttribute('frameBorder', '0');
   iframe.setAttribute('allow', 'fullscreen');
   document.currentScript.parentNode.insertBefore(iframe, document.currentScript);
@@ -1029,22 +1037,57 @@ function miseAJourDuCode () {
         }
         codeMoodle += `\n<defaultgrade>${nbQuestions * pointsParQuestions}</defaultgrade>`
         codeMoodle += `\n<generalfeedback>\n<text><![CDATA[
-          <h4>Correction :</h4>
-          <iframe width="600" height="400" id="${idIframeCor}" src="" frameborder="0"></iframe>
-          
-          <script type="module">
-              const champReponseMoodle = document.querySelector('[name$="_answer"]');
-              const idQuestion = champReponseMoodle.name;
-              document.getElementById('${idIframeCor}').src ="${urlIframeCor}";
-                  window.addEventListener('message', (event) => {
-                    if (event.data.url === "${urlIframeCor}") { 
-                      if (event.data.hauteurExerciceCorrection !== undefined) {
-                          const hauteur = event.data.hauteurExerciceCorrection + 50;
-                          document.getElementById('${idIframeCor}').height = hauteur.toString();
-                      }
-                    }
-                  });
-          </script> 
+          <h4>Correction :</h4>          
+  <script>` + /* javascript */ `
+    if(typeof window.iMathAlea === 'undefined') {
+
+      window.iMathAlea = [];
+  
+      window.addEventListener('message', (event) => {
+        if(typeof event.data.iMoodle === 'number' && typeof window.iMathAlea[event.data.iMoodle] !== 'undefined') {
+          const iframe = window.iMathAlea[event.data.iMoodle];
+          let hauteur = event.data.hauteurExercice;
+          if (typeof hauteur !== 'undefined') {
+            hauteur += 50;
+            iframe.height = hauteur.toString();
+          }
+          if (event.data.score !== undefined) {
+            iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score;
+            iframe.parentNode.parentNode.querySelector('[name$="_-submit"]').click();
+          }
+        }
+      });
+  
+      style = document.createElement('style');
+      style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls { display: none; }';
+      document.head.appendChild(style);
+  
+    }
+    
+    // On remonte de parent en parent depuis la balise script jusqu'à trouver le div avec le numero de la question en id
+    searchSeed = document.currentScript;
+    while(searchSeed !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
+      if(typeof searchSeed.id === 'string' && searchSeed.id.startsWith('question-')) {
+        searchSeed = searchSeed.id;
+        break; // la seed a été trouvée
+      }
+      searchSeed = searchSeed.parentNode;
+    }
+  
+    iframe = document.createElement('iframe');
+    iframe.setAttribute('width', '100%');
+    iframe.setAttribute('height', '400');
+    iframe.setAttribute('id', '${idIframe}');
+    iframe.setAttribute('src', '${urlIframeCor}' + '&iMoodle=' + window.iMathAlea.length + '&serie=' + searchSeed);
+    iframe.setAttribute('frameBorder', '0');
+    iframe.setAttribute('allow', 'fullscreen');
+    document.currentScript.parentNode.insertBefore(iframe, document.currentScript);
+  
+    window.iMathAlea.push(iframe);
+    
+    document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
+  ` + `
+  </script> 
           
         ]]>\n</text>\n</generalfeedback>`
         codeMoodle += '\n</question>'
