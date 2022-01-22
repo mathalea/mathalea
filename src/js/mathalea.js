@@ -987,7 +987,6 @@ function miseAJourDuCode () {
         }
         if (event.data.score !== undefined) {
           iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score;
-          iframe.parentNode.parentNode.querySelector('[name$="_-submit"]').click();
         }
       }
     });
@@ -1053,7 +1052,6 @@ function miseAJourDuCode () {
           }
           if (event.data.score !== undefined) {
             iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score;
-            iframe.parentNode.parentNode.querySelector('[name$="_-submit"]').click();
           }
         }
       });
