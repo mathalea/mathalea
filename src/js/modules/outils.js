@@ -2,11 +2,12 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate, isPrime, gcd, round, equal } from 'mathjs'
+import { format, evaluate, isPrime, gcd, round, equal, Fraction } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 import { elimineDoublons, setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
+import FractionX from './FractionEtendue.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -276,6 +277,14 @@ export function estentier (a, tolerance = epsilon) {
 export function quotientier (a, b) {
   if (estentier(a) && estentier(b)) return Math.floor(a / b)
   return false
+}
+
+/**
+* Renvoie le PPCM de deux nombres
+* @author Rémi Angot
+*/
+export const ppcm = (a, b) => {
+  return parseInt(Algebrite.run(`lcm(${a},${b})`))
 }
 
 /**
@@ -864,9 +873,8 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
 export function rienSi1 (a) {
   if (equal(a, 1)) return ''
   else if (equal(a, -1)) return '-'
-  else if (typeof a === 'object') {
-    if (a.num !== undefined || a.n !== undefined) return a.toLatex()
-  } else window.notify('rienSi1 : type de valeur non prise en compte')
+  else if (a instanceof Fraction || a instanceof FractionX) return a.toLatex()
+  else window.notify('rienSi1 : type de valeur non prise en compte')
 }
 
 /**
@@ -923,9 +931,8 @@ export function ecritureNombreRelatifc (a) {
 * @author Rémi Angot et Jean-claude Lhote pour le support des fractions
 */
 export function ecritureAlgebrique (a) {
-  if (typeof a === 'object') {
-    if (a.num !== undefined || a.n !== undefined) return fraction(a).ecritureAlgebrique
-  } else if (typeof a === 'number') {
+  if (a instanceof Fraction || a instanceof FractionX) return fraction(a).ecritureAlgebrique
+  else if (typeof a === 'number') {
     if (a >= 0) {
       return '+' + texNombre(a)
     } else {
@@ -943,11 +950,11 @@ export function ecritureAlgebrique (a) {
 export function ecritureAlgebriqueSauf1 (a) {
   if (equal(a, 1)) return '+'
   else if (equal(a, -1)) return '-'
-  else if (typeof a === 'object') {
-    if (a.num !== undefined || a.n !== undefined) return fraction(a).ecritureAlgebrique
-  } else if (typeof a === 'number') return ecritureAlgebrique(a)
+  else if (a instanceof Fraction || a instanceof FractionX) return fraction(a).ecritureAlgebrique
+  else if (typeof a === 'number') return ecritureAlgebrique(a)
   else window.notify('rienSi1 : type de valeur non prise en compte')
 }
+
 /**
  * Idem ecritureAlgebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul)
  * @param {number} a
@@ -985,13 +992,8 @@ export function ecritureParentheseSiNegatif (a) {
 * @author Rémi Angot
 */
 export function ecritureParentheseSiMoins (expr) {
-  let result = ''
-  if (expr[0] === '-') {
-    result = `(${expr})`
-  } else {
-    result = expr
-  }
-  return result
+  if (expr[0] === '-') return `(${expr})`
+  else return expr
 }
 
 /**
