@@ -232,7 +232,7 @@ export async function loadMathLive () {
   // On envoit la hauteur de l'iFrame après le chargement des champs MathLive
   if (context.vue === 'exMoodle') {
     const hauteurExercice = window.document.querySelector('section').scrollHeight
-    window.parent.postMessage({ hauteurExercice }, '*')
+    window.parent.postMessage({ hauteurExercice, iMoodle: context.iMoodle }, '*')
     const domExerciceInteractifReady = new window.Event('domExerciceInteractifReady', { bubbles: true })
     document.dispatchEvent(domExerciceInteractifReady)
   }

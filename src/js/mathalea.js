@@ -954,39 +954,57 @@ function miseAJourDuCode () {
         const urlIframe = `https://coopmaths.fr/mathalea.html?ex=${id},${params}&serie=${context.graine}&v=exMoodle&z=1`
         const urlIframeCor = `https://coopmaths.fr/mathalea.html?ex=${id},${params}&serie=${context.graine}&v=correctionMoodle&z=1`
 
+        /*
+          Quelques remarques :
+          - L'extension 'es6-string-javascript permet d'obtenir la coloration syntaxique de code JS
+          - Le script est un module qui est donc chargé après que le document est parsé, il peut donc accéder à des nodes après la balise script
+        */
         codeMoodle += `<question type="shortanswer">
 <name>
   <text>${id} - ${titre} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'},${params}</text>
 </name>
   <questiontext format="html">
     <text><![CDATA[
-      <iframe width="600" height="400" id="${idIframe}" src="" frameBorder="0" allow="fullscreen"></iframe>
-
-<script type="module">
-  const champReponseMoodle = document.querySelector('[name$="_answer"]'); 
-  const idQuestion = champReponseMoodle.name;
-  const idInput = document.getElementById(idQuestion.replace('answer','-submit'))
-  if (idInput) {
-    idInput.style.visibility = 'hidden';
-  }
-  document.getElementById('${idIframe}').src="${urlIframe}";
-  window.addEventListener('message', (event) => { 
-    if (event.data.url === "${urlIframe}") {
-      let hauteur = event.data.hauteurExercice + 50;
-      if (hauteur !== undefined) {
-        document.getElementById('${idIframe}').height = hauteur.toString();
-      } 
-      const labelReponse = document.querySelector('[for$="_answer"]');
-      champReponseMoodle.readOnly=true;
-      labelReponse.style.visibility = 'hidden';
-      if (event.data.score !== undefined) {
-        champReponseMoodle.value = event.data.score;
-        if (idInput) {
-          idInput.click();
+<script defer="true">` + /* javascript */`
+  if(typeof window.iMathAlea === 'undefined') {
+    window.iMathAlea = [];
+    window.addEventListener('message', (event) => {
+      if(typeof event.data.iMoodle === 'number' && typeof window.iMathAlea[event.data.iMoodle] !== 'undefined') {
+        const iMathAlea = window.iMathAlea[event.data.iMoodle];
+        let hauteur = event.data.hauteurExercice;
+        if (typeof hauteur !== 'undefined') {
+          hauteur += 50;
+          iMathAlea.iframe.height = hauteur.toString();
+        }
+        if (event.data.score !== undefined) {
+          iMathAlea.champReponseMoodle.value = event.data.score;
+          if (iMathAlea.inputSubmit) {
+            iMathAlea.inputSubmit.click();
+          }
         }
       }
-    }
-    });  
+    });
+  }
+  const iMathAlea = {}
+  iMathAlea.iframe = document.createElement('iframe');
+  iMathAlea.iframe.setAttribute('width', '600');
+  iMathAlea.iframe.setAttribute('height', '400');
+  iMathAlea.iframe.setAttribute('id', '${idIframe}');
+  iMathAlea.iframe.setAttribute('src', '${urlIframe}' + '&iMoodle=' + window.iMathAlea.length);
+  iMathAlea.iframe.setAttribute('frameBorder', '0');
+  iMathAlea.iframe.setAttribute('allow', 'fullscreen');
+  document.currentScript.parentNode.insertBefore(iMathAlea.iframe, document.currentScript);
+
+  iMathAlea.champReponseMoodle = document.currentScript.parentNode.parentNode.querySelector('[name$="_answer"]');
+  iMathAlea.champReponseMoodle.type = 'hidden';
+  iMathAlea.idQuestion = iMathAlea.champReponseMoodle.name;
+  iMathAlea.labelReponse = document.querySelector('[for="' + iMathAlea.idQuestion + '"]');
+  iMathAlea.labelReponse.style.display = 'none';
+  iMathAlea.inputSubmit = document.getElementById(iMathAlea.idQuestion.replace('answer','-submit'))
+  if (iMathAlea.inputSubmit) {
+    iMathAlea.inputSubmit.style.display = 'none';
+  }
+  ` + `
 </script>
       `
         codeMoodle += `]]></text>
