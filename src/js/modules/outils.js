@@ -872,9 +872,10 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
 */
 export function rienSi1 (a) {
   if (equal(a, 1)) return ''
-  else if (equal(a, -1)) return '-'
-  else if (a instanceof Fraction || a instanceof FractionX) return a.toLatex()
-  else window.notify('rienSi1 : type de valeur non prise en compte')
+  if (equal(a, -1)) return '-'
+  if (a instanceof Fraction || a instanceof FractionX) return a.toLatex()
+  if (Number(a)) return texNombre(a)
+  window.notify('rienSi1 : type de valeur non prise en compte')
 }
 
 /**
