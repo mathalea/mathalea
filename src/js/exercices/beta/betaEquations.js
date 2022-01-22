@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { polygone, segment, ObjetMathalea2D, point, mathalea2d, texteParPosition, fixeBordures } from '../../modules/2d.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { parse, simplify } from 'mathjs'
-import { toTex, calculer, calculExpression, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
+import { resoudre, toTex, calculer, calculExpression, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
 
 // eslint-disable-next-line no-debugger
 // debugger
@@ -61,7 +61,7 @@ function schemaBarre () {
 export default function equationsProgression () {
   Exercice.call(this)
   const formulaire = []
-  for (let i = 0; i < 110; i++) formulaire.push(`${i}`)
+  for (let i = 0; i < 112; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
     'Type de question', this.nbQuestions, formulaire.join('\n')
@@ -1075,6 +1075,29 @@ export default function equationsProgression () {
           exercice = calculer('9/2*(4/3+7/8)', { substeps: true })
           exercice.texte = `Calculer : $${exercice.printExpression}$`
           exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
+          break
+        }
+        case 110: {
+          const commentairesPersonnalises = {
+            CANCEL_MINUSES: 'Simplifier l\'écriture',
+            SUBTRACT_FROM_BOTH_SIDES: 'Enlever {stepChange} à chaque membre.',
+            SIMPLIFY_ARITHMETIC: ''
+          }
+          exercice = resoudre('3*x+2=9*x-3', { comment: true, comments: commentairesPersonnalises })
+          exercice.texte = `Résoudre l'équation $${exercice.equation}$ en détaillant les étapes.`
+          exercice.texteCorr += `
+          <br>
+          La solution de cette équation est donc $${exercice.solution}$.
+          `
+          break
+        }
+        case 111: {
+          exercice = resoudre('3*x+2<9*x-3')
+          exercice.texte = `Résoudre l'inéquation $${exercice.equation}$ en détaillant les étapes.`
+          exercice.texteCorr += `
+          <br>
+          Les solutions de cette inéquation sont donc tous les nombres $x$ vérifiant $${exercice.solution}$.
+          `
           break
         }
       }
