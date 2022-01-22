@@ -2,7 +2,7 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate, isPrime, gcd, round, largerEq, equal, smaller } from 'mathjs'
+import { format, evaluate, isPrime, gcd, round, equal } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 import { elimineDoublons, setReponse } from './gestionInteractif.js'
@@ -859,28 +859,14 @@ export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
 * @Example
 * //rienSi1(1)+'x' -> x
 * //rienSi1(-1)+'x' -> -x
-* @author Rémi Angot
+* @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
 */
 export function rienSi1 (a) {
-  if (typeof a === 'object') {
-    let A
-    if (a.n !== undefined) {
-      A = a
-    } else if (a.num !== undefined) {
-      A = fraction(a.num, a.den)
-    } else window.notify('rienSi1 : type de valeur non prise en compte')
-    if (equal(A, 1)) return ''
-    else if (equal(A, -1)) return '-'
-    else return A.toLatex()
-  } else {
-    if (a === 1 || a === '1') {
-      return ''
-    } else if (a === -1 || a === '-1') {
-      return '-'
-    } else {
-      return a
-    }
-  }
+  if (equal(a, 1)) return ''
+  else if (equal(a, -1)) return '-'
+  else if (typeof a === 'object') {
+    if (a.num !== undefined || a.n !== undefined) return a.toLatex()
+  } else window.notify('rienSi1 : type de valeur non prise en compte')
 }
 
 /**
@@ -934,70 +920,33 @@ export function ecritureNombreRelatifc (a) {
 * Ajoute le + devant les nombres positifs
 * @Example
 * //+3 ou -3
-* @author Rémi Angot
+* @author Rémi Angot et Jean-claude Lhote pour le support des fractions
 */
 export function ecritureAlgebrique (a) {
-  let result = ''
   if (typeof a === 'object') {
-    let A
-    if (a.n !== undefined) {
-      A = a
-    } else if (a.num !== undefined) {
-      A = fraction(a.num, a.den)
-    }
-    if (largerEq(A, 0)) {
-      result = '+' + A.toLatex()
-    } else {
-      result = A.toLatex()
-    }
-  } else {
+    if (a.num !== undefined || a.n !== undefined) return fraction(a).ecritureAlgebrique
+  } else if (typeof a === 'number') {
     if (a >= 0) {
-      result = '+' + texNombrec(a)
+      return '+' + texNombre(a)
     } else {
-      result = texNombrec(a)
+      return texNombre(a)
     }
-  }
-  return result
+  } else window.notify('rienSi1 : type de valeur non prise en compte')
 }
 
 /**
 * Ajoute le + devant les nombres positifs, n'écrit rien si 1
 * @Example
 * //+3 ou -3
-* @author Rémi Angot
+* @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
 */
 export function ecritureAlgebriqueSauf1 (a) {
-  let result = ''
-  if (typeof a === 'object') {
-    let A
-    if (a.n !== undefined) {
-      A = a
-    } else if (a.num !== undefined) {
-      A = fraction(a.num, a.den)
-    }
-    if (equal(A, 1)) {
-      result = '+'
-    } else if (largerEq(A, 0)) {
-      result = '+' + A.toLatex()
-    } else if (equal(A, -1)) {
-      result = '-'
-    } else if (smaller(A, 0)) {
-      result = A.toLatex()
-    }
-    return result
-  } else {
-    if (a === 1) {
-      result = '+'
-    } else if (a >= 0) {
-      result = '+' + texNombrec(a)
-    } else if (a === -1) {
-      result = '-'
-    } else if (a < 0) {
-      result = texNombrec(a)
-    }
-
-    return result
-  }
+  if (equal(a, 1)) return '+'
+  else if (equal(a, -1)) return '-'
+  else if (typeof a === 'object') {
+    if (a.num !== undefined || a.n !== undefined) return fraction(a).ecritureAlgebrique
+  } else if (typeof a === 'number') return ecritureAlgebrique(a)
+  else window.notify('rienSi1 : type de valeur non prise en compte')
 }
 /**
  * Idem ecritureAlgebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul)
@@ -1402,16 +1351,8 @@ export function pgcd (...args) {
 }
 
 /**
-* Renvoie le PPCM de deux nombres
-* @author Rémi Angot
-*/
-export const ppcm = (a, b) => {
-  return parseInt(Algebrite.run(`lcm(${a},${b})`))
-}
-
-/**
 * Retourne le numérateur et le dénominateur de la fraction passée en argument sous la forme (numérateur,dénominateur)réduite au maximum dans un tableau [numérateur,dénominateur]
-* * **ATTENTION Fonction clonée dans la classe Fraction()**
+* * **ATTENTION Fonction clonée dans la classe FractionX()**
 * @author Rémi Angot
 */
 export function fractionSimplifiee (n, d) {

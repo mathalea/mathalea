@@ -19,7 +19,7 @@ const definePropRo = (obj, prop, get) => {
  * Ou utiliser la syntaxe f = new FractionX () qui crée une fraction nulle.
  * On peut utiliser tous les arguments utilisables par Fraction :
  * f = new FractionX ('0.(3)') // crée la fraction $\frac{1}{3}$
- * f = fraction(12,15) // crée la fraction $\frac{12}{15}$ (Remarque : new Fraction(12,15) crée $\frac{4}{5}$)
+ * f = fraction(12,15) // crée la fraction $\frac{12}{15}$ (Remarque : new FractionX(12,15) crée $\frac{4}{5}$)
  * f = fraction(0.4) // crée la fraction $\frac{2}{5}$
  */
 export default class FractionX extends Fraction {
