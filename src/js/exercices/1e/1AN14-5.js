@@ -2,9 +2,12 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, ecritureAlgebrique, prettyTex } from '../../modules/outils.js'
 import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, fraction } from 'mathjs'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 const math = { simplify: simplify, parse: parse, derivative: derivative, fraction: fraction }
 export const titre = 'Dérivée d\'un quotient'
 export const dateDePublication = '22/01/2022'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Calculer la dérivée d'un quotient
@@ -96,13 +99,16 @@ export default function DeriveeQuotient () {
             texteCorr += `\\[${nameF}'(x)=\\frac{${a * d}${ecritureAlgebrique(-c * b)}}{(${termeDen})^2}.\\]`
             texteCorr += 'C\'est-à-dire : '
             texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${(a * d) - (c * b)}}{(${termeDen})^2}.}\\]`
+            setReponse(this, i, `\\frac{${(a * d) - (c * b)}}{(${termeDen})^2}`)
           } else if (fNum.deg === 2) {
             texteCorr += `\\[${nameF}'(x)=\\frac{(${fNum.derivee()})(${termeDen})-(${termeNum})\\times${c < 0 ? `(${c})` : c}}{(${termeDen})^2}.\\]`
             texteCorr += 'D\'où, en développant le numérateur : '
             const polyInterm = fNum.derivee().multiply(fDen)
             texteCorr += `\\[${nameF}'(x)=\\frac{${polyInterm}-(${fNum.multiply(c)})}{(${termeDen})^2}.\\]`
             texteCorr += 'On réduit le numérateur pour obtenir : '
-            texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${polyInterm.add(fNum.multiply(-c))}}{(${termeDen})^2}.}\\]`
+            const maReponse = `\\frac{${polyInterm.add(fNum.multiply(-c))}}{(${termeDen})^2}`
+            texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
+            setReponse(this, i, maReponse)
             texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur si possible, mais cela sort du cadre de cet exercice.'
           }
           break
@@ -117,8 +123,10 @@ export default function DeriveeQuotient () {
           texteCorr += 'D\'où, en développant le numérateur : '
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee().multiply(fDen)}${fNum.multiply(-c).toMathExpr(true)}}{(${termeDen})^2}.\\]`
           texteCorr += 'On simplifie pour obtenir :'
-          texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${fNum.derivee().multiply(fDen).add(fNum.multiply(-c))}}{(${termeDen})^2}.}\\]`
+          const maReponse = `\\frac{${fNum.derivee().multiply(fDen).add(fNum.multiply(-c))}}{(${termeDen})^2}`
+          texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
           texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.'
+          setReponse(this, i, maReponse)
           break
         }
         case 'exp/poly1' : {
@@ -131,7 +139,9 @@ export default function DeriveeQuotient () {
           texteCorr += 'On factorise par $e^x$, et on obtient : '
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum}(${fDen}${ecritureAlgebrique(-c)})}{(${termeDen})^2},\\]`
           texteCorr += 'ce qui donne, après réduction : '
-          texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${fNum}(${Polynome.print([d - c, c])})}{(${termeDen})^2}.}\\]`
+          const maReponse = `\\frac{${fNum}(${Polynome.print([d - c, c])})}{(${termeDen})^2}`
+          texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
+          setReponse(this, i, maReponse)
           break
         }
         default:
@@ -140,7 +150,9 @@ export default function DeriveeQuotient () {
       }
       texte = texte.replaceAll('\\frac', '\\dfrac')
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
-
+      if (this.interactif) {
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur75', { texte: `$${nameF}'(x)=$` })
+      }
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
         this.listeQuestions.push(texte)
