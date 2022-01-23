@@ -609,7 +609,7 @@ export default function ExerciceInequationProduit () {
             texteCorr += droite
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
-          if (a * c > 0) {
+          if (c > 0) {
             texteCorr += droite
           } else {
             texteCorr += gauche
