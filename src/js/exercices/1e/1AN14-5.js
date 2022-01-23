@@ -108,7 +108,6 @@ export default function DeriveeQuotient () {
             texteCorr += 'On réduit le numérateur pour obtenir : '
             const maReponse = `\\frac{${polyInterm.add(fNum.multiply(-c))}}{(${termeDen})^2}`
             texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
-            console.log(maReponse)
             setReponse(this, i, maReponse)
             texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur si possible, mais cela sort du cadre de cet exercice.'
           }
