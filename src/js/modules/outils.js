@@ -7876,7 +7876,7 @@ export function exportQcmAmc (exercice, idExo) {
 
       default : // Si on arrive ici, c'est que le type est AMCHybride
         if (type !== 'AMCHybride') {
-          // console.log('Il doit y avoir une erreur de type AMC, je ne connais pas le type : ', type)
+          window.notify('exportQcmAMC : Il doit y avoir une erreur de type AMC, je ne connais pas le type : ', { type })
         }
         if (autoCorrection[j].enonce === undefined) { // Si l'énoncé n'a pas été défini, on va le chercher dans la question
           autoCorrection[j].enonce = exercice.listeQuestions[j]
