@@ -1,8 +1,13 @@
+/*
+// Ce block permet temporairement d'enlever les erreurs afin de se concentrer
+// sur celles qui ne sont pas dues aux manques d'import des animations
 
-/* import { point } from '../../js/modules/2d'
+import { point } from '../../js/modules/2d'
 import Alea2iep from '../../js/modules/Alea2iep'
 
-const anim = new Alea2iep() */
+const anim = new Alea2iep()
+*/
+
 const A = point(4, 1, 'A')
 const B = point(8, -1, 'B')
 anim.traitRapide(A, B)

@@ -40,6 +40,5 @@ export default function pointEquidistant (point1, point2, distance = 3, options 
   anim.compasTracerArcCentrePoint(point2, result, { delta: options.longueurArc2 })
   anim.compasMasquer()
   //* **************** Fin traçage ************
-
   return result
 }

@@ -1,3 +1,12 @@
+/*
+// Ce block permet temporairement d'enlever les erreurs afin de se concentrer
+// sur celles qui ne sont pas dues aux manques d'import des animations
+
+import { longueur, milieu, point, pointSurSegment, rotation } from '../../js/modules/2d'
+import Alea2iep from '../../js/modules/Alea2iep'
+
+const anim = new Alea2iep()
+ */
 const A = point(4, 1, 'A')
 const B = point(8, -1, 'B')
 anim.traitRapide(A, B)
@@ -16,13 +25,14 @@ const arc3 = anim.compasTracerArcCentrePoint(B, M)
 const arc4 = anim.compasTracerArcCentrePoint(B, N)
 // On nomme les arcs pour pouvoir les effacer
 anim.compasMasquer()
-anim.regleDroite(M, N, { couleur:'red' })
+anim.regleDroite(M, N, { couleur: 'red' })
 anim.regleMasquer()
-const codage1 = anim.segmentCodage(A, O, { codage:'X' })
-const codage2 = anim.segmentCodage(O, B, { codage:'X' })
-const codage3 = anim.codageAngleDroit(A, O, O2)
+anim.segmentCodage(A, O, { codage: 'X' })
+anim.segmentCodage(O, B, { codage: 'X' })
+anim.codageAngleDroit(A, O, O2)
 anim.crayonMasquer()
-anim.traitMasquer(arc1) // On cache les traits de construction
+// On cache les traits de construction
+anim.traitMasquer(arc1)
 anim.traitMasquer(arc2)
 anim.traitMasquer(arc3)
 anim.traitMasquer(arc4)
