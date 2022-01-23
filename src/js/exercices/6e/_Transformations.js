@@ -389,7 +389,7 @@ export default function Transformations () {
       if (this.can) {
         this.autoCorrection[0] = {
           enonce: texte,
-          options: { multicols: true },
+          enonceAGauche: [0.5, 0.5],
           propositions: [
             {
               type: 'AMCNum',
@@ -413,7 +413,7 @@ export default function Transformations () {
       } else {
         this.autoCorrection[0] = {
           enonce: texte,
-          options: { multicols: true },
+          enonceAGauche: [0.5, 0.5],
           propositions: [
             {
               type: 'AMCNum',
