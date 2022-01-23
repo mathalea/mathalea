@@ -2,8 +2,11 @@ import Exercice from '../Exercice.js'
 import { signe, listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, lettreMinusculeDepuisChiffre, rienSi1, prettyTex } from '../../modules/outils.js'
 import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, abs } from 'mathjs'
+import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Dérivée d\'un produit'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Calculer la dérivée d'un produit
@@ -111,6 +114,9 @@ export default function DeriveeProduit () {
           const fExpand = math.simplify(`${a}${ecritureAlgebrique(b)}/x`)
           texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${prettyTex(fExpand)}$.<br>`
           texteCorr += `Et donc $${namef}'(x)=${prettyTex(math.simplify(math.derivative(fExpand, 'x')))}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
+          // Sans le replace { x} est mal interprété par le parser de mathLive
+          const maReponse = prettyTex(math.simplify(math.derivative(fExpand, 'x'))).replace('{ x}', 'x')
+          setReponse(this, i, maReponse)
           break
         }
         case 'monome2/poly1': {
@@ -125,6 +131,7 @@ export default function DeriveeProduit () {
           // Remarque sur la méthode alternative
           texteCorr += `<b>Remarque</b> : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${polExpand}$.<br>`
           texteCorr += `Et donc $${namef}'(x)=${polExpand.derivee()}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
+          setReponse(this, i, polExpand.derivee())
           break
         }
         case 'monome2/racine': {
@@ -134,8 +141,15 @@ export default function DeriveeProduit () {
           texteCorr += `\\[${namef}'(x)=\\underbrace{${mon2.derivee()}}_{u'(x)}\\times\\sqrt{x}${mon2.toMathExpr(true)}\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
           texteCorr += 'On peut réduire un peu l\'expression : '
           texteCorr += `\\[${namef}'(x)=${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}` // attention l'équation finit ligne suivante
-          if (m % 2 !== 0) texteCorr += `\\frac{${rienSi1(abs(m))}x^2}{2\\sqrt{x}}.\\]`
-          else texteCorr += `\\frac{${Polynome.print([0, 0, abs(m / 2)])}}{\\sqrt{x}}.\\]`
+          if (m % 2 !== 0) {
+            texteCorr += `\\frac{${rienSi1(abs(m))}x^2}{2\\sqrt{x}}.\\]`
+            setReponse(this, i, `${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}\\frac{${rienSi1(abs(m))}x^2}{2\\sqrt{x}}`)
+            // Réponse réduite à ajouter
+          } else {
+            texteCorr += `\\frac{${Polynome.print([0, 0, abs(m / 2)])}}{\\sqrt{x}}.\\]`
+            setReponse(this, i, `${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}\\frac{${Polynome.print([0, 0, abs(m / 2)])}}{\\sqrt{x}}`)
+            // Réponse réduite à ajouter
+          }
           break
         }
         case 'racine/poly2centre': // traité ci-après
@@ -154,6 +168,7 @@ export default function DeriveeProduit () {
           else interm2 = `${!derivee.isMon() ? `(${derivee})` : derivee}\\sqrt{x}+\\frac{${poly}}{2\\sqrt{x}}`
           texteCorr += 'L\'énoncé ne demandant rien de plus, on se contente de simplifier l\'expression :'
           texteCorr += `\\[${namef}'(x)=${interm2}\\]`
+          setReponse(this, i, interm2)
           break
         }
         case 'exp/poly': // traité ci-après
@@ -172,6 +187,7 @@ export default function DeriveeProduit () {
           const termeDroite = expGauche ? interm2 : 'e^x'
           texteCorr += 'Comme demandé, on factorise l\'expression par $e^x$ : '
           texteCorr += `\\[${namef}'(x)=${termeGauche}${termeDroite}\\]`
+          setReponse(this, i, `${termeGauche}${termeDroite}`)
           // 3e étape : Simplification si nécessaire
           const interm2Simp = `(${poly.add(derivee)})`
           const termeGauche2 = expGauche ? 'e^x' : interm2Simp
@@ -179,6 +195,7 @@ export default function DeriveeProduit () {
           if (`${termeGauche2}${termeDroite2}` !== `${termeGauche}${termeDroite}`) {
             texteCorr += 'On peut réduire ou réordonner l\'expression entre parenthèses : '
             texteCorr += `\\[${namef}'(x)=${termeGauche2}${termeDroite2}\\]`
+            setReponse(this, i, `${termeGauche2}${termeDroite2}`)
           }
           break
         }
@@ -189,6 +206,9 @@ export default function DeriveeProduit () {
       }
       texte = texte.replaceAll('\\frac', '\\dfrac')
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
+      if (this.interactif) {
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur75', { texte: `$${namef}'(x)=$` })
+      }
 
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
