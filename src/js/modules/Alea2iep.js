@@ -8,6 +8,7 @@ import { carre1point1longueur } from './iepMacros/quadrilateres.js'
 import { demiTourPoint, demiTourPolygone, homothetiePoint, homothetiePolygone, rotationPoint, rotationPolygone, symetrieAxialePoint, symetrieAxialePolygone, translationPoint, translationPolygone } from './iepMacros/transformations'
 import { triangle1longueur2angles, triangle2longueurs1angle, triangle3longueurs, triangleEquilateral, triangleEquilateral2Sommets, triangleRectangle2Cotes, triangleRectangleCoteHypotenuse } from './iepMacros/triangles.js'
 import { calcul } from './outils.js'
+import { pointEquidistant } from './iepMacros/MacrosLolo/pointEquidistant.js'
 
 /*
  * Classe parente de tous les objets Alea2iep
@@ -1418,7 +1419,7 @@ export default class Alea2iep {
     return this.idIEP
   }
 }
-
+Alea2iep.prototype.lolo = pointEquidistant
 Alea2iep.prototype.symetrieAxialePoint = symetrieAxialePoint
 Alea2iep.prototype.parallelogramme3sommetsConsecutifs = parallelogramme3sommetsConsecutifs
 Alea2iep.prototype.parallelogramme2sommetsConsecutifsCentre = parallelogramme2sommetsConsecutifsCentre
