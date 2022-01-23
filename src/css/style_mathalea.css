@@ -608,6 +608,10 @@ body.exMoodle div.ML__keyboard.is-visible .ML__keyboard--plate {
 	transform: none;
 }
 
+body.exMoodle {
+  height: unset;
+}
+
 /*
 input {
   position: relative;

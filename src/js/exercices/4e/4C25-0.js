@@ -221,8 +221,8 @@ export default function ProblemesAdditifsFractionsBis () {
 
       // let fracRangees,fracMemeDenomRangees;
       if (
-        F1.egal(F2) &&
-                F1.egal(F3)
+        F1.isEqual(F2) &&
+                F1.isEqual(F3)
       ) {
         pb3f[0].correction += `<br> ${texteEnCouleurEtGras(
                     `Les trois fractions sont équivalentes, ${pb3f[0].prenoms[0]} parcours donc la même distance dans les trois disciplines.`
@@ -253,8 +253,8 @@ export default function ProblemesAdditifsFractionsBis () {
       pb3f[1].correction += `${pb3f[1].fractions[5]} $${fracMemeDenom[2].texFraction}$.`
 
       if (
-        F1.egal(F2) &&
-                F1.egal(F3)
+        F1.isEqual(F2) &&
+                F1.isEqual(F3)
       ) {
         pb3f[1].correction += `<br> ${texteEnCouleurEtGras(
                     'Les trois fractions sont équivalentes, les trois candidates ont donc remporté le même nombre de suffrages.'
@@ -451,9 +451,9 @@ export default function ProblemesAdditifsFractionsBis () {
       pb4f[0].correction += `$${fracMemeDenom[3].texFraction}$ en ${pb4f[0].fractions[7]}.`
 
       if (
-        pb4f[0].fractions[0].egal(pb4f[0].fractions[2]) &&
-                pb4f[0].fractions[0].egal(pb4f[0].fractions[4]) &&
-                pb4f[0].fractions[0].egal(pb4f[0].fractions[6])
+        pb4f[0].fractions[0].isEqual(pb4f[0].fractions[2]) &&
+                pb4f[0].fractions[0].isEqual(pb4f[0].fractions[4]) &&
+                pb4f[0].fractions[0].isEqual(pb4f[0].fractions[6])
       ) {
         pb4f[0].correction += `<br> ${texteEnCouleurEtGras(
                     `Les quatre fractions sont équivalentes, ${pb4f[0].prenoms[0]} colorie donc la même surface avec les quatre couleurs.`
@@ -487,9 +487,9 @@ export default function ProblemesAdditifsFractionsBis () {
 
       // let fracRangees,fracMemeDenomRangees;
       if (
-        pb4f[1].fractions[0].egal(pb4f[1].fractions[2]) &&
-                pb4f[1].fractions[0].egal(pb4f[1].fractions[4]) &&
-                pb4f[1].fractions[0].egal(pb4f[1].fractions[6])
+        pb4f[1].fractions[0].isEqual(pb4f[1].fractions[2]) &&
+                pb4f[1].fractions[0].isEqual(pb4f[1].fractions[4]) &&
+                pb4f[1].fractions[0].isEqual(pb4f[1].fractions[6])
       ) {
         pb4f[1].correction += `<br> ${texteEnCouleurEtGras(
                     'Les quatre fractions sont équivalentes, la même surface du jardin est donc occupée par les quatre cultures.'
@@ -520,9 +520,9 @@ export default function ProblemesAdditifsFractionsBis () {
 
       // let fracRangees,fracMemeDenomRangees;
       if (
-        pb4f[2].fractions[0].egal(pb4f[2].fractions[2]) &&
-                pb4f[2].fractions[0].egal(pb4f[2].fractions[4]) &&
-                pb4f[2].fractions[0].egal(pb4f[2].fractions[6])
+        pb4f[2].fractions[0].isEqual(pb4f[2].fractions[2]) &&
+                pb4f[2].fractions[0].isEqual(pb4f[2].fractions[4]) &&
+                pb4f[2].fractions[0].isEqual(pb4f[2].fractions[6])
       ) {
         pb4f[2].correction += `<br> ${texteEnCouleurEtGras(
                     'Les quatre fractions sont équivalentes, chaque catégorie a donc la même importance dans le stade.'

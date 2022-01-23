@@ -171,7 +171,6 @@ export async function loadMathLive () {
 
       // Evite les problèmes de positionnement du clavier mathématique dans les iframes
       if (context.vue === 'exMoodle') {
-        document.body.classList.add('exMoodle')
         const events = ['focus', 'input']
         events.forEach(e => {
           mf.addEventListener(e, () => {
@@ -232,7 +231,7 @@ export async function loadMathLive () {
   // On envoit la hauteur de l'iFrame après le chargement des champs MathLive
   if (context.vue === 'exMoodle') {
     const hauteurExercice = window.document.querySelector('section').scrollHeight
-    window.parent.postMessage({ hauteurExercice }, '*')
+    window.parent.postMessage({ hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')) }, '*')
     const domExerciceInteractifReady = new window.Event('domExerciceInteractifReady', { bubbles: true })
     document.dispatchEvent(domExerciceInteractifReady)
   }

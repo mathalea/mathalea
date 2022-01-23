@@ -44,6 +44,36 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "1AN14-5": {
+    "titre": "Dérivée d'un quotient",
+    "url": "/exercices/1e/1AN14-5.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1AN14-5",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "1AN14-6": {
+    "titre": "Dérivée d'une composée affine",
+    "url": "/exercices/1e/1AN14-6.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1AN14-6",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "1E10": {
     "titre": "Calcul du discriminant d’une équation du second degré",
     "url": "/exercices/1e/1E10.js",
@@ -8146,6 +8176,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     }
   },
+  "6N10-6": {
+    "titre": "Donner l’écriture (décimale ou en fraction décimale) d’une somme (ou différence) de nombres avec fractions décimales",
+    "url": "/exercices/6e/6N10-6.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6N10-6",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6N10": {
     "titre": "Écrire un nombre entier en chiffres ou en lettres",
     "url": "/exercices/6e/6N10.js",
@@ -11448,7 +11497,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2F08",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14828,6 +14877,63 @@ export default {
     "name": "can6N10",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6N11": {
+    "titre": "Donner le résultat de ce calcul sous forme d'une fraction décimale",
+    "url": "/exercices/can/6e/can6N11.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N11",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6N12": {
+    "titre": "Donner le résultat de ce calcul en écriture décimale",
+    "url": "/exercices/can/6e/can6N12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N12",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6N13": {
+    "titre": "Donner le résultat de ce calcul en écriture décimale",
+    "url": "/exercices/can/6e/can6N13.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N13",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

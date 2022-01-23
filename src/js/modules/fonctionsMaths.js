@@ -487,7 +487,7 @@ export class Polynome {
       const coeffs = this.monomes
       coeffs[0] = add(this.monomes[0], p)
       return new Polynome({ coeffs })
-    } else if (p.constructor.name === 'Polynome') {
+    } else if (p instanceof Polynome) {
       const degSomme = max(this.deg, p.deg)
       const pInf = equal(p.deg, degSomme) ? this : p
       const pSup = equal(p.deg, degSomme) ? p : this
@@ -508,7 +508,7 @@ export class Polynome {
     let coeffs
     if (typeof q === 'number' || q.type === 'Fraction') {
       coeffs = this.monomes.map(function (el, i) { return fraction(multiply(el, q)) })
-    } else if (q.constructor.name === 'Polynome') {
+    } else if (q instanceof Polynome) {
       coeffs = new Array(this.deg + q.deg + 1)
       coeffs.fill(0)
       for (let i = 0; i <= this.deg; i++) {

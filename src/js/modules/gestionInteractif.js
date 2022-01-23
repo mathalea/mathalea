@@ -116,21 +116,21 @@ function verifQuestionMathLive (exercice, i) {
       num = parseInt(document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`).value)
       den = parseInt(document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Den`).value)
       fSaisie = new FractionEtendue(num, den)
-      if (fSaisie.egal(reponse)) {
+      if (fSaisie.isEqual(reponse)) {
         resultat = 'OK'
       }
     } else if (formatInteractif === 'Num') {
       num = parseInt(champTexte.value)
       den = reponse.den
       fSaisie = new FractionEtendue(num, den)
-      if (fSaisie.egal(reponse)) {
+      if (fSaisie.isEqual(reponse)) {
         resultat = 'OK'
       }
     } else if (formatInteractif === 'Den') {
       den = parseInt(champTexte.value)
       num = reponse.num
       fSaisie = new FractionEtendue(num, den)
-      if (fSaisie.egal(reponse)) {
+      if (fSaisie.isEqual(reponse)) {
         resultat = 'OK'
       }
     } else if (formatInteractif === 'calcul') { // Le format par défaut
@@ -200,7 +200,7 @@ function verifQuestionMathLive (exercice, i) {
         }
         if (saisieParsee[1].num && saisieParsee[2].num) {
           fSaisie = new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-          if (fSaisie.egal(reponse)) resultat = 'OK'
+          if (fSaisie.isEqual(reponse)) resultat = 'OK'
         }
       }
       // Pour les exercices où l'on attend un écriture donnée d'une fraction
@@ -880,6 +880,7 @@ export function exerciceCustom (exercice) {
             for (let i = 0; i < exercice.nbQuestions; i++) {
               exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
             }
+            afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
           }
           button.classList.add('disabled')
         })
@@ -1087,7 +1088,7 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
       })
     }
     const score = scoreRetenu(nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100)
-    window.parent.postMessage({ score, hauteurExercice }, '*')
+    window.parent.postMessage({ score, hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')) }, '*')
     try {
       for (let i = 0; i < exercice.nbQuestions; i++) {
         window.sessionStorage.setItem(`reponse${i}` + context.graine, document.getElementById(`champTexteEx0Q${i}`).value)

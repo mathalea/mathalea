@@ -75,7 +75,7 @@ console.log(f.reduire(10)) // {s: -1, n: 1, d: 2, num: -60, den: 120...} multipl
 
 const f2 = fraction(1,3)
 
-console.log(f.egal(f2)) // false car f !== f2
+console.log(f.isEqual(f2)) // false car f !== f2
 
 console.log(f.differenceFraction(f2)) // {s: -1, n: 5, d: 6, num: -5, den: 6, ... }. (note : le nouvel objet est irréductible, le signe est mis sur num par défaut.)
 

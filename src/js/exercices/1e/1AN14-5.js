@@ -16,7 +16,7 @@ export default function DeriveeQuotient () {
   this.titre = titre
   // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
   this.consigne = "Pour chacune des fonctions suivantes, déterminer l'expression de sa fonction dérivée."
-  this.nbQuestions = 10
+  this.nbQuestions = 5
   // Sortie LaTeX
   this.nbCols = 2 // Nombre de colonnes
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction

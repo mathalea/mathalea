@@ -671,6 +671,117 @@ export function resoudreEquation (equation = '5(x-7)=3(x+1)', debug = false) {
   return { texte: texte, texteCorr: texteCorr, equation: equationPrint }
 }
 
+export function commentStep (step, comments) {
+  const changement = step.changeType
+  const stepChange = getNewChangeNodes(step).length > 0 ? toTex(parse(getNewChangeNodes(step)[0].toString(), { parenthesis: 'auto' })) : ''
+  const defaultComments = {
+    MULTIPLY_BOTH_SIDES_BY_NEGATIVE_ONE: 'Multiplier les deux membres par $-1$.',
+    SUBTRACT_FROM_BOTH_SIDES: `Soustraire $${stepChange}$ à chaque membre.`,
+    ADD_TO_BOTH_SIDES: `Ajouter $${stepChange}$ à chaque membre`,
+    MULTIPLY_TO_BOTH_SIDES: `Multiplier chaque membre par $${stepChange}$.`,
+    DIVIDE_FROM_BOTH_SIDES: `Diviser chaque membre par $${stepChange}$.`,
+    MULTIPLY_BOTH_SIDES_BY_INVERSE_FRACTION: `Multiplier chaque membre par $${stepChange}$.`,
+    SWAP_SIDES: 'Echanger les deux membres.',
+    STATEMENT_IS_FALSE: 'L\'égalité est fausse.',
+    STATEMENT_IS_TRUE: 'L\'égalité est vraie.',
+    DISTRIBUTE: 'Distribution.',
+    SIMPLIFY_RIGHT_SIDE: 'Simplifier le membre de droite.',
+    SIMPLIFY_LEFT_SIDE: 'Simplifier le membre de gauche.',
+    COLLECT_AND_COMBINE_LIKE_TERMS: 'Regrouper et réduire les termes de même nature.',
+    SIMPLIFY_ARITHMETIC: 'Calcul arithmétique.',
+    SIMPLIFY_FRACTION: 'Simplifier une fraction.',
+    REMOVE_MULTIPLYING_BY_NEGATIVE_ONE: 'Calculer la multiplication par $-1$.',
+    REMOVE_ADDING_ZERO: 'Enlever des zéros.',
+    CANCEL_MINUSES: 'Annuler les signes moins.',
+    FIND_ROOTS: 'Trouver la (ou les) solution(s).',
+    SIMPLIFY_SIGNS: 'Simplifier le signe.',
+    MULTIPLY_BY_ZERO: 'Multiplication par zéro.',
+    ADD_FRACTIONS: 'Additionner des fractions.',
+    BREAK_UP_FRACTION: 'Séparer une fraction.',
+    CANCEL_TERMS: 'Annuler les termes.',
+    REMOVE_MULTIPLYING_BY_ONE: 'Retirer la multiplication par $1$.'
+  }
+  comments = Object.assign(defaultComments, comments)
+  return (comments[changement] !== undefined) ? `\\text{${comments[changement].replaceAll('{stepChange}', `$${stepChange}$`)}}` : ''
+}
+
+/**
+* @description Retourne toutes les étapes de résolution d'une équation ou d'une inéquation
+* @param {Objet} params // Les paramètres (commentaires visibles)
+* @param {string} equation // Une équation ou une inéquation
+*/
+export function resoudre (equation, params) {
+  params = Object.assign({ comment: false, color: true, comments: {} }, params)
+  const comparators = ['<=', '>=', '=', '<', '>']
+  let comparator
+  let sides
+  for (let i = 0; i < comparators.length; i++) {
+    const comparatorSearch = comparators[i]
+    sides = equation.split(comparatorSearch)
+    if (sides.length === 2) {
+      comparator = comparatorSearch
+    }
+  }
+  sides = equation.split(comparator)
+  // Un bug de mathsteps ne permet pas de résoudre 2/x=2 d'où la ligne suivante qui permettait de le contourner
+  // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
+  // A priori le traitement actuel n'occure plus ce bug (raison ?).
+  let printEquation
+  const steps = solveEquation(equation)
+  const stepsNewEquation = []
+  let repetition = 0
+  steps.forEach(function (step, i) {
+    const changement = step.changeType
+    if (step.oldEquation !== null) {
+      if (step.oldEquation.leftNode.toString() === step.newEquation.leftNode.toString() || step.oldEquation.rightNode.toString() === step.newEquation.rightNode.toString()) {
+        if (changement !== 'REMOVE_ADDING_ZEROS') repetition = (repetition + 1) % 3
+      } else {
+        repetition = 0
+      }
+    }
+    const oldLeftNode = step.oldEquation !== null ? toTex(step.oldEquation.leftNode) : ''
+    let newLeftNode = toTex(step.newEquation.leftNode)
+    const oldRightNode = step.oldEquation !== null ? toTex(step.oldEquation.rightNode) : ''
+    let newRightNode = toTex(step.newEquation.rightNode)
+    if (i === 0) {
+      printEquation = `${oldLeftNode}${step.newEquation.comparator}${oldRightNode}`
+      stepsNewEquation.push(
+        String.raw`${oldLeftNode}
+        &${step.oldEquation.comparator}${oldRightNode}`)
+    }
+    const color = repetition === 2 ? 'black' : 'red'
+    if (params.color) newLeftNode = `{\\color{${color}}${newLeftNode.replace(oldLeftNode, `{\\color{black}${oldLeftNode}}`)}}`
+    if (params.color) newRightNode = `{\\color{${color}}${newRightNode.replace(oldRightNode, `{\\color{black}${oldRightNode}}`)}}`
+    const comment = commentStep(step, params.comments)
+    if (repetition === 2) {
+      repetition = 0
+      stepsNewEquation.pop()
+      if (changement !== 'REMOVE_ADDING_ZERO') {
+        stepsNewEquation.push(
+          String.raw`${newLeftNode}
+          &${step.newEquation.comparator}${newRightNode}
+          ${params.comment ? `&&${comment}` : ''}`
+        )
+      }
+    } else {
+      if (changement !== 'REMOVE_ADDING_ZERO') {
+        stepsNewEquation.push(
+          String.raw`${newLeftNode}
+          &${step.newEquation.comparator}${newRightNode}
+          ${params.comment ? `&&${comment}` : ''}`)
+      }
+    }
+  })
+  const texte = String.raw`Résoudre $${printEquation}$.`
+  const texteCorr = String.raw`
+  $\begin{aligned}
+  ${stepsNewEquation.join('\\\\')}
+  \end{aligned}$
+  `
+  const solution = toTex(steps[steps.length - 1].newEquation.ascii())
+  return { texte: texte, texteCorr: texteCorr, equation: printEquation, solution: solution }
+}
+
 export function programmeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3*x', '-2*x', '-3*x', 'x^2', '-x^2', 'x', '-x', '*x', '/x'], nombreChoisi, debug = false) {
   const rules = simplify.rules
   rules[13] = { l: 'n', r: 'n' } // Pour éviter la factorisation
