@@ -1,9 +1,10 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 418 
-- nombre d'exos interactifReady 567 
+- nombre d'exos interactifReady 569 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
+|1AN14-4|Dérivée d'un produit|KO|KO|OK|mathLive|
 |1E11-1|Calculer le discriminant d'un polynôme du second degré|OK|AMCNum|OK|mathLive|
 |1E11-2|Résoudre une équation du second degré|KO|KO|OK|mathLive|
 |1E11-3|Déterminer la forme canonique d'un polynôme du second degré|KO|KO|OK|mathLive|
@@ -470,6 +471,7 @@
 |can4P02|Résoudre un problème de vitesse|OK|AMCNum|OK|mathLive|
 |can4P03|Calculer une quatrième proportionnelle|OK|AMCNum|OK|mathLive|
 |can4P04|Résoudre un problème avec la proportionnalité|KO|KO|OK|mathLive|
+|can4P05|Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité|KO|KO|OK|mathLive|
 |can5A01|Travailler les répétitions (Scratch)|OK|AMCNum|OK|mathLive|
 |can5C01|Calculer un produit d’entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Calculer une somme d’entiers|OK|AMCNum|OK|mathLive|

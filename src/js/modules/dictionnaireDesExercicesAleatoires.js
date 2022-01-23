@@ -33,10 +33,11 @@ export default {
     "titre": "Dérivée d'un produit",
     "url": "/exercices/1e/1AN14-4.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "1AN14-4",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -51,7 +52,7 @@ export default {
     "interactifReady": false,
     "name": "1AN14-5",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3890,7 +3891,7 @@ export default {
     }
   },
   "4C25-0": {
-    "titre": "Re-Problèmes additifs et de comparaison sur les rationnels",
+    "titre": "Problèmes additifs et de comparaison sur les rationnels",
     "url": "/exercices/4e/4C25-0.js",
     "amcReady": false,
     "interactifReady": false,
@@ -13164,6 +13165,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can4P04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can4P05": {
+    "titre": "Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité",
+    "url": "/exercices/can/4e/can4P05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4P05",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"

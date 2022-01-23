@@ -524,7 +524,7 @@ function miseAJourDuCode () {
   const maGraine = context.seedSpecial ? context.graine + '@' : context.graine
   seedrandom(maGraine, { global: true })
   // ajout des paramètres des exercices dans l'URL et pour le bouton "copier l'url"
-   ;(function gestionURL () {
+  ;(function gestionURL () {
     if (listeDesExercices.length > 0) {
       let finUrl = ''
       if (context.isHtml && !context.isDiaporama) {

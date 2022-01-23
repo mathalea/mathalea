@@ -5,6 +5,7 @@ import { simplify, parse, derivative, abs } from 'mathjs'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 const math = { simplify: simplify, parse: parse, derivative: derivative }
 export const titre = 'Dérivée d\'un produit'
+export const dateDePublication = '22/01/2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

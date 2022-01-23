@@ -4,6 +4,7 @@ import { Polynome } from '../../modules/fonctionsMaths.js'
 import { simplify, parse, derivative, fraction } from 'mathjs'
 const math = { simplify: simplify, parse: parse, derivative: derivative, fraction: fraction }
 export const titre = 'Dérivée d\'un quotient'
+export const dateDePublication = '22/01/2022'
 
 /**
  * Calculer la dérivée d'un quotient

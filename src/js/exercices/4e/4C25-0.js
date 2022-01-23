@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { enleveElementBis, listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, prenomF, prenomM, prenom, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { fraction, listeFractions } from '../../modules/fractions.js'
 
-export const titre = 'Re-Problèmes additifs et de comparaison sur les rationnels'
+export const titre = 'Problèmes additifs et de comparaison sur les rationnels'
 
 /**
  * Problèmes additifs et de comparaion sur les rationnels
@@ -11,7 +11,6 @@ export const titre = 'Re-Problèmes additifs et de comparaison sur les rationnel
  * @author Sébastien Lozano
  */
 export default function ProblemesAdditifsFractionsBis () {
-  'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false
   this.sup = 1
