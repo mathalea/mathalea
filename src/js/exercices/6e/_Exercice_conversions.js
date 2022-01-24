@@ -170,6 +170,7 @@ export default function ExerciceConversions (niveau = 1) {
       } else {
         // pour type de question = 4
         const unite1 = randint(0, 3)
+        if (unite1 === 0 && a < 1) a += 1 // Pas de nombre d'octets inférieurs à 1
         let ecart = randint(1, 2) // nombre de multiplication par 1000 pour passer de l'un à l'autre
         if (ecart > 4 - unite1) {
           ecart = 4 - unite1
