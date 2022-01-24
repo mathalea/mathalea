@@ -1723,6 +1723,9 @@ export function xcas (expression) {
 * @author Rémi Angot
 */
 export function calcul (expression, arrondir = false) {
+  if (typeof expression === 'string') {
+    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { expression })
+  }
   if (!arrondir) {
     return parseFloat(Algebrite.eval('float(' + expression + ')'))
   } else {
