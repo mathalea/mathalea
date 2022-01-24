@@ -552,15 +552,23 @@ Il n'est plus développé par son auteur. Mathalea en héberge un fork et qui a 
 Voici un exemple d'exercice :
 
 ```Javascript
+import { calculer } from '../modules/outilsMathjs'
+
+// Ensemble des paramètres de l'exercice
+
+// Construction de l'exercice
 exercice = calculer('(5*x-3)^2', { name: 'A' })
 exercice.texte = `Développer puis réduire l'expression suivante : $${exercice.name}=${exercice.printExpression}$`
 exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.name}=${exercice.printResult}$`
+
+// Placer l'énoncé et la correction pour le traitement par Mathalea
 this.listeQuestions.push(exercice.texte)
 this.listeCorrections.push(exercice.texteCorr)
 ```
 
 Et voici le résultat obtenu :
-![](../static/img/outilsMathjs-betaEquations107.png)
+
+![](img/outilsMathjs-betaEquations107.png)
 
 Toutes les étapes du calcul sont visibles dans un ordre prédéfini par Mathsteps. Chaque ligne correspond à une étape et une seule ce qui peut ammener à de nombreuses lignes.
 
@@ -572,7 +580,7 @@ exercice.texte = `Calculer : $${exercice.printExpression}$`
 exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
 ```
 
-![](../static/img/outilsMathjs-betaEquations109.png)
+![](img/outilsMathjs-betaEquations109.png)
 
 Le paramètre `substeps` permet ici de contrôler l'affichage des sous-étapes.
 L'exemple précédent ne montrait pas l'étape de mise au même dénominateur 
@@ -581,7 +589,7 @@ L'exemple précédent ne montrait pas l'étape de mise au même dénominateur
 exercice = calculer('2/9*(4/3+7/8)', { substeps: true })
 ```
 
-![](../static/img/outilsMathjs-betaEquations109bis.png)
+![](img/outilsMathjs-betaEquations109bis.png)
 
 ## La fonction resoudre() de outilsMathjs <a id="section8"></a>
 
@@ -589,15 +597,20 @@ Cette fonction donne les étapes de résolution d'une équation du premier degr�
 
 ### Résoudre une équation <a id="subsection8-1"></a>
 ```Javascript
+import { resoudre } from '../modules/outilsMathjs'
+
+// Ensemble des paramètres de l'exercice
+
+// Construction de l'exercice
 exercice = resoudre('3*x+2=9*x-3')
 exercice.texte = `Résoudre l'équation $${exercice.equation}$ en détaillant les étapes.`
 exercice.texteCorr += `<br>La solution de cette équation est donc $${exercice.solution}$.`
 ```
-![](../static/img/outilsMathjs-betaEquations110.png)
+![](img/outilsMathjs-betaEquations110.png)
 
 On peut retirer la coloration en ajoutant le paramètre `{ color: false }` (qui bug parfois) ou ajouter des commentaires.
 
-On peut également modifier les commentaires.
+On peut également personnaliser les commentaires. (`{stepChange}` permet d'insérer dans le commentaire ce qui est ajouté, soustrait, multiplié ou diviser à chaque membre.)
 
 ```Javascript
 const commentairesPersonnalises = {
@@ -608,7 +621,7 @@ const commentairesPersonnalises = {
 exercice = resoudre('3*x+2=9*x-3', { comment: true, comments: commentairesPersonnalises })
 ```
 
-![](../static/img/outilsMathjs-betaEquations110bis.png)
+![](img/outilsMathjs-betaEquations110bis.png)
 
 ### Commentaires par défaut des étapes <a id="subsection8-2"></a>
 
@@ -652,4 +665,6 @@ L'exemple suivant montre les étapes de résolution d'une inéquation :
 exercice = resoudre('3*x+2<9*x-3')
 ```
 
-![](../static/img/outilsMathjs-betaEquations111.png)
+![](img/outilsMathjs-betaEquations111.png)
+
+Lien vers l'exercice : <https://coopmaths.fr/mathalea.html?ex=betaEquations,s=111>
