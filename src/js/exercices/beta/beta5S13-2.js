@@ -2,6 +2,56 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, listeEntiersSommeConnue, calcul } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Calculs de fréquences'
+// On renvoie un entier aléatoire entre une valeur min (incluse)
+// et une valeur max (incluse).
+// Attention : si on utilisait Math.round(), on aurait une distribution
+// non uniforme !
+function getRandomIntInclusive (min, max) {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+/**
+ * Construit un tableau d'entiers de longueur connue
+ * dont la somme des éléments est égale à un total connu.
+ * @author Eve & Sylvain Chambon
+ * @param {int} nbElements Nombre d'entiers dans le tableau
+ * @param {int} total Somme des éléments du tableau
+ * @returns {Array} Tableau d'entier
+ * @example > listeEntiersDepuisSomme(100,3)
+ * < [34,29,37]
+ */
+function listeEntiersDepuisSomme (total, nbElements) {
+  const valeurs = new Array(nbElements)
+  // Répartition équitable du total dans les éléments du tableau
+  const quotient = Math.floor(total / nbElements)
+  const reste = total % nbElements
+  for (let i = 0; i < valeurs.length - 1; i++) {
+    valeurs[i] = quotient
+  }
+  valeurs[valeurs.length - 1] = quotient + reste
+  // Changement des valeurs
+  for (let i = 0, delta = 0; i < valeurs.length - 2; i++) {
+    // création du delta
+    delta = getRandomIntInclusive(-valeurs[i] + 1, valeurs[i] - 1)
+    valeurs[i] += delta
+    // répartition du delta entre les valeurs restantes du tableau
+    const diviseur = valeurs.length - i - 2
+    let q = 0
+    if (delta >= 0) {
+      q = Math.floor(delta / diviseur)
+    } else {
+      q = Math.ceil(delta / diviseur)
+    }
+    const r = delta % diviseur
+    for (let j = i + 1; j < valeurs.length - 1; j++) {
+      valeurs[j] -= q
+    }
+    valeurs[j] -= r
+  }
+  return valeurs
+}
 
 /**
  * Calculs de fréquences sur une série qualitative
@@ -23,7 +73,7 @@ export default function CalculerDesFrequences () {
   const listeSports = ['Football', 'Rugby', 'Basket', 'Tennis', 'Judo', 'Handball', 'Volleyball', 'Athlétisme', 'Pingpong', 'Natation', 'Badminton']
   const effectifTotal = choice([100, 120, 150, 200, 250, 400, 500, 1000])
   const sports = listeSports.slice(0, randint(5, listeSports.length))
-  const effectifs = listeEntiersSommeConnue(sports.length, effectifTotal, 5)
+  const effectifs = listeEntiersDepuisSomme(effectifTotal, sports.length)
   const rangEffectifCache = randint(0, sports.length - 1)
   const entrees = new Map()
   for (let i = 0; i < sports.length; i++) {
