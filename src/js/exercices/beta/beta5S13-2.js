@@ -48,7 +48,7 @@ function listeEntiersDepuisSomme (total, nbElements) {
     for (let j = i + 1; j < valeurs.length - 1; j++) {
       valeurs[j] -= q
     }
-    valeurs[j] -= r
+    valeurs[valeurs.length - 1] -= r
   }
   return valeurs
 }
@@ -104,8 +104,8 @@ export default function CalculerDesFrequences () {
     for (const [sport, eff] of entrees) {
       const f = fraction(eff, effectifTotal)
       correction2 += `${sport} :<br>`
-      correction2 += `$f_{${sport}}=${f.texFraction}$<br>`
-      correction2 += `$f_{${sport}}=${f.pourcentage} $%<br><br>`
+      correction2 += `$f_{\\text{${sport}}}=${f.texFraction}$<br>`
+      correction2 += `$f_{\\text{${sport}}}=${f.pourcentage} $%<br><br>`
     }
     this.listeQuestions.push(question1, question2)
     this.listeCorrections.push(correction1, correction2)
