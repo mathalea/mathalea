@@ -1,11 +1,15 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, listeEntiersSommeConnue, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, shuffle } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Calculs de fréquences'
-// On renvoie un entier aléatoire entre une valeur min (incluse)
-// et une valeur max (incluse).
-// Attention : si on utilisait Math.round(), on aurait une distribution
-// non uniforme !
+/**
+ * On renvoie un entier aléatoire entre une valeur min (incluse) et une valeur max (incluse).
+ * Attention : si on utilisait Math.round(), on aurait une distribution non uniforme !
+ * @param {int} min borne inférieure
+ * @param {int} max borne supérieure
+ * @returns entier aléatoire entre min et max inclus
+ * @source https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Math/random#obtenir_un_entier_al%C3%A9atoire_dans_un_intervalle_ferm%C3%A9
+ */
 function getRandomIntInclusive (min, max) {
   min = Math.ceil(min)
   max = Math.floor(max)
@@ -72,15 +76,31 @@ export default function CalculerDesFrequences () {
   // paramètres du problème
   const listeSports = ['Football', 'Rugby', 'Basket', 'Tennis', 'Judo', 'Handball', 'Volleyball', 'Athlétisme', 'Pingpong', 'Natation', 'Badminton']
   const effectifTotal = choice([100, 120, 150, 200, 250, 400, 500, 1000])
-  const sports = listeSports.slice(0, randint(5, listeSports.length))
+  const sports = shuffle(listeSports.slice(0, randint(5, listeSports.length)))
   const effectifs = listeEntiersDepuisSomme(effectifTotal, sports.length)
   const rangEffectifCache = randint(0, sports.length - 1)
   const entrees = new Map()
   for (let i = 0; i < sports.length; i++) {
     entrees.set(sports[i], effectifs[i])
   }
-  let textConsigne = `Entrées (${sports.length}, ${sports[rangEffectifCache]}) -- Total (${effectifTotal}): <br>`
-  for (const [sport, eff] of entrees) { textConsigne += sport + ' => ' + (sport !== sports[rangEffectifCache] ? eff : '') + '<br>' }
+  let textConsigne = `Dans un établissement de ${effectifTotal} élèves, on a demandé à chacun quel est son sport préféré. `
+  textConsigne += 'On a consigné les résultats dans le tableau suivant :<br><br>'
+  // construction du tableau
+  textConsigne += '$\\def\\arraystretch{1.5}\\begin{array}{|c'
+  for (let i = 0; i < sports.length; i++) { textConsigne += '|c' }
+  textConsigne += '|c|}\\hline'
+  textConsigne += '\\text{\\textbf{Sports}}'
+  for (const sport of entrees.keys()) { textConsigne += '&' + `\\text{${sport}}` }
+  textConsigne += '&\\text{\\textbf{TOTAL}}'
+  textConsigne += '\\\\\\hline'
+  textConsigne += '\\text{\\textbf{Effectifs}}'
+  for (let i = 0; i < effectifs.length; i++) {
+    if (i !== rangEffectifCache) { textConsigne += '&' + effectifs[i] } else { textConsigne += '&' }
+  }
+  textConsigne += `&${effectifTotal}\\\\\\hline`
+  textConsigne += '\\text{\\textbf{Fréquences}}'
+  for (let i = 0; i < effectifs.length; i++) { textConsigne += '&' }
+  textConsigne += '&\\\\\\hline\\end{array}$'
   this.introduction = textConsigne
 
   this.nouvelleVersion = function () {
