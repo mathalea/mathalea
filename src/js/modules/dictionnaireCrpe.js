@@ -13,7 +13,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2019/2019-g1-ex1-cor-2.png',
       'assets/crpe/2019/2019-g1-ex1-cor-3.png'
     ],
-    tags: ['Volumes', 'Calculs numériques', 'Thalès']
+    tags: ['Pourcentages', 'Volumes', 'Calculs numériques']
   },
   'crpe-2019-g1-ex2': {
     typeExercice: 'crpe',
