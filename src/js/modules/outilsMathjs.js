@@ -461,9 +461,9 @@ export function calculExpression (expression = '4/3+5/6', factoriser = false, de
 }
 
 /**
-* @description Retourne toutes les étapes de calculs d'une expression numérique ou de développement-réduction d'une expression littérale
-* @param {Objet} params // Les paramètres (commentaires visibles , sous-étapes visibles, fraction-solution au format MixedNumber)
-* @param {string} expression // Une expression à calculer ou à développer
+ * @description Retourne toutes les étapes de calculs d'une expression numérique ou de développement-réduction d'une expression littérale
+ * @param {string} expression // Une expression à calculer ou à développer
+ * @param {Objet} params // Les paramètres (commentaires visibles , sous-étapes visibles, fraction-solution au format MixedNumber)
 */
 export function calculer (expression, params) {
   params = Object.assign({ comment: false, substeps: false, mixed: false, name: undefined }, params)
@@ -493,36 +493,36 @@ export function calculer (expression, params) {
     }
     if (newNode === oldNode) stepsExpression.pop()
     if (params.comment) {
-      const commentaire = String.raw`\text{${step.changeType}}`.replaceAll('_', ' ')
+      const commentaire = `\\text{${step.changeType}}`.replaceAll('_', ' ')
       commentaires.push(commentaire)
       if (stepsExpression.length === 0 || i === steps.length - 1) {
         if (params.name === undefined) {
-          stepsExpression.push(String.raw`${expressionPrint}&=${newNode}&&${commentaire}`)
+          stepsExpression.push(`${expressionPrint}&=${newNode}&&${commentaire}`)
         } else {
           if (stepsExpression.length === 0) {
-            stepsExpression.push(String.raw`${params.name}&=${expressionPrint}&&${commentaire}`)
-            stepsExpression.push(String.raw`&=${newNode}&&${commentaire}`)
+            stepsExpression.push(`${params.name}&=${expressionPrint}&&${commentaire}`)
+            stepsExpression.push(`&=${newNode}&&${commentaire}`)
           } else {
-            stepsExpression.push(String.raw`${params.name}&=${newNode}&&${commentaire}`)
+            stepsExpression.push(`${params.name}&=${newNode}&&${commentaire}`)
           }
         }
       } else {
-        stepsExpression.push(String.raw`&=${newNode}&&${commentaire}`)
+        stepsExpression.push(`&=${newNode}&&${commentaire}`)
       }
     } else {
       if (stepsExpression.length === 0 || i === steps.length - 1) {
         if (params.name === undefined) {
-          stepsExpression.push(String.raw`${expressionPrint}&=${newNode}`)
+          stepsExpression.push(`${expressionPrint}&=${newNode}`)
         } else {
           if (stepsExpression.length === 0) {
-            stepsExpression.push(String.raw`${params.name}&=${expressionPrint}`)
-            stepsExpression.push(String.raw`&=${newNode}`)
+            stepsExpression.push(`${params.name}&=${expressionPrint}`)
+            stepsExpression.push(`&=${newNode}`)
           } else {
-            stepsExpression.push(String.raw`${params.name}&=${newNode}`)
+            stepsExpression.push(`${params.name}&=${newNode}`)
           }
         }
       } else {
-        stepsExpression.push(String.raw`&=${newNode}`)
+        stepsExpression.push(`&=${newNode}`)
       }
     }
   })
@@ -547,12 +547,8 @@ export function calculer (expression, params) {
       )
     )
   }
-  const texte = String.raw`Calculer $${expressionPrint}$.`
-  const texteCorr = String.raw`
-  $\begin{aligned}
-  ${stepsExpression.join('\\\\')}
-  \end{aligned}$
-  `
+  const texte = `Calculer $${expressionPrint}$.`
+  const texteCorr = `$\\begin{aligned}\n${stepsExpression.join('\\\\\n')}\n\\end{aligned}$`
   return { printResult: toTex(steps[steps.length - 1].newNode), netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: commentaires, printExpression: expressionPrint, name: params.name }
 }
 
@@ -721,18 +717,7 @@ export function commentStep (step, comments) {
 * @param {string} equation // Une équation ou une inéquation
 */
 export function resoudre (equation, params) {
-  params = Object.assign({ comment: false, color: true, comments: {} }, params)
-  const comparators = ['<=', '>=', '=', '<', '>']
-  let comparator
-  let sides
-  for (let i = 0; i < comparators.length; i++) {
-    const comparatorSearch = comparators[i]
-    sides = equation.split(comparatorSearch)
-    if (sides.length === 2) {
-      comparator = comparatorSearch
-    }
-  }
-  sides = equation.split(comparator)
+  params = Object.assign({ comment: false, color: 'red', comments: {} }, params)
   // Un bug de mathsteps ne permet pas de résoudre 2/x=2 d'où la ligne suivante qui permettait de le contourner
   // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
   // A priori le traitement actuel n'occure plus ce bug (raison ?).
@@ -756,40 +741,40 @@ export function resoudre (equation, params) {
     if (i === 0) {
       printEquation = `${oldLeftNode}${step.newEquation.comparator}${oldRightNode}`
       stepsNewEquation.push(
-        String.raw`${oldLeftNode}
-        &${step.oldEquation.comparator}${oldRightNode}`)
+        String.raw`${oldLeftNode}&${step.oldEquation.comparator}${oldRightNode}`)
     }
-    const color = repetition === 2 ? 'black' : 'red'
-    if (params.color) newLeftNode = `{\\color{${color}}${newLeftNode.replace(oldLeftNode, `{\\color{black}${oldLeftNode}}`)}}`
-    if (params.color) newRightNode = `{\\color{${color}}${newRightNode.replace(oldRightNode, `{\\color{black}${oldRightNode}}`)}}`
+    if (params.color !== 'black') {
+      const color = repetition === 2 ? 'black' : params.color
+      newLeftNode = `{\\color{${color}}${newLeftNode.replace(oldLeftNode, `{\\color{black}${oldLeftNode}}`)}}`
+      newRightNode = `{\\color{${color}}${newRightNode.replace(oldRightNode, `{\\color{black}${oldRightNode}}`)}}`
+    }
     const comment = commentStep(step, params.comments)
     if (repetition === 2) {
       repetition = 0
       stepsNewEquation.pop()
       if (changement !== 'REMOVE_ADDING_ZERO') {
         stepsNewEquation.push(
-          String.raw`${newLeftNode}
-          &${step.newEquation.comparator}${newRightNode}
-          ${params.comment ? `&&${comment}` : ''}`
+          `${newLeftNode}&${step.newEquation.comparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`
         )
       }
     } else {
       if (changement !== 'REMOVE_ADDING_ZERO') {
         stepsNewEquation.push(
-          String.raw`${newLeftNode}
-          &${step.newEquation.comparator}${newRightNode}
-          ${params.comment ? `&&${comment}` : ''}`)
+          `${newLeftNode}&${step.newEquation.comparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
       }
     }
   })
-  const texte = String.raw`Résoudre $${printEquation}$.`
-  const texteCorr = String.raw`
-  $\begin{aligned}
-  ${stepsNewEquation.join('\\\\')}
-  \end{aligned}$
-  `
+  const texte = `Résoudre $${printEquation}$.`
+  const texteCorr = `$\\begin{aligned}\n${stepsNewEquation.join('\\\\\n')}\n\\end{aligned}$`
   const solution = toTex(steps[steps.length - 1].newEquation.ascii())
-  return { texte: texte, texteCorr: texteCorr, equation: printEquation, solution: solution }
+  let calculateLeftSide, calculateRightSide
+  if (equation.indexOf('=') !== -1) {
+    const sides = equation.split('=')
+    const solution = steps[steps.length - 1].newEquation.ascii().split('=')[1]
+    calculateLeftSide = calculer(sides[0].replaceAll('x', `(${solution})`))
+    calculateRightSide = calculer(sides[1].replaceAll('x', `(${solution})`))
+  }
+  return { texte: texte, texteCorr: texteCorr, equation: printEquation, solution: solution, verifLeftSide: calculateLeftSide, verifRightSide: calculateRightSide}
 }
 
 export function programmeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3*x', '-2*x', '-3*x', 'x^2', '-x^2', 'x', '-x', '*x', '/x'], nombreChoisi, debug = false) {

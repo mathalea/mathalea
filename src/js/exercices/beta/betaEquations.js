@@ -61,7 +61,7 @@ function schemaBarre () {
 export default function equationsProgression () {
   Exercice.call(this)
   const formulaire = []
-  for (let i = 0; i < 113; i++) formulaire.push(`${i}`)
+  for (let i = 0; i < 115; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
     'Type de question', this.nbQuestions, formulaire.join('\n')
@@ -1081,7 +1081,9 @@ export default function equationsProgression () {
           const commentairesPersonnalises = {
             CANCEL_MINUSES: 'Simplifier l\'écriture',
             SUBTRACT_FROM_BOTH_SIDES: 'Enlever {stepChange} à chaque membre.',
-            SIMPLIFY_ARITHMETIC: ''
+            SIMPLIFY_ARITHMETIC: '',
+            SIMPLIFY_RIGHT_SIDE: 'Réduire.',
+            SIMPLIFY_LEFT_SIDE: 'Réduire.'
           }
           exercice = resoudre('3*x+2=9*x-3', { comment: true, comments: commentairesPersonnalises })
           exercice.texte = `Résoudre l'équation $${exercice.equation}$ en détaillant les étapes.`
@@ -1104,6 +1106,27 @@ export default function equationsProgression () {
           exercice = calculer('x*x*x')
           exercice.texte = `Calculer : $${exercice.printExpression}$`
           exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
+          break
+        }
+        case 113: {
+          exercice = resoudre('9*x+7=6*x-3', { color: 'black', comment: true })
+          exercice.texte = `Résoudre : $${exercice.equation}$`
+          exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `La solution est $${exercice.solution}$`
+          break
+        }
+        case 114: {
+          exercice = resoudre('9*x+7=6*x-3', { color: 'black', comment: true })
+          exercice.texte = `Résoudre : $${exercice.equation}$`
+          exercice.texteCorr = `<br>
+          ${exercice.texteCorr}<br>
+          La solution est $${exercice.solution}$.
+          <br>
+          Vérification :
+          <br>
+          D'une part : $${exercice.verifLeftSide.printExpression}=${exercice.verifLeftSide.printResult}$
+          <br>
+          D'autre part : $${exercice.verifRightSide.printExpression}=${exercice.verifRightSide.printResult}$
+          `
           break
         }
       }
