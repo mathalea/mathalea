@@ -61,7 +61,7 @@ function schemaBarre () {
 export default function equationsProgression () {
   Exercice.call(this)
   const formulaire = []
-  for (let i = 0; i < 112; i++) formulaire.push(`${i}`)
+  for (let i = 0; i < 113; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
     'Type de question', this.nbQuestions, formulaire.join('\n')
@@ -1098,6 +1098,12 @@ export default function equationsProgression () {
           <br>
           Les solutions de cette inéquation sont donc tous les nombres $x$ vérifiant $${exercice.solution}$.
           `
+          break
+        }
+        case 112: {
+          exercice = calculer('x*x*x')
+          exercice.texte = `Calculer : $${exercice.printExpression}$`
+          exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
           break
         }
       }

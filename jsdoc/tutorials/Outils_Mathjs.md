@@ -6,13 +6,25 @@ Ces outils ont pour objectif d'utiliser la puissance de [Mathjs](https://mathjs.
 
 1. [Documentation utile](#section0)
 2. [La fonction aleaVariables() de outilsMathjs](#section1)
+
+    a. [Un premier exemple basique : l'inégalité triangulaire](#subsection1-1)
+
+    b. [Un deuxième exemple basique : a+b](#subsection1-2)
+
+    c. [Décimaux versus binaire : gérer les erreurs](#subsection1-3)
 3. [Convertir une expression numérique ou littérale en latex](#section2)
 4. [Remplacer des variables par des valeurs](#section3)
 5. [Transformer une expression littérale](#section4)
 6. [RandomSeed](#section5)
 7. [La fonction toTex() de outilsMathjs](#section6)
 8. [La fonction calculer() de outilsMathjs](#section7)
-8. [La fonction resoudre() de outilsMathjs](#section8)
+9. [La fonction resoudre() de outilsMathjs](#section8)
+
+    a. [Résoudre une équation](#subsection8-1)
+
+    b. [Commantaires par défaut des étapes](#subsection8-2)
+
+    c. [Résoudre une inéquation](#subsection8-3)
 
 ## Documentation utile <a id="section0"></a>
 
@@ -22,7 +34,7 @@ Ces outils ont pour objectif d'utiliser la puissance de [Mathjs](https://mathjs.
 
 ## La fonction aleaVariables() <a id="section1"></a>
 
-### Un premier exemple basique : l'inégalité triangulaire
+### Un premier exemple basique : l'inégalité triangulaire <a id="subsection1-1"></a>
 
 Imaginons que nous voulions obtenir trois longueurs d'un triangle au hasard. Il faut vérifier l'inégalité triangulaire pour le plus grand côté.
 
@@ -82,7 +94,7 @@ Pour des nombres décimaux compris entre 0 et 10 et avec au maximum deux chiffre
 < ► {a: 1.9, b: 6, c: 4.9}
 ```
 
-### Un deuxième exemple basique : a+b-c
+### Un deuxième exemple basique : a+b <a id="subsection1-2"></a>
 
 On souhaite obtenir deux entiers relatifs dont la somme est toujours positif.
 
@@ -129,7 +141,7 @@ Et pour les nombres décimaux :
 < ► {a: 9, b: -3.6}
 ```
 
-### Gérer les conversions en nombres décimaux
+### Décimaux versus binaire : gérer les erreurs <a id="subsection1-3"></a>
 
 Voici deux exemples qui montrent les problèmes liés aux conversions en `float` en Javascript :
 
@@ -535,12 +547,16 @@ Il possède une fonction appelée simplifyExpression() et qui détaille l'ensemb
 
 Il n'est plus développé par son auteur. Mathalea en héberge un fork et qui a été modifié pour notamment développer l'identité remarquable $(a+b)^2$.
 
+> **Important** : Pour profiter de ses nouvelles fonctionnalités ne pas oublier `pnpm i`
+
 Voici un exemple d'exercice :
 
 ```Javascript
 exercice = calculer('(5*x-3)^2', { name: 'A' })
 exercice.texte = `Développer puis réduire l'expression suivante : $${exercice.name}=${exercice.printExpression}$`
 exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.name}=${exercice.printResult}$`
+this.listeQuestions.push(exercice.texte)
+this.listeCorrections.push(exercice.texteCorr)
 ```
 
 Et voici le résultat obtenu :
@@ -571,6 +587,7 @@ exercice = calculer('2/9*(4/3+7/8)', { substeps: true })
 
 Cette fonction donne les étapes de résolution d'une équation du premier degré en utilisant Mathsteps.
 
+### Résoudre une équation <a id="subsection8-1"></a>
 ```Javascript
 exercice = resoudre('3*x+2=9*x-3')
 exercice.texte = `Résoudre l'équation $${exercice.equation}$ en détaillant les étapes.`
@@ -593,7 +610,9 @@ exercice = resoudre('3*x+2=9*x-3', { comment: true, comments: commentairesPerson
 
 ![](../static/img/outilsMathjs-betaEquations110bis.png)
 
-Les commentaires par défaut sont les suivants :
+### Commentaires par défaut des étapes <a id="subsection8-2"></a>
+
+Les commentaires par défaut (modifiables) sont les suivants :
 
 ```Javascript
 const defaultComments = {
@@ -624,6 +643,8 @@ const defaultComments = {
     REMOVE_MULTIPLYING_BY_ONE: 'Retirer la multiplication par $1$.'
   }
 ```
+
+### Résoudre une inéquation <a id="subsection8-3"></a>
 
 L'exemple suivant montre les étapes de résolution d'une inéquation :
 

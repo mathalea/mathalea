@@ -10,13 +10,23 @@ math.config({
   randomSeed: context.graine
 })
 // eslint-disable-next-line no-debugger
-debugger
+// debugger
 
 function searchFirstNode (node, op) {
   if (node.type === 'OperatorNode') {
     return searchFirstNode(node.args[0], node.op)
   } else if (node.type === 'ParenthesisNode') {
     return searchFirstNode(node.content, node.op)
+  } else {
+    return { node: node, op: op }
+  }
+}
+
+function searchLastNode (node, op) {
+  if (node.type === 'OperatorNode') {
+    return searchLastNode(node.args[node.args.length - 1], node.op)
+  } else if (node.type === 'ParenthesisNode') {
+    return searchLastNode(node.content, node.op)
   } else {
     return { node: node, op: op }
   }
@@ -197,7 +207,7 @@ function transformNode (node, oldNode, params = { suppr1: true, suppr0: true, su
     // dans mathsteps lorsqu'il est placé dans print.js de mathsteps
     // alors qu'il fonctionne avec la version mathjs de mathalea
     if (node.isOperatorNode && node.op === '*') { // Multiplication implicite 2*x devient 2x et 2*(x+3) devient 2(x+3)
-      if (node.args[1].isParenthesisNode || node.args[1].isSymbolNode) node.implicit = true
+      if ((node.args[1].isParenthesisNode || node.args[1].isSymbolNode) && !(searchLastNode(node.args[0]).node.isSymbolNode)) node.implicit = true
       if (node.args[1].isOperatorNode && node.args[1].op === '^' && node.args[1].args[0].isSymbolNode) node.implicit = true
     }
     if (node.isOperatorNode && node.op === '*') { // Multiplication explicite x*2 ou x*2/3
