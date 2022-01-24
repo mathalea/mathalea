@@ -608,7 +608,7 @@ exercice.texteCorr += `<br>La solution de cette équation est donc $${exercice.s
 ```
 ![](img/outilsMathjs-betaEquations110.png)
 
-On peut retirer la coloration en ajoutant le paramètre `{ color: false }` (qui bug parfois) ou ajouter des commentaires.
+On peut retirer la coloration en ajoutant le paramètre `{ color: 'black' }` ou ajouter des commentaires.
 
 On peut également personnaliser les commentaires. (`{stepChange}` permet d'insérer dans le commentaire ce qui est ajouté, soustrait, multiplié ou diviser à chaque membre.)
 
@@ -616,12 +616,33 @@ On peut également personnaliser les commentaires. (`{stepChange}` permet d'ins�
 const commentairesPersonnalises = {
     CANCEL_MINUSES: 'Simplifier l\'écriture',
     SUBTRACT_FROM_BOTH_SIDES: 'Enlever {stepChange} à chaque membre.',
-    SIMPLIFY_ARITHMETIC: ''
+    SIMPLIFY_ARITHMETIC: '',
+    SIMPLIFY_RIGHT_SIDE: 'Réduire.',
+    SIMPLIFY_LEFT_SIDE: 'Réduire.'
 }
 exercice = resoudre('3*x+2=9*x-3', { comment: true, comments: commentairesPersonnalises })
 ```
 
-![](img/outilsMathjs-betaEquations110bis.png)
+[![](img/outilsMathjs-betaEquations110bis.png)](https://coopmaths.fr/mathalea.html?ex=betaEquations,s=110)
+
+On peut également mettre en forme une vérification :
+
+```Javascript
+exercice = resoudre('9*x+7=6*x-3', { color: 'black', comment: true })
+exercice.texte = `Résoudre : $${exercice.equation}$`
+exercice.texteCorr = `<br>
+${exercice.texteCorr}<br>
+La solution est $${exercice.solution}$.
+<br>
+Vérification :
+<br>
+D'une part : $${exercice.verifLeftSide.printExpression}=${exercice.verifLeftSide.printResult}$
+<br>
+D'autre part : $${exercice.verifRightSide.printExpression}=${exercice.verifRightSide.printResult}$
+`
+```
+
+[![](img/outilsMathjs-betaEquations114.png)](https://coopmaths.fr/mathalea.html?ex=betaEquations,s=114)
 
 ### Commentaires par défaut des étapes <a id="subsection8-2"></a>
 
@@ -665,6 +686,4 @@ L'exemple suivant montre les étapes de résolution d'une inéquation :
 exercice = resoudre('3*x+2<9*x-3')
 ```
 
-![](img/outilsMathjs-betaEquations111.png)
-
-Lien vers l'exercice : <https://coopmaths.fr/mathalea.html?ex=betaEquations,s=111>
+[![](img/outilsMathjs-betaEquations111.png)](https://coopmaths.fr/mathalea.html?ex=betaEquations,s=111)
