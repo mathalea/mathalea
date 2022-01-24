@@ -1,10 +1,11 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 418 
-- nombre d'exos interactifReady 569 
+- nombre d'exos amcReady 419 
+- nombre d'exos interactifReady 570 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |1AN14-4|Dérivée d'un produit|KO|KO|OK|mathLive|
+|1AN14-5|Dérivée d'un quotient|KO|KO|OK|mathLive|
 |1E11-1|Calculer le discriminant d'un polynôme du second degré|OK|AMCNum|OK|mathLive|
 |1E11-2|Résoudre une équation du second degré|KO|KO|OK|mathLive|
 |1E11-3|Déterminer la forme canonique d'un polynôme du second degré|KO|KO|OK|mathLive|
@@ -228,10 +229,11 @@
 |6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
 |6G14|Utiliser les propriétés des droites perpendiculaires|OK|AMCOpen|KO|KO|
 |6G23-1|Mesurer un angle|OK|qcmMono|OK|qcm|
+|6G24-1|Construire le symétrique d’un point par rapport à une droite|OK|AMCOpen|KO|KO|
 |6G24-2|Construire le symétrique d’une figure par rapport à une droite (cas simples)|OK|AMCOpen|KO|KO|
 |6G24-4|Compléter un nuage de points symétriques|OK|AMCOpenNum|OK|custom|
 |6G24|Trouver l’image d’un point par une symétrie axiale|OK|AMCHybride|OK|mathLive|
-|6G25-1|Utiliser des symétries axiales en pavage triangulaire|OK|qcmMono|OK|qcm|
+|6G25-1|Utiliser des symétries axiales en pavage triangulaire|OK|AMCHybride|OK|qcm|
 |6G25-2|Trouver l’image d’une figure par une symétrie axiale dans un pavage carré|OK|AMCHybride|OK|mathLive|
 |6G25|Construire des médiatrices avec cible auto-corrective|OK|AMCOpen|KO|KO|
 |6G26|Trouver les symétries axiales successives dans un damier|OK|AMCOpen|OK|mathLive|

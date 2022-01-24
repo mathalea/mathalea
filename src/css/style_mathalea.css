@@ -4,6 +4,7 @@
   body * {
     visibility: hidden;
   }
+  
   #affichage_exercices * {
     visibility: visible;
   }
@@ -19,7 +20,7 @@
     visibility: hidden!important;
   }
 
-  i.dropdown.icon {
+  i {
    visibility: hidden!important; 
   }
 }
