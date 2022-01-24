@@ -65,7 +65,7 @@ function listeEntiersDepuisSomme (total, nbElements) {
 */
 export default function CalculerDesFrequences () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Calculs de fréquences'
+  this.consigne = ''
   this.nbQuestions = 2
   this.nbQuestionsModifiable = false
   this.spacing = 1
@@ -73,39 +73,39 @@ export default function CalculerDesFrequences () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1
-  // paramètres du problème
-  const listeSports = ['Football', 'Rugby', 'Basket', 'Tennis', 'Judo', 'Handball', 'Volleyball', 'Athlétisme', 'Pingpong', 'Natation', 'Badminton']
-  const effectifTotal = choice([100, 120, 150, 200, 250, 400, 500, 1000])
-  const sports = shuffle(listeSports.slice(0, randint(5, listeSports.length)))
-  const effectifs = listeEntiersDepuisSomme(effectifTotal, sports.length)
-  const rangEffectifCache = randint(0, sports.length - 1)
-  const entrees = new Map()
-  for (let i = 0; i < sports.length; i++) {
-    entrees.set(sports[i], effectifs[i])
-  }
-  let textConsigne = `Dans un établissement de ${effectifTotal} élèves, on a demandé à chacun quel est son sport préféré. `
-  textConsigne += 'On a consigné les résultats dans le tableau suivant :<br><br>'
-  // construction du tableau
-  textConsigne += '$\\def\\arraystretch{1.5}\\begin{array}{|c'
-  for (let i = 0; i < sports.length; i++) { textConsigne += '|c' }
-  textConsigne += '|c|}\\hline'
-  textConsigne += '\\text{\\textbf{Sports}}'
-  for (const sport of entrees.keys()) { textConsigne += '&' + `\\text{${sport}}` }
-  textConsigne += '&\\text{\\textbf{TOTAL}}'
-  textConsigne += '\\\\\\hline'
-  textConsigne += '\\text{\\textbf{Effectifs}}'
-  for (let i = 0; i < effectifs.length; i++) {
-    if (i !== rangEffectifCache) { textConsigne += '&' + effectifs[i] } else { textConsigne += '&' }
-  }
-  textConsigne += `&${effectifTotal}\\\\\\hline`
-  textConsigne += '\\text{\\textbf{Fréquences}}'
-  for (let i = 0; i < effectifs.length; i++) { textConsigne += '&' }
-  textConsigne += '&\\\\\\hline\\end{array}$'
-  this.introduction = textConsigne
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    // paramètres du problème
+    const listeSports = ['Football', 'Rugby', 'Basket', 'Tennis', 'Judo', 'Handball', 'Volleyball', 'Athlétisme', 'Pingpong', 'Natation', 'Badminton']
+    const effectifTotal = choice([100, 120, 150, 200, 250, 400, 500, 1000])
+    const sports = shuffle(listeSports.slice(0, randint(5, listeSports.length)))
+    const effectifs = listeEntiersDepuisSomme(effectifTotal, sports.length)
+    const rangEffectifCache = randint(0, sports.length - 1)
+    const entrees = new Map()
+    for (let i = 0; i < sports.length; i++) {
+      entrees.set(sports[i], effectifs[i])
+    }
+    let textConsigne = `Dans un établissement de ${effectifTotal} élèves, on a demandé à chacun quel est son sport préféré. `
+    textConsigne += 'On a consigné les résultats dans le tableau suivant :<br><br>'
+    // construction du tableau
+    textConsigne += '$\\def\\arraystretch{1.5}\\begin{array}{|c'
+    for (let i = 0; i < sports.length; i++) { textConsigne += '|c' }
+    textConsigne += '|c|}\\hline'
+    textConsigne += '\\text{\\textbf{Sports}}'
+    for (const sport of entrees.keys()) { textConsigne += '&' + `\\text{${sport}}` }
+    textConsigne += '&\\text{\\textbf{TOTAL}}'
+    textConsigne += '\\\\\\hline'
+    textConsigne += '\\text{\\textbf{Effectifs}}'
+    for (let i = 0; i < effectifs.length; i++) {
+      if (i !== rangEffectifCache) { textConsigne += '&' + effectifs[i] } else { textConsigne += '&' }
+    }
+    textConsigne += `&${effectifTotal}\\\\\\hline`
+    textConsigne += '\\text{\\textbf{Fréquences}}'
+    for (let i = 0; i < effectifs.length; i++) { textConsigne += '&' }
+    textConsigne += '&\\\\\\hline\\end{array}$'
+    this.introduction = textConsigne
     const question1 = 'Déterminer l\'effectif manquant.'
     const question2 = 'Calculer les fréquences correspondant à chaque sport.'
     // correction question 1
