@@ -9,6 +9,7 @@ math.config({
   number: 'number',
   randomSeed: context.graine
 })
+
 // eslint-disable-next-line no-debugger
 // debugger
 
@@ -323,6 +324,7 @@ export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignation
  * @author Frédéric PIOU
  */
 export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fraction(a,10)+fraction(b,100)', test: 'b!=0 and b>a>c' }, debug = false) {
+  math.config({ randomSeed: context.graine })
   const assignations = {}
   let cpt = 0
   let test = true
@@ -774,7 +776,7 @@ export function resoudre (equation, params) {
     calculateLeftSide = calculer(sides[0].replaceAll('x', `(${solution})`))
     calculateRightSide = calculer(sides[1].replaceAll('x', `(${solution})`))
   }
-  return { texte: texte, texteCorr: texteCorr, equation: printEquation, solution: solution, verifLeftSide: calculateLeftSide, verifRightSide: calculateRightSide}
+  return { texte: texte, texteCorr: texteCorr, equation: printEquation, solution: solution, verifLeftSide: calculateLeftSide, verifRightSide: calculateRightSide }
 }
 
 export function programmeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3*x', '-2*x', '-3*x', 'x^2', '-x^2', 'x', '-x', '*x', '/x'], nombreChoisi, debug = false) {
