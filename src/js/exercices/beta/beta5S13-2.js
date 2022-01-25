@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Calculs de fréquences'
 /**
@@ -90,21 +90,6 @@ export default function CalculerDesFrequences () {
     let textConsigne = `Dans un établissement de ${effectifTotal} élèves, on a demandé à chacun quel est son sport préféré. `
     textConsigne += 'On a consigné les résultats dans le tableau suivant :<br><br>'
     // construction du tableau
-    // textConsigne += '$\\def\\arraystretch{1.5}\\begin{array}{|c'
-    // for (let i = 0; i < sports.length; i++) { textConsigne += '|c' }
-    // textConsigne += '|c|}\\hline'
-    // textConsigne += '\\text{\\textbf{Sports}}'
-    // for (const sport of entrees.keys()) { textConsigne += '&' + `\\text{${sport}}` }
-    // textConsigne += '&\\text{\\textbf{TOTAL}}'
-    // textConsigne += '\\\\\\hline'
-    // textConsigne += '\\text{\\textbf{Effectifs}}'
-    // for (let i = 0; i < effectifs.length; i++) {
-    //   if (i !== rangEffectifCache) { textConsigne += '&' + effectifs[i] } else { textConsigne += '&' }
-    // }
-    // textConsigne += `&${effectifTotal}\\\\\\hline`
-    // textConsigne += '\\text{\\textbf{Fréquences}}'
-    // for (let i = 0; i < effectifs.length; i++) { textConsigne += '&' }
-    // textConsigne += '&\\\\\\hline\\end{array}$'
     const entetesColonnes = ['\\text{\\textbf{Sports}}']
     for (const sport of entrees.keys()) {
       entetesColonnes.push(`\\text{${sport}}`)
@@ -130,21 +115,30 @@ export default function CalculerDesFrequences () {
     // correction question 1
     let correction1 = `L'effectif manquant est celui du ${sports[rangEffectifCache]}. Soit $e$ cet effectif.<br>`
     correction1 += `$e=${effectifTotal}-( `
+    let first = true
     for (const [sport, eff] of entrees) {
       if (sport !== sports[rangEffectifCache]) {
-        correction1 += `+ ${eff} `
+        if (first) {
+          correction1 += `${eff} `
+          first = !first
+        } else {
+          correction1 += `+ ${eff} `
+        }
       }
     }
     correction1 += ')$<br>'
     correction1 += `$e=${effectifTotal}-${calcul(effectifs.reduce((part, eff) => part + eff, 0) - effectifs[rangEffectifCache])}$<br>`
     correction1 += `$e=${entrees.get(sports[rangEffectifCache])}$`
     // correction question 2
-    let correction2 = 'Calculs des fréquences :<br>'
+    let correction2 = 'Calculs des fréquences.<br><br>'
+    correction2 += 'On rappelle que pour la fréquence relative à une valeur est donnée par le quotient : '
+    correction2 += '$\\dfrac{\\text{effectif de la valeur}}{\\text{effectif total}}$<br><br>'
+    correction2 += 'On en déduit donc les calculs suivants~:<br><br>'
     for (const [sport, eff] of entrees) {
       const f = fraction(eff, effectifTotal)
       correction2 += `${sport} :<br>`
       correction2 += `$f_{\\text{${sport}}}=${f.texFraction}$<br>`
-      correction2 += `$f_{\\text{${sport}}}=${f.pourcentage} $%<br><br>`
+      correction2 += `$f_{\\text{${sport}}}=$` + texNombre(f.pourcentage) + ' %<br><br>'
     }
     this.listeQuestions.push(question1, question2)
     this.listeCorrections.push(correction1, correction2)
