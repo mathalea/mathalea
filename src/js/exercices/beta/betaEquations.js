@@ -61,7 +61,7 @@ function schemaBarre () {
 export default function equationsProgression () {
   Exercice.call(this)
   const formulaire = []
-  for (let i = 0; i < 115; i++) formulaire.push(`${i}`)
+  for (let i = 0; i < 116; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
     'Type de question', this.nbQuestions, formulaire.join('\n')
@@ -1127,6 +1127,19 @@ export default function equationsProgression () {
           <br>
           D'autre part : $${exercice.verifRightSide.printExpression}=${exercice.verifRightSide.printResult}$
           `
+          break
+        }
+        case 115: {
+          const variables = aleaVariables(
+            {
+              a: true,
+              b: true,
+              c: 'randomInt(0,10)'
+            }
+          )
+          exercice = {}
+          exercice.texte = `$${variables.a}+ ${variables.b}+ ${variables.c}$`
+          exercice.texteCorr = ''
           break
         }
       }
