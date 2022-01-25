@@ -1,17 +1,37 @@
+# **VSCode**
 Voici une aide pour les débutants afin qu'ils puissent être en mesure de coder le plus rapidement et efficacement possible.
 
 # Installation
-## VSCode
+- À faire
 ## Extensions
 1. Vérification de l'orthographe
-2. Vérification de la syntaxe
-3. Visualisation des branches Git
-4. Utilisation de blocks de code préfabriqués
+   - Pour l'anglais [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker "cliquer sur ce lien")
+
+   - Pour le Français [French - Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker-french "cliquer sur ce lien")
+
+2. Vérification de la syntaxe et mise en forme
+   - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint "cliquer sur ce lien")
+
+3. Visualisation des branches Git 
+   - [Git Graph](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint "cliquer sur ce lien")
+
+4. Optimisation des fonctionnalités (Annotation du code en relation avec les commit, etc.)
+   - [GitLens — Git supercharged](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens "cliquer sur ce lien")
+
+5. Collaboration en temps réel (chat textuel et audio, révisions de code à distance, conférences interactives, etc.)
+   - [Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack "cliquer sur ce lien")
+
+6. Utilisation de blocks de code préfabriqués
+   
+   On pourrait peut-être en faire nous même pour qu'ils correspondent au **squelettes des exercices**
+   - [Nom](https:// "cliquer sur ce lien")
+
 # Configuration
+- À faire
 # Utilisation
 ## Comprendre l'interface utilisateur
 Être efficace avec un logiciel, c'est tout d'abord repérer les différentes zones de l'interface graphique
-Mettre une capture d'écran avec les zones
+     - À faire  : Mettre une capture d'écran avec les zones
 - La barre de menus
 - La barre d'icônes
 - La barre d'état
