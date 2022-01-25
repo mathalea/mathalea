@@ -291,6 +291,7 @@ div#gauche
   font-weight: bold;
 }
 
+
 #exercices ol li {
   counter-increment: list;
   list-style-type: none;
@@ -308,6 +309,15 @@ div#gauche
   font-weight: bold;
   padding-right:1em
 }
+
+#exercices ol, #corrections ol {
+  padding-left: 0px;
+}
+
+.sansNumero li:before {
+  display: none;
+}
+
 
 #corrections ol li {
   counter-increment: list;
