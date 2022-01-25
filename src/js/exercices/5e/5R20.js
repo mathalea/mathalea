@@ -6,7 +6,7 @@ import { context } from '../../modules/context.js'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
-export const interactifType = ['qcm', 'mathlive']
+export const interactifType = ['qcm', 'mathLive']
 
 export const titre = 'Addition de deux entiers relatifs'
 

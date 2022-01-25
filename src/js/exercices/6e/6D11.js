@@ -1,6 +1,5 @@
 import { combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 
 export const titre = 'Additionner des durées'
 

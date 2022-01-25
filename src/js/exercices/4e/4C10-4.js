@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Quotient de deux entiers relatifs'

@@ -82,7 +82,6 @@ function verifQuestionCliqueFigure (exercice, i) {
 }
 
 function verifQuestionMathLive (exercice, i) {
-  // Au commit 917faac, il y avait un retour console
   const engine = new ComputeEngine()
   let saisieParsee, signeF, num, den, fSaisie
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
@@ -144,6 +143,7 @@ function verifQuestionMathLive (exercice, i) {
       if (typeof reponse === 'number' || typeof reponse === 'string') {
         saisie = saisie.toString().replace(',', '.')
         reponse = reponse.toString().replace(',', '.')
+        saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
       }
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         resultat = 'OK'
