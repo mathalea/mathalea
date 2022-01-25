@@ -1,5 +1,4 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes, randint } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Tables de multiplications et de divisions'
@@ -65,7 +64,7 @@ export default function TablesMultiplicationsDivisions (
       if (operation[i] === 'x') {
         if (typesDeQuestions === 'classique') {
           // classique
-          texte = '$ ' + a + ' \\times ' + b + ' = \\dotfill $'
+          texte = '$ ' + a + ' \\times ' + b + ' = $'
           setReponse(this, i, a * b)
           if (this.interactif) texte = `$${a} \\times ${b} = $` + ajouteChampTexte(this, i)
           texteCorr = '$ ' + a + ' \\times ' + b + ' = ' + a * b + ' $'
@@ -91,7 +90,7 @@ export default function TablesMultiplicationsDivisions (
       } else {
         if (typesDeQuestions === 'classique') {
           // classique
-          texte = '$ ' + a * b + ' \\div ' + b + ' = \\dotfill $'
+          texte = '$ ' + a * b + ' \\div ' + b + ' =$'
           setReponse(this, i, a)
           if (this.interactif) texte = `$${a * b} \\div ${b} = $` + ajouteChampTexte(this, i)
         } else {
@@ -107,9 +106,6 @@ export default function TablesMultiplicationsDivisions (
           }
         }
         texteCorr = `$ ${a * b} \\div ${b} = ${a}$`
-      }
-      if (context.isDiaporama) {
-        texte = texte.replace('= \\dotfill', '')
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

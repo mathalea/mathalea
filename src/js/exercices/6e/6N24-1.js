@@ -38,7 +38,7 @@ export default function ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 ()
       b = choice([10, 100, 1000])
       if (choice([true, false])) {
         texte =
-          '$ ' + texFraction(texNombre(a), texNombre(b)) + ' = \\dotfill $'
+          '$ ' + texFraction(texNombre(a), texNombre(b)) + ' =  $'
         texteCorr =
           '$ ' +
           texFraction(texNombre(a), texNombre(b)) +
@@ -47,7 +47,7 @@ export default function ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 ()
           ' $'
       } else {
         texte =
-          '$ ' + texNombre(a) + '\\times' + texNombre(b) + ' = \\dotfill $'
+          '$ ' + texNombre(a) + '\\times' + texNombre(b) + ' =  $'
         texteCorr =
           '$ ' +
           texNombre(a) +

@@ -71,7 +71,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         b = c
       }
       texte =
-        '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' = \\dotfill $'
+        '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' =  $'
       texteCorr =
         '$ ' +
         texNombre(a) +
@@ -118,7 +118,6 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       } else {
         texte += ajouteChampTexteMathLive(this, i)
         setReponse(this, i, a * b)
-        texte = texte.replace('\\dotfill', '')
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

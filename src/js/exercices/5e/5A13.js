@@ -67,7 +67,7 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       for (let k = 0; k < facteurs.length; k++) {
         n = n * facteurs[k]
       }
-      texte = '$ ' + texNombre(n) + ' = \\dotfill $'
+      texte = '$ ' + texNombre(n) + ' =$'
       if (!this.correctionDetaillee) {
         texteCorr = '$ ' + texNombre(n) + ' = '
       } else {

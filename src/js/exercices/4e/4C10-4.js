@@ -54,7 +54,6 @@ export default function ExerciceQuotientsRelatifs () {
       texte = `$\\dfrac{${a}}{${b}}$`
       texteCorr = `$\\dfrac{${a}}{${b}}=${calcul(a / b)}$`
       setReponse(this, i, calcul(a / b))
-      if (this.interactif && context.isHtml) texte = texte.replace('\\dotfill', '')
       texte += ajouteChampTexteMathLive(this, i)
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

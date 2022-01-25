@@ -47,7 +47,7 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
       a = a * k[0]
       b = b * k[1]
       if (this.sup2) {
-        texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = \\dotfill $`
+        texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} =$`
         if (this.interactif && !context.isAmc) {
           texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` + ajouteChampTexteMathLive(this, i, { texte: '' })
         }
@@ -59,7 +59,7 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
           } else { texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a - b}$` }
         }
       } else {
-        texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = \\dotfill $'
+        texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' =$'
         if (this.interactif && !context.isAmc) {
           texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = $' + ajouteChampTexteMathLive(this, i, { texte: '' })
         }

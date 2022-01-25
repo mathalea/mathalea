@@ -39,10 +39,10 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
       a = a * k[0]
       b = b * k[1]
       if (this.sup2) {
-        texte = `$ ${texNombre(a)}${ecritureAlgebrique(b)} = \\dotfill $`
+        texte = `$ ${texNombre(a)}${ecritureAlgebrique(b)} =$`
         texteCorr = `$ ${a}${ecritureAlgebrique(b)} = ${a + b} $`
       } else {
-        texte = '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + ' = \\dotfill $'
+        texte = '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + ' =$'
         texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a + b) + ' $'
       }
       this.autoCorrection[i] = {}
@@ -69,7 +69,7 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
       if (this.sup3) {
         texte += propositionsQcm(this, i).texte
       } else {
-        texte = texte.replace('\\dotfill $', '$' + ajouteChampTexteMathLive(this, i))
+        texte += ajouteChampTexteMathLive(this, i)
         setReponse(this, i, a + b)
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

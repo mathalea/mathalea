@@ -41,14 +41,13 @@ export default function ExerciceMultiplicationsRelatifs (max = 10) {
         b = -1
       }
       if (this.sup2) {
-        texte = '$ ' + a + ' \\times  ' + ecritureParentheseSiNegatif(b) + ' = \\dotfill $'
+        texte = '$ ' + a + ' \\times  ' + ecritureParentheseSiNegatif(b) + ' =$'
         texteCorr = '$ ' + a + ' \\times  ' + ecritureParentheseSiNegatif(b) + ' = ' + (a * b) + ' $'
       } else {
-        texte = '$ ' + ecritureNombreRelatif(a) + ' \\times  ' + ecritureNombreRelatif(b) + ' = \\dotfill $'
+        texte = '$ ' + ecritureNombreRelatif(a) + ' \\times  ' + ecritureNombreRelatif(b) + ' =$'
         texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' \\times  ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a * b) + ' $'
       }
       setReponse(this, i, a * b)
-      if (this.interactif && context.isHtml) texte = texte.replace('\\dotfill', '')
       texte += ajouteChampTexteMathLive(this, i)
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
