@@ -65,6 +65,16 @@ const affichageUniquementQuestion = (i) => {
   const listeBoutonsDuMenu = document.querySelectorAll('[id^=btnMenu]')
   for (const bouton of listeBoutonsDuMenu) {
     bouton.classList.remove('blue')
+    if (parseInt(bouton.textContent) === i + 1) {
+      bouton.classList.add('blue')
+    }
+    if (i < 10 && parseInt(bouton.textContent) < 20) { // Dans les 10 premières questions on garde l'affichage des 10 premiers boutons
+      bouton.style.display = 'inline'
+    } else if (Math.abs(parseInt(bouton.textContent) - i - 1) > 8) { // Questions à plus de 6 d'écart cachée
+      bouton.style.display = 'none'
+    } else {
+      bouton.style.display = 'inline'
+    }
   }
   affichageUniquementExercice()
   const questions = document.querySelectorAll('div.question')
@@ -573,6 +583,7 @@ export async function initDom () {
         sectionTemp.remove()
         setStyles(section, 'display: block')
         gestionTimerDiap()
+        affichageUniquementQuestion(0)
       },
       { once: true }
     )
