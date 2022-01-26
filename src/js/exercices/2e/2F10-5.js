@@ -46,12 +46,12 @@ export default function signefonctionaffine () {
         texte = `Déterminer le signe de la fonction $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`
 
         if (this.sup2) {
-          texteCorr = 'On résout l\'inéquation $f(x)>0$<br>'
-          const inequation = resoudre(`${a}*x+${b}>0+0`)
-          const inequation2 = resoudre(`${a}*x+${b}<0+0`)
-          const equation = resoudre(`${a}*x+${b}=0+0`)
-          // texteCorr += `${inequation.texteCorr}<br>`
-          texteCorr += '$f(x)>0$<br>'
+          texteCorr = 'On résout l\'inéquation $f(x)>0$.<br>'
+          const inequation = resoudre(`${a}*x+${b}>0`, { color: false })
+          const inequation2 = resoudre(`${a}*x+${b}<0`, { color: false })
+          const equation = resoudre(`${a}*x+${b}=0`, { color: false })
+          texteCorr += `${inequation.texteCorr}<br>` // ?
+          /* texteCorr += '$f(x)>0$<br>'
           texteCorr += `$${a}x${ecritureAlgebrique(b)}>0$<br>`
           texteCorr += `$${a}x${ecritureAlgebrique(b)}${ecritureAlgebrique(-b)}>0${ecritureAlgebrique(-b)}$<br>`
           texteCorr += `$${a}x>${-b}$<br>`
@@ -60,8 +60,10 @@ export default function signefonctionaffine () {
             texteCorr += `$x${a>0?'>':'<'}${parseFloat(-b/a)}$<br>`
           } else {
             texteCorr += `$x${a>0?'>':'<'}\\dfrac{${ecritureAlgebrique(-b)}}{${a}}$<br>`
-          }
+          } */
           texteCorr += `On montre de même que l'inéquation $f(x) < 0$ a pour solution $${inequation2.solution}$ et que l'équation $f(x)=0$ a pour solution $${equation.solution}$. <br>`
+          texteCorr += `Ainsi, $f$ est :<br>- nulle lorsque $x$ est égal à $${texFractionReduite(-b, a)}$<br>- positive lorsque $x$ est ${a > 0 ? 'supérieur' : 'inférieur'} à $${texFractionReduite(-b, a)}$<br>- négative lorsque $x$ est ${a > 0 ? 'inférieur' : 'supérieur'} à $${texFractionReduite(-b, a)}$.<br>`
+          texteCorr += 'On a donc le tableau de signe suivant :'
           ligne1 = a > 0 ? ['Line', 30, '', 0, '-', 20, 'z', 20, '+'] : ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
         } else {
           texteCorr = 'On reconnaît que $f$ est une fonction affine, de la forme $f(x)=ax+b$.<br>'
@@ -91,7 +93,7 @@ export default function signefonctionaffine () {
               ['$x$', 2, 30], [`$f(x)=${reduireAxPlusB(a, b)}$`, 2, 50]
             ],
             // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-            ['$-\\infty$', 30, `$x_0=${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
+            ['$-\\infty$', 30, this.sup2 ? `$${texFractionReduite(-b, a)}$` : `$x_0=${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
           ],
           // tabLines ci-dessous contient les autres lignes du tableau.
           tabLines: [ligne1],
@@ -106,7 +108,7 @@ export default function signefonctionaffine () {
         const f = x => a * x + b
         monRepere = repere2()
         maCourbe = courbe2(f, { repere: monRepere })
-        const A = point(-b / a, 0, '$x_0$')
+        const A = point(-b / a, 0, `$${this.sup2 ? texFractionReduite(-b, a) : 'x_0'}$`)
         lA = labelPoint(A, 'red')
         tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
         texteCorr += mathalea2d({
