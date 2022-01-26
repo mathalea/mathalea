@@ -1178,10 +1178,10 @@ export default function equationsProgression () {
           break
         }
         case 119 : {
-          exercice = resoudre('5*x+2=0')
+          exercice = resoudre('2*x+5=1')
           exercice.texte = `
           <br>
-          Résoudre : $${exercice.printExpression}$`
+          Résoudre : $${exercice.equation}$`
           exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
           break
         }
