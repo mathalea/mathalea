@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texNombrec, calcul, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, calcul, choice, arrondi, texNombre2 } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -8,7 +8,7 @@ export const dateDePublication = '18/01/2022'
 
 /**
  * On donne un calcul avec des puissances de 10 et on en attend le résultat en écriture décimale
- * @author Mireille Gain, copiant le 4C32-1 de Jean-Claude Lhote
+ * @author Mireille Gain
  * 4C32-0
 */
 export default function EcritureDecimaleApresPuissancesDeDix () {
@@ -34,17 +34,17 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
         case 'type1':
           n = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
           p = randint(0, 7)
-          texte = `$${texNombrec(n)} \\times 10^{${p}}$`
+          texte = `$${texNombre2(n)} \\times 10^{${p}}$`
           texteCorr = texte
-          texteCorr += `$=${texNombrec(n * 10 ** p)}$`
+          texteCorr += `$=${texNombre2(n * 10 ** p)}$`
           setReponse(this, i, n * 10 ** p)
           break
         case 'type2':
           n = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
           p = randint(1, 7)
-          texte = `$${texNombrec(n)} \\times 10^{${-p}}$`
+          texte = `$${texNombre2(n)} \\times 10^{${-p}}$`
           texteCorr = texte
-          texteCorr += `$=${texNombrec(n * 10 ** (-p))}$`
+          texteCorr += `$=${texNombre2(arrondi(n * 10 ** (-p), 10))}$`
           setReponse(this, i, n * 10 ** (-p))
           break
         case 'type3':
@@ -52,9 +52,9 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
           d = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
           p = randint(1, 7)
           nb = calcul(n + d / choice([10, 100, 1000]))
-          texte = `$${texNombrec(nb)} \\times 10^{${p}}$`
+          texte = `$${texNombre2(nb)} \\times 10^{${p}}$`
           texteCorr = texte
-          texteCorr += `$=${texNombrec(nb * 10 ** (p))}$`
+          texteCorr += `$=${texNombre2(nb * 10 ** (p))}$`
           setReponse(this, i, nb * 10 ** (p))
           break
         case 'type4':
@@ -62,24 +62,24 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
           d = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
           p = randint(0, 7)
           nb = calcul(n + d / choice([10, 100, 1000]))
-          texte = `$${texNombrec(nb)} \\times 10^{${-p}}$`
+          texte = `$${texNombre2(nb)} \\times 10^{${-p}}$`
           texteCorr = texte
-          texteCorr += `$=${texNombrec(nb * 10 ** (-p))}$`
+          texteCorr += `$=${texNombre2(arrondi(nb * 10 ** (-p), 10))}$`
           setReponse(this, i, nb * 10 ** (-p))
           break
       }
 
-      if (this.interactif) { // Si l'exercice est interactif
+      if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i)
       }
-      // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+
+      if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
       }
       cpt++
     }
-    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+    listeQuestionsToContenu(this)
   }
 }
