@@ -61,7 +61,7 @@ function schemaBarre () {
 export default function equationsProgression () {
   Exercice.call(this)
   const formulaire = []
-  for (let i = 0; i < 119; i++) formulaire.push(`${i}`)
+  for (let i = 0; i < 120; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
     'Type de question', this.nbQuestions, formulaire.join('\n')
@@ -1174,6 +1174,14 @@ export default function equationsProgression () {
           exercice.texte = `(Problème à régler : signe de la multiplication dans les calculs)
           <br>
           Calculer : $${exercice.printExpression}$`
+          exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
+          break
+        }
+        case 119 : {
+          exercice = resoudre('5*x+2=0')
+          exercice.texte = `
+          <br>
+          Résoudre : $${exercice.printExpression}$`
           exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
           break
         }
