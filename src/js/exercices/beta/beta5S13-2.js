@@ -177,8 +177,8 @@ export default function CalculerDesFrequences () {
     // consigne += 'DIAGRAMME ICI !'
     // construction du diagramme
     const effectifsSansValeurCachee = effectifs.map((elt, i) => i !== rangEffectifCache ? elt : 0)
-    const sportsAvecRappelEffectif = sports.map((elt, i) => i !== rangEffectifCache ? elt + ` (${effectifs[i]})` : elt)
-    const diagrammeBaton = graphique(effectifsSansValeurCachee, sportsAvecRappelEffectif, { etiquetteValeur: false, reperageTraitPointille: true, axeVertical: true, titreAxeVertical: 'Effectifs', labelAxeVert: true })
+    // const sportsAvecRappelEffectif = sports.map((elt, i) => i !== rangEffectifCache ? elt + ` (${effectifs[i]})` : elt)
+    const diagrammeBaton = graphique(effectifsSansValeurCachee, sports, { etiquetteValeur: false, reperageTraitPointille: true, axeVertical: true, titreAxeVertical: 'Effectifs', labelAxeVert: true })
     consigne += diagrammeBaton
     const texte = questionsEtCorrections(entrees, entreeCachee) // on récupère les questions/réponses en relation
     return { consigne: consigne, questions: texte.questions, corrections: texte.corrections }
