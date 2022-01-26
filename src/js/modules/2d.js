@@ -8346,7 +8346,8 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
       ligne.epaisseur = 0.2
       diagramme.push(ligne)
     }
-    diagramme.push(texteParPoint(numberFormat(hauteursBarres[j]), point(abscisseBarre, hauteurBarre + 0.3)))
+    // On écrit la valeur au dessus de la barre sauf pour une hauteur de 0
+    if (hauteursBarres[j] !== 0) diagramme.push(texteParPoint(numberFormat(hauteursBarres[j]), point(abscisseBarre, hauteurBarre + 0.3)))
     // Calculs permettant de graduer l'axe vertical et de placer des valeurs
     const steps = [1, 2, 5, 10, 20]
     const yticks = [1, 2, 5, 5, 5]

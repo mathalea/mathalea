@@ -160,7 +160,7 @@ export default function ProblemesPythagore () {
             c += randint(-3, 3, [0]) // on change la valeur de c
             b += randint(-3, 3, [0]) // on change la valeur de b
           }
-        } while (c < a || c < b || c >= a + b)
+        } while (c <= a || c <= b || c >= a + b)
       }
       if (a > 9 && choice([true, true, true, false])) {
         // le plus souvent on utilise des décimaux

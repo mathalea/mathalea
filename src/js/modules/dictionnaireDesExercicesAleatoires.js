@@ -6367,7 +6367,7 @@ export default {
     "interactifReady": true,
     "interactifType": [
       "qcm",
-      "mathlive"
+      "mathLive"
     ],
     "name": "5R20",
     "newEx": {
@@ -10554,6 +10554,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "betaModele50_Mathsteps": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModele50_Mathsteps.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModele50_Mathsteps",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "betaProbaAouB": {
     "titre": "2S30-6",
     "url": "/exercices/beta/betaProbaAouB.js",
@@ -11178,7 +11193,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1P01",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11529,7 +11544,7 @@ export default {
     "interactifType": "qcm",
     "name": "can2F09",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11545,7 +11560,7 @@ export default {
     "interactifType": "qcm",
     "name": "can2F10",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
