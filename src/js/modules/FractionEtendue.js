@@ -473,6 +473,7 @@ export default class FractionX extends Fraction {
     if (this.d !== 1) {
       etape = detaillee ? `\\sqrt{\\dfrac{${this.num}}{${this.den}}}=` : ''
     } else {
+      factoNum = extraireRacineCarree(Math.abs(this.num))
       if (factoNum[0] !== 1) {
         etape = detaillee ? `\\sqrt{${this.num}}=` : ''
       } else {
