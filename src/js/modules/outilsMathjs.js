@@ -342,9 +342,13 @@ export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fr
     cpt++
     for (const v of Object.keys(variables)) {
       if (typeof variables[v] === 'boolean') {
-        assignations[v] = math.evaluate('(pickRandom([-1,1]))^(n)*randomInt(1,10)', { n: variables[v] })
+        assignations[v] = math.fraction(math.evaluate('(pickRandom([-1,1]))^(n)*randomInt(1,10)', { n: variables[v] }))
       } else if (typeof variables[v] === 'number') {
-        assignations[v] = variables[v]
+        try {
+          assignations[v] = math.fraction(variables[v])
+        } catch {
+          assignations[v] = variables[v]
+        }
       } else if (v !== 'test') {
         try { // On tente les calculs exacts avec mathjs
           assignations[v] = emath.evaluate(variables[v], assignations)
@@ -354,9 +358,7 @@ export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fr
           } catch { // Sinon on fait sans mais on revient à des nombres de type 'number'
             const values = Object.assign({}, assignations)
             for (const v of Object.keys(values)) {
-              if (typeof values[v] !== 'number') {
-                values[v] = values[v].valueOf()
-              }
+              values[v] = values[v].valueOf()
             }
             assignations[v] = math.evaluate(variables[v], values)
           }
@@ -804,7 +806,7 @@ export function resoudre (equation, params) {
     calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${solution})`))
     calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${solution})`))
   }
-  return { texte: texte, texteCorr: texteCorr, equation: printEquation, solution: solution, verifLeftSide: calculateLeftSide, verifRightSide: calculateRightSide }
+  return { texte: texte, texteCorr: texteCorr, equation: printEquation, solution: solution, verifLeftSide: calculateLeftSide, verifRightSide: calculateRightSide, steps: steps }
 }
 
 export function programmeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3*x', '-2*x', '-3*x', 'x^2', '-x^2', 'x', '-x', '*x', '/x'], nombreChoisi, debug = false) {

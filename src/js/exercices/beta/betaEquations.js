@@ -1036,15 +1036,15 @@ export default function equationsProgression () {
               d: false,
               e: false,
               f: false,
-              disc: 'fraction((b/e)^2-4*(a/d)*(c/f))',
               test: 'abs(a)!=d and abs(b)!=e and abs(c)!=f and abs(a)<6 and abs(b)<6 and abs(c)<6 and 1<=d<6 and 1<=e<6 and 1<=f<6 and gcd(abs(a),d)==1 and gcd(abs(b),e)==1 and gcd(abs(c),f)==1'
-            }
+            }, { valueOf: true }
           )
+          const disc = aleaVariables(Object.assign(variables, { disc: '(b/e)^2-4*(a/d)*(c/f)' })).disc
           const polynomeTex = toTex(simplify('a/d*x^2+b/e*x+c/f', [], variables), { suppr1: true })
           const discriminantTex = toTex(simplify('(b/e)^2-4*(a/d)*(c/f)', [], variables), { suppr1: true })
-          const stepscalculsDiscriminant = calculer(simplify('(b/e)^2-4*(a/d)*c/f', [], variables).toString(), { comments: false, mixed: false }).texteCorr
+          const stepscalculsDiscriminant = calculer('(b/e)^2-4*(a/d)*c/f', { comments: false, mixed: false, variables: variables }).texteCorr
           exercice = {}
-          exercice.texteCorr = `$\\Delta = b^2-4ac=${discriminantTex}=${toTex(variables.disc.toFraction())}$
+          exercice.texteCorr = `$\\Delta = b^2-4ac=${discriminantTex}=${toTex(disc.toFraction())}$
           <br>
           ${stepscalculsDiscriminant}`
           exercice.texte = `Le discriminant de $${polynomeTex}$ est : `
@@ -1059,15 +1059,15 @@ export default function equationsProgression () {
               d: false,
               e: false,
               f: false,
-              disc: 'fraction((b/e)^2-4*(a/d)*(c/f))',
-              test: 'abs(a)!=d and abs(b)!=e and abs(c)!=f and abs(a)<6 and abs(b)<6 and abs(c)<6 and 1<d<6 and 1<e<6 and 1<f<6 and gcd(abs(a),d)==1 and gcd(abs(b),e)==1 and gcd(abs(c),f)==1'
-            }
+              test: 'abs(a)!=d and abs(b)!=e and abs(c)!=f and abs(a)<6 and abs(b)<6 and abs(c)<6 and 1<=d<6 and 1<=e<6 and 1<=f<6 and gcd(abs(a),d)==1 and gcd(abs(b),e)==1 and gcd(abs(c),f)==1'
+            }, { valueOf: true }
           )
+          const disc = aleaVariables(Object.assign(variables, { disc: '(b/e)^2-4*(a/d)*(c/f)' })).disc
           const polynomeTex = toTex(simplify('a/d*x^2+b/e*x+c/f', [], variables), { suppr1: true })
           const discriminantTex = toTex(simplify('(b/e)^2-4*(a/d)*(c/f)', [], variables), { suppr1: true })
-          const stepscalculsDiscriminant = calculer(simplify('(b/e)^2-4*(a/d)*c/f', [], variables).toString(), { comments: false, mixed: false, name: '\\Delta' }).texteCorr
+          const stepscalculsDiscriminant = calculer('(b/e)^2-4*(a/d)*c/f', { comments: false, mixed: false, variables: variables }).texteCorr
           exercice = {}
-          exercice.texteCorr = `$\\Delta = b^2-4ac=${discriminantTex}=${toTex(variables.disc.toFraction())}$
+          exercice.texteCorr = `$\\Delta = b^2-4ac=${discriminantTex}=${toTex(disc.toFraction())}$
           <br>
           Calcul détaillé :
           <br>
@@ -1163,13 +1163,12 @@ export default function equationsProgression () {
           break
         }
         case 117: {
-          const variables = aleaVariables(
+          const variables =
             {
               a: true,
               b: true
             }
-          )
-          exercice = resoudre(aleaEquation('9*x+a=6*x+b', variables).toString(), { color: 'blue', comment: true })
+          exercice = resoudre('9*x+a=6*x+b', { variables: variables, color: 'blue', comment: true })
           exercice.texte = `Résoudre : $${exercice.equation}$`
           exercice.texteCorr = `
           <br>
@@ -1194,11 +1193,12 @@ export default function equationsProgression () {
           break
         }
         case 119 : {
-          exercice = resoudre('2*x+5=1')
+          exercice = resoudre('10*x+5=1')
           exercice.texte = `
           <br>
           Résoudre : $${exercice.equation}$`
           exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
+          exercice.texteCorr += `La solution est ${exercice.approx}`
           break
         }
         case 120: {
