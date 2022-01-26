@@ -484,16 +484,13 @@ export function calculer (expression, params) {
   // Si ça fonctionne on peut régler le problème des implicit qui disparaissent ? des (-3)² qui deviennent -3² ?
   // A faire : Ajouter un paramètre parenthesis à chaque noeud, ou il faudrait le faire dans Mathjs ?
   if (params.variables !== undefined) expression = aleaExpression(expression, params.variables)
+  const expressionPrint = toTex(expression, params)
   const steps = params.substeps ? traverserEtapes(simplifyExpression(expression)) : simplifyExpression(expression)
   const stepsExpression = []
   const commentaires = []
-  let expressionPrint = ''
   steps.forEach(function (step, i) {
     const oldNode = step.oldNode !== null ? toTex(step.oldNode, params) : ''
     const newNode = toTex(step.newNode, params)
-    if (i === 0) {
-      expressionPrint = `${oldNode}`
-    }
     if (newNode === oldNode) stepsExpression.pop()
     if (params.comment) {
       const commentaire = `\\text{${step.changeType}}`.replaceAll('_', ' ')
@@ -552,7 +549,7 @@ export function calculer (expression, params) {
   }
   const texte = `Calculer $${expressionPrint}$.`
   const texteCorr = `$\\begin{aligned}\n${stepsExpression.join('\\\\\n')}\n\\end{aligned}$`
-  return { printResult: steps.length > 0 ? toTex(steps[steps.length - 1].newNode, params.totex) : expression, netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: commentaires, printExpression: expressionPrint, name: params.name }
+  return { printResult: steps.length > 0 ? toTex(steps[steps.length - 1].newNode, params.totex) : expressionPrint, netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: commentaires, printExpression: expressionPrint, name: params.name }
 }
 
 export function aleaEquation (equation = 'a*x+b=c*x-d', variables = { a: false, b: false, c: false, d: false, test: 'a>b or true' }, debug = false) { // Ne pas oublier le signe de la multiplication
