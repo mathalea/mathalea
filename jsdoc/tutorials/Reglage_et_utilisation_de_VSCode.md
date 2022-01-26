@@ -35,7 +35,7 @@ Voici une aide pour les débutants afin qu'ils puissent être en mesure de coder
 ## Comprendre l'interface utilisateur
 Être efficace avec un logiciel, c'est tout d'abord repérer les différentes zones de l'interface graphique
 
-![](img/tutoVSCode/interfaceGeneraleVSCode.png)
+![](img/tutoVSCode/interfaceGeneraleVSCodeAvecCadres.png)
      - À faire  : Mettre une capture d'écran avec les zones
 - La barre de menus
 - La barre d'icônes
