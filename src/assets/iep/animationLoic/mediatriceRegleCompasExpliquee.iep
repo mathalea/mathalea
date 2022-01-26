@@ -1,0 +1,89 @@
+/*
+// Ce block permet temporairement d'enlever les erreurs afin de se concentrer
+// sur celles qui ne sont pas dues aux manques d'import des animations
+
+import { longueur, milieu, pointSurSegment, rotation } from '../../../js/modules/2d'
+import { point } from '../../js/modules/2d'
+import Alea2iep from '../../js/modules/Alea2iep'
+
+const anim = new Alea2iep()
+ */
+// anim.vitesse = 200
+// anim.tempo = 0
+
+const A = point(4, 1, 'A')
+const B = point(8, -1, 'B')
+anim.traitRapide(A, B)
+// remplacer anim.pointCreer(B) par anim.textePoint pour cacher la croix mais on ne peut pas choisir la position tout de suite
+
+// anim.x(A) -> 120 coordonnées originelles de IEP
+// A.x -> 4 coordonnées de Alea2iep
+
+// Comment faire pour que textePointLolo('lolo', A, {dx:0}) fonctionne sans faire de if dy===undefined etc. Allez voir https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment ex.{size = 'big', coords = { x: 0, y: 0 }, radius = 25}
+function textePointLolo (texte, point, options = { dx: 0, dy: 0 }) {
+  const a = point.x + options.dx
+  const b = point.y + options.dy
+  anim.textePosition(texte, a, b, options)
+}
+
+textePointLolo('A', A, { dx: -0.7, dy: 0.5 })
+
+anim.textePoint('B', B)
+
+const O = milieu(A, B)
+const A1 = rotation(A, O, -90)
+const M = pointSurSegment(O, A1, 5) // Point de la médiatrice
+const N = pointSurSegment(O, A1, -3)
+anim.compasMontrer()
+anim.compasDeplacer(A)
+anim.compasEcarter(longueur(A, M))
+// Je ne donne pas de références aux arcs car je ne m'en sers pas après
+anim.compasTracerArcCentrePoint(A, M, { delta: 5 })
+anim.compasTracerArcCentrePoint(B, M)
+anim.compasTracerArcCentrePoint(B, N)
+anim.compasTracerArcCentrePoint(A, N, { delta: 5 })
+
+anim.compasMasquer()
+anim.regleMasquerGraduations()
+// Je ne donne pas de référence à la droite car je ne m'en sers pas après
+anim.regleDroite(M, N, { couleur: 'noir' })
+anim.regleMasquer()
+// Je ne donne pas de références à ces codages car je ne m'en sers pas après
+anim.segmentCodage(A, O, { codage: '/', couleur: 'red' })
+anim.segmentCodage(O, B, { codage: '/', couleur: 'red' })
+// Ce masquage de crayon ne fonctionne pas pendant le codage de l'angle droit
+anim.crayonMasquer()
+anim.codageAngleDroit(A, O, A1, { couleur: 'red' })
+anim.regleMasquer()
+
+const c1 = anim.regleSegment(A, M, { couleur: 'grey' })
+anim.regleMasquer()
+// Bug codage: '\' ne fonctionne pas
+const codage1 = anim.segmentCodage(A, M, { codage: '//', couleur: 'vert' })
+const c2 = anim.regleSegment(M, B, { couleur: 'grey' })
+anim.regleMasquer()
+const codage2 = anim.segmentCodage(B, M, { codage: '//', couleur: 'vert' })
+const c3 = anim.regleSegment(B, N, { couleur: 'grey' })
+// anim.regleMasquer()
+const codage3 = anim.segmentCodage(B, N, { codage: '///', couleur: 'vert' })
+const c4 = anim.regleSegment(N, A, { couleur: 'grey' })
+anim.regleMasquer()
+const codage4 = anim.segmentCodage(N, A, { codage: '///', couleur: 'vert' })
+
+// anim.crayonMasquer() ou bien anim.masquer('crayon') sont équivalents car crayonMasquer() appelle masquer('crayon')
+anim.masquer('crayon')
+/*
+// Se serait bien d'avoir un masquer(trait1), masquer(arc1), masquer(codage1), etc.
+anim.masquer(codage1)
+anim.masquer(c1)
+ou bien codage1.visibilite = false
+*/
+
+anim.segmentCodageMasquer(codage1)
+anim.traitMasquer(c1)
+anim.segmentCodageMasquer(codage2)
+anim.traitMasquer(c2)
+anim.segmentCodageMasquer(codage3)
+anim.traitMasquer(c3)
+anim.segmentCodageMasquer(codage4)
+anim.traitMasquer(c4)

@@ -62,7 +62,7 @@ Voici par ordre d'importance les principaux raccourcis clavier pour être rapide
    - ? (macOSX)
    - ? (Linux)
 8. Édition multiple Ctrl+alt+flèche haut ou bas
-   - Ctrl+Alt+flèche haut ou bas (Windows)
+   - Ctrl+Alt+flèche haut ou bas ou bien Alt+clic (Windows)
    - ? (macOSX)
    - ? (Linux)
 
