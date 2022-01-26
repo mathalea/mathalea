@@ -5,10 +5,6 @@ import { getNewChangeNodes } from './Change.js'
 // import Algebrite from 'algebrite'
 // const Algebrite = require('algebrite')
 const math = create(all)
-math.config({
-  number: 'number',
-  randomSeed: context.graine
-})
 
 // eslint-disable-next-line no-debugger
 // debugger
@@ -310,9 +306,13 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
   return nodeTex
 }
 
-export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignations = { a: 1, b: 2, c: 3, d: -6 }, debug = false) {
+export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignations = { a: 1, b: 2, c: 3, d: -6 }) {
   // Ne pas oublier le signe de la multiplication
   return simplify(expression, [{ l: '1*n', r: 'n' }, { l: '-1*n', r: '-n' }, { l: 'n/1', r: 'n' }, { l: 'c/c', r: '1' }, { l: '0*v', r: '0' }, { l: '0+v', r: 'v' }], assignations)
+}
+
+export function aleaExpression (expression = '(a*x+b)*(c*x-d)', assignations = { a: 1, b: 2, c: 3, d: -6 }) {
+  return simplify(expression, [], assignations).toString()
 }
 
 /**
@@ -468,7 +468,7 @@ export function calculExpression (expression = '4/3+5/6', factoriser = false, de
  * @param {Objet} params // Les paramètres (commentaires visibles , sous-étapes visibles, fraction-solution au format MixedNumber)
 */
 export function calculer (expression, params) {
-  params = Object.assign({ comment: false, substeps: false, mixed: false, name: undefined }, params)
+  params = Object.assign({ comment: false, substeps: false, mixed: false, name: undefined, suppr1: true }, params)
   // La fonction simplifyExpression est une fonction mathsteps
   // Elle renvoie toutes les étapes d'un calcul numérique ou d'un développement-réduction
   // L'addition de deux fractions est classée dans les sous-étapes bizarrement
@@ -482,14 +482,14 @@ export function calculer (expression, params) {
   // Refaire la méthode transform() pour qu'elle ne modifie rien d'autre de notre noeud que ce qu'on souhaite
   // Si ça fonctionne on peut régler le problème des implicit qui disparaissent ? des (-3)² qui deviennent -3² ?
   // A faire : Ajouter un paramètre parenthesis à chaque noeud, ou il faudrait le faire dans Mathjs ?
-
+  if (params.variables !== undefined) expression = aleaExpression(expression, params.variables)
   const steps = params.substeps ? traverserEtapes(simplifyExpression(expression)) : simplifyExpression(expression)
   const stepsExpression = []
   const commentaires = []
   let expressionPrint = ''
   steps.forEach(function (step, i) {
-    const oldNode = step.oldNode !== null ? toTex(step.oldNode, { suppr1: true }) : ''
-    const newNode = toTex(step.newNode, { suppr1: true })
+    const oldNode = step.oldNode !== null ? toTex(step.oldNode, params) : ''
+    const newNode = toTex(step.newNode, params)
     if (i === 0) {
       expressionPrint = `${oldNode}`
     }
@@ -545,13 +545,13 @@ export function calculer (expression, params) {
             steps[steps.length - 1].newNode.args[0].value,
             steps[steps.length - 1].newNode.args[1].value
           ).toFraction(true).replace(' ', plus)
-        ), { suppr1: false }
+        ), params
       )
     )
   }
   const texte = `Calculer $${expressionPrint}$.`
   const texteCorr = `$\\begin{aligned}\n${stepsExpression.join('\\\\\n')}\n\\end{aligned}$`
-  return { printResult: toTex(steps[steps.length - 1].newNode), netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: commentaires, printExpression: expressionPrint, name: params.name }
+  return { printResult: toTex(steps[steps.length - 1].newNode, params.totex), netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: commentaires, printExpression: expressionPrint, name: params.name }
 }
 
 export function aleaEquation (equation = 'a*x+b=c*x-d', variables = { a: false, b: false, c: false, d: false, test: 'a>b or true' }, debug = false) { // Ne pas oublier le signe de la multiplication
@@ -723,6 +723,7 @@ export function resoudre (equation, params) {
   // Un bug de mathsteps ne permet pas de résoudre 2/x=2 d'où la ligne suivante qui permettait de le contourner
   // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
   // A priori le traitement actuel n'occure plus ce bug (raison ?).
+  if (params.variables !== undefined) equation = aleaEquation(equation, params.variables)
   let printEquation
   const steps = solveEquation(equation)
   const stepsNewEquation = []
@@ -736,10 +737,10 @@ export function resoudre (equation, params) {
         repetition = 0
       }
     }
-    const oldLeftNode = step.oldEquation !== null ? toTex(step.oldEquation.leftNode) : ''
-    let newLeftNode = toTex(step.newEquation.leftNode)
-    const oldRightNode = step.oldEquation !== null ? toTex(step.oldEquation.rightNode) : ''
-    let newRightNode = toTex(step.newEquation.rightNode)
+    const oldLeftNode = step.oldEquation !== null ? toTex(step.oldEquation.leftNode, params) : ''
+    let newLeftNode = toTex(step.newEquation.leftNode, params)
+    const oldRightNode = step.oldEquation !== null ? toTex(step.oldEquation.rightNode, params) : ''
+    let newRightNode = toTex(step.newEquation.rightNode, params)
     if (i === 0) {
       printEquation = `${oldLeftNode}${step.newEquation.comparator}${oldRightNode}`
       stepsNewEquation.push(
@@ -772,9 +773,10 @@ export function resoudre (equation, params) {
   let calculateLeftSide, calculateRightSide
   if (equation.indexOf('=') !== -1) {
     const sides = equation.split('=')
+    const SymbolNode = parse(steps[steps.length - 1].newEquation.ascii().split('=')[0]).toString()
     const solution = steps[steps.length - 1].newEquation.ascii().split('=')[1]
-    calculateLeftSide = calculer(sides[0].replaceAll('x', `(${solution})`))
-    calculateRightSide = calculer(sides[1].replaceAll('x', `(${solution})`))
+    calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${solution})`))
+    calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${solution})`))
   }
   return { texte: texte, texteCorr: texteCorr, equation: printEquation, solution: solution, verifLeftSide: calculateLeftSide, verifRightSide: calculateRightSide }
 }
