@@ -185,7 +185,7 @@
 |5R11|Lire l’abscisse relative d’un point|OK|AMCHybride|OK|mathLive|
 |5R20-2|Addition à trou de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R20-3|Additions de 5 nombres relatifs|OK|AMCNum|OK|mathLive|
-|5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm,mathlive|
+|5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm,mathLive|
 |5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|mathLive|
 |5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|mathLive|
 |5S11|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
