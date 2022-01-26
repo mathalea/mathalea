@@ -12,16 +12,19 @@ Voici une aide pour les débutants afin qu'ils puissent être en mesure de coder
 2. Vérification de la syntaxe et mise en forme
    - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint "cliquer sur ce lien")
 
-3. Visualisation des branches Git 
+3. Résolution automatique des imports manquants
+   - [Auto Import](https://marketplace.visualstudio.com/items?itemName=steoates.autoimport "cliquer sur ce lien")
+
+4. Visualisation des branches Git 
    - [Git Graph](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint "cliquer sur ce lien")
 
-4. Optimisation des fonctionnalités (Annotation du code en relation avec les commit, etc.)
+5. Optimisation des fonctionnalités (Annotation du code en relation avec les commit, etc.)
    - [GitLens — Git supercharged](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens "cliquer sur ce lien")
 
-5. Collaboration en temps réel (chat textuel et audio, révisions de code à distance, conférences interactives, etc.)
+6. Collaboration en temps réel (chat textuel et audio, révisions de code à distance, conférences interactives, etc.)
    - [Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack "cliquer sur ce lien")
 
-6. Utilisation de blocks de code préfabriqués
+7. Utilisation de blocks de code préfabriqués
    
    On pourrait peut-être en faire nous même pour qu'ils correspondent au **squelettes des exercices**
    - [Nom](https:// "cliquer sur ce lien")
