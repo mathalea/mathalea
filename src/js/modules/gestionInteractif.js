@@ -83,7 +83,7 @@ function verifQuestionCliqueFigure (exercice, i) {
 
 function verifQuestionMathLive (exercice, i) {
   const engine = new ComputeEngine()
-  let saisieParsee, signeF, num, den, fSaisie
+  let saisieParsee, signeF, num, den, fSaisie, saisie
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
@@ -102,6 +102,7 @@ function verifQuestionMathLive (exercice, i) {
       champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
       break
   }
+  saisie = champTexte?.value
   let reponses = []
   if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
     reponses = [exercice.autoCorrection[i].reponse.valeur]
@@ -109,7 +110,7 @@ function verifQuestionMathLive (exercice, i) {
     reponses = exercice.autoCorrection[i].reponse.valeur
   }
   let resultat = 'KO'
-  let saisie = champTexte.value
+
   for (let reponse of reponses) {
     if (formatInteractif === 'NumDen') {
       num = parseInt(document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`).value)
