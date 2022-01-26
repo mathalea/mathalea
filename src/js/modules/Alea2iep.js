@@ -506,13 +506,13 @@ export default class Alea2iep {
   }
 
   /**
- *
+ * @param {string} objet
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  regleZoom (k, { tempo = 0 } = {}) {
-    this.regle.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="regle" tempo="${tempo}" />`)
+  zoom (objet, echelle, { tempo = 0 } = {}) {
+    this[objet].zoom = echelle
+    this.liste_script.push(`<action echelle="${echelle}" mouvement="zoom" objet="${objet}" tempo="${tempo}" />`)
   }
 
   /**
@@ -520,9 +520,8 @@ export default class Alea2iep {
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  equerreZoom (k, { tempo = 0 } = {}) {
-    this.equerre.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="equerre" tempo="${tempo}" />`)
+  regleZoom (echelle, options) {
+    this.zoom('regle', echelle, options)
   }
 
   /**
@@ -530,9 +529,8 @@ export default class Alea2iep {
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  requerreZoom (k, { tempo = 0 } = {}) {
-    this.requerre.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="requerre" tempo="${tempo}" />`)
+  equerreZoom (echelle, options) {
+    this.zoom('equerre', echelle, options)
   }
 
   /**
@@ -540,9 +538,8 @@ export default class Alea2iep {
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  rapporteurZoom (k, { tempo = 0 } = {}) {
-    this.rapporteur.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="rapporteur" tempo="${tempo}" />`)
+  requerreZoom (echelle, options) {
+    this.zoom('requerre', echelle, options)
   }
 
   /**
@@ -550,9 +547,17 @@ export default class Alea2iep {
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  compasZoom (k, { tempo = 0 } = {}) {
-    this.compas.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="compas" />`)
+  rapporteurZoom (echelle, options) {
+    this.zoom('rapporteur', echelle, options)
+  }
+
+  /**
+ *
+ * @param {int} pourcentage 200 pour doubler la taille
+ * @param {objet} options tempo = 0 par défaut
+ */
+  compasZoom (echelle, options) {
+    this.zoom('compas', echelle, options)
   }
 
   /**
