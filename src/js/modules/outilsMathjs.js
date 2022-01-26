@@ -1,10 +1,15 @@
 import { context } from './context.js'
+import { texNombre2 } from './outils.js'
 import { all, create, format, number, SymbolNode, ConstantNode, OperatorNode, ParenthesisNode, simplify, parse } from 'mathjs'
 import { Node, Negative, solveEquation, simplifyExpression, factor, printMS } from 'mathsteps'
 import { getNewChangeNodes } from './Change.js'
 // import Algebrite from 'algebrite'
 // const Algebrite = require('algebrite')
 const math = create(all)
+
+const emath = create(all)
+
+emath.config({ number: 'Fraction' })
 
 // eslint-disable-next-line no-debugger
 // debugger
@@ -313,18 +318,26 @@ export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignation
 }
 
 export function aleaExpression (expression = '(a*x+b)*(c*x-d)', assignations = { a: 1, b: 2, c: 3, d: -6 }) {
-  return simplify(expression, [], assignations).toString()
+  const assignationsDecimales = Object.assign({}, assignations)
+  for (const v of Object.keys(assignationsDecimales)) {
+    if (typeof assignationsDecimales[v] !== 'number') {
+      assignationsDecimales[v] = assignationsDecimales[v].valueOf()
+    }
+  }
+  return simplify(expression, [], assignationsDecimales).toString()
 }
 
 /**
  * @description Retourne des valeurs aléatoires sous certaines contraintes données.
+ * Les calculs se font si possible avec mathjs au format fraction
  * @param {Object} variables // Propriété réservée : test
+ * @param {Object} params // valueOf à true pour avoir les valeurs décimales, format à true pour appliquer texNombre2
  * @returns {Object}
  * @see {@link https://mathjs.org/docs/expressions/syntax.html|Mathjs}
  * @see {@link https://coopmaths.fr/documentation/tutorial-Outils_Mathjs.html|Mathjs}
  * @author Frédéric PIOU
  */
-export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fraction(a,10)+fraction(b,100)', test: 'b!=0 and b>a>c' }, debug = false) {
+export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fraction(a,10)+fraction(b,100)', test: 'b!=0 and b>a>c' }, params = { valueOf: false, format: false }) {
   math.config({ randomSeed: context.graine })
   const assignations = {}
   let cpt = 0
@@ -337,12 +350,28 @@ export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fr
       } else if (typeof variables[v] === 'number') {
         assignations[v] = variables[v]
       } else if (v !== 'test') {
-        assignations[v] = math.evaluate(variables[v], assignations)
+        try { // On tente les calculs exacts avec mathjs
+          assignations[v] = emath.evaluate(variables[v], assignations)
+        } catch { // Sinon on fait sans
+          assignations[v] = math.evaluate(variables[v], assignations)
+        }
       }
     }
     if (variables.test !== undefined) test = math.evaluate(variables.test, assignations)
   } while (!test && cpt < 1000)
   if (cpt === 1000) window.notify('Attention ! 1000 essais dépassés.\n Trop de contraintes.\n Le résultat ne vérifiera pas le test.')
+  if (params.valueOf) {
+    for (const v of Object.keys(assignations)) {
+      if (typeof assignations[v] !== 'number') {
+        assignations[v] = assignations[v].valueOf()
+      }
+    }
+  }
+  if (params.format) {
+    for (const v of Object.keys(assignations)) {
+      assignations[v] = texNombre2(assignations[v])
+    }
+  }
   return assignations
 }
 

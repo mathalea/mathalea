@@ -4,7 +4,7 @@ import { polygone, segment, ObjetMathalea2D, point, mathalea2d, texteParPosition
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { parse, simplify } from 'mathjs'
 import { resoudre, toTex, calculer, calculExpression, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
-
+import Algebrite from 'algebrite'
 // eslint-disable-next-line no-debugger
 // debugger
 export const titre = 'Calculs algébriques'
@@ -61,7 +61,7 @@ function schemaBarre () {
 export default function equationsProgression () {
   Exercice.call(this)
   const formulaire = []
-  for (let i = 0; i < 120; i++) formulaire.push(`${i}`)
+  for (let i = 0; i < 122; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
     'Type de question', this.nbQuestions, formulaire.join('\n')
@@ -292,19 +292,30 @@ export default function equationsProgression () {
           break
         }
         case 24: {
-          exercice = calculExpression(expressionLitterale('a*x^2+b*x+c', aleaVariables({
-            a: 'randomInt(1,15)^2',
-            c: 'randomInt(1,15)^2',
-            b: '2*sqrt(a)*sqrt(c)'
-          })).toString(), true, dDebug)
+          const variables = aleaVariables(
+            {
+              a: 'randomInt(1,15)^2',
+              c: 'randomInt(1,15)^2',
+              b: '2*sqrt(a)*sqrt(c)'
+            }
+          )
+          exercice = calculer('a*x^2+c*x+b', {
+            variables: variables
+          })
           break
         }
         case 25: {
-          exercice = calculExpression(expressionLitterale('a*x^2-b*x+c', aleaVariables({
-            a: 'randomInt(1,15)^2',
-            c: 'randomInt(1,15)^2',
-            b: '2*sqrt(a)*sqrt(c)'
-          })).toString(), true, dDebug)
+          // doublon avec le case 24
+          const variables = aleaVariables(
+            {
+              a: 'randomInt(1,15)^2',
+              c: 'randomInt(1,15)^2',
+              b: '2*sqrt(a)*sqrt(c)'
+            }
+          )
+          exercice = calculer('a*x^2+c*x+b', {
+            variables: variables
+          })
           break
         }
         case 26: {
@@ -1183,6 +1194,31 @@ export default function equationsProgression () {
           <br>
           Résoudre : $${exercice.equation}$`
           exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
+          break
+        }
+        case 120: {
+          const variables = aleaVariables({
+            n: 'pickRandom([randomInt(2,9), randomInt(11, 99), randomInt(101, 999)])',
+            d: 'pickRandom([randomInt(2,9), randomInt(11, 99), randomInt(101, 999)])',
+            p: 'randomInt(0,7)',
+            nb: 'n+d/pickRandom([10,100,1000])',
+            s: 'nb*10^(-p)'
+          }, { valueOf: true, format: true })
+          exercice = {}
+          exercice.texte = `$${variables.nb} \\times 10^{-${variables.p}}$`
+          exercice.texteCorr = exercice.texte
+          exercice.texteCorr += `$=${variables.s}$`
+          exercice.texte = exercice.texteCorr
+          break
+        }
+        case 121: {
+          const variables = aleaVariables({
+            n: 'cos(pi/3)',
+            p: Algebrite.run('cos(pi/3)')
+          }, { valueOf: false })
+          exercice = {}
+          exercice.texte = `$${variables.n}+${variables.p}$`
+          exercice.texteCorr = exercice.texte
           break
         }
       }
