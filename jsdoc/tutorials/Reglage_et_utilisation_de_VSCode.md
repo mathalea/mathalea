@@ -21,10 +21,12 @@ Voici une aide pour les débutants afin qu'ils puissent être en mesure de coder
 5. Optimisation des fonctionnalités (Annotation du code en relation avec les commit, etc.)
    - [GitLens — Git supercharged](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens "cliquer sur ce lien")
 
-6. Collaboration en temps réel (chat textuel et audio, révisions de code à distance, conférences interactives, etc.)
+6. Pose de signets cliquables dans le code
+   - - [Bookmarks](https://marketplace.visualstudio.com/items?itemName=alefragnani.Bookmarks "cliquer sur ce lien")
+7. Collaboration en temps réel (chat textuel et audio, révisions de code à distance, conférences interactives, etc.)
    - [Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack "cliquer sur ce lien")
 
-7. Utilisation de blocks de code préfabriqués
+8. Utilisation de blocks de code préfabriqués
    
    On pourrait peut-être en faire nous même pour qu'ils correspondent au **squelettes des exercices**
    - [Nom](https:// "cliquer sur ce lien")
@@ -36,13 +38,41 @@ Voici une aide pour les débutants afin qu'ils puissent être en mesure de coder
 Être efficace avec un logiciel, c'est tout d'abord repérer les différentes zones de l'interface graphique
 
 ![](img/tutoVSCode/interfaceGeneraleVSCodeAvecCadres.png)
-     - À faire  : Mettre une capture d'écran avec les zones
-- La barre de menus
-- La barre d'icônes
-![](img/tutoVSCode/)
-- La barre d'état
-- Le cadre de gauche
-- Le cadre central
+- En rouge, la barre de menus
+  
+  Comme dans tous les logiciels, c'est dans cette barre que vous allez trouvez la plupart des fonctionnalités présentes dans VSCode.
+- En bleu, la barre d'icônes
+
+  Cette barre permet de choisir le cadre de gauche que vous souhaitez pour :
+   - ![](img/tutoVSCode/) Avoir un explorateur de fichiers.
+   - ![](img/tutoVSCode/) Faire une recherche dans tous les fichiers du projet.![](img/tutoVSCode/) Travailler de manière graphique avec Git.
+   - ![](img/tutoVSCode/) Débugger votre code.
+   - ![](img/tutoVSCode/) Gérer vos extensions VSCode.
+
+  Les quatre icônes suivantes sont ajoutées par certaines extensions installées:
+   - ![](img/tutoVSCode/) représente l'extension Bookmarks
+   - ![](img/tutoVSCode/) représente l'extension GitLens
+   - ![](img/tutoVSCode/) représente l'extension Live Share
+  
+  Enfin, les deux dernères icônes sont des icônes propres à VSCode :
+   - ![](img/tutoVSCode/) concerne vos comptes (gitHub)
+   - ![](img/tutoVSCode/) est un raccourci vers File>Preferences
+
+
+- En violet,la barre d'état
+  
+  Comme la barre d'icônes, la barre d'état est très importante car VSCode donne beaucoup de renseignements (Branche sur laquelle vous vous trouvez, type de fichier sur lequel vous codez, etc.) dans celle-ci. De plus, certaines extensions (Git Graph) y place leur raccourci. Etc.
+
+
+- En vert, le cadre de gauche
+
+   Il s'agit du cadre qui est ouvert quand vous cliquez une première fois sur l'une des icônes de la barre de gauche.
+
+   Si vous souhaitez fermer le cadre de gauche et ainsi agrandir le cadre central (jaune) pour coder plus confortablement, il suffit de cliquez une deuxième fois sur l'icône active (blanchie) de la barre d'icônes.
+
+- En jaune, le cadre central
+
+   C'est ici que vous allez coder. Il y a un onglet par fichier ouvert. Il est possible de scinder le cadre central pour, par exemple, avoir un visualisateur (exemple, fichier markDown).
 ## Les raccourcis clavier
 Voici par ordre d'importance les principaux raccourcis clavier pour être rapidement productif
 
