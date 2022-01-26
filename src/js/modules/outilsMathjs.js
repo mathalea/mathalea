@@ -3,16 +3,12 @@ import { texNombre2 } from './outils.js'
 import { all, create, format, number, SymbolNode, ConstantNode, OperatorNode, ParenthesisNode, simplify, parse } from 'mathjs'
 import { Node, Negative, solveEquation, simplifyExpression, factor, printMS } from 'mathsteps'
 import { getNewChangeNodes } from './Change.js'
-// import Algebrite from 'algebrite'
-// const Algebrite = require('algebrite')
+
 const math = create(all)
 
 const emath = create(all)
 
 emath.config({ number: 'Fraction' })
-
-// eslint-disable-next-line no-debugger
-// debugger
 
 function searchFirstNode (node, op) {
   if (node.type === 'OperatorNode') {
@@ -352,8 +348,18 @@ export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fr
       } else if (v !== 'test') {
         try { // On tente les calculs exacts avec mathjs
           assignations[v] = emath.evaluate(variables[v], assignations)
-        } catch { // Sinon on fait sans
-          assignations[v] = math.evaluate(variables[v], assignations)
+        } catch { // Sinon on cherche à la transformer en fraction après coup
+          try {
+            assignations[v] = math.fraction(math.evaluate(variables[v], assignations))
+          } catch { // Sinon on fait sans mais on revient à des nombres de type 'number'
+            const values = Object.assign({}, assignations)
+            for (const v of Object.keys(values)) {
+              if (typeof values[v] !== 'number') {
+                values[v] = values[v].valueOf()
+              }
+            }
+            assignations[v] = math.evaluate(variables[v], values)
+          }
         }
       }
     }
