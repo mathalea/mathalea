@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, texFractionReduite, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, texFractionReduite, ecritureAlgebrique, itemize } from '../../modules/outils.js'
 import { resoudre } from '../../modules/outilsMathjs.js'
 import { tableauDeVariation, mathalea2d, texteParPosition, repere, labelPoint, point, tracePoint, courbe2, repere2 } from '../../modules/2d.js'
 
@@ -62,7 +62,8 @@ export default function signefonctionaffine () {
             texteCorr += `$x${a>0?'>':'<'}\\dfrac{${ecritureAlgebrique(-b)}}{${a}}$<br>`
           } */
           texteCorr += `On montre de même que l'inéquation $f(x) < 0$ a pour solution $${inequation2.solution}$ et que l'équation $f(x)=0$ a pour solution $${equation.solution}$. <br>`
-          texteCorr += `Ainsi, $f$ est :<br>- nulle lorsque $x$ est égal à $${texFractionReduite(-b, a)}$<br>- positive lorsque $x$ est ${a > 0 ? 'supérieur' : 'inférieur'} à $${texFractionReduite(-b, a)}$<br>- négative lorsque $x$ est ${a > 0 ? 'inférieur' : 'supérieur'} à $${texFractionReduite(-b, a)}$.<br>`
+          texteCorr += `Ainsi, $f$ est :<br>`
+          texteCorr += itemize([`nulle lorsque $x$ est égal à $${texFractionReduite(-b, a)}$`, `positive lorsque $x$ est ${a > 0 ? 'supérieur' : 'inférieur'} à $${texFractionReduite(-b, a)}$`, `négative lorsque $x$ est ${a > 0 ? 'inférieur' : 'supérieur'} à $${texFractionReduite(-b, a)}$.<br>`])
           texteCorr += 'On a donc le tableau de signe suivant :'
           ligne1 = a > 0 ? ['Line', 30, '', 0, '-', 20, 'z', 20, '+'] : ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
         } else {
@@ -83,9 +84,9 @@ export default function signefonctionaffine () {
             texteCorr += `<0$,  $f(x)~$ est négative pour $~x>${texFractionReduite(-b, a)} ~$ et positive pour $~x<${texFractionReduite(-b, a)} $<br>`
             ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
           }
+          texteCorr += 'On peut synthétiser cela dans un tableau de signes :'
         }
 
-        texteCorr += 'On peut synthétiser cela dans un tableau de signes :'
         texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
