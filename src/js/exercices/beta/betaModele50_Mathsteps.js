@@ -121,10 +121,14 @@ export default function NomExercice () {
           const variables = aleaVariables(
             {
               a: true,
-              b: true
+              b: true,
+              c: true,
+              d: true,
+              test: 'a!=c'
             }
           )
-          exercice = resoudre('9*x+a=6*x+b', { variables: variables, color: 'blue', comment: true })
+          // Toutes les étapes sont détaillées avec le paramètre reduceSteps: false
+          exercice = resoudre('a*x+b=c*x+d', { reduceSteps: false, variables: variables, color: 'blue', comment: true })
           exercice.texte = `Résoudre : $${exercice.equation}$`
           exercice.texteCorr = `
           <br>

@@ -29,8 +29,9 @@ function searchLastNode (node, op) {
   }
 }
 
-function transformNode (node, oldNode, params = { suppr1: true, suppr0: true, supprPlusMoins: true }) {
+function transformNode (node, parent, oldNode, params = { suppr1: true, suppr0: true, supprPlusMoins: true }) {
   params = Object.assign({ suppr1: true, suppr0: true, supprPlusMoins: true }, params)
+  if (parent === null && node.isParenthesisNode) node = node.content
   if (oldNode === undefined || node.toString() !== oldNode.toString()) {
     oldNode = node.clone()
     /*
@@ -235,7 +236,7 @@ function transformNode (node, oldNode, params = { suppr1: true, suppr0: true, su
         firstNode.op === '*'
       ) { node.implicit = false }
     }
-    return transformNode(node, oldNode, params)
+    return transformNode(node, parent, oldNode, params)
   } else {
     return node
   }
@@ -293,7 +294,7 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
     nodeClone = node.cloneDeep() // Vérifier que node.clone() fonctionne (peut-être y a-t-il un problème avec implicit avec cloneDeep())
     node = node.transform(
       function (node, path, parent) {
-        node = transformNode(node, undefined, params)
+        node = transformNode(node, parent, undefined, params)
         return node
       }
     )
@@ -551,7 +552,7 @@ export function calculer (expression, params) {
   }
   const texte = `Calculer $${expressionPrint}$.`
   const texteCorr = `$\\begin{aligned}\n${stepsExpression.join('\\\\\n')}\n\\end{aligned}$`
-  return { printResult: toTex(steps[steps.length - 1].newNode, params.totex), netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: commentaires, printExpression: expressionPrint, name: params.name }
+  return { printResult: steps.length > 0 ? toTex(steps[steps.length - 1].newNode, params.totex) : expression, netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: commentaires, printExpression: expressionPrint, name: params.name }
 }
 
 export function aleaEquation (equation = 'a*x+b=c*x-d', variables = { a: false, b: false, c: false, d: false, test: 'a>b or true' }, debug = false) { // Ne pas oublier le signe de la multiplication
@@ -719,7 +720,7 @@ export function commentStep (step, comments) {
 * @param {string} equation // Une équation ou une inéquation
 */
 export function resoudre (equation, params) {
-  params = Object.assign({ comment: false, color: 'red', comments: {} }, params)
+  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true }, params)
   // Un bug de mathsteps ne permet pas de résoudre 2/x=2 d'où la ligne suivante qui permettait de le contourner
   // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
   // A priori le traitement actuel n'occure plus ce bug (raison ?).
@@ -731,7 +732,7 @@ export function resoudre (equation, params) {
   steps.forEach(function (step, i) {
     const changement = step.changeType
     if (step.oldEquation !== null) {
-      if (step.oldEquation.leftNode.toString() === step.newEquation.leftNode.toString() || step.oldEquation.rightNode.toString() === step.newEquation.rightNode.toString()) {
+      if (params.reduceSteps && (step.oldEquation.leftNode.toString() === step.newEquation.leftNode.toString() || step.oldEquation.rightNode.toString() === step.newEquation.rightNode.toString())) {
         if (changement !== 'REMOVE_ADDING_ZEROS') repetition = (repetition + 1) % 3
       } else {
         repetition = 0
@@ -755,16 +756,9 @@ export function resoudre (equation, params) {
     if (repetition === 2) {
       repetition = 0
       stepsNewEquation.pop()
-      if (changement !== 'REMOVE_ADDING_ZERO') {
-        stepsNewEquation.push(
-          `${newLeftNode}&${step.newEquation.comparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`
-        )
-      }
+      stepsNewEquation.push(`${newLeftNode}&${step.newEquation.comparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
     } else {
-      if (changement !== 'REMOVE_ADDING_ZERO') {
-        stepsNewEquation.push(
-          `${newLeftNode}&${step.newEquation.comparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
-      }
+      stepsNewEquation.push(`${newLeftNode}&${step.newEquation.comparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
     }
   })
   const texte = `Résoudre $${printEquation}$.`
