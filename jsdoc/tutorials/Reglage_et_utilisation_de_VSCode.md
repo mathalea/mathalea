@@ -66,13 +66,13 @@ Voici une aide pour les débutants afin qu'ils puissent être en mesure de coder
 
 - En vert, le cadre de gauche
 
-   Il s'agit du cadre qui est ouvert quand vous cliquez une première fois sur l'une des icônes de la barre de gauche.
+   Il s'agit du cadre qui est ouvert quand vous cliquez une première fois sur l'une des icônes de la barre d'icônes.
 
    Si vous souhaitez fermer le cadre de gauche et ainsi agrandir le cadre central (jaune) pour coder plus confortablement, il suffit de cliquez une deuxième fois sur l'icône active (blanchie) de la barre d'icônes.
 
 - En jaune, le cadre central
 
-   C'est ici que vous allez coder. Il y a un onglet par fichier ouvert. Il est possible de scinder le cadre central pour, par exemple, avoir un visualisateur (exemple, fichier markDown).
+   C'est ici que vous allez coder. Il y a un onglet par fichier ouvert. Il est possible de scinder le cadre central pour, par exemple, avoir un visualisateur de fichiers (exemple, fichier markDown, etc.).
 ## Les raccourcis clavier
 Voici par ordre d'importance les principaux raccourcis clavier pour être rapidement productif
 
