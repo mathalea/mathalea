@@ -61,7 +61,7 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
       }
       if (typeDeQuestions === 'classique') {
         // classique
-        texte = '$ ' + a * b + ' \\div ' + a + ' = \\dotfill $'
+        texte = '$ ' + a * b + ' \\div ' + a + ' =$'
         if (this.interactif && context.isHtml) texte = `$ ${a * b} \\div ${a} = $` + ajouteChampTexte(this, i)
         setReponse(this, i, b)
       } else {
@@ -77,9 +77,6 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
         }
       }
       texteCorr = `$ ${a * b} \\div ${a} = ${b}$`
-      if (context.isDiaporama) {
-        texte = texte.replace('= \\dotfill', '')
-      }
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

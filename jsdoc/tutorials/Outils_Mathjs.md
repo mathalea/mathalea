@@ -6,13 +6,25 @@ Ces outils ont pour objectif d'utiliser la puissance de [Mathjs](https://mathjs.
 
 1. [Documentation utile](#section0)
 2. [La fonction aleaVariables() de outilsMathjs](#section1)
+
+    a. [Un premier exemple basique : l'inégalité triangulaire](#subsection1-1)
+
+    b. [Un deuxième exemple basique : a+b](#subsection1-2)
+
+    c. [Décimaux versus binaire : gérer les erreurs](#subsection1-3)
 3. [Convertir une expression numérique ou littérale en latex](#section2)
 4. [Remplacer des variables par des valeurs](#section3)
 5. [Transformer une expression littérale](#section4)
 6. [RandomSeed](#section5)
 7. [La fonction toTex() de outilsMathjs](#section6)
 8. [La fonction calculer() de outilsMathjs](#section7)
-8. [La fonction resoudre() de outilsMathjs](#section8)
+9. [La fonction resoudre() de outilsMathjs](#section8)
+
+    a. [Résoudre une équation](#subsection8-1)
+
+    b. [Commantaires par défaut des étapes](#subsection8-2)
+
+    c. [Résoudre une inéquation](#subsection8-3)
 
 ## Documentation utile <a id="section0"></a>
 
@@ -22,7 +34,7 @@ Ces outils ont pour objectif d'utiliser la puissance de [Mathjs](https://mathjs.
 
 ## La fonction aleaVariables() <a id="section1"></a>
 
-### Un premier exemple basique : l'inégalité triangulaire
+### Un premier exemple basique : l'inégalité triangulaire <a id="subsection1-1"></a>
 
 Imaginons que nous voulions obtenir trois longueurs d'un triangle au hasard. Il faut vérifier l'inégalité triangulaire pour le plus grand côté.
 
@@ -82,7 +94,7 @@ Pour des nombres décimaux compris entre 0 et 10 et avec au maximum deux chiffre
 < ► {a: 1.9, b: 6, c: 4.9}
 ```
 
-### Un deuxième exemple basique : a+b-c
+### Un deuxième exemple basique : a+b <a id="subsection1-2"></a>
 
 On souhaite obtenir deux entiers relatifs dont la somme est toujours positif.
 
@@ -129,7 +141,7 @@ Et pour les nombres décimaux :
 < ► {a: 9, b: -3.6}
 ```
 
-### Gérer les conversions en nombres décimaux
+### Décimaux versus binaire : gérer les erreurs <a id="subsection1-3"></a>
 
 Voici deux exemples qui montrent les problèmes liés aux conversions en `float` en Javascript :
 
@@ -535,16 +547,28 @@ Il possède une fonction appelée simplifyExpression() et qui détaille l'ensemb
 
 Il n'est plus développé par son auteur. Mathalea en héberge un fork et qui a été modifié pour notamment développer l'identité remarquable $(a+b)^2$.
 
+> **Important** : Pour profiter de ses nouvelles fonctionnalités ne pas oublier `pnpm i`
+
 Voici un exemple d'exercice :
 
 ```Javascript
+import { calculer } from '../modules/outilsMathjs'
+
+// Ensemble des paramètres de l'exercice
+
+// Construction de l'exercice
 exercice = calculer('(5*x-3)^2', { name: 'A' })
 exercice.texte = `Développer puis réduire l'expression suivante : $${exercice.name}=${exercice.printExpression}$`
 exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.name}=${exercice.printResult}$`
+
+// Placer l'énoncé et la correction pour le traitement par Mathalea
+this.listeQuestions.push(exercice.texte)
+this.listeCorrections.push(exercice.texteCorr)
 ```
 
 Et voici le résultat obtenu :
-![](../static/img/outilsMathjs-betaEquations107.png)
+
+![](img/outilsMathjs-betaEquations107.png)
 
 Toutes les étapes du calcul sont visibles dans un ordre prédéfini par Mathsteps. Chaque ligne correspond à une étape et une seule ce qui peut ammener à de nombreuses lignes.
 
@@ -556,7 +580,7 @@ exercice.texte = `Calculer : $${exercice.printExpression}$`
 exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
 ```
 
-![](../static/img/outilsMathjs-betaEquations109.png)
+![](img/outilsMathjs-betaEquations109.png)
 
 Le paramètre `substeps` permet ici de contrôler l'affichage des sous-étapes.
 L'exemple précédent ne montrait pas l'étape de mise au même dénominateur 
@@ -565,35 +589,64 @@ L'exemple précédent ne montrait pas l'étape de mise au même dénominateur
 exercice = calculer('2/9*(4/3+7/8)', { substeps: true })
 ```
 
-![](../static/img/outilsMathjs-betaEquations109bis.png)
+![](img/outilsMathjs-betaEquations109bis.png)
 
 ## La fonction resoudre() de outilsMathjs <a id="section8"></a>
 
 Cette fonction donne les étapes de résolution d'une équation du premier degré en utilisant Mathsteps.
 
+### Résoudre une équation <a id="subsection8-1"></a>
 ```Javascript
+import { resoudre } from '../modules/outilsMathjs'
+
+// Ensemble des paramètres de l'exercice
+
+// Construction de l'exercice
 exercice = resoudre('3*x+2=9*x-3')
 exercice.texte = `Résoudre l'équation $${exercice.equation}$ en détaillant les étapes.`
 exercice.texteCorr += `<br>La solution de cette équation est donc $${exercice.solution}$.`
 ```
-![](../static/img/outilsMathjs-betaEquations110.png)
+![](img/outilsMathjs-betaEquations110.png)
 
-On peut retirer la coloration en ajoutant le paramètre `{ color: false }` (qui bug parfois) ou ajouter des commentaires.
+On peut retirer la coloration en ajoutant le paramètre `{ color: 'black' }` ou ajouter des commentaires.
 
-On peut également modifier les commentaires.
+On peut également personnaliser les commentaires. (`{stepChange}` permet d'insérer dans le commentaire ce qui est ajouté, soustrait, multiplié ou diviser à chaque membre.)
 
 ```Javascript
 const commentairesPersonnalises = {
     CANCEL_MINUSES: 'Simplifier l\'écriture',
     SUBTRACT_FROM_BOTH_SIDES: 'Enlever {stepChange} à chaque membre.',
-    SIMPLIFY_ARITHMETIC: ''
+    SIMPLIFY_ARITHMETIC: '',
+    SIMPLIFY_RIGHT_SIDE: 'Réduire.',
+    SIMPLIFY_LEFT_SIDE: 'Réduire.'
 }
 exercice = resoudre('3*x+2=9*x-3', { comment: true, comments: commentairesPersonnalises })
 ```
 
-![](../static/img/outilsMathjs-betaEquations110bis.png)
+[![](img/outilsMathjs-betaEquations110bis.png)](https://coopmaths.fr/mathalea.html?ex=betaEquations,s=110)
 
-Les commentaires par défaut sont les suivants :
+On peut également mettre en forme une vérification :
+
+```Javascript
+exercice = resoudre('9*x+7=6*x-3', { color: 'black', comment: true })
+exercice.texte = `Résoudre : $${exercice.equation}$`
+exercice.texteCorr = `<br>
+${exercice.texteCorr}<br>
+La solution est $${exercice.solution}$.
+<br>
+Vérification :
+<br>
+D'une part : $${exercice.verifLeftSide.printExpression}=${exercice.verifLeftSide.printResult}$
+<br>
+D'autre part : $${exercice.verifRightSide.printExpression}=${exercice.verifRightSide.printResult}$
+`
+```
+
+[![](img/outilsMathjs-betaEquations114.png)](https://coopmaths.fr/mathalea.html?ex=betaEquations,s=114)
+
+### Commentaires par défaut des étapes <a id="subsection8-2"></a>
+
+Les commentaires par défaut (modifiables) sont les suivants :
 
 ```Javascript
 const defaultComments = {
@@ -625,10 +678,12 @@ const defaultComments = {
   }
 ```
 
+### Résoudre une inéquation <a id="subsection8-3"></a>
+
 L'exemple suivant montre les étapes de résolution d'une inéquation :
 
 ```Javascript
 exercice = resoudre('3*x+2<9*x-3')
 ```
 
-![](../static/img/outilsMathjs-betaEquations111.png)
+[![](img/outilsMathjs-betaEquations111.png)](https://coopmaths.fr/mathalea.html?ex=betaEquations,s=111)

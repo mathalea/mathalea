@@ -49,7 +49,8 @@ export default {
     "titre": "Dérivée d'un quotient",
     "url": "/exercices/1e/1AN14-5.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "1AN14-5",
     "newEx": {
       "isNew": true,
@@ -7484,16 +7485,15 @@ export default {
   "6G24-1": {
     "titre": "Construire le symétrique d’un point par rapport à une droite",
     "url": "/exercices/6e/6G24-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6G24-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G24-2": {
@@ -7568,7 +7568,7 @@ export default {
     "url": "/exercices/6e/6G25-1.js",
     "amcReady": true,
     "amcType": {
-      "text": "qcmMono"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "qcm",

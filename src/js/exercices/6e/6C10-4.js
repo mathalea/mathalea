@@ -34,11 +34,10 @@ export default function ExerciceTablesAdditions (max = 20) {
       this.autoCorrection[i] = {}
       a = randint(2, parseInt(this.sup))
       b = randint(2, parseInt(this.sup))
-      texte = `$ ${texNombre(a)} + ${texNombre(b)} = \\dotfill $`
+      texte = `$ ${texNombre(a)} + ${texNombre(b)} =  $`
       texteCorr = `$ ${texNombre(a)} + ${texNombre(b)} = ${texNombre(a + b)} $`
       setReponse(this, i, a + b)
       if (context.isHtml && this.interactif) {
-        texte = texte.replace('\\dotfill', '')
         texte += ajouteChampTexte(this, i)
       }
       if (context.isAmc) {

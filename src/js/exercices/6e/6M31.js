@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, calcul, texNombre, texTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texTexte } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Convertir des volumes'
 export const amcReady = true
@@ -109,10 +109,10 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
       if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
 
-        resultat = calcul(a * prefixeMulti[k][2]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-        resultat2 = calcul(a * 10 ** (k + 1))
-        resultat3 = calcul(a * 10 ** (k - 2))
-        resultat4 = calcul(a * 10 ** ((k + 2)))
+        resultat = arrondi((a * prefixeMulti[k][2]), 12).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat2 = arrondi((a * 10 ** (k + 1)), 12)
+        resultat3 = arrondi((a * 10 ** (k - 2)), 12)
+        resultat4 = arrondi((a * 10 ** ((k + 2))), 12)
         texte =
           '$ ' +
           texNombre(a) +
@@ -140,10 +140,10 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
           '$'
       } else if (div && typesDeQuestions < 4) {
         k = randint(0, 1) // Pas de conversions de mm^3 en m^3 avec des nombres décimaux car résultat inférieur à 10e-8
-        resultat = calcul(a / prefixeMulti[k][2]).toString() // Attention aux notations scientifiques pour 10e-8
-        resultat2 = calcul(a / 10 ** (k + 1))
-        resultat3 = calcul(a / 10 ** (k - 2))
-        resultat4 = calcul(a / 10 ** ((k + 2)))
+        resultat = arrondi(a / prefixeMulti[k][2], 12).toString() // Attention aux notations scientifiques pour 10e-8
+        resultat2 = arrondi((a / 10 ** (k + 1)), 12)
+        resultat3 = arrondi((a / 10 ** (k - 2)), 12)
+        resultat4 = arrondi((a / 10 ** ((k + 2))), 12)
         texte =
           '$ ' +
           texNombre(a) +
@@ -191,10 +191,10 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
                 '\\times 1~000 \\times 1~000 \\times 1~000'
               break
           }
-          resultat = calcul(a * Math.pow(10, 3 * ecart))
-          resultat2 = calcul(a * Math.pow(10, 2 * ecart))
-          resultat3 = calcul(a * Math.pow(10, ecart))
-          resultat4 = calcul(a * Math.pow(10, -3 * ecart))
+          resultat = arrondi((a * Math.pow(10, 3 * ecart)), 12)
+          resultat2 = arrondi((a * Math.pow(10, 2 * ecart)), 12)
+          resultat3 = arrondi((a * Math.pow(10, ecart)), 12)
+          resultat4 = arrondi((a * Math.pow(10, -3 * ecart)), 12)
           texte =
             '$ ' +
             texNombre(a) +
@@ -231,10 +231,10 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
               multiplicationsPar1000 = '\\div 1~000 \\div 1~000 \\div 1~000'
               break
           }
-          resultat = calcul(a / Math.pow(10, 3 * ecart))
-          resultat2 = calcul(a / Math.pow(10, 2 * ecart))
-          resultat3 = calcul(a / Math.pow(10, ecart))
-          resultat4 = calcul(a / Math.pow(10, -3 * ecart))
+          resultat = arrondi((a / Math.pow(10, 3 * ecart)), 12)
+          resultat2 = arrondi((a / Math.pow(10, 2 * ecart)), 12)
+          resultat3 = arrondi((a / Math.pow(10, ecart)), 12)
+          resultat4 = arrondi((a / Math.pow(10, -3 * ecart)), 12)
           texte =
             '$ ' +
             texNombre(a) +
@@ -264,7 +264,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
       // else if(typesDeQuestions==5) { // Pour typesDeQuestions==5
       // prefixeMulti = [['L',0.001],['dL',0.0001],['cL',0.00001],['mL',0.000001]];
       // k = randint(0,1)
-      // resultat = calcul(a*prefixeMulti[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+      // resultat = arrondi((a*prefixeMulti[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux, 12)
       // texte = '$ '+ texNombre(a) + texTexte(prefixeMulti[k][0]) + ' = \\dotfill ' + texTexte(unite)  + '^3' + '$';
       // texteCorr = '$ '+ texNombre(a) + texTexte(prefixeMulti[k][0]) + ' =  ' + texNombre(a) + '\\times' + texNombre(prefixeMulti[k][1]) + texTexte(unite)  + '^3'
       //  + ' = ' + texNombre(resultat) + texTexte(unite)+ '^2' + '$';

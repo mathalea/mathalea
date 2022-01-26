@@ -62,7 +62,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
         b = 0.1
       }
       texte =
-        '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' = \\dotfill $'
+        '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' =  $'
       texteCorr =
         '$ ' +
         texNombre(a) +

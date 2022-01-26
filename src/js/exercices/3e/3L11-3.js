@@ -24,6 +24,7 @@ export default function DistributiviteSimpleDoubleReduction () {
   this.nbColsCorr = 1
   this.spacing = context.isHtml ? 3 : 2
   this.spacingCorr = context.isHtml ? 3 : 2
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

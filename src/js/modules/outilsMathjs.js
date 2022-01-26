@@ -5,12 +5,9 @@ import { getNewChangeNodes } from './Change.js'
 // import Algebrite from 'algebrite'
 // const Algebrite = require('algebrite')
 const math = create(all)
-math.config({
-  number: 'number',
-  randomSeed: context.graine
-})
+
 // eslint-disable-next-line no-debugger
-debugger
+// debugger
 
 function searchFirstNode (node, op) {
   if (node.type === 'OperatorNode') {
@@ -22,8 +19,19 @@ function searchFirstNode (node, op) {
   }
 }
 
-function transformNode (node, oldNode, params = { suppr1: true, suppr0: true, supprPlusMoins: true }) {
+function searchLastNode (node, op) {
+  if (node.type === 'OperatorNode') {
+    return searchLastNode(node.args[node.args.length - 1], node.op)
+  } else if (node.type === 'ParenthesisNode') {
+    return searchLastNode(node.content, node.op)
+  } else {
+    return { node: node, op: op }
+  }
+}
+
+function transformNode (node, parent, oldNode, params = { suppr1: true, suppr0: true, supprPlusMoins: true }) {
   params = Object.assign({ suppr1: true, suppr0: true, supprPlusMoins: true }, params)
+  if (parent === null && node.isParenthesisNode) node = node.content
   if (oldNode === undefined || node.toString() !== oldNode.toString()) {
     oldNode = node.clone()
     /*
@@ -197,7 +205,7 @@ function transformNode (node, oldNode, params = { suppr1: true, suppr0: true, su
     // dans mathsteps lorsqu'il est placé dans print.js de mathsteps
     // alors qu'il fonctionne avec la version mathjs de mathalea
     if (node.isOperatorNode && node.op === '*') { // Multiplication implicite 2*x devient 2x et 2*(x+3) devient 2(x+3)
-      if (node.args[1].isParenthesisNode || node.args[1].isSymbolNode) node.implicit = true
+      if ((node.args[1].isParenthesisNode || node.args[1].isSymbolNode) && !(searchLastNode(node.args[0]).node.isSymbolNode)) node.implicit = true
       if (node.args[1].isOperatorNode && node.args[1].op === '^' && node.args[1].args[0].isSymbolNode) node.implicit = true
     }
     if (node.isOperatorNode && node.op === '*') { // Multiplication explicite x*2 ou x*2/3
@@ -228,7 +236,7 @@ function transformNode (node, oldNode, params = { suppr1: true, suppr0: true, su
         firstNode.op === '*'
       ) { node.implicit = false }
     }
-    return transformNode(node, oldNode, params)
+    return transformNode(node, parent, oldNode, params)
   } else {
     return node
   }
@@ -286,7 +294,7 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
     nodeClone = node.cloneDeep() // Vérifier que node.clone() fonctionne (peut-être y a-t-il un problème avec implicit avec cloneDeep())
     node = node.transform(
       function (node, path, parent) {
-        node = transformNode(node, undefined, params)
+        node = transformNode(node, parent, undefined, params)
         return node
       }
     )
@@ -299,9 +307,13 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
   return nodeTex
 }
 
-export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignations = { a: 1, b: 2, c: 3, d: -6 }, debug = false) {
+export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignations = { a: 1, b: 2, c: 3, d: -6 }) {
   // Ne pas oublier le signe de la multiplication
   return simplify(expression, [{ l: '1*n', r: 'n' }, { l: '-1*n', r: '-n' }, { l: 'n/1', r: 'n' }, { l: 'c/c', r: '1' }, { l: '0*v', r: '0' }, { l: '0+v', r: 'v' }], assignations)
+}
+
+export function aleaExpression (expression = '(a*x+b)*(c*x-d)', assignations = { a: 1, b: 2, c: 3, d: -6 }) {
+  return simplify(expression, [], assignations).toString()
 }
 
 /**
@@ -313,6 +325,7 @@ export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignation
  * @author Frédéric PIOU
  */
 export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fraction(a,10)+fraction(b,100)', test: 'b!=0 and b>a>c' }, debug = false) {
+  math.config({ randomSeed: context.graine })
   const assignations = {}
   let cpt = 0
   let test = true
@@ -451,12 +464,12 @@ export function calculExpression (expression = '4/3+5/6', factoriser = false, de
 }
 
 /**
-* @description Retourne toutes les étapes de calculs d'une expression numérique ou de développement-réduction d'une expression littérale
-* @param {Objet} params // Les paramètres (commentaires visibles , sous-étapes visibles, fraction-solution au format MixedNumber)
-* @param {string} expression // Une expression à calculer ou à développer
+ * @description Retourne toutes les étapes de calculs d'une expression numérique ou de développement-réduction d'une expression littérale
+ * @param {string} expression // Une expression à calculer ou à développer
+ * @param {Objet} params // Les paramètres (commentaires visibles , sous-étapes visibles, fraction-solution au format MixedNumber)
 */
 export function calculer (expression, params) {
-  params = Object.assign({ comment: false, substeps: false, mixed: false, name: undefined }, params)
+  params = Object.assign({ comment: false, substeps: false, mixed: false, name: undefined, suppr1: true }, params)
   // La fonction simplifyExpression est une fonction mathsteps
   // Elle renvoie toutes les étapes d'un calcul numérique ou d'un développement-réduction
   // L'addition de deux fractions est classée dans les sous-étapes bizarrement
@@ -470,49 +483,49 @@ export function calculer (expression, params) {
   // Refaire la méthode transform() pour qu'elle ne modifie rien d'autre de notre noeud que ce qu'on souhaite
   // Si ça fonctionne on peut régler le problème des implicit qui disparaissent ? des (-3)² qui deviennent -3² ?
   // A faire : Ajouter un paramètre parenthesis à chaque noeud, ou il faudrait le faire dans Mathjs ?
-
+  if (params.variables !== undefined) expression = aleaExpression(expression, params.variables)
   const steps = params.substeps ? traverserEtapes(simplifyExpression(expression)) : simplifyExpression(expression)
   const stepsExpression = []
   const commentaires = []
   let expressionPrint = ''
   steps.forEach(function (step, i) {
-    const oldNode = step.oldNode !== null ? toTex(step.oldNode, { suppr1: true }) : ''
-    const newNode = toTex(step.newNode, { suppr1: true })
+    const oldNode = step.oldNode !== null ? toTex(step.oldNode, params) : ''
+    const newNode = toTex(step.newNode, params)
     if (i === 0) {
       expressionPrint = `${oldNode}`
     }
     if (newNode === oldNode) stepsExpression.pop()
     if (params.comment) {
-      const commentaire = String.raw`\text{${step.changeType}}`.replaceAll('_', ' ')
+      const commentaire = `\\text{${step.changeType}}`.replaceAll('_', ' ')
       commentaires.push(commentaire)
       if (stepsExpression.length === 0 || i === steps.length - 1) {
         if (params.name === undefined) {
-          stepsExpression.push(String.raw`${expressionPrint}&=${newNode}&&${commentaire}`)
+          stepsExpression.push(`${expressionPrint}&=${newNode}&&${commentaire}`)
         } else {
           if (stepsExpression.length === 0) {
-            stepsExpression.push(String.raw`${params.name}&=${expressionPrint}&&${commentaire}`)
-            stepsExpression.push(String.raw`&=${newNode}&&${commentaire}`)
+            stepsExpression.push(`${params.name}&=${expressionPrint}&&${commentaire}`)
+            stepsExpression.push(`&=${newNode}&&${commentaire}`)
           } else {
-            stepsExpression.push(String.raw`${params.name}&=${newNode}&&${commentaire}`)
+            stepsExpression.push(`${params.name}&=${newNode}&&${commentaire}`)
           }
         }
       } else {
-        stepsExpression.push(String.raw`&=${newNode}&&${commentaire}`)
+        stepsExpression.push(`&=${newNode}&&${commentaire}`)
       }
     } else {
       if (stepsExpression.length === 0 || i === steps.length - 1) {
         if (params.name === undefined) {
-          stepsExpression.push(String.raw`${expressionPrint}&=${newNode}`)
+          stepsExpression.push(`${expressionPrint}&=${newNode}`)
         } else {
           if (stepsExpression.length === 0) {
-            stepsExpression.push(String.raw`${params.name}&=${expressionPrint}`)
-            stepsExpression.push(String.raw`&=${newNode}`)
+            stepsExpression.push(`${params.name}&=${expressionPrint}`)
+            stepsExpression.push(`&=${newNode}`)
           } else {
-            stepsExpression.push(String.raw`${params.name}&=${newNode}`)
+            stepsExpression.push(`${params.name}&=${newNode}`)
           }
         }
       } else {
-        stepsExpression.push(String.raw`&=${newNode}`)
+        stepsExpression.push(`&=${newNode}`)
       }
     }
   })
@@ -533,17 +546,13 @@ export function calculer (expression, params) {
             steps[steps.length - 1].newNode.args[0].value,
             steps[steps.length - 1].newNode.args[1].value
           ).toFraction(true).replace(' ', plus)
-        ), { suppr1: false }
+        ), params
       )
     )
   }
-  const texte = String.raw`Calculer $${expressionPrint}$.`
-  const texteCorr = String.raw`
-  $\begin{aligned}
-  ${stepsExpression.join('\\\\')}
-  \end{aligned}$
-  `
-  return { printResult: toTex(steps[steps.length - 1].newNode), netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: commentaires, printExpression: expressionPrint, name: params.name }
+  const texte = `Calculer $${expressionPrint}$.`
+  const texteCorr = `$\\begin{aligned}\n${stepsExpression.join('\\\\\n')}\n\\end{aligned}$`
+  return { printResult: steps.length > 0 ? toTex(steps[steps.length - 1].newNode, params.totex) : expression, netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: commentaires, printExpression: expressionPrint, name: params.name }
 }
 
 export function aleaEquation (equation = 'a*x+b=c*x-d', variables = { a: false, b: false, c: false, d: false, test: 'a>b or true' }, debug = false) { // Ne pas oublier le signe de la multiplication
@@ -711,21 +720,11 @@ export function commentStep (step, comments) {
 * @param {string} equation // Une équation ou une inéquation
 */
 export function resoudre (equation, params) {
-  params = Object.assign({ comment: false, color: true, comments: {} }, params)
-  const comparators = ['<=', '>=', '=', '<', '>']
-  let comparator
-  let sides
-  for (let i = 0; i < comparators.length; i++) {
-    const comparatorSearch = comparators[i]
-    sides = equation.split(comparatorSearch)
-    if (sides.length === 2) {
-      comparator = comparatorSearch
-    }
-  }
-  sides = equation.split(comparator)
+  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true }, params)
   // Un bug de mathsteps ne permet pas de résoudre 2/x=2 d'où la ligne suivante qui permettait de le contourner
   // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
   // A priori le traitement actuel n'occure plus ce bug (raison ?).
+  if (params.variables !== undefined) equation = aleaEquation(equation, params.variables)
   let printEquation
   const steps = solveEquation(equation)
   const stepsNewEquation = []
@@ -733,53 +732,47 @@ export function resoudre (equation, params) {
   steps.forEach(function (step, i) {
     const changement = step.changeType
     if (step.oldEquation !== null) {
-      if (step.oldEquation.leftNode.toString() === step.newEquation.leftNode.toString() || step.oldEquation.rightNode.toString() === step.newEquation.rightNode.toString()) {
+      if (params.reduceSteps && (step.oldEquation.leftNode.toString() === step.newEquation.leftNode.toString() || step.oldEquation.rightNode.toString() === step.newEquation.rightNode.toString())) {
         if (changement !== 'REMOVE_ADDING_ZEROS') repetition = (repetition + 1) % 3
       } else {
         repetition = 0
       }
     }
-    const oldLeftNode = step.oldEquation !== null ? toTex(step.oldEquation.leftNode) : ''
-    let newLeftNode = toTex(step.newEquation.leftNode)
-    const oldRightNode = step.oldEquation !== null ? toTex(step.oldEquation.rightNode) : ''
-    let newRightNode = toTex(step.newEquation.rightNode)
+    const oldLeftNode = step.oldEquation !== null ? toTex(step.oldEquation.leftNode, params) : ''
+    let newLeftNode = toTex(step.newEquation.leftNode, params)
+    const oldRightNode = step.oldEquation !== null ? toTex(step.oldEquation.rightNode, params) : ''
+    let newRightNode = toTex(step.newEquation.rightNode, params)
     if (i === 0) {
       printEquation = `${oldLeftNode}${step.newEquation.comparator}${oldRightNode}`
       stepsNewEquation.push(
-        String.raw`${oldLeftNode}
-        &${step.oldEquation.comparator}${oldRightNode}`)
+        String.raw`${oldLeftNode}&${step.oldEquation.comparator}${oldRightNode}`)
     }
-    const color = repetition === 2 ? 'black' : 'red'
-    if (params.color) newLeftNode = `{\\color{${color}}${newLeftNode.replace(oldLeftNode, `{\\color{black}${oldLeftNode}}`)}}`
-    if (params.color) newRightNode = `{\\color{${color}}${newRightNode.replace(oldRightNode, `{\\color{black}${oldRightNode}}`)}}`
+    if (params.color !== 'black') {
+      const color = repetition === 2 ? 'black' : params.color
+      newLeftNode = `{\\color{${color}}${newLeftNode.replace(oldLeftNode, `{\\color{black}${oldLeftNode}}`)}}`
+      newRightNode = `{\\color{${color}}${newRightNode.replace(oldRightNode, `{\\color{black}${oldRightNode}}`)}}`
+    }
     const comment = commentStep(step, params.comments)
     if (repetition === 2) {
       repetition = 0
       stepsNewEquation.pop()
-      if (changement !== 'REMOVE_ADDING_ZERO') {
-        stepsNewEquation.push(
-          String.raw`${newLeftNode}
-          &${step.newEquation.comparator}${newRightNode}
-          ${params.comment ? `&&${comment}` : ''}`
-        )
-      }
+      stepsNewEquation.push(`${newLeftNode}&${step.newEquation.comparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
     } else {
-      if (changement !== 'REMOVE_ADDING_ZERO') {
-        stepsNewEquation.push(
-          String.raw`${newLeftNode}
-          &${step.newEquation.comparator}${newRightNode}
-          ${params.comment ? `&&${comment}` : ''}`)
-      }
+      stepsNewEquation.push(`${newLeftNode}&${step.newEquation.comparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
     }
   })
-  const texte = String.raw`Résoudre $${printEquation}$.`
-  const texteCorr = String.raw`
-  $\begin{aligned}
-  ${stepsNewEquation.join('\\\\')}
-  \end{aligned}$
-  `
+  const texte = `Résoudre $${printEquation}$.`
+  const texteCorr = `$\\begin{aligned}\n${stepsNewEquation.join('\\\\\n')}\n\\end{aligned}$`
   const solution = toTex(steps[steps.length - 1].newEquation.ascii())
-  return { texte: texte, texteCorr: texteCorr, equation: printEquation, solution: solution }
+  let calculateLeftSide, calculateRightSide
+  if (equation.indexOf('=') !== -1) {
+    const sides = equation.split('=')
+    const SymbolNode = parse(steps[steps.length - 1].newEquation.ascii().split('=')[0]).toString()
+    const solution = steps[steps.length - 1].newEquation.ascii().split('=')[1]
+    calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${solution})`))
+    calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${solution})`))
+  }
+  return { texte: texte, texteCorr: texteCorr, equation: printEquation, solution: solution, verifLeftSide: calculateLeftSide, verifRightSide: calculateRightSide }
 }
 
 export function programmeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3*x', '-2*x', '-3*x', 'x^2', '-x^2', 'x', '-x', '*x', '/x'], nombreChoisi, debug = false) {

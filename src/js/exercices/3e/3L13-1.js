@@ -30,6 +30,7 @@ export default function ExerciceEquation1Tiret2 () {
     this.correctionDetaillee = false
   }
   this.nbQuestions = 3
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

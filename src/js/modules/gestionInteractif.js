@@ -82,7 +82,6 @@ function verifQuestionCliqueFigure (exercice, i) {
 }
 
 function verifQuestionMathLive (exercice, i) {
-  // Au commit 917faac, il y avait un retour console
   const engine = new ComputeEngine()
   let saisieParsee, signeF, num, den, fSaisie
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
@@ -144,6 +143,7 @@ function verifQuestionMathLive (exercice, i) {
       if (typeof reponse === 'number' || typeof reponse === 'string') {
         saisie = saisie.toString().replace(',', '.')
         reponse = reponse.toString().replace(',', '.')
+        saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
       }
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         resultat = 'OK'
@@ -510,28 +510,30 @@ export function exerciceQcm (exercice) {
   document.addEventListener('exercicesAffiches', () => {
     // On active les checkbox
     $('.ui.checkbox').checkbox()
-    // Couleur pour surligner les label avec une opacité de 50%
-    if (getVueFromUrl() === 'can') {
-      gestionCan(exercice)
-    }
-    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
-    if (button) {
-      if (!button.hasMathaleaListener) {
-        button.addEventListener('click', event => {
-          let nbQuestionsValidees = 0
-          let nbQuestionsNonValidees = 0
-          for (let i = 0; i < exercice.autoCorrection.length; i++) {
-            const resultat = verifQuestionQcm(exercice, i)
-            resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
-          }
-          const uichecks = document.querySelectorAll(`.ui.checkbox.ex${exercice.numeroExercice}`)
-          uichecks.forEach(function (uicheck) {
-            uicheck.classList.add('read-only')
+    // On vérifie le type si jamais il a été changé après la création du listenner (voir 5R20)
+    if (exercice.interactifType === 'qcm') {
+      if (getVueFromUrl() === 'can') {
+        gestionCan(exercice)
+      }
+      const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
+      if (button) {
+        if (!button.hasMathaleaListener) {
+          button.addEventListener('click', event => {
+            let nbQuestionsValidees = 0
+            let nbQuestionsNonValidees = 0
+            for (let i = 0; i < exercice.autoCorrection.length; i++) {
+              const resultat = verifQuestionQcm(exercice, i)
+              resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
+            }
+            const uichecks = document.querySelectorAll(`.ui.checkbox.ex${exercice.numeroExercice}`)
+            uichecks.forEach(function (uicheck) {
+              uicheck.classList.add('read-only')
+            })
+            button.classList.add('disabled')
+            afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees)
           })
-          button.classList.add('disabled')
-          afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees)
-        })
-        button.hasMathaleaListener = true
+          button.hasMathaleaListener = true
+        }
       }
     }
   })
@@ -898,31 +900,34 @@ export function exerciceCustom (exercice) {
  */
 export function exerciceMathLive (exercice) {
   document.addEventListener('exercicesAffiches', () => {
-    if (getVueFromUrl() === 'can') {
-      gestionCan(exercice)
-    }
-    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
-    if (button) {
-      if (!button.hasMathaleaListener) {
-        button.addEventListener('click', event => {
-          let nbBonnesReponses = 0
-          let nbMauvaisesReponses = 0
-          const besoinDe2eEssai = false
-          let resultat
-          for (const i in exercice.autoCorrection) {
-            resultat = verifQuestionMathLive(exercice, i)
-            if (resultat === 'OK') {
-              nbBonnesReponses++
-            } else {
-              nbMauvaisesReponses++ // Il reste à gérer le 2e essai
+    // On vérifie le type si jamais il a été changé après la création du listenner (voir 5R20)
+    if (exercice.interactifType === 'mathLive') {
+      if (getVueFromUrl() === 'can') {
+        gestionCan(exercice)
+      }
+      const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
+      if (button) {
+        if (!button.hasMathaleaListener) {
+          button.addEventListener('click', event => {
+            let nbBonnesReponses = 0
+            let nbMauvaisesReponses = 0
+            const besoinDe2eEssai = false
+            let resultat
+            for (const i in exercice.autoCorrection) {
+              resultat = verifQuestionMathLive(exercice, i)
+              if (resultat === 'OK') {
+                nbBonnesReponses++
+              } else {
+                nbMauvaisesReponses++ // Il reste à gérer le 2e essai
+              }
             }
-          }
-          if (!besoinDe2eEssai) {
-            button.classList.add('disabled')
-            afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
-          }
-        })
-        button.hasMathaleaListener = true
+            if (!besoinDe2eEssai) {
+              button.classList.add('disabled')
+              afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses)
+            }
+          })
+          button.hasMathaleaListener = true
+        }
       }
     }
   })

@@ -35,6 +35,7 @@ export default function ExerciceDevelopper (difficulte = 1) {
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 5
   this.nbColsCorr = 1
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

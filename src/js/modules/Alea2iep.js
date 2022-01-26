@@ -221,7 +221,7 @@ export default class Alea2iep {
       } else {
         A1 = A
       }
-      if (this[objet].visibilite) { // S'il est déjà visible, montrer devient un déplacer 
+      if (this[objet].visibilite) { // S'il est déjà visible, montrer devient un déplacer
         this.deplacer(objet, A1, { tempo: tempo, vitesse: vitesse })
       } else {
         codeXML = `<action objet="${objet}" mouvement="montrer" abscisse="${this.x(A1)}" ordonnee="${this.y(A1)}" tempo="${tempo}" />`

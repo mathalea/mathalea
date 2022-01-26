@@ -24,6 +24,7 @@ export default function ResoudreEquatioeX2EgalA () {
   // eslint-disable-next-line no-undef
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
   this.spacing = 1
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

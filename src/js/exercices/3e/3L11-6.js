@@ -27,6 +27,7 @@ export default function FactoriserUneExpression3e () {
   this.correctionDetaillee = true
   this.spacing = context.isHtml ? 3 : 2
   this.spacingCorr = context.isHtml ? 3 : 2
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

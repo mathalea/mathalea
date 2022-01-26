@@ -267,7 +267,7 @@ export default function ProportionnalitePasProportionnalite () {
           tirages[3] = [3 * n + 3, (3 * n + 3) * pu]
           met = listeProportionnelOuPas[compteurProportionnelsOuPas]
           compteurProportionnelsOuPas += 1
-          if (!met) tirages[p][1] -= 0.1
+          if (!met) tirages[p][1] -= 1
           texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par${getVueFromUrl() === 'multi' ? '<br>' : ' '}correspondance en fonction de la quantité saisie dans le panier.<br>`
           texte += 'Il note les prix dans le tableau suivant :<br> <br>'
           texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs en un seul morceau

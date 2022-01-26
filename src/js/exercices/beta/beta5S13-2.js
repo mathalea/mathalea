@@ -2,19 +2,6 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Calculs de fréquences'
-/**
- * On renvoie un entier aléatoire entre une valeur min (incluse) et une valeur max (incluse).
- * Attention : si on utilisait Math.round(), on aurait une distribution non uniforme !
- * @param {int} min borne inférieure
- * @param {int} max borne supérieure
- * @returns entier aléatoire entre min et max inclus
- * @source https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Math/random#obtenir_un_entier_al%C3%A9atoire_dans_un_intervalle_ferm%C3%A9
- */
-function getRandomIntInclusive (min, max) {
-  min = Math.ceil(min)
-  max = Math.floor(max)
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
 
 /**
  * Construit un tableau d'entiers de longueur connue
@@ -38,7 +25,7 @@ function listeEntiersDepuisSomme (total, nbElements) {
   // Changement des valeurs
   for (let i = 0, delta = 0; i < valeurs.length - 2; i++) {
     // création du delta
-    delta = getRandomIntInclusive(-valeurs[i] + 1, valeurs[i] - 1)
+    delta = randint(-valeurs[i] + 1, valeurs[i] - 1)
     valeurs[i] += delta
     // répartition du delta entre les valeurs restantes du tableau
     const diviseur = valeurs.length - i - 2
@@ -133,7 +120,7 @@ export default function CalculerDesFrequences () {
     let correction2 = 'Calculs des fréquences.<br><br>'
     correction2 += 'On rappelle que pour la fréquence relative à une valeur est donnée par le quotient : '
     correction2 += '$\\dfrac{\\text{effectif de la valeur}}{\\text{effectif total}}$<br><br>'
-    correction2 += 'On en déduit donc les calculs suivants~:<br><br>'
+    correction2 += 'On en déduit donc les calculs suivants :<br><br>'
     for (const [sport, eff] of entrees) {
       const f = fraction(eff, effectifTotal)
       correction2 += `${sport} :<br>`

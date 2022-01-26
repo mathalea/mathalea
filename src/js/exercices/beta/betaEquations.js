@@ -61,7 +61,7 @@ function schemaBarre () {
 export default function equationsProgression () {
   Exercice.call(this)
   const formulaire = []
-  for (let i = 0; i < 112; i++) formulaire.push(`${i}`)
+  for (let i = 0; i < 120; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
     'Type de question', this.nbQuestions, formulaire.join('\n')
@@ -1040,9 +1040,9 @@ export default function equationsProgression () {
               a: true,
               b: true,
               c: true,
-              d: 1,
-              e: 1,
-              f: 1,
+              d: false,
+              e: false,
+              f: false,
               disc: 'fraction((b/e)^2-4*(a/d)*(c/f))',
               test: 'abs(a)!=d and abs(b)!=e and abs(c)!=f and abs(a)<6 and abs(b)<6 and abs(c)<6 and 1<d<6 and 1<e<6 and 1<f<6 and gcd(abs(a),d)==1 and gcd(abs(b),e)==1 and gcd(abs(c),f)==1'
             }
@@ -1081,7 +1081,9 @@ export default function equationsProgression () {
           const commentairesPersonnalises = {
             CANCEL_MINUSES: 'Simplifier l\'écriture',
             SUBTRACT_FROM_BOTH_SIDES: 'Enlever {stepChange} à chaque membre.',
-            SIMPLIFY_ARITHMETIC: ''
+            SIMPLIFY_ARITHMETIC: '',
+            SIMPLIFY_RIGHT_SIDE: 'Réduire.',
+            SIMPLIFY_LEFT_SIDE: 'Réduire.'
           }
           exercice = resoudre('3*x+2=9*x-3', { comment: true, comments: commentairesPersonnalises })
           exercice.texte = `Résoudre l'équation $${exercice.equation}$ en détaillant les étapes.`
@@ -1098,6 +1100,89 @@ export default function equationsProgression () {
           <br>
           Les solutions de cette inéquation sont donc tous les nombres $x$ vérifiant $${exercice.solution}$.
           `
+          break
+        }
+        case 112: {
+          exercice = calculer('x*x*x')
+          exercice.texte = `Calculer : $${exercice.printExpression}$`
+          exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
+          break
+        }
+        case 113: {
+          exercice = resoudre('9*x+7=6*x-3', { color: 'black', comment: true })
+          exercice.texte = `Résoudre : $${exercice.equation}$`
+          exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `La solution est $${exercice.solution}$`
+          break
+        }
+        case 114: {
+          exercice = resoudre('9*x+7=6*x-3', { color: 'black', comment: true })
+          exercice.texte = `Résoudre : $${exercice.equation}$`
+          exercice.texteCorr = `<br>
+          ${exercice.texteCorr}<br>
+          La solution est $${exercice.solution}$.
+          <br>
+          Vérification :
+          <br>
+          D'une part : $${exercice.verifLeftSide.printExpression}=${exercice.verifLeftSide.printResult}$
+          <br>
+          D'autre part : $${exercice.verifRightSide.printExpression}=${exercice.verifRightSide.printResult}$
+          `
+          break
+        }
+        case 115: {
+          const variables = aleaVariables(
+            {
+              a: true,
+              b: true,
+              c: 'randomInt(0,10)'
+            }
+          )
+          exercice = {}
+          exercice.texte = `$${toTex(`${variables.a}+(${variables.b})+${variables.c}`, { supprPlusMoins: false })}$`
+          exercice.texteCorr = ''
+          break
+        }
+        case 116: {
+          exercice = calculer('(-4)+(-3)+7', { supprPlusMoins: false })
+          break
+        }
+        case 117: {
+          const variables = aleaVariables(
+            {
+              a: true,
+              b: true
+            }
+          )
+          exercice = resoudre(aleaEquation('9*x+a=6*x+b', variables).toString(), { color: 'blue', comment: true })
+          exercice.texte = `Résoudre : $${exercice.equation}$`
+          exercice.texteCorr = `
+          <br>
+          ${exercice.texteCorr}
+          <br>
+          La solution est $${exercice.solution}$.
+          <br>
+          Vérification :
+          <br>
+          D'une part : $${exercice.verifLeftSide.printExpression}=${exercice.verifLeftSide.printResult}$
+          <br>
+          D'autre part : $${exercice.verifRightSide.printExpression}=${exercice.verifRightSide.printResult}$
+          `
+          break
+        }
+        case 118 : {
+          exercice = calculer('5/2*(7/3+6/8)', { substeps: true })
+          exercice.texte = `(Problème à régler : signe de la multiplication dans les calculs)
+          <br>
+          Calculer : $${exercice.printExpression}$`
+          exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
+          break
+        }
+        case 119 : {
+          exercice = resoudre('5*x+2=0')
+          exercice.texte = `
+          <br>
+          Résoudre : $${exercice.printExpression}$`
+          exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
           break
         }
       }

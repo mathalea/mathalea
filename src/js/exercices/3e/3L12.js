@@ -24,6 +24,7 @@ export default function FactoriserIdentitesRemarquables3 () {
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 5
   this.sup = 2
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)

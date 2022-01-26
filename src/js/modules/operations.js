@@ -38,8 +38,8 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     const decalage = nombreDeChiffresApresLaVirgule(divis)
     const dec1 = nombreDeChiffresApresLaVirgule(divid)
     if (divid < divis) { zeroutile = true }
-    divis = calcul(`${divis}*10^${decalage}`)
-    divid = calcul(`${divid}*10^${decalage + dec1}`)
+    divis = calcul(divis * 10 ** decalage)
+    divid = calcul(divid * 10 ** (decalage + dec1))
     let dec2 = nombreDeChiffresApresLaVirgule(divid)
     dec2 = precision - dec2 - dec1
     divid = math.format(divid * 10 ** dec2, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 })
@@ -139,8 +139,8 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     let decalage
     if (base ? base === 10 : true) {
       decalage = Math.max(dec1, dec2)
-      operande1 = calcul(`${operande1}*10^${decalage}`)
-      operande2 = calcul(`${operande2}*10^${decalage}`)
+      operande1 = calcul(operande1 * 10 ** decalage)
+      operande2 = calcul(operande2 * 10 ** decalage)
       sop1 = Number(operande1).toString()
       sop2 = Number(operande2).toString()
       resultat = operande1 + operande2
@@ -210,8 +210,8 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       const dec1 = nombreDeChiffresApresLaVirgule(operande1)
       const dec2 = nombreDeChiffresApresLaVirgule(operande2)
       decalage = Math.max(dec1, dec2)
-      operande1 = calcul(`${operande1}*10^${decalage}`)
-      operande2 = calcul(`${operande2}*10^${decalage}`)
+      operande1 = calcul(operande1 * 10 ** decalage)
+      operande2 = calcul(operande2 * 10 ** decalage)
       resultat = operande1 - operande2
       sresultat = Number(resultat).toString()
       lresultat = sresultat.length
@@ -285,8 +285,8 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     if (base ? base === 10 : true) {
       dec1 = nombreDeChiffresApresLaVirgule(operande1)
       dec2 = nombreDeChiffresApresLaVirgule(operande2)
-      operande1 = calcul(`${operande1}*10^${dec1}`)
-      operande2 = calcul(`${operande2}*10^${dec2}`)
+      operande1 = calcul(operande1 * 10 ** dec1)
+      operande2 = calcul(operande2 * 10 ** dec2)
       sop1 = Number(operande1).toString()
       sop2 = Number(operande2).toString()
     } else {
@@ -341,7 +341,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     }
     let resultat
     if (base ? base === 10 : true) {
-      resultat = calcul(`${operande1}*${operande2}`)
+      resultat = calcul(operande1 * operande2)
     } else {
       resultat = base10VersBaseN(operande1 * operande2, base)
     }
