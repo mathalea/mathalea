@@ -288,7 +288,7 @@ export default class Alea2iep {
 
   /**
    *
-   * @param {string} objet
+   * @param {string} objet - 'regle', 'equerre', 'requerre, 'compas', 'rapporteur' ou 'crayon'
    * @param {objet} param1
    */
   masquer (objet, { tempo = this.tempo } = {}) {
@@ -349,7 +349,7 @@ export default class Alea2iep {
 
   /**
  *
- * @param {string} objet
+ * @param {string} objet - 'regle', 'equerre', 'requerre, 'compas', 'rapporteur' ou 'crayon'
  * @param {point} A
  * @param {objet} options
  */
@@ -427,7 +427,7 @@ export default class Alea2iep {
 
   /**
  *
- * @param {string} objet
+ * @param {string} objet - 'regle', 'equerre', 'requerre, 'compas', 'rapporteur' ou 'crayon'
  * @param {int} angle
  * @param {objet} options
  */
@@ -506,7 +506,7 @@ export default class Alea2iep {
   }
 
   /**
- * @param {string} objet
+ * @param {string} objet - 'regle', 'equerre', 'requerre, 'compas' ou 'rapporteur'
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
