@@ -66,7 +66,7 @@ export default function NomExercice () {
               d: false,
               e: false,
               f: false,
-              disc: 'fraction((b/e)^2-4*(a/d)*(c/f))'
+              disc: '(b/e)^2-4*(a/d)*(c/f)'
               // test: 'abs(a)!=d and abs(b)!=e and abs(c)!=f and 1<d and 1<e and 1<f and gcd(abs(a),d)==1 and gcd(abs(b),e)==1 and gcd(abs(c),f)==1'
             }
           )
