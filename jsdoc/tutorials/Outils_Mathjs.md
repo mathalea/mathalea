@@ -34,6 +34,12 @@ Ces outils ont pour objectif d'utiliser la puissance de [Mathjs](https://mathjs.
 
 ## La fonction aleaVariables() <a id="section1"></a>
 
+La fonction `aleaVariables()` se trouve dans `/modules/outilsMathjs`.
+
+Elle a pour objectif de générer des valeurs aléatoires, d'effectuer les calculs nécessaires à la préparation des variables d'un exercice en limitant le plus possible les erreurs de conversions binaires/decimaux.
+
+Elle utilise pour cela `Mathjs`.
+
 ### Un premier exemple basique : l'inégalité triangulaire <a id="subsection1-1"></a>
 
 Imaginons que nous voulions obtenir trois longueurs d'un triangle au hasard. Il faut vérifier l'inégalité triangulaire pour le plus grand côté.

@@ -806,7 +806,20 @@ export function resoudre (equation, params) {
     calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${solution})`))
     calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${solution})`))
   }
-  return { texte: texte, texteCorr: texteCorr, equation: printEquation, solution: solution, verifLeftSide: calculateLeftSide, verifRightSide: calculateRightSide, steps: steps }
+  return {
+    solution: {
+      printDecimal: equation.indexOf('=') !== -1 ? texNombre2(math.evaluate(steps[steps.length - 1].newEquation.ascii().split('=')[1])) : undefined,
+      decimal: equation.indexOf('=') !== -1 ? math.evaluate(steps[steps.length - 1].newEquation.ascii().split('=')[1]) : undefined,
+      exact: equation.indexOf('=') !== -1 ? steps[steps.length - 1].newEquation.ascii().split('=')[1] : undefined,
+      print: solution
+    },
+    texte: texte,
+    texteCorr: texteCorr,
+    equation: printEquation,
+    verifLeftSide: calculateLeftSide,
+    verifRightSide: calculateRightSide,
+    steps: steps
+  }
 }
 
 export function programmeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3*x', '-2*x', '-3*x', 'x^2', '-x^2', 'x', '-x', '*x', '/x'], nombreChoisi, debug = false) {
