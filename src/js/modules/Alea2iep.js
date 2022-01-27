@@ -859,9 +859,18 @@ export default class Alea2iep {
   // }
 
   /**
+   * Montre ou masque les graduations du rapporteur
+   * @param {point} A
+   * @param {string} nom
+   * @param {objet} options Défaut : { tempo: this.tempo }
+   */
+  // rapporteurGraduations ()
+
+  /**
    * Masque la graduation externe du rapporteur (laisse l'autre graduation visible)
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
+
   rapporteurMasquerGraduationsExterieures ({ tempo = this.tempo } = {}) {
     this.liste_script.push(`<action mouvement="masquer_nombres" objet="rapporteur" tempo="${tempo}"/>`)
   }
