@@ -19,6 +19,7 @@ export default function CalculsFractionsSimples () {
   this.nbQuestions = 6
   this.sup = 4
   this.consigne = 'Calculer'
+  this.tailleDiaporama = 4
 
   this.nouvelleVersion = function (i) {
     const den = choice([2, 3, 4, 5, 10])
