@@ -24,10 +24,13 @@ Voici une aide pour les débutants afin qu'ils puissent être en mesure de coder
 6. Pose de signets cliquables dans le code afin de se déplacer très efficacement
    - [Bookmarks](https://marketplace.visualstudio.com/items?itemName=alefragnani.Bookmarks "cliquer sur ce lien")
 
-7. Collaboration en temps réel (chat textuel et audio, révisions de code à distance, conférences interactives, etc.)
+7. Collaboration asynchrone qui simplifie la discussion et la révision du code entre développeurs en gardant le contexte du code
+   - [New Relic CodeStream](https://marketplace.visualstudio.com/items?itemName=CodeStream.codestream "cliquer sur ce lien")
+
+8. Collaboration en temps réel (chat textuel et audio, révisions de code à distance, conférences interactives, etc.)
    - [Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack "cliquer sur ce lien")
 
-8. Utilisation de blocks de code préfabriqués
+9. Utilisation de blocks de code préfabriqués
    
    On pourrait peut-être en faire nous même pour qu'ils correspondent au **squelettes des exercices**
    - [Nom](https:// "cliquer sur ce lien")
