@@ -3,6 +3,10 @@ La documentation est générée à l'aide de [jsdoc](https://jsdoc.app/index.htm
 
 Pour générer la documentation, il suffit de lancer `pnpm run build:doc` dans un terminal.
 
+**Remarque :**
+
+Sous **Windows**, le `pnpm run build:doc` ne fonctionne pas actuellement. En attendant que ce soit réparé, vous pouvez build la doc en lançant `C:\\Chemin\\Vers\\"mon dossier"\\mathalea\\node_modules\\.bin\\jsdoc -c C:\\Chemin\\Vers\\"mon dossier"\\mathalea\\jsdoc\\base.json` en remplaçant le `\\Chemin\\Vers\\"mon dossier"\\mathalea` par le chemin vers votre dossier mathalea.
+
 Et pour la visualiser, il suffit de lancer `pnpm run doc:show` dans un terminal.
 
 Vous pouvez faire les deux actions en une ligne en lançant `pnpm run doc show` (sans les deux points).
