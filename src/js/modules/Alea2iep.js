@@ -523,7 +523,7 @@ export default class Alea2iep {
  */
   regleZoom (echelle, options) {
     this.zoom('regle', echelle, options)
-    //this.regle.longueur = this.regle.longueur * echelle / 100
+    this.regle.longueur = this.regle.longueur * echelle / 100
   }
 
   /**
