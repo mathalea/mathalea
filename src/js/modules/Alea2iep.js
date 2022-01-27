@@ -74,6 +74,7 @@ export default class Alea2iep {
       visibilite: false,
       position: point(0, 0),
       angle: 0,
+      rayon: 5.2,
       zoom: 100
     }
 
@@ -522,6 +523,7 @@ export default class Alea2iep {
  */
   regleZoom (echelle, options) {
     this.zoom('regle', echelle, options)
+    //this.regle.longueur = this.regle.longueur * echelle / 100
   }
 
   /**
@@ -540,6 +542,7 @@ export default class Alea2iep {
  */
   requerreZoom (echelle, options) {
     this.zoom('requerre', echelle, options)
+    
   }
 
   /**
@@ -549,6 +552,7 @@ export default class Alea2iep {
  */
   rapporteurZoom (echelle, options) {
     this.zoom('rapporteur', echelle, options)
+    this.rapporteur.rayon = this.rapporteur.rayon * echelle / 100
   }
 
   /**
@@ -920,8 +924,9 @@ export default class Alea2iep {
  */
   rapporteurCrayonMarqueAngle (angle, { tempo = this.tempo, vitesse = this.vitesse, couleur = this.couleurTraitsDeConstruction, epaisseur = this.epaisseurTraitsDeConstruction } = {}) {
     const O = this.rapporteur.position
-    const M = pointAdistance(O, 5.2, angle + this.rapporteur.angle)
-    const N = pointAdistance(O, 5.5, angle + this.rapporteur.angle)
+    // const M = pointAdistance(O, 5.2, angle + this.rapporteur.angle)
+    const M = pointAdistance(O, this.rapporteur.rayon, angle + this.rapporteur.angle)
+    const N = pointAdistance(O, this.rapporteur.rayon + 0.3, angle + this.rapporteur.angle)
     this.crayonMontrer()
     this.crayonDeplacer(M, { tempo: tempo, vitesse: vitesse })
     this.tracer(N, { tempo: tempo, vitesse: vitesse, couleur: couleur, epaisseur: epaisseur })
