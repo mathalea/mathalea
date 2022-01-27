@@ -25,7 +25,7 @@ export default function EtudierGraphiqueParite () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
-    typesDeQuestionsDisponibles = [1, 2]
+    typesDeQuestionsDisponibles = [3]
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0, A, B, s1, s2, s3, s4, a, b, f, r, x, C, traceAetB, labA1, labB1, labA0, labB0, lA, lB = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
@@ -107,7 +107,48 @@ export default function EtudierGraphiqueParite () {
           texteCorr += 'La fonction représentée est impaire.<br>'
 
           texteCorr += mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C, lA, lB, traceAetB, labB0, labB1, labA1, s1, s2, s3, s4, labA0)
+          break
+        case 3:// Cas f(x)=ax^2
+          a = randint(-2, 2, [0])
+          r = repere2({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
+          x = randint(2, 3, [0])
+          f = x => a * x*x
+          C = courbe2(f, { repere: r, step: 0.25 })
+          // C.color = 'red'
+          // C.epaisseur = 2
+          B = point(x, a * x)
+          A = point(-x, -a * x)
+          labA0 = latexParCoordonnees('-x', -x - 0.2, 0.8 * (a > 0 ? 1 : -1), 'red', 20, 10, 'white', 8)
+          labB0 = latexParCoordonnees('x', x, 0.8 * (a > 0 ? -1 : 1), 'red', 20, 10, 'white', 8)
+          lA = latexParCoordonnees('M\'', -x - 1, -a * x, 'red', 15, 10, 'white', 7)
+          lB = latexParCoordonnees('M', x + 1, a * x, 'red', 15, 10, 'white', 7)
+          labA1 = latexParCoordonnees('f(-x)', 1.2, -a * x + 0.2, 'red', 30, 10, '', 8)
+          labB1 = latexParCoordonnees('f(x)', -2, a * x + 0.2, 'red', 25, 10, '', 8)
+          traceAetB = tracePoint(A, B, 'red') // objet qui contient les croix des points
+          s1 = segment(x, a * x, x, 0, 'red')
+          s2 = segment(-x, -a * x, -x, 0, 'red')
+          s3 = segment(-x, -a * x, 0, -a * x, 'red')
+          s4 = segment(x, a * x, 0, a * x, 'red')
+          s1.pointilles = true
+          s2.pointilles = true
+          s3.pointilles = true
+          s4.pointilles = true
+          s1.epaisseur = 2
+          s2.epaisseur = 2
+          s3.epaisseur = 2
+          s4.epaisseur = 2
+          traceAetB.taille = 4
+          traceAetB.epaisseur = 2
 
+          texte = mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C)
+          texteCorr = 'On observe que la représentation graphique admet les ordonnées comme axe de symétrie.<br> '
+          texteCorr += 'Prenons un point $M$ de la courbe, d\'abscisse $x$, et '
+          texteCorr += 'le point $M\'$ aussi de la courbe, mais d\'abscisse opposée : $-x$. <br>'
+          texteCorr += 'Les coordonnées sont $M(x;f(x))$ et  $M\'(-x;f(-x))$. <br>'
+          texteCorr += 'On observe bien que ces deux points qui ont des abscisses opposées, ont des ordonnées égales.<br>'
+          texteCorr += 'La fonction représentée est impaire.<br>'
+
+          texteCorr += mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C, lA, lB, traceAetB, labB0, labB1, labA1, s1, s2, s3, s4, labA0)
           break
       }
 
