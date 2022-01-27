@@ -21,8 +21,9 @@ Voici une aide pour les débutants afin qu'ils puissent être en mesure de coder
 5. Optimisation des fonctionnalités (Annotation du code en relation avec les commit, etc.)
    - [GitLens — Git supercharged](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens "cliquer sur ce lien")
 
-6. Pose de signets cliquables dans le code
-   - - [Bookmarks](https://marketplace.visualstudio.com/items?itemName=alefragnani.Bookmarks "cliquer sur ce lien")
+6. Pose de signets cliquables dans le code afin de se déplacer très efficacement
+   - [Bookmarks](https://marketplace.visualstudio.com/items?itemName=alefragnani.Bookmarks "cliquer sur ce lien")
+
 7. Collaboration en temps réel (chat textuel et audio, révisions de code à distance, conférences interactives, etc.)
    - [Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack "cliquer sur ce lien")
 
@@ -46,15 +47,16 @@ Voici une aide pour les débutants afin qu'ils puissent être en mesure de coder
   Cette barre permet de choisir le cadre de gauche que vous souhaitez pour :
    - ![](img/tutoVSCode/) Avoir un explorateur de fichiers.
    - ![](img/tutoVSCode/) Faire une recherche dans tous les fichiers du projet.![](img/tutoVSCode/) Travailler de manière graphique avec Git.
-   - ![](img/tutoVSCode/) Débugger votre code.
+   - ![](img/tutoVSCode/) Déboguer votre code.
    - ![](img/tutoVSCode/) Gérer vos extensions VSCode.
 
   Les quatre icônes suivantes sont ajoutées par certaines extensions installées:
    - ![](img/tutoVSCode/) représente l'extension Bookmarks
    - ![](img/tutoVSCode/) représente l'extension GitLens
    - ![](img/tutoVSCode/) représente l'extension Live Share
+   - ![](img/tutoVSCode/) représente l'extension New Relic CodeStream
   
-  Enfin, les deux dernères icônes sont des icônes propres à VSCode :
+  Enfin, les deux dernières icônes sont des icônes propres à VSCode :
    - ![](img/tutoVSCode/) concerne vos comptes (gitHub)
    - ![](img/tutoVSCode/) est un raccourci vers File>Preferences
 
