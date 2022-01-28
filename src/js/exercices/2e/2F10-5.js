@@ -62,9 +62,9 @@ export default function signefonctionaffine () {
             texteCorr += `$x${a>0?'>':'<'}\\dfrac{${ecritureAlgebrique(-b)}}{${a}}$<br>`
           } */
           texteCorr += `On montre de même que l'inéquation $f(x) < 0$ a pour solution $${inequation2.solution}$ et que l'équation $f(x)=0$ a pour solution $${equation.solution}$. <br>`
-          texteCorr += `Ainsi, $f$ est :<br>`
+          texteCorr += 'Ainsi, $f$ est :<br>'
           texteCorr += itemize([`nulle lorsque $x$ est égal à $${texFractionReduite(-b, a)}$`, `positive lorsque $x$ est ${a > 0 ? 'supérieur' : 'inférieur'} à $${texFractionReduite(-b, a)}$`, `négative lorsque $x$ est ${a > 0 ? 'inférieur' : 'supérieur'} à $${texFractionReduite(-b, a)}$.<br>`])
-          texteCorr += 'On a donc le tableau de signe suivant :'
+          texteCorr += 'On a donc le tableau de signe suivant :<br><br>'
           ligne1 = a > 0 ? ['Line', 30, '', 0, '-', 20, 'z', 20, '+'] : ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
         } else {
           texteCorr = 'On reconnaît que $f$ est une fonction affine, de la forme $f(x)=ax+b$.<br>'
@@ -84,10 +84,10 @@ export default function signefonctionaffine () {
             texteCorr += `<0$,  $f(x)~$ est négative pour $~x>${texFractionReduite(-b, a)} ~$ et positive pour $~x<${texFractionReduite(-b, a)} $<br>`
             ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
           }
-          texteCorr += 'On peut synthétiser cela dans un tableau de signes :'
+          texteCorr += 'On peut synthétiser cela dans un tableau de signes :<br><br>'
         }
 
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -5.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
@@ -105,7 +105,7 @@ export default function signefonctionaffine () {
           hauteurLignes: [15, 15]
         }))
 
-        texteCorr += 'Pour illustrer la situation, on peut représenter graphiquement la fonction :<br>'
+        texteCorr += 'Pour illustrer la situation, on peut représenter graphiquement la fonction :<br><br>'
         const f = x => a * x + b
         monRepere = repere2()
         maCourbe = courbe2(f, { repere: monRepere })
