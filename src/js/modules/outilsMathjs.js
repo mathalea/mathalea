@@ -237,13 +237,6 @@ function transformNode (node, parent, oldNode, params = { suppr1: true, suppr0: 
         firstNode.op === '*'
       ) { node.implicit = false }
     }
-    if (node.isOperatorNode && node.op === '+' && node.args[1].isOperatorNode && node.args[1].fn === 'unaryMinus') {
-      if (params.supprPlusMoins) {
-        node = Node.Creator.operator('-', [node.args[0], node.args[1].args[0]])
-      } else {
-        node.args[1] = Node.Creator.parenthesis(node.args[1])
-      }
-    }
     return transformNode(node, parent, oldNode, params)
   } else {
     return node
@@ -308,9 +301,9 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
     )
   } while (node.toString() !== nodeClone.toString())
 
-  const nodeTex = node.toTex({ implicit: 'hide', parenthesis: 'keep' }).replaceAll('\\cdot', '\\times').replaceAll('.', '{,}').replaceAll('\\frac', '\\dfrac')
+  let nodeTex = node.toTex({ implicit: 'hide', parenthesis: 'keep' }).replaceAll('\\cdot', '\\times').replaceAll('.', '{,}').replaceAll('\\frac', '\\dfrac')
 
-  // nodeTex = nodeTex.replace(/\s*?\+\s*?-\s*?/g, ' - ')
+  nodeTex = nodeTex.replace(/\s*?\+\s*?-\s*?/g, ' - ')
 
   return nodeTex
 }
@@ -755,15 +748,6 @@ export function commentStep (step, comments) {
   return (comments[changement] !== undefined) ? `\\text{${comments[changement].replaceAll('{stepChange}', `$${stepChange}$`)}}` : ''
 }
 
-function searchComparator (equation) {
-  const comparators = ['<=', '>=', '=', '<', '>']
-  let comparator
-  for (let i = 0; i < comparators.length; i++) {
-    if (equation.indexOf(comparators[i]) !== -1) comparator = comparators[i]
-  }
-  return comparator
-}
-
 /**
 * @description Retourne toutes les étapes de résolution d'une équation ou d'une inéquation
 * @param {Objet} params // Les paramètres (commentaires visibles)
@@ -775,6 +759,11 @@ export function resoudre (equation, params) {
   // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
   // A priori le traitement actuel n'occure plus ce bug (raison ?).
   if (params.variables !== undefined) equation = aleaEquation(equation, params.variables)
+  const comparators = ['<=', '>=', '=', '<', '>']
+  let comparator
+  for (let i = 0; i < comparators.length; i++) {
+    if (equation.indexOf(comparators[i]) !== -1) comparator = comparators[i]
+  }
   let printEquation
   const steps = solveEquation(equation)
   const stepsNewEquation = []
@@ -813,12 +802,11 @@ export function resoudre (equation, params) {
   })
   const texte = `Résoudre $${printEquation}$.`
   const texteCorr = `$\\begin{aligned}\n${stepsNewEquation.join('\\\\\n')}\n\\end{aligned}$`
-  const lastStep = steps[steps.length - 1].newEquation.ascii()
   const solution = {
-    printDecimal: texNombre2(math.evaluate(lastStep.split(searchComparator(lastStep))[1])),
-    decimal: math.evaluate(lastStep.split(searchComparator(lastStep))[1]),
-    exact: lastStep.split(searchComparator(lastStep))[1],
-    print: toTex(lastStep)
+    printDecimal: texNombre2(math.evaluate(steps[steps.length - 1].newEquation.ascii().split(comparator)[1])),
+    decimal: math.evaluate(steps[steps.length - 1].newEquation.ascii().split(comparator)[1]),
+    exact: steps[steps.length - 1].newEquation.ascii().split(comparator)[1],
+    print: toTex(steps[steps.length - 1].newEquation.ascii())
   }
   let calculateLeftSide, calculateRightSide
   if (equation.indexOf('=') !== -1) {
