@@ -759,6 +759,11 @@ export function resoudre (equation, params) {
   // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
   // A priori le traitement actuel n'occure plus ce bug (raison ?).
   if (params.variables !== undefined) equation = aleaEquation(equation, params.variables)
+  const comparators = ['<=', '>=', '=', '<', '>']
+  let comparator
+  for (let i = 0; i < comparators.length; i++) {
+    if (equation.indexOf(comparators[i]) !== -1) comparator = comparators[i]
+  }
   let printEquation
   const steps = solveEquation(equation)
   const stepsNewEquation = []
@@ -797,7 +802,12 @@ export function resoudre (equation, params) {
   })
   const texte = `Résoudre $${printEquation}$.`
   const texteCorr = `$\\begin{aligned}\n${stepsNewEquation.join('\\\\\n')}\n\\end{aligned}$`
-  const solution = toTex(steps[steps.length - 1].newEquation.ascii())
+  const solution = {
+    printDecimal: texNombre2(math.evaluate(steps[steps.length - 1].newEquation.ascii().split(comparator)[1])),
+    decimal: math.evaluate(steps[steps.length - 1].newEquation.ascii().split(comparator)[1]),
+    exact: steps[steps.length - 1].newEquation.ascii().split(comparator)[1],
+    print: toTex(steps[steps.length - 1].newEquation.ascii())
+  }
   let calculateLeftSide, calculateRightSide
   if (equation.indexOf('=') !== -1) {
     const sides = equation.split('=')
@@ -806,7 +816,16 @@ export function resoudre (equation, params) {
     calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${solution})`))
     calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${solution})`))
   }
-  return { texte: texte, texteCorr: texteCorr, equation: printEquation, solution: solution, verifLeftSide: calculateLeftSide, verifRightSide: calculateRightSide, steps: steps }
+  return {
+    solution: solution,
+    texte: texte,
+    texteCorr: texteCorr,
+    equation: printEquation,
+    verifLeftSide: calculateLeftSide,
+    verifRightSide: calculateRightSide,
+    steps: steps,
+    printSteps: stepsNewEquation
+  }
 }
 
 export function programmeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3*x', '-2*x', '-3*x', 'x^2', '-x^2', 'x', '-x', '*x', '/x'], nombreChoisi, debug = false) {

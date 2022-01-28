@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { polygone, segment, ObjetMathalea2D, point, mathalea2d, texteParPosition, fixeBordures } from '../../modules/2d.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { listeQuestionsToContenu, texNombre2 } from '../../modules/outils.js'
 import { parse, simplify } from 'mathjs'
 import { aleaExpression, resoudre, toTex, calculer, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
 import Algebrite from 'algebrite'
@@ -1105,7 +1105,7 @@ export default function equationsProgression () {
           exercice.texte = `Résoudre l'équation $${exercice.equation}$ en détaillant les étapes.`
           exercice.texteCorr += `
           <br>
-          La solution de cette équation est donc $${exercice.solution}$.
+          La solution de cette équation est donc $${exercice.solution.print}$.
           `
           break
         }
@@ -1114,7 +1114,7 @@ export default function equationsProgression () {
           exercice.texte = `Résoudre l'inéquation $${exercice.equation}$ en détaillant les étapes.`
           exercice.texteCorr += `
           <br>
-          Les solutions de cette inéquation sont donc tous les nombres $x$ vérifiant $${exercice.solution}$.
+          Les solutions de cette inéquation sont donc tous les nombres $x$ vérifiant $${exercice.solution.print}$.
           `
           break
         }
@@ -1127,7 +1127,7 @@ export default function equationsProgression () {
         case 113: {
           exercice = resoudre('9*x+7=6*x-3', { color: 'black', comment: true })
           exercice.texte = `Résoudre : $${exercice.equation}$`
-          exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `La solution est $${exercice.solution}$`
+          exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `La solution est $${exercice.solution.print}$`
           break
         }
         case 114: {
@@ -1135,7 +1135,7 @@ export default function equationsProgression () {
           exercice.texte = `Résoudre : $${exercice.equation}$`
           exercice.texteCorr = `<br>
           ${exercice.texteCorr}<br>
-          La solution est $${exercice.solution}$.
+          La solution est $${exercice.solution.print}$.
           <br>
           Vérification :
           <br>
@@ -1174,7 +1174,7 @@ export default function equationsProgression () {
           <br>
           ${exercice.texteCorr}
           <br>
-          La solution est $${exercice.solution}$.
+          La solution est $${exercice.solution.print}$.
           <br>
           Vérification :
           <br>
@@ -1198,7 +1198,7 @@ export default function equationsProgression () {
           <br>
           Résoudre : $${exercice.equation}$`
           exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
-          exercice.texteCorr += `La solution est ${exercice.approx}`
+          exercice.texteCorr += `La solution est $${exercice.solution.printDecimal}$`
           break
         }
         case 120: {
