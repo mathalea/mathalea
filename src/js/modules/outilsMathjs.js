@@ -759,11 +759,6 @@ export function resoudre (equation, params) {
   // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
   // A priori le traitement actuel n'occure plus ce bug (raison ?).
   if (params.variables !== undefined) equation = aleaEquation(equation, params.variables)
-  const comparators = ['<=', '>=', '=', '<', '>']
-  let comparator
-  for (let i = 0; i < comparators.length; i++) {
-    if (equation.indexOf(comparators[i]) !== -1) comparator = comparators[i]
-  }
   let printEquation
   const steps = solveEquation(equation)
   const stepsNewEquation = []
@@ -803,9 +798,9 @@ export function resoudre (equation, params) {
   const texte = `Résoudre $${printEquation}$.`
   const texteCorr = `$\\begin{aligned}\n${stepsNewEquation.join('\\\\\n')}\n\\end{aligned}$`
   const solution = {
-    printDecimal: texNombre2(math.evaluate(steps[steps.length - 1].newEquation.ascii().split(comparator)[1])),
-    decimal: math.evaluate(steps[steps.length - 1].newEquation.ascii().split(comparator)[1]),
-    exact: steps[steps.length - 1].newEquation.ascii().split(comparator)[1],
+    printDecimal: texNombre2(math.evaluate(steps[steps.length - 1].newEquation.ascii().split(steps[steps.length - 1].newEquation.comparator)[1])),
+    decimal: math.evaluate(steps[steps.length - 1].newEquation.ascii().split(steps[steps.length - 1].newEquation.comparator)[1]),
+    exact: steps[steps.length - 1].newEquation.ascii().split(steps[steps.length - 1].newEquation.comparator)[1],
     print: toTex(steps[steps.length - 1].newEquation.ascii())
   }
   let calculateLeftSide, calculateRightSide
