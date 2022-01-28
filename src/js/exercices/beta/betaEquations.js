@@ -75,7 +75,7 @@ export default function equationsProgression () {
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
   this.sup = 0 // Type d'exercice
-  this.nouvelleVersion = function (numeroExercice, debug = false) {
+  this.nouvelleVersion = function (numeroExercice, debug = true) {
     const ddbug = debug
     this.nbQuestions = this.NbQuestions > 0 ? this.nbQuestions : this.sup !== 0 ? 1 : formulaire.length - 1
     this.listeQuestions = [] // Liste de questions
@@ -1224,6 +1224,14 @@ export default function equationsProgression () {
           exercice = {}
           exercice.texte = `$${variables.n}+${variables.p}$`
           exercice.texteCorr = exercice.texte
+          break
+        }
+        case 122: {
+          const variables = aleaVariables({
+            a: 'pickRandom([-1,1])*randomInt(1,10)',
+            b: 'randomInt(1,10)'
+          }, { valueOf: true })
+          exercice = calculer('a+(-b)', { variables: variables, supprPlusMoins: false })
           break
         }
       }
