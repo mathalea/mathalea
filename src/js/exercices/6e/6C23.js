@@ -1,5 +1,5 @@
 import CalculsFractionsSimples from '../c3/c3C23.js'
-
+export const amcType = 'AMCNum'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
