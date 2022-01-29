@@ -102,6 +102,7 @@ function verifQuestionMathLive (exercice, i) {
       champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
       break
   }
+  saisie = champTexte?.value
   let reponses = []
   if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
     reponses = [exercice.autoCorrection[i].reponse.valeur]
