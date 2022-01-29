@@ -104,6 +104,8 @@ Voici par ordre d'importance les principaux raccourcis clavier pour être rapide
    - Ctrl+Alt+flèche haut ou bas ou bien Alt+clic (Windows)
    - ? (macOSX)
    - Alt+Maj+flèche haut ou bas (Linux)
+   - Ctrl+D sur la sélection courante cherche la prochaine occurence pour ajouter un curseur
+   - Ctrl+Maj+L ajoute un curseur sur toutes les occurences de la sélection
 
 9. Plier tout le code du fichier en cours
    - Ctrl+k-0
