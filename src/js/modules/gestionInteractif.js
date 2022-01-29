@@ -102,7 +102,10 @@ function verifQuestionMathLive (exercice, i) {
       champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
       break
   }
-  saisie = champTexte?.value
+  let saisie = champTexte?.value
+  // for debugging ****************
+  if (saisie === undefined) window.notify('verifQuestionMathlive : champTexte.value n\'est pas défini ', { exercice, i })
+  // ******************************
   let reponses = []
   if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
     reponses = [exercice.autoCorrection[i].reponse.valeur]
@@ -110,10 +113,6 @@ function verifQuestionMathLive (exercice, i) {
     reponses = exercice.autoCorrection[i].reponse.valeur
   }
   let resultat = 'KO'
-  let saisie = champTexte?.value
-  // for debugging ****************
-  if (saisie === undefined) window.notify('verifQuestionMathlive : champTexte.value n\'est pas défini ', { exercice, i })
-  // ******************************
   for (let reponse of reponses) {
     if (formatInteractif === 'NumDen') {
       num = parseInt(document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`).value)
@@ -123,14 +122,14 @@ function verifQuestionMathLive (exercice, i) {
         resultat = 'OK'
       }
     } else if (formatInteractif === 'Num') {
-      num = parseInt(champTexte.value)
+      num = parseInt(champTexte?.value)
       den = reponse.den
       fSaisie = new FractionEtendue(num, den)
       if (fSaisie.isEqual(reponse)) {
         resultat = 'OK'
       }
     } else if (formatInteractif === 'Den') {
-      den = parseInt(champTexte.value)
+      den = parseInt(champTexte?.value)
       num = reponse.num
       fSaisie = new FractionEtendue(num, den)
       if (fSaisie.isEqual(reponse)) {
