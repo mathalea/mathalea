@@ -84,7 +84,7 @@ function verifQuestionCliqueFigure (exercice, i) {
 function verifQuestionMathLive (exercice, i) {
   const engine = new ComputeEngine()
   let saisieParsee, signeF, num, den, fSaisie
-  const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
+  const formatInteractif = exercice.autoCorrection[i].reponse?.param?.formatInteractif
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
   let champTexte
@@ -109,7 +109,10 @@ function verifQuestionMathLive (exercice, i) {
     reponses = exercice.autoCorrection[i].reponse.valeur
   }
   let resultat = 'KO'
-  let saisie = champTexte.value
+  let saisie = champTexte?.value
+  // for debugging ****************
+  if (saisie === undefined) window.notify('verifQuestionMathlive : champTexte.value n\'est pas défini ', { exercice, i })
+  // ******************************
   for (let reponse of reponses) {
     if (formatInteractif === 'NumDen') {
       num = parseInt(document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`).value)
@@ -141,9 +144,9 @@ function verifQuestionMathLive (exercice, i) {
       }
       // Pour le calcul numérique, on transforme la saisie en nombre décimal
       if (typeof reponse === 'number' || typeof reponse === 'string') {
-        saisie = saisie.toString().replace(',', '.')
+        saisie = saisie?.toString().replace(',', '.')
         reponse = reponse.toString().replace(',', '.')
-        saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+        saisie = saisie?.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
       }
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
         resultat = 'OK'
@@ -151,11 +154,11 @@ function verifQuestionMathLive (exercice, i) {
       // Pour les exercices où la saisie du texte avec prise en compte de la casse
     } else if (formatInteractif === 'ecritureScientifique') { // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
       if (typeof reponse === 'string') {
-        saisie = saisie.toString().replace(',', '.')
+        saisie = saisie?.toString().replace(',', '.')
         reponse = reponse.replace(',', '.')
       }
       if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
-        saisie = saisie.split('\\times')
+        saisie = saisie?.split('\\times')
         if (number(saisie[0]) >= 1 & number(saisie[0]) < 10) { resultat = 'OK' }
       }
       // Pour les exercices où la saisie du texte avec prise en compte de la casse
@@ -165,7 +168,7 @@ function verifQuestionMathLive (exercice, i) {
       }
       // Pour les exercices où la saisie du texte sans prise en compte de la casse
     } else if (formatInteractif === 'ignorerCasse') {
-      if (saisie.toLowerCase() === reponse.toLowerCase()) {
+      if (saisie?.toLowerCase() === reponse.toLowerCase()) {
         resultat = 'OK'
       // Pour les exercices de simplifications de fraction
       }
@@ -186,8 +189,8 @@ function verifQuestionMathLive (exercice, i) {
       // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
     } else if (formatInteractif === 'fractionEgale') {
       // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
-      if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
-        saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
+      if (!isNaN(parseFloat(saisie?.replace(',', '.')))) {
+        saisieParsee = parse(`\\frac{${saisie?.replace(',', '.')}}{1}`)
       } else {
         saisieParsee = parse(saisie)
       }
@@ -205,8 +208,8 @@ function verifQuestionMathLive (exercice, i) {
       }
       // Pour les exercices où l'on attend un écriture donnée d'une fraction
     } else if (formatInteractif === 'fraction') {
-      if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
-        saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
+      if (!isNaN(parseFloat(saisie?.replace(',', '.')))) {
+        saisieParsee = parse(`\\frac{${saisie?.replace(',', '.')}}{1}`)
       } else {
         saisieParsee = parse(saisie)
       }
@@ -232,10 +235,10 @@ function verifQuestionMathLive (exercice, i) {
       }
       // Pour les exercice où la saisie doit être dans un intervalle
     } else if (formatInteractif === 'intervalleStrict') {
-      const nombreSaisi = Number(saisie.replace(',', '.'))
+      const nombreSaisi = Number(saisie?.replace(',', '.'))
       if (saisie !== '' && nombreSaisi > exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi < exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
     } else if (formatInteractif === 'intervalle') {
-      const nombreSaisi = Number(saisie.replace(',', '.'))
+      const nombreSaisi = Number(saisie?.replace(',', '.'))
       if (saisie !== '' && nombreSaisi >= exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi <= exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
     } else if (formatInteractif === 'puissance') {
       let nombreSaisi, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
@@ -244,19 +247,19 @@ function verifQuestionMathLive (exercice, i) {
       // eslint-disable-next-line no-var
       var formatOK, formatKO
       if (saisie.indexOf('^') !== -1) {
-        nombreSaisi = saisie.split('^')
+        nombreSaisi = saisie?.split('^')
         mantisseSaisie = nombreSaisi[0]
-        expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : ''
+        expoSaisi = nombreSaisi[1] ? nombreSaisi[1]?.replace(/[{}]/g, '') : ''
         nombreAttendu = reponse.split('^')
         mantisseReponse = nombreAttendu[0]
-        expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
+        expoReponse = nombreAttendu[1] ? nombreAttendu[1]?.replace(/[{}]/g, '') : ''
         if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
           formatOK = true
         }
         // gérer le cas mantisse négative a et exposant impair e, -a^e est correct mais pas du format attendu
         // si la mantisse attendue est négative on nettoie la chaine des parenthèses
-        if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && expoReponse % 2 === 1) {
-          if ((saisie === `${mantisseReponse.replace(/[()]/g, '')}^{${expoReponse}}`) || (saisie === `${mantisseReponse.replace(/[()]/g, '')}^${expoReponse}`)) {
+        if (parseInt(mantisseReponse?.replace(/[()]/g, '')) < 0 && expoReponse % 2 === 1) {
+          if ((saisie === `${mantisseReponse?.replace(/[()]/g, '')}^{${expoReponse}}`) || (saisie === `${mantisseReponse?.replace(/[()]/g, '')}^${expoReponse}`)) {
             formatKO = true
           }
         }
@@ -273,15 +276,15 @@ function verifQuestionMathLive (exercice, i) {
         nombreSaisi = saisie
         nombreAttendu = reponse.split('^')
         mantisseReponse = nombreAttendu[0]
-        expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
+        expoReponse = nombreAttendu[1] ? nombreAttendu[1]?.replace(/[{}]/g, '') : ''
         if (parseInt(expoReponse) < 0) {
           // Si la mantisse est positive
           if (nombreSaisi === `\\frac{1}{${mantisseReponse ** (-expoReponse)}}`) {
             formatKO = true
           }
           // Si elle est négative, le signe - peut être devant la fraction ou au numérateur  ou au dénominateur
-          if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && ((-expoReponse) % 2 === 1)) {
-            if ((nombreSaisi === `-\\frac{1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{-1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{1}{-${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`)) {
+          if (parseInt(mantisseReponse?.replace(/[()]/g, '')) < 0 && ((-expoReponse) % 2 === 1)) {
+            if ((nombreSaisi === `-\\frac{1}{${((-1) * parseInt(mantisseReponse?.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{-1}{${((-1) * parseInt(mantisseReponse?.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{1}{-${((-1) * parseInt(mantisseReponse?.replace(/[()]/g, ''))) ** (-expoReponse)}}`)) {
               formatKO = true
             }
           }
