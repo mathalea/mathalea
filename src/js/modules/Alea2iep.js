@@ -542,7 +542,6 @@ export default class Alea2iep {
  */
   requerreZoom (echelle, options) {
     this.zoom('requerre', echelle, options)
-    
   }
 
   /**

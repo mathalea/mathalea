@@ -1,5 +1,5 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 419 
+- nombre d'exos amcReady 418 
 - nombre d'exos interactifReady 570 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
@@ -204,7 +204,7 @@
 |6C20|Effectuer additions et soustractions de nombres décimaux|OK|AMCNum|OK|numerique|
 |6C21|Effectuer divisions euclidiennes - Niveau 2|OK|AMCOpen|OK|mathLive|
 |6C22|Résoudre des problèmes de type : ... de plus ou ... de moins|OK|AMCNum|OK|numerique|
-|6C23|Additionner ou soustraire des fractions de même dénominateur|OK|qcmMono|OK|qcm|
+|6C23|Additionner ou soustraire des fractions de même dénominateur|OK|type de question AMC non prévu|OK|mathLive|
 |6C30-1|Multiplier un nombre décimal par 10, 100 ou 1 000|OK|AMCNum|OK|numerique|
 |6C30-2|Calculer le produit de deux décimaux connaissant le produit de deux entiers|OK|AMCNum|OK|numerique|
 |6C30-3|Effectuer des opérations avec les nombres décimaux|OK|qcmMono|OK|qcm|
@@ -344,7 +344,7 @@
 |c3C12|Dernier chiffre d’un calcul|OK|AMCNum|OK|numerique|
 |c3C13-1|Résoudre des problèmes de masses|OK|AMCHybride|OK|mathLive|
 |c3C13|Résoudre des problèmes de prix|OK|AMCHybride|OK|mathLive|
-|c3C23|Additionner des fractions simples|OK|qcmMono|OK|mathLive|
+|c3C23|Opérations simples avec des fractions|KO|KO|OK|mathLive|
 |c3C30|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCNum|OK|numerique|
 |c3C31|Problème - Les courses|OK|AMCNum|OK|mathLive|
 |c3C3CaN|Course aux nombres CM1|OK|AMCNum|OK|mathLive|
