@@ -50,7 +50,7 @@ Imaginons que nous voulions obtenir trois longueurs d'un triangle au hasard. Il 
             a: false,
             b: false,
             c: false,
-            test : 'a+b>c and a+c>b and b+c>a'
+            contrainte : 'a+b>c and a+c>b and b+c>a'
         }
     )
 < ► {a: 3, b: 8, c: 7}
@@ -66,7 +66,7 @@ Voici un autre exemple donnant le même résultat mais avec un autre algorithme 
             a: false,
             b: false,
             c: false,
-            test : 'max([a,b,c])<min([a+b,a+c,b+c])'
+            contrainte : 'max([a,b,c])<min([a+b,a+c,b+c])'
         }
     )
 < ► {a: 5, b: 3, c: 4}
@@ -80,7 +80,7 @@ Et si nous souhaitons des nombres plus grands il y a la fonction randomInt()
             a: 'randomInt(1,100)',
             b: 'randomInt(1,100)',
             c: 'randomInt(1,100)',
-            test : 'max([a,b,c])<min([a+b,a+c,b+c])'
+            contrainte : 'max([a,b,c])<min([a+b,a+c,b+c])'
         }
     )
 < ► {a: 44, b: 54, c: 36}
@@ -94,7 +94,7 @@ Pour des nombres décimaux compris entre 0 et 10 et avec au maximum deux chiffre
             a: 'round(random(0.1,10),1)',
             b: 'round(random(0.1,10),1)',
             c: 'round(random(0.1,10),1)',
-            test : 'max([a,b,c])<min([a+b,a+c,b+c])'
+            contrainte : 'max([a,b,c])<min([a+b,a+c,b+c])'
         }
     )
 < ► {a: 1.9, b: 6, c: 4.9}
@@ -109,7 +109,7 @@ On souhaite obtenir deux entiers relatifs dont la somme est toujours positif.
         {
             a: true,
             b: true,
-            test : 'a+b>0'
+            contrainte : 'a+b>0'
         }
     )
 < ► {a: -1, b: 8}
@@ -125,7 +125,7 @@ Pour des nombres plus grands :
         {
             a: 'pickRandom([-1,1])*randomInt(1,100)',
             b: 'pickRandom([-1,1])*randomInt(1,100)',
-            test : 'a+b>0'
+            contrainte : 'a+b>0'
         }
     )
 < ► {a: -57, b: 59}
@@ -141,7 +141,7 @@ Et pour les nombres décimaux :
         {
             a: 'pickRandom([-1,1])*round(random(0.1,10),1)',
             b: 'pickRandom([-1,1])*round(random(0.1,10),1)',
-            test : 'a+b>0'
+            contrainte : 'a+b>0'
         }
     )
 < ► {a: 9, b: -3.6}
@@ -275,13 +275,13 @@ Dans ce dernier exemple, on constate que Mathjs ne fait pas mieux que Javascript
             a: 'cos(pi/3)',
             b: Math.cos(Math.PI/3),
             c: Algebrite.run('cos(pi/3)'),
-            test: 'a==c'
+            contrainte: 'a==c'
         }
     )
 < ► {a: 0.5000000000000001, b: 0.5000000000000001, c: 0.5}
 ```
 
-> *Remarque :* Le `test` effectué dans aleaVariables n'est pas "gêné" par le fait que les nombres `a` et `c` ne sont pas égaux. Mathjs utilise pour les comparaisons une précision appelée `epsilon` et qui vaut `1e-12` par défaut.
+> *Remarque :* La `contrainte` effectuée dans aleaVariables n'est pas "gêné" par le fait que les nombres `a` et `c` ne sont pas égaux. Mathjs utilise pour les comparaisons une précision appelée `epsilon` et qui vaut `1e-12` par défaut.
 
 Autre exemple qui montre que *Algebrite* fait mieux que *Mathjs* et permet d'éviter les erreurs de conversion binaire/décimal :
 
