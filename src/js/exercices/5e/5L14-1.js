@@ -10,4 +10,5 @@ export default function CalculerUneExpressionLitterale () {
   this.version = 4
   this.titre = titre
   this.litteral = true
+  this.sup = '2-3-4-5'
 }

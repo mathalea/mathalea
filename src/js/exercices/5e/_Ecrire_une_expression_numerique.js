@@ -60,7 +60,8 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
       if (!this.litteral) { resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, calculMental) } else { resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, calculMental) }
       expf = resultats[0]
-      expn = resultats[1]
+      expn = resultats[1].split('=')[0]
+      expn += expn[expn.length - 1] !== '$' ? '$' : ''
       expc = resultats[2]
       nbval = resultats[3]
       switch (this.version) {
