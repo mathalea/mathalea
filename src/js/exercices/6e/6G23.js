@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, lettreDepuisChiffre, texNombre } from '../../modules/outils.js'
-import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, sensDeRotation, homothetie, demiDroiteAvecExtremite, cibleCouronne, texteParPoint, similitude } from '../../modules/2d.js'
+import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, sensDeRotation, homothetie, demiDroiteAvecExtremite, cibleCouronne, texteParPoint, similitude, fixeBordures, segment } from '../../modules/2d.js'
 
 export const titre = 'Construire un angle de mesure donnée'
 export const amcReady = true
@@ -30,16 +30,17 @@ export default function ConstruireUnAngle () {
     this.sup = parseInt(this.sup)
     let angle; let anglerot; let Apos; let Bpos; let Cpos; let fleche; const signe = []; let p; let texte; let texteCorr; let A; let B; let s; let C; let s2
     let labels, labels2, secteur, cible, xMin, xMax, yMin, yMax, objetsEnonce, objetsCorrection
-    for (let i = 0; i < this.nbQuestions; i++) {
-      signe.push((-1) ** i)
+    signe[0] = randint(-1, 1, 0)
+    for (let i = 1; i < this.nbQuestions; i++) {
+      signe.push((-1) * signe[i - 1])
     }
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (this.sup === 1) {
-        angle = randint(1, 17, 9) * 10
+        angle = randint(1, 8) * 10 + randint(0, 1) * 90
       } else if (this.sup === 2) {
-        angle = randint(3, 34, 18) * 5
+        angle = randint(1, 3) * 10 + randint(0, 1) * 5 + randint(0, 3) * 45
       } else {
-        angle = randint(12, 168, 90)
+        angle = randint(1, 16, [8, 9]) * 10 + randint(2, 8, 5)
       }
       angle = angle * signe[i]
       anglerot = randint(-50, 50)
@@ -56,7 +57,8 @@ export default function ConstruireUnAngle () {
       Apos = texteParPoint(p[1], similitude(B, A, -90, 0.1), 'milieu')
       Bpos = texteParPoint(p[0], similitude(A, homothetie(B, A, 0.9), signe[i] * 90, 0.1), 'milieu')
 
-      s = demiDroiteAvecExtremite(A, B)
+      s = segment(A, B)
+      s.styleExtremites = '|-'
       s.epaisseur = 2
       C = rotation(B, A, angle)
       Cpos = texteParPoint(p[2], similitude(A, homothetie(C, A, 0.9), -signe[i] * 90, 0.1), 'milieu')
@@ -73,11 +75,12 @@ export default function ConstruireUnAngle () {
       yMax = Math.max(A.y + 4, C.y) + 0.5
       context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
       objetsEnonce = [s, labels, cible, Apos, Bpos, fleche]
+      const bordure = fixeBordures(objetsEnonce, { rxmax: 1.5 })
       objetsCorrection = [s, labels2, secteur, cible, s2, Apos, Bpos, Cpos, fleche]
-      texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objetsEnonce)
+      texte += mathalea2d(Object.assign({}, bordure, { pixelsParCm: 20, scale: 0.65 }), objetsEnonce)
       if ((!context.isHtml) && ((i + 1) % 2 === 0 && !(i + 1) % 4 === 0)) texte += '\\columnbreak '
       if ((!context.isHtml) && ((i + 1) % 4 === 0)) texte += '\\newpage '
-      texteCorr = mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsCorrection)
+      texteCorr = mathalea2d(Object.assign({}, bordure, { pixelsParCm: 20, scale: 0.6 }), objetsCorrection)
       if (this.questionJamaisPosee(i, angle, signe[i])) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
