@@ -1600,30 +1600,21 @@ export function reduirePolynomeDegre3 (a, b, c, d) {
 }
 
 /**
-*
-* Donne la liste des facteurs premiers d'un nombre
-* @author Rémi Angot
+ * Donne la liste des facteurs premiers d'un nombre
+ * @param {Entier} n - Nombre à décomposer
+ * @returns {Entier[]} - Liste des facteurs premiers
 */
 export function obtenirListeFacteursPremiers (n) {
-  // Algorithme de base où l'on divise par chacun des nombres premiers
-  const liste = []
-  let i = 2
-  while (n > 1 && i <= n) {
-    if (n % i === 0) {
-      liste.push(i)
+  const facteurs = []
+  for (let i = 2; i <= n; i++) {
+    while (n % i === 0) {
+      facteurs.push(i)
       n /= i
-    } else {
-      i++
-      while (!isPrime(i)) {
-        i++
-      }
     }
   }
-  if (liste.length === 0) {
-    liste.push(n)
-  }
-  return liste
+  return facteurs
 }
+
 /**
  *
  * @param {Entier} n
