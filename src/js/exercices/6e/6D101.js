@@ -21,7 +21,7 @@ export default function HeuresDecimales () {
   this.spacing = 2
   this.nbQuestions = 5
   this.nbColsCorr = 1
-  this.tailleDiaporama = 300
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -99,9 +99,6 @@ export default function HeuresDecimales () {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        if (context.isDiaporama) {
-          texte = texte.replace('=\\dotfill', '')
-        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

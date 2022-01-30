@@ -14,7 +14,7 @@ export function exerciceInteractif (exercice) {
   if (context.isAmc) {
     if (exercice.amcType === 'AMCNum' || exercice.amcType === 'AMCOpenNum') exerciceNumerique(exercice)
     if (exercice.amcType === 'qcmMono' || exercice.amcType === 'qcmMult') exerciceQcm(exercice)
-  } else if (context.isHtml && !context.isDiaporama) {
+  } else if (context.isHtml) {
     if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
     if (exercice.interactifType === 'listeDeroulante')exerciceListeDeroulante(exercice)
     if (exercice.interactifType === 'numerique')exerciceNumerique(exercice)

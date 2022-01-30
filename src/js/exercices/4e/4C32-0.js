@@ -17,7 +17,7 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.tailleDiaporama = 50
+  this.tailleDiaporama = 3
   this.video = ''
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []

@@ -18,7 +18,7 @@ export default function CompleterUneFacture () {
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 2 // Niveau de difficulté
-  this.tailleDiaporama = 30 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {

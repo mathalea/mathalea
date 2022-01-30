@@ -217,7 +217,7 @@ export default function TraduireUnProgrammeDeCalcul () {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
-        if (context.isDiaporama) {
+        if (context.vue === 'diap') {
           texte = texte.replace(', quel est le résultat du programme de calcul ?', ',<br> quel est le résultat de ce programme ?')
         }
         if (!context.isHtml && i === 0) { texte = '\\setlength\\itemsep{1em}' + texte }; // espacement entre les questions

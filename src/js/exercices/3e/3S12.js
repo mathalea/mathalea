@@ -24,7 +24,6 @@ export default function calculEffectifFrequence () {
   this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-  this.tailleDiaporama = 50
   this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.video = 'https://youtu.be/GWDDay-mdVA' // Id YouTube ou url

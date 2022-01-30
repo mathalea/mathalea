@@ -26,7 +26,6 @@ export default function ExerciceInformationsProblemes () {
   this.sup3 = false
   this.titre = titre
   this.spacing = 2
-  this.tailleDiaporama = 3
   this.nbQuestions = 10
 
   this.nouvelleVersion = function () {
@@ -41,7 +40,7 @@ export default function ExerciceInformationsProblemes () {
     this.consigne = 'Dans '
     this.nbQuestions === 1 ? this.consigne += chaqueCe[1] : this.consigne += chaqueCe[0]
     this.consigne += ' problème, '
-    context.isDiaporama ? this.consigne += cocheIndique[1] : this.consigne += cocheIndique[0]
+    context.vue === 'diap' ? this.consigne += cocheIndique[1] : this.consigne += cocheIndique[0]
     this.consigne += ' les informations qui '
     this.sup !== 1 ? this.consigne += affirmatifNegatif[1] : this.consigne += affirmatifNegatif[0]
     this.consigne += ' à sa résolution.'

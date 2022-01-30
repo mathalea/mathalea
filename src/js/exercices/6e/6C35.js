@@ -37,7 +37,6 @@ export default function ModelisationProblemes () {
   this.sup3 = 3
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.tailleDiaporama = 50
   this.video = ''
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true

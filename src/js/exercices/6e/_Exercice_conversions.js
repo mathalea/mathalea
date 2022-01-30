@@ -225,7 +225,7 @@ export default function ExerciceConversions (niveau = 1) {
         setReponse(this, i, resultat)
         tabRep[i] = resultat
         // Si la question n'a jamais été posée, on en crée une autre
-        if (context.isDiaporama) {
+        if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfill', '\\text{ en }')
         }
         if (context.isHtml) {
