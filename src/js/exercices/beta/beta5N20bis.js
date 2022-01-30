@@ -1,7 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texFraction, texFractionReduite } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { calculer } from '../../modules/outilsMathjs.js'
 

@@ -5,9 +5,10 @@ import Algebrite from 'algebrite'
 import { format, evaluate, isPrime, gcd, round, equal, Fraction } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
-import { elimineDoublons, setReponse } from './gestionInteractif.js'
+import { setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
 import FractionX from './FractionEtendue.js'
+import { elimineDoublons } from './interactif/questionQcm.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001

@@ -1,5 +1,7 @@
 import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+
 import { calcul, contraindreValeur, listeQuestionsToContenu, randint, sp, texteEnCouleur } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Convertir en min vers h et min ou en s vers min et s'

@@ -4,7 +4,7 @@ import {
   Relatif, lettreDepuisChiffre, ecritureNombreRelatif,
   texteEnCouleurEtGras
 } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true

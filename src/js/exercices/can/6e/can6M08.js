@@ -1,5 +1,5 @@
 import { context } from '../../../modules/context'
-import { propositionsQcm } from '../../../modules/gestionInteractif'
+import { propositionsQcm } from '../../../modules/interactif/questionQcm'
 import { choice, exposant, listeQuestionsToContenu, randint, texNombrec } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Comparer des aires (V/F)'

@@ -108,8 +108,8 @@ Les concepteurs plus curieux, trouveront, aussi, dans ce chapitre :
 
 1. Rajouter un import dans l'en-tête comme ceci :
 >>```js
->>import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
->>export const interactifReady = true
+>>import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'>>export const interactifReady = true
 >>export const interactifType = 'mathLive'
 >>```
 2. Initialiser la variable `setReponse` dans la boucle principale, pour chaque question. Par défaut, c'est de la sorte :
@@ -286,7 +286,7 @@ Pour rendre un exercice interactif en utilisant `qcm` et en permettant, aux él�
 
 Rajouter un import dans l'en-tête comme ceci :
 >>```js
->>import { propositionsQcm } from '../../modules/gestionInteractif.js'
+>>import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 >>export const interactifReady = true
 >>export const interactifType = 'qcm'
 >>```

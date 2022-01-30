@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { randint, choice, texFraction, lettreDepuisChiffre, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Factoriser a²-b²'
 export const interactifReady = true

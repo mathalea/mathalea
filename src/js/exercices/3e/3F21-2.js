@@ -3,7 +3,8 @@ import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique
 import { fraction } from '../../modules/fractions.js'
 import { repere2, courbe2, mathalea2d, tracePoint, point } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Déterminer une fonction affine par la donnée des images de deux nombres'
 export const interactifReady = true
 export const interactifType = 'mathLive'

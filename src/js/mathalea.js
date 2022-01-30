@@ -11,7 +11,7 @@ import {
   getUnknownError,
   UserFriendlyError
 } from './modules/messages.js'
-import { ajouteChampTexteMathLive, exerciceInteractif, setReponse } from './modules/gestionInteractif.js'
+import { exerciceInteractif, setReponse } from './modules/gestionInteractif.js'
 import Exercice from './exercices/Exercice.js'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
@@ -27,6 +27,7 @@ import { initDom } from './modules/initDom.js'
 import gestionScores from './modules/gestionScores.js'
 import { modalTimer } from './modules/modalTimer.js'
 import { zoomAffichage } from './modules/zoom.js'
+import { ajouteChampTexteMathLive } from './modules/interactif/questionMathLive.js'
 
 // "3" isNumeric (pour gérer le sup venant de l'URL)
 function isNumeric (n) {

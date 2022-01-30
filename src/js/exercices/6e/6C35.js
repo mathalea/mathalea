@@ -3,7 +3,8 @@
 import Exercice from '../Exercice.js'
 import { rangeMinMax, choice, randint, objet, jour, listeQuestionsToContenu, prenomF, prenomM, objetF, objetM, sp, shuffle, range, deuxColonnes, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { point, polygone, segment, mathalea2d, texteParPosition } from '../../modules/2d.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { max } from 'mathjs'
 

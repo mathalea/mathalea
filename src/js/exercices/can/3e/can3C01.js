@@ -1,5 +1,6 @@
 import { context } from '../../../modules/context'
-import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif'
+import { setReponse } from '../../../modules/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive'
 import { choice, listeQuestionsToContenu, miseEnEvidence, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Calculer avec des puissances'
