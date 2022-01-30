@@ -1,6 +1,6 @@
 import { context } from './context.js'
-import { texNombre2 } from './outils.js'
-import { all, create, format, number, SymbolNode, ConstantNode, OperatorNode, ParenthesisNode, simplify, parse } from 'mathjs'
+import { texNombre2, obtenirListeFacteursPremiers } from './outils.js'
+import { all, create, format, number, SymbolNode, ConstantNode, OperatorNode, ParenthesisNode, simplify, parse, round } from 'mathjs'
 import { Node, Negative, solveEquation, simplifyExpression, factor, printMS } from 'mathsteps'
 import { getNewChangeNodes } from './Change.js'
 
@@ -754,7 +754,14 @@ export function commentStep (step, comments) {
 * @param {string} equation // Une équation ou une inéquation
 */
 export function resoudre (equation, params) {
-  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true }, params)
+  /*
+    formatSolution
+      2 (défaut) : décimal si la solution a 2 chiffres ou moins après la virgule, fraction sinon
+      n : décimal si la solution a n chiffres ou moins après la virgule, fraction sinon
+      'decimal' : fraction ou decimal lorsque c'est possible (latex)
+      'fraction' : fraction ou entier lorsque c'est possible (latex)
+  */
+  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true, formatSolution: 2 }, params)
   // Un bug de mathsteps ne permet pas de résoudre 2/x=2 d'où la ligne suivante qui permettait de le contourner
   // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
   // A priori le traitement actuel n'occure plus ce bug (raison ?).
@@ -795,6 +802,25 @@ export function resoudre (equation, params) {
       stepsNewEquation.push(`${newLeftNode}&${step.newEquation.comparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
     }
   })
+
+  if (params.formatSolution !== 'fraction') {
+    const lastEquation = steps[steps.length - 1].newEquation
+    let answer = lastEquation.rightNode
+    try {
+      // On ve tenter d'obtenir le résultat sous forme de fraction, si ce n'est pas possible on quitte le try
+      answer = emath.evaluate(answer.eval())
+
+      // On regarde si le résultat a un nombre fini de chiffres après la virgule et n'est pas un entier
+      if (answer.d !== 1 && !obtenirListeFacteursPremiers(answer.d).some(x => x !== 2 && x !== 5)) {
+        answer = round(answer.valueOf(), 15) // convertit la fraction en nombre décimal en évitant les problèmes de float
+        if (params.formatSolution === 'decimal' || (typeof params.formatSolution === 'number' && answer.toString().split('.')[1].length <= params.formatSolution)) {
+          // On rajoute une étape de conversion de la fraction en nombre décimal
+          stepsNewEquation.push(`${toTex(lastEquation.leftNode, params)}&${lastEquation.comparator}${texNombre2(answer)}`)
+        }
+      }
+    } catch (e) {}
+  }
+
   const texte = `Résoudre $${printEquation}$.`
   const texteCorr = `$\\begin{aligned}\n${stepsNewEquation.join('\\\\\n')}\n\\end{aligned}$`
   const solution = {
