@@ -85,15 +85,15 @@ export default function MesurerUnAngle () {
           statut: true
         },
         {
-          texte: `$${Math.abs(180 - angle)}\\degree$`,
+          texte: `$${180 - Math.abs(angle)}\\degree$`,
           statut: false
         },
         {
-          texte: `$${Math.abs(angle / 2)}\\degree$`,
+          texte: `$${Math.round(Math.abs(angle) / 2)}\\degree$`,
           statut: false
         },
         {
-          texte: `$${Math.abs(Math.round((180 + angle) / 2))}\\degree$`,
+          texte: `$${Math.round((180 + Math.abs(angle)) / 2)}\\degree$`,
           statut: false
         },
         {
