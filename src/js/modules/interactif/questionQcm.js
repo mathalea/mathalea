@@ -88,8 +88,8 @@ export function propositionsQcm (exercice, i) {
   } else { // Si les options ne sont pas définies, on mélange
     exercice.autoCorrection[i].propositions = shuffleJusqua(exercice.autoCorrection[i].propositions)
   }
-  // if (elimineDoublons(exercice.autoCorrection[i].propositions)) {
-  // }
+  // On regarde si il n'y a pas de doublons dans les propositions de réponse. Si c'est le cas, on enlève les mauvaises réponses en double.
+  elimineDoublons(exercice.autoCorrection[i].propositions)
   if (context.isHtml) {
     texte += `<br>  <form id="formEx${exercice.numeroExercice}Q${i}">`
     texte += '<table>\n\t'
