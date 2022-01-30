@@ -14,7 +14,7 @@
 - `&duree=10` permet d'ajouter un compte à rebours aux différentes vues.
 - `&v=` détermine le contexte de la vue :
     - `&v=menu` dirige vers la page principale du générateur d'exercices avec à gauche la liste des exercices et à droite les exercices.
-    - `&v=ex` dirige vers l'affichage normal de l'exercice (avec la barre des boutons zoom, copier le lien, export latex/pdf, interactivité, modification, diaporama, ...).
+    - `&v=ex` dirige vers l'affichage normal de l'exercice (avec la barre des boutons zoom, copier le lien, export latex/pdf, interactivité, modification...).
     - `&v=exEtChoix` dirige vers le même affichage que `&v=ex` avec en plus un bandeau permettant d'ajouter directement des exercices dont on connaît la référence.
     - `&v=l` ou `&v=light` dirige vers un affichage léger mais autorisant le reparamétrage contrairement à `&v=e`.
     - `&v=latex` dirige vers l'écran de paramétrage en vue d'une exportation vers un code LateX ou d'un fichier pdf.

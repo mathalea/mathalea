@@ -186,7 +186,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         reponses[i] = resultat
         setReponse(this, i, resultat.toString().replace('.', ','))
         // Si la question n'a jamais été posée, on en crée une autre
-        if (context.isDiaporama) {
+        if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfill', '\\text{ en }')
         }
         if (context.isHtml) {

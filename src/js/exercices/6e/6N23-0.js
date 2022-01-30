@@ -87,21 +87,21 @@ export default function EcrireNombresDecimal () {
         if (tranche[0] === 0) nombre = 0
       }
       if (formatEcriture[i]) {
-        if (!context.isDiaporama) {
+        if (context.vue !== 'diap') {
           texte = `Écris le nombre $${texNombre(nombre)}$ en lettres ${type === 2 ? 'en utilisant le mot virgule' : 'sans utiliser le mot virgule'} : '\\dotfill'`
         } else texte = `$${texNombre(nombre)}$`
-        if (!context.isDiaporama) {
+        if (context.vue !== 'diap') {
           texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre, type)}.`
         } else {
           texteCorr = `${nombreEnLettres(nombre, type)}.`
         }
       } else {
-        if (!context.isDiaporama) {
+        if (context.vue !== 'diap') {
           texte = `Écris le nombre ${nombreEnLettres(nombre, type)} en chiffres :  ${this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline') : '\\dotfill'}`
         } else {
           texte = ` ${nombreEnLettres(nombre, type)}`
         }
-        if (!context.isDiaporama) {
+        if (context.vue !== 'diap') {
           texteCorr = ` ${nombreEnLettres(nombre, type)} : $${texNombre(nombre)}$.`
         } else {
           texteCorr = `$${texNombre(nombre)}$.`

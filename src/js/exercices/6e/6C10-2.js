@@ -127,5 +127,5 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Choix des tables', 'Nombres séparés par des tirets'] // Texte, tooltip
-  if (context.isHtml && !context.isDiaporama) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+  if (context.isHtml) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
 }

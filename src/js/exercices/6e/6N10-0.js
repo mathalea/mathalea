@@ -72,15 +72,15 @@ export default function EcrireNombresEntiers () {
       }
       if (typeDeConsigne[i] === 1) {
         setReponse(this, i, nombreEnLettres(nombre))
-        if (!context.isDiaporama) texte = `$${texNombre(nombre)} ${!this.interactif ? ' :  $' : '$ <br>' + ajouteChampTexteMathLive(this, i)}`
+        if (context.vue !== 'diap') texte = `$${texNombre(nombre)} ${!this.interactif ? ' :  $' : '$ <br>' + ajouteChampTexteMathLive(this, i)}`
         else texte = `$${texNombre(nombre)}$`
-        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}`
+        if (context.vue !== 'diap') texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}`
         else texteCorr = `${nombreEnLettres(nombre)}`
       } else {
         setReponse(this, i, nombre)
-        if (!context.isDiaporama) texte = `${nombreEnLettres(nombre)} ${!this.interactif ? ' :  $' : '<br>' + ajouteChampTexteMathLive(this, i)}`
+        if (context.vue !== 'diap') texte = `${nombreEnLettres(nombre)} ${!this.interactif ? ' :  $' : '<br>' + ajouteChampTexteMathLive(this, i)}`
         else texte = `${nombreEnLettres(nombre)}`
-        if (!context.isDiaporama) texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$`
+        if (context.vue !== 'diap') texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$`
         else texteCorr = `$${texNombre(nombre)}$`
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

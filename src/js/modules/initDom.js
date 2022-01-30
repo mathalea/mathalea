@@ -1,8 +1,7 @@
 /* global $ */
-import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context'
+import { context, setOutputAmc, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
 import { getDureeFromUrl, getLogFromUrl, getZoomFromUrl, getVueFromUrl, getUrlVars, goTabVue, replaceQueryParam } from './gestionUrl'
-import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
 import { modalTimer } from './modalTimer'
 import { zoomAffichage } from './zoom'
@@ -617,12 +616,6 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/amc.html', document.body)
     setOutputAmc()
-  } else if (vue === 'cm') {
-    await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
-    section = addElement(document.body, 'section', { class: 'ui container' })
-    await addFetchHtmlToParent('templates/cm.html', document.body)
-    setOutputDiaporama()
-    initDiaporama()
   } else if (vue === 'scores') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
     section = addElement(document.body, 'section', { class: 'ui container' })
