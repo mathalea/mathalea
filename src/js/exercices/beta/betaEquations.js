@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { polygone, segment, ObjetMathalea2D, point, mathalea2d, texteParPosition, fixeBordures } from '../../modules/2d.js'
-import { listeQuestionsToContenu, texNombre2 } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { parse, simplify } from 'mathjs'
 import { aleaExpression, resoudre, toTex, calculer, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
 import Algebrite from 'algebrite'
@@ -866,15 +866,18 @@ export default function equationsProgression () {
           break
         }
         case 89: {
-          exercice = calculer(expressionLitterale('a/d+8+x+b/e*e-7+(x-3)^2/6', aleaVariables({
-            a: true,
-            b: true,
-            c: true,
-            d: false,
-            e: false,
-            f: false,
-            test: 'd>1 and e>1 and f>1'
-          })).toString())
+          exercice = calculer('a/d+8+x+b/e*e-7+(x-3)^2/6', {
+            variables: aleaVariables({
+              a: true,
+              b: true,
+              c: true,
+              d: false,
+              e: false,
+              f: false,
+              test: 'd>1 and e>1 and f>1'
+            }),
+            valueOf: true
+          })
           break
         }
         case 90: {
@@ -1110,7 +1113,7 @@ export default function equationsProgression () {
           break
         }
         case 111: {
-          exercice = resoudre('3*x+2<9*x-3')
+          exercice = resoudre('9*x+2<3*x-3')
           exercice.texte = `Résoudre l'inéquation $${exercice.equation}$ en détaillant les étapes.`
           exercice.texteCorr += `
           <br>
@@ -1185,10 +1188,11 @@ export default function equationsProgression () {
           break
         }
         case 118 : {
-          exercice = calculer('5/2*(7/3+6/8)', { substeps: true })
-          exercice.texte = `(Problème à régler : signe de la multiplication dans les calculs)
-          <br>
-          Calculer : $${exercice.printExpression}$`
+          const comments = {
+            MULTIPLY_FRACTIONS: 'Multiplier numérateurs et dénominateurs entre eux.'
+          }
+          exercice = calculer('5/2*(7/3+6/8)', { substeps: true, comment: true, comments: comments })
+          exercice.texte = `Calculer : $${exercice.printExpression}$`
           exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
           break
         }
@@ -1224,6 +1228,20 @@ export default function equationsProgression () {
           exercice = {}
           exercice.texte = `$${variables.n}+${variables.p}$`
           exercice.texteCorr = exercice.texte
+          break
+        }
+        case 122: {
+          const variables = aleaVariables(
+            {
+              a: 'randomInt(1,10)',
+              test: 'a!=7'
+            }
+            , { valueOf: true })
+          exercice = resoudre('a*(x+6)-7=7*x-3', { variables: variables })
+          break
+        }
+        case 123: {
+          exercice = resoudre('2/x=3')
           break
         }
       }
