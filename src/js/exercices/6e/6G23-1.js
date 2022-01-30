@@ -31,20 +31,27 @@ export default function MesurerUnAngle () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
+    let delta, arrondiA10Pres
     let angle; let anglerot; let Apos; let Bpos; let Cpos; let p; let texte; let texteCorr; let A; let B; let C; let s2; let s1; let bis; const signes = []
     let labels, secteur, xMin, xMax, yMin, yMax, objetsEnonce, objetsCorrection, secteur0
 
     for (let i = 0; i < this.nbQuestions; i++) {
-      signes.push(choice([-1, 1]))
-      if (this.sup === 1) {
-        angle = randint(2, 16, 9) * 10
-      } else if (this.sup === 2) {
-        angle = randint(4, 32, 18) * 5
-      } else {
-        angle = randint(20, 160, 90)
-      }
-      anglerot = randint(-180, 180)
+      // on évite d'avoir deux propositions différentes de 2° (comme 69° et 71°)
+      do {
+        signes.push(choice([-1, 1]))
+        if (this.sup === 1) {
+          angle = randint(2, 16, 9) * 10
+        } else if (this.sup === 2) {
+          angle = randint(4, 32, 18) * 5
+        } else {
+          angle = randint(20, 160, [88, 89, 90, 91, 92])
+        }
+        arrondiA10Pres = Math.round(angle / 10) * 10
+        delta = Math.round(Math.abs(angle / 10 - Math.round(angle / 10)) * 10)
+      } while (delta === 1)
+
+      console.log(angle, delta, arrondiA10Pres)
+      anglerot = randint(-4, 4, 0) * 5
       angle = signes[i] * angle
       p = [choice(['x', 'y', 'z', 't']), lettreDepuisChiffre(randint(1, 16)), choice(['s', 'u', 'v', 'w'])]
       if (this.interactif) {
@@ -93,7 +100,7 @@ export default function MesurerUnAngle () {
           statut: false
         },
         {
-          texte: `$${Math.round((180 + Math.abs(angle)) / 2)}\\degree$`,
+          texte: `$${this.interactif ? Math.abs(angle) + 20 : arrondiA10Pres > angle ? arrondiA10Pres + delta : arrondiA10Pres - delta}\\degree$`,
           statut: false
         },
         {
