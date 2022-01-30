@@ -2164,7 +2164,7 @@ export default {
     "interactifType": "mathLive",
     "name": "2S30-5",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6876,10 +6876,10 @@ export default {
     "url": "/exercices/6e/6C23.js",
     "amcReady": true,
     "amcType": {
-      "text": "qcmMono"
+      "text": "type de question AMC non prévu"
     },
     "interactifReady": true,
-    "interactifType": "qcm",
+    "interactifType": "mathLive",
     "name": "6C23",
     "newEx": {
       "isNew": false,
@@ -10919,12 +10919,9 @@ export default {
     }
   },
   "c3C23": {
-    "titre": "Additionner des fractions simples",
+    "titre": "Opérations simples avec des fractions",
     "url": "/exercices/c3/c3C23.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "qcmMono"
-    },
+    "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "c3C23",
@@ -10933,7 +10930,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },

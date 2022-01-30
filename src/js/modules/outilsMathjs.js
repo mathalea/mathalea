@@ -506,7 +506,7 @@ export function calculExpression (expression = '4/3+5/6', factoriser = false, de
  * @param {Objet} params // Les paramètres (commentaires visibles , sous-étapes visibles, fraction-solution au format MixedNumber)
 */
 export function calculer (expression, params) {
-  params = Object.assign({ comment: false, substeps: false, mixed: false, name: undefined, suppr1: true }, params)
+  params = Object.assign({ comment: false, comments: {}, substeps: false, mixed: false, name: undefined, suppr1: true }, params)
   // La fonction simplifyExpression est une fonction mathsteps
   // Elle renvoie toutes les étapes d'un calcul numérique ou d'un développement-réduction
   // L'addition de deux fractions est classée dans les sous-étapes bizarrement
@@ -524,27 +524,30 @@ export function calculer (expression, params) {
   const expressionPrint = toTex(expression, params)
   const steps = params.substeps ? traverserEtapes(simplifyExpression(expression)) : simplifyExpression(expression)
   const stepsExpression = []
-  const commentaires = []
+  // const commentaires = []
+  const comments = []
   steps.forEach(function (step, i) {
     const oldNode = step.oldNode !== null ? toTex(step.oldNode, params) : ''
     const newNode = toTex(step.newNode, params)
     if (newNode === oldNode) stepsExpression.pop()
     if (params.comment) {
-      const commentaire = `\\text{${step.changeType}}`.replaceAll('_', ' ')
-      commentaires.push(commentaire)
+      const comment = commentStep(step, params.comments)
+      // const commentaire = `\\text{${step.changeType}}`.replaceAll('_', ' ')
+      // commentaires.push(commentaire)
+      comments.push(comment)
       if (stepsExpression.length === 0 || i === steps.length - 1) {
         if (params.name === undefined) {
-          stepsExpression.push(`${expressionPrint}&=${newNode}&&${commentaire}`)
+          stepsExpression.push(`${expressionPrint}&=${newNode}&&${comment}`)
         } else {
           if (stepsExpression.length === 0) {
-            stepsExpression.push(`${params.name}&=${expressionPrint}&&${commentaire}`)
-            stepsExpression.push(`&=${newNode}&&${commentaire}`)
+            stepsExpression.push(`${params.name}&=${expressionPrint}&&${comment}`)
+            stepsExpression.push(`&=${newNode}&&${comment}`)
           } else {
-            stepsExpression.push(`${params.name}&=${newNode}&&${commentaire}`)
+            stepsExpression.push(`${params.name}&=${newNode}&&${comment}`)
           }
         }
       } else {
-        stepsExpression.push(`&=${newNode}&&${commentaire}`)
+        stepsExpression.push(`&=${newNode}&&${comment}`)
       }
     } else {
       if (stepsExpression.length === 0 || i === steps.length - 1) {
@@ -586,7 +589,7 @@ export function calculer (expression, params) {
   }
   const texte = `Calculer $${expressionPrint}$.`
   const texteCorr = `$\\begin{aligned}\n${stepsExpression.join('\\\\\n')}\n\\end{aligned}$`
-  return { printResult: steps.length > 0 ? toTex(steps[steps.length - 1].newNode, params.totex) : expressionPrint, netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: commentaires, printExpression: expressionPrint, name: params.name }
+  return { printResult: steps.length > 0 ? toTex(steps[steps.length - 1].newNode, params.totex) : expressionPrint, netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: comments, printExpression: expressionPrint, name: params.name }
 }
 
 export function aleaEquation (equation = 'a*x+b=c*x-d', variables = { a: false, b: false, c: false, d: false, test: 'a>b or true' }, debug = false) { // Ne pas oublier le signe de la multiplication
@@ -742,7 +745,20 @@ export function commentStep (step, comments) {
     ADD_FRACTIONS: 'Additionner des fractions.',
     BREAK_UP_FRACTION: 'Séparer une fraction.',
     CANCEL_TERMS: 'Annuler les termes.',
-    REMOVE_MULTIPLYING_BY_ONE: 'Retirer la multiplication par $1$.'
+    REMOVE_MULTIPLYING_BY_ONE: 'Retirer la multiplication par $1$.',
+    COLLECT_LIKE_TERMS: 'Regrouper les termes.',
+    MULTIPLY_DENOMINATORS: 'Calculer les dénominateurs.',
+    ADD_EXPONENT_OF_ONE: 'Ajouter l\'exposant 1.',
+    COLLECT_POLYNOMIAL_EXPONENTS: 'Ajouter l\'exposant 1.',
+    COMMON_DENOMINATOR: 'Obtenir le même dénominateur.',
+    MULTIPLY_NUMERATORS: 'Calculer.',
+    COMBINE_NUMERATORS: 'Combiner les numérateurs.',
+    ADD_NUMERATORS: 'Additionner les numérateurs.',
+    ADD_COEFFICIENT_OF_ONE: 'Ajouter le coefficient $1$',
+    GROUP_COEFFICIENTS: 'Regrouper les coefficients.',
+    FIND_GCD: 'Trouver le plus grand diviseur commun.',
+    CANCEL_GCD: 'Simplifier par le PGCD.',
+    MULTIPLY_FRACTIONS: 'Multiplier deux fractions.'
   }
   comments = Object.assign(defaultComments, comments)
   return (comments[changement] !== undefined) ? `\\text{${comments[changement].replaceAll('{stepChange}', `$${stepChange}$`)}}` : ''
@@ -797,7 +813,12 @@ export function resoudre (equation, params) {
   })
   const texte = `Résoudre $${printEquation}$.`
   const texteCorr = `$\\begin{aligned}\n${stepsNewEquation.join('\\\\\n')}\n\\end{aligned}$`
-  const solution = toTex(steps[steps.length - 1].newEquation.ascii())
+  const solution = {
+    printDecimal: texNombre2(math.evaluate(steps[steps.length - 1].newEquation.ascii().split(steps[steps.length - 1].newEquation.comparator)[1])),
+    decimal: math.evaluate(steps[steps.length - 1].newEquation.ascii().split(steps[steps.length - 1].newEquation.comparator)[1]),
+    exact: steps[steps.length - 1].newEquation.ascii().split(steps[steps.length - 1].newEquation.comparator)[1],
+    print: toTex(steps[steps.length - 1].newEquation.ascii())
+  }
   let calculateLeftSide, calculateRightSide
   if (equation.indexOf('=') !== -1) {
     const sides = equation.split('=')
@@ -806,7 +827,16 @@ export function resoudre (equation, params) {
     calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${solution})`))
     calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${solution})`))
   }
-  return { texte: texte, texteCorr: texteCorr, equation: printEquation, solution: solution, verifLeftSide: calculateLeftSide, verifRightSide: calculateRightSide, steps: steps }
+  return {
+    solution: solution,
+    texte: texte,
+    texteCorr: texteCorr,
+    equation: printEquation,
+    verifLeftSide: calculateLeftSide,
+    verifRightSide: calculateRightSide,
+    steps: steps,
+    printSteps: stepsNewEquation
+  }
 }
 
 export function programmeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3*x', '-2*x', '-3*x', 'x^2', '-x^2', 'x', '-x', '*x', '/x'], nombreChoisi, debug = false) {

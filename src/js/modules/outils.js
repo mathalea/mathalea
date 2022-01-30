@@ -1270,18 +1270,26 @@ export function unSiPositifMoinsUnSinon (a) {
   else return 1
 }
 /**
-* Retourne un string avec la somme des chiffres
+* Retourne la somme des chiffres d'un nombre en valeur et sous forme de String [valeur, String]
 * @Example
 * sommeDesChiffress(123)
-* // 6
+* // [ 6, '1+2+3']
 * @author Rémi Angot
 */export function sommeDesChiffres (n) {
+  const nString = n.toString()
+  let somme = 0
   let sommeString = ''
-  for (let i = 0; i < n.length - 1; i++) {
-    sommeString += n[i] + '+'
+  for (let i = 0; i < nString.length - 1; i++) {
+    if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(nString[i] !== -1)) {
+      sommeString += nString[i] + '+'
+      somme += Number(nString[i])
+    }
   }
-  sommeString += n[n.length - 1]
-  return sommeString
+  if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(nString[nString.length - 1] !== -1)) {
+    sommeString += nString[nString.length - 1]
+    somme += Number(nString[nString.length - 1])
+  }
+  return [somme, sommeString]
 }
 
 /**

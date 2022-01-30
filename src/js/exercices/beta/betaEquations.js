@@ -866,15 +866,18 @@ export default function equationsProgression () {
           break
         }
         case 89: {
-          exercice = calculer(expressionLitterale('a/d+8+x+b/e*e-7+(x-3)^2/6', aleaVariables({
-            a: true,
-            b: true,
-            c: true,
-            d: false,
-            e: false,
-            f: false,
-            test: 'd>1 and e>1 and f>1'
-          })).toString())
+          exercice = calculer('a/d+8+x+b/e*e-7+(x-3)^2/6', {
+            variables: aleaVariables({
+              a: true,
+              b: true,
+              c: true,
+              d: false,
+              e: false,
+              f: false,
+              test: 'd>1 and e>1 and f>1'
+            }),
+            valueOf: true
+          })
           break
         }
         case 90: {
@@ -1105,16 +1108,16 @@ export default function equationsProgression () {
           exercice.texte = `Résoudre l'équation $${exercice.equation}$ en détaillant les étapes.`
           exercice.texteCorr += `
           <br>
-          La solution de cette équation est donc $${exercice.solution}$.
+          La solution de cette équation est donc $${exercice.solution.print}$.
           `
           break
         }
         case 111: {
-          exercice = resoudre('3*x+2<9*x-3')
+          exercice = resoudre('9*x+2<3*x-3')
           exercice.texte = `Résoudre l'inéquation $${exercice.equation}$ en détaillant les étapes.`
           exercice.texteCorr += `
           <br>
-          Les solutions de cette inéquation sont donc tous les nombres $x$ vérifiant $${exercice.solution}$.
+          Les solutions de cette inéquation sont donc tous les nombres $x$ vérifiant $${exercice.solution.print}$.
           `
           break
         }
@@ -1127,7 +1130,7 @@ export default function equationsProgression () {
         case 113: {
           exercice = resoudre('9*x+7=6*x-3', { color: 'black', comment: true })
           exercice.texte = `Résoudre : $${exercice.equation}$`
-          exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `La solution est $${exercice.solution}$`
+          exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `La solution est $${exercice.solution.print}$`
           break
         }
         case 114: {
@@ -1135,7 +1138,7 @@ export default function equationsProgression () {
           exercice.texte = `Résoudre : $${exercice.equation}$`
           exercice.texteCorr = `<br>
           ${exercice.texteCorr}<br>
-          La solution est $${exercice.solution}$.
+          La solution est $${exercice.solution.print}$.
           <br>
           Vérification :
           <br>
@@ -1174,7 +1177,7 @@ export default function equationsProgression () {
           <br>
           ${exercice.texteCorr}
           <br>
-          La solution est $${exercice.solution}$.
+          La solution est $${exercice.solution.print}$.
           <br>
           Vérification :
           <br>
@@ -1185,10 +1188,11 @@ export default function equationsProgression () {
           break
         }
         case 118 : {
-          exercice = calculer('5/2*(7/3+6/8)', { substeps: true })
-          exercice.texte = `(Problème à régler : signe de la multiplication dans les calculs)
-          <br>
-          Calculer : $${exercice.printExpression}$`
+          const comments = {
+            MULTIPLY_FRACTIONS: 'Multiplier numérateurs et dénominateurs entre eux.'
+          }
+          exercice = calculer('5/2*(7/3+6/8)', { substeps: true, comment: true, comments: comments })
+          exercice.texte = `Calculer : $${exercice.printExpression}$`
           exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
           break
         }
@@ -1198,7 +1202,7 @@ export default function equationsProgression () {
           <br>
           Résoudre : $${exercice.equation}$`
           exercice.texteCorr = this.correctionDetaillee ? '<br>' + exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
-          exercice.texteCorr += `La solution est ${exercice.approx}`
+          exercice.texteCorr += `La solution est $${exercice.solution.printDecimal}$`
           break
         }
         case 120: {
@@ -1224,6 +1228,20 @@ export default function equationsProgression () {
           exercice = {}
           exercice.texte = `$${variables.n}+${variables.p}$`
           exercice.texteCorr = exercice.texte
+          break
+        }
+        case 122: {
+          const variables = aleaVariables(
+            {
+              a: 'randomInt(1,10)',
+              test: 'a!=7'
+            }
+            , { valueOf: true })
+          exercice = resoudre('a*(x+6)-7=7*x-3', { variables: variables })
+          break
+        }
+        case 123: {
+          exercice = resoudre('2/x=3')
           break
         }
       }

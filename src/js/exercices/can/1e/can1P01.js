@@ -10,7 +10,7 @@ export const dateDePublication = '25/12/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcTpe = 'AMCNum'
+export const amcType = 'AMCNum'
 
 /**
  * On donne un arbre de probabilité et on doit calculer une probabilité partielle manquante

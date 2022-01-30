@@ -542,7 +542,6 @@ export default class Alea2iep {
  */
   requerreZoom (echelle, options) {
     this.zoom('requerre', echelle, options)
-    
   }
 
   /**
@@ -552,7 +551,6 @@ export default class Alea2iep {
  */
   rapporteurZoom (echelle, options) {
     this.zoom('rapporteur', echelle, options)
-    this.rapporteur.rayon = this.rapporteur.rayon * echelle / 100
   }
 
   /**
@@ -924,9 +922,9 @@ export default class Alea2iep {
  */
   rapporteurCrayonMarqueAngle (angle, { tempo = this.tempo, vitesse = this.vitesse, couleur = this.couleurTraitsDeConstruction, epaisseur = this.epaisseurTraitsDeConstruction } = {}) {
     const O = this.rapporteur.position
-    // const M = pointAdistance(O, 5.2, angle + this.rapporteur.angle)
-    const M = pointAdistance(O, this.rapporteur.rayon, angle + this.rapporteur.angle)
-    const N = pointAdistance(O, this.rapporteur.rayon + 0.3, angle + this.rapporteur.angle)
+    const distanceBord = this.rapporteur.rayon * this.rapporteur.zoom / 100
+    const M = pointAdistance(O, distanceBord, angle + this.rapporteur.angle)
+    const N = pointAdistance(O, distanceBord + 0.3, angle + this.rapporteur.angle)
     this.crayonMontrer()
     this.crayonDeplacer(M, { tempo: tempo, vitesse: vitesse })
     this.tracer(N, { tempo: tempo, vitesse: vitesse, couleur: couleur, epaisseur: epaisseur })
@@ -950,7 +948,7 @@ export default class Alea2iep {
     }
     const d = droite(A, B)
     d.isVisible = false
-    const M = pointAdistance(A, calcul(5.2 * this.rapporteur.zoom / 100, 1), d.angleAvecHorizontale + angle)
+    const M = pointAdistance(A, calcul(this.rapporteur.rayon * this.rapporteur.zoom / 100, 1), d.angleAvecHorizontale + angle)
     this.rapporteurMasquer({ tempo: tempo })
     this.regleDemiDroiteOriginePoint(A, M, { longueur: longueur, couleur: couleur, tempo: tempo, vitesse: vitesse, sens: sens, epaisseur: epaisseur, pointilles: pointilles })
   }
