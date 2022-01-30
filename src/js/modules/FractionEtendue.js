@@ -118,9 +118,9 @@ export default class FractionX extends Fraction {
 
     /**
      * + n/d si positif, - n/d si négatif
+     * propriété qui n'est pas très utile puisque ecritureAlgebrique gère les fractions maintenant (défini pour compatibilité avec les exos qui l'utilisent)
      * @property texFractionSignee
      * @type {string}
-     * propriété qui n'est pas très utile puisque ecritureAlgebrique gère les fractions maintenant (défini pour compatibilité avec les exos qui l'utilisent)
      */
     let texFractionSignee
     definePropRo(this, 'texFractionSignee', () => {
@@ -160,9 +160,9 @@ export default class FractionX extends Fraction {
 
     /**
      * le code LaTeX de l'écriture algébrique de la fraction
+     * Pour compatibilité avec les anciens exos... la fonction de outils.js ecritureAlgebrique() est compatible avec les fractions
      * @property ecritureAlgebrique
      * @type {string}
-     * Pour compatibilité avec les anciens exos... la fonction de outils.js ecritureAlgebrique() est compatible avec les fractions
      */
     let ecritureAlgebrique
     definePropRo(this, 'ecritureAlgebrique', () => {
