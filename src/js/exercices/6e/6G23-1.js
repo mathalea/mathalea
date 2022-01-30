@@ -50,7 +50,6 @@ export default function MesurerUnAngle () {
         delta = Math.round(Math.abs(angle / 10 - Math.round(angle / 10)) * 10)
       } while (delta === 1)
 
-      console.log(angle, delta, arrondiA10Pres)
       anglerot = randint(-4, 4, 0) * 5
       angle = signes[i] * angle
       p = [choice(['x', 'y', 'z', 't']), lettreDepuisChiffre(randint(1, 16)), choice(['s', 'u', 'v', 'w'])]
