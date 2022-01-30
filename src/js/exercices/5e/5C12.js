@@ -29,7 +29,7 @@ export default function CalculerUneExpressionNumerique () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
+      typesDeQuestionsDisponibles = [2, 3, 4, 5]
     } else {
       if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
         typesDeQuestionsDisponibles[0] = this.sup % 6
