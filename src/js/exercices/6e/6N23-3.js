@@ -2,8 +2,9 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, troncature, calcul, choisitLettresDifferentes, texNombre, texFraction, sp, nombreDeChiffresDe } from '../../modules/outils.js'
 import { point, segment, droiteGraduee2, mathalea2d } from '../../modules/2d.js'
-import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import FractionX from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
 
 export const amcReady = true
@@ -30,7 +31,6 @@ export default function LireUneAbscisseAvecZoom () {
   this.vspace = -1
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = 1
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
@@ -542,7 +542,7 @@ export default function LireUneAbscisseAvecZoom () {
           propositions: [ // une ou plusieurs (Qcms) 'propositions'
             {
               reponse: { // utilisé si type = 'AMCNum'
-                texte: `Abscisse de ${noms[1]} en écriture décimale`, // facultatif
+                texte: `Abscisse de ${noms[1]} en écriture décimale : `, // facultatif
                 valeur: reponse1, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                 alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
                 param: {

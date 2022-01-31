@@ -1,17 +1,13 @@
-import ExerciceAdditionnerOuSoustraireDesFractions5e from '../5e/5N20.js'
-
+import CalculsFractionsSimples from '../c3/c3C23.js'
+export const amcType = 'AMCNum'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'qcm'
-export const amcType = 'qcmMono' // type de question AMC
+export const interactifType = 'mathLive'
 
 export const titre = 'Additionner ou soustraire des fractions de même dénominateur'
 
 export default function ExerciceAdditionnerFractions6e () {
-  ExerciceAdditionnerOuSoustraireDesFractions5e.call(this)
-  this.sup = 1
-  this.sup2 = 3
-  this.level = 6
-  this.titre = titre
-  // this.besoinFormulaireNumerique2 = false
+  CalculsFractionsSimples.call(this)
+  this.sup = 4
+  this.besoinFormulaireNumerique = false
 }

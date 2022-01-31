@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
 import { point, pointAdistance, rotation, similitude, translation, vecteur, barycentre, codeSegment, codeAngle, nommePolygone, mathalea2d, triangle2points2longueurs, longueur, angle, polygone } from '../../modules/2d.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, choisitLettresDifferentes, shuffleLettres } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Triangles égaux et côtés homologues'
 
 /**
- * Deux triangles égaux sont codés, il faut reconnaitre les côtés homologues
+ * Deux triangles égaux sont codés, il faut reconnaître les côtés homologues
  * @author Rémi Angot
  * Référence 5G24-1
 */
@@ -16,7 +17,6 @@ export default function TrianglesEgaux () {
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 50 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.spacing = 2
 
@@ -24,6 +24,7 @@ export default function TrianglesEgaux () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    const zoom = context.vue === 'diap' ? 0.5 : 1
 
     let typeQuestionsDisponibles = ['rotation', 'similitude', 'rotation2', 'similitude2', 'rotation3', 'similitude3']
     if (this.nbQuestions === 3) {
@@ -87,7 +88,8 @@ export default function TrianglesEgaux () {
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
-            scale: 0.5
+            scale: 0.5,
+            zoom
           },
           p1, p2, code1, code2, code3, code4, code5, code6, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1)
           texteCorr = `Correction ${i + 1} de type 1`
@@ -128,7 +130,8 @@ export default function TrianglesEgaux () {
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
-            scale: 0.5
+            scale: 0.5,
+            zoom
           },
           p1, p2, code1, code2, code3, code4, code5, code6, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, nommeP2)
           break
@@ -168,7 +171,8 @@ export default function TrianglesEgaux () {
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
-            scale: 0.5
+            scale: 0.5,
+            zoom
           },
           p1, p2, code1, code2, code3, code4, codeA1, codeA2, nommeP1)
           texteCorr = `Correction ${i + 1} de type 1`
@@ -209,7 +213,8 @@ export default function TrianglesEgaux () {
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
-            scale: 0.5
+            scale: 0.5,
+            zoom
           },
           p1, p2, code1, code2, code3, code4, codeA1, codeA2, nommeP1, nommeP2)
           break
@@ -249,7 +254,8 @@ export default function TrianglesEgaux () {
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
-            scale: 0.5
+            scale: 0.5,
+            zoom
           },
           p1, p2, code1, code2, codeA1, codeA2, codeA5, codeA6, nommeP1)
           texteCorr = `Correction ${i + 1} de type 1`
@@ -290,7 +296,8 @@ export default function TrianglesEgaux () {
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
-            scale: 0.5
+            scale: 0.5,
+            zoom
           },
           p1, p2, code1, code2, codeA1, codeA2, codeA5, codeA6, nommeP1, nommeP2)
           break

@@ -30,16 +30,16 @@ Les interfaces graphiques peuvent être plus faciles à prendre en main et perme
 
 Les lignes de commande nécessitent des "anti-sèches" au début mais ont les avantages d'avoir la même "interface" pour tout le monde et d'être "bavardes" en cas de problème, ce qui facilite grandement les échanges et les dépannages entre nous. D'autant plus qu'en cliquant sur [Utiliser_git_en_ligne_de_commandes](https://coopmaths.fr/documentation/tutorial-Utiliser_git_en_ligne_de_commandes.html) dans menu de gauche, vous aurez accès à des anti-sèches et à des solutions à différents messages d'erreur que vous pouvez rencontrer !
 
-1. Commencer par se placer sur le master et le mettre à jour : saisir `git checkout master` puis `git pull` dans un terminal.
+1. Commencer par se placer sur le master et le mettre à jour : saisir `git checkout master` puis `git pull` dans un terminal. [(GitKraken)](img/GitKraken-1.png)
 2. Trouver à quelle [référence](https://coopmaths.fr/pdf/CoopMaths-Referentiel.pdf) l'exercice qu'on veut créer peut être rattaché.
-3. Créer une nouvelle branche en partant d'une copie du master et en respectant la syntaxe NomDeLaPersonne-ReferenceDeLExercice-PrecisionEventuelle : `git checkout -b Nom-Reference-Precision`
+3. Créer une nouvelle branche en partant d'une copie du master et en respectant la syntaxe NomDeLaPersonne-ReferenceDeLExercice-PrecisionEventuelle : `git checkout -b Nom-Reference-Precision` [(GitKraken)](img/GitKraken-2.png)
 4. Copier l'un des [modèles](#modeles) présents dans le dossier `src/js/exercices/beta`, le renommer avec la bonne [référence](https://coopmaths.fr/pdf/CoopMaths-Referentiel.pdf) et le placer dans le dossier du niveau correspondant. (Si un exercice avec cette référence existe déjà, ajouter un tiret et incrémenter. Par exemple, si je veux créer 5A11 et qu'un exercice 5A11 existe déjà, je le nomme 5A11-1 et si 5A11-1 existe déjà, je le nomme 5A11-2 etc.)
 5. Modifier les informations servant au référencement (dans les premières lignes du fichier, de l'export du titre à l'export de la fonction)
 6. Enregistrer puis lancer `pnpm build:dicos` dans un terminal pour ajouter son exercice à la liste des exercices (il faudra le refaire si vous changez le nom du fichier, le titre ou l'un de ces paramètres : amcReady, amcType, interactifReady, interactifType)
 7. Le [programmer](#programmer_un_exercice) et le tester en lançant dans un terminal `pnpm start` (Attention à ne pas oublier de modifier la ligne `if (this.questionJamaisPosee(i, a, b, c, d)` à la fin du fichier en fonction des données de l'énoncé, sinon le `pnpm start` ne fonctionnera pas).
-8. Enregistrer régulièrement son travail et faire un **commit** à chaque étape du projet en [respectant la syntaxe](#syntaxe_commit) : faire `git add .` la première fois pour ajouter le nouveau fichier aux fichiers suivis puis **commit** à chaque étape avec `git commit -am "ex: Ajout de 4A10 Reconnaitre un nombre premier"`
-9. Le partager avec les autres : `git push origin nomDeLaBranche`
-10. Une fois l'exercice terminé, faire un **Pull Request** via [github](https://github.com/mathalea/mathalea/branches) ou son interface graphique préférée (GitKraken ou GitHub Desktop).
+8. Enregistrer régulièrement son travail et faire un **commit** à chaque étape du projet en [respectant la syntaxe](#syntaxe_commit) : faire `git add .` la première fois pour ajouter le nouveau fichier aux fichiers suivis puis **commit** à chaque étape avec `git commit -am "ex: Ajout de 4A10 Reconnaître un nombre premier"`[(GitKraken)](img/GitKraken-4.png) (si cet écran n'apparaît pas, le faire apparaître [comme ceci](img/GitKraken-3.png))
+9. Le partager avec les autres : `git push origin nomDeLaBranche` (GitKraken [Partie 1](img/GitKraken-5.png) [Partie 2](img/GitKraken-6.png))
+10. Une fois l'exercice terminé, faire un **Pull Request** via [github](https://github.com/mathalea/mathalea/branches) ou son interface graphique préférée (GitKraken [Partie 1](img/GitKraken-7.png) [Partie 2](img/GitKraken-8.png)).
 
 ## <a id="modeles" href="#modeles">2. Modèles présents dans le dossier`src/js/exercices/beta`</a>
 - betaModele00_simple_Course_au_Nombres
@@ -235,7 +235,7 @@ this.nouvelleVersion = function(){
 ```
 
 ## <a id="latex_ou_html" href="#latex_ou_html">5. Exercice LaTeX ou exercice HTML ?</a>
-Les exercices peuvent être affichés dans le navigateur sous forme classique [https://coopmaths.fr/mathalea.html](https://coopmaths.fr/mathalea.html) ou en diaporama chronométré [https://coopmaths.fr/mathalea.html?v=cm](https://coopmaths.fr/mathalea.html?v=cm) ou compilés en pdf à partir des sources en LaTeX [https://coopmaths.fr/mathalea.html?v=latex](https://coopmaths.fr/mathalea.html?v=latex).
+Les exercices peuvent être affichés dans le navigateur sous forme classique [https://coopmaths.fr/mathalea.html](https://coopmaths.fr/mathalea.html) ou compilés en pdf à partir des sources en LaTeX [https://coopmaths.fr/mathalea.html?v=latex](https://coopmaths.fr/mathalea.html?v=latex).
 
 Un booléen `context.isHtml` est défini sur chaque page qui utilise MathALEA car tous les codes LaTeX ne peuvent pas être affichés dans les navigateurs par KaTeX (voir les [limitations](https://katex.org/docs/supported.html)). Suivant la valeur de ce booléen le code LaTeX pourra être différent.
 
@@ -280,7 +280,7 @@ export default function PremierOuPas4e () {
   this.consigne = '' // Chaîne de caractère qui apparaît en gras au-dessus des questions de préférence à l'infinitif et sans point à la fin.
   this.consigneCorrection = '' // Chaîne de caractère en général vide qui apparaît au-dessus des corrections.
   this.introduction = '' // Texte qui n'est pas forcément en gras et qui apparaît entre la consigne et les questions.
-  this.listeQuestions = [] // Liste de chaînes de caractères avec chacune correspondant à une question. Chaque question est définie par la méthode this.nouvelleVersion puis `listeDeQuestionToContenu(this)` mettra en forme `this.contenu` et `this.contenuCorrection` suivant `context` (sortie HTML ? diaporama ?...)
+  this.listeQuestions = [] // Liste de chaînes de caractères avec chacune correspondant à une question. Chaque question est définie par la méthode this.nouvelleVersion puis `listeDeQuestionToContenu(this)` mettra en forme `this.contenu` et `this.contenuCorrection` suivant `context` (sortie HTML ?...)
   this.listeCorrections = [] // Idem avec la correction.
   this.contenu = '' // Chaîne de caractères avec tout l'énoncé de l'exercice construit à partir de `this.listeQuestions` suivant le `context`
   this.contenuCorrection = '' // Idem avec la correction
@@ -309,7 +309,7 @@ export default function PremierOuPas4e () {
 #### <a id="attributs_sortie_autre_que_latex" href="#attributs_sortie_autre_que_latex">7. 5. Gestion de la sortie autre que LateX</a>
 ``` javascript
   this.beamer = false // booléen pour savoir si la sortie devra être un diaporama beamer
-  this.tailleDiaporama = 50 // Taille en pixels pour le calcul chronométré.
+  this.tailleDiaporama = 1 // Facteur par lequel multiplier la police pour la vue 'diap'
 ```
 #### <a id="attributs_parametres" href="#attributs_parametres">7. 6. Paramètres</a>
 ``` javascript

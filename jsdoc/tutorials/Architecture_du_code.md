@@ -30,7 +30,7 @@ Cf la [doc officielle](https://docs.npmjs.com/cli/v7/configuring-npm/package-jso
 * [Algebrite](http://algebrite.org/) v. 1.4.0 : Bibliothèque Javascript pour le calcul exact avec les nombres décimaux et le calcul formel.
 * [Clipboard.js](https://clipboardjs.com/) v. 2.0.8 : Permet de copier du texte vers le presse-papier utilisé pour le bouton "Copier le code LaTeX".
 * [CodeMirror](https://codemirror.net) v. 5.63.1 : Editeur de code dans le navigateur utilisé pour l'éditeur de MathALEA2D.
-* [core-js](https://www.npmjs.com/package/core-js) v. 3.18.2 : Utilisé par babel pour charger dynamiquement ce qui sera utilisé dans le code qui va être chargé et que le navigateur courant ne connaitrait pas (pas dans les devDependencies car c'est bien utilisé au runtime).
+* [core-js](https://www.npmjs.com/package/core-js) v. 3.18.2 : Utilisé par babel pour charger dynamiquement ce qui sera utilisé dans le code qui va être chargé et que le navigateur courant ne connaîtrait pas (pas dans les devDependencies car c'est bien utilisé au runtime).
 * [InstrumEnPoche](https://instrumenpoche.sesamath.net) : Permet de faire des animations avec les instruments de géométrie.
 * [jQuery](https://jquery.com/) v. 3.6.0 : Dépendance de datatables et de Semantic UI.
 * [jquery-ui](https://jqueryui.com/about/) v. 1.13.1 : Interface utilisateur pour jQuery.
@@ -77,7 +77,6 @@ Cf la [doc officielle](https://docs.npmjs.com/cli/v7/configuring-npm/package-jso
 
 **Dans le dossier `/src/assets/externalJs/` se trouvent d'autre bibliothèques JavaScript**
 * [Semantic UI](https://semantic-ui.com/) v. 2.0.7 : Permet de standardiser l'interface utilisateur.
-* [Slick](https://kenwheeler.github.io/slick/) v. 1.8.0 : Permet de faire plein de jolis choses et est utilisé pour faire des diaporamas.
 * [cm-resize](https://github.com/Sphinxxxx/cm-resize) v. 1.0.1 : Ajoute une poignée de redimensionnement à l'éditeur de CodeMirror.
 * [filesaver](https://github.com/eligrey/FileSaver.js/) v. 2.0.4 : Permet de sauvegarder des fichiers générés côté client.
 * [Giac/XCas](https://www-fourier.ujf-grenoble.fr/~parisse/giac_fr.html) développé par Bernard Parisse et Renée De Graeve (pour le calcul formel dans les exercices de lycée)

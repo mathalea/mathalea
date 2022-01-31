@@ -1,8 +1,7 @@
 /* global $ */
-import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context'
+import { context, setOutputAmc, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
 import { getDureeFromUrl, getLogFromUrl, getZoomFromUrl, getVueFromUrl, getUrlVars, goTabVue, replaceQueryParam } from './gestionUrl'
-import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
 import { modalTimer } from './modalTimer'
 import { zoomAffichage } from './zoom'
@@ -65,6 +64,16 @@ const affichageUniquementQuestion = (i) => {
   const listeBoutonsDuMenu = document.querySelectorAll('[id^=btnMenu]')
   for (const bouton of listeBoutonsDuMenu) {
     bouton.classList.remove('blue')
+    if (parseInt(bouton.textContent) === i + 1) {
+      bouton.classList.add('blue')
+    }
+    if (i < 10 && parseInt(bouton.textContent) < 20) { // Dans les 10 premières questions on garde l'affichage des 10 premiers boutons
+      bouton.style.display = 'inline'
+    } else if (Math.abs(parseInt(bouton.textContent) - i - 1) > 8) { // Questions à plus de 6 d'écart cachée
+      bouton.style.display = 'none'
+    } else {
+      bouton.style.display = 'inline'
+    }
   }
   affichageUniquementExercice()
   const questions = document.querySelectorAll('div.question')
@@ -225,6 +234,9 @@ export async function initDom () {
       divMessage.style.marginBottom = '30px'
       divMessage.style.marginTop = '30px'
     }
+    if (vue === 'exMoodle' || vue === 'correctionMoodle') {
+      document.body.classList.add('exMoodle')
+    }
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
     const accordions = document.getElementsByClassName('ui fluid accordion')
     for (const accordion of accordions) {
@@ -255,14 +267,14 @@ export async function initDom () {
             const valeurEnregistree = window.sessionStorage.getItem(`reponse${i}` + context.graine)
             document.getElementById(`champTexteEx0Q${i}`).textContent = valeurEnregistree
           }
-          let hauteurExercice = window.document.querySelector('section').scrollHeight
-          window.parent.postMessage({ hauteurExercice }, '*')
-          // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
-          setTimeout(() => {
-            hauteurExercice = window.document.querySelector('section').scrollHeight
-            window.parent.postMessage({ hauteurExercice }, '*')
-          }, 1000)
         }
+        let hauteurExercice = window.document.querySelector('section').scrollHeight
+        window.parent.postMessage({ hauteurExercice, serie: context.graine, iMoodle: new URLSearchParams(window.location.search).get('iMoodle') }, '*')
+        // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
+        setTimeout(() => {
+          hauteurExercice = window.document.querySelector('section').scrollHeight
+          window.parent.postMessage({ hauteurExercice, serie: context.graine, iMoodle: new URLSearchParams(window.location.search).get('iMoodle') }, '*')
+        }, 1000)
         if (window.sessionStorage.getItem('isValide' + context.graine)) {
           const exercice = context.listeObjetsExercice[0]
           const bouton = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
@@ -330,6 +342,7 @@ export async function initDom () {
           element.hasListenner = true
         }
       }
+      window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
     })
   } else if (vue === 'light' || vue === 'l') {
     setOutputHtml()
@@ -569,6 +582,7 @@ export async function initDom () {
         sectionTemp.remove()
         setStyles(section, 'display: block')
         gestionTimerDiap()
+        affichageUniquementQuestion(0)
       },
       { once: true }
     )
@@ -602,12 +616,6 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/amc.html', document.body)
     setOutputAmc()
-  } else if (vue === 'cm') {
-    await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
-    section = addElement(document.body, 'section', { class: 'ui container' })
-    await addFetchHtmlToParent('templates/cm.html', document.body)
-    setOutputDiaporama()
-    initDiaporama()
   } else if (vue === 'scores') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
     section = addElement(document.body, 'section', { class: 'ui container' })

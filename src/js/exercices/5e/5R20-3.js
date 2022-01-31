@@ -14,8 +14,8 @@ import {
   lettreDepuisChiffre,
   nombreDeChiffresDansLaPartieEntiere
 } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Additions de 5 nombres relatifs'
 export const interactifReady = true
 
@@ -78,13 +78,13 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
       if (this.sup2) {
         texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(
           e
-        )} = \\dotfill $`
+        )} =$`
         if (this.interactif && !context.isAmc) {
           texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = $`
           texte += ajouteChampTexteMathLive(this, i)
         }
         if (!context.isHtml && !context.isAmc) {
-          texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`
+          texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
         }
         texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(
           e
@@ -92,7 +92,7 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
       } else {
         texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(
           c
-        )}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = \\dotfill $`
+        )}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} =$`
         if (this.interactif && !context.isAmc) {
           texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(
             c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = $`
@@ -100,7 +100,7 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
         }
 
         if (!context.isHtml && !context.isAmc) {
-          texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`
+          texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
         }
         texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(
           c

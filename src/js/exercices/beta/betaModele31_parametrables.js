@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, creerNomDePolygone, contraindreValeur } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, polygoneRegulier, codageAngleDroit, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Nom de l\'exercice'
 
@@ -18,7 +18,7 @@ export default function NomExercice () {
   this.nbQuestions = 1
 
   this.besoinFormulaireNumerique = ['Figure à tracer', 2, '1 : Carré\n2 : Triangle'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
-  this.sup = 1 // Valeur du paramètre par défaut
+  this.sup = 2 // Valeur du paramètre par défaut
   // Remarques : le paramètre peut aussi être un texte avec : this.besoinFormulaireTexte = [texte, tooltip]
   //              il peut aussi être une case à cocher avec : this.besoinFormulaireCaseACocher = [texte] (dans ce cas, this.sup = true ou this.sup = false)
 
@@ -30,7 +30,7 @@ export default function NomExercice () {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    this.sup = parseInt(this.sup) // Lorsqu'il est récupéré de l'url, le paramètre peut être un texte, dans le doute on le convertit en nombre
+    this.sup = contraindreValeur(1, 2, this.sup, 2) // Lorsqu'il est récupéré de l'url, le paramètre peut être n'importe quoi, alors on le contraint ici à être entre 1 et 2 et a 2 comme valeur par défaut
 
     const typesDeQuestionsDisponibles = [1] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)

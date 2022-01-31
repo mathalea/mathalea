@@ -58,11 +58,11 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         // classique
         if (choice([true, false])) {
           texte = `$ ${texNombre(a)} \\times ${texNombre(b)} = `
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true }) : '\\dotfill$'
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true }) : '$'
           texteCorr = `$ ${texNombre(a)} \\times ${texNombre(b)} = ${texNombre(a * b)}$`
         } else {
           texte = `$ ${texNombre(b)} \\times ${texNombre(a)} = `
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true }) : '\\dotfill$'
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true }) : '$'
           texteCorr = `$ ${texNombre(b)} \\times ${texNombre(a)} = ${texNombre(a * b)}$`
         }
         setReponse(this, i, a * b)
@@ -85,9 +85,6 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
           setReponse(this, i, b)
         }
         texteCorr = `$${a} \\times ${b} = ${a * b}$`
-      }
-      if (context.isDiaporama) {
-        texte = texte.replace('= \\dotfill', '')
       }
       if (context.isAmc) {
         this.autoCorrection[i].reponse.param = { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }

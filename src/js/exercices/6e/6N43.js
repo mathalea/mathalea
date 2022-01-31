@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, sommeDesChiffres, calcul, texNombre } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
@@ -86,21 +86,16 @@ export default function CriteresDeDivisibilite () {
           break
 
         case 3:
-          n = choice([randint(100, 999), randint(10000, 99999)]).toString() // transformé en string pour avoir accès aux chiffres
+          n = choice([randint(100, 999), randint(10000, 99999)])
           sommeString = sommeDesChiffres(n)
           texte = `$${texNombre(n)}$ est-il divisible par $3$ ?`
-          if (calcul(sommeString) % 3 === 0) {
-            texteCorr = `$${sommeString}=${calcul(sommeString)}=3\\times${calcul(sommeString) / 3
-              }$<br>`
-            texteCorr += `La somme des chiffres de $${texNombre(
-              n
-            )}$ est divisible par $3$ donc $${texNombre(
-              n
-            )}$ est divisible par $3$.`
+          if (n % 3 === 0) {
+            texteCorr = `$${sommeString[1]}=${sommeString[0]}=3\\times ${calcul(sommeString[0] / 3)}$<br>`
+            texteCorr += `La somme des chiffres de $${texNombre(n)}$ est divisible par $3$ donc $${texNombre(n)}$ est divisible par $3$.`
             this.autoCorrection[i].propositions[0].statut = true
           } else {
-            texteCorr = `$${sommeString}=${calcul(sommeString)}=3\\times${(calcul(sommeString) - (calcul(sommeString) % 3)) / 3
-              }+${calcul(sommeString) % 3}$<br>`
+            texteCorr = `$${sommeString[1]}=${sommeString[0]}=3\\times ${calcul((sommeString[0] - sommeString[0] % 3) / 3)
+              }+${sommeString[0] % 3}$<br>`
             texteCorr += `La somme des chiffres de $${texNombre(
               n
             )}$ n'est pas divisible par $3$ donc $${texNombre(
@@ -111,26 +106,16 @@ export default function CriteresDeDivisibilite () {
           break
 
         case 9:
-          n = choice([randint(100, 999), randint(10000, 99999)]).toString() // transformé en string pour avoir accès aux chiffres
+          n = choice([randint(100, 999), randint(10000, 99999)])
           sommeString = sommeDesChiffres(n)
           texte = `$${texNombre(n)}$ est-il divisible par $9$ ?`
-          if (calcul(sommeString) % 9 === 0) {
-            texteCorr = `$${sommeString}=${calcul(sommeString)}=9\\times${calcul(sommeString) / 9
-              }$<br>`
-            texteCorr += `La somme des chiffres de $${texNombre(
-              n
-            )}$ est divisible par $9$ donc $${texNombre(
-              n
-            )}$ est divisible par $9$.`
+          if (sommeString[0] % 9 === 0) {
+            texteCorr = `$${sommeString[1]}=${sommeString[0]}=9\\times ${calcul(sommeString[0] / 9)}$<br>`
+            texteCorr += `La somme des chiffres de $${texNombre(n)}$ est divisible par $9$ donc $${texNombre(n)}$ est divisible par $9$.`
             this.autoCorrection[i].propositions[0].statut = true
           } else {
-            texteCorr = `$${sommeString}=${calcul(sommeString)}=9\\times${(calcul(sommeString) - (calcul(sommeString) % 9)) / 9
-              }+${calcul(sommeString) % 9}$<br>`
-            texteCorr += `La somme des chiffres de $${texNombre(
-              n
-            )}$ n'est pas divisible par $9$ donc $${texNombre(
-              n
-            )}$ n'est pas divisible par $9$.`
+            texteCorr = `$${sommeString[1]}=${sommeString[0]}=9\\times ${calcul((sommeString[0] - sommeString[0] % 9) / 9)}+${sommeString[0] % 9}$<br>`
+            texteCorr += `La somme des chiffres de $${texNombre(n)}$ n'est pas divisible par $9$ donc $${texNombre(n)}$ n'est pas divisible par $9$.`
             this.autoCorrection[i].propositions[1].statut = true
           }
           break
@@ -190,7 +175,7 @@ export default function CriteresDeDivisibilite () {
             ) // un nombre qui se termine par u, un divisible par u, un au hasard
           }
           texte = `$${texNombre(n)}$ est-il divisible par $${u}$ ?`
-          texteCorr = `On ne connait pas de critère de divisibilité par $${u}$, on calcule donc la division euclidienne de $${texNombre(
+          texteCorr = `On ne connaît pas de critère de divisibilité par $${u}$, on calcule donc la division euclidienne de $${texNombre(
             n
           )}$ par $${u}$.<br>`
           if (n % u === 0) {

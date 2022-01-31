@@ -1,8 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { calcul, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM
@@ -212,6 +214,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           } else if (s !== 1) {
             texteCorr += `$=${texFraction(calcul((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((abs(a * k - c)) / s), calcul(d / s))}$`
           }
+        }
+        if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
+          texte += '<br>' + propositionsQcm(this, i).texte
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
           if (this.sup3) {

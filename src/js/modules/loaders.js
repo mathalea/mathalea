@@ -1,5 +1,5 @@
+/* global jQuery */
 import loadjs from 'loadjs'
-import slick from '../../assets/externalJs/slick/slick'
 import { context } from './context'
 import { UserFriendlyError } from './messages'
 
@@ -129,20 +129,6 @@ export function loadScratchblocks () {
 }
 
 /**
- * Charge Slick pour les diaporama
- * @return {Promise} qui peut échouer…
- */
-export async function loadSlick () {
-  try {
-    await load('slick')
-    slick()
-  } catch (error) {
-    console.error(error)
-    return Error('Erreur de chargement de slick')
-  }
-}
-
-/**
  * Charge MathLive et personnalise les réglages
  * MathLive est chargé dès qu'un tag math-field est créé
  */
@@ -157,7 +143,8 @@ export async function loadMathLive () {
         virtualKeyboards: 'collegeKeyboard roman',
         inlineShortcuts: {
           '*': { mode: 'math', value: '\\times' },
-          '.': { mode: 'math', value: ',' }
+          '.': { mode: 'math', value: ',' },
+          '%': { mode: 'math', value: '\\%' }
         },
         // virtualKeyboards: 'numeric roman',
         virtualKeyboardMode: 'manual'
@@ -166,6 +153,20 @@ export async function loadMathLive () {
         // "onfocus": the virtual keyboard panel is displayed when the mathfield is focused
         // "off": never show the virtual keyboard panel
       })
+
+      // Evite les problèmes de positionnement du clavier mathématique dans les iframes
+      if (context.vue === 'exMoodle') {
+        const events = ['focus', 'input']
+        events.forEach(e => {
+          mf.addEventListener(e, () => {
+            setTimeout(() => { // Nécessaire pour que le calcul soit effectué après la mise à jour graphique
+              const position = jQuery(mf).offset().top + jQuery(mf).outerHeight() + 'px'
+              document.body.style.setProperty('--keyboard-position', position)
+            })
+          })
+        })
+      }
+
       if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
         // Sur les écrans tactils, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
         mf.setOptions({
@@ -215,7 +216,7 @@ export async function loadMathLive () {
   // On envoit la hauteur de l'iFrame après le chargement des champs MathLive
   if (context.vue === 'exMoodle') {
     const hauteurExercice = window.document.querySelector('section').scrollHeight
-    window.parent.postMessage({ hauteurExercice }, '*')
+    window.parent.postMessage({ hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')) }, '*')
     const domExerciceInteractifReady = new window.Event('domExerciceInteractifReady', { bubbles: true })
     document.dispatchEvent(domExerciceInteractifReady)
   }
@@ -291,11 +292,7 @@ const collegeKeyboardLayer = {
         { label: ';', key: ';' },
         { label: 'oui', key: 'oui' },
         { label: 'non', key: 'non' },
-        {
-          class: 'small',
-          latex: '\\frac{1}{#0}',
-          insert: '$$\\frac{1}{#0}$$'
-        }
+        { label: '%', key: '%' }
       ],
       [
         { latex: '(' },
@@ -321,6 +318,11 @@ const collegeKeyboardLayer = {
           class: 'action font-glyph',
           label: '&#x232b;',
           command: ['performWithFeedback', 'deleteBackward']
+        },
+        {
+          class: 'action font-glyph',
+          label: '&#10006;',
+          command: ['toggleVirtualKeyboard', 'toggleVirtualKeyboard']
         }
       ]
     ]

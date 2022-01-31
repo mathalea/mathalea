@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, calcul } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
 export const interactifReady = true
@@ -62,7 +62,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
         b = 0.1
       }
       texte =
-        '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' = \\dotfill $'
+        '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' =  $'
       texteCorr =
         '$ ' +
         texNombre(a) +

@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, combinaisonListes, randint, creerNomDePolygone
 export const titre = 'Justifier que deux triangles sont égaux'
 
 /**
- * Deux triangles égaux sont codés, il faut reconnaitre les côtés homologues
+ * Deux triangles égaux sont codés, il faut reconnaître les côtés homologues
  * @author Rémi Angot
  * Référence 5G24-1
 */
@@ -16,7 +16,6 @@ export default function TrianglesEgaux () {
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 50 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.spacing = 2
 

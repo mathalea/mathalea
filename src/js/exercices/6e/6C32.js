@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, calcul, choice, arrondiVirgule, texNombre, texPrix, arrondi } from '../../modules/outils.js'
-import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Résoudre des problèmes de courses au marché'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,7 +10,7 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 
 /**
- * On achète 2 aliments dont on connait la masse (un en grammes et l'autre en kilogrammes) et le prix au kilogramme. Il faut calculer le prix total.
+ * On achète 2 aliments dont on connaît la masse (un en grammes et l'autre en kilogrammes) et le prix au kilogramme. Il faut calculer le prix total.
  * @author Rémi Angot
  * Référence 6C32
  */

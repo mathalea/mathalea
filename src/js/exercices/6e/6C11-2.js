@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes2, texNombre, texteEnCouleurEtGras, rangeMinMax, combinaisonListes, choice, range, contraindreValeur, enleveElementNo, enleveElement } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { max, min, mod } from 'mathjs'
 export const titre = "Trouver le vocabulaire associé aux termes de l'égalité issue de la division euclidienne"
 
@@ -53,7 +54,7 @@ export default function VocabulaireDivisionEuclidienne () {
     const ChoixQuestions = this.sup2 === 2 ? combinaisonListes2(QuestionsDisponibles, this.nbQuestions) : combinaisonListes(QuestionsDisponibles, this.nbQuestions)
     let ReponsesCorrectes = []
     const Nbutilises = []
-    for (let i = 0, texte, texteCorr, cpt = 0, a, b, q, r; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       Nbutilises[0] = 0
       Nbutilises[1] = randint(5, 99)
       switch (this.sup4) {
@@ -148,7 +149,7 @@ export default function VocabulaireDivisionEuclidienne () {
         texteCorr += '.<br>'
         ReponsesCorrectes = [ChoixReponses[ChoixQuestions[i]]]
       }
-      if (this.questionJamaisPosee(this, i, a, b, q, r)) {
+      if (this.questionJamaisPosee(i, ...Nbutilises)) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (this.interactif) {
           texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur 20 inline')
@@ -163,6 +164,7 @@ export default function VocabulaireDivisionEuclidienne () {
       }
       cpt++
     }
+
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Choix des mots à enlever',

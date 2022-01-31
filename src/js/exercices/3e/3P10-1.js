@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texPrix, modalUrl } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Coefficient multiplicateur d’une variation en pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -36,9 +37,11 @@ export default function CoefficientEvolution () {
     }
     if (this.sup === 2) {
       typesDeQuestionsDisponibles = ['taux+', 'taux-']
+      this.introduction = this.interactif ? '<em>Il faut saisir une réponse de la forme +10% ou -10%</em>' : ''
     }
     if (this.sup === 3) {
       typesDeQuestionsDisponibles = ['coef+', 'coef-', 'taux+', 'taux-']
+      this.introduction = this.interactif ? '<em>Il faut saisir un nombre décimal ou une réponse de la forme +10% ou -10%</em>' : ''
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, reponse, taux, coeff, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -58,15 +61,15 @@ export default function CoefficientEvolution () {
           break
         case 'taux+':
           coeff = texNombrec(1 + taux / 100)
-          texte = `Multiplier par $${coeff}$ revient à...`
+          texte = this.interactif ? `Multiplier par $${coeff}$ revient à faire...` : `Multiplier par $${coeff}$ revient à...`
           texteCorr = `Multiplier par $${coeff}$ revient à augmenter de $${taux}~\\%$ car $${coeff} = ${100 + taux}~\\% = 100~\\% + ${taux}~\\%$.`
-          reponse = taux
+          reponse = `+${taux}\\%`
           break
         case 'taux-':
           coeff = texNombrec(1 - taux / 100)
-          texte = `Multiplier par $${coeff}$ revient à...`
+          texte = this.interactif ? `Multiplier par $${coeff}$ revient à faire...` : `Multiplier par $${coeff}$ revient à...`
           texteCorr = `Multiplier par $${coeff}$ revient à diminuer de $${taux}~\\%$ car $${coeff} = ${100 - taux}~\\% = 100~\\% - ${taux}~\\%$.`
-          reponse = taux
+          reponse = `-${taux}\\%`
           break
       }
       setReponse(this, i, reponse)

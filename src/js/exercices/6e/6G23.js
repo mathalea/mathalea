@@ -4,6 +4,8 @@ import { listeQuestionsToContenu, randint, lettreDepuisChiffre, texNombre } from
 import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, sensDeRotation, homothetie, demiDroiteAvecExtremite, cibleCouronne, texteParPoint, similitude } from '../../modules/2d.js'
 
 export const titre = 'Construire un angle de mesure donnée'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 /**
  * Construire un angle
@@ -31,7 +33,7 @@ export default function ConstruireUnAngle () {
     for (let i = 0; i < this.nbQuestions; i++) {
       signe.push((-1) ** i)
     }
-    for (let i = 0; i < this.nbQuestions; i++) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (this.sup === 1) {
         angle = randint(1, 17, 9) * 10
       } else if (this.sup === 2) {
@@ -76,8 +78,23 @@ export default function ConstruireUnAngle () {
       if ((!context.isHtml) && ((i + 1) % 2 === 0 && !(i + 1) % 4 === 0)) texte += '\\columnbreak '
       if ((!context.isHtml) && ((i + 1) % 4 === 0)) texte += '\\newpage '
       texteCorr = mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsCorrection)
-      this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCorr)
+      if (this.questionJamaisPosee(i, angle, signe[i])) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: [{
+              texte: texteCorr,
+              statut: 0,
+              sanscadre: true
+            }
+            ]
+          }
+        }
+        i++
+      }
+      cpt++
     }
     listeQuestionsToContenu(this)
   }

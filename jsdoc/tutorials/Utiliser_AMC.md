@@ -6,7 +6,7 @@ Depuis début 2021, MAthalea propose pour certains exercices, une version export
 Une interface a été faite pour permettre de sélectionner les exercices mathalea disponibles et créer automatiquement le fichier pour AMC.
 Après avoir séléctionné les exercices souhaités, on peut récupérer directement le code latex affiché dans la fenêtre Latex afin de le coller dans votre éditeur de texte favori et le sauvegarder afin de l'utiliser pour votre sujet AMC.
 
-Le bouton télécharger permet de récupérer une archive projet.zip qui contient le fichier mathalea.tex correspondant au contenu latex auquel est ajouté le package automultiplechoice.sty, lequel est nécessaire si vous voulez compiler le fichier avec overleaf qui ne connait pas le package automultiplechoice.
+Le bouton télécharger permet de récupérer une archive projet.zip qui contient le fichier mathalea.tex correspondant au contenu latex auquel est ajouté le package automultiplechoice.sty, lequel est nécessaire si vous voulez compiler le fichier avec overleaf qui ne connaît pas le package automultiplechoice.
 
 Attention, pour corriger des copies, vous aurez besoin du logiciel automultiplechoice. Alors autant lancer la compilation dans AMC. Overleaf ne doit être utilisé que pour avoir un aperçu et détécter d'éventuels problèmes de compilation.
 

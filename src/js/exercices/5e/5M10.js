@@ -5,7 +5,7 @@ import Exercice from '../Exercice.js'
 export const titre = 'Aire du parallélogramme'
 
 /**
-* Deux parallélogrammes sont tracés, on connait les 2 côté et une hauteur.
+* Deux parallélogrammes sont tracés, on connaît les 2 côté et une hauteur.
 *
 * Il faut calculer leurs aires.
 *

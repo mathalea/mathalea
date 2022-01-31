@@ -193,7 +193,7 @@ function listeHtmlDesExercicesDUnNiveauAvecSousTheme (listeDeThemes) { // liste_
 }
 function getListeHtmlDesExercicesCrpe () {
   let liste = '<div class="accordion">'
-  for (const annee of ['2016', '2017']) {
+  for (const annee of ['2019', '2018', '2017', '2016']) {
     liste += `<div class="title"><i class="dropdown icon"></i> ${annee}</div><div class="content">`
     liste += listeHtmlDesExercicesCrpeAnnee(annee)
     liste += '</div>'
@@ -485,7 +485,7 @@ export function menuDesExercicesDisponibles () {
     ['3L1', '3L1 - Calcul littéral'], ['3P1', '3P1 - Proportionnalité'], ['3S1', '3S1 - Statistiques'], ['3S2', '3S2 - Probabilités']]
   const listeThemes2 = [
     ['2F1', '2F1 - Se constituer un répertoire de fonctions de référence', '2F10 - Connaître les  fonctions affines',
-      '2F11 - Comparer des images en utilisant les fonctions de référence',
+      '2F11 - Comparer et calculer des images en utilisant les fonctions de référence',
       '2F12 - Résoudre algébriquement ou graphiquement  f(x)=k ou f(x)&lt;k avec f fonction de référence'],
     ['2F2', '2F2 - Représenter algébriquement et graphiquement les fonctions', '2F20 - Exploiter l\'équation y=f(x) d\'une courbe : appartenance, calcul de coordonnées',
       '2F21 - Modéliser par des fonctions des situations issues des mathématiques, des autres disciplines',
@@ -787,7 +787,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'Ex', 'HP', 'PE', 'C'], // 'CRPE', 'CrpeTheme'],
+      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'Ex', 'HP', 'PE', 'CrpeTheme', 'CRPE', 'C'],
       active: '',
       obj_ex: objExercicesDisponibles
     })

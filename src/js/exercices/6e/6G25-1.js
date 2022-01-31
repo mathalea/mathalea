@@ -1,13 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { arrondi, choice, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, texteEnCouleur } from '../../modules/outils.js'
+import { choice, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, texteEnCouleur, numAlpha } from '../../modules/outils.js'
 import { centreGraviteTriangle, droite, mathalea2d, point, polygone, rotation, symetrieAnimee, symetrieAxiale, texteParPointEchelle, translation, vecteur } from '../../modules/2d.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const titre = 'Utiliser des symétries axiales en pavage triangulaire'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
-export const amcType = 'qcmMono'
+export const amcType = 'AMCHybride'
 
 /**
 * Relecture : Novembre 2021 par EE
@@ -17,7 +17,6 @@ export default function SymetrieAxialePavageTriangulaire () {
   'use strict'
   Exercice.call(this)
   this.titre = 'Symétrie axiale dans un pavage de triangles équilatéraux'
-  this.nbQuestions = 1 // Ici le nombre de questions (une seule pour cet exercice non modifiable)
   this.nbQuestionsModifiable = false // désactive le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
@@ -27,13 +26,7 @@ export default function SymetrieAxialePavageTriangulaire () {
   this.nbQuestionsModifiable = false
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   context.fenetreMathalea2d = [0, -0.1, 15, 10]
-  this.sup = 1
-  this.sup2 = 1
-  this.amcReady = amcReady
-  this.interactifReady = interactifReady
-  this.amcType = amcType
-  this.interactifType = interactifType
-
+  this.sup = false
   // on Choisit trois axes parmi les possibilités prédéfinies... 6 types d'axes laissant le pavage invariant
   // un axe horizontal passe par les sommets 0 de deux triangles d'indices 2n et 2n+2 (sauf si 2n%14=12)
   // un axe vertical passe par les centres de gravités de deux triangles d'indice i et i+13 (sauf si i%14=0)
@@ -312,7 +305,7 @@ export default function SymetrieAxialePavageTriangulaire () {
     let texte = ''
     let texteCorr = ''
     let typesDeQuestionsDisponibles
-    const scaleFigure = arrondi(parseFloat(this.sup2), 1)
+    const scaleFigure = 1
     // construction du pavage triangulaire
     const triAngles = [{}] // tableau des triangles { tri: polygone (le triangle), gra: point(son centre de gravité), num: texteParPoint(son numéro)} l'indice du triangle est son numéro
     const images = []
@@ -337,8 +330,8 @@ export default function SymetrieAxialePavageTriangulaire () {
       triAngles[i].n = texteParPointEchelle(stringNombre(i), triAngles[i].gra, 'milieu', 'black', 0.5)
       objetsEnonce.push(triAngles[i].tri, triAngles[i].n)
     }
-    paramsEnonce = { xmin: 0, ymin: -0.1, xmax: 15, ymax: 10, pixelsParCm: 30 * scaleFigure, scale: scaleFigure, mainlevee: false }
-    if (parseInt(this.sup) === 1) {
+    paramsEnonce = { xmin: 0, ymin: -0.1, xmax: 15, ymax: 10, pixelsParCm: 30 * scaleFigure, zoom: 1.5, scale: scaleFigure * 0.7, mainlevee: false }
+    if (!this.sup) {
       this.nbQuestions = 3
       typesDeQuestionsDisponibles = [0, 1, 2]
     } else {
@@ -346,7 +339,7 @@ export default function SymetrieAxialePavageTriangulaire () {
       typesDeQuestionsDisponibles = [0, 1, 2, 3, 4, 5]
     }
     const listeTypesDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, 3)
-    const couleurs = ['blue', 'green', 'red', 'grey', 'magenta', 'purple']
+    const couleurs = ['blue', 'green', 'red', 'gray', 'magenta', 'purple']
     let M
     let N
     const d = []
@@ -390,21 +383,61 @@ export default function SymetrieAxialePavageTriangulaire () {
     for (let i = 0; i < this.nbQuestions; i++) {
       texte = `${texteEnCouleur("Quelle est l'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe " + d[i].nom + ' ?', couleurs[i])}`
       texteCorr = `${texteEnCouleur("L'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe " + d[i].nom + ' est la figure ' + question[i].image + '.', couleurs[i])}`
-      this.autoCorrection[i] = {
-        enonce: texte,
-        propositions: [{
-          texte: question[i].image,
-          statut: true,
-          feedback: ''
+      if (context.isAmc) {
+        if (i === 0) {
+          this.autoCorrection[0] = {
+            enonce: this.introduction + '\\\\\n' + numAlpha(0) + texte + '\\\\\n',
+            propositions: [
+              {
+                type: 'qcmMono',
+                propositions: [
+                  {
+                    texte: question[i].image,
+                    statut: true,
+                    feedback: ''
+                  }
+                ]
+              }
+            ]
+          }
+        } else {
+          this.autoCorrection[0].enonce += `${numAlpha(i)} ${texte} \\\\\n`
+          this.autoCorrection[0].propositions.push({
+            type: 'qcmMono',
+            propositions: [
+              {
+                texte: question[i].image,
+                statut: true,
+                feedback: ''
+              }
+            ]
+          })
         }
-        ]
-      }
-      for (let j = 0; j < question[i].distracteurs.length; j++) {
-        this.autoCorrection[i].propositions.push({
-          texte: question[i].distracteurs[j],
-          statut: false,
-          feedback: ''
-        })
+
+        for (let j = 0; j < question[i].distracteurs.length; j++) {
+          this.autoCorrection[0].propositions[i].propositions.push({
+            texte: question[i].distracteurs[j],
+            statut: false,
+            feedback: ''
+          })
+        }
+      } else {
+        this.autoCorrection[i] = {
+          enonce: (context.isAmc ? this.introduction + '\\\\' + texte : texte),
+          propositions: [{
+            texte: question[i].image,
+            statut: true,
+            feedback: ''
+          }
+          ]
+        }
+        for (let j = 0; j < question[i].distracteurs.length; j++) {
+          this.autoCorrection[i].propositions.push({
+            texte: question[i].distracteurs[j],
+            statut: false,
+            feedback: ''
+          })
+        }
       }
       objetsEnonce.push(symetrieAnimee(triAngles[question[i].antecedent].tri, d[i], `id="anim${numeroExercice}-${i}" dur="2s" repeatCount="2" `))
       images[i] = symetrieAxiale(triAngles[question[i].antecedent].tri, d[i])
@@ -427,6 +460,5 @@ export default function SymetrieAxialePavageTriangulaire () {
       }
     }
   }
-  this.besoinFormulaireNumerique = ['Nombre d\'axes de symétrie ', 2, '1 : 3\n2 : 6']
-  this.besoinFormulaire2Texte = ['Échelle de la figure (nombre avec un point comme séparateur décimal)']
+  this.besoinFormulaireCaseACocher = ['Nombre d\'axes de symétrie = 6 si coché, 3 sinon', false]
 }
