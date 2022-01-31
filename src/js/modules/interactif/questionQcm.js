@@ -32,6 +32,8 @@ export function verifQuestionQcm (exercice, i) {
           indiceFeedback = indice
           label.style.backgroundColor = monVert
         }
+      } else { // Bonnes réponses non cochées
+        label.style.backgroundColor = monVert
       }
     } else if (check.checked === true) {
       label.style.backgroundColor = monRouge
@@ -53,9 +55,21 @@ export function verifQuestionQcm (exercice, i) {
   if (indiceFeedback > -1 && exercice.autoCorrection[i].propositions[indiceFeedback].feedback) {
     const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
     if (eltFeedback) eltFeedback.innerHTML = ''
+    // Message par défaut qui est celui de la dernière réponse cochée
+    let message = exercice.autoCorrection[i].propositions[indiceFeedback].feedback
+    if (resultat === 'KO') {
+      // Juste mais incomplet
+      if (nbBonnesReponses > 0 && nbBonnesReponses < nbBonnesReponsesAttendues) {
+        message = `${nbBonnesReponses} bonne${nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponses > 1 ? 's' : ''} mais c'est incomplet.`
+      }
+      // Du juste et du faux
+      if (nbBonnesReponses > 0 && nbMauvaisesReponses > 0) {
+        message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
+      }
+    }
     messageFeedback({
       id: `feedbackEx${exercice.numeroExercice}Q${i}`,
-      message: exercice.autoCorrection[i].propositions[indiceFeedback].feedback,
+      message,
       type: typeFeedback
     })
   }
