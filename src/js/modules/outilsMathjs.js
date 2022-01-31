@@ -774,8 +774,8 @@ export function resoudre (equation, params) {
     formatSolution
       2 (défaut) : décimal si la solution a 2 chiffres ou moins après la virgule, fraction sinon
       n : décimal si la solution a n chiffres ou moins après la virgule, fraction sinon
-      'decimal' : fraction ou decimal lorsque c'est possible (latex)
-      'fraction' : fraction ou entier lorsque c'est possible (latex)
+      'decimal' : decimal lorsque c'est possible, sinon fraction
+      'fraction' : fraction (ou entier lorsque c'est possible)
   */
   params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true, formatSolution: 2 }, params)
   // Un bug de mathsteps ne permet pas de résoudre 2/x=2 d'où la ligne suivante qui permettait de le contourner
