@@ -82,8 +82,8 @@ export default function MesurerUnAngle () {
       context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
       objetsEnonce = [s1, s2, labels, Apos, Bpos, Cpos, secteur0]
       objetsCorrection = [s1, s2, labels, Apos, Bpos, Cpos, secteur]
-      texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.8 }, objetsEnonce)
-      texteCorr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsCorrection)
+      texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsEnonce)
+      texteCorr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.6 }, objetsCorrection)
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
       if (!this.sup2) {
