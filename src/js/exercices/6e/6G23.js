@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, lettreDepuisChiffre, texNombre } from '../../modules/outils.js'
-import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, sensDeRotation, homothetie, demiDroiteAvecExtremite, cibleCouronne, texteParPoint, similitude, fixeBordures, segment } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, lettreDepuisChiffre, texNombre, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
+import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, sensDeRotation, homothetie, demiDroiteAvecExtremite, cibleCouronne, texteParPoint, similitude, segment, fixeBordures } from '../../modules/2d.js'
 
 export const titre = 'Construire un angle de mesure donnée'
 export const amcReady = true
@@ -18,8 +18,8 @@ export default function ConstruireUnAngle () {
   this.consigne = ''
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
-  this.nbCols = 2
-  this.nbColsCorr = 2
+  this.nbCols = 1
+  this.nbColsCorr = 1
   this.sup = 1
   this.video = 'cU80v1p6mMI'
 
@@ -27,7 +27,11 @@ export default function ConstruireUnAngle () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    this.sup = parseInt(this.sup)
+    this.sup = contraindreValeur(1, 4, this.sup, 1)
+    let typeDeQuestions
+    if (this.sup < 4) typeDeQuestions = [this.sup]
+    else typeDeQuestions = [1, 2, 3]
+    const listeTypeDeQuestion = combinaisonListes(typeDeQuestions, this.nbQuestions)
     let angle; let anglerot; let Apos; let Bpos; let Cpos; let fleche; const signe = []; let p; let texte; let texteCorr; let A; let B; let s; let C; let s2
     let labels, labels2, secteur, cible, xMin, xMax, yMin, yMax, objetsEnonce, objetsCorrection
     signe[0] = randint(-1, 1, 0)
@@ -35,12 +39,13 @@ export default function ConstruireUnAngle () {
       signe.push((-1) * signe[i - 1])
     }
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      if (this.sup === 1) {
-        angle = randint(1, 8) * 10 + randint(0, 1) * 90
-      } else if (this.sup === 2) {
-        angle = randint(1, 3) * 10 + randint(0, 1) * 5 + randint(0, 3) * 45
-      } else {
-        angle = randint(1, 16, [8, 9]) * 10 + randint(2, 8, 5)
+      switch (listeTypeDeQuestion[i]) {
+        case 1 : angle = randint(1, 17, 9) * 10
+          break
+        case 2 : angle = randint(1, 8) * 10 + randint(0, 1) * 90 + 5
+          break
+        case 3 : angle = randint(1, 16) * 10 + randint(1, 9)
+          break
       }
       angle = angle * signe[i]
       anglerot = randint(-50, 50)
@@ -78,7 +83,7 @@ export default function ConstruireUnAngle () {
       const bordure = fixeBordures(objetsEnonce, { rxmax: 1.5 })
       objetsCorrection = [s, labels2, secteur, cible, s2, Apos, Bpos, Cpos, fleche]
       texte += mathalea2d(Object.assign({}, bordure, { pixelsParCm: 20, scale: 0.65 }), objetsEnonce)
-      if ((!context.isHtml) && ((i + 1) % 2 === 0 && !(i + 1) % 4 === 0)) texte += '\\columnbreak '
+      // if ((!context.isHtml) && ((i + 1) % 2 === 0 && !(i + 1) % 4 === 0)) texte += '\\columnbreak '
       if ((!context.isHtml) && ((i + 1) % 4 === 0)) texte += '\\newpage '
       texteCorr = mathalea2d(Object.assign({}, bordure, { pixelsParCm: 20, scale: 0.6 }), objetsCorrection)
       if (this.questionJamaisPosee(i, angle, signe[i])) {
@@ -101,6 +106,5 @@ export default function ConstruireUnAngle () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Précision de l\'angle', 3, '1 : Angle à 10°\n2 : Angle à 5°\n3 : Angle à 1°']
-  // this.besoinFormulaire2Numerique = ['Niveau de difficulté',2,'1 : Construire un angle\n2 : Construire 2 anles'];
+  this.besoinFormulaireNumerique = ['Précision de l\'angle', 4, '1 : Angle à 10°\n2 : Angle à 5°\n3 : Angle à 1°\n4 : Mélange']
 }
