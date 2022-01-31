@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, contraindreValeur, numAlpha } from '../../modules/outils.js'
 import { mathalea2d, fixeBordures, diagrammeBarres } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Calculs de fréquences'
@@ -59,8 +59,8 @@ function graphique (hauteursBarres, etiquettes, { reperageTraitPointille = false
 export default function CalculerDesFrequences () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
-  this.nbQuestions = 2
-  this.nbQuestionsModifiable = false
+  this.nbQuestions = 1
+  this.nbQuestionsModifiable = true
   this.spacing = 1
   this.spacingCorr = 1.5
   this.nbCols = 1
@@ -82,11 +82,11 @@ export default function CalculerDesFrequences () {
    * @returns liste des questions, liste des corrections
    */
   function questionsEtCorrections (entreesTableau, cachee) {
-    const questions = ['Déterminer l\'effectif manquant.',
-      'Déterminer les fréquences pour chaque sport.']
+    const questions = ['<br>' + numAlpha(0) + 'Déterminer l\'effectif manquant.',
+      '<br>' + numAlpha(1) + 'Déterminer les fréquences pour chaque sport.']
     // correction question 1
     const effTotal = Array.from(entreesTableau.values()).reduce((part, eff) => part + eff, 0)
-    let correction1 = `L'effectif manquant est celui du ${cachee.charAt(0).toLocaleLowerCase() + cachee.slice(1)}. Soit $e$ cet effectif.<br>`
+    let correction1 = '<br>' + numAlpha(0) + `L'effectif manquant est celui du ${cachee.charAt(0).toLocaleLowerCase() + cachee.slice(1)}. Soit $e$ cet effectif.<br>`
     correction1 += `$e=${effTotal}-( `
     let first = true
     for (const [sport, eff] of entreesTableau) {
@@ -103,7 +103,7 @@ export default function CalculerDesFrequences () {
     correction1 += `$e=${effTotal}-${calcul(effTotal - entreesTableau.get(cachee))}$<br>`
     correction1 += `$e=${entreesTableau.get(cachee)}$`
     // correction question 2
-    let correction2 = 'Calculs des fréquences.<br><br>'
+    let correction2 = '<br>' + numAlpha(1) + 'Calculs des fréquences.<br><br>'
     correction2 += 'On rappelle que pour la fréquence relative à une valeur est donnée par le quotient : '
     correction2 += '$\\dfrac{\\text{effectif de la valeur}}{\\text{effectif total}}$<br><br>'
     correction2 += 'On en déduit donc les calculs suivants :<br><br>'
@@ -113,7 +113,7 @@ export default function CalculerDesFrequences () {
       correction2 += `$f_{\\text{${sport}}}=${f.texFraction}$<br>`
       correction2 += `$f_{\\text{${sport}}}=$` + texNombre(f.pourcentage) + ' %<br><br>'
     }
-    return { questions: questions, corrections: [correction1, correction2] }
+    return { questions: questions.join('\n'), corrections: [correction1, correction2].join('\n') }
   }
 
   /**
@@ -174,11 +174,10 @@ export default function CalculerDesFrequences () {
     }
     let consigne = `Dans un établissement de ${effectifTotal} élèves, on a demandé à chacun quel est son sport préféré. `
     consigne += 'On a représenté leurs réponses à l\'aide du diagramme ci dessous.<br><br>'
-    // consigne += 'DIAGRAMME ICI !'
     // construction du diagramme
     const effectifsSansValeurCachee = effectifs.map((elt, i) => i !== rangEffectifCache ? elt : 0)
     // const sportsAvecRappelEffectif = sports.map((elt, i) => i !== rangEffectifCache ? elt + ` (${effectifs[i]})` : elt)
-    const diagrammeBaton = graphique(effectifsSansValeurCachee, sports, { etiquetteValeur: false, reperageTraitPointille: true, axeVertical: true, titreAxeVertical: 'Effectifs', labelAxeVert: true })
+    const diagrammeBaton = graphique(effectifsSansValeurCachee, sports, { etiquetteValeur: false, reperageTraitPointille: false, axeVertical: true, titreAxeVertical: 'Effectifs', labelAxeVert: true })
     consigne += diagrammeBaton
     const texte = questionsEtCorrections(entrees, entreeCachee) // on récupère les questions/réponses en relation
     return { consigne: consigne, questions: texte.questions, corrections: texte.corrections }
@@ -188,19 +187,25 @@ export default function CalculerDesFrequences () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.sup = contraindreValeur(0, 1, this.sup, 0)
-    let exercice = {}
-    switch (this.sup) {
-      case 0 :
-        exercice = exerciceAvecTableau()
-        break
-      case 1 :
-        exercice = exerciceAvecDiagramme()
-        break
+    for (let i = 0, exercice, compteur = 0; i < this.nbQuestions && compteur < 50;) {
+      switch (this.sup) {
+        case 0 :
+          exercice = exerciceAvecTableau()
+          break
+        case 1 :
+          exercice = exerciceAvecDiagramme()
+          break
+      }
+      if (this.questionJamaisPosee(i, exercice.questions)) {
+        // injection !
+        this.introduction = exercice.consigne
+        this.listeQuestions.push(exercice.questions)
+        this.listeCorrections.push(exercice.corrections)
+        i++
+      }
+      compteur++
+      console.log('cpt : ' + compteur)
     }
-    // injection !
-    this.introduction = exercice.consigne
-    this.listeQuestions.push(...exercice.questions)
-    this.listeCorrections.push(...exercice.corrections)
     listeQuestionsToContenu(this)
   }
 }
