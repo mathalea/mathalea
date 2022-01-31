@@ -2,26 +2,26 @@ Ce tutoriel vous donnera les clés pour créer la grande majorité des exercices
 
 Si vous ne voulez pas d'un truc trop lourd et voulez apporter votre contribution avec un moindre effort, vous pouvez aussi regarder comment ajouter des questions à une [Course aux Nombres](https://coopmaths.fr/documentation/tutorial-Course_aux_nombres.html) !
 
-1. [Les 10 étapes pour créer un exercice](#les_10_etapes_pour_creer_un_exercice)
-1. [Modèles présents dans le dossier`src/js/exercices/beta`](#modeles)
-1. [Syntaxe des commit](#syntaxe_commit)
-1. [Programmer un exercice](#programmer_un_exercice)
-    1. [L'en-ête](#en-tete)
-    1. [Le paramétrage des valeurs par défaut](#parametrage_valeurs_par_defaut)
-    1. [Le code de l'exercice en lui-même](#code_de_lexercice)
-    1. [L'exercice complet dont le résultat est visible sur](#exercice_complet) [http://coopmaths.fr/exCM005](http://coopmaths.fr/exCM005)
-    1. [Exemple d'un exercice avec plusieurs types de questions visible sur](#exercice_plusieurs_questions) [http://coopmaths.fr/ex6C30](http://coopmaths.fr/ex6C30)
-1. [Exercice LaTeX ou exercice HTML ?](#latex_ou_html)
-1. [Variante des exercices](#variante)
-1. [Liste exhaustive des attributs des exercices](#liste_exhaustive_attributs)
-    1. [Autour de l'exercice](#attributs_autour_de_lexercice)
-    1. [Construction de l'exercice](#attributs_construction_de_lexercice)
-    1. [Mise en forme de l'exercice](#attributs_mise_en_forme_de_lexercice)
-    1. [Gestion de la sortie LateX](#attributs_sortie_latex)
-    1. [Gestion de la sortie autre que LateX](#attributs_sortie_autre_que_latex)
-    1. [Paramètres](#attributs_parametres)
-    1. [Exercice avec des dépendances particulières](#dependances_particulieres)
-1. [Liste exhaustive des fonctions des exercices](#liste_exhaustive_fonctions)
+- [<a id="les_10_etapes_pour_creer_un_exercice" href="#les_10_etapes_pour_creer_un_exercice">1. Les 10 étapes pour créer un exercice</a>](#1-les-10-étapes-pour-créer-un-exercice)
+- [<a id="modeles" href="#modeles">2. Modèles présents dans le dossier`src/js/exercices/beta`</a>](#2-modèles-présents-dans-le-dossiersrcjsexercicesbeta)
+- [<a id="syntaxe_commit" href="#syntaxe_commit">3. Syntaxe des commit à respecter</a>](#3-syntaxe-des-commit-à-respecter)
+- [<a id="programmer_un_exercice" href="#programmer_un_exercice">4. Programmer un exercice</a>](#4-programmer-un-exercice)
+  - [<a id="en-tete" href="#en-tete">4. 1. L'en-tête</a>](#4-1-len-tête)
+  - [<a id="parametrage_valeurs_par_defaut" href="#parametrage_valeurs_par_defaut">4. 2. Le paramétrage des valeurs par défaut</a>](#4-2-le-paramétrage-des-valeurs-par-défaut)
+  - [<a id="code_de_lexercice" href="#code_de_lexercice">4. 3. Le code de l'exercice en lui-même</a>](#4-3-le-code-de-lexercice-en-lui-même)
+  - [<a id="exercice_complet" href="#exercice_complet">4. 4. L'exercice complet dont le résultat est visible sur http://coopmaths.fr/exCM005</a>](#4-4-lexercice-complet-dont-le-résultat-est-visible-sur-httpcoopmathsfrexcm005)
+  - [<a id="exercice_plusieurs_questions" href="#exercice_plusieurs_questions">4. 5. Exemple d'un exercice avec plusieurs types de questions visible sur http://coopmaths.fr/ex6C30</a>](#4-5-exemple-dun-exercice-avec-plusieurs-types-de-questions-visible-sur-httpcoopmathsfrex6c30)
+- [<a id="latex_ou_html" href="#latex_ou_html">5. Exercice LaTeX ou exercice HTML ?</a>](#5-exercice-latex-ou-exercice-html-)
+- [<a id="variante" href="#variante">6. Variante des exercices</a>](#6-variante-des-exercices)
+- [<a id="liste_exhaustive_attributs" href="#liste_exhaustive_attributs">7. Liste exhaustive des attributs des exercices</a>](#7-liste-exhaustive-des-attributs-des-exercices)
+    - [<a id="attributs_autour_de_lexercice" href="#attributs_autour_de_lexercice">7. 1. Autour de l'exercice</a>](#7-1-autour-de-lexercice)
+    - [<a id="attributs_construction_de_lexercice" href="#attributs_construction_de_lexercice">7. 2. Construction de l'exercice</a>](#7-2-construction-de-lexercice)
+    - [<a id="attributs_mise_en_forme_de_lexercice" href="#attributs_mise_en_forme_de_lexercice">7. 3. Mise en forme de l'exercice</a>](#7-3-mise-en-forme-de-lexercice)
+    - [<a id="attributs_sortie_latex" href="#attributs_sortie_latex">7. 4. Gestion de la sortie LateX</a>](#7-4-gestion-de-la-sortie-latex)
+    - [<a id="attributs_sortie_autre_que_latex" href="#attributs_sortie_autre_que_latex">7. 5. Gestion de la sortie autre que LateX</a>](#7-5-gestion-de-la-sortie-autre-que-latex)
+    - [<a id="attributs_parametres" href="#attributs_parametres">7. 6. Paramètres</a>](#7-6-paramètres)
+    - [<a id="dependances_particulieres" href="#dependances_particulieres">7. 7. Exercice avec des dépendances particulières</a>](#7-7-exercice-avec-des-dépendances-particulières)
+- [<a id="liste_exhaustive_fonctions" href="#liste_exhaustive_fonctions">8. Liste exhaustive des fonctions des exercices</a>](#8-liste-exhaustive-des-fonctions-des-exercices)
 ## <a id="les_10_etapes_pour_creer_un_exercice" href="#les_10_etapes_pour_creer_un_exercice">1. Les 10 étapes pour créer un exercice</a>
 Toutes les commandes qui commencent par `git` peuvent aussi être faites par une interface graphique (VSC, GitKraken ou GitHub Desktop).
 Il n'y a pas d'interférence entre eux donc vous pouvez sans problème faire certaines étapes en lignes de commande et d'autres avec une interface graphique c'est comme vous préférez.
@@ -30,15 +30,22 @@ Les interfaces graphiques peuvent être plus faciles à prendre en main et perme
 
 Les lignes de commande nécessitent des "anti-sèches" au début mais ont les avantages d'avoir la même "interface" pour tout le monde et d'être "bavardes" en cas de problème, ce qui facilite grandement les échanges et les dépannages entre nous. D'autant plus qu'en cliquant sur [Utiliser_git_en_ligne_de_commandes](https://coopmaths.fr/documentation/tutorial-Utiliser_git_en_ligne_de_commandes.html) dans menu de gauche, vous aurez accès à des anti-sèches et à des solutions à différents messages d'erreur que vous pouvez rencontrer !
 
-1. Commencer par se placer sur le master et le mettre à jour : saisir `git checkout master` puis `git pull` dans un terminal. [(GitKraken)](img/GitKraken-1.png)
+1. Commencer par se placer sur la branche master (locale) et la mettre à jour : saisir `git checkout master` puis `git pull` dans un terminal. [(GitKraken)](img/GitKraken-1.png)
 2. Trouver à quelle [référence](https://coopmaths.fr/pdf/CoopMaths-Referentiel.pdf) l'exercice qu'on veut créer peut être rattaché.
-3. Créer une nouvelle branche en partant d'une copie du master et en respectant la syntaxe NomDeLaPersonne-ReferenceDeLExercice-PrecisionEventuelle : `git checkout -b Nom-Reference-Precision` [(GitKraken)](img/GitKraken-2.png)
+3. Créer une nouvelle branche locale en partant du master (local) et en respectant la syntaxe NomDeLaPersonne-ReferenceDeLExercice-PrecisionEventuelle : `git checkout -b Nom-Reference-Precision` [(GitKraken)](img/GitKraken-2.png)
 4. Copier l'un des [modèles](#modeles) présents dans le dossier `src/js/exercices/beta`, le renommer avec la bonne [référence](https://coopmaths.fr/pdf/CoopMaths-Referentiel.pdf) et le placer dans le dossier du niveau correspondant. (Si un exercice avec cette référence existe déjà, ajouter un tiret et incrémenter. Par exemple, si je veux créer 5A11 et qu'un exercice 5A11 existe déjà, je le nomme 5A11-1 et si 5A11-1 existe déjà, je le nomme 5A11-2 etc.)
 5. Modifier les informations servant au référencement (dans les premières lignes du fichier, de l'export du titre à l'export de la fonction)
 6. Enregistrer puis lancer `pnpm build:dicos` dans un terminal pour ajouter son exercice à la liste des exercices (il faudra le refaire si vous changez le nom du fichier, le titre ou l'un de ces paramètres : amcReady, amcType, interactifReady, interactifType)
 7. Le [programmer](#programmer_un_exercice) et le tester en lançant dans un terminal `pnpm start` (Attention à ne pas oublier de modifier la ligne `if (this.questionJamaisPosee(i, a, b, c, d)` à la fin du fichier en fonction des données de l'énoncé, sinon le `pnpm start` ne fonctionnera pas).
+
+    De plus, si vous avez un message d'erreur concernant l'absence de modules comme celui-ci,
+    
+    ![(erreur pnpm start)](img/ErreurPnpm_start1.png)
+    
+    lancez `pnpm i` ou bien `pnpm update` pour mettre à jour certains modules, puis refaites `pnpm start`.
+
 8. Enregistrer régulièrement son travail et faire un **commit** à chaque étape du projet en [respectant la syntaxe](#syntaxe_commit) : faire `git add .` la première fois pour ajouter le nouveau fichier aux fichiers suivis puis **commit** à chaque étape avec `git commit -am "ex: Ajout de 4A10 Reconnaître un nombre premier"`[(GitKraken)](img/GitKraken-4.png) (si cet écran n'apparaît pas, le faire apparaître [comme ceci](img/GitKraken-3.png))
-9. Le partager avec les autres : `git push origin nomDeLaBranche` (GitKraken [Partie 1](img/GitKraken-5.png) [Partie 2](img/GitKraken-6.png))
+9.  Le partager avec les autres : `git push origin nomDeLaBranche` (GitKraken [Partie 1](img/GitKraken-5.png) [Partie 2](img/GitKraken-6.png))
 10. Une fois l'exercice terminé, faire un **Pull Request** via [github](https://github.com/mathalea/mathalea/branches) ou son interface graphique préférée (GitKraken [Partie 1](img/GitKraken-7.png) [Partie 2](img/GitKraken-8.png)).
 
 ## <a id="modeles" href="#modeles">2. Modèles présents dans le dossier`src/js/exercices/beta`</a>
