@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, texFractionReduite, ecritureAlgebrique, itemize } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, texFractionReduite, itemize, obtenirListeFacteursPremiers, texNombre2 } from '../../modules/outils.js'
 import { resoudre } from '../../modules/outilsMathjs.js'
-import { tableauDeVariation, mathalea2d, texteParPosition, repere, labelPoint, point, tracePoint, courbe2, repere2 } from '../../modules/2d.js'
+import { tableauDeVariation, mathalea2d, labelPoint, point, tracePoint, courbe2, repere2 } from '../../modules/2d.js'
+import { create, all } from 'mathjs'
 
 export const titre = 'Déterminer le signe d’une fonction affine'
 
@@ -36,8 +37,8 @@ export default function signefonctionaffine () {
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       // typesDeQuestions = listeTypeDeQuestions[i]
       if (this.sup === 1) {
-        a = randint(1, 4) * choice([-1, 1])// coefficient a de la fonction affine
-        b = randint(0, 4) * choice([-1, 1])// coefficient b de la fonction affine
+        a = randint(1, 5) * choice([-1, 1])// coefficient a de la fonction affine
+        b = randint(0, 5) * choice([-1, 1])// coefficient b de la fonction affine
 
         if (a === 0 && b === 0) { // On évite la fonction nulle
           a = 1
@@ -45,25 +46,33 @@ export default function signefonctionaffine () {
 
         texte = `Déterminer le signe de la fonction $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`
 
+        let solution
+
         if (this.sup2) {
           texteCorr = 'On résout l\'inéquation $f(x)>0$.<br>'
-          const inequation = resoudre(`${a}*x+${b}>0`, { color: false })
-          const inequation2 = resoudre(`${a}*x+${b}<0`, { color: false })
-          const equation = resoudre(`${a}*x+${b}=0`, { color: false })
-          texteCorr += `${inequation.texteCorr}<br>` // ?
-          /* texteCorr += '$f(x)>0$<br>'
-          texteCorr += `$${a}x${ecritureAlgebrique(b)}>0$<br>`
-          texteCorr += `$${a}x${ecritureAlgebrique(b)}${ecritureAlgebrique(-b)}>0${ecritureAlgebrique(-b)}$<br>`
-          texteCorr += `$${a}x>${-b}$<br>`
-          texteCorr += `$\\dfrac{${a}x}{${a}}${a>0?'>':'<'}\\dfrac{${ecritureAlgebrique(-b)}}{${a}}$<br>`
-          if(a !== 3) {
-            texteCorr += `$x${a>0?'>':'<'}${parseFloat(-b/a)}$<br>`
+          const inequation = resoudre(`${a}*x+${b}>0`, { color: 'black' })
+          texteCorr += `${inequation.texteCorr}<br>`
+
+          // On détermine le code latex de la solution qui sera soit une fraction, soit un nombre decimal
+          const math = create(all)
+
+          solution = math.fraction(math.evaluate(-b / a))
+
+          // On regarde si le résultat a un nombre fini de chiffres après la virgule et n'est pas un entier
+          if (solution.d !== 1 && !obtenirListeFacteursPremiers(solution.d).some(x => x !== 2 && x !== 5)) {
+            solution = math.round(solution.valueOf(), 15) // convertit la fraction en nombre décimal en évitant les problèmes de float
+            if (solution.toString().split('.')[1].length <= 2) {
+              solution = texNombre2(solution)
+            } else {
+              solution = texFractionReduite(-b, a)
+            }
           } else {
-            texteCorr += `$x${a>0?'>':'<'}\\dfrac{${ecritureAlgebrique(-b)}}{${a}}$<br>`
-          } */
-          texteCorr += `On montre de même que l'inéquation $f(x) < 0$ a pour solution $${inequation2.solution}$ et que l'équation $f(x)=0$ a pour solution $${equation.solution}$. <br>`
+            solution = texFractionReduite(-b, a)
+          }
+
+          texteCorr += `On montre de même que l'inéquation $f(x) < 0$ a pour solution $${a > 0 ? 'x < ' + solution : 'x > ' + solution}$ et que l'équation $f(x)=0$ a pour solution $ x = ${solution}$. <br>`
           texteCorr += 'Ainsi, $f$ est :<br>'
-          texteCorr += itemize([`nulle lorsque $x$ est égal à $${texFractionReduite(-b, a)}$`, `positive lorsque $x$ est ${a > 0 ? 'supérieur' : 'inférieur'} à $${texFractionReduite(-b, a)}$`, `négative lorsque $x$ est ${a > 0 ? 'inférieur' : 'supérieur'} à $${texFractionReduite(-b, a)}$.<br>`])
+          texteCorr += itemize([`nulle lorsque $x$ est égal à $${solution}$`, `positive lorsque $x$ est ${a > 0 ? 'supérieur' : 'inférieur'} à $${solution}$`, `négative lorsque $x$ est ${a > 0 ? 'inférieur' : 'supérieur'} à $${solution}$.<br>`])
           texteCorr += 'On a donc le tableau de signe suivant :<br><br>'
           ligne1 = a > 0 ? ['Line', 30, '', 0, '-', 20, 'z', 20, '+'] : ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
         } else {
@@ -94,7 +103,7 @@ export default function signefonctionaffine () {
               ['$x$', 2, 30], [`$f(x)=${reduireAxPlusB(a, b)}$`, 2, 50]
             ],
             // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-            ['$-\\infty$', 30, this.sup2 ? `$${texFractionReduite(-b, a)}$` : `$x_0=${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
+            ['$-\\infty$', 30, this.sup2 ? `$${solution}$` : `$x_0=${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
           ],
           // tabLines ci-dessous contient les autres lignes du tableau.
           tabLines: [ligne1],
