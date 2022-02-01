@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, htmlConsigne, lettreDepuisChiffre, combinaisonListes, listeQuestionsToContenu, randint, texNombre, contraindreValeur } from '../../modules/outils.js'
+import { calcul, arrondi, htmlConsigne, lettreDepuisChiffre, combinaisonListes, listeQuestionsToContenu, randint, texNombre, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
@@ -29,6 +29,7 @@ export default function LireAbscisseDecimaleBis2d () {
   this.spacingCorr = 1
   this.sup = '1-2-3-4-5-6'
   this.interactif = false
+  this.niveau = 6
 
   this.nouvelleVersion = function (numeroExercice) {
     // numeroExercice est 0 pour l'exercice 1
@@ -36,7 +37,7 @@ export default function LireAbscisseDecimaleBis2d () {
     if (!this.sup) { // Si aucune liste n'est saisie
       QuestionsDisponibles = [1, 2, 3, 4, 5, 6]
     } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est qu'il y a qu'un type de question
+      if (this.sup instanceof Number) { // Si c'est un nombre c'est qu'il y a qu'un type de question
         QuestionsDisponibles = Array(this.nbQuestion).fill(parseInt(this.sup))
       } else {
         QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
@@ -63,35 +64,35 @@ export default function LireAbscisseDecimaleBis2d () {
       }
       switch (typesDeQuestions[i]) {
         case 3:
-          abs0 = randint(-4, 4)
+          abs0 = this.niveau === 2 ? randint(-8, 8) : randint(0, 5)
           pas1 = 1
           pas2 = 2
           break
         case 4: // Placer des quarts sur un axe
-          abs0 = randint(-4, 4)
+          abs0 = this.niveau === 2 ? randint(-8, 8) : randint(0, 5)
           pas1 = 1
           pas2 = 4
           break
 
         case 5: // Placer des cinquièmes
-          abs0 = randint(-4, 4)
+          abs0 = this.niveau === 2 ? randint(-8, 8) : randint(0, 5)
           pas1 = 1
           pas2 = 5
           break
 
         case 6: // Placer des huitièmes
-          abs0 = this.sup > 5 ? randint(-4, 4) : 0
+          abs0 = this.niveau === 2 ? randint(-8, 8) : randint(0, 5)
           pas1 = 1
           pas2 = 8
           break
 
         case 1: // Placer des
-          abs0 = this.sup > 5 ? randint(-4, 4) : randint(1, 5)
+          abs0 = this.niveau === 2 ? randint(-8, 8) : randint(0, 5)
           pas1 = 1
           pas2 = 10
           break
         case 2: // Placer des centièmes
-          abs0 = this.sup > 5 ? calcul(randint(-40, 40) / 10) : calcul(randint(10, 50) / 10)
+          abs0 = this.niveau === 2 ? arrondi(randint(-80, 80) / 10, 1) : arrondi(randint(0, 50) / 10, 1)
           pas1 = 10
           pas2 = 10
           break
