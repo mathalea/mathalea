@@ -26,13 +26,12 @@ export default function calculsHomothetie () {
   this.correctionDetaillee = true
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
-  this.sup = 0 // Type d'exercice
+  this.sup = 'all' // Type d'exercice
   this.sup2 = 3 // 1 : Homothéties de rapport positif, 2: de rapport négatif 3 : mélange
   this.sup3 = 1 // Choix des valeurs
   this.sup4 = true // Affichage des figures facultatives dans l'énoncé (en projet)
   this.besoinFormulaireNumerique = [
     'Type de question', 10, [
-      '0 : Mélange des types de questions',
       '1 : Calculer le rapport',
       '2 : Calculer une longueur image',
       '3 : Calculer une longueur antécédent',
@@ -43,7 +42,8 @@ export default function calculsHomothetie () {
       '8 : Calculer le rapport à partir des aires',
       '9 : Calculer le rapport connaissant OA et AA\'',
       '10: Encadrer le rapport k',
-      '11: Encadrer le rapport k connaissant OA et AA\''
+      '11: Encadrer le rapport k connaissant OA et AA\'',
+      '12: Mélange'
     ].join('\n')
   ]
   this.besoinFormulaire2Numerique = [
@@ -61,7 +61,7 @@ export default function calculsHomothetie () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typeQuestionsDisponibles = []
-    if (this.sup === 0) {
+    if (this.sup === 'all' || this.sup === 12) {
       typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2', 'encadrerk', 'encadrerk2']
     } else {
       typeQuestionsDisponibles = [['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2', 'encadrerk', 'encadrerk2'][this.sup - 1]]
