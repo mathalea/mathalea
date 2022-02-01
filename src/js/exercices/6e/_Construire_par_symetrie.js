@@ -7,27 +7,38 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 
 /**
- * @author Jean-Claude Lhote  (Ajout AMC par Eric Elter)
+ * @author Jean-Claude Lhote  (Ajout AMC par Eric Elter, ES6 par Loïc Geeraerts)
  * Fonction générale pour les exercices de construction de symétriques (centrale/axiale et points/triangles)
  * références  6G24-1, 6G24-2, 5G10-1, 5G10-2, 5G11-1 et 5G11-2
  * Permet une sortie html/pdf sur petits carreaux/gros carreaux/papier blanc
  * Relecture : Novembre 2021 par EE
  */
 
-export default function ConstruireParSymetrie () {
-  Exercice.call(this)
-  this.titre = 'Construire par Symétrie...'
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
-  this.sup2 = 1
-  this.sup3 = 1
-  this.figure = false
+export default class ConstruireParSymetrie extends Exercice {
+  constructor () {
+    super()
+    this.titre = 'Construire par Symétrie...'
+    this.nbQuestions = 1
+    this.nbCols = 1
+    this.nbColsCorr = 1
+    this.sup = 1
+    this.sup2 = 1
+    this.sup3 = 1
+    this.figure = false
+
+    this.besoinFormulaireNumerique = ['Type de questions', 6, '1 : Axe horizontal ou vertical\n2 : Axe oblique à 45°\n3 : Axe avec une légère pente\n4 : Toutes les symétries axiales\n5 : Symétrie centrale\n6 : Mélange']
+    this.besoinFormulaire2Numerique = [
+      'Type de cahier',
+      3,
+      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+    ]
+    this.besoinFormulaire3Numerique = ['Niveau de difficulté pour la symétrie axiale', 5, '1 : Tous les points du même côté de l\'axe\n2 : Deux points du même côté et le troisième sur l\'axe\n3 : Un point sur l\'axe et un de chaque côté\n4 : Deux points d\'un côté de l\'axe et le troisième de l\'autre côté\n5 : Mélange']
+  }
+
   // La fonction qui suit va chercher 3 points au hasard placés par rapport à la droite d de la façon demandée
   // Elle va s'assurer que la distance entre les projetés n'est pas trop petite afin d'espacer les corrections
   // Si pour une raison ou une autre elle ne trouve pas de point convenable, un message dans la console le signale.
-  const choisi3Points = function (d, lieu = ['dessus', 'dessous', 'sur']) {
+  _choisi3Points (d, lieu = ['dessus', 'dessous', 'sur']) {
     let A, B, C
     let pA, pB, pC
     let lAB, lAC, lBC
@@ -77,7 +88,8 @@ export default function ConstruireParSymetrie () {
     }
     return [A, B, C] // Il y aura quand même trois points, même si ils ne conviennent pas au regard des contraintes
   }
-  this.nouvelleVersion = function () {
+
+  nouvelleVersion () {
     let lieux, positionLabelDroite
     this.sup = parseInt(this.sup)
     this.sup3 = Number(this.sup3)
@@ -183,7 +195,7 @@ export default function ConstruireParSymetrie () {
             else if (this.sup3 === 3) lieux = choice([['sur', 'dessus', 'dessous'], ['dessus', 'sur', 'dessous']])
             else lieux = choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']])
           }
-          [C, D, E] = choisi3Points(d, lieux)
+          [C, D, E] = this._choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -237,7 +249,7 @@ export default function ConstruireParSymetrie () {
           B = pointSurDroite(d, 6, `${p1nom[1]}`, 'above')
           d.isVisible = true
           d.epaisseur = 2;
-          [C, D, E] = choisi3Points(d, lieux)
+          [C, D, E] = this._choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -289,7 +301,7 @@ export default function ConstruireParSymetrie () {
           d = droite(A, B)
           d.isVisible = true
           d.epaisseur = 2;
-          [C, D, E] = choisi3Points(d, lieux)
+          [C, D, E] = this._choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -356,7 +368,7 @@ export default function ConstruireParSymetrie () {
           }
           d.isVisible = true
           d.epaisseur = 2;
-          [C, D, E] = choisi3Points(d, lieux)
+          [C, D, E] = this._choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -415,7 +427,7 @@ export default function ConstruireParSymetrie () {
           }
           d.isVisible = true
           d.epaisseur = 2;
-          [C, D, E] = choisi3Points(d, lieux)
+          [C, D, E] = this._choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -463,7 +475,7 @@ export default function ConstruireParSymetrie () {
           d = droite(A, B)
           d.isVisible = true
           d.epaisseur = 2;
-          [C, D, E] = choisi3Points(d, lieux)
+          [C, D, E] = this._choisi3Points(d, lieux)
           C.nom = p1nom[2]
           C.positionLabel = 'above'
           D.nom = p1nom[3]
@@ -510,7 +522,7 @@ export default function ConstruireParSymetrie () {
           p1nom = creerNomDePolygone(4, 'PQX')
           B = point(7, randint(-1, 1), `${p1nom[1]}`, 'above')
           d = droiteParPointEtPente(B, 0);
-          [A, C, D] = choisi3Points(d, choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']]))
+          [A, C, D] = this._choisi3Points(d, choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']]))
           A.nom = p1nom[0]
           A.positionLabel = 'above'
           C.nom = p1nom[2]
@@ -550,7 +562,7 @@ export default function ConstruireParSymetrie () {
           p1nom = creerNomDePolygone(4, 'PQX')
           B = point(7, randint(-1, 1), `${p1nom[1]}`, 'above')
           d = droiteParPointEtPente(B, 0);
-          [A, C, D] = choisi3Points(d, choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']]))
+          [A, C, D] = this._choisi3Points(d, choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']]))
           A.nom = p1nom[0]
           A.positionLabel = 'above'
           C.nom = p1nom[2]
@@ -624,21 +636,21 @@ export default function ConstruireParSymetrie () {
 
       if (context.isAmc) {
         this.autoCorrection[i] =
-          {
-            enonce: enonce,
-            propositions: [
-              {
-                texte: correction,
-                statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                feedback: '',
-                sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-              }
-            ]
-          }
+        {
+          enonce: enonce,
+          propositions: [
+            {
+              texte: correction,
+              statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              feedback: '',
+              sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+            }
+          ]
+        }
       }
 
       if (this.listeQuestions.indexOf(enonce) === -1) {
-        // Si la question n'a jamais été posée, on en créé une autre
+      // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(enonce + '<br>')
         this.listeCorrections.push(correction + '<br>')
         i++
@@ -648,11 +660,4 @@ export default function ConstruireParSymetrie () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de questions', 6, '1 : Axe horizontal ou vertical\n2 : Axe oblique à 45°\n3 : Axe avec une légère pente\n4 : Toutes les symétries axiales\n5 : Symétrie centrale\n6 : Mélange']
-  this.besoinFormulaire2Numerique = [
-    'Type de cahier',
-    3,
-    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
-  ]
-  this.besoinFormulaire3Numerique = ['Niveau de difficulté pour la symétrie axiale', 5, '1 : Tous les points du même côté de l\'axe\n2 : Deux points du même côté et le troisième sur l\'axe\n3 : Un point sur l\'axe et un de chaque côté\n4 : Deux points d\'un côté de l\'axe et le troisième de l\'autre côté\n5 : Mélange']
 }
