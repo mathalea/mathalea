@@ -155,10 +155,11 @@ export function listeQuestionsToContenuSansNumeroEtSansConsigne (exercice) {
 }
 
 /**
- * Renvoie le html qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * Renvoie le html ou le latex qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
  * @author Rémi Angot
- * @param {string} cont1
- * @param {string} cont2
+ * @param {string} cont1 - Contenu de la première colonne
+ * @param {string} cont2 - Contenu de la deuxième colonne
+ * @param {number} [largeur1=50] Largeur de la première colonne
  * @return {string}
  */
 export function deuxColonnes (cont1, cont2, largeur1 = 50) {
