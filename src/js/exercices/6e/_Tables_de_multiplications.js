@@ -10,30 +10,42 @@ export const amcType = 'AMCNum'
  * Tables de multiplications classiques, à trou ou un mélange des deux.
  *
  * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
- * @author Rémi Angot
+ * @author Rémi Angot (ES6: Loïc Geeraerts)
  * Référence 6C10-1
  */
-export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-8-9') {
+export default class TablesDeMultiplications extends Exercice {
   // Multiplier deux nombres
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = tablesParDefaut
-  this.sup2 = 1 // classique|a_trous|melange
-  this.titre = 'Tables de multiplications'
-  this.consigne = 'Calculer : '
-  this.spacing = 2
+  constructor (tablesParDefaut = '2-3-4-5-6-7-8-9') {
+    super()
+    this.sup = tablesParDefaut
+    this.sup2 = 1 // classique|a_trous|melange
+    this.titre = 'Tables de multiplications'
+    this.consigne = 'Calculer : '
+    this.spacing = 2
 
-  this.nouvelleVersion = function () {
+    this.besoinFormulaireTexte = [
+      'Choix des tables',
+      'Nombres séparés par des tirets'
+    ] // Texte, tooltip
+    this.besoinFormulaire2Numerique = [
+      'Type de questions',
+      3,
+      '1 : Classique\n2 : À trous\n3 : Mélange'
+    ]
+  }
+
+  nouvelleVersion () {
     this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     if (!this.sup) {
-      // Si aucune table n'est saisie
+    // Si aucune table n'est saisie
       this.sup = '2-3-4-5-6-7-8-9'
     }
     let tables = []
     if (typeof this.sup === 'number') {
-      // Si c'est un nombre c'est qu'il y a qu'une seule table
+    // Si c'est un nombre c'est qu'il y a qu'une seule table
       tables[0] = this.sup
     } else {
       tables = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
@@ -55,7 +67,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         typesDeQuestions = choice(['classique', 'a_trous'])
       }
       if (typesDeQuestions === 'classique') {
-        // classique
+      // classique
         if (choice([true, false])) {
           texte = `$ ${texNombre(a)} \\times ${texNombre(b)} = `
           texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true }) : '$'
@@ -67,9 +79,9 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         }
         setReponse(this, i, a * b)
       } else {
-        // a trous
+      // a trous
         if (tables.length > 2) {
-          // Si pour le premier facteur il y a plus de 2 posibilités on peut le chercher
+        // Si pour le premier facteur il y a plus de 2 posibilités on peut le chercher
           if (randint(1, 2) === 1) {
             texte = '$ ' + a + ' \\times '
             texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true, texteApres: `$ = ${a * b} $` }) : `   \\ldots\\ldots = ${a * b}$`
@@ -79,7 +91,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
             setReponse(this, i, a)
           }
         } else {
-          // Sinon on demande forcément le 2e facteur
+        // Sinon on demande forcément le 2e facteur
           texte = `$${a} \\times `
           texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexte(this, i, { numeric: true, texteApres: ` = ${a * b}` }) + '$' : `\\ldots\\ldots = ${a * b}$`
           setReponse(this, i, b)
@@ -94,13 +106,4 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Choix des tables',
-    'Nombres séparés par des tirets'
-  ] // Texte, tooltip
-  this.besoinFormulaire2Numerique = [
-    'Type de questions',
-    3,
-    '1 : Classique\n2 : À trous\n3 : Mélange'
-  ]
 }
