@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenuSansNumero, ecritureParentheseSiNegatif, sp, choice, texteCentre } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer les coordonnées d’un vecteur (bis)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

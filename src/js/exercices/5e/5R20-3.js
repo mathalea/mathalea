@@ -14,8 +14,8 @@ import {
   lettreDepuisChiffre,
   nombreDeChiffresDansLaPartieEntiere
 } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Additions de 5 nombres relatifs'
 export const interactifReady = true
 

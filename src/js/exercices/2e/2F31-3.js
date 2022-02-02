@@ -18,7 +18,6 @@ export default function Variationsapartirtableau () {
   this.nbQuestions = 2 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function (numeroExercice) {
@@ -118,8 +117,8 @@ export default function Variationsapartirtableau () {
 
           texteCorr = `D'après le tableau de variations, la fonction $f$ est décroissante sur $[${x2};${x3}]$,<br> `
           texteCorr += `  $${a3}\\in[${x2};${x3}]$,  $${a4}\\in[${x2};${x3}]$, avec $${a3}<${a4}$.<br>`
-          ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10,'t/$f($x{2})$', 10, 't/', 10, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
-           texteCorr += mathalea2d({ xmin: -0.5, ymin: -9.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+          ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, 't/$f($x{2})$', 10, 't/', 10, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
+          texteCorr += mathalea2d({ xmin: -0.5, ymin: -9.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
             tabInit: [
               [
                 // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]

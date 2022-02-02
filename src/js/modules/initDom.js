@@ -1,8 +1,7 @@
 /* global $ */
-import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context'
+import { context, setOutputAmc, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
 import { getDureeFromUrl, getLogFromUrl, getZoomFromUrl, getVueFromUrl, getUrlVars, goTabVue, replaceQueryParam } from './gestionUrl'
-import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
 import { modalTimer } from './modalTimer'
 import { zoomAffichage } from './zoom'
@@ -63,18 +62,23 @@ const affichageUniquementQuestion = (i) => {
   const texteExerciceTermine = document.getElementById('divExerciceTermine')
   if (texteExerciceTermine) texteExerciceTermine.remove()
   const listeBoutonsDuMenu = document.querySelectorAll('[id^=btnMenu]')
+  // On gère l'affichage des numéros de questions circulaires pour ne pas en afficher plus d'une ligne
   for (const bouton of listeBoutonsDuMenu) {
     bouton.classList.remove('blue')
     if (parseInt(bouton.textContent) === i + 1) {
       bouton.classList.add('blue')
     }
-    if (i < 10 && parseInt(bouton.textContent) < 20) { // Dans les 10 premières questions on garde l'affichage des 10 premiers boutons
-      bouton.style.display = 'inline'
-    } else if (Math.abs(parseInt(bouton.textContent) - i - 1) > 8) { // Questions à plus de 6 d'écart cachée
-      bouton.style.display = 'none'
-    } else {
-      bouton.style.display = 'inline'
-    }
+    // Le nombre à gauche et à droite de la question courante dépend de la largeur de la fenêtre
+    const demiNombreDeRonds = (window.innerWidth / 80 / 2)
+    if (listeBoutonsDuMenu.length > 2 * demiNombreDeRonds) { // Ce nombre est-il trop grand ?
+      if (i < demiNombreDeRonds && parseInt(bouton.textContent) < 2 * demiNombreDeRonds) { // Dans les 10 premières questions on garde l'affichage des 10 premiers boutons
+        bouton.style.display = 'inline'
+      } else if (Math.abs(parseInt(bouton.textContent) - i - 1) > demiNombreDeRonds) { // Questions à plus de 6 d'écart cachée
+        bouton.style.display = 'none'
+      } else {
+        bouton.style.display = 'inline'
+      }
+    } else bouton.style.display = 'inline'
   }
   affichageUniquementExercice()
   const questions = document.querySelectorAll('div.question')
@@ -617,12 +621,6 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/amc.html', document.body)
     setOutputAmc()
-  } else if (vue === 'cm') {
-    await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
-    section = addElement(document.body, 'section', { class: 'ui container' })
-    await addFetchHtmlToParent('templates/cm.html', document.body)
-    setOutputDiaporama()
-    initDiaporama()
   } else if (vue === 'scores') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
     section = addElement(document.body, 'section', { class: 'ui container' })

@@ -1,6 +1,5 @@
 /* global jQuery */
 import loadjs from 'loadjs'
-import slick from '../../assets/externalJs/slick/slick'
 import { context } from './context'
 import { UserFriendlyError } from './messages'
 
@@ -127,20 +126,6 @@ export function loadPrism () {
  */
 export function loadScratchblocks () {
   return load('scratchblocks')
-}
-
-/**
- * Charge Slick pour les diaporama
- * @return {Promise} qui peut échouer…
- */
-export async function loadSlick () {
-  try {
-    await load('slick')
-    slick()
-  } catch (error) {
-    console.error(error)
-    return Error('Erreur de chargement de slick')
-  }
 }
 
 /**

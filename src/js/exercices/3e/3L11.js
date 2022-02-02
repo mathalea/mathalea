@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, ecritureParentheseSiMoins, signe, abs, lettreDepuisChiffre, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 
 export const titre = 'Utiliser la simple distributivité'

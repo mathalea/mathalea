@@ -1,7 +1,8 @@
 import { pointAdistance, point, segment, rotation, cercle, tracePoint, mathalea2d, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, arrondi, texNombre, contraindreValeur, randint, interactivite, texNombrec } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 
 export const titre = 'Calculer périmètre et aire de disques'

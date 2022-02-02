@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, range, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences, contraindreValeur } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
 export const interactifReady = true

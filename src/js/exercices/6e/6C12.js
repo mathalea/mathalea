@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, range, texteEnCouleurEtGras, sp, numAlpha, contraindreValeur, choice, arrondi, prenomF, rangeMinMax, texNombre3, troncature, estentier, compteOccurences, enleveDoublonNum2, combinaisonListes, enleveElementNo } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Résoudre des problèmes de prix'
 export const interactifReady = true
@@ -18,27 +19,36 @@ export const dateDePublication = '02/11/2021'
  * soit après un calcul avec calculatrice (division)
  * Chacune de ces questions indépendantes trouve de l'intérêt par le choix de l'opération à effectuer
  * et donc à donner du sens à chacune des opérations.
- * @author Eric Elter
+ * @author Eric Elter (ES6 : Loïc Geeraerts)
  * Référence 6C12 - Exercice aisément adaptable pour les CM.
  * Date octobre 2021
 */
 
-export default function QuestionsPrix () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Répondre aux questions suivantes.' // Consigne modifiée, plus bas, à l'intérieur de la fonction
-  this.nbQuestionsModifiable = true
-  this.nbQuestions = 1
-  this.sup = 9
-  this.sup2 = false
-  this.sup3 = false
-  this.sup4 = 3
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
-  this.interactifType = 'mathLive'
+export default class QuestionsPrix extends Exercice {
+  constructor () {
+    super()
+    this.consigne = 'Répondre aux questions suivantes.' // Consigne modifiée, plus bas, à l'intérieur de la fonction
+    this.nbQuestionsModifiable = true
+    this.nbQuestions = 1
+    this.sup = 9
+    this.sup2 = false
+    this.sup3 = false
+    this.sup4 = 3
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.video = '' // Id YouTube ou url
+    this.interactifType = 'mathLive'
 
-  this.nouvelleVersion = function () {
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : Multiplication du prix par 10 ou 100\n2 : Multiplication du prix par un entier entre 3 et 9\n3 : Somme du prix avec un autre prix\n4 : Différence du prix avec un autre prix\n5 : Prix de la somme de deux quantités différentes du même article\n6 : Prix de la différence de deux quantités différentes du même article\n7 : Division du prix par 10\n8 : Division du prix par un entier entre 3 et 9\n9 : Toutes les questions\n']
+    this.besoinFormulaire2CaseACocher = ['Ordre aléatoire des questions']
+    this.besoinFormulaire3CaseACocher = ['Prix unitaire entier']
+    if (context.isAmc) {
+      this.besoinFormulaire4Numerique = ['Choix AMC', 3, '1 : Des cases à cocher pour noter chaque question\n2 : Un texte libre de réponses pour chaque question\n3 : Les deux en même temps\n']
+    }
+  }
+
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -225,36 +235,36 @@ export default function QuestionsPrix () {
           propositionsAMC[2 * kk] = {
             type: 'AMCOpen',
             propositions:
-            [
-              {
-                texte: correctionAMC,
-                statut: lignesAMC,
-                enonce: enonceAMC,
-                sanscadre: sanscadreAMC
-              }
-            ]
+          [
+            {
+              texte: correctionAMC,
+              statut: lignesAMC,
+              enonce: enonceAMC,
+              sanscadre: sanscadreAMC
+            }
+          ]
           }
           propositionsAMC[2 * kk + 1] = {
             type: 'AMCNum',
             propositions:
-             [
-               {
-                 texte: (this.sup4 === 1) ? correctionAMC : '',
-                 statut: '',
-                 alignement: alignementAMC,
-                 reponse:
-                   {
-                     texte: (this.sup4 === 1) ? enonceAMC : '',
-                     valeur: [reponseAMC],
-                     param:
-                       {
-                         digits: digitAMC,
-                         decimals: decimalesAMC,
-                         signe: false
-                       }
-                   }
-               }
-             ]
+           [
+             {
+               texte: (this.sup4 === 1) ? correctionAMC : '',
+               statut: '',
+               alignement: alignementAMC,
+               reponse:
+                 {
+                   texte: (this.sup4 === 1) ? enonceAMC : '',
+                   valeur: [reponseAMC],
+                   param:
+                     {
+                       digits: digitAMC,
+                       decimals: decimalesAMC,
+                       signe: false
+                     }
+                 }
+             }
+           ]
           }
         }
       }
@@ -283,11 +293,5 @@ export default function QuestionsPrix () {
     } // fin du for
 
     listeQuestionsToContenu(this)
-  }
-  this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : Multiplication du prix par 10 ou 100\n2 : Multiplication du prix par un entier entre 3 et 9\n3 : Somme du prix avec un autre prix\n4 : Différence du prix avec un autre prix\n5 : Prix de la somme de deux quantités différentes du même article\n6 : Prix de la différence de deux quantités différentes du même article\n7 : Division du prix par 10\n8 : Division du prix par un entier entre 3 et 9\n9 : Toutes les questions\n']
-  this.besoinFormulaire2CaseACocher = ['Ordre aléatoire des questions']
-  this.besoinFormulaire3CaseACocher = ['Prix unitaire entier']
-  if (context.isAmc) {
-    this.besoinFormulaire4Numerique = ['Choix AMC', 3, '1 : Des cases à cocher pour noter chaque question\n2 : Un texte libre de réponses pour chaque question\n3 : Les deux en même temps\n']
   }
 }

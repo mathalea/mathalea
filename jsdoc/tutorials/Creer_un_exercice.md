@@ -242,7 +242,7 @@ this.nouvelleVersion = function(){
 ```
 
 ## <a id="latex_ou_html" href="#latex_ou_html">5. Exercice LaTeX ou exercice HTML ?</a>
-Les exercices peuvent être affichés dans le navigateur sous forme classique [https://coopmaths.fr/mathalea.html](https://coopmaths.fr/mathalea.html) ou en diaporama chronométré [https://coopmaths.fr/mathalea.html?v=cm](https://coopmaths.fr/mathalea.html?v=cm) ou compilés en pdf à partir des sources en LaTeX [https://coopmaths.fr/mathalea.html?v=latex](https://coopmaths.fr/mathalea.html?v=latex).
+Les exercices peuvent être affichés dans le navigateur sous forme classique [https://coopmaths.fr/mathalea.html](https://coopmaths.fr/mathalea.html) ou compilés en pdf à partir des sources en LaTeX [https://coopmaths.fr/mathalea.html?v=latex](https://coopmaths.fr/mathalea.html?v=latex).
 
 Un booléen `context.isHtml` est défini sur chaque page qui utilise MathALEA car tous les codes LaTeX ne peuvent pas être affichés dans les navigateurs par KaTeX (voir les [limitations](https://katex.org/docs/supported.html)). Suivant la valeur de ce booléen le code LaTeX pourra être différent.
 
@@ -287,7 +287,7 @@ export default function PremierOuPas4e () {
   this.consigne = '' // Chaîne de caractère qui apparaît en gras au-dessus des questions de préférence à l'infinitif et sans point à la fin.
   this.consigneCorrection = '' // Chaîne de caractère en général vide qui apparaît au-dessus des corrections.
   this.introduction = '' // Texte qui n'est pas forcément en gras et qui apparaît entre la consigne et les questions.
-  this.listeQuestions = [] // Liste de chaînes de caractères avec chacune correspondant à une question. Chaque question est définie par la méthode this.nouvelleVersion puis `listeDeQuestionToContenu(this)` mettra en forme `this.contenu` et `this.contenuCorrection` suivant `context` (sortie HTML ? diaporama ?...)
+  this.listeQuestions = [] // Liste de chaînes de caractères avec chacune correspondant à une question. Chaque question est définie par la méthode this.nouvelleVersion puis `listeDeQuestionToContenu(this)` mettra en forme `this.contenu` et `this.contenuCorrection` suivant `context` (sortie HTML ?...)
   this.listeCorrections = [] // Idem avec la correction.
   this.contenu = '' // Chaîne de caractères avec tout l'énoncé de l'exercice construit à partir de `this.listeQuestions` suivant le `context`
   this.contenuCorrection = '' // Idem avec la correction

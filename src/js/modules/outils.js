@@ -5,9 +5,10 @@ import Algebrite from 'algebrite'
 import { format, evaluate, isPrime, gcd, round, equal, Fraction } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
-import { elimineDoublons, setReponse } from './gestionInteractif.js'
+import { setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
 import FractionX from './FractionEtendue.js'
+import { elimineDoublons } from './interactif/questionQcm.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -154,10 +155,11 @@ export function listeQuestionsToContenuSansNumeroEtSansConsigne (exercice) {
 }
 
 /**
- * Renvoie le html qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * Renvoie le html ou le latex qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
  * @author Rémi Angot
- * @param {string} cont1
- * @param {string} cont2
+ * @param {string} cont1 - Contenu de la première colonne
+ * @param {string} cont2 - Contenu de la deuxième colonne
+ * @param {number} [largeur1=50] Largeur de la première colonne
  * @return {string}
  */
 export function deuxColonnes (cont1, cont2, largeur1 = 50) {
@@ -1599,30 +1601,21 @@ export function reduirePolynomeDegre3 (a, b, c, d) {
 }
 
 /**
-*
-* Donne la liste des facteurs premiers d'un nombre
-* @author Rémi Angot
+ * Donne la liste des facteurs premiers d'un nombre
+ * @param {Entier} n - Nombre à décomposer
+ * @returns {Entier[]} - Liste des facteurs premiers
 */
 export function obtenirListeFacteursPremiers (n) {
-  // Algorithme de base où l'on divise par chacun des nombres premiers
-  const liste = []
-  let i = 2
-  while (n > 1 && i <= n) {
-    if (n % i === 0) {
-      liste.push(i)
+  const facteurs = []
+  for (let i = 2; i <= n; i++) {
+    while (n % i === 0) {
+      facteurs.push(i)
       n /= i
-    } else {
-      i++
-      while (!isPrime(i)) {
-        i++
-      }
     }
   }
-  if (liste.length === 0) {
-    liste.push(n)
-  }
-  return liste
+  return facteurs
 }
+
 /**
  *
  * @param {Entier} n

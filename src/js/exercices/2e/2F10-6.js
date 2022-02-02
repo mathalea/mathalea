@@ -15,7 +15,6 @@ export default function variationsfonctionaffine () {
   this.nbQuestions = 2 // On complète le nb de questions
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.tailleDiaporama = 100
   this.video = ''
   this.spacing = 1
   this.spacingCorr = 1

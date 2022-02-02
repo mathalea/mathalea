@@ -1,7 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texTexte } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const titre = 'Convertir des volumes'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
@@ -296,7 +298,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        if (context.isDiaporama) {
+        if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfill', '\\text{ en }')
         }
         if (context.isHtml) {
@@ -319,5 +321,5 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
     '1 : Conversions en mètres-cubes avec des multiplications\n2 : Conversions en mètres-cubes avec des divisions\n3 : Conversions en mètres-cubes avec des multiplications ou divisions\n4 : Conversions avec des multiplications ou divisions'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
-  if (context.isHtml && !context.isDiaporama) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+  if (context.isHtml) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
 }

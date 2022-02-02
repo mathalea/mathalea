@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, calcul, choice, arrondi, texNombre2 } from '../../modules/outils.js'
-import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Écriture décimale d\'un calcul avec des puissances de 10'
@@ -17,7 +18,7 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.tailleDiaporama = 50
+  this.tailleDiaporama = 3
   this.video = ''
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []

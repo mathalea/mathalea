@@ -1,6 +1,6 @@
 import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
-import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round } from 'mathjs'
+import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm } from 'mathjs'
 import { fraction } from './fractions.js'
 
 // Fonction écrite par Daniel Caillibaud pour créer ajouter les propriétés à la première utilisation de celles-ci.
@@ -118,9 +118,9 @@ export default class FractionX extends Fraction {
 
     /**
      * + n/d si positif, - n/d si négatif
+     * propriété qui n'est pas très utile puisque ecritureAlgebrique gère les fractions maintenant (défini pour compatibilité avec les exos qui l'utilisent)
      * @property texFractionSignee
      * @type {string}
-     * propriété qui n'est pas très utile puisque ecritureAlgebrique gère les fractions maintenant (défini pour compatibilité avec les exos qui l'utilisent)
      */
     let texFractionSignee
     definePropRo(this, 'texFractionSignee', () => {
@@ -160,9 +160,9 @@ export default class FractionX extends Fraction {
 
     /**
      * le code LaTeX de l'écriture algébrique de la fraction
+     * Pour compatibilité avec les anciens exos... la fonction de outils.js ecritureAlgebrique() est compatible avec les fractions
      * @property ecritureAlgebrique
      * @type {string}
-     * Pour compatibilité avec les anciens exos... la fonction de outils.js ecritureAlgebrique() est compatible avec les fractions
      */
     let ecritureAlgebrique
     definePropRo(this, 'ecritureAlgebrique', () => {
@@ -348,14 +348,14 @@ export default class FractionX extends Fraction {
   sommeFraction (f2) {
     if (this.den === f2.den) { // on ajoute 2 fractions de même dénominateur
       return fraction(this.num + f2.num, f2.den)
-    } else if ([this.den, f2.den].indexOf(gcd(this.den, f2.den)) !== -1) { // un dénominateur est multiple de l'autre
-      if (this.den === gcd(this.den, f2.den)) { // c'est this qui a le dénominateur commun.
-        return fraction(this.num + f2.num * round(this.den / f2.den), this.den)
+    } else if ([this.den, f2.den].indexOf(lcm(this.den, f2.den)) !== -1) { // un dénominateur est multiple de l'autre
+      if (this.den === lcm(this.den, f2.den)) { // c'est this qui a le dénominateur commun.
+        return fraction(this.num + f2.num * round(this.den / f2.den), this.den) // on transforme f2
       } else { // c'est f2 qui a le dénominateur commun
-        return fraction(f2.num + this.num * round(f2.den / this.den), f2.den)
+        return fraction(f2.num + this.num * round(f2.den / this.den), f2.den) // on transforme this
       }
     } else { // besoin d'établir le dénominateur commun.
-      return fraction(this.num * round(gcd(this.den, f2.den) / this.den) + f2.num * round(gcd(this.den, f2.den) / f2.den), gcd(this.den, f2.den))
+      return fraction(this.num * round(lcm(this.den, f2.den) / this.den) + f2.num * round(lcm(this.den, f2.den) / f2.den), lcm(this.den, f2.den))
     }
   }
 

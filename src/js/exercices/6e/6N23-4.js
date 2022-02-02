@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, range1, combinaisonListesSansChangerOrdre, texNombrec, texFraction, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, calcul, contraindreValeur, compteOccurences } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Donner l’écriture décimale d’un nombre à partir de différents textes'
 export const amcReady = true
 export const amcType = 'AMCNum'

@@ -121,13 +121,13 @@ this.autoCorrection[i] = {
   ],
     reponse: {
       texte: 'le texte affiché au dessus du formulaire numerique dans AMC', // facultatif
-      valeur: nombre, // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9
+      valeur: [nombre], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
       alignement: 'flushleft', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
       param: {
         digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
         decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
         signe: false, // (présence d'une case + ou - pour AMC)
-        exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant)
+        exposantNbChiffres: 0, // facultatif (présence de x10^ pour AMC si >0 c'est le nombre de chiffres pour l'exposant). Si la réponse est une puissance, exposantNbChiffres est le nombre de chiffres sur lequel on veut que AMC code l'exposant. Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur la plus adéquate.
         exposantSigne: false, // (présence d'une case + ou - pour l'exposant précédent)
         approx: 0, // (0 = valeur exacte attendue, sinon valeur de tolérance... voir plus bas pour un point technique non intuitif)
         vertical : false, // facultatif. Si true, les cases à cocher seront positionnées verticalement
@@ -139,8 +139,7 @@ this.autoCorrection[i] = {
         basePuissance : 5, // Si la réponse est une puissance, basePuissance correspond à la base de la réponse
         exposantPuissance : 34, // Si la réponse est une puissance, exposantPuissance correspond à l'exposant de la réponse
         baseNbChiffres : 2, // facultatif. Si la réponse est une puissance, baseNbChiffres est le nombre de chiffres sur lequel on veut que AMC code la base. Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur la plus adéquate.
-        exposantNbChiffres : 3 // facultatif. Si la réponse est une puissance, exposantNbChiffres est le nombre de chiffres sur lequel on veut que AMC code l'exposant. Si cette valeur est trop petite ou absente, elle sera automatiquement adaptée pour être la valeur la plus adéquate.
-            }
+      }
     }
 
 
