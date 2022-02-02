@@ -112,7 +112,7 @@ export default function NomExercice () {
         texteCorr += `$\\displaystyle\\lim_{x \\to +\\infty} ${nom}(x) = ${lim2}$<br>`
       }
 
-      texte += mathalea2d({ xmin: -15, ymin: -10, xmax: 15, ymax: 10, scale: 1 }, monRepere, ...f)
+      texte += mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, scale: 1 }, monRepere, ...f)
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, id)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
