@@ -1,5 +1,5 @@
 /* global $ jQuery JSZip saveAs */
-import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan, arrondi, dataTailleDiaporama } from './modules/outils.js'
+import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan, arrondi, dataTailleDiaporama, contraindreValeur } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGo, replaceQueryParam, goTabVue } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
 import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
@@ -1531,7 +1531,9 @@ async function miseAJourDeLaListeDesExercices (preview) {
         if (typeof urlVars[i].s !== 'undefined') {
           // Si le string peut être convertit en int alors on le fait
           if (isNumeric(urlVars[i].s)) {
-            listeObjetsExercice[i].sup = Number(urlVars[i].s)
+            // Avec sup numérique, on peut récupérer le max définit dans le formulaire
+            const max = listeObjetsExercice[i].besoinFormulaireNumerique[1]
+            listeObjetsExercice[i].sup = contraindreValeur(1, max, Number(urlVars[i].s))
           } else {
             listeObjetsExercice[i].sup = urlVars[i].s
           }
@@ -1546,7 +1548,9 @@ async function miseAJourDeLaListeDesExercices (preview) {
         }
         if (typeof urlVars[i].s2 !== 'undefined') {
           if (isNumeric(urlVars[i].s2)) {
-            listeObjetsExercice[i].sup2 = Number(urlVars[i].s2)
+            // Avec sup numérique, on peut récupérer le max définit dans le formulaire
+            const max = listeObjetsExercice[i].besoinFormulaire2Numerique[1]
+            listeObjetsExercice[i].sup2 = contraindreValeur(1, max, Number(urlVars[i].s2))
           } else {
             listeObjetsExercice[i].sup2 = urlVars[i].s2
           }
@@ -1560,7 +1564,9 @@ async function miseAJourDeLaListeDesExercices (preview) {
         }
         if (typeof urlVars[i].s3 !== 'undefined') {
           if (isNumeric(urlVars[i].s3)) {
-            listeObjetsExercice[i].sup3 = Number(urlVars[i].s3)
+            // Avec sup numérique, on peut récupérer le max définit dans le formulaire
+            const max = listeObjetsExercice[i].besoinFormulaire3Numerique[1]
+            listeObjetsExercice[i].sup3 = contraindreValeur(1, max, Number(urlVars[i].s3))
           } else {
             listeObjetsExercice[i].sup3 = urlVars[i].s3
           }
@@ -1576,7 +1582,9 @@ async function miseAJourDeLaListeDesExercices (preview) {
         }
         if (typeof urlVars[i].s4 !== 'undefined') {
           if (isNumeric(urlVars[i].s4)) {
-            listeObjetsExercice[i].sup4 = Number(urlVars[i].s4)
+            // Avec sup numérique, on peut récupérer le max définit dans le formulaire
+            const max = listeObjetsExercice[i].besoinFormulaire4Numerique[1]
+            listeObjetsExercice[i].sup4 = contraindreValeur(1, max, Number(urlVars[i].s4))
           } else {
             listeObjetsExercice[i].sup4 = urlVars[i].s4
           }
