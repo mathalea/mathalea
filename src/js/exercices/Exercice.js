@@ -124,11 +124,3 @@ export default function Exercice () {
     }
   }
 }
-/**
-   * Fonction qui est appelée pour chaque exercice
-   * @param {number} numeroExercice numéro de l'exercice utilisé pour avoir des identifiants uniques pour associer un champ avec le bon exercice (pour l'interactivité par exemple)
-   */
-// Pour tester une idée concernant un bug quand on passe en ES6
-Exercice.prototype.nouvelleVersion = function (numeroExercice) {
-  console.log('bingo')
-}

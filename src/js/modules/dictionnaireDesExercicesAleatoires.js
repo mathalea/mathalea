@@ -499,6 +499,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2F31-2": {
+    "titre": "Utiliser les variations des fonctions de référence pour comparer ou encadrer",
+    "url": "/exercices/2e/2F31-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2F31-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2F31-3": {
     "titre": "Comparaison d'images dans un tableau de variations",
     "url": "/exercices/2e/2F31-3.js",
@@ -6876,7 +6891,7 @@ export default {
     "url": "/exercices/6e/6C23.js",
     "amcReady": true,
     "amcType": {
-      "text": "type de question AMC non prévu"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -7470,16 +7485,15 @@ export default {
   "6G23": {
     "titre": "Construire un angle de mesure donnée",
     "url": "/exercices/6e/6G23.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6G23",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G24-1": {
@@ -8336,16 +8350,15 @@ export default {
   "6N14": {
     "titre": "Représenter des fractions",
     "url": "/exercices/6e/6N14.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": false,
     "name": "6N14",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N20-1": {
@@ -8386,7 +8399,10 @@ export default {
   "6N20": {
     "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1)",
     "url": "/exercices/6e/6N20.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "6N20",
@@ -8402,7 +8418,10 @@ export default {
   "6N21": {
     "titre": "Utiliser les abscisses fractionnaires",
     "url": "/exercices/6e/6N21.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "custom",
     "name": "6N21",
@@ -8433,8 +8452,12 @@ export default {
   "6N22-2": {
     "titre": "Mettre bout à bout des segments",
     "url": "/exercices/6e/6N22-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N22-2",
     "newEx": {
       "isNew": false,
@@ -8448,7 +8471,10 @@ export default {
   "6N22": {
     "titre": "Effectuer des calculs simples avec des fractions",
     "url": "/exercices/6e/6N22.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "6N22",
@@ -8667,7 +8693,7 @@ export default {
     }
   },
   "6N30-1": {
-    "titre": "Lire l’abscisse décimale d’un point repéré par une fraction",
+    "titre": "Lire l’abscisse décimale d’un point (niveau 2)",
     "url": "/exercices/6e/6N30-1.js",
     "amcReady": true,
     "amcType": {
@@ -10132,12 +10158,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+<<<<<<< HEAD
   "beta5S13-2": {
     "titre": "Calculs de fréquences",
     "url": "/exercices/beta/beta5S13-2.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "beta5S13-2",
+=======
+  "beta5N20bis": {
+    "titre": "Additionner ou soustraire deux fractions (dénominateurs multiples)",
+    "url": "/exercices/beta/beta5N20bis.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta5N20bis",
+>>>>>>> master
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -10348,6 +10387,21 @@ export default {
     "name": "betaExo3d",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betaExoLimite": {
+    "titre": "Lecture graphique de limites",
+    "url": "/exercices/beta/betaExoLimite.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaExoLimite",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11184,7 +11238,7 @@ export default {
     "url": "/exercices/can/1e/can1P01.js",
     "amcReady": true,
     "amcType": {
-      "text": "type de question AMC non prévu"
+      "text": "AMCNum"
     },
     "interactifReady": true,
     "interactifType": "mathLive",
@@ -11573,7 +11627,7 @@ export default {
     "interactifType": "qcm",
     "name": "can2F11",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11589,7 +11643,7 @@ export default {
     "interactifType": "qcm",
     "name": "can2F12",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11775,7 +11829,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -11791,7 +11845,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },

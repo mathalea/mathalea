@@ -31,7 +31,7 @@ export default function calculsHomothetie () {
   this.sup3 = 1 // Choix des valeurs
   this.sup4 = true // Affichage des figures facultatives dans l'énoncé (en projet)
   this.besoinFormulaireNumerique = [
-    'Type de question', 10, [
+    'Type de question', 12, [
       '1 : Calculer le rapport',
       '2 : Calculer une longueur image',
       '3 : Calculer une longueur antécédent',
