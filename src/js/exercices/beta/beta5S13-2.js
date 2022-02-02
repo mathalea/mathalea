@@ -90,13 +90,13 @@ export default function CalculerDesFrequences () {
   this.spacingCorr = 1.5
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = 0
+  this.sup = 1
   this.besoinFormulaireNumerique = [
-    'Type d\'exercice', 2, [
-      '0 : Choix d\'un exercice aléatoire parmi les deux versions',
-      '1 : Calculer des fréquences à partir d\'un tableau d\'effectifs',
-      '2 : Calculer des fréquences à partir d\'un diagramme bâton',
-      '3 : Les deux versions en deux questions'
+    'Type d\'exercice', 4, [
+      '1 : Choix d\'un exercice aléatoire parmi les deux versions',
+      '2 : Calculer des fréquences à partir d\'un tableau d\'effectifs',
+      '3 : Calculer des fréquences à partir d\'un diagramme bâton',
+      '4 : Les deux versions en deux questions'
     ].join('\n')
   ]
   const listeSports = ['Football', 'Rugby', 'Basket', 'Tennis', 'Judo', 'Handball', 'Volleyball', 'Athlétisme', 'Pingpong']
@@ -215,12 +215,12 @@ export default function CalculerDesFrequences () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.sup = contraindreValeur(0, 3, this.sup, 0)
+    this.sup = contraindreValeur(1, 4, this.sup, 1)
     const exercice = { questions: [], corrections: [] }
     let transit = {}
     const de = randint(0, 1)
     switch (this.sup) {
-      case 0: // au hasard
+      case 1 : // au hasard
         if (de === 0) {
           transit = exerciceAvecDiagramme()
         } else {
@@ -229,17 +229,17 @@ export default function CalculerDesFrequences () {
         exercice.questions = [transit.questions]
         exercice.corrections = [transit.corrections]
         break
-      case 1 : // tableau
+      case 2 : // tableau
         transit = exerciceAvecTableau()
         exercice.questions = [transit.questions]
         exercice.corrections = [transit.corrections]
         break
-      case 2 : // diagramme
+      case 3 : // diagramme
         transit = exerciceAvecDiagramme()
         exercice.questions = [transit.questions]
         exercice.corrections = [transit.corrections]
         break
-      case 3: // les deux
+      case 4 : // les deux
         transit = exerciceAvecTableau()
         exercice.questions = [transit.questions]
         exercice.corrections = [transit.corrections]
