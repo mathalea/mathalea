@@ -5,6 +5,20 @@ import { fraction } from '../../modules/fractions.js'
 export const titre = 'Calculs de fréquences'
 
 /**
+|*  888    888          888
+|*  888    888          888
+|*  888    888          888
+|*  8888888888  .d88b.  888 88888b.   .d88b.  888d888 .d8888b
+|*  888    888 d8P  Y8b 888 888 "88b d8P  Y8b 888P"   88K
+|*  888    888 88888888 888 888  888 88888888 888     "Y8888b.
+|*  888    888 Y8b.     888 888 d88P Y8b.     888          X88
+|*  888    888  "Y8888  888 88888P"   "Y8888  888      88888P'
+|*                          888
+|*                          888
+|*                          888
+ */
+
+/**
  * Construit un tableau d'entiers de longueur connue
  * dont la somme des éléments est égale à un total connu.
  * @author Eve & Sylvain Chambon
@@ -51,6 +65,17 @@ function graphique (hauteursBarres, etiquettes, { reperageTraitPointille = false
 }
 
 /**
+|*  8888888888                                    d8b
+|*  888                                           Y8P
+|*  888
+|*  8888888    888  888  .d88b.  888d888  .d8888b 888  .d8888b  .d88b.
+|*  888        `Y8bd8P' d8P  Y8b 888P"   d88P"    888 d88P"    d8P  Y8b
+|*  888          X88K   88888888 888     888      888 888      88888888
+|*  888        .d8""8b. Y8b.     888     Y88b.    888 Y88b.    Y8b.
+|*  8888888888 888  888  "Y8888  888      "Y8888P 888  "Y8888P  "Y8888
+*/
+
+/**
  * Calculs de fréquences sur une série qualitative
  * avec un effectif manquant et l'effectif total donné
  * @author Eve & Sylvain CHAMBON
@@ -60,7 +85,7 @@ export default function CalculerDesFrequences () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 1
-  this.nbQuestionsModifiable = true
+  this.nbQuestionsModifiable = false
   this.spacing = 1
   this.spacingCorr = 1.5
   this.nbCols = 1
@@ -68,8 +93,10 @@ export default function CalculerDesFrequences () {
   this.sup = 0
   this.besoinFormulaireNumerique = [
     'Type d\'exercice', 2, [
-      '0 : Calculer des fréquences à partir d\'un tableau d\'effectifs',
-      '1 : Calculer des fréquences à partir d\'un diagramme bâton'
+      '0 : Choix d\'un exercice aléatoire parmi les deux versions',
+      '1 : Calculer des fréquences à partir d\'un tableau d\'effectifs',
+      '2 : Calculer des fréquences à partir d\'un diagramme bâton',
+      '3 : Les deux versions en deux questions'
     ].join('\n')
   ]
   const listeSports = ['Football', 'Rugby', 'Basket', 'Tennis', 'Judo', 'Handball', 'Volleyball', 'Athlétisme', 'Pingpong']
@@ -81,9 +108,10 @@ export default function CalculerDesFrequences () {
    * @param {String} cachee le sport dont on a caché l'effectif
    * @returns liste des questions, liste des corrections
    */
-  function questionsEtCorrections (entreesTableau, cachee) {
-    const questions = ['<br>' + numAlpha(0) + 'Déterminer l\'effectif manquant.',
-      '<br>' + numAlpha(1) + 'Déterminer les fréquences pour chaque sport.']
+  function questionsEtCorrections (preambule, entreesTableau, cachee) {
+    const questions = [preambule,
+      '<br>' + numAlpha(0) + 'Déterminer l\'effectif manquant.',
+      '<br>' + numAlpha(1) + 'Déterminer les fréquences pour chaque sport (en pourcentage, arrondir au dixième si besoin).']
     // correction question 1
     const effTotal = Array.from(entreesTableau.values()).reduce((part, eff) => part + eff, 0)
     let correction1 = '<br>' + numAlpha(0) + `L'effectif manquant est celui du ${cachee.charAt(0).toLocaleLowerCase() + cachee.slice(1)}. Soit $e$ cet effectif.<br>`
@@ -131,8 +159,8 @@ export default function CalculerDesFrequences () {
     for (let i = 0; i < sports.length; i++) {
       entrees.set(sports[i], effectifs[i])
     }
-    let consigne = `Dans un établissement de ${effectifTotal} élèves, on a demandé à chacun quel est son sport préféré. `
-    consigne += 'On a consigné les résultats dans le tableau suivant :<br><br>'
+    let preambule = `Dans un établissement de ${effectifTotal} élèves, on a demandé à chacun quel est son sport préféré. `
+    preambule += 'On a consigné les résultats dans le tableau suivant :<br><br>'
     // construction du tableau
     const entetesColonnes = ['\\text{\\textbf{Sports}}']
     for (const sport of entrees.keys()) {
@@ -152,9 +180,10 @@ export default function CalculerDesFrequences () {
     cellules.push(`${effectifTotal}`)
     // deuxième ligne de fréquences (vide)
     for (let i = 0; i <= effectifs.length; i++) { cellules.push('') }
-    consigne += tableauColonneLigne(entetesColonnes, entetesLignes, cellules, 1.5)
-    const texte = questionsEtCorrections(entrees, entreeCachee) // on récupère les questions/réponses en relation
-    return { consigne: consigne, questions: texte.questions, corrections: texte.corrections }
+    preambule += tableauColonneLigne(entetesColonnes, entetesLignes, cellules, 1.5)
+    preambule += '<br>'
+    const texte = questionsEtCorrections(preambule, entrees, entreeCachee) // on récupère les questions/réponses en relation
+    return { questions: texte.questions, corrections: texte.corrections }
   }
 
   /**
@@ -172,40 +201,56 @@ export default function CalculerDesFrequences () {
     for (let i = 0; i < sports.length; i++) {
       entrees.set(sports[i], effectifs[i])
     }
-    let consigne = `Dans un établissement de ${effectifTotal} élèves, on a demandé à chacun quel est son sport préféré. `
-    consigne += 'On a représenté leurs réponses à l\'aide du diagramme ci dessous.<br><br>'
+    let preambule = `Dans un établissement de ${effectifTotal} élèves, on a demandé à chacun quel est son sport préféré. `
+    preambule += 'On a représenté leurs réponses à l\'aide du diagramme ci dessous.<br><br>'
     // construction du diagramme
     const effectifsSansValeurCachee = effectifs.map((elt, i) => i !== rangEffectifCache ? elt : 0)
-    // const sportsAvecRappelEffectif = sports.map((elt, i) => i !== rangEffectifCache ? elt + ` (${effectifs[i]})` : elt)
     const diagrammeBaton = graphique(effectifsSansValeurCachee, sports, { etiquetteValeur: false, reperageTraitPointille: false, axeVertical: true, titreAxeVertical: 'Effectifs', labelAxeVert: true })
-    consigne += diagrammeBaton
-    const texte = questionsEtCorrections(entrees, entreeCachee) // on récupère les questions/réponses en relation
-    return { consigne: consigne, questions: texte.questions, corrections: texte.corrections }
+    preambule += diagrammeBaton
+    const texte = questionsEtCorrections(preambule, entrees, entreeCachee) // on récupère les questions/réponses en relation
+    return { questions: texte.questions, corrections: texte.corrections }
   }
+
   // on met tout ensemble
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.sup = contraindreValeur(0, 1, this.sup, 0)
-    for (let i = 0, exercice, compteur = 0; i < this.nbQuestions && compteur < 50;) {
-      switch (this.sup) {
-        case 0 :
-          exercice = exerciceAvecTableau()
-          break
-        case 1 :
-          exercice = exerciceAvecDiagramme()
-          break
-      }
-      if (this.questionJamaisPosee(i, exercice.questions)) {
-        // injection !
-        this.introduction = exercice.consigne
-        this.listeQuestions.push(exercice.questions)
-        this.listeCorrections.push(exercice.corrections)
-        i++
-      }
-      compteur++
-      console.log('cpt : ' + compteur)
+    this.sup = contraindreValeur(0, 3, this.sup, 0)
+    const exercice = { questions: [], corrections: [] }
+    let transit = {}
+    const de = randint(0, 1)
+    switch (this.sup) {
+      case 0: // au hasard
+        if (de === 0) {
+          transit = exerciceAvecDiagramme()
+        } else {
+          transit = exerciceAvecTableau()
+        }
+        exercice.questions = [transit.questions]
+        exercice.corrections = [transit.corrections]
+        break
+      case 1 : // tableau
+        transit = exerciceAvecTableau()
+        exercice.questions = [transit.questions]
+        exercice.corrections = [transit.corrections]
+        break
+      case 2 : // diagramme
+        transit = exerciceAvecDiagramme()
+        exercice.questions = [transit.questions]
+        exercice.corrections = [transit.corrections]
+        break
+      case 3: // les deux
+        transit = exerciceAvecTableau()
+        exercice.questions = [transit.questions]
+        exercice.corrections = [transit.corrections]
+        transit = exerciceAvecDiagramme()
+        exercice.questions.push(transit.questions)
+        exercice.corrections.push(transit.corrections)
     }
+    console.log(exercice)
+    this.listeQuestions.push(...exercice.questions)
+    this.listeCorrections.push(...exercice.corrections)
+
     listeQuestionsToContenu(this)
   }
 }
