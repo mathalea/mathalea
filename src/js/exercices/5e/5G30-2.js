@@ -62,18 +62,18 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
 export default function exercicesAnglesAIC () {
   Exercice.call(this)
   const formulaire = [
-    '0 : Mélange des types de questions',
     '1 : Angles marqués alternes-internes ou correspondants ?',
     '2 : Déterminer si des droites sont parallèles (angles marqués).',
     '3 : Calculer la mesure d\'un angle.',
     '4 : Nommer un angle alterne-interne ou correspondant à un angle marqué.',
     '5 : Nommer un angle alterne-interne ou correspondant à un angle nommé.',
     '6 : Déterminer si des droites sont parallèles (utiliser les noms d\'angles).',
-    '7 : Calculer la mesure d\'un angle. (utiliser le nom des angles) ?'
+    '7 : Calculer la mesure d\'un angle. (utiliser le nom des angles) ?',
+    '8 : Mélange des questions'
   ]
-  this.nbQuestions = 0
+  this.nbQuestions = 1
   this.besoinFormulaireNumerique = [
-    'Type de question', this.nbQuestions, formulaire.join('\n')
+    'Type de question', 8, formulaire.join('\n')
   ]
   this.consigne = ''
   this.nbCols = 0
@@ -84,15 +84,21 @@ export default function exercicesAnglesAIC () {
   this.correctionDetaillee = true
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
-  this.sup = 0 // Type d'exercice
+  this.sup = 'all' // Type d'exercice
   this.nouvelleVersion = function (numeroExercice, dDebug = false) {
-    this.nbQuestions = this.NbQuestions > 0 ? this.nbQuestions : this.sup !== 0 ? 1 : formulaire.length - 1
+    if (this.sup === 'all') this.nbQuestions = formulaire.length - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
     let nquestion = 0
     for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 100;) { // Boucle principale où i+1 correspond au numéro de la question
-      nquestion = this.sup === 0 ? cpt + 1 : this.sup
+      if (this.sup === 'all') {
+        nquestion += 1
+      } else if (this.sup === 8) {
+        nquestion = choice([1, 2, 3, 4, 5, 6, 7])
+      } else {
+        nquestion = this.sup
+      }
       if (dDebug) {
         console.log(`
           ********************************
@@ -1063,7 +1069,7 @@ export default function exercicesAnglesAIC () {
         }
       }
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
-      if (this.questionJamaisPosee(i, nquestion)) {
+      if (this.questionJamaisPosee(i, exercice.texte)) {
         this.listeQuestions.push(exercice.texte)
         this.listeCorrections.push(exercice.texteCorr)
         i++
