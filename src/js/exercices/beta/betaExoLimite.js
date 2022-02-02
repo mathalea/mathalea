@@ -26,7 +26,8 @@ export default function NomExercice () {
     this.autoCorrection = []
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
-      texte = `Déterminer graphiquement les limites de la fonction $${['f', 'g', 'h', 'p', 'q', 'r', 's'][i % 7]}$ dont la représentation graphique est donnée ci-dessous.<br>`
+      const nom = ['f', 'g', 'h', 'p', 'q', 'r', 's'][i % 7]
+      texte = `Déterminer graphiquement les limites de la fonction $${nom}$ dont la représentation graphique est donnée ci-dessous.<br>`
       texteCorr = ''
 
       // On détermine aléatoirement les abscisses avec une discontinuité
@@ -54,6 +55,8 @@ export default function NomExercice () {
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: -10, xMax: x[0] - 0.5, yMin: -10, yMax: 10, step: 0.1 }))
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[0] - 0.5, xMax: x[0] - 0.001, yMin: -10, yMax: 10, step: 0.001 }))
           id.push(lim1, lim2)
+          texteCorr += `$\\displaystyle\\lim_{x \\to -\\infty} ${nom}(x) = ${lim1}$<br>`
+          texteCorr += `$\\displaystyle\\lim_{x \\to ${x[0]}^-} ${nom}(x) = ${lim2 < 0 ? '+\\infty' : '-\\infty'}$<br>`
         }
 
         for (let k = 0; k < x.length - 1; k++) {
@@ -66,6 +69,8 @@ export default function NomExercice () {
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k] + 0.5, xMax: x[k + 1] - 0.5, yMin: -10, yMax: 10, step: 0.1 }))
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k + 1] - 0.5, xMax: x[k + 1] - 0.001, yMin: -10, yMax: 10, step: 0.001 }))
           id.push(lim1, lim2 /*, c */)
+          texteCorr += `$\\displaystyle\\lim_{x \\to ${x[k]}^+} ${nom}(x) = ${lim1 > 0 ? '+\\infty' : '-\\infty'}$<br>`
+          texteCorr += `$\\displaystyle\\lim_{x \\to ${x[k + 1]}^-} ${nom}(x) = ${lim2 < 0 ? '+\\infty' : '-\\infty'}$<br>`
         }
 
         // Calcul entre x[n] et xmax
@@ -76,6 +81,8 @@ export default function NomExercice () {
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[x.length - 1] + 0.001, xMax: x[x.length - 1] + 0.5, yMin: -10, yMax: 10, step: 0.001 }))
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[x.length - 1] + 0.5, xMax: 10, yMin: -10, yMax: 10, step: 0.1 }))
           id.push(lim1, lim2)
+          texteCorr += `$\\displaystyle\\lim_{x \\to ${x[x.length - 1]}^+} ${nom}(x) = ${lim1 > 0 ? '+\\infty' : '-\\infty'}$<br>`
+          texteCorr += `$\\displaystyle\\lim_{x \\to +\\infty} ${nom}(x) = ${lim2}$<br>`
         }
       } else {
         // f(x) = ax^3 + bx² + cx + d
@@ -101,6 +108,8 @@ export default function NomExercice () {
         const g = t => a * t * t * t + c * t + d
         f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: -10, xMax: 10, yMin: -10, yMax: 10, step: 0.1 }))
         id.push('∅', lim1, lim2)
+        texteCorr += `$\\displaystyle\\lim_{x \\to -\\infty} ${nom}(x) = ${lim1}$<br>`
+        texteCorr += `$\\displaystyle\\lim_{x \\to +\\infty} ${nom}(x) = ${lim2}$<br>`
       }
 
       texte += mathalea2d({ xmin: -15, ymin: -10, xmax: 15, ymax: 10, scale: 1 }, monRepere, ...f)
