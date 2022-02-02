@@ -147,7 +147,7 @@ export default function PerimetreAireDisques (pa = 3) {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'Périmétre en cm (valeur exacte en nombre de $\\pi$)',
+                        texte: 'Périmètre en cm (valeur exacte en nombre de $\\pi$)',
                         valeur: [reponseL1],
                         param: {
                           digits: this.sup2 ? 2 : 3,
@@ -166,7 +166,7 @@ export default function PerimetreAireDisques (pa = 3) {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'Périmétre en cm (valeur arrondie à 0,1 près)',
+                        texte: 'Périmètre en cm (valeur arrondie à 0,1 près)',
                         valeur: [reponseL2],
                         param: {
                           digits: this.sup2 ? 3 : 4,
@@ -258,7 +258,7 @@ export default function PerimetreAireDisques (pa = 3) {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'Périmétre en cm (valeur exacte en nombre de $\\pi$)',
+                        texte: 'Périmètre en cm (valeur exacte en nombre de $\\pi$)',
                         valeur: [reponseL1],
                         param: {
                           digits: this.sup2 ? 2 : 3,
@@ -278,7 +278,7 @@ export default function PerimetreAireDisques (pa = 3) {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'Périmétre en cm (valeur arrondie à 0,1 près)',
+                        texte: 'Périmètre en cm (valeur arrondie à 0,1 près)',
                         valeur: [reponseL2],
                         param: {
                           digits: this.sup2 ? 3 : 4,

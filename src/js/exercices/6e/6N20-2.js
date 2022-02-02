@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,7 +15,7 @@ export const interactifType = 'mathLive'
 export default function ExerciceFractionsDifferentesEcritures () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne =
-    "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1 puis donner l'écriture décimale"
+    "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1 puis donner l'écriture décimale."
   this.spacing = 2
   this.spacingCorr = 2
 
@@ -61,7 +62,7 @@ export default function ExerciceFractionsDifferentesEcritures () {
       ])
     ) // liste_fractions pour les 6 premières questions
     for (
-      let i = 0, cpt = 0, fraction, a, ed, b, c, n, texte, texteCorr, reponse;
+      let i = 0, cpt = 0, fraction, a, ed, b, c, n, texte, texteCorr;
       i < this.nbQuestions && cpt < 50;
 
     ) {
@@ -94,9 +95,10 @@ export default function ExerciceFractionsDifferentesEcritures () {
         ' = ' +
         ed +
         ' $'
-      reponse = `${n}+${texFraction(c, b)}=${ed}`
-      setReponse(this, i, reponse)
-      if (this.interactif) texte = `$${texFraction(a, b)} = $` + ajouteChampTexteMathLive(this, i)
+      setReponse(this, 3 * i, n)
+      setReponse(this, 3 * i + 1, new FractionX(c, b), { formatInteractif: 'fraction' })
+      setReponse(this, 3 * i + 2, ed)
+      if (this.interactif) texte = `$${texFraction(a, b)} = $` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur10') + sp(6) + '+' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur10') + sp(6) + '=' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur 25')
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
@@ -105,6 +107,6 @@ export default function ExerciceFractionsDifferentesEcritures () {
       }
       cpt++
     }
-    listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
+    listeQuestionsToContenu(this) // Espacement de 2 em entre chaque question.
   }
 }
