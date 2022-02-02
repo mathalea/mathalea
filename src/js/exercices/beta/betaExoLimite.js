@@ -14,7 +14,6 @@ export const dateDePublication = '01/02/2022' // La date de publication initiale
 */
 export default function NomExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Calcule'
   this.nbQuestions = 3 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -51,7 +50,9 @@ export default function NomExercice () {
         {
           const lim1 = randint(-5, 5) // lim x->-oo
           const lim2 = choice([-1, 1]) // lim x->x[0]- (-1 pour -oo, +1 pour +oo)
-          f.push(courbe2(t => lim1 + lim2 * 1 / (t - x[0]), { color: 'red', repere: monRepere, xMin: -10, xMax: x[0], yMin: -10, yMax: 10, step: 0.001 }))
+          const g = t => lim1 + lim2 * 1 / (t - x[0])
+          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: -10, xMax: x[0] - 0.5, yMin: -10, yMax: 10, step: 0.1 }))
+          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[0] - 0.5, xMax: x[0], yMin: -10, yMax: 10, step: 0.001 }))
           id.push(lim1, lim2)
         }
 
@@ -60,7 +61,10 @@ export default function NomExercice () {
           const lim1 = choice([-1, 1]) // lim x->x[k]+ (-1 pour -oo, +1 pour +oo)
           const lim2 = choice([-1, 1]) // lim x->x[k+1]- (-1 pour -oo, +1 pour +oo)
           const c = randint(-3, 3)
-          f.push(courbe2(t => lim1 * 1 / (t - x[k]) + c + lim2 * 1 / (t - x[k + 1]), { color: 'red', repere: monRepere, xMin: x[k], xMax: x[k + 1], yMin: -10, yMax: 10, step: 0.001 }))
+          const g = t => lim1 * 1 / (t - x[k]) + c + lim2 * 1 / (t - x[k + 1])
+          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k], xMax: x[k] + 0.5, yMin: -10, yMax: 10, step: 0.001 }))
+          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k] + 0.5, xMax: x[k + 1] - 0.5, yMin: -10, yMax: 10, step: 0.1 }))
+          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k + 1] - 0.5, xMax: x[k + 1], yMin: -10, yMax: 10, step: 0.001 }))
           id.push(lim1, lim2 /*, c */)
         }
 
@@ -68,7 +72,9 @@ export default function NomExercice () {
         {
           const lim1 = choice([-1, 1]) // lim x->x[n]+ (-1 pour -oo, +1 pour +oo)
           const lim2 = randint(-5, 5) // lim x->+oo
-          f.push(courbe2(t => lim1 * 1 / (t - x[x.length - 1]) + lim2, { color: 'red', repere: monRepere, xMin: x[x.length - 1], xMax: 10, yMin: -10, yMax: 10, step: 0.001 }))
+          const g = t => lim1 * 1 / (t - x[x.length - 1]) + lim2
+          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[x.length - 1], xMax: x[x.length - 1] + 0.5, yMin: -10, yMax: 10, step: 0.001 }))
+          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[x.length - 1] + 0.5, xMax: 10, yMin: -10, yMax: 10, step: 0.1 }))
           id.push(lim1, lim2)
         }
       } else {
@@ -92,7 +98,8 @@ export default function NomExercice () {
         const a = (lim1 - lim2) / 4000
         const c = -3 / 40 * (lim1 - lim2)
         const d = (lim1 + lim2) / 2
-        f.push(courbe2(t => a * t * t * t + c * t + d, { color: 'red', repere: monRepere, xMin: -10, xMax: 10, yMin: -10, yMax: 10, step: 0.001 }))
+        const g = t => a * t * t * t + c * t + d
+        f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: -10, xMax: 10, yMin: -10, yMax: 10, step: 0.001 }))
         id.push('∅', lim1, lim2)
       }
 
