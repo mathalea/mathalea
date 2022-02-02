@@ -36,7 +36,7 @@ export default function NomExercice () {
       x = shuffle(x)
       // Étape n°3 : On choisi un nombre aléatoire de discontinuités
       // Il pourra y avoir de 0 à 3 discontinuité sauf pour la première question où il y aura toujours au moins une discontinuité
-      x = x.slice(0, choice([i !== 0 ? 0 : 2, 1, 2, 3]))
+      x = x.slice(0, choice([i !== 0 ? 0 : 2, 1, 1, 2, 2, 3]))
       // Étape n°4 : On tri les discontinuités dans l'ordre croissant
       x = x.sort((a, b) => a - b) // Il faut passer une fonction de tri car par défaut javascript tri par code unicode donc -2 < -4
 
