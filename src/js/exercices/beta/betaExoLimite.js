@@ -29,8 +29,6 @@ export default function NomExercice () {
       texte = `Déterminer graphiquement les limites de la fonction $${['f', 'g', 'h', 'p', 'q', 'r', 's'][i] % 7}$ dont la représentation graphique est donnée ci-dessous.<br>`
       texteCorr = ''
 
-      console.time()
-
       // On détermine aléatoirement les abscisses avec une discontinuité
       // Étape n°1 : On liste les possibilités
       let x = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
@@ -101,7 +99,7 @@ export default function NomExercice () {
         const c = -3 / 40 * (lim1 - lim2)
         const d = (lim1 + lim2) / 2
         const g = t => a * t * t * t + c * t + d
-        f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: -10, xMax: 10, yMin: -10, yMax: 10, step: 0.001 }))
+        f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: -10, xMax: 10, yMin: -10, yMax: 10, step: 0.1 }))
         id.push('∅', lim1, lim2)
       }
 
@@ -115,7 +113,6 @@ export default function NomExercice () {
         i++
       }
       cpt++
-      console.timeEnd()
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
