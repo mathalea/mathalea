@@ -26,7 +26,7 @@ export default function NomExercice () {
     this.autoCorrection = []
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
-      texte = `Déterminer graphiquement les limites de la fonction $${['f', 'g', 'h', 'p', 'q', 'r', 's'][i] % 7}$ dont la représentation graphique est donnée ci-dessous.<br>`
+      texte = `Déterminer graphiquement les limites de la fonction $${['f', 'g', 'h', 'p', 'q', 'r', 's'][i % 7]}$ dont la représentation graphique est donnée ci-dessous.<br>`
       texteCorr = ''
 
       // On détermine aléatoirement les abscisses avec une discontinuité
