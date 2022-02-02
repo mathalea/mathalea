@@ -29,6 +29,8 @@ export default function NomExercice () {
       texte = `Déterminer graphiquement les limites de la fonction $${['f', 'g', 'h', 'p', 'q', 'r', 's'][i] % 7}$ dont la représentation graphique est donnée ci-dessous.<br>`
       texteCorr = ''
 
+      console.time()
+
       // On détermine aléatoirement les abscisses avec une discontinuité
       // Étape n°1 : On liste les possibilités
       let x = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
@@ -52,7 +54,7 @@ export default function NomExercice () {
           const lim2 = choice([-1, 1]) // lim x->x[0]- (-1 pour -oo, +1 pour +oo)
           const g = t => lim1 + lim2 * 1 / (t - x[0])
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: -10, xMax: x[0] - 0.5, yMin: -10, yMax: 10, step: 0.1 }))
-          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[0] - 0.5, xMax: x[0], yMin: -10, yMax: 10, step: 0.001 }))
+          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[0] - 0.5, xMax: x[0] - 0.001, yMin: -10, yMax: 10, step: 0.001 }))
           id.push(lim1, lim2)
         }
 
@@ -62,9 +64,9 @@ export default function NomExercice () {
           const lim2 = choice([-1, 1]) // lim x->x[k+1]- (-1 pour -oo, +1 pour +oo)
           const c = randint(-3, 3)
           const g = t => lim1 * 1 / (t - x[k]) + c + lim2 * 1 / (t - x[k + 1])
-          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k], xMax: x[k] + 0.5, yMin: -10, yMax: 10, step: 0.001 }))
+          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k] + 0.001, xMax: x[k] + 0.5, yMin: -10, yMax: 10, step: 0.001 }))
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k] + 0.5, xMax: x[k + 1] - 0.5, yMin: -10, yMax: 10, step: 0.1 }))
-          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k + 1] - 0.5, xMax: x[k + 1], yMin: -10, yMax: 10, step: 0.001 }))
+          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k + 1] - 0.5, xMax: x[k + 1] - 0.001, yMin: -10, yMax: 10, step: 0.001 }))
           id.push(lim1, lim2 /*, c */)
         }
 
@@ -73,7 +75,7 @@ export default function NomExercice () {
           const lim1 = choice([-1, 1]) // lim x->x[n]+ (-1 pour -oo, +1 pour +oo)
           const lim2 = randint(-5, 5) // lim x->+oo
           const g = t => lim1 * 1 / (t - x[x.length - 1]) + lim2
-          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[x.length - 1], xMax: x[x.length - 1] + 0.5, yMin: -10, yMax: 10, step: 0.001 }))
+          f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[x.length - 1] + 0.001, xMax: x[x.length - 1] + 0.5, yMin: -10, yMax: 10, step: 0.001 }))
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[x.length - 1] + 0.5, xMax: 10, yMin: -10, yMax: 10, step: 0.1 }))
           id.push(lim1, lim2)
         }
@@ -113,6 +115,7 @@ export default function NomExercice () {
         i++
       }
       cpt++
+      console.timeEnd()
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
