@@ -15,10 +15,6 @@ export const dateDePublication = '01/02/2022' // La date de publication initiale
 export default function NomExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 3 // Nombre de questions par défaut
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
@@ -27,7 +23,7 @@ export default function NomExercice () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const nom = ['f', 'g', 'h', 'p', 'q', 'r', 's'][i % 7]
-      texte = `Déterminer graphiquement les limites de la fonction $${nom}$ dont la représentation graphique est donnée ci-dessous.<br>`
+      texte = `Déterminer graphiquement les limites de la fonction $${nom}$ dont la courbe représentative est tracée ci-dessous.<br>`
       texteCorr = ''
 
       // On détermine aléatoirement les abscisses avec une discontinuité
@@ -112,7 +108,7 @@ export default function NomExercice () {
         texteCorr += `$\\displaystyle\\lim_{x \\to +\\infty} ${nom}(x) = ${lim2}$<br>`
       }
 
-      texte += mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, scale: 1 }, monRepere, ...f)
+      texte += mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, scale: 0.5 }, monRepere, ...f)
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, id)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
