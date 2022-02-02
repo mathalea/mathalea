@@ -77,7 +77,6 @@ Cf la [doc officielle](https://docs.npmjs.com/cli/v7/configuring-npm/package-jso
 
 **Dans le dossier `/src/assets/externalJs/` se trouvent d'autre bibliothèques JavaScript**
 * [Semantic UI](https://semantic-ui.com/) v. 2.0.7 : Permet de standardiser l'interface utilisateur.
-* [Slick](https://kenwheeler.github.io/slick/) v. 1.8.0 : Permet de faire plein de jolis choses et est utilisé pour faire des diaporamas.
 * [cm-resize](https://github.com/Sphinxxxx/cm-resize) v. 1.0.1 : Ajoute une poignée de redimensionnement à l'éditeur de CodeMirror.
 * [filesaver](https://github.com/eligrey/FileSaver.js/) v. 2.0.4 : Permet de sauvegarder des fichiers générés côté client.
 * [Giac/XCas](https://www-fourier.ujf-grenoble.fr/~parisse/giac_fr.html) développé par Bernard Parisse et Renée De Graeve (pour le calcul formel dans les exercices de lycée)

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, texFractionReduite } from '../../modules/outils.js'
-import { tableauDeVariation, mathalea2d, texteParPosition, repere, labelPoint, point, tracePoint, courbe2, repere2 } from '../../modules/2d.js'
+import { tableauDeVariation, mathalea2d, labelPoint, point, tracePoint, courbe2, repere2 } from '../../modules/2d.js'
 
 export const titre = 'Déterminer le signe d’une fonction affine'
 
@@ -15,7 +15,6 @@ export default function signefonctionaffine () {
   this.nbQuestions = 3 // On complète le nb de questions
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.tailleDiaporama = 100
   this.video = ''
   this.spacing = 1
   this.spacingCorr = 1
@@ -29,9 +28,9 @@ export default function signefonctionaffine () {
     // typesDeQuestionsDisponibles = [1, 2]// On complète selon le nb de cas dans l'exo (switch)
 
     // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    const o = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1)
+    // const o = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1)
 
-    for (let i = 0, a, b, F, r, tA, lA, monRepere, maCourbe, ligne1, texte, texteCorr, cpt = 0;
+    for (let i = 0, a, b, tA, lA, monRepere, maCourbe, ligne1, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       // typesDeQuestions = listeTypeDeQuestions[i]
       if (this.sup === 1) {

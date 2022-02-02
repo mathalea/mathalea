@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, pgcd, texFractionReduite, lettreMinusculeDepuisChiffre } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, pgcd, texFractionReduite, lettreMinusculeDepuisChiffre } from '../../modules/outils.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Compléter un tableau de valeurs'
 export const interactifReady = true
@@ -347,7 +348,7 @@ export default function TableauDeValeurs () {
       }
       cpt++
     }
-    this.nbQuestions === 1 ? listeQuestionsToContenuSansNumero(this) : listeQuestionsToContenu(this)
+    listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 5, '1 : Fonctions affines\n2 : Polynome du second degré\n3 : Quotient\n4 : Produit \n5 : Mélange']
 }

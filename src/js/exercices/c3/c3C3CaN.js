@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, calcul, texNombrec, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { afficheCoteSegment, codeSegments, homothetie, mathalea2d, point, polygoneRegulier, segment, texteSurSegment } from '../../modules/2d.js'
 export const titre = 'Course aux nombres CM1'
 export const interactifReady = true

@@ -2,7 +2,8 @@ import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffre } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -60,7 +61,8 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
       if (!this.litteral) { resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, calculMental) } else { resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, calculMental) }
       expf = resultats[0]
-      expn = resultats[1]
+      expn = resultats[1].split('=')[0]
+      expn += expn[expn.length - 1] !== '$' ? '$' : ''
       expc = resultats[2]
       nbval = resultats[3]
       switch (this.version) {

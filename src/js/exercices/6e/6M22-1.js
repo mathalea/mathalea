@@ -1,7 +1,8 @@
 import { pointAdistance, point, segment, rotation, cercle, tracePoint, mathalea2d, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, arrondi, texNombre, contraindreValeur, randint, interactivite, texNombrec } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 
 export const titre = 'Calculer périmètre et aire de disques'
@@ -151,7 +152,9 @@ export default function PerimetreAireDisques (pa = 3) {
                         param: {
                           digits: this.sup2 ? 2 : 3,
                           decimals: this.sup2 ? 0 : 1,
-                          signe: false
+                          signe: false,
+                          approx: 1,
+                          scoreapprox: 0.667
                         }
                       }
                     }
@@ -168,7 +171,9 @@ export default function PerimetreAireDisques (pa = 3) {
                         param: {
                           digits: this.sup2 ? 3 : 4,
                           signe: false,
-                          decimals: 1
+                          decimals: 1,
+                          approx: 1,
+                          scoreapprox: 0.667
                         }
                       }
                     }
@@ -201,7 +206,9 @@ export default function PerimetreAireDisques (pa = 3) {
                         param: {
                           digits: this.sup2 ? 2 : 3,
                           signe: false,
-                          decimals: this.sup2 ? 0 : 1
+                          decimals: this.sup2 ? 0 : 1,
+                          approx: 1,
+                          scoreapprox: 0.667
                         }
                       }
                     }
@@ -218,7 +225,9 @@ export default function PerimetreAireDisques (pa = 3) {
                         param: {
                           digits: this.sup2 ? 3 : 4,
                           signe: false,
-                          decimals: 1
+                          decimals: 1,
+                          approx: 1,
+                          scoreapprox: 0.667
                         }
                       }
                     }
@@ -254,7 +263,9 @@ export default function PerimetreAireDisques (pa = 3) {
                         param: {
                           digits: this.sup2 ? 2 : 3,
                           decimals: this.sup2 ? 0 : 1,
-                          signe: false
+                          signe: false,
+                          approx: 1,
+                          scoreapprox: 0.667
 
                         }
                       }
@@ -272,8 +283,9 @@ export default function PerimetreAireDisques (pa = 3) {
                         param: {
                           digits: this.sup2 ? 3 : 4,
                           decimals: 1,
-                          signe: false
-
+                          signe: false,
+                          approx: 1,
+                          scoreapprox: 0.667
                         }
                       }
                     }
@@ -290,8 +302,9 @@ export default function PerimetreAireDisques (pa = 3) {
                         param: {
                           digits: this.sup2 ? 2 : 3,
                           decimals: this.sup2 ? 0 : 1,
-                          signe: false
-
+                          signe: false,
+                          approx: 1,
+                          scoreapprox: 0.667
                         }
                       }
                     }
@@ -309,8 +322,9 @@ export default function PerimetreAireDisques (pa = 3) {
                         param: {
                           digits: this.sup2 ? 3 : 4,
                           decimals: 1,
-                          signe: false
-
+                          signe: false,
+                          approx: 1,
+                          scoreapprox: 0.667
                         }
                       }
                     }

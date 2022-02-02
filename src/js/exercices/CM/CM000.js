@@ -73,7 +73,7 @@ export default function TablesAdditionsSoustractions () {
       this.autoCorrection[i] = {}
       switch (listeTypeDeQuestions[i]) {
         case 'addition':
-          texte = `$${a} + ${b} = \\dotfill$`
+          texte = `$${a} + ${b} =$`
           if (this.interactif && context.isHtml) {
             texte = ajouteChampTexte(this, i, {
               texte: `$${a} + ${b} = $`
@@ -100,7 +100,7 @@ export default function TablesAdditionsSoustractions () {
           if (a < b) {
             b = [a, (a = b)][0] // échange les variables a et b
           }
-          texte = `$${a} - ${b} = \\dotfill$`
+          texte = `$${a} - ${b} =$`
           if (this.interactif && context.isHtml) {
             texte = ajouteChampTexte(this, i, {
               texte: `$${a} - ${b} = $`
@@ -128,9 +128,6 @@ export default function TablesAdditionsSoustractions () {
           break
       }
 
-      if (context.isDiaporama) {
-        texte = texte.replace('= \\dotfill', '')
-      }
       this.autoCorrection[i].reponse.param = { digits: nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur[0]), decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
       this.autoCorrection[i].enonce = texte
       this.listeQuestions.push(texte)

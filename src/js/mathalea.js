@@ -11,7 +11,7 @@ import {
   getUnknownError,
   UserFriendlyError
 } from './modules/messages.js'
-import { ajouteChampTexteMathLive, exerciceInteractif, setReponse } from './modules/gestionInteractif.js'
+import { exerciceInteractif, setReponse } from './modules/gestionInteractif.js'
 import Exercice from './exercices/Exercice.js'
 import Clipboard from 'clipboard'
 import QRCode from 'qrcode'
@@ -27,6 +27,7 @@ import { initDom } from './modules/initDom.js'
 import gestionScores from './modules/gestionScores.js'
 import { modalTimer } from './modules/modalTimer.js'
 import { zoomAffichage } from './modules/zoom.js'
+import { ajouteChampTexteMathLive } from './modules/interactif/questionMathLive.js'
 
 // "3" isNumeric (pour gérer le sup venant de l'URL)
 function isNumeric (n) {
@@ -192,14 +193,13 @@ function copierExercicesFormVersAffichage (exliste) {
  * ATTENTION, fct async, elle retourne une promesse de chargement, faut attendre que la promesse
  * soit résolue avant d'utiliser ce qui est chargé (et gérer l'éventuel pb de chargement)
  * @private
- * @param isdiaporama
  * @param listeObjetsExercice
  * @return {Promise}
  */
-async function gestionModules (isdiaporama, listeObjetsExercice) {
+async function gestionModules (listeObjetsExercice) {
   try {
     // besoin katex, mg32, iep, scratch
-    // appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.
+    // appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html et pour le preview.
     loadMathLive()
     renderMathInElement(document.body, {
       delimiters: [
@@ -263,8 +263,8 @@ async function gestionModules (isdiaporama, listeObjetsExercice) {
   }
 }
 
-function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
-  // appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html (diaporama et !diaporama) et pour le preview.
+function contenuExerciceHtml (obj, numeroExercice) {
+  // appelée dès lors que l'on affiche le code html des exercices : depuis "miseAJourDuCode" en mode html et pour le preview.
   // fonction construisant le html pour l'affichage d'un exercice :
   // * mise en page du titre,
   // * icones
@@ -275,66 +275,131 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
   let contenuUneCorrection = ''
   let paramTooltip = ''
   let iconeInteractif = ''
-  if (isdiaporama) {
-    contenuUnExercice += '<section class="slider single-item" id="diaporama">'
-    if (obj.typeExercice === 'simple') {
-      exerciceSimpleToContenu(obj)
+  if (obj.typeExercice === 'crpe') {
+    contenuUnExercice += ` Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`
+    contenuUnExercice += '<div><div class="question">'
+    for (const png of obj.png) {
+      contenuUnExercice += `<img width="90%" src="${png}">`
     }
-    for (const question of obj.listeQuestions) {
-      contenuUnExercice +=
-        `\n<div id="question_diap" style="font-size:${obj.tailleDiaporama}px"><span>` +
-        question
-          .replace(/\\dotfill/g, '...')
-          .replace(/\\not=/g, '≠')
-          .replace(/\\ldots/g, '....') +
-        '</span></div>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
-    }
-    contenuUnExercice += '<div id="question_diap" style="font-size:100px"><span>$\\text{Terminé !}$</span></div></section>'
-    if (obj.typeExercice === 'MG32') {
-      contenuUnExercice += `<div id="MG32div${numeroExercice - 1}" class="MG32"></div>`
-    }
-    contenuUneCorrection += obj.contenuCorrection
-    if (obj.typeExercice === 'MG32' && obj.MG32codeBase64corr) {
-      contenuUneCorrection += `<div id="MG32divcorr${numeroExercice - 1}" class="MG32"></div>`
-    }
-  }
-  if (!isdiaporama) {
-    if (obj.typeExercice === 'crpe') {
-      contenuUnExercice += ` Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`
-      contenuUnExercice += '<div><div class="question">'
-      for (const png of obj.png) {
-        contenuUnExercice += `<img width="90%" src="${png}">`
-      }
-      contenuUnExercice += '</div></div>'
-      contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${
+    contenuUnExercice += '</div></div>'
+    contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${
         obj.numeroInitial} - Correction par la Copirelem</h3>`
-      if (obj.correctionIsCachee) {
-        contenuUneCorrection += obj.correctionIsCachee ? '<div><div class="correction">Correction masquée</div></div>' : `<div><div class="correction"><img width="90%" src="${obj.pngcor}"></div></div>`
-      } else {
-        contenuUneCorrection += '<div><div class="correction">'
-        for (const png of obj.pngCor) {
-          contenuUneCorrection += `<img width="90%" src="${png}">`
-        }
-        contenuUneCorrection += '</div></div>'
-      }
-      obj.video = false
-    } else if (obj.typeExercice === 'dnb') {
-      contenuUnExercice += ` Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
-      contenuUnExercice += `<div><div class="question"><img width="90%" src="${obj.png}"></div></div>`
-      contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${
-        obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+    if (obj.correctionIsCachee) {
       contenuUneCorrection += obj.correctionIsCachee ? '<div><div class="correction">Correction masquée</div></div>' : `<div><div class="correction"><img width="90%" src="${obj.pngcor}"></div></div>`
-      obj.video = false
-    } else if (obj.typeExercice === 'simple') {
-      if (obj.interactif) {
-        iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
+    } else {
+      contenuUneCorrection += '<div><div class="correction">'
+      for (const png of obj.pngCor) {
+        contenuUneCorrection += `<img width="90%" src="${png}">`
+      }
+      contenuUneCorrection += '</div></div>'
+    }
+    obj.video = false
+  } else if (obj.typeExercice === 'dnb') {
+    contenuUnExercice += ` Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
+    contenuUnExercice += `<div><div class="question"><img width="90%" src="${obj.png}"></div></div>`
+    contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${
+        obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+    contenuUneCorrection += obj.correctionIsCachee ? '<div><div class="correction">Correction masquée</div></div>' : `<div><div class="correction"><img width="90%" src="${obj.pngcor}"></div></div>`
+    obj.video = false
+  } else if (obj.typeExercice === 'simple') {
+    if (obj.interactif) {
+      iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
           numeroExercice - 1
         }" class="keyboard icon iconeInteractif"></i><span>`
-      } else {
-        iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
+    } else {
+      iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
           numeroExercice - 1
         }" class="keyboard outline icon iconeInteractif"></i><span>`
+    }
+    if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
+      paramTooltip += obj.besoinFormulaireNumerique[0] + ' : \n' + obj.besoinFormulaireNumerique[2] + '\n'
+    }
+    if (obj.besoinFormulaire2Numerique && obj.besoinFormulaire2Numerique[2]) {
+      paramTooltip += obj.besoinFormulaire2Numerique[0] + ' : \n' + obj.besoinFormulaire2Numerique[2]
+    }
+    paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
+    contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
+    contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
+    if (obj.consigne) {
+      contenuUnExercice += `<h4> ${obj.consigne} </h4>`
+    }
+    contenuUnExercice += (obj.nbQuestions !== 1) ? '<ol>' : ''
+    // Pour la numérotation de diapCorr, il faut qu'il y ait toujours des listes même s'il n'y a qu'une seule question
+    contenuUneCorrection += (obj.nbQuestions !== 1 || context.vue === 'diapCorr') ? '<ol>' : ''
+    for (let numQuestion = 0, cpt = 0; numQuestion < obj.nbQuestions && cpt < 50; cpt++) {
+      try {
+        obj.nouvelleVersion()
+      } catch (error) {
+        console.log(error)
       }
+
+      if (obj.questionJamaisPosee(numQuestion, obj.question)) {
+        if (obj.nbQuestions === 1) {
+          contenuUnExercice += `<div><div class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question}</div></div>`
+        } else {
+          contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question}`
+        }
+        if (obj.interactif && obj.interactifReady) {
+          if (obj.formatChampTexte) {
+            if (obj.optionsChampTexte) {
+              contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion, obj.formatChampTexte, obj.optionsChampTexte)
+            } else {
+              contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion, obj.formatChampTexte)
+            }
+          } else {
+            if (obj.optionsChampTexte) {
+              contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion, '', obj.optionsChampTexte)
+            } else {
+              contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion)
+            }
+          }
+        }
+        contenuUnExercice += (obj.nbQuestions !== 1) ? '</li>' : ''
+        if (obj.formatInteractif) {
+          setReponse(obj, numQuestion, obj.reponse, { formatInteractif: obj.formatInteractif })
+        } else {
+          setReponse(obj, numQuestion, obj.reponse)
+        }
+        // Pour la numérotation de diapCorr, il faut qu'il y ait toujours des listes même s'il n'y a qu'une seule question
+        if (obj.nbQuestions === 1 && context.vue !== 'diapCorr') {
+          contenuUneCorrection += obj.correctionIsCachee ? 'Correction masquée' : `<div><div class="correction">${obj.correction}</div></div>`
+        } else {
+          contenuUneCorrection += `<li class="correction">${obj.correctionIsCachee ? 'Correction masquée' : obj.correction}</li>`
+        }
+        numQuestion++
+      }
+    }
+    contenuUnExercice += (obj.nbQuestions !== 1) ? '</ol>' : ''
+    contenuUneCorrection += (obj.nbQuestions !== 1) ? '</ol>' : ''
+    if (obj.interactif || obj.interactifObligatoire) {
+      contenuUnExercice += `<button class="ui button blue checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
+      exerciceInteractif(obj)
+    }
+  } else { // Exercice classique
+    try {
+      obj.nouvelleVersion(numeroExercice - 1)
+    } catch (error) {
+      console.log(error)
+    }
+    if (obj.interactifReady && obj.interactif && !obj.interactifObligatoire) {
+      iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
+          numeroExercice - 1
+        }" class="keyboard icon iconeInteractif"></i><span>`
+    } else if (obj.interactifReady && !obj.interactifObligatoire) {
+      iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
+          numeroExercice - 1
+        }" class="keyboard outline icon iconeInteractif"></i><span>`
+    }
+    if (obj.interactif || obj.interactifObligatoire) {
+      exerciceInteractif(obj)
+    }
+    if (
+      (!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.interactifReady) ||
+        context.vue === 'l' || context.vue === 'light' || context.vue === 'embed' || context.vue === 'e' || context.vue === 'eval' || context.vue === 'multi'
+    ) {
+      // Dans v=l on ne met pas les raccourcis vers interactif et paramètres.
+      contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
+    } else {
       if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
         paramTooltip += obj.besoinFormulaireNumerique[0] + ' : \n' + obj.besoinFormulaireNumerique[2] + '\n'
       }
@@ -343,111 +408,21 @@ function contenuExerciceHtml (obj, numeroExercice, isdiaporama) {
       }
       paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
       contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
-      contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
-      if (obj.consigne) {
-        contenuUnExercice += `<h4> ${obj.consigne} </h4>`
-      }
-      contenuUnExercice += (obj.nbQuestions !== 1) ? '<ol>' : ''
-      // Pour la numérotation de diapCorr, il faut qu'il y ait toujours des listes même s'il n'y a qu'une seule question
-      contenuUneCorrection += (obj.nbQuestions !== 1 || context.vue === 'diapCorr') ? '<ol>' : ''
-      for (let numQuestion = 0, cpt = 0; numQuestion < obj.nbQuestions && cpt < 50; cpt++) {
-        try {
-          obj.nouvelleVersion()
-        } catch (error) {
-          console.log(error)
-        }
-
-        if (obj.questionJamaisPosee(numQuestion, obj.question)) {
-          if (obj.nbQuestions === 1) {
-            contenuUnExercice += `<div><div class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question}</div></div>`
-          } else {
-            contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question}`
-          }
-          if (obj.interactif && obj.interactifReady) {
-            if (obj.formatChampTexte) {
-              if (obj.optionsChampTexte) {
-                contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion, obj.formatChampTexte, obj.optionsChampTexte)
-              } else {
-                contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion, obj.formatChampTexte)
-              }
-            } else {
-              if (obj.optionsChampTexte) {
-                contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion, '', obj.optionsChampTexte)
-              } else {
-                contenuUnExercice += ajouteChampTexteMathLive(obj, numQuestion)
-              }
-            }
-          }
-          contenuUnExercice += (obj.nbQuestions !== 1) ? '</li>' : ''
-          if (obj.formatInteractif) {
-            setReponse(obj, numQuestion, obj.reponse, { formatInteractif: obj.formatInteractif })
-          } else {
-            setReponse(obj, numQuestion, obj.reponse)
-          }
-          // Pour la numérotation de diapCorr, il faut qu'il y ait toujours des listes même s'il n'y a qu'une seule question
-          if (obj.nbQuestions === 1 && context.vue !== 'diapCorr') {
-            contenuUneCorrection += obj.correctionIsCachee ? 'Correction masquée' : `<div><div class="correction">${obj.correction}</div></div>`
-          } else {
-            contenuUneCorrection += `<li class="correction">${obj.correctionIsCachee ? 'Correction masquée' : obj.correction}</li>`
-          }
-          numQuestion++
-        }
-      }
-      contenuUnExercice += (obj.nbQuestions !== 1) ? '</ol>' : ''
-      contenuUneCorrection += (obj.nbQuestions !== 1) ? '</ol>' : ''
-      if (obj.interactif || obj.interactifObligatoire) {
-        contenuUnExercice += `<button class="ui button blue checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
-        exerciceInteractif(obj)
-      }
-    } else { // Exercice classique
-      try {
-        obj.nouvelleVersion(numeroExercice - 1)
-      } catch (error) {
-        console.log(error)
-      }
-      if (obj.interactifReady && obj.interactif && !obj.interactifObligatoire) {
-        iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
-          numeroExercice - 1
-        }" class="keyboard icon iconeInteractif"></i><span>`
-      } else if (obj.interactifReady && !obj.interactifObligatoire) {
-        iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
-          numeroExercice - 1
-        }" class="keyboard outline icon iconeInteractif"></i><span>`
-      }
-      if (obj.interactif || obj.interactifObligatoire) {
-        exerciceInteractif(obj)
-      }
-      if (
-        (!obj.nbQuestionsModifiable && !obj.besoinFormulaireNumerique && !obj.besoinFormulaireTexte && !obj.interactifReady) ||
-        context.vue === 'l' || context.vue === 'light' || context.vue === 'embed' || context.vue === 'e' || context.vue === 'eval' || context.vue === 'multi'
-      ) {
-        // Dans v=l on ne met pas les raccourcis vers interactif et paramètres.
-        contenuUnExercice += `Exercice ${numeroExercice} − ${obj.id} </h3>`
-      } else {
-        if (obj.besoinFormulaireNumerique && obj.besoinFormulaireNumerique[2]) {
-          paramTooltip += obj.besoinFormulaireNumerique[0] + ' : \n' + obj.besoinFormulaireNumerique[2] + '\n'
-        }
-        if (obj.besoinFormulaire2Numerique && obj.besoinFormulaire2Numerique[2]) {
-          paramTooltip += obj.besoinFormulaire2Numerique[0] + ' : \n' + obj.besoinFormulaire2Numerique[2]
-        }
-        paramTooltip = paramTooltip ? `data-tooltip="${paramTooltip}" data-position="right center"` : ''
-        contenuUnExercice += `<span ${paramTooltip}> Exercice ${numeroExercice} − ${obj.id} <i class="cog icon icone_param"></i></span>${iconeInteractif}</h3>`
-      }
-      if (obj.video.length > 3) {
-        contenuUnExercice += `<div id=video${numeroExercice - 1}>` + modalYoutube(numeroExercice - 1, obj.video, '', 'Aide', 'youtube') + '</div>'
-      }
-      if (obj.boutonAide) {
-        contenuUnExercice += `<div id=aide${numeroExercice - 1}> ${obj.boutonAide}</div>`
-      }
-      contenuUnExercice += obj.contenu
-      if (obj.typeExercice === 'MG32') {
-        contenuUnExercice += `<div id="MG32div${numeroExercice - 1}" class="MG32"></div>`
-      }
-      contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
-      contenuUneCorrection += obj.correctionIsCachee ? 'Correction masquée' : obj.contenuCorrection
-      if (obj.typeExercice === 'MG32' && obj.MG32codeBase64corr) {
-        contenuUneCorrection += `<div id="MG32divcorr${numeroExercice - 1}" class="MG32"></div>`
-      }
+    }
+    if (obj.video.length > 3) {
+      contenuUnExercice += `<div id=video${numeroExercice - 1}>` + modalYoutube(numeroExercice - 1, obj.video, '', 'Aide', 'youtube') + '</div>'
+    }
+    if (obj.boutonAide) {
+      contenuUnExercice += `<div id=aide${numeroExercice - 1}> ${obj.boutonAide}</div>`
+    }
+    contenuUnExercice += obj.contenu
+    if (obj.typeExercice === 'MG32') {
+      contenuUnExercice += `<div id="MG32div${numeroExercice - 1}" class="MG32"></div>`
+    }
+    contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice}</h3>`
+    contenuUneCorrection += obj.correctionIsCachee ? 'Correction masquée' : obj.contenuCorrection
+    if (obj.typeExercice === 'MG32' && obj.MG32codeBase64corr) {
+      contenuUneCorrection += `<div id="MG32divcorr${numeroExercice - 1}" class="MG32"></div>`
     }
   }
   return {
@@ -527,7 +502,7 @@ function miseAJourDuCode () {
   ;(function gestionURL () {
     if (listeDesExercices.length > 0) {
       let finUrl = ''
-      if (context.isHtml && !context.isDiaporama) {
+      if (context.isHtml) {
         finUrl += 'mathalea.html'
       }
       finUrl += `?ex=${listeDesExercices[0]}`
@@ -559,10 +534,10 @@ function miseAJourDuCode () {
         if (!listeObjetsExercice[0].correctionDetaillee && listeObjetsExercice[0].correctionDetailleeDisponible) {
           finUrl += ',cd=0'
         }
-        if (listeObjetsExercice[0].interactif && !context.isDiaporama) {
+        if (listeObjetsExercice[0].interactif) {
           finUrl += ',i=1'
         }
-        if (!listeObjetsExercice[0].interactif && listeObjetsExercice[0].interactifReady && !context.isDiaporama) {
+        if (!listeObjetsExercice[0].interactif && listeObjetsExercice[0].interactifReady) {
           finUrl += ',i=0'
         }
         listeObjetsExercice[0].numeroExercice = 0
@@ -599,10 +574,10 @@ function miseAJourDuCode () {
         if (!listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
           finUrl += ',cd=0'
         }
-        if (listeObjetsExercice[i].interactif && !context.isDiaporama) {
+        if (listeObjetsExercice[i].interactif) {
           finUrl += ',i=1'
         }
-        if (!listeObjetsExercice[i].interactif && listeObjetsExercice[i].interactifReady && !context.isDiaporama) {
+        if (!listeObjetsExercice[i].interactif && listeObjetsExercice[i].interactifReady) {
           finUrl += ',i=0'
         }
         listeObjetsExercice[i].numeroExercice = i
@@ -633,6 +608,12 @@ function miseAJourDuCode () {
       if (context.isAmc) {
         finUrl += `&f=${format}&e=${typeEntete}`
       }
+      if (context.vue === 'exMoodle' || context.vue === 'correctionMoodle') {
+        const iMoodle = new URLSearchParams(window.location.search).get('iMoodle')
+        if (typeof iMoodle !== 'undefined') {
+          finUrl += `&iMoodle=${iMoodle}`
+        }
+      }
       window.history.replaceState('', '', finUrl)
       const url = window.location.href.split('&serie')[0] + '&v=l' // met l'URL dans le bouton de copie de l'URL sans garder le numéro de la série et en ajoutant le paramètre pour le mettre en plein écran
       const clipboardURL = new Clipboard('#btnCopieURL', { text: () => url })
@@ -656,55 +637,15 @@ function miseAJourDuCode () {
     strict: 'warn',
     trust: false
   })
-  let contenu, contenuDesExercices, contenuDesCorrections
+  let contenu
   // Dans la suite test selon les affichages :
-  // 1/ context.isHtml && diaporama => &v=cm pour le calcul mental.
-  // 2/ context.isHtml && !diaporama => &v=menu, &v=ex, &v=exEtChoix
-  // 3/ context.isAmc => &v=amc
-  // 4/ contex.isMoodle => &v=moodle
+  // 1/ context.isHtml => &v=menu, &v=ex, &v=exEtChoix
+  // 2/ context.isAmc => &v=amc
+  // 3/ contex.isMoodle => &v=moodle
   // 4/ !context.isHtml && !context.isAmc && !context.isAlc  => &v=latex
-  if (context.isHtml && context.isDiaporama) {
-    if (listeDesExercices.length > 0) {
-      // Pour les diaporamas tout cacher quand un exercice est choisi
-      $('#exercices_disponibles').hide()
-      $('#icones').show() // on affiche les boutons du diaporama uniquement quand un exercice est choisi.
-      $('#corrections_et_parametres').show()
-      $('#parametres_generaux').show()
-    } else {
-      $('#exercices_disponibles').show()
-      $('h3').show()
-      $('#formulaire_choix_de_la_duree').show()
-    }
-    document.getElementById('exercices').innerHTML = ''
-    document.getElementById('corrections').innerHTML = ''
-    if (listeDesExercices.length > 0) {
-      for (let i = 0; i < listeDesExercices.length; i++) {
-        listeObjetsExercice[i].id = listeDesExercices[i]
-        listeObjetsExercice[i].interactif = false
-        try {
-          listeObjetsExercice[i].nouvelleVersion(i)
-        } catch (error) {
-          console.log(error)
-        }
-        contenu = contenuExerciceHtml(listeObjetsExercice[i], i + 1, true)
-      }
-      contenuDesExercices = contenu.contenu_un_exercice
-      contenuDesCorrections = `${contenu.contenu_une_correction}`
-      $('#message_liste_exercice_vide').hide()
-      $('#cache').dimmer('hide')
-    } else {
-      $('#message_liste_exercice_vide').show() // Message au dessus de la liste des exercices
-      $('#cache').dimmer('show') // Cache au dessus du code LaTeX
-    }
-    $('#popup_preview .icone_param').remove() // dans l'aperçu pas d'engrenage pour les paramètres.
-    $('#popup_preview .iconeInteractif').remove() // dans l'aperçu pas d'icone interactif.
-    document.getElementById('exercices').innerHTML = contenuDesExercices
-    document.getElementById('corrections').innerHTML = contenuDesCorrections
-    gestionModules(true, listeObjetsExercice)
-  }
 
   // Ajoute le contenu dans les div #exercices et #corrections
-  if (context.isHtml && !context.isDiaporama && !context.isMoodle) {
+  if (context.isHtml && !context.isMoodle) {
     let scrollLevel
     // récupération du scrollLevel pour ne pas avoir un comportement "bizarre"
     //    lors des modification sur les exercices via les paramètres et/ou icones dans la colonne de droite d'affichage des exercices.
@@ -719,7 +660,7 @@ function miseAJourDuCode () {
       for (let i = 0; i < listeDesExercices.length; i++) {
         // const contenu_un_exercice = ''; const contenu_une_correction = ''
         listeObjetsExercice[i].id = listeDesExercices[i]
-        contenu = contenuExerciceHtml(listeObjetsExercice[i], i + 1, false)
+        contenu = contenuExerciceHtml(listeObjetsExercice[i], i + 1)
         if ($('#liste_des_exercices').is(':visible') || $('#exercices_disponibles').is(':visible') || $('#exo_plein_ecran').is(':visible')) {
           // si on n'a plus la liste des exercices il ne faut plus pouvoir en supprimer (pour v=l)
           if (listeDesExercices.length === 1) {
@@ -755,7 +696,7 @@ function miseAJourDuCode () {
       document.getElementById('right').scrollTop = scrollLevel
     }
     document.getElementById('corrections').innerHTML = contenuDesCorrections
-    gestionModules(false, listeObjetsExercice)
+    gestionModules(listeObjetsExercice)
     const exercicesAffiches = new window.Event('exercicesAffiches', { bubbles: true })
     document.dispatchEvent(exercicesAffiches)
     // En cas de clic sur la correction, on désactive les exercices interactifs
@@ -918,40 +859,112 @@ function miseAJourDuCode () {
         const id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
         const nbQuestions = listeObjetsExercice[i].nbQuestions
         const titre = listeObjetsExercice[i].titre
-        const video = listeObjetsExercice[i].video
         const pointsParQuestions = listeObjetsExercice[i].pointsParQuestions
+        let params = ''
+        if (listeObjetsExercice[i].sup !== undefined) {
+          params += `s=${listeObjetsExercice[i].sup}`
+        }
+        if (listeObjetsExercice[i].sup2 !== undefined) {
+          params += `,s2=${listeObjetsExercice[i].sup2}`
+        }
+        if (listeObjetsExercice[i].sup3 !== undefined) {
+          params += `,s3=${listeObjetsExercice[i].sup3}`
+        }
+        if (listeObjetsExercice[i].sup4 !== undefined) {
+          params += `,s4=${listeObjetsExercice[i].sup4}`
+        }
+        if (listeObjetsExercice[i].nbQuestionsModifiable) {
+          params += `,n=${listeObjetsExercice[i].nbQuestions}`
+        }
+        // if (listeObjetsExercice[i].video.length > 1) {
+        //   params += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
+        // }
+        params += ',video=0'
+        if (listeObjetsExercice[i].correctionIsCachee) {
+          params += ',cc=1'
+        }
+        if (listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
+          params += ',cd=1'
+        }
+        if (!listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
+          params += ',cd=0'
+        }
+        params += ',i=1'
+        const mathAleaURL = location.origin + location.pathname
+        const urlIframe = `${mathAleaURL}?ex=${id},${params}&v=exMoodle&z=1`
+        const urlIframeCor = `${mathAleaURL}?ex=${id},${params}&v=correctionMoodle&z=1`
+
+        /*
+          Quelques remarques :
+          - L'extension 'es6-string-javascript' permet d'obtenir la coloration syntaxique de code JS
+          - Le script est un module qui est donc chargé après que le document est parsé, il peut donc accéder à des nodes après la balise script
+        */
+
+        const moodleInitialisationFunction = /* javascript */ `
+        if(typeof window.iMathAlea === 'undefined') {
+
+        window.iMathAlea = [];
+
+        window.addEventListener('message', (event) => {
+          if(typeof event.data.iMoodle === 'number' && typeof window.iMathAlea[event.data.iMoodle] !== 'undefined') {
+            const iframe = window.iMathAlea[event.data.iMoodle];
+            let hauteur = event.data.hauteurExercice;
+            if (typeof hauteur !== 'undefined') {
+              hauteur += 50;
+              iframe.height = hauteur.toString();
+            }
+            if (event.data.score !== undefined) {
+              iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score;
+              iframe.parentNode.parentNode.querySelector('[name$="_-submit"]').click();
+            }
+          }
+        });
+
+        style = document.createElement('style');
+        style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls { display: none; }';
+        document.head.appendChild(style);
+        }`
+
+        const moodleSearchSeed = /* javascript */ `
+        // On remonte de parent en parent depuis la balise script jusqu'à trouver le div avec le numero de la question en id
+        searchSeed = document.currentScript;
+        while(searchSeed !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
+          if(typeof searchSeed.id === 'string' && searchSeed.id.startsWith('question-')) {
+            searchSeed = searchSeed.id;
+            break; // la seed a été trouvée
+          }
+          searchSeed = searchSeed.parentNode;
+        }
+        `
+
+        const moodleCreateIframe = function (url) {
+          return /* javascript */ `
+          iframe = document.createElement('iframe');
+          iframe.setAttribute('width', '100%');
+          iframe.setAttribute('height', '400');
+          iframe.setAttribute('src', '${url}' + '&iMoodle=' + window.iMathAlea.length + '&serie=' + searchSeed);
+          iframe.setAttribute('frameBorder', '0');
+          iframe.setAttribute('allow', 'fullscreen');
+          document.currentScript.parentNode.insertBefore(iframe, document.currentScript);
+
+          window.iMathAlea.push(iframe);
+          `
+        }
 
         codeMoodle += `<question type="shortanswer">
 <name>
-  <text>${id} - ${titre} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'}</text>
+  <text>${id} - ${titre} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'},${params}</text>
 </name>
   <questiontext format="html">
     <text><![CDATA[
-      <iframe width="600" height="400" id="iframeMathAlea" src="" frameBorder="0" allow="fullscreen"></iframe>
-
-<script type="module">
-  const champReponseMoodle = document.querySelector('[name$="_answer"]'); 
-  const idQuestion = champReponseMoodle.name;
-  const idInput = document.getElementById(idQuestion.replace('answer','-submit'))
-  if (idInput) {
-    idInput.style.visibility = 'hidden';
-  }
-  document.getElementById('iframeMathAlea').src=\`https://coopmaths.fr/mathalea.html?ex=${id},n=${nbQuestions},i=1${video ? ',video=' + video : ''}&v=exMoodle&serie=\${idQuestion}\`;
-  window.addEventListener('message', (event) => { 
-    let hauteur = event.data.hauteurExercice + 50;
-    if (hauteur !== undefined) {
-      document.getElementById('iframeMathAlea').height = hauteur.toString();
-    } 
-    const labelReponse = document.querySelector('[for$="_answer"]');
-    champReponseMoodle.readOnly=true;
-    labelReponse.style.visibility = 'hidden';
-    if (event.data.score !== undefined) {
-      champReponseMoodle.value = event.data.score;
-      if (idInput) {
-        idInput.click();
-      }
-    }
-    });  
+<script>` + /* javascript */`
+  
+  ${moodleInitialisationFunction}
+  ${moodleSearchSeed}
+  ${moodleCreateIframe(urlIframe)}
+    
+  document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
+  ` + `
 </script>
       `
         codeMoodle += `]]></text>
@@ -967,20 +980,14 @@ function miseAJourDuCode () {
         }
         codeMoodle += `\n<defaultgrade>${nbQuestions * pointsParQuestions}</defaultgrade>`
         codeMoodle += `\n<generalfeedback>\n<text><![CDATA[
-          <h4>Correction :</h4>
-          <iframe width="600" height="400" id="monIframeCorrection" src="" frameborder="0"></iframe>
-          
-          <script type="module">
-              const champReponseMoodle = document.querySelector('[name$="_answer"]');
-              const idQuestion = champReponseMoodle.name;
-              document.getElementById('monIframeCorrection').src = \`https://coopmaths.fr/mathalea.html?ex=${id},n=${nbQuestions}&v=correctionMoodle&serie=\${idQuestion}\`;
-                  window.addEventListener('message', (event) => { 
-                      if (event.data.hauteurExerciceCorrection !== undefined) {
-                          const hauteur = event.data.hauteurExerciceCorrection + 50;
-                          document.getElementById('monIframeCorrection').height = hauteur.toString();
-                      }
-                  });
-          </script> 
+          <h4>Correction :</h4>          
+  <script>` + /* javascript */ `
+    ${moodleInitialisationFunction}
+    ${moodleSearchSeed}
+    ${moodleCreateIframe(urlIframeCor)}    
+    document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
+  ` + `
+  </script> 
           
         ]]>\n</text>\n</generalfeedback>`
         codeMoodle += '\n</question>'
@@ -1450,10 +1457,6 @@ async function miseAJourDeLaListeDesExercices (preview) {
             if (listeObjetsExercice[i].typeExercice === 'XCas') {
               besoinXCas = true
             }
-            // Pour les diaporamas des exercices "simples" (CAN), on remet 10 questions par défaut
-            if (listeObjetsExercice[i].typeExercice === 'simple' && context.isDiaporama) {
-              listeObjetsExercice[i].nbQuestions = 10
-            }
           })
         )
       }
@@ -1488,7 +1491,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
           listeObjetsExercice[i].nbQuestions = parseInt(urlVars[i].n)
           formNbQuestions[i].value = listeObjetsExercice[i].nbQuestions
         }
-        if (urlVars[i].video && context.isHtml && !context.isDiaporama) {
+        if (urlVars[i].video && context.isHtml) {
           listeObjetsExercice[i].video = decodeURIComponent(urlVars[i].video)
           formVideo[i].value = listeObjetsExercice[i].video
         }
@@ -1623,7 +1626,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
         }
       }
       listeObjetsExercice[listeExercices.length - 1].id = listeExercices[listeExercices.length - 1]
-      const contenu = contenuExerciceHtml(listeObjetsExercice[listeExercices.length - 1], listeExercices.length, false)
+      const contenu = contenuExerciceHtml(listeObjetsExercice[listeExercices.length - 1], listeExercices.length)
       $('#popup_preview').html(contenu.contenu_un_exercice)
       $('.popup').addClass('show')
       if (document.getElementById('left')) {
@@ -1639,7 +1642,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
       $('.popuptext').show()
       listeDesExercices.pop()
       if (!output) {
-        gestionModules(false, listeObjetsExercice)
+        gestionModules(listeObjetsExercice)
       }
       context.isHtml = output
       miseAJourDuCode() // permet de gérer les popup avec module.
@@ -1697,14 +1700,12 @@ function parametresExercice (exercice) {
           i +
           '" type="number"  min="1" max="99"></div>'
       }
-      if (!context.isDiaporama) {
-        divParametresGeneraux.innerHTML +=
+      divParametresGeneraux.innerHTML +=
           '<div><label for="form_video' +
           i +
           '" data-tooltip="URL, code iframe, identifiant YouTube" data-inverted="" >Vidéo ou complément numérique : <input id="form_video' +
           i +
           '" type="texte" size="20"  ></label></div>'
-      }
       if (exercice[i].correctionDetailleeDisponible) {
         divParametresGeneraux.innerHTML +=
           '<div><label for="form_correctionDetaillee' +
@@ -1716,7 +1717,7 @@ function parametresExercice (exercice) {
 
       divParametresGeneraux.innerHTML += `<div><label for="form_correctionCachee${i}" data-tooltip="Les élèves pourront s'auto-corriger sur tous les exercices\nsauf ceux sélectionnés pour être vérifiés par le professeur" data-position="top left" data-inverted="">Correction cachée : </label> <input id="form_correctionCachee${i}" type="checkbox"></div>`
 
-      if (exercice[i].interactifReady && !exercice[i].interactifObligatoire && !context.isDiaporama && !context.isMoodle) {
+      if (exercice[i].interactifReady && !exercice[i].interactifObligatoire && !context.isMoodle) {
         divParametresGeneraux.innerHTML +=
           '<div><label for="formInteractif' + i + '">Exercice interactif : </label> <input id="formInteractif' + i + '" type="checkbox" ></div>'
       }
@@ -2265,7 +2266,7 @@ function parametresExercice (exercice) {
     }
 
     // Gestion de la vidéo
-    if (context.isHtml && !context.isDiaporama) {
+    if (context.isHtml) {
       if (document.getElementById('form_video' + i)) {
         formVideo[i] = document.getElementById('form_video' + i)
         formVideo[i].value = exercice[i].video // Rempli le formulaire
@@ -2649,7 +2650,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     miseAJourDuCode()
   }
 
-  if (context.isHtml && !context.isDiaporama) {
+  if (context.isHtml) {
     // gestion du bouton de zoom
     $('#btn_zoom_plus').click(function () {
       context.zoom = arrondi(Number(context.zoom) + 0.2)

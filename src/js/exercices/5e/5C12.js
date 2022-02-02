@@ -1,5 +1,6 @@
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { combinaisonListes, listeQuestionsToContenu, randint, lettreDepuisChiffre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
@@ -28,7 +29,7 @@ export default function CalculerUneExpressionNumerique () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     if (!this.sup) { // Si aucune liste n'est saisie
-      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
+      typesDeQuestionsDisponibles = [2, 3, 4, 5]
     } else {
       if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
         typesDeQuestionsDisponibles[0] = this.sup % 6

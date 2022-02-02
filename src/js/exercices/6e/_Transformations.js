@@ -2,7 +2,8 @@ import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, dr
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha, rangeMinMax, contraindreValeur, lettreDepuisChiffre, enleveElementNo, enleveElementBis, compteOccurences, arrondi, egal } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -389,7 +390,7 @@ export default function Transformations () {
       if (this.can) {
         this.autoCorrection[0] = {
           enonce: texte,
-          options: { multicols: true },
+          enonceAGauche: [0.5, 0.5],
           propositions: [
             {
               type: 'AMCNum',
@@ -413,7 +414,7 @@ export default function Transformations () {
       } else {
         this.autoCorrection[0] = {
           enonce: texte,
-          options: { multicols: true },
+          enonceAGauche: [0.5, 0.5],
           propositions: [
             {
               type: 'AMCNum',

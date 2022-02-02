@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d'
 import { listeQuestionsToContenu, randint, texNombrec, range1, combinaisonListesSansChangerOrdre, prenomF, choice, texteEnCouleur, calcul } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'CAN 6ième 10 questions (niveau 2)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

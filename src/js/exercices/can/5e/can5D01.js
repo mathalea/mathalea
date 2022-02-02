@@ -1,4 +1,5 @@
-import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif'
+import { setReponse } from '../../../modules/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive'
 import { calcul, choice, listeQuestionsToContenuSansNumero, randint, sp, texNombrec } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Convertir en heures/minutes'

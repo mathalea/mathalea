@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenuSansNumero, sp, choice } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
 import { tableauDeVariation, mathalea2d } from '../../../modules/2d.js'
 export const titre = 'Encadrer en utilisant un tableau de variations'
 export const interactifReady = true

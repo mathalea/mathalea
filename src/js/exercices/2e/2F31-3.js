@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
-export const titre = 'Nom de l\'exercice'
+export const titre = 'Comparaison d\'images dans un tableau de variations'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -14,11 +14,10 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 */
 export default function Variationsapartirtableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Consigne'
+  this.consigne = 'On donne ci-dessous, le tableau de variations d\'une fonction $f$.'
   this.nbQuestions = 2 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 100 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function (numeroExercice) {
@@ -29,21 +28,21 @@ export default function Variationsapartirtableau () {
     this.nbQuestionsModifiable = false
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, ligne1, a1, a2, a3, a4, x1, x2, x3, y1, y2, y3, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
-      texte = 'On donne ci-dessous, le tableau de variations d\'une fonction $f$. <br>'
+      texte = ' <br>'
 
       x1 = randint(-8, -3) // 3 antécédents 1ère ligne tableau
       x2 = randint(x1 + 10, x1 + 17)// 3 antécédents 1ère ligne tableau
       x3 = randint(x2 + 6, x2 + 15)// 3 antécédents 1ère ligne tableau
       y1 = randint(-12, -2)// 3 images des antécédents 1ère ligne tableau
       y2 = randint(y1 + 2, y1 + 10)// 3 images des antécédents 1ère ligne tableau
-      y3 = randint(y1 + 2, y2 - 2)// 3 images des antécédents 1ère ligne tableau
+      y3 = randint(y1 + 2, y2 - 2, [y2])// 3 images des antécédents 1ère ligne tableau
       a1 = randint(x1 + 1, x1 + 4) // 1er antécédent dont on doit comparer l'image
       a2 = randint(a1 + 1, x2 - 1) // 2eme antécédent dont on doit comparer l'image
       a3 = randint(x2 + 1, x3 - 6) // 3eme antécédent dont on doit comparer l'image
       a4 = randint(a3 + 1, x3 - 1) // 4eme antécédent dont on doit comparer l'image
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':// parabole en U ; 2 images sur intervalle où f croissant
-          texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a2})$<br><br>`
+          texte = `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a2})$<br><br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
@@ -94,7 +93,7 @@ export default function Variationsapartirtableau () {
           texteCorr += `Par conséquent, comme $${a1}<${a2}$, alors $f(${a1}) < f(${a2})$.`
           break
         case 'type2':// parabole en U ; 2 images sur intervalle où f décroissant
-          texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a3})$ et $f(${a4})$<br>`
+          texte = `A partir des informations de l'énoncé, comparer si possible : $f(${a3})$ et $f(${a4})$<br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
@@ -118,6 +117,24 @@ export default function Variationsapartirtableau () {
 
           texteCorr = `D'après le tableau de variations, la fonction $f$ est décroissante sur $[${x2};${x3}]$,<br> `
           texteCorr += `  $${a3}\\in[${x2};${x3}]$,  $${a4}\\in[${x2};${x3}]$, avec $${a3}<${a4}$.<br>`
+          ligne1 = ['Var', 10, `-/$${y1}$`, 10, `+/$${y2}$`, 10, 't/$f($x{2})$', 10, 't/', 10, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
+          texteCorr += mathalea2d({ xmin: -0.5, ymin: -9.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+            tabInit: [
+              [
+                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                ['$x$', 2, 30], ['$f(x)$', 3, 50]
+              ],
+              // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+              [`$${x1}$`, 10, `$${x2}$`, 10, `$${a3}$`, 10, `$${a4}$`, 10, `$${x3}$`, 10]
+            ],
+            // tabLines ci-dessous contient les autres lignes du tableau.
+            tabLines: [ligne1],
+            colorBackground: '',
+            espcl: 3.5, // taille en cm entre deux antécédents
+            deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+            lgt: 8, // taille de la première colonne en cm
+            hauteurLignes: [15, 15]
+          }))
           texteCorr += 'On sait que si une fonction est décroissante sur un intervalle $[a;b]$, <br>'
           texteCorr += 'alors ses antécédents et ses images sont rangés dans l\'ordre inverse. <br>'
           texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, '
@@ -125,7 +142,7 @@ export default function Variationsapartirtableau () {
           texteCorr += `Par conséquent, comme $${a3}<${a4}$, alors $f(${a3}) > f(${a4})$.`
           break
         case 'type3':// parabole en U ; 2 images sur intervalle où f pas monotone, mais on peut répondre
-          texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$<br>`
+          texte = `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$<br>`
           y3 = randint(y1 - 12, y1 - 2)// 3 images des antécédents 1ère ligne tableau
           ligne1 = ['Var', 10, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
@@ -148,8 +165,8 @@ export default function Variationsapartirtableau () {
             hauteurLignes: [15, 15]
           }))
 
-          texteCorr = `D'après le tableau de variations, $f(${x3})=${y3}$, `
-          texteCorr += `et $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction $f$ est croissante.<br>`
+          texteCorr = `D'après le tableau de variations, $f(${x3})=${y3}$.<br> `
+          texteCorr += `D'autre part, $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction $f$ est croissante.<br>`
           texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$, <br>'
           texteCorr += 'alors ses antécédents et ses images sont rangés dans le même ordre.<br>'
           texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, '
@@ -159,7 +176,7 @@ export default function Variationsapartirtableau () {
           texteCorr += `On en déduit que :  $f(${a1}) > ${y1} > ${y3} > f(${x3})$.<br>`
           break
         case 'type4':// parabole en U ; 2 images sur intervalle où f pas monotone, et on ne peut pas répondre
-          texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$<br>`
+          texte = `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$<br>`
           y3 = randint(y1 + 2, y2 - 1)// 3 images des antécédents 1ère ligne tableau
           ligne1 = ['Var', 10, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
@@ -182,8 +199,8 @@ export default function Variationsapartirtableau () {
             hauteurLignes: [15, 15]
           }))
 
-          texteCorr = `D'après le tableau de variations,  $f(${x3})=${y3}$`
-          texteCorr += `et $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction $f$ est croissante.<br>`
+          texteCorr = `D'après le tableau de variations,  $f(${x3})=${y3}$.<br>`
+          texteCorr += `D'autre part,  $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction $f$ est croissante.<br>`
           texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$, <br>'
           texteCorr += 'alors ses antécédents et ses images sont rangés dans le même ordre.<br>'
           texteCorr += 'C\'est à dire que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, '
@@ -194,7 +211,7 @@ export default function Variationsapartirtableau () {
           texteCorr += `on ne peut pas conclure sans plus d'informations pour comparer $f(${x3})$ et $f(${a1})$.`
           break
         case 'type5':// parabole en U ; 2 images sur intervalle où f non monotone. On ne peut conclure
-          texte += `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a3})$<br>`
+          texte = `A partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a3})$<br>`
           ligne1 = ['Var', 10, `-/$${y1}$`, 30, `+/$${y2}$`, 30, `-/$${y3}$`, 30] // Commencer chaque chaîne par +/ ou -/ pour indiquer le sens de la variation, 'R/' pour 'sauter une case'
 
           // xmin détermine la marge à gauche, ymin la hauteur réservée pour le tableau, xmax la largeur réservée pour le tableau et ymax la marge au dessus du tableau
@@ -216,8 +233,8 @@ export default function Variationsapartirtableau () {
             hauteurLignes: [15, 15]
           }))
 
-          texteCorr = `D'après le tableau de variations,  $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction est croissante<br>`
-          texteCorr += ` et que  $${a3}\\in[${x2};${x3}]$, intervalle sur lequel la fonction est décroissante. <br>`
+          texteCorr = `D'après le tableau de variations :<br>$\\bullet$  $${a1}\\in[${x1};${x2}]$, intervalle sur lequel la fonction est croissante<br>`
+          texteCorr += ` <br>$\\bullet  ${a3}\\in[${x2};${x3}]$, intervalle sur lequel la fonction est décroissante. <br>`
           texteCorr += `La fonction $f$ n'est donc pas monotone sur $[${a1};${a3}]$<br><br>`
           texteCorr += ` Le tableau de variations ne permet pas de comparer $f(${a1})$ et $f(${a3})$. <br>`
           texteCorr += '<br>On ne peut donc pas conclure sans plus d\'informations.'

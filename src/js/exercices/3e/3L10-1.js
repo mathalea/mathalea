@@ -18,6 +18,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 5
   this.nbColsCorr = 1
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -40,7 +41,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}-(${printlatex(
             `${a}x+(${b})`
           )})$`
-          if (k-b!=0){
+          if (k - b !== 0) {
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(
               i + 1
             )}}=${printlatex(`${k}+(${-a}*x)+(${-b})`)}=${printlatex(
@@ -62,7 +63,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}+(${printlatex(
             `${a}x+(${b})`
           )})$`
-          if (k+b!=0){
+          if (k + b !== 0) {
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(
               i + 1
             )}}=${printlatex(`${k}+(${a}*x)+(${b})`)}=${printlatex(
@@ -75,7 +76,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
               `${a}*x`
             )}$`
           }
-          break 
+          break
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

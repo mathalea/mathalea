@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, choice, compareNombres, texNombre, combinaisonListes, texFactorisation, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Décomposition en facteurs premiers'
@@ -67,7 +68,7 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       for (let k = 0; k < facteurs.length; k++) {
         n = n * facteurs[k]
       }
-      texte = '$ ' + texNombre(n) + ' = \\dotfill $'
+      texte = '$ ' + texNombre(n) + ' =$'
       if (!this.correctionDetaillee) {
         texteCorr = '$ ' + texNombre(n) + ' = '
       } else {

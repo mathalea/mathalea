@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureAlgebrique, ecritureAlgebriquec, signe, texNombreCoul, sommeDesTermesParSigne, triePositifsNegatifs, lettreDepuisChiffre, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Additions et soustractions de nombres relatifs'
 export const interactifReady = true
 // export const interactifType = 'numerique'
@@ -67,12 +67,12 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
         s3 = choice([-1, 1])
       }
       if (this.sup2) {
-        texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = \\dotfill $`
+        texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} =$`
         if (this.interactif && context.isHtml) {
           texte = ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} =$` })
         }
         if (!context.isHtml && !context.isAmc) {
-          texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`
+          texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
         }
         relatifs = triePositifsNegatifs([a, b, c, d, e])
         texteCorr = `$ ${lettreDepuisChiffre(i + 1)}\\textbf{=}~${texNombreCoul(a)}${ecritureAlgebriquec(b)}${ecritureAlgebriquec(c)}${ecritureAlgebriquec(d)}${ecritureAlgebriquec(e)}\\\\\\phantom{A }\\textbf{=}~`
@@ -82,12 +82,12 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
           texteCorr += `${texNombreCoul(a + b + c + d + e)} $`
         } else if (sommeDesTermesParSigne([a, b, c, d, e])[0] !== 0) { texteCorr += `${texNombreCoul(sommeDesTermesParSigne([a, b, c, d, e])[0])}$` } else { texteCorr += `${ecritureAlgebriquec(sommeDesTermesParSigne([a, b, c, d, e])[1])}$` }
       } else {
-        texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = \\dotfill $`
+        texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} =  $`
         if (this.interactif && context.isHtml) {
           texte = ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = $` })
         }
         if (!context.isHtml && !context.isAmc) {
-          texte += `<br>$ ${lettreDepuisChiffre(i + 1)} = \\dotfill $`
+          texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
         }
         texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${a}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)}$`
         texteCorr += `<br>$ \\phantom{A}= ${ecritureNombreRelatifc(a)}+${ecritureNombreRelatifc(s1 * b)}+${ecritureNombreRelatifc(s2 * c)}+${ecritureNombreRelatifc(s3 * d)}+${ecritureNombreRelatifc(s4 * e)} $`

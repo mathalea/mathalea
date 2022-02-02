@@ -33,8 +33,40 @@ export default {
     "titre": "Dérivée d'un produit",
     "url": "/exercices/1e/1AN14-4.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "1AN14-4",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "1AN14-5": {
+    "titre": "Dérivée d'un quotient",
+    "url": "/exercices/1e/1AN14-5.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "1AN14-5",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "1AN14-6": {
+    "titre": "Dérivée d'une composée affine",
+    "url": "/exercices/1e/1AN14-6.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1AN14-6",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -467,12 +499,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "2F31-2": {
-    "titre": "Nom de l'exercice",
-    "url": "/exercices/2e/2F31-2.js",
+  "2F31-3": {
+    "titre": "Comparaison d'images dans un tableau de variations",
+    "url": "/exercices/2e/2F31-3.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "2F31-2",
+    "name": "2F31-3",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -2132,7 +2164,7 @@ export default {
     "interactifType": "mathLive",
     "name": "2S30-5",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3860,7 +3892,7 @@ export default {
     }
   },
   "4C25-0": {
-    "titre": "Re-Problèmes additifs et de comparaison sur les rationnels",
+    "titre": "Problèmes additifs et de comparaison sur les rationnels",
     "url": "/exercices/4e/4C25-0.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3933,6 +3965,22 @@ export default {
     "name": "4C30",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "4C32-0": {
+    "titre": "Écriture décimale d'un calcul avec des puissances de 10",
+    "url": "/exercices/4e/4C32-0.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4C32-0",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6319,7 +6367,7 @@ export default {
     "interactifReady": true,
     "interactifType": [
       "qcm",
-      "mathlive"
+      "mathLive"
     ],
     "name": "5R20",
     "newEx": {
@@ -6828,10 +6876,10 @@ export default {
     "url": "/exercices/6e/6C23.js",
     "amcReady": true,
     "amcType": {
-      "text": "qcmMono"
+      "text": "type de question AMC non prévu"
     },
     "interactifReady": true,
-    "interactifType": "qcm",
+    "interactifType": "mathLive",
     "name": "6C23",
     "newEx": {
       "isNew": false,
@@ -7437,16 +7485,15 @@ export default {
   "6G24-1": {
     "titre": "Construire le symétrique d’un point par rapport à une droite",
     "url": "/exercices/6e/6G24-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
     "interactifReady": false,
     "name": "6G24-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6G24-2": {
@@ -7521,7 +7568,7 @@ export default {
     "url": "/exercices/6e/6G25-1.js",
     "amcReady": true,
     "amcType": {
-      "text": "qcmMono"
+      "text": "AMCHybride"
     },
     "interactifReady": true,
     "interactifType": "qcm",
@@ -8128,6 +8175,25 @@ export default {
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    }
+  },
+  "6N10-6": {
+    "titre": "Donner l’écriture (décimale ou en fraction décimale) d’une somme (ou différence) de nombres avec fractions décimales",
+    "url": "/exercices/6e/6N10-6.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6N10-6",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6N10": {
@@ -10473,6 +10539,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "betaModele50_Mathsteps": {
+    "titre": "Nom de l'exercice",
+    "url": "/exercices/beta/betaModele50_Mathsteps.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaModele50_Mathsteps",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "betaProbaAouB": {
     "titre": "2S30-6",
     "url": "/exercices/beta/betaProbaAouB.js",
@@ -10823,12 +10904,9 @@ export default {
     }
   },
   "c3C23": {
-    "titre": "Additionner des fractions simples",
+    "titre": "Opérations simples avec des fractions",
     "url": "/exercices/c3/c3C23.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "qcmMono"
-    },
+    "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "c3C23",
@@ -10837,7 +10915,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -11097,7 +11175,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1P01",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11408,12 +11486,15 @@ export default {
   "can2F07": {
     "titre": "Lire les extremums dans un tableau de variations",
     "url": "/exercices/can/2e/can2F07.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can2F07",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11429,7 +11510,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2F08",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11445,7 +11526,7 @@ export default {
     "interactifType": "qcm",
     "name": "can2F09",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11461,7 +11542,7 @@ export default {
     "interactifType": "qcm",
     "name": "can2F10",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13096,6 +13177,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can4P04",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can4P05": {
+    "titre": "Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité",
+    "url": "/exercices/can/4e/can4P05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can4P05",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -14809,6 +14906,63 @@ export default {
     "name": "can6N10",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6N11": {
+    "titre": "Donner le résultat de ce calcul sous forme d'une fraction décimale",
+    "url": "/exercices/can/6e/can6N11.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N11",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6N12": {
+    "titre": "Donner le résultat de ce calcul en écriture décimale",
+    "url": "/exercices/can/6e/can6N12.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N12",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6N13": {
+    "titre": "Donner le résultat de ce calcul en écriture décimale",
+    "url": "/exercices/can/6e/can6N13.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6N13",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

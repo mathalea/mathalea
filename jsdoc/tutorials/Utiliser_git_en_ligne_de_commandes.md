@@ -31,7 +31,7 @@ git checkout master
 # Je récupère les dernières modifications
 git pull
 
-# Je copie la branche sur laquelle je suis (master) et crée ma nouvelle branche en respectant la syntaxe NomDeLaPersonne-ReferenceDeLExercice-PrecisionEventuelle
+# Je crée ma nouvelle branche en respectant la syntaxe (NomDeLaPersonne-ReferenceDeLExercice-PrecisionEventuelle) puis je me place sur cette dernière
 git checkout -b John-5P12-Ratios
 
 # Après avoir créé un fichier (comme par exemple le modèle d'exercice que j'ai copié), je l'ajoute aux fichiers suivis par git 
