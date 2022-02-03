@@ -217,12 +217,11 @@ export default function TrouverLaTransformations () {
           case 'symax':
             //    trans = definitElements('symax', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
             propositions.push(
-                `la symétrie d'axe (${noeuds[transfos[i].arrivee].nom}${(transfos[i].arrivee - transfos[i].depart === 6) ? noeuds[transfos[i].arrivee + 1].nom : noeuds[transfos[i].arrivee + 6].nom}).`
+                `la symétrie d'axe (${noeuds[transfos[i].arrivee].nom}${(transfos[i].arrivee - transfos[i].depart === 6) ? noeuds[transfos[i].arrivee + 1].nom : noeuds[transfos[i].arrivee + 6].nom})`
             )
             break
         }
       }
-      console.log(propositions.join('-'))
       texte = this.interactif
         ? `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ? ` + choixDeroulant(this, i, 0, propositions, 'texte')
         : `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ?`

@@ -28,7 +28,6 @@ export function verifQuestionListeDeroulante (exercice, i) {
   for (const option of optionsChoisies) {
     saisie.push(option.value)
   }
-  console.log(reponses, saisie)
   saisie = saisie.join('-')
   for (const reponse of reponses) {
     // Pour les exercices où on associe plusieurs liste déroulantes, la réponse est un tableau (cf 6N43-4)
