@@ -188,6 +188,7 @@ export default function TrouverLaTransformations () {
     const paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
     for (let i = 0, texte, texteCorr, propositions, trans; i < this.nbQuestions; i++) {
       propositions = []
+      // On va mettre dans les propositions toutes les transformations possibles pour passer de transfo|i].depart à transfo[i].arrivee
       for (const transforme of typeDeTransfos) {
         switch (transforme) {
           case 'rot90':
@@ -201,26 +202,27 @@ export default function TrouverLaTransformations () {
             )
             break
           case 'trans':
-            trans = definitElements('trans', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
+            //    trans = definitElements('trans', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
             propositions.push(
                   `la translation transformant ${noeuds[transfos[i].depart].nom} en ${noeuds[transfos[i].arrivee].nom}`
             )
             break
           case 'rot180':
-            trans = definitElements('rot180', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
+            //    trans = definitElements('rot180', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
             propositions.push(
                   `la symétrie de centre le milieu de [${noeuds[transfos[i].arrivee].nom}${(transfos[i].arrivee - transfos[i].depart === 6) ? noeuds[transfos[i].arrivee + 1].nom : noeuds[transfos[i].arrivee + 6].nom}]`
             )
             break
 
           case 'symax':
-            trans = definitElements('symax', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
+            //    trans = definitElements('symax', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
             propositions.push(
                 `la symétrie d'axe (${noeuds[transfos[i].arrivee].nom}${(transfos[i].arrivee - transfos[i].depart === 6) ? noeuds[transfos[i].arrivee + 1].nom : noeuds[transfos[i].arrivee + 6].nom}).`
             )
             break
         }
       }
+      console.log(propositions.join('-'))
       texte = this.interactif
         ? `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ? ` + choixDeroulant(this, i, 0, propositions, 'texte')
         : `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ?`

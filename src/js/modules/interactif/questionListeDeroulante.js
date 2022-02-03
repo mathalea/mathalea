@@ -42,7 +42,16 @@ export function verifQuestionListeDeroulante (exercice, i) {
   spanReponseLigne.style.fontSize = 'large'
   return resultat
 }
-
+/**
+ *
+ * @param {object} exercice l'exercice appelant pour pouvoir atteindre ses propriétés.
+ * @param {number} i le numéro de la question
+ * @param {number} c le numéro de la liste pour un exercice en comportant plusieurs afin de permettre des test d'association
+ * @param {array} choix Les différentes propositions de la liste
+ * @param {string} type 'nombre' si les choix sont des nombres à choisir, sinon on demande une 'réponse'
+ * @author Rémi Angot
+ * @returns {string} le code html de la liste
+ */
 export const choixDeroulant = (exercice, i, c, choix, type = 'nombre') => {
   let result = `<select class="ui fluid dropdown ex${exercice.numeroExercice}" id="ex${exercice.numeroExercice}Q${i}" data-choix="${c}">
       <option> Choisir ${type === 'nombre' ? 'un nombre' : 'une réponse'} </option>`
