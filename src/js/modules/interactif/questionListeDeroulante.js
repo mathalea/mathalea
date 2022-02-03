@@ -10,8 +10,8 @@ export function verifQuestionListeDeroulante (exercice, i) {
   let eltFeedback = get(`resultatCheckEx${exercice.numeroExercice}Q${i}`, false)
   // On ajoute le div pour le feedback
   if (!eltFeedback) {
-    const eltExercice = document.querySelector(`li#exercice${exercice.numeroExercice}Q${i}`)
-    eltFeedback = addElement(eltExercice, 'div', { id: `resultatCheckEx${exercice.numeroExercice}Q${i}` })
+    const eltExercice = document.querySelector(`#exercice${exercice.numeroExercice}Q${i}`)
+    if (eltExercice) eltFeedback = addElement(eltExercice, 'div', { id: `resultatCheckEx${exercice.numeroExercice}Q${i}` })
   }
   setStyles(eltFeedback, 'marginBottom: 20px')
   if (eltFeedback) eltFeedback.innerHTML = ''
@@ -30,9 +30,19 @@ export function verifQuestionListeDeroulante (exercice, i) {
   }
   saisie = saisie.join('-')
   for (const reponse of reponses) {
-    if (reponse.join('-') === saisie) {
-      resultat = 'OK'
-      spanReponseLigne.innerHTML = '😎'
+    // Pour les exercices où on associe plusieurs liste déroulantes, la réponse est un tableau (cf 6N43-4)
+    // On concatène les saisies et les réponses pour les comparer
+    if (Array.isArray(reponse)) {
+      if (reponse.join('-') === saisie) {
+        resultat = 'OK'
+        spanReponseLigne.innerHTML = '😎'
+      }
+    } else {
+      // Pour les exercices classiques, on compare directement
+      if (reponse === saisie) {
+        resultat = 'OK'
+        spanReponseLigne.innerHTML = '😎'
+      }
     }
   }
   if (resultat !== 'OK') {
@@ -42,7 +52,16 @@ export function verifQuestionListeDeroulante (exercice, i) {
   spanReponseLigne.style.fontSize = 'large'
   return resultat
 }
-
+/**
+ *
+ * @param {object} exercice l'exercice appelant pour pouvoir atteindre ses propriétés.
+ * @param {number} i le numéro de la question
+ * @param {number} c le numéro de la liste pour un exercice en comportant plusieurs afin de permettre des test d'association
+ * @param {array} choix Les différentes propositions de la liste
+ * @param {string} type 'nombre' si les choix sont des nombres à choisir, sinon on demande une 'réponse'
+ * @author Rémi Angot
+ * @returns {string} le code html de la liste
+ */
 export const choixDeroulant = (exercice, i, c, choix, type = 'nombre') => {
   let result = `<select class="ui fluid dropdown ex${exercice.numeroExercice}" id="ex${exercice.numeroExercice}Q${i}" data-choix="${c}">
       <option> Choisir ${type === 'nombre' ? 'un nombre' : 'une réponse'} </option>`
