@@ -1726,7 +1726,7 @@ export function xcas (expression) {
 export function calcul (x, arrondir = false) {
   if (typeof expression === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
-    return parseFloat(evaluate(x).toFixed(arrondir === false ? 16 : arrondir));
+    return parseFloat(evaluate(x).toFixed(arrondir === false ? 16 : arrondir))
   } else {
     return parseFloat(x.toFixed(arrondir === false ? 16 : arrondir))
   }
@@ -2501,7 +2501,7 @@ export function texNombre (nb) {
   // Ecrit \numprint{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces en latex)
   // Ajoute des accolades autour de la virgule {,} pour supprimer l'espace "disgracieux" qui le suit dans l'écriture décimale des nombres sinon.
   if (context.isHtml) {
-    return Intl.NumberFormat('fr-FR', { maximumSignificantDigits: 15 }).format(nb).replace(/\s+/g, '\\thickspace ')
+    return Intl.NumberFormat('fr-FR', { maximumSignificantDigits: 15 }).format(nb).replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
   } else {
     let result
     if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
