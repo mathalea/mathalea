@@ -113,14 +113,6 @@ export default function TrouverLaTransformations () {
         return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: centre }
     }
   }
-  function transformation (type) {
-    switch (type) {
-      case 'symax' : return 'symétrie axiale'
-      case 'rot180' : return 'symétrie centrale'
-      case 'trans' : return 'translation'
-      case 'rot90' : return 'quart de tour'
-    }
-  }
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.sup = contraindreValeur(1, 3, this.sup, 3)
