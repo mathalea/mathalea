@@ -82,6 +82,8 @@ const affichageUniquementQuestion = (i) => {
   }
   affichageUniquementExercice()
   const questions = document.querySelectorAll('div.question')
+  // En l'absence de questions, on retourne sur la page d'accueil
+  if (questions.length === 0) document.location.href = '/mathalea.html'
   const corrections = document.querySelectorAll('div.correction')
   for (const question of questions) {
     question.style.display = 'none'

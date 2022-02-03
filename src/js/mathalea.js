@@ -3327,7 +3327,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const buttonDiap = document.getElementById('buttonDiap')
   if (buttonDiap !== null) {
     buttonDiap.addEventListener('click', () => {
-      goTabVue('diap')
+      // On s'assure qu'il y ait des questions avant de lancer un diaporama
+      if (context.listeObjetsExercice && context.listeObjetsExercice.length > 0) goTabVue('diap')
     })
   }
   const btnPleinEcran = document.getElementById('buttonFullScreen')
