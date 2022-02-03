@@ -1723,14 +1723,12 @@ export function xcas (expression) {
 * Le 2e argument facultatif permet de préciser l'arrondi souhaité
 * @author Rémi Angot
 */
-export function calcul (expression, arrondir = false) {
+export function calcul (x, arrondir = false) {
   if (typeof expression === 'string') {
-    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { expression })
-  }
-  if (!arrondir) {
-    return parseFloat(Algebrite.eval('float(' + expression + ')'))
+    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
+    return parseFloat(evaluate(x).toFixed(arrondir === false ? 16 : arrondir));
   } else {
-    return arrondi(parseFloat(Algebrite.eval('float(' + expression + ')')), arrondir)
+    return parseFloat(x.toFixed(arrondir === false ? 16 : arrondir))
   }
 }
 
@@ -1754,7 +1752,7 @@ export function nombreDecimal (expression, arrondir = false) {
 
 export function texNombrec (expression) {
   // return texNombre(parseFloat(Algebrite.eval(expression)))
-  return texNombre(arrondi(expression, 6))
+  return texNombre(parseFloat(expression.toFixed(15)))
 }
 
 /**
@@ -2503,8 +2501,7 @@ export function texNombre (nb) {
   // Ecrit \numprint{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces en latex)
   // Ajoute des accolades autour de la virgule {,} pour supprimer l'espace "disgracieux" qui le suit dans l'écriture décimale des nombres sinon.
   if (context.isHtml) {
-    // return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,'\\thickspace ').replace(',','{,}');
-    return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ')
+    return Intl.NumberFormat('fr-FR', { maximumSignificantDigits: 15 }).format(nb).replace(/\s+/g, '\\thickspace ')
   } else {
     let result
     if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
