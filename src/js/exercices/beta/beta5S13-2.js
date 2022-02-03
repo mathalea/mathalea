@@ -135,12 +135,22 @@ export default function CalculerDesFrequences () {
     correction2 += 'On rappelle que pour la fréquence relative à une valeur est donnée par le quotient : '
     correction2 += '$\\dfrac{\\text{effectif de la valeur}}{\\text{effectif total}}$<br><br>'
     correction2 += 'On en déduit donc les calculs suivants :<br><br>'
+    const enteteTableau = ['']
+    const premiereColonne = []
+    const premiereLigneTableau = []
+    const deuxiemeLigneTableau = []
     for (const [sport, eff] of entreesTableau) {
+      enteteTableau.push(`\\text{${sport}}`)
       const f = fraction(eff, effTotal)
-      correction2 += `${sport} :<br>`
-      correction2 += `$f_{\\text{${sport}}}=${f.texFraction}$<br>`
-      correction2 += `$f_{\\text{${sport}}}=$` + texNombre(f.pourcentage) + ' %<br><br>'
+      premiereLigneTableau.push(f.texFraction)
+      deuxiemeLigneTableau.push(`${texNombre(f.pourcentage)} \\%`)
+      // correction2 += `${sport} :<br>`
+      // correction2 += `$f_{\\text{${sport}}}=${f.texFraction}$<br>`
+      // correction2 += `$f_{\\text{${sport}}}=$` + texNombre(f.pourcentage) + ' %<br><br>'
     }
+    premiereColonne.push('\\textbf{Fréquences}', '\\textbf{Fréquences en pourcentages}')
+    correction2 += tableauColonneLigne(enteteTableau, premiereColonne, premiereLigneTableau.concat(deuxiemeLigneTableau))
+    correction2 += '<br>'
     return { questions: questions.join('\n'), corrections: [correction1, correction2].join('\n') }
   }
 

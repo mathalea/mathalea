@@ -10158,14 +10158,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-<<<<<<< HEAD
-  "beta5S13-2": {
-    "titre": "Calculs de fréquences",
-    "url": "/exercices/beta/beta5S13-2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta5S13-2",
-=======
   "beta5N20bis": {
     "titre": "Additionner ou soustraire deux fractions (dénominateurs multiples)",
     "url": "/exercices/beta/beta5N20bis.js",
@@ -10176,7 +10168,21 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "beta5N20bis",
->>>>>>> master
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta5S13-2": {
+    "titre": "Calculs de fréquences",
+    "url": "/exercices/beta/beta5S13-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta5S13-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
