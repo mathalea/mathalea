@@ -10,8 +10,8 @@ export function verifQuestionListeDeroulante (exercice, i) {
   let eltFeedback = get(`resultatCheckEx${exercice.numeroExercice}Q${i}`, false)
   // On ajoute le div pour le feedback
   if (!eltFeedback) {
-    const eltExercice = document.querySelector(`li#exercice${exercice.numeroExercice}Q${i}`)
-    eltFeedback = addElement(eltExercice, 'div', { id: `resultatCheckEx${exercice.numeroExercice}Q${i}` })
+    const eltExercice = document.querySelector(`#exercice${exercice.numeroExercice}Q${i}`)
+    if (eltExercice) eltFeedback = addElement(eltExercice, 'div', { id: `resultatCheckEx${exercice.numeroExercice}Q${i}` })
   }
   setStyles(eltFeedback, 'marginBottom: 20px')
   if (eltFeedback) eltFeedback.innerHTML = ''
@@ -28,11 +28,22 @@ export function verifQuestionListeDeroulante (exercice, i) {
   for (const option of optionsChoisies) {
     saisie.push(option.value)
   }
+  console.log(reponses, saisie)
   saisie = saisie.join('-')
   for (const reponse of reponses) {
-    if (reponse.join('-') === saisie) {
-      resultat = 'OK'
-      spanReponseLigne.innerHTML = '😎'
+    // Pour les exercices où on associe plusieurs liste déroulantes, la réponse est un tableau (cf 6N43-4)
+    // On concatène les saisies et les réponses pour les comparer
+    if (Array.isArray(reponse)) {
+      if (reponse.join('-') === saisie) {
+        resultat = 'OK'
+        spanReponseLigne.innerHTML = '😎'
+      }
+    } else {
+      // Pour les exercices classiques, on compare directement
+      if (reponse === saisie) {
+        resultat = 'OK'
+        spanReponseLigne.innerHTML = '😎'
+      }
     }
   }
   if (resultat !== 'OK') {
