@@ -8,10 +8,10 @@ export const titre = 'Somme des angles dans un triangle'
 * Déterminer la valeur d'un angle dans un triangle.
 *
 * Correction avec détails ou pas. 9 cas différents
-* * On connait 2 angles sur 3.
-* * Dans un triangle rectangle, on connait un angle aigu.
-* * Dans un triangle isocèle, on connait un angle à la base.
-* * Dans un triangle isocèle, on connait l'angle au sommet principal.
+* * On connaît 2 angles sur 3.
+* * Dans un triangle rectangle, on connaît un angle aigu.
+* * Dans un triangle isocèle, on connaît un angle à la base.
+* * Dans un triangle isocèle, on connaît l'angle au sommet principal.
 * * Quelle est la mesure d'un angle aigu dans un triangle rectangle qui a 2 angles égaux ?
 * * Dans un triangle rectangle, un angle aigu mesure le double de l'autre.
 * * Dans un triangle rectangle, un angle aigu mesure le quart de l'autre.
@@ -43,6 +43,7 @@ export default function ExerciceAnglesTriangles () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     if (this.sup === 1) { typesDeQuestionsDisponibles = [1, 2, 4, 5, 9] } else if (this.sup === 2) { typesDeQuestionsDisponibles = [3, 6, 7, 8, 10, 11, 12] } else { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"

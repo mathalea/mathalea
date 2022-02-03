@@ -1,5 +1,5 @@
 import SerieDeTransformations from '../4e/4G12.js'
-export const titre = 'Trouver les symétries axiales successives dans un damiers'
+export const titre = 'Trouver les symétries axiales successives dans un damier'
 export { interactifReady, interactifType, amcReady, amcType } from '../4e/4G12.js'
 export const dateDePublication = '4/12/2021'
 
@@ -13,5 +13,5 @@ export default function SerieDeTransformations6e () {
   this.titre = titre
   this.sup = 1
   this.nbQuestions = 1
-  this.besoinFormulaireNumerique = false
+  // this.besoinFormulaireNumerique = false
 }

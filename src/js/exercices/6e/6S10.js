@@ -2,7 +2,8 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, premiereLettreEnMajuscule, numAlpha, calcul, sp } from '../../modules/outils.js'
 import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive, ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Lire un diagramme en barre'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -28,6 +29,7 @@ export default function LectureDiagrammeBarre () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // vide la liste de questions
     this.listeCorrections = [] // vide la liste de questions corrigées
+    this.autoCorrection = []
     const bornesinf = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
     const lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
     let nbAnimaux = 4 // nombre d'animaux différents dans l'énoncé

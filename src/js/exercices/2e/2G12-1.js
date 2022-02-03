@@ -28,7 +28,7 @@ export default function Distance () {
       typesDeQuestionsDisponibles = [2, 3, 4, 5]
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, ux, uy, xA, yA, xB, yB, xC, yC, AB, XAB, YAB, XAC, YAC, AC, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, ux, uy, xA, yA, xB, yB, xC, yC, AB, XAB, YAB, XAC, YAC, AC, XBC, YBC, BC, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
@@ -130,14 +130,14 @@ export default function Distance () {
           break
         case 4:
 
-          xA = randint(0, 5) * choice([-1, 1])
-          yA = randint(0, 9) * choice([-1, 1])
+          xC = randint(0, 5) * choice([-1, 1])// coordonnées du point A
+          yC = randint(0, 9) * choice([-1, 1])// coordonnées du point A
           ux = randint(0, 9) * choice([-1, 1])
           uy = randint(0, 9) * choice([-1, 1])
-          xB = xA + ux
-          yB = yA + uy
-          xC = xA + uy * choice([-1, 1])
-          yC = yA + ux * choice([-1, 1])
+          xB = xC + ux
+          yB = yC + uy
+          xA = xC + uy * choice([-1, 1])
+          yA = yC + ux * choice([-1, 1])
 
           XAB = (xB - xA) * (xB - xA)
           YAB = (yB - yA) * (yB - yA)
@@ -145,6 +145,10 @@ export default function Distance () {
           XAC = (xC - xA) * (xC - xA)
           YAC = (yC - yA) * (yC - yA)
           AC = XAC + YAC
+
+          XBC = (xC - xB) * (xC - xB)
+          YBC = (yC - yB) * (yC - yB)
+          BC = XBC + YBC
 
           texte = 'Dans un repère orthonormé (O,I,J), on donne les points suivants :'
           texte += ` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right)$`
@@ -154,15 +158,15 @@ export default function Distance () {
           texteCorr += '<br>On calcule séparément donc ces deux distances :'
           texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
           texteCorr += ' alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}$<br>'
-          texteCorr += `On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{on applique la relation a l'enonce :        } AB=\\sqrt{${XAB}+${YAB}}$<br>`
-          texteCorr += `$\\phantom{on applique la relation a l'enonce :        } AB=\\sqrt{${texNombre(XAB + YAB)}}$<br>`
-          texteCorr += `$\\phantom{on applique la relation a l'enonce :   } AB=${texRacineCarree(AB)}$<br>`
+          texteCorr += `On applique la relation à l'énoncé : $BC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}}$<br>`
+          texteCorr += `$\\phantom{on applique la relation a l'enonce :        } BC=\\sqrt{${XBC}+${YBC}}$<br>`
+          texteCorr += `$\\phantom{on applique la relation a l'enonce :        } BC=\\sqrt{${texNombre(XBC + YBC)}}$<br>`
+          texteCorr += `$\\phantom{on applique la relation a l'enonce :   } BC=${texRacineCarree(BC)}$<br>`
           texteCorr += `De même : $AC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{De même :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`
           texteCorr += `$\\phantom{De même :       } AC=\\sqrt{${texNombre(XAC + YAC)}}$<br>`
           if (extraireRacineCarree(AC)[0] !== 1) { texteCorr += `$\\phantom{on applique la relation a l'enonce :   } AC=${texRacineCarree(AC)}$<br>` }
-          texteCorr += 'On observe que $AC=AB$ donc le point $A$ est équidistant de $B$ et $C$.'
+          texteCorr += 'On observe que $AC=BC$ donc le point $C$ est équidistant de $A$ et $B$.'
           texteCorr += '<br>Le point $C$ appartient bien à la médiatrice du segment $[AB]$.'
           break
         case 5:
@@ -198,7 +202,7 @@ export default function Distance () {
           texteCorr += `De même : $AC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{De même :       } AC=\\sqrt{${XAC}+${YAC}}$<br>`
           texteCorr += `$\\phantom{De même :       } AC=\\sqrt{${texNombre(XAC + YAC)}}$<br>`
-          if (extraireRacineCarree(AC)[0] !== 1) { texteCorr += `$\\phantom{on applique la relation a l'enonce :   } AC=${texRacineCarree(AC)}$<br>` }
+          if (extraireRacineCarree(AC)[0] !== 1) { texteCorr += `$\\phantom{De même :       } AC=${texRacineCarree(AC)}$<br>` }
           texteCorr += 'On observe que $AC\\neq AB$ donc le point $C$ n\'appartient pas à la médiatrice du segment $[AB]$'
           break
       }

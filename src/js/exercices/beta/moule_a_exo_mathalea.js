@@ -3,22 +3,24 @@ import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils
 
 export const titre = 'Exo zéro Mathalea'
 
-export default function ExerciceZeroMathalea () {
-  Exercice.call(this)
-  this.nbQuestions = 4 // Ici le nombre de questions
-  this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
-  this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
-  this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-  this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
-  // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
+export default class ExerciceZeroMathalea extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 4 // Ici le nombre de questions
+    this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
+    this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
+    this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
+    this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
+    this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
+    // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
 
   //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre
   //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
   //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
+  }
 
-  // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = function () {
+  // c'est ici que commence le code de l'exercice cette méthode crée une copie de l'exercice
+  nouvelleVersion () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 

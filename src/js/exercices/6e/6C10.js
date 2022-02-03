@@ -2,14 +2,16 @@ import Operation from '../../modules/operations'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, calcul, nombreDeChiffresDe } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+
 
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Additions, soustractions et multiplications posées de nombres entiers'
+export const titre = 'Poser additions, soustractions et multiplications de nombres entiers'
 
 /**
  * Additions, soustractions et multiplications posées de nombres entiers
@@ -36,6 +38,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let typesDeQuestions, reponse
     const typesDequestionsDisponibles = [1, 2, 3, 4, 5]
     let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(

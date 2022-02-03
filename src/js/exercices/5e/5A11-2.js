@@ -28,6 +28,8 @@ export default function ExerciceLabyrintheDivisibilite () {
     const tailleChiffre = 0.8
     this.listeCorrections = []
     this.listeQuestions = []
+    this.autoCorrection = []
+
     let texte, texteCorr, trouve, laby, monChemin
     const listeCouples = shuffle([[2, 3], [2, 9], [5, 3], [5, 9], [10, 3], [10, 9]])
     let tables = []

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
-export const titre = 'Connaitre le cours sur le périmètre et l’aire'
+export const titre = 'Connaître le cours sur le périmètre et l’aire'
 
 /**
  * Citer des formules de périmètre, des formules d'aire ou la définition de π
@@ -18,6 +18,7 @@ export default function ConnaitreFormulesDePerimetreEtAires () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const listeTypeDeQuestions = combinaisonListes(
       [
         'pi',

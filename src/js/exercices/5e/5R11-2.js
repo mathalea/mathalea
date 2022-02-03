@@ -39,6 +39,7 @@ export default function PlacerPointsSurAxeRelatifs () {
   // }
 
   this.nouvelleVersion = function (numeroExercice) {
+    if (this.interactif) this.consigne = 'Placer les points sur la droite graduée, puis vérifier la réponse.'
     let typesDeQuestions
     const pointsSolutions = []
     let objets = []
@@ -46,6 +47,7 @@ export default function PlacerPointsSurAxeRelatifs () {
     const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else { typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions) }

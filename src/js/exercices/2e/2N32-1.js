@@ -42,7 +42,7 @@ export default function ExistenceDUneRacineCarree () {
           c = randint(2, 9) * (-1)
           d = c * c
           texte = `$\\sqrt{\\left(${c}\\right)^{2}}$`
-          texteCorr = `$\\sqrt{\\left(${c}\\right)^{2}}$ existe pas car $\\left(${c}\\right)^{2}=${d}$ est un nombre positif.`
+          texteCorr = `$\\sqrt{\\left(${c}\\right)^{2}}$ existe  car $\\left(${c}\\right)^{2}=${d}$ est un nombre positif.`
           break
         case 4:
           e = randint(2, 9)

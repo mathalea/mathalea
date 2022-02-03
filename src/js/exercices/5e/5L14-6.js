@@ -23,6 +23,7 @@ export default function DeterminerDerniereOperationExpNum () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const typesDeQuestionsDisponibles = [5] // expressions complexes
     let expn; let expc; let decimal = 1; let nbOperations; let resultats; let lastOp
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)

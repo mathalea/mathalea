@@ -6,6 +6,8 @@ import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les abscisses fractionnaires'
 export const interactifReady = true
 export const interactifType = 'custom'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 // Version SVGJS commit 87bd9a3
 
@@ -29,6 +31,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let typeDeQuestions
     if (this.sup > 3) {
       typeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
@@ -124,6 +127,26 @@ export default function PlacerPointsAbscissesFractionnaires () {
         texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:30px ' }, d, traceA, traceB, traceC, labels)
       }
 
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
+          enonceAvant: false, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
+          enonceAvantUneFois: false, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
+          propositions: [
+            {
+              type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+              propositions: [
+                {
+                  texte: texteCorr,
+                  statut: 3, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                  enonce: texte,
+                  sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                }
+              ]
+            }
+          ]
+        }
+      }
       if (!isArrayInArray(fractionsUtilisees, [num, den])) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
@@ -133,6 +156,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
       }
       cpt++
     }
+
     // Pour distinguer les deux types de codage de recuperation des résultats
     this.exoCustomResultat = true
     // Gestion de la correction

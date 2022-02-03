@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, ecritureParentheseSiNegatif, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, extraireRacineCarree, pgcd, calcul, egal } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 import { choisiDelta } from '../../modules/fonctionsMaths.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = false
 // export const interactifType = 'mathLive'
 export const titre = 'Factoriser, si possible, un polynôme du second degré'
@@ -55,7 +55,7 @@ export default function Resolutionavecformecanonique () {
         } else {
           p = 1
         }
-        if (b2.estParfaite()) { // pas de radical, calcul rationnel
+        if (b2.estParfaite) { // pas de radical, calcul rationnel
           x1 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie().oppose()).simplifie()
           x2 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie()).simplifie()
           if (a < 0) {

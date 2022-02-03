@@ -1,8 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { calcul, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
-import Fraction from '../../modules/Fraction.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM
@@ -36,12 +38,12 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
 
   this.nouvelleVersion = function () {
     if (this.sup3 && !context.isAmc) {
-      this.consigne = 'Calculer et simplifier au maximum le résultat'
+      this.consigne = 'Calculer et simplifier au maximum le résultat.'
     } else {
       if (this.interactif && !context.isAmc) {
-        this.consigne = 'Calculer'
+        this.consigne = 'Calculer.'
       } else if (context.isAmc) {
-        this.consigne = 'Calculer et choisir parmi les réponses proposées la bonne réponse'
+        this.consigne = 'Calculer et choisir parmi les réponses proposées la bonne réponse.'
       } else if (!this.sup3) {
         this.consigne = 'Calculer :'
       }
@@ -147,9 +149,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
           if (this.sup3) {
-            setReponse(this, i, new Fraction(a * d + c * b, b * d).simplifie(), { formatInteractif: 'fraction' })
+            setReponse(this, i, (new FractionEtendue(a * d + c * b, b * d)).simplifie(), { formatInteractif: 'fraction' })
           } else {
-            setReponse(this, i, new Fraction(a * d + c * b, b * d).simplifie(), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, (new FractionEtendue(a * d + c * b, b * d)).simplifie(), { formatInteractif: 'fractionEgale' })
           }
         }
       } else { // une soustraction
@@ -213,11 +215,14 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
             texteCorr += `$=${texFraction(calcul((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((abs(a * k - c)) / s), calcul(d / s))}$`
           }
         }
+        if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
+          texte += '<br>' + propositionsQcm(this, i).texte
+        }
         if (context.isHtml && this.interactifType === 'mathLive') {
           if (this.sup3) {
-            setReponse(this, i, new Fraction(Math.abs(a * d - c * b), b * d).simplifie(), { formatInteractif: 'fraction' })
+            setReponse(this, i, (new FractionEtendue(Math.abs(a * d - c * b), b * d)).simplifie(), { formatInteractif: 'fraction' })
           } else {
-            setReponse(this, i, new Fraction(Math.abs(a * d - c * b), b * d).simplifie(), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, (new FractionEtendue(Math.abs(a * d - c * b), b * d)).simplifie(), { formatInteractif: 'fractionEgale' })
           }
         }
       }

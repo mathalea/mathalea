@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, numAlpha, exposant, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere, contraindreValeur, rangeMinMax } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
 
 export const titre = 'Résoudre des problèmes de proportionnalité en utilisant la linéarité simple'
@@ -17,7 +18,7 @@ export const amcType = 'AMCHybride'
  * référence 6P11
  * 03/2021 : ajout de situations de proportionnalité : CGrolleau
  * 08/2021 : Ajout de la version simplifiée et de la possibilité de choisir le type de question : Guillaume Valmont
- * Relecture : Novembre 2021 par EE
+ * Relecture : Décembre 2021 par EE
 */
 
 // _____ Les fonctions suivantes renvoient un objet : {texte = ; texteCorr = ;} ______
@@ -481,7 +482,7 @@ function questionDistance (exo, i) { // questions de distance parcourue à une v
     }
     const dureeR = dureeQ * randint(2, 5)
     texte = `Un ${liste[alea1].locomotion} parcourt en moyenne $${texNombrec(distance)}$ km en ${dureeQ} heures.
-    <br> Quelle distance va-t-il parcourir, à la même vitesse en ${dureeR} xheures ?` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' km' })
+    <br> Quelle distance va-t-il parcourir, à la même vitesse en ${dureeR} heures ?` + ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' km' })
 
     texteCorr = `${texteEnCouleur(dureeR)} heures, c'est ${texteEnCouleur(dureeR / dureeQ)} fois ${dureeQ} heures.<br> ` +
     `Le ${liste[alea1].locomotion} parcourra donc ${texteEnCouleur(dureeR / dureeQ)} fois plus de distance qu'en ${dureeQ} heures.<br>` +
@@ -844,6 +845,7 @@ export default function ProportionnaliteParLinearite () {
     let indiceQuestion = 0
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let listeIndexSituationsDisponible = []
 
     if (!this.sup2) { // Si aucune liste n'est saisie

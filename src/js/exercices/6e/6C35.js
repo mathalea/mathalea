@@ -3,7 +3,8 @@
 import Exercice from '../Exercice.js'
 import { rangeMinMax, choice, randint, objet, jour, listeQuestionsToContenu, prenomF, prenomM, objetF, objetM, sp, shuffle, range, deuxColonnes, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { point, polygone, segment, mathalea2d, texteParPosition } from '../../modules/2d.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { max } from 'mathjs'
 
@@ -37,7 +38,6 @@ export default function ModelisationProblemes () {
   this.sup3 = 3
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.tailleDiaporama = 50
   this.video = ''
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
@@ -57,6 +57,7 @@ export default function ModelisationProblemes () {
     this.sup3 = parseInt(this.sup3)
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     let colorA, colorB
     let lettres
     const schemas = []
@@ -407,11 +408,11 @@ export default function ModelisationProblemes () {
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
     let colonne2 = ''
     if (this.sup3 === 3) {
-      colonne2 = 'Les schémas à associer à chacun des énoncés sont : <br>'
+      colonne2 = `Les schémas à associer à chacun des énoncés sont : ${context.isHtml ? '<br>' : '\\\\\n'}`
       for (let j = 0; j < Math.min(4, listeTypeDeQuestions.length); j++) {
         colonne2 += schemas[j]
       }
-      colonne2 += '<br>'
+      colonne2 += context.isHtml ? '<br>' : '\\\\\n'
       for (let j = 4; j < Math.min(8, listeTypeDeQuestions.length); j++) {
         colonne2 += schemas[j]
       }

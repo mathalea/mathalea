@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, contraindreValeur } from '../../modules/outils.js'
 export const titre = 'Nom de l\'exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -16,8 +16,8 @@ export default function NomExercice () {
   this.consigne = 'Calcule'
   this.nbQuestions = 10
 
-  this.besoinFormulaireNumerique = ['Difficulté', 2, '1 : Facile\n2 : Difficile'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
-  this.sup = 1 // Valeur du paramètre par défaut
+  this.besoinFormulaireNumerique = ['Difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile'] // le paramètre sera numérique de valeur max 3 (le 3 en vert)
+  this.sup = 2 // Valeur du paramètre par défaut
   // Remarques : le paramètre peut aussi être un texte avec : this.besoinFormulaireTexte = [texte, tooltip]
   //              il peut aussi être une case à cocher avec : this.besoinFormulaireCaseACocher = [texte] (dans ce cas, this.sup = true ou this.sup = false)
 
@@ -29,8 +29,9 @@ export default function NomExercice () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
 
-    this.sup = parseInt(this.sup) // Lorsqu'il est récupéré de l'url, le paramètre peut être un texte, dans le doute on le convertit en nombre
+    this.sup = contraindreValeur(1, 3, this.sup, 2) // Lorsqu'il est récupéré de l'url, le paramètre peut être n'importe quoi, alors on le contraint ici à être entre 1 et 3 et a 2 comme valeur par défaut
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(1, 12) // Comme la valeur ne sera pas modifiée, on la déclare avec const

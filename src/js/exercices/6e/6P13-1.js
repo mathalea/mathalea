@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, calcul, texPrix } from '../../modules/outils.js'
-export const titre = 'Facture'
+export const titre = 'Remplir une facture'
 
 /**
  * Compléter une facture
@@ -18,12 +18,13 @@ export default function CompleterUneFacture () {
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 2 // Niveau de difficulté
-  this.tailleDiaporama = 30 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     for (let i = 0, article1, q1, p1, article2, q2, p2, article3, q3, p3, r, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const listeArticles = [['Feuilletés au fromage', calcul(randint(50, 80) / 10)],

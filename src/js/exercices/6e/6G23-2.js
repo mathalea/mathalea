@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone, texNombre
 import { point, pointSurSegment, pointIntersectionDD, droite, segment, rotation, longueur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
-export const titre = 'Tracer un triangle dont on connait une longueur et 2 angles'
+export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angles'
 
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
@@ -23,6 +23,7 @@ export default function TracerTriangle2Angles () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     for (
       let i = 0, texte, texteCorr, cpt = 0;

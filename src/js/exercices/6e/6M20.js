@@ -2,9 +2,9 @@ import { longueur, segment, mathalea2d, afficheLongueurSegment, afficheCoteSegme
 import { combinaisonListesSansChangerOrdre, creerNomDePolygone, listeQuestionsToContenu, randint, shuffle, texNombre, calcul } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
-export const titre = 'Aires de triangles'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+export const titre = 'Calculer l\'aire de triangles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -40,6 +40,7 @@ export default function AireDeTriangles () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeCorrections = [] // Liste de questions corrigées
     this.listeQuestions = []
+    this.autoCorrection = []
     const tableauDesCotes = shuffle([5, 6, 7, 8, 9]) // pour s'assurer que les 3 côtés sont différents
     const tableauDesHauteurs = shuffle([3, 4, 5, 6]) // pour s'assurer que les 3 hauteurs sont différents
     const cotes = combinaisonListesSansChangerOrdre(tableauDesCotes, this.nbQuestions)

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texNombre, choice, calcul } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Écrire une fraction sur 100 puis sous la forme d’un pourcentage'
 export const interactifReady = true
@@ -28,6 +29,7 @@ export default function FractionVersPourcentage () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const typeDeDenominateurs = [10, 20, 50, 1000, 2, 4, 5, 200] // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typeDeDenominateurs, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"

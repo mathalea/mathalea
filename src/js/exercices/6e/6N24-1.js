@@ -19,6 +19,7 @@ export default function ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 ()
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     for (
       let i = 0, a, b, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
@@ -37,7 +38,7 @@ export default function ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 ()
       b = choice([10, 100, 1000])
       if (choice([true, false])) {
         texte =
-          '$ ' + texFraction(texNombre(a), texNombre(b)) + ' = \\dotfill $'
+          '$ ' + texFraction(texNombre(a), texNombre(b)) + ' =  $'
         texteCorr =
           '$ ' +
           texFraction(texNombre(a), texNombre(b)) +
@@ -46,7 +47,7 @@ export default function ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 ()
           ' $'
       } else {
         texte =
-          '$ ' + texNombre(a) + '\\times' + texNombre(b) + ' = \\dotfill $'
+          '$ ' + texNombre(a) + '\\times' + texNombre(b) + ' =  $'
         texteCorr =
           '$ ' +
           texNombre(a) +

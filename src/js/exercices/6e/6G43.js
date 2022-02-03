@@ -2,9 +2,9 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { cube } from '../../modules/3d.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
-export const titre = 'Représentation de solides'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+export const titre = 'Compter les cubes manquants ou pas'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
@@ -34,6 +34,7 @@ export default function DenombrerCubes () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     let typesDeQuestionsDisponibles = [] // tableau à compléter par valeurs possibles des types de questions
     switch (parseInt(this.sup)) {
       case 1:
@@ -114,7 +115,7 @@ export default function DenombrerCubes () {
             xmax: cosa * longueur + 0.5,
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
@@ -132,7 +133,7 @@ export default function DenombrerCubes () {
             xmax: cosa * longueur + 0.5,
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
@@ -151,7 +152,7 @@ export default function DenombrerCubes () {
             xmax: 3 * cosa * longueur + 0.5,
             ymax: -sina * sinb * 3 * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
@@ -184,7 +185,7 @@ export default function DenombrerCubes () {
             xmax: cosa * longueur + 0.5,
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
@@ -206,7 +207,7 @@ export default function DenombrerCubes () {
             xmax: cosa * longueur + 0.5,
             ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false,
             style: 'display: inline'
           }
@@ -225,7 +226,7 @@ export default function DenombrerCubes () {
             xmax: 3 * cosa * longueur + 0.5,
             ymax: -sina * sinb * 3 * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
             pixelsParCm: 20,
-            scale: 1,
+            scale: 0.6,
             mainlevee: false
           }
           objetsCorrection = []

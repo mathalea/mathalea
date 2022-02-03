@@ -32,7 +32,7 @@ export default function proprietesracinecarree () {
           c = a * a * b
           d = a * a
           texte = `$\\left(${a} \\sqrt{${b}}\\right)^{2}$`
-          texteCorr = `$\\left(${a} \\sqrt{${b}}\\right)^{2}=${a}^{2}\\times \\left(\\sqrt{${b}}\\right)^{2}$
+          texteCorr = `$\\left(${a} \\sqrt{${b}}\\right)^{2}=${ecritureParentheseSiNegatif(a)}^{2}\\times \\left(\\sqrt{${b}}\\right)^{2}$
                         $\\phantom{\\left(${a} \\sqrt{${b}}\\right)^{2}}$<br>
                         $\\phantom{\\left(${a} \\sqrt{${b}}\\right)^{2}}=${d}\\times ${b}$<br>
                         $\\phantom{\\left(${a} \\sqrt{${b}}\\right)^{2}}=${c}$`

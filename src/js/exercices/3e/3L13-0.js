@@ -17,4 +17,5 @@ export default function EquationPremierDegreSolutionsEntieres () {
   this.sup = true // Avec des nombres relatifs
   this.sup2 = 4 // Choix du type d'équation
   this.nbQuestions = 6
+  this.tailleDiaporama = 3
 }

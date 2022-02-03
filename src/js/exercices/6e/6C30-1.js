@@ -8,6 +8,7 @@ export const interactifReady = true
 export const interactifType = 'numerique'
 
 export const titre = 'Multiplier un nombre décimal par 10, 100 ou 1 000'
+export const dateDeModifImportante = '12/12/2021'
 
 /**
  * Multiplication d'un nombre décimal dans différentes écritures par 10, 100, 1000
@@ -17,9 +18,10 @@ export const titre = 'Multiplier un nombre décimal par 10, 100 ou 1 000'
  *  * Type 3 : écritures fractionnaires et décimales
  *
  *  * Sup2 : avec ou sans calculs à trous
- * @author Rémi Angot
-* Référence 6C30-1
-  *
+ * @author Rémi Angot (Ajout 3 décimales maxi et que des entiers par Eric Elter)
+ * Référence 6C30-1
+ * Relecture : Décembre 2021 par EE
+ *
  */
 export default function MultiplierDecimauxPar101001000 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -27,6 +29,8 @@ export default function MultiplierDecimauxPar101001000 () {
   this.consigne = 'Calculer.'
   this.sup = 3
   this.sup2 = false
+  this.sup3 = true
+  this.sup4 = false
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 8
@@ -35,6 +39,7 @@ export default function MultiplierDecimauxPar101001000 () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let typesDeQuestionsDisponibles = []; let typesDeQuestions
     if (this.sup === 1 && !this.sup2) typesDeQuestionsDisponibles = [1, 2]
     if (this.sup === 1 && this.sup2) { typesDeQuestionsDisponibles = [1, 2, 5, 6] }
@@ -42,7 +47,6 @@ export default function MultiplierDecimauxPar101001000 () {
     if (this.sup === 2 && this.sup2) { typesDeQuestionsDisponibles = [3, 4, 3, 4, 7, 8, 9, 10] }
     if (this.sup === 3 && !this.sup2) { typesDeQuestionsDisponibles = [1, 2, 3, 4] }
     if (this.sup === 3 && this.sup2) { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
-
     if (this.sup2) this.consigne = 'Calculer et compléter.'
     let reponse
     const listeTypeDeQuestions = combinaisonListes(
@@ -63,48 +67,80 @@ export default function MultiplierDecimauxPar101001000 () {
       switch (typesDeQuestions) {
         case 1: // a,abcd × 10
           a = choice([randint(11, 99), randint(100, 999)])
-          a = calcul(a / choice([10, 100, 1000, 10000]))
+          if (!this.sup4) {
+            if (this.sup3) {
+              a = calcul(a / choice([10, 100, 1000]))
+            } else {
+              a = calcul(a / choice([10, 100, 1000, 10000]))
+            }
+          }
           b = facteurs[i]
-          texte = `$${texNombre(a)}\\times${texNombre(b)}=\\ldots$`
+          texte = `$${texNombre(a)}\\times${texNombre(b)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texNombre(a)} \\times ${texNombre(
             b
-          )} = ${texNombrec(a * b)}$`
+          )} = ${miseEnEvidence(texNombrec(a * b))}$`
           reponse = calcul(a * b)
           break
         case 2: // 10 × a,abcd
           a = choice([randint(11, 99), randint(100, 999)])
-          a = calcul(a / choice([10, 100, 1000, 10000]))
+          if (!this.sup4) {
+            if (this.sup3) {
+              a = calcul(a / choice([10, 100, 1000]))
+            } else {
+              a = calcul(a / choice([10, 100, 1000, 10000]))
+            }
+          }
           b = facteurs[i]
-          texte = `$${texNombre(b)}\\times${texNombre(a)}=\\ldots$`
+          texte = `$${texNombre(b)}\\times${texNombre(a)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texNombre(b)} \\times ${texNombre(
             a
-          )} = ${texNombrec(a * b)}$`
+          )} = ${miseEnEvidence(texNombrec(a * b))}$`
           reponse = calcul(a * b)
           break
         case 3: // abcd/10 × 10
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
-          den = choice([10, 100, 1000])
           b = facteurs[i]
-          texte = `$${texFraction(a, den)}\\times${texNombre(b)}=\\ldots$`
+          if (this.sup4) {
+            den = choice([10, 100, 1000])
+            while (den > b) {
+              den = choice([10, 100, 1000])
+            }
+          } else {
+            den = choice([10, 100, 1000])
+          }
+          texte = `$${texFraction(a, den)}\\times${texNombre(b)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texFraction(a, den)} \\times ${texNombre(
             b
-          )} = ${texFraction(a * b, den)} = ${texNombrec((a / den) * b)}$`
+          )} = ${texFraction(a * b, den)} = ${miseEnEvidence(texNombrec((a / den) * b))}$`
           reponse = calcul(a * b / den)
           break
         case 4: // 10 × abcd/10
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
-          den = choice([10, 100, 1000])
           b = facteurs[i]
-          texte = `$${texNombre(b)}\\times${texFraction(a, den)}=\\ldots$`
+          if (this.sup4) {
+            den = choice([10, 100, 1000])
+            while (den > b) {
+              den = choice([10, 100, 1000])
+            }
+          } else {
+            den = choice([10, 100, 1000])
+          }
+          texte = `$${texNombre(b)}\\times${texFraction(a, den)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texNombre(b)} \\times ${texFraction(
             a,
             den
-          )} = ${texFraction(a * b, den)} = ${texNombrec((a / den) * b)}$`
+          )} = ${texFraction(a * b, den)} = ${miseEnEvidence(texNombrec((a / den) * b))}$`
           reponse = calcul(a * b / den)
           break
         case 5: // .... × 10 = a,abcd
           a = choice([randint(11, 99), randint(100, 999)])
-          a = calcul(a / choice([10, 100, 1000, 10000]))
+          if (!this.sup4) {
+            if (this.sup3) {
+              a = calcul(a / choice([10, 100, 1000]))
+            } else {
+              a = calcul(a / choice([10, 100, 1000, 10000]))
+            }
+          }
           b = facteurs[i]
           texte = `$\\ldots \\times${texNombre(b)} = ${texNombrec(a * b)}$`
           texteCorr = `$${miseEnEvidence(
@@ -114,7 +150,13 @@ export default function MultiplierDecimauxPar101001000 () {
           break
         case 6: // 10 × .... = a,abcd
           a = choice([randint(11, 99), randint(100, 999)])
-          a = calcul(a / choice([10, 100, 1000, 10000]))
+          if (!this.sup4) {
+            if (this.sup3) {
+              a = calcul(a / choice([10, 100, 1000]))
+            } else {
+              a = calcul(a / choice([10, 100, 1000, 10000]))
+            }
+          }
           b = facteurs[i]
           texte = `$${texNombre(b)} \\times \\ldots = ${texNombrec(a * b)}$`
           texteCorr = `$${texNombre(b)} \\times ${miseEnEvidence(
@@ -124,8 +166,15 @@ export default function MultiplierDecimauxPar101001000 () {
           break
         case 7: // case 3 avec un trou sur l'entier
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
-          den = choice([10, 100, 1000])
           b = facteurs[i]
+          if (this.sup4) {
+            den = choice([10, 100, 1000])
+            while (den > b) {
+              den = choice([10, 100, 1000])
+            }
+          } else {
+            den = choice([10, 100, 1000])
+          }
           texte = `$${texFraction(a, den)}\\times \\ldots = ${texNombrec(
             (a / den) * b
           )}$`
@@ -136,8 +185,15 @@ export default function MultiplierDecimauxPar101001000 () {
           break
         case 8: // case 4 avec un trou sur l'entier
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
-          den = choice([10, 100, 1000])
           b = facteurs[i]
+          if (this.sup4) {
+            den = choice([10, 100, 1000])
+            while (den > b) {
+              den = choice([10, 100, 1000])
+            }
+          } else {
+            den = choice([10, 100, 1000])
+          }
           texte = `$ \\ldots \\times${texFraction(a, den)}= ${texNombrec(
             (a / den) * b
           )}$`
@@ -151,8 +207,15 @@ export default function MultiplierDecimauxPar101001000 () {
           break
         case 9: // case 3 avec trou sur la fraction
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
-          den = choice([10, 100, 1000])
           b = facteurs[i]
+          if (this.sup4) {
+            den = choice([10, 100, 1000])
+            while (den > b) {
+              den = choice([10, 100, 1000])
+            }
+          } else {
+            den = choice([10, 100, 1000])
+          }
           texte = `$${texFraction(a, '\\ldots')}\\times${texNombre(
             b
           )} = ${texNombrec((a / den) * b)}$`
@@ -167,8 +230,15 @@ export default function MultiplierDecimauxPar101001000 () {
           break
         case 10: // case 4 avec trou sur la fraction
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
-          den = choice([10, 100, 1000])
           b = facteurs[i]
+          if (this.sup4) {
+            den = choice([10, 100, 1000])
+            while (den > b) {
+              den = choice([10, 100, 1000])
+            }
+          } else {
+            den = choice([10, 100, 1000])
+          }
           texte = `$${texNombre(b)}\\times${texFraction(
             a,
             '\\ldots'
@@ -180,7 +250,7 @@ export default function MultiplierDecimauxPar101001000 () {
           reponse = den
           break
       }
-      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexte(this, i)
+      if (context.isHtml && this.interactif) texte += ajouteChampTexte(this, i)
       setReponse(this, i, reponse)
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
@@ -203,4 +273,6 @@ export default function MultiplierDecimauxPar101001000 () {
     '1 : Écriture décimale\n2 : Écriture fractionnaire\n3 : Mélange'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des calculs à trous']
+  this.besoinFormulaire3CaseACocher = ['Trois décimales maximum', true]
+  this.besoinFormulaire4CaseACocher = ['Que des nombres entiers', true]
 }

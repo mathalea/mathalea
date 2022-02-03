@@ -1,8 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, infoMessage } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, infoMessage, sp } from '../../modules/outils.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Intercaler un nombre décimal entre deux nombres décimaux'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModifImportante = '29/10/2021'
@@ -11,6 +14,7 @@ export const dateDeModifImportante = '29/10/2021'
  * Intercaler un nombre décimal entre deux décimaux
  * @author Rémi Angot
  * Référence 6N31-4
+ * Ajout AMC : Janvier 2022 par EE
 */
 export default function IntercalerDecimalEntre2Decimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -22,6 +26,7 @@ export default function IntercalerDecimalEntre2Decimaux () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const listeTypeDeQuestionsDisponibles = ['a,b1', 'a,b2', 'a,9', 'a,bc', 'a,b9', 'a,99', 'a,b0c', 'a,1', 'a,01', 'a']
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
@@ -108,10 +113,16 @@ export default function IntercalerDecimalEntre2Decimaux () {
         texte = `$${texNombre(a)}<$` + ajouteChampTexteMathLive(this, i, 'inline') + `$\\quad<${texNombre(b)}$`
         setReponse(this, i, [a, b], { formatInteractif: 'intervalleStrict' })
       } else {
-        texte = `$${texNombre(a)}<\\ldots\\ldots<${texNombre(b)}$`
+        texte = `$${texNombre(a)}<${sp(3)}\\ldots\\ldots\\ldots\\ldots\\ldots${sp(3)}<${texNombre(b)}$`
       }
       texteCorr = `$${texNombre(a)}<${texNombre(r)}<${texNombre(b)}$`
 
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte,
+          propositions: [{ texte: texteCorr, statut: 3, feedback: '', sanscadre: true }]
+        }
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

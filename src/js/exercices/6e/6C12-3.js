@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, texNombre, texteEnCouleurEtGras, texteGras, prenomM, arrondi, prenomF, nomDuMois, jour, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, randint, choice, texNombre, texteEnCouleurEtGras, texteGras, prenomM, arrondi, prenomF, nomDuMois, jour, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes, sp } from '../../modules/outils.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC
 export const interactifReady = true
@@ -26,7 +26,6 @@ export default function ExerciceInformationsProblemes () {
   this.sup3 = false
   this.titre = titre
   this.spacing = 2
-  this.tailleDiaporama = 3
   this.nbQuestions = 10
 
   this.nouvelleVersion = function () {
@@ -41,7 +40,7 @@ export default function ExerciceInformationsProblemes () {
     this.consigne = 'Dans '
     this.nbQuestions === 1 ? this.consigne += chaqueCe[1] : this.consigne += chaqueCe[0]
     this.consigne += ' problème, '
-    context.isDiaporama ? this.consigne += cocheIndique[1] : this.consigne += cocheIndique[0]
+    context.vue === 'diap' ? this.consigne += cocheIndique[1] : this.consigne += cocheIndique[0]
     this.consigne += ' les informations qui '
     this.sup !== 1 ? this.consigne += affirmatifNegatif[1] : this.consigne += affirmatifNegatif[0]
     this.consigne += ' à sa résolution.'
@@ -124,7 +123,7 @@ export default function ExerciceInformationsProblemes () {
               ]
               break
             case 2:
-              texte += 'Quelle est la masse moyenne de livres distribués à chaque enfant ?'
+              texte += 'Quelle est la masse moyenne des livres distribués à chaque enfant ?'
               if (this.sup === 1) {
                 texteCorr += texteEnCouleurEtGras(nb5 + ' g')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' livres') + ' sont utiles pour la résolution du problème.<br>'
@@ -205,8 +204,8 @@ export default function ExerciceInformationsProblemes () {
           nb3 = texNombre(arrondi(randint(10, 50) / 10 + randint(1, 9) / 100))
           nb4 = randint(2, 5, [nb1])
           nb5 = texNombre(arrondi(randint(20, 40) / 10 + randint(1, 9) / 100))
-          texte += `Au marché, ${quidam} achète ${nb1} barquettes de haricots verts de ${nb2} g l'une à ${nb3}  € pièce `
-          texte += ` et ${nb4} ananas coûtant ${nb5} € l'unité.<br>`
+          texte += `Au marché, ${quidam} achète ${nb1} barquettes de haricots verts de ${nb2}${sp(1)}g chacune à ${nb3}${sp(1)}€ pièce `
+          texte += ` et ${nb4}${sp(1)}ananas coûtant ${nb5}${sp(1)}€ l'unité.<br>`
 
           switch (choixVersion) {
             case 1:
@@ -498,7 +497,7 @@ export default function ExerciceInformationsProblemes () {
               ]
               break
             case 2:
-              texte += `Quand elle a acheté son manga, quelle somme d'argent a-t-on rendu à ${quidam2} ?`
+              texte += `Lorsqu'elle a acheté son manga, quelle somme d'argent a-t-on rendu à ${quidam2} ?`
               if (this.sup === 1) {
                 texteCorr += texteEnCouleurEtGras(nb2 + ' €')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' €') + ' sont utiles pour la résolution du problème.<br>'
@@ -1211,7 +1210,7 @@ export default function ExerciceInformationsProblemes () {
           nb3 = randint(7, 15)
           nb4 = randint(21, 35)
           nb5 = randint(21, 35)
-          texte += `Un cargo mesurant ${nb1} m tranporte ${nb2} gros conteneurs de ${nb3} tonnes chacun du Havre à Hong-Kong. `
+          texte += `Un cargo mesurant ${nb1} m transporte ${nb2} gros conteneurs de ${nb3} tonnes chacun du Havre à Hong-Kong. `
           texte += `Ce bateau transporte aussi ${nb4} petits conteneurs pour une masse totale de ${nb5} tonnes.<br>`
 
           switch (choixVersion) {

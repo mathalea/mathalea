@@ -1,13 +1,13 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, calcul } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcType = 'qcmMono' // type de question AMC
 
-export const titre = 'Tables de multiplications et nombres décimaux'
+export const titre = 'Utiliser tables de multiplications pour effectuer produits avec décimaux'
 
 /**
  * Multiplier deux nombres décimaux
@@ -62,7 +62,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
         b = 0.1
       }
       texte =
-        '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' = \\dotfill $'
+        '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' =  $'
       texteCorr =
         '$ ' +
         texNombre(a) +

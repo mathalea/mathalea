@@ -38,6 +38,8 @@ export default function ExerciceLabyrintheDivisibilite () {
 
     this.listeCorrections = []
     this.listeQuestions = []
+    this.autoCorrection = []
+
     let texte, texteCorr, trouve
     let laby
     let monChemin

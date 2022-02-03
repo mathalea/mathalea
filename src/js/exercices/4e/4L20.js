@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureParentheseSiNegatif, signe, abs, pgcd, texFractionReduite, miseEnEvidence, texFraction, lampeMessage, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 
 export const titre = 'Équation du premier degré'
@@ -39,6 +40,7 @@ export default function ExerciceEquation1 () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     if (this.interactif) {
       this.introduction = lampeMessage({
         titre: 'Calculatrice autorisée.',
@@ -145,9 +147,9 @@ export default function ExerciceEquation1 () {
                   statut: '',
                   reponse: {
                     texte: 'Numérateur ',
-                    valeur: [reponse.signe * Math.abs(reponse.num)],
+                    valeur: [reponse.s * Math.abs(reponse.n)],
                     param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.num)),
+                      digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.n)),
                       decimals: 0,
                       signe: this.sup,
                       approx: 0
@@ -162,9 +164,9 @@ export default function ExerciceEquation1 () {
                   statut: '',
                   reponse: {
                     texte: 'Dénominateur',
-                    valeur: [reponse.den],
+                    valeur: [reponse.d],
                     param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(reponse.den),
+                      digits: nombreDeChiffresDansLaPartieEntiere(reponse.d),
                       decimals: 0,
                       signe: false,
                       approx: 0
@@ -261,9 +263,9 @@ export default function ExerciceEquation1 () {
                   statut: '',
                   reponse: {
                     texte: 'Numérateur ',
-                    valeur: [reponse.signe * Math.abs(reponse.num)],
+                    valeur: [reponse.s * Math.abs(reponse.n)],
                     param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.num)),
+                      digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.n)),
                       decimals: 0,
                       signe: this.sup,
                       approx: 0
@@ -278,9 +280,9 @@ export default function ExerciceEquation1 () {
                   statut: '',
                   reponse: {
                     texte: 'Dénominateur',
-                    valeur: [reponse.den],
+                    valeur: [reponse.d],
                     param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(reponse.den),
+                      digits: nombreDeChiffresDansLaPartieEntiere(reponse.d),
                       decimals: 0,
                       signe: false,
                       approx: 0
@@ -381,9 +383,9 @@ export default function ExerciceEquation1 () {
                   statut: '',
                   reponse: {
                     texte: 'Numérateur ',
-                    valeur: [reponse.signe * Math.abs(reponse.num)],
+                    valeur: [reponse.s * Math.abs(reponse.n)],
                     param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.num)),
+                      digits: nombreDeChiffresDansLaPartieEntiere(Math.abs(reponse.n)),
                       decimals: 0,
                       signe: this.sup,
                       approx: 0
@@ -398,9 +400,9 @@ export default function ExerciceEquation1 () {
                   statut: '',
                   reponse: {
                     texte: 'Dénominateur',
-                    valeur: [reponse.den],
+                    valeur: [reponse.d],
                     param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(reponse.den),
+                      digits: nombreDeChiffresDansLaPartieEntiere(reponse.d),
                       decimals: 0,
                       signe: false,
                       approx: 0

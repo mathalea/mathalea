@@ -22,7 +22,7 @@ export default function DifferenceFractionsCompatibles () {
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3])
-    const b = fraction(1, a.den * c)
+    const b = fraction(1, a.d * c)
     this.question = `$${a.texFraction} - ${b.texFraction}=$`
     this.correction = `Pour soustraire des fractions, on les met au même dénominateur.<br>
     <br>
@@ -30,8 +30,8 @@ export default function DifferenceFractionsCompatibles () {
     on multiplie son numérateur et son dénominateur par $${c}$.<br><br>
     Ainsi,
     $${a.texFraction} - ${b.texFraction}=
-   \\dfrac{${a.num}\\times ${c}}{${a.den}\\times ${c}}+ ${b.texFraction}
-    =${a.fractionEgale(c).texFraction} - ${b.texFraction}=\\dfrac{${a.num * c}-${b.num}}{${b.den}}=\\dfrac{${a.num * c - b.num}}{${b.den}}${simplificationDeFractionAvecEtapes(a.num * c - b.num, b.den)}$`
+   \\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}- ${b.texFraction}
+    =${a.reduire(c).texFraction} - ${b.texFraction}=\\dfrac{${a.n * c}-${b.n}}{${b.d}}=\\dfrac{${a.n * c - b.n}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c - b.n, b.d)}$`
     this.reponse = a.differenceFraction(b).simplifie()
   }
 }

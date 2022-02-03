@@ -1,7 +1,9 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, texFractionReduite, obtenirListeFacteursPremiers, obtenirListeFractionsIrreductibles, obtenirListeNombresPremiers, decompositionFacteursPremiers, texFraction } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Multiplier des fractions'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
@@ -22,6 +24,7 @@ export default function ExerciceMultiplierFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1 // Avec ou sans relatifs
   this.consigne = 'Calculer et donner le résultat sous forme irréductible.'
+  if (context.isAmc) this.titre = 'Multiplier des fractions et donner le résultat sous forme irréductible'
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 5
@@ -30,6 +33,7 @@ export default function ExerciceMultiplierFractions () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let typesDeQuestionsDisponibles
     const listeFractions = obtenirListeFractionsIrreductibles()
 
@@ -435,6 +439,7 @@ export default function ExerciceMultiplierFractions () {
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        if (context.isAmc) texte = 'Calculer et donner la réponse sous forme irréductible\\\\\n' + texte
         setReponse(this, i, reponse, { formatInteractif: 'fraction', digits: 5, digitsNum: 3, digitsDen: 2, signe: true })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

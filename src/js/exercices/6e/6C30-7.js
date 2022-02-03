@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { calcul, listeQuestionsToContenu, combinaisonListes, choice, range, rangeMinMax, texNombre3, texteEnCouleurEtGras, enleveElement, numAlpha, randint, lampeMessage } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { min } from 'mathjs'
 import { context } from '../../modules/context.js'
 import { glisseNombre, mathalea2d } from '../../modules/2d.js'
@@ -30,6 +30,7 @@ export default function DiviserUnNombreParPuissanceDeDix () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     const choixUnites = ['millièmes', 'centièmes', 'dixièmes']
     let listeChoixAlea = range(2)
     if (!this.sup2 || this.interactif) { this.nbQuestions = min(this.nbQuestions, 3) }

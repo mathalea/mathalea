@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, miseEnEvidence, texFraction } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-import Fraction from '../../modules/Fraction.js'
-export const titre = 'Égalités entre fractions simples'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
+export const titre = 'Compléter les égalités entre fractions simples'
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM
 export const interactifReady = true
@@ -28,6 +29,7 @@ export default function EgalitesEntreFractions () {
     this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const listeFractions = [
       [1, 2],
       [1, 3],
@@ -227,11 +229,8 @@ export default function EgalitesEntreFractions () {
             break
         }
       }
-      // if (this.interactif) {
-      //   texte += '<br>' + propositionsQcm(this, i).texte
-      // }
       if (this.interactif && context.isHtml) {
-        setReponse(this, i, new Fraction(c, d), { formatInteractif: 'fraction' })
+        setReponse(this, i, new FractionEtendue(c, d), { formatInteractif: 'fraction' })
         texte += ajouteChampTexteMathLive(this, i)
       }
       this.listeQuestions.push(texte)

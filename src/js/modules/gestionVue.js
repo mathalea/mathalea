@@ -1,4 +1,5 @@
 import { context } from './context'
+import { create } from './dom'
 import { getVueFromUrl, setUrl } from './gestionUrl'
 
 export async function gestionVue (vue) {
@@ -21,7 +22,6 @@ export async function gestionVue (vue) {
     const btnEdit = document.getElementById('buttonEdit')
     // const btnMiseAJourCode = get('btn_mise_a_jour_code', false)
     // const btnCopieURL = get('btnCopieURL', false)
-    // const btnLaTeX = get('btnLaTeX', false)
     // const btnEmbed = get('btnEmbed', false)
     // const btnQRcode = get('btnQRcode', false)
     const buttonFullScreen = document.getElementById('buttonFullScreen2')
@@ -99,6 +99,32 @@ export async function gestionVue (vue) {
       demasqueMenuDesExercices()
       if (btnEdit) btnEdit.style.display = 'none'
     }
+    if (context.vue === 'crpe') { // Affichage des seuls exercices
+      const section = document.querySelector('section')
+      const divCopirelem = create('div')
+      divCopirelem.innerHTML = `<div class="ui icon message">
+      <a href="https://www.copirelem.fr/ressources/pour-le-crpe/" target="_blank"><img src="assets/images/logo_copi.png"></a>
+      <div class="content">
+        <div class="header">
+          Les annales du CRPE rédigées par la <a href="https://www.copirelem.fr/ressources/pour-le-crpe/" target="_blank">COPIRELEM</a>
+        </div>
+        <p> 
+        (Commission Permanente des IREM sur l’Enseignement Élémentaire)<br>
+        Les sujets du CRPE et exercices issus d’examens dans les INSPÉ corrigés par la <a href="https://www.copirelem.fr/ressources/pour-le-crpe/" target="_blank">COPIRELEM</a> sont classés ci-dessous par thème et par année.<br> 
+        Les annales récentes pour préparer le CRPE sont disponibles à la commande sur le <a href="http://www.arpeme.fr/index.php?id_page=18" target="_blank">site de l’ARPEME</a>.<br>
+      </div>
+    </div>`
+      divCopirelem.style.marginBottom = '30px'
+      section.insertBefore(divCopirelem, divChoixExercices)
+      demasqueMenuDesExercices()
+      if (btnEdit) btnEdit.style.display = 'none'
+      const btnLaTeX = document.getElementById('btnLaTeX')
+      if (btnLaTeX) btnLaTeX.style.display = 'none'
+      const btnTousInteractifs = document.getElementById('btnTousInteractifs')
+      if (btnTousInteractifs) btnTousInteractifs.style.display = 'none'
+      const menuAvecFiltre = document.getElementById('exercices_disponibles')
+      if (menuAvecFiltre) menuAvecFiltre.style.display = 'none'
+    }
     if (context.vue === 'alcexEtChoix') { // Affichage des seuls exercices
       masqueMenuDesExercices()
       if (btnEdit) btnEdit.style.display = 'inline'
@@ -112,5 +138,5 @@ export async function gestionVue (vue) {
     // Met à jour l'URL avec notamment la nouvelle vue
     setUrl()
   }
-  if (document.getElementById('buttonEdit')) document.getElementById('buttonEdit').style.display = 'none'
+  if (document.getElementById('buttonEdit') && context.vue === null) document.getElementById('buttonEdit').style.display = 'none'
 }

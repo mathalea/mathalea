@@ -1,6 +1,9 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, texPrix } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, texPrix, sp } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Comparer des nombres décimaux'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 /**
  * Comparer deux nombres décimaux
@@ -19,6 +22,7 @@ export const titre = 'Comparer des nombres décimaux'
  * aa, bb, cc correspondent à des nombres à 2 chiffres (ces 2 chiffres pouvant être distincts)
  * @author Rémi Angot
  * 6N31
+ * Ajout AMC : Janvier 2022 par EE
  */
 export default function ComparerDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -30,6 +34,7 @@ export default function ComparerDecimaux () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const typesDeQuestionsDisponibles = [
       choice([1, 4, 5]),
@@ -129,7 +134,7 @@ export default function ComparerDecimaux () {
           break
       }
 
-      texte = `${texNombre(x)}\\ldots\\ldots${texNombre(y)}`
+      texte = `${texNombre(x)}${sp(3)}\\ldots\\ldots${sp(3)}${texNombre(y)}`
       if (parseFloat(x) > parseFloat(y)) {
         texteCorr = `${texNombre(x)} > ${texNombre(y)}`
       } else if (parseFloat(x) < parseFloat(y)) {
@@ -140,7 +145,7 @@ export default function ComparerDecimaux () {
 
       if (zeroInutile) {
         if (randint(1, 2) === 1) {
-          texte = `${texPrix(x)}\\ldots\\ldots${texNombre(y)}`
+          texte = `${texPrix(x)}${sp(3)}\\ldots\\ldots${sp(3)}${texNombre(y)}`
           if (parseFloat(x) > parseFloat(y)) {
             texteCorr = `${texPrix(x)} > ${texNombre(y)}`
           } else if (parseFloat(x) < parseFloat(y)) {
@@ -149,7 +154,7 @@ export default function ComparerDecimaux () {
             texteCorr = `${texPrix(x)} = ${texNombre(y)}`
           }
         } else {
-          texte = `${texNombre(x)}\\ldots\\ldots${texPrix(y)}`
+          texte = `${texNombre(x)}${sp(3)}\\ldots\\ldots${sp(3)}${texPrix(y)}`
           if (parseFloat(x) > parseFloat(y)) {
             texteCorr = `${texNombre(x)} > ${texPrix(y)}`
           } else if (parseFloat(x) < parseFloat(y)) {
@@ -159,9 +164,15 @@ export default function ComparerDecimaux () {
           }
         }
       }
-
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: texte,
+          propositions: [{ texte: texteCorr, statut: 3, feedback: '', sanscadre: true }]
+        }
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
+
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

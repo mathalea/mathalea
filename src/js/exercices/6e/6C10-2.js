@@ -1,13 +1,15 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 
-export const titre = 'Tables de multiplications et multiples de 10'
+export const titre = 'Utiliser tables de multiplications pour effectuer produits avec multiple de 10'
 
 /**
  * Les 2 facteurs peuvent terminer par aucun, 1, 2 ou 3 zéros
@@ -71,7 +73,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         b = c
       }
       texte =
-        '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' = \\dotfill $'
+        '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' =  $'
       texteCorr =
         '$ ' +
         texNombre(a) +
@@ -118,7 +120,6 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       } else {
         texte += ajouteChampTexteMathLive(this, i)
         setReponse(this, i, a * b)
-        texte = texte.replace('\\dotfill', '')
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
@@ -126,5 +127,5 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Choix des tables', 'Nombres séparés par des tirets'] // Texte, tooltip
-  if (context.isHtml && !context.isDiaporama) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+  if (context.isHtml) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
 }

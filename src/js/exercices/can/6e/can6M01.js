@@ -1,5 +1,5 @@
 import { context } from '../../../modules/context'
-import { propositionsQcm } from '../../../modules/gestionInteractif'
+import { propositionsQcm } from '../../../modules/interactif/questionQcm'
 import { listeQuestionsToContenu, randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Comparer des périmètres (V/F)'

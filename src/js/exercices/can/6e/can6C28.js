@@ -41,7 +41,7 @@ export default function PetitsProblemeDeFraction () {
         this.question = `J'ai mangé le ${N} d'un paquet de gâteaux qui contenait $${a}$ gâteaux. <br>
       Combien en reste-t-il ?`
         this.correction = `$\\dfrac{1}{3}\\times ${a}=${texNombrec(a / 3)}$.<br>
-      Il en reste donc $${a}-${texNombrec(a / 5)}=${this.reponse}$`
+      Il en reste donc $${a}-${texNombrec(a / 3)}=${this.reponse}$`
         break
       case 'sixième':
         this.reponse = calcul((5 * a) / 6)

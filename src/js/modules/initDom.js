@@ -1,9 +1,9 @@
 /* global $ */
-import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context'
+import { context, setOutputAmc, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
 import { getDureeFromUrl, getLogFromUrl, getZoomFromUrl, getVueFromUrl, getUrlVars, goTabVue, replaceQueryParam } from './gestionUrl'
-import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
+import { modalTimer } from './modalTimer'
 import { zoomAffichage } from './zoom'
 
 const boutonMAJ = () => {
@@ -62,8 +62,23 @@ const affichageUniquementQuestion = (i) => {
   const texteExerciceTermine = document.getElementById('divExerciceTermine')
   if (texteExerciceTermine) texteExerciceTermine.remove()
   const listeBoutonsDuMenu = document.querySelectorAll('[id^=btnMenu]')
+  // On gère l'affichage des numéros de questions circulaires pour ne pas en afficher plus d'une ligne
   for (const bouton of listeBoutonsDuMenu) {
     bouton.classList.remove('blue')
+    if (parseInt(bouton.textContent) === i + 1) {
+      bouton.classList.add('blue')
+    }
+    // Le nombre à gauche et à droite de la question courante dépend de la largeur de la fenêtre
+    const demiNombreDeRonds = (window.innerWidth / 80 / 2)
+    if (listeBoutonsDuMenu.length > 2 * demiNombreDeRonds) { // Ce nombre est-il trop grand ?
+      if (i < demiNombreDeRonds && parseInt(bouton.textContent) < 2 * demiNombreDeRonds) { // Dans les 10 premières questions on garde l'affichage des 10 premiers boutons
+        bouton.style.display = 'inline'
+      } else if (Math.abs(parseInt(bouton.textContent) - i - 1) > demiNombreDeRonds) { // Questions à plus de 6 d'écart cachée
+        bouton.style.display = 'none'
+      } else {
+        bouton.style.display = 'inline'
+      }
+    } else bouton.style.display = 'inline'
   }
   affichageUniquementExercice()
   const questions = document.querySelectorAll('div.question')
@@ -210,6 +225,23 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     if (vue === 'diapCorr') await addFetchHtmlToParent('templates/boutonsZoom.html', section)
     addElement(section, 'div', { id: 'containerErreur' })
+    if (vue === 'exMoodle') {
+      const divMessage = addElement(section, 'div')
+      divMessage.innerHTML = `<div class="ui icon message">
+      <i class="exclamation triangle icon"></i>
+      <div class="content">
+        <div class="header">
+          Cliquer sur « Vérifier les réponses » avant de terminer le test.
+        </div>
+        
+      </div>
+    </div>`
+      divMessage.style.marginBottom = '30px'
+      divMessage.style.marginTop = '30px'
+    }
+    if (vue === 'exMoodle' || vue === 'correctionMoodle') {
+      document.body.classList.add('exMoodle')
+    }
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
     const accordions = document.getElementsByClassName('ui fluid accordion')
     for (const accordion of accordions) {
@@ -240,14 +272,14 @@ export async function initDom () {
             const valeurEnregistree = window.sessionStorage.getItem(`reponse${i}` + context.graine)
             document.getElementById(`champTexteEx0Q${i}`).textContent = valeurEnregistree
           }
-          let hauteurExercice = window.document.querySelector('section').scrollHeight
-          window.parent.postMessage({ hauteurExercice }, '*')
-          // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
-          setTimeout(() => {
-            hauteurExercice = window.document.querySelector('section').scrollHeight
-            window.parent.postMessage({ hauteurExercice }, '*')
-          }, 1000)
         }
+        let hauteurExercice = window.document.querySelector('section').scrollHeight
+        window.parent.postMessage({ hauteurExercice, serie: context.graine, iMoodle: new URLSearchParams(window.location.search).get('iMoodle') }, '*')
+        // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
+        setTimeout(() => {
+          hauteurExercice = window.document.querySelector('section').scrollHeight
+          window.parent.postMessage({ hauteurExercice, serie: context.graine, iMoodle: new URLSearchParams(window.location.search).get('iMoodle') }, '*')
+        }, 1000)
         if (window.sessionStorage.getItem('isValide' + context.graine)) {
           const exercice = context.listeObjetsExercice[0]
           const bouton = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
@@ -272,6 +304,13 @@ export async function initDom () {
         tableauReponseEx1Q1 = undefined
       }
       window.parent.postMessage({ hauteur: Math.max(hauteurCorrection, hauteurIEP), reponse: tableauReponseEx1Q1 }, '*')
+      // On fusionne toutes les listes pour que la numérotation des questions soit respectées.
+      if (vue === 'diapCorr') {
+        const listes = document.querySelectorAll('#corrections li')
+        for (let i = 1; i < listes.length; i++) {
+          listes[0].append(listes[i])
+        }
+      }
     })
   } else if (vue === 'eval') {
     setOutputHtml()
@@ -308,6 +347,7 @@ export async function initDom () {
           element.hasListenner = true
         }
       }
+      window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
     })
   } else if (vue === 'light' || vue === 'l') {
     setOutputHtml()
@@ -348,7 +388,7 @@ export async function initDom () {
       for (const ol of ols) {
         setStyles(ol, 'padding:0;')
       }
-      window.parent.postMessage({ url: window.location.href, graine: context.graine }, '*')
+      window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
     })
     // On récupère tous les paramètres de chaque exos dans un tableau d'objets
     const paramsAllExos = Object.entries(getUrlVars())
@@ -447,13 +487,15 @@ export async function initDom () {
         gestionTimer(divTimer)
       }
       document.querySelector('button[data-num="1"]').classList.add('blue')
+      window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
+      document.getElementById('corrections').style.display = 'none'
     })
     document.getElementById('btnCorrection').addEventListener('click', () => {
       document.getElementById('corrections').style.display = 'block'
     })
   } else if (vue === 'diap') {
     navigationAvecLesFleches()
-    context.zoom = 3
+    context.zoom = 2
     context.duree = parseInt(getDureeFromUrl())
     setOutputHtml()
     section = addElement(document.body, 'section', { class: 'ui container', id: 'sectionPrincipale', style: 'display: none' })
@@ -482,6 +524,12 @@ export async function initDom () {
     })
     document.getElementById('btnPrev').addEventListener('click', () => {
       questionPrecedente()
+    })
+    document.getElementById('btnDiapTimer').addEventListener('click', async () => {
+      modalTimer()
+      document.addEventListener('nouveauTimer', () => {
+        gestionTimerDiap()
+      })
     })
     document.addEventListener('exercicesAffiches', () => {
       liToDiv()
@@ -539,12 +587,13 @@ export async function initDom () {
         sectionTemp.remove()
         setStyles(section, 'display: block')
         gestionTimerDiap()
+        affichageUniquementQuestion(0)
       },
       { once: true }
     )
     // Gestion du bouton nouvelles données
     document.getElementById('btnRedo').addEventListener('click', () => {
-      window.history.pushState('', '', window.location.protocol + '//' + window.location.host + window.location.pathname + replaceQueryParam('serie', ''))
+      window.history.replaceState('', '', window.location.protocol + '//' + window.location.host + window.location.pathname + replaceQueryParam('serie', ''))
       document.location.reload()
     })
     // Affichage de la correction
@@ -572,12 +621,6 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/amc.html', document.body)
     setOutputAmc()
-  } else if (vue === 'cm') {
-    await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
-    section = addElement(document.body, 'section', { class: 'ui container' })
-    await addFetchHtmlToParent('templates/cm.html', document.body)
-    setOutputDiaporama()
-    initDiaporama()
   } else if (vue === 'scores') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
     section = addElement(document.body, 'section', { class: 'ui container' })

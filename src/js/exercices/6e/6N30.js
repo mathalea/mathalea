@@ -2,8 +2,8 @@ import { combinaisonListes, listeQuestionsToContenu, randint, calcul, htmlConsig
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Lire l’abscisse décimale d’un point'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,6 +33,7 @@ export default function LireAbscisseDecimale () {
     let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     if (parseInt(this.sup) === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {

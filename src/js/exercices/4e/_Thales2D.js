@@ -2,7 +2,8 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, texNombrec, creerNomDePolygone, texNombre, creerBoutonMathalea2d, nombreDeChiffresDansLaPartieEntiere, texteGras } from '../../modules/outils.js'
 import { point, pointSurSegment, pointAdistance, polygone, triangle2points2longueurs, homothetie, similitude, texteParPoint, longueur, angle, angleOriente, mathalea2d } from '../../modules/2d.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur'
 
 export const amcReady = true
@@ -33,6 +34,8 @@ export default function Thales2D () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeDeNomsDePolygones = []
+    this.autoCorrection = []
+
     const premiereQuestionPapillon = randint(0, 1) // Pour alterner les configurations et savoir par laquelle on commence
     let reponse
 
@@ -90,20 +93,11 @@ export default function Thales2D () {
       }
       const marqueNomC = texteParPoint(nomC, c, 'milieu', 'black', 1, 'middle', true)
 
-      if (!context.isHtml) {
-        texte = '\\begin{minipage}{.5\\linewidth}\n'
-      } else {
-        texte = ''
-      }
-      texte += `Sur la figure suivante, $${nomA + nomC}=${ac}~\\text{cm}$, $${nomA + nomB}=${ab}~\\text{cm}$, $${nomC + nomM}=${texNombrec(Math.abs(k) * ac)}~\\text{cm}$, $${nomC + nomN}=${texNombrec(Math.abs(k) * bc)}~\\text{cm}$ et $(${nomA + nomB})//(${nomM + nomN})$.<br>`
+      texte = `Sur la figure suivante, $${nomA + nomC}=${ac}~\\text{cm}$, $${nomA + nomB}=${ab}~\\text{cm}$, $${nomC + nomM}=${texNombrec(Math.abs(k) * ac)}~\\text{cm}$, $${nomC + nomN}=${texNombrec(Math.abs(k) * bc)}~\\text{cm}$ et $(${nomA + nomB})//(${nomM + nomN})$.<br>`
       if (!this.interactif) {
         texte += `Calculer $${nomM + nomN}$ et $${nomC + nomB}$.<br><br>`
       }
-      if (!context.isHtml) {
-        texte += '\\end{minipage}\n'
-        texte += '\\begin{minipage}{.5\\linewidth}\n'
-        texte += '\\centering'
-      }
+
       texte += mathalea2d({
         xmin: Math.min(A.x, B.x, C.x, M.x, N.x) - 1.5,
         ymin: Math.min(A.y, B.y, C.y, M.y, N.y) - 0.8,
@@ -114,10 +108,6 @@ export default function Thales2D () {
 
       ABC, MNC, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN
       )
-
-      if (!context.isHtml) {
-        texte += '\\end{minipage}\n'
-      }
 
       const epaisseurTriangle = (k < 0) ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
       const boutonAideMathalea2d = creerBoutonMathalea2d(numeroExercice + '_' + i,

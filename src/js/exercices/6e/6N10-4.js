@@ -19,6 +19,7 @@ export default function EcrireNombresEntiersFormates () {
     this.consigne = 'Écrire les nombres en chiffres en supprimant les zéros inutiles et en séparant les classes.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     function zeroSuperflus (n) {
       const nzero = randint(0, 2); let nombrestring = n.toString()
       for (let k = 0; k < nzero; k++) nombrestring = '0' + nombrestring
@@ -45,9 +46,9 @@ export default function EcrireNombresEntiersFormates () {
         if (tranche[2] === 0) nombre = 0
       }
       nombrestring = zeroSuperflus(nombre)
-      if (!context.isDiaporama) texte = `$${nombrestring}$ : \\dotfill`
+      if (context.vue !== 'diap') texte = `$${nombrestring}$ : \\dotfill`
       else texte = `$${nombrestring}$`
-      if (!context.isDiaporama) texteCorr = `$${nombrestring}=${texNombre(nombre)}$`
+      if (context.vue !== 'diap') texteCorr = `$${nombrestring}=${texNombre(nombre)}$`
       else texteCorr = `${texNombre(nombre)}`
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

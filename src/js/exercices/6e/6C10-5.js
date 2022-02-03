@@ -5,13 +5,14 @@ import { context } from '../../modules/context.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = false
-export const titre = 'Labyrinthe de multiples'
+export const titre = 'Parcourir un labyrinthe de multiples'
 
 /**
  * @author Jean-Claude Lhote
  * Publié le 6/12/2020
  * Ref : c3C10-2 et 6C10-5
  * Parcourir un labyrinthe de nombres en passant par les multiples du nombre choisi.
+ * Relecture : Janvier 2022 par EE
  */
 
 export default function ExerciceLabyrintheMultiples () {
@@ -25,7 +26,7 @@ export default function ExerciceLabyrintheMultiples () {
   this.nbColsCorr = 1
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
-  this.tailleDiaporama = 3
+  this.tailleDiaporama = 2
   this.sup3 = 3
   this.sup = 4
   if (this.niveau === 'CM') {
@@ -38,6 +39,7 @@ export default function ExerciceLabyrintheMultiples () {
   this.nouvelleVersion = function () {
     this.listeCorrections = []
     this.listeQuestions = []
+    this.autoCorrection = []
     this.sup = contraindreValeur(1, 4, Number(this.sup), 4)
     let table
     if (this.sup === 1) {
@@ -49,13 +51,13 @@ export default function ExerciceLabyrintheMultiples () {
     } else {
       table = combinaisonListesSansChangerOrdre([choice([2, 5, 10]), choice([3, 9]), choice([4, 6, 7, 8]), 2, 3, 4, 5, 6, 7, 8, 9])
     }
-    const tailleChiffre = 0.8
+    const tailleChiffre = 1.5
     const maximum = parseInt(this.sup2)
 
     for (let q = 0, texte, params, texteCorr, monChemin, laby, trouve, listeMultiples, index; q < this.nbQuestions;) {
       laby = labyrinthe({ taille: tailleChiffre })
       laby.niveau = parseInt(this.sup3) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
-      laby.chemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
+      laby.chemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(laby.chemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(laby.chemin) // On trace le chemin solution
       monChemin = laby.chemin
@@ -63,7 +65,7 @@ export default function ExerciceLabyrintheMultiples () {
 
       texte = `${texteEnCouleurEtGras('Trouve la sortie en ne passant que par les cases contenant un multiple de ', 'black')}$${table[q]}$.<br>`
       texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en marron et la sortie était la numéro $${2 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
-      // Zone de construction du tableau de nombres : Si ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
+      // Zone de construction du tableau de nombres : S'ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
       listeMultiples = []
       index = 0
       for (let i = 2; i <= maximum; i++) {
@@ -106,7 +108,7 @@ export default function ExerciceLabyrintheMultiples () {
       listeQuestionsToContenu(this)
     }
   }
-  this.besoinFormulaireNumerique = ['Tables :', 4, '1: tables de 2,5 et 10\n2: tables de 3 et 9\n3: tables de 4,6,7 et 8\n4: mélange']
+  this.besoinFormulaireNumerique = ['Tables', 4, '1: tables de 2,5 et 10\n2: tables de 3 et 9\n3: tables de 4,6,7 et 8\n4: mélange']
   this.besoinFormulaire2Numerique = ['Facteur maximum']
   this.besoinFormulaire3Numerique = ['Niveau de rapidité', 6, ' 1 : Guépard\n 2 : Antilope\n 3 : Lièvre\n 4 : Tortue\n 5 : Escargot\n 6 : Au hasard']
 } // Fin de l'exercice.

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { calcul, listeQuestionsToContenu, combinaisonListes, randint, texNombre2, texFraction, choice, miseEnEvidence, sp } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM
@@ -40,6 +40,7 @@ export default function MultiplierPar001 () {
 
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     let typeDeQuestionsDisponibles
     if (parseInt(this.sup2) === 4) {
       typeDeQuestionsDisponibles = [1, 2, 3]

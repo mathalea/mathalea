@@ -1,8 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureParentheseSiNegatif } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-import { context } from '../../modules/context.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Multiplication de deux entiers relatifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,14 +40,13 @@ export default function ExerciceMultiplicationsRelatifs (max = 10) {
         b = -1
       }
       if (this.sup2) {
-        texte = '$ ' + a + ' \\times  ' + ecritureParentheseSiNegatif(b) + ' = \\dotfill $'
+        texte = '$ ' + a + ' \\times  ' + ecritureParentheseSiNegatif(b) + ' =$'
         texteCorr = '$ ' + a + ' \\times  ' + ecritureParentheseSiNegatif(b) + ' = ' + (a * b) + ' $'
       } else {
-        texte = '$ ' + ecritureNombreRelatif(a) + ' \\times  ' + ecritureNombreRelatif(b) + ' = \\dotfill $'
+        texte = '$ ' + ecritureNombreRelatif(a) + ' \\times  ' + ecritureNombreRelatif(b) + ' =$'
         texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' \\times  ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a * b) + ' $'
       }
       setReponse(this, i, a * b)
-      if (this.interactif && context.isHtml) texte = texte.replace('\\dotfill', '')
       texte += ajouteChampTexteMathLive(this, i)
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

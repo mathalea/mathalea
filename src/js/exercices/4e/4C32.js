@@ -2,8 +2,8 @@ import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, te
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Notation scientifique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,6 +32,7 @@ export default function NotationScientifique () {
     let typesDeQuestionsDisponibles
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     if (parseInt(this.sup2) === 1) typesDeQuestionsDisponibles = [0, 0, 0, 1, 1]
     else if (parseInt(this.sup2) === 2) typesDeQuestionsDisponibles = [0, 1, 1, 2, 2]
     else typesDeQuestionsDisponibles = [2, 2, 3, 3, 3]
@@ -83,9 +84,9 @@ export default function NotationScientifique () {
 
       if (this.sup === 1) {
         if (exp > 9 || exp < 0) {
-          reponse = `${texNombrec(mantisse)}\\times10^{${exp}}`
+          reponse = `${texNombrec(mantisse)}\\times 10^{${exp}}`
         } else {
-          reponse = `${texNombrec(mantisse)}\\times10^${exp}`
+          reponse = `${texNombrec(mantisse)}\\times 10^${exp}`
         }
         texte = `$${decimalstring}${sp()}=$`
         texteCorr = `$${decimalstring} = ${scientifiquestring}$`

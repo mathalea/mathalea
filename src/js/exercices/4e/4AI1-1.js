@@ -33,6 +33,8 @@ export default function AlgoTortue () { // √ßa c'est la classe qui permet de cr√
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
+
     this.figures = []
     const objetsCorrection = []
     const paramsCorrection = {}

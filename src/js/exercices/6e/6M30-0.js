@@ -3,9 +3,9 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
-export const titre = 'Volumes de pavés droit par dénombrement'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+export const titre = 'Déterminer le volume de pavés droit par dénombrement'
 export const interactifReady = true
 export const amcReady = true
 export const interactifType = 'mathLive'
@@ -25,6 +25,7 @@ export default function VolumesPavesParDenombrement () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     context.anglePerspective = 30
     context.coeffPerspective = 0.5
     const dimensions = []

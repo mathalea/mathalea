@@ -5,7 +5,7 @@ import Exercice from '../Exercice.js'
 export const titre = 'Aire du parallélogramme'
 
 /**
-* Deux parallélogrammes sont tracés, on connait les 2 côté et une hauteur.
+* Deux parallélogrammes sont tracés, on connaît les 2 côté et une hauteur.
 *
 * Il faut calculer leurs aires.
 *
@@ -42,6 +42,7 @@ export default function AireDuParallelogramme () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeCorrections = [] // Liste de questions corrigées
     this.listeQuestions = []
+    this.autoCorrection = []
     let texte = ''; let params
     const nom = creerNomDePolygone(12, 'Q')
     const c1 = randint(3, 7)

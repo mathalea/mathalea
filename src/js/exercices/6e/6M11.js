@@ -3,8 +3,9 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul, exposant } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-export const titre = 'Aires de carrés, rectangles et triangles rectangles'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+export const titre = 'Calculer l\'aire de carrés, rectangles et triangles rectangles'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
@@ -40,6 +41,7 @@ export default function AireCarresRectanglesTriangles () {
     const nom = creerNomDePolygone(11, 'Q')
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const c = randint(2, 6)
     const L = randint(2, 5)
     const l = randint(2, 5, L)

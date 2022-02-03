@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { egal, randint, combinaisonListes, printlatex, listeQuestionsToContenuSansNumero, lettreDepuisChiffre } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser la double distributivité'
 export const interactifReady = true
@@ -27,11 +28,14 @@ export default function DoubleDistributivite () {
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 5
   this.sup = 1
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles = [1, 2]
     if (this.sup === 2) {
       typesDeQuestionsDisponibles = [3, 4]

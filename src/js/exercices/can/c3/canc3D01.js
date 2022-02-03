@@ -1,10 +1,13 @@
 import { cercle, mathalea2d, point, rotation, segment } from '../../../modules/2d.js'
+import { context } from '../../../modules/context.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Lire l\'heure'
 export const dateDePublication = '4/11/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /*!
  * @author Jean-Claude Lhote
@@ -36,13 +39,56 @@ export default function LireHeure () {
     const beta = 90 - m * 6
     const grandeAiguille = rotation(segment(O, point(1.5, 0)), O, beta)
     const petiteAiguille = rotation(segment(O, point(1, 0)), O, alpha)
-    grandeAiguille.color = 'red'
+    grandeAiguille.color = context.isHtml ? 'red' : 'black'
     grandeAiguille.epaisseur = 2
-    petiteAiguille.color = 'green'
-    petiteAiguille.epaisseur = 3
+    petiteAiguille.color = context.isHtml ? 'blue' : 'black'
+    petiteAiguille.epaisseur = 4
     horloge.push(petiteAiguille, grandeAiguille)
-    this.question = 'Quelle est l\'heure du matin indiquée par cette horloge ? (...h....)<br>' + mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 1, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge)
+    this.question = 'Quelle est l\'heure du matin indiquée par cette horloge ? (...h....)<br>' + mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.7, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge)
     this.reponse = `${h}h ${m}`
     this.correction = `${h}h ${m}`
+    if (context.isAmc) {
+      this.autoCorrection = [
+        {
+          enonce: this.question,
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [
+                {
+                  texte: this.correction,
+                  reponse: {
+                    texte: 'heure',
+                    valeur: [h],
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [
+                {
+                  texte: '',
+                  reponse: {
+                    texte: 'minutes',
+                    valeur: [m],
+                    param: {
+                      digits: 2,
+                      decimals: 0,
+                      signe: false
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 }

@@ -1,4 +1,4 @@
-import Fraction from './Fraction'
+import FractionX from './FractionEtendue'
 import ListeFraction from './ListeFraction'
 
 /**
@@ -72,11 +72,45 @@ export function listeFractions (...fractions) {
 }
 
 /**
- * Construit et Retourne un objet Fraction(a, b)
+ * Construit et Retourne un objet FractionX(a, b)
  * @param {number} a
  * @param {number} b
  * @return {Fraction}
  */
 export function fraction (a, b) {
-  return new Fraction(a, b)
+  if (b === undefined) { // pas d'argument b
+    if (a === undefined) {
+      window.notify('fraction de fractions.js : aucun argument n\'est défini ', { a, b })
+      return NaN
+    } else {
+      if (typeof a === 'number' || (typeof a === 'object' && ['Fraction', 'FractionX'].indexOf(a.type) !== -1)) {
+        return new FractionX(a)
+      }
+      if (typeof a === 'string') {
+        return new FractionX(a)
+      }
+      window.notify('fraction de fractions.js : l\'argument 1 est de type inconvenant ', { a, b })
+      return NaN
+    }
+  } else { // on a un argument b
+    if (a === undefined) {
+      window.notify('fraction de fractions.js : le premier argument n\'est pas défini ', { a, b })
+      return NaN
+    } else {
+      if (typeof a === 'number' && typeof b === 'number') {
+        return new FractionX(a, b)
+      }
+      if (['Fraction', 'FractionX'].indexOf(a.type) !== -1 && ['Fraction', 'FractionX'].indexOf(b.type) !== -1) {
+        return new FractionX(a, b)
+      }
+      if (['Fraction', 'FractionX'].indexOf(a.type) !== -1 && typeof b === 'number') {
+        return new FractionX(a, b)
+      }
+      if (typeof a === 'number' && ['Fraction', 'FractionX'].indexOf(b.type) !== -1) {
+        return new FractionX(a, b)
+      }
+      window.notify('fraction de fractions.js : les arguments sont de type inconvenant ', { a, b })
+      return NaN
+    }
+  }
 }

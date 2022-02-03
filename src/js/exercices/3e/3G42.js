@@ -2,7 +2,8 @@ import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu, combinaisonListes, nombreDecimal, exposant, calcul, texteGras } from '../../modules/outils.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { point3d, vecteur3d, sphere3d, cylindre3d } from '../../modules/3d.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -41,6 +42,8 @@ export default function VolumeBoule () {
     this.sup = Number(this.sup)
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
+
     let typesDeQuestionsDisponibles = [] // tableau à compléter par valeurs possibles des types de questions
     typesDeQuestionsDisponibles = [1, 2, 3, 4]
     let listeTypeDeQuestions = []
@@ -61,7 +64,7 @@ export default function VolumeBoule () {
           texte += `Calculer le volume d'une boule de rayon ${r} cm. `
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${r} \\text{ cm})^3$. <br>`
-          texteCorr += texteGras('Le volume de la boule est donc environ : ' + nombreDecimal(4 / 3 * Math.PI * r * r * r, 4) + ' cm' + exposant(3) + '. <br>')
+          texteCorr += texteGras('Le volume de la boule est donc environ : ' + nombreDecimal(4 / 3 * Math.PI * r * r * r, 1) + ' cm' + exposant(3) + '. <br>')
           setReponse(this, i, calcul(4 / 3 * Math.PI * r * r * r, 1))
           break
 
@@ -71,7 +74,7 @@ export default function VolumeBoule () {
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `Le rayon de la boule est la moitié de son diamètre soit : ${d} cm. <br>`
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${d} \\text{ cm})^3$. <br>`
-          texteCorr += texteGras('Le volume de la boule est donc environ : ' + nombreDecimal(4 / 3 * Math.PI * d * d * d, 4) + ' cm' + exposant(3) + '. <br>')
+          texteCorr += texteGras('Le volume de la boule est donc environ : ' + nombreDecimal(4 / 3 * Math.PI * d * d * d, 1) + ' cm' + exposant(3) + '. <br>')
           setReponse(this, i, calcul(4 / 3 * Math.PI * d * d * d, 1))
           break
 
@@ -87,7 +90,7 @@ export default function VolumeBoule () {
           rayon = calcul(Math.sqrt(A / (4 * Math.PI)))
           texteCorr += 'On obtient donc une valeur approchée de $r$ : $r \\approx ' + nombreDecimal(rayon) + '$. <br>'
           texteCorr += 'On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (' + nombreDecimal(rayon) + ' \\text{ cm})^3$. <br>'
-          texteCorr += texteGras('Le volume de la boule est donc environ : ' + nombreDecimal(4 / 3 * Math.PI * rayon * rayon * rayon, 4) + ' cm' + exposant(3) + '. <br>')
+          texteCorr += texteGras('Le volume de la boule est donc environ : ' + nombreDecimal(4 / 3 * Math.PI * rayon * rayon * rayon, 1) + ' cm' + exposant(3) + '. <br>')
           setReponse(this, i, calcul(4 / 3 * Math.PI * rayon * rayon * rayon, 1))
           break
 
@@ -114,7 +117,7 @@ export default function VolumeBoule () {
           texteCorr += `Ici, le volume du cylindre est donc : $V_c = \\pi \\times (${diam} \\text{ cm})^2 \\times (${2 * diam}\\text{ cm})$. <br>`
           texteCorr += `Le volume de la boule est : $V_b = \\dfrac{4}{3} \\times \\pi \\times (${diam} \\text{ cm})^3$. <br>`
           texteCorr += `Le volume cherché est donc donné par : $\\pi \\times (${diam} \\text{ cm})^2 \\times (${2 * diam}\\text{ cm}) - \\dfrac{4}{3} \\times \\pi \\times (${diam} \\text{ cm})^3$. <br>`
-          texteCorr += texteGras('Le volume cherché est environ : ' + nombreDecimal(Math.PI * diam * diam * 2 * diam - 4 / 3 * Math.PI * diam * diam * diam) + ' cm' + exposant(3) + '. <br>')
+          texteCorr += texteGras('Le volume cherché est environ : ' + nombreDecimal(Math.PI * diam * diam * 2 * diam - 4 / 3 * Math.PI * diam * diam * diam, 1) + ' cm' + exposant(3) + '. <br>')
           setReponse(this, i, calcul(Math.PI * diam * diam * 2 * diam - 4 / 3 * Math.PI * diam * diam * dia1))
           break
       }

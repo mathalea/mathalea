@@ -35,6 +35,7 @@ export default function TermeInconnuDeSomme () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let decimal
@@ -96,9 +97,6 @@ export default function TermeInconnuDeSomme () {
           break
       }
 
-      if (context.isDiaporama) {
-        texte = texte.replace('= \\dotfill', '')
-      }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

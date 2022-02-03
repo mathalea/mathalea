@@ -60,9 +60,9 @@ export default function Equationspresqueproduitnulle () {
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d - f, c + e)}$<br>
                        On en déduit :  `
             if ((-d - f) / (c + e) < -b / a) {
-              texteCorr += `$S=\\left\\{${texFractionReduite(-d - f, c + e)};${texFractionReduite(-b, a)}\\right\\}$`
+              texteCorr += `$S=\\left\\{${fraction(-d - f, c + e).texFractionSimplifiee};${fraction(-b, a).texFractionSimplifiee}\\right\\}$`
             } else {
-              texteCorr += `$S=\\left\\{${texFractionReduite(-b, a)};${texFractionReduite(-d - f, c + e)}\\right\\}$`
+              texteCorr += `$S=\\left\\{${fraction(-b, a).texFractionSimplifiee};${fraction(-d - f, c + e).texFractionSimplifiee}\\right\\}$`
             }
           }
 
@@ -91,9 +91,9 @@ export default function Equationspresqueproduitnulle () {
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d + f, c - e)}$<br>
                    On en déduit :  `
             if ((-d + f) / (c - e) < -b / a) {
-              texteCorr += `$S=\\left\\{${texFractionReduite(-d + f, c - e)};${texFractionReduite(-b, a)}\\right\\}$`
+              texteCorr += `$S=\\left\\{${fraction(-d + f, c - e).texFractionSimplifiee};${fraction(-b, a).texFractionSimplifiee}\\right\\}$`
             } else {
-              texteCorr += `$S=\\left\\{${texFractionReduite(-b, a)};${texFractionReduite(-d + f, c - e)}\\right\\}$`
+              texteCorr += `$S=\\left\\{${fraction(-b, a).texFractionSimplifiee};${fraction(-d + f, c - e).texFractionSimplifiee}\\right\\}$`
             }
           }
 
@@ -121,9 +121,9 @@ export default function Equationspresqueproduitnulle () {
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-b - f, a + e)}$<br>
                On en déduit :  `
             if ((-b - f) / (a + e) < -b / a) {
-              texteCorr += `$S=\\left\\{${texFractionReduite(-b - f, a + e)};${texFractionReduite(-b, a)}\\right\\}$`
+              texteCorr += `$S=\\left\\{${fraction(-b - f, a + e).texFractionSimplifiee};${fraction(-b, a).texFractionSimplifiee}\\right\\}$`
             } else {
-              texteCorr += `$S=\\left\\{${texFractionReduite(-b, a)};${texFractionReduite(-b - f, a + e)}\\right\\}$`
+              texteCorr += `$S=\\left\\{${fraction(-b, a).texFractionSimplifiee};${fraction(-b - f, a + e).texFractionSimplifiee}\\right\\}$`
             }
           }
 
@@ -151,9 +151,9 @@ export default function Equationspresqueproduitnulle () {
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d + b, c - a)}$<br>
            On en déduit :  `
             if ((-d + b) / (c - b) < -b / a) {
-              texteCorr += `$S=\\left\\{${texFractionReduite(-d + b, c - a)};${texFractionReduite(-b, a)}\\right\\}$`
+              texteCorr += `$S=\\left\\{${fraction(-d + b, c - a).texFractionSimplifiee};${fraction(-b, a).texFractionSimplifiee}\\right\\}$`
             } else {
-              texteCorr += `$S=\\left\\{${texFractionReduite(-b, a)};${texFractionReduite(-d + b, c - a)}\\right\\}$`
+              texteCorr += `$S=\\left\\{${fraction(-b, a).texFractionSimplifiee};${fraction(-d + b, c - a).texFractionSimplifiee}\\right\\}$`
             }
           }
 
@@ -186,10 +186,10 @@ export default function Equationspresqueproduitnulle () {
           f2 = fraction(-d + f, c - e)
           texteCorr += `$\\iff x=${f1.texFraction}$ ou $ x=${f2.texFraction}$<br>On en déduit :  `
           if (-b / a > (-d + f) / (c - e)) {
-            texteCorr += `$S=\\left\\{${f2.simplifie().texFraction};${f1.simplifie().texFraction}\\right\\}$`
+            texteCorr += `$S=\\left\\{${f2.texFractionSimplifiee};${f1.texFractionSimplifiee}\\right\\}$`
           } else if (-b / a < (-d + f) / (c - e)) {
-            texteCorr += `$S=\\left\\{${f1.simplifie().texFraction};${f2.simplifie().texFraction}\\right\\}$`
-          } else texteCorr += `$S=\\left\\{${f1.simplifie().texFraction}\\right\\}$`
+            texteCorr += `$S=\\left\\{${f1.texFractionSimplifiee};${f2.texFractionSimplifiee}\\right\\}$`
+          } else texteCorr += `$S=\\left\\{${f1.texFractionSimplifiee}\\right\\}$`
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

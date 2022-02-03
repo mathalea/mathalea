@@ -78,6 +78,15 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
 >> }
 >> ```
 
+- Afin d'anticiper la mise place d'AMC automatisé ou d'AMC indépendant, il est recommandé d'ajouter l'initialisation de `autoCorrection` dès la création de `nouvelleVersion`, comme sont déjà faites celles de `listeQuestions` et de `listeCorrections`.
+>> ```js
+>> this.nouvelleVersion = function () {
+>>      this.listeQuestions = [] // Liste de questions
+>>      this.listeCorrections = [] // Liste de questions corrigées
+>>      this.autoCorrection = []
+>> ```
+
+
 ## <a id="configurer_typeInteractivite" href="#configurer_typeInteractivite"></a> [2. Configurer le `typeInteractivite` choisi](#configurer_typeInteractivite)
 
 Selon le `typeInteractivite` choisi, la programmation est différente. Les paragraphes suivants détaillent chacune des configurations.
@@ -99,7 +108,8 @@ Les concepteurs plus curieux, trouveront, aussi, dans ce chapitre :
 
 1. Rajouter un import dans l'en-tête comme ceci :
 >>```js
->>import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+>>import { setReponse } from '../../modules/gestionInteractif.js'
+>>import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 >>export const interactifReady = true
 >>export const interactifType = 'mathLive'
 >>```
@@ -122,8 +132,8 @@ Les concepteurs plus curieux, trouveront, aussi, dans ce chapitre :
 >>texte += ajouteChampTexteMathLive(this, i,'fixed-width-150') // Fixe la largeur du champ à 150 pixels (disponible de 50 en 50 de 100 jusqu'à 500 puis de 100 en 100 jusqu'à 1000)
 >>texte += ajouteChampTexteMathLive(this, i,'inline') // sans retour à la ligne 
 >>texte += ajouteChampTexteMathLive(this, i,'inline fixed-width-150') // mélange des deux options précédentes
->>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texte: 'avant' })) // écrit "avant" devant le champ de réponses
->>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texteApres: 'après' })) // écrit "après" derrière le champ de réponses
+>>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texte: 'avant' }) // écrit "avant" devant le champ de réponses
+>>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texteApres: 'après' }) // écrit "après" derrière le champ de réponses
 >>texte += ajouteChampTexteMathLive(this, i,'longueur') // le champ de réponses oblige l'élève à remplir une valeur numérique ET une unité de longueur (ou d'aires).
  >>```
 
@@ -134,7 +144,7 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 
 - La syntaxe complète de la fonction `setReponse()` est la suivante :
 >>```js
->>setReponse (this, i, a, {digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, formatInteractif = 'calcul'}
+>>setReponse (this, i, a, {digits : 0, decimals : 0, signe : false, exposantNbChiffres : 0, exposantSigne : false, approx : 0, formatInteractif : 'calcul'}
 >>```
 >>Les 3 premiers paramètres sont obligatoires et désignent, respectivement, l'exercice appelant, le numéro de la question dans la programmation de l'exercice et la réponse attendue.
 
@@ -180,16 +190,16 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
  
 >>``` js
 >> // Méthode 1 : Exercice-témoin 4C22
->>setReponse(this, i, maFractionReponse, { formatInteractif: 'fraction' }) // maFractionReponse doit être un objet fraction (créé avec new Fraction(n, d))
+>>setReponse(this, i, maFractionReponse, { formatInteractif: 'fraction' }) // maFractionReponse doit être un objet fraction (créé avec new FractionX(n, d))
 >> // Dans ce cas, la réponse fournie par l'élève doit être exactement égale à maFractionReponse.
 >>
 >> // Méthode 2 : Exercice-témoin 5N13
->>setReponse(this, i, maFractionReponse, { formatInteractif: 'fractionPlusSimple' }) // maFractionReponse doit être un objet fraction (créé avec new Fraction(n, d))
+>>setReponse(this, i, maFractionReponse, { formatInteractif: 'fractionPlusSimple' }) // maFractionReponse doit être un objet fraction (créé avec new FractionX(n, d))
 >> // Dans ce cas, la réponse fournie par l'élève doit forcément être simplifiée.
 >> // Si maFractionReponse est 16/32, l'élève ne peut pas fournir 16/32 ou 160/320 comme bonne réponse mais peut fournir 8/16 ou 4/8.
 >>
 >> // Méthode 3 : Exercice-témoin 3L13-1
->>setReponse(this, i, maFractionReponse, { formatInteractif: 'fractionEgale' }) // maFractionReponse doit être un objet fraction (créé avec new Fraction(n, d))
+>>setReponse(this, i, maFractionReponse, { formatInteractif: 'fractionEgale' }) // maFractionReponse doit être un objet fraction (créé avec new FractionX(n, d))
 >> // Dans ce cas, la réponse fournie par l'élève peut être une autre fraction ou un nombre décimal. 
 >> // Si maFractionReponse est 1/2, l'élève peut toutefois fournir comme bonne réponse 2/4 ou bien 0.5.
 >>```
@@ -277,7 +287,7 @@ Pour rendre un exercice interactif en utilisant `qcm` et en permettant, aux él�
 
 Rajouter un import dans l'en-tête comme ceci :
 >>```js
->>import { propositionsQcm } from '../../modules/gestionInteractif.js'
+>>import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 >>export const interactifReady = true
 >>export const interactifType = 'qcm'
 >>```
@@ -391,10 +401,9 @@ De ce fait, lorsqu'on conçoit un exercice interactif, il serait bien de penser 
 >>    ........
 >> }
 >>
->> // Cette remarque est d'ordre générale, il peut y avoir des cas particuliers, notamment pour les AMCNum
+>> // Cette remarque est d'ordre général, il peut y avoir des cas particuliers, notamment pour les AMCNum.
 >>```
 
-Octobre 2021 : Des retours sont encore attendus en cas d'utilisation de cette méthode car on n'a pas assez d'expérience et il peut donc rester des bugs bien qu'on ait fait de nombreux tests.
 
 >>## <a id="export_AMC_automatise_mathLive" href="#export_AMC_automatise_mathLive"></a> [3. 1. L'export AMC automatisé avec `mathLive`](#export_AMC_automatise_mathLive)
 
@@ -418,7 +427,7 @@ De ce fait, pour permettre une bonne cohabitation entre l'interactivité avec Ma
 >> }
 >>```
 
->>>>## <a id="export_AMC_automatise_mathLive_calcul" href="#export_AMC_automatise_mathLive_calcul"></a> [3. 1. 1. Avec `formatInteractif : 'calcul'` ou `formatInteractif: 'ecritureScientifique'`](#export_AMC_automatise_mathLive_calcul)
+>>>>## <a id="export_AMC_automatise_mathLive_calcul" href="#export_AMC_automatise_mathLive_calcul"></a> [3. 1. 1. Avec `formatInteractif : 'calcul'`](#export_AMC_automatise_mathLive_calcul)
 
 Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'un nombre avec `formatInteractif : 'calcul'` (ou rien puisque c'est le format par défaut) et que vous utilisiez :
 
@@ -502,7 +511,7 @@ On pourrait très bien souhaiter une réponse AMC en notation scientifique, dans
 Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'une fraction avec `formatInteractif : 'fraction'` et que vous utilisiez :
 
 >>```js
->>setReponse(this, i, new Fraction(n, d), {formatInteractif: 'fraction'})
+>>setReponse(this, i, new FractionX(n, d), {formatInteractif: 'fraction'})
 >>```
 
 Alors, rendre l'exercice exportable AMC, est **instantané** si on rajoute, avec les autres export/import, **seulement ces deux lignes** de code.

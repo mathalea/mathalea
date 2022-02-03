@@ -5,9 +5,9 @@
  * @author Rémi Angot
  */
 export default function Exercice () {
-  // ///////////////////////////////////////////////
+  // ////////////////////////////////////////////////
   // Autour de l'exercice
-  // ///////////////////////////////////////////////
+  // ////////////////////////////////////////////////
   this.titre = '' // Chaîne de caractère sans point à la fin. C'est le titre de l'exercice qui sera affiché avec la référence dans le générateur d'exercices.
   this.boutonAide = false // Bouton en haut à droite des questions permettant d'afficher un pdf, texte, image, vidéo, contenu d'un autre site en "pop-up" via les fonctions modalXXXXXXX de outils.js.
   // Ci-dessous des exemples d'utilisation du this.boutonAide.
@@ -26,7 +26,7 @@ export default function Exercice () {
   this.consigne = '' // Chaîne de caractère qui apparaît en gras au-dessus des questions de préférence à l'infinitif et sans point à la fin.
   this.consigneCorrection = '' // Chaîne de caractère en général vide qui apparaît au-dessus des corrections.
   this.introduction = '' // Texte qui n'est pas forcément en gras et qui apparaît entre la consigne et les questions.
-  this.listeQuestions = [] // Liste de chaînes de caractères avec chacune correspondant à une question. Chaque question est définie par la méthode this.nouvelleVersion puis `listeDeQuestionToContenu(this)` mettra en forme `this.contenu` et `this.contenuCorrection` suivant `context` (sortie HTML ? diaporama ?...)
+  this.listeQuestions = [] // Liste de chaînes de caractères avec chacune correspondant à une question. Chaque question est définie par la méthode this.nouvelleVersion puis `listeDeQuestionToContenu(this)` mettra en forme `this.contenu` et `this.contenuCorrection` suivant `context` (sortie HTML ?...)
   this.listeCorrections = [] // Idem avec la correction.
   this.contenu = '' // Chaîne de caractères avec tout l'énoncé de l'exercice construit à partir de `this.listeQuestions` suivant le `context`
   this.contenuCorrection = '' // Idem avec la correction
@@ -103,12 +103,6 @@ export default function Exercice () {
   // this.typeExercice = 'simple' // Pour les exercices plus simples destinés aux courses aux nombres
 
   this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
-
-  /**
-   * Fonction qui est appellée pour chaque exercice
-   * @param {number} numeroExercice numéro de l'exercice utilisé pour avoir des identifiants uniques pour associer un champ avec le bon exercice (pour l'interactivité par exemple)
-   */
-  this.nouvelleVersion = function (numeroExercice) {}
 
   /**
    * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques

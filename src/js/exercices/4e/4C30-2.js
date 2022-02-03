@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texNombre2, puissanceEnProduit, sp } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texNombre2, puissanceEnProduit, sp, calcul } from '../../modules/outils.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Écriture décimale d’une puissance de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,6 +27,7 @@ export default function EcritureDecimalePuissanceDe10 () {
     this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     let listeTypeDeQuestions
     if (this.sup === 1) {
@@ -44,7 +46,7 @@ export default function EcritureDecimalePuissanceDe10 () {
           texte = this.interactif
             ? `$10^{${n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
             : `$10^{${n}}${sp()}=${sp()}\\dots$`
-          setReponse(this, i, Math.pow(10, n))
+          setReponse(this, i, calcul(Math.pow(10, n)))
           if (n < 2) {
             texteCorr = `$10^${n}=${10 ** n}$`
           } else {
@@ -60,7 +62,7 @@ export default function EcritureDecimalePuissanceDe10 () {
           texte = this.interactif
             ? `$10^{${-n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
             : `$10^{${-n}}${sp()}=${sp()}\\dots$`
-          setReponse(this, i, Math.pow(10, -n))
+          setReponse(this, i, calcul(Math.pow(10, -n)))
           if (context.isHtml) {
             texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${texNombre(10 ** n)}}=${texNombre2(1 / 10 ** n)}$`
           } else {

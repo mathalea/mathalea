@@ -1,11 +1,20 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, troncature, calcul, choisitLettresDifferentes, texNombre, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, troncature, calcul, choisitLettresDifferentes, texNombre, texFraction, sp, nombreDeChiffresDe } from '../../modules/outils.js'
 import { point, segment, droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import FractionX from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
+
+export const amcReady = true
+export const amcType = 'AMCHybride'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * 6N23-3
+ * Ajout Interactivité et AMC : Janvier 2022 par EE
  */
 export default function LireUneAbscisseAvecZoom () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -22,14 +31,14 @@ export default function LireUneAbscisseAvecZoom () {
   this.vspace = -1
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = 1
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
+    this.autoCorrection = []
+    let reponse1; let reponse2A; let reponse2B; let reponse3
     let d1; let d2; let d3; let d3Corr; let d1Corr; let d2Corr; let texte = ''; let texteCorr = ''; let extremite; let extreme; const noms = choisitLettresDifferentes(5, 'QFN')
     let x1 = 0; let x2 = 0; let x3 = 0; const objets = []; let fenetre; let thickOff = 0; const objetsCorr = []; let xmin; let xmax; let origine; let pA1; let pA2; let pB1; let pB2; let sA; let sB; let x21; let x31; let pC1; let pC2; let pD1; let pD2; let sC; let sD
     if (parseInt(this.sup) === 1) {
@@ -157,6 +166,11 @@ export default function LireUneAbscisseAvecZoom () {
       objetsCorr.push(d1Corr, d2Corr, sA, sB)
       fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
       texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(Math.floor(x1))} + ${texFraction(calcul(10 * (x1 - Math.floor(x1))), 10)}=${texFraction(calcul(x1 * 10), 10)}$.<br>`
+
+      reponse1 = x1
+      reponse2A = Math.floor(x1)
+      reponse2B = new FractionX(calcul(10 * (x1 - Math.floor(x1))), 10)
+      reponse3 = new FractionX(calcul(x1 * 10), 10)
     } else if (parseInt(this.sup) === 2) {
       if (this.niveau === 'CM') {
         xmin = 0
@@ -292,6 +306,11 @@ export default function LireUneAbscisseAvecZoom () {
       objetsCorr.push(d1Corr, d2Corr, sA, sB)
       const partent = Math.floor(x1); const pardec = calcul(x1 - partent)
       texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${texFraction(calcul(pardec * 100), 100)}=${texFraction(calcul(x1 * 100), 100)}$.<br>`
+
+      reponse1 = x1
+      reponse2A = partent
+      reponse2B = new FractionX(calcul(pardec * 100), 100)
+      reponse3 = new FractionX(calcul(x1 * 100), 100)
     } else if (parseInt(this.sup) === 3) {
       if (this.niveau === 'CM') {
         xmin = 0
@@ -491,9 +510,72 @@ export default function LireUneAbscisseAvecZoom () {
       objetsCorr.push(d1Corr, d2Corr, d3Corr, sA, sB, sC, sD)
       const partent = Math.floor(x1); const pardec = calcul(x1 - partent)
       texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${texFraction(calcul(pardec * 1000), 1000)}=${texFraction(calcul(x1 * 1000), 1000)}$.<br>`
+      reponse1 = x1
+      reponse2A = partent
+      reponse2B = new FractionX(calcul(pardec * 1000), 1000)
+      reponse3 = new FractionX(calcul(x1 * 1000), 1000)
     }
-    texte = `Donner l'abscisse de ${noms[1]} sous trois formes : en écriture décimale, comme somme d’un nombre entier et d’une fraction décimale et avec une fraction décimale.<br>`
+    texte = `Donner l'abscisse de ${noms[1]} sous `
+    texte += context.isAmc ? 'deux ' : 'trois '
+    texte += 'formes : en écriture décimale'
+    texte += context.isAmc ? '' : ', comme somme d’un nombre entier et d’une fraction décimale,'
+    texte += ' et avec une fraction décimale.<br>'
     texte += mathalea2d(fenetre, objets)
+    if (this.interactif) {
+      setReponse(this, 0, reponse1)
+      setReponse(this, 1, reponse2A)
+      setReponse(this, 2, reponse2B, { formatInteractif: 'fraction' })
+      setReponse(this, 3, reponse3, { formatInteractif: 'fraction' })
+    }
+    if (this.interactif) { // Si l'exercice est interactif
+      texte += ajouteChampTexteMathLive(this, 0, 'largeur10 inline', { texte: `Abscisse de ${noms[1]} en écriture décimale : ` })
+      texte += '<br>' + ajouteChampTexteMathLive(this, 1, 'largeur10 inline', { texte: `Abscisse de ${noms[1]} comme somme d’un nombre entier et d’une fraction décimale : ` }) + ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { formatInteractif: 'fraction', texte: `${sp(6)}+` })
+      texte += '<br>' + ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { formatInteractif: 'fraction', texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : ` })
+    }
+    this.autoCorrection[0] = {
+      enonce: texte,
+      melange: false, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
+      options: { multicols: true, barreseparation: false },
+      propositions: [
+        {
+          type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+          propositions: [ // une ou plusieurs (Qcms) 'propositions'
+            {
+              reponse: { // utilisé si type = 'AMCNum'
+                texte: `Abscisse de ${noms[1]} en écriture décimale : `, // facultatif
+                valeur: reponse1, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
+                alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
+                param: {
+                  digits: 0, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+                  decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
+                  signe: false // (présence d'une case + ou -)
+                }
+              }
+            }
+          ]
+        },
+        {
+          type: 'AMCNum', // on donne le type de la deuxième question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+          propositions: [ // une ou plusieurs (Qcms) 'propositions'
+            {
+              reponse: { // utilisé si type = 'AMCNum'
+                texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : `,
+                valeur: reponse3, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
+                alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
+                param: {
+                  digits: 0, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+                  decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
+                  signe: false, // (présence d'une case + ou -)
+                  digitsNum: nombreDeChiffresDe(reponse2B.num), // Facultatif. digitsNum correspond au nombre TOTAL de chiffres du numérateur à coder si la réponse est une fraction.
+                  digitsDen: nombreDeChiffresDe(reponse2B.den) // Facultatif. digitsDencorrespond au nombre TOTAL de chiffres du dénominateur à coder si la réponse est une fraction.
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+
     texteCorr += mathalea2d(fenetre, objetsCorr)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

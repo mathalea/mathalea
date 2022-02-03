@@ -11,21 +11,31 @@ export const titre = 'Tracer des parallèles et des perpendiculaires'
  * Fonction générale pour exercices de constructions de parallèles et perpendiculaires
  * références 6G11, 6G12 et 6G12-1
  * Animation de la correction ajoutée le 16/04/2021
- * @author Jean-Claude Lhote  (AMC par Eric Elter en septembre 2021)
+ * @author Jean-Claude Lhote  (AMC par Eric Elter en septembre 2021, ES6 par Loïc Geeraerts
  */
-export default function ParalleleEtPerpendiculaires () {
-  'use strict'
-  Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 1
-  this.type = 3
-  this.typeExercice = 'IEP'
-  this.besoinFormulaire2CaseACocher = ['Avec auto-correction']
-  this.sup2 = true
-  this.nouvelleVersion = function () {
+
+export default class ParalleleEtPerpendiculaires extends Exercice {
+//  'use strict'
+  constructor () {
+    super()
+    this.titre = titre
+    this.nbQuestions = 1
+    this.nbCols = 1
+    this.nbColsCorr = 1
+    this.sup = 1
+    this.type = 3
+    this.typeExercice = 'IEP'
+    this.besoinFormulaire2CaseACocher = ['Avec auto-correction']
+    this.sup2 = true
+
+    this.besoinFormulaireNumerique = [
+      'Type de cahier',
+      3,
+      ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+    ]
+  }
+
+  nouvelleVersion () {
     const typesDeQuestionsDisponibles = [this.type] // Le choix 1 ou 2 ou 3 : 1=perpendiculaires, 2=parallèles, 3=des perpendiculaires et des paralèlles
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -33,6 +43,7 @@ export default function ParalleleEtPerpendiculaires () {
     )
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let Xmin; let Xmax; let Ymin; let Ymax; const ppc = 20; let sc
     let anim
 
@@ -131,21 +142,21 @@ export default function ParalleleEtPerpendiculaires () {
               labelPoint(A, B, C, D, E, CC, DD),
               afficheCoteSegment(
                 segment(A, CC),
-                `${texNombre(lC)} cm`,
-                0.5,
-                'red',
-                1,
-                0.5,
-                'red'
+              `${texNombre(lC)} cm`,
+              0.5,
+              'red',
+              1,
+              0.5,
+              'red'
               ),
               afficheCoteSegment(
                 segment(A, DD),
-                `${texNombre(lD)} cm`,
-                -0.5,
-                'red',
-                1,
-                -0.5,
-                'red'
+              `${texNombre(lD)} cm`,
+              -0.5,
+              'red',
+              1,
+              -0.5,
+              'red'
               )
             )
           } else {
@@ -168,22 +179,22 @@ export default function ParalleleEtPerpendiculaires () {
           if (context.isHtml) enonce = numAlpha(0) + ' Reproduire la figure ci-dessous.<br>'
           else enonce = numAlpha(0) + ' Utiliser un crayon à papier afin de pouvoir gommer si besoin.<br>'
           enonce +=
-            numAlpha(1) +
-            ' Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>'
+          numAlpha(1) +
+          ' Tracer la droite perpendiculaire à $(AB)$ passant par $B$.<br>'
           enonce +=
-            numAlpha(2) +
-            ' Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nommer $M$ le point d\'intersection de cette droite avec la droite $(AB)$.<br>'
+          numAlpha(2) +
+          ' Tracer la droite perpendiculaire à $(AB)$ passant par $C$ et nommer $M$ le point d\'intersection de cette droite avec la droite $(AB)$.<br>'
           enonce +=
-            numAlpha(3) +
-            ' Tracer la droite perpendiculaire à $(AB)$ passant par $D$ et nommer $N$ le point d\'intersection de cette droite avec la droite $(AB)$.<br>'
+          numAlpha(3) +
+          ' Tracer la droite perpendiculaire à $(AB)$ passant par $D$ et nommer $N$ le point d\'intersection de cette droite avec la droite $(AB)$.<br>'
           if (this.sup2) {
             enonce +=
-            numAlpha(4) +
-            ' Mesurer ensuite les distances $AM$ et $AN$. Pour l\'auto-correction comparer ces mesures avec celles données dans la correction<br>'
+          numAlpha(4) +
+          ' Mesurer ensuite les distances $AM$ et $AN$. Pour l\'auto-correction comparer ces mesures avec celles données dans la correction<br>'
 
             correction = `<br>$AM \\approx ${texNombre(
-            lC
-          )}$ cm et $AN \\approx ${texNombre(lD)}$ cm.<br>`
+          lC
+        )}$ cm et $AN \\approx ${texNombre(lD)}$ cm.<br>`
             correction += 'Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>'
           }
           Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, CC.x, DD.x) - 1)
@@ -234,12 +245,12 @@ export default function ParalleleEtPerpendiculaires () {
             enonce += numAlpha(4) + ' Mesurer les distances $AM$, $AN$ et $AO$. Pour l\'auto-correction, comparer ces mesures avec celles données par  l\'ordinateur dans la correction.<br>'
 
             correction = `<br>$AM \\approx ${texNombre(
-            lC
-          )}$ cm, $AN \\approx ${texNombre(
-            lD
-          )}$ cm et $AO \\approx${texNombre(
-            lE
-          )}$ cm.<br>`
+          lC
+        )}$ cm, $AN \\approx ${texNombre(
+          lD
+        )}$ cm et $AO \\approx${texNombre(
+          lE
+        )}$ cm.<br>`
           }
           Xmin = Math.floor(Math.min(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) - 1)
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, E.x, F.x, EE.x, CC.x, DD.x) + 1)
@@ -289,30 +300,30 @@ export default function ParalleleEtPerpendiculaires () {
           if (this.sup2) {
             objetsCorrection.push(dC, dD, dB, dE, cB, cC, cD, cE, cF, cG, d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), afficheCoteSegment(
               segment(A, CC),
-            `${texNombre(lC)} cm`,
-            0.5,
-            'red',
-            1,
-            0.5,
-            'red'
+          `${texNombre(lC)} cm`,
+          0.5,
+          'red',
+          1,
+          0.5,
+          'red'
             ),
             afficheCoteSegment(
               segment(A, DD),
-              `${texNombre(lD)} cm`,
-              0,
-              'blue',
-              1,
-              -0.5,
-              'blue'
+            `${texNombre(lD)} cm`,
+            0,
+            'blue',
+            1,
+            -0.5,
+            'blue'
             ),
             afficheCoteSegment(
               segment(A, EE),
-              `${texNombre(lE)} cm`,
-              0,
-              'green',
-              1,
-              -0.5,
-              'green'
+            `${texNombre(lE)} cm`,
+            0,
+            'green',
+            1,
+            -0.5,
+            'green'
             ))
           } else {
             objetsCorrection.push(dC, dD, dB, dE, cB, cC, cD, cE, cF, cG, d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE))
@@ -328,12 +339,12 @@ export default function ParalleleEtPerpendiculaires () {
             enonce += numAlpha(5) + ' Mesurer les distances $AM$, $AN$ et $AO$. Pour l\'auto-correction, comparer ces mesures avec celles données par  l\'ordinateur dans la correction.<br>'
 
             correction += `<br>$AM \\approx ${texNombre(
-            lC
-          )}$ cm, $AN \\approx ${texNombre(
-            lD
-          )}$ cm et $AO \\approx${texNombre(
-            lE
-          )}$ cm.<br>`
+          lC
+        )}$ cm, $AN \\approx ${texNombre(
+          lD
+        )}$ cm et $AO \\approx${texNombre(
+          lE
+        )}$ cm.<br>`
           }
           correction += `Les angles droits en rouge se justifient par la propriété :<br> ${texteEnCouleur('Si deux droites sont parallèles, alors toute droite perpendiculaire à l\'une est aussi perpendiculaire à l\'autre', 'red')}.<br>`
           correction += 'Vérifier les angles droits à l\'équerre.<br>'
@@ -400,7 +411,7 @@ export default function ParalleleEtPerpendiculaires () {
       /****************************************************/
       correction += anim.htmlBouton(this.numeroExercice, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en crée une autre
+      // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(enonce + '<br>')
         this.listeCorrections.push(correction + '<br>')
         i++
@@ -410,9 +421,4 @@ export default function ParalleleEtPerpendiculaires () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Type de cahier',
-    3,
-    ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
-  ]
 }

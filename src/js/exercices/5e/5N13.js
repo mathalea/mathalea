@@ -2,8 +2,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-import Fraction from '../../modules/Fraction.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const interactifReady = true
@@ -101,9 +102,9 @@ export default function Exercice_fractions_simplifier (max = 11) {
       // Pour AMC question AmcOpen
       this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
       if (this.sup2) {
-        setReponse(this, i, new Fraction(a, b), { formatInteractif: 'fraction' })
+        setReponse(this, i, new FractionEtendue(a, b), { formatInteractif: 'fraction' })
       } else {
-        setReponse(this, i, new Fraction(k * a, k * b), { formatInteractif: 'fractionPlusSimple' })
+        setReponse(this, i, new FractionEtendue(k * a, k * b), { formatInteractif: 'fractionPlusSimple' })
       }
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.

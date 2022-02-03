@@ -3,8 +3,9 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul, exposant } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-export const titre = 'Périmètres et aires de carrés, rectangles et triangles rectangles'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+export const titre = 'Calculer périmètre et aire de carrés, rectangles et triangles rectangles'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
@@ -40,6 +41,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
     const nom = creerNomDePolygone(11, 'Q')
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const c = randint(2, 6)
     const L = randint(2, 5)
     const l = randint(2, 5, L)
@@ -89,7 +91,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           break
 
         case 1 :
-          texte = `Calculer l'aire du carré en cm${exposant(2)}`
+          texte = `Calculer l'aire du carré en cm${exposant(2)}.`
 
           texteCorr += `<br>$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}\\times${c}~\\text{cm}=${c * c}~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(c * c, 'cm^2'), { formatInteractif: 'longueur' })
@@ -106,7 +108,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           }
           break
         case 2 :
-          texte = 'Calculer le périmètre du rectangle en cm'
+          texte = 'Calculer le périmètre du rectangle en cm.'
           texteCorr += `<br>$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}+${l}~\\text{cm}+${L}~\\text{cm}+${l}~\\text{cm}=${2 * L + 2 * l
             }~\\text{cm}$`
           setReponse(this, i, new Grandeur((L + l) * 2, 'cm'), { formatInteractif: 'longueur' })
@@ -123,7 +125,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           }
           break
         case 3 :
-          texte = `Calculer l'aire du rectangle en cm${exposant(2)}`
+          texte = `Calculer l'aire du rectangle en cm${exposant(2)}.`
           texteCorr += `<br>$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${L * l
           }~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'longueur' })
@@ -140,7 +142,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           }
           break
         case 4 :
-          texte = 'Calculer le périmètre du triangle rectangle en cm'
+          texte = 'Calculer le périmètre du triangle rectangle en cm.'
           texteCorr += `<br>$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}+${b}~\\text{cm}+${texNombre(c2.toFixed(1))}~\\text{cm}=${pIJK}~\\text{cm}$`
           setReponse(this, i, new Grandeur(pIJK, 'cm'), { formatInteractif: 'longueur' })
           if (context.isAmc) {
@@ -156,7 +158,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           }
           break
         case 5 :
-          texte = `Calculer l'aire du triangle rectangle en cm${exposant(2)}`
+          texte = `Calculer l'aire du triangle rectangle en cm${exposant(2)}.`
           texteCorr += `<br>$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(calcul((a * b) / 2))}~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(calcul((a * b) / 2), 'cm^2'), { formatInteractif: 'longueur' })
           if (context.isAmc) {

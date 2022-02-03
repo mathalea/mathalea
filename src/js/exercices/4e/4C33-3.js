@@ -2,8 +2,8 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, simpExp, modalPdf } from '../../modules/outils.js'
 
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Puissances : Calculs automatisés et règles de calculs'
 
 export const interactifReady = true
@@ -35,6 +35,7 @@ export default function PuissancesDUnRelatif2 () {
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
     // const typesDeQuestionsDisponibles = [1]

@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, miseEnEvidence } from '../../modules/outils.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
-export const titre = 'Rapport de deux longueurs sur un segment'
+export const titre = 'Exprimer le rapport de deux longueurs sur un segment'
 
 /**
  * * Exprimer un rapport de longueurs sur un segment
@@ -40,8 +40,8 @@ export default function RapportsSurUnSegment () {
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
 
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -57,9 +57,9 @@ export default function RapportsSurUnSegment () {
       // Une fonction pour l'étape de simplification si rapport différent de 1
       function etapeSimp (n, m) {
         let sortie
-        const rapport = fraction(n, m).num / fraction(n, m).numIrred
+        const rapport = fraction(n, m).n / fraction(n, m).numIrred
         if (rapport !== 1) {
-          sortie = `\\dfrac{${fraction(n, m).numIrred} ${miseEnEvidence(`\\times ${fraction(n, m).num / fraction(n, m).numIrred}`)}}{${fraction(n, m).denIrred}${miseEnEvidence(`\\times ${fraction(n, m).num / fraction(n, m).numIrred}`)}}\\mathbf{=}${fraction(n, m).texFractionSimplifiee}`
+          sortie = `\\dfrac{${fraction(n, m).numIrred} ${miseEnEvidence(`\\times ${fraction(n, m).n / fraction(n, m).numIrred}`)}}{${fraction(n, m).denIrred}${miseEnEvidence(`\\times ${fraction(n, m).n / fraction(n, m).numIrred}`)}}\\mathbf{=}${fraction(n, m).texFractionSimplifiee}`
         } else {
           sortie = `${fraction(n, m).texFractionSimplifiee}`
         }
@@ -68,9 +68,9 @@ export default function RapportsSurUnSegment () {
 
       function Remarque (rapAlph, rapAlphI, n, m) {
         let sortie
-        const rapport = fraction(n, m).num / fraction(n, m).numIrred
+        const rapport = fraction(n, m).n / fraction(n, m).numIrred
         if (rapport !== 1) {
-          sortie = `Remarque : Nous verrons plus tard que $${rapAlph}=${etapeSimp(fraction(n, m).num, fraction(n, m).den)}$ et que $${rapAlphI}=${etapeSimp(fraction(m, n).num, fraction(m, n).den)}$<br>`
+          sortie = `Remarque : Nous verrons plus tard que $${rapAlph}=${etapeSimp(fraction(n, m).n, fraction(n, m).d)}$ et que $${rapAlphI}=${etapeSimp(fraction(m, n).n, fraction(m, n).d)}$<br>`
         } else {
           sortie = ''
         }

@@ -3,7 +3,8 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, texNombrec, texNombre } from '../../modules/outils.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Trouver les coordonnées de l’image d’un point par une transformation du plan'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -34,6 +35,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
     const objetsCorrection = []
     let enonceAmc = ''
     this.listeQuestions = []
+    this.listeCorrections = []
+    this.autoCorrection = []
     this.sup = parseInt(this.sup)
     this.listeCorrections = [] // Liste de questions corrigées
     let xA; let yA; let xB; let yB; let xC; let yC; const k = []

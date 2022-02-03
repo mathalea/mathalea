@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureNombreRelatif, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, texFraction, ppcm } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, texFraction, ppcm } from '../../modules/outils.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
 
@@ -53,6 +54,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
     const listeCouplesDeDenominateurs = [[6, 9], [4, 6], [8, 12], [9, 12], [10, 15], [10, 25], [6, 21], [12, 30], [6, 8], [50, 75]]
     for (let i = 0, a, b, c, d, k, k1, k2, num, den, texte, texteCorr, reponse, couplesDeDenominateurs, typesDeQuestions; i < this.nbQuestions; i++) {
       const plusOuMoins = listeDePlusOuMoins[i]
+      const plusOuMoinsUn = plusOuMoins === '+' ? 1 : -1
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         case 'ppcm':
@@ -116,21 +118,21 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
       // a/b(+ou-)c/d = num/den (résultat non simplifié)
       if (typesDeQuestions === 'ppcm' || typesDeQuestions === 'premiers_entre_eux') {
         texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}${plusOuMoins}${texFraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`
-        num = calcul(a * k1 + plusOuMoins + ecritureNombreRelatif(c * k2))
+        num = calcul(a * k1 + plusOuMoinsUn * c * k2)
         den = b * k1
         texteCorr += `=${texFraction(a * k1 + plusOuMoins + ecritureParentheseSiNegatif(c * k2), den)}`
       }
 
       if (typesDeQuestions === 'd_multiple_de_b') {
         texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}${plusOuMoins}${texFraction(c, d)}`
-        num = calcul(a * k + plusOuMoins + ecritureNombreRelatif(c))
+        num = calcul(a * k + plusOuMoinsUn * c)
         den = b * k
         texteCorr += `=${texFraction(a * k + plusOuMoins + ecritureParentheseSiNegatif(c), den)}`
       }
 
       if (typesDeQuestions === 'b_multiple_de_d') {
         texteCorr += `=${texFraction(a, b)}${plusOuMoins}${texFraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`
-        num = calcul(a + plusOuMoins + ecritureNombreRelatif(c * k))
+        num = calcul(a + plusOuMoinsUn * c * k)
         den = b
         texteCorr += `=${texFraction(a + plusOuMoins + ecritureParentheseSiNegatif(c * k), den)}`
       }
@@ -152,7 +154,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
           texteCorr = texte
           texteCorr += `$${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}${plusOuMoins}${texFraction(a, b)}`
           texteCorr += `=${texFraction(n * b + plusOuMoins + ecritureParentheseSiNegatif(a), b)}`
-          num = calcul(n * b + plusOuMoins + ecritureParentheseSiNegatif(a))
+          num = calcul(n * b + plusOuMoinsUn * a)
         } else {
           // a/b +-n
           if (!this.sup2 && plusOuMoins === '-' && n > a / b) {
@@ -164,7 +166,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
           texte += '$'
           texteCorr += `${texFraction(a, b)}${plusOuMoins}${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`
           texteCorr += `=${texFraction(a + plusOuMoins + ecritureParentheseSiNegatif(n * b), b)}`
-          num = calcul(ecritureParentheseSiNegatif(a) + plusOuMoins + ecritureParentheseSiNegatif(n * b))
+          num = calcul(a + plusOuMoinsUn * n * b)
         }
         den = b
       }
@@ -183,6 +185,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
       }
       reponse = fraction(num, den).simplifie()
       setReponse(this, i, reponse, { digits: 4, digitsNum: 2, digitsDen: 2, formatInteractif: 'fraction' })
+      if (context.isAmc) texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { calcul, listeQuestionsToContenu, combinaisonListes, choice, range, rangeMinMax, texNombre3, texteEnCouleurEtGras, enleveElement, numAlpha, abs, randint, lampeMessage } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { min } from 'mathjs'
 import { context } from '../../modules/context.js'
 import { glisseNombre, mathalea2d } from '../../modules/2d.js'
@@ -31,6 +31,7 @@ export default function MultiplierUnNombreParPuissanceDeDix () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
+    this.autoCorrection = []
     const choixUnites = ['millièmes', 'centièmes', 'dixièmes', '', 'dizaines', 'centaines', 'milliers']
     let listeChoixAlea = range(6, [3])
     if (!this.sup2 || this.interactif || context.isAmc) { this.nbQuestions = min(this.nbQuestions, 6) }

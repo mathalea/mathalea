@@ -31,6 +31,7 @@ export default function RepresenterUnSolide5e () {
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     let Xmin, Xmax, Ymin, Ymax, ppc, sc
 
     if (this.classe === 6) { // sixième : cube et pavé droit
