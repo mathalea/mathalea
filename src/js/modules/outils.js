@@ -1726,14 +1726,9 @@ export function xcas (expression) {
 export function calcul (x, arrondir = false) {
   if (typeof expression === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
-    if (!arrondir) {
-      return parseFloat(Algebrite.eval('float(' + x + ')'))
-    } else {
-      return arrondi(parseFloat(Algebrite.eval('float(' + x + ')')), arrondir)
-    }
+    return parseFloat(evaluate(x).toFixed(arrondir === false ? 16 : arrondir));
   } else {
-    if (!arrondir) return parseFloat((x).toFixed(16))
-    else return parseFloat(x).toFixed(arrondir)
+    return parseFloat(x.toFixed(arrondir === false ? 16 : arrondir))
   }
 }
 
