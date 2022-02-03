@@ -222,7 +222,7 @@ export default function TrouverLaTransformations () {
         }
       }
       texte = this.interactif
-        ? `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ? ` + choixDeroulant(this, i, 0, propositions, 'texte') + choixDeroulant(this, i, 1, propositions, 'texte')
+        ? `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ? ` + choixDeroulant(this, i, 0, propositions, 'texte')
         : `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ?`
       texteCorr = transfos[i].texteCorr
       setReponse(this, i, [transfos[i].texteInteractif], { formatInteractif: 'texte' })
