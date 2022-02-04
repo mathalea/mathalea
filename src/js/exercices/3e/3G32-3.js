@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texNombre, texNombrec } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, stringNombre, texNombrec } from '../../modules/outils.js'
 import { texteSurSegment, pointAdistance, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Calculer la hauteur d’une falaise'
 
@@ -47,7 +47,7 @@ export default function CalculsTrigonometriques3 () {
       p = polygoneAvecNom(A, B, H, S)
       objets.push(p[1], p[0], segment(S, B), codageAngleDroit(A, H, S))
       objets.push(afficheMesureAngle(H, A, S, 'black', 2, `${alfa}`), afficheMesureAngle(H, B, S, 'black', 2, `${baita}`))
-      objets.push(texteSurSegment(`${texNombre(distance)} m`, A, B, 'black', -0.5), texteParPosition('h', milieu(H, S).x + 0.5, milieu(H, S).y, 0, 'black', 2, 'middle', true))
+      objets.push(texteSurSegment(`${stringNombre(distance)} m`, A, B, 'black', -0.5), texteParPosition('h', milieu(H, S).x + 0.5, milieu(H, S).y, 0, 'black', 2, 'middle', true))
 
       texte = 'Un observateur sur un bateau s\'approche d\'une falaise dont il veut mesurer la hauteur.<br>'
       texte += `Il jette l'ancre puis constate qu'il voit la falaise sous un angle de $${alpha}\\degree$.<br>`
