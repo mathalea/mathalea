@@ -94,7 +94,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
     ]
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-      // texNombre(n) permet d'écrire un nombre avec le bon séparateur décimal
+      // texNombre(n) permet d'écrire un nombre avec le bon séparateur décimal !! à utiliser entre $  $
       // calcul(expression) permet d'éviter les erreurs de javascript avec les approximations décimales
       // texNombrec(expression) fait les deux choses ci-dessus.
       switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
