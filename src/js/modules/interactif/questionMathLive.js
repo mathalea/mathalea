@@ -95,7 +95,11 @@ export function verifQuestionMathLive (exercice, i) {
         // Pour les exercices de simplifications de fraction
       }
     } else if (formatInteractif === 'fractionPlusSimple') {
-      saisieParsee = parse(saisie)
+      if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
+        saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
+      } else {
+        saisieParsee = parse(saisie)
+      }
       if (saisieParsee) {
         if (saisieParsee[0] === 'Negate') {
           signeF = -1
