@@ -2697,20 +2697,7 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
 */
 export function stringNombre (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
-  const nombre = nb.toString()
-  const partieEntiere = nombre.split('.')[0]
-  const partieDecimale = nombre.split('.')[1]
-  let result = ''
-  let i
-  if (partieEntiere.length > 3) {
-    for (i = 0; i < Math.floor(partieEntiere.length / 3); i++) {
-      result = ' ' + partieEntiere.slice(partieEntiere.length - i * 3 - 3, partieEntiere.length - i * 3) + result
-    }
-    result = partieEntiere.slice(0, partieEntiere.length - i * 3) + result
-  } else result = partieEntiere
-  if (result[0] === ' ') result = result.substring(1, result.length)
-  if (partieDecimale !== undefined) result += ',' + partieDecimale
-  return result
+  return Intl.NumberFormat('fr-Fr', { maximumSignificantDigits: 15 }).format(nb)
 }
 /**
 * Centre un texte
