@@ -95,8 +95,8 @@ export default function PuissancesEncadrement () {
           val: `${texNombre(signe * randint(10 ** i + 1, 10 ** (i + 1) - 1))}`,
           puissance_inf: signe === 1 ? `10^{${i}}` : `-10^{${i + 1}}`,
           puissance_sup: signe === 1 ? `10^{${i + 1}}` : `-10^{${i}}`,
-          puissance_inf_num: signe === 1 ? `${texNombre(10 ** i)}` : `$${texNombre(-1 * 10 ** (i + 1))}`,
-          puissance_sup_num: signe === 1 ? `${texNombre(10 ** (i + 1))}` : `$${texNombre(-1 * 10 ** i)}`
+          puissance_inf_num: signe === 1 ? `${texNombre(10 ** i)}` : `${texNombre(-1 * 10 ** (i + 1))}`,
+          puissance_sup_num: signe === 1 ? `${texNombre(10 ** (i + 1))}` : `${texNombre(-1 * 10 ** i)}`
         })
         nombreEntier.push(signe * randint(10 ** i + 1, 10 ** (i + 1)))
       }
