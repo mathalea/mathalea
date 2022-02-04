@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, texNombre } from '../../modules/outils.js'
+import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, stringNombre } from '../../modules/outils.js'
 import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, baisseCrayon, allerA, point, texteParPositionEchelle, tracePoint } from '../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 export const titre = 'Note la couleur (scratch)'
@@ -152,12 +152,12 @@ export default function NoteLaCouleurC3 () {
         objetsEnonce.push(tracePoint(point(xdepart * 0.075, ydepart * 0.075)))
         for (let i = 1; i < 10; i++) {
           if (i !== 1) {
-            objetsEnonce.push(texteParPositionEchelle(texNombre(20 * i), 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+            objetsEnonce.push(texteParPositionEchelle(stringNombre(20 * i), 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
           }
         }
         for (let i = 1; i < 12; i++) {
           if (i !== 1) {
-            objetsEnonce.push(texteParPositionEchelle(texNombre(20 * i), -0.5, 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+            objetsEnonce.push(texteParPositionEchelle(stringNombre(20 * i), -0.5, 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
           }
         }
       }
@@ -208,12 +208,12 @@ export default function NoteLaCouleurC3 () {
       if (this.sup2) {
         for (let i = 1; i < 10; i++) {
           if (i !== 1) {
-            objetsEnonce.push(texteParPositionEchelle(texNombre(20 * i), 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+            objetsEnonce.push(texteParPositionEchelle(stringNombre(20 * i), 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
           }
         }
         for (let i = 1; i < 12; i++) {
           if (i !== 1) {
-            objetsEnonce.push(texteParPositionEchelle(texNombre(20 * i), -0.5, 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+            objetsEnonce.push(texteParPositionEchelle(stringNombre(20 * i), -0.5, 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
           }
         }
       }
@@ -221,12 +221,12 @@ export default function NoteLaCouleurC3 () {
       if (this.correctionDetaillee) {
         for (let i = 1; i < 10; i++) {
           if (i !== 1) {
-            objetsCorrection.push(texteParPositionEchelle(texNombre(20 * i), 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+            objetsCorrection.push(texteParPositionEchelle(stringNombre(20 * i), 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
           }
         }
         for (let i = 1; i < 12; i++) {
           if (i !== 1) {
-            objetsCorrection.push(texteParPositionEchelle(texNombre(20 * i), -0.5, 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+            objetsCorrection.push(texteParPositionEchelle(stringNombre(20 * i), -0.5, 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
           }
         }
       }

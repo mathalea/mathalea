@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, arrondi, calcul, texNombre, texNombrec, arrondiVirgule } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, arrondi, calcul, texNombre, texNombrec, arrondiVirgule, stringNombre } from '../../modules/outils.js'
 import { texteSurSegment, pointAdistance, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Calculer la hauteur d’un objet vu sous un angle donné'
 
@@ -57,7 +57,7 @@ export default function CalculsTrigonometriques2 () {
       p = polygoneAvecNom(A, B, H, S, O)
       objets.push(p[1], p[0], segment(O, B), segment(O, H), codageAngleDroit(O, A, B), codageAngleDroit(A, B, H), codageAngleDroit(O, H, S))
       objets.push(afficheMesureAngle(B, O, S, 'black', 3, `${alfa}`), afficheMesureAngle(A, B, O, 'black', 2, `${baita}`), afficheMesureAngle(B, O, H, 'black', 2, `${baita}`))
-      objets.push(texteSurSegment(`${texNombre(hauteur)} m`, O, A, 'black', -0.5), texteSurSegment(`${texNombre(distance)} m`, O, H))
+      objets.push(texteSurSegment(`${stringNombre(hauteur)} m`, O, A, 'black', -0.5), texteSurSegment(`${stringNombre(distance)} m`, O, H))
       texte = `Un observateur regarde ${objet[index][1]} ${objet[index][0]} sous un angle de $${alpha}\\degree$.<br>`
       texte += `Cet${objet[index][2]} ${objet[index][0]} est situé à une distance de $${texNombre(distance)}$ m de l'observateur.<br>`
       texte += `l'oeil de l'observateur est situé à $${texNombre(hauteur)}$ m du sol.<br>`

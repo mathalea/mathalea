@@ -1726,7 +1726,7 @@ export function xcas (expression) {
 export function calcul (x, arrondir = false) {
   if (typeof expression === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
-    return parseFloat(evaluate(x).toFixed(arrondir === false ? 16 : arrondir));
+    return parseFloat(evaluate(x).toFixed(arrondir === false ? 16 : arrondir))
   } else {
     return parseFloat(x.toFixed(arrondir === false ? 16 : arrondir))
   }
@@ -2501,7 +2501,7 @@ export function texNombre (nb) {
   // Ecrit \numprint{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces en latex)
   // Ajoute des accolades autour de la virgule {,} pour supprimer l'espace "disgracieux" qui le suit dans l'écriture décimale des nombres sinon.
   if (context.isHtml) {
-    return Intl.NumberFormat('fr-FR', { maximumSignificantDigits: 15 }).format(nb).replace(/\s+/g, '\\thickspace ')
+    return Intl.NumberFormat('fr-FR', { maximumSignificantDigits: 15 }).format(nb).replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
   } else {
     let result
     if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
@@ -2697,20 +2697,7 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
 */
 export function stringNombre (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
-  const nombre = nb.toString()
-  const partieEntiere = nombre.split('.')[0]
-  const partieDecimale = nombre.split('.')[1]
-  let result = ''
-  let i
-  if (partieEntiere.length > 3) {
-    for (i = 0; i < Math.floor(partieEntiere.length / 3); i++) {
-      result = ' ' + partieEntiere.slice(partieEntiere.length - i * 3 - 3, partieEntiere.length - i * 3) + result
-    }
-    result = partieEntiere.slice(0, partieEntiere.length - i * 3) + result
-  } else result = partieEntiere
-  if (result[0] === ' ') result = result.substring(1, result.length)
-  if (partieDecimale !== undefined) result += ',' + partieDecimale
-  return result
+  return Intl.NumberFormat('fr-Fr', { maximumSignificantDigits: 15 }).format(nb)
 }
 /**
 * Centre un texte

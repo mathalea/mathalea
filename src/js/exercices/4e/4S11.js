@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, prenom, tirerLesDes, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texNombre, texteGras, lampeMessage, combinaisonListes, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, prenom, tirerLesDes, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, stringNombre, texNombre, texteGras, lampeMessage, combinaisonListes, calcul } from '../../modules/outils.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -201,7 +201,7 @@ export default function DeterminerDesMedianes () {
           scoresMedians.push(tirages[cpt][0])
           let medianeCorr // pour la correction statique
           scoresMedians[0] === scoresMedians[1] ? medianeCorr = scoresMedians[0] : medianeCorr = (scoresMedians[0] + scoresMedians[1]) / 2
-          texteCorr += `D'où ${texteGras(`le score médian : ${texNombre(medianeCorr)}`)}<br>`
+          texteCorr += `D'où ${texteGras(`le score médian : ${stringNombre(medianeCorr)}`)}<br>`
           texteCorr += lampeMessage({
             titre: 'Interprétation',
             texte: `Ìl y a bien $${(nombreTirages) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr)}$ et $${(nombreTirages) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr)}$.`,
@@ -227,7 +227,7 @@ export default function DeterminerDesMedianes () {
             effCumulCroiss += tirages[cpt][1]
           };
           scoresMedians.push(tirages[cpt][0])
-          texteCorr += `D'où ${texteGras(`le score médian : ${texNombre(scoresMedians[0])}`)}<br>`
+          texteCorr += `D'où ${texteGras(`le score médian : ${stringNombre(scoresMedians[0])}`)}<br>`
           texteCorr += lampeMessage({
             titre: 'Interprétation',
             texte: `Ìl y a bien $${(nombreTirages - 1) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(scoresMedians[0])}$ et $${(nombreTirages - 1) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(scoresMedians[0])}$.`,
@@ -275,7 +275,7 @@ export default function DeterminerDesMedianes () {
         };
         let medianeCorr // pour la correction statique
         Array.isArray(mediane) ? medianeCorr = (mediane[0] + mediane[1]) / 2 : medianeCorr = mediane
-        texteCorr += `D'où ${texteGras(`la note médiane : ${texNombre(medianeCorr)}`)}<br>`
+        texteCorr += `D'où ${texteGras(`la note médiane : ${stringNombre(medianeCorr)}`)}<br>`
         if (notes.length % 2 === 0) {
           texteCorr += lampeMessage({
             titre: 'Interprétation',
@@ -354,7 +354,7 @@ export default function DeterminerDesMedianes () {
         };
         let medianeCorr // pour la correction statique
         Array.isArray(mediane) ? medianeCorr = (mediane[0] + mediane[1]) / 2 : medianeCorr = mediane
-        texteCorr += `D'où ${texteGras(`une temperature médiane : ${texNombre(medianeCorr)}`)}<br>`
+        texteCorr += `D'où ${texteGras(`une temperature médiane : ${stringNombre(medianeCorr)}`)}<br>`
         if (temperatures.length % 2 === 0) {
           texteCorr += lampeMessage({
             titre: 'Interprétation',
