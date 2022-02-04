@@ -38,7 +38,7 @@ export default function ProblemesPuissancesDe10EtConversions () {
           b1 = choice([650, 700, 750])
           c = randint(3, 20)
           c1 = calcul(randint(11, 49) / 10)
-          texte = `Sur mon disque dur, j'ai ${a} photos de ${a1} ko, ${b} films de ${b1} Mo et ${c} films HD de ${texNombre(c1)} Go.<br>`
+          texte = `Sur mon disque dur, j'ai ${a} photos de ${a1} ko, ${b} films de ${b1} Mo et ${c} films HD de $${texNombre(c1)}$ Go.<br>`
           texte += 'Combien de place vont occuper tous ces fichiers ? Donner le résultat en mega-octets et en giga-octets.'
           texteCorr = `Taille des photos : $${a}\\times${a1}~\\text{ko}=${texNombre(a * a1)}~\\text{ko}=${texNombre(calcul(a * a1 / 1000))}~\\text{Mo}$<br>`
           texteCorr += `Taille des films : $${b}\\times${b1}~\\text{Mo}=${texNombre(b * b1)}~\\text{Mo}$<br>`
@@ -58,7 +58,7 @@ export default function ProblemesPuissancesDe10EtConversions () {
         case 'electricite':
           a = choice([30, 35, 40, 45])
           b = calcul(randint(11, 49, [20, 30, 40]) / 10)
-          texte = `On estime qu'un foyer consomme ${a} kWh par jour. Si une centrale électrique produit ${texNombre(b)} TWh par an, combien de foyers pourra-t-elle alimenter ?<br>`
+          texte = `On estime qu'un foyer consomme ${a} kWh par jour. Si une centrale électrique produit $${texNombre(b)}$ TWh par an, combien de foyers pourra-t-elle alimenter ?<br>`
           texteCorr = `Consommation annuelle d'un foyer français : $365\\times${texNombre(a)}~\\text{kWh} = ${texNombre(a * 365)}~\\text{kWh}$<br>`
           texteCorr += `Nombre de foyers pouvant être alimentés par cette centrale : $\\dfrac{${texNombre(b)}~\\text{TWh}}{${texNombre(a * 365)}~\\text{kWh}}=\\dfrac{${texNombre(b)}\\times10^{12}~\\text{Wh}}{${texNombre(a * 365)}\\times10^3~\\text{Wh}}\\approx${texNombre(calcul((b * 10 ** 12) / (a * 365 * 10 ** 3), 1))}$`
           break

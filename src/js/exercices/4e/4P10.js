@@ -820,9 +820,9 @@ export default function ProblemesGrandeursComposees () {
               texteCorr += `\\approx${texNombrec(vitesseMoy)}$ km/h<br>`
               texteCorr +=
                 numAlpha(2) +
-                ` Si elle court 21,0975 km à cette vitesse de ${texNombre(
+                ` Si elle court 21,0975 km à cette vitesse de $${texNombre(
                   vitesseMoy
-                )} km/h, ${quidam} mettra :<br>`
+                )}$ km/h, ${quidam} mettra :<br>`
               duree = arrondi(21.0975 / vitesseMoy, 4)
               texteCorr += `$\\dfrac{${texNombre(
                 21.0975

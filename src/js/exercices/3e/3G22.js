@@ -68,7 +68,7 @@ export default function AgrandissementReduction () {
         } else {
           texte = ''
         }
-        texte += `SABCD est une pyramide à base carrée de hauteur SO${sp()}=${sp()}${texNombre(h1)}${sp()}cm et de côté de base ${texNombre(c)}${sp()}cm.<br>`
+        texte += `SABCD est une pyramide à base carrée de hauteur $SO${sp()}=${sp()}${texNombre(h1)}${sp()}$cm et de côté de base $${texNombre(c)}${sp()}$cm.<br>`
         texte += ` Le point O' est situé sur la hauteur [SO] à ${h2}${sp()}cm de S.`
         texte += '<br>Un plan parallèle à la face ABCD passant par O\' coupe la pyramide en formant la section A\'B\'C\'D\'.<br>'
         if (!context.isHtml) {
