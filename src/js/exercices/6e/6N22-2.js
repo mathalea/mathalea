@@ -14,7 +14,7 @@ export const amcType = 'AMCNum'
 
 /**
  * Représenter une somme de fractions de même dénominateur sur un segment gradué de façon adaptée.
- * @author Jean-Claude Lhote (AMC-isé par EE)
+ * @author Jean-Claude Lhote (AMC par EE)
  * 6N14-2
  * Relecture : Novembre 2021 par EE
  */

@@ -12,7 +12,7 @@ export const amcType = 'AMCHybride'
 // Version SVGJS commit 87bd9a3
 
 /**
- * Description didactique de l'exercice
+ * Description didactique de l'exercice :
  * @author Rémi Angot
  * Référence 6N21
  * publié le 29/6/2021
