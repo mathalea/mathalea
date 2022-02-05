@@ -106,6 +106,7 @@ const config = {
 
     mathalea: ['./src/js/firstLoaded.js', './src/js/mathalea.js'],
     mathalea2d: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2d-gui.js'],
+    m2d: ['./src/js/firstLoaded.js', './src/js/modules/m2d/M2d.ts'],
     mathalea2iep: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2iep-gui.js'],
     alacarte: ['./src/js/firstLoaded.js', './src/js/alacarte.js']
   },
@@ -180,6 +181,11 @@ const config = {
       chunks: ['mathalea2d']
     }),
     new HtmlWebpackPlugin({
+      template: 'src/html/m2d.html',
+      filename: 'm2d.html',
+      chunks: ['m2d']
+    }),
+    new HtmlWebpackPlugin({
       template: 'src/html/mathalea2dsvg.html',
       filename: 'mathalea2dsvg.html',
       chunks: ['mathalea2d']
@@ -228,6 +234,11 @@ const config = {
         include: path.resolve(__dirname, 'src', 'js'),
         // pas la peine d'exclure assets/externalJs car il est pas dans l'include
         loader: 'babel-loader'
+      },
+      {
+        test: /\.tsx?$/,
+        include: path.resolve(__dirname, 'src', 'js'),
+        loader: 'ts-loader'
       },
       {
         // la règle précédente étant restrictive (pour limiter le nb de js qui passent par babel), faut ajouter les qq modules dont on importe des sources
