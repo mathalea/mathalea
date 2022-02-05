@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, contraindreValeur, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, contraindreValeur, numAlpha, htmlConsigne } from '../../modules/outils.js'
 import { mathalea2d, fixeBordures, diagrammeBarres } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Calculs de fréquences'
@@ -74,6 +74,72 @@ function graphique (hauteursBarres, etiquettes, { reperageTraitPointille = false
 |*  888        .d8""8b. Y8b.     888     Y88b.    888 Y88b.    Y8b.
 |*  8888888888 888  888  "Y8888  888      "Y8888P 888  "Y8888P  "Y8888
 */
+
+class Population {
+  constructor (theme) {
+    const series = new Map()
+    series.set('etablissement', {
+      lieu: 'un établissement',
+      individus: 'élèves',
+      caractere: 'leur sport préféré',
+      caractereAbrege: 'sport',
+      modalites: ['Football', 'Rugby', 'Basket', 'Tennis', 'Judo', 'Handball', 'Volleyball', 'Athlétisme', 'Pingpong']
+    })
+    series.set('salon', {
+      lieu: 'un salon européen de esport',
+      individus: 'visiteurs',
+      caractere: 'leur pays d\'origine',
+      caractereAbrege: 'pays',
+      modalites: ['France', 'Angleterre', 'Hollande', 'Espagne', 'Italie', 'Belgique', 'Allemagne', 'Portugal', 'Autriche']
+    })
+    series.set('parking', {
+      lieu: 'un parking de supermarché',
+      individus: 'voitures',
+      caractere: 'leur couleur',
+      caractereAbrege: 'couleur',
+      modalites: ['Noir', 'Blanc', 'Bleu', 'Rouge', 'Vert', 'Gris', 'Marron', 'Jaune', 'Orange']
+    })
+    series.set('collection', {
+      lieu: 'une collection',
+      individus: 'disques',
+      caractere: 'leur style de musique',
+      caractereAbrege: 'style',
+      modalites: ['Pop', 'Jazz', 'Rap', 'RnB', 'Folk', 'Rock', 'Électro', 'Reggae', 'Soul']
+    })
+    let serie = {}
+    if (theme === 'hasard') {
+      serie = series.get(choice(['etablissement', 'salon', 'parking', 'collection']))
+    } else {
+      serie = series.get(theme)
+    }
+    this.lieu = serie.lieu
+    this.caractere = serie.caractere
+    this.caractereAbrege = serie.caractereAbrege
+    this.effectifTotal = choice([100, 120, 150, 200, 250, 400, 500, 1000])
+    this.modalites = shuffle(serie.modalites.slice(0, randint(5, serie.modalites.length)))
+    this.effectifs = listeEntiersDepuisSomme(this.effectifTotal, this.modalites.length)
+    this.rangEffectifCache = randint(0, this.modalites.length - 1)
+    this.entreeCachee = this.modalites[this.rangEffectifCache]
+  }
+
+  getPreambule (styleExo) {
+    let preambule = `Dans ${this.lieu} de ${this.effectifTotal} ${this.individus}, on a noté ${this.caractere}. `
+    if (styleExo === 'tableau') {
+      preambule += 'On a consigné les résultats dans le tableau suivant :<br><br>'
+    } else {
+      preambule += 'On a représenté leurs réponses à l\'aide du diagramme ci dessous.<br><br>'
+    }
+    return preambule
+  }
+
+  getEntrees () {
+    const entrees = new Map()
+    for (let i = 0; i < this.modalites.length; i++) {
+      entrees.set(this.modalites[i], this.effectifs[i])
+    }
+    return entrees
+  }
+}
 
 /**
  * Calculs de fréquences sur une série qualitative
@@ -160,6 +226,7 @@ export default function CalculerDesFrequences () {
    * */
   function exerciceAvecTableau () {
     // paramètres du problème
+    const serie = new Population('hasard')
     const effectifTotal = choice([100, 120, 150, 200, 250, 400, 500, 1000])
     const sports = shuffle(listeSports.slice(0, randint(5, listeSports.length)))
     const effectifs = listeEntiersDepuisSomme(effectifTotal, sports.length)
