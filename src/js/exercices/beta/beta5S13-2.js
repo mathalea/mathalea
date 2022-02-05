@@ -82,28 +82,28 @@ class Population {
       lieu: 'un établissement',
       individus: 'élèves',
       caractere: 'leur sport préféré',
-      caractereAbrege: 'sport',
+      caracterePourTableau: 'Sports',
       modalites: ['Football', 'Rugby', 'Basket', 'Tennis', 'Judo', 'Handball', 'Volleyball', 'Athlétisme', 'Pingpong']
     })
     series.set('salon', {
       lieu: 'un salon européen de esport',
       individus: 'visiteurs',
       caractere: 'leur pays d\'origine',
-      caractereAbrege: 'pays',
+      caracterePourTableau: 'Pays',
       modalites: ['France', 'Angleterre', 'Hollande', 'Espagne', 'Italie', 'Belgique', 'Allemagne', 'Portugal', 'Autriche']
     })
     series.set('parking', {
       lieu: 'un parking de supermarché',
       individus: 'voitures',
       caractere: 'leur couleur',
-      caractereAbrege: 'couleur',
+      caracterePourTableau: 'Couleurs',
       modalites: ['Noir', 'Blanc', 'Bleu', 'Rouge', 'Vert', 'Gris', 'Marron', 'Jaune', 'Orange']
     })
     series.set('collection', {
       lieu: 'une collection',
       individus: 'disques',
       caractere: 'leur style de musique',
-      caractereAbrege: 'style',
+      caracterePourTableau: 'Styles',
       modalites: ['Pop', 'Jazz', 'Rap', 'RnB', 'Folk', 'Rock', 'Électro', 'Reggae', 'Soul']
     })
     let serie = {}
@@ -113,8 +113,9 @@ class Population {
       serie = series.get(theme)
     }
     this.lieu = serie.lieu
+    this.individus = serie.individus
     this.caractere = serie.caractere
-    this.caractereAbrege = serie.caractereAbrege
+    this.caracterePourTableau = serie.caracterePourTableau
     this.effectifTotal = choice([100, 120, 150, 200, 250, 400, 500, 1000])
     this.modalites = shuffle(serie.modalites.slice(0, randint(5, serie.modalites.length)))
     this.effectifs = listeEntiersDepuisSomme(this.effectifTotal, this.modalites.length)
@@ -123,7 +124,7 @@ class Population {
   }
 
   getPreambule (styleExo) {
-    let preambule = `Dans ${this.lieu} de ${this.effectifTotal} ${this.individus}, on a noté ${this.caractere}. `
+    let preambule = `Dans ${this.lieu} comptant ${this.effectifTotal} ${this.individus}, on a noté ${this.caractere}.<br>`
     if (styleExo === 'tableau') {
       preambule += 'On a consigné les résultats dans le tableau suivant :<br><br>'
     } else {
@@ -174,17 +175,18 @@ export default function CalculerDesFrequences () {
    * @param {String} cachee le sport dont on a caché l'effectif
    * @returns liste des questions, liste des corrections
    */
-  function questionsEtCorrections (preambule, entreesTableau, cachee) {
+  // function questionsEtCorrections (preambule, entreesTableau, cachee) {
+  function questionsEtCorrections (preambule, serie) {
     const questions = [preambule,
       '<br>' + numAlpha(0) + 'Déterminer l\'effectif manquant.',
       '<br>' + numAlpha(1) + 'Déterminer les fréquences pour chaque sport (en pourcentage, arrondir au dixième si besoin).']
     // correction question 1
-    const effTotal = Array.from(entreesTableau.values()).reduce((part, eff) => part + eff, 0)
-    let correction1 = '<br>' + numAlpha(0) + `L'effectif manquant est celui du ${cachee.charAt(0).toLocaleLowerCase() + cachee.slice(1)}. Soit $e$ cet effectif.<br>`
-    correction1 += `$e=${effTotal}-( `
+    // const effTotal = Array.from(entreesTableau.values()).reduce((part, eff) => part + eff, 0)
+    let correction1 = '<br>' + numAlpha(0) + `L'effectif manquant est celui du ${serie.entreeCachee.charAt(0).toLocaleLowerCase() + serie.entreeCachee.slice(1)}. Soit $e$ cet effectif.<br>`
+    correction1 += `$e=${serie.effectifTotal}-( `
     let first = true
-    for (const [sport, eff] of entreesTableau) {
-      if (sport !== cachee) {
+    serie.effectifs.forEach((eff, index) => {
+      if (index !== serie.rangEffectifCache) {
         if (first) {
           correction1 += `${eff} `
           first = !first
@@ -192,10 +194,10 @@ export default function CalculerDesFrequences () {
           correction1 += `+ ${eff} `
         }
       }
-    }
+    })
     correction1 += ')$<br>'
-    correction1 += `$e=${effTotal}-${calcul(effTotal - entreesTableau.get(cachee))}$<br>`
-    correction1 += `$e=${entreesTableau.get(cachee)}$`
+    correction1 += `$e=${serie.effectifTotal}-${calcul(serie.effectifTotal - serie.effectifs[serie.rangEffectifCache])}$<br>`
+    correction1 += `$e=${serie.effectifs[serie.rangEffectifCache]}$`
     // correction question 2
     let correction2 = '<br>' + numAlpha(1) + 'Calculs des fréquences.<br><br>'
     correction2 += 'On rappelle que pour la fréquence relative à une valeur est donnée par le quotient : '
@@ -205,15 +207,12 @@ export default function CalculerDesFrequences () {
     const premiereColonne = []
     const premiereLigneTableau = []
     const deuxiemeLigneTableau = []
-    for (const [sport, eff] of entreesTableau) {
-      enteteTableau.push(`\\text{${sport}}`)
-      const f = fraction(eff, effTotal)
+    serie.effectifs.forEach((eff, index) => {
+      enteteTableau.push(`\\text{${serie.modalites[index]}}`)
+      const f = fraction(eff, serie.effectifTotal)
       premiereLigneTableau.push(f.texFraction)
       deuxiemeLigneTableau.push(`${texNombre(f.pourcentage)} \\%`)
-      // correction2 += `${sport} :<br>`
-      // correction2 += `$f_{\\text{${sport}}}=${f.texFraction}$<br>`
-      // correction2 += `$f_{\\text{${sport}}}=$` + texNombre(f.pourcentage) + ' %<br><br>'
-    }
+    })
     premiereColonne.push('\\textbf{Fréquences}', '\\textbf{Fréquences en pourcentages}')
     correction2 += tableauColonneLigne(enteteTableau, premiereColonne, premiereLigneTableau.concat(deuxiemeLigneTableau))
     correction2 += '<br>'
@@ -227,39 +226,30 @@ export default function CalculerDesFrequences () {
   function exerciceAvecTableau () {
     // paramètres du problème
     const serie = new Population('hasard')
-    const effectifTotal = choice([100, 120, 150, 200, 250, 400, 500, 1000])
-    const sports = shuffle(listeSports.slice(0, randint(5, listeSports.length)))
-    const effectifs = listeEntiersDepuisSomme(effectifTotal, sports.length)
-    const rangEffectifCache = randint(0, sports.length - 1)
-    const entreeCachee = sports[rangEffectifCache]
-    const entrees = new Map()
-    for (let i = 0; i < sports.length; i++) {
-      entrees.set(sports[i], effectifs[i])
-    }
-    let preambule = `Dans un établissement de ${effectifTotal} élèves, on a demandé à chacun quel est son sport préféré. `
-    preambule += 'On a consigné les résultats dans le tableau suivant :<br><br>'
+    let preambule = serie.getPreambule('tableau')
     // construction du tableau
-    const entetesColonnes = ['\\text{\\textbf{Sports}}']
-    for (const sport of entrees.keys()) {
-      entetesColonnes.push(`\\text{${sport}}`)
+    const entetesColonnes = [`\\text{\\textbf{${serie.caracterePourTableau}}}`]
+    for (const modalite of serie.modalites) {
+      entetesColonnes.push(`\\text{${modalite}}`)
     }
     entetesColonnes.push('\\text{\\textbf{TOTAL}}')
     const entetesLignes = ['\\text{\\textbf{Effectifs}}', '\\text{\\textbf{Fréquences}}']
     const cellules = []
     // première ligne des effectifs
-    for (let i = 0; i < effectifs.length; i++) {
-      if (i !== rangEffectifCache) {
-        cellules.push(effectifs[i])
+    serie.effectifs.forEach((eff, index) => {
+      if (index !== serie.rangEffectifCache) {
+        cellules.push(eff)
       } else {
         cellules.push('')
       }
-    }
-    cellules.push(`${effectifTotal}`)
+    })
+    cellules.push(`${serie.effectifTotal}`)
     // deuxième ligne de fréquences (vide)
-    for (let i = 0; i <= effectifs.length; i++) { cellules.push('') }
+    for (let i = 0; i <= serie.effectifs.length; i++) { cellules.push('') }
     preambule += tableauColonneLigne(entetesColonnes, entetesLignes, cellules, 1.5)
     preambule += '<br>'
-    const texte = questionsEtCorrections(preambule, entrees, entreeCachee) // on récupère les questions/réponses en relation
+    // const texte = questionsEtCorrections(preambule, elements, serie.entreeCachee) // on récupère les questions/réponses en relation
+    const texte = questionsEtCorrections(preambule, serie)
     return { questions: texte.questions, corrections: texte.corrections }
   }
 
