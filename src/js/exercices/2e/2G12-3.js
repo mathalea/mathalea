@@ -29,7 +29,8 @@ export default function Parallélogramme () {
       switch (typesDeQuestions) {
       // Cas par cas, on définit le type de nombres que l'on souhaite
       // Combien de chiffres ? Quelles valeurs ?
-        case 1: xA = randint(0, 4) * choice([-1, 1])
+        case 1: // Dq ABDC parallélogramme
+          xA = randint(0, 4) * choice([-1, 1])
           yA = randint(0, 4) * choice([-1, 1])
           xC = randint(0, 4) * choice([-1, 1])
           yC = randint(0, 4) * choice([-1, 1])
@@ -123,7 +124,7 @@ export default function Parallélogramme () {
           texteCorr += '<br>On observe que $M$ et $N$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
           texteCorr += '<br>$ABDC$ est donc un parallélogramme.'
           break
-        case 2:
+        case 2: // Dq ABDC pas un parallélogramme
           xA = randint(0, 4) * choice([-1, 1])
           yA = randint(0, 4) * choice([-1, 1])
           xC = randint(0, 4) * choice([-1, 1])
