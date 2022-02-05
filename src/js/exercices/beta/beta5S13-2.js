@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, contraindreValeur, numAlpha, htmlConsigne } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, contraindreValeur, numAlpha } from '../../modules/outils.js'
 import { mathalea2d, fixeBordures, diagrammeBarres } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Calculs de fréquences'
@@ -75,8 +75,13 @@ function graphique (hauteursBarres, etiquettes, { reperageTraitPointille = false
 |*  8888888888 888  888  "Y8888  888      "Y8888P 888  "Y8888P  "Y8888
 */
 
+/**
+ * La classe Population sert à construire la série basée sur le theme choisi en paramètre
+ */
 class Population {
   constructor (theme) {
+    // dictionnaires des séries
+    const listeThemes = ['etablissement', 'salon', 'parking', 'collection'] // chaque theme est une clé du dictionnaire
     const series = new Map()
     series.set('etablissement', {
       lieu: 'un établissement',
@@ -106,9 +111,10 @@ class Population {
       caracterePourTableau: 'Styles',
       modalites: ['Pop', 'Jazz', 'Rap', 'RnB', 'Folk', 'Rock', 'Électro', 'Reggae', 'Soul']
     })
+    // construction de la série
     let serie = {}
     if (theme === 'hasard') {
-      serie = series.get(choice(['etablissement', 'salon', 'parking', 'collection']))
+      serie = series.get(choice(listeThemes))
     } else {
       serie = series.get(theme)
     }
@@ -135,11 +141,6 @@ class Population {
       default :
         throw Error("Error : styleExo n'est ni tableau, ni diagramme")
     }
-    // if (styleExo === 'tableau') {
-    //   preambule += 'On a consigné les résultats dans le tableau suivant :<br><br>'
-    // } else {
-    //   preambule += 'On a représenté leurs réponses à l\'aide du diagramme ci dessous.<br><br>'
-    // }
     return preambule
   }
 
@@ -173,9 +174,20 @@ export default function CalculerDesFrequences () {
       '1 : Choix d\'un exercice aléatoire parmi les deux versions',
       '2 : Calculer des fréquences à partir d\'un tableau d\'effectifs',
       '3 : Calculer des fréquences à partir d\'un diagramme bâton',
-      '4 : Les deux versions en deux questions'
+      '4 : Les deux versions en deux questions (thème du 2e au hasard)'
     ].join('\n')
   ]
+  this.sup2 = 1
+  this.besoinFormulaire2Numerique = [
+    'Thème du contexte', 5, [
+      '1 : Au hasard',
+      '2 : Établissement scolaire et sports préférés',
+      '3 : Salon européen et nationalités des participants',
+      '4 : Parking et couleurs des voitures',
+      '5 : Collection de disques et styles de musique'
+    ].join('\n')
+  ]
+  const listeDesThemes = ['hasard', 'etablissement', 'salon', 'parking', 'collection']
 
   /**
    * Les questions non modifiables, seule la physionomie de la consigne change (données en tableau ou en diagramme)...
@@ -230,9 +242,9 @@ export default function CalculerDesFrequences () {
    * version 0 :
    * La consigne avec un tableau d'effectifs
    * */
-  function exerciceAvecTableau () {
+  function exerciceAvecTableau (theme) {
     // paramètres du problème
-    const serie = new Population('hasard')
+    const serie = new Population(theme)
     let preambule = serie.getPreambule('tableau')
     // construction du tableau
     const entetesColonnes = [`\\text{\\textbf{${serie.caracterePourTableau}}}`]
@@ -255,8 +267,7 @@ export default function CalculerDesFrequences () {
     for (let i = 0; i <= serie.effectifs.length; i++) { cellules.push('') }
     preambule += tableauColonneLigne(entetesColonnes, entetesLignes, cellules, 1.5)
     preambule += '<br>'
-    // const texte = questionsEtCorrections(preambule, elements, serie.entreeCachee) // on récupère les questions/réponses en relation
-    const texte = questionsEtCorrections(preambule, serie)
+    const texte = questionsEtCorrections(preambule, serie) // on récupère les questions/réponses en relation
     return { questions: texte.questions, corrections: texte.corrections }
   }
 
@@ -264,21 +275,10 @@ export default function CalculerDesFrequences () {
    * version 1 :
    * La consigne avec un diagramme bâton
    * */
-  function exerciceAvecDiagramme () {
+  function exerciceAvecDiagramme (theme) {
     // paramètres du problème
-    const serie = new Population('hasard')
+    const serie = new Population(theme)
     let preambule = serie.getPreambule('diagramme')
-    // const effectifTotal = choice([100, 120, 150, 200, 250, 400, 500, 1000])
-    // const sports = shuffle(listeSports.slice(0, randint(5, listeSports.length)))
-    // const effectifs = listeEntiersDepuisSomme(effectifTotal, sports.length)
-    // const rangEffectifCache = randint(0, sports.length - 1)
-    // const entreeCachee = sports[rangEffectifCache]
-    // const entrees = new Map()
-    // for (let i = 0; i < sports.length; i++) {
-    //   entrees.set(sports[i], effectifs[i])
-    // }
-    // let preambule = `Dans un établissement de ${effectifTotal} élèves, on a demandé à chacun quel est son sport préféré. `
-    // preambule += 'On a représenté leurs réponses à l\'aide du diagramme ci dessous.<br><br>'
     // construction du diagramme
     const effectifsSansValeurCachee = serie.effectifs.map((elt, i) => i !== serie.rangEffectifCache ? elt : 0)
     const diagrammeBaton = graphique(effectifsSansValeurCachee, serie.modalites, { etiquetteValeur: false, reperageTraitPointille: false, axeVertical: true, titreAxeVertical: 'Effectifs', labelAxeVert: true })
@@ -292,34 +292,36 @@ export default function CalculerDesFrequences () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.sup = contraindreValeur(1, 4, this.sup, 1)
+    this.sup2 = contraindreValeur(1, 5, this.sup2, 1)
+    const theme = listeDesThemes[this.sup2 - 1]
     const exercice = { questions: [], corrections: [] }
     let transit = {}
     const de = randint(0, 1)
     switch (this.sup) {
       case 1 : // au hasard
         if (de === 0) {
-          transit = exerciceAvecDiagramme()
+          transit = exerciceAvecDiagramme(theme)
         } else {
-          transit = exerciceAvecTableau()
+          transit = exerciceAvecTableau(theme)
         }
         exercice.questions = [transit.questions]
         exercice.corrections = [transit.corrections]
         break
       case 2 : // tableau
-        transit = exerciceAvecTableau()
+        transit = exerciceAvecTableau(theme)
         exercice.questions = [transit.questions]
         exercice.corrections = [transit.corrections]
         break
       case 3 : // diagramme
-        transit = exerciceAvecDiagramme()
+        transit = exerciceAvecDiagramme(theme)
         exercice.questions = [transit.questions]
         exercice.corrections = [transit.corrections]
         break
       case 4 : // les deux
-        transit = exerciceAvecTableau()
+        transit = exerciceAvecTableau(theme)
         exercice.questions = [transit.questions]
         exercice.corrections = [transit.corrections]
-        transit = exerciceAvecDiagramme()
+        transit = exerciceAvecDiagramme('hasard')
         exercice.questions.push(transit.questions)
         exercice.corrections.push(transit.corrections)
     }
