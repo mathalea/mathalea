@@ -1,10 +1,7 @@
 {
     "compilerOptions": {
       // "outDir": "build",
-      "baseUrl": "src",
-      "paths": { 
-        "@/*": ["*"]
-      },
+      //"baseUrl": "src",
       "noImplicitAny": true,
       "module": "es6",
       "target": "es5",
