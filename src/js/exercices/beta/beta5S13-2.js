@@ -125,11 +125,21 @@ class Population {
 
   getPreambule (styleExo) {
     let preambule = `Dans ${this.lieu} comptant ${this.effectifTotal} ${this.individus}, on a noté ${this.caractere}.<br>`
-    if (styleExo === 'tableau') {
-      preambule += 'On a consigné les résultats dans le tableau suivant :<br><br>'
-    } else {
-      preambule += 'On a représenté leurs réponses à l\'aide du diagramme ci dessous.<br><br>'
+    switch (styleExo) {
+      case 'tableau' :
+        preambule += 'On a consigné les résultats dans le tableau suivant :<br><br>'
+        break
+      case 'diagramme' :
+        preambule += 'On a représenté ces données à l\'aide du diagramme ci dessous.<br><br>'
+        break
+      default :
+        throw Error("Error : styleExo n'est ni tableau, ni diagramme")
     }
+    // if (styleExo === 'tableau') {
+    //   preambule += 'On a consigné les résultats dans le tableau suivant :<br><br>'
+    // } else {
+    //   preambule += 'On a représenté leurs réponses à l\'aide du diagramme ci dessous.<br><br>'
+    // }
     return preambule
   }
 
@@ -166,7 +176,6 @@ export default function CalculerDesFrequences () {
       '4 : Les deux versions en deux questions'
     ].join('\n')
   ]
-  const listeSports = ['Football', 'Rugby', 'Basket', 'Tennis', 'Judo', 'Handball', 'Volleyball', 'Athlétisme', 'Pingpong']
 
   /**
    * Les questions non modifiables, seule la physionomie de la consigne change (données en tableau ou en diagramme)...
@@ -175,13 +184,11 @@ export default function CalculerDesFrequences () {
    * @param {String} cachee le sport dont on a caché l'effectif
    * @returns liste des questions, liste des corrections
    */
-  // function questionsEtCorrections (preambule, entreesTableau, cachee) {
   function questionsEtCorrections (preambule, serie) {
     const questions = [preambule,
       '<br>' + numAlpha(0) + 'Déterminer l\'effectif manquant.',
       '<br>' + numAlpha(1) + 'Déterminer les fréquences pour chaque sport (en pourcentage, arrondir au dixième si besoin).']
     // correction question 1
-    // const effTotal = Array.from(entreesTableau.values()).reduce((part, eff) => part + eff, 0)
     let correction1 = '<br>' + numAlpha(0) + `L'effectif manquant est celui du ${serie.entreeCachee.charAt(0).toLocaleLowerCase() + serie.entreeCachee.slice(1)}. Soit $e$ cet effectif.<br>`
     correction1 += `$e=${serie.effectifTotal}-( `
     let first = true
@@ -259,22 +266,24 @@ export default function CalculerDesFrequences () {
    * */
   function exerciceAvecDiagramme () {
     // paramètres du problème
-    const effectifTotal = choice([100, 120, 150, 200, 250, 400, 500, 1000])
-    const sports = shuffle(listeSports.slice(0, randint(5, listeSports.length)))
-    const effectifs = listeEntiersDepuisSomme(effectifTotal, sports.length)
-    const rangEffectifCache = randint(0, sports.length - 1)
-    const entreeCachee = sports[rangEffectifCache]
-    const entrees = new Map()
-    for (let i = 0; i < sports.length; i++) {
-      entrees.set(sports[i], effectifs[i])
-    }
-    let preambule = `Dans un établissement de ${effectifTotal} élèves, on a demandé à chacun quel est son sport préféré. `
-    preambule += 'On a représenté leurs réponses à l\'aide du diagramme ci dessous.<br><br>'
+    const serie = new Population('hasard')
+    let preambule = serie.getPreambule('diagramme')
+    // const effectifTotal = choice([100, 120, 150, 200, 250, 400, 500, 1000])
+    // const sports = shuffle(listeSports.slice(0, randint(5, listeSports.length)))
+    // const effectifs = listeEntiersDepuisSomme(effectifTotal, sports.length)
+    // const rangEffectifCache = randint(0, sports.length - 1)
+    // const entreeCachee = sports[rangEffectifCache]
+    // const entrees = new Map()
+    // for (let i = 0; i < sports.length; i++) {
+    //   entrees.set(sports[i], effectifs[i])
+    // }
+    // let preambule = `Dans un établissement de ${effectifTotal} élèves, on a demandé à chacun quel est son sport préféré. `
+    // preambule += 'On a représenté leurs réponses à l\'aide du diagramme ci dessous.<br><br>'
     // construction du diagramme
-    const effectifsSansValeurCachee = effectifs.map((elt, i) => i !== rangEffectifCache ? elt : 0)
-    const diagrammeBaton = graphique(effectifsSansValeurCachee, sports, { etiquetteValeur: false, reperageTraitPointille: false, axeVertical: true, titreAxeVertical: 'Effectifs', labelAxeVert: true })
+    const effectifsSansValeurCachee = serie.effectifs.map((elt, i) => i !== serie.rangEffectifCache ? elt : 0)
+    const diagrammeBaton = graphique(effectifsSansValeurCachee, serie.modalites, { etiquetteValeur: false, reperageTraitPointille: false, axeVertical: true, titreAxeVertical: 'Effectifs', labelAxeVert: true })
     preambule += diagrammeBaton
-    const texte = questionsEtCorrections(preambule, entrees, entreeCachee) // on récupère les questions/réponses en relation
+    const texte = questionsEtCorrections(preambule, serie) // on récupère les questions/réponses en relation
     return { questions: texte.questions, corrections: texte.corrections }
   }
 
