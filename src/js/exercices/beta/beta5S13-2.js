@@ -281,7 +281,7 @@ export default function CalculerDesFrequences () {
     let preambule = serie.getPreambule('diagramme')
     // construction du diagramme
     const effectifsSansValeurCachee = serie.effectifs.map((elt, i) => i !== serie.rangEffectifCache ? elt : 0)
-    const diagrammeBaton = graphique(effectifsSansValeurCachee, serie.modalites, { etiquetteValeur: false, reperageTraitPointille: false, axeVertical: true, titreAxeVertical: 'Effectifs', labelAxeVert: true })
+    const diagrammeBaton = graphique(effectifsSansValeurCachee, serie.modalites, { reperageTraitPointille: false, axeVertical: true, titreAxeVertical: 'Effectifs', labelAxeVert: true })
     preambule += diagrammeBaton
     const texte = questionsEtCorrections(preambule, serie) // on récupère les questions/réponses en relation
     return { questions: texte.questions, corrections: texte.corrections }
