@@ -18,7 +18,7 @@ export const amcType = 'AMCHybride'
  * * 3 : Calculer le périmètre et l'aire de disques
  *
  * Pas de version LaTeX
- * @author Rémi Angot
+ * @author Rémi Angot (AMC-isé par EE)
  * Référence 6M22-1
  */
 export default function PerimetreAireDisques (pa = 3) {
