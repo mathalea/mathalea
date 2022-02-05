@@ -40,7 +40,8 @@ export function ObjetMathalea2D () {
 }
 
 class Vide2d {
-  constructor () {
+  constructor (x, y) {
+    this.bordures = [x, y, x, y]
     this.tikz = function () {
       return ''
     }
@@ -49,8 +50,8 @@ class Vide2d {
     }
   }
 }
-export function vide2d () {
-  return new Vide2d()
+export function vide2d (x = 0, y = 0) {
+  return new Vide2d(x, y)
 }
 /**
  *
@@ -2199,10 +2200,10 @@ function Polygone (...points) {
   let ymax = -1000
   for (const unPoint of this.listePoints) {
     if (unPoint.typeObjet !== 'point') window.notify('Polygone : argument invalide', { ...points })
-    xmin = Math.min(xmin, unPoint.x - unPoint.positionLabel.indexOf('left') !== -1 ? 1 : 0)
-    xmax = Math.max(xmax, unPoint.x + unPoint.positionLabel.indexOf('right') !== -1 ? 1 : 0)
-    ymin = Math.min(ymin, unPoint.y - unPoint.positionLabel.indexOf('below') !== -1 ? 1 : 0)
-    ymax = Math.max(ymax, unPoint.y + unPoint.positionLabel.indexOf('above') !== -1 ? 1 : 0)
+    xmin = Math.min(xmin, unPoint.x - (unPoint.positionLabel.indexOf('left') !== -1 ? 1 : 0))
+    xmax = Math.max(xmax, unPoint.x + (unPoint.positionLabel.indexOf('right') !== -1 ? 1 : 0))
+    ymin = Math.min(ymin, unPoint.y - (unPoint.positionLabel.indexOf('below') !== -1 ? 1 : 0))
+    ymax = Math.max(ymax, unPoint.y + (unPoint.positionLabel.indexOf('above') !== -1 ? 1 : 0))
   }
   this.bordures = [xmin, ymin, xmax, ymax]
 
@@ -8267,7 +8268,7 @@ export function tableauDeVariation ({ tabInit = ['', ''], tabLines = [], lgt = 3
  * Trace une barre pour un histogramme
  *
  * @param {integer} x
- * @param {integer} y
+ * @param {integer} hauteur
  * @param {string} legende
  * @param {integer} epaisseur
  * @param {string} couleur
@@ -8275,9 +8276,11 @@ export function tableauDeVariation ({ tabInit = ['', ''], tabLines = [], lgt = 3
  * @param {integer} angle
  * @author Rémi Angot
  */
-function TraceBarre (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
+function TraceBarre (x, hauteur, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
   ObjetMathalea2D.call(this)
-  const p = polygone(point(calcul(x - epaisseur / 2), 0), point(calcul(x - epaisseur / 2), calcul(y * unite)), point(calcul(x + epaisseur / 2), calcul(y * unite)), point(calcul(x + epaisseur / 2), 0))
+  console.log(x, hauteur, unite)
+  const p = hauteur === 0 ? vide2d(x, 0) : polygone(point(x - epaisseur / 2, 0), point(x - epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, 0))
+  console.log(p.bordures)
   p.couleurDeRemplissage = couleurDeRemplissage
   p.opaciteDeRemplissage = opaciteDeRemplissage
   p.color = color
@@ -8301,7 +8304,7 @@ export function traceBarre (...args) {
 /**
  * Trace une barre horizontale pour un histogramme
  *
- * @param {integer} x
+ * @param {integer} longueur
  * @param {integer} y
  * @param {string} legende
  * @param {integer} epaisseur
@@ -8310,9 +8313,9 @@ export function traceBarre (...args) {
  * @param {integer} angle
  * @author Rémi Angot
  */
-function TraceBarreHorizontale (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, unite = 1, angle = 'gauche', hachures = false } = {}) {
+function TraceBarreHorizontale (longueur, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, unite = 1, angle = 'gauche', hachures = false } = {}) {
   ObjetMathalea2D.call(this)
-  const p = polygone(point(0, calcul(y - epaisseur / 2)), point(0, calcul(y + epaisseur / 2)), point(calcul(unite * x), calcul(y + epaisseur / 2)), point(calcul(unite * x), calcul(y - epaisseur / 2)))
+  const p = longueur === 0 ? vide2d(0, y) : polygone(point(0, arrondi(y - epaisseur / 2, 2)), point(0, arrondi(y + epaisseur / 2, 2)), point(arrondi(unite * longueur, 2), arrondi(y + epaisseur / 2, 2)), point(arrondi(unite * longueur, 2), arrondi(y - epaisseur / 2, 2)))
   p.couleurDeRemplissage = couleurDeRemplissage
   p.opaciteDeRemplissage = opaciteDeRemplissage
   p.color = color
@@ -8346,8 +8349,9 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
       ligne.epaisseur = 0.2
       diagramme.push(ligne)
     }
-    // On écrit la valeur au dessus de la barre sauf pour une hauteur de 0
-    if (hauteursBarres[j] !== 0) diagramme.push(texteParPoint(numberFormat(hauteursBarres[j]), point(abscisseBarre, hauteurBarre + 0.3)))
+    if (etiquetteValeur) {
+      diagramme.push(texteParPoint(numberFormat(hauteursBarres[j]), point(abscisseBarre, hauteurBarre + 0.3))) // On écrit la valeur au dessus de la barre sauf pour une hauteur de 0
+    }
     // Calculs permettant de graduer l'axe vertical et de placer des valeurs
     const steps = [1, 2, 5, 10, 20]
     const yticks = [1, 2, 5, 5, 5]
