@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, contraindreValeur, numAlpha, combinaisonListes, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, contraindreValeur, numAlpha, combinaisonListes, arrondi, egalOuApprox } from '../../modules/outils.js'
 import { mathalea2d, fixeBordures, diagrammeBarres } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
@@ -250,7 +250,8 @@ export default function CalculerDesFrequences () {
       correction2 += '$\\dfrac{\\text{effectif de la valeur}}{\\text{effectif total}}$<br><br>'
       correction2 += 'On en déduit donc :<br>'
       const fValeur = fraction(serie.effectifs[rangValeurChoisie], serie.effectifTotal)
-      correction2 += `$\\text{Fréquence}_{${serie.modalites[rangValeurChoisie]}}= ${fValeur.texFraction} = ${texNombre(fValeur.pourcentage)}\\%$`
+      correction2 += `$\\text{Fréquence}_{${serie.modalites[rangValeurChoisie]}}= ${fValeur.texFraction}$<br>`
+      correction2 += `$\\text{Fréquence}_{${serie.modalites[rangValeurChoisie]}}${egalOuApprox(serie.effectifs[rangValeurChoisie] * 100 / serie.effectifTotal, 1)}${texNombre(arrondi(fValeur.pourcentage, 1))} \\%$`
     }
 
     if (!exercice.interactif && !context.isAmc) { // Questions normales pour version non interactive html ou latex
