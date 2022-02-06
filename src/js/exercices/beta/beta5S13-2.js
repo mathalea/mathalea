@@ -8,6 +8,8 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Calculs de fréquences'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
 |*  888    888          888
@@ -66,7 +68,7 @@ function listeEntiersDepuisSomme (total, nbElements) {
 
 function graphique (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 8, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false } = {}) {
   const diagramme = diagrammeBarres(hauteursBarres, etiquettes, { reperageTraitPointille: reperageTraitPointille, couleurDeRemplissage: couleurDeRemplissage, titreAxeVertical: titreAxeVertical, titre: titre, hauteurDiagramme: hauteurDiagramme, coeff: coeff, axeVertical: axeVertical, etiquetteValeur: etiquetteValeur, labelAxeVert: labelAxeVert })
-  return mathalea2d(Object.assign({}, fixeBordures([diagramme], { rxmin: -3, rymin: -3, rymax: 1.5 }), { style: 'inline', scale: 1.5 }), diagramme)
+  return mathalea2d(Object.assign({}, fixeBordures([diagramme], { rxmin: -3, rymin: -3, rymax: 1.5 }), { style: 'inline', scale: 0.5 }), diagramme)
 }
 
 /**
@@ -203,25 +205,8 @@ export default function CalculerDesFrequences () {
    */
   function questionsEtCorrections (preambule, serie, exercice, numero) {
     let questions = []
-    if (!exercice.interactif && !context.isAmc) {
-      questions = [preambule,
-        '<br>' + numAlpha(0) + 'Déterminer l\'effectif manquant.',
-        '<br>' + numAlpha(1) + `Déterminer les fréquences pour chaque ${serie.caractere.substring(5)} (en pourcentage, arrondir au dixième si besoin).`]
-    } else { // Pour AMC, on ne peut pas doubler les questions, il faut les intégrer dans un seul AMCHybride.
-      if (!context.isAMC) {
-        setReponse(exercice, numero * 2, serie.effectifs[serie.rangEffectifCache], { formatInteractif: 'calcul' })
-        console.log(serie)
-        const rangValeurChoisie = randint(0, serie.effectifs.length - 1, serie.rangEffectifCache)
-        console.log(serie, rangValeurChoisie)
-        const frequenceDemandee = arrondi(serie.effectifs[rangValeurChoisie] * 100 / serie.effectifTotal, 1)
-        setReponse(exercice, numero * 2 + 1, frequenceDemandee, { formatInteractif: 'calcul' })
-        questions = [preambule,
-          '<br>' + numAlpha(0) + 'Déterminer l\'effectif manquant.' + ajouteChampTexteMathLive(exercice, numero * 2, 'largeur10 inline'),
-          '<br>' + numAlpha(1) + `Déterminer la fréquence de la valeur ${serie.modalites[rangValeurChoisie]} (en pourcentage, arrondir au dixième si besoin).` + ajouteChampTexteMathLive(exercice, numero * 2 + 1, 'largeur10 inline')]
-      } else {
-        // pour le context.isAMC à faire
-      }
-    }
+    const rangValeurChoisie = randint(0, serie.effectifs.length - 1, serie.rangEffectifCache)
+    const frequenceDemandee = arrondi(serie.effectifs[rangValeurChoisie] * 100 / serie.effectifTotal, 1)
     // correction question 1
     let correction1 = '<br>' + numAlpha(0) + `L'effectif manquant est celui du ${serie.entreeCachee.charAt(0).toLocaleLowerCase() + serie.entreeCachee.slice(1)}. Soit $e$ cet effectif.<br>`
     correction1 += `$e=${serie.effectifTotal}-( `
@@ -257,6 +242,61 @@ export default function CalculerDesFrequences () {
     premiereColonne.push('\\textbf{Fréquences}', '\\textbf{Fréquences en pourcentages}')
     correction2 += tableauColonneLigne(enteteTableau, premiereColonne, premiereLigneTableau.concat(deuxiemeLigneTableau))
     correction2 += '<br>'
+
+    if (!exercice.interactif && !context.isAmc) { // Questions normales pour version non interactive html ou latex
+      questions = [preambule,
+        '<br>' + numAlpha(0) + 'Déterminer l\'effectif manquant.',
+        '<br>' + numAlpha(1) + `Déterminer les fréquences pour chaque ${serie.caractere.substring(5)} (en pourcentage, arrondir au dixième si besoin).`]
+    } else {
+      if (!context.isAmc) { // Questions pour interactivité html
+        setReponse(exercice, numero * 2, serie.effectifs[serie.rangEffectifCache], { formatInteractif: 'calcul' })
+        setReponse(exercice, numero * 2 + 1, frequenceDemandee, { formatInteractif: 'calcul' })
+        questions = [preambule,
+          '<br>' + numAlpha(0) + 'Déterminer l\'effectif manquant.' + ajouteChampTexteMathLive(exercice, numero * 2, 'largeur10 inline'),
+          '<br>' + numAlpha(1) + `Déterminer la fréquence de la valeur ${serie.modalites[rangValeurChoisie]} (en pourcentage, arrondir au dixième si besoin).` + ajouteChampTexteMathLive(exercice, numero * 2 + 1, 'largeur10 inline')]
+      } else { // Pour AMC, on ne peut pas doubler les questions, il faut les intégrer dans un seul AMCHybride.
+        console.log('numero de question : ', numero)
+        exercice.autoCorrection[numero] = {
+          enonce: preambule + '<br>' + numAlpha(0) + 'Déterminer l\'effectif manquant.' + '<br>' + numAlpha(1) + `Déterminer la fréquence de la valeur ${serie.modalites[rangValeurChoisie]} (en pourcentage, arrondir au dixième si besoin).`,
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [
+                {
+                  texte: correction1 + correction2,
+                  reponse: {
+                    texte: numAlpha(0),
+                    valeur: [serie.effectifs[serie.rangEffectifCache]],
+                    param: {
+                      digits: 3,
+                      decimals: 0,
+                      signe: false
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [
+                {
+                  texte: '',
+                  reponse: {
+                    texte: numAlpha(1),
+                    valeur: [frequenceDemandee],
+                    param: {
+                      digits: 3,
+                      decimals: 1,
+                      signe: false
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
     return { questions: questions.join('\n'), corrections: [correction1, correction2].join('\n') }
   }
 
@@ -313,6 +353,7 @@ export default function CalculerDesFrequences () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     this.sup = contraindreValeur(1, 4, this.sup, 1)
     this.sup2 = contraindreValeur(1, 5, this.sup2, 1)
     const theme = listeDesThemes[this.sup2 - 1]
@@ -351,14 +392,12 @@ export default function CalculerDesFrequences () {
           exercice.questions.push(transit.questions)
           exercice.corrections.push(transit.corrections)
       }
-      console.log(transit.effectifs)
       if (this.questionJamaisPosee(i, ...transit.effectifs)) {
         this.listeQuestions.push(...exercice.questions)
         this.listeCorrections.push(...exercice.corrections)
         i++
       }
       cpt++
-      console.log(cpt)
     }
     listeQuestionsToContenu(this)
   }
