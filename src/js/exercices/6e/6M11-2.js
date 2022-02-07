@@ -1,7 +1,13 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenuSansNumero, randint, arrondi, calcul, texNombrec, texNombre, texTexte } from '../../modules/outils.js'
 import { afficheLongueurSegment, codageAngleDroit, codeSegments, fixeBordures, mathalea2d, point, polygoneAvecNom, segment } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import Grandeur from '../../modules/Grandeur.js'
 export const titre = 'Calculer périmètre et aire de figures composées'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Deux figures composés de rectangles et de triangles sont tracés.
@@ -65,7 +71,12 @@ export default function PerimetreOuAireDeFiguresComposees () {
     const DA = arrondi(Math.sqrt(L2 ** 2 + l1 ** 2), 1)
     const t1 = arrondi(Math.sqrt(4 + h ** 2), 1) // longueur d'un côté du triangle
     const t2 = arrondi(Math.sqrt((c - 2) ** 2 + h ** 2), 1) // longueur de l'autre côté d'un triangle
-    const texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 2 }, fixeBordures(objets1)), ...objets1) + mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 2 }, fixeBordures(objets2)), ...objets2)
+    let texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 2 }, fixeBordures(objets1)), ...objets1)
+    texte += ajouteChampTexteMathLive(this, 0, 'longueur', { texte: 'Périmètre : ' })
+    texte += ajouteChampTexteMathLive(this, 1, 'longueur', { texte: '  Aire : ' })
+    texte += mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 2 }, fixeBordures(objets2)), ...objets2)
+    texte += ajouteChampTexteMathLive(this, 2, 'longueur', { texte: 'Périmètre : ' })
+    texte += ajouteChampTexteMathLive(this, 3, 'longueur', { texte: '  Aire : ' })
     console.log(fixeBordures(objets1))
     let texteCorr = `La première figure est composée d'un rectangle de ${L1} cm par ${l1} cm`
     texteCorr += ` et d'un triangle rectangle dont les côtés de l'angle droit mesurent ${L2} cm et ${l1} cm.<br>`
@@ -85,6 +96,14 @@ export default function PerimetreOuAireDeFiguresComposees () {
       }-${texNombrec((c * h) / 2)}=${texNombrec(c ** 2 - (c * h) / 2)}~${texTexte(
         ' cm'
       )}^2$.`
+    if (context.isAmc) {
+      // a faire
+    } else {
+      setReponse(this, 0, new Grandeur(L1 + L2 + DA + L1 + l1, 'cm'), { formatInteractif: 'longueur' })
+      setReponse(this, 1, new Grandeur(L1 * l1 + (L2 * l1) / 2, 'cm^2'), { formatInteractif: 'longueur' })
+      setReponse(this, 2, new Grandeur(3 * c + t1 + t2, 'cm'), { formatInteractif: 'longueur' })
+      setReponse(this, 3, new Grandeur(c ** 2 - (c * h) / 2, 'cm^2'), { formatInteractif: 'longueur' })
+    }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenuSansNumero(this)
