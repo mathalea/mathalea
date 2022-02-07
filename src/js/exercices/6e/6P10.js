@@ -218,6 +218,7 @@ export default function ProportionnalitePasProportionnalite () {
           texteCorr += ` et ${prenoms[1]} parcourt ${y} m en ${p} minutes soit environ $\\dfrac{${y}\\text{ m}}{${p}\\text{ min}} ${arrondi(index2, 1) === index2 ? '=' : '\\approx'} ${texNombrec(arrondi(index2, 1))}\\text{ m}/_{\\text{ min}}$.<br>`
           if (index1 === index2) {
             texteCorr += 'Pour ces deux élèves, le temps mis et la distance parcourue sont proportionnelles (si l\'on compare leur vitesse moyenne).'
+            bonneReponse = 'oui'
           } else {
             texteCorr += 'La distance parcourue en une minute (vitesse moyenne) n\'est pas la même dans ces deux situations, il n\'y a donc pas proportionnalité.<br>'
             bonneReponse = 'non'
