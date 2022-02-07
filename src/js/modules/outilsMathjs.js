@@ -257,7 +257,19 @@ function correctifNodeMathsteps (node) {
   return node
 }
 
-export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoins: true }) {
+/**
+ * Retourne le format Latex d'un node mathjs ou mathsteps ou d'une expression ascii
+ * Supprime les parenthèses inutiles, les 1 et les 0 inutiles, transforme les +- en -
+ * @param {string|Object} node // Chaine de caractères décrivant une expression mathématique, une équation, une inéquation ou bien node mathjs
+ * @param {Object} params // Paramètres
+ * @returns {string} // Format latex
+ * @example
+ * toTex('3/2+4*x') -> \dfrac{3}{2}+4x
+ * toTex('3*x+-3=6*x+0') -> 3x-3=6x
+ * toTex('-3/4') -> -\dfrac{3}{4}
+ * toTex('OA/OM=OB/ON',{OA: 1.2, OM: 1.5, OB: 1.7}) -> \dfrac{1{.}2}{1{.}5}=\dfrac{1{.}7}{OB}
+ */
+export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoins: true, variables: undefined }) {
   params = Object.assign({ suppr1: true, suppr0: true, supprPlusMoins: true }, params)
   // On commence par convertir l'expression en arbre au format mathjs
   let comparator
@@ -273,7 +285,11 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
     if (comparator !== undefined) {
       sides = node.split(comparator)
     } else {
-      node = parse(node)
+      if (params.variables === undefined) {
+        node = parse(node)
+      } else {
+        node = parse(aleaExpression(node, params.variables))
+      }
     }
   } else {
     // Le format mathsteps s'il est en entrée ne permet pas a priori de modifier les implicit
@@ -304,6 +320,9 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
   let nodeTex = node.toTex({ implicit: 'hide', parenthesis: 'keep' }).replaceAll('\\cdot', '\\times').replaceAll('.', '{,}').replaceAll('\\frac', '\\dfrac')
 
   nodeTex = nodeTex.replace(/\s*?\+\s*?-\s*?/g, ' - ')
+  // Mathjs ajoute de manière non contrôlée des \mathrm pour certaines ConstantNode
+  // En attendant de comprendre on les enlève (au risque d'avoir les {} restantes)
+  nodeTex = nodeTex.replace('\\mathrm', '')
 
   return nodeTex
 }
@@ -331,40 +350,62 @@ export function aleaExpression (expression = '(a*x+b)*(c*x-d)', assignations = {
  * @returns {Object}
  * @see {@link https://mathjs.org/docs/expressions/syntax.html|Mathjs}
  * @see {@link https://coopmaths.fr/documentation/tutorial-Outils_Mathjs.html|Mathjs}
+ * @example
+ * aleaVariable({a: true}, {valueOf: true}) --> {a: -3} // Génère un entier non nul entre -10 et 10
+ * aleaVariable({a: true, b: true}, {valueOf: true}) --> {a: 5, b: -7}
+ * aleaVariable({a: false, b: false}, {valueOf: true}) --> {a: 4, b: 1} // false => entier entre 1 et 10
+ * aleaVariable({a: true, b: true, test: 'a>b'}, {valueOf: true}) --> {a: 3, b: 1}
+ * aleaVariable({a: true, b: true, test: 'a+b>2'}, {valueOf: true}) --> {a: 10, b: -6}
+ * aleaVariables({a: true}) --> {a: Fraction} // Fraction est un objet de mathjs
  * @author Frédéric PIOU
  */
-export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fraction(a,10)+fraction(b,100)', test: 'b!=0 and b>a>c' }, params = { valueOf: false, format: false }) {
+export function aleaVariables (variables = { a: true, b: true, c: true, d: true }, params = { valueOf: false, format: false }) {
+  // Conservation de la graine aléatoire
   math.config({ randomSeed: context.graine })
+  // Placer dans cet objet chacune des variables après calcul
   const assignations = {}
+  // Un compteur pour vérifier que les contraintes ne sont pas excessives
   let cpt = 0
+  // Le test pour vérifier que les contraintes sont respectées
+  // Remarque : Il serait plus pratique de pouvoir écrire le test en plusieurs lignes
   let test = true
-  do {
+  do { // Une boucle tant que les contraintes ne sont pas vérifiées et tant qu'on ne dépasse pas 1000 essais.
     cpt++
-    for (const v of Object.keys(variables)) {
-      if (typeof variables[v] === 'boolean') {
-        assignations[v] = math.fraction(math.evaluate('(pickRandom([-1,1]))^(n)*randomInt(1,10)', { n: variables[v] }))
-      } else if (typeof variables[v] === 'number') {
-        try {
+    for (const v of Object.keys(variables)) { // On parcourt chaque variable
+      switch (typeof variables[v]) {
+        case 'object':
+          break
+        case 'boolean': // On génère un nombre aléatoire non nul entre 1 et 10 si false et entre -10 et 10 si true
+          assignations[v] = math.fraction( // On contraint le résultat à être une fraction
+            math.evaluate(
+              '(pickRandom([-1,1]))^(n)*randomInt(1,10)',
+              { n: variables[v] }
+            )
+          )
+          break
+        case 'number': // On ne fait que le convertir en fraction
           assignations[v] = math.fraction(variables[v])
-        } catch {
-          assignations[v] = variables[v]
-        }
-      } else if (v !== 'test') {
-        try { // On tente les calculs exacts avec mathjs
-          assignations[v] = emath.evaluate(variables[v], assignations)
-        } catch { // Sinon on cherche à la transformer en fraction après coup
-          try {
-            assignations[v] = math.fraction(math.evaluate(variables[v], assignations))
-          } catch { // Sinon on fait sans mais on revient à des nombres de type 'number'
-            const values = Object.assign({}, assignations)
-            for (const v of Object.keys(values)) {
-              values[v] = values[v].valueOf()
+          break
+        case 'string':
+          // Parser l'expression
+          // Parcourir le noeud et repérer les points sensibles (division, décimaux)
+          try { // On tente les calculs exacts avec mathjs
+            assignations[v] = emath.evaluate(variables[v], assignations)
+          } catch { // Sinon on cherche à la transformer en fraction après coup
+            try {
+              assignations[v] = math.fraction(math.evaluate(variables[v], assignations))
+            } catch { // Sinon on fait sans mais on revient à des nombres de type 'number'
+              const values = Object.assign({}, assignations)
+              for (const v of Object.keys(values)) {
+                values[v] = values[v].valueOf()
+              }
+              assignations[v] = math.evaluate(variables[v], values)
             }
-            assignations[v] = math.evaluate(variables[v], values)
           }
-        }
+          break
       }
     }
+    // On teste maintenant si les contraintes sont vérifiées
     if (variables.test !== undefined) test = math.evaluate(variables.test, assignations)
   } while (!test && cpt < 1000)
   if (cpt === 1000) window.notify('Attention ! 1000 essais dépassés.\n Trop de contraintes.\n Le résultat ne vérifiera pas le test.')
@@ -1226,4 +1267,37 @@ export function calculExpression2 (expression = '4/3+5/6', factoriser = false, d
   `
   if (debug) texte = texteCorr
   return { texte: texte, texteCorr: texteCorr }
+}
+
+/**
+ * Retourne des noms de points (ou des objets) dans un ordre aléatoire.
+ * @param {string|Array} names // Liste des lettres sous format string ou array
+ * @param {number} n // Nombre de lettres à retourner
+ * @param {string|Array} result // S'il n'y a qu'un seul nom en sortie c'est un string sinon c'est un array
+ * @remarque // Les lettres Q,W,X,Y,Z ont été exclues par défaut
+ * @example
+ * aleaName() --> 'F'
+ * aleaName(3) --> ['G', 'J', 'K']
+ * aleaName('ABC') --> ['B','A','C']
+ * aleaName(['chat','chien','poisson']) --> ['chien','poisson','chat']
+ * aleaName(['chat','chien','poisson'],2) --> ['poisson','chat']
+ * aleaName([Objet1,Objet2,Objet3]) --> [Objet2,Objet1,Objet3] où Objet peut être un Object, un Array etc.
+ * @returns {string||Array}
+ */
+export function aleaName (names = [], n = names.length, result = []) {
+  if (typeof names === 'string') {
+    names = names.split('')
+  } else if (typeof names === 'number') {
+    n = 0 + names
+    names = 'ABCDEFGHIJKLMNOPRSTUV'.split('')
+  } else if (Array.isArray(names) && names.length === 0) {
+    n = 1
+    names = 'ABCDEFGHIJKLMNOPRSTUV'.split('')
+  }
+  result.push(names.splice(Math.floor(Math.random() * names.length), 1)[0])
+  if (result.length === n) {
+    return result.length === 1 ? result[0] : result
+  } else {
+    return aleaName(names, n, result)
+  }
 }

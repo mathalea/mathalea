@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, combinaisonListes, texNombre } from '../../modules/outils.js'
+import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, combinaisonListes, stringNombre } from '../../modules/outils.js'
 import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, baisseCrayon, allerA, point, texteParPositionEchelle } from '../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 export const titre = 'Note la couleur (scratch)'
@@ -358,22 +358,22 @@ export default function NoteLaCouleur6e () {
         for (let i = 1; i < 16; i++) {
           if (this.relatif) {
             if (i < 7 || i > 9) {
-              objetsCorrection.push(texteParPositionEchelle(texNombre(-240 + 30 * i), -12.1 + 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+              objetsCorrection.push(texteParPositionEchelle(stringNombre(-240 + 30 * i), -12.1 + 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
             }
           } else {
             if (i !== 1) {
-              objetsCorrection.push(texteParPositionEchelle(texNombre(30 * i), 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+              objetsCorrection.push(texteParPositionEchelle(stringNombre(30 * i), 1.5 * i, -0.3, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
             }
           }
         }
         for (let i = 1; i < 12; i++) {
           if (this.relatif) {
             if (i < 5 || i > 7) {
-              objetsCorrection.push(texteParPositionEchelle(texNombre(-180 + 30 * i), -0.5, -9 + 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+              objetsCorrection.push(texteParPositionEchelle(stringNombre(-180 + 30 * i), -0.5, -9 + 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
             }
           } else {
             if (i !== 1) {
-              objetsCorrection.push(texteParPositionEchelle(texNombre(30 * i), -0.5, 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
+              objetsCorrection.push(texteParPositionEchelle(stringNombre(30 * i), -0.5, 1.5 * i, 'milieu', 'black', 1.2, 'middle', true, echelleDessin))
             }
           }
         }

@@ -85,7 +85,7 @@ export default function ReduireUneExpressionLitterale () {
             a++
           }
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x-${texNombre(c)}x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x-${texNombre(c)}x=${rienSi1(texNombrec(a - c))}x$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x-${texNombre(c)}x=${rienSi1(a - c)}x$`
           break
       }
 

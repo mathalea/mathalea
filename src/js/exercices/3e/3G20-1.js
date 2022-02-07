@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, calcul, texNombrec, creerNomDePolygone, texNombre, nombreAvecEspace, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, calcul, texNombrec, creerNomDePolygone, nombreAvecEspace, texFraction, texNombre } from '../../modules/outils.js'
 import { point, milieu, pointSurSegment, labelPoint, segment, polygone, codageAngleDroit, texteSurSegment, texteParPoint, longueur, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Problèmes avec le théorème de Thalès'
 
@@ -32,7 +32,7 @@ export default function ProblemesThales () {
         k = calcul(randint(12, 19) / 10)
         y = calcul(randint(30, 50) / 10);
         [A, B, C, D, E] = creerNomDePolygone(5)
-        texte = `On sait que $${A}${E}=${texNombre(x)}$ cm ; $${A}${D}=${texNombrec(k * x)}$ cm et $${E}${B}=${texNombre(y)}$ cm.<br>`
+        texte = `On sait que $${A}${E}=${x}$ cm ; $${A}${D}=${texNombrec(k * x)}$ cm et $${E}${B}=${texNombre(y)}$ cm.<br>`
         texte += `Calculer la valeur exacte de $${D}${C}$.`
         if (context.isHtml) {
           // Pour le svg toutes les longueurs sont multipliées par 20
@@ -92,8 +92,8 @@ export default function ProblemesThales () {
         texteCorr = `Les droites $(${E}${B})$ et $(${D}${C})$ sont perpendiculaires à la même droite $(${A}${D})$, elles sont donc parallèles entre elles.`
         texteCorr += `<br>De plus les points $${A}$, $${E}$, $${D}$  et $${A}$, $${B}$, $${C}$ sont alignés dans cet ordre donc d'après le théorème de Thalès on a :`
         texteCorr += `<br><br>$\\dfrac{${A}${E}}{${A}${D}}=\\dfrac{${E}${B}}{${D}${C}}=\\dfrac{${A}${B}}{${A}${C}}$`
-        texteCorr += `<br><br>$\\dfrac{${texNombre(x)}}{${texNombrec(k * x)}}=\\dfrac{${texNombre(y)}}{${D}${C}}$`
-        texteCorr += `<br><br>$${D}${C}=\\dfrac{${texNombrec(k * x)}\\times${texNombre(y)}}{${texNombre(x)}}=${texNombrec(k * y)}$`
+        texteCorr += `<br><br>$\\dfrac{${x}}{${texNombrec(k * x)}}=\\dfrac{${texNombre(y)}}{${D}${C}}$`
+        texteCorr += `<br><br>$${D}${C}=\\dfrac{${texNombrec(k * x)}\\times${texNombre(y)}}{${x}}=${texNombrec(k * y)}$`
         break
 
       case 2:
@@ -134,9 +134,9 @@ export default function ProblemesThales () {
 
         texteCorr = `Dans le triangle $${nomA + nomB + nomD}$, $M$ est un point de $[${nomA + nomB}]$, $N$ est un point de $[${nomA + nomD}]$ et $(MN)$ est parallèle à $(${nomB + nomD})$ donc d'après le théorème de Thalès on a : `
         texteCorr += `<br><br> $${texFraction(nomA + 'M', nomA + nomB)}=${texFraction(nomA + 'N', nomA + nomD)}=${texFraction('MN', nomB + nomD)}$`
-        texteCorr += `<br><br> $${texFraction(nomA + 'M', nomA + nomB)}=${texFraction(nomA + 'N', BC)}=${texFraction(texNombre(MN), texNombre(BD))}$`
-        texteCorr += `<br><br> $${nomA}N = ${texFraction(BC + '\\times' + texNombre(MN), BD)}=${texNombre(arrondi(calcul(BC * MN / BD), 1))}$ cm`
-        texteCorr += `<br><br> Les points $${nomA}$, $N$ et $${nomD}$ sont alignés dans cet ordre donc $N${nomD}=${nomA + nomD}-${nomA}N= ${BC}-${texNombre(arrondi(calcul(BC * MN / BD), 1))}=${texNombre(arrondi(calcul(BC - BC * MN / BD), 1))}$ cm.`
+        texteCorr += `<br><br> $${texFraction(nomA + 'M', nomA + nomB)}=${texFraction(nomA + 'N', BC)}=${texFraction(MN, BD)}$`
+        texteCorr += `<br><br> $${nomA}N = ${texFraction(BC + '\\times' + MN, BD)}=${arrondi(calcul(BC * MN / BD, 1))}$ cm`
+        texteCorr += `<br><br> Les points $${nomA}$, $N$ et $${nomD}$ sont alignés dans cet ordre donc $N${nomD}=${nomA + nomD}-${nomA}N= ${BC}-${arrondi(calcul(BC * MN / BD, 1))}=${arrondi(calcul(BC - BC * MN / BD, 1))}$ cm.`
         break
     }
 

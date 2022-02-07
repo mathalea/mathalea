@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, numAlpha, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, numAlpha, stringNombre } from '../../modules/outils.js'
 import { texteSurSegment, projectionOrtho, pointAdistance, droite, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Calculer la hauteur d’une montagne'
 
@@ -51,7 +51,7 @@ export default function CalculsTrigonometriques4 () {
       objets.push(p[1], p[0], segment(C, B), segment(S, B), codageAngleDroit(A, H, S), codageAngleDroit(B, C, S))
       objets.push(afficheMesureAngle(H, A, S, 'black', 2, `${alfa}`), afficheMesureAngle(H, B, S, 'black', 2, `${baita}`))
 
-      objets.push(texteSurSegment(`${texNombre(distance)} m`, A, B, 'black', -0.5), texteParPosition('h', milieu(H, S).x + 0.5, milieu(H, S).y, 0, 'black', 2, 'middle', true))
+      objets.push(texteSurSegment(`${stringNombre(distance)} m`, A, B, 'black', -0.5), texteParPosition('h', milieu(H, S).x + 0.5, milieu(H, S).y, 0, 'black', 2, 'middle', true))
 
       texte = 'Un voyageur approche d\'une montagne. Il aimerait en calculer la hauteur.<br>'
       texte += `Pour cela, il utilise un théodolite en un point $A$ qui lui permet de mesurer l'angle $${alfa}$ vertical formé par le sommet $S$ de la montagne, le point $A$ et la base de la montagne $H$.<br>`

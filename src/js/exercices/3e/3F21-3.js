@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { ecritureAlgebrique, listeQuestionsToContenu, calcul, randint, rienSi1, texNombre } from '../../modules/outils.js'
+import { ecritureAlgebrique, listeQuestionsToContenu, calcul, randint, rienSi1, texNombre, stringNombre } from '../../modules/outils.js'
 import { mathalea2d, repere2, cercle, point, segment, milieu, texteParPoint, droite } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -60,8 +60,8 @@ export default function PenteEtOrdonneeOrigineDroite () {
     const s2 = segment(B, C)
     const M1 = milieu(A, B)
     const M2 = milieu(B, C)
-    const t1 = texteParPoint('1', point(M1.x, M1.y + (a > 0 ? -0.4 : 0.4)))
-    const t2 = texteParPoint(texNombre(a), point(M2.x + 0.6, M2.y))
+    const t1 = texteParPoint('$1$', point(M1.x, M1.y + (a > 0 ? -0.4 : 0.4)))
+    const t2 = texteParPoint(`$${texNombre(a)}$`, point(M2.x + 0.6, M2.y))
     t1.color = '#f15929'
     t2.color = '#f15929'
 
@@ -83,12 +83,12 @@ export default function PenteEtOrdonneeOrigineDroite () {
 
     setReponse(this, 0, b)
     setReponse(this, 1, [a, `\\frac{${num}}{${den}}`])
-    setReponse(this, 2, `${texNombre(a)}x+${b}`)
-    if (den === 2) setReponse(this, 2, [`${texNombre(a)}x+${b}`, `\\frac{${num}}{2}\\times x + ${b}`])
+    setReponse(this, 2, `${stringNombre(a)}x+${b}`)
+    if (den === 2) setReponse(this, 2, [`${stringNombre(a)}x+${b}`, `\\frac{${num}}{2}\\times x + ${b}`])
 
     const correction1 = `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$, l'ordonnée à l'origine est donc $${b}$.`
-    let correction2 = `À chaque fois que l'on avance de 1 carreau, on ${a > 0 ? 'monte' : 'descend'} de ${texNombre(a)} ${Math.abs(a) >= 2 ? 'carreaux' : 'carreau'},`
-    correction2 += ` le coefficient directeur est donc ${texNombre(a)}.`
+    let correction2 = `À chaque fois que l'on avance de 1 carreau, on ${a > 0 ? 'monte' : 'descend'} de $${texNombre(a)}$ ${Math.abs(a) >= 2 ? 'carreaux' : 'carreau'},`
+    correction2 += ` le coefficient directeur est donc $${texNombre(a)}$.`
     let correction3 = '$f$ étant une fonction affine, on a $f : x \\mapsto ax + b$ avec $a$ le coefficient directeur (ou pente) et $b$ son ordonné à l\'origine.'
     correction3 += `<br>Finalement, $f : x \\mapsto ${rienSi1(a).toString().replace('.', ',')}x ${ecritureAlgebrique(b)}$.`
     this.listeQuestions.push(question1, question2, question3)

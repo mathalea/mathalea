@@ -430,9 +430,9 @@ export default function ProblemesGrandeursComposees () {
               'Schéma explicatif',
               'images/trebuchet.png'
             ) +
-            `" dans un jardin d'enfant. Le siège est situé à ${texNombre(
+            `" dans un jardin d'enfant. Le siège est situé à $${texNombre(
               distance
-            )} m du pivot central de la balançoire (bras de levier).<br>`
+            )}$ m du pivot central de la balançoire (bras de levier).<br>`
           texte +=
             numAlpha(0) +
             ' Calculer le ' +
@@ -820,9 +820,9 @@ export default function ProblemesGrandeursComposees () {
               texteCorr += `\\approx${texNombrec(vitesseMoy)}$ km/h<br>`
               texteCorr +=
                 numAlpha(2) +
-                ` Si elle court 21,0975 km à cette vitesse de ${texNombre(
+                ` Si elle court 21,0975 km à cette vitesse de $${texNombre(
                   vitesseMoy
-                )} km/h, ${quidam} mettra :<br>`
+                )}$ km/h, ${quidam} mettra :<br>`
               duree = arrondi(21.0975 / vitesseMoy, 4)
               texteCorr += `$\\dfrac{${texNombre(
                 21.0975
@@ -848,13 +848,13 @@ export default function ProblemesGrandeursComposees () {
           prix2 = arrondi(masse2 * fruits[index2][1])
           prix3 = arrondi(masse3 * fruits[index][1])
           quidam = prenomF()
-          texte = `${quidam} se rends à l'épicerie de son quartier. Elle y achète ${texNombre(
+          texte = `${quidam} se rends à l'épicerie de son quartier. Elle y achète $${texNombre(
             masse
-          )} kg de ${fruits[index1][0]} à ${texPrix(
+          )}$ kg de ${fruits[index1][0]} à ${texPrix(
             fruits[index1][1]
           )} €/kg et pour ${texPrix(prix2)} € de ${fruits[index2][0]
             } à ${texPrix(fruits[index2][1])} €/kg.<br>`
-          texte += `Enfin, elle achète ${texNombre(masse3)} kg de ${fruits[index][0]
+          texte += `Enfin, elle achète $${texNombre(masse3)}$ kg de ${fruits[index][0]
             } pour ${texPrix(prix3)} €.<br>`
           texte +=
             numAlpha(0) +
@@ -1143,9 +1143,9 @@ export default function ProblemesGrandeursComposees () {
           texte += `Le téléchargement dure ${nbminutes} minutes et ${nbsecondes} secondes. Quelle est la taille du fichier téléchargé en ${unites[index]} ?<br>`
           texte +=
             numAlpha(1) +
-            ` ${quidam} veut télécharger un fichier de ${texNombre(
+            ` ${quidam} veut télécharger un fichier de $${texNombre(
               masse
-            )} Go. Quelle sera la durée du téléchargement si sa vitesse de téléchargement est de ${vitesseMoy} ${unites[index]
+            )}$ Go. Quelle sera la durée du téléchargement si sa vitesse de téléchargement est de ${vitesseMoy} ${unites[index]
             }/s ?<br>`
           texteCorr =
             numAlpha(0) + ' La taille du fichier téléchargé est :<br>'

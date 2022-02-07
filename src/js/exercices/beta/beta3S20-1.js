@@ -591,7 +591,7 @@ export default function CalculsProbabilites () {
   this.correctionDetaillee = true
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
-  this.sup = 0 // Type d'exercice
+  this.sup = 'all' // Type d'exercice
   this.besoinFormulaireNumerique = [
     'Type de question', 9, [
       '0 : Mélange des types de questions',
@@ -612,7 +612,7 @@ export default function CalculsProbabilites () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
     for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
-      const nquestion = this.sup === 0 ? randint(1, 10) : this.sup
+      const nquestion = this.sup === 'all' ? randint(1, 10) : this.sup
       switch (nquestion) {
         case 1:
           exercice = diagrammeCalculsFrequences(0)

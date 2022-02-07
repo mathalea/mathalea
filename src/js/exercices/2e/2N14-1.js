@@ -52,7 +52,7 @@ export default function EnsembleDeNombres () {
           break
         case 3:
 
-          d = randint(0, 9)
+          d = randint(1, 9)
           b = randint(0, 9) * choice([-1, 1])
           c = randint(0, 9)
           a = b + c / 10 + d / 100

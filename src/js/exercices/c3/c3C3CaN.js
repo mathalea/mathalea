@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, calcul, texNombrec, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, calcul, texNombrec, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence, stringNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { afficheCoteSegment, codeSegments, homothetie, mathalea2d, point, polygoneRegulier, segment, texteSurSegment } from '../../modules/2d.js'
@@ -94,7 +94,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
     ]
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-      // texNombre(n) permet d'écrire un nombre avec le bon séparateur décimal
+      // texNombre(n) permet d'écrire un nombre avec le bon séparateur décimal !! à utiliser entre $  $
       // calcul(expression) permet d'éviter les erreurs de javascript avec les approximations décimales
       // texNombrec(expression) fait les deux choses ci-dessus.
       switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
@@ -383,7 +383,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
               B = point(2, 0)
               C = polygoneRegulier(A, B, b)
               objets[0] = C
-              objets[1] = texteSurSegment(`${texNombre(a)} cm`, B, A)
+              objets[1] = texteSurSegment(`${stringNombre(a)} cm`, B, A)
               objets[2] = codeSegments('//', 'red', C.listePoints)
               texte = 'Quel est le périmètre de ce polygone ?<br>'
               texte += mathalea2d({ xmin: -2.5, xmax: 3, ymin: -1, ymax: 5, pixelsParCm: 20, scale: 0.8 }, objets)
