@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 418 
-- nombre d'exos interactifReady 570 
+- nombre d'exos amcReady 425 
+- nombre d'exos interactifReady 573 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -204,7 +204,7 @@
 |6C20|Effectuer additions et soustractions de nombres décimaux|OK|AMCNum|OK|numerique|
 |6C21|Effectuer divisions euclidiennes - Niveau 2|OK|AMCOpen|OK|mathLive|
 |6C22|Résoudre des problèmes de type : ... de plus ou ... de moins|OK|AMCNum|OK|numerique|
-|6C23|Additionner ou soustraire des fractions de même dénominateur|OK|type de question AMC non prévu|OK|mathLive|
+|6C23|Additionner ou soustraire des fractions de même dénominateur|OK|AMCNum|OK|mathLive|
 |6C30-1|Multiplier un nombre décimal par 10, 100 ou 1 000|OK|AMCNum|OK|numerique|
 |6C30-2|Calculer le produit de deux décimaux connaissant le produit de deux entiers|OK|AMCNum|OK|numerique|
 |6C30-3|Effectuer des opérations avec les nombres décimaux|OK|qcmMono|OK|qcm|
@@ -229,6 +229,7 @@
 |6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
 |6G14|Utiliser les propriétés des droites perpendiculaires|OK|AMCOpen|KO|KO|
 |6G23-1|Mesurer un angle|OK|qcmMono|OK|qcm|
+|6G23|Construire un angle de mesure donnée|OK|AMCOpen|KO|KO|
 |6G24-1|Construire le symétrique d’un point par rapport à une droite|OK|AMCOpen|KO|KO|
 |6G24-2|Construire le symétrique d’une figure par rapport à une droite (cas simples)|OK|AMCOpen|KO|KO|
 |6G24-4|Compléter un nuage de points symétriques|OK|AMCOpenNum|OK|custom|
@@ -266,11 +267,13 @@
 |6N11|Lire l’abscisse entière d’un point (grands nombres)|OK|AMCOpen|OK|mathLive|
 |6N12-1|Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ...|OK|qcmMono|OK|qcm|
 |6N13|Convertir des longueurs, masses, capacités, prix ou unités informatiques|OK|AMCNum|OK|mathLive|
+|6N14|Représenter des fractions|OK|AMCHybride|KO|KO|
 |6N20-1|Encadrer une fraction entre deux nombres entiers|OK|AMCHybride|OK|mathLive|
 |6N20-2|Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale|KO|KO|OK|mathLive|
-|6N20|Décomposer une fraction (partie entière + fraction inférieure à 1)|KO|KO|OK|mathLive|
-|6N21|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
-|6N22|Effectuer des calculs simples avec des fractions|KO|KO|OK|mathLive|
+|6N20|Décomposer une fraction (partie entière + fraction inférieure à 1)|OK|AMCHybride|OK|mathLive|
+|6N21|Utiliser les abscisses fractionnaires|OK|AMCHybride|OK|custom|
+|6N22-2|Mettre bout à bout des segments|OK|AMCNum|OK|mathLive|
+|6N22|Effectuer des calculs simples avec des fractions|OK|AMCNum|OK|mathLive|
 |6N23-0|Écrire un nombre décimal en chiffres ou en lettres|OK|AMCNum|OK|mathLive|
 |6N23-1|Donner différentes écritures de nombres décimaux|OK|AMCHybride|OK|mathLive|
 |6N23-2|Lire des abscisses décimales sous trois formes|OK|AMCHybride|OK|mathLive|
@@ -281,7 +284,7 @@
 |6N23-7|Recomposer un nombre décimal représenté par des fractions du cube unité|OK|AMCNum|OK|mathLive|
 |6N23|Donner l’écriture décimale d’une fraction décimale|OK|AMCNum|OK|mathLive|
 |6N24|Utiliser les préfixes multiplicateurs et diviseurs (milli à kilo)|OK|AMCNum|OK|mathLive|
-|6N30-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCOpen|OK|mathLive|
+|6N30-1|Lire l’abscisse décimale d’un point (niveau 2)|OK|AMCOpen|OK|mathLive|
 |6N30-2|Placer un point d’abscisse décimale|OK|AMCOpen|OK|custom|
 |6N30|Lire l’abscisse décimale d’un point|OK|AMCOpen|OK|mathLive|
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|qcm|
@@ -306,6 +309,7 @@
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
+|beta5N20bis|Additionner ou soustraire deux fractions (dénominateurs multiples)|OK|qcmMono|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
@@ -336,7 +340,7 @@
 |can1F02|Second degré variations (QCM)|KO|KO|OK|qcm|
 |can1L01|Discriminant|OK|AMCNum|OK|mathLive|
 |can1L02|Nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
-|can1P01|Arbre de probabilité|OK|type de question AMC non prévu|OK|mathLive|
+|can1P01|Arbre de probabilité|OK|AMCNum|OK|mathLive|
 |can2C01|Trouver le nombre d’entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can2C02|Calculer une différence de deux carrés|OK|AMCNum|OK|mathLive|
 |can2C03|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
@@ -383,6 +387,7 @@
 |can2L06|Développer avec les égalités remarquables|KO|KO|OK|mathLive|
 |can2L07|Factoriser une expression|KO|KO|OK|mathLive|
 |can2N01|Utiliser les intervalles|KO|KO|OK|mathLive|
+|can2N02|Déterminer le plus petit ensemble de nombres|KO|KO|OK|mathLive|
 |can2P01|Calculer une probabilité|OK|AMCNum|OK|mathLive|
 |can2P02|Dénombrer dans une situation concrète|KO|KO|OK|mathLive|
 |can3C01|Calculer avec des puissances|OK|AMCNum|OK|mathLive|
