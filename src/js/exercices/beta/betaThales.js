@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice, texNum } from '../../modules/outils.js'
-import { segment, tracePoint, polygone, labelPoint, texteSurArc, homothetie, point, rotation, mathalea2d, fixeBordures, droite, translation, vecteur, arcPointPointAngle } from '../../modules/2d.js'
+import { segment, tracePoint, polygone, labelPoint, homothetie, point, rotation, mathalea2d, droite } from '../../modules/2d.js'
 import { create, all } from 'mathjs'
 import { aleaVariables, toTex, resoudre, aleaExpression, aleaName } from '../../modules/outilsMathjs.js'
 
@@ -39,7 +39,7 @@ export class GraphicView {
    * get width from dimensions
    */
   getWidth () { this.width = this.dimensions.xmax - this.dimensions.xmin }
-  
+
   /**
    * get height from dimensions
    */
@@ -196,7 +196,7 @@ export class GraphicView {
 
   /**
    * Zoom in or out
-   * @param {*} k 
+   * @param {*} k
    */
   zoom (k = 1.01) {
     const xmin = k * (this.dimensions.xmin - (this.dimensions.xmax + this.dimensions.xmin) / 2) + (this.dimensions.xmax + this.dimensions.xmin) / 2
@@ -382,6 +382,7 @@ export class GraphicView {
    */
   addNotAlignedPoint (...args) {
     // Deux points maximum
+    // Réfléchir à un ensemble plus grand de points non alignés
     const points = args.concat(this.addPoint(2 - args.length))
     let obj
     const line = new Line()
@@ -592,6 +593,14 @@ function aleaThalesConfiguration () {
   return { texte: graphic.getMathalea2DExport(), texteCorr: '' }
 }
 
+function aleaPoint (n = 3) {
+  // http://localhost:8080/mathalea.html?ex=betaThales,s=7
+  const graphic = new GraphicView()
+  graphic.dimensions = { xmin: 0, ymin: 0, xmax: 10, ymax: 7 }
+  graphic.addPoint(n)
+  return { texte: graphic.getMathalea2DExport(), texteCorr: '' }
+}
+
 /**
  * Produire une configuration de Thalès et les éléments de rédaction d'un énoncé et de sa solution
  * @returns {Objet} // retourne un objet
@@ -738,43 +747,12 @@ function thales () {
   return { enonce: enonce, figure: figure, quotientsEgaux: quotientsEgaux }
 }
 
-function anglesSecantes (A, rot = { O: 60, A: 0 }) {
-  const s = rotation(translation(A, vecteur(1, 0)), A, rot.A)
-  const S = rotation(translation(A, vecteur(3, 0)), A, rot.A)
-  const t = rotation(s, A, 180)
-  const T = rotation(S, A, 180)
-  const x = rotation(translation(A, vecteur(1, 0)), A, rot.O)
-  const X = rotation(translation(A, vecteur(3, 0)), A, rot.O)
-  const Ox = rotation(x, A, 180)
-  const OX = rotation(X, A, 180)
-  return {
-    a: arcPointPointAngle(s, x, rot.O - rot.A, true, 'blue'),
-    b: arcPointPointAngle(x, t, 180 - (rot.O - rot.A), true, 'green'),
-    c: arcPointPointAngle(t, Ox, rot.O - rot.A, true, 'red'),
-    d: arcPointPointAngle(Ox, s, 180 - (rot.O - rot.A), true, 'gray'),
-    s: s,
-    S: S,
-    t: t,
-    T: T,
-    x: x,
-    X: X,
-    Ox: Ox,
-    OX: OX,
-    As: droite(A, s),
-    Ax: droite(A, x),
-    A: A,
-    labela: texteSurArc((rot.O - rot.A) % 180 + '°', s, x, rot.O - rot.A, 'black'),
-    labelb: texteSurArc((180 - (rot.O - rot.A)) % 180 + '°', x, t, 180 - (rot.O - rot.A), 'black'),
-    labelc: texteSurArc((rot.O - rot.A) % 180 + '°', t, Ox, rot.O - rot.A, 'black'),
-    labeld: texteSurArc((180 - (rot.O - rot.A)) % 180 + '°', Ox, s, 180 - (rot.O - rot.A), 'black')
-  }
-}
 /**
  * Description didactique de l'exercice
  * @author Frédéric PIOU
  * Référence
 */
-export default function exercicesAnglesAIC () {
+export default function exercicesThales () {
   Exercice.call(this)
   const formulaire = [
     '1 : Angles marqués alternes-internes ou correspondants ?',
@@ -863,202 +841,7 @@ export default function exercicesAnglesAIC () {
           break
         }
         case 7: {
-          const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-          const objetsCorrection = [] // Idem pour la correction
-          const param = aleaVariables(
-            {
-              O: 'randomInt(0,90)',
-              A: 'randomInt(-90,90)',
-              B: 'A',
-              r1: 'pickRandom([1.5,2])',
-              r2: 'pickRandom([1.5,2])',
-              test: '70>O-A>30 and 70>O-B>30 and abs(A-B)<45'
-            }
-          )
-          const ab = aleaVariables(
-            {
-              a: 'randomInt(0,3)',
-              b: 'randomInt(0,3)',
-              test: 'a!=b and (a!=2 or b!=0) and (a!=3 or b!=1)'
-            }
-          )
-          if (dDebug) console.log(param)
-          const O = point(0, 0)
-          const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
-          const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
-          const nomsPoints = aleaName(['A', 'B', 'C', 'D', 'E', 'F'], 2)
-          anglesA.A.nom = nomsPoints[0]
-          anglesB.A.nom = nomsPoints[1]
-          const nomsDirections = aleaName(['s', 't', 'u', 'v', 'x', 'y'], 6)
-          anglesA.S.nom = nomsDirections[0]
-          anglesA.T.nom = nomsDirections[1]
-          anglesA.X.nom = nomsDirections[2]
-          anglesA.OX.nom = anglesB.A.nom
-          anglesB.S.nom = nomsDirections[3]
-          anglesB.T.nom = nomsDirections[4]
-          anglesB.OX.nom = nomsDirections[5]
-          anglesB.X.nom = anglesA.A.nom
-          const nameAngles = ['S A X'.split(' '), 'X A T'.split(' '), 'T A OX'.split(' '), 'OX A S'.split(' ')]
-          nameAngles.forEach(function (n, i) {
-            anglesA[['a', 'b', 'c', 'd'][i]].nom = ''
-            anglesB[['a', 'b', 'c', 'd'][i]].nom = ''
-            for (let j = 0; j < 3; j++) {
-              anglesA[['a', 'b', 'c', 'd'][i]].nom += anglesA[n[j]].nom
-              anglesB[['a', 'b', 'c', 'd'][i]].nom += anglesB[n[j]].nom
-            }
-          })
-          if (Math.abs(param.A) > 70) {
-            anglesA.S.positionLabel = 'left'
-            anglesA.T.positionLabel = 'left'
-          }
-          if (Math.abs(param.B) > 70) {
-            anglesB.S.positionLabel = 'left'
-            anglesB.T.positionLabel = 'left'
-          }
-          if (Math.abs(param.O) > 70) {
-            anglesA.X.positionLabel = 'left'
-            anglesB.OX.positionLabel = 'left'
-          }
-          for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = 'blue'
-            anglesB[i].couleurDeRemplissage = 'blue'
-          }
-          const a = ['a', 'b', 'c', 'd'][parseInt(ab.a)]
-          const b = ['a', 'b', 'c', 'd'][parseInt(ab.b)]
-          const epsilon = 0
-          anglesA.labela = texteSurArc(((param.O - param.A) % 180 + epsilon) + '°', anglesA.s, anglesA.x, param.O - param.A, 'black')
-          anglesA.labelb = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.x, anglesA.t, 180 - (param.O - param.A), 'black')
-          anglesA.labelc = texteSurArc((param.O - param.A + epsilon) % 180 + '°', anglesA.t, anglesA.Ox, param.O - param.A, 'black')
-          anglesA.labeld = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.Ox, anglesA.s, 180 - (param.O - param.A), 'black')
-          anglesB.labela = texteSurArc(((param.O - param.A) % 180) + '°', anglesB.s, anglesB.x, param.O - param.A, 'black')
-          anglesB.labelb = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.x, anglesB.t, 180 - (param.O - param.A), 'black')
-          anglesB.labelc = texteSurArc((param.O - param.A) % 180 + '°', anglesB.t, anglesB.Ox, param.O - param.A, 'black')
-          anglesB.labeld = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.Ox, anglesB.s, 180 - (param.O - param.A), 'black')
-          objetsEnonce.push(
-            anglesA[a],
-            anglesA.As,
-            anglesA.Ax,
-            anglesB.As,
-            anglesB.Ax,
-            anglesA['label' + a],
-            labelPoint(anglesA.S),
-            labelPoint(anglesA.T),
-            labelPoint(anglesA.X),
-            labelPoint(anglesB.S),
-            labelPoint(anglesB.T),
-            labelPoint(anglesB.OX),
-            labelPoint(anglesA.A),
-            labelPoint(anglesB.A)
-            // anglesB['label' + b]
-          )
-          objetsEnonce.forEach(objet => {
-            objetsCorrection.push(objet)
-          })
-          objetsCorrection.push(anglesB['label' + b])
-          objetsCorrection.push(anglesB[b])
-          let angles, calculs, mesure
-          switch (a + b) {
-            case 'ab':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'correspondants'
-              calculs = `$180°- ${anglesB.labela.texte}=${anglesB.labelb.texte}$`
-              mesure = anglesB.labelb.texte
-              break
-            case 'ac':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'correspondants'
-              mesure = anglesB.labela.texte
-              break
-            case 'ad':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'correspondants'
-              calculs = `$180°-${anglesB.labela.texte}=${anglesB.labeld.texte}$`
-              mesure = anglesB.labeld.texte
-              break
-            case 'ba':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              angles = 'correspondants'
-              calculs = `$180°-${anglesB.labelb.texte}=${anglesB.labela.texte}$`
-              mesure = anglesB.labela.texte
-              break
-            case 'bc':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              angles = 'correspondants'
-              calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labelc.texte}$`
-              mesure = anglesB.labelc.texte
-              break
-            case 'bd':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              angles = 'correspondants'
-              mesure = anglesB.labelb.texte
-              break
-            case 'cb':
-              anglesB.a.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'alternes-internes'
-              calculs = `$180°- ${anglesB.labela.texte}=${anglesB.labelb.texte}$`
-              mesure = anglesB.labelb.texte
-              break
-            case 'cd':
-              anglesB.a.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'alternes-internes'
-              calculs = `$180°-${anglesB.labela.texte}=${anglesB.labeld.texte}$`
-              mesure = anglesB.labeld.texte
-              break
-            case 'da':
-              anglesB.b.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              angles = 'alternes-internes'
-              calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labela.texte}$`
-              mesure = anglesB.labela.texte
-              break
-            case 'dc':
-              anglesB.b.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labelc.texte}$`
-              angles = 'alternes-internes'
-              mesure = anglesB.labelc.texte
-              break
-          }
-          const paramsEnonce = fixeBordures([
-            ...Object.keys(anglesA).map(key => { return anglesA[key] }),
-            ...Object.keys(anglesB).map(key => { return anglesB[key] })
-          ])
-          let texte = String.raw`
-          Donnée : Les droites sont parallèles.
-          <br>
-          En déduire la mesure de l'angle $\widehat{${anglesB[b].nom}}$.
-          `
-          const nomAngleSolution = angles !== 'alternes-internes' ? anglesB[a].nom : a === 'c' ? anglesB.a.nom : anglesB.b.nom
-          const texteCorr = mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsCorrection) + String.raw`
-          <br>
-          Les angles $\widehat{${anglesA[a].nom}}$ et $\widehat{${nomAngleSolution}}$ sont ${angles} et formés par des droites parallèles.
-          <br>
-          Donc ils sont de même mesure.
-          <br>
-          ${calculs !== undefined ? calculs : String.raw`Les angles $\widehat{${anglesB[a].nom}}$ et $\widehat{${anglesB[b].nom}}$ et vert sont opposés par le sommet.<br> Ils sont donc de même mesure.`}
-          <br>
-          L'angle $\widehat{${anglesB[b].nom}}$ mesure donc ${mesure}.
-          `
-          texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
-          exercice = { texte: texte, texteCorr: texteCorr }
+          exercice = aleaPoint(20)
           break
         }
       }
