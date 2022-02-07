@@ -96,8 +96,8 @@ export default function NomExercice () {
         // d=(l+L)/2
         // a = (L-l)/4000
         // c = -3/40*(L-l)
-        const lim1 = choice([-1, 1]) // lim x->x[n]+ (-1 pour -oo, +1 pour +oo)
-        const lim2 = randint(-5, 5) // lim x->+oo
+        const lim1 = randint(-5, 5) // lim x->-oo
+        const lim2 = randint(-5, 5, [lim1]) // lim x->+oo
         const a = (lim1 - lim2) / 4000
         const c = -3 / 40 * (lim1 - lim2)
         const d = (lim1 + lim2) / 2
