@@ -29,6 +29,8 @@ const isServeMode = argv.some(arg => /serve/.test(arg))
 const mode = (isServeMode || env.NODE_ENV === 'development' || /--mode=development/.test(argv)) ? 'development' : 'production'
 const isProdMode = mode === 'production'
 
+const jsDir = path.resolve(__dirname, 'src', 'js')
+
 /*
 // On ajoute ça pour filtrer / logguer ce qui passe par babel
 const babelOptions = require('./package').babel
@@ -103,12 +105,12 @@ const config = {
   mode,
   // les js à compiler, cf https://webpack.js.org/configuration/entry-context/#entry
   entry: {
-
+    /* pour DEBUG on ne garde que m2d
     mathalea: ['./src/js/firstLoaded.js', './src/js/mathalea.js'],
-    mathalea2d: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2d-gui.js'],
-    m2d: ['./src/js/firstLoaded.js', './src/js/modules/m2d/M2d.ts'],
+    mathalea2d: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2d-gui.js'], */
+    m2d: [/* ça plante parce qu'on ne peut pas ajouter de propriété à window, faudrait le déclarer qq part './src/js/firstLoaded.js', */'./src/js/modules/m2d/init.ts'] /*,
     mathalea2iep: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2iep-gui.js'],
-    alacarte: ['./src/js/firstLoaded.js', './src/js/alacarte.js']
+    alacarte: ['./src/js/firstLoaded.js', './src/js/alacarte.js'] /* */
   },
   output: {
     // on vide build avant chaque compilation
@@ -137,8 +139,7 @@ const config = {
   // ça c'est la config pour devServer, lancé au `pnpm start`
   devServer: {
     open: true,
-    openPage: 'mathalea.html',
-    // openPage: 'mathalea_amc.html',
+    openPage: 'm2d.html',
     host: 'localhost',
     // on active le hot module replacement (HMR)
     hot: true
@@ -148,7 +149,8 @@ const config = {
   devtool: (mode === 'production') ? 'source-map' : 'eval-cheap-module-source-map',
   // Cf https://webpack.js.org/configuration/plugins/
   plugins: [
-    new CopyPlugin({
+    // DEBUG on commente la plupart de ces entrées pour tester ts avec m2d
+    /* new CopyPlugin({
       // minimized: true sert à éviter de filer le fichier à terser pour minification
       // Cf https://webpack.js.org/plugins/copy-webpack-plugin/#info
       patterns: [
@@ -179,12 +181,12 @@ const config = {
       template: 'src/html/mathalea2d.html',
       filename: 'mathalea2d.html',
       chunks: ['mathalea2d']
-    }),
+    }), /* */
     new HtmlWebpackPlugin({
       template: 'src/html/m2d.html',
       filename: 'm2d.html',
       chunks: ['m2d']
-    }),
+    }) /*,
     new HtmlWebpackPlugin({
       template: 'src/html/mathalea2dsvg.html',
       filename: 'mathalea2dsvg.html',
@@ -214,7 +216,7 @@ const config = {
       template: 'src/html/alacarte.html',
       filename: 'alacarte.html',
       chunks: ['alacarte']
-    })
+    }) /* */
   ],
   // La liste des fichiers à traiter
   module: {
@@ -263,6 +265,20 @@ const config = {
         type: 'asset'
       }
     ]
+  },
+  resolve: {
+    // important de préciser ça, pour que webpack cherche les fichiers js ET ts lors des imports
+    extensions: ['.ts', '.js'],
+    // des alias pour pouvoir faire du `import xxx from 'modules/xxx'` sans la liste de ../..
+    alias: {
+      exercices: path.resolve(jsDir, 'exercices'),
+      modules: path.resolve(jsDir, 'modules')
+    }
+  },
+  stats: {
+    builtAt: true,
+    colors: true,
+    errorDetails: true
   }
 }
 
