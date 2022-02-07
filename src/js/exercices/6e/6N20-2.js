@@ -1,8 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -95,9 +94,9 @@ export default function ExerciceFractionsDifferentesEcritures () {
         ' = ' +
         ed +
         ' $'
-        reponse = `${n}+${texFraction(c, b)}=${ed}`
-        setReponse(this, i, reponse)
-        if (this.interactif) texte = `$${texFraction(a, b)} = $` + ajouteChampTexteMathLive(this, i)
+      reponse = `${n}+${texFraction(c, b)}=${ed}`
+      setReponse(this, i, reponse)
+      if (this.interactif) texte = `$${texFraction(a, b)} = $` + ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
