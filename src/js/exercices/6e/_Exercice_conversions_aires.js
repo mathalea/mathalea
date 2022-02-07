@@ -114,7 +114,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           [' h', '\\times100\\times100', 10000],
           [' k', '\\times1~000\\times1~000', 1000000]
         ] // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
-        resultat = calcul(a * prefixeMulti[k][2]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calcul(a * prefixeMulti[k][2]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         resultat2 = calcul(resultat / 10)
         resultat3 = calcul(resultat * 10)
         resultat4 = calcul(resultat * 100)
@@ -150,7 +150,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           [' m', '\\div1~000\\div1~000', 1000000]
         ]
         k = randint(0, 1) // Pas de conversions de mm^2 en m^2 avec des nombres décimaux car résultat inférieur à 10e-8
-        resultat = calcul(a / prefixeDiv[k][2]).toString() // Attention aux notations scientifiques pour 10e-8
+        resultat = calcul(a / prefixeDiv[k][2]) // Attention aux notations scientifiques pour 10e-8
         resultat2 = calcul(resultat / 10)
         resultat3 = calcul(resultat * 10)
         resultat4 = calcul(resultat * 100)
@@ -255,7 +255,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           ['a', 100]
         ]
         k = randint(0, 1)
-        resultat = calcul(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calcul(a * prefixeMulti[k][1]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         resultat2 = calcul(resultat / 10)
         resultat3 = calcul(resultat * 10)
         resultat4 = calcul(resultat * 100)
