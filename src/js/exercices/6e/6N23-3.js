@@ -532,50 +532,51 @@ export default function LireUneAbscisseAvecZoom () {
       texte += '<br>' + ajouteChampTexteMathLive(this, 1, 'largeur10 inline', { texte: `Abscisse de ${noms[1]} comme somme d’un nombre entier et d’une fraction décimale : ` }) + ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { formatInteractif: 'fraction', texte: `${sp(6)}+` })
       texte += '<br>' + ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { formatInteractif: 'fraction', texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : ` })
     }
-    this.autoCorrection[0] = {
-      enonce: texte,
-      melange: false, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
-      options: { multicols: true, barreseparation: false },
-      propositions: [
-        {
-          type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
-          propositions: [ // une ou plusieurs (Qcms) 'propositions'
-            {
-              reponse: { // utilisé si type = 'AMCNum'
-                texte: `Abscisse de ${noms[1]} en écriture décimale : `, // facultatif
-                valeur: reponse1, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
-                alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
-                param: {
-                  digits: 0, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
-                  decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
-                  signe: false // (présence d'une case + ou -)
+    if (context.isAMC) {
+      this.autoCorrection[0] = {
+        enonce: texte,
+        melange: false, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
+        options: { multicols: true, barreseparation: false },
+        propositions: [
+          {
+            type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+            propositions: [ // une ou plusieurs (Qcms) 'propositions'
+              {
+                reponse: { // utilisé si type = 'AMCNum'
+                  texte: `Abscisse de ${noms[1]} en écriture décimale : `, // facultatif
+                  valeur: reponse1, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
+                  alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
+                  param: {
+                    digits: 0, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+                    decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
+                    signe: false // (présence d'une case + ou -)
+                  }
                 }
               }
-            }
-          ]
-        },
-        {
-          type: 'AMCNum', // on donne le type de la deuxième question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
-          propositions: [ // une ou plusieurs (Qcms) 'propositions'
-            {
-              reponse: { // utilisé si type = 'AMCNum'
-                texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : `,
-                valeur: reponse3, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
-                alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
-                param: {
-                  digits: 0, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
-                  decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
-                  signe: false, // (présence d'une case + ou -)
-                  digitsNum: nombreDeChiffresDe(reponse2B.num), // Facultatif. digitsNum correspond au nombre TOTAL de chiffres du numérateur à coder si la réponse est une fraction.
-                  digitsDen: nombreDeChiffresDe(reponse2B.den) // Facultatif. digitsDencorrespond au nombre TOTAL de chiffres du dénominateur à coder si la réponse est une fraction.
+            ]
+          },
+          {
+            type: 'AMCNum', // on donne le type de la deuxième question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+            propositions: [ // une ou plusieurs (Qcms) 'propositions'
+              {
+                reponse: { // utilisé si type = 'AMCNum'
+                  texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : `,
+                  valeur: reponse3, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
+                  alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
+                  param: {
+                    digits: 0, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+                    decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
+                    signe: false, // (présence d'une case + ou -)
+                    digitsNum: nombreDeChiffresDe(reponse2B.num), // Facultatif. digitsNum correspond au nombre TOTAL de chiffres du numérateur à coder si la réponse est une fraction.
+                    digitsDen: nombreDeChiffresDe(reponse2B.den) // Facultatif. digitsDencorrespond au nombre TOTAL de chiffres du dénominateur à coder si la réponse est une fraction.
+                  }
                 }
               }
-            }
-          ]
-        }
-      ]
+            ]
+          }
+        ]
+      }
     }
-
     texteCorr += mathalea2d(fenetre, objetsCorr)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
