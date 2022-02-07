@@ -62,7 +62,7 @@ export default function ExerciceFractionsDifferentesEcritures () {
       ])
     ) // liste_fractions pour les 6 premières questions
     for (
-      let i = 0, cpt = 0, fraction, a, ed, b, c, n, texte, texteCorr;
+      let i = 0, cpt = 0, fraction, a, ed, b, c, n, texte, texteCorr, reponse;
       i < this.nbQuestions && cpt < 50;
 
     ) {
@@ -95,10 +95,9 @@ export default function ExerciceFractionsDifferentesEcritures () {
         ' = ' +
         ed +
         ' $'
-      setReponse(this, 3 * i, n)
-      setReponse(this, 3 * i + 1, new FractionX(c, b), { formatInteractif: 'fraction' })
-      setReponse(this, 3 * i + 2, ed)
-      if (this.interactif) texte = `$${texFraction(a, b)} = $` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur10') + sp(6) + '+' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur10') + sp(6) + '=' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur 25')
+        reponse = `${n}+${texFraction(c, b)}=${ed}`
+        setReponse(this, i, reponse)
+        if (this.interactif) texte = `$${texFraction(a, b)} = $` + ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
