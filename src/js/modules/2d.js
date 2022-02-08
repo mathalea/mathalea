@@ -2200,10 +2200,10 @@ function Polygone (...points) {
   let ymax = -1000
   for (const unPoint of this.listePoints) {
     if (unPoint.typeObjet !== 'point') window.notify('Polygone : argument invalide', { ...points })
-    xmin = Math.min(xmin, unPoint.x - (unPoint.positionLabel.indexOf('left') !== -1 ? 1 : 0))
-    xmax = Math.max(xmax, unPoint.x + (unPoint.positionLabel.indexOf('right') !== -1 ? 1 : 0))
-    ymin = Math.min(ymin, unPoint.y - (unPoint.positionLabel.indexOf('below') !== -1 ? 1 : 0))
-    ymax = Math.max(ymax, unPoint.y + (unPoint.positionLabel.indexOf('above') !== -1 ? 1 : 0))
+    xmin = Math.min(xmin, unPoint.x)
+    xmax = Math.max(xmax, unPoint.x)
+    ymin = Math.min(ymin, unPoint.y)
+    ymax = Math.max(ymax, unPoint.y)
   }
   this.bordures = [xmin, ymin, xmax, ymax]
 
