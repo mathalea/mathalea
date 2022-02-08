@@ -23,6 +23,7 @@ export function verifQuestionMathLive (exercice, i) {
   for (let reponse of reponses) {
     switch (formatInteractif) {
       case 'Num':
+        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`)
         num = parseInt(champTexte.value)
         den = reponse.den
         fSaisie = new FractionEtendue(num, den)
@@ -31,6 +32,7 @@ export function verifQuestionMathLive (exercice, i) {
         }
         break
       case 'Den':
+        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Den`)
         den = parseInt(champTexte.value)
         num = reponse.num
         fSaisie = new FractionEtendue(num, den)

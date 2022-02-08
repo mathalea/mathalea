@@ -81,7 +81,7 @@ export const modalLog = async () => {
         // On remplace dans l'historique
         window.history.replaceState('', '', urlRewrite)
         // On met à jour l'url
-        setUrl()
+        setUrl('myFirstScoresManagerFetch')
         initialiseBoutonsConnexion()
         // Cache le numéro de série
         if (document.getElementById('form_serie')) {
