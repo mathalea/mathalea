@@ -265,7 +265,7 @@ function correctifNodeMathsteps (node) {
  * @returns {string} // Format latex
  * @example
  * toTex('3/2+4*x') -> \dfrac{3}{2}+4x
- * toTex('3*x+-3=6*x+0') -> 3x-3=6x
+ * toTex('1*x+-3=6*x+0') -> x-3=6x
  * toTex('-3/4') -> -\dfrac{3}{4}
  * toTex('OA/OM=OB/ON',{OA: 1.2, OM: 1.5, OB: 1.7}) -> \dfrac{1{.}2}{1{.}5}=\dfrac{1{.}7}{OB}
  */
@@ -308,7 +308,7 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
   }
   let nodeClone
   do { // À étudier, pour 79 et 85 et 50 cette boucle doit être maintenue
-    nodeClone = node.cloneDeep() // Vérifier que node.clone() fonctionne (peut-être y a-t-il un problème avec implicit avec cloneDeep())
+    nodeClone = node.cloneDeep() // Vérifier le fonctionnement de .clone() et .cloneDeep() (peut-être y a-t-il un problème avec implicit avec cloneDeep())
     node = node.transform(
       function (node, path, parent) {
         node = transformNode(node, parent, undefined, params)
@@ -806,6 +806,15 @@ export function commentStep (step, comments) {
 }
 
 /**
+ * Check if x is a decimal number
+ * @param {Object} x // Object type = Fraction (mathjs)
+ * @returns
+ */
+function isDecimal (x) {
+  return x.d !== 1 && !obtenirListeFacteursPremiers(x.d).some(x => x !== 2 && x !== 5)
+}
+
+/**
 * @description Retourne toutes les étapes de résolution d'une équation ou d'une inéquation
 * @param {Objet} params // Les paramètres (commentaires visibles)
 * @param {string} equation // Une équation ou une inéquation
@@ -868,7 +877,7 @@ export function resoudre (equation, params) {
       answer = emath.evaluate(answer.eval())
 
       // On regarde si le résultat a un nombre fini de chiffres après la virgule et n'est pas un entier
-      if (answer.d !== 1 && !obtenirListeFacteursPremiers(answer.d).some(x => x !== 2 && x !== 5)) {
+      if (isDecimal(answer)) {
         answer = round(answer.valueOf(), 15) // convertit la fraction en nombre décimal en évitant les problèmes de float
         if (params.formatSolution === 'decimal' || (typeof params.formatSolution === 'number' && answer.toString().split('.')[1].length <= params.formatSolution)) {
           // On rajoute une étape de conversion de la fraction en nombre décimal
