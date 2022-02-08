@@ -136,7 +136,7 @@ export async function gestionVue (vue) {
       context.vue = 'alc'
     }
     // Met à jour l'URL avec notamment la nouvelle vue
-    setUrl()
+    setUrl('gestionVue')
   }
   if (document.getElementById('buttonEdit') && context.vue === null) document.getElementById('buttonEdit').style.display = 'none'
 }

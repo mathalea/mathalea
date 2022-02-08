@@ -437,7 +437,7 @@ function miseAJourDuCode () {
   // Appelée dès lors que l'on a une modification sur l'affichage d'un ou plusieurs exercices
   //    suppression d'un exercice, nouvelle donnée, changement de paramètre...)
   // C'est dans cette fonction que l'on va executer les this.nouvelleVersion des exercices.
-  setUrl()
+  setUrl('miseAjourDuCode')
   context.listeObjetsExercice = listeObjetsExercice
 
   // Active ou désactive l'icone de la course aux nombres
@@ -3474,7 +3474,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         for (const lien of mesLiens) {
           lien.href = replaceQueryParam('duree', context.duree, lien.href)
         }
-        setUrl()
+        setUrl('inputTimer.addEventListener()')
       })
       $('.ui.button.toggle').state() // initialise le bouton
       $('#ModalEmbed').modal('show')
