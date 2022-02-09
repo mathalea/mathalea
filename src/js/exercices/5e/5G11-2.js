@@ -7,10 +7,12 @@ export const dateDeModificationImportante = '14/11/2021'
  * références  6G24-1, 6G24-2, 5G10-1, 5G10-2, 5G11-1 et 5G11-2
  * Permet une sortie html/pdf sur petits carreaux/gros carreaux/papier blanc
  */
-export default function ConstruireParSymetrieCentraleFigure () {
-  ConstruireParSymetrie.call(this)
-  this.sup = 5
-  this.sup2 = 1
-  this.figure = true
-  this.besoinFormulaireNumerique = false
+export default class ConstruireParSymetrieCentraleFigure extends ConstruireParSymetrie {
+  constructor () {
+    super()
+    this.sup = 5
+    this.sup2 = 1
+    this.figure = true
+    this.besoinFormulaireNumerique = false
+  }
 }

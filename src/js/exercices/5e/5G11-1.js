@@ -5,9 +5,11 @@ export const dateDeModificationImportante = '14/11/2021'
  * Référence 6G11-2
  * @author Jean-Claude Lhote
  */
-export default function SymetrieCentralePoint () {
-  ConstruireParSymetrie.call(this)
-  this.figure = false
-  this.sup = 5
-  this.besoinFormulaireNumerique = false
+export default class SymetrieCentralePoint extends ConstruireParSymetrie {
+  constructor () {
+    super()
+    this.figure = false
+    this.sup = 5
+    this.besoinFormulaireNumerique = false
+  }
 }
