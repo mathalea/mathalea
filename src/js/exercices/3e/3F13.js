@@ -21,8 +21,6 @@ export default function AntecedentGraphique () {
   context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-  this.dimensionsDivMg32 = [800, 600]
-  this.pasDeVersionLatex = false
   this.nbCols = 1
 
   this.nouvelleVersion = function () {
