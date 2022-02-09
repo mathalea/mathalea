@@ -5,7 +5,7 @@ export const titre = 'Lecture graphique de limites'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '01/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-// export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '09/02/2022' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Description didactique de l'exercice
@@ -110,6 +110,19 @@ export default function NomExercice () {
         id.push('∅', limG, limD)
         texteCorr += `$\\displaystyle\\lim_{x \\to -\\infty} ${nom}(x) = ${limG}$<br>`
         texteCorr += `$\\displaystyle\\lim_{x \\to +\\infty} ${nom}(x) = ${limD}$<br>`
+      }
+
+      if (this.sup2) {
+        texteCorr += `La courbe admet les asymptotes horizontales d'équations $y=${limG}$ et $y=${limD}$.<br>`
+        switch (x.length) {
+          case 0 :
+            break
+          case 1 :
+            texteCorr += `La courbe admet une asymptote verticales d'équation $x=${x[0]}$.<br>`
+            break
+          default :
+            texteCorr += `La courbe admet les asymptotes verticales d'équations ${x.map((k, i) => (i === x.length - 1 ? ' et ' : ', ') + '$x=' + k + '$ ').join('').substring(2)}.<br>`
+        }
       }
 
       texte += mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, scale: 0.5 }, monRepere, ...f)
