@@ -118,7 +118,7 @@ export default function NomExercice () {
           case 0 :
             break
           case 1 :
-            texteCorr += `La courbe admet une asymptote verticales d'équation $x=${x[0]}$.<br>`
+            texteCorr += `La courbe admet une asymptote verticale d'équation $x=${x[0]}$.<br>`
             break
           default :
             texteCorr += `La courbe admet les asymptotes verticales d'équations ${x.map((k, i) => (i === x.length - 1 ? ' et ' : ', ') + '$x=' + k + '$ ').join('').substring(2)}.<br>`
