@@ -928,19 +928,31 @@ function miseAJourDuCode () {
         const moodleSearchQuestionDiv = /* javascript */ `
 
         let questionSeed = ''
-        let searchQuestionDiv = document.currentScript;
+        let questionDiv = document.currentScript;
         // On remonte de parent en parent depuis la balise script jusqu'à trouver le div avec le numero de la question en id
-        while(searchQuestionDiv !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
-          if(typeof searchQuestionDiv.id === 'string' && searchQuestionDiv.id.startsWith('question-')) {
-            questionSeed = searchQuestionDiv.id;
+        while(questionDiv !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
+          if(typeof questionDiv.id === 'string' && questionDiv.id.startsWith('question-')) {
+            questionSeed = questionDiv.id;
             break; // la seed a été trouvée
           }
-          searchQuestionDiv = searchQuestionDiv.parentNode;
+          questionDiv = questionDiv.parentNode;
         }
         `
 
         const moodleCreateIframe = function (url) {
           return /* javascript */ `
+          if (questionDiv.classList.contains('notyetanswered')) {
+            // L'élève n'a pas encore répondu à la question
+          }
+          else if (questionDiv.classList.contains('answersaved')) {
+            // L'élève a déjà répondu à la question mais n'a pas validé sa réponse
+          }
+          else if (questionDiv.classList.contains('incorrect') || questionDiv.classList.contains('correct') || questionDiv.classList.contains('partiallycorrect') || questionDiv.classList.contains('complete')) {
+            // Les réponses de l'élève sont définitivement validé, il est en mode relecture
+          }
+
+          // DOMContentLoaded OU MutationObserver
+
           iframe = document.createElement('iframe');
           iframe.setAttribute('width', '100%');
           iframe.setAttribute('height', '400');
