@@ -925,15 +925,17 @@ function miseAJourDuCode () {
         document.head.appendChild(style);
         }`
 
-        const moodleSearchSeed = /* javascript */ `
+        const moodleSearchQuestionDiv = /* javascript */ `
+
+        let questionSeed = ''
+        let searchQuestionDiv = document.currentScript;
         // On remonte de parent en parent depuis la balise script jusqu'à trouver le div avec le numero de la question en id
-        searchSeed = document.currentScript;
-        while(searchSeed !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
-          if(typeof searchSeed.id === 'string' && searchSeed.id.startsWith('question-')) {
-            searchSeed = searchSeed.id;
+        while(searchQuestionDiv !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
+          if(typeof searchQuestionDiv.id === 'string' && searchQuestionDiv.id.startsWith('question-')) {
+            questionSeed = searchQuestionDiv.id;
             break; // la seed a été trouvée
           }
-          searchSeed = searchSeed.parentNode;
+          searchQuestionDiv = searchQuestionDiv.parentNode;
         }
         `
 
@@ -942,7 +944,7 @@ function miseAJourDuCode () {
           iframe = document.createElement('iframe');
           iframe.setAttribute('width', '100%');
           iframe.setAttribute('height', '400');
-          iframe.setAttribute('src', '${url}' + '&iMoodle=' + window.iMathAlea.length + '&serie=' + searchSeed);
+          iframe.setAttribute('src', '${url}' + '&iMoodle=' + window.iMathAlea.length + '&serie=' + questionSeed);
           iframe.setAttribute('frameBorder', '0');
           iframe.setAttribute('allow', 'fullscreen');
           document.currentScript.parentNode.insertBefore(iframe, document.currentScript);
@@ -960,7 +962,7 @@ function miseAJourDuCode () {
 <script>` + /* javascript */`
   
   ${moodleInitialisationFunction}
-  ${moodleSearchSeed}
+  ${moodleSearchQuestionDiv}
   ${moodleCreateIframe(urlIframe)}
     
   document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
@@ -983,7 +985,7 @@ function miseAJourDuCode () {
           <h4>Correction :</h4>          
   <script>` + /* javascript */ `
     ${moodleInitialisationFunction}
-    ${moodleSearchSeed}
+    ${moodleSearchQuestionDiv}
     ${moodleCreateIframe(urlIframeCor)}    
     document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
   ` + `
