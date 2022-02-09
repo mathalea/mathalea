@@ -927,8 +927,11 @@ function miseAJourDuCode () {
 
         const moodleSearchQuestionDiv = /* javascript */ `
 
-        let questionSeed = ''
-        let questionDiv = document.currentScript;
+        let currentScript = document.currentScript;
+        let iMoodle = window.iMathAlea.length;
+        let questionSeed = '';
+
+        let questionDiv = currentScript;
         // On remonte de parent en parent depuis la balise script jusqu'à trouver le div avec le numero de la question en id
         while(questionDiv !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
           if(typeof questionDiv.id === 'string' && questionDiv.id.startsWith('question-')) {
@@ -941,27 +944,30 @@ function miseAJourDuCode () {
 
         const moodleCreateIframe = function (url) {
           return /* javascript */ `
-          if (questionDiv.classList.contains('notyetanswered')) {
-            // L'élève n'a pas encore répondu à la question
-          }
-          else if (questionDiv.classList.contains('answersaved')) {
-            // L'élève a déjà répondu à la question mais n'a pas validé sa réponse
-          }
-          else if (questionDiv.classList.contains('incorrect') || questionDiv.classList.contains('correct') || questionDiv.classList.contains('partiallycorrect') || questionDiv.classList.contains('complete')) {
-            // Les réponses de l'élève sont définitivement validé, il est en mode relecture
+
+          let addIframe = () => {
+            iframe.setAttribute('width', '100%');
+            iframe.setAttribute('height', '400');
+            iframe.setAttribute('src', '${url}' + '&iMoodle=' + iMoodle + '&serie=' + questionSeed + (typeof answer !== 'undefined' ? '&moodleJson=' + answer : ''));
+            iframe.setAttribute('frameBorder', '0');
+            iframe.setAttribute('allow', 'fullscreen');
+            currentScript.parentNode.insertBefore(iframe, currentScript);
           }
 
-          // DOMContentLoaded OU MutationObserver
-
-          iframe = document.createElement('iframe');
-          iframe.setAttribute('width', '100%');
-          iframe.setAttribute('height', '400');
-          iframe.setAttribute('src', '${url}' + '&iMoodle=' + window.iMathAlea.length + '&serie=' + questionSeed);
-          iframe.setAttribute('frameBorder', '0');
-          iframe.setAttribute('allow', 'fullscreen');
-          document.currentScript.parentNode.insertBefore(iframe, document.currentScript);
-
+          let iframe = document.createElement('iframe');
           window.iMathAlea.push(iframe);
+
+          if (questionDiv.classList.contains('notyetanswered')) {
+            // L'élève n'a pas encore répondu à la question, on affiche immédiatement l'iframe
+            addIframe();
+          } else {
+            // L'élève a répondu, on attend que la page charge pour récupérer ses réponses
+            document.addEventListener('DOMContentLoaded', () => {
+              let answer = questionDiv.querySelector('[name$="_answer"]').value;
+              answer = answer.substring(answer.indexOf('|') + 1);
+              addIframe();
+            });
+          }
           `
         }
 
@@ -972,12 +978,12 @@ function miseAJourDuCode () {
   <questiontext format="html">
     <text><![CDATA[
 <script>` + /* javascript */`
-  
-  ${moodleInitialisationFunction}
-  ${moodleSearchQuestionDiv}
-  ${moodleCreateIframe(urlIframe)}
-    
-  document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
+  {
+    ${moodleInitialisationFunction}
+    ${moodleSearchQuestionDiv}
+    ${moodleCreateIframe(urlIframe)}
+    document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
+  }  
   ` + `
 </script>
       `
@@ -988,7 +994,7 @@ function miseAJourDuCode () {
         const scoreAcceptes = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
         for (const score of scoreAcceptes) {
           codeMoodle += `  <answer fraction="${score}">
-      <text>${score}</text>
+      <text>${score}|*</text>
         <feedback><text> </text></feedback>
     </answer>`
         }
@@ -996,11 +1002,13 @@ function miseAJourDuCode () {
         codeMoodle += `\n<generalfeedback>\n<text><![CDATA[
           <h4>Correction :</h4>          
   <script>` + /* javascript */ `
+  {
     ${moodleInitialisationFunction}
     ${moodleSearchQuestionDiv}
     ${moodleCreateIframe(urlIframeCor)}    
     document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
-  ` + `
+  }
+    ` + `
   </script> 
           
         ]]>\n</text>\n</generalfeedback>`
