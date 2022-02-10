@@ -192,7 +192,16 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
     const reponses = {}
     try {
       for (let i = 0; i < exercice.nbQuestions; i++) {
-        reponses[`reponse${i}`] = document.getElementById(`champTexteEx0Q${i}`).value
+        if (document.getElementById(`champTexteEx0Q${i}`)) {
+          reponses[`reponse${i}`] = document.getElementById(`champTexteEx0Q${i}`).value
+        }
+        if (document.getElementById(`checkEx0Q0${i}R0`)) {
+          for (let j = 0; j < exercice.autoCorrection[i].propositions.length; j++) {
+            if (document.getElementById(`checkEx0Q0${i}R${j}`)) {
+              reponses[`reponse${i}R${j}`] = document.getElementById(`checkEx0Q0${i}R${j}`).checked
+            }
+          }
+        }
       }
       window.sessionStorage.setItem('isValide' + context.graine, true)
     } catch (error) {
