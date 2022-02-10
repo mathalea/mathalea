@@ -610,8 +610,12 @@ function miseAJourDuCode () {
       }
       if (context.vue === 'exMoodle' || context.vue === 'correctionMoodle') {
         const iMoodle = new URLSearchParams(window.location.search).get('iMoodle')
-        if (typeof iMoodle !== 'undefined') {
+        if (iMoodle !== null) {
           finUrl += `&iMoodle=${iMoodle}`
+        }
+        const moodleJson = new URLSearchParams(window.location.search).get('moodleJson')
+        if (moodleJson !== null) {
+          finUrl += `&moodleJson=${moodleJson}`
         }
       }
       window.history.replaceState('', '', finUrl)
@@ -945,6 +949,7 @@ function miseAJourDuCode () {
         const moodleCreateIframe = function (url) {
           return /* javascript */ `
 
+          let answer
           let addIframe = () => {
             iframe.setAttribute('width', '100%');
             iframe.setAttribute('height', '400');
@@ -963,7 +968,7 @@ function miseAJourDuCode () {
           } else {
             // L'élève a répondu, on attend que la page charge pour récupérer ses réponses
             document.addEventListener('DOMContentLoaded', () => {
-              let answer = questionDiv.querySelector('[name$="_answer"]').value;
+              answer = questionDiv.querySelector('[name$="_answer"]').value;
               answer = answer.substring(answer.indexOf('|') + 1);
               addIframe();
             });

@@ -182,32 +182,35 @@ export function exerciceNonInteractif (exercice) {
 export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   if (context.vue === 'exMoodle') {
     const hauteurExercice = window.document.querySelector('section').scrollHeight + 20
-    const scoreRetenu = (score) => {
-      const scoreAcceptes = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
-      return scoreAcceptes.reduce((prev, curr) => {
-        return (Math.abs(curr - score) < Math.abs(prev - score) ? curr : prev)
-      })
-    }
-    const score = scoreRetenu(nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100)
-    const reponses = {}
-    try {
-      for (let i = 0; i < exercice.nbQuestions; i++) {
-        if (document.getElementById(`champTexteEx0Q${i}`)) {
-          reponses[`reponse${i}`] = document.getElementById(`champTexteEx0Q${i}`).value
-        }
-        if (document.getElementById(`checkEx0Q0${i}R0`)) {
-          for (let j = 0; j < exercice.autoCorrection[i].propositions.length; j++) {
-            if (document.getElementById(`checkEx0Q0${i}R${j}`)) {
-              reponses[`reponse${i}R${j}`] = document.getElementById(`checkEx0Q0${i}R${j}`).checked
+    if (!new URLSearchParams(window.location.search).get('moodleJson')) {
+      const scoreRetenu = (score) => {
+        const scoreAcceptes = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
+        return scoreAcceptes.reduce((prev, curr) => {
+          return (Math.abs(curr - score) < Math.abs(prev - score) ? curr : prev)
+        })
+      }
+      const score = scoreRetenu(nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100)
+      const reponses = {}
+      try {
+        for (let i = 0; i < exercice.nbQuestions; i++) {
+          if (document.getElementById(`champTexteEx0Q${i}`)) {
+            reponses[`reponse${i}`] = document.getElementById(`champTexteEx0Q${i}`).value
+          }
+          if (document.getElementById(`checkEx0Q0${i}R0`)) {
+            for (let j = 0; j < exercice.autoCorrection[i].propositions.length; j++) {
+              if (document.getElementById(`checkEx0Q0${i}R${j}`)) {
+                reponses[`reponse${i}R${j}`] = document.getElementById(`checkEx0Q0${i}R${j}`).checked
+              }
             }
           }
         }
+      } catch (error) {
+        console.log('Réponse non sauvegardée')
       }
-      window.sessionStorage.setItem('isValide' + context.graine, true)
-    } catch (error) {
-      console.log('Réponse non sauvegardée')
+      window.parent.postMessage({ score, hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')), reponses }, '*')
+    } else {
+      window.parent.postMessage({ hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')) }, '*')
     }
-    window.parent.postMessage({ score, hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')), reponses }, '*')
   } else {
     // Envoie un message post avec le nombre de réponses correctes
     window.parent.postMessage({ url: window.location.href, graine: context.graine, titre: exercice.titre, nbBonnesReponses: nbBonnesReponses, nbMauvaisesReponses: nbMauvaisesReponses }, '*')

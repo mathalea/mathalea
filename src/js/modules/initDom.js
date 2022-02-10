@@ -269,15 +269,20 @@ export async function initDom () {
     document.addEventListener('exercicesAffiches', () => {
       // Récupère la précédente saisie pour exMoodle et désactive le bouton
       if (vue === 'exMoodle') {
-        const reponses = new URLSearchParams(window.location.search).get('moodleJson')
-        for (let i = 0; i < context.listeObjetsExercice[0].nbQuestions; i++) {
-          if (document.getElementById(`champTexteEx0Q${i}`) && reponses && typeof reponses[`reponse${i}`] !== 'undefined') {
-            document.getElementById(`champTexteEx0Q${i}`).textContent = reponses[`reponse${i}`]
-          }
-          if (document.getElementById(`checkEx0Q0${i}R0`) && reponses && typeof reponses[`reponse${i}R0`] !== 'undefined') {
-            for (let j = 0; j < context.listeObjetsExercice[0].autoCorrection[i].propositions.length; j++) {
-              if (document.getElementById(`checkEx0Q0${i}R${j}`)) {
-                document.getElementById(`checkEx0Q0${i}R${j}`).checked = reponses[`reponse${i}R${j}`]
+        let reponses
+        try { // JSON.parse(null) renvoie null
+          reponses = JSON.parse(new URLSearchParams(window.location.search).get('moodleJson'))
+        } catch (e) {}
+        if (reponses) {
+          for (let i = 0; i < context.listeObjetsExercice[0].nbQuestions; i++) {
+            if (document.getElementById(`champTexteEx0Q${i}`) && reponses && typeof reponses[`reponse${i}`] !== 'undefined') {
+              document.getElementById(`champTexteEx0Q${i}`).textContent = reponses[`reponse${i}`]
+            }
+            if (document.getElementById(`checkEx0Q0${i}R0`) && reponses && typeof reponses[`reponse${i}R0`] !== 'undefined') {
+              for (let j = 0; j < context.listeObjetsExercice[0].autoCorrection[i].propositions.length; j++) {
+                if (document.getElementById(`checkEx0Q0${i}R${j}`)) {
+                  document.getElementById(`checkEx0Q0${i}R${j}`).checked = reponses[`reponse${i}R${j}`]
+                }
               }
             }
           }
@@ -289,7 +294,7 @@ export async function initDom () {
           hauteurExercice = window.document.querySelector('section').scrollHeight
           window.parent.postMessage({ hauteurExercice, serie: context.graine, iMoodle: new URLSearchParams(window.location.search).get('iMoodle') }, '*')
         }, 1000)
-        if (window.sessionStorage.getItem('isValide' + context.graine)) {
+        if (reponses) {
           const exercice = context.listeObjetsExercice[0]
           const bouton = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
           document.addEventListener('domExerciceInteractifReady', () => {
