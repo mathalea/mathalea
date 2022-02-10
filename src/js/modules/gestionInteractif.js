@@ -196,10 +196,10 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
           if (document.getElementById(`champTexteEx0Q${i}`)) {
             reponses[`reponse${i}`] = document.getElementById(`champTexteEx0Q${i}`).value
           }
-          if (document.getElementById(`checkEx0Q0${i}R0`)) {
+          if (document.getElementById(`checkEx0Q${i}R0`)) {
             for (let j = 0; j < exercice.autoCorrection[i].propositions.length; j++) {
-              if (document.getElementById(`checkEx0Q0${i}R${j}`)) {
-                reponses[`reponse${i}R${j}`] = document.getElementById(`checkEx0Q0${i}R${j}`).checked
+              if (document.getElementById(`checkEx0Q${i}R${j}`)) {
+                reponses[`reponse${i}R${j}`] = document.getElementById(`checkEx0Q${i}R${j}`).checked
               }
             }
           }
