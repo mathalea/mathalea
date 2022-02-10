@@ -5,8 +5,6 @@ import { polygone, labelPoint, homothetie, point, rotation, mathalea2d, droite }
 import { create, all } from 'mathjs'
 import { aleaVariables, toTex, resoudre, aleaExpression, aleaName } from '../../modules/outilsMathjs.js'
 import { GraphicView } from './aleaFigure/GraphicView.js'
-import { Point, Vector } from './aleaFigure/elements.js'
-import { Cartesian } from './aleaFigure/coordinates.js'
 
 // eslint-disable-next-line no-debugger
 debugger
@@ -338,7 +336,7 @@ export default function exercicesThales () {
           break
         }
         case 11: {
-          // Bug : Droite verticale
+          // Droite verticale visible !
           // http://localhost:8080/mathalea.html?ex=betaThales,s=11
           const graphic = new GraphicView(-5, -5, 5, 5)
           const [A, B, C] = graphic.addPoint(3).elements
