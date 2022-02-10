@@ -4,7 +4,7 @@
  */
 export class Group {
   constructor (...args) {
-    this.elements = args !== undefined ? args : []
+    this.elements = args || []
   }
 
   show () {

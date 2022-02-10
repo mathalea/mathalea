@@ -9,6 +9,8 @@ import { GraphicView } from './aleaFigure/GraphicView.js'
 // eslint-disable-next-line no-debugger
 debugger
 
+const nbCase = 15
+
 export const math = create(all)
 
 export const titre = 'aleaFigure'
@@ -24,10 +26,7 @@ export const dateDePublication = '03/02/2022' // La date de publication initiale
 function aleaThalesConfiguration () {
   // http://localhost:8080/mathalea.html?ex=betaThales,s=6
   const graphic = new GraphicView(0, 0, 6, 5)
-  const result = graphic.addNotAlignedPoint() // Trois points non alignés
-  const O = result.elements[0]
-  const A = result.elements[1]
-  const B = result.elements[2]
+  const [O, A, B] = graphic.addNotAlignedPoint().elements // Trois points non alignés
   // On ajoute les droites (OB) et (AB)
   const droiteOB = graphic.addLine(O, B)
   const droiteAB = graphic.addLine(A, B)
@@ -215,7 +214,7 @@ export default function exercicesThales () {
   ]
   this.nbQuestions = 1
   this.besoinFormulaireNumerique = [
-    'Type de question', 13, formulaire.join('\n')
+    'Type de question', nbCase, formulaire.join('\n')
   ]
   this.consigne = ''
   this.nbCols = 0
@@ -296,7 +295,7 @@ export default function exercicesThales () {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=7
           const graphic = new GraphicView()
           graphic.dimensions = { xmin: 0, ymin: 0, xmax: 10, ymax: 7 }
-          graphic.addPoint(20)
+          graphic.show(...graphic.addPoint(20).elements)
           exercice = { texte: graphic.getMathalea2DExport(), texteCorr: '' }
           break
         }
@@ -384,6 +383,43 @@ export default function exercicesThales () {
           exercice.texte = mathalea2d(
             Object.assign({ pixelsParCm: 38.71524919447583, scale: 1.9357624597237915 }, clip), [d]
           )
+          break
+        }
+        case 14 : {
+          // Parallelogramme
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=14,n=1&serie=1Ziy&z=1
+          const graphic = new GraphicView(-5, -5, 5, 5)
+          const [A, B, C, D] = graphic.addParallelogram().elements
+          A.name = 'A'
+          B.name = 'B'
+          C.name = 'C'
+          D.name = 'D'
+          const [E, F] = graphic.addParallelogram(A, B).elements.slice(2)
+          E.name = 'E'
+          F.name = 'F'
+          const [G] = graphic.addParallelogram(F, A, D).elements.slice(3)
+          G.name = 'G'
+          graphic.show(A, B, C, D, E, F, graphic.addSidesPolygon(A, B, C, D), graphic.addSidesPolygon(A, B, E, F), graphic.addSidesPolygon(F, A, D, G))
+          const graph = graphic.getMathalea2DExport()
+          exercice = { texte: graph, texteCorr: '' }
+          break
+        }
+        case 15 : {
+          // Homothetie
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=15,n=1&serie=1Ziy&z=1
+          const graphic = new GraphicView(-5, -5, 5, 5)
+          const [A, B, C, D] = graphic.addParallelogram().elements
+          A.name = 'A'
+          B.name = 'B'
+          C.name = 'C'
+          D.name = 'D'
+          const O = graphic.addPoint()
+          O.name = 'O'
+          const [E, F, G, H] = graphic.addHomothetic(O, -0.5, A, B, C, D).elements
+          graphic.show(A, B, C, D, E, F, G, H, O, graphic.addSidesPolygon(A, B, C, D), graphic.addSidesPolygon(E, F, G, H))
+          const graph = graphic.getMathalea2DExport()
+          exercice = { texte: graph, texteCorr: '' }
+          break
         }
       }
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
