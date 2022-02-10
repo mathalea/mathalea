@@ -361,7 +361,7 @@ export class GraphicView {
           this.geometric.pop()
         }
       }
-      points = args.concat(this.addPoint(2 - args.length))
+      points = args.concat(this.addPoint(2 - args.length).elements)
       const line = new Line(...points)
       obj = this.getNewPointBetween(...this.getExtremPointGraphicLine(line).elements)
     } while (this.isCloseToExistingPoints(obj) || this.isCloseToLineThroughtExistingPoints(obj))
@@ -393,7 +393,12 @@ export class GraphicView {
   addNotAlignedPoint (...args) {
     // Deux points maximum
     // Réfléchir à un ensemble plus grand de points non alignés
-    let addpoints = this.addPoint(2 - args.length)
+    let addpoints
+    if (args.length < 3) {
+      addpoints = this.addPoint(2 - args.length)
+    } else {
+      return new Group()
+    }
     addpoints = addpoints instanceof Point ? addpoints : addpoints.elements
     const points = args.concat(addpoints)
     let obj
@@ -457,6 +462,52 @@ export class GraphicView {
     }
     lines.push(this.addSegment(args[args.length - 1], args[0]))
     return new Group(...lines)
+  }
+
+  /**
+   * Add a group of 4 points making a parallelogram
+   * @param  {...any} args // 0-3 Point
+   * @returns {Group}
+   */
+  addParallelogram (...args) {
+    let A, B, C
+    switch (args.length) {
+      case 0: {
+        [A, B, C] = this.addNotAlignedPoint().elements
+        break
+      }
+      case 1:
+        [A, B, C] = this.addNotAlignedPoint(...args).elements
+        break
+      case 2:
+        [A, B, C] = this.addNotAlignedPoint(...args).elements
+        break
+      case 3:
+        [A, B, C] = args
+        break
+    }
+    const D = new Point(
+      new Cartesian(
+        A.x + C.x - B.x,
+        A.y + C.y - B.y
+      )
+    )
+    D.name = D.name || this.getNewName(D.type)
+    this.geometric.push(D)
+    return new Group(A, B, C, D)
+  }
+
+  addHomothetic (O, k, ...args) {
+    return new Group(...args.map(M => {
+      const point = new Point(
+        new Cartesian(
+          k * M.x + (1 - k) * O.x,
+          k * M.y + (1 - k) * O.y
+        ))
+      point.name = point.name || this.getNewName(point.type)
+      this.geometric.push(point)
+      return point
+    }))
   }
 
   /**
