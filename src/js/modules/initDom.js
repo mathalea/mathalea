@@ -227,7 +227,7 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     if (vue === 'diapCorr') await addFetchHtmlToParent('templates/boutonsZoom.html', section)
     addElement(section, 'div', { id: 'containerErreur' })
-    if (vue === 'exMoodle') {
+    if (vue === 'exMoodle' && new URLSearchParams(window.location.search).get('moodleJson') === null) {
       const divMessage = addElement(section, 'div')
       divMessage.innerHTML = `<div class="ui icon message">
       <i class="exclamation triangle icon"></i>
