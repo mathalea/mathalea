@@ -192,7 +192,7 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
     const reponses = {}
     try {
       for (let i = 0; i < exercice.nbQuestions; i++) {
-        reponses[`reponse${i}` + context.graine] = document.getElementById(`champTexteEx0Q${i}`).value
+        reponses[`reponse${i}`] = document.getElementById(`champTexteEx0Q${i}`).value
         window.sessionStorage.setItem(`reponse${i}` + context.graine, document.getElementById(`champTexteEx0Q${i}`).value)
       }
       window.sessionStorage.setItem('isValide' + context.graine, true)

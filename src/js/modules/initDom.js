@@ -271,11 +271,10 @@ export async function initDom () {
       if (vue === 'exMoodle') {
         const reponses = new URLSearchParams(window.location.search).get('moodleJson')
         for (let i = 0; i < context.listeObjetsExercice[0].nbQuestions; i++) {
-          if (document.getElementById(`champTexteEx0Q${i}`) && (window.sessionStorage.getItem(`reponse${i}` + context.graine) !== null || reponses[`reponse${i}` + context.graine])) {
           if (document.getElementById(`champTexteEx0Q${i}`)) {
             let valeurEnregistree
-            if (reponses && typeof reponses[`reponse${i}` + context.graine] !== 'undefined') {
-              valeurEnregistree = reponses[`reponse${i}` + context.graine]
+            if (reponses && typeof reponses[`reponse${i}`] !== 'undefined') {
+              valeurEnregistree = reponses[`reponse${i}`]
             } else if (window.sessionStorage.getItem(`reponse${i}` + context.graine) !== null) {
               valeurEnregistree = window.sessionStorage.getItem(`reponse${i}` + context.graine)
             }
