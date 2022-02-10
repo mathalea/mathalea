@@ -453,10 +453,12 @@ export function milieu (A, B, nom, positionLabel = 'above') {
  *
  * M = pointSurSegment(A,B,'h','M') // M est un point au hasard sur [AB] (on peut écrire n'importe quel texte à la place de 'h')
  * M = pointSurSegment(A,B) // M est un point au hasard sur [AB]
+ * Sécurité ajoutée par Jean-Claude Lhote : si AB=0, alors on retourne A
  * @author Rémi Angot
  */
 export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
   if (Number.isNaN(longueur(A, B))) window.notify('pointSurSegment : Quelque chose ne va pas avec les points', { A, B })
+  if (longueur(A, B) === 0) return A
   if (l === undefined || typeof l === 'string') {
     l = calcul((longueur(A, B) * randint(15, 85)) / 100)
   }
@@ -5190,9 +5192,9 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
   this.svg = function (coeff) {
     const N = pointSurSegment(O, M, (this.distance * 20) / coeff)
     if (this.extremite2.x > this.extremite1.x) {
-      angle = -s.angleAvecHorizontale
+      angle = arrondi(-s.angleAvecHorizontale, 1)
     } else {
-      angle = 180 - s.angleAvecHorizontale
+      angle = arrondi(180 - s.angleAvecHorizontale, 1)
     }
     return texteParPoint(`${l}${unite !== '' ? ' ' + unite : ''}`, N, angle, this.color, 1, 'middle', false).svg(coeff)
   }
@@ -5200,9 +5202,9 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
   this.tikz = function () {
     const N = pointSurSegment(O, M, this.distance / context.scale)
     if (this.extremite2.x > this.extremite1.x) {
-      angle = -s.angleAvecHorizontale
+      angle = arrondi(-s.angleAvecHorizontale, 1)
     } else {
-      angle = 180 - s.angleAvecHorizontale
+      angle = arrondi(180 - s.angleAvecHorizontale, 1)
     }
     return texteParPoint(`${l}${unite !== '' ? ' ' + unite : ''}`, N, angle, this.color, 1, 'middle', false).tikz()
   }
@@ -9581,7 +9583,7 @@ export function angle (A, O, B) {
     else if (v.y * w.y > 0) return 0
     else return 180
   } else {
-    return calcul(
+    return arrondi(
       (Math.acos((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB)) * 180) / Math.PI,
       2
     )
@@ -9595,7 +9597,7 @@ export function angle (A, O, B) {
 export function angleOriente (A, O, B) {
   const A2 = rotation(A, O, 90)
   const v = vecteur(O, B); const u = vecteur(O, A2)
-  return unSiPositifMoinsUnSinon(v.x * u.x + v.y * u.y) * angle(A, O, B)
+  return arrondi(unSiPositifMoinsUnSinon(v.x * u.x + v.y * u.y) * angle(A, O, B), 2)
 }
 /**
  * angleradian(A,O,B) renvoie l'angle AOB en radian
