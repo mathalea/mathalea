@@ -921,7 +921,7 @@ function miseAJourDuCode () {
         });
 
         style = document.createElement('style');
-        style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls { display: none; }';
+        style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls, .mathalea-question-type .rightanswer { display: none; }';
         document.head.appendChild(style);
         }`
 
