@@ -271,16 +271,8 @@ export async function initDom () {
       if (vue === 'exMoodle') {
         const reponses = new URLSearchParams(window.location.search).get('moodleJson')
         for (let i = 0; i < context.listeObjetsExercice[0].nbQuestions; i++) {
-          if (document.getElementById(`champTexteEx0Q${i}`)) {
-            let valeurEnregistree
-            if (reponses && typeof reponses[`reponse${i}`] !== 'undefined') {
-              valeurEnregistree = reponses[`reponse${i}`]
-            } else if (window.sessionStorage.getItem(`reponse${i}` + context.graine) !== null) {
-              valeurEnregistree = window.sessionStorage.getItem(`reponse${i}` + context.graine)
-            }
-            if (valeurEnregistree !== null) {
-              document.getElementById(`champTexteEx0Q${i}`).textContent = valeurEnregistree
-            }
+          if (document.getElementById(`champTexteEx0Q${i}`) && reponses && typeof reponses[`reponse${i}`] !== 'undefined') {
+            document.getElementById(`champTexteEx0Q${i}`).textContent = reponses[`reponse${i}`]
           }
         }
         let hauteurExercice = window.document.querySelector('section').scrollHeight
