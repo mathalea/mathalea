@@ -915,7 +915,7 @@ function miseAJourDuCode () {
             }
             if (event.data.score !== undefined) {
               iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score + '|' + JSON.stringify(event.data.reponses);
-              iframe.parentNode.parentNode.querySelector('[name$="_-submit"]').click();
+              iframe.parentNode.parentNode.querySelector('[name$="_-submit"]')?.click();
             }
           }
         });
