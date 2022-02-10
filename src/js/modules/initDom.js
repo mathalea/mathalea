@@ -274,6 +274,13 @@ export async function initDom () {
           if (document.getElementById(`champTexteEx0Q${i}`) && reponses && typeof reponses[`reponse${i}`] !== 'undefined') {
             document.getElementById(`champTexteEx0Q${i}`).textContent = reponses[`reponse${i}`]
           }
+          if (document.getElementById(`checkEx0Q0${i}R0`) && reponses && typeof reponses[`reponse${i}R0`] !== 'undefined') {
+            for (let j = 0 ; j < context.listeObjetsExercice[0].autoCorrection[i].propositions.length; j++) {
+              if (document.getElementById(`checkEx0Q0${i}R${j}`)) {
+                document.getElementById(`checkEx0Q0${i}R${j}`).checked = reponses[`reponse${i}R${j}`]
+              }
+            }
+          }
         }
         let hauteurExercice = window.document.querySelector('section').scrollHeight
         window.parent.postMessage({ hauteurExercice, serie: context.graine, iMoodle: new URLSearchParams(window.location.search).get('iMoodle') }, '*')
