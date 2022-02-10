@@ -914,7 +914,7 @@ function miseAJourDuCode () {
               iframe.height = hauteur.toString();
             }
             if (event.data.score !== undefined) {
-              iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score;
+              iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score + '|' + JSON.stringify(event.data.reponses);
               iframe.parentNode.parentNode.querySelector('[name$="_-submit"]').click();
             }
           }

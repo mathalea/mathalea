@@ -269,10 +269,18 @@ export async function initDom () {
     document.addEventListener('exercicesAffiches', () => {
       // Récupère la précédente saisie pour exMoodle et désactive le bouton
       if (vue === 'exMoodle') {
+        const reponses = new URLSearchParams(window.location.search).get('moodleJson')
         for (let i = 0; i < context.listeObjetsExercice[0].nbQuestions; i++) {
-          if (document.getElementById(`champTexteEx0Q${i}`) && window.sessionStorage.getItem(`reponse${i}` + context.graine)) {
-            const valeurEnregistree = window.sessionStorage.getItem(`reponse${i}` + context.graine)
-            document.getElementById(`champTexteEx0Q${i}`).textContent = valeurEnregistree
+          if (document.getElementById(`champTexteEx0Q${i}`) && (window.sessionStorage.getItem(`reponse${i}` + context.graine) !== null || reponses[`reponse${i}` + context.graine])) {
+            let valeurEnregistree
+            if (reponses && typeof reponses[`reponse${i}` + context.graine] !== 'undefined') {
+              valeurEnregistree = reponses[`reponse${i}` + context.graine]
+            } else if (window.sessionStorage.getItem(`reponse${i}` + context.graine) !== null) {
+              valeurEnregistree = window.sessionStorage.getItem(`reponse${i}` + context.graine)
+            }
+            if (valeurEnregistree !== null) {
+              document.getElementById(`champTexteEx0Q${i}`).textContent = valeurEnregistree
+            }
           }
         }
         let hauteurExercice = window.document.querySelector('section').scrollHeight

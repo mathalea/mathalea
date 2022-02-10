@@ -189,15 +189,17 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
       })
     }
     const score = scoreRetenu(nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100)
-    window.parent.postMessage({ score, hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')) }, '*')
+    const reponses = {}
     try {
       for (let i = 0; i < exercice.nbQuestions; i++) {
+        reponses[`reponse${i}` + context.graine] = document.getElementById(`champTexteEx0Q${i}`).value
         window.sessionStorage.setItem(`reponse${i}` + context.graine, document.getElementById(`champTexteEx0Q${i}`).value)
       }
       window.sessionStorage.setItem('isValide' + context.graine, true)
     } catch (error) {
       console.log('Réponse non sauvegardée')
     }
+    window.parent.postMessage({ score, hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')), reponses }, '*')
   } else {
     // Envoie un message post avec le nombre de réponses correctes
     window.parent.postMessage({ url: window.location.href, graine: context.graine, titre: exercice.titre, nbBonnesReponses: nbBonnesReponses, nbMauvaisesReponses: nbMauvaisesReponses }, '*')
