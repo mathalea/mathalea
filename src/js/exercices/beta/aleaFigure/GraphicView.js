@@ -1,8 +1,6 @@
-import { segment, polygone, tracePoint, labelPoint, point, mathalea2d, droite } from '../../../modules/2d.js'
-import { context } from '../../../modules/context.js'
 import { Cartesian } from './coordinates.js'
 import { Point, Line, Segment } from './elements.js'
-import { Group } from './group.js'
+import { getMathalea2DExport } from './getMathalea2DExport.js'
 
 /**
  * @class
@@ -34,15 +32,16 @@ export class GraphicView {
    * @returns {Group}
    */
   show (...args) {
-    const group = new Group()
+    const group = []
     args.forEach(x => {
-      if (x instanceof Group) {
-        group.addElement(...x.elements)
+      if (Array.isArray(x)) {
+        group.push(...x)
       } else {
-        group.addElement(x)
+        group.push(x)
       }
     })
-    return group.show()
+    group.forEach(x => { x.visible = true })
+    return group
   }
 
   /**
@@ -88,7 +87,7 @@ export class GraphicView {
             const nameA = a.name.split('_')
             const nameB = b.name.split('_')
             if (nameA[0] === nameB[0]) {
-              return nameA[1] - nameB[1]
+              return parseInt(nameA[1]) - parseInt(nameB[1])
             } else {
               return (-1) ** (nameA[0] > nameB[0] ? 0 : 1)
             }
@@ -100,7 +99,7 @@ export class GraphicView {
             const nameA = a.name.split('_')
             const nameB = b.name.split('_')
             if (nameA[0] === nameB[0]) {
-              return nameA[1] - nameB[1]
+              return parseInt(nameA[1]) - parseInt(nameB[1])
             } else {
               return (-1) ** (nameA[0] > nameB[0] ? 0 : 1)
             }
@@ -160,7 +159,7 @@ export class GraphicView {
    */
   addPoint (n = 1) {
     // Il faudrait donner la possibilité d'ajouter des points définis par leurs coordonnées
-    const created = []
+    const newPoints = []
     for (let i = 0; i < n; i++) {
       let obj
       do {
@@ -173,9 +172,10 @@ export class GraphicView {
       } while (this.isCloseToExistingPoints(obj) || this.isCloseToLineThroughtExistingPoints(obj))
       obj.name = obj.name || this.getNewName(obj.type)
       this.geometric.push(obj)
-      created.push(obj)
+      newPoints.push(obj)
     }
-    return created.length === 1 ? created[0] : new Group(...created)
+
+    return newPoints
   }
 
   /**
@@ -192,7 +192,7 @@ export class GraphicView {
       const point = new Point(new Cartesian(deltax / delta, deltay / delta))
       point.name = this.getNewName(point.type)
       this.geometric.push(point)
-      return point
+      return [point]
     }
   }
 
@@ -220,6 +220,7 @@ export class GraphicView {
     // if (args.every(x => x.type === 'Line')) return // distance entre deux droites
     const M = args.filter(x => x.type === 'Point')[0]
     const d = args.filter(x => x.type === 'Line')[0]
+    console.log(M.name, M.x, M.y, d.a, d.b, d.c, Math.abs(d.a * M.x + d.b * M.y - d.c) / Math.sqrt(d.a ** 2 + d.b ** 2))
     return Math.abs(d.a * M.x + d.b * M.y - d.c) / Math.sqrt(d.a ** 2 + d.b ** 2)
   }
 
@@ -259,44 +260,22 @@ export class GraphicView {
    * @param  {Line|Point,Point} args // Line or Line through two point existing or not
    * @returns {Line}
    */
-  addLine (...args) {
-    let line
-    if (!(args.length === 1 && args[0] instanceof Line)) {
-      line = new Line(...args.concat(this.addPoint(2 - args.length).elements))
-    } else {
-      line = args[0]
-    }
+  addLine (P1 = this.addPoint()[0], P2 = this.addPoint()[0]) {
+    const line = new Line(P1, P2)
     line.name = this.getNewName(line.type)
     this.geometric.push(line)
-    if (line.A === undefined) {
-      line.A = this.getExtremPointGraphicLine(line)[0]
-    }
-    if (line.B === undefined) {
-      line.B = this.getExtremPointGraphicLine(line)[1]
-    }
     return line
   }
 
   /**
    * Add a new Segment to the view with new name
-   * @param  {Segment|Point,Point} args // Segment
+   * @param  {Point,Point} args // Segment
    * @returns {Segment}
    */
-  addSegment (...args) {
-    let segment
-    if (!(args.length === 1 && args[0] instanceof Segment)) {
-      segment = new Segment(...args.concat(this.addPoint(2 - args.length)))
-    } else {
-      segment = args[0]
-    }
+  addSegment (P1 = this.addPoint()[0], P2 = this.addPoint()[0]) {
+    const segment = new Segment(P1, P2)
     segment.name = this.getNewName(segment.type)
     this.geometric.push(segment)
-    if (segment.A === undefined) {
-      segment.A = this.getExtremPointGraphicLine(segment)[0]
-    }
-    if (segment.B === undefined) {
-      segment.B = this.getExtremPointGraphicLine(segment)[1]
-    }
     return segment
   }
 
@@ -322,10 +301,10 @@ export class GraphicView {
       if (u.every(v => v !== undefined) && u[1] >= this.ymin && u[1] <= this.ymax) { extremites.push(u) }
     }
     if (extremites.length === 2) {
-      return new Group(
-        new Point(new Cartesian(...extremites[0])),
-        new Point(new Cartesian(...extremites[1]))
-      )
+      return [
+        new Point(new Cartesian(extremites[0][0], extremites[0][1])),
+        new Point(new Cartesian(extremites[1][0], extremites[1][1]))
+      ]
     } else {
       return undefined
     }
@@ -353,22 +332,21 @@ export class GraphicView {
    * @returns
    */
   addPointAligned (...args) {
-    let obj
-    let points
+    let P3, P1, P2
     do {
-      if (points !== undefined) {
+      if (P1 !== undefined) {
         for (let i = 0; i < 2 - args.length; i++) {
           this.geometric.pop()
         }
       }
-      points = args.concat(this.addPoint(2 - args.length).elements)
-      const line = new Line(...points)
-      obj = this.getNewPointBetween(...this.getExtremPointGraphicLine(line).elements)
-    } while (this.isCloseToExistingPoints(obj) || this.isCloseToLineThroughtExistingPoints(obj))
-    obj.name = obj.name || this.getNewName(obj.type)
-    points.push(obj)
-    this.geometric.push(obj)
-    return args.length === 2 ? points[2] : points
+      [P1, P2] = args.concat(this.addPoint(2 - args.length))
+      const line = new Line(P1, P2)
+      const [X1, X2] = this.getExtremPointGraphicLine(line)
+      P3 = this.getNewPointBetween(X1, X2)
+    } while (this.isCloseToExistingPoints(P3) || this.isCloseToLineThroughtExistingPoints(P3))
+    P3.name = P3.name || this.getNewName(P3.type)
+    this.geometric.push(P3)
+    return [P1, P2, P3]
   }
 
   /**
@@ -376,12 +354,12 @@ export class GraphicView {
    * @param  {Point,Point,Point} args
    * @returns
    */
-  distanceMinSidesVertices (...args) {
+  distanceMinSidesVertices (P1, P2, P3) {
     // A faire pour n'importe quel nombre de sommets ?
     return Math.min(
-      this.distance(args[0], new Line(args[1], args[2])),
-      this.distance(args[1], new Line(args[0], args[2])),
-      this.distance(args[2], new Line(args[0], args[1]))
+      this.distance(P1, new Line(P2, P3)),
+      this.distance(P2, new Line(P1, P3)),
+      this.distance(P3, new Line(P1, P2))
     )
   }
 
@@ -390,26 +368,16 @@ export class GraphicView {
    * @param  {Point,Point} args If no point we create three new points
    * @returns {Point}
    */
-  addNotAlignedPoint (...args) {
-    // Deux points maximum
+  addNotAlignedPoint (P1 = this.addPoint()[0], P2 = this.addPoint()[0], P3 = undefined) {
+    // Le troisième point est écrasé si existant
     // Réfléchir à un ensemble plus grand de points non alignés
-    let addpoints
-    if (args.length < 3) {
-      addpoints = this.addPoint(2 - args.length)
-    } else {
-      return new Group()
-    }
-    addpoints = addpoints instanceof Point ? addpoints : addpoints.elements
-    const points = args.concat(addpoints)
-    let obj
     const minDimension = Math.min(this.height, this.width) / this.getListObjectTypeSelect('Point').length / 3
     do {
-      if (obj !== undefined) this.geometric.pop()
-      obj = this.addPoint()
-    } while (this.distanceMinSidesVertices(...points, obj) < minDimension)
-    obj.name = obj.name || this.getNewName(obj.type)
-    points.push(obj)
-    return new Group(...points)
+      if (P3 !== undefined) this.geometric.pop()
+      P3 = this.addPoint()[0]
+    } while (this.distanceMinSidesVertices(P1, P2, P3) < minDimension)
+    P3.name = P3.name || this.getNewName(P3.type)
+    return [P1, P2, P3]
   }
 
   /**
@@ -417,37 +385,11 @@ export class GraphicView {
    * @param  {Point,Line|Line} args If no args we create two parallels
    * @returns {Line}
    */
-  addParallelLine (...args) {
-    const parallels = []
-    if (args.length === 0) {
-      // Deux droites parallèles au hasard
-      // On ajoute une droite
-      const line = this.addLine()
-      parallels.push(line)
-      parallels.push( // List of parallels to return
-        this.addLine( // Add the parallel to GraphicView
-          new Line(
-            line.direction,
-            this.addPoint()
-          )))
-    } else if (args.length === 1 && args[0] instanceof Line) {
-      // une droite parallèle à args[0] au hasard
-      parallels.push( // List of parallels to return
-        this.addLine( // Add the parallel to GraphicView
-          new Line(
-            this.addPoint(),
-            args[0].direction
-          )))
-    } else {
-      // une droite parallèle à une droite donnée et passant par un point
-      parallels.push( // List of parallels to return
-        this.addLine( // Add the parallel to GraphicView
-          new Line(
-            args.filter(x => x instanceof Point)[0],
-            args.filter(x => x instanceof Line)[0].direction
-          )))
-    }
-    return parallels.length === 1 ? parallels[0] : new Group(...parallels)
+  addParallelLine (P = this.addPoint()[0], line = this.addLine()) {
+    const parallel = new Line(P, line.direction)
+    parallel.name = this.getNewName(parallel.type)
+    this.geometric.push(parallel)
+    return [line, parallel]
   }
 
   /**
@@ -461,7 +403,7 @@ export class GraphicView {
       lines.push(this.addSegment(args[i], args[i + 1]))
     }
     lines.push(this.addSegment(args[args.length - 1], args[0]))
-    return new Group(...lines)
+    return lines
   }
 
   /**
@@ -469,24 +411,8 @@ export class GraphicView {
    * @param  {...any} args // 0-3 Point
    * @returns {Group}
    */
-  addParallelogram (...args) {
-    let A, B, C
-    switch (args.length) {
-      case 0: {
-        [A, B, C] = this.addNotAlignedPoint().elements
-        break
-      }
-      case 1:
-        [A, B, C] = this.addNotAlignedPoint(...args).elements
-        break
-      case 2:
-        [A, B, C] = this.addNotAlignedPoint(...args).elements
-        break
-      case 3:
-        [A, B, C] = args
-        break
-    }
-    const D = new Point(
+  addParallelogram (A = this.addPoint()[0], B = this.addPoint()[0], C = this.addNotAlignedPoint(A, B)[2], D = undefined) {
+    D = new Point(
       new Cartesian(
         A.x + C.x - B.x,
         A.y + C.y - B.y
@@ -494,11 +420,12 @@ export class GraphicView {
     )
     D.name = D.name || this.getNewName(D.type)
     this.geometric.push(D)
-    return new Group(A, B, C, D)
+    return [A, B, C, D]
   }
 
   addHomothetic (O, k, ...args) {
-    return new Group(...args.map(M => {
+    const homotheticPoints = []
+    args.map(M => {
       const point = new Point(
         new Cartesian(
           k * M.x + (1 - k) * O.x,
@@ -506,46 +433,15 @@ export class GraphicView {
         ))
       point.name = point.name || this.getNewName(point.type)
       this.geometric.push(point)
+      homotheticPoints.push(point)
       return point
-    }))
+    })
+    return homotheticPoints
   }
 
   /**
    * Export to Mathalea2D
    * @returns {Mathalea2D}
    */
-  getMathalea2DExport () {
-    const objs = []
-    for (const obj of this.geometric.filter(x => x.visible)) {
-      if (obj instanceof Point) {
-        obj.name = obj.name.split('_')
-        if (obj.name.length === 1) {
-          obj.name = obj.name[0]
-        } else {
-          obj.name = `${obj.name[0]}_{${obj.name[1]}}`
-        }
-        if (context.isHtml) obj.name = `$${obj.name}$`
-        const newPoint = point(obj.x, obj.y, obj.name, 'above')
-        objs.push(tracePoint(newPoint))
-        objs.push(labelPoint(newPoint))
-      }
-      if (obj instanceof Line && !(obj instanceof Segment)) {
-        objs.push(droite(obj.a, obj.b, -obj.c))
-      }
-      if (obj instanceof Segment) {
-        objs.push(segment(obj.A, obj.B))
-      }
-    }
-    this.resize()
-    const scaleppc = 20 / this.ppc
-    const clip = { xmin: this.xmin - scaleppc, xmax: this.xmax + scaleppc, ymin: this.ymin - scaleppc, ymax: this.ymax + scaleppc }
-    const drawClip = polygone(
-      point(clip.xmin, clip.ymin),
-      point(clip.xmax, clip.ymin),
-      point(clip.xmax, clip.ymax),
-      point(clip.xmin, clip.ymax)
-    )
-    objs.push(drawClip)
-    return mathalea2d(Object.assign({ pixelsParCm: this.ppc, scale: this.scale }, clip), objs)
-  }
+  getMathalea2DExport () { return getMathalea2DExport(this) }
 }

@@ -9,7 +9,7 @@ import { GraphicView } from './aleaFigure/GraphicView.js'
 // eslint-disable-next-line no-debugger
 debugger
 
-const nbCase = 15
+const nbCase = 16
 
 export const math = create(all)
 
@@ -26,16 +26,16 @@ export const dateDePublication = '03/02/2022' // La date de publication initiale
 function aleaThalesConfiguration () {
   // http://localhost:8080/mathalea.html?ex=betaThales,s=6
   const graphic = new GraphicView(0, 0, 6, 5)
-  const [O, A, B] = graphic.addNotAlignedPoint().elements // Trois points non alignés
+  const [O, A, B] = graphic.addNotAlignedPoint() // Trois points non alignés
   // On ajoute les droites (OB) et (AB)
   const droiteOB = graphic.addLine(O, B)
   const droiteAB = graphic.addLine(A, B)
   // M est un point de (OA)
-  const M = graphic.addPointAligned(O, A)
+  const M = graphic.addPointAligned(O, A)[2]
   // On crée une parallèle à (AB)
-  const droiteMN = graphic.addParallelLine(droiteAB, M)
+  const droiteMN = graphic.addParallelLine(M, droiteAB)[1]
   // On ajoute le point d'intersection de (OA) et (MN)
-  const N = graphic.addIntersectLine(droiteMN, droiteOB)
+  const [N] = graphic.addIntersectLine(droiteMN, droiteOB)
   graphic.show(
     O, A, B, M, N, // Les points visibles
     graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
@@ -295,7 +295,7 @@ export default function exercicesThales () {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=7
           const graphic = new GraphicView()
           graphic.dimensions = { xmin: 0, ymin: 0, xmax: 10, ymax: 7 }
-          graphic.show(...graphic.addPoint(20).elements)
+          graphic.show(...graphic.addPoint(20))
           exercice = { texte: graphic.getMathalea2DExport(), texteCorr: '' }
           break
         }
@@ -311,6 +311,16 @@ export default function exercicesThales () {
         case 9: {
           // Deux droites parallèles
           // http://localhost:8080/mathalea.html?ex=betaThales,s=9
+
+          // Une seule droite s'affiche
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=9,n=1&serie=T2K6&z=1
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=9,n=1&serie=bm8b&z=1
+
+          // Aucune droite ne s'affiche
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=9,n=1&serie=Yldw&z=1
+
+          // Une seule droite s'affiche mais tronquée
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=9,n=1&serie=KrLG&z=1
           const graphic = new GraphicView(0, 0, 10, 7)
           const parallels = graphic.addParallelLine()
           graphic.show(parallels)
@@ -321,8 +331,8 @@ export default function exercicesThales () {
           // Une sécante à deux droites
           // http://localhost:8080/mathalea.html?ex=betaThales,s=10
           const graphic = new GraphicView(0, 0, 10, 7)
-          const [A, B, C] = graphic.addNotAlignedPoint().elements
-          const D = graphic.addNotAlignedPoint(A, B).elements[2]
+          const [A, B, C] = graphic.addNotAlignedPoint()
+          const D = graphic.addNotAlignedPoint(A, B)[2]
           const dAB = graphic.addLine(A, B)
           const dAC = graphic.addLine(A, C)
           const dBD = graphic.addLine(B, D)
@@ -338,7 +348,7 @@ export default function exercicesThales () {
           // Droite verticale visible !
           // http://localhost:8080/mathalea.html?ex=betaThales,s=11
           const graphic = new GraphicView(-5, -5, 5, 5)
-          const [A, B, C] = graphic.addPoint(3).elements
+          const [A, B, C] = graphic.addPoint(3)
           A.x = 0
           B.x = 0
           const d = graphic.addLine(A, B)
@@ -363,8 +373,8 @@ export default function exercicesThales () {
           // La droite s'affiche :
           // http://localhost:8080/mathalea.html?ex=betaThales,s=12,n=1&serie=D108&z=1
           const graphic = new GraphicView(-5, -5, 5, 5)
-          const d = graphic.addLine()
-          graphic.show(d, graphic.geometric[0], graphic.geometric[1])
+          const [A, B] = graphic.addPoint(2)
+          graphic.show(A, B, graphic.addLine(A, B))
           const graph = graphic.getMathalea2DExport()
           exercice = { texte: graph, texteCorr: '' }
           break
@@ -386,18 +396,18 @@ export default function exercicesThales () {
           break
         }
         case 14 : {
-          // Parallelogramme
+          // Parallelogrammes
           // http://localhost:8080/mathalea.html?ex=betaThales,s=14,n=1&serie=1Ziy&z=1
           const graphic = new GraphicView(-5, -5, 5, 5)
-          const [A, B, C, D] = graphic.addParallelogram().elements
+          const [A, B, C, D] = graphic.addParallelogram()
           A.name = 'A'
           B.name = 'B'
           C.name = 'C'
           D.name = 'D'
-          const [E, F] = graphic.addParallelogram(A, B).elements.slice(2)
+          const [E, F] = graphic.addParallelogram(A, B).slice(2)
           E.name = 'E'
           F.name = 'F'
-          const [G] = graphic.addParallelogram(F, A, D).elements.slice(3)
+          const [G] = graphic.addParallelogram(F, A, D).slice(3)
           G.name = 'G'
           graphic.show(A, B, C, D, E, F, graphic.addSidesPolygon(A, B, C, D), graphic.addSidesPolygon(A, B, E, F), graphic.addSidesPolygon(F, A, D, G))
           const graph = graphic.getMathalea2DExport()
@@ -408,17 +418,32 @@ export default function exercicesThales () {
           // Homothetie
           // http://localhost:8080/mathalea.html?ex=betaThales,s=15,n=1&serie=1Ziy&z=1
           const graphic = new GraphicView(-5, -5, 5, 5)
-          const [A, B, C, D] = graphic.addParallelogram().elements
+          const [A, B, C, D] = graphic.addParallelogram()
           A.name = 'A'
           B.name = 'B'
           C.name = 'C'
           D.name = 'D'
-          const O = graphic.addPoint()
+          const [O] = graphic.addPoint()
           O.name = 'O'
-          const [E, F, G, H] = graphic.addHomothetic(O, -0.5, A, B, C, D).elements
+          const [E, F, G, H] = graphic.addHomothetic(O, -0.5, A, B, C, D)
           graphic.show(A, B, C, D, E, F, G, H, O, graphic.addSidesPolygon(A, B, C, D), graphic.addSidesPolygon(E, F, G, H))
           const graph = graphic.getMathalea2DExport()
           exercice = { texte: graph, texteCorr: '' }
+          break
+        }
+        case 16 : {
+          // 3 Points non alignés
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=16,n=1&serie=1Ziy&z=1
+          const graphic = new GraphicView(-5, -5, 5, 5)
+          const [A, B, C] = graphic.addNotAlignedPoint()
+          A.name = 'A'
+          B.name = 'B'
+          C.name = 'C'
+          graphic.show(A, B, C, graphic.addSidesPolygon(A, B, C))
+          let texte = `$${A.name + B.name}=${graphic.distance(A, B)}$`
+          const graph = graphic.getMathalea2DExport()
+          texte = texte + '<br>'
+          exercice = { texte: texte + graph, texteCorr: '' }
           break
         }
       }

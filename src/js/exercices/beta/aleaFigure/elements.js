@@ -1,3 +1,5 @@
+import { Cartesian } from './coordinates.js'
+
 /**
  * @class
  * @classdesc Graphic object like Point, Line, Segment etc.
@@ -55,14 +57,10 @@ export class Line extends GraphicObject {
   // Une droite sera définie par deux points distincts ou un point et une direction
   constructor (A, B) {
     super()
-    this.direction = A instanceof Vector || B instanceof Vector ? [A, B].filter(x => x instanceof Vector)[0] : undefined
-    this.a = undefined
-    this.b = undefined
-    this.c = undefined
-    this.A = this.direction !== undefined ? [A, B].filter(x => x instanceof Point)[0] : A
-    this.B = this.direction !== undefined ? undefined : B
+    this.direction = B instanceof Vector ? B : new Vector(B.x - A.x, B.y - A.y)
+    this.A = A
+    this.B = B instanceof Point ? B : new Point(new Cartesian(A.x + B.b, A.y + B.b))
     this.getEquation()
-    this.name = undefined
     this.type = 'Line'
   }
 
@@ -90,16 +88,9 @@ export class Line extends GraphicObject {
      * @param {Object} B // type = Point
      */
   getEquation () {
-    if (this.direction instanceof Vector) {
-      this.a = this.direction.a
-      this.b = this.direction.b
-      this.c = this.a * this.A.x + this.b * this.A.y
-    } else {
-      this.a = this.B.y - this.A.y
-      this.b = this.A.x - this.B.x
-      this.c = this.A.x * this.B.y - this.B.x * this.A.y
-      this.direction = new Vector(this.a, this.b)
-    }
+    this.a = -this.direction.b
+    this.b = this.direction.a
+    this.c = this.a * this.A.x + this.b * this.A.y
   }
 }
 
