@@ -51,6 +51,8 @@ if (typeof window.iMathAlea === 'undefined') {
         questionDiv = questionDiv.parentNode
       }
 
+      questionDiv.classList.add('mathalea-question-type')
+
       let answer
       const addIframe = () => {
         iframe.setAttribute('width', '100%')
