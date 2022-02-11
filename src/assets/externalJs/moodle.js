@@ -11,7 +11,7 @@ if (typeof window.iMathAlea === 'undefined') {
       let hauteur = event.data.hauteurExercice
       if (typeof hauteur !== 'undefined') {
         hauteur += 50
-        iframe.height = hauteur.toString()
+        iframe.setAttribute('height', hauteur.toString())
       }
       if (event.data.score !== undefined) {
         iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score + '|' + JSON.stringify(event.data.reponses)
@@ -62,6 +62,7 @@ if (typeof window.iMathAlea === 'undefined') {
       }
 
       const iframe = document.createElement('iframe')
+      this.iframe = iframe
       window.iMathAlea.push(this)
 
       if (questionDiv.classList.contains('notyetanswered')) {
@@ -82,6 +83,12 @@ if (typeof window.iMathAlea === 'undefined') {
     connectedCallback () {
       // Différent de constructor si l'élément est créé avec createElement
     }
+
+    attributeChangedCallback (name, oldValue, newValue) {
+      name === 'height' && (this.iframe.height = newValue)
+    }
+
+    static get observedAttributes () { return ['height'] }
   }
 
   // Define the new element
