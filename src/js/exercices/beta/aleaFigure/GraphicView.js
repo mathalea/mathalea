@@ -146,10 +146,10 @@ export class GraphicView {
   getNewName (typeSelect = 'Point') {
     switch (typeSelect) {
       case 'Point':
-        return this.getLastNameNotUsed(typeSelect)
+        return [this.getLastNameNotUsed(typeSelect)]
       case 'Segment':
       case 'Line':
-        return this.getLastNameNotUsed(typeSelect)
+        return [this.getLastNameNotUsed(typeSelect)]
     }
   }
 
@@ -170,7 +170,7 @@ export class GraphicView {
           )
         )
       } while (this.isCloseToExistingPoints(obj) || this.isCloseToLineThroughtExistingPoints(obj))
-      obj.name = obj.name || this.getNewName(obj.type)
+      obj.name = this.getNewName(obj.type)
       this.geometric.push(obj)
       newPoints.push(obj)
     }
@@ -220,7 +220,6 @@ export class GraphicView {
     // if (args.every(x => x.type === 'Line')) return // distance entre deux droites
     const M = args.filter(x => x.type === 'Point')[0]
     const d = args.filter(x => x.type === 'Line')[0]
-    console.log(M.name, M.x, M.y, d.a, d.b, d.c, Math.abs(d.a * M.x + d.b * M.y - d.c) / Math.sqrt(d.a ** 2 + d.b ** 2))
     return Math.abs(d.a * M.x + d.b * M.y - d.c) / Math.sqrt(d.a ** 2 + d.b ** 2)
   }
 
@@ -443,5 +442,8 @@ export class GraphicView {
    * Export to Mathalea2D
    * @returns {Mathalea2D}
    */
-  getMathalea2DExport () { return getMathalea2DExport(this) }
+  getMathalea2DExport (...args) {
+    this.show(...args)
+    return getMathalea2DExport(this)
+  }
 }

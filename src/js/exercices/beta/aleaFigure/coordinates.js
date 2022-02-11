@@ -3,10 +3,6 @@
  * @class for coordinates
  */
 export class Coordinates {
-  constructor (...args) {
-    this.coordinates = args
-  }
-
   getCartesianCoordinates () {
     if (this instanceof Cartesian) {
       return this

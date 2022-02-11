@@ -5,11 +5,13 @@ import { polygone, labelPoint, homothetie, point, rotation, mathalea2d, droite }
 import { create, all } from 'mathjs'
 import { aleaVariables, toTex, resoudre, aleaExpression, aleaName } from '../../modules/outilsMathjs.js'
 import { GraphicView } from './aleaFigure/GraphicView.js'
+import { Grandeur } from './aleaFigure/grandeurs.js'
+import { Line, Segment } from './aleaFigure/elements.js'
 
 // eslint-disable-next-line no-debugger
 debugger
 
-const nbCase = 16
+const nbCase = 17
 
 export const math = create(all)
 
@@ -18,6 +20,32 @@ export const titre = 'aleaFigure'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '03/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '08/01/2022' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+
+/*
+function n(s, ...p) {
+    console.log(arguments)
+    p = p.map((x, k) => s[k] + (typeof x === 'number' ? parseFloat(x.toFixed(16)) : x));
+    console.log(p)
+    return p.join('') + s[s.length - 1];
+}
+n`J'ai ${0.1 + 0.2} éléphants et trois ${chat} incroyables`
+*/
+
+function formatTex (s, ...p) {
+  console.log(arguments)
+  p = p.map((x, k) => {
+    if (x instanceof Grandeur) {
+      return s[k] + x.toTex
+    } else if (x instanceof Line) {
+      return s[k] + `(${x.name})`
+    } else if (x instanceof Segment) {
+      return s[k] + `[${x.name}]`
+    } else {
+      return x
+    }
+  })
+  return p.join('') + s[s.length - 1]
+}
 
 /**
  * Create a configuration of Thales in a given graphic view
@@ -440,8 +468,56 @@ export default function exercicesThales () {
           B.name = 'B'
           C.name = 'C'
           graphic.show(A, B, C, graphic.addSidesPolygon(A, B, C))
-          let texte = `$${A.name + B.name}=${graphic.distance(A, B)}$`
+          const AB = new Grandeur(A.name + B.name, graphic.distance(A, B), 2, 'cm')
+          let texte = formatTex`$${AB}$`
           const graph = graphic.getMathalea2DExport()
+          texte = texte + '<br>'
+          exercice = { texte: texte + graph, texteCorr: '' }
+          break
+        }
+        case 17 : {
+          // Thalès
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=17,n=1&serie=1Ziy&z=1&v=ex
+          const graphic = new GraphicView(-5, -5, 5, 5)
+          const [O, A, B] = graphic.addNotAlignedPoint() // Trois points non alignés
+          // On ajoute les droites (OB) et (AB)
+          const dOB = graphic.addLine(O, B)
+          const dAB = graphic.addLine(A, B)
+          // M est un point de (OA)
+          const M = graphic.addPointAligned(O, A)[2]
+          // On crée une parallèle à (AB)
+          const dMN = graphic.addParallelLine(M, dAB)[1]
+          // On ajoute le point d'intersection de (OA) et (MN)
+          const [N] = graphic.addIntersectLine(dMN, dOB)
+          O.name = ['O']
+          A.name = ['A']
+          B.name = ['B']
+          M.name = ['M']
+          N.name = ['N']
+          dAB.name = [A, B]
+          const OA = new Grandeur(O.name + A.name, graphic.distance(O, A), 1, 'cm')
+          const k = new Grandeur('k', graphic.distance(O, M) / graphic.distance(O, A), 1)
+          const OM = OA.multiply(k)
+          OM.name = 'OM'
+          const OB = new Grandeur(O.name + B.name, graphic.distance(O, B), 1, 'cm')
+          const ON = OB.multiply(k)
+          ON.name = 'ON'
+          const graph = graphic.getMathalea2DExport(
+            O, A, B, M, N,
+            graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
+            graphic.addSidesPolygon(O, M, N)
+          )
+          let texte = formatTex`
+          Les droites ${dAB} et ${dMN} sont parallèles.
+          <br>
+          On a ${OA}, ${OM} et ${OB}.
+          <br>
+          Calculer ${O.name + N.name}.
+          <br>
+          ...
+          <br>
+          Donc ${ON} (et ${k}).
+          `
           texte = texte + '<br>'
           exercice = { texte: texte + graph, texteCorr: '' }
           break

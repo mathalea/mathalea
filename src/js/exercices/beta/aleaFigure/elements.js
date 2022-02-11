@@ -1,4 +1,5 @@
 import { Cartesian } from './coordinates.js'
+import { aleaName } from '../../../modules/outilsMathjs.js'
 
 /**
  * @class
@@ -7,7 +8,22 @@ import { Cartesian } from './coordinates.js'
 export class GraphicObject {
   constructor () {
     this.visible = false
+    this.name = ''
   }
+
+  set name (name) {
+    if (name !== undefined && (typeof name !== 'string')) {
+      this._name = aleaName(name.map(x => {
+        if (x instanceof GraphicObject) {
+          return x.name
+        } else {
+          return x
+        }
+      }), name.length).join('')
+    }
+  }
+
+  get name () { return this._name }
 }
 
 /**

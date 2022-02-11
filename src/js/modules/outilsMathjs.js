@@ -1305,7 +1305,7 @@ export function aleaName (names = [], n = names.length, result = []) {
   }
   result.push(names.splice(Math.floor(Math.random() * names.length), 1)[0])
   if (result.length === n) {
-    return result.length === 1 ? result[0] : result
+    return result
   } else {
     return aleaName(names, n, result)
   }

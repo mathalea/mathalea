@@ -30,5 +30,5 @@ export function getMathalea2DExport (graphic) {
     point(clip.xmin, clip.ymax)
   )
   objs.push(drawClip)
-  return mathalea2d(Object.assign({ pixelsParCm: graphic.ppc, scale: graphic.scale }, clip), objs)
+  return mathalea2d(Object.assign({ mainlevee: false, pixelsParCm: graphic.ppc, scale: graphic.scale }, clip), objs)
 }
