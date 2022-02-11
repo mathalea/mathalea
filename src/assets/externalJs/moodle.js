@@ -30,7 +30,11 @@ if (typeof window.iMathAlea === 'undefined') {
       // Always call super first in constructor
       super()
 
-      const SERVEUR_URL = new URL('../..', document.currentScript?.src || import.meta.url).href // ou origin + pathname
+      // Si l'attribut serveur est défini, on l'utilise (url non vérifiée / sécurisée)
+      // Sinon on utilise l'url du script actuel récupérée soit via
+      // document.currentScript si le fichier n'est pas appelé en mode module
+      // import.meta.url si le fichier appelé en mode module
+      const SERVEUR_URL = this.getAttribute('serveur') || new URL('../..', document.currentScript?.src || import.meta.url).href // ou origin + pathname
 
       const shadow = this.attachShadow({ mode: 'open' }) // this.shadowRoot
 
@@ -51,7 +55,7 @@ if (typeof window.iMathAlea === 'undefined') {
       const addIframe = () => {
         iframe.setAttribute('width', '100%')
         iframe.setAttribute('height', '400')
-        iframe.setAttribute('src', SERVEUR_URL + 'mathalea.html?ex=' + this.getAttribute('ex') + '&v=' + (this.getAttribute('correction') === null ? 'exMoodle' : 'correctionMoodle') + '&z=1&iMoodle=' + iMoodle + '&serie=' + questionSeed + (typeof answer !== 'undefined' ? '&moodleJson=' + answer : ''))
+        iframe.setAttribute('src', SERVEUR_URL + '/mathalea.html?ex=' + this.getAttribute('ex') + '&v=' + (this.getAttribute('correction') === null ? 'exMoodle' : 'correctionMoodle') + '&z=1&iMoodle=' + iMoodle + '&serie=' + questionSeed + (typeof answer !== 'undefined' ? '&moodleJson=' + answer : ''))
         iframe.setAttribute('frameBorder', '0')
         iframe.setAttribute('allow', 'fullscreen')
         shadow.appendChild(iframe)
