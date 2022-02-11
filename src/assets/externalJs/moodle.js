@@ -19,8 +19,30 @@ if (typeof window.iMathAlea === 'undefined') {
   const style = document.createElement('style')
   style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls, .mathalea-question-type .rightanswer { display: none; }'
   document.head.appendChild(style)
+
+  // Create a class for the element
+  class MathALeaMoodle extends HTMLElement {
+    constructor () {
+      // Always call super first in constructor
+      super()
+
+      const SERVEUR_URL = new URL('../..', document.currentScript.src).href // ou origin + pathname
+      // Create a shadow root
+      const shadow = this.attachShadow({ mode: 'open' })
+
+      // Take attribute content and put it inside the info span
+      const text = this.getAttribute('data-text')
+      info.textContent = text
+
+      shadow.appendChild()
+    }
+  }
+
+  // Define the new element
+  customElements.define('mathalea-moodle', MathALeaMoodle)
 }
 
+/*
 const currentScript = document.currentScript
 const iMoodle = window.iMathAlea.length
 let questionSeed = ''
@@ -59,3 +81,4 @@ if (questionDiv.classList.contains('notyetanswered')) {
     addIframe()
   })
 }
+*/
