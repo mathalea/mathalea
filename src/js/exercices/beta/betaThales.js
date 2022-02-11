@@ -495,6 +495,7 @@ export default function exercicesThales () {
           M.name = ['M']
           N.name = ['N']
           dAB.name = [A, B]
+          dMN.name = [M, N]
           const OA = new Grandeur(O.name + A.name, graphic.distance(O, A), 1, 'cm')
           const k = new Grandeur('k', graphic.distance(O, M) / graphic.distance(O, A), 1)
           const OM = OA.multiply(k)
