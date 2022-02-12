@@ -36,7 +36,16 @@ if (typeof window.iMathAlea === 'undefined') {
       // Sinon on utilise l'url du script actuel récupérée soit via
       // document.currentScript si le fichier n'est pas appelé en mode module
       // import.meta.url si le fichier appelé en mode module
-      const SERVEUR_URL = this.getAttribute('serveur') || new URL('../..', document.currentScript?.src || import.meta.url).href // ou origin + pathname
+      let SERVEUR_URL
+      try {
+        SERVEUR_URL = new URL('../..', this.getAttribute('serveur') || document.currentScript?.src || import.meta.url) // ou origin + pathname
+        if (SERVEUR_URL.protocol !== 'http:' && SERVEUR_URL.protocol !== 'https:') {
+          throw new Error('Le serveur doit avoir un protocol en http ou https')
+        }
+        SERVEUR_URL = SERVEUR_URL.href
+      } catch (e) {
+        SERVEUR_URL = 'data:text,' + e
+      }
 
       const shadow = this.attachShadow({ mode: 'open' }) // this.shadowRoot
 
