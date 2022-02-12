@@ -72,7 +72,7 @@ if (typeof window.iMathAlea === 'undefined') {
         addIframe()
       } else {
         // L'élève a répondu, on attend que la page charge pour récupérer ses réponses
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => { // facultatif si le fichier est importé en mode module car l'exécution du script est deferred
           answer = questionDiv.querySelector('[name$="_answer"]').value
           answer = answer.substring(answer.indexOf('|') + 1)
           addIframe()
