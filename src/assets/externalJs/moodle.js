@@ -26,11 +26,15 @@ if (typeof window.iMathAlea === 'undefined') {
 
   // Create a class for the element
   class MathALeaMoodle extends HTMLElement {
-    /* constructor () {
+    /*
+    // Appelé lors de la création de l'élément
+    constructor () {
       // Always call super first in constructor
       super()
-    } */
+    }
+    */
 
+    // Appelé lorsque l'élément est inséré dans le DOM
     connectedCallback () {
       // Si l'attribut serveur est défini, on l'utilise (url non vérifiée / sécurisée)
       // Sinon on utilise l'url du script actuel récupérée soit via
