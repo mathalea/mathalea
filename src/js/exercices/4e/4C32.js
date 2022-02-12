@@ -1,4 +1,4 @@
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, scientifiqueToDecimal, sp, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, scientifiqueToDecimal, sp, stringNombre, texNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 
@@ -79,7 +79,7 @@ export default function NotationScientifique () {
       }
       reponse = calcul(mantisse * 10 ** exp)
       // decimalstring = texNombrec(mantisse * 10 ** exp)
-      scientifiquestring = `${stringNombre(mantisse)}\\times 10^{${exp}}`
+      scientifiquestring = `${texNombre(mantisse)}\\times 10^{${exp}}`
       decimalstring = scientifiqueToDecimal(mantisse, exp)
 
       if (this.sup === 1) {
