@@ -59,7 +59,7 @@ if (typeof window.iMathAlea === 'undefined') {
       const addIframe = () => {
         iframe.setAttribute('width', '100%')
         iframe.setAttribute('height', '400')
-        iframe.setAttribute('src', SERVEUR_URL + '/mathalea.html?ex=' + this.getAttribute('ex') + '&v=' + (this.getAttribute('correction') === null ? 'exMoodle' : 'correctionMoodle') + '&z=1&iMoodle=' + iMoodle + '&serie=' + questionSeed + (typeof answer !== 'undefined' ? '&moodleJson=' + answer : ''))
+        iframe.setAttribute('src', SERVEUR_URL + '/mathalea.html?ex=' + this.getAttribute('ex') + ',i=1&v=' + (this.getAttribute('correction') === null ? 'exMoodle' : 'correctionMoodle') + '&z=1&iMoodle=' + iMoodle + '&serie=' + questionSeed + (typeof answer !== 'undefined' ? '&moodleJson=' + answer : ''))
         iframe.setAttribute('frameBorder', '0')
         iframe.setAttribute('allow', 'fullscreen')
         shadow.appendChild(iframe)
