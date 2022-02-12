@@ -26,10 +26,12 @@ if (typeof window.iMathAlea === 'undefined') {
 
   // Create a class for the element
   class MathALeaMoodle extends HTMLElement {
-    constructor () {
+    /* constructor () {
       // Always call super first in constructor
       super()
+    } */
 
+    connectedCallback () {
       // Si l'attribut serveur est défini, on l'utilise (url non vérifiée / sécurisée)
       // Sinon on utilise l'url du script actuel récupérée soit via
       // document.currentScript si le fichier n'est pas appelé en mode module
@@ -80,10 +82,6 @@ if (typeof window.iMathAlea === 'undefined') {
       }
 
       shadow.appendChild(iframe)
-    }
-
-    connectedCallback () {
-      // Différent de constructor si l'élément est créé avec createElement
     }
 
     attributeChangedCallback (name, oldValue, newValue) {
