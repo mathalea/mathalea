@@ -6,7 +6,7 @@ import { create, all } from 'mathjs'
 import { aleaVariables, toTex, resoudre, aleaExpression, aleaName } from '../../modules/outilsMathjs.js'
 import { GraphicView } from './aleaFigure/GraphicView.js'
 import { Grandeur } from './aleaFigure/grandeurs.js'
-import { Line, Segment } from './aleaFigure/elements.js'
+import { Line, Segment, Vector } from './aleaFigure/elements.js'
 
 // eslint-disable-next-line no-debugger
 debugger
@@ -491,51 +491,67 @@ export default function exercicesThales () {
           // On ajoute le point d'intersection de (OA) et (MN)
           const [N] = graphic.addIntersectLine(dMN, dOB) // C'est un tableau pour prévoir l'intersection de cercles par exemple
           // On commence par nommer les points et les droites
-          O.name = ['O']
-          A.name = ['A']
-          B.name = ['B']
-          M.name = ['M']
-          N.name = ['N']
-          // On nomme les droites à partir des noms des points (nommage au hasard à l'aide de aleaName)
-          dAB.name = [A, B]
-          dMN.name = [M, N]
+          const aleaNames = aleaName(5) // Nommage aléatoire des points
+          const points = [O, A, B, M, N]
+          points.forEach((x, i) => { x.name = aleaNames[i] })
+          // On nomme les droites à partir des noms des points
+          dAB.name = A.name + B.name // L'ordre des lettres est conservé
+          dMN.aleaName(M, N) // L'ordre des lettres est aléatoirisé
           // On définit deux grandeurs en imposant un nombre de décimales
           const OA = new Grandeur(O.name + A.name, graphic.distance(O, A), 1, 'cm')
           const k = new Grandeur('k', graphic.distance(O, M) / graphic.distance(O, A), 1)
           const OB = new Grandeur(O.name + B.name, graphic.distance(O, B), 1, 'cm')
-          // On effectue le calcul pour OM à partir des grandeurs définies et non à partir des mesures
-          // puisque des arrondis ont été effectués
+          // On effectue le calcul pour OM à partir des grandeurs définies et non à partir des mesures de la figure
+          // Ceci afin d'éviter les valeurs non décimales.
           const OM = OA.multiply(k)
-          // OM porte le nom de sont calcul à savoir OA * k
+          // OM porte le nom du calcul qui a permis de l'obtenir à savoir OA * k
           // On le renomme pour la suite
-          OM.name = 'OM'
+          OM.aleaName(O, M)
           // Même chose avec ON
-          const ON = OB.multiply(k)
-          ON.name = 'ON'
+          const ON = OB.multiply(OM).divide(OA)
+          ON.aleaName(O, N)
+          // Calculer le périmètre
+          const AB = new Grandeur(A.name + B.name, graphic.distance(A, B), 1, 'cm')
+          const p = OA.add(AB).add(OB)
+          p.name = 'p'
           // Un exemple d'utilisation de grandeur produit
           const aire = OA.multiply(OB)
-          // Un exemple d'opération avec les grandeurs
-          const calculs = OB.multiply(OM).divide(OA)
+          // Exemple d'un vecteur créé à partir de deux points
+          const vO = new Vector(O.x, O.y)
+          const vA = new Vector(A.x, A.y)
+          const vM = new Vector(M.x, M.y)
+          // const vOA = vA.sub(vO)
+          // const vOM = vM.sub(vO)
           // On définit les éléments à afficher sur la figure
           const graph = graphic.getMathalea2DExport(
             O, A, B, M, N,
             graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
             graphic.addSidesPolygon(O, M, N)
           )
-          // Le texte fait appel au nom des objets ou des grandeurs à l'aide de la propriété .name
-          // Il fait aussi appel au valeurs des grandeurs à l'aide de la propriété .nameAndValue
+          // ObjetGarphic.name donne le nom en fonction de la nature de l'objet (droite, segment, point)
+          // Grandeur.name donne le nom qu'on lui a affecté à sa création ou bien l'ensemble des calculs qui ont prmis de l'obtenir ou encore le nom qu'on lui a affecté
+          // Grandeur.nameAndValue donne un format latex de la forme k = 1.5 cm par exemple
+          // Grandeur.calcul donne une chaine de caractère avec les calculs au format string
           let texte = `
           Les droites $(${dAB.name}$) et $(${dMN.name})$ sont parallèles.
           <br>
-          On a ${OA.nameAndValue}, ${OM.nameAndValue} et ${OB.nameAndValue}.
-          <br>
           Calculer $${ON.name}$.
           <br>
-          $${toTex(calculs.name)}$
+          $${toTex(aire.calcul)}$
           <br>
-          Donc ${ON.nameAndValue} (et ${k.nameAndValue}).
+          $${toTex(`${OA.name} = ${OA.toFixed}${OA.unit}`)}$
           <br>
-          $${toTex(aire.name)}$
+          $${toTex(`${OB.name} = ${OB.toFixed}${OB.unit}`)}$
+          <br>
+          $${toTex(`${OM.name} = ${OM.toFixed}${OM.unit}`)}$
+          <br>
+          $${toTex(`${ON.name} = ${ON.calcul}`)}$
+          <br>
+          $${toTex(`${ON.name} = ${ON.toFixed}${ON.unit}`)}$
+          <br>
+          $${toTex(`${p.name} = ${p.calcul}`)}$
+          <br>
+          $${toTex(`${p.name} = ${p.toFixed}${p.unit}`)}$
           `
           texte = texte + '<br>'
           exercice = { texte: texte + graph, texteCorr: '' }

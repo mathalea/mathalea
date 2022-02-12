@@ -146,10 +146,10 @@ export class GraphicView {
   getNewName (typeSelect = 'Point') {
     switch (typeSelect) {
       case 'Point':
-        return [this.getLastNameNotUsed(typeSelect)]
+        return this.getLastNameNotUsed(typeSelect)
       case 'Segment':
       case 'Line':
-        return [this.getLastNameNotUsed(typeSelect)]
+        return this.getLastNameNotUsed(typeSelect)
     }
   }
 
