@@ -32,7 +32,7 @@ n`J'ai ${0.1 + 0.2} éléphants et trois ${chat} incroyables`
 */
 
 function formatTex (s, ...p) {
-  console.log(arguments)
+  console.log(p)
   p = p.map((x, k) => {
     if (x instanceof Grandeur) {
       return s[k] + x.toTex
@@ -47,6 +47,7 @@ function formatTex (s, ...p) {
   return p.join('') + s[s.length - 1]
 }
 
+formatTex('')
 /**
  * Create a configuration of Thales in a given graphic view
  * @returns
@@ -484,40 +485,57 @@ export default function exercicesThales () {
           const dOB = graphic.addLine(O, B)
           const dAB = graphic.addLine(A, B)
           // M est un point de (OA)
-          const M = graphic.addPointAligned(O, A)[2]
+          const M = graphic.addPointAligned(O, A)[2] // C'est le troisième point de la sortie addPointAligned
           // On crée une parallèle à (AB)
-          const dMN = graphic.addParallelLine(M, dAB)[1]
+          const dMN = graphic.addParallelLine(M, dAB)[1] // C'est la seconde parallèle de addParalleleLine
           // On ajoute le point d'intersection de (OA) et (MN)
-          const [N] = graphic.addIntersectLine(dMN, dOB)
+          const [N] = graphic.addIntersectLine(dMN, dOB) // C'est un tableau pour prévoir l'intersection de cercles par exemple
+          // On commence par nommer les points et les droites
           O.name = ['O']
           A.name = ['A']
           B.name = ['B']
           M.name = ['M']
           N.name = ['N']
+          // On nomme les droites à partir des noms des points (nommage au hasard à l'aide de aleaName)
           dAB.name = [A, B]
           dMN.name = [M, N]
+          // On définit deux grandeurs en imposant un nombre de décimales
           const OA = new Grandeur(O.name + A.name, graphic.distance(O, A), 1, 'cm')
           const k = new Grandeur('k', graphic.distance(O, M) / graphic.distance(O, A), 1)
-          const OM = OA.multiply(k)
-          OM.name = 'OM'
           const OB = new Grandeur(O.name + B.name, graphic.distance(O, B), 1, 'cm')
+          // On effectue le calcul pour OM à partir des grandeurs définies et non à partir des mesures
+          // puisque des arrondis ont été effectués
+          const OM = OA.multiply(k)
+          // OM porte le nom de sont calcul à savoir OA * k
+          // On le renomme pour la suite
+          OM.name = 'OM'
+          // Même chose avec ON
           const ON = OB.multiply(k)
           ON.name = 'ON'
+          // Un exemple d'utilisation de grandeur produit
+          const aire = OA.multiply(OB)
+          // Un exemple d'opération avec les grandeurs
+          const calculs = OB.multiply(OM).divide(OA)
+          // On définit les éléments à afficher sur la figure
           const graph = graphic.getMathalea2DExport(
             O, A, B, M, N,
             graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
             graphic.addSidesPolygon(O, M, N)
           )
-          let texte = formatTex`
-          Les droites ${dAB} et ${dMN} sont parallèles.
+          // Le texte fait appel au nom des objets ou des grandeurs à l'aide de la propriété .name
+          // Il fait aussi appel au valeurs des grandeurs à l'aide de la propriété .nameAndValue
+          let texte = `
+          Les droites $(${dAB.name}$) et $(${dMN.name})$ sont parallèles.
           <br>
-          On a ${OA}, ${OM} et ${OB}.
+          On a ${OA.nameAndValue}, ${OM.nameAndValue} et ${OB.nameAndValue}.
           <br>
-          Calculer ${O.name + N.name}.
+          Calculer $${ON.name}$.
           <br>
-          ...
+          $${toTex(calculs.name)}$
           <br>
-          Donc ${ON} (et ${k}).
+          Donc ${ON.nameAndValue} (et ${k.nameAndValue}).
+          <br>
+          $${toTex(aire.name)}$
           `
           texte = texte + '<br>'
           exercice = { texte: texte + graph, texteCorr: '' }
