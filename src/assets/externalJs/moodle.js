@@ -8,7 +8,7 @@ if (typeof window.iMathAlea === 'undefined') {
   window.addEventListener('message', (event) => {
     if (typeof event.data.iMoodle === 'number' && typeof window.iMathAlea[event.data.iMoodle] !== 'undefined') {
       const iframe = window.iMathAlea[event.data.iMoodle]
-      let hauteur = event.data.hauteurExercice || event.data.hauteurExerciceCorrection
+      const hauteur = event.data.hauteurExercice || event.data.hauteurExerciceCorrection
       if (typeof hauteur !== 'undefined') {
         // hauteur += 50
         iframe.setAttribute('height', hauteur.toString())
