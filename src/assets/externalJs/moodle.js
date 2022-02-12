@@ -1,4 +1,5 @@
 if (typeof window.iMathAlea === 'undefined') {
+  alert(42)
   // Normalement ce script ne devrait être chargé qu'une unique fois car appelé en module
   // On vérifie tout de même au cas où que le fichier ne soit pas appelé en module
   // Ou que l'on appelle des fichiers depuis des serveurs différents
@@ -67,7 +68,7 @@ if (typeof window.iMathAlea === 'undefined') {
       }
 
       if (questionDiv === null) {
-        shadow.appendChild(document.createTextNode('[EXERCICE MATHALEA]'))
+        shadow.appendChild(document.createTextNode('[Erreur de détection de la l’environnement moodle]'))
         return
       }
 
