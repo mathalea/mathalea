@@ -1,5 +1,4 @@
 if (typeof window.iMathAlea === 'undefined') {
-  alert(42)
   // Normalement ce script ne devrait être chargé qu'une unique fois car appelé en module
   // On vérifie tout de même au cas où que le fichier ne soit pas appelé en module
   // Ou que l'on appelle des fichiers depuis des serveurs différents
@@ -61,7 +60,7 @@ if (typeof window.iMathAlea === 'undefined') {
       // On remonte de parent en parent depuis la balise script jusqu'à trouver le div avec le numero de la question en id
       while (questionDiv !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
         if (typeof questionDiv.id === 'string' && questionDiv.id.startsWith('question-')) {
-          questionSeed = questionDiv.id
+          questionSeed = this.getAttribute('graine') || questionDiv.id
           break // la seed a été trouvée
         }
         questionDiv = questionDiv.parentNode
