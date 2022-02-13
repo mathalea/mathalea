@@ -16,7 +16,7 @@ export const dateDeModifImportante = '08/02/2022' // Une date de modification im
 export default function ConversionHeuresDecimalesMinutes () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.tailleDiaporama = 3
+  this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

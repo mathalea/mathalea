@@ -42,7 +42,7 @@ export default function HeuresFractionHeuresMinutes2 () {
 
         case 2 :
 
-          a = choice([1, 2, 3, 5, 6, 7, 10, 11, 12, 13, 15, 20, 30, 45, 25, 40, 50, 55])
+          a = choice([1, 2, 3, 5, 6, 7, 10, 11, 12, 13, 15, 20, 30, 35, 45, 25, 40, 50, 55])
 
           if (!this.interactif) {
             texte = `Compléter par une fraction irréductible : <br>$${a}$ min  $=$ ..... h`
