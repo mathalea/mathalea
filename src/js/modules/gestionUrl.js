@@ -188,12 +188,16 @@ export function getUrlSearch () {
 /**
  * Met à jour l'URL avec la vue et le userId s'ils sont connus
  */
-export function setUrl () {
-  if (context.aGarderDansHistorique) {
-    window.history.pushState('', '', getUrlSearch())
-    context.aGarderDansHistorique = false
-  } else {
-    window.history.replaceState('', '', getUrlSearch())
+export function setUrl (fonctionAppelante) {
+  try {
+    if (context.aGarderDansHistorique) {
+      window.history.pushState('', '', getUrlSearch())
+      context.aGarderDansHistorique = false
+    } else {
+      window.history.replaceState('', '', getUrlSearch())
+    }
+  } catch (error) {
+    window.notify(`erreur dans setUrl appelée par ${fonctionAppelante}`, { ...window.history })
   }
 }
 

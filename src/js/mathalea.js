@@ -437,7 +437,7 @@ function miseAJourDuCode () {
   // Appelée dès lors que l'on a une modification sur l'affichage d'un ou plusieurs exercices
   //    suppression d'un exercice, nouvelle donnée, changement de paramètre...)
   // C'est dans cette fonction que l'on va executer les this.nouvelleVersion des exercices.
-  setUrl()
+  setUrl('miseAjourDuCode')
   context.listeObjetsExercice = listeObjetsExercice
 
   // Active ou désactive l'icone de la course aux nombres
@@ -610,8 +610,12 @@ function miseAJourDuCode () {
       }
       if (context.vue === 'exMoodle' || context.vue === 'correctionMoodle') {
         const iMoodle = new URLSearchParams(window.location.search).get('iMoodle')
-        if (typeof iMoodle !== 'undefined') {
+        if (iMoodle !== null) {
           finUrl += `&iMoodle=${iMoodle}`
+        }
+        const moodleJson = new URLSearchParams(window.location.search).get('moodleJson')
+        if (moodleJson !== null) {
+          finUrl += `&moodleJson=${moodleJson}`
         }
       }
       window.history.replaceState('', '', finUrl)
@@ -914,40 +918,61 @@ function miseAJourDuCode () {
               iframe.height = hauteur.toString();
             }
             if (event.data.score !== undefined) {
-              iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score;
-              iframe.parentNode.parentNode.querySelector('[name$="_-submit"]').click();
+              iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score + '|' + JSON.stringify(event.data.reponses);
+              iframe.parentNode.parentNode.querySelector('[name$="_-submit"]')?.click();
             }
           }
         });
 
         style = document.createElement('style');
-        style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls { display: none; }';
+        style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls, .mathalea-question-type .rightanswer { display: none; }';
         document.head.appendChild(style);
         }`
 
-        const moodleSearchSeed = /* javascript */ `
+        const moodleSearchQuestionDiv = /* javascript */ `
+
+        let currentScript = document.currentScript;
+        let iMoodle = window.iMathAlea.length;
+        let questionSeed = '';
+
+        let questionDiv = currentScript;
         // On remonte de parent en parent depuis la balise script jusqu'à trouver le div avec le numero de la question en id
-        searchSeed = document.currentScript;
-        while(searchSeed !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
-          if(typeof searchSeed.id === 'string' && searchSeed.id.startsWith('question-')) {
-            searchSeed = searchSeed.id;
+        while(questionDiv !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
+          if(typeof questionDiv.id === 'string' && questionDiv.id.startsWith('question-')) {
+            questionSeed = questionDiv.id;
             break; // la seed a été trouvée
           }
-          searchSeed = searchSeed.parentNode;
+          questionDiv = questionDiv.parentNode;
         }
         `
 
         const moodleCreateIframe = function (url) {
           return /* javascript */ `
-          iframe = document.createElement('iframe');
-          iframe.setAttribute('width', '100%');
-          iframe.setAttribute('height', '400');
-          iframe.setAttribute('src', '${url}' + '&iMoodle=' + window.iMathAlea.length + '&serie=' + searchSeed);
-          iframe.setAttribute('frameBorder', '0');
-          iframe.setAttribute('allow', 'fullscreen');
-          document.currentScript.parentNode.insertBefore(iframe, document.currentScript);
 
+          let answer
+          let addIframe = () => {
+            iframe.setAttribute('width', '100%');
+            iframe.setAttribute('height', '400');
+            iframe.setAttribute('src', '${url}' + '&iMoodle=' + iMoodle + '&serie=' + questionSeed + (typeof answer !== 'undefined' ? '&moodleJson=' + answer : ''));
+            iframe.setAttribute('frameBorder', '0');
+            iframe.setAttribute('allow', 'fullscreen');
+            currentScript.parentNode.insertBefore(iframe, currentScript);
+          }
+
+          let iframe = document.createElement('iframe');
           window.iMathAlea.push(iframe);
+
+          if (questionDiv.classList.contains('notyetanswered')) {
+            // L'élève n'a pas encore répondu à la question, on affiche immédiatement l'iframe
+            addIframe();
+          } else {
+            // L'élève a répondu, on attend que la page charge pour récupérer ses réponses
+            document.addEventListener('DOMContentLoaded', () => {
+              answer = questionDiv.querySelector('[name$="_answer"]').value;
+              answer = answer.substring(answer.indexOf('|') + 1);
+              addIframe();
+            });
+          }
           `
         }
 
@@ -958,12 +983,12 @@ function miseAJourDuCode () {
   <questiontext format="html">
     <text><![CDATA[
 <script>` + /* javascript */`
-  
-  ${moodleInitialisationFunction}
-  ${moodleSearchSeed}
-  ${moodleCreateIframe(urlIframe)}
-    
-  document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
+  {
+    ${moodleInitialisationFunction}
+    ${moodleSearchQuestionDiv}
+    ${moodleCreateIframe(urlIframe)}
+    document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
+  }  
   ` + `
 </script>
       `
@@ -974,7 +999,7 @@ function miseAJourDuCode () {
         const scoreAcceptes = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
         for (const score of scoreAcceptes) {
           codeMoodle += `  <answer fraction="${score}">
-      <text>${score}</text>
+      <text>${score}|*</text>
         <feedback><text> </text></feedback>
     </answer>`
         }
@@ -982,11 +1007,13 @@ function miseAJourDuCode () {
         codeMoodle += `\n<generalfeedback>\n<text><![CDATA[
           <h4>Correction :</h4>          
   <script>` + /* javascript */ `
+  {
     ${moodleInitialisationFunction}
-    ${moodleSearchSeed}
+    ${moodleSearchQuestionDiv}
     ${moodleCreateIframe(urlIframeCor)}    
     document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
-  ` + `
+  }
+    ` + `
   </script> 
           
         ]]>\n</text>\n</generalfeedback>`
@@ -3474,7 +3501,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         for (const lien of mesLiens) {
           lien.href = replaceQueryParam('duree', context.duree, lien.href)
         }
-        setUrl()
+        setUrl('inputTimer.addEventListener()')
       })
       $('.ui.button.toggle').state() // initialise le bouton
       $('#ModalEmbed').modal('show')

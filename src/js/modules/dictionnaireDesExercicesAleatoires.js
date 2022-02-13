@@ -7855,7 +7855,8 @@ export default {
     "titre": "Calculer périmètre et aire de figures composées",
     "url": "/exercices/6e/6M11-2.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6M11-2",
     "newEx": {
       "isNew": false,
@@ -10004,13 +10005,13 @@ export default {
     }
   },
   "betaThales": {
-    "titre": "Angles et parallèles",
+    "titre": "Thales",
     "url": "/exercices/beta/betaThales.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "betaThales",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

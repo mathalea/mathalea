@@ -17,7 +17,7 @@ export const modalTimer = async () => {
         e.preventDefault()
         $('#modalTimer').modal('hide')
         context.duree = parseInt(document.getElementById('inputTimer').value)
-        setUrl()
+        setUrl('modalTimer.addEventListener')
       }
     })
     context.enterHasListenner = true
@@ -26,7 +26,7 @@ export const modalTimer = async () => {
   document.getElementById('submitTimer').addEventListener('click', () => {
     $('#modalTimer').modal('hide')
     context.duree = parseInt(document.getElementById('inputTimer').value)
-    setUrl()
+    setUrl('submitTimer.addEventListener')
     if (context.vue === 'diap') {
       const event = new Event('nouveauTimer')
       document.dispatchEvent(event)

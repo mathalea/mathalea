@@ -5,9 +5,11 @@ export const dateDeModificationImportante = '14/11/2021'
  * Référence 6G10-1
  * @author Jean-Claude Lhote
  */
-export default function SymetrieAxialePoint5e () {
-  ConstruireParSymetrie.call(this)
-  this.figure = false
-  this.sup = 4
-  this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Axe horizontal ou vertical\n2 : Axe oblique à 45°\n3 : Axe avec une légère pente\n4 : Mélange']
+export default class SymetrieAxialePoint5e extends ConstruireParSymetrie {
+  constructor () {
+    super()
+    this.figure = false
+    this.sup = 4
+    this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Axe horizontal ou vertical\n2 : Axe oblique à 45°\n3 : Axe avec une légère pente\n4 : Mélange']
+  }
 }

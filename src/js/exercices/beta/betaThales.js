@@ -1,19 +1,53 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, choice, texNum } from '../../modules/outils.js'
-import { polygone, labelPoint, texteSurArc, homothetie, point, rotation, mathalea2d, fixeBordures, droite, translation, vecteur, arcPointPointAngle } from '../../modules/2d.js'
-import { pickRandom, create, all } from 'mathjs'
+import { listeQuestionsToContenu, texNum } from '../../modules/outils.js'
+import { polygone, labelPoint, homothetie, point, rotation, mathalea2d, droite } from '../../modules/2d.js'
+import { create, all } from 'mathjs'
 import { aleaVariables, toTex, resoudre, aleaExpression, aleaName } from '../../modules/outilsMathjs.js'
+import { GraphicView } from './aleaFigure/GraphicView.js'
 
-export const math = create(all)
-// console.log(math.parse('2'))
-export const titre = 'Angles et parallèles'
 // eslint-disable-next-line no-debugger
 debugger
 
+const nbCase = 15
+
+export const math = create(all)
+
+export const titre = 'aleaFigure'
+
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '15/01/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '03/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '08/01/2022' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+
+/**
+ * Create a configuration of Thales in a given graphic view
+ * @returns
+ */
+function aleaThalesConfiguration () {
+  // http://localhost:8080/mathalea.html?ex=betaThales,s=6
+  const graphic = new GraphicView(0, 0, 6, 5)
+  const [O, A, B] = graphic.addNotAlignedPoint().elements // Trois points non alignés
+  // On ajoute les droites (OB) et (AB)
+  const droiteOB = graphic.addLine(O, B)
+  const droiteAB = graphic.addLine(A, B)
+  // M est un point de (OA)
+  const M = graphic.addPointAligned(O, A)
+  // On crée une parallèle à (AB)
+  const droiteMN = graphic.addParallelLine(droiteAB, M)
+  // On ajoute le point d'intersection de (OA) et (MN)
+  const N = graphic.addIntersectLine(droiteMN, droiteOB)
+  graphic.show(
+    O, A, B, M, N, // Les points visibles
+    graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
+    graphic.addSidesPolygon(O, M, N)
+  )
+  O.name = 'O'
+  A.name = 'A'
+  B.name = 'B'
+  M.name = 'M'
+  N.name = 'N'
+  return { texte: graphic.getMathalea2DExport(), texteCorr: '' }
+}
 
 /**
  * Produire une configuration de Thalès et les éléments de rédaction d'un énoncé et de sa solution
@@ -161,43 +195,12 @@ function thales () {
   return { enonce: enonce, figure: figure, quotientsEgaux: quotientsEgaux }
 }
 
-function anglesSecantes (A, rot = { O: 60, A: 0 }) {
-  const s = rotation(translation(A, vecteur(1, 0)), A, rot.A)
-  const S = rotation(translation(A, vecteur(3, 0)), A, rot.A)
-  const t = rotation(s, A, 180)
-  const T = rotation(S, A, 180)
-  const x = rotation(translation(A, vecteur(1, 0)), A, rot.O)
-  const X = rotation(translation(A, vecteur(3, 0)), A, rot.O)
-  const Ox = rotation(x, A, 180)
-  const OX = rotation(X, A, 180)
-  return {
-    a: arcPointPointAngle(s, x, rot.O - rot.A, true, 'blue'),
-    b: arcPointPointAngle(x, t, 180 - (rot.O - rot.A), true, 'green'),
-    c: arcPointPointAngle(t, Ox, rot.O - rot.A, true, 'red'),
-    d: arcPointPointAngle(Ox, s, 180 - (rot.O - rot.A), true, 'gray'),
-    s: s,
-    S: S,
-    t: t,
-    T: T,
-    x: x,
-    X: X,
-    Ox: Ox,
-    OX: OX,
-    As: droite(A, s),
-    Ax: droite(A, x),
-    A: A,
-    labela: texteSurArc((rot.O - rot.A) % 180 + '°', s, x, rot.O - rot.A, 'black'),
-    labelb: texteSurArc((180 - (rot.O - rot.A)) % 180 + '°', x, t, 180 - (rot.O - rot.A), 'black'),
-    labelc: texteSurArc((rot.O - rot.A) % 180 + '°', t, Ox, rot.O - rot.A, 'black'),
-    labeld: texteSurArc((180 - (rot.O - rot.A)) % 180 + '°', Ox, s, 180 - (rot.O - rot.A), 'black')
-  }
-}
 /**
  * Description didactique de l'exercice
  * @author Frédéric PIOU
  * Référence
 */
-export default function exercicesAnglesAIC () {
+export default function exercicesThales () {
   Exercice.call(this)
   const formulaire = [
     '1 : Angles marqués alternes-internes ou correspondants ?',
@@ -211,7 +214,7 @@ export default function exercicesAnglesAIC () {
   ]
   this.nbQuestions = 1
   this.besoinFormulaireNumerique = [
-    'Type de question', 8, formulaire.join('\n')
+    'Type de question', nbCase, formulaire.join('\n')
   ]
   this.consigne = ''
   this.nbCols = 0
@@ -222,7 +225,7 @@ export default function exercicesAnglesAIC () {
   this.correctionDetaillee = true
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
-  this.sup = 'all' // Type d'exercice
+  this.sup = 'all'
   this.nouvelleVersion = function (numeroExercice, dDebug = false) {
     if (this.sup === 'all') this.nbQuestions = formulaire.length - 1
     this.listeQuestions = [] // Liste de questions
@@ -232,8 +235,8 @@ export default function exercicesAnglesAIC () {
     for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 100;) { // Boucle principale où i+1 correspond au numéro de la question
       if (this.sup === 'all') {
         nquestion += 1
-      } else if (this.sup === 8) {
-        nquestion = choice([1, 2, 3, 4, 5, 6, 7])
+      // } else if (this.sup === 9) {
+      //  nquestion = choice([1, 2, 3, 4, 5, 6, 7, 8])
       } else {
         nquestion = this.sup
       }
@@ -282,390 +285,140 @@ export default function exercicesAnglesAIC () {
           break
         }
         case 6: {
-          const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-          const objetsCorrection = [] // Idem pour la correction
-          const param = aleaVariables(
-            {
-              O: 'randomInt(0,90)',
-              A: 'randomInt(-90,90)',
-              B: 'A',
-              r1: 'pickRandom([1.5,2])',
-              r2: 'pickRandom([1.5,2])',
-              test: '70>O-A>30 and 70>O-B>30 and abs(A-B)<45'
-            }
-          )
-          const ab = aleaVariables(
-            {
-              a: 'randomInt(0,3)',
-              b: 'randomInt(0,3)',
-              test: 'a!=b and (a!=2 or b!=0) and (a!=3 or b!=1)'
-            }
-          )
-          if (dDebug) console.log(param)
-          const O = point(0, 0)
-          const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
-          const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
-          const nomsPoints = aleaName(['A', 'B', 'C', 'D', 'E', 'F'], 2)
-          anglesA.A.nom = nomsPoints[0]
-          anglesB.A.nom = nomsPoints[1]
-          const nomsDirections = aleaName(['s', 't', 'u', 'v', 'x', 'y'], 6)
-          anglesA.S.nom = nomsDirections[0]
-          anglesA.T.nom = nomsDirections[1]
-          anglesA.X.nom = nomsDirections[2]
-          anglesA.OX.nom = anglesB.A.nom
-          anglesB.S.nom = nomsDirections[3]
-          anglesB.T.nom = nomsDirections[4]
-          anglesB.OX.nom = nomsDirections[5]
-          anglesB.X.nom = anglesA.A.nom
-          const nameAngles = ['S A X'.split(' '), 'X A T'.split(' '), 'T A OX'.split(' '), 'OX A S'.split(' ')]
-          nameAngles.forEach(function (n, i) {
-            anglesA[['a', 'b', 'c', 'd'][i]].nom = ''
-            anglesB[['a', 'b', 'c', 'd'][i]].nom = ''
-            for (let j = 0; j < 3; j++) {
-              anglesA[['a', 'b', 'c', 'd'][i]].nom += anglesA[n[j]].nom
-              anglesB[['a', 'b', 'c', 'd'][i]].nom += anglesB[n[j]].nom
-            }
-          })
-          if (Math.abs(param.A) > 70) {
-            anglesA.S.positionLabel = 'left'
-            anglesA.T.positionLabel = 'left'
-          }
-          if (Math.abs(param.B) > 70) {
-            anglesB.S.positionLabel = 'left'
-            anglesB.T.positionLabel = 'left'
-          }
-          if (Math.abs(param.O) > 70) {
-            anglesA.X.positionLabel = 'left'
-            anglesB.OX.positionLabel = 'left'
-          }
-          for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = 'red'
-            anglesB[i].couleurDeRemplissage = 'red'
-          }
-          const a = ['a', 'b', 'c', 'd'][parseInt(ab.a)]
-          const b = ['a', 'b', 'c', 'd'][parseInt(ab.b)]
-          const epsilon = choice([pickRandom([-2, -1, 1, 2]), 0])
-          anglesA.labela = texteSurArc(((param.O - param.A) % 180 + epsilon) + '°', anglesA.s, anglesA.x, param.O - param.A, 'black')
-          anglesA.labelb = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.x, anglesA.t, 180 - (param.O - param.A), 'black')
-          anglesA.labelc = texteSurArc((param.O - param.A + epsilon) % 180 + '°', anglesA.t, anglesA.Ox, param.O - param.A, 'black')
-          anglesA.labeld = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.Ox, anglesA.s, 180 - (param.O - param.A), 'black')
-          anglesB.labela = texteSurArc(((param.O - param.A) % 180) + '°', anglesB.s, anglesB.x, param.O - param.A, 'black')
-          anglesB.labelb = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.x, anglesB.t, 180 - (param.O - param.A), 'black')
-          anglesB.labelc = texteSurArc((param.O - param.A) % 180 + '°', anglesB.t, anglesB.Ox, param.O - param.A, 'black')
-          anglesB.labeld = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.Ox, anglesB.s, 180 - (param.O - param.A), 'black')
-          objetsEnonce.push(
-            anglesA[a],
-            anglesA.As,
-            anglesA.Ax,
-            anglesB[b],
-            anglesB.As,
-            anglesB.Ax,
-            anglesA['label' + a],
-            anglesB['label' + b],
-            labelPoint(anglesA.S),
-            labelPoint(anglesA.T),
-            labelPoint(anglesA.X),
-            labelPoint(anglesB.S),
-            labelPoint(anglesB.T),
-            labelPoint(anglesB.OX),
-            labelPoint(anglesA.A),
-            labelPoint(anglesB.A)
-          )
-          objetsEnonce.forEach(objet => {
-            objetsCorrection.push(objet)
-          })
-          let angles, calculs
-          switch (a + b) {
-            case 'ab':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'correspondants'
-              calculs = `$180°-${anglesB.labelb.texte} = ${anglesB.labela.texte}$`
-              break
-            case 'ac':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'correspondants'
-              break
-            case 'ad':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'correspondants'
-              calculs = `$180°-${anglesB.labeld.texte} = ${anglesB.labela.texte}$`
-              break
-            case 'ba':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              angles = 'correspondants'
-              calculs = `$180°-${anglesB.labela.texte} = ${anglesB.labelb.texte}$`
-              break
-            case 'bc':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              angles = 'correspondants'
-              calculs = `$180°-${anglesB.labelc.texte} = ${anglesB.labelb.texte}$`
-              break
-            case 'bd':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              angles = 'correspondants'
-              break
-            case 'cb':
-              anglesB.a.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'alternes-internes'
-              calculs = `$180°-${anglesB.labelb.texte} = ${anglesB.labela.texte}$`
-              break
-            case 'cd':
-              anglesB.a.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'alternes-internes'
-              calculs = `$180°-${anglesB.labeld.texte} = ${anglesB.labela.texte}$`
-              break
-            case 'da':
-              anglesB.b.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              angles = 'alternes-internes'
-              calculs = `$180°-${anglesB.labela.texte} = ${anglesB.labelb.texte}$`
-              break
-            case 'dc':
-              anglesB.b.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              angles = 'alternes-internes'
-              calculs = `$180°-${anglesB.labelc.texte} = ${anglesB.labelb.texte}$`
-              break
-          }
-          const paramsEnonce = fixeBordures([
-            ...Object.keys(anglesA).map(key => { return anglesA[key] }),
-            ...Object.keys(anglesB).map(key => { return anglesB[key] })
-          ])
-          let texte = 'Les droites sont-elles parallèles ?<br>'
-          let sont
-          if (epsilon !== 0) {
-            sont = 'ne sont pas'
-          } else {
-            sont = 'sont'
-          }
-          const nomAngleSolution = angles !== 'alternes-internes' ? anglesB[a].nom : a === 'c' ? anglesB.a.nom : anglesB.b.nom
-          const texteCorr = mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsCorrection) + String.raw`
-          <br>
-          ${calculs !== undefined ? calculs : String.raw`Les angles $\widehat{${anglesB[a].nom}}$ et $\widehat{${anglesB[b].nom}}$ sont opposés par le sommet. Ils sont donc de même mesure.`}
-          <br>
-          Les angles $\widehat{${anglesA[a].nom}}$ et $\widehat{${nomAngleSolution}}$ sont ${angles} et ${sont} de la même mesure.
-          <br>
-          Donc les droites ${sont} parallèles.
-          `
-          texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
-          exercice = { texte: texte, texteCorr: texteCorr }
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=6
+          exercice = aleaThalesConfiguration()
           break
         }
         case 7: {
-          const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-          const objetsCorrection = [] // Idem pour la correction
-          const param = aleaVariables(
-            {
-              O: 'randomInt(0,90)',
-              A: 'randomInt(-90,90)',
-              B: 'A',
-              r1: 'pickRandom([1.5,2])',
-              r2: 'pickRandom([1.5,2])',
-              test: '70>O-A>30 and 70>O-B>30 and abs(A-B)<45'
-            }
+          // Dépasser la limite du nombre de points
+          // Remarque : l'algorithme est lourd lorsqu'on dépasse 20 points
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=7
+          const graphic = new GraphicView()
+          graphic.dimensions = { xmin: 0, ymin: 0, xmax: 10, ymax: 7 }
+          graphic.show(...graphic.addPoint(20).elements)
+          exercice = { texte: graphic.getMathalea2DExport(), texteCorr: '' }
+          break
+        }
+        case 8: {
+          // Nommer des points avec des numéros
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=8
+          const graphic = new GraphicView(0, 0, 10, 7)
+          graphic.names = ['M']
+          graphic.show(graphic.addPoint(11))
+          exercice = { texte: graphic.getMathalea2DExport(), texteCorr: '' }
+          break
+        }
+        case 9: {
+          // Deux droites parallèles
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=9
+          const graphic = new GraphicView(0, 0, 10, 7)
+          const parallels = graphic.addParallelLine()
+          graphic.show(parallels)
+          exercice = { texte: graphic.getMathalea2DExport(), texteCorr: '' }
+          break
+        }
+        case 10: {
+          // Une sécante à deux droites
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=10
+          const graphic = new GraphicView(0, 0, 10, 7)
+          const [A, B, C] = graphic.addNotAlignedPoint().elements
+          const D = graphic.addNotAlignedPoint(A, B).elements[2]
+          const dAB = graphic.addLine(A, B)
+          const dAC = graphic.addLine(A, C)
+          const dBD = graphic.addLine(B, D)
+          A.name = 'A'
+          B.name = 'B'
+          C.name = 'C'
+          D.name = 'D'
+          graphic.show(A, B, C, D, dAB, dAC, dBD)
+          exercice = { texte: graphic.getMathalea2DExport(), texteCorr: '' }
+          break
+        }
+        case 11: {
+          // Droite verticale visible !
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=11
+          const graphic = new GraphicView(-5, -5, 5, 5)
+          const [A, B, C] = graphic.addPoint(3).elements
+          A.x = 0
+          B.x = 0
+          const d = graphic.addLine(A, B)
+          const d2 = graphic.addLine(A, C)
+          graphic.show(A, B, C, d, d2)
+          exercice = { texte: graphic.getMathalea2DExport(), texteCorr: '' }
+          break
+        }
+        case 12: {
+          // La droite ne s'affiche pas :
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=12,n=1&serie=1Ziy&z=1
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=12,n=1&serie=XCRV&z=1
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=12,n=1&serie=dBgM&z=1
+
+          // La droite ne change pas ! (ou très peu)
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=12,n=1&serie=CWoc&z=1
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=12,n=1&serie=FjjF&z=1
+
+          // La droite n'apparaît pas entièrement !
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=12,n=1&serie=MmjS&z=1
+
+          // La droite s'affiche :
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=12,n=1&serie=D108&z=1
+          const graphic = new GraphicView(-5, -5, 5, 5)
+          const d = graphic.addLine()
+          graphic.show(d, graphic.geometric[0], graphic.geometric[1])
+          const graph = graphic.getMathalea2DExport()
+          exercice = { texte: graph, texteCorr: '' }
+          break
+        }
+        case 13: {
+          // La droite ne s'affiche pas
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=13,n=1&serie=1Ziy&z=1
+          const clip = {
+            xmin: -7.705072691422527,
+            xmax: -1.505964975637891,
+            ymin: -3.412118272892237,
+            ymax: 2.786989442892399
+          }
+          const d = droite(5.165923096487196, 0.09340055601848096, 23.82094980359306)
+          exercice = { texte: '', texteCorr: '' }
+          exercice.texte = mathalea2d(
+            Object.assign({ pixelsParCm: 38.71524919447583, scale: 1.9357624597237915 }, clip), [d]
           )
-          const ab = aleaVariables(
-            {
-              a: 'randomInt(0,3)',
-              b: 'randomInt(0,3)',
-              test: 'a!=b and (a!=2 or b!=0) and (a!=3 or b!=1)'
-            }
-          )
-          if (dDebug) console.log(param)
-          const O = point(0, 0)
-          const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
-          const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
-          const nomsPoints = aleaName(['A', 'B', 'C', 'D', 'E', 'F'], 2)
-          anglesA.A.nom = nomsPoints[0]
-          anglesB.A.nom = nomsPoints[1]
-          const nomsDirections = aleaName(['s', 't', 'u', 'v', 'x', 'y'], 6)
-          anglesA.S.nom = nomsDirections[0]
-          anglesA.T.nom = nomsDirections[1]
-          anglesA.X.nom = nomsDirections[2]
-          anglesA.OX.nom = anglesB.A.nom
-          anglesB.S.nom = nomsDirections[3]
-          anglesB.T.nom = nomsDirections[4]
-          anglesB.OX.nom = nomsDirections[5]
-          anglesB.X.nom = anglesA.A.nom
-          const nameAngles = ['S A X'.split(' '), 'X A T'.split(' '), 'T A OX'.split(' '), 'OX A S'.split(' ')]
-          nameAngles.forEach(function (n, i) {
-            anglesA[['a', 'b', 'c', 'd'][i]].nom = ''
-            anglesB[['a', 'b', 'c', 'd'][i]].nom = ''
-            for (let j = 0; j < 3; j++) {
-              anglesA[['a', 'b', 'c', 'd'][i]].nom += anglesA[n[j]].nom
-              anglesB[['a', 'b', 'c', 'd'][i]].nom += anglesB[n[j]].nom
-            }
-          })
-          if (Math.abs(param.A) > 70) {
-            anglesA.S.positionLabel = 'left'
-            anglesA.T.positionLabel = 'left'
-          }
-          if (Math.abs(param.B) > 70) {
-            anglesB.S.positionLabel = 'left'
-            anglesB.T.positionLabel = 'left'
-          }
-          if (Math.abs(param.O) > 70) {
-            anglesA.X.positionLabel = 'left'
-            anglesB.OX.positionLabel = 'left'
-          }
-          for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = 'blue'
-            anglesB[i].couleurDeRemplissage = 'blue'
-          }
-          const a = ['a', 'b', 'c', 'd'][parseInt(ab.a)]
-          const b = ['a', 'b', 'c', 'd'][parseInt(ab.b)]
-          const epsilon = 0
-          anglesA.labela = texteSurArc(((param.O - param.A) % 180 + epsilon) + '°', anglesA.s, anglesA.x, param.O - param.A, 'black')
-          anglesA.labelb = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.x, anglesA.t, 180 - (param.O - param.A), 'black')
-          anglesA.labelc = texteSurArc((param.O - param.A + epsilon) % 180 + '°', anglesA.t, anglesA.Ox, param.O - param.A, 'black')
-          anglesA.labeld = texteSurArc((180 - (param.O - param.A) + epsilon) % 180 + '°', anglesA.Ox, anglesA.s, 180 - (param.O - param.A), 'black')
-          anglesB.labela = texteSurArc(((param.O - param.A) % 180) + '°', anglesB.s, anglesB.x, param.O - param.A, 'black')
-          anglesB.labelb = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.x, anglesB.t, 180 - (param.O - param.A), 'black')
-          anglesB.labelc = texteSurArc((param.O - param.A) % 180 + '°', anglesB.t, anglesB.Ox, param.O - param.A, 'black')
-          anglesB.labeld = texteSurArc((180 - (param.O - param.A)) % 180 + '°', anglesB.Ox, anglesB.s, 180 - (param.O - param.A), 'black')
-          objetsEnonce.push(
-            anglesA[a],
-            anglesA.As,
-            anglesA.Ax,
-            anglesB.As,
-            anglesB.Ax,
-            anglesA['label' + a],
-            labelPoint(anglesA.S),
-            labelPoint(anglesA.T),
-            labelPoint(anglesA.X),
-            labelPoint(anglesB.S),
-            labelPoint(anglesB.T),
-            labelPoint(anglesB.OX),
-            labelPoint(anglesA.A),
-            labelPoint(anglesB.A)
-            // anglesB['label' + b]
-          )
-          objetsEnonce.forEach(objet => {
-            objetsCorrection.push(objet)
-          })
-          objetsCorrection.push(anglesB['label' + b])
-          objetsCorrection.push(anglesB[b])
-          let angles, calculs, mesure
-          switch (a + b) {
-            case 'ab':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'correspondants'
-              calculs = `$180°- ${anglesB.labela.texte}=${anglesB.labelb.texte}$`
-              mesure = anglesB.labelb.texte
-              break
-            case 'ac':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'correspondants'
-              mesure = anglesB.labela.texte
-              break
-            case 'ad':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'correspondants'
-              calculs = `$180°-${anglesB.labela.texte}=${anglesB.labeld.texte}$`
-              mesure = anglesB.labeld.texte
-              break
-            case 'ba':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              angles = 'correspondants'
-              calculs = `$180°-${anglesB.labelb.texte}=${anglesB.labela.texte}$`
-              mesure = anglesB.labela.texte
-              break
-            case 'bc':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              angles = 'correspondants'
-              calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labelc.texte}$`
-              mesure = anglesB.labelc.texte
-              break
-            case 'bd':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              angles = 'correspondants'
-              mesure = anglesB.labelb.texte
-              break
-            case 'cb':
-              anglesB.a.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'alternes-internes'
-              calculs = `$180°- ${anglesB.labela.texte}=${anglesB.labelb.texte}$`
-              mesure = anglesB.labelb.texte
-              break
-            case 'cd':
-              anglesB.a.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
-              angles = 'alternes-internes'
-              calculs = `$180°-${anglesB.labela.texte}=${anglesB.labeld.texte}$`
-              mesure = anglesB.labeld.texte
-              break
-            case 'da':
-              anglesB.b.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              angles = 'alternes-internes'
-              calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labela.texte}$`
-              mesure = anglesB.labela.texte
-              break
-            case 'dc':
-              anglesB.b.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
-              objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
-              calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labelc.texte}$`
-              angles = 'alternes-internes'
-              mesure = anglesB.labelc.texte
-              break
-          }
-          const paramsEnonce = fixeBordures([
-            ...Object.keys(anglesA).map(key => { return anglesA[key] }),
-            ...Object.keys(anglesB).map(key => { return anglesB[key] })
-          ])
-          let texte = String.raw`
-          Donnée : Les droites sont parallèles.
-          <br>
-          En déduire la mesure de l'angle $\widehat{${anglesB[b].nom}}$.
-          `
-          const nomAngleSolution = angles !== 'alternes-internes' ? anglesB[a].nom : a === 'c' ? anglesB.a.nom : anglesB.b.nom
-          const texteCorr = mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsCorrection) + String.raw`
-          <br>
-          Les angles $\widehat{${anglesA[a].nom}}$ et $\widehat{${nomAngleSolution}}$ sont ${angles} et formés par des droites parallèles.
-          <br>
-          Donc ils sont de même mesure.
-          <br>
-          ${calculs !== undefined ? calculs : String.raw`Les angles $\widehat{${anglesB[a].nom}}$ et $\widehat{${anglesB[b].nom}}$ et vert sont opposés par le sommet.<br> Ils sont donc de même mesure.`}
-          <br>
-          L'angle $\widehat{${anglesB[b].nom}}$ mesure donc ${mesure}.
-          `
-          texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
-          exercice = { texte: texte, texteCorr: texteCorr }
+          break
+        }
+        case 14 : {
+          // Parallelogramme
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=14,n=1&serie=1Ziy&z=1
+          const graphic = new GraphicView(-5, -5, 5, 5)
+          const [A, B, C, D] = graphic.addParallelogram().elements
+          A.name = 'A'
+          B.name = 'B'
+          C.name = 'C'
+          D.name = 'D'
+          const [E, F] = graphic.addParallelogram(A, B).elements.slice(2)
+          E.name = 'E'
+          F.name = 'F'
+          const [G] = graphic.addParallelogram(F, A, D).elements.slice(3)
+          G.name = 'G'
+          graphic.show(A, B, C, D, E, F, graphic.addSidesPolygon(A, B, C, D), graphic.addSidesPolygon(A, B, E, F), graphic.addSidesPolygon(F, A, D, G))
+          const graph = graphic.getMathalea2DExport()
+          exercice = { texte: graph, texteCorr: '' }
+          break
+        }
+        case 15 : {
+          // Homothetie
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=15,n=1&serie=1Ziy&z=1
+          const graphic = new GraphicView(-5, -5, 5, 5)
+          const [A, B, C, D] = graphic.addParallelogram().elements
+          A.name = 'A'
+          B.name = 'B'
+          C.name = 'C'
+          D.name = 'D'
+          const O = graphic.addPoint()
+          O.name = 'O'
+          const [E, F, G, H] = graphic.addHomothetic(O, -0.5, A, B, C, D).elements
+          graphic.show(A, B, C, D, E, F, G, H, O, graphic.addSidesPolygon(A, B, C, D), graphic.addSidesPolygon(E, F, G, H))
+          const graph = graphic.getMathalea2DExport()
+          exercice = { texte: graph, texteCorr: '' }
           break
         }
       }

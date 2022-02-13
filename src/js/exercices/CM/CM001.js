@@ -10,7 +10,9 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Table
  * @author Rémi Angot
  * Référence 6C10-1
  */
-export default function TablesParametres (tablesParDefaut = '2-3-4-5-6-7-8-9') {
-  TablesDeMultiplications.call(this, tablesParDefaut)
-  this.tailleDiaporama = 3
+export default class TablesParametres extends TablesDeMultiplications {
+  constructor (tablesParDefaut = '2-3-4-5-6-7-8-9') {
+    super(tablesParDefaut)
+    this.tailleDiaporama = 3
+  }
 }
