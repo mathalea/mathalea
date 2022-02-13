@@ -827,13 +827,14 @@ export function resoudre (equation, params) {
       'decimal' : decimal lorsque c'est possible, sinon fraction
       'fraction' : fraction (ou entier lorsque c'est possible)
   */
-  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true, formatSolution: 2 }, params)
+  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true, formatSolution: 2, substeps: false }, params)
   // Un bug de mathsteps ne permet pas de résoudre 2/x=2 d'où la ligne suivante qui permettait de le contourner
   // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
   // A priori le traitement actuel n'occure plus ce bug (raison ?).
   if (params.variables !== undefined) equation = aleaEquation(equation, params.variables)
   let printEquation
-  const steps = solveEquation(equation)
+  const steps = params.substeps ? traverserEtapes(solveEquation(equation)) : solveEquation(equation)
+  // const steps = solveEquation(equation)
   const stepsNewEquation = []
   let repetition = 0
   steps.forEach(function (step, i) {
