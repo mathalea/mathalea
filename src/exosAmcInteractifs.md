@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 425 
-- nombre d'exos interactifReady 576 
+- nombre d'exos amcReady 426 
+- nombre d'exos interactifReady 577 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -249,7 +249,7 @@
 |6I12|Trouver le bon tracé avec Scratch|OK|qcmMono|OK|custom|
 |6M10|Calculer des périmètres et des aires de figures usuelles|OK|AMCHybride|OK|mathLive|
 |6M11-1|Calculer périmètre et aire de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
-|6M11-2|Calculer périmètre et aire de figures composées|KO|KO|OK|mathLive|
+|6M11-2|Calculer périmètre et aire de figures composées|OK|AMCHybride|OK|mathLive|
 |6M11|Calculer l'aire de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M12|Convertir des longueurs|OK|AMCNum|OK|mathLive|
 |6M20|Calculer l'aire de triangles|OK|AMCNum|OK|mathLive|
@@ -339,11 +339,12 @@
 |c3N20|Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales|OK|AMCNum|OK|mathLive|
 |c3N22|Lire abscisse décimale sous trois formes|OK|AMCHybride|OK|mathLive|
 |c3N30|Conversion d'unités des préfixes k,h,da vers unité de référence|OK|AMCNum|OK|mathLive|
-|can1F01|Coordonnées sommet parabole avec forme canonique|KO|KO|OK|mathLive|
-|can1F02|Second degré variations (QCM)|KO|KO|OK|qcm|
-|can1L01|Discriminant|OK|AMCNum|OK|mathLive|
-|can1L02|Nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
-|can1P01|Arbre de probabilité|OK|AMCNum|OK|mathLive|
+|can1F01|Déterminer les coordonnées sommet parabole à partir de la forme canonique|KO|KO|OK|mathLive|
+|can1F02|Déterminer le sens de variation d’un pôlynome du second degré (QCM)|KO|KO|OK|qcm|
+|can1L01|Calculer un discriminant|OK|AMCNum|OK|mathLive|
+|can1L02|Déterminer le nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
+|can1P01|Calculer des probabilités à partir d’un arbre|OK|AMCNum|OK|mathLive|
+|can1S01|Calculer un terme d’une suite explicite|KO|KO|OK|mathLive|
 |can2C01|Trouver le nombre d’entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can2C02|Calculer une différence de deux carrés|OK|AMCNum|OK|mathLive|
 |can2C03|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
