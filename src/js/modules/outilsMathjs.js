@@ -1292,7 +1292,7 @@ export function calculExpression2 (expression = '4/3+5/6', factoriser = false, d
  * aleaName(['chat','chien','poisson']) --> ['chien','poisson','chat']
  * aleaName(['chat','chien','poisson'],2) --> ['poisson','chat']
  * aleaName([Objet1,Objet2,Objet3]) --> [Objet2,Objet1,Objet3] où Objet peut être un Object, un Array etc.
- * @returns {string||Array}
+ * @returns {Array}
  */
 export function aleaName (names = [], n = names.length, result = []) {
   if (typeof names === 'string') {

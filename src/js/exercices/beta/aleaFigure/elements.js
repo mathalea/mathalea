@@ -30,7 +30,7 @@ export class Point extends GraphicObject {
         this.coordinates = coord;
         this.polarCoordinates = this.getPolarCoordinates();
         this.cartesianCoordinates = this.getCartesianCoordinates();
-        this.name = undefined;
+        this.name = '';
         this.type = 'Point';
         this.x = this.cartesianCoordinates.x;
         this.y = this.cartesianCoordinates.y;
@@ -46,6 +46,7 @@ export class Point extends GraphicObject {
 }
 export class Vector {
     constructor(x, y, unit = true) {
+        this.unit = true;
         this.norme = unit ? Math.sqrt(x ** 2 + y ** 2) : 1;
         this.x = x / this.norme;
         this.y = y / this.norme;
@@ -76,6 +77,9 @@ export class Line extends GraphicObject {
     // Il faudrait deux constructeurs ?
     constructor(A, B) {
         super();
+        this.a = 0;
+        this.b = 0;
+        this.c = 0;
         this.direction = B instanceof Vector ? B : new Vector(B.x - A.x, B.y - A.y);
         this.A = A;
         this.B = B instanceof Point ? B : new Point(new Cartesian(A.x + B.x, A.y + B.y));

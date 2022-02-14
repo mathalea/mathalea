@@ -37,12 +37,12 @@ export class Point extends GraphicObject {
   y: number
   r: number
   theta: number
-  constructor (coord) {
+  constructor (coord: Coordinates) {
     super()
     this.coordinates = coord
     this.polarCoordinates = this.getPolarCoordinates()
     this.cartesianCoordinates = this.getCartesianCoordinates()
-    this.name = undefined
+    this.name = ''
     this.type = 'Point'
     this.x = this.cartesianCoordinates.x
     this.y = this.cartesianCoordinates.y
@@ -62,7 +62,7 @@ export class Point extends GraphicObject {
 export class Vector {
   x: number
   y: number
-  unit: boolean
+  unit: boolean = true
   norme: number
   constructor (x: number, y: number, unit = true) {
     this.norme = unit ? Math.sqrt(x ** 2 + y ** 2) : 1
@@ -98,12 +98,12 @@ export class Vector {
    */
 export class Line extends GraphicObject {
   direction: Vector
-  A: any
+  A: Point
   B: Point
   type: string
-  b: number
-  c: number
-  a: any
+  a: number = 0
+  b: number = 0
+  c: number = 0
   // Une droite sera définie par deux points distincts ou un point et une direction
   // Il faudrait deux constructeurs ?
   constructor (A: Point, B: Point | Vector) {
@@ -152,7 +152,7 @@ export class Line extends GraphicObject {
    * @classdesc Caracteristics of a segment in an euclidean plan
    */
 export class Segment extends Line {
-  constructor (A, B) {
+  constructor (A: Point, B: Point) {
     super(A, B)
     this.type = 'Segment'
     this.A = A

@@ -2,7 +2,7 @@ import { texNombre2 } from '../../../modules/outils.js'
 import { simplify, parse, unit, max, add, subtract } from 'mathjs'
 import { aleaName } from '../../../modules/outilsMathjs.js'
 import { GraphicObject } from './elements.js'
-
+debugger
 /**
  * Grandeur, methods for operations
  * 
@@ -46,9 +46,9 @@ export class Grandeur {
     const calcul = parse(unit(this.toFixed+this.unit).multiply(unit(a.toFixed+a.unit)).toString())
     return new Grandeur(
       expression,
-      parseFloat(calcul.args[0].toString()),
+      parseFloat(calcul.isConstantNode ? calcul.toString() : calcul.args[0].toString()),
       this.precision + a.precision,
-      calcul.args[1].toString()
+      calcul.isConstantNode ? '' : calcul.args[1].toString()
       )
   }
   
@@ -57,9 +57,9 @@ export class Grandeur {
     const calcul = parse(unit(this.toFixed+this.unit).divide(unit(a.toFixed+a.unit)).toString())
     return new Grandeur(
       expression,
-      parseFloat(calcul.args[0].toString()),
+      parseFloat(calcul.isConstantNode ? calcul.toString() : calcul.args[0].toString()),
       this.precision - a.precision,
-      calcul.args[1].toString()
+      calcul.isConstantNode ? '' : calcul.args[1].toString()
       )
   }
 
@@ -68,10 +68,10 @@ export class Grandeur {
     const calcul = parse(add(unit(this.toFixed+this.unit),unit(a.toFixed+a.unit)).toString())
     return new Grandeur(
       expression,
-      parseFloat(calcul.args[0].toString()),
+      parseFloat(calcul.isConstantNode ? calcul.toString() : calcul.args[0].toString()),
       max(this.precision,a.precision),
-      calcul.args[1].toString()
-    )
+      calcul.isConstantNode ? '' : calcul.args[1].toString()
+      )
   }
 
   subtract (a: Grandeur) {
@@ -79,9 +79,13 @@ export class Grandeur {
     const calcul = parse(subtract(unit(this.toFixed+this.unit),unit(a.toFixed+a.unit)).toString())
     return new Grandeur(
       expression,
-      parseFloat(calcul.args[0].toString()),
+      parseFloat(calcul.isConstantNode ? calcul.toString() : calcul.args[0].toString()),
       max(this.precision,a.precision),
-      calcul.args[1].toString()
-    )
+      calcul.isConstantNode ? '' : calcul.args[1].toString()
+      )
   }
 }
+
+const a = new Grandeur('a',1,15,'cm')
+const b = new Grandeur('a',3,15,'cm')
+const c = a.divide(b)

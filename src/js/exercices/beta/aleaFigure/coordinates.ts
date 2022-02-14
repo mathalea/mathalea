@@ -3,33 +3,30 @@
  * @class for coordinates
  */
 export class Coordinates {
-  r: number
-  x: number
-  y: number
-  theta: number
-  getCartesianCoordinates () {
-    if (this instanceof Cartesian) {
-      return this
-    }
+  r: number = 0
+  x: number = 0
+  y: number = 0
+  theta: number = 0
+
+  getCartesianCoordinates () : Cartesian {
     if (this instanceof Polar) {
       return new Cartesian(
         this.r * Math.cos(this.theta),
         this.r * Math.sin(this.theta)
       )
+    } else {
+      return this
     }
-    return undefined
   }
 
-  getPolarCoordinates () {
+  getPolarCoordinates () : Polar {
     if (this instanceof Cartesian) {
       return new Polar(
         Math.sqrt(this.x ** 2 + this.y ** 2),
         Math.atan(this.y / this.x))
-    }
-    if (this instanceof Polar) {
+    } else {
       return this
     }
-    return undefined
   }
 }
 

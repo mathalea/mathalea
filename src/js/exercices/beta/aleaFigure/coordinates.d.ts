@@ -6,8 +6,8 @@ export declare class Coordinates {
     x: number;
     y: number;
     theta: number;
-    getCartesianCoordinates(): any;
-    getPolarCoordinates(): any;
+    getCartesianCoordinates(): Cartesian;
+    getPolarCoordinates(): Polar;
 }
 /**
      * @class for cartesian coordinates

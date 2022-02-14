@@ -22,9 +22,9 @@ export declare class Point extends GraphicObject {
     y: number;
     r: number;
     theta: number;
-    constructor(coord: any);
-    getPolarCoordinates(): any;
-    getCartesianCoordinates(): any;
+    constructor(coord: Coordinates);
+    getPolarCoordinates(): Polar;
+    getCartesianCoordinates(): Cartesian;
 }
 export declare class Vector {
     x: number;
@@ -44,12 +44,12 @@ export declare class Vector {
    */
 export declare class Line extends GraphicObject {
     direction: Vector;
-    A: any;
+    A: Point;
     B: Point;
     type: string;
+    a: number;
     b: number;
     c: number;
-    a: any;
     constructor(A: Point, B: Point | Vector);
     getYPoint(x: number): number;
     getXPoint(y: number): number;
@@ -60,5 +60,5 @@ export declare class Line extends GraphicObject {
    * @classdesc Caracteristics of a segment in an euclidean plan
    */
 export declare class Segment extends Line {
-    constructor(A: any, B: any);
+    constructor(A: Point, B: Point);
 }
