@@ -1,5 +1,6 @@
 import { Cartesian, Coordinates, Polar } from './coordinates.js'
 import { aleaName } from '../../../modules/outilsMathjs.js'
+import { dot } from 'mathjs'
 
 /**
  * @class
@@ -75,20 +76,24 @@ export class Vector {
     return new Vector(this.x / xy, this.y / xy)
   }
 
-  getNormal () {
+  getNormal (): Vector {
     return new Vector(-this.y, this.x)
   }
 
-  add (X: Vector | Point) {
+  add (X: Vector | Point): Vector {
     return new Vector(this.x+X.x,this.y+X.y)
   }
 
-  sub (X: Vector | Point) {
+  sub (X: Vector | Point): Vector {
     return new Vector(this.x-X.x,this.y-X.y)
   }
 
-  neg () {
+  neg (): Vector {
     return new Vector(-this.x,-this.y)
+  }
+
+  dot (X: Vector | Point): number {
+    return dot([this.x, this.y],[X.x,X.y])
   }
 }
 

@@ -1,5 +1,6 @@
 import { Cartesian } from './coordinates.js';
 import { aleaName } from '../../../modules/outilsMathjs.js';
+import { dot } from 'mathjs';
 /**
  * @class
  * @classdesc Graphic object like Point, Line, Segment etc.
@@ -66,6 +67,9 @@ export class Vector {
     }
     neg() {
         return new Vector(-this.x, -this.y);
+    }
+    dot(X) {
+        return dot([this.x, this.y], [X.x, X.y]);
     }
 }
 /**

@@ -37,6 +37,7 @@ export declare class Vector {
     add(X: Vector | Point): Vector;
     sub(X: Vector | Point): Vector;
     neg(): Vector;
+    dot(X: Vector | Point): number;
 }
 /**
    * @class

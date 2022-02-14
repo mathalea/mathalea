@@ -19,4 +19,6 @@ export declare class Grandeur {
     divide(a: Grandeur): Grandeur;
     add(a: Grandeur): Grandeur;
     subtract(a: Grandeur): Grandeur;
+    abs(): Grandeur;
+    neg(): Grandeur;
 }

@@ -1,8 +1,7 @@
 import { texNombre2 } from '../../../modules/outils.js';
-import { simplify, parse, unit, max, add, subtract } from 'mathjs';
+import { simplify, parse, unit, max, add, subtract, abs } from 'mathjs';
 import { aleaName } from '../../../modules/outilsMathjs.js';
 import { GraphicObject } from './elements.js';
-debugger;
 /**
  * Grandeur, methods for operations
  *
@@ -50,6 +49,12 @@ export class Grandeur {
         const expression = simplify([this.name, a.name].filter(x => x !== '').join('-')).toString();
         const calcul = parse(subtract(unit(this.toFixed + this.unit), unit(a.toFixed + a.unit)).toString());
         return new Grandeur(expression, parseFloat(calcul.isConstantNode ? calcul.toString() : calcul.args[0].toString()), max(this.precision, a.precision), calcul.isConstantNode ? '' : calcul.args[1].toString());
+    }
+    abs() {
+        return new Grandeur(this.name, abs(this.value), this.precision, this.unit);
+    }
+    neg() {
+        return new Grandeur('-' + this.name, -this.value, this.precision, this.unit);
     }
 }
 const a = new Grandeur('a', 1, 15, 'cm');
