@@ -1,4 +1,4 @@
-import { homothetie, mathalea2d, point, polygoneAvecNom, segment, texteParPosition, texteSurSegment } from '../../modules/2d'
+import { homothetie, mathalea2d, point, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d'
 import { setReponse } from '../../modules/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive'
 import { arrondi, choice, combinaisonListes, listeQuestionsToContenu, prenom, randint, texNombre, texPrix } from '../../modules/outils'
@@ -13,7 +13,7 @@ export default class ProblemesEnEquation extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.nbQuestions = 9
+    this.nbQuestions = 10
   }
 
   figureThales (a, b, c, OC) {
@@ -24,9 +24,9 @@ export default class ProblemesEnEquation extends Exercice {
     const C = homothetie(A, O, 0.4, 'C')
     const OAB = polygoneAvecNom(O, C, A, B, D)
     const CD = segment(C, D)
-    const longOC = texteParPosition(`${OC}`,0.5,1)
-    const longCA = texteParPosition(`${b}`, 0,3)
-    const longAB = texteParPosition(`${c}`, 2,6)
+    const longOC = texteParPosition(`${OC}`, 0.5, 1)
+    const longCA = texteParPosition(`${b}`, 0, 3)
+    const longAB = texteParPosition(`${c}`, 2, 6)
     const longCD = texteParPosition(`${a}`, 1.5, 2.5)
     return mathalea2d({ xmin: -1, xmax: 5, ymin: -1, ymax: 7, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB[0], OAB[1], longOC, longCA, longAB, longCD, CD)
   }
@@ -35,7 +35,7 @@ export default class ProblemesEnEquation extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'Thales','Thales2','tarifs']
+    const listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'Thales', 'Thales2', 'tarifs', 'spectacle']
     const listeDeProblemes = combinaisonListes(listeTypeDeProblemes, this.nbQuestions)
     for (let i = 0, cpt = 0, texte, x, a, b, c, d, variables, enonce, figure, intro, conclusion, equation, resolution, verification, texteCorr; i < this.nbQuestions && cpt < 50;) {
       const quidam = prenom(2)
@@ -149,7 +149,7 @@ export default class ProblemesEnEquation extends Exercice {
           intro += 'L\'égalité des résultats se traduit par l\'équation suivante :<br>'
           conclusion = `${quidam[0]} et ${quidam[1]} on donc choisi au départ le nombre ${x}.`
           figure = ''
-          verification = `Vérification :
+          verification = `<br>Vérification :
           <br>
           D'une part : $${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$
           <br>
@@ -180,7 +180,7 @@ export default class ProblemesEnEquation extends Exercice {
           intro += 'Cette égalité est équivalente à l\'égalité des produits en croix : $OC\\times AB = CD\\times OA$.<br>'
           intro += 'En remplaçant les longueurs par les données de l\'énoncé et en posant $x=OC$, on obtiens l\'équation suivante :<br>'
           conclusion = `<br>donc $OA=${x}\\text{mm}$.<br>`
-          verification = `Vérification :
+          verification = `<br>Vérification :
           <br>
           D'une part : $${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$
           <br>
@@ -215,19 +215,19 @@ export default class ProblemesEnEquation extends Exercice {
           break
         case 'tarifs':
           variables = aleaVariables(
-              {
-                a: 'randomInt(0,2)',
-                b: 'randomInt(50,80)/10',
-                c: 'randomInt(4,10)*5',
-                d: 'randomInt(40,70)/10',
-                test: 'b>d and c/(b-d)<30 and c/(b-d)>10'
-              }
-              , { valueOf: true })
+            {
+              a: 'randomInt(0,2)',
+              b: 'randomInt(50,80)/10',
+              c: 'randomInt(4,10)*5',
+              d: 'randomInt(40,70)/10',
+              test: 'b>d and c/(b-d)<30 and c/(b-d)>10'
+            }
+            , { valueOf: true })
           a = variables.a
           b = variables.b
           c = variables.c
           d = variables.d
-          x = Math.ceil(c / (b-d))
+          x = Math.ceil(c / (b - d))
           equation = `x*${b}>${c}+x*${d}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
           enonce = `Le ${clubs[a]} d'un village propose deux tarifs à ses pratiquants.<br>`
@@ -238,9 +238,43 @@ export default class ProblemesEnEquation extends Exercice {
           intro += `Le prix à payer avec le tarif A est : $x\\times ${texPrix(b)}$.<br>`
           intro += `Le prix à payer avec le tarif B est : $${texPrix(c)}+x\\times ${texPrix(d)}$.<br>`
           intro += 'Pour que le tarif B soit plus avantageux, $x$ doit vérifier l\'inéquation suivante:<br>'
-          conclusion = `C'est à partir de ${x} séances que le tarif B devient plus avantageux que le tarif A.`
+          conclusion = `<br>C'est à partir de ${x} séances que le tarif B devient plus avantageux que le tarif A.`
           figure = ''
-          verification =  `<br>Vérification :<br>$${x}\\times ${texPrix(b)}=${texPrix(x*b)}$ et $${c}+${x}\\times ${texPrix(d)}=${c}+${texPrix(x*d)}= ${texPrix(c+x*d)}$.<br>`
+          verification = `<br>Vérification :
+          <br>
+          D'une part : $${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$
+          <br>
+          D'autre part : $${resolution.verifRightSide.printExpression}=${resolution.verifRightSide.printResult}$
+          `
+          //  verification = `<br>Vérification :<br>$${x}\\times ${texPrix(b)}=${texPrix(x * b)}$ et $${c}+${x}\\times ${texPrix(d)}=${c}+${texPrix(x * d)}= ${texPrix(c + x * d)}$.<br>`
+          break
+        case 'spectacle':
+          variables = aleaVariables(
+            {
+              a: 'randomInt(200,300)*10',
+              b: 'randomInt(100,200)/10',
+              c: 'randomInt(50,150)/10',
+              x: 'randomInt(1000,a-500)',
+              d: 'b*x+(a-x)*c',
+              test: 'b>c'
+            }
+            , { valueOf: true })
+          a = variables.a
+          b = variables.b
+          c = variables.c
+          d = variables.d
+          x = variables.x
+          equation = `x*${b}+(${a}-x)*${c}=${d}`
+          resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
+          enonce = `Dans une salle de spectacle de ${a} places, le prix d'entrée pour un adulte est $${texPrix(b)}$ € et pour un enfant il est de $${texPrix(c)}$ €.<br>`
+          enonce += `Le spectacle de ce soir s'est déroulé devant une salle pleine et la recette est de $${texPrix(d)}$ €.<br>`
+          enonce += 'Combien d\'adultes y avait-il dans la salle ?'
+          intro = 'Posons $x$ le nombre de places adultes vendues.<br>'
+          intro += `Comme les ${a} places ont été vendues, le nombre de places enfants est : $${a}-x$.<br>`
+          intro += 'Le calcul de la recette donne l\'équation suivante.<br>'
+          conclusion = `<br>Il y a donc eu ${x} adultes au spectacle.`
+          figure = ''
+          verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
           break
       }
 
