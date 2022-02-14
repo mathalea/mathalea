@@ -1,5 +1,5 @@
 import { texNombre2 } from '../../../modules/outils.js'
-import { simplify, parse, unit, max, add, subtract, abs } from 'mathjs'
+import { simplify, parse, unit, max, add, subtract, abs, log10 } from 'mathjs'
 import { aleaName } from '../../../modules/outilsMathjs.js'
 import { GraphicObject } from './elements.js'
 
@@ -102,8 +102,16 @@ export class Grandeur {
       this.unit
       )
   }
-}
 
-const a = new Grandeur('a',1,15,'cm')
-const b = new Grandeur('a',3,15,'cm')
-const c = a.divide(b)
+  to (newUnit: string): Grandeur {
+    const thenumber = unit(this.value,this.unit)
+    const conversion = thenumber.to(newUnit)
+    const precision = this.precision - log10(parse(conversion.toString()).args[0].value/parse(thenumber.toString()).args[0].value)
+    return new Grandeur(
+      this.name,
+      parse(conversion.toString()).args[0].value,
+      precision,
+      newUnit
+    )
+  }
+}

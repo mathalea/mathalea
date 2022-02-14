@@ -11,7 +11,7 @@ import { Line, Segment, Vector } from './aleaFigure/elements.js'
 // eslint-disable-next-line no-debugger
 debugger
 
-const nbCase = 20
+const nbCase = 21
 
 export const math = create(all)
 
@@ -618,6 +618,7 @@ export default function exercicesThales () {
         }
         case 20: {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=20,n=1&serie=R5pi&v=ex&z=1
+          // Pb unités : http://localhost:8080/mathalea.html?ex=betaThales,s=20,n=1&serie=B0PX&v=ex&z=1
           // const graphic = aleaThalesConfig(-5, -5, 5, 5, false)
           const graphic = aleaThalesConfig(-0.1, -0.1, 0.1, 0.1, false)
           graphic.scale *= 10 / graphic.width
@@ -684,6 +685,85 @@ export default function exercicesThales () {
           <br> On résoud l'équation d'inconnue $${ON.name}$.
           <br>$${toTex(`${ON.name}=${OB.toFixed}*${OM.abs().toFixed}/${OA.toFixed}`)}$
           <br>D'où ${ON.abs().nameAndValue}.
+          `
+          const graph = graphic.getMathalea2DExport(
+            O, A, B, M, N,
+            graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
+            graphic.addSidesPolygon(O, M, N)
+          )
+          exercice.texte = texte + graph + texteCorr
+          exercice.texteCorr = texteCorr
+          break
+        }
+        case 21: {
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=20,n=1&serie=R5pi&v=ex&z=1
+          // Pb unités : http://localhost:8080/mathalea.html?ex=betaThales,s=20,n=1&serie=B0PX&v=ex&z=1
+          const graphic = aleaThalesConfig(-6, -6, 6, 6, false)
+          /* const graphic = aleaThalesConfig(-100, -100, 100, 100, false)
+          graphic.scale *= 10 / graphic.width
+          graphic.ppc *= 10 / graphic.width */
+          const [O, A, B, M, N] = graphic.geometric
+          // On nomme les droites à partir des noms des points
+          const dAB = graphic.addLine(A, B)
+          dAB.aleaName(A, B) // L'ordre des lettres est aléatoirisé
+          const dMN = graphic.addLine(M, N)
+          dMN.aleaName(M, N) // L'ordre des lettres est aléatoirisé
+          // Exemple d'un vecteur créé à partir de deux points
+          const vO = new Vector(O.x, O.y)
+          const vA = new Vector(A.x, A.y)
+          const vM = new Vector(M.x, M.y)
+          const vOA = vA.sub(vO)
+          const vOM = vM.sub(vO)
+          // Cela permet d'obtenir à l'aide du produit scalaire le signe de l'homothétie
+          const signk = vOA.dot(vOM) < 0 ? -1 : 1
+          // On définit deux grandeurs en imposant un nombre de décimales
+          const OA = new Grandeur(O.name + A.name, parse(unit(graphic.distance(O, A), 'cm').toString()).args[0].value, 1, parse(unit(graphic.distance(O, A), 'cm').toString()).args[1].toString())
+          // On conservant signk le signe de k on a donc des longueurs algébriques
+          const k = new Grandeur('k', signk * graphic.distance(O, M) / graphic.distance(O, A), 1)
+          const OB = new Grandeur(O.name + B.name, parse(unit(graphic.distance(O, B), 'cm').toString()).args[0].value, 1, parse(unit(graphic.distance(O, B), 'cm').toString()).args[1].toString())
+          // On effectue le calcul pour OM à partir des grandeurs définies et non à partir des mesures de la figure
+          // Ceci afin d'éviter les valeurs non décimales.
+          const OM = OA.multiply(k)
+          // OM porte le nom du calcul qui a permis de l'obtenir à savoir OA * k
+          // On le renomme pour la suite
+          OM.name = O.name + M.name
+          // Même chose avec ON
+          const ON = OB.multiply(OM).divide(OA)
+          ON.name = O.name + N.name
+          // On peut ainsi obtenir AM par le calcul vec les longueurs algébriques
+          const AM = OA.neg().add(OM)
+          AM.aleaName(A, M)
+          // On ajoute des droites pour l'énoncé
+          const dAM = graphic.addLine(A, M)
+          dAM.aleaName(A, M)
+          const dBN = graphic.addLine(B, N)
+          dBN.aleaName(B, N)
+          // ObjetGarphic.name donne le nom en fonction de la nature de l'objet (droite, segment, point)
+          // Grandeur.name donne le nom qu'on lui a affecté à sa création ou bien l'ensemble des calculs qui ont prmis de l'obtenir ou encore le nom qu'on lui a affecté
+          // Grandeur.nameAndValue donne un format latex de la forme k = 1.5 cm par exemple
+          // Grandeur.calcul donne une chaine de caractère avec les calculs au format string
+          const aleaDonnees = aleaName(
+            [`$${toTex(`${OA.name} = ${OA.toFixed}${OA.unit}`)}$`,
+            `$${toTex(`${OB.name} = ${OB.toFixed}${OB.unit}`)}$`,
+            `$${toTex(`${OM.name} = ${OM.abs().toFixed}${OM.unit}`)}$`]
+          ).join(', ')
+          const texte = `
+          Les droites $(${dAB.name}$) et $(${dMN.name})$ sont parallèles.
+          <br> Les droites $(${dAM.name}$) et $(${dBN.name})$ sont sécantes en $${O.name}$.
+          <br> On a : ${aleaDonnees}.
+          <br> Calculer ${ON.name}.
+          `
+          const texteCorr = `
+          Les droites $(${dAB.name}$) et $(${dMN.name})$ sont parallèles.
+          <br> Les droites $(${dAM.name}$) et $(${dBN.name})$ sont sécantes en $${O.name}$.
+          <br>D'après le théorème de Thalès, on a :
+          <br>$${toTex(`${OA.name}/${OM.name}=${OB.name}/${ON.name}`)}$
+          <br>D'où $${toTex(`${OA.to('cm').toFixed}/${OM.abs().to('cm').toFixed}=${OB.to('cm').toFixed}/${ON.name}`)}$
+          <br>On en déduit l'égalité des produits en croix.
+          <br>$${toTex(`${OA.to('cm').toFixed}*${ON.name}=${OB.to('cm').toFixed}*${OM.abs().to('cm').toFixed}`)}$
+          <br> On résoud l'équation d'inconnue $${ON.name}$.
+          <br>$${toTex(`${ON.name}=${OB.to('cm').toFixed}*${OM.abs().to('cm').toFixed}/${OA.to('cm').toFixed}`)}$
+          <br>D'où ${ON.abs().to('cm').nameAndValue}.
           `
           const graph = graphic.getMathalea2DExport(
             O, A, B, M, N,

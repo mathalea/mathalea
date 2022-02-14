@@ -21,4 +21,5 @@ export declare class Grandeur {
     subtract(a: Grandeur): Grandeur;
     abs(): Grandeur;
     neg(): Grandeur;
+    to(newUnit: string): Grandeur;
 }
