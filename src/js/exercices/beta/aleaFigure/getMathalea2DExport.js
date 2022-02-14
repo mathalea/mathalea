@@ -6,10 +6,10 @@ export function getMathalea2DExport(graphic) {
     for (const obj of graphic.geometric.filter(x => x.visible)) {
         if (obj instanceof Point) {
             const splitname = obj.name.split('_');
-            obj.name = splitname.length === 1 ? splitname[0] : `${splitname[0]}_{${splitname[1]}}`;
+            let nameFormat = splitname.length === 1 ? splitname[0] : `${splitname[0]}_{${splitname[1]}}`;
             if (context.isHtml)
-                obj.name = `$${obj.name}$`;
-            const newPoint = point(obj.x, obj.y, obj.name, 'above');
+                nameFormat = `$${nameFormat}$`;
+            const newPoint = point(obj.x, obj.y, nameFormat, 'above');
             objs.push(tracePoint(newPoint));
             objs.push(labelPoint(newPoint));
         }

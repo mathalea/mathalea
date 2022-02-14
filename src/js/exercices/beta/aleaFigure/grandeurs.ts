@@ -16,7 +16,7 @@ export class Grandeur {
   private _name: string
   calcul: string
   constructor (name: string, value: number, precision:number = 1, unit: string = '') {
-    this.value = value
+    this.value = parseFloat(value.toFixed(precision))
     this.precision = precision
     this.unit = unit
     this.toFixed = parseFloat(this.value.toFixed(this.precision))

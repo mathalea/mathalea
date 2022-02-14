@@ -1171,7 +1171,7 @@ export default function equationsProgression () {
               a: true,
               b: true
             }
-          exercice = resoudre('9*x+a=6*x+b', { variables: variables, color: 'blue', comment: true })
+          exercice = resoudre('9*x+a<6*x+b', { variables: variables, color: 'blue', comment: true })
           exercice.texte = `Résoudre : $${exercice.equation}$`
           exercice.texteCorr = `
           <br>

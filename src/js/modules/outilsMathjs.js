@@ -897,12 +897,12 @@ export function resoudre (equation, params) {
     print: toTex(steps[steps.length - 1].newEquation.ascii())
   }
   let calculateLeftSide, calculateRightSide
-  if (equation.indexOf('=') !== -1) {
-    const sides = equation.split('=')
-    const SymbolNode = parse(steps[steps.length - 1].newEquation.ascii().split('=')[0]).toString()
-    const solution = steps[steps.length - 1].newEquation.ascii().split('=')[1]
-    calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${solution})`))
-    calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${solution})`))
+  if (steps[steps.length - 1].newEquation.leftNode.isSymbolNode) {
+    const sides = equation.split(steps[steps.length - 1].newEquation.comparator)
+    const SymbolNode = steps[steps.length - 1].newEquation.leftNode.toString()
+    const thesolution = steps[steps.length - 1].newEquation.rightNode.toString()
+    calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${thesolution})`))
+    calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${thesolution})`))
   }
   return {
     solution: solution,

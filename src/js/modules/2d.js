@@ -1,7 +1,25 @@
-import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat } from './outils.js'
+import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
-import { fraction, max, ceil } from 'mathjs'
+import { fraction, max, ceil, round, evaluate } from 'mathjs'
+
+function arrondi (nombre, precision = 2, debug = false) {
+  if (isNaN(nombre)) {
+    window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', { nombre, precision })
+    return NaN
+  } else {
+    return debug ? round(nombre, precision) : nombre
+  }
+}
+
+function calcul (x, arrondir = 13, debug = false) {
+  if (typeof expression === 'string') {
+    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
+    return debug ? parseFloat(evaluate(x).toFixed(arrondir === false ? 13 : arrondir)) : x
+  } else {
+    return debug ? parseFloat(x.toFixed(arrondir)) : x
+  }
+}
 
 /*
   MathALEA2D
@@ -1871,31 +1889,31 @@ function Segment (arg1, arg2, arg3, arg4, color) {
   this.tailleExtremites = 4
   if (arguments.length === 2) {
     if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Segment : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
-    this.x1 = arrondi(arg1.x, 3)
-    this.y1 = arrondi(arg1.y, 3)
-    this.x2 = arrondi(arg2.x, 3)
-    this.y2 = arrondi(arg2.y, 3)
+    this.x1 = arrondi(arg1.x, 2)
+    this.y1 = arrondi(arg1.y, 2)
+    this.x2 = arrondi(arg2.x, 2)
+    this.y2 = arrondi(arg2.y, 2)
   } else if (arguments.length === 3) {
     if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Segment : (attendus : A, B et "couleur") les arguments de sont pas des points valides', { arg1, arg2 })
 
-    this.x1 = arrondi(arg1.x, 3)
-    this.y1 = arrondi(arg1.y, 3)
-    this.x2 = arrondi(arg2.x, 3)
-    this.y2 = arrondi(arg2.y, 3)
+    this.x1 = arrondi(arg1.x, 2)
+    this.y1 = arrondi(arg1.y, 2)
+    this.x2 = arrondi(arg2.x, 2)
+    this.y2 = arrondi(arg2.y, 2)
     this.color = arg3
   } else if (arguments.length === 4) {
     if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', { arg1, arg2 })
-    this.x1 = arrondi(arg1, 3)
-    this.y1 = arrondi(arg2, 3)
-    this.x2 = arrondi(arg3, 3)
-    this.y2 = arrondi(arg4, 3)
+    this.x1 = arrondi(arg1, 2)
+    this.y1 = arrondi(arg2, 2)
+    this.x2 = arrondi(arg3, 2)
+    this.y2 = arrondi(arg4, 2)
   } else {
     // 5 arguments
     if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2, y2 et "couleur") les arguments de sont pas des nombres valides', { arg1, arg2 })
-    this.x1 = arrondi(arg1, 3)
-    this.y1 = arrondi(arg2, 3)
-    this.x2 = arrondi(arg3, 3)
-    this.y2 = arrondi(arg4, 3)
+    this.x1 = arrondi(arg1, 2)
+    this.y1 = arrondi(arg2, 2)
+    this.x2 = arrondi(arg3, 2)
+    this.y2 = arrondi(arg4, 2)
     this.color = color
   }
   this.bordures = [Math.min(this.x1, this.x2) - 0.2, Math.min(this.y1, this.y2) - 0.2, Math.max(this.x1, this.x2) + 0.2, Math.max(this.y1, this.y2) + 0.2]
@@ -10969,7 +10987,7 @@ function Labyrinthe (
   }
 } // fin de la classe labyrinthe
 export function labyrinthe ({ taille = 1, format = 'texte' } = {}) {
-  return new Labyrinthe({ taille, format })
+  return new Labyrinthe({ taille: taille, format: format })
 }
 
 /**

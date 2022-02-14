@@ -16,7 +16,7 @@ export declare class GraphicView {
     width: number;
     height: number;
     ratio: number;
-    constructor(xmin: any, ymin: any, xmax: any, ymax: any);
+    constructor(xmin: number, ymin: number, xmax: number, ymax: number);
     setDimensions(xmin?: number, ymin?: number, xmax?: number, ymax?: number): void;
     /**
      * Show any Objects in Mathalea2D

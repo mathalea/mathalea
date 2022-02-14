@@ -8,7 +8,7 @@ import { GraphicObject } from './elements.js';
  */
 export class Grandeur {
     constructor(name, value, precision = 1, unit = '') {
-        this.value = value;
+        this.value = parseFloat(value.toFixed(precision));
         this.precision = precision;
         this.unit = unit;
         this.toFixed = parseFloat(this.value.toFixed(this.precision));
