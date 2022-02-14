@@ -1,5 +1,5 @@
 import { texNombre2 } from '../../../modules/outils.js';
-import { simplify, parse, unit } from 'mathjs';
+import { simplify, parse, unit, max, add, subtract } from 'mathjs';
 import { aleaName } from '../../../modules/outilsMathjs.js';
 import { GraphicObject } from './elements.js';
 /**
@@ -41,13 +41,13 @@ export class Grandeur {
         return new Grandeur(expression, parseFloat(calcul.args[0].toString()), this.precision - a.precision, calcul.args[1].toString());
     }
     add(a) {
-        const calcul = simplify([this.name, a.name].filter(x => x !== '').join('+')).toString();
-        // Si les deux grandeurs ne sont pas de même unité c'est celle de this qui est conservée
-        return new Grandeur(calcul, this.toFixed + a.toFixed, Math.max(a.precision, this.precision), this.unit);
+        const expression = simplify([this.name, a.name].filter(x => x !== '').join('+')).toString();
+        const calcul = parse(add(unit(this.toFixed + this.unit), unit(a.toFixed + a.unit)).toString());
+        return new Grandeur(expression, parseFloat(calcul.args[0].toString()), max(this.precision, a.precision), calcul.args[1].toString());
     }
     subtract(a) {
-        const calcul = simplify([this.name, a.name].filter(x => x !== '').join('-')).toString();
-        // Si les deux grandeurs ne sont pas de même unité c'est celle de this qui est conservée
-        return new Grandeur(calcul, this.toFixed - a.toFixed, Math.max(a.precision, this.precision), this.unit);
+        const expression = simplify([this.name, a.name].filter(x => x !== '').join('-')).toString();
+        const calcul = parse(subtract(unit(this.toFixed + this.unit), unit(a.toFixed + a.unit)).toString());
+        return new Grandeur(expression, parseFloat(calcul.args[0].toString()), max(this.precision, a.precision), calcul.args[1].toString());
     }
 }

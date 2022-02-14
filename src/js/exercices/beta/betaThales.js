@@ -537,7 +537,7 @@ export default function exercicesThales () {
           <br>
           Calculer $${ON.name}$.
           <br>
-          $${toTex(aire.calcul)}$
+          $${toTex(`${aire.calcul} = ${aire.toFixed}${aire.unit}`)}$
           <br>
           $${toTex(`${OA.name} = ${OA.toFixed}${OA.unit}`)}$
           <br>

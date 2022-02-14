@@ -63,7 +63,7 @@ export default function equationsProgression () {
   for (let i = 0; i < 122; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
-    'Type de question', this.nbQuestions, formulaire.join('\n')
+    'Type de question', 123, formulaire.join('\n')
   ]
   this.consigne = ''
   this.nbCols = 0
@@ -1184,6 +1184,10 @@ export default function equationsProgression () {
           D'une part : $${exercice.verifLeftSide.printExpression}=${exercice.verifLeftSide.printResult}$
           <br>
           D'autre part : $${exercice.verifRightSide.printExpression}=${exercice.verifRightSide.printResult}$
+          <br>
+          Détails des calculs :
+          <br>
+          ${exercice.verifLeftSide.texteCorr}
           `
           break
         }
