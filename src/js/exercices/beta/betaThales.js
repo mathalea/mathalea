@@ -697,11 +697,11 @@ export default function exercicesThales () {
         }
         case 21: {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=20,n=1&serie=R5pi&v=ex&z=1
-          // Pb unités : http://localhost:8080/mathalea.html?ex=betaThales,s=20,n=1&serie=B0PX&v=ex&z=1
-          const graphic = aleaThalesConfig(-6, -6, 6, 6, false)
-          /* const graphic = aleaThalesConfig(-100, -100, 100, 100, false)
+          // OA disparait !
+          // const graphic = aleaThalesConfig(-6, -6, 6, 6)
+          const graphic = aleaThalesConfig(-0.1, -0.1, 0.1, 0.1, false)
           graphic.scale *= 10 / graphic.width
-          graphic.ppc *= 10 / graphic.width */
+          graphic.ppc *= 10 / graphic.width
           const [O, A, B, M, N] = graphic.geometric
           // On nomme les droites à partir des noms des points
           const dAB = graphic.addLine(A, B)
@@ -738,32 +738,39 @@ export default function exercicesThales () {
           dAM.aleaName(A, M)
           const dBN = graphic.addLine(B, N)
           dBN.aleaName(B, N)
+          // Préparation d'une autre question pour le calcul de MN
+          const AB = new Grandeur(A.name + B.name, parse(unit(graphic.distance(A, B), 'cm').toString()).args[0].value, 1, parse(unit(graphic.distance(A, B), 'cm').toString()).args[1].toString())
+          const MN = AB.multiply(k)
+          MN.aleaName(M, N)
           // ObjetGarphic.name donne le nom en fonction de la nature de l'objet (droite, segment, point)
           // Grandeur.name donne le nom qu'on lui a affecté à sa création ou bien l'ensemble des calculs qui ont prmis de l'obtenir ou encore le nom qu'on lui a affecté
           // Grandeur.nameAndValue donne un format latex de la forme k = 1.5 cm par exemple
           // Grandeur.calcul donne une chaine de caractère avec les calculs au format string
           const aleaDonnees = aleaName(
-            [`$${toTex(`${OA.name} = ${OA.toFixed}${OA.unit}`)}$`,
-            `$${toTex(`${OB.name} = ${OB.toFixed}${OB.unit}`)}$`,
-            `$${toTex(`${OM.name} = ${OM.abs().toFixed}${OM.unit}`)}$`]
+            [`$${toTex(`${OA.name} = ${OA.toFixed}${OA.unit}`, { suppr1: false })}$`,
+            `$${toTex(`${OB.name} = ${OB.toFixed}${OB.unit}`, { suppr1: false })}$`,
+            `$${toTex(`${OM.name} = ${OM.abs().toFixed}${OM.unit}`, { suppr1: false })}$`,
+            `$${toTex(`${MN.name} = ${MN.abs().toFixed}${MN.unit}`, { suppr1: false })}$`
+            ]
           ).join(', ')
           const texte = `
           Les droites $(${dAB.name}$) et $(${dMN.name})$ sont parallèles.
           <br> Les droites $(${dAM.name}$) et $(${dBN.name})$ sont sécantes en $${O.name}$.
           <br> On a : ${aleaDonnees}.
-          <br> Calculer ${ON.name}.
+          <br> Calculer ${ON.name} en ${ON.unit} puis ${AB.name} en ${AB.unit}.
           `
           const texteCorr = `
           Les droites $(${dAB.name}$) et $(${dMN.name})$ sont parallèles.
           <br> Les droites $(${dAM.name}$) et $(${dBN.name})$ sont sécantes en $${O.name}$.
-          <br>D'après le théorème de Thalès, on a :
-          <br>$${toTex(`${OA.name}/${OM.name}=${OB.name}/${ON.name}`)}$
-          <br>D'où $${toTex(`${OA.to('cm').toFixed}/${OM.abs().to('cm').toFixed}=${OB.to('cm').toFixed}/${ON.name}`)}$
-          <br>On en déduit l'égalité des produits en croix.
-          <br>$${toTex(`${OA.to('cm').toFixed}*${ON.name}=${OB.to('cm').toFixed}*${OM.abs().to('cm').toFixed}`)}$
-          <br> On résoud l'équation d'inconnue $${ON.name}$.
-          <br>$${toTex(`${ON.name}=${OB.to('cm').toFixed}*${OM.abs().to('cm').toFixed}/${OA.to('cm').toFixed}`)}$
-          <br>D'où ${ON.abs().to('cm').nameAndValue}.
+          <br>D'après le théorème de Thalès, on a : $${toTex(`${OA.name}/${OM.name}=${OB.name}/${ON.name}=${AB.name}/${MN.name}`, { suppr1: false })}$
+          <br>D'une part $${toTex(`${OA.to('cm').toFixed}/${OM.abs().to('cm').toFixed}=${OB.to('cm').toFixed}/${ON.name}`, { suppr1: false })}$
+          <br>On en déduit l'égalité des produits en croix : $${toTex(`${OA.to('cm').toFixed}*${ON.name}=${OB.to('cm').toFixed}*${OM.abs().to('cm').toFixed}`, { suppr1: false })}$
+          <br> On résoud l'équation d'inconnue $${ON.name}$ : $${toTex(`${ON.name}=${OB.to('cm').toFixed}*${OM.abs().to('cm').toFixed}/${OA.to('cm').toFixed}=${ON.abs().to('cm').toFixed}${ON.abs().unit}`, { suppr1: false })}$
+          <br>D'où ${ON.abs().nameAndValue}.
+          <br> D'autre part $${toTex(`${AB.name}/${MN.abs().to('cm').toFixed}=${OA.to('cm').toFixed}/${OM.abs().to('cm').toFixed}`, { suppr1: false })}$
+          <br>On en déduit l'égalité des produits en croix : $${toTex(`${AB.name}*${OM.abs().to('cm').toFixed}=${OA.to('cm').toFixed}*${MN.abs().to('cm').toFixed}`, { suppr1: false })}$
+          <br> On résoud l'équation d'inconnue $${AB.name}$ : $${toTex(`${AB.name}=${OA.to('cm').toFixed}*${MN.abs().to('cm').toFixed}/${OM.abs().to('cm').toFixed}=${AB.to('cm').toFixed}`, { suppr1: false })}$
+          <br>D'où ${AB.nameAndValue}.
           `
           const graph = graphic.getMathalea2DExport(
             O, A, B, M, N,
