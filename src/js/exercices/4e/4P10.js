@@ -343,7 +343,7 @@ export default function ProblemesGrandeursComposees () {
                   'Définition : densité (grandeur physique)',
                   'La densité d\'une substance est égale à la masse volumique de la substance divisée par la masse volumique du corps de référence à la même température.<br>Pour les liquides et les solides, l\'eau est utilisée comme référence (sa masse volumique est de 1kg/dm$^3$), pour les gaz, la mesure s\'effectue par rapport à l\'air.<br>Donc pour les liquides, la densité est égale à la masse volumique exprimée en kg/dm$^3$.'
                 ) +
-                ` est de $${texNombrec(liquides[index2][1])}$kg/dm$^3$), quelle masse ${liquides[index2][0]
+                ` est de $${texNombrec(liquides[index2][1])} $kg/dm$^3$), quelle masse ${liquides[index2][0]
                 } en kg contiendra-t-il au gramme près ?<br>`
               texteCorr =
                 numAlpha(0) +
