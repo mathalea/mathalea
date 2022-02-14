@@ -253,7 +253,7 @@ export default function RepresenterUnSolide4e () {
       }
 
       if (listeTypeDeQuestions[i] === 6) {
-        objetsEnonce.push(AB, BF, tracePoint(I, 0.5, 'red'), labelPoint(I),
+        objetsEnonce.push(AB, BF, tracePoint(I, 'red'), labelPoint(I),
           g,
           carreaux
         )
