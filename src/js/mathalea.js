@@ -610,8 +610,12 @@ function miseAJourDuCode () {
       }
       if (context.vue === 'exMoodle' || context.vue === 'correctionMoodle') {
         const iMoodle = new URLSearchParams(window.location.search).get('iMoodle')
-        if (typeof iMoodle !== 'undefined') {
+        if (iMoodle !== null) {
           finUrl += `&iMoodle=${iMoodle}`
+        }
+        const moodleJson = new URLSearchParams(window.location.search).get('moodleJson')
+        if (moodleJson !== null) {
+          finUrl += `&moodleJson=${moodleJson}`
         }
       }
       window.history.replaceState('', '', finUrl)
@@ -889,109 +893,18 @@ function miseAJourDuCode () {
         if (!listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
           params += ',cd=0'
         }
-        params += ',i=1'
-        const mathAleaURL = location.origin + location.pathname
-        const urlIframe = `${mathAleaURL}?ex=${id},${params}&v=exMoodle&z=1`
-        const urlIframeCor = `${mathAleaURL}?ex=${id},${params}&v=correctionMoodle&z=1`
+        // params += ',i=1'
+        const mathAleaURL = new URL('.', location.href).href
 
-        /*
-          Quelques remarques :
-          - L'extension 'es6-string-javascript' permet d'obtenir la coloration syntaxique de code JS
-          - Le script est un module qui est donc chargé après que le document est parsé, il peut donc accéder à des nodes après la balise script
-        */
-
-        const moodleInitialisationFunction = /* javascript */ `
-        if(typeof window.iMathAlea === 'undefined') {
-
-        window.iMathAlea = [];
-
-        window.addEventListener('message', (event) => {
-          if(typeof event.data.iMoodle === 'number' && typeof window.iMathAlea[event.data.iMoodle] !== 'undefined') {
-            const iframe = window.iMathAlea[event.data.iMoodle];
-            let hauteur = event.data.hauteurExercice;
-            if (typeof hauteur !== 'undefined') {
-              hauteur += 50;
-              iframe.height = hauteur.toString();
-            }
-            if (event.data.score !== undefined) {
-              iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score;
-              iframe.parentNode.parentNode.querySelector('[name$="_-submit"]').click();
-            }
-          }
-        });
-
-        style = document.createElement('style');
-        style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls { display: none; }';
-        document.head.appendChild(style);
-        }`
-
-        const moodleSearchSeed = /* javascript */ `
-        // On remonte de parent en parent depuis la balise script jusqu'à trouver le div avec le numero de la question en id
-        searchSeed = document.currentScript;
-        while(searchSeed !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
-          if(typeof searchSeed.id === 'string' && searchSeed.id.startsWith('question-')) {
-            searchSeed = searchSeed.id;
-            break; // la seed a été trouvée
-          }
-          searchSeed = searchSeed.parentNode;
-        }
-        `
-
-        const moodleCreateIframe = function (url) {
-          return /* javascript */ `
-          iframe = document.createElement('iframe');
-          iframe.setAttribute('width', '100%');
-          iframe.setAttribute('height', '400');
-          iframe.setAttribute('src', '${url}' + '&iMoodle=' + window.iMathAlea.length + '&serie=' + searchSeed);
-          iframe.setAttribute('frameBorder', '0');
-          iframe.setAttribute('allow', 'fullscreen');
-          document.currentScript.parentNode.insertBefore(iframe, document.currentScript);
-
-          window.iMathAlea.push(iframe);
-          `
-        }
-
-        codeMoodle += `<question type="shortanswer">
-<name>
-  <text>${id} - ${titre} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'},${params}</text>
-</name>
-  <questiontext format="html">
-    <text><![CDATA[
-<script>` + /* javascript */`
-  
-  ${moodleInitialisationFunction}
-  ${moodleSearchSeed}
-  ${moodleCreateIframe(urlIframe)}
-    
-  document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
-  ` + `
-</script>
-      `
-        codeMoodle += `]]></text>
-  </questiontext>`
-        codeMoodle += '\n'
-        // Moodle n'accepte que certains scores
-        const scoreAcceptes = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
-        for (const score of scoreAcceptes) {
-          codeMoodle += `  <answer fraction="${score}">
-      <text>${score}</text>
-        <feedback><text> </text></feedback>
-    </answer>`
-        }
-        codeMoodle += `\n<defaultgrade>${nbQuestions * pointsParQuestions}</defaultgrade>`
-        codeMoodle += `\n<generalfeedback>\n<text><![CDATA[
-          <h4>Correction :</h4>          
-  <script>` + /* javascript */ `
-    ${moodleInitialisationFunction}
-    ${moodleSearchSeed}
-    ${moodleCreateIframe(urlIframeCor)}    
-    document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
-  ` + `
-  </script> 
-          
-        ]]>\n</text>\n</generalfeedback>`
-        codeMoodle += '\n</question>'
-        codeMoodle += '\n\n'
+        codeMoodle += `
+:: ${id.replace(/[~=#{}:]/g, '\\$&')} - ${titre.replace(/[~=#{}:]/g, '\\$&')} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'},${params.replace(/[~=#{}:]/g, '\\$&')} ::
+<script src\\="${mathAleaURL.replace(/[~=#{}:]/g, '\\$&')}assets/externalJs/moodle.js" type\\="module"></script>
+<mathalea-moodle ex\\="${id.replace(/[~=#{}:]/g, '\\$&')},${params.replace(/[~=#{}:]/g, '\\$&')}" />
+{
+  =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+  #### <mathalea-moodle ex\\="${id.replace(/[~=#{}:]/g, '\\$&')},${params.replace(/[~=#{}:]/g, '\\$&')}" correction />
+}
+`
       }
       $('#message_liste_exercice_vide').hide()
       copierExercicesFormVersAffichage(listeDesExercices)
@@ -1020,15 +933,13 @@ function miseAJourDuCode () {
       .off('click')
       .on('click', function () {
         // Gestion du style pour l'entête du fichier
-        let contenuFichier = '<?xml version="1.0" ?> <quiz>'
-        contenuFichier += '\n' + codeMoodle
-        contenuFichier += '\n\n</quiz>'
-        contenuFichier += `<!--Document généré avec MathALEA sous licence CC-BY-SA \n\t${window.location.href}\n-->\n\n`
+        let contenuFichier = codeMoodle
+        contenuFichier += `\n// Document généré avec MathALEA sous licence CC-BY-SA \n // ${window.location.href}`
 
         if ($('#nom_du_fichier').val()) {
-          telechargeFichier(contenuFichier, $('#nom_du_fichier').val() + '.xml')
+          telechargeFichier(contenuFichier, $('#nom_du_fichier').val() + '.txt')
         } else {
-          telechargeFichier(contenuFichier, 'mathalea.xml')
+          telechargeFichier(contenuFichier, 'mathalea.txt')
         }
       })
   }
