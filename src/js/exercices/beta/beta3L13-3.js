@@ -1,3 +1,4 @@
+import { homothetie, mathalea2d, point, polygoneAvecNom, segment, texteParPosition, texteSurSegment } from '../../modules/2d'
 import { setReponse } from '../../modules/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive'
 import { arrondi, choice, combinaisonListes, listeQuestionsToContenu, prenom, randint, texNombre, texPrix } from '../../modules/outils'
@@ -12,20 +13,36 @@ export default class ProblemesEnEquation extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.nbQuestions = 6
+    this.nbQuestions = 9
+  }
+
+  figureThales (a, b, c, OC) {
+    const O = point(1.5, 0, 'O')
+    const B = point(4, 6, 'B')
+    const A = point(0, 5, 'A')
+    const D = homothetie(B, O, 0.4, 'D')
+    const C = homothetie(A, O, 0.4, 'C')
+    const OAB = polygoneAvecNom(O, C, A, B, D)
+    const CD = segment(C, D)
+    const longOC = texteParPosition(`${OC}`,0.5,1)
+    const longCA = texteParPosition(`${b}`, 0,3)
+    const longAB = texteParPosition(`${c}`, 2,6)
+    const longCD = texteParPosition(`${a}`, 1.5, 2.5)
+    return mathalea2d({ xmin: -1, xmax: 5, ymin: -1, ymax: 7, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB[0], OAB[1], longOC, longCA, longAB, longCD, CD)
   }
 
   nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2']
+    const listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'Thales','Thales2','tarifs']
     const listeDeProblemes = combinaisonListes(listeTypeDeProblemes, this.nbQuestions)
     for (let i = 0, cpt = 0, texte, x, a, b, c, d, variables, enonce, figure, intro, conclusion, equation, resolution, verification, texteCorr; i < this.nbQuestions && cpt < 50;) {
       const quidam = prenom(2)
       // const n = 0 // un paramètre entier qui peut servir dans certains cas.
       const produit = choice(['fraises', 'pêches', 'poires', 'pommes', 'mangues', 'prunes', 'citrons'])
       const polygones = ['triangle', 'quadrilatère', 'pentagone', 'hexagone']
+      const clubs = ['ciné-club', 'club de fitness', 'club de ski']
       switch (listeDeProblemes[i]) {
         case 'basket':
           x = randint(5, 15) // nombre de paniers à trois points
@@ -138,6 +155,92 @@ export default class ProblemesEnEquation extends Exercice {
           <br>
           D'autre part : $${resolution.verifRightSide.printExpression}=${resolution.verifRightSide.printResult}$
           `
+          break
+        case 'Thales':
+          variables = variables = aleaVariables(
+            {
+              a: 'randomInt(2,15)',
+              b: 'randomInt(1,10)',
+              c: 'randomInt(2,35)',
+              d: 'a*b/(c-a)',
+              test: 'd>0 and (a*b)%abs(c-a)==0'
+            }
+            , { valueOf: true })
+          a = variables.a
+          b = variables.b
+          c = variables.c
+          d = variables.d
+          x = Math.round(d)
+          equation = `(x+${b})*${a}=x*${c}`
+          resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
+          figure = this.figureThales(a, b, c, '')
+          enonce = 'Soit la figure ci-dessous qui n\'est pas en vraie grandeur où [CD] et [AB] sont parallèles.'
+          enonce += ` $AB=${c}\\text{mm}$, $AC=${b}\\text{mm}$ et $CD=${a}\\text{mm}$.<br> Déterminer la longueur $OC$.`
+          intro = 'Dans cette configuration de Thales, on a l\'égalité suivante : $\\dfrac{OC}{OA}=\\dfrac{CD}{AB}$.<br>'
+          intro += 'Cette égalité est équivalente à l\'égalité des produits en croix : $OC\\times AB = CD\\times OA$.<br>'
+          intro += 'En remplaçant les longueurs par les données de l\'énoncé et en posant $x=OC$, on obtiens l\'équation suivante :<br>'
+          conclusion = `<br>donc $OA=${x}\\text{mm}$.<br>`
+          verification = `Vérification :
+          <br>
+          D'une part : $${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$
+          <br>
+          D'autre part : $${resolution.verifRightSide.printExpression}=${resolution.verifRightSide.printResult}$
+          `
+          break
+        case 'Thales2':
+          variables = variables = aleaVariables(
+            {
+              a: 'randomInt(2,15)',
+              b: 'randomInt(1,10)',
+              c: 'randomInt(2,35)',
+              d: 'a*b/(c-a)',
+              test: 'd>0 and (a*b)%abs(c-a)==0'
+            }
+            , { valueOf: true })
+          a = variables.a
+          x = variables.b
+          c = variables.c
+          d = variables.d
+          b = Math.round(d)
+          equation = `(x+${b})*${a}=${b}*${c}`
+          resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
+          figure = this.figureThales(a, '', c, b)
+          enonce = 'Soit la figure ci-dessous qui n\'est pas en vraie grandeur où [CD] et [AB] sont parallèles.'
+          enonce += ` $AB=${c}\\text{mm}$, $OC=${b}\\text{mm}$ et $CD=${a}\\text{mm}$.<br> Déterminer la longueur $AC$.`
+          intro = 'Dans cette configuration de Thales, on a l\'égalité suivante : $\\dfrac{OA}{OC}=\\dfrac{AB}{CD}$.<br>'
+          intro += 'Cette égalité est équivalente à l\'égalité des produits en croix : $CD\\times OA = OC\\times AB$.<br>'
+          intro += 'En remplaçant les longueurs par les données de l\'énoncé et en posant $x=OC$, on obtiens l\'équation suivante :<br>'
+          conclusion = `<br>donc $CA=${x}\\text{mm}$.<br>`
+          verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          break
+        case 'tarifs':
+          variables = aleaVariables(
+              {
+                a: 'randomInt(0,2)',
+                b: 'randomInt(50,80)/10',
+                c: 'randomInt(4,10)*5',
+                d: 'randomInt(40,70)/10',
+                test: 'b>d and c/(b-d)<30 and c/(b-d)>10'
+              }
+              , { valueOf: true })
+          a = variables.a
+          b = variables.b
+          c = variables.c
+          d = variables.d
+          x = Math.ceil(c / (b-d))
+          equation = `x*${b}>${c}+x*${d}`
+          resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
+          enonce = `Le ${clubs[a]} d'un village propose deux tarifs à ses pratiquants.<br>`
+          enonce += `Le tarif A propose de payer $${texPrix(b)}$ € à chaque séance.<br>`
+          enonce += `Le tarif B propose de payer un abonnement annuel de ${texPrix(c)} € puis de payer ${texPrix(d)} € par séance.<br>`
+          enonce += 'Pour quel nombre de séances le tarif B devient-il plus avantageux que le tarif A ?'
+          intro = 'Posons $x$ le nombre de séances.<br>'
+          intro += `Le prix à payer avec le tarif A est : $x\\times ${texPrix(b)}$.<br>`
+          intro += `Le prix à payer avec le tarif B est : $${texPrix(c)}+x\\times ${texPrix(d)}$.<br>`
+          intro += 'Pour que le tarif B soit plus avantageux, $x$ doit vérifier l\'inéquation suivante:<br>'
+          conclusion = `C'est à partir de ${x} séances que le tarif B devient plus avantageux que le tarif A.`
+          figure = ''
+          verification =  `<br>Vérification :<br>$${x}\\times ${texPrix(b)}=${texPrix(x*b)}$ et $${c}+${x}\\times ${texPrix(d)}=${c}+${texPrix(x*d)}= ${texPrix(c+x*d)}$.<br>`
           break
       }
 
