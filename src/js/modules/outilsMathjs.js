@@ -897,12 +897,12 @@ export function resoudre (equation, params) {
     print: toTex(steps[steps.length - 1].newEquation.ascii())
   }
   let calculateLeftSide, calculateRightSide
-  if (equation.indexOf('=') !== -1) {
-    const sides = equation.split('=')
-    const SymbolNode = parse(steps[steps.length - 1].newEquation.ascii().split('=')[0]).toString()
-    const solution = steps[steps.length - 1].newEquation.ascii().split('=')[1]
-    calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${solution})`))
-    calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${solution})`))
+  if (steps[steps.length - 1].newEquation.leftNode.isSymbolNode) {
+    const sides = equation.split(steps[steps.length - 1].newEquation.comparator)
+    const SymbolNode = steps[steps.length - 1].newEquation.leftNode.toString()
+    const thesolution = steps[steps.length - 1].newEquation.rightNode.toString()
+    calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${thesolution})`))
+    calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${thesolution})`))
   }
   return {
     solution: solution,
@@ -1292,7 +1292,7 @@ export function calculExpression2 (expression = '4/3+5/6', factoriser = false, d
  * aleaName(['chat','chien','poisson']) --> ['chien','poisson','chat']
  * aleaName(['chat','chien','poisson'],2) --> ['poisson','chat']
  * aleaName([Objet1,Objet2,Objet3]) --> [Objet2,Objet1,Objet3] où Objet peut être un Object, un Array etc.
- * @returns {string||Array}
+ * @returns {Array}
  */
 export function aleaName (names = [], n = names.length, result = []) {
   if (typeof names === 'string') {
@@ -1306,7 +1306,7 @@ export function aleaName (names = [], n = names.length, result = []) {
   }
   result.push(names.splice(Math.floor(Math.random() * names.length), 1)[0])
   if (result.length === n) {
-    return result.length === 1 ? result[0] : result
+    return result
   } else {
     return aleaName(names, n, result)
   }
