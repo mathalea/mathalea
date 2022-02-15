@@ -114,6 +114,12 @@ export declare class GraphicView {
      */
     addPointAligned(...args: any[]): any[];
     /**
+     * P1, P2, P3 with P2P1P3 rectangular in P1
+     * @param args
+     * @returns
+     */
+    addRectPoint(...args: any[]): any[];
+    /**
      * Distances to the sides of a triangle
      * @param  {Point,Point,Point} args
      * @returns
@@ -131,6 +137,7 @@ export declare class GraphicView {
      * @returns {Line}
      */
     addParallelLine(P?: any, line?: Line): Line[];
+    addPerpendicularLine(P?: any, line?: Line): Line[];
     /**
      * Add the sides of a polygon
      * @param  {...any} args

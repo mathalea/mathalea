@@ -54,6 +54,8 @@ function name (s, ...p) {
 function aleaThalesConfig (xmin = -5, ymin = -5, xmax = 5, ymax = 5, classicConfig) {
   const graphic = new GraphicView(xmin, ymin, xmax, ymax)
   const [O, A, B] = graphic.addNotAlignedPoint() // Trois points non alignés
+  // const [A, O, B] = graphic.addRectPoint() // Trois points non alignés et formant un triangle OAB rectangle en A
+  // const [O, A, B] = graphic.addRectPoint() // Trois points non alignés et formant un triangle OAB rectangle en O
   // On ajoute les droites (OB) et (AB)
   const dOB = graphic.addLine(O, B)
   const dAB = graphic.addLine(A, B)
@@ -74,8 +76,8 @@ function aleaThalesConfig (xmin = -5, ymin = -5, xmax = 5, ymax = 5, classicConf
   // On ajoute le point d'intersection de (OA) et (MN)
   const [N] = graphic.addIntersectLine(dMN, dOB) // C'est un tableau pour prévoir l'intersection de cercles par exemple
   // On commence par nommer les points et les droites
-  const aleaNames = aleaName(5) // Nommage aléatoire des points
-  // const aleaNames = ['O', 'A', 'B', 'M', 'N'] // Pour le debuggage
+  // const aleaNames = aleaName(5) // Nommage aléatoire des points
+  const aleaNames = ['O', 'A', 'B', 'M', 'N'] // Pour le debuggage
   const points = [O, A, B, M, N]
   points.forEach((x, i) => { x.name = aleaNames[i] })
   // On nomme les droites à partir des noms des points
@@ -705,12 +707,16 @@ export default function exercicesThales () {
           /* const graphic = aleaThalesConfig(-0.1, -0.1, 0.1, 0.1)
           graphic.scale *= 15 / graphic.width
           graphic.ppc *= 15 / graphic.width */
+
+          // On récupère les 5 points en configuration de Thalès
           const [O, A, B, M, N] = graphic.geometric
+
           // On nomme les droites à partir des noms des points
           const dAB = graphic.addLine(A, B)
           dAB.aleaName(A, B) // L'ordre des lettres est aléatoirisé
           const dMN = graphic.addLine(M, N)
           dMN.aleaName(M, N) // L'ordre des lettres est aléatoirisé
+
           // Exemple d'un vecteur créé à partir de deux points
           const vO = new Vector(O.x, O.y)
           const vA = new Vector(A.x, A.y)
@@ -724,6 +730,7 @@ export default function exercicesThales () {
           // On conservant signk le signe de k on a donc des longueurs algébriques
           const k = new Grandeur('k', signk * graphic.distance(O, M) / graphic.distance(O, A), 1)
           const OB = new Grandeur(O.name + B.name, parse(unit(graphic.distance(O, B), 'cm').toString()).args[0].value, 1, parse(unit(graphic.distance(O, B), 'cm').toString()).args[1].toString())
+
           // On effectue le calcul pour OM à partir des grandeurs définies et non à partir des mesures de la figure
           // Ceci afin d'éviter les valeurs non décimales.
           const OM = OA.multiply(k)
@@ -733,18 +740,22 @@ export default function exercicesThales () {
           // Même chose avec ON
           const ON = OB.multiply(OM).divide(OA)
           ON.name = O.name + N.name
+
           // On peut ainsi obtenir AM par le calcul vec les longueurs algébriques
           const AM = OA.neg().add(OM)
           AM.aleaName(A, M)
+
           // On ajoute des droites pour l'énoncé
           const dAM = graphic.addLine(A, M)
           dAM.aleaName(A, M)
           const dBN = graphic.addLine(B, N)
           dBN.aleaName(B, N)
+
           // Préparation d'une autre question pour le calcul de MN
           const AB = new Grandeur(A.name + B.name, parse(unit(graphic.distance(A, B), 'cm').toString()).args[0].value, 1, parse(unit(graphic.distance(A, B), 'cm').toString()).args[1].toString())
           const MN = AB.multiply(k)
           MN.aleaName(M, N)
+
           // ObjetGarphic.name donne le nom en fonction de la nature de l'objet (droite, segment, point)
           // Grandeur.name donne le nom qu'on lui a affecté à sa création ou bien l'ensemble des calculs qui ont prmis de l'obtenir ou encore le nom qu'on lui a affecté
           // Grandeur.nameAndValue donne un format latex de la forme k = 1.5 cm par exemple
@@ -759,12 +770,16 @@ export default function exercicesThales () {
           const graph = graphic.getMathalea2DExport(
             O, A, B, M, N,
             graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
-            graphic.addSidesPolygon(O, M, N),
-            graphic.addSegment(B, M),
-            graphic.addSegment(A, N),
-            graphic.addIntersectLine(graphic.addLine(B, M), graphic.addLine(A, N))
+            graphic.addSidesPolygon(O, M, N)
+            //, graphic.addSegment(B, M),
+            // graphic.addSegment(A, N),
+            // graphic.addIntersectLine(graphic.addLine(B, M), graphic.addLine(A, N))
           )
+
+          // Déterminer la meilleure unité pour les calculs avec les grandeurs
           const unite = parse(unit(graphic.width / 3, 'cm').toString()).args[1].toString()
+
+          // Création du texte
           const texte = `
           Les droites $(${dAB.name}$) et $(${dMN.name})$ sont parallèles.
           <br> Les droites $(${dAM.name}$) et $(${dBN.name})$ sont sécantes en $${O.name}$.

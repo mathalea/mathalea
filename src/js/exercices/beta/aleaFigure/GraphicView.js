@@ -324,6 +324,29 @@ export class GraphicView {
         return [P1, P2, P3];
     }
     /**
+     * P1, P2, P3 with P2P1P3 rectangular in P1
+     * @param args
+     * @returns
+     */
+    addRectPoint(...args) {
+        let P3, P1, P2;
+        do {
+            if (P1 !== undefined) {
+                for (let i = 0; i < 2 - args.length; i++) {
+                    this.geometric.pop();
+                    this.geometric.pop();
+                }
+            }
+            [P1, P2] = args.concat(this.addPoint(2 - args.length));
+            const line = this.addPerpendicularLine(P1, new Line(P1, P2))[1];
+            const [X1, X2] = this.getExtremPointGraphicLine(line);
+            P3 = this.getNewPointBetween(X1, X2);
+        } while (this.isCloseToExistingPoints(P3) || this.isCloseToLineThroughtExistingPoints(P3));
+        P3.name = P3.name || this.getNewName(P3.type);
+        this.geometric.push(P3);
+        return [P1, P2, P3];
+    }
+    /**
      * Distances to the sides of a triangle
      * @param  {Point,Point,Point} args
      * @returns
@@ -359,6 +382,12 @@ export class GraphicView {
         parallel.name = this.getNewName(parallel.type);
         this.geometric.push(parallel);
         return [line, parallel];
+    }
+    addPerpendicularLine(P = this.addPoint()[0], line = this.addLine()) {
+        const perpendicular = new Line(P, line.direction.getNormal());
+        perpendicular.name = this.getNewName(perpendicular.type);
+        this.geometric.push(perpendicular);
+        return [line, perpendicular];
     }
     /**
      * Add the sides of a polygon
