@@ -278,7 +278,7 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
   if (typeof node === 'string') {
     for (let i = 0; i < comparators.length; i++) {
       sides = node.split(comparators[i])
-      if (sides.length === 2) {
+      if (sides.length > 1) {
         comparator = comparators[i]
       }
     }
@@ -301,10 +301,17 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
     node = correctifNodeMathsteps(node) // Convertit d'abord tous les ConstantNode au format mathjs
     node = parse(node.toString({ parenthesis: 'all' })) // Permet d'utiliser correctement les implicit
   }
-  if (sides.length === 2) {
+  /* if (sides.length === 2) {
     const leftSide = toTex(sides[0], params)
     const rightSide = toTex(sides[1], params)
     return leftSide + comparator + rightSide
+  } */
+  if (sides.length > 1) {
+    const members = []
+    for (let i = 0; i < sides.length; i++) {
+      members.push(toTex(sides[i], params))
+    }
+    return members.join(comparator)
   }
   let nodeClone
   do { // À étudier, pour 79 et 85 et 50 cette boucle doit être maintenue
@@ -898,7 +905,7 @@ export function resoudre (equation, params) {
   }
   let calculateLeftSide, calculateRightSide
   if (steps[steps.length - 1].newEquation.leftNode.isSymbolNode) {
-    const sides = equation.split(steps[steps.length - 1].newEquation.comparator)
+    const sides = steps[0].oldEquation.ascii().split(steps[0].oldEquation.comparator)
     const SymbolNode = steps[steps.length - 1].newEquation.leftNode.toString()
     const thesolution = steps[steps.length - 1].newEquation.rightNode.toString()
     calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${thesolution})`))
