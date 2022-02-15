@@ -53,11 +53,19 @@ export default class ProblemesEnEquation extends Exercice {
       const clubs = ['ciné-club', 'club de fitness', 'club de ski']
       switch (listeDeProblemes[i]) {
         case 'basket':
-          x = randint(5, 15) // nombre de paniers à trois points
-          a = randint(5, 12) // nombres de paniers à deux points de plus que x
-          b = randint(15, 30) // nombre de points marqués au lancer franc
+          variables = aleaVariables(
+            {
+              x: 'randomInt(5,15)',
+              a: 'randomInt(5,12)',
+              b: 'randomInt(15,30)',
+              d: 'b+(a+x)*2+x*3'
+            }
+            , { valueOf: true })
+          x = variables.x // nombre de paniers à trois points
+          a = variables.a // nombres de paniers à deux points de plus que x
+          b = variables.b // nombre de points marqués au lancer franc
           c = 0 // ne sert pas dans ce cas
-          d = b + (a + x) * 2 + x * 3 // nombre de points de la partie
+          d = variables.d // nombre de points de la partie
           equation = `x*3+(${a}+x)*2+${b}=${d}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
           enonce = `Une équipe de basket a marqué ${d} points lors d'un match. Au cours de ce match, elle a marqué ${b} points sur lancers francs.<br>`
@@ -69,10 +77,18 @@ export default class ProblemesEnEquation extends Exercice {
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
           break
         case 'basket2':
-          x = randint(17, 27) // nombre de paniers à deux points
-          a = randint(5, 12) // nombres de paniers à trois points de moins que de paniers à 2 points
-          b = randint(15, 30) // nombre de points marqués au lancer franc
-          d = b + (x - a) * 3 + x * 2 // nombre de points de la partie
+          variables = aleaVariables(
+            {
+              x: 'randomInt(17,27)',
+              a: 'randomInt(5,12)',
+              b: 'randomInt(15,30)',
+              d: 'b+(x-a)*3+x*2'
+            }
+            , { valueOf: true })
+          x = variables.x // nombre de paniers à deux points
+          a = variables.a // nombres de paniers à trois points de moins que de paniers à 2 points
+          b = variables.b // nombre de points marqués au lancer franc
+          d = variables.d // nombre de points de la partie
           c = 0 // ne sert pas dans ce cas
           equation = `x*2+(x-${a})*3+${b}=${d}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
@@ -109,10 +125,18 @@ export default class ProblemesEnEquation extends Exercice {
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
           break
         case 'polygone':
-          x = arrondi(randint(2, 4) + randint(0, 45) / 5, 2) // longueur d'un des côtés égaux
-          a = arrondi(randint(2, 5) + randint(0, 45) / 5, 1) // longueur du côté différent
-          b = randint(2, 5) // nombre de côtés égaux du polygone
-          d = arrondi(b * x + a, 1) // périmètre du polygone
+          variables = aleaVariables(
+            {
+              x: 'randomInt(2,4)+randomInt(0,45)/5',
+              a: 'randomInt(2,5)+randomInt(0,45)/5',
+              b: 'randomInt(2,5)',
+              d: 'b*x+a'
+            }
+            , { valueOf: true })
+          x = variables.x // longueur d'un des côtés égaux
+          a = variables.a // longueur du côté différent
+          b = variables.b // nombre de côtés égaux du polygone
+          d = variables.d // périmètre du polygone
           c = 0 // ne sert pas dans ce cas
           equation = `${b}*x+${a}=${d}`
           resolution = resoudre(equation, { reduceSteps: true, substeps: false, comment: true })
