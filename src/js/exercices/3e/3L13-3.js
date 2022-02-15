@@ -147,7 +147,7 @@ export default class ProblemesEnEquation extends Exercice {
           intro += `Le programme de calcul effectué par ${quidam[0]} se traduit par : $(x+${b})\\times ${a}$.<br>`
           intro += `Le programme de calcul effectué par ${quidam[1]} se traduit par : $(x+${d})\\times ${c}$.<br>`
           intro += 'L\'égalité des résultats se traduit par l\'équation suivante :<br>'
-          conclusion = `${quidam[0]} et ${quidam[1]} on donc choisi au départ le nombre ${x}.`
+          conclusion = `<br>${quidam[0]} et ${quidam[1]} on donc choisi au départ le nombre ${x}.`
           figure = ''
           verification = `<br>Vérification :
           <br>
@@ -219,8 +219,8 @@ export default class ProblemesEnEquation extends Exercice {
               a: 'randomInt(0,2)',
               b: 'randomInt(50,80)/10',
               c: 'randomInt(4,10)*5',
-              d: 'randomInt(40,70)/10',
-              test: 'b>d and c/(b-d)<30 and c/(b-d)>10'
+              d: 'b-randomInt(2,6)*0.5',
+              test: 'c/(b-d)<30 and c/(b-d)>10 and (c*2)%((b-d)*2)==0'
             }
             , { valueOf: true })
           a = variables.a
@@ -228,7 +228,7 @@ export default class ProblemesEnEquation extends Exercice {
           c = variables.c
           d = variables.d
           x = Math.ceil(c / (b - d))
-          equation = `x*${b}>${c}+x*${d}`
+          equation = `x*${b}>=${c}+x*${d}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
           enonce = `Le ${clubs[a]} d'un village propose deux tarifs à ses pratiquants.<br>`
           enonce += `Le tarif A propose de payer $${texPrix(b)}$ € à chaque séance.<br>`
@@ -238,7 +238,7 @@ export default class ProblemesEnEquation extends Exercice {
           intro += `Le prix à payer avec le tarif A est : $x\\times ${texPrix(b)}$.<br>`
           intro += `Le prix à payer avec le tarif B est : $${texPrix(c)}+x\\times ${texPrix(d)}$.<br>`
           intro += 'Pour que le tarif B soit plus avantageux, $x$ doit vérifier l\'inéquation suivante:<br>'
-          conclusion = `<br>C'est à partir de ${x} séances que le tarif B devient plus avantageux que le tarif A.`
+          conclusion = `<br>C'est à partir de ${x} séances que le tarif B devient plus avantageux que le tarif A (pour ${x} séances, les deux tarifs sont équivalents).`
           figure = ''
           verification = `<br>Vérification :
           <br>
