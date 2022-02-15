@@ -3460,7 +3460,7 @@ export default {
     "interactifType": "mathLive",
     "name": "3S21",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -5471,7 +5471,7 @@ export default {
     "interactifReady": false,
     "name": "5G30-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -7854,7 +7854,10 @@ export default {
   "6M11-2": {
     "titre": "Calculer périmètre et aire de figures composées",
     "url": "/exercices/6e/6M11-2.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "6M11-2",
@@ -8581,7 +8584,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -10071,6 +10074,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "beta3L13-3": {
+    "titre": "Problèmes à mettre en équation et à résoudre",
+    "url": "/exercices/beta/beta3L13-3.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "beta3L13-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "beta3S20-1": {
     "titre": "Calculs de probabilités",
     "url": "/exercices/beta/beta3S20-1.js",
@@ -10399,7 +10417,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -10740,7 +10758,7 @@ export default {
     }
   },
   "betaThales": {
-    "titre": "Thales",
+    "titre": "aleaFigure",
     "url": "/exercices/beta/betaThales.js",
     "amcReady": false,
     "interactifReady": false,
@@ -11176,7 +11194,7 @@ export default {
     }
   },
   "can1F01": {
-    "titre": "Coordonnées sommet parabole avec forme canonique",
+    "titre": "Déterminer les coordonnées sommet parabole à partir de la forme canonique",
     "url": "/exercices/can/1e/can1F01.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11192,7 +11210,7 @@ export default {
     }
   },
   "can1F02": {
-    "titre": "Second degré variations (QCM)",
+    "titre": "Déterminer le sens de variation d’un pôlynome du second degré (QCM)",
     "url": "/exercices/can/1e/can1F02.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11208,7 +11226,7 @@ export default {
     }
   },
   "can1L01": {
-    "titre": "Discriminant",
+    "titre": "Calculer un discriminant",
     "url": "/exercices/can/1e/can1L01.js",
     "amcReady": true,
     "amcType": {
@@ -11227,7 +11245,7 @@ export default {
     }
   },
   "can1L02": {
-    "titre": "Nombre de solutions d’une équation du second degré",
+    "titre": "Déterminer le nombre de solutions d’une équation du second degré",
     "url": "/exercices/can/1e/can1L02.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11243,7 +11261,7 @@ export default {
     }
   },
   "can1P01": {
-    "titre": "Arbre de probabilité",
+    "titre": "Calculer des probabilités à partir d’un arbre",
     "url": "/exercices/can/1e/can1P01.js",
     "amcReady": true,
     "amcType": {
@@ -11254,6 +11272,22 @@ export default {
     "name": "can1P01",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1S01": {
+    "titre": "Calculer un terme d’une suite explicite",
+    "url": "/exercices/can/1e/can1S01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1S01",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13630,7 +13664,7 @@ export default {
     }
   },
   "can5D01": {
-    "titre": "Convertir en heures/minutes",
+    "titre": "Convertir des heures décimales en heures/minutes et inversement",
     "url": "/exercices/can/5e/can5D01.js",
     "amcReady": true,
     "amcType": {
@@ -13641,6 +13675,44 @@ export default {
     "name": "can5D01",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can5D02": {
+    "titre": "Convertir des heures décimales en heures/minutes et inversement*",
+    "url": "/exercices/can/5e/can5D02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5D02",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can5D03": {
+    "titre": "Convertir des fractions d’heures en minutes et inversement",
+    "url": "/exercices/can/5e/can5D03.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5D03",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
