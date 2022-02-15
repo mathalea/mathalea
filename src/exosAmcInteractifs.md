@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 428 
-- nombre d'exos interactifReady 579 
+- nombre d'exos amcReady 429 
+- nombre d'exos interactifReady 580 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -95,6 +95,7 @@
 |3L12|Factoriser a²-b²|KO|KO|OK|mathLive|
 |3L13-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
 |3L13-1|Équation du premier degré (utilisant la distributivité)|KO|KO|OK|mathLive|
+|3L13-3|Problèmes à mettre en équation et à résoudre|OK|AMCNum|OK|mathLive|
 |3L13|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |3L15-1|Résoudre une équation $x^2 = a$|KO|KO|OK|mathLive|
 |3P10-1|Coefficient multiplicateur d’une variation en pourcentage|KO|KO|OK|mathLive|

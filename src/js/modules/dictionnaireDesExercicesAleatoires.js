@@ -2067,7 +2067,7 @@ export default {
     "interactifType": "mathLive",
     "name": "2S12-3",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3286,6 +3286,25 @@ export default {
     "name": "3L13-2",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "3L13-3": {
+    "titre": "Problèmes à mettre en équation et à résoudre",
+    "url": "/exercices/3e/3L13-3.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3L13-3",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10065,21 +10084,6 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "beta3G41",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "beta3L13-3": {
-    "titre": "Problèmes à mettre en équation et à résoudre",
-    "url": "/exercices/beta/beta3L13-3.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "beta3L13-3",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"

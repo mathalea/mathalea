@@ -1,0 +1,4 @@
+<Files "moodle.js">
+  Header set Access-Control-Allow-Origin "*"
+  Header set Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
+</Files>
