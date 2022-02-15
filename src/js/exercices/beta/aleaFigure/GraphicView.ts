@@ -365,11 +365,6 @@ export class GraphicView {
   addPointAligned (P1 = this.addPoint()[0], P2 = this.addPoint()[0]) {
     let P3
     do {
-      /* if (P3 !== undefined) {
-          const enlargeWidth = this.width * 0.001 /2
-          const enlargeHeight = this.height * 0.001 /2
-          this.setDimensions(this.xmin-enlargeWidth,this.ymin-enlargeHeight,this.xmax+enlargeWidth,this.ymax+enlargeHeight)
-        }*/
       const line = new Line(P1, P2)
       const [X1, X2] = this.getExtremPointGraphicLine(line)
       P3 = this.getNewPointBetween(X1, X2)

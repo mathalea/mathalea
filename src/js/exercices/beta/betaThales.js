@@ -7,6 +7,7 @@ import { aleaVariables, toTex, resoudre, aleaExpression, aleaName } from '../../
 import { GraphicView } from './aleaFigure/GraphicView.js'
 import { Grandeur } from './aleaFigure/grandeurs.js'
 import { Line, Segment, Vector } from './aleaFigure/elements.js'
+import { AleaThalesConfig } from './aleaFigure/outilsThales.js'
 
 // eslint-disable-next-line no-debugger
 debugger
@@ -51,7 +52,7 @@ function name (s, ...p) {
  * Create a configuration of Thales in a given graphic view
  * @returns
  */
-function aleaThalesConfig (xmin = -5, ymin = -5, xmax = 5, ymax = 5, classicConfig) {
+function aleaThalesConfigOld (xmin = -5, ymin = -5, xmax = 5, ymax = 5, classicConfig) {
   const graphic = new GraphicView(xmin, ymin, xmax, ymax)
 
   /*
@@ -282,8 +283,8 @@ export default function exercicesThales () {
   this.video = ''
   this.correctionDetailleeDisponible = false
   this.correctionDetaillee = true
-  context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
+  context.isHtml ? (this.spacing = 2.5) : (this.spacing = 1.5)
+  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 2)
   this.sup = 'all'
   this.nouvelleVersion = function (numeroExercice, dDebug = false) {
     if (this.sup === 'all') this.nbQuestions = formulaire.length - 1
@@ -607,7 +608,7 @@ export default function exercicesThales () {
         }
         case 18: {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=18,n=1&serie=fOS7&v=ex&z=1
-          const config = aleaThalesConfig(-5, -5, 5, 5)
+          const config = AleaThalesConfig(-5, -5, 5, 5)
           const O = config.O
           const A = config.A
           const B = config.B
@@ -624,7 +625,7 @@ export default function exercicesThales () {
         }
         case 19: {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=19,n=1&serie=fOS7&v=ex&z=1
-          const config = aleaThalesConfig(-5, -5, 5, 5, true)
+          const config = AleaThalesConfig(-5, -5, 5, 5, true)
           const O = config.O
           const A = config.A
           const B = config.B
@@ -643,7 +644,7 @@ export default function exercicesThales () {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=20,n=1&serie=R5pi&v=ex&z=1
           // Pb unités : http://localhost:8080/mathalea.html?ex=betaThales,s=20,n=1&serie=B0PX&v=ex&z=1
           // const graphic = aleaThalesConfig(-5, -5, 5, 5, false)
-          const graphic = aleaThalesConfig(-0.1, -0.1, 0.1, 0.1, false)
+          const graphic = AleaThalesConfig(-0.1, -0.1, 0.1, 0.1, false)
           graphic.scale *= 10 / graphic.width
           graphic.ppc *= 10 / graphic.width
           const [O, A, B, M, N] = graphic.geometric
@@ -720,7 +721,15 @@ export default function exercicesThales () {
         }
         case 21: {
           // Problème toFixed : http://localhost:8080/mathalea.html?ex=betaThales,s=21,n=1&serie=3B5V&v=ex&z=1
-          const graphic = aleaThalesConfig(0, 0, 6, 6)
+          // const graphic = aleaThalesConfig(0, 0, 6, 6)
+          const graphic = new AleaThalesConfig()
+
+          // Paramètres
+          // graphic.setDimensions(0.5)
+          // graphic.classicConfig = true
+          // graphic.OAB = true
+          // graphic.new()
+
           // Exemple avec des conversions
           // http://localhost:8080/mathalea.html?ex=betaThales,s=21,n=1&serie=GxI1&v=ex&z=1
           // Il faut mettre la précision à 2
@@ -791,8 +800,8 @@ export default function exercicesThales () {
           const graph = graphic.getMathalea2DExport(
             O, A, B, M, N,
             graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
-            graphic.addSidesPolygon(O, M, N),
-            graphic.addCircle(O, A)
+            graphic.addSidesPolygon(O, M, N)
+            //, graphic.addCircle(O, A)
             //, graphic.addSegment(B, M),
             // graphic.addSegment(A, N),
             // graphic.addIntersectLine(graphic.addLine(B, M), graphic.addLine(A, N))
@@ -821,7 +830,7 @@ export default function exercicesThales () {
           <br> On résout l'équation d'inconnue $${AB.name}$ : $${toTex(`${AB.name}=${OA.to(unite).toFixed}*${MN.abs().to(unite).toFixed}/${OM.abs().to(unite).toFixed}=${AB.to(unite).toFixed}${AB.to(unite).unit}`, { suppr1: false })}$
           <br>D'où ${AB.nameAndValue}.
           `
-          exercice.texte = texte + '<br><br>' + graph + '<br><br>' + texteCorr
+          exercice.texte = texte + '<br>' + graph + '<br>' + texteCorr
           exercice.texteCorr = texteCorr
           break
         }
