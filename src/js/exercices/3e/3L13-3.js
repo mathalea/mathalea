@@ -21,7 +21,7 @@ export default class ProblemesEnEquation extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.nbQuestions = 10
+    this.nbQuestions = 2
   }
 
   figureThales (a, b, c, OC) {
@@ -86,9 +86,17 @@ export default class ProblemesEnEquation extends Exercice {
           break
 
         case 'achats':
-          x = arrondi(randint(2, 5) + randint(0, 1) / 2, 2) // prix de 1kg de produit
-          a = arrondi(randint(2, 7) + randint(0, 4) / 5, 1) // nombre de kg de produit
-          b = arrondi(a * x, 2) // prix total du produit
+          variables = aleaVariables(
+            {
+              a: 'randomInt(2,5)+randomInt(0,4)/5',
+              x: 'randomInt(2,5)+randomInt(0,1)/2',
+              b: 'a*x',
+              test: 'b<100 and b>5 and b%10!=0'
+            }
+            , { valueOf: true })
+          x = variables.x // prix de 1kg de produit
+          a = variables.a // nombre de kg de produit
+          b = variables.b // prix total du produit
           d = b > 50 ? 100 : b > 20 ? 50 : b > 10 ? 20 : 10 // valeur du billet donné
           c = 0 // ne sert pas dans ce cas
           equation = `${a}*x+${arrondi(d - b, 2)}=${d}`
@@ -108,8 +116,8 @@ export default class ProblemesEnEquation extends Exercice {
           c = 0 // ne sert pas dans ce cas
           equation = `${b}*x+${a}=${d}`
           resolution = resoudre(equation, { reduceSteps: true, substeps: false, comment: true })
-          enonce = `Un ${polygones[b - 2]} possède un côté de longueur $${texNombre(a)}$ cm et tous ses autres côtés ont même longueur.<br>Son périmètre mesure $${texNombre(d)}$ cm.<br>`
-          enonce += 'Quel est la longueur des côtés de même longueur ?'
+          enonce = `Un ${polygones[b - 2]} possède un côté de longueur $${texNombre(a)}$ cm et tous ses autres côtés ont même longueur.<br>Son périmètre est $${texNombre(d)}$ cm.<br>`
+          enonce += 'Quelle est la longueur des côtés de même longueur ?'
           intro = 'Posons $x$ la longueur des côtés de même longueur.<br>'
           intro += `Un ${polygones[b - 2]} possède ${b + 1} côtés, donc celui-ci possède ${b} côtés de même longueur.<br>`
           intro += 'L\'énoncé se traduit par l\'équation suivante :<br>'
@@ -150,7 +158,7 @@ export default class ProblemesEnEquation extends Exercice {
           enonce = `${quidam[0]} et ${quidam[1]} choisissent un même nombre.<br> ${quidam[0]} lui ajoute ${b} puis multiplie le résultat par ${a} alors que `
           enonce += `${quidam[1]} lui ajoute ${d} puis multiplie le résultat par ${c}.<br>`
           enonce += `${quidam[0]} et ${quidam[1]} obtiennent le même résultat.<br>`
-          enonce += 'Quel est le nombre de départ ?'
+          enonce += `Quel nombre commun ont choisi ${quidam[0]} et ${quidam[1]} ?`
           intro = 'Posons x le nombre choisi au départ.<br>'
           intro += `Le programme de calcul effectué par ${quidam[0]} se traduit par : $(x+${b})\\times ${a}$.<br>`
           intro += `Le programme de calcul effectué par ${quidam[1]} se traduit par : $(x+${d})\\times ${c}$.<br>`
@@ -182,7 +190,7 @@ export default class ProblemesEnEquation extends Exercice {
           equation = `(x+${b})*${a}=x*${c}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
           figure = this.figureThales(a, b, c, '')
-          enonce = 'Soit la figure ci-dessous qui n\'est pas en vraie grandeur où [CD] et [AB] sont parallèles.'
+          enonce = 'Soit la figure ci-dessous qui n\'est pas en vraie grandeur où $[CD]$ et $[AB]$ sont parallèles.'
           enonce += ` $AB=${c}\\text{mm}$, $AC=${b}\\text{mm}$ et $CD=${a}\\text{mm}$.<br> Déterminer la longueur $OC$.`
           intro = 'Dans cette configuration de Thales, on a l\'égalité suivante : $\\dfrac{OC}{OA}=\\dfrac{CD}{AB}$.<br>'
           intro += 'Cette égalité est équivalente à l\'égalité des produits en croix : $OC\\times AB = CD\\times OA$.<br>'
@@ -213,7 +221,7 @@ export default class ProblemesEnEquation extends Exercice {
           equation = `(x+${b})*${a}=${b}*${c}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
           figure = this.figureThales(a, '', c, b)
-          enonce = 'Soit la figure ci-dessous qui n\'est pas en vraie grandeur où [CD] et [AB] sont parallèles.'
+          enonce = 'Soit la figure ci-dessous qui n\'est pas en vraie grandeur où $[CD]$ et $[AB]$ sont parallèles.'
           enonce += ` $AB=${c}\\text{mm}$, $OC=${b}\\text{mm}$ et $CD=${a}\\text{mm}$.<br> Déterminer la longueur $AC$.`
           intro = 'Dans cette configuration de Thales, on a l\'égalité suivante : $\\dfrac{OA}{OC}=\\dfrac{AB}{CD}$.<br>'
           intro += 'Cette égalité est équivalente à l\'égalité des produits en croix : $CD\\times OA = OC\\times AB$.<br>'
@@ -274,13 +282,13 @@ export default class ProblemesEnEquation extends Exercice {
           x = variables.x
           equation = `x*${b}+(${a}-x)*${c}=${d}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
-          enonce = `Dans une salle de spectacle de ${a} places, le prix d'entrée pour un adulte est $${texPrix(b)}$ € et pour un enfant il est de $${texPrix(c)}$ €.<br>`
+          enonce = `Dans une salle de spectacle de $${texNombre(a)}$ places, le prix d'entrée pour un adulte est $${texPrix(b)}$ € et pour un enfant il est de $${texPrix(c)}$ €.<br>`
           enonce += `Le spectacle de ce soir s'est déroulé devant une salle pleine et la recette est de $${texPrix(d)}$ €.<br>`
           enonce += 'Combien d\'adultes y avait-il dans la salle ?'
           intro = 'Posons $x$ le nombre de places adultes vendues.<br>'
-          intro += `Comme les ${a} places ont été vendues, le nombre de places enfants est : $${a}-x$.<br>`
+          intro += `Comme les $${texNombre(a)}$ places ont été vendues, le nombre de places enfants est : $${a}-x$.<br>`
           intro += 'Le calcul de la recette donne l\'équation suivante.<br>'
-          conclusion = `<br>Il y a donc eu ${x} adultes au spectacle.`
+          conclusion = `<br>Il y a donc eu $${texNombre(x)}$ adultes au spectacle.`
           figure = ''
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
           break
