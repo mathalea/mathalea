@@ -25,6 +25,8 @@ export declare class Point extends GraphicObject {
     constructor(coord: Coordinates);
     getPolarCoordinates(): Polar;
     getCartesianCoordinates(): Cartesian;
+    xSVG: (coeff: any) => number;
+    ySVG: (coeff: any) => number;
 }
 export declare class Vector {
     x: number;
@@ -62,4 +64,18 @@ export declare class Line extends GraphicObject {
    */
 export declare class Segment extends Line {
     constructor(A: Point, B: Point);
+}
+/**
+   * @class
+   * @classdesc Caracteristics of a circle in an euclidean plan
+   */
+export declare class Circle extends GraphicObject {
+    A: Point;
+    B: Point | number;
+    type: string;
+    a: number;
+    b: number;
+    r: number;
+    constructor(A: Point, B: Point | number);
+    getPoint(theta: number): Point;
 }

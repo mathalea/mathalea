@@ -1,6 +1,6 @@
 import { Cartesian } from './coordinates.js';
 import { aleaName } from '../../../modules/outilsMathjs.js';
-import { dot } from 'mathjs';
+import { dot, round } from 'mathjs';
 /**
  * @class
  * @classdesc Graphic object like Point, Line, Segment etc.
@@ -28,6 +28,12 @@ export class GraphicObject {
 export class Point extends GraphicObject {
     constructor(coord) {
         super();
+        this.xSVG = function (coeff) {
+            return round(this.x * coeff, 3);
+        };
+        this.ySVG = function (coeff) {
+            return -round(this.y * coeff, 3);
+        };
         this.coordinates = coord;
         this.polarCoordinates = this.getPolarCoordinates();
         this.cartesianCoordinates = this.getCartesianCoordinates();
@@ -130,5 +136,24 @@ export class Segment extends Line {
         this.A = A;
         this.B = B;
         this.getEquation();
+    }
+}
+/**
+   * @class
+   * @classdesc Caracteristics of a circle in an euclidean plan
+   */
+export class Circle extends GraphicObject {
+    constructor(A, B) {
+        super();
+        this.a = 0;
+        this.b = 0;
+        this.r = 0;
+        this.type = 'Circle';
+        this.A = A;
+        this.B = B instanceof Point ? B : A;
+        this.r = B instanceof Point ? Math.sqrt((A.x - B.x) ** 2 + (A.y - B.y) ** 2) : B;
+    }
+    getPoint(theta) {
+        return new Point(new Cartesian(this.A.x + this.r * Math.cos(theta), this.A.y + this.r * Math.sin(theta)));
     }
 }

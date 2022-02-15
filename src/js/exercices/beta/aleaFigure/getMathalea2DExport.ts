@@ -1,6 +1,6 @@
-import { segment, polygone, tracePoint, labelPoint, point, mathalea2d, droite } from '../../../modules/2d.js'
+import { cercle, segment, polygone, tracePoint, labelPoint, point, mathalea2d, droite } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
-import { Point, Line, Segment } from './elements.js'
+import { Point, Line, Segment, Circle } from './elements.js'
 
 export function getMathalea2DExport (graphic) {
   const objs = []
@@ -18,6 +18,9 @@ export function getMathalea2DExport (graphic) {
     }
     if (obj instanceof Segment) {
       objs.push(segment(obj.A, obj.B))
+    }
+    if (obj instanceof Circle) {
+      objs.push(cercle(obj.A, obj.r))
     }
   }
   graphic.resize()

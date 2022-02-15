@@ -1,4 +1,4 @@
-import { Point, Line, Segment, GraphicObject } from './elements.js';
+import { Point, Line, Segment, GraphicObject, Circle } from './elements.js';
 /**
  * @class
  * @classdesc Caracteristics of a graphic view
@@ -94,6 +94,7 @@ export declare class GraphicView {
      * @returns {Segment}
      */
     addSegment(P1?: any, P2?: any): Segment;
+    addCircle(P1?: any, P2?: any): Circle;
     /**
      * Get the intersect point of a line and the bordure
      * @param {Line} line
@@ -107,12 +108,13 @@ export declare class GraphicView {
      * @returns {Point}
      */
     getNewPointBetween(A: any, B: any): Point;
+    addPointDistance(A: any, r: any): any;
     /**
      * Add three point, two point or one point aligned to others
      * @param  {Point,Point} args // If no point or one point we creat new points
      * @returns
      */
-    addPointAligned(...args: any[]): any[];
+    addPointAligned(P1?: any, P2?: any): any[];
     /**
      * P1, P2, P3 with P2P1P3 rectangular in P1
      * @param args

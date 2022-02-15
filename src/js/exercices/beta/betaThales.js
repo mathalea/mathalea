@@ -53,14 +53,35 @@ function name (s, ...p) {
  */
 function aleaThalesConfig (xmin = -5, ymin = -5, xmax = 5, ymax = 5, classicConfig) {
   const graphic = new GraphicView(xmin, ymin, xmax, ymax)
+
+  /*
+  // On construit une figure tel que O et A sont à une distance donnée
+  const O = graphic.addPoint()[0]
+  // Si la distance est trop petite (=2) la suite est une boucle infinie
+  const A = graphic.addPointDistance(O, 3) // A est à 3 cm de O
+  const B = graphic.addNotAlignedPoint(O, A)[2]
+  */
+
+  // On construit un triangle OAB isocèle en O
+  // Points trop rapprochés : http://localhost:8080/mathalea.html?ex=betaThales,s=21,n=1&serie=fhIV&z=1
+  // Boucle infinie : http://localhost:8080/mathalea.html?ex=betaThales,s=21,n=1&serie=KJih&z=1
+  // const [O, A] = graphic.addPoint(2)
+  // const B = graphic.addPointDistance(O, graphic.distance(O, A)) // OA=OB
+
+  // Trois points non alignés au hasard
   const [O, A, B] = graphic.addNotAlignedPoint() // Trois points non alignés
+
+  // Trois points formant un triangle rectangle
   // const [A, O, B] = graphic.addRectPoint() // Trois points non alignés et formant un triangle OAB rectangle en A
   // const [O, A, B] = graphic.addRectPoint() // Trois points non alignés et formant un triangle OAB rectangle en O
-  // On ajoute les droites (OB) et (AB)
-  const dOB = graphic.addLine(O, B)
-  const dAB = graphic.addLine(A, B)
+
   // M est un point de (OA)
   const M = graphic.addPointAligned(O, A)[2] // C'est le troisième point de la sortie addPointAligned
+
+  // On ajoute les droites (OB) et (AB) pour ne pas gêner le point M
+  const dOB = graphic.addLine(O, B)
+  const dAB = graphic.addLine(A, B)
+
   // Exemple d'un vecteur créé à partir de deux points
   const vO = new Vector(O.x, O.y)
   const vA = new Vector(A.x, A.y)
@@ -699,7 +720,7 @@ export default function exercicesThales () {
         }
         case 21: {
           // Problème toFixed : http://localhost:8080/mathalea.html?ex=betaThales,s=21,n=1&serie=3B5V&v=ex&z=1
-          const graphic = aleaThalesConfig(-6, -6, 6, 6)
+          const graphic = aleaThalesConfig(0, 0, 6, 6)
           // Exemple avec des conversions
           // http://localhost:8080/mathalea.html?ex=betaThales,s=21,n=1&serie=GxI1&v=ex&z=1
           // Il faut mettre la précision à 2
@@ -770,7 +791,8 @@ export default function exercicesThales () {
           const graph = graphic.getMathalea2DExport(
             O, A, B, M, N,
             graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
-            graphic.addSidesPolygon(O, M, N)
+            graphic.addSidesPolygon(O, M, N),
+            graphic.addCircle(O, A)
             //, graphic.addSegment(B, M),
             // graphic.addSegment(A, N),
             // graphic.addIntersectLine(graphic.addLine(B, M), graphic.addLine(A, N))
@@ -799,7 +821,7 @@ export default function exercicesThales () {
           <br> On résout l'équation d'inconnue $${AB.name}$ : $${toTex(`${AB.name}=${OA.to(unite).toFixed}*${MN.abs().to(unite).toFixed}/${OM.abs().to(unite).toFixed}=${AB.to(unite).toFixed}${AB.to(unite).unit}`, { suppr1: false })}$
           <br>D'où ${AB.nameAndValue}.
           `
-          exercice.texte = texte + graph + texteCorr
+          exercice.texte = texte + '<br><br>' + graph + '<br><br>' + texteCorr
           exercice.texteCorr = texteCorr
           break
         }

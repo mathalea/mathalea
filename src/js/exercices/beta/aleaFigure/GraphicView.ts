@@ -1,5 +1,5 @@
 import { Cartesian } from './coordinates.js'
-import { Point, Line, Segment, GraphicObject } from './elements.js'
+import { Point, Line, Segment, GraphicObject, Circle } from './elements.js'
 import { getMathalea2DExport } from './getMathalea2DExport.js'
 
 /**
@@ -289,6 +289,12 @@ export class GraphicView {
     return segment
   }
 
+  addCircle (P1 = this.addPoint()[0], P2 = this.addPoint()[0]) {
+    const circle = new Circle(P1, P2)
+    circle.name = this.getNewName(circle.type)
+    this.geometric.push(circle)
+    return circle
+  }
   /**
    * Get the intersect point of a line and the bordure
    * @param {Line} line
@@ -336,20 +342,34 @@ export class GraphicView {
     )
   }
 
+  addPointDistance (A, r) {
+    let P
+    const circle = new Circle (A, r)
+    do {
+      if (P !== undefined) {
+        this.geometric.pop()
+      }
+      const theta = Math.random() * Math.PI * 2
+      P = circle.getPoint(theta)
+    } while (this.isCloseToExistingPoints(P) || this.isCloseToLineThroughtExistingPoints(P))
+    P.name = P.name || this.getNewName(P.type)
+    this.geometric.push(P)
+    return P
+  }
+
   /**
    * Add three point, two point or one point aligned to others
    * @param  {Point,Point} args // If no point or one point we creat new points
    * @returns
    */
-  addPointAligned (...args) {
-    let P3, P1, P2
+  addPointAligned (P1 = this.addPoint()[0], P2 = this.addPoint()[0]) {
+    let P3
     do {
-      if (P1 !== undefined) {
-        for (let i = 0; i < 2 - args.length; i++) {
-          this.geometric.pop()
-        }
-      }
-      [P1, P2] = args.concat(this.addPoint(2 - args.length))
+      /* if (P3 !== undefined) {
+          const enlargeWidth = this.width * 0.001 /2
+          const enlargeHeight = this.height * 0.001 /2
+          this.setDimensions(this.xmin-enlargeWidth,this.ymin-enlargeHeight,this.xmax+enlargeWidth,this.ymax+enlargeHeight)
+        }*/
       const line = new Line(P1, P2)
       const [X1, X2] = this.getExtremPointGraphicLine(line)
       P3 = this.getNewPointBetween(X1, X2)
