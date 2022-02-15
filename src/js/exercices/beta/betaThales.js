@@ -696,12 +696,15 @@ export default function exercicesThales () {
           break
         }
         case 21: {
-          // http://localhost:8080/mathalea.html?ex=betaThales,s=20,n=1&serie=R5pi&v=ex&z=1
-          // OA disparait !
+          // Problème toFixed : http://localhost:8080/mathalea.html?ex=betaThales,s=21,n=1&serie=3B5V&v=ex&z=1
           // const graphic = aleaThalesConfig(-6, -6, 6, 6)
-          const graphic = aleaThalesConfig(-0.1, -0.1, 0.1, 0.1, false)
-          graphic.scale *= 10 / graphic.width
-          graphic.ppc *= 10 / graphic.width
+          // Exemple avec des conversions
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=21,n=1&serie=GxI1&v=ex&z=1
+          // Il faut mettre la précision à 2
+          // ça bloque Problème toFixed : http://localhost:8080/mathalea.html?ex=betaThales,s=21,n=1&serie=8JRU&v=ex&z=1
+          const graphic = aleaThalesConfig(-0.1, -0.1, 0.1, 0.1)
+          graphic.scale *= 15 / graphic.width
+          graphic.ppc *= 15 / graphic.width
           const [O, A, B, M, N] = graphic.geometric
           // On nomme les droites à partir des noms des points
           const dAB = graphic.addLine(A, B)
@@ -717,10 +720,10 @@ export default function exercicesThales () {
           // Cela permet d'obtenir à l'aide du produit scalaire le signe de l'homothétie
           const signk = vOA.dot(vOM) < 0 ? -1 : 1
           // On définit deux grandeurs en imposant un nombre de décimales
-          const OA = new Grandeur(O.name + A.name, parse(unit(graphic.distance(O, A), 'cm').toString()).args[0].value, 1, parse(unit(graphic.distance(O, A), 'cm').toString()).args[1].toString())
+          const OA = new Grandeur(O.name + A.name, parse(unit(graphic.distance(O, A), 'cm').toString()).args[0].value, 2, parse(unit(graphic.distance(O, A), 'cm').toString()).args[1].toString())
           // On conservant signk le signe de k on a donc des longueurs algébriques
           const k = new Grandeur('k', signk * graphic.distance(O, M) / graphic.distance(O, A), 1)
-          const OB = new Grandeur(O.name + B.name, parse(unit(graphic.distance(O, B), 'cm').toString()).args[0].value, 1, parse(unit(graphic.distance(O, B), 'cm').toString()).args[1].toString())
+          const OB = new Grandeur(O.name + B.name, parse(unit(graphic.distance(O, B), 'cm').toString()).args[0].value, 2, parse(unit(graphic.distance(O, B), 'cm').toString()).args[1].toString())
           // On effectue le calcul pour OM à partir des grandeurs définies et non à partir des mesures de la figure
           // Ceci afin d'éviter les valeurs non décimales.
           const OM = OA.multiply(k)
@@ -739,7 +742,7 @@ export default function exercicesThales () {
           const dBN = graphic.addLine(B, N)
           dBN.aleaName(B, N)
           // Préparation d'une autre question pour le calcul de MN
-          const AB = new Grandeur(A.name + B.name, parse(unit(graphic.distance(A, B), 'cm').toString()).args[0].value, 1, parse(unit(graphic.distance(A, B), 'cm').toString()).args[1].toString())
+          const AB = new Grandeur(A.name + B.name, parse(unit(graphic.distance(A, B), 'cm').toString()).args[0].value, 2, parse(unit(graphic.distance(A, B), 'cm').toString()).args[1].toString())
           const MN = AB.multiply(k)
           MN.aleaName(M, N)
           // ObjetGarphic.name donne le nom en fonction de la nature de l'objet (droite, segment, point)
@@ -753,6 +756,12 @@ export default function exercicesThales () {
             `$${toTex(`${MN.name} = ${MN.abs().toFixed}${MN.unit}`, { suppr1: false })}$`
             ]
           ).join(', ')
+          const graph = graphic.getMathalea2DExport(
+            O, A, B, M, N,
+            graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
+            graphic.addSidesPolygon(O, M, N)
+          )
+          const unite = parse(unit(graphic.width / 3, 'cm').toString()).args[1].toString()
           const texte = `
           Les droites $(${dAB.name}$) et $(${dMN.name})$ sont parallèles.
           <br> Les droites $(${dAM.name}$) et $(${dBN.name})$ sont sécantes en $${O.name}$.
@@ -763,20 +772,15 @@ export default function exercicesThales () {
           Les droites $(${dAB.name}$) et $(${dMN.name})$ sont parallèles.
           <br> Les droites $(${dAM.name}$) et $(${dBN.name})$ sont sécantes en $${O.name}$.
           <br>D'après le théorème de Thalès, on a : $${toTex(`${OA.name}/${OM.name}=${OB.name}/${ON.name}=${AB.name}/${MN.name}`, { suppr1: false })}$
-          <br>D'une part $${toTex(`${OA.to('cm').toFixed}/${OM.abs().to('cm').toFixed}=${OB.to('cm').toFixed}/${ON.name}`, { suppr1: false })}$
-          <br>On en déduit l'égalité des produits en croix : $${toTex(`${OA.to('cm').toFixed}*${ON.name}=${OB.to('cm').toFixed}*${OM.abs().to('cm').toFixed}`, { suppr1: false })}$
-          <br> On résoud l'équation d'inconnue $${ON.name}$ : $${toTex(`${ON.name}=${OB.to('cm').toFixed}*${OM.abs().to('cm').toFixed}/${OA.to('cm').toFixed}=${ON.abs().to('cm').toFixed}${ON.abs().unit}`, { suppr1: false })}$
+          <br>D'une part $${toTex(`${OA.to(unite).toFixed}/${OM.abs().to(unite).toFixed}=${OB.to(unite).toFixed}/${ON.name}`, { suppr1: false })}$
+          <br>On en déduit l'égalité des produits en croix : $${toTex(`${OA.to(unite).toFixed}*${ON.name}=${OB.to(unite).toFixed}*${OM.abs().to(unite).toFixed}`, { suppr1: false })}$
+          <br> On résout l'équation d'inconnue $${ON.name}$ : $${toTex(`${ON.name}=${OB.to(unite).toFixed}*${OM.abs().to(unite).toFixed}/${OA.to(unite).toFixed}=${ON.abs().to(unite).toFixed}${ON.abs().to(unite).unit}`, { suppr1: false })}$
           <br>D'où ${ON.abs().nameAndValue}.
-          <br> D'autre part $${toTex(`${AB.name}/${MN.abs().to('cm').toFixed}=${OA.to('cm').toFixed}/${OM.abs().to('cm').toFixed}`, { suppr1: false })}$
-          <br>On en déduit l'égalité des produits en croix : $${toTex(`${AB.name}*${OM.abs().to('cm').toFixed}=${OA.to('cm').toFixed}*${MN.abs().to('cm').toFixed}`, { suppr1: false })}$
-          <br> On résoud l'équation d'inconnue $${AB.name}$ : $${toTex(`${AB.name}=${OA.to('cm').toFixed}*${MN.abs().to('cm').toFixed}/${OM.abs().to('cm').toFixed}=${AB.to('cm').toFixed}`, { suppr1: false })}$
+          <br> D'autre part $${toTex(`${AB.name}/${MN.abs().to(unite).toFixed}=${OA.to(unite).toFixed}/${OM.abs().to(unite).toFixed}`, { suppr1: false })}$
+          <br>On en déduit l'égalité des produits en croix : $${toTex(`${AB.name}*${OM.abs().to(unite).toFixed}=${OA.to(unite).toFixed}*${MN.abs().to(unite).toFixed}`, { suppr1: false })}$
+          <br> On résout l'équation d'inconnue $${AB.name}$ : $${toTex(`${AB.name}=${OA.to(unite).toFixed}*${MN.abs().to(unite).toFixed}/${OM.abs().to(unite).toFixed}=${AB.to(unite).toFixed}${AB.to(unite).unit}`, { suppr1: false })}$
           <br>D'où ${AB.nameAndValue}.
           `
-          const graph = graphic.getMathalea2DExport(
-            O, A, B, M, N,
-            graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
-            graphic.addSidesPolygon(O, M, N)
-          )
           exercice.texte = texte + graph + texteCorr
           exercice.texteCorr = texteCorr
           break
