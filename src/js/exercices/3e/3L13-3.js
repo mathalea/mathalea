@@ -175,9 +175,9 @@ export default class ProblemesEnEquation extends Exercice {
         case 'Thales':
           variables = variables = aleaVariables(
             {
-              a: 'randomInt(2,15)',
-              b: 'randomInt(1,10)',
-              c: 'randomInt(2,35)',
+              a: 'randomInt(5,40)',
+              b: 'randomInt(5,40)',
+              c: 'randomInt(41,100)',
               d: 'a*b/(c-a)',
               test: 'd>0 and (a*b)%abs(c-a)==0'
             }
@@ -206,9 +206,9 @@ export default class ProblemesEnEquation extends Exercice {
         case 'Thales2':
           variables = variables = aleaVariables(
             {
-              a: 'randomInt(2,15)',
-              b: 'randomInt(1,10)',
-              c: 'randomInt(2,35)',
+              a: 'randomInt(5,40)',
+              b: 'randomInt(5,40)',
+              c: 'randomInt(41,100)',
               d: 'a*b/(c-a)',
               test: 'd>0 and (a*b)%abs(c-a)==0'
             }
