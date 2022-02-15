@@ -50,6 +50,9 @@ export class Point extends GraphicObject {
     getCartesianCoordinates() {
         return this.coordinates.getCartesianCoordinates();
     }
+    getRotate(O, angle) {
+        return new Point(new Cartesian((this.x - O.x) * Math.cos(angle) - (this.y - O.y) * Math.sin(angle) + O.x, (this.x - O.x) * Math.sin(angle) + (this.y - O.y) * Math.cos(angle) + O.y));
+    }
 }
 export class Vector {
     constructor(x, y, unit = true) {

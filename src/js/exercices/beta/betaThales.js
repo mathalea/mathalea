@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, texNum } from '../../modules/outils.js'
-import { polygone, labelPoint, homothetie, point, rotation, mathalea2d, droite, codageAngleDroit } from '../../modules/2d.js'
+import { polygone, labelPoint, homothetie, point, rotation, mathalea2d, droite } from '../../modules/2d.js'
 import { parse, create, all, unit } from 'mathjs'
 import { aleaVariables, toTex, resoudre, aleaExpression, aleaName } from '../../modules/outilsMathjs.js'
 import { GraphicView } from './aleaFigure/GraphicView.js'
@@ -12,7 +12,7 @@ import { AleaThalesConfig } from './aleaFigure/outilsThales.js'
 // eslint-disable-next-line no-debugger
 debugger
 
-const nbCase = 23
+const nbCase = 24
 
 export const math = create(all)
 
@@ -608,7 +608,7 @@ export default function exercicesThales () {
         }
         case 18: {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=18,n=1&serie=fOS7&v=ex&z=1
-          const config = AleaThalesConfig(-5, -5, 5, 5)
+          const config = new AleaThalesConfig(-5, -5, 5, 5)
           const O = config.O
           const A = config.A
           const B = config.B
@@ -625,7 +625,7 @@ export default function exercicesThales () {
         }
         case 19: {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=19,n=1&serie=fOS7&v=ex&z=1
-          const config = AleaThalesConfig(-5, -5, 5, 5, true)
+          const config = new AleaThalesConfig(-5, -5, 5, 5, true)
           const O = config.O
           const A = config.A
           const B = config.B
@@ -644,7 +644,7 @@ export default function exercicesThales () {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=20,n=1&serie=R5pi&v=ex&z=1
           // Pb unités : http://localhost:8080/mathalea.html?ex=betaThales,s=20,n=1&serie=B0PX&v=ex&z=1
           // const graphic = aleaThalesConfig(-5, -5, 5, 5, false)
-          const graphic = AleaThalesConfig(-0.1, -0.1, 0.1, 0.1, false)
+          const graphic = new AleaThalesConfig(-0.1, -0.1, 0.1, 0.1, false)
           graphic.scale *= 10 / graphic.width
           graphic.ppc *= 10 / graphic.width
           const [O, A, B, M, N] = graphic.geometric
@@ -858,6 +858,23 @@ export default function exercicesThales () {
             rectangles.push(graphic.addSidesPolygon(...graphic.addRotate(A, 2 * Math.PI / n * i, ...graphic.addParallelogram(D, A, B))))
           }
           const graph = graphic.getMathalea2DExport(...rectangles)
+          exercice.texte = graph
+          break
+        }
+        case 24: {
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=24,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView()
+          const [A, B] = graphic.addPoint(2)
+          const polygons = []
+          const n = (Math.random() * 3 + 3).toFixed()
+          const O = graphic.addRegularPolygonCenter(A, B, n)
+          for (let i = 0; i < 10; i++) {
+            polygons.push(graphic.addSidesPolygon(...graphic.addHomothetic(O, 1 / (i + 1), ...graphic.addRegularPolygon(A, B, n))))
+          }
+          const graph = graphic.getMathalea2DExport(
+            O
+            , ...polygons
+          )
           exercice.texte = graph
           break
         }

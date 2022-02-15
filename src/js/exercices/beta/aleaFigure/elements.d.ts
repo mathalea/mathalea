@@ -27,6 +27,7 @@ export declare class Point extends GraphicObject {
     getCartesianCoordinates(): Cartesian;
     xSVG: (coeff: any) => number;
     ySVG: (coeff: any) => number;
+    getRotate(O: Point, angle: number): Point;
 }
 export declare class Vector {
     x: number;

@@ -366,7 +366,6 @@ export class GraphicView {
                 }
             }
             [P1, P2] = args.concat(this.addPoint(2 - args.length));
-            // const line = this.addPerpendicularLine(P1,new Line(P1, P2))[1]
             const line = (new Line(P1, P2)).getPerpendicularLine(P1);
             const [X1, X2] = this.getExtremPointGraphicLine(line);
             P3 = this.getNewPointBetween(X1, X2);
@@ -442,6 +441,24 @@ export class GraphicView {
         D.name = D.name || this.getNewName(D.type);
         this.geometric.push(D);
         return [A, B, C, D];
+    }
+    addRegularPolygon(A = this.addPoint()[0], B = this.addPoint()[0], n) {
+        const points = [A, B];
+        for (let i = 2; i < n; i++) {
+            const P = points[i - 2].getRotate(points[i - 1], Math.PI - 2 * Math.PI / n);
+            P.name = P.name || this.getNewName(P.type);
+            this.geometric.push(P);
+            points.push(P);
+        }
+        return points;
+    }
+    addRegularPolygonCenter(A = this.addPoint()[0], B = this.addPoint()[0], n) {
+        const angle = Math.PI * (1 / 2 - 1 / n);
+        const coeff = 1 / (2 * Math.sin(Math.PI / n));
+        const P = new Point(new Cartesian(((A.x - B.x) * Math.cos(angle) - (A.y - B.y) * Math.sin(angle)) * coeff + B.x, ((A.x - B.x) * Math.sin(angle) + (A.y - B.y) * Math.cos(angle)) * coeff + B.y));
+        P.name = P.name || this.getNewName(P.type);
+        this.geometric.push(P);
+        return P;
     }
     addHomothetic(O, k, ...args) {
         const homotheticPoints = [];

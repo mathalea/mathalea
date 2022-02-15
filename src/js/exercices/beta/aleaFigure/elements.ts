@@ -66,6 +66,14 @@ export class Point extends GraphicObject {
   ySVG = function (coeff) {
     return -round(this.y * coeff, 3)
   }
+
+  getRotate(O: Point, angle: number) {
+    return new Point(
+      new Cartesian(
+        (this.x-O.x)*Math.cos(angle)-(this.y-O.y)*Math.sin(angle) +O.x,
+        (this.x-O.x)*Math.sin(angle)+(this.y-O.y)*Math.cos(angle) +O.y,
+      ))
+  }
 }
 
 export class Vector {

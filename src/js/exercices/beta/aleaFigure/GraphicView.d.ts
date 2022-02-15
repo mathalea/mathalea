@@ -152,6 +152,8 @@ export declare class GraphicView {
      * @returns {Group}
      */
     addParallelogram(A?: any, B?: any, C?: any, D?: any): any[];
+    addRegularPolygon(A: Point, B: Point, n: number): Point[];
+    addRegularPolygonCenter(A: Point, B: Point, n: number): Point;
     addHomothetic(O: any, k: any, ...args: any[]): any[];
     addRotate(O: Point, angle: number, ...args: Point[]): any[];
     /**
