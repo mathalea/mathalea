@@ -8,6 +8,10 @@ import { getMathalea2DExport } from './getMathalea2DExport.js';
  */
 export class GraphicView {
     constructor(xmin, ymin, xmax, ymax) {
+        this.xmin = -5;
+        this.ymin = -5;
+        this.xmax = 5;
+        this.ymax = 5;
         this.setDimensions(xmin, ymin, xmax, ymax);
         this.names = 'ABCDEFGHIJKLMNOPRSTUVZ'.split('');
         this.ppc = 20; // Pixels per Centimeter

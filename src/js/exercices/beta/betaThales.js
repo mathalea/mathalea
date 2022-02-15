@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, texNum } from '../../modules/outils.js'
 import { polygone, labelPoint, homothetie, point, rotation, mathalea2d, droite } from '../../modules/2d.js'
-import { parse, create, all, unit } from 'mathjs'
+import { parse, create, all, unit, log10 } from 'mathjs'
 import { aleaVariables, toTex, resoudre, aleaExpression, aleaName } from '../../modules/outilsMathjs.js'
 import { GraphicView } from './aleaFigure/GraphicView.js'
 import { Grandeur } from './aleaFigure/grandeurs.js'
@@ -12,7 +12,7 @@ import { AleaThalesConfig } from './aleaFigure/outilsThales.js'
 // eslint-disable-next-line no-debugger
 debugger
 
-const nbCase = 21
+const nbCase = 22
 
 export const math = create(all)
 
@@ -833,6 +833,19 @@ export default function exercicesThales () {
           exercice.texte = texte + '<br>' + graph + '<br>' + texteCorr
           exercice.texteCorr = texteCorr
           break
+        }
+        case 22: {
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=22,n=1&serie=hZya&v=ex&z=1
+          // Droites invisibles : http://localhost:8080/mathalea.html?ex=betaThales,s=22,n=1&serie=Ihry&v=ex&z=1
+          // Droites très rapprochées : http://localhost:8080/mathalea.html?ex=betaThales,s=22,n=1&serie=THT9&v=ex&z=1
+          const graphic = new GraphicView()
+          const [l1, l2] = graphic.addParallelLine()
+          const [A] = graphic.addPoint()
+          const l3 = graphic.addParallelLine(A, l1)[1]
+          const graph = graphic.getMathalea2DExport(
+            l1, l2, l3
+          )
+          exercice.texte = graph
         }
       }
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées

@@ -12,10 +12,10 @@ export class GraphicView {
   ppc: number
   scale: number
   geometric: GraphicObject[]
-  xmin: number
-  ymin: number
-  xmax: number
-  ymax: number
+  xmin: number = -5
+  ymin: number = -5
+  xmax: number = 5
+  ymax: number = 5
   width: number
   height: number
   ratio: number
