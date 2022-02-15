@@ -1,56 +1,47 @@
-
 /**
  * @class for coordinates
  */
 export class Coordinates {
-  constructor (...args) {
-    this.coordinates = args
-  }
-
-  getCartesianCoordinates () {
-    if (this instanceof Cartesian) {
-      return this
+    constructor() {
+        this.r = 0;
+        this.x = 0;
+        this.y = 0;
+        this.theta = 0;
     }
-    if (this instanceof Polar) {
-      return new Cartesian(
-        this.r * Math.cos(this.theta),
-        this.r * Math.sin(this.theta)
-      )
+    getCartesianCoordinates() {
+        if (this instanceof Polar) {
+            return new Cartesian(this.r * Math.cos(this.theta), this.r * Math.sin(this.theta));
+        }
+        else {
+            return this;
+        }
     }
-    return undefined
-  }
-
-  getPolarCoordinates () {
-    if (this instanceof Cartesian) {
-      return new Polar(
-        Math.sqrt(this.x ** 2 + this.y ** 2),
-        Math.atan(this.y / this.x))
+    getPolarCoordinates() {
+        if (this instanceof Cartesian) {
+            return new Polar(Math.sqrt(this.x ** 2 + this.y ** 2), Math.atan(this.y / this.x));
+        }
+        else {
+            return this;
+        }
     }
-    if (this instanceof Polar) {
-      return this
-    }
-    return undefined
-  }
 }
-
 /**
      * @class for cartesian coordinates
      */
 export class Cartesian extends Coordinates {
-  constructor (x, y) {
-    super()
-    this.x = x
-    this.y = y
-  }
+    constructor(x, y) {
+        super();
+        this.x = x;
+        this.y = y;
+    }
 }
-
 /**
      * @class for polar coordinates
      */
 export class Polar extends Coordinates {
-  constructor (r, theta) {
-    super()
-    this.r = r
-    this.theta = theta
-  }
+    constructor(r, theta) {
+        super();
+        this.r = r;
+        this.theta = theta;
+    }
 }
