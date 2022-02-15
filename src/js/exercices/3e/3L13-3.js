@@ -1,7 +1,7 @@
-import { homothetie, mathalea2d, point, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d'
+import { codeSegments, homothetie, mathalea2d, point, polygone, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d'
 import { setReponse } from '../../modules/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive'
-import { arrondi, choice, combinaisonListes, listeQuestionsToContenu, prenom, randint, texNombre, texPrix } from '../../modules/outils'
+import { arrondi, choice, combinaisonListes, ecritureAlgebrique, listeQuestionsToContenu, prenom, texNombre, texPrix } from '../../modules/outils'
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs'
 import Exercice from '../Exercice'
 export const titre = 'Problèmes à mettre en équation et à résoudre'
@@ -39,11 +39,29 @@ export default class ProblemesEnEquation extends Exercice {
     return mathalea2d({ xmin: -1, xmax: 5, ymin: -1, ymax: 7, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB[0], OAB[1], longOC, longCA, longAB, longCD, CD)
   }
 
+  triangleIsocele1 () {
+    const O = point(6, 1.5)
+    const B = point(0, 0)
+    const A = point(0, 3)
+    const OAB = polygone(O, A, B)
+    const codage = codeSegments('//', 'black', O, A, O, B)
+    return mathalea2d({ xmin: -1, xmax: 7, ymin: -1, ymax: 4, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB, codage)
+  }
+
+  triangleIsocele2 () {
+    const O = point(3, 1.5)
+    const B = point(6, 0)
+    const A = point(0, 0)
+    const OAB = polygone(O, A, B)
+    const codage = codeSegments('//', 'black', O, A, O, B)
+    return mathalea2d({ xmin: -1, xmax: 7, ymin: -1, ymax: 2.5, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB, codage)
+  }
+
   nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'Thales', 'Thales2', 'tarifs', 'spectacle']
+    const listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'Thales', 'Thales2', 'tarifs', 'spectacle', 'isocele']
     const listeDeProblemes = combinaisonListes(listeTypeDeProblemes, this.nbQuestions)
     for (let i = 0, cpt = 0, texte, x, a, b, c, d, variables, enonce, figure, intro, conclusion, equation, resolution, verification, texteCorr; i < this.nbQuestions && cpt < 50;) {
       const quidam = prenom(2)
@@ -314,6 +332,46 @@ export default class ProblemesEnEquation extends Exercice {
           intro += 'Le calcul de la recette donne l\'équation suivante.<br>'
           conclusion = `<br>Il y a donc eu $${texNombre(x)}$ adultes au spectacle.`
           figure = ''
+          verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          break
+        case 'isocele':
+          variables = aleaVariables(
+            {
+              a: 'randomInt(50,100)',
+              c: '(1-2*round(randomInt(0,2)))*randomInt(10,30)',
+              b: 'a+c',
+              d: 'd=2*a+b',
+              test: 'a+a>b and b>0'
+            }
+            , { valueOf: true })
+          a = variables.a
+          b = variables.b
+          c = variables.c
+          d = variables.d
+          enonce = `Un triangle isocèle a pour périmètre $${d}$ mm. `
+          if (c > 0) { // La base est le plus grand côté
+            enonce += `Sa base est plus grande que les côtés égaux de $${c}$ mm.`
+          } else { // La base est plus petite que les autres côtés
+            enonce += `Sa base est plus petite que les côtés égaux de $${-c}$ mm.`
+          }
+          if (choice([true, false])) {
+            enonce += '<br>Quelle est la mesure de sa base ? (la figure n\'est pas en vraie grandeur)'
+            intro = `Posons $x$ la longueur de sa base. La longueur des côtés égaux est : $x${ecritureAlgebrique(c)}$.<br>`
+            intro += 'Le calcul du périmètre donne l\'équation suivante :<br>'
+            equation = `2*x+x${ecritureAlgebrique(c)}=${d}`
+            conclusion = `<br>La base de ce triangle isocèle mesure donc $${b}$ mm.`
+            x = b
+          } else {
+            enonce += '<br>Quelle est la mesure de ses côtés égaux ? (la figure n\'est pas en vraie grandeur)'
+            intro = `Posons $x$ la longueur d'un des côtés égaux. La longueur de la base est : $x${ecritureAlgebrique(-c)}$.<br>`
+            intro += 'Le calcul du périmètre donne l\'équation suivante :<br>'
+            equation = `2*(x${ecritureAlgebrique(c)})+x=${d}`
+            conclusion = `<br>Les deux côtés égaux de ce triangle isocèle mesurent donc $${a}$ mm.`
+            x = a
+          }
+          resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
+          if (c > 0) figure = this.triangleIsocele2()
+          else figure = this.triangleIsocele1()
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
           break
       }
