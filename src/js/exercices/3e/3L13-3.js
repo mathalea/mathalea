@@ -1,7 +1,7 @@
-import { homothetie, mathalea2d, point, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d'
+import { codeSegments, homothetie, mathalea2d, point, polygone, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d'
 import { setReponse } from '../../modules/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive'
-import { arrondi, choice, combinaisonListes, listeQuestionsToContenu, prenom, randint, texNombre, texPrix } from '../../modules/outils'
+import { arrondi, choice, combinaisonListes, ecritureAlgebrique, listeQuestionsToContenu, prenom, texNombre, texPrix } from '../../modules/outils'
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs'
 import Exercice from '../Exercice'
 export const titre = 'Problèmes à mettre en équation et à résoudre'
@@ -21,7 +21,7 @@ export default class ProblemesEnEquation extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.nbQuestions = 10
+    this.nbQuestions = 2
   }
 
   figureThales (a, b, c, OC) {
@@ -39,11 +39,29 @@ export default class ProblemesEnEquation extends Exercice {
     return mathalea2d({ xmin: -1, xmax: 5, ymin: -1, ymax: 7, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB[0], OAB[1], longOC, longCA, longAB, longCD, CD)
   }
 
+  triangleIsocele1 () {
+    const O = point(6, 1.5)
+    const B = point(0, 0)
+    const A = point(0, 3)
+    const OAB = polygone(O, A, B)
+    const codage = codeSegments('//', 'black', O, A, O, B)
+    return mathalea2d({ xmin: -1, xmax: 7, ymin: -1, ymax: 4, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB, codage)
+  }
+
+  triangleIsocele2 () {
+    const O = point(3, 1.5)
+    const B = point(6, 0)
+    const A = point(0, 0)
+    const OAB = polygone(O, A, B)
+    const codage = codeSegments('//', 'black', O, A, O, B)
+    return mathalea2d({ xmin: -1, xmax: 7, ymin: -1, ymax: 2.5, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB, codage)
+  }
+
   nouvelleVersion () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'Thales', 'Thales2', 'tarifs', 'spectacle']
+    const listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'Thales', 'Thales2', 'tarifs', 'spectacle', 'isocele']
     const listeDeProblemes = combinaisonListes(listeTypeDeProblemes, this.nbQuestions)
     for (let i = 0, cpt = 0, texte, x, a, b, c, d, variables, enonce, figure, intro, conclusion, equation, resolution, verification, texteCorr; i < this.nbQuestions && cpt < 50;) {
       const quidam = prenom(2)
@@ -53,11 +71,19 @@ export default class ProblemesEnEquation extends Exercice {
       const clubs = ['ciné-club', 'club de fitness', 'club de ski']
       switch (listeDeProblemes[i]) {
         case 'basket':
-          x = randint(5, 15) // nombre de paniers à trois points
-          a = randint(5, 12) // nombres de paniers à deux points de plus que x
-          b = randint(15, 30) // nombre de points marqués au lancer franc
+          variables = aleaVariables(
+            {
+              x: 'randomInt(5,15)',
+              a: 'randomInt(5,12)',
+              b: 'randomInt(15,30)',
+              d: 'b+(a+x)*2+x*3'
+            }
+            , { valueOf: true })
+          x = variables.x // nombre de paniers à trois points
+          a = variables.a // nombres de paniers à deux points de plus que x
+          b = variables.b // nombre de points marqués au lancer franc
           c = 0 // ne sert pas dans ce cas
-          d = b + (a + x) * 2 + x * 3 // nombre de points de la partie
+          d = variables.d // nombre de points de la partie
           equation = `x*3+(${a}+x)*2+${b}=${d}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
           enonce = `Une équipe de basket a marqué ${d} points lors d'un match. Au cours de ce match, elle a marqué ${b} points sur lancers francs.<br>`
@@ -69,10 +95,18 @@ export default class ProblemesEnEquation extends Exercice {
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
           break
         case 'basket2':
-          x = randint(17, 27) // nombre de paniers à deux points
-          a = randint(5, 12) // nombres de paniers à trois points de moins que de paniers à 2 points
-          b = randint(15, 30) // nombre de points marqués au lancer franc
-          d = b + (x - a) * 3 + x * 2 // nombre de points de la partie
+          variables = aleaVariables(
+            {
+              x: 'randomInt(17,27)',
+              a: 'randomInt(5,12)',
+              b: 'randomInt(15,30)',
+              d: 'b+(x-a)*3+x*2'
+            }
+            , { valueOf: true })
+          x = variables.x // nombre de paniers à deux points
+          a = variables.a // nombres de paniers à trois points de moins que de paniers à 2 points
+          b = variables.b // nombre de points marqués au lancer franc
+          d = variables.d // nombre de points de la partie
           c = 0 // ne sert pas dans ce cas
           equation = `x*2+(x-${a})*3+${b}=${d}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
@@ -86,9 +120,17 @@ export default class ProblemesEnEquation extends Exercice {
           break
 
         case 'achats':
-          x = arrondi(randint(2, 5) + randint(0, 1) / 2, 2) // prix de 1kg de produit
-          a = arrondi(randint(2, 7) + randint(0, 4) / 5, 1) // nombre de kg de produit
-          b = arrondi(a * x, 2) // prix total du produit
+          variables = aleaVariables(
+            {
+              a: 'randomInt(2,5)+randomInt(0,4)/5',
+              x: 'randomInt(2,5)+randomInt(0,1)/2',
+              b: 'a*x',
+              test: 'b<100 and b>5 and b%10!=0'
+            }
+            , { valueOf: true })
+          x = variables.x // prix de 1kg de produit
+          a = variables.a // nombre de kg de produit
+          b = variables.b // prix total du produit
           d = b > 50 ? 100 : b > 20 ? 50 : b > 10 ? 20 : 10 // valeur du billet donné
           c = 0 // ne sert pas dans ce cas
           equation = `${a}*x+${arrondi(d - b, 2)}=${d}`
@@ -101,15 +143,23 @@ export default class ProblemesEnEquation extends Exercice {
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
           break
         case 'polygone':
-          x = arrondi(randint(2, 4) + randint(0, 45) / 5, 2) // longueur d'un des côtés égaux
-          a = arrondi(randint(2, 5) + randint(0, 45) / 5, 1) // longueur du côté différent
-          b = randint(2, 5) // nombre de côtés égaux du polygone
-          d = arrondi(b * x + a, 1) // périmètre du polygone
+          variables = aleaVariables(
+            {
+              x: 'randomInt(2,4)+randomInt(0,45)/5',
+              a: 'randomInt(2,5)+randomInt(0,45)/5',
+              b: 'randomInt(2,5)',
+              d: 'b*x+a'
+            }
+            , { valueOf: true })
+          x = variables.x // longueur d'un des côtés égaux
+          a = variables.a // longueur du côté différent
+          b = variables.b // nombre de côtés égaux du polygone
+          d = variables.d // périmètre du polygone
           c = 0 // ne sert pas dans ce cas
           equation = `${b}*x+${a}=${d}`
           resolution = resoudre(equation, { reduceSteps: true, substeps: false, comment: true })
-          enonce = `Un ${polygones[b - 2]} possède un côté de longueur $${texNombre(a)}$ cm et tous ses autres côtés ont même longueur.<br>Son périmètre mesure $${texNombre(d)}$ cm.<br>`
-          enonce += 'Quel est la longueur des côtés de même longueur ?'
+          enonce = `Un ${polygones[b - 2]} possède un côté de longueur $${texNombre(a)}$ cm et tous ses autres côtés ont même longueur.<br>Son périmètre est $${texNombre(d)}$ cm.<br>`
+          enonce += 'Quelle est la longueur des côtés de même longueur ?'
           intro = 'Posons $x$ la longueur des côtés de même longueur.<br>'
           intro += `Un ${polygones[b - 2]} possède ${b + 1} côtés, donc celui-ci possède ${b} côtés de même longueur.<br>`
           intro += 'L\'énoncé se traduit par l\'équation suivante :<br>'
@@ -150,7 +200,7 @@ export default class ProblemesEnEquation extends Exercice {
           enonce = `${quidam[0]} et ${quidam[1]} choisissent un même nombre.<br> ${quidam[0]} lui ajoute ${b} puis multiplie le résultat par ${a} alors que `
           enonce += `${quidam[1]} lui ajoute ${d} puis multiplie le résultat par ${c}.<br>`
           enonce += `${quidam[0]} et ${quidam[1]} obtiennent le même résultat.<br>`
-          enonce += 'Quel est le nombre de départ ?'
+          enonce += `Quel nombre commun ont choisi ${quidam[0]} et ${quidam[1]} ?`
           intro = 'Posons x le nombre choisi au départ.<br>'
           intro += `Le programme de calcul effectué par ${quidam[0]} se traduit par : $(x+${b})\\times ${a}$.<br>`
           intro += `Le programme de calcul effectué par ${quidam[1]} se traduit par : $(x+${d})\\times ${c}$.<br>`
@@ -167,9 +217,9 @@ export default class ProblemesEnEquation extends Exercice {
         case 'Thales':
           variables = variables = aleaVariables(
             {
-              a: 'randomInt(2,15)',
-              b: 'randomInt(1,10)',
-              c: 'randomInt(2,35)',
+              a: 'randomInt(5,40)',
+              b: 'randomInt(5,40)',
+              c: 'randomInt(41,100)',
               d: 'a*b/(c-a)',
               test: 'd>0 and (a*b)%abs(c-a)==0'
             }
@@ -182,7 +232,7 @@ export default class ProblemesEnEquation extends Exercice {
           equation = `(x+${b})*${a}=x*${c}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
           figure = this.figureThales(a, b, c, '')
-          enonce = 'Soit la figure ci-dessous qui n\'est pas en vraie grandeur où [CD] et [AB] sont parallèles.'
+          enonce = 'Soit la figure ci-dessous qui n\'est pas en vraie grandeur où $[CD]$ et $[AB]$ sont parallèles.'
           enonce += ` $AB=${c}\\text{mm}$, $AC=${b}\\text{mm}$ et $CD=${a}\\text{mm}$.<br> Déterminer la longueur $OC$.`
           intro = 'Dans cette configuration de Thales, on a l\'égalité suivante : $\\dfrac{OC}{OA}=\\dfrac{CD}{AB}$.<br>'
           intro += 'Cette égalité est équivalente à l\'égalité des produits en croix : $OC\\times AB = CD\\times OA$.<br>'
@@ -198,9 +248,9 @@ export default class ProblemesEnEquation extends Exercice {
         case 'Thales2':
           variables = variables = aleaVariables(
             {
-              a: 'randomInt(2,15)',
-              b: 'randomInt(1,10)',
-              c: 'randomInt(2,35)',
+              a: 'randomInt(5,40)',
+              b: 'randomInt(5,40)',
+              c: 'randomInt(41,100)',
               d: 'a*b/(c-a)',
               test: 'd>0 and (a*b)%abs(c-a)==0'
             }
@@ -213,7 +263,7 @@ export default class ProblemesEnEquation extends Exercice {
           equation = `(x+${b})*${a}=${b}*${c}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
           figure = this.figureThales(a, '', c, b)
-          enonce = 'Soit la figure ci-dessous qui n\'est pas en vraie grandeur où [CD] et [AB] sont parallèles.'
+          enonce = 'Soit la figure ci-dessous qui n\'est pas en vraie grandeur où $[CD]$ et $[AB]$ sont parallèles.'
           enonce += ` $AB=${c}\\text{mm}$, $OC=${b}\\text{mm}$ et $CD=${a}\\text{mm}$.<br> Déterminer la longueur $AC$.`
           intro = 'Dans cette configuration de Thales, on a l\'égalité suivante : $\\dfrac{OA}{OC}=\\dfrac{AB}{CD}$.<br>'
           intro += 'Cette égalité est équivalente à l\'égalité des produits en croix : $CD\\times OA = OC\\times AB$.<br>'
@@ -274,14 +324,54 @@ export default class ProblemesEnEquation extends Exercice {
           x = variables.x
           equation = `x*${b}+(${a}-x)*${c}=${d}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
-          enonce = `Dans une salle de spectacle de ${a} places, le prix d'entrée pour un adulte est $${texPrix(b)}$ € et pour un enfant il est de $${texPrix(c)}$ €.<br>`
+          enonce = `Dans une salle de spectacle de $${texNombre(a)}$ places, le prix d'entrée pour un adulte est $${texPrix(b)}$ € et pour un enfant il est de $${texPrix(c)}$ €.<br>`
           enonce += `Le spectacle de ce soir s'est déroulé devant une salle pleine et la recette est de $${texPrix(d)}$ €.<br>`
           enonce += 'Combien d\'adultes y avait-il dans la salle ?'
           intro = 'Posons $x$ le nombre de places adultes vendues.<br>'
-          intro += `Comme les ${a} places ont été vendues, le nombre de places enfants est : $${a}-x$.<br>`
+          intro += `Comme les $${texNombre(a)}$ places ont été vendues, le nombre de places enfants est : $${a}-x$.<br>`
           intro += 'Le calcul de la recette donne l\'équation suivante.<br>'
-          conclusion = `<br>Il y a donc eu ${x} adultes au spectacle.`
+          conclusion = `<br>Il y a donc eu $${texNombre(x)}$ adultes au spectacle.`
           figure = ''
+          verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
+          break
+        case 'isocele':
+          variables = aleaVariables(
+            {
+              a: 'randomInt(50,100)',
+              c: '(1-2*round(randomInt(0,2)))*randomInt(10,30)',
+              b: 'a+c',
+              d: 'd=2*a+b',
+              test: 'a+a>b and b>0'
+            }
+            , { valueOf: true })
+          a = variables.a
+          b = variables.b
+          c = variables.c
+          d = variables.d
+          enonce = `Un triangle isocèle a pour périmètre $${d}$ mm. `
+          if (c > 0) { // La base est le plus grand côté
+            enonce += `Sa base est plus grande que les côtés égaux de $${c}$ mm.`
+          } else { // La base est plus petite que les autres côtés
+            enonce += `Sa base est plus petite que les côtés égaux de $${-c}$ mm.`
+          }
+          if (choice([true, false])) {
+            enonce += '<br>Quelle est la mesure de sa base ? (la figure n\'est pas en vraie grandeur)'
+            intro = `Posons $x$ la longueur de sa base. La longueur des côtés égaux est : $x${ecritureAlgebrique(c)}$.<br>`
+            intro += 'Le calcul du périmètre donne l\'équation suivante :<br>'
+            equation = `2*x+x${ecritureAlgebrique(c)}=${d}`
+            conclusion = `<br>La base de ce triangle isocèle mesure donc $${b}$ mm.`
+            x = b
+          } else {
+            enonce += '<br>Quelle est la mesure de ses côtés égaux ? (la figure n\'est pas en vraie grandeur)'
+            intro = `Posons $x$ la longueur d'un des côtés égaux. La longueur de la base est : $x${ecritureAlgebrique(-c)}$.<br>`
+            intro += 'Le calcul du périmètre donne l\'équation suivante :<br>'
+            equation = `2*(x${ecritureAlgebrique(c)})+x=${d}`
+            conclusion = `<br>Les deux côtés égaux de ce triangle isocèle mesurent donc $${a}$ mm.`
+            x = a
+          }
+          resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
+          if (c > 0) figure = this.triangleIsocele2()
+          else figure = this.triangleIsocele1()
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
           break
       }
