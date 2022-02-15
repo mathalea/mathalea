@@ -9,6 +9,14 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDePublication = '15/02/2022'
+/**
+ * @author Jean-Claude Lhote
+ * Différents problèmes à résoudre.
+ * Mise en équation de degré 1 à une inconnue, résolution et vérification.
+ * Réf : 3L13-3
+ * Date de publication 15/02/2022
+ */
 export default class ProblemesEnEquation extends Exercice {
   constructor () {
     super()
