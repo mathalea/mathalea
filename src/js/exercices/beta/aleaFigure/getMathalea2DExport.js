@@ -13,14 +13,17 @@ export function getMathalea2DExport(graphic) {
             objs.push(tracePoint(newPoint));
             objs.push(labelPoint(newPoint));
         }
-        if (obj instanceof Line && !(obj instanceof Segment)) {
+        else if (obj instanceof Line && !(obj instanceof Segment)) {
             objs.push(droite(obj.a, obj.b, -obj.c));
         }
-        if (obj instanceof Segment) {
+        else if (obj instanceof Segment) {
             objs.push(segment(obj.A, obj.B));
         }
-        if (obj instanceof Circle) {
+        else if (obj instanceof Circle) {
             objs.push(cercle(obj.A, obj.r));
+        }
+        else {
+            objs.push(obj);
         }
     }
     graphic.resize();

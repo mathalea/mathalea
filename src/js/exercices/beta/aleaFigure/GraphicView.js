@@ -129,7 +129,17 @@ export class GraphicView {
             case 'Segment':
             case 'Line': {
                 const list = this.getListObjectTypeSelect('Segment').concat(this.getListObjectTypeSelect('Line'));
-                return this.names.find(letter => list.find(obj => obj.name.split('')[0] === letter.toLowerCase())?.name.split('_')[0] !== letter.toLowerCase()).toLowerCase();
+                let nonUseLetter;
+                let i = 0;
+                do {
+                    const indice = i === 0 ? '' : `_${i}`;
+                    nonUseLetter = this.names.find(letter => list.filter(x => x.name[0] === letter.toLowerCase()).find(obj => obj.name === letter.toLowerCase() + indice)?.name !== letter.toLowerCase() + indice);
+                    if (nonUseLetter !== undefined)
+                        nonUseLetter = nonUseLetter.toLowerCase() + indice;
+                    i += 1;
+                } while (nonUseLetter === undefined);
+                return nonUseLetter;
+                // return this.names.find(letter => list.find(obj => obj.name.split('')[0] === letter.toLowerCase())?.name.split('_')[0] !== letter.toLowerCase()).toLowerCase()
             }
         }
     }
@@ -356,7 +366,8 @@ export class GraphicView {
                 }
             }
             [P1, P2] = args.concat(this.addPoint(2 - args.length));
-            const line = this.addPerpendicularLine(P1, new Line(P1, P2))[1];
+            // const line = this.addPerpendicularLine(P1,new Line(P1, P2))[1]
+            const line = (new Line(P1, P2)).getPerpendicularLine(P1);
             const [X1, X2] = this.getExtremPointGraphicLine(line);
             P3 = this.getNewPointBetween(X1, X2);
         } while (this.isCloseToExistingPoints(P3) || this.isCloseToLineThroughtExistingPoints(P3));
@@ -413,12 +424,13 @@ export class GraphicView {
      * @returns {Group}
      */
     addSidesPolygon(...args) {
-        const lines = [];
+        const sides = [];
         for (let i = 0; i < args.length - 1; i++) {
-            lines.push(this.addSegment(args[i], args[i + 1]));
+            // sides.push(this.addSegment(args[i], args[i + 1]))
+            sides.push(this.addSegment(args[i], args[i + 1]));
         }
-        lines.push(this.addSegment(args[args.length - 1], args[0]));
-        return lines;
+        sides.push(this.addSegment(args[args.length - 1], args[0]));
+        return sides;
     }
     /**
      * Add a group of 4 points making a parallelogram
@@ -441,6 +453,17 @@ export class GraphicView {
             return point;
         });
         return homotheticPoints;
+    }
+    addRotate(O, angle, ...args) {
+        const rotatePoints = [];
+        args.map(M => {
+            const point = new Point(new Cartesian((M.x - O.x) * Math.cos(angle) - (M.y - O.y) * Math.sin(angle) + O.x, (M.x - O.x) * Math.sin(angle) + (M.y - O.y) * Math.cos(angle) + O.y));
+            point.name = point.name || this.getNewName(point.type);
+            this.geometric.push(point);
+            rotatePoints.push(point);
+            return point;
+        });
+        return rotatePoints;
     }
     /**
      * Export to Mathalea2D

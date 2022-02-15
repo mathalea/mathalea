@@ -57,6 +57,7 @@ export declare class Line extends GraphicObject {
     getYPoint(x: number): number;
     getXPoint(y: number): number;
     getEquation(): void;
+    getPerpendicularLine(P: Point): Line;
 }
 /**
    * @class

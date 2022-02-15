@@ -158,6 +158,10 @@ export class Line extends GraphicObject {
     this.b = directionUnit.x
     this.c = this.a * this.A.x + this.b * this.A.y
   }
+
+  getPerpendicularLine(P: Point) {
+    return new Line(P, this.direction.getNormal())
+  }
 }
 
 /**

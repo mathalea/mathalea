@@ -153,6 +153,7 @@ export declare class GraphicView {
      */
     addParallelogram(A?: any, B?: any, C?: any, D?: any): any[];
     addHomothetic(O: any, k: any, ...args: any[]): any[];
+    addRotate(O: Point, angle: number, ...args: Point[]): any[];
     /**
      * Export to Mathalea2D
      * @returns {Mathalea2D}

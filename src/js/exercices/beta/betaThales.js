@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, texNum } from '../../modules/outils.js'
-import { polygone, labelPoint, homothetie, point, rotation, mathalea2d, droite } from '../../modules/2d.js'
-import { parse, create, all, unit, log10 } from 'mathjs'
+import { polygone, labelPoint, homothetie, point, rotation, mathalea2d, droite, codageAngleDroit } from '../../modules/2d.js'
+import { parse, create, all, unit } from 'mathjs'
 import { aleaVariables, toTex, resoudre, aleaExpression, aleaName } from '../../modules/outilsMathjs.js'
 import { GraphicView } from './aleaFigure/GraphicView.js'
 import { Grandeur } from './aleaFigure/grandeurs.js'
@@ -12,7 +12,7 @@ import { AleaThalesConfig } from './aleaFigure/outilsThales.js'
 // eslint-disable-next-line no-debugger
 debugger
 
-const nbCase = 22
+const nbCase = 23
 
 export const math = create(all)
 
@@ -846,6 +846,20 @@ export default function exercicesThales () {
             l1, l2, l3
           )
           exercice.texte = graph
+          break
+        }
+        case 23: {
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=23,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView()
+          const [A, B, D] = graphic.addRectPoint()
+          const rectangles = []
+          const n = (Math.random() * 8 + 2).toFixed()
+          for (let i = 0; i < n; i++) {
+            rectangles.push(graphic.addSidesPolygon(...graphic.addRotate(A, 2 * Math.PI / n * i, ...graphic.addParallelogram(D, A, B))))
+          }
+          const graph = graphic.getMathalea2DExport(...rectangles)
+          exercice.texte = graph
+          break
         }
       }
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
