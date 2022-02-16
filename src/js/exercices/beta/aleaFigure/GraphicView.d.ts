@@ -1,5 +1,16 @@
 import { Point, Line, Segment, GraphicObject, Circle } from './elements.js';
 /**
+* Donne une liste d'entiers relatifs dont on connait la somme.
+* @example > listeEntiersSommeConnue(4,10,-2)
+* < [1,-2,6,5]
+* @param {int} nbElements Nombre d'éléments de la liste
+* @param {int} total Somme des éléments de la liste (peut être un nombre négatif)
+* @param {int} [valMin = 1] Valeur minimale de chaque élément (peut être un nombre négatif)
+* @return {Array} Liste d'entiers relatifs
+* @author Frédéric PIOU
+*/
+export declare function listeEntiersSommeConnue(nbElements: any, total: any, valMin?: number): any[];
+/**
  * @class
  * @classdesc Caracteristics of a graphic view
  * @author Frédéric PIOU
@@ -81,7 +92,7 @@ export declare class GraphicView {
      * @param {Point} M
      * @returns
      */
-    isCloseToLineThroughtExistingPoints(M: any): boolean;
+    isCloseToLineThroughtExistingPoints(M: Point): boolean;
     /**
      * Add a new line to the view with new name
      * @param  {Line|Point,Point} args // Line or Line through two point existing or not
@@ -109,6 +120,10 @@ export declare class GraphicView {
      */
     getNewPointBetween(A: any, B: any): Point;
     addPointDistance(A: any, r: any): any;
+    addPointInPolygon(...args: Point[]): Point;
+    addPointOutPolygon(...args: Point[]): Point;
+    addPointOnPolygon(...args: Point[]): Point;
+    addSymetric(X: Point | Line, ...args: Point[]): Point[];
     /**
      * Add three point, two point or one point aligned to others
      * @param  {Point,Point} args // If no point or one point we creat new points
@@ -154,7 +169,7 @@ export declare class GraphicView {
     addParallelogram(A?: any, B?: any, C?: any, D?: any): any[];
     addRegularPolygon(A: Point, B: Point, n: number): Point[];
     addRegularPolygonCenter(A: Point, B: Point, n: number): Point;
-    addHomothetic(O: any, k: any, ...args: any[]): any[];
+    addHomothetic(O: Point, k: number, ...args: Point[]): Point[];
     addRotate(O: Point, angle: number, ...args: Point[]): any[];
     /**
      * Export to Mathalea2D

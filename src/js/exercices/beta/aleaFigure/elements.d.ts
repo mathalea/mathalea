@@ -28,6 +28,18 @@ export declare class Point extends GraphicObject {
     xSVG: (coeff: any) => number;
     ySVG: (coeff: any) => number;
     getRotate(O: Point, angle: number): Point;
+    add(X: Vector | Point): Point;
+    sub(X: Vector | Point): Point;
+    multiply(k: number): Point;
+    divide(k: number): Point;
+    getBarycentriqueCoords(A: Point, B: Point, C: Point): number[];
+    isInTriangle(A: Point, B: Point, C: Point): boolean;
+    /**
+     * Get the symétric of P with this
+     * @param P
+     * @returns
+     */
+    getSymetric(P: Point): Point;
 }
 export declare class Vector {
     x: number;
@@ -39,6 +51,7 @@ export declare class Vector {
     getNormal(): Vector;
     add(X: Vector | Point): Vector;
     sub(X: Vector | Point): Vector;
+    multiply(k: number): Vector;
     neg(): Vector;
     dot(X: Vector | Point): number;
 }
@@ -58,8 +71,17 @@ export declare class Line extends GraphicObject {
     getYPoint(x: number): number;
     getXPoint(y: number): number;
     getEquation(): void;
+    getIntersect(L: Line): Point;
     getPerpendicularLine(P: Point): Line;
+    /**
+     * Get the symétric of P with this
+     * @param P
+     * @returns
+     */
+    getSymetric(P: Point): Point;
 }
+export declare function determinant(X: Vector | Point, Y: Vector | Point): number;
+export declare function barycentre(P: Point[], a: number[]): Point;
 /**
    * @class
    * @classdesc Caracteristics of a segment in an euclidean plan

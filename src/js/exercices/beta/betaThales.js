@@ -6,13 +6,13 @@ import { parse, create, all, unit } from 'mathjs'
 import { aleaVariables, toTex, resoudre, aleaExpression, aleaName } from '../../modules/outilsMathjs.js'
 import { GraphicView } from './aleaFigure/GraphicView.js'
 import { Grandeur } from './aleaFigure/grandeurs.js'
-import { Line, Segment, Vector } from './aleaFigure/elements.js'
+import { Line, Segment, Vector, barycentre } from './aleaFigure/elements.js'
 import { AleaThalesConfig } from './aleaFigure/outilsThales.js'
 
 // eslint-disable-next-line no-debugger
 debugger
 
-const nbCase = 24
+const nbCase = 28
 
 export const math = create(all)
 
@@ -294,9 +294,7 @@ export default function exercicesThales () {
     let nquestion = 0
     for (let i = 0, exercice = { texte: 'Pas de texte', texteCorr: 'Pas de correction' }, cpt = 0; i < this.nbQuestions && cpt < 100;) { // Boucle principale où i+1 correspond au numéro de la question
       if (this.sup === 'all') {
-        nquestion += 1
-      // } else if (this.sup === 9) {
-      //  nquestion = choice([1, 2, 3, 4, 5, 6, 7, 8])
+        nquestion = cpt + 1
       } else {
         nquestion = this.sup
       }
@@ -390,6 +388,8 @@ export default function exercicesThales () {
         case 10: {
           // Une sécante à deux droites
           // http://localhost:8080/mathalea.html?ex=betaThales,s=10
+          // Manque le point D : http://localhost:8080/mathalea.html?ex=betaThales,s=all,n=24&serie=M3k4&v=ex&z=1
+          // Manque le point D : http://localhost:8080/mathalea.html?ex=betaThales,s=all,n=24&serie=2498&v=ex&z=1
           const graphic = new GraphicView(0, 0, 10, 7)
           const [A, B, C] = graphic.addNotAlignedPoint()
           const D = graphic.addNotAlignedPoint(A, B)[2]
@@ -829,13 +829,13 @@ export default function exercicesThales () {
         case 22: {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=22,n=1&serie=hZya&v=ex&z=1
           // Droites invisibles : http://localhost:8080/mathalea.html?ex=betaThales,s=22,n=1&serie=Ihry&v=ex&z=1
-          // Droites très rapprochées : http://localhost:8080/mathalea.html?ex=betaThales,s=22,n=1&serie=THT9&v=ex&z=1
+          // Droite tronquée http://localhost:8080/mathalea.html?ex=betaThales,s=22,n=1&serie=lS3Q&v=ex&z=1
           const graphic = new GraphicView()
           const [l1, l2] = graphic.addParallelLine()
           const [A] = graphic.addPoint()
           const l3 = graphic.addParallelLine(A, l1)[1]
           const graph = graphic.getMathalea2DExport(
-            l1, l2, l3
+            l1, l2, A, l3
           )
           exercice.texte = graph
           break
@@ -866,6 +866,76 @@ export default function exercicesThales () {
           const graph = graphic.getMathalea2DExport(
             O
             , ...polygons
+          )
+          exercice.texte = graph
+          break
+        }
+        case 25: {
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=25,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView()
+          const [G, H] = graphic.addPoint(2)
+          const I = graphic.addRegularPolygon(G, H, 3)[2]
+          const triangle3 = graphic.addSidesPolygon(G, H, I)
+          const [A, B, C] = graphic.addNotAlignedPoint()
+          const triangle1 = graphic.addSidesPolygon(A, B, C)
+          const [D, E, F] = graphic.addNotAlignedPoint()
+          const triangle2 = graphic.addSidesPolygon(D, E, F)
+          const graph = graphic.getMathalea2DExport(
+            A, B, C, D, E, F, G, H, I,
+            triangle1,
+            triangle2,
+            triangle3
+          )
+          exercice.texte = graph
+          break
+        }
+        case 26: {
+          // Deux triangles symétriques par rapport à un point situé à l'extérieur d'un des deux triangles
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=26,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView()
+          const [A, B, C] = graphic.addNotAlignedPoint()
+          const triangle1 = graphic.addSidesPolygon(A, B, C)
+          const M = graphic.addPointOutPolygon(A, B, C)
+          M.name = 'M'
+          const triangle2 = graphic.addSidesPolygon(...graphic.addSymetric(M, A, B, C))
+          const graph = graphic.getMathalea2DExport(
+            triangle1
+            , M, A, B, C
+            , triangle2
+          )
+          exercice.texte = graph
+          break
+        }
+        case 27: {
+          // Deux triangles symétriques par rapport à un point situé à l'intérieur d'un des deux triangles
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=27,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView()
+          const [A, B, C] = graphic.addNotAlignedPoint()
+          const triangle1 = graphic.addSidesPolygon(A, B, C)
+          const M = graphic.addPointInPolygon(A, B, C)
+          M.name = 'M'
+          const triangle2 = graphic.addSidesPolygon(...graphic.addSymetric(M, A, B, C))
+          const graph = graphic.getMathalea2DExport(
+            triangle1
+            , M, A, B, C
+            , triangle2
+          )
+          exercice.texte = graph
+          break
+        }
+        case 28: {
+          // Deux triangles symétriques par rapport à un point situé à l'intérieur d'un des deux triangles
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=28,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView()
+          const [A, B, C] = graphic.addNotAlignedPoint()
+          const triangle1 = graphic.addSidesPolygon(A, B, C)
+          const M = graphic.addPointOnPolygon(A, B, C)
+          M.name = 'M'
+          const triangle2 = graphic.addSidesPolygon(...graphic.addSymetric(M, A, B, C))
+          const graph = graphic.getMathalea2DExport(
+            triangle1
+            , M, A, B, C
+            , triangle2
           )
           exercice.texte = graph
           break

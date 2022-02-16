@@ -1,6 +1,29 @@
+import { randomInt } from 'mathjs';
 import { Cartesian } from './coordinates.js';
-import { Point, Line, Segment, Circle } from './elements.js';
+import { Point, Line, Segment, Circle, barycentre } from './elements.js';
 import { getMathalea2DExport } from './getMathalea2DExport.js';
+/**
+* Donne une liste d'entiers relatifs dont on connait la somme.
+* @example > listeEntiersSommeConnue(4,10,-2)
+* < [1,-2,6,5]
+* @param {int} nbElements Nombre d'éléments de la liste
+* @param {int} total Somme des éléments de la liste (peut être un nombre négatif)
+* @param {int} [valMin = 1] Valeur minimale de chaque élément (peut être un nombre négatif)
+* @return {Array} Liste d'entiers relatifs
+* @author Frédéric PIOU
+*/
+export function listeEntiersSommeConnue(nbElements, total, valMin = 1) {
+    const liste = [];
+    liste.push(randomInt(valMin, total - (nbElements - 1) * valMin + 1));
+    for (let j = 1; j < nbElements - 1; j++) {
+        liste.push(randomInt(liste[j - 1] + valMin, total - (nbElements - j - 1) * valMin + 1));
+    }
+    liste.push(total);
+    for (let j = nbElements - 1; j > 0; j--) {
+        liste[j] = liste[j] - liste[j - 1];
+    }
+    return liste;
+}
 /**
  * @class
  * @classdesc Caracteristics of a graphic view
@@ -213,8 +236,8 @@ export class GraphicView {
             return Math.sqrt((args[0].x - args[1].x) ** 2 + (args[0].y - args[1].y) ** 2);
         }
         // if (args.every(x => x.type === 'Line')) return // distance entre deux droites
-        const M = args.filter(x => x.type === 'Point')[0];
-        const d = args.filter(x => x.type === 'Line')[0];
+        const M = args.filter(x => x instanceof Point)[0];
+        const d = args.filter(x => x instanceof Line)[0];
         return Math.abs(d.a * M.x + d.b * M.y - d.c) / Math.sqrt(d.a ** 2 + d.b ** 2);
     }
     /**
@@ -237,14 +260,19 @@ export class GraphicView {
      */
     isCloseToLineThroughtExistingPoints(M) {
         const listExistingPoints = this.getListObjectTypeSelect('Point');
-        const numberOfPoints = listExistingPoints.length;
+        const litsExistingLine = this.getListObjectTypeSelect('Line');
+        // const numberOfPoints = listExistingPoints.length
+        const numberOfObjects = listExistingPoints.length + litsExistingLine.length;
         const result = [];
-        const minDimension = Math.min(this.height, this.width) / numberOfPoints / 3;
-        for (let i = 0; i < numberOfPoints; i++) {
-            for (let j = i + 1; j < numberOfPoints; j++) {
+        const minDimension = Math.min(this.height, this.width) / numberOfObjects / 3;
+        for (let i = 0; i < listExistingPoints.length; i++) {
+            for (let j = i + 1; j < listExistingPoints.length; j++) {
                 const d = new Line(listExistingPoints[i], listExistingPoints[j]);
                 result.push(this.distance(M, d));
             }
+        }
+        for (let i = 0; i < litsExistingLine.length; i++) {
+            result.push(this.distance(M, litsExistingLine[i]));
         }
         return result.some(x => x < minDimension && parseFloat(x.toFixed(15)) !== 0);
     }
@@ -334,6 +362,36 @@ export class GraphicView {
         P.name = P.name || this.getNewName(P.type);
         this.geometric.push(P);
         return P;
+    }
+    addPointInPolygon(...args) {
+        const barycentricsCoords = listeEntiersSommeConnue(args.length, 100, 20 * 3 / args.length);
+        const P = barycentre(args, barycentricsCoords);
+        P.name = P.name || this.getNewName(P.type);
+        this.geometric.push(P);
+        return P;
+    }
+    addPointOutPolygon(...args) {
+        const barycentricsCoords = listeEntiersSommeConnue(args.length, 100, 20 * 3 / args.length);
+        const aleaI = Math.round(Math.random() * (barycentricsCoords.length - 2));
+        const P = new Line(args[aleaI], args[aleaI + 1]).getSymetric(barycentre(args, barycentricsCoords));
+        P.name = P.name || this.getNewName(P.type);
+        this.geometric.push(P);
+        return P;
+    }
+    addPointOnPolygon(...args) {
+        const barycentricsCoords = listeEntiersSommeConnue(args.length, 100, 20 * 3 / args.length);
+        barycentricsCoords[Math.round(Math.random() * (barycentricsCoords.length - 2))] = 0;
+        const P = barycentre(args, barycentricsCoords);
+        P.name = P.name || this.getNewName(P.type);
+        this.geometric.push(P);
+        return P;
+    }
+    addSymetric(X, ...args) {
+        return args.map(x => {
+            const P = X.getSymetric(x);
+            this.geometric.push(P);
+            return P;
+        });
     }
     /**
      * Add three point, two point or one point aligned to others

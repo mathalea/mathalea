@@ -53,6 +53,36 @@ export class Point extends GraphicObject {
     getRotate(O, angle) {
         return new Point(new Cartesian((this.x - O.x) * Math.cos(angle) - (this.y - O.y) * Math.sin(angle) + O.x, (this.x - O.x) * Math.sin(angle) + (this.y - O.y) * Math.cos(angle) + O.y));
     }
+    add(X) {
+        return new Point(new Cartesian(this.x + X.x, this.y + X.y));
+    }
+    sub(X) {
+        return new Point(new Cartesian(this.x - X.x, this.y - X.y));
+    }
+    multiply(k) {
+        return new Point(new Cartesian(this.x * k, this.y * k));
+    }
+    divide(k) {
+        return new Point(new Cartesian(this.x / k, this.y / k));
+    }
+    getBarycentriqueCoords(A, B, C) {
+        let a, b, c;
+        a = determinant(B.sub(this), C.sub(this));
+        b = determinant(C.sub(this), A.sub(this));
+        c = determinant(A.sub(this), B.sub(this));
+        return [a, b, c];
+    }
+    isInTriangle(A, B, C) {
+        return Math.min(...this.getBarycentriqueCoords(A, B, C)) > 0 || Math.max(...this.getBarycentriqueCoords(A, B, C)) < 0;
+    }
+    /**
+     * Get the symétric of P with this
+     * @param P
+     * @returns
+     */
+    getSymetric(P) {
+        return barycentre([this, P], [2, -1]);
+    }
 }
 export class Vector {
     constructor(x, y, unit = true) {
@@ -73,6 +103,9 @@ export class Vector {
     }
     sub(X) {
         return new Vector(this.x - X.x, this.y - X.y);
+    }
+    multiply(k) {
+        return new Vector(this.x * k, this.y * k);
     }
     neg() {
         return new Vector(-this.x, -this.y);
@@ -99,22 +132,6 @@ export class Line extends GraphicObject {
         this.getEquation();
         this.type = 'Line';
     }
-    /* constructor (A: Point, B:Point) {
-      super()
-      this.direction = new Vector(B.x - A.x, B.y - A.y)
-      this.A = A
-      this.B = B
-      this.getEquation()
-      this.type = 'Line'
-    }
-    constructor (A: Point, L: Vector) {
-      super()
-      this.direction = new Vector(L.x - A.x, L.y - A.y)
-      this.A = A
-      this.B = new Point(new Cartesian(A.x + L.a, A.y + L.b))
-      this.getEquation()
-      this.type = 'Line'
-    }*/
     getYPoint(x) {
         return this.b === 0 ? undefined : (this.c - this.a * x) / this.b;
     }
@@ -127,9 +144,33 @@ export class Line extends GraphicObject {
         this.b = directionUnit.x;
         this.c = this.a * this.A.x + this.b * this.A.y;
     }
+    getIntersect(L) {
+        const delta = L.a * this.b - this.a * L.b;
+        if (delta.toFixed(15) !== '0') {
+            const deltax = -(L.b * this.c - this.b * L.c);
+            const deltay = L.a * this.c - this.a * L.c;
+            const point = new Point(new Cartesian(deltax / delta, deltay / delta));
+            return point;
+        }
+    }
     getPerpendicularLine(P) {
         return new Line(P, this.direction.getNormal());
     }
+    /**
+     * Get the symétric of P with this
+     * @param P
+     * @returns
+     */
+    getSymetric(P) {
+        return barycentre([this.getIntersect(this.getPerpendicularLine(P)), P], [2, -1]);
+    }
+}
+export function determinant(X, Y) {
+    return X.x * Y.y - X.y * Y.x;
+}
+export function barycentre(P, a) {
+    const pointsPonderes = P.map((x, i) => x.multiply(a[i]));
+    return pointsPonderes.reduce((accumulator, curr) => accumulator.add(curr)).divide(a.reduce((accumulator, curr) => accumulator + curr));
 }
 /**
    * @class
