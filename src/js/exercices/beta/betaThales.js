@@ -287,7 +287,7 @@ export default function exercicesThales () {
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 2)
   this.sup = 'all'
   this.nouvelleVersion = function (numeroExercice, dDebug = false) {
-    if (this.sup === 'all') this.nbQuestions = formulaire.length - 1
+    if (this.sup === 'all') this.nbQuestions = nbCase
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
@@ -608,13 +608,8 @@ export default function exercicesThales () {
         }
         case 18: {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=18,n=1&serie=fOS7&v=ex&z=1
-          const config = new AleaThalesConfig(-5, -5, 5, 5)
-          const O = config.O
-          const A = config.A
-          const B = config.B
-          const M = config.M
-          const N = config.N
-          const graphic = config.graphic
+          const graphic = new AleaThalesConfig()
+          const [O, A, B, M, N] = graphic.geometric
           const graph = graphic.getMathalea2DExport(
             O, A, B, M, N,
             graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
@@ -625,13 +620,9 @@ export default function exercicesThales () {
         }
         case 19: {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=19,n=1&serie=fOS7&v=ex&z=1
-          const config = new AleaThalesConfig(-5, -5, 5, 5, true)
-          const O = config.O
-          const A = config.A
-          const B = config.B
-          const M = config.M
-          const N = config.N
-          const graphic = config.graphic
+          const graphic = new AleaThalesConfig()
+          graphic.classicConfig = true
+          const [O, A, B, M, N] = graphic.geometric
           const graph = graphic.getMathalea2DExport(
             O, A, B, M, N,
             graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
@@ -644,7 +635,8 @@ export default function exercicesThales () {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=20,n=1&serie=R5pi&v=ex&z=1
           // Pb unités : http://localhost:8080/mathalea.html?ex=betaThales,s=20,n=1&serie=B0PX&v=ex&z=1
           // const graphic = aleaThalesConfig(-5, -5, 5, 5, false)
-          const graphic = new AleaThalesConfig(-0.1, -0.1, 0.1, 0.1, false)
+          const graphic = new AleaThalesConfig(-0.1, -0.1, 0.1, 0.1)
+          graphic.classicConfig = false
           graphic.scale *= 10 / graphic.width
           graphic.ppc *= 10 / graphic.width
           const [O, A, B, M, N] = graphic.geometric
