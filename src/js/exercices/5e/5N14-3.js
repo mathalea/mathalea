@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, nombrec2, texteEnCouleur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, texNombre, miseEnEvidence } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const titre = 'Fractions égales et égalité des produits en croix'
@@ -23,8 +23,8 @@ export const description = 'Déterminer si une égalité de deux fractions est v
 export default function EqResolvantesThales () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.debug = false
-  if (this.debug) {
+  this.denebug = false
+  if (this.denebug) {
     this.nbQuestions = 4
   } else {
     this.nbQuestions = 4
@@ -32,42 +32,41 @@ export default function EqResolvantesThales () {
   this.sup = 1 // Niveau de difficulté
   this.consigne = 'Les égalités suivantes sont-elles vraies ? Justifier.'
 
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
+  this.numbCols = 1 // Uniquement pour la sortie LaTeX
+  this.numbColsCorr = 1 // Uniquement pour la sortie LaTeX
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
 
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.niveau = '5e'
+  this.numiveau = '5e'
 
   this.nouvelleVersion = function () {
-    let typesDeQuestionsDisponibles = []
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [0, 1, 2, 3]
-    } else {
-      typesDeQuestionsDisponibles = [0, 1, 2, 3]
-    };
-
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    let numLowInt, fLowInt, fEqOrNotLowInt, denLowInt, numBigInt, denBigInt, fBigInt, fEqOrNotBigInt, numDec, denDec, fDec, masterChoice, fEqOrNotDec
+    // let numLowInt, fLowInt, fEqOrNotLowInt, denLowInt, numBigInt, denBigInt, fBigInt, fEqOrNotBigInt, numDec, denDec, fDec, masterChoice, fEqOrNotDec
 
     // const listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
-    // if (this.niveau === '5e') {
+    // if (this.numiveau === '5e') {
     //   this.introduction = infoMessage({
     //     titre: 'ATTENTION - Hors programme 5e',
     //     texte: 'Cet exercice ne correspond plus au programme de 5e, vous le retrouvez au niveau 4e <a href="https://coopmaths.fr/mathalea.html?ex=4C20-2"> en cliquant ici</a>.',
     //     couleur: 'nombres'
     //   })
     // }
+
+    const listeTypeDeQuestions = Array(this.nbQuestions).fill(this.sup)
+    if (this.sup === 4) {
+      for (let i = 0; i < this.nbQuestions; i++) {
+        listeTypeDeQuestions[i] = randint(1, 3)
+      }
+    }
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On a besoin d'un booléen pour que tout ne soit pas vrai ou faux
       let equalOrNot
       // On a besoin de variables opur les fractions
-      let f, fEqOrNot
+      let f, fEqOrNot, deuxFractions
       // On a besoin d'un numerateur d'un dénominateur et d'un coefficient pour les fractions égales
       let num, den
       // On a besoin d'un string pour stocker l'égalité et un autre pour la justification
@@ -95,7 +94,7 @@ export default function EqResolvantesThales () {
       */
       function showFracNumDenDec (num, den) {
         const f = fraction(num, den)
-        return `\\dfrac{${nombrec2(f.n)}}{${nombrec2(f.d)}}`
+        return `\\dfrac{${texNombre(f.num)}}{${texNombre(f.den)}}`
       }
 
       /**
@@ -104,27 +103,34 @@ export default function EqResolvantesThales () {
       * @param f une fraction
       * @param fEqOrNot l'autre fraction égale ou pas
       */
-      function justifyEq (bool, f, fEqOrNot) {
+      function justifyEq (bool, deuxFractions, decimal = false) {
+        let f = deuxFractions.frac
+        let fEqOrNot = deuxFractions.fracEqualOrNot
+        if (decimal) {
+          f = f.reduire(0.1)
+          fEqOrNot = fEqOrNot.reduire(0.1)
+        }
+
         let strOut
         if (bool) {
-          strOut = `D'une part, ${nombrec2(f.n)}$\\times$${nombrec2(fEqOrNot.d)} $=$ ${texteEnCouleur(nombrec2(f.n * fEqOrNot.d))}.<br>
-          D'autre part, ${nombrec2(f.d)}$\\times$${nombrec2(fEqOrNot.n)} $=$ ${texteEnCouleur(nombrec2(f.d * fEqOrNot.n))}.<br>
+          strOut = `D'une part, $${texNombre(f.num)}\\times ${texNombre(fEqOrNot.den)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den))}$.<br>
+          D'autre part, $${texNombre(f.den)}\\times ${texNombre(fEqOrNot.num)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num))}$.<br>
           On constate que les produits en croix sont égaux.<br>
           `
-          if (Number.isInteger(f.n)) {
+          if (Number.isInteger(f.num)) {
             strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ sont donc égales.`
           } else {
-            strOut += `Les fractions $${showFracNumDenDec(f.n, f.d)}$ et $${showFracNumDenDec(fEqOrNot.n, fEqOrNot.d)}$ sont donc égales.`
+            strOut += `Les fractions $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ sont donc égales.`
           }
         } else {
-          strOut = `D'une part, ${nombrec2(f.n)}$\\times$${nombrec2(fEqOrNot.d)} $=$ ${texteEnCouleur(nombrec2(f.n * fEqOrNot.d))}.<br>
-          D'autre part, ${nombrec2(f.d)}$\\times$${nombrec2(fEqOrNot.n)} $=$ ${texteEnCouleur(nombrec2(f.d * fEqOrNot.n))}.<br>
+          strOut = `D'une part, $${texNombre(f.num)}\\times ${texNombre(fEqOrNot.den)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den))}$.<br>
+          D'autre part, $${texNombre(f.den)}\\times ${texNombre(fEqOrNot.num)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num))}$.<br>
           On constate que les produits en croix ne sont pas égaux.<br>
           `
-          if (Number.isInteger(f.n)) {
+          if (Number.isInteger(f.num)) {
             strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ ne sont donc pas égales.`
           } else {
-            strOut += `Les fractions $${showFracNumDenDec(f.n, f.d)}$ et $${showFracNumDenDec(fEqOrNot.n, fEqOrNot.d)}$ ne sont donc pas égales.`
+            strOut += `Les fractions $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ ne sont donc pas égales.`
           }
         }
         return strOut
@@ -132,31 +138,34 @@ export default function EqResolvantesThales () {
       const k = randint(2, 9)
       // On prépare tous les contenus selon le type de questions
       this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
-      switch (this.sup) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // petits entiers égalité
           equalOrNot = choice([true, false])
           num = randint(1, 9)
           den = randint(2, 9, num)
-          egalite = `$${fracEqualOrNot(equalOrNot, num, den).frac.texFraction}\\overset{?}{=}${fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot.texFraction}$`
-          justification = justifyEq(equalOrNot, fracEqualOrNot(equalOrNot, num, den).frac, fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot)
+          deuxFractions = fracEqualOrNot(equalOrNot, num, den)
+          egalite = `$${deuxFractions.frac.texFraction}\\overset{?}{=}${deuxFractions.fracEqualOrNot.texFraction}$`
+          justification = justifyEq(equalOrNot, deuxFractions)
           break
         case 2: // grands entiers
           equalOrNot = choice([true, false])
           num = randint(11, 99)
           den = randint(11, 99, num)
-          egalite = `$${fracEqualOrNot(equalOrNot, num, den).frac.texFraction}\\overset{?}{=}${fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot.texFraction}$`
-          justification = justifyEq(equalOrNot, fracEqualOrNot(equalOrNot, num, den).frac, fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot)
+          deuxFractions = fracEqualOrNot(equalOrNot, num, den)
+          egalite = `$${deuxFractions.frac.texFraction}\\overset{?}{=}${deuxFractions.fracEqualOrNot.texFraction}$`
+          justification = justifyEq(equalOrNot, deuxFractions)
           break
         case 3: // décimaux
           equalOrNot = choice([true, false])
-          num = calcul(randint(11, 99) * 0.1)
-          den = calcul(randint(11, 99, num) * 0.1)
-          f = fracEqualOrNot(equalOrNot, num, den).frac
-          fEqOrNot = fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot
-          egalite = `$${showFracNumDenDec(f.n, f.d)}\\overset{?}{=}${showFracNumDenDec(fEqOrNot.n, fEqOrNot.d)}$`
-          justification = justifyEq(equalOrNot, fracEqualOrNot(equalOrNot, num, den).frac, fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot)
+          num = randint(11, 99)
+          den = randint(11, 99, num)
+          deuxFractions = fracEqualOrNot(equalOrNot, num, den)
+          f = deuxFractions.frac
+          fEqOrNot = deuxFractions.fracEqualOrNot
+          egalite = `$${showFracNumDenDec(f.num / 10, f.den / 10)}\\overset{?}{=}${showFracNumDenDec(fEqOrNot.num / 10, fEqOrNot.den / 10)}$`
+          justification = justifyEq(equalOrNot, deuxFractions, true)
           break
-        case 4: // mélange
+      /*  case 4: // mélange
           equalOrNot = choice([true, false])
           numLowInt = randint(2, 9)
           denLowInt = randint(2, 9, numLowInt)
@@ -176,14 +185,15 @@ export default function EqResolvantesThales () {
             { equalOrNot: equalOrNot, num: numDec, den: denDec, k: k, f: fDec, fEqOrNot: fEqOrNotDec }
           ])
           egalite = ''
-          if (Number.isInteger(masterChoice.n)) {
+          if (Number.isInteger(masterChoice.num)) {
             egalite += `$${masterChoice.f.texFraction}=${masterChoice.fEqOrNot.texFraction}$`
           } else {
-            egalite += `$${showFracNumDenDec(masterChoice.f.n, masterChoice.f.d)}=${showFracNumDenDec(masterChoice.fEqOrNot.n, masterChoice.fEqOrNot.d)}$`
+            egalite += `$${showFracNumDenDec(masterChoice.f.num, masterChoice.f.den)}=${showFracNumDenDec(masterChoice.fEqOrNot.num, masterChoice.fEqOrNot.den)}$`
           }
           justification = justifyEq(equalOrNot, masterChoice.f, masterChoice.fEqOrNot)
           break
-      };
+          */
+      }
 
       const enonces = []
       for (let k = 0; k < 4; k++) {
@@ -197,7 +207,7 @@ export default function EqResolvantesThales () {
       switch (listeTypeDeQuestions[i]) {
         case 0:
           texte = `${enonces[0].enonce}`
-          if (this.debug) {
+          if (this.denebug) {
             texte += '<br>'
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
             texte += '             '
@@ -208,7 +218,7 @@ export default function EqResolvantesThales () {
           break
         case 1:
           texte = `${enonces[1].enonce}`
-          if (this.debug) {
+          if (this.denebug) {
             texte += '<br>'
             texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`
             texteCorr = ''
@@ -218,7 +228,7 @@ export default function EqResolvantesThales () {
           break
         case 2:
           texte = `${enonces[2].enonce}`
-          if (this.debug) {
+          if (this.denebug) {
             texte += '<br>'
             texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`
             texteCorr = ''
@@ -228,7 +238,7 @@ export default function EqResolvantesThales () {
           break
         case 3:
           texte = `${enonces[3].enonce}`
-          if (this.debug) {
+          if (this.denebug) {
             texte += '<br>'
             texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`
             texteCorr = ''
