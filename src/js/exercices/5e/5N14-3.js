@@ -45,16 +45,6 @@ export default function EqResolvantesThales () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    // let numLowInt, fLowInt, fEqOrNotLowInt, denLowInt, numBigInt, denBigInt, fBigInt, fEqOrNotBigInt, numDec, denDec, fDec, masterChoice, fEqOrNotDec
-
-    // const listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    // if (this.numiveau === '5e') {
-    //   this.introduction = infoMessage({
-    //     titre: 'ATTENTION - Hors programme 5e',
-    //     texte: 'Cet exercice ne correspond plus au programme de 5e, vous le retrouvez au niveau 4e <a href="https://coopmaths.fr/mathalea.html?ex=4C20-2"> en cliquant ici</a>.',
-    //     couleur: 'nombres'
-    //   })
-    // }
 
     const listeTypeDeQuestions = Array(this.nbQuestions).fill(this.sup)
     if (this.sup === 4) {
@@ -165,34 +155,6 @@ export default function EqResolvantesThales () {
           egalite = `$${showFracNumDenDec(f.num / 10, f.den / 10)}\\overset{?}{=}${showFracNumDenDec(fEqOrNot.num / 10, fEqOrNot.den / 10)}$`
           justification = justifyEq(equalOrNot, deuxFractions, true)
           break
-      /*  case 4: // mélange
-          equalOrNot = choice([true, false])
-          numLowInt = randint(2, 9)
-          denLowInt = randint(2, 9, numLowInt)
-          fLowInt = fracEqualOrNot(equalOrNot, numLowInt, denLowInt).frac
-          fEqOrNotLowInt = fracEqualOrNot(equalOrNot, numLowInt, denLowInt).fracEqualOrNot
-          numBigInt = randint(11, 99)
-          denBigInt = randint(11, 99, numBigInt)
-          fBigInt = fracEqualOrNot(equalOrNot, numBigInt, denBigInt).frac
-          fEqOrNotBigInt = fracEqualOrNot(equalOrNot, numBigInt, denBigInt).fracEqualOrNot
-          numDec = calcul(randint(11, 99) * 0.1)
-          denDec = calcul(randint(11, 99, numDec) * 0.1)
-          fDec = fracEqualOrNot(equalOrNot, numDec, denDec).frac
-          fEqOrNotDec = fracEqualOrNot(equalOrNot, numDec, denDec).fracEqualOrNot
-          masterChoice = choice([
-            { equalOrNot: equalOrNot, num: numLowInt, den: denLowInt, k: k, f: fLowInt, fEqOrNot: fEqOrNotLowInt },
-            { equalOrNot: equalOrNot, num: numBigInt, den: denBigInt, k: k, f: fBigInt, fEqOrNot: fEqOrNotBigInt },
-            { equalOrNot: equalOrNot, num: numDec, den: denDec, k: k, f: fDec, fEqOrNot: fEqOrNotDec }
-          ])
-          egalite = ''
-          if (Number.isInteger(masterChoice.num)) {
-            egalite += `$${masterChoice.f.texFraction}=${masterChoice.fEqOrNot.texFraction}$`
-          } else {
-            egalite += `$${showFracNumDenDec(masterChoice.f.num, masterChoice.f.den)}=${showFracNumDenDec(masterChoice.fEqOrNot.num, masterChoice.fEqOrNot.den)}$`
-          }
-          justification = justifyEq(equalOrNot, masterChoice.f, masterChoice.fEqOrNot)
-          break
-          */
       }
 
       const enonces = []
