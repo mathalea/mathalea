@@ -1748,11 +1748,12 @@ export function nombreDecimal (expression, arrondir = false) {
 /**
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux et retourne un string avec la virgule comme séparateur décimal
 * @author Rémi Angot
+* texNombrec n'apportant rien, je la shinte.
 */
 
 export function texNombrec (expression) {
   // return texNombre(parseFloat(Algebrite.eval(expression)))
-  return texNombre(parseFloat(expression.toFixed(15)))
+  return texNombre(expression)
 }
 
 /**
@@ -2497,20 +2498,23 @@ export function numberFormat (nb) {
 * Renvoie un nombre dans le format français (séparateur de classes)
 * @author Rémi Angot
 */
-export function texNombre (nb) {
+export function texNombre (nb, precision) {
   // Ecrit \numprint{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces en latex)
   // Ajoute des accolades autour de la virgule {,} pour supprimer l'espace "disgracieux" qui le suit dans l'écriture décimale des nombres sinon.
-  if (context.isHtml) {
-    return Intl.NumberFormat('fr-FR', { maximumSignificantDigits: 15 }).format(nb).replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
-  } else {
-    let result
-    if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
-      result = '\\numprint{' + nb.toString().replace('.', ',') + '}'
-    } else {
-      result = nb.toString().replace('.', '{,}')
-    }
-    return result
+  // arrondit pour avoir precision chiffres après la virgule si possible
+  const nbChiffresPartieEntiere = nb.toFixed(0).length
+  if (precision === undefined) {
+    precision = 12 - nbChiffresPartieEntiere
   }
+  const maximumSignificantDigits = nbChiffresPartieEntiere + precision
+  let result
+  try {
+    result = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb).replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+  } catch (error) {
+    console.log(error)
+    result = 'Too much decimals'
+  }
+  return result
 }
 
 /**
@@ -2546,7 +2550,7 @@ export function texNombre2 (nb) {
   return nombre
 }
 export function texNombrec2 (expr, precision = 8) {
-  return math.format(math.evaluate(expr), { notation: 'auto', lowerExp: -12, upperExp: 12, precision: precision }).replace('.', ',')
+  return texNombre(expr, precision)
 }
 export function nombrec2 (nb) {
   return math.evaluate(nb)
