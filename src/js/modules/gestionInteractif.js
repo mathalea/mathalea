@@ -192,7 +192,7 @@ export function afficheScore (exercice, nbBonnesReponses, nbMauvaisesReponses) {
       const score = scoreRetenu(nbBonnesReponses / (nbBonnesReponses + nbMauvaisesReponses) * 100)
       const reponses = {}
       try {
-        for (let i = 0; i < exercice.nbQuestions; i++) {
+        for (let i = 0; i < exercice.autoCorrection.length; i++) {
           if (document.getElementById(`champTexteEx0Q${i}`)) {
             reponses[`reponse${i}`] = document.getElementById(`champTexteEx0Q${i}`).value
           }
