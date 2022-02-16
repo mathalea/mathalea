@@ -23,8 +23,8 @@ export const description = 'Déterminer si une égalité de deux fractions est v
 export default function EqResolvantesThales () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.denebug = false
-  if (this.denebug) {
+  this.debug = false
+  if (this.debug) {
     this.nbQuestions = 4
   } else {
     this.nbQuestions = 4
@@ -32,14 +32,14 @@ export default function EqResolvantesThales () {
   this.sup = 1 // Niveau de difficulté
   this.consigne = 'Les égalités suivantes sont-elles vraies ? Justifier.'
 
-  this.numbCols = 1 // Uniquement pour la sortie LaTeX
-  this.numbColsCorr = 1 // Uniquement pour la sortie LaTeX
+  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
 
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.numiveau = '5e'
+  this.niveau = '5e'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -169,7 +169,7 @@ export default function EqResolvantesThales () {
       switch (listeTypeDeQuestions[i]) {
         case 0:
           texte = `${enonces[0].enonce}`
-          if (this.denebug) {
+          if (this.debug) {
             texte += '<br>'
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
             texte += '             '
@@ -180,7 +180,7 @@ export default function EqResolvantesThales () {
           break
         case 1:
           texte = `${enonces[1].enonce}`
-          if (this.denebug) {
+          if (this.debug) {
             texte += '<br>'
             texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`
             texteCorr = ''
@@ -190,7 +190,7 @@ export default function EqResolvantesThales () {
           break
         case 2:
           texte = `${enonces[2].enonce}`
-          if (this.denebug) {
+          if (this.debug) {
             texte += '<br>'
             texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`
             texteCorr = ''
@@ -200,7 +200,7 @@ export default function EqResolvantesThales () {
           break
         case 3:
           texte = `${enonces[3].enonce}`
-          if (this.denebug) {
+          if (this.debug) {
             texte += '<br>'
             texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`
             texteCorr = ''
