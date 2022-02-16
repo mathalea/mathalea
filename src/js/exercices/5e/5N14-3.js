@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombre2, texteEnCouleur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, nombrec2, texteEnCouleur } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const titre = 'Fractions égales et égalité des produits en croix'
@@ -95,7 +95,7 @@ export default function EqResolvantesThales () {
       */
       function showFracNumDenDec (num, den) {
         const f = fraction(num, den)
-        return `\\dfrac{${texNombre2(f.n)}}{${texNombre2(f.d)}}`
+        return `\\dfrac{${nombrec2(f.n)}}{${nombrec2(f.d)}}`
       }
 
       /**
@@ -107,8 +107,8 @@ export default function EqResolvantesThales () {
       function justifyEq (bool, f, fEqOrNot) {
         let strOut
         if (bool) {
-          strOut = `D'une part, ${texNombre2(f.n)}$\\times$${texNombre2(fEqOrNot.d)} $=$ ${texteEnCouleur(texNombre2(f.n * fEqOrNot.d))}.<br>
-          D'autre part, ${texNombre2(f.d)}$\\times$${texNombre2(fEqOrNot.n)} $=$ ${texteEnCouleur(texNombre2(f.d * fEqOrNot.n))}.<br>
+          strOut = `D'une part, ${nombrec2(f.n)}$\\times$${nombrec2(fEqOrNot.d)} $=$ ${texteEnCouleur(nombrec2(f.n * fEqOrNot.d))}.<br>
+          D'autre part, ${nombrec2(f.d)}$\\times$${nombrec2(fEqOrNot.n)} $=$ ${texteEnCouleur(nombrec2(f.d * fEqOrNot.n))}.<br>
           On constate que les produits en croix sont égaux.<br>
           `
           if (Number.isInteger(f.n)) {
@@ -117,8 +117,8 @@ export default function EqResolvantesThales () {
             strOut += `Les fractions $${showFracNumDenDec(f.n, f.d)}$ et $${showFracNumDenDec(fEqOrNot.n, fEqOrNot.d)}$ sont donc égales.`
           }
         } else {
-          strOut = `D'une part, ${texNombre2(f.n)}$\\times$${texNombre2(fEqOrNot.d)} $=$ ${texteEnCouleur(texNombre2(f.n * fEqOrNot.d))}.<br>
-          D'autre part, ${texNombre2(f.d)}$\\times$${texNombre2(fEqOrNot.n)} $=$ ${texteEnCouleur(texNombre2(f.d * fEqOrNot.n))}.<br>
+          strOut = `D'une part, ${nombrec2(f.n)}$\\times$${nombrec2(fEqOrNot.d)} $=$ ${texteEnCouleur(nombrec2(f.n * fEqOrNot.d))}.<br>
+          D'autre part, ${nombrec2(f.d)}$\\times$${nombrec2(fEqOrNot.n)} $=$ ${texteEnCouleur(nombrec2(f.d * fEqOrNot.n))}.<br>
           On constate que les produits en croix ne sont pas égaux.<br>
           `
           if (Number.isInteger(f.n)) {
@@ -144,7 +144,7 @@ export default function EqResolvantesThales () {
           equalOrNot = choice([true, false])
           num = randint(11, 99)
           den = randint(11, 99, num)
-          egalite = `$${fracEqualOrNot(equalOrNot, num, den).frac.texFraction}=${fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot.texFraction}$`
+          egalite = `$${fracEqualOrNot(equalOrNot, num, den).frac.texFraction}\\overset{?}{=}${fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot.texFraction}$`
           justification = justifyEq(equalOrNot, fracEqualOrNot(equalOrNot, num, den).frac, fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot)
           break
         case 3: // décimaux
@@ -153,7 +153,7 @@ export default function EqResolvantesThales () {
           den = calcul(randint(11, 99, num) * 0.1)
           f = fracEqualOrNot(equalOrNot, num, den).frac
           fEqOrNot = fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot
-          egalite = `$${showFracNumDenDec(f.n, f.d)}=${showFracNumDenDec(fEqOrNot.n, fEqOrNot.d)}$`
+          egalite = `$${showFracNumDenDec(f.n, f.d)}\\overset{?}{=}${showFracNumDenDec(fEqOrNot.n, fEqOrNot.d)}$`
           justification = justifyEq(equalOrNot, fracEqualOrNot(equalOrNot, num, den).frac, fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot)
           break
         case 4: // mélange
