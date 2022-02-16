@@ -31,7 +31,9 @@ export default function CalculTermeSuiteRec () {
 
         this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = u_n ${ecritureAlgebrique(a)}$.`
 
-        this.question += `<br>Calculer $u_{${k}}$.`
+        if (!this.interactif) {
+          this.question += `<br>Calculer $u_{${k}}$.`
+        } else { this.question += `<br> $u_{${k}}=.....$` }
 
         if (a > 0) {
           for (let indice = 0; indice < k; indice++) {
@@ -54,7 +56,9 @@ export default function CalculTermeSuiteRec () {
 
         this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${a}u_n $.`
 
-        this.question += `<br>Calculer $u_{${k}}$.`
+        if (!this.interactif) {
+          this.question += `<br>Calculer $u_{${k}}$.`
+        } else { this.question += `<br> $u_{${k}}=.....$` }
         if (u < 0) {
           for (let indice = 0; indice < k; indice++) {
             this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${a}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  = 
@@ -81,7 +85,9 @@ export default function CalculTermeSuiteRec () {
         u = calcul(a * d1)
         this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${texFraction(n1, d1)}u_n $.`
 
-        this.question += `<br>Calculer $u_{${k}}$.`
+        if (!this.interactif) {
+          this.question += `<br>Calculer $u_{${k}}$.`
+        } else { this.question += `<br> $u_{${k}}=.....$` }
 
         if (u < 0) {
           for (let indice = 0; indice < k; indice++) {
@@ -105,7 +111,9 @@ export default function CalculTermeSuiteRec () {
 
         this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout $n\\in\\mathbb{N}$ par $u_{n+1} = ${a} u_n ${ecritureAlgebrique(b)}$.`
 
-        this.question += `<br>Calculer $u_{${k}}$.`
+        if (!this.interactif) {
+          this.question += `<br>Calculer $u_{${k}}$.`
+        } else { this.question += `<br> $u_{${k}}=.....$` }
 
         this.correction = 'En utilisant la relation de récurrence pour $n=0$, on obtient :<br>'
 
@@ -133,9 +141,11 @@ export default function CalculTermeSuiteRec () {
 
         this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout $n\\in\\mathbb{N}$ par $u_{n+1} = ${a} ${signe(b)} u_n^2$.`
 
-        this.question += `<br>Calculer $u_{${k}}$.`
+        if (!this.interactif) {
+          this.question += `<br>Calculer $u_{${k}}$.`
+        } else { this.question += `<br> $u_{${k}}=.....$` }
 
-        this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br>
+        this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :
        `
         if (u < 0) {
           for (let indice = 0; indice < k; indice++) {
