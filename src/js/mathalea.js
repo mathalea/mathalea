@@ -902,7 +902,8 @@ function miseAJourDuCode () {
 <mathalea-moodle ex\\="${id.replace(/[~=#{}:]/g, '\\$&')},${params.replace(/[~=#{}:]/g, '\\$&')}" />
 {
   =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
-  #### <mathalea-moodle ex\\="${id.replace(/[~=#{}:]/g, '\\$&')},${params.replace(/[~=#{}:]/g, '\\$&')}" correction />
+  #### <script src\\="${mathAleaURL.replace(/[~=#{}:]/g, '\\$&')}assets/externalJs/moodle.js" type\\="module"></script>
+  <mathalea-moodle ex\\="${id.replace(/[~=#{}:]/g, '\\$&')},${params.replace(/[~=#{}:]/g, '\\$&')}" correction />
 }
 `
       }
