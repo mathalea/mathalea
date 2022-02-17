@@ -902,12 +902,18 @@ export default function exercicesThales () {
           break
         }
         case 31: {
-          // Points trop rapprochés http://localhost:8080/mathalea.html?ex=betaThales,s=31,s2=1,n=1,cc=1,cd=0&serie=j0Ob&v=ex&z=1
-          // http://localhost:8080/mathalea.html?ex=betaThales,s=31,n=1&serie=hZya&v=ex&z=1
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=31,s2=3,n=1,cd=1&serie=qFnt&v=ex&z=1
           const graphic = new AleaThalesConfig()
-          graphic.classicConfig = [true, false, undefined][this.sup2 - 1]
-          graphic.new()
+          /* graphic.classicConfig = [true, false, undefined][this.sup2 - 1]
+          graphic.new() */
 
+          // Boucle à remplacer par quelque chose de plus efficace
+          graphic.classicConfig = [true, false, undefined][this.sup2 - 1]
+          if (graphic.classicConfig !== undefined) {
+            do {
+              graphic.new()
+            } while (graphic.classicConfig !== [true, false, undefined][this.sup2 - 1])
+          }
           // On décide d'une unité
           const unite = 'cm'
 

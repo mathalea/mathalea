@@ -20,6 +20,13 @@ export class GraphicObject {
             }
         }), name.length).join('');
     }
+    set name(newname) {
+        this._name = newname;
+    }
+    get name() { return this._name; }
+    getGGB() {
+        return this.name;
+    }
 }
 /**
  * @class
@@ -43,6 +50,7 @@ export class Point extends GraphicObject {
         this.y = this.cartesianCoordinates.y;
         this.r = this.polarCoordinates.r;
         this.theta = this.polarCoordinates.theta;
+        this.ggb = `${this.name} = (${this.x},${this.y})`;
     }
     getPolarCoordinates() {
         return this.coordinates.getPolarCoordinates();
@@ -83,6 +91,15 @@ export class Point extends GraphicObject {
     getSymetric(P) {
         return barycentre([this, P], [2, -1]);
     }
+    getGGB() {
+        this.ggb = `${this.name} = (${this.x},${this.y})`;
+        return `${this.name} = (${this.x},${this.y})`;
+    }
+    set name(newname) {
+        this._name = newname;
+        this.ggb = `${this.name} = (${this.x},${this.y})`;
+    }
+    get name() { return this._name; }
 }
 export class Vector {
     constructor(x, y, unit = true) {
@@ -131,6 +148,7 @@ export class Line extends GraphicObject {
         this.B = B instanceof Point ? B : new Point(new Cartesian(A.x + B.x, A.y + B.y));
         this.getEquation();
         this.type = 'Line';
+        this.ggb = `${this.name}: ${this.a}*x+${this.b}*y=${this.c})`;
     }
     getYPoint(x) {
         return this.b === 0 ? undefined : (this.c - this.a * x) / this.b;
@@ -164,6 +182,11 @@ export class Line extends GraphicObject {
     getSymetric(P) {
         return barycentre([this.getIntersect(this.getPerpendicularLine(P)), P], [2, -1]);
     }
+    set name(newname) {
+        this._name = newname;
+        this.ggb = `${this.name}: ${this.a}*x+${this.b}*y=${this.c})`;
+    }
+    get name() { return this._name; }
 }
 export function determinant(X, Y) {
     return X.x * Y.y - X.y * Y.x;

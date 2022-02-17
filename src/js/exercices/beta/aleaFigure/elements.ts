@@ -8,7 +8,7 @@ import { dot, round } from 'mathjs'
  */
 export class GraphicObject {
   visible: boolean
-  name: string
+  public _name: string
   constructor () {
     this.visible = false
     this.name = ''
@@ -22,6 +22,16 @@ export class GraphicObject {
           return x
         }
       }), name.length).join('')
+  }
+
+  set name (newname) {
+    this._name = newname
+  }
+
+  get name () { return this._name }
+
+  getGGB () {
+    return this.name
   }
 }
 
@@ -38,6 +48,7 @@ export class Point extends GraphicObject {
   y: number
   r: number
   theta: number
+  ggb: string
   constructor (coord: Coordinates) {
     super()
     this.coordinates = coord
@@ -49,6 +60,7 @@ export class Point extends GraphicObject {
     this.y = this.cartesianCoordinates.y
     this.r = this.polarCoordinates.r
     this.theta = this.polarCoordinates.theta
+    this.ggb = `${this.name} = (${this.x},${this.y})`
   }
 
   getPolarCoordinates () {
@@ -111,6 +123,18 @@ export class Point extends GraphicObject {
   getSymetric(P: Point): Point {
     return barycentre([this,P],[2,-1])
   } 
+
+  getGGB () {
+    this.ggb = `${this.name} = (${this.x},${this.y})`
+    return `${this.name} = (${this.x},${this.y})`
+  }
+
+  set name (newname) {
+    this._name = newname
+    this.ggb = `${this.name} = (${this.x},${this.y})`
+  }
+
+  get name () { return this._name }
 }
 
 export class Vector {
@@ -166,6 +190,7 @@ export class Line extends GraphicObject {
   a: number = 0
   b: number = 0
   c: number = 0
+  ggb: string
   // Une droite sera définie par deux points distincts ou un point et une direction
   // Il faudrait deux constructeurs ?
   constructor (A: Point, B: Point | Vector) {
@@ -175,6 +200,7 @@ export class Line extends GraphicObject {
     this.B = B instanceof Point ? B : new Point(new Cartesian(A.x + B.x, A.y + B.y))
     this.getEquation()
     this.type = 'Line'
+    this.ggb = `${this.name}: ${this.a}*x+${this.b}*y=${this.c})`
   }
 
   getYPoint (x: number) {
@@ -212,7 +238,14 @@ export class Line extends GraphicObject {
    */
    getSymetric(P: Point): Point {
     return barycentre([this.getIntersect(this.getPerpendicularLine(P)),P],[2,-1])
-  } 
+  }
+  
+  set name (newname) {
+    this._name = newname
+    this.ggb = `${this.name}: ${this.a}*x+${this.b}*y=${this.c})`
+  }
+
+  get name () { return this._name }
 }
 
 export function determinant (X: Vector | Point, Y: Vector | Point): number {

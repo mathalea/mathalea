@@ -33,11 +33,14 @@ export class AleaThalesConfig extends GraphicView {
         const vOA = vA.sub(vO);
         const vOM = vM.sub(vO);
         // On remplace le point M par son symétrique par rapport à O si besoin
+        // Mauvaise idée !!
+        // Rechercher un point qui corresponde soit par l'aléatoire soir par le barycentre bien choisi
         if (this.classicConfig !== undefined && ((this.classicConfig && vOA.dot(vOM) < 0) || (!this.classicConfig && vOA.dot(vOM) > 0))) {
-            Object.assign(M, this.addHomothetic(O, -1, M)[0]);
+            // Object.assign(M, this.addHomothetic(O, -1, M)[0])
+            this.classicConfig = vOA.dot(vOM) > 0 ? true : false;
         }
         else if (this.classicConfig === undefined) {
-            this.classicConfig = this.classicConfig && vOA.dot(vOM) > 0 ? true : false;
+            this.classicConfig = vOA.dot(vOM) > 0 ? true : false;
         }
         this.k = (vOA.dot(vOM) < 0 ? -1 : 1) * this.distance(O, M) / this.distance(O, A);
         // On crée une parallèle à (AB)

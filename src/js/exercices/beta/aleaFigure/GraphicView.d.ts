@@ -159,6 +159,7 @@ export declare class GraphicView {
     addRegularPolygonCenter(A: Point, B: Point, n: number): Point;
     addHomothetic(O: Point, k: number, ...args: Point[]): Point[];
     addRotate(O: Point, angle: number, ...args: Point[]): any[];
+    exportGGB(arg?: GraphicObject[]): string;
     /**
      * Export to Mathalea2D
      * @returns {Mathalea2D}

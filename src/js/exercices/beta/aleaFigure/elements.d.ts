@@ -5,9 +5,12 @@ import { Cartesian, Coordinates, Polar } from './coordinates.js';
  */
 export declare class GraphicObject {
     visible: boolean;
-    name: string;
+    _name: string;
     constructor();
     aleaName(...name: (string | GraphicObject)[]): void;
+    set name(newname: string);
+    get name(): string;
+    getGGB(): string;
 }
 /**
  * @class
@@ -22,6 +25,7 @@ export declare class Point extends GraphicObject {
     y: number;
     r: number;
     theta: number;
+    ggb: string;
     constructor(coord: Coordinates);
     getPolarCoordinates(): Polar;
     getCartesianCoordinates(): Cartesian;
@@ -40,6 +44,9 @@ export declare class Point extends GraphicObject {
      * @returns
      */
     getSymetric(P: Point): Point;
+    getGGB(): string;
+    set name(newname: string);
+    get name(): string;
 }
 export declare class Vector {
     x: number;
@@ -67,6 +74,7 @@ export declare class Line extends GraphicObject {
     a: number;
     b: number;
     c: number;
+    ggb: string;
     constructor(A: Point, B: Point | Vector);
     getYPoint(x: number): number;
     getXPoint(y: number): number;
@@ -79,6 +87,8 @@ export declare class Line extends GraphicObject {
      * @returns
      */
     getSymetric(P: Point): Point;
+    set name(newname: string);
+    get name(): string;
 }
 export declare function determinant(X: Vector | Point, Y: Vector | Point): number;
 export declare function barycentre(P: Point[], a: number[]): Point;

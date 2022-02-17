@@ -600,6 +600,15 @@ export class GraphicView {
     })
     return rotatePoints
   }
+
+  exportGGB (arg = this.geometric) {
+    const ggb = []
+    arg.forEach(x => {
+      ggb.push(x.getGGB())
+    })
+    return ggb.join('\n')
+  }
+
   /**
    * Export to Mathalea2D
    * @returns {Mathalea2D}
