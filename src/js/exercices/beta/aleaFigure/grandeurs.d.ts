@@ -14,6 +14,13 @@ export declare class Grandeur {
     constructor(name: string, value: number, precision?: number, unit?: string);
     set name(newname: string);
     get name(): string;
+    /**
+     *
+     * @param nmin
+     * @param nmax
+     * @param digit
+     * @returns
+     */
     aleaName(...name: (string | GraphicObject)[]): void;
     multiply(a: Grandeur): Grandeur;
     divide(a: Grandeur): Grandeur;
@@ -23,3 +30,13 @@ export declare class Grandeur {
     neg(): Grandeur;
     to(newUnit: string): Grandeur;
 }
+/**
+ * Quantity random
+ * @param nmin
+ * @param nmax
+ * @param digit
+ * @param name
+ * @param unit
+ * @returns
+ */
+export declare function qrandom(nmin?: number, nmax?: number, digit?: number, name?: string, unit?: string): Grandeur;

@@ -10,7 +10,7 @@ export function getMathalea2DExport (graphic) {
       let nameFormat = splitname.length === 1 ? splitname[0] : `${splitname[0]}_{${splitname[1]}}`
       if (context.isHtml) nameFormat = `$${nameFormat}$`
       const newPoint = point(obj.x, obj.y, nameFormat, 'above')
-      // objs.push(tracePoint(newPoint))
+      objs.push(tracePoint(newPoint))
       objs.push(labelPoint(newPoint))
     } else if (obj instanceof Line && !(obj instanceof Segment)) {
       objs.push(droite(obj.a, obj.b, -obj.c))

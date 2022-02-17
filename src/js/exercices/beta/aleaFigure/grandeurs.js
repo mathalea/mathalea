@@ -1,5 +1,5 @@
 import { texNombre2 } from '../../../modules/outils.js';
-import { simplify, parse, unit, max, add, subtract, abs, log10 } from 'mathjs';
+import { simplify, parse, unit, max, add, subtract, abs, log10, random } from 'mathjs';
 import { aleaName } from '../../../modules/outilsMathjs.js';
 import { GraphicObject } from './elements.js';
 /**
@@ -20,6 +20,13 @@ export class Grandeur {
         this.nameAndValue = `$ {${this.name}=${texNombre2(this.toFixed).replace(',', '{,}')}~${this.unit}}$`;
     }
     get name() { return this._name; }
+    /**
+     *
+     * @param nmin
+     * @param nmax
+     * @param digit
+     * @returns
+     */
     aleaName(...name) {
         this.name = aleaName(name.map(x => {
             if (x instanceof GraphicObject) {
@@ -62,4 +69,16 @@ export class Grandeur {
         const precision = Math.max(0, this.precision - log10(parse(conversion.toString()).args[0].value / parse(thenumber.toString()).args[0].value));
         return new Grandeur(this.name, parse(conversion.toString()).args[0].value, precision, newUnit);
     }
+}
+/**
+ * Quantity random
+ * @param nmin
+ * @param nmax
+ * @param digit
+ * @param name
+ * @param unit
+ * @returns
+ */
+export function qrandom(nmin = 0, nmax = 1, digit = max(0, -log10(abs(nmax - nmin))), name = '', unit = '') {
+    return new Grandeur(name, parseFloat(random(nmin, nmax).toFixed(max(digit, 0))), digit, unit);
 }

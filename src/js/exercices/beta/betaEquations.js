@@ -5,6 +5,10 @@ import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { parse, simplify } from 'mathjs'
 import { aleaExpression, resoudre, toTex, calculer, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
 import Algebrite from 'algebrite'
+import { qrandom } from './aleaFigure/grandeurs'
+// eslint-disable-next-line no-debugger
+debugger
+const nbCase = 124
 
 export const titre = 'Calculs algébriques'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -60,10 +64,10 @@ function schemaBarre () {
 export default function equationsProgression () {
   Exercice.call(this)
   const formulaire = []
-  for (let i = 0; i < 122; i++) formulaire.push(`${i}`)
+  for (let i = 0; i < nbCase; i++) formulaire.push(`${i}`)
   this.nbQuestions = 0
   this.besoinFormulaireNumerique = [
-    'Type de question', this.nbQuestions, formulaire.join('\n')
+    'Type de question', nbCase, formulaire.join('\n')
   ]
   this.consigne = ''
   this.nbCols = 0
@@ -82,7 +86,7 @@ export default function equationsProgression () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
     let nquestion = 0
-    for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 200;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, exercice = { texte: '', texteCorr: '' }, cpt = 0; i < this.nbQuestions && cpt < 200;) { // Boucle principale où i+1 correspond au numéro de la question
       nquestion = this.sup === 'all' ? cpt + 1 : this.sup
       if (ddbug) {
         console.log(`
@@ -1244,9 +1248,24 @@ export default function equationsProgression () {
           exercice = resoudre('2/x=3')
           break
         }
+        case 124: {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=124
+          const questions = []
+          questions.push(calculer('(a)+(b)', { variables: { a: 'round(random(-10,10),0)', b: 'round(random(-10,10),0)', test: 'a*b<0' }, supprPlusMoins: false, substeps: true }))
+          questions.push(calculer('(a)+(b)', { variables: { a: 'round(random(-10,10),0)', b: 'round(random(-10,10),0)', test: 'a<0 and b<0' }, supprPlusMoins: false, substeps: true }))
+          questions.push(calculer('(a)+(b)', { variables: { a: 'round(random(-10,10),1)', b: 'round(random(-10,10),1)', test: 'a*b<0 or (a<0 and b<0)' }, supprPlusMoins: false, substeps: true }))
+          questions.push(calculer('(a)+(b)', { variables: { a: 'round(random(-10,10),1)', b: 'round(random(-10,10),1)', test: 'a*b<0 or (a<0 and b<0)' }, supprPlusMoins: false, substeps: true }))
+          questions.push(calculer('(a)-(b)', { variables: { a: 'round(random(-10,10),0)', b: 'round(random(-10,10),0)', test: 'a*b<0' }, supprPlusMoins: false, substeps: true }))
+          questions.push(calculer('(a)-(b)', { variables: { a: 'round(random(-10,10),0)', b: 'round(random(-10,10),0)', test: 'a<0 and b<0' }, supprPlusMoins: false, substeps: true }))
+          questions.push(calculer('(a)-(b)', { variables: { a: 'round(random(-10,10),1)', b: 'round(random(-10,10),1)', test: 'a*b<0 or (a<0 and b<0)' }, supprPlusMoins: false, substeps: true }))
+          questions.push(calculer('(a)-(b)', { variables: { a: 'round(random(-10,10),1)', b: 'round(random(-10,10),1)', test: 'a*b<0 or (a<0 and b<0)' }, supprPlusMoins: false, substeps: true }))
+          exercice.texte = questions.map(x => x.texte).join('<br>')
+          exercice.texteCorr = questions.map(x => x.texteCorr).join('<br>')
+          break
+        }
       }
       if (this.questionJamaisPosee(i, nquestion)) {
-        this.listeQuestions.push(exercice.texte)
+        this.listeQuestions.push(exercice.texte + '<br>--------$\\textbf{CORRECTION}$----------<br>' + exercice.texteCorr)
         this.listeCorrections.push(exercice.texteCorr)
         i++
       }

@@ -907,13 +907,14 @@ export default function exercicesThales () {
           /* graphic.classicConfig = [true, false, undefined][this.sup2 - 1]
           graphic.new() */
 
-          // Boucle à remplacer par quelque chose de plus efficace
           graphic.classicConfig = [true, false, undefined][this.sup2 - 1]
+          // Boucle à remplacer par quelque chose de plus efficace
           if (graphic.classicConfig !== undefined) {
             do {
               graphic.new()
             } while (graphic.classicConfig !== [true, false, undefined][this.sup2 - 1])
           }
+
           // On décide d'une unité
           const unite = 'cm'
 
