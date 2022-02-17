@@ -1751,9 +1751,9 @@ export function nombreDecimal (expression, arrondir = false) {
 * texNombrec n'apportant rien, je la shinte.
 */
 
-export function texNombrec (expression) {
+export function texNombrec (expression, precision) {
   // return texNombre(parseFloat(Algebrite.eval(expression)))
-  return texNombre(expression)
+  return texNombre(expression, precision)
 }
 
 /**
@@ -2498,11 +2498,11 @@ export function numberFormat (nb) {
 * Renvoie un nombre dans le format français (séparateur de classes)
 * @author Rémi Angot
 */
-export function texNombre (nb, precision) {
+export function texNombre (nb, precision = 12) {
   // Ecrit \numprint{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces en latex)
   // Ajoute des accolades autour de la virgule {,} pour supprimer l'espace "disgracieux" qui le suit dans l'écriture décimale des nombres sinon.
   // arrondit pour avoir precision chiffres après la virgule si possible
-  const nbChiffresPartieEntiere = nb.toFixed(0).length
+  const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
   if (precision === undefined) {
     precision = 12 - nbChiffresPartieEntiere
   }
@@ -2549,7 +2549,7 @@ export function texNombre2 (nb) {
   }
   return nombre
 }
-export function texNombrec2 (expr, precision = 8) {
+export function texNombrec2 (expr, precision = 12) {
   return texNombre(expr, precision)
 }
 export function nombrec2 (nb) {
