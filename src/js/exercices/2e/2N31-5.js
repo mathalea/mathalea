@@ -65,9 +65,9 @@ export default function CalculerAvecEcritureScientifique () {
             texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } = ${texNombrec(calcul(a[0] * b[0]))} \\times 10^{${texNombrec(c[1] + c[0])}} $ <br>`
             texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } = ${texNombre(decimalToScientifique(calcul(a[0] * b[0]))[0])} \\times 10^{${decimalToScientifique(calcul(a[0] * b[0]))[1]}} \\times 10^{${texNombrec(c[1] + c[0])}} $ <br>`
             texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } = ${texNombre(decimalToScientifique(calcul(a[0] * b[0]))[0])} \\times 10^{${calcul(decimalToScientifique(calcul(a[0] * b[0]))[1] + c[1] + c[0])}} $ <br>`
-            texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } \\approx ${texNombre(round(decimalToScientifique(calcul(a[0] * b[0]))[0], 2))} \\times 10^{${calcul(decimalToScientifique(calcul(a[0] * b[0]))[1] + c[1] + c[0])}} $  (avec la mantisse arrondie au centième) <br>`
-          } else { texteCorr += `$ ${texNombrec(calcul(a[0] * b[0]))} \\times 10^{${texNombre(calcul(c[0] + c[1]))} = 13 $` }
-          reponse = `$ ${texNombrec(a[0] * b[0])} \\times 10^{${texNombre(c[0] + c[1])}} $`
+            texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } \\approx ${texNombrec(round(decimalToScientifique(calcul(a[0] * b[0]))[0], 2))} \\times 10^{${calcul(decimalToScientifique(calcul(a[0] * b[0]))[1] + c[1] + c[0])}} $  (avec la mantisse arrondie au centième) <br>`
+          } else { texteCorr += `$ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} \\approx ${texNombrec(round(decimalToScientifique(calcul(a[0] * b[0]))[0], 2))} \\times 10^{${calcul(decimalToScientifique(calcul(a[0] * b[0]))[1] + c[1] + c[0])}} $  (avec la mantisse arrondie au centième) <br>` }
+          reponse = ` ${round(decimalToScientifique(calcul(a[0] * b[0]))[0], 2)} \\times 10^{${calcul(decimalToScientifique(calcul(a[0] * b[0]))[1] + c[1] + c[0])}}`
           break
         case 2:
           texte = `Texte2 ${a[0]}` // b>1
