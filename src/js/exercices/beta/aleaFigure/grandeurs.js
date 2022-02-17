@@ -57,9 +57,9 @@ export class Grandeur {
         return new Grandeur('-' + this.name, -this.value, this.precision, this.unit);
     }
     to(newUnit) {
-        const thenumber = unit(this.value, this.unit);
-        const conversion = thenumber.to(newUnit);
-        const precision = this.precision - log10(parse(conversion.toString()).args[0].value / parse(thenumber.toString()).args[0].value);
+        const thenumber = abs(unit(this.value, this.unit));
+        const conversion = abs(thenumber.to(newUnit));
+        const precision = Math.max(0, this.precision - log10(parse(conversion.toString()).args[0].value / parse(thenumber.toString()).args[0].value));
         return new Grandeur(this.name, parse(conversion.toString()).args[0].value, precision, newUnit);
     }
 }

@@ -31,10 +31,8 @@ export declare class GraphicView {
     setDimensions(xmin?: number, ymin?: number, xmax?: number, ymax?: number): void;
     /**
      * Show any Objects in Mathalea2D
-     * @param  {...any} args
-     * @returns {Group}
      */
-    show(...args: any[]): any[];
+    show(...args: GraphicObject[]): GraphicObject[];
     /**
      * Resize window of graphic view to the created points
      * Keep the ratio
@@ -42,84 +40,74 @@ export declare class GraphicView {
     resize(): void;
     /**
      * Give the list sorted of object with a given type
-     * @param {string} typeSelect Type
-     * @returns {Array}
      */
     getListObjectTypeSelect(typeSelect?: string): any;
     /**
      * Search the last name not used and give a new name
-     * @param {string} typeSelect Type of object 'Point', 'Line' etc.
-     * @returns {string} New name for a new object
      */
     getLastNameNotUsed(typeSelect?: string): any;
     /**
      * Give a new name
-     * @param {string} typeSelect Type of the object
-     * @returns {string}
      */
     getNewName(typeSelect?: string): any;
     /**
      * Append new objects to the euclidean plan
-     * @param  {...any} args // List of geometric objects
      */
     addPoint(n?: number): any[];
     /**
      * Add intersect point of two lines in the view
-     * @param {Line} line1
-     * @param {Line} line2
-     * @returns {Point}
      */
-    addIntersectLine(line1: any, line2: any): Point[];
+    addIntersectLine(line1: Line, line2: Line): Point[];
     /**
      * Zoom in or out
-     * @param {number} k
      */
     zoom(k?: number): void;
     /**
      * Give the distance between tow points, a point and a line, two lines
-     * @param  {...any} args
-     * @returns
      */
-    distance(...args: any[]): number;
+    distance(P: Point, Y: Point | Line): number;
     /**
      * Tempt to estimate if a point is close to the existing points
-     * @param {Point} M
-     * @returns
      */
-    isCloseToExistingPoints(M: any): any;
+    isCloseToExistingPoints(M: Point): any;
     /**
      * Tempt to estimate if a point is close to the line through the existing point
-     * @param {Point} M
-     * @returns
      */
     isCloseToLineThroughtExistingPoints(M: Point): boolean;
     /**
      * Add a new line to the view with new name
-     * @param  {Line|Point,Point} args // Line or Line through two point existing or not
-     * @returns {Line}
      */
     addLine(P1?: any, P2?: any): Line;
     /**
      * Add a new Segment to the view with new name
-     * @param  {Point,Point} args // Segment
-     * @returns {Segment}
      */
     addSegment(P1?: any, P2?: any): Segment;
-    addCircle(P1?: any, P2?: any): Circle;
+    /**
+     * Add a new circle center
+     * @param C
+     * @param P
+     * @returns
+     */
+    addCircle(C?: any, P?: any): Circle;
     /**
      * Get the intersect point of a line and the bordure
-     * @param {Line} line
-     * @returns {Point}
      */
-    getExtremPointGraphicLine(line: any): Point[];
+    getExtremPointGraphicLine(L: Line): Point[];
     /**
-     * get a point between two existing points
+     * get a point between two points
      * @param {Point} point1
      * @param {Point} point2
      * @returns {Point}
      */
     getNewPointBetween(A: any, B: any): Point;
-    addPointDistance(A: any, r: any): any;
+    /**
+     * Add point between two but not too close to extrems
+     * @param A
+     * @param B
+     * @returns
+     */
+    addPointBetween(A: Point, B: Point): Point;
+    addPointDistance(A: Point, r: number): Point;
     addPointInPolygon(...args: Point[]): Point;
     addPointOutPolygon(...args: Point[]): Point;
     addPointOnPolygon(...args: Point[]): Point;

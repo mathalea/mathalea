@@ -63,10 +63,8 @@ export class GraphicView {
 
   /**
    * Show any Objects in Mathalea2D
-   * @param  {...any} args
-   * @returns {Group}
    */
-  show (...args) {
+  show (...args: GraphicObject[]): GraphicObject[] {
     const group = []
     args.forEach(x => {
       if (Array.isArray(x)) {
@@ -85,8 +83,8 @@ export class GraphicView {
    */
   resize () {
     const listPoint = this.getListObjectTypeSelect('Point')
-    const listXPoint = listPoint.map(X => { return X.x })
-    const listYPoint = listPoint.map(Y => { return Y.y })
+    const listXPoint = listPoint.map((X: { x: Point }) => { return X.x })
+    const listYPoint = listPoint.map((Y: { y: Point }) => { return Y.y })
     const xmin = Math.min(...listXPoint)
     const xmax = Math.max(...listXPoint)
     const ymin = Math.min(...listYPoint)
@@ -111,8 +109,6 @@ export class GraphicView {
 
   /**
    * Give the list sorted of object with a given type
-   * @param {string} typeSelect Type
-   * @returns {Array}
    */
   getListObjectTypeSelect (typeSelect = 'Point'): any {
     switch (typeSelect) {
@@ -145,8 +141,6 @@ export class GraphicView {
 
   /**
    * Search the last name not used and give a new name
-   * @param {string} typeSelect Type of object 'Point', 'Line' etc.
-   * @returns {string} New name for a new object
    */
   getLastNameNotUsed (typeSelect = 'Point') {
     switch (typeSelect) {
@@ -187,8 +181,6 @@ export class GraphicView {
 
   /**
    * Give a new name
-   * @param {string} typeSelect Type of the object
-   * @returns {string}
    */
   getNewName (typeSelect = 'Point') {
     switch (typeSelect) {
@@ -202,7 +194,6 @@ export class GraphicView {
 
   /**
    * Append new objects to the euclidean plan
-   * @param  {...any} args // List of geometric objects
    */
   addPoint (n = 1) {
     // Il faudrait donner la possibilité d'ajouter des points définis par leurs coordonnées
@@ -227,11 +218,8 @@ export class GraphicView {
 
   /**
    * Add intersect point of two lines in the view
-   * @param {Line} line1
-   * @param {Line} line2
-   * @returns {Point}
    */
-  addIntersectLine (line1, line2) {
+  addIntersectLine (line1: Line, line2: Line) {
     const delta = line1.a * line2.b - line2.a * line1.b
     if (delta.toFixed(15) !== '0') {
       const deltax = -(line1.b * line2.c - line2.b * line1.c)
@@ -245,9 +233,8 @@ export class GraphicView {
 
   /**
    * Zoom in or out
-   * @param {number} k
    */
-  zoom (k = 1.01) {
+  zoom (k: number = 1.01) {
     const xmin = k * (this.xmin - (this.xmax + this.xmin) / 2) + (this.xmax + this.xmin) / 2
     const xmax = k * (this.xmax - (this.xmax + this.xmin) / 2) + (this.xmax + this.xmin) / 2
     const ymin = k * (this.ymin - (this.ymax + this.ymin) / 2) + (this.ymax + this.ymin) / 2
@@ -257,25 +244,19 @@ export class GraphicView {
 
   /**
    * Give the distance between tow points, a point and a line, two lines
-   * @param  {...any} args
-   * @returns
    */
-  distance (...args) {
-    if (args.every(x => x.type === 'Point')) {
-      return Math.sqrt((args[0].x - args[1].x) ** 2 + (args[0].y - args[1].y) ** 2)
+  distance (P: Point, Y: Point | Line) {
+    if (Y instanceof Point) {
+      return Math.sqrt((P.x - Y.x) ** 2 + (P.y - Y.y) ** 2)
+    } else {
+      return Math.abs(Y.a * P.x + Y.b * P.y - Y.c) / Math.sqrt(Y.a ** 2 + Y.b ** 2)
     }
-    // if (args.every(x => x.type === 'Line')) return // distance entre deux droites
-    const M = args.filter(x => x instanceof Point)[0]
-    const d = args.filter(x => x instanceof Line)[0]
-    return Math.abs(d.a * M.x + d.b * M.y - d.c) / Math.sqrt(d.a ** 2 + d.b ** 2)
   }
 
   /**
    * Tempt to estimate if a point is close to the existing points
-   * @param {Point} M
-   * @returns
    */
-  isCloseToExistingPoints (M) {
+  isCloseToExistingPoints (M: Point) {
     const listExistingPoints = this.getListObjectTypeSelect('Point')
     const maxDistance = Math.min(this.height, this.width) / listExistingPoints.length / 3
     if (listExistingPoints.length > 0) { return listExistingPoints.some(X => this.distance(X, M) < maxDistance) }
@@ -284,8 +265,6 @@ export class GraphicView {
 
   /**
    * Tempt to estimate if a point is close to the line through the existing point
-   * @param {Point} M
-   * @returns
    */
   isCloseToLineThroughtExistingPoints (M: Point) {
     const listExistingPoints = this.getListObjectTypeSelect('Point')
@@ -308,8 +287,6 @@ export class GraphicView {
 
   /**
    * Add a new line to the view with new name
-   * @param  {Line|Point,Point} args // Line or Line through two point existing or not
-   * @returns {Line}
    */
   addLine (P1 = this.addPoint()[0], P2 = this.addPoint()[0]) {
     const line = new Line(P1, P2)
@@ -320,8 +297,6 @@ export class GraphicView {
 
   /**
    * Add a new Segment to the view with new name
-   * @param  {Point,Point} args // Segment
-   * @returns {Segment}
    */
   addSegment (P1 = this.addPoint()[0], P2 = this.addPoint()[0]) {
     const segment = new Segment(P1, P2)
@@ -330,25 +305,29 @@ export class GraphicView {
     return segment
   }
 
-  addCircle (P1 = this.addPoint()[0], P2 = this.addPoint()[0]) {
-    const circle = new Circle(P1, P2)
+  /**
+   * Add a new circle center
+   * @param C
+   * @param P 
+   * @returns 
+   */
+  addCircle (C = this.addPoint()[0], P = this.addPoint()[0]) {
+    const circle = new Circle(C, P)
     circle.name = this.getNewName(circle.type)
     this.geometric.push(circle)
     return circle
   }
   /**
    * Get the intersect point of a line and the bordure
-   * @param {Line} line
-   * @returns {Point}
    */
-  getExtremPointGraphicLine (line) {
+  getExtremPointGraphicLine (L: Line) {
     const x = [
-      [line.getXPoint(this.ymin), this.ymin], // [xmin,xmax]
-      [line.getXPoint(this.ymax), this.ymax] // [xmin,xmax]
+      [L.getXPoint(this.ymin), this.ymin], // [xmin,xmax]
+      [L.getXPoint(this.ymax), this.ymax] // [xmin,xmax]
     ]
     const y = [
-      [this.xmin, line.getYPoint(this.xmin)], // [ymin,ymax]
-      [this.xmax, line.getYPoint(this.xmax)] // [ymin,ymax]
+      [this.xmin, L.getYPoint(this.xmin)], // [ymin,ymax]
+      [this.xmax, L.getYPoint(this.xmax)] // [ymin,ymax]
     ]
     const extremites = []
     for (const u of x) {
@@ -368,7 +347,7 @@ export class GraphicView {
   }
 
   /**
-   * get a point between two existing points
+   * get a point between two points
    * @param {Point} point1
    * @param {Point} point2
    * @returns {Point}
@@ -383,17 +362,28 @@ export class GraphicView {
     )
   }
 
-  addPointDistance (A, r) {
-    let P
+  /**
+   * Add point between two but not too close to extrems
+   * @param A 
+   * @param B 
+   * @returns 
+   */
+  addPointBetween (A: Point,B: Point): Point {
+    const barycentricsCoords = listeEntiersSommeConnue(2,100,15)
+    const P = barycentre([A,B],barycentricsCoords)
+    P.name = P.name || this.getNewName(P.type)
+    this.geometric.push(P)
+    return P
+  }
+
+  addPointDistance (A: Point, r: number) {
+    let P: Point
     const circle = new Circle (A, r)
     do {
-      if (P !== undefined) {
-        this.geometric.pop()
-      }
       const theta = Math.random() * Math.PI * 2
       P = circle.getPoint(theta)
     } while (this.isCloseToExistingPoints(P) || this.isCloseToLineThroughtExistingPoints(P))
-    P.name = P.name || this.getNewName(P.type)
+    P.name = this.getNewName(P.type)
     this.geometric.push(P)
     return P
   }

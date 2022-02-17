@@ -1,5 +1,6 @@
 import { Vector } from "./elements";
 import { GraphicView } from "./GraphicView";
+import { aleaName } from "../../../modules/outilsMathjs.js";
 export class AleaThalesConfig extends GraphicView {
     constructor() {
         super(-5, -5, 5, 5);
@@ -44,8 +45,8 @@ export class AleaThalesConfig extends GraphicView {
         // On ajoute le point d'intersection de (OA) et (MN)
         const [N] = this.addIntersectLine(dMN, dOB); // C'est un tableau pour prévoir l'intersection de cercles par exemple
         // On commence par nommer les points et les droites
-        // const aleaNames = aleaName(5) // Nommage aléatoire des points
-        const aleaNames = ['O', 'A', 'B', 'M', 'N']; // Pour le debuggage
+        const aleaNames = aleaName(5); // Nommage aléatoire des points
+        // const aleaNames = ['O', 'A', 'B', 'M', 'N'] // Pour le debuggage
         const points = [O, A, B, M, N];
         points.forEach((x, i) => { x.name = aleaNames[i]; });
         // On nomme les droites à partir des noms des points

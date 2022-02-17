@@ -6,13 +6,13 @@ import { parse, create, all, unit } from 'mathjs'
 import { aleaVariables, toTex, resoudre, aleaExpression, aleaName } from '../../modules/outilsMathjs.js'
 import { GraphicView } from './aleaFigure/GraphicView.js'
 import { Grandeur } from './aleaFigure/grandeurs.js'
-import { Line, Segment, Vector, barycentre } from './aleaFigure/elements.js'
+import { Line, Segment, Vector } from './aleaFigure/elements.js'
 import { AleaThalesConfig } from './aleaFigure/outilsThales.js'
 
 // eslint-disable-next-line no-debugger
 debugger
 
-const nbCase = 28
+const nbCase = 31
 
 export const math = create(all)
 
@@ -46,67 +46,6 @@ function name (s, ...p) {
     }
   })
   return p.join('') + s[s.length - 1]
-}
-
-/**
- * Create a configuration of Thales in a given graphic view
- * @returns
- */
-function aleaThalesConfigOld (xmin = -5, ymin = -5, xmax = 5, ymax = 5, classicConfig) {
-  const graphic = new GraphicView(xmin, ymin, xmax, ymax)
-
-  /*
-  // On construit une figure tel que O et A sont à une distance donnée
-  const O = graphic.addPoint()[0]
-  // Si la distance est trop petite (=2) la suite est une boucle infinie
-  const A = graphic.addPointDistance(O, 3) // A est à 3 cm de O
-  const B = graphic.addNotAlignedPoint(O, A)[2]
-  */
-
-  // On construit un triangle OAB isocèle en O
-  // Points trop rapprochés : http://localhost:8080/mathalea.html?ex=betaThales,s=21,n=1&serie=fhIV&z=1
-  // Boucle infinie : http://localhost:8080/mathalea.html?ex=betaThales,s=21,n=1&serie=KJih&z=1
-  // const [O, A] = graphic.addPoint(2)
-  // const B = graphic.addPointDistance(O, graphic.distance(O, A)) // OA=OB
-
-  // Trois points non alignés au hasard
-  const [O, A, B] = graphic.addNotAlignedPoint() // Trois points non alignés
-
-  // Trois points formant un triangle rectangle
-  // const [A, O, B] = graphic.addRectPoint() // Trois points non alignés et formant un triangle OAB rectangle en A
-  // const [O, A, B] = graphic.addRectPoint() // Trois points non alignés et formant un triangle OAB rectangle en O
-
-  // M est un point de (OA)
-  const M = graphic.addPointAligned(O, A)[2] // C'est le troisième point de la sortie addPointAligned
-
-  // On ajoute les droites (OB) et (AB) pour ne pas gêner le point M
-  const dOB = graphic.addLine(O, B)
-  const dAB = graphic.addLine(A, B)
-
-  // Exemple d'un vecteur créé à partir de deux points
-  const vO = new Vector(O.x, O.y)
-  const vA = new Vector(A.x, A.y)
-  const vM = new Vector(M.x, M.y)
-  const vOA = vA.sub(vO)
-  const vOM = vM.sub(vO)
-  // On remplace le point M par son symétrique par rapport à O si besoin
-  if (classicConfig !== undefined && ((classicConfig && vOA.dot(vOM) < 0) || (!classicConfig && vOA.dot(vOM) > 0))) {
-    Object.assign(M, graphic.addHomothetic(O, -1, M)[0])
-  }
-  // On crée une parallèle à (AB)
-  const dMN = graphic.addParallelLine(M, dAB)[1] // C'est la seconde parallèle de addParalleleLine
-  // On ajoute le point d'intersection de (OA) et (MN)
-  const [N] = graphic.addIntersectLine(dMN, dOB) // C'est un tableau pour prévoir l'intersection de cercles par exemple
-  // On commence par nommer les points et les droites
-  // const aleaNames = aleaName(5) // Nommage aléatoire des points
-  const aleaNames = ['O', 'A', 'B', 'M', 'N'] // Pour le debuggage
-  const points = [O, A, B, M, N]
-  points.forEach((x, i) => { x.name = aleaNames[i] })
-  // On nomme les droites à partir des noms des points
-  dAB.name = A.name + B.name // L'ordre des lettres est conservé
-  dMN.aleaName(M, N) // L'ordre des lettres est aléatoirisé
-  graphic.geometric = [O, A, B, M, N]
-  return graphic
 }
 
 /**
@@ -276,16 +215,21 @@ export default function exercicesThales () {
   this.besoinFormulaireNumerique = [
     'Type de question', nbCase, formulaire.join('\n')
   ]
+  this.besoinFormulaire2Numerique = true
+  this.besoinFormulaire2Numerique = [
+    'Configuration ? ', 3, ['1 - Triangles emboités\n 2 - Papillon\n 3 - Mélange']
+  ]
   this.consigne = ''
   this.nbCols = 0
   this.nbColsCorr = 0
   this.tailleDiaporama = 1
   this.video = ''
-  this.correctionDetailleeDisponible = false
+  this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 1.5)
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 2)
   this.sup = 'all'
+  this.sup2 = 3
   this.nouvelleVersion = function (numeroExercice, dDebug = false) {
     if (this.sup === 'all') this.nbQuestions = nbCase
     this.listeQuestions = [] // Liste de questions
@@ -714,7 +658,7 @@ export default function exercicesThales () {
         case 21: {
           // Problème toFixed : http://localhost:8080/mathalea.html?ex=betaThales,s=21,n=1&serie=3B5V&v=ex&z=1
           // const graphic = aleaThalesConfig(0, 0, 6, 6)
-          const graphic = new AleaThalesConfig()
+          // const graphic = new AleaThalesConfig()
 
           // Paramètres
           // graphic.setDimensions(0.5)
@@ -726,7 +670,9 @@ export default function exercicesThales () {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=21,n=1&serie=GxI1&v=ex&z=1
           // Il faut mettre la précision à 2
           // ça bloque Problème toFixed : http://localhost:8080/mathalea.html?ex=betaThales,s=21,n=1&serie=8JRU&v=ex&z=1
-          /* const graphic = aleaThalesConfig(-0.1, -0.1, 0.1, 0.1)
+          const graphic = new AleaThalesConfig()
+          /* graphic.setDimensions(-0.1, -0.1, 0.1, 0.1)
+          graphic.new()
           graphic.scale *= 15 / graphic.width
           graphic.ppc *= 15 / graphic.width */
 
@@ -739,14 +685,7 @@ export default function exercicesThales () {
           const dMN = graphic.addLine(M, N)
           dMN.aleaName(M, N) // L'ordre des lettres est aléatoirisé
 
-          // Exemple d'un vecteur créé à partir de deux points
-          const vO = new Vector(O.x, O.y)
-          const vA = new Vector(A.x, A.y)
-          const vM = new Vector(M.x, M.y)
-          const vOA = vA.sub(vO)
-          const vOM = vM.sub(vO)
-          // Cela permet d'obtenir à l'aide du produit scalaire le signe de l'homothétie
-          const signk = vOA.dot(vOM) < 0 ? -1 : 1
+          const signk = graphic.classicConfig ? 1 : -1
           // On définit deux grandeurs en imposant un nombre de décimales
           const OA = new Grandeur(O.name + A.name, parse(unit(graphic.distance(O, A), 'cm').toString()).args[0].value, 1, parse(unit(graphic.distance(O, A), 'cm').toString()).args[1].toString())
           // On conservant signk le signe de k on a donc des longueurs algébriques
@@ -763,7 +702,7 @@ export default function exercicesThales () {
           const ON = OB.multiply(OM).divide(OA)
           ON.name = O.name + N.name
 
-          // On peut ainsi obtenir AM par le calcul vec les longueurs algébriques
+          // On peut ainsi obtenir AM par le calcul avec les longueurs algébriques
           const AM = OA.neg().add(OM)
           AM.aleaName(A, M)
 
@@ -793,14 +732,10 @@ export default function exercicesThales () {
             O, A, B, M, N,
             graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
             graphic.addSidesPolygon(O, M, N)
-            //, graphic.addCircle(O, A)
-            //, graphic.addSegment(B, M),
-            // graphic.addSegment(A, N),
-            // graphic.addIntersectLine(graphic.addLine(B, M), graphic.addLine(A, N))
           )
 
           // Déterminer la meilleure unité pour les calculs avec les grandeurs
-          const unite = parse(unit(graphic.width / 3, 'cm').toString()).args[1].toString()
+          const unite = parse(unit(graphic.width / 30, 'cm').toString()).args[1].toString()
 
           // Création du texte
           const texte = `
@@ -924,7 +859,7 @@ export default function exercicesThales () {
           break
         }
         case 28: {
-          // Deux triangles symétriques par rapport à un point situé à l'intérieur d'un des deux triangles
+          // Deux triangles symétriques par rapport à un point situé sur l'un des côtés
           // http://localhost:8080/mathalea.html?ex=betaThales,s=28,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
           const [A, B, C] = graphic.addNotAlignedPoint()
@@ -938,6 +873,177 @@ export default function exercicesThales () {
             , triangle2
           )
           exercice.texte = graph
+          break
+        }
+        case 29: {
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=29,n=1&serie=hZya&v=ex&z=1
+          // Problème cadrage : http://localhost:8080/mathalea.html?ex=betaThales,s=29,n=1&serie=OBgR&v=ex&z=1
+          // Point C invisible : http://localhost:8080/mathalea.html?ex=betaThales,s=29,n=1&serie=OsIT&v=ex&z=1
+          const graphic = new GraphicView()
+          const [A, B] = graphic.addPoint(2)
+          const C = graphic.addPointDistance(A, graphic.distance(A, B)) // AB=AC
+          const triangle1 = graphic.addSidesPolygon(A, B, C)
+          const graph = graphic.getMathalea2DExport(
+            triangle1
+            , A, B, C
+          )
+          exercice.texte = graph
+          break
+        }
+        case 30: {
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=30,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView()
+          const [A, B] = graphic.addPoint(2)
+          const C = graphic.getNewPointBetween(A, B)
+          const graph = graphic.getMathalea2DExport(
+            A, B, C
+          )
+          exercice.texte = graph
+          break
+        }
+        case 31: {
+          // Points trop rapprochés http://localhost:8080/mathalea.html?ex=betaThales,s=31,s2=1,n=1,cc=1,cd=0&serie=j0Ob&v=ex&z=1
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=31,n=1&serie=hZya&v=ex&z=1
+          const graphic = new AleaThalesConfig()
+          graphic.classicConfig = [true, false, undefined][this.sup2 - 1]
+          graphic.new()
+
+          // On décide d'une unité
+          const unite = 'cm'
+
+          // On récupère les 5 points en configuration de Thalès
+          const [O, A, B, M, N] = graphic.geometric
+
+          // On nomme les droites à partir des noms des points
+          const dAB = graphic.addLine(A, B)
+          dAB.aleaName(A, B) // L'ordre des lettres est aléatoirisé
+          const dMN = graphic.addLine(M, N)
+          dMN.aleaName(M, N) // L'ordre des lettres est aléatoirisé
+
+          // On récupère le signe de l'homothétie correspondante
+          const signk = graphic.classicConfig ? 1 : -1
+
+          // On définit deux grandeurs en imposant un nombre de décimales
+          const OA = new Grandeur(O.name + A.name, parse(unit(graphic.distance(O, A), unite).toString()).args[0].value, 1, parse(unit(graphic.distance(O, A), unite).toString()).args[1].toString())
+          // On conservant signk le signe de k on a donc des longueurs algébriques
+          const k = new Grandeur('k', signk * graphic.distance(O, M) / graphic.distance(O, A), 1)
+          const OB = new Grandeur(O.name + B.name, parse(unit(graphic.distance(O, B), unite).toString()).args[0].value, 1, parse(unit(graphic.distance(O, B), unite).toString()).args[1].toString())
+
+          // On effectue le calcul pour OM à partir des grandeurs définies et non à partir des mesures de la figure
+          // Ceci afin d'éviter les valeurs non décimales.
+          const OM = OA.multiply(k)
+          // La grandeur OM porte le nom du calcul qui a permis de l'obtenir à savoir OA * k
+          // On la renomme pour la suite
+          OM.aleaName(O, M)
+
+          // Même travail avec ON
+          const ON = OB.multiply(OM).divide(OA)
+          ON.aleaName(O, N)
+
+          // On peut ainsi obtenir AM par le calcul avec les longueurs algébriques
+          const AM = OA.neg().add(OM)
+          AM.aleaName(A, M)
+
+          // On ajoute des droites pour l'énoncé
+          const dAM = graphic.addLine(A, M)
+          dAM.aleaName(A, M)
+          const dBN = graphic.addLine(B, N)
+          dBN.aleaName(B, N)
+
+          // Préparation d'une autre question pour le calcul de MN
+          const AB = new Grandeur(A.name + B.name, parse(unit(graphic.distance(A, B), unite).toString()).args[0].value, 1, parse(unit(graphic.distance(A, B), unite).toString()).args[1].toString())
+          const MN = AB.multiply(k)
+          MN.aleaName(M, N)
+
+          // ObjetGarphic.name donne le nom en fonction de la nature de l'objet (droite, segment, point)
+          // Grandeur.name donne le nom qu'on lui a affecté à sa création ou bien l'ensemble des calculs qui ont prmis de l'obtenir ou encore le nom qu'on lui a affecté
+          // Grandeur.nameAndValue donne un format latex de la forme k = 1.5 cm par exemple
+          // Grandeur.calcul donne une chaine de caractère avec les calculs au format string
+
+          // À ce stade nous n'avons plus besoins des longueurs algébriques
+          OB.toFixed = Math.abs(OB.toFixed)
+          OM.toFixed = Math.abs(OM.toFixed)
+          ON.toFixed = Math.abs(ON.toFixed)
+          MN.toFixed = Math.abs(MN.toFixed)
+
+          // A corriger, l'appel à nameAndValue ne peut pas se faire sans appeler ON.name
+          ON.name = ON.name + ''
+
+          // Unité pour ON
+          const unite2 = 'mm'
+          ON.nameAndValue = ON.to(unite2).nameAndValue
+
+          // On aléatoirise l'ordre des données
+          const aleaDonnees = aleaName(
+            [`$${toTex(`${OA.name} = ${OA.toFixed}${OA.unit}`, { suppr1: false })}$`,
+            `$${toTex(`${OB.name} = ${OB.toFixed}${OB.unit}`, { suppr1: false })}$`,
+            `$${toTex(`${OM.name} = ${OM.abs().toFixed}${OM.unit}`, { suppr1: false })}$`,
+            `$${toTex(`${MN.name} = ${MN.abs().toFixed}${MN.unit}`, { suppr1: false })}$`
+            ]
+          ).join(', ')
+          const graph = graphic.getMathalea2DExport(
+            O, A, B, M, N,
+            graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
+            graphic.addSidesPolygon(O, M, N)
+          )
+
+          // Création du texte
+          const texte = `
+Les droites $(${dAB.name}$) et $(${dMN.name})$ sont parallèles.
+
+Les droites $(${dAM.name}$) et $(${dBN.name})$ sont sécantes en $${O.name}$.
+
+On a : ${aleaDonnees}.
+
+Calculer $${ON.name}$ en ${ON.to(unite2).unit} puis $${AB.name}$ en ${AB.unit}.`
+
+          const texteCorr = `
+Les droites $(${dAB.name}$) et $(${dMN.name})$ sont parallèles.
+
+Les droites $(${dAM.name}$) et $(${dBN.name})$ sont sécantes en $${O.name}$.
+
+D'après le théorème de Thalès, on a :
+
+$$${toTex(`${OA.name} / ${OM.name} = ${OB.name} / ${ON.name} = ${AB.name} / ${MN.name}`, { suppr1: false })}$
+
+$\\textbf{Calcul de ${ON.name}}$
+
+D'une part on connait les longueurs $${OA.name}$, $${OB.name}$ et $${OM.name}$, d'où :
+
+$$${toTex(`${OA.toFixed}/${OM.toFixed}=${OB.toFixed}/${ON.name}`, { suppr1: false })}$
+
+On en déduit ensuite l'égalité des produits en croix :
+
+$$${toTex(`${OA.toFixed} * ${ON.name}=${OB.toFixed} * ${OM.toFixed}`, { suppr1: false })}$
+
+On résout enfin l'équation d'inconnue $${ON.name}$ :
+
+$$${toTex(`${ON.name}=${OB.toFixed} * ${OM.toFixed}/${OA.toFixed}=${ON.toFixed}${ON.unit}`, { suppr1: false })}$
+
+Donc ${ON.nameAndValue}.
+
+$\\textbf{Calcul de ${AB.name}}$
+
+D'autre part on connait aussi $${MN.name}$, d'où :
+
+$$${toTex(`${AB.name}/${MN.toFixed}=${OA.toFixed}/${OM.toFixed}`, { suppr1: false })}$
+
+On en déduit l'égalité des produits en croix :
+
+$$${toTex(`${AB.name} * ${OM.toFixed} = ${OA.toFixed} * ${MN.toFixed}`, { suppr1: false })}$
+
+On résout l'équation d'inconnue $${AB.name}$ :
+
+$$${toTex(`${AB.name} = ${OA.toFixed} * ${MN.toFixed} / ${OM.toFixed} = ${AB.toFixed}${AB.unit}`, { suppr1: false })}$
+
+Donc ${AB.nameAndValue}.`
+          const phrasesCorr = texteCorr.split('\n\n')
+          if (this.correctionDetaillee) {
+            exercice.texteCorr = phrasesCorr.join('<br>').replaceAll('$$', '$\\hspace{1cm}')
+          } else {
+            exercice.texteCorr = phrasesCorr.filter((x, i) => [3, 4, 6, 8, 10, 11, 12, 14, 16, 18, 19].indexOf(i) !== -1).join('<br>').replaceAll('$$', '$\\hspace{1cm}')
+          }
+          exercice.texte = texte.replaceAll('\n\n', '<br>') + '<br>' + graph
           break
         }
       }
