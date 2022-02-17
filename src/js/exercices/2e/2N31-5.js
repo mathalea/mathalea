@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texFraction, texNombrec, combinaisonListes, texFractionReduite } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texFraction, texNombrec, texNombre, calcul, decimalToScientifique, combinaisonListes, texFractionReduite } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -23,14 +23,14 @@ export default function CalculerAvecEcritureScientifique () {
   if (!context.isHtml) {
     this.correctionDetaillee = false
   }
-  this.consigne = 'Calculer, en détaillant les étapes, puis exprimer le résultat sous forme scientifique.\n'
+  this.consigne = 'Calculer, en détaillant les étapes, puis exprimer le résultat sous forme scientifique. <br>'
   this.consigne += 'En cas de besoin, on arrondira la mantisse au centième près.'
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1
   this.spacingCorr = 1
-  this.nbQuestions = 4
-  this.sup = 2
+  this.nbQuestions = 3
+  this.sup = 1
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
@@ -49,20 +49,25 @@ export default function CalculerAvecEcritureScientifique () {
       n = 0
       while (n < 4) {
         c[n] = randint(-30, 30, [-1, 0, 1]) // initialise les exposants entiers relatifs
-        b[n] = randint(1, 9)
+        b[n] = randint(11, 99)
         a[n] = randint(101, 999) // initialise les mantises avec chiffre des dixièmes non nul
-        a[n] = a[n] / 100
+        a[n] = calcul(a[n] / 100)
+        b[n] = calcul(b[n] / 10)
         n++
       }
-      texteCorr = ''
+      texteCorr = '<br>'
       texte = ''
       switch (typesDeQuestions) {
         case 1:
-          texte = `$ ${texNombrec(a[0])} \\times 10^{${c[0]}} \\times ${b[0]} \\times 10^{${c[1]}} $` // a.10^n x b.10^m = ?
+          texte = `$ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} $\n` // a.10^n x b.10^m = ?
           if (this.correctionDetaillee) {
-            texteCorr += 'Correction détaillée 1'
-          } else { texteCorr += 'CorrTest1' }
-          reponse = `$ ${a[0] * a[1]} \times 10^{${b[0] * b[1]}} $`
+            texteCorr += `$ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} = \\left ( ${texNombrec(a[0])} \\times   ${texNombrec(b[0])} \\right ) \\times \\left ( 10^{${texNombrec(c[1])}} \\times 10^{${texNombrec(c[0])}} \\right ) $ <br>`
+            texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } = ${texNombrec(calcul(a[0] * b[0]))} \\times 10^{${texNombrec(c[1] + c[0])}} $ <br>`
+            texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } = ${texNombre(decimalToScientifique(calcul(a[0] * b[0]))[0])} \\times 10^{${decimalToScientifique(calcul(a[0] * b[0]))[1]}} \\times 10^{${texNombrec(c[1] + c[0])}} $ <br>`
+            texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } = ${texNombre(decimalToScientifique(calcul(a[0] * b[0]))[0])} \\times 10^{${calcul(decimalToScientifique(calcul(a[0] * b[0]))[1] + c[1] + c[0])}} $ <br>`
+            texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } \\approx ${texNombre(round(decimalToScientifique(calcul(a[0] * b[0]))[0], 2))} \\times 10^{${calcul(decimalToScientifique(calcul(a[0] * b[0]))[1] + c[1] + c[0])}} $  (avec la mantisse arrondie au centième) <br>`
+          } else { texteCorr += `$ ${texNombrec(calcul(a[0] * b[0]))} \\times 10^{${texNombre(calcul(c[0] + c[1]))} = 13 $` }
+          reponse = `$ ${texNombrec(a[0] * b[0])} \\times 10^{${texNombre(c[0] + c[1])}} $`
           break
         case 2:
           texte = `Texte2 ${a[0]}` // b>1
