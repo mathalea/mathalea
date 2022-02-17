@@ -3,9 +3,9 @@ import { context } from '../../modules/context.js'
 import { polygone, segment, ObjetMathalea2D, point, mathalea2d, texteParPosition, fixeBordures } from '../../modules/2d.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { parse, simplify } from 'mathjs'
-import { aleaExpression, resoudre, toTex, calculer, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
+import { aleaName, aleaExpression, resoudre, toTex, calculer, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
 import Algebrite from 'algebrite'
-import { qrandom } from './aleaFigure/grandeurs'
+
 // eslint-disable-next-line no-debugger
 debugger
 const nbCase = 124
@@ -1249,16 +1249,78 @@ export default function equationsProgression () {
           break
         }
         case 124: {
-          // http://localhost:8080/mathalea.html?ex=betaEquations,s=124
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=124,n=1,cd=1&serie=uAXn&z=1&v=ex
           const questions = []
-          questions.push(calculer('(a)+(b)', { variables: { a: 'round(random(-10,10),0)', b: 'round(random(-10,10),0)', test: 'a*b<0' }, supprPlusMoins: false, substeps: true }))
-          questions.push(calculer('(a)+(b)', { variables: { a: 'round(random(-10,10),0)', b: 'round(random(-10,10),0)', test: 'a<0 and b<0' }, supprPlusMoins: false, substeps: true }))
-          questions.push(calculer('(a)+(b)', { variables: { a: 'round(random(-10,10),1)', b: 'round(random(-10,10),1)', test: 'a*b<0 or (a<0 and b<0)' }, supprPlusMoins: false, substeps: true }))
-          questions.push(calculer('(a)+(b)', { variables: { a: 'round(random(-10,10),1)', b: 'round(random(-10,10),1)', test: 'a*b<0 or (a<0 and b<0)' }, supprPlusMoins: false, substeps: true }))
-          questions.push(calculer('(a)-(b)', { variables: { a: 'round(random(-10,10),0)', b: 'round(random(-10,10),0)', test: 'a*b<0' }, supprPlusMoins: false, substeps: true }))
-          questions.push(calculer('(a)-(b)', { variables: { a: 'round(random(-10,10),0)', b: 'round(random(-10,10),0)', test: 'a<0 and b<0' }, supprPlusMoins: false, substeps: true }))
-          questions.push(calculer('(a)-(b)', { variables: { a: 'round(random(-10,10),1)', b: 'round(random(-10,10),1)', test: 'a*b<0 or (a<0 and b<0)' }, supprPlusMoins: false, substeps: true }))
-          questions.push(calculer('(a)-(b)', { variables: { a: 'round(random(-10,10),1)', b: 'round(random(-10,10),1)', test: 'a*b<0 or (a<0 and b<0)' }, supprPlusMoins: false, substeps: true }))
+          questions.push(calculer(aleaName(['(a)', '(b)']).join('+'), { // 1
+            variables: {
+              a: 'round(random(-10,-1),0)',
+              b: 'round(random(1,10),0)'
+            },
+            supprPlusMoins: false,
+            substeps: true
+          }))
+          questions.push(calculer(aleaName(['(a)', '(b)']).join('+'), { // 2
+            variables: {
+              a: 'round(random(-10,-1),0)',
+              b: 'round(random(-10,-1),0)'
+            },
+            supprPlusMoins: false,
+            substeps: true
+          }))
+          questions.push(calculer(aleaName(['(a)', '(b)']).join('+'), { // 3
+            variables: {
+              a: 'round(random(-10,10),1)',
+              b: 'round(random(-10,10),1)',
+              test: 'a*b<0 or (a<0 and b<0)'
+            },
+            supprPlusMoins: false,
+            substeps: true
+          }))
+          questions.push(calculer(aleaName(['(a)', '(b)']).join('+'), { // 4
+            variables: {
+              a: 'round(random(-10,10),1)',
+              b: 'round(random(-10,10),1)',
+              test: 'a*b<0 or (a<0 and b<0)'
+            },
+            supprPlusMoins: false,
+            substeps: true
+          }))
+          questions.push(calculer(aleaName(['(a)', '(b)', '(c)']).join('+'), { // 5
+            variables: {
+              a: 'round(random(1,10),0)', // a>0
+              b: 'round(random(-10,10),0)', // b != 0
+              c: 'round(random(-10,-1),0)', // c<0
+              test: 'b!=0'
+            },
+            supprPlusMoins: false,
+            substeps: true
+          }))
+          questions.push(calculer(aleaName(['(a)', '(b)']).join('-'), { // 6
+            variables: {
+              a: 'round(random(-10,-1),0)',
+              b: 'round(random(-10,10),0)',
+              test: 'b!=0'
+            },
+            supprPlusMoins: false,
+            substeps: true
+          }))
+          questions.push(calculer(aleaName(['(a)', '(b)']).join('-'), { // 7
+            variables: {
+              a: 'round(random(-10,-0.1),1)',
+              b: 'round(random(0.1,10),1)'
+            },
+            supprPlusMoins: false,
+            substeps: true
+          }))
+          questions.push(calculer(aleaName(['(a)', '(b)']).join('-'), { // 8
+            variables: {
+              a: 'round(random(-10,-0.1),1)',
+              b: 'round(random(-10,10),1)',
+              test: 'a*b<0 or (a<0 and b<0)'
+            },
+            supprPlusMoins: false,
+            substeps: true
+          }))
           exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
           exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
           break
