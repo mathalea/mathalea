@@ -1259,8 +1259,8 @@ export default function equationsProgression () {
           questions.push(calculer('(a)-(b)', { variables: { a: 'round(random(-10,10),0)', b: 'round(random(-10,10),0)', test: 'a<0 and b<0' }, supprPlusMoins: false, substeps: true }))
           questions.push(calculer('(a)-(b)', { variables: { a: 'round(random(-10,10),1)', b: 'round(random(-10,10),1)', test: 'a*b<0 or (a<0 and b<0)' }, supprPlusMoins: false, substeps: true }))
           questions.push(calculer('(a)-(b)', { variables: { a: 'round(random(-10,10),1)', b: 'round(random(-10,10),1)', test: 'a*b<0 or (a<0 and b<0)' }, supprPlusMoins: false, substeps: true }))
-          exercice.texte = questions.map(x => x.texte).join('<br>')
-          exercice.texteCorr = questions.map(x => x.texteCorr).join('<br>')
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
           break
         }
       }
