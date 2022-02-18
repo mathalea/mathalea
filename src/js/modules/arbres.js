@@ -148,7 +148,7 @@ export class Arbre {
       ? xOrigine
       : xOrigine + decalage + this.taille * echelle / 2
     , vertical
-      ? yOrigine + decalage + this.taille * echelle / 2
+      ? yOrigine + decalage - this.taille * echelle / 2
       : yOrigine
     , '', 'center')
     const B = point(vertical
