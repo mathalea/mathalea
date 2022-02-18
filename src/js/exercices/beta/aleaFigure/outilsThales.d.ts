@@ -4,7 +4,8 @@ export declare class AleaThalesConfig extends GraphicView {
     k: number;
     AOB: boolean;
     OAB: boolean;
-    constructor();
+    constructor(k?: boolean);
+    create(k?: boolean): void;
     new(): void;
     /**
      * Set dimensions

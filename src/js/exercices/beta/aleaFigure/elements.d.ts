@@ -1,4 +1,5 @@
 import { Cartesian, Coordinates, Polar } from './coordinates.js';
+import { MathArray, Matrix } from 'mathjs';
 /**
  * @class
  * @classdesc Graphic object like Point, Line, Segment etc.
@@ -26,6 +27,9 @@ export declare class Point extends GraphicObject {
     r: number;
     theta: number;
     ggb: string;
+    dot: string;
+    labelPoints: [Point, Point, Point];
+    label: boolean;
     constructor(coord: Coordinates);
     getPolarCoordinates(): Polar;
     getCartesianCoordinates(): Cartesian;
@@ -44,23 +48,28 @@ export declare class Point extends GraphicObject {
      * @returns
      */
     getSymetric(P: Point): Point;
+    getHomothetic(O: Point, k: number): Point;
+    getVector(): Vector;
     getGGB(): string;
+    showLabel(scaleppc: any): string;
+    showDot(): this;
     set name(newname: string);
     get name(): string;
 }
 export declare class Vector {
     x: number;
     y: number;
-    unit: boolean;
     norme: number;
-    constructor(x: number, y: number, unit?: boolean);
-    getUnit(): Vector;
+    constructor(x?: number, y?: number);
+    getNormed(): Vector;
     getNormal(): Vector;
     add(X: Vector | Point): Vector;
     sub(X: Vector | Point): Vector;
     multiply(k: number): Vector;
     neg(): Vector;
     dot(X: Vector | Point): number;
+    cross(X: Vector | Point): MathArray | Matrix;
+    colinear(V: Vector): boolean;
 }
 /**
    * @class

@@ -1,6 +1,8 @@
+import { context } from '../../../modules/context.js'
 import { Cartesian, Coordinates, Polar } from './coordinates.js'
 import { aleaName } from '../../../modules/outilsMathjs.js'
-import { dot, round } from 'mathjs'
+import { dot, round, cross, norm, MathArray, Matrix } from 'mathjs'
+import { latexParCoordonnees, tracePoint, point, labelPoint } from '../../../modules/2d.js'
 
 /**
  * @class
@@ -49,6 +51,9 @@ export class Point extends GraphicObject {
   r: number
   theta: number
   ggb: string
+  dot: string
+  labelPoints: [Point, Point, Point]
+  label: boolean = false
   constructor (coord: Coordinates) {
     super()
     this.coordinates = coord
@@ -124,11 +129,67 @@ export class Point extends GraphicObject {
     return barycentre([this,P],[2,-1])
   } 
 
+  getHomothetic(O: Point, k: number) { 
+    return new Point(
+      new Cartesian(
+        k * this.x + (1 - k) * O.x,
+        k * this.y + (1 - k) * O.y
+      ))
+  }
+  getVector () {
+    return new Vector(this.x,this.y)
+  }
+
   getGGB () {
     this.ggb = `${this.name} = (${this.x},${this.y})`
     return `${this.name} = (${this.x},${this.y})`
   }
 
+  showLabel (scaleppc) { 
+    let label: string
+    const splitname = this.name.split('_')
+    let nameFormat = splitname.length === 1 ? splitname[0] : `${splitname[0]}_{${splitname[1]}}`
+    if (this.labelPoints !== undefined) {
+      const P1 = this.labelPoints[0]
+      const P3 = this.labelPoints[2]
+      const S = this.labelPoints[1]
+      const v1 = P1.sub(S).getVector().getNormed()
+      const v3 = P3.sub(S).getVector().getNormed()
+      const corr = new Vector (0,-0.2)
+      let P: Point
+      if (v1.colinear(v3)) { // Colinéaires
+        P = S.add(v1.getNormal().multiply(scaleppc*0.4)).add(corr)
+      } else { // Non colinéaires
+        P = S.getSymetric(S.add(v1.add(v3).getNormed().multiply(scaleppc*0.4))).add(corr)
+      }
+      if (context.isHtml) {
+        label = latexParCoordonnees(nameFormat,P.x,P.y)
+      } else {
+        nameFormat = `$${nameFormat}$`
+        label = labelPoint(point(P.x, P.y, nameFormat, 'above'))
+      }
+      // 
+      this.labelPoints = [P1, S, P3]
+      this.label = true
+    } else {
+      if (context.isHtml) {
+        label = latexParCoordonnees(nameFormat,this.x,this.y)
+      } else {
+        nameFormat = `$${nameFormat}$`
+        label = labelPoint(point(this.x, this.y, nameFormat, 'above'))
+      }
+    }
+    return label
+  }
+
+  showDot () {
+    const splitname = this.name.split('_')
+    let nameFormat = splitname.length === 1 ? splitname[0] : `${splitname[0]}_{${splitname[1]}}`
+    if (context.isHtml) nameFormat = `$${nameFormat}$`
+    const newPoint = point(this.x, this.y, nameFormat, 'above')
+    this.dot = tracePoint(newPoint)
+    return this
+  }
   set name (newname) {
     this._name = newname
     this.ggb = `${this.name} = (${this.x},${this.y})`
@@ -138,17 +199,16 @@ export class Point extends GraphicObject {
 }
 
 export class Vector {
-  x: number
-  y: number
-  unit: boolean = true
+  x: number = 0
+  y: number = 0
   norme: number
-  constructor (x: number, y: number, unit = true) {
-    this.norme = unit ? Math.sqrt(x ** 2 + y ** 2) : 1
-    this.x = x / this.norme
-    this.y = y / this.norme
+  constructor (x: number = 0, y: number = 0) {
+    this.norme = Math.sqrt(x ** 2 + y ** 2)
+    this.x = x
+    this.y = y
   }
 
-  getUnit () {
+  getNormed () {
     const xy = Math.sqrt(this.x ** 2 + this.y ** 2)
     return new Vector(this.x / xy, this.y / xy)
   }
@@ -175,6 +235,15 @@ export class Vector {
 
   dot (X: Vector | Point): number {
     return dot([this.x, this.y],[X.x,X.y])
+  }
+
+  cross (X: Vector | Point): MathArray | Matrix {
+    const Cross = cross([this.x,this.y,0],[X.x,X.y,0])
+    return Cross
+  }
+
+  colinear (V: Vector): boolean {
+    return parseFloat(cross([this.x, this.y, 0], [V.x, V.y, 0])[2].toFixed(15)) === 0
   }
 }
 
@@ -212,7 +281,7 @@ export class Line extends GraphicObject {
   }
 
   getEquation () {
-    const directionUnit = this.direction.getUnit()
+    const directionUnit = this.direction.getNormed()
     this.a = -directionUnit.y
     this.b = directionUnit.x
     this.c = this.a * this.A.x + this.b * this.A.y

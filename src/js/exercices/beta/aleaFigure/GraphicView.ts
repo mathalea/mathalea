@@ -614,7 +614,7 @@ export class GraphicView {
    * @returns {Mathalea2D}
    */
   getMathalea2DExport (...args) {
-    this.show(...args)
+    this.geometric = this.show(...args)
     return getMathalea2DExport(this)
   }
 }

@@ -12,9 +12,11 @@ import { AleaThalesConfig } from './aleaFigure/outilsThales.js'
 // eslint-disable-next-line no-debugger
 debugger
 
-const nbCase = 31
+const nbCase = 32
 
 export const math = create(all)
+
+const toTex2 = function (a) { return toTex(a, { suppr1: false }) }
 
 export const titre = 'aleaFigure'
 
@@ -219,6 +221,10 @@ export default function exercicesThales () {
   this.besoinFormulaire2Numerique = [
     'Configuration ? ', 3, ['1 - Triangles emboités\n 2 - Papillon\n 3 - Mélange']
   ]
+  this.besoinFormulaire3Numerique = true
+  this.besoinFormulaire3Numerique = [
+    'Configuration ? ', 3, ['1 - Calcul de ON\n 2 - Calcul de AB\n 3 - Calcul de AM']
+  ]
   this.consigne = ''
   this.nbCols = 0
   this.nbColsCorr = 0
@@ -230,6 +236,7 @@ export default function exercicesThales () {
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 2)
   this.sup = 'all'
   this.sup2 = 3
+  this.sup3 = 1
   this.nouvelleVersion = function (numeroExercice, dDebug = false) {
     if (this.sup === 'all') this.nbQuestions = nbCase
     this.listeQuestions = [] // Liste de questions
@@ -903,20 +910,17 @@ export default function exercicesThales () {
         }
         case 31: {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=31,s2=3,n=1,cd=1&serie=qFnt&v=ex&z=1
-          const graphic = new AleaThalesConfig()
-          /* graphic.classicConfig = [true, false, undefined][this.sup2 - 1]
-          graphic.new() */
+          // PB M : http://localhost:8080/mathalea.html?ex=betaThales,s=31,s2=3,s3=1,n=1,cd=1&serie=Ld9D&v=ex&z=1
+          // On créé un objet configuration de Thalès
+          const graphic = new AleaThalesConfig([true, false, undefined][this.sup2 - 1])
 
-          graphic.classicConfig = [true, false, undefined][this.sup2 - 1]
-          // Boucle à remplacer par quelque chose de plus efficace
-          if (graphic.classicConfig !== undefined) {
-            do {
-              graphic.new()
-            } while (graphic.classicConfig !== [true, false, undefined][this.sup2 - 1])
-          }
+          // On conserve le signe de k pour les longueurs algébriques
+          const signk = graphic.classicConfig ? 1 : -1
 
           // On décide d'une unité
-          const unite = 'cm'
+          const unite1 = 'cm'
+          // Unité différente pour travailler les conversions
+          const unite2 = 'mm'
 
           // On récupère les 5 points en configuration de Thalès
           const [O, A, B, M, N] = graphic.geometric
@@ -927,14 +931,13 @@ export default function exercicesThales () {
           const dMN = graphic.addLine(M, N)
           dMN.aleaName(M, N) // L'ordre des lettres est aléatoirisé
 
-          // On récupère le signe de l'homothétie correspondante
-          const signk = graphic.classicConfig ? 1 : -1
-
           // On définit deux grandeurs en imposant un nombre de décimales
-          const OA = new Grandeur(O.name + A.name, parse(unit(graphic.distance(O, A), unite).toString()).args[0].value, 1, parse(unit(graphic.distance(O, A), unite).toString()).args[1].toString())
+          // const OA = new Grandeur(O.name + A.name, parse(unit(graphic.distance(O, A), unite).toString()).args[0].value, 1, parse(unit(graphic.distance(O, A), unite).toString()).args[1].toString())
+          const OA = new Grandeur(O.name + A.name, graphic.distance(O, A), 1, unite1)
           // On conservant signk le signe de k on a donc des longueurs algébriques
           const k = new Grandeur('k', signk * graphic.distance(O, M) / graphic.distance(O, A), 1)
-          const OB = new Grandeur(O.name + B.name, parse(unit(graphic.distance(O, B), unite).toString()).args[0].value, 1, parse(unit(graphic.distance(O, B), unite).toString()).args[1].toString())
+          // const OB = new Grandeur(O.name + B.name, parse(unit(graphic.distance(O, B), unite).toString()).args[0].value, 1, parse(unit(graphic.distance(O, B), unite).toString()).args[1].toString())
+          const OB = new Grandeur(O.name + B.name, graphic.distance(O, B), 1, unite1)
 
           // On effectue le calcul pour OM à partir des grandeurs définies et non à partir des mesures de la figure
           // Ceci afin d'éviter les valeurs non décimales.
@@ -947,9 +950,11 @@ export default function exercicesThales () {
           const ON = OB.multiply(OM).divide(OA)
           ON.aleaName(O, N)
 
-          // On peut ainsi obtenir AM par le calcul avec les longueurs algébriques
+          // On peut ainsi obtenir AM et BN par le calcul avec les longueurs algébriques
           const AM = OA.neg().add(OM)
           AM.aleaName(A, M)
+          const BN = OB.neg().add(ON)
+          BN.aleaName(B, N)
 
           // On ajoute des droites pour l'énoncé
           const dAM = graphic.addLine(A, M)
@@ -958,99 +963,165 @@ export default function exercicesThales () {
           dBN.aleaName(B, N)
 
           // Préparation d'une autre question pour le calcul de MN
-          const AB = new Grandeur(A.name + B.name, parse(unit(graphic.distance(A, B), unite).toString()).args[0].value, 1, parse(unit(graphic.distance(A, B), unite).toString()).args[1].toString())
+          // const AB = new Grandeur(A.name + B.name, parse(unit(graphic.distance(A, B), unite1).toString()).args[0].value, 1, parse(unit(graphic.distance(A, B), unite).toString()).args[1].toString())
+          const AB = new Grandeur(A.name + B.name, graphic.distance(A, B), 1, unite1)
           const MN = AB.multiply(k)
           MN.aleaName(M, N)
 
-          // ObjetGarphic.name donne le nom en fonction de la nature de l'objet (droite, segment, point)
-          // Grandeur.name donne le nom qu'on lui a affecté à sa création ou bien l'ensemble des calculs qui ont prmis de l'obtenir ou encore le nom qu'on lui a affecté
-          // Grandeur.nameAndValue donne un format latex de la forme k = 1.5 cm par exemple
-          // Grandeur.calcul donne une chaine de caractère avec les calculs au format string
-
           // À ce stade nous n'avons plus besoins des longueurs algébriques
-          OB.toFixed = Math.abs(OB.toFixed)
-          OM.toFixed = Math.abs(OM.toFixed)
-          ON.toFixed = Math.abs(ON.toFixed)
-          MN.toFixed = Math.abs(MN.toFixed)
-
-          // A corriger, l'appel à nameAndValue ne peut pas se faire sans appeler ON.name
-          ON.name = ON.name + ''
-
-          // Unité pour ON
-          const unite2 = 'mm'
-          ON.nameAndValue = ON.to(unite2).nameAndValue
+          for (const x of [OB, OM, ON, MN, AM, BN]) {
+            x.toFixed = Math.abs(x.toFixed) // Les longueurs sont maintenant positives
+            x.name = x.name + '' // Pour que nameAndValue soit actualisé
+          }
 
           // On aléatoirise l'ordre des données
-          const aleaDonnees = aleaName(
-            [`$${toTex(`${OA.name} = ${OA.toFixed}${OA.unit}`, { suppr1: false })}$`,
-            `$${toTex(`${OB.name} = ${OB.toFixed}${OB.unit}`, { suppr1: false })}$`,
-            `$${toTex(`${OM.name} = ${OM.abs().toFixed}${OM.unit}`, { suppr1: false })}$`,
-            `$${toTex(`${MN.name} = ${MN.abs().toFixed}${MN.unit}`, { suppr1: false })}$`
+          const aleaDonnees = []
+          aleaDonnees[0] = aleaName(
+            [`$${toTex2(`${OA.name} = ${OA.toFixed}${OA.unit}`)}$`,
+            `$${toTex2(`${OB.name} = ${OB.toFixed}${OB.unit}`)}$`,
+            `$${toTex2(`${OM.name} = ${OM.abs().toFixed}${OM.unit}`)}$`,
+            `$${toTex2(`${MN.name} = ${MN.abs().toFixed}${MN.unit}`)}$`
             ]
           ).join(', ')
+          aleaDonnees[1] = aleaName(
+            [`$${toTex2(`${OA.name} = ${OA.toFixed}${OA.unit}`)}$`,
+            `$${toTex2(`${OB.name} = ${OB.toFixed}${OB.unit}`)}$`,
+            `$${toTex2(`${OM.name} = ${OM.abs().toFixed}${OM.unit}`)}$`,
+            `$${toTex2(`${MN.name} = ${MN.abs().toFixed}${MN.unit}`)}$`
+            ]
+          ).join(', ')
+          aleaDonnees[2] = aleaName(
+            [`$${toTex2(`${OA.name} = ${OA.toFixed}${OA.unit}`)}$`,
+            `$${toTex2(`${AB.name} = ${AB.toFixed}${AB.unit}`)}$`,
+            `$${toTex2(`${MN.name} = ${MN.toFixed}${MN.unit}`)}$`
+            ]
+          ).join(', ')
+          // On créé l'export.
+          // Attention à l'ordre d'affichage et notamment des labels (en premier)
           const graph = graphic.getMathalea2DExport(
             O, A, B, M, N,
             graphic.addSidesPolygon(O, A, B), // Les segments visibles sont les côtés des deux triangles OAB et OMN
             graphic.addSidesPolygon(O, M, N)
           )
 
-          // Création du texte
-          const texte = `
-Les droites $(${dAB.name}$) et $(${dMN.name})$ sont parallèles.
+          // Création des textes et des solutions
+          const texteCorr = ['', '', '']
+          const texteDonnees = ['', '', '']
+          const consigne = ['', '', '']
 
-Les droites $(${dAM.name}$) et $(${dBN.name})$ sont sécantes en $${O.name}$.
+          const texteIntro = `Les droites $(${dAB.name}$) et $(${dMN.name})$ sont parallèles.
 
-On a : ${aleaDonnees}.
+Les droites $(${dAM.name}$) et $(${dBN.name})$ sont sécantes en $${O.name}$.`
 
-Calculer $${ON.name}$ en ${ON.to(unite2).unit} puis $${AB.name}$ en ${AB.unit}.`
+          texteDonnees[0] = `On a : ${aleaDonnees[0]}.`
+          texteDonnees[1] = `On a : ${aleaDonnees[1]}.`
+          texteDonnees[2] = `On a : ${aleaDonnees[2]}.`
 
-          const texteCorr = `
-Les droites $(${dAB.name}$) et $(${dMN.name})$ sont parallèles.
+          consigne[0] = `Calculer $${ON.name}$ en ${ON.to(unite2).unit}.`
+          consigne[1] = `Calculer $${AB.name}$ en ${AB.unit}.`
+          consigne[2] = `Calculer $${AM.name}$ en ${AM.unit}.`
 
-Les droites $(${dAM.name}$) et $(${dBN.name})$ sont sécantes en $${O.name}$.
+          const texteCorrIntro = `D'après le théorème de Thalès, on a :
 
-D'après le théorème de Thalès, on a :
+$$${toTex2(`${OA.name} / ${OM.name} = ${OB.name} / ${ON.name} = ${AB.name} / ${MN.name}`)}$`
+          // Calcul de ON
+          texteCorr[0] = `$\\textbf{Calcul de ${ON.name}}$
 
-$$${toTex(`${OA.name} / ${OM.name} = ${OB.name} / ${ON.name} = ${AB.name} / ${MN.name}`, { suppr1: false })}$
+On connait les longueurs $${OA.name}$, $${OB.name}$ et $${OM.name}$, d'où :
 
-$\\textbf{Calcul de ${ON.name}}$
-
-D'une part on connait les longueurs $${OA.name}$, $${OB.name}$ et $${OM.name}$, d'où :
-
-$$${toTex(`${OA.toFixed}/${OM.toFixed}=${OB.toFixed}/${ON.name}`, { suppr1: false })}$
+$$${toTex2(`${OA.toFixed}/${OM.toFixed}=${OB.toFixed}/${ON.name}`)}$
 
 On en déduit ensuite l'égalité des produits en croix :
 
-$$${toTex(`${OA.toFixed} * ${ON.name}=${OB.toFixed} * ${OM.toFixed}`, { suppr1: false })}$
+$$${toTex2(`${OA.toFixed} * ${ON.name}=${OB.toFixed} * ${OM.toFixed}`)}$
 
 On résout enfin l'équation d'inconnue $${ON.name}$ :
 
-$$${toTex(`${ON.name}=${OB.toFixed} * ${OM.toFixed}/${OA.toFixed}=${ON.toFixed}${ON.unit}`, { suppr1: false })}$
+$$${toTex2(`${ON.name}=${OB.toFixed} * ${OM.toFixed}/${OA.toFixed}=${ON.toFixed}${ON.unit}`)}$
 
-Donc ${ON.nameAndValue}.
+Donc ${ON.to(unite2).nameAndValue}.`
+          // Calcul de AB
+          texteCorr[1] = `$\\textbf{Calcul de ${AB.name}}$
 
-$\\textbf{Calcul de ${AB.name}}$
+On connait les longueurs $${OA.name}$, $${OM.name}$ et $${MN.name}$, d'où :
 
-D'autre part on connait aussi $${MN.name}$, d'où :
-
-$$${toTex(`${AB.name}/${MN.toFixed}=${OA.toFixed}/${OM.toFixed}`, { suppr1: false })}$
+$$${toTex2(`${AB.name}/${MN.toFixed}=${OA.toFixed}/${OM.toFixed}`)}$
 
 On en déduit l'égalité des produits en croix :
 
-$$${toTex(`${AB.name} * ${OM.toFixed} = ${OA.toFixed} * ${MN.toFixed}`, { suppr1: false })}$
+$$${toTex2(`${AB.name} * ${OM.toFixed} = ${OA.toFixed} * ${MN.toFixed}`)}$
 
 On résout l'équation d'inconnue $${AB.name}$ :
 
-$$${toTex(`${AB.name} = ${OA.toFixed} * ${MN.toFixed} / ${OM.toFixed} = ${AB.toFixed}${AB.unit}`, { suppr1: false })}$
+$$${toTex2(`${AB.name} = ${OA.toFixed} * ${MN.toFixed} / ${OM.toFixed} = ${AB.toFixed}${AB.unit}`)}$
 
 Donc ${AB.nameAndValue}.`
-          const phrasesCorr = texteCorr.split('\n\n')
+          // Calcul de AM
+          texteCorr[2] = `$\\textbf{Calcul de ${OM.name}}$
+
+On connait les longueurs $${AB.name}$, $${MN.name}$ et $${OA.name}$, d'où :
+
+$$${toTex2(`${AB.toFixed}/${MN.toFixed}=${OA.toFixed}/${OM.name}`)}$
+
+On en déduit l'égalité des produits en croix :
+
+$$${toTex2(`${AB.toFixed} * ${OM.name} = ${OA.toFixed} * ${MN.toFixed}`)}$
+
+On résout l'équation d'inconnue $${OM.name}$ :
+
+$$${toTex2(`${OM.name} = ${OA.toFixed} * ${MN.toFixed} / ${AB.toFixed} = ${OM.toFixed}${OM.unit}`)}$
+
+$\\textbf{Calcul de ${AM.name}}$
+
+$$${toTex2(k.abs().value < 1 ? `${AM.name} = ${OA.name} ${k.value > 0 ? '-' : '+'} ${OM.name}` : `${AM.name} = ${OM.name} ${k.value > 0 ? '-' : '+'} ${OA.name}`)}$
+
+$$${toTex2(k.abs().value < 1 ? `${AM.name} = ${OA.toFixed} ${k.value > 0 ? '-' : '+'} ${OM.toFixed}` : `${AM.name} = ${OM.toFixed} ${k.value > 0 ? '-' : '+'} ${OA.toFixed}`)}$
+
+Donc ${AM.nameAndValue}.`
+          const phrasesCorr = `${texteIntro}
+
+${texteCorrIntro}
+
+${texteCorr[this.sup3 - 1]}`.split('\n\n')
+
           if (this.correctionDetaillee) {
             exercice.texteCorr = phrasesCorr.join('<br>').replaceAll('$$', '$\\hspace{1cm}')
           } else {
             exercice.texteCorr = phrasesCorr.filter((x, i) => [3, 4, 6, 8, 10, 11, 12, 14, 16, 18, 19].indexOf(i) !== -1).join('<br>').replaceAll('$$', '$\\hspace{1cm}')
           }
-          exercice.texte = texte.replaceAll('\n\n', '<br>') + '<br>' + graph
+          exercice.texte = `${texteIntro}
+
+${texteDonnees[this.sup3 - 1]}
+
+${consigne[this.sup3 - 1]}`.replaceAll('\n\n', '<br>') + '<br>' + graph
+          break
+        }
+        case 32: {
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=32,s2=3,s3=1,n=1,cd=1&serie=7wjj&v=ex&z=1
+          // Ajouter des étiquettes aux extrémités d'un angle
+          const graphic = new GraphicView()
+          const [A, B, C] = graphic.addNotAlignedPoint()
+
+          // Boucle ! http://localhost:8080/mathalea.html?ex=betaThales,s=32,s2=3,s3=1,n=1,cd=1&serie=lqd7&v=ex&z=1
+          // const [D, E, F] = graphic.addPointAligned()
+
+          // Afficher le label des points
+          // A.showLabel()
+          // C.showLabel()
+          // B.showLabel(A, B, C).showDot()
+          B.labelPoints = [A, B, C]
+          B.label = true
+          // Afficher les points sous forme de croix x
+          A.showDot()
+          // B.showDot()
+          C.showDot()
+          const graph = graphic.getMathalea2DExport(
+            A, C
+            // , D, E, F
+            , graphic.addSidesPolygon(A, B, C)
+            , B
+          )
+          exercice.texte = graph
           break
         }
       }

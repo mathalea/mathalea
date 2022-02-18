@@ -104,7 +104,7 @@ function transformNode (node, parent, oldNode, params = { suppr1: true, suppr0: 
         if (node.args[0].isParenthesisNode) node.args[0] = node.args[0].content
         if (node.args.length > 1 && node.args[1].isParenthesisNode) node.args[1] = node.args[1].content
       } else {
-        if (node.args[0].isParenthesisNode && node.args[0].content.toString()[0] !== '-' && node.args[1].content.toString()[0] !== '+') node.args[0] = node.args[0].content
+        if (node.args[0].isParenthesisNode && node.args[0].content.toString()[0] !== '-' && node.args[0].content.toString()[0] !== '+') node.args[0] = node.args[0].content
         if (node.args.length > 1 && node.args[1].isParenthesisNode && node.args[1].content.toString()[0] !== '-' && node.args[1].content.toString()[0] !== '+') node.args[1] = node.args[1].content
       }
     }

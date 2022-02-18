@@ -1,15 +1,29 @@
 import { Point, Vector } from "./elements"
 import { GraphicView } from "./GraphicView"
 import { aleaName } from "../../../modules/outilsMathjs.js"
+import { cross } from "mathjs"
 
 export class AleaThalesConfig extends GraphicView {
   classicConfig: boolean = undefined
   k: number
   AOB: boolean = false
   OAB: boolean = false 
-  constructor () {
+  constructor (k: boolean = undefined) {
+    // super(-5, -5, 5, 5)
     super(-5, -5, 5, 5)
-    this.new()
+    this.create(k)         
+  }
+
+  create(k: boolean = undefined) {
+    // Boucle à remplacer par quelque chose de plus efficace
+    // Il faut tout simplement créer un objet configuration de Thalès en indiquant le k
+    if (k !== undefined) {
+      do {
+        this.new()
+      } while (this.classicConfig !== k)
+    } else {
+      this.new()
+    }
   }
 
   new () {
@@ -33,9 +47,15 @@ export class AleaThalesConfig extends GraphicView {
     // Exemple d'un vecteur créé à partir de deux points
     const vO = new Vector(O.x, O.y)
     const vA = new Vector(A.x, A.y)
+    const vB = new Vector(B.x, B.y)
     const vM = new Vector(M.x, M.y)
     const vOA = vA.sub(vO)
+    const vOB = vB.sub(vO)
     const vOM = vM.sub(vO)
+
+    // On détermine l'orientation de AOB pour la position des labels
+    const direct = cross([vOA.x,vOA.y,0],[vOB.x,vOB.y,0])[2] > 0
+
     // On remplace le point M par son symétrique par rapport à O si besoin
     // Mauvaise idée !!
     // Rechercher un point qui corresponde soit par l'aléatoire soir par le barycentre bien choisi
@@ -58,7 +78,27 @@ export class AleaThalesConfig extends GraphicView {
     // On nomme les droites à partir des noms des points
     dAB.name = A.name + B.name // L'ordre des lettres est conservé
     dMN.aleaName(M, N) // L'ordre des lettres est aléatoirisé
-    this.geometric = [O, A, B, M, N]
+
+    // On positionne les labels des points du mieux possible
+    if (this.k<0) { // À l'extrémités des triangles
+      A.labelPoints = [O, A, B]
+      B.labelPoints = [O, B, A]
+      M.labelPoints = [O, M, N]
+      N.labelPoints = [O, N, M]
+    } else if (this.k<1) { 
+      // ? : http://localhost:8080/mathalea.html?ex=betaThales,s=31,s2=3,s3=1,n=1,cd=1&serie=lvxb&v=ex&z=1
+      A.labelPoints = [O, A, B]
+      B.labelPoints = [O, B, A]
+      M.labelPoints = direct ? [O, M, A] : [A, M, O]
+      N.labelPoints = direct ? [B, N, O] : [O, N, B]
+    } else {
+      A.labelPoints = direct ? [O, A, M] : [M, A, O]
+      B.labelPoints = direct ? [N, B, O] : [O, B, N]
+      M.labelPoints = [O, M, N]
+      N.labelPoints = [O, N, M] 
+    }
+    O.labelPoints = [B, O, M]
+    this.geometric = [O, A, B, M, N].map(x => {x.label = true;return x})
   }
 
   /**

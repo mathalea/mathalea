@@ -1,6 +1,8 @@
+import { context } from '../../../modules/context.js';
 import { Cartesian } from './coordinates.js';
 import { aleaName } from '../../../modules/outilsMathjs.js';
-import { dot, round } from 'mathjs';
+import { dot, round, cross } from 'mathjs';
+import { latexParCoordonnees, tracePoint, point, labelPoint } from '../../../modules/2d.js';
 /**
  * @class
  * @classdesc Graphic object like Point, Line, Segment etc.
@@ -35,6 +37,7 @@ export class GraphicObject {
 export class Point extends GraphicObject {
     constructor(coord) {
         super();
+        this.label = false;
         this.xSVG = function (coeff) {
             return round(this.x * coeff, 3);
         };
@@ -91,9 +94,64 @@ export class Point extends GraphicObject {
     getSymetric(P) {
         return barycentre([this, P], [2, -1]);
     }
+    getHomothetic(O, k) {
+        return new Point(new Cartesian(k * this.x + (1 - k) * O.x, k * this.y + (1 - k) * O.y));
+    }
+    getVector() {
+        return new Vector(this.x, this.y);
+    }
     getGGB() {
         this.ggb = `${this.name} = (${this.x},${this.y})`;
         return `${this.name} = (${this.x},${this.y})`;
+    }
+    showLabel(scaleppc) {
+        let label;
+        const splitname = this.name.split('_');
+        let nameFormat = splitname.length === 1 ? splitname[0] : `${splitname[0]}_{${splitname[1]}}`;
+        if (this.labelPoints !== undefined) {
+            const P1 = this.labelPoints[0];
+            const P3 = this.labelPoints[2];
+            const S = this.labelPoints[1];
+            const v1 = P1.sub(S).getVector().getNormed();
+            const v3 = P3.sub(S).getVector().getNormed();
+            const corr = new Vector(0, -0.2);
+            let P;
+            if (v1.colinear(v3)) { // Colinéaires
+                P = S.add(v1.getNormal().multiply(scaleppc * 0.4)).add(corr);
+            }
+            else { // Non colinéaires
+                P = S.getSymetric(S.add(v1.add(v3).getNormed().multiply(scaleppc * 0.4))).add(corr);
+            }
+            if (context.isHtml) {
+                label = latexParCoordonnees(nameFormat, P.x, P.y);
+            }
+            else {
+                nameFormat = `$${nameFormat}$`;
+                label = labelPoint(point(P.x, P.y, nameFormat, 'above'));
+            }
+            // 
+            this.labelPoints = [P1, S, P3];
+            this.label = true;
+        }
+        else {
+            if (context.isHtml) {
+                label = latexParCoordonnees(nameFormat, this.x, this.y);
+            }
+            else {
+                nameFormat = `$${nameFormat}$`;
+                label = labelPoint(point(this.x, this.y, nameFormat, 'above'));
+            }
+        }
+        return label;
+    }
+    showDot() {
+        const splitname = this.name.split('_');
+        let nameFormat = splitname.length === 1 ? splitname[0] : `${splitname[0]}_{${splitname[1]}}`;
+        if (context.isHtml)
+            nameFormat = `$${nameFormat}$`;
+        const newPoint = point(this.x, this.y, nameFormat, 'above');
+        this.dot = tracePoint(newPoint);
+        return this;
     }
     set name(newname) {
         this._name = newname;
@@ -102,13 +160,14 @@ export class Point extends GraphicObject {
     get name() { return this._name; }
 }
 export class Vector {
-    constructor(x, y, unit = true) {
-        this.unit = true;
-        this.norme = unit ? Math.sqrt(x ** 2 + y ** 2) : 1;
-        this.x = x / this.norme;
-        this.y = y / this.norme;
+    constructor(x = 0, y = 0) {
+        this.x = 0;
+        this.y = 0;
+        this.norme = Math.sqrt(x ** 2 + y ** 2);
+        this.x = x;
+        this.y = y;
     }
-    getUnit() {
+    getNormed() {
         const xy = Math.sqrt(this.x ** 2 + this.y ** 2);
         return new Vector(this.x / xy, this.y / xy);
     }
@@ -129,6 +188,13 @@ export class Vector {
     }
     dot(X) {
         return dot([this.x, this.y], [X.x, X.y]);
+    }
+    cross(X) {
+        const Cross = cross([this.x, this.y, 0], [X.x, X.y, 0]);
+        return Cross;
+    }
+    colinear(V) {
+        return parseFloat(cross([this.x, this.y, 0], [V.x, V.y, 0])[2].toFixed(15)) === 0;
     }
 }
 /**
@@ -157,7 +223,7 @@ export class Line extends GraphicObject {
         return this.a === 0 ? undefined : (this.c - this.b * y) / this.a;
     }
     getEquation() {
-        const directionUnit = this.direction.getUnit();
+        const directionUnit = this.direction.getNormed();
         this.a = -directionUnit.y;
         this.b = directionUnit.x;
         this.c = this.a * this.A.x + this.b * this.A.y;

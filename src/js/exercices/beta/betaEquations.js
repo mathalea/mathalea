@@ -8,7 +8,7 @@ import Algebrite from 'algebrite'
 
 // eslint-disable-next-line no-debugger
 debugger
-const nbCase = 124
+const nbCase = 125
 
 export const titre = 'Calculs algébriques'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -1321,9 +1321,39 @@ export default function equationsProgression () {
             supprPlusMoins: false,
             substeps: true
           }))
+          questions.push(calculer(aleaName(['(a/c)', '(b/d)']).join('-'), { // 8
+            variables: {
+              a: true,
+              b: true,
+              c: false,
+              d: false,
+              test: 'a*b<0 or (a<0 and b<0)'
+            },
+            supprPlusMoins: false,
+            substeps: true
+          }))
           exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
           exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
           break
+        }
+        case 125 : {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=125
+          // TODO : Bug de mathsteps pour calculer('-3/7-(-4/8)')
+          const questions = []
+          questions.push(calculer('-3/7-(-4/8)'))
+          questions.push(calculer('-3/7-(0-4/8)'))
+          questions.push(calculer('-3/7--4/8', { substeps: true }))
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
+          break
+        }
+        case 126 : {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=126
+          // TODO : Corriger parenthèses de toTex() pour calculer('-3/7--4/8')
+          const questions = []
+          questions.push(calculer('-3/7--4/8', { substeps: true }))
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
         }
       }
       if (this.questionJamaisPosee(i, nquestion)) {
