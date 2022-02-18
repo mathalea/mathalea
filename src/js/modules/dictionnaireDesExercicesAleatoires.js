@@ -446,7 +446,7 @@ export default {
     "interactifType": "mathLive",
     "name": "2F11-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -1706,7 +1706,8 @@ export default {
     "titre": "Développer avec les identités remarquables",
     "url": "/exercices/2e/2N41-6.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "2N41-6",
     "newEx": {
       "isNew": false,
@@ -3048,7 +3049,8 @@ export default {
     "titre": "Additionner ou soustraire une expression entre parenthèses",
     "url": "/exercices/3e/3L10-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L10-1",
     "newEx": {
       "isNew": false,
@@ -3063,7 +3065,8 @@ export default {
     "titre": "Donner l’opposé d’une expression",
     "url": "/exercices/3e/3L10.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3L10",
     "newEx": {
       "isNew": false,
@@ -4014,7 +4017,7 @@ export default {
     "interactifType": "mathLive",
     "name": "4C32-0",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11299,6 +11302,70 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can1S02": {
+    "titre": "Calculer un terme d’une suite récurrente",
+    "url": "/exercices/can/1e/can1S02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1S02",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1S03": {
+    "titre": "Calculer un terme d’une suite récurrente*",
+    "url": "/exercices/can/1e/can1S03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1S03",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1S04": {
+    "titre": "Donner la nature d’une suite (formule de récurrence)",
+    "url": "/exercices/can/1e/can1S04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can1S04",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1S05": {
+    "titre": "Donner la nature d’une suite (formule explicite)",
+    "url": "/exercices/can/1e/can1S05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "can1S05",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can2C01": {
     "titre": "Trouver le nombre d’entiers entre deux valeurs",
     "url": "/exercices/can/2e/can2C01.js",
@@ -11709,7 +11776,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2F13",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
