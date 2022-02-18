@@ -92,48 +92,6 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
         this.listeCorrections.push(texteCorr)
         i++
       }
-      //==============================================================================
-      //===========ANCIEN CODE COMMENTÉ EN ATTENDANT LA PR============================
-      //==============================================================================
-      // const ordreDesFractions = randint(1, 2)
-      // if (!(this.interactif || context.isAmc)) {
-      //   if (ordreDesFractions === 1) {
-      //     texte = `$${texFractionSigne(a, b)} \\quad$ et $\\quad ${texFractionSigne(k * a + ecart, k * b)}$`
-      //   } else {
-      //     texte = `$${texFractionSigne(k * a + ecart, k * b)} \\quad$ et $\\quad ${texFractionSigne(a, b)}$`
-      //   }
-      //   if (!context.isHtml) {
-      //     texte = texte.replace('\\quad$ et $\\quad', '\\ldots\\ldots\\ldots')
-      //   }
-      //   if (a * b < 0) signeAsurB = '-'
-      //   else signeAsurB = ''
-      //   texteCorr = `$${texFractionSigne(a, b)}= ${signeAsurB} ${texFraction(Math.abs(a) + miseEnEvidence('\\times  ' + k), Math.abs(b) + miseEnEvidence('\\times  ' + k))}=${texFractionSigne(a * k, b * k)}\\quad$`
-      //   if (ordreDesFractions === 1) {
-      //     texteCorr += `  et   $\\quad${texFractionSigne(a * k, b * k)} ${signe} ${texFractionSigne(a * k + ecart, b * k)} \\quad$ donc $\\quad ${texFractionSigne(a, b)} ${signe} ${texFractionSigne(a * k + ecart, b * k)}$ `
-      //   } else {
-      //     texteCorr += `  et   $\\quad${texFractionSigne(a * k + ecart, b * k)} ${signe2} ${texFractionSigne(a * k, b * k)} \\quad$ donc $\\quad ${texFractionSigne(a * k + ecart, b * k)} ${signe2} ${texFractionSigne(a, b)} $ `
-      //   }
-      // } else {
-      //   this.autoCorrection[i] = {
-      //     enonce: 'comparer les fractions suivantes : ' + (ordreDesFractions < 2 ? `$${texFractionSigne(a, b)} \\quad$ et $\\quad ${texFractionSigne(k * a + ecart, k * b)}$` : `$${texFractionSigne(k * a + ecart, k * b)} \\quad$ et $\\quad ${texFractionSigne(a, b)}$`),
-      //     propositions: [
-      //       {
-      //         texte: ordreDesFractions < 2 ? `$${texFractionSigne(a, b)} < ${texFractionSigne(k * a + ecart, k * b)}$` : `$${texFractionSigne(k * a + ecart, k * b)} < ${texFractionSigne(a, b)}$`,
-      //         statut: ordreDesFractions < 2 ? ecart > 0 : ecart < 0
-      //       },
-      //       {
-      //         texte: ordreDesFractions < 2 ? `$${texFractionSigne(a, b)} > ${texFractionSigne(k * a + ecart, k * b)}$` : `$${texFractionSigne(k * a + ecart, k * b)} >${texFractionSigne(a, b)}$`,
-      //         statut: ordreDesFractions < 2 ? ecart < 0 : ecart > 0
-      //       }
-      //     ],
-      //     options: { ordered: false }
-      //   }
-      //   texte = propositionsQcm(this, i).texte
-      // }
-      // this.listeQuestions.push(texte)
-      // this.listeCorrections.push(texteCorr)
-      //==============================================================================
-      //==============================================================================
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
