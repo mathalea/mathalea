@@ -274,7 +274,7 @@ export async function initDom () {
           reponses = JSON.parse(new URLSearchParams(window.location.search).get('moodleJson'))
         } catch (e) {}
         if (reponses) {
-          for (let i = 0; i < context.listeObjetsExercice[0].nbQuestions; i++) {
+          for (let i = 0; i < context.listeObjetsExercice[0].autoCorrection.length; i++) {
             if (document.getElementById(`champTexteEx0Q${i}`) && reponses && typeof reponses[`reponse${i}`] !== 'undefined') {
               document.getElementById(`champTexteEx0Q${i}`).textContent = reponses[`reponse${i}`]
             }
