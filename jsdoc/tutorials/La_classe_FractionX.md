@@ -119,8 +119,13 @@ console.log(f.representation(x, y, rayon, depart = 0, type = 'gateau', couleur =
 
 console.log(f.representationIrred(x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '')) // renvoie un tableau d'objets 
  //   c'est la même chose que f.representation() mais le numérateur et le dénominateur sont simplifiés avant de graduer.
-
 ```
+## usages
+On veut utiliser la classe fraction pour travailler avec une écriture fractionnaire : $\frac{4.2}{5.3}$
+```Javascript
+let f = fraction(42,53).reduire(0.1) // f.n = 42, f.d = 53, f.num = 4.2 et f.den = 5.3
+```
+Ne pas utiliser directement fraction(4.2, 5.3). En effet, le constructeur tolère très mal les numérateurs et dénominateurs décimaux. Il essayera de trouver un rationnel le plus proche de 4.2/5.3 et pour une raison obscure, on aura de meilleurs résultats avec fraction(4.2/5.3)
 
 
 
