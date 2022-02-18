@@ -1,12 +1,12 @@
 import Exercice from '../Exercice.js'
 import {
     listeQuestionsToContenu,
-    randint,
     texNombrec,
     texNombre,
     calcul,
     decimalToScientifique,
-    combinaisonListes
+    combinaisonListes,
+    randint
 } from '../../modules/outils.js'
 import {
     setReponse
@@ -20,9 +20,13 @@ import {
 import {
     round
 } from 'mathjs'
+import { planckTemperatureDependencies } from 'mathjs'
 export const titre = 'Calculer avec des nombres en écriture scientifique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
+export const dateDePublication = '18/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+//export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 /**
  * Calculer avec des nombres en écriture scientifique
  * @author Matthieu Devillers
@@ -42,10 +46,10 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
         }
         this.consigne = 'Calculer, en détaillant les étapes, puis exprimer le résultat sous forme scientifique. <br>'
         this.consigne += 'En cas de besoin, on arrondira la mantisse au centième près.'
-        this.nbCols = 1
-        this.nbColsCorr = 1
-        this.spacing = 1
-        this.spacingCorr = 1
+        this.nbCols = 2
+        this.nbColsCorr = 2
+        this.spacing = 1.5
+        this.spacingCorr = 1.5
         this.nbQuestions = 3
         this.sup = 1
         this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Produit\n 2 : Quotient\n 3 : Quotient de produits\n 4 : Mélange des cas précédents']
@@ -70,12 +74,20 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
             n = 0
             while (n < 4) {
                 c[n] = randint(-30, 30, [-1, 0, 1]) // initialise les exposants entiers relatifs
+<<<<<<< Updated upstream
                 b[n] = randint(11, 99) / 10
                 a[n] = randint(1, 9) + randint(0,9) / 10 + randint(1,9) / 10 / 10  // initialise les mantises avec chiffre des dixièmes non nul
                 if (randint(0,1) === 1){
                     [a[n], b[n]] = [b[n], a[n]]
                 }
                 prod[n] = calcul(a[n] * b[n])
+=======
+                b[n] = randint(11, 99) / 10 // initialise les mantisses entières ou avec un chiffre des dixièmes non nul.
+                a[n] = randint(1, 9) + randint(0,9) / 10 + randint(1, 9) / 10 / 10 // initialise les mantises avec chiffre des centièmes non nul
+                if (randint(1, 2) === 1) {
+                    [a[n], b[n]] = [b[n], a[n]]
+                }
+>>>>>>> Stashed changes
                 n++
             }
             texteCorr = ''
