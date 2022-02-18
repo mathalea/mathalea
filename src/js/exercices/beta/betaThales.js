@@ -977,24 +977,24 @@ export default function exercicesThales () {
           // On aléatoirise l'ordre des données
           const aleaDonnees = []
           aleaDonnees[0] = aleaName(
-            [`$${toTex2(`${OA.name} = ${OA.toFixed}${OA.unit}`)}$`,
-            `$${toTex2(`${OB.name} = ${OB.toFixed}${OB.unit}`)}$`,
-            `$${toTex2(`${OM.name} = ${OM.abs().toFixed}${OM.unit}`)}$`,
-            `$${toTex2(`${MN.name} = ${MN.abs().toFixed}${MN.unit}`)}$`
-            ]
+            [`${OA.name} = ${OA.toFixed}${OA.unit}`,
+            `${OB.name} = ${OB.toFixed}${OB.unit}`,
+            `${OM.name} = ${OM.abs().toFixed}${OM.unit}`,
+            `${MN.name} = ${MN.abs().toFixed}${MN.unit}`
+            ].map(x => `$ {${toTex2(x)}}$`)
           ).join(', ')
           aleaDonnees[1] = aleaName(
-            [`$${toTex2(`${OA.name} = ${OA.toFixed}${OA.unit}`)}$`,
-            `$${toTex2(`${OB.name} = ${OB.toFixed}${OB.unit}`)}$`,
-            `$${toTex2(`${OM.name} = ${OM.abs().toFixed}${OM.unit}`)}$`,
-            `$${toTex2(`${MN.name} = ${MN.abs().toFixed}${MN.unit}`)}$`
-            ]
+            [`${OA.name} = ${OA.toFixed}${OA.unit}`,
+            `${OB.name} = ${OB.toFixed}${OB.unit}`,
+            `${OM.name} = ${OM.abs().toFixed}${OM.unit}`,
+            `${MN.name} = ${MN.abs().toFixed}${MN.unit}`
+            ].map(x => `$ {${toTex2(x)}}$`)
           ).join(', ')
           aleaDonnees[2] = aleaName(
-            [`$${toTex2(`${OA.name} = ${OA.toFixed}${OA.unit}`)}$`,
-            `$${toTex2(`${AB.name} = ${AB.toFixed}${AB.unit}`)}$`,
-            `$${toTex2(`${MN.name} = ${MN.toFixed}${MN.unit}`)}$`
-            ]
+            [`${OA.name} = ${OA.toFixed}${OA.unit}`,
+            `${AB.name} = ${AB.toFixed}${AB.unit}`,
+            `${MN.name} = ${MN.toFixed}${MN.unit}`
+            ].map(x => `$ {${toTex2(x)}}$`)
           ).join(', ')
           // On créé l'export.
           // Attention à l'ordre d'affichage et notamment des labels (en premier)
