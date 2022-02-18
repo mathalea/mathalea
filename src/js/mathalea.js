@@ -301,6 +301,11 @@ function contenuExerciceHtml (obj, numeroExercice) {
         obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
     contenuUneCorrection += obj.correctionIsCachee ? '<div><div class="correction">Correction masquée</div></div>' : `<div><div class="correction"><img width="90%" src="${obj.pngcor}"></div></div>`
     obj.video = false
+    // Pour permettre l'ajout d'exos DNB statiques dans la vue eval
+    if (obj.interactif || obj.interactifObligatoire) {
+      contenuUnExercice += `<button class="ui button blue checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
+      exerciceInteractif(obj)
+    }
   } else if (obj.typeExercice === 'simple') {
     if (obj.interactif) {
       iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
