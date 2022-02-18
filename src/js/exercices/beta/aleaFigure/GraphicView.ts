@@ -63,6 +63,8 @@ export class GraphicView {
 
   /**
    * Show any Objects in Mathalea2D
+   * @example
+   * show(A,B,C,ABC)
    */
   show (...args: GraphicObject[]): GraphicObject[] {
     const group = []
@@ -482,7 +484,7 @@ export class GraphicView {
    * @param  {Point,Point} args If no point we create three new points
    * @returns {Point}
    */
-  addNotAlignedPoint (P1 = this.addPoint()[0], P2 = this.addPoint()[0], P3 = undefined) {
+  addNotAlignedPoint (P1 = this.addPoint()[0], P2 = this.addPoint()[0], P3 = undefined): Point[] {
     // Le troisième point est écrasé si existant
     // Réfléchir à un ensemble plus grand de points non alignés
     const minDimension = Math.min(this.height, this.width) / this.getListObjectTypeSelect('Point').length / 3

@@ -31,6 +31,8 @@ export declare class GraphicView {
     setDimensions(xmin?: number, ymin?: number, xmax?: number, ymax?: number): void;
     /**
      * Show any Objects in Mathalea2D
+     * @example
+     * show(A,B,C,ABC)
      */
     show(...args: GraphicObject[]): GraphicObject[];
     /**
@@ -135,7 +137,7 @@ export declare class GraphicView {
      * @param  {Point,Point} args If no point we create three new points
      * @returns {Point}
      */
-    addNotAlignedPoint(P1?: any, P2?: any, P3?: any): any[];
+    addNotAlignedPoint(P1?: any, P2?: any, P3?: any): Point[];
     /**
      * Add a parallel line to another one or two parallel lines
      * @param  {Point,Line|Line} args If no args we create two parallels
@@ -154,7 +156,7 @@ export declare class GraphicView {
      * @param  {...any} args // 0-3 Point
      * @returns {Group}
      */
-    addParallelogram(A?: any, B?: any, C?: any, D?: any): any[];
+    addParallelogram(A?: any, B?: any, C?: Point, D?: any): any[];
     addRegularPolygon(A: Point, B: Point, n: number): Point[];
     addRegularPolygonCenter(A: Point, B: Point, n: number): Point;
     addHomothetic(O: Point, k: number, ...args: Point[]): Point[];

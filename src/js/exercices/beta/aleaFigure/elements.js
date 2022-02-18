@@ -131,17 +131,17 @@ export class Point extends GraphicObject {
             }
             // 
             this.labelPoints = [P1, S, P3];
-            this.label = true;
         }
         else {
             if (context.isHtml) {
-                label = latexParCoordonnees(nameFormat, this.x, this.y);
+                label = latexParCoordonnees(nameFormat, this.x, this.y + 0.2 * scaleppc);
             }
             else {
                 nameFormat = `$${nameFormat}$`;
                 label = labelPoint(point(this.x, this.y, nameFormat, 'above'));
             }
         }
+        this.label = true;
         return label;
     }
     showDot() {

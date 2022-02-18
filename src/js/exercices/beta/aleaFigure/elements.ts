@@ -145,7 +145,7 @@ export class Point extends GraphicObject {
     return `${this.name} = (${this.x},${this.y})`
   }
 
-  showLabel (scaleppc) { 
+  showLabel (scaleppc: number): string { 
     let label: string
     const splitname = this.name.split('_')
     let nameFormat = splitname.length === 1 ? splitname[0] : `${splitname[0]}_{${splitname[1]}}`
@@ -170,15 +170,15 @@ export class Point extends GraphicObject {
       }
       // 
       this.labelPoints = [P1, S, P3]
-      this.label = true
     } else {
       if (context.isHtml) {
-        label = latexParCoordonnees(nameFormat,this.x,this.y)
+        label = latexParCoordonnees(nameFormat,this.x,this.y+0.2*scaleppc)
       } else {
         nameFormat = `$${nameFormat}$`
         label = labelPoint(point(this.x, this.y, nameFormat, 'above'))
       }
     }
+    this.label = true
     return label
   }
 

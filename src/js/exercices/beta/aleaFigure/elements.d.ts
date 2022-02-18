@@ -51,7 +51,7 @@ export declare class Point extends GraphicObject {
     getHomothetic(O: Point, k: number): Point;
     getVector(): Vector;
     getGGB(): string;
-    showLabel(scaleppc: any): string;
+    showLabel(scaleppc: number): string;
     showDot(): this;
     set name(newname: string);
     get name(): string;

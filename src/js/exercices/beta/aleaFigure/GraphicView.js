@@ -52,6 +52,8 @@ export class GraphicView {
     }
     /**
      * Show any Objects in Mathalea2D
+     * @example
+     * show(A,B,C,ABC)
      */
     show(...args) {
         const group = [];
