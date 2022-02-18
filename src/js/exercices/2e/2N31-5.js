@@ -65,37 +65,38 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
             typesDeQuestionsDisponibles = [1, 2, 3]
         } // Mélange des cas précédents
         const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-        for (let i = 0, texte, texteCorr, reponse, cpt = 0, a = [], b = [], c = [], n, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+        for (let i = 0, texte, texteCorr, reponse, cpt = 0, a = [], b = [], c = [], prod = [], n, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
             typesDeQuestions = listeTypeDeQuestions[i]
             n = 0
             while (n < 4) {
                 c[n] = randint(-30, 30, [-1, 0, 1]) // initialise les exposants entiers relatifs
-                b[n] = randint(11, 99)
-                a[n] = randint(101, 999) // initialise les mantises avec chiffre des dixièmes non nul
-                a[n] = calcul(a[n] / 100) // JC : n'assure pas d'avoir un nombre décimal si a[n]=200 par exemple.
-                b[n] = calcul(b[n] / 10) // JC : si b[n]=20, alors on récupère un entier.
-                // JC : a[n] = randint(1,9)+randint(1,9)/10 assure d'avoir deux chiffres non nuls.
-                // JC : La division par 10 d'un flottant tombe juste en js, pas la division par 100. pour diviser par 100, faire a[n]/10/10 ... curieusement js fait ça mieux que a[n]/100.
+                b[n] = randint(11, 99) / 10
+                a[n] = randint(1, 9) + randint(0,9) / 10 + randint(1,9) / 10 / 10  // initialise les mantises avec chiffre des dixièmes non nul
+                if (randint(0,1) === 1){
+                    [a[n], b[n]] = [b[n], a[n]]
+                }
+                prod[n] = calcul(a[n] * b[n])
                 n++
             }
-            texteCorr = '<br>'
+            texteCorr = ''
             texte = ''
             switch (typesDeQuestions) {
                 case 1:
                     texte = `$ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} $\n` // a.10^n x b.10^m = ?
+                    const somme = c[1]+c[0]
                     if (this.correctionDetaillee) {
-                        texteCorr += `$ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} = \\left ( ${texNombrec(a[0])} \\times   ${texNombrec(b[0])} \\right ) \\times \\left ( 10^{${texNombrec(c[1])}} \\times 10^{${texNombrec(c[0])}} \\right ) $ <br>`
-                        texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } = ${texNombrec(calcul(a[0] * b[0]))} \\times 10^{${texNombrec(c[1] + c[0])}} $ <br>`
-                        texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } = ${texNombre(decimalToScientifique(calcul(a[0] * b[0]))[0])} \\times 10^{${decimalToScientifique(calcul(a[0] * b[0]))[1]}} \\times 10^{${texNombrec(c[1] + c[0])}} $ <br>`
-                        texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } = ${texNombre(decimalToScientifique(calcul(a[0] * b[0]))[0])} \\times 10^{${calcul(decimalToScientifique(calcul(a[0] * b[0]))[1] + c[1] + c[0])}} $ <br>`
-                        texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } \\approx ${texNombrec(round(decimalToScientifique(calcul(a[0] * b[0]))[0], 2))} \\times 10^{${calcul(decimalToScientifique(calcul(a[0] * b[0]))[1] + c[1] + c[0])}} $  (avec la mantisse arrondie au centième) <br>`
+                        texteCorr += `<br> $ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} = \\left ( ${texNombrec(a[0])} \\times   ${texNombrec(b[0])} \\right ) \\times \\left ( 10^{${texNombrec(c[1])}} \\times 10^{${texNombrec(c[0])}} \\right ) $ <br>`
+                        texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } = ${texNombrec(prod[0])} \\times 10^{${texNombrec(somme)}} $ <br>`
+                        texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } = ${texNombre(decimalToScientifique(prod[0])[0])} \\times 10^{${decimalToScientifique(prod[0])[1]}} \\times 10^{${texNombrec(somme)}} $ <br>`
+                        texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } = ${texNombre(decimalToScientifique(prod[0])[0])} \\times 10^{${calcul(decimalToScientifique(prod[0])[1] + somme)}} $ <br>`
+                        texteCorr += `$\\phantom{ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} } \\approx ${texNombrec(round(decimalToScientifique(prod[0])[0], 2))} \\times 10^{${calcul(decimalToScientifique(prod[0])[1] + somme)}} $  (avec la mantisse arrondie au centième) <br>`
                     } else {
-                        texteCorr += `$ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} \\approx ${texNombrec(round(decimalToScientifique(calcul(a[0] * b[0]))[0], 2))} \\times 10^{${calcul(decimalToScientifique(calcul(a[0] * b[0]))[1] + c[1] + c[0])}} $  (avec la mantisse arrondie au centième) <br>`
+                        texteCorr += `$ ${texNombrec(a[0])} \\times 10^{${texNombrec(c[0])}} \\times ${texNombrec(b[0])} \\times 10^{${texNombrec(c[1])}} \\approx ${texNombrec(round(decimalToScientifique(prod[0])[0], 2))} \\times 10^{${calcul(decimalToScientifique(prod[0])[1] + somme)}} $  (avec la mantisse arrondie au centième) <br>`
                     }
-                    reponse = ` ${round(decimalToScientifique(calcul(a[0] * b[0]))[0], 2)} \\times 10^{${calcul(decimalToScientifique(calcul(a[0] * b[0]))[1] + c[1] + c[0])}}`
+                    reponse = ` ${round(decimalToScientifique(prod[0])[0], 2)} \\times 10^{${calcul(decimalToScientifique(prod[0])[1] + somme)}}`
                     // texNombrec(a[0]) effectue un texNombre(parseFloat(a[0].toFixed(15))), ce qui signifie que texNombrec(3.54) va d'abord transformer le nombre en '3.540000000000000' pour transformer cela en flottant puis appliquer texNombre.
                     // bientôt texNombre acceptera directement un deuxième argument pour fixer le nombre de décimale. il suffira de faire texNombre(a[0],2) ici.
-                    // JC : texNombrec(round(decimalToScientifique(calcul(a[0] * b[0]))[0], 2))} \\times 10^{${calcul(decimalToScientifique(calcul(a[0] * b[0]))[1] + c[1] + c[0])
+                    // JC : texNombrec(round(decimalToScientifique(prod[0]])[0], 2))} \\times 10^{${calcul(decimalToScientifique(prod[0]])[1] + somme)
                     // JC : utiliser une constante : const produit = decimalToScientifique(a[0]*b[0])
                     // JC : puis utiliser produit plutôt que d'appeler plusieurs fois la fonction.
                     // JC : ${texNombre(produit[0],2)}\\times 10^${produit[1]+c[1]+c[0]} devrait faire le job quand la fonction texNombre() sera upgradée.
