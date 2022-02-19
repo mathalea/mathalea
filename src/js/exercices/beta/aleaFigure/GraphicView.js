@@ -35,6 +35,7 @@ export class GraphicView {
         this.ymin = -5;
         this.xmax = 5;
         this.ymax = 5;
+        this.clipVisible = false;
         this.setDimensions(xmin, ymin, xmax, ymax);
         this.names = 'ABCDEFGHIJKLMNOPRSTUVZ'.split('');
         this.ppc = 20; // Pixels per Centimeter

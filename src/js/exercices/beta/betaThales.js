@@ -6,16 +6,20 @@ import { parse, create, all, unit } from 'mathjs'
 import { aleaVariables, toTex, resoudre, aleaExpression, aleaName } from '../../modules/outilsMathjs.js'
 import { GraphicView } from './aleaFigure/GraphicView.js'
 import { Grandeur } from './aleaFigure/grandeurs.js'
-import { Line, Segment, Vector } from './aleaFigure/elements.js'
+import { Line, Segment, Vector, Point } from './aleaFigure/elements.js'
 import { AleaThalesConfig } from './aleaFigure/outilsThales.js'
+import { circularPermutation } from './aleaFigure/outils.js'
 
 // eslint-disable-next-line no-debugger
 debugger
 
-const nbCase = 33
+const nbCase = 35
 
 export const math = create(all)
-
+math.config({
+  number: 'number',
+  randomSeed: context.graine
+})
 const toTex2 = function (a) { return toTex(a, { suppr1: false }) }
 
 export const titre = 'aleaFigure'
@@ -338,21 +342,17 @@ export default function exercicesThales () {
         }
         case 10: {
           // Une sécante à deux droites
-          // http://localhost:8080/mathalea.html?ex=betaThales,s=10
+          // Bug ? http://localhost:8080/mathalea.html?ex=betaThales,s=10
           // Manque le point D : http://localhost:8080/mathalea.html?ex=betaThales,s=all,n=24&serie=M3k4&v=ex&z=1
           // Manque le point D : http://localhost:8080/mathalea.html?ex=betaThales,s=all,n=24&serie=2498&v=ex&z=1
           const graphic = new GraphicView(0, 0, 10, 7)
+          graphic.clipVisible = true
           const [A, B, C] = graphic.addNotAlignedPoint()
           const D = graphic.addNotAlignedPoint(A, B)[2]
           const dAB = graphic.addLine(A, B)
           const dAC = graphic.addLine(A, C)
           const dBD = graphic.addLine(B, D)
-          A.name = 'A'
-          B.name = 'B'
-          C.name = 'C'
-          D.name = 'D'
-          graphic.show(A, B, C, D, dAB, dAC, dBD)
-          exercice = { texte: graphic.getMathalea2DExport(), texteCorr: '' }
+          exercice = graphic.getMathalea2DExport(A, B, C, D, dAB, dAC, dBD)
           break
         }
         case 11: {
@@ -384,9 +384,11 @@ export default function exercicesThales () {
           // La droite s'affiche :
           // http://localhost:8080/mathalea.html?ex=betaThales,s=12,n=1&serie=D108&z=1
           const graphic = new GraphicView(-5, -5, 5, 5)
+          graphic.clipVisible = true
           const [A, B] = graphic.addPoint(2)
-          graphic.show(A, B, graphic.addLine(A, B))
-          const graph = graphic.getMathalea2DExport()
+          const graph = graphic.getMathalea2DExport(
+            A, B, graphic.addLine(A, B)
+          )
           exercice = { texte: graph, texteCorr: '' }
           break
         }
@@ -411,17 +413,14 @@ export default function exercicesThales () {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=14,n=1&serie=1Ziy&z=1
           const graphic = new GraphicView(-5, -5, 5, 5)
           const [A, B, C, D] = graphic.addParallelogram()
-          A.name = 'A'
-          B.name = 'B'
-          C.name = 'C'
-          D.name = 'D'
           const [E, F] = graphic.addParallelogram(A, B).slice(2)
-          E.name = 'E'
-          F.name = 'F'
           const [G] = graphic.addParallelogram(F, A, D).slice(3)
-          G.name = 'G'
-          graphic.show(A, B, C, D, E, F, graphic.addSidesPolygon(A, B, C, D), graphic.addSidesPolygon(A, B, E, F), graphic.addSidesPolygon(F, A, D, G))
-          const graph = graphic.getMathalea2DExport()
+          const graph = graphic.getMathalea2DExport(
+            A, B, C, D, E, F, G
+            , graphic.addSidesPolygon(A, B, C, D)
+            , graphic.addSidesPolygon(A, B, E, F)
+            , graphic.addSidesPolygon(F, A, D, G)
+          )
           exercice = { texte: graph, texteCorr: '' }
           break
         }
@@ -430,15 +429,12 @@ export default function exercicesThales () {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=15,n=1&serie=1Ziy&z=1
           const graphic = new GraphicView(-5, -5, 5, 5)
           const [A, B, C, D] = graphic.addParallelogram()
-          A.name = 'A'
-          B.name = 'B'
-          C.name = 'C'
-          D.name = 'D'
           const [O] = graphic.addPoint()
-          O.name = 'O'
           const [E, F, G, H] = graphic.addHomothetic(O, -0.5, A, B, C, D)
-          graphic.show(A, B, C, D, E, F, G, H, O, graphic.addSidesPolygon(A, B, C, D), graphic.addSidesPolygon(E, F, G, H))
-          const graph = graphic.getMathalea2DExport()
+          const graph = graphic.getMathalea2DExport(
+            A, B, C, D, E, F, G, H, O
+            , graphic.addSidesPolygon(A, B, C, D), graphic.addSidesPolygon(E, F, G, H)
+          )
           exercice = { texte: graph, texteCorr: '' }
           break
         }
@@ -706,16 +702,76 @@ export default function exercicesThales () {
           break
         }
         case 23: {
+          // Des rotations de rectangles
           // http://localhost:8080/mathalea.html?ex=betaThales,s=23,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
+
+          // Trois points formant un triangle rectangle pour obtenir un rectangle
           const [A, B, D] = graphic.addRectPoint()
+
+          // Nombre aléatoire de rectangles
+          const nbRectangles = math.pickRandom([2, 3, 4, 5, 6, 8])
+
+          // Nommage aléatoires des sommets
+          const names = aleaName(4)
+
+          // Construction des rectangles
+          let ABCD
           const rectangles = []
-          const n = (Math.random() * 8 + 2).toFixed()
-          for (let i = 0; i < n; i++) {
-            rectangles.push(graphic.addSidesPolygon(...graphic.addRotate(A, 2 * Math.PI / n * i, ...graphic.addParallelogram(D, A, B))))
+          for (let i = 0; i < nbRectangles; i++) {
+            const sommets = graphic.addRotate(A, 2 * Math.PI / nbRectangles * i, ...graphic.addParallelogram(D, A, B))
+            if (i === 0) {
+              ABCD = sommets.map((x, i) => {
+                x.name = names[i]
+                x.showLabel()
+                if (i === 0) {
+                  x.labelPoints = [sommets[3], sommets[i], sommets[i + 1]]
+                } else if (i === 3) {
+                  x.labelPoints = [sommets[i - 1], sommets[i], sommets[0]]
+                } else {
+                  x.labelPoints = [sommets[i - 1], sommets[i], sommets[i + 1]]
+                }
+                return x.name
+              })
+            }
+            rectangles.push(sommets, graphic.addSidesPolygon(...sommets))
           }
           const graph = graphic.getMathalea2DExport(...rectangles)
-          exercice.texte = graph
+
+          const n = new Grandeur('n', nbRectangles, 0)
+          const AnglePlein = new Grandeur('', 360, 0, 'deg')
+          const angle = AnglePlein.divide(n)
+          angle.name = aleaName(['\\alpha', '\\beta', '\\gamma', '\\delta'], 1)
+          // L'exercice
+          // Chaque rectangle et son suivant sont obtenus par une rotation de même centre et de même angle.
+          exercice.texte = `${graph.split('\n').filter(x => x !== '').filter(x => x !== '').join('\n')}
+
+Compléter l'algorithme ci-dessous pour obtenir la figure.
+
+$\\textbf{Début de l'algorithme}$
+
+$\\small\\color{gray} 01 \\hspace{0.1cm} $ $\\color{blue}\\text{monrectangle}$ = Rectangle ${ABCD.join('')}
+
+$\\small\\color{gray} 02 \\hspace{0.1cm}$ variable $\\color{blue}${angle.name}$ = $\\color{red}\\fbox{ ? }$ °
+
+$\\small\\color{gray} 03 \\hspace{0.1cm}$ variable $\\color{blue}n$ = 0
+
+$\\small\\color{gray} 04 \\hspace{0.1cm}$ Répéter $\\color{red}\\fbox{ ? }$ fois :
+
+$\\small\\color{gray} 05 \\hspace{0.5cm}$ Tracer l'image de $\\color{blue}\\text{monrectangle}$ par une rotation de centre $\\color{red}\\fbox{ ? }$ et d'angle $\\color{blue}${angle.name}$
+
+$\\small\\color{gray} 06 \\hspace{0.5cm}$ $\\color{blue}n$ = $\\color{blue}n$ + 1
+
+$\\small\\color{gray} 07 \\hspace{0.5cm}$ $\\color{blue}${angle.name}$ = $\\color{blue}n$ * $\\color{blue}${angle.name}$
+
+$\\small\\color{gray} 08 \\hspace{0.1cm}$ Fin de la boucle Répéter
+
+$\\textbf{Fin de l'algorithme}$`.replaceAll('\n\n', context.isHtml ? '<br>' : '\n\n')
+          exercice.texteCorr = `Il y a $${n.toFixed}$ rectangles il faut donc répéter au moins $\\color{red}\\fbox{${n.toFixed}}$ fois la boucle.
+
+$${angle.name} = \\dfrac{360°}{${n.toFixed}} = ${angle.toFixed}°$
+
+La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\color{red}\\fbox{$${angle.name}=${angle.value}$°}$.`.replaceAll('\n\n', '<br>')
           break
         }
         case 24: {
@@ -726,7 +782,8 @@ export default function exercicesThales () {
           const n = (Math.random() * 3 + 3).toFixed()
           const O = graphic.addRegularPolygonCenter(A, B, n)
           for (let i = 0; i < 10; i++) {
-            polygons.push(graphic.addSidesPolygon(...graphic.addHomothetic(O, 1 / (i + 1), ...graphic.addRegularPolygon(A, B, n))))
+            const sommets = graphic.addHomothetic(O, 1 / (i + 1), ...graphic.addRegularPolygon(A, B, n))
+            polygons.push(sommets, graphic.addSidesPolygon(...sommets))
           }
           const graph = graphic.getMathalea2DExport(
             O
@@ -1045,10 +1102,8 @@ ${consigne[this.sup3 - 1]}`.replaceAll('\n\n', '<br>') + '<br>' + graph
           // B.showDot()
           C.showDot()
           const graph = graphic.getMathalea2DExport(
-            A, C
-            // , D, E, F
-            , graphic.addSidesPolygon(A, B, C)
-            , B
+            graphic.addSidesPolygon(A, B, C)
+            , B, A, C // , D, E, F
           )
           exercice.texte = graph
           break
@@ -1064,6 +1119,193 @@ ${consigne[this.sup3 - 1]}`.replaceAll('\n\n', '<br>') + '<br>' + graph
             graphic.addSidesPolygon(A, B, C)
           )
           exercice.texte = graph
+          break
+        }
+        case 34: {
+          // Des rotations de rectangles
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=34,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView()
+
+          // Trois points formant un triangle rectangle pour obtenir un rectangle
+          const [A, B, D] = graphic.addRectPoint()
+
+          // Nombre aléatoire de rectangles
+          const nbRectangles = math.pickRandom([3, 4, 5, 6, 8, 10])
+
+          // Nommage aléatoires des sommets
+          const names = aleaName(8)
+
+          // Construction des rectangles
+          let ABCD, EFGH
+          const aleaRectangle = math.pickRandom([2, 3, 4, 5, 6, 7, 8, 9, 10].filter(x => x < nbRectangles))
+          const rectangles = []
+          for (let i = 0; i < nbRectangles; i++) {
+            const sommets = graphic.addRotate(A, 2 * Math.PI / nbRectangles * i, ...graphic.addParallelogram(D, A, B))
+            if (i === 0) {
+              ABCD = sommets.map((x, i) => {
+                x.name = names[i]
+                x.showLabel()
+                if (i === 0) {
+                  x.labelPoints = [sommets[3], sommets[i], sommets[i + 1]]
+                } else if (i === 3) {
+                  x.labelPoints = [sommets[i - 1], sommets[i], sommets[0]]
+                } else {
+                  x.labelPoints = [sommets[i - 1], sommets[i], sommets[i + 1]]
+                }
+                return x.name
+              })
+            }
+            if (i === aleaRectangle) {
+              EFGH = sommets.map((x, i) => {
+                x.name = names[i + 4]
+                if (i !== 1) x.showLabel()
+                if (i === 0) {
+                  x.labelPoints = [sommets[3], sommets[i], sommets[i + 1]]
+                } else if (i === 3) {
+                  x.labelPoints = [sommets[i - 1], sommets[i], sommets[0]]
+                } else {
+                  x.labelPoints = [sommets[i - 1], sommets[i], sommets[i + 1]]
+                }
+                if (i === 1) {
+                  return ABCD[1]
+                } else {
+                  return x.name
+                }
+              })
+            }
+            rectangles.push(sommets, graphic.addSidesPolygon(...sommets))
+          }
+          rectangles.filter((x, i) => (i === 1 || i === 2 * aleaRectangle + 1)).map((y, j) => y.map(z => { z.color = 'blue'; return z }))
+          const cotesRectangles = rectangles.filter(x => x[0] instanceof Segment)
+          const sommetsRectangles = rectangles.filter(x => x[0] instanceof Point)
+          const graph = graphic.getMathalea2DExport(...sommetsRectangles, ...cotesRectangles, cotesRectangles[0], cotesRectangles[aleaRectangle])
+
+          const n = new Grandeur('n', nbRectangles, 0)
+          const AnglePlein = new Grandeur('', 360, 0, 'deg')
+          const angle = AnglePlein.divide(n)
+          const k = new Grandeur('', aleaRectangle, 0)
+          const angleSolution = angle.multiply(k)
+          angle.name = aleaName(['\\alpha', '\\beta', '\\gamma', '\\delta'], 1)
+          // L'exercice
+          const P = aleaName([0, 2, 3])
+          // Chaque rectangle et son suivant sont obtenus par une rotation de même centre et de même angle.
+          exercice.texte = `${graph.split('\n').filter(x => x !== '').filter(x => x !== '').join('\n')}
+
+On a effectué $${n.toFixed}$ rotations successives de même angle et de même centre d'un rectangle.
+
+On est revenu sur le rectangle de départ.
+
+On considère la rotation qui transforme le rectangle $${circularPermutation(ABCD).join('')}$ en $${circularPermutation(EFGH).join('')}$ dans le sens direct (anti-horaire).
+
+$\\textbf{1.}$ Déterminer l'image de $${ABCD[P[i]]}$ par cette rotation.
+
+$\\textbf{2.}$ Déterminer l'angle de la rotation.`.replaceAll('\n\n', context.isHtml ? '<br>' : '\n\n')
+          exercice.texteCorr = `
+$\\textbf{1.}$ L'image de $${ABCD[P[i]]}$ est $${EFGH[P[i]]}$.
+
+$\\textbf{2.}$ Il y a $${n.value}$ rectangles en tout.
+
+$\\dfrac{360°}{${n.toFixed}} = ${angle.toFixed}°$
+
+On doit tourner $${aleaRectangle}$ fois d'un angle de $${angle.toFixed}°$ dans le sens direct (anti-horaire).
+
+$${aleaRectangle}\\times${angle.toFixed}°=${angleSolution.toFixed}°$
+
+Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixed}°$.
+`.replaceAll('\n\n', '<br>')
+          break
+        }
+        case 35: {
+          // Des rotations de rectangles
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=35,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView()
+
+          // Trois points formant un triangle rectangle pour obtenir un rectangle
+          const [A, B] = graphic.addPoint(2)
+          const [D] = graphic.addRotate(A, Math.PI / 2, B)
+
+          // Nombre aléatoire de rectangles
+          const nbRectangles = math.pickRandom([3, 5, 6])
+
+          // Nommage aléatoires des sommets
+          const names = aleaName(8)
+
+          // Construction des rectangles
+          let ABCD, EFGH
+          const aleaRectangle = math.pickRandom([2, 3, 4, 5, 6, 7, 8, 9, 10].filter(x => x < nbRectangles))
+          const rectangles = []
+          for (let i = 0; i < nbRectangles; i++) {
+            const sommets = graphic.addRotate(A, 2 * Math.PI / nbRectangles * i, ...graphic.addParallelogram(D, A, B))
+            if (i === 0) {
+              ABCD = sommets.map((x, i) => {
+                x.name = names[i]
+                x.showLabel()
+                if (i === 0) {
+                  x.labelPoints = [sommets[3], sommets[i], sommets[i + 1]]
+                } else if (i === 3) {
+                  x.labelPoints = [sommets[i - 1], sommets[i], sommets[0]]
+                } else {
+                  x.labelPoints = [sommets[i - 1], sommets[i], sommets[i + 1]]
+                }
+                return x.name
+              })
+            }
+            if (i === aleaRectangle) {
+              EFGH = sommets.map((x, i) => {
+                x.name = names[i + 4]
+                if (i !== 1) x.showLabel()
+                if (i === 0) {
+                  x.labelPoints = [sommets[3], sommets[i], sommets[i + 1]]
+                } else if (i === 3) {
+                  x.labelPoints = [sommets[i - 1], sommets[i], sommets[0]]
+                } else {
+                  x.labelPoints = [sommets[i - 1], sommets[i], sommets[i + 1]]
+                }
+                if (i === 1) {
+                  return ABCD[1]
+                } else {
+                  return x.name
+                }
+              })
+            }
+            rectangles.push(sommets, graphic.addSidesPolygon(...sommets))
+          }
+          rectangles.filter((x, i) => (i === 1 || i === 2 * aleaRectangle + 1)).map((y, j) => y.map(z => { z.color = 'blue'; return z }))
+          const cotesRectangles = rectangles.filter(x => x[0] instanceof Segment)
+          const sommetsRectangles = rectangles.filter(x => x[0] instanceof Point)
+          const graph = graphic.getMathalea2DExport(...sommetsRectangles, ...cotesRectangles, cotesRectangles[0], cotesRectangles[aleaRectangle])
+
+          const n = new Grandeur('n', nbRectangles, 0)
+          const AnglePlein = new Grandeur('', 360, 0, 'deg')
+          const angle = AnglePlein.divide(n)
+          const k = new Grandeur('', aleaRectangle, 0)
+          const angleSolution = angle.multiply(k)
+          angle.name = aleaName(['\\alpha', '\\beta', '\\gamma', '\\delta'], 1)
+          // L'exercice
+          const P = aleaName([0, 2, 3])
+          // Chaque rectangle et son suivant sont obtenus par une rotation de même centre et de même angle.
+          exercice.texte = `${graph.split('\n').filter(x => x !== '').filter(x => x !== '').join('\n')}
+
+
+On a effectué $${n.toFixed}$ rotations successives de même angle et de même centre d'un rectangle.
+
+On est revenu sur le rectangle de départ.
+
+$${circularPermutation(ABCD.concat([])).join('')}$ a pour image $${circularPermutation(EFGH.concat([])).join('')}$ par une rotation.
+
+Déterminer l'angle de la rotation qui permet de transformer $${ABCD[P[2]]}$ en $${EFGH[P[1]]}$ dans le sens direct (anti-horaire).`.replaceAll('\n\n', context.isHtml ? '<br>' : '\n\n')
+          exercice.texteCorr = `Il y a $${n.value}$ rectangles en tout.
+
+$\\dfrac{360°}{${n.toFixed}} = ${angle.toFixed}°$
+
+On doit tourner $${aleaRectangle}$ fois d'un angle de $${angle.toFixed}°$ dans le sens direct (anti-horaire) pour passer de $${circularPermutation(ABCD.concat([])).join('')}$ à $${circularPermutation(EFGH.concat([])).join('')}$.
+
+On doit ensuite tourner d'un angle de $90°$ pour passer du point $${EFGH[P[2]]}$ au point $${EFGH[P[1]]}$.
+
+$${aleaRectangle}\\times${angle.toFixed}°+90°=${angleSolution.toFixed + 90}°$
+
+Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixed + 90}°$.
+`.replaceAll('\n\n', '<br>')
           break
         }
       }

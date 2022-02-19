@@ -17,7 +17,7 @@ export class Grandeur {
     }
     set name(newname) {
         this._name = newname;
-        this.nameAndValue = `$ {${this.name}=${texNombre2(this.toFixed).replace(',', '{,}')}~${this.unit}}$`;
+        this.nameAndValue = `$ {${this.name}=${texNombre2(this.toFixed).replace(',', '{,}')}~${this.unit.replace('deg', '°')}}$`.replace('~°', '°');
     }
     get name() { return this._name; }
     /**

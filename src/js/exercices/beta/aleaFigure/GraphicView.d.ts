@@ -27,6 +27,7 @@ export declare class GraphicView {
     width: number;
     height: number;
     ratio: number;
+    clipVisible: boolean;
     constructor(xmin: number, ymin: number, xmax: number, ymax: number);
     setDimensions(xmin?: number, ymin?: number, xmax?: number, ymax?: number): void;
     /**

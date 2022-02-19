@@ -43,6 +43,7 @@ export class GraphicView {
   width: number
   height: number
   ratio: number
+  clipVisible : boolean = false 
   constructor (xmin: number, ymin: number, xmax:number, ymax:number) {
     this.setDimensions(xmin, ymin, xmax, ymax)
     this.names = 'ABCDEFGHIJKLMNOPRSTUVZ'.split('')
@@ -587,7 +588,7 @@ export class GraphicView {
     return homotheticPoints
   }
 
-  addRotate(O: Point, angle: number, ...args : Point[]) {
+  addRotate(O: Point, angle: number = 2*Math.random() * Math.PI, ...args : Point[]) {
     const rotatePoints = []
     args.map(M => {
       const point = new Point(

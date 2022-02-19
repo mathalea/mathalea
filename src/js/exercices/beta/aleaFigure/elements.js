@@ -9,6 +9,7 @@ import { latexParCoordonnees, tracePoint, point, labelPoint } from '../../../mod
  */
 export class GraphicObject {
     constructor() {
+        this.color = 'black';
         this.visible = false;
         this.name = '';
     }
@@ -114,7 +115,7 @@ export class Point extends GraphicObject {
             const S = this.labelPoints[1];
             const v1 = P1.sub(S).getVector().getNormed();
             const v3 = P3.sub(S).getVector().getNormed();
-            const corr = new Vector(0, -0.2);
+            const corr = new Vector(0, -0.3 * scaleppc);
             let P;
             if (v1.colinear(v3)) { // Colinéaires
                 P = S.add(v1.getNormal().multiply(scaleppc * 0.4)).add(corr);

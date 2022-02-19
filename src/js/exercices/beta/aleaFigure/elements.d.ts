@@ -7,6 +7,7 @@ import { MathArray, Matrix } from 'mathjs';
 export declare class GraphicObject {
     visible: boolean;
     _name: string;
+    color: string;
     constructor();
     aleaName(...name: (string | GraphicObject)[]): void;
     set name(newname: string);
