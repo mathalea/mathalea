@@ -143,6 +143,18 @@ export function exerciceNonInteractif (exercice) {
     }
 
     if (context.vue === 'eval') {
+      // Si c'est un exo dnb on affiche plutôt :
+      // => l'image de l'énoncé avec une largeur de 70% du container
+      // => l'image de la correction avec une largeur de 60% du container
+      if (exercice.typeExercice === 'dnb') {
+        const myImg = document.querySelector(`#${exercice.id}`)
+        const myImgCor = document.querySelector(`#${exercice.id}Cor`)
+        myImg.removeAttribute('width')
+        myImg.style.width = '70%'
+        myImgCor.removeAttribute('width')
+        myImgCor.style.width = '60%'
+      }
+
       const divAffichageExo = document.querySelector(`#exercice${exercice.numeroExercice}`)
 
       const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)

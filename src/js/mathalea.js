@@ -296,12 +296,12 @@ function contenuExerciceHtml (obj, numeroExercice) {
     obj.video = false
   } else if (obj.typeExercice === 'dnb') {
     contenuUnExercice += ` Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
-    contenuUnExercice += `<div><div class="question"><img width="90%" src="${obj.png}"></div></div>`
+    contenuUnExercice += `<div><div class="question"><img id="${obj.id}" width="90%" src="${obj.png}"></div></div>`
     contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${
         obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
-    contenuUneCorrection += obj.correctionIsCachee ? '<div><div class="correction">Correction masquée</div></div>' : `<div><div class="correction"><img width="90%" src="${obj.pngcor}"></div></div>`
+    contenuUneCorrection += obj.correctionIsCachee ? '<div><div class="correction">Correction masquée</div></div>' : `<div><div class="correction"><img id="${obj.id}Cor" width="90%" src="${obj.pngcor}"></div></div>`
     obj.video = false
-    // Pour permettre l'ajout d'exos DNB statiques dans la vue eval
+    // Pour permettre l'ajout d'exos DNB statiques et l'affichage de la correction dans la vue eval
     if (obj.interactif || obj.interactifObligatoire) {
       contenuUnExercice += `<button class="ui button blue checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
       exerciceInteractif(obj)
