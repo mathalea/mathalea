@@ -249,6 +249,7 @@ export default function exercicesThales () {
     let nquestion = 0
     for (let i = 0, exercice = { texte: 'Pas de texte', texteCorr: 'Pas de correction' }, cpt = 0; i < this.nbQuestions && cpt < 100;) { // Boucle principale où i+1 correspond au numéro de la question
       if (this.sup === 'all') {
+        if ([9, 10].indexOf(cpt + 1) !== -1) cpt = 11
         nquestion = cpt + 1
       } else {
         nquestion = this.sup
@@ -1332,7 +1333,7 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
         }
       }
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
-      if (this.questionJamaisPosee(i, exercice.texte)) {
+      if (this.questionJamaisPosee(i, i)) {
         this.listeQuestions.push(exercice.texte)
         this.listeCorrections.push(exercice.texteCorr)
         i++
