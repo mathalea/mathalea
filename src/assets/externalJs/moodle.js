@@ -21,7 +21,7 @@ if (typeof window.iMathAlea === 'undefined') {
   })
 
   const style = document.createElement('style')
-  style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls, .mathalea-question-type .rightanswer { display: none; }'
+  style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls, .mathalea-question-type .rightanswer { display: none !important; }'
   document.head.appendChild(style)
 
   // Create a class for the element
