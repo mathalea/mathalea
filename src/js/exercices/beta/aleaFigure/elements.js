@@ -105,7 +105,7 @@ export class Point extends GraphicObject {
         this.ggb = `${this.name} = (${this.x},${this.y})`;
         return `${this.name} = (${this.x},${this.y})`;
     }
-    showLabel(scaleppc) {
+    showLabel(scaleppc = 1) {
         let label;
         const splitname = this.name.split('_');
         let nameFormat = splitname.length === 1 ? splitname[0] : `${splitname[0]}_{${splitname[1]}}`;

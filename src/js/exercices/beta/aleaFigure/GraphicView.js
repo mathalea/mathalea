@@ -2,6 +2,7 @@ import { randomInt } from 'mathjs';
 import { Cartesian } from './coordinates.js';
 import { Point, Line, Segment, Circle, barycentre } from './elements.js';
 import { getMathalea2DExport } from './getMathalea2DExport.js';
+import { circularPermutation } from './outils.js';
 /**
 * Donne une liste d'entiers relatifs dont on connait la somme.
 * @example > listeEntiersSommeConnue(4,10,-2)
@@ -372,12 +373,26 @@ export class GraphicView {
         return P;
     }
     addPointOnPolygon(...args) {
-        const barycentricsCoords = listeEntiersSommeConnue(args.length, 100, 20 * 3 / args.length);
-        barycentricsCoords[Math.round(Math.random() * (barycentricsCoords.length - 2))] = 0;
-        const P = barycentre(args, barycentricsCoords);
+        const barycentricsCoords = listeEntiersSommeConnue(2, 100, 20 * 3 / 2);
+        const P = barycentre(circularPermutation(args).slice(0, 2), barycentricsCoords);
         P.name = P.name || this.getNewName(P.type);
         this.geometric.push(P);
         return P;
+        /*
+        const barycentricsCoords = listeEntiersSommeConnue(args.length,100,20*3/args.length)
+        barycentricsCoords[Math.round(Math.random()*(barycentricsCoords.length-2))] = 0
+        const P = barycentre(args,barycentricsCoords)
+        P.name = P.name || this.getNewName(P.type)
+        this.geometric.push(P)
+        return P
+        */
+    }
+    placeLabelsPolygon(...args) {
+        for (let i = 1; i < args.length + 1; i++) {
+            const names = [args[args.length - 1]].concat(args).concat([args[0]]);
+            names[i].showLabel();
+            names[i].labelPoints = [names[i - 1], names[i], names[i + 1]];
+        }
     }
     addSymetric(X, ...args) {
         return args.map(x => {
@@ -522,7 +537,7 @@ export class GraphicView {
         });
         return homotheticPoints;
     }
-    addRotate(O, angle, ...args) {
+    addRotate(O, angle = 2 * Math.random() * Math.PI, ...args) {
         const rotatePoints = [];
         args.map(M => {
             const point = new Point(new Cartesian((M.x - O.x) * Math.cos(angle) - (M.y - O.y) * Math.sin(angle) + O.x, (M.x - O.x) * Math.sin(angle) + (M.y - O.y) * Math.cos(angle) + O.y));

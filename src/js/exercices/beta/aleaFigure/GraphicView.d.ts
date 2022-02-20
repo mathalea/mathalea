@@ -114,6 +114,7 @@ export declare class GraphicView {
     addPointInPolygon(...args: Point[]): Point;
     addPointOutPolygon(...args: Point[]): Point;
     addPointOnPolygon(...args: Point[]): Point;
+    placeLabelsPolygon(...args: Point[]): void;
     addSymetric(X: Point | Line, ...args: Point[]): Point[];
     /**
      * Add three point, two point or one point aligned to others
@@ -161,7 +162,7 @@ export declare class GraphicView {
     addRegularPolygon(A: Point, B: Point, n: number): Point[];
     addRegularPolygonCenter(A: Point, B: Point, n: number): Point;
     addHomothetic(O: Point, k: number, ...args: Point[]): Point[];
-    addRotate(O: Point, angle: number, ...args: Point[]): any[];
+    addRotate(O: Point, angle?: number, ...args: Point[]): any[];
     exportGGB(arg?: GraphicObject[]): string;
     /**
      * Export to Mathalea2D

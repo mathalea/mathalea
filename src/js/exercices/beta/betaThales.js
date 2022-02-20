@@ -426,16 +426,38 @@ export default function exercicesThales () {
         }
         case 15 : {
           // Homothetie
-          // http://localhost:8080/mathalea.html?ex=betaThales,s=15,n=1&serie=1Ziy&z=1
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=15,s2=3,s3=1,n=1,cd=1&serie=GDGD&v=ex&z=1
           const graphic = new GraphicView(-5, -5, 5, 5)
-          const [A, B, C, D] = graphic.addParallelogram()
-          const [O] = graphic.addPoint()
-          const [E, F, G, H] = graphic.addHomothetic(O, -0.5, A, B, C, D)
+          const ABCD = graphic.addParallelogram()
+          const O = graphic.addPointOutPolygon(...ABCD)
+          graphic.placeLabelsPolygon(...ABCD)
+          const k = (Math.random() * 0.4 + (Math.floor(Math.random() * 2)) + 0.3) * (-1) ** Math.floor(Math.random() * 2)
+          const EFGH = graphic.addHomothetic(O, k, ...ABCD)
+          graphic.placeLabelsPolygon(...EFGH)
+          const names = aleaName(9)
+          for (let i = 0; i < 8; i++) {
+            [...ABCD, ...EFGH][i].name = names[i]
+          }
+          O.name = names[8]
+          O.showDot()
+          O.showLabel()
           const graph = graphic.getMathalea2DExport(
-            A, B, C, D, E, F, G, H, O
-            , graphic.addSidesPolygon(A, B, C, D), graphic.addSidesPolygon(E, F, G, H)
+            O, ...ABCD, ...EFGH
+            , graphic.addSidesPolygon(...ABCD), graphic.addSidesPolygon(...EFGH)
           )
-          exercice = { texte: graph, texteCorr: '' }
+          ABCD.name = circularPermutation(ABCD.map(x => x.name).join('')).join('')
+          EFGH.name = circularPermutation(EFGH.map(x => x.name).join('')).join('')
+          exercice.texte = `${graph}<br>
+Dans cette homothétie de centre $${O.name}$ le parallélogramme de départ est $${ABCD.name}$.
+
+$\\textbf{1.}$ Parmi les valeurs suivantes du rapport $k$, une seule est possible, laquelle ?
+
+$\\hspace{1cm}$ $${aleaName([toTex(k.toFixed(1)), toTex((-k).toFixed(1)), toTex((1 / k).toFixed(1)), toTex((-1 / k).toFixed(1))]).join('\\qquad')}$
+
+$\\textbf{2.}$ Quelle est l'image de $${ABCD[0].name}$ ?`.replaceAll('\n\n', '<br>')
+          exercice.texteCorr = `$\\textbf{1.}$ $k = ${toTex(k.toFixed(1))}$
+
+$\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`.replaceAll('\n\n', '<br>')
           break
         }
         case 16 : {

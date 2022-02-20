@@ -146,7 +146,7 @@ export class Point extends GraphicObject {
     return `${this.name} = (${this.x},${this.y})`
   }
 
-  showLabel (scaleppc: number): string { 
+  showLabel (scaleppc: number = 1): string { 
     let label: string
     const splitname = this.name.split('_')
     let nameFormat = splitname.length === 1 ? splitname[0] : `${splitname[0]}_{${splitname[1]}}`

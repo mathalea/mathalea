@@ -2,6 +2,7 @@ import { cos, forEach, randomInt } from 'mathjs'
 import { Cartesian } from './coordinates.js'
 import { Point, Line, Segment, GraphicObject, Circle, barycentre } from './elements.js'
 import { getMathalea2DExport } from './getMathalea2DExport.js'
+import { circularPermutation } from './outils.js'
 
 /**
 * Donne une liste d'entiers relatifs dont on connait la somme.
@@ -409,14 +410,28 @@ export class GraphicView {
   }
 
   addPointOnPolygon(...args: Point[]): Point {
+    const barycentricsCoords = listeEntiersSommeConnue(2, 100, 20 * 3 / 2)
+    const P = barycentre(circularPermutation(args).slice(0,2), barycentricsCoords)
+    P.name = P.name || this.getNewName(P.type)
+    this.geometric.push(P)
+    return P
+    /*
     const barycentricsCoords = listeEntiersSommeConnue(args.length,100,20*3/args.length)
     barycentricsCoords[Math.round(Math.random()*(barycentricsCoords.length-2))] = 0
     const P = barycentre(args,barycentricsCoords)
     P.name = P.name || this.getNewName(P.type)
     this.geometric.push(P)
     return P
+    */
   }
 
+  placeLabelsPolygon(...args: Point[]) {
+    for (let i = 1; i < args.length+1; i++) {
+      const names = [args[args.length-1]].concat(args).concat([args[0]])
+      names[i].showLabel()
+      names[i].labelPoints = [names[i-1],names[i],names[i+1]]
+    }
+  }
   addSymetric(X: Point | Line, ...args: Point[]): Point[] {
     return args.map(x => {
       const P = X.getSymetric(x)
