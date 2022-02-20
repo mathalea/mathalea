@@ -143,16 +143,30 @@ export function exerciceNonInteractif (exercice) {
     }
 
     if (context.vue === 'eval') {
-      // Si c'est un exo dnb on affiche plutôt :
+      // Si c'est un exo dnb ou crpe  on affiche plutôt :
       // => l'image de l'énoncé avec une largeur de 70% du container
       // => l'image de la correction avec une largeur de 60% du container
+      const myImgs = []
+      const myImgsCor = []
       if (exercice.typeExercice === 'dnb') {
-        const myImg = document.querySelector(`#${exercice.id}`)
-        const myImgCor = document.querySelector(`#${exercice.id}Cor`)
+        myImgs.push(document.querySelector(`#${exercice.id}`))
+        if (!exercice.correctionIsCachee) myImgsCor.push(document.querySelector(`#${exercice.id}Cor`))
+      }
+      if (exercice.typeExercice === 'crpe') {
+        for (let i = 1; i < exercice.png.length + 1; i++) {
+          myImgs.push(document.querySelector(`#${exercice.id}-${i}`))
+          if (!exercice.correctionIsCachee) myImgsCor.push(document.querySelector(`#${exercice.id}-${i}Cor`))
+        }
+      }
+      for (const myImg of myImgs) {
         myImg.removeAttribute('width')
         myImg.style.width = '70%'
-        myImgCor.removeAttribute('width')
-        myImgCor.style.width = '60%'
+      }
+      if (!exercice.correctionIsCachee) {
+        for (const myImgCor of myImgsCor) {
+          myImgCor.removeAttribute('width')
+          myImgCor.style.width = '60%'
+        }
       }
 
       const divAffichageExo = document.querySelector(`#exercice${exercice.numeroExercice}`)
