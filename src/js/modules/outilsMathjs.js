@@ -482,6 +482,7 @@ export function calculer (expression, params) {
   // Refaire la méthode transform() pour qu'elle ne modifie rien d'autre de notre noeud que ce qu'on souhaite
   // Si ça fonctionne on peut régler le problème des implicit qui disparaissent ? des (-3)² qui deviennent -3² ?
   // A faire : Ajouter un paramètre parenthesis à chaque noeud, ou il faudrait le faire dans Mathjs ?
+  // BUG : http://localhost:8080/mathalea.html?ex=betaEquations,s=125
   if (params.variables !== undefined) expression = aleaExpression(expression, params.variables)
   const expressionPrint = toTex(expression, params)
   const steps = params.substeps ? traverserEtapes(simplifyExpression(expression)) : simplifyExpression(expression)

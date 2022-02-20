@@ -2,13 +2,13 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { polygone, segment, ObjetMathalea2D, point, mathalea2d, texteParPosition, fixeBordures } from '../../modules/2d.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { parse, simplify } from 'mathjs'
+import { parse, simplify, compare, evaluate } from 'mathjs'
 import { aleaName, aleaExpression, resoudre, toTex, calculer, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
 import Algebrite from 'algebrite'
 
 // eslint-disable-next-line no-debugger
 debugger
-const nbCase = 125
+const nbCase = 133
 
 export const titre = 'Calculs algébriques'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -1285,16 +1285,51 @@ export default function equationsProgression () {
             supprPlusMoins: false,
             substeps: true
           }))
-          questions.push(calculer(aleaName(['(a)', '(b)', '(c)']).join('+'), { // 5
-            variables: {
-              a: 'round(random(1,10),0)', // a>0
-              b: 'round(random(-10,10),0)', // b != 0
-              c: 'round(random(-10,-1),0)', // c<0
-              test: 'b!=0'
-            },
-            supprPlusMoins: false,
-            substeps: true
-          }))
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
+          break
+        }
+        case 125 : {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=125
+          // TODO : Bug de mathsteps pour calculer('-3/7-(-4/8)')
+          const questions = []
+          questions.push(calculer('-3/7-(-4/8)'))
+          questions.push(calculer('-3/7-(0-4/8)'), { suppr0: true })
+          questions.push(calculer('-3/7--4/8', { substeps: true }))
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
+          break
+        }
+        case 126 : {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=126
+          // TODO : Corriger parenthèses de toTex() pour calculer('-3/7--4/8')
+          const questions = []
+          questions.push(calculer('-3/7--4/8', { substeps: true }))
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
+          break
+        }
+        case 127 : {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=127
+          // TODO : Bug de mathsteps pour calculer('2/3-(-4/8)')
+          const questions = []
+          questions.push(calculer('2/3-(-4/8)'), { suppr0: true })
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
+          break
+        }
+        case 128 : {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=127
+          // TODO : Bug de mathsteps pour calculer('2/3-(-4/8)')
+          const questions = []
+          questions.push(calculer('2/3-(-4/8)'), { suppr0: true })
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
+          break
+        }
+        case 129: {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=124,n=1,cd=1&serie=uAXn&z=1&v=ex
+          const questions = []
           questions.push(calculer(aleaName(['(a)', '(b)']).join('-'), { // 6
             variables: {
               a: 'round(random(-10,-1),0)',
@@ -1321,43 +1356,247 @@ export default function equationsProgression () {
             supprPlusMoins: false,
             substeps: true
           }))
-          questions.push(calculer(aleaName(['(a/c)', '(b/d)']).join('-'), { // 8
-            variables: {
-              a: true,
-              b: true,
-              c: false,
-              d: false,
-              test: 'a*b<0 or (a<0 and b<0)'
-            },
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
+          break
+        }
+        case 130: {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=130,n=1,cd=1&serie=uAXn&z=1&v=ex
+          const questions = []
+          let calcul, variables, expression, intro
+          const terms = []
+          const lettres = ['A', 'B']
+          // Calcul astucieux
+          calcul = []
+          variables = aleaVariables({
+            a: 'round(random(1,10),1)', // a>0
+            b: 'round(random(-10,10),1)', // b != 0
+            c: 'round(random(-10,-1),1)', // c<0
+            d: '-b',
+            e: '-c',
+            test: 'b!=0 and b!=a and b!=c'
+          })
+          expression = aleaExpression(aleaName(['(a)', '(b)', '(c)', '(d)', '(e)']).join('+'), variables)
+          calcul.push(expression)
+          calcul.push(aleaExpression(['(a)', '(b)', '(d)', '(c)', '(e)'].join('+'), variables))
+          calcul.push(evaluate(expression).toFixed(1))
+          intro = 'On peut regrouper les termes opposés pour faciliter les calculs.<br>'
+          questions.push({
+            texte: `Calculer $${toTex(lettres[0] + '=' + expression, { supprPlusMoins: false })}$`,
+            texteCorr: intro + calcul.map((x, i) => `$${toTex(lettres[0] + '=' + x, { supprPlusMoins: false })}$`).join('<br>')
+          })
+          // Regrouper les nombres de même signe
+          calcul = []
+          variables = aleaVariables({
+            a: 'round(random(1,10),1)', // a>0
+            b: 'round(random(-10,-1),1)', // b<0
+            c: 'round(random(-10,10),1)',
+            d: 'round(random(-10,10),1)',
+            e: 'round(random(-10,10),1)'
+          })
+          expression = aleaExpression(aleaName(['(a)', '(b)', '(c)', '(d)', '(e)']).join('+'), variables)
+          calcul.push(expression)
+          let newNode = parse(expression)
+          newNode = newNode.transform((node, path, parent) => {
+            if (node.isParenthesisNode) terms.push(node)
+            return node
+          })
+          terms.sort((a, b) => compare(b.content.toString(), a.content.toString()))
+          calcul.push(terms.map(x => x.toString()).join('+'))
+          let positive = evaluate(terms.filter(x => x.content.toString() > 0).map(x => x.toString()).join('+')).toFixed(1)
+          let negative = terms.filter(x => x.content.toString() < 0).map(x => x.toString()).join('+')
+          calcul.push(positive + '+' + negative)
+          positive = evaluate(terms.filter(x => x.content.toString() > 0).map(x => x.toString()).join('+')).toFixed(1)
+          negative = `(${evaluate(terms.filter(x => x.content.toString() < 0).map(x => x.toString()).join('+')).toFixed(1)})`
+          calcul.push(positive + '+' + negative)
+          calcul.push(evaluate(expression).toFixed(1))
+          intro = 'On peut additionner les termes positifs entre eux puis les termes négatifs entre eux puis terminer le calcul.<br>'
+          questions.push({
+            texte: `Calculer $${toTex(lettres[1] + '=' + expression, { supprPlusMoins: false })}$`,
+            texteCorr: intro + calcul.map((x, i) => `$${toTex(lettres[1] + '=' + x, { supprPlusMoins: false })}$`).join('<br>')
+          })
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
+          break
+        }
+        case 131: {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=131,n=1,cd=1&serie=uAXn&z=1&v=ex
+          const questions = []
+          let calcul, variables, expression, expression1, intro, terms
+          const lettres = ['A', 'B']
+          // Calcul astucieux
+          calcul = []
+          terms = []
+          variables = aleaVariables({
+            a: 'round(random(-10,10),0)',
+            b: 'round(random(-10,10),0)',
+            c: 'round(random(1,10),0)', // c>0
+            d: 'round(random(-10,10),0)',
+            e: 'round(random(1,10),0)', // e<0
+            test: 'a!=0'
+          })
+          expression1 = aleaExpression('(a)+(b)-(c)+(d)-(-e)', variables)
+          calcul.push(expression1)
+          expression = aleaExpression('(a)+(b)+(-c)+(d)+(e)', variables)
+          calcul.push(expression)
+          let newNode = parse(expression)
+          newNode = newNode.transform((node, path, parent) => {
+            if (node.isParenthesisNode) terms.push(node)
+            return node
+          })
+          terms.sort((a, b) => compare(b.content.toString(), a.content.toString()))
+          calcul.push(terms.map(x => x.toString()).join('+'))
+          let positive = evaluate(terms.filter(x => x.content.toString() > 0).map(x => x.toString()).join('+')).toFixed(1)
+          let negative = terms.filter(x => x.content.toString() < 0).map(x => x.toString()).join('+')
+          calcul.push(positive + '+' + negative)
+          positive = evaluate(terms.filter(x => x.content.toString() > 0).map(x => x.toString()).join('+')).toFixed(1)
+          negative = `(${evaluate(terms.filter(x => x.content.toString() < 0).map(x => x.toString()).join('+')).toFixed(1)})`
+          calcul.push(positive + '+' + negative)
+          calcul.push(evaluate(expression).toFixed(1))
+          intro = 'On peut transfomer toutes les soustractions en additions.<br>'
+          questions.push({
+            texte: `Calculer $${toTex(lettres[0] + '=' + expression1, { supprPlusMoins: false })}$`,
+            texteCorr: intro + calcul.map((x, i) => `$${toTex(lettres[0] + '=' + x, { supprPlusMoins: false })}$`).join('<br>')
+          })
+          // Deuxième calcul
+          // Calcul astucieux
+          calcul = []
+          terms = []
+          variables = aleaVariables({
+            a: 'round(random(-10,10),0)',
+            b: 'round(random(-10,10),0)',
+            c: 'round(random(1,10),0)', // c>0
+            d: 'round(random(-10,10),0)',
+            e: 'round(random(1,10),0)', // e<0
+            test: 'a!=0'
+          })
+          expression1 = aleaExpression('(a)-(-e)+(b)-(c)+(d)', variables)
+          calcul.push(expression1)
+          expression = aleaExpression('(a)+(e)+(b)+(-c)+(d)', variables)
+          calcul.push(expression)
+          newNode = parse(expression)
+          newNode = newNode.transform((node, path, parent) => {
+            if (node.isParenthesisNode) terms.push(node)
+            return node
+          })
+          terms.sort((a, b) => compare(b.content.toString(), a.content.toString()))
+          calcul.push(terms.map(x => x.toString()).join('+'))
+          positive = evaluate(terms.filter(x => x.content.toString() > 0).map(x => x.toString()).join('+')).toFixed(1)
+          negative = terms.filter(x => x.content.toString() < 0).map(x => x.toString()).join('+')
+          calcul.push(positive + '+' + negative)
+          positive = evaluate(terms.filter(x => x.content.toString() > 0).map(x => x.toString()).join('+')).toFixed(1)
+          negative = `(${evaluate(terms.filter(x => x.content.toString() < 0).map(x => x.toString()).join('+')).toFixed(1)})`
+          calcul.push(positive + '+' + negative)
+          calcul.push(evaluate(expression).toFixed(1))
+          intro = 'On peut transfomer toutes les soustractions en additions.<br>'
+          questions.push({
+            texte: `Calculer $${toTex(lettres[0] + '=' + expression1, { supprPlusMoins: false })}$`,
+            texteCorr: intro + calcul.map((x, i) => `$${toTex(lettres[0] + '=' + x, { supprPlusMoins: false })}$`).join('<br>')
+          })
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
+          break
+        }
+        case 132: {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=132,n=1,cd=1&serie=uAXn&z=1&v=ex
+          let questions = []
+          let calcul, expression, solution
+          const variables = []
+          // Calcul astucieux
+          variables.push(aleaVariables({
+            a: 'round(random(1,10),0)', // a>0
+            b: 'round(random(-10,-1),0)', // b<0
+            c: 'a+b',
+            test: 'a!=0 and b!=0 and c>0'
+          }))
+          variables.push(aleaVariables({
+            a: 'round(random(-10,-1),0)', // a<0
+            b: 'round(random(1,10),0)', // b>0
+            c: 'a+b',
+            test: 'a!=0 and b!=0 and c<0'
+          }))
+          variables.push(aleaVariables({
+            a: 'round(random(-10,-1),0)', // a<0
+            b: 'round(random(-10,-1),0)', // b<0
+            c: 'a+b',
+            test: 'a!=0 and b!=0 and c<0'
+          }))
+          variables.push(aleaVariables({
+            a: 'round(random(-10,10),0)',
+            b: '-a',
+            c: 'a+b',
+            test: 'a!=0 and b!=0'
+          }))
+          for (let i = 0; i < variables.length; i++) {
+            calcul = []
+            expression = aleaExpression('(a)+(ldots)', variables[i]) + '=' + aleaExpression('c', variables[i])
+            solution = aleaExpression('(a)+(b)', variables[i]) + '=' + aleaExpression('c', variables[i])
+            calcul.push(solution)
+            questions.push({
+              texte: `Compléter $${toTex(expression, { supprPlusMoins: false })}$`.replace('ldots', '\\ldots'),
+              texteCorr: calcul.map(x => `$${toTex(x, { supprPlusMoins: false })}$`).join('<br>')
+            })
+          }
+          questions = aleaName(questions)
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
+          break
+        }
+        case 133: {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=133,n=1,cd=1&serie=uAXn&z=1&v=ex
+          const questions = []
+          let calcul = {}
+          let variable
+          // Calcul astucieux
+          variable = aleaVariables({
+            a: 'round(random(-10,-1),0)', // a<0
+            b: 'round(random(1,10),0)', // b>0
+            c: 'a-b'
+          })
+          calcul.texte = 'Calculer ' + `$${toTex(aleaExpression('(a)-b', variable))}$`
+          calcul.texteCorr = 'Soustraire un nombre revient à ajouter son opposé.<br>' + `$${toTex(aleaExpression('(a)-b', variable) + '=' + aleaExpression('(a)+(-b)', variable), { supprPlusMoins: false })}$<br>` + `$${toTex(aleaExpression('(a)-b', variable) + '=' + aleaExpression('c', variable), { supprPlusMoins: false })}$`
+          questions.push(calcul)
+          // Calcul 2
+          variable = aleaVariables({
+            a: 'round(random(-10,10),0)', // a!=0
+            b: 'round(random(1,10),0)', // b>0
+            test: 'a!= 0 and a<b'
+          })
+          calcul = calculer('(a)-b', { // 1
+            variables: variable,
             supprPlusMoins: false,
             substeps: true
-          }))
+          })
+          calcul.texteCorr = 'Soustraire un nombre revient à ajouter son opposé.<br>' + `$${toTex(aleaExpression('(a)-b', variable) + '=' + aleaExpression('(a)+(-b)', variable), { supprPlusMoins: false })}$<br>` + calcul.texteCorr
+          questions.push(calcul)
+          // Calcul 3
+          variable = aleaVariables({
+            a: 'round(random(-10,10),0)', // a!=0
+            b: 'round(random(-10,-1),0)', // b<0
+            test: 'a!= 0 and a<b'
+          })
+          calcul = calculer('(a)-(b)', { // 1
+            variables: variable,
+            supprPlusMoins: false,
+            substeps: true
+          })
+          // calcul.texteCorr = 'Soustraire un nombre revient à ajouter son opposé.<br>' + `$${toTex(aleaExpression('(a)-(b)', variable) + '=' + aleaExpression('(a)+(b)', Object.assign(variable, { b: -variable.b })), { supprPlusMoins: false })}$<br>` + calcul.texteCorr
+          questions.push(calcul)
+          // questions = aleaName(questions)
+          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
+          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
           exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
           exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
           break
-        }
-        case 125 : {
-          // http://localhost:8080/mathalea.html?ex=betaEquations,s=125
-          // TODO : Bug de mathsteps pour calculer('-3/7-(-4/8)')
-          const questions = []
-          questions.push(calculer('-3/7-(-4/8)'))
-          questions.push(calculer('-3/7-(0-4/8)'))
-          questions.push(calculer('-3/7--4/8', { substeps: true }))
-          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
-          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
-          break
-        }
-        case 126 : {
-          // http://localhost:8080/mathalea.html?ex=betaEquations,s=126
-          // TODO : Corriger parenthèses de toTex() pour calculer('-3/7--4/8')
-          const questions = []
-          questions.push(calculer('-3/7--4/8', { substeps: true }))
-          exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
-          exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
         }
       }
       if (this.questionJamaisPosee(i, nquestion)) {
-        this.listeQuestions.push(exercice.texte + '<br>--------$\\textbf{CORRECTION}$----------<br>' + exercice.texteCorr)
+        // this.listeQuestions.push(exercice.texte + '<br>--------$\\textbf{CORRECTION}$----------<br>' + exercice.texteCorr)
+        this.listeQuestions.push(exercice.texte)
         this.listeCorrections.push(exercice.texteCorr)
         i++
       }
