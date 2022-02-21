@@ -274,7 +274,7 @@ export async function initDom () {
           reponses = JSON.parse(new URLSearchParams(window.location.search).get('moodleJson'))
         } catch (e) {}
         if (reponses) {
-          for (let i = 0; i < context.listeObjetsExercice[0].nbQuestions; i++) {
+          for (let i = 0; i < context.listeObjetsExercice[0].autoCorrection.length; i++) {
             if (document.getElementById(`champTexteEx0Q${i}`) && reponses && typeof reponses[`reponse${i}`] !== 'undefined') {
               document.getElementById(`champTexteEx0Q${i}`).textContent = reponses[`reponse${i}`]
             }
@@ -288,11 +288,11 @@ export async function initDom () {
           }
         }
         let hauteurExercice = window.document.querySelector('section').scrollHeight
-        window.parent.postMessage({ hauteurExercice, serie: context.graine, iMoodle: new URLSearchParams(window.location.search).get('iMoodle') }, '*')
+        window.parent.postMessage({ hauteurExercice, serie: context.graine }, '*')
         // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
         setTimeout(() => {
           hauteurExercice = window.document.querySelector('section').scrollHeight
-          window.parent.postMessage({ hauteurExercice, serie: context.graine, iMoodle: new URLSearchParams(window.location.search).get('iMoodle') }, '*')
+          window.parent.postMessage({ hauteurExercice, serie: context.graine }, '*')
         }, 1000)
         if (reponses) {
           const exercice = context.listeObjetsExercice[0]
@@ -303,9 +303,15 @@ export async function initDom () {
           })
         }
       }
-      // Envoi des informations à Anki
       hauteurCorrection = window.document.body.scrollHeight
-      if (vue === 'verso' || vue === 'correctionMoodle') {
+      if (vue === 'correctionMoodle') {
+        if (document.getElementById('corrections')) {
+          const hauteurExerciceCorrection = window.document.body.scrollHeight + 20
+          window.parent.postMessage({ hauteurExerciceCorrection, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')) }, '*')
+        }
+      }
+      // Envoi des informations à Anki
+      if (vue === 'verso') {
         if (document.getElementById('corrections')) {
           const hauteurExerciceCorrection = window.document.body.scrollHeight + 20
           window.parent.postMessage({ hauteurExerciceCorrection }, '*')

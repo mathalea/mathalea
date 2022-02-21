@@ -274,11 +274,11 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
   // On commence par convertir l'expression en arbre au format mathjs
   let comparator
   let sides = []
-  const comparators = ['<=', '>=', '=', '<', '>']
+  const comparators = ['=', '<', '>', '<=', '>=']
   if (typeof node === 'string') {
     for (let i = 0; i < comparators.length; i++) {
       sides = node.split(comparators[i])
-      if (sides.length === 2) {
+      if (sides.length > 1) {
         comparator = comparators[i]
       }
     }
@@ -301,10 +301,17 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
     node = correctifNodeMathsteps(node) // Convertit d'abord tous les ConstantNode au format mathjs
     node = parse(node.toString({ parenthesis: 'all' })) // Permet d'utiliser correctement les implicit
   }
-  if (sides.length === 2) {
+  /* if (sides.length === 2) {
     const leftSide = toTex(sides[0], params)
     const rightSide = toTex(sides[1], params)
     return leftSide + comparator + rightSide
+  } */
+  if (sides.length > 1) {
+    const members = []
+    for (let i = 0; i < sides.length; i++) {
+      members.push(toTex(sides[i], params))
+    }
+    return members.join(comparator.replaceAll('>=', '\\geqslant').replaceAll('<=', '\\leqslant'))
   }
   let nodeClone
   do { // À étudier, pour 79 et 85 et 50 cette boucle doit être maintenue
@@ -323,7 +330,7 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
   // Mathjs ajoute de manière non contrôlée des \mathrm pour certaines ConstantNode
   // En attendant de comprendre on les enlève (au risque d'avoir les {} restantes)
   nodeTex = nodeTex.replace('\\mathrm', '')
-
+  if (node.isConstantNode && node.value === undefined) nodeTex = ''
   return nodeTex
 }
 
@@ -827,13 +834,14 @@ export function resoudre (equation, params) {
       'decimal' : decimal lorsque c'est possible, sinon fraction
       'fraction' : fraction (ou entier lorsque c'est possible)
   */
-  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true, formatSolution: 2 }, params)
+  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true, formatSolution: 2, substeps: false }, params)
   // Un bug de mathsteps ne permet pas de résoudre 2/x=2 d'où la ligne suivante qui permettait de le contourner
   // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
   // A priori le traitement actuel n'occure plus ce bug (raison ?).
   if (params.variables !== undefined) equation = aleaEquation(equation, params.variables)
   let printEquation
-  const steps = solveEquation(equation)
+  const steps = params.substeps ? traverserEtapes(solveEquation(equation)) : solveEquation(equation)
+  // const steps = solveEquation(equation)
   const stepsNewEquation = []
   let repetition = 0
   steps.forEach(function (step, i) {
@@ -849,10 +857,12 @@ export function resoudre (equation, params) {
     let newLeftNode = toTex(step.newEquation.leftNode, params)
     const oldRightNode = step.oldEquation !== null ? toTex(step.oldEquation.rightNode, params) : ''
     let newRightNode = toTex(step.newEquation.rightNode, params)
+    const newEquationComparator = toTex(step.newEquation.comparator)
     if (i === 0) {
-      printEquation = `${oldLeftNode}${step.newEquation.comparator}${oldRightNode}`
+      // printEquation = `${oldLeftNode}${step.newEquation.comparator}${oldRightNode}`
+      printEquation = `${toTex(step.oldEquation.ascii())}`
       stepsNewEquation.push(
-        String.raw`${oldLeftNode}&${step.oldEquation.comparator}${oldRightNode}`)
+        String.raw`${oldLeftNode}&${toTex(step.oldEquation.comparator)}${oldRightNode}`)
     }
     if (params.color !== 'black') {
       const color = repetition === 2 ? 'black' : params.color
@@ -863,9 +873,9 @@ export function resoudre (equation, params) {
     if (repetition === 2) {
       repetition = 0
       stepsNewEquation.pop()
-      stepsNewEquation.push(`${newLeftNode}&${step.newEquation.comparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
+      stepsNewEquation.push(`${newLeftNode}&${newEquationComparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
     } else {
-      stepsNewEquation.push(`${newLeftNode}&${step.newEquation.comparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
+      stepsNewEquation.push(`${newLeftNode}&${newEquationComparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
     }
   })
 
@@ -881,7 +891,7 @@ export function resoudre (equation, params) {
         answer = round(answer.valueOf(), 15) // convertit la fraction en nombre décimal en évitant les problèmes de float
         if (params.formatSolution === 'decimal' || (typeof params.formatSolution === 'number' && answer.toString().split('.')[1].length <= params.formatSolution)) {
           // On rajoute une étape de conversion de la fraction en nombre décimal
-          stepsNewEquation.push(`${toTex(lastEquation.leftNode, params)}&${lastEquation.comparator}${texNombre2(answer)}`)
+          stepsNewEquation.push(`${toTex(lastEquation.leftNode, params)}&${toTex(lastEquation.comparator)}${texNombre2(answer)}`)
         }
       }
     } catch (e) {}
@@ -896,12 +906,12 @@ export function resoudre (equation, params) {
     print: toTex(steps[steps.length - 1].newEquation.ascii())
   }
   let calculateLeftSide, calculateRightSide
-  if (equation.indexOf('=') !== -1) {
-    const sides = equation.split('=')
-    const SymbolNode = parse(steps[steps.length - 1].newEquation.ascii().split('=')[0]).toString()
-    const solution = steps[steps.length - 1].newEquation.ascii().split('=')[1]
-    calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${solution})`))
-    calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${solution})`))
+  if (steps[steps.length - 1].newEquation.leftNode.isSymbolNode) {
+    const sides = equation.split(steps[0].oldEquation.comparator)
+    const SymbolNode = steps[steps.length - 1].newEquation.leftNode.toString()
+    const thesolution = steps[steps.length - 1].newEquation.rightNode.toString()
+    calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${thesolution})`))
+    calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${thesolution})`))
   }
   return {
     solution: solution,
@@ -1291,7 +1301,7 @@ export function calculExpression2 (expression = '4/3+5/6', factoriser = false, d
  * aleaName(['chat','chien','poisson']) --> ['chien','poisson','chat']
  * aleaName(['chat','chien','poisson'],2) --> ['poisson','chat']
  * aleaName([Objet1,Objet2,Objet3]) --> [Objet2,Objet1,Objet3] où Objet peut être un Object, un Array etc.
- * @returns {string||Array}
+ * @returns {Array}
  */
 export function aleaName (names = [], n = names.length, result = []) {
   if (typeof names === 'string') {
@@ -1305,7 +1315,7 @@ export function aleaName (names = [], n = names.length, result = []) {
   }
   result.push(names.splice(Math.floor(Math.random() * names.length), 1)[0])
   if (result.length === n) {
-    return result.length === 1 ? result[0] : result
+    return result
   } else {
     return aleaName(names, n, result)
   }

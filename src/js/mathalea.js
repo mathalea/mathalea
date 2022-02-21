@@ -275,32 +275,51 @@ function contenuExerciceHtml (obj, numeroExercice) {
   let contenuUneCorrection = ''
   let paramTooltip = ''
   let iconeInteractif = ''
-  if (obj.typeExercice === 'crpe') {
-    contenuUnExercice += ` Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`
+  if (obj.typeExercice === 'crpe' || obj.typeExercice === 'dnb') {
+    const crpe = {
+      titreEx: ` Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`,
+      titreExCorr: `<h3 class="ui dividing header">Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial} - Correction par la Copirelem</h3>`
+    }
+
+    const dnb = {
+      titreEx: ` Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`,
+      titreExCorr: `<h3 class="ui dividing header">Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+    }
+
+    contenuUnExercice += obj.typeExercice === 'crpe' ? crpe.titreEx : dnb.titreEx
     contenuUnExercice += '<div><div class="question">'
-    for (const png of obj.png) {
-      contenuUnExercice += `<img width="90%" src="${png}">`
+    if (obj.typeExercice === 'crpe') {
+      let i = 1
+      for (const png of obj.png) {
+        contenuUnExercice += `<img id="${obj.id}-${i}" width="90%" src="${png}">`
+        i++
+      }
+    } else {
+      contenuUnExercice += `<img id="${obj.id}" width="90%" src="${obj.png}"></img>`
     }
     contenuUnExercice += '</div></div>'
-    contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${
-        obj.numeroInitial} - Correction par la Copirelem</h3>`
+    contenuUneCorrection += obj.typeExercice === 'crpe' ? crpe.titreExCorr : dnb.titreExCorr
     if (obj.correctionIsCachee) {
-      contenuUneCorrection += obj.correctionIsCachee ? '<div><div class="correction">Correction masquée</div></div>' : `<div><div class="correction"><img width="90%" src="${obj.pngcor}"></div></div>`
+      contenuUneCorrection += '<div><div class="correction">Correction masquée</div></div>'
     } else {
       contenuUneCorrection += '<div><div class="correction">'
-      for (const png of obj.pngCor) {
-        contenuUneCorrection += `<img width="90%" src="${png}">`
+      if (obj.typeExercice === 'crpe') {
+        let i = 1
+        for (const png of obj.pngCor) {
+          contenuUneCorrection += `<img id="${obj.id}-${i}Cor" width="90%" src="${png}">`
+          i++
+        }
+      } else {
+        contenuUneCorrection += `<img id="${obj.id}Cor" width="90%" src="${obj.pngcor}">`
       }
       contenuUneCorrection += '</div></div>'
     }
     obj.video = false
-  } else if (obj.typeExercice === 'dnb') {
-    contenuUnExercice += ` Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
-    contenuUnExercice += `<div><div class="question"><img width="90%" src="${obj.png}"></div></div>`
-    contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${
-        obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
-    contenuUneCorrection += obj.correctionIsCachee ? '<div><div class="correction">Correction masquée</div></div>' : `<div><div class="correction"><img width="90%" src="${obj.pngcor}"></div></div>`
-    obj.video = false
+    // Pour permettre l'ajout d'exos DNB statiques et l'affichage de la correction dans la vue eval
+    if (obj.interactif || obj.interactifObligatoire) {
+      contenuUnExercice += `<button class="ui button blue checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
+      exerciceInteractif(obj)
+    }
   } else if (obj.typeExercice === 'simple') {
     if (obj.interactif) {
       iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
@@ -893,132 +912,19 @@ function miseAJourDuCode () {
         if (!listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
           params += ',cd=0'
         }
-        params += ',i=1'
-        const mathAleaURL = location.origin + location.pathname
-        const urlIframe = `${mathAleaURL}?ex=${id},${params}&v=exMoodle&z=1`
-        const urlIframeCor = `${mathAleaURL}?ex=${id},${params}&v=correctionMoodle&z=1`
+        // params += ',i=1'
+        const mathAleaURL = new URL('.', location.href).href
 
-        /*
-          Quelques remarques :
-          - L'extension 'es6-string-javascript' permet d'obtenir la coloration syntaxique de code JS
-          - Le script est un module qui est donc chargé après que le document est parsé, il peut donc accéder à des nodes après la balise script
-        */
-
-        const moodleInitialisationFunction = /* javascript */ `
-        if(typeof window.iMathAlea === 'undefined') {
-
-        window.iMathAlea = [];
-
-        window.addEventListener('message', (event) => {
-          if(typeof event.data.iMoodle === 'number' && typeof window.iMathAlea[event.data.iMoodle] !== 'undefined') {
-            const iframe = window.iMathAlea[event.data.iMoodle];
-            let hauteur = event.data.hauteurExercice;
-            if (typeof hauteur !== 'undefined') {
-              hauteur += 50;
-              iframe.height = hauteur.toString();
-            }
-            if (event.data.score !== undefined) {
-              iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score + '|' + JSON.stringify(event.data.reponses);
-              iframe.parentNode.parentNode.querySelector('[name$="_-submit"]')?.click();
-            }
-          }
-        });
-
-        style = document.createElement('style');
-        style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls, .mathalea-question-type .rightanswer { display: none; }';
-        document.head.appendChild(style);
-        }`
-
-        const moodleSearchQuestionDiv = /* javascript */ `
-
-        let currentScript = document.currentScript;
-        let iMoodle = window.iMathAlea.length;
-        let questionSeed = '';
-
-        let questionDiv = currentScript;
-        // On remonte de parent en parent depuis la balise script jusqu'à trouver le div avec le numero de la question en id
-        while(questionDiv !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
-          if(typeof questionDiv.id === 'string' && questionDiv.id.startsWith('question-')) {
-            questionSeed = questionDiv.id;
-            break; // la seed a été trouvée
-          }
-          questionDiv = questionDiv.parentNode;
-        }
-        `
-
-        const moodleCreateIframe = function (url) {
-          return /* javascript */ `
-
-          let answer
-          let addIframe = () => {
-            iframe.setAttribute('width', '100%');
-            iframe.setAttribute('height', '400');
-            iframe.setAttribute('src', '${url}' + '&iMoodle=' + iMoodle + '&serie=' + questionSeed + (typeof answer !== 'undefined' ? '&moodleJson=' + answer : ''));
-            iframe.setAttribute('frameBorder', '0');
-            iframe.setAttribute('allow', 'fullscreen');
-            currentScript.parentNode.insertBefore(iframe, currentScript);
-          }
-
-          let iframe = document.createElement('iframe');
-          window.iMathAlea.push(iframe);
-
-          if (questionDiv.classList.contains('notyetanswered')) {
-            // L'élève n'a pas encore répondu à la question, on affiche immédiatement l'iframe
-            addIframe();
-          } else {
-            // L'élève a répondu, on attend que la page charge pour récupérer ses réponses
-            document.addEventListener('DOMContentLoaded', () => {
-              answer = questionDiv.querySelector('[name$="_answer"]').value;
-              answer = answer.substring(answer.indexOf('|') + 1);
-              addIframe();
-            });
-          }
-          `
-        }
-
-        codeMoodle += `<question type="shortanswer">
-<name>
-  <text>${id} - ${titre} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'},${params}</text>
-</name>
-  <questiontext format="html">
-    <text><![CDATA[
-<script>` + /* javascript */`
-  {
-    ${moodleInitialisationFunction}
-    ${moodleSearchQuestionDiv}
-    ${moodleCreateIframe(urlIframe)}
-    document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
-  }  
-  ` + `
-</script>
-      `
-        codeMoodle += `]]></text>
-  </questiontext>`
-        codeMoodle += '\n'
-        // Moodle n'accepte que certains scores
-        const scoreAcceptes = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
-        for (const score of scoreAcceptes) {
-          codeMoodle += `  <answer fraction="${score}">
-      <text>${score}|*</text>
-        <feedback><text> </text></feedback>
-    </answer>`
-        }
-        codeMoodle += `\n<defaultgrade>${nbQuestions * pointsParQuestions}</defaultgrade>`
-        codeMoodle += `\n<generalfeedback>\n<text><![CDATA[
-          <h4>Correction :</h4>          
-  <script>` + /* javascript */ `
-  {
-    ${moodleInitialisationFunction}
-    ${moodleSearchQuestionDiv}
-    ${moodleCreateIframe(urlIframeCor)}    
-    document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
-  }
-    ` + `
-  </script> 
-          
-        ]]>\n</text>\n</generalfeedback>`
-        codeMoodle += '\n</question>'
-        codeMoodle += '\n\n'
+        codeMoodle += `
+:: ${id.replace(/[~=#{}:]/g, '\\$&')} - ${titre.replace(/[~=#{}:]/g, '\\$&')} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'},${params.replace(/[~=#{}:]/g, '\\$&')} ::
+<script src\\="${mathAleaURL.replace(/[~=#{}:]/g, '\\$&')}assets/externalJs/moodle.js" type\\="module"></script>
+<mathalea-moodle ex\\="${id.replace(/[~=#{}:]/g, '\\$&')},${params.replace(/[~=#{}:]/g, '\\$&')}" />
+{
+  =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+  #### <script src\\="${mathAleaURL.replace(/[~=#{}:]/g, '\\$&')}assets/externalJs/moodle.js" type\\="module"></script>
+  <mathalea-moodle ex\\="${id.replace(/[~=#{}:]/g, '\\$&')},${params.replace(/[~=#{}:]/g, '\\$&')}" correction />
+}
+`
       }
       $('#message_liste_exercice_vide').hide()
       copierExercicesFormVersAffichage(listeDesExercices)
@@ -1047,15 +953,13 @@ function miseAJourDuCode () {
       .off('click')
       .on('click', function () {
         // Gestion du style pour l'entête du fichier
-        let contenuFichier = '<?xml version="1.0" ?> <quiz>'
-        contenuFichier += '\n' + codeMoodle
-        contenuFichier += '\n\n</quiz>'
-        contenuFichier += `<!--Document généré avec MathALEA sous licence CC-BY-SA \n\t${window.location.href}\n-->\n\n`
+        let contenuFichier = codeMoodle
+        contenuFichier += `\n// Document généré avec MathALEA sous licence CC-BY-SA \n // ${window.location.href}`
 
         if ($('#nom_du_fichier').val()) {
-          telechargeFichier(contenuFichier, $('#nom_du_fichier').val() + '.xml')
+          telechargeFichier(contenuFichier, $('#nom_du_fichier').val() + '.txt')
         } else {
-          telechargeFichier(contenuFichier, 'mathalea.xml')
+          telechargeFichier(contenuFichier, 'mathalea.txt')
         }
       })
   }

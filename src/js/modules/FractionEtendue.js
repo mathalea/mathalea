@@ -222,7 +222,11 @@ export default class FractionX extends Fraction {
    * basé sur la méthode toLatex() de mathjs, on remplace \frac par \dfrac plus joli.
    * @returns la chaine Latex pour écrire la fraction (signe devant)
    */
-    this.toLatex = () => super.toLatex().replace('\\frac', '\\dfrac')
+  }
+
+  toLatex () {
+    const text = super.toLatex()
+    return text.replace('\\frac', '\\dfrac')
   }
 
   sommeFractions (...fractions) { // retourne un résultat simplifié

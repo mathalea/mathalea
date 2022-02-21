@@ -35,7 +35,7 @@ export default function AntecedentGraphique () {
       if (context.isHtml) { // repère -10 || 10
         x1 = randint(-6, -3)
         x2 = randint(x1 + 3, 2)
-        x3 = randint(x2 + 2, 8)
+        x3 = randint(1, 8)
         fx1 = randint(-5, 5)
         fx2 = randint(-6, 6, fx1)
         fx3 = randint(-5, 5)
@@ -43,7 +43,7 @@ export default function AntecedentGraphique () {
       } else { // repère -5 || 5
         x1 = randint(-4, -2)
         x2 = randint(-1, 2, [0])
-        x3 = randint(3, 4)
+        x3 = randint(1, 4)
         fx1 = randint(-4, 4)
         fx2 = randint(-4, 4, fx1)
         fx3 = randint(-4, 4)

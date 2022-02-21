@@ -108,7 +108,7 @@ export default function PlusPetitEnsemble () {
             `
           this.reponse = ['r', 'R']
         } else {
-          a = randint(1, 12)
+          a = randint(1, 12, 10)
           this.question = `Quel est le plus petit ensemble de nombres auquel appartient $\\sqrt{${texNombrec(a * a / 100)}}$ ?`
           this.correction = `$\\sqrt{${texNombrec(a * a / 100)}}=${texNombrec(a / 10)}$  est un nombre décimal. On a donc $\\sqrt{${texNombrec(a * a / 100)}}\\in \\mathbb{D}$`
           this.reponse = ['d', 'D']
