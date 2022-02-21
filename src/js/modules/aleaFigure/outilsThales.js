@@ -1,6 +1,6 @@
 import { Vector } from "./elements";
 import { GraphicView } from "./GraphicView";
-import { aleaName } from "../../../modules/outilsMathjs.js";
+import { aleaName } from "../outilsMathjs.js";
 import { cross } from "mathjs";
 export class AleaThalesConfig extends GraphicView {
     constructor(k = undefined) {

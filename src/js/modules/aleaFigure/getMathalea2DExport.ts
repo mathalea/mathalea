@@ -1,4 +1,4 @@
-import { cercle, segment, polygone, tracePoint, labelPoint, point, mathalea2d, droite } from '../../../modules/2d.js'
+import { cercle, segment, polygone, tracePoint, labelPoint, point, mathalea2d, droite } from '../2d.js'
 import { Point, Line, Segment, Circle } from './elements.js'
 
 export function getMathalea2DExport (graphic) {

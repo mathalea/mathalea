@@ -4,11 +4,11 @@ import { listeQuestionsToContenu, texNum } from '../../modules/outils.js'
 import { polygone, labelPoint, homothetie, point, rotation, mathalea2d, droite } from '../../modules/2d.js'
 import { parse, create, all, unit } from 'mathjs'
 import { aleaVariables, toTex, resoudre, aleaExpression, aleaName } from '../../modules/outilsMathjs.js'
-import { GraphicView } from './aleaFigure/GraphicView.js'
-import { Grandeur } from './aleaFigure/grandeurs.js'
-import { Line, Segment, Vector, Point } from './aleaFigure/elements.js'
-import { AleaThalesConfig } from './aleaFigure/outilsThales.js'
-import { circularPermutation } from './aleaFigure/outils.js'
+import { GraphicView } from '../../modules/aleaFigure/GraphicView.js'
+import { Grandeur } from '../../modules/aleaFigure/grandeurs.js'
+import { Line, Segment, Vector, Point } from '../../modules/aleaFigure/elements.js'
+import { AleaThalesConfig } from '../../modules/aleaFigure/outilsThales.js'
+import { circularPermutation } from '../../modules/aleaFigure/outils.js'
 
 // eslint-disable-next-line no-debugger
 debugger
@@ -249,7 +249,7 @@ export default function exercicesThales () {
     let nquestion = 0
     for (let i = 0, exercice = { texte: 'Pas de texte', texteCorr: 'Pas de correction' }, cpt = 0; i < this.nbQuestions && cpt < 100;) { // Boucle principale où i+1 correspond au numéro de la question
       if (this.sup === 'all') {
-        if ([9, 10].indexOf(cpt + 1) !== -1) cpt = 11
+        // if ([9, 10].indexOf(cpt + 1) !== -1) cpt = 11
         nquestion = cpt + 1
       } else {
         nquestion = this.sup
@@ -338,7 +338,7 @@ export default function exercicesThales () {
           const graphic = new GraphicView(0, 0, 10, 7)
           const parallels = graphic.addParallelLine()
           graphic.show(parallels)
-          exercice = { texte: graphic.getMathalea2DExport(), texteCorr: '' }
+          // exercice = { texte: graphic.getMathalea2DExport(), texteCorr: '' }
           break
         }
         case 10: {
@@ -353,7 +353,7 @@ export default function exercicesThales () {
           const dAB = graphic.addLine(A, B)
           const dAC = graphic.addLine(A, C)
           const dBD = graphic.addLine(B, D)
-          exercice = graphic.getMathalea2DExport(A, B, C, D, dAB, dAC, dBD)
+          // exercice = graphic.getMathalea2DExport(A, B, C, D, dAB, dAC, dBD)
           break
         }
         case 11: {
@@ -775,7 +775,7 @@ $\\textbf{Début de l'algorithme}$
 
 $\\small\\color{gray} 01 \\hspace{0.1cm} $ $\\color{blue}\\text{monrectangle}$ = Rectangle ${ABCD.join('')}
 
-$\\small\\color{gray} 02 \\hspace{0.1cm}$ variable $\\color{blue}${angle.name}$ = $\\color{red}\\fbox{ ? }$ °
+$\\small\\color{gray} 02 \\hspace{0.1cm}$ variable $\\color{blue}${angle.name}$ = $\\color{red}\\fbox{ ? }\\degree$
 
 $\\small\\color{gray} 03 \\hspace{0.1cm}$ variable $\\color{blue}n$ = 0
 
@@ -792,9 +792,9 @@ $\\small\\color{gray} 08 \\hspace{0.1cm}$ Fin de la boucle Répéter
 $\\textbf{Fin de l'algorithme}$`.replaceAll('\n\n', context.isHtml ? '<br>' : '\n\n')
           exercice.texteCorr = `Il y a $${n.toFixed}$ rectangles il faut donc répéter au moins $\\color{red}\\fbox{${n.toFixed}}$ fois la boucle.
 
-$${angle.name} = \\dfrac{360°}{${n.toFixed}} = ${angle.toFixed}°$
+$${angle.name} = \\dfrac{360\\degree}{${n.toFixed}} = ${angle.toFixed}\\degree$
 
-La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\color{red}\\fbox{$${angle.name}=${angle.value}$°}$.`.replaceAll('\n\n', '<br>')
+La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\color{red}\\fbox{$${angle.name}=${angle.value}$\\degree}$.`.replaceAll('\n\n', '<br>')
           break
         }
         case 24: {
@@ -1160,7 +1160,7 @@ ${consigne[this.sup3 - 1]}`.replaceAll('\n\n', '<br>') + '<br>' + graph
 
           // Construction des rectangles
           let ABCD, EFGH
-          const aleaRectangle = math.pickRandom([2, 3, 4, 5, 6, 7, 8, 9, 10].filter(x => x < nbRectangles))
+          const aleaRectangle = math.pickRandom([2, 3, 5, 6, 7, 9, 10].filter(x => x < nbRectangles))
           const rectangles = []
           for (let i = 0; i < nbRectangles; i++) {
             const sommets = graphic.addRotate(A, 2 * Math.PI / nbRectangles * i, ...graphic.addParallelogram(D, A, B))
@@ -1214,7 +1214,7 @@ ${consigne[this.sup3 - 1]}`.replaceAll('\n\n', '<br>') + '<br>' + graph
           // Chaque rectangle et son suivant sont obtenus par une rotation de même centre et de même angle.
           exercice.texte = `${graph.split('\n').filter(x => x !== '').filter(x => x !== '').join('\n')}
 
-On a effectué $${n.toFixed}$ rotations successives de même angle et de même centre d'un rectangle.
+On a effectué successiveement $${n.toFixed}$ rotations d'un rectangle avec le même angle et le même centre.
 
 On est revenu sur le rectangle de départ.
 
@@ -1228,22 +1228,22 @@ $\\textbf{1.}$ L'image de $${ABCD[P[i]]}$ est $${EFGH[P[i]]}$.
 
 $\\textbf{2.}$ Il y a $${n.value}$ rectangles en tout.
 
-$\\dfrac{360°}{${n.toFixed}} = ${angle.toFixed}°$
+$\\dfrac{360\\degree}{${n.toFixed}} = ${angle.toFixed}\\degree$
 
-On doit tourner $${aleaRectangle}$ fois d'un angle de $${angle.toFixed}°$ dans le sens direct (anti-horaire).
+On doit tourner $${aleaRectangle}$ fois d'un angle de $${angle.toFixed}\\degree$ dans le sens direct (anti-horaire).
 
-$${aleaRectangle}\\times${angle.toFixed}°=${angleSolution.toFixed}°$
+$${aleaRectangle}\\times${angle.toFixed}\\degree=${angleSolution.toFixed}\\degree$
 
-Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixed}°$.
+Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixed}\\degree$.
 `.replaceAll('\n\n', '<br>')
           break
         }
         case 35: {
-          // Des rotations de rectangles
+          // Des rotations de carrés
           // http://localhost:8080/mathalea.html?ex=betaThales,s=35,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
 
-          // Trois points formant un triangle rectangle pour obtenir un rectangle
+          // Trois points formant un triangle rectangle isocèle pour obtenir un carré
           const [A, B] = graphic.addPoint(2)
           const [D] = graphic.addRotate(A, Math.PI / 2, B)
 
@@ -1260,7 +1260,7 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
           for (let i = 0; i < nbRectangles; i++) {
             const sommets = graphic.addRotate(A, 2 * Math.PI / nbRectangles * i, ...graphic.addParallelogram(D, A, B))
             if (i === 0) {
-              ABCD = sommets.map((x, i) => {
+              ABCD = circularPermutation(sommets.map((x, i) => {
                 x.name = names[i]
                 x.showLabel()
                 if (i === 0) {
@@ -1271,10 +1271,10 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
                   x.labelPoints = [sommets[i - 1], sommets[i], sommets[i + 1]]
                 }
                 return x.name
-              })
+              }), 3)
             }
             if (i === aleaRectangle) {
-              EFGH = sommets.map((x, i) => {
+              EFGH = circularPermutation(sommets.map((x, i) => {
                 x.name = names[i + 4]
                 if (i !== 1) x.showLabel()
                 if (i === 0) {
@@ -1285,11 +1285,11 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
                   x.labelPoints = [sommets[i - 1], sommets[i], sommets[i + 1]]
                 }
                 if (i === 1) {
-                  return ABCD[1]
+                  return ABCD[2]
                 } else {
                   return x.name
                 }
-              })
+              }), 3)
             }
             rectangles.push(sommets, graphic.addSidesPolygon(...sommets))
           }
@@ -1303,32 +1303,43 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
           const angle = AnglePlein.divide(n)
           const k = new Grandeur('', aleaRectangle, 0)
           const angleSolution = angle.multiply(k)
+          ABCD.name = circularPermutation(ABCD.concat([])).join('')
+          EFGH.name = circularPermutation(EFGH.concat([])).join('')
           angle.name = aleaName(['\\alpha', '\\beta', '\\gamma', '\\delta'], 1)
+          let remarque
+          if (angleSolution.toFixed + 90 > 360) {
+            remarque = `<br>\\textit{Remarque :} L'angle est plus grand que $360\\degree$.
+
+$${angleSolution.toFixed + 90}-360=${angleSolution.toFixed + 90 - 360}$
+
+Donc la solution peut être une rotation d'angle $${angleSolution.toFixed + 90 - 360}\\degree$.`
+          } else { remarque = '' }
           // L'exercice
-          const P = aleaName([0, 2, 3])
           // Chaque rectangle et son suivant sont obtenus par une rotation de même centre et de même angle.
           exercice.texte = `${graph.split('\n').filter(x => x !== '').filter(x => x !== '').join('\n')}
 
+On a effectué successivement $${n.toFixed}$ rotations d'un carré avec le même angle et le même centre.
 
-On a effectué $${n.toFixed}$ rotations successives de même angle et de même centre d'un rectangle.
+On est revenu sur le carré de départ.
 
-On est revenu sur le rectangle de départ.
+$${ABCD.name}$ a pour image $${EFGH.name}$ par une rotation.
 
-$${circularPermutation(ABCD.concat([])).join('')}$ a pour image $${circularPermutation(EFGH.concat([])).join('')}$ par une rotation.
+Déterminer l'angle de la rotation de centre $${ABCD[2]}$ qui permet de transformer $${ABCD[3]}$ en $${EFGH[1]}$ dans le sens direct (anti-horaire).`.replaceAll('\n\n', context.isHtml ? '<br>' : '\n\n')
+          exercice.texteCorr = `Il y a $${n.value}$ carrés en tout.
 
-Déterminer l'angle de la rotation qui permet de transformer $${ABCD[P[2]]}$ en $${EFGH[P[1]]}$ dans le sens direct (anti-horaire).`.replaceAll('\n\n', context.isHtml ? '<br>' : '\n\n')
-          exercice.texteCorr = `Il y a $${n.value}$ rectangles en tout.
+$\\dfrac{360\\degree}{${n.toFixed}} = ${angle.toFixed}\\degree$
 
-$\\dfrac{360°}{${n.toFixed}} = ${angle.toFixed}°$
+On doit tourner $${aleaRectangle}$ fois d'un angle de $${angle.toFixed}\\degree$ dans le sens direct (anti-horaire) pour passer de $${ABCD.name}$ à $${EFGH.name}$.
 
-On doit tourner $${aleaRectangle}$ fois d'un angle de $${angle.toFixed}°$ dans le sens direct (anti-horaire) pour passer de $${circularPermutation(ABCD.concat([])).join('')}$ à $${circularPermutation(EFGH.concat([])).join('')}$.
+L'image de $${ABCD[3]}$ par cette rotation est $${EFGH[3]}$.
 
-On doit ensuite tourner d'un angle de $90°$ pour passer du point $${EFGH[P[2]]}$ au point $${EFGH[P[1]]}$.
+On doit ensuite effectuer une rotation de centre $${ABCD[2]}$ d'un angle de $90\\degree$ pour passer du point $${EFGH[3]}$ au point $${EFGH[1]}$.
 
-$${aleaRectangle}\\times${angle.toFixed}°+90°=${angleSolution.toFixed + 90}°$
+$${aleaRectangle}\\times${angle.toFixed}\\degree+90\\degree=${angleSolution.toFixed + 90}\\degree$
 
-Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixed + 90}°$.
-`.replaceAll('\n\n', '<br>')
+Donc c'est la rotation de centre $${ABCD[2]}$ et d'angle $${angleSolution.toFixed + 90}\\degree$.
+
+Remarque : ${remarque}`.replaceAll('\n\n', '<br>')
           break
         }
       }

@@ -1,6 +1,6 @@
-import { texNombre2 } from '../../../modules/outils.js'
+import { texNombre2 } from '../outils.js'
 import { simplify, parse, unit, max, add, subtract, abs, log10, random, min } from 'mathjs'
-import { aleaName } from '../../../modules/outilsMathjs.js'
+import { aleaName } from '../outilsMathjs.js'
 import { GraphicObject } from './elements.js'
 
 /**
@@ -26,7 +26,7 @@ export class Grandeur {
 
   set name (newname) {
     this._name = newname
-    this.nameAndValue = `$ {${this.name}=${texNombre2(this.toFixed).replace(',', '{,}')}~${this.unit.replace('deg','°')}}$`.replace('~°','°')
+    this.nameAndValue = `$ {${this.name}=${texNombre2(this.toFixed).replace(',', '{,}')}~${this.unit.replace('deg','\\degree')}}$`.replace('~\\degree','\\degree')
   }
 
   get name () { return this._name }

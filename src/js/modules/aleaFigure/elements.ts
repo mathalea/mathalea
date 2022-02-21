@@ -1,8 +1,8 @@
-import { context } from '../../../modules/context.js'
+import { context } from '../context.js'
 import { Cartesian, Coordinates, Polar } from './coordinates.js'
-import { aleaName } from '../../../modules/outilsMathjs.js'
+import { aleaName } from '../outilsMathjs.js'
 import { dot, round, cross, norm, MathArray, Matrix } from 'mathjs'
-import { latexParCoordonnees, tracePoint, point, labelPoint } from '../../../modules/2d.js'
+import { latexParCoordonnees, tracePoint, point, labelPoint } from '../2d.js'
 
 /**
  * @class
