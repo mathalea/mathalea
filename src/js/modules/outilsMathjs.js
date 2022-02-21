@@ -454,10 +454,17 @@ export function aleaVariables (variables = { a: true, b: true, c: true, d: true 
 /*
 * Objet mathsteps : Permet de traverser toutes les étapes et sous-étapes
 */
-export function traverserEtapes (steps, result = []) {
+export function traverserEtapes (steps, changeType = [], result = []) {
   steps.forEach(function (step, i) {
-    if (step.substeps.length === 0) result.push(step)
-    return traverserEtapes(step.substeps, result)
+    if (changeType.length === 0) {
+      if (step.substeps.length === 0) result.push(step)
+      return traverserEtapes(step.substeps, changeType, result)
+    } else {
+      result.push(step)
+      if (changeType.some(x => step.changeType === x)) {
+        return traverserEtapes(step.substeps, changeType, result)
+      }
+    }
   })
   return result
 }
@@ -684,6 +691,7 @@ export function commentStep (step, comments) {
   const changement = step.changeType
   const stepChange = getNewChangeNodes(step).length > 0 ? toTex(parse(getNewChangeNodes(step)[0].toString(), { parenthesis: 'auto' })) : ''
   const defaultComments = {
+    CROSS_PRODUCT_EQUALITY: 'Egalité des produits en croix.',
     MULTIPLY_BOTH_SIDES_BY_NEGATIVE_ONE: 'Multiplier les deux membres par $-1$.',
     SUBTRACT_FROM_BOTH_SIDES: `Soustraire $${stepChange}$ à chaque membre.`,
     ADD_TO_BOTH_SIDES: `Ajouter $${stepChange}$ à chaque membre`,
@@ -737,6 +745,17 @@ function isDecimal (x) {
 }
 
 /**
+ * Find if there is a SymbolNode in the node
+ * @param {Mathnode} node
+ * @returns {boolean}
+ */
+function isContentSymbolNode (node) {
+  let result = false
+  node.traverse(x => { if (x.isSymbolNode) result = true })
+  return result
+}
+
+/**
 * @description Retourne toutes les étapes de résolution d'une équation ou d'une inéquation
 * @param {Objet} params // Les paramètres (commentaires visibles)
 * @param {string} equation // Une équation ou une inéquation
@@ -749,14 +768,42 @@ export function resoudre (equation, params) {
       'decimal' : decimal lorsque c'est possible, sinon fraction
       'fraction' : fraction (ou entier lorsque c'est possible)
   */
-  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true, formatSolution: 2, substeps: false }, params)
+  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true, formatSolution: 2, substeps: false, changeType: [] }, params)
   // Un bug de mathsteps ne permet pas de résoudre 2/x=2 d'où la ligne suivante qui permettait de le contourner
   // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
   // A priori le traitement actuel n'occure plus ce bug (raison ?).
   if (params.variables !== undefined) equation = aleaEquation(equation, params.variables)
   let printEquation
-  const steps = params.substeps ? traverserEtapes(solveEquation(equation)) : solveEquation(equation)
-  // const steps = solveEquation(equation)
+  let steps = params.substeps ? traverserEtapes(solveEquation(equation)) : solveEquation(equation)
+  // Rechercher une équation de la forme a/x=b/c ou a/b=c/x et utiliser l'égalité des produits en croix
+  let newSteps = []
+  if (steps[0].oldEquation.comparator === '=') {
+    let i = 0
+    do {
+      const leftNode = steps[i].oldEquation.leftNode.cloneDeep()
+      const rightNode = steps[i].oldEquation.rightNode.cloneDeep()
+      if (leftNode.isOperatorNode && leftNode.fn === 'divide' && isContentSymbolNode(leftNode.args[1])) {
+        if (rightNode.isOperatorNode && rightNode.fn === 'divide') {
+          steps[i].newEquation.rightNode = new math.OperatorNode('*', 'multiply', [leftNode.args[0], rightNode.args[1]])
+          steps[i].newEquation.leftNode = new math.OperatorNode('*', 'multiply', [rightNode.args[0], leftNode.args[1]])
+          steps[i].changeType = 'CROSS_PRODUCT_EQUALITY'
+          const newEquation = steps[i].newEquation.ascii()
+          newSteps = params.substeps ? traverserEtapes(solveEquation(newEquation), params.changeType) : solveEquation(newEquation)
+          steps = steps.slice(0, i + 1).concat(newSteps)
+        }
+      } else if (rightNode.isOperatorNode && rightNode.fn === 'divide' && isContentSymbolNode(rightNode.args[1])) {
+        if (leftNode.isOperatorNode && leftNode.fn === 'divide') {
+          steps[i].newEquation.rightNode = new math.OperatorNode('*', 'multiply', [rightNode.args[0], leftNode.args[1]])
+          steps[i].newEquation.leftNode = new math.OperatorNode('*', 'multiply', [leftNode.args[0], rightNode.args[1]])
+          steps[i].changeType = 'CROSS_PRODUCT_EQUALITY'
+          const newEquation = steps[i].newEquation.ascii()
+          newSteps = params.substeps ? traverserEtapes(solveEquation(newEquation), params.changeType) : solveEquation(newEquation)
+          steps = steps.slice(0, i + 1).concat(newSteps)
+        }
+      }
+      i += 1
+    } while (i < steps.length && newSteps.length < 1)
+  }
   const stepsNewEquation = []
   let repetition = 0
   steps.forEach(function (step, i) {

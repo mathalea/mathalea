@@ -8,7 +8,7 @@ import Algebrite from 'algebrite'
 
 // eslint-disable-next-line no-debugger
 debugger
-const nbCase = 133
+const nbCase = 137
 
 export const titre = 'Calculs algébriques'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -1591,6 +1591,53 @@ export default function equationsProgression () {
           exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
           exercice.texte = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ ' + x.texte).join('<br>')
           exercice.texteCorr = questions.map((x, i) => '$\\textbf{' + (i + 1) + '.}$ <br>' + x.texteCorr).join('<br>')
+          break
+        }
+        case 134: {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=134,n=1,cd=1&serie=uAXn&z=1&v=ex
+          const variables = {
+            a: 'randomInt(2,10)',
+            b: 'randomInt(2,10)',
+            c: 'randomInt(2,10)',
+            test: 'gcd(a,b)==1 and a!=c'
+          }
+          exercice = resoudre(aleaName(['a/b', 'c/x']).join('='), { variables: variables, produitsencroix: true, comment: true })
+          break
+        }
+        case 135: {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=135,n=1,cd=1&serie=uAXn&z=1&v=ex
+          const variables = {
+            a: 'randomInt(2,10)',
+            b: 'randomInt(2,10)',
+            c: 'randomInt(2,10)',
+            d: 'randomInt(2,10)',
+            test: 'gcd(a,b)==1 and b!=c'
+          }
+          exercice = resoudre(aleaName(['a/b', 'x/c']).join('='), { variables: variables, produitsencroix: true, comment: true })
+          break
+        }
+        case 136: {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=136,n=1,cd=1&serie=uAXn&z=1&v=ex
+          const variables = {
+            a: 'randomInt(2,10)',
+            b: 'randomInt(2,10)',
+            c: 'randomInt(2,10)',
+            d: 'randomInt(2,10)',
+            test: 'gcd(a,b)==1 and a!=c'
+          }
+          exercice = resoudre(aleaName(['a/b', 'c/(x+d)']).join('='), { variables: variables, produitsencroix: true, comment: true, substeps: true, changeType: ['DISTRIBUTE'] })
+          break
+        }
+        case 137: {
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=137,n=1,cd=1&serie=uAXn&z=1&v=ex
+          const variables = {
+            a: 'randomInt(2,10)',
+            b: 'randomInt(2,10)',
+            c: 'randomInt(2,10)',
+            d: 'randomInt(2,10)',
+            test: 'gcd(a,b)==1 and a!=c'
+          }
+          exercice = resoudre(aleaName(['a/b', 'c*x/(x+d)']).join('='), { variables: variables, produitsencroix: true, comment: true, substeps: true, changeType: ['DISTRIBUTE'] })
           break
         }
       }
