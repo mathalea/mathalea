@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, printlatex, calcul, texNombrec, lettreDepuisChiffre, texNombre, contraindreValeur } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
 export const titre = 'Réduire une expression littérale (somme et produit)'
 export const interactifReady = true
@@ -12,12 +13,16 @@ export const dateDePublication = '11/02/2022' // La date de publication initiale
 /**
 * Réduire une expression
 *
-* * ax+bx+c
-* * ax+b+x+c
-* * ax^2+bx+c+dx^2+x
-* * a+x+b+c+dx
-* * ax+y+bx+c+dy
-* * ax.bx
+*    '0 : Mélange des types de questions',
+*    '1 : ax+bx+c',
+*    '2 : ax+b+x+c',
+*    '3 : ax^2+bx+c+dx^2+x',
+*    '4 : a+x+b+c+dx',
+*    '5 : ax+y+bx+c+dy',
+*    '6 : ax.bx',
+*    '7 : ax+c',
+*    '8 : ax.b',
+*    '9 : ax+bx'
 * @author Rémi Angot
 * 5L12
 */
@@ -95,34 +100,16 @@ export default function ReduireUneExpressionLitterale () {
           reponse = printlatex(`${texNombrec(a + b)}x+${texNombrec(1 + d)}y+${texNombre(c)}`)
           break
         case 6: // ax . bx
-          if (c > a) {
-            [a, c] = [c, a] // pour s'assurer que a-c est positif
-          }
-          if (c === a) {
-            a++
-          }
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x\\times${texNombre(b)}x$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x\\times${texNombre(b)}x=${texNombre(calcul(a * b))}x^2$`
           reponse = printlatex(`${texNombre(calcul(a * b))}x^2`)
           break
         case 7: // ax+c
-          if (c > a) {
-            [a, c] = [c, a] // pour s'assurer que a-c est positif
-          }
-          if (c === a) {
-            a++
-          }
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(c)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(c)}x=${texNombre(a)}x+${texNombre(c)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(c)}=${texNombre(a)}x+${texNombre(c)}$`
           reponse = printlatex(`${texNombre(a)}x+${texNombre(c)}`)
           break
         case 8: // ax . b
-          if (c > a) {
-            [a, c] = [c, a] // pour s'assurer que a-c est positif
-          }
-          if (c === a) {
-            a++
-          }
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x\\times${texNombre(b)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x\\times${texNombre(b)}=${texNombre(calcul(a * b))}x$`
           reponse = printlatex(`${texNombre(calcul(a * b))}x`)
@@ -133,7 +120,7 @@ export default function ReduireUneExpressionLitterale () {
           reponse = printlatex(`${texNombre(calcul(a + b))}x`)
           break
       }
-      setReponse(this, i, reponse, { formatInteractif: 'calculliteral' })
+      setReponse(this, i, reponse, { formatInteractif: 'calcul' })
       texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
