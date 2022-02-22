@@ -8,7 +8,7 @@ import Algebrite from 'algebrite'
 
 // eslint-disable-next-line no-debugger
 debugger
-const nbCase = 137
+const nbCase = 139
 
 export const titre = 'Calculs algébriques'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -1594,6 +1594,7 @@ export default function equationsProgression () {
           break
         }
         case 134: {
+          // Produits en croix
           // http://localhost:8080/mathalea.html?ex=betaEquations,s=134,n=1,cd=1&serie=uAXn&z=1&v=ex
           const variables = {
             a: 'randomInt(2,10)',
@@ -1601,10 +1602,11 @@ export default function equationsProgression () {
             c: 'randomInt(2,10)',
             test: 'gcd(a,b)==1 and a!=c'
           }
-          exercice = resoudre(aleaName(['a/b', 'c/x']).join('='), { variables: variables, produitsencroix: true, comment: true })
+          exercice = resoudre(aleaName(['a/b', 'c/x']).join('='), { variables: variables, produitsencroix: true, comment: true, verifications: true })
           break
         }
         case 135: {
+          // Produits en croix
           // http://localhost:8080/mathalea.html?ex=betaEquations,s=135,n=1,cd=1&serie=uAXn&z=1&v=ex
           const variables = {
             a: 'randomInt(2,10)',
@@ -1613,10 +1615,11 @@ export default function equationsProgression () {
             d: 'randomInt(2,10)',
             test: 'gcd(a,b)==1 and b!=c'
           }
-          exercice = resoudre(aleaName(['a/b', 'x/c']).join('='), { variables: variables, produitsencroix: true, comment: true })
+          exercice = resoudre(aleaName(['a/b', 'x/c']).join('='), { variables: variables, produitsencroix: true, comment: true, verifications: true })
           break
         }
         case 136: {
+          // Produits en croix
           // http://localhost:8080/mathalea.html?ex=betaEquations,s=136,n=1,cd=1&serie=uAXn&z=1&v=ex
           const variables = {
             a: 'randomInt(2,10)',
@@ -1625,10 +1628,11 @@ export default function equationsProgression () {
             d: 'randomInt(2,10)',
             test: 'gcd(a,b)==1 and a!=c'
           }
-          exercice = resoudre(aleaName(['a/b', 'c/(x+d)']).join('='), { variables: variables, produitsencroix: true, comment: true, substeps: true, changeType: ['DISTRIBUTE'] })
+          exercice = resoudre(aleaName(['a/b', 'c/(x+d)']).join('='), { variables: variables, produitsencroix: true, comment: true, changeType: ['DISTRIBUTE'], verifications: true })
           break
         }
         case 137: {
+          // Produits en croix
           // http://localhost:8080/mathalea.html?ex=betaEquations,s=137,n=1,cd=1&serie=uAXn&z=1&v=ex
           const variables = {
             a: 'randomInt(2,10)',
@@ -1637,7 +1641,32 @@ export default function equationsProgression () {
             d: 'randomInt(2,10)',
             test: 'gcd(a,b)==1 and a!=c'
           }
-          exercice = resoudre(aleaName(['a/b', 'c*x/(x+d)']).join('='), { variables: variables, produitsencroix: true, comment: true, substeps: true, changeType: ['DISTRIBUTE'] })
+          exercice = resoudre(aleaName(['a/b', 'c*x/(x+d)']).join('='), { variables: variables, produitsencroix: true, comment: true, changeType: ['DISTRIBUTE'], verifications: true })
+          break
+        }
+        case 138: {
+          // Pour comparaison sans les produits en croix avec Case 137
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=138,n=1,cd=1&serie=uAXn&z=1&v=ex
+          const variables = {
+            a: 'randomInt(2,10)',
+            b: 'randomInt(2,10)',
+            c: 'randomInt(2,10)',
+            d: 'randomInt(2,10)',
+            test: 'gcd(a,b)==1 and a!=c'
+          }
+          exercice = resoudre(aleaName(['a/b', 'c*x/(x+d)']).join('='), { variables: variables, comment: true, changeType: ['DISTRIBUTE'], verifications: true })
+          break
+        }
+        case 139: {
+          // Produits en croix
+          // http://localhost:8080/mathalea.html?ex=betaEquations,s=139,n=1,cd=1&serie=uAXn&z=1&v=ex
+          const variables = {
+            a: 'randomInt(2,10)',
+            c: 'randomInt(2,10)',
+            d: 'randomInt(2,10)',
+            test: 'a!=c'
+          }
+          exercice = resoudre(aleaName(['a/x', 'c/(x+d)']).join('='), { variables: variables, produitsencroix: true, comment: true, changeType: ['DISTRIBUTE'], verifications: true })
           break
         }
       }

@@ -689,9 +689,10 @@ export function resoudreEquation (equation = '5(x-7)=3(x+1)', debug = false) {
 
 export function commentStep (step, comments) {
   const changement = step.changeType
-  const stepChange = getNewChangeNodes(step).length > 0 ? toTex(parse(getNewChangeNodes(step)[0].toString(), { parenthesis: 'auto' })) : ''
+  const stepChange = step.stepChange
+  // const stepChange = getNewChangeNodes(step).length > 0 ? toTex(parse(getNewChangeNodes(step)[0].toString(), { parenthesis: 'auto' })) : ''
   const defaultComments = {
-    CROSS_PRODUCT_EQUALITY: 'Egalité des produits en croix.',
+    CROSS_PRODUCT_EQUALITY: `Egalité des produits en croix si $${stepChange}$.`,
     MULTIPLY_BOTH_SIDES_BY_NEGATIVE_ONE: 'Multiplier les deux membres par $-1$.',
     SUBTRACT_FROM_BOTH_SIDES: `Soustraire $${stepChange}$ à chaque membre.`,
     ADD_TO_BOTH_SIDES: `Ajouter $${stepChange}$ à chaque membre`,
@@ -759,6 +760,15 @@ function isContentSymbolNode (node) {
 * @description Retourne toutes les étapes de résolution d'une équation ou d'une inéquation
 * @param {Objet} params // Les paramètres (commentaires visibles)
 * @param {string} equation // Une équation ou une inéquation
+* @example
+* resoudre('2*x+4=4*x-5') --> Donne les étapes de la résoltion de l'équation
+* resoudre('2*x+4=4*x-5'), {comment: true}) --> Ajoute les commentaires
+* resoudre('2*x+4=4*x-5', {color: blue}) -> Met en bleu les changements à chaque étape
+* resoudre('2*x+4=4*x-5', {substeps: true}) --> Ajoute les sous-étapes
+* resoudre('2*x+4=4*x-5', {produitsencroix: true}) --> Utilise les produits en croix lorsque l'inconnue est au dénominateur a/f(x)=b/c
+* resoudre('2*x+4=4*x-5', {verifications: true}) --> Ajoute les vérifications de la solution
+* resoudre('a*x+c=b*x+d', {variables: {a: true, b: true, c: true, d: true, test: 'a!=b'}}) --> a, b, c et d sont choisis au hasard voir la fonction aleaVariables()
+* resoudre('2*x+4=4*x-5', {comment: true, comments: commentairesPersonnalises}) --> commentairesPersonnalises est un tableau avec des commentaires personnalisés (voir fonction commentStep())
 */
 export function resoudre (equation, params) {
   /*
@@ -768,16 +778,16 @@ export function resoudre (equation, params) {
       'decimal' : decimal lorsque c'est possible, sinon fraction
       'fraction' : fraction (ou entier lorsque c'est possible)
   */
-  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true, formatSolution: 2, substeps: false, changeType: [] }, params)
+  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true, formatSolution: 2, substeps: false, changeType: [], produitsencroix: false, verifications: false }, params)
   // Un bug de mathsteps ne permet pas de résoudre 2/x=2 d'où la ligne suivante qui permettait de le contourner
   // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
   // A priori le traitement actuel n'occure plus ce bug (raison ?).
   if (params.variables !== undefined) equation = aleaEquation(equation, params.variables)
   let printEquation
-  let steps = params.substeps ? traverserEtapes(solveEquation(equation)) : solveEquation(equation)
+  let steps = params.substeps ? traverserEtapes(solveEquation(equation), params.changeType) : solveEquation(equation)
   // Rechercher une équation de la forme a/x=b/c ou a/b=c/x et utiliser l'égalité des produits en croix
   let newSteps = []
-  if (steps[0].oldEquation.comparator === '=') {
+  if (params.produitsencroix && steps[0].oldEquation.comparator === '=') {
     let i = 0
     do {
       const leftNode = steps[i].oldEquation.leftNode.cloneDeep()
@@ -787,6 +797,10 @@ export function resoudre (equation, params) {
           steps[i].newEquation.rightNode = new math.OperatorNode('*', 'multiply', [leftNode.args[0], rightNode.args[1]])
           steps[i].newEquation.leftNode = new math.OperatorNode('*', 'multiply', [rightNode.args[0], leftNode.args[1]])
           steps[i].changeType = 'CROSS_PRODUCT_EQUALITY'
+          const stepChanges = []
+          if (isContentSymbolNode(leftNode.args[1])) stepChanges.push(toTex(leftNode.args[1].toString()) + '\\neq 0')
+          if (isContentSymbolNode(rightNode.args[1])) stepChanges.push(toTex(rightNode.args[1].toString()) + '\\neq 0')
+          steps[i].stepChange = stepChanges.join('\\text{ et }')
           const newEquation = steps[i].newEquation.ascii()
           newSteps = params.substeps ? traverserEtapes(solveEquation(newEquation), params.changeType) : solveEquation(newEquation)
           steps = steps.slice(0, i + 1).concat(newSteps)
@@ -796,6 +810,10 @@ export function resoudre (equation, params) {
           steps[i].newEquation.rightNode = new math.OperatorNode('*', 'multiply', [rightNode.args[0], leftNode.args[1]])
           steps[i].newEquation.leftNode = new math.OperatorNode('*', 'multiply', [leftNode.args[0], rightNode.args[1]])
           steps[i].changeType = 'CROSS_PRODUCT_EQUALITY'
+          const stepChanges = []
+          if (isContentSymbolNode(leftNode.args[1])) stepChanges.push(toTex(leftNode.args[1].toString()) + '\\neq 0')
+          if (isContentSymbolNode(rightNode.args[1])) stepChanges.push(toTex(rightNode.args[1].toString()) + '\\neq 0')
+          steps[i].stepChange = stepChanges.join('\\text{ et }')
           const newEquation = steps[i].newEquation.ascii()
           newSteps = params.substeps ? traverserEtapes(solveEquation(newEquation), params.changeType) : solveEquation(newEquation)
           steps = steps.slice(0, i + 1).concat(newSteps)
@@ -808,6 +826,7 @@ export function resoudre (equation, params) {
   let repetition = 0
   steps.forEach(function (step, i) {
     const changement = step.changeType
+    if (step.changeType !== 'CROSS_PRODUCT_EQUALITY') step.stepChange = getNewChangeNodes(step).length > 0 ? toTex(parse(getNewChangeNodes(step)[0].toString(), { parenthesis: 'auto' })) : ''
     if (step.oldEquation !== null) {
       if (params.reduceSteps && (step.oldEquation.leftNode.toString() === step.newEquation.leftNode.toString() || step.oldEquation.rightNode.toString() === step.newEquation.rightNode.toString())) {
         if (changement !== 'REMOVE_ADDING_ZEROS') repetition = (repetition + 1) % 3
@@ -860,7 +879,7 @@ export function resoudre (equation, params) {
   }
 
   const texte = `Résoudre $${printEquation}$.`
-  const texteCorr = `$\\begin{aligned}\n${stepsNewEquation.join('\\\\\n')}\n\\end{aligned}$`
+  let texteCorr = `$\\begin{aligned}\n${stepsNewEquation.join('\\\\\n')}\n\\end{aligned}$`
   const solution = {
     printDecimal: texNombre2(math.evaluate(steps[steps.length - 1].newEquation.ascii().split(steps[steps.length - 1].newEquation.comparator)[1])),
     decimal: math.evaluate(steps[steps.length - 1].newEquation.ascii().split(steps[steps.length - 1].newEquation.comparator)[1]),
@@ -874,6 +893,18 @@ export function resoudre (equation, params) {
     const thesolution = steps[steps.length - 1].newEquation.rightNode.toString()
     calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${thesolution})`))
     calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${thesolution})`))
+  }
+  if (params.verifications) {
+    texteCorr = `<br>
+          ${texteCorr}<br>
+          La solution est $${solution.print}$.
+          <br>
+          $\\textit{Vérification :}$
+          <br>
+          $\\bullet$ D'une part : $${calculateLeftSide.printExpression}=${calculateLeftSide.printResult}$
+          <br>
+          $\\bullet$ D'autre part : $${calculateRightSide.printExpression}=${calculateRightSide.printResult}$
+          `
   }
   return {
     solution: solution,
