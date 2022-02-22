@@ -12,7 +12,7 @@ export const amcType = 'AMCHybride'
 // Version SVGJS commit 87bd9a3
 
 /**
- * Description didactique de l'exercice
+ * Description didactique de l'exercice :
  * @author Rémi Angot
  * Référence 6N21
  * publié le 29/6/2021
@@ -92,20 +92,33 @@ export default function PlacerPointsAbscissesFractionnaires () {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
 
-      A = point(((num / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i + 1))
+      if (context.isHtml) {
+        A = point(((num / den) - origine) * tailleUnite, 0, `$${lettreIndiceeDepuisChiffre(i + 1)}$`)
+      } else {
+        A = point(((num / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i + 1))
+      }
       traceA = tracePoint(A)
       traceA.color = 'blue'
       traceA.epaisseur = this.interactif ? 3 : 2
       traceA.taille = this.interactif ? 5 : 3
       labels = labelPoint(A)
       if (!this.interactif) {
-        A.nom = lettreIndiceeDepuisChiffre(i * 3 + 1)
-        B = point(((num2 / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i * 3 + 2))
+        if (context.isHtml) {
+          A.nom = `$${lettreIndiceeDepuisChiffre(i * 3 + 1)}$`
+          B = point(((num2 / den) - origine) * tailleUnite, 0, `$${lettreIndiceeDepuisChiffre(i * 3 + 2)}$`)
+        } else {
+          A.nom = lettreIndiceeDepuisChiffre(i * 3 + 1)
+          B = point(((num2 / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i * 3 + 2))
+        }
         traceB = tracePoint(B)
         traceB.color = 'blue'
         traceB.epaisseur = 2
         traceB.taille = 3
-        C = point(((num3 / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i * 3 + 3))
+        if (context.isHtml) {
+          C = point(((num3 / den) - origine) * tailleUnite, 0, `$${lettreIndiceeDepuisChiffre(i * 3 + 3)}$`)
+        } else {
+          C = point(((num3 / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i * 3 + 3))
+        }
         traceC = tracePoint(C)
         traceC.color = 'blue'
         traceC.epaisseur = 2

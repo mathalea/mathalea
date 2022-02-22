@@ -108,7 +108,7 @@ export default function ComparerPuissance10 () {
                   texteCorr += `$${n1} > ${n2}$. <br>`
                 }
                 if (n1 === n2) {
-                  texteCorr += `Les exposants sont égaux. On compare ${texNombre(a1)} et ${texNombre(a2)} : `
+                  texteCorr += `Les exposants sont égaux. On compare $${texNombre(a1)}$ et $${texNombre(a2)}$ : `
                   if (a1 < a2) {
                     texteCorr += `$${texNombre(a1)} < ${texNombre(a2)}$. <br>`
                   } else {
@@ -126,7 +126,7 @@ export default function ComparerPuissance10 () {
                   texteCorr += `$${n1} > ${n2}$. Donc ${ecriturePuissance(-a1, 10, n1)} $>$ ${ecriturePuissance(-a2, 10, n2)}. <br>`
                 }
                 if (n1 === n2) {
-                  texteCorr += `les exposants sont égaux. On compare ${texNombre(a1)} et ${texNombre(a2)} : `
+                  texteCorr += `les exposants sont égaux. On compare $${texNombre(a1)}$ et $${texNombre(a2)}$ : `
                   if (a1 < a2) {
                     texteCorr += `$${texNombre(a1)} < ${texNombre(a2)}$. Donc ${ecriturePuissance(-a1, 10, n1)} $<$ ${ecriturePuissance(-a2, 10, n2)}. <br><br>`
                   } else {

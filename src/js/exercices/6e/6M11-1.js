@@ -147,7 +147,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           setReponse(this, i, new Grandeur(pIJK, 'cm'), { formatInteractif: 'longueur' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer le périmètre en cm du triangle rectangle dont les côtés mesurent ${a}cm, ${b}cm et ${texNombre(c2.toFixed(1))}m`,
+              enonce: `Calculer le périmètre en cm du triangle rectangle dont les côtés mesurent ${a}cm, ${b}cm et $${texNombre(c2.toFixed(1))}$m`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Périmètre en cm',

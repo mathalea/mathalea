@@ -29,8 +29,8 @@ export default function ProbabilitesSimples () {
     const pN = randint(10, 100 - pG - 10)
     // const pP = 100 - pG - pN
     const sport = choice(['hand-ball', 'football', 'rugby', 'basket', 'volley-ball', 'water-polo', 'baseball'])
-    this.consigne = `Lors d'un match de ${sport}, l'équipe qui reçoit un adversaire a une probabilité de ${texNombrec(pG / 100)} de gagner son match`
-    this.consigne += ` et ${texNombrec(pN / 100)} de faire un match nul.`
+    this.consigne = `Lors d'un match de ${sport}, l'équipe qui reçoit un adversaire a une probabilité de $ ${texNombrec(pG / 100)}$ de gagner son match`
+    this.consigne += ` et $${texNombrec(pN / 100)}$ de faire un match nul.`
 
     const question1 = 'Quelle est la probabilité, pour cette équipe, de ne pas perdre le match ?'
     let correction1 = 'Ne pas perdre un match, c\'est, soit le gagner, soit faire un match nul, la probabilité est donc : <br> <br>'

@@ -9,5 +9,5 @@ export const dateDeModifImportante = '27/10/2021'
  */
 export default function LireAbscisseDecimale2nde () {
   LireAbscisseDecimaleBis2d.call(this)
-  this.sup = 6
+  this.niveau = 2
 }

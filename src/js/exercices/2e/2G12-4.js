@@ -17,7 +17,7 @@ export default function NaturePolygone () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]; let typesDeQuestions
+    const typesDeQuestionsDisponibles = [1]; let typesDeQuestions
     let objets
     let A, B, C, D, P, XMIN, XMAX, YMIN, YMAX
 
@@ -29,17 +29,20 @@ export default function NaturePolygone () {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
 
-        case 1:
+        case 1: // Triangle isocèle ou équilatéral
 
           xA = randint(0, 5) * choice([-1, 1])
           yA = randint(0, 5) * choice([-1, 1])
           ux = randint(1, 5) * choice([-1, 1])
           uy = randint(1, 5) * choice([-1, 1])
+          while (ux === uy) {
+            uy = randint(1, 5) * choice([-1, 1])
+          }// empêcher ux=uy pour éviter B=C
           xB = xA + ux
 
           yB = yA + uy
 
-          xC = xA - uy
+          xC = xA + uy
           yC = yA + ux
           xD = 0 // pour ne pas bloquer le recadrage du repère
           yD = 0
@@ -96,7 +99,7 @@ export default function NaturePolygone () {
           P = polygoneAvecNom(A, B, C)
           objets.push(P[0], P[1])
           break
-        case 2:
+        case 2: // ABC isocèle triangle rectangle
 
           xA = randint(0, 5) * choice([-1, 1])
           yA = randint(0, 5) * choice([-1, 1])
@@ -137,13 +140,14 @@ export default function NaturePolygone () {
           texteCorr += `On observe que $AC^{2}+AB^{2}=${texNombre(XAC + YAC + XAB + YAB)} ~~et~~ BC^{2}={${texNombre(XBC + YBC)}}$.`
           texteCorr += '<br>On en déduit que $BC^{2}=AC^{2}+AB^{2}$.'
           texteCorr += '<br>D\'après la réciproque du théorème de Pythagore,  le triangle ABC est rectangle en A.'
+          if (XAB + YAB === XAC + YAC) { texteCorr += '<br>On observe en plus que AB=AC. <br> Le triangle ABC est donc isocèle rectangle en A.' }
           A = point(xA, yA, 'A')
           B = point(xB, yB, 'B')
           C = point(xC, yC, 'C')
           P = polygoneAvecNom(A, B, C)
           objets.push(P[0], P[1])
           break
-        case 3:
+        case 3: // Dq ABDC losange
           xA = randint(0, 9) * choice([-1, 1])
           yA = randint(0, 9) * choice([-1, 1])
           ux = randint(1, 5)
@@ -155,14 +159,14 @@ export default function NaturePolygone () {
           yC = yB - ux
           xD = xC - ux
           yD = yC - uy
-          xI0 = fractionSimplifiee(xA + xD, 2)[0]
-          xI1 = fractionSimplifiee(xA + xD, 2)[1]
-          yI0 = fractionSimplifiee(yA + yD, 2)[0]
-          yI1 = fractionSimplifiee(yA + yD, 2)[1]
-          xJ0 = fractionSimplifiee(xB + xC, 2)[0]
-          xJ1 = fractionSimplifiee(xB + xC, 2)[1]
-          yJ0 = fractionSimplifiee(yB + yC, 2)[0]
-          yJ1 = fractionSimplifiee(yB + yC, 2)[1]
+          xI0 = fractionSimplifiee(xA + xC, 2)[0]
+          xI1 = fractionSimplifiee(xA + xC, 2)[1]
+          yI0 = fractionSimplifiee(yA + yC, 2)[0]
+          yI1 = fractionSimplifiee(yA + yC, 2)[1]
+          xJ0 = fractionSimplifiee(xB + xD, 2)[0]
+          xJ1 = fractionSimplifiee(xB + xD, 2)[1]
+          yJ0 = fractionSimplifiee(yB + yD, 2)[0]
+          yJ1 = fractionSimplifiee(yB + yD, 2)[1]
           XAB = (xB - xA) * (xB - xA)
           YAB = (yB - yA) * (yB - yA)
           AB = XAB + YAB
@@ -177,24 +181,24 @@ export default function NaturePolygone () {
           texte = 'Dans un repère orthonormé (O,I,J), on donne les 4 points suivants :<br>'
           texte += ` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right).$`
           texte += ` $C\\left(${xC};${yC}\\right)$ ; $D\\left(${xD};${yD}\\right).$`
-          texte += '<br>Démontrer que $ABDC$ est un losange.'
+          texte += '<br>Démontrer que $ABCD$ est un losange.'
 
-          texteCorr = '<br>Pour prouver que $ABDC$ est un losange, il y a deux stratégies :<br>'
+          texteCorr = '<br>Pour prouver que $ABCD$ est un losange, il y a deux stratégies :<br>'
           texteCorr += '$~~~~~~~~$<B>1.</B> On calcule les quatre longueurs du quadrilatère et on prouve leur égalité.<br>'
           texteCorr += '$\\phantom{~~~~~~~~}$Un quadrilatère qui possède quatre côtés de même longueur est un losange.<br>'
           texteCorr += '$~~~~~~~~$<B>2. </B> On prouve que $ABDC$ est un parallélogramme, puis il sufit de prouver qu\'il possède deux côtés consécutifs de même longueur.<br>'
           texteCorr += '$\\phantom{~~~~~~~~}$ Un parallélogramme qui possède deux côtés consécutifs de même longueur est un losange'
-          texteCorr += '<br>Les deux démonstrations se valent. On choisit ici la <B>démonstration n°2</B>, plus variée, mais la n°1 est valable.<br>'
+          texteCorr += '<br>Les deux démonstrations se valent. <br>On choisit ici la <B>démonstration n°2</B>, plus variée, mais la n°1 est valable.<br>'
           texteCorr += '<B>Démonstration :</B><br>'
-          texteCorr += 'On veut prouver que $ABDC$ est un parallélogramme :'
-          texteCorr += '<br>On sait que ABDC est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.'
+          texteCorr += 'On veut prouver que $ABCD$ est un parallélogramme :'
+          texteCorr += '<br>On sait que ABCD est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.'
           texteCorr += '<br>On cherche donc les coordonnées du milieu de chacune des deux diagonales du quadrilatère, pour prouver qu\'elles sont identiques. :'
-          texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d\'un repère ,'
-          texteCorr += '<br> alors les coordonnées du point $I$ milieu de $[AD]$ sont '
-          texteCorr += '$I\\left(\\dfrac{x_A+x_D}{2};\\dfrac{y_A+y_D}{2}\\right)$ <br>'
+          texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $C(x_C;y_C)$ sont deux points d\'un repère ,'
+          texteCorr += '<br> alors les coordonnées du point $I$ milieu de $[AC]$ sont '
+          texteCorr += '$I\\left(\\dfrac{x_A+x_C}{2};\\dfrac{y_A+y_C}{2}\\right)$ <br>'
           texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_I=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2} \\\\ y_I=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_I=\\dfrac{${texNombre(xA + xD)}}{2}\\\\y_I=\\dfrac{${texNombre(yA + yD)}}{2}\\end{cases}$`
+          texteCorr += `$\\begin{cases}x_I=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xC)}}{2} \\\\ y_I=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yC)}}{2}\\end{cases}$`
+          texteCorr += `<br>On en déduit :  $\\begin{cases}x_I=\\dfrac{${texNombre(xA + xC)}}{2}\\\\y_I=\\dfrac{${texNombre(yA + yC)}}{2}\\end{cases}$`
           if (xI1 !== 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
           if (xI1 === 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
           if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
@@ -202,15 +206,15 @@ export default function NaturePolygone () {
           texteCorr += '<br> Les coordonnées du point $J$ milieu de $[BC]$ sont '
           texteCorr += '$J\\left(\\dfrac{x_B+x_C}{2};\\dfrac{y_B+y_C}{2}\\right)$ <br>'
           texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_J=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2} \\\\ y_J=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_J=\\dfrac{${texNombre(xB + xC)}}{2}\\\\y_J=\\dfrac{${texNombre(yB + yC)}}{2}\\end{cases}$`
+          texteCorr += `$\\begin{cases}x_J=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xD)}}{2} \\\\ y_J=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yD)}}{2}\\end{cases}$`
+          texteCorr += `<br>On en déduit :  $\\begin{cases}x_J=\\dfrac{${texNombre(xB + xD)}}{2}\\\\y_J=\\dfrac{${texNombre(yB + yD)}}{2}\\end{cases}$`
           if (xJ1 !== 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$` }
           if (xJ1 === 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
           if (xJ1 !== 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$` }
           if (xJ1 === 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};${yJ0}\\right)$` }
           texteCorr += '<br>On observe que $I$ et $J$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
-          texteCorr += '<br>$ABDC$ est donc un parallélogramme.'
-          texteCorr += '<br>On calcule maintenant deux cotés consécutifs : $AB$ et $AC$ par exemple.'
+          texteCorr += '<br>$ABCD$ est donc un parallélogramme.'
+          texteCorr += '<br>On calcule maintenant deux cotés consécutifs : $AB$ et $AD$ par exemple.'
           texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
           texteCorr += ' alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}.$<br>'
           texteCorr += `On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
@@ -228,19 +232,19 @@ export default function NaturePolygone () {
             texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AB=${facteur}$<br>`
           }
 
-          texteCorr += `On procède de même pour $AC$: $AC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AC=\\sqrt{${XAC}+${YAC}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AC=\\sqrt{${texNombre(XAC + YAC)}}$<br>`
-          facteur = extraireRacineCarree(AC)[0]
-          radical = extraireRacineCarree(AC)[1]
+          texteCorr += `On procède de même pour $AD$:<br> $AD=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AC=\\sqrt{${XAD}+${YAD}}$<br>`
+          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AC=\\sqrt{${texNombre(XAD + YAD)}}$<br>`
+          facteur = extraireRacineCarree(AD)[0]
+          radical = extraireRacineCarree(AD)[1]
           if (radical !== 1) {
             if (facteur !== 1) {
-              texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AC=${facteur}\\sqrt{${radical}}$<br>`
+              texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AD=${facteur}\\sqrt{${radical}}$<br>`
             }
           } else {
-            texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AC=\\sqrt{${radical}}$<br>`
+            texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AD=\\sqrt{${radical}}$<br>`
           }
-          texteCorr += '<br>On observe que $AB=AC$, $ABDC$ est donc bien un losange.'
+          texteCorr += '<br>On observe que $AB=AD$, $ABDC$ est donc bien un losange.'
           A = point(xA, yA, 'A')
           B = point(xB, yB, 'B')
           C = point(xC, yC, 'C')
@@ -249,7 +253,7 @@ export default function NaturePolygone () {
           objets.push(P[0], P[1])
 
           break
-        case 4:
+        case 4://  Dq rectangle
           xA = randint(0, 6) * choice([-1, 1])
           yA = randint(0, 6) * choice([-1, 1])
           ux = randint(1, 3) * choice([-1, 1])
@@ -353,11 +357,11 @@ export default function NaturePolygone () {
           B = point(xB, yB, 'B')
           C = point(xC, yC, 'C')
           D = point(xD, yD, 'D')
-          P = polygoneAvecNom(A, B, C, D)
+          P = polygoneAvecNom(A, B, D, C)
           objets.push(P[0], P[1])
 
           break
-        case 5:
+        case 5:// carré
           xA = randint(0, 9) * choice([-1, 1])
           yA = randint(0, 9) * choice([-1, 1])
           ux = randint(1, 9) * choice([-1, 1])
@@ -488,7 +492,7 @@ export default function NaturePolygone () {
           B = point(xB, yB, 'B')
           C = point(xC, yC, 'C')
           D = point(xD, yD, 'D')
-          P = polygoneAvecNom(A, B, C, D)
+          P = polygoneAvecNom(A, B, D, C)
           objets.push(P[0], P[1])
 
           break

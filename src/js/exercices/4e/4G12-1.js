@@ -6,7 +6,7 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { choixDeroulant } from '../../modules/interactif/questionListeDeroulante.js'
 export const dateDePublication = '3/12/2021'
 export const titre = 'Trouver la transformation'
-export const interactifReady = false // Pour l'instant le listeDeroulante n'est pas au point avec les chaines ???
+export const interactifReady = true // Pour l'instant le listeDeroulante n'est pas au point avec les chaines ???
 export const interactifType = 'listeDeroulante'
 
 export default function TrouverLaTransformations () {
@@ -75,6 +75,11 @@ export default function TrouverLaTransformations () {
         return pol
     }
   }
+  // type est le type de transformation (voir ci-dessus)
+  // depart est le N° de la figure de dépar, arrivee celui de la figure d'arrivée
+  // leSens = true pour rotation de sens direct
+  // num est un nombre pour définir la couleur de l'élément de départ et celui d'arrivée.
+  // poly1 est le polygone de départ (utilisé pour réaliser l'animation)
   function definitElements (type, depart, arrivee, leSens = true, num = 0, poly1) {
     let texte, texteCorr, texteInteractif, animation, axe, centre, vector
     const Est = (arrivee - depart === 6) // si on va vers la droite il y a 6 numéros d'écart entre arrivée et départ sinon, c'est 1 (vers le haut)
@@ -82,39 +87,31 @@ export default function TrouverLaTransformations () {
       case 'symax': // vers l'est la droite est définie par arrivee et arrivee+1 sinon c'est arrivee et arrivee+6
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie d'axe $(${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom})$.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie d'axe $(${sp(1)}\\ldots${sp(1)})$.`
-        texteInteractif = "Une symétrie axiale d'axe passant par deux points du quadrillage."
+        texteInteractif = `la symétrie d'axe (${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom})`
         axe = Est ? droite(noeuds[arrivee], noeuds[arrivee + 1]) : droite(noeuds[arrivee], noeuds[arrivee + 6])
         animation = symetrieAnimee(poly1, axe, 'begin="0s" dur="5s" repeatCount="indefinite"')
         return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, axe: axe }
       case 'trans': // facile pour la translation : depart->arrivee
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la translation transformant $${noeuds[depart].nom}$ en $${noeuds[arrivee].nom}$.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la translation transformant ${sp(1)}\\ldots${sp(1)} en ${sp(1)}\\ldots${sp(1)}.`
-        texteInteractif = 'Une translation définie par deux points du quadrillage.'
+        texteInteractif = `la translation transformant ${noeuds[depart].nom} en ${noeuds[arrivee].nom}`
         vector = vecteur(noeuds[depart], noeuds[arrivee])
         animation = translationAnimee(poly1, vector, 'begin="0s" dur="5s" repeatCount="indefinite"')
         return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, vecteur: vecteur(noeuds[depart], noeuds[arrivee]) }
       case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$ d'angle $90\\degree$ dans le sens ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
-        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la rotation de centre ${sp(1)}\\ldots${sp(1)} d'angle $90\\degree$ dans le sens  ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
-        texteInteractif = "Une rotation d'angle 90° et de centre un point du quadrillage."
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$ d'angle $90\\degree$ dans le sens ${leSens ? 'direct' : 'indirect'}.`
+        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la rotation de centre ${sp(1)}\\ldots${sp(1)} d'angle $90\\degree$ dans le sens  ${leSens ? 'direct' : 'indirect'}.`
+        texteInteractif = `la rotation de centre ${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)} d'angle 90° dans le sens ${leSens ? 'direct' : 'indirect'}`
         centre = Est ? (leSens ? noeuds[arrivee + 1] : noeuds[arrivee]) : (leSens ? noeuds[arrivee] : noeuds[arrivee + 6])
         animation = rotationAnimee(poly1, centre, leSens ? 90 : -90, 'begin="0s" dur="5s" repeatCount="indefinite"')
         return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: centre, sens: leSens }
       case 'rot180': // pas besoin du sens, mais le milieu choisit dépend de depart et arrivee
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la symétrie de centre le milieu de $[${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]$.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie de centre le milieu de $[${sp(1)}\\ldots${sp(1)}]$.`
-        texteInteractif = "Une symétrie centrale de centre un milieu d'un segment d'éxtrémités deux points du quadrillage."
+        texteInteractif = `la symétrie de centre le milieu de [${noeuds[arrivee].nom}${Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom}]`
         centre = milieu(noeuds[arrivee], Est ? noeuds[arrivee + 1] : noeuds[arrivee + 6])
         animation = rotationAnimee(poly1, centre, 180, 'begin="0s" dur="5s" repeatCount="indefinite"')
         return { animation: animation, depart: depart, arrivee: arrivee, texte: texte, texteCorr: texteCorr, texteInteractif: texteInteractif, type: type, centre: centre }
-    }
-  }
-  function transformation (type) {
-    switch (type) {
-      case 'symax' : return 'symétrie axiale'
-      case 'rot180' : return 'symétrie centrale'
-      case 'trans' : return 'translation'
-      case 'rot90' : return 'quart de tour'
     }
   }
   this.nouvelleVersion = function () {
@@ -189,12 +186,47 @@ export default function TrouverLaTransformations () {
 
     const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.7 }
     const paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
-    for (let i = 0, texte, texteCorr; i < this.nbQuestions; i++) {
+    for (let i = 0, texte, texteCorr, propositions, trans; i < this.nbQuestions; i++) {
+      propositions = []
+      // On va mettre dans les propositions toutes les transformations possibles pour passer de transfo|i].depart à transfo[i].arrivee
+      for (const transforme of typeDeTransfos) {
+        switch (transforme) {
+          case 'rot90':
+            trans = definitElements('rot90', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
+            propositions.push(
+              `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens direct`
+            )
+            trans = definitElements('rot90', transfos[i].depart, transfos[i].arrivee, false, 12, polys[transfos[i].depart])
+            propositions.push(
+              `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens indirect`
+            )
+            break
+          case 'trans':
+            //    trans = definitElements('trans', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
+            propositions.push(
+                  `la translation transformant ${noeuds[transfos[i].depart].nom} en ${noeuds[transfos[i].arrivee].nom}`
+            )
+            break
+          case 'rot180':
+            //    trans = definitElements('rot180', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
+            propositions.push(
+                  `la symétrie de centre le milieu de [${noeuds[transfos[i].arrivee].nom}${(transfos[i].arrivee - transfos[i].depart === 6) ? noeuds[transfos[i].arrivee + 1].nom : noeuds[transfos[i].arrivee + 6].nom}]`
+            )
+            break
+
+          case 'symax':
+            //    trans = definitElements('symax', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
+            propositions.push(
+                `la symétrie d'axe (${noeuds[transfos[i].arrivee].nom}${(transfos[i].arrivee - transfos[i].depart === 6) ? noeuds[transfos[i].arrivee + 1].nom : noeuds[transfos[i].arrivee + 6].nom})`
+            )
+            break
+        }
+      }
       texte = this.interactif
-        ? `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ? ` + choixDeroulant(this, i, 0, ['symétrie axiale', 'symétrie centrale', 'translation', 'quart de tour'], 'texte')
+        ? `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ? ` + choixDeroulant(this, i, 0, propositions, 'texte')
         : `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ?`
       texteCorr = transfos[i].texteCorr
-      setReponse(this, i, [transformation(transfos[i].type), { formatInteractif: 'texte' }])
+      setReponse(this, i, [transfos[i].texteInteractif], { formatInteractif: 'texte' })
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction, nombreDeChiffresDansLaPartieEntiere, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -13,7 +13,6 @@ export const amcType = 'AMCHybride'
 /**
  * @author Rémi Angot
  * 6N20
- * ********************************************
  * Relecture : Novembre 2021 par EE
  */
 export default function ExerciceFractionsDecomposer () {
@@ -67,7 +66,7 @@ export default function ExerciceFractionsDecomposer () {
       ])
     ) // liste_fractions pour les 6 premières questions
     for (
-      let i = 0, fraction, a, b, c, n, texte, texteCorr;
+      let i = 0, fraction, a, b, c, n, texte, texteCorr, reponse;
       i < this.nbQuestions;
       i++
     ) {
@@ -91,11 +90,13 @@ export default function ExerciceFractionsDecomposer () {
         ' $'
       texteCorr =
         '$ ' + texFraction(a, b) + ' = ' + n + '+' + texFraction(c, b) + ' $'
+      reponse = `${n} + ${texFraction(c, b)}`
 
-      setReponse(this, 2 * i, n)
-      setReponse(this, 2 * i + 1, new FractionX(c, b), { formatInteractif: 'fraction' })
-      if (this.interactif) texte = `$${texFraction(a, b)} = $` + ajouteChampTexteMathLive(this, 2 * i, 'inline largeur10') + sp(6) + '+' + ajouteChampTexteMathLive(this, 2 * i + 1, 'inline largeur10')
-
+      setReponse(this, i, reponse)
+      if (this.interactif) {
+        texte = `$ ${texFraction(a, b)} = $`
+        texte += ajouteChampTexteMathLive(this, i)
+      }
       if (context.isAmc) {
         this.autoCorrection[i] = {
           // enonce: 'Décomposer $' + texFraction(a, b) + '$ sous forme d\'une somme d\'un entier et d\'une fraction inférieure à 1.',

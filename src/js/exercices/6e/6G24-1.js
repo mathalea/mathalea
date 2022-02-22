@@ -7,9 +7,11 @@ export { amcReady, amcType } from '../6e/_Construire_par_symetrie.js'
  * @author Jean-Claude Lhote
  * Relecture : Novembre 2021 par EE
  */
-export default function SymetrieAxialePoint6e () {
-  ConstruireParSymetrie.call(this)
-  this.figure = false
-  this.sup = 1
-  this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Axe horizontal ou vertical\n2 : Axe oblique à 45°\n3 : Axe avec une légère pente\n4 : Toutes les symétries axiales']
+export default class SymetrieAxialePoint6e extends ConstruireParSymetrie {
+  constructor () {
+    super()
+    this.figure = false
+    this.sup = 1
+    this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Axe horizontal ou vertical\n2 : Axe oblique à 45°\n3 : Axe avec une légère pente\n4 : Toutes les symétries axiales']
+  }
 }

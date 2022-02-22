@@ -155,10 +155,11 @@ export function listeQuestionsToContenuSansNumeroEtSansConsigne (exercice) {
 }
 
 /**
- * Renvoie le html qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * Renvoie le html ou le latex qui mets les 2 chaines de caractères fournies sur 2 colonnes différentes
  * @author Rémi Angot
- * @param {string} cont1
- * @param {string} cont2
+ * @param {string} cont1 - Contenu de la première colonne
+ * @param {string} cont2 - Contenu de la deuxième colonne
+ * @param {number} [largeur1=50] Largeur de la première colonne
  * @return {string}
  */
 export function deuxColonnes (cont1, cont2, largeur1 = 50) {
@@ -1722,14 +1723,12 @@ export function xcas (expression) {
 * Le 2e argument facultatif permet de préciser l'arrondi souhaité
 * @author Rémi Angot
 */
-export function calcul (expression, arrondir = false) {
+export function calcul (x, arrondir = 13) {
   if (typeof expression === 'string') {
-    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { expression })
-  }
-  if (!arrondir) {
-    return parseFloat(Algebrite.eval('float(' + expression + ')'))
+    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
+    return parseFloat(evaluate(x).toFixed(arrondir === false ? 13 : arrondir))
   } else {
-    return arrondi(parseFloat(Algebrite.eval('float(' + expression + ')')), arrondir)
+    return parseFloat(x.toFixed(arrondir))
   }
 }
 
@@ -1749,11 +1748,12 @@ export function nombreDecimal (expression, arrondir = false) {
 /**
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux et retourne un string avec la virgule comme séparateur décimal
 * @author Rémi Angot
+* texNombrec n'apportant rien, je la shinte.
 */
 
-export function texNombrec (expression) {
+export function texNombrec (expression, precision) {
   // return texNombre(parseFloat(Algebrite.eval(expression)))
-  return texNombre(arrondi(expression, 6))
+  return texNombre(expression, precision)
 }
 
 /**
@@ -2498,21 +2498,23 @@ export function numberFormat (nb) {
 * Renvoie un nombre dans le format français (séparateur de classes)
 * @author Rémi Angot
 */
-export function texNombre (nb) {
+export function texNombre (nb, precision = 12) {
   // Ecrit \numprint{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces en latex)
   // Ajoute des accolades autour de la virgule {,} pour supprimer l'espace "disgracieux" qui le suit dans l'écriture décimale des nombres sinon.
-  if (context.isHtml) {
-    // return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,'\\thickspace ').replace(',','{,}');
-    return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ')
-  } else {
-    let result
-    if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
-      result = '\\numprint{' + nb.toString().replace('.', ',') + '}'
-    } else {
-      result = nb.toString().replace('.', '{,}')
-    }
-    return result
+  // arrondit pour avoir precision chiffres après la virgule si possible
+  const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
+  if (precision === undefined) {
+    precision = 12 - nbChiffresPartieEntiere
   }
+  const maximumSignificantDigits = nbChiffresPartieEntiere + precision
+  let result
+  try {
+    result = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb).replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+  } catch (error) {
+    console.log(error)
+    result = 'Too much decimals'
+  }
+  return result
 }
 
 /**
@@ -2547,8 +2549,8 @@ export function texNombre2 (nb) {
   }
   return nombre
 }
-export function texNombrec2 (expr, precision = 8) {
-  return math.format(math.evaluate(expr), { notation: 'auto', lowerExp: -12, upperExp: 12, precision: precision }).replace('.', ',')
+export function texNombrec2 (expr, precision = 12) {
+  return texNombre(expr, precision)
 }
 export function nombrec2 (nb) {
   return math.evaluate(nb)
@@ -2699,20 +2701,7 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
 */
 export function stringNombre (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
-  const nombre = nb.toString()
-  const partieEntiere = nombre.split('.')[0]
-  const partieDecimale = nombre.split('.')[1]
-  let result = ''
-  let i
-  if (partieEntiere.length > 3) {
-    for (i = 0; i < Math.floor(partieEntiere.length / 3); i++) {
-      result = ' ' + partieEntiere.slice(partieEntiere.length - i * 3 - 3, partieEntiere.length - i * 3) + result
-    }
-    result = partieEntiere.slice(0, partieEntiere.length - i * 3) + result
-  } else result = partieEntiere
-  if (result[0] === ' ') result = result.substring(1, result.length)
-  if (partieDecimale !== undefined) result += ',' + partieDecimale
-  return result
+  return Intl.NumberFormat('fr-Fr', { maximumSignificantDigits: 15 }).format(nb)
 }
 /**
 * Centre un texte

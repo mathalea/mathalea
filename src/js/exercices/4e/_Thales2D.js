@@ -162,7 +162,7 @@ export default function Thales2D () {
         texteCorr += '<br><br>'
         texteCorr += `donc $${texNombrec(Math.abs(k) * ac)}\\times ${texNombre(ab)}=${nomM + nomN}\\times ${texNombre(ac)}$.`
         texteCorr += '<br><br>'
-        texteCorr += `On divise les deux membres par ${texNombre(ac)}.`
+        texteCorr += `On divise les deux membres par $${texNombre(ac)}$.`
         texteCorr += '<br><br>'
       }
       texteCorr += `$${nomM + nomN}=\\dfrac{${texNombrec(Math.abs(k) * ac)}\\times${texNombre(ab)}}{${texNombre(ac)}}=${texNombrec(Math.abs(k) * ab)}$ cm`
@@ -176,7 +176,7 @@ export default function Thales2D () {
         texteCorr += '<br><br>'
         texteCorr += `donc $${texNombrec(Math.abs(k) * ac)}\\times ${nomC + nomB}=${texNombre(ac)}\\times ${texNombrec(Math.abs(k) * bc)}$.`
         texteCorr += '<br><br>'
-        texteCorr += `On divise les deux membres par ${texNombrec(Math.abs(k) * ac)}.`
+        texteCorr += `On divise les deux membres par $${texNombrec(Math.abs(k) * ac)}$.`
         texteCorr += '<br><br>'
       }
       texteCorr += `$${nomC + nomB}=\\dfrac{${texNombrec(Math.abs(k) * bc)}\\times${texNombre(ac)}}{${texNombrec(Math.abs(k) * ac)}}=${texNombrec(bc)}$ cm`

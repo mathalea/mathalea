@@ -1,6 +1,6 @@
 import { pointAdistance, point, segment, rotation, cercle, tracePoint, mathalea2d, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, arrondi, texNombre, contraindreValeur, randint, interactivite, texNombrec } from '../../modules/outils.js'
+import { listeQuestionsToContenu, arrondi, texNombre, contraindreValeur, randint, interactivite, texNombrec, stringNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -18,7 +18,7 @@ export const amcType = 'AMCHybride'
  * * 3 : Calculer le périmètre et l'aire de disques
  *
  * Pas de version LaTeX
- * @author Rémi Angot (AMC-isé par EE)
+ * @author Rémi Angot (AMC par EE)
  * Référence 6M22-1
  */
 export default function PerimetreAireDisques (pa = 3) {
@@ -130,7 +130,7 @@ export default function PerimetreAireDisques (pa = 3) {
       if (this.questionJamaisPosee(i, r, type)) {
         if (this.sup === 1) {
           if (context.isHtml && this.interactif) {
-            setReponse(this, 2 * i, texNombre(reponseL1) + '\\pi', { formatInteractif: 'texte' })
+            setReponse(this, 2 * i, stringNombre(reponseL1) + '\\pi', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, reponseL2, { formatInteractif: 'calcul' })
             texte += 'Périmètre : ' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteApres: ' cm' })
             texte += ' $\\approx$' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteApres: ' cm' })
@@ -184,7 +184,7 @@ export default function PerimetreAireDisques (pa = 3) {
           }
         } else if (this.sup === 2) {
           if (context.isHtml && this.interactif) {
-            setReponse(this, 2 * i, texNombre(reponseA1) + '\\pi', { formatInteractif: 'texte' })
+            setReponse(this, 2 * i, stringNombre(reponseA1) + '\\pi', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, reponseA2, { formatInteractif: 'calcul' })
             texte += 'Aire : ' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteApres: ' cm^2' })
             texte += ' $\\approx$' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteApres: ' cm^2' })
@@ -238,9 +238,9 @@ export default function PerimetreAireDisques (pa = 3) {
           }
         } else {
           if (context.isHtml && this.interactif) {
-            setReponse(this, 4 * i, texNombre(reponseL1) + '\\pi', { formatInteractif: 'texte' })
+            setReponse(this, 4 * i, stringNombre(reponseL1) + '\\pi', { formatInteractif: 'texte' })
             setReponse(this, 4 * i + 1, reponseL2, { formatInteractif: 'calcul' })
-            setReponse(this, 4 * i + 2, texNombre(reponseA1) + '\\pi', { formatInteractif: 'texte' })
+            setReponse(this, 4 * i + 2, stringNombre(reponseA1) + '\\pi', { formatInteractif: 'texte' })
             setReponse(this, 4 * i + 3, reponseA2, { formatInteractif: 'calcul' })
             texte += 'Périmètre : ' + ajouteChampTexteMathLive(this, 4 * i, 'largeur10 inline')
             texte += ' cm $\\approx $' + ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur10 inline') + ' cm'

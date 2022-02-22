@@ -83,7 +83,7 @@ export const interactifType = 'mathLive'
               ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
             })
-            setReponse(this, i, texPrix(pg))
+            setReponse(this, i, pg)
           } else if (a === 2) {
             index = randint(0, 7)
             np = randint(1, 10)
@@ -99,7 +99,7 @@ export const interactifType = 'mathLive'
               ligne2: [`\\text{Masse des ${o} (en kg)}`, `${texMasse(pp)}`, `${miseEnEvidence(texMasse(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
             })
-            setReponse(this, i, texMasse(pg))
+            setReponse(this, i, pg)
           } else if (a === 3) {
             index = randint(0, 7)
             np = randint(1, 10)
@@ -107,14 +107,14 @@ export const interactifType = 'mathLive'
             ng = np * cm
             pp = np * randint(11, 48) / 10
             pg = cm * pp
-            texte = `${np} objets occupent un volume de ${texNombre(pp)} cm³. Quel volume serait occupé par ${ng} de ces objets ? `
+            texte = `${np} objets occupent un volume de $${texNombre(pp)}$ cm³. Quel volume serait occupé par ${ng} de ces objets ? `
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: ['\\text{Nombre d\'objets}', np, ng],
               ligne2: ['\\text{Volume des objets (en cm³)}', `${texNombre(pp)}`, `${miseEnEvidence(texNombrec(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
             })
-            setReponse(this, i, texNombrec(pg))
+            setReponse(this, i, pg)
           }
           texteCorr = mathalea2d({ xmin: -1, xmax: 16, ymin: 0, ymax: 7.5, style: 'display: block' }, monTableau)
           break
@@ -135,21 +135,21 @@ export const interactifType = 'mathLive'
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]],
               largeurTitre: 9
             })
-            setReponse(this, i, texPrix(pp))
+            setReponse(this, i, pp)
           } else if (a === 2) {
             np = randint(1, 10)
             cm = randint(2, 7)
             ng = np * cm
             pp = np * randint(40, 60)
             pg = cm * pp
-            texte = `${prenom()} peint une surface de ${pg} m² en ${ng} jours. Quelle surface serait peinte en ${np} jours ? `
+            texte = `${prenom()} peint une surface de $${pg}$ m² en ${ng} jours. Quelle surface serait peinte en ${np} jours ? `
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: ['\\text{Durée (en jours)}', ng, np],
               ligne2: ['\\text{Surface peinte (en m²)}', `${texNombre(pg)}`, `${miseEnEvidence(texNombre(pp))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]]
             })
-            setReponse(this, i, texNombre(pp))
+            setReponse(this, i, pp)
           } else if (a === 3) {
             index = randint(0, 7)
             np = randint(1, 10)
@@ -165,7 +165,7 @@ export const interactifType = 'mathLive'
               ligne2: [`\\text{Masse des ${o} (en kg)}`, `${texMasse(pg)}`, `${miseEnEvidence(texMasse(pp))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]]
             })
-            setReponse(this, i, texMasse(pp))
+            setReponse(this, i, pp)
           }
           texteCorr = mathalea2d({ xmin: -1, xmax: 16, ymin: 0, ymax: 7.5, style: 'display: block' }, monTableau)
           break
@@ -186,14 +186,14 @@ export const interactifType = 'mathLive'
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]],
               largeurTitre: 9
             })
-            setReponse(this, i, texPrix(pg))
+            setReponse(this, i, pg)
           } else if (a === 2) {
             pu = randint(40, 60)
             np = randint(2, 10)
             pp = pu * np
             ng = randint(2, 10, np)
             pg = pu * ng
-            texte = `${prenom()} peint une surface de ${pp} m² en ${np} jours. Quelle surface serait peinte en ${ng} jours ? `
+            texte = `${prenom()} peint une surface de $${pp}$ m² en ${np} jours. Quelle surface serait peinte en ${ng} jours ? `
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: ['\\text{Durée (en jours)}', np, 1, ng],
@@ -216,7 +216,7 @@ export const interactifType = 'mathLive'
               ligne2: [`\\text{Masse des ${o} (en kg)}`, `${texMasse(pp)}`, `${miseEnEvidence(texMasse(pu))}`, `${miseEnEvidence(texMasse(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]]
             })
-            setReponse(this, i, texMasse(pg))
+            setReponse(this, i, pg)
           }
           texteCorr = mathalea2d({ xmin: -1, xmax: 19, ymin: 0, ymax: 7.5, style: 'display: block' }, monTableau)
 
@@ -228,21 +228,21 @@ export const interactifType = 'mathLive'
             np = randint(10, 14)
             cm = randint(2, 4)
             ng = np * cm
-            texte = `${prenom()} mesure ${texNombre(tp)} m à ${np} ans. Quelle sera sa taille à ${ng} ans ?`
+            texte = `${prenom()} mesure $${texNombre(tp)}$ m à ${np} ans. Quelle sera sa taille à ${ng} ans ?`
             texteCorr = 'On ne peut pas savoir car la taille n\'est pas proportionnelle à l\'âge.'
           } else if (a === 2) {
             tp = randint(30, 45)
             np = randint(10, 13)
             cm = randint(2, 5)
             ng = np * cm
-            texte = `${prenom()} pèse ${texNombre(tp)} kg à ${np} ans. Quelle sera son poids à ${ng} ans ?`
+            texte = `${prenom()} pèse $${texNombre(tp)}$ kg à ${np} ans. Quelle sera son poids à ${ng} ans ?`
             texteCorr = 'On ne peut pas savoir car le poids (plus précisément la masse) n\'est pas proportionnel à l\'âge.'
           } else if (a === 3) {
             tp = randint(35, 39)
             np = randint(10, 13)
             cm = randint(2, 5)
             ng = np * cm
-            texte = `${prenom()} chausse du ${texNombre(tp)} à ${np} ans. Quelle sera sa pointure à ${ng} ans ?`
+            texte = `${prenom()} chausse du *${texNombre(tp)}$ à ${np} ans. Quelle sera sa pointure à ${ng} ans ?`
             texteCorr = 'On ne peut pas savoir car la pointure n\'est pas proportionnelle à l\'âge.'
           }
 

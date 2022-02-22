@@ -22,6 +22,7 @@ export default function signefonctionaffine () {
   this.spacingCorr = 1
   this.sup = 1
   this.sup2 = false
+  this.listePackages = ['tkz-tab']
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
@@ -114,18 +115,19 @@ export default function signefonctionaffine () {
           hauteurLignes: [15, 15]
         }))
 
-        texteCorr += 'Pour illustrer la situation, on peut représenter graphiquement la fonction :<br><br>'
+        texteCorr += '<br>Pour illustrer la situation, on peut représenter graphiquement la fonction :<br><br>'
         const f = x => a * x + b
         monRepere = repere2()
         maCourbe = courbe2(f, { repere: monRepere })
-        const A = point(-b / a, 0, `$${this.sup2 ? texFractionReduite(-b, a) : 'x_0'}$`)
+        const A = point(-b / a, 0, `${this.sup2 ? solution : 'x_0'}`)
         lA = labelPoint(A, 'red')
         tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
         texteCorr += mathalea2d({
           xmin: -5,
           ymin: -5,
           xmax: 6,
-          ymax: 6
+          ymax: 6,
+          scale: 0.5
         }, monRepere, maCourbe, tA, lA)
       }
 

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, texNombre, texteEnCouleurEtGras, texteGras, prenomM, arrondi, prenomF, nomDuMois, jour, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, texteGras, prenomM, arrondi, prenomF, nomDuMois, jour, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes, sp } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC
@@ -201,9 +201,9 @@ export default function ExerciceInformationsProblemes () {
           quidam = prenomM()
           nb1 = randint(2, 5)
           nb2 = choice([250, 500, 600, 750])
-          nb3 = texNombre(arrondi(randint(10, 50) / 10 + randint(1, 9) / 100))
+          nb3 = stringNombre(arrondi(randint(10, 50) / 10 + randint(1, 9) / 100))
           nb4 = randint(2, 5, [nb1])
-          nb5 = texNombre(arrondi(randint(20, 40) / 10 + randint(1, 9) / 100))
+          nb5 = stringNombre(arrondi(randint(20, 40) / 10 + randint(1, 9) / 100))
           texte += `Au marché, ${quidam} achète ${nb1} barquettes de haricots verts de ${nb2}${sp(1)}g chacune à ${nb3}${sp(1)}€ pièce `
           texte += ` et ${nb4}${sp(1)}ananas coûtant ${nb5}${sp(1)}€ l'unité.<br>`
 
@@ -449,7 +449,7 @@ export default function ExerciceInformationsProblemes () {
           personnage1 = choice(FamilleH)
           quidam2 = prenomF()
           nb1 = '1 h ' + 5 * randint(1, 10) + ' min'
-          nb2 = texNombre(arrondi(randint(50, 90) / 10 + randint(1, 9) / 100))
+          nb2 = stringNombre(arrondi(randint(50, 90) / 10 + randint(1, 9) / 100))
           nb3 = randint(5, 9)
           nb4 = choice([10, 20, 50])
           nb5 = 4 * randint(12, 24)
@@ -708,7 +708,7 @@ export default function ExerciceInformationsProblemes () {
           nb1 = choice([15, 18, 21])
           nb2 = randint(214, 625)
           nb3 = randint(15, 18)
-          nb4 = texNombre(arrondi(randint(2054, 3298) / 100))
+          nb4 = stringNombre(arrondi(randint(2054, 3298) / 100))
           nb5 = choice([2, 3, 4, 6, 12])
           texte += `La ${personnage1} de ${quidam2} lui a acheté un superbe vélo de ${nb1} vitesses, coûtant ${nb2} €, avec des roues de ${nb3} pouces. `
           texte += `Pour la protéger, son ${quidam} lui a offert un casque et du matériel d'éclairage valant ${nb4} €. `
@@ -834,7 +834,7 @@ export default function ExerciceInformationsProblemes () {
           nb1 = randint(0, 3)
           nb2 = ['3ème', '4ème', '5ème', '6ème'][nb1]
           nb3 = [14, 13, 12, 11][nb1]
-          nb4 = texNombre(arrondi(randint(132, 151) / 100))
+          nb4 = stringNombre(arrondi(randint(132, 151) / 100))
           nb5 = randint(21, 42)
           texte += `${quidam}, un élève de ${nb2}, de ${nb3} ans, mesure ${nb4} m. `
           texte += `${quidam2} a ${nb1 + 2} ans de plus que ${quidam} et mesure ${nb5} cm de plus.<br>`
@@ -958,7 +958,7 @@ export default function ExerciceInformationsProblemes () {
           nb1 = randint(45, 58)
           nb2 = randint(3, 5)
           nb3 = randint(7, 9) + ' h ' + 5 * randint(2, 11) + ' min'
-          nb4 = texNombre(arrondi(randint(9, 15, [10]) / 10), 1) + '0'
+          nb4 = stringNombre(arrondi(randint(9, 15, [10]) / 10), 1) + '0'
           nb5 = 5 * randint(4, 11)
           texte += `Le ${personnage1} de ${quidam}, âgé de ${nb1} ans, se rend ${nb2} fois par semaine à ${choice(['Paris', 'Toulouse', 'Bordeaux', 'Rouen'])} en train. `
           texte += `Une fois arrivé, il prend le métro à ${nb3}, après avoir acheté systèmatiquement le même journal, dans un kiosque de la gare, qui coûte ${nb4} €. Son trajet en métro dure ${nb5} minutes pour se rendre au travail.<br>`

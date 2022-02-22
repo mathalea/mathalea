@@ -47,7 +47,7 @@ export default function FeuilleDeZooms () {
           axeCouleur: 'black',
           axeHauteur: 4,
           labelsPrincipaux: false,
-          // labelListe: [[origine, `${texNombre(origine)}`], [extreme, `${texNombre(extreme)}`]],
+          // labelListe: [[origine, `$${texNombre(origine)}$`], [extreme, `$${texNombre(extreme)}$`]],
           pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
