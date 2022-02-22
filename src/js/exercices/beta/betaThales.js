@@ -346,14 +346,14 @@ export default function exercicesThales () {
           // Bug ? http://localhost:8080/mathalea.html?ex=betaThales,s=10
           // Manque le point D : http://localhost:8080/mathalea.html?ex=betaThales,s=all,n=24&serie=M3k4&v=ex&z=1
           // Manque le point D : http://localhost:8080/mathalea.html?ex=betaThales,s=all,n=24&serie=2498&v=ex&z=1
-          const graphic = new GraphicView(0, 0, 10, 7)
+          /* const graphic = new GraphicView(0, 0, 10, 7)
           graphic.clipVisible = true
           const [A, B, C] = graphic.addNotAlignedPoint()
           const D = graphic.addNotAlignedPoint(A, B)[2]
           const dAB = graphic.addLine(A, B)
           const dAC = graphic.addLine(A, C)
           const dBD = graphic.addLine(B, D)
-          // exercice = graphic.getMathalea2DExport(A, B, C, D, dAB, dAC, dBD)
+          exercice = graphic.getMathalea2DExport(A, B, C, D, dAB, dAC, dBD) */
           break
         }
         case 11: {
