@@ -42,10 +42,10 @@ export default function Perimetre () {
     const pol = polygoneAvecNom(A, B, C, D) // polygoneAvecNom s'occupe du placement des noms des sommets
 
     objets.push(pol[0], pol[1], tracePoint(A, B, C, D)) // pol[0], c'est le tracé et pol[1] ce sont les labels
-    objets.push(texteParPosition(`${texNombrec(b)}m`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true),
-      texteParPosition(`${texNombrec(a)}m`, milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
-      texteParPosition(`${texNombrec(c)}m`, milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true),
-      texteParPosition(`${texNombrec(d)}m`, milieu(C, D).x, milieu(C, D).y + 0.5, 'milieu', 'black', 1, 'middle', true))
+    objets.push(texteParPosition(`$${texNombrec(b)}\\text{m}$`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true),
+      texteParPosition(`$${texNombrec(a)}\\text{m}$`, milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
+      texteParPosition(`$${texNombrec(c)}\\text{m}$`, milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true),
+      texteParPosition(`$${texNombrec(d)}\\text{m}$`, milieu(C, D).x, milieu(C, D).y + 0.5, 'milieu', 'black', 1, 'middle', true))
 
     this.question = `Quel est le périmètre de ce quadrilatère $${nom}$ ?<br>` +
      mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
