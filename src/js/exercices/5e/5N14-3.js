@@ -84,7 +84,7 @@ export default function EqResolvantesThales () {
       */
       function showFracNumDenDec (num, den) {
         const f = fraction(num, den)
-        return `\\dfrac{${texNombre(f.num)}}{${texNombre(f.den)}}`
+        return `\\dfrac{${texNombre(f.num, 2)}}{${texNombre(f.den, 2)}}`
       }
 
       /**
@@ -107,11 +107,7 @@ export default function EqResolvantesThales () {
           D'autre part, $${texNombre(f.den)}\\times ${texNombre(fEqOrNot.num)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num))}$.<br>
           On constate que les produits en croix sont égaux.<br>
           `
-          if (Number.isInteger(f.num)) {
-            strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ sont donc égales.`
-          } else {
-            strOut += `Les fractions $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ sont donc égales.`
-          }
+          strOut += `Les fractions $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ sont donc égales.`
         } else {
           strOut = `D'une part, $${texNombre(f.num)}\\times ${texNombre(fEqOrNot.den)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den))}$.<br>
           D'autre part, $${texNombre(f.den)}\\times ${texNombre(fEqOrNot.num)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num))}$.<br>
