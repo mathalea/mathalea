@@ -275,32 +275,51 @@ function contenuExerciceHtml (obj, numeroExercice) {
   let contenuUneCorrection = ''
   let paramTooltip = ''
   let iconeInteractif = ''
-  if (obj.typeExercice === 'crpe') {
-    contenuUnExercice += ` Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`
+  if (obj.typeExercice === 'crpe' || obj.typeExercice === 'dnb') {
+    const crpe = {
+      titreEx: ` Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`,
+      titreExCorr: `<h3 class="ui dividing header">Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial} - Correction par la Copirelem</h3>`
+    }
+
+    const dnb = {
+      titreEx: ` Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`,
+      titreExCorr: `<h3 class="ui dividing header">Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+    }
+
+    contenuUnExercice += obj.typeExercice === 'crpe' ? crpe.titreEx : dnb.titreEx
     contenuUnExercice += '<div><div class="question">'
-    for (const png of obj.png) {
-      contenuUnExercice += `<img width="90%" src="${png}">`
+    if (obj.typeExercice === 'crpe') {
+      let i = 1
+      for (const png of obj.png) {
+        contenuUnExercice += `<img id="${obj.id}-${i}" width="90%" src="${png}">`
+        i++
+      }
+    } else {
+      contenuUnExercice += `<img id="${obj.id}" width="90%" src="${obj.png}"></img>`
     }
     contenuUnExercice += '</div></div>'
-    contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${
-        obj.numeroInitial} - Correction par la Copirelem</h3>`
+    contenuUneCorrection += obj.typeExercice === 'crpe' ? crpe.titreExCorr : dnb.titreExCorr
     if (obj.correctionIsCachee) {
-      contenuUneCorrection += obj.correctionIsCachee ? '<div><div class="correction">Correction masquée</div></div>' : `<div><div class="correction"><img width="90%" src="${obj.pngcor}"></div></div>`
+      contenuUneCorrection += '<div><div class="correction">Correction masquée</div></div>'
     } else {
       contenuUneCorrection += '<div><div class="correction">'
-      for (const png of obj.pngCor) {
-        contenuUneCorrection += `<img width="90%" src="${png}">`
+      if (obj.typeExercice === 'crpe') {
+        let i = 1
+        for (const png of obj.pngCor) {
+          contenuUneCorrection += `<img id="${obj.id}-${i}Cor" width="90%" src="${png}">`
+          i++
+        }
+      } else {
+        contenuUneCorrection += `<img id="${obj.id}Cor" width="90%" src="${obj.pngcor}">`
       }
       contenuUneCorrection += '</div></div>'
     }
     obj.video = false
-  } else if (obj.typeExercice === 'dnb') {
-    contenuUnExercice += ` Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
-    contenuUnExercice += `<div><div class="question"><img width="90%" src="${obj.png}"></div></div>`
-    contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${
-        obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
-    contenuUneCorrection += obj.correctionIsCachee ? '<div><div class="correction">Correction masquée</div></div>' : `<div><div class="correction"><img width="90%" src="${obj.pngcor}"></div></div>`
-    obj.video = false
+    // Pour permettre l'ajout d'exos DNB statiques et l'affichage de la correction dans la vue eval
+    if (obj.interactif || obj.interactifObligatoire) {
+      contenuUnExercice += `<button class="ui button blue checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
+      exerciceInteractif(obj)
+    }
   } else if (obj.typeExercice === 'simple') {
     if (obj.interactif) {
       iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
@@ -902,7 +921,8 @@ function miseAJourDuCode () {
 <mathalea-moodle ex\\="${id.replace(/[~=#{}:]/g, '\\$&')},${params.replace(/[~=#{}:]/g, '\\$&')}" />
 {
   =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
-  #### <mathalea-moodle ex\\="${id.replace(/[~=#{}:]/g, '\\$&')},${params.replace(/[~=#{}:]/g, '\\$&')}" correction />
+  #### <script src\\="${mathAleaURL.replace(/[~=#{}:]/g, '\\$&')}assets/externalJs/moodle.js" type\\="module"></script>
+  <mathalea-moodle ex\\="${id.replace(/[~=#{}:]/g, '\\$&')},${params.replace(/[~=#{}:]/g, '\\$&')}" correction />
 }
 `
       }

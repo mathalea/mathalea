@@ -254,7 +254,7 @@ export default function CalculProbaExperience2Epreuves2e () {
     const tableau = tableauColonneLigne(ligneEnt, colonneEnt, contenu)
 
     omega.setTailles() // On calcule les tailles des arbres.
-    const objets = omega.represente(0, 12, 0, sup2 ? 2.5 : 1.6, false, -1, 8) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+    const objets = omega.represente(0, 12, 0, sup2 ? 2.5 : 1.4, false, -1, 8) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
     const choix = choice([[nbBoule1, b1Color, b1Char], [nbBoule2, b2Color, b2Char]])
     const probaChoix = fraction(choix[0] ** 2, card ** 2)
     const proba1 = fraction(nbBoule1 ** 2, card ** 2)

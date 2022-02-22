@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 428 
-- nombre d'exos interactifReady 579 
+- nombre d'exos amcReady 429 
+- nombre d'exos interactifReady 587 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -47,6 +47,7 @@
 |2N41-3|Développer (a-b)(a+b)|KO|KO|OK|mathLive|
 |2N41-4|Développer (a+b)²|KO|KO|OK|mathLive|
 |2N41-5|Développer (a-b)²|KO|KO|OK|mathLive|
+|2N41-6|Développer avec les identités remarquables|KO|KO|OK|mathLive|
 |2N51-4|Équations du premier degré|OK|AMCHybride|OK|mathLive|
 |2N51-5|Équations du premier degré (utilisant la distributivité)|KO|KO|OK|mathLive|
 |2S10-2|Calculer une proportion ou appliquer un pourcentage|OK|AMCNum|OK|mathLive|
@@ -83,6 +84,8 @@
 |3G32-1|Calcul d’un parallèle terrestre|OK|AMCOpenNum|OK|mathLive|
 |3G42|Volume d’une boule|OK|AMCNum|OK|mathLive|
 |3G43|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
+|3L10-1|Additionner ou soustraire une expression entre parenthèses|KO|KO|OK|mathLive|
+|3L10|Donner l’opposé d’une expression|KO|KO|OK|mathLive|
 |3L11-1|Utiliser la double distributivité|OK|AMCOpenNum✖︎3|OK|mathLive|
 |3L11-2|Réduire une expression|OK|AMCHybride|OK|mathLive|
 |3L11-3|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
@@ -95,6 +98,7 @@
 |3L12|Factoriser a²-b²|KO|KO|OK|mathLive|
 |3L13-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
 |3L13-1|Équation du premier degré (utilisant la distributivité)|KO|KO|OK|mathLive|
+|3L13-3|Problèmes à mettre en équation et à résoudre|OK|AMCNum|OK|mathLive|
 |3L13|Équation du premier degré|OK|AMCHybride|OK|mathLive|
 |3L15-1|Résoudre une équation $x^2 = a$|KO|KO|OK|mathLive|
 |3P10-1|Coefficient multiplicateur d’une variation en pourcentage|KO|KO|OK|mathLive|
@@ -365,6 +369,10 @@
 |can1L02|Déterminer le nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
 |can1P01|Calculer des probabilités à partir d’un arbre|OK|AMCNum|OK|mathLive|
 |can1S01|Calculer un terme d’une suite explicite|KO|KO|OK|mathLive|
+|can1S02|Calculer un terme d’une suite récurrente|KO|KO|OK|mathLive|
+|can1S03|Calculer un terme d’une suite récurrente*|KO|KO|OK|mathLive|
+|can1S04|Donner la nature d’une suite (formule de récurrence)|KO|KO|OK|qcm|
+|can1S05|Donner la nature d’une suite (formule explicite)|KO|KO|OK|qcm|
 |can2C01|Trouver le nombre d’entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can2C02|Calculer une différence de deux carrés|OK|AMCNum|OK|mathLive|
 |can2C03|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
