@@ -761,7 +761,7 @@ function isContentSymbolNode (node) {
 * @param {Objet} params // Les paramètres (commentaires visibles)
 * @param {string} equation // Une équation ou une inéquation
 * @example
-* resoudre('2*x+4=4*x-5') --> Donne les étapes de la résoltion de l'équation
+* resoudre('2*x+4=4*x-5') --> Donne les étapes de la résolution de l'équation
 * resoudre('2*x+4=4*x-5'), {comment: true}) --> Ajoute les commentaires
 * resoudre('2*x+4=4*x-5', {color: blue}) -> Met en bleu les changements à chaque étape
 * resoudre('2*x+4=4*x-5', {substeps: true}) --> Ajoute les sous-étapes
