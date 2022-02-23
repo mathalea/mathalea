@@ -76,7 +76,7 @@ export const interactifType = 'mathLive'
             pp = np * randint(8, 9) * ([objets[index][1]]) / 10
             pg = cm * pp
             o = choice([objets[index][0]])
-            texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
+            texte = `${prenom()} achète ${np} ${np === 1 ? o.slice(0, -1) : o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: [`\\text{Nombre de ${o}}`, np, ng],
@@ -128,7 +128,7 @@ export const interactifType = 'mathLive'
             pp = np * randint(8, 9) / 10
             pg = cm * pp
             o = choice([objets[index][0]])
-            texte = `${prenom()} achète ${ng} ${o} pour ${texPrix(pg)} €. Combien faudrait-il payer pour en acheter ${np} ? `
+            texte = `${prenom()} achète ${ng} ${ng === 1 ? o.slice(0, -1) : o} pour ${texPrix(pg)} €. Combien faudrait-il payer pour en acheter ${np} ? `
             monTableau = tableau({
               ligne1: [`\\text{Nombre de ${o}}`, ng, np],
               ligne2: ['\\text{Prix (en euros)}', `${texPrix(pg)}`, `${miseEnEvidence(texPrix(pp))}`],
@@ -142,7 +142,7 @@ export const interactifType = 'mathLive'
             ng = np * cm
             pp = np * randint(40, 60)
             pg = cm * pp
-            texte = `${prenom()} peint une surface de $${pg}$ m² en ${ng} jours. Quelle surface serait peinte en ${np} jours ? `
+            texte = `${prenom()} peint une surface de $${pg}$ m² en ${ng} jours. Quelle surface serait peinte en ${np} ${np === 1 ? 'jour' : 'jours'} ? `
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: ['\\text{Durée (en jours)}', ng, np],
@@ -179,7 +179,7 @@ export const interactifType = 'mathLive'
             ng = randint(2, 10, np)
             pg = pu * ng
             o = choice([objets[index][0]])
-            texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
+            texte = `${prenom()} achète ${np} ${np === 1 ? o.slice(0, -1) : o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
             monTableau = tableau({
               ligne1: [`\\text{Nombre de ${o}}`, np, 1, ng],
               ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pu))}`, `${miseEnEvidence(texPrix(pg))}`],
@@ -242,16 +242,17 @@ export const interactifType = 'mathLive'
             np = randint(10, 13)
             cm = randint(2, 5)
             ng = np * cm
-            texte = `${prenom()} chausse du *${texNombre(tp)}$ à ${np} ans. Quelle sera sa pointure à ${ng} ans ?`
+            texte = `${prenom()} chausse du $${texNombre(tp)}$ à ${np} ans. Quelle sera sa pointure à ${ng} ans ?`
             texteCorr = 'On ne peut pas savoir car la pointure n\'est pas proportionnelle à l\'âge.'
           }
 
           setReponse(this, i, 'non')
       }
+      this.consigne = 'On considère que les situations suivantes, sauf cas flagrant, sont des situations de proportionnalité. <br>'
       if (!this.interactif) {
-        this.consigne = 'On considère que les situations suivantes, sauf cas flagrant, sont des situations de proportionnalité. <br>On demande de les résoudre à l\'aide d\'un tableau.'
+        this.consigne += 'On demande de les résoudre à l\'aide d\'un tableau.'
       } else {
-        this.consigne = 'On considère que les situations suivantes, sauf cas flagrant, sont des situations de proportionnalité. <br>Attention à donner le résultat avec le bon format : deux chiffres après la virgule si c\'est un prix, trois si c\'est une masse; écrire "non" si ce n\'est pas une situation de proportionnalité.'
+        this.consigne += 'Attention à donner le résultat avec le bon format : deux chiffres après la virgule si c\'est un prix, trois si c\'est une masse; écrire "non" si ce n\'est pas une situation de proportionnalité.'
       }
       texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
