@@ -35,6 +35,7 @@
 |2N31-1|Notation scientifique|OK|AMCNum|OK|mathLive|
 |2N31-2|Puissances : le sens des règles de calculs|OK|AMCNum|OK|mathLive|
 |2N31-4|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
+|2N31-5|Calculer avec des nombres en écriture scientifique|KO|KO|OK|mathLive|
 |2N32-4|Simplifier une somme de racines carrées|KO|KO|OK|mathLive|
 |2N40-1|Traduire un programme de calcul par une expression littérale|OK|qcmMono|OK|qcm|
 |2N40-2|Calculer la valeur d'une expression littérale.|KO|KO|OK|mathLive|
