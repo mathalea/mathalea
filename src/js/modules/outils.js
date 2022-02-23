@@ -2498,8 +2498,7 @@ export function numberFormat (nb) {
 * Renvoie un nombre dans le format français (séparateur de classes)
 * @author Rémi Angot
 */
-export function texNombre (nb, precision = 12) {
-  // Ecrit \numprint{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces en latex)
+export function texNombre (nb, precision = 8) {
   // Ajoute des accolades autour de la virgule {,} pour supprimer l'espace "disgracieux" qui le suit dans l'écriture décimale des nombres sinon.
   // arrondit pour avoir precision chiffres après la virgule si possible
   const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
@@ -2509,10 +2508,10 @@ export function texNombre (nb, precision = 12) {
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
   let result
   try {
-    result = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb).replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+    result = Number(nb).toLocaleString({ locales: 'fr-FR', maximumSignificantDigits }).replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
   } catch (error) {
     console.log(error)
-    result = 'Too much decimals'
+    result = 'Trop de chiffres'
   }
   return result
 }
