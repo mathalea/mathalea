@@ -240,11 +240,11 @@ export default function ProprietesParallelesPerpendiculaires () {
         texteCorr += `$(d_${numDroites[code[j][0] - 1]})`
         if (code[j][2] === 1) texteCorr += '//'
         else texteCorr += '\\perp'
-        texteCorr += `$(d_${numDroites[code[j][1] - 1]})$ et `
+        texteCorr += `(d_${numDroites[code[j][1] - 1]})$ et `
         texteCorr += `$(d_${numDroites[code[j + 1][0] - 1]})`
         if (code[j + 1][2] === 1) texteCorr += '//'
         else texteCorr += '\\perp'
-        texteCorr += `$(d_${numDroites[code[j + 1][1] - 1]})$`
+        texteCorr += `(d_${numDroites[code[j + 1][1] - 1]})$`
         // quelle propriété ?
         if (code[j][2] * code[j + 1][2] === -1) { // Une parallèle et une perpendiculaire
           if (this.correctionDetaillee) texteCorr += '.<br> Or «Si deux droites sont parallèles alors toute droite perpendiculaire à l\'une est aussi perpendiculaire à l\'autre».<br>Donc'

@@ -134,33 +134,33 @@ export default function ComparerDecimaux () {
           break
       }
 
-      texte = `${texNombre(x)}${sp(3)}\\ldots\\ldots${sp(3)}${texNombre(y)}`
+      texte = `$${texNombre(x)}${sp(3)}\\ldots\\ldots${sp(3)}${texNombre(y)}$`
       if (parseFloat(x) > parseFloat(y)) {
-        texteCorr = `${texNombre(x)} > ${texNombre(y)}`
+        texteCorr = `$${texNombre(x)} > ${texNombre(y)}$`
       } else if (parseFloat(x) < parseFloat(y)) {
-        texteCorr = `${texNombre(x)} < ${texNombre(y)}`
+        texteCorr = `$${texNombre(x)} < ${texNombre(y)}$`
       } else {
-        texteCorr = `${texNombre(x)} = ${texNombre(y)}`
+        texteCorr = `$${texNombre(x)} = ${texNombre(y)}$`
       }
 
       if (zeroInutile) {
         if (randint(1, 2) === 1) {
-          texte = `${texPrix(x)}${sp(3)}\\ldots\\ldots${sp(3)}${texNombre(y)}`
+          texte = `$${texPrix(x)}${sp(3)}\\ldots\\ldots${sp(3)}${texNombre(y)}$`
           if (parseFloat(x) > parseFloat(y)) {
-            texteCorr = `${texPrix(x)} > ${texNombre(y)}`
+            texteCorr = `$${texPrix(x)} > ${texNombre(y)}$`
           } else if (parseFloat(x) < parseFloat(y)) {
-            texteCorr = `${texPrix(x)} < ${texNombre(y)}`
+            texteCorr = `$${texPrix(x)} < ${texNombre(y)}$`
           } else {
-            texteCorr = `${texPrix(x)} = ${texNombre(y)}`
+            texteCorr = `$${texPrix(x)} = ${texNombre(y)}$`
           }
         } else {
-          texte = `${texNombre(x)}${sp(3)}\\ldots\\ldots${sp(3)}${texPrix(y)}`
+          texte = `$${texNombre(x)}${sp(3)}\\ldots\\ldots${sp(3)}${texPrix(y)}$`
           if (parseFloat(x) > parseFloat(y)) {
-            texteCorr = `${texNombre(x)} > ${texPrix(y)}`
+            texteCorr = `$${texNombre(x)} > ${texPrix(y)}$`
           } else if (parseFloat(x) < parseFloat(y)) {
-            texteCorr = `${texNombre(x)} < ${texPrix(y)}`
+            texteCorr = `$${texNombre(x)} < ${texPrix(y)}$`
           } else {
-            texteCorr = `${texNombre(x)} = ${texPrix(y)}`
+            texteCorr = `$${texNombre(x)} = ${texPrix(y)}$`
           }
         }
       }

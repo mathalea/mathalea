@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, arrondi, htmlConsigne, lettreDepuisChiffre, combinaisonListes, listeQuestionsToContenu, randint, texNombre, contraindreValeur } from '../../modules/outils.js'
+import { calcul, arrondi, htmlConsigne, lettreDepuisChiffre, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
@@ -117,7 +117,7 @@ export default function LireAbscisseDecimaleBis2d () {
         labelsPrincipaux: false,
         thickSec: true,
         thickSecDist: 1 / pas2,
-        labelListe: [[0, `${texNombre(abs0)}`], [1, `${texNombre(calcul(abs0 + 1 / pas1))}`]],
+        labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + 1 / pas1))}`]],
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
       })
       d[2 * i + 1] = droiteGraduee2({
@@ -131,10 +131,10 @@ export default function LireAbscisseDecimaleBis2d () {
         thickSec: true,
         thickSecDist: 1 / pas2,
         labelListe: [
-          [0, `${texNombre(abs0)}`],
-          [xA, texNombre(calcul(xA / pas1 + abs0))],
-          [xB, texNombre(calcul(xB / pas1 + abs0))],
-          [xC, texNombre(calcul(xC / pas1 + abs0))]
+          [0, `${stringNombre(abs0)}`],
+          [xA, stringNombre(calcul(xA / pas1 + abs0))],
+          [xB, stringNombre(calcul(xB / pas1 + abs0))],
+          [xC, stringNombre(calcul(xC / pas1 + abs0))]
         ],
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
 

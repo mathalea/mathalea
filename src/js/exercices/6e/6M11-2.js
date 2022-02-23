@@ -1,6 +1,15 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenuSansNumero, randint, arrondi, calcul, texNombrec, texNombre, texTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, arrondi, texNombrec, texNombre, texTexte } from '../../modules/outils.js'
+import { afficheLongueurSegment, codageAngleDroit, codeSegments, fixeBordures, mathalea2d, point, polygoneAvecNom, segment } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import Grandeur from '../../modules/Grandeur.js'
 export const titre = 'Calculer périmètre et aire de figures composées'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * Deux figures composés de rectangles et de triangles sont tracés.
@@ -15,63 +24,167 @@ export const titre = 'Calculer périmètre et aire de figures composées'
  */
 export default function PerimetreOuAireDeFiguresComposees () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.pasDeVersionLatex = true
   this.titre = titre
-  this.consigne = "Calculer le périmètre et l'aire des 2 figures suivantes."
+  this.consigne = "Calculer le périmètre et l'aire des figures suivantes."
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
-  this.typeExercice = 'MG32'
-  this.dimensionsDivMg32 = [500, 500]
+  this.nbQuestionsModifiable = true
 
   this.nouvelleVersion = function (numeroExercice) {
+    this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const L1 = randint(4, 7)
-    let l1 = randint(2, 4)
-    const L2 = randint(2, 4)
-    if (L1 === l1) {
-      l1--
-    } // pour que le rectangle ne soit pas un carré
-    const c = randint(4, 7)
-    const h = randint(2, c - 1)
-    const codeBase64 =
-      'TWF0aEdyYXBoSmF2YTEuMAAAABI+TMzNAAJmcv###wEA#wEAAAAAAAAAAAQzAAACtAAAAQEAAAAAAAAAAQAAAKj#####AAAAAQAKQ0NhbGNDb25zdAD#####AAJwaQAWMy4xNDE1OTI2NTM1ODk3OTMyMzg0Nv####8AAAABAApDQ29uc3RhbnRlQAkh+1RELRj#####AAAAAQAKQ1BvaW50QmFzZQD#####AQAAAAAOAAFVAMAkAAAAAAAAQBAAAAAAAAAFAABAMU+dsi0OVkAxT52yLQ5W#####wAAAAEAFENEcm9pdGVEaXJlY3Rpb25GaXhlAP####8BAAAAABAAAAEAAQAAAAEBP#AAAAAAAAD#####AAAAAQAPQ1BvaW50TGllRHJvaXRlAP####8BAAAAAA4AAVYAwAAAAAAAAABAEAAAAAAAAAUAAUBBT52yLQ5WAAAAAv####8AAAABAAhDU2VnbWVudAD#####AQAAAAAQAAABAAEAAAABAAAAA#####8AAAABAAdDTWlsaWV1AP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAAABAAAAA#####8AAAACAAxDQ29tbWVudGFpcmUA#####wEAAAAAAAAAAAAAAABAGAAAAAAAAAAAAAUMAAAAAAABAAAAAAAAAAEAAAAAAAAAAAABMf####8AAAABAAlDTG9uZ3VldXIA#####wAAAAEAAAAD#####wAAAAEAB0NDYWxjdWwA#####wACTDEAATUAAAABQBQAAAAAAAAAAAAJAP####8AAmwxAAEzAAAAAUAIAAAAAAAAAAAACQD#####AAJMMgABMwAAAAFACAAAAAAAAAAAAAIA#####wAAAAABEAABQwBACAAAAAAAAAAAAAAAAAAABQABQFKgAAAAAABAaW4UeuFHrv####8AAAABABRDSW1wbGVtZW50YXRpb25Qcm90bwD#####ABtTZWdtZW50IGRlIGxvbmd1ZXVyIGRvbm7DqWUAAAAGAAAAAwAAAAIAAAAIAAAAC#####8AAAACAAlDQ2VyY2xlT1IAAAAADAEAAAAAAQAAAAv#####AAAAAQAPQ1Jlc3VsdGF0VmFsZXVyAAAACAD#####AAAAAQAPQ1BvaW50TGllQ2VyY2xlAQAAAAwAAAAAARAAAUQAQAgAAAAAAAAAAAAAAAAAAAUAAT++v3IzOUsjAAAADQAAAAUBAAAADAAAAAAAEAAAAQABAAAACwAAAA4AAAAGAAAAAAwBAAAAABAAAAEFAAAAAAsAAAAO#####wAAAAEAC0NNZWRpYXRyaWNlAAAAAAwBAAAAABAAAAEAAQAAAAsAAAAOAAAACwAAAAAMAQAAAAABAAAAEAAAAAFAMAAAAAAAAAH#####AAAAAQAQQ0ludERyb2l0ZUNlcmNsZQAAAAAMAAAAEQAAABL#####AAAAAQAQQ1BvaW50TGllQmlwb2ludAAAAAAMAQAAAAAQAAABBQABAAAAE#####8AAAABAA9DVmFsZXVyQWZmaWNoZWUBAAAADAAAAAABAAAAFBAAAAAAAAEAAAABAAAAAQAAAAAAAAAAAAAAAAEAAAAI#####wAAAAEAFkNEcm9pdGVQZXJwZW5kaWN1bGFpcmUA#####wEAAAAAEAAAAQABAAAACwAAAA8AAAASAP####8BAAAAABAAAAEAAQAAAA4AAAAPAAAACwD#####AQAAAAABAAAACwAAAAwAAAAJAAAAAAsA#####wEAAAAAAQAAAA4AAAAMAAAACQAAAAAPAP####8AAAAWAAAAGAAAABAA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAEAAAAaAAAAEAD#####AQAAAAAQAAFCAAAAAAAAAAAAQAgAAAAAAAAFAAIAAAAaAAAADwD#####AAAAFwAAABkAAAAQAP####8BAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQABAAAAHQAAABAA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAAAdAAAACwD#####AQAAAAABAAAAHwAAAAwAAAAKAP####8AAAABAAlDRHJvaXRlQUIA#####wEAAAAAEAAAAQABAAAAHAAAAB8AAAAPAP####8AAAAhAAAAIAAAABAA#####wEAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAIAAAAiAAAAEAD#####AQAAAAAQAAFBAAAAAAAAAAAAQAgAAAAAAAAFAAEAAAAi#####wAAAAEACUNQb2x5Z29uZQD#####AAAAAAABAAAABgAAAA4AAAALAAAAHAAAAB8AAAAkAAAADgAAAAoA#####wASTWVzdXJlIGRlIGxvbmd1ZXVyAAAABQAAAAIAAAACAAAAJAAAABwAAAAOAAAAACYBAAAAABAAAAEAAQAAACQAAAAcAAAABgAAAAAmAQAAAAAQAAABBQAAAAAkAAAAHAAAAAsAAAAAJgEAAAAAAQAAACgAAAABQDAAAAAAAAABAAAADwAAAAAmAAAAJwAAACkAAAAQAAAAACYBAAAAABAAAAEFAAEAAAAqAAAACAEAAAAmAAAAJAAAABwAAAARAQAAACYAAAAAAQAAACsRAAAAAAABAAAAAQAAAAEAAAAAAAAAAAAAAAABAAAALAAAAAoA#####wASTWVzdXJlIGRlIGxvbmd1ZXVyAAAABQAAAAIAAAACAAAAHAAAAAsAAAAOAAAAAC4BAAAAABAAAAEAAQAAABwAAAALAAAABgAAAAAuAQAAAAAQAAABBQAAAAAcAAAACwAAAAsAAAAALgEAAAAAAQAAADAAAAABQDAAAAAAAAABAAAADwAAAAAuAAAALwAAADEAAAAQAAAAAC4BAAAAABAAAAEFAAEAAAAyAAAACAEAAAAuAAAAHAAAAAsAAAARAQAAAC4AAAAAAQAAADMRAAAAAAABAAAAAQAAAAEAAAAAAAAAAAAAAAABAAAANP####8AAAACABdDTWFycXVlQW5nbGVHZW9tZXRyaXF1ZQD#####AAAAAAABAAAAAUAwAAAAAAAAAAAADgAAAAsAAAAcAAAAFQD#####AAAAAAABAAAAAUAwAAAAAAAAAAAACwAAABwAAAAkAAAAFQD#####AAAAAAABAAAAAUAwAAAAAAAAAAAAHAAAAB8AAAAOAAAAFQD#####AAAAAAABAAAAAUAwAAAAAAAAAAAACwAAAA4AAAAfAAAABQD#####AAAAAAAQAAABAQEAAAAfAAAADgAAAAoA#####wASTWVzdXJlIGRlIGxvbmd1ZXVyAAAABQAAAAEAAAACAAAADgAAACQAAAAOAAAAADsBAAAAABAAAAEAAQAAAA4AAAAkAAAABgAAAAA7AQAAAAAQAAABBQAAAAAOAAAAJAAAAAsAAAAAOwEAAAAAAQAAAD0AAAABQDAAAAAAAAABAAAADwAAAAA7AAAAPAAAAD4AAAAQAAAAADsBAAAAABAAAAEFAAEAAAA#AAAACAEAAAA7AAAADgAAACQAAAAJAP####8AAWMAATcAAAABQBwAAAAAAAAAAAACAP####8AAAAAABAAAABACAAAAAAAAAAAAAAAAAAABQABQGlwAAAAAABAfecKPXCj1wAAAAoA#####wAbU2VnbWVudCBkZSBsb25ndWV1ciBkb25uw6llAAAABgAAAAMAAAACAAAAQgAAAEMAAAALAAAAAEQBAAAAAAEAAABDAAAADAAAAEIAAAAADQEAAABEAAAAAAAQAAAAQAgAAAAAAAAAAAAAAAAAAAUAAT#LiKDqIUKnAAAARQAAAAUBAAAARAAAAAAAEAAAAQEBAAAAQwAAAEYAAAAGAAAAAEQBAAAAABAAAAEFAAAAAEMAAABGAAAADgAAAABEAQAAAAAQAAABAAEAAABDAAAARgAAAAsAAAAARAEAAAAAAQAAAEgAAAABQDAAAAAAAAABAAAADwAAAABEAAAASQAAAEoAAAAQAAAAAEQBAAAAABAAAAEFAAEAAABLAAAAEQEAAABEAAAAAAEAAABMEAAAAAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAQAAAEIAAAAKAP####8ADUNhcnLDqSBkaXJlY3QAAAAFAAAAAgAAAAIAAABDAAAARgAAAAUAAAAATgEAAAAAEAAAAQABAAAAQwAAAEYAAAASAAAAAE4AAAAAABAAAAEBAQAAAEMAAABP#####wAAAAEACUNDZXJjbGVPQQAAAABOAAAAAAEBAAAAQwAAAEYAAAAPAAAAAE4AAABQAAAAUQAAABABAAAATgEAAAAAEAABSAEFAAIAAABS#####wAAAAEADENUcmFuc2xhdGlvbgAAAABOAAAAQwAAAEb#####AAAAAQALQ1BvaW50SW1hZ2UBAAAATgEAAAAAEAABRwEFAAAAAFMAAABUAAAABQD#####AAAAAAAQAAABAQEAAABGAAAAVQAAAAUA#####wAAAAAAEAAAAQEBAAAAVQAAAFMAAAAFAP####8AAAAAABAAAAEBAQAAAFMAAABDAAAAFAD#####AQAAAAEBAAAABQAAAEMAAABGAAAAVQAAAFMAAABDAAAACQD#####AAFyAAEyAAAAAUAAAAAAAAAAAAAACwD#####AQAAAAEBAAAAUwAAAAwAAABaAAAAAA8A#####wAAAFcAAABbAAAAEAD#####AAAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAQAAAFwAAAAQAP####8BAAAAABAAAUYAAAAAAAAAAABACAAAAAAAAAUAAgAAAFwAAAASAP####8BAAAAABAAAAEBAQAAAF4AAABXAAAACQD#####AAFoAAE0AAAAAUAQAAAAAAAAAAAACwD#####AQAAAAEBAAAAXgAAAAwAAABgAAAAAA8A#####wAAAF8AAABhAAAAEAD#####AQAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAQAAAGIAAAAQAP####8BAAAAABAAAUUAAAAAAAAAAABACAAAAAAAAAUAAgAAAGIAAAAUAP####8AAAAAAAEAAAAGAAAAVQAAAEYAAABDAAAAUwAAAGQAAABVAAAABQD#####AAAAAAAQAAABAQEAAABeAAAAZP####8AAAABAA5DTWFycXVlU2VnbWVudAD#####AAAAAAABAQAAAFYAAAAZAP####8AAAAAAAEBAAAARwAAABkA#####wAAAAAAAQEAAABYAAAAFQD#####AAAAAAABAAAAAUAwAAAAAAAAAAAAVQAAAEYAAABDAAAAFQD#####AAAAAAABAAAAAUAwAAAAAAAAAAAARgAAAEMAAABTAAAAFQD#####AAAAAAABAAAAAUAwAAAAAAAAAAAAUwAAAFUAAABGAAAAFQD#####AAAAAAABAAAAAUAwAAAAAAAAAAAAVQAAAFMAAABDAAAACgD#####ABJNZXN1cmUgZGUgbG9uZ3VldXIAAAAFAAAAAQAAAAIAAABkAAAAXgAAAA4AAAAAbgEAAAAAEAAAAQABAAAAZAAAAF4AAAAGAAAAAG4BAAAAABAAAAEFAAAAAGQAAABeAAAACwAAAABuAQAAAAABAAAAcAAAAAFAMAAAAAAAAAEAAAAPAAAAAG4AAABvAAAAcQAAABAAAAAAbgEAAAAAEAAAAQUAAQAAAHIAAAAIAQAAAG4AAABkAAAAXgAAAAoA#####wASTWVzdXJlIGRlIGxvbmd1ZXVyAAAABQAAAAEAAAACAAAAVQAAAGQAAAAOAAAAAHUBAAAAABAAAAEAAQAAAFUAAABkAAAABgAAAAB1AQAAAAAQAAABBQAAAABVAAAAZAAAAAsAAAAAdQEAAAAAAQAAAHcAAAABQDAAAAAAAAABAAAADwAAAAB1AAAAdgAAAHgAAAAQAAAAAHUBAAAAABAAAAEFAAEAAAB5AAAACAEAAAB1AAAAVQAAAGQAAAAKAP####8AEk1lc3VyZSBkZSBsb25ndWV1cgAAAAUAAAABAAAAAgAAAFMAAABkAAAADgAAAAB8AQAAAAAQAAABAAEAAABTAAAAZAAAAAYAAAAAfAEAAAAAEAAAAQUAAAAAUwAAAGQAAAALAAAAAHwBAAAAAAEAAAB+AAAAAUAwAAAAAAAAAQAAAA8AAAAAfAAAAH0AAAB#AAAAEAAAAAB8AQAAAAAQAAABBQABAAAAgAAAAAgBAAAAfAAAAFMAAABkAAAACgD#####AB5BZmZpY2hhZ2UgZGUgbG9uZ3VldXIgb3JpZW50w6kAAAAHAAAAAQAAAAMAAACCAAAAUwAAAGQAAAADAAAAAIMAAAAAABAAAAEAAQAAAFMBP#AAAAAAAAAAAAAEAAAAAIMAAAAAABAAAlcnAAAAAAAAAAAAQAgAAAAAAAAFAAFAYMAAAAAAAAAAAIT#####AAAAAgATQ01lc3VyZUFuZ2xlT3JpZW50ZQAAAACDAAJhbgAAAIUAAABTAAAAZAAAAAYAAAAAgwAAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAFMAAABk#####wAAAAEADUNQb2ludFByb2pldGUAAAAAgwAAAAAAEAACVyIAAAAAAAAAAABACAAAAAAAAAUAAAAAZAAAAIQAAAAaAAAAAIMAAm1hAAAAhQAAAFMAAACI#####wAAAAEADkNUZXN0RXhpc3RlbmNlAAAAAIMAA3RtYQAAAIkAAAARAQAAAIMAAAAAAEAAAAAAAAAAwAAAAAAAAAAAAACHEAAAAAAAAQAAAAL#####AAAAAQANQ0ZvbmN0aW9uM1ZhcgAAAAAMAAAAiv####8AAAABAApDT3BlcmF0aW9uAAAAAAwAAACGAAAADAAAAIkAAAAMAAAAhgAAAAABAAAAggAAAAoA#####wAeQWZmaWNoYWdlIGRlIGxvbmd1ZXVyIG9yaWVudMOpAAAABwAAAAEAAAADAAAAewAAAGQAAABVAAAAAwAAAACMAAAAAAAQAAABAAEAAABkAT#wAAAAAAAAAAAABAAAAACMAAAAAAAQAAJXJwAAAAAAAAAAAEAIAAAAAAAABQABQGDAAAAAAAAAAACNAAAAGgAAAACMAAJhbgAAAI4AAABkAAAAVQAAAAYAAAAAjAAAAAAAEAAAAAAAAAAAAAAAQAgAAAAAAAAFAAAAAGQAAABVAAAAGwAAAACMAAAAAAAQAAJXIgAAAAAAAAAAAEAIAAAAAAAABQAAAABVAAAAjQAAABoAAAAAjAACbWEAAACOAAAAZAAAAJEAAAAcAAAAAIwAA3RtYQAAAJIAAAARAQAAAIwAAAAAAEAAAAAAAAAAwAAAAAAAAAAAAACQEAAAAAAAAQAAAAIAAAAdAAAAAAwAAACTAAAAHgAAAAAMAAAAjwAAAAwAAACSAAAADAAAAI8AAAAAAQAAAHsAAAAKAP####8AHkFmZmljaGFnZSBkZSBsb25ndWV1ciBvcmllbnTDqQAAAAcAAAABAAAAAwAAAHQAAABkAAAAXgAAAAMAAAAAlQAAAAAAEAAAAQABAAAAZAE#8AAAAAAAAAAAAAQAAAAAlQAAAAAAEAACVycAAAAAAAAAAABACAAAAAAAAAUAAUBgwAAAAAAAAAAAlgAAABoAAAAAlQACYW4AAACXAAAAZAAAAF4AAAAGAAAAAJUAAAAAABAAAAAAAAAAAAAAAEAIAAAAAAAABQAAAABkAAAAXgAAABsAAAAAlQAAAAAAEAACVyIAAAAAAAAAAABACAAAAAAAAAUAAAAAXgAAAJYAAAAaAAAAAJUAAm1hAAAAlwAAAGQAAACaAAAAHAAAAACVAAN0bWEAAACbAAAAEQEAAACVAAAAAABAAAAAAAAAAMAAAAAAAAAAAAAAmRAAAAAAAAEAAAACAAAAHQAAAAAMAAAAnAAAAB4AAAAADAAAAJgAAAAMAAAAmwAAAAwAAACYAAAAAAEAAAB0AAAACgD#####AB5BZmZpY2hhZ2UgZGUgbG9uZ3VldXIgb3JpZW50w6kAAAAHAAAAAQAAAAMAAABBAAAADgAAACQAAAADAAAAAJ4AAAAAABAAAAEAAQAAAA4BP#AAAAAAAAAAAAAEAAAAAJ4AAAAAABAAAlcnAAAAAAAAAAAAQAgAAAAAAAAFAAFAYMAAAAAAAAAAAJ8AAAAaAAAAAJ4AAmFuAAAAoAAAAA4AAAAkAAAABgAAAACeAAAAAAAQAAAAAAAAAAAAAABACAAAAAAAAAUAAAAADgAAACQAAAAbAAAAAJ4AAAAAABAAAlciAAAAAAAAAAAAQAgAAAAAAAAFAAAAACQAAACfAAAAGgAAAACeAAJtYQAAAKAAAAAOAAAAowAAABwAAAAAngADdG1hAAAApAAAABEBAAAAngAAAAAAQAAAAAAAAADAAAAAAAAAAAAAAKIQAAAAAAABAAAAAgAAAB0AAAAADAAAAKUAAAAeAAAAAAwAAAChAAAADAAAAKQAAAAMAAAAoQAAAAABAAAAQQAAABkA#####wAAAAAAAQEAAABXAAAAB###########'
-    const DA = arrondi(Math.sqrt(L2 ** 2 + l1 ** 2), 1)
-    const t1 = arrondi(Math.sqrt(4 + h ** 2), 1) // longueur d'un côté du triangle
-    const t2 = arrondi(Math.sqrt((c - 2) ** 2 + h ** 2), 1) // longueur de l'autre côté d'un triangle
-    let texteCorr = ''
-    texteCorr += `La première figure est composée d'un rectangle de ${L1} cm par ${l1} cm`
-    texteCorr += ` et d'un triangle rectangle dont les côtés de l'angle droit mesurent ${L2} cm et ${l1} cm.<br>`
-    texteCorr += `$\\mathcal{P}_{1}=${L1 + L2}+${texNombre(
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const L1 = randint(4, 7)
+      let l1 = randint(2, 4)
+      const L2 = randint(2, 4)
+      if (L1 === l1) {
+        l1--
+      } // pour que le rectangle ne soit pas un carré
+      const A = point(0, 0)
+      const B = point(0, l1)
+      const C = point(L1, l1)
+      const D = point(L1 + L2, l1)
+      const E = point(L1, 0)
+      const p1 = polygoneAvecNom(A, B, C, D, E)
+      const angles1 = [codageAngleDroit(A, B, C), codageAngleDroit(B, C, E), codageAngleDroit(C, E, A), codageAngleDroit(E, A, B)]
+      const CE = segment(C, E)
+      CE.pointilles = true
+      const objets1 = []
+      objets1.push(p1[0], CE, ...angles1, afficheLongueurSegment(D, E), afficheLongueurSegment(A, B), afficheLongueurSegment(E, A), afficheLongueurSegment(B, D))
+      const c = randint(4, 7)
+      const h = randint(2, c - 1)
+      const M = point(0, 0)
+      const N = point(0, c)
+      const O = point(c, c)
+      const P = point(c, 0)
+      const H = point(2, c)
+      const S = point(2, c - h)
+      const p2 = polygoneAvecNom(M, N, S, O, P)
+      const HS = segment(H, S)
+      HS.pointilles = true
+      const NO = segment(N, O)
+      NO.pointilles = true
+      const angles2 = [codageAngleDroit(M, N, O), codageAngleDroit(N, O, P), codageAngleDroit(N, H, S), codageAngleDroit(O, P, M), codageAngleDroit(P, M, N)]
+      const objets2 = []
+      objets2.push(p2[0], HS, NO, ...angles2, afficheLongueurSegment(P, M), afficheLongueurSegment(S, N), afficheLongueurSegment(O, S), afficheLongueurSegment(H, S), codeSegments('//', 'black', M, N, M, P, O, P))
+      const DA = arrondi(Math.sqrt(L2 ** 2 + l1 ** 2), 1)
+      const t1 = arrondi(Math.sqrt(4 + h ** 2), 1) // longueur d'un côté du triangle
+      const t2 = arrondi(Math.sqrt((c - 2) ** 2 + h ** 2), 1) // longueur de l'autre côté d'un triangle
+      let texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 2 }, fixeBordures(objets1, { rxmin: -1, rymin: -1 })), ...objets1)
+      texte += ajouteChampTexteMathLive(this, i * 4, 'longueur', { texte: 'Périmètre : ' })
+      texte += ajouteChampTexteMathLive(this, i * 4 + 1, 'longueur', { texte: '  Aire : ' })
+      texte += mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 2 }, fixeBordures(objets2, { rxmin: -1, rymin: -1 })), ...objets2)
+      texte += ajouteChampTexteMathLive(this, i * 4 + 2, 'longueur', { texte: 'Périmètre : ' })
+      texte += ajouteChampTexteMathLive(this, i * 4 + 3, 'longueur', { texte: '  Aire : ' })
+      let texteCorr = `La première figure est composée d'un rectangle de ${L1} cm par ${l1} cm`
+      texteCorr += ` et d'un triangle rectangle dont les côtés de l'angle droit mesurent ${L2} cm et ${l1} cm.<br>`
+      texteCorr += `$\\mathcal{P}_{1}=${L1 + L2}+${texNombre(
       DA
     )}+${L1}+${l1}=${texNombrec(L1 + L2 + DA + L1 + l1)}$ cm.<br>`
-    texteCorr += `$\\mathcal{A}_{1}=${L1}\\times${l1}+${L2}\\times${l1}\\div2=${L1 * l1
-      }+${calcul((L2 * l1) / 2)}=${calcul(L1 * l1 + (L2 * l1) / 2)}~${texTexte(
+      texteCorr += `$\\mathcal{A}_{1}=${L1}\\times${l1}+${L2}\\times${l1}\\div2=${L1 * l1
+      }+${texNombrec((L2 * l1) / 2)}=${texNombrec(L1 * l1 + (L2 * l1) / 2)}~${texTexte(
         ' cm'
       )}^2$.`
-    texteCorr += '<br><br>'
-    texteCorr += `La deuxième figure est un carré de côté ${c} cm auquel il faut enlever un triangle de ${c} cm de base et ${h} cm de hauteur.<br>`
-    texteCorr += `$\\mathcal{P}_{2}=${c}+${c}+${c}+${texNombre(
+      texteCorr += '<br><br>'
+      texteCorr += `La deuxième figure est un carré de côté ${c} cm auquel il faut enlever un triangle de ${c} cm de base et ${h} cm de hauteur.<br>`
+      texteCorr += `$\\mathcal{P}_{2}=${c}+${c}+${c}+${texNombre(
       t1
     )}+${texNombre(t2)}=${texNombrec(3 * c + t1 + t2)}$ cm<br>`
-    texteCorr += `$\\mathcal{A}_{2}=${c}\\times${c}-${c}\\times${h}\\div2=${c * c
-      }-${(c * h) / 2}=${texNombrec(c ** 2 - (c * h) / 2)}~${texTexte(
+      texteCorr += `$\\mathcal{A}_{2}=${c}\\times${c}-${c}\\times${h}\\div2=${c * c
+      }-${texNombrec((c * h) / 2)}=${texNombrec(c ** 2 - (c * h) / 2)}~${texTexte(
         ' cm'
       )}^2$.`
-
-    this.MG32codeBase64 = codeBase64
-    this.mg32init = (mtg32App, idDoc) => {
-      mtg32App.giveFormula2(idDoc, 'L1', L1)
-      mtg32App.giveFormula2(idDoc, 'l1', l1)
-      mtg32App.giveFormula2(idDoc, 'L2', L2)
-      mtg32App.giveFormula2(idDoc, 'c', c)
-      mtg32App.giveFormula2(idDoc, 'h', h)
-      mtg32App.calculate(idDoc)
-      mtg32App.display(idDoc)
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: 'Calculer le périmètre et l\'aire des figures suivantes\\\\' + texte,
+          options: { multicols: true },
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [
+                {
+                  texte: texteCorr,
+                  reponse: {
+                    valeur: [arrondi(L1 + L2 + DA + L1 + l1, 1)],
+                    texte: '$\\mathcal{P}_1$ en cm',
+                    param: {
+                      digits: 3,
+                      decimals: 1,
+                      signe: false
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [
+                {
+                  texte: '',
+                  reponse: {
+                    valeur: [arrondi(L1 * l1 + (L2 * l1) / 2, 1)],
+                    texte: '$\\mathcal{A}_1$ en cm²',
+                    param: {
+                      digits: 3,
+                      decimals: 1,
+                      signe: false
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [
+                {
+                  texte: '',
+                  reponse: {
+                    valeur: [arrondi(3 * c + t1 + t2, 1)],
+                    texte: '$\\mathcal{P}_2$ en cm',
+                    param: {
+                      digits: 3,
+                      decimals: 1,
+                      signe: false
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              type: 'AMCNum',
+              propositions: [
+                {
+                  texte: '',
+                  reponse: {
+                    valeur: [arrondi(c ** 2 - (c * h) / 2, 1)],
+                    texte: '$\\mathcal{A}_2$ en cm²',
+                    param: {
+                      digits: 3,
+                      decimals: 1,
+                      signe: false
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      } else {
+        setReponse(this, i * 4, new Grandeur(L1 + L2 + DA + L1 + l1, 'cm'), { formatInteractif: 'longueur' })
+        setReponse(this, i * 4 + 1, new Grandeur(L1 * l1 + (L2 * l1) / 2, 'cm^2'), { formatInteractif: 'longueur' })
+        setReponse(this, i * 4 + 2, new Grandeur(3 * c + t1 + t2, 'cm'), { formatInteractif: 'longueur' })
+        setReponse(this, i * 4 + 3, new Grandeur(c ** 2 - (c * h) / 2, 'cm^2'), { formatInteractif: 'longueur' })
+      }
+      if (this.questionJamaisPosee(i, L1, L2, l1, c, h)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
     }
-    this.listeCorrections.push(texteCorr)
+
     listeQuestionsToContenuSansNumero(this)
   }
 }

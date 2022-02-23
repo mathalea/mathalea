@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, numAlpha, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, numAlpha, stringNombre } from '../../modules/outils.js'
 import { texteSurSegment, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Calculer la largeur d’une rivière'
 
@@ -52,7 +52,7 @@ export default function CalculsTrigonometriques () {
       R[0].opacite = 0.5
       objets.push(p[1], p[0], R[0], segment(A, C), codageAngleDroit(A, B, C))
       objets.push(afficheMesureAngle(B, A, C, 'black', 1, `${alfa}`), afficheMesureAngle(B, A, S, 'black', 2, `${baita}`))
-      objets.push(texteSurSegment(`${texNombre(distance)} m`, A, B, 'black', -0.5), texteParPosition('l', milieu(C, S).x, milieu(C, S).y + 0.5, 0, 'black', 2, 'middle', true))
+      objets.push(texteSurSegment(`${stringNombre(distance)} m`, A, B, 'black', -0.5), texteParPosition('l', milieu(C, S).x, milieu(C, S).y + 0.5, 0, 'black', 2, 'middle', true))
 
       texte = 'Un géomètre veut mesurer la largeur d\'une rivière.<br>'
       texte += 'Pour cela, il remarque une souche notée $S$ sur la rive opposée.<br>'

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, lettreDepuisChiffre, randint, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, lettreIndiceeDepuisChiffre, randint, texFraction } from '../../modules/outils.js'
 import { mathalea2d, droiteGraduee2, point, tracePoint, labelPoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
@@ -12,7 +12,7 @@ export const amcType = 'AMCHybride'
 // Version SVGJS commit 87bd9a3
 
 /**
- * Description didactique de l'exercice
+ * Description didactique de l'exercice :
  * @author Rémi Angot
  * Référence 6N21
  * publié le 29/6/2021
@@ -60,11 +60,11 @@ export default function PlacerPointsAbscissesFractionnaires () {
           num = randint(origine * den + 1, (origine + 4) * den, den)
       }
       if (this.interactif) {
-        texte = `Placer le point $${lettreDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
+        texte = `Placer le point $${lettreIndiceeDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
       } else {
         num2 = randint(origine * den + 1, (origine + 4) * den, [num, den])
         num3 = randint(origine * den + 1, (origine + 4) * den, [num, num2, den])
-        texte = `Placer les points $${lettreDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$.`
+        texte = `Placer les points $${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$.`
       }
       const tailleUnite = 4
       const d = droiteGraduee2({
@@ -92,20 +92,33 @@ export default function PlacerPointsAbscissesFractionnaires () {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
 
-      A = point(((num / den) - origine) * tailleUnite, 0, lettreDepuisChiffre(i + 1))
+      if (context.isHtml) {
+        A = point(((num / den) - origine) * tailleUnite, 0, `$${lettreIndiceeDepuisChiffre(i + 1)}$`)
+      } else {
+        A = point(((num / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i + 1))
+      }
       traceA = tracePoint(A)
       traceA.color = 'blue'
       traceA.epaisseur = this.interactif ? 3 : 2
       traceA.taille = this.interactif ? 5 : 3
       labels = labelPoint(A)
       if (!this.interactif) {
-        A.nom = lettreDepuisChiffre(i * 3 + 1)
-        B = point(((num2 / den) - origine) * tailleUnite, 0, lettreDepuisChiffre(i * 3 + 2))
+        if (context.isHtml) {
+          A.nom = `$${lettreIndiceeDepuisChiffre(i * 3 + 1)}$`
+          B = point(((num2 / den) - origine) * tailleUnite, 0, `$${lettreIndiceeDepuisChiffre(i * 3 + 2)}$`)
+        } else {
+          A.nom = lettreIndiceeDepuisChiffre(i * 3 + 1)
+          B = point(((num2 / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i * 3 + 2))
+        }
         traceB = tracePoint(B)
         traceB.color = 'blue'
         traceB.epaisseur = 2
         traceB.taille = 3
-        C = point(((num3 / den) - origine) * tailleUnite, 0, lettreDepuisChiffre(i * 3 + 3))
+        if (context.isHtml) {
+          C = point(((num3 / den) - origine) * tailleUnite, 0, `$${lettreIndiceeDepuisChiffre(i * 3 + 3)}$`)
+        } else {
+          C = point(((num3 / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i * 3 + 3))
+        }
         traceC = tracePoint(C)
         traceC.color = 'blue'
         traceC.epaisseur = 2
@@ -120,10 +133,10 @@ export default function PlacerPointsAbscissesFractionnaires () {
       }
 
       if (this.interactif) {
-        texteCorr = `$${lettreDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
+        texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}\\left(${texFraction(num, den)}\\right).$`
         texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:30px ' }, d, traceA, labels)
       } else {
-        texteCorr = `$${lettreDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$`
+        texteCorr = `$${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$`
         texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: origine + 4 * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:30px ' }, d, traceA, traceB, traceC, labels)
       }
 

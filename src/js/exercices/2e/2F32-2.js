@@ -124,7 +124,7 @@ export default function LecturesGraphiques () {
             k++
           }
           y0 = arrondi(imageInterpolee([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], x0), 1)
-          texte = `Lire graphiquement l'image de ${texNombre(x0)} par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
+          texte = `Lire graphiquement l'image de $${texNombre(x0)}$ par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
           if (!context.isAmc) setReponse(this, i, y0)
           reponses[i] = y0
           texte += ajouteChampTexteMathLive(this, i)
@@ -152,7 +152,7 @@ export default function LecturesGraphiques () {
             if (k < noeuds.length) antecedentTrouve = true
           }
           x0 = antecedentInterpole([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], y0)
-          texte = `Lire graphiquement le plus petit antécédent de ${texNombre(y0)} par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
+          texte = `Lire graphiquement le plus petit antécédent de $${texNombre(y0)}$ par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
           if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
           reponses[i] = arrondi(x0, 1)
           texte += ajouteChampTexteMathLive(this, i)
@@ -179,7 +179,7 @@ export default function LecturesGraphiques () {
             if (k > 0) antecedentTrouve = true
           }
           x0 = antecedentInterpole([[noeuds[k - 1][0], noeuds[k - 1][1]], [noeuds[k][0], noeuds[k][1]]], y0)
-          texte = `Lire graphiquement le plus grand antécédent de ${texNombre(y0)} par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
+          texte = `Lire graphiquement le plus grand antécédent de $${texNombre(y0)}$ par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
           if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
           reponses[i] = arrondi(x0, 1)
           texte += ajouteChampTexteMathLive(this, i)
@@ -210,7 +210,7 @@ export default function LecturesGraphiques () {
           }
           antecedents = enleveDoublonNum(antecedents, 0.1)
           antecedentTrouve = antecedents.length
-          texte = `Lire graphiquement le nombre d'antécédents de ${texNombre(y0)} par la fonction $f$.<br>`
+          texte = `Lire graphiquement le nombre d'antécédents de $${texNombre(y0)}$ par la fonction $f$.<br>`
           texte += ajouteChampTexteMathLive(this, i)
           switch (antecedentTrouve) {
             case 0:

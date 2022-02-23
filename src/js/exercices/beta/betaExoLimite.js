@@ -5,7 +5,7 @@ export const titre = 'Lecture graphique de limites'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '01/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-// export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '09/02/2022' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Description didactique de l'exercice
@@ -15,6 +15,8 @@ export const dateDePublication = '01/02/2022' // La date de publication initiale
 export default function NomExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 3 // Nombre de questions par défaut
+  this.sup = false // x>2 au lieu de x->2+
+  this.sup2 = false // asymptotes
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
@@ -23,7 +25,7 @@ export default function NomExercice () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const nom = ['f', 'g', 'h', 'p', 'q', 'r', 's'][i % 7]
-      texte = `Déterminer graphiquement les limites de la fonction $${nom}$ dont la courbe représentative est tracée ci-dessous.<br>`
+      texte = `Déterminer graphiquement les ${this.sup2 ? 'limites et asymtpotes' : 'limites'} de la fonction $${nom}$ dont la courbe représentative est tracée ci-dessous.<br>`
       texteCorr = ''
 
       // On détermine aléatoirement les abscisses avec une discontinuité
@@ -42,17 +44,20 @@ export default function NomExercice () {
       const f = []
       const monRepere = repere2()
 
+      const limG = randint(-5, 5) // lim x->-oo
+      const limD = randint(-5, 5, [limG]) // lim x->+oo
+
       if (x.length !== 0) {
         // Calcul entre xmin et x[0]
         {
-          const lim1 = randint(-5, 5) // lim x->-oo
+          const lim1 = limG // lim x->-oo
           const lim2 = choice([-1, 1]) // lim x->x[0]- (-1 pour -oo, +1 pour +oo)
           const g = t => lim1 + lim2 * 1 / (t - x[0])
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: -10, xMax: x[0] - 0.5, yMin: -10, yMax: 10, step: 0.1 }))
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[0] - 0.5, xMax: x[0] - 0.001, yMin: -10, yMax: 10, step: 0.001 }))
           id.push(lim1, lim2)
           texteCorr += `$\\displaystyle\\lim_{x \\to -\\infty} ${nom}(x) = ${lim1}$<br>`
-          texteCorr += `$\\displaystyle\\lim_{x \\to ${x[0]}^-} ${nom}(x) = ${lim2 < 0 ? '+\\infty' : '-\\infty'}$<br>`
+          texteCorr += `$\\displaystyle\\lim_{${xversreel(x[0], '-')}} ${nom}(x) = ${lim2 < 0 ? '+\\infty' : '-\\infty'}$<br>`
         }
 
         for (let k = 0; k < x.length - 1; k++) {
@@ -65,19 +70,19 @@ export default function NomExercice () {
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k] + 0.5, xMax: x[k + 1] - 0.5, yMin: -10, yMax: 10, step: 0.1 }))
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[k + 1] - 0.5, xMax: x[k + 1] - 0.001, yMin: -10, yMax: 10, step: 0.001 }))
           id.push(lim1, lim2 /*, c */)
-          texteCorr += `$\\displaystyle\\lim_{x \\to ${x[k]}^+} ${nom}(x) = ${lim1 > 0 ? '+\\infty' : '-\\infty'}$<br>`
-          texteCorr += `$\\displaystyle\\lim_{x \\to ${x[k + 1]}^-} ${nom}(x) = ${lim2 < 0 ? '+\\infty' : '-\\infty'}$<br>`
+          texteCorr += `$\\displaystyle\\lim_{${xversreel(x[k], '+')}} ${nom}(x) = ${lim1 > 0 ? '+\\infty' : '-\\infty'}$<br>`
+          texteCorr += `$\\displaystyle\\lim_{${xversreel(x[k + 1], '-')}} ${nom}(x) = ${lim2 < 0 ? '+\\infty' : '-\\infty'}$<br>`
         }
 
         // Calcul entre x[n] et xmax
         {
           const lim1 = choice([-1, 1]) // lim x->x[n]+ (-1 pour -oo, +1 pour +oo)
-          const lim2 = randint(-5, 5) // lim x->+oo
+          const lim2 = limD // lim x->+oo
           const g = t => lim1 * 1 / (t - x[x.length - 1]) + lim2
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[x.length - 1] + 0.001, xMax: x[x.length - 1] + 0.5, yMin: -10, yMax: 10, step: 0.001 }))
           f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: x[x.length - 1] + 0.5, xMax: 10, yMin: -10, yMax: 10, step: 0.1 }))
           id.push(lim1, lim2)
-          texteCorr += `$\\displaystyle\\lim_{x \\to ${x[x.length - 1]}^+} ${nom}(x) = ${lim1 > 0 ? '+\\infty' : '-\\infty'}$<br>`
+          texteCorr += `$\\displaystyle\\lim_{${xversreel(x[x.length - 1], '+')}} ${nom}(x) = ${lim1 > 0 ? '+\\infty' : '-\\infty'}$<br>`
           texteCorr += `$\\displaystyle\\lim_{x \\to +\\infty} ${nom}(x) = ${lim2}$<br>`
         }
       } else {
@@ -96,16 +101,28 @@ export default function NomExercice () {
         // d=(l+L)/2
         // a = (L-l)/4000
         // c = -3/40*(L-l)
-        const lim1 = choice([-1, 1]) // lim x->x[n]+ (-1 pour -oo, +1 pour +oo)
-        const lim2 = randint(-5, 5) // lim x->+oo
-        const a = (lim1 - lim2) / 4000
-        const c = -3 / 40 * (lim1 - lim2)
-        const d = (lim1 + lim2) / 2
+
+        const a = (limG - limD) / 4000
+        const c = -3 / 40 * (limG - limD)
+        const d = (limG + limD) / 2
         const g = t => a * t * t * t + c * t + d
         f.push(courbe2(g, { color: 'red', repere: monRepere, xMin: -10, xMax: 10, yMin: -10, yMax: 10, step: 0.1 }))
-        id.push('∅', lim1, lim2)
-        texteCorr += `$\\displaystyle\\lim_{x \\to -\\infty} ${nom}(x) = ${lim1}$<br>`
-        texteCorr += `$\\displaystyle\\lim_{x \\to +\\infty} ${nom}(x) = ${lim2}$<br>`
+        id.push('∅', limG, limD)
+        texteCorr += `$\\displaystyle\\lim_{x \\to -\\infty} ${nom}(x) = ${limG}$<br>`
+        texteCorr += `$\\displaystyle\\lim_{x \\to +\\infty} ${nom}(x) = ${limD}$<br>`
+      }
+
+      if (this.sup2) {
+        texteCorr += `La courbe admet les asymptotes horizontales d'équations $y=${limG}$ et $y=${limD}$.<br>`
+        switch (x.length) {
+          case 0 :
+            break
+          case 1 :
+            texteCorr += `La courbe admet une asymptote verticale d'équation $x=${x[0]}$.<br>`
+            break
+          default :
+            texteCorr += `La courbe admet les asymptotes verticales d'équations ${x.map((k, i) => (i === x.length - 1 ? ' et ' : ', ') + '$x=' + k + '$ ').join('').substring(2)}.<br>`
+        }
       }
 
       texte += mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, scale: 0.5 }, monRepere, ...f)
@@ -121,4 +138,14 @@ export default function NomExercice () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
+  this.besoinFormulaireCaseACocher = ['Notation x>2 au lieu de 2+']
+
+  const xversreel = (x, sens) => {
+    let output = this.sup ? '\\substack{' : ''
+    output += `x \\to ${x}`
+    output += this.sup ? `\\\\x ${sens === '+' ? '>' : '<'} ${x}}` : `^${sens}`
+    return output
+  }
+
+  this.besoinFormulaire2CaseACocher = ['Question sur les asymptotes']
 }
