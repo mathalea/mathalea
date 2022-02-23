@@ -294,3 +294,36 @@ export class Circle extends GraphicObject {
         return new Point(new Cartesian(this.A.x + this.r * Math.cos(theta), this.A.y + this.r * Math.sin(theta)));
     }
 }
+/**
+   * @class
+   * @classdesc Caracteristics of an angle
+   */
+export class Angle extends GraphicObject {
+    constructor(A, B, C) {
+        super();
+        this.right = false;
+        this.fillColor = 'none';
+        this.fillOpacity = 0.2;
+        this.rayon = true;
+        this.type = 'Angle';
+        const vA = new Vector(A.x, A.y);
+        const vB = new Vector(B.x, B.y);
+        const vC = new Vector(C.x, C.y);
+        const vBA = vA.sub(vB).getNormed();
+        const vBC = vC.sub(vB).getNormed();
+        this.vBA = vBA;
+        this.vBC = vBC;
+        const cos = vBA.x * vBC.x + vBA.y * vBC.y;
+        this.angle = Math.acos(cos);
+        this.A = B.add(vBA);
+        this.B = B;
+        this.C = B.add(vBC);
+        this.direct = cross([vBA.x, vBA.y, 0], [vBC.x, vBC.y, 0])[2] > 0;
+    }
+    scale(scale) {
+        const vBA = this.vBA.multiply(scale);
+        const vBC = this.vBC.multiply(scale);
+        this.A = this.B.add(vBA);
+        this.C = this.B.add(vBC);
+    }
+}

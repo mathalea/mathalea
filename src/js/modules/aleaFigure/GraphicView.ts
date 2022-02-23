@@ -1,8 +1,9 @@
-import { cos, forEach, randomInt } from 'mathjs'
+import { randomInt } from 'mathjs'
 import { Cartesian } from './coordinates.js'
-import { Point, Line, Segment, GraphicObject, Circle, barycentre } from './elements.js'
+import { Angle, Point, Line, Segment, GraphicObject, Circle, barycentre } from './elements.js'
 import { getMathalea2DExport } from './getMathalea2DExport.js'
 import { circularPermutation } from './outils.js'
+import { aleaName } from '../outilsMathjs.js'
 
 /**
 * Donne une liste d'entiers relatifs dont on connait la somme.
@@ -194,6 +195,11 @@ export class GraphicView {
       case 'Line':
         return this.getLastNameNotUsed(typeSelect)
     }
+  }
+
+  aleaName (...args: GraphicObject[]) {
+    const names = aleaName(args.length)
+    args.forEach((x,i) => {x.name = names[i]})
   }
 
   /**
@@ -520,7 +526,7 @@ export class GraphicView {
   addParallelLine (P = this.addPoint()[0], line = this.addLine()) {
     const parallel = new Line(P, line.direction)
     parallel.name = this.getNewName(parallel.type)
-    this.geometric.push(parallel)
+    this.geometric.push(parallel, P, line) 
     return [line, parallel]
   }
 
@@ -546,6 +552,19 @@ export class GraphicView {
     return sides
   }
 
+  /**
+   * Add labels to the vertices of a polygon.
+   * @param args 
+   */
+  addLabelsPointsPolygon (...args: Point[]) {
+    const last = args.length - 1
+    const vertices = [args[last]].concat(args).concat(args[0])
+    for (let i = 1;i < args.length+1;i++) {
+      vertices[i].showLabel()
+      vertices[i].labelPoints = [vertices[i - 1], vertices[i], vertices[i+1]]
+    }
+  }
+  
   /**
    * Add a group of 4 points making a parallelogram
    * @param  {...any} args // 0-3 Point
@@ -603,13 +622,46 @@ export class GraphicView {
     return homotheticPoints
   }
 
-  addRotate(O: Point, angle: number = 2*Math.random() * Math.PI, ...args : Point[]) {
+  /**
+     * Add the angle ABC to the graphic view
+     * @param {Point} A 
+     * @param {Point} B 
+     * @param {Point} C 
+     */
+  addAngle(A: Point,B: Point,C: Point) {
+    const newAngle = new Angle(A,B,C)
+    this.geometric.push(newAngle)
+    return newAngle
+  }
+
+  addAnglesPolygon(...args: Point[]) {
+    const last = args.length - 1
+    const vertices = [args[last]].concat(args).concat(args[0])
+    const angles: Angle[] = []
+    for (let i = 1;i < args.length+1;i++) {
+      const newAngle = new Angle(vertices[i - 1], vertices[i], vertices[i+1])
+      angles.push(newAngle)
+      this.geometric.push(newAngle)
+    }
+    return angles
+  }
+
+  /**
+   * Rotate points
+   * @param {Point} center
+   * @param {number} angle // Angle in radians
+   * @param {Point} args 
+   * @returns {Point[]}
+   * @example
+   * this.addRotate(O, Math.PI()/2, B)
+   */
+  addRotate(center: Point, angle: number, ...args : Point[]): Point[]{
     const rotatePoints = []
     args.map(M => {
       const point = new Point(
         new Cartesian(
-          (M.x-O.x)*Math.cos(angle)-(M.y-O.y)*Math.sin(angle) +O.x,
-          (M.x-O.x)*Math.sin(angle)+(M.y-O.y)*Math.cos(angle) +O.y,
+          (M.x-center.x)*Math.cos(angle)-(M.y-center.y)*Math.sin(angle) +center.x,
+          (M.x-center.x)*Math.sin(angle)+(M.y-center.y)*Math.cos(angle) +center.y,
         ))
       point.name = point.name || this.getNewName(point.type)
       this.geometric.push(point)

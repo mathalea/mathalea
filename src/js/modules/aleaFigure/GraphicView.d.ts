@@ -1,4 +1,4 @@
-import { Point, Line, Segment, GraphicObject, Circle } from './elements.js';
+import { Angle, Point, Line, Segment, GraphicObject, Circle } from './elements.js';
 /**
 * Donne une liste d'entiers relatifs dont on connait la somme.
 * @example > listeEntiersSommeConnue(4,10,-2)
@@ -53,6 +53,7 @@ export declare class GraphicView {
      * Give a new name
      */
     getNewName(typeSelect?: string): any;
+    aleaName(...args: GraphicObject[]): void;
     /**
      * Append new objects to the euclidean plan
      */
@@ -154,6 +155,11 @@ export declare class GraphicView {
      */
     addSidesPolygon(...args: any[]): any[];
     /**
+     * Add labels to the vertices of a polygon.
+     * @param args
+     */
+    addLabelsPointsPolygon(...args: Point[]): void;
+    /**
      * Add a group of 4 points making a parallelogram
      * @param  {...any} args // 0-3 Point
      * @returns {Group}
@@ -162,7 +168,24 @@ export declare class GraphicView {
     addRegularPolygon(A: Point, B: Point, n: number): Point[];
     addRegularPolygonCenter(A: Point, B: Point, n: number): Point;
     addHomothetic(O: Point, k: number, ...args: Point[]): Point[];
-    addRotate(O: Point, angle?: number, ...args: Point[]): any[];
+    /**
+       * Add the angle ABC to the graphic view
+       * @param {Point} A
+       * @param {Point} B
+       * @param {Point} C
+       */
+    addAngle(A: Point, B: Point, C: Point): Angle;
+    addAnglesPolygon(...args: Point[]): Angle[];
+    /**
+     * Rotate points
+     * @param {Point} center
+     * @param {number} angle // Angle in radians
+     * @param {Point} args
+     * @returns {Point[]}
+     * @example
+     * this.addRotate(O, Math.PI()/2, B)
+     */
+    addRotate(center: Point, angle: number, ...args: Point[]): Point[];
     exportGGB(arg?: GraphicObject[]): string;
     /**
      * Export to Mathalea2D

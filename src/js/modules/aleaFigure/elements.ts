@@ -156,7 +156,7 @@ export class Point extends GraphicObject {
       const S = this.labelPoints[1]
       const v1 = P1.sub(S).getVector().getNormed()
       const v3 = P3.sub(S).getVector().getNormed()
-      const corr = new Vector (0,-0.3*scaleppc)
+      const corr = new Vector(0,-0.3*scaleppc)
       let P: Point
       if (v1.colinear(v3)) { // Colinéaires
         P = S.add(v1.getNormal().multiply(scaleppc*0.4)).add(corr)
@@ -367,5 +367,48 @@ export class Segment extends Line {
         this.A.y + this.r * Math.sin(theta)
       )
     )
+  }
+}
+
+/**
+   * @class
+   * @classdesc Caracteristics of an angle
+   */
+ export class Angle extends GraphicObject {
+  A: Point
+  B: Point
+  C: Point
+  angle: number
+  type: string
+  direct: boolean
+  vBA: Vector
+  vBC: Vector
+  right: boolean = false
+  fillColor: string = 'none' 
+  fillOpacity: number = 0.2
+  rayon: boolean = true
+  constructor (A: Point, B: Point, C: Point) {
+    super()
+    this.type = 'Angle'
+    const vA = new Vector(A.x, A.y)
+    const vB = new Vector(B.x, B.y)
+    const vC = new Vector(C.x, C.y)
+    const vBA = vA.sub(vB).getNormed()
+    const vBC = vC.sub(vB).getNormed()
+    this.vBA = vBA
+    this.vBC = vBC
+    const cos = vBA.x*vBC.x+vBA.y*vBC.y
+    this.angle = Math.acos(cos)
+    this.A = B.add(vBA)
+    this.B = B
+    this.C = B.add(vBC)
+    this.direct = cross([vBA.x,vBA.y,0],[vBC.x,vBC.y,0])[2] > 0
+  }
+  
+  scale(scale: number) {
+    const vBA = this.vBA.multiply(scale)
+    const vBC = this.vBC.multiply(scale)
+    this.A = this.B.add(vBA)
+    this.C = this.B.add(vBC)
   }
 }

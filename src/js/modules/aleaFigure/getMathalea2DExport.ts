@@ -1,5 +1,5 @@
-import { cercle, segment, polygone, tracePoint, labelPoint, point, mathalea2d, droite } from '../2d.js'
-import { Point, Line, Segment, Circle } from './elements.js'
+import { polygon, codageAngleDroit, arcPointPointAngle, cercle, segment, polygone, point, mathalea2d, droite } from '../2d.js'
+import { Angle, Point, Line, Segment, Circle } from './elements.js'
 
 export function getMathalea2DExport (graphic) {
   graphic.resize()
@@ -26,11 +26,36 @@ export function getMathalea2DExport (graphic) {
         objs.push(obj.showLabel(scaleppc))
       }
     } else if (obj instanceof Line && !(obj instanceof Segment)) {
-      objs.push(droite(obj.a, obj.b, -obj.c))
+      // objs.push(droite(obj.a, obj.b, -obj.c))
+      const points = graphic.getExtremPointGraphicLine(obj)
+      if (points !== undefined) objs.push(segment(...points, obj.color))
     } else if (obj instanceof Segment) {
       objs.push(segment(obj.A, obj.B, obj.color))
     } else if (obj instanceof Circle) {
       objs.push(cercle(obj.A, obj.r))
+    } else if (obj instanceof Angle) {
+      if (Math.abs(obj.angle).toFixed(13) === (Math.PI/2).toFixed(13) && obj.right) {
+        const P1 = obj.A
+        const P3 = obj.C
+        const S = obj.B
+        const v1 = P1.sub(S).getVector().getNormed().multiply(scaleppc*0.7)
+        const v3 = P3.sub(S).getVector().getNormed().multiply(scaleppc*0.7)
+        const P = S.add(v1.add(v3)) // .add(corr)
+        P.showDot()
+        objs.push(...graphic.addSidesPolygon(S,S.add(v1),P,S.add(v3)).map(x => segment(x.A, x.B, obj.color)))
+        /* objs.push(codageAngleDroit(
+          point(obj.A.x,obj.A.y),
+          point(obj.B.x,obj.B.y),
+          point(obj.C.x,obj.C.y),
+          obj.color,
+          scaleppc
+          )
+        )*/
+      } else {
+        obj.scale(scaleppc)
+        const extrems = obj.direct ? [point(obj.A.x,obj.A.y), point(obj.C.x,obj.C.y)] : [point(obj.C.x,obj.C.y), point(obj.A.x,obj.A.y)]
+        objs.push(arcPointPointAngle(...extrems, obj.angle/Math.PI*180, obj.fillColor !== 'none' ? obj.rayon : true, obj.fillColor, obj.color, obj.fillOpacity))
+      }
     } else {
       objs.push(obj)
     }

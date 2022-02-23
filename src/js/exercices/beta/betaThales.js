@@ -13,7 +13,7 @@ import { circularPermutation } from '../../modules/aleaFigure/outils.js'
 // eslint-disable-next-line no-debugger
 debugger
 
-const nbCase = 35
+const nbCase = 36
 
 export const math = create(all)
 math.config({
@@ -309,8 +309,8 @@ export default function exercicesThales () {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=7
           const graphic = new GraphicView()
           graphic.dimensions = { xmin: 0, ymin: 0, xmax: 10, ymax: 7 }
-          graphic.show(...graphic.addPoint(20))
-          exercice = { texte: graphic.getMathalea2DExport(), texteCorr: '' }
+          const points = graphic.addPoint(20).map(x => { x.showDot(); x.showLabel(); return x })
+          exercice = { texte: graphic.getMathalea2DExport(...points), texteCorr: '' }
           break
         }
         case 8: {
@@ -318,8 +318,8 @@ export default function exercicesThales () {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=8
           const graphic = new GraphicView(0, 0, 10, 7)
           graphic.names = ['M']
-          graphic.show(graphic.addPoint(11))
-          exercice = { texte: graphic.getMathalea2DExport(), texteCorr: '' }
+          const points = graphic.addPoint(11).map(x => { x.showDot(); x.showLabel(); return x })
+          exercice = { texte: graphic.getMathalea2DExport(...points), texteCorr: '' }
           break
         }
         case 9: {
@@ -336,9 +336,10 @@ export default function exercicesThales () {
           // Une seule droite s'affiche mais tronquée
           // http://localhost:8080/mathalea.html?ex=betaThales,s=9,n=1&serie=KrLG&z=1
           const graphic = new GraphicView(0, 0, 10, 7)
-          const parallels = graphic.addParallelLine()
-          graphic.show(parallels)
-          // exercice = { texte: graphic.getMathalea2DExport(), texteCorr: '' }
+          const [A, B, C] = graphic.addNotAlignedPoint()
+          const d = graphic.addLine(A, B)
+          const parallels = graphic.addParallelLine(C, d)
+          exercice = { texte: graphic.getMathalea2DExport(A, B, C, ...parallels), texteCorr: '' }
           break
         }
         case 10: {
@@ -346,14 +347,14 @@ export default function exercicesThales () {
           // Bug ? http://localhost:8080/mathalea.html?ex=betaThales,s=10
           // Manque le point D : http://localhost:8080/mathalea.html?ex=betaThales,s=all,n=24&serie=M3k4&v=ex&z=1
           // Manque le point D : http://localhost:8080/mathalea.html?ex=betaThales,s=all,n=24&serie=2498&v=ex&z=1
-          /* const graphic = new GraphicView(0, 0, 10, 7)
+          const graphic = new GraphicView(0, 0, 10, 7)
           graphic.clipVisible = true
           const [A, B, C] = graphic.addNotAlignedPoint()
           const D = graphic.addNotAlignedPoint(A, B)[2]
           const dAB = graphic.addLine(A, B)
           const dAC = graphic.addLine(A, C)
           const dBD = graphic.addLine(B, D)
-          exercice = graphic.getMathalea2DExport(A, B, C, D, dAB, dAC, dBD) */
+          exercice.texte = graphic.getMathalea2DExport(A, B, C, D, dAB, dAC, dBD)
           break
         }
         case 11: {
@@ -365,8 +366,7 @@ export default function exercicesThales () {
           B.x = 0
           const d = graphic.addLine(A, B)
           const d2 = graphic.addLine(A, C)
-          graphic.show(A, B, C, d, d2)
-          exercice = { texte: graphic.getMathalea2DExport(), texteCorr: '' }
+          exercice.texte = graphic.getMathalea2DExport(A, B, C, d, d2)
           break
         }
         case 12: {
@@ -387,10 +387,11 @@ export default function exercicesThales () {
           const graphic = new GraphicView(-5, -5, 5, 5)
           graphic.clipVisible = true
           const [A, B] = graphic.addPoint(2)
+          const l = graphic.addLine(A, B)
           const graph = graphic.getMathalea2DExport(
-            A, B, graphic.addLine(A, B)
+            A, B, l
           )
-          exercice = { texte: graph, texteCorr: '' }
+          exercice.texte = graph
           break
         }
         case 13: {
@@ -717,7 +718,9 @@ $\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`.replaceAll('
           const graphic = new GraphicView()
           const [l1, l2] = graphic.addParallelLine()
           const [A] = graphic.addPoint()
+          A.showDot()
           const l3 = graphic.addParallelLine(A, l1)[1]
+          graphic.clipVisible = true
           const graph = graphic.getMathalea2DExport(
             l1, l2, A, l3
           )
@@ -1249,13 +1252,13 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
 
           // Nombre aléatoire de rectangles
           const nbRectangles = math.pickRandom([3, 5, 6])
+          const rectangleImage = math.pickRandom([2, 3, 4, 5].filter(x => x < nbRectangles && x !== nbRectangles / 2))
 
           // Nommage aléatoires des sommets
           const names = aleaName(8)
 
           // Construction des rectangles
           let ABCD, EFGH
-          const aleaRectangle = math.pickRandom([2, 3, 4, 5, 6, 7, 8, 9, 10].filter(x => x < nbRectangles))
           const rectangles = []
           for (let i = 0; i < nbRectangles; i++) {
             const sommets = graphic.addRotate(A, 2 * Math.PI / nbRectangles * i, ...graphic.addParallelogram(D, A, B))
@@ -1273,7 +1276,7 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
                 return x.name
               }), 3)
             }
-            if (i === aleaRectangle) {
+            if (i === rectangleImage) {
               EFGH = circularPermutation(sommets.map((x, i) => {
                 x.name = names[i + 4]
                 if (i !== 1) x.showLabel()
@@ -1293,15 +1296,15 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
             }
             rectangles.push(sommets, graphic.addSidesPolygon(...sommets))
           }
-          rectangles.filter((x, i) => (i === 1 || i === 2 * aleaRectangle + 1)).map((y, j) => y.map(z => { z.color = 'blue'; return z }))
+          rectangles.filter((x, i) => (i === 1 || i === 2 * rectangleImage + 1)).map((y, j) => y.map(z => { z.color = 'blue'; return z }))
           const cotesRectangles = rectangles.filter(x => x[0] instanceof Segment)
           const sommetsRectangles = rectangles.filter(x => x[0] instanceof Point)
-          const graph = graphic.getMathalea2DExport(...sommetsRectangles, ...cotesRectangles, cotesRectangles[0], cotesRectangles[aleaRectangle])
+          const graph = graphic.getMathalea2DExport(...sommetsRectangles, ...cotesRectangles, cotesRectangles[0], cotesRectangles[rectangleImage])
 
           const n = new Grandeur('n', nbRectangles, 0)
           const AnglePlein = new Grandeur('', 360, 0, 'deg')
           const angle = AnglePlein.divide(n)
-          const k = new Grandeur('', aleaRectangle, 0)
+          const k = new Grandeur('', rectangleImage, 0)
           const angleSolution = angle.multiply(k)
           ABCD.name = circularPermutation(ABCD.concat([])).join('')
           EFGH.name = circularPermutation(EFGH.concat([])).join('')
@@ -1318,35 +1321,65 @@ Donc la solution peut être une rotation d'angle $${angleSolution.toFixed + 90 -
           // Chaque rectangle et son suivant sont obtenus par une rotation de même centre et de même angle.
           exercice.texte = `${graph.split('\n').filter(x => x !== '').filter(x => x !== '').join('\n')}
 
-On a effectué successivement $${n.toFixed}$ rotations d'un carré avec le même angle et le même centre.
-
-On est revenu sur le carré de départ.
-
-$${ABCD.name}$ a pour image $${EFGH.name}$ par une rotation.
+Il y a $${n.toFixed}$ carrés tous identiques dont $${ABCD.name}$ et $${EFGH.name}$.
 
 Déterminer l'angle de la rotation de centre $${ABCD[2]}$ qui permet de transformer $${ABCD[3]}$ en $${EFGH[1]}$ dans le sens direct (anti-horaire).`.replaceAll('\n\n', context.isHtml ? '<br>' : '\n\n')
           exercice.texteCorr = `Il y a $${n.value}$ carrés en tout.
 
 $\\dfrac{360\\degree}{${n.toFixed}} = ${angle.toFixed}\\degree$
 
-On doit tourner $${aleaRectangle}$ fois d'un angle de $${angle.toFixed}\\degree$ dans le sens direct (anti-horaire) pour passer de $${ABCD.name}$ à $${EFGH.name}$.
+On doit tourner $${rectangleImage}$ fois d'un angle de $${angle.toFixed}\\degree$ dans le sens direct (anti-horaire) pour passer de $${ABCD.name}$ à $${EFGH.name}$.
 
 L'image de $${ABCD[3]}$ par cette rotation est $${EFGH[3]}$.
 
 On doit ensuite effectuer une rotation de centre $${ABCD[2]}$ d'un angle de $90\\degree$ pour passer du point $${EFGH[3]}$ au point $${EFGH[1]}$.
 
-$${aleaRectangle}\\times${angle.toFixed}\\degree+90\\degree=${angleSolution.toFixed + 90}\\degree$
+$${rectangleImage}\\times${angle.toFixed}\\degree+90\\degree=${angleSolution.toFixed + 90}\\degree$
 
 Donc c'est la rotation de centre $${ABCD[2]}$ et d'angle $${angleSolution.toFixed + 90}\\degree$.
 
-Remarque : ${remarque}`.replaceAll('\n\n', '<br>')
+${remarque}`.replaceAll('\n\n', '<br>')
+          break
+        }
+        case 36: {
+          // Angles
+          // http://localhost:8080/mathalea.html?ex=betaThales,s=36,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView()
+          // const [A, B, C] = graphic.addRectPoint()
+          const triangle = graphic.addNotAlignedPoint()
+          graphic.aleaName(...triangle)
+          graphic.addLabelsPointsPolygon(...triangle)
+          const angles = graphic.addAnglesPolygon(...triangle)
+          const aA = new Grandeur(circularPermutation(triangle.map(x => x.name), 2).join(''), angles[0].angle / Math.PI * 180, 0, 'deg')
+          const aB = new Grandeur(circularPermutation(triangle.map(x => x.name), 0).join(''), angles[1].angle / Math.PI * 180, 0, 'deg')
+          const aC = new Grandeur(circularPermutation(triangle.map(x => x.name), 1).join(''), 180 - (aA.toFixed + aB.toFixed), 0, 'deg')
+          triangle.name = circularPermutation(triangle.map(x => x.name)).join('')
+          const graph = graphic.getMathalea2DExport(
+            ...triangle
+            , ...graphic.addSidesPolygon(...triangle)
+            , ...angles.map(x => { x.fillColor = 'red'; x.right = true; return x })
+          )
+          exercice.texte = `$\\widehat{${aA.name}}=${aA.format()}$ $\\widehat{${aB.name}}=${aB.format()}$
+
+${graph}`
+          exercice.texteCorr = String.raw`Dans un triangle, la somme des angles est $180\degree$.
+
+Dans le triangle $${triangle.name}$ :
+
+$\begin{aligned}
+\widehat{${aA.name}}+\widehat{${aB.name}}+\widehat{${aC.name}}&=180\degree\\
+${aA.format()}+${aB.format()}+\widehat{${aC.name}}&=180\degree\\
+\widehat{${aC.name}}&=180 - (${aA.format()}+${aB.format()})\\
+\widehat{${aC.name}}&=180 - ${aA.add(aB).format()}\\
+\widehat{${aC.name}}&=${aC.format()}
+\end{aligned}$`
           break
         }
       }
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
       if (this.questionJamaisPosee(i, i)) {
-        this.listeQuestions.push(exercice.texte)
-        this.listeCorrections.push(exercice.texteCorr)
+        this.listeQuestions.push(exercice.texte.replaceAll('\n\n', '<br>'))
+        this.listeCorrections.push(exercice.texteCorr.replaceAll('\n\n', '<br>'))
         i++
       }
       cpt++

@@ -123,3 +123,23 @@ export declare class Circle extends GraphicObject {
     constructor(A: Point, B: Point | number);
     getPoint(theta: number): Point;
 }
+/**
+   * @class
+   * @classdesc Caracteristics of an angle
+   */
+export declare class Angle extends GraphicObject {
+    A: Point;
+    B: Point;
+    C: Point;
+    angle: number;
+    type: string;
+    direct: boolean;
+    vBA: Vector;
+    vBC: Vector;
+    right: boolean;
+    fillColor: string;
+    fillOpacity: number;
+    rayon: boolean;
+    constructor(A: Point, B: Point, C: Point);
+    scale(scale: number): void;
+}

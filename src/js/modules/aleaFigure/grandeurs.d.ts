@@ -14,6 +14,7 @@ export declare class Grandeur {
     constructor(name: string, value: number, precision?: number, unit?: string);
     set name(newname: string);
     get name(): string;
+    format(): string;
     /**
      *
      * @param nmin

@@ -31,6 +31,9 @@ export class Grandeur {
 
   get name () { return this._name }
 
+  format() { 
+    return `{${texNombre2(this.toFixed).replace(',', '{,}')}~${this.unit.replace('deg','\\degree')}}`.replace('~\\degree','\\degree')
+  }
   /**
    * 
    * @param nmin 
