@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 429 
-- nombre d'exos interactifReady 592 
+- nombre d'exos interactifReady 593 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -35,7 +35,6 @@
 |2N31-1|Notation scientifique|OK|AMCNum|OK|mathLive|
 |2N31-2|Puissances : le sens des règles de calculs|OK|AMCNum|OK|mathLive|
 |2N31-4|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
-|2N31-5|Calculer avec des nombres en écriture scientifique|KO|KO|OK|mathLive|
 |2N32-4|Simplifier une somme de racines carrées|KO|KO|OK|mathLive|
 |2N40-1|Traduire un programme de calcul par une expression littérale|OK|qcmMono|OK|qcm|
 |2N40-2|Calculer la valeur d'une expression littérale.|KO|KO|OK|mathLive|
@@ -60,6 +59,7 @@
 |2S20-2|Calculer des médianes|KO|KO|OK|mathLive|
 |2S20-4|Calculer des étendues|KO|KO|OK|mathLive|
 |2S30-5|Expérience aléatoire à deux épreuves|OK|AMCNum|OK|mathLive|
+|beta2N31-5|Calculer avec des nombres en écriture scientifique|KO|KO|OK|mathLive|
 |3A11-1|Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|
 |3A11-2|Décomposition en facteurs premiers d’un entier|KO|KO|OK|mathLive|
 |3A11|Primalité ou pas|OK|qcmMono|OK|qcm|
@@ -153,7 +153,7 @@
 |4G30|Calculer des longueurs avec le théorème de Thalès|OK|AMCOpenNum|OK|mathLive|
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G41|Utiliser le cosinus pour calculer la mesure d’un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
-|4G53|Calculs de volumes|OK|AMCNum|OK|qcm,mathLive|
+|4G53|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |4L10|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |4L11|Factoriser une expression littérale|OK|AMCOpen|OK|mathLive|
 |4L20-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
