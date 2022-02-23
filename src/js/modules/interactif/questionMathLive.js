@@ -73,7 +73,7 @@ export function verifQuestionMathLive (exercice, i) {
         saisie = champTexte.value
         if (typeof reponse === 'string') {
           saisie = saisie.toString().replace(',', '.')
-          reponse = reponse.replace(',', '.')
+          reponse = reponse.replace(',', '.').replace('{.}', '.')
         }
         if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
           saisie = saisie.split('\\times')

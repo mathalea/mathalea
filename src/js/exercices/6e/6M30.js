@@ -296,8 +296,10 @@ export default function CalculDeVolumes () {
       if (this.interactif && this.interactifType === 'qcm') {
         texte += propositionsQcm(this, i).texte
       } else {
-        setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'longueur' })
-        texte += ajouteChampTexteMathLive(this, i, 'longueur')
+        if (!context.isAmc) {
+          setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'longueur' })
+          texte += ajouteChampTexteMathLive(this, i, 'longueur')
+        }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

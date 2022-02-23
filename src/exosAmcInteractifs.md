@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 429 
-- nombre d'exos interactifReady 587 
+- nombre d'exos interactifReady 594 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -59,6 +59,7 @@
 |2S20-2|Calculer des médianes|KO|KO|OK|mathLive|
 |2S20-4|Calculer des étendues|KO|KO|OK|mathLive|
 |2S30-5|Expérience aléatoire à deux épreuves|OK|AMCNum|OK|mathLive|
+|beta2N31-5|Calculer avec des nombres en écriture scientifique|KO|KO|OK|mathLive|
 |3A11-1|Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|
 |3A11-2|Décomposition en facteurs premiers d’un entier|KO|KO|OK|mathLive|
 |3A11|Primalité ou pas|OK|qcmMono|OK|qcm|
@@ -152,7 +153,7 @@
 |4G30|Calculer des longueurs avec le théorème de Thalès|OK|AMCOpenNum|OK|mathLive|
 |4G40|Utiliser le cosinus pour calculer une longueur dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
 |4G41|Utiliser le cosinus pour calculer la mesure d’un angle dans un triangle rectangle|OK|AMCOpenNum|OK|mathLive|
-|4G53|Calculs de volumes|OK|AMCNum|OK|qcm,mathLive|
+|4G53|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |4L10|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |4L11|Factoriser une expression littérale|OK|AMCOpen|OK|mathLive|
 |4L20-0|Équation du premier degré à solutions entières|OK|AMCNum|OK|mathLive|
@@ -174,6 +175,7 @@
 |5G12-3|Identifier une transformation|KO|KO|OK|listeDeroulante|
 |5L10-2|Traduire un programme de calcul par une expression littérale|OK|qcmMono|OK|qcm|
 |5L10|Écrire une expression littérale|OK|qcmMult|OK|qcm|
+|5L12-2|Réduire une expression littérale (somme et produit)|KO|KO|OK|mathLive|
 |5L13|Réduire une expression de la forme $ax+bx$ |KO|KO|OK|mathLive|
 |5L14-2|Substitution|OK|AMCNum|OK|numerique|
 |5L14|Calculer la valeur d’une expression littérale|KO|KO|OK|mathLive|
@@ -373,6 +375,11 @@
 |can1S03|Calculer un terme d’une suite récurrente*|KO|KO|OK|mathLive|
 |can1S04|Donner la nature d’une suite (formule de récurrence)|KO|KO|OK|qcm|
 |can1S05|Donner la nature d’une suite (formule explicite)|KO|KO|OK|qcm|
+|can1S06|Donner la forme explicite d’une suite arithmétiue/géométrique|KO|KO|OK|mathLive|
+|can1S07|Calculer la raison d’une suite arithmétique/géométrique|KO|KO|OK|mathLive|
+|can1S08|Calculer la raison d’une suite arithmétique/géométrique*|KO|KO|OK|mathLive|
+|can1S09|Déterminer une relation de récurrence|KO|KO|OK|mathLive|
+|can1S10|Trouver le sens de variation d’une suite (QCM)|KO|KO|OK|qcm|
 |can2C01|Trouver le nombre d’entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can2C02|Calculer une différence de deux carrés|OK|AMCNum|OK|mathLive|
 |can2C03|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
