@@ -105,10 +105,9 @@ const config = {
   mode,
   // les js à compiler, cf https://webpack.js.org/configuration/entry-context/#entry
   entry: {
-    /* pour DEBUG on ne garde que m2d
     mathalea: ['./src/js/firstLoaded.js', './src/js/mathalea.js'],
-    mathalea2d: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2d-gui.js'], */
-    m2d: [/* ça plante parce qu'on ne peut pas ajouter de propriété à window, faudrait le déclarer qq part './src/js/firstLoaded.js', */'./src/js/modules/m2d/init.ts'] /*,
+    mathalea2d: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2d-gui.js'],
+    m2d: [/* ça plante parce qu'on ne peut pas ajouter de propriété à window, faudrait le déclarer qq part './src/js/firstLoaded.js', */'./src/js/modules/m2d/init.ts'],
     mathalea2iep: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2iep-gui.js'],
     alacarte: ['./src/js/firstLoaded.js', './src/js/alacarte.js'] /* */
   },
@@ -149,8 +148,7 @@ const config = {
   devtool: (mode === 'production') ? 'source-map' : 'eval-cheap-module-source-map',
   // Cf https://webpack.js.org/configuration/plugins/
   plugins: [
-    // DEBUG on commente la plupart de ces entrées pour tester ts avec m2d
-    /* new CopyPlugin({
+    new CopyPlugin({
       // minimized: true sert à éviter de filer le fichier à terser pour minification
       // Cf https://webpack.js.org/plugins/copy-webpack-plugin/#info
       patterns: [
@@ -186,7 +184,7 @@ const config = {
       template: 'src/html/m2d.html',
       filename: 'm2d.html',
       chunks: ['m2d']
-    }) /*,
+    }),
     new HtmlWebpackPlugin({
       template: 'src/html/mathalea2dsvg.html',
       filename: 'mathalea2dsvg.html',
