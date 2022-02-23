@@ -8,7 +8,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '11/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '22/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
 * Réduire une expression
@@ -23,7 +23,7 @@ export const dateDePublication = '11/02/2022' // La date de publication initiale
 *    '7 : ax+c',
 *    '8 : ax.b',
 *    '9 : ax+bx'
-* @author Rémi Angot
+* @author Mickael Guironnet - Rémi Angot
 * 5L12
 */
 export default function ReduireUneExpressionLitterale () {
@@ -45,15 +45,15 @@ export default function ReduireUneExpressionLitterale () {
     this.autoCorrection = []
 
     let listeDesProblemes = []
-    if (!this.sup3) { // Si aucune liste n'est saisie
+    if (!this.sup3 || parseInt(this.sup3) === 0) { // Si aucune liste n'est saisie ou mélange demandé
       listeDesProblemes = range1(9)
     } else {
       if (typeof (this.sup3) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        listeDesProblemes[0] = contraindreValeur(1, 9, this.sup3, 1)
+        listeDesProblemes[0] = contraindreValeur(0, 9, this.sup3, 1)
       } else {
         listeDesProblemes = this.sup3.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < listeDesProblemes.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeDesProblemes[i] = contraindreValeur(1, 9, parseInt(listeDesProblemes[i]), 1) // parseInt en fait un tableau d'entiers
+          listeDesProblemes[i] = contraindreValeur(0, 9, parseInt(listeDesProblemes[i]), 1) // parseInt en fait un tableau d'entiers
         }
       }
     }
@@ -143,7 +143,7 @@ export default function ReduireUneExpressionLitterale () {
       '5 : ax+y+bx+c+dy',
       '6 : ax.bx',
       '7 : ax+c',
-      '8 : ax.b',
+      '8 : ax × b',
       '9 : ax+bx'
     ].join('\n')
   ]
