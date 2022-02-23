@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 429 
-- nombre d'exos interactifReady 587 
+- nombre d'exos interactifReady 592 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -374,6 +374,11 @@
 |can1S03|Calculer un terme d’une suite récurrente*|KO|KO|OK|mathLive|
 |can1S04|Donner la nature d’une suite (formule de récurrence)|KO|KO|OK|qcm|
 |can1S05|Donner la nature d’une suite (formule explicite)|KO|KO|OK|qcm|
+|can1S06|Donner la forme explicite d’une suite arithmétiue/géométrique|KO|KO|OK|mathLive|
+|can1S07|Calculer la raison d’une suite arithmétique/géométrique|KO|KO|OK|mathLive|
+|can1S08|Calculer la raison d’une suite arithmétique/géométrique*|KO|KO|OK|mathLive|
+|can1S09|Déterminer une relation de récurrence|KO|KO|OK|mathLive|
+|can1S10|Trouver le sens de variation d’une suite (QCM)|KO|KO|OK|qcm|
 |can2C01|Trouver le nombre d’entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can2C02|Calculer une différence de deux carrés|OK|AMCNum|OK|mathLive|
 |can2C03|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
