@@ -15,8 +15,8 @@ export const interactifType = 'mathLive'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'On considère que les situations suivantes, sauf cas flagrant, sont des situations de proportionnalité. <br>On demande de les résoudre à l\'aide d\'un tableau.'
   this.nbQuestions = 5
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 4 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
@@ -78,7 +78,8 @@ export const interactifType = 'mathLive'
             o = choice([objets[index][0]])
             texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
             monTableau = tableau({
-              largeurTitre: 10,
+              largeurTitre: 9,
+              hauteur: 2,
               ligne1: [`\\text{Nombre de ${o}}`, np, ng],
               ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
@@ -94,7 +95,8 @@ export const interactifType = 'mathLive'
             o = choice([fruits[index][0]])
             texte = `${prenom()} achète ${texMasse(pp)} kg de ${o} pour ${texPrix(np)} €. Quelle masse pourrait être achetée avec ${ng} € ? `
             monTableau = tableau({
-              largeurTitre: 10,
+              largeurTitre: 9,
+              hauteur: 2,
               ligne1: [`\\text{Prix des ${o} (en euros)}`, np, ng],
               ligne2: [`\\text{Masse des ${o} (en kg)}`, `${texMasse(pp)}`, `${miseEnEvidence(texMasse(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
@@ -109,14 +111,15 @@ export const interactifType = 'mathLive'
             pg = cm * pp
             texte = `${np} objets occupent un volume de $${texNombre(pp)}$ cm³. Quel volume serait occupé par ${ng} de ces objets ? `
             monTableau = tableau({
-              largeurTitre: 10,
+              largeurTitre: 9,
+              hauteur: 2,
               ligne1: ['\\text{Nombre d\'objets}', np, ng],
               ligne2: ['\\text{Volume des objets (en cm³)}', `${texNombre(pp)}`, `${miseEnEvidence(texNombrec(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
             })
             setReponse(this, i, pg)
           }
-          texteCorr = mathalea2d({ xmin: -1, xmax: 16, ymin: 0, ymax: 7.5, style: 'display: block' }, monTableau)
+          texteCorr = mathalea2d({ xmin: -1, xmax: 16, ymin: 0, ymax: 7.5, scale: 0.7, style: 'display: block' }, monTableau)
           break
 
         case 2: // division
@@ -130,6 +133,7 @@ export const interactifType = 'mathLive'
             o = choice([objets[index][0]])
             texte = `${prenom()} achète ${ng} ${o} pour ${texPrix(pg)} €. Combien faudrait-il payer pour en acheter ${np} ? `
             monTableau = tableau({
+              hauteur: 2,
               ligne1: [`\\text{Nombre de ${o}}`, ng, np],
               ligne2: ['\\text{Prix (en euros)}', `${texPrix(pg)}`, `${miseEnEvidence(texPrix(pp))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]],
@@ -144,7 +148,8 @@ export const interactifType = 'mathLive'
             pg = cm * pp
             texte = `${prenom()} peint une surface de $${pg}$ m² en ${ng} jours. Quelle surface serait peinte en ${np} jours ? `
             monTableau = tableau({
-              largeurTitre: 10,
+              largeurTitre: 9,
+              hauteur: 2,
               ligne1: ['\\text{Durée (en jours)}', ng, np],
               ligne2: ['\\text{Surface peinte (en m²)}', `${texNombre(pg)}`, `${miseEnEvidence(texNombre(pp))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]]
@@ -160,14 +165,15 @@ export const interactifType = 'mathLive'
             o = choice([fruits[index][0]])
             texte = `${prenom()} achète ${texMasse(pg)} kg de ${o} pour ${texPrix(ng)} €. Quelle masse pourrait être achetée avec ${np} € ? `
             monTableau = tableau({
-              largeurTitre: 10,
+              largeurTitre: 9,
+              hauteur: 2,
               ligne1: [`\\text{Prix des ${o} (en euros)}`, ng, np],
               ligne2: [`\\text{Masse des ${o} (en kg)}`, `${texMasse(pg)}`, `${miseEnEvidence(texMasse(pp))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]]
             })
             setReponse(this, i, pp)
           }
-          texteCorr = mathalea2d({ xmin: -1, xmax: 16, ymin: 0, ymax: 7.5, style: 'display: block' }, monTableau)
+          texteCorr = mathalea2d({ xmin: -1, xmax: 16, ymin: 0, ymax: 7.5, scale: 0.7, style: 'display: block' }, monTableau)
           break
 
         case 3: // passage par l'unité
@@ -181,6 +187,7 @@ export const interactifType = 'mathLive'
             o = choice([objets[index][0]])
             texte = `${prenom()} achète ${np} ${o} pour ${texPrix(pp)} €. Combien faudrait-il payer pour en acheter ${ng} ? `
             monTableau = tableau({
+              hauteur: 2,
               ligne1: [`\\text{Nombre de ${o}}`, np, 1, ng],
               ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pu))}`, `${miseEnEvidence(texPrix(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]],
@@ -195,7 +202,8 @@ export const interactifType = 'mathLive'
             pg = pu * ng
             texte = `${prenom()} peint une surface de $${pp}$ m² en ${np} jours. Quelle surface serait peinte en ${ng} jours ? `
             monTableau = tableau({
-              largeurTitre: 10,
+              largeurTitre: 9,
+              hauteur: 2,
               ligne1: ['\\text{Durée (en jours)}', np, 1, ng],
               ligne2: ['\\text{Surface peinte (en m²)}', `${pp}`, `${miseEnEvidence(pu)}`, `${miseEnEvidence(pg)}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]]
@@ -211,14 +219,15 @@ export const interactifType = 'mathLive'
             o = choice([fruits[index][0]])
             texte = `${prenom()} achète ${texMasse(pp)} kg de ${o} pour ${texPrix(np)} €. Quelle masse pourrait être achetée avec ${ng} € ? `
             monTableau = tableau({
-              largeurTitre: 10,
+              largeurTitre: 9,
+              hauteur: 2,
               ligne1: [`\\text{Prix des ${o} (en euros)}`, np, 1, ng],
               ligne2: [`\\text{Masse des ${o} (en kg)}`, `${texMasse(pp)}`, `${miseEnEvidence(texMasse(pu))}`, `${miseEnEvidence(texMasse(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + np)}`], [2, 3, `${miseEnEvidence('\\times' + ng)}`]]
             })
             setReponse(this, i, pg)
           }
-          texteCorr = mathalea2d({ xmin: -1, xmax: 19, ymin: 0, ymax: 7.5, style: 'display: block' }, monTableau)
+          texteCorr = mathalea2d({ xmin: -1, xmax: 19, ymin: 0, ymax: 7.5, scale: 0.7, style: 'display: block' }, monTableau)
 
           break
 
@@ -242,7 +251,7 @@ export const interactifType = 'mathLive'
             np = randint(10, 13)
             cm = randint(2, 5)
             ng = np * cm
-            texte = `${prenom()} chausse du *${texNombre(tp)}$ à ${np} ans. Quelle sera sa pointure à ${ng} ans ?`
+            texte = `${prenom()} chausse du $${texNombre(tp)}$ à ${np} ans. Quelle sera sa pointure à ${ng} ans ?`
             texteCorr = 'On ne peut pas savoir car la pointure n\'est pas proportionnelle à l\'âge.'
           }
 
