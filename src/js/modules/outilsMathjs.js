@@ -859,10 +859,9 @@ export function resoudre (equation, params) {
       stepsNewEquation.push(`${newLeftNode}&${newEquationComparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
     }
   })
-
-  if (params.formatSolution !== 'fraction') {
-    const lastEquation = steps[steps.length - 1].newEquation
-    let answer = lastEquation.rightNode
+  const lastEquation = steps[steps.length - 1].newEquation
+  let answer = lastEquation.rightNode
+  if (params.formatSolution !== 'fraction' && !(answer.isConstantNode)) {
     try {
       // On ve tenter d'obtenir le résultat sous forme de fraction, si ce n'est pas possible on quitte le try
       answer = emath.evaluate(answer.eval())
@@ -872,7 +871,7 @@ export function resoudre (equation, params) {
         answer = round(answer.valueOf(), 15) // convertit la fraction en nombre décimal en évitant les problèmes de float
         if (params.formatSolution === 'decimal' || (typeof params.formatSolution === 'number' && answer.toString().split('.')[1].length <= params.formatSolution)) {
           // On rajoute une étape de conversion de la fraction en nombre décimal
-          stepsNewEquation.push(`${toTex(lastEquation.leftNode, params)}&${toTex(lastEquation.comparator)}${texNombre2(answer)}`)
+          stepsNewEquation.push(`${toTex(lastEquation.leftNode, params)}&${toTex(lastEquation.comparator + answer.toString())}`)
         }
       }
     } catch (e) {}

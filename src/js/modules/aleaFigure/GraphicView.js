@@ -149,6 +149,7 @@ export class GraphicView {
                 return nonUseLetter;
             }
             case 'Segment':
+            case 'Circle':
             case 'Line': {
                 const list = this.getListObjectTypeSelect('Segment').concat(this.getListObjectTypeSelect('Line'));
                 let nonUseLetter;
@@ -173,6 +174,7 @@ export class GraphicView {
             case 'Point':
                 return this.getLastNameNotUsed(typeSelect);
             case 'Segment':
+            case 'Circle':
             case 'Line':
                 return this.getLastNameNotUsed(typeSelect);
         }
@@ -202,14 +204,38 @@ export class GraphicView {
      * Add intersect point of two lines in the view
      */
     addIntersectLine(line1, line2) {
-        const delta = line1.a * line2.b - line2.a * line1.b;
-        if (delta.toFixed(15) !== '0') {
-            const deltax = -(line1.b * line2.c - line2.b * line1.c);
-            const deltay = line1.a * line2.c - line2.a * line1.c;
-            const point = new Point(new Cartesian(deltax / delta, deltay / delta));
-            point.name = this.getNewName(point.type);
-            this.geometric.push(point);
-            return [point];
+        if (line1 instanceof Line && line2 instanceof Line) {
+            const delta = line1.a * line2.b - line2.a * line1.b;
+            if (delta.toFixed(15) !== '0') {
+                const deltax = -(line1.b * line2.c - line2.b * line1.c);
+                const deltay = line1.a * line2.c - line2.a * line1.c;
+                const point = new Point(new Cartesian(deltax / delta, deltay / delta));
+                point.name = this.getNewName(point.type);
+                this.geometric.push(point);
+                return [point];
+            }
+        }
+        else if (line1 instanceof Circle && line2 instanceof Circle) {
+            const d = this.distance(line1.A, line2.A);
+            if (d > line1.r + line2.r || d < (Math.abs(line1.r - line2.r))) {
+                return [];
+            }
+            else {
+                const a = (line1.r ** 2 - line2.r ** 2 + d ** 2) / (2 * d);
+                const h = Math.sqrt(line1.r ** 2 - a ** 2);
+                const x2 = line1.A.x + a * (line2.A.x - line1.A.x) / d;
+                const y2 = line1.A.y + a * (line2.A.y - line1.A.y) / d;
+                const x3 = x2 + h * (line2.A.y - line1.A.y) / d;
+                const y3 = y2 - h * (line2.A.x - line1.A.x) / d;
+                const P1 = new Point(new Cartesian(x3, y3));
+                const x4 = x2 - h * (line2.A.y - line1.A.y) / d;
+                const y4 = y2 + h * (line2.A.x - line1.A.x) / d;
+                const P2 = new Point(new Cartesian(x4, y4));
+                P1.name = P1.name || this.getNewName(P1.type);
+                P2.name = P2.name || this.getNewName(P2.type);
+                this.geometric.push(P1, P2);
+                return [P1, P2];
+            }
         }
     }
     /**
@@ -289,8 +315,9 @@ export class GraphicView {
      * @param P
      * @returns
      */
-    addCircle(C = this.addPoint()[0], P = this.addPoint()[0]) {
-        const circle = new Circle(C, P);
+    addCircle(C = this.addPoint()[0], X) {
+        let circle;
+        circle = new Circle(C, X);
         circle.name = this.getNewName(circle.type);
         this.geometric.push(circle);
         return circle;
@@ -402,6 +429,15 @@ export class GraphicView {
     addSymetric(X, ...args) {
         return args.map(x => {
             const P = X.getSymetric(x);
+            P.name = P.name || this.getNewName(P.type);
+            this.geometric.push(P);
+            return P;
+        });
+    }
+    addTranslate(V, ...args) {
+        return args.map(X => {
+            const P = X.add(V);
+            P.name = P.name || this.getNewName(P.type);
             this.geometric.push(P);
             return P;
         });

@@ -346,7 +346,7 @@ export class Segment extends Line {
    * @classdesc Caracteristics of a circle in an euclidean plan
    */
  export class Circle extends GraphicObject {
-  A: Point
+  A: Point // center
   B: Point | number
   type: string
   a: number = 0

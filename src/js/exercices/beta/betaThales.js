@@ -13,7 +13,7 @@ import { circularPermutation } from '../../modules/aleaFigure/outils.js'
 // eslint-disable-next-line no-debugger
 debugger
 
-const nbCase = 36
+const nbCase = 37
 
 export const math = create(all)
 math.config({
@@ -1373,6 +1373,71 @@ ${aA.format()}+${aB.format()}+\widehat{${aC.name}}&=180\degree\\
 \widehat{${aC.name}}&=180 - ${aA.add(aB).format()}\\
 \widehat{${aC.name}}&=${aC.format()}
 \end{aligned}$`
+          break
+        }
+        case 37: {
+          // http://localhost:8090/mathalea.html?ex=betaThales,s=37,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView(0, 0, 10, 7)
+          graphic.clipVisible = true
+          const [A, B, C] = graphic.addNotAlignedPoint()
+          const ABC = [A, B, C]
+          ABC.name = aleaName(ABC.map(P => P.name)).join('')
+          const k = new Grandeur('k', Math.floor(Math.random() * 10 + 10) / 10 + 0.1, 1)
+          const [D] = graphic.addTranslate(new Vector(2 * graphic.distance(A, B), 0), A)
+          const E = graphic.addPointDistance(D, k.toFixed * graphic.distance(A, B))
+          const cercle1 = graphic.addCircle(E, k.toFixed * graphic.distance(B, C))
+          const cercle2 = graphic.addCircle(D, k.toFixed * graphic.distance(A, C))
+          const [F] = graphic.addIntersectLine(cercle1, cercle2)
+          const DEF = [D, E, F]
+          DEF.name = aleaName(DEF.map(P => P.name)).join('')
+          const AB = new Grandeur('AB', graphic.distance(A, B), 1, 'cm')
+          const BC = new Grandeur('BC', graphic.distance(B, C), 1, 'cm')
+          const CA = new Grandeur('CA', graphic.distance(C, A), 1, 'cm')
+          AB.aleaName(A, B)
+          BC.aleaName(B, C)
+          CA.aleaName(C, A)
+          const DE = AB.multiply(k)
+          const EF = BC.multiply(k)
+          const FD = CA.multiply(k)
+          DE.aleaName(D, E)
+          EF.aleaName(E, F)
+          FD.aleaName(F, D)
+          graphic.addLabelsPointsPolygon(A, B, C)
+          graphic.addLabelsPointsPolygon(D, E, F)
+          const graph = graphic.getMathalea2DExport(
+            D, E, F, A, B, C
+            , ...graphic.addSidesPolygon(A, B, C)
+            , ...graphic.addSidesPolygon(D, E, F)
+          )
+          exercice.texte = String.raw`$${DEF.name}$ est une agrandissement de $${ABC.name}$ tel que les points $${D.name}$, $${E.name}$, $${F.name}$ sont les homologues respectifs de $${A.name}$, $${B.name}$, $${C.name}$.
+
+On sait que ${AB.nameAndValue}, ${BC.nameAndValue}, ${DE.nameAndValue} et ${FD.nameAndValue}.
+
+$\textbf{1.}$ Calculer ${EF.name}.
+
+$\textbf{2.}$ Calculer ${CA.name}.
+
+${graph}`
+          exercice.texteCorr = String.raw`$\textbf{1.} $ $${toTex(`${DE.name}/${AB.name}=${DE.toFixed}/${AB.toFixed}=${k.toFixed}`)}$
+
+Donc $${DEF.name}$ est $${k.format()}$ fois plus grand que $${ABC.name}$.
+
+$${EF.name}=${k.format()}\times ${AB.name}$.
+
+$${EF.name}=${k.format()}\times ${AB.format()}$.
+
+$${EF.name}=${EF.format()}$.
+
+$\textbf{2.}$ $${FD.name}=${k.format()}\times ${CA.name}$.
+
+$${FD.format()}=${k.format()}\times ${CA.name}$.
+
+Résolvons l'équation d'inconnue $${CA.name}$.
+
+${resoudre(`${FD.toFixed}=${k.toFixed}*${CA.name}`).texteCorr}.
+
+
+`
           break
         }
       }

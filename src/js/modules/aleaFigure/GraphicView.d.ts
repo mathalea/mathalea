@@ -1,4 +1,4 @@
-import { Angle, Point, Line, Segment, GraphicObject, Circle } from './elements.js';
+import { Vector, Angle, Point, Line, Segment, GraphicObject, Circle } from './elements.js';
 /**
 * Donne une liste d'entiers relatifs dont on connait la somme.
 * @example > listeEntiersSommeConnue(4,10,-2)
@@ -57,11 +57,11 @@ export declare class GraphicView {
     /**
      * Append new objects to the euclidean plan
      */
-    addPoint(n?: number): any[];
+    addPoint(n?: number): Point[];
     /**
      * Add intersect point of two lines in the view
      */
-    addIntersectLine(line1: Line, line2: Line): Point[];
+    addIntersectLine(line1: Line | Circle, line2: Line | Circle): Point[];
     /**
      * Zoom in or out
      */
@@ -81,18 +81,18 @@ export declare class GraphicView {
     /**
      * Add a new line to the view with new name
      */
-    addLine(P1?: any, P2?: any): Line;
+    addLine(P1?: Point, P2?: Point): Line;
     /**
      * Add a new Segment to the view with new name
      */
-    addSegment(P1?: any, P2?: any): Segment;
+    addSegment(P1?: Point, P2?: Point): Segment;
     /**
      * Add a new circle center
      * @param C
      * @param P
      * @returns
      */
-    addCircle(C?: any, P?: any): Circle;
+    addCircle(C: Point, X: Point | number): Circle;
     /**
      * Get the intersect point of a line and the bordure
      */
@@ -117,12 +117,13 @@ export declare class GraphicView {
     addPointOnPolygon(...args: Point[]): Point;
     placeLabelsPolygon(...args: Point[]): void;
     addSymetric(X: Point | Line, ...args: Point[]): Point[];
+    addTranslate(V: Vector, ...args: Point[]): Point[];
     /**
      * Add three point, two point or one point aligned to others
      * @param  {Point,Point} args // If no point or one point we creat new points
      * @returns
      */
-    addPointAligned(P1?: any, P2?: any): any[];
+    addPointAligned(P1?: Point, P2?: Point): any[];
     /**
      * P1, P2, P3 with P2P1P3 rectangular in P1
      * @param args
@@ -140,14 +141,14 @@ export declare class GraphicView {
      * @param  {Point,Point} args If no point we create three new points
      * @returns {Point}
      */
-    addNotAlignedPoint(P1?: any, P2?: any, P3?: any): Point[];
+    addNotAlignedPoint(P1?: Point, P2?: Point, P3?: any): Point[];
     /**
      * Add a parallel line to another one or two parallel lines
      * @param  {Point,Line|Line} args If no args we create two parallels
      * @returns {Line}
      */
-    addParallelLine(P?: any, line?: Line): Line[];
-    addPerpendicularLine(P?: any, line?: Line): Line[];
+    addParallelLine(P?: Point, line?: Line): Line[];
+    addPerpendicularLine(P?: Point, line?: Line): Line[];
     /**
      * Add the sides of a polygon
      * @param  {...any} args
@@ -164,7 +165,7 @@ export declare class GraphicView {
      * @param  {...any} args // 0-3 Point
      * @returns {Group}
      */
-    addParallelogram(A?: any, B?: any, C?: Point, D?: any): any[];
+    addParallelogram(A?: Point, B?: Point, C?: Point, D?: any): any[];
     addRegularPolygon(A: Point, B: Point, n: number): Point[];
     addRegularPolygonCenter(A: Point, B: Point, n: number): Point;
     addHomothetic(O: Point, k: number, ...args: Point[]): Point[];
