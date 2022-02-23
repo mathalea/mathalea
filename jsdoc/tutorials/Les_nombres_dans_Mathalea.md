@@ -29,16 +29,21 @@ En effet : calcul(1/10 + 2/10) est tout simplement un calcul(0.30000000000000004
 Pire, on s'est aperçu qu'Algebrite arrondissait alors le nombre à 10^-6, ce qui dans ce cas est convenable, mais dans des cas où la précision était plus importante, c'était la catastrophe.
 Depuis, la fonction calcul() est devenue tout simplement une fonction qui arrondit le nombre à la précision souhaitée, qui ne peut cependant pas dépasser 10^-13 sans voir apparaitre les erreurs d'arrondis de conversion.
 Mais cette solution a un talon d'Achille, car elle retourne un nombre en virgule flottante, qu'il faut stocker, et donc qui possède toujours ces erreurs d'arrondis.
-Par exemple : calcul(0.1+0.1) retourne 0.2 mais si on y regarde d'un peu plus près :
-calcul(0.1+0.1).toFixed(18) // -> '0.200000000000000011'
-Bien sûr, nous n'avons pas besoin de 18 chiffres après la virgule pour Mathalea, d'ailleurs, quand de tels nombres surgissent à l'affichage, notre première réaction est d'aller tout de suite ajouter un arrondi nécessaire et suffisant pour rectifier l'erreur visible.
+Par exemple : calcul(0.1+0.1, 1) retourne 0.2 mais si on y regarde d'un peu plus près :
+calcul(0.1+0.1, 1).toFixed(18) // -> '0.200000000000000011'
+
+Moralités :
+- calcul(expressionCalculeeParJavascript) ne sert à rien ! (enfin si : à arrondir à 13 chiffres significatifs, pour avoir des chiffres inattendus dés le 16e !)
+- calcul(expressionCalculeeParJavascript, 3) vous garantit qu'après la 3ème décimale, il y a des zéros... jusqu'au 16ème chiffre significatif où les erreurs de conversion commencent.
+
+Bien sûr, nous n'avons pas besoin de 18 chiffres significatifs pour Mathalea, d'ailleurs, quand de tels nombres surgissent à l'affichage, notre première réaction est d'aller tout de suite ajouter un arrondi nécessaire et suffisant pour rectifier l'erreur visible.
 
 Peu importe en fait que le nombre possède des décimales indésirables à partir de la 12e ou 13e décimale, si on n'en affiche que 2 !
 La solution, ici, c'est de limiter l'affichage aux seuls chiffres significatifs du résultat, c'est à dire 1 seul pour notre exemple.
 Et pour cela, il n'y a vraiment pas besoin de la fonction calcul :
 Number(0.1+0.1).toFixed(1).toLocaleString() // -> '0,3'
 
-Ainsi, pour la plupart des nombres à produire en sortie html ou Latex, une fonction limitant le nombre de chiffres significatifs est tout ce qu'il faut.
+Ainsi, pour la plupart des nombres à produire en sortie html ou Latex, calcul est inutile, seule une fonction limitant le nombre de chiffres significatifs est ce qu'il faut.
 
 Pour des calculs nécessitant plus de 13 chiffres significatifs on aura un problème puisqu'on approche de la zone de turbulences de la conversion binaire/décimale.
 Il faudra alors employer les grands moyens : on passera par l'usage de la librairie decimals.js qui permet de travailler avec un format de stockage des nombres décimaux sous la forme d'un tableau de chiffres, et qui permet de réaliser tous les calculs avec autant de chiffres significatifs que nécessaire et qui sera développée dans la partie 4.
@@ -48,17 +53,18 @@ Il faudra alors employer les grands moyens : on passera par l'usage de la librai
 texNombre(nombre,precision) est la fonction de Mathalea qui s'occupera de formater les nombres en chaine de caractères exploitable en LaTeX. A ce titre, elle contient souvent des commandes Latex comme \numprint ou \thickspace qui sont du plus mauvais effet en html si la sortie de texNombre() ne passe pas par le transpileur LaTeX/html qu'est Katex.render(). Pour ce faire, elle doit impérativement s'utiliser à l'intérieur des délimiteurs $  $ qui encadrent toute expression LaTex.
 L'alternative en texte brut (non interprêté par Katex.render()) est la fonction stringNombre()
 
-Au départ, texNombre(nb) s'occupait de remplacer le séparateur décimal . par la virgule, et d'ajouter des espaces (\thickspace) comme séparateur de classe.
+Au départ, texNombre(nb) s'occupait de remplacer le séparateur décimal . par la virgule, et d'ajouter des espaces (\thickspace) comme séparateur de classe et d'enchasser la virgule dans des acolades pour éviter l'éffet typographique ajoutant un espace après celle-ci.
 
 Une évolution de texNombre va, en plus, permettre de limiter le nombre de chiffres significatifs à afficher.
 Usage: texNombre(nombre, nombreDeChiffresAprèsLaVirgule)
 
 texNombre(0.1+0.2, 1) // -> '0,3'
 texNombre(Math.pi, 3) // -> '3,142'
+Pour les appels à texNombre sans deuxième argument (l'essentiel de ce qui existe actuellement), la précision a été fixée arbitrairement à 8.
 
 Attention de garder à l'esprit que le nombre maximum de chiffres significatifs pour un flottant est de 18, auxquels il faut retirer 3 chiffres pour les arrondis de conversion, et auxquels il faut retirer les chiffres déjà présent dans la partie entière.
 
-Donc, pour un nombre comme 324 586,138 ça passe : 6 chiffres dans la partie entière, vous pouvez demander à texNombre une precision de 9 chiffres après la virgule.
+Donc, pour un nombre comme 324 586,138 ça passe : 6 chiffres dans la partie entière, vous pouvez demander à texNombre une precision de 9 chiffres après la virgule, pas 12 ! car 12 + 6 = 18, vous aurez alors les chiffres qui composent l'erreur d'arrondi et tous les zéros intermédiaires.
 
 Mais si vous mulitpliez ce nombre par 9 234 576,7 : on grimpe à 13 chiffres dans la partie entière et 4 dans la partie décimale... donc 17 chiffres ! il y a fort à parier que le chiffre des dix-millièmes ne soit pas 6 comme prévu.
 C'est bien sûr une situation peu fréquente.

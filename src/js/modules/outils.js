@@ -2498,7 +2498,7 @@ export function numberFormat (nb) {
 * Renvoie un nombre dans le format français (séparateur de classes)
 * @author Rémi Angot
 */
-export function texNombre (nb, precision = 12) {
+export function texNombre (nb, precision = 8) {
   // Ajoute des accolades autour de la virgule {,} pour supprimer l'espace "disgracieux" qui le suit dans l'écriture décimale des nombres sinon.
   // arrondit pour avoir precision chiffres après la virgule si possible
   const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
