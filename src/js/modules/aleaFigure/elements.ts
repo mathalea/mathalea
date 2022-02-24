@@ -3,6 +3,7 @@ import { Cartesian, Coordinates, Polar } from './coordinates.js'
 import { aleaName } from '../outilsMathjs.js'
 import { dot, round, cross, norm, MathArray, Matrix } from 'mathjs'
 import { latexParCoordonnees, tracePoint, point, labelPoint } from '../2d.js'
+import { circularPermutation, getDimensions } from './outils.js'
 
 /**
  * @class
@@ -35,6 +36,31 @@ export class GraphicObject {
 
   getGGB () {
     return this.name
+  }
+
+  /**
+   * Move this right to figures
+   * @param figures
+   */
+  moveRight(...figures: GraphicObject[]) {
+    const [xmin1, ymin1, xmax1, ymax1] = getDimensions(this)
+    const [xmin2, ymin2, xmax2, ymax2] = getDimensions(...figures)
+    const P1 = new Point(xmin1, ymin1)
+    const P2 = new Point(xmax2, ymax2)
+    const t = new Vector(P1, P2)
+    this.move(t.add(new Vector(4, 0)).sub(new Vector(0, (ymax2-ymin2 +ymax1-ymin1) / 2)))
+  }
+
+  move (V: Vector) {
+    if (this instanceof Point) {
+      this.x = this.add(V).x
+      this.y = this.add(V).y
+    } else if (this instanceof Polygon) {
+      for (const P of this.vertices) {
+        P.x = P.add(V).x
+        P.y = P.add(V).y
+      }
+    }  
   }
 }
 
@@ -421,3 +447,37 @@ export class Segment extends Line {
     this.C = this.B.add(vBC)
   }
 }
+
+/**
+   * @class
+   * @classdesc Caracteristics of an angle
+   */
+ export class Polygon extends GraphicObject {
+  vertices: Point[]
+  showLabels: boolean = true
+  constructor (...args: Point[]) {
+     super()
+     this.vertices = args
+     this.name = circularPermutation(args.map(x => x.name)).join('')
+   }
+
+   getDimensions() {
+    const listXPoint = this.vertices.map(M => M.x)
+    const listYPoint = this.vertices.map(M => M.y)
+    const xmin = Math.min(...listXPoint)
+    const xmax = Math.max(...listXPoint)
+    const ymin = Math.min(...listYPoint)
+    const ymax = Math.max(...listYPoint)
+    return [xmin, ymin, xmax, ymax]
+   }
+ }
+
+ /**
+   * @class
+   * @classdesc Caracteristics of a triangle
+   */
+  export class Triangle extends Polygon {
+    constructor (...args: Point[]) {
+       super(...args)
+    }
+  }

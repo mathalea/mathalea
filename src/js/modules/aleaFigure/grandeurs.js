@@ -13,10 +13,14 @@ export class Grandeur {
         this.unit = unit;
         this.toFixed = parseFloat(this.value.toFixed(this.precision));
         this.name = name;
-        this.calcul = name;
     }
     set name(newname) {
-        this._name = newname;
+        if (typeof newname === 'string') {
+            this._name = newname;
+        }
+        else {
+            this._name = (aleaName(newname).map(x => x.name)).join('');
+        }
         this.nameAndValue = `$ {${this.name}=${texNombre2(this.toFixed).replace(',', '{,}')}~${this.unit.replace('deg', '\\degree')}}$`.replace('~\\degree', '\\degree');
     }
     get name() { return this._name; }
@@ -80,7 +84,7 @@ export class Grandeur {
         return new Grandeur('\\sqrt{' + this.name + '}', Math.pow(this.toFixed, 0.5), Math.floor(0.5 * this.precision), 'cm');
     }
     abs() {
-        return new Grandeur(this.name, abs(this.value), this.precision, this.unit);
+        return new Grandeur(this._name, abs(this.value), this.precision, this.unit);
     }
     neg() {
         return new Grandeur('-' + this.name, -this.value, this.precision, this.unit);

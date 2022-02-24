@@ -1,4 +1,4 @@
-import { Vector, Angle, Point, Line, Segment, GraphicObject, Circle } from './elements.js';
+import { Triangle, Polygon, Vector, Angle, Point, Line, Segment, GraphicObject, Circle } from './elements.js';
 /**
 * Donne une liste d'entiers relatifs dont on connait la somme.
 * @example > listeEntiersSommeConnue(4,10,-2)
@@ -29,7 +29,10 @@ export declare class GraphicView {
     ratio: number;
     clipVisible: boolean;
     saveRatio: boolean;
+    _namesAlea: boolean;
     constructor(xmin: number, ymin: number, xmax: number, ymax: number);
+    set namesAlea(names: string[] | boolean);
+    get namesAlea(): string[] | boolean;
     setDimensions(xmin?: number, ymin?: number, xmax?: number, ymax?: number): void;
     /**
      * Show any Objects in Mathalea2D
@@ -61,7 +64,7 @@ export declare class GraphicView {
      * Give a new name
      */
     getNewName(typeSelect?: string): any;
-    aleaName(...args: GraphicObject[]): void;
+    aleaNameObject(...args: GraphicObject[]): void;
     /**
      * Append new objects to the euclidean plan
      */
@@ -161,21 +164,22 @@ export declare class GraphicView {
     /**
      * Add the sides of a polygon
      * @param  {...any} args
-     * @returns {Group}
+     * @returns {}
      */
-    addSidesPolygon(...args: any[]): any[];
+    addSidesPolygon(...args: any[]): Segment[];
     /**
      * Add labels to the vertices of a polygon.
      * @param args
      */
     addLabelsPointsPolygon(...args: Point[]): void;
+    addTriangle(arg1?: number | Point, arg2?: number | Point, arg3?: number | Point, arg4?: number): Triangle;
     /**
      * Add a group of 4 points making a parallelogram
      * @param  {...any} args // 0-3 Point
      * @returns {Group}
      */
     addParallelogram(A?: Point, B?: Point, C?: Point, D?: any): any[];
-    addRegularPolygon(A: Point, B: Point, n: number): Point[];
+    addRegularPolygon(n: number, A?: Point, B?: Point): Polygon;
     addRegularPolygonCenter(A: Point, B: Point, n: number): Point;
     addHomothetic(O: Point, k: number, ...args: Point[]): Point[];
     /**

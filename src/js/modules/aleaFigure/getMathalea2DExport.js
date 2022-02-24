@@ -1,5 +1,5 @@
 import { arcPointPointAngle, cercle, segment, polygone, point, mathalea2d } from '../2d.js';
-import { Angle, Point, Line, Segment, Circle } from './elements.js';
+import { Polygon, Angle, Point, Line, Segment, Circle } from './elements.js';
 export function getMathalea2DExport(graphic) {
     graphic.resize();
     const scaleppc = 20 / graphic.ppc;
@@ -48,6 +48,15 @@ export function getMathalea2DExport(graphic) {
                   scaleppc
                   )
                 )*/
+            }
+            else if (obj instanceof Polygon) {
+                if (obj.showLabels) {
+                    obj.vertices.forEach(P => {
+                        objs.push(P.showLabel(scaleppc));
+                    });
+                }
+                else {
+                }
             }
             else {
                 obj.scale(scaleppc);

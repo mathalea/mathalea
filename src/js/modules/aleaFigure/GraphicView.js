@@ -1,6 +1,6 @@
 import { randomInt } from 'mathjs';
 import { Cartesian } from './coordinates.js';
-import { Angle, Point, Line, Segment, Circle, barycentre } from './elements.js';
+import { Triangle, Polygon, Angle, Point, Line, Segment, Circle, barycentre } from './elements.js';
 import { getMathalea2DExport } from './getMathalea2DExport.js';
 import { circularPermutation } from './outils.js';
 import { aleaName } from '../outilsMathjs.js';
@@ -33,17 +33,27 @@ export function listeEntiersSommeConnue(nbElements, total, valMin = 1) {
  */
 export class GraphicView {
     constructor(xmin, ymin, xmax, ymax) {
-        this.xmin = -5;
-        this.ymin = -5;
-        this.xmax = 5;
-        this.ymax = 5;
+        this.xmin = 0;
+        this.ymin = 0;
+        this.xmax = 10;
+        this.ymax = 10;
         this.clipVisible = false;
         this.saveRatio = true;
+        this._namesAlea = true;
         this.setDimensions(xmin, ymin, xmax, ymax);
-        this.names = 'ABCDEFGHIJKLMNOPRSTUVZ'.split('');
+        this.names = aleaName('ABCDEFGHIJKLMNOPRSTUVZ'.split(''));
         this.ppc = 20; // Pixels per Centimeter
         this.scale = 1; // Scale for Tikz
         this.geometric = [];
+    }
+    set namesAlea(names) {
+        if (typeof names === 'string')
+            this.names = aleaName(names);
+        if (names === false)
+            this.names = 'ABCDEFGHIJKLMNOPRSTUVZ'.split('');
+    }
+    get namesAlea() {
+        return this.names;
     }
     setDimensions(xmin = -5, ymin = -5, xmax = 5, ymax = 5) {
         this.xmin = xmin;
@@ -64,6 +74,11 @@ export class GraphicView {
         args.forEach(x => {
             if (Array.isArray(x)) {
                 group.push(...x);
+            }
+            else if (x instanceof Polygon) {
+                group.push(...x.vertices);
+                group.push(...this.addSidesPolygon(...x.vertices));
+                this.addLabelsPointsPolygon(...x.vertices);
             }
             else {
                 group.push(x);
@@ -220,7 +235,7 @@ export class GraphicView {
                 return this.getLastNameNotUsed(typeSelect);
         }
     }
-    aleaName(...args) {
+    aleaNameObject(...args) {
         const names = aleaName(args.length);
         args.forEach((x, i) => { x.name = names[i]; });
     }
@@ -574,7 +589,7 @@ export class GraphicView {
     /**
      * Add the sides of a polygon
      * @param  {...any} args
-     * @returns {Group}
+     * @returns {}
      */
     addSidesPolygon(...args) {
         const sides = [];
@@ -597,6 +612,33 @@ export class GraphicView {
             vertices[i].labelPoints = [vertices[i - 1], vertices[i], vertices[i + 1]];
         }
     }
+    addTriangle(arg1, arg2, arg3, arg4) {
+        let triangle;
+        if (arg1 instanceof Point && arg2 !== undefined && arg2 instanceof Point && arg3 instanceof Point) {
+            triangle = new Triangle(arg1, arg2, arg3);
+        }
+        else if (arg1 instanceof Point && arg2 instanceof Point && arg3 instanceof Point) {
+            triangle = new Triangle(...this.addNotAlignedPoint(...[arg1, arg2, arg3].filter(P => P !== undefined)));
+        }
+        else if (arg1 instanceof Point && typeof arg2 === 'number' && arg3 instanceof Point && typeof arg4 === 'number') {
+            const cercle1 = this.addCircle(arg1, arg2);
+            const cercle2 = this.addCircle(arg3, arg4);
+            const [P] = this.addIntersectLine(cercle1, cercle2);
+            triangle = new Triangle(arg1, arg3, P);
+        }
+        else if (typeof arg1 === 'number' && typeof arg2 === 'number' && typeof arg3 === 'number') {
+            const A = this.addPoint()[0];
+            const B = this.addPointDistance(A, arg1);
+            const cercle1 = this.addCircle(A, arg2);
+            const cercle2 = this.addCircle(B, arg3);
+            const [C] = this.addIntersectLine(cercle1, cercle2);
+            triangle = new Triangle(A, B, C);
+        }
+        else if (arg1 === undefined) {
+            triangle = new Triangle(...this.addNotAlignedPoint());
+        }
+        return triangle;
+    }
     /**
      * Add a group of 4 points making a parallelogram
      * @param  {...any} args // 0-3 Point
@@ -608,7 +650,7 @@ export class GraphicView {
         this.geometric.push(D);
         return [A, B, C, D];
     }
-    addRegularPolygon(A = this.addPoint()[0], B = this.addPoint()[0], n) {
+    addRegularPolygon(n, A = this.addPoint()[0], B = this.addPoint()[0]) {
         const points = [A, B];
         for (let i = 2; i < n; i++) {
             const P = points[i - 2].getRotate(points[i - 1], Math.PI - 2 * Math.PI / n);
@@ -616,7 +658,7 @@ export class GraphicView {
             this.geometric.push(P);
             points.push(P);
         }
-        return points;
+        return new Polygon(...points);
     }
     addRegularPolygonCenter(A = this.addPoint()[0], B = this.addPoint()[0], n) {
         const angle = Math.PI * (1 / 2 - 1 / n);

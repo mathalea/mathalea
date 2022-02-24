@@ -1,6 +1,6 @@
 import { randomInt } from 'mathjs'
 import { Cartesian } from './coordinates.js'
-import { Vector, Angle, Point, Line, Segment, GraphicObject, Circle, barycentre } from './elements.js'
+import { Triangle, Polygon, Vector, Angle, Point, Line, Segment, GraphicObject, Circle, barycentre } from './elements.js'
 import { getMathalea2DExport } from './getMathalea2DExport.js'
 import { circularPermutation } from './outils.js'
 import { aleaName } from '../outilsMathjs.js'
@@ -38,21 +38,31 @@ export class GraphicView {
   ppc: number
   scale: number
   geometric: GraphicObject[]
-  xmin: number = -5
-  ymin: number = -5
-  xmax: number = 5
-  ymax: number = 5
+  xmin: number = 0
+  ymin: number = 0
+  xmax: number = 10
+  ymax: number = 10
   width: number
   height: number
   ratio: number
   clipVisible : boolean = false
   saveRatio : boolean = true
+  _namesAlea: boolean = true 
   constructor (xmin: number, ymin: number, xmax:number, ymax:number) {
     this.setDimensions(xmin, ymin, xmax, ymax)
-    this.names = 'ABCDEFGHIJKLMNOPRSTUVZ'.split('')
+    this.names = aleaName('ABCDEFGHIJKLMNOPRSTUVZ'.split(''))
     this.ppc = 20 // Pixels per Centimeter
     this.scale = 1 // Scale for Tikz
     this.geometric = []
+  }
+
+  set namesAlea(names: string[] | boolean) {
+    if (typeof names === 'string') this.names = aleaName(names)
+    if (names === false) this.names = 'ABCDEFGHIJKLMNOPRSTUVZ'.split('')
+  }
+
+  get namesAlea() {
+    return this.names
   }
 
   setDimensions (xmin = -5, ymin = -5, xmax = 5, ymax = 5) {
@@ -75,6 +85,10 @@ export class GraphicView {
     args.forEach(x => {
       if (Array.isArray(x)) {
         group.push(...x)
+      } else if (x instanceof Polygon) {
+        group.push(...x.vertices)
+        group.push(...this.addSidesPolygon(...x.vertices))
+        this.addLabelsPointsPolygon(...x.vertices)
       } else {
         group.push(x)
       }
@@ -83,7 +97,7 @@ export class GraphicView {
     return group
   }
 
-  getDimensions(...liste: GraphicObject[]): [number, number, number, number] { 
+  getDimensions (...liste: GraphicObject[]): [number, number, number, number] { 
     const listPoint = this.getListObjectTypeSelect('Point', liste)
     const listXPoint = listPoint.map((X: { x: Point }) => { return X.x })
     const listYPoint = listPoint.map((Y: { y: Point }) => { return Y.y })
@@ -94,32 +108,32 @@ export class GraphicView {
     return [xmin, ymin, xmax, ymax]
   }
 
-  getWidth(...liste: GraphicObject[]): number { 
+  getWidth (...liste: GraphicObject[]): number { 
     const [xmin, ymin, xmax, ymax] = this.getDimensions(...liste)
     return  xmax-xmin
   }
 
-  getHeight(...liste: GraphicObject[]): number { 
+  getHeight (...liste: GraphicObject[]): number { 
     const [xmin, ymin, xmax, ymax] = this.getDimensions(...liste)
     return  ymax-ymin
   }
 
-  getUponPoint(...liste: GraphicObject[]) : Point {
+  getUponPoint (...liste: GraphicObject[]) : Point {
     const listePoints = this.getListObjectTypeSelect('Point', liste)
     return this.getListObjectTypeSelect('Point', liste).sort((a,b) => b.y-a.y)[listePoints.length - 1]
   }
 
-  geBelowPoint(...liste: GraphicObject[]) : Point {
+  geBelowPoint (...liste: GraphicObject[]) : Point {
     const listePoints = this.getListObjectTypeSelect('Point', liste)
     return this.getListObjectTypeSelect('Point', liste).sort((a,b) => b.y-a.y)[0]
   }
 
-  getLeftPoint(...liste: GraphicObject[]) : Point {
+  getLeftPoint (...liste: GraphicObject[]) : Point {
     const listePoints = this.getListObjectTypeSelect('Point', liste)
     return this.getListObjectTypeSelect('Point', liste).sort((a,b) => b.x-a.x)[listePoints.length - 1]
   }
 
-  getRightPoint(...liste: GraphicObject[]): Point {
+  getRightPoint (...liste: GraphicObject[]): Point {
     const listePoints = this.getListObjectTypeSelect('Point', liste)
     return listePoints.sort((a,b) => b.x-a.x)[0]
   }
@@ -244,7 +258,7 @@ export class GraphicView {
     }
   }
 
-  aleaName (...args: GraphicObject[]) {
+  aleaNameObject (...args: GraphicObject[]) {
     const names = aleaName(args.length)
     args.forEach((x,i) => {x.name = names[i]})
   }
@@ -518,7 +532,7 @@ export class GraphicView {
     })
   }
 
-  addTranslate(V: Vector, ...args: Point[]): Point[] {
+  addTranslate (V: Vector, ...args: Point[]): Point[] {
     return args.map(X => {
       const P = X.add(V)
       P.name = P.name || this.getNewName(P.type)
@@ -527,7 +541,7 @@ export class GraphicView {
     })
   }
 
-  move(V: Vector, ...args: Point[]) {
+  move (V: Vector, ...args: Point[]) {
     for (let X of args) {
       X.x = X.add(V).x
       X.y = X.add(V).y
@@ -628,9 +642,9 @@ export class GraphicView {
   /**
    * Add the sides of a polygon
    * @param  {...any} args
-   * @returns {Group}
+   * @returns {}
    */
-  addSidesPolygon (...args) {
+  addSidesPolygon (...args): Segment[] {
     const sides = []
     for (let i = 0; i < args.length - 1; i++) {
       // sides.push(this.addSegment(args[i], args[i + 1]))
@@ -652,7 +666,31 @@ export class GraphicView {
       vertices[i].labelPoints = [vertices[i - 1], vertices[i], vertices[i+1]]
     }
   }
-  
+
+  addTriangle (arg1?: number | Point, arg2?: number | Point, arg3?: number | Point, arg4?: number): Triangle {
+    let triangle
+    if (arg1 instanceof Point && arg2 !== undefined && arg2 instanceof Point && arg3 instanceof Point) {
+      triangle = new Triangle(arg1,arg2,arg3)
+    } else if (arg1 instanceof Point && arg2 instanceof Point && arg3 instanceof Point) {
+      triangle = new Triangle(...this.addNotAlignedPoint(...[arg1,arg2,arg3].filter(P => P !== undefined)))
+    } else if (arg1 instanceof Point && typeof arg2 === 'number' && arg3 instanceof Point && typeof arg4 === 'number') {
+      const cercle1 = this.addCircle(arg1, arg2)
+      const cercle2 = this.addCircle(arg3, arg4)
+      const [P] = this.addIntersectLine(cercle1, cercle2)
+      triangle = new Triangle(arg1,arg3,P)
+    } else if (typeof arg1 === 'number' && typeof arg2 === 'number' && typeof arg3 === 'number') {
+      const A = this.addPoint()[0]
+      const B = this.addPointDistance(A,arg1)
+      const cercle1 = this.addCircle(A, arg2)
+      const cercle2 = this.addCircle(B, arg3)
+      const [C] = this.addIntersectLine(cercle1, cercle2)
+      triangle = new Triangle(A,B,C)
+    } else if (arg1 === undefined) {
+      triangle = new Triangle(...this.addNotAlignedPoint())
+    }
+    return triangle
+  }
+
   /**
    * Add a group of 4 points making a parallelogram
    * @param  {...any} args // 0-3 Point
@@ -670,7 +708,7 @@ export class GraphicView {
     return [A, B, C, D]
   }
 
-  addRegularPolygon (A: Point = this.addPoint()[0], B: Point = this.addPoint()[0], n: number): Point[] {
+  addRegularPolygon (n: number, A: Point = this.addPoint()[0], B: Point = this.addPoint()[0]): Polygon {
     const points: Point[] = [A,B]
     for (let i=2;i<n;i++) {
       const P = points[i-2].getRotate(points[i-1],Math.PI - 2 * Math.PI / n)
@@ -678,7 +716,7 @@ export class GraphicView {
       this.geometric.push(P)
       points.push(P)
     }
-    return points
+    return new Polygon(...points)
   }
 
   addRegularPolygonCenter (A: Point = this.addPoint()[0], B: Point = this.addPoint()[0], n: number): Point {

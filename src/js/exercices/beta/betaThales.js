@@ -808,7 +808,7 @@ La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\co
           const n = (Math.random() * 3 + 3).toFixed()
           const O = graphic.addRegularPolygonCenter(A, B, n)
           for (let i = 0; i < 10; i++) {
-            const sommets = graphic.addHomothetic(O, 1 / (i + 1), ...graphic.addRegularPolygon(A, B, n))
+            const sommets = graphic.addHomothetic(O, 1 / (i + 1), ...graphic.addRegularPolygon(n, A, B).vertices)
             polygons.push(sommets, graphic.addSidesPolygon(...sommets))
           }
           const graph = graphic.getMathalea2DExport(
@@ -822,7 +822,7 @@ La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\co
           // http://localhost:8080/mathalea.html?ex=betaThales,s=25,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
           const [G, H] = graphic.addPoint(2)
-          const I = graphic.addRegularPolygon(G, H, 3)[2]
+          const I = graphic.addRegularPolygon(3, G, H).vertices[2]
           const triangle3 = graphic.addSidesPolygon(G, H, I)
           const [A, B, C] = graphic.addNotAlignedPoint()
           const triangle1 = graphic.addSidesPolygon(A, B, C)
@@ -1347,7 +1347,7 @@ ${remarque}`.replaceAll('\n\n', '<br>')
           const graphic = new GraphicView()
           // const [A, B, C] = graphic.addRectPoint()
           const triangle = graphic.addNotAlignedPoint()
-          graphic.aleaName(...triangle)
+          // graphic.aleaName(...triangle)
           graphic.addLabelsPointsPolygon(...triangle)
           const angles = graphic.addAnglesPolygon(...triangle)
           const aA = new Grandeur(circularPermutation(triangle.map(x => x.name), 2).join(''), angles[0].angle / Math.PI * 180, 0, 'deg')
@@ -1378,42 +1378,27 @@ ${aA.format()}+${aB.format()}+\widehat{${aC.name}}&=180\degree\\
         case 37: {
           // http://localhost:8090/mathalea.html?ex=betaThales,s=37,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView(0, 0, 10, 7)
-          graphic.clipVisible = true
-          const [A, B, C] = graphic.addNotAlignedPoint()
-          const ABC = [A, B, C]
+          // graphic.clipVisible = true
+          const ABC = graphic.addTriangle()
+          const [A, B, C] = ABC.vertices
           const k = new Grandeur('k', Math.floor(Math.random() * 10 + 10) / 10 + 0.1, 1)
-          const [D] = graphic.addPoint()
-          const E = graphic.addPointDistance(D, k.toFixed * graphic.distance(A, B))
-          const cercle1 = graphic.addCircle(E, k.toFixed * graphic.distance(B, C))
-          const cercle2 = graphic.addCircle(D, k.toFixed * graphic.distance(A, C))
-          const [F] = graphic.addIntersectLine(cercle1, cercle2)
-          const DEF = [D, E, F]
-          graphic.aleaName(...ABC, ...DEF)
-          ABC.name = aleaName(ABC.map(P => P.name)).join('')
-          DEF.name = aleaName(DEF.map(P => P.name)).join('')
-          const P1 = new Point(...graphic.getDimensions(D, E, F).splice(0, 2))
-          const P2 = new Point(...graphic.getDimensions(A, B, C).splice(2, 2))
-          const t = new Vector(P1, P2)
-          graphic.move(t.add(new Vector(2, 0)).sub(new Vector(0, (graphic.getHeight(...DEF) + graphic.getHeight(...ABC)) / 2)), ...DEF)
-          const AB = new Grandeur('AB', graphic.distance(A, B), 1, 'cm')
-          const BC = new Grandeur('BC', graphic.distance(B, C), 1, 'cm')
-          const CA = new Grandeur('CA', graphic.distance(C, A), 1, 'cm')
-          AB.aleaName(A, B)
-          BC.aleaName(B, C)
-          CA.aleaName(C, A)
+          const DEF = graphic.addTriangle(
+            k.toFixed * graphic.distance(A, B),
+            k.toFixed * graphic.distance(B, C),
+            k.toFixed * graphic.distance(A, C)
+          )
+          const [D, E, F] = DEF.vertices
+          DEF.moveRight(ABC)
+          const AB = new Grandeur([A, B], graphic.distance(A, B), 1, 'cm')
+          const BC = new Grandeur([B, C], graphic.distance(B, C), 1, 'cm')
+          const CA = new Grandeur([C, A], graphic.distance(C, A), 1, 'cm')
           const DE = AB.multiply(k)
           const EF = BC.multiply(k)
           const FD = CA.multiply(k)
           DE.aleaName(D, E)
           EF.aleaName(E, F)
           FD.aleaName(F, D)
-          graphic.addLabelsPointsPolygon(A, B, C)
-          graphic.addLabelsPointsPolygon(D, E, F)
-          const graph = graphic.getMathalea2DExport(
-            D, E, F, A, B, C
-            , ...graphic.addSidesPolygon(A, B, C)
-            , ...graphic.addSidesPolygon(D, E, F)
-          )
+          const graph = graphic.getMathalea2DExport(ABC, DEF)
           const hfill = context.isHtml ? '\\hspace{1cm}' : '\\hfill'
           exercice.texte = String.raw`$${DEF.name}$ est une agrandissement de $${ABC.name}$ tel que les points $${D.name}$, $${E.name}$, $${F.name}$ sont les homologues respectifs de $${A.name}$, $${B.name}$, $${C.name}$.
 
@@ -1447,21 +1432,16 @@ Donc ${CA.nameAndValue}.`
           // http://localhost:8090/mathalea.html?ex=betaThales,s=38,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView(0, 0, 10, 7)
           graphic.clipVisible = true
-          const [A, B] = graphic.addPoint(2)
-          const [C, D] = graphic.addRegularPolygon(A, B, 4).splice(2, 2)
-          const ABCD = [A, B, C, D]
+          const ABCD = graphic.addRegularPolygon(4)
+          const [A, B, C] = ABCD.vertices.slice(0, 3)
           const k = new Grandeur('k', Math.floor(Math.random() * 10 + 10) / 10 + 0.1, 1)
           const [E] = graphic.addPoint()
           const F = graphic.addPointDistance(E, k.toFixed * graphic.distance(A, B))
-          const [G, H] = graphic.addRegularPolygon(E, F, 4).splice(2, 2)
-          const EFGH = [E, F, G, H]
-          graphic.aleaName(...ABCD, ...EFGH)
-          ABCD.name = circularPermutation(ABCD.map(P => P.name)).join('')
-          EFGH.name = circularPermutation(EFGH.map(P => P.name)).join('')
-          const P1 = new Point(...graphic.getDimensions(E, F, G, H).splice(0, 2))
-          const P2 = new Point(...graphic.getDimensions(A, B, C, D).splice(2, 2))
-          const t = new Vector(P1, P2)
-          graphic.move(t.add(new Vector(2, 0)).sub(new Vector(0, (graphic.getHeight(...ABCD) + graphic.getHeight(...EFGH)) / 2)), ...EFGH)
+          const EFGH = graphic.addRegularPolygon(4, E, F)
+          const G = EFGH.vertices[2]
+          // Déplacer la figure
+          EFGH.moveRight(ABCD)
+          // Calcul des grandeurs
           const AB = new Grandeur('AB', graphic.distance(A, B), 1, 'cm')
           AB.aleaName(A, B)
           const AC = AB.hypotenuse(AB)
@@ -1473,14 +1453,7 @@ Donc ${CA.nameAndValue}.`
           const EG = EF.hypotenuse(EF)
           EG.aleaName(E, G)
           const AB2 = AB.pow(2).multiply(new Grandeur('', 2, 0))
-          graphic.addLabelsPointsPolygon(A, B, C, D)
-          graphic.addLabelsPointsPolygon(E, F, G, H)
-          const graph = graphic.getMathalea2DExport(
-            D, E, F, G, H, A, B, C
-            , ...graphic.addSidesPolygon(A, B, C, D)
-            , ...graphic.addSidesPolygon(E, F, G, H)
-          )
-          const hfill = context.isHtml ? '\\hspace{1cm}' : '\\hfill'
+          const graph = graphic.getMathalea2DExport(ABCD, EFGH)
           exercice.texte = String.raw`Le carré $${EFGH.name}$ est une agrandissement de $${ABCD.name}$.
 
 L'échelle d'agrandissement est $${k.format()}$.
@@ -1508,26 +1481,19 @@ D'où ${EG.nameAndValue.replace('=', '\\approx')}.`
           break
         }
         case 39: {
-          // http://localhost:8090/mathalea.html?ex=betaThales,s=38,n=1&serie=hZya&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales,s=39,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView(0, 0, 10, 7)
           graphic.clipVisible = true
-          const [A, B] = graphic.addPoint(2)
-          const [C, D] = graphic.addRegularPolygon(A, B, 4).splice(2, 2)
-          const ABCD = [A, B, C, D]
+          const ABCD = graphic.addRegularPolygon(4)
+          const [A, B, C] = ABCD.vertices.slice(0, 3)
           const k = new Grandeur('k', Math.floor(Math.random() * 10 + 10) / 10 + 0.1, 1)
           const [E] = graphic.addPoint()
           const F = graphic.addPointDistance(E, k.toFixed * graphic.distance(A, B))
-          const [G, H] = graphic.addRegularPolygon(E, F, 4).splice(2, 2)
-          const EFGH = [E, F, G, H]
-          graphic.aleaName(...ABCD, ...EFGH)
-          ABCD.name = circularPermutation(ABCD.map(P => P.name)).join('')
-          EFGH.name = circularPermutation(EFGH.map(P => P.name)).join('')
-          const P1 = new Point(...graphic.getDimensions(E, F, G, H).splice(0, 2))
-          const P2 = new Point(...graphic.getDimensions(A, B, C, D).splice(2, 2))
-          const t = new Vector(P1, P2)
-          graphic.move(t.add(new Vector(2, 0)).sub(new Vector(0, (graphic.getHeight(...ABCD) + graphic.getHeight(...EFGH)) / 2)), ...EFGH)
-          const AB = new Grandeur('AB', graphic.distance(A, B), 1, 'cm')
-          AB.aleaName(A, B)
+          const EFGH = graphic.addRegularPolygon(4, E, F)
+          const G = EFGH.vertices[2]
+          // Déplacer la figure
+          EFGH.moveRight(ABCD)
+          const AB = new Grandeur([A, B], graphic.distance(A, B), 1, 'cm')
           const AC = AB.hypotenuse(AB)
           AC.aleaName(A, C)
           const BC = AB.add(new Grandeur('', 0, 0, 'cm'))
@@ -1537,16 +1503,8 @@ D'où ${EG.nameAndValue.replace('=', '\\approx')}.`
           const EG = EF.hypotenuse(EF)
           EG.aleaName(E, G)
           const FG = EF.add(new Grandeur('', 0, 0, 'cm'))
-          const AB2 = AB.pow(2).multiply(new Grandeur('', 2, 0))
           const EF2 = EF.pow(2).multiply(new Grandeur('', 2, 0))
-          graphic.addLabelsPointsPolygon(A, B, C, D)
-          graphic.addLabelsPointsPolygon(E, F, G, H)
-          const graph = graphic.getMathalea2DExport(
-            D, E, F, G, H, A, B, C
-            , ...graphic.addSidesPolygon(A, B, C, D)
-            , ...graphic.addSidesPolygon(E, F, G, H)
-          )
-          const hfill = context.isHtml ? '\\hspace{1cm}' : '\\hfill'
+          const graph = graphic.getMathalea2DExport(ABCD, EFGH)
           exercice.texte = String.raw`Le carré $${EFGH.name}$ est une agrandissement de $${ABCD.name}$.
 
 L'échelle d'agrandissement est $${k.format()}$.
@@ -1577,42 +1535,20 @@ D'où ${AC.nameAndValue.replace('=', '\\approx')}.`
           // http://localhost:8090/mathalea.html?ex=betaThales,s=38,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView(0, 0, 10, 7)
           graphic.clipVisible = true
-          const [A, B] = graphic.addPoint(2)
-          const [C, D] = graphic.addRegularPolygon(A, B, 4).splice(2, 2)
-          const ABCD = [A, B, C, D]
+          const ABCD = graphic.addRegularPolygon(4)
+          const [A, B] = ABCD.vertices.slice(0, 2)
           const k = new Grandeur('k', Math.floor(Math.random() * 10 + 10) / 10 + 0.1, 1)
           const [E] = graphic.addPoint()
           const F = graphic.addPointDistance(E, k.toFixed * graphic.distance(A, B))
-          const [G, H] = graphic.addRegularPolygon(E, F, 4).splice(2, 2)
-          const EFGH = [E, F, G, H]
-          graphic.aleaName(...ABCD, ...EFGH)
-          ABCD.name = circularPermutation(ABCD.map(P => P.name)).join('')
-          EFGH.name = circularPermutation(EFGH.map(P => P.name)).join('')
-          const P1 = new Point(...graphic.getDimensions(E, F, G, H).splice(0, 2))
-          const P2 = new Point(...graphic.getDimensions(A, B, C, D).splice(2, 2))
-          const t = new Vector(P1, P2)
-          graphic.move(t.add(new Vector(2, 0)).sub(new Vector(0, (graphic.getHeight(...ABCD) + graphic.getHeight(...EFGH)) / 2)), ...EFGH)
-          const AB = new Grandeur('AB', graphic.distance(A, B), 1, 'cm')
-          AB.aleaName(A, B)
-          const AC = AB.hypotenuse(AB)
-          AC.aleaName(A, C)
-          const BC = AB.add(new Grandeur('', 0, 0, 'cm'))
-          BC.aleaName(B, C)
+          const EFGH = graphic.addRegularPolygon(4, E, F)
+          // Déplacer la figure
+          EFGH.moveRight(ABCD)
+          const AB = new Grandeur([A, B], graphic.distance(A, B), 1, 'cm')
           const EF = AB.multiply(k)
           EF.aleaName(E, F)
-          const EG = EF.hypotenuse(EF)
-          EG.aleaName(E, G)
-          const AB2 = AB.pow(2).multiply(new Grandeur('', 2, 0))
           const AireEFGH = EF.multiply(EF)
-          graphic.addLabelsPointsPolygon(A, B, C, D)
-          graphic.addLabelsPointsPolygon(E, F, G, H)
-          const graph = graphic.getMathalea2DExport(
-            D, E, F, G, H, A, B, C
-            , ...graphic.addSidesPolygon(A, B, C, D)
-            , ...graphic.addSidesPolygon(E, F, G, H)
-          )
-          const hfill = context.isHtml ? '\\hspace{1cm}' : '\\hfill'
-          exercice.texte = String.raw`Le carré $${EFGH.name}$ est une agrandissement de $${ABCD.name}$.
+          const graph = graphic.getMathalea2DExport(ABCD, EFGH)
+          exercice.texte = String.raw`Le carré $${EFGH.name}$ est un agrandissement de $${ABCD.name}$.
 
 L'échelle d'agrandissement est $${k.format()}$.
 

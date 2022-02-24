@@ -13,6 +13,12 @@ export declare class GraphicObject {
     set name(newname: string);
     get name(): string;
     getGGB(): string;
+    /**
+     * Move this right to figures
+     * @param figures
+     */
+    moveRight(...figures: GraphicObject[]): void;
+    move(V: Vector): void;
 }
 /**
  * @class
@@ -142,4 +148,21 @@ export declare class Angle extends GraphicObject {
     rayon: boolean;
     constructor(A: Point, B: Point, C: Point);
     scale(scale: number): void;
+}
+/**
+   * @class
+   * @classdesc Caracteristics of an angle
+   */
+export declare class Polygon extends GraphicObject {
+    vertices: Point[];
+    showLabels: boolean;
+    constructor(...args: Point[]);
+    getDimensions(): number[];
+}
+/**
+  * @class
+  * @classdesc Caracteristics of a triangle
+  */
+export declare class Triangle extends Polygon {
+    constructor(...args: Point[]);
 }

@@ -1,5 +1,5 @@
 import { arcPointPointAngle, cercle, segment, polygone, point, mathalea2d } from '../2d.js'
-import { Angle, Point, Line, Segment, Circle } from './elements.js'
+import { Polygon, Angle, Point, Line, Segment, Circle } from './elements.js'
 import { GraphicView } from './graphicView.js' 
 
 export function getMathalea2DExport (graphic: GraphicView) {
@@ -52,6 +52,14 @@ export function getMathalea2DExport (graphic: GraphicView) {
           scaleppc
           )
         )*/
+      } else if (obj instanceof Polygon) {
+        if (obj.showLabels) {
+          obj.vertices.forEach(P => {
+            objs.push(P.showLabel(scaleppc))
+          })
+        } else {
+
+        }
       } else {
         obj.scale(scaleppc)
         const extrems = obj.direct ? [point(obj.A.x,obj.A.y), point(obj.C.x,obj.C.y)] : [point(obj.C.x,obj.C.y), point(obj.A.x,obj.A.y)]

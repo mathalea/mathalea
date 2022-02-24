@@ -1,4 +1,4 @@
-import { GraphicObject } from './elements.js';
+import { GraphicObject, Point } from './elements.js';
 /**
  * Grandeur, methods for operations
  *
@@ -11,9 +11,9 @@ export declare class Grandeur {
     nameAndValue: string;
     private _name;
     calcul: string;
-    constructor(name: string, value: number, precision?: number, unit?: string);
-    set name(newname: string);
-    get name(): string;
+    constructor(name: string | Point[], value: number, precision?: number, unit?: string);
+    set name(newname: string | Point[]);
+    get name(): string | Point[];
     format(): string;
     /**
      *

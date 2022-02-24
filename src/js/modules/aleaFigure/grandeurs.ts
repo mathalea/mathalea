@@ -1,7 +1,7 @@
 import { texNombre2 } from '../outils.js'
 import { simplify, parse, unit, max, add, subtract, abs, log10, random, min } from 'mathjs'
 import { aleaName } from '../outilsMathjs.js'
-import { GraphicObject } from './elements.js'
+import { GraphicObject, Point } from './elements.js'
 
 /**
  * Grandeur, methods for operations
@@ -15,17 +15,20 @@ export class Grandeur {
   nameAndValue: string
   private _name: string
   calcul: string
-  constructor (name: string, value: number, precision:number = 1, unit: string = '') {
+  constructor (name: string | Point[], value: number, precision:number = 1, unit: string = '') {
     this.value = parseFloat(value.toFixed(precision))
     this.precision = precision
     this.unit = unit
     this.toFixed = parseFloat(this.value.toFixed(this.precision))
     this.name = name
-    this.calcul = name
   }
 
-  set name (newname) {
-    this._name = newname
+  set name (newname: string | Point[]) {
+    if (typeof newname === 'string') {
+      this._name = newname
+    } else {
+      this._name = (aleaName(newname).map(x => x.name)).join('')
+    }
     this.nameAndValue = `$ {${this.name}=${texNombre2(this.toFixed).replace(',', '{,}')}~${this.unit.replace('deg','\\degree')}}$`.replace('~\\degree','\\degree')
   }
 
@@ -120,7 +123,7 @@ export class Grandeur {
 
   abs (): Grandeur {
     return new Grandeur(
-      this.name,
+      this._name,
       abs(this.value),
       this.precision,
       this.unit
