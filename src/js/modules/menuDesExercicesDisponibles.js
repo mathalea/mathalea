@@ -3,6 +3,7 @@ import { tridictionnaire, filtreDictionnaire, filtreDictionnaireValeurCle, filtr
 import dictionnaireDesExercicesAleatoires from './dictionnaireDesExercicesAleatoires.js'
 import { dictionnaireC3 } from './dictionnaireC3.js'
 import { dictionnaireDNB } from './dictionnaireDNB.js'
+import { dictionnaireBAC } from './dictionnaireBAC.js'
 import { dictionnaireLycee } from './dictionnaireLycee.js'
 import { dictionnaireCrpe } from './dictionnaireCrpe.js'
 import $ from 'jquery'
@@ -29,8 +30,10 @@ enleveElement(tableauTags, 'Hors programme')
 
 const tableauTagsCrpe = dictionnaireToTableauTags(dictionnaireCrpe)
 
+const tableauTagsBAC = dictionnaireToTableauTags(dictionnaireBAC)
+
 // On concatène les différentes listes d'exercices
-export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3, ...dictionnaireLycee, ...dictionnaireCrpe }
+export const dictionnaireDesExercices = { ...dictionnaireDesExercicesAleatoires, ...dictionnaireDNB, ...dictionnaireC3, ...dictionnaireLycee, ...dictionnaireCrpe, ...dictionnaireBAC }
 let listeDesExercicesDisponibles
 if (getVueFromUrl() === 'amc') {
   const dictionnaireDesExercicesAMC = {}
@@ -52,7 +55,7 @@ function coupeChaine (titre, maxLength) {
 }
 
 function spanExercice (id, titre) {
-  // Construit le span de la ligne d'exercice (sauf pour les exercices dnb qui sont particuliers.
+  // Construit le span de la ligne d'exercice (sauf pour les exercices dnb,bac ou crpe qui sont particuliers.
   let maxLength
   // Selon la taille de la fenêtre (de l'écran) on tronque les titres trop longs pour qu'ils restent sur une ligne.
   if (document.getElementById('exercices_disponibles') && document.getElementById('exercices_disponibles').clientWidth > 600) {
@@ -116,6 +119,14 @@ function aDnb (id, dictionnaire, mode) {
     return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].annee} - ${id.substr(9, 2)} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroInitial}</a> ${listeHtmlDesTags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
   }
 }
+function aBac (id, dictionnaire, mode) {
+  // donne la ligne pour un exercice bac lorsqu'on les regarde par année.
+  if (mode === 'annee') {
+    return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].lieu} - ${dictionnaire[id].mois} -  Ex ${dictionnaire[id].numeroInitial}</a> ${listeHtmlDesTags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
+  } else {
+    return `<a style="line-height:2.5" class="lien_id_exercice" data-id_exercice="${id}">${dictionnaire[id].annee} - ${id.substr(9, 2)} - ${dictionnaire[id].lieu} - Ex ${dictionnaire[id].numeroInitial}</a> ${listeHtmlDesTags(dictionnaire[id])} <i id="${id}" class="eye icon icone_preview"></i></br>\n`
+  }
+}
 function listeHtmlDesExercicesCrpeAnnee (annee) {
   let liste = ''
   const dictionnaire = filtreDictionnaireValeurCle(dictionnaireCrpe, 'annee', annee)
@@ -160,7 +171,28 @@ function listeHtmlDesExercicesDNBTheme (theme) {
   }
   return liste
 }
-
+function listeHtmlDesExercicesBACAnnee (annee) {
+  let liste = ''
+  const dictionnaire = filtreDictionnaireValeurCle(dictionnaireBAC, 'annee', annee)
+  for (const id in dictionnaire) {
+    liste += aBac(id, dictionnaire, 'annee')
+  }
+  return liste
+}
+function listeHtmlDesExercicesBACTheme (theme) {
+  let liste = ''
+  const dictionnaire = filtreDictionnaireValeurTableauCle(dictionnaireBAC, 'tags', theme)
+  let tableauDesExercices = []
+  for (const id in dictionnaire) {
+    tableauDesExercices.push(id)
+  }
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  tableauDesExercices = tableauDesExercices.sort().reverse()
+  for (const id of tableauDesExercices) {
+    liste += aBac(id, dictionnaire, 'theme')
+  }
+  return liste
+}
 function listeHtmlDesExercicesDUnNiveau (listeDeThemes) { // liste_de_themes = [['6N1','6N1 - Numérations et fractions niveau 1'] , [' ',' '] ]
   // Appelée par la fonction menuDesExercicesDisponibles
   let liste = ''
@@ -255,6 +287,29 @@ function getListeHtmlDesExercicesDNBTheme () {
   liste += '</div>'
   return liste
 }
+
+function getListeHtmlDesExercicesBAC () {
+  let liste = '<div class="accordion">'
+  for (const annee of ['2021']) {
+    liste += `<div class="title"><i class="dropdown icon"></i> ${annee}</div><div class="content">`
+    liste += listeHtmlDesExercicesBACAnnee(annee)
+    liste += '</div>'
+  }
+  liste += '</div>'
+  return liste
+}
+
+function getListeHtmlDesExercicesBACTheme () {
+  let liste = '<div class="accordion">'
+  for (const theme of tableauTagsBAC) {
+    liste += `<div class="title"><i class="dropdown icon"></i> ${theme}</div><div class="content">`
+    liste += listeHtmlDesExercicesBACTheme(theme)
+    liste += '</div>'
+  }
+  liste += '</div>'
+  return liste
+}
+
 function getListeHtmlDesExercicesCrpeTheme () {
   let liste = '<div class="accordion">'
   for (const theme of tableauTagsCrpe) {
@@ -286,7 +341,7 @@ function listeHtmlDesTags (objet) {
 function divNiveau (obj, active, id) {
   // construction de la div contenant l'ensemble d'un niveau.
   let nombreExo = ''
-  if (id !== 'DNB' && id !== 'DNBtheme' && id !== 'CRPE' && id !== 'CrpeTheme') {
+  if (id !== 'DNB' && id !== 'DNBtheme' && id !== 'CRPE' && id !== 'CrpeTheme' && id !== 'BAC' && id !== 'BACtheme') {
     nombreExo = '(' + obj.nombre_exercices_dispo + ')'
   }
   return `<div id=${id} class="${active ? 'active title fermer_niveau' : 'title ouvrir_niveau'}"><i class="dropdown icon"></i>${obj.label} ${nombreExo}</div><div id="content${id}" class="${active} content">${active ? obj.liste_html_des_exercices : ''}</div>`
@@ -597,6 +652,18 @@ export function menuDesExercicesDisponibles () {
       liste_html_des_exercices: getListeHtmlDesExercicesDNBTheme(),
       lignes_tableau: ''
     },
+    BAC: {
+      label: 'Exercices de bac (classés par année)',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: getListeHtmlDesExercicesBAC(),
+      lignes_tableau: ''
+    },
+    BACtheme: {
+      label: 'Exercices de bac (classés par thème)',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: getListeHtmlDesExercicesBACTheme(),
+      lignes_tableau: ''
+    },
     C: {
       label: 'Calcul mental',
       nombre_exercices_dispo: 0,
@@ -719,6 +786,11 @@ export function menuDesExercicesDisponibles () {
         objExercicesDisponibles.CRPE.lignes_tableau += ligneTableau(id)
       }
     }
+    if (id[0] === 'b' && id[1] === 'a' && id[2] === 'c') {
+      if (filtre !== 'interactif') {
+        objExercicesDisponibles.BAC.lignes_tableau += ligneTableau(id)
+      }
+    }
   }
 
   listeHtmlDesExercices = '<div class="ui accordion">'
@@ -749,6 +821,11 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercices += divNiveau(objExercicesDisponibles.DNBtheme, 'active', 'DNBtheme')
     listeHtmlDesExercices += '</div>'
     listeHtmlDesExercicesTab += objExercicesDisponibles.DNB.lignes_tableau
+  } else if (filtre === 'bac') {
+    listeHtmlDesExercices += divNiveau(objExercicesDisponibles.BAC, 'active', 'BAC')
+    listeHtmlDesExercices += divNiveau(objExercicesDisponibles.BACtheme, 'active', 'BACtheme')
+    listeHtmlDesExercices += '</div>'
+    listeHtmlDesExercicesTab += objExercicesDisponibles.BAC.lignes_tableau
   } else if (filtre === 'primaire') {
     listeHtmlDesExercices += divNiveau(objExercicesDisponibles.c3, 'active', 'c3')
     listeHtmlDesExercices += '</div>'
@@ -787,7 +864,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'Ex', 'HP', 'PE', 'CrpeTheme', 'CRPE', 'C'],
+      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'Ex', 'HP', 'BAC', 'BACtheme', 'PE', 'CrpeTheme', 'CRPE', 'C'],
       active: '',
       obj_ex: objExercicesDisponibles
     })

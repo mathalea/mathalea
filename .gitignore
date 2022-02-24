@@ -11,10 +11,13 @@ Session.vim
 *~
 *.bak
 
-# ignorer les dossier tex/, tex/png/, dnb/ et tous leurs enfants
+# ignorer les dossiers tex/, tex/png/, dnb/ et tous leurs enfants
 # tex/*
 # tex/png/*
 dnb/
+
+# ignorer le dossier bac et tous ses enfants
+bac/ 
 
 # ignorer les sujets de CRPE
 src/assets/crpe
