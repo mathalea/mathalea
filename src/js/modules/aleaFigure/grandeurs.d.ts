@@ -27,6 +27,19 @@ export declare class Grandeur {
     divide(a: Grandeur): Grandeur;
     add(a: Grandeur): Grandeur;
     subtract(a: Grandeur): Grandeur;
+    hypotenuse(a: Grandeur): Grandeur;
+    /**
+     * this^n
+     * @param n // Integer
+     * @returns
+     */
+    pow(n: number): Grandeur;
+    /**
+     * this^n
+     * @param n // Integer
+     * @returns
+     */
+    sqrt(): Grandeur;
     abs(): Grandeur;
     neg(): Grandeur;
     to(newUnit: string): Grandeur;

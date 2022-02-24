@@ -31,8 +31,8 @@ export declare class Point extends GraphicObject {
     dot: string;
     labelPoints: [Point, Point, Point];
     label: boolean;
-    constructor(coord: Coordinates);
-    getPolarCoordinates(): Polar;
+    constructor(arg1: Coordinates | number, arg2?: number);
+    getPolarCoordinates(): Cartesian;
     getCartesianCoordinates(): Cartesian;
     xSVG: (coeff: any) => number;
     ySVG: (coeff: any) => number;
@@ -61,7 +61,7 @@ export declare class Vector {
     x: number;
     y: number;
     norme: number;
-    constructor(x?: number, y?: number);
+    constructor(arg1: number | Point, arg2: number | Point);
     getNormed(): Vector;
     getNormal(): Vector;
     add(X: Vector | Point): Vector;

@@ -41,24 +41,43 @@ export class Grandeur {
         }), name.length).join('');
     }
     multiply(a) {
-        const expression = simplify([this.name, a.name].filter(x => x !== '').join('*')).toString();
+        const expression = simplify([this.name, a.name].filter(x => x !== '').join('*').replaceAll('{', '(').replaceAll('}', ')')).toString();
         const calcul = parse(unit(this.toFixed + this.unit).multiply(unit(a.toFixed + a.unit)).toString());
         return new Grandeur(expression, parseFloat(calcul.isConstantNode ? calcul.toString() : calcul.args[0].toString()), this.precision + a.precision, calcul.isConstantNode ? '' : calcul.args[1].toString());
     }
     divide(a) {
-        const expression = simplify([this.name, a.name].filter(x => x !== '').join('/')).toString();
+        const expression = simplify([this.name, a.name].filter(x => x !== '').join('/').replaceAll('{', '(').replaceAll('}', ')')).toString();
         const calcul = parse(unit(this.toFixed + this.unit).divide(unit(a.toFixed + a.unit)).toString());
         return new Grandeur(expression, parseFloat(calcul.isConstantNode ? calcul.toString() : calcul.args[0].toString()), this.precision - a.precision, calcul.isConstantNode ? '' : calcul.args[1].toString());
     }
     add(a) {
-        const expression = simplify([this.name, a.name].filter(x => x !== '').join('+')).toString();
+        const expression = simplify([this.name, a.name].filter(x => x !== '').join('+').replaceAll('{', '(').replaceAll('}', ')')).toString();
         const calcul = parse(add(unit(this.toFixed + this.unit), unit(a.toFixed + a.unit)).toString());
         return new Grandeur(expression, parseFloat(calcul.isConstantNode ? calcul.toString() : calcul.args[0].toString()), max(this.precision, a.precision), calcul.isConstantNode ? '' : calcul.args[1].toString());
     }
     subtract(a) {
-        const expression = simplify([this.name, a.name].filter(x => x !== '').join('-')).toString();
+        const expression = simplify([this.name, a.name].filter(x => x !== '').join('-').replaceAll('{', '(').replaceAll('}', ')')).toString();
         const calcul = parse(subtract(unit(this.toFixed + this.unit), unit(a.toFixed + a.unit)).toString());
         return new Grandeur(expression, parseFloat(calcul.isConstantNode ? calcul.toString() : calcul.args[0].toString()), max(this.precision, a.precision), calcul.isConstantNode ? '' : calcul.args[1].toString());
+    }
+    hypotenuse(a) {
+        return a.pow(2).add(this.pow(2)).sqrt();
+    }
+    /**
+     * this^n
+     * @param n // Integer
+     * @returns
+     */
+    pow(n) {
+        return new Grandeur(this.name + '^{' + n + '}', Math.pow(this.toFixed, n), n * this.precision, this.unit + '^' + n);
+    }
+    /**
+     * this^n
+     * @param n // Integer
+     * @returns
+     */
+    sqrt() {
+        return new Grandeur('\\sqrt{' + this.name + '}', Math.pow(this.toFixed, 0.5), Math.floor(0.5 * this.precision), 'cm');
     }
     abs() {
         return new Grandeur(this.name, abs(this.value), this.precision, this.unit);

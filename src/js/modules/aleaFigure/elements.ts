@@ -55,9 +55,13 @@ export class Point extends GraphicObject {
   dot: string
   labelPoints: [Point, Point, Point]
   label: boolean = false
-  constructor (coord: Coordinates) {
+  constructor (arg1: Coordinates | number, arg2: number = 0) {
     super()
-    this.coordinates = coord
+    if (arg1 instanceof Coordinates ) {
+      this.coordinates = arg1
+    } else {
+      this.coordinates = new Cartesian(arg1,arg2)
+    }
     this.polarCoordinates = this.getPolarCoordinates()
     this.cartesianCoordinates = this.getCartesianCoordinates()
     this.name = ''
@@ -69,7 +73,7 @@ export class Point extends GraphicObject {
     this.ggb = `${this.name} = (${this.x},${this.y})`
   }
 
-  getPolarCoordinates () {
+  getPolarCoordinates (): Cartesian {
     return this.coordinates.getPolarCoordinates()
   }
 
@@ -203,10 +207,15 @@ export class Vector {
   x: number = 0
   y: number = 0
   norme: number
-  constructor (x: number = 0, y: number = 0) {
-    this.norme = Math.sqrt(x ** 2 + y ** 2)
-    this.x = x
-    this.y = y
+  constructor (arg1: number | Point, arg2: number | Point) {
+    if (typeof arg1 === 'number' && typeof arg2 === 'number') {
+      this.x = arg1
+      this.y = arg2
+    } else if (arg1 instanceof Point && arg2 instanceof Point) {
+      this.x = arg2.x - arg1.x
+      this.y = arg2.y - arg1.y
+    }
+    this.norme = Math.sqrt(this.x ** 2 + this.y ** 2)
   }
 
   getNormed () {

@@ -28,6 +28,7 @@ export declare class GraphicView {
     height: number;
     ratio: number;
     clipVisible: boolean;
+    saveRatio: boolean;
     constructor(xmin: number, ymin: number, xmax: number, ymax: number);
     setDimensions(xmin?: number, ymin?: number, xmax?: number, ymax?: number): void;
     /**
@@ -36,6 +37,13 @@ export declare class GraphicView {
      * show(A,B,C,ABC)
      */
     show(...args: GraphicObject[]): GraphicObject[];
+    getDimensions(...liste: GraphicObject[]): [number, number, number, number];
+    getWidth(...liste: GraphicObject[]): number;
+    getHeight(...liste: GraphicObject[]): number;
+    getUponPoint(...liste: GraphicObject[]): Point;
+    geBelowPoint(...liste: GraphicObject[]): Point;
+    getLeftPoint(...liste: GraphicObject[]): Point;
+    getRightPoint(...liste: GraphicObject[]): Point;
     /**
      * Resize window of graphic view to the created points
      * Keep the ratio
@@ -44,7 +52,7 @@ export declare class GraphicView {
     /**
      * Give the list sorted of object with a given type
      */
-    getListObjectTypeSelect(typeSelect?: string): any;
+    getListObjectTypeSelect(typeSelect?: string, liste?: GraphicObject[]): any;
     /**
      * Search the last name not used and give a new name
      */
@@ -118,6 +126,7 @@ export declare class GraphicView {
     placeLabelsPolygon(...args: Point[]): void;
     addSymetric(X: Point | Line, ...args: Point[]): Point[];
     addTranslate(V: Vector, ...args: Point[]): Point[];
+    move(V: Vector, ...args: Point[]): void;
     /**
      * Add three point, two point or one point aligned to others
      * @param  {Point,Point} args // If no point or one point we creat new points

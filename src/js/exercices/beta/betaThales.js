@@ -13,7 +13,7 @@ import { circularPermutation } from '../../modules/aleaFigure/outils.js'
 // eslint-disable-next-line no-debugger
 debugger
 
-const nbCase = 37
+const nbCase = 40
 
 export const math = create(all)
 math.config({
@@ -1381,15 +1381,20 @@ ${aA.format()}+${aB.format()}+\widehat{${aC.name}}&=180\degree\\
           graphic.clipVisible = true
           const [A, B, C] = graphic.addNotAlignedPoint()
           const ABC = [A, B, C]
-          ABC.name = aleaName(ABC.map(P => P.name)).join('')
           const k = new Grandeur('k', Math.floor(Math.random() * 10 + 10) / 10 + 0.1, 1)
-          const [D] = graphic.addTranslate(new Vector(2 * graphic.distance(A, B), 0), A)
+          const [D] = graphic.addPoint()
           const E = graphic.addPointDistance(D, k.toFixed * graphic.distance(A, B))
           const cercle1 = graphic.addCircle(E, k.toFixed * graphic.distance(B, C))
           const cercle2 = graphic.addCircle(D, k.toFixed * graphic.distance(A, C))
           const [F] = graphic.addIntersectLine(cercle1, cercle2)
           const DEF = [D, E, F]
+          graphic.aleaName(...ABC, ...DEF)
+          ABC.name = aleaName(ABC.map(P => P.name)).join('')
           DEF.name = aleaName(DEF.map(P => P.name)).join('')
+          const P1 = new Point(...graphic.getDimensions(D, E, F).splice(0, 2))
+          const P2 = new Point(...graphic.getDimensions(A, B, C).splice(2, 2))
+          const t = new Vector(P1, P2)
+          graphic.move(t.add(new Vector(2, 0)).sub(new Vector(0, (graphic.getHeight(...DEF) + graphic.getHeight(...ABC)) / 2)), ...DEF)
           const AB = new Grandeur('AB', graphic.distance(A, B), 1, 'cm')
           const BC = new Grandeur('BC', graphic.distance(B, C), 1, 'cm')
           const CA = new Grandeur('CA', graphic.distance(C, A), 1, 'cm')
@@ -1409,13 +1414,12 @@ ${aA.format()}+${aB.format()}+\widehat{${aC.name}}&=180\degree\\
             , ...graphic.addSidesPolygon(A, B, C)
             , ...graphic.addSidesPolygon(D, E, F)
           )
+          const hfill = context.isHtml ? '\\hspace{1cm}' : '\\hfill'
           exercice.texte = String.raw`$${DEF.name}$ est une agrandissement de $${ABC.name}$ tel que les points $${D.name}$, $${E.name}$, $${F.name}$ sont les homologues respectifs de $${A.name}$, $${B.name}$, $${C.name}$.
 
 On sait que ${AB.nameAndValue}, ${BC.nameAndValue}, ${DE.nameAndValue} et ${FD.nameAndValue}.
 
-$\textbf{1.}$ Calculer ${EF.name}.
-
-$\textbf{2.}$ Calculer ${CA.name}.
+$\textbf{1.}$ Calculer $${EF.name}$. $${hfill}$ $\textbf{2.}$ Calculer $${CA.name}$ $${hfill}$.
 
 ${graph}`
           exercice.texteCorr = String.raw`$\textbf{1.} $ $${toTex(`${DE.name}/${AB.name}=${DE.toFixed}/${AB.toFixed}=${k.toFixed}`)}$
@@ -1428,15 +1432,206 @@ $${EF.name}=${k.format()}\times ${AB.format()}$.
 
 $${EF.name}=${EF.format()}$.
 
-$\textbf{2.}$ $${FD.name}=${k.format()}\times ${CA.name}$.
+$\textbf{2.}$ On a $${FD.name}=${k.format()}\times ${CA.name}$.
 
-$${FD.format()}=${k.format()}\times ${CA.name}$.
+Soit $${FD.format()}=${k.format()}\times ${CA.name}$.
 
 Résolvons l'équation d'inconnue $${CA.name}$.
 
-${resoudre(`${FD.toFixed}=${k.toFixed}*${CA.name}`).texteCorr}.
+${resoudre(`${FD.toFixed}=${k.toFixed}*${CA.name}`).texteCorr}
 
+Donc ${CA.nameAndValue}.`
+          break
+        }
+        case 38: {
+          // http://localhost:8090/mathalea.html?ex=betaThales,s=38,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView(0, 0, 10, 7)
+          graphic.clipVisible = true
+          const [A, B] = graphic.addPoint(2)
+          const [C, D] = graphic.addRegularPolygon(A, B, 4).splice(2, 2)
+          const ABCD = [A, B, C, D]
+          const k = new Grandeur('k', Math.floor(Math.random() * 10 + 10) / 10 + 0.1, 1)
+          const [E] = graphic.addPoint()
+          const F = graphic.addPointDistance(E, k.toFixed * graphic.distance(A, B))
+          const [G, H] = graphic.addRegularPolygon(E, F, 4).splice(2, 2)
+          const EFGH = [E, F, G, H]
+          graphic.aleaName(...ABCD, ...EFGH)
+          ABCD.name = circularPermutation(ABCD.map(P => P.name)).join('')
+          EFGH.name = circularPermutation(EFGH.map(P => P.name)).join('')
+          const P1 = new Point(...graphic.getDimensions(E, F, G, H).splice(0, 2))
+          const P2 = new Point(...graphic.getDimensions(A, B, C, D).splice(2, 2))
+          const t = new Vector(P1, P2)
+          graphic.move(t.add(new Vector(2, 0)).sub(new Vector(0, (graphic.getHeight(...ABCD) + graphic.getHeight(...EFGH)) / 2)), ...EFGH)
+          const AB = new Grandeur('AB', graphic.distance(A, B), 1, 'cm')
+          AB.aleaName(A, B)
+          const AC = AB.hypotenuse(AB)
+          AC.aleaName(A, C)
+          const BC = AB.add(new Grandeur('', 0, 0, 'cm'))
+          BC.aleaName(B, C)
+          const EF = AB.multiply(k)
+          EF.aleaName(E, F)
+          const EG = EF.hypotenuse(EF)
+          EG.aleaName(E, G)
+          const AB2 = AB.pow(2).multiply(new Grandeur('', 2, 0))
+          graphic.addLabelsPointsPolygon(A, B, C, D)
+          graphic.addLabelsPointsPolygon(E, F, G, H)
+          const graph = graphic.getMathalea2DExport(
+            D, E, F, G, H, A, B, C
+            , ...graphic.addSidesPolygon(A, B, C, D)
+            , ...graphic.addSidesPolygon(E, F, G, H)
+          )
+          const hfill = context.isHtml ? '\\hspace{1cm}' : '\\hfill'
+          exercice.texte = String.raw`Le carré $${EFGH.name}$ est une agrandissement de $${ABCD.name}$.
 
+L'échelle d'agrandissement est $${k.format()}$.
+
+On sait que ${AB.nameAndValue}.
+
+Calculer $${EG.name}$  arrondi au millimètre près.
+
+${graph}`
+          exercice.texteCorr = String.raw`$${ABCD.name}$ est un carré donc $${A.name + B.name + C.name}$ est rectangle en ${B.name}.
+
+D'après le théorème de Pythagore, on a :
+
+$${AC.name}^2=${AB.name}^2+${BC.name}^2$
+
+$${toTex(`${AC.name}^2=${AB.toFixed}^2+${BC.toFixed}^2`)}$
+
+$${toTex(`${AC.name}^2=${AB2.toFixed}`)}$
+
+$${AC.name}=\sqrt{${toTex(`${AB2.toFixed}`)}}$
+
+On a donc $${EG.name} = ${k.format()} \times \sqrt{${toTex(`${AB2.toFixed}`)}}$
+
+D'où ${EG.nameAndValue.replace('=', '\\approx')}.`
+          break
+        }
+        case 39: {
+          // http://localhost:8090/mathalea.html?ex=betaThales,s=38,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView(0, 0, 10, 7)
+          graphic.clipVisible = true
+          const [A, B] = graphic.addPoint(2)
+          const [C, D] = graphic.addRegularPolygon(A, B, 4).splice(2, 2)
+          const ABCD = [A, B, C, D]
+          const k = new Grandeur('k', Math.floor(Math.random() * 10 + 10) / 10 + 0.1, 1)
+          const [E] = graphic.addPoint()
+          const F = graphic.addPointDistance(E, k.toFixed * graphic.distance(A, B))
+          const [G, H] = graphic.addRegularPolygon(E, F, 4).splice(2, 2)
+          const EFGH = [E, F, G, H]
+          graphic.aleaName(...ABCD, ...EFGH)
+          ABCD.name = circularPermutation(ABCD.map(P => P.name)).join('')
+          EFGH.name = circularPermutation(EFGH.map(P => P.name)).join('')
+          const P1 = new Point(...graphic.getDimensions(E, F, G, H).splice(0, 2))
+          const P2 = new Point(...graphic.getDimensions(A, B, C, D).splice(2, 2))
+          const t = new Vector(P1, P2)
+          graphic.move(t.add(new Vector(2, 0)).sub(new Vector(0, (graphic.getHeight(...ABCD) + graphic.getHeight(...EFGH)) / 2)), ...EFGH)
+          const AB = new Grandeur('AB', graphic.distance(A, B), 1, 'cm')
+          AB.aleaName(A, B)
+          const AC = AB.hypotenuse(AB)
+          AC.aleaName(A, C)
+          const BC = AB.add(new Grandeur('', 0, 0, 'cm'))
+          BC.aleaName(B, C)
+          const EF = AB.multiply(k)
+          EF.aleaName(E, F)
+          const EG = EF.hypotenuse(EF)
+          EG.aleaName(E, G)
+          const FG = EF.add(new Grandeur('', 0, 0, 'cm'))
+          const AB2 = AB.pow(2).multiply(new Grandeur('', 2, 0))
+          const EF2 = EF.pow(2).multiply(new Grandeur('', 2, 0))
+          graphic.addLabelsPointsPolygon(A, B, C, D)
+          graphic.addLabelsPointsPolygon(E, F, G, H)
+          const graph = graphic.getMathalea2DExport(
+            D, E, F, G, H, A, B, C
+            , ...graphic.addSidesPolygon(A, B, C, D)
+            , ...graphic.addSidesPolygon(E, F, G, H)
+          )
+          const hfill = context.isHtml ? '\\hspace{1cm}' : '\\hfill'
+          exercice.texte = String.raw`Le carré $${EFGH.name}$ est une agrandissement de $${ABCD.name}$.
+
+L'échelle d'agrandissement est $${k.format()}$.
+
+On sait que ${EF.nameAndValue}.
+
+Calculer $${AC.name}$ arrondi au millimètre près.
+
+${graph}`
+          exercice.texteCorr = String.raw`$${EFGH.name}$ est un carré donc $${E.name + F.name + G.name}$ est rectangle en ${F.name}.
+
+D'après le théorème de Pythagore, on a :
+
+$${EG.name}^2=${EF.name}^2+${FG.name}^2$
+
+$${toTex(`${EG.name}^2=${EF.toFixed}^2+${FG.toFixed}^2`)}$
+
+$${toTex(`${EG.name}^2=${EF2.toFixed}`)}$
+
+$${EG.name}=\sqrt{${toTex(`${EF2.toFixed}`)}}$
+
+On a donc $${AC.name} = \dfrac{\sqrt{${toTex(`${EF2.toFixed}`)}}}{${k.format()}}$
+
+D'où ${AC.nameAndValue.replace('=', '\\approx')}.`
+          break
+        }
+        case 40: {
+          // http://localhost:8090/mathalea.html?ex=betaThales,s=38,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView(0, 0, 10, 7)
+          graphic.clipVisible = true
+          const [A, B] = graphic.addPoint(2)
+          const [C, D] = graphic.addRegularPolygon(A, B, 4).splice(2, 2)
+          const ABCD = [A, B, C, D]
+          const k = new Grandeur('k', Math.floor(Math.random() * 10 + 10) / 10 + 0.1, 1)
+          const [E] = graphic.addPoint()
+          const F = graphic.addPointDistance(E, k.toFixed * graphic.distance(A, B))
+          const [G, H] = graphic.addRegularPolygon(E, F, 4).splice(2, 2)
+          const EFGH = [E, F, G, H]
+          graphic.aleaName(...ABCD, ...EFGH)
+          ABCD.name = circularPermutation(ABCD.map(P => P.name)).join('')
+          EFGH.name = circularPermutation(EFGH.map(P => P.name)).join('')
+          const P1 = new Point(...graphic.getDimensions(E, F, G, H).splice(0, 2))
+          const P2 = new Point(...graphic.getDimensions(A, B, C, D).splice(2, 2))
+          const t = new Vector(P1, P2)
+          graphic.move(t.add(new Vector(2, 0)).sub(new Vector(0, (graphic.getHeight(...ABCD) + graphic.getHeight(...EFGH)) / 2)), ...EFGH)
+          const AB = new Grandeur('AB', graphic.distance(A, B), 1, 'cm')
+          AB.aleaName(A, B)
+          const AC = AB.hypotenuse(AB)
+          AC.aleaName(A, C)
+          const BC = AB.add(new Grandeur('', 0, 0, 'cm'))
+          BC.aleaName(B, C)
+          const EF = AB.multiply(k)
+          EF.aleaName(E, F)
+          const EG = EF.hypotenuse(EF)
+          EG.aleaName(E, G)
+          const AB2 = AB.pow(2).multiply(new Grandeur('', 2, 0))
+          const AireEFGH = EF.multiply(EF)
+          graphic.addLabelsPointsPolygon(A, B, C, D)
+          graphic.addLabelsPointsPolygon(E, F, G, H)
+          const graph = graphic.getMathalea2DExport(
+            D, E, F, G, H, A, B, C
+            , ...graphic.addSidesPolygon(A, B, C, D)
+            , ...graphic.addSidesPolygon(E, F, G, H)
+          )
+          const hfill = context.isHtml ? '\\hspace{1cm}' : '\\hfill'
+          exercice.texte = String.raw`Le carré $${EFGH.name}$ est une agrandissement de $${ABCD.name}$.
+
+L'échelle d'agrandissement est $${k.format()}$.
+
+On sait que ${AB.nameAndValue}.
+
+Calculer l'aire de $${EFGH.name}$ de deux manières.
+
+${graph}`
+          exercice.texteCorr = String.raw`$${EF.name}=${k.format()}\times ${AB.name}$.
+
+$${EF.name}=${k.format()}\times ${AB.format()}$
+
+$${EF.name}=${EF.format()}$
+
+L'aire d'un carré est le carré de la longueur de son côté.
+
+$${EF.name}^2=${toTex(`${EF.toFixed}^2`)}=${toTex(`${EF.pow(2).toFixed}`)}$
+
+L'aire du carré est donc $${AireEFGH.format()}$
 `
           break
         }

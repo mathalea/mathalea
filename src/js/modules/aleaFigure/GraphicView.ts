@@ -45,7 +45,8 @@ export class GraphicView {
   width: number
   height: number
   ratio: number
-  clipVisible : boolean = false 
+  clipVisible : boolean = false
+  saveRatio : boolean = true
   constructor (xmin: number, ymin: number, xmax:number, ymax:number) {
     this.setDimensions(xmin, ymin, xmax, ymax)
     this.names = 'ABCDEFGHIJKLMNOPRSTUVZ'.split('')
@@ -82,31 +83,74 @@ export class GraphicView {
     return group
   }
 
-  /**
-   * Resize window of graphic view to the created points
-   * Keep the ratio
-   */
-  resize () {
-    const listPoint = this.getListObjectTypeSelect('Point')
+  getDimensions(...liste: GraphicObject[]): [number, number, number, number] { 
+    const listPoint = this.getListObjectTypeSelect('Point', liste)
     const listXPoint = listPoint.map((X: { x: Point }) => { return X.x })
     const listYPoint = listPoint.map((Y: { y: Point }) => { return Y.y })
     const xmin = Math.min(...listXPoint)
     const xmax = Math.max(...listXPoint)
     const ymin = Math.min(...listYPoint)
     const ymax = Math.max(...listYPoint)
-    const width = xmax - xmin
-    const height = ymax - ymin
-    const ratio = height / width
-    const k = ratio / this.ratio
+    return [xmin, ymin, xmax, ymax]
+  }
+
+  getWidth(...liste: GraphicObject[]): number { 
+    const [xmin, ymin, xmax, ymax] = this.getDimensions(...liste)
+    return  xmax-xmin
+  }
+
+  getHeight(...liste: GraphicObject[]): number { 
+    const [xmin, ymin, xmax, ymax] = this.getDimensions(...liste)
+    return  ymax-ymin
+  }
+
+  getUponPoint(...liste: GraphicObject[]) : Point {
+    const listePoints = this.getListObjectTypeSelect('Point', liste)
+    return this.getListObjectTypeSelect('Point', liste).sort((a,b) => b.y-a.y)[listePoints.length - 1]
+  }
+
+  geBelowPoint(...liste: GraphicObject[]) : Point {
+    const listePoints = this.getListObjectTypeSelect('Point', liste)
+    return this.getListObjectTypeSelect('Point', liste).sort((a,b) => b.y-a.y)[0]
+  }
+
+  getLeftPoint(...liste: GraphicObject[]) : Point {
+    const listePoints = this.getListObjectTypeSelect('Point', liste)
+    return this.getListObjectTypeSelect('Point', liste).sort((a,b) => b.x-a.x)[listePoints.length - 1]
+  }
+
+  getRightPoint(...liste: GraphicObject[]): Point {
+    const listePoints = this.getListObjectTypeSelect('Point', liste)
+    return listePoints.sort((a,b) => b.x-a.x)[0]
+  }
+  /**
+   * Resize window of graphic view to the created points
+   * Keep the ratio
+   */
+  resize () {
+    // On commence par déterminer les dimensions à partir des abscisses et des ordonnées extrèmes
+    const [xmin, ymin, xmax, ymax] = this.getDimensions()
+    const [width, height] = [xmax-xmin, ymax-ymin]
+    // On fait une copie des dimensions obtenues
     let newheight = 0 + height
     let newwidth = 0 + width
-    if (k < 1) {
-      newheight = height / k
-    } else {
-      newwidth = width * k
+    // On calcule le ratio obtenu
+    const ratio = height / width
+    const k = ratio / this.ratio
+    // S'il faut conserver le ratio on ne modifie qu'une seule dimension
+    if (this.saveRatio) {
+      if (k < 1) { // La largeur est plus grande
+        newheight = height / k
+      } else { // La hauteur est plus grande
+        newwidth = width * k
+      }
+    } else { // Sinon seul le ratio change
+      this.ratio = newheight/newwidth
     }
-    this.ppc = this.ppc * this.width / newwidth
-    this.scale = this.scale * this.width / newwidth
+    // La hauteur sera utilisée dans tous les cas pour le calcul de l'échelle.
+    // Elle sera donc conservée si le ratio ne l'est pas.
+    this.ppc = this.ppc * this.height / newheight
+    this.scale = this.scale * this.height / newheight
     const deltaX = (newwidth - width) / 2
     const deltaY = (newheight - height) / 2
     this.setDimensions(xmin - deltaX, ymin - deltaY, xmax + deltaX, ymax + deltaY)
@@ -115,10 +159,11 @@ export class GraphicView {
   /**
    * Give the list sorted of object with a given type
    */
-  getListObjectTypeSelect (typeSelect = 'Point'): any {
+  getListObjectTypeSelect (typeSelect = 'Point', liste: GraphicObject[] = this.geometric): any {
+    if (liste.length === 0) liste = this.geometric
     switch (typeSelect) {
       case 'Point':
-        return this.geometric.filter(obj => obj instanceof Point).sort(
+        return liste.filter(obj => obj instanceof Point).sort(
           (a, b) => {
             const nameA = a.name.split('_')
             const nameB = b.name.split('_')
@@ -481,6 +526,14 @@ export class GraphicView {
       return P
     })
   }
+
+  move(V: Vector, ...args: Point[]) {
+    for (let X of args) {
+      X.x = X.add(V).x
+      X.y = X.add(V).y
+    }
+  }
+
   /**
    * Add three point, two point or one point aligned to others
    * @param  {Point,Point} args // If no point or one point we creat new points

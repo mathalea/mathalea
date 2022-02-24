@@ -1,5 +1,5 @@
 import { context } from '../context.js';
-import { Cartesian } from './coordinates.js';
+import { Cartesian, Coordinates } from './coordinates.js';
 import { aleaName } from '../outilsMathjs.js';
 import { dot, round, cross } from 'mathjs';
 import { latexParCoordonnees, tracePoint, point, labelPoint } from '../2d.js';
@@ -36,7 +36,7 @@ export class GraphicObject {
  * @classdesc Caracteristics of a point in an euclidean plan
  */
 export class Point extends GraphicObject {
-    constructor(coord) {
+    constructor(arg1, arg2 = 0) {
         super();
         this.label = false;
         this.xSVG = function (coeff) {
@@ -45,7 +45,12 @@ export class Point extends GraphicObject {
         this.ySVG = function (coeff) {
             return -round(this.y * coeff, 3);
         };
-        this.coordinates = coord;
+        if (arg1 instanceof Coordinates) {
+            this.coordinates = arg1;
+        }
+        else {
+            this.coordinates = new Cartesian(arg1, arg2);
+        }
         this.polarCoordinates = this.getPolarCoordinates();
         this.cartesianCoordinates = this.getCartesianCoordinates();
         this.name = '';
@@ -161,12 +166,18 @@ export class Point extends GraphicObject {
     get name() { return this._name; }
 }
 export class Vector {
-    constructor(x = 0, y = 0) {
+    constructor(arg1, arg2) {
         this.x = 0;
         this.y = 0;
-        this.norme = Math.sqrt(x ** 2 + y ** 2);
-        this.x = x;
-        this.y = y;
+        if (typeof arg1 === 'number' && typeof arg2 === 'number') {
+            this.x = arg1;
+            this.y = arg2;
+        }
+        else if (arg1 instanceof Point && arg2 instanceof Point) {
+            this.x = arg2.x - arg1.x;
+            this.y = arg2.y - arg1.y;
+        }
+        this.norme = Math.sqrt(this.x ** 2 + this.y ** 2);
     }
     getNormed() {
         const xy = Math.sqrt(this.x ** 2 + this.y ** 2);

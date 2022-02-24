@@ -1,7 +1,8 @@
-import { polygon, codageAngleDroit, arcPointPointAngle, cercle, segment, polygone, point, mathalea2d, droite } from '../2d.js'
+import { arcPointPointAngle, cercle, segment, polygone, point, mathalea2d } from '../2d.js'
 import { Angle, Point, Line, Segment, Circle } from './elements.js'
+import { GraphicView } from './graphicView.js' 
 
-export function getMathalea2DExport (graphic) {
+export function getMathalea2DExport (graphic: GraphicView) {
   graphic.resize()
   const scaleppc = 20 / graphic.ppc
   const clip = { xmin: graphic.xmin - scaleppc, xmax: graphic.xmax + scaleppc, ymin: graphic.ymin - scaleppc, ymax: graphic.ymax + scaleppc }
