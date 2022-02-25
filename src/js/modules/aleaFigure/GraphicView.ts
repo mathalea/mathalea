@@ -48,7 +48,7 @@ export class GraphicView {
   clipVisible : boolean = false
   saveRatio : boolean = true
   _namesAlea: boolean = true 
-  constructor (xmin: number, ymin: number, xmax:number, ymax:number) {
+  constructor (xmin: number = 0, ymin: number = 0, xmax:number = 10, ymax:number = 10) {
     this.setDimensions(xmin, ymin, xmax, ymax)
     this.names = aleaName('ABCDEFGHIJKLMNOPRSTUVZ'.split(''))
     this.ppc = 20 // Pixels per Centimeter
@@ -705,7 +705,7 @@ export class GraphicView {
     )
     D.name = D.name || this.getNewName(D.type)
     this.geometric.push(D)
-    return [A, B, C, D]
+    return new Polygon(A, B, C, D)
   }
 
   addRegularPolygon (n: number, A: Point = this.addPoint()[0], B: Point = this.addPoint()[0]): Polygon {

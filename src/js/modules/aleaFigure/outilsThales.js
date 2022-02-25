@@ -4,7 +4,6 @@ import { aleaName } from "../outilsMathjs.js";
 import { cross } from "mathjs";
 export class AleaThalesConfig extends GraphicView {
     constructor(k = undefined) {
-        // super(-5, -5, 5, 5)
         super(-5, -5, 5, 5);
         this.classicConfig = undefined;
         this.AOB = false;
@@ -95,6 +94,7 @@ export class AleaThalesConfig extends GraphicView {
         }
         O.labelPoints = [B, O, M];
         this.geometric = [O, A, B, M, N].map(x => { x.label = true; return x; });
+        this.points = [O, A, B, M, N].map(x => { x.label = true; return x; });
     }
     /**
      * Set dimensions

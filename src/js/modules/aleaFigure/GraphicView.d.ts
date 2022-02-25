@@ -30,7 +30,7 @@ export declare class GraphicView {
     clipVisible: boolean;
     saveRatio: boolean;
     _namesAlea: boolean;
-    constructor(xmin: number, ymin: number, xmax: number, ymax: number);
+    constructor(xmin?: number, ymin?: number, xmax?: number, ymax?: number);
     set namesAlea(names: string[] | boolean);
     get namesAlea(): string[] | boolean;
     setDimensions(xmin?: number, ymin?: number, xmax?: number, ymax?: number): void;
@@ -178,7 +178,7 @@ export declare class GraphicView {
      * @param  {...any} args // 0-3 Point
      * @returns {Group}
      */
-    addParallelogram(A?: Point, B?: Point, C?: Point, D?: any): any[];
+    addParallelogram(A?: Point, B?: Point, C?: Point, D?: any): Polygon;
     addRegularPolygon(n: number, A?: Point, B?: Point): Polygon;
     addRegularPolygonCenter(A: Point, B: Point, n: number): Point;
     addHomothetic(O: Point, k: number, ...args: Point[]): Point[];

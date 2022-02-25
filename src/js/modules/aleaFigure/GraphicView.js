@@ -32,7 +32,7 @@ export function listeEntiersSommeConnue(nbElements, total, valMin = 1) {
  * @author Frédéric PIOU
  */
 export class GraphicView {
-    constructor(xmin, ymin, xmax, ymax) {
+    constructor(xmin = 0, ymin = 0, xmax = 10, ymax = 10) {
         this.xmin = 0;
         this.ymin = 0;
         this.xmax = 10;
@@ -648,7 +648,7 @@ export class GraphicView {
         D = new Point(new Cartesian(A.x + C.x - B.x, A.y + C.y - B.y));
         D.name = D.name || this.getNewName(D.type);
         this.geometric.push(D);
-        return [A, B, C, D];
+        return new Polygon(A, B, C, D);
     }
     addRegularPolygon(n, A = this.addPoint()[0], B = this.addPoint()[0]) {
         const points = [A, B];

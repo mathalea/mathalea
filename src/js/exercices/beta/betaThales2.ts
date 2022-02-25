@@ -55,152 +55,6 @@ function name (s, ...p) {
 }
 
 /**
- * Produire une configuration de Thalès et les éléments de rédaction d'un énoncé et de sa solution
- * @returns {Objet} // retourne un objet
- */
-function thales () {
-  const v = aleaVariables(
-    {
-      xA: 'pickRandom([-1,1])*round(random(1,3),1)', // Abscisse du point A
-      yA: '0', // Ordonnée de A
-      alpha: 'random(10,350)', // Angle de rotation autour de O pour B
-      kB: 'pickRandom([-1,1])*pickRandom([round(random(0.3,0.7),1),round(random(1.3,3),1)])', // rapport d'ag-red de OB=kB*OA
-      k: 'pickRandom([-1,1])*pickRandom([round(random(0.3,0.7),1),round(random(1.3,3),1)])', // OM = k * OA et ON = k * OB
-      xB: 'kB*xA*cos(alpha/180*PI)',
-      yB: 'kB*xA*sin(alpha/180*PI)',
-      xM: 'k*xA',
-      yM: 'k*yA',
-      xN: 'k*xB',
-      yN: 'k*yB',
-      xmin: 'min([0,xA,xB,xM,xN])',
-      xmax: 'max([0,xA,xB,xM,xN])',
-      ymin: 'min([0,yA,yB,yM,yN])',
-      ymax: 'max([0,yA,yB,yM,yN])',
-      largeur: 'xmax-xmin',
-      hauteur: 'ymax-ymin',
-      ppc: '10/largeur*20',
-      scale: '5/largeur',
-      ratio: 'largeur/hauteur',
-      test: 'abs(kB)!=1 and abs(k)!=1 and 1<ratio<1.3',
-      OA: 'distance([0,0],[xA,yA])',
-      OM: 'distance([0,0],[xM,yM])',
-      ON: 'distance([0,0],[xN,yN])',
-      AB: 'round(distance([xB,yB],[xA,yA]),1)',
-      MN: 'abs(k)*AB',
-      OB: 'distance([0,0],[xB,yB])'
-    }, { valueOf: true }
-  )
-  const listeNames = aleaName(5)
-  const objets = []
-  const O = point(0, 0, listeNames[0], 'left')
-  const A = point(v.xA, 0, listeNames[1], 'below')
-  const B = homothetie(rotation(A, O, v.alpha), O, v.kB)
-  B.nom = listeNames[2]
-  B.positionLabel = 'above'
-  const M = homothetie(A, O, v.k)
-  M.nom = listeNames[3]
-  M.positionLabel = 'below'
-  const N = homothetie(B, O, v.k)
-  N.nom = listeNames[4]
-  N.positionLabel = 'above'
-  const dOA = droite(O, A)
-  const dOB = droite(O, B)
-  // const OM = segment(O, M)
-  // const ON = segment(O, N)
-  const dAB = droite(A, B)
-  const dMN = droite(M, N)
-  objets.push(O, A, B, M, N, dOA, dOB, dAB, dMN)
-  for (const i of objets) {
-    if (i.typeObjet === 'point') objets.push(labelPoint(i))
-  }
-  const k = 20 / v.ppc
-  const clip = { xmin: v.xmin - k, xmax: v.xmax + k, ymin: v.ymin - k, ymax: v.ymax + k }
-  const drawClip = polygone(
-    point(clip.xmin, clip.ymin),
-    point(clip.xmax, clip.ymin),
-    point(clip.xmax, clip.ymax),
-    point(clip.xmin, clip.ymax)
-  )
-  objets.push(drawClip)
-  const droitesparalleles = aleaName([aleaName([A, B]).map(x => { return x.nom }).join(''), aleaName([M, N]).map(x => { return x.nom }).join('')])
-  const d1 = droitesparalleles[0]
-  const d2 = droitesparalleles[1]
-  const droitessecantes = aleaName([aleaName([A, M]).map(x => { return x.nom }).join(''), aleaName([B, N]).map(x => { return x.nom }).join('')])
-  const d3 = droitessecantes[0]
-  const d4 = droitessecantes[1]
-  const OA = { l: v.OA, nom: [O, A].map(x => { return x.nom }).join(''), nomAlea: aleaName([O, A]).map(x => { return x.nom }).join('') }
-  const OM = { l: v.OM, nom: [O, M].map(x => { return x.nom }).join(''), nomAlea: aleaName([O, M]).map(x => { return x.nom }).join('') }
-  const OB = { l: v.OB, nom: [O, B].map(x => { return x.nom }).join(''), nomAlea: aleaName([O, B]).map(x => { return x.nom }).join('') }
-  const ON = { l: v.ON, nom: [O, N].map(x => { return x.nom }).join(''), nomAlea: aleaName([O, N]).map(x => { return x.nom }).join('') }
-  const AB = { l: v.AB, nom: [A, B].map(x => { return x.nom }).join(''), nomAlea: aleaName([A, B]).map(x => { return x.nom }).join('') }
-  const MN = { l: v.MN, nom: [M, N].map(x => { return x.nom }).join(''), nomAlea: aleaName([M, N]).map(x => { return x.nom }).join('') }
-  const inverse = aleaName([0, 1], 1) // Peut-être pas utile
-  const quotientsEgaux = '$$'.split('').join([[OA, OM], [OB, ON], [AB, MN]].map(quotient => {
-    quotient = [quotient[(0 + inverse) % 2], quotient[(1 + inverse) % 2]]
-    return toTex(quotient.map(x => { return x.nom }).join('/'))
-  }).join('='))
-  const variables = {}
-  variables[OA.nom] = OA.l
-  variables[OB.nom] = OB.l
-  variables[OM.nom] = OM.l
-  // Calculer ON
-  const deuxQuotients = '$$'.split('').join(aleaName([[OA, OM], [OB, ON]]).map(quotient => {
-    quotient = [quotient[(0 + inverse) % 2], quotient[(1 + inverse) % 2]]
-    return toTex(quotient.map(x => { return x.nom }).join('/'), { variables: variables })
-  }).join('='))
-  const resoudreQuotients = [[OA, OM], [OB, ON]].map(quotient => {
-    quotient = [quotient[(0 + inverse) % 2], quotient[(1 + inverse) % 2]]
-    return aleaExpression(quotient.map(x => { return x.nom }).join('/'), variables)
-  }).join('=')
-  const steps = []
-  steps.push('$$'.split('').join([[OA, ON], [OM, OB]].map(quotient => {
-    quotient = [quotient[(0 + inverse) % 2], quotient[(1 + inverse) % 2]]
-    return toTex(quotient.map(x => { return x.nom }).join('*'), { variables: variables })
-  }).join('=')))
-  steps.push('$$'.split('').join(toTex(`${ON.nom}=(${OM.nom}*${OB.nom})/${OA.nom}`, { variables: variables })))
-  // Calculer MN
-  const variablesMN = {}
-  variablesMN[OA.nom] = OA.l
-  variablesMN[AB.nom] = AB.l
-  variablesMN[OM.nom] = OM.l
-  const deuxQuotientsMN = '$$'.split('').join(aleaName([[OA, OM], [AB, MN]]).map(quotient => {
-    quotient = [quotient[(0 + inverse) % 2], quotient[(1 + inverse) % 2]]
-    return toTex(quotient.map(x => { return x.nom }).join('/'), { variables: variablesMN })
-  }).join('='))
-  const stepsMN = []
-  stepsMN.push('$$'.split('').join([[OA, MN], [OM, AB]].map(quotient => {
-    quotient = [quotient[(0 + inverse) % 2], quotient[(1 + inverse) % 2]]
-    return toTex(quotient.map(x => { return x.nom }).join('*'), { variables: variablesMN })
-  }).join('=')))
-  stepsMN.push('$$'.split('').join(toTex(`${MN.nom}=(${OM.nom}*${AB.nom})/${OA.nom}`, { variables: variablesMN })))
-  const donnees = aleaName([OA, OB, OM]).map(x => { return `$${x.nomAlea}=${texNum(x.l)}\\text{ cm}$` }).join(', ')
-  const donneesMN = aleaName([OA, AB, OM]).map(x => { return `$${x.nomAlea}=${texNum(x.l)}\\text{ cm}$` }).join(', ')
-  const enonce = [
-    `$(${d1})$ et $(${d2})$ sont parallèles.`,
-    `$(${d3})$ et $(${d4})$ sont sécantes en $${O.nom}$.`,
-    'D\'après le théorème de Thalès, on a l\'égalité suivante.',
-    `${quotientsEgaux}`,
-    `On a ${donnees}.`,
-    `Calculer $${ON.nom}$.`,
-    `${deuxQuotients}`,
-    'On en déduit l\'égalité des produits en croix :',
-    `${steps[0]}`,
-    `${steps[1]}`,
-    `Donc $${ON.nom}=${texNum(ON.l)}\\text{ cm}$.`,
-    `On a ${donneesMN}.`,
-    `Calculer $${MN.nom}$.`,
-    `${deuxQuotientsMN}`,
-    'On en déduit l\'égalité des produits en croix :',
-    `${stepsMN[0]}`,
-    `${stepsMN[1]}`,
-    `Donc $${MN.nom}=${texNum(MN.l)}\\text{ cm}$.`,
-    `${resoudre(resoudreQuotients).texteCorr}`
-  ]
-  const figure = '<br><br>' + mathalea2d(Object.assign({ pixelsParCm: v.ppc, scale: v.scale }, clip), objets) + '<br><br>'
-  return { enonce: enonce, figure: figure, quotientsEgaux: quotientsEgaux }
-}
-
-/**
  * Description didactique de l'exercice
  * @author Frédéric PIOU
  * Référence
@@ -261,54 +115,11 @@ export default function exercicesThales () {
           ********************************`)
       }
       switch (nquestion) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
-        case 1: {
-          exercice = thales()
-          exercice.texte = 'En admettant que toutes les conditions sont réunies, appliquer le théorème de Thalès à la configuration ci-dessous.' + exercice.figure
-          exercice.texteCorr = exercice.enonce.slice(0, 4).join('<br>')
-          break
-        }
-        case 2: {
-          exercice = thales()
-          exercice.texte = exercice.enonce.slice(5, 7).join('<br>')
-          exercice.texteCorr = exercice.enonce.slice(7, 11).join('<br>')
-          break
-        }
-        case 3: {
-          exercice = thales()
-          exercice.texte = exercice.enonce.slice(0, 2).join('<br>')
-          exercice.texte += '<br>' + 'Faire une figure à main levée puis appliquer le théorème de Thalès.'
-          exercice.texteCorr = exercice.figure + exercice.enonce.slice(3, 4).join('<br>')
-          break
-        }
-        case 4: {
-          exercice = thales()
-          exercice.texte = 'On admet que toutes les conditions sont réunies pour une configuration de Thalès.'
-          exercice.texte += exercice.figure
-          exercice.texte += exercice.enonce.slice(4, 6).join('<br>')
-          exercice.texteCorr = exercice.enonce.slice(0, 4).join('<br>')
-          exercice.texteCorr += '<br>' + exercice.enonce.slice(6, 11).join('<br>')
-          break
-        }
-        case 5: {
-          exercice = thales()
-          exercice.texte = 'On admet que toutes les conditions sont réunies pour une configuration de Thalès.'
-          exercice.texte += exercice.figure
-          exercice.texte += exercice.enonce.slice(11, 13).join('<br>')
-          exercice.texteCorr = exercice.enonce.slice(0, 4).join('<br>')
-          exercice.texteCorr += '<br>' + exercice.enonce.slice(13, 18).join('<br>')
-          break
-        }
-        case 6: {
-          // http://localhost:8080/mathalea.html?ex=betaThales,s=6,n=1&serie=fOS7&v=ex&z=1
-          // exercice = aleaThalesConfig(true)
-          break
-        }
         case 7: {
           // Dépasser la limite du nombre de points
           // Remarque : l'algorithme est lourd lorsqu'on dépasse 20 points
           // http://localhost:8080/mathalea.html?ex=betaThales,s=7
-          const graphic = new GraphicView()
-          graphic.dimensions = { xmin: 0, ymin: 0, xmax: 10, ymax: 7 }
+          const graphic = new GraphicView(0,0,10,7)
           const points = graphic.addPoint(20).map(x => { x.showDot(); x.showLabel(); return x })
           exercice = { texte: graphic.getMathalea2DExport(...points), texteCorr: '' }
           break
@@ -394,29 +205,13 @@ export default function exercicesThales () {
           exercice.texte = graph
           break
         }
-        case 13: {
-          // La droite ne s'affiche pas
-          // http://localhost:8080/mathalea.html?ex=betaThales,s=13,n=1&serie=1Ziy&z=1
-          const clip = {
-            xmin: -7.705072691422527,
-            xmax: -1.505964975637891,
-            ymin: -3.412118272892237,
-            ymax: 2.786989442892399
-          }
-          const d = droite(5.165923096487196, 0.09340055601848096, 23.82094980359306)
-          exercice = { texte: '', texteCorr: '' }
-          exercice.texte = mathalea2d(
-            Object.assign({ pixelsParCm: 38.71524919447583, scale: 1.9357624597237915 }, clip), [d]
-          )
-          break
-        }
         case 14 : {
           // Parallelogrammes
           // http://localhost:8080/mathalea.html?ex=betaThales,s=14,n=1&serie=1Ziy&z=1
           const graphic = new GraphicView(-5, -5, 5, 5)
-          const [A, B, C, D] = graphic.addParallelogram()
-          const [E, F] = graphic.addParallelogram(A, B).slice(2)
-          const [G] = graphic.addParallelogram(F, A, D).slice(3)
+          const [A, B, C, D] = graphic.addParallelogram().vertices
+          const [E, F] = graphic.addParallelogram(A, B).vertices.slice(2)
+          const [G] = graphic.addParallelogram(F, A, D).vertices.slice(3)
           const graph = graphic.getMathalea2DExport(
             A, B, C, D, E, F, G
             , graphic.addSidesPolygon(A, B, C, D)
@@ -431,24 +226,15 @@ export default function exercicesThales () {
           // http://localhost:8080/mathalea.html?ex=betaThales,s=15,s2=3,s3=1,n=1,cd=1&serie=GDGD&v=ex&z=1
           const graphic = new GraphicView(-5, -5, 5, 5)
           const ABCD = graphic.addParallelogram()
-          const O = graphic.addPointOutPolygon(...ABCD)
-          graphic.placeLabelsPolygon(...ABCD)
+          const O = graphic.addPointOutPolygon(...ABCD.vertices)
+          graphic.placeLabelsPolygon(...ABCD.vertices)
           const k = (Math.random() * 0.4 + (Math.floor(Math.random() * 2)) + 0.3) * (-1) ** Math.floor(Math.random() * 2)
-          const EFGH = graphic.addHomothetic(O, k, ...ABCD)
+          const EFGH = graphic.addHomothetic(O, k, ...ABCD.vertices)
           graphic.placeLabelsPolygon(...EFGH)
-          const names = aleaName(9)
-          for (let i = 0; i < 8; i++) {
-            [...ABCD, ...EFGH][i].name = names[i]
-          }
-          O.name = names[8]
           O.showDot()
           O.showLabel()
-          const graph = graphic.getMathalea2DExport(
-            O, ...ABCD, ...EFGH
-            , graphic.addSidesPolygon(...ABCD), graphic.addSidesPolygon(...EFGH)
-          )
-          ABCD.name = circularPermutation(ABCD.map(x => x.name).join('')).join('')
-          EFGH.name = circularPermutation(EFGH.map(x => x.name).join('')).join('')
+          const graph = graphic.getMathalea2DExport(O, ABCD, EFGH)
+          /*
           exercice.texte = `${graph}<br>
 Dans cette homothétie de centre $${O.name}$ le parallélogramme de départ est $${ABCD.name}$.
 
@@ -456,10 +242,11 @@ $\\textbf{1.}$ Parmi les valeurs suivantes du rapport $k$, une seule est possibl
 
 $\\hspace{1cm}$ $${aleaName([toTex(k.toFixed(1)), toTex((-k).toFixed(1)), toTex((1 / k).toFixed(1)), toTex((-1 / k).toFixed(1))]).join('\\qquad')}$
 
-$\\textbf{2.}$ Quelle est l'image de $${ABCD[0].name}$ ?`.replaceAll('\n\n', '<br>')
+$\\textbf{2.}$ Quelle est l'image de $${ABCD[0].name}$ ?`
           exercice.texteCorr = `$\\textbf{1.}$ $k = ${toTex(k.toFixed(1))}$
 
-$\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`.replaceAll('\n\n', '<br>')
+$\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`
+          */
           break
         }
         case 16 : {
@@ -470,7 +257,7 @@ $\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`.replaceAll('
           A.name = 'A'
           B.name = 'B'
           C.name = 'C'
-          graphic.show(A, B, C, graphic.addSidesPolygon(A, B, C))
+          graphic.show(A, B, C, ...graphic.addSidesPolygon(A, B, C))
           const AB = new Grandeur(A.name + B.name, graphic.distance(A, B), 2, 'cm')
           let texte = name`${AB}`
           const graph = graphic.getMathalea2DExport()
@@ -627,7 +414,7 @@ $\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`.replaceAll('
           graphic.ppc *= 15 / graphic.width */
 
           // On récupère les 5 points en configuration de Thalès
-          const [O, A, B, M, N] = graphic.geometric
+          const [O, A, B, M, N] = graphic.points
 
           // On nomme les droites à partir des noms des points
           const dAB = graphic.addLine(A, B)
@@ -715,7 +502,7 @@ $\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`.replaceAll('
           // http://localhost:8080/mathalea.html?ex=betaThales,s=22,n=1&serie=hZya&v=ex&z=1
           // Droites invisibles : http://localhost:8080/mathalea.html?ex=betaThales,s=22,n=1&serie=Ihry&v=ex&z=1
           // Droite tronquée http://localhost:8080/mathalea.html?ex=betaThales,s=22,n=1&serie=lS3Q&v=ex&z=1
-          const graphic = new GraphicView()
+          const graphic = new GraphicView(0,0,10,10)
           const [l1, l2] = graphic.addParallelLine()
           const [A] = graphic.addPoint()
           A.showDot()
@@ -730,22 +517,22 @@ $\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`.replaceAll('
         case 23: {
           // Des rotations de rectangles
           // http://localhost:8080/mathalea.html?ex=betaThales,s=23,n=1&serie=hZya&v=ex&z=1
-          const graphic = new GraphicView()
+          const graphic = new GraphicView(0,0,10,10)
 
           // Trois points formant un triangle rectangle pour obtenir un rectangle
           const [A, B, D] = graphic.addRectPoint()
 
           // Nombre aléatoire de rectangles
-          const nbRectangles = math.pickRandom([2, 3, 4, 5, 6, 8])
+          const nbRectangles = [2, 3, 4, 5, 6, 8][Math.random()*6]
 
           // Nommage aléatoires des sommets
-          const names = aleaName(4)
+          const names = aleaName([],4)
 
           // Construction des rectangles
           let ABCD
           const rectangles = []
           for (let i = 0; i < nbRectangles; i++) {
-            const sommets = graphic.addRotate(A, 2 * Math.PI / nbRectangles * i, ...graphic.addParallelogram(D, A, B))
+            const sommets = graphic.addRotate(A, 2 * Math.PI / nbRectangles * i, ...graphic.addParallelogram(D, A, B).vertices)
             if (i === 0) {
               ABCD = sommets.map((x, i) => {
                 x.name = names[i]
@@ -792,12 +579,12 @@ $\\small\\color{gray} 07 \\hspace{0.5cm}$ $\\color{blue}${angle.name}$ = $\\colo
 
 $\\small\\color{gray} 08 \\hspace{0.1cm}$ Fin de la boucle Répéter
 
-$\\textbf{Fin de l'algorithme}$`.replaceAll('\n\n', context.isHtml ? '<br>' : '\n\n')
+$\\textbf{Fin de l'algorithme}$`
           exercice.texteCorr = `Il y a $${n.toFixed}$ rectangles il faut donc répéter au moins $\\color{red}\\fbox{${n.toFixed}}$ fois la boucle.
 
 $${angle.name} = \\dfrac{360\\degree}{${n.toFixed}} = ${angle.toFixed}\\degree$
 
-La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\color{red}\\fbox{$${angle.name}=${angle.value}$\\degree}$.`.replaceAll('\n\n', '<br>')
+La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\color{red}\\fbox{$${angle.name}=${angle.value}$\\degree}$.`
           break
         }
         case 24: {
@@ -805,7 +592,7 @@ La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\co
           const graphic = new GraphicView()
           const [A, B] = graphic.addPoint(2)
           const polygons = []
-          const n = (Math.random() * 3 + 3).toFixed()
+          const n = parseInt((Math.random() * 3 + 3).toFixed())
           const O = graphic.addRegularPolygonCenter(A, B, n)
           for (let i = 0; i < 10; i++) {
             const sommets = graphic.addHomothetic(O, 1 / (i + 1), ...graphic.addRegularPolygon(n, A, B).vertices)
@@ -935,7 +722,7 @@ La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\co
           const unite2 = 'mm'
 
           // On récupère les 5 points en configuration de Thalès
-          const [O, A, B, M, N] = graphic.geometric
+          const [O, A, B, M, N] = graphic.points
 
           // On nomme les droites à partir des noms des points
           const dAB = graphic.addLine(A, B)
@@ -1097,7 +884,7 @@ ${texteCorrIntro}
 ${texteCorr[this.sup3 - 1]}`.split('\n\n')
 
           if (this.correctionDetaillee) {
-            exercice.texteCorr = phrasesCorr.join('<br>').replaceAll('$$', '$\\hspace{1cm}')
+            exercice.texteCorr = phrasesCorr.join('<br>')
           } else {
             exercice.texteCorr = phrasesCorr.filter((x, i) => [3, 4, 6, 8, 10, 11, 12, 14, 16, 18, 19].indexOf(i) !== -1).join('<br>').replaceAll('$$', '$\\hspace{1cm}')
           }
@@ -1105,7 +892,7 @@ ${texteCorr[this.sup3 - 1]}`.split('\n\n')
 
 ${texteDonnees[this.sup3 - 1]}
 
-${consigne[this.sup3 - 1]}`.replaceAll('\n\n', '<br>') + '<br>' + graph
+${consigne[this.sup3 - 1]}` + '<br>' + graph
           break
         }
         case 32: {
@@ -1156,17 +943,18 @@ ${consigne[this.sup3 - 1]}`.replaceAll('\n\n', '<br>') + '<br>' + graph
           const [A, B, D] = graphic.addRectPoint()
 
           // Nombre aléatoire de rectangles
-          const nbRectangles = math.pickRandom([3, 4, 5, 6, 8, 10])
+          const nbRectangles = [3, 4, 5, 6, 8, 10][Math.random()*6]
 
           // Nommage aléatoires des sommets
-          const names = aleaName(8)
+          const names = aleaName([],8)
 
           // Construction des rectangles
           let ABCD, EFGH
-          const aleaRectangle = math.pickRandom([2, 3, 5, 6, 7, 9, 10].filter(x => x < nbRectangles))
+          const rectanglesPossibles = [2, 3, 5, 6, 7, 9, 10].filter(x => x < nbRectangles)
+          const aleaRectangle = rectanglesPossibles[Math.random()*rectanglesPossibles.length]
           const rectangles = []
           for (let i = 0; i < nbRectangles; i++) {
-            const sommets = graphic.addRotate(A, 2 * Math.PI / nbRectangles * i, ...graphic.addParallelogram(D, A, B))
+            const sommets = graphic.addRotate(A, 2 * Math.PI / nbRectangles * i, ...graphic.addParallelogram(D, A, B).vertices)
             if (i === 0) {
               ABCD = sommets.map((x, i) => {
                 x.name = names[i]
@@ -1225,7 +1013,7 @@ On considère la rotation qui transforme le rectangle $${circularPermutation(ABC
 
 $\\textbf{1.}$ Déterminer l'image de $${ABCD[P[i]]}$ par cette rotation.
 
-$\\textbf{2.}$ Déterminer l'angle de la rotation.`.replaceAll('\n\n', context.isHtml ? '<br>' : '\n\n')
+$\\textbf{2.}$ Déterminer l'angle de la rotation.`
           exercice.texteCorr = `
 $\\textbf{1.}$ L'image de $${ABCD[P[i]]}$ est $${EFGH[P[i]]}$.
 
@@ -1251,17 +1039,17 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
           const [D] = graphic.addRotate(A, Math.PI / 2, B)
 
           // Nombre aléatoire de rectangles
-          const nbRectangles = math.pickRandom([3, 5, 6])
-          const rectangleImage = math.pickRandom([2, 3, 4, 5].filter(x => x < nbRectangles && x !== nbRectangles / 2))
-
+          const nbRectangles = [3, 5, 6][Math.random()*3]
+          const rectangleImagePossibles = [2, 3, 4, 5].filter(x => x < nbRectangles && x !== nbRectangles / 2)
+          const rectangleImage = rectangleImagePossibles[Math.random()*rectangleImagePossibles.length]
           // Nommage aléatoires des sommets
-          const names = aleaName(8)
+          const names = aleaName([],8)
 
           // Construction des rectangles
           let ABCD, EFGH
           const rectangles = []
           for (let i = 0; i < nbRectangles; i++) {
-            const sommets = graphic.addRotate(A, 2 * Math.PI / nbRectangles * i, ...graphic.addParallelogram(D, A, B))
+            const sommets = graphic.addRotate(A, 2 * Math.PI / nbRectangles * i, ...graphic.addParallelogram(D, A, B).vertices)
             if (i === 0) {
               ABCD = circularPermutation(sommets.map((x, i) => {
                 x.name = names[i]
@@ -1338,7 +1126,7 @@ $${rectangleImage}\\times${angle.toFixed}\\degree+90\\degree=${angleSolution.toF
 
 Donc c'est la rotation de centre $${ABCD[2]}$ et d'angle $${angleSolution.toFixed + 90}\\degree$.
 
-${remarque}`.replaceAll('\n\n', '<br>')
+${remarque}`
           break
         }
         case 36: {
@@ -1346,17 +1134,17 @@ ${remarque}`.replaceAll('\n\n', '<br>')
           // http://localhost:8080/mathalea.html?ex=betaThales,s=36,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
           // const [A, B, C] = graphic.addRectPoint()
-          const triangle = graphic.addNotAlignedPoint()
+          const triangle = graphic.addTriangle()
           // graphic.aleaName(...triangle)
-          graphic.addLabelsPointsPolygon(...triangle)
-          const angles = graphic.addAnglesPolygon(...triangle)
-          const aA = new Grandeur(circularPermutation(triangle.map(x => x.name), 2).join(''), angles[0].angle / Math.PI * 180, 0, 'deg')
-          const aB = new Grandeur(circularPermutation(triangle.map(x => x.name), 0).join(''), angles[1].angle / Math.PI * 180, 0, 'deg')
-          const aC = new Grandeur(circularPermutation(triangle.map(x => x.name), 1).join(''), 180 - (aA.toFixed + aB.toFixed), 0, 'deg')
-          triangle.name = circularPermutation(triangle.map(x => x.name)).join('')
+          graphic.addLabelsPointsPolygon(...triangle.vertices)
+          const angles = graphic.addAnglesPolygon(...triangle.vertices)
+          const aA = new Grandeur(circularPermutation(triangle.vertices.map(x => x.name), 2).join(''), angles[0].angle / Math.PI * 180, 0, 'deg')
+          const aB = new Grandeur(circularPermutation(triangle.vertices.map(x => x.name), 0).join(''), angles[1].angle / Math.PI * 180, 0, 'deg')
+          const aC = new Grandeur(circularPermutation(triangle.vertices.map(x => x.name), 1).join(''), 180 - (aA.toFixed + aB.toFixed), 0, 'deg')
+          triangle.name = circularPermutation(triangle.vertices.map(x => x.name)).join('')
           const graph = graphic.getMathalea2DExport(
-            ...triangle
-            , ...graphic.addSidesPolygon(...triangle)
+            ...triangle.vertices
+            , ...graphic.addSidesPolygon(...triangle.vertices)
             , ...angles.map(x => { x.fillColor = 'red'; x.right = true; return x })
           )
           exercice.texte = `$\\widehat{${aA.name}}=${aA.format()}$ $\\widehat{${aB.name}}=${aB.format()}$
@@ -1423,7 +1211,7 @@ Soit $${FD.format()}=${k.format()}\times ${CA.name}$.
 
 Résolvons l'équation d'inconnue $${CA.name}$.
 
-${resoudre(`${FD.toFixed}=${k.toFixed}*${CA.name}`).texteCorr}
+${resoudre(`${FD.toFixed}=${k.toFixed}*${CA.name}`, {}).texteCorr}
 
 Donc ${CA.nameAndValue}.`
           break

@@ -1,9 +1,11 @@
+import { Point } from "./elements";
 import { GraphicView } from "./GraphicView";
 export declare class AleaThalesConfig extends GraphicView {
     classicConfig: boolean;
     k: number;
     AOB: boolean;
     OAB: boolean;
+    points: Point[];
     constructor(k?: boolean);
     create(k?: boolean): void;
     new(): void;

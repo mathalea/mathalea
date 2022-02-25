@@ -7,9 +7,9 @@ export class AleaThalesConfig extends GraphicView {
   classicConfig: boolean = undefined
   k: number
   AOB: boolean = false
-  OAB: boolean = false 
+  OAB: boolean = false
+  points: Point[]
   constructor (k: boolean = undefined) {
-    // super(-5, -5, 5, 5)
     super(-5, -5, 5, 5)
     this.create(k)         
   }
@@ -99,6 +99,7 @@ export class AleaThalesConfig extends GraphicView {
     }
     O.labelPoints = [B, O, M]
     this.geometric = [O, A, B, M, N].map(x => {x.label = true;return x})
+    this.points = [O, A, B, M, N].map(x => {x.label = true;return x})
   }
 
   /**
