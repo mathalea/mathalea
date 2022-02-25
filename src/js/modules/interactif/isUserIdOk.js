@@ -68,7 +68,7 @@ export function isUserIdOk (exercice, nbBonnesReponses, nbMauvaisesReponses) {
   // eslint-disable-next-line no-unused-expressions
   userId === null
     ? (
-        console.log('userId KO : ' + userId)
+        console.log('userId KO')
       )
     : (
         console.log('userId OK : ' + userId),

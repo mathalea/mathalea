@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, calcul, choice, arrondiVirgule, texNombre, texPrix, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, calcul, choice, arrondiVirgule, stringNombre, texPrix, arrondi, texNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Résoudre des problèmes de courses au marché'
@@ -65,18 +65,18 @@ export default function ProblemeCourse () {
     const prixTotal = calcul(prixTotalAliment1 + prixTotalAliment2)
     const masseEnKgDeAliment2 = calcul(masseEnGdeAliment2 / 1000)
 
-    let texte = `${prenom} achète ${texNombre(masseEnKgDeAliment1)} kg de ${aliment1} à ${texPrix(prixAliment1)} €/kg `
+    let texte = `${prenom} achète ${stringNombre(masseEnKgDeAliment1)} kg de ${aliment1} à ${texPrix(prixAliment1)} €/kg `
     texte += `et ${masseEnGdeAliment2} g de ${aliment2} à ${texPrix(prixAliment2)} €/kg. Quel est le prix total à payer ?`
-    let texteCorr = `Prix des ${aliment1} : ${texNombre(masseEnKgDeAliment1)} kg × ${texPrix(prixAliment1)} €/kg = ${texPrix(prixTotalAliment1)} €` + '<br>'
-    texteCorr += `Prix du ${aliment2} : ${texNombre(masseEnKgDeAliment2)} kg × ${texPrix(prixAliment2)} €/kg = ${texNombre(prixTotalAliment2)} € ` + '<br>'
-    texteCorr += `Prix total à payer : ${texNombre(prixTotalAliment1)} € + ${texNombre(prixTotalAliment2)} €`
+    let texteCorr = `Prix des ${aliment1} : ${stringNombre(masseEnKgDeAliment1)} kg × ${texPrix(prixAliment1)} €/kg = ${texPrix(prixTotalAliment1)} €` + '<br>'
+    texteCorr += `Prix du ${aliment2} : ${stringNombre(masseEnKgDeAliment2)} kg × ${texPrix(prixAliment2)} €/kg = ${stringNombre(prixTotalAliment2)} € ` + '<br>'
+    texteCorr += `Prix total à payer : ${stringNombre(prixTotalAliment1)} € + ${stringNombre(prixTotalAliment2)} €`
     if (Number.isInteger(calcul((prixTotalAliment1 + prixTotalAliment2) * 100))) {
       texteCorr += ' = '
     } else {
       texteCorr += ' ≈ '
     }
     texteCorr += `${arrondiVirgule(prixTotal)} €<br>`
-    texteCorr += `<br><i>Le prix total aurait aussi pu être trouvé en un seul calcul</i> : ${texNombre(masseEnKgDeAliment1)} kg × ${texPrix(prixAliment1)} €/kg + ${texNombre(masseEnKgDeAliment2)} kg × ${texPrix(prixAliment2)} €/kg `
+    texteCorr += `<br><i>Le prix total aurait aussi pu être trouvé en un seul calcul</i> : ${stringNombre(masseEnKgDeAliment1)} kg × ${texPrix(prixAliment1)} €/kg + ${stringNombre(masseEnKgDeAliment2)} kg × ${texPrix(prixAliment2)} €/kg `
     if (Number.isInteger(prixTotal * 100)) {
       texteCorr += ' = '
     } else {

@@ -101,27 +101,31 @@ Voici par ordre d'importance les principaux raccourcis clavier pour être rapide
    - ? (macOSX)
    - F2 (Linux)
 8. Édition multiple Ctrl+alt+flèche haut ou bas
+   Attention, il s'agit d'un search and replace textuel et non sémantique.
    - Ctrl+Alt+flèche haut ou bas ou bien Alt+clic (Windows)
+   - Ctrl+D sur la sélection courante. À chaque Ctrl+D on obtient la prochaine occurrence pour ajouter un curseur
+   - Ctrl+Maj+L sur la sélection courante. On obtient un curseur sur toutes les occurrences de la sélection
    - ? (macOSX)
    - Alt+Maj+flèche haut ou bas (Linux)
 
-9. Plier tout le code du fichier en cours
+
+9.  Plier tout le code du fichier en cours
    - Ctrl+k-0
    - ? (macOSX)
    - Ctrl+k-0 (Linux)
-10. Déplier tout le code du fichier en cours
+11. Déplier tout le code du fichier en cours
     - Ctrl+k-j (Windows)
     - ? (macOSX)
     - Ctrl+k-j (Linux)
-11. Plier seulement le bloc en cours
+12. Plier seulement le bloc en cours
     - ? (Windows)
     - ? (macOSX)
     - ? (Linux)
-12. Déplier seulement le bloc en cours
+13. Déplier seulement le bloc en cours
     - ? (Windows)
     - ? (macOSX)
     - ? (Linux)
-13. Utiliser des snippets
+14. Utiliser des snippets
     - ? (Windows)
     - ? (macOSX)
     - ? (Linux)

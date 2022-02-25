@@ -1,6 +1,8 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, texFractionReduite } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, texFractionReduite, itemize, obtenirListeFacteursPremiers, texNombre2 } from '../../modules/outils.js'
+import { resoudre } from '../../modules/outilsMathjs.js'
 import { tableauDeVariation, mathalea2d, labelPoint, point, tracePoint, courbe2, repere2 } from '../../modules/2d.js'
+import { create, all } from 'mathjs'
 
 export const titre = 'Déterminer le signe d’une fonction affine'
 
@@ -19,6 +21,8 @@ export default function signefonctionaffine () {
   this.spacing = 1
   this.spacingCorr = 1
   this.sup = 1
+  this.sup2 = false
+  this.listePackages = ['tkz-tab']
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
@@ -34,8 +38,8 @@ export default function signefonctionaffine () {
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       // typesDeQuestions = listeTypeDeQuestions[i]
       if (this.sup === 1) {
-        a = randint(1, 4) * choice([-1, 1])// coefficient a de la fonction affine
-        b = randint(0, 4) * choice([-1, 1])// coefficient b de la fonction affine
+        a = randint(1, 5) * choice([-1, 1])// coefficient a de la fonction affine
+        b = randint(0, 5) * choice([-1, 1])// coefficient b de la fonction affine
 
         if (a === 0 && b === 0) { // On évite la fonction nulle
           a = 1
@@ -43,32 +47,64 @@ export default function signefonctionaffine () {
 
         texte = `Déterminer le signe de la fonction $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`
 
-        texteCorr = 'On reconnaît que $f$ est une fonction affine, de la forme $f(x)=ax+b$.<br>'
-        texteCorr += `Son coefficient $a$ vaut : $~a=${a}~$ et son coefficient $b$ vaut : $~b=${b}$. <br>`
-        // texteCorr += `Selon les notations, on peut aussi appeler $f$ sous la forme $f(x)=mx+p$ avec : $m=${a}$ et $p=${b}$. <br>`
-        texteCorr += 'On sait qu\'une fonction affine non constante admet une unique racine, $~x_0$.<br> '
-        texteCorr += '$f(x)$ est du signe de $~a~$ pour les valeurs supérieures à $~x_0$,<br>'
-        texteCorr += 'et du signe de l\'opposé de $~a~$ pour les valeurs inférieures à $~x_0$.<br>'
-        texteCorr += 'On cherche donc la valeur de $~x_0~$, '
-        texteCorr += `qui est la solution de l'équation : $${reduireAxPlusB(a, b)}=0$.<br>`
-        texteCorr += `On obtient alors : $~x_0=${texFractionReduite(-b, a)} $<br>`
-        texteCorr += `Comme  $~a=~${a}`
-        if (a > 0) {
-          texteCorr += `>0~$, $~f(x)$ est positive pour $~x>${texFractionReduite(-b, a)} ~$ et négative pour $~x<${texFractionReduite(-b, a)} $<br>`
-          ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+']
+        let solution
+
+        if (this.sup2) {
+          texteCorr = 'On résout l\'inéquation $f(x)>0$.<br>'
+          const inequation = resoudre(`${a}*x+${b}>0`, { color: 'black' })
+          texteCorr += `${inequation.texteCorr}<br>`
+
+          // On détermine le code latex de la solution qui sera soit une fraction, soit un nombre decimal
+          const math = create(all)
+
+          solution = math.fraction(math.evaluate(-b / a))
+
+          // On regarde si le résultat a un nombre fini de chiffres après la virgule et n'est pas un entier
+          if (solution.d !== 1 && !obtenirListeFacteursPremiers(solution.d).some(x => x !== 2 && x !== 5)) {
+            solution = math.round(solution.valueOf(), 15) // convertit la fraction en nombre décimal en évitant les problèmes de float
+            if (solution.toString().split('.')[1].length <= 2) {
+              solution = texNombre2(solution)
+            } else {
+              solution = texFractionReduite(-b, a)
+            }
+          } else {
+            solution = texFractionReduite(-b, a)
+          }
+
+          texteCorr += `On montre de même que l'inéquation $f(x) < 0$ a pour solution $${a > 0 ? 'x < ' + solution : 'x > ' + solution}$ et que l'équation $f(x)=0$ a pour solution $ x = ${solution}$. <br>`
+          texteCorr += 'Ainsi, $f$ est :<br>'
+          texteCorr += itemize([`nulle lorsque $x$ est égal à $${solution}$`, `positive lorsque $x$ est ${a > 0 ? 'supérieur' : 'inférieur'} à $${solution}$`, `négative lorsque $x$ est ${a > 0 ? 'inférieur' : 'supérieur'} à $${solution}$.<br>`])
+          texteCorr += 'On a donc le tableau de signe suivant :<br><br>'
+          ligne1 = a > 0 ? ['Line', 30, '', 0, '-', 20, 'z', 20, '+'] : ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
         } else {
-          texteCorr += `<0$,  $f(x)~$ est négative pour $~x>${texFractionReduite(-b, a)} ~$ et positive pour $~x<${texFractionReduite(-b, a)} $<br>`
-          ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
+          texteCorr = 'On reconnaît que $f$ est une fonction affine, de la forme $f(x)=ax+b$.<br>'
+          texteCorr += `Son coefficient $a$ vaut : $~a=${a}~$ et son coefficient $b$ vaut : $~b=${b}$. <br>`
+          // texteCorr += `Selon les notations, on peut aussi appeler $f$ sous la forme $f(x)=mx+p$ avec : $m=${a}$ et $p=${b}$. <br>`
+          texteCorr += 'On sait qu\'une fonction affine non constante admet une unique racine, $~x_0$.<br> '
+          texteCorr += '$f(x)$ est du signe de $~a~$ pour les valeurs supérieures à $~x_0$,<br>'
+          texteCorr += 'et du signe de l\'opposé de $~a~$ pour les valeurs inférieures à $~x_0$.<br>'
+          texteCorr += 'On cherche donc la valeur de $~x_0~$, '
+          texteCorr += `qui est la solution de l'équation : $${reduireAxPlusB(a, b)}=0$.<br>`
+          texteCorr += `On obtient alors : $~x_0=${texFractionReduite(-b, a)} $<br>`
+          texteCorr += `Comme  $~a=~${a}`
+          if (a > 0) {
+            texteCorr += `>0~$, $~f(x)$ est positive pour $~x>${texFractionReduite(-b, a)} ~$ et négative pour $~x<${texFractionReduite(-b, a)} $<br>`
+            ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+']
+          } else {
+            texteCorr += `<0$,  $f(x)~$ est négative pour $~x>${texFractionReduite(-b, a)} ~$ et positive pour $~x<${texFractionReduite(-b, a)} $<br>`
+            ligne1 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-']
+          }
+          texteCorr += 'On peut synthétiser cela dans un tableau de signes :<br><br>'
         }
-        texteCorr += 'On peut synthétiser cela dans un tableau de signes :'
-        texteCorr += mathalea2d({ xmin: -0.5, ymin: -6.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
+
+        texteCorr += mathalea2d({ xmin: -0.5, ymin: -5.1, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
               // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
               ['$x$', 2, 30], [`$f(x)=${reduireAxPlusB(a, b)}$`, 2, 50]
             ],
             // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-            ['$-\\infty$', 30, `$x_0=${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
+            ['$-\\infty$', 30, this.sup2 ? `$${solution}$` : `$x_0=${texFractionReduite(-b, a)}$`, 20, '$+\\infty$', 30]
           ],
           // tabLines ci-dessous contient les autres lignes du tableau.
           tabLines: [ligne1],
@@ -79,18 +115,19 @@ export default function signefonctionaffine () {
           hauteurLignes: [15, 15]
         }))
 
-        texteCorr += 'Pour illustrer la situation, on peut représenter graphiquement la fonction :<br>'
+        texteCorr += '<br>Pour illustrer la situation, on peut représenter graphiquement la fonction :<br><br>'
         const f = x => a * x + b
         monRepere = repere2()
         maCourbe = courbe2(f, { repere: monRepere })
-        const A = point(-b / a, 0, '$x_0$')
+        const A = point(-b / a, 0, `${this.sup2 ? solution : 'x_0'}`)
         lA = labelPoint(A, 'red')
         tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
         texteCorr += mathalea2d({
           xmin: -5,
           ymin: -5,
           xmax: 6,
-          ymax: 6
+          ymax: 6,
+          scale: 0.5
         }, monRepere, maCourbe, tA, lA)
       }
 
@@ -106,4 +143,5 @@ export default function signefonctionaffine () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
+  this.besoinFormulaire2CaseACocher = ['Correction alternative']
 }

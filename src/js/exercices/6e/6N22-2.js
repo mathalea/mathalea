@@ -14,7 +14,7 @@ export const amcType = 'AMCNum'
 
 /**
  * Représenter une somme de fractions de même dénominateur sur un segment gradué de façon adaptée.
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote (AMC par EE)
  * 6N14-2
  * Relecture : Novembre 2021 par EE
  */
@@ -50,7 +50,7 @@ export default function AjouterDesFractionsDunite () {
       num[3] = randint(1, den - 1, [num[2], num[0]])
       for (let j = 0; j < 4; j++) { f[j] = fraction(num[j], den) }
 
-      texte = `On place bout à bout 4 segments de longueurs respectives$ ${f[0].texFraction}$, $${f[1].texFraction}$, $${f[2].texFraction}$ et $${f[3].texFraction}$.<br>`
+      texte = `On place bout à bout 4 segments de longueurs respectives $${f[0].texFraction}$, $${f[1].texFraction}$, $${f[2].texFraction}$ et $${f[3].texFraction}$.<br>`
       texte += 'Quelle est la longueur du segment obtenu ?'
       setReponse(this, i, new FractionX(num[0] + num[1] + num[2] + num[3], den), { digitsNum: nombreDeChiffresDe(num[0] + num[1] + num[2] + num[3]) + randint(0, 1), digitsDen: nombreDeChiffresDe(den) + randint(0, 1), signe: false, formatInteractif: 'fractionEgale' })
       if (this.interactif && !context.isAmc) {

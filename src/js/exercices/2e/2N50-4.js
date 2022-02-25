@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { randint, texNombrec, miseEnEvidence, listeQuestionsToContenu, combinaisonListes, sp, rienSi1, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
+import { randint, texNombrec, miseEnEvidence, listeQuestionsToContenu, combinaisonListes, sp, rienSi1, texFractionReduite, reduireAxPlusB, stringNombre } from '../../modules/outils.js'
 import { texteSurSegment, codeSegments, codageAngleDroit, segmentAvecExtremites, milieu, labelPoint, point, segment, texteParPosition, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Modéliser une situation géométrique à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'
@@ -207,7 +207,7 @@ export default function modeliserEquationsGeometrie () {
           F = point(15, -1, 'F')
 
           objets.push(segment(A, D), segmentAvecExtremites(E, F), segment(A, B), segment(B, C), segment(D, C), segment(D, H), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), labelPoint(A, H, D, B, C), codageAngleDroit(B, H, D))
-          objets.push(texteSurSegment(`${texNombre(b)} cm`, D, C, 'black', +0.5), texteSurSegment(`${texNombre(a)} cm`, E, F, 'black', -0.5), texteParPosition('x', milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true))
+          objets.push(texteSurSegment(`${stringNombre(b)} cm`, D, C, 'black', +0.5), texteSurSegment(`${stringNombre(a)} cm`, E, F, 'black', -0.5), texteParPosition('x', milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true))
 
           texte = ' $ABCD$ est un trapèze rectangle.<br> '
 

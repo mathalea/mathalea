@@ -40,7 +40,8 @@ export function ObjetMathalea2D () {
 }
 
 class Vide2d {
-  constructor () {
+  constructor (x, y) {
+    this.bordures = [x, y, x, y]
     this.tikz = function () {
       return ''
     }
@@ -49,8 +50,8 @@ class Vide2d {
     }
   }
 }
-export function vide2d () {
-  return new Vide2d()
+export function vide2d (x = 0, y = 0) {
+  return new Vide2d(x, y)
 }
 /**
  *
@@ -452,10 +453,12 @@ export function milieu (A, B, nom, positionLabel = 'above') {
  *
  * M = pointSurSegment(A,B,'h','M') // M est un point au hasard sur [AB] (on peut écrire n'importe quel texte à la place de 'h')
  * M = pointSurSegment(A,B) // M est un point au hasard sur [AB]
+ * Sécurité ajoutée par Jean-Claude Lhote : si AB=0, alors on retourne A
  * @author Rémi Angot
  */
 export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
   if (Number.isNaN(longueur(A, B))) window.notify('pointSurSegment : Quelque chose ne va pas avec les points', { A, B })
+  if (longueur(A, B) === 0) return A
   if (l === undefined || typeof l === 'string') {
     l = calcul((longueur(A, B) * randint(15, 85)) / 100)
   }
@@ -1868,31 +1871,31 @@ function Segment (arg1, arg2, arg3, arg4, color) {
   this.tailleExtremites = 4
   if (arguments.length === 2) {
     if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Segment : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
-    this.x1 = arrondi(arg1.x, 2)
-    this.y1 = arrondi(arg1.y, 2)
-    this.x2 = arrondi(arg2.x, 2)
-    this.y2 = arrondi(arg2.y, 2)
+    this.x1 = arrondi(arg1.x, 3)
+    this.y1 = arrondi(arg1.y, 3)
+    this.x2 = arrondi(arg2.x, 3)
+    this.y2 = arrondi(arg2.y, 3)
   } else if (arguments.length === 3) {
     if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Segment : (attendus : A, B et "couleur") les arguments de sont pas des points valides', { arg1, arg2 })
 
-    this.x1 = arrondi(arg1.x, 2)
-    this.y1 = arrondi(arg1.y, 2)
-    this.x2 = arrondi(arg2.x, 2)
-    this.y2 = arrondi(arg2.y, 2)
+    this.x1 = arrondi(arg1.x, 3)
+    this.y1 = arrondi(arg1.y, 3)
+    this.x2 = arrondi(arg2.x, 3)
+    this.y2 = arrondi(arg2.y, 3)
     this.color = arg3
   } else if (arguments.length === 4) {
     if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', { arg1, arg2 })
-    this.x1 = arrondi(arg1, 2)
-    this.y1 = arrondi(arg2, 2)
-    this.x2 = arrondi(arg3, 2)
-    this.y2 = arrondi(arg4, 2)
+    this.x1 = arrondi(arg1, 3)
+    this.y1 = arrondi(arg2, 3)
+    this.x2 = arrondi(arg3, 3)
+    this.y2 = arrondi(arg4, 3)
   } else {
     // 5 arguments
     if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2, y2 et "couleur") les arguments de sont pas des nombres valides', { arg1, arg2 })
-    this.x1 = arrondi(arg1, 2)
-    this.y1 = arrondi(arg2, 2)
-    this.x2 = arrondi(arg3, 2)
-    this.y2 = arrondi(arg4, 2)
+    this.x1 = arrondi(arg1, 3)
+    this.y1 = arrondi(arg2, 3)
+    this.x2 = arrondi(arg3, 3)
+    this.y2 = arrondi(arg4, 3)
     this.color = color
   }
   this.bordures = [Math.min(this.x1, this.x2) - 0.2, Math.min(this.y1, this.y2) - 0.2, Math.max(this.x1, this.x2) + 0.2, Math.max(this.y1, this.y2) + 0.2]
@@ -2199,10 +2202,10 @@ function Polygone (...points) {
   let ymax = -1000
   for (const unPoint of this.listePoints) {
     if (unPoint.typeObjet !== 'point') window.notify('Polygone : argument invalide', { ...points })
-    xmin = Math.min(xmin, unPoint.x - unPoint.positionLabel.indexOf('left') !== -1 ? 1 : 0)
-    xmax = Math.max(xmax, unPoint.x + unPoint.positionLabel.indexOf('right') !== -1 ? 1 : 0)
-    ymin = Math.min(ymin, unPoint.y - unPoint.positionLabel.indexOf('below') !== -1 ? 1 : 0)
-    ymax = Math.max(ymax, unPoint.y + unPoint.positionLabel.indexOf('above') !== -1 ? 1 : 0)
+    xmin = Math.min(xmin, unPoint.x)
+    xmax = Math.max(xmax, unPoint.x)
+    ymin = Math.min(ymin, unPoint.y)
+    ymax = Math.max(ymax, unPoint.y)
   }
   this.bordures = [xmin, ymin, xmax, ymax]
 
@@ -5189,9 +5192,9 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
   this.svg = function (coeff) {
     const N = pointSurSegment(O, M, (this.distance * 20) / coeff)
     if (this.extremite2.x > this.extremite1.x) {
-      angle = -s.angleAvecHorizontale
+      angle = arrondi(-s.angleAvecHorizontale, 1)
     } else {
-      angle = 180 - s.angleAvecHorizontale
+      angle = arrondi(180 - s.angleAvecHorizontale, 1)
     }
     return texteParPoint(`${l}${unite !== '' ? ' ' + unite : ''}`, N, angle, this.color, 1, 'middle', false).svg(coeff)
   }
@@ -5199,9 +5202,9 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
   this.tikz = function () {
     const N = pointSurSegment(O, M, this.distance / context.scale)
     if (this.extremite2.x > this.extremite1.x) {
-      angle = -s.angleAvecHorizontale
+      angle = arrondi(-s.angleAvecHorizontale, 1)
     } else {
-      angle = 180 - s.angleAvecHorizontale
+      angle = arrondi(180 - s.angleAvecHorizontale, 1)
     }
     return texteParPoint(`${l}${unite !== '' ? ' ' + unite : ''}`, N, angle, this.color, 1, 'middle', false).tikz()
   }
@@ -5392,7 +5395,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
     if (label !== '') {
       mesureAngle = label
     } else {
-      mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '°'
+      mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '\\degree'
     }
     return '\n' + texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true).tikz() + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz()
   }
@@ -7125,7 +7128,7 @@ function Repere2 ({
     xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
   }
   for (const x of xLabelListe) {
-    const l = texteParPosition(texNombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5, 'milieu', 'black', 1, 'middle', false)
+    const l = texteParPosition(`$${texNombre(x)}$`, calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5, 'milieu', 'black', 1, 'middle', false)
     l.isVisible = false
     objets.push(l)
   }
@@ -7134,7 +7137,7 @@ function Repere2 ({
     yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
   }
   for (const y of yLabelListe) {
-    const l = texteParPosition(texNombre(y), calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', false)
+    const l = texteParPosition(`$${texNombre(y)}$`, calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', false)
     l.isVisible = false
     objets.push(l)
   }
@@ -8267,7 +8270,7 @@ export function tableauDeVariation ({ tabInit = ['', ''], tabLines = [], lgt = 3
  * Trace une barre pour un histogramme
  *
  * @param {integer} x
- * @param {integer} y
+ * @param {integer} hauteur
  * @param {string} legende
  * @param {integer} epaisseur
  * @param {string} couleur
@@ -8275,9 +8278,9 @@ export function tableauDeVariation ({ tabInit = ['', ''], tabLines = [], lgt = 3
  * @param {integer} angle
  * @author Rémi Angot
  */
-function TraceBarre (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
+function TraceBarre (x, hauteur, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
   ObjetMathalea2D.call(this)
-  const p = polygone(point(calcul(x - epaisseur / 2), 0), point(calcul(x - epaisseur / 2), calcul(y * unite)), point(calcul(x + epaisseur / 2), calcul(y * unite)), point(calcul(x + epaisseur / 2), 0))
+  const p = hauteur === 0 ? vide2d(x, 0) : polygone(point(x - epaisseur / 2, 0), point(x - epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, 0))
   p.couleurDeRemplissage = couleurDeRemplissage
   p.opaciteDeRemplissage = opaciteDeRemplissage
   p.color = color
@@ -8301,7 +8304,7 @@ export function traceBarre (...args) {
 /**
  * Trace une barre horizontale pour un histogramme
  *
- * @param {integer} x
+ * @param {integer} longueur
  * @param {integer} y
  * @param {string} legende
  * @param {integer} epaisseur
@@ -8310,9 +8313,9 @@ export function traceBarre (...args) {
  * @param {integer} angle
  * @author Rémi Angot
  */
-function TraceBarreHorizontale (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, unite = 1, angle = 'gauche', hachures = false } = {}) {
+function TraceBarreHorizontale (longueur, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, unite = 1, angle = 'gauche', hachures = false } = {}) {
   ObjetMathalea2D.call(this)
-  const p = polygone(point(0, calcul(y - epaisseur / 2)), point(0, calcul(y + epaisseur / 2)), point(calcul(unite * x), calcul(y + epaisseur / 2)), point(calcul(unite * x), calcul(y - epaisseur / 2)))
+  const p = longueur === 0 ? vide2d(0, y) : polygone(point(0, arrondi(y - epaisseur / 2, 2)), point(0, arrondi(y + epaisseur / 2, 2)), point(arrondi(unite * longueur, 2), arrondi(y + epaisseur / 2, 2)), point(arrondi(unite * longueur, 2), arrondi(y - epaisseur / 2, 2)))
   p.couleurDeRemplissage = couleurDeRemplissage
   p.opaciteDeRemplissage = opaciteDeRemplissage
   p.color = color
@@ -8346,8 +8349,9 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
       ligne.epaisseur = 0.2
       diagramme.push(ligne)
     }
-    // On écrit la valeur au dessus de la barre sauf pour une hauteur de 0
-    if (hauteursBarres[j] !== 0) diagramme.push(texteParPoint(numberFormat(hauteursBarres[j]), point(abscisseBarre, hauteurBarre + 0.3)))
+    if (etiquetteValeur) {
+      diagramme.push(texteParPoint(numberFormat(hauteursBarres[j]), point(abscisseBarre, hauteurBarre + 0.3))) // On écrit la valeur au dessus de la barre sauf pour une hauteur de 0
+    }
     // Calculs permettant de graduer l'axe vertical et de placer des valeurs
     const steps = [1, 2, 5, 10, 20]
     const yticks = [1, 2, 5, 5, 5]
@@ -9579,7 +9583,7 @@ export function angle (A, O, B) {
     else if (v.y * w.y > 0) return 0
     else return 180
   } else {
-    return calcul(
+    return arrondi(
       (Math.acos((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB)) * 180) / Math.PI,
       2
     )
@@ -9593,7 +9597,7 @@ export function angle (A, O, B) {
 export function angleOriente (A, O, B) {
   const A2 = rotation(A, O, 90)
   const v = vecteur(O, B); const u = vecteur(O, A2)
-  return unSiPositifMoinsUnSinon(v.x * u.x + v.y * u.y) * angle(A, O, B)
+  return arrondi(unSiPositifMoinsUnSinon(v.x * u.x + v.y * u.y) * angle(A, O, B), 2)
 }
 /**
  * angleradian(A,O,B) renvoie l'angle AOB en radian
@@ -10965,7 +10969,7 @@ function Labyrinthe (
   }
 } // fin de la classe labyrinthe
 export function labyrinthe ({ taille = 1, format = 'texte' } = {}) {
-  return new Labyrinthe({ taille: taille, format: format })
+  return new Labyrinthe({ taille, format })
 }
 
 /**

@@ -185,9 +185,9 @@ export default function ProblemesGrandeursComposees () {
             duree
           )} heures `
           if (nbQuartsDHeures !== 0) { texte += `et ${nbQuartsDHeures * 15} minutes` }
-          texte += `.<br>Le prix d'un kWh est de ${texNombrec(
+          texte += `.<br>Le prix d'un kWh est de $${texNombrec(
             prixkWh
-          )} €.<br>`
+          )}$ €.<br>`
           if (context.isHtml) {
             // les boutons d'aide uniquement pour la version html
           }
@@ -343,7 +343,7 @@ export default function ProblemesGrandeursComposees () {
                   'Définition : densité (grandeur physique)',
                   'La densité d\'une substance est égale à la masse volumique de la substance divisée par la masse volumique du corps de référence à la même température.<br>Pour les liquides et les solides, l\'eau est utilisée comme référence (sa masse volumique est de 1kg/dm$^3$), pour les gaz, la mesure s\'effectue par rapport à l\'air.<br>Donc pour les liquides, la densité est égale à la masse volumique exprimée en kg/dm$^3$.'
                 ) +
-                ` est de ${texNombrec(liquides[index2][1])}), quelle masse ${liquides[index2][0]
+                ` est de $${texNombrec(liquides[index2][1])} $kg/dm$^3$), quelle masse ${liquides[index2][0]
                 } en kg contiendra-t-il au gramme près ?<br>`
               texteCorr =
                 numAlpha(0) +
@@ -381,7 +381,7 @@ export default function ProblemesGrandeursComposees () {
               'Définition : Vitesse (grandeur physique)',
               'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)'
             ) +
-            ` de ${texNombrec(vitesseMoy)} m/s.<br>`
+            ` de $${texNombrec(vitesseMoy)}$ m/s.<br>`
           texte += `Elle pèse ${masse} kg.<br>`
           texte +=
             numAlpha(0) +
@@ -430,9 +430,9 @@ export default function ProblemesGrandeursComposees () {
               'Schéma explicatif',
               'images/trebuchet.png'
             ) +
-            `" dans un jardin d'enfant. Le siège est situé à ${texNombre(
+            `" dans un jardin d'enfant. Le siège est situé à $${texNombre(
               distance
-            )} m du pivot central de la balançoire (bras de levier).<br>`
+            )}$ m du pivot central de la balançoire (bras de levier).<br>`
           texte +=
             numAlpha(0) +
             ' Calculer le ' +
@@ -569,7 +569,7 @@ export default function ProblemesGrandeursComposees () {
                   'Définition : Vitesse (grandeur physique)',
                   'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)'
                 ) +
-                ` de ${texNombrec(vitesseMoy)} m/s.<br>`
+                ` de $${texNombrec(vitesseMoy)}$ m/s.<br>`
               texte +=
                 numAlpha(0) +
                 ` En se déplaçant à cette vitesse pendant ${duree} h, quelle est la distance parcourue par ${quidam} en km ?<br>`
@@ -581,9 +581,9 @@ export default function ProblemesGrandeursComposees () {
               texteCorr =
                 numAlpha(0) +
                 ` La distance parcourue par ${quidam} ${vitesses[index1][0]
-                } en ${duree} h à la vitesse de ${texNombrec(
+                } en ${duree} h à la vitesse de $${texNombrec(
                   vitesseMoy
-                )} m/s est :<br>`
+                )}$ m/s est :<br>`
               texteCorr += `$${texNombrec(
                 vitesseMoy
               )}\\text{ m/s}\\times${duree}\\text{ h}=\\dfrac{${texNombrec(
@@ -693,9 +693,9 @@ export default function ProblemesGrandeursComposees () {
                 distance + '\\text{ m}',
                 0
               )}=${texNombrec(arrondi(distance / 340))}\\text{ s}$<br>`
-              texteCorr += `${quidam} entendra le tonnerre ${texNombrec(
+              texteCorr += `${quidam} entendra le tonnerre $${texNombrec(
                 arrondi(distance / 340)
-              )} secondes après avoir vu l'éclair tomber sur le clocher.`
+              )}$ secondes après avoir vu l'éclair tomber sur le clocher.`
               break
             case 2: // Le coureur
               vitesseMoy = randint(vitesses[4][1] * 5, vitesses[4][2] * 5) / 5
@@ -820,9 +820,9 @@ export default function ProblemesGrandeursComposees () {
               texteCorr += `\\approx${texNombrec(vitesseMoy)}$ km/h<br>`
               texteCorr +=
                 numAlpha(2) +
-                ` Si elle court 21,0975 km à cette vitesse de ${texNombre(
+                ` Si elle court 21,0975 km à cette vitesse de $${texNombre(
                   vitesseMoy
-                )} km/h, ${quidam} mettra :<br>`
+                )}$ km/h, ${quidam} mettra :<br>`
               duree = arrondi(21.0975 / vitesseMoy, 4)
               texteCorr += `$\\dfrac{${texNombre(
                 21.0975
@@ -848,13 +848,13 @@ export default function ProblemesGrandeursComposees () {
           prix2 = arrondi(masse2 * fruits[index2][1])
           prix3 = arrondi(masse3 * fruits[index][1])
           quidam = prenomF()
-          texte = `${quidam} se rends à l'épicerie de son quartier. Elle y achète ${texNombre(
+          texte = `${quidam} se rends à l'épicerie de son quartier. Elle y achète $${texNombre(
             masse
-          )} kg de ${fruits[index1][0]} à ${texPrix(
+          )}$ kg de ${fruits[index1][0]} à ${texPrix(
             fruits[index1][1]
           )} €/kg et pour ${texPrix(prix2)} € de ${fruits[index2][0]
             } à ${texPrix(fruits[index2][1])} €/kg.<br>`
-          texte += `Enfin, elle achète ${texNombre(masse3)} kg de ${fruits[index][0]
+          texte += `Enfin, elle achète $${texNombre(masse3)}$ kg de ${fruits[index][0]
             } pour ${texPrix(prix3)} €.<br>`
           texte +=
             numAlpha(0) +
@@ -892,17 +892,14 @@ export default function ProblemesGrandeursComposees () {
           prix1 = locations[index1][1]
           prix2 = cours[index2][1] * randint(2, 6)
           quidam = prenomF()
-          texte = `${quidam} a prévu de louer ${locations[index1][0]
-            } pendant ${texNombre(
-              nbheures
-            )} heures. L'heure de location coûte ${texPrix(prix1)} €.<br>`
+          texte = `${quidam} a prévu de louer ${locations[index1][0]} pendant $${nbheures}$ heures. L'heure de location coûte ${texPrix(prix1)} €.<br>`
           texte += numAlpha(0) + ' Combien cette location va lui coûter ?<br>'
           texte +=
             numAlpha(1) +
             ` ${quidam} a pris des leçons particulières ${cours[index2][0]
-            }. En tout ce mois-ci elle a eu ${texNombrec(
+            }. En tout ce mois-ci elle a eu $${texNombrec(
               prix2 / cours[index2][1]
-            )} heures de cours pour ${texPrix(
+            )}$ heures de cours pour ${texPrix(
               prix2
             )} €. Combien demande son professeur pour une heure de cours ?<br>`
           texteCorr =
@@ -1143,9 +1140,9 @@ export default function ProblemesGrandeursComposees () {
           texte += `Le téléchargement dure ${nbminutes} minutes et ${nbsecondes} secondes. Quelle est la taille du fichier téléchargé en ${unites[index]} ?<br>`
           texte +=
             numAlpha(1) +
-            ` ${quidam} veut télécharger un fichier de ${texNombre(
+            ` ${quidam} veut télécharger un fichier de $${texNombre(
               masse
-            )} Go. Quelle sera la durée du téléchargement si sa vitesse de téléchargement est de ${vitesseMoy} ${unites[index]
+            )}$ Go. Quelle sera la durée du téléchargement si sa vitesse de téléchargement est de ${vitesseMoy} ${unites[index]
             }/s ?<br>`
           texteCorr =
             numAlpha(0) + ' La taille du fichier téléchargé est :<br>'

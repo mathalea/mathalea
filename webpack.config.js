@@ -139,8 +139,16 @@ const config = {
     openPage: 'mathalea.html',
     // openPage: 'mathalea_amc.html',
     host: 'localhost',
+    port: 8090, 
     // on active le hot module replacement (HMR)
-    hot: true
+    hot: true,
+    headers: {
+      /*
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
+      */
+    }
   },
   // cf https://webpack.js.org/configuration/devtool/
   // eval-cheap-module-source-map est le truc recommandé dans la doc…

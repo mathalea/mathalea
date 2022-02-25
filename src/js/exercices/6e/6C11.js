@@ -14,12 +14,15 @@ export const titre = 'Poser divisions euclidiennes'
 /**
  * Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.
  *
- * Niveau de difficulté 1 :
+ * Niveau de difficulté 2 :
+ * * division par 2, 3 , 4 ou 5
+ *
+ * Niveau de difficulté 2 :
  * * division par 2, 3 , 4 ou 5
  * * division par 6 à 9
  * * un 0 dans le quotient
  *
- * Niveau de difficulté 2 :
+ * Niveau de difficulté 3 :
  * * division par 11, 12, 15, 25
  * * division par 13,14,21,22,23 ou 24 et un 0 dans le quotient
  * * division par un multiple de 10 et un 0 dans le quotient
@@ -28,14 +31,12 @@ export const titre = 'Poser divisions euclidiennes'
  */
 export default function DivisionsEuclidiennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = parseInt(this.sup)
+  this.sup = 2
   this.titre = titre
-  this.consigne =
-    "Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante."
+  this.consigne = "Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante."
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
   this.nbQuestions = 4
-  this.sup = 1
   this.listePackages = 'xlop'
 
   this.nouvelleVersion = function () {
@@ -43,9 +44,9 @@ export default function DivisionsEuclidiennes () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles, typesDeQuestions
-    if (this.sup === 0) typesDeQuestionsDisponibles = [1, 1, 1, 1]
-    else if (this.sup === 1) typesDeQuestionsDisponibles = [1, 2, 2, 3]
-    else if (this.sup === 2) typesDeQuestionsDisponibles = [4, 4, 5, 6]
+    if (this.sup === 1) typesDeQuestionsDisponibles = [1, 1, 1, 1]
+    else if (this.sup === 2) typesDeQuestionsDisponibles = [1, 2, 2, 3]
+    else if (this.sup === 3) typesDeQuestionsDisponibles = [4, 4, 5, 6]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions
@@ -115,9 +116,6 @@ export default function DivisionsEuclidiennes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    2,
-    '1 : Diviseur à 1 chiffre\n2 : Diviseur à 2 chiffres'
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Divisions par 2, 3, 4 ou 5\n2 : Diviseur à 1 chiffre\n3 : Diviseur à 2 chiffres'
   ]
 }

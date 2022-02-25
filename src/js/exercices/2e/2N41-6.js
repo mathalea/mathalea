@@ -1,6 +1,10 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texFractionReduite, texFraction } from '../../modules/outils.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const titre = 'Développer avec les identités remarquables'
 
 /**
@@ -80,10 +84,15 @@ export default function DevelopperIdentitesRemarquables2 () {
           texteCorr = `$\\left(${texFraction(ns, ds)}x-${a}\\right)\\left(${texFraction(ns, ds)}x+${a}\\right)=\\left(${texFraction(ns, ds)}x\\right)^2-${a}^2=${texFraction(ns * ns, ds * ds)}x^2-${a * a}$`
           break
       }
+      if (this.interactif) {
+        texte += '$ = $' + ajouteChampTexteMathLive(this, i, 'largeur75 inline')
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        const reponse = texteCorr.match(/=([^=$]+)\$$/)[1]
+        setReponse(this, i, reponse)
         i++
       }
       cpt++

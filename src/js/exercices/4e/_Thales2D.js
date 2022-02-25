@@ -93,20 +93,11 @@ export default function Thales2D () {
       }
       const marqueNomC = texteParPoint(nomC, c, 'milieu', 'black', 1, 'middle', true)
 
-      if (!context.isHtml) {
-        texte = '\\begin{minipage}{.5\\linewidth}\n'
-      } else {
-        texte = ''
-      }
-      texte += `Sur la figure suivante, $${nomA + nomC}=${ac}~\\text{cm}$, $${nomA + nomB}=${ab}~\\text{cm}$, $${nomC + nomM}=${texNombrec(Math.abs(k) * ac)}~\\text{cm}$, $${nomC + nomN}=${texNombrec(Math.abs(k) * bc)}~\\text{cm}$ et $(${nomA + nomB})//(${nomM + nomN})$.<br>`
+      texte = `Sur la figure suivante, $${nomA + nomC}=${ac}~\\text{cm}$, $${nomA + nomB}=${ab}~\\text{cm}$, $${nomC + nomM}=${texNombrec(Math.abs(k) * ac)}~\\text{cm}$, $${nomC + nomN}=${texNombrec(Math.abs(k) * bc)}~\\text{cm}$ et $(${nomA + nomB})//(${nomM + nomN})$.<br>`
       if (!this.interactif) {
         texte += `Calculer $${nomM + nomN}$ et $${nomC + nomB}$.<br><br>`
       }
-      if (!context.isHtml) {
-        texte += '\\end{minipage}\n'
-        texte += '\\begin{minipage}{.5\\linewidth}\n'
-        texte += '\\centering'
-      }
+
       texte += mathalea2d({
         xmin: Math.min(A.x, B.x, C.x, M.x, N.x) - 1.5,
         ymin: Math.min(A.y, B.y, C.y, M.y, N.y) - 0.8,
@@ -117,10 +108,6 @@ export default function Thales2D () {
 
       ABC, MNC, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN
       )
-
-      if (!context.isHtml) {
-        texte += '\\end{minipage}\n'
-      }
 
       const epaisseurTriangle = (k < 0) ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
       const boutonAideMathalea2d = creerBoutonMathalea2d(numeroExercice + '_' + i,
@@ -175,7 +162,7 @@ export default function Thales2D () {
         texteCorr += '<br><br>'
         texteCorr += `donc $${texNombrec(Math.abs(k) * ac)}\\times ${texNombre(ab)}=${nomM + nomN}\\times ${texNombre(ac)}$.`
         texteCorr += '<br><br>'
-        texteCorr += `On divise les deux membres par ${texNombre(ac)}.`
+        texteCorr += `On divise les deux membres par $${texNombre(ac)}$.`
         texteCorr += '<br><br>'
       }
       texteCorr += `$${nomM + nomN}=\\dfrac{${texNombrec(Math.abs(k) * ac)}\\times${texNombre(ab)}}{${texNombre(ac)}}=${texNombrec(Math.abs(k) * ab)}$ cm`
@@ -189,7 +176,7 @@ export default function Thales2D () {
         texteCorr += '<br><br>'
         texteCorr += `donc $${texNombrec(Math.abs(k) * ac)}\\times ${nomC + nomB}=${texNombre(ac)}\\times ${texNombrec(Math.abs(k) * bc)}$.`
         texteCorr += '<br><br>'
-        texteCorr += `On divise les deux membres par ${texNombrec(Math.abs(k) * ac)}.`
+        texteCorr += `On divise les deux membres par $${texNombrec(Math.abs(k) * ac)}$.`
         texteCorr += '<br><br>'
       }
       texteCorr += `$${nomC + nomB}=\\dfrac{${texNombrec(Math.abs(k) * bc)}\\times${texNombre(ac)}}{${texNombrec(Math.abs(k) * ac)}}=${texNombrec(bc)}$ cm`
