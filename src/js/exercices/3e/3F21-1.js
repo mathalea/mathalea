@@ -2,7 +2,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, ecritureAlgebrique, randint, reduireAxPlusB, texNombre, katexPopup2 } from '../../modules/outils.js'
-import { droiteParPointEtPente, point, repere2, mathalea2d, positionLabelDroite, latexParPoint, latexParCoordonnees } from '../../modules/2d.js'
+import { droiteParPointEtPente, point, repere2, mathalea2d, positionLabelDroite, latexParPoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Déterminer une fonction affine'
