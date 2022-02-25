@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 
-import { listeQuestionsToContenu, randint, choice, quotientier, combinaisonListes, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, quotientier, combinaisonListes, ecritureParentheseSiNegatif, texFractionReduite, ecritureAlgebrique } from '../../modules/outils.js'
 import { repere2, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
 export const titre = 'Déterminer une fonction affine à partir de deux images.'
 
@@ -46,10 +46,11 @@ export default function Determinerfonctionaffine () {
       b = randint(1, 5)
       k = choice([-1, 1])
       b = b * k
+
       c = randint(1, 5, [a])
       k = choice([-1, 1])
       c = c * k
-
+      if (a === c) { c = -c }// on évite deux antécédents identiques
       d = randint(1, 5)
       k = choice([-1, 1])
       d = d * k
@@ -70,15 +71,15 @@ export default function Determinerfonctionaffine () {
           texteCorr += 'ce qui donne :  '
           texteCorr += `$a=\\dfrac{f(${a})-f(${c})}{${a}-${ecritureParentheseSiNegatif(c)}}=\\dfrac{${b}-${ecritureParentheseSiNegatif(d)}}{${a}-${ecritureParentheseSiNegatif(c)}}=\\dfrac{${b - d}}{${a - c}}$<br>`
           texteCorr += `d'où : $a=${texFractionReduite(b - d, a - c)}.$<br>`
-          if (b === d) {
+          if (b === d) { // m=0 ; cas f constante
             texteCorr += '$f$ est une fonction constante, cas particulier des fonctions affines.<br>'
             texteCorr += `On a donc : $f(x)=${b}$`
           } else {
             texteCorr += 'On peut donc déjà déduire que la fonction $f$ s\'écrit sous la forme : '
-            if ((b - d) / (a - c) === 1) {
+            if ((b - d) / (a - c) === 1) { // m=1
               texteCorr += '$f(x)= x +b.$<br>'
             }
-            if ((b - d) / (a - c) === -1) {
+            if ((b - d) / (a - c) === -1) { // m=-1
               texteCorr += '$f(x)= -x +b.$<br>'
             }
             if (b - d !== a - c && b - d !== -a + c) { // cas général
@@ -87,43 +88,38 @@ export default function Determinerfonctionaffine () {
             texteCorr += 'On cherche $b$ et pour cela on peut utiliser au choix une des deux données de l\'énoncé :<br>'
             texteCorr += `On prend par exemple : $f(${a})=${b}$  <br>`
             texteCorr += 'Comme'
-            if ((b - d) / (a - c) === 1) {
+            if ((b - d) / (a - c) === 1) { // cas où m=1
               texteCorr += '$f(x)= x +b.$<br>'
+              texteCorr += `On en déduit que :$f(${a})=${a} +b=${b}$<br>`
+              texteCorr += `$\\phantom{On en deduit que :}\\iff b=${b - a}$<br>`
+              texteCorr += 'On peut conclure que '
+              if (b + a !== 0) { texteCorr += `$f(x)= x ${ecritureAlgebrique(b - a)}.$<br>` } else { texteCorr += '$f(x)= x.$<br>' }
             }
-            if ((b - d) / (a - c) === -1) {
+            if ((b - d) / (a - c) === -1) { // m=-1
               texteCorr += '$f(x)= -x +b.$<br>'
+              texteCorr += `On en déduit que :$f(${a})=${-a} +b=${b}$<br>`
+              texteCorr += `$\\phantom{On en deduit que :}\\iff b=${b + a}$<br>`
+              texteCorr += 'On peut conclure que '
+              if (b + a !== 0) { texteCorr += `$f(x)= -x ${ecritureAlgebrique(b + a)}.$<br>` } else { texteCorr += '$f(x)= -x.$<br>' }
             }
             if (b - d !== a - c && b - d !== -a + c) { // cas général
               texteCorr += `   $f(x)=${texFractionReduite(b - d, a - c)} x +b.$<br>`
-            }
-            texteCorr += `On en déduit que :$f(${a})=${texFractionReduite(b - d, a - c)} \\times ${a} +b=${b}$<br>`
-            texteCorr += `$\\phantom{On en deduit que :}\\iff b=${b}-${texFractionReduite(e, f)}$<br>`
-            texteCorr += `$\\phantom{On en deduit que :}\\iff b=${texFractionReduite(b * a - b * c - a * b + a * d, a - c)}$<br> `
-            texteCorr += 'On peut conclure que '
-            if (b - d === a - c) { // cas où a=1
-              if ((b * a - b * c - a * b + a * d) * (a - c) > 0) {
-                texteCorr += `$f(x)= x +${texFractionReduite(b * a - b * c - a * b + a * d, a - c)}.$<br>`
-              } else {
-                if (b * a - b * c === a * b + a * d) { // cas où b=0
-                  texteCorr += '$f(x)= x.$<br>'
-                }
-                texteCorr += `$f(x)= x ${texFractionReduite(b * a - b * c - a * b + a * d, a - c)}.$<br>`
+              texteCorr += `On en déduit que :$f(${a})=${texFractionReduite(b - d, a - c)} \\times ${ecritureParentheseSiNegatif(a)} +b=${b}$<br>`
+              if (e * f > 0) { // on adapte selon le signe de la fraction, ici positive
+                texteCorr += `$\\phantom{On en deduit que :}\\iff b=${b}-${texFractionReduite(e, f)}$<br>`
+              } else { // ici négative, pour éviter -- p
+                texteCorr += `$\\phantom{On en deduit que :}\\iff b=${b}-(${texFractionReduite(e, f)})$<br>`
               }
-            }
-            if (b - d === -a + c) { // cas où a=-1
-              if ((b * a - b * c - a * b + a * d) * (a - c) > 0) { // b>0
-                texteCorr += `$f(x)= -x +${texFractionReduite(b * a - b * c - a * b + a * d, a - c)}.$<br>`
-              } else {
-                if (a * d - b * c === 0) { // cas où b=0
-                  texteCorr += '$f(x)= -x.$<br>'
-                } else texteCorr += `$f(x)= -x ${texFractionReduite(b * a - b * c - a * b + a * d, a - c)}.$<br>`
-              }
-            }
-            if (b - d !== a - c && b - d !== -a + c) { // cas général
-              if ((b * a - b * c - a * b + a * d) * (a - c) > 0) { // cas où b>0
+              texteCorr += `$\\phantom{On en deduit que :}\\iff b=${texFractionReduite(b * a - b * c - a * b + a * d, a - c)}$<br> `
+              texteCorr += '<br>On peut conclure que '
+              if ((b * a - b * c - a * b + a * d) * (a - c) > 0) { // cas où p>0
                 texteCorr += `$f(x)=${texFractionReduite(b - d, a - c)}x+  ${texFractionReduite(b * a - b * c - a * b + a * d, a - c)}$`
-              } else { // cas où b<0
+              }
+              if ((b * a - b * c - a * b + a * d) * (a - c) < 0) { // cas où p<0
                 texteCorr += `$f(x)=${texFractionReduite(b - d, a - c)}x  ${texFractionReduite(b * a - b * c - a * b + a * d, a - c)}$`
+              }
+              if ((b * a - b * c - a * b + a * d) * (a - c) === 0) { // cas où p<0
+                texteCorr += `$f(x)=${texFractionReduite(b - d, a - c)}x.$`
               }
             }
           }
