@@ -34,7 +34,13 @@ function searchLastNode (node, op) {
   }
 }
 
-function assignVariables (expression, variables) {
+/**
+ * Assignation de variables
+ * @param {string} expression
+ * @param {Object} variables
+ * @returns
+ */
+export function assignVariables (expression, variables) {
   const node = parse(expression).transform(
     function (node, path, parent) {
       if (node.isSymbolNode && variables[node.name] !== undefined) {
@@ -267,7 +273,7 @@ function correctifNodeMathsteps (node) {
   node = node.transform(
     function (node, path, parent) {
       if (node.type === 'ConstantNode') {
-        return math.parse(node.toString())
+        return math.parse(node.value)
       }
       return node
     }
@@ -288,6 +294,72 @@ function correctifNodeMathsteps (node) {
  * toTex('OA/OM=OB/ON',{OA: 1.2, OM: 1.5, OB: 1.7}) -> \dfrac{1{.}2}{1{.}5}=\dfrac{1{.}7}{OB}
  */
 export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoins: true, variables: undefined }) {
+  params = Object.assign({ suppr1: true, suppr0: true, supprPlusMoins: true }, params)
+  // On commence par convertir l'expression en arbre au format mathjs
+  let comparator
+  let sides = []
+  const comparators = ['=', '<', '>', '<=', '>=']
+  if (typeof node === 'string') {
+    for (let i = 0; i < comparators.length; i++) {
+      sides = node.split(comparators[i])
+      if (sides.length > 1) {
+        comparator = comparators[i]
+      }
+    }
+    if (comparator !== undefined) {
+      sides = node.split(comparator)
+    } else {
+      if (params.variables === undefined) {
+        node = parse(node)
+      } else {
+        node = parse(aleaExpression(node, params.variables))
+      }
+    }
+  } else {
+    // Le format mathsteps s'il est en entrée ne permet pas a priori de modifier les implicit
+    // De plus comme les multiplications peuvent avoir 3 ou plus de facteurs dans mathsteps
+    // et que le paramètre implicit s'applique alors à tous les facteurs
+    // cela devient impossible à traiter pour 4*x*(-5) qui donnerait 4x-5 avec implicit = true.
+    // Mais il faut un pré-traitement car sinon le passage de mathsteps à mathjs
+    // transforme les (-3)^2 en -3^2
+    node = correctifNodeMathsteps(node) // Convertit d'abord tous les ConstantNode au format mathjs
+    // node = parse(node.toString({ parenthesis: 'all' })) // Permet d'utiliser correctement les implicit
+    node = parse(format(node, { notation: 'fixed' })) // Permet d'utiliser correctement les implicit
+  }
+  /* if (sides.length === 2) {
+    const leftSide = toTex(sides[0], params)
+    const rightSide = toTex(sides[1], params)
+    return leftSide + comparator + rightSide
+  } */
+  if (sides.length > 1) {
+    const members = []
+    for (let i = 0; i < sides.length; i++) {
+      members.push(toTex(sides[i], params))
+    }
+    return members.join(comparator.replaceAll('>=', '\\geqslant').replaceAll('<=', '\\leqslant'))
+  }
+  let nodeClone
+  do { // À étudier, pour 79 et 85 et 50 cette boucle doit être maintenue
+    nodeClone = node.cloneDeep() // Vérifier le fonctionnement de .clone() et .cloneDeep() (peut-être y a-t-il un problème avec implicit avec cloneDeep())
+    node = node.transform(
+      function (node, path, parent) {
+        node = transformNode(node, parent, undefined, params)
+        return node
+      }
+    )
+  } while (node.toString() !== nodeClone.toString())
+
+  let nodeTex = node.toTex({ implicit: 'hide', parenthesis: 'keep', notation: 'fixed' }).replaceAll('\\cdot', '\\times').replaceAll('.', '{,}').replaceAll('\\frac', '\\dfrac')
+
+  nodeTex = nodeTex.replace(/\s*?\+\s*?-\s*?/g, ' - ')
+  // Mathjs ajoute de manière non contrôlée des \mathrm pour certaines ConstantNode
+  // En attendant de comprendre on les enlève (au risque d'avoir les {} restantes)
+  nodeTex = nodeTex.replace('\\mathrm', '')
+  if (node.isConstantNode && node.value === undefined) nodeTex = ''
+  return nodeTex
+}
+
+export function toString (node, params = { suppr1: true, suppr0: true, supprPlusMoins: true, variables: undefined }) {
   params = Object.assign({ suppr1: true, suppr0: true, supprPlusMoins: true }, params)
   // On commence par convertir l'expression en arbre au format mathjs
   let comparator
@@ -342,14 +414,8 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
     )
   } while (node.toString() !== nodeClone.toString())
 
-  let nodeTex = node.toTex({ implicit: 'hide', parenthesis: 'keep' }).replaceAll('\\cdot', '\\times').replaceAll('.', '{,}').replaceAll('\\frac', '\\dfrac')
-
-  nodeTex = nodeTex.replace(/\s*?\+\s*?-\s*?/g, ' - ')
-  // Mathjs ajoute de manière non contrôlée des \mathrm pour certaines ConstantNode
-  // En attendant de comprendre on les enlève (au risque d'avoir les {} restantes)
-  nodeTex = nodeTex.replace('\\mathrm', '')
-  if (node.isConstantNode && node.value === undefined) nodeTex = ''
-  return nodeTex
+  // if (node.isConstantNode && node.value === undefined) nodeTex = ''
+  return node.toString({ implicit: 'show', parenthesis: 'keep' }).replace(/\s*?\+\s*?-\s*?/g, ' - ')
 }
 
 export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignations = { a: 1, b: 2, c: 3, d: -6 }) {
@@ -559,7 +625,7 @@ export function calculer (expression, params) {
   }
   const texte = `Calculer $${expressionPrint}$.`
   const texteCorr = `$\\begin{aligned}\n${stepsExpression.join('\\\\\n')}\n\\end{aligned}$`
-  return { printResult: steps.length > 0 ? toTex(steps[steps.length - 1].newNode, params.totex) : expressionPrint, netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: comments, printExpression: expressionPrint, name: params.name }
+  return { result: steps.length > 0 ? steps[steps.length - 1].newNode.toString() : expressionPrint, printResult: steps.length > 0 ? toTex(steps[steps.length - 1].newNode, params.totex) : expressionPrint, netapes: stepsExpression.length, texteDebug: texte + texteCorr, texte: texte, texteCorr: texteCorr, stepsLatex: stepsExpression, steps: steps, commentaires: comments, printExpression: expressionPrint, name: params.name }
 }
 
 export function aleaEquation (equation = 'a*x+b=c*x-d', variables = { a: false, b: false, c: false, d: false, test: 'a>b or true' }, debug = false) { // Ne pas oublier le signe de la multiplication
@@ -741,8 +807,16 @@ export function commentStep (step, comments) {
  * @param {Object} x // Object type = Fraction (mathjs)
  * @returns
  */
-function isDecimal (x) {
-  return x.d !== 1 && !obtenirListeFacteursPremiers(x.d).some(x => x !== 2 && x !== 5)
+export function isDecimal (value) {
+  let f
+  if (typeof value === 'number') {
+    f = math.fraction(value)
+  } else if (typeof value === 'string') {
+    f = math.fraction(value.replaceAll(' ', ''))
+  } else {
+    f = value.clone()
+  }
+  return f.d !== 1 && !obtenirListeFacteursPremiers(f.d).some(x => x !== 2 && x !== 5)
 }
 
 /**

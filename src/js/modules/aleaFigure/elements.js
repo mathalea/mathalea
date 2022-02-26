@@ -2,7 +2,7 @@ import { context } from '../context.js';
 import { Cartesian, Coordinates } from './coordinates.js';
 import { aleaName } from '../outilsMathjs.js';
 import { dot, round, cross } from 'mathjs';
-import { latexParCoordonnees, tracePoint, point, labelPoint } from '../2d.js';
+import { latexParCoordonnees, latexParPoint, tracePoint, point, labelPoint } from '../2d.js';
 import { circularPermutation, getDimensions } from './outils.js';
 /**
  * @class
@@ -135,7 +135,7 @@ export class Point extends GraphicObject {
         this.ggb = `${this.name} = (${this.x},${this.y})`;
         return `${this.name} = (${this.x},${this.y})`;
     }
-    showLabel(scaleppc = 1) {
+    showName(scaleppc = 1) {
         let label;
         const splitname = this.name.split('_');
         let nameFormat = splitname.length === 1 ? splitname[0] : `${splitname[0]}_{${splitname[1]}}`;
@@ -308,7 +308,22 @@ export class Segment extends Line {
         this.type = 'Segment';
         this.A = A;
         this.B = B;
+        this.aleaName(this.A, this.B);
         this.getEquation();
+    }
+    showLabel(scaleppc = 1) {
+        let label;
+        const P = new Point((this.A.x + this.B.x) / 2, (this.A.y + this.B.y) / 2);
+        if (context.isHtml) {
+            label = latexParPoint(this.name, point(P.x, P.y, '', 'center'), 'black', 50, 8, '');
+            // LatexParCoordonnees(texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres)
+        }
+        else {
+            label = latexParPoint(this.name, point(P.x, P.y, '', 'center'), 'black', 20, 8, '');
+            // label = labelPoint(point(P.x, P.y, `$${this.name}$`, 'center'))
+        }
+        this.label = true;
+        return label;
     }
 }
 /**
@@ -382,6 +397,19 @@ export class Polygon extends GraphicObject {
         const ymin = Math.min(...listYPoint);
         const ymax = Math.max(...listYPoint);
         return [xmin, ymin, xmax, ymax];
+    }
+}
+/**
+   * @class
+   * @classdesc Caracteristics of a triangle
+   */
+export class Rectangle extends Polygon {
+    constructor(...args) {
+        super(...args);
+        const [A, B, C, D] = args;
+        const dimensions = [Math.sqrt((A.x - B.x) ** 2 + (A.y - B.y) ** 2), Math.sqrt((C.x - B.x) ** 2 + (C.y - B.y) ** 2)].sort();
+        this.largeur = dimensions[0];
+        this.longueur = dimensions[1];
     }
 }
 /**

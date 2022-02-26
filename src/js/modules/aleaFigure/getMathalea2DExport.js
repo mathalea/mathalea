@@ -15,7 +15,7 @@ export function getMathalea2DExport(graphic) {
             if (obj.dot !== '')
                 objs.push(obj.dot);
             if (obj.label) {
-                objs.push(obj.showLabel(scaleppc));
+                objs.push(obj.showName(scaleppc));
             }
         }
         else if (obj instanceof Line && !(obj instanceof Segment)) {
@@ -26,6 +26,9 @@ export function getMathalea2DExport(graphic) {
         }
         else if (obj instanceof Segment) {
             objs.push(segment(obj.A, obj.B, obj.color));
+            if (obj.label) {
+                objs.push(obj.showLabel(scaleppc));
+            }
         }
         else if (obj instanceof Circle) {
             objs.push(cercle(obj.A, obj.r));
@@ -52,7 +55,7 @@ export function getMathalea2DExport(graphic) {
             else if (obj instanceof Polygon) {
                 if (obj.showLabels) {
                     obj.vertices.forEach(P => {
-                        objs.push(P.showLabel(scaleppc));
+                        objs.push(P.showName(scaleppc));
                     });
                 }
                 else {

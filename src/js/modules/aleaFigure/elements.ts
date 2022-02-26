@@ -2,7 +2,7 @@ import { context } from '../context.js'
 import { Cartesian, Coordinates, Polar } from './coordinates.js'
 import { aleaName } from '../outilsMathjs.js'
 import { dot, round, cross, norm, MathArray, Matrix } from 'mathjs'
-import { latexParCoordonnees, tracePoint, point, labelPoint } from '../2d.js'
+import { latexParCoordonnees, latexParPoint, tracePoint, point, labelPoint } from '../2d.js'
 import { circularPermutation, getDimensions } from './outils.js'
 
 /**
@@ -176,7 +176,7 @@ export class Point extends GraphicObject {
     return `${this.name} = (${this.x},${this.y})`
   }
 
-  showLabel (scaleppc: number = 1): string { 
+  showName (scaleppc: number = 1): string { 
     let label: string
     const splitname = this.name.split('_')
     let nameFormat = splitname.length === 1 ? splitname[0] : `${splitname[0]}_{${splitname[1]}}`
@@ -367,12 +367,28 @@ export function barycentre (P: Point[], a: number[]): Point {
    * @classdesc Caracteristics of a segment in an euclidean plan
    */
 export class Segment extends Line {
+  label: boolean
   constructor (A: Point, B: Point) {
     super(A, B)
     this.type = 'Segment'
     this.A = A
     this.B = B
+    this.aleaName(this.A,this.B)
     this.getEquation()
+  }
+
+  showLabel (scaleppc: number = 1) { 
+    let label: string
+    const P = new Point((this.A.x+this.B.x)/2,(this.A.y+this.B.y)/2)
+    if (context.isHtml) {
+      label = latexParPoint(this.name, point(P.x,P.y, '', 'center'), 'black', 50,8, '')
+      // LatexParCoordonnees(texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres)
+    } else {
+      label = latexParPoint(this.name, point(P.x,P.y, '', 'center'), 'black', 20,8, '')
+      // label = labelPoint(point(P.x, P.y, `$${this.name}$`, 'center'))
+    }
+    this.label = true
+    return label
   }
 }
 
@@ -471,6 +487,23 @@ export class Segment extends Line {
     return [xmin, ymin, xmax, ymax]
    }
  }
+
+/**
+   * @class
+   * @classdesc Caracteristics of a triangle
+   */
+ export class Rectangle extends Polygon {
+  longueur: number
+  largeur: number
+  constructor (...args: Point[]) {
+     super(...args)
+     const [A,B,C,D] = args
+     const dimensions = [Math.sqrt((A.x - B.x)**2 + (A.y - B.y)**2), Math.sqrt((C.x - B.x)**2 + (C.y - B.y)**2)].sort()
+     this.largeur = dimensions[0]
+     this.longueur = dimensions[1]
+  }
+}
+
 
  /**
    * @class

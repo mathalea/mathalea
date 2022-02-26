@@ -1,6 +1,6 @@
 import { randomInt } from 'mathjs'
 import { Cartesian } from './coordinates.js'
-import { Triangle, Polygon, Vector, Angle, Point, Line, Segment, GraphicObject, Circle, barycentre } from './elements.js'
+import { Rectangle, Triangle, Polygon, Vector, Angle, Point, Line, Segment, GraphicObject, Circle, barycentre } from './elements.js'
 import { getMathalea2DExport } from './getMathalea2DExport.js'
 import { circularPermutation } from './outils.js'
 import { aleaName } from '../outilsMathjs.js'
@@ -393,7 +393,6 @@ export class GraphicView {
    */
   addSegment (P1 = this.addPoint()[0], P2 = this.addPoint()[0]) {
     const segment = new Segment(P1, P2)
-    segment.name = this.getNewName(segment.type)
     this.geometric.push(segment)
     return segment
   }
@@ -518,7 +517,7 @@ export class GraphicView {
   placeLabelsPolygon(...args: Point[]) {
     for (let i = 1; i < args.length+1; i++) {
       const names = [args[args.length-1]].concat(args).concat([args[0]])
-      names[i].showLabel()
+      names[i].showName()
       names[i].labelPoints = [names[i-1],names[i],names[i+1]]
     }
   }
@@ -662,7 +661,7 @@ export class GraphicView {
     const last = args.length - 1
     const vertices = [args[last]].concat(args).concat(args[0])
     for (let i = 1;i < args.length+1;i++) {
-      vertices[i].showLabel()
+      vertices[i].showName()
       vertices[i].labelPoints = [vertices[i - 1], vertices[i], vertices[i+1]]
     }
   }
@@ -719,6 +718,15 @@ export class GraphicView {
     return new Polygon(...points)
   }
 
+  addRectangle(A?: Point | number, B?: Point | number, C?: Point) {
+    let rectangle
+    if (A === undefined) {
+      const [A, B, D] = this.addRectPoint()
+      const C = this.addParallelogram(D,A,B).vertices[3]
+      rectangle = new Rectangle(A,B,C,D)
+    }
+    return rectangle
+  }
   addRegularPolygonCenter (A: Point = this.addPoint()[0], B: Point = this.addPoint()[0], n: number): Point {
     const angle = Math.PI * (1/2 - 1 / n)
     const coeff = 1 / (2 * Math.sin(Math.PI / n))
@@ -809,7 +817,7 @@ export class GraphicView {
    * Export to Mathalea2D
    * @returns {Mathalea2D}
    */
-  getMathalea2DExport (...args) {
+  getFigure (...args) {
     this.geometric = this.show(...args)
     return getMathalea2DExport(this)
   }

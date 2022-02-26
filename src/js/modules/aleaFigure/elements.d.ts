@@ -58,7 +58,7 @@ export declare class Point extends GraphicObject {
     getHomothetic(O: Point, k: number): Point;
     getVector(): Vector;
     getGGB(): string;
-    showLabel(scaleppc?: number): string;
+    showName(scaleppc?: number): string;
     showDot(): this;
     set name(newname: string);
     get name(): string;
@@ -113,7 +113,9 @@ export declare function barycentre(P: Point[], a: number[]): Point;
    * @classdesc Caracteristics of a segment in an euclidean plan
    */
 export declare class Segment extends Line {
+    label: boolean;
     constructor(A: Point, B: Point);
+    showLabel(scaleppc?: number): string;
 }
 /**
    * @class
@@ -158,6 +160,15 @@ export declare class Polygon extends GraphicObject {
     showLabels: boolean;
     constructor(...args: Point[]);
     getDimensions(): number[];
+}
+/**
+   * @class
+   * @classdesc Caracteristics of a triangle
+   */
+export declare class Rectangle extends Polygon {
+    longueur: number;
+    largeur: number;
+    constructor(...args: Point[]);
 }
 /**
   * @class

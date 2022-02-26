@@ -180,6 +180,7 @@ export declare class GraphicView {
      */
     addParallelogram(A?: Point, B?: Point, C?: Point, D?: any): Polygon;
     addRegularPolygon(n: number, A?: Point, B?: Point): Polygon;
+    addRectangle(A?: Point | number, B?: Point | number, C?: Point): any;
     addRegularPolygonCenter(A: Point, B: Point, n: number): Point;
     addHomothetic(O: Point, k: number, ...args: Point[]): Point[];
     /**
@@ -205,5 +206,5 @@ export declare class GraphicView {
      * Export to Mathalea2D
      * @returns {Mathalea2D}
      */
-    getMathalea2DExport(...args: any[]): any;
+    getFigure(...args: any[]): any;
 }
