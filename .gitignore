@@ -19,6 +19,9 @@ dnb/
 # ignorer le dossier bac et tous ses enfants
 bac/ 
 
+# ignorer le dossier bac et tous ses enfants
+e3c/ 
+
 # ignorer les sujets de CRPE
 src/assets/crpe
 
