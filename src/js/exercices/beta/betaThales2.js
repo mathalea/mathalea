@@ -12,7 +12,7 @@ import { circularPermutation } from '../../modules/aleaFigure/outils.js'
 // eslint-disable-next-line no-debugger
 debugger
 
-const nbCase = 42
+const nbCase = 43
 
 export const math = create(all)
 math.config({
@@ -117,7 +117,7 @@ export default function exercicesThales () {
         case 7: {
           // Dépasser la limite du nombre de points
           // Remarque : l'algorithme est lourd lorsqu'on dépasse 20 points
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=7
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=7
           const graphic = new GraphicView(0, 0, 10, 7)
           const points = graphic.addPoint(20).map(x => { x.showDot(); x.showName(); return x })
           exercice = { texte: graphic.getFigure(...points), texteCorr: '' }
@@ -125,7 +125,7 @@ export default function exercicesThales () {
         }
         case 8: {
           // Nommer des points avec des numéros
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=8
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=8
           const graphic = new GraphicView(0, 0, 10, 7)
           graphic.names = ['M']
           const points = graphic.addPoint(11).map(x => { x.showDot(); x.showName(); return x })
@@ -134,17 +134,17 @@ export default function exercicesThales () {
         }
         case 9: {
           // Deux droites parallèles
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=9
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=9
 
           // Une seule droite s'affiche
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=9,n=1&serie=T2K6&z=1
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=9,n=1&serie=bm8b&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=9,n=1&serie=T2K6&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=9,n=1&serie=bm8b&z=1
 
           // Aucune droite ne s'affiche
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=9,n=1&serie=Yldw&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=9,n=1&serie=Yldw&z=1
 
           // Une seule droite s'affiche mais tronquée
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=9,n=1&serie=KrLG&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=9,n=1&serie=KrLG&z=1
           const graphic = new GraphicView(0, 0, 10, 7)
           const [A, B, C] = graphic.addNotAlignedPoint()
           const d = graphic.addLine(A, B)
@@ -154,9 +154,9 @@ export default function exercicesThales () {
         }
         case 10: {
           // Une sécante à deux droites
-          // Bug ? http://localhost:8080/mathalea.html?ex=betaThales2,s=10
-          // Manque le point D : http://localhost:8080/mathalea.html?ex=betaThales2,s=all,n=24&serie=M3k4&v=ex&z=1
-          // Manque le point D : http://localhost:8080/mathalea.html?ex=betaThales2,s=all,n=24&serie=2498&v=ex&z=1
+          // Bug ? http://localhost:8090/mathalea.html?ex=betaThales2,s=10
+          // Manque le point D : http://localhost:8090/mathalea.html?ex=betaThales2,s=all,n=24&serie=M3k4&v=ex&z=1
+          // Manque le point D : http://localhost:8090/mathalea.html?ex=betaThales2,s=all,n=24&serie=2498&v=ex&z=1
           const graphic = new GraphicView(0, 0, 10, 7)
           graphic.clipVisible = true
           const [A, B, C] = graphic.addNotAlignedPoint()
@@ -169,7 +169,7 @@ export default function exercicesThales () {
         }
         case 11: {
           // Droite verticale visible !
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=11
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=11
           const graphic = new GraphicView(-5, -5, 5, 5)
           const [A, B, C] = graphic.addPoint(3)
           A.x = 0
@@ -181,19 +181,19 @@ export default function exercicesThales () {
         }
         case 12: {
           // La droite ne s'affiche pas :
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=12,n=1&serie=1Ziy&z=1
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=12,n=1&serie=XCRV&z=1
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=12,n=1&serie=dBgM&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=12,n=1&serie=1Ziy&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=12,n=1&serie=XCRV&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=12,n=1&serie=dBgM&z=1
 
           // La droite ne change pas ! (ou très peu)
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=12,n=1&serie=CWoc&z=1
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=12,n=1&serie=FjjF&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=12,n=1&serie=CWoc&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=12,n=1&serie=FjjF&z=1
 
           // La droite n'apparaît pas entièrement !
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=12,n=1&serie=MmjS&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=12,n=1&serie=MmjS&z=1
 
           // La droite s'affiche :
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=12,n=1&serie=D108&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=12,n=1&serie=D108&z=1
           const graphic = new GraphicView(-5, -5, 5, 5)
           graphic.clipVisible = true
           const [A, B] = graphic.addPoint(2)
@@ -206,7 +206,7 @@ export default function exercicesThales () {
         }
         case 14 : {
           // Parallelogrammes
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=14,n=1&serie=1Ziy&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=14,n=1&serie=1Ziy&z=1
           const graphic = new GraphicView(-5, -5, 5, 5)
           const [A, B, C, D] = graphic.addParallelogram().vertices
           const [E, F] = graphic.addParallelogram(A, B).vertices.slice(2)
@@ -222,7 +222,7 @@ export default function exercicesThales () {
         }
         case 15 : {
           // Homothetie
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=15,s2=3,s3=1,n=1,cd=1&serie=GDGD&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=15,s2=3,s3=1,n=1,cd=1&serie=GDGD&v=ex&z=1
           const graphic = new GraphicView(-5, -5, 5, 5)
           const ABCD = graphic.addParallelogram()
           const O = graphic.addPointOutPolygon(...ABCD.vertices)
@@ -250,7 +250,7 @@ $\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`
         }
         case 16 : {
           // 3 Points non alignés
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=16,n=1&serie=1Ziy&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=16,n=1&serie=1Ziy&z=1
           const graphic = new GraphicView(-5, -5, 5, 5)
           const [A, B, C] = graphic.addNotAlignedPoint()
           A.name = 'A'
@@ -266,8 +266,8 @@ $\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`
         }
         case 17 : {
           // Configurations de Thalès
-          // Triangles emboités  // http://localhost:8080/mathalea.html?ex=betaThales2,s=17,n=1&serie=1Ziy&z=1&v=ex
-          // Papillon // http://localhost:8080/mathalea.html?ex=betaThales2,s=17,n=1&serie=pitq&v=ex&z=1
+          // Triangles emboités  // http://localhost:8090/mathalea.html?ex=betaThales2,s=17,n=1&serie=1Ziy&z=1&v=ex
+          // Papillon // http://localhost:8090/mathalea.html?ex=betaThales2,s=17,n=1&serie=pitq&v=ex&z=1
           // const graphic = new GraphicView(-0.1, -0.1, 0.1, 0.1)
           // graphic.scale *= 100
           // graphic.ppc *= 100
@@ -364,7 +364,7 @@ $\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`
           break
         }
         case 18: {
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=18,n=1&serie=fOS7&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=18,n=1&serie=fOS7&v=ex&z=1
           const graphic = new AleaThalesConfig()
           const [O, A, B, M, N] = graphic.geometric
           const graph = graphic.getFigure(
@@ -376,7 +376,7 @@ $\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`
           break
         }
         case 19: {
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=19,n=1&serie=fOS7&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=19,n=1&serie=fOS7&v=ex&z=1
           const graphic = new AleaThalesConfig()
           graphic.classicConfig = true
           const [O, A, B, M, N] = graphic.geometric
@@ -392,7 +392,7 @@ $\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`
           break
         }
         case 21: {
-          // Problème toFixed : http://localhost:8080/mathalea.html?ex=betaThales2,s=21,n=1&serie=3B5V&v=ex&z=1
+          // Problème toFixed : http://localhost:8090/mathalea.html?ex=betaThales2,s=21,n=1&serie=3B5V&v=ex&z=1
           // const graphic = aleaThalesConfig(0, 0, 6, 6)
           // const graphic = new AleaThalesConfig()
 
@@ -403,9 +403,9 @@ $\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`
           // graphic.new()
 
           // Exemple avec des conversions
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=21,n=1&serie=GxI1&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=21,n=1&serie=GxI1&v=ex&z=1
           // Il faut mettre la précision à 2
-          // ça bloque Problème toFixed : http://localhost:8080/mathalea.html?ex=betaThales2,s=21,n=1&serie=8JRU&v=ex&z=1
+          // ça bloque Problème toFixed : http://localhost:8090/mathalea.html?ex=betaThales2,s=21,n=1&serie=8JRU&v=ex&z=1
           const graphic = new AleaThalesConfig()
           /* graphic.setDimensions(-0.1, -0.1, 0.1, 0.1)
           graphic.new()
@@ -498,9 +498,9 @@ $\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`
           break
         }
         case 22: {
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=22,n=1&serie=hZya&v=ex&z=1
-          // Droites invisibles : http://localhost:8080/mathalea.html?ex=betaThales2,s=22,n=1&serie=Ihry&v=ex&z=1
-          // Droite tronquée http://localhost:8080/mathalea.html?ex=betaThales2,s=22,n=1&serie=lS3Q&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=22,n=1&serie=hZya&v=ex&z=1
+          // Droites invisibles : http://localhost:8090/mathalea.html?ex=betaThales2,s=22,n=1&serie=Ihry&v=ex&z=1
+          // Droite tronquée http://localhost:8090/mathalea.html?ex=betaThales2,s=22,n=1&serie=lS3Q&v=ex&z=1
           const graphic = new GraphicView(0, 0, 10, 10)
           const [l1, l2] = graphic.addParallelLine()
           const [A] = graphic.addPoint()
@@ -515,17 +515,17 @@ $\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`
         }
         case 23: {
           // Des rotations de rectangles
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=23,n=1&serie=hZya&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=23,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView(0, 0, 10, 10)
 
           // Trois points formant un triangle rectangle pour obtenir un rectangle
           const [A, B, D] = graphic.addRectPoint()
 
           // Nombre aléatoire de rectangles
-          const nbRectangles = [2, 3, 4, 5, 6, 8][Math.random() * 6]
+          const nbRectangles = [2, 3, 4, 5, 6, 8][Math.floor(Math.random() * 6)]
 
           // Nommage aléatoires des sommets
-          const names = aleaName([], 4)
+          const names = aleaName(4)
 
           // Construction des rectangles
           let ABCD
@@ -587,7 +587,7 @@ La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\co
           break
         }
         case 24: {
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=24,n=1&serie=hZya&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=24,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
           const [A, B] = graphic.addPoint(2)
           const polygons = []
@@ -605,7 +605,7 @@ La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\co
           break
         }
         case 25: {
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=25,n=1&serie=hZya&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=25,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
           const [G, H] = graphic.addPoint(2)
           const I = graphic.addRegularPolygon(3, G, H).vertices[2]
@@ -625,7 +625,7 @@ La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\co
         }
         case 26: {
           // Deux triangles symétriques par rapport à un point situé à l'extérieur d'un des deux triangles
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=26,n=1&serie=hZya&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=26,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
           const triangle1 = graphic.addNotAlignedPoint()
           const M = graphic.addPointOutPolygon(...triangle1)
@@ -641,7 +641,7 @@ La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\co
         }
         case 27: {
           // Deux triangles symétriques par rapport à un point situé à l'intérieur d'un des deux triangles
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=27,n=1&serie=hZya&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=27,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
           const [A, B, C] = graphic.addNotAlignedPoint()
           const triangle1 = graphic.addSidesPolygon(A, B, C)
@@ -658,7 +658,7 @@ La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\co
         }
         case 28: {
           // Deux triangles symétriques par rapport à un point situé sur l'un des côtés
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=28,n=1&serie=hZya&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=28,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
           const [A, B, C] = graphic.addNotAlignedPoint()
           const triangle1 = graphic.addSidesPolygon(A, B, C)
@@ -674,7 +674,7 @@ La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\co
           break
         }
         case 29: {
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=29,n=1&serie=hZya&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=29,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
           const [A, B] = graphic.addPoint(2)
           const C = graphic.addPointDistance(A, graphic.distance(A, B)) // AB=AC
@@ -691,7 +691,7 @@ La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\co
           break
         }
         case 30: {
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=30,n=1&serie=hZya&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=30,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
           const [A, B] = graphic.addPoint(2)
           A.showDot()
@@ -707,8 +707,8 @@ La rotation est donc de centre $\\color{red}\\fbox{${ABCD[1]}}$ et d'angle $\\co
           break
         }
         case 31: {
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=31,s2=3,n=1,cd=1&serie=qFnt&v=ex&z=1
-          // PB M : http://localhost:8080/mathalea.html?ex=betaThales2,s=31,s2=3,s3=1,n=1,cd=1&serie=Ld9D&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=31,s2=3,n=1,cd=1&serie=qFnt&v=ex&z=1
+          // PB M : http://localhost:8090/mathalea.html?ex=betaThales2,s=31,s2=3,s3=1,n=1,cd=1&serie=Ld9D&v=ex&z=1
           // On créé un objet configuration de Thalès
           const graphic = new AleaThalesConfig([true, false, undefined][this.sup2 - 1])
 
@@ -895,12 +895,12 @@ ${consigne[this.sup3 - 1]}` + '<br>' + graph
           break
         }
         case 32: {
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=32,s2=3,s3=1,n=1,cd=1&serie=7wjj&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=32,s2=3,s3=1,n=1,cd=1&serie=7wjj&v=ex&z=1
           // Ajouter des étiquettes aux extrémités d'un angle
           const graphic = new GraphicView()
           const [A, B, C] = graphic.addNotAlignedPoint()
 
-          // Boucle ! http://localhost:8080/mathalea.html?ex=betaThales2,s=32,s2=3,s3=1,n=1,cd=1&serie=lqd7&v=ex&z=1
+          // Boucle ! http://localhost:8090/mathalea.html?ex=betaThales2,s=32,s2=3,s3=1,n=1,cd=1&serie=lqd7&v=ex&z=1
           // const [D, E, F] = graphic.addPointAligned()
 
           // Afficher le label des points
@@ -921,7 +921,7 @@ ${consigne[this.sup3 - 1]}` + '<br>' + graph
           break
         }
         case 33: {
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=33,s2=3,s3=1,n=1,cd=1&serie=7wjj&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=33,s2=3,s3=1,n=1,cd=1&serie=7wjj&v=ex&z=1
           // Exercices sur les rotations
           const graphic = new GraphicView()
           const [A, B, C] = graphic.addNotAlignedPoint()
@@ -935,22 +935,22 @@ ${consigne[this.sup3 - 1]}` + '<br>' + graph
         }
         case 34: {
           // Des rotations de rectangles
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=34,n=1&serie=hZya&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=34,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
 
           // Trois points formant un triangle rectangle pour obtenir un rectangle
           const [A, B, D] = graphic.addRectPoint()
 
           // Nombre aléatoire de rectangles
-          const nbRectangles = [3, 4, 5, 6, 8, 10][Math.random() * 6]
+          const nbRectangles = [3, 4, 5, 6, 8, 10][Math.floor(Math.random() * 6)]
 
           // Nommage aléatoires des sommets
-          const names = aleaName([], 8)
+          const names = aleaName(8)
 
           // Construction des rectangles
           let ABCD, EFGH
           const rectanglesPossibles = [2, 3, 5, 6, 7, 9, 10].filter(x => x < nbRectangles)
-          const aleaRectangle = rectanglesPossibles[Math.random() * rectanglesPossibles.length]
+          const aleaRectangle = rectanglesPossibles[Math.floor(Math.random() * rectanglesPossibles.length)]
           const rectangles = []
           for (let i = 0; i < nbRectangles; i++) {
             const sommets = graphic.addRotate(A, 2 * Math.PI / nbRectangles * i, ...graphic.addParallelogram(D, A, B).vertices)
@@ -1030,7 +1030,7 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
         }
         case 35: {
           // Des rotations de carrés
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=35,n=1&serie=hZya&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=35,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
 
           // Trois points formant un triangle rectangle isocèle pour obtenir un carré
@@ -1038,11 +1038,11 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
           const [D] = graphic.addRotate(A, Math.PI / 2, B)
 
           // Nombre aléatoire de rectangles
-          const nbRectangles = [3, 5, 6][Math.random() * 3]
+          const nbRectangles = [3, 5, 6][Math.floor(Math.random() * 3)]
           const rectangleImagePossibles = [2, 3, 4, 5].filter(x => x < nbRectangles && x !== nbRectangles / 2)
-          const rectangleImage = rectangleImagePossibles[Math.random() * rectangleImagePossibles.length]
+          const rectangleImage = rectangleImagePossibles[Math.floor(Math.random() * rectangleImagePossibles.length)]
           // Nommage aléatoires des sommets
-          const names = aleaName([], 8)
+          const names = aleaName(8)
 
           // Construction des rectangles
           let ABCD, EFGH
@@ -1130,7 +1130,7 @@ ${remarque}`
         }
         case 36: {
           // Angles
-          // http://localhost:8080/mathalea.html?ex=betaThales2,s=36,n=1&serie=hZya&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=36,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView()
           // const [A, B, C] = graphic.addRectPoint()
           const triangle = graphic.addTriangle()
@@ -1218,7 +1218,7 @@ Donc ${CA.nameAndValue}.`
         case 38: {
           // http://localhost:8090/mathalea.html?ex=betaThales2,s=38,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView(0, 0, 10, 7)
-          graphic.clipVisible = true
+          graphic.clipVisible = false
           const ABCD = graphic.addRegularPolygon(4)
           const [A, B, C] = ABCD.vertices.slice(0, 3)
           const k = new Grandeur('k', Math.floor(Math.random() * 10 + 10) / 10 + 0.1, 1)
@@ -1270,7 +1270,7 @@ D'où ${EG.nameAndValue.replace('=', '\\approx')}.`
         case 39: {
           // http://localhost:8090/mathalea.html?ex=betaThales2,s=39,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView(0, 0, 10, 7)
-          graphic.clipVisible = true
+          graphic.clipVisible = false
           const ABCD = graphic.addRegularPolygon(4)
           const [A, B, C] = ABCD.vertices.slice(0, 3)
           const k = new Grandeur('k', Math.floor(Math.random() * 10 + 10) / 10 + 0.1, 1)
@@ -1320,8 +1320,8 @@ D'où ${AC.nameAndValue.replace('=', '\\approx')}.`
         }
         case 40: {
           // http://localhost:8090/mathalea.html?ex=betaThales2,s=40,n=1&serie=hZya&v=ex&z=1
-          const graphic = new GraphicView(0, 0, 20, 14)
-          graphic.clipVisible = true
+          const graphic = new GraphicView(0, 0, 10, 7)
+          graphic.clipVisible = false
           const ABCD = graphic.addRegularPolygon(4)
           const [A, B] = ABCD.vertices.slice(0, 2)
           const k = new Grandeur('k', Math.floor(Math.random() * 10 + 10) / 10 + 0.1, 1)
@@ -1435,7 +1435,7 @@ $\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD.name}$}$.
 
 ${calculAire.texteCorr}
 
-Donc l'aire du rectangle ${ABCD.name} est ${environ} $${toTex(solutionDecimale)}~cm^2$.`
+Donc l'aire du rectangle $${ABCD.name}$ est ${environ} $${toTex(solutionDecimale)}~cm^2$.`
           break
         }
         case 42: {
@@ -1517,6 +1517,96 @@ $\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD.name}$}$.
 ${calculAire.texteCorr}
 
 Donc l'aire du rectangle $${ABCD.name}$ est ${environ} $${toTex(solutionDecimale)}~cm^2$.`
+          break
+        }
+        case 43: {
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=43,s2=3,s3=1,n=1,cd=1&serie=dA7c&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=43,n=1&serie=hZya&v=ex&z=1
+          const graphic = new GraphicView(0, 0, 7, 5)
+          graphic.clipVisible = false
+          let ABCD
+          do {
+            if (ABCD !== undefined) {
+              graphic.geometric.pop()
+              graphic.geometric.pop()
+              graphic.geometric.pop()
+              graphic.geometric.pop()
+            }
+            ABCD = graphic.addRectangle()
+          } while (ABCD.ratio > 1.7 || ABCD.ratio < 0.6 || (ABCD.ratio > 0.8 && ABCD.ration < 1.2))
+          const [A, B, C, D] = ABCD.vertices
+          const angles = graphic.addAnglesPolygon(A, B, C, D)
+          const AB = graphic.addSegment(A, B)
+          AB.direct = graphic.addAngle(A, B, C).direct
+          const BC = graphic.addSegment(B, C)
+          BC.direct = AB.direct
+          const CD = graphic.addSegment(C, D)
+          const DA = graphic.addSegment(D, A)
+          const variables = aleaVariables({
+            a: this.sup3 !== 1,
+            c: this.sup3 !== 1,
+            x: this.sup3 !== 1,
+            AB: (10 * graphic.distance(A, B)).toFixed(0),
+            BC: (10 * graphic.distance(B, C)).toFixed(0),
+            b: 'AB-a*x',
+            d: 'BC-c*x',
+            p: '2*(a*x+b+c*x+d)',
+            x2: '(-(a*d+b*c)-c*AB-a*BC)/(2*a*c)',
+            test: 'a*x+b>0 and c*x+d>0'
+          })
+          delete variables.x
+          const exprAB = toString(assignVariables('a*x+b', variables))
+          const exprBC = toString(assignVariables('c*x+d', variables))
+          AB.text = context.isHtml ? `${exprAB}`.replaceAll('*', '') : `$${exprAB}$`.replaceAll('*', '')
+          BC.text = context.isHtml ? `${exprBC}`.replaceAll('*', '') : `$${exprBC}$`.replaceAll('*', '')
+          const p = variables.p
+          const graph = graphic.getFigure(ABCD, AB, BC, ...angles.map(x => { x.right = true; return x }))
+          const resolution = resoudre(`${p}=2*(${exprAB}) + 2*(${exprBC})`, { suppr1: false, substeps: this.sup2 !== 1 })
+          const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: this.sup2 !== 1, variables: variables })
+          const calculBC = calculer('c*(x)+d'.replace('x', resolution.solution.exact), { name: BC.name, suppr1: false, substeps: this.sup2 !== 1, variables: variables })
+          const calculAire = calculer(`${calculAB.result}*${calculBC.result}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.sup2 !== 1, variables: variables })
+          let solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
+          const environ = solutionDecimale === parseFloat(solutionDecimale.toFixed(2)) ? '' : 'environ'
+          solutionDecimale = solutionDecimale.toFixed(2)
+          const x2 = math.simplify(toString(assignVariables('(-(a*d+b*c)-c*AB-a*BC)/(2*a*c)', variables)))
+          exercice.texte = String.raw`$${ABCD.name}$ est un rectangle tel que
+
+$ \bullet~{${AB.name}=${toTex(exprAB)}}$,
+
+$ \bullet~{${BC.name}=${toTex(exprBC)}}$,
+
+$ \bullet~${toTex(`(x-${resolution.solution.exact})(x+${x2.toString({ notation: 'fixed' })})=0`)}$,
+
+$ \bullet~$ et sa surface mesure $${toTex(solutionDecimale)}~cm^2$.
+
+Déterminer son périmètre en $cm$.
+
+${graph}`
+          exercice.texteCorr = String.raw`$${ABCD.name}$ est un rectangle donc ses côtés opposés sont de la même longueur.
+
+D'où $${AB.name}=${CD.name}$ et $${BC.name}=${DA.name}$.
+
+Ainsi, $${toTex(`${p} = 2*${AB.name} + 2*${BC.name}`)}$.
+
+Ou encore $${toTex(`${p} = 2*(${exprAB}) + 2*(${exprBC})`)}$.
+
+$\textbf{Résolvons cette équation d'inconnue $x$}$.
+
+${resolution.texteCorr}
+
+$\textbf{Calculons $${AB.name}$}$.
+
+${calculAB.texteCorr}
+
+$\textbf{Calculons $${BC.name}$}$.
+
+${calculBC.texteCorr}
+
+$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD.name}$}$.
+
+${calculAire.texteCorr}
+
+Donc l'aire du rectangle ${ABCD.name} est ${environ} $${toTex(solutionDecimale)}~cm^2$.`
           break
         }
       }
