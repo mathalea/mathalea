@@ -29,7 +29,7 @@ Pour générer la documentation il faut installer le paquet python [pdoc3](https
 pip3 install pdoc
 ```
 
-Les fichiers de la documentation sont générés dans le dossier **./documentation/dicosDnbBacE3c**
+Les fichiers de la documentation sont générés dans le dossier **./jsdoc/static/dicosDnbBacE3c**
 
 <!-- USAGE -->
 ## Usage

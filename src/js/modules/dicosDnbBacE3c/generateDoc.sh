@@ -11,4 +11,4 @@
 #
 ########################################################################################################################################
 
-pdoc --force --html -o documentation src/js/modules/dicosDnbBacE3c
+pdoc --force --html -o jsdoc/static src/js/modules/dicosDnbBacE3c
