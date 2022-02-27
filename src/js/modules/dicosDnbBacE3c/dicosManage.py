@@ -202,8 +202,8 @@ def manageDico(dicoPath:str,dicoType:str):
     # On crée le repertoire s'il n'existe pas
     if (not os.path.exists(folderToScan)):
         os.makedirs(folderToScan)    
-    # On récupère toutes les années présente dans le repertoire à scanner
-    getAllYears = os.listdir(folderToScan)   
+    # On récupère et range toutes les années présente dans le repertoire à scanner
+    getAllYears = sorted(os.listdir(folderToScan)) 
     
     # On traite toutes les années
     for year in getAllYears:
@@ -241,16 +241,15 @@ Taper 1, 2 ou 3 pour lancer le script --> """)
     dicoType = ''
 
     if (choiceDico == '1'):
-        dicoPath = './src/js/modules/dictionnaireDNBTest.js'
+        dicoPath = './src/js/modules/dictionnaireDNB.js'
         dicoType = 'dnb'
     elif (choiceDico == '2'):
-        dicoPath = './src/js/modules/dictionnaireBACTest.js'
+        dicoPath = './src/js/modules/dictionnaireBAC.js'
         dicoType = 'bac'
     elif (choiceDico == '3'):
-        dicoPath = './src/js/modules/dictionnaireE3CTest.js'
+        dicoPath = './src/js/modules/dictionnaireE3C.js'
         dicoType = 'e3c'
 
-    # print(dico)
     manageDico(dicoPath,dicoType)
 
     if __name__ == "__main__":
@@ -272,6 +271,18 @@ Taper 1, 2 ou 3 pour lancer le script --> """)
 if __name__ == "__main__":
     main()
 
-
-
-
+    ################## Pour mettre d'équerre le dico DNB ################################
+    #####################################################################################
+    # currentRefsdicoDnbTest = currentRef('./src/js/modules/dictionnaireDNBTest.js')
+    # currentRefsdicoDnb = currentRef('./src/js/modules/dictionnaireDNB.js')
+    # diff = []
+    # for ref in currentRefsdicoDnb:
+    #     if ref not in currentRefsdicoDnbTest:
+    #         diff.append(ref)
+    # print(diff)
+    # diff = []
+    # for ref in currentRefsdicoDnbTest:
+    #     if ref not in currentRefsdicoDnb:
+    #         diff.append(ref)
+    # print(diff)
+    ######################################################################################
