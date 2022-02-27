@@ -143,12 +143,12 @@ export function exerciceNonInteractif (exercice) {
     }
 
     if (context.vue === 'eval') {
-      // Si c'est un exo dnb, bac ou crpe  on affiche plutôt :
+      // Si c'est un exo dnb, bac, e3c ou crpe  on affiche plutôt :
       // => l'image de l'énoncé avec une largeur de 70% du container
       // => l'image de la correction avec une largeur de 60% du container
       const myImgs = []
       const myImgsCor = []
-      if (exercice.typeExercice === 'dnb' || exercice.typeExercice === 'bac') {
+      if (exercice.typeExercice === 'dnb' || exercice.typeExercice === 'bac' || exercice.typeExercice === 'e3c') {
         myImgs.push(document.querySelector(`#${exercice.id}`))
         if (!exercice.correctionIsCachee) myImgsCor.push(document.querySelector(`#${exercice.id}Cor`))
       }
