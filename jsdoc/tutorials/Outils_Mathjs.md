@@ -26,6 +26,12 @@ Ces outils ont pour objectif d'utiliser la puissance de [Mathjs](https://mathjs.
 
     c. [Résoudre une inéquation](#subsection8-3)
 
+    d. [Mathsteps d'origine](#subsection8-4)
+
+    e. [Utilisation de resoudre() dans un exercice](#subsection8-5)
+
+    f. [Exemples de paramétrages](#subsection8-6)
+
 ## Documentation utile <a id="section0"></a>
 
 - [La syntaxe de Mathjs](https://mathjs.org/docs/expressions/syntax.html)
@@ -730,3 +736,84 @@ exercice = resoudre('3*x+2<9*x-3')
 ```
 
 [![](img/outilsMathjs-betaEquations111.png)](https://coopmaths.fr/mathalea.html?ex=betaEquations,s=111)
+
+### Mathsteps d'origine <a id="subsection8-4"></a>
+Mathstep est une librairie qui permet d'obtenir les étapes de résolution d'une équation, d'une inéquation (mais aussi d'un calcul, d'un développement-réduction).
+
+Voici une interface réalisée par l'auteur de Mathsteps et permettant de le tester en ligne :
+
+[https://evykassirer.github.io/mathsteps-website/](https://evykassirer.github.io/mathsteps-website/)
+### Utiliser la fonction resoudre <a id="subsection8-5"></a>
+```Javascript
+import { resoudre } from '../../modules/outilsMathjs.js'
+
+[...]
+
+exercice = resoudre('3*x+2=8')
+
+[...]
+
+this.listeQuestions.push(exercice.texte)
+this.listeCorrections.push(exercice.texteCorr)
+```
+
+### Quelques exemples de paramétrages <a id="subsection8-6"></a>
+
+* [betaEquations,s=140](http://localhost:8080/mathalea.html?ex=betaEquations,s=140,n=1,cd=1&serie=uAXn&z=1&v=ex)
+```Javascript
+ // Résoudre une équation
+ exercice = resoudre('3*x+6=5*x-2')
+```
+![image](https://user-images.githubusercontent.com/20231872/155759324-9dd80d69-32bc-4f5e-ae40-4ea5403f07c1.png)
+
+* [betaEquations,s=141](http://localhost:8080/mathalea.html?ex=betaEquations,s=141,n=1,cd=1&serie=uAXn&z=1&v=ex)
+```Javascript
+  // Résoudre une équation en affichant les commentaires
+  exercice = resoudre('3*x+6=5*x-2', { comment: true })
+```
+![image](https://user-images.githubusercontent.com/20231872/155759386-c1c78a8a-3000-4953-bd03-3e7722a7fa8c.png)
+
+* [betaEquations,s=142](http://localhost:8080/mathalea.html?ex=betaEquations,s=142,n=1,cd=1&serie=uAXn&z=1&v=ex)
+```Javascript
+  // Résoudre une équation en affichant toutes les étapes et les commentaires
+  exercice = resoudre('3*x+6=5*x-2', { comment: true, reduceSteps: false })
+```
+![image](https://user-images.githubusercontent.com/20231872/155759432-f9743bda-0f1f-4e64-a06f-0c1f7710ed9a.png)
+
+* [betaEquations,s=143](http://localhost:8080/mathalea.html?ex=betaEquations,s=143,n=1,cd=1&serie=uAXn&z=1&v=ex)
+```Javascript
+  // Résoudre une équation en affichant toutes les étapes, les sous-étapes et les commentaires
+  exercice = resoudre('3*x+6=5*x-2', { comment: true, reduceSteps: false, substeps: true })
+```
+![image](https://user-images.githubusercontent.com/20231872/155759565-0360ee01-dc4d-4101-a012-d39ebc650a1d.png)
+
+* [betaEquations,s=144](http://localhost:8080/mathalea.html?ex=betaEquations,s=144,n=1,cd=1&serie=uAXn&z=1&v=ex)
+
+```Javascript
+  // Résoudre une équation avec un développement
+  exercice = resoudre('3*(x+6)=5*x-2')
+```
+![image](https://user-images.githubusercontent.com/20231872/155759622-59e2fc22-da40-4c06-a282-f71acfaab6fe.png)
+
+* [betaEquations,s=145](http://localhost:8080/mathalea.html?ex=betaEquations,s=145,n=1,cd=1&serie=uAXn&z=1&v=ex)
+
+```Javascript
+  // Résoudre une équation avec un développement détaillé
+  // Pour cela on demandera les sous-étapes en précisant dans le tableau changeType celles à détailler
+  exercice = resoudre('3*(x+6)=5*x-2', { substeps: true, changeType: ['DISTRIBUTE'] })
+```
+![image](https://user-images.githubusercontent.com/20231872/155759685-fe93fa9b-fd5e-4da4-b443-06976c63b7ce.png)
+
+* [betaEquations,s=146](http://localhost:8080/mathalea.html?ex=betaEquations,s=146,n=1,cd=1&serie=uAXn&z=1&v=ex)
+```Javascript
+  // Résoudre une équation avec la vérification
+  exercice = resoudre('3*(x+6)=5*x-2', { verifications: true })
+```
+![image](https://user-images.githubusercontent.com/20231872/155760033-6675883e-b74c-422f-b254-4cee04ed204c.png)
+
+* [betaEquations,s=147](http://localhost:8080/mathalea.html?ex=betaEquations,s=147,n=1,cd=1&serie=uAXn&z=1&v=ex)
+```Javascript
+  // Produits en croix, vérification, commentaires, distribution détaillée
+  exercice = resoudre('2/x=3/(x-7)', { substeps: true, produitsencroix: true, comment: true, changeType: ['DISTRIBUTE'], verifications: true })
+```
+![image](https://user-images.githubusercontent.com/20231872/155760110-6071f27e-c740-4476-9b78-653ffb082342.png)
