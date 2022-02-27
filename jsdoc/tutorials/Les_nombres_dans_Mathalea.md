@@ -41,7 +41,7 @@ Bien sûr, nous n'avons pas besoin de 18 chiffres significatifs pour Mathalea, d
 Peu importe en fait que le nombre possède des décimales indésirables à partir de la 12e ou 13e décimale, si on n'en affiche que 2 !
 La solution, ici, c'est de limiter l'affichage aux seuls chiffres significatifs du résultat, c'est à dire 1 seul pour notre exemple.
 Et pour cela, il n'y a vraiment pas besoin de la fonction calcul :
-Number(0.1+0.1).toFixed(1).toLocaleString() // -> '0,3'
+Number(0.1+0.2).toLocaleString('FR-fr', {maximumFractionDigits: 1}) // -> '0,3'
 
 Ainsi, pour la plupart des nombres à produire en sortie html ou Latex, calcul est inutile, seule une fonction limitant le nombre de chiffres significatifs est ce qu'il faut.
 
