@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf8 -*-
+
+# @author : Sébastien LOZANO
+
 """Permet de synchroniser/créer les différents dictionnaires utilisés par mathalea pour :
 
 * le DNB,
