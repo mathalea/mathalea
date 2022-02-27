@@ -1,4 +1,4 @@
-import { arcPointPointAngle, cercle, segment, polygone, point, mathalea2d } from '../2d.js';
+import { texteSurSegment, arcPointPointAngle, cercle, segment, polygone, point, mathalea2d } from '../2d.js';
 import { Polygon, Angle, Point, Line, Segment, Circle } from './elements.js';
 export function getMathalea2DExport(graphic) {
     graphic.resize();
@@ -28,6 +28,10 @@ export function getMathalea2DExport(graphic) {
             objs.push(segment(obj.A, obj.B, obj.color));
             if (obj.label) {
                 objs.push(obj.showLabel(scaleppc));
+            }
+            if (obj.text !== '') {
+                const points = obj.direct ? [obj.A.M2D, obj.B.M2D] : [obj.B.M2D, obj.A.M2D];
+                objs.push(texteSurSegment(obj.text, points[0], points[1], obj.textColor, 0.5 * scaleppc));
             }
         }
         else if (obj instanceof Circle) {
@@ -63,7 +67,8 @@ export function getMathalea2DExport(graphic) {
             }
             else {
                 obj.scale(scaleppc);
-                const extrems = obj.direct ? [point(obj.A.x, obj.A.y), point(obj.C.x, obj.C.y)] : [point(obj.C.x, obj.C.y), point(obj.A.x, obj.A.y)];
+                // const extrems = obj.direct ? [point(obj.A.x,obj.A.y), point(obj.C.x,obj.C.y)] : [point(obj.C.x,obj.C.y), point(obj.A.x,obj.A.y)]
+                const extrems = obj.direct ? [obj.A.M2D, obj.C.M2D] : [obj.C.M2D, obj.A.M2D];
                 objs.push(arcPointPointAngle(...extrems, obj.angle / Math.PI * 180, obj.fillColor !== 'none' ? obj.rayon : true, obj.fillColor, obj.color, obj.fillOpacity));
             }
         }

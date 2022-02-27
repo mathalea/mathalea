@@ -768,7 +768,7 @@ export class GraphicView {
     return newAngle
   }
 
-  addAnglesPolygon(...args: Point[]) {
+  addAnglesPolygon(...args: Point[]): Angle[] {
     const last = args.length - 1
     const vertices = [args[last]].concat(args).concat(args[0])
     const angles: Angle[] = []

@@ -253,6 +253,7 @@ function transformNode (node, parent, oldNode, params = { suppr1: true, suppr0: 
     if (node.isParenthesisNode && node.content.isOperatorNode && node.content.op === '/') node = node.content
     if (node.isOperatorNode && node.fn === 'unaryMinus' && node.args[0].isParenthesisNode && node.args[0].content.isOperatorNode && node.args[0].content.op === '*') node.args[0] = node.args[0].content
     if (node.isOperatorNode && node.fn === 'unaryMinus' && node.args[0].isOperatorNode && node.args[0].op === '*') node = Node.Creator.operator('*', [Negative.negate(node.args[0].args[0]), node.args[0].args[1]])
+    // n(c*n) = n*(c*n) Je ne sais plus pourquoi !
     if (
       node.isOperatorNode && node.op === '*') {
       const firstNode = searchFirstNode(node.args[1])
@@ -354,7 +355,9 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
   nodeTex = nodeTex.replace(/\s*?\+\s*?-\s*?/g, ' - ')
   // Mathjs ajoute de manière non contrôlée des \mathrm pour certaines ConstantNode
   // En attendant de comprendre on les enlève (au risque d'avoir les {} restantes)
-  nodeTex = nodeTex.replace('\\mathrm', '')
+  nodeTex = nodeTex.replaceAll('\\mathrm', '')
+  // Exclure les ~
+  nodeTex = nodeTex.replaceAll('~', '')
   if (node.isConstantNode && node.value === undefined) nodeTex = ''
   return nodeTex
 }

@@ -79,7 +79,7 @@ export default function equationsProgression () {
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
   this.sup = 'all' // Type d'exercice
-  this.nouvelleVersion = function (numeroExercice, debug = false) {
+  this.nouvelleVersion = function (numeroExercice, debug = true) {
     const ddbug = debug
     this.nbQuestions = this.NbQuestions > 0 ? this.nbQuestions : this.sup !== 'all' ? 1 : formulaire.length - 1
     this.listeQuestions = [] // Liste de questions
@@ -1046,7 +1046,7 @@ export default function equationsProgression () {
               test: 'abs(a)!=d and abs(b)!=e and abs(c)!=f and abs(a)<6 and abs(b)<6 and abs(c)<6 and 1<=d<6 and 1<=e<6 and 1<=f<6 and gcd(abs(a),d)==1 and gcd(abs(b),e)==1 and gcd(abs(c),f)==1'
             }, { valueOf: true }
           )
-          const disc = aleaVariables(Object.assign(variables, { disc: '(b/e)^2-4*(a/d)*(c/f)' })).disc
+          const disc = aleaVariables(Object.assign(variables, { disc: '(b/e)^2-4*(a/d)*(c/f)' }), { valueOf: false }).disc
           const polynomeTex = toTex(simplify('a/d*x^2+b/e*x+c/f', [], variables), { suppr1: true })
           const discriminantTex = toTex(simplify('(b/e)^2-4*(a/d)*(c/f)', [], variables), { suppr1: true })
           const stepscalculsDiscriminant = calculer('(b/e)^2-4*(a/d)*c/f', { comments: false, mixed: false, variables: variables }).texteCorr
@@ -1069,7 +1069,7 @@ export default function equationsProgression () {
               test: 'abs(a)!=d and abs(b)!=e and abs(c)!=f and abs(a)<6 and abs(b)<6 and abs(c)<6 and 1<=d<6 and 1<=e<6 and 1<=f<6 and gcd(abs(a),d)==1 and gcd(abs(b),e)==1 and gcd(abs(c),f)==1'
             }, { valueOf: true }
           )
-          const disc = aleaVariables(Object.assign(variables, { disc: '(b/e)^2-4*(a/d)*(c/f)' })).disc
+          const disc = aleaVariables(Object.assign(variables, { disc: '(b/e)^2-4*(a/d)*(c/f)' }), { valueOf: false }).disc
           const polynomeTex = toTex(simplify('a/d*x^2+b/e*x+c/f', [], variables), { suppr1: true })
           const discriminantTex = toTex(simplify('(b/e)^2-4*(a/d)*(c/f)', [], variables), { suppr1: true })
           const stepscalculsDiscriminant = calculer('(b/e)^2-4*(a/d)*c/f', { comments: false, mixed: false, variables: variables }).texteCorr

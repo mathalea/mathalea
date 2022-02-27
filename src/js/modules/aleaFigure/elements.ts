@@ -81,6 +81,7 @@ export class Point extends GraphicObject {
   dot: string
   labelPoints: [Point, Point, Point]
   label: boolean = false
+  M2D: string
   constructor (arg1: Coordinates | number, arg2: number = 0) {
     super()
     if (arg1 instanceof Coordinates ) {
@@ -97,6 +98,7 @@ export class Point extends GraphicObject {
     this.r = this.polarCoordinates.r
     this.theta = this.polarCoordinates.theta
     this.ggb = `${this.name} = (${this.x},${this.y})`
+    this.M2D = point(this.x,this.y)
   }
 
   getPolarCoordinates (): Cartesian {
@@ -368,6 +370,9 @@ export function barycentre (P: Point[], a: number[]): Point {
    */
 export class Segment extends Line {
   label: boolean
+  text: string = ''
+  textColor: string = 'black'
+  direct: boolean = true
   constructor (A: Point, B: Point) {
     super(A, B)
     this.type = 'Segment'
@@ -495,12 +500,14 @@ export class Segment extends Line {
  export class Rectangle extends Polygon {
   longueur: number
   largeur: number
+  ratio: number
   constructor (...args: Point[]) {
      super(...args)
      const [A,B,C,D] = args
      const dimensions = [Math.sqrt((A.x - B.x)**2 + (A.y - B.y)**2), Math.sqrt((C.x - B.x)**2 + (C.y - B.y)**2)].sort()
      this.largeur = dimensions[0]
      this.longueur = dimensions[1]
+     this.ratio = this.longueur/this.largeur
   }
 }
 

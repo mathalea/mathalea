@@ -37,6 +37,7 @@ export declare class Point extends GraphicObject {
     dot: string;
     labelPoints: [Point, Point, Point];
     label: boolean;
+    M2D: string;
     constructor(arg1: Coordinates | number, arg2?: number);
     getPolarCoordinates(): Cartesian;
     getCartesianCoordinates(): Cartesian;
@@ -114,6 +115,9 @@ export declare function barycentre(P: Point[], a: number[]): Point;
    */
 export declare class Segment extends Line {
     label: boolean;
+    text: string;
+    textColor: string;
+    direct: boolean;
     constructor(A: Point, B: Point);
     showLabel(scaleppc?: number): string;
 }
@@ -168,6 +172,7 @@ export declare class Polygon extends GraphicObject {
 export declare class Rectangle extends Polygon {
     longueur: number;
     largeur: number;
+    ratio: number;
     constructor(...args: Point[]);
 }
 /**

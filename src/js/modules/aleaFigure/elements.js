@@ -85,6 +85,7 @@ export class Point extends GraphicObject {
         this.r = this.polarCoordinates.r;
         this.theta = this.polarCoordinates.theta;
         this.ggb = `${this.name} = (${this.x},${this.y})`;
+        this.M2D = point(this.x, this.y);
     }
     getPolarCoordinates() {
         return this.coordinates.getPolarCoordinates();
@@ -305,6 +306,9 @@ export function barycentre(P, a) {
 export class Segment extends Line {
     constructor(A, B) {
         super(A, B);
+        this.text = '';
+        this.textColor = 'black';
+        this.direct = true;
         this.type = 'Segment';
         this.A = A;
         this.B = B;
@@ -410,6 +414,7 @@ export class Rectangle extends Polygon {
         const dimensions = [Math.sqrt((A.x - B.x) ** 2 + (A.y - B.y) ** 2), Math.sqrt((C.x - B.x) ** 2 + (C.y - B.y) ** 2)].sort();
         this.largeur = dimensions[0];
         this.longueur = dimensions[1];
+        this.ratio = this.longueur / this.largeur;
     }
 }
 /**

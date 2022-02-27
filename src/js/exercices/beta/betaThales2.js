@@ -1361,41 +1361,61 @@ L'aire du carré est donc $${AireEFGH.format()}$
           // http://localhost:8090/mathalea.html?ex=betaThales2,s=41,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView(0, 0, 7, 5)
           graphic.clipVisible = false
-          const ABCD = graphic.addRectangle()
+          let ABCD
+          do {
+            if (ABCD !== undefined) {
+              graphic.geometric.pop()
+              graphic.geometric.pop()
+              graphic.geometric.pop()
+              graphic.geometric.pop()
+            }
+            ABCD = graphic.addRectangle()
+          } while (ABCD.ratio > 1.7 || ABCD.ratio < 0.6 || (ABCD.ratio > 0.8 && ABCD.ration < 1.2))
           const [A, B, C, D] = ABCD.vertices
+          const angles = graphic.addAnglesPolygon(A, B, C, D)
           const AB = graphic.addSegment(A, B)
+          AB.direct = graphic.addAngle(A, B, C).direct
           const BC = graphic.addSegment(B, C)
+          BC.direct = AB.direct
           const CD = graphic.addSegment(C, D)
           const DA = graphic.addSegment(D, A)
           const variables = aleaVariables({
-            a: 'randomInt(1,20)',
-            b: true,
-            c: 'randomInt(1,20)',
-            d: true,
-            x: '(40-2*(b+d))/(2*(a+c))',
-            test: 'x>0 and a*x+b>0 and c*x+d>0'
+            a: this.sup3 !== 1,
+            c: this.sup3 !== 1,
+            x: this.sup3 !== 1,
+            AB: (10 * graphic.distance(A, B)).toFixed(0),
+            BC: (10 * graphic.distance(B, C)).toFixed(0),
+            b: 'AB-a*x',
+            d: 'BC-c*x',
+            p: '2*(a*x+b+c*x+d)',
+            test: 'a*x+b>0 and c*x+d>0'
           })
           delete variables.x
           const exprAB = toString(assignVariables('a*x+b', variables))
           const exprBC = toString(assignVariables('c*x+d', variables))
-          const p = '40'
-          const graph = graphic.getFigure(ABCD)
-          const resolution = resoudre(`${p}=2*(${exprAB}) + 2*(${exprBC})`, { suppr1: false, substeps: true })
-          const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: true, variables: variables })
-          const calculBC = calculer('c*(x)+d'.replace('x', resolution.solution.exact), { name: BC.name, suppr1: false, substeps: true, variables: variables })
-          const calculAire = calculer(`${calculAB.result}*${calculBC.result}`, { name: '\\mathcal{A}', suppr1: false, substeps: true, variables: variables })
+          AB.text = context.isHtml ? `${exprAB}`.replaceAll('*', '') : `$${exprAB}$`.replaceAll('*', '')
+          BC.text = context.isHtml ? `${exprBC}`.replaceAll('*', '') : `$${exprBC}$`.replaceAll('*', '')
+          const p = variables.p
+          const graph = graphic.getFigure(ABCD, AB, BC, ...angles.map(x => { x.right = true; return x }))
+          const resolution = resoudre(`${p}=2*(${exprAB}) + 2*(${exprBC})`, { suppr1: false, substeps: this.sup2 !== 1 })
+          const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: this.sup2 !== 1, variables: variables })
+          const calculBC = calculer('c*(x)+d'.replace('x', resolution.solution.exact), { name: BC.name, suppr1: false, substeps: this.sup2 !== 1, variables: variables })
+          const calculAire = calculer(`${calculAB.result}*${calculBC.result}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.sup2 !== 1, variables: variables })
           let solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
           const environ = solutionDecimale === parseFloat(solutionDecimale.toFixed(2)) ? '' : 'environ'
           solutionDecimale = solutionDecimale.toFixed(2)
-          exercice.texte = `${graph}
-$${ABCD.name}$ est un rectangle tel que $${AB.name}=${toTex(exprAB)}$ et $${BC.name}=${toTex(exprBC)}$.
+          exercice.texte = `$${ABCD.name}$ est un rectangle tel que $ {${AB.name}=${toTex(exprAB)}}$ et $ {${BC.name}=${toTex(exprBC)}}$.
 
-Son périmètre mesure $${p}~cm$. Déterminer son aire en $cm^2$ (arrondir au centième si besoin).`
+Son périmètre mesure $${p}~cm$.
+
+Déterminer son aire en $cm^2$.
+
+${graph}`
           exercice.texteCorr = String.raw`$${ABCD.name}$ est un rectangle donc ses côtés opposés sont de la même longueur.
 
 D'où $${AB.name}=${CD.name}$ et $${BC.name}=${DA.name}$.
 
-Ainsi, $${p} = 2\times ${AB.name} + 2\times ${BC.name}$.
+Ainsi, $${toTex(`${p} = 2*${AB.name} + 2*${BC.name}`)}$.
 
 Ou encore $${toTex(`${p} = 2*(${exprAB}) + 2*(${exprBC})`)}$.
 
@@ -1422,48 +1442,63 @@ Donc l'aire du rectangle ${ABCD.name} est ${environ} $${toTex(solutionDecimale)}
           // http://localhost:8090/mathalea.html?ex=betaThales2,s=42,n=1&serie=hZya&v=ex&z=1
           const graphic = new GraphicView(0, 0, 7, 5)
           graphic.clipVisible = false
-          const ABCD = graphic.addRectangle()
+          let ABCD
+          do {
+            if (ABCD !== undefined) {
+              graphic.geometric.pop()
+              graphic.geometric.pop()
+              graphic.geometric.pop()
+              graphic.geometric.pop()
+            }
+            ABCD = graphic.addRectangle()
+          } while (ABCD.ratio > 1.7 || ABCD.ratio < 0.6 || (ABCD.ratio > 0.8 && ABCD.ration < 1.2))
           const [A, B, C, D] = ABCD.vertices
+          const angles = graphic.addAnglesPolygon(A, B, C, D)
           const AB = graphic.addSegment(A, B)
+          AB.direct = graphic.addAngle(A, B, C).direct
           const BC = graphic.addSegment(B, C)
           const CD = graphic.addSegment(C, D)
+          CD.direct = AB.direct
           const DA = graphic.addSegment(D, A)
-          const variables1 = aleaVariables({
-            a: 'randomInt(1,20)',
-            c: 'randomInt(1,20)',
-            test: 'a!=c'
-          })
           const variables = aleaVariables({
-            a: variables1.a,
-            b: true,
-            c: variables1.c,
-            d: true,
-            x: '(d-b)/(a-c)',
-            test: 'b!= d and a*x+b>0 and 20-(a*x+b)>0'
+            c: this.sup3 !== 1,
+            x: this.sup3 !== 1,
+            a: this.sup3 !== 1,
+            AB: (10 * graphic.distance(A, B)).toFixed(0),
+            BC: (10 * graphic.distance(B, C)).toFixed(0),
+            b: 'AB-a*x',
+            d: 'AB-c*x',
+            p: '2*(AB+BC)',
+            test: 'a!=c and a*x+b>0'
           })
           delete variables.x
           const exprAB = toString(assignVariables('a*x+b', variables))
           const exprCD = toString(assignVariables('c*x+d', variables))
-          const p = '40'
-          const graph = graphic.getFigure(ABCD)
-          const resolution = resoudre(`${exprAB}=${exprCD}`, { suppr1: false, substeps: true })
-          const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: true, variables: variables })
-          const resolution2 = resoudre(`${p} = 2*${calculAB.result} + 2*${BC.name}`, { suppr1: false, substeps: true })
-          const calculAire = calculer(`${calculAB.result}*${resolution2.solution.exact}`, { name: '\\mathcal{A}', suppr1: false, substeps: true, variables: variables })
+          AB.text = context.isHtml ? `${exprAB}`.replaceAll('*', '') : `$${exprAB}$`.replaceAll('*', '')
+          CD.text = context.isHtml ? `${exprCD}`.replaceAll('*', '') : `$${exprCD}$`.replaceAll('*', '')
+          const p = variables.p
+          const graph = graphic.getFigure(ABCD, AB, CD, ...angles.map(x => { x.right = true; return x }))
+          const resolution = resoudre(`${exprAB}=${exprCD}`, { suppr1: false, substeps: this.sup2 !== 1 })
+          const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: this.sup2 !== 1, variables: variables })
+          const resolution2 = resoudre(`${p} = 2*${calculAB.result} + 2*${BC.name}`, { suppr1: false, substeps: this.sup2 !== 1 })
+          const calculAire = calculer(`${calculAB.result}*${resolution2.solution.exact}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.sup2 !== 1, variables: variables })
           let solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
           const environ = solutionDecimale === parseFloat(solutionDecimale.toFixed(2)) ? '' : 'environ'
           solutionDecimale = solutionDecimale.toFixed(2)
-          exercice.texte = `${graph}
-$${ABCD.name}$ est un rectangle tel que $${AB.name}=${toTex(exprAB)}$ et $${CD.name}=${toTex(exprCD)}$.
+          exercice.texte = `$${ABCD.name}$ est un rectangle tel que $ {${AB.name}=${toTex(exprAB)}}$ et $ {${CD.name}=${toTex(exprCD)}}$.
 
-Son périmètre mesure $${p}~cm$. Déterminer son aire en $cm^2$ (arrondir au centième si besoin).`
+Son périmètre mesure $${p}~cm$.
+
+Déterminer son aire en $cm^2$.
+
+${graph}`
           exercice.texteCorr = String.raw`$${ABCD.name}$ est un rectangle donc ses côtés opposés sont de la même longueur.
 
 D'où $${AB.name}=${CD.name}$ et $${BC.name}=${DA.name}$.
 
 Ainsi $${toTex(`${exprAB}=${exprCD}`)}$.
 
-Résolvons l'équation.
+$\textbf{Résolvons l'équation.}$
 
 ${resolution.texteCorr}
 
@@ -1481,7 +1516,7 @@ $\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD.name}$}$.
 
 ${calculAire.texteCorr}
 
-Donc l'aire du rectangle ${ABCD.name} est ${environ} $${toTex(solutionDecimale)}~cm^2$.`
+Donc l'aire du rectangle $${ABCD.name}$ est ${environ} $${toTex(solutionDecimale)}~cm^2$.`
           break
         }
       }
