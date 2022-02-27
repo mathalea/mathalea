@@ -6892,6 +6892,7 @@ export function preambulePersonnalise (listePackages) {
       case 'bac':
       case 'crpe':
       case 'dnb':
+      case 'e3c':
         // result += `
         // \\usepackage{fourier}
         // \\usepackage[scaled=0.875]{helvet}
