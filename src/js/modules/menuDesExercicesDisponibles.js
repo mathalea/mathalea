@@ -140,7 +140,6 @@ function aE3c (id, dictionnaire, mode) {
   }
 }
 
-
 function listeHtmlDesExercicesCrpeAnnee (annee) {
   let liste = ''
   const dictionnaire = filtreDictionnaireValeurCle(dictionnaireCrpe, 'annee', annee)
