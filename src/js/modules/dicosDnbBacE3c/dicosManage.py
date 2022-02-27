@@ -100,7 +100,7 @@ def newEntry(file:str,dicoType:str)->list:
     typeExercice: '{dicoType}',
     url: '/{dicoType}/{filename[4:8]}/tex/{filename}.tex',
     urlcor: '/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['...tagsToChange']
   }},\n'''    
     
     return [newLines,filename]

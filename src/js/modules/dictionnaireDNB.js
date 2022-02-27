@@ -6894,7 +6894,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_1.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_1_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['...tagsToChange']
   },
   dnb_2015_03_caledonie_2: {
     annee: '2015',
@@ -6906,7 +6906,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_2.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_2_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['...tagsToChange']
   },
   dnb_2015_03_caledonie_3: {
     annee: '2015',
@@ -6918,7 +6918,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_3.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_3_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['...tagsToChange']
   },
   dnb_2015_03_caledonie_4: {
     annee: '2015',
@@ -6930,7 +6930,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_4.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_4_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['...tagsToChange']
   },
   dnb_2015_03_caledonie_5: {
     annee: '2015',
@@ -6942,7 +6942,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_5.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_5_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['...tagsToChange']
   },
   dnb_2015_03_caledonie_6: {
     annee: '2015',
@@ -6954,7 +6954,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_6.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_6_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['...tagsToChange']
   },
   dnb_2015_03_caledonie_7: {
     annee: '2015',
@@ -6966,7 +6966,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_7.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_7_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['...tagsToChange']
   },
   dnb_2015_03_caledonie_8: {
     annee: '2015',
@@ -6978,7 +6978,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_8.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_8_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['...tagsToChange']
   },
   dnb_2015_06_ameriquenord_7: {
     annee: '2015',
@@ -6990,7 +6990,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_06_ameriquenord_7.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_06_ameriquenord_7_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['...tagsToChange']
   },
 
 
