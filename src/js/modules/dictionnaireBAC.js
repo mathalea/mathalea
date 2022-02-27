@@ -302,4 +302,5 @@ export const dictionnaireBAC = {
     tags: ['tag1ToChange', 'tag2toChange', '...']
   },
 
+
 }
