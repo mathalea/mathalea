@@ -2499,21 +2499,13 @@ export function numberFormat (nb) {
 * @author Rémi Angot
 */
 export function texNombre (nb, precision = 8) {
-  // Ajoute des accolades autour de la virgule {,} pour supprimer l'espace "disgracieux" qui le suit dans l'écriture décimale des nombres sinon.
-  // arrondit pour avoir precision chiffres après la virgule si possible
-  const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
-  if (precision === undefined) {
-    precision = 12 - nbChiffresPartieEntiere
+  const result = stringNombre(nb, precision, false)
+  if (result === 'Trop de chiffres') {
+    window.notify('texFraction : Trop de chiffres', { nb, precision })
+    return result
+  } else {
+    return result.replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
   }
-  const maximumSignificantDigits = nbChiffresPartieEntiere + precision
-  let result
-  try {
-    result = Number(nb).toLocaleString({ locales: 'fr-FR', maximumSignificantDigits }).replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
-  } catch (error) {
-    console.log(error)
-    result = 'Trop de chiffres'
-  }
-  return result
 }
 
 /**
@@ -2698,10 +2690,35 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
 * Renvoie un nombre dans le format français (séparateur de classes) version sans Katex (pour les SVG)
 * @author Jean-Claude Lhote
 */
-export function stringNombre (nb) {
-  // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
-  return Intl.NumberFormat('fr-Fr', { maximumSignificantDigits: 15 }).format(nb)
+export function stringNombre (nb, precision = 8, notifier = true) {
+  if (typeof precision !== 'number') {
+    precision = 15
+  } else if (precision < 0) {
+    precision = 0
+  }
+  // arrondit pour avoir precision chiffres après la virgule si possible
+  const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
+  if (typeof precision !== 'number') {
+    precision = 15 - nbChiffresPartieEntiere
+  } else if (precision < 0) {
+    precision = 0
+  }
+  const maximumSignificantDigits = nbChiffresPartieEntiere + precision
+  let result
+  if (maximumSignificantDigits > 15) { // Si je ne me trompe pas, Number accepte jusqu'à 18 et là on est plus strict pour éviter les erreurs d'arrondi
+    result = 'Trop de chiffres'
+  } else {
+    try {
+      result = Number(nb).toLocaleString({ locales: 'fr-FR', maximumSignificantDigits })
+    } catch (error) {
+      console.log(error)
+      result = 'Trop de chiffres'
+    }
+  }
+  if (notifier === true && result === 'Trop de chiffres') window.notify('stringNombre : Trop de chiffres', { nb, precision })
+  return result
 }
+
 /**
 * Centre un texte
 *
