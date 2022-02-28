@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Nom de l\'exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -30,8 +30,6 @@ export default function NomExercice () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-
-    this.sup = contraindreValeur(1, 3, this.sup, 2) // Lorsqu'il est récupéré de l'url, le paramètre peut être n'importe quoi, alors on le contraint ici à être entre 1 et 3 et a 2 comme valeur par défaut
 
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3']
 

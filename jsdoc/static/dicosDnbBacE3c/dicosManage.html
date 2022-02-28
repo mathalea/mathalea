@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>dicosDnbBacE3c.dicosManage API documentation</title>
+<meta name="description" content="Permet de synchroniser/créer les différents dictionnaires utilisés par mathalea pour : …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>dicosDnbBacE3c.dicosManage</code></h1>
+</header>
+<section id="section-intro">
+<p>Permet de synchroniser/créer les différents dictionnaires utilisés par mathalea pour :</p>
+<ul>
+<li>le DNB,</li>
+<li>le BAC</li>
+<li>E3C</li>
+</ul>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/python3
+# -*- coding: utf8 -*-
+&#34;&#34;&#34;Permet de synchroniser/créer les différents dictionnaires utilisés par mathalea pour :
+
+* le DNB,
+* le BAC
+* E3C
+&#34;&#34;&#34;
+pass
+
+# On importe la librairie os pour gérer les fichiers
+import os
+
+# Pour mesurer le temps de traitement du script
+from datetime import datetime 
+
+def locationName(text:str)-&gt;str:
+    &#34;&#34;&#34;Renvoie un nom de lieu ad hoc
+
+    **Paramètres**
+
+        * text -- Un string avec le nom récupéré par découpage d&#39;un nom de fichier
+    
+    **Sorties**
+
+        * Un texte tout beau !    
+    
+    &#34;&#34;&#34;
+    pass
+    if text == &#39;metropole&#39; :
+        return &#39;Métropole&#39;
+    elif text == &#39;pondichery&#39; :
+        return &#39;Pondichéry&#39;
+    elif text == &#39;ameriquenord&#39; :
+        return &#39;Amérique du Nord&#39;
+    elif text == &#39;asie&#39; :
+        return &#39;Asie&#39;
+    elif text == &#39;etranger&#39; or text == &#39;etrangers&#39; :
+        return &#39;Centres étrangers&#39;
+    elif text == &#39;wallis&#39; or text == &#39;wallisfutuna&#39; :
+        return &#39;Wallis et Futuna&#39;
+    elif text == &#39;polynesie&#39; :
+        return &#39;Polynésie&#39;
+    elif text == &#39;ameriquesud&#39; :
+        return &#39;Amérique du sud&#39;
+    elif text == &#39;caledonie&#39; :
+        return &#39;Nouvelle Calédonie&#39;
+    elif text == &#39;grece&#39; :
+        return &#39;Grèce&#39;
+    elif text == &#39;antillesguyanne&#39; :
+        return &#39;Antilles - Guyanne&#39;
+    else :
+        return text
+
+def monthName(mm:str)-&gt;str:
+    &#34;&#34;&#34;Une fonction pour transformer le numéro du mois en texte
+
+    **Paramètres**
+
+        * mm -- Un string avec les chiffres correspondant au mois récupéré par découpage d&#39;un nom de fichier
+    
+    **Sorties**
+
+        * Un nom de mois tout beau !    
+    
+    &#34;&#34;&#34;
+    pass
+    month = [&#39;&#39;,&#39;Janvier&#39;,&#39;Février&#39;,&#39;Mars&#39;,&#39;Avril&#39;,&#39;Mai&#39;,&#39;Juin&#39;,&#39;Juillet&#39;,&#39;Août&#39;,&#39;Septembre&#39;,&#39;Octobre&#39;,&#39;Novembre&#39;,&#39;Décembre&#39;]
+    return month[int(mm)]
+
+def newEntry(file:str,dicoType:str)-&gt;list:
+    &#34;&#34;&#34;Une fonction pour créer une entrée dans un dico
+
+    **Paramètres**
+
+        * file -- Un string avec le nom du fichier à traiter
+        * dicoType -- Un string avec dnb, bac ou e3c
+    
+    **Sorties**
+
+        * Un tableau avec deux strings [un objet pour le dico, le nom du fichier traité]   
+    
+    &#34;&#34;&#34;
+    pass    
+    # On récupère le nom du fichier sans l&#39;extension
+    filename = os.path.splitext(file)[0]    
+    # On récupère l&#39;extension
+    extension = os.path.splitext(file)[1]
+    # Pour les lignes à ajouter
+    newLines = &#39;&#39;
+    # On traite les fichiers tex qui ne sont pas les fichiers de correction 
+    if filename[-4:] != &#39;_cor&#39; and  extension == &#34;.tex&#34; :
+        newLines = f&#39;&#39;&#39;  {filename}: {{
+    annee: &#39;{filename[4:8]}&#39;,
+    lieu: &#39;{locationName(filename.split(&#39;_&#39;)[3])}&#39;,
+    mois: &#39;{monthName(filename[9:11])}&#39;,
+    numeroInitial: &#39;{filename.split(&#39;_&#39;)[4]}&#39;,
+    png: &#39;/{dicoType}/{filename[4:8]}/tex/png/{filename}.png&#39;,
+    pngcor: &#39;/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png&#39;,
+    typeExercice: &#39;{dicoType}&#39;,
+    url: &#39;/{dicoType}/{filename[4:8]}/tex/{filename}.tex&#39;,
+    urlcor: &#39;/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex&#39;,
+    tags: [&#39;...tagsToChange&#39;]
+  }},\n&#39;&#39;&#39;    
+    
+    return [newLines,filename]
+
+def currentRef(dicoPath:str)-&gt;list:
+    &#34;&#34;&#34;Une fonction pour récupérer tous les fichiers déjà référencé dans le dico
+
+    **Paramètres**
+
+        * dicoPath -- Un string avec le chemin vers le dico
+    
+    **Sorties**
+
+        * out -- Un tableau avec tous les noms des fichiers déjà dans le dico   
+    
+    &#34;&#34;&#34;
+    pass     
+    # On ouvre le dico et on récupère les lignes
+    content = open(dicoPath,&#39;r&#39;)
+    lines = content.readlines()
+    content.close()
+    # Un tableau pour récupérer les noms des fichiers déjà dans le dico
+    out = []
+    for line in lines:
+        if &#34;: {&#34; in line:            
+            out.append(line.replace(&#34; &#34;,&#34;&#34;)[:-3])
+    return out
+ 
+def insertNewEntries(pathName:str,dicoPath:str,dicoType:str):
+    &#34;&#34;&#34;Une procédure pour insérer les nouvelles entrées au dico
+
+    **Paramètres**
+
+        * pathName -- Un string avec le chemin du répertoire à scanner
+        * dicoPath -- Un string avec le chemin vers le dico
+        * dicoType -- Un string avec dnb, bac ou e3c        
+    
+    &#34;&#34;&#34;
+    pass
+    # On lit les lignes du dico
+    content = open(dicoPath,&#39;r&#39;)
+    lines = content.readlines()
+    content.close()
+    # On supprime l&#39;avant dernière ligne qui contient }
+    del lines[len(lines)-1]
+    # On ouvre le fichier en écriture
+    # On le réécrit complètement sans l&#39;avant dernière ligne
+    content = open(dicoPath,&#39;w&#39;)
+    content.writelines(lines)
+    content.close()
+
+    # On récupère les entrées actuelles du dico
+    currentEntries = currentRef(dicoPath)
+
+    # On ouvre le dico en ajout
+    content = open(dicoPath, &#39;a&#39;)
+    # On ajoute les nouvelles entrées
+    for (dirpath, dirnames, filenames) in os.walk(pathName):
+        # Parcourt tout le répertoire
+        for file in sorted(filenames):
+            new = newEntry(file,dicoType)
+            # On ajoute l&#39;entrée s&#39;il elle n&#39;existe pas déjà
+            if (new[1] not in currentEntries):              
+                content.writelines(new[0])    
+    # On referme la dernière accolade
+    lastAcc = &#39;&#39;&#39;
+}\n&#39;&#39;&#39;
+    content.writelines(lastAcc)
+    content.close()
+
+def manageDico(dicoPath:str,dicoType:str):
+    &#34;&#34;&#34;Une procedure pour la gestion du dico
+
+    **Paramètres**
+
+        * dicoPath -- Un string avec le chemin vers le dico
+        * dicoType -- Un string avec dnb, bac ou e3c
+    
+    &#34;&#34;&#34;
+    pass
+    # On crée le dico s&#39;il n&#39;existe pas
+    fichier = open(dicoPath, &#34;a+&#34;)
+    fichier.close()
+
+    # Si le dico est vide on ajoute les première lignes
+    if (os.path.getsize(dicoPath) == 0):
+        fichier = open(dicoPath, &#34;w&#34;, encoding=&#34;utf8&#34;)
+        firstLine = &#34;/* eslint-disable no-multiple-empty-lines */\n&#34;
+        secondLine = &#34;/* eslint-disable comma-dangle */\n&#34;
+        thirdLine = f&#39;export const dictionnaire{dicoType.upper()} = {{\n&#39;
+        lastLine = &#34;}&#34;    
+        fichier.writelines(firstLine)
+        fichier.writelines(secondLine)
+        fichier.writelines(thirdLine)
+        fichier.writelines(lastLine)
+        fichier.close()
+    
+    folderToScan = f&#39;./{dicoType}/&#39;
+    # On crée le repertoire s&#39;il n&#39;existe pas
+    if (not os.path.exists(folderToScan)):
+        os.makedirs(folderToScan)    
+    # On récupère et range toutes les années présente dans le repertoire à scanner
+    getAllYears = sorted(os.listdir(folderToScan)) 
+    
+    # On traite toutes les années
+    for year in getAllYears:
+        insertNewEntries(f&#39;./{dicoType}/{year}/tex/&#39;,dicoPath,dicoType)
+
+# Script principal
+def main():
+    &#34;&#34;&#34;Procédure principale&#34;&#34;&#34;
+    # On récupère la date au début du traitement
+    start_time = datetime.now()
+      
+    # On nettoie le terminal
+    os.system(&#34;clear&#34;)
+
+    # On génère la documentation
+    print(&#34;=============================================================================&#34;)
+    print(&#34;  Création de la documentation en cours ...  &#34;)    
+    print(&#34; &#34;)    
+    os.system(&#39;sh ./src/js/modules/dicosDnbBacE3c/generateDoc.sh&#39;)
+    print(&#34;=============================================================================&#34;)
+    print(&#34;  Synchronisation/Génération du dictionnaire en cours ...  &#34;)    
+    print(&#34; &#34;)    
+
+    # On choisit le type de dico à synchroniser/générer
+    choiceDico = &#39;&#39;
+    while choiceDico not in [&#39;1&#39;,&#39;2&#39;,&#39;3&#39;]:
+        choiceDico = input(&#34;&#34;&#34;Quels dictionnaire faut-il synchronier/générer ?
+        ---&gt; 1 : DNB
+        ---&gt; 2 : BAC
+        ---&gt; 3 : E3C
+Taper 1, 2 ou 3 pour lancer le script --&gt; &#34;&#34;&#34;)
+    # Une variable pour le chemin vers le dico à synchroniser/générer        
+    dicoPath = &#39;&#39;
+    # Une variable pour le type de dico à synchroniser/générer        
+    dicoType = &#39;&#39;
+
+    if (choiceDico == &#39;1&#39;):
+        dicoPath = &#39;./src/js/modules/dictionnaireDNB.js&#39;
+        dicoType = &#39;dnb&#39;
+    elif (choiceDico == &#39;2&#39;):
+        dicoPath = &#39;./src/js/modules/dictionnaireBAC.js&#39;
+        dicoType = &#39;bac&#39;
+    elif (choiceDico == &#39;3&#39;):
+        dicoPath = &#39;./src/js/modules/dictionnaireE3C.js&#39;
+        dicoType = &#39;e3c&#39;
+
+    manageDico(dicoPath,dicoType)
+
+    if __name__ == &#34;__main__&#34;:
+        restart = &#39;&#39;
+        while restart not in [&#39;o&#39;,&#39;n&#39;]:
+            print(&#34;=============================================================================&#34;)
+            print(&#34;  Syncroniser/Générer un autre dictionnaire ? &#34;)    
+            print(&#34; &#34;)           
+            restart = input(&#34;Taper o ou n pour relancer le script --&gt; &#34;)
+            if restart == &#39;o&#39;:
+                main()  
+
+    # On évalue le temps de traitement
+    end_time = datetime.now()
+    print(&#34;=============================================================================&#34;)
+    print(&#34;  Durée de traitement : &#34;,end_time-start_time)        
+    print(&#34;=============================================================================&#34;)
+ 
+if __name__ == &#34;__main__&#34;:
+    main()
+
+    ################## Pour mettre d&#39;équerre le dico DNB ################################
+    #####################################################################################
+    # currentRefsdicoDnbTest = currentRef(&#39;./src/js/modules/dictionnaireDNBTest.js&#39;)
+    # currentRefsdicoDnb = currentRef(&#39;./src/js/modules/dictionnaireDNB.js&#39;)
+    # diff = []
+    # for ref in currentRefsdicoDnb:
+    #     if ref not in currentRefsdicoDnbTest:
+    #         diff.append(ref)
+    # print(diff)
+    # diff = []
+    # for ref in currentRefsdicoDnbTest:
+    #     if ref not in currentRefsdicoDnb:
+    #         diff.append(ref)
+    # print(diff)
+    ######################################################################################</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="dicosDnbBacE3c.dicosManage.currentRef"><code class="name flex">
+<span>def <span class="ident">currentRef</span></span>(<span>dicoPath: str) ‑> list</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Une fonction pour récupérer tous les fichiers déjà référencé dans le dico</p>
+<p><strong>Paramètres</strong></p>
+<pre><code>* dicoPath -- Un string avec le chemin vers le dico
+</code></pre>
+<p><strong>Sorties</strong></p>
+<pre><code>* out -- Un tableau avec tous les noms des fichiers déjà dans le dico
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def currentRef(dicoPath:str)-&gt;list:
+    &#34;&#34;&#34;Une fonction pour récupérer tous les fichiers déjà référencé dans le dico
+
+    **Paramètres**
+
+        * dicoPath -- Un string avec le chemin vers le dico
+    
+    **Sorties**
+
+        * out -- Un tableau avec tous les noms des fichiers déjà dans le dico   
+    
+    &#34;&#34;&#34;
+    pass     
+    # On ouvre le dico et on récupère les lignes
+    content = open(dicoPath,&#39;r&#39;)
+    lines = content.readlines()
+    content.close()
+    # Un tableau pour récupérer les noms des fichiers déjà dans le dico
+    out = []
+    for line in lines:
+        if &#34;: {&#34; in line:            
+            out.append(line.replace(&#34; &#34;,&#34;&#34;)[:-3])
+    return out</code></pre>
+</details>
+</dd>
+<dt id="dicosDnbBacE3c.dicosManage.insertNewEntries"><code class="name flex">
+<span>def <span class="ident">insertNewEntries</span></span>(<span>pathName: str, dicoPath: str, dicoType: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Une procédure pour insérer les nouvelles entrées au dico</p>
+<p><strong>Paramètres</strong></p>
+<pre><code>* pathName -- Un string avec le chemin du répertoire à scanner
+* dicoPath -- Un string avec le chemin vers le dico
+* dicoType -- Un string avec dnb, bac ou e3c
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def insertNewEntries(pathName:str,dicoPath:str,dicoType:str):
+    &#34;&#34;&#34;Une procédure pour insérer les nouvelles entrées au dico
+
+    **Paramètres**
+
+        * pathName -- Un string avec le chemin du répertoire à scanner
+        * dicoPath -- Un string avec le chemin vers le dico
+        * dicoType -- Un string avec dnb, bac ou e3c        
+    
+    &#34;&#34;&#34;
+    pass
+    # On lit les lignes du dico
+    content = open(dicoPath,&#39;r&#39;)
+    lines = content.readlines()
+    content.close()
+    # On supprime l&#39;avant dernière ligne qui contient }
+    del lines[len(lines)-1]
+    # On ouvre le fichier en écriture
+    # On le réécrit complètement sans l&#39;avant dernière ligne
+    content = open(dicoPath,&#39;w&#39;)
+    content.writelines(lines)
+    content.close()
+
+    # On récupère les entrées actuelles du dico
+    currentEntries = currentRef(dicoPath)
+
+    # On ouvre le dico en ajout
+    content = open(dicoPath, &#39;a&#39;)
+    # On ajoute les nouvelles entrées
+    for (dirpath, dirnames, filenames) in os.walk(pathName):
+        # Parcourt tout le répertoire
+        for file in sorted(filenames):
+            new = newEntry(file,dicoType)
+            # On ajoute l&#39;entrée s&#39;il elle n&#39;existe pas déjà
+            if (new[1] not in currentEntries):              
+                content.writelines(new[0])    
+    # On referme la dernière accolade
+    lastAcc = &#39;&#39;&#39;
+}\n&#39;&#39;&#39;
+    content.writelines(lastAcc)
+    content.close()</code></pre>
+</details>
+</dd>
+<dt id="dicosDnbBacE3c.dicosManage.locationName"><code class="name flex">
+<span>def <span class="ident">locationName</span></span>(<span>text: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Renvoie un nom de lieu ad hoc</p>
+<p><strong>Paramètres</strong></p>
+<pre><code>* text -- Un string avec le nom récupéré par découpage d'un nom de fichier
+</code></pre>
+<p><strong>Sorties</strong></p>
+<pre><code>* Un texte tout beau !
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def locationName(text:str)-&gt;str:
+    &#34;&#34;&#34;Renvoie un nom de lieu ad hoc
+
+    **Paramètres**
+
+        * text -- Un string avec le nom récupéré par découpage d&#39;un nom de fichier
+    
+    **Sorties**
+
+        * Un texte tout beau !    
+    
+    &#34;&#34;&#34;
+    pass
+    if text == &#39;metropole&#39; :
+        return &#39;Métropole&#39;
+    elif text == &#39;pondichery&#39; :
+        return &#39;Pondichéry&#39;
+    elif text == &#39;ameriquenord&#39; :
+        return &#39;Amérique du Nord&#39;
+    elif text == &#39;asie&#39; :
+        return &#39;Asie&#39;
+    elif text == &#39;etranger&#39; or text == &#39;etrangers&#39; :
+        return &#39;Centres étrangers&#39;
+    elif text == &#39;wallis&#39; or text == &#39;wallisfutuna&#39; :
+        return &#39;Wallis et Futuna&#39;
+    elif text == &#39;polynesie&#39; :
+        return &#39;Polynésie&#39;
+    elif text == &#39;ameriquesud&#39; :
+        return &#39;Amérique du sud&#39;
+    elif text == &#39;caledonie&#39; :
+        return &#39;Nouvelle Calédonie&#39;
+    elif text == &#39;grece&#39; :
+        return &#39;Grèce&#39;
+    elif text == &#39;antillesguyanne&#39; :
+        return &#39;Antilles - Guyanne&#39;
+    else :
+        return text</code></pre>
+</details>
+</dd>
+<dt id="dicosDnbBacE3c.dicosManage.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Procédure principale</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    &#34;&#34;&#34;Procédure principale&#34;&#34;&#34;
+    # On récupère la date au début du traitement
+    start_time = datetime.now()
+      
+    # On nettoie le terminal
+    os.system(&#34;clear&#34;)
+
+    # On génère la documentation
+    print(&#34;=============================================================================&#34;)
+    print(&#34;  Création de la documentation en cours ...  &#34;)    
+    print(&#34; &#34;)    
+    os.system(&#39;sh ./src/js/modules/dicosDnbBacE3c/generateDoc.sh&#39;)
+    print(&#34;=============================================================================&#34;)
+    print(&#34;  Synchronisation/Génération du dictionnaire en cours ...  &#34;)    
+    print(&#34; &#34;)    
+
+    # On choisit le type de dico à synchroniser/générer
+    choiceDico = &#39;&#39;
+    while choiceDico not in [&#39;1&#39;,&#39;2&#39;,&#39;3&#39;]:
+        choiceDico = input(&#34;&#34;&#34;Quels dictionnaire faut-il synchronier/générer ?
+        ---&gt; 1 : DNB
+        ---&gt; 2 : BAC
+        ---&gt; 3 : E3C
+Taper 1, 2 ou 3 pour lancer le script --&gt; &#34;&#34;&#34;)
+    # Une variable pour le chemin vers le dico à synchroniser/générer        
+    dicoPath = &#39;&#39;
+    # Une variable pour le type de dico à synchroniser/générer        
+    dicoType = &#39;&#39;
+
+    if (choiceDico == &#39;1&#39;):
+        dicoPath = &#39;./src/js/modules/dictionnaireDNB.js&#39;
+        dicoType = &#39;dnb&#39;
+    elif (choiceDico == &#39;2&#39;):
+        dicoPath = &#39;./src/js/modules/dictionnaireBAC.js&#39;
+        dicoType = &#39;bac&#39;
+    elif (choiceDico == &#39;3&#39;):
+        dicoPath = &#39;./src/js/modules/dictionnaireE3C.js&#39;
+        dicoType = &#39;e3c&#39;
+
+    manageDico(dicoPath,dicoType)
+
+    if __name__ == &#34;__main__&#34;:
+        restart = &#39;&#39;
+        while restart not in [&#39;o&#39;,&#39;n&#39;]:
+            print(&#34;=============================================================================&#34;)
+            print(&#34;  Syncroniser/Générer un autre dictionnaire ? &#34;)    
+            print(&#34; &#34;)           
+            restart = input(&#34;Taper o ou n pour relancer le script --&gt; &#34;)
+            if restart == &#39;o&#39;:
+                main()  
+
+    # On évalue le temps de traitement
+    end_time = datetime.now()
+    print(&#34;=============================================================================&#34;)
+    print(&#34;  Durée de traitement : &#34;,end_time-start_time)        
+    print(&#34;=============================================================================&#34;)</code></pre>
+</details>
+</dd>
+<dt id="dicosDnbBacE3c.dicosManage.manageDico"><code class="name flex">
+<span>def <span class="ident">manageDico</span></span>(<span>dicoPath: str, dicoType: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Une procedure pour la gestion du dico</p>
+<p><strong>Paramètres</strong></p>
+<pre><code>* dicoPath -- Un string avec le chemin vers le dico
+* dicoType -- Un string avec dnb, bac ou e3c
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def manageDico(dicoPath:str,dicoType:str):
+    &#34;&#34;&#34;Une procedure pour la gestion du dico
+
+    **Paramètres**
+
+        * dicoPath -- Un string avec le chemin vers le dico
+        * dicoType -- Un string avec dnb, bac ou e3c
+    
+    &#34;&#34;&#34;
+    pass
+    # On crée le dico s&#39;il n&#39;existe pas
+    fichier = open(dicoPath, &#34;a+&#34;)
+    fichier.close()
+
+    # Si le dico est vide on ajoute les première lignes
+    if (os.path.getsize(dicoPath) == 0):
+        fichier = open(dicoPath, &#34;w&#34;, encoding=&#34;utf8&#34;)
+        firstLine = &#34;/* eslint-disable no-multiple-empty-lines */\n&#34;
+        secondLine = &#34;/* eslint-disable comma-dangle */\n&#34;
+        thirdLine = f&#39;export const dictionnaire{dicoType.upper()} = {{\n&#39;
+        lastLine = &#34;}&#34;    
+        fichier.writelines(firstLine)
+        fichier.writelines(secondLine)
+        fichier.writelines(thirdLine)
+        fichier.writelines(lastLine)
+        fichier.close()
+    
+    folderToScan = f&#39;./{dicoType}/&#39;
+    # On crée le repertoire s&#39;il n&#39;existe pas
+    if (not os.path.exists(folderToScan)):
+        os.makedirs(folderToScan)    
+    # On récupère et range toutes les années présente dans le repertoire à scanner
+    getAllYears = sorted(os.listdir(folderToScan)) 
+    
+    # On traite toutes les années
+    for year in getAllYears:
+        insertNewEntries(f&#39;./{dicoType}/{year}/tex/&#39;,dicoPath,dicoType)</code></pre>
+</details>
+</dd>
+<dt id="dicosDnbBacE3c.dicosManage.monthName"><code class="name flex">
+<span>def <span class="ident">monthName</span></span>(<span>mm: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Une fonction pour transformer le numéro du mois en texte</p>
+<p><strong>Paramètres</strong></p>
+<pre><code>* mm -- Un string avec les chiffres correspondant au mois récupéré par découpage d'un nom de fichier
+</code></pre>
+<p><strong>Sorties</strong></p>
+<pre><code>* Un nom de mois tout beau !
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def monthName(mm:str)-&gt;str:
+    &#34;&#34;&#34;Une fonction pour transformer le numéro du mois en texte
+
+    **Paramètres**
+
+        * mm -- Un string avec les chiffres correspondant au mois récupéré par découpage d&#39;un nom de fichier
+    
+    **Sorties**
+
+        * Un nom de mois tout beau !    
+    
+    &#34;&#34;&#34;
+    pass
+    month = [&#39;&#39;,&#39;Janvier&#39;,&#39;Février&#39;,&#39;Mars&#39;,&#39;Avril&#39;,&#39;Mai&#39;,&#39;Juin&#39;,&#39;Juillet&#39;,&#39;Août&#39;,&#39;Septembre&#39;,&#39;Octobre&#39;,&#39;Novembre&#39;,&#39;Décembre&#39;]
+    return month[int(mm)]</code></pre>
+</details>
+</dd>
+<dt id="dicosDnbBacE3c.dicosManage.newEntry"><code class="name flex">
+<span>def <span class="ident">newEntry</span></span>(<span>file: str, dicoType: str) ‑> list</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Une fonction pour créer une entrée dans un dico</p>
+<p><strong>Paramètres</strong></p>
+<pre><code>* file -- Un string avec le nom du fichier à traiter
+* dicoType -- Un string avec dnb, bac ou e3c
+</code></pre>
+<p><strong>Sorties</strong></p>
+<pre><code>* Un tableau avec deux strings [un objet pour le dico, le nom du fichier traité]
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def newEntry(file:str,dicoType:str)-&gt;list:
+    &#34;&#34;&#34;Une fonction pour créer une entrée dans un dico
+
+    **Paramètres**
+
+        * file -- Un string avec le nom du fichier à traiter
+        * dicoType -- Un string avec dnb, bac ou e3c
+    
+    **Sorties**
+
+        * Un tableau avec deux strings [un objet pour le dico, le nom du fichier traité]   
+    
+    &#34;&#34;&#34;
+    pass    
+    # On récupère le nom du fichier sans l&#39;extension
+    filename = os.path.splitext(file)[0]    
+    # On récupère l&#39;extension
+    extension = os.path.splitext(file)[1]
+    # Pour les lignes à ajouter
+    newLines = &#39;&#39;
+    # On traite les fichiers tex qui ne sont pas les fichiers de correction 
+    if filename[-4:] != &#39;_cor&#39; and  extension == &#34;.tex&#34; :
+        newLines = f&#39;&#39;&#39;  {filename}: {{
+    annee: &#39;{filename[4:8]}&#39;,
+    lieu: &#39;{locationName(filename.split(&#39;_&#39;)[3])}&#39;,
+    mois: &#39;{monthName(filename[9:11])}&#39;,
+    numeroInitial: &#39;{filename.split(&#39;_&#39;)[4]}&#39;,
+    png: &#39;/{dicoType}/{filename[4:8]}/tex/png/{filename}.png&#39;,
+    pngcor: &#39;/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png&#39;,
+    typeExercice: &#39;{dicoType}&#39;,
+    url: &#39;/{dicoType}/{filename[4:8]}/tex/{filename}.tex&#39;,
+    urlcor: &#39;/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex&#39;,
+    tags: [&#39;...tagsToChange&#39;]
+  }},\n&#39;&#39;&#39;    
+    
+    return [newLines,filename]</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="dicosDnbBacE3c" href="index.html">dicosDnbBacE3c</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="dicosDnbBacE3c.dicosManage.currentRef" href="#dicosDnbBacE3c.dicosManage.currentRef">currentRef</a></code></li>
+<li><code><a title="dicosDnbBacE3c.dicosManage.insertNewEntries" href="#dicosDnbBacE3c.dicosManage.insertNewEntries">insertNewEntries</a></code></li>
+<li><code><a title="dicosDnbBacE3c.dicosManage.locationName" href="#dicosDnbBacE3c.dicosManage.locationName">locationName</a></code></li>
+<li><code><a title="dicosDnbBacE3c.dicosManage.main" href="#dicosDnbBacE3c.dicosManage.main">main</a></code></li>
+<li><code><a title="dicosDnbBacE3c.dicosManage.manageDico" href="#dicosDnbBacE3c.dicosManage.manageDico">manageDico</a></code></li>
+<li><code><a title="dicosDnbBacE3c.dicosManage.monthName" href="#dicosDnbBacE3c.dicosManage.monthName">monthName</a></code></li>
+<li><code><a title="dicosDnbBacE3c.dicosManage.newEntry" href="#dicosDnbBacE3c.dicosManage.newEntry">newEntry</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

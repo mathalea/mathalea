@@ -2755,7 +2755,7 @@ export function texteEnCouleur (texte, couleur = '#f15929') {
 }
 
 /**
-* Met en couleur et gras un texte. JCL dit : "Ne fonctionne qu'en dehors de $....$"
+* Met en couleur et gras un texte. JCL dit : "Ne fonctionne qu'en dehors de $....$". Utiliser miseEnEvidence si $....$.
 * @param {string} texte à mettre en couleur
 * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
 * @author Rémi Angot
@@ -6889,7 +6889,10 @@ export function preambulePersonnalise (listePackages) {
       case 'tkz-euclide':
         result += '\\usepackage{tkz-euclide}'
         break
+      case 'bac':
+      case 'crpe':
       case 'dnb':
+      case 'e3c':
         // result += `
         // \\usepackage{fourier}
         // \\usepackage[scaled=0.875]{helvet}
@@ -6956,6 +6959,7 @@ export function preambulePersonnalise (listePackages) {
         \\usepackage{pst-eucl}  % permet de faire des dessins de géométrie simplement
         \\usepackage{pst-text}
         \\usepackage{pst-node,pst-all}
+        \\usepackage{pst-func,pst-math,pst-bspline} %%% POUR LE BAC %%%
         
         %%%%%%% TIKZ %%%%%%%
         \\usepackage{tkz-tab,tkz-fct}
@@ -6976,6 +6980,10 @@ export function preambulePersonnalise (listePackages) {
         
         
         %%%%% COMMANDES SPRECIFIQUES %%%%%
+        \\usepackage{esvect} %%% POUR LE BAC %%%
+        \\newcommand{\\vvt}[1]{\\vv{\\text{#1}}} %%% POUR LE BAC %%%
+        \\newcommand{\\vectt}[1]{\\overrightarrow{\\,\\mathstrut\\text{#1}\\,}} %%% POUR LE BAC %%%
+
         \\newcommand{\\textding}[1]{\\text{\\ding{#1}}}
         %\\newcommand{\\euro}{\\eurologo{}}
         \\renewcommand{\\pstEllipse}[5][]{% arc d'ellipse pour le sujet de Polynésie septembre 2013
@@ -6997,6 +7005,9 @@ export function preambulePersonnalise (listePackages) {
         \\def\\Oijk{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath},~\\vect{k}\\right)$}
         \\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}
         
+        \\newcommand{\\e}{\\mathrm{\\,e\\,}} %%% POUR LE BAC %%% le e de l'exponentielle
+        \\newcommand{\\ds}{\\displaystyle} %%% POUR LE BAC %%%
+
         %%%%% PROBABILITÉS %%%%%
         % Structure servant à avoir l'événement et la probabilité.
         \\def\\getEvene#1/#2\\endget{$#1$}
@@ -7101,12 +7112,19 @@ export function preambulePersonnalise (listePackages) {
         \\endgroup
         }
         
+        % pour les corrections LG Ceci est commenté pour le préambule de mathalea car un environnement remarque existe déjà
+        %\\newcommand{\\remarque}[1]{
+        %\\begin{bclogo}[logo=\\bctrombone,couleur=gray!5,ombre,epBord=0.8]{Remarque:}%
+        %    {#1}
+        %\\end{bclogo}}
+
         %%%%% VÉRIFIER L'UTILITÉ %%%%%
         %\\renewcommand{\\theenumi}{\\textbf{\\arabic{enumi}}}
         %\\renewcommand{\\labelenumi}{\\textbf{\\theenumi.}}
         %\\renewcommand{\\theenumii}{\\textbf{\\alph{enumii}}}
         %\\renewcommand{\\labelenumii}{\\textbf{\\theenumii.}}
         
+
         
         %Tapuscrit : Denis Vergès
         
@@ -7702,7 +7720,8 @@ export function exportQcmAmc (exercice, idExo) {
         }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
-        reponse = valeurAMCNum
+        texQr += '\\begin{minipage}[b]{0.05 \\linewidth}\\hspace{6pt}\\end{minipage}'
+        reponse = autoCorrection[j].reponse.valeur[0]
         if (autoCorrection[j].reponse.param.digits === 0) {
           nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
           autoCorrection[j].reponse.param.decimals = nbChiffresPd
@@ -7716,7 +7735,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
         texQr += `${autoCorrection[j].reponse.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
-        texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
+        texQr += `\\AMCnumericChoices{${reponse}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
           texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
         }
