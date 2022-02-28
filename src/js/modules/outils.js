@@ -2501,7 +2501,7 @@ export function numberFormat (nb) {
 export function texNombre (nb, precision = 8) {
   const result = stringNombre(nb, precision, false)
   if (result === 'Trop de chiffres') {
-    window.notify('texFraction : Trop de chiffres', { nb, precision })
+    window.notify('texNombre : Trop de chiffres', { nb, precision })
     return result
   } else {
     return result.replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
