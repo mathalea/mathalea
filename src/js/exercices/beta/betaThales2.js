@@ -222,30 +222,61 @@ export default function exercicesThales () {
         }
         case 15 : {
           // Homothetie
-          // http://localhost:8090/mathalea.html?ex=betaThales2,s=15,s2=3,s3=1,n=1,cd=1&serie=GDGD&v=ex&z=1
+          // http://localhost:8090/mathalea.html?ex=betaThales2,s=15,s2=1,s3=1
           const graphic = new GraphicView(-5, -5, 5, 5)
           const ABCD = graphic.addParallelogram()
-          const O = graphic.addPointOutPolygon(...ABCD.vertices)
+          let O
+          switch (this.sup3) {
+            case 1:
+              O = graphic.addPointOutPolygon(...ABCD.vertices)
+              break
+            case 2:
+              O = graphic.addPointInPolygon(...ABCD.vertices)
+              break
+            case 3:
+              if (Math.floor(Math.random() * 2) === 1) {
+                O = graphic.addPointOutPolygon(...ABCD.vertices)
+              } else {
+                O = graphic.addPointInPolygon(...ABCD.vertices)
+              }
+              break
+          }
           graphic.placeLabelsPolygon(...ABCD.vertices)
-          const k = (Math.random() * 0.4 + (Math.floor(Math.random() * 2)) + 0.3) * (-1) ** Math.floor(Math.random() * 2)
+          let k
+          switch (this.sup2) {
+            case 1:
+              k = 0.4 + Math.random() * 0.3
+              break
+            case 2:
+              k = 1.3 + Math.random() * 0.4
+              break
+            case 3:
+              k = -0.4 - Math.random() * 0.3
+              break
+            case 4:
+              k = -1.3 - Math.random() * 0.4
+              break
+            case 5:
+              k = (Math.random() * 0.4 + (Math.floor(Math.random() * 2)) + 0.3) * (-1) ** Math.floor(Math.random() * 2)
+              break
+          }
           const EFGH = graphic.addHomothetic(O, k, ...ABCD.vertices)
           graphic.placeLabelsPolygon(...EFGH)
           O.showDot()
           O.showName()
-          // const graph = graphic.getFigure(O, ABCD, EFGH)
-          /*
-          exercice.texte = `${graph}<br>
-Dans cette homothétie de centre $${O.name}$ le parallélogramme de départ est $${ABCD.name}$.
+          const graph = graphic.getFigure(O, ABCD, EFGH, graphic.addSidesPolygon(...EFGH))
+          exercice.texte = `Dans cette homothétie de centre $${O.name}$ le parallélogramme de départ est $${ABCD.name}$.
 
 $\\textbf{1.}$ Parmi les valeurs suivantes du rapport $k$, une seule est possible, laquelle ?
 
-$\\hspace{1cm}$ $${aleaName([toTex(k.toFixed(1)), toTex((-k).toFixed(1)), toTex((1 / k).toFixed(1)), toTex((-1 / k).toFixed(1))]).join('\\qquad')}$
+$\\hspace{1cm}$ $${aleaName([toTex(k.toFixed(2)), toTex((-k).toFixed(2)), toTex((1 / k).toFixed(2)), toTex((-1 / k).toFixed(2))]).join('\\qquad')}$
 
-$\\textbf{2.}$ Quelle est l'image de $${ABCD[0].name}$ ?`
-          exercice.texteCorr = `$\\textbf{1.}$ $k = ${toTex(k.toFixed(1))}$
+$\\textbf{2.}$ Quelle est l'image de $${ABCD.vertices[0].name}$ ?
 
-$\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`
-          */
+${graph}`
+          exercice.texteCorr = `$\\textbf{1.}$ $k = ${toTex(k.toFixed(2))}$
+
+$\\textbf{2.}$ L'image de $${ABCD.vertices[0].name}$ est $${EFGH[0].name}$.`
           break
         }
         case 16 : {
@@ -556,9 +587,7 @@ $\\textbf{2.}$ L'image de $${ABCD[0].name}$ est $${EFGH[0].name}$.`
           angle.name = aleaName(['\\alpha', '\\beta', '\\gamma', '\\delta'], 1)
           // L'exercice
           // Chaque rectangle et son suivant sont obtenus par une rotation de même centre et de même angle.
-          exercice.texte = `${graph.split('\n').filter(x => x !== '').filter(x => x !== '').join('\n')}
-
-Compléter l'algorithme ci-dessous pour obtenir la figure.
+          exercice.texte = `Compléter l'algorithme ci-dessous pour obtenir la figure.
 
 $\\textbf{Début de l'algorithme}$
 
@@ -578,7 +607,9 @@ $\\small\\color{gray} 07 \\hspace{0.5cm}$ $\\color{blue}${angle.name}$ = $\\colo
 
 $\\small\\color{gray} 08 \\hspace{0.1cm}$ Fin de la boucle Répéter
 
-$\\textbf{Fin de l'algorithme}$`
+$\\textbf{Fin de l'algorithme}$
+
+${graph.split('\n').filter(x => x !== '').filter(x => x !== '').join('\n')}`
           exercice.texteCorr = `Il y a $${n.toFixed}$ rectangles il faut donc répéter au moins $\\color{red}\\fbox{${n.toFixed}}$ fois la boucle.
 
 $${angle.name} = \\dfrac{360\\degree}{${n.toFixed}} = ${angle.toFixed}\\degree$
@@ -1002,9 +1033,7 @@ ${consigne[this.sup3 - 1]}` + '<br>' + graph
           // L'exercice
           const P = aleaName([0, 2, 3])
           // Chaque rectangle et son suivant sont obtenus par une rotation de même centre et de même angle.
-          exercice.texte = `${graph.split('\n').filter(x => x !== '').filter(x => x !== '').join('\n')}
-
-On a effectué successiveement $${n.toFixed}$ rotations d'un rectangle avec le même angle et le même centre.
+          exercice.texte = `On a effectué successiveement $${n.toFixed}$ rotations d'un rectangle avec le même angle et le même centre.
 
 On est revenu sur le rectangle de départ.
 
@@ -1012,7 +1041,9 @@ On considère la rotation qui transforme le rectangle $${circularPermutation(ABC
 
 $\\textbf{1.}$ Déterminer l'image de $${ABCD[P[i]]}$ par cette rotation.
 
-$\\textbf{2.}$ Déterminer l'angle de la rotation.`
+$\\textbf{2.}$ Déterminer l'angle de la rotation.
+
+${graph.split('\n').filter(x => x !== '').filter(x => x !== '').join('\n')}`
           exercice.texteCorr = `
 $\\textbf{1.}$ L'image de $${ABCD[P[i]]}$ est $${EFGH[P[i]]}$.
 
@@ -1106,11 +1137,11 @@ Donc la solution peut être une rotation d'angle $${angleSolution.toFixed + 90 -
           } else { remarque = '' }
           // L'exercice
           // Chaque rectangle et son suivant sont obtenus par une rotation de même centre et de même angle.
-          exercice.texte = `${graph.split('\n').filter(x => x !== '').filter(x => x !== '').join('\n')}
+          exercice.texte = `Il y a $${n.toFixed}$ carrés tous identiques dont $${ABCD.name}$ et $${EFGH.name}$.
 
-Il y a $${n.toFixed}$ carrés tous identiques dont $${ABCD.name}$ et $${EFGH.name}$.
+Déterminer l'angle de la rotation de centre $${ABCD[2]}$ qui permet de transformer $${ABCD[3]}$ en $${EFGH[1]}$ dans le sens direct (anti-horaire).
 
-Déterminer l'angle de la rotation de centre $${ABCD[2]}$ qui permet de transformer $${ABCD[3]}$ en $${EFGH[1]}$ dans le sens direct (anti-horaire).`.replaceAll('\n\n', context.isHtml ? '<br>' : '\n\n')
+${graph.split('\n').filter(x => x !== '').filter(x => x !== '').join('\n')}`.replaceAll('\n\n', context.isHtml ? '<br>' : '\n\n')
           exercice.texteCorr = `Il y a $${n.value}$ carrés en tout.
 
 $\\dfrac{360\\degree}{${n.toFixed}} = ${angle.toFixed}\\degree$
@@ -1613,7 +1644,7 @@ Donc l'aire du rectangle ${ABCD.name} est ${environ} $${toTex(solutionDecimale)}
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
       if (this.questionJamaisPosee(i, i)) {
         this.listeQuestions.push(exercice.texte.replaceAll('\n\n', '<br>'))
-        this.listeCorrections.push(exercice.texteCorr.replaceAll('\n\n', '<br>'))
+        this.listeCorrections.push(exercice.texteCorr.replaceAll('\n\n', '<br>').replaceAll('$$', '$\\hspace{0.5cm}'))
         i++
       }
       cpt++
