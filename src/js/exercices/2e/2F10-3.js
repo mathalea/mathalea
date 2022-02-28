@@ -1,4 +1,4 @@
-import Exercice from '../Exercice.js'
+import Exercice2 from '../Exercice.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
 import { repere2, droite, mathalea2d, point, tracePoint, labelPoint, texteParPosition } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
@@ -9,20 +9,28 @@ export const titre = 'Représentation graphique d’une fonction affine'
 * @author Stéphane Guyon
 * 2F10-3
 */
-export default function representerfonctionaffine () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 3 // On complète le nb de questions
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.tailleDiaporama = 3
-  this.video = ''
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.sup = 1
+export default class representerfonctionaffine extends Exercice2 {
+  constructor () {
+    super()
+    // Chaîne de caractère sans point à la fin. C'est le titre de l'exercice qui sera affiché avec la référence dans le générateur d'exercices.
+    //! On avait this.titre = titre et aucune erreur n'était détectée !
+    //! Pourquoi le générateur fonctionne avec une chaîne vide ?
+    this.titre = ''
+    this.consigne = 'Représenter graphiquement la fonction affine $f$ définie sur $\\mathbb R$ par : '
+    this.nbQuestions = 3 // On complète le nb de questions
+    this.nbCols = 1
+    this.nbColsCorr = 1
+    this.tailleDiaporama = 3
+    this.video = ''
+    this.spacing = 1
+    this.spacingCorr = 1
+    this.sup = 1
+    this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
+  }
 
-  this.nouvelleVersion = function () {
+  //! Maintenant qu'il n'y a plus de méthode nouvelleVersion dans Exercice, on peut placer correctement
+  //! cette fonction pour en faire une méthode d'instance dans le prototype de l'exercice
+  nouvelleVersion () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = []
     this.listeCorrections = []
@@ -32,8 +40,11 @@ export default function representerfonctionaffine () {
     // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const o = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1)
 
-    for (let i = 0, a, b, r, c, d, tA, lA, tB, lB, xA, yA, lC, texte, texteCorr, cpt = 0;
-      i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
+    //! Changement à reporter dans la nouvelle version
+    // on rajoute les nouvelles variables dont on a besoin dans l'exercice dans la boucle
+    let a, b, r, c, d, tA, lA, tB, lB, xA, yA, lC, texte, texteCorr
+    //! Fin changement
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // typesDeQuestions = listeTypeDeQuestions[i]
       if (this.sup === 1) {
         a = randint(0, 3) * choice([-1, 1])// coefficient a de la fonction affine
@@ -88,7 +99,7 @@ export default function representerfonctionaffine () {
         }, lA, lB, r, c, tA, tB, o)
       }
       if (this.sup === 2) { // cas du coeff directeur fractionnaire
-        a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
+        a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
         b = randint(-5, 5) // ordonnée à l'origine
         d = randint(2, 5, [a, 2 * a, -a, -2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
         if (a === 0 && b === 0) {
@@ -110,9 +121,12 @@ export default function representerfonctionaffine () {
         c = droite(a / d, -1, b)
         c.color = 'red'
         c.epaisseur = 2
-
-        texte = `Représenter graphiquement la fonction affine $f$ définie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
-
+        //! Afin d'alléger considérablement les questions, il faut mettre la partie fixe de la consigne dans this.consigne
+        //! pour ne laisser que la partie dynamique ici.
+        // TODO: Pour l'instant on a un bug car le this.consigne est toujours repris dans chaque question.
+        console.log(texte)
+        texte = `$f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
+        console.log(texte)
         texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
         texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
         texteCorr += `Comme $f(0)=${b}$, on a : $A(0;${b}) \\in \\mathcal{C_f}$.<br>`
@@ -147,5 +161,4 @@ export default function representerfonctionaffine () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
 }

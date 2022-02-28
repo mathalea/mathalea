@@ -37,24 +37,27 @@ export default function tauxvariation () {
           a = randint(-5, 5, [0])
           m = randint(-5, 5, [0])// coeff dir de ax+b
           p = randint(-5, 5, [0])
-          texte = `Soit $f$ la fonction définie pour tout $x$ de $\\mathbb{R}$ par $f(x)=${reduireAxPlusB(m, p)} $.<br>`
-          texte += `Déterminer la valeur de  $f'(${a})$, en utilisant la définition de cours.`
-          texteCorr = `Pour déterminer $f'(${a})$, `
-          texteCorr += `on commence par calculer le taux de variation de $f$, <br> entre $${a}$ et $${a}+h$ , `
-          texteCorr += 'noté $\\tau(h)$, où $h$ est un réel non-nul.<br>'
-          texteCorr += `$\\begin{aligned}\\tau(h) &= \\dfrac{f(${a}+h)-f(${a})}{h}&\\text{Définition du taux de variation}\\\\`
-          texteCorr += `&= \\dfrac{${m}(${a}+h)${ecritureAlgebrique(p)}-${ecritureParentheseSiNegatif(m)}\\times ${ecritureParentheseSiNegatif(a)}${ecritureAlgebrique(-p)}}{h}&\\text{Application à la fonction } f(x)=${reduireAxPlusB(m, p)}  \\\\`
-          texteCorr += `&= \\dfrac{${ecritureParentheseSiNegatif(a * m)}${ecritureAlgebriqueSauf1(m)} h ${ecritureAlgebrique(p)}-${ecritureParentheseSiNegatif(a * m)} ${ecritureAlgebriqueSauf1(-p)}}{h}&\\text{Développement au numérateur}  \\\\`
-          texteCorr += `&= \\dfrac{${m} h } {h}&\\text{Réduction au numérateur}  \\\\`
-          texteCorr += `&= ${m} &\\text{Simplification par } h  \\\\`
-          texteCorr += '\\end{aligned}$'
-          texteCorr += '<br>Le taux de variations de $f$ est une constante qui ne dépend pas de $h$.'
-          texteCorr += '<br>Ce résultat était prévisible puisque la représentation graphique d\'une fonction affine est une droite.'
-          texteCorr += `<br>La pente entre deux points de la droite est donc toujours égale au coefficient directeur de la fonction affine, ici ${m}.`
-          texteCorr += '<br>On en déduit facilement la limite du taux de variations quand $h$ tend vers $0$.'
-          texteCorr += `<br>$\\lim\\limits_{h \\rightarrow 0} ${m}=${m} $`
-          texteCorr += `<br>On peut en conclure que $f$ est dérivable en $${a}$ et`
-          texteCorr += ` donc $f'(${a})=${m} $`
+          texte =
+          `Soit $f$ la fonction définie 
+          pour tout $x$ de $\\mathbb{R}$ par $f(x)=${reduireAxPlusB(m, p)} $.
+          Déterminer la valeur de  $f'(${a})$, en utilisant la définition de cours.`
+          texteCorr =
+          `Pour déterminer $f'(${a})$, on commence par calculer 
+          le taux de variation de $f$, 
+          entre $${a}$ et $${a}+h$, noté
+          $\\tau(h)$, où $h$ est un réel non-nul.
+          $\\begin{aligned}\\tau(h) &= \\dfrac{f(${a}+h)-f(${a})}{h}&\\text{Définition du taux de variation}\\\\
+          &= \\dfrac{${m}(${a}+h)${ecritureAlgebrique(p)}-${ecritureParentheseSiNegatif(m)}\\times ${ecritureParentheseSiNegatif(a)}${ecritureAlgebrique(-p)}}{h}&\\text{Application à la fonction } f(x)=${reduireAxPlusB(m, p)}  \\\\
+          &= \\dfrac{${ecritureParentheseSiNegatif(a * m)}${ecritureAlgebriqueSauf1(m)} h ${ecritureAlgebrique(p)}-${ecritureParentheseSiNegatif(a * m)} ${ecritureAlgebriqueSauf1(-p)}}{h}&\\text{Développement au numérateur}  \\\\
+          &= \\dfrac{${m} h } {h}&\\text{Réduction au numérateur}  \\\\
+          &= ${m} &\\text{Simplification par } h  \\\\
+          \\end{aligned}$
+          Le taux de variations de $f$ est une constante qui ne dépend pas de $h$.
+          Ce résultat était prévisible puisque la représentation graphique d'une fonction affine est une droite.
+          La pente entre deux points de la droite est donc toujours égale au coefficient directeur de la fonction affine, ici ${m}.
+          On en déduit facilement la limite du taux de variations quand $h$ tend vers $0$.
+          $\\lim\\limits_{h \\rightarrow 0} ${m}=${m} $
+          On peut en conclure que $f$ est dérivable en $${a}$ avec $f'(${a})=${m} $`
           break
         case 2 :// 'carre':
           a = randint(-5, 5, [0])
