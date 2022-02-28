@@ -67,7 +67,7 @@ export default function CalculerDesMoyennes () {
         const mois = randint(1, 12)
         const annee = randint(1980, 2019)
         const temperaturesDeBase = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5]
-        nombreTemperatures = joursParMois(mois)
+        nombreTemperatures = joursParMois(mois, annee)
         temperatures = unMoisDeTemperature(temperaturesDeBase[mois - 1], mois, annee) // série brute de un mois de température
         somme = 0
         texte = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes.<br>`

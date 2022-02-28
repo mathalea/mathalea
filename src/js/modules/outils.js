@@ -2209,9 +2209,12 @@ export function listeDeNotes (nombreNotes, noteMin = 0, noteMax = 20, distincts 
 * @param n quantième du mois (janvier=1...)
 * @author Jean-Claude Lhote
 */
-export function joursParMois (n) {
+export function joursParMois (n, annee = 2022) {
   const joursMois = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-  return joursMois[n - 1]
+  if (n === 2) {
+    if (((annee % 4 === 0) && (annee % 100 !== 0)) || (annee % 400 === 0)) return 29 // années bissextiles.
+    else return 28
+  } else return joursMois[n - 1]
 }
 /**
 * Renvoie un tableau de températures
