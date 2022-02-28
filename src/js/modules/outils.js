@@ -6959,7 +6959,7 @@ export function preambulePersonnalise (listePackages) {
         \\usepackage{pst-eucl}  % permet de faire des dessins de géométrie simplement
         \\usepackage{pst-text}
         \\usepackage{pst-node,pst-all}
-        \\usepackage{pst-func,pst-math,pst-bspline} %%% POUR LE BAC %%%
+        \\usepackage{pst-func,pst-math,pst-bspline,pst-3dplot}  %%% POUR LE BAC %%%
         
         %%%%%%% TIKZ %%%%%%%
         \\usepackage{tkz-tab,tkz-fct}
