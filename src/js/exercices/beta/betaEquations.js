@@ -74,16 +74,16 @@ export default function equationsProgression () {
   this.correctionDetaillee = true
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
-  this.sup = 0 // Type d'exercice
+  this.sup = 'all' // Type d'exercice
   this.nouvelleVersion = function (numeroExercice, debug = false) {
     const ddbug = debug
-    this.nbQuestions = this.NbQuestions > 0 ? this.nbQuestions : this.sup !== 0 ? 1 : formulaire.length - 1
+    this.nbQuestions = this.NbQuestions > 0 ? this.nbQuestions : this.sup !== 'all' ? 1 : formulaire.length - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
     let nquestion = 0
     for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 200;) { // Boucle principale où i+1 correspond au numéro de la question
-      nquestion = this.sup === 0 ? cpt + 1 : this.sup
+      nquestion = this.sup === 'all' ? cpt + 1 : this.sup
       if (ddbug) {
         console.log(`
         ********************************

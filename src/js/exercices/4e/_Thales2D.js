@@ -7,7 +7,7 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import Grandeur from '../../modules/Grandeur'
 
 export const amcReady = true
-export const amcType = 'AMCOpenNum'
+export const amcType = 'AMCOpenNum✖︎2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer des longueurs avec le théorème de Thalès'
@@ -37,7 +37,7 @@ export default function Thales2D () {
     this.autoCorrection = []
 
     const premiereQuestionPapillon = randint(0, 1) // Pour alterner les configurations et savoir par laquelle on commence
-    let reponse
+    let reponse, reponse2
 
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // this.autoCorrection[i] = {}
@@ -143,7 +143,6 @@ export default function Thales2D () {
       } else {
         texteCorr = `Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$ et $(${nomA + nomB})//(${nomM + nomN})$ <br> donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
       }
-      // texteCorr = `$(${nomA+nomB})//(${nomM+nomN})$, les points $${nomC}$, $${nomM}$, $${nomA}$ et $${nomC}$, $${nomN}$, $${nomB}$ sont alignés dans le même ordre  donc d'après le théorème de Thalès, les triangles $${nomA+nomB+nomC}$ et $${nomM+nomN+nomC}$ ont des longueurs proportionnelles.`;
       texteCorr += '<br><br>'
       if (context.isHtml) {
         texteCorr += `$\\dfrac{\\color{red}${nomC + nomM}}{\\color{blue}${nomC + nomA}}=\\dfrac{\\color{red}${nomC + nomN}}{\\color{blue}${nomC + nomB}}=\\dfrac{\\color{red}${nomM + nomN}}{\\color{blue}${nomA + nomB}}$`
@@ -162,10 +161,11 @@ export default function Thales2D () {
         texteCorr += '<br><br>'
         texteCorr += `donc $${texNombrec(Math.abs(k) * ac)}\\times ${texNombre(ab)}=${nomM + nomN}\\times ${texNombre(ac)}$.`
         texteCorr += '<br><br>'
-        texteCorr += `On divise les deux membres par ${texNombre(ac)}.`
+        texteCorr += `On divise les deux membres par $${texNombre(ac)}$.`
         texteCorr += '<br><br>'
       }
       texteCorr += `$${nomM + nomN}=\\dfrac{${texNombrec(Math.abs(k) * ac)}\\times${texNombre(ab)}}{${texNombre(ac)}}=${texNombrec(Math.abs(k) * ab)}$ cm`
+      reponse = Math.abs(k) * ab
       texteCorr += '<br><br>'
       if (this.correctionDetaillee) {
         texteCorr += texteGras(`Calcul de ${nomC + nomB} : `)
@@ -176,11 +176,11 @@ export default function Thales2D () {
         texteCorr += '<br><br>'
         texteCorr += `donc $${texNombrec(Math.abs(k) * ac)}\\times ${nomC + nomB}=${texNombre(ac)}\\times ${texNombrec(Math.abs(k) * bc)}$.`
         texteCorr += '<br><br>'
-        texteCorr += `On divise les deux membres par ${texNombrec(Math.abs(k) * ac)}.`
+        texteCorr += `On divise les deux membres par $${texNombrec(Math.abs(k) * ac)}$.`
         texteCorr += '<br><br>'
       }
       texteCorr += `$${nomC + nomB}=\\dfrac{${texNombrec(Math.abs(k) * bc)}\\times${texNombre(ac)}}{${texNombrec(Math.abs(k) * ac)}}=${texNombrec(bc)}$ cm`
-      reponse = bc
+      reponse2 = bc
       if (context.isHtml) {
         texte += `<br><div style="display: inline-block;margin-top:20px;">${boutonAideMathalea2d}</div>`
       }
@@ -200,7 +200,8 @@ export default function Thales2D () {
           this.autoCorrection[i] = {
             enonce: texte,
             propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
-            reponse: { valeur: [reponse], param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)) + 1, decimals: 1, signe: false, exposantNbChiffres: 0 } }
+            reponse: { texte: `$\\hspace{21pt}${nomM + nomN}$`, valeur: reponse, param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)) + 1, decimals: 1, approx: 0, signe: false, exposantNbChiffres: 0 } },
+            reponse2: { texte: `$\\hspace{21pt}${nomC + nomB}$`, valeur: reponse2, param: { digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse2)) + 1, decimals: 1, approx: 0, signe: false, exposantNbChiffres: 0 } }
           }
         }
         // Si la question n'a jamais été posée, on en créé une autre

@@ -82,6 +82,8 @@ const affichageUniquementQuestion = (i) => {
   }
   affichageUniquementExercice()
   const questions = document.querySelectorAll('div.question')
+  // En l'absence de questions, on retourne sur la page d'accueil
+  if (questions.length === 0) document.location.href = '/mathalea.html'
   const corrections = document.querySelectorAll('div.correction')
   for (const question of questions) {
     question.style.display = 'none'
@@ -225,7 +227,7 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     if (vue === 'diapCorr') await addFetchHtmlToParent('templates/boutonsZoom.html', section)
     addElement(section, 'div', { id: 'containerErreur' })
-    if (vue === 'exMoodle') {
+    if (vue === 'exMoodle' && new URLSearchParams(window.location.search).get('moodleJson') === null) {
       const divMessage = addElement(section, 'div')
       divMessage.innerHTML = `<div class="ui icon message">
       <i class="exclamation triangle icon"></i>
@@ -267,20 +269,32 @@ export async function initDom () {
     document.addEventListener('exercicesAffiches', () => {
       // Récupère la précédente saisie pour exMoodle et désactive le bouton
       if (vue === 'exMoodle') {
-        for (let i = 0; i < context.listeObjetsExercice[0].nbQuestions; i++) {
-          if (document.getElementById(`champTexteEx0Q${i}`) && window.sessionStorage.getItem(`reponse${i}` + context.graine)) {
-            const valeurEnregistree = window.sessionStorage.getItem(`reponse${i}` + context.graine)
-            document.getElementById(`champTexteEx0Q${i}`).textContent = valeurEnregistree
+        let reponses
+        try { // JSON.parse(null) renvoie null
+          reponses = JSON.parse(new URLSearchParams(window.location.search).get('moodleJson'))
+        } catch (e) {}
+        if (reponses) {
+          for (let i = 0; i < context.listeObjetsExercice[0].autoCorrection.length; i++) {
+            if (document.getElementById(`champTexteEx0Q${i}`) && reponses && typeof reponses[`reponse${i}`] !== 'undefined') {
+              document.getElementById(`champTexteEx0Q${i}`).textContent = reponses[`reponse${i}`]
+            }
+            if (document.getElementById(`checkEx0Q${i}R0`) && reponses && typeof reponses[`reponse${i}R0`] !== 'undefined') {
+              for (let j = 0; j < context.listeObjetsExercice[0].autoCorrection[i].propositions.length; j++) {
+                if (document.getElementById(`checkEx0Q${i}R${j}`)) {
+                  document.getElementById(`checkEx0Q${i}R${j}`).checked = reponses[`reponse${i}R${j}`]
+                }
+              }
+            }
           }
         }
         let hauteurExercice = window.document.querySelector('section').scrollHeight
-        window.parent.postMessage({ hauteurExercice, serie: context.graine, iMoodle: new URLSearchParams(window.location.search).get('iMoodle') }, '*')
+        window.parent.postMessage({ hauteurExercice, serie: context.graine }, '*')
         // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
         setTimeout(() => {
           hauteurExercice = window.document.querySelector('section').scrollHeight
-          window.parent.postMessage({ hauteurExercice, serie: context.graine, iMoodle: new URLSearchParams(window.location.search).get('iMoodle') }, '*')
+          window.parent.postMessage({ hauteurExercice, serie: context.graine }, '*')
         }, 1000)
-        if (window.sessionStorage.getItem('isValide' + context.graine)) {
+        if (reponses) {
           const exercice = context.listeObjetsExercice[0]
           const bouton = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
           document.addEventListener('domExerciceInteractifReady', () => {
@@ -289,9 +303,15 @@ export async function initDom () {
           })
         }
       }
-      // Envoi des informations à Anki
       hauteurCorrection = window.document.body.scrollHeight
-      if (vue === 'verso' || vue === 'correctionMoodle') {
+      if (vue === 'correctionMoodle') {
+        if (document.getElementById('corrections')) {
+          const hauteurExerciceCorrection = window.document.body.scrollHeight + 20
+          window.parent.postMessage({ hauteurExerciceCorrection, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')) }, '*')
+        }
+      }
+      // Envoi des informations à Anki
+      if (vue === 'verso') {
         if (document.getElementById('corrections')) {
           const hauteurExerciceCorrection = window.document.body.scrollHeight + 20
           window.parent.postMessage({ hauteurExerciceCorrection }, '*')

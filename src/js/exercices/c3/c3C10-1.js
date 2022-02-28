@@ -9,7 +9,9 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Table
  *
  * @author Jean-Claude Lhote
  */
-export default function TablesDeMultiplicationsCM () {
-  TablesDeMultiplications.call(this)
-  this.sup2 = 1
+export default class TablesDeMultiplicationsCM extends TablesDeMultiplications {
+  constructor () {
+    super()
+    this.sup2 = 1
+  }
 }

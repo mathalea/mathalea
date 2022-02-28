@@ -275,32 +275,113 @@ function contenuExerciceHtml (obj, numeroExercice) {
   let contenuUneCorrection = ''
   let paramTooltip = ''
   let iconeInteractif = ''
-  if (obj.typeExercice === 'crpe') {
-    contenuUnExercice += ` Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`
+  // Pour factoriser les entrées des exos statiques
+  const factoExosStatiques = ['crpe', 'dnb', 'bac', 'e3c']
+  if (factoExosStatiques.includes(obj.typeExercice)) {
+    const crpe = {
+      titreEx: ` Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`,
+      titreExCorr: `<h3 class="ui dividing header">Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial} - Correction par la Copirelem</h3>`
+    }
+
+    // Deux fonctions pour factoriser les 3 constantes dnb, bac et e3c
+    function titreEx (type) {
+      return ` Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
+    }
+
+    function titreExCorr (type) {
+      return `<h3 class="ui dividing header">Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+    }
+    const dnb = {
+      titreEx: titreEx('DNB'),
+      titreExCorr: titreExCorr('DNB')
+    }
+
+    const bac = {
+      titreEx: titreEx('BAC'),
+      titreExCorr: titreExCorr('BAC')
+    }
+
+    const e3c = {
+      titreEx: titreEx('E3C'),
+      titreExCorr: titreExCorr('E3C')
+    }
+
+    switch (obj.typeExercice) {
+      case 'crpe':
+        contenuUnExercice += crpe.titreEx
+        break
+      case 'dnb':
+        contenuUnExercice += dnb.titreEx
+        break
+      case 'bac':
+        contenuUnExercice += bac.titreEx
+        break
+      case 'e3c':
+        contenuUnExercice += e3c.titreEx
+        break
+    }
+
     contenuUnExercice += '<div><div class="question">'
-    for (const png of obj.png) {
-      contenuUnExercice += `<img width="90%" src="${png}">`
+
+    switch (obj.typeExercice) {
+      case 'crpe': {
+        let i = 1
+        for (const png of obj.png) {
+          contenuUnExercice += `<img id="${obj.id}-${i}" width="90%" src="${png}">`
+          i++
+        }
+      }
+        break
+      case 'dnb':
+      case 'bac':
+      case 'e3c':
+        contenuUnExercice += `<img id="${obj.id}" width="90%" src="${obj.png}"></img>`
+        break
     }
     contenuUnExercice += '</div></div>'
-    contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${
-        obj.numeroInitial} - Correction par la Copirelem</h3>`
+
+    switch (obj.typeExercice) {
+      case 'crpe':
+        contenuUnExercice += crpe.titreExCorr
+        break
+      case 'dnb':
+        contenuUnExercice += dnb.titreExCorr
+        break
+      case 'bac':
+        contenuUnExercice += bac.titreExCorr
+        break
+      case 'e3c':
+        contenuUnExercice += e3c.titreExCorr
+        break
+    }
+
     if (obj.correctionIsCachee) {
-      contenuUneCorrection += obj.correctionIsCachee ? '<div><div class="correction">Correction masquée</div></div>' : `<div><div class="correction"><img width="90%" src="${obj.pngcor}"></div></div>`
+      contenuUneCorrection += '<div><div class="correction">Correction masquée</div></div>'
     } else {
       contenuUneCorrection += '<div><div class="correction">'
-      for (const png of obj.pngCor) {
-        contenuUneCorrection += `<img width="90%" src="${png}">`
+      switch (obj.typeExercice) {
+        case 'crpe': {
+          let i = 1
+          for (const png of obj.pngCor) {
+            contenuUneCorrection += `<img id="${obj.id}-${i}Cor" width="90%" src="${png}">`
+            i++
+          }
+        }
+          break
+        case 'dnb':
+        case 'bac':
+        case 'e3c':
+          contenuUneCorrection += `<img id="${obj.id}Cor" width="90%" src="${obj.pngcor}">`
+          break
       }
       contenuUneCorrection += '</div></div>'
     }
     obj.video = false
-  } else if (obj.typeExercice === 'dnb') {
-    contenuUnExercice += ` Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
-    contenuUnExercice += `<div><div class="question"><img width="90%" src="${obj.png}"></div></div>`
-    contenuUneCorrection += `<h3 class="ui dividing header">Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${
-        obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
-    contenuUneCorrection += obj.correctionIsCachee ? '<div><div class="correction">Correction masquée</div></div>' : `<div><div class="correction"><img width="90%" src="${obj.pngcor}"></div></div>`
-    obj.video = false
+    // Pour permettre l'ajout d'exos DNB/BAC/CRPE/E3C statiques et l'affichage de la correction dans la vue eval
+    if (obj.interactif || obj.interactifObligatoire) {
+      contenuUnExercice += `<button class="ui button blue checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
+      exerciceInteractif(obj)
+    }
   } else if (obj.typeExercice === 'simple') {
     if (obj.interactif) {
       iconeInteractif = `<span data-tooltip="Auto-correction en ligne"><i id="boutonInteractif${numeroExercice - 1}" data-num="${
@@ -437,7 +518,7 @@ function miseAJourDuCode () {
   // Appelée dès lors que l'on a une modification sur l'affichage d'un ou plusieurs exercices
   //    suppression d'un exercice, nouvelle donnée, changement de paramètre...)
   // C'est dans cette fonction que l'on va executer les this.nouvelleVersion des exercices.
-  setUrl()
+  setUrl('miseAjourDuCode')
   context.listeObjetsExercice = listeObjetsExercice
 
   // Active ou désactive l'icone de la course aux nombres
@@ -561,7 +642,7 @@ function miseAJourDuCode () {
         }
         if (listeObjetsExercice[i].video) {
           if (listeObjetsExercice[i].video.length > 1) {
-            // Pour dnb, video est à false, pour les exercices interactif, par défaut c'est ''
+            // Pour dnb,bac,e3c et crpe video est à false, pour les exercices interactif, par défaut c'est ''
             finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
           }
         }
@@ -610,8 +691,12 @@ function miseAJourDuCode () {
       }
       if (context.vue === 'exMoodle' || context.vue === 'correctionMoodle') {
         const iMoodle = new URLSearchParams(window.location.search).get('iMoodle')
-        if (typeof iMoodle !== 'undefined') {
+        if (iMoodle !== null) {
           finUrl += `&iMoodle=${iMoodle}`
+        }
+        const moodleJson = new URLSearchParams(window.location.search).get('moodleJson')
+        if (moodleJson !== null) {
+          finUrl += `&moodleJson=${moodleJson}`
         }
       }
       window.history.replaceState('', '', finUrl)
@@ -838,7 +923,7 @@ function miseAJourDuCode () {
         // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
         $('input[name=encoded_snip]').val(encodeURIComponent(contenuFichier))
-        if (listePackages.has('dnb')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB
+        if (listePackages.has('dnb') || listePackages.has('bac') || listePackages.has('e3c') || listePackages.has('crpe')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB, BAC ou CRPE
           $('input[name=engine]').val('xelatex')
         }
         if ($('#nom_du_fichier').val()) {
@@ -889,109 +974,19 @@ function miseAJourDuCode () {
         if (!listeObjetsExercice[i].correctionDetaillee && listeObjetsExercice[i].correctionDetailleeDisponible) {
           params += ',cd=0'
         }
-        params += ',i=1'
-        const mathAleaURL = location.origin + location.pathname
-        const urlIframe = `${mathAleaURL}?ex=${id},${params}&v=exMoodle&z=1`
-        const urlIframeCor = `${mathAleaURL}?ex=${id},${params}&v=correctionMoodle&z=1`
+        // params += ',i=1'
+        const mathAleaURL = new URL('.', location.href).href
 
-        /*
-          Quelques remarques :
-          - L'extension 'es6-string-javascript' permet d'obtenir la coloration syntaxique de code JS
-          - Le script est un module qui est donc chargé après que le document est parsé, il peut donc accéder à des nodes après la balise script
-        */
-
-        const moodleInitialisationFunction = /* javascript */ `
-        if(typeof window.iMathAlea === 'undefined') {
-
-        window.iMathAlea = [];
-
-        window.addEventListener('message', (event) => {
-          if(typeof event.data.iMoodle === 'number' && typeof window.iMathAlea[event.data.iMoodle] !== 'undefined') {
-            const iframe = window.iMathAlea[event.data.iMoodle];
-            let hauteur = event.data.hauteurExercice;
-            if (typeof hauteur !== 'undefined') {
-              hauteur += 50;
-              iframe.height = hauteur.toString();
-            }
-            if (event.data.score !== undefined) {
-              iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score;
-              iframe.parentNode.parentNode.querySelector('[name$="_-submit"]').click();
-            }
-          }
-        });
-
-        style = document.createElement('style');
-        style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls { display: none; }';
-        document.head.appendChild(style);
-        }`
-
-        const moodleSearchSeed = /* javascript */ `
-        // On remonte de parent en parent depuis la balise script jusqu'à trouver le div avec le numero de la question en id
-        searchSeed = document.currentScript;
-        while(searchSeed !== null) { // s'arrêtera lorsqu'il n'y aura plus de parents
-          if(typeof searchSeed.id === 'string' && searchSeed.id.startsWith('question-')) {
-            searchSeed = searchSeed.id;
-            break; // la seed a été trouvée
-          }
-          searchSeed = searchSeed.parentNode;
-        }
-        `
-
-        const moodleCreateIframe = function (url) {
-          return /* javascript */ `
-          iframe = document.createElement('iframe');
-          iframe.setAttribute('width', '100%');
-          iframe.setAttribute('height', '400');
-          iframe.setAttribute('src', '${url}' + '&iMoodle=' + window.iMathAlea.length + '&serie=' + searchSeed);
-          iframe.setAttribute('frameBorder', '0');
-          iframe.setAttribute('allow', 'fullscreen');
-          document.currentScript.parentNode.insertBefore(iframe, document.currentScript);
-
-          window.iMathAlea.push(iframe);
-          `
-        }
-
-        codeMoodle += `<question type="shortanswer">
-<name>
-  <text>${id} - ${titre} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'},${params}</text>
-</name>
-  <questiontext format="html">
-    <text><![CDATA[
-<script>` + /* javascript */`
-  
-  ${moodleInitialisationFunction}
-  ${moodleSearchSeed}
-  ${moodleCreateIframe(urlIframe)}
-    
-  document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
-  ` + `
-</script>
-      `
-        codeMoodle += `]]></text>
-  </questiontext>`
-        codeMoodle += '\n'
-        // Moodle n'accepte que certains scores
-        const scoreAcceptes = [100, 90, 80, 75, 66.666, 60, 50, 40, 33.333, 30, 25, 20, 16.666, 14.2857, 12.5, 11.111, 10, 5, 0]
-        for (const score of scoreAcceptes) {
-          codeMoodle += `  <answer fraction="${score}">
-      <text>${score}</text>
-        <feedback><text> </text></feedback>
-    </answer>`
-        }
-        codeMoodle += `\n<defaultgrade>${nbQuestions * pointsParQuestions}</defaultgrade>`
-        codeMoodle += `\n<generalfeedback>\n<text><![CDATA[
-          <h4>Correction :</h4>          
-  <script>` + /* javascript */ `
-    ${moodleInitialisationFunction}
-    ${moodleSearchSeed}
-    ${moodleCreateIframe(urlIframeCor)}    
-    document.currentScript.parentNode.parentNode.classList.add('mathalea-question-type');
-  ` + `
-  </script> 
-          
-        ]]>\n</text>\n</generalfeedback>`
-        codeMoodle += '\n</question>'
-        codeMoodle += '\n\n'
+        codeMoodle += `
+:: ${id.replace(/[~=#{}:]/g, '\\$&')} - ${titre.replace(/[~=#{}:]/g, '\\$&')} - ${nbQuestions} ${nbQuestions > 1 ? 'questions' : 'question'},${params.replace(/[~=#{}:]/g, '\\$&')} ::
+<script src\\="${mathAleaURL.replace(/[~=#{}:]/g, '\\$&')}assets/externalJs/moodle.js" type\\="module"></script>
+<mathalea-moodle ex\\="${id.replace(/[~=#{}:]/g, '\\$&')},${params.replace(/[~=#{}:]/g, '\\$&')}" />
+{
+  =%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*
+  #### <script src\\="${mathAleaURL.replace(/[~=#{}:]/g, '\\$&')}assets/externalJs/moodle.js" type\\="module"></script>
+  <mathalea-moodle ex\\="${id.replace(/[~=#{}:]/g, '\\$&')},${params.replace(/[~=#{}:]/g, '\\$&')}" correction />
+}
+`
       }
       $('#message_liste_exercice_vide').hide()
       copierExercicesFormVersAffichage(listeDesExercices)
@@ -1020,15 +1015,13 @@ function miseAJourDuCode () {
       .off('click')
       .on('click', function () {
         // Gestion du style pour l'entête du fichier
-        let contenuFichier = '<?xml version="1.0" ?> <quiz>'
-        contenuFichier += '\n' + codeMoodle
-        contenuFichier += '\n\n</quiz>'
-        contenuFichier += `<!--Document généré avec MathALEA sous licence CC-BY-SA \n\t${window.location.href}\n-->\n\n`
+        let contenuFichier = codeMoodle
+        contenuFichier += `\n// Document généré avec MathALEA sous licence CC-BY-SA \n // ${window.location.href}`
 
         if ($('#nom_du_fichier').val()) {
-          telechargeFichier(contenuFichier, $('#nom_du_fichier').val() + '.xml')
+          telechargeFichier(contenuFichier, $('#nom_du_fichier').val() + '.txt')
         } else {
-          telechargeFichier(contenuFichier, 'mathalea.xml')
+          telechargeFichier(contenuFichier, 'mathalea.txt')
         }
       })
   }
@@ -1044,8 +1037,21 @@ function miseAJourDuCode () {
     if (listeExercicesLength > 0) {
       for (let i = 0; i < listeExercicesLength; i++) {
         listeObjetsExercice[i].id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
-        if (listeObjetsExercice[i].typeExercice === 'dnb' || listeObjetsExercice[i].typeExercice === 'crpe') {
-          listePackages.add('dnb')
+        if (listeObjetsExercice[i].typeExercice === 'dnb' || listeObjetsExercice[i].typeExercice === 'bac' || listeObjetsExercice[i].typeExercice === 'e3c' || listeObjetsExercice[i].typeExercice === 'crpe') {
+          switch (listeObjetsExercice[i].typeExercice) {
+            case 'dnb':
+              listePackages.add('dnb')
+              break
+            case 'bac':
+              listePackages.add('bac')
+              break
+            case 'e3c':
+              listePackages.add('e3c')
+              break
+            case 'crpe':
+              listePackages.add('crpe')
+              break
+          }
           codeEnonces += '\n\n\\exo{}\n\n'
           codeEnonces += listeObjetsExercice[i].contenu
           codeEnonces += '\n\n'
@@ -1128,8 +1134,18 @@ function miseAJourDuCode () {
             codeCorrection += '\n\n'
           } else {
             for (let i = 0; i < listeDesExercices.length; i++) {
-              if (listeObjetsExercice[i].typeExercice === 'dnb') {
-                listePackages.add('dnb')
+              if (listeObjetsExercice[i].typeExercice === 'dnb' || listeObjetsExercice[i].typeExercice === 'bac' || listeObjetsExercice[i].typeExercice === 'e3c') {
+                switch (listeObjetsExercice[i].typeExercice) {
+                  case 'dnb':
+                    listePackages.add('dnb')
+                    break
+                  case 'bac':
+                    listePackages.add('bac')
+                    break
+                  case 'e3c':
+                    listePackages.add('e3c')
+                    break
+                }
                 codeExercices += '\n\n\\exo{}\n\n'
                 codeExercices += listeObjetsExercice[i].contenu
                 codeExercices += '\n\n'
@@ -1256,7 +1272,7 @@ function miseAJourDuCode () {
         // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
         $('input[name=encoded_snip]').val(encodeURIComponent(contenuFichier))
-        if (listePackages.has('dnb')) {
+        if (listePackages.has('dnb') || listePackages.add('bac') || listePackages.add('e3c')) {
           // Force le passage à xelatex sur Overleaf pour les exercices de DNB
           $('input[name=engine]').val('xelatex')
         }
@@ -1404,7 +1420,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
         throw getUnknownError(id)
       }
 
-      if (dictionnaireDesExercices[id].typeExercice === 'dnb') {
+      if (dictionnaireDesExercices[id].typeExercice === 'dnb' || dictionnaireDesExercices[id].typeExercice === 'bac' || dictionnaireDesExercices[id].typeExercice === 'e3c') {
         listeObjetsExercice[i] = dictionnaireDesExercices[id]
         promises.push(
           window.fetch(url)
@@ -1432,7 +1448,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
         listeObjetsExercice[i].contenuCorrection = 'Exercice non disponible en version LaTeX'
       } else {
         // avec webpack on ne peut pas faire de import(url), car il faut lui indiquer quels fichiers sont susceptibles d'être chargés
-        // ici il ne peut s'agir que de js contenus dans exercices (dnb déjà traité dans le if au dessus)
+        // ici il ne peut s'agir que de js contenus dans exercices (dnb,bac,e3c,crpe déjà traité dans le if au dessus)
         const chunks = /^\/exercices\/(.*)/.exec(url)
         if (!chunks) throw UserFriendlyError(`url invalide : ${url}`)
         const path = chunks[1]
@@ -3327,7 +3343,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const buttonDiap = document.getElementById('buttonDiap')
   if (buttonDiap !== null) {
     buttonDiap.addEventListener('click', () => {
-      goTabVue('diap')
+      // On s'assure qu'il y ait des questions avant de lancer un diaporama
+      if (context.listeObjetsExercice && context.listeObjetsExercice.length > 0) goTabVue('diap')
     })
   }
   const btnPleinEcran = document.getElementById('buttonFullScreen')
@@ -3473,7 +3490,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         for (const lien of mesLiens) {
           lien.href = replaceQueryParam('duree', context.duree, lien.href)
         }
-        setUrl()
+        setUrl('inputTimer.addEventListener()')
       })
       $('.ui.button.toggle').state() // initialise le bouton
       $('#ModalEmbed').modal('show')

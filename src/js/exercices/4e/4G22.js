@@ -184,7 +184,7 @@ export default function ProblemesPythagore () {
             }=${A + C}\\div2=${texNombre(2 * a)}\\div2=${texNombre(
               a
             )}$ cm.<br>`
-          texteCorr += `On sait que les diagonales d'un losange se coupent perpendiculairement donc $${A + O + C
+          texteCorr += `On sait que les diagonales d'un losange se coupent perpendiculairement donc $${A + O + B
             }$ est un triangle rectangle en $O$.<br>`
           texteCorr += `D'après le théorème de Pythagore, on a : $${A + O}^2+${O + B
             }^2=${A + B}^2$.<br>`

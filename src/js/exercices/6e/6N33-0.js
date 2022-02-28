@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, pgcd, calcul, texNombrec, texNombre, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, pgcd, calcul, texNombrec, texFraction, stringNombre } from '../../modules/outils.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Calculer la fraction d’une quantité'
@@ -115,7 +115,7 @@ export default function FractionDuneQuantite () {
           texte += 'Calculer la longueur de chacun des morceaux en mètres.<br>'
           if (this.sup2) {
             texte += 'Ce bâton est représenté ci dessous :<br>'
-            texte += mathalea2d({ xmin: -0.5, ymin: 0, xmax: 10, ymax: 2 }, frac.representationIrred(0, 1, 8, 0, 'segment', 'blue', '0', `${texNombre(calcul(longueur / 100))}`))
+            texte += mathalea2d({ xmin: -0.5, ymin: 0, xmax: 10, ymax: 2 }, frac.representationIrred(0, 1, 8, 0, 'segment', 'blue', '0', `${stringNombre(calcul(longueur / 100))}`))
           }
           texteCorr = `$${texFraction(1, denIrred)}$ de $${texNombrec(longueur / 100)}$ représente $${texNombrec(longueur / 100)} \\div ${denIrred} = ${texNombrec(longueur / 100 / denIrred)}$.<br>`
           texteCorr += `Le premier morceau du bâton correspondant à $${frac.texFractionSimplifiee}$ du bâton mesure : $${numIrred} \\times ${texNombrec(longueur / 100 / denIrred)}=${texNombrec(numIrred * longueur / 100 / denIrred)}$ m.<br>`

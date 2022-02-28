@@ -149,6 +149,43 @@ Et pour les nombres décimaux :
 
 ### Décimaux versus binaire : gérer les erreurs <a id="subsection1-3"></a>
 
+En ce qui concerne la représentation des décimaux en Float : à partir du moment où l'on sait comment cela fonctionne et quels sont nos besoins, ça ne devrait pas poser un problème.
+
+Par exemple :  `(0.2+0.1-0.3)*10**18`  vaut environ `55.5` pour Vanilla JS.
+
+Je ne discuterai pas de l'utilité d'un tel calcul, mais l'expérience montre qu'on arrive régulièrement à ce genre de situations désagréables.
+
+En configurant mathjs on peut passer outre ce problème :
+
+```Javascript
+emath = math.create(math.all)
+emath.config({number: 'BigNumber'})
+a = parseFloat(emath.evaluate('(0.2+0.1-0.3)*10^18')) 
+// a = 0 
+```
+
+Autres exemples :
+
+```Javascript
+b =  parseFloat(emath.evaluate('cos(pi/3)'))
+// b = 0.5
+ test =  emath.evaluate('cos(pi/3)==1/2') 
+// test = true
+```
+
+Par comparaison :
+
+```Javascript
+c = Math.cos(Math.PI/3)
+// c = 0.5000000000000001
+test = Math.cos(Math.PI/3) === 1/2
+// test = false
+```
+
+L'avantage c'est qu'on n'est pas obligé tout du long de la chaîne de nos calculs de vérifier qu'il n'y a pas eu de problèmes.
+On perd en performance de calculs machine mais on assure les arrières par rapport au traitement des décimaux.
+Il y aura toujours des problèmes mais moindre qu'avec VanillaJS.
+
 Voici deux exemples qui montrent les problèmes liés aux conversions en `float` en Javascript :
 
 ```Javascript
@@ -160,7 +197,7 @@ Voici deux exemples qui montrent les problèmes liés aux conversions en `float`
 ```
 
 Imaginons que nous souhaitions afficher la somme de deux nombres décimaux pris au hasrad compris entre 0 et 1 à un seul chiffre significatif.
-Voici une utilisation possible :
+Voici une utilisation possible de la fonction `aleaVariable()` de `/modules/outilsMathjs`, elle tente dautomatiser l'utilisation de Mathjs :
 
 ```Javascript
 
