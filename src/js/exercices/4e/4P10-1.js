@@ -68,7 +68,7 @@ export default function GraphiquesEtProportionnalite2 () {
         r = repere({
           xmin: 0,
           ymin: 0,
-          ymax: situation.qte_max * situation.prix_unitaire + 2,
+          ymax: Math.floor((situation.qte_max * situation.prix_unitaire + yscale) / yscale) * yscale,
           xmax: situation.qte_max,
           xscale: xscale,
           yscale: yscale,
@@ -76,7 +76,7 @@ export default function GraphiquesEtProportionnalite2 () {
           legendeY: situation.legendeY,
           grilleSecondaireVisible: true,
           grilleSecondaireDistance: stepAxeSecondaire, // 0.2,
-          positionLegendeY: [0.3, situation.qte_max * situation.prix_unitaire + 1 + 0.4]
+          positionLegendeY: [0.3, Math.floor((situation.qte_max * situation.prix_unitaire + yscale) / yscale) * yscale + 0.4 * yscale]
         })
       ]
       const f = x => calcul(situation.prix_unitaire * x)
@@ -85,9 +85,9 @@ export default function GraphiquesEtProportionnalite2 () {
       const fig = mathalea2d(
         {
           xmin: -xscale,
-          ymin: -yscale,
+          ymin: -0.5,
           xmax: situation.qte_max / xscale + 3,
-          ymax: situation.qte_max * situation.prix_unitaire + 2,
+          ymax: (situation.qte_max * situation.prix_unitaire + yscale) / yscale + 1,
           pixelsParCm: 40
         },
         mesAppels
@@ -132,9 +132,9 @@ export default function GraphiquesEtProportionnalite2 () {
       const figureCorr = mathalea2d(
         {
           xmin: -xscale,
-          ymin: -yscale,
+          ymin: -0.5,
           xmax: situation.qte_max / xscale + 3,
-          ymax: situation.qte_max * situation.prix_unitaire + 2,
+          ymax: (situation.qte_max * situation.prix_unitaire + 4) / yscale + 1,
           pixelsParCm: 40
         },
         mesAppelsCorr
@@ -150,7 +150,7 @@ export default function GraphiquesEtProportionnalite2 () {
         enonce: `
           À ${situation.lieu}, ${situation.prenom} utilise le graphique ci-dessous pour indiquer le prix de ses ${situation.articles} en fonction du ${situation.qte} ${situation.art_articles}.
           <br>${situation.fig}
-          <br> ${numAlpha(k++)} Justifier que c'est une situation de proportionnalité à l'aide du graphique.
+          ${numAlpha(k++)} Justifier que c'est une situation de proportionnalité à l'aide du graphique.
           <br> ${numAlpha(k++)} Quel est le prix de $${situation.qte_max}$ ${situation.unite}  ${situation.articles}?
           <br> ${numAlpha(k++)} Quel est le prix de $${situation.qte2}$ ${situation.unite}  ${situation.articles}?
           `,

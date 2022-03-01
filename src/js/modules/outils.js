@@ -2498,8 +2498,7 @@ export function numberFormat (nb) {
 * Renvoie un nombre dans le format français (séparateur de classes)
 * @author Rémi Angot
 */
-export function texNombre (nb, precision = 12) {
-  // Ecrit \numprint{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces en latex)
+export function texNombre (nb, precision = 8) {
   // Ajoute des accolades autour de la virgule {,} pour supprimer l'espace "disgracieux" qui le suit dans l'écriture décimale des nombres sinon.
   // arrondit pour avoir precision chiffres après la virgule si possible
   const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
@@ -2509,10 +2508,10 @@ export function texNombre (nb, precision = 12) {
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
   let result
   try {
-    result = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb).replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+    result = Number(nb).toLocaleString({ locales: 'fr-FR', maximumSignificantDigits }).replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
   } catch (error) {
     console.log(error)
-    result = 'Too much decimals'
+    result = 'Trop de chiffres'
   }
   return result
 }
@@ -2756,7 +2755,7 @@ export function texteEnCouleur (texte, couleur = '#f15929') {
 }
 
 /**
-* Met en couleur et gras un texte. JCL dit : "Ne fonctionne qu'en dehors de $....$"
+* Met en couleur et gras un texte. JCL dit : "Ne fonctionne qu'en dehors de $....$". Utiliser miseEnEvidence si $....$.
 * @param {string} texte à mettre en couleur
 * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
 * @author Rémi Angot
@@ -7703,7 +7702,8 @@ export function exportQcmAmc (exercice, idExo) {
         }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
-        reponse = valeurAMCNum
+        texQr += '\\begin{minipage}[b]{0.05 \\linewidth}\\hspace{6pt}\\end{minipage}'
+        reponse = autoCorrection[j].reponse.valeur[0]
         if (autoCorrection[j].reponse.param.digits === 0) {
           nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
           autoCorrection[j].reponse.param.decimals = nbChiffresPd
@@ -7717,7 +7717,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
         texQr += `${autoCorrection[j].reponse.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
-        texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
+        texQr += `\\AMCnumericChoices{${reponse}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
           texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
         }

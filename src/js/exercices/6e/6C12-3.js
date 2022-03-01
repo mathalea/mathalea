@@ -5,7 +5,7 @@ import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC
 export const interactifReady = true
-export const interactifType = ['qcm']
+export const interactifType = 'qcm'
 
 export const titre = 'Trouver les informations utiles ou inutiles pour résoudre des problèmes'
 
