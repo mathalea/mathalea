@@ -5263,11 +5263,7 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
     } else {
       angle = 180 - s.angleAvecHorizontale
     }
-    if (this.texte.charAt(0) === '$') {
-      return latexParPoint(this.texte.substr(1, this.texte.length - 2), N, this.color, this.texte * 8, 12, '').svg(coeff)
-    } else {
-      return texteParPoint(this.texte, N, angle, this.color).svg(coeff)
-    }
+    return texteParPoint(this.texte, N, angle, this.color, 1, 'middle', true).svg(coeff)
   }
   this.tikz = function () {
     const N = pointSurSegment(O, M, this.distance / context.scale)
@@ -5276,7 +5272,7 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
     } else {
       angle = 180 - s.angleAvecHorizontale
     }
-    return texteParPoint(this.texte, N, angle, this.color).tikz()
+    return texteParPoint(this.texte, N, angle, this.color, 1, 'middle', true).tikz()
   }
 }
 /**
