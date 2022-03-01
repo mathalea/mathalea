@@ -1433,8 +1433,8 @@ L'aire du carré est donc $${AireEFGH.format()}$
           const calculBC = calculer('c*(x)+d'.replace('x', resolution.solution.exact), { name: BC.name, suppr1: false, substeps: this.sup2 !== 1, variables: variables })
           const calculAire = calculer(`${calculAB.result}*${calculBC.result}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.sup2 !== 1, variables: variables })
           let solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
-          const environ = solutionDecimale === parseFloat(solutionDecimale.toFixed(2)) ? '' : 'environ'
-          solutionDecimale = solutionDecimale.toFixed(2)
+          const environ = solutionDecimale === math.round(solutionDecimale, 2) ? '' : 'environ'
+          solutionDecimale = math.round(solutionDecimale, 2)
           exercice.texte = `$${ABCD.name}$ est un rectangle tel que $ {${AB.name}=${toTex(exprAB)}}$ et $ {${BC.name}=${toTex(exprBC)}}$.
 
 Son périmètre mesure $${p}~cm$.
@@ -1514,8 +1514,8 @@ Donc l'aire du rectangle $${ABCD.name}$ est ${environ} $${toTex(solutionDecimale
           const resolution2 = resoudre(`${p} = 2*${calculAB.result} + 2*${BC.name}`, { suppr1: false, substeps: this.sup2 !== 1 })
           const calculAire = calculer(`${calculAB.result}*${resolution2.solution.exact}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.sup2 !== 1, variables: variables })
           let solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
-          const environ = solutionDecimale === parseFloat(solutionDecimale.toFixed(2)) ? '' : 'environ'
-          solutionDecimale = solutionDecimale.toFixed(2)
+          const environ = solutionDecimale === math.round(solutionDecimale, 2) ? '' : 'environ'
+          solutionDecimale = math.round(solutionDecimale, 2)
           exercice.texte = `$${ABCD.name}$ est un rectangle tel que $ {${AB.name}=${toTex(exprAB)}}$ et $ {${CD.name}=${toTex(exprCD)}}$.
 
 Son périmètre mesure $${p}~cm$.
