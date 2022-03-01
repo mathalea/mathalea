@@ -6196,7 +6196,7 @@ function LabelX (
           .toString(),
         point(x, pos),
         'milieu',
-        color
+        color, 1, 'middle', true
       )
     )
   }
@@ -6249,7 +6249,7 @@ function LabelY (
         y.mul(coeff),
         point(pos, y),
         'gauche',
-        color
+        color, 1, 'middle', true
       )
     )
   }
@@ -6829,13 +6829,13 @@ function Repere ({
       legendeX,
       calcul(positionLegendeX[0] / xscale),
       calcul(positionLegendeX[1] / yscale),
-      'droite'
+      'droite', 'black', 1, 'middle', true
     ).svg(coeff)
     code += texteParPosition(
       legendeY,
       calcul(positionLegendeY[0] / xscale),
       calcul(positionLegendeY[1] / yscale),
-      'droite'
+      'droite', 'black', 1, 'middle', true
     ).svg(coeff)
     return code
   }
@@ -6965,13 +6965,13 @@ function Repere ({
       legendeX,
       calcul(positionLegendeX[0] / xscale),
       calcul(positionLegendeX[1] / yscale),
-      'droite'
+      'droite', 'black', 1, 'middle', true
     ).tikz()
     code += texteParPosition(
       legendeY,
       calcul(positionLegendeY[0] / xscale),
       calcul(positionLegendeY[1] / yscale),
-      'droite'
+      'droite', 'black', 1, 'middle', true, true
     ).tikz()
     return code
   }
@@ -7128,7 +7128,7 @@ function Repere2 ({
     xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
   }
   for (const x of xLabelListe) {
-    const l = texteParPosition(`$${texNombre(x)}$`, calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5, 'milieu', 'black', 1, 'middle', false)
+    const l = texteParPosition(`${texNombre(x)}`, calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5, 'milieu', 'black', 1, 'middle', true)
     l.isVisible = false
     objets.push(l)
   }
@@ -7137,7 +7137,7 @@ function Repere2 ({
     yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
   }
   for (const y of yLabelListe) {
-    const l = texteParPosition(`$${texNombre(y)}$`, calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', false)
+    const l = texteParPosition(`${texNombre(y)}`, calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', true)
     l.isVisible = false
     objets.push(l)
   }
@@ -9153,7 +9153,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   if (texte.charAt(0) === '$') {
     A.positionLabel = 'centre'
     this.svg = function (coeff) {
-      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '').svg(coeff)
+      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '', 6).svg(coeff)
     }
     this.tikz = function () {
       let code = ''
