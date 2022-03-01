@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, sp } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Encadrer avec des puissances de 10'
@@ -94,8 +95,8 @@ export default function PuissancesEncadrement () {
           val: `${texNombre(signe * randint(10 ** i + 1, 10 ** (i + 1) - 1))}`,
           puissance_inf: signe === 1 ? `10^{${i}}` : `-10^{${i + 1}}`,
           puissance_sup: signe === 1 ? `10^{${i + 1}}` : `-10^{${i}}`,
-          puissance_inf_num: signe === 1 ? `${texNombre(10 ** i)}` : `$${texNombre(-1 * 10 ** (i + 1))}`,
-          puissance_sup_num: signe === 1 ? `${texNombre(10 ** (i + 1))}` : `$${texNombre(-1 * 10 ** i)}`
+          puissance_inf_num: signe === 1 ? `${texNombre(10 ** i)}` : `${texNombre(-1 * 10 ** (i + 1))}`,
+          puissance_sup_num: signe === 1 ? `${texNombre(10 ** (i + 1))}` : `${texNombre(-1 * 10 ** i)}`
         })
         nombreEntier.push(signe * randint(10 ** i + 1, 10 ** (i + 1)))
       }

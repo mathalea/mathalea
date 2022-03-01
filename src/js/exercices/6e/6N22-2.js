@@ -1,13 +1,20 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, nombreDeChiffresDe } from '../../modules/outils.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import FractionX from '../../modules/FractionEtendue.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Mettre bout à bout des segments'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 /**
  * Représenter une somme de fractions de même dénominateur sur un segment gradué de façon adaptée.
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote (AMC par EE)
  * 6N14-2
  * Relecture : Novembre 2021 par EE
  */
@@ -43,8 +50,12 @@ export default function AjouterDesFractionsDunite () {
       num[3] = randint(1, den - 1, [num[2], num[0]])
       for (let j = 0; j < 4; j++) { f[j] = fraction(num[j], den) }
 
-      texte = `On place bout à bout 4 segments de longueurs respectives$ ${f[0].texFraction}$, $${f[1].texFraction}$, $${f[2].texFraction}$ et $${f[3].texFraction}$.<br>`
+      texte = `On place bout à bout 4 segments de longueurs respectives $${f[0].texFraction}$, $${f[1].texFraction}$, $${f[2].texFraction}$ et $${f[3].texFraction}$.<br>`
       texte += 'Quelle est la longueur du segment obtenu ?'
+      setReponse(this, i, new FractionX(num[0] + num[1] + num[2] + num[3], den), { digitsNum: nombreDeChiffresDe(num[0] + num[1] + num[2] + num[3]) + randint(0, 1), digitsDen: nombreDeChiffresDe(den) + randint(0, 1), signe: false, formatInteractif: 'fractionEgale' })
+      if (this.interactif && !context.isAmc) {
+        texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25')
+      }
       texteCorr = 'Voici sur ces dessins, coloriés en rouge, les différents segments :<br>'
       for (let j = 0; j < 4; j++) { objets.push(f[j].representation(0, 5 - j * 1.25, 5, 0, 'segment', 'red', 0, 1, 1)) }
       params = {

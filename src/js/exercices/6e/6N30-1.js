@@ -1,14 +1,16 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, choice, htmlConsigne, lettreDepuisChiffre, combinaisonListes, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { calcul, arrondi, htmlConsigne, lettreDepuisChiffre, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, contraindreValeur } from '../../modules/outils.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
 
-export const titre = 'Lire l’abscisse décimale d’un point repéré par une fraction'
+export const titre = 'Lire l’abscisse décimale d’un point (niveau 2)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
+export const dateDeModificationImportante = '01/02/2022'
 
 /**
  * Exercice calqué sur lire abscisse fractionnaire sauf que le résultat attendu est en écriture décimale.
@@ -25,28 +27,32 @@ export default function LireAbscisseDecimaleBis2d () {
   this.nbColsCorr = 1
   this.spacing = 1
   this.spacingCorr = 1
-  this.sup = 1
+  this.sup = '1-2-3-4-5-6'
   this.interactif = false
+  this.niveau = 6
 
   this.nouvelleVersion = function (numeroExercice) {
     // numeroExercice est 0 pour l'exercice 1
-    this.sup = parseInt(this.sup)
-    let typesDeQuestions
+    let QuestionsDisponibles
+    if (!this.sup) { // Si aucune liste n'est saisie
+      QuestionsDisponibles = [1, 2, 3, 4, 5, 6]
+    } else {
+      if (this.sup instanceof Number) { // Si c'est un nombre c'est qu'il y a qu'un type de question
+        QuestionsDisponibles = Array(this.nbQuestion).fill(parseInt(this.sup))
+      } else {
+        QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          QuestionsDisponibles[i] = contraindreValeur(1, 6, parseInt(QuestionsDisponibles[i])) // parseInt en fait un entiers
+        }
+      }
+    }
+
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (this.sup === 5) {
-      typesDeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
-    } else if (this.sup === 6) {
-      typesDeQuestions = combinaisonListes([1, 2, 3, 4, 5], this.nbQuestions)
-    } else {
-      typesDeQuestions = combinaisonListes(
-        [this.sup],
-        this.nbQuestions
-      )
-    }
+    const typesDeQuestions = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
     const d = []
     this.contenu = htmlConsigne(this.consigne)
     for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, xA, xB, xC, pas1, pas2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -57,31 +63,36 @@ export default function LireAbscisseDecimaleBis2d () {
         this.autoCorrection[i] = { propositions: [{ statut: 4, feedback: '' }] }
       }
       switch (typesDeQuestions[i]) {
-        case 3: // Placer des demis ou des quarts sur un axe
-          abs0 = this.sup > 5 ? randint(-4, 4) : 0
+        case 3:
+          abs0 = this.niveau === 2 ? randint(-8, 8) : randint(0, 5)
           pas1 = 1
-          pas2 = choice([2, 4])
+          pas2 = 2
+          break
+        case 4: // Placer des quarts sur un axe
+          abs0 = this.niveau === 2 ? randint(-8, 8) : randint(0, 5)
+          pas1 = 1
+          pas2 = 4
           break
 
-        case 4: // Placer des cinquièmes
-          abs0 = this.sup > 5 ? randint(-4, 4) : 0
+        case 5: // Placer des cinquièmes
+          abs0 = this.niveau === 2 ? randint(-8, 8) : randint(0, 5)
           pas1 = 1
           pas2 = 5
           break
 
-        case 5: // Placer des huitièmes
-          abs0 = this.sup > 5 ? randint(-4, 4) : 0
+        case 6: // Placer des huitièmes
+          abs0 = this.niveau === 2 ? randint(-8, 8) : randint(0, 5)
           pas1 = 1
           pas2 = 8
           break
 
-        case 1: // Placer des dixièmes
-          abs0 = this.sup > 5 ? randint(-4, 4) : randint(1, 5)
+        case 1: // Placer des
+          abs0 = this.niveau === 2 ? randint(-8, 8) : randint(0, 5)
           pas1 = 1
           pas2 = 10
           break
         case 2: // Placer des centièmes
-          abs0 = this.sup > 5 ? calcul(randint(-40, 40) / 10) : calcul(randint(10, 50) / 10)
+          abs0 = this.niveau === 2 ? arrondi(randint(-80, 80) / 10, 1) : arrondi(randint(0, 50) / 10, 1)
           pas1 = 10
           pas2 = 10
           break
@@ -106,7 +117,7 @@ export default function LireAbscisseDecimaleBis2d () {
         labelsPrincipaux: false,
         thickSec: true,
         thickSecDist: 1 / pas2,
-        labelListe: [[0, `${texNombre(abs0)}`], [1, `${texNombre(calcul(abs0 + 1 / pas1))}`]],
+        labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + 1 / pas1))}`]],
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
       })
       d[2 * i + 1] = droiteGraduee2({
@@ -120,10 +131,10 @@ export default function LireAbscisseDecimaleBis2d () {
         thickSec: true,
         thickSecDist: 1 / pas2,
         labelListe: [
-          [0, `${texNombre(abs0)}`],
-          [xA, texNombre(calcul(xA / pas1 + abs0))],
-          [xB, texNombre(calcul(xB / pas1 + abs0))],
-          [xC, texNombre(calcul(xC / pas1 + abs0))]
+          [0, `${stringNombre(abs0)}`],
+          [xA, stringNombre(calcul(xA / pas1 + abs0))],
+          [xB, stringNombre(calcul(xB / pas1 + abs0))],
+          [xC, stringNombre(calcul(xC / pas1 + abs0))]
         ],
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
 
@@ -155,9 +166,8 @@ export default function LireAbscisseDecimaleBis2d () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    5,
-    '1 : Dixièmes\n2 : Centièmes\n3 : Demis et quarts\n4 : Cinquièmes\n5 : Mélange'
+  this.besoinFormulaireTexte = [
+    'Choix des subdivisions',
+    'Nombres séparés par des tirets\n1 : dixièmes\n2 : Centièmes\n3 : Demis\n4 : Quarts\n5 : cinquièmes\n6 : huitièmes'
   ]
 }

@@ -1,7 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, calcul, texNombrec, texNombre, texFraction } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import Grandeur from '../../modules/Grandeur.js'
 
 export const titre = 'Calculer le volume de solides donnés'
@@ -294,8 +296,10 @@ export default function CalculDeVolumes () {
       if (this.interactif && this.interactifType === 'qcm') {
         texte += propositionsQcm(this, i).texte
       } else {
-        setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'longueur' })
-        texte += ajouteChampTexteMathLive(this, i, 'longueur')
+        if (!context.isAmc) {
+          setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'longueur' })
+          texte += ajouteChampTexteMathLive(this, i, 'longueur')
+        }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
@@ -313,5 +317,5 @@ export default function CalculDeVolumes () {
     '1 : Sans conversion\n2 : Avec des conversions'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
-  if (context.isHtml && !context.isDiaporama) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+  if (context.isHtml) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
 }

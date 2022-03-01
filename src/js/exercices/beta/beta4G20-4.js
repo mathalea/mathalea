@@ -14,7 +14,6 @@ export default function CalculerUneExpressionLitteralePythagore () {
   this.nbQuestions = 2
   this.nbCols = 3
   this.nbColsCorr = 2
-  this.tailleDiaporama = 50
   this.video = ''
 
   this.nouvelleVersion = function () {

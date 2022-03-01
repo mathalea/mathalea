@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, range, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences, contraindreValeur } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
 export const interactifReady = true
@@ -218,6 +218,7 @@ export default function ProportionnalitePasProportionnalite () {
           texteCorr += ` et ${prenoms[1]} parcourt ${y} m en ${p} minutes soit environ $\\dfrac{${y}\\text{ m}}{${p}\\text{ min}} ${arrondi(index2, 1) === index2 ? '=' : '\\approx'} ${texNombrec(arrondi(index2, 1))}\\text{ m}/_{\\text{ min}}$.<br>`
           if (index1 === index2) {
             texteCorr += 'Pour ces deux élèves, le temps mis et la distance parcourue sont proportionnelles (si l\'on compare leur vitesse moyenne).'
+            bonneReponse = 'oui'
           } else {
             texteCorr += 'La distance parcourue en une minute (vitesse moyenne) n\'est pas la même dans ces deux situations, il n\'y a donc pas proportionnalité.<br>'
             bonneReponse = 'non'
@@ -267,7 +268,7 @@ export default function ProportionnalitePasProportionnalite () {
           tirages[3] = [3 * n + 3, (3 * n + 3) * pu]
           met = listeProportionnelOuPas[compteurProportionnelsOuPas]
           compteurProportionnelsOuPas += 1
-          if (!met) tirages[p][1] -= 0.1
+          if (!met) tirages[p][1] -= 1
           texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par${getVueFromUrl() === 'multi' ? '<br>' : ' '}correspondance en fonction de la quantité saisie dans le panier.<br>`
           texte += 'Il note les prix dans le tableau suivant :<br> <br>'
           texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs en un seul morceau

@@ -1,8 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { calcul, listeQuestionsToContenu, randint, choice, combinaisonListes, abs, pgcd, miseEnEvidence, texFraction, texFractionReduite } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM

@@ -1,8 +1,7 @@
 /* global $ */
-import { context, setOutputAmc, setOutputDiaporama, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context'
+import { context, setOutputAmc, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context'
 import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
 import { getDureeFromUrl, getLogFromUrl, getZoomFromUrl, getVueFromUrl, getUrlVars, goTabVue, replaceQueryParam } from './gestionUrl'
-import { initDiaporama } from './mathaleaDiaporama.js'
 import { initialiseBoutonsConnexion, modalLog } from './modalLog'
 import { modalTimer } from './modalTimer'
 import { zoomAffichage } from './zoom'
@@ -63,11 +62,28 @@ const affichageUniquementQuestion = (i) => {
   const texteExerciceTermine = document.getElementById('divExerciceTermine')
   if (texteExerciceTermine) texteExerciceTermine.remove()
   const listeBoutonsDuMenu = document.querySelectorAll('[id^=btnMenu]')
+  // On gère l'affichage des numéros de questions circulaires pour ne pas en afficher plus d'une ligne
   for (const bouton of listeBoutonsDuMenu) {
     bouton.classList.remove('blue')
+    if (parseInt(bouton.textContent) === i + 1) {
+      bouton.classList.add('blue')
+    }
+    // Le nombre à gauche et à droite de la question courante dépend de la largeur de la fenêtre
+    const demiNombreDeRonds = (window.innerWidth / 80 / 2)
+    if (listeBoutonsDuMenu.length > 2 * demiNombreDeRonds) { // Ce nombre est-il trop grand ?
+      if (i < demiNombreDeRonds && parseInt(bouton.textContent) < 2 * demiNombreDeRonds) { // Dans les 10 premières questions on garde l'affichage des 10 premiers boutons
+        bouton.style.display = 'inline'
+      } else if (Math.abs(parseInt(bouton.textContent) - i - 1) > demiNombreDeRonds) { // Questions à plus de 6 d'écart cachée
+        bouton.style.display = 'none'
+      } else {
+        bouton.style.display = 'inline'
+      }
+    } else bouton.style.display = 'inline'
   }
   affichageUniquementExercice()
   const questions = document.querySelectorAll('div.question')
+  // En l'absence de questions, on retourne sur la page d'accueil
+  if (questions.length === 0) document.location.href = '/mathalea.html'
   const corrections = document.querySelectorAll('div.correction')
   for (const question of questions) {
     question.style.display = 'none'
@@ -211,7 +227,7 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     if (vue === 'diapCorr') await addFetchHtmlToParent('templates/boutonsZoom.html', section)
     addElement(section, 'div', { id: 'containerErreur' })
-    if (vue === 'exMoodle') {
+    if (vue === 'exMoodle' && new URLSearchParams(window.location.search).get('moodleJson') === null) {
       const divMessage = addElement(section, 'div')
       divMessage.innerHTML = `<div class="ui icon message">
       <i class="exclamation triangle icon"></i>
@@ -224,6 +240,9 @@ export async function initDom () {
     </div>`
       divMessage.style.marginBottom = '30px'
       divMessage.style.marginTop = '30px'
+    }
+    if (vue === 'exMoodle' || vue === 'correctionMoodle') {
+      document.body.classList.add('exMoodle')
     }
     await addFetchHtmlToParent('templates/mathaleaExercices.html', section)
     const accordions = document.getElementsByClassName('ui fluid accordion')
@@ -250,20 +269,32 @@ export async function initDom () {
     document.addEventListener('exercicesAffiches', () => {
       // Récupère la précédente saisie pour exMoodle et désactive le bouton
       if (vue === 'exMoodle') {
-        for (let i = 0; i < context.listeObjetsExercice[0].nbQuestions; i++) {
-          if (document.getElementById(`champTexteEx0Q${i}`) && window.sessionStorage.getItem(`reponse${i}` + context.graine)) {
-            const valeurEnregistree = window.sessionStorage.getItem(`reponse${i}` + context.graine)
-            document.getElementById(`champTexteEx0Q${i}`).textContent = valeurEnregistree
+        let reponses
+        try { // JSON.parse(null) renvoie null
+          reponses = JSON.parse(new URLSearchParams(window.location.search).get('moodleJson'))
+        } catch (e) {}
+        if (reponses) {
+          for (let i = 0; i < context.listeObjetsExercice[0].autoCorrection.length; i++) {
+            if (document.getElementById(`champTexteEx0Q${i}`) && reponses && typeof reponses[`reponse${i}`] !== 'undefined') {
+              document.getElementById(`champTexteEx0Q${i}`).textContent = reponses[`reponse${i}`]
+            }
+            if (document.getElementById(`checkEx0Q${i}R0`) && reponses && typeof reponses[`reponse${i}R0`] !== 'undefined') {
+              for (let j = 0; j < context.listeObjetsExercice[0].autoCorrection[i].propositions.length; j++) {
+                if (document.getElementById(`checkEx0Q${i}R${j}`)) {
+                  document.getElementById(`checkEx0Q${i}R${j}`).checked = reponses[`reponse${i}R${j}`]
+                }
+              }
+            }
           }
-          let hauteurExercice = window.document.querySelector('section').scrollHeight
-          window.parent.postMessage({ hauteurExercice }, '*')
-          // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
-          setTimeout(() => {
-            hauteurExercice = window.document.querySelector('section').scrollHeight
-            window.parent.postMessage({ hauteurExercice }, '*')
-          }, 1000)
         }
-        if (window.sessionStorage.getItem('isValide' + context.graine)) {
+        let hauteurExercice = window.document.querySelector('section').scrollHeight
+        window.parent.postMessage({ hauteurExercice, serie: context.graine }, '*')
+        // Au bout de 1 seconde on retente un envoi (la taille peut avoir été modifiée par l'ajout de champ ou)
+        setTimeout(() => {
+          hauteurExercice = window.document.querySelector('section').scrollHeight
+          window.parent.postMessage({ hauteurExercice, serie: context.graine }, '*')
+        }, 1000)
+        if (reponses) {
           const exercice = context.listeObjetsExercice[0]
           const bouton = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
           document.addEventListener('domExerciceInteractifReady', () => {
@@ -272,9 +303,15 @@ export async function initDom () {
           })
         }
       }
-      // Envoi des informations à Anki
       hauteurCorrection = window.document.body.scrollHeight
-      if (vue === 'verso' || vue === 'correctionMoodle') {
+      if (vue === 'correctionMoodle') {
+        if (document.getElementById('corrections')) {
+          const hauteurExerciceCorrection = window.document.body.scrollHeight + 20
+          window.parent.postMessage({ hauteurExerciceCorrection, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')) }, '*')
+        }
+      }
+      // Envoi des informations à Anki
+      if (vue === 'verso') {
         if (document.getElementById('corrections')) {
           const hauteurExerciceCorrection = window.document.body.scrollHeight + 20
           window.parent.postMessage({ hauteurExerciceCorrection }, '*')
@@ -330,6 +367,7 @@ export async function initDom () {
           element.hasListenner = true
         }
       }
+      window.parent.postMessage({ url: window.location.href, graine: context.graine, exercicesAffiches: true }, '*')
     })
   } else if (vue === 'light' || vue === 'l') {
     setOutputHtml()
@@ -569,6 +607,7 @@ export async function initDom () {
         sectionTemp.remove()
         setStyles(section, 'display: block')
         gestionTimerDiap()
+        affichageUniquementQuestion(0)
       },
       { once: true }
     )
@@ -602,12 +641,6 @@ export async function initDom () {
     section = addElement(document.body, 'section', { class: 'ui container' })
     await addFetchHtmlToParent('templates/amc.html', document.body)
     setOutputAmc()
-  } else if (vue === 'cm') {
-    await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
-    section = addElement(document.body, 'section', { class: 'ui container' })
-    await addFetchHtmlToParent('templates/cm.html', document.body)
-    setOutputDiaporama()
-    initDiaporama()
   } else if (vue === 'scores') {
     await addFetchHtmlToParent('templates/nav.html', document.body, 'nav')
     section = addElement(document.body, 'section', { class: 'ui container' })

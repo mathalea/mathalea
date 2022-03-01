@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texNombre2, calcul } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM
@@ -23,7 +23,7 @@ export const titre = 'Effectuer des opérations avec les nombres décimaux'
 export default function MultiplicationMentalDecimaux () {
   Exercice.call(this)
   this.titre = titre
-  this.interactifObligatoire = true // Il n'existe pas de version non QCM
+  this.interactif = true // Il n'existe pas de version non QCM
   this.consigne = 'Trouver la réponse exacte du calcul parmi les réponses proposées.'
   this.nbQuestions = 4 // Ici le nombre de questions
   this.video = ''
@@ -38,7 +38,7 @@ export default function MultiplicationMentalDecimaux () {
     this.listeCorrections = []
     const typeDeQuestionsDisponibles = ['add', 'mul', 'add_deci', 'mul_deci'] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
-
+    this.interactif = true // Il n'existe pas de version non QCM
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.

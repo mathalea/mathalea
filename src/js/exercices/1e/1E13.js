@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, ecritureParentheseSiNegatif, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, extraireRacineCarree, pgcd, calcul, egal } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 import { choisiDelta } from '../../modules/fonctionsMaths.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = false
 // export const interactifType = 'mathLive'
 export const titre = 'Factoriser, si possible, un polynôme du second degré'

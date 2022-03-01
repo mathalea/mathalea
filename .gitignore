@@ -11,10 +11,16 @@ Session.vim
 *~
 *.bak
 
-# ignorer les dossier tex/, tex/png/, dnb/ et tous leurs enfants
+# ignorer les dossiers tex/, tex/png/, dnb/ et tous leurs enfants
 # tex/*
 # tex/png/*
 dnb/
+
+# ignorer le dossier bac et tous ses enfants
+bac/ 
+
+# ignorer le dossier bac et tous ses enfants
+e3c/ 
 
 # ignorer les sujets de CRPE
 src/assets/crpe
@@ -59,3 +65,4 @@ src/json/scoresCodesVipSebSeul.json
 
 # Dossier avec les fichiers utiles pour l'hebergement de tests php SebLOZ
 src/slozano54
+webpack.config.js

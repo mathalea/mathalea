@@ -3,7 +3,6 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombrec, lettreDepuisChiffre, htmlConsigne, egal, calcul } from '../../modules/outils.js'
 import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
-import { afficheScore } from '../../modules/gestionInteractif.js'
 export const titre = 'Placer un point d’abscisse décimale'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -17,7 +16,7 @@ export const amcType = 'AMCOpen'
  */
 export default function PlacerPointsSurAxe () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ' Placer trois points sur un axe gradué.'
+  this.consigne = 'Placer trois points sur un axe gradué.'
   this.nbQuestions = 5
   this.nbQuestionsModifiable = true
   this.nbCols = 1
@@ -170,33 +169,21 @@ export default function PlacerPointsSurAxe () {
     // Pour distinguer les deux types de codage de recuperation des résultats
     this.exoCustomResultat = false
     // Gestion de la correction
-    this.correctionInteractive = (elt) => {
-      let nbBonnesReponses = 0
-      let nbMauvaisesReponses = 0
-      for (let i = 0, aucunMauvaisPointsCliques; i < this.nbQuestions; i++) {
-        aucunMauvaisPointsCliques = true
-        for (const monPoint of pointsNonSolutions[i]) {
-          if (monPoint.etat) aucunMauvaisPointsCliques = false
-          monPoint.stopCliquable()
-        }
-        for (const monPoint of pointsSolutions[i]) {
-          if (!monPoint.etat) aucunMauvaisPointsCliques = false
-          monPoint.stopCliquable()
-        }
-        const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-        for (let j = 0; j < pointsSolutions[i].length; j++) {
-          pointsSolutions[i][j].stopCliquable()
-        }
-
-        if (aucunMauvaisPointsCliques && pointsSolutions[i][0].etat && pointsSolutions[i][1].etat && pointsSolutions[i][2].etat) {
-          divFeedback.innerHTML = '😎'
-          nbBonnesReponses++
-        } else {
-          divFeedback.innerHTML = '☹️'
-          nbMauvaisesReponses++
-        }
+    this.correctionInteractive = (i) => {
+      let aucunMauvaisPointsCliques = true
+      for (const monPoint of pointsNonSolutions[i]) {
+        if (monPoint.etat) aucunMauvaisPointsCliques = false
+        monPoint.stopCliquable()
       }
-      afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
+      for (const monPoint of pointsSolutions[i]) {
+        if (!monPoint.etat) aucunMauvaisPointsCliques = false
+        monPoint.stopCliquable()
+      }
+      for (let j = 0; j < pointsSolutions[i].length; j++) {
+        pointsSolutions[i][j].stopCliquable()
+      }
+
+      return (aucunMauvaisPointsCliques && pointsSolutions[i][0].etat && pointsSolutions[i][1].etat && pointsSolutions[i][2].etat) ? 'OK' : 'KO'
     }
     listeQuestionsToContenu(this)
   }

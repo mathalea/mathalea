@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeNombresPremiersStrictJusqua, shuffle2tableaux, choice, listeQuestionsToContenu, randint, troncature, calcul, texNombre, miseEnEvidence, texFraction, combinaisonListes } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { cos } from '../../modules/fonctionsMaths.js'
 
 export const amcReady = true

@@ -6,9 +6,9 @@ export const titre = 'Résoudre des problèmes utilisant le théorème de Pythag
 /**
  * Problèmes utilisant le théorème de Pythagore ou sa réciproque et des propriétés des quadrilatères particuliers.
  *
- * * Dans un losange, on connait la longueur du côté et une diagonale, il faut calculer l'autre.
- * * Dans un rectangle on connait la longueur et une diagonale, il faut calculer la largeur.
- * * Dans un rectangle on connait la longueur et la largeur, il faut calculer la diagonale.
+ * * Dans un losange, on connaît la longueur du côté et une diagonale, il faut calculer l'autre.
+ * * Dans un rectangle on connaît la longueur et une diagonale, il faut calculer la largeur.
+ * * Dans un rectangle on connaît la longueur et la largeur, il faut calculer la diagonale.
  * * Est-ce qu'un parallélogramme est un losange ? On peut démontrer que les diagonales sont perpendiculaires ou pas.
  * * Est-ce qu'un parallélogramme est un rectangle ? On peut démontrer qu'il possède un angle droit ou pas .
  * @author Rémi Angot
@@ -153,12 +153,14 @@ export default function ProblemesPythagore () {
         listeTypeDeQuestions[i] === 'parallelogramme_n_est_pas_losange' ||
         listeTypeDeQuestions[i] === 'parallelogramme_n_est_pas_rectangle'
       ) {
-        c += randint(-3, 3, [0]) // on change la valeur de c
-        while (a ** 2 + b ** 2 === c ** 2) {
+        do {
+          c = triplet[2] + randint(-3, 3, [0]) // on change la valeur de c
+          while (a ** 2 + b ** 2 === c ** 2) {
           // si par hasard (est-ce possible ?) on retombe sur un triplet pythagoricien on change les valeurs
-          c += randint(-3, 3, [0]) // on change la valeur de c
-          b += randint(-3, 3, [0]) // on change la valeur de b
-        }
+            c += randint(-3, 3, [0]) // on change la valeur de c
+            b += randint(-3, 3, [0]) // on change la valeur de b
+          }
+        } while (c <= a || c <= b || c >= a + b)
       }
       if (a > 9 && choice([true, true, true, false])) {
         // le plus souvent on utilise des décimaux
@@ -182,7 +184,7 @@ export default function ProblemesPythagore () {
             }=${A + C}\\div2=${texNombre(2 * a)}\\div2=${texNombre(
               a
             )}$ cm.<br>`
-          texteCorr += `On sait que les diagonales d'un losange se coupent perpendiculairement donc $${A + O + C
+          texteCorr += `On sait que les diagonales d'un losange se coupent perpendiculairement donc $${A + O + B
             }$ est un triangle rectangle en $O$.<br>`
           texteCorr += `D'après le théorème de Pythagore, on a : $${A + O}^2+${O + B
             }^2=${A + B}^2$.<br>`

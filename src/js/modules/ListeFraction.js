@@ -48,7 +48,7 @@ class ListeFraction {
      */
     this.listeMemeDenominateur = []
     this.liste.forEach(f => {
-      this.listeMemeDenominateur.push(f.fractionEgale(Math.round(den / f.d)))
+      this.listeMemeDenominateur.push(f.reduire(Math.round(den / f.d)))
     })
 
     /**
@@ -94,7 +94,7 @@ class ListeFraction {
     const den = ppcm(dens)
     this.listeMemeDenominateur = []
     for (let i = 0; i < this.liste.length; i++) {
-      this.listeMemeDenominateur.push(this.liste[i].fractionEgale(Math.round(den / this.liste[i].d)))
+      this.listeMemeDenominateur.push(this.liste[i].reduire(Math.round(den / this.liste[i].d)))
     }
     this.listeSimplifiee = []
     for (let i = 0; i < this.liste.length; i++) {

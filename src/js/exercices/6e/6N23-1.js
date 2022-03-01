@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, texFraction } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampFractionMathLive, ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
+import { ajouteChampFractionMathLive, ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Donner différentes écritures de nombres décimaux'
 export const amcReady = true
 export const amcType = 'AMCHybride'

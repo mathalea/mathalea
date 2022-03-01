@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, abs, calcul, resolutionSystemeLineaire2x2, resolutionSystemeLineaire3x3, chercheMinMaxFonction, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { courbe2, mathalea2d, repere2 } from '../../modules/2d.js'
 export const titre = 'Lire l’image d’un nombre à partir d’un graphique'
 export const interactifReady = true
@@ -26,8 +27,6 @@ export default function ImageGraphique () {
   this.nbQuestions = 1
   this.pointsParQuestions = 3
   this.nbQuestionsModifiable = false
-  this.dimensionsDivMg32 = [800, 600]
-  this.pasDeVersionLatex = false
   this.nbCols = 1
 
   this.nouvelleVersion = function (numeroExercice) {

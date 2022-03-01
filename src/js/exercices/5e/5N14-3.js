@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombre2, texteEnCouleur } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, randint, choice, calcul, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const titre = 'Fractions égales et égalité des produits en croix'
 
@@ -42,32 +42,21 @@ export default function EqResolvantesThales () {
   this.niveau = '5e'
 
   this.nouvelleVersion = function () {
-    let typesDeQuestionsDisponibles = []
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [0, 1, 2, 3]
-    } else {
-      typesDeQuestionsDisponibles = [0, 1, 2, 3]
-    };
-
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    let numLowInt, fLowInt, fEqOrNotLowInt, denLowInt, numBigInt, denBigInt, fBigInt, fEqOrNotBigInt, numDec, denDec, fDec, masterChoice, fEqOrNotDec
 
-    // const listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
-    // if (this.niveau === '5e') {
-    //   this.introduction = infoMessage({
-    //     titre: 'ATTENTION - Hors programme 5e',
-    //     texte: 'Cet exercice ne correspond plus au programme de 5e, vous le retrouvez au niveau 4e <a href="https://coopmaths.fr/mathalea.html?ex=4C20-2"> en cliquant ici</a>.',
-    //     couleur: 'nombres'
-    //   })
-    // }
+    const listeTypeDeQuestions = Array(this.nbQuestions).fill(this.sup)
+    if (this.sup === 4) {
+      for (let i = 0; i < this.nbQuestions; i++) {
+        listeTypeDeQuestions[i] = randint(1, 3)
+      }
+    }
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On a besoin d'un booléen pour que tout ne soit pas vrai ou faux
       let equalOrNot
       // On a besoin de variables opur les fractions
-      let f, fEqOrNot
+      let f, fEqOrNot, deuxFractions
       // On a besoin d'un numerateur d'un dénominateur et d'un coefficient pour les fractions égales
       let num, den
       // On a besoin d'un string pour stocker l'égalité et un autre pour la justification
@@ -95,7 +84,7 @@ export default function EqResolvantesThales () {
       */
       function showFracNumDenDec (num, den) {
         const f = fraction(num, den)
-        return `\\dfrac{${texNombre2(f.n)}}{${texNombre2(f.d)}}`
+        return `\\dfrac{${texNombre(f.num, 2)}}{${texNombre(f.den, 2)}}`
       }
 
       /**
@@ -104,27 +93,30 @@ export default function EqResolvantesThales () {
       * @param f une fraction
       * @param fEqOrNot l'autre fraction égale ou pas
       */
-      function justifyEq (bool, f, fEqOrNot) {
+      function justifyEq (bool, deuxFractions, decimal = false) {
+        let f = deuxFractions.frac
+        let fEqOrNot = deuxFractions.fracEqualOrNot
+        if (decimal) {
+          f = f.reduire(0.1)
+          fEqOrNot = fEqOrNot.reduire(0.1)
+        }
+
         let strOut
         if (bool) {
-          strOut = `D'une part, ${texNombre2(f.n)}$\\times$${texNombre2(fEqOrNot.d)} $=$ ${texteEnCouleur(texNombre2(f.n * fEqOrNot.d))}.<br>
-          D'autre part, ${texNombre2(f.d)}$\\times$${texNombre2(fEqOrNot.n)} $=$ ${texteEnCouleur(texNombre2(f.d * fEqOrNot.n))}.<br>
+          strOut = `D'une part, $${texNombre(f.num)}\\times ${texNombre(fEqOrNot.den)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den))}$.<br>
+          D'autre part, $${texNombre(f.den)}\\times ${texNombre(fEqOrNot.num)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num))}$.<br>
           On constate que les produits en croix sont égaux.<br>
           `
-          if (Number.isInteger(f.n)) {
-            strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ sont donc égales.`
-          } else {
-            strOut += `Les fractions $${showFracNumDenDec(f.n, f.d)}$ et $${showFracNumDenDec(fEqOrNot.n, fEqOrNot.d)}$ sont donc égales.`
-          }
+          strOut += `Les fractions $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ sont donc égales.`
         } else {
-          strOut = `D'une part, ${texNombre2(f.n)}$\\times$${texNombre2(fEqOrNot.d)} $=$ ${texteEnCouleur(texNombre2(f.n * fEqOrNot.d))}.<br>
-          D'autre part, ${texNombre2(f.d)}$\\times$${texNombre2(fEqOrNot.n)} $=$ ${texteEnCouleur(texNombre2(f.d * fEqOrNot.n))}.<br>
+          strOut = `D'une part, $${texNombre(f.num)}\\times ${texNombre(fEqOrNot.den)} = ${miseEnEvidence(texNombre(f.num * fEqOrNot.den))}$.<br>
+          D'autre part, $${texNombre(f.den)}\\times ${texNombre(fEqOrNot.num)} = ${miseEnEvidence(texNombre(f.den * fEqOrNot.num))}$.<br>
           On constate que les produits en croix ne sont pas égaux.<br>
           `
-          if (Number.isInteger(f.n)) {
+          if (Number.isInteger(f.num)) {
             strOut += `Les fractions $${f.texFraction}$ et $${fEqOrNot.texFraction}$ ne sont donc pas égales.`
           } else {
-            strOut += `Les fractions $${showFracNumDenDec(f.n, f.d)}$ et $${showFracNumDenDec(fEqOrNot.n, fEqOrNot.d)}$ ne sont donc pas égales.`
+            strOut += `Les fractions $${showFracNumDenDec(f.num, f.den)}$ et $${showFracNumDenDec(fEqOrNot.num, fEqOrNot.den)}$ ne sont donc pas égales.`
           }
         }
         return strOut
@@ -132,58 +124,34 @@ export default function EqResolvantesThales () {
       const k = randint(2, 9)
       // On prépare tous les contenus selon le type de questions
       this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
-      switch (this.sup) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // petits entiers égalité
           equalOrNot = choice([true, false])
           num = randint(1, 9)
           den = randint(2, 9, num)
-          egalite = `$${fracEqualOrNot(equalOrNot, num, den).frac.texFraction}\\overset{?}{=}${fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot.texFraction}$`
-          justification = justifyEq(equalOrNot, fracEqualOrNot(equalOrNot, num, den).frac, fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot)
+          deuxFractions = fracEqualOrNot(equalOrNot, num, den)
+          egalite = `$${deuxFractions.frac.texFraction}\\overset{?}{=}${deuxFractions.fracEqualOrNot.texFraction}$`
+          justification = justifyEq(equalOrNot, deuxFractions)
           break
         case 2: // grands entiers
           equalOrNot = choice([true, false])
           num = randint(11, 99)
           den = randint(11, 99, num)
-          egalite = `$${fracEqualOrNot(equalOrNot, num, den).frac.texFraction}=${fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot.texFraction}$`
-          justification = justifyEq(equalOrNot, fracEqualOrNot(equalOrNot, num, den).frac, fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot)
+          deuxFractions = fracEqualOrNot(equalOrNot, num, den)
+          egalite = `$${deuxFractions.frac.texFraction}\\overset{?}{=}${deuxFractions.fracEqualOrNot.texFraction}$`
+          justification = justifyEq(equalOrNot, deuxFractions)
           break
         case 3: // décimaux
           equalOrNot = choice([true, false])
-          num = calcul(randint(11, 99) * 0.1)
-          den = calcul(randint(11, 99, num) * 0.1)
-          f = fracEqualOrNot(equalOrNot, num, den).frac
-          fEqOrNot = fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot
-          egalite = `$${showFracNumDenDec(f.n, f.d)}=${showFracNumDenDec(fEqOrNot.n, fEqOrNot.d)}$`
-          justification = justifyEq(equalOrNot, fracEqualOrNot(equalOrNot, num, den).frac, fracEqualOrNot(equalOrNot, num, den).fracEqualOrNot)
+          num = randint(11, 99)
+          den = randint(11, 99, num)
+          deuxFractions = fracEqualOrNot(equalOrNot, num, den)
+          f = deuxFractions.frac
+          fEqOrNot = deuxFractions.fracEqualOrNot
+          egalite = `$${showFracNumDenDec(f.num / 10, f.den / 10)}\\overset{?}{=}${showFracNumDenDec(fEqOrNot.num / 10, fEqOrNot.den / 10)}$`
+          justification = justifyEq(equalOrNot, deuxFractions, true)
           break
-        case 4: // mélange
-          equalOrNot = choice([true, false])
-          numLowInt = randint(2, 9)
-          denLowInt = randint(2, 9, numLowInt)
-          fLowInt = fracEqualOrNot(equalOrNot, numLowInt, denLowInt).frac
-          fEqOrNotLowInt = fracEqualOrNot(equalOrNot, numLowInt, denLowInt).fracEqualOrNot
-          numBigInt = randint(11, 99)
-          denBigInt = randint(11, 99, numBigInt)
-          fBigInt = fracEqualOrNot(equalOrNot, numBigInt, denBigInt).frac
-          fEqOrNotBigInt = fracEqualOrNot(equalOrNot, numBigInt, denBigInt).fracEqualOrNot
-          numDec = calcul(randint(11, 99) * 0.1)
-          denDec = calcul(randint(11, 99, numDec) * 0.1)
-          fDec = fracEqualOrNot(equalOrNot, numDec, denDec).frac
-          fEqOrNotDec = fracEqualOrNot(equalOrNot, numDec, denDec).fracEqualOrNot
-          masterChoice = choice([
-            { equalOrNot: equalOrNot, num: numLowInt, den: denLowInt, k: k, f: fLowInt, fEqOrNot: fEqOrNotLowInt },
-            { equalOrNot: equalOrNot, num: numBigInt, den: denBigInt, k: k, f: fBigInt, fEqOrNot: fEqOrNotBigInt },
-            { equalOrNot: equalOrNot, num: numDec, den: denDec, k: k, f: fDec, fEqOrNot: fEqOrNotDec }
-          ])
-          egalite = ''
-          if (Number.isInteger(masterChoice.n)) {
-            egalite += `$${masterChoice.f.texFraction}=${masterChoice.fEqOrNot.texFraction}$`
-          } else {
-            egalite += `$${showFracNumDenDec(masterChoice.f.n, masterChoice.f.d)}=${showFracNumDenDec(masterChoice.fEqOrNot.n, masterChoice.fEqOrNot.d)}$`
-          }
-          justification = justifyEq(equalOrNot, masterChoice.f, masterChoice.fEqOrNot)
-          break
-      };
+      }
 
       const enonces = []
       for (let k = 0; k < 4; k++) {

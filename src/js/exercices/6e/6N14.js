@@ -4,6 +4,8 @@ import { combinaisonListes, listeQuestionsToContenu, randint } from '../../modul
 import { mathalea2d } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 export const titre = 'Représenter des fractions'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * Représenter des fractions simples avec des disques partagés de façon adéquate.
@@ -49,6 +51,26 @@ export default function RepresenterUneFraction () {
       texte += mathalea2d(params, fraction(den * 3, den).representation(0, 0, 2, 0, 'gateau', 'white'))
       texteCorr = `Voici sur ces dessins, coloriés en bleu, la part correspondante à la fraction $${f.texFraction}$ :<br>`
       texteCorr += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'blue'))
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
+          enonceAvant: false, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
+          enonceAvantUneFois: false, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
+          propositions: [
+            {
+              type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+              propositions: [
+                {
+                  texte: texteCorr,
+                  statut: 3, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                  enonce: texte,
+                  sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                }
+              ]
+            }
+          ]
+        }
+      }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

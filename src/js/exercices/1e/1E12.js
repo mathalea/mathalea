@@ -9,7 +9,7 @@ export const titre = 'Trouver l’équation d’une parabole'
  * @author Jean-Claude Lhote
  * Trois type de questions proposées :
  * 1) passant par trois dont deux d'abscisses opposées et le troisième d'abscisse 0 (pour simplifier la résolution du système)
- * 2) Passant par un point et dont on connait le sommet
+ * 2) Passant par un point et dont on connaît le sommet
  * 3) connaissant les deux racines et un autre point de passage à coordonnées entières
  * référence 1E12
  */

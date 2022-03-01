@@ -2,7 +2,8 @@ import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu, combinaisonListes, nombreDecimal, exposant, calcul, texteGras } from '../../modules/outils.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { point3d, vecteur3d, sphere3d, cylindre3d } from '../../modules/3d.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

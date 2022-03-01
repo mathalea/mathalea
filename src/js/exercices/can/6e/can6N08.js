@@ -26,7 +26,7 @@ export default function NombreDeDizaines () {
     const d = randint(1, 9, [a, b, c])
     const m = choice(['centaines', 'dizaines'])
     const n = calcul(a * 1000 + b * 100 + c * 10 + d)
-    this.question = `Combien y a-t-il de ${m} dans $${texNombrec(n)}$ ? `
+    this.question = `Quel est le nombre entier de ${m} dans $${texNombrec(n)}$ ? `
     if (a !== 0) {
       if (m === 'centaines') {
         this.correction = `Comme $${a * 1000 + b * 100 + c * 10 + d}=${a * 10 + b}\\times 100+${c * 10 + d}$, il y a $${a * 10 + b}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`

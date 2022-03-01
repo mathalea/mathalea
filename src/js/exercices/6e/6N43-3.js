@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, sommeDesChiffres, calcul, texNombre, randint, choice } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
@@ -30,7 +30,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
       } else if (N === 5) {
         result = ', car son chiffre des unités est $0$, ou $5$.'
       } else if (N === 3 || N === 9) {
-        result = `, car la somme de ses chiffres est $${sommeDesChiffres(a.toString())}=${calcul(sommeDesChiffres(a.toString()))}$ qui est divisible par $${N}$.`
+        result = `, car la somme de ses chiffres est $${sommeDesChiffres(a)[1]}=${sommeDesChiffres(a)[0]}$ qui est divisible par $${N}$.`
       } else {
         result = `, car $${texNombre(a)} = ${N}\\times ${calcul(a / N)}$.`
       }
@@ -41,7 +41,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
       } else if (N === 5) {
         result = ", car son chiffre des unités n'est pas $0$, ou $5$."
       } else if (N === 3 || N === 9) {
-        result = `, car la somme de ses chiffres est $${sommeDesChiffres(a.toString())}=${calcul(sommeDesChiffres(a.toString()))}$ qui n'est pas divisible par $${N}$.`
+        result = `, car la somme de ses chiffres est $${sommeDesChiffres(a)[1]}=${sommeDesChiffres(a)[0]}$ qui n'est pas divisible par $${N}$.`
       } else {
         result = `, car $${texNombre(a)} = ${N}\\times ${Math.floor(a / N)}+ ${a % N}$.`
       }

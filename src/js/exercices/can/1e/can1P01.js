@@ -3,14 +3,15 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { number } from 'mathjs'
 import { Arbre, texProba } from '../../../modules/arbres.js'
 import { mathalea2d } from '../../../modules/2d.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
 import { context } from '../../../modules/context.js'
-export const titre = 'Arbre de probabilité'
+export const titre = 'Calculer des probabilités à partir d’un arbre'
 export const dateDePublication = '25/12/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcTpe = 'AMCNum'
+export const amcType = 'AMCNum'
 
 /**
  * On donne un arbre de probabilité et on doit calculer une probabilité partielle manquante

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, reduireAxPlusB, texFractionSigne, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const titre = 'Reconnaître une fonction affine.'
 export const interactifReady = true

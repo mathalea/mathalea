@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, listeQuestionsToContenu, choice, combinaisonListes, texNombre2 } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC
 export const interactifReady = true
@@ -46,16 +46,16 @@ export default function TableauCriteresDeDivisibilite () {
     this.autoCorrection = []
 
     const listeDesNombresPossibles = [
-      'div2',
+      'div2', // Divisible uniquement par 2
       'div3',
-      'div39',
+      'div39', // Divisible par 3 et 9
       'div5',
       'div25',
       'div23',
-      'div239',
+      'div239', // Divisible par 2, 3 et 9
       'div35',
-      'div2359',
-      'divrien'
+      'div2359', // Divisible par 2, 3, 5 et 9
+      'divrien' // Divisible ni par 2, ni par 3 ni par 5 ni par 9
     ]
     // divisible par 2, divisible par 3, divisible par 3 et 9...
 

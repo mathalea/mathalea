@@ -3,8 +3,8 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombre, texNombrec } from '../../modules/outils.js'
 import { tracePoint, labelPoint, afficheMesureAngle, codageAngleDroit, mathalea2d } from '../../modules/2d.js'
 import { point3d, vecteur3d, sphere3d, arete3d, rotationV3d, demicercle3d } from '../../modules/3d.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
 export const amcType = 'AMCOpenNum' // type de question AMC
 export const titre = 'Calcul d’un parallèle terrestre'

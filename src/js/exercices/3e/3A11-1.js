@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, nombreAvecEspace, texteEnCouleurEtGras, itemize, modalPdf, modalVideo, cribleEratostheneN, warnMessage } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const titre = 'Primalité ou pas - Variante avec les critères de divisibilité par 7 et par 11'
 export const interactifReady = true
 export const interactifType = 'qcm'

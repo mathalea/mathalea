@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions'
 import { randint, listeQuestionsToContenu, texteEnCouleur, reduireAxPlusB, sp, ecritureParentheseSiNegatif, choice } from '../../../modules/outils.js'
-import { propositionsQcm } from '../../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Résoudre une inéquation (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'

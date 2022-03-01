@@ -127,16 +127,18 @@ export default function DivisionDecimale () {
         this.consigne =
           'Effectuer les divisions décimales suivantes et donner une valeur approchée de leur quotient au millième près.'
       }
-      texte = `$${texNombre(a)}\\div${b}$`
+      texte = `$${texNombre(a)}\\div${b}`
       if (this.sup === 1) {
         texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
         texteCorr += `<br>$${texNombre(a)}\\div${b}=${texNombre(q)}$`
+        texte += (this.interactif) ? '=$' : '$'
       } else {
-        texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
+        texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 4 })
         texteCorr += `<br>$${texNombre(a)}\\div${b}\\approx${texNombre(q)}$`
+        texte += (this.interactif) ? '\\approx$' : '$'
       }
       setReponse(this, i, q)
-      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexte(this, i)
+      if (context.isHtml && this.interactif) texte += ajouteChampTexte(this, i)
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]

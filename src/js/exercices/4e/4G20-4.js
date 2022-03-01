@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { choice, listeQuestionsToContenu, randint, texNombre, arrondi } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { cos } from '../../modules/fonctionsMaths.js'
 
 export const interactifReady = true

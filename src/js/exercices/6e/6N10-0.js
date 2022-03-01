@@ -2,8 +2,8 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, nombreEnLettres } from '../../modules/outils.js'
 
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Écrire un nombre en chiffres ou en lettres'
 
 export const interactifReady = true
@@ -72,15 +72,15 @@ export default function EcrireNombresEntiers () {
       }
       if (typeDeConsigne[i] === 1) {
         setReponse(this, i, nombreEnLettres(nombre))
-        if (!context.isDiaporama) texte = `$${texNombre(nombre)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexteMathLive(this, i)}`
+        if (context.vue !== 'diap') texte = `$${texNombre(nombre)} ${!this.interactif ? ' :  $' : '$ <br>' + ajouteChampTexteMathLive(this, i)}`
         else texte = `$${texNombre(nombre)}$`
-        if (!context.isDiaporama) texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}`
+        if (context.vue !== 'diap') texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}`
         else texteCorr = `${nombreEnLettres(nombre)}`
       } else {
         setReponse(this, i, nombre)
-        if (!context.isDiaporama) texte = `${nombreEnLettres(nombre)} ${!this.interactif ? ' : \\dotfill $' : '<br>' + ajouteChampTexteMathLive(this, i)}`
+        if (context.vue !== 'diap') texte = `${nombreEnLettres(nombre)} ${!this.interactif ? ' :  $' : '<br>' + ajouteChampTexteMathLive(this, i)}`
         else texte = `${nombreEnLettres(nombre)}`
-        if (!context.isDiaporama) texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$`
+        if (context.vue !== 'diap') texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$`
         else texteCorr = `$${texNombre(nombre)}$`
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

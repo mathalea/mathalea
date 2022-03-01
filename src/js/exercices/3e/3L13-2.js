@@ -21,6 +21,7 @@ export default function EqResolvantesThales () {
   };
   this.sup = 1
   this.consigne = 'Résoudre les équations suivantes.'
+  this.tailleDiaporama = 3
 
   this.nbCols = 1
   this.nbColsCorr = 1

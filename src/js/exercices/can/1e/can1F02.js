@@ -1,8 +1,8 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions'
 import { randint, listeQuestionsToContenu, reduireAxPlusB, reduirePolynomeDegre3, sp, ecritureParentheseSiNegatif, choice, ecritureAlgebrique } from '../../../modules/outils.js'
-import { propositionsQcm } from '../../../modules/gestionInteractif.js'
-export const titre = 'Second degré variations (QCM)'
+import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
+export const titre = 'Déterminer le sens de variation d’un pôlynome du second degré (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

@@ -3,7 +3,8 @@ import { choice, listeQuestionsToContenu, numAlpha, premiereLettreEnMajuscule, r
 import { fraction } from '../../modules/fractions.js'
 import { Arbre, texProba } from '../../modules/arbres.js'
 import { mathalea2d } from '../../modules/2d.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Expérience aléatoire à deux épreuves'
 export const dateDePublication = '28/12/2021'
@@ -17,7 +18,7 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote
  * Référence 2S30-5
 */
-export default function CalculProbaExperience2Epreuves3e () {
+export default function CalculProbaExperience2Epreuves2e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = true
   this.sup2 = false
@@ -253,7 +254,7 @@ export default function CalculProbaExperience2Epreuves3e () {
     const tableau = tableauColonneLigne(ligneEnt, colonneEnt, contenu)
 
     omega.setTailles() // On calcule les tailles des arbres.
-    const objets = omega.represente(0, 12, 0, sup2 ? 2.5 : 1.6, false, -1, 8) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+    const objets = omega.represente(0, 12, 0, sup2 ? 2.5 : 1.4, false, -1, 8) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
     const choix = choice([[nbBoule1, b1Color, b1Char], [nbBoule2, b2Color, b2Char]])
     const probaChoix = fraction(choix[0] ** 2, card ** 2)
     const proba1 = fraction(nbBoule1 ** 2, card ** 2)

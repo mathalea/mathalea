@@ -1,6 +1,5 @@
 import { combinaisonListes, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 
 export const titre = 'Additionner des durées'
 
@@ -44,7 +43,7 @@ export default function SommeDeDurees () {
         s2 = randint(1, 20)
         m1 = randint(20, 59)
         m2 = randint(40, 59)
-        texte = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}=\\dotfill$`
+        texte = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}=$`
         texteCorr = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}= ${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s}= 1~\\text{h}~${m1 + m2 - 60}~\\text{min}~${s1 + s2}~\\text{s}$`
       }
       if (typesDeQuestions[i] === 2) {
@@ -52,7 +51,7 @@ export default function SommeDeDurees () {
         s2 = randint(40, 59)
         m1 = randint(20, 59)
         m2 = randint(40, 59)
-        texte = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}=\\dotfill$`
+        texte = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}=$`
         texteCorr = `$${m1}~\\text{min}~${s1}~\\text{s}+${m2}~\\text{min}~${s2}~\\text{s}= ${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s} = ${m1 + m2 + 1}~\\text{min}~${s1 + s2 - 60}~\\text{s} = 1~\\text{h}~${m1 + m2 - 60}~\\text{min}~${s1 + s2 - 60}~\\text{s}$`
       }
       if (typesDeQuestions[i] === 3) {
@@ -60,7 +59,7 @@ export default function SommeDeDurees () {
         h2 = randint(2, 11)
         m1 = randint(30, 50)
         m2 = randint(30, 50)
-        texte = `$${h1}~\\text{h}~${m1}~\\text{min}+${h2}~\\text{h}~${m2}~\\text{min}=\\dotfill$`
+        texte = `$${h1}~\\text{h}~${m1}~\\text{min}+${h2}~\\text{h}~${m2}~\\text{min}=$`
         texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}+${h2}~\\text{h}~${m2}~\\text{min}= ${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min} = ${h1 + h2 + 1}~\\text{h}~${m1 + m2 - 60}~\\text{min}$`
       }
       if (typesDeQuestions[i] === 4) {
@@ -70,7 +69,7 @@ export default function SommeDeDurees () {
         m2 = randint(30, 50)
         s1 = randint(2, 55)
         s2 = randint(1, 60 - s1 - 1)
-        texte = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=\\dotfill$`
+        texte = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=$`
         texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}= ${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s} = ${h1 + h2 + 1}~\\text{h}~${m1 + m2 - 60}~\\text{min}~${s1 + s2}~\\text{s}$`
       }
       if (typesDeQuestions[i] === 5) {
@@ -80,16 +79,13 @@ export default function SommeDeDurees () {
         m2 = randint(30, 50)
         s1 = randint(2, 55)
         s2 = randint(60 - s1, 59)
-        texte = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=\\dotfill$`
+        texte = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=$`
         texteCorr = `$${h1}~\\text{h}~${m1}~\\text{min}~${s1}~\\text{s}+${h2}~\\text{h}~${m2}~\\text{min}~${s2}~\\text{s}=`
         texteCorr += ` ${h1 + h2}~\\text{h}~${m1 + m2}~\\text{min}~${s1 + s2}~\\text{s} = ${h1 + h2}~\\text{h}~${m1 + m2 + 1}~\\text{min}~${s1 + s2 - 60}~\\text{s} =${h1 + h2 + 1}~\\text{h}~${m1 + m2 + 1 - 60}~\\text{min}~${s1 + s2 - 60}~\\text{s}$`
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        if (context.isDiaporama) {
-          texte = texte.replace('=\\dotfill', '')
-        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

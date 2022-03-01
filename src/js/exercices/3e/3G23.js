@@ -7,7 +7,7 @@ import { point, tracePoint, milieu, pointSurSegment, pointIntersectionDD, labelP
 export const titre = 'Reconnaître des triangles égaux dans différentes configurations'
 
 /**
- * 3G23 reconnaitre des triangles égaux
+ * 3G23 reconnaître des triangles égaux
  * @author Jean-Claude Lhote et Sébastien Lozano
  */
 export default function TrianglesEgaux () {

@@ -1,5 +1,5 @@
 import { add, number, multiply } from 'mathjs'
-import { barycentre, latexParPoint, milieu, point, polygone, segment } from './2d'
+import { barycentre, latexParCoordonnees, latexParPoint, milieu, point, polygone, segment } from './2d'
 import { fraction } from './fractions'
 import { arrondi, calcul } from './outils'
 
@@ -158,7 +158,7 @@ export class Arbre {
       ? yOrigine
       : yOrigine - sens * 5
     )
-    const labelA = latexParPoint(this.nom, A, 'black', 8 * this.nom.length, 20, 'white', tailleCaracteres)
+    const labelA = latexParCoordonnees(this.nom, A.x + (vertical ? 0.5 * sens : 0), A.y + (vertical ? 0 : 0.5 * sens), 'black', 15 * this.nom.length, 20, 'white', tailleCaracteres)
     const positionProba = vertical ? barycentre(polygone(A, A, A, B, B), '', 'center') : milieu(A, B, '', 'center') // Proba au 2/5 de [AB] en partant de A.
     const probaA = this.visible
       ? latexParPoint(texProba(this.proba, this.rationnel, 2), positionProba, 'black', 20, 24, 'white', tailleCaracteres)

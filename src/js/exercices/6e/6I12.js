@@ -1,7 +1,7 @@
 // on importe les fonctions nécessaires.
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, combinaisonListesSansChangerOrdre, shuffle, calcul, texteGras } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
 import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, tournerG, baisseCrayon, allerA, leveCrayon, grille, tracePoint, point, segment, texteParPoint } from '../../modules/2d.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
@@ -32,8 +32,8 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     this.listeCorrections = []
     this.autoCorrection = []
     const angleDepart = 90 // On choisit l'orientation de départ (On pourrait en faire un paramètre de l'exo)
-    const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
-    const yDepart = 0
+    // const xDepart = 0 // Le départ est en (0,0) pour avoir la même marge dans toutes les directions
+    // const yDepart = 0
     const objetsCorrection = []
     const paramsEnonces = {}
     const paramsCorrection = {}
@@ -72,7 +72,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     // On écrit le début du programme dans l'attribut codeScratch du lutins[0][0]... cet attribut de type chaine contient le code du programme du lutin en Scratch Latex
     // A chaque instruction ajoutée dans le programme correspond une action à effectuée sur l'objet lutins[0]..
     lutins[0].codeScratch = '\\begin{scratch}[print,fill,blocks,scale=0.75]\n \\blockinit{quand \\greenflag est cliqué}\n '
-    lutins[0].codeScratch += `\\blockmove{aller à x: \\ovalnum{${xDepart}} y: \\ovalnum{${yDepart}}}\n ` // ça c'est pour ajouter la brique scratch
     lutins[0].codeScratch += `\\blockmove{s'orienter à \\ovalnum{${angleDepart}}}\n`
     lutins[0].codeScratch += '\\blockpen{stylo en position d\'écriture}\n'
     for (let i = 0; i < 5; i++) {
@@ -131,10 +130,12 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     texte += scratchblock(lutins[0].codeScratch) // la fonction scratchblock va convertir le code Latex en code html si besoin.
     if (context.isHtml) { // on change de colonne...
       texte += '</td><td style="vertical-align: top; text-align: center">'
+      texte += this.interactif ? `${texteGras('Cliquer sur la figure puis vérifier la réponse.')}<br><br>` : '<br><br>'
     } else {
       texte += '\\end{minipage} '
       texte += '\\hfill \\begin{minipage}[b]{.74\\textwidth}'
     }
+
     let ordreLutins = [0, 1, 2, 3, 4]
     ordreLutins = shuffle(ordreLutins) // On mélange les emplacements pour éviter d'avoir la bonne réponse au même endroit
     for (let i = 0; i < 5; i++) {
@@ -158,7 +159,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     const echelle = segment(0, hauteur + 0.5, 1, hauteur + 0.5)
     echelle.epaisseur = 2
     echelle.styleExtremites = '|-|'
-    objetsCorrection.push(grille(-1, -1, largeur + 1), hauteur + 1, 'gray', 0.5, 0.5)
+    objetsCorrection.push(grille(-1, -1, largeur + 1, hauteur + 1, 'gray', 0.5, 0.5))
     objetsCorrection.push(lutins[0])
     paramsEnonces.xmin = -0.5
     paramsEnonces.ymin = -1.5
@@ -232,20 +233,26 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
 
     // Gestion de la souris
     // ToFix si on passe de interactif à non interactif il y a toujours l'effet au survol
-    if (this.interactif) {
-      document.addEventListener('exercicesAffiches', () => {
+
+    document.addEventListener('exercicesAffiches', () => {
       // Dès que l'exercice est affiché, on rajoute des listenners sur chaque Svg.
-        for (let i = 0; i < 5; i++) {
-          const figSvg = document.getElementById(`figure${i}exo${this.numeroExercice}`)
-          if (figSvg) {
+      for (let i = 0; i < 5; i++) {
+        const figSvg = document.getElementById(`figure${i}exo${this.numeroExercice}`)
+        if (figSvg) {
+          if (this.interactif) {
             figSvg.addEventListener('mouseover', mouseOverSvgEffect)
             figSvg.addEventListener('mouseout', mouseOutSvgEffect)
             figSvg.addEventListener('click', mouseSvgClick)
             figSvg.etat = false
+          } else {
+            figSvg.removeEventListener('mouseover', mouseOverSvgEffect)
+            figSvg.removeEventListener('mouseout', mouseOutSvgEffect)
+            figSvg.removeEventListener('click', mouseSvgClick)
+            figSvg.etat = true
           }
         }
-      })
-    }
+      }
+    })
   }
   this.besoinFormulaireNumerique = ["Nombre d'instructions"] // gestion des paramètres supplémentaires
 

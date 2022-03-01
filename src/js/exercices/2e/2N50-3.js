@@ -47,7 +47,7 @@ export default function modeliserEquations () {
           texte = `  Le salaire mensuel d'un commercial est composé d'un salaire fixe auquel
                   s'ajoute une prime suivant ses objectifs.<br>
                    Au mois de janvier, son salaire fixe est $x$ € et sa prime a été de $${j}$ €.  <br>
-                  Au mois de février son salaire fixe a augmenté de $${t}$ % et il reçoit une prime de $${f}$ €. <br>
+                  Au mois de février son salaire fixe a augmenté de $${t}~\\%$ et il reçoit une prime de $${f}$ €. <br>
                   Globalement, son salaire au mois
                   de février a augmenté de $${a}$ € par rapport à celui du mois de janvier. <br>
                   ${numAlpha(0)} Exprimer en fonction de $x$ son salaire au mois de janvier, puis celui du mois de février.<br>

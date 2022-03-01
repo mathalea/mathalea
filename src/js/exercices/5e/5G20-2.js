@@ -1,5 +1,5 @@
 import TracerTriangle2Angles from '../6e/6G23-2.js'
-export const titre = 'Tracer un triangle dont on connait une longueur et 2 angles'
+export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angles'
 
 /**
  * @author Guillaume Valmont

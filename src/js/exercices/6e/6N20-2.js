@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, texFraction } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,7 +14,7 @@ export const interactifType = 'mathLive'
 export default function ExerciceFractionsDifferentesEcritures () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne =
-    "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1 puis donner l'écriture décimale"
+    "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1 puis donner l'écriture décimale."
   this.spacing = 2
   this.spacingCorr = 2
 
@@ -104,6 +105,6 @@ export default function ExerciceFractionsDifferentesEcritures () {
       }
       cpt++
     }
-    listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
+    listeQuestionsToContenu(this) // Espacement de 2 em entre chaque question.
   }
 }

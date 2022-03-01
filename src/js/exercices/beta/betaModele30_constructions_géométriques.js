@@ -9,17 +9,19 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 
 /**
  * Description didactique de l'exercice
- * @author
+ * @author NomAuteur(s)
  * Référence
 */
-export default function NomExercice () {
-  Exercice.call(this)
-  this.consigne = 'consigne'
-  this.nbQuestions = 1 // Ici le nombre de questions
-  this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
-  this.nbColsCorr = 1 // Le nombre de colonne pour la correction LaTeX
+export default class NomExercice extends Exercice {
+  constructeur () {
+    this.super()
+    this.consigne = 'consigne'
+    this.nbQuestions = 1 // Ici le nombre de questions
+    this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
+    this.nbColsCorr = 1 // Le nombre de colonne pour la correction LaTeX
+  }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
     this.listeQuestions = [] // Liste de questions

@@ -4,6 +4,7 @@
   body * {
     visibility: hidden;
   }
+  
   #affichage_exercices * {
     visibility: visible;
   }
@@ -19,7 +20,7 @@
     visibility: hidden!important;
   }
 
-  i.dropdown.icon {
+  i {
    visibility: hidden!important; 
   }
 }
@@ -290,6 +291,7 @@ div#gauche
   font-weight: bold;
 }
 
+
 #exercices ol li {
   counter-increment: list;
   list-style-type: none;
@@ -307,6 +309,15 @@ div#gauche
   font-weight: bold;
   padding-right:1em
 }
+
+#exercices ol, #corrections ol {
+  padding-left: 0px;
+}
+
+.sansNumero li:before {
+  display: none;
+}
+
 
 #corrections ol li {
   counter-increment: list;
@@ -597,7 +608,20 @@ a.lien_id_exercice.exerciceactif {
 
 }
 
+body.exMoodle div.ML__keyboard.is-visible {
+	position: absolute;
+	top: var(--keyboard-position);
+  height: revert;
+}
 
+body.exMoodle div.ML__keyboard.is-visible .ML__keyboard--plate {
+	position: static;
+	transform: none;
+}
+
+body.exMoodle {
+  height: unset;
+}
 
 /*
 input {

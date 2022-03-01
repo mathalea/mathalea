@@ -1,9 +1,10 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul, pgcd, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre, range1 } from '../../../modules/outils.js'
-import { ajouteChampTexte, ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { droiteGraduee2, mathalea2d } from '../../../modules/2d.js'
+import { ajouteChampTexte, setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 export const titre = 'Course aux nombres fin de 6e'
 export const interactifReady = true
 export const interactifType = 'mathLive'

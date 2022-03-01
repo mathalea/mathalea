@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { droiteGraduee2, mathalea2d } from '../../../modules/2d.js'

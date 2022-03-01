@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, ecritureNombreRelatif, texteEnCouleurEtGras, Relatif, combinaisonListes } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const interactifReady = true
 export const interactifType = 'qcm'

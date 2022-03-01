@@ -51,7 +51,7 @@ export default function RepresenterUnSolide4e () {
     let correction
     let carreaux; let g
     let objetsEnonce = []
-    let objetsCorrection = []; const matrace = tracePoint(I)
+    let objetsCorrection = []
 
     for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nom = creerNomDePolygone(8, 'PQ')
@@ -110,6 +110,7 @@ export default function RepresenterUnSolide4e () {
       G = translation2Points(F, B, C, nom[6], 'right')
       H = translation2Points(G, C, D, nom[7], 'left')
       I = milieu(D, G)
+      const matrace = tracePoint(I)
       matrace.taille = 4
       matrace.opacite = 0.9
       matrace.epaisseur = 5
@@ -252,7 +253,7 @@ export default function RepresenterUnSolide4e () {
       }
 
       if (listeTypeDeQuestions[i] === 6) {
-        objetsEnonce.push(AB, BF, tracePoint(I, 0.5, 'red'), labelPoint(I),
+        objetsEnonce.push(AB, BF, tracePoint(I, 'red'), labelPoint(I),
           g,
           carreaux
         )

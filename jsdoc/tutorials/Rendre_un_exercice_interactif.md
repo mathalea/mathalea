@@ -108,7 +108,8 @@ Les concepteurs plus curieux, trouveront, aussi, dans ce chapitre :
 
 1. Rajouter un import dans l'en-tête comme ceci :
 >>```js
->>import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+>>import { setReponse } from '../../modules/gestionInteractif.js'
+>>import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 >>export const interactifReady = true
 >>export const interactifType = 'mathLive'
 >>```
@@ -189,16 +190,16 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
  
 >>``` js
 >> // Méthode 1 : Exercice-témoin 4C22
->>setReponse(this, i, maFractionReponse, { formatInteractif: 'fraction' }) // maFractionReponse doit être un objet fraction (créé avec new Fraction(n, d))
+>>setReponse(this, i, maFractionReponse, { formatInteractif: 'fraction' }) // maFractionReponse doit être un objet fraction (créé avec new FractionX(n, d))
 >> // Dans ce cas, la réponse fournie par l'élève doit être exactement égale à maFractionReponse.
 >>
 >> // Méthode 2 : Exercice-témoin 5N13
->>setReponse(this, i, maFractionReponse, { formatInteractif: 'fractionPlusSimple' }) // maFractionReponse doit être un objet fraction (créé avec new Fraction(n, d))
+>>setReponse(this, i, maFractionReponse, { formatInteractif: 'fractionPlusSimple' }) // maFractionReponse doit être un objet fraction (créé avec new FractionX(n, d))
 >> // Dans ce cas, la réponse fournie par l'élève doit forcément être simplifiée.
 >> // Si maFractionReponse est 16/32, l'élève ne peut pas fournir 16/32 ou 160/320 comme bonne réponse mais peut fournir 8/16 ou 4/8.
 >>
 >> // Méthode 3 : Exercice-témoin 3L13-1
->>setReponse(this, i, maFractionReponse, { formatInteractif: 'fractionEgale' }) // maFractionReponse doit être un objet fraction (créé avec new Fraction(n, d))
+>>setReponse(this, i, maFractionReponse, { formatInteractif: 'fractionEgale' }) // maFractionReponse doit être un objet fraction (créé avec new FractionX(n, d))
 >> // Dans ce cas, la réponse fournie par l'élève peut être une autre fraction ou un nombre décimal. 
 >> // Si maFractionReponse est 1/2, l'élève peut toutefois fournir comme bonne réponse 2/4 ou bien 0.5.
 >>```
@@ -286,7 +287,7 @@ Pour rendre un exercice interactif en utilisant `qcm` et en permettant, aux él�
 
 Rajouter un import dans l'en-tête comme ceci :
 >>```js
->>import { propositionsQcm } from '../../modules/gestionInteractif.js'
+>>import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 >>export const interactifReady = true
 >>export const interactifType = 'qcm'
 >>```
@@ -510,7 +511,7 @@ On pourrait très bien souhaiter une réponse AMC en notation scientifique, dans
 Supposons, par exemple, que votre exercice interactif exploite les réponses sous forme d'une fraction avec `formatInteractif : 'fraction'` et que vous utilisiez :
 
 >>```js
->>setReponse(this, i, new Fraction(n, d), {formatInteractif: 'fraction'})
+>>setReponse(this, i, new FractionX(n, d), {formatInteractif: 'fraction'})
 >>```
 
 Alors, rendre l'exercice exportable AMC, est **instantané** si on rajoute, avec les autres export/import, **seulement ces deux lignes** de code.

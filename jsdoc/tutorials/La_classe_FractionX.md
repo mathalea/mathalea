@@ -71,11 +71,11 @@ console.log(f.simplifie()) // {s: -1, n: 1, d: 2, num: -1, den: 2...} nouvel obj
 
 console.log(f.oppose()) // {s: 1, n: 1, d: 2, num: 1, den: 2...} nouvel objet FractionX num -> -num
 
-console.log(f.fractionEgale(10)) // {s: -1, n: 1, d: 2, num: -60, den: 120...} multiplie le num et le den par k. k peut être un entier, un décimal, une FractionX
+console.log(f.reduire(10)) // {s: -1, n: 1, d: 2, num: -60, den: 120...} multiplie le num et le den par k. k peut être un entier, un décimal, une FractionX
 
 const f2 = fraction(1,3)
 
-console.log(f.egal(f2)) // false car f !== f2
+console.log(f.isEqual(f2)) // false car f !== f2
 
 console.log(f.differenceFraction(f2)) // {s: -1, n: 5, d: 6, num: -5, den: 6, ... }. (note : le nouvel objet est irréductible, le signe est mis sur num par défaut.)
 
@@ -119,8 +119,13 @@ console.log(f.representation(x, y, rayon, depart = 0, type = 'gateau', couleur =
 
 console.log(f.representationIrred(x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '')) // renvoie un tableau d'objets 
  //   c'est la même chose que f.representation() mais le numérateur et le dénominateur sont simplifiés avant de graduer.
-
 ```
+## usages
+On veut utiliser la classe fraction pour travailler avec une écriture fractionnaire : $\frac{4.2}{5.3}$
+```Javascript
+let f = fraction(42,53).reduire(0.1) // f.n = 42, f.d = 53, f.num = 4.2 et f.den = 5.3
+```
+Ne pas utiliser directement fraction(4.2, 5.3). En effet, le constructeur tolère très mal les numérateurs et dénominateurs décimaux. Il essayera de trouver un rationnel le plus proche de 4.2/5.3 et pour une raison obscure, on aura de meilleurs résultats avec fraction(4.2/5.3)
 
 
 

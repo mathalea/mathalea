@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { randint, combinaisonListes, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+
 export const titre = 'Donner l’opposé d’une expression'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Donner l'opposé d'une expression.
@@ -17,6 +22,7 @@ export default function OpposeExpression () {
   this.spacing = context.isHtml ? 3 : 2
   this.spacing = context.isHtml ? 3 : 2
   this.nbQuestions = 6
+  this.tailleDiaporama = 3
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -49,11 +55,16 @@ export default function OpposeExpression () {
           )}}=${printlatex(`${-a}x^2+(${-b})x+(${-c})`)}$`
           break
       }
+      if (this.interactif) {
+        texte += '$ = $' + ajouteChampTexteMathLive(this, i, 'inline largeur75')
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        const reponse = texteCorr.match(/=([^=$]+)\$$/)[1]
+        setReponse(this, i, reponse)
         i++
       }
       cpt++

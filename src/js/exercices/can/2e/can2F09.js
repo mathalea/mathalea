@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, extraireRacineCarree, randint, sp, calcul, choice, texFractionReduite } from '../../../modules/outils.js'
-import { propositionsQcm } from '../../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Résoudre une équation avec une fonction de référence'
 export const interactifReady = true
 export const interactifType = 'qcm'

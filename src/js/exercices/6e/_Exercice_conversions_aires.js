@@ -1,7 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, arrondi, texNombre, texTexte, calcul } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, propositionsQcm, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
@@ -112,7 +114,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           [' h', '\\times100\\times100', 10000],
           [' k', '\\times1~000\\times1~000', 1000000]
         ] // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
-        resultat = calcul(a * prefixeMulti[k][2]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calcul(a * prefixeMulti[k][2]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         resultat2 = calcul(resultat / 10)
         resultat3 = calcul(resultat * 10)
         resultat4 = calcul(resultat * 100)
@@ -148,7 +150,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           [' m', '\\div1~000\\div1~000', 1000000]
         ]
         k = randint(0, 1) // Pas de conversions de mm^2 en m^2 avec des nombres décimaux car résultat inférieur à 10e-8
-        resultat = calcul(a / prefixeDiv[k][2]).toString() // Attention aux notations scientifiques pour 10e-8
+        resultat = calcul(a / prefixeDiv[k][2]) // Attention aux notations scientifiques pour 10e-8
         resultat2 = calcul(resultat / 10)
         resultat3 = calcul(resultat * 10)
         resultat4 = calcul(resultat * 100)
@@ -253,7 +255,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           ['a', 100]
         ]
         k = randint(0, 1)
-        resultat = calcul(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calcul(a * prefixeMulti[k][1]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         resultat2 = calcul(resultat / 10)
         resultat3 = calcul(resultat * 10)
         resultat4 = calcul(resultat * 100)
@@ -313,7 +315,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        if (context.isDiaporama) {
+        if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfill', '\\text{ en }')
         }
         if (context.isHtml) {
@@ -336,5 +338,5 @@ export default function ExerciceConversionsAires (niveau = 1) {
     "1 : Conversions en m² avec des multiplications\n2 : Conversions en m² avec des divisions\n3 : Conversions en m² avec des multiplications ou divisions\n4 : Conversions avec des multiplications ou divisions\n5 : Conversions d'hectares et ares en m² \n6 : Mélange"
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
-  if (context.isHtml && !context.isDiaporama) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+  if (context.isHtml && !context.vue === 'diap') this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
 }

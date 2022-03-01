@@ -2,7 +2,6 @@
 export const context = {
   isHtml: true,
   isAmc: false,
-  isDiaporama: false,
   issortieNB: false,
   anglePerspective: 30,
   coeffPerspective: 0.5,
@@ -24,32 +23,22 @@ export const context = {
 export function setOutputHtml () {
   context.isHtml = true
   context.isAmc = false
-  context.isDiaporama = false
 }
 export function setOutputMoodle () {
   context.isHtml = true
   context.isAmc = false
-  context.isDiaporama = false
   context.isMoodle = true
-}
-export function setOutputDiaporama () {
-  context.isHtml = true
-  context.isAmc = false
-  context.isDiaporama = true
 }
 export function setOutputLatex () {
   context.isHtml = false
   context.isAmc = false
-  context.isDiaporama = false
 }
 export function setOutputAmc () {
   context.isHtml = false
   context.isAmc = true
-  context.isDiaporama = false
 }
 export function setOutputAlc () {
   context.isHtml = false
   context.isAmc = false
-  context.isDiaporama = false
   context.isAlc = true
 }

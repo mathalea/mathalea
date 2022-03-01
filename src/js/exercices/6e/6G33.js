@@ -2,16 +2,16 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice, shuffle } from '../../modules/outils.js'
 import { point, segment, polygone, codageAngleDroit, codeSegments, mathalea2d } from '../../modules/2d.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // QCM
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Reconnaitre un quadrilatère particulier à partir de ses propriétés'
+export const titre = 'Reconnaître un quadrilatère particulier à partir de ses propriétés'
 
 /**
- * Reconnaitre un quadrilatère particulier à partir de ses propriétés
+ * Reconnaître un quadrilatère particulier à partir de ses propriétés
  * @author Rémi Angot
  * Référence 6G33
 */

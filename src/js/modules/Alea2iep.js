@@ -74,6 +74,7 @@ export default class Alea2iep {
       visibilite: false,
       position: point(0, 0),
       angle: 0,
+      rayon: 5.2,
       zoom: 100
     }
 
@@ -221,7 +222,7 @@ export default class Alea2iep {
       } else {
         A1 = A
       }
-      if (this[objet].visibilite) { // S'il est déjà visible, montrer devient un déplcer
+      if (this[objet].visibilite) { // S'il est déjà visible, montrer devient un déplacer
         this.deplacer(objet, A1, { tempo: tempo, vitesse: vitesse })
       } else {
         codeXML = `<action objet="${objet}" mouvement="montrer" abscisse="${this.x(A1)}" ordonnee="${this.y(A1)}" tempo="${tempo}" />`
@@ -288,7 +289,7 @@ export default class Alea2iep {
 
   /**
    *
-   * @param {string} objet
+   * @param {string} objet - 'regle', 'equerre', 'requerre, 'compas', 'rapporteur' ou 'crayon'
    * @param {objet} param1
    */
   masquer (objet, { tempo = this.tempo } = {}) {
@@ -349,7 +350,7 @@ export default class Alea2iep {
 
   /**
  *
- * @param {string} objet
+ * @param {string} objet - 'regle', 'equerre', 'requerre, 'compas', 'rapporteur' ou 'crayon'
  * @param {point} A
  * @param {objet} options
  */
@@ -427,7 +428,7 @@ export default class Alea2iep {
 
   /**
  *
- * @param {string} objet
+ * @param {string} objet - 'regle', 'equerre', 'requerre, 'compas', 'rapporteur' ou 'crayon'
  * @param {int} angle
  * @param {objet} options
  */
@@ -506,13 +507,13 @@ export default class Alea2iep {
   }
 
   /**
- *
+ * @param {string} objet - 'regle', 'equerre', 'requerre, 'compas' ou 'rapporteur'
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  regleZoom (k, { tempo = 0 } = {}) {
-    this.regle.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="regle" tempo="${tempo}" />`)
+  zoom (objet, echelle, { tempo = 0 } = {}) {
+    this[objet].zoom = echelle
+    this.liste_script.push(`<action echelle="${echelle}" mouvement="zoom" objet="${objet}" tempo="${tempo}" />`)
   }
 
   /**
@@ -520,9 +521,9 @@ export default class Alea2iep {
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  equerreZoom (k, { tempo = 0 } = {}) {
-    this.equerre.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="equerre" tempo="${tempo}" />`)
+  regleZoom (echelle, options) {
+    this.zoom('regle', echelle, options)
+    this.regle.longueur = this.regle.longueur * echelle / 100
   }
 
   /**
@@ -530,9 +531,8 @@ export default class Alea2iep {
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  requerreZoom (k, { tempo = 0 } = {}) {
-    this.requerre.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="requerre" tempo="${tempo}" />`)
+  equerreZoom (echelle, options) {
+    this.zoom('equerre', echelle, options)
   }
 
   /**
@@ -540,9 +540,8 @@ export default class Alea2iep {
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  rapporteurZoom (k, { tempo = 0 } = {}) {
-    this.rapporteur.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="rapporteur" tempo="${tempo}" />`)
+  requerreZoom (echelle, options) {
+    this.zoom('requerre', echelle, options)
   }
 
   /**
@@ -550,9 +549,17 @@ export default class Alea2iep {
  * @param {int} pourcentage 200 pour doubler la taille
  * @param {objet} options tempo = 0 par défaut
  */
-  compasZoom (k, { tempo = 0 } = {}) {
-    this.compas.zoom = k
-    this.liste_script.push(`<action echelle="${k}" mouvement="zoom" objet="compas" />`)
+  rapporteurZoom (echelle, options) {
+    this.zoom('rapporteur', echelle, options)
+  }
+
+  /**
+ *
+ * @param {int} pourcentage 200 pour doubler la taille
+ * @param {objet} options tempo = 0 par défaut
+ */
+  compasZoom (echelle, options) {
+    this.zoom('compas', echelle, options)
   }
 
   /**
@@ -854,9 +861,18 @@ export default class Alea2iep {
   // }
 
   /**
+   * Montre ou masque les graduations du rapporteur
+   * @param {point} A
+   * @param {string} nom
+   * @param {objet} options Défaut : { tempo: this.tempo }
+   */
+  // rapporteurGraduations ()
+
+  /**
    * Masque la graduation externe du rapporteur (laisse l'autre graduation visible)
    * @param {objet} options Défaut : { tempo: this.tempo }
    */
+
   rapporteurMasquerGraduationsExterieures ({ tempo = this.tempo } = {}) {
     this.liste_script.push(`<action mouvement="masquer_nombres" objet="rapporteur" tempo="${tempo}"/>`)
   }
@@ -906,8 +922,9 @@ export default class Alea2iep {
  */
   rapporteurCrayonMarqueAngle (angle, { tempo = this.tempo, vitesse = this.vitesse, couleur = this.couleurTraitsDeConstruction, epaisseur = this.epaisseurTraitsDeConstruction } = {}) {
     const O = this.rapporteur.position
-    const M = pointAdistance(O, 5.2, angle + this.rapporteur.angle)
-    const N = pointAdistance(O, 5.5, angle + this.rapporteur.angle)
+    const distanceBord = this.rapporteur.rayon * this.rapporteur.zoom / 100
+    const M = pointAdistance(O, distanceBord, angle + this.rapporteur.angle)
+    const N = pointAdistance(O, distanceBord + 0.3, angle + this.rapporteur.angle)
     this.crayonMontrer()
     this.crayonDeplacer(M, { tempo: tempo, vitesse: vitesse })
     this.tracer(N, { tempo: tempo, vitesse: vitesse, couleur: couleur, epaisseur: epaisseur })
@@ -931,7 +948,7 @@ export default class Alea2iep {
     }
     const d = droite(A, B)
     d.isVisible = false
-    const M = pointAdistance(A, calcul(5.2 * this.rapporteur.zoom / 100, 1), d.angleAvecHorizontale + angle)
+    const M = pointAdistance(A, calcul(this.rapporteur.rayon * this.rapporteur.zoom / 100, 1), d.angleAvecHorizontale + angle)
     this.rapporteurMasquer({ tempo: tempo })
     this.regleDemiDroiteOriginePoint(A, M, { longueur: longueur, couleur: couleur, tempo: tempo, vitesse: vitesse, sens: sens, epaisseur: epaisseur, pointilles: pointilles })
   }

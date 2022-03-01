@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, arrondi, abs, texNombrec, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction, calcul, creerBoutonMathalea2d } from '../../modules/outils.js'
+import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, arrondi, abs, texNombrec, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction, calcul, creerBoutonMathalea2d, contraindreValeur } from '../../modules/outils.js'
 import { angleOriente, homothetie, mathalea2d, point, pointSurSegment, polygone, rotation, texteParPoint } from '../../modules/2d.js'
 
 export const amcReady = true
@@ -27,14 +27,17 @@ export default function ReciproqueThales () {
   this.quatrieme = false
   this.sup = 1
   this.sup2 = 1
+  this.sup3 = 3
   this.listePackages = 'tkz-euclide'
 
-  // let s1='A',s2='B',s3='C',s4='M',s5='N'
   // coefficient de l'homothétie compris entre -0,8 et -0,2 ou entre 0,2 et 0,8 pour éviter les constructions trop serrées
   this.nouvelleVersion = function (numeroExercice) {
     this.autoCorrections = []
     this.listeQuestions = []
     this.listeCorrections = []
+    this.sup = contraindreValeur(1, 3, parseInt(this.sup), 1)
+    this.sup2 = contraindreValeur(1, 3, parseInt(this.sup2), 1)
+    this.sup3 = contraindreValeur(1, 3, parseInt(this.sup3), 3)
     const lettre1 = randint(1, 26) // aleatoirisation du nom des points
     const s1 = lettreDepuisChiffre(lettre1)
     const lettre2 = randint(1, 26, [lettre1])
@@ -49,9 +52,10 @@ export default function ReciproqueThales () {
     let y2 = randint(3, 5)
     let x3 = randint(5, 6)
     let y3 = randint(-2, 1)
-    let k = calcul((randint(2, 8) * randint(-1, 1, [0])) / 10)
+    let k = calcul((randint(2, 8) / 10))
+    k = this.sup3 === 2 ? calcul(-1 * k) : this.sup3 === 3 ? calcul(randint(-1, 1, [0]) * k) : k
     let k2
-    if (parseInt(this.sup2) === 1) { k2 = k } else if (parseInt(this.sup2) === 3) { k2 = k * (1 + randint(0, 1) * 0.1) } else { k2 = k * (1 + randint(-1, 1, 0) * 0.1) }
+    if (this.sup2 === 1) { k2 = k } else if (this.sup2 === 3) { k2 = k * (1 + randint(0, 1) * 0.1) } else { k2 = k * (1 + randint(-1, 1, 0) * 0.1) }
 
     if (this.quatrieme) {
       k = abs(k)
@@ -61,7 +65,7 @@ export default function ReciproqueThales () {
     let dist12 = Math.round(Math.sqrt(x2 * x2 + y2 * y2))
     let dist13 = Math.round(Math.sqrt(x3 * x3 + y3 * y3))
     while (dist12 === dist13) {
-      // éviter les triangles isocèles imbriqués qui ne nécéssitent aucun calculs.
+      // éviter les triangles isocèles imbriqués qui ne nécéssitent aucun calcul.
       x2 = randint(2, 4)
       y2 = randint(3, 5)
       x3 = randint(5, 6)
@@ -83,21 +87,13 @@ export default function ReciproqueThales () {
 
     let texte, texteCorr
     // On ne garde qu'une approximation au dixième pour l'exercice
-    // mise en texte avec 1 chiffres après la virgule pour énoncé
+    // mise en texte avec 1 chiffre après la virgule pour énoncé
     const s13 = texNombre(dist13)
     const s12 = texNombre(dist12)
     const s15 = texNombre(dist15)
     const s14 = texNombre(dist14)
     const s24 = texNombre(dist24)
     const s35 = texNombre(dist35)
-    // num1 = arrondi(dist12 * 100);
-    // den1 = arrondi(dist14 * 100);
-    // num2 = arrondi(dist13 * 100);
-    // den2 = arrondi(dist15 * 100);
-    // let fraction1 = [],
-    //   fraction2 = [];
-    //  fraction1 = fractionSimplifiee(num1, den1);
-    // fraction2 = fractionSimplifiee(num2, den2);
     const A = point(0, 0)
     const B = point(x2, y2)
     const C = point(x3, y3)
@@ -129,11 +125,11 @@ export default function ReciproqueThales () {
     }
     const marqueNomA = texteParPoint(s1, a)
     if (context.isHtml) {
-      if (parseInt(this.sup) === 1) {
+      if (this.sup === 1) {
         // AM,AB,AN,AC sont donnés pas de calculs intermédiaires
         texte = `Dans la figure ci-dessous, $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s5}=${s15}$ cm et $${s1 + s4}=${s14}$ cm.<br>`
         texteCorr = ''
-      } else if (parseInt(this.sup) === 2) {
+      } else if (this.sup === 2) {
         // AN n'est pas donné, il faut le calculer avant.
         texte = `Dans la figure ci-dessous, $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s3 + s5}=${s35}$ cm et $${s2 + s4}=${s24}$ cm.<br>`
         texteCorr = ''
@@ -237,7 +233,7 @@ export default function ReciproqueThales () {
     } else {
       // sortie Latex
       texteCorr = ''
-      if (parseInt(this.sup) === 1) {
+      if (this.sup === 1) {
         // niveau 1 : Calcul direct
         texte =
           '\\begin{minipage}{.7 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
@@ -246,7 +242,7 @@ export default function ReciproqueThales () {
           '\\end{itemize}  ' +
           `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>` +
           '. \\end{minipage}'
-      } else if (parseInt(this.sup) === 2) {
+      } else if (this.sup === 2) {
         // niveau 2 : Calcul intermédiaire nécessaire
         texte =
           '\\begin{minipage}{.7 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
@@ -448,5 +444,10 @@ export default function ReciproqueThales () {
     'Réciproque ou contraposée',
     3,
     ' 1 : Réciproque \n 2 : Contraposée \n 3 : Mélange'
+  ]
+  this.besoinFormulaire3Numerique = [
+    'Triangles emboîtés ou papillon',
+    3,
+    ' 1 : Triangles emboîtés \n 2 : Papillon \n 3 : L\'un des deux au hasard'
   ]
 }

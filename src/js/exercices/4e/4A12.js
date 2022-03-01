@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { combinaisonListes, listeNombresPremiersStrictJusqua, listeQuestionsToContenu, nombreAvecEspace, randint, texteEnCouleurEtGras, personne, warnMessage } from '../../modules/outils.js'
-import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { svgEngrenages } from '../../modules/macroSvgJs.js'
 import { context } from '../../modules/context.js'
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.

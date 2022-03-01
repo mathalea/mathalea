@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { codageAngleDroit, codeSegments, grille, mathalea2d, point, polygone, rotation, segment, texteParPosition } from '../../modules/2d.js'
 export const titre = 'QCM de positionnement'
 export const interactifReady = true

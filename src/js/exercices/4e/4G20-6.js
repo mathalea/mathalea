@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, arrondiVirgule, randint, arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Encadrer une racine carrée et en donner un arrondi'
 export const interactifReady = true // pour définir qu'exercice peut s'afficher en mode interactif.

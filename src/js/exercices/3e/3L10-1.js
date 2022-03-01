@@ -1,7 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { randint, combinaisonListes, lettreDepuisChiffre, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+
 export const titre = 'Additionner ou soustraire une expression entre parenthèses'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Développer et réduire des expressions avec des parenthèses précédées d'un signe + ou -
@@ -18,6 +23,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 5
   this.nbColsCorr = 1
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -40,7 +46,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}-(${printlatex(
             `${a}x+(${b})`
           )})$`
-          if (k-b!=0){
+          if (k - b !== 0) {
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(
               i + 1
             )}}=${printlatex(`${k}+(${-a}*x)+(${-b})`)}=${printlatex(
@@ -62,7 +68,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}+(${printlatex(
             `${a}x+(${b})`
           )})$`
-          if (k+b!=0){
+          if (k + b !== 0) {
             texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(
               i + 1
             )}}=${printlatex(`${k}+(${a}*x)+(${b})`)}=${printlatex(
@@ -75,13 +81,18 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
               `${a}*x`
             )}$`
           }
-          break 
+          break
+      }
+      if (this.interactif) {
+        texte += '$ = $' + ajouteChampTexteMathLive(this, i, 'inline largeur75')
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        const reponse = texteCorr.match(/=([^=$]+)\$$/)[1]
+        setReponse(this, i, reponse)
         i++
       }
       cpt++

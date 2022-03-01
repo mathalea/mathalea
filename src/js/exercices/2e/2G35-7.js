@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd, calcul } from '../../modules/outils.js'
 import { repere2, droite, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
-import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const titre = "Lecture graphique des coefficients d'une équation réduite "
 export const interactifReady = true

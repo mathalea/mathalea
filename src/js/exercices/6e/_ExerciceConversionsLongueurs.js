@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, arrondi, texNombre, texTexte, calcul } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = 'true'
@@ -185,7 +186,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         reponses[i] = resultat
         setReponse(this, i, resultat.toString().replace('.', ','))
         // Si la question n'a jamais été posée, on en crée une autre
-        if (context.isDiaporama) {
+        if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfill', '\\text{ en }')
         }
         if (context.isHtml) {

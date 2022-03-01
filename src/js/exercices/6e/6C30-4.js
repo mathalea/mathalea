@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choice, texFraction } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM

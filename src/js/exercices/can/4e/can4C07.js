@@ -31,7 +31,7 @@ export default function DifferenceFractionsCompatibles () {
     Ainsi,
     $${a.texFraction} - ${b.texFraction}=
    \\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}- ${b.texFraction}
-    =${a.fractionEgale(c).texFraction} - ${b.texFraction}=\\dfrac{${a.n * c}-${b.n}}{${b.d}}=\\dfrac{${a.n * c - b.n}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c - b.n, b.d)}$`
+    =${a.reduire(c).texFraction} - ${b.texFraction}=\\dfrac{${a.n * c}-${b.n}}{${b.d}}=\\dfrac{${a.n * c - b.n}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c - b.n, b.d)}$`
     this.reponse = a.differenceFraction(b).simplifie()
   }
 }

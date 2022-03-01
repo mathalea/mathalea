@@ -1,12 +1,12 @@
 
 import Exercice from '../Exercice'
 import { combinaisonListes, contraindreValeur, lettreDepuisChiffre, listeQuestionsToContenu } from '../../modules/outils'
-import { aleaVariables, expressionLitterale, toTex } from '../../modules/outilsMathjs'
+import { aleaVariables, aleaExpression, toTex } from '../../modules/outilsMathjs'
 import { create, all } from 'mathjs'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
 
-export const titre = 'calculer le discriminant d\'un polynôme du second degré'
+export const titre = 'Calculer le discriminant d\'un polynôme du second degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -36,7 +36,7 @@ export default function CalculerDiscriminant () {
             c: 'randomInt(1,5)',
             test: 'a<6'
           })
-          expression = toTex(expressionLitterale('a*x^2+b*x+c', coeffs))
+          expression = toTex(aleaExpression('a*x^2+b*x+c', coeffs))
           a = fraction(coeffs.a)
           b = fraction(coeffs.b)
           c = fraction(coeffs.c)
@@ -48,7 +48,7 @@ export default function CalculerDiscriminant () {
             c: 'randomInt(1,5)*pickRandom([-1,1])',
             test: 'a<6'
           })
-          expression = toTex(expressionLitterale('a*x^2+b*x+c', coeffs))
+          expression = toTex(aleaExpression('a*x^2+b*x+c', coeffs))
           a = fraction(coeffs.a)
           b = fraction(coeffs.b)
           c = fraction(coeffs.c)
@@ -72,7 +72,7 @@ export default function CalculerDiscriminant () {
             c: 'cn/cd',
             test: 'a<6'
           })
-          expression = toTex(expressionLitterale('an/ad*x^2+bn/bd*x+cn/cd', coeffs))
+          expression = toTex(aleaExpression('an/ad*x^2+bn/bd*x+cn/cd', coeffs))
           a = fraction(coeffs.an, coeffs.ad)
           b = fraction(coeffs.bn, coeffs.bd)
           c = fraction(coeffs.cn, coeffs.cd)

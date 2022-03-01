@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { combinaisonListes, listeQuestionsToContenuSansNumero, lettreDepuisChiffre, texFraction, randint, miseEnEvidence, choice } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 
 export const titre = 'Somme, différence ou produit de fractions'

@@ -5,11 +5,26 @@ Ces outils ont pour objectif d'utiliser la puissance de [Mathjs](https://mathjs.
 ## Sommaire
 
 1. [Documentation utile](#section0)
-2. [La fonction aleaVariables()](#section1)
+2. [La fonction aleaVariables() de outilsMathjs](#section1)
+
+    a. [Un premier exemple basique : l'inégalité triangulaire](#subsection1-1)
+
+    b. [Un deuxième exemple basique : a+b](#subsection1-2)
+
+    c. [Décimaux versus binaire : gérer les erreurs](#subsection1-3)
 3. [Convertir une expression numérique ou littérale en latex](#section2)
 4. [Remplacer des variables par des valeurs](#section3)
 5. [Transformer une expression littérale](#section4)
 6. [RandomSeed](#section5)
+7. [La fonction toTex() de outilsMathjs](#section6)
+8. [La fonction calculer() de outilsMathjs](#section7)
+9. [La fonction resoudre() de outilsMathjs](#section8)
+
+    a. [Résoudre une équation](#subsection8-1)
+
+    b. [Commantaires par défaut des étapes](#subsection8-2)
+
+    c. [Résoudre une inéquation](#subsection8-3)
 
 ## Documentation utile <a id="section0"></a>
 
@@ -19,7 +34,13 @@ Ces outils ont pour objectif d'utiliser la puissance de [Mathjs](https://mathjs.
 
 ## La fonction aleaVariables() <a id="section1"></a>
 
-### Un premier exemple basique : l'inégalité triangulaire
+La fonction `aleaVariables()` se trouve dans `/modules/outilsMathjs`.
+
+Elle a pour objectif de générer des valeurs aléatoires, d'effectuer les calculs nécessaires à la préparation des variables d'un exercice en limitant le plus possible les erreurs de conversions binaires/decimaux.
+
+Elle utilise pour cela `Mathjs`.
+
+### Un premier exemple basique : l'inégalité triangulaire <a id="subsection1-1"></a>
 
 Imaginons que nous voulions obtenir trois longueurs d'un triangle au hasard. Il faut vérifier l'inégalité triangulaire pour le plus grand côté.
 
@@ -79,7 +100,7 @@ Pour des nombres décimaux compris entre 0 et 10 et avec au maximum deux chiffre
 < ► {a: 1.9, b: 6, c: 4.9}
 ```
 
-### Un deuxième exemple basique : a+b-c
+### Un deuxième exemple basique : a+b <a id="subsection1-2"></a>
 
 On souhaite obtenir deux entiers relatifs dont la somme est toujours positif.
 
@@ -126,7 +147,44 @@ Et pour les nombres décimaux :
 < ► {a: 9, b: -3.6}
 ```
 
-### Gérer les conversions en nombres décimaux
+### Décimaux versus binaire : gérer les erreurs <a id="subsection1-3"></a>
+
+En ce qui concerne la représentation des décimaux en Float : à partir du moment où l'on sait comment cela fonctionne et quels sont nos besoins, ça ne devrait pas poser un problème.
+
+Par exemple :  `(0.2+0.1-0.3)*10**18`  vaut environ `55.5` pour Vanilla JS.
+
+Je ne discuterai pas de l'utilité d'un tel calcul, mais l'expérience montre qu'on arrive régulièrement à ce genre de situations désagréables.
+
+En configurant mathjs on peut passer outre ce problème :
+
+```Javascript
+emath = math.create(math.all)
+emath.config({number: 'BigNumber'})
+a = parseFloat(emath.evaluate('(0.2+0.1-0.3)*10^18')) 
+// a = 0 
+```
+
+Autres exemples :
+
+```Javascript
+b =  parseFloat(emath.evaluate('cos(pi/3)'))
+// b = 0.5
+ test =  emath.evaluate('cos(pi/3)==1/2') 
+// test = true
+```
+
+Par comparaison :
+
+```Javascript
+c = Math.cos(Math.PI/3)
+// c = 0.5000000000000001
+test = Math.cos(Math.PI/3) === 1/2
+// test = false
+```
+
+L'avantage c'est qu'on n'est pas obligé tout du long de la chaîne de nos calculs de vérifier qu'il n'y a pas eu de problèmes.
+On perd en performance de calculs machine mais on assure les arrières par rapport au traitement des décimaux.
+Il y aura toujours des problèmes mais moindre qu'avec VanillaJS.
 
 Voici deux exemples qui montrent les problèmes liés aux conversions en `float` en Javascript :
 
@@ -139,7 +197,7 @@ Voici deux exemples qui montrent les problèmes liés aux conversions en `float`
 ```
 
 Imaginons que nous souhaitions afficher la somme de deux nombres décimaux pris au hasrad compris entre 0 et 1 à un seul chiffre significatif.
-Voici une utilisation possible :
+Voici une utilisation possible de la fonction `aleaVariable()` de `/modules/outilsMathjs`, elle tente dautomatiser l'utilisation de Mathjs :
 
 ```Javascript
 
@@ -453,8 +511,12 @@ Nous avons vu les limites de `math.simplify()`. Voici une autre manière de tran
                             }
                             break
                         case '*': // En cas de multiplications
-                            if (node.args[0].toString() === '1' || node.args[0].toString() === '-1') { // les 1*x ou -1*x ...
-                                node = node.args[1] // ... deviennent x ou -x
+                            if (node.isOperatorNode && node.op === '*') {
+                                if (node.args[0].toString() === '1') { // Pour corriger 1*n en n
+                                    node = node.args[1]
+                                } else if (node.args[0].toString() === '-1') { // Pour convertir -1*n en -n
+                                    node = parse('-' + node.args[1].toString())
+                                }
                             }
                             break
                     }
@@ -492,3 +554,179 @@ math.config({
 const result = math.random()
 // Si context.graine = 'a' alors result = 0.43449421599986604 
 ```
+
+## La fonction toTex() de outilsMathjs <a id="section6"></a>
+
+L'objectif de cette fonction est de mettre en forme une expression mathématique (numérique ou littérale), une équation ou une inéquation décrite par une chaîne de caractères ascii. Cette chaîne est convertie au format mathjs avant traitement.
+La sortie est une chaîne de caractères décrivant l'expression au format LaTex.
+
+Elle repose sur des choix mais certains sont paramétrables :
+
+- a/b deviendra $\dfrac{a}{b}$
+- les divisions sont "applaties" : a/b*c/d qui donne $\dfrac{\dfrac{a}{b}\times c}{d}$ avec `'mathjs'`, donneront $\dfrac{a}{b}\times \dfrac{c}{d}$ avec `toTex()`.
+- $\dfrac{-2}{3}$ est converti en $-\dfrac{2}{3}$
+- les parenthèses inutiles sont supprimées
+- les 1 ou -1 sont supprimés devant une parenthèse ou une lettre (paramétrable)
+- les +0 ou +0*n sont supprimés (paramétrable)
+- 5+(-6) est converti en 5-6 (paramétrable)
+
+Voici un exemple d'utilisation et de paramétrage :
+
+```Javascript
+toTex('(4+(-6)*x)/(-8)=1*x+(-7)/3')
+toTex('(4+(-6)*x)/(-8)=1*x+(-7)/3', { supprPlusMoins: false })
+```
+Le première ligne donnera : $\dfrac{4-6x}{-8}=x-\dfrac{7}{3}$
+
+La seconde donnera : $\dfrac{4+(-6)x}{-8}=x-\dfrac{7}{3}$
+
+## La fonction calculer() de outilsMathjs <a id="section7"></a>
+
+Mathsteps est un outil reposant sur Mathjs et qui a pour objectif de donner les étapes d'un calcul.
+Il possède une fonction appelée simplifyExpression() et qui détaille l'ensemble des étapes permettant de :
+
+- calculer des sommes, différences, produits ou quotients de fractions
+- simplifier des écritures littérales en les développant et en les réduisant
+
+Il n'est plus développé par son auteur. Mathalea en héberge un fork et qui a été modifié pour notamment développer l'identité remarquable $(a+b)^2$.
+
+> **Important** : Pour profiter de ses nouvelles fonctionnalités ne pas oublier `pnpm i`
+
+Voici un exemple d'exercice :
+
+```Javascript
+import { calculer } from '../modules/outilsMathjs'
+
+// Ensemble des paramètres de l'exercice
+
+// Construction de l'exercice
+exercice = calculer('(5*x-3)^2', { name: 'A' })
+exercice.texte = `Développer puis réduire l'expression suivante : $${exercice.name}=${exercice.printExpression}$`
+exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.name}=${exercice.printResult}$`
+
+// Placer l'énoncé et la correction pour le traitement par Mathalea
+this.listeQuestions.push(exercice.texte)
+this.listeCorrections.push(exercice.texteCorr)
+```
+
+Et voici le résultat obtenu :
+
+![](img/outilsMathjs-betaEquations107.png)
+
+Toutes les étapes du calcul sont visibles dans un ordre prédéfini par Mathsteps. Chaque ligne correspond à une étape et une seule ce qui peut ammener à de nombreuses lignes.
+
+Certaines étapes sont masquées dans des sous-étapes :
+
+```Javascript
+exercice = calculer('2/9*(4/3+7/8)')
+exercice.texte = `Calculer : $${exercice.printExpression}$`
+exercice.texteCorr = this.correctionDetaillee ? exercice.texteCorr : `$${exercice.printExpression}=${exercice.printResult}$`
+```
+
+![](img/outilsMathjs-betaEquations109.png)
+
+Le paramètre `substeps` permet ici de contrôler l'affichage des sous-étapes.
+L'exemple précédent ne montrait pas l'étape de mise au même dénominateur 
+
+```Javascript
+exercice = calculer('2/9*(4/3+7/8)', { substeps: true })
+```
+
+![](img/outilsMathjs-betaEquations109bis.png)
+
+## La fonction resoudre() de outilsMathjs <a id="section8"></a>
+
+Cette fonction donne les étapes de résolution d'une équation du premier degré en utilisant Mathsteps.
+
+### Résoudre une équation <a id="subsection8-1"></a>
+```Javascript
+import { resoudre } from '../modules/outilsMathjs'
+
+// Ensemble des paramètres de l'exercice
+
+// Construction de l'exercice
+exercice = resoudre('3*x+2=9*x-3')
+exercice.texte = `Résoudre l'équation $${exercice.equation}$ en détaillant les étapes.`
+exercice.texteCorr += `<br>La solution de cette équation est donc $${exercice.solution}$.`
+```
+![](img/outilsMathjs-betaEquations110.png)
+
+On peut retirer la coloration en ajoutant le paramètre `{ color: 'black' }` ou ajouter des commentaires.
+
+On peut également personnaliser les commentaires. (`{stepChange}` permet d'insérer dans le commentaire ce qui est ajouté, soustrait, multiplié ou diviser à chaque membre.)
+
+```Javascript
+const commentairesPersonnalises = {
+    CANCEL_MINUSES: 'Simplifier l\'écriture',
+    SUBTRACT_FROM_BOTH_SIDES: 'Enlever {stepChange} à chaque membre.',
+    SIMPLIFY_ARITHMETIC: '',
+    SIMPLIFY_RIGHT_SIDE: 'Réduire.',
+    SIMPLIFY_LEFT_SIDE: 'Réduire.'
+}
+exercice = resoudre('3*x+2=9*x-3', { comment: true, comments: commentairesPersonnalises })
+```
+
+[![](img/outilsMathjs-betaEquations110bis.png)](https://coopmaths.fr/mathalea.html?ex=betaEquations,s=110)
+
+On peut également mettre en forme une vérification :
+
+```Javascript
+exercice = resoudre('9*x+7=6*x-3', { color: 'black', comment: true })
+exercice.texte = `Résoudre : $${exercice.equation}$`
+exercice.texteCorr = `<br>
+${exercice.texteCorr}<br>
+La solution est $${exercice.solution}$.
+<br>
+Vérification :
+<br>
+D'une part : $${exercice.verifLeftSide.printExpression}=${exercice.verifLeftSide.printResult}$
+<br>
+D'autre part : $${exercice.verifRightSide.printExpression}=${exercice.verifRightSide.printResult}$
+`
+```
+
+[![](img/outilsMathjs-betaEquations114.png)](https://coopmaths.fr/mathalea.html?ex=betaEquations,s=114)
+
+### Commentaires par défaut des étapes <a id="subsection8-2"></a>
+
+Les commentaires par défaut (modifiables) sont les suivants :
+
+```Javascript
+const defaultComments = {
+    MULTIPLY_BOTH_SIDES_BY_NEGATIVE_ONE: 'Multiplier les deux membres par $-1$.',
+    SUBTRACT_FROM_BOTH_SIDES: `Soustraire $${stepChange}$ à chaque membre.`,
+    ADD_TO_BOTH_SIDES: `Ajouter $${stepChange}$ à chaque membre`,
+    MULTIPLY_TO_BOTH_SIDES: `Multiplier chaque membre par $${stepChange}$.`,
+    DIVIDE_FROM_BOTH_SIDES: `Diviser chaque membre par $${stepChange}$.`,
+    MULTIPLY_BOTH_SIDES_BY_INVERSE_FRACTION: `Multiplier chaque membre par $${stepChange}$.`,
+    SWAP_SIDES: 'Echanger les deux membres.',
+    STATEMENT_IS_FALSE: 'L\'égalité est fausse.',
+    STATEMENT_IS_TRUE: 'L\'égalité est vraie.',
+    DISTRIBUTE: 'Distribution.',
+    SIMPLIFY_RIGHT_SIDE: 'Simplifier le membre de droite.',
+    SIMPLIFY_LEFT_SIDE: 'Simplifier le membre de gauche.',
+    COLLECT_AND_COMBINE_LIKE_TERMS: 'Regrouper et réduire les termes de même nature.',
+    SIMPLIFY_ARITHMETIC: 'Calcul arithmétique.',
+    SIMPLIFY_FRACTION: 'Simplifier une fraction.',
+    REMOVE_MULTIPLYING_BY_NEGATIVE_ONE: 'Calculer la multiplication par $-1$.',
+    REMOVE_ADDING_ZERO: 'Enlever des zéros.',
+    CANCEL_MINUSES: 'Annuler les signes moins.',
+    FIND_ROOTS: 'Trouver la (ou les) solution(s).',
+    SIMPLIFY_SIGNS: 'Simplifier le signe.',
+    MULTIPLY_BY_ZERO: 'Multiplication par zéro.',
+    ADD_FRACTIONS: 'Additionner des fractions.',
+    BREAK_UP_FRACTION: 'Séparer une fraction.',
+    CANCEL_TERMS: 'Annuler les termes.',
+    REMOVE_MULTIPLYING_BY_ONE: 'Retirer la multiplication par $1$.'
+  }
+```
+
+### Résoudre une inéquation <a id="subsection8-3"></a>
+
+L'exemple suivant montre les étapes de résolution d'une inéquation :
+
+```Javascript
+exercice = resoudre('3*x+2<9*x-3')
+```
+
+[![](img/outilsMathjs-betaEquations111.png)](https://coopmaths.fr/mathalea.html?ex=betaEquations,s=111)

@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { randint, listeQuestionsToContenu, texNombre, combinaisonListes, choice, nombreEnLettres, shuffle, contraindreValeur } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Écrire un nombre entier en chiffres ou en lettres'
 
 export const interactifReady = true
@@ -155,15 +155,15 @@ export default function EcrirePetitsNombresEntiers () {
 
       if (typeDeConsigne[i] === 1) {
         setReponse(this, i, nombreEnLettres(NombreAEcrire))
-        if (!context.isDiaporama) texte = `$${texNombre(NombreAEcrire)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexteMathLive(this, i)}`
+        if (context.vue !== 'diap') texte = `$${texNombre(NombreAEcrire)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexteMathLive(this, i)}`
         else texte = `$${texNombre(NombreAEcrire)}$`
-        if (!context.isDiaporama) texteCorr = `$${texNombre(NombreAEcrire)}$ : ${nombreEnLettres(NombreAEcrire)}`
+        if (context.vue !== 'diap') texteCorr = `$${texNombre(NombreAEcrire)}$ : ${nombreEnLettres(NombreAEcrire)}`
         else texteCorr = `${nombreEnLettres(NombreAEcrire)}`
       } else {
         setReponse(this, i, NombreAEcrire)
-        if (!context.isDiaporama) texte = `$${nombreEnLettres(NombreAEcrire)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexteMathLive(this, i)}`
+        if (context.vue !== 'diap') texte = `$${nombreEnLettres(NombreAEcrire)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexteMathLive(this, i)}`
         else texte = `${nombreEnLettres(NombreAEcrire)}`
-        if (!context.isDiaporama) texteCorr = `${nombreEnLettres(NombreAEcrire)} : $${texNombre(NombreAEcrire)}$`
+        if (context.vue !== 'diap') texteCorr = `${nombreEnLettres(NombreAEcrire)} : $${texNombre(NombreAEcrire)}$`
         else texteCorr = `$${texNombre(NombreAEcrire)}$`
       }
 

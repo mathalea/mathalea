@@ -1,5 +1,946 @@
 export const dictionnaireCrpe =
 {
+  'crpe-2019-g1-ex1': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 1',
+    numeroInitial: 'Ex 1',
+    png: [
+      'assets/crpe/2019/2019-g1-ex1.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g1-ex1-cor-1.png',
+      'assets/crpe/2019/2019-g1-ex1-cor-2.png',
+      'assets/crpe/2019/2019-g1-ex1-cor-3.png'
+    ],
+    tags: ['Pourcentages', 'Volumes', 'Calculs numériques']
+  },
+  'crpe-2019-g1-ex2': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 1',
+    numeroInitial: 'Ex 2',
+    png: [
+      'assets/crpe/2019/2019-g1-ex2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g1-ex2-cor-1.png',
+      'assets/crpe/2019/2019-g1-ex2-cor-2.png'
+    ],
+    tags: ['Probabilités']
+  },
+  'crpe-2019-g1-ex3': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 1',
+    numeroInitial: 'Ex 3',
+    png: [
+      'assets/crpe/2019/2019-g1-ex3-1.png',
+      'assets/crpe/2019/2019-g1-ex3-2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g1-ex3-cor-1.png',
+      'assets/crpe/2019/2019-g1-ex3-cor-2.png',
+      'assets/crpe/2019/2019-g1-ex3-cor-3.png',
+      'assets/crpe/2019/2019-g1-ex3-cor-4.png',
+      'assets/crpe/2019/2019-g1-ex3-cor-5.png',
+      'assets/crpe/2019/2019-g1-ex3-cor-6.png',
+      'assets/crpe/2019/2019-g1-ex3-cor-7.png',
+      'assets/crpe/2019/2019-g1-ex3-cor-8.png'
+    ],
+    tags: ['Algorithmique']
+  },
+  'crpe-2019-g1-pb': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 1',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2019/2019-g1-pb-1.png',
+      'assets/crpe/2019/2019-g1-pb-2.png',
+      'assets/crpe/2019/2019-g1-pb-3.png',
+      'assets/crpe/2019/2019-g1-pb-4.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g1-pb-cor-1.png',
+      'assets/crpe/2019/2019-g1-pb-cor-2.png',
+      'assets/crpe/2019/2019-g1-pb-cor-3.png',
+      'assets/crpe/2019/2019-g1-pb-cor-4.png',
+      'assets/crpe/2019/2019-g1-pb-cor-5.png',
+      'assets/crpe/2019/2019-g1-pb-cor-6.png',
+      'assets/crpe/2019/2019-g1-pb-cor-7.png'
+    ],
+    tags: ['Aires et périmètres', 'Pythagore', 'Calcul littéral', 'Proportionnalité', 'Lecture graphique', 'Tableur', 'Ensembles de nombres']
+  },
+  'crpe-2019-g2-ex1': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 2',
+    numeroInitial: 'Ex 1',
+    png: [
+      'assets/crpe/2019/2019-g2-ex1.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g2-ex1-cor-1.png',
+      'assets/crpe/2019/2019-g2-ex1-cor-2.png'
+    ],
+    tags: ['Algorithmique']
+  },
+  'crpe-2019-g2-ex2': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 2',
+    numeroInitial: 'Ex 2',
+    png: [
+      'assets/crpe/2019/2019-g2-ex2-1.png',
+      'assets/crpe/2019/2019-g2-ex2-2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g2-ex2-cor-1.png',
+      'assets/crpe/2019/2019-g2-ex2-cor-2.png'
+    ],
+    tags: ['Proportionnalité', 'Vitesses', 'Durées', 'Recherche d\'informations']
+  },
+  'crpe-2019-g2-ex3': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 2',
+    numeroInitial: 'Ex 3',
+    png: [
+      'assets/crpe/2019/2019-g2-ex3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g2-ex3-cor-1.png',
+      'assets/crpe/2019/2019-g2-ex3-cor-2.png'
+    ],
+    tags: ['Volumes', 'Proportionnalité', 'Grandeurs composées']
+  },
+  'crpe-2019-g2-ex4': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 2',
+    numeroInitial: 'Ex 4',
+    png: [
+      'assets/crpe/2019/2019-g2-ex4.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g2-ex4-cor-1.png'
+    ],
+    tags: ['Statistiques', 'Probabilités']
+  },
+  'crpe-2019-g2-pb': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 2',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2019/2019-g2-pb-1.png',
+      'assets/crpe/2019/2019-g2-pb-2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g2-pb-cor-1.png',
+      'assets/crpe/2019/2019-g2-pb-cor-2.png',
+      'assets/crpe/2019/2019-g2-pb-cor-3.png',
+      'assets/crpe/2019/2019-g2-pb-cor-4.png',
+      'assets/crpe/2019/2019-g2-pb-cor-5.png'
+    ],
+    tags: ['Aires et périmètres', 'Pythagore', 'Trigonométrie', 'Proportionnalité', 'Géométrie plane', 'Volumes', 'Lecture graphique', 'Calcul littéral']
+  },
+  'crpe-2019-g3-ex1': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 3',
+    numeroInitial: 'Ex 1',
+    png: [
+      'assets/crpe/2019/2019-g3-ex1.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g3-ex1-cor-1.png',
+      'assets/crpe/2019/2019-g3-ex1-cor-2.png',
+      'assets/crpe/2019/2019-g3-ex1-cor-3.png'
+    ],
+    tags: ['Pythagore', 'Thalès', 'Aires et périmètres']
+  },
+  'crpe-2019-g3-ex2': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 3',
+    numeroInitial: 'Ex 2',
+    png: [
+      'assets/crpe/2019/2019-g3-ex2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g3-ex2-cor-1.png',
+      'assets/crpe/2019/2019-g3-ex2-cor-2.png',
+      'assets/crpe/2019/2019-g3-ex2-cor-3.png'
+    ],
+    tags: ['Programme de calculs', 'Calcul littéral', 'Arithmétique']
+  },
+  'crpe-2019-g3-ex3': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 3',
+    numeroInitial: 'Ex 3',
+    png: [
+      'assets/crpe/2019/2019-g3-ex3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g3-ex3-cor-1.png',
+      'assets/crpe/2019/2019-g3-ex3-cor-2.png',
+      'assets/crpe/2019/2019-g3-ex3-cor-4.png'
+    ],
+    tags: ['Algorithmique']
+  },
+  'crpe-2019-g3-pb': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 3',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2019/2019-g3-pb-1.png',
+      'assets/crpe/2019/2019-g3-pb-2.png',
+      'assets/crpe/2019/2019-g3-pb-3.png',
+      'assets/crpe/2019/2019-g3-pb-4.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g3-pb-cor-1.png',
+      'assets/crpe/2019/2019-g3-pb-cor-2.png',
+      'assets/crpe/2019/2019-g3-pb-cor-3.png',
+      'assets/crpe/2019/2019-g3-pb-cor-4.png',
+      'assets/crpe/2019/2019-g3-pb-cor-5.png',
+      'assets/crpe/2019/2019-g3-pb-cor-6.png',
+      'assets/crpe/2019/2019-g3-pb-cor-7.png'
+    ],
+    tags: ['Recherche d\'informations', 'Tableur', 'Statistiques', 'Probabilités']
+  },
+  'crpe-2019-g4-ex1': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 4',
+    numeroInitial: 'Ex 1',
+    png: [
+      'assets/crpe/2019/2019-g4-ex1.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g4-ex1-cor-1.png',
+      'assets/crpe/2019/2019-g4-ex1-cor-2.png'
+    ],
+    tags: ['Géométrie plane', 'Thalès', 'Aires et périmètres']
+  },
+  'crpe-2019-g4-ex2': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 4',
+    numeroInitial: 'Ex 2',
+    png: [
+      'assets/crpe/2019/2019-g4-ex2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g4-ex2-cor-1.png',
+      'assets/crpe/2019/2019-g4-ex2-cor-2.png',
+      'assets/crpe/2019/2019-g4-ex2-cor-3.png',
+      'assets/crpe/2019/2019-g4-ex2-cor-4.png',
+      'assets/crpe/2019/2019-g4-ex2-cor-5.png',
+      'assets/crpe/2019/2019-g4-ex2-cor-6.png',
+      'assets/crpe/2019/2019-g4-ex2-cor-7.png'
+    ],
+    tags: ['Probabilités']
+  },
+  'crpe-2019-g4-ex3': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 4',
+    numeroInitial: 'Ex 3',
+    png: [
+      'assets/crpe/2019/2019-g4-ex3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g4-ex3-cor-1.png',
+      'assets/crpe/2019/2019-g4-ex3-cor-2.png'
+    ],
+    tags: ['Algorithmique', 'Programme de calculs', 'Calcul littéral', 'Équations']
+  },
+  'crpe-2019-g4-pb': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 4',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2019/2019-g4-pb-1.png',
+      'assets/crpe/2019/2019-g4-pb-2.png',
+      'assets/crpe/2019/2019-g4-pb-3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g4-pb-cor-1.png',
+      'assets/crpe/2019/2019-g4-pb-cor-2.png',
+      'assets/crpe/2019/2019-g4-pb-cor-3.png',
+      'assets/crpe/2019/2019-g4-pb-cor-4.png',
+      'assets/crpe/2019/2019-g4-pb-cor-5.png',
+      'assets/crpe/2019/2019-g4-pb-cor-6.png',
+      'assets/crpe/2019/2019-g4-pb-cor-7.png'
+    ],
+    tags: ['Volumes', 'Statistiques', 'Fonctions', 'Patrons', 'Aires et périmètres', 'Grandeurs composées']
+  },
+  'crpe-2019-g5-ex1': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 5',
+    numeroInitial: 'Ex 1',
+    png: [
+      'assets/crpe/2019/2019-g5-ex1.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g5-ex1-cor-1.png',
+      'assets/crpe/2019/2019-g5-ex1-cor-2.png'
+    ],
+    tags: ['Vrai-faux', 'Vitesses', 'Statistiques', 'Arithmétique']
+  },
+  'crpe-2019-g5-ex2': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 5',
+    numeroInitial: 'Ex 2',
+    png: [
+      'assets/crpe/2019/2019-g5-ex2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g5-ex2-cor-1.png'
+    ],
+    tags: ['Probabilités']
+  },
+  'crpe-2019-g5-ex3': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 5',
+    numeroInitial: 'Ex 3',
+    png: [
+      'assets/crpe/2019/2019-g5-ex3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g5-ex3-cor-1.png',
+      'assets/crpe/2019/2019-g5-ex3-cor-2.png',
+      'assets/crpe/2019/2019-g5-ex3-cor-3.png',
+      'assets/crpe/2019/2019-g5-ex3-cor-4.png',
+      'assets/crpe/2019/2019-g5-ex3-cor-5.png'
+    ],
+    tags: ['Algorithmique']
+  },
+  'crpe-2019-g5-ex4': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 5',
+    numeroInitial: 'Ex 4',
+    png: [
+      'assets/crpe/2019/2019-g5-ex4-1.png',
+      'assets/crpe/2019/2019-g5-ex4-2.png'
+    ],
+    pngCor: [],
+    tags: ['Recherche d\'informations', 'Tableur', 'Grandeurs composées']
+  },
+  'crpe-2019-g5-pb': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'Groupement 5',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2019/2019-g5-pb-1.png',
+      'assets/crpe/2019/2019-g5-pb-2.png',
+      'assets/crpe/2019/2019-g5-pb-3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-g5-pb-cor-1.png',
+      'assets/crpe/2019/2019-g5-pb-cor-2.png',
+      'assets/crpe/2019/2019-g5-pb-cor-3.png',
+      'assets/crpe/2019/2019-g5-pb-cor-4.png',
+      'assets/crpe/2019/2019-g5-pb-cor-5.png',
+      'assets/crpe/2019/2019-g5-pb-cor-6.png'
+    ],
+    tags: ['Volumes', 'Pourcentages', 'Proportionnalité', 'Thalès', 'Pythagore', 'Agrandissement-réduction', 'Lecture graphique']
+  },
+  'crpe-2019-ver-pb': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'ESPE Versailles',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2019/2019-ver-pb-1.png',
+      'assets/crpe/2019/2019-ver-pb-2.png',
+      'assets/crpe/2019/2019-ver-pb-3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-ver-pb-cor-1.png',
+      'assets/crpe/2019/2019-ver-pb-cor-2.png',
+      'assets/crpe/2019/2019-ver-pb-cor-3.png',
+      'assets/crpe/2019/2019-ver-pb-cor-4.png'
+    ],
+    tags: ['Pythagore', 'Géométrie plane', 'Aires et périmètres', 'Trigonométrie', 'Thalès', 'Calcul littéral', 'Proportionnalité', 'Arithmétique']
+  },
+  'crpe-2019-bes-pb': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'ESPE Besançon',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2019/2019-bes-pb-1.png',
+      'assets/crpe/2019/2019-bes-pb-2.png',
+      'assets/crpe/2019/2019-bes-pb-3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-bes-pb-cor-1.png',
+      'assets/crpe/2019/2019-bes-pb-cor-2.png',
+      'assets/crpe/2019/2019-bes-pb-cor-3.png',
+      'assets/crpe/2019/2019-bes-pb-cor-4.png'
+    ],
+    tags: ['Géométrie plane', 'Proportionnalité', 'Vitesses', 'Aires et périmètres', 'Pythagore', 'Tableur', 'Algorithmique']
+  },
+  'crpe-2019-cle-pb': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'ESPE Clermont-Ferrand',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2019/2019-cle-pb-1.png',
+      'assets/crpe/2019/2019-cle-pb-2.png',
+      'assets/crpe/2019/2019-cle-pb-3.png',
+      'assets/crpe/2019/2019-cle-pb-4.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-cle-pb-cor-1.png',
+      'assets/crpe/2019/2019-cle-pb-cor-2.png',
+      'assets/crpe/2019/2019-cle-pb-cor-3.png'
+    ],
+    tags: ['Recherche d\'informations', 'Durées', 'Pourcentages', 'Statistiques', 'Tableur', 'Vitesses', 'Calcul littéral', 'Lecture graphique', 'Aires et périmètres', 'Grandeurs composées', 'Trigonométrie']
+  },
+  'crpe-2019-tou-pb': {
+    typeExercice: 'crpe',
+    annee: '2019',
+    lieu: 'ESPE Toulouse',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2019/2019-tou-pb-1.png',
+      'assets/crpe/2019/2019-tou-pb-2.png',
+      'assets/crpe/2019/2019-tou-pb-3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2019/2019-tou-pb-cor-1.png',
+      'assets/crpe/2019/2019-tou-pb-cor-2.png',
+      'assets/crpe/2019/2019-tou-pb-cor-3.png',
+      'assets/crpe/2019/2019-tou-pb-cor-4.png'
+    ],
+    tags: ['Recherche d\'informations', 'Calcul littéral', 'Grandeurs composées', 'Tableur', 'Lecture graphique', 'Vitesses']
+  },
+  'crpe-2018-g1-ex1': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 1',
+    numeroInitial: 'Ex 1',
+    png: [
+      'assets/crpe/2018/2018-g1-ex1.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g1-ex1-cor-1.png',
+      'assets/crpe/2018/2018-g1-ex1-cor-2.png'
+    ],
+    tags: ['Volumes', 'Proportionnalité', 'Thalès']
+  },
+  'crpe-2018-g1-ex2': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 1',
+    numeroInitial: 'Ex 2',
+    png: [
+      'assets/crpe/2018/2018-g1-ex2-1.png',
+      'assets/crpe/2018/2018-g1-ex2-2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g1-ex2-cor-1.png',
+      'assets/crpe/2018/2018-g1-ex2-cor-2.png'
+    ],
+    tags: ['Probabilités']
+  },
+  'crpe-2018-g1-ex3': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 1',
+    numeroInitial: 'Ex 3',
+    png: [
+      'assets/crpe/2018/2018-g1-ex3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g1-ex3-cor-1.png',
+      'assets/crpe/2018/2018-g1-ex3-cor-2.png',
+      'assets/crpe/2018/2018-g1-ex3-cor-3.png'
+    ],
+    tags: ['Algorithmique', 'Programme de calculs']
+  },
+  'crpe-2018-g1-ex4': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 1',
+    numeroInitial: 'Ex 4',
+    png: [
+      'assets/crpe/2018/2018-g1-ex4.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g1-ex4-cor-1.png',
+      'assets/crpe/2018/2018-g1-ex4-cor-2.png',
+      'assets/crpe/2018/2018-g1-ex4-cor-3.png'
+    ],
+    tags: ['Vrai-faux', 'Aires et périmètres', 'Volumes', 'Pourcentages', 'Géométrie plane']
+  },
+  'crpe-2018-g1-pb': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 1',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2018/2018-g1-pb-1.png',
+      'assets/crpe/2018/2018-g1-pb-2.png',
+      'assets/crpe/2018/2018-g1-pb-3.png',
+      'assets/crpe/2018/2018-g1-pb-4.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g1-pb-cor-1.png',
+      'assets/crpe/2018/2018-g1-pb-cor-2.png',
+      'assets/crpe/2018/2018-g1-pb-cor-3.png',
+      'assets/crpe/2018/2018-g1-pb-cor-4.png',
+      'assets/crpe/2018/2018-g1-pb-cor-5.png',
+      'assets/crpe/2018/2018-g1-pb-cor-6.png',
+      'assets/crpe/2018/2018-g1-pb-cor-7.png'
+    ],
+    tags: ['Recherche d\'informations', 'Aires et périmètres', 'Vitesses', 'Proportionnalité', 'Durées', 'Calculs numériques']
+  },
+  'crpe-2018-g2-ex1': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 2',
+    numeroInitial: 'Ex 1',
+    png: [
+      'assets/crpe/2018/2018-g2-ex1-1.png',
+      'assets/crpe/2018/2018-g2-ex1-2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g2-ex1-cor-1.png',
+      'assets/crpe/2018/2018-g2-ex1-cor-2.png'
+    ],
+    tags: ['Recherche d\'informations', 'Probabilités']
+  },
+  'crpe-2018-g2-ex2': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 2',
+    numeroInitial: 'Ex 2',
+    png: [
+      'assets/crpe/2018/2018-g2-ex2-1.png',
+      'assets/crpe/2018/2018-g2-ex2-2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g2-ex2-cor-1.png',
+      'assets/crpe/2018/2018-g2-ex2-cor-2.png'
+    ],
+    tags: ['Algorithmique']
+  },
+  'crpe-2018-g2-ex3': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 2',
+    numeroInitial: 'Ex 3',
+    png: [
+      'assets/crpe/2018/2018-g2-ex3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g2-ex3-cor-1.png',
+      'assets/crpe/2018/2018-g2-ex3-cor-2.png'
+    ],
+    tags: ['Calcul littéral']
+  },
+  'crpe-2018-g2-ex4': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 2',
+    numeroInitial: 'Ex 4',
+    png: [
+      'assets/crpe/2018/2018-g2-ex4.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g2-ex4-cor-1.png',
+      'assets/crpe/2018/2018-g2-ex4-cor-2.png',
+      'assets/crpe/2018/2018-g2-ex4-cor-3.png'
+    ],
+    tags: ['Géométrie plane', 'Aires et périmètres', 'Pythagore', 'Trigonométrie']
+  },
+  'crpe-2018-g2-pb': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 2',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2018/2018-g2-pb-1.png',
+      'assets/crpe/2018/2018-g2-pb-2.png',
+      'assets/crpe/2018/2018-g2-pb-3.png',
+      'assets/crpe/2018/2018-g2-pb-4.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g2-pb-cor-1.png',
+      'assets/crpe/2018/2018-g2-pb-cor-2.png',
+      'assets/crpe/2018/2018-g2-pb-cor-3.png',
+      'assets/crpe/2018/2018-g2-pb-cor-4.png',
+      'assets/crpe/2018/2018-g2-pb-cor-5.png'
+    ],
+    tags: ['Volumes', 'Aires et périmètres', 'Patrons', 'Lecture graphique', 'Fonctions', 'Tableur', 'Grandeurs composées', ]
+  },
+  'crpe-2018-g3-ex1': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 3',
+    numeroInitial: 'Ex 1',
+    png: [
+      'assets/crpe/2018/2018-g3-ex1.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g3-ex1-cor-1.png',
+      'assets/crpe/2018/2018-g3-ex1-cor-2.png'
+    ],
+    tags: ['Géométrie plane', 'Aires et périmètres', 'Trigonométrie', 'Pythagore']
+  },
+  'crpe-2018-g3-ex2': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 3',
+    numeroInitial: 'Ex 2',
+    png: [
+      'assets/crpe/2018/2018-g3-ex2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g3-ex2-cor-1.png',
+      'assets/crpe/2018/2018-g3-ex2-cor-2.png',
+      'assets/crpe/2018/2018-g3-ex2-cor-3.png'
+    ],
+    tags: ['Vrai-faux', 'Arithmétique', 'Géométrie plane', 'Pourcentages', 'Agrandissement-réduction']
+  },
+  'crpe-2018-g3-ex3': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 3',
+    numeroInitial: 'Ex 3',
+    png: [
+      'assets/crpe/2018/2018-g3-ex3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g3-ex3-cor-1.png'
+    ],
+    tags: ['Algorithmique']
+  },
+  'crpe-2018-g3-ex4': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 3',
+    numeroInitial: 'Ex 4',
+    png: [
+      'assets/crpe/2018/2018-g3-ex4.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g3-ex4-cor-1.png',
+      'assets/crpe/2018/2018-g3-ex4-cor-2.png'
+    ],
+    tags: ['Géométrie dans l\'espace', 'Volumes', 'Patrons']
+  },
+  'crpe-2018-g3-pb': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 3',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2018/2018-g3-pb-1.png',
+      'assets/crpe/2018/2018-g3-pb-2.png',
+      'assets/crpe/2018/2018-g3-pb-3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g3-pb-cor-1.png',
+      'assets/crpe/2018/2018-g3-pb-cor-2.png',
+      'assets/crpe/2018/2018-g3-pb-cor-3.png',
+      'assets/crpe/2018/2018-g3-pb-cor-4.png'
+    ],
+    tags: ['Recherche d\'informations', 'Aires et périmètres', 'Proportionnalité', 'Géométrie plane', 'Lecture graphique', 'Tableur', 'Vitesses', 'Pourcentages']
+  },
+
+  'crpe-2018-g4-ex1': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 4',
+    numeroInitial: 'Ex 1',
+    png: [
+      'assets/crpe/2018/2018-g4-ex1.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g4-ex1-cor-1.png',
+      'assets/crpe/2018/2018-g4-ex1-cor-2.png',
+      'assets/crpe/2018/2018-g4-ex1-cor-3.png'
+    ],
+    tags: ['Algorithmique']
+  },
+  'crpe-2018-g4-ex2': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 4',
+    numeroInitial: 'Ex 2',
+    png: [
+      'assets/crpe/2018/2018-g4-ex2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g4-ex2-cor-1.png',
+      'assets/crpe/2018/2018-g4-ex2-cor-2.png'
+    ],
+    tags: ['Calculs numériques', 'Volumes']
+  },
+  'crpe-2018-g4-ex3': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 4',
+    numeroInitial: 'Ex 3',
+    png: [
+      'assets/crpe/2018/2018-g4-ex3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g4-ex3-cor-1.png',
+      'assets/crpe/2018/2018-g4-ex3-cor-2.png',
+      'assets/crpe/2018/2018-g4-ex3-cor-3.png',
+      'assets/crpe/2018/2018-g4-ex3-cor-4.png',
+      'assets/crpe/2018/2018-g4-ex3-cor-5.png',
+      'assets/crpe/2018/2018-g4-ex3-cor-6.png'
+    ],
+    tags: ['Probabilités']
+  },
+  'crpe-2018-g4-ex4': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 4',
+    numeroInitial: 'Ex 4',
+    png: [
+      'assets/crpe/2018/2018-g4-ex4.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g4-ex4-cor-1.png',
+      'assets/crpe/2018/2018-g4-ex4-cor-2.png'
+    ],
+    tags: ['Programme de calculs', 'Tableur', 'Calcul littéral', 'Équations']
+  },
+  'crpe-2018-g4-pb': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 4',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2018/2018-g4-pb-1.png',
+      'assets/crpe/2018/2018-g4-pb-2.png',
+      'assets/crpe/2018/2018-g4-pb-3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g4-pb-cor-1.png',
+      'assets/crpe/2018/2018-g4-pb-cor-2.png',
+      'assets/crpe/2018/2018-g4-pb-cor-3.png',
+      'assets/crpe/2018/2018-g4-pb-cor-4.png',
+      'assets/crpe/2018/2018-g4-pb-cor-5.png',
+      'assets/crpe/2018/2018-g4-pb-cor-6.png'
+    ],
+    tags: ['Géométrie plane', 'Proportionnalité', 'Aires et périmètres', 'Pythagore', 'Lecture graphique', 'Fonctions', 'Arithmétique']
+  },
+  'crpe-2018-g5-ex1': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 5',
+    numeroInitial: 'Ex 1',
+    png: [
+      'assets/crpe/2018/2018-g5-ex1.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g5-ex1-cor-1.png',
+      'assets/crpe/2018/2018-g5-ex1-cor-2.png',
+      'assets/crpe/2018/2018-g5-ex1-cor-3.png'
+    ],
+    tags: ['QCM', 'Statistiques', 'Volumes', 'Vitesses']
+  },
+  'crpe-2018-g5-ex2': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 5',
+    numeroInitial: 'Ex 2',
+    png: [
+      'assets/crpe/2018/2018-g5-ex2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g5-ex2-cor-1.png',
+      'assets/crpe/2018/2018-g5-ex2-cor-2.png'
+    ],
+    tags: ['Pourcentages', 'Proportionnalité']
+  },
+  'crpe-2018-g5-ex3': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 5',
+    numeroInitial: 'Ex 3',
+    png: [
+      'assets/crpe/2018/2018-g5-ex3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g5-ex3-cor-1.png',
+      'assets/crpe/2018/2018-g5-ex3-cor-2.png',
+      'assets/crpe/2018/2018-g5-ex3-cor-3.png'
+    ],
+    tags: ['Algorithmique', 'Programme de calculs', 'Arithmétique']
+  },
+  'crpe-2018-g5-ex4': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 5',
+    numeroInitial: 'Ex 4',
+    png: [
+      'assets/crpe/2018/2018-g5-ex4.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g5-ex4-cor-1.png',
+      'assets/crpe/2018/2018-g5-ex4-cor-2.png'
+    ],
+    tags: ['Géométrie plane', 'Probabilités']
+  },
+  'crpe-2018-g5-pb': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'Groupement 5',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2018/2018-g5-pb-1.png',
+      'assets/crpe/2018/2018-g5-pb-2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-g5-pb-cor-1.png',
+      'assets/crpe/2018/2018-g5-pb-cor-2.png',
+      'assets/crpe/2018/2018-g5-pb-cor-3.png',
+      'assets/crpe/2018/2018-g5-pb-cor-4.png',
+      'assets/crpe/2018/2018-g5-pb-cor-5.png',
+      'assets/crpe/2018/2018-g5-pb-cor-6.png'
+    ],
+    tags: ['Aires et périmètres', 'Volumes', 'Pythagore', 'Trigonométrie', 'Recherche d\'informations', 'Proportionnalité', 'Thalès', 'Agrandissement-réduction']
+  },
+  'crpe-2018-s1-ex1': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'ESPE Dijon',
+    numeroInitial: 'Ex 1',
+    png: [
+      'assets/crpe/2018/2018-s1-ex1.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-s1-ex1-cor-1.png',
+      'assets/crpe/2018/2018-s1-ex1-cor-2.png',
+      'assets/crpe/2018/2018-s1-ex1-cor-3.png'
+    ],
+    tags: ['Pythagore', 'Volumes', 'Thalès', 'Géométrie plane', 'Aires et périmètres', 'Patrons']
+  },
+  'crpe-2018-s1-ex2': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'ESPE Dijon',
+    numeroInitial: 'Ex 2',
+    png: [
+      'assets/crpe/2018/2018-s1-ex2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-s1-ex2-cor-1.png',
+      'assets/crpe/2018/2018-s1-ex2-cor-2.png',
+      'assets/crpe/2018/2018-s1-ex2-cor-3.png',
+      'assets/crpe/2018/2018-s1-ex2-cor-4.png',
+      'assets/crpe/2018/2018-s1-ex2-cor-5.png',
+      'assets/crpe/2018/2018-s1-ex2-cor-6.png'
+    ],
+    tags: ['Géométrie dans l\'espace', 'Patrons', 'Aires et périmètres', 'Proportionnalité']
+  },
+  'crpe-2018-s1-ex3': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'ESPE Dijon',
+    numeroInitial: 'Ex 3',
+    png: [
+      'assets/crpe/2018/2018-s1-ex3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-s1-ex3-cor-1.png',
+      'assets/crpe/2018/2018-s1-ex3-cor-2.png',
+      'assets/crpe/2018/2018-s1-ex3-cor-3.png'
+    ],
+    tags: ['Thalès', 'Agrandissement-réduction', 'Pythagore', 'Volumes']
+  },
+  'crpe-2018-s1-ex4': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'ESPE Dijon',
+    numeroInitial: 'Ex 4',
+    png: [
+      'assets/crpe/2018/2018-s1-ex4-1.png',
+      'assets/crpe/2018/2018-s1-ex4-2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-s1-ex4-cor-1.png',
+      'assets/crpe/2018/2018-s1-ex4-cor-2.png',
+      'assets/crpe/2018/2018-s1-ex4-cor-3.png',
+      'assets/crpe/2018/2018-s1-ex4-cor-4.png',
+      'assets/crpe/2018/2018-s1-ex4-cor-5.png'
+    ],
+    tags: ['Algorithmique', 'Probabilités']
+  },
+  'crpe-2018-s1-ex5': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'ESPE Dijon',
+    numeroInitial: 'Ex 5',
+    png: [
+      'assets/crpe/2018/2018-s1-ex5.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-s1-ex5-cor-1.png',
+      'assets/crpe/2018/2018-s1-ex5-cor-2.png',
+      'assets/crpe/2018/2018-s1-ex5-cor-3.png'
+    ],
+    tags: ['Ensembles de nombres', 'Calcul littéral', 'Calculs numériques']
+  },
+  'crpe-2018-s2-pb': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'ESPE Paris',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2018/2018-s2-pb-1.png',
+      'assets/crpe/2018/2018-s2-pb-2.png',
+      'assets/crpe/2018/2018-s2-pb-3.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-s2-pb-cor-1.png',
+      'assets/crpe/2018/2018-s2-pb-cor-2.png',
+      'assets/crpe/2018/2018-s2-pb-cor-3.png',
+      'assets/crpe/2018/2018-s2-pb-cor-4.png',
+      'assets/crpe/2018/2018-s2-pb-cor-5.png'
+    ],
+    tags: ['Géométrie dans l\'espace', 'Géométrie plane', 'Trigonométrie', 'Aires et périmètres', 'Proportionnalité', 'Grandeurs composées', 'Lecture graphique', 'Vitesses', 'Pourcentages']
+  },
+  'crpe-2018-s4-pb': {
+    typeExercice: 'crpe',
+    annee: '2018',
+    lieu: 'ESPE Paris - Sujet 2',
+    numeroInitial: 'Problème',
+    png: [
+      'assets/crpe/2018/2018-s4-pb-1.png',
+      'assets/crpe/2018/2018-s4-pb-2.png'
+    ],
+    pngCor: [
+      'assets/crpe/2018/2018-s4-pb-cor-1.png',
+      'assets/crpe/2018/2018-s4-pb-cor-2.png',
+      'assets/crpe/2018/2018-s4-pb-cor-3.png',
+      'assets/crpe/2018/2018-s4-pb-cor-4.png',
+      'assets/crpe/2018/2018-s4-pb-cor-5.png'
+    ],
+    tags: ['Calculs numériques', 'Tableur', 'Pourcentages', 'Aires et périmètres', 'Volumes', 'Pythagore', 'Proportionnalité', 'Arithmétique']
+  },
+
   'crpe-2017-g1-ex1': {
     typeExercice: 'crpe',
     annee: '2017',
@@ -24,7 +965,7 @@ export const dictionnaireCrpe =
     pngCor: [
       'assets/crpe/2017/2017-g1-ex2-cor.png'
     ],
-    tags: ['Algorithmes']
+    tags: ['Algorithmique']
   },
   'crpe-2017-g1-ex3': {
     typeExercice: 'crpe',
@@ -60,7 +1001,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g1-pb-cor5.png',
       'assets/crpe/2017/2017-g1-pb-cor6.png'
     ],
-    tags: ['Proportionnalité', 'Pythagore', 'Trigonométrie', 'Fonctions', 'Pourcentages', 'Inéquations', 'Vitesse', 'Tableur']
+    tags: ['Proportionnalité', 'Pythagore', 'Trigonométrie', 'Fonctions', 'Pourcentages', 'Inéquations', 'Vitesses', 'Tableur']
   },
   'crpe-2017-g2-ex1': {
     typeExercice: 'crpe',
@@ -338,7 +1279,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2017/2017-g5-ex4-cor.png',
       'assets/crpe/2017/2017-g5-ex4-cor2.png'
     ],
-    tags: ['Nombres décimaux']
+    tags: ['Ensembles de nombres']
   },
   'crpe-2017-g5-pb': {
     typeExercice: 'crpe',
@@ -419,7 +1360,7 @@ export const dictionnaireCrpe =
     pngCor: [
       'assets/crpe/2017/2017-besancon-geoGrandeurMesureProportionnalite-ex2.png'
     ],
-    tags: ['Durées', 'Nombres décimaux']
+    tags: ['Durées', 'Ensembles de nombres']
   },
   'crpe-blanc-2017-clermont': {
     typeExercice: 'crpe',
@@ -597,7 +1538,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2016/2016-g2-ex4-cor-2.png',
       'assets/crpe/2016/2016-g2-ex4-cor-3.png'
     ],
-    tags: ['Vrai-faux', 'Géométrie plane', 'Pourcentage', 'Calculs numériques', 'Arithmétique']
+    tags: ['Vrai-faux', 'Géométrie plane', 'Pourcentages', 'Calculs numériques', 'Arithmétique']
   },
   'crpe-2016-g2-pb': {
     typeExercice: 'crpe',
@@ -661,7 +1602,7 @@ export const dictionnaireCrpe =
       'assets/crpe/2016/2016-g3-ex3-cor-1.png',
       'assets/crpe/2016/2016-g3-ex3-cor-2.png'
     ],
-    tags: ['Programme de calcul', 'Calcul littéral']
+    tags: ['Programme de calculs', 'Calcul littéral']
   },
   'crpe-2016-g3-pb': {
     typeExercice: 'crpe',

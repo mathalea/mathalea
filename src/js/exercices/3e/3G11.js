@@ -119,7 +119,7 @@ export default function ConstruireHomothetiePoint3e () {
       anim.homothetiePoint(M[i], O, k, '', { positionTexte: { x: 2, y: -1 } })
     }
     this.listeQuestions.push(mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsEnonce))
-    this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsCorrection) + anim.html(numeroExercice))
+    this.listeCorrections.push(texteCorr + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsCorrection) + (context.isHtml ? anim.html(numeroExercice) : ''))
     listeQuestionsToContenu(this)
 
     //  let nonchoisi,coords=[],x,y,objetsEnonce=[],objetsCorrection=[],nomd,label_pos

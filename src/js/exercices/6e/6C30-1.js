@@ -75,7 +75,7 @@ export default function MultiplierDecimauxPar101001000 () {
             }
           }
           b = facteurs[i]
-          texte = `$${texNombre(a)}\\times${texNombre(b)}=\\ldots$`
+          texte = `$${texNombre(a)}\\times${texNombre(b)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texNombre(a)} \\times ${texNombre(
             b
           )} = ${miseEnEvidence(texNombrec(a * b))}$`
@@ -91,7 +91,7 @@ export default function MultiplierDecimauxPar101001000 () {
             }
           }
           b = facteurs[i]
-          texte = `$${texNombre(b)}\\times${texNombre(a)}=\\ldots$`
+          texte = `$${texNombre(b)}\\times${texNombre(a)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texNombre(b)} \\times ${texNombre(
             a
           )} = ${miseEnEvidence(texNombrec(a * b))}$`
@@ -108,7 +108,7 @@ export default function MultiplierDecimauxPar101001000 () {
           } else {
             den = choice([10, 100, 1000])
           }
-          texte = `$${texFraction(a, den)}\\times${texNombre(b)}=\\ldots$`
+          texte = `$${texFraction(a, den)}\\times${texNombre(b)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texFraction(a, den)} \\times ${texNombre(
             b
           )} = ${texFraction(a * b, den)} = ${miseEnEvidence(texNombrec((a / den) * b))}$`
@@ -125,7 +125,7 @@ export default function MultiplierDecimauxPar101001000 () {
           } else {
             den = choice([10, 100, 1000])
           }
-          texte = `$${texNombre(b)}\\times${texFraction(a, den)}=\\ldots$`
+          texte = `$${texNombre(b)}\\times${texFraction(a, den)}= ${this.interactif ? '' : '\\ldots'}$`
           texteCorr = `$${texNombre(b)} \\times ${texFraction(
             a,
             den
@@ -250,7 +250,7 @@ export default function MultiplierDecimauxPar101001000 () {
           reponse = den
           break
       }
-      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexte(this, i)
+      if (context.isHtml && this.interactif) texte += ajouteChampTexte(this, i)
       setReponse(this, i, reponse)
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte

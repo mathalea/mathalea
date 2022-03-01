@@ -1,12 +1,13 @@
-import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif'
-import { calcul, choice, listeQuestionsToContenuSansNumero, randint, sp, texNombrec } from '../../../modules/outils'
+import { setReponse } from '../../../modules/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive'
+import { calcul, choice, listeQuestionsToContenu, randint, sp, texNombrec, texFractionReduite } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Convertir en heures/minutes'
+export const titre = 'Convertir des heures décimales en heures/minutes et inversement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-
+export const dateDeModifImportante = '08/02/2022' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 /*!
  * @author Jean-Claude Lhote & Gilles Mora
  * Créé pendant l'été 2021
@@ -17,18 +18,57 @@ export default function ConversionHeuresDecimalesMinutes () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
-    const a = randint(1, 3)
-    const b = choice([0.25, 0.5, 0.75])
-    const d = calcul(b * 60)
-    if (!this.interactif) {
-      this.listeQuestions[0] = `Convertir en heures/minutes : <br>$${texNombrec(a + b)}$ h $=$ ..... h..... min`
-      this.listeCorrections[0] = `$${texNombrec(a + b)}$h$ = ${a}$ h $ + ${texNombrec(b)} \\times 60  = ${a}$ h $${d}$ min`
-    } else {
-      this.listeQuestions[0] = `Convertir en heures/minutes : <br>$${texNombrec(a + b)}$ h $=$` + ajouteChampTexteMathLive(this, 0, 'largeur10 inline', { texteApres: sp(5) + 'h' }) + ajouteChampTexteMathLive(this, 1, 'largeur10 inline', { texteApres: sp(5) + 'min' })
-      this.listeCorrections[0] = `$${texNombrec(a + b)}$h$ = ${a}$ h $ + ${texNombrec(b)} \\times 60  = ${a}$ h $${d}$ min`
-      setReponse(this, 0, a)
-      setReponse(this, 1, d)
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    let a, b, d, texte, texteCorr
+    for (let i = 0, index = 0, nbChamps, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      switch (choice([1, 2])) { //, 'b'
+        case 1 :
+
+          a = randint(1, 5)
+          b = choice([0.25, 0.5, 0.75])
+          d = calcul(b * 60)
+          if (!this.interactif) {
+            texte = `Convertir en heures/minutes : <br>$${texNombrec(a + b)}$ h $=$ ..... h..... min`
+            texteCorr = `$${texNombrec(a + b)}$h$ = ${a}$ h $ + ${texNombrec(b)} \\times 60  = ${a}$ h $${d}$ min`
+          } else {
+            texte = `Convertir en heures/minutes : <br>$${texNombrec(a + b)}$ h $=$`
+            texte += ajouteChampTexteMathLive(this, index, 'largeur10 inline', { texteApres: sp(5) + 'h' })
+            setReponse(this, index, a)
+            texte += ajouteChampTexteMathLive(this, index + 1, 'largeur10 inline', { texteApres: sp(5) + 'min' })
+            texteCorr = `$${texNombrec(a + b)}$h$ = ${a}$ h $ + ${texNombrec(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
+            setReponse(this, index + 1, d)
+            nbChamps = 2
+          }
+          break
+
+        case 2 :
+
+          a = randint(1, 5)
+          b = choice([0.25, 0.5, 0.75])
+          d = calcul(b * 60)
+          if (!this.interactif) {
+            texte = `Compléter par un nombre décimal : <br>$${texNombrec(a)}$ h $${texNombrec(b * 60)}$ min  $=$ ..... h`
+            texteCorr = `$${texNombrec(b * 60)}$ min  $=   \\dfrac{${texNombrec(b * 60)}}{60}$ h $=${texFractionReduite(b * 60, 60)}$ h $=   ${texNombrec(b)}$ h. <br>
+          Ainsi, $${texNombrec(a)}$ h $${texNombrec(b * 60)}$ min  $=$ $${texNombrec(a + b)}$ h.`
+          } else {
+            texte = `Compléter par un nombre décimal : <br>$${texNombrec(a)}$ h $${texNombrec(b * 60)}$ min  $=$`
+            texte += ajouteChampTexteMathLive(this, index, 'largeur10 inline', { texteApres: sp(5) + 'h' })
+            texteCorr = `$${texNombrec(b * 60)}$ min  $=   \\dfrac{${texNombrec(b * 60)}}{60}$ h $=${texFractionReduite(b * 60, 60)}$ h $=   ${texNombrec(b)}$ h. <br>
+          Ainsi, $${texNombrec(a)}$ h $${texNombrec(b * 60)}$ min  $=$ $${texNombrec(a + b)}$ h.`
+            setReponse(this, index, a + b)
+            nbChamps = 1
+          }
+          break
+      }
+      if (this.questionJamaisPosee(i, a, b)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+        index += nbChamps
+      }
+      cpt++
     }
-    listeQuestionsToContenuSansNumero(this)
+    listeQuestionsToContenu(this)
   }
 }

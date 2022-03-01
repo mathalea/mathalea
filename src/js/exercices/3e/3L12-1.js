@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { randint, choice, texFraction, lettreDepuisChiffre, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Développer (a-b)(a+b)'
 export const interactifReady = true
@@ -23,6 +24,7 @@ export default function DevelopperIdentitesRemarquables3 () {
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 5
   this.sup = 2
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)

@@ -7,7 +7,7 @@ import { radians, degres } from '../../modules/fonctionsMaths.js'
 export const titre = 'Calculer toutes les mesures d’angle d’une figure complexe'
 
 /**
- * Deux triangles rectangles accolés, on connait deux longueurs et un angle, il faut déterminer tous les autres angles
+ * Deux triangles rectangles accolés, on connaît deux longueurs et un angle, il faut déterminer tous les autres angles
  * @author Rémi Angot
  * 3G31-1
  * Février 2021

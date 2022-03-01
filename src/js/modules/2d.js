@@ -40,7 +40,8 @@ export function ObjetMathalea2D () {
 }
 
 class Vide2d {
-  constructor () {
+  constructor (x, y) {
+    this.bordures = [x, y, x, y]
     this.tikz = function () {
       return ''
     }
@@ -49,8 +50,8 @@ class Vide2d {
     }
   }
 }
-export function vide2d () {
-  return new Vide2d()
+export function vide2d (x = 0, y = 0) {
+  return new Vide2d(x, y)
 }
 /**
  *
@@ -213,6 +214,7 @@ export function plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRempliss
 function TracePoint (...points) {
   ObjetMathalea2D.call(this)
   this.taille = 3
+  this.tailleTikz = this.taille / 30
   this.epaisseur = 1
   this.opacite = 0.8
   this.style = 'x'
@@ -304,7 +306,6 @@ function TracePoint (...points) {
   }
   this.tikz = function () {
     const objetstikz = []; let s1; let s2; let p1; let p2; let c, A
-    const tailletikz = this.taille * context.scale / 20
     for (const unPoint of points) {
       if (unPoint.typeObjet === 'point3d') {
         A = unPoint.c2d
@@ -314,10 +315,10 @@ function TracePoint (...points) {
 
       if (A.constructor === Point) {
         if (this.style === 'x') {
-          s1 = segment(point(A.x - tailletikz, A.y + tailletikz),
-            point(A.x + tailletikz, A.y - tailletikz), this.color)
-          s2 = segment(point(A.x - tailletikz, A.y - tailletikz),
-            point(A.x + tailletikz, A.y + tailletikz), this.color)
+          s1 = segment(point(A.x - this.tailleTikz, A.y + this.tailleTikz),
+            point(A.x + this.tailleTikz, A.y - this.tailleTikz), this.color)
+          s2 = segment(point(A.x - this.tailleTikz, A.y - this.tailleTikz),
+            point(A.x + this.tailleTikz, A.y + this.tailleTikz), this.color)
           s1.epaisseur = this.epaisseur
           s2.epaisseur = this.epaisseur
           s1.opacite = this.opacite
@@ -325,15 +326,15 @@ function TracePoint (...points) {
           objetstikz.push(s1, s2)
         } else if (this.style === 'o') {
           p1 = point(A.x, A.y)
-          c = cercle(p1, tailletikz, this.color)
+          c = cercle(p1, this.tailleTikz, this.color)
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
           c.couleurDeRemplissage = this.color
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '#') {
-          p1 = point(A.x - tailletikz, A.y - tailletikz)
-          p2 = point(A.x + tailletikz, A.y - tailletikz)
+          p1 = point(A.x - this.tailleTikz, A.y - this.tailleTikz)
+          p2 = point(A.x + this.tailleTikz, A.y - this.tailleTikz)
           c = carreIndirect(p1, p2, this.color)
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
@@ -341,18 +342,18 @@ function TracePoint (...points) {
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '+') {
-          s1 = segment(point(A.x, A.y + tailletikz),
-            point(A.x, A.y - tailletikz), this.color)
-          s2 = segment(point(A.x - tailletikz, A.y),
-            point(A.x + tailletikz, A.y), this.color)
+          s1 = segment(point(A.x, A.y + this.tailleTikz),
+            point(A.x, A.y - this.tailleTikz), this.color)
+          s2 = segment(point(A.x - this.tailleTikz, A.y),
+            point(A.x + this.tailleTikz, A.y), this.color)
           s1.epaisseur = this.epaisseur
           s2.epaisseur = this.epaisseur
           s1.opacite = this.opacite
           s2.opacite = this.opacite
           objetstikz.push(s1, s2)
         } else if (this.style === '|') {
-          s1 = segment(point(A.x, A.y + tailletikz),
-            point(A.x, A.y - tailletikz), this.color)
+          s1 = segment(point(A.x, A.y + this.tailleTikz),
+            point(A.x, A.y - this.tailleTikz), this.color)
           s1.epaisseur = this.epaisseur
           s1.opacite = this.opacite
           objetstikz.push(s1)
@@ -452,10 +453,12 @@ export function milieu (A, B, nom, positionLabel = 'above') {
  *
  * M = pointSurSegment(A,B,'h','M') // M est un point au hasard sur [AB] (on peut écrire n'importe quel texte à la place de 'h')
  * M = pointSurSegment(A,B) // M est un point au hasard sur [AB]
+ * Sécurité ajoutée par Jean-Claude Lhote : si AB=0, alors on retourne A
  * @author Rémi Angot
  */
 export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
   if (Number.isNaN(longueur(A, B))) window.notify('pointSurSegment : Quelque chose ne va pas avec les points', { A, B })
+  if (longueur(A, B) === 0) return A
   if (l === undefined || typeof l === 'string') {
     l = calcul((longueur(A, B) * randint(15, 85)) / 100)
   }
@@ -681,91 +684,90 @@ export function labelPoint (...args) {
  * A utiliser par exemple si le label est A_1
  * @author Rémi Angot & Jean-Claude Lhote
  */
-function LabelLatexPoint (...points) {
+function LabelLatexPoint ({ points = [], color = 'black', taille = 8, largeur = 10, hauteur = 10, background = '' }) {
   ObjetMathalea2D.call(this)
-  if (!this.taille) this.taille = 10
-  if (!this.largeur) this.largeur = 20
-  if (typeof points[points.length - 1] === 'string') {
-    this.color = points[points.length - 1]
-    points.length--
+  this.taille = taille
+  this.largeur = largeur
+  this.hauteur = hauteur
+  this.background = background
+  this.color = color
+
+  const offset = arrondi(0.25 * Math.log10(this.taille), 2) // context.pixelsParCm ne correspond pas forcément à la valeur utilisée par mathalea2d... cela peut entrainer un trés léger écart
+  let x
+  let y
+  let A
+  const objets = []
+  if (Array.isArray(points[0])) {
+    // Si le premier argument est un tableau
+    this.listePoints = points[0]
   } else {
-    this.color = 'black'
+    this.listePoints = points
   }
-  const offset = arrondi(15 * Math.log10(8), 2)
+  for (const unPoint of this.listePoints) {
+    if (unPoint.typeObjet === 'point3d') {
+      A = unPoint.c2d
+    } else {
+      A = unPoint
+    }
+    x = A.x
+    y = A.y
+    switch (A.positionLabel) {
+      case 'left':
+        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), y, this.color, this.largeur, this.hauteur, this.background, this.taille))
+        break
+      case 'right':
+        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), y, this.color, this.largeur, this.hauteur, this.background, this.taille))
+        break
+      case 'below':
+        objets.push(latexParCoordonnees(A.nom, x, arrondi(y - offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
+        break
+      case 'above':
+        objets.push(latexParCoordonnees(A.nom, x, arrondi(y + offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
+        break
+      case 'above right':
+        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), arrondi(y + offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
+        break
+      case 'below left':
+        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), arrondi(y - offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
+        break
+      case 'below right':
+        objets.push(latexParCoordonnees(A.nom, arrondi(x + offset, 2), arrondi(y - offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
+        break
+      default:
+        objets.push(latexParCoordonnees(A.nom, arrondi(x - offset, 2), arrondi(y + offset, 2), this.color, this.largeur, this.hauteur, this.background, this.taille))
+        break
+    }
+  }
+
   this.svg = function (coeff) {
     let code = ''
-    let x
-    let y
-    let A
-    if (Array.isArray(points[0])) {
-      // Si le premier argument est un tableau
-      this.listePoints = points[0]
-    } else {
-      this.listePoints = points
-    }
-    for (const unPoint of this.listePoints) {
-      if (unPoint.typeObjet === 'point3d') {
-        A = unPoint.c2d
-      } else {
-        A = unPoint
-      }
-      x = A.x
-      y = A.y
-      switch (A.positionLabel) {
-        case 'left':
-          code += latexParCoordonnees(A.nom, arrondi(x - offset / coeff, 2), y, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-        case 'right':
-          code += latexParCoordonnees(A.nom, arrondi(x + offset / coeff, 2), y, this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-        case 'below':
-          code += latexParCoordonnees(A.nom, x, arrondi(y - offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-        case 'above':
-          code += latexParCoordonnees(A.nom, x, arrondi(y + offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-        case 'above right':
-          code += latexParCoordonnees(A.nom, arrondi(x + offset / coeff, 2), arrondi(y + offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-        case 'below left':
-          code += latexParCoordonnees(A.nom, arrondi(x - offset / coeff, 2), arrondi(y - offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-        case 'below right':
-          code += latexParCoordonnees(A.nom, arrondi(x + offset / coeff, 2), arrondi(y - offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-        default:
-          code += latexParCoordonnees(A.nom, arrondi(x - offset / coeff, 2), arrondi(y + offset / coeff, 2), this.color, this.largeur, this.taille, '').svg(coeff) + '\n'
-          break
-      }
+    for (const objet of objets) {
+      code += objet.svg(coeff) + '\n'
     }
     code = `<g id="${this.id}">${code}</g>`
     return code
   }
   this.tikz = function () {
-    let code = ''; let A
-    let style = ''
-    if (this.color !== 'black') {
-      style = `,${this.color}`
-    }
-    for (const unPoint of points) {
-      if (unPoint.typeObjet === 'point3d') {
-        A = unPoint.c2d
-      } else {
-        A = unPoint
-      }
-      code += `\t\\draw (${A.x},${A.y}) node[${A.positionLabel}${style}] {$${A.nom}$};\n`
+    let code = ''
+    for (const objet of objets) {
+      code += objet.tikz() + '\n'
     }
     return code
   }
 }
 /**
  * Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
- * @param  {...any} args Points
+ * @param  {objext} points: un tableau des points dont on veut afficher les labels
+ * color: leur couleur
+ * taille: la taille du texte (voir latexParCoordonnees)
+ * largeur: la largeur en pixels du label (par défaut 10) a des fins de centrage
+ * hauteur: la hauteur en pixels du label à des fins de centrage
+ * background: transparent si '' sinon une couleur
  * @returns {LabelLatexPoint} LabelLatexPoint
  * @author Rémi Angot & Jean-Claude Lhote
  */
-export function labelLatexPoint (...args) {
-  return new LabelLatexPoint(...args)
+export function labelLatexPoint ({ points, color = 'black', taille = 8, largeur = 10, hauteur = 10, background = '' }) {
+  return new LabelLatexPoint({ points: points, color: color, taille: taille, largeur: largeur, hauteur: hauteur, background: background })
 }
 
 /**
@@ -1148,23 +1150,23 @@ export function positionLabelDroite (d, { xmin = 0, ymin = 0, xmax = 10, ymax = 
   } else { // la droite n'étant pas verticale, on peut chercher ses intersections avec les différents bords.
     const f = x => (-d.c - d.a * x) / d.b
     fXmax = f(xmax)
-    if (fXmax < ymax && fXmax > ymin) { // la droite coupe le bord Est entre ymin+1 et ymax-1
+    if (fXmax <= ymax && fXmax >= ymin) { // la droite coupe le bord Est entre ymin+1 et ymax-1
       xLab = xmax - 0.8
       yLab = f(xLab)
     } else {
       fXmin = f(xmin)
-      if (fXmin < ymax && fXmin > ymin) {
+      if (fXmin <= ymax && fXmin >= ymin) {
         xLab = xmin + 0.8
         yLab = f(xLab)
       } else { // la droite ne coupe ni la bordue Est ni la bordure Ouest elle coupe donc les bordures Nord et Sud
         const g = y => (-d.c - d.b * y) / d.a
         fYmax = g(ymax)
-        if (fYmax < xmax && fYmax > xmin) {
+        if (fYmax <= xmax && fYmax >= xmin) {
           yLab = ymax - 0.8
           xLab = g(yLab)
         } else {
           fYmin = g(ymin)
-          if (fYmin < xmax && fYmin > xmin) {
+          if (fYmin <= xmax && fYmin >= xmin) {
             yLab = ymin + 0.8
             xLab = g(yLab)
           } else { // La droite ne passe pas dans la fenêtre on retourne un objet vide
@@ -1869,31 +1871,31 @@ function Segment (arg1, arg2, arg3, arg4, color) {
   this.tailleExtremites = 4
   if (arguments.length === 2) {
     if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Segment : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
-    this.x1 = arrondi(arg1.x, 2)
-    this.y1 = arrondi(arg1.y, 2)
-    this.x2 = arrondi(arg2.x, 2)
-    this.y2 = arrondi(arg2.y, 2)
+    this.x1 = arrondi(arg1.x, 3)
+    this.y1 = arrondi(arg1.y, 3)
+    this.x2 = arrondi(arg2.x, 3)
+    this.y2 = arrondi(arg2.y, 3)
   } else if (arguments.length === 3) {
     if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Segment : (attendus : A, B et "couleur") les arguments de sont pas des points valides', { arg1, arg2 })
 
-    this.x1 = arrondi(arg1.x, 2)
-    this.y1 = arrondi(arg1.y, 2)
-    this.x2 = arrondi(arg2.x, 2)
-    this.y2 = arrondi(arg2.y, 2)
+    this.x1 = arrondi(arg1.x, 3)
+    this.y1 = arrondi(arg1.y, 3)
+    this.x2 = arrondi(arg2.x, 3)
+    this.y2 = arrondi(arg2.y, 3)
     this.color = arg3
   } else if (arguments.length === 4) {
     if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', { arg1, arg2 })
-    this.x1 = arrondi(arg1, 2)
-    this.y1 = arrondi(arg2, 2)
-    this.x2 = arrondi(arg3, 2)
-    this.y2 = arrondi(arg4, 2)
+    this.x1 = arrondi(arg1, 3)
+    this.y1 = arrondi(arg2, 3)
+    this.x2 = arrondi(arg3, 3)
+    this.y2 = arrondi(arg4, 3)
   } else {
     // 5 arguments
     if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2, y2 et "couleur") les arguments de sont pas des nombres valides', { arg1, arg2 })
-    this.x1 = arrondi(arg1, 2)
-    this.y1 = arrondi(arg2, 2)
-    this.x2 = arrondi(arg3, 2)
-    this.y2 = arrondi(arg4, 2)
+    this.x1 = arrondi(arg1, 3)
+    this.y1 = arrondi(arg2, 3)
+    this.x2 = arrondi(arg3, 3)
+    this.y2 = arrondi(arg4, 3)
     this.color = color
   }
   this.bordures = [Math.min(this.x1, this.x2) - 0.2, Math.min(this.y1, this.y2) - 0.2, Math.max(this.x1, this.x2) + 0.2, Math.max(this.y1, this.y2) + 0.2]
@@ -2200,10 +2202,10 @@ function Polygone (...points) {
   let ymax = -1000
   for (const unPoint of this.listePoints) {
     if (unPoint.typeObjet !== 'point') window.notify('Polygone : argument invalide', { ...points })
-    xmin = Math.min(xmin, unPoint.x - unPoint.positionLabel.indexOf('left') !== -1 ? 1 : 0)
-    xmax = Math.max(xmax, unPoint.x + unPoint.positionLabel.indexOf('right') !== -1 ? 1 : 0)
-    ymin = Math.min(ymin, unPoint.y - unPoint.positionLabel.indexOf('below') !== -1 ? 1 : 0)
-    ymax = Math.max(ymax, unPoint.y + unPoint.positionLabel.indexOf('above') !== -1 ? 1 : 0)
+    xmin = Math.min(xmin, unPoint.x)
+    xmax = Math.max(xmax, unPoint.x)
+    ymin = Math.min(ymin, unPoint.y)
+    ymax = Math.max(ymax, unPoint.y)
   }
   this.bordures = [xmin, ymin, xmax, ymax]
 
@@ -5190,9 +5192,9 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
   this.svg = function (coeff) {
     const N = pointSurSegment(O, M, (this.distance * 20) / coeff)
     if (this.extremite2.x > this.extremite1.x) {
-      angle = -s.angleAvecHorizontale
+      angle = arrondi(-s.angleAvecHorizontale, 1)
     } else {
-      angle = 180 - s.angleAvecHorizontale
+      angle = arrondi(180 - s.angleAvecHorizontale, 1)
     }
     return texteParPoint(`${l}${unite !== '' ? ' ' + unite : ''}`, N, angle, this.color, 1, 'middle', false).svg(coeff)
   }
@@ -5200,9 +5202,9 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
   this.tikz = function () {
     const N = pointSurSegment(O, M, this.distance / context.scale)
     if (this.extremite2.x > this.extremite1.x) {
-      angle = -s.angleAvecHorizontale
+      angle = arrondi(-s.angleAvecHorizontale, 1)
     } else {
-      angle = 180 - s.angleAvecHorizontale
+      angle = arrondi(180 - s.angleAvecHorizontale, 1)
     }
     return texteParPoint(`${l}${unite !== '' ? ' ' + unite : ''}`, N, angle, this.color, 1, 'middle', false).tikz()
   }
@@ -5393,7 +5395,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
     if (label !== '') {
       mesureAngle = label
     } else {
-      mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '°'
+      mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '\\degree'
     }
     return '\n' + texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true).tikz() + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz()
   }
@@ -7126,7 +7128,7 @@ function Repere2 ({
     xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
   }
   for (const x of xLabelListe) {
-    const l = texteParPosition(texNombre(x), calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5, 'milieu', 'black', 1, 'middle', false)
+    const l = texteParPosition(`$${texNombre(x)}$`, calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5, 'milieu', 'black', 1, 'middle', false)
     l.isVisible = false
     objets.push(l)
   }
@@ -7135,7 +7137,7 @@ function Repere2 ({
     yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
   }
   for (const y of yLabelListe) {
-    const l = texteParPosition(texNombre(y), calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', false)
+    const l = texteParPosition(`$${texNombre(y)}$`, calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', false)
     l.isVisible = false
     objets.push(l)
   }
@@ -8268,7 +8270,7 @@ export function tableauDeVariation ({ tabInit = ['', ''], tabLines = [], lgt = 3
  * Trace une barre pour un histogramme
  *
  * @param {integer} x
- * @param {integer} y
+ * @param {integer} hauteur
  * @param {string} legende
  * @param {integer} epaisseur
  * @param {string} couleur
@@ -8276,9 +8278,9 @@ export function tableauDeVariation ({ tabInit = ['', ''], tabLines = [], lgt = 3
  * @param {integer} angle
  * @author Rémi Angot
  */
-function TraceBarre (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
+function TraceBarre (x, hauteur, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
   ObjetMathalea2D.call(this)
-  const p = polygone(point(calcul(x - epaisseur / 2), 0), point(calcul(x - epaisseur / 2), calcul(y * unite)), point(calcul(x + epaisseur / 2), calcul(y * unite)), point(calcul(x + epaisseur / 2), 0))
+  const p = hauteur === 0 ? vide2d(x, 0) : polygone(point(x - epaisseur / 2, 0), point(x - epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, 0))
   p.couleurDeRemplissage = couleurDeRemplissage
   p.opaciteDeRemplissage = opaciteDeRemplissage
   p.color = color
@@ -8302,7 +8304,7 @@ export function traceBarre (...args) {
 /**
  * Trace une barre horizontale pour un histogramme
  *
- * @param {integer} x
+ * @param {integer} longueur
  * @param {integer} y
  * @param {string} legende
  * @param {integer} epaisseur
@@ -8311,9 +8313,9 @@ export function traceBarre (...args) {
  * @param {integer} angle
  * @author Rémi Angot
  */
-function TraceBarreHorizontale (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, unite = 1, angle = 'gauche', hachures = false } = {}) {
+function TraceBarreHorizontale (longueur, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, unite = 1, angle = 'gauche', hachures = false } = {}) {
   ObjetMathalea2D.call(this)
-  const p = polygone(point(0, calcul(y - epaisseur / 2)), point(0, calcul(y + epaisseur / 2)), point(calcul(unite * x), calcul(y + epaisseur / 2)), point(calcul(unite * x), calcul(y - epaisseur / 2)))
+  const p = longueur === 0 ? vide2d(0, y) : polygone(point(0, arrondi(y - epaisseur / 2, 2)), point(0, arrondi(y + epaisseur / 2, 2)), point(arrondi(unite * longueur, 2), arrondi(y + epaisseur / 2, 2)), point(arrondi(unite * longueur, 2), arrondi(y - epaisseur / 2, 2)))
   p.couleurDeRemplissage = couleurDeRemplissage
   p.opaciteDeRemplissage = opaciteDeRemplissage
   p.color = color
@@ -8347,7 +8349,9 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
       ligne.epaisseur = 0.2
       diagramme.push(ligne)
     }
-    diagramme.push(texteParPoint(numberFormat(hauteursBarres[j]), point(abscisseBarre, hauteurBarre + 0.3)))
+    if (etiquetteValeur) {
+      diagramme.push(texteParPoint(numberFormat(hauteursBarres[j]), point(abscisseBarre, hauteurBarre + 0.3))) // On écrit la valeur au dessus de la barre sauf pour une hauteur de 0
+    }
     // Calculs permettant de graduer l'axe vertical et de placer des valeurs
     const steps = [1, 2, 5, 10, 20]
     const yticks = [1, 2, 5, 5, 5]
@@ -8366,7 +8370,7 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
       ytick = 5
     }
     if (labelAxeVert) diagramme.push(labelY(0, max(hauteursBarres), fraction(hauteurDiagramme, max(hauteursBarres)).mul(step), 'black', -1.3, max(hauteursBarres) / hauteurDiagramme))
-    if (axeVertical) diagramme.push(axeY(-1, 0, abscisseBarre, hauteurDiagramme + 1, 0.2, abscisseBarre, fraction(hauteurDiagramme, max(hauteursBarres)).mul(step), 0.2, 'black', ytick, titreAxeVertical))
+    if (axeVertical) diagramme.push(axeY(-1, 0, abscisseBarre, hauteurDiagramme + 1, 0.2, fraction(hauteurDiagramme, max(hauteursBarres)).mul(step), 0.2, 'black', ytick, titreAxeVertical))
   }
   if (titre !== '') diagramme.push(texteParPoint(titre, point((hauteursBarres.length - 1) * coeff / 2, hauteurDiagramme + 1)))
   this.bordures = [1000, 1000, -1000, -1000]
@@ -9443,35 +9447,34 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
   this.texte = texte
   this.tailleCaracteres = tailleCaracteres
   this.bordures = [x - texte.length * 0.2, y - 0.02 * this.hauteur, x + texte.length * 0.2, y + 0.02 * this.hauteur]
-
+  let taille
+  if (this.tailleCaracteres > 19) taille = '\\huge'
+  else if (this.tailleCaracteres > 16) taille = '\\LARGE'
+  else if (this.tailleCaracteres > 13) taille = '\\Large'
+  else if (this.tailleCaracteres > 11) taille = '\\large'
+  else if (this.tailleCaracteres < 6) taille = '\\tiny'
+  else if (this.tailleCaracteres < 8) taille = '\\scriptsize'
+  else if (this.tailleCaracteres < 9) taille = '\\footnotesize'
+  else if (this.tailleCaracteres < 10) taille = '\\small'
+  else taille = '\\normalsize'
   this.svg = function (coeff) {
-    let taille
-    if (this.tailleCaracteres > 19) taille = '\\huge'
-    else if (this.tailleCaracteres > 16) taille = '\\LARGE'
-    else if (this.tailleCaracteres > 13) taille = '\\Large'
-    else if (this.tailleCaracteres > 11) taille = '\\large'
-    else if (this.tailleCaracteres < 6) taille = '\\tiny'
-    else if (this.tailleCaracteres < 8) taille = '\\scriptsize'
-    else if (this.tailleCaracteres < 9) taille = '\\footnotesize'
-    else if (this.tailleCaracteres < 10) taille = '\\small'
-    else taille = '\\normalsize'
     const demiLargeur = calcul(this.largeur / 2)
     const centrage = arrondi(0.4 * context.pixelsParCm * Math.log10(tailleCaracteres), 2)
     if (this.colorBackground !== '') {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiLargeur}" y="${arrondi(-this.y * coeff - centrage - this.hauteur / 2, 2)}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="margin:auto;width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
-    $\\colorbox{${this.colorBackground}}{$\\color{${color}}{${taille} ${this.texte}}$}$</div></foreignObject>`
+    $\\colorbox{${this.colorBackground}}{$${taille} \\color{${color}}{${this.texte}}$}$</div></foreignObject>`
     } else {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${arrondi(this.x * coeff, 2) - demiLargeur}" y="${arrondi(-this.y * coeff - centrage - this.hauteur / 2, 2)}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
-      $\\color{${this.color}}{${taille} ${this.texte}}$</div></foreignObject>`
+      $${taille} \\color{${this.color}}{${this.texte}}$</div></foreignObject>`
     }
   }
   this.tikz = function () {
     // let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
     let code
     if (this.colorBackground !== '') {
-      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{${colorBackground}}{$\\color{${color}}{${texte}}$}};`
+      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{ ${colorBackground}}{${taille}  $\\color{${color}}{${texte}}$}};`
     } else {
-      code = `\\draw (${x},${y}) node[anchor = center] {$\\color{${color}}{${texte}}$};`
+      code = `\\draw (${x},${y}) node[anchor = center] {${taille} $\\color{${color}}{${texte}}$};`
     };
     return code
   }
@@ -9580,7 +9583,7 @@ export function angle (A, O, B) {
     else if (v.y * w.y > 0) return 0
     else return 180
   } else {
-    return calcul(
+    return arrondi(
       (Math.acos((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB)) * 180) / Math.PI,
       2
     )
@@ -9594,7 +9597,7 @@ export function angle (A, O, B) {
 export function angleOriente (A, O, B) {
   const A2 = rotation(A, O, 90)
   const v = vecteur(O, B); const u = vecteur(O, A2)
-  return unSiPositifMoinsUnSinon(v.x * u.x + v.y * u.y) * angle(A, O, B)
+  return arrondi(unSiPositifMoinsUnSinon(v.x * u.x + v.y * u.y) * angle(A, O, B), 2)
 }
 /**
  * angleradian(A,O,B) renvoie l'angle AOB en radian
@@ -10966,7 +10969,7 @@ function Labyrinthe (
   }
 } // fin de la classe labyrinthe
 export function labyrinthe ({ taille = 1, format = 'texte' } = {}) {
-  return new Labyrinthe({ taille: taille, format: format })
+  return new Labyrinthe({ taille, format })
 }
 
 /**

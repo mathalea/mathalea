@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'// eslint-disable-next-line camelcase
 import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Résoudre une équation $x^2 = a$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,6 +25,7 @@ export default function ResoudreEquatioeX2EgalA () {
   // eslint-disable-next-line no-undef
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
   this.spacing = 1
+  this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

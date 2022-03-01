@@ -83,3 +83,15 @@ Ce n'est pas un message d'erreur ! Il vous dit juste que ça c'est bien passé !
 * Lancer
     * `sudo apt-get install --reinstall ca-certificates` dans un terminal
     * puis à nouveau `pnpm i`
+
+---
+**<a id="7" href="#7">#</a> Message d'erreur :**
+
+![](img/Erreur-6.png)
+
+**Description de l'erreur :**
+* Vous avez voulu installer pnpm en lançant `npm install -g pnpm` ou `sudo npm install -g pnpm`
+* pnpm est déjà installé
+
+**Solution :**
+* Il n'y a rien à faire, c'est bon ! pnpm est installé !

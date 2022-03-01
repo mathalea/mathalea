@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu, choice, premiereLettreEnMajuscule, numAlpha, texFractionSigne, calcul, arrondi, arrondiVirgule, texteGras } from '../../modules/outils.js'
 import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Calculer des effectifs et des fréquences'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,7 +24,6 @@ export default function calculEffectifFrequence () {
   this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-  this.tailleDiaporama = 50
   this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.video = 'https://youtu.be/GWDDay-mdVA' // Id YouTube ou url

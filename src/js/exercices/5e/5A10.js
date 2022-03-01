@@ -2,8 +2,8 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, listeDiviseurs, texteOuPas, contraindreValeur, texNombre } from '../../modules/outils.js'
 
-import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const dateDeModifImportante = '28/10/2021'
 export const titre = 'Écrire la liste de tous les diviseurs d’un entier'
 

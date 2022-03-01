@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, troncature, calcul, choisitLettresDifferentes, texNombre, texFraction, sp, nombreDeChiffresDe } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, troncature, calcul, choisitLettresDifferentes, texNombre, texFraction, sp, nombreDeChiffresDe, stringNombre } from '../../modules/outils.js'
 import { point, segment, droiteGraduee2, mathalea2d } from '../../modules/2d.js'
-import { setReponse, ajouteChampTexteMathLive } from '../../modules/gestionInteractif.js'
 import FractionX from '../../modules/FractionEtendue.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
 
 export const amcReady = true
@@ -30,7 +31,6 @@ export default function LireUneAbscisseAvecZoom () {
   this.vspace = -1
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = 1
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
 
@@ -75,7 +75,7 @@ export default function LireUneAbscisseAvecZoom () {
         axeCouleur: 'black',
         axeHauteur: 4,
         labelsPrincipaux: false,
-        labelListe: [[origine, `${texNombre(origine)}`], [extreme, `${texNombre(extreme)}`]],
+        labelListe: [[origine, `${stringNombre(origine)}`], [extreme, `${stringNombre(extreme)}`]],
         pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
         pointTaille: 6,
         pointOpacite: 0.8,
@@ -120,7 +120,7 @@ export default function LireUneAbscisseAvecZoom () {
         axeCouleur: 'black',
         axeHauteur: 4,
         labelsPrincipaux: true,
-        labelListe: [[origine, `${texNombre(origine)}`], [extreme, `${texNombre(extreme)}`]],
+        labelListe: [[origine, `${stringNombre(origine)}`], [extreme, `${stringNombre(extreme)}`]],
         pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
         pointTaille: 6,
         pointOpacite: 0.8,
@@ -144,7 +144,7 @@ export default function LireUneAbscisseAvecZoom () {
         axeHauteur: 4,
         labelsPrincipaux: false,
         labelsSecondaires: true,
-        labelListe: [[Math.floor(x1), `${texNombre(Math.floor(x1))}`], [x1, `${texNombre(x1)}`], [Math.ceil(x1), `${texNombre(Math.ceil(x1))}`]],
+        labelListe: [[Math.floor(x1), `${stringNombre(Math.floor(x1))}`], [x1, `${stringNombre(x1)}`], [Math.ceil(x1), `${stringNombre(Math.ceil(x1))}`]],
         pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
         pointTaille: 6,
         pointOpacite: 0.8,
@@ -283,7 +283,7 @@ export default function LireUneAbscisseAvecZoom () {
         thickTerDist: 0.001,
         labelsPrincipaux: false,
         labelsSecondaires: true,
-        labelListe: [[x2, `${texNombre(x2)}`], [x1, `${texNombre(x1)}`], [x3, `${texNombre(x3)}`]],
+        labelListe: [[x2, `${stringNombre(x2)}`], [x1, `${stringNombre(x1)}`], [x3, `${stringNombre(x3)}`]],
         pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x2 + 0.1, `${noms[2]}`]],
         pointTaille: 6,
         pointOpacite: 0.8,
@@ -352,7 +352,7 @@ export default function LireUneAbscisseAvecZoom () {
         axeCouleur: 'black',
         axeHauteur: 6,
         labelsPrincipaux: true,
-        labelListe: [[xmin, `${texNombre(xmin)}`], [xmax, `${texNombre(xmax)}`]],
+        labelListe: [[xmin, `${stringNombre(xmin)}`], [xmax, `${stringNombre(xmax)}`]],
         pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
         pointTaille: 6,
         pointOpacite: 0.8,
@@ -427,7 +427,7 @@ export default function LireUneAbscisseAvecZoom () {
         axeHauteur: 6,
         labelsPrincipaux: true,
         labelsSecondaires: true,
-        labelListe: [[xmin, `${texNombre(xmin)}`], [xmax, `${texNombre(xmax)}`]],
+        labelListe: [[xmin, `${stringNombre(xmin)}`], [xmax, `${stringNombre(xmax)}`]],
         pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
         pointTaille: 6,
         pointOpacite: 0.8,
@@ -455,7 +455,7 @@ export default function LireUneAbscisseAvecZoom () {
         labelsPrincipaux: false,
         labelsSecondaires: true,
         pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
-        labelListe: [[x2, `${texNombre(x2)}`], [x3, `${texNombre(x3)}`]],
+        labelListe: [[x2, `${stringNombre(x2)}`], [x3, `${stringNombre(x3)}`]],
         pointTaille: 6,
         pointOpacite: 0.8,
         pointCouleur: 'blue',
@@ -480,7 +480,7 @@ export default function LireUneAbscisseAvecZoom () {
         labelsPrincipaux: false,
         labelsSecondaires: true,
         pointListe: [[x1, `${noms[1]}`], [x21, `${noms[3]}`], [x31, `${noms[4]}`]],
-        labelListe: [[x21, `${texNombre(x21)}`], [x31, `${texNombre(x31)}`]],
+        labelListe: [[x21, `${stringNombre(x21)}`], [x31, `${stringNombre(x31)}`]],
         pointTaille: 6,
         pointOpacite: 0.8,
         pointCouleur: 'blue',
@@ -528,54 +528,55 @@ export default function LireUneAbscisseAvecZoom () {
       setReponse(this, 3, reponse3, { formatInteractif: 'fraction' })
     }
     if (this.interactif) { // Si l'exercice est interactif
-      texte += ajouteChampTexteMathLive(this, 0, 'largeur10 inline', { texte: `Abscisse de ${noms[1]} en écriture décimale : ` })
-      texte += '<br>' + ajouteChampTexteMathLive(this, 1, 'largeur10 inline', { texte: `Abscisse de ${noms[1]} comme somme d’un nombre entier et d’une fraction décimale : ` }) + ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { formatInteractif: 'fraction', texte: `${sp(6)}+` })
-      texte += '<br>' + ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { formatInteractif: 'fraction', texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : ` })
+      texte += ajouteChampTexteMathLive(this, 0, 'largeur25 inline', { texte: `Abscisse de ${noms[1]} en écriture décimale : ` })
+      texte += '<br><br>' + ajouteChampTexteMathLive(this, 1, 'largeur25 inline', { texte: `Abscisse de ${noms[1]} comme somme d’un nombre entier et d’une fraction décimale : ` }) + ajouteChampTexteMathLive(this, 2, 'largeur25 inline', { formatInteractif: 'fraction', texte: `${sp(6)}+` })
+      texte += '<br><br>' + ajouteChampTexteMathLive(this, 3, 'largeur25 inline', { formatInteractif: 'fraction', texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : ` })
     }
-    this.autoCorrection[0] = {
-      enonce: texte,
-      melange: false, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
-      options: { multicols: true, barreseparation: false },
-      propositions: [
-        {
-          type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
-          propositions: [ // une ou plusieurs (Qcms) 'propositions'
-            {
-              reponse: { // utilisé si type = 'AMCNum'
-                texte: `Abscisse de ${noms[1]} en écriture décimale`, // facultatif
-                valeur: reponse1, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
-                alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
-                param: {
-                  digits: 0, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
-                  decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
-                  signe: false // (présence d'une case + ou -)
+    if (context.isAMC) {
+      this.autoCorrection[0] = {
+        enonce: texte,
+        melange: false, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
+        options: { multicols: true, barreseparation: false },
+        propositions: [
+          {
+            type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+            propositions: [ // une ou plusieurs (Qcms) 'propositions'
+              {
+                reponse: { // utilisé si type = 'AMCNum'
+                  texte: `Abscisse de ${noms[1]} en écriture décimale : `, // facultatif
+                  valeur: reponse1, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
+                  alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
+                  param: {
+                    digits: 0, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+                    decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
+                    signe: false // (présence d'une case + ou -)
+                  }
                 }
               }
-            }
-          ]
-        },
-        {
-          type: 'AMCNum', // on donne le type de la deuxième question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
-          propositions: [ // une ou plusieurs (Qcms) 'propositions'
-            {
-              reponse: { // utilisé si type = 'AMCNum'
-                texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : `,
-                valeur: reponse3, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
-                alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
-                param: {
-                  digits: 0, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
-                  decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
-                  signe: false, // (présence d'une case + ou -)
-                  digitsNum: nombreDeChiffresDe(reponse2B.num), // Facultatif. digitsNum correspond au nombre TOTAL de chiffres du numérateur à coder si la réponse est une fraction.
-                  digitsDen: nombreDeChiffresDe(reponse2B.den) // Facultatif. digitsDencorrespond au nombre TOTAL de chiffres du dénominateur à coder si la réponse est une fraction.
+            ]
+          },
+          {
+            type: 'AMCNum', // on donne le type de la deuxième question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+            propositions: [ // une ou plusieurs (Qcms) 'propositions'
+              {
+                reponse: { // utilisé si type = 'AMCNum'
+                  texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : `,
+                  valeur: reponse3, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
+                  alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
+                  param: {
+                    digits: 0, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+                    decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
+                    signe: false, // (présence d'une case + ou -)
+                    digitsNum: nombreDeChiffresDe(reponse2B.num), // Facultatif. digitsNum correspond au nombre TOTAL de chiffres du numérateur à coder si la réponse est une fraction.
+                    digitsDen: nombreDeChiffresDe(reponse2B.den) // Facultatif. digitsDencorrespond au nombre TOTAL de chiffres du dénominateur à coder si la réponse est une fraction.
+                  }
                 }
               }
-            }
-          ]
-        }
-      ]
+            ]
+          }
+        ]
+      }
     }
-
     texteCorr += mathalea2d(fenetre, objetsCorr)
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
-import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Quotient de deux entiers relatifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -54,7 +54,6 @@ export default function ExerciceQuotientsRelatifs () {
       texte = `$\\dfrac{${a}}{${b}}$`
       texteCorr = `$\\dfrac{${a}}{${b}}=${calcul(a / b)}$`
       setReponse(this, i, calcul(a / b))
-      if (this.interactif && context.isHtml) texte = texte.replace('\\dotfill', '')
       texte += ajouteChampTexteMathLive(this, i)
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

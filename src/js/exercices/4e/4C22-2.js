@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, abs, pgcd, texFractionSigne, obtenirListeFractionsIrreductibles, texFraction } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Diviser des fractions'
 export const amcReady = true

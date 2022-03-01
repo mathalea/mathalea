@@ -2,7 +2,8 @@ import { translation, mathalea2d, polygone, point, segment, rotation, similitude
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { egal, listeQuestionsToContenuSansNumero, randint, choice, imagePointParTransformation, texteEnCouleurEtGras, numAlpha } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

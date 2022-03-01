@@ -1,9 +1,9 @@
 import Exercice from '../Exercice.js'
-import { randint, combinaisonListes, calcul, lettreDepuisChiffre, texNombre, listeQuestionsToContenu } from '../../modules/outils.js'
+import { randint, combinaisonListes, calcul, lettreDepuisChiffre, listeQuestionsToContenu, stringNombre } from '../../modules/outils.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Lire l’abscisse entière d’un point (grands nombres)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -81,7 +81,7 @@ export default function LireAbscisseEntiere2d () {
         labelsPrincipaux: false,
         thickSec: true,
         step1: 10,
-        labelListe: [[0, `${texNombre(abs0)}`], [1, `${texNombre(calcul(abs0 + 1 / pas1))}`]],
+        labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + 1 / pas1))}`]],
         pointListe: [[x1, l1], [x2, l2], [x3, l3]]
       })
       d[2 * i + 1] = droiteGraduee2({
@@ -95,9 +95,9 @@ export default function LireAbscisseEntiere2d () {
         thickSec: true,
         step1: 10,
         labelListe: [
-          [x1, texNombre(calcul(x1 / pas1 + abs0))],
-          [x2, texNombre(calcul(x2 / pas1 + abs0))],
-          [x3, texNombre(calcul(x3 / pas1 + abs0))]
+          [x1, stringNombre(calcul(x1 / pas1 + abs0))],
+          [x2, stringNombre(calcul(x2 / pas1 + abs0))],
+          [x3, stringNombre(calcul(x3 / pas1 + abs0))]
         ],
         pointListe: [[x1, l1], [x2, l2], [x3, l3]]
 

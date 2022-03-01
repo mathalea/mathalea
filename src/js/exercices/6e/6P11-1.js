@@ -1,18 +1,21 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, prenom, texteEnCouleur, texPrix, numAlpha, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, arrondi, checkSum } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, randint, prenom, texPrix, numAlpha, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, arrondi, checkSum, shuffle, choice, texteEnCouleurEtGras, miseEnEvidence } from '../../modules/outils.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModifImportante = '23/02/2022'
 
 /**
- * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue
+ * Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité
  * * 6P11-1
- * @author Sébastien Lozano
+ * @author Sébastien Lozano (et Eric Elter pour divers enrichissements)
  */
+
 export default function ProportionnaliteParLineariteBis () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false
@@ -27,26 +30,12 @@ export default function ProportionnaliteParLineariteBis () {
 
   this.nbCols = 1
   this.nbColsCorr = 1
-  // this.nbQuestionsModifiable = false;
-  // context.isHtml? this.spacing = 3 : this.spacing = 2;
-  // context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
-
-  let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
     const tabHash = []
-    if (this.beta) {
-      typesDeQuestionsDisponibles = [1]
-    } else {
-      typesDeQuestionsDisponibles = [1]
-    };
-
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    typesDeQuestionsDisponibles = [1]
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    // let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour gérer le pluriel
@@ -58,94 +47,89 @@ export default function ProportionnaliteParLineariteBis () {
         };
       };
 
-      // une fonction pour gérer la chaine de sortie et supprimer le coeff 1 !
-      ;
-
-      // une fonction pour calculer la différence positive entre deux entiers
-      function diffInt (n, p) {
-        if (n > p) {
-          return calcul(n - p)
-        } else if (n < p) {
-          return calcul(p - n)
-        } else {
-          return 0
-        }
-      };
-
       // un compteur pour les sous-questions
       let k = 0
       let kCorr = 0
       // on crée un tableau d'objets pour les situations possibles
-      let n1, n2, n3, n4, nMax
+      let n1, n2, n3, n4, n5, nMax, choixN, choixMult
       do {
-        n1 = randint(1, 9)
-        n2 = randint(1, 9, [n1])
+        n2 = randint(2, 8)
+        n1 = randint(n2 + 1, 9, [n2, 2 * n2, 3 * n2, 4 * n2]) // n1 est plus grand que n2 et non mulitple de n2
         n3 = n1 + n2
-        n4 = diffInt(n1, n2)
-        nMax = randint(10, 19, [n3])
+        n4 = n1 - n2
+        do {
+          choixN = choice([n1, n2])
+          choixMult = randint(2, 5)
+          n5 = choixMult * choixN // n5 est un multiple de n1 ou n2, différent de n3 et n4.
+        } while (n5 === n4 || n5 === n3)
+        nMax = randint(10, 19, [n3, n5])
       } while (n4 === 1)
-      // n1 sera toujours le plus grand sinon on intervertit les deux
-      let temp
-      if (n1 < n2) {
-        temp = n1
-        n1 = n2
-        n2 = temp
-      };
+      const prenomliste = prenom(6)
       const situations = [
-        { lieu: 'la boulangerie', achat_sing: 'pain au chocolat', achat_plur: 'pains au chocolat', prenom1: prenom(), prenom2: prenom(), prenom3: prenom(), prenom4: prenom(), prenom_max: prenom(), n1: n1, n2: n2, n3: n3, n4: n4, nMax: nMax, pu: 0.9 }
+        { lieu: 'À la boulangerie', achat_sing: 'pain au chocolat', achat_plur: 'pains au chocolat', pu: choice([0.7, 0.75, 0.8, 0.85]) },
+        { lieu: 'À la boulangerie', achat_sing: 'croissant', achat_plur: 'croissants', pu: choice([1.05, 1.15, 0.95, 1.25]) },
+        { lieu: 'À la boulangerie', achat_sing: 'baguette', achat_plur: 'baguettes', pu: choice([0.9, 1.3, 1.1, 1.2]) },
+        { lieu: 'Au supermarché', achat_sing: 'bouteille de jus de fruits', achat_plur: 'bouteilles de jus de fruits', pu: choice([1.8, 1.9, 2.1, 2.3]) },
+        { lieu: 'À la charcuterie', achat_sing: 'tranche de jambon', achat_plur: 'tranches de jambon', pu: choice([1.6, 1.7, 2.2, 2.4]) }
       ]
-      const enonces = []
       const situation = situations[randint(0, situations.length - 1)]
-
-      enonces.push({
-        enonce: `
-          À ${situation.lieu}, ${situation.prenom1} achète $${situation.n1}$ ${pluriel(situation.n1, situation)} et paie $${texPrix(situation.pu * situation.n1)}$ €.
-          <br>${situation.prenom2} achète $${situation.n2}$ ${pluriel(situation.n2, situation)} et paie $${texPrix(situation.pu * situation.n2)}$ €.
-          <br>${numAlpha(k++)} Combien paiera ${situation.prenom3} pour $${situation.n3}$ ${pluriel(situation.n3, situation)} ? ${ajouteChampTexteMathLive(this, 3 * i, 'largeur25 inline')}
-          <br>${numAlpha(k++)} Combien paiera ${situation.prenom4} pour $${situation.n4}$ ${pluriel(situation.n4, situation)} ? ${ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur25 inline')}
-          <br>${numAlpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${situation.prenom_max} peut acheter avec $${texPrix(situation.pu * situation.nMax)}$ € ? ${ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur25 inline')}
-          `,
-        question: '',
-        correction: `
+      const consigneQuestions = shuffle([n3, n4, n5])
+      texte = `
+          ${situation.lieu}, ${prenomliste[0]} achète $${n1}$ ${pluriel(n1, situation)} et paie $${texPrix(n1 * situation.pu)}$ €.
+          <br>${prenomliste[1]} achète $${n2}$ ${pluriel(n2, situation)} et paie $${texPrix(n2 * situation.pu)}$ €.
+          <br>${numAlpha(k++)} Combien paiera ${prenomliste[2]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i, 'largeur25 inline')}
+          <br>${numAlpha(k++)} Combien paiera ${prenomliste[3]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur25 inline')}
+          <br>${numAlpha(k++)} Combien paiera ${prenomliste[4]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i + 2, 'largeur25 inline')}
+          <br>${numAlpha(k++)} Quel est le nombre maximum de ${situation.achat_plur} que ${prenomliste[5]} peut acheter avec $${texPrix(nMax * situation.pu)}$ € ? ${ajouteChampTexteMathLive(this, 4 * i + 3, 'largeur25 inline')}
+          `
+      texteCorr = `
         C'est une situation de proportionnalité. Nous pouvons donc utiliser les propriétés de linéarité de la proportionnalité.
-        <br>C'est ce que nous allons faire pour les deux premières questions.
-        <br>
-        <br>${numAlpha(kCorr++)} Pour $${situation.n1}$ ${pluriel(situation.n1, situation)}, on paie $${texPrix(situation.pu * situation.n1)}$ €.
-        <br> Pour $${situation.n2}$ ${pluriel(situation.n2, situation)}, on paie $${texPrix(situation.pu * situation.n2)}$ €.
-        <br> Donc pour $${situation.n1}+${situation.n2}$ ${pluriel(situation.n3, situation)}, on paie $${texPrix(situation.pu * situation.n1)}$ € + $${texPrix(situation.pu * situation.n2)}$ €.
-        <br> ${texteEnCouleur(`${situation.prenom3} paiera donc $${texPrix(situation.pu * situation.n3)}$ € pour $${situation.n3}$ ${pluriel(situation.n3, situation)}.`)}
-        <br>
-        <br>${numAlpha(kCorr++)} Pour $${situation.n1}$ ${pluriel(situation.n1, situation)}, on paie $${texPrix(situation.pu * situation.n1)}$ €.
-        <br> Pour $${situation.n2}$ ${pluriel(situation.n2, situation)}, on paie $${texPrix(situation.pu * situation.n2)}$ €.
-        <br> Donc pour $${situation.n1}-${situation.n2}$ ${pluriel(situation.n4, situation)}, on paie $${texPrix(situation.pu * situation.n1)}$ € - $${texPrix(situation.pu * situation.n2)}$ €.
-        <br> ${texteEnCouleur(`${situation.prenom4} paiera donc $${texPrix(situation.pu * situation.n4)}$ € pour $${situation.n4}$ ${pluriel(situation.n4, situation)}.`)}
-        <br>
-        <br>${numAlpha(kCorr++)} On peut utiliser l'une ou l'autre des informations de l'énoncé pour répondre en revenant à l'unité.
-        <br> Par exemple pour $${situation.n1}$ ${pluriel(situation.n1, situation)}, on paie $${texPrix(situation.pu * situation.n1)}$ €.
-        <br> Donc $1$ ${situation.achat_sing} coûte $${texPrix(situation.pu * situation.n1)}\\div ${situation.n1} = ${texPrix(situation.pu)}$ €.
-        <br> Pour $${texPrix(situation.pu * situation.nMax)}$ € nous aurons donc $${texPrix(situation.pu * situation.nMax)}\\div ${texPrix(situation.pu)}$ € $= ${situation.nMax}$ ${pluriel(situation.nMax, situation)}.
-        <br> ${texteEnCouleur(`Avec $${texPrix(situation.pu * situation.nMax)}$ €, ${situation.prenom_max} pourra donc acheter $${situation.nMax}$ ${pluriel(situation.nMax, situation)}.`)}
-        `
-      })
-      switch (listeTypeDeQuestions[i]) {
-        case 1:
-          texte = `${enonces[0].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          };
-          break
+        <br>C'est ce que nous allons faire pour les trois premières questions.
+        <br>`
+      const texteCorrInit = `
+        Pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$ €.
+        <br> Pour $${n2}$ ${pluriel(n2, situation)}, on paie $${texPrix(n2 * situation.pu)}$ €.`
+      const texteCorrn3 = `
+        <br> Donc pour $${n1}+${n2}$ ${pluriel(n3, situation)}, on paie $${texPrix(n1 * situation.pu)}$ € + $${texPrix(n2 * situation.pu)}$ €.
+        <br> ${texteEnCouleurEtGras(`${prenomliste[2]} paiera donc $${miseEnEvidence(texPrix(n3 * situation.pu))}$ € pour $${miseEnEvidence(n3)}$ ${pluriel(n3, situation)}.`)}
+        <br>`
+      const texteCorrn4 = `
+        <br> Donc pour $${n1}-${n2}$ ${pluriel(n4, situation)}, on paie $${texPrix(n1 * situation.pu)}$ € - $${texPrix(n2 * situation.pu)}$ €.
+        <br> ${texteEnCouleurEtGras(`${prenomliste[3]} paiera donc $${miseEnEvidence(texPrix(n4 * situation.pu))}$ € pour $${miseEnEvidence(n4)}$ ${pluriel(n4, situation)}.`)}
+        <br>`
+      const texteCorrn5 = `
+        <br> Donc pour $${choixMult}\\times${choixN}$ ${pluriel(n5, situation)}, on paie $${choixMult}\\times${texPrix(choixN * situation.pu)}$ €.
+        <br> ${texteEnCouleurEtGras(`${prenomliste[4]} paiera donc $${miseEnEvidence(texPrix(n5 * situation.pu))}$ € pour $${miseEnEvidence(n5)}$ ${pluriel(n5, situation)}.`)}
+        <br>`
+      for (let kk = 0; kk < 3; kk++) {
+        texteCorr += `<br>${numAlpha(kCorr++)} ` + texteCorrInit
+        switch (consigneQuestions[kk]) {
+          case n3 :
+            texteCorr += texteCorrn3
+            break
+          case n4 :
+            texteCorr += texteCorrn4
+            break
+          case n5 :
+            texteCorr += texteCorrn5
+            break
+        }
       }
+      texteCorr += `
+        <br>${numAlpha(kCorr++)} On peut utiliser l'une ou l'autre des informations de l'énoncé pour répondre en revenant à l'unité.
+        <br> Par exemple, pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$ €.
+        <br> Donc $1$ ${situation.achat_sing} coûte $${texPrix(n1 * situation.pu)}$ € $\\div ${n1} = ${texPrix(situation.pu)}$ €.
+        <br> Pour $${texPrix(nMax * situation.pu)}$ €, nous aurons donc $${texPrix(nMax * situation.pu)}$  € $\\div ${texPrix(situation.pu)}$ € $= ${nMax}$.
+        <br> ${texteEnCouleurEtGras(`Avec $${miseEnEvidence(texPrix(nMax * situation.pu))}$ €, ${prenomliste[5]} peut donc acheter $${miseEnEvidence(nMax)}$ ${pluriel(nMax, situation)}.`)}
+        `
 
-      if (tabHash.indexOf(checkSum(situation.prenom4, situation.n3, situation.n2, situation.nMax)) === -1) { // Si la question n'a jamais été posée, on en crée une autre
-        tabHash.push(checkSum(situation.prenom4, situation.n3, situation.n2, situation.nMax))
+      if (tabHash.indexOf(checkSum(prenomliste[3], n3, n2, nMax)) === -1) { // Si la question n'a jamais été posée, on en crée une autre
+        tabHash.push(checkSum(prenomliste[3], n3, n2, nMax))
         if (!context.isAmc) {
-          setReponse(this, 3 * i, arrondi(situation.pu * situation.n3, 2))
-          setReponse(this, 3 * i + 1, arrondi(situation.pu * situation.n4, 2))
-          setReponse(this, 3 * i + 2, situation.nMax)
+          setReponse(this, 4 * i, arrondi(consigneQuestions[0] * situation.pu, 2))
+          setReponse(this, 4 * i + 1, arrondi(consigneQuestions[1] * situation.pu, 2))
+          setReponse(this, 4 * i + 2, arrondi(consigneQuestions[2] * situation.pu, 2))
+          setReponse(this, 4 * i + 3, nMax)
         } else {
           this.autoCorrection[i] = {
             enonce: texte,
@@ -157,10 +141,10 @@ export default function ProportionnaliteParLineariteBis () {
                   statut: '',
                   reponse: {
                     texte: 'a) ',
-                    valeur: arrondi(situation.pu * situation.n3, 2),
+                    valeur: arrondi(consigneQuestions[0] * situation.pu, 2),
                     param: {
-                      digits: nombreDeChiffresDe(arrondi(situation.pu * situation.n3, 2)),
-                      decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(situation.pu * situation.n3, 2)),
+                      digits: nombreDeChiffresDe(arrondi(consigneQuestions[0] * situation.pu, 2)),
+                      decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(consigneQuestions[0] * situation.pu, 2)),
                       signe: false,
                       approx: 0
                     }
@@ -174,10 +158,10 @@ export default function ProportionnaliteParLineariteBis () {
                   statut: '',
                   reponse: {
                     texte: 'b) ',
-                    valeur: arrondi(situation.pu * situation.n4, 2),
+                    valeur: arrondi(consigneQuestions[1] * situation.pu, 2),
                     param: {
-                      digits: nombreDeChiffresDe(arrondi(situation.pu * situation.n4, 2)),
-                      decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(situation.pu * situation.n4, 2)),
+                      digits: nombreDeChiffresDe(arrondi(consigneQuestions[1] * situation.pu, 2)),
+                      decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(consigneQuestions[1] * situation.pu, 2)),
                       signe: false,
                       approx: 0
                     }
@@ -191,7 +175,24 @@ export default function ProportionnaliteParLineariteBis () {
                   statut: '',
                   reponse: {
                     texte: 'c) ',
-                    valeur: situation.nMax,
+                    valeur: arrondi(consigneQuestions[2] * situation.pu, 2),
+                    param: {
+                      digits: nombreDeChiffresDe(arrondi(consigneQuestions[2] * situation.pu, 2)),
+                      decimals: nombreDeChiffresDansLaPartieDecimale(arrondi(consigneQuestions[2] * situation.pu, 2)),
+                      signe: false,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'd) ',
+                    valeur: nMax,
                     param: {
                       digits: 2,
                       decimals: 0,

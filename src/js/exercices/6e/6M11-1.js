@@ -3,7 +3,8 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul, exposant } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Calculer périmètre et aire de carrés, rectangles et triangles rectangles'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -146,7 +147,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           setReponse(this, i, new Grandeur(pIJK, 'cm'), { formatInteractif: 'longueur' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer le périmètre en cm du triangle rectangle dont les côtés mesurent ${a}cm, ${b}cm et ${texNombre(c2.toFixed(1))}m`,
+              enonce: `Calculer le périmètre en cm du triangle rectangle dont les côtés mesurent ${a}cm, ${b}cm et $${texNombre(c2.toFixed(1))}$m`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Périmètre en cm',

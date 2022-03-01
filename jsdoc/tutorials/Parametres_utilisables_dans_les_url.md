@@ -11,9 +11,10 @@
 - `,cd=1` ou `,cd=0`pour avoir une correction détaillée ou pas (par défaut 1 en sortie HTML et 0 en sortie LaTeX).
 - `&serie=XXXX` permet de contrôler l'aléatoire et d'avoir exactement les mêmes valeurs numériques.
 - `&log=1` déclenche une fenêtre modale de connexion pour l'enregistrement des scores (un peu comme un popup dans la page).
+- `&duree=10` permet d'ajouter un compte à rebours aux différentes vues.
 - `&v=` détermine le contexte de la vue :
     - `&v=menu` dirige vers la page principale du générateur d'exercices avec à gauche la liste des exercices et à droite les exercices.
-    - `&v=ex` dirige vers l'affichage normal de l'exercice (avec la barre des boutons zoom, copier le lien, export latex/pdf, interactivité, modification, diaporama, ...).
+    - `&v=ex` dirige vers l'affichage normal de l'exercice (avec la barre des boutons zoom, copier le lien, export latex/pdf, interactivité, modification...).
     - `&v=exEtChoix` dirige vers le même affichage que `&v=ex` avec en plus un bandeau permettant d'ajouter directement des exercices dont on connaît la référence.
     - `&v=l` ou `&v=light` dirige vers un affichage léger mais autorisant le reparamétrage contrairement à `&v=e`.
     - `&v=latex` dirige vers l'écran de paramétrage en vue d'une exportation vers un code LateX ou d'un fichier pdf.
@@ -23,8 +24,6 @@
     - `&v=e` ou `&v=embed` permet d'épurer la page, de grossir le texte, d'ajouter le logo COOPMaths et de rendre inaccessibles les paramètres, parfait pour l'intégration dans d'autres sites !
     - `&v=multi` permet d'afficher plusieurs énoncés sur toute la largeur de l'écran, notamment pour être utilisé comme questions flash.
     - `&v=diap` permet d'afficher sous forme de diaporama, une question après l'autre, un ou plusieurs exercices.
-    - `&v=cm` dirige vers l'écran de paramétrage en vue d'un affichage sous forme de diaporama. [Cette vue est amenée à disparaître au profit de `&v=diap`]
-        - `&duree=10` est utilisé pour la durée des diaporamas.
 - `&z=1.5` permet d'ajuster la taille de la police. L'unité est em et est à 1.5 par défaut. Fonctionne autant avec les textes qu'avec les figures. Ne fonctionne pas avec la vue `&v=latex`.
 
  ## <a id="Exemples" href="#Exemples"></a> [3. Quelques exemples de vues](#Exemples)

@@ -71,7 +71,7 @@ export default function ConstruireUnTriangleAvecCible () {
           IEP.recadre(xMin, yMax)
           IEP.triangle3longueurs(nom, lAB, lAC, lBC, true)
           break
-        case 2: // triangle ABC rectangle en B dont on connait AB et BC
+        case 2: // triangle ABC rectangle en B dont on connaît AB et BC
           lBC = randint(70, 80) / 10
           lAB = calcul(randint(46, 60) / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
@@ -172,7 +172,7 @@ export default function ConstruireUnTriangleAvecCible () {
           IEP.recadre(xMin, yMax)
           IEP.triangleEquilateral(nom, lAB, true)
           break
-        case 6: // triangle ABC dont on connait AB et AC et l'angle BAC
+        case 6: // triangle ABC dont on connaît AB et AC et l'angle BAC
           lAB = calcul(randint(46, 60) / 10)
           lAC = randint(40, 60) / 10
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1], 'right')
@@ -214,7 +214,7 @@ export default function ConstruireUnTriangleAvecCible () {
           IEP.recadre(xMin, yMax)
           IEP.triangle1longueur2angles(sommets, lAB, Math.round(angle(B, A, C)), Math.round(angle(A, B, C)))
           break
-        case 8: // triangle ABC rectangle en B dont on connait AB et l'hypoténuse AC
+        case 8: // triangle ABC rectangle en B dont on connaît AB et l'hypoténuse AC
           lAC = randint(70, 80) / 10
           lAB = calcul(randint(46, 60) / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])

@@ -8,10 +8,10 @@ export const titre = 'Somme des angles dans un triangle'
 * Déterminer la valeur d'un angle dans un triangle.
 *
 * Correction avec détails ou pas. 9 cas différents
-* * On connait 2 angles sur 3.
-* * Dans un triangle rectangle, on connait un angle aigu.
-* * Dans un triangle isocèle, on connait un angle à la base.
-* * Dans un triangle isocèle, on connait l'angle au sommet principal.
+* * On connaît 2 angles sur 3.
+* * Dans un triangle rectangle, on connaît un angle aigu.
+* * Dans un triangle isocèle, on connaît un angle à la base.
+* * Dans un triangle isocèle, on connaît l'angle au sommet principal.
 * * Quelle est la mesure d'un angle aigu dans un triangle rectangle qui a 2 angles égaux ?
 * * Dans un triangle rectangle, un angle aigu mesure le double de l'autre.
 * * Dans un triangle rectangle, un angle aigu mesure le quart de l'autre.

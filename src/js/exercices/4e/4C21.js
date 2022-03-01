@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureNombreRelatif, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, texFraction, ppcm } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, pgcd, simplificationDeFractionAvecEtapes, calcul, miseEnEvidence, texFraction, ppcm, lettreDepuisChiffre } from '../../modules/outils.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
 
@@ -25,6 +26,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
   this.sup = 2 // Niveau de difficulté
   this.sup2 = false // Avec ou sans relatifs
   this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée
+  this.sup4 = false // Par défaut c'est l'ancienne correction qui est affichée
   this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
   this.spacing = 2
   this.spacingCorr = 2
@@ -53,6 +55,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
     const listeCouplesDeDenominateurs = [[6, 9], [4, 6], [8, 12], [9, 12], [10, 15], [10, 25], [6, 21], [12, 30], [6, 8], [50, 75]]
     for (let i = 0, a, b, c, d, k, k1, k2, num, den, texte, texteCorr, reponse, couplesDeDenominateurs, typesDeQuestions; i < this.nbQuestions; i++) {
       const plusOuMoins = listeDePlusOuMoins[i]
+      const plusOuMoinsUn = plusOuMoins === '+' ? 1 : -1
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         case 'ppcm':
@@ -116,21 +119,21 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
       // a/b(+ou-)c/d = num/den (résultat non simplifié)
       if (typesDeQuestions === 'ppcm' || typesDeQuestions === 'premiers_entre_eux') {
         texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}${plusOuMoins}${texFraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`
-        num = calcul(a * k1 + plusOuMoins + ecritureNombreRelatif(c * k2))
+        num = calcul(a * k1 + plusOuMoinsUn * c * k2)
         den = b * k1
         texteCorr += `=${texFraction(a * k1 + plusOuMoins + ecritureParentheseSiNegatif(c * k2), den)}`
       }
 
       if (typesDeQuestions === 'd_multiple_de_b') {
         texteCorr += `=${texFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}${plusOuMoins}${texFraction(c, d)}`
-        num = calcul(a * k + plusOuMoins + ecritureNombreRelatif(c))
+        num = calcul(a * k + plusOuMoinsUn * c)
         den = b * k
         texteCorr += `=${texFraction(a * k + plusOuMoins + ecritureParentheseSiNegatif(c), den)}`
       }
 
       if (typesDeQuestions === 'b_multiple_de_d') {
         texteCorr += `=${texFraction(a, b)}${plusOuMoins}${texFraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`
-        num = calcul(a + plusOuMoins + ecritureNombreRelatif(c * k))
+        num = calcul(a + plusOuMoinsUn * c * k)
         den = b
         texteCorr += `=${texFraction(a + plusOuMoins + ecritureParentheseSiNegatif(c * k), den)}`
       }
@@ -152,7 +155,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
           texteCorr = texte
           texteCorr += `$${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}${plusOuMoins}${texFraction(a, b)}`
           texteCorr += `=${texFraction(n * b + plusOuMoins + ecritureParentheseSiNegatif(a), b)}`
-          num = calcul(n * b + plusOuMoins + ecritureParentheseSiNegatif(a))
+          num = calcul(n * b + plusOuMoinsUn * a)
         } else {
           // a/b +-n
           if (!this.sup2 && plusOuMoins === '-' && n > a / b) {
@@ -164,7 +167,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
           texte += '$'
           texteCorr += `${texFraction(a, b)}${plusOuMoins}${texFraction(n + miseEnEvidence('\\times ' + b), miseEnEvidence(b))}`
           texteCorr += `=${texFraction(a + plusOuMoins + ecritureParentheseSiNegatif(n * b), b)}`
-          num = calcul(ecritureParentheseSiNegatif(a) + plusOuMoins + ecritureParentheseSiNegatif(n * b))
+          num = calcul(a + plusOuMoinsUn * n * b)
         }
         den = b
       }
@@ -175,6 +178,26 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
       } else {
         texteCorr += `=${texFraction(num, den)}`
         texteCorr += '$'
+      }
+
+      const myTexteCorrCol = texteCorr
+      if (this.sup4) {
+        texteCorr = ''
+        // On redécoupe comme un chacal
+        const etapes = myTexteCorrCol.split('=')
+        texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etapes[0].replace('$', '')}$ <br>`
+        for (let w = 1; w < etapes.length - 1; w++) {
+          if (context.isHtml) {
+            texteCorr += '<br>'
+          }
+          texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etapes[w]}$ <br>`
+        }
+        if (context.isHtml) {
+          texteCorr += '<br>'
+        }
+        texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etapes[etapes.length - 1].replace('$', '')}$ <br>`
+      } else {
+        texteCorr = myTexteCorrCol
       }
       // Pour l'instant pour tester je mets num et den dans reponse
 
@@ -193,4 +216,5 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
   this.besoinFormulaire3CaseACocher = ['Avec l\'écriture simplifiée de la fraction résultat']
+  this.besoinFormulaire4CaseACocher = ['Présentation des corrections en colonnes', false]
 }

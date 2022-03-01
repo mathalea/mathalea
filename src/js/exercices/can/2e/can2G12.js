@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, texteEnCouleur, ecritureParentheseSiNegatif, randint, choice, calcul } from '../../../modules/outils.js'
-import { propositionsQcm } from '../../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Reconnaître des vecteurs colinéaires (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'

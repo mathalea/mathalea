@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, miseEnEvidence, texFraction } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 export const titre = 'Compléter les égalités entre fractions simples'
 export const amcReady = true
@@ -228,9 +229,6 @@ export default function EgalitesEntreFractions () {
             break
         }
       }
-      // if (this.interactif) {
-      //   texte += '<br>' + propositionsQcm(this, i).texte
-      // }
       if (this.interactif && context.isHtml) {
         setReponse(this, i, new FractionEtendue(c, d), { formatInteractif: 'fraction' })
         texte += ajouteChampTexteMathLive(this, i)

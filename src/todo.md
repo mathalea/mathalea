@@ -7,9 +7,7 @@ Attention, pour le moment il faut créer un dossier dnb dans le projet (éventue
 
 ## autres améliorations possibles
 * Finaliser les tests fonctionnels avec [playwright](https://playwright.dev/)
-* Améliorer MathALEA2D avec sval
 * Faire le lien avec GoHugo pour le site CoopMaths
-* Réfléchir à l’intégration optionnel des exercices de DNB (pour alléger le paquet des programmeurs)
 * Gérer le Hot Reload
 
 ```
@@ -18,6 +16,3 @@ if (module.hot) {
   // le if complet est viré du build en mode production
 }
 ```
-
-## Bugs connus
-* Il faut vérifier l'intégration de SVG.js. 3F21-1 amène une erreur non comprise

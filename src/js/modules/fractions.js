@@ -72,7 +72,7 @@ export function listeFractions (...fractions) {
 }
 
 /**
- * Construit et Retourne un objet Fraction(a, b)
+ * Construit et Retourne un objet FractionX(a, b)
  * @param {number} a
  * @param {number} b
  * @return {Fraction}

@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texNombrec, texFraction, texTexte, calcul, texNombre2 } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { format, evaluate } from 'mathjs'
 
 const math = { format: format, evaluate: evaluate }
@@ -109,7 +110,7 @@ export default function ExerciceConversions (niveau = 1) {
         } else {
           unite = 'o'
         }
-        resultat = calcul(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calcul(a * prefixeMulti[k][1]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte = '$ ' + texNombre(a) + texTexte(prefixeMulti[k][0] + unite) + ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : `\\dotfill ${texTexte(unite)}$`)
 
         texteCorr =
@@ -170,6 +171,7 @@ export default function ExerciceConversions (niveau = 1) {
       } else {
         // pour type de question = 4
         const unite1 = randint(0, 3)
+        if (unite1 === 0 && a < 1) a += 1 // Pas de nombre d'octets inférieurs à 1
         let ecart = randint(1, 2) // nombre de multiplication par 1000 pour passer de l'un à l'autre
         if (ecart > 4 - unite1) {
           ecart = 4 - unite1
@@ -224,7 +226,7 @@ export default function ExerciceConversions (niveau = 1) {
         setReponse(this, i, resultat)
         tabRep[i] = resultat
         // Si la question n'a jamais été posée, on en crée une autre
-        if (context.isDiaporama) {
+        if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfill', '\\text{ en }')
         }
         if (context.isHtml) {

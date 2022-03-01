@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, calcul, texNombrec, creerNomDePolygone, texNombre } from '../../modules/outils.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const titre = 'Déterminer si un triangle est rectangle ou pas'
 export const amcReady = true
 export const amcType = 'qcmMono' // QCM

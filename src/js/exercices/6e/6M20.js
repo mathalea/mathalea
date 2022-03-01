@@ -2,8 +2,8 @@ import { longueur, segment, mathalea2d, afficheLongueurSegment, afficheCoteSegme
 import { combinaisonListesSansChangerOrdre, creerNomDePolygone, listeQuestionsToContenu, randint, shuffle, texNombre, calcul } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../modules/gestionInteractif.js'
-
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Calculer l\'aire de triangles'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenuSansNumero, choice, sp, calcul, texFraction, rienSi1, ecritureAlgebrique, pgcd, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive, setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Reconnaître une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'

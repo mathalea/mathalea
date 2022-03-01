@@ -84,9 +84,9 @@ export default function OrganiserDonneesDepuisTexte () {
       L = shuffle(L) // mélange l'ordre des fruits
       for (let k = 0; k < m; k++) {
         if (this.sup) {
-          texte += texNombre(L[k][0]) + ' kg de ' + L[k][1] + 's'
+          texte += `$${texNombre(L[k][0])}$ kg de ${L[k][1]}s`
         } else {
-          texte += texNombre(L[k][0]) + ' ' + L[k][1]
+          texte += `$${texNombre(L[k][0])}$ ${L[k][1]}`
           if (L[k][0] > 1) { texte += 's' }
         }
         if (k < m - 2) { texte += ', ' }

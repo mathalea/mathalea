@@ -39,6 +39,7 @@ export default function PlacerPointsSurAxeRelatifs () {
   // }
 
   this.nouvelleVersion = function (numeroExercice) {
+    if (this.interactif) this.consigne = 'Placer les points sur la droite graduée, puis vérifier la réponse.'
     let typesDeQuestions
     const pointsSolutions = []
     let objets = []

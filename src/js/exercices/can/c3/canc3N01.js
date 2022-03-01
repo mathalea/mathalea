@@ -1,5 +1,5 @@
 import { context } from '../../../modules/context'
-import { propositionsQcm } from '../../../modules/gestionInteractif'
+import { propositionsQcm } from '../../../modules/interactif/questionQcm'
 import { choice, listeQuestionsToContenu, nombreEnLettres, randint, texNombre } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Écrire en lettres un nombre entier (QCM)'
