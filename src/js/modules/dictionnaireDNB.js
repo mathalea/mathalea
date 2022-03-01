@@ -4922,7 +4922,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2018/tex/dnb_2018_07_polynesie_2.tex',
     urlcor: '/dnb/2018/tex/dnb_2018_07_polynesie_2_cor.tex',
-    tags: ['Statistiques', 'Pourcentages']
+    tags: ['Proportionnalité', 'Pourcentages']
   },
   dnb_2018_07_polynesie_3: {
     annee: '2018',
