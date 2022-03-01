@@ -44,8 +44,8 @@ export default function CalculLongueurThales () {
       objets = []
       objets.push(pol[0]) //, pol[1]
       objets.push(droite(A, B), segment(B, E), droite(A, C), segment(D, C), segmentAvecExtremites(G, H), labelPoint(A, B, C, D, E))
-      objets.push(texteParPosition(`${texNombrec(a)}`, milieu(G, H).x, milieu(G, H).y + 0.8, 'milieu', 'black', 1, 'middle', true),
-        texteParPosition(`${texNombrec(b)}`, milieu(A, B).x, milieu(A, B).y + 0.3, 'milieu', 'black', 1, 'middle', true), texteParPosition(`${texNombrec(c)}`, milieu(B, E).x, milieu(B, E).y + 0.2, 'milieu', 'black', 1, 'middle', true))
+      objets.push(texteParPosition(`$${texNombrec(a)}$`, milieu(G, H).x, milieu(G, H).y + 0.8, 'milieu', 'black', 1, 'middle', true),
+        texteParPosition(`$${texNombrec(b)}$`, milieu(A, B).x, milieu(A, B).y + 0.3, 'milieu', 'black', 1, 'middle', true), texteParPosition(`$${texNombrec(c)}$`, milieu(B, E).x, milieu(B, E).y + 0.2, 'milieu', 'black', 1, 'middle', true))
       this.question = `Les droites $(${nom[1]}${nom[4]})$ et $(${nom[3]}${nom[2]})$ sont parallèles.
         Calculer $${nom[3]}${nom[2]}$.<br>`
       this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
@@ -74,9 +74,9 @@ export default function CalculLongueurThales () {
       objets = []
       objets.push(pol[0]) //, pol[1]
       objets.push(droite(A, B), segment(B, E), droite(A, C), segment(D, C), labelPoint(A, B, C, D, E))
-      objets.push(texteParPosition(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-        texteParPosition(`${texNombrec(k * b)}`, milieu(D, C).x + 0.5, milieu(D, C).y + 0.1, 'milieu', 'black', 1, 'middle', true),
-        texteParPosition(`${texNombrec(b)}`, milieu(B, E).x + 0.5, milieu(B, E).y + 0.1, 'milieu', 'black', 1, 'middle', true))
+      objets.push(texteParPosition(`$${texNombrec(a)}$`, milieu(A, B).x, milieu(A, B).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+        texteParPosition(`$${texNombrec(k * b)}$`, milieu(D, C).x + 0.5, milieu(D, C).y + 0.1, 'milieu', 'black', 1, 'middle', true),
+        texteParPosition(`$${texNombrec(b)}$`, milieu(B, E).x + 0.5, milieu(B, E).y + 0.1, 'milieu', 'black', 1, 'middle', true))
       this.question = `Les droites $(${nom[1]}${nom[4]})$ et $(${nom[3]}${nom[2]})$ sont parallèles. 
        Calculer $${nom[0]}${nom[3]}$.<br>`
       this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
