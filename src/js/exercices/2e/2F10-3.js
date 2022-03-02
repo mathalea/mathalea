@@ -12,7 +12,7 @@ export const titre = 'Représentation graphique d’une fonction affine'
 export default function representerfonctionaffine () {
   Exercice.call(this)
   this.titre = titre
-  this.consigne = ''
+  this.consigne = 'Représenter graphiquement la fonction affine $f$ définie sur $\\mathbb R$ par :'
   this.nbQuestions = 3 // On complète le nb de questions
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -67,7 +67,7 @@ export default function representerfonctionaffine () {
 
         tB.taille = 5
         tB.epaisseur = 2
-        texte = `Représenter graphiquement la fonction affine $f$ définie sur $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ <br>`
+        texte = `$f(x)=${reduireAxPlusB(a, b)}$ <br>`
         if (a !== 0) {
           texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
           texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
