@@ -24,6 +24,7 @@ export default class problemes extends Exercice {
     this.nbQuestions = 2
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
+    this.besoinFormulaire2Numerique = ['Types de valeurs dans l\'équation', 2, '1 - Entiers positifs\n 2 - Entiers relatifs']
   }
 
   nouvelleVersion () {
@@ -31,7 +32,8 @@ export default class problemes extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
     for (let i = 0, cpt = 0, exercice = {}; i < this.nbQuestions && cpt < 50;) {
-      switch (i % 2 + 1) {
+      const numeroquestion = this.nbQuestions % 2 === 0 ? i % 2 + 1 : Math.floor(Math.random() * 2) + 1
+      switch (numeroquestion) {
         case 1: {
           const graphic = new GraphicView(0, 0, 7, 5)
           let ABCD
@@ -53,9 +55,9 @@ export default class problemes extends Exercice {
           const CD = graphic.addSegment(C, D)
           const DA = graphic.addSegment(D, A)
           const variables = aleaVariables({
-            a: this.sup3 !== 1,
-            c: this.sup3 !== 1,
-            x: this.sup3 !== 1,
+            a: this.sup2 !== 1,
+            c: this.sup2 !== 1,
+            x: this.sup2 !== 1,
             AB: (10 * graphic.distance(A, B)).toFixed(0),
             BC: (10 * graphic.distance(B, C)).toFixed(0),
             b: 'AB-a*x',
@@ -77,9 +79,11 @@ export default class problemes extends Exercice {
           let solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
           const environ = solutionDecimale === math.round(solutionDecimale, 2) ? '' : 'environ'
           solutionDecimale = math.round(solutionDecimale, 2).toString()
-          exercice.texte = `$${ABCD.name}$ est un rectangle tel que $ {${AB.name}=${toTex(exprAB)}}$ et $ {${BC.name}=${toTex(exprBC)}}$.
+          exercice.texte = `$${ABCD.name}$ est un rectangle.
 
-Son périmètre mesure $${p}~cm$.
+$x$ est un nombre tel que $ {${AB.name}=${toTex(exprAB)}}$ et $ {${BC.name}=${toTex(exprBC)}}$ en $cm$.
+
+Le périmètre de $${ABCD.name}$ mesure $${p}~cm$.
 
 Déterminer son aire en $cm^2$.
 
@@ -96,15 +100,15 @@ $\textbf{Résolvons cette équation d'inconnue $x$}$.
 
 ${resolution.texteCorr}
 
-$\textbf{Calculons $${AB.name}$}$.
+$\textbf{Calculons $${AB.name}$ en cm.}$
 
 ${calculAB.texteCorr}
 
-$\textbf{Calculons $${BC.name}$}$.
+$\textbf{Calculons $${BC.name}$ en cm.}$
 
 ${calculBC.texteCorr}
 
-$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD.name}$}$.
+$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD.name}$ en cm².}$
 
 ${calculAire.texteCorr}
 
@@ -132,9 +136,9 @@ Donc l'aire du rectangle $${ABCD.name}$ est ${environ} $${toTex(solutionDecimale
           CD.direct = AB.direct
           const DA = graphic.addSegment(D, A)
           const variables = aleaVariables({
-            c: this.sup3 !== 1,
-            x: this.sup3 !== 1,
-            a: this.sup3 !== 1,
+            c: this.sup2 !== 1,
+            x: this.sup2 !== 1,
+            a: this.sup2 !== 1,
             AB: (10 * graphic.distance(A, B)).toFixed(0),
             BC: (10 * graphic.distance(B, C)).toFixed(0),
             b: 'AB-a*x',
@@ -156,9 +160,11 @@ Donc l'aire du rectangle $${ABCD.name}$ est ${environ} $${toTex(solutionDecimale
           let solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
           const environ = solutionDecimale === math.round(solutionDecimale, 2) ? '' : 'environ'
           solutionDecimale = math.round(solutionDecimale, 2).toString()
-          exercice.texte = `$${ABCD.name}$ est un rectangle tel que $ {${AB.name}=${toTex(exprAB)}}$ et $ {${CD.name}=${toTex(exprCD)}}$.
+          exercice.texte = `$${ABCD.name}$ est un rectangle.
 
-Son périmètre mesure $${p}~cm$.
+$x$ est un nombre tel que $ {${AB.name}=${toTex(exprAB)}}$ et $ {${CD.name}=${toTex(exprCD)}}$ en $cm$.
+
+Le périmètre de $${ABCD.name}$ mesure $${p}~cm$.
 
 Déterminer son aire en $cm^2$.
 
@@ -173,7 +179,7 @@ $\textbf{Résolvons l'équation.}$
 
 ${resolution.texteCorr}
 
-$\textbf{Calculons $${AB.name}$}$.
+$\textbf{Calculons $${AB.name}$ en cm}.$
 
 ${calculAB.texteCorr}
 
@@ -183,7 +189,7 @@ $\textbf{Résolvons cette équation d'inconnue $${BC.name}$}$.
 
 ${resolution2.texteCorr}
 
-$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD.name}$}$.
+$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD.name}$ en cm².}$
 
 ${calculAire.texteCorr}
 
