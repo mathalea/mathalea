@@ -204,7 +204,7 @@ export default function EtudierGraphiqueParite () {
           b = randint(-3, 3, [0])
           c = Math.trunc(-b / a)
           r = repere2({ xMin: -7 + c, xMax: 7 + c, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
-          x = randint(-3, 3, [-b / a, 0])
+          x = randint(-3, 3, [-b / a, 0, 1, -1])
 
           f = x => 1 / (a * x + b)
           C = courbe2(f, { repere: r, step: 0.01 })
@@ -246,7 +246,7 @@ export default function EtudierGraphiqueParite () {
           texteCorr += mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C, lA, lB, traceAetB, labB0, labB1, labA1, s1, s2, s3, s4, labA0)
           break
         case 6:// Cas f(x)=1/ax
-          a = randint(-3, 3, [0])
+          a = randint(-3, 3, [0, 1, -1])
           r = repere2({ xMin: -4, xMax: 4, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
           x = 2
           f = x => 1 / (a * x)
