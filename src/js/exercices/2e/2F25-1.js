@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite } from '../../modules/outils.js'
 import { courbe2, latexParCoordonnees, mathalea2d, point, repere2, segment, tracePoint } from '../../modules/2d.js'
 import { abs } from 'mathjs'
 
@@ -239,7 +239,7 @@ export default function EtudierGraphiqueParite () {
           texteCorr += ' ni l\'origine comme centre de symétrie.<br> '
           texteCorr += `Prenons par exemple un point $M$ de la courbe, d'abscisse $${x}$, et `
           texteCorr += ` le point $M'$ aussi de la courbe, mais d'abscisse opposée : $${-x}$. <br>`
-          texteCorr += `Les coordonnées sont $M(${x};${1 / (a * x + b)})$ et  $M'(${-x};${1 / (-a * x + b)})$. <br>`
+          texteCorr += `Les coordonnées sont $M(${x};${texFractionReduite(1, a * x + b)})$ et  $M'(${-x};${texFractionReduite(1, -a * x + b)})$. <br>`
           texteCorr += 'On observe bien que ces deux points ont des ordonnées ni égales, ni opposées.<br>'
           texteCorr += 'La fonction représentée est donc ni paire, ni impaire.<br>'
 
