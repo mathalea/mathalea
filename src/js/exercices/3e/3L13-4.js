@@ -108,7 +108,7 @@ $\textbf{Calculons $${BC.name}$ en cm.}$
 
 ${calculBC.texteCorr}
 
-$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD.name}$ en cm².}$
+$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD.name}$ en $cm^2$.}$
 
 ${calculAire.texteCorr}
 
@@ -189,7 +189,7 @@ $\textbf{Résolvons cette équation d'inconnue $${BC.name}$}$.
 
 ${resolution2.texteCorr}
 
-$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD.name}$ en cm².}$
+$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD.name}$ en $cm^2$.}$
 
 ${calculAire.texteCorr}
 
