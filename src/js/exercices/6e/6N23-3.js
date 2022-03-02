@@ -528,9 +528,9 @@ export default function LireUneAbscisseAvecZoom () {
       setReponse(this, 3, reponse3, { formatInteractif: 'fraction' })
     }
     if (this.interactif) { // Si l'exercice est interactif
-      texte += ajouteChampTexteMathLive(this, 0, 'largeur10 inline', { texte: `Abscisse de ${noms[1]} en écriture décimale : ` })
-      texte += '<br>' + ajouteChampTexteMathLive(this, 1, 'largeur10 inline', { texte: `Abscisse de ${noms[1]} comme somme d’un nombre entier et d’une fraction décimale : ` }) + ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { formatInteractif: 'fraction', texte: `${sp(6)}+` })
-      texte += '<br>' + ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { formatInteractif: 'fraction', texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : ` })
+      texte += ajouteChampTexteMathLive(this, 0, 'largeur25 inline', { texte: `Abscisse de ${noms[1]} en écriture décimale : ` })
+      texte += '<br><br>' + ajouteChampTexteMathLive(this, 1, 'largeur25 inline', { texte: `Abscisse de ${noms[1]} comme somme d’un nombre entier et d’une fraction décimale : ` }) + ajouteChampTexteMathLive(this, 2, 'largeur25 inline', { formatInteractif: 'fraction', texte: `${sp(6)}+` })
+      texte += '<br><br>' + ajouteChampTexteMathLive(this, 3, 'largeur25 inline', { formatInteractif: 'fraction', texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : ` })
     }
     if (context.isAMC) {
       this.autoCorrection[0] = {
