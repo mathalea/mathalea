@@ -2709,7 +2709,7 @@ export function stringNombre (nb, precision = 8, notifier = true) {
     result = 'Trop de chiffres'
   } else {
     try {
-      result = Number(nb).toLocaleString({ locales: 'fr-FR', maximumSignificantDigits })
+      result = Intl.NumberFormat('fr-Fr', { maximumSignificantDigits: maximumSignificantDigits }).format(nb)
     } catch (error) {
       console.log(error)
       result = 'Trop de chiffres'
