@@ -1,7 +1,25 @@
-import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat } from './outils.js'
+import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
-import { fraction, max, ceil } from 'mathjs'
+import { fraction, max, ceil, round, evaluate } from 'mathjs'
+
+function arrondi (nombre, precision = 2, debug = false) {
+  if (isNaN(nombre)) {
+    window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', { nombre, precision })
+    return NaN
+  } else {
+    return debug ? round(nombre, precision) : nombre
+  }
+}
+
+function calcul (x, arrondir = 13, debug = false) {
+  if (typeof expression === 'string') {
+    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
+    return debug ? parseFloat(evaluate(x).toFixed(arrondir === false ? 13 : arrondir)) : x
+  } else {
+    return debug ? parseFloat(x.toFixed(arrondir)) : x
+  }
+}
 
 /*
   MathALEA2D
