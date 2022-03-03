@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, texNum } from '../../modules/outils.js'
 import { polygone, labelPoint, homothetie, point, rotation, mathalea2d, droite } from '../../modules/2d.js'
 import { create, all } from 'mathjs'
 import { aleaVariables, toTex, resoudre, aleaExpression, aleaName } from '../../modules/outilsMathjs.js'
-import { GraphicView } from './aleaFigure/GraphicView.js'
+import { GraphicView } from './aleaFigure/_GraphicView.js'
 
 // eslint-disable-next-line no-debugger
 debugger
