@@ -77,7 +77,7 @@ export default function representerfonctionaffine () {
           texteCorr += `On calcule : $f(${xA})=${a} \\times ${ecritureParentheseSiNegatif(xA)}${ecritureAlgebrique(b)}=${yA}$.<br>`
           texteCorr += `On en déduit que $B(${xA};${yA}) \\in \\mathcal{C_f}$.`
         } else {
-          texteCorr = 'On oberve que $f$ est une fonction constante.<br>'
+          texteCorr = 'On observe que $f$ est une fonction constante.<br>'
           texteCorr += `Sa représentation graphique est donc une droite parallèle à l'axe des abscisses, d'équation $y=${b}$.<br>`
         }
         texteCorr += mathalea2d({
@@ -87,8 +87,8 @@ export default function representerfonctionaffine () {
           ymax: max(8, yA + 2)
         }, lA, lB, r, c, tA, tB, o)
       }
-      if (this.sup === 2) { // cas du coeff directeur fractionnaire
-        a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
+      if (this.sup === 2) { // cas du coefficient directeur fractionnaire
+        a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
         b = randint(-5, 5) // ordonnée à l'origine
         d = randint(2, 5, [a, 2 * a, -a, -2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
         if (a === 0 && b === 0) {
