@@ -35,7 +35,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_01_sujet0_3.tex',
     urlcor: '/bac/2021/tex/bac_2021_01_sujet0_3_cor.tex',
-    tags: ['Probabiltés conditionnelles', 'Loi binomiale', 'Python']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Python']
   },
   bac_2021_01_sujet0_4: {
     annee: '2021',
@@ -71,7 +71,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_03_sujet1_1.tex',
     urlcor: '/bac/2021/tex/bac_2021_03_sujet1_1_cor.tex',
-    tags: ['Probabiltés conditionnelles', 'Loi binomiale']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2021_03_sujet1_2: {
     annee: '2021',
@@ -131,7 +131,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_03_sujet2_1.tex',
     urlcor: '/bac/2021/tex/bac_2021_03_sujet2_1_cor.tex',
-    tags: ['QCM', 'Probabiltés conditionnelles', 'Loi binomiale']
+    tags: ['QCM', 'Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2021_03_sujet2_2: {
     annee: '2021',
@@ -191,7 +191,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_05_ameriquenord_1.tex',
     urlcor: '/bac/2021/tex/bac_2021_05_ameriquenord_1_cor.tex',
-    tags: ['Probabiltés conditionnelles', 'Loi binomiale']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2021_05_ameriquenord_2: {
     annee: '2021',
@@ -263,7 +263,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_polynesie_2.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_polynesie_2_cor.tex',
-    tags: ['Probabiltés conditionnelles', 'Loi binomiale']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2021_06_polynesie_3: {
     annee: '2021',
@@ -577,7 +577,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_2.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_2_cor.tex',
-    tags: ['Probabiltés conditionnelles', 'Loi binomiale']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2021_06_metropole_3: {
     annee: '2021',
