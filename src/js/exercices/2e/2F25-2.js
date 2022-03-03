@@ -3,19 +3,18 @@ import { listeQuestionsToContenu, randint, combinaisonListes, reduireAxPlusB, ec
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../modules/gestionInteractif.js'
 
-export const titre = 'Etudier la parité d\'une fonction.'
-export const interactifReady = true
-export const interactifType = 'qcm'
 export const amcReady = true
-export const amcType = 'qcmMono'
+export const amcType = 'qcmMono' // type de question AMC
+// ex..port const interactifReady = true
+// ex..port const interactifType = 'qcm'
+export const titre = 'Étudier la parité d\'une fonction'
 
 /**
  * Reconnaître parité fonction
 * @author Stéphane Guyon
-* 2F20
+* 2F25-2
 */
 export default function EtudierPariteFonction () {
-  'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.video = ''
