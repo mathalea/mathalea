@@ -111,14 +111,14 @@ export default function representerfonctionaffine () {
         c.color = 'red'
         c.epaisseur = 2
 
-        texte = `Représenter graphiquement la fonction affine $f$ définie sur $\\mathbb R$ par $f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
+        texte = `$f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
 
         texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
         texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
         texteCorr += `Comme $f(0)=${b}$, on a : $A(0;${b}) \\in \\mathcal{C_f}$.<br>`
         texteCorr += 'On cherche un deuxième point, et on prend un antécédent qui facilite les calculs :<br>'
         texteCorr += `Par exemple $x=${xA}$ :<br>`
-        texteCorr += `On calcule : $f(${xA})=${texFractionReduite(a, d)} \\times ${ecritureParentheseSiNegatif(xA)}${ecritureAlgebrique(b)}=${yA}$<br>`
+        texteCorr += `On calcule : $f(${xA})=${texFractionReduite(a, d)} \\times ${ecritureParentheseSiNegatif(xA)}${ecritureAlgebrique(b)}=${yA}$.<br>`
         texteCorr += `On en déduit que $B(${xA};${yA}) \\in \\mathcal{C_f}$.`
 
         tA = tracePoint(A1, 'red') // Variable qui trace les points avec une croix
