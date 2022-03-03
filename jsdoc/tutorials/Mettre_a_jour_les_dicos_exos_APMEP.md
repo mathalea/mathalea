@@ -19,6 +19,11 @@ Pour les exercices DNB, BAC ou E3C :
     - **/e3c/aaaa/tex/** pour E3C
     - **/bac/aaaa/tex/** pour le BAC
 - Sur une nouvelle branche, lancer le module python de mise à jour des dictionnaires en suivant [cette doc](dicosDnbBacE3c/index.html)
+
+![Lancemment du Script](dicosDnbBacE3c/assets/lancementScript.png)
+
 - Faire un **commit** puis une **Pull Request**
 - Transmettre les archives avec les fichiers à Remi ANGOT
 - Modifier enfin uniquement les tableau des tags pour chaque exercice.
+
+![Modification des tags](dicosDnbBacE3c/assets/tagsDicos.png)
