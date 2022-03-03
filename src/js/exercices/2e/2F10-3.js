@@ -37,7 +37,7 @@ export default function representerfonctionaffine () {
       // typesDeQuestions = listeTypeDeQuestions[i]
       if (this.sup === 1) {
         a = randint(0, 3) * choice([-1, 1])// coefficient a de la fonction affine
-        b = randint(0, 3) * choice([-1, 1])// coefficient b de la fonction affine
+        b = randint(0, 3) * choice([-1, 1])// ordonnée à l'origine b de la fonction affine
 
         if (a === 0 && b === 0) { // On évite la fonction nulle
           a = 1
@@ -74,10 +74,10 @@ export default function representerfonctionaffine () {
           texteCorr += `Comme $f(0)=${b}$, on a  $A(0;${b}) \\in \\mathcal{C_f}$.<br>`
           texteCorr += 'On cherche un deuxième point, et on prend un antécédent au hasard :<br>'
           texteCorr += `Soit $x=${xA}$ :<br>`
-          texteCorr += `On calcule : $f(${xA})=${a} \\times ${ecritureParentheseSiNegatif(xA)}${ecritureAlgebrique(b)}=${yA}$<br>`
+          texteCorr += `On calcule : $f(${xA})=${a} \\times ${ecritureParentheseSiNegatif(xA)}${ecritureAlgebrique(b)}=${yA}$.<br>`
           texteCorr += `On en déduit que $B(${xA};${yA}) \\in \\mathcal{C_f}$.`
         } else {
-          texteCorr = 'On oberve que $f$ est une fonction constante<br>'
+          texteCorr = 'On oberve que $f$ est une fonction constante.<br>'
           texteCorr += `Sa représentation graphique est donc une droite parallèle à l'axe des abscisses, d'équation $y=${b}$.<br>`
         }
         texteCorr += mathalea2d({
@@ -144,7 +144,6 @@ export default function representerfonctionaffine () {
       }
       cpt++
     }
-
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires.']
