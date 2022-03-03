@@ -11,7 +11,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen1_1.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen1_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Suites', 'Algorithmie']
   },
   e3c_2021_01_specimen1_2: {
     annee: '2021',
@@ -23,7 +23,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen1_2.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen1_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Probabilités']
   },
   e3c_2021_01_specimen1_3: {
     annee: '2021',
@@ -35,7 +35,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen1_3.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen1_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Dérivée', 'Second degré', 'Polynômes']
   },
   e3c_2021_01_specimen1_4: {
     annee: '2021',
@@ -47,7 +47,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen1_4.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen1_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Géométrie reperée']
   },
 
   e3c_2021_01_specimen2_1: {
@@ -60,7 +60,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen2_1.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen2_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM','Polynômes', 'Second degré', 'Trigonométrie', 'Géométrie repérée']
   },
   e3c_2021_01_specimen2_2: {
     annee: '2021',
@@ -72,7 +72,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen2_2.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen2_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Suites', 'Algorithmie']
   },
   e3c_2021_01_specimen2_3: {
     annee: '2021',
@@ -84,7 +84,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen2_3.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen2_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Variables aléatoires']
   },
   e3c_2021_01_specimen2_4: {
     annee: '2021',
@@ -96,7 +96,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen2_4.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen2_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Exponentielle', 'Dérivation']
   },
   e3c_2021_01_specimen3_1: {
     annee: '2021',
@@ -108,7 +108,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen3_1.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen3_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM','Polynômes', 'Dérivation', 'Suites', 'Second degré', 'Trigonométrie']
   },
   e3c_2021_01_specimen3_2: {
     annee: '2021',
@@ -120,7 +120,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen3_2.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen3_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Exponentielle', 'Dérivation']
   },
   e3c_2021_01_specimen3_3: {
     annee: '2021',
@@ -132,7 +132,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen3_3.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen3_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Probabilités' , 'Variables aléatoires']
   },
   e3c_2021_01_specimen3_4: {
     annee: '2021',
@@ -144,7 +144,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen3_4.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen3_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Suites' , 'Algorithmie']
   },
   e3c_2021_01_specimen4_1: {
     annee: '2021',
@@ -156,7 +156,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen4_1.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen4_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM','Exponentielle', 'Dérivation', 'Suites', 'Algorithmie']
   },
   e3c_2021_01_specimen4_2: {
     annee: '2021',
@@ -168,7 +168,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen4_2.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen4_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Fonctions' , 'Exponentielle' , 'Dérivation']
   },
   e3c_2021_01_specimen4_3: {
     annee: '2021',
@@ -180,7 +180,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen4_3.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen4_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Probabilités' , 'Variables aléatoires']
   },
   e3c_2021_01_specimen4_4: {
     annee: '2021',
@@ -192,7 +192,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen4_4.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen4_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Géométrie repérée']
   },
   e3c_2021_06_ameriquenord_1: {
     annee: '2021',
@@ -204,7 +204,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_06_ameriquenord_1.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_06_ameriquenord_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM','Exponentielle', 'Dérivation', 'Géométrie repérée', 'Trigonométrie']
   },
   e3c_2021_06_ameriquenord_2: {
     annee: '2021',
@@ -216,7 +216,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_06_ameriquenord_2.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_06_ameriquenord_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Suites' , 'Algorithmie']
   },
   e3c_2021_06_ameriquenord_3: {
     annee: '2021',
@@ -228,7 +228,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_06_ameriquenord_3.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_06_ameriquenord_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Polynômes' , 'Dérivation']
   },
   e3c_2021_06_ameriquenord_4: {
     annee: '2021',
@@ -240,7 +240,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_06_ameriquenord_4.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_06_ameriquenord_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Probabilités']
   },
 
 }
