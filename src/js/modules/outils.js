@@ -1987,9 +1987,9 @@ export function minToHoraire (minutes) {
   }
   const nbminuteRestante = (minutes % 60)
   if (nbminuteRestante > 9) {
-    return (nbHour + ' h ' + nbminuteRestante)
+    return (nbHour + sp() + 'h' + sp() + nbminuteRestante)
   } else {
-    return (nbHour + ' h 0' + nbminuteRestante)
+    return (nbHour + sp() + ' h' + sp() + '0' + nbminuteRestante)
   }
 }
 
@@ -2005,14 +2005,26 @@ export function minToHour (minutes) {
   }
   const nbminuteRestante = (minutes % 60)
   if (nbHour === 0) {
-    return (nbminuteRestante + ' min')
+    return (nbminuteRestante + sp() + 'min')
   } else {
     if (nbminuteRestante > 9) {
-      return (nbHour + ' h ' + nbminuteRestante)
+      return (nbHour + sp() + 'h' + sp() + nbminuteRestante)
     } else {
-      return (nbHour + ' h 0' + nbminuteRestante)
+      return (nbHour + sp() + ' h' + sp() + '0' + nbminuteRestante)
     }
   }
+}
+
+/**
+ * Renvoie un tableau de deux valeurs : le nombre d'heures dans un paquet de minutes ainsi que le nombre de minutes restantes.
+* @author Eric Elter
+* @example minToHeuresMinutes (127) renvoie [2,7] car 127min = 2h7min
+* @example minToHeuresMinutes (300) renvoie [5,0] car 300min = 6h
+* @example minToHeuresMinutes (1456) renvoie [24,16] car 1456min = 24h16min
+*
+*/
+export function minToHeuresMinutes (minutes) {
+  return [parseInt(minutes / 60), (minutes % 60)]
 }
 
 /**
@@ -3538,7 +3550,6 @@ export function puissanceEnProduit (b, e) {
  * range(decimalToScientifique,[-2315])
  *
  * @author Eric Elter
- * exemple...
  */
 export function decimalToScientifique (nbDecimal) {
   let kk = 0
@@ -7927,7 +7938,7 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += 'pt}\\begin{multicols}{2}\n'
           }
         }
-        // console.log(texQr)
+
         for (let qr = 0, qrType, prop, propositions, rep; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les questions-reponses de l'élément j
           prop = autoCorrection[j].propositions[qr] // prop est un objet avec cette structure : {type,propositions,reponse}
           qrType = prop.type
@@ -8105,7 +8116,7 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 texQr += '\\end{questionmultx}\n'
                 id += 2
-              } else {
+              } else { // Ni puissances, ni fractions
                 let nbChiffresExpo
                 if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) {
                   nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(rep.valeur[0])[0]), rep.param.decimals)

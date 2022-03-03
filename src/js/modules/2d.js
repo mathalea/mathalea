@@ -1,7 +1,25 @@
-import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat } from './outils.js'
+import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
-import { fraction, max, ceil } from 'mathjs'
+import { fraction, max, ceil, round, evaluate } from 'mathjs'
+
+function arrondi (nombre, precision = 2, debug = false) {
+  if (isNaN(nombre)) {
+    window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', { nombre, precision })
+    return NaN
+  } else {
+    return debug ? round(nombre, precision) : nombre
+  }
+}
+
+function calcul (x, arrondir = 13, debug = false) {
+  if (typeof expression === 'string') {
+    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
+    return debug ? parseFloat(evaluate(x).toFixed(arrondir === false ? 13 : arrondir)) : x
+  } else {
+    return debug ? parseFloat(x.toFixed(arrondir)) : x
+  }
+}
 
 /*
   MathALEA2D
@@ -5263,11 +5281,7 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
     } else {
       angle = 180 - s.angleAvecHorizontale
     }
-    if (this.texte.charAt(0) === '$') {
-      return latexParPoint(this.texte.substr(1, this.texte.length - 2), N, this.color, this.texte * 8, 12, '').svg(coeff)
-    } else {
-      return texteParPoint(this.texte, N, angle, this.color).svg(coeff)
-    }
+    return texteParPoint(this.texte, N, angle, this.color, 1, 'middle', true).svg(coeff)
   }
   this.tikz = function () {
     const N = pointSurSegment(O, M, this.distance / context.scale)
@@ -5276,7 +5290,7 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
     } else {
       angle = 180 - s.angleAvecHorizontale
     }
-    return texteParPoint(this.texte, N, angle, this.color).tikz()
+    return texteParPoint(this.texte, N, angle, this.color, 1, 'middle', true).tikz()
   }
 }
 /**
@@ -6196,7 +6210,7 @@ function LabelX (
           .toString(),
         point(x, pos),
         'milieu',
-        color
+        color, 1, 'middle', true
       )
     )
   }
@@ -6249,7 +6263,7 @@ function LabelY (
         y.mul(coeff),
         point(pos, y),
         'gauche',
-        color
+        color, 1, 'middle', true
       )
     )
   }
@@ -6829,13 +6843,13 @@ function Repere ({
       legendeX,
       calcul(positionLegendeX[0] / xscale),
       calcul(positionLegendeX[1] / yscale),
-      'droite'
+      'droite', 'black', 1, 'middle', true
     ).svg(coeff)
     code += texteParPosition(
       legendeY,
       calcul(positionLegendeY[0] / xscale),
       calcul(positionLegendeY[1] / yscale),
-      'droite'
+      'droite', 'black', 1, 'middle', true
     ).svg(coeff)
     return code
   }
@@ -6965,13 +6979,13 @@ function Repere ({
       legendeX,
       calcul(positionLegendeX[0] / xscale),
       calcul(positionLegendeX[1] / yscale),
-      'droite'
+      'droite', 'black', 1, 'middle', true
     ).tikz()
     code += texteParPosition(
       legendeY,
       calcul(positionLegendeY[0] / xscale),
       calcul(positionLegendeY[1] / yscale),
-      'droite'
+      'droite', 'black', 1, 'middle', true, true
     ).tikz()
     return code
   }
@@ -7128,7 +7142,7 @@ function Repere2 ({
     xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
   }
   for (const x of xLabelListe) {
-    const l = texteParPosition(`$${texNombre(x)}$`, calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5, 'milieu', 'black', 1, 'middle', false)
+    const l = texteParPosition(`${texNombre(x)}`, calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5, 'milieu', 'black', 1, 'middle', true)
     l.isVisible = false
     objets.push(l)
   }
@@ -7137,7 +7151,7 @@ function Repere2 ({
     yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
   }
   for (const y of yLabelListe) {
-    const l = texteParPosition(`$${texNombre(y)}$`, calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', false)
+    const l = texteParPosition(`${texNombre(y)}`, calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', true)
     l.isVisible = false
     objets.push(l)
   }
@@ -9153,7 +9167,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   if (texte.charAt(0) === '$') {
     A.positionLabel = 'centre'
     this.svg = function (coeff) {
-      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '').svg(coeff)
+      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '', 6).svg(coeff)
     }
     this.tikz = function () {
       let code = ''
