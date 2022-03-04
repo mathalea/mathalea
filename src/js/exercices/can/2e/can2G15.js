@@ -25,13 +25,14 @@ export default function DeterminantVecteur () {
     const uy = randint(-5, 5)
     const det = ux * vy - uy * vx
 
-    this.listeQuestions = [` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on donne deux vecteurs :
-    ${texteCentre(`$\\vec{u}\\begin{cases}${ux}${sp(1)} & ${sp(1)}${uy}\\end{cases}$ et $\\vec{v}\\begin{cases}${vx}${sp(1)} & ${sp(1)}${vy}\\end{cases}$`)}
+    this.listeQuestions = [` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on donne deux vecteurs :<br>
+   $\\vec{u}\\begin{pmatrix}${ux}${sp(1)} \\\\ ${sp(1)}${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}${sp(1)} \\\\ ${sp(1)}${vy}\\end{pmatrix}$<br>
  Le déterminant des vecteurs $\\vec{u}$ et $\\vec{v}$, vaut $Det\\left(\\vec{u};\\vec{v}\\right)=$
- ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(5)} ;
- ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`]
-    this.listeCorrections = [`On sait d'après le cours, que si le point $B$ est l'image du point $A$ par la translation de vecteur $\\vec{u}$, alors $\\overrightarrow{AB}=\\vec{u}$ <br>
-   
+ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(5)}  `]
+    this.listeCorrections = [`On sait d'après le cours, que <br>
+    Si  $\\vec{u}\\begin{pmatrix}x \\\\ y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x' \\\\ y'\\end{pmatrix}$<br>
+    $Det\\left(\\vec{u};\\vec{v}\\right)=\\begin{vmatrix}x&x'\\\\y&y'\\end{vmatrix}=xy'-x'y$ <br>
+   En appliquant à l'énoncé :  $\\begin{vmatrix}${ux}&${vx}\\\\${uy}&${vy}\\end{vmatrix}=${ux}\\times ${ecritureParentheseSiNegatif(vy)}-${ecritureParentheseSiNegatif(vx)}\\times${ecritureParentheseSiNegatif(vy)}=${ux * vy - vx * uy}$ <br>
    `]
     setReponse(this, 0, det)
     listeQuestionsToContenuSansNumero(this)

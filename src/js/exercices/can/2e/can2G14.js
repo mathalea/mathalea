@@ -27,15 +27,15 @@ export default function TranslationVecteur () {
 
     const yB = yA + uy
 
-    this.listeQuestions = [` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on donne les points suivants :
-    ${texteCentre(`$A\\left(${xA}${sp(1)} ; ${sp(1)} ${yA}\\right)$ et $\\vec{u}\\left(${ux}${sp(1)} ; ${sp(1)}${uy}\\right)$`)}
- Les coordonnées du point $B$ image du point $A$ par la translation de vecteur $\\vec{u}$ sont :
- ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(5)} ;
+    this.listeQuestions = [` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on donne :<br>
+    Un point $A$ de coordonnées $A\\left(${xA}${sp(1)} ; ${sp(1)} ${yA}\\right)$ et un vecteur $\\vec{u}$ de coordonnées  $\\vec{u}\\begin{pmatrix}${ux} \\\\ ${uy}\\end{pmatrix}$
+ <br>Les coordonnées du point $B$ image du point $A$ par la translation de vecteur $\\vec{u}$ sont :
+ ${texteCentre(`$B\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(5)} ;
  ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`]
     this.listeCorrections = [`On sait d'après le cours, que si le point $B$ est l'image du point $A$ par la translation de vecteur $\\vec{u}$, alors $\\overrightarrow{AB}=\\vec{u}$ <br>
-    En appliquant  aux données de l'énoncé, on obtient  : $\\overrightarrow{AB}(x_B-${ecritureParentheseSiNegatif(xA)} ${sp(1)} ; ${sp(1)} y_B-${ecritureParentheseSiNegatif(yA)})$<br>
-    Ce qui donne l'égalité : $\\begin{cases}{x_B-${ecritureParentheseSiNegatif(xA)}${sp(1)} =${ux}&  ${sp(1)} y_B-${ecritureParentheseSiNegatif(yA)} ${sp(1)}=${uy}\\end{cases}$<br>
-    D'où: $\\begin{cases}{x_B=${xA + ux}${sp(1)} &  ${sp(1)} y_B=${sp(1)}${yA + uy}\\end{cases}$`]
+    En appliquant  aux données de l'énoncé, on obtient  : $\\overrightarrow{AB}\\begin{pmatrix}x_B-${ecritureParentheseSiNegatif(xA)} \\\\ y_B-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$<br>
+    $\\overrightarrow{AB}=\\vec{u}\\iff \\begin{cases}x_B-${ecritureParentheseSiNegatif(xA)}${sp(1)} =${ux}\\\\  ${sp(1)} y_B-${ecritureParentheseSiNegatif(yA)} ${sp(1)}=${uy}\\end{cases}$<br>
+    D'où: $\\begin{cases}x_B=${xA + ux}${sp(1)} \\\\  ${sp(1)} y_B=${sp(1)}${yA + uy}\\end{cases}$`]
     setReponse(this, 0, xB)
     setReponse(this, 1, yB)
     listeQuestionsToContenuSansNumero(this)
