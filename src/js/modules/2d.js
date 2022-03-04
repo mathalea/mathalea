@@ -11528,7 +11528,7 @@ function flecheV (D, A, texte, h = 1) {
 function Tableau ({
   largeurTitre = 7,
   largeur = 3,
-  hauteur = 2.5,
+  hauteur = 2,
   nbColonnes = 3,
   origine = point(0, 0),
   ligne1 = [],
@@ -11556,16 +11556,16 @@ function Tableau ({
   // Ecrit le texte dans les colonnes
   for (let i = 0; i < nbColonnes; i++) {
     objets.push(segment(point(x, A.y), point(x, C.y)))
-    if (ligne1[i + 1]) objets.push(latexParCoordonnees(ligne1[i + 1], x + largeur / 2, A.y + 1.5 * hauteur))
-    if (ligne2[i + 1]) objets.push(latexParCoordonnees(ligne2[i + 1], x + largeur / 2, A.y + 0.6 * hauteur))
+    if (ligne1[i + 1]) objets.push(latexParCoordonnees(ligne1[i + 1], x + largeur / 2, A.y + 1.4 * hauteur))
+    if (ligne2[i + 1]) objets.push(latexParCoordonnees(ligne2[i + 1], x + largeur / 2, A.y + 0.4 * hauteur))
     x += largeur
   }
   // Ecrit les titres
   if (ligne1[0]) {
-    objets.push(latexParCoordonnees(ligne1[0], A.x + largeurTitre / 2, A.y + 1.5 * hauteur))
+    objets.push(latexParCoordonnees(ligne1[0], A.x + largeurTitre / 4, A.y + 1.4 * hauteur))
   }
   if (ligne2[0]) {
-    objets.push(latexParCoordonnees(ligne2[0], A.x + largeurTitre / 2, A.y + 0.6 * hauteur))
+    objets.push(latexParCoordonnees(ligne2[0], A.x + largeurTitre / 4, A.y + 0.4 * hauteur))
   }
   for (const fleche of flecheHaut) {
     const Depart = point(A.x + largeurTitre + fleche[0] * largeur - 0.4 * largeur, A.y + 2.1 * hauteur)
