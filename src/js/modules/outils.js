@@ -2523,7 +2523,7 @@ export function texNombre (nb, precision = 8) {
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
   let result
   try {
-    result = Number(nb).toLocaleString('fr-FR', { maximumSignificantDigits: maximumSignificantDigits }).replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+    result = Number(nb).toLocaleString('fr-FR', { maximumSignificantDigits }).replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
   } catch (error) {
     console.log(error)
     result = 'Trop de chiffres'
