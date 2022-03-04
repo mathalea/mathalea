@@ -3593,8 +3593,9 @@ function ArcPointPointAngle (M, N, angle, rayon = false, fill = 'none', color = 
   e.isVisible = false
   const f = rotation(e, N, anglerot)
   f.isVisible = false
-  const Omegay = calcul((-f.c + (d.c * f.a) / d.a) / (f.b - (f.a * d.b) / d.a))
-  const Omegax = calcul(-d.c / d.a - (d.b * Omegay) / d.a)
+  const determinant = d.a * f.b - f.a * d.b
+  const Omegax = (d.b * f.c - f.b * d.c) / determinant
+  const Omegay = (f.a * d.c - d.a * f.c) / determinant
   const Omega = point(Omegax, Omegay)
   Arc.call(this, M, Omega, angle, rayon, fill, color, fillOpacite)
 }
@@ -5328,8 +5329,9 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
   e.isVisible = false
   const f = rotation(e, B, anglerot)
   f.isVisible = false
-  const Omegay = calcul((-f.c + (d1.c * f.a) / d1.a) / (f.b - (f.a * d1.b) / d1.a))
-  const Omegax = calcul(-d1.c / d1.a - (d1.b * Omegay) / d1.a)
+  const determinant = d1.a * f.b - f.a * d1.b
+  const Omegax = (d1.b * f.c - f.b * d1.c) / determinant
+  const Omegay = (f.a * d1.c - d1.a * f.c) / determinant
   const Omega = point(Omegax, Omegay)
   const s = segment(this.extremite1, this.extremite2)
   s.isVisible = false
