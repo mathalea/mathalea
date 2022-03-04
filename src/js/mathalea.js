@@ -1751,6 +1751,7 @@ function parametresExercice (exercice) {
         !exercice[i].correctionDetailleeDisponible &&
         !exercice[i].besoinFormulaireNumerique &&
         !exercice[i].besoinFormulaireTexte &&
+        !exercice[i].besoinFormulaireCaseACocher &&
         !exercice[i].interactif
       ) {
         divParametresGeneraux.innerHTML += '<p><em>Cet exercice ne peut pas être paramétré.</em></p>'
