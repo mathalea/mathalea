@@ -37,7 +37,7 @@ export default function representerfonctionaffine () {
       // typesDeQuestions = listeTypeDeQuestions[i]
       if (this.sup === 1) {
         a = randint(0, 3) * choice([-1, 1])// coefficient a de la fonction affine
-        b = randint(0, 3) * choice([-1, 1])// ordonnée à l'origine b de la fonction affine
+        b = randint(0, 3, [0]) * choice([-1, 1])// ordonnée à l'origine b non nulle de la fonction affine
 
         if (a === 0 && b === 0) { // On évite la fonction nulle
           a = 1
@@ -89,7 +89,7 @@ export default function representerfonctionaffine () {
       }
       if (this.sup === 2) { // cas du coefficient directeur fractionnaire
         a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
-        b = randint(-5, 5) // ordonnée à l'origine
+        b = randint(-5, 5, [0]) // ordonnée à l'origine non nelle
         d = randint(2, 5, [a, 2 * a, -a, -2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
         if (a === 0 && b === 0) {
           a = 1
