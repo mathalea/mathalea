@@ -1,15 +1,15 @@
-import { Cartesian, Coordinates, Polar } from './coordinates.js';
+import { GVCartesian, GVCoordinates, GVPolar } from './coordinates.js';
 import { MathArray, Matrix } from 'mathjs';
 /**
  * @class
  * @classdesc Graphic object like Point, Line, Segment etc.
  */
-export declare class GraphicObject {
+export declare class GVGraphicObject {
     visible: boolean;
     _name: string;
     color: string;
     constructor();
-    aleaName(...name: (string | GraphicObject)[]): void;
+    aleaName(...name: (string | GVGraphicObject)[]): void;
     set name(newname: string);
     get name(): string;
     getGGB(): string;
@@ -17,17 +17,17 @@ export declare class GraphicObject {
      * Move this right to figures
      * @param figures
      */
-    moveRight(...figures: GraphicObject[]): void;
-    move(V: Vector): void;
+    moveRight(...figures: GVGraphicObject[]): void;
+    move(V: GVVector): void;
 }
 /**
  * @class
  * @classdesc Caracteristics of a point in an euclidean plan
  */
-export declare class Point extends GraphicObject {
-    coordinates: Coordinates;
-    polarCoordinates: Polar;
-    cartesianCoordinates: Cartesian;
+export declare class GVPoint extends GVGraphicObject {
+    coordinates: GVCoordinates;
+    polarCoordinates: GVPolar;
+    cartesianCoordinates: GVCartesian;
     type: string;
     x: number;
     y: number;
@@ -35,150 +35,150 @@ export declare class Point extends GraphicObject {
     theta: number;
     ggb: string;
     dot: string;
-    labelPoints: [Point, Point, Point];
+    labelPoints: [GVPoint, GVPoint, GVPoint];
     label: boolean;
     M2D: string;
-    constructor(arg1: Coordinates | number, arg2?: number);
-    getPolarCoordinates(): Cartesian;
-    getCartesianCoordinates(): Cartesian;
+    constructor(arg1: GVCoordinates | number, arg2?: number);
+    getPolarCoordinates(): GVCartesian;
+    getCartesianCoordinates(): GVCartesian;
     xSVG: (coeff: any) => number;
     ySVG: (coeff: any) => number;
-    getRotate(O: Point, angle: number): Point;
-    add(X: Vector | Point): Point;
-    sub(X: Vector | Point): Point;
-    multiply(k: number): Point;
-    divide(k: number): Point;
-    getBarycentriqueCoords(A: Point, B: Point, C: Point): number[];
-    isInTriangle(A: Point, B: Point, C: Point): boolean;
+    getRotate(O: GVPoint, angle: number): GVPoint;
+    add(X: GVVector | GVPoint): GVPoint;
+    sub(X: GVVector | GVPoint): GVPoint;
+    multiply(k: number): GVPoint;
+    divide(k: number): GVPoint;
+    getBarycentriqueCoords(A: GVPoint, B: GVPoint, C: GVPoint): number[];
+    isInTriangle(A: GVPoint, B: GVPoint, C: GVPoint): boolean;
     /**
      * Get the symétric of P with this
      * @param P
      * @returns
      */
-    getSymetric(P: Point): Point;
-    getHomothetic(O: Point, k: number): Point;
-    getVector(): Vector;
+    getSymetric(P: GVPoint): GVPoint;
+    getHomothetic(O: GVPoint, k: number): GVPoint;
+    getVector(): GVVector;
     getGGB(): string;
     showName(scaleppc?: number): string;
     showDot(): this;
     set name(newname: string);
     get name(): string;
 }
-export declare class Vector {
+export declare class GVVector {
     x: number;
     y: number;
     norme: number;
-    constructor(arg1: number | Point, arg2: number | Point);
-    getNormed(): Vector;
-    getNormal(): Vector;
-    add(X: Vector | Point): Vector;
-    sub(X: Vector | Point): Vector;
-    multiply(k: number): Vector;
-    neg(): Vector;
-    dot(X: Vector | Point): number;
-    cross(X: Vector | Point): MathArray | Matrix;
-    colinear(V: Vector): boolean;
+    constructor(arg1: number | GVPoint, arg2: number | GVPoint);
+    getNormed(): GVVector;
+    getNormal(): GVVector;
+    add(X: GVVector | GVPoint): GVVector;
+    sub(X: GVVector | GVPoint): GVVector;
+    multiply(k: number): GVVector;
+    neg(): GVVector;
+    dot(X: GVVector | GVPoint): number;
+    cross(X: GVVector | GVPoint): MathArray | Matrix;
+    colinear(V: GVVector): boolean;
 }
 /**
    * @class
    * @classdesc Caracteristics of a line in an euclidean plan (ax+by=c)
    */
-export declare class Line extends GraphicObject {
-    direction: Vector;
-    A: Point;
-    B: Point;
+export declare class GVLine extends GVGraphicObject {
+    direction: GVVector;
+    A: GVPoint;
+    B: GVPoint;
     type: string;
     a: number;
     b: number;
     c: number;
     ggb: string;
-    constructor(A: Point, B: Point | Vector);
+    constructor(A: GVPoint, B: GVPoint | GVVector);
     getYPoint(x: number): number;
     getXPoint(y: number): number;
     getEquation(): void;
-    getIntersect(L: Line): Point;
-    getPerpendicularLine(P: Point): Line;
+    getIntersect(L: GVLine): GVPoint;
+    getPerpendicularLine(P: GVPoint): GVLine;
     /**
      * Get the symétric of P with this
      * @param P
      * @returns
      */
-    getSymetric(P: Point): Point;
+    getSymetric(P: GVPoint): GVPoint;
     set name(newname: string);
     get name(): string;
 }
-export declare function determinant(X: Vector | Point, Y: Vector | Point): number;
-export declare function barycentre(P: Point[], a: number[]): Point;
+export declare function determinant(X: GVVector | GVPoint, Y: GVVector | GVPoint): number;
+export declare function barycentre(P: GVPoint[], a: number[]): GVPoint;
 /**
    * @class
    * @classdesc Caracteristics of a segment in an euclidean plan
    */
-export declare class Segment extends Line {
+export declare class GVSegment extends GVLine {
     label: boolean;
     text: string;
     textColor: string;
     direct: boolean;
-    constructor(A: Point, B: Point);
+    constructor(A: GVPoint, B: GVPoint);
     showLabel(scaleppc?: number): string;
 }
 /**
    * @class
    * @classdesc Caracteristics of a circle in an euclidean plan
    */
-export declare class Circle extends GraphicObject {
-    A: Point;
-    B: Point | number;
+export declare class GVCircle extends GVGraphicObject {
+    A: GVPoint;
+    B: GVPoint | number;
     type: string;
     a: number;
     b: number;
     r: number;
-    constructor(A: Point, B: Point | number);
-    getPoint(theta: number): Point;
+    constructor(A: GVPoint, B: GVPoint | number);
+    getPoint(theta: number): GVPoint;
 }
 /**
    * @class
    * @classdesc Caracteristics of an angle
    */
-export declare class Angle extends GraphicObject {
-    A: Point;
-    B: Point;
-    C: Point;
+export declare class GVAngle extends GVGraphicObject {
+    A: GVPoint;
+    B: GVPoint;
+    C: GVPoint;
     angle: number;
     type: string;
     direct: boolean;
-    vBA: Vector;
-    vBC: Vector;
+    vBA: GVVector;
+    vBC: GVVector;
     right: boolean;
     fillColor: string;
     fillOpacity: number;
     rayon: boolean;
-    constructor(A: Point, B: Point, C: Point);
+    constructor(A: GVPoint, B: GVPoint, C: GVPoint);
     scale(scale: number): void;
 }
 /**
    * @class
    * @classdesc Caracteristics of an angle
    */
-export declare class Polygon extends GraphicObject {
-    vertices: Point[];
+export declare class GVPolygon extends GVGraphicObject {
+    vertices: GVPoint[];
     showLabels: boolean;
-    constructor(...args: Point[]);
+    constructor(...args: GVPoint[]);
     getDimensions(): number[];
 }
 /**
    * @class
    * @classdesc Caracteristics of a triangle
    */
-export declare class Rectangle extends Polygon {
+export declare class GVRectangle extends GVPolygon {
     longueur: number;
     largeur: number;
     ratio: number;
-    constructor(...args: Point[]);
+    constructor(...args: GVPoint[]);
 }
 /**
   * @class
   * @classdesc Caracteristics of a triangle
   */
-export declare class Triangle extends Polygon {
-    constructor(...args: Point[]);
+export declare class GVTriangle extends GVPolygon {
+    constructor(...args: GVPoint[]);
 }

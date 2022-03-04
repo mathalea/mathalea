@@ -1,4 +1,4 @@
-import { Triangle, Polygon, Vector, Angle, Point, Line, Segment, GraphicObject, Circle } from './elements.js';
+import { GVTriangle, GVPolygon, GVVector, GVAngle, GVPoint, GVLine, GVSegment, GVGraphicObject, GVCircle } from './elements.js';
 /**
 * Donne une liste d'entiers relatifs dont on connait la somme.
 * @example > listeEntiersSommeConnue(4,10,-2)
@@ -15,11 +15,14 @@ export declare function listeEntiersSommeConnue(nbElements: any, total: any, val
  * @classdesc Caracteristics of a graphic view
  * @author Frédéric PIOU
  */
-export declare class GraphicView {
+export declare class GVGraphicView {
     names: string[];
     ppc: number;
     scale: number;
-    geometric: GraphicObject[];
+    geometric: GVGraphicObject[];
+    geometricExport: GVGraphicObject[];
+    grid: GVLine[];
+    axes: GVLine[];
     xmin: number;
     ymin: number;
     xmax: number;
@@ -29,6 +32,9 @@ export declare class GraphicView {
     ratio: number;
     clipVisible: boolean;
     saveRatio: boolean;
+    allowResize: boolean;
+    showLabelPoint: boolean;
+    limit: number;
     _namesAlea: boolean;
     constructor(xmin?: number, ymin?: number, xmax?: number, ymax?: number);
     set namesAlea(names: string[] | boolean);
@@ -39,14 +45,16 @@ export declare class GraphicView {
      * @example
      * show(A,B,C,ABC)
      */
-    show(...args: GraphicObject[]): GraphicObject[];
-    getDimensions(...liste: GraphicObject[]): [number, number, number, number];
-    getWidth(...liste: GraphicObject[]): number;
-    getHeight(...liste: GraphicObject[]): number;
-    getUponPoint(...liste: GraphicObject[]): Point;
-    geBelowPoint(...liste: GraphicObject[]): Point;
-    getLeftPoint(...liste: GraphicObject[]): Point;
-    getRightPoint(...liste: GraphicObject[]): Point;
+    show(...args: GVGraphicObject[]): GVGraphicObject[];
+    addGrid(step?: number): void;
+    addAxes(): void;
+    getDimensions(...liste: GVGraphicObject[]): [number, number, number, number];
+    getWidth(...liste: GVGraphicObject[]): number;
+    getHeight(...liste: GVGraphicObject[]): number;
+    getUponPoint(...liste: GVGraphicObject[]): GVPoint;
+    geBelowPoint(...liste: GVGraphicObject[]): GVPoint;
+    getLeftPoint(...liste: GVGraphicObject[]): GVPoint;
+    getRightPoint(...liste: GVGraphicObject[]): GVPoint;
     /**
      * Resize window of graphic view to the created points
      * Keep the ratio
@@ -55,7 +63,7 @@ export declare class GraphicView {
     /**
      * Give the list sorted of object with a given type
      */
-    getListObjectTypeSelect(typeSelect?: string, liste?: GraphicObject[]): any;
+    getListObjectTypeSelect(typeSelect?: string, liste?: GVGraphicObject[]): any;
     /**
      * Search the last name not used and give a new name
      */
@@ -64,15 +72,19 @@ export declare class GraphicView {
      * Give a new name
      */
     getNewName(typeSelect?: string): any;
-    aleaNameObject(...args: GraphicObject[]): void;
+    aleaNameObject(...args: GVGraphicObject[]): void;
     /**
      * Append new objects to the euclidean plan
+     * @param {number} n Number of point to create
+     * @param {number} step For coordinates
+     * @example
+     * this.addPoint(2,0.5) --> Add two points with coordinates step 0.5 precision
      */
-    addPoint(n?: number): Point[];
+    addPoint(n?: number, step?: number): GVPoint[];
     /**
      * Add intersect point of two lines in the view
      */
-    addIntersectLine(line1: Line | Circle, line2: Line | Circle): Point[];
+    addIntersectLine(line1: GVLine | GVCircle, line2: GVLine | GVCircle): GVPoint[];
     /**
      * Zoom in or out
      */
@@ -80,62 +92,62 @@ export declare class GraphicView {
     /**
      * Give the distance between tow points, a point and a line, two lines
      */
-    distance(P: Point, Y: Point | Line): number;
+    distance(P: GVPoint, Y: GVPoint | GVLine): number;
     /**
      * Tempt to estimate if a point is close to the existing points
      */
-    isCloseToExistingPoints(M: Point): any;
+    isCloseToExistingPoints(M: GVPoint): any;
     /**
      * Tempt to estimate if a point is close to the line through the existing point
      */
-    isCloseToLineThroughtExistingPoints(M: Point): boolean;
+    isCloseToLineThroughtExistingPoints(M: GVPoint): boolean;
     /**
      * Add a new line to the view with new name
      */
-    addLine(P1?: Point, P2?: Point): Line;
+    addLine(P1?: GVPoint, P2?: GVPoint): GVLine;
     /**
      * Add a new Segment to the view with new name
      */
-    addSegment(P1?: Point, P2?: Point): Segment;
+    addSegment(P1?: GVPoint, P2?: GVPoint): GVSegment;
     /**
      * Add a new circle center
      * @param C
      * @param P
      * @returns
      */
-    addCircle(C: Point, X: Point | number): Circle;
+    addCircle(C: GVPoint, X: GVPoint | number): GVCircle;
     /**
      * Get the intersect point of a line and the bordure
      */
-    getExtremPointGraphicLine(L: Line): Point[];
+    getExtremPointGraphicLine(L: GVLine): GVPoint[];
     /**
      * get a point between two points
      * @param {Point} point1
      * @param {Point} point2
      * @returns {Point}
      */
-    getNewPointBetween(A: any, B: any): Point;
+    getNewPointBetween(A: any, B: any): GVPoint;
     /**
      * Add point between two but not too close to extrems
      * @param A
      * @param B
      * @returns
      */
-    addPointBetween(A: Point, B: Point): Point;
-    addPointDistance(A: Point, r: number): Point;
-    addPointInPolygon(...args: Point[]): Point;
-    addPointOutPolygon(...args: Point[]): Point;
-    addPointOnPolygon(...args: Point[]): Point;
-    placeLabelsPolygon(...args: Point[]): void;
-    addSymetric(X: Point | Line, ...args: Point[]): Point[];
-    addTranslate(V: Vector, ...args: Point[]): Point[];
-    move(V: Vector, ...args: Point[]): void;
+    addPointBetween(A: GVPoint, B: GVPoint): GVPoint;
+    addPointDistance(A: GVPoint, r: number): GVPoint;
+    addPointInPolygon(...args: GVPoint[]): GVPoint;
+    addPointOutPolygon(...args: GVPoint[]): GVPoint;
+    addPointOnPolygon(...args: GVPoint[]): GVPoint;
+    placeLabelsPolygon(...args: GVPoint[]): void;
+    addSymetric(X: GVPoint | GVLine, ...args: GVPoint[]): GVPoint[];
+    addTranslate(V: GVVector, ...args: GVPoint[]): GVPoint[];
+    move(V: GVVector, ...args: GVPoint[]): void;
     /**
      * Add three point, two point or one point aligned to others
      * @param  {Point,Point} args // If no point or one point we creat new points
      * @returns
      */
-    addPointAligned(P1?: Point, P2?: Point): any[];
+    addPointAligned(P1?: GVPoint, P2?: GVPoint): any[];
     /**
      * P1, P2, P3 with P2P1P3 rectangular in P1
      * @param args
@@ -153,44 +165,44 @@ export declare class GraphicView {
      * @param  {Point,Point} args If no point we create three new points
      * @returns {Point}
      */
-    addNotAlignedPoint(P1?: Point, P2?: Point, P3?: any): Point[];
+    addNotAlignedPoint(P1?: GVPoint, P2?: GVPoint, P3?: any): GVPoint[];
     /**
      * Add a parallel line to another one or two parallel lines
-     * @param  {Point,Line|Line} args If no args we create two parallels
-     * @returns {Line}
+     * @param  {Point,GVLine|GVLine} args If no args we create two parallels
+     * @returns {GVLine}
      */
-    addParallelLine(P?: Point, line?: Line): Line[];
-    addPerpendicularLine(P?: Point, line?: Line): Line[];
+    addParallelLine(P?: GVPoint, line?: GVLine): GVLine[];
+    addPerpendicularLine(P?: GVPoint, line?: GVLine): GVLine[];
     /**
      * Add the sides of a polygon
      * @param  {...any} args
      * @returns {}
      */
-    addSidesPolygon(...args: any[]): Segment[];
+    addSidesPolygon(...args: any[]): GVSegment[];
     /**
      * Add labels to the vertices of a polygon.
      * @param args
      */
-    addLabelsPointsPolygon(...args: Point[]): void;
-    addTriangle(arg1?: number | Point, arg2?: number | Point, arg3?: number | Point, arg4?: number): Triangle;
+    addLabelsPointsPolygon(...args: GVPoint[]): void;
+    addTriangle(arg1?: number | GVPoint, arg2?: number | GVPoint, arg3?: number | GVPoint, arg4?: number): GVTriangle;
     /**
      * Add a group of 4 points making a parallelogram
      * @param  {...any} args // 0-3 Point
      * @returns {Group}
      */
-    addParallelogram(A?: Point, B?: Point, C?: Point, D?: any): Polygon;
-    addRegularPolygon(n: number, A?: Point, B?: Point): Polygon;
-    addRectangle(A?: Point | number, B?: Point | number, C?: Point): any;
-    addRegularPolygonCenter(A: Point, B: Point, n: number): Point;
-    addHomothetic(O: Point, k: number, ...args: Point[]): Point[];
+    addParallelogram(A?: GVPoint, B?: GVPoint, C?: GVPoint, D?: any): GVPolygon;
+    addRegularPolygon(n: number, A?: GVPoint, B?: GVPoint): GVPolygon;
+    addRectangle(A?: GVPoint | number, B?: GVPoint | number, C?: GVPoint): any;
+    addRegularPolygonCenter(A: GVPoint, B: GVPoint, n: number): GVPoint;
+    addHomothetic(O: GVPoint, k: number, ...args: GVPoint[]): GVPoint[];
     /**
        * Add the angle ABC to the graphic view
        * @param {Point} A
        * @param {Point} B
        * @param {Point} C
        */
-    addAngle(A: Point, B: Point, C: Point): Angle;
-    addAnglesPolygon(...args: Point[]): Angle[];
+    addAngle(A: GVPoint, B: GVPoint, C: GVPoint): GVAngle;
+    addAnglesPolygon(...args: GVPoint[]): GVAngle[];
     /**
      * Rotate points
      * @param {Point} center
@@ -200,8 +212,8 @@ export declare class GraphicView {
      * @example
      * this.addRotate(O, Math.PI()/2, B)
      */
-    addRotate(center: Point, angle: number, ...args: Point[]): Point[];
-    exportGGB(arg?: GraphicObject[]): string;
+    addRotate(center: GVPoint, angle: number, ...args: GVPoint[]): GVPoint[];
+    exportGGB(arg?: GVGraphicObject[]): string;
     /**
      * Export to Mathalea2D
      * @returns {Mathalea2D}

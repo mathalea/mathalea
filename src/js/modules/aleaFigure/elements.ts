@@ -1,5 +1,5 @@
 import { context } from '../context.js'
-import { Cartesian, Coordinates, Polar } from './coordinates.js'
+import { GVCartesian, GVCoordinates, GVPolar } from './coordinates.js'
 import { aleaName } from '../outilsMathjs.js'
 import { dot, round, cross, norm, MathArray, Matrix } from 'mathjs'
 import { latexParCoordonnees, latexParPoint, tracePoint, point, labelPoint } from '../2d.js'
@@ -9,7 +9,7 @@ import { circularPermutation, getDimensions } from './outils.js'
  * @class
  * @classdesc Graphic object like Point, Line, Segment etc.
  */
-export class GraphicObject {
+export class GVGraphicObject {
   visible: boolean
   public _name: string
   color: string = 'black'
@@ -18,9 +18,9 @@ export class GraphicObject {
     this.name = ''
   }
 
-  aleaName (...name: (string | GraphicObject)[]) {
+  aleaName (...name: (string | GVGraphicObject)[]) {
       this.name = aleaName(name.map(x => {
-        if (x instanceof GraphicObject) {
+        if (x instanceof GVGraphicObject) {
           return x.name
         } else {
           return x
@@ -42,20 +42,20 @@ export class GraphicObject {
    * Move this right to figures
    * @param figures
    */
-  moveRight(...figures: GraphicObject[]) {
+  moveRight(...figures: GVGraphicObject[]) {
     const [xmin1, ymin1, xmax1, ymax1] = getDimensions(this)
     const [xmin2, ymin2, xmax2, ymax2] = getDimensions(...figures)
-    const P1 = new Point(xmin1, ymin1)
-    const P2 = new Point(xmax2, ymax2)
-    const t = new Vector(P1, P2)
-    this.move(t.add(new Vector(4, 0)).sub(new Vector(0, (ymax2-ymin2 +ymax1-ymin1) / 2)))
+    const P1 = new GVPoint(xmin1, ymin1)
+    const P2 = new GVPoint(xmax2, ymax2)
+    const t = new GVVector(P1, P2)
+    this.move(t.add(new GVVector(4, 0)).sub(new GVVector(0, (ymax2-ymin2 +ymax1-ymin1) / 2)))
   }
 
-  move (V: Vector) {
-    if (this instanceof Point) {
+  move (V: GVVector) {
+    if (this instanceof GVPoint) {
       this.x = this.add(V).x
       this.y = this.add(V).y
-    } else if (this instanceof Polygon) {
+    } else if (this instanceof GVPolygon) {
       for (const P of this.vertices) {
         P.x = P.add(V).x
         P.y = P.add(V).y
@@ -68,10 +68,10 @@ export class GraphicObject {
  * @class
  * @classdesc Caracteristics of a point in an euclidean plan
  */
-export class Point extends GraphicObject {
-  coordinates: Coordinates
-  polarCoordinates: Polar
-  cartesianCoordinates: Cartesian
+export class GVPoint extends GVGraphicObject {
+  coordinates: GVCoordinates
+  polarCoordinates: GVPolar
+  cartesianCoordinates: GVCartesian
   type: string
   x: number
   y: number
@@ -79,15 +79,15 @@ export class Point extends GraphicObject {
   theta: number
   ggb: string
   dot: string
-  labelPoints: [Point, Point, Point]
+  labelPoints: [GVPoint, GVPoint, GVPoint]
   label: boolean = false
   M2D: string
-  constructor (arg1: Coordinates | number, arg2: number = 0) {
+  constructor (arg1: GVCoordinates | number, arg2: number = 0) {
     super()
-    if (arg1 instanceof Coordinates ) {
+    if (arg1 instanceof GVCoordinates ) {
       this.coordinates = arg1
     } else {
-      this.coordinates = new Cartesian(arg1,arg2)
+      this.coordinates = new GVCartesian(arg1,arg2)
     }
     this.polarCoordinates = this.getPolarCoordinates()
     this.cartesianCoordinates = this.getCartesianCoordinates()
@@ -101,7 +101,7 @@ export class Point extends GraphicObject {
     this.M2D = point(this.x,this.y)
   }
 
-  getPolarCoordinates (): Cartesian {
+  getPolarCoordinates (): GVCartesian {
     return this.coordinates.getPolarCoordinates()
   }
 
@@ -117,31 +117,31 @@ export class Point extends GraphicObject {
     return -round(this.y * coeff, 3)
   }
 
-  getRotate(O: Point, angle: number) {
-    return new Point(
-      new Cartesian(
+  getRotate(O: GVPoint, angle: number) {
+    return new GVPoint(
+      new GVCartesian(
         (this.x-O.x)*Math.cos(angle)-(this.y-O.y)*Math.sin(angle) +O.x,
         (this.x-O.x)*Math.sin(angle)+(this.y-O.y)*Math.cos(angle) +O.y,
       ))
   }
 
-  add (X: Vector | Point): Point {
-    return new Point(new Cartesian(this.x+X.x,this.y+X.y))
+  add (X: GVVector | GVPoint): GVPoint {
+    return new GVPoint(new GVCartesian(this.x+X.x,this.y+X.y))
   }
 
-  sub (X: Vector | Point): Point {
-    return new Point(new Cartesian(this.x-X.x,this.y-X.y))
+  sub (X: GVVector | GVPoint): GVPoint {
+    return new GVPoint(new GVCartesian(this.x-X.x,this.y-X.y))
   }
 
-  multiply (k: number): Point {
-    return new Point(new Cartesian(this.x * k,this.y * k))
+  multiply (k: number): GVPoint {
+    return new GVPoint(new GVCartesian(this.x * k,this.y * k))
   }
 
-  divide (k: number): Point {
-    return new Point(new Cartesian(this.x / k,this.y / k))
+  divide (k: number): GVPoint {
+    return new GVPoint(new GVCartesian(this.x / k,this.y / k))
   }
 
-  getBarycentriqueCoords (A: Point, B: Point, C: Point): number[] {
+  getBarycentriqueCoords (A: GVPoint, B: GVPoint, C: GVPoint): number[] {
     let a: number, b: number, c:number
     a = determinant(B.sub(this),C.sub(this))
     b = determinant(C.sub(this),A.sub(this))
@@ -149,7 +149,7 @@ export class Point extends GraphicObject {
     return [a,b,c]
   }
 
-  isInTriangle(A: Point, B: Point, C: Point): boolean {
+  isInTriangle(A: GVPoint, B: GVPoint, C: GVPoint): boolean {
     return Math.min(...this.getBarycentriqueCoords(A,B,C)) > 0 || Math.max(...this.getBarycentriqueCoords(A,B,C)) < 0
   }
 
@@ -158,19 +158,19 @@ export class Point extends GraphicObject {
    * @param P 
    * @returns 
    */
-  getSymetric(P: Point): Point {
+  getSymetric(P: GVPoint): GVPoint {
     return barycentre([this,P],[2,-1])
   } 
 
-  getHomothetic(O: Point, k: number) { 
-    return new Point(
-      new Cartesian(
+  getHomothetic(O: GVPoint, k: number) { 
+    return new GVPoint(
+      new GVCartesian(
         k * this.x + (1 - k) * O.x,
         k * this.y + (1 - k) * O.y
       ))
   }
   getVector () {
-    return new Vector(this.x,this.y)
+    return new GVVector(this.x,this.y)
   }
 
   getGGB () {
@@ -188,8 +188,8 @@ export class Point extends GraphicObject {
       const S = this.labelPoints[1]
       const v1 = P1.sub(S).getVector().getNormed()
       const v3 = P3.sub(S).getVector().getNormed()
-      const corr = new Vector(0,-0.3*scaleppc)
-      let P: Point
+      const corr = new GVVector(0,-0.3*scaleppc)
+      let P: GVPoint
       if (v1.colinear(v3)) { // Colinéaires
         P = S.add(v1.getNormal().multiply(scaleppc*0.4)).add(corr)
       } else { // Non colinéaires
@@ -231,15 +231,15 @@ export class Point extends GraphicObject {
   get name () { return this._name }
 }
 
-export class Vector {
+export class GVVector {
   x: number = 0
   y: number = 0
   norme: number
-  constructor (arg1: number | Point, arg2: number | Point) {
+  constructor (arg1: number | GVPoint, arg2: number | GVPoint) {
     if (typeof arg1 === 'number' && typeof arg2 === 'number') {
       this.x = arg1
       this.y = arg2
-    } else if (arg1 instanceof Point && arg2 instanceof Point) {
+    } else if (arg1 instanceof GVPoint && arg2 instanceof GVPoint) {
       this.x = arg2.x - arg1.x
       this.y = arg2.y - arg1.y
     }
@@ -248,39 +248,39 @@ export class Vector {
 
   getNormed () {
     const xy = Math.sqrt(this.x ** 2 + this.y ** 2)
-    return new Vector(this.x / xy, this.y / xy)
+    return new GVVector(this.x / xy, this.y / xy)
   }
 
-  getNormal (): Vector {
-    return new Vector(-this.y, this.x)
+  getNormal (): GVVector {
+    return new GVVector(-this.y, this.x)
   }
 
-  add (X: Vector | Point): Vector {
-    return new Vector(this.x+X.x,this.y+X.y)
+  add (X: GVVector | GVPoint): GVVector {
+    return new GVVector(this.x+X.x,this.y+X.y)
   }
 
-  sub (X: Vector | Point): Vector {
-    return new Vector(this.x-X.x,this.y-X.y)
+  sub (X: GVVector | GVPoint): GVVector {
+    return new GVVector(this.x-X.x,this.y-X.y)
   }
 
-  multiply (k: number): Vector {
-    return new Vector(this.x * k,this.y * k)
+  multiply (k: number): GVVector {
+    return new GVVector(this.x * k,this.y * k)
   }
 
-  neg (): Vector {
-    return new Vector(-this.x,-this.y)
+  neg (): GVVector {
+    return new GVVector(-this.x,-this.y)
   }
 
-  dot (X: Vector | Point): number {
+  dot (X: GVVector | GVPoint): number {
     return dot([this.x, this.y],[X.x,X.y])
   }
 
-  cross (X: Vector | Point): MathArray | Matrix {
+  cross (X: GVVector | GVPoint): MathArray | Matrix {
     const Cross = cross([this.x,this.y,0],[X.x,X.y,0])
     return Cross
   }
 
-  colinear (V: Vector): boolean {
+  colinear (V: GVVector): boolean {
     return parseFloat(cross([this.x, this.y, 0], [V.x, V.y, 0])[2].toFixed(15)) === 0
   }
 }
@@ -289,10 +289,10 @@ export class Vector {
    * @class
    * @classdesc Caracteristics of a line in an euclidean plan (ax+by=c)
    */
-export class Line extends GraphicObject {
-  direction: Vector
-  A: Point
-  B: Point
+export class GVLine extends GVGraphicObject {
+  direction: GVVector
+  A: GVPoint
+  B: GVPoint
   type: string
   a: number = 0
   b: number = 0
@@ -300,11 +300,11 @@ export class Line extends GraphicObject {
   ggb: string
   // Une droite sera définie par deux points distincts ou un point et une direction
   // Il faudrait deux constructeurs ?
-  constructor (A: Point, B: Point | Vector) {
+  constructor (A: GVPoint, B: GVPoint | GVVector) {
     super()
-    this.direction = B instanceof Vector ? B : new Vector(B.x - A.x, B.y - A.y)
+    this.direction = B instanceof GVVector ? B : new GVVector(B.x - A.x, B.y - A.y)
     this.A = A
-    this.B = B instanceof Point ? B : new Point(new Cartesian(A.x + B.x, A.y + B.y))
+    this.B = B instanceof GVPoint ? B : new GVPoint(new GVCartesian(A.x + B.x, A.y + B.y))
     this.getEquation()
     this.type = 'Line'
     this.ggb = `${this.name}: ${this.a}*x+${this.b}*y=${this.c})`
@@ -325,17 +325,17 @@ export class Line extends GraphicObject {
     this.c = this.a * this.A.x + this.b * this.A.y
   }
 
-  getIntersect(L: Line): Point{
+  getIntersect(L: GVLine): GVPoint{
     const delta = L.a * this.b - this.a * L.b
     if (delta.toFixed(15) !== '0') {
       const deltax = -(L.b * this.c - this.b * L.c)
       const deltay = L.a * this.c - this.a * L.c
-      const point = new Point(new Cartesian(deltax / delta, deltay / delta))
+      const point = new GVPoint(new GVCartesian(deltax / delta, deltay / delta))
       return point
     }
   }
-  getPerpendicularLine(P: Point) {
-    return new Line(P, this.direction.getNormal())
+  getPerpendicularLine(P: GVPoint) {
+    return new GVLine(P, this.direction.getNormal())
   }
 
   /**
@@ -343,7 +343,7 @@ export class Line extends GraphicObject {
    * @param P 
    * @returns 
    */
-   getSymetric(P: Point): Point {
+   getSymetric(P: GVPoint): GVPoint {
     return barycentre([this.getIntersect(this.getPerpendicularLine(P)),P],[2,-1])
   }
   
@@ -355,11 +355,11 @@ export class Line extends GraphicObject {
   get name () { return this._name }
 }
 
-export function determinant (X: Vector | Point, Y: Vector | Point): number {
+export function determinant (X: GVVector | GVPoint, Y: GVVector | GVPoint): number {
   return X.x * Y.y - X.y * Y.x
 }
 
-export function barycentre (P: Point[], a: number[]): Point {
+export function barycentre (P: GVPoint[], a: number[]): GVPoint {
   const pointsPonderes = P.map((x,i) => x.multiply(a[i]))
   return pointsPonderes.reduce((accumulator, curr) => accumulator.add(curr)).divide(a.reduce((accumulator, curr) => accumulator + curr))
 }
@@ -368,12 +368,12 @@ export function barycentre (P: Point[], a: number[]): Point {
    * @class
    * @classdesc Caracteristics of a segment in an euclidean plan
    */
-export class Segment extends Line {
+export class GVSegment extends GVLine {
   label: boolean
   text: string = ''
   textColor: string = 'black'
   direct: boolean = true
-  constructor (A: Point, B: Point) {
+  constructor (A: GVPoint, B: GVPoint) {
     super(A, B)
     this.type = 'Segment'
     this.A = A
@@ -384,7 +384,7 @@ export class Segment extends Line {
 
   showLabel (scaleppc: number = 1) { 
     let label: string
-    const P = new Point((this.A.x+this.B.x)/2,(this.A.y+this.B.y)/2)
+    const P = new GVPoint((this.A.x+this.B.x)/2,(this.A.y+this.B.y)/2)
     if (context.isHtml) {
       label = latexParPoint(this.name, point(P.x,P.y, '', 'center'), 'black', 50,8, '')
       // LatexParCoordonnees(texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres)
@@ -401,24 +401,24 @@ export class Segment extends Line {
    * @class
    * @classdesc Caracteristics of a circle in an euclidean plan
    */
- export class Circle extends GraphicObject {
-  A: Point // center
-  B: Point | number
+ export class GVCircle extends GVGraphicObject {
+  A: GVPoint // center
+  B: GVPoint | number
   type: string
   a: number = 0
   b: number = 0
   r: number = 0
-  constructor (A: Point, B: Point | number) {
+  constructor (A: GVPoint, B: GVPoint | number) {
     super()
     this.type = 'Circle'
     this.A = A
-    this.B = B instanceof Point ? B : A
-    this.r = B instanceof Point ? Math.sqrt((A.x - B.x) ** 2 + (A.y - B.y) ** 2) : B
+    this.B = B instanceof GVPoint ? B : A
+    this.r = B instanceof GVPoint ? Math.sqrt((A.x - B.x) ** 2 + (A.y - B.y) ** 2) : B
   }
 
-  getPoint (theta: number): Point {
-    return new Point (
-      new Cartesian (
+  getPoint (theta: number): GVPoint {
+    return new GVPoint (
+      new GVCartesian (
         this.A.x + this.r * Math.cos(theta),
         this.A.y + this.r * Math.sin(theta)
       )
@@ -430,25 +430,25 @@ export class Segment extends Line {
    * @class
    * @classdesc Caracteristics of an angle
    */
- export class Angle extends GraphicObject {
-  A: Point
-  B: Point
-  C: Point
+ export class GVAngle extends GVGraphicObject {
+  A: GVPoint
+  B: GVPoint
+  C: GVPoint
   angle: number
   type: string
   direct: boolean
-  vBA: Vector
-  vBC: Vector
+  vBA: GVVector
+  vBC: GVVector
   right: boolean = false
   fillColor: string = 'none' 
   fillOpacity: number = 0.2
   rayon: boolean = true
-  constructor (A: Point, B: Point, C: Point) {
+  constructor (A: GVPoint, B: GVPoint, C: GVPoint) {
     super()
     this.type = 'Angle'
-    const vA = new Vector(A.x, A.y)
-    const vB = new Vector(B.x, B.y)
-    const vC = new Vector(C.x, C.y)
+    const vA = new GVVector(A.x, A.y)
+    const vB = new GVVector(B.x, B.y)
+    const vC = new GVVector(C.x, C.y)
     const vBA = vA.sub(vB).getNormed()
     const vBC = vC.sub(vB).getNormed()
     this.vBA = vBA
@@ -473,10 +473,10 @@ export class Segment extends Line {
    * @class
    * @classdesc Caracteristics of an angle
    */
- export class Polygon extends GraphicObject {
-  vertices: Point[]
+ export class GVPolygon extends GVGraphicObject {
+  vertices: GVPoint[]
   showLabels: boolean = true
-  constructor (...args: Point[]) {
+  constructor (...args: GVPoint[]) {
      super()
      this.vertices = args
      this.name = circularPermutation(args.map(x => x.name)).join('')
@@ -497,11 +497,11 @@ export class Segment extends Line {
    * @class
    * @classdesc Caracteristics of a triangle
    */
- export class Rectangle extends Polygon {
+ export class GVRectangle extends GVPolygon {
   longueur: number
   largeur: number
   ratio: number
-  constructor (...args: Point[]) {
+  constructor (...args: GVPoint[]) {
      super(...args)
      const [A,B,C,D] = args
      const dimensions = [Math.sqrt((A.x - B.x)**2 + (A.y - B.y)**2), Math.sqrt((C.x - B.x)**2 + (C.y - B.y)**2)].sort()
@@ -516,8 +516,8 @@ export class Segment extends Line {
    * @class
    * @classdesc Caracteristics of a triangle
    */
-  export class Triangle extends Polygon {
-    constructor (...args: Point[]) {
+  export class GVTriangle extends GVPolygon {
+    constructor (...args: GVPoint[]) {
        super(...args)
     }
   }

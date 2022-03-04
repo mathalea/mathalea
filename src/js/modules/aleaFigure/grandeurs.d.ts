@@ -1,9 +1,9 @@
-import { GraphicObject, Point } from './elements.js';
+import { GVGraphicObject, GVPoint } from './elements.js';
 /**
  * Grandeur, methods for operations
  *
  */
-export declare class Grandeur {
+export declare class GVGrandeur {
     value: number;
     precision: number;
     unit: string;
@@ -11,9 +11,9 @@ export declare class Grandeur {
     nameAndValue: string;
     private _name;
     calcul: string;
-    constructor(name: string | Point[], value: number, precision?: number, unit?: string);
-    set name(newname: string | Point[]);
-    get name(): string | Point[];
+    constructor(name: string | GVPoint[], value: number, precision?: number, unit?: string);
+    set name(newname: string | GVPoint[]);
+    get name(): string | GVPoint[];
     format(): string;
     /**
      *
@@ -22,27 +22,27 @@ export declare class Grandeur {
      * @param digit
      * @returns
      */
-    aleaName(...name: (string | GraphicObject)[]): void;
-    multiply(a: Grandeur): Grandeur;
-    divide(a: Grandeur): Grandeur;
-    add(a: Grandeur): Grandeur;
-    subtract(a: Grandeur): Grandeur;
-    hypotenuse(a: Grandeur): Grandeur;
+    aleaName(...name: (string | GVGraphicObject)[]): void;
+    multiply(a: GVGrandeur): GVGrandeur;
+    divide(a: GVGrandeur): GVGrandeur;
+    add(a: GVGrandeur): GVGrandeur;
+    subtract(a: GVGrandeur): GVGrandeur;
+    hypotenuse(a: GVGrandeur): GVGrandeur;
     /**
      * this^n
      * @param n // Integer
      * @returns
      */
-    pow(n: number): Grandeur;
+    pow(n: number): GVGrandeur;
     /**
      * this^n
      * @param n // Integer
      * @returns
      */
-    sqrt(): Grandeur;
-    abs(): Grandeur;
-    neg(): Grandeur;
-    to(newUnit: string): Grandeur;
+    sqrt(): GVGrandeur;
+    abs(): GVGrandeur;
+    neg(): GVGrandeur;
+    to(newUnit: string): GVGrandeur;
 }
 /**
  * Quantity random
@@ -53,4 +53,4 @@ export declare class Grandeur {
  * @param unit
  * @returns
  */
-export declare function qrandom(nmin?: number, nmax?: number, digit?: number, name?: string, unit?: string): Grandeur;
+export declare function qrandom(nmin?: number, nmax?: number, digit?: number, name?: string, unit?: string): GVGrandeur;

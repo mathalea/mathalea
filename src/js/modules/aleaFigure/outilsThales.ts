@@ -1,14 +1,14 @@
-import { Point, Vector } from "./elements"
-import { GraphicView } from "./GraphicView"
+import { GVPoint, GVVector } from "./elements"
+import { GVGraphicView } from "./GraphicView"
 import { aleaName } from "../outilsMathjs.js"
 import { cross } from "mathjs"
 
-export class AleaThalesConfig extends GraphicView {
+export class GVAleaThalesConfig extends GVGraphicView {
   classicConfig: boolean = undefined
   k: number
   AOB: boolean = false
   OAB: boolean = false
-  points: Point[]
+  points: GVPoint[]
   constructor (k: boolean = undefined) {
     super(-5, -5, 5, 5)
     this.create(k)         
@@ -28,7 +28,7 @@ export class AleaThalesConfig extends GraphicView {
 
   new () {
     this.geometric = []
-    let O: Point, A: Point, B: Point
+    let O: GVPoint, A: GVPoint, B: GVPoint
     if (this.AOB) {
       [O, A, B] = this.addRectPoint() // Trois points non alignés et formant un triangle OAB rectangle en O
     } else if (this.OAB) {
@@ -45,10 +45,10 @@ export class AleaThalesConfig extends GraphicView {
     const dAB = this.addLine(A, B)
 
     // Exemple d'un vecteur créé à partir de deux points
-    const vO = new Vector(O.x, O.y)
-    const vA = new Vector(A.x, A.y)
-    const vB = new Vector(B.x, B.y)
-    const vM = new Vector(M.x, M.y)
+    const vO = new GVVector(O.x, O.y)
+    const vA = new GVVector(A.x, A.y)
+    const vB = new GVVector(B.x, B.y)
+    const vM = new GVVector(M.x, M.y)
     const vOA = vA.sub(vO)
     const vOB = vB.sub(vO)
     const vOM = vM.sub(vO)

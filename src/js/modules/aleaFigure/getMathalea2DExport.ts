@@ -1,9 +1,9 @@
 import { texteSurSegment, arcPointPointAngle, cercle, segment, polygone, point, mathalea2d } from '../2d.js'
-import { Polygon, Angle, Point, Line, Segment, Circle } from './elements.js'
-import { GraphicView } from './graphicView.js' 
+import { GVPolygon, GVAngle, GVPoint, GVLine, GVSegment, GVCircle } from './elements.js'
+import { GVGraphicView } from './graphicView.js' 
 
-export function getMathalea2DExport (graphic: GraphicView) {
-  graphic.resize()
+export function getMathalea2DExport (graphic: GVGraphicView) {
+  if (graphic.allowResize) graphic.resize()
   const scaleppc = 20 / graphic.ppc
   const clip = { xmin: graphic.xmin - scaleppc, xmax: graphic.xmax + scaleppc, ymin: graphic.ymin - scaleppc, ymax: graphic.ymax + scaleppc }
   
@@ -20,17 +20,17 @@ export function getMathalea2DExport (graphic: GraphicView) {
     objs.push(drawClip)
   }
   
-  for (const obj of graphic.geometric.filter(x => x.visible)) {
-    if (obj instanceof Point) {
+  for (const obj of graphic.geometricExport.filter(x => x.visible)) {
+    if (obj instanceof GVPoint) {
       if (obj.dot !== '') objs.push(obj.dot)
       if (obj.label) {
         objs.push(obj.showName(scaleppc))
       }
-    } else if (obj instanceof Line && !(obj instanceof Segment)) {
+    } else if (obj instanceof GVLine && !(obj instanceof GVSegment)) {
       // objs.push(droite(obj.a, obj.b, -obj.c))
       const points = graphic.getExtremPointGraphicLine(obj)
       if (points !== undefined) objs.push(segment(...points, obj.color))
-    } else if (obj instanceof Segment) {
+    } else if (obj instanceof GVSegment) {
       objs.push(segment(obj.A, obj.B, obj.color))
       if (obj.label) {
         objs.push(obj.showLabel(scaleppc))
@@ -39,9 +39,9 @@ export function getMathalea2DExport (graphic: GraphicView) {
         const points = obj.direct ? [obj.A.M2D, obj.B.M2D] : [obj.B.M2D, obj.A.M2D]
         objs.push(texteSurSegment(obj.text, points[0], points[1], obj.textColor, 0.5*scaleppc))
       }
-    } else if (obj instanceof Circle) {
+    } else if (obj instanceof GVCircle) {
       objs.push(cercle(obj.A, obj.r))
-    } else if (obj instanceof Angle) {
+    } else if (obj instanceof GVAngle) {
       if (Math.abs(obj.angle).toFixed(13) === (Math.PI/2).toFixed(13) && obj.right) {
         const P1 = obj.A
         const P3 = obj.C
@@ -59,7 +59,7 @@ export function getMathalea2DExport (graphic: GraphicView) {
           scaleppc
           )
         )*/
-      } else if (obj instanceof Polygon) {
+      } else if (obj instanceof GVPolygon) {
         if (obj.showLabels) {
           obj.vertices.forEach(P => {
             objs.push(P.showName(scaleppc))
@@ -76,6 +76,16 @@ export function getMathalea2DExport (graphic: GraphicView) {
     } else {
       objs.push(obj)
     }
+  }
+  for (const obj of graphic.grid) {
+    const points = graphic.getExtremPointGraphicLine(obj)
+      if (points !== undefined) objs.push(segment(...points, obj.color))
+  }
+  for (const obj of graphic.axes) {
+    const points = graphic.getExtremPointGraphicLine(obj)
+      const arrow = segment(...points, obj.color)
+      arrow.styleExtremites = '->'
+      if (points !== undefined) objs.push(arrow)
   }
   return mathalea2d(Object.assign({ mainlevee: false, pixelsParCm: graphic.ppc, scale: graphic.scale*0.7 }, clip), objs)
 }

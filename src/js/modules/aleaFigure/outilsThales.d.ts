@@ -1,11 +1,11 @@
-import { Point } from "./elements";
-import { GraphicView } from "./GraphicView";
-export declare class AleaThalesConfig extends GraphicView {
+import { GVPoint } from "./elements";
+import { GVGraphicView } from "./GraphicView";
+export declare class GVAleaThalesConfig extends GVGraphicView {
     classicConfig: boolean;
     k: number;
     AOB: boolean;
     OAB: boolean;
-    points: Point[];
+    points: GVPoint[];
     constructor(k?: boolean);
     create(k?: boolean): void;
     new(): void;

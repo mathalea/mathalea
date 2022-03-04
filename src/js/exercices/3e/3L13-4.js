@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { toString, aleaVariables, assignVariables, calculer, toTex, resoudre } from '../../modules/outilsMathjs.js'
-import { GraphicView } from '../../modules/aleaFigure/GraphicView.js'
+import { GVGraphicView } from '../../modules/aleaFigure/GraphicView.js'
 import { create, all } from 'mathjs'
 
 export const math = create(all)
@@ -12,7 +12,7 @@ math.config({
 })
 
 export const titre = 'Périmètre, aire, équation'
-export const dateDePublication = '01/03/2022'
+export const dateDePublication = '04/03/2022'
 /**
  * @author Frédéric PIOU
  * Problème à partir de https://twitter.com/blatherwick_sam/status/1497292774621822979
@@ -35,7 +35,7 @@ export default class problemes extends Exercice {
       const numeroquestion = this.nbQuestions % 2 === 0 ? i % 2 + 1 : Math.floor(Math.random() * 2) + 1
       switch (numeroquestion) {
         case 1: {
-          const graphic = new GraphicView(0, 0, 7, 5)
+          const graphic = new GVGraphicView(0, 0, 7, 5)
           let ABCD
           do {
             if (ABCD !== undefined) {
@@ -116,7 +116,7 @@ Donc l'aire du rectangle $${ABCD.name}$ est ${environ} $${toTex(solutionDecimale
           break
         }
         case 2: {
-          const graphic = new GraphicView(0, 0, 7, 5)
+          const graphic = new GVGraphicView(0, 0, 7, 5)
           let ABCD
           do {
             if (ABCD !== undefined) {
