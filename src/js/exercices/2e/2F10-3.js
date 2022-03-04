@@ -89,7 +89,7 @@ export default function representerfonctionaffine () {
       }
       if (this.sup === 2) { // cas du coefficient directeur fractionnaire
         a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
-        b = randint(-5, 5, [0]) // ordonnée à l'origine non nelle
+        b = randint(-5, 5, [0]) // ordonnée à l'origine non nulle
         d = randint(2, 5, [a, 2 * a, -a, -2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
         if (a === 0 && b === 0) {
           a = 1
