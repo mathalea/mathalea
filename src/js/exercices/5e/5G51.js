@@ -49,7 +49,7 @@ export default function RepresenterUnSolide5e () {
     let correction
     let carreaux; let g
     let objetsEnonce = []
-    let objetsCorrection = [];
+    let objetsCorrection = []
 
     for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nom = creerNomDePolygone(8, 'PQ')
