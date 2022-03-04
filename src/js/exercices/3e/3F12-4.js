@@ -27,8 +27,6 @@ export default function ImageGraphique () {
   this.nbQuestions = 1
   this.pointsParQuestions = 3
   this.nbQuestionsModifiable = false
-  this.dimensionsDivMg32 = [800, 600]
-  this.pasDeVersionLatex = false
   this.nbCols = 1
 
   this.nouvelleVersion = function (numeroExercice) {

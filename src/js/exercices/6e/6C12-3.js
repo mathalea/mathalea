@@ -1,11 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, texNombre, texteEnCouleurEtGras, texteGras, prenomM, arrondi, prenomF, nomDuMois, jour, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, stringNombre, texteEnCouleurEtGras, texteGras, prenomM, arrondi, prenomF, nomDuMois, jour, rangeMinMax, compteOccurences, contraindreValeur, combinaisonListes, sp } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const amcReady = true
 export const amcType = 'qcmMult' // type de question AMC
 export const interactifReady = true
-export const interactifType = ['qcm']
+export const interactifType = 'qcm'
 
 export const titre = 'Trouver les informations utiles ou inutiles pour résoudre des problèmes'
 
@@ -32,17 +32,16 @@ export default function ExerciceInformationsProblemes () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.sup = parseInt(this.sup)
     // Ebauche de la consigne en fonction des possibilités
     const cocheIndique = ['coche', 'indique']
     const chaqueCe = ['chaque', 'ce']
     const affirmatifNegatif = ['servent', 'ne servent pas']
     this.consigne = 'Dans '
-    this.nbQuestions === 1 ? this.consigne += chaqueCe[1] : this.consigne += chaqueCe[0]
+    this.consigne += this.nbQuestions === 1 ? chaqueCe[1] : chaqueCe[0]
     this.consigne += ' problème, '
-    context.vue === 'diap' ? this.consigne += cocheIndique[1] : this.consigne += cocheIndique[0]
+    this.consigne += context.vue === 'diap' ? cocheIndique[1] : cocheIndique[0]
     this.consigne += ' les informations qui '
-    this.sup !== 1 ? this.consigne += affirmatifNegatif[1] : this.consigne += affirmatifNegatif[0]
+    this.consigne += this.sup !== 1 ? affirmatifNegatif[1] : affirmatifNegatif[0]
     this.consigne += ' à sa résolution.'
     // Fin de l'ébauche de la consigne en fonction des possibilités
 
@@ -201,9 +200,9 @@ export default function ExerciceInformationsProblemes () {
           quidam = prenomM()
           nb1 = randint(2, 5)
           nb2 = choice([250, 500, 600, 750])
-          nb3 = texNombre(arrondi(randint(10, 50) / 10 + randint(1, 9) / 100))
+          nb3 = stringNombre(arrondi(randint(10, 50) / 10 + randint(1, 9) / 100))
           nb4 = randint(2, 5, [nb1])
-          nb5 = texNombre(arrondi(randint(20, 40) / 10 + randint(1, 9) / 100))
+          nb5 = stringNombre(arrondi(randint(20, 40) / 10 + randint(1, 9) / 100))
           texte += `Au marché, ${quidam} achète ${nb1} barquettes de haricots verts de ${nb2}${sp(1)}g chacune à ${nb3}${sp(1)}€ pièce `
           texte += ` et ${nb4}${sp(1)}ananas coûtant ${nb5}${sp(1)}€ l'unité.<br>`
 
@@ -449,7 +448,7 @@ export default function ExerciceInformationsProblemes () {
           personnage1 = choice(FamilleH)
           quidam2 = prenomF()
           nb1 = '1 h ' + 5 * randint(1, 10) + ' min'
-          nb2 = texNombre(arrondi(randint(50, 90) / 10 + randint(1, 9) / 100))
+          nb2 = stringNombre(arrondi(randint(50, 90) / 10 + randint(1, 9) / 100))
           nb3 = randint(5, 9)
           nb4 = choice([10, 20, 50])
           nb5 = 4 * randint(12, 24)
@@ -580,7 +579,7 @@ export default function ExerciceInformationsProblemes () {
             quidam2 = 'elle'
           }
           nb = randint(13, 21)
-          nb1 = jour() + ' ' + randint(1, 29) + ' ' + nomDuMois(randint(1, 12))
+          nb1 = jour() + ' ' + randint(2, 29) + ' ' + nomDuMois(randint(1, 12))
           nb2 = nb + ' h ' + 5 * randint(2, 11) + ' min'
           nb3 = nb + 2 + ' h ' + 5 * randint(2, 11) + ' min'
           nb4 = nb + 1 + ' h ' + 5 * randint(2, 11) + ' min'
@@ -708,7 +707,7 @@ export default function ExerciceInformationsProblemes () {
           nb1 = choice([15, 18, 21])
           nb2 = randint(214, 625)
           nb3 = randint(15, 18)
-          nb4 = texNombre(arrondi(randint(2054, 3298) / 100))
+          nb4 = stringNombre(arrondi(randint(2054, 3298) / 100))
           nb5 = choice([2, 3, 4, 6, 12])
           texte += `La ${personnage1} de ${quidam2} lui a acheté un superbe vélo de ${nb1} vitesses, coûtant ${nb2} €, avec des roues de ${nb3} pouces. `
           texte += `Pour la protéger, son ${quidam} lui a offert un casque et du matériel d'éclairage valant ${nb4} €. `
@@ -834,7 +833,7 @@ export default function ExerciceInformationsProblemes () {
           nb1 = randint(0, 3)
           nb2 = ['3ème', '4ème', '5ème', '6ème'][nb1]
           nb3 = [14, 13, 12, 11][nb1]
-          nb4 = texNombre(arrondi(randint(132, 151) / 100))
+          nb4 = stringNombre(arrondi(randint(132, 151) / 100))
           nb5 = randint(21, 42)
           texte += `${quidam}, un élève de ${nb2}, de ${nb3} ans, mesure ${nb4} m. `
           texte += `${quidam2} a ${nb1 + 2} ans de plus que ${quidam} et mesure ${nb5} cm de plus.<br>`
@@ -958,7 +957,7 @@ export default function ExerciceInformationsProblemes () {
           nb1 = randint(45, 58)
           nb2 = randint(3, 5)
           nb3 = randint(7, 9) + ' h ' + 5 * randint(2, 11) + ' min'
-          nb4 = texNombre(arrondi(randint(9, 15, [10]) / 10), 1) + '0'
+          nb4 = stringNombre(arrondi(randint(9, 15, [10]) / 10), 1) + '0'
           nb5 = 5 * randint(4, 11)
           texte += `Le ${personnage1} de ${quidam}, âgé de ${nb1} ans, se rend ${nb2} fois par semaine à ${choice(['Paris', 'Toulouse', 'Bordeaux', 'Rouen'])} en train. `
           texte += `Une fois arrivé, il prend le métro à ${nb3}, après avoir acheté systèmatiquement le même journal, dans un kiosque de la gare, qui coûte ${nb4} €. Son trajet en métro dure ${nb5} minutes pour se rendre au travail.<br>`
@@ -1085,8 +1084,8 @@ export default function ExerciceInformationsProblemes () {
           nb3 = randint(7, 15)
           nb4 = randint(10, 12) + ' h ' + 5 * randint(2, 11) + ' min'
           nb5 = randint(16, 29)
-          texte += `Un livreur part de son entrepôt avec ${nb1} colis. Au premier arrêt, il depose ${nb2} colis. ${nb3} km plus loin, il livre le reste de ses colis. `
-          texte += `Ensuite, à ${nb4}, le livreur retourne à l'entrepôt, à ${nb5} km de là.<br>`
+          texte += `Un livreur part de son entrepôt avec ${nb1} colis. Au premier arrêt, le plus près, il depose ${nb2} colis. ${nb3} km plus loin, il livre le reste de ses colis. `
+          texte += `Ensuite, à ${nb4}, le livreur reprend la même route et retourne à l'entrepôt, à ${nb5} km de là.<br>`
 
           switch (choixVersion) {
             case 1:
@@ -1100,7 +1099,7 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' colis') + ', ' + texteEnCouleurEtGras(nb2 + ' colis')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4) + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb5 + ' km') + '$-$' + texteGras(nb3 + ' km ') + '.'
+                texteCorr += texteEnCouleurEtGras(nb5 + ' km') + '$-$' + texteEnCouleurEtGras(nb3 + ' km ') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -1202,15 +1201,14 @@ export default function ExerciceInformationsProblemes () {
           }
           break
         case 10:
-          personnage1 = choice(FamilleF)
-          quidam = prenomM()
-          quidam2 = prenomF()
+          quidam = choice(['du Havre', 'de Rotterdam', 'de Hambourg', 'de Marseille', 'de Lisbonne'])
+          quidam2 = choice(['Hong-Kong', 'Rio de Janeiro', 'Auckland', 'Sidney', 'Kuala Lumpur'])
           nb1 = randint(85, 153)
           nb2 = randint(67, 86)
           nb3 = randint(7, 15)
           nb4 = randint(21, 35)
           nb5 = randint(21, 35)
-          texte += `Un cargo mesurant ${nb1} m transporte ${nb2} gros conteneurs de ${nb3} tonnes chacun du Havre à Hong-Kong. `
+          texte += `Un cargo mesurant ${nb1} m transporte ${nb2} gros conteneurs de ${nb3} tonnes chacun ${quidam} à ${quidam2}. `
           texte += `Ce bateau transporte aussi ${nb4} petits conteneurs pour une masse totale de ${nb5} tonnes.<br>`
 
           switch (choixVersion) {

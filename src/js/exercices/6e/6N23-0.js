@@ -88,7 +88,7 @@ export default function EcrireNombresDecimal () {
       }
       if (formatEcriture[i]) {
         if (context.vue !== 'diap') {
-          texte = `Écris le nombre $${texNombre(nombre)}$ en lettres ${type === 2 ? 'en utilisant le mot virgule' : 'sans utiliser le mot virgule'} : '\\dotfill'`
+          texte = `Écris le nombre $${texNombre(nombre)}$ en lettres ${type === 2 ? 'en utilisant le mot virgule' : 'sans utiliser le mot virgule'} : \\dotfill`
         } else texte = `$${texNombre(nombre)}$`
         if (context.vue !== 'diap') {
           texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre, type)}.`

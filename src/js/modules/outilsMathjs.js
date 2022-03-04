@@ -257,23 +257,39 @@ function correctifNodeMathsteps (node) {
   return node
 }
 
-export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoins: true }) {
+/**
+ * Retourne le format Latex d'un node mathjs ou mathsteps ou d'une expression ascii
+ * Supprime les parenthèses inutiles, les 1 et les 0 inutiles, transforme les +- en -
+ * @param {string|Object} node // Chaine de caractères décrivant une expression mathématique, une équation, une inéquation ou bien node mathjs
+ * @param {Object} params // Paramètres
+ * @returns {string} // Format latex
+ * @example
+ * toTex('3/2+4*x') -> \dfrac{3}{2}+4x
+ * toTex('1*x+-3=6*x+0') -> x-3=6x
+ * toTex('-3/4') -> -\dfrac{3}{4}
+ * toTex('OA/OM=OB/ON',{OA: 1.2, OM: 1.5, OB: 1.7}) -> \dfrac{1{.}2}{1{.}5}=\dfrac{1{.}7}{OB}
+ */
+export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoins: true, variables: undefined }) {
   params = Object.assign({ suppr1: true, suppr0: true, supprPlusMoins: true }, params)
   // On commence par convertir l'expression en arbre au format mathjs
   let comparator
   let sides = []
-  const comparators = ['<=', '>=', '=', '<', '>']
+  const comparators = ['=', '<', '>', '<=', '>=']
   if (typeof node === 'string') {
     for (let i = 0; i < comparators.length; i++) {
       sides = node.split(comparators[i])
-      if (sides.length === 2) {
+      if (sides.length > 1) {
         comparator = comparators[i]
       }
     }
     if (comparator !== undefined) {
       sides = node.split(comparator)
     } else {
-      node = parse(node)
+      if (params.variables === undefined) {
+        node = parse(node)
+      } else {
+        node = parse(aleaExpression(node, params.variables))
+      }
     }
   } else {
     // Le format mathsteps s'il est en entrée ne permet pas a priori de modifier les implicit
@@ -285,14 +301,21 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
     node = correctifNodeMathsteps(node) // Convertit d'abord tous les ConstantNode au format mathjs
     node = parse(node.toString({ parenthesis: 'all' })) // Permet d'utiliser correctement les implicit
   }
-  if (sides.length === 2) {
+  /* if (sides.length === 2) {
     const leftSide = toTex(sides[0], params)
     const rightSide = toTex(sides[1], params)
     return leftSide + comparator + rightSide
+  } */
+  if (sides.length > 1) {
+    const members = []
+    for (let i = 0; i < sides.length; i++) {
+      members.push(toTex(sides[i], params))
+    }
+    return members.join(comparator.replaceAll('>=', '\\geqslant').replaceAll('<=', '\\leqslant'))
   }
   let nodeClone
   do { // À étudier, pour 79 et 85 et 50 cette boucle doit être maintenue
-    nodeClone = node.cloneDeep() // Vérifier que node.clone() fonctionne (peut-être y a-t-il un problème avec implicit avec cloneDeep())
+    nodeClone = node.cloneDeep() // Vérifier le fonctionnement de .clone() et .cloneDeep() (peut-être y a-t-il un problème avec implicit avec cloneDeep())
     node = node.transform(
       function (node, path, parent) {
         node = transformNode(node, parent, undefined, params)
@@ -304,7 +327,10 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
   let nodeTex = node.toTex({ implicit: 'hide', parenthesis: 'keep' }).replaceAll('\\cdot', '\\times').replaceAll('.', '{,}').replaceAll('\\frac', '\\dfrac')
 
   nodeTex = nodeTex.replace(/\s*?\+\s*?-\s*?/g, ' - ')
-
+  // Mathjs ajoute de manière non contrôlée des \mathrm pour certaines ConstantNode
+  // En attendant de comprendre on les enlève (au risque d'avoir les {} restantes)
+  nodeTex = nodeTex.replace('\\mathrm', '')
+  if (node.isConstantNode && node.value === undefined) nodeTex = ''
   return nodeTex
 }
 
@@ -331,40 +357,62 @@ export function aleaExpression (expression = '(a*x+b)*(c*x-d)', assignations = {
  * @returns {Object}
  * @see {@link https://mathjs.org/docs/expressions/syntax.html|Mathjs}
  * @see {@link https://coopmaths.fr/documentation/tutorial-Outils_Mathjs.html|Mathjs}
+ * @example
+ * aleaVariable({a: true}, {valueOf: true}) --> {a: -3} // Génère un entier non nul entre -10 et 10
+ * aleaVariable({a: true, b: true}, {valueOf: true}) --> {a: 5, b: -7}
+ * aleaVariable({a: false, b: false}, {valueOf: true}) --> {a: 4, b: 1} // false => entier entre 1 et 10
+ * aleaVariable({a: true, b: true, test: 'a>b'}, {valueOf: true}) --> {a: 3, b: 1}
+ * aleaVariable({a: true, b: true, test: 'a+b>2'}, {valueOf: true}) --> {a: 10, b: -6}
+ * aleaVariables({a: true}) --> {a: Fraction} // Fraction est un objet de mathjs
  * @author Frédéric PIOU
  */
-export function aleaVariables (variables = { a: false, b: false, c: true, d: 'fraction(a,10)+fraction(b,100)', test: 'b!=0 and b>a>c' }, params = { valueOf: false, format: false }) {
+export function aleaVariables (variables = { a: true, b: true, c: true, d: true }, params = { valueOf: false, format: false }) {
+  // Conservation de la graine aléatoire
   math.config({ randomSeed: context.graine })
+  // Placer dans cet objet chacune des variables après calcul
   const assignations = {}
+  // Un compteur pour vérifier que les contraintes ne sont pas excessives
   let cpt = 0
+  // Le test pour vérifier que les contraintes sont respectées
+  // Remarque : Il serait plus pratique de pouvoir écrire le test en plusieurs lignes
   let test = true
-  do {
+  do { // Une boucle tant que les contraintes ne sont pas vérifiées et tant qu'on ne dépasse pas 1000 essais.
     cpt++
-    for (const v of Object.keys(variables)) {
-      if (typeof variables[v] === 'boolean') {
-        assignations[v] = math.fraction(math.evaluate('(pickRandom([-1,1]))^(n)*randomInt(1,10)', { n: variables[v] }))
-      } else if (typeof variables[v] === 'number') {
-        try {
+    for (const v of Object.keys(variables)) { // On parcourt chaque variable
+      switch (typeof variables[v]) {
+        case 'object':
+          break
+        case 'boolean': // On génère un nombre aléatoire non nul entre 1 et 10 si false et entre -10 et 10 si true
+          assignations[v] = math.fraction( // On contraint le résultat à être une fraction
+            math.evaluate(
+              '(pickRandom([-1,1]))^(n)*randomInt(1,10)',
+              { n: variables[v] }
+            )
+          )
+          break
+        case 'number': // On ne fait que le convertir en fraction
           assignations[v] = math.fraction(variables[v])
-        } catch {
-          assignations[v] = variables[v]
-        }
-      } else if (v !== 'test') {
-        try { // On tente les calculs exacts avec mathjs
-          assignations[v] = emath.evaluate(variables[v], assignations)
-        } catch { // Sinon on cherche à la transformer en fraction après coup
-          try {
-            assignations[v] = math.fraction(math.evaluate(variables[v], assignations))
-          } catch { // Sinon on fait sans mais on revient à des nombres de type 'number'
-            const values = Object.assign({}, assignations)
-            for (const v of Object.keys(values)) {
-              values[v] = values[v].valueOf()
+          break
+        case 'string':
+          // Parser l'expression
+          // Parcourir le noeud et repérer les points sensibles (division, décimaux)
+          try { // On tente les calculs exacts avec mathjs
+            assignations[v] = emath.evaluate(variables[v], assignations)
+          } catch { // Sinon on cherche à la transformer en fraction après coup
+            try {
+              assignations[v] = math.fraction(math.evaluate(variables[v], assignations))
+            } catch { // Sinon on fait sans mais on revient à des nombres de type 'number'
+              const values = Object.assign({}, assignations)
+              for (const v of Object.keys(values)) {
+                values[v] = values[v].valueOf()
+              }
+              assignations[v] = math.evaluate(variables[v], values)
             }
-            assignations[v] = math.evaluate(variables[v], values)
           }
-        }
+          break
       }
     }
+    // On teste maintenant si les contraintes sont vérifiées
     if (variables.test !== undefined) test = math.evaluate(variables.test, assignations)
   } while (!test && cpt < 1000)
   if (cpt === 1000) window.notify('Attention ! 1000 essais dépassés.\n Trop de contraintes.\n Le résultat ne vérifiera pas le test.')
@@ -765,6 +813,15 @@ export function commentStep (step, comments) {
 }
 
 /**
+ * Check if x is a decimal number
+ * @param {Object} x // Object type = Fraction (mathjs)
+ * @returns
+ */
+function isDecimal (x) {
+  return x.d !== 1 && !obtenirListeFacteursPremiers(x.d).some(x => x !== 2 && x !== 5)
+}
+
+/**
 * @description Retourne toutes les étapes de résolution d'une équation ou d'une inéquation
 * @param {Objet} params // Les paramètres (commentaires visibles)
 * @param {string} equation // Une équation ou une inéquation
@@ -777,13 +834,14 @@ export function resoudre (equation, params) {
       'decimal' : decimal lorsque c'est possible, sinon fraction
       'fraction' : fraction (ou entier lorsque c'est possible)
   */
-  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true, formatSolution: 2 }, params)
+  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true, formatSolution: 2, substeps: false }, params)
   // Un bug de mathsteps ne permet pas de résoudre 2/x=2 d'où la ligne suivante qui permettait de le contourner
   // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
   // A priori le traitement actuel n'occure plus ce bug (raison ?).
   if (params.variables !== undefined) equation = aleaEquation(equation, params.variables)
   let printEquation
-  const steps = solveEquation(equation)
+  const steps = params.substeps ? traverserEtapes(solveEquation(equation)) : solveEquation(equation)
+  // const steps = solveEquation(equation)
   const stepsNewEquation = []
   let repetition = 0
   steps.forEach(function (step, i) {
@@ -799,10 +857,12 @@ export function resoudre (equation, params) {
     let newLeftNode = toTex(step.newEquation.leftNode, params)
     const oldRightNode = step.oldEquation !== null ? toTex(step.oldEquation.rightNode, params) : ''
     let newRightNode = toTex(step.newEquation.rightNode, params)
+    const newEquationComparator = toTex(step.newEquation.comparator)
     if (i === 0) {
-      printEquation = `${oldLeftNode}${step.newEquation.comparator}${oldRightNode}`
+      // printEquation = `${oldLeftNode}${step.newEquation.comparator}${oldRightNode}`
+      printEquation = `${toTex(step.oldEquation.ascii())}`
       stepsNewEquation.push(
-        String.raw`${oldLeftNode}&${step.oldEquation.comparator}${oldRightNode}`)
+        String.raw`${oldLeftNode}&${toTex(step.oldEquation.comparator)}${oldRightNode}`)
     }
     if (params.color !== 'black') {
       const color = repetition === 2 ? 'black' : params.color
@@ -813,9 +873,9 @@ export function resoudre (equation, params) {
     if (repetition === 2) {
       repetition = 0
       stepsNewEquation.pop()
-      stepsNewEquation.push(`${newLeftNode}&${step.newEquation.comparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
+      stepsNewEquation.push(`${newLeftNode}&${newEquationComparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
     } else {
-      stepsNewEquation.push(`${newLeftNode}&${step.newEquation.comparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
+      stepsNewEquation.push(`${newLeftNode}&${newEquationComparator}${newRightNode}${params.comment ? `&&${comment}` : ''}`)
     }
   })
 
@@ -827,11 +887,11 @@ export function resoudre (equation, params) {
       answer = emath.evaluate(answer.eval())
 
       // On regarde si le résultat a un nombre fini de chiffres après la virgule et n'est pas un entier
-      if (answer.d !== 1 && !obtenirListeFacteursPremiers(answer.d).some(x => x !== 2 && x !== 5)) {
+      if (isDecimal(answer)) {
         answer = round(answer.valueOf(), 15) // convertit la fraction en nombre décimal en évitant les problèmes de float
         if (params.formatSolution === 'decimal' || (typeof params.formatSolution === 'number' && answer.toString().split('.')[1].length <= params.formatSolution)) {
           // On rajoute une étape de conversion de la fraction en nombre décimal
-          stepsNewEquation.push(`${toTex(lastEquation.leftNode, params)}&${lastEquation.comparator}${texNombre2(answer)}`)
+          stepsNewEquation.push(`${toTex(lastEquation.leftNode, params)}&${toTex(lastEquation.comparator)}${texNombre2(answer)}`)
         }
       }
     } catch (e) {}
@@ -846,12 +906,12 @@ export function resoudre (equation, params) {
     print: toTex(steps[steps.length - 1].newEquation.ascii())
   }
   let calculateLeftSide, calculateRightSide
-  if (equation.indexOf('=') !== -1) {
-    const sides = equation.split('=')
-    const SymbolNode = parse(steps[steps.length - 1].newEquation.ascii().split('=')[0]).toString()
-    const solution = steps[steps.length - 1].newEquation.ascii().split('=')[1]
-    calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${solution})`))
-    calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${solution})`))
+  if (steps[steps.length - 1].newEquation.leftNode.isSymbolNode) {
+    const sides = equation.split(steps[0].oldEquation.comparator)
+    const SymbolNode = steps[steps.length - 1].newEquation.leftNode.toString()
+    const thesolution = steps[steps.length - 1].newEquation.rightNode.toString()
+    calculateLeftSide = calculer(sides[0].replaceAll(SymbolNode, `(${thesolution})`))
+    calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${thesolution})`))
   }
   return {
     solution: solution,
@@ -1226,4 +1286,37 @@ export function calculExpression2 (expression = '4/3+5/6', factoriser = false, d
   `
   if (debug) texte = texteCorr
   return { texte: texte, texteCorr: texteCorr }
+}
+
+/**
+ * Retourne des noms de points (ou des objets) dans un ordre aléatoire.
+ * @param {string|Array} names // Liste des lettres sous format string ou array
+ * @param {number} n // Nombre de lettres à retourner
+ * @param {string|Array} result // S'il n'y a qu'un seul nom en sortie c'est un string sinon c'est un array
+ * @remarque // Les lettres Q,W,X,Y,Z ont été exclues par défaut
+ * @example
+ * aleaName() --> 'F'
+ * aleaName(3) --> ['G', 'J', 'K']
+ * aleaName('ABC') --> ['B','A','C']
+ * aleaName(['chat','chien','poisson']) --> ['chien','poisson','chat']
+ * aleaName(['chat','chien','poisson'],2) --> ['poisson','chat']
+ * aleaName([Objet1,Objet2,Objet3]) --> [Objet2,Objet1,Objet3] où Objet peut être un Object, un Array etc.
+ * @returns {Array}
+ */
+export function aleaName (names = [], n = names.length, result = []) {
+  if (typeof names === 'string') {
+    names = names.split('')
+  } else if (typeof names === 'number') {
+    n = 0 + names
+    names = 'ABCDEFGHIJKLMNOPRSTUV'.split('')
+  } else if (Array.isArray(names) && names.length === 0) {
+    n = 1
+    names = 'ABCDEFGHIJKLMNOPRSTUV'.split('')
+  }
+  result.push(names.splice(Math.floor(Math.random() * names.length), 1)[0])
+  if (result.length === n) {
+    return result
+  } else {
+    return aleaName(names, n, result)
+  }
 }

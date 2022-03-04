@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, lettreDepuisChiffre, htmlConsigne, texNombre, egal, shuffle } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, lettreDepuisChiffre, htmlConsigne, texNombre, egal, shuffle, stringNombre } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
@@ -90,7 +90,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
         labelsPrincipaux: false,
         thickSec: true,
         step1: 10,
-        labelListe: [[0, `${texNombre(abs0)}`], [1, `${texNombre(calcul(abs0 + pas1))}`]]
+        labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + pas1))}`]]
       })
       d[2 * i + 1] = droiteGraduee2({
         Unite: 4,
@@ -100,7 +100,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
         pointTaille: 5,
         pointStyle: 'x',
         labelsPrincipaux: false,
-        labelListe: [[0, `${texNombre(abs0)}`], [1, `${texNombre(calcul(abs0 + pas1))}`]],
+        labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + pas1))}`]],
         thickSec: true,
         step1: 10
       })

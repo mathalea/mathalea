@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, creerNomDePolygone, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, polygoneRegulier, codageAngleDroit, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Nom de l\'exercice'
 
@@ -29,8 +29,6 @@ export default function NomExercice () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-
-    this.sup = contraindreValeur(1, 2, this.sup, 2) // Lorsqu'il est récupéré de l'url, le paramètre peut être n'importe quoi, alors on le contraint ici à être entre 1 et 2 et a 2 comme valeur par défaut
 
     const typesDeQuestionsDisponibles = [1] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)

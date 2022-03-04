@@ -6,12 +6,11 @@ export const titre = 'Comparaison d\'images dans un tableau de variations'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-
 /**
  * Description didactique de l'exercice
- * @author
- * Référence
-*/
+ * @author Stéphane Guyon
+ * Référence 2F31-3
+ */
 export default function Variationsapartirtableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'On donne ci-dessous, le tableau de variations d\'une fonction $f$.'
@@ -19,6 +18,7 @@ export default function Variationsapartirtableau () {
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.video = '' // Id YouTube ou url
+  this.listePackages = ['tkz-tab']
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions

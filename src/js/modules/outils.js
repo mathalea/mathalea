@@ -1723,14 +1723,12 @@ export function xcas (expression) {
 * Le 2e argument facultatif permet de préciser l'arrondi souhaité
 * @author Rémi Angot
 */
-export function calcul (expression, arrondir = false) {
+export function calcul (x, arrondir = 13) {
   if (typeof expression === 'string') {
-    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { expression })
-  }
-  if (!arrondir) {
-    return parseFloat(Algebrite.eval('float(' + expression + ')'))
+    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
+    return parseFloat(evaluate(x).toFixed(arrondir === false ? 13 : arrondir))
   } else {
-    return arrondi(parseFloat(Algebrite.eval('float(' + expression + ')')), arrondir)
+    return parseFloat(x.toFixed(arrondir))
   }
 }
 
@@ -1750,11 +1748,12 @@ export function nombreDecimal (expression, arrondir = false) {
 /**
 * Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux et retourne un string avec la virgule comme séparateur décimal
 * @author Rémi Angot
+* texNombrec n'apportant rien, je la shinte.
 */
 
-export function texNombrec (expression) {
+export function texNombrec (expression, precision) {
   // return texNombre(parseFloat(Algebrite.eval(expression)))
-  return texNombre(arrondi(expression, 6))
+  return texNombre(expression, precision)
 }
 
 /**
@@ -1988,9 +1987,9 @@ export function minToHoraire (minutes) {
   }
   const nbminuteRestante = (minutes % 60)
   if (nbminuteRestante > 9) {
-    return (nbHour + ' h ' + nbminuteRestante)
+    return (nbHour + sp() + 'h' + sp() + nbminuteRestante)
   } else {
-    return (nbHour + ' h 0' + nbminuteRestante)
+    return (nbHour + sp() + ' h' + sp() + '0' + nbminuteRestante)
   }
 }
 
@@ -2006,14 +2005,26 @@ export function minToHour (minutes) {
   }
   const nbminuteRestante = (minutes % 60)
   if (nbHour === 0) {
-    return (nbminuteRestante + ' min')
+    return (nbminuteRestante + sp() + 'min')
   } else {
     if (nbminuteRestante > 9) {
-      return (nbHour + ' h ' + nbminuteRestante)
+      return (nbHour + sp() + 'h' + sp() + nbminuteRestante)
     } else {
-      return (nbHour + ' h 0' + nbminuteRestante)
+      return (nbHour + sp() + ' h' + sp() + '0' + nbminuteRestante)
     }
   }
+}
+
+/**
+ * Renvoie un tableau de deux valeurs : le nombre d'heures dans un paquet de minutes ainsi que le nombre de minutes restantes.
+* @author Eric Elter
+* @example minToHeuresMinutes (127) renvoie [2,7] car 127min = 2h7min
+* @example minToHeuresMinutes (300) renvoie [5,0] car 300min = 6h
+* @example minToHeuresMinutes (1456) renvoie [24,16] car 1456min = 24h16min
+*
+*/
+export function minToHeuresMinutes (minutes) {
+  return [parseInt(minutes / 60), (minutes % 60)]
 }
 
 /**
@@ -2210,9 +2221,12 @@ export function listeDeNotes (nombreNotes, noteMin = 0, noteMax = 20, distincts 
 * @param n quantième du mois (janvier=1...)
 * @author Jean-Claude Lhote
 */
-export function joursParMois (n) {
+export function joursParMois (n, annee = 2022) {
   const joursMois = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-  return joursMois[n - 1]
+  if (n === 2) {
+    if (((annee % 4 === 0) && (annee % 100 !== 0)) || (annee % 400 === 0)) return 29 // années bissextiles.
+    else return 28
+  } else return joursMois[n - 1]
 }
 /**
 * Renvoie un tableau de températures
@@ -2499,21 +2513,22 @@ export function numberFormat (nb) {
 * Renvoie un nombre dans le format français (séparateur de classes)
 * @author Rémi Angot
 */
-export function texNombre (nb) {
-  // Ecrit \numprint{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces en latex)
+export function texNombre (nb, precision = 8) {
   // Ajoute des accolades autour de la virgule {,} pour supprimer l'espace "disgracieux" qui le suit dans l'écriture décimale des nombres sinon.
-  if (context.isHtml) {
-    // return Intl.NumberFormat("fr-FR",{maximumFractionDigits:20}).format(nb).toString().replace(/\s+/g,'\\thickspace ').replace(',','{,}');
-    return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ')
-  } else {
-    let result
-    if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
-      result = '\\numprint{' + nb.toString().replace('.', ',') + '}'
-    } else {
-      result = nb.toString().replace('.', '{,}')
-    }
-    return result
+  // arrondit pour avoir precision chiffres après la virgule si possible
+  const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
+  if (precision === undefined) {
+    precision = 12 - nbChiffresPartieEntiere
   }
+  const maximumSignificantDigits = nbChiffresPartieEntiere + precision
+  let result
+  try {
+    result = Number(nb).toLocaleString('fr-FR', { maximumSignificantDigits }).replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+  } catch (error) {
+    console.log(error)
+    result = 'Trop de chiffres'
+  }
+  return result
 }
 
 /**
@@ -2548,8 +2563,8 @@ export function texNombre2 (nb) {
   }
   return nombre
 }
-export function texNombrec2 (expr, precision = 8) {
-  return math.format(math.evaluate(expr), { notation: 'auto', lowerExp: -12, upperExp: 12, precision: precision }).replace('.', ',')
+export function texNombrec2 (expr, precision = 12) {
+  return texNombre(expr, precision)
 }
 export function nombrec2 (nb) {
   return math.evaluate(nb)
@@ -2700,20 +2715,7 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
 */
 export function stringNombre (nb) {
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
-  const nombre = nb.toString()
-  const partieEntiere = nombre.split('.')[0]
-  const partieDecimale = nombre.split('.')[1]
-  let result = ''
-  let i
-  if (partieEntiere.length > 3) {
-    for (i = 0; i < Math.floor(partieEntiere.length / 3); i++) {
-      result = ' ' + partieEntiere.slice(partieEntiere.length - i * 3 - 3, partieEntiere.length - i * 3) + result
-    }
-    result = partieEntiere.slice(0, partieEntiere.length - i * 3) + result
-  } else result = partieEntiere
-  if (result[0] === ' ') result = result.substring(1, result.length)
-  if (partieDecimale !== undefined) result += ',' + partieDecimale
-  return result
+  return Intl.NumberFormat('fr-Fr', { maximumSignificantDigits: 15 }).format(nb)
 }
 /**
 * Centre un texte
@@ -2768,7 +2770,7 @@ export function texteEnCouleur (texte, couleur = '#f15929') {
 }
 
 /**
-* Met en couleur et gras un texte. JCL dit : "Ne fonctionne qu'en dehors de $....$"
+* Met en couleur et gras un texte. JCL dit : "Ne fonctionne qu'en dehors de $....$". Utiliser miseEnEvidence si $....$.
 * @param {string} texte à mettre en couleur
 * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
 * @author Rémi Angot
@@ -3548,7 +3550,6 @@ export function puissanceEnProduit (b, e) {
  * range(decimalToScientifique,[-2315])
  *
  * @author Eric Elter
- * exemple...
  */
 export function decimalToScientifique (nbDecimal) {
   let kk = 0
@@ -6902,7 +6903,10 @@ export function preambulePersonnalise (listePackages) {
       case 'tkz-euclide':
         result += '\\usepackage{tkz-euclide}'
         break
+      case 'bac':
+      case 'crpe':
       case 'dnb':
+      case 'e3c':
         // result += `
         // \\usepackage{fourier}
         // \\usepackage[scaled=0.875]{helvet}
@@ -6969,6 +6973,7 @@ export function preambulePersonnalise (listePackages) {
         \\usepackage{pst-eucl}  % permet de faire des dessins de géométrie simplement
         \\usepackage{pst-text}
         \\usepackage{pst-node,pst-all}
+        \\usepackage{pst-func,pst-math,pst-bspline,pst-3dplot}  %%% POUR LE BAC %%%
         
         %%%%%%% TIKZ %%%%%%%
         \\usepackage{tkz-tab,tkz-fct}
@@ -6989,6 +6994,10 @@ export function preambulePersonnalise (listePackages) {
         
         
         %%%%% COMMANDES SPRECIFIQUES %%%%%
+        \\usepackage{esvect} %%% POUR LE BAC %%%
+        \\newcommand{\\vvt}[1]{\\vv{\\text{#1}}} %%% POUR LE BAC %%%
+        \\newcommand{\\vectt}[1]{\\overrightarrow{\\,\\mathstrut\\text{#1}\\,}} %%% POUR LE BAC %%%
+
         \\newcommand{\\textding}[1]{\\text{\\ding{#1}}}
         %\\newcommand{\\euro}{\\eurologo{}}
         \\renewcommand{\\pstEllipse}[5][]{% arc d'ellipse pour le sujet de Polynésie septembre 2013
@@ -7010,6 +7019,9 @@ export function preambulePersonnalise (listePackages) {
         \\def\\Oijk{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath},~\\vect{k}\\right)$}
         \\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}
         
+        \\newcommand{\\e}{\\mathrm{\\,e\\,}} %%% POUR LE BAC %%% le e de l'exponentielle
+        \\newcommand{\\ds}{\\displaystyle} %%% POUR LE BAC %%%
+
         %%%%% PROBABILITÉS %%%%%
         % Structure servant à avoir l'événement et la probabilité.
         \\def\\getEvene#1/#2\\endget{$#1$}
@@ -7114,12 +7126,19 @@ export function preambulePersonnalise (listePackages) {
         \\endgroup
         }
         
+        % pour les corrections LG Ceci est commenté pour le préambule de mathalea car un environnement remarque existe déjà
+        %\\newcommand{\\remarque}[1]{
+        %\\begin{bclogo}[logo=\\bctrombone,couleur=gray!5,ombre,epBord=0.8]{Remarque:}%
+        %    {#1}
+        %\\end{bclogo}}
+
         %%%%% VÉRIFIER L'UTILITÉ %%%%%
         %\\renewcommand{\\theenumi}{\\textbf{\\arabic{enumi}}}
         %\\renewcommand{\\labelenumi}{\\textbf{\\theenumi.}}
         %\\renewcommand{\\theenumii}{\\textbf{\\alph{enumii}}}
         %\\renewcommand{\\labelenumii}{\\textbf{\\theenumii.}}
         
+
         
         %Tapuscrit : Denis Vergès
         
@@ -7715,7 +7734,8 @@ export function exportQcmAmc (exercice, idExo) {
         }
         texQr += `\\notation{${autoCorrection[j].propositions[0].statut}}\n`
         texQr += '\\end{question}\n\\end{minipage}\n'
-        reponse = valeurAMCNum
+        texQr += '\\begin{minipage}[b]{0.05 \\linewidth}\\hspace{6pt}\\end{minipage}'
+        reponse = autoCorrection[j].reponse.valeur[0]
         if (autoCorrection[j].reponse.param.digits === 0) {
           nbChiffresPd = nombreDeChiffresDansLaPartieDecimale(reponse)
           autoCorrection[j].reponse.param.decimals = nbChiffresPd
@@ -7729,7 +7749,7 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
         texQr += `\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}b} \n `
         texQr += `${autoCorrection[j].reponse.texte}\n` // pour pouvoir mettre du texte adapté par ex Dénominateur éventuellement de façon conditionnelle avec une valeur par défaut
-        texQr += `\\AMCnumericChoices{${valeurAMCNum}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
+        texQr += `\\AMCnumericChoices{${reponse}}{digits=${autoCorrection[j].reponse.param.digits},decimals=${autoCorrection[j].reponse.param.decimals},sign=${autoCorrection[j].reponse.param.signe},`
         if (autoCorrection[j].reponse.param.exposantNbChiffres !== 0) { // besoin d'un champ pour la puissance de 10. (notation scientifique)
           texQr += `exponent=${autoCorrection[j].reponse.param.exposantNbChiffres},exposign=${autoCorrection[j].reponse.param.exposantSigne},`
         }
@@ -7918,7 +7938,7 @@ export function exportQcmAmc (exercice, idExo) {
             texQr += 'pt}\\begin{multicols}{2}\n'
           }
         }
-        // console.log(texQr)
+
         for (let qr = 0, qrType, prop, propositions, rep; qr < autoCorrection[j].propositions.length; qr++) { // Début de la boucle pour traiter toutes les questions-reponses de l'élément j
           prop = autoCorrection[j].propositions[qr] // prop est un objet avec cette structure : {type,propositions,reponse}
           qrType = prop.type
@@ -8096,7 +8116,7 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 texQr += '\\end{questionmultx}\n'
                 id += 2
-              } else {
+              } else { // Ni puissances, ni fractions
                 let nbChiffresExpo
                 if (rep.param.exposantNbChiffres !== undefined && rep.param.exposantNbChiffres !== 0) {
                   nbChiffresPd = Math.max(nombreDeChiffresDansLaPartieDecimale(decimalToScientifique(rep.valeur[0])[0]), rep.param.decimals)

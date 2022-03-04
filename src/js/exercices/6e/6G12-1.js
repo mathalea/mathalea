@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombre, texteEnCouleur, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombre, texteEnCouleur, numAlpha, stringNombre } from '../../modules/outils.js'
 import { point, tracePoint, pointSurDroite, pointIntersectionDD, labelPoint, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, segment, rotation, codageAngleDroit, afficheCoteSegment, grille, seyes, longueur, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const amcReady = true
@@ -142,7 +142,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
               labelPoint(A, B, C, D, E, CC, DD),
               afficheCoteSegment(
                 segment(A, CC),
-              `${texNombre(lC)} cm`,
+              `${stringNombre(lC)} cm`,
               0.5,
               'red',
               1,
@@ -151,7 +151,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
               ),
               afficheCoteSegment(
                 segment(A, DD),
-              `${texNombre(lD)} cm`,
+              `${stringNombre(lD)} cm`,
               -0.5,
               'red',
               1,
@@ -230,7 +230,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           lD = arrondi(longueur(DD, A) * k, 1)
           lE = arrondi(longueur(EE, A) * k, 1)
           if (this.sup2) {
-            objetsCorrection.push(dC, dD, dE, d, p, tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F, CC, DD, EE), afficheCoteSegment(segment(A, CC), `${texNombre(lC)} cm`, 0.2, 'red', 1, 0.5, 'red'), afficheCoteSegment(segment(DD, A), `${texNombre(lD)} cm`, -0.2, 'green', 1, -0.5, 'green'), afficheCoteSegment(segment(A, EE), `${texNombre(lE)} cm`, -0.2, 'blue', 1, -0.5, 'blue'))
+            objetsCorrection.push(dC, dD, dE, d, p, tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F, CC, DD, EE), afficheCoteSegment(segment(A, CC), `${stringNombre(lC)} cm`, 0.2, 'red', 1, 0.5, 'red'), afficheCoteSegment(segment(DD, A), `${stringNombre(lD)} cm`, -0.2, 'green', 1, -0.5, 'green'), afficheCoteSegment(segment(A, EE), `${stringNombre(lE)} cm`, -0.2, 'blue', 1, -0.5, 'blue'))
           } else {
             objetsCorrection.push(dC, dD, dE, d, p, tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F, CC, DD, EE))
           }
@@ -300,7 +300,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           if (this.sup2) {
             objetsCorrection.push(dC, dD, dB, dE, cB, cC, cD, cE, cF, cG, d, tracePoint(A, B, C, D, E, CC, DD, EE), labelPoint(A, B, C, D, E, CC, DD, EE), afficheCoteSegment(
               segment(A, CC),
-          `${texNombre(lC)} cm`,
+          `${stringNombre(lC)} cm`,
           0.5,
           'red',
           1,
@@ -309,7 +309,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
             ),
             afficheCoteSegment(
               segment(A, DD),
-            `${texNombre(lD)} cm`,
+            `${stringNombre(lD)} cm`,
             0,
             'blue',
             1,
@@ -318,7 +318,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
             ),
             afficheCoteSegment(
               segment(A, EE),
-            `${texNombre(lE)} cm`,
+            `${stringNombre(lE)} cm`,
             0,
             'green',
             1,
