@@ -39,7 +39,7 @@ export default function representerfonctionaffine () {
         a = randint(0, 3) * choice([-1, 1])// coefficient a de la fonction affine
         b = randint(0, 3, [0]) * choice([-1, 1])// ordonnée à l'origine b non nulle de la fonction affine
 
-        if (a === 0 && b === 0) { // On évite la fonction nulle
+        if (a === 0) { // On évite les droites horizontales
           a = 1
         }
         c = droite(a, -1, b)
@@ -91,10 +91,7 @@ export default function representerfonctionaffine () {
         a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
         b = randint(-5, 5, [0]) // ordonnée à l'origine non nulle
         d = randint(2, 5, [a, 2 * a, -a, -2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
-        if (a === 0 && b === 0) {
-          a = 1
-          d = 3
-        }// On évite la situation de double nullité
+
         xA = d // Abscisse de A
         yA = a / d * xA + b// Ordonnée de A
 
