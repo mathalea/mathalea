@@ -2498,62 +2498,31 @@ export function numberFormat (nb) {
 }
 
 /**
-* Renvoie un nombre dans le format français (séparateur de classes)
-* @author Rémi Angot
-*/
+ * La chaîne de caractères en sortie doit être interprétée par KateX et doit donc être placée entre des $ $
+ * Renvoie "Trop de chiffres" s'il y a plus de 15 chiffres significatifs (et donc un risque d'erreur d'approximation)
+ * Sinon, renvoie un nombre dans le format français (avec une virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
+ * @param {number} nb nombre à afficher
+ * @param {number} precision nombre de décimales demandé
+ * @returns string avec le nombre dans le format français à mettre entre des $ $
+ */
 export function texNombre (nb, precision = 8) {
-  // Ajoute des accolades autour de la virgule {,} pour supprimer l'espace "disgracieux" qui le suit dans l'écriture décimale des nombres sinon.
-  // arrondit pour avoir precision chiffres après la virgule si possible
-  const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
-  if (precision === undefined) {
-    precision = 12 - nbChiffresPartieEntiere
+  const result = stringNombre(nb, precision, false)
+  if (result === 'Trop de chiffres') {
+    window.notify('texNombre : Trop de chiffres', { nb, precision })
+    return result
+  } else {
+    return result.replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
   }
-  const maximumSignificantDigits = nbChiffresPartieEntiere + precision
-  let result
-  try {
-    result = Number(nb).toLocaleString({ locales: 'fr-FR', maximumSignificantDigits }).replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
-  } catch (error) {
-    console.log(error)
-    result = 'Trop de chiffres'
-  }
-  return result
 }
 
-/**
-* Renvoie un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
-* @author Rémi Angot
-*/
 export function texNombre2 (nb) {
-  let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
-  const rangVirgule = nombre.indexOf(',')
-  let partieEntiere = ''
-  if (rangVirgule !== -1) {
-    partieEntiere = nombre.substring(0, rangVirgule)
-  } else {
-    partieEntiere = nombre
-  }
-  let partieDecimale = ''
-  if (rangVirgule !== -1) {
-    partieDecimale = nombre.substring(rangVirgule + 1)
-  }
-
-  for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    partieEntiere = partieEntiere.substring(0, i) + '\\thickspace ' + partieEntiere.substring(i)
-  }
-  for (let i = 3; i < partieDecimale.length; i += 3) {
-    partieDecimale = partieDecimale.substring(0, i) + '\\thickspace ' + partieDecimale.substring(i)
-    i += 12
-  }
-  if (partieDecimale === '') {
-    nombre = partieEntiere
-  } else {
-    nombre = partieEntiere + ',' + partieDecimale
-  }
-  return nombre
+  return texNombre(nb, 12)
 }
+
 export function texNombrec2 (expr, precision = 12) {
   return texNombre(expr, precision)
 }
+
 export function nombrec2 (nb) {
   return math.evaluate(nb)
 }
@@ -2698,13 +2667,71 @@ export const insereEspaceDansNombre = nb => {
 export const insertCharInString = (string, index, char) => string.substring(0, index) + char + string.substring(index, string.length)
 
 /**
-* Renvoie un nombre dans le format français (séparateur de classes) version sans Katex (pour les SVG)
-* @author Jean-Claude Lhote
-*/
-export function stringNombre (nb) {
-  // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
-  return Intl.NumberFormat('fr-Fr', { maximumSignificantDigits: 15 }).format(nb)
+ * Destinée à être utilisée hors des $ $
+ * Renvoie "Trop de chiffres" s'il y a plus de 15 chiffres significatifs (et donc qu'il y a un risque d'erreur d'approximation)
+ * Sinon, renvoie le nombre à afficher dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
+ * @author Jean-Claude Lhote
+ * @author Guillaume Valmont
+ * @param {number} nb nombre à afficher
+ * @param {number} precision nombre de décimales demandé
+ * @param {boolean} notifier true pour envoyer un message à bugsnag pour prévenir qu'il y a trop de chiffres
+ * @returns string avec le nombre dans le format français à placer hors des $ $
+ */
+export function stringNombre (nb, precision = 8, notifier = true) {
+  const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
+  if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
+    precision = 15 - nbChiffresPartieEntiere
+  } else if (precision < 0) {
+    precision = 0
+  }
+  const maximumSignificantDigits = nbChiffresPartieEntiere + precision
+  let result
+  if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
+    result = 'Trop de chiffres'
+  } else {
+    result = insereEspacesNombre(nb, maximumSignificantDigits)
+  }
+  if (notifier === true && result === 'Trop de chiffres') window.notify('stringNombre : Trop de chiffres', { nb, precision })
+  return result
 }
+
+/**
+ * Fonction auxiliaire de stringNombre pour une meilleure lisibilité
+ * Elle renvoie un nombre dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
+ * @author Rémi Angot
+ * @author Guillaume Valmont
+ * @param {number} nb nombre à afficher
+ * @param {number} precision nombre de décimales demandé
+ * @returns string avec le nombre dans le format français
+ */
+export function insereEspacesNombre (nb, precision = 8) {
+  let nombre = math.format(nb, { notation: 'auto', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
+  const rangVirgule = nombre.indexOf(',')
+  let partieEntiere = ''
+  if (rangVirgule !== -1) {
+    partieEntiere = nombre.substring(0, rangVirgule)
+  } else {
+    partieEntiere = nombre
+  }
+  let partieDecimale = ''
+  if (rangVirgule !== -1) {
+    partieDecimale = nombre.substring(rangVirgule + 1)
+  }
+
+  for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
+    partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
+  }
+  for (let i = 3; i < partieDecimale.length; i += 4) { // des paquets de 3 nombres + 1 espace
+    partieDecimale = partieDecimale.substring(0, i) + ' ' + partieDecimale.substring(i)
+  }
+  if (partieDecimale === '') {
+    nombre = partieEntiere
+  } else {
+    nombre = partieEntiere + ',' + partieDecimale
+  }
+  return nombre
+}
+
 /**
 * Centre un texte
 *
