@@ -35,7 +35,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen1_3.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen1_3_cor.tex',
-    tags: ['Dérivée', 'Second degré', 'Polynômes']
+    tags: ['Dérivation', 'Second degré', 'Polynômes']
   },
   e3c_2021_01_specimen1_4: {
     annee: '2021',
@@ -47,7 +47,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen1_4.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen1_4_cor.tex',
-    tags: ['Géométrie reperée']
+    tags: ['Géométrie repérée']
   },
 
   e3c_2021_01_specimen2_1: {
@@ -168,7 +168,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: '/e3c/2021/tex/e3c_2021_01_specimen4_2.tex',
     urlcor: '/e3c/2021/tex/e3c_2021_01_specimen4_2_cor.tex',
-    tags: ['Fonctions' , 'Exponentielle' , 'Dérivation']
+    tags: ['Polynômes' , 'Exponentielle' , 'Dérivation']
   },
   e3c_2021_01_specimen4_3: {
     annee: '2021',
