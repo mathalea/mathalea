@@ -3,6 +3,9 @@ import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone, texNombre
 import { point, pointSurSegment, pointIntersectionDD, droite, segment, rotation, longueur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
+// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
+export const dateDePublication = '04/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+
 export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angles (angles aigus et/ou obtus)'
 
 /**
