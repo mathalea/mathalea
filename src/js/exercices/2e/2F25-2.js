@@ -1,13 +1,13 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, reduireAxPlusB, ecritureParentheseSiNegatif, ecritureAlgebrique, ecritureAlgebriqueSauf1, fractionSimplifiee } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { propositionsQcm } from '../../modules/gestionInteractif.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
-// ex..port const interactifReady = true
-// ex..port const interactifType = 'qcm'
-export const titre = 'Étudier la parité d\'une fonction'
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const titre = "Étudier la parité d'une fonction"
 
 /**
  * Reconnaître parité fonction
