@@ -25,9 +25,9 @@ export default function MilieuEntre1EtFraction () {
     const C = point(8, 0)
     const objets = []
     objets.push(segmentAvecExtremites(A, B), segmentAvecExtremites(B, C), labelPoint(B), codeSegments('||', 'blue', A, B, B, C))
-    objets.push(texteParPosition(`${texNum(a)}`, 0, -0.6, 'milieu', 'black', 1, 'middle', true)
+    objets.push(texteParPosition(`$${texNum(a)}$`, 0, -0.6, 'milieu', 'black', 1, 'middle', true)
     )
-    objets.push(texteParPosition(`${texNum(b)}`, 8, -0.6, 'milieu', 'black', 1, 'middle', true)
+    objets.push(texteParPosition(`$${texNum(b)}$`, 8, -0.6, 'milieu', 'black', 1, 'middle', true)
     )
     this.question = 'Donner l\'abscisse du point $M$ sous forme décimale.<br>'
     this.question += mathalea2d({

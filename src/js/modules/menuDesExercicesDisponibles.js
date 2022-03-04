@@ -698,37 +698,37 @@ export function menuDesExercicesDisponibles () {
       lignes_tableau: ''
     },
     DNB: {
-      label: 'Exercices de brevet (classés par année)',
+      label: 'Exercices de brevet corrigés par l\'APMEP (classés par année)',
       nombre_exercices_dispo: 0,
       liste_html_des_exercices: getListeHtmlDesExercicesDNB(),
       lignes_tableau: ''
     },
     DNBtheme: {
-      label: 'Exercices de brevet (classés par thème)',
+      label: 'Exercices de brevet corrigés par l\'APMEP (classés par thème)',
       nombre_exercices_dispo: 0,
       liste_html_des_exercices: getListeHtmlDesExercicesDNBTheme(),
       lignes_tableau: ''
     },
     BAC: {
-      label: 'Exercices de bac (classés par année)',
+      label: 'Exercices de bac corrigés par l\'APMEP (classés par année)',
       nombre_exercices_dispo: 0,
       liste_html_des_exercices: getListeHtmlDesExercicesBAC(),
       lignes_tableau: ''
     },
     BACtheme: {
-      label: 'Exercices de bac (classés par thème)',
+      label: 'Exercices de bac corrigés par l\'APMEP (classés par thème)',
       nombre_exercices_dispo: 0,
       liste_html_des_exercices: getListeHtmlDesExercicesBACTheme(),
       lignes_tableau: ''
     },
     E3C: {
-      label: 'Exercices E3C (classés par année)',
+      label: 'Exercices E3C corrigés par l\'APMEP (classés par année)',
       nombre_exercices_dispo: 0,
       liste_html_des_exercices: getListeHtmlDesExercicesE3C(),
       lignes_tableau: ''
     },
     E3Ctheme: {
-      label: 'Exercices E3C (classés par thème)',
+      label: 'Exercices E3C corrigés par l\'APMEP (classés par thème)',
       nombre_exercices_dispo: 0,
       liste_html_des_exercices: getListeHtmlDesExercicesE3CTheme(),
       lignes_tableau: ''

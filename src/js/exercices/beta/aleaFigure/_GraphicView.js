@@ -1,8 +1,8 @@
 import { segment, polygone, tracePoint, labelPoint, point, mathalea2d, droite } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
-import { Cartesian } from './coordinates.js'
-import { Point, Line, Segment } from './elements.js'
-import { Group } from './group.js'
+import { Cartesian } from './_coordinates.js'
+import { Point, Line, Segment } from './_elements.js'
+import { Group } from './_group.js'
 
 /**
  * @class
