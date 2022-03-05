@@ -2528,7 +2528,7 @@ export function texNombre (nb, precision = 8) {
 }
 
 export function texNombre2 (nb) {
-  return texNombre(nb, 12)
+  return texNombre(nb)
 }
 
 export function texNombrec2 (expr, precision = 12) {
@@ -2696,7 +2696,7 @@ export function stringNombre (nb, precision = 8, notifier = true) {
   } else if (precision < 0) {
     precision = 0
   }
-  const maximumSignificantDigits = nbChiffresPartieEntiere + precision
+  const maximumSignificantDigits = 15 // nbChiffresPartieEntiere + precision
   let result
   if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
     result = 'Trop de chiffres'
