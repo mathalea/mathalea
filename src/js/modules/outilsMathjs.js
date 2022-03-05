@@ -815,7 +815,7 @@ export function commentStep (step, comments) {
 /**
  * Check if x is a decimal number
  * @param {Object} x // Object type = Fraction (mathjs)
- * @returns
+ * @returns {boolean}
  */
 function isDecimal (x) {
   return x.d !== 1 && !obtenirListeFacteursPremiers(x.d).some(x => x !== 2 && x !== 5)
