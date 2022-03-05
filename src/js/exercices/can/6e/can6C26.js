@@ -21,7 +21,7 @@ export default function MultiplierDiviserPar10Par100Par1000 () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, den, resultat
-    switch (choice([1])) { //, 2, 3
+    switch (choice([1, 2, 3])) { //, 2, 3
       case 1:// multiplier par 10, 100 ou 1000
         a = choice([randint(11, 99), randint(100, 999)])
         a /= choice([10, 100, 1000, 10000])
