@@ -73,7 +73,7 @@ export default class problemes extends Exercice {
           solutionDecimale = math.round(solutionDecimale, 2).toString()
           exercice.texte = name`$${ABCD}$ est un rectangle.
 
-$x$ est un nombre tel que $ {${AB}=${toTex(exprAB)}}$ et $ {${BC}=${toTex(exprBC)}}$ en $cm$.
+$x$ est un nombre tel que $ {${AB}=${toTex(exprAB)}}$ et $ {${BC}=${toTex(exprBC)}}$ (en $cm$).
 
 Le périmètre de $${ABCD}$ mesure $${p}~cm$.
 
@@ -145,7 +145,7 @@ Donc l'aire du rectangle $${ABCD}$ est ${environ} $${toTex(solutionDecimale)}~cm
           solutionDecimale = math.round(solutionDecimale, 2).toString()
           exercice.texte = name`$${ABCD}$ est un rectangle.
 
-$x$ est un nombre tel que $ {${AB}=${toTex(exprAB)}}$ et $ {${CD}=${toTex(exprCD)}}$ en $cm$.
+$x$ est un nombre tel que $ {${AB}=${toTex(exprAB)}}$ et $ {${CD}=${toTex(exprCD)}}$ (en $cm$).
 
 Le périmètre de $${ABCD}$ mesure $${p}~cm$.
 
