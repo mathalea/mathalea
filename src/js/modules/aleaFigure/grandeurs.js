@@ -1,5 +1,5 @@
 import { texNombre2 } from '../outils.js';
-import { simplify, parse, unit, max, add, subtract, abs, log10, random } from 'mathjs';
+import { simplify, parse, unit, max, add, subtract, abs, log10, random, round } from 'mathjs';
 import { aleaName } from '../outilsMathjs.js';
 import { GVGraphicObject } from './elements.js';
 /**
@@ -8,10 +8,10 @@ import { GVGraphicObject } from './elements.js';
  */
 export class GVGrandeur {
     constructor(name, value, precision = 1, unit = '') {
-        this.value = parseFloat(value.toFixed(precision));
+        this.value = round(value, precision);
         this.precision = precision;
         this.unit = unit;
-        this.toFixed = parseFloat(this.value.toFixed(this.precision));
+        this.toFixed = round(this.value, this.precision);
         this.name = name;
     }
     set name(newname) {
@@ -27,13 +27,6 @@ export class GVGrandeur {
     format() {
         return `{${texNombre2(this.toFixed).replace(',', '{,}')}~${this.unit.replace('deg', '\\degree')}}`.replace('~\\degree', '\\degree');
     }
-    /**
-     *
-     * @param nmin
-     * @param nmax
-     * @param digit
-     * @returns
-     */
     aleaName(...name) {
         this.name = aleaName(name.map(x => {
             if (x instanceof GVGraphicObject) {
@@ -98,13 +91,13 @@ export class GVGrandeur {
 }
 /**
  * Quantity random
- * @param nmin
- * @param nmax
- * @param digit
- * @param name
- * @param unit
- * @returns
+ * @param {number} nmin
+ * @param {number} nmax
+ * @param {number} digit
+ * @param {string} name
+ * @param {string} unit
+ * @returns {GVGrandeur}
  */
 export function qrandom(nmin = 0, nmax = 1, digit = max(0, -log10(abs(nmax - nmin))), name = '', unit = '') {
-    return new GVGrandeur(name, parseFloat(random(nmin, nmax).toFixed(max(digit, 0))), digit, unit);
+    return new GVGrandeur(name, round(random(nmin, nmax), max(digit, 0)), digit, unit);
 }

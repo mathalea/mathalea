@@ -15,13 +15,6 @@ export declare class GVGrandeur {
     set name(newname: string | GVPoint[]);
     get name(): string | GVPoint[];
     format(): string;
-    /**
-     *
-     * @param nmin
-     * @param nmax
-     * @param digit
-     * @returns
-     */
     aleaName(...name: (string | GVGraphicObject)[]): void;
     multiply(a: GVGrandeur): GVGrandeur;
     divide(a: GVGrandeur): GVGrandeur;
@@ -46,11 +39,11 @@ export declare class GVGrandeur {
 }
 /**
  * Quantity random
- * @param nmin
- * @param nmax
- * @param digit
- * @param name
- * @param unit
- * @returns
+ * @param {number} nmin
+ * @param {number} nmax
+ * @param {number} digit
+ * @param {string} name
+ * @param {string} unit
+ * @returns {GVGrandeur}
  */
 export declare function qrandom(nmin?: number, nmax?: number, digit?: number, name?: string, unit?: string): GVGrandeur;

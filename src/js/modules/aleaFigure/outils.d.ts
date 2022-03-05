@@ -6,3 +6,4 @@ export declare function getDimensions(...figures: any[]): number[];
  * @returns
  */
 export declare function quotient(x: number, y: number): number;
+export declare function name(s: any, ...p: any[]): string;

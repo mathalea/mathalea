@@ -1,4 +1,5 @@
-import { GVPoint, GVPolygon } from './elements';
+import { GVPoint, GVPolygon, GVSegment, GVLine } from './elements';
+import { GVGrandeur } from './grandeurs';
 export function circularPermutation(arg, n = Math.random() * arg.length) {
     if (typeof arg === 'string') {
         arg = arg.split('');
@@ -35,4 +36,24 @@ export function getDimensions(...figures) {
  */
 export function quotient(x, y) {
     return x - x % y;
+}
+export function name(s, ...p) {
+    p = p.map((x, k) => {
+        if (x instanceof GVGrandeur) {
+            return String.raw `${s.raw[k]}` + x.name;
+        }
+        else if (x instanceof GVLine) {
+            return String.raw `${s.raw[k]}` + `(${x.name})`;
+        }
+        else if (x instanceof GVSegment) {
+            return String.raw `${s.raw[k]}` + `[${x.name}]`;
+        }
+        else if (x instanceof GVPoint || x instanceof GVPolygon) {
+            return String.raw `${s.raw[k]}` + `${x.name}`;
+        }
+        else {
+            return String.raw `${s.raw[k]}` + `${x}`;
+        }
+    });
+    return p.join('') + s.raw[s.length - 1];
 }
