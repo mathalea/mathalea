@@ -78,7 +78,6 @@ export const interactifType = 'mathLive'
             o = choice([objets[index][0]])
             texte = `${prenom()} achète ${np} ${np === 1 ? o.slice(0, -1) : o} pour ${Number(pp).toFixed(2).toLocaleString()} €. Combien faudrait-il payer pour en acheter ${ng} ? `
             monTableau = tableau({
-
               ligne1: [`\\text{Nombre de ${o}}`, np, ng],
               ligne2: ['\\text{Prix (en euros)}', `${texPrix(pp)}`, `${miseEnEvidence(texPrix(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
@@ -95,7 +94,6 @@ export const interactifType = 'mathLive'
             texte = `${prenom()} achète ${texMasse(pp)} kg de ${o} pour ${texPrix(np)} €. Quelle masse pourrait être achetée avec ${ng} € ? `
             monTableau = tableau({
               largeurTitre: 10,
-
               ligne1: [`\\text{Prix des ${o} (en euros)}`, np, ng],
               ligne2: [`\\text{Masse des ${o} (en kg)}`, `${texMasse(pp)}`, `${miseEnEvidence(texMasse(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
@@ -111,7 +109,6 @@ export const interactifType = 'mathLive'
             texte = `${np} objets occupent un volume de ${stringNombre(pp)} cm³. Quel volume serait occupé par ${ng} de ces objets ? `
             monTableau = tableau({
               largeurTitre: 10,
-
               ligne1: ['\\text{Nombre d\'objets}', np, ng],
               ligne2: ['\\text{Volume des objets (en cm³)}', `${texNombre(pp)}`, `${miseEnEvidence(texNombrec(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
@@ -132,7 +129,6 @@ export const interactifType = 'mathLive'
             o = choice([objets[index][0]])
             texte = `${prenom()} achète ${ng} ${ng === 1 ? o.slice(0, -1) : o} pour ${texPrix(pg)} €. Combien faudrait-il payer pour en acheter ${np} ? `
             monTableau = tableau({
-
               ligne1: [`\\text{Nombre de ${o}}`, ng, np],
               ligne2: ['\\text{Prix (en euros)}', `${texPrix(pg)}`, `${miseEnEvidence(texPrix(pp))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]]
@@ -146,7 +142,6 @@ export const interactifType = 'mathLive'
             pg = cm * pp
             texte = `${prenom()} peint une surface de ${pg} m² en ${ng} jours. Quelle surface serait peinte en ${np} ${np === 1 ? 'jour' : 'jours'} ? `
             monTableau = tableau({
-
               ligne1: ['\\text{Durée (en jours)}', ng, np],
               ligne2: ['\\text{Surface peinte (en m²)}', `${texNombre(pg)}`, `${miseEnEvidence(texNombre(pp))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\div' + cm)}`]]
