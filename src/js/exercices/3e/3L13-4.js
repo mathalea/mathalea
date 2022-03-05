@@ -3,6 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { toString, aleaVariables, assignVariables, calculer, toTex, resoudre } from '../../modules/outilsMathjs.js'
 import { GVGraphicView } from '../../modules/aleaFigure/GraphicView.js'
+import { name } from '../../modules/aleaFigure/outils.js'
 import { create, all } from 'mathjs'
 
 export const math = create(all)
@@ -45,7 +46,7 @@ export default class problemes extends Exercice {
               graphic.geometric.pop()
             }
             ABCD = graphic.addRectangle()
-          } while (ABCD.ratio > 1.7 || ABCD.ratio < 0.6 || (ABCD.ratio > 0.8 && ABCD.ration < 1.2))
+          } while (ABCD.ratio > 1.7 || ABCD.ratio < 0.6 || (ABCD.ratio > 0.8 && ABCD.ratio < 1.2))
           const [A, B, C, D] = ABCD.vertices
           const angles = graphic.addAnglesPolygon(A, B, C, D)
           const AB = graphic.addSegment(A, B)
@@ -79,20 +80,20 @@ export default class problemes extends Exercice {
           let solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
           const environ = solutionDecimale === math.round(solutionDecimale, 2) ? '' : 'environ'
           solutionDecimale = math.round(solutionDecimale, 2).toString()
-          exercice.texte = `$${ABCD.name}$ est un rectangle.
+          exercice.texte = name`$${ABCD}$ est un rectangle.
 
-$x$ est un nombre tel que $ {${AB.name}=${toTex(exprAB)}}$ et $ {${BC.name}=${toTex(exprBC)}}$ en $cm$.
+$x$ est un nombre tel que $ {${AB}=${toTex(exprAB)}}$ et $ {${BC}=${toTex(exprBC)}}$ en $cm$.
 
-Le périmètre de $${ABCD.name}$ mesure $${p}~cm$.
+Le périmètre de $${ABCD}$ mesure $${p}~cm$.
 
 Déterminer son aire en $cm^2$.
 
 ${graph}`
-          exercice.texteCorr = String.raw`$${ABCD.name}$ est un rectangle donc ses côtés opposés sont de la même longueur.
+          exercice.texteCorr = name`$${ABCD}$ est un rectangle donc ses côtés opposés sont de la même longueur.
 
-D'où $${AB.name}=${CD.name}$ et $${BC.name}=${DA.name}$.
+D'où $${AB}=${CD}$ et $${BC}=${DA}$.
 
-Ainsi, $${toTex(`${p} = 2*${AB.name} + 2*${BC.name}`)}$.
+Ainsi, $${toTex(name`${p} = 2*${AB} + 2*${BC}`)}$.
 
 Ou encore $${toTex(`${p} = 2*(${exprAB}) + 2*(${exprBC})`)}$.
 
@@ -100,19 +101,19 @@ $\textbf{Résolvons cette équation d'inconnue $x$}$.
 
 ${resolution.texteCorr}
 
-$\textbf{Calculons $${AB.name}$ en cm.}$
+$\textbf{Calculons $${AB}$ en cm.}$
 
 ${calculAB.texteCorr}
 
-$\textbf{Calculons $${BC.name}$ en cm.}$
+$\textbf{Calculons $${BC}$ en cm.}$
 
 ${calculBC.texteCorr}
 
-$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD.name}$ en $cm^2$.}$
+$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD}$ en $cm^2$.}$
 
 ${calculAire.texteCorr}
 
-Donc l'aire du rectangle $${ABCD.name}$ est ${environ} $${toTex(solutionDecimale)}~cm^2$.`
+Donc l'aire du rectangle $${ABCD}$ est ${environ} $${toTex(solutionDecimale)}~cm^2$.`
           break
         }
         case 2: {
@@ -126,7 +127,7 @@ Donc l'aire du rectangle $${ABCD.name}$ est ${environ} $${toTex(solutionDecimale
               graphic.geometric.pop()
             }
             ABCD = graphic.addRectangle()
-          } while (ABCD.ratio > 1.7 || ABCD.ratio < 0.6 || (ABCD.ratio > 0.8 && ABCD.ration < 1.2))
+          } while (ABCD.ratio > 1.7 || ABCD.ratio < 0.6 || (ABCD.ratio > 0.8 && ABCD.ratio < 1.2))
           const [A, B, C, D] = ABCD.vertices
           const angles = graphic.addAnglesPolygon(A, B, C, D)
           const AB = graphic.addSegment(A, B)
@@ -155,23 +156,23 @@ Donc l'aire du rectangle $${ABCD.name}$ est ${environ} $${toTex(solutionDecimale
           const graph = graphic.getFigure(ABCD, AB, CD, ...angles.map(x => { x.right = true; return x }))
           const resolution = resoudre(`${exprAB}=${exprCD}`, { suppr1: false, substeps: this.correctionDetaillee })
           const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: this.correctionDetaillee, variables: variables })
-          const resolution2 = resoudre(`${p} = 2*${calculAB.result} + 2*${BC.name}`, { suppr1: false, substeps: this.correctionDetaillee })
+          const resolution2 = resoudre(name`${p} = 2*${calculAB.result} + 2*${BC}`, { suppr1: false, substeps: this.correctionDetaillee })
           const calculAire = calculer(`${calculAB.result}*${resolution2.solution.exact}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.correctionDetaillee, variables: variables })
           let solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()
           const environ = solutionDecimale === math.round(solutionDecimale, 2) ? '' : 'environ'
           solutionDecimale = math.round(solutionDecimale, 2).toString()
-          exercice.texte = `$${ABCD.name}$ est un rectangle.
+          exercice.texte = name`$${ABCD}$ est un rectangle.
 
-$x$ est un nombre tel que $ {${AB.name}=${toTex(exprAB)}}$ et $ {${CD.name}=${toTex(exprCD)}}$ en $cm$.
+$x$ est un nombre tel que $ {${AB}=${toTex(exprAB)}}$ et $ {${CD}=${toTex(exprCD)}}$ en $cm$.
 
-Le périmètre de $${ABCD.name}$ mesure $${p}~cm$.
+Le périmètre de $${ABCD}$ mesure $${p}~cm$.
 
 Déterminer son aire en $cm^2$.
 
 ${graph}`
-          exercice.texteCorr = String.raw`$${ABCD.name}$ est un rectangle donc ses côtés opposés sont de la même longueur.
+          exercice.texteCorr = name`$${ABCD}$ est un rectangle donc ses côtés opposés sont de la même longueur.
 
-D'où $${AB.name}=${CD.name}$ et $${BC.name}=${DA.name}$.
+D'où $${AB}=${CD}$ et $${BC}=${DA}$.
 
 Ainsi $${toTex(`${exprAB}=${exprCD}`)}$.
 
@@ -179,21 +180,21 @@ $\textbf{Résolvons l'équation.}$
 
 ${resolution.texteCorr}
 
-$\textbf{Calculons $${AB.name}$ en cm}.$
+$\textbf{Calculons $${AB}$ en cm}.$
 
 ${calculAB.texteCorr}
 
-Ainsi, $${toTex(`${p} = 2* (${calculAB.result}) + 2* ${BC.name}`)}$.
+Ainsi, $${toTex(name`${p} = 2* (${calculAB.result}) + 2* ${BC}`)}$.
 
-$\textbf{Résolvons cette équation d'inconnue $${BC.name}$}$.
+$\textbf{Résolvons cette équation d'inconnue $${BC}$}$.
 
 ${resolution2.texteCorr}
 
-$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD.name}$ en $cm^2$.}$
+$\textbf{Calculons l'aire $\mathcal{A}$ de $${ABCD}$ en $cm^2$.}$
 
 ${calculAire.texteCorr}
 
-Donc l'aire du rectangle $${ABCD.name}$ est ${environ} $${toTex(solutionDecimale)}~cm^2$.`
+Donc l'aire du rectangle $${ABCD}$ est ${environ} $${toTex(solutionDecimale)}~cm^2$.`
           break
         }
       }

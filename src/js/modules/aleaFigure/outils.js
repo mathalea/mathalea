@@ -42,11 +42,11 @@ export function name(s, ...p) {
         if (x instanceof GVGrandeur) {
             return String.raw `${s.raw[k]}` + x.name;
         }
-        else if (x instanceof GVLine) {
-            return String.raw `${s.raw[k]}` + `(${x.name})`;
-        }
         else if (x instanceof GVSegment) {
-            return String.raw `${s.raw[k]}` + `[${x.name}]`;
+            return String.raw `${s.raw[k]}` + `${x.name}`; // `[${x.name}]`
+        }
+        else if (x instanceof GVLine) {
+            return String.raw `${s.raw[k]}` + `${x.name}`; // `(${x.name})`
         }
         else if (x instanceof GVPoint || x instanceof GVPolygon) {
             return String.raw `${s.raw[k]}` + `${x.name}`;
