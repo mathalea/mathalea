@@ -41,12 +41,13 @@ python3 dicosManage.py
 ```
 
 - Choisir le type de dico à traiter
+![Lancemment du Script](./assets/lancementScript.png)
 - Le dico est synchronisé automatiquement avec les fichiers se trouvant dans le dossier ad hoc à la racine du projet mathalea :
     - **dnb/**,
     - **bac/** 
     - **e3c/** 
 - Reste à renseigner les tags, directement dans le dictionnaire concerné
-
+![Modification des tags](./assets/tagsDicos.png)
 <!-- LICENSE -->
 ## License
 

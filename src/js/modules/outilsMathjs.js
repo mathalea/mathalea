@@ -807,6 +807,8 @@ export function commentStep (step, comments) {
 
 /**
  * Check if x is a decimal number
+ * @param {Object} x // Object type = Fraction (mathjs)
+ * @returns {boolean}
  */
 export function isDecimal (value) {
   let f

@@ -1,7 +1,25 @@
-import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondi, arrondiVirgule, calcul, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat } from './outils.js'
+import { egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
-import { fraction, max, ceil } from 'mathjs'
+import { fraction, max, ceil, round, evaluate } from 'mathjs'
+
+function arrondi (nombre, precision = 2, debug = false) {
+  if (isNaN(nombre)) {
+    window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', { nombre, precision })
+    return NaN
+  } else {
+    return debug ? round(nombre, precision) : nombre
+  }
+}
+
+function calcul (x, arrondir = 13, debug = false) {
+  if (typeof expression === 'string') {
+    window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
+    return debug ? parseFloat(evaluate(x).toFixed(arrondir === false ? 13 : arrondir)) : x
+  } else {
+    return debug ? parseFloat(x.toFixed(arrondir)) : x
+  }
+}
 
 /*
   MathALEA2D
@@ -3575,8 +3593,9 @@ function ArcPointPointAngle (M, N, angle, rayon = false, fill = 'none', color = 
   e.isVisible = false
   const f = rotation(e, N, anglerot)
   f.isVisible = false
-  const Omegay = calcul((-f.c + (d.c * f.a) / d.a) / (f.b - (f.a * d.b) / d.a))
-  const Omegax = calcul(-d.c / d.a - (d.b * Omegay) / d.a)
+  const determinant = d.a * f.b - f.a * d.b
+  const Omegax = (d.b * f.c - f.b * d.c) / determinant
+  const Omegay = (f.a * d.c - d.a * f.c) / determinant
   const Omega = point(Omegax, Omegay)
   Arc.call(this, M, Omega, angle, rayon, fill, color, fillOpacite)
 }
@@ -5310,8 +5329,9 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
   e.isVisible = false
   const f = rotation(e, B, anglerot)
   f.isVisible = false
-  const Omegay = calcul((-f.c + (d1.c * f.a) / d1.a) / (f.b - (f.a * d1.b) / d1.a))
-  const Omegax = calcul(-d1.c / d1.a - (d1.b * Omegay) / d1.a)
+  const determinant = d1.a * f.b - f.a * d1.b
+  const Omegax = (d1.b * f.c - f.b * d1.c) / determinant
+  const Omegay = (f.a * d1.c - d1.a * f.c) / determinant
   const Omega = point(Omegax, Omegay)
   const s = segment(this.extremite1, this.extremite2)
   s.isVisible = false
@@ -6192,7 +6212,7 @@ function LabelX (
           .toString(),
         point(x, pos),
         'milieu',
-        color
+        color, 1, 'middle', true
       )
     )
   }
@@ -6245,7 +6265,7 @@ function LabelY (
         y.mul(coeff),
         point(pos, y),
         'gauche',
-        color
+        color, 1, 'middle', true
       )
     )
   }
@@ -6825,13 +6845,13 @@ function Repere ({
       legendeX,
       calcul(positionLegendeX[0] / xscale),
       calcul(positionLegendeX[1] / yscale),
-      'droite'
+      'droite', 'black', 1, 'middle', true
     ).svg(coeff)
     code += texteParPosition(
       legendeY,
       calcul(positionLegendeY[0] / xscale),
       calcul(positionLegendeY[1] / yscale),
-      'droite'
+      'droite', 'black', 1, 'middle', true
     ).svg(coeff)
     return code
   }
@@ -6961,13 +6981,13 @@ function Repere ({
       legendeX,
       calcul(positionLegendeX[0] / xscale),
       calcul(positionLegendeX[1] / yscale),
-      'droite'
+      'droite', 'black', 1, 'middle', true
     ).tikz()
     code += texteParPosition(
       legendeY,
       calcul(positionLegendeY[0] / xscale),
       calcul(positionLegendeY[1] / yscale),
-      'droite'
+      'droite', 'black', 1, 'middle', true, true
     ).tikz()
     return code
   }
@@ -7124,7 +7144,7 @@ function Repere2 ({
     xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
   }
   for (const x of xLabelListe) {
-    const l = texteParPosition(`$${texNombre(x)}$`, calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5, 'milieu', 'black', 1, 'middle', false)
+    const l = texteParPosition(`${texNombre(x)}`, calcul(x * xUnite), calcul(OrdonneeAxe * yUnite) - 0.5, 'milieu', 'black', 1, 'middle', true)
     l.isVisible = false
     objets.push(l)
   }
@@ -7133,7 +7153,7 @@ function Repere2 ({
     yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
   }
   for (const y of yLabelListe) {
-    const l = texteParPosition(`$${texNombre(y)}$`, calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', false)
+    const l = texteParPosition(`${texNombre(y)}`, calcul(abscisseAxe * xUnite) - 0.5, calcul(y * yUnite), 'milieu', 'black', 1, 'middle', true)
     l.isVisible = false
     objets.push(l)
   }
@@ -8346,7 +8366,9 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
       diagramme.push(ligne)
     }
     if (etiquetteValeur) {
-      diagramme.push(texteParPoint(numberFormat(hauteursBarres[j]), point(abscisseBarre, hauteurBarre + 0.3))) // On écrit la valeur au dessus de la barre sauf pour une hauteur de 0
+      if (hauteursBarres[j] !== 0) {
+        diagramme.push(texteParPoint(numberFormat(hauteursBarres[j]), point(abscisseBarre, hauteurBarre + 0.3))) // On écrit la valeur au dessus de la barre sauf pour une hauteur de 0
+      }
     }
     // Calculs permettant de graduer l'axe vertical et de placer des valeurs
     const steps = [1, 2, 5, 10, 20]
@@ -9149,7 +9171,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   if (texte.charAt(0) === '$') {
     A.positionLabel = 'centre'
     this.svg = function (coeff) {
-      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '').svg(coeff)
+      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '', 6).svg(coeff)
     }
     this.tikz = function () {
       let code = ''
@@ -11524,7 +11546,7 @@ function flecheV (D, A, texte, h = 1) {
 function Tableau ({
   largeurTitre = 7,
   largeur = 3,
-  hauteur = 2.5,
+  hauteur = 2,
   nbColonnes = 3,
   origine = point(0, 0),
   ligne1 = [],
@@ -11552,16 +11574,24 @@ function Tableau ({
   // Ecrit le texte dans les colonnes
   for (let i = 0; i < nbColonnes; i++) {
     objets.push(segment(point(x, A.y), point(x, C.y)))
-    if (ligne1[i + 1]) objets.push(latexParCoordonnees(ligne1[i + 1], x + largeur / 2, A.y + 1.5 * hauteur))
-    if (ligne2[i + 1]) objets.push(latexParCoordonnees(ligne2[i + 1], x + largeur / 2, A.y + 0.6 * hauteur))
+    if (ligne1[i + 1]) objets.push(latexParCoordonnees(ligne1[i + 1], x + largeur / 2, A.y + 1.4 * hauteur))
+    if (ligne2[i + 1]) objets.push(latexParCoordonnees(ligne2[i + 1], x + largeur / 2, A.y + 0.4 * hauteur))
     x += largeur
   }
   // Ecrit les titres
   if (ligne1[0]) {
-    objets.push(latexParCoordonnees(ligne1[0], A.x + largeurTitre / 2, A.y + 1.5 * hauteur))
+    if (context.isHtml) {
+      objets.push(latexParCoordonnees(ligne1[0], A.x + largeurTitre / 4, A.y + 1.4 * hauteur))
+    } else {
+      objets.push(latexParCoordonnees(ligne1[0], A.x + largeurTitre / 2, A.y + 1.4 * hauteur))// sortie LaTeX
+    };
   }
   if (ligne2[0]) {
-    objets.push(latexParCoordonnees(ligne2[0], A.x + largeurTitre / 2, A.y + 0.6 * hauteur))
+    if (context.isHtml) {
+      objets.push(latexParCoordonnees(ligne2[0], A.x + largeurTitre / 4, A.y + 0.4 * hauteur))
+    } else {
+      objets.push(latexParCoordonnees(ligne2[0], A.x + largeurTitre / 2, A.y + 0.4 * hauteur))// sortie LaTeX
+    };
   }
   for (const fleche of flecheHaut) {
     const Depart = point(A.x + largeurTitre + fleche[0] * largeur - 0.4 * largeur, A.y + 2.1 * hauteur)
