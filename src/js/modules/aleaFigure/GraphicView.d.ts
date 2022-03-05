@@ -1,4 +1,4 @@
-import { GVTriangle, GVPolygon, GVVector, GVAngle, GVPoint, GVLine, GVSegment, GVGraphicObject, GVCircle } from './elements.js';
+import { GVRectangle, GVTriangle, GVPolygon, GVVector, GVAngle, GVPoint, GVLine, GVSegment, GVGraphicObject, GVCircle } from './elements.js';
 /**
 * Donne une liste d'entiers relatifs dont on connait la somme.
 * @example > listeEntiersSommeConnue(4,10,-2)
@@ -192,7 +192,7 @@ export declare class GVGraphicView {
      */
     addParallelogram(A?: GVPoint, B?: GVPoint, C?: GVPoint, D?: any): GVPolygon;
     addRegularPolygon(n: number, A?: GVPoint, B?: GVPoint): GVPolygon;
-    addRectangle(A?: GVPoint | number, B?: GVPoint | number, C?: GVPoint): any;
+    addRectangle(A?: GVPoint | number, B?: GVPoint | number, C?: GVPoint): GVRectangle;
     addRegularPolygonCenter(A: GVPoint, B: GVPoint, n: number): GVPoint;
     addHomothetic(O: GVPoint, k: number, ...args: GVPoint[]): GVPoint[];
     /**

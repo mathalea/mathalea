@@ -757,11 +757,20 @@ export class GVGraphicView {
   }
 
   addRectangle(A?: GVPoint | number, B?: GVPoint | number, C?: GVPoint) {
-    let rectangle
+    let rectangle: GVRectangle
     if (A === undefined) {
-      const [A, B, D] = this.addRectPoint()
-      const C = this.addParallelogram(D,A,B).vertices[3]
-      rectangle = new GVRectangle(A,B,C,D)
+      do {
+        if (rectangle !== undefined) {
+          this.geometric.pop()
+          this.geometric.pop()
+          this.geometric.pop()
+          this.geometric.pop()
+        }
+        const [A, B, D] = this.addRectPoint()
+        const C = this.addParallelogram(D,A,B).vertices[3]
+        rectangle = new GVRectangle(A,B,C,D)
+      } while (rectangle.ratio < 1.2 || rectangle.ratio > 1.7)
+      
     }
     return rectangle
   }

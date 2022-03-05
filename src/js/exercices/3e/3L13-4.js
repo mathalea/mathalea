@@ -37,16 +37,7 @@ export default class problemes extends Exercice {
       switch (numeroquestion) {
         case 1: {
           const graphic = new GVGraphicView(0, 0, 7, 5)
-          let ABCD
-          do {
-            if (ABCD !== undefined) {
-              graphic.geometric.pop()
-              graphic.geometric.pop()
-              graphic.geometric.pop()
-              graphic.geometric.pop()
-            }
-            ABCD = graphic.addRectangle()
-          } while (ABCD.ratio > 1.7 || ABCD.ratio < 0.6 || (ABCD.ratio > 0.8 && ABCD.ratio < 1.2))
+          const ABCD = graphic.addRectangle()
           const [A, B, C, D] = ABCD.vertices
           const angles = graphic.addAnglesPolygon(A, B, C, D)
           const AB = graphic.addSegment(A, B)
@@ -118,16 +109,7 @@ Donc l'aire du rectangle $${ABCD}$ est ${environ} $${toTex(solutionDecimale)}~cm
         }
         case 2: {
           const graphic = new GVGraphicView(0, 0, 7, 5)
-          let ABCD
-          do {
-            if (ABCD !== undefined) {
-              graphic.geometric.pop()
-              graphic.geometric.pop()
-              graphic.geometric.pop()
-              graphic.geometric.pop()
-            }
-            ABCD = graphic.addRectangle()
-          } while (ABCD.ratio > 1.7 || ABCD.ratio < 0.6 || (ABCD.ratio > 0.8 && ABCD.ratio < 1.2))
+          const ABCD = graphic.addRectangle()
           const [A, B, C, D] = ABCD.vertices
           const angles = graphic.addAnglesPolygon(A, B, C, D)
           const AB = graphic.addSegment(A, B)
