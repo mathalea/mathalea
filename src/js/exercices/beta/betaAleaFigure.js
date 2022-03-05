@@ -1523,7 +1523,7 @@ Donc l'aire du rectangle $${ABCD}$ est ${environ} $${toTex(solutionDecimale)}~cm
           let A, B, C, D, E
           do {
             [A, B, C, D, E] = graphic.addPoint(5, 0.5)
-          } while (A.x * A.y * B.x * B.y * C.x * C.y === 0 && D.x === D.y && E.x === -E.y)
+          } while (A.x * A.y * B.x * B.y * C.x * C.y === 0 || D.x === D.y || E.x === -E.y)
           let C1, D1, E1
           const [A1] = graphic.addSymetric(new GVLine(new GVPoint(0, 0), new GVVector(1, 0)), A)
           const [B1] = graphic.addSymetric(new GVPoint(0, 0), B)
@@ -1542,15 +1542,7 @@ Donc l'aire du rectangle $${ABCD}$ est ${environ} $${toTex(solutionDecimale)}~cm
           } else {
             [E1] = graphic.addSymetric(new GVLine(new GVPoint(0, 0), new GVVector(-1, 1)), E)
           }
-          A1.name = A.name + '\''
-          B1.name = B.name + '\''
-          C1.name = C.name + '\''
-          D1.name = D.name + '\''
-          E1.name = E.name + '\''
-          for (const P of [A1, B1, C1, D1, E1]) {
-            P.showDot()
-            P.showName()
-          }
+          [A1, B1, C1, D1, E1].forEach((P, i) => { P.name = [A, B, C, D, E][i].name + '\''; P.showDot(); P.showName() })
           const graph = graphic.getFigure(A, B, C, D, E)
           const graph2 = graphic.getFigure(A, B, C, D, E, A1, B1, C1, D1, E1)
           const donnees = []
@@ -1572,8 +1564,8 @@ Donc l'aire du rectangle $${ABCD}$ est ${environ} $${toTex(solutionDecimale)}~cm
             donnees.push([name`$${E1}$ est le symétrique de $${E}$ par rapport à la droite passant par l'origine et par le point de coordonnées $(-1{;}1)$.`, name`$${E}${E.coordinates.format()}$ et $${E1}${E1.coordinates.format()}$.`])
           }
           const donneesMelangees = aleaName(donnees)
-          exercice.texte = `${donneesMelangees.map(x => { return x[0] }).join('<br>')}<br>${graph}`
-          exercice.texteCorr = `${donneesMelangees.map(x => { return x[1] }).join('<br>')}<br>${graph2}`
+          exercice.texte = `${donneesMelangees.map(x => { return '$\\bullet~$ ' + x[0] }).join('<br>')}<br>${graph}`
+          exercice.texteCorr = `${donneesMelangees.map(x => { return '$\\bullet~$ ' + x[1] }).join('<br>')}<br>${graph2}`
           break
         }
       }
