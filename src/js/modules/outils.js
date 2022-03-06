@@ -2527,8 +2527,37 @@ export function texNombre (nb, precision = 8) {
   }
 }
 
+/**
+ * Renvoie un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
+ * @author Rémi Angot
+ */
 export function texNombre2 (nb) {
-  return texNombre(nb, 12)
+  let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
+  const rangVirgule = nombre.indexOf(',')
+  let partieEntiere = ''
+  if (rangVirgule !== -1) {
+    partieEntiere = nombre.substring(0, rangVirgule)
+  } else {
+    partieEntiere = nombre
+  }
+  let partieDecimale = ''
+  if (rangVirgule !== -1) {
+    partieDecimale = nombre.substring(rangVirgule + 1)
+  }
+
+  for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
+    partieEntiere = partieEntiere.substring(0, i) + '\\thickspace ' + partieEntiere.substring(i)
+  }
+  for (let i = 3; i < partieDecimale.length; i += 3) {
+    partieDecimale = partieDecimale.substring(0, i) + '\\thickspace ' + partieDecimale.substring(i)
+    i += 12
+  }
+  if (partieDecimale === '') {
+    nombre = partieEntiere
+  } else {
+    nombre = partieEntiere + ',' + partieDecimale
+  }
+  return nombre
 }
 
 export function texNombrec2 (expr, precision = 12) {
