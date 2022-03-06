@@ -2519,13 +2519,24 @@ export function numberFormat (nb) {
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
 export function texNombre (nb, precision = 8) {
-  const result = stringNombre(nb, precision, false)
-  if (result === 'Trop de chiffres') {
-    window.notify('texNombre : Trop de chiffres', { nb, precision })
-    return insereEspacesNombre(nb, 15)
-  } else {
-    return result.replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+  const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
+  if (Number.isInteger(nb)) precision = 0
+  else {
+    if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
+      precision = 15 - nbChiffresPartieEntiere
+    } else if (precision < 0) {
+      precision = 0
+    }
   }
+  const maximumSignificantDigits = nbChiffresPartieEntiere + precision
+  let result
+  if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
+    result = insereEspacesNombre(nb, 15)
+    window.notify('texNombre : Trop de chiffres', { nb, precision })
+  } else {
+    result = insereEspacesNombre(nb, maximumSignificantDigits)
+  }
+  return result.replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
 }
 
 /**
@@ -2719,7 +2730,7 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
  * @param {boolean} notifier true pour envoyer un message à bugsnag pour prévenir qu'il y a trop de chiffres
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
-export function stringNombre (nb, precision = 8, notifier = true) {
+export function stringNombre (nb, precision = 8) {
   const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
   if (Number.isInteger(nb)) precision = 0
   else {
@@ -2732,12 +2743,8 @@ export function stringNombre (nb, precision = 8, notifier = true) {
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
   let result
   if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
-    if (notifier === true) { // si stringNombre est directement appelée
-      result = insereEspacesNombre(nb, 15)
-      window.notify('stringNombre : Trop de chiffres', { nb, precision })
-    } else { // si stringNombre a été appelée par texNombre
-      result = 'Trop de chiffres'
-    }
+    result = insereEspacesNombre(nb, 15)
+    window.notify('stringNombre : Trop de chiffres', { nb, precision })
   } else {
     result = insereEspacesNombre(nb, maximumSignificantDigits)
   }
