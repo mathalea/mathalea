@@ -2513,6 +2513,7 @@ export function numberFormat (nb) {
  * La chaîne de caractères en sortie doit être interprétée par KateX et doit donc être placée entre des $ $
  * Renvoie "Trop de chiffres" s'il y a plus de 15 chiffres significatifs (et donc un risque d'erreur d'approximation)
  * Sinon, renvoie un nombre dans le format français (avec une virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
+ * @author Guillaume Valmont
  * @param {number} nb nombre à afficher
  * @param {number} precision nombre de décimales demandé
  * @returns string avec le nombre dans le format français à mettre entre des $ $
@@ -2521,7 +2522,7 @@ export function texNombre (nb, precision = 8) {
   const result = stringNombre(nb, precision, false)
   if (result === 'Trop de chiffres') {
     window.notify('texNombre : Trop de chiffres', { nb, precision })
-    return result
+    return insereEspacesNombre(nb, 15)
   } else {
     return result.replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
   }
@@ -2724,17 +2725,19 @@ export function stringNombre (nb, precision = 8, notifier = true) {
   else {
     if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
       precision = 15 - nbChiffresPartieEntiere
-    } else if (precision + nbChiffresPartieEntiere > 15) precision = 15 - nbChiffresPartieEntiere
-    // on conserve precision chiffres après la virgule si precision + nbChiffresPartieEntiere <=15
-    if (precision < 0) { // Si il y a trop de chiffres dans la partie entière, il n'est pas souhaitable d'ajouter des décimales
+    } else if (precision < 0) {
       precision = 0
     }
   }
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
   let result
   if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
-    result = insereEspacesNombre(nb, 15)
-    if (notifier === true) window.notify('stringNombre : Trop de chiffres', { nb, precision })
+    if (notifier === true) { // si stringNombre est directement appelée
+      result = insereEspacesNombre(nb, 15)
+      window.notify('stringNombre : Trop de chiffres', { nb, precision })
+    } else { // si stringNombre a été appelée par texNombre
+      result = 'Trop de chiffres'
+    }
   } else {
     result = insereEspacesNombre(nb, maximumSignificantDigits)
   }
