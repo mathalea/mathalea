@@ -2519,23 +2519,7 @@ export function numberFormat (nb) {
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
 export function texNombre (nb, precision = 8) {
-  const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
-  if (Number.isInteger(nb)) precision = 0
-  else {
-    if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
-      precision = 15 - nbChiffresPartieEntiere
-    } else if (precision < 0) {
-      precision = 0
-    }
-  }
-  const maximumSignificantDigits = nbChiffresPartieEntiere + precision
-  let result
-  if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
-    result = insereEspacesNombre(nb, 15)
-    window.notify('texNombre : Trop de chiffres', { nb, precision })
-  } else {
-    result = insereEspacesNombre(nb, maximumSignificantDigits)
-  }
+  const result = afficherNombre(nb, precision, 'texNombre')
   return result.replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
 }
 
@@ -2731,6 +2715,20 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
 export function stringNombre (nb, precision = 8) {
+  return afficherNombre(nb, precision, 'stringNombre')
+}
+
+/**
+ * Fonction auxiliaire aux fonctions stringNombre et texNombre
+ * Vérifie le nombre de chiffres significatifs en fonction du nombre de chiffres de la partie entière de nb et du nombre de décimales demandées par le paramètre precision
+ * S'il y a plus de 15 chiffres significatifs, envoie un message à bugsnag et renvoie un nombre avec 15 chiffres significatifs
+ * Sinon, renvoie un nombre avec le nombre de décimales demandé
+ * @author Guillaume Valmont
+ * @param {number} nb nombre qu'on veut afficher
+ * @param {number} precision nombre de décimales demandé
+ * @param {string} fonction nom de la fonction qui appelle afficherNombre (texNombre ou stringNombre) -> sert pour le message envoyé à bugsnag
+ */
+function afficherNombre (nb, precision, fonction) {
   const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
   if (Number.isInteger(nb)) precision = 0
   else {
@@ -2741,14 +2739,12 @@ export function stringNombre (nb, precision = 8) {
     }
   }
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
-  let result
   if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
-    result = insereEspacesNombre(nb, 15)
-    window.notify('stringNombre : Trop de chiffres', { nb, precision })
+    window.notify(fonction + ' : Trop de chiffres', { nb, precision })
+    return insereEspacesNombre(nb, 15)
   } else {
-    result = insereEspacesNombre(nb, maximumSignificantDigits)
+    return insereEspacesNombre(nb, maximumSignificantDigits)
   }
-  return result
 }
 
 /**
