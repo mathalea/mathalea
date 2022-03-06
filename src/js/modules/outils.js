@@ -2720,12 +2720,15 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
  */
 export function stringNombre (nb, precision = 8, notifier = true) {
   const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
-  if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
-    precision = 15 - nbChiffresPartieEntiere
-  } else if (precision + nbChiffresPartieEntiere > 15) precision = 15 - nbChiffresPartieEntiere
-  // on conserve precision chiffres après la virgule si precision + nbChiffresPartieEntiere <=15
-  if (precision < 0) { // Si il y a trop de chiffres dans la partie entière, il n'est pas souhaitable d'ajouter des décimales
-    precision = 0
+  if (Number.isInteger(nb)) precision = 0
+  else {
+    if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
+      precision = 15 - nbChiffresPartieEntiere
+    } else if (precision + nbChiffresPartieEntiere > 15) precision = 15 - nbChiffresPartieEntiere
+    // on conserve precision chiffres après la virgule si precision + nbChiffresPartieEntiere <=15
+    if (precision < 0) { // Si il y a trop de chiffres dans la partie entière, il n'est pas souhaitable d'ajouter des décimales
+      precision = 0
+    }
   }
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
   let result
