@@ -627,7 +627,7 @@ export class GVGraphicView {
     /**
      * Add the sides of a polygon
      * @param  {...any} args
-     * @returns {}
+     * @returns {Array}
      */
     addSidesPolygon(...args) {
         const sides = [];

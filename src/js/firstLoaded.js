@@ -6,7 +6,11 @@ window.notify = function notify (error, metadatas) {
     if (metadatas) Bugsnag.addMetadata('ajouts', metadatas)
     Bugsnag.notify(error)
   } else {
-    console.error('message qui aurait été envoyé à bugsnag s\'il avait été configuré', error)
-    if (metadatas) console.log('avec les metadatas', metadatas)
+    if (error.indexOf('Trop de chiffres') !== -1) {
+      alert(error + '\n' + 'avec les metadatas' + metadatas)
+    } else {
+      console.error('message qui aurait été envoyé à bugsnag s\'il avait été configuré', error)
+      if (metadatas) console.log('avec les metadatas', metadatas)
+    }
   }
 }

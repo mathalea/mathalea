@@ -2513,18 +2513,14 @@ export function numberFormat (nb) {
  * La chaîne de caractères en sortie doit être interprétée par KateX et doit donc être placée entre des $ $
  * Renvoie "Trop de chiffres" s'il y a plus de 15 chiffres significatifs (et donc un risque d'erreur d'approximation)
  * Sinon, renvoie un nombre dans le format français (avec une virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
+ * @author Guillaume Valmont
  * @param {number} nb nombre à afficher
  * @param {number} precision nombre de décimales demandé
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
 export function texNombre (nb, precision = 8) {
-  const result = stringNombre(nb, precision, false)
-  if (result === 'Trop de chiffres') {
-    window.notify('texNombre : Trop de chiffres', { nb, precision })
-    return result
-  } else {
-    return result.replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
-  }
+  const result = afficherNombre(nb, precision, 'texNombre')
+  return result.replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
 }
 
 /**
@@ -2555,7 +2551,7 @@ export function texNombre2 (nb) {
   if (partieDecimale === '') {
     nombre = partieEntiere
   } else {
-    nombre = partieEntiere + ',' + partieDecimale
+    nombre = partieEntiere + '{,}' + partieDecimale
   }
   return nombre
 }
@@ -2681,6 +2677,9 @@ export const scientifiqueToDecimal = (mantisse, exp) => {
 export const insereEspaceDansNombre = nb => {
   if (!Number.isNaN(nb)) {
     nb = nb.toString().replace('.', ',')
+  } else {
+    window.notify('insereEspaceDansNombre : l\'argument n\'est pas un nombre', nb)
+    return nb
   }
   let indiceVirgule = nb.indexOf(',')
   const indiceMax = nb.length - 1
@@ -2709,7 +2708,7 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
 
 /**
  * Destinée à être utilisée hors des $ $
- * Renvoie "Trop de chiffres" s'il y a plus de 15 chiffres significatifs (et donc qu'il y a un risque d'erreur d'approximation)
+ * Signale une erreur en console s'il y a plus de 15 chiffres significatifs (et donc qu'il y a un risque d'erreur d'approximation)
  * Sinon, renvoie le nombre à afficher dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
  * @author Jean-Claude Lhote
  * @author Guillaume Valmont
@@ -2718,61 +2717,76 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
  * @param {boolean} notifier true pour envoyer un message à bugsnag pour prévenir qu'il y a trop de chiffres
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
-export function stringNombre (nb, precision = 8, notifier = true) {
+export function stringNombre (nb, precision = 8) {
+  return afficherNombre(nb, precision, 'stringNombre')
+}
+/**
+ * Fonction auxiliaire aux fonctions stringNombre et texNombre
+ * Vérifie le nombre de chiffres significatifs en fonction du nombre de chiffres de la partie entière de nb et du nombre de décimales demandées par le paramètre precision
+ * S'il y a plus de 15 chiffres significatifs, envoie un message à bugsnag et renvoie un nombre avec 15 chiffres significatifs
+ * Sinon, renvoie un nombre avec le nombre de décimales demandé
+ * @author Guillaume Valmont
+ * @param {number} nb nombre qu'on veut afficher
+ * @param {number} precision nombre de décimales demandé
+ * @param {string} fonction nom de la fonction qui appelle afficherNombre (texNombre ou stringNombre) -> sert pour le message envoyé à bugsnag
+ */
+function afficherNombre (nb, precision, fonction) {
+  /**
+   * Fonction auxiliaire de stringNombre pour une meilleure lisibilité
+   * Elle renvoie un nombre dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
+   * @author Rémi Angot
+   * @author Guillaume Valmont
+   * @param {number} nb nombre à afficher
+   * @param {number} precision nombre de décimales demandé
+   * @returns string avec le nombre dans le format français
+   */
+  function insereEspacesNombre (nb, precision = 8) {
+    let nombre = math.format(nb, { notation: 'auto', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
+    const rangVirgule = nombre.indexOf(',')
+    let partieEntiere = ''
+    if (rangVirgule !== -1) {
+      partieEntiere = nombre.substring(0, rangVirgule)
+    } else {
+      partieEntiere = nombre
+    }
+    let partieDecimale = ''
+    if (rangVirgule !== -1) {
+      partieDecimale = nombre.substring(rangVirgule + 1)
+    }
+
+    for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
+      partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
+    }
+    for (let i = 3; i < partieDecimale.length; i += 4) { // des paquets de 3 nombres + 1 espace
+      partieDecimale = partieDecimale.substring(0, i) + ' ' + partieDecimale.substring(i)
+    }
+    if (partieDecimale === '') {
+      nombre = partieEntiere
+    } else {
+      nombre = partieEntiere + ',' + partieDecimale
+    }
+    return nombre
+  }
+  // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
+  if (isNaN(nb)) return nb
+  // si c'en est un, on le formate.
   const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
-  if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
-    precision = 15 - nbChiffresPartieEntiere
-  } else if (precision < 0) {
-    precision = 0
+  if (Number.isInteger(nb)) precision = 0
+  else {
+    if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
+      precision = 15 - nbChiffresPartieEntiere
+    } else if (precision < 0) {
+      precision = 0
+    }
   }
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
-  let result
   if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
-    result = 'Trop de chiffres'
+    window.notify(fonction + ' : Trop de chiffres', { nb, precision })
+    return insereEspacesNombre(nb, 15)
   } else {
-    result = insereEspacesNombre(nb, maximumSignificantDigits)
+    return insereEspacesNombre(nb, maximumSignificantDigits)
   }
-  if (notifier === true && result === 'Trop de chiffres') window.notify('stringNombre : Trop de chiffres', { nb, precision })
-  return result
 }
-
-/**
- * Fonction auxiliaire de stringNombre pour une meilleure lisibilité
- * Elle renvoie un nombre dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
- * @author Rémi Angot
- * @author Guillaume Valmont
- * @param {number} nb nombre à afficher
- * @param {number} precision nombre de décimales demandé
- * @returns string avec le nombre dans le format français
- */
-export function insereEspacesNombre (nb, precision = 8) {
-  let nombre = math.format(nb, { notation: 'auto', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
-  const rangVirgule = nombre.indexOf(',')
-  let partieEntiere = ''
-  if (rangVirgule !== -1) {
-    partieEntiere = nombre.substring(0, rangVirgule)
-  } else {
-    partieEntiere = nombre
-  }
-  let partieDecimale = ''
-  if (rangVirgule !== -1) {
-    partieDecimale = nombre.substring(rangVirgule + 1)
-  }
-
-  for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
-  }
-  for (let i = 3; i < partieDecimale.length; i += 4) { // des paquets de 3 nombres + 1 espace
-    partieDecimale = partieDecimale.substring(0, i) + ' ' + partieDecimale.substring(i)
-  }
-  if (partieDecimale === '') {
-    nombre = partieEntiere
-  } else {
-    nombre = partieEntiere + ',' + partieDecimale
-  }
-  return nombre
-}
-
 /**
 * Centre un texte
 *
