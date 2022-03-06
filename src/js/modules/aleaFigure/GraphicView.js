@@ -399,9 +399,9 @@ export class GVGraphicView {
     }
     /**
      * Add a new circle center
-     * @param C
-     * @param P
-     * @returns
+     * @param {GVPoint} C
+     * @param {GVPoint} P
+     * @returns {GVCircle}
      */
     addCircle(C = this.addPoint()[0], X) {
         let circle;
@@ -445,9 +445,9 @@ export class GVGraphicView {
     }
     /**
      * get a point between two points
-     * @param {Point} point1
-     * @param {Point} point2
-     * @returns {Point}
+     * @param {GVPoint} point1
+     * @param {GVPoint} point2
+     * @returns {GVPoint}
      */
     getNewPointBetween(A, B) {
         const k = Math.random();
@@ -455,9 +455,9 @@ export class GVGraphicView {
     }
     /**
      * Add point between two but not too close to extrems
-     * @param A
-     * @param B
-     * @returns
+     * @param {GVPoint} A
+     * @param {GVPoint} B
+     * @returns {GVPoint}
      */
     addPointBetween(A, B) {
         const barycentricsCoords = listeEntiersSommeConnue(2, 100, 15);
@@ -538,8 +538,9 @@ export class GVGraphicView {
     }
     /**
      * Add three point, two point or one point aligned to others
-     * @param  {Point,Point} args // If no point or one point we creat new points
-     * @returns
+     * @param  {Point} P1 // If no point or one point we creat new points
+     * @param  {Point} P2 // If no point or one point we creat new points
+     * @returns {GVPoint[]}
      */
     addPointAligned(P1 = this.addPoint()[0], P2 = this.addPoint()[0]) {
         let P3;
@@ -555,7 +556,7 @@ export class GVGraphicView {
     /**
      * P1, P2, P3 with P2P1P3 rectangular in P1
      * @param args
-     * @returns
+     * @returns {GVPoint[]}
      */
     addRectPoint(...args) {
         let P3, P1, P2;
@@ -577,8 +578,10 @@ export class GVGraphicView {
     }
     /**
      * Distances to the sides of a triangle
-     * @param  {Point,Point,Point} args
-     * @returns
+     * @param  {GVPoint} P1
+     * @param  {GVPoint} P2
+     * @param  {GVPoint} P3
+     * @returns {number}
      */
     distanceMinSidesVertices(P1, P2, P3) {
         // A faire pour n'importe quel nombre de sommets ?
@@ -586,10 +589,12 @@ export class GVGraphicView {
     }
     /**
      * Add three points not aligned or one not aligned with the two others
-     * @param  {Point,Point} args If no point we create three new points
-     * @returns {Point}
+     * @param  {GVPoint} P1 If no point we create three new points
+     * @param  {GVPoint} P2 If no point we create three new points
+     * @param  {GVPoint} P3 If no point we create three new points
+     * @returns {GVPoint}
      */
-    addNotAlignedPoint(P1 = this.addPoint()[0], P2 = this.addPoint()[0], P3 = undefined) {
+    addNotAlignedPoint(P1 = this.addPoint()[0], P2 = this.addPoint()[0], P3) {
         // Le troisième point est écrasé si existant
         // Réfléchir à un ensemble plus grand de points non alignés
         const minDimension = Math.min(this.height, this.width) / this.getListObjectTypeSelect('Point').length / 3;
@@ -603,7 +608,8 @@ export class GVGraphicView {
     }
     /**
      * Add a parallel line to another one or two parallel lines
-     * @param  {Point,GVLine|GVLine} args If no args we create two parallels
+     * @param  {GVPoint} P If no args we create two parallels
+     * @param  {GVLine} line If no args we create two parallels
      * @returns {GVLine}
      */
     addParallelLine(P = this.addPoint()[0], line = this.addLine()) {
@@ -673,8 +679,10 @@ export class GVGraphicView {
     }
     /**
      * Add a group of 4 points making a parallelogram
-     * @param  {...any} args // 0-3 Point
-     * @returns {Group}
+     * @param  {GVPoint} A // 0-3 point
+     * @param  {GVPoint} B // 0-3 point
+     * @param  {GVPoint} C // 0-3 point
+     * @returns {GVPolygon}
      */
     addParallelogram(A = this.addPoint()[0], B = this.addPoint()[0], C = this.addNotAlignedPoint(A, B)[2], D = undefined) {
         D = new GVPoint(new GVCartesian(A.x + C.x - B.x, A.y + C.y - B.y));

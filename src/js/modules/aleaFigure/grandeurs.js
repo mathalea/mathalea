@@ -62,8 +62,8 @@ export class GVGrandeur {
     }
     /**
      * this^n
-     * @param n // Integer
-     * @returns
+     * @param {number} n // Integer
+     * @returns {GVGrandeur}
      */
     pow(n) {
         return new GVGrandeur(this.name + '^{' + n + '}', Math.pow(this.toFixed, n), n * this.precision, this.unit + '^' + n);
@@ -71,7 +71,7 @@ export class GVGrandeur {
     /**
      * this^n
      * @param n // Integer
-     * @returns
+     * @returns {GVGrandeur}
      */
     sqrt() {
         return new GVGrandeur('\\sqrt{' + this.name + '}', Math.pow(this.toFixed, 0.5), Math.floor(0.5 * this.precision), 'cm');

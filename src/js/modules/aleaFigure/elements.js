@@ -121,7 +121,7 @@ export class GVPoint extends GVGraphicObject {
     /**
      * Get the symétric of P with this
      * @param P
-     * @returns
+     * @returns {GVPoint}
      */
     getSymetric(P) {
         return barycentre([this, P], [2, -1]);
@@ -281,7 +281,7 @@ export class GVLine extends GVGraphicObject {
     /**
      * Get the symétric of P with this
      * @param P
-     * @returns
+     * @returns {GVPoint}
      */
     getSymetric(P) {
         return barycentre([this.getIntersect(this.getPerpendicularLine(P)), P], [2, -1]);
