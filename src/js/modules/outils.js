@@ -2551,7 +2551,7 @@ export function texNombre2 (nb) {
   if (partieDecimale === '') {
     nombre = partieEntiere
   } else {
-    nombre = partieEntiere + ',' + partieDecimale
+    nombre = partieEntiere + '{,}' + partieDecimale
   }
   return nombre
 }
@@ -2677,6 +2677,9 @@ export const scientifiqueToDecimal = (mantisse, exp) => {
 export const insereEspaceDansNombre = nb => {
   if (!Number.isNaN(nb)) {
     nb = nb.toString().replace('.', ',')
+  } else {
+    window.notify('insereEspaceDansNombre : l\'argument n\'est pas un nombre', nb)
+    return nb
   }
   let indiceVirgule = nb.indexOf(',')
   const indiceMax = nb.length - 1
@@ -2705,7 +2708,7 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
 
 /**
  * Destinée à être utilisée hors des $ $
- * Renvoie "Trop de chiffres" s'il y a plus de 15 chiffres significatifs (et donc qu'il y a un risque d'erreur d'approximation)
+ * Signale une erreur en console s'il y a plus de 15 chiffres significatifs (et donc qu'il y a un risque d'erreur d'approximation)
  * Sinon, renvoie le nombre à afficher dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
  * @author Jean-Claude Lhote
  * @author Guillaume Valmont
@@ -2717,7 +2720,6 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
 export function stringNombre (nb, precision = 8) {
   return afficherNombre(nb, precision, 'stringNombre')
 }
-
 /**
  * Fonction auxiliaire aux fonctions stringNombre et texNombre
  * Vérifie le nombre de chiffres significatifs en fonction du nombre de chiffres de la partie entière de nb et du nombre de décimales demandées par le paramètre precision
@@ -2729,6 +2731,45 @@ export function stringNombre (nb, precision = 8) {
  * @param {string} fonction nom de la fonction qui appelle afficherNombre (texNombre ou stringNombre) -> sert pour le message envoyé à bugsnag
  */
 function afficherNombre (nb, precision, fonction) {
+  /**
+   * Fonction auxiliaire de stringNombre pour une meilleure lisibilité
+   * Elle renvoie un nombre dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
+   * @author Rémi Angot
+   * @author Guillaume Valmont
+   * @param {number} nb nombre à afficher
+   * @param {number} precision nombre de décimales demandé
+   * @returns string avec le nombre dans le format français
+   */
+  function insereEspacesNombre (nb, precision = 8) {
+    let nombre = math.format(nb, { notation: 'auto', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
+    const rangVirgule = nombre.indexOf(',')
+    let partieEntiere = ''
+    if (rangVirgule !== -1) {
+      partieEntiere = nombre.substring(0, rangVirgule)
+    } else {
+      partieEntiere = nombre
+    }
+    let partieDecimale = ''
+    if (rangVirgule !== -1) {
+      partieDecimale = nombre.substring(rangVirgule + 1)
+    }
+
+    for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
+      partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
+    }
+    for (let i = 3; i < partieDecimale.length; i += 4) { // des paquets de 3 nombres + 1 espace
+      partieDecimale = partieDecimale.substring(0, i) + ' ' + partieDecimale.substring(i)
+    }
+    if (partieDecimale === '') {
+      nombre = partieEntiere
+    } else {
+      nombre = partieEntiere + ',' + partieDecimale
+    }
+    return nombre
+  }
+  // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
+  if (isNaN(nb)) return nb
+  // si c'en est un, on le formate.
   const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
   if (Number.isInteger(nb)) precision = 0
   else {
@@ -2746,44 +2787,6 @@ function afficherNombre (nb, precision, fonction) {
     return insereEspacesNombre(nb, maximumSignificantDigits)
   }
 }
-
-/**
- * Fonction auxiliaire de stringNombre pour une meilleure lisibilité
- * Elle renvoie un nombre dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
- * @author Rémi Angot
- * @author Guillaume Valmont
- * @param {number} nb nombre à afficher
- * @param {number} precision nombre de décimales demandé
- * @returns string avec le nombre dans le format français
- */
-export function insereEspacesNombre (nb, precision = 8) {
-  let nombre = math.format(nb, { notation: 'auto', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
-  const rangVirgule = nombre.indexOf(',')
-  let partieEntiere = ''
-  if (rangVirgule !== -1) {
-    partieEntiere = nombre.substring(0, rangVirgule)
-  } else {
-    partieEntiere = nombre
-  }
-  let partieDecimale = ''
-  if (rangVirgule !== -1) {
-    partieDecimale = nombre.substring(rangVirgule + 1)
-  }
-
-  for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
-  }
-  for (let i = 3; i < partieDecimale.length; i += 4) { // des paquets de 3 nombres + 1 espace
-    partieDecimale = partieDecimale.substring(0, i) + ' ' + partieDecimale.substring(i)
-  }
-  if (partieDecimale === '') {
-    nombre = partieEntiere
-  } else {
-    nombre = partieEntiere + ',' + partieDecimale
-  }
-  return nombre
-}
-
 /**
 * Centre un texte
 *
