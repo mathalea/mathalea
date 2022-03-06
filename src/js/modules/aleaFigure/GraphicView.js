@@ -401,7 +401,7 @@ export class GVGraphicView {
      * Add a new circle center
      * @param C
      * @param P
-     * @returns
+     * @returns {Object}
      */
     addCircle(C = this.addPoint()[0], X) {
         let circle;
@@ -457,7 +457,7 @@ export class GVGraphicView {
      * Add point between two but not too close to extrems
      * @param A
      * @param B
-     * @returns
+     * @returns {Object}
      */
     addPointBetween(A, B) {
         const barycentricsCoords = listeEntiersSommeConnue(2, 100, 15);
@@ -538,8 +538,8 @@ export class GVGraphicView {
     }
     /**
      * Add three point, two point or one point aligned to others
-     * @param  {Point,Point} args // If no point or one point we creat new points
-     * @returns
+     * @param  {Object} args // If no point or one point we creat new points
+     * @returns {Array}
      */
     addPointAligned(P1 = this.addPoint()[0], P2 = this.addPoint()[0]) {
         let P3;
@@ -554,8 +554,8 @@ export class GVGraphicView {
     }
     /**
      * P1, P2, P3 with P2P1P3 rectangular in P1
-     * @param args
-     * @returns
+     * @param {Objects} args
+     * @returns {Array}
      */
     addRectPoint(...args) {
         let P3, P1, P2;
@@ -577,8 +577,8 @@ export class GVGraphicView {
     }
     /**
      * Distances to the sides of a triangle
-     * @param  {Point,Point,Point} args
-     * @returns
+     * @param  {Object} args
+     * @returns {Number}
      */
     distanceMinSidesVertices(P1, P2, P3) {
         // A faire pour n'importe quel nombre de sommets ?
@@ -586,7 +586,7 @@ export class GVGraphicView {
     }
     /**
      * Add three points not aligned or one not aligned with the two others
-     * @param  {Point,Point} args If no point we create three new points
+     * @param  {Object} args If no point we create three new points
      * @returns {Point}
      */
     addNotAlignedPoint(P1 = this.addPoint()[0], P2 = this.addPoint()[0], P3 = undefined) {
@@ -603,7 +603,7 @@ export class GVGraphicView {
     }
     /**
      * Add a parallel line to another one or two parallel lines
-     * @param  {Point,GVLine|GVLine} args If no args we create two parallels
+     * @param  {Object} args If no args we create two parallels
      * @returns {GVLine}
      */
     addParallelLine(P = this.addPoint()[0], line = this.addLine()) {
@@ -621,7 +621,7 @@ export class GVGraphicView {
     /**
      * Add the sides of a polygon
      * @param  {...any} args
-     * @returns {}
+     * @returns {Array}
      */
     addSidesPolygon(...args) {
         const sides = [];

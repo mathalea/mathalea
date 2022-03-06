@@ -38,7 +38,7 @@ function searchLastNode (node, op) {
  * Assignation de variables
  * @param {string} expression
  * @param {Object} variables
- * @returns
+ * @returns {Object}
  */
 export function assignVariables (expression, variables) {
   const node = parse(expression).transform(
