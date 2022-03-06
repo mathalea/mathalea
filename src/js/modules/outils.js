@@ -2770,7 +2770,7 @@ function afficherNombre (nb, precision, fonction) {
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
   if (isNaN(nb)) return nb
   // si c'en est un, on le formate.
-  const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
+  const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 1 : Math.abs(nb).toFixed(0).length
   if (Number.isInteger(nb)) precision = 0
   else {
     if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
