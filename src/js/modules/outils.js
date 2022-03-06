@@ -2722,17 +2722,19 @@ export function stringNombre (nb, precision = 8, notifier = true) {
   const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
   if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
     precision = 15 - nbChiffresPartieEntiere
-  } else if (precision < 0) {
+  } else if (precision + nbChiffresPartieEntiere > 15) precision = 15 - nbChiffresPartieEntiere
+  // on conserve precision chiffres après la virgule si precision + nbChiffresPartieEntiere <=15
+  if (precision < 0) { // Si il y a trop de chiffres dans la partie entière, il n'est pas souhaitable d'ajouter des décimales
     precision = 0
   }
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
   let result
   if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
-    result = 'Trop de chiffres'
+    result = insereEspacesNombre(nb, 15)
+    if (notifier === true) window.notify('stringNombre : Trop de chiffres', { nb, precision })
   } else {
     result = insereEspacesNombre(nb, maximumSignificantDigits)
   }
-  if (notifier === true && result === 'Trop de chiffres') window.notify('stringNombre : Trop de chiffres', { nb, precision })
   return result
 }
 
