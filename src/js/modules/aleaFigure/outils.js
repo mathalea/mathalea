@@ -32,7 +32,7 @@ export function getDimensions(...figures) {
 /**
  *
  * @param x
- * @returns
+ * @returns {Number}
  */
 export function quotient(x, y) {
     return x - x % y;
