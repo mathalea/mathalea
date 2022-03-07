@@ -53,7 +53,7 @@ export declare class GVPoint extends GVGraphicObject {
     /**
      * Get the symétric of P with this
      * @param P
-     * @returns
+     * @returns {GVPoint}
      */
     getSymetric(P: GVPoint): GVPoint;
     getHomothetic(O: GVPoint, k: number): GVPoint;
@@ -101,7 +101,7 @@ export declare class GVLine extends GVGraphicObject {
     /**
      * Get the symétric of P with this
      * @param P
-     * @returns
+     * @returns {GVPoint}
      */
     getSymetric(P: GVPoint): GVPoint;
     set name(newname: string);

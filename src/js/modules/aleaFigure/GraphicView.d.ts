@@ -111,9 +111,9 @@ export declare class GVGraphicView {
     addSegment(P1?: GVPoint, P2?: GVPoint): GVSegment;
     /**
      * Add a new circle center
-     * @param C
-     * @param P
-     * @returns
+     * @param {GVPoint} C
+     * @param {GVPoint} P
+     * @returns {GVCircle}
      */
     addCircle(C: GVPoint, X: GVPoint | number): GVCircle;
     /**
@@ -122,16 +122,16 @@ export declare class GVGraphicView {
     getExtremPointGraphicLine(L: GVLine): GVPoint[];
     /**
      * get a point between two points
-     * @param {Point} point1
-     * @param {Point} point2
-     * @returns {Point}
+     * @param {GVPoint} point1
+     * @param {GVPoint} point2
+     * @returns {GVPoint}
      */
     getNewPointBetween(A: any, B: any): GVPoint;
     /**
      * Add point between two but not too close to extrems
-     * @param A
-     * @param B
-     * @returns
+     * @param {GVPoint} A
+     * @param {GVPoint} B
+     * @returns {GVPoint}
      */
     addPointBetween(A: GVPoint, B: GVPoint): GVPoint;
     addPointDistance(A: GVPoint, r: number): GVPoint;
@@ -144,31 +144,37 @@ export declare class GVGraphicView {
     move(V: GVVector, ...args: GVPoint[]): void;
     /**
      * Add three point, two point or one point aligned to others
-     * @param  {Point,Point} args // If no point or one point we creat new points
-     * @returns
+     * @param  {Point} P1 // If no point or one point we creat new points
+     * @param  {Point} P2 // If no point or one point we creat new points
+     * @returns {GVPoint[]}
      */
-    addPointAligned(P1?: GVPoint, P2?: GVPoint): any[];
+    addPointAligned(P1?: GVPoint, P2?: GVPoint): GVPoint[];
     /**
      * P1, P2, P3 with P2P1P3 rectangular in P1
      * @param args
-     * @returns
+     * @returns {GVPoint[]}
      */
-    addRectPoint(...args: any[]): any[];
+    addRectPoint(...args: any[]): GVPoint[];
     /**
      * Distances to the sides of a triangle
-     * @param  {Point,Point,Point} args
-     * @returns
+     * @param  {GVPoint} P1
+     * @param  {GVPoint} P2
+     * @param  {GVPoint} P3
+     * @returns {number}
      */
-    distanceMinSidesVertices(P1: any, P2: any, P3: any): number;
+    distanceMinSidesVertices(P1: GVPoint, P2: GVPoint, P3: GVPoint): number;
     /**
      * Add three points not aligned or one not aligned with the two others
-     * @param  {Point,Point} args If no point we create three new points
-     * @returns {Point}
+     * @param  {GVPoint} P1 If no point we create three new points
+     * @param  {GVPoint} P2 If no point we create three new points
+     * @param  {GVPoint} P3 If no point we create three new points
+     * @returns {GVPoint}
      */
-    addNotAlignedPoint(P1?: GVPoint, P2?: GVPoint, P3?: any): GVPoint[];
+    addNotAlignedPoint(P1?: GVPoint, P2?: GVPoint, P3?: GVPoint): GVPoint[];
     /**
      * Add a parallel line to another one or two parallel lines
-     * @param  {Point,GVLine|GVLine} args If no args we create two parallels
+     * @param  {GVPoint} P If no args we create two parallels
+     * @param  {GVLine} line If no args we create two parallels
      * @returns {GVLine}
      */
     addParallelLine(P?: GVPoint, line?: GVLine): GVLine[];
@@ -187,8 +193,10 @@ export declare class GVGraphicView {
     addTriangle(arg1?: number | GVPoint, arg2?: number | GVPoint, arg3?: number | GVPoint, arg4?: number): GVTriangle;
     /**
      * Add a group of 4 points making a parallelogram
-     * @param  {...any} args // 0-3 Point
-     * @returns {Group}
+     * @param  {GVPoint} A // 0-3 point
+     * @param  {GVPoint} B // 0-3 point
+     * @param  {GVPoint} C // 0-3 point
+     * @returns {GVPolygon}
      */
     addParallelogram(A?: GVPoint, B?: GVPoint, C?: GVPoint, D?: any): GVPolygon;
     addRegularPolygon(n: number, A?: GVPoint, B?: GVPoint): GVPolygon;

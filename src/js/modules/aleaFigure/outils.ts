@@ -32,11 +32,11 @@ export function getDimensions(...figures) {
 }
 
 /**
- * 
- * @param x 
- * @returns 
+ * Euclidean quotient
+ * @param {number} x 
+ * @returns {number}
  */
-export function quotient (x: number, y: number) {
+export function quotient (x: number, y: number): number {
   return x - x % y
 }
 
