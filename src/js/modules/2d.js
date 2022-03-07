@@ -12,7 +12,7 @@ function arrondi (nombre, precision = 2, debug = true) {
   }
 }
 
-function calcul (x, arrondir = 13, debug = false) {
+function calcul (x, arrondir = 13, debug = true) {
   if (typeof expression === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
     return debug ? parseFloat(evaluate(x).toFixed(arrondir === false ? 13 : arrondir)) : x
