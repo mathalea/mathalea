@@ -3,7 +3,7 @@ import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
 import { fraction, max, ceil, round, evaluate } from 'mathjs'
 
-function arrondi (nombre, precision = 2, debug = false) {
+function arrondi (nombre, precision = 2, debug = true) {
   if (isNaN(nombre)) {
     window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', { nombre, precision })
     return NaN
@@ -5206,7 +5206,7 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
   const s = segment(this.extremite1, this.extremite2)
   let angle
   s.isVisible = false
-  const l = stringNombre(arrondi(s.longueur, 1))
+  const l = stringNombre(s.longueur, 1)
 
   this.svg = function (coeff) {
     const N = pointSurSegment(O, M, (this.distance * 20) / coeff)
