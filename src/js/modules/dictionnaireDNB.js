@@ -6894,7 +6894,8 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_1.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Équations', 'Arithmétique', 'Calculs numériques']
+
   },
   dnb_2015_03_caledonie_2: {
     annee: '2015',
@@ -6906,7 +6907,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_2.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Géométrie plane']
   },
   dnb_2015_03_caledonie_3: {
     annee: '2015',
@@ -6918,7 +6919,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_3.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Probabilités']
   },
   dnb_2015_03_caledonie_4: {
     annee: '2015',
@@ -6930,7 +6931,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_4.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Système d\'équations', 'Hors programme']
   },
   dnb_2015_03_caledonie_5: {
     annee: '2015',
@@ -6942,7 +6943,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_5.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Statistiques']
   },
   dnb_2015_03_caledonie_6: {
     annee: '2015',
@@ -6954,7 +6955,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_6.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_6_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Volumes', 'Aires', 'Trigonométrie']
   },
   dnb_2015_03_caledonie_7: {
     annee: '2015',
@@ -6966,7 +6967,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_7.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_7_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Tableur', 'Fonctions', 'Lecture graphique']
   },
   dnb_2015_03_caledonie_8: {
     annee: '2015',
@@ -6978,7 +6979,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_03_caledonie_8.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_03_caledonie_8_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Thalès', 'Pythagore', ' Géométrie plane']
   },
   dnb_2015_06_ameriquenord_7: {
     annee: '2015',
@@ -6990,7 +6991,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2015/tex/dnb_2015_06_ameriquenord_7.tex',
     urlcor: '/dnb/2015/tex/dnb_2015_06_ameriquenord_7_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Volume', 'Pythagore', 'Agrandissement-réduction', ' Géométrie dans l\'espace']
   },
 
 }

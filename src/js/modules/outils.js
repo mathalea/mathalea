@@ -2744,7 +2744,7 @@ function afficherNombre (nb, precision, fonction) {
     if (Number(nb) === 0) return '0'
     // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
     let nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
-    console.log('précision : ', precision, 'nb : ', nb, 'nombre : ', nombre)
+    // console.log('précision : ', precision, 'nb : ', nb, 'nombre : ', nombre)
     const rangVirgule = nombre.indexOf(',')
     let partieEntiere = ''
     if (rangVirgule !== -1) {
@@ -2756,10 +2756,10 @@ function afficherNombre (nb, precision, fonction) {
     if (rangVirgule !== -1) {
       partieDecimale = nombre.substring(rangVirgule + 1)
     }
-
-    for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-      partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
-    }
+    // La partie entière est déjà formatée par le Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
+    // for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
+    //   partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
+    // }
     for (let i = 3; i < partieDecimale.length; i += 4) { // des paquets de 3 nombres + 1 espace
       partieDecimale = partieDecimale.substring(0, i) + ' ' + partieDecimale.substring(i)
     }
