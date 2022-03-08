@@ -6993,5 +6993,65 @@ export const dictionnaireDNB = {
     urlcor: '/dnb/2015/tex/dnb_2015_06_ameriquenord_7_cor.tex',
     tags: ['Volume', 'Pythagore', 'Agrandissement-réduction', ' Géométrie dans l\'espace']
   },
+  dnb_2021_11_ameriquesud_1: {
+    annee: '2021',
+    lieu: 'Amérique du sud',
+    mois: 'Novembre',
+    numeroInitial: '1',
+    png: '/dnb/2021/tex/png/dnb_2021_11_ameriquesud_1.png',
+    pngcor: '/dnb/2021/tex/png/dnb_2021_11_ameriquesud_1_cor.png',
+    typeExercice: 'dnb',
+    url: '/dnb/2021/tex/dnb_2021_11_ameriquesud_1.tex',
+    urlcor: '/dnb/2021/tex/dnb_2021_11_ameriquesud_1_cor.tex',
+    tags: ['...tagsToChange']
+  },
+  dnb_2021_11_ameriquesud_2: {
+    annee: '2021',
+    lieu: 'Amérique du sud',
+    mois: 'Novembre',
+    numeroInitial: '2',
+    png: '/dnb/2021/tex/png/dnb_2021_11_ameriquesud_2.png',
+    pngcor: '/dnb/2021/tex/png/dnb_2021_11_ameriquesud_2_cor.png',
+    typeExercice: 'dnb',
+    url: '/dnb/2021/tex/dnb_2021_11_ameriquesud_2.tex',
+    urlcor: '/dnb/2021/tex/dnb_2021_11_ameriquesud_2_cor.tex',
+    tags: ['...tagsToChange']
+  },
+  dnb_2021_11_ameriquesud_3: {
+    annee: '2021',
+    lieu: 'Amérique du sud',
+    mois: 'Novembre',
+    numeroInitial: '3',
+    png: '/dnb/2021/tex/png/dnb_2021_11_ameriquesud_3.png',
+    pngcor: '/dnb/2021/tex/png/dnb_2021_11_ameriquesud_3_cor.png',
+    typeExercice: 'dnb',
+    url: '/dnb/2021/tex/dnb_2021_11_ameriquesud_3.tex',
+    urlcor: '/dnb/2021/tex/dnb_2021_11_ameriquesud_3_cor.tex',
+    tags: ['...tagsToChange']
+  },
+  dnb_2021_11_ameriquesud_4: {
+    annee: '2021',
+    lieu: 'Amérique du sud',
+    mois: 'Novembre',
+    numeroInitial: '4',
+    png: '/dnb/2021/tex/png/dnb_2021_11_ameriquesud_4.png',
+    pngcor: '/dnb/2021/tex/png/dnb_2021_11_ameriquesud_4_cor.png',
+    typeExercice: 'dnb',
+    url: '/dnb/2021/tex/dnb_2021_11_ameriquesud_4.tex',
+    urlcor: '/dnb/2021/tex/dnb_2021_11_ameriquesud_4_cor.tex',
+    tags: ['...tagsToChange']
+  },
+  dnb_2021_11_ameriquesud_5: {
+    annee: '2021',
+    lieu: 'Amérique du sud',
+    mois: 'Novembre',
+    numeroInitial: '5',
+    png: '/dnb/2021/tex/png/dnb_2021_11_ameriquesud_5.png',
+    pngcor: '/dnb/2021/tex/png/dnb_2021_11_ameriquesud_5_cor.png',
+    typeExercice: 'dnb',
+    url: '/dnb/2021/tex/dnb_2021_11_ameriquesud_5.tex',
+    urlcor: '/dnb/2021/tex/dnb_2021_11_ameriquesud_5_cor.tex',
+    tags: ['...tagsToChange']
+  },
 
 }
