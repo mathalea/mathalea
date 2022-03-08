@@ -1,9 +1,11 @@
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { point } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
+import { randint, enumerate, enumerateSansPuceSansNumero } from '../../modules/outils'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '06/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '../03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 export const titre = 'Puzzles géométriques'
 
@@ -19,9 +21,10 @@ export default function PuzzlesGeometriques () {
   this.titre = titre
   this.nbQuestions = 1 // Ici le nombre de questions
   this.nbQuestionsModifiable = false // Active le formulaire nombre de questions
-  this.pasDeVersionLatex = true // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
+  // this.pasDeVersionLatex = true // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.sup = 1
+  this.sup2 = true
   this.typeExercice = 'IEP'
 
   this.nouvelleVersion = function () {
@@ -132,24 +135,38 @@ export default function PuzzlesGeometriques () {
         break
     }
     let texte
-    texte = `
-    - Tracer deux droites perpendiculaires $(\\Delta)$ et $(\\Delta ')$, elles se coupent en $O$.<br>
-    - Tracer le cercle de centre $O$ et de rayon 7 cm.<br>
-    - Ce cercle coupe $(\\Delta)$ en $A$, à gauche de $O$, et $C$.<br>
-    - Ce cercle coupe $(\\Delta ')$ en $B$, au dessus de $O$, et $D$.<br>
-    - Tracer les demi-droites $[AB)$ et $[CB)$<br>
-    - Le cercle de centre $A$ et de rayon $AC$ coupe $[AB)$ en $F$, tracer en rouge l'arc $\\overgroup{FC}$.<br>
-    - Le cercle de centre $C$ et de rayon $AC$ coupe $[CB)$ en $E$, tracer en rouge l'arc $\\overgroup{EA}$.<br>
-    - Tracer en rouge l'arc $\\overgroup{EF}$ de centre $B$ et de rayon $BE$. Il coupe $(\\Delta ')$ en $H$<br>
-    - Le cercle de centre $D$ et de rayon $BE$ coupe le segment $[BD]$ en $G$.<br>
-    - Le cercle de centre $G$ et de rayon $BE$ coupe le segment $[AC]$ en L, à gauche de O, et K.<br>
-    - Effacer $[OG]$ et le noms des points.<br>
-    - Tracer en rouge $[AC]$, $[LG]$, $[GK]$, $[GD]$, $[OH]$, $[AF]$, $[CE]$ et l'arc $\\overgroup{AC}$ de centre $O$ situé sous le point $O$.<br>
-    - Découper les 9 pièces délimitées pas les lignes rouges.
-    - Construire l'une des silhouettes proposées.
-    `
-    texte += anim.htmlBouton(this.numeroExercice)
+    texte = 'Programme de construction'
+    texte += enumerate([
+      'Tracer deux droites perpendiculaires $(\\Delta)$ et $(\\Delta \')$, elles se coupent en $O$.',
+      'Tracer le cercle de centre $O$ et de rayon 7 cm.',
+      'Ce cercle coupe $(\\Delta)$ en $A$, à gauche de $O$, et $C$.',
+      'Ce cercle coupe $(\\Delta \')$ en $B$, au dessus de $O$, et $D$.',
+      'Tracer les demi-droites $[AB)$ et $[CB)$',
+      'Le cercle de centre $A$ et de rayon $AC$ coupe $[AB)$ en $F$, tracer en rouge l\'arc $\\overgroup{FC}$.',
+      'Le cercle de centre $C$ et de rayon $AC$ coupe $[CB)$ en $E$, tracer en rouge l\'arc $\\overgroup{EA}$.',
+      'Tracer en rouge l\'arc $\\overgroup{EF}$ de centre $B$ et de rayon $BE$. Il coupe $(\\Delta \')$ en $H$',
+      'Le cercle de centre $D$ et de rayon $BE$ coupe le segment $[BD]$ en $G$.',
+      'Le cercle de centre $G$ et de rayon $BE$ coupe le segment $[AC]$ en L, à gauche de O, et K.',
+      'Effacer $[OG]$ et le noms des points.',
+      'Tracer en rouge $[AC]$, $[LG]$, $[GK]$, $[GD]$, $[OH]$, $[AF]$, $[CE]$ et l\'arc $\\overgroup{AC}$ de centre $O$ situé sous le point $O$.'
+    ])
+    texte += enumerateSansPuceSansNumero([
+      'Les oiseaux sortent de l\'oeuf, c\'est bien connu !',
+      'Découper les 9 pièces délimitées pas les lignes rouges.',
+      'Construire la silhouette proposée.'
+    ])
+    // On tire une figure au hasard
+    const nbFig = randint(1, 11)
+    if (context.isHtml) {
+      texte += `<img class="ui middle aligned image" src="assets/puzzlesGeom/img/oiseau${nbFig}.png"/>`
+    } else {
+      texte += '\\href{https://coopmaths.fr/assets/images/logo2.png}{Voir la sihlouette en ligne BOF}'
+    }
+    if (this.sup2) {
+      texte += anim.htmlBouton(this.numeroExercice)
+    }
     this.contenu = texte
   }
   this.besoinFormulaireNumerique = ['Type de puzzle', 2, '1 : Oeuf magique\n 2 : Tangram']
+  this.besoinFormulaire2CaseACocher = ['Animation disponible']
 } // Fin de l'exercice.
