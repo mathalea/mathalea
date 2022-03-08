@@ -23,14 +23,14 @@ export declare class GVGrandeur {
     hypotenuse(a: GVGrandeur): GVGrandeur;
     /**
      * this^n
-     * @param n // Integer
-     * @returns
+     * @param {number} n // Integer
+     * @returns {GVGrandeur}
      */
     pow(n: number): GVGrandeur;
     /**
      * this^n
      * @param n // Integer
-     * @returns
+     * @returns {GVGrandeur}
      */
     sqrt(): GVGrandeur;
     abs(): GVGrandeur;
