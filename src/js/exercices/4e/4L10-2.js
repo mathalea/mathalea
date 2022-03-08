@@ -53,7 +53,7 @@ export default function AirePerimetrePolygone () {
     const F = pointAdistance(E, Lo, 0, nom[5])
     const G = similitude(E, F, -90, l / Lo, nom[6])
     const H = translation(G, vecteur(F, E), nom[7])
-    const rectangle1 = polygoneAvecNom(E, F, G, H)
+    const rectangle1 = polygone(E, F, G, H)
     const L1 = segment(E, H)
     const l1 = segment(H, G)
 
