@@ -7460,6 +7460,7 @@ export function exportQcmAmc (exercice, idExo) {
   let ordered = false
   let nbChiffresPd, nbChiffresPe
   let melange = true
+  let sautDeLigneApresEnonce
   for (let j = 0; j < autoCorrection.length; j++) {
     if (autoCorrection[j] === undefined) { // normalement, cela ne devrait jamais arriver !
       autoCorrection[j] = {}
@@ -7989,14 +7990,22 @@ export function exportQcmAmc (exercice, idExo) {
         if (autoCorrection[j].enonceAGauche) {
           texQr += `\\noindent\\fbox{\\begin{minipage}{${autoCorrection[j].enonceAGauche[0]}\\linewidth}\n`
         }
+        sautDeLigneApresEnonce = '\\\\\n '
+        if (!(autoCorrection[j].enonceCentre === undefined) || (autoCorrection[j].enonceCentre)) {
+          texQr += '\\begin{center}'
+          sautDeLigneApresEnonce = ''
+        }
         if (autoCorrection[j].enonceAvant === undefined) { // Dans une suite de questions, il se peut qu'il n'y ait pas d'énoncé général donc pas besoin de saut de ligne non plus.
-          texQr += `${autoCorrection[j].enonce} \\\\\n `
+          texQr += `${autoCorrection[j].enonce} ` + sautDeLigneApresEnonce
         } else if (autoCorrection[j].enonceAvant) {
-          texQr += `${autoCorrection[j].enonce} \\\\\n `
+          texQr += `${autoCorrection[j].enonce} ` + sautDeLigneApresEnonce
         } else if (autoCorrection[j].enonceAvantUneFois !== undefined) {
           if (autoCorrection[j].enonceAvantUneFois && j === 0) {
-            texQr += `${autoCorrection[j].enonce} \\\\\n `
+            texQr += `${autoCorrection[j].enonce} ` + sautDeLigneApresEnonce
           }
+        }
+        if (!(autoCorrection[j].enonceCentre === undefined) || (autoCorrection[j].enonceCentre)) {
+          texQr += '\\end{center}'
         }
         if (autoCorrection[j].enonceAGauche) {
           texQr += `\\end{minipage}}\n\\noindent\\begin{minipage}[t]{${autoCorrection[j].enonceAGauche[1]}\\linewidth}\n`
@@ -8142,7 +8151,6 @@ export function exportQcmAmc (exercice, idExo) {
               } else if (rep.valeur[0].num !== undefined) { // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
                 valeurAMCNum = rep.valeur[0]
                 texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
-                console.log(propositions[0].reponse.alignement)
                 if (!(propositions[0].reponse.alignement === undefined)) {
                   texQr += '\\begin{'
                   texQr += `${propositions[0].reponse.alignement}}`
@@ -8248,11 +8256,11 @@ export function exportQcmAmc (exercice, idExo) {
               break
             case 'AMCOpen': // AMCOpen de Hybride
               if (propositions[0].numQuestionVisible === undefined) {
-                texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+                texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n`
               } else if (propositions[0].numQuestionVisible) {
-                texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n `
+                texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}} \n`
               } else {
-                texQr += `\t\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse \\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}}\\QuestionIndicative \n `
+                texQr += `\t\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse \\begin{question}{question-${ref}-${lettreDepuisChiffre(idExo + 1)}-${id}}\\QuestionIndicative \n`
               }
               if (!(propositions[0].enonce === undefined)) texQr += `\t${propositions[0].enonce}\n`
               texQr += `\t\t\\explain{${propositions[0].texte}}\n`
@@ -8261,7 +8269,10 @@ export function exportQcmAmc (exercice, idExo) {
                 texQr += `\t\t\\notation{${propositions[0].statut}}`
                 if (!(isNaN(propositions[0].sanscadre))) {
                   texQr += `[${propositions[0].sanscadre}]` // le statut contiendra le nombre de lignes pour ce type
-                }
+                } else texQr += '[false]'
+                if (!(isNaN(propositions[0].sanslignes))) {
+                  texQr += `[${!propositions[0].sanslignes}]` // le statut contiendra le nombre de lignes pour ce type
+                } else texQr += '[true]'
               }
 
               texQr += '\n' // le statut contiendra le nombre de lignes pour ce type
@@ -8398,7 +8409,7 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   \\usepackage{graphicx} % pour inclure une image
   \\usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,shapes.arrows,
     shapes.callouts, shapes.multipart, shapes.gates.logic.US,shapes.gates.logic.IEC, er, automata,backgrounds,chains,topaths,trees,petri,mindmap,matrix, calendar, folding,fadings,through,positioning,scopes,decorations.fractals,decorations.shapes,decorations.text,decorations.pathmorphing,decorations.pathreplacing,decorations.footprints,decorations.markings,shadows,babel} % Charge toutes les librairies de Tikz
-  \\usepackage{tkz-tab,tkz-euclide,tkz-fct}\t% Géométrie euclidienne avec TikZ
+  \\usepackage{tkz-tab,tkz-fct,tkz-euclide}\t% Géométrie euclidienne avec TikZ
   %\\usetkzobj{all} %problème de compilation
   
   %%%%% PACKAGES MATHS %%%%%
@@ -8463,8 +8474,8 @@ export function creerDocumentAmc ({ questions, nbQuestions = [], nbExemplaires =
   \\newcommand{\\collerVertic}{\\vspace{-3mm}} % évite un trop grand espace vertical
   \\newcommand{\\TT}{\\sout{\\textbf{Tiers Temps}} \\noindent} % 
   \\newcommand{\\Prio}{\\fbox{\\textbf{PRIORITAIRE}} \\noindent} % 
-  \\newcommandx{\\notation}[2][2=false]{
-    \\AMCOpen{lines=#1,lineup=#2,lineuptext=\\hspace{1cm}}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{R}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{V}\\scoring{1}}
+  \\newcommandx{\\notation}[3][2=false,3=true]{
+    \\AMCOpen{lines=#1,lineup=#2,lineuptext=\\hspace{1cm},dots=#3}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{R}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{V}\\scoring{1}}
   }
   %%\\newcommand{\\notation}[1]{
   %%\\AMCOpen{lines=#1}{\\mauvaise[{\\tiny NR}]{NR}\\scoring{0}\\mauvaise[{\\tiny RR}]{R}\\scoring{0.01}\\mauvaise[{\\tiny R}]{R}\\scoring{0.33}\\mauvaise[{\\tiny V}]{V}\\scoring{0.67}\\bonne[{\\tiny VV}]{V}\\scoring{1}}
