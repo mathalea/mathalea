@@ -11,7 +11,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_01_sujet0_1.tex',
     urlcor: '/bac/2021/tex/bac_2021_01_sujet0_1_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['QCM', 'Suites', 'Exponentielle', 'Convexité']
   },
   bac_2021_01_sujet0_2: {
     annee: '2021',
@@ -23,7 +23,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_01_sujet0_2.tex',
     urlcor: '/bac/2021/tex/bac_2021_01_sujet0_2_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Espace']
   },
   bac_2021_01_sujet0_3: {
     annee: '2021',
@@ -35,7 +35,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_01_sujet0_3.tex',
     urlcor: '/bac/2021/tex/bac_2021_01_sujet0_3_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Python']
   },
   bac_2021_01_sujet0_4: {
     annee: '2021',
@@ -47,7 +47,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_01_sujet0_4.tex',
     urlcor: '/bac/2021/tex/bac_2021_01_sujet0_4_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Logarithme', 'Convexité']
   },
   bac_2021_01_sujet0_5: {
     annee: '2021',
@@ -59,7 +59,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_01_sujet0_5.tex',
     urlcor: '/bac/2021/tex/bac_2021_01_sujet0_5_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Equations différentielles', 'Exponentielle', 'Suites']
   },
   bac_2021_03_sujet1_1: {
     annee: '2021',
@@ -71,7 +71,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_03_sujet1_1.tex',
     urlcor: '/bac/2021/tex/bac_2021_03_sujet1_1_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2021_03_sujet1_2: {
     annee: '2021',
@@ -83,7 +83,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_03_sujet1_2.tex',
     urlcor: '/bac/2021/tex/bac_2021_03_sujet1_2_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Exponentielle']
   },
   bac_2021_03_sujet1_3: {
     annee: '2021',
@@ -95,7 +95,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_03_sujet1_3.tex',
     urlcor: '/bac/2021/tex/bac_2021_03_sujet1_3_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['QCM', 'Espace']
   },
   bac_2021_03_sujet1_4: {
     annee: '2021',
@@ -107,7 +107,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_03_sujet1_4.tex',
     urlcor: '/bac/2021/tex/bac_2021_03_sujet1_4_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Suites', 'Tableur']
   },
   bac_2021_03_sujet1_5: {
     annee: '2021',
@@ -119,7 +119,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_03_sujet1_5.tex',
     urlcor: '/bac/2021/tex/bac_2021_03_sujet1_5_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Logarithme', 'Convexité']
   },
   bac_2021_03_sujet2_1: {
     annee: '2021',
@@ -131,7 +131,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_03_sujet2_1.tex',
     urlcor: '/bac/2021/tex/bac_2021_03_sujet2_1_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['QCM', 'Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2021_03_sujet2_2: {
     annee: '2021',
@@ -143,7 +143,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_03_sujet2_2.tex',
     urlcor: '/bac/2021/tex/bac_2021_03_sujet2_2_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Suites', 'Python']
   },
   bac_2021_03_sujet2_3: {
     annee: '2021',
@@ -155,7 +155,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_03_sujet2_3.tex',
     urlcor: '/bac/2021/tex/bac_2021_03_sujet2_3_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Espace']
   },
   bac_2021_03_sujet2_4: {
     annee: '2021',
@@ -167,7 +167,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_03_sujet2_4.tex',
     urlcor: '/bac/2021/tex/bac_2021_03_sujet2_4_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Exponentielle']
   },
   bac_2021_03_sujet2_5: {
     annee: '2021',
@@ -179,7 +179,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_03_sujet2_5.tex',
     urlcor: '/bac/2021/tex/bac_2021_03_sujet2_5_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Logarithme', 'Primitives']
   },
   bac_2021_05_ameriquenord_1: {
     annee: '2021',
@@ -191,7 +191,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_05_ameriquenord_1.tex',
     urlcor: '/bac/2021/tex/bac_2021_05_ameriquenord_1_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2021_05_ameriquenord_2: {
     annee: '2021',
@@ -203,7 +203,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_05_ameriquenord_2.tex',
     urlcor: '/bac/2021/tex/bac_2021_05_ameriquenord_2_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Suites', 'Python']
   },
   bac_2021_05_ameriquenord_3: {
     annee: '2021',
@@ -215,7 +215,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_05_ameriquenord_3.tex',
     urlcor: '/bac/2021/tex/bac_2021_05_ameriquenord_3_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Espace']
   },
   bac_2021_05_ameriquenord_4: {
     annee: '2021',
@@ -227,7 +227,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_05_ameriquenord_4.tex',
     urlcor: '/bac/2021/tex/bac_2021_05_ameriquenord_4_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Vrai/Faux', 'Exponentielle', 'Convexité']
   },
   bac_2021_05_ameriquenord_5: {
     annee: '2021',
@@ -239,7 +239,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_05_ameriquenord_5.tex',
     urlcor: '/bac/2021/tex/bac_2021_05_ameriquenord_5_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Logarithme', 'Convexité']
   },
   bac_2021_06_polynesie_1: {
     annee: '2021',
@@ -251,7 +251,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_polynesie_1.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_polynesie_1_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Suites']
   },
   bac_2021_06_polynesie_2: {
     annee: '2021',
@@ -263,7 +263,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_polynesie_2.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_polynesie_2_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2021_06_polynesie_3: {
     annee: '2021',
@@ -275,7 +275,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_polynesie_3.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_polynesie_3_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Espace']
   },
   bac_2021_06_polynesie_4: {
     annee: '2021',
@@ -287,7 +287,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_polynesie_4.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_polynesie_4_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Exponentielle', 'Convexité', 'Equations différentielles']
   },
   bac_2021_06_polynesie_5: {
     annee: '2021',
@@ -299,7 +299,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_polynesie_5.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_polynesie_5_cor.tex',
-    tags: ['tag1ToChange', 'tag2toChange', '...']
+    tags: ['Logarithme', 'TVI']
   },
 
 
@@ -313,7 +313,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_asie_1.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_asie_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Suites', 'Python']
   },
   bac_2021_06_asie_10: {
     annee: '2021',
@@ -325,7 +325,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_asie_10.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_asie_10_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Suites', 'Logarithme', 'Tableur']
   },
   bac_2021_06_asie_2: {
     annee: '2021',
@@ -337,7 +337,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_asie_2.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_asie_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Espace']
   },
   bac_2021_06_asie_3: {
     annee: '2021',
@@ -349,7 +349,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_asie_3.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_asie_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Probabilités', 'Variable aléatoire', 'Loi binomiale']
   },
   bac_2021_06_asie_4: {
     annee: '2021',
@@ -361,7 +361,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_asie_4.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_asie_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Logarithme', 'TVI', 'Convexité']
   },
   bac_2021_06_asie_5: {
     annee: '2021',
@@ -373,7 +373,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_asie_5.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_asie_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Exponentielle', 'Equations différentielles']
   },
   bac_2021_06_asie_6: {
     annee: '2021',
@@ -385,7 +385,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_asie_6.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_asie_6_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Exponentielle', 'Convexité', 'Python']
   },
   bac_2021_06_asie_7: {
     annee: '2021',
@@ -397,7 +397,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_asie_7.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_asie_7_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Espace']
   },
   bac_2021_06_asie_8: {
     annee: '2021',
@@ -409,7 +409,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_asie_8.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_asie_8_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Probabilités', 'Loi binomiale', 'Dénombrement']
   },
   bac_2021_06_asie_9: {
     annee: '2021',
@@ -421,7 +421,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_asie_9.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_asie_9_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Suites', 'Equations différentielles']
   },
   bac_2021_06_etrangers_1: {
     annee: '2021',
@@ -433,7 +433,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_1.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Exponentielle', 'Probabilités']
   },
   bac_2021_06_etrangers_10: {
     annee: '2021',
@@ -445,7 +445,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_10.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_10_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Exponentielle', 'Equations différentielles']
   },
   bac_2021_06_etrangers_2: {
     annee: '2021',
@@ -457,7 +457,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_2.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Probabilités', 'Loi binomiale']
   },
   bac_2021_06_etrangers_3: {
     annee: '2021',
@@ -469,7 +469,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_3.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Suites']
   },
   bac_2021_06_etrangers_4: {
     annee: '2021',
@@ -481,7 +481,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_4.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Espace']
   },
   bac_2021_06_etrangers_5: {
     annee: '2021',
@@ -493,7 +493,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_5.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Exponentielle', 'Equations différentielles']
   },
   bac_2021_06_etrangers_6: {
     annee: '2021',
@@ -505,7 +505,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_6.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_6_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Suites', 'Probabilités']
   },
   bac_2021_06_etrangers_7: {
     annee: '2021',
@@ -517,7 +517,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_7.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_7_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Suites', 'Exponentielle', 'Python']
   },
   bac_2021_06_etrangers_8: {
     annee: '2021',
@@ -529,7 +529,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_8.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_8_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Espace']
   },
   bac_2021_06_etrangers_9: {
     annee: '2021',
@@ -541,7 +541,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_9.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_9_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Logarithme', 'Probabilités', 'Variable aléatoire']
   },
   bac_2021_06_metropole_1: {
     annee: '2021',
@@ -553,7 +553,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_1.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Exponentielle', 'Convexité']
   },
   bac_2021_06_metropole_10: {
     annee: '2021',
@@ -565,7 +565,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_10.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_10_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Exponentielle', 'Convexité']
   },
   bac_2021_06_metropole_2: {
     annee: '2021',
@@ -577,7 +577,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_2.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2021_06_metropole_3: {
     annee: '2021',
@@ -589,7 +589,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_3.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Suites', 'Python']
   },
   bac_2021_06_metropole_4: {
     annee: '2021',
@@ -601,7 +601,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_4.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Espace']
   },
   bac_2021_06_metropole_5: {
     annee: '2021',
@@ -613,7 +613,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_5.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Equations différentielles', 'Exponentielle']
   },
   bac_2021_06_metropole_6: {
     annee: '2021',
@@ -625,7 +625,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_6.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_6_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Espace']
   },
   bac_2021_06_metropole_7: {
     annee: '2021',
@@ -637,7 +637,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_7.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_7_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Python']
   },
   bac_2021_06_metropole_8: {
     annee: '2021',
@@ -649,7 +649,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_8.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_8_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Suites']
   },
   bac_2021_06_metropole_9: {
     annee: '2021',
@@ -661,7 +661,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_9.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_9_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Logarithme', 'TVI']
   },
   bac_2021_09_metropole_1: {
     annee: '2021',
@@ -673,7 +673,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_09_metropole_1.tex',
     urlcor: '/bac/2021/tex/bac_2021_09_metropole_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Exponentielle', 'Convexité']
   },
   bac_2021_09_metropole_10: {
     annee: '2021',
@@ -685,7 +685,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_09_metropole_10.tex',
     urlcor: '/bac/2021/tex/bac_2021_09_metropole_10_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Logarithme']
   },
   bac_2021_09_metropole_2: {
     annee: '2021',
@@ -697,7 +697,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_09_metropole_2.tex',
     urlcor: '/bac/2021/tex/bac_2021_09_metropole_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Suites', 'Python']
   },
   bac_2021_09_metropole_3: {
     annee: '2021',
@@ -709,7 +709,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_09_metropole_3.tex',
     urlcor: '/bac/2021/tex/bac_2021_09_metropole_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Exponentielle', 'Probabilités conditionnelles']
   },
   bac_2021_09_metropole_4: {
     annee: '2021',
@@ -721,7 +721,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_09_metropole_4.tex',
     urlcor: '/bac/2021/tex/bac_2021_09_metropole_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Espace']
   },
   bac_2021_09_metropole_5: {
     annee: '2021',
@@ -733,7 +733,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_09_metropole_5.tex',
     urlcor: '/bac/2021/tex/bac_2021_09_metropole_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Logarithme']
   },
   bac_2021_09_metropole_6: {
     annee: '2021',
@@ -745,7 +745,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_09_metropole_6.tex',
     urlcor: '/bac/2021/tex/bac_2021_09_metropole_6_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2021_09_metropole_7: {
     annee: '2021',
@@ -757,7 +757,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_09_metropole_7.tex',
     urlcor: '/bac/2021/tex/bac_2021_09_metropole_7_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Espace']
   },
   bac_2021_09_metropole_8: {
     annee: '2021',
@@ -769,7 +769,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_09_metropole_8.tex',
     urlcor: '/bac/2021/tex/bac_2021_09_metropole_8_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Exponentielle', 'TVI']
   },
   bac_2021_09_metropole_9: {
     annee: '2021',
@@ -781,7 +781,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_09_metropole_9.tex',
     urlcor: '/bac/2021/tex/bac_2021_09_metropole_9_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Suites']
   },
 
 }

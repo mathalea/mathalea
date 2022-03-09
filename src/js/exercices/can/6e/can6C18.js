@@ -27,14 +27,22 @@ export default function ResteDivisionEuclidienne () {
       this.reponse = c % a
       this.question = `Je possède $${c}$ bonbons et je fabrique des sacs de $${a}$ bonbons.<br>
      Une fois mes sacs complétés, combien me restera-t-il de bonbons ?`
-      this.correction = `Il me restera $${b}$ bonbons.`
+      if (b === 1) { this.correction = `Il me restera $${b}$ bonbon.` } else { this.correction = `Il me restera $${b}$ bonbons.` }
       this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
     On cherche un multiple de $${a}$ inférieur à $${c}$ (mais le plus grand possible).
-     C'est $${c - c % a}$. <br>
-     Comme $${c}=${c - c % a} + ${b}$, donc il me restera $${b}$ bonbons.<br>
-     Remarque : je pourrais faire $${(c - c % a) / a}$ sacs complets.
+     C'est $${c - c % a}$. <br> `)
+      if (b === 1) {
+        this.correction += texteEnCouleur(`
+     Comme $${c}=${c - c % a} + ${b}$, donc il me restera $${b}$ bonbon.<br>
+     Remarque : je pourrai faire $${(c - c % a) / a}$ sacs complets.
      `)
+      } else {
+        this.correction += texteEnCouleur(`
+     Comme $${c}=${c - c % a} + ${b}$, donc il me restera $${b}$ bonbons.<br>
+     Remarque : je pourrai faire $${(c - c % a) / a}$ sacs complets.
+     `)
+      }
     } else {
       q = randint(11, 15)
       b = randint(8, 11)

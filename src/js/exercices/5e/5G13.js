@@ -140,6 +140,7 @@ export default function ConservationSymetrie () {
         }
       } else if (listeTypeDeQuestions[i] === 'parallelisme') {
         objetsEnonceEtCorr.push(tracePoint(imageC))
+        objetsEnonceOnly.push(labelPoint(imageC))
         objetsCorrectionOnly.push(tracePoint(imageA, imageB))
       }
       const xmin = Math.min(A.x, B.x, C.x, imageA.x, imageB.x, imageC.x) - 2
