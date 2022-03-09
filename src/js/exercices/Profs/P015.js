@@ -35,7 +35,7 @@ export default function PuzzlesGeometriques () {
     anim.translationX = 4
     anim.translationY = 20
     // vitesse pour l'anim
-    anim.vitesse = 1000
+    anim.vitesse = 50 // 1000
     anim.xMax = 20
     anim.yMax = 20
     switch (type) {
