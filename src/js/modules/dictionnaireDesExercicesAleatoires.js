@@ -2918,7 +2918,10 @@ export default {
   "3G32-0": {
     "titre": "Problèmes nécessitant un calcul de longueur à l'aide de la trigonométrie",
     "url": "/exercices/3e/3G32-0.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3G32-0",
@@ -2932,10 +2935,14 @@ export default {
     }
   },
   "3G32-1": {
-    "titre": "Calcul d\\",
+    "titre": "Calcul d'un parallèle terrestre",
     "url": "/exercices/3e/3G32-1.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G32-1",
     "newEx": {
       "isNew": false,
@@ -2947,10 +2954,14 @@ export default {
     }
   },
   "3G32-2": {
-    "titre": "Calculer la hauteur d\\",
+    "titre": "Calculer la hauteur d'un objet vu sous un angle donné",
     "url": "/exercices/3e/3G32-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G32-2",
     "newEx": {
       "isNew": false,
@@ -2962,10 +2973,14 @@ export default {
     }
   },
   "3G32-3": {
-    "titre": "Calculer la hauteur d\\",
+    "titre": "Calculer la hauteur d'une falaise",
     "url": "/exercices/3e/3G32-3.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G32-3",
     "newEx": {
       "isNew": false,
@@ -2977,10 +2992,14 @@ export default {
     }
   },
   "3G32-4": {
-    "titre": "Calculer la hauteur d\\",
+    "titre": "Calculer la hauteur d'une montagne",
     "url": "/exercices/3e/3G32-4.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G32-4",
     "newEx": {
       "isNew": false,
@@ -2994,8 +3013,12 @@ export default {
   "3G32-5": {
     "titre": "Triangle rectangle inscrit dans un triangle rectangle",
     "url": "/exercices/3e/3G32-5.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G32-5",
     "newEx": {
       "isNew": false,
@@ -3007,10 +3030,14 @@ export default {
     }
   },
   "3G32": {
-    "titre": "Calculer la largeur d\\",
+    "titre": "Calculer la largeur d'une rivière",
     "url": "/exercices/3e/3G32.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G32",
     "newEx": {
       "isNew": false,
@@ -4697,6 +4724,21 @@ export default {
     "name": "4L10-1",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "4L10-2": {
+    "titre": "Donner l'expression littérale d'un Périmètre et d'une aire de quadrilatère",
+    "url": "/exercices/4e/4L10-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4L10-2",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10961,6 +11003,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "betaTexNombre": {
+    "titre": "Somme de deux entier",
+    "url": "/exercices/beta/betaTexNombre.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaTexNombre",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "betaTracerParabole": {
     "titre": "Etude d’une parabole",
     "url": "/exercices/beta/betaTracerParabole.js",
@@ -12460,7 +12518,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2N02",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

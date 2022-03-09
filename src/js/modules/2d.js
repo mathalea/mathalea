@@ -635,6 +635,9 @@ function LabelPoint (...points) {
         case 'above':
           code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
+        case 'above left':
+          code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          break
         case 'above right':
           code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
@@ -645,7 +648,7 @@ function LabelPoint (...points) {
           code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
         default:
-          code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x, y, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
           break
       }
     }
@@ -9382,16 +9385,13 @@ export function angle (A, O, B) {
   const AB = longueur(A, B)
   const v = vecteur(O, A)
   const w = vecteur(O, B)
-  if (v.x * w.y - v.y * w.x === 0) {
+  if (egal(v.x * w.y - v.y * w.x, 0)) { // vecteurs colinéaires à epsilon près pour éviter les effets de bords dus aux flottants.
     if (v.x * w.x > 0) return 0
     else if (v.x * w.x < 0) return 180
     else if (v.y * w.y > 0) return 0
     else return 180
   } else {
-    return arrondi(
-      (Math.acos((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB)) * 180) / Math.PI,
-      2
-    )
+    return arrondi((Math.acos(arrondi((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB), 12)) * 180) / Math.PI, 2)
   }
 }
 
@@ -9413,7 +9413,7 @@ export function angleradian (A, O, B) {
   const OA = longueur(O, A)
   const OB = longueur(O, B)
   const AB = longueur(A, B)
-  return calcul(Math.acos((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB)), 2)
+  return calcul(Math.acos(arrondi((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB), 12)), 2)
 }
 
 /*

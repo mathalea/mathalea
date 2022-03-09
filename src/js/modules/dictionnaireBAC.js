@@ -287,7 +287,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_polynesie_4.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_polynesie_4_cor.tex',
-    tags: ['Fonction exponentielle', 'Convexité', 'Equations différentielles']
+    tags: ['Exponentielle', 'Convexité', 'Equations différentielles']
   },
   bac_2021_06_polynesie_5: {
     annee: '2021',
@@ -517,7 +517,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_7.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_7_cor.tex',
-    tags: ['Suites', 'Fonction exponentielle', 'Python']
+    tags: ['Suites', 'Exponentielle', 'Python']
   },
   bac_2021_06_etrangers_8: {
     annee: '2021',
@@ -553,7 +553,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_1.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_1_cor.tex',
-    tags: ['Exponentielle', 'Convexité']
+    tags: ['QCM', 'Exponentielle', 'Convexité']
   },
   bac_2021_06_metropole_10: {
     annee: '2021',
@@ -625,7 +625,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_6.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_6_cor.tex',
-    tags: ['QCM', 'Espace', 'Probabilités conditionnelles', 'Loi binomiale', 'Python']
+    tags: ['QCM', 'Espace']
   },
   bac_2021_06_metropole_7: {
     annee: '2021',
@@ -637,7 +637,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_7.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_7_cor.tex',
-    tags: ['Suites']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Python']
   },
   bac_2021_06_metropole_8: {
     annee: '2021',
@@ -649,7 +649,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_8.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_8_cor.tex',
-    tags: ['Logarithme', 'TVI']
+    tags: ['Suites']
   },
   bac_2021_06_metropole_9: {
     annee: '2021',
@@ -661,7 +661,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_metropole_9.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_metropole_9_cor.tex',
-    tags: ['Exponentielle', 'Convexité']
+    tags: ['Logarithme', 'TVI']
   },
   bac_2021_09_metropole_1: {
     annee: '2021',

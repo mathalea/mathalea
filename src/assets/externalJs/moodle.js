@@ -7,15 +7,16 @@ if (typeof window.iMathAlea === 'undefined') {
 
   window.addEventListener('message', (event) => {
     if (typeof event.data.iMoodle === 'number' && typeof window.iMathAlea[event.data.iMoodle] !== 'undefined') {
-      const iframe = window.iMathAlea[event.data.iMoodle]
+      const iframe = window.iMathAlea[event.data.iMoodle].iframe
+      const question = window.iMathAlea[event.data.iMoodle].question
       let hauteur = event.data.hauteurExercice || event.data.hauteurExerciceCorrection
       if (typeof hauteur !== 'undefined') {
         hauteur += 50
         iframe.setAttribute('height', hauteur.toString())
       }
       if (event.data.score !== undefined) {
-        iframe.parentNode.parentNode.querySelector('[name$="_answer"]').value = event.data.score + '|' + JSON.stringify(event.data.reponses)
-        iframe.parentNode.parentNode.querySelector('[name$="_-submit"]')?.click()
+        question.querySelector('[name$="_answer"]').value = event.data.score + '|' + JSON.stringify(event.data.reponses)
+        question.querySelector('[name$="_-submit"]')?.click()
       }
     }
   })
@@ -65,7 +66,6 @@ if (typeof window.iMathAlea === 'undefined') {
         }
         questionDiv = questionDiv.parentNode
       }
-
       if (questionDiv === null) {
         shadow.appendChild(document.createTextNode('[Erreur de détection de la l’environnement moodle]'))
         return
@@ -85,7 +85,7 @@ if (typeof window.iMathAlea === 'undefined') {
 
       const iframe = document.createElement('iframe')
       this.iframe = iframe
-      window.iMathAlea.push(this)
+      window.iMathAlea.push({ iframe: this, question: questionDiv })
 
       if (questionDiv.classList.contains('notyetanswered')) {
         // L'élève n'a pas encore répondu à la question, on affiche immédiatement l'iframe
