@@ -4710,6 +4710,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "4L10-2": {
+    "titre": "Donner l'expression littérale d'un périmètre et d'une aire de quadrilatère",
+    "url": "/exercices/4e/4L10-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4L10-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "4L10": {
     "titre": "Utiliser la simple distributivité",
     "url": "/exercices/4e/4L10.js",
@@ -12467,7 +12482,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2N02",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
