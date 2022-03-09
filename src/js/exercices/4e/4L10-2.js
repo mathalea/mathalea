@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, creerNomDePolygone, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, choice } from '../../modules/outils.js'
 import { codageAngleDroit, codeSegments, mathalea2d, point, pointAdistance, polygone, rotation, segment, similitude, texteParPosition, translation, vecteur } from '../../modules/2d.js'
 export const titre = 'Donner l\'expression littérale d\'un périmètre et d\'une aire de quadrilatère'
 
@@ -20,7 +20,6 @@ export default function AirePerimetrePolygone () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    const nom = creerNomDePolygone(16, 'Q')
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -32,91 +31,118 @@ export default function AirePerimetrePolygone () {
     const inc2 = variable2[randint(0, variable2.length - 1)]
     const l = randint(2, 4)
     const L = randint(5, 8)
-    const schemas = []
 
     const typeQuestionsDisponibles = ['r1', 'r2', 'r3', 'c'] // On crée 4 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, A, B, C, D, a, E, F, G, H, I, J, quad, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
-      a = 8 * i
+    for (let i = 0, A, B, C, D, E, F, G, H, I, J, K, M, N, P, o, quad, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+      texte = ''
+      texteCorr = ''
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'c':// Carré de côté une lettre
-          A = point(a, 0, nom[0])
-          B = pointAdistance(A, 4, 0, nom[1])
-          C = rotation(A, B, -90, nom[2])
-          D = rotation(B, A, 90, nom[3])
+          A = point(0, 0)
+          B = pointAdistance(A, 4, 0)
+          C = rotation(A, B, -90)
+          D = rotation(B, A, 90)
           quad = polygone(A, B, C, D)
-          schemas[i] = mathalea2d({ xmin: -1, xmax: 8 * (i + 1), ymin: -1, ymax: 5, style: 'display: inline', pixelsParCm: 20, scale: 0.25 },
-            quad, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codeSegments('//', 'blue', [A, B, C, D, A]), texteParPosition(`${inc1}`, 2 + 8 * i, 4.7)
+          texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
+            quad, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codeSegments('//', 'blue', A, B, B, C, C, D, D, A), texteParPosition(`${inc1}`, 2, 4.7)
           )
-          texteCorr = 'périmètre :'
+          texteCorr += 'périmètre :'
           texteCorr += `<br>$p =${inc1}+${inc1}+${inc1}+${inc1}$`
           texteCorr += `<br>$p =4${inc1}$`
           texteCorr += '<br>Aire :'
-          texteCorr += `<br>$A =${inc1}x${inc1}$`
-          texteCorr += `<br>$A =${inc1}²$`
+          texteCorr += `<br>$A =${inc1}\\times ${inc1}$`
+          texteCorr += `<br>$A =${inc1}^2$`
           break
 
-        case 'r1': // Rectangle ayant une lettre pour Longueur et une autre lettre pour largeur
-          E = point(a, 0, nom[4])
-          F = pointAdistance(E, 6, 0, nom[5])
-          G = similitude(E, F, -90, 2 / 3, nom[6])
-          H = translation(G, vecteur(F, E), nom[7])
+        case 'r1': // Rectangle ayant une lettre pour Longueur et une autre lettre pour largeur, ou bien une lettre pour Longueur et un nombre pour largeur
+          E = point(0, 0)
+          F = pointAdistance(E, 6, 0)
+          G = similitude(E, F, -90, 2 / 3)
+          H = translation(G, vecteur(F, E))
           quad = polygone(E, F, G, H)
-          schemas[i] = mathalea2d({ xmin: -1, xmax: 8 * (i + 1), ymin: -1, ymax: 5, style: 'display: inline', pixelsParCm: 20, scale: 0.25 },
-            quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codeSegments('/', 'red', E, F, G, H), codeSegments('||', 'blue', F, G, H, E), texteParPosition(`${inc1}`, 3 + 8 * i, 4.7), texteParPosition(`${inc2}`, 8 * i - 0.7, 2)
-          )
-          texteCorr = 'périmètre :'
-          texteCorr += `<br>$p =${inc1}+${inc2}+${inc1}+${inc2}$`
-          texteCorr += `<br>$p =2${inc1}+2${inc2}$`
-          texteCorr += '<br>Aire :'
-          texteCorr += `<br>$A =${inc1}x${inc2}$`
-          texteCorr += `<br>$A =${inc1}${inc2}$`
+          o = choice([1, 2])
+          if (o === 1) {
+            texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
+              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codeSegments('/', 'red', E, F, G, H), codeSegments('||', 'blue', F, G, H, E), texteParPosition(`${inc1}`, 3, 4.7), texteParPosition(`${inc2}`, -0.7, 2)
+            )
+            texteCorr += 'périmètre :'
+            texteCorr += `<br>$p =${inc1}+${inc2}+${inc1}+${inc2}$`
+            texteCorr += `<br>$p =2${inc1}+2${inc2}$`
+            texteCorr += '<br>Aire :'
+            texteCorr += `<br>$A =${inc1}\\times ${inc2}$`
+            texteCorr += `<br>$A =${inc1}${inc2}$`
+          } else {
+            texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
+              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codeSegments('/', 'red', E, F, G, H), codeSegments('||', 'blue', F, G, H, E), texteParPosition(L, 3, 4.7), texteParPosition(`${inc1}`, -0.7, 2)
+            )
+            texteCorr += 'périmètre :'
+            texteCorr += `<br>$p =${L}+${inc1}+${L}+${inc1}$`
+            texteCorr += `<br>$p =2${inc1}+${2 * L}$`
+            texteCorr += '<br>Aire :'
+            texteCorr += `<br>$A =${L}\\times ${inc1}$`
+            texteCorr += `<br>$A =${L}${inc1}$`
+          }
           break
 
-        case 'r2': // Rectangle ayant une lettre pour Longueur et un nombre pour largeur, ou inversement
-          E = point(a, 0, nom[4])
-          F = pointAdistance(E, 6, 0, nom[5])
-          G = similitude(E, F, -90, 2 / 3, nom[6])
-          H = translation(G, vecteur(F, E), nom[7])
+        case 'r2': // Rectangle ayant le triple d'une mesure en longueur, et un nombre ou cette mesure en largeur
+          E = point(0, 0)
+          F = pointAdistance(E, 6, 0)
+          G = similitude(E, F, -90, 1 / 3)
+          H = translation(G, vecteur(F, E))
+          I = point(2, 1.7)
+          J = point(2, 2.3)
+          K = point(4, 1.7)
+          M = point(4, 2.3)
+          N = point(2, 2)
+          P = point(4, 2)
           quad = polygone(E, F, G, H)
-          schemas[i] = mathalea2d({ xmin: -1, xmax: 8 * (i + 1), ymin: -1, ymax: 5, style: 'display: inline', pixelsParCm: 20, scale: 0.25 },
-            quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codeSegments('/', 'red', E, F, G, H), codeSegments('||', 'blue', F, G, H, E), texteParPosition(L, 3 + 8 * i, 4.7), texteParPosition(`${inc1}`, 8 * i - 0.7, 2)
-          )
-          texteCorr = 'périmètre :'
-          texteCorr += `<br>$p =${L}+${inc1}+${L}+${inc1}$`
-          texteCorr += `<br>$p =${2 * L}+2${inc1}$`
-          texteCorr += '<br>Aire :'
-          texteCorr += `<br>$A =Lx${inc1}$`
-          texteCorr += `<br>$A =L${inc1}$`
+          o = choice([1, 2])
+          if (o === 1) {
+            texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
+              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), segment(I, J), segment(K, M), codeSegments('/', 'red', [H, N, P, G]), codeSegments('/', 'red', F, G, H, E), texteParPosition(`${inc1}`, 1, 2.7), texteParPosition(`${inc1}`, -0.7, 1)
+            )
+            texteCorr += 'périmètre :'
+            texteCorr += `<br>$p =${inc1}+${inc1}+${inc1}+${inc1}+${inc1}+${inc1}+${inc1}+${inc1}$`
+            texteCorr += `<br>$p =8${inc1}$`
+            texteCorr += '<br>Aire :'
+            texteCorr += `<br>$A =${inc1}\\times ${inc1}+${inc1}\\times ${inc1}+${inc1}\\times ${inc1}$`
+            texteCorr += `<br>$A =3${inc1}^2$`
+          } else {
+            texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
+              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), segment(I, J), segment(K, M), codeSegments('/', 'red', [H, N, P, G]), codeSegments('/', 'red', F, G, H, E), texteParPosition(`${inc1}`, 1, 2.7), texteParPosition(`${inc2}`, -0.7, 1)
+            )
+            texteCorr += 'périmètre :'
+            texteCorr += `<br>$p =${inc1}+${inc1}+${inc1}+${inc2}+${inc1}+${inc1}+${inc1}+${inc2}$`
+            texteCorr += `<br>$p =6${inc1}+2${inc2}$`
+            texteCorr += '<br>Aire :'
+            texteCorr += `<br>$A =${inc1}\\times ${inc2}+${inc1}\\times ${inc2}+${inc1}\\times ${inc2}$`
+            texteCorr += `<br>$A =3${inc1}${inc2}$`
+          }
           break
+
         case 'r3': // Rectangle ayant un nombre pour largeur et une somme de lettres pour Longueur
-          E = point(a, 0, nom[4])
-          F = pointAdistance(E, 6, 0, nom[5])
-          G = similitude(E, F, -90, 2 / 3, nom[6])
-          H = translation(G, vecteur(F, E), nom[7])
-          I = point(8 * i + l, 3.7)
-          J = point(8 * i + l, 4.3)
+          E = point(0, 0)
+          F = pointAdistance(E, 6, 0)
+          G = similitude(E, F, -90, 2 / 3)
+          H = translation(G, vecteur(F, E))
+          I = point(l, 3.7)
+          J = point(l, 4.3)
           quad = polygone(E, F, G, H)
-          schemas[i] = mathalea2d({ xmin: -1, xmax: 8 * (i + 1), ymin: -1, ymax: 5, style: 'display: inline', pixelsParCm: 20, scale: 0.25 },
-            quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codeSegments('/', 'red', E, F, G, H), codeSegments('||', 'blue', F, G, H, E), segment(I, J), texteParPosition(`${inc1}`, 8 * i + l / 2, 4.7), texteParPosition(`${inc2}`, 6 + 8 * i - l / 4, 4.7), texteParPosition(l, 8 * i - 0.7, 2)
+          texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
+            quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codeSegments('/', 'red', E, F, G, H), codeSegments('||', 'blue', F, G, H, E), segment(I, J), texteParPosition(`${inc1}`, l / 2, 4.7), texteParPosition(`${inc2}`, 3 + l / 2, 4.7), texteParPosition(l, -0.7, 2)
           )
-          texteCorr = 'périmètre :'
-          texteCorr += `<br>$p=${l} + ${inc1} + ${inc2} + ${l} + ${inc1} + ${inc2}$`
-          texteCorr += `<br>$p =2\\times${l}+2\\times${inc1}+2\\times${inc2}$`
-          texteCorr += `<br>$p =${2 * l}+2${inc1}+2${inc2}$`
+          texteCorr += 'périmètre :'
+          texteCorr += `<br>$p =${l} + ${inc1} + ${inc2} + ${l} + ${inc1} + ${inc2}$`
+          texteCorr += `<br>$p =2\\times${l}+2\\times ${inc1}+2\\times ${inc2}$`
+          texteCorr += `<br>$p =2${inc1}+2${inc2}+${2 * l}$`
           texteCorr += '<br>Aire :'
-          texteCorr += `<br>$A =l'\\times'(${inc1}+${inc2})$`
-          texteCorr += `<br>$A =l'\\times'${inc1}+l'\\times'${inc2}$`
-          texteCorr += `<br>$A =l${inc1}+l${inc2}$`
+          texteCorr += `<br>$A =${l}\\times (${inc1}+${inc2})$`
+          texteCorr += `<br>$A =${l}\\times ${inc1}+${l}\\times ${inc2}$`
+          texteCorr += `<br>$A =${l}${inc1}+${l}${inc2}$`
           break
       }
-
-      let texte = ''
-      for (let j = 0; j < 4; j++) {
-        texte += schemas[j]
-      }
-
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
@@ -125,7 +151,6 @@ export default function AirePerimetrePolygone () {
       }
       cpt++
     }
-
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
 }
