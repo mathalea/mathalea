@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, choice } from '../../modules/outils.js'
 import { codageAngleDroit, codeSegments, mathalea2d, point, pointAdistance, polygone, rotation, segment, similitude, texteParPosition, translation, vecteur } from '../../modules/2d.js'
-export const titre = 'Donner l\'expression littérale d\'un périmètre et d\'une aire de quadrilatère'
+export const titre = 'Donner l\'expression littérale d\'un Périmètre et d\'une aire de quadrilatère'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '08/03/2022'
@@ -25,10 +25,10 @@ export default function AirePerimetrePolygone () {
     this.autoCorrection = []
 
     // on choisit un nom pour les variables 1 et 2
-    const variable1 = ['a', 'b', 'c', 'd', 'e', 'f']
-    const inc1 = variable1[randint(0, variable1.length - 1)]
-    const variable2 = ['t', 'u', 'v', 'w', 'y', 'z']
-    const inc2 = variable2[randint(0, variable2.length - 1)]
+    const variable1 = ['a', 'b', 'c', 'd', 'e', 'f', 't', 'u', 'v', 'w', 'y', 'z']
+    const indiceVariable = randint(0, 10, 5)
+    const inc1 = variable1[indiceVariable]
+    const inc2 = variable1[indiceVariable + 1]
     const l = randint(2, 4)
     const L = randint(5, 8)
 
@@ -45,15 +45,16 @@ export default function AirePerimetrePolygone () {
           C = rotation(A, B, -90)
           D = rotation(B, A, 90)
           quad = polygone(A, B, C, D)
+          quad.epaisseur = 2
           texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
-            quad, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codeSegments('//', 'blue', A, B, B, C, C, D, D, A), texteParPosition(`${inc1}`, 2, 4.7)
+            quad, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codeSegments('//', 'blue', A, B, B, C, C, D, D, A), texteParPosition(`$${inc1}$`, 2, 4.7)
           )
-          texteCorr += 'périmètre :'
-          texteCorr += `<br>$p =${inc1}+${inc1}+${inc1}+${inc1}$`
-          texteCorr += `<br>$p =4${inc1}$`
+          texteCorr += 'Périmètre :'
+          texteCorr += `<br>$\\mathcal{P} =${inc1}+${inc1}+${inc1}+${inc1}$`
+          texteCorr += `<br>$\\mathcal{P} =4${inc1}$`
           texteCorr += '<br>Aire :'
-          texteCorr += `<br>$A =${inc1}\\times ${inc1}$`
-          texteCorr += `<br>$A =${inc1}^2$`
+          texteCorr += `<br>$\\mathcal{A} =${inc1}\\times ${inc1}$`
+          texteCorr += `<br>$\\mathcal{A} =${inc1}^2$`
           break
 
         case 'r1': // Rectangle ayant une lettre pour Longueur et une autre lettre pour largeur, ou bien une lettre pour Longueur et un nombre pour largeur
@@ -62,27 +63,28 @@ export default function AirePerimetrePolygone () {
           G = similitude(E, F, -90, 2 / 3)
           H = translation(G, vecteur(F, E))
           quad = polygone(E, F, G, H)
+          quad.epaisseur = 2
           o = choice([1, 2])
           if (o === 1) {
             texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
-              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codeSegments('/', 'red', E, F, G, H), codeSegments('||', 'blue', F, G, H, E), texteParPosition(`${inc1}`, 3, 4.7), texteParPosition(`${inc2}`, -0.7, 2)
+              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codeSegments('/', 'red', E, F, G, H), codeSegments('||', 'blue', F, G, H, E), texteParPosition(`$${inc1}$`, 3, 4.7), texteParPosition(`$${inc2}$`, -0.7, 2)
             )
-            texteCorr += 'périmètre :'
-            texteCorr += `<br>$p =${inc1}+${inc2}+${inc1}+${inc2}$`
-            texteCorr += `<br>$p =2${inc1}+2${inc2}$`
+            texteCorr += 'Périmètre :'
+            texteCorr += `<br>$\\mathcal{P} =${inc1}+${inc2}+${inc1}+${inc2}$`
+            texteCorr += `<br>$\\mathcal{P} =2${inc1}+2${inc2}$`
             texteCorr += '<br>Aire :'
-            texteCorr += `<br>$A =${inc1}\\times ${inc2}$`
-            texteCorr += `<br>$A =${inc1}${inc2}$`
+            texteCorr += `<br>$\\mathcal{A} =${inc1}\\times ${inc2}$`
+            texteCorr += `<br>$\\mathcal{A} =${inc1}${inc2}$`
           } else {
             texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
-              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codeSegments('/', 'red', E, F, G, H), codeSegments('||', 'blue', F, G, H, E), texteParPosition(L, 3, 4.7), texteParPosition(`${inc1}`, -0.7, 2)
+              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codeSegments('/', 'red', E, F, G, H), codeSegments('||', 'blue', F, G, H, E), texteParPosition(L, 3, 4.7), texteParPosition(`$${inc1}$`, -0.7, 2)
             )
-            texteCorr += 'périmètre :'
-            texteCorr += `<br>$p =${L}+${inc1}+${L}+${inc1}$`
-            texteCorr += `<br>$p =2${inc1}+${2 * L}$`
+            texteCorr += 'Périmètre :'
+            texteCorr += `<br>$\\mathcal{P} =${L}+${inc1}+${L}+${inc1}$`
+            texteCorr += `<br>$\\mathcal{P} =2${inc1}+${2 * L}$`
             texteCorr += '<br>Aire :'
-            texteCorr += `<br>$A =${L}\\times ${inc1}$`
-            texteCorr += `<br>$A =${L}${inc1}$`
+            texteCorr += `<br>$\\mathcal{A} =${L}\\times ${inc1}$`
+            texteCorr += `<br>$\\mathcal{A} =${L}${inc1}$`
           }
           break
 
@@ -98,27 +100,28 @@ export default function AirePerimetrePolygone () {
           N = point(2, 2)
           P = point(4, 2)
           quad = polygone(E, F, G, H)
+          quad.epaisseur = 2
           o = choice([1, 2])
           if (o === 1) {
             texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
-              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), segment(I, J), segment(K, M), codeSegments('/', 'red', [H, N, P, G]), codeSegments('/', 'red', F, G, H, E), texteParPosition(`${inc1}`, 1, 2.7), texteParPosition(`${inc1}`, -0.7, 1)
+              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), segment(I, J), segment(K, M), codeSegments('/', 'red', [H, N, P, G]), codeSegments('/', 'red', F, G, H, E), texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc1}$`, -0.7, 1)
             )
-            texteCorr += 'périmètre :'
-            texteCorr += `<br>$p =${inc1}+${inc1}+${inc1}+${inc1}+${inc1}+${inc1}+${inc1}+${inc1}$`
-            texteCorr += `<br>$p =8${inc1}$`
+            texteCorr += 'Périmètre :'
+            texteCorr += `<br>$\\mathcal{P} =${inc1}+${inc1}+${inc1}+${inc1}+${inc1}+${inc1}+${inc1}+${inc1}$`
+            texteCorr += `<br>$\\mathcal{P} =8${inc1}$`
             texteCorr += '<br>Aire :'
-            texteCorr += `<br>$A =${inc1}\\times ${inc1}+${inc1}\\times ${inc1}+${inc1}\\times ${inc1}$`
-            texteCorr += `<br>$A =3${inc1}^2$`
+            texteCorr += `<br>$\\mathcal{A} =${inc1}\\times ${inc1}+${inc1}\\times ${inc1}+${inc1}\\times ${inc1}$`
+            texteCorr += `<br>$\\mathcal{A} =3${inc1}^2$`
           } else {
             texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
-              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), segment(I, J), segment(K, M), codeSegments('/', 'red', [H, N, P, G]), codeSegments('/', 'red', F, G, H, E), texteParPosition(`${inc1}`, 1, 2.7), texteParPosition(`${inc2}`, -0.7, 1)
+              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), segment(I, J), segment(K, M), codeSegments('/', 'red', [H, N, P, G]), codeSegments('/', 'red', F, G, H, E), texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc2}$`, -0.7, 1)
             )
-            texteCorr += 'périmètre :'
-            texteCorr += `<br>$p =${inc1}+${inc1}+${inc1}+${inc2}+${inc1}+${inc1}+${inc1}+${inc2}$`
-            texteCorr += `<br>$p =6${inc1}+2${inc2}$`
+            texteCorr += 'Périmètre :'
+            texteCorr += `<br>$\\mathcal{P} =${inc1}+${inc1}+${inc1}+${inc2}+${inc1}+${inc1}+${inc1}+${inc2}$`
+            texteCorr += `<br>$\\mathcal{P} =6${inc1}+2${inc2}$`
             texteCorr += '<br>Aire :'
-            texteCorr += `<br>$A =${inc1}\\times ${inc2}+${inc1}\\times ${inc2}+${inc1}\\times ${inc2}$`
-            texteCorr += `<br>$A =3${inc1}${inc2}$`
+            texteCorr += `<br>$\\mathcal{A} =${inc1}\\times ${inc2}+${inc1}\\times ${inc2}+${inc1}\\times ${inc2}$`
+            texteCorr += `<br>$\\mathcal{A} =3${inc1}${inc2}$`
           }
           break
 
@@ -130,17 +133,18 @@ export default function AirePerimetrePolygone () {
           I = point(l, 3.7)
           J = point(l, 4.3)
           quad = polygone(E, F, G, H)
+          quad.epaisseur = 2
           texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
-            quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codeSegments('/', 'red', E, F, G, H), codeSegments('||', 'blue', F, G, H, E), segment(I, J), texteParPosition(`${inc1}`, l / 2, 4.7), texteParPosition(`${inc2}`, 3 + l / 2, 4.7), texteParPosition(l, -0.7, 2)
+            quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codeSegments('/', 'red', E, F, G, H), codeSegments('||', 'blue', F, G, H, E), segment(I, J), texteParPosition(`$${inc1}$`, l / 2, 4.7), texteParPosition(`$${inc2}$`, 3 + l / 2, 4.7), texteParPosition(l, -0.7, 2)
           )
-          texteCorr += 'périmètre :'
-          texteCorr += `<br>$p =${l} + ${inc1} + ${inc2} + ${l} + ${inc1} + ${inc2}$`
-          texteCorr += `<br>$p =2\\times${l}+2\\times ${inc1}+2\\times ${inc2}$`
-          texteCorr += `<br>$p =2${inc1}+2${inc2}+${2 * l}$`
+          texteCorr += 'Périmètre :'
+          texteCorr += `<br>$\\mathcal{P} =${l} + ${inc1} + ${inc2} + ${l} + ${inc1} + ${inc2}$`
+          texteCorr += `<br>$\\mathcal{P} =2\\times${l}+2\\times ${inc1}+2\\times ${inc2}$`
+          texteCorr += `<br>$\\mathcal{P} =2${inc1}+2${inc2}+${2 * l}$`
           texteCorr += '<br>Aire :'
-          texteCorr += `<br>$A =${l}\\times (${inc1}+${inc2})$`
-          texteCorr += `<br>$A =${l}\\times ${inc1}+${l}\\times ${inc2}$`
-          texteCorr += `<br>$A =${l}${inc1}+${l}${inc2}$`
+          texteCorr += `<br>$\\mathcal{A} =${l}\\times (${inc1}+${inc2})$`
+          texteCorr += `<br>$\\mathcal{A} =${l}\\times ${inc1}+${l}\\times ${inc2}$`
+          texteCorr += `<br>$\\mathcal{A} =${l}${inc1}+${l}${inc2}$`
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
