@@ -1,6 +1,7 @@
 import problemesTrigoLongueur from '../3e/3G32-0.js'
-export const titre = 'Calcul d\'un parallèle terrestre'
+export const titre = "Calcul d'un parallèle terrestre"
 export { interactifReady, interactifType } from '../3e/3G32-0.js'
+export { amcReady, amcType } from '../3e/3G32-0.js'
 
 /**
  * @author Guillaume Valmont
@@ -11,5 +12,4 @@ export default function calculParalleleTerrestre () {
   this.titre = titre
   this.sup2 = 2
   this.besoinFormulaireCaseACocher = false
-  this.besoinFormulaire2Numerique = false
 }

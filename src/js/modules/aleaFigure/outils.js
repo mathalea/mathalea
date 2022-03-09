@@ -30,9 +30,9 @@ export function getDimensions(...figures) {
     return [xmin, ymin, xmax, ymax];
 }
 /**
- *
- * @param x
- * @returns {Number}
+ * Euclidean quotient
+ * @param {number} x
+ * @returns {number}
  */
 export function quotient(x, y) {
     return x - x % y;
