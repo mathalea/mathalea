@@ -1,5 +1,6 @@
 import problemesTrigoLongueur from '../3e/3G32-0.js'
 export const titre = 'Triangle rectangle inscrit dans un triangle rectangle'
+
 export { interactifReady, interactifType, amcReady, amcType } from '../3e/3G32-0.js'
 
 /**
@@ -11,5 +12,4 @@ export default function calculHauteurMontagne () {
   this.titre = titre
   this.sup2 = 6
   this.besoinFormulaireCaseACocher = false
-  this.besoinFormulaire2Numerique = false
 }
