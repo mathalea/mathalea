@@ -120,6 +120,13 @@ export default function PuzzlesGeometriques () {
       }
         break
       case 2: {
+        anim.taille(1200, 1200)
+        anim.translationX = 4
+        anim.translationY = 20
+        // vitesse pour l'anim
+        anim.vitesse = 1000
+        anim.xMax = 20
+        anim.yMax = 20
         const A = point(-2, 11, 'A')
         const B = point(12, 11, 'B')
         const C = point(12, -3, 'C')
@@ -160,14 +167,15 @@ export default function PuzzlesGeometriques () {
         anim.regleMasquer()
         // Diagonale [BD]
         anim.regleDroite(D, B)
-        anim.regleMasquer()
-        anim.crayonMasquer()
         // les points E,F,G
         const E = point(1.5, 0.5, 'E')
         const F = point(5, 4, 'F')
         const G = point(8.5, 7.5, 'G')
+        anim.crayonDeplacer(E)
         anim.pointCreer(E, { dx: -0.8, dy: 0.8 })
+        anim.crayonDeplacer(F)
         anim.pointCreer(F, { dx: -0.8, dy: 0.2 })
+        anim.crayonDeplacer(G)
         anim.pointCreer(G, { dx: -0.8, dy: 0.8 })
         // Les points H et J
         const H = point(5, -3, 'H')
@@ -207,8 +215,7 @@ export default function PuzzlesGeometriques () {
         anim.regleSegment(E, H, { couleur: 'red', epaisseur: 4 })
         anim.regleSegment(G, I, { couleur: 'red', epaisseur: 4 })
         anim.regleMasquer()
-        anim.crayonMasquer()
-      }
+        anim.crayonMasquer() }
         break
     }
     let texte, texteMessage, nbFig
@@ -231,10 +238,7 @@ export default function PuzzlesGeometriques () {
           'Effacer $[OG]$ et le noms des points.',
           `Tracer en rouge $[AC]$, $[LG]$, $[GK]$, $[GD]$, $[OH]$, $[AF]$, $[CE]$ et l'arc $${myArcCommand}{AC}$ de centre $O$ situé sous le point $O$.`
         ], 1)
-        texteMessage = enumerateSansPuceSansNumero([
-          'Découper les 9 pièces délimitées par les lignes rouges.',
-          'Construire la silhouette proposée.'
-        ], 1.5)
+
         // On tire une figure au hasard
         nbFig = randint(1, 11)
         if (context.isHtml) {
