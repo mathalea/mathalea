@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, troncature, calcul, choisitLettresDifferentes, texNombre, texFraction, sp, nombreDeChiffresDe, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, troncature, calcul, choisitLettresDifferentes, texNombre, texFraction, nombreDeChiffresDe, stringNombre } from '../../modules/outils.js'
 import { point, segment, droiteGraduee2, mathalea2d } from '../../modules/2d.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -41,7 +41,7 @@ export default function LireUneAbscisseAvecZoom () {
     let reponse1; let reponse2A; let reponse2B; let reponse3
     let d1; let d2; let d3; let d3Corr; let d1Corr; let d2Corr; let texte = ''; let texteCorr = ''; let extremite; let extreme; const noms = choisitLettresDifferentes(5, 'QFN')
     let x1 = 0; let x2 = 0; let x3 = 0; const objets = []; let fenetre; let thickOff = 0; const objetsCorr = []; let xmin; let xmax; let origine; let pA1; let pA2; let pB1; let pB2; let sA; let sB; let x21; let x31; let pC1; let pC2; let pD1; let pD2; let sC; let sD
-    if (parseInt(this.sup) === 1) {
+    if (this.sup === 1) {
       if (this.niveau === 'CM') {
         xmin = 0
         thickOff = 0
@@ -56,8 +56,6 @@ export default function LireUneAbscisseAvecZoom () {
         xmax = origine + 9.2
       }
       x1 = calcul(xmin + 0.2 + randint(1, 5) + randint(2, 8) / 10)
-      //   xmin=calcul(Math.floor(x1)-5)
-      //    xmax=calcul(Math.floor(x1)+6)
       if (xmin === 0) extremite = '|->'
       else extremite = '->'
 
@@ -171,7 +169,7 @@ export default function LireUneAbscisseAvecZoom () {
       reponse2A = Math.floor(x1)
       reponse2B = new FractionX(calcul(10 * (x1 - Math.floor(x1))), 10)
       reponse3 = new FractionX(calcul(x1 * 10), 10)
-    } else if (parseInt(this.sup) === 2) {
+    } else if (this.sup === 2) {
       if (this.niveau === 'CM') {
         xmin = 0
         thickOff = 0
@@ -311,7 +309,7 @@ export default function LireUneAbscisseAvecZoom () {
       reponse2A = partent
       reponse2B = new FractionX(calcul(pardec * 100), 100)
       reponse3 = new FractionX(calcul(x1 * 100), 100)
-    } else if (parseInt(this.sup) === 3) {
+    } else if (this.sup === 3) {
       if (this.niveau === 'CM') {
         xmin = 0
         xmax = 1
@@ -526,16 +524,13 @@ export default function LireUneAbscisseAvecZoom () {
       setReponse(this, 1, reponse2A)
       setReponse(this, 2, reponse2B, { formatInteractif: 'fraction' })
       setReponse(this, 3, reponse3, { formatInteractif: 'fraction' })
-    }
-    if (this.interactif) { // Si l'exercice est interactif
-      texte += ajouteChampTexteMathLive(this, 0, 'largeur25 inline', { texte: `Abscisse de ${noms[1]} en écriture décimale : ` })
-      texte += '<br><br>' + ajouteChampTexteMathLive(this, 1, 'largeur25 inline', { texte: `Abscisse de ${noms[1]} comme somme d’un nombre entier et d’une fraction décimale : ` }) + ajouteChampTexteMathLive(this, 2, 'largeur25 inline', { formatInteractif: 'fraction', texte: `${sp(6)}+` })
-      texte += '<br><br>' + ajouteChampTexteMathLive(this, 3, 'largeur25 inline', { formatInteractif: 'fraction', texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : ` })
-    }
-    if (context.isAMC) {
+      texte += ajouteChampTexteMathLive(this, 0, 'largeur25 inline nospacebefore', { tailleExtensible: true, texte: `Abscisse de ${noms[1]} en écriture décimale : ` })
+      texte += '<br><br>' + ajouteChampTexteMathLive(this, 1, 'largeur25 inline nospacebefore', { tailleExtensible: true, texte: `Abscisse de ${noms[1]} comme somme d’un nombre entier et d’une fraction décimale : ` }) + ajouteChampTexteMathLive(this, 2, 'largeur25 inline nospacebefore', { formatInteractif: 'fraction', tailleExtensible: true, texte: '+' })
+      texte += '<br><br>' + ajouteChampTexteMathLive(this, 3, 'largeur25 inline nospacebefore', { formatInteractif: 'fraction', tailleExtensible: true, texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : ` })
+    } else if (context.isAmc) {
       this.autoCorrection[0] = {
         enonce: texte,
-        melange: false, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
+        // melange: false, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
         options: { multicols: true, barreseparation: false },
         propositions: [
           {

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, choice, arrondi, texNombre2 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, calcul, choice, arrondi, texNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
@@ -35,17 +35,17 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
         case 'type1':
           n = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
           p = randint(0, 7)
-          texte = `$${texNombre2(n)} \\times 10^{${p}}$`
+          texte = `$${texNombre(n)} \\times 10^{${p}}$`
           texteCorr = texte
-          texteCorr += `$=${texNombre2(n * 10 ** p)}$`
+          texteCorr += `$=${texNombre(n * 10 ** p)}$`
           setReponse(this, i, n * 10 ** p)
           break
         case 'type2':
           n = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
           p = randint(1, 7)
-          texte = `$${texNombre2(n)} \\times 10^{${-p}}$`
+          texte = `$${texNombre(n)} \\times 10^{${-p}}$`
           texteCorr = texte
-          texteCorr += `$=${texNombre2(arrondi(n * 10 ** (-p), 10))}$`
+          texteCorr += `$=${texNombre(arrondi(n * 10 ** (-p), 10))}$`
           setReponse(this, i, n * 10 ** (-p))
           break
         case 'type3':
@@ -53,9 +53,9 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
           d = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
           p = randint(1, 7)
           nb = calcul(n + d / choice([10, 100, 1000]))
-          texte = `$${texNombre2(nb)} \\times 10^{${p}}$`
+          texte = `$${texNombre(nb)} \\times 10^{${p}}$`
           texteCorr = texte
-          texteCorr += `$=${texNombre2(nb * 10 ** (p))}$`
+          texteCorr += `$=${texNombre(nb * 10 ** (p))}$`
           setReponse(this, i, nb * 10 ** (p))
           break
         case 'type4':
@@ -63,9 +63,9 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
           d = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
           p = randint(0, 7)
           nb = calcul(n + d / choice([10, 100, 1000]))
-          texte = `$${texNombre2(nb)} \\times 10^{${-p}}$`
+          texte = `$${texNombre(nb)} \\times 10^{${-p}}$`
           texteCorr = texte
-          texteCorr += `$=${texNombre2(arrondi(nb * 10 ** (-p), 10))}$`
+          texteCorr += `$=${texNombre(arrondi(nb * 10 ** (-p), 10))}$`
           setReponse(this, i, nb * 10 ** (-p))
           break
       }

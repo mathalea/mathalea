@@ -992,3 +992,28 @@ export function homothetie3d (point3D, centre, rapport, color) {
     } else { return polygone3d(p, point3D.color) }
   }
 }
+export class CodageAngleDroit3D extends ObjetMathalea2D {
+  constructor (A, B, C) {
+    super()
+    const BA = vecteur3d(B, A)
+    const BC = vecteur3d(B, C)
+    const k1 = BA.norme
+    const k2 = BC.norme
+    const M1 = homothetie3d(A, B, 0.5 / k1)
+    const M3 = homothetie3d(C, B, 0.5 / k2)
+    const BM1 = vecteur3d(B, M1)
+    const BM3 = vecteur3d(B, M3)
+    const x = B.x + BM1.x + BM3.x
+    const y = B.y + BM1.y + BM3.y
+    const z = B.z + BM1.z + BM3.z
+    const M2 = point3d(x, y, z)
+    const M1M2 = arete3d(M1, M2)
+    const M2M3 = arete3d(M2, M3)
+    this.svg = function (coeff) {
+      return M1M2.c2d.svg(coeff) + M2M3.c2d.svg(coeff)
+    }
+    this.tikz = function () {
+      return M1M2.c2d.tikz() + M2M3.c2d.tikz()
+    }
+  }
+}
