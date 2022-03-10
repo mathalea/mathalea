@@ -320,9 +320,9 @@ export default function problemesTrigoLongueur () {
           texteCorr += 'Les segments $[HP]$ et $[OM]$ sont parallèles, donc les angles alternes-internes $\\widehat{MOP}$ et $\\widehat{OPH}$ sont égaux.<br>'
           texteCorr += 'Dans le triangle $OPH$ rectangle en $H$, $\\cos(\\widehat{OPH})=\\dfrac{HP}{OP}$ d\'où $HP=OP\\times \\cos(\\widehat{OPH})$.<br>'
           texteCorr += `Le rayon de la Terre étant approximativement de $${texNombrec(6400)}$${sp()}km, nous pouvons calculer $HP$.<br>`
-          texteCorr += `$HP\\approx${texNombrec(6400)}${sp()}km\\times \\cos(${alpha}\\degree)\\approx ${texNombrec(6400 * Math.cos(alpha * Math.PI / 180))}${sp()}km$<br>`
+          texteCorr += `$HP\\approx${texNombrec(6400)}${sp()}km\\times \\cos(${alpha}\\degree)\\approx ${texNombrec(arrondi(6400 * Math.cos(alpha * Math.PI / 180)))}${sp()}km$<br>`
           reponse = Math.round(2 * Math.PI * 6400 * Math.cos(alpha * Math.PI / 180))
-          texteCorr += `Calculons maintenant la longueur $L$ du $${alpha}$e parallèle : $L\\approx 2\\times \\pi\\times ${texNombrec(6400 * Math.cos(alpha * Math.PI / 180))}${sp()}km\\approx ${texNombre(reponse)}${sp()}km$.<br>`
+          texteCorr += `Calculons maintenant la longueur $L$ du $${alpha}$e parallèle : $L\\approx 2\\times \\pi\\times ${texNombrec(arrondi(6400 * Math.cos(alpha * Math.PI / 180)))}${sp()}km\\approx ${texNombre(reponse)}${sp()}km$.<br>`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore longueur', { tailleExtensible: true })
             setReponse(this, i + ii, new Grandeur(reponse, 'km'), { formatInteractif: 'longueur' })
