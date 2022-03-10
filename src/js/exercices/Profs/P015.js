@@ -232,7 +232,7 @@ export default function PuzzlesGeometriques () {
           `Tracer en rouge $[AC]$, $[LG]$, $[GK]$, $[GD]$, $[OH]$, $[AF]$, $[CE]$ et l'arc $${myArcCommand}{AC}$ de centre $O$ situé sous le point $O$.`
         ], 1)
         texteMessage = enumerateSansPuceSansNumero([
-          'Découper les 9 pièces délimitées pas les lignes rouges.',
+          'Découper les 9 pièces délimitées par les lignes rouges.',
           'Construire la silhouette proposée.'
         ], 1.5)
         // On tire une figure au hasard
