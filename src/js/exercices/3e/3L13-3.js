@@ -356,16 +356,16 @@ export default class ProblemesEnEquation extends Exercice {
           }
           if (choice([true, false])) {
             enonce += '<br>Quelle est la mesure de sa base ? (la figure n\'est pas en vraie grandeur)'
-            intro = `Posons $x$ la longueur de sa base. La longueur des côtés égaux est : $x${ecritureAlgebrique(c)}$.<br>`
+            intro = `Posons $x$ la longueur de sa base. La longueur des côtés égaux est : $x${ecritureAlgebrique(-c)}$.<br>`
             intro += 'Le calcul du périmètre donne l\'équation suivante :<br>'
-            equation = `2*x+x${ecritureAlgebrique(c)}=${d}`
+            equation = `2*(x${ecritureAlgebrique(-c)})+x=${d}`
             conclusion = `<br>La base de ce triangle isocèle mesure donc $${b}$ mm.`
             x = b
           } else {
             enonce += '<br>Quelle est la mesure de ses côtés égaux ? (la figure n\'est pas en vraie grandeur)'
-            intro = `Posons $x$ la longueur d'un des côtés égaux. La longueur de la base est : $x${ecritureAlgebrique(-c)}$.<br>`
+            intro = `Posons $x$ la longueur d'un des côtés égaux. La longueur de la base est : $x${ecritureAlgebrique(c)}$.<br>`
             intro += 'Le calcul du périmètre donne l\'équation suivante :<br>'
-            equation = `2*(x${ecritureAlgebrique(c)})+x=${d}`
+            equation = `2*x+x${ecritureAlgebrique(c)})=${d}`
             conclusion = `<br>Les deux côtés égaux de ce triangle isocèle mesurent donc $${a}$ mm.`
             x = a
           }
