@@ -169,6 +169,7 @@ this.autoCorrection[i] = {
   enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
   enonceAvant: true, //EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question. 
   enonceAvantUneFois: true, //EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
+  enonceCentre: false, //EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
   melange: false, //EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
   options: { multicols: true, barreseparation:false }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
   // barreseparation (par défaut à false) permet de mettre une barre de séparation entre les deux colonnes.
@@ -179,6 +180,7 @@ this.autoCorrection[i] = {
         {
           texte: '',// Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm 
           statut: true,// true au false pour un QCM
+          sanslignes: true, // facultatif. Permet d'enlever les lignes dans AMCOpen.
           feedback: '',
           reponse: { // utilisé si type = 'AMCNum'
             texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
@@ -212,6 +214,7 @@ this.autoCorrection[i] = {
         {
           texte: '',// Facultatif. la proposition de Qcm ou ce qui est affiché dans le corrigé pour cette question quand ce n'est pas un Qcm 
           statut: true,// true au false pour un QCM
+          sanslignes: true, // facultatif. Permet d'enlever les lignes dans AMCOpen.
           feedback: '',
           reponse: { // utilisé si type = 'AMCNum'
             texte: 'le texte affiché au dessus du formulaire numerique dans AMC', //facultatif
