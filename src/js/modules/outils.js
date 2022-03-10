@@ -4498,11 +4498,6 @@ export function lampeMessage ({ titre, texte, couleur }) {
     \\end{bclogo}
     `
   }
-  // return infoMessage({
-  // titre:titre,
-  // texte:texte,
-  // couleur:couleur
-  // })
 }
 
 /**
