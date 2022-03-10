@@ -220,6 +220,10 @@ export default function PuzzlesGeometriques () {
     }
     let texte, texteMessage, nbFig
     texte = texteGras('PROGRAMME DE CONSTRUCTION')
+    texteMessage = enumerateSansPuceSansNumero([
+      'Découper les 9 pièces délimitées par les lignes rouges.',
+      'Construire la silhouette proposée.'
+    ], 1.5)
     switch (type) {
       case 1: {
         let myArcCommand
@@ -262,10 +266,6 @@ export default function PuzzlesGeometriques () {
           'La diagonale $[AC]$ coupe $[HJ]$ en $I$',
           'Tracer en rouge $[AB]$, $[BC]$, $[CD]$, $[DA]$, $[DB]$, $[AI]$, $[HJ]$, $[EH]$, $[GI]$.'
         ], 1)
-        texteMessage = enumerateSansPuceSansNumero([
-          'Découper les 7 pièces délimitées pas les lignes rouges.',
-          'Construire la silhouette proposée.'
-        ], 1.5)
         // On tire une figure au hasard
         nbFig = randint(1, 12)
         if (context.isHtml) {
