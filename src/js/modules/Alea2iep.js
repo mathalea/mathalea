@@ -171,6 +171,8 @@ export default class Alea2iep {
             elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
             iepLoadPromise(element, xml, { zoom: true, autostart: true }).then(iepApp => {
               // la figure est chargée
+              // On surcharge la propriété CSS min-width après que la promesse ait été satisfaite sinon ça marche pas !
+              element.style.minWidth = '90%'
             }).catch(error => { console.log(error) })
           } else {
             element.style.display = 'none'
