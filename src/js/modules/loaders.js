@@ -214,9 +214,15 @@ export async function loadMathLive () {
         })
       }
       let style = 'font-size: 20px;'
+
       if (mf.classList.contains('inline')) {
-        style += ' display: inline-block; margin-left: 25px; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
-        if (!mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50')) {
+        if (mf.classList.contains('nospacebefore')) {
+          style += 'margin-left:5px;'
+        } else {
+          style += 'margin-left: 25px;'
+        }
+        style += ' display: inline-block; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
+        if (!mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50') && !mf.classList.contains('largeur75')) {
           style += ' width: 25%;'
         }
       } else {
