@@ -120,13 +120,6 @@ export default function PuzzlesGeometriques () {
       }
         break
       case 2: {
-        anim.taille(1200, 1200)
-        anim.translationX = 4
-        anim.translationY = 20
-        // vitesse pour l'anim
-        anim.vitesse = 1000
-        anim.xMax = 20
-        anim.yMax = 20
         const A = point(-2, 11, 'A')
         const B = point(12, 11, 'B')
         const C = point(12, -3, 'C')
