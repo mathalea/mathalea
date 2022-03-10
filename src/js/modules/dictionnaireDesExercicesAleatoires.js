@@ -2918,7 +2918,10 @@ export default {
   "3G32-0": {
     "titre": "Problèmes nécessitant un calcul de longueur à l'aide de la trigonométrie",
     "url": "/exercices/3e/3G32-0.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3G32-0",
@@ -2934,7 +2937,10 @@ export default {
   "3G32-1": {
     "titre": "Calcul d'un parallèle terrestre",
     "url": "/exercices/3e/3G32-1.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3G32-1",
@@ -2950,7 +2956,10 @@ export default {
   "3G32-2": {
     "titre": "Calculer la hauteur d'un objet vu sous un angle donné",
     "url": "/exercices/3e/3G32-2.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3G32-2",
@@ -2966,7 +2975,10 @@ export default {
   "3G32-3": {
     "titre": "Calculer la hauteur d'une falaise",
     "url": "/exercices/3e/3G32-3.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3G32-3",
@@ -2982,7 +2994,10 @@ export default {
   "3G32-4": {
     "titre": "Calculer la hauteur d'une montagne",
     "url": "/exercices/3e/3G32-4.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3G32-4",
@@ -2998,7 +3013,10 @@ export default {
   "3G32-5": {
     "titre": "Triangle rectangle inscrit dans un triangle rectangle",
     "url": "/exercices/3e/3G32-5.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3G32-5",
@@ -3014,7 +3032,10 @@ export default {
   "3G32": {
     "titre": "Calculer la largeur d'une rivière",
     "url": "/exercices/3e/3G32.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "3G32",
@@ -4711,7 +4732,7 @@ export default {
     }
   },
   "4L10-2": {
-    "titre": "Donner l'expression littérale d'un périmètre et d'une aire de quadrilatère",
+    "titre": "Donner l'expression littérale d'un Périmètre et d'une aire de quadrilatère",
     "url": "/exercices/4e/4L10-2.js",
     "amcReady": false,
     "interactifReady": false,
