@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, choice } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
-export const titre = 'Reconnaître une expression numérique'
+export const titre = 'Reconnaître une expression numérique (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -18,7 +18,7 @@ export default function ReconnaitreExp () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.spacing = 2
+  this.spacing = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     this.listeQuestions = []
