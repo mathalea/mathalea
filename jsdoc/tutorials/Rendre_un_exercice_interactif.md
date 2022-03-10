@@ -231,7 +231,7 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >>setReponse(this, i, 'resultat', { formatInteractif: 'ignorerCasse' }) // resultat = 'Dividende' par exemple
 >>```
 
-- Pour comparer des **fractions**, il y a trois méthodes différentes pour coder.
+- Pour comparer des **fractions** avec [`ajouteChampTexteMathLive`](#ajouteChampTexteMathLive), il y a trois méthodes différentes pour coder :
  
 >>``` js
 >> // Méthode 1 : Exercice-témoin 4C22
@@ -247,6 +247,22 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >>setReponse(this, i, maFractionReponse, { formatInteractif: 'fractionEgale' }) // maFractionReponse doit être un objet fraction (créé avec new FractionX(n, d))
 >> // Dans ce cas, la réponse fournie par l'élève peut être une autre fraction ou un nombre décimal. 
 >> // Si maFractionReponse est 1/2, l'élève peut toutefois fournir comme bonne réponse 2/4 ou bien 0.5.
+>>```
+
+- Pour comparer des **fractions** avec [`ajouteChampFractionMathLive`](#ajouteChampFractionMathLive), il y a trois méthodes différentes pour coder :
+ 
+>>``` js
+>> // Méthode 1 : Exercice-témoin 6N23-1
+>> // Associée à ajouteChampFractionMathLive(this, i, false, 100)
+>>setReponse(this, i, fraction(reponse, 100), { formatInteractif: 'Num' }) // Le champ n'est que sur le numérateur, le dénominateur vaut, ici, 100.
+>>
+>> // Méthode 2
+>> // Associée à ajouteChampFractionMathLive(this, i, 8, false)
+>>setReponse(this, i, fraction(8, reponse), { formatInteractif: 'Den' }) // Le champ n'est que sur le dénominateur, le numérateur vaut, ici, 8.
+>>
+>> // Méthode 3 : Exercice-témoin 6N23-1
+>> // Associée à ajouteChampFractionMathLive(this, i, false, false)
+>>setReponse(this, i, fraction(reponse1, reponse2), { formatInteractif: 'NumDen' }) // Il y a deux champs différents : un sur le numérateur et un autre sur le dénominateur.
 >>```
 
 - Pour comparer des **grandeurs (avec des unités)**, on code, comme dans l'exercice-témoin **6M11** :
