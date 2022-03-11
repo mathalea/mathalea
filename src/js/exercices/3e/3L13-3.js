@@ -109,7 +109,7 @@ export default class ProblemesEnEquation extends Exercice {
           d = variables.d // nombre de points de la partie
           c = 0 // ne sert pas dans ce cas
           equation = `x*2+(x-${a})*3+${b}=${d}`
-          resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
+          resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true, suppr1: false })
           enonce = `Une équipe de basket a marqué ${d} points lors d'un match. Au cours de ce match, elle a marqué ${b} points sur lancers francs.<br>`
           enonce += `L'équipe a marqué ${a} paniers à trois points de moins que de paniers à deux points.<br>Combien a-t-elle marqué de paniers à deux points ?`
           intro = `Posons $x$ le nombre de paniers à deux points.<br>Le nombre de paniers à trois points est donc $x-${a}$.<br>`
@@ -369,7 +369,7 @@ export default class ProblemesEnEquation extends Exercice {
             conclusion = `<br>Les deux côtés égaux de ce triangle isocèle mesurent donc $${a}$ mm.`
             x = a
           }
-          resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
+          resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true, suppr1: false })
           if (c > 0) figure = this.triangleIsocele2()
           else figure = this.triangleIsocele1()
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
