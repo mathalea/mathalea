@@ -25,8 +25,8 @@ export function verifQuestionMathLive (exercice, i) {
     switch (formatInteractif) {
       case 'Num':
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        num = parseInt(champTexte.value)
-        if (isNaN(num)) num = 9999
+        if (champTexte !== undefined) num = parseInt(champTexte.value)
+        if (isNaN(num) || num === undefined) num = 9999
         den = reponse.den
         fSaisie = new FractionEtendue(num, den)
         if (fSaisie.isEqual(reponse)) {
@@ -35,22 +35,9 @@ export function verifQuestionMathLive (exercice, i) {
         break
       case 'Den':
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        den = parseInt(champTexte.value)
-        if (isNaN(den)) den = 9999
+        if (champTexte !== undefined) den = parseInt(champTexte.value)
+        if (isNaN(den) || den === undefined) den = 9999
         num = reponse.num
-        fSaisie = new FractionEtendue(num, den)
-        if (fSaisie.isEqual(reponse)) {
-          resultat = 'OK'
-        }
-        break
-      case 'NumDen':
-        console.log('le formatInteractif NumDen doit disparaître')
-        champTexteNum = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        num = parseInt(champTexteNum.value)
-        champTexteDen = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        den = parseInt(champTexteDen.value)
-        if (isNaN(num)) num = 9999
-        if (isNaN(den)) den = 9999
         fSaisie = new FractionEtendue(num, den)
         if (fSaisie.isEqual(reponse)) {
           resultat = 'OK'
@@ -323,14 +310,14 @@ export function ajouteChampFractionMathLive (exercice, i, numerateur = false, de
   if (context.isHtml && exercice.interactif) {
     code += `<label>${texte}</label><table style="border-collapse:collapse;text-align:center;font-size: small;font-family:Arial,Times,serif;display:inline;"><tr><td style="padding:0px 0px 5px;margin:0px;border-bottom:1px solid #000;">`
     if (!numerateur) {
-      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field></td><td><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
       i++
     } else {
       code += `${numerateur} `
     }
-    code += '</td></tr><tr><td style="padding:0px;margin:0px;">'
+    code += '</td></tr><tr><td width=50px style="padding:0px;margin:0px;">'
     if (!denominateur) {
-      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field></td><td><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     } else {
       code += `${denominateur}`
     }
