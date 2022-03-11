@@ -305,6 +305,13 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres 
   }
 }
 
+/** Crée une fraction avec 1 ou 2 champs de réponse et autant de feedbacks.
+ * Si seul le numérateur ou le dénominateur sont utilisés pour la fraction, l'autre est précisé.
+ * numerateur = false signifie qu'il y a un champ de saisie pour le numérateur.
+ * denominateur = 100 signifie que le dénominateur est déjà renseigné à 100.
+ * Dans ce cas, on utilise le format Interactif correspondant : 'Num' ou 'Den'
+ * Si les deux champs sont à saisir, on utilise deux réponse de formatInteractif 'calcul'.
+ */
 export function ajouteChampFractionMathLive (exercice, i, numerateur = false, denominateur = 100, style = '', { texte = '', texteApres = '' } = {}) {
   let code = ''
   if (context.isHtml && exercice.interactif) {
