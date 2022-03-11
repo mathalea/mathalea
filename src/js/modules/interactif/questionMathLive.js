@@ -13,7 +13,7 @@ export function verifQuestionMathLive (exercice, i) {
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
-  let champTexte, saisie, nombreSaisi, grandeurSaisie, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
+  let champTexte, champTexteNum, champTexteDen, saisie, nombreSaisi, grandeurSaisie, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
   let reponses = []
   if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
     reponses = [exercice.autoCorrection[i].reponse.valeur]
@@ -42,8 +42,10 @@ export function verifQuestionMathLive (exercice, i) {
         }
         break
       case 'NumDen':
-        num = parseInt(document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`).value)
-        den = parseInt(document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Den`).value)
+        champTexteNum = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`)
+        num = parseInt(champTexteNum.value)
+        champTexteDen = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Den`)
+        den = parseInt(champTexteDen.value)
         fSaisie = new FractionEtendue(num, den)
         if (fSaisie.isEqual(reponse)) {
           resultat = 'OK'
@@ -263,20 +265,26 @@ export function verifQuestionMathLive (exercice, i) {
   if (resultat === 'OK') {
     spanReponseLigne.innerHTML = '😎'
     spanReponseLigne.style.fontSize = 'large'
+    champTexte.readOnly = true
   } else if (resultat === 'essaieEncoreLongueur') {
     spanReponseLigne.innerHTML = '<em>Il faut saisir une valeur numérique et une unité (cm ou cm² par exemple).</em>'
     spanReponseLigne.style.color = '#f15929'
     spanReponseLigne.style.fontWeight = 'bold'
+    champTexte.readOnly = false
   } else if (resultat === 'essaieEncorePuissance') {
     spanReponseLigne.innerHTML = '<br><em>Attention, la réponse est mathématiquement correcte mais n\'a pas le format demandé.</em>'
     spanReponseLigne.style.color = '#f15929'
     spanReponseLigne.style.fontWeight = 'bold'
+    champTexte.readOnly = false
   } else {
     spanReponseLigne.innerHTML = '☹️'
     spanReponseLigne.style.fontSize = 'large'
+    champTexte.readOnly = true
   }
-  if (resultat !== 'essaieEncoreLongueur') champTexte.readOnly = true
-
+  if (formatInteractif === 'NumDen') {
+    champTexteNum.readOnly = true
+    champTexteDen.readOnly = true
+  }
   return resultat
 }
 
