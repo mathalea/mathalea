@@ -117,7 +117,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
         resultat4 = arrondi((a * 10 ** ((k + 2))), 12)
         texte =
           '$ ' +
-          texNombre(a) +
+          texNombre(a, 3) +
           texTexte(prefixeMulti[k][0] + unite) +
           '^3' +
           ' = \\dotfill ' +
@@ -126,17 +126,17 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
           '$'
         texteCorr =
           '$ ' +
-          texNombre(a) +
+          texNombre(a, 3) +
           texTexte(prefixeMulti[k][0] + unite) +
           '^3' +
           ' =  ' +
-          texNombre(a) +
+          texNombre(a, 3) +
           '\\times' +
           prefixeMulti[k][1] +
           texTexte(unite) +
           '^3' +
           ' = ' +
-          texNombre(resultat) +
+          texNombre(resultat, 3) +
           texTexte(unite) +
           '^3' +
           '$'
@@ -148,7 +148,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
         resultat4 = arrondi((a / 10 ** ((k + 2))), 12)
         texte =
           '$ ' +
-          texNombre(a) +
+          texNombre(a, 3) +
           texTexte(prefixeDiv[k][0] + unite) +
           '^3' +
           ' = \\dotfill ' +
@@ -157,17 +157,17 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
           '$'
         texteCorr =
           '$ ' +
-          texNombre(a) +
+          texNombre(a, 3) +
           texTexte(prefixeDiv[k][0] + unite) +
           '^3' +
           ' =  ' +
-          texNombre(a) +
+          texNombre(a, 3) +
           '\\div' +
           prefixeDiv[k][1] +
           texTexte(unite) +
           '^3' +
           ' = ' +
-          texNombre(resultat) +
+          texNombre(resultat, 3) +
           texTexte(unite) +
           '^3' +
           '$'
@@ -199,7 +199,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
           resultat4 = arrondi((a * Math.pow(10, -3 * ecart)), 12)
           texte =
             '$ ' +
-            texNombre(a) +
+            texNombre(a, 3) +
             texTexte(listeUnite[unite2]) +
             '^3' +
             ' = \\dotfill ' +
@@ -208,16 +208,16 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
             '$'
           texteCorr =
             '$ ' +
-            texNombre(a) +
+            texNombre(a, 3) +
             texTexte(listeUnite[unite2]) +
             '^3' +
             ' =  ' +
-            texNombre(a) +
+            texNombre(a, 3) +
             multiplicationsPar1000 +
             texTexte(listeUnite[unite1]) +
             '^3' +
             ' = ' +
-            texNombre(resultat) +
+            texNombre(resultat, 3) +
             texTexte(listeUnite[unite1]) +
             '^3' +
             '$'
@@ -239,7 +239,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
           resultat4 = arrondi((a / Math.pow(10, -3 * ecart)), 12)
           texte =
             '$ ' +
-            texNombre(a) +
+            texNombre(a, 3) +
             texTexte(listeUnite[unite1]) +
             '^3' +
             ' = \\dotfill ' +
@@ -248,16 +248,16 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
             '$'
           texteCorr =
             '$ ' +
-            texNombre(a) +
+            texNombre(a, 3) +
             texTexte(listeUnite[unite1]) +
             '^3' +
             ' =  ' +
-            texNombre(a) +
+            texNombre(a, 3) +
             multiplicationsPar1000 +
             texTexte(listeUnite[unite2]) +
             '^3' +
             ' = ' +
-            texNombre(resultat) +
+            texNombre(resultat, 3) +
             texTexte(listeUnite[unite2]) +
             '^3' +
             '$'
@@ -267,25 +267,26 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
       // prefixeMulti = [['L',0.001],['dL',0.0001],['cL',0.00001],['mL',0.000001]];
       // k = randint(0,1)
       // resultat = arrondi((a*prefixeMulti[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux, 12)
-      // texte = '$ '+ texNombre(a) + texTexte(prefixeMulti[k][0]) + ' = \\dotfill ' + texTexte(unite)  + '^3' + '$';
-      // texteCorr = '$ '+ texNombre(a) + texTexte(prefixeMulti[k][0]) + ' =  ' + texNombre(a) + '\\times' + texNombre(prefixeMulti[k][1]) + texTexte(unite)  + '^3'
-      //  + ' = ' + texNombre(resultat) + texTexte(unite)+ '^2' + '$';
+      // texte = '$ '+ texNombre(a, 3) + texTexte(prefixeMulti[k][0]) + ' = \\dotfill ' + texTexte(unite)  + '^3' + '$';
+      // texteCorr = '$ '+ texNombre(a, 3) + texTexte(prefixeMulti[k][0]) + ' =  ' + texNombre(a, 3) + '\\times' + texNombre(prefixeMulti[k][1]) + texTexte(unite)  + '^3'
+      //  + ' = ' + texNombre(resultat, 3) + texTexte(unite)+ '^2' + '$';
       // }
       this.autoCorrection[i].enonce = `${texte}\n`
+      console.log('texNombre : ' + texNombre(resultat, 3))
       this.autoCorrection[i].propositions = [{
-        texte: `$${texNombre(resultat)}$`,
+        texte: `$${texNombre(resultat, 3)}$`,
         statut: true
       },
       {
-        texte: `$${texNombre(resultat2)}$`,
+        texte: `$${texNombre(resultat2, 3)}$`,
         statut: false
       },
       {
-        texte: `$${texNombre(resultat3)}$`,
+        texte: `$${texNombre(resultat3, 3)}$`,
         statut: false
       },
       {
-        texte: `$${texNombre(resultat4)}$`,
+        texte: `$${texNombre(resultat4, 3)}$`,
         statut: false
       }
       ]

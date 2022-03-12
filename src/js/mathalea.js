@@ -275,47 +275,109 @@ function contenuExerciceHtml (obj, numeroExercice) {
   let contenuUneCorrection = ''
   let paramTooltip = ''
   let iconeInteractif = ''
-  if (obj.typeExercice === 'crpe' || obj.typeExercice === 'dnb') {
+  // Pour factoriser les entrées des exos statiques
+  const factoExosStatiques = ['crpe', 'dnb', 'bac', 'e3c']
+  if (factoExosStatiques.includes(obj.typeExercice)) {
     const crpe = {
-      titreEx: ` Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`,
+      titreEx: `<h3> Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`,
       titreExCorr: `<h3 class="ui dividing header">Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial} - Correction par la Copirelem</h3>`
     }
 
-    const dnb = {
-      titreEx: ` Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`,
-      titreExCorr: `<h3 class="ui dividing header">Exercice ${numeroExercice} − DNB ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+    // Deux fonctions pour factoriser les 3 constantes dnb, bac et e3c
+    function titreEx (type) {
+      return `<h3> Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
     }
 
-    contenuUnExercice += obj.typeExercice === 'crpe' ? crpe.titreEx : dnb.titreEx
+    function titreExCorr (type) {
+      return `<h3 class="ui dividing header">Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+    }
+    const dnb = {
+      titreEx: titreEx('DNB'),
+      titreExCorr: titreExCorr('DNB')
+    }
+
+    const bac = {
+      titreEx: titreEx('BAC'),
+      titreExCorr: titreExCorr('BAC')
+    }
+
+    const e3c = {
+      titreEx: titreEx('E3C'),
+      titreExCorr: titreExCorr('E3C')
+    }
+
+    switch (obj.typeExercice) {
+      case 'crpe':
+        contenuUnExercice += crpe.titreEx
+        break
+      case 'dnb':
+        contenuUnExercice += dnb.titreEx
+        break
+      case 'bac':
+        contenuUnExercice += bac.titreEx
+        break
+      case 'e3c':
+        contenuUnExercice += e3c.titreEx
+        break
+    }
+
     contenuUnExercice += '<div><div class="question">'
-    if (obj.typeExercice === 'crpe') {
-      let i = 1
-      for (const png of obj.png) {
-        contenuUnExercice += `<img id="${obj.id}-${i}" width="90%" src="${png}">`
-        i++
+
+    switch (obj.typeExercice) {
+      case 'crpe': {
+        let i = 1
+        for (const png of obj.png) {
+          contenuUnExercice += `<img id="${obj.id}-${i}" width="90%" src="${png}">`
+          i++
+        }
       }
-    } else {
-      contenuUnExercice += `<img id="${obj.id}" width="90%" src="${obj.png}"></img>`
+        break
+      case 'dnb':
+      case 'bac':
+      case 'e3c':
+        contenuUnExercice += `<img id="${obj.id}" width="90%" src="${obj.png}"></img>`
+        break
     }
     contenuUnExercice += '</div></div>'
-    contenuUneCorrection += obj.typeExercice === 'crpe' ? crpe.titreExCorr : dnb.titreExCorr
+
+    switch (obj.typeExercice) {
+      case 'crpe':
+        contenuUneCorrection += crpe.titreExCorr
+        break
+      case 'dnb':
+        contenuUneCorrection += dnb.titreExCorr
+        break
+      case 'bac':
+        contenuUneCorrection += bac.titreExCorr
+        break
+      case 'e3c':
+        contenuUneCorrection += e3c.titreExCorr
+        break
+    }
+
     if (obj.correctionIsCachee) {
       contenuUneCorrection += '<div><div class="correction">Correction masquée</div></div>'
     } else {
       contenuUneCorrection += '<div><div class="correction">'
-      if (obj.typeExercice === 'crpe') {
-        let i = 1
-        for (const png of obj.pngCor) {
-          contenuUneCorrection += `<img id="${obj.id}-${i}Cor" width="90%" src="${png}">`
-          i++
+      switch (obj.typeExercice) {
+        case 'crpe': {
+          let i = 1
+          for (const png of obj.pngCor) {
+            contenuUneCorrection += `<img id="${obj.id}-${i}Cor" width="90%" src="${png}">`
+            i++
+          }
         }
-      } else {
-        contenuUneCorrection += `<img id="${obj.id}Cor" width="90%" src="${obj.pngcor}">`
+          break
+        case 'dnb':
+        case 'bac':
+        case 'e3c':
+          contenuUneCorrection += `<img id="${obj.id}Cor" width="90%" src="${obj.pngcor}">`
+          break
       }
       contenuUneCorrection += '</div></div>'
     }
     obj.video = false
-    // Pour permettre l'ajout d'exos DNB statiques et l'affichage de la correction dans la vue eval
+    // Pour permettre l'ajout d'exos DNB/BAC/CRPE/E3C statiques et l'affichage de la correction dans la vue eval
     if (obj.interactif || obj.interactifObligatoire) {
       contenuUnExercice += `<button class="ui button blue checkReponses" type="submit" style="margin-bottom: 20px; margin-top: 20px" id="btnValidationEx${obj.numeroExercice}-${obj.id}">Vérifier les réponses</button>`
       exerciceInteractif(obj)
@@ -580,7 +642,7 @@ function miseAJourDuCode () {
         }
         if (listeObjetsExercice[i].video) {
           if (listeObjetsExercice[i].video.length > 1) {
-            // Pour dnb, video est à false, pour les exercices interactif, par défaut c'est ''
+            // Pour dnb,bac,e3c et crpe video est à false, pour les exercices interactif, par défaut c'est ''
             finUrl += `,video=${encodeURIComponent(listeObjetsExercice[i].video)}`
           }
         }
@@ -861,7 +923,7 @@ function miseAJourDuCode () {
         // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
         $('input[name=encoded_snip]').val(encodeURIComponent(contenuFichier))
-        if (listePackages.has('dnb')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB
+        if (listePackages.has('dnb') || listePackages.has('bac') || listePackages.has('e3c') || listePackages.has('crpe')) { // Force le passage à xelatex sur Overleaf pour les exercices de DNB, BAC ou CRPE
           $('input[name=engine]').val('xelatex')
         }
         if ($('#nom_du_fichier').val()) {
@@ -882,7 +944,8 @@ function miseAJourDuCode () {
         const id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
         const nbQuestions = listeObjetsExercice[i].nbQuestions
         const titre = listeObjetsExercice[i].titre
-        const pointsParQuestions = listeObjetsExercice[i].pointsParQuestions
+        // ToFix à quoi servait ce pointsParQuestions ?? @mathieu.degrange ?
+        // const pointsParQuestions = listeObjetsExercice[i].pointsParQuestions
         let params = ''
         if (listeObjetsExercice[i].sup !== undefined) {
           params += `s=${listeObjetsExercice[i].sup}`
@@ -975,8 +1038,21 @@ function miseAJourDuCode () {
     if (listeExercicesLength > 0) {
       for (let i = 0; i < listeExercicesLength; i++) {
         listeObjetsExercice[i].id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
-        if (listeObjetsExercice[i].typeExercice === 'dnb' || listeObjetsExercice[i].typeExercice === 'crpe') {
-          listePackages.add('dnb')
+        if (listeObjetsExercice[i].typeExercice === 'dnb' || listeObjetsExercice[i].typeExercice === 'bac' || listeObjetsExercice[i].typeExercice === 'e3c' || listeObjetsExercice[i].typeExercice === 'crpe') {
+          switch (listeObjetsExercice[i].typeExercice) {
+            case 'dnb':
+              listePackages.add('dnb')
+              break
+            case 'bac':
+              listePackages.add('bac')
+              break
+            case 'e3c':
+              listePackages.add('e3c')
+              break
+            case 'crpe':
+              listePackages.add('crpe')
+              break
+          }
           codeEnonces += '\n\n\\exo{}\n\n'
           codeEnonces += listeObjetsExercice[i].contenu
           codeEnonces += '\n\n'
@@ -1059,8 +1135,18 @@ function miseAJourDuCode () {
             codeCorrection += '\n\n'
           } else {
             for (let i = 0; i < listeDesExercices.length; i++) {
-              if (listeObjetsExercice[i].typeExercice === 'dnb') {
-                listePackages.add('dnb')
+              if (listeObjetsExercice[i].typeExercice === 'dnb' || listeObjetsExercice[i].typeExercice === 'bac' || listeObjetsExercice[i].typeExercice === 'e3c') {
+                switch (listeObjetsExercice[i].typeExercice) {
+                  case 'dnb':
+                    listePackages.add('dnb')
+                    break
+                  case 'bac':
+                    listePackages.add('bac')
+                    break
+                  case 'e3c':
+                    listePackages.add('e3c')
+                    break
+                }
                 codeExercices += '\n\n\\exo{}\n\n'
                 codeExercices += listeObjetsExercice[i].contenu
                 codeExercices += '\n\n'
@@ -1187,7 +1273,7 @@ function miseAJourDuCode () {
         // Envoi à Overleaf.com en modifiant la valeur dans le formulaire
 
         $('input[name=encoded_snip]').val(encodeURIComponent(contenuFichier))
-        if (listePackages.has('dnb')) {
+        if (listePackages.has('dnb') || listePackages.add('bac') || listePackages.add('e3c')) {
           // Force le passage à xelatex sur Overleaf pour les exercices de DNB
           $('input[name=engine]').val('xelatex')
         }
@@ -1335,7 +1421,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
         throw getUnknownError(id)
       }
 
-      if (dictionnaireDesExercices[id].typeExercice === 'dnb') {
+      if (dictionnaireDesExercices[id].typeExercice === 'dnb' || dictionnaireDesExercices[id].typeExercice === 'bac' || dictionnaireDesExercices[id].typeExercice === 'e3c') {
         listeObjetsExercice[i] = dictionnaireDesExercices[id]
         promises.push(
           window.fetch(url)
@@ -1363,7 +1449,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
         listeObjetsExercice[i].contenuCorrection = 'Exercice non disponible en version LaTeX'
       } else {
         // avec webpack on ne peut pas faire de import(url), car il faut lui indiquer quels fichiers sont susceptibles d'être chargés
-        // ici il ne peut s'agir que de js contenus dans exercices (dnb déjà traité dans le if au dessus)
+        // ici il ne peut s'agir que de js contenus dans exercices (dnb,bac,e3c,crpe déjà traité dans le if au dessus)
         const chunks = /^\/exercices\/(.*)/.exec(url)
         if (!chunks) throw UserFriendlyError(`url invalide : ${url}`)
         const path = chunks[1]
@@ -1666,6 +1752,7 @@ function parametresExercice (exercice) {
         !exercice[i].correctionDetailleeDisponible &&
         !exercice[i].besoinFormulaireNumerique &&
         !exercice[i].besoinFormulaireTexte &&
+        !exercice[i].besoinFormulaireCaseACocher &&
         !exercice[i].interactif
       ) {
         divParametresGeneraux.innerHTML += '<p><em>Cet exercice ne peut pas être paramétré.</em></p>'

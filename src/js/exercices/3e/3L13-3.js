@@ -109,7 +109,7 @@ export default class ProblemesEnEquation extends Exercice {
           d = variables.d // nombre de points de la partie
           c = 0 // ne sert pas dans ce cas
           equation = `x*2+(x-${a})*3+${b}=${d}`
-          resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
+          resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true, suppr1: false })
           enonce = `Une équipe de basket a marqué ${d} points lors d'un match. Au cours de ce match, elle a marqué ${b} points sur lancers francs.<br>`
           enonce += `L'équipe a marqué ${a} paniers à trois points de moins que de paniers à deux points.<br>Combien a-t-elle marqué de paniers à deux points ?`
           intro = `Posons $x$ le nombre de paniers à deux points.<br>Le nombre de paniers à trois points est donc $x-${a}$.<br>`
@@ -356,20 +356,20 @@ export default class ProblemesEnEquation extends Exercice {
           }
           if (choice([true, false])) {
             enonce += '<br>Quelle est la mesure de sa base ? (la figure n\'est pas en vraie grandeur)'
-            intro = `Posons $x$ la longueur de sa base. La longueur des côtés égaux est : $x${ecritureAlgebrique(c)}$.<br>`
+            intro = `Posons $x$ la longueur de sa base. La longueur des côtés égaux est : $x${ecritureAlgebrique(-c)}$.<br>`
             intro += 'Le calcul du périmètre donne l\'équation suivante :<br>'
-            equation = `2*x+x${ecritureAlgebrique(c)}=${d}`
+            equation = `2*(x${ecritureAlgebrique(-c)})+x=${d}`
             conclusion = `<br>La base de ce triangle isocèle mesure donc $${b}$ mm.`
             x = b
           } else {
             enonce += '<br>Quelle est la mesure de ses côtés égaux ? (la figure n\'est pas en vraie grandeur)'
-            intro = `Posons $x$ la longueur d'un des côtés égaux. La longueur de la base est : $x${ecritureAlgebrique(-c)}$.<br>`
+            intro = `Posons $x$ la longueur d'un des côtés égaux. La longueur de la base est : $x${ecritureAlgebrique(c)}$.<br>`
             intro += 'Le calcul du périmètre donne l\'équation suivante :<br>'
-            equation = `2*(x${ecritureAlgebrique(c)})+x=${d}`
+            equation = `2*x+x${ecritureAlgebrique(c)})=${d}`
             conclusion = `<br>Les deux côtés égaux de ce triangle isocèle mesurent donc $${a}$ mm.`
             x = a
           }
-          resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
+          resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true, suppr1: false })
           if (c > 0) figure = this.triangleIsocele2()
           else figure = this.triangleIsocele1()
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`

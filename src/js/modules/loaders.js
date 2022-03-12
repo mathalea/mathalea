@@ -168,7 +168,7 @@ export async function loadMathLive () {
       }
 
       if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
-        // Sur les écrans tactils, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
+        // Sur les écrans tactiles, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
         mf.setOptions({
           virtualKeyboardMode: 'onfocus'
         })
@@ -185,14 +185,44 @@ export async function loadMathLive () {
             m: { mode: 'math', value: '\\operatorname{m}' },
             dam: { mode: 'math', value: '\\operatorname{dam}' },
             hm: { mode: 'math', value: '\\operatorname{hm}' },
-            km: { mode: 'math', value: '\\operatorname{km}' }
+            km: { mode: 'math', value: '\\operatorname{km}' },
+            '*': { mode: 'math', value: '\\times' },
+            '.': { mode: 'math', value: ',' }
+          }
+        })
+      }
+      if (mf.classList.contains('grecTrigo')) {
+        mf.setOptions({
+          customVirtualKeyboardLayers: grecTrigoKeyboardLayer,
+          customVirtualKeyboards: grecTrigoKeyboard,
+          virtualKeyboards: 'grecTrigoKeyboard roman',
+          inlineShortcuts: {
+            alpha: { mode: 'math', value: '\\alpha' },
+            beta: { mode: 'math', value: '\\beta' },
+            gamma: { mode: 'math', value: '\\gamma' },
+            delta: { mode: 'math', value: '\\delta' },
+            epsilon: { mode: 'math', value: '\\epsilon' },
+            theta: { mode: 'math', value: '\\theta' },
+            omega: { mode: 'math', value: '\\omega' },
+            lambda: { mode: 'math', value: '\\lambda' },
+            '*': { mode: 'math', value: '\\times' },
+            '.': { mode: 'math', value: ',' },
+            cos: { mode: 'math', value: 'cos(' },
+            sin: { mode: 'math', value: 'sin(' },
+            tan: { mode: 'math', value: 'tan(' }
           }
         })
       }
       let style = 'font-size: 20px;'
+
       if (mf.classList.contains('inline')) {
-        style += ' display: inline-block; margin-left: 25px; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
-        if (!mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50')) {
+        if (mf.classList.contains('nospacebefore')) {
+          style += 'margin-left:5px;'
+        } else {
+          style += 'margin-left: 25px;'
+        }
+        style += ' display: inline-block; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
+        if (!mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50') && !mf.classList.contains('largeur75')) {
           style += ' width: 25%;'
         }
       } else {
@@ -213,7 +243,7 @@ export async function loadMathLive () {
       mf.style = style
     }
   }
-  // On envoit la hauteur de l'iFrame après le chargement des champs MathLive
+  // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
   if (context.vue === 'exMoodle') {
     const hauteurExercice = window.document.querySelector('section').scrollHeight
     window.parent.postMessage({ hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')) }, '*')
@@ -425,5 +455,96 @@ const longueursKeyboard = {
     label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
     tooltip: 'Clavier mathématique (longueurs)', // Tooltip when hovering over the label
     layer: 'longueursLayer'
+  }
+}
+const grecTrigoKeyboardLayer = {
+  grecTrigoLayer: {
+    styles: '',
+    rows: [
+      [
+        { label: '\\alpha', latex: '\\alpha' },
+        { label: '\\beta', latex: '\\beta' },
+        { class: 'separator w5' },
+        { label: '7', key: '7' },
+        { label: '8', key: '8' },
+        { label: '9', key: '9' },
+        { latex: '\\div' },
+        { class: 'separator w5' },
+        {
+          class: 'tex small',
+          label: '<span><i>x</i>&thinsp;²</span>',
+          insert: '$$#@^{2}$$'
+        },
+        {
+          class: 'tex small',
+          label: '<span><i>x</i><sup>&thinsp;<i>3</i></sup></span>',
+          insert: '$$#@^{3}$$'
+        },
+        {
+          class: 'small',
+          latex: '\\sqrt{#0}',
+          insert: '$$\\sqrt{#0}$$'
+        }
+      ],
+      [
+        { label: '\\gamma', latex: '\\gamma' },
+        { label: '\\delta', latex: '\\delta' },
+        { class: 'separator w5' },
+        { label: '4', latex: '4' },
+        { label: '5', key: '5' },
+        { label: '6', key: '6' },
+        { latex: '\\times' },
+        { class: 'separator w5' },
+        { class: 'small', latex: '\\frac{#0}{#0}' },
+        { label: '=', key: '=' },
+        { latex: 'f' }
+      ],
+      [
+        { label: '\\epsilon', latex: '\\epsilon' },
+        { label: '\\theta', latex: '\\theta' },
+        { class: 'separator w5' },
+        { label: '1', key: '1' },
+        { label: '2', key: '2' },
+        { label: '3', key: '3' },
+        { latex: '-' },
+        { class: 'separator w5' },
+        { label: 'cos', key: 'cos(' },
+        { label: 'sin', key: 'sin(' },
+        { label: 'tan', key: 'tan(' }
+      ],
+      [
+        { label: '\\lambda', latex: '\\lambda' },
+        { label: '\\omega', latex: '\\omega' },
+        { class: 'separator w5' },
+        { label: '0', key: '0' },
+        { latex: ',' },
+        { latex: '\\pi' },
+        { latex: '+' },
+        { class: 'separator w5' },
+        {
+          class: 'action',
+          label: "<svg><use xlink:href='#svg-arrow-left' /></svg>",
+          command: ['performWithFeedback', 'moveToPreviousChar']
+        },
+        {
+          class: 'action',
+          label: "<svg><use xlink:href='#svg-arrow-right' /></svg>",
+          command: ['performWithFeedback', 'moveToNextChar']
+        },
+        {
+          class: 'action font-glyph',
+          label: '&#x232b;',
+          command: ['performWithFeedback', 'deleteBackward']
+        }
+      ]
+    ]
+  }
+}
+
+const grecTrigoKeyboard = {
+  grecTrigoKeyboard: {
+    label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
+    tooltip: 'Clavier mathématique (lettres grecTrigoques)', // Tooltip when hovering over the label
+    layer: 'grecTrigoLayer'
   }
 }

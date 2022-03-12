@@ -444,10 +444,10 @@ export async function initDom () {
     parentExercices.style.display = 'flex'
     parentExercices.style.flexWrap = 'wrap'
     parentExercices.style.justifyContent = 'center'
-    parentCorrections.style.display = 'none'
     parentCorrections.style.flexWrap = 'wrap'
     parentCorrections.style.justifyContent = 'center'
     document.addEventListener('exercicesAffiches', () => {
+      parentCorrections.style.display = 'none'
       document.querySelectorAll('.titreExercice').forEach((ex) => {
         setStyles(ex, 'margin: 30px')
       })
@@ -458,7 +458,11 @@ export async function initDom () {
     })
     const btnCorrection = document.getElementById('btnCorrection')
     btnCorrection.addEventListener('click', () => {
-      parentCorrections.style.display = 'flex'
+      if (parentCorrections.style.display === 'flex') {
+        parentCorrections.style.display = 'none'
+      } else {
+        parentCorrections.style.display = 'flex'
+      }
     })
   } else if (vue === 'can') {
     context.duree = parseInt(getDureeFromUrl())

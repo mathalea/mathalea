@@ -10,7 +10,7 @@ export const dateDePublication = '02/11/2021'
 
 /**
  * @author Eric Elter
- * référence à déterminer
+ * Référence c3C13-1
  * Date octobre 2021
  */
 export default function QuestionsMassesCM () {
