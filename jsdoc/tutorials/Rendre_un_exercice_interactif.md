@@ -153,7 +153,7 @@ Les concepteurs plus curieux, trouveront, aussi, dans ce chapitre :
 >>texte += ajouteChampTexteMathLive(this, i,'inline largeur25 grecTrigo nospacebefore') // mélange possible des options précédentes. Options non compatibles : largeur25 avec fixed-width-150 et longueur avec grecTrigo
 >>texte += ajouteChampTexteMathLive(this, i,'inline largeur25',{ texte: 'avant' }) // écrit "avant" devant le champ de réponses
 >>texte += ajouteChampTexteMathLive(this, i,'inline largeur25',{ texteApres: 'après' }) // écrit "après" derrière le champ de réponses
->>texte += ajouteChampTexteMathLive(this, i,{ tailleExtensible: true }) // permet de rendre le champ de taille minuscule mais dont la taille augmente à la saisie pour s'adapter au contenu. Cette option rend caduque toutes les options qui ne sont pas dans les accolades, qu'elles soient indiquées ou non.
+>>texte += ajouteChampTexteMathLive(this, i,{ tailleExtensible: true }) // permet de rendre le champ de taille minuscule mais dont la taille augmente à la saisie pour s'adapter au contenu. Cette option rend caduque toutes les options qui ne sont pas dans les accolades, qu'elles soient indiquées ou non, donc ne pas mélanger cette option avec longueur et grecTrigo notamment.
 >>texte += ajouteChampTexteMathLive(this, i,{ texte: 'avant', texteApres: 'après', tailleExtensible: true }) // mélange possible des options entre accolades.
  >>```
 
@@ -262,7 +262,8 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >>
 >> // Méthode 3 : Exercice-témoin 6N23-1
 >> // Associée à ajouteChampFractionMathLive(this, i, false, false)
->>setReponse(this, i, fraction(reponse1, reponse2), { formatInteractif: 'NumDen' }) // Il y a deux champs différents : un sur le numérateur et un autre sur le dénominateur.
+>>setReponse(this, i, reponseNum, { formatInteractif: 'calcul' }) // Il y a un champ pour le numérateur.
+>>setReponse(this, i+1, reponseDen, { formatInteractif: 'calcul' }) // Il y a un champ pour le dénominateur.
 >>```
 
 - Pour comparer des **grandeurs (avec des unités)**, on code, comme dans l'exercice-témoin **6M11** :
