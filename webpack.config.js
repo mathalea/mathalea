@@ -139,7 +139,7 @@ const config = {
     openPage: 'mathalea.html',
     // openPage: 'mathalea_amc.html',
     host: 'localhost',
-    port: 8090, 
+    port: 8080, 
     // on active le hot module replacement (HMR)
     hot: true,
     headers: {
