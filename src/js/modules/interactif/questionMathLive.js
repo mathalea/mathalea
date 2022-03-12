@@ -24,8 +24,9 @@ export function verifQuestionMathLive (exercice, i) {
   for (let reponse of reponses) {
     switch (formatInteractif) {
       case 'Num':
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`)
-        num = parseInt(champTexte.value)
+        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+        if (champTexte !== undefined) num = parseInt(champTexte.value)
+        if (isNaN(num) || num === undefined) num = 9999
         den = reponse.den
         fSaisie = new FractionEtendue(num, den)
         if (fSaisie.isEqual(reponse)) {
@@ -33,19 +34,10 @@ export function verifQuestionMathLive (exercice, i) {
         }
         break
       case 'Den':
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Den`)
-        den = parseInt(champTexte.value)
+        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+        if (champTexte !== undefined) den = parseInt(champTexte.value)
+        if (isNaN(den) || den === undefined) den = 9999
         num = reponse.num
-        fSaisie = new FractionEtendue(num, den)
-        if (fSaisie.isEqual(reponse)) {
-          resultat = 'OK'
-        }
-        break
-      case 'NumDen':
-        champTexteNum = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Num`)
-        num = parseInt(champTexteNum.value)
-        champTexteDen = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}Den`)
-        den = parseInt(champTexteDen.value)
         fSaisie = new FractionEtendue(num, den)
         if (fSaisie.isEqual(reponse)) {
           resultat = 'OK'
@@ -55,7 +47,7 @@ export function verifQuestionMathLive (exercice, i) {
         // Le format par défaut
       // Pour le calcul littéral on remplace dfrac en frac
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        saisie = champTexte.value
+        saisie = champTexte !== undefined ? champTexte.value : ''
         if (typeof reponse === 'string') {
           reponse = reponse.replaceAll('dfrac', 'frac')
         // A réfléchir, est-ce qu'on considère que le début est du brouillon ?
@@ -73,7 +65,7 @@ export function verifQuestionMathLive (exercice, i) {
         break
       case 'ecritureScientifique': // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        saisie = champTexte.value
+        saisie = champTexte !== undefined ? champTexte.value : ''
         if (typeof reponse === 'string') {
           saisie = saisie.toString().replace(',', '.')
           reponse = reponse.replace(',', '.').replace('{.}', '.')
@@ -86,7 +78,7 @@ export function verifQuestionMathLive (exercice, i) {
 
       case 'texte':
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        saisie = champTexte.value
+        saisie = champTexte !== undefined ? champTexte.value : ''
         if (saisie === reponse) {
           resultat = 'OK'
         }
@@ -94,7 +86,7 @@ export function verifQuestionMathLive (exercice, i) {
 
       case 'ignorerCasse':
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        saisie = champTexte.value
+        saisie = champTexte !== undefined ? champTexte.value : ''
         if (saisie.toLowerCase() === reponse.toLowerCase()) {
           resultat = 'OK'
         // Pour les exercices de simplifications de fraction
@@ -102,7 +94,7 @@ export function verifQuestionMathLive (exercice, i) {
         break
       case 'fractionPlusSimple':
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        saisie = champTexte.value
+        saisie = champTexte !== undefined ? champTexte.value : ''
         if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
           saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
         } else {
@@ -124,7 +116,7 @@ export function verifQuestionMathLive (exercice, i) {
       case 'fractionEgale': // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
         // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        saisie = champTexte.value
+        saisie = champTexte !== undefined ? champTexte.value : ''
         if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
           saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
         } else {
@@ -145,7 +137,7 @@ export function verifQuestionMathLive (exercice, i) {
         break
       case 'fraction': // Pour les exercices où l'on attend un écriture donnée d'une fraction
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        saisie = champTexte.value
+        saisie = champTexte !== undefined ? champTexte.value : ''
         if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
           saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
         } else {
@@ -166,7 +158,7 @@ export function verifQuestionMathLive (exercice, i) {
         break
       case 'longueur': // Pour les exercices où l'on attend une mesure avec une unité au choix
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        saisie = champTexte.value
+        saisie = champTexte !== undefined ? champTexte.value : ''
         grandeurSaisie = saisieToGrandeur(saisie)
         if (grandeurSaisie) {
           if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
@@ -176,19 +168,21 @@ export function verifQuestionMathLive (exercice, i) {
         break
       case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        saisie = champTexte.value
+        saisie = champTexte !== undefined ? champTexte.value : ''
+
         nombreSaisi = Number(saisie.replace(',', '.'))
         if (saisie !== '' && nombreSaisi > exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi < exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
         break
       case 'intervalle' :
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        saisie = champTexte.value
+        saisie = champTexte !== undefined ? champTexte.value : ''
         nombreSaisi = Number(saisie.replace(',', '.'))
         if (saisie !== '' && nombreSaisi >= exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi <= exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
         break
       case 'puissance' :
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        saisie = champTexte.value
+        saisie = champTexte !== undefined ? champTexte.value : ''
+
         // formatOK et formatKO sont deu x variables globale,
         // sinon dans le cas où reponses est un tableau, la valeur n'est pas conservée d'un tour de boucle sur l'autre
         // eslint-disable-next-line no-var
@@ -265,7 +259,9 @@ export function verifQuestionMathLive (exercice, i) {
   if (resultat === 'OK') {
     spanReponseLigne.innerHTML = '😎'
     spanReponseLigne.style.fontSize = 'large'
-    champTexte.readOnly = true
+    if (champTexte !== undefined) champTexte.readOnly = true
+    if (champTexteNum !== undefined) champTexteNum.readOnly = true
+    if (champTexteDen !== undefined) champTexteDen.readOnly = true
   } else if (resultat === 'essaieEncoreLongueur') {
     spanReponseLigne.innerHTML = '<em>Il faut saisir une valeur numérique et une unité (cm ou cm² par exemple).</em>'
     spanReponseLigne.style.color = '#f15929'
@@ -277,11 +273,9 @@ export function verifQuestionMathLive (exercice, i) {
   } else {
     spanReponseLigne.innerHTML = '☹️'
     spanReponseLigne.style.fontSize = 'large'
-    champTexte.readOnly = true
-  }
-  if (formatInteractif === 'NumDen') {
-    champTexteNum.readOnly = true
-    champTexteDen.readOnly = true
+    if (champTexte !== undefined) champTexte.readOnly = true
+    if (champTexteNum !== undefined) champTexteNum.readOnly = true
+    if (champTexteDen !== undefined) champTexteDen.readOnly = true
   }
   return resultat
 }
@@ -311,22 +305,30 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres 
   }
 }
 
+/** Crée une fraction avec 1 ou 2 champs de réponse et autant de feedbacks.
+ * Si seul le numérateur ou le dénominateur sont utilisés pour la fraction, l'autre est précisé.
+ * numerateur = false signifie qu'il y a un champ de saisie pour le numérateur.
+ * denominateur = 100 signifie que le dénominateur est déjà renseigné à 100.
+ * Dans ce cas, on utilise le format Interactif correspondant : 'Num' ou 'Den'
+ * Si les deux champs sont à saisir, on utilise deux réponse de formatInteractif 'calcul'.
+ */
 export function ajouteChampFractionMathLive (exercice, i, numerateur = false, denominateur = 100, style = '', { texte = '', texteApres = '' } = {}) {
   let code = ''
   if (context.isHtml && exercice.interactif) {
     code += `<label>${texte}</label><table style="border-collapse:collapse;text-align:center;font-size: small;font-family:Arial,Times,serif;display:inline;"><tr><td style="padding:0px 0px 5px;margin:0px;border-bottom:1px solid #000;">`
     if (!numerateur) {
-      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}Num"></math-field></span>`
+      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field></td><td><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+      i++
     } else {
       code += `${numerateur} `
     }
-    code += '</td></tr><tr><td style="padding:0px;margin:0px;">'
+    code += '</td></tr><tr><td width=50px style="padding:0px;margin:0px;">'
     if (!denominateur) {
-      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}Den"></math-field>`
+      code += `<math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field></td><td><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     } else {
       code += `${denominateur}`
     }
-    code += `</td></tr></table> ${texteApres ? '<span>' + texteApres + '</span>' : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    code += `</td></tr></table> ${texteApres ? '<span>' + texteApres + '</span>' : ''}`
     return code
   } else {
     return ''
