@@ -1,5 +1,5 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 434 
+- nombre d'exos amcReady 441 
 - nombre d'exos interactifReady 615 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
@@ -83,13 +83,13 @@
 |3G21|Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès|OK|AMCHybride|KO|KO|
 |3G30|Calculer une longueur dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|OK|mathLive|
 |3G31|Calculer un angle dans un triangle rectangle en utilisant la trigonométrie|OK|AMCOpenNum|OK|mathLive|
-|3G32-0|Problèmes nécessitant un calcul de longueur à l'aide de la trigonométrie|KO|KO|OK|mathLive|
-|3G32-1|Calcul d'un parallèle terrestre|KO|KO|OK|mathLive|
-|3G32-2|Calculer la hauteur d'un objet vu sous un angle donné|KO|KO|OK|mathLive|
-|3G32-3|Calculer la hauteur d'une falaise|KO|KO|OK|mathLive|
-|3G32-4|Calculer la hauteur d'une montagne|KO|KO|OK|mathLive|
-|3G32-5|Triangle rectangle inscrit dans un triangle rectangle|KO|KO|OK|mathLive|
-|3G32|Calculer la largeur d'une rivière|KO|KO|OK|mathLive|
+|3G32-0|Problèmes nécessitant un calcul de longueur à l'aide de la trigonométrie|OK|AMCHybride|OK|mathLive|
+|3G32-1|Calcul d'un parallèle terrestre|OK|AMCHybride|OK|mathLive|
+|3G32-2|Calculer la hauteur d'un objet vu sous un angle donné|OK|AMCHybride|OK|mathLive|
+|3G32-3|Calculer la hauteur d'une falaise|OK|AMCHybride|OK|mathLive|
+|3G32-4|Calculer la hauteur d'une montagne|OK|AMCHybride|OK|mathLive|
+|3G32-5|Triangle rectangle inscrit dans un triangle rectangle|OK|AMCHybride|OK|mathLive|
+|3G32|Calculer la largeur d'une rivière|OK|AMCHybride|OK|mathLive|
 |3G42|Volume d’une boule|OK|AMCNum|OK|mathLive|
 |3G43|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |3L10-1|Additionner ou soustraire une expression entre parenthèses|KO|KO|OK|mathLive|
