@@ -31,15 +31,19 @@ export default function PuzzlesGeometriques () {
   this.nouvelleVersion = function () {
     const type = parseInt(this.sup)
     const anim = new Alea2iep()
-    anim.taille(1200, 1200)
+    // anim.taille(1200, 1200)
     anim.translationX = 4
     anim.translationY = 20
     // vitesse pour l'anim
     anim.vitesse = 50 // 1000
     anim.xMax = 20
     anim.yMax = 20
+    let texte, texteMessage, nbFig
+    texte = texteGras('PROGRAMME DE CONSTRUCTION')
     switch (type) {
       case 1: {
+        // Adaptation de la taille de la fenêtre
+        anim.taille(1200, 1200)
         // Les points
         const A1 = point(-3, 4)
         const A = point(-2, 4, 'A')
@@ -117,9 +121,44 @@ export default function PuzzlesGeometriques () {
         anim.compasEcarter2Points(O, A)
         anim.compasTracerArc2Angles(180, 360, { couleur: 'red', epaisseur: 4 })
         anim.compasMasquer()
+        let myArcCommand
+        context.isHtml === true ? myArcCommand = '\\overgroup' : myArcCommand = '\\wideparen'
+        texte += enumerate([
+          'Tracer deux droites perpendiculaires $(\\Delta)$ et $(\\Delta \')$, elles se coupent en $O$.',
+          'Tracer le cercle de centre $O$ et de rayon 7 cm.',
+          'Ce cercle coupe $(\\Delta)$ en $A$, à gauche de $O$, et $C$.',
+          'Ce cercle coupe $(\\Delta \')$ en $B$, au dessus de $O$, et $D$.',
+          'Tracer les demi-droites $[AB)$ et $[CB)$',
+          `Le cercle de centre $A$ et de rayon $AC$ coupe $[AB)$ en $F$, tracer en rouge l'arc $${myArcCommand}{FC}$.`,
+          `Le cercle de centre $C$ et de rayon $AC$ coupe $[CB)$ en $E$, tracer en rouge l'arc $${myArcCommand}{EA}$.`,
+          `Tracer en rouge l'arc $${myArcCommand}{EF}$ de centre $B$ et de rayon $BE$. Il coupe $(\\Delta ')$ en $H$.`,
+          'Le cercle de centre $D$ et de rayon $BE$ coupe le segment $[BD]$ en $G$.',
+          'Le cercle de centre $G$ et de rayon $BE$ coupe le segment $[AC]$ en $L$ et $K$.<br> L est à gauche de $O$.',
+          'Effacer $[OG]$ et le noms des points.',
+          `Tracer en rouge $[AC]$, $[LG]$, $[GK]$, $[GD]$, $[OH]$, $[AF]$, $[CE]$ et l'arc $${myArcCommand}{AC}$ de centre $O$ situé sous le point $O$.`
+        ], 1)
+        texteMessage = enumerateSansPuceSansNumero([
+          'Découper les 9 pièces délimitées par les lignes rouges.',
+          'Construire la silhouette proposée.'
+        ], 1.5)
+        // On tire une figure au hasard
+        nbFig = randint(1, 11)
+        if (context.isHtml) {
+          texteMessage += `<img class="ui middle aligned image" src="assets/puzzlesGeom/img/oiseau${nbFig}.png"/>`
+        } else {
+          texteMessage += ` \\href{https://coopmaths.fr/assets/puzzlesGeom/img/oiseau${nbFig}.png}{Cliquer pour la voir en ligne}`
+        }
+        texte += infoMessage({
+          titre: 'Les oiseaux sortent de l\'oeuf, c\'est bien connu !',
+          texte: texteMessage,
+          couleur: 'nombres'
+        })
       }
         break
       case 2: {
+        // Adaptation de la taille de la fenêtre
+        anim.taille(1200, 1200)
+        // Les points
         const A = point(-2, 11, 'A')
         const B = point(12, 11, 'B')
         const C = point(12, -3, 'C')
@@ -208,49 +247,7 @@ export default function PuzzlesGeometriques () {
         anim.regleSegment(E, H, { couleur: 'red', epaisseur: 4 })
         anim.regleSegment(G, I, { couleur: 'red', epaisseur: 4 })
         anim.regleMasquer()
-        anim.crayonMasquer() }
-        break
-    }
-    let texte, texteMessage, nbFig
-    texte = texteGras('PROGRAMME DE CONSTRUCTION')
-    texteMessage = enumerateSansPuceSansNumero([
-      'Découper les 9 pièces délimitées par les lignes rouges.',
-      'Construire la silhouette proposée.'
-    ], 1.5)
-    switch (type) {
-      case 1: {
-        let myArcCommand
-        context.isHtml === true ? myArcCommand = '\\overgroup' : myArcCommand = '\\wideparen'
-        texte += enumerate([
-          'Tracer deux droites perpendiculaires $(\\Delta)$ et $(\\Delta \')$, elles se coupent en $O$.',
-          'Tracer le cercle de centre $O$ et de rayon 7 cm.',
-          'Ce cercle coupe $(\\Delta)$ en $A$, à gauche de $O$, et $C$.',
-          'Ce cercle coupe $(\\Delta \')$ en $B$, au dessus de $O$, et $D$.',
-          'Tracer les demi-droites $[AB)$ et $[CB)$',
-          `Le cercle de centre $A$ et de rayon $AC$ coupe $[AB)$ en $F$, tracer en rouge l'arc $${myArcCommand}{FC}$.`,
-          `Le cercle de centre $C$ et de rayon $AC$ coupe $[CB)$ en $E$, tracer en rouge l'arc $${myArcCommand}{EA}$.`,
-          `Tracer en rouge l'arc $${myArcCommand}{EF}$ de centre $B$ et de rayon $BE$. Il coupe $(\\Delta ')$ en $H$.`,
-          'Le cercle de centre $D$ et de rayon $BE$ coupe le segment $[BD]$ en $G$.',
-          'Le cercle de centre $G$ et de rayon $BE$ coupe le segment $[AC]$ en $L$ et $K$.<br> L est à gauche de $O$.',
-          'Effacer $[OG]$ et le noms des points.',
-          `Tracer en rouge $[AC]$, $[LG]$, $[GK]$, $[GD]$, $[OH]$, $[AF]$, $[CE]$ et l'arc $${myArcCommand}{AC}$ de centre $O$ situé sous le point $O$.`
-        ], 1)
-
-        // On tire une figure au hasard
-        nbFig = randint(1, 11)
-        if (context.isHtml) {
-          texteMessage += `<img class="ui middle aligned image" src="assets/puzzlesGeom/img/oiseau${nbFig}.png"/>`
-        } else {
-          texteMessage += ` \\href{https://coopmaths.fr/assets/puzzlesGeom/img/oiseau${nbFig}.png}{Cliquer pour la voir en ligne}`
-        }
-        texte += infoMessage({
-          titre: 'Les oiseaux sortent de l\'oeuf, c\'est bien connu !',
-          texte: texteMessage,
-          couleur: 'nombres'
-        })
-      }
-        break
-      case 2: {
+        anim.crayonMasquer()
         texte += enumerate([
           'Tracer un carré ABCD de 14 cm de côté.',
           'Placer $E$, $F$ et $G$ sur $[DB]$ tels que $DE=EF=FG=GB$.',
@@ -259,6 +256,10 @@ export default function PuzzlesGeometriques () {
           'La diagonale $[AC]$ coupe $[HJ]$ en $I$',
           'Tracer en rouge $[AB]$, $[BC]$, $[CD]$, $[DA]$, $[DB]$, $[AI]$, $[HJ]$, $[EH]$, $[GI]$.'
         ], 1)
+        texteMessage = enumerateSansPuceSansNumero([
+          'Découper les 7 pièces délimitées par les lignes rouges.',
+          'Construire la silhouette proposée.'
+        ], 1.5)
         // On tire une figure au hasard
         nbFig = randint(1, 12)
         if (context.isHtml) {
@@ -272,6 +273,26 @@ export default function PuzzlesGeometriques () {
           couleur: 'nombres'
         })
       }
+        break
+      case 3: {
+        // Adaptation de la taille de la fenêtre
+        anim.taille(600, 600)
+        anim.image('assets/puzzlesGeom/img/samLoydQuadrillage.png', point(-4, 19))
+        const A = point(-2.35, 15.70, 'A')
+        anim.pointCreer(A)
+        texte += enumerate([
+          'Sam Loyd'
+        ], 1)
+        texteMessage = enumerateSansPuceSansNumero([
+          'Découper les ... pièces délimitées par les lignes rouges.',
+          'Construire la silhouette proposée.'
+        ], 1.5)
+        texte += infoMessage({
+          titre: 'Sam Loyd !',
+          texte: texteMessage,
+          couleur: 'nombres'
+        })
+      }
     }
 
     if (this.sup2) {
@@ -279,6 +300,6 @@ export default function PuzzlesGeometriques () {
     }
     this.contenu = texte
   }
-  this.besoinFormulaireNumerique = ['Type de puzzle', 2, '1 : Oeuf magique\n 2 : Tangram']
+  this.besoinFormulaireNumerique = ['Type de puzzle', 3, '1 : Oeuf magique\n 2 : Tangram\n 3 : Sam Loyd']
   this.besoinFormulaire2CaseACocher = ['Animation disponible']
 }
