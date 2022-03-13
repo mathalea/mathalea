@@ -38,8 +38,100 @@ export default function PuzzlesGeometriques () {
     anim.vitesse = 50 // 1000
     anim.xMax = 20
     anim.yMax = 20
-    let texte, texteMessage, nbFig
+    let texte
     texte = texteGras('PROGRAMME DE CONSTRUCTION')
+    // On factorise
+    /**
+     *
+     * @param {number} nbPieces nombre de pieces du puzzle
+     * @param {string} type type parmi oiseau, tangram, samLoyd
+     * @param {number} nbFig numero de la sihlouette tiré au hasard
+     * @returns un string
+     */
+    const texteMessage = (nbPieces, type) => {
+      let nbFig
+      switch (type) {
+        case 'oiseau':
+        case 'tangram':
+          nbFig = randint(1, 12)
+          break
+        case 'samLoyd':
+          nbFig = randint(1, 5)
+          break
+      }
+      let sortie = enumerateSansPuceSansNumero([
+        `Découper les ${nbPieces} pièces délimitées par les lignes rouges.`,
+        'Construire la silhouette proposée.'
+      ], 1.5)
+      if (context.isHtml) {
+        sortie += `<img class="ui middle aligned image" src="assets/puzzlesGeom/img/${type}${nbFig}.png"/>`
+      } else {
+        sortie += ` \\href{https://coopmaths.fr/assets/puzzlesGeom/img/${type}${nbFig}.png}{Cliquer pour la voir en ligne}`
+      }
+      return sortie
+    }
+
+    /**
+     *
+     * @param {string} version v1 ou v2
+     */
+    const samLoyd = (version) => {
+      // Adaptation de la taille de la fenêtre
+      anim.taille(600, 600)
+      anim.image('assets/puzzlesGeom/img/samLoydQuadrillage.png', point(-4, 19))
+      // Les points
+      let A, B, C, D, E, F, G, H, I
+      switch (version) {
+        case 'v1':
+          A = point(-2.35, 15.70, 'A')
+          B = point(1, 17.35, 'B')
+          C = point(6.01, 7.35, 'C')
+          D = point(-2.35, 7.35, 'D')
+          E = point(-2.35, 10.7, 'E')
+          F = point(-2.35, 14, 'F')
+          G = point(1, 14, 'G')
+          H = point(1, 9, 'H')
+          I = point(4.31, 10.7, 'I')
+          break
+        case 'v2':
+          A = point(2.675, 17.35, 'A')
+          B = point(6.025, 17.35, 'B')
+          break
+      }
+      // On trace les points
+      anim.pointCreer(A, { dx: -0.7, dy: 0.7 })
+      anim.pointCreer(B, { dy: 0.7 })
+      anim.pointCreer(C, { dy: -0.2 })
+      anim.pointCreer(D, { dy: -0.2 })
+      anim.pointCreer(E, { dx: -0.7, dy: 0.7 })
+      anim.pointCreer(F, { dx: -0.7, dy: 0.7 })
+      anim.pointCreer(G, { dy: 0.7 })
+      anim.pointCreer(H, { dy: 0.7 })
+      anim.pointCreer(I, { dy: 0.7 })
+      // On trace les segments
+      anim.regleMasquerGraduations()
+      anim.regleSegment(A, B, { couleur: 'red', epaisseur: 4 })
+      anim.regleSegment(B, C, { couleur: 'red', epaisseur: 4 })
+      anim.regleSegment(C, D, { couleur: 'red', epaisseur: 4 })
+      anim.regleSegment(D, A, { couleur: 'red', epaisseur: 4 })
+      anim.regleSegment(F, G, { couleur: 'red', epaisseur: 4 })
+      anim.regleSegment(G, H, { couleur: 'red', epaisseur: 4 })
+      anim.regleSegment(D, I, { couleur: 'red', epaisseur: 4 })
+      anim.regleSegment(E, I, { couleur: 'red', epaisseur: 4 })
+      anim.regleMasquer()
+      anim.crayonMasquer()
+
+      texte += enumerate([
+        'Placer les points $A$, $B$, $C$, $D$, $E$, $F$, $G$ et $H$.',
+        'Tracer en rouge les segments $[AB]$, $[BC]$, $[CD]$, $[DA]$, $[FG]$, $[GH]$, $[DI]$, $[EI]$ '
+      ], 1)
+      texte += infoMessage({
+        titre: `Sam Loyd ${version} !`,
+        texte: texteMessage(5, 'samLoyd'),
+        couleur: 'nombres'
+      })
+    }
+
     switch (type) {
       case 1: {
         // Adaptation de la taille de la fenêtre
@@ -137,20 +229,9 @@ export default function PuzzlesGeometriques () {
           'Effacer $[OG]$ et le noms des points.',
           `Tracer en rouge $[AC]$, $[LG]$, $[GK]$, $[GD]$, $[OH]$, $[AF]$, $[CE]$ et l'arc $${myArcCommand}{AC}$ de centre $O$ situé sous le point $O$.`
         ], 1)
-        texteMessage = enumerateSansPuceSansNumero([
-          'Découper les 9 pièces délimitées par les lignes rouges.',
-          'Construire la silhouette proposée.'
-        ], 1.5)
-        // On tire une figure au hasard
-        nbFig = randint(1, 11)
-        if (context.isHtml) {
-          texteMessage += `<img class="ui middle aligned image" src="assets/puzzlesGeom/img/oiseau${nbFig}.png"/>`
-        } else {
-          texteMessage += ` \\href{https://coopmaths.fr/assets/puzzlesGeom/img/oiseau${nbFig}.png}{Cliquer pour la voir en ligne}`
-        }
         texte += infoMessage({
           titre: 'Les oiseaux sortent de l\'oeuf, c\'est bien connu !',
-          texte: texteMessage,
+          texte: texteMessage(9, 'oiseau'),
           couleur: 'nombres'
         })
       }
@@ -256,43 +337,19 @@ export default function PuzzlesGeometriques () {
           'La diagonale $[AC]$ coupe $[HJ]$ en $I$',
           'Tracer en rouge $[AB]$, $[BC]$, $[CD]$, $[DA]$, $[DB]$, $[AI]$, $[HJ]$, $[EH]$, $[GI]$.'
         ], 1)
-        texteMessage = enumerateSansPuceSansNumero([
-          'Découper les 7 pièces délimitées par les lignes rouges.',
-          'Construire la silhouette proposée.'
-        ], 1.5)
-        // On tire une figure au hasard
-        nbFig = randint(1, 12)
-        if (context.isHtml) {
-          texteMessage += `<img class="ui middle aligned image" src="assets/puzzlesGeom/img/tangram${nbFig}.png"/>`
-        } else {
-          texteMessage += ` \\href{https://coopmaths.fr/assets/puzzlesGeom/img/tangram${nbFig}.png}{Cliquer pour la voir en ligne}`
-        }
         texte += infoMessage({
           titre: 'Toute sorte de personnage peut sortir de ce drôle de carré, c\'est bien connu !',
-          texte: texteMessage,
+          texte: texteMessage(7, 'tangram'),
           couleur: 'nombres'
         })
       }
         break
-      case 3: {
-        // Adaptation de la taille de la fenêtre
-        anim.taille(600, 600)
-        anim.image('assets/puzzlesGeom/img/samLoydQuadrillage.png', point(-4, 19))
-        const A = point(-2.35, 15.70, 'A')
-        anim.pointCreer(A)
-        texte += enumerate([
-          'Sam Loyd'
-        ], 1)
-        texteMessage = enumerateSansPuceSansNumero([
-          'Découper les ... pièces délimitées par les lignes rouges.',
-          'Construire la silhouette proposée.'
-        ], 1.5)
-        texte += infoMessage({
-          titre: 'Sam Loyd !',
-          texte: texteMessage,
-          couleur: 'nombres'
-        })
-      }
+      case 3:
+        samLoyd('v1')
+        break
+      case 4:
+        samLoyd('v2')
+        break
     }
 
     if (this.sup2) {
@@ -300,6 +357,6 @@ export default function PuzzlesGeometriques () {
     }
     this.contenu = texte
   }
-  this.besoinFormulaireNumerique = ['Type de puzzle', 3, '1 : Oeuf magique\n 2 : Tangram\n 3 : Sam Loyd']
+  this.besoinFormulaireNumerique = ['Type de puzzle', 4, '1 : Oeuf magique\n 2 : Tangram\n 3 : Sam Loyd \n 4 : Sam Loyd bis']
   this.besoinFormulaire2CaseACocher = ['Animation disponible']
 }
