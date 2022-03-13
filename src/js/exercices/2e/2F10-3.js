@@ -62,25 +62,26 @@ export default function representerfonctionaffine () {
           xMax: max(1, xA + 1, xB + 1),
           yMax: max(1, yA + 1, yB + 1)
         }
+
         cadreFenetreSvg = {
           xMin: min(-2, xA - 2, xB - 2),
           yMin: min(-2, yA - 2, yB - 2),
           xMax: max(2, xA + 2, xB + 2),
           yMax: max(2, yA + 2, yB + 2)
         }
-        /*   cadreFenetreSvg = {
-          xmin: -6,
-          ymin: min(-8, yA - 2),
-          xmax: 6,
-          ymax: max(8, yA + 2)
+        /* cadreFenetreSvg = {
+          xMin: -6,
+          yMin: min(-8, yA - 2),
+          xMax: 6,
+          yMax: max(8, yA + 2)
         } */
-        /*   cadreFenetreSvg = {
-          xmin: -10,
-          ymin: -10,
-          xmax: 10,
-          ymax: 10
+        /*  cadreFenetreSvg = {
+          xMin: -10,
+          yMin: -10,
+          xMax: 10,
+          yMax: 10
         } */
-console.log(`------------------------${i}-------------------------------`)
+        console.log(`------------------------${i}-------------------------------`)
         console.log(`xA: ${xA}`)
         console.log(`yA: ${yA}`)
         console.log(`xB: ${xB}`)
