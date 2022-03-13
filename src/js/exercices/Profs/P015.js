@@ -122,7 +122,7 @@ export default function PuzzlesGeometriques () {
       anim.crayonMasquer()
 
       texte += enumerate([
-        'Placer les points $A$, $B$, $C$, $D$, $E$, $F$, $G$ et $H$.',
+        'Placer les points $A$, $B$, $C$, $D$, $E$, $F$, $G$, $H$ et $I$.',
         'Tracer en rouge les segments $[AB]$, $[BC]$, $[CD]$, $[DA]$, $[FG]$, $[GH]$, $[DI]$, $[EI]$ '
       ], 1)
       texte += infoMessage({
