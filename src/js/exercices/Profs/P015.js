@@ -125,6 +125,11 @@ export default function PuzzlesGeometriques () {
         'Placer les points $A$, $B$, $C$, $D$, $E$, $F$, $G$, $H$ et $I$.',
         'Tracer en rouge les segments $[AB]$, $[BC]$, $[CD]$, $[DA]$, $[FG]$, $[GH]$, $[DI]$, $[EI]$ '
       ], 1)
+      if (context.isHtml) {
+        texte += '<img class="ui middle aligned image" src="assets/puzzlesGeom/img/samLoydQuadrillageEtPoints.png"/>'
+      } else {
+        texte += ' \\href{https://coopmaths.fr/assets/puzzlesGeom/img/samLoydQuadrillageEtPoints.png}{Cliquer pour la voir en ligne}'
+      }
       texte += infoMessage({
         titre: `Sam Loyd ${version} !`,
         texte: texteMessage(5, 'samLoyd'),
