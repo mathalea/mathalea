@@ -5,7 +5,7 @@ import Alea2iep from '../../modules/Alea2iep.js'
 import { randint, enumerate, enumerateSansPuceSansNumero, infoMessage, texteGras } from '../../modules/outils'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '../03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '14/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 export const titre = 'Puzzles géométriques'
 
@@ -80,7 +80,7 @@ export default function PuzzlesGeometriques () {
       anim.taille(600, 600)
       anim.image('assets/puzzlesGeom/img/samLoydQuadrillage.png', point(-4, 19))
       // Les points
-      let A, B, C, D, E, F, G, H, I
+      let A, B, C, D, E, E1, F, F1, G, G1, H, H1, I
       switch (version) {
         case 'v1':
           A = point(-2.35, 15.70, 'A')
@@ -94,19 +94,40 @@ export default function PuzzlesGeometriques () {
           I = point(4.31, 10.7, 'I')
           break
         case 'v2':
-          A = point(2.675, 17.35, 'A')
-          B = point(6.025, 17.35, 'B')
+          // Les points aux intersections du quadrillage
+          A = point(2.7, 17.35, 'A')
+          B = point(6.01, 17.35, 'B')
+          C = point(6.01, 7.35, 'C')
+          D = point(-0.7, 10.7, 'D')
+          E1 = point(-0.7, 14, 'E_1')
+          F1 = point(-0.7, 17.35, 'F_1')
+          G1 = point(6.01, 14, 'G_1')
+          H1 = point(1, 7.35, 'H_1')
+          // Les points aux intersections de lignes tracées
+          E = point(0.65, 13.3, 'E')
+          F = point(2, 16, 'F')
+          G = point(4.65, 14.7, 'G')
+          H = point(2.7, 10.7, 'H')
+          I = point(6.01, 10.7, 'I')
           break
       }
-      // On trace les points
+      // On place les points
       anim.pointCreer(A, { dx: -0.7, dy: 0.7 })
       anim.pointCreer(B, { dy: 0.7 })
       anim.pointCreer(C, { dy: -0.2 })
-      anim.pointCreer(D, { dy: -0.2 })
-      anim.pointCreer(E, { dx: -0.7, dy: 0.7 })
-      anim.pointCreer(F, { dx: -0.7, dy: 0.7 })
-      anim.pointCreer(G, { dy: 0.7 })
-      anim.pointCreer(H, { dy: 0.7 })
+      version === 'v1' ? anim.pointCreer(D, { dy: -0.2 }) : anim.pointCreer(D, { dx: -0.4, dy: -0.2 })
+      if (version === 'v1') {
+        anim.pointCreer(E, { dx: -0.7, dy: 0.7 })
+        anim.pointCreer(F, { dx: -0.7, dy: 0.7 })
+        anim.pointCreer(G, { dy: 0.7 })
+        anim.pointCreer(H, { dy: 0.7 })
+      }
+      if (version === 'v2') {
+        anim.pointCreer(E1, { dx: -0.7, dy: 0.7 })
+        anim.pointCreer(F1, { dx: -0.7, dy: 0.8 })
+        anim.pointCreer(G1, { dx: 0.2, dy: 0.7 })
+        anim.pointCreer(H1, { dx: -0.7, dy: 0.7 })
+      }
       anim.pointCreer(I, { dy: 0.7 })
       // On trace les segments
       anim.regleMasquerGraduations()
@@ -114,21 +135,47 @@ export default function PuzzlesGeometriques () {
       anim.regleSegment(B, C, { couleur: 'red', epaisseur: 4 })
       anim.regleSegment(C, D, { couleur: 'red', epaisseur: 4 })
       anim.regleSegment(D, A, { couleur: 'red', epaisseur: 4 })
-      anim.regleSegment(F, G, { couleur: 'red', epaisseur: 4 })
-      anim.regleSegment(G, H, { couleur: 'red', epaisseur: 4 })
       anim.regleSegment(D, I, { couleur: 'red', epaisseur: 4 })
+      if (version === 'v2') {
+        anim.regleSegment(F1, G1, { pointilles: 'tiret', couleur: 'gray', epaisseur: 1 })
+        anim.regleSegment(E1, I, { pointilles: 'tiret', couleur: 'gray', epaisseur: 1 })
+        anim.regleSegment(B, H1, { pointilles: 'tiret', couleur: 'gray', epaisseur: 1 })
+        anim.regleMasquer()
+        anim.pointCreer(E, { dx: -0.7, dy: 0.7 })
+        anim.pointCreer(F, { dx: -0.7, dy: 0.7 })
+        anim.pointCreer(G, { dx: -0.4, dy: 0.8 })
+        anim.pointCreer(H, { dx: -0.4, dy: 0.7 })
+        anim.regleMontrer()
+      }
+      anim.regleSegment(F, G, { couleur: 'red', epaisseur: 4 })
+      anim.regleSegment(B, H, { couleur: 'red', epaisseur: 4 })
       anim.regleSegment(E, I, { couleur: 'red', epaisseur: 4 })
+
       anim.regleMasquer()
       anim.crayonMasquer()
 
-      texte += enumerate([
-        'Placer les points $A$, $B$, $C$, $D$, $E$, $F$, $G$, $H$ et $I$.',
-        'Tracer en rouge les segments $[AB]$, $[BC]$, $[CD]$, $[DA]$, $[FG]$, $[GH]$, $[DI]$, $[EI]$ '
-      ], 1)
+      if (version === 'v1') {
+        texte += enumerate([
+          'Placer les points $A$, $B$, $C$, $D$, $E$, $F$, $G$, $H$ et $I$.',
+          'Tracer en rouge les segments $[AB]$, $[BC]$, $[CD]$, $[DA]$, $[FG]$, $[GH]$, $[DI]$, $[EI]$.'
+        ], 1)
+      }
+      if (version === 'v2') {
+        texte += enumerate([
+          'Placer les points $A$, $B$, $C$, $D$, $E_1$, $F_1$, $G_1$, $H_1$ et $I$.',
+          'Tracer en rouge les segments $[AB]$, $[BC]$, $[CD]$, $[DA]$ et $[DI]$.',
+          'Tracer en pointillés, au crayon de papier, les segments $[F_1G_1]$, $[E_1I]$ et $[BH_1]$.',
+          'Placer $E$ à l\'intersection de $[AD]$ et de $[E_1I]$',
+          'Placer $F$ à l\'intersection de $[AD]$ et de $[F_1G_1]$',
+          'Placer $G$ à l\'intersection de $[F_1G_1]$ et de $[BH_1]$',
+          'Placer $H$ à l\'intersection de $[DI]$ et de $[BH_1]$',
+          'Tracer en rouge les segments $[FG]$, $[BH]$ et $[EI]$.'
+        ], 1)
+      }
       if (context.isHtml) {
-        texte += '<img class="ui middle aligned image" src="assets/puzzlesGeom/img/samLoydQuadrillageEtPoints.png"/>'
+        texte += `<img class="ui middle aligned image" src="assets/puzzlesGeom/img/samLoydQuadrillageEtPoints${version}.png"/>`
       } else {
-        texte += ' \\href{https://coopmaths.fr/assets/puzzlesGeom/img/samLoydQuadrillageEtPoints.png}{Cliquer pour la voir en ligne}'
+        texte += `\\href{https://coopmaths.fr/assets/puzzlesGeom/img/samLoydQuadrillageEtPoints${version}.png}{Cliquer pour la voir en ligne}`
       }
       texte += infoMessage({
         titre: `Sam Loyd ${version} !`,
