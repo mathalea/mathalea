@@ -271,7 +271,7 @@ export async function initDom () {
       if (vue === 'exMoodle') {
         let reponses
         try { // JSON.parse(null) renvoie null
-          reponses = JSON.parse(decodeURIComponent(new URLSearchParams(window.location.search).get('moodleJson')))
+          reponses = JSON.parse(new URLSearchParams(window.location.search).get('moodleJson'))
         } catch (e) {}
         if (reponses) {
           for (let i = 0; i < context.listeObjetsExercice[0].autoCorrection.length; i++) {
