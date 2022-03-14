@@ -31,19 +31,14 @@ export default function representerfonctionaffine () {
 
     // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const o = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1)
-    for (let i = 0, a, b, r, c, d, tA, lA, tB, lB, xA, yA, xB, yB, f, lC, texte, texteCorr, cadreRepere, cadreFenetreSvg, cpt = 0;
+    for (let i = 0, a, b, r, c, d, tA, lA, tB, lB, xA, yA, xB, yB, f, lC, texte, texteCorr, cadre, cadreFenetreSvg, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       // typesDeQuestions = listeTypeDeQuestions[i]
       if (this.sup === 1) {
-        // TODO: Puis faire une grosse factorisation car le code se répète bcp
         f = (x) => a * x + b
-        a = randint(0, 3) * choice([-1, 1])// coefficient a de la fonction affine
+        a = randint(0, 3, [0]) * choice([-1, 1])// coefficient non nul a de la fonction affine
         b = randint(0, 3, [0]) * choice([-1, 1])// ordonnée à l'origine b non nulle de la fonction affine
         f = (x) => a * x + b
-        //! Pourquoi ?
-        if (a === 0) { // On évite les droites horizontales
-          a = 1
-        }
 
         xA = 0
         yA = f(xA)
@@ -56,45 +51,22 @@ export default function representerfonctionaffine () {
         c.color = 'red'
         c.epaisseur = 2
 
-        cadreRepere = {
-          xMin: min(-1, xA - 1, xB - 1),
-          yMin: min(-1, yA - 1, yB - 1),
-          xMax: max(1, xA + 1, xB + 1),
-          yMax: max(1, yA + 1, yB + 1)
+        cadre = {
+          xMin: min(-5, xA - 1, xB - 1),
+          yMin: min(-5, yA - 1, yB - 1),
+          xMax: max(5, xA + 1, xB + 1),
+          yMax: max(5, yA + 1, yB + 1)
+        }
+        // C'est bizarre mais c'est parce que dans mathAlea, les attributs n'ont pas de majuscules.
+        // Donc même quand c'est le même cadre, on doit le faire.
+        cadreFenetreSvg = {
+          xmin: cadre.xMin,
+          ymin: cadre.yMin,
+          xmax: cadre.xMax,
+          ymax: cadre.yMax
         }
 
-        cadreFenetreSvg = {
-          xMin: min(-2, xA - 2, xB - 2),
-          yMin: min(-2, yA - 2, yB - 2),
-          xMax: max(2, xA + 2, xB + 2),
-          yMax: max(2, yA + 2, yB + 2)
-        }
-        /* cadreFenetreSvg = {
-          xMin: -6,
-          yMin: min(-8, yA - 2),
-          xMax: 6,
-          yMax: max(8, yA + 2)
-        } */
-        /*  cadreFenetreSvg = {
-          xMin: -10,
-          yMin: -10,
-          xMax: 10,
-          yMax: 10
-        } */
-        console.log(`------------------------${i}-------------------------------`)
-        console.log(`xA: ${xA}`)
-        console.log(`yA: ${yA}`)
-        console.log(`xB: ${xB}`)
-        console.log(`yB: ${yB}`)
-        console.log(`cadreRepere.xMin: ${cadreRepere.xMin}`)
-        console.log(`cadreRepere.yMin: ${cadreRepere.yMin}`)
-        console.log(`cadreRepere.xMax: ${cadreRepere.xMax}`)
-        console.log(`cadreRepere.yMax: ${cadreRepere.yMax}`)
-        console.log(`cadreFenetreSvg.xMin: ${cadreFenetreSvg.xMin}`)
-        console.log(`cadreFenetreSvg.yMin: ${cadreFenetreSvg.yMin}`)
-        console.log(`cadreFenetreSvg.xMax: ${cadreFenetreSvg.xMax}`)
-        console.log(`cadreFenetreSvg.yMax: ${cadreFenetreSvg.yMax}`)
-        r = repere2(cadreRepere)
+        r = repere2(cadre)
 
         tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
         tB = tracePoint(B, 'red') // Variable qui trace les points avec une croix
@@ -103,9 +75,9 @@ export default function representerfonctionaffine () {
 
         tA.taille = 5
         tA.epaisseur = 2
-
         tB.taille = 5
         tB.epaisseur = 2
+
         texte = `$f(x)=${reduireAxPlusB(a, b)}$ <br>`
         if (a !== 0) {
           texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
@@ -135,12 +107,23 @@ export default function representerfonctionaffine () {
 
         const A1 = point(xA, yA, 'A')
         const B1 = point(xB, yB, 'B')
-
-        // const f = point(xA / 2, (b + yA) / 2)
-        r = repere2(cadreRepere)// On définit le repère
         c = droite(A1, B1)
         c.color = 'red'
         c.epaisseur = 2
+
+        cadre = {
+          xMin: min(-5, xA - 1, xB - 1),
+          yMin: min(-5, yA - 1, yB - 1),
+          xMax: max(5, xA + 1, xB + 1),
+          yMax: max(5, yA + 1, yB + 1)
+        }
+
+        cadreFenetreSvg = {
+          xmin: cadre.xMin,
+          ymin: cadre.yMin,
+          xmax: cadre.xMax,
+          ymax: cadre.yMax
+        }
 
         texte = `$f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
 
@@ -157,6 +140,8 @@ export default function representerfonctionaffine () {
         tB = tracePoint(B1, 'red') // Variable qui trace les points avec une croix
         lB = labelPoint(B1, 'red')// Variable qui trace les nom s A et B
         // lC = labelPoint(f, 'C_f')// Variable qui trace les nom s A et B
+
+        r = repere2(cadre)// On définit le repère
         texteCorr += mathalea2d(
           cadreFenetreSvg,
           r, c, tA, lA, tB, lB, lC, o)
