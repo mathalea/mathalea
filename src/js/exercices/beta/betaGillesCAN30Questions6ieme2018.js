@@ -145,7 +145,7 @@ export default function SujetCAN20186ieme () {
           a = randint(2, 5)
           b = choice([10, 15, 20, 25, 30, 35, 40])
           reponse = calcul(b + 15)
-          texte = `Ajouter un quart d'heure à $${a}$ h $${b}$ min`
+          texte = `Ajoute un quart d'heure à $${a}$ h $${b}$ min`
 
           texteCorr = `Un quart d'heure est égal à $15$ minutes. Ainsi $${a}$ h $${b}$ min + $15$ min est égal à $${a}$ h $${b + 15}$ min.`
           if (this.interactif) {
@@ -176,10 +176,10 @@ export default function SujetCAN20186ieme () {
           a = randint(3, 6)
           b = choice([1, a - 1])
           reponse = fraction(b, a)// .simplifie()
-          texte = 'Quelle est la fraction repérée par le point d’interrogation ?<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 1.5, scale: 1, style: 'margin: auto' }, droiteGraduee2({
+          texte = 'Quelle est la fraction repérée par le point d’interrogation ?<br>' + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
             Unite: 8,
             Min: 0,
-            Max: 1.1,
+            Max: 1,
             x: 0,
             y: 0,
             thickSecDist: 1 / a,
@@ -230,7 +230,7 @@ export default function SujetCAN20186ieme () {
         case '11':
           a = randint(2, 9)
           b = randint(2, 9)
-          texte = `Donner l'écriture décimale de $(${a}\\times 10)+\\left(${b}\\times \\dfrac{1}{100}\\right)$`
+          texte = `Donne l'écriture décimale de $(${a}\\times 10)+\\left(${b}\\times \\dfrac{1}{100}\\right)$`
           texteCorr = `$(${a}\\times 10)+\\left(${b}\\times \\dfrac{1}{100}\\right)=${10 * a}+${b}\\times 0,01=${10 * a}+${texNombrec(b / 100)}=${texNombrec(10 * a + b / 100)}$`
           reponse = arrondi(10 * a + b / 100, 2)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -253,7 +253,7 @@ export default function SujetCAN20186ieme () {
         case '13':
           a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
           reponse = calcul(a / 5)
-          texte = 'Determiner l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee2({
+          texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
             Unite: 3,
             Min: 0,
             Max: 3.2,
@@ -507,7 +507,7 @@ export default function SujetCAN20186ieme () {
           a = calcul(randint(4, 9) / 10)
           k = randint(2, 5)
           reponse = a
-          texte = `$${k}$ sucettes couûtent $${texNombrec(k * a)}$ €. <br>
+          texte = `$${k}$ sucettes coûtent $${texNombrec(k * a)}$ €. <br>
             Combien coûte $1$ sucette ?
              `
 
@@ -609,7 +609,7 @@ export default function SujetCAN20186ieme () {
           c = calcul(2 + randint(0, 7) / 10 + randint(7, 9) / 100 + randint(1, 9) / 1000)
           propositions = shuffle([`$${texNombrec(a)}$`, `$${texNombrec(b)}$`, `$${texNombrec(c)}$`])
           reponse = Math.max(a, b, c)
-          texte = 'Recopier  le plus grand nombre : <br>'
+          texte = 'Recopie  le plus grand nombre : <br>'
 
           texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
           texteCorr = 'Les trois nombres ont les mêmes unités, le plus grand est celui qui a le plus grand chiffre des dixièmes. S\'ils ont le même chiffre des dixièmes, le plus grand est celui qui a le plus grand chiffre des centièmes, etc...'
