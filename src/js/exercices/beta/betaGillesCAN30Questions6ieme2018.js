@@ -59,11 +59,11 @@ export default function SujetCAN20186ieme () {
         case '1':
           a = randint(4, 8)
           b = randint(4, 9)
-          texte = `$${a} \\times ${b}=$`
+          texte = `$${a} \\times ${b}=$ `
           texteCorr = `$${a} \\times ${b}=${a * b}$`
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
 
           break
@@ -73,11 +73,11 @@ export default function SujetCAN20186ieme () {
           b = randint(11, 19)
 
           reponse = a + b
-          texte = `$${a} + ${b}=$`
+          texte = `$${a} + ${b}=$ `
           texteCorr = `$${a}+${b}=${a + b}$`
           reponse = a + b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
 
@@ -121,7 +121,7 @@ export default function SujetCAN20186ieme () {
           reponse = calcul(a - b)
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
 
@@ -130,10 +130,10 @@ export default function SujetCAN20186ieme () {
           b = randint(4, 10)
           c = a * b
           if (choice([true, false])) {
-            texte = `Compléter : <br>$${a}\\times .... =${c}$`
+            texte = `Compléte : <br>$${a}\\times .... =${c}$`
             texteCorr = `$${a}\\times ${miseEnEvidence(b)} =${c}$`
           } else {
-            texte = `Compléter :<br> $ .... \\times ${a}=${c}$`
+            texte = `Compléte :<br> $ .... \\times ${a}=${c}$`
             texteCorr = `$ ${miseEnEvidence(b)} \\times ${a}=${c}$`
           }
           reponse = b
@@ -145,7 +145,7 @@ export default function SujetCAN20186ieme () {
           a = randint(2, 5)
           b = choice([10, 15, 20, 25, 30, 35, 40])
           reponse = calcul(b + 15)
-          texte = `Ajoute un quart d'heure à $${a}$ h $${b}$ min`
+          texte = `Ajoute un quart d'heure à $${a}$ h $${b}$ min.`
 
           texteCorr = `Un quart d'heure est égal à $15$ minutes. Ainsi $${a}$ h $${b}$ min + $15$ min est égal à $${a}$ h $${b + 15}$ min.`
           if (this.interactif) {
@@ -163,12 +163,12 @@ export default function SujetCAN20186ieme () {
           a = calcul(randint(13, 35) * 2)
 
           reponse = calcul(a / 2)
-          texte = `La moitié de $${a}$ est égale à :`
+          texte = `La moitié de $${a}$ est égale à : `
 
           texteCorr = `La moitié de $${a}$ est égale à $${a}\\div 2=${texNombrec(a / 2)}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
 
@@ -211,7 +211,7 @@ export default function SujetCAN20186ieme () {
           texteCorr = `Si $${a}$ ${truc} pèsent $${b}$ g, alors $${k}\\times ${a}=${k * a}$ ${truc} pèsent $${k * b}$ g. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += `$${a * k}$ ${truc} pèsent ` + ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' g' } else { texte += `$${a * k}$ ${truc} pèsent ....... g` }
+          if (this.interactif) { texte += `$${a * k}$ ${truc} pèsent ` + ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' g' } else { texte += `$${a * k}$ ${truc} pèsent ....... g.` }
           nbChamps = 1
           break
 
@@ -224,13 +224,13 @@ export default function SujetCAN20186ieme () {
           texteCorr = `$${a}\\div ${k}=${a / k}$ car $${k}\\times ${a / k}=${a}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
         case '11':
           a = randint(2, 9)
           b = randint(2, 9)
-          texte = `Donne l'écriture décimale de $(${a}\\times 10)+\\left(${b}\\times \\dfrac{1}{100}\\right)$`
+          texte = `Donne l'écriture décimale de $(${a}\\times 10)+\\left(${b}\\times \\dfrac{1}{100}\\right)$.`
           texteCorr = `$(${a}\\times 10)+\\left(${b}\\times \\dfrac{1}{100}\\right)=${10 * a}+${b}\\times 0,01=${10 * a}+${texNombrec(b / 100)}=${texNombrec(10 * a + b / 100)}$`
           reponse = arrondi(10 * a + b / 100, 2)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -241,12 +241,12 @@ export default function SujetCAN20186ieme () {
           a = randint(3, 9)
           b = randint(11, 29, 20)
           reponse = a * 10 + b
-          texte = `$${a}$ dizaines $${b}$ unités $=$`
+          texte = `$${a}$ dizaines $${b}$ unités $=$ `
 
           texteCorr = `$${a}$ dizaines $${b}$ unités $=${texNombrec(a * 10)}+${b}=${texNombrec(a * 10 + b)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
 
@@ -280,7 +280,7 @@ export default function SujetCAN20186ieme () {
           a = choice([4, 8, 12, 16])
           b = choice([0.5, 0.25])
           reponse = calcul(a * b)
-          texte = `$${a}\\times ${texNombrec(b)}=$`
+          texte = `$${a}\\times ${texNombrec(b)}=$ `
           if (b === 0.5) {
             texteCorr = `Multiplier par $0,5$ revient à multiplier par $\\dfrac{1}{2}$, c'est-à-dire diviser par $2$. <br>
                                 Ainsi : $${a}\\times ${texNombrec(b)}=${a}\\div 2=${texNombrec(a / 2)}$.`
@@ -290,7 +290,7 @@ export default function SujetCAN20186ieme () {
                                 Ainsi : $${a}\\times ${texNombrec(b)}=${a}\\div 4=${texNombrec(a / 4)}$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
 
@@ -302,10 +302,10 @@ export default function SujetCAN20186ieme () {
           a = calcul(b * k)
 
           reponse = a / b
-          texte = `Avec $${a}$ ${fleurs}, un fleuriste fait $${b}$ bouquets identiques.<br>
+          texte = `Avec $${a}$ ${fleurs}, un fleuriste compose $${b}$ bouquets identiques.<br>
           Combien y a-t-il de ${fleurs} dans chaque bouquet ?`
           texteCorr = `Le nombre de bouquets est donné par la division de  $${a}$ par $${b}$.<br>
-          On a $${a}\\div ${b}=${k}$. Ainsi, le fleuriste pourra faire $${k}$ bouquets identiques.`
+          On a $${a}\\div ${b}=${k}$. Ainsi, le fleuriste pourra composer $${k}$ bouquets identiques.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
@@ -313,7 +313,7 @@ export default function SujetCAN20186ieme () {
 
         case '16':
           a = choice(['du quart', 'du cinquième', 'des trois quarts', 'de la moitié'])
-          texte = `L'écriture décimale ${a} de $1$ est :`
+          texte = `L'écriture décimale ${a} de $1$ est : `
           if (a === 'du quart') {
             reponse = 0.25
             texteCorr = `Le quart de $1$ est égal à $${1}\\div 4=0,25$.`
@@ -331,7 +331,7 @@ export default function SujetCAN20186ieme () {
             texteCorr = `La moitié de $1$ est égale à $${1}\\div 2=0,5$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
         case '17':
@@ -356,7 +356,7 @@ export default function SujetCAN20186ieme () {
           C = point(j, 1.5)
           D = point(0, 1.5)
           xmin = -1.5
-          ymin = -1
+          ymin = -0.5
           xmax = j + 1
           ymax = 2.7
           pol = polygoneAvecNom(A, B, C, D)
@@ -389,12 +389,12 @@ export default function SujetCAN20186ieme () {
           a = calcul((2 * randint(3, 12) + 1) / 2)
 
           reponse = calcul(a * 2)
-          texte = `Le double de $${texNombrec(a)}$ est égal à :`
+          texte = `Le double de $${texNombrec(a)}$ est égal à : `
 
           texteCorr = `Le double de $${texNombrec(a)}$ est égal à : $${texNombrec(a)}\\times 2=${texNombrec(a * 2)}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
 
@@ -432,7 +432,7 @@ export default function SujetCAN20186ieme () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' oeufs' } else { texte += ' ....  oeufs' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' oeufs.' } else { texte += ' ....  oeufs.' }
           nbChamps = 1
           break
 
@@ -450,7 +450,7 @@ export default function SujetCAN20186ieme () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' g' } else { texte += ' ....  g' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' g.' } else { texte += ' ....  g.' }
           nbChamps = 1
           break
 
@@ -573,7 +573,7 @@ export default function SujetCAN20186ieme () {
           reponse = (a + b) * 1000
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
 
@@ -623,7 +623,7 @@ export default function SujetCAN20186ieme () {
           a = randint(2, 3)
           b = randint(2, 3)
           c = randint(2, 3)
-          texte = `A la cantine, il y a toujours $${a}$ entrées différentes, $${b}$ plats différents et $${c}$ desserts différents.<br>
+          texte = `À la cantine, il y a toujours $${a}$ entrées différentes, $${b}$ plats différents et $${c}$ desserts différents.<br>
             Combien de menus (composés d'une entrée, d'un plat et d'un dessert) différents peut-on avoir dans cette cantine ?`
           texteCorr = `On peut avoir : $${a}\\times ${b}\\times ${c} =${a * b * c}$ menus diférents.`
           reponse = calcul(a * b * c)
