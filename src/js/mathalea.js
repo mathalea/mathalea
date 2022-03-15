@@ -85,8 +85,8 @@ function copierVersExerciceForm () {
   for (i = 0; i < listeTagLength; i++) {
     texteCode += listeTag[i].textContent + ','
   }
+  // Suppression de la dernière virgule
   texteCode = texteCode.slice(0, -1)
-  console.log(`texteCode: ${texteCode}`)
   document.getElementById('choix_des_exercices').value = texteCode
   const evenement = new window.Event('change')
   document.getElementById('choix_des_exercices').dispatchEvent(evenement)
