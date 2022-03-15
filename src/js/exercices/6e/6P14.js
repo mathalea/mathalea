@@ -367,7 +367,7 @@ export default function problemesTrigoLongueur () {
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
           objets.push(polygoneCorr, nommePolygone(polygoneCorr, nomCorr))
-          objets.push(codeSegments('||', 'blue', A, BCorr, CCorr, DCorr))
+          objets.push(codeSegments('|||', 'blue', A, BCorr, CCorr, DCorr))
           objets.push(codeSegments('XX', 'blue', BCorr, CCorr, DCorr, A))
           objets.push(afficheLongueurSegment(angleOriente(CCorr, A, BCorr) > 0 ? A : BCorr, angleOriente(CCorr, A, BCorr) > 0 ? BCorr : A, 'red', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
@@ -436,7 +436,7 @@ export default function problemesTrigoLongueur () {
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
           objets.push(polygoneCorr, nommePolygone(polygoneCorr, nomCorr))
-          objets.push(codeSegments('||', 'blue', A, BCorr, CCorr, DCorr))
+          objets.push(codeSegments('|||', 'blue', A, BCorr, CCorr, DCorr))
           objets.push(codeSegments('XX', 'blue', BCorr, CCorr, DCorr, A))
           objets.push(afficheLongueurSegment(angleOriente(CCorr, A, BCorr) > 0 ? A : BCorr, angleOriente(CCorr, A, BCorr) > 0 ? BCorr : A, 'red', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
