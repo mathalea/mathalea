@@ -1,7 +1,7 @@
-import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat } from './outils.js'
+import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
-import { fraction, max, ceil } from 'mathjs'
+import { fraction, max, ceil, isNumeric } from 'mathjs'
 
 /*
   MathALEA2D
@@ -4200,9 +4200,16 @@ export function sensDeRotation (A, O, sens) {
 }
 /**
  * M = homothetie(A,O,k) //M est l'image de A dans l'homothétie de centre O et de rapport k
+ *
  * M = homothetie(A,O,k,'M') //M est l'image de A dans l'homothétie de centre O et de rapport k et se nomme M
+ *
  * M = homothetie(A,O,k,'M') //M est l'image de A dans l'homothétie de centre O et de rapport k, se nomme M et le nom est en dessous du point
  *
+ * @param {point} A Point-antécédent de l'homothétie
+ * @param {point} O Centre de l'homothétie
+ * @param {number} k Rapport de l'homothétie
+ * @param {string} [nom = ''] Nom du point-image
+ * @param {position} [positionLabel = 'above'] Position du point-image
  * @author Rémi Angot
  */
 export function homothetie (A, O, k, nom = '', positionLabel = 'above') {
@@ -5026,8 +5033,8 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4) {
  * @param {Point} A
  * @param {Point} O
  * @param {Point} B
- * @param {string} [color='black'] optionel, 'black' par défaut.
- * @param {number} [d =0.4] Taille de l'angle droit en cm. Optionel, 0.4 par défaut.
+ * @param {string} [color='black']
+ * @param {number} [d =0.4] Taille de l'angle droit en cm.
  * @returns {CodageAngleDroit} CodageAngleDroit
  * @author Rémi Angot
  */
@@ -5039,7 +5046,7 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4) {
  *
  * @author Rémi Angot
  */
-function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
+function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.extremite1 = A
@@ -5051,25 +5058,22 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm') {
   let angle
   s.isVisible = false
   const l = stringNombre(s.longueur, 1)
-
+  const longueurSeg = `${l}${unite !== '' ? ' ' + unite : ''}`
+  this.distance = horizontal ? (d - 0.1 + longueurSeg.length / 10) : d
+  if (horizontal) {
+    angle = 0
+  } else if (this.extremite2.x > this.extremite1.x) {
+    angle = -s.angleAvecHorizontale
+  } else {
+    angle = 180 - s.angleAvecHorizontale
+  }
   this.svg = function (coeff) {
     const N = pointSurSegment(O, M, (this.distance * 20) / coeff)
-    if (this.extremite2.x > this.extremite1.x) {
-      angle = -s.angleAvecHorizontale
-    } else {
-      angle = 180 - s.angleAvecHorizontale
-    }
-    return texteParPoint(`${l}${unite !== '' ? ' ' + unite : ''}`, N, angle, this.color, 1, 'middle', false).svg(coeff)
+    return texteParPoint(longueurSeg, N, angle, this.color, 1, 'middle', false).svg(coeff)
   }
-
   this.tikz = function () {
     const N = pointSurSegment(O, M, this.distance / context.scale)
-    if (this.extremite2.x > this.extremite1.x) {
-      angle = -s.angleAvecHorizontale
-    } else {
-      angle = 180 - s.angleAvecHorizontale
-    }
-    return texteParPoint(`${l}${unite !== '' ? ' ' + unite : ''}`, N, angle, this.color, 1, 'middle', false).tikz()
+    return texteParPoint(longueurSeg, N, angle, this.color, 1, 'middle', false).tikz()
   }
 }
 /**
@@ -5090,13 +5094,13 @@ export function afficheLongueurSegment (...args) {
  *
  * @author Rémi Angot
  */
-function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
+function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizontal = false) {
   ObjetMathalea2D.call(this)
   if (longueur(A, B) < 0.1) window.notify('TexteSurSegment : Points trop proches pour cette fonction', { A, B })
   this.color = color
   this.extremite1 = A
   this.extremite2 = B
-  this.distance = d
+  this.distance = horizontal ? (d - 0.1 + (isNumeric(texte) ? nombreDeChiffresDe(texte) : texte.length) / 10) : d
   this.texte = texte
   const O = milieu(this.extremite1, this.extremite2)
   const M = rotation(this.extremite1, O, -90)
@@ -5106,35 +5110,21 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
   const pos = pointSurSegment(O, M, this.distance)
   const space = 0.2 * texte.length
   this.bordures = [pos.x - space, pos.y - space, pos.x + space, pos.y + space]
-  /* let O = milieu(A, B);
-   let M = rotation(A, O, -90);
-   let N = pointSurSegment(O, M, d);
-   let s = segment(A, B);
-   s.isVisible = false;
-   let angle;
-   if (B.x > A.x) {
-     angle = -parseInt(s.angleAvecHorizontale);
-   } else {
-     angle = -parseInt(s.angleAvecHorizontale) + 180;
-   }
-   return texteParPoint(texte, N, angle, this.color);
-   */
+  if (horizontal) {
+    angle = 0
+  } else if (this.extremite2.x > this.extremite1.x) {
+    angle = -s.angleAvecHorizontale
+    angle = -s.angleAvecHorizontale
+  } else {
+    angle = 180 - s.angleAvecHorizontale
+    angle = 180 - s.angleAvecHorizontale
+  }
   this.svg = function (coeff) {
     const N = pointSurSegment(O, M, this.distance * 20 / coeff)
-    if (this.extremite2.x > this.extremite1.x) {
-      angle = -s.angleAvecHorizontale
-    } else {
-      angle = 180 - s.angleAvecHorizontale
-    }
     return texteParPoint(this.texte, N, angle, this.color, 1, 'middle', true).svg(coeff)
   }
   this.tikz = function () {
     const N = pointSurSegment(O, M, this.distance / context.scale)
-    if (this.extremite2.x > this.extremite1.x) {
-      angle = -s.angleAvecHorizontale
-    } else {
-      angle = 180 - s.angleAvecHorizontale
-    }
     return texteParPoint(this.texte, N, angle, this.color, 1, 'middle', true).tikz()
   }
 }
@@ -5145,6 +5135,7 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5) {
  * @param {Point} B
  * @param {string} [color='black'] Facultatif, 'black' par défaut
  * @param {number} [d=0.5] Distance à la droite. Facultatif, 0.5 par défaut
+ * @param {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment
  * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
  * @author Rémi Angot
  */
@@ -5354,8 +5345,13 @@ export function afficheCoteSegment (...args) {
   return new AfficheCoteSegment(...args)
 }
 /**
- * codeSegment(A,B,'×','blue') // Code le segment [AB] avec une croix bleue
+ * codeSegment(A,B,'×','blue') // Code le segment [AB] avec une croix bleue.
+ *
  * Attention le premier argument ne peut pas être un segment
+ * @param {Point} A Première extrémité du segment
+ * @param {Point} B Seconde extrémité du segment
+ * @param {string} [mark='||'] Symbole posé sur le segment
+ * @param {string} [color='black'] Couleur du symbole
  *
  * @author Rémi Angot
  */
@@ -5378,9 +5374,16 @@ export function codeSegment (...args) {
 }
 /**
  * codeSegments('×','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
- * codeSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé,pratique pour des polygones pas pour des lignes brisées)
+ *
+ * codeSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé, pratique pour des polygones pas pour des lignes brisées)
+ *
  * codeSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
+ *
  * codeSegments('×','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
+ *
+ * @param {string} mark Symbole posé sur le segment
+ * @param {string} color Couleur du symbole
+ * @param  {...any} args Les segments différement codés. Voir exemples.
  *
  * @author Rémi Angot
  */
@@ -5637,19 +5640,18 @@ export function nomAngleRentrantParPosition (nom, x, y, color) {
 // (Xorig,Yorig,'H' ou 'V', 'dd' ou 'd', longueur Unité, nombre de part, longueur totale, valeur origine, valeur première grosse graduation, label origine, label première grosse graduation, graduer ?, [Points à placer]...
 /**
  *
- * @param {*} x Place le début en (x,y)=(0,0) par défaut.
- * @param {*} y
- * @param {*} position 'H' pour horizontale 'V' pour verticale
- * @param {*} type 'dd' pour demi-droite 'd' ou n'importe quoi pour droite
- * @param {*} longueurUnite longueur en cm de la dimport { ObjetMathalea2D } from '/modules/mathalea2d.js';
-istance entre deux grosses graduations
- * @param {*} division nombre de parts à faire entre deux grosses graduations
- * @param {*} longueurTotale longueur totale en cm utilisable
- * @param {*} origin valeur de la première graduation (par défaut 0)
- * @param {*} unite valeur de la deuxième graduation (par défaut 1)
- * @param {*} labelGauche Ce qu'on écrit sous la première graduation (par défaut 'O')
- * @param {*} labelUnite Ce qu'on écrit sous la deuxième graduation (par défaut 'I')
- * @param {*} gradue Si true, alors les grosses graduation à partir de la troisième auront l'abscisse renseignée
+ * @param {number} [x=0] Place le début en (x,y).
+ * @param {number} [y=0]
+ * @param {string} [position='H'] pour horizontale 'V' pour verticale
+ * @param {string} [type='dd'] pour demi-droite 'd' ou n'importe quoi pour droite
+ * @param {number} [longueurUnite=10] longueur en cm de la taille d import { ObjetMathalea2D } from '/modules/mathalea2d.js';
+ * @param {number} [division=10] nombre de parts à faire entre deux grosses graduations
+ * @param {number} [longueurTotale=15] longueur totale en cm utilisable
+ * @param {number} [origin=0] valeur de la première graduation
+ * @param {number} [unite=1] valeur de la deuxième graduation
+ * @param {string} [labelGauche='O'] Ce qu'on écrit sous la première graduation
+ * @param {string} [labelUnite='I'] Ce qu'on écrit sous la deuxième graduation
+ * @param {boolean} gradue Si true, alors les grosses graduation à partir de la troisième auront l'abscisse renseignée
  * @param  {...any} args des points à placer au format ['M',xM]
  */
 function DroiteGraduee (x = 0, y = 0, position = 'H', type = 'dd', longueurUnite = 10, division = 10, longueurTotale = 15, origin = 0, unite = 1, labelGauche = 'O', labelUnite = 'I', gradue = true, ...args) {
@@ -9179,14 +9181,26 @@ export function texteParPositionEchelle (texte, x, y, orientation = 'milieu', co
   return texteParPointEchelle(texte, point(x, y, '', 'center'), orientation, color, scale, ancrageDeRotation, mathOn, scaleFigure)
 }
 /**
- * texteParPoint('mon texte',x,y) // Écrit 'mon texte' avec le point de coordonnées (x,y) au centre du texte
- * texteParPoint('mon texte',x,y,'gauche') // Écrit 'mon texte' à gauche du point de coordonnées (x,y) (qui sera la fin du texte)
- * texteParPoint('mon texte',x,y,'droite') // Écrit 'mon texte' à droite du point de coordonnées (x,y) (qui sera le début du texte)
- * texteParPoint('mon texte',x,y,45) // Écrit 'mon texte'  centré sur le point de coordonnées (x,y) avec une rotation de 45°
+ * texteParPosition('mon texte',x,y) // Écrit 'mon texte' avec le point de coordonnées (x,y) au centre du texte.
+ *
+ * texteParPosition('mon texte',x,y,'gauche') // Écrit 'mon texte' à gauche du point de coordonnées (x,y) (qui sera la fin du texte)
+ *
+ * texteParPosition('mon texte',x,y,'droite') // Écrit 'mon texte' à droite du point de coordonnées (x,y) (qui sera le début du texte)
+ *
+ * texteParPosition('mon texte',x,y,45) // Écrit 'mon texte'  centré sur le point de coordonnées (x,y) avec une rotation de 45°
+ *
+ * @param {string} texte // Le texte qu'on veut afficher
+ * @param {number} x // L'abscisse de la position initiale du texte
+ * @param {number} y // L'ordonnée de la position initiale du texte
+ * @param {string} orientation=['milieu'] // Angle d'orientation du texte ou bien 'milieu', gauche' ou 'droite'. Voir exemple
+ * @param {string} [color='black'] // Couleur du texte
+ * @param {number} [scale=1] // Echelle du texte.
+ * @param {string} [ancrageDeRotation='middle'] // Choix parmi 'middle', 'start' ou 'end'. En cas d'orientation avec un angle, permet de savoir où est le centre de la rotation par rapport au texte.
+ * @param {string} [mathOn=false] // Ecriture dans le style de Latex.
  *
  * @author Rémi Angot
  */
-export function texteParPosition (texte, x, y, orientation = 'milieu', color, scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
+export function texteParPosition (texte, x, y, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
   return new TexteParPoint(texte, point(x, y), orientation, color, scale, ancrageDeRotation, mathOn)
 }
 
