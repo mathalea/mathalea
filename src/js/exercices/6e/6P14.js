@@ -330,7 +330,9 @@ export default function problemesTrigoLongueur () {
           numCCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr, numBCorr])
           numDCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr, numBCorr, numCCorr])
           nomCorr = lettreDepuisChiffre(numACorr) + lettreDepuisChiffre(numBCorr) + lettreDepuisChiffre(numCCorr) + lettreDepuisChiffre(numDCorr)
-          objets.push(polygoneInit, nommePolygone(polygoneInit, nom), codeSegments('||', 'red', polygoneInit.listePoints))
+          objets.push(polygoneInit, nommePolygone(polygoneInit, nom))
+          objets.push(codeSegments('||', 'red', A, B, C, D))
+          objets.push(codeSegments('X', 'red', B, C, D, A))
           objets.push(afficheLongueurSegment(angleOriente(B, C, D) > 0 ? C : D, angleOriente(B, C, D) > 0 ? D : C, 'blue', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(C, D, A) > 0 ? D : A, angleOriente(C, D, A) > 0 ? A : D, 'blue', 0.5, '', true))
           objets.push(codageAngleDroit(A, B, C), codageAngleDroit(D, C, B), codageAngleDroit(A, D, C), codageAngleDroit(B, A, D))
@@ -364,7 +366,9 @@ export default function problemesTrigoLongueur () {
           texteCorr += `<br>Le rectangle issu d'un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${miseEnEvidence(texNombre(reponse))}$ et $${miseEnEvidence(texNombre(reponse1))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
-          objets.push(polygoneCorr, codeSegments('|||', 'blue', polygoneCorr.listePoints), nommePolygone(polygoneCorr, nomCorr))
+          objets.push(polygoneCorr, nommePolygone(polygoneCorr, nomCorr))
+          objets.push(codeSegments('|||', 'blue', A, BCorr, CCorr, DCorr))
+          objets.push(codeSegments('XX', 'blue', BCorr, CCorr, DCorr, A))
           objets.push(afficheLongueurSegment(angleOriente(CCorr, A, BCorr) > 0 ? A : BCorr, angleOriente(CCorr, A, BCorr) > 0 ? BCorr : A, 'red', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
           objets.push(codageAngleDroit(A, BCorr, CCorr), codageAngleDroit(DCorr, CCorr, BCorr), codageAngleDroit(A, DCorr, CCorr), codageAngleDroit(BCorr, A, DCorr))
@@ -397,7 +401,9 @@ export default function problemesTrigoLongueur () {
           numCCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr, numBCorr])
           numDCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr, numBCorr, numCCorr])
           nomCorr = lettreDepuisChiffre(numACorr) + lettreDepuisChiffre(numBCorr) + lettreDepuisChiffre(numCCorr) + lettreDepuisChiffre(numDCorr)
-          objets.push(polygoneInit, nommePolygone(polygoneInit, nom), codeSegments('||', 'red', polygoneInit.listePoints))
+          objets.push(polygoneInit, nommePolygone(polygoneInit, nom))
+          objets.push(codeSegments('||', 'red', A, B, C, D))
+          objets.push(codeSegments('X', 'red', B, C, D, A))
           objets.push(afficheLongueurSegment(angleOriente(B, C, D) > 0 ? C : D, angleOriente(B, C, D) > 0 ? D : C, 'blue', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(C, D, A) > 0 ? D : A, angleOriente(C, D, A) > 0 ? A : D, 'blue', 0.5, '', true))
           objets.push(codageAngleDroit(A, B, C), codageAngleDroit(D, C, B), codageAngleDroit(A, D, C), codageAngleDroit(B, A, D))
@@ -429,7 +435,9 @@ export default function problemesTrigoLongueur () {
           texteCorr += `<br>Le rectangle issu d'un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${miseEnEvidence(texNombre(reponse))}$ et $${miseEnEvidence(texNombre(reponse1))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
-          objets.push(polygoneCorr, codeSegments('|||', 'blue', polygoneCorr.listePoints), nommePolygone(polygoneCorr, nomCorr))
+          objets.push(polygoneCorr, nommePolygone(polygoneCorr, nomCorr))
+          objets.push(codeSegments('|||', 'blue', A, BCorr, CCorr, DCorr))
+          objets.push(codeSegments('XX', 'blue', BCorr, CCorr, DCorr, A))
           objets.push(afficheLongueurSegment(angleOriente(CCorr, A, BCorr) > 0 ? A : BCorr, angleOriente(CCorr, A, BCorr) > 0 ? BCorr : A, 'red', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
           objets.push(codageAngleDroit(A, BCorr, CCorr), codageAngleDroit(DCorr, CCorr, BCorr), codageAngleDroit(A, DCorr, CCorr), codageAngleDroit(BCorr, A, DCorr))
