@@ -9,6 +9,8 @@ export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 export const amcReady = true
 
+export const dateDeModifImportante = '17/03/2022'
+
 /**
  * Une fraction étant donnée, il faut l'écrire avec 100 au dénominateur puis donner son écriture sous forme de pourcentage.
  * @author Rémi Angot
