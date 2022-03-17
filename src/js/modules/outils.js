@@ -3076,6 +3076,7 @@ export function decompositionFacteursPremiers (n) {
 
 /**
  * Renvoie la décomposition en produit de facteurs premiers d'un nombre avec les facteursABarrer barrés
+ * @author Guillaume Valmont
  * @param {number} nombre
  * @param {number[]} facteursABarrer
  * @returns texte en LateX
