@@ -723,7 +723,7 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
     alea1 = 2 // Pour avoir un coef entier, qtt_matiere_unitaire doit être plus grand que qtt_surface, ce qui n'est possible qu'avec les carreaux
     const enonceAMC = `${prenoms[0]} doit acheter ${liste[alea1].matiere}. ` +
 `Sur la notice, il est indiqué de prévoir ${quantiteD} ${liste[alea1].unite} pour ${surfaceD} m${exposant(2)}. <br> ` +
-`Combien de litres doit-elle en acheter pour une surface de ${surfaceF} m${exposant(2)} ?`
+`Combien doit-elle en acheter pour une surface de ${surfaceF} m${exposant(2)} ?`
     texte = enonceAMC + ajouteChampTexteMathLive(exo, i, 'largeur25  inline', { texteApres: ' ' + liste[alea1].unite })
     texteCorr = `${stringNombre(surfaceF)} m${exposant(2)}, c'est ${texteEnCouleur(coef)} fois ${surfaceD} m${exposant(2)} <br>` +
 `Il va donc falloir ${texteEnCouleur(coef)} fois ${texteEnCouleur(quantiteD, 'blue')} ${liste[alea1].unite} pour ${stringNombre(surfaceF)} m${exposant(2)} <br>` +
