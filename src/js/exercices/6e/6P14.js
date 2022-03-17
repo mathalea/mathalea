@@ -29,7 +29,7 @@ export default function problemesTrigoLongueur () {
     3 : Triangle avec coefficient de réduction ou d'agrandissement
     4 : Triangle avec longueur initiale et longueur finale
     5 : Rectangle avec coefficient de réduction ou d'agrandissement
-    6 : Triangle rectangle inscrit dans un triangle rectangle
+    4 : Rectangle avec longueur initiale et longueur finale
     7 : Mélange`
   ]
   this.sup = 7
