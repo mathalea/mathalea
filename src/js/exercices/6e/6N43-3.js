@@ -80,11 +80,11 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
         {
-          texte: 'Oui',
+          texte: 'Vrai',
           statut: false
         },
         {
-          texte: 'Non',
+          texte: 'Faux',
           statut: false
         },
         {

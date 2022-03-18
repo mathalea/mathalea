@@ -44,12 +44,6 @@ export default function decompositionFacteursPremiers () {
     } else { // sortie LaTeX
     };
 
-    if (this.interactif) {
-      this.consigne = 'À l\'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.'
-    } else {
-      this.consigne = 'À l\'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.'
-    }
-
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.contenu = '' // Liste de questions
