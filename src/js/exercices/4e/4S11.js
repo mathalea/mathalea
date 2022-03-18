@@ -305,7 +305,7 @@ export default function DeterminerDesMedianes () {
         }
         const mois = listeMois[randint(0, listeMois.length - 1)]
         const temperaturesDeBase = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5]
-        nombreTemperatures = joursParMois(mois)
+        nombreTemperatures = joursParMois(mois, annee)
         temperatures = unMoisDeTemperature(temperaturesDeBase[mois - 1], mois, annee) // on récupère une série de température correspondant à 1 mois d'une année (série brute)
         indexValeur = randint(0, temperatures.length - 1) // on choisi l'index d'une valeur au hasard
         texte = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, on a relevé les températures suivantes<br>`

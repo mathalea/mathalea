@@ -31,9 +31,9 @@ export default function ConversionEnTousSens () {
           this.optionsChampTexte = { texteApres: ' kg' }
           this.correction = `$${texNombre(a)}$ g$=${texNombrec(a / 1000)}$ kg`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-  Comme $1$ kg $=1000$ g, alors $1$ g $=0,001$ kg.<br>
-  Ainsi pour passer des "g" au "kg", on divise par $1000$.<br>
-    Comme : $${texNombre(a)}\\div 1000 =${texNombrec(a / 1000)}$, alors $${texNombrec(a)}$ g$=${texNombrec(a / 1000)}$ kg.  `)
+  Comme $1$ kg $=${texNombre(1000)}$ g, alors $1$ g $=0,001$ kg.<br>
+  Ainsi pour passer des "g" au "kg", on divise par $${texNombre(1000)}$.<br>
+    Comme : $${texNombre(a)}\\div ${texNombre(1000)} =${texNombrec(a / 1000)}$, alors $${texNombrec(a)}$ g$=${texNombrec(a / 1000)}$ kg.  `)
         } else {
           a = randint(1, 5) / 10
           resultat = calcul(a * 1000)
@@ -45,8 +45,8 @@ export default function ConversionEnTousSens () {
           this.optionsChampTexte = { texteApres: ' g' }
           this.correction = `$${texNombre(a)}$ kg$=${texNombrec(a * 1000)}$ g`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Comme $1$ kg $=1000$ g,  pour passer des "kg" au "g", on multiplie par $1000$.<br>
-            Comme : $${texNombre(a)}\\times 1000 =${texNombrec(a * 1000)}$, alors $${texNombrec(a)}$ kg$=${resultat}$ g.  `)
+          Comme $1$ kg $=${texNombre(1000)}$ g,  pour passer des "kg" au "g", on multiplie par $${texNombre(1000)}$.<br>
+            Comme : $${texNombre(a)}\\times ${texNombre(1000)} =${texNombrec(a * 1000)}$, alors $${texNombrec(a)}$ kg$=${resultat}$ g.  `)
         }
         break
       case 'b':
@@ -121,9 +121,9 @@ export default function ConversionEnTousSens () {
           this.optionsChampTexte = { texteApres: ' km' }
           this.correction = `$${texNombre(a)}$ m$=${texNombrec(a / 1000)}$ km`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Comme $1$ km $=1000$ m, alors $1$ m $=0,001$ km.<br>
-          Ainsi pour passer des "m" au "km", on divise par $1000$.<br>
-            Comme  $${texNombre(a)}\\div 1000 =${texNombrec(a / 1000)}$, alors $${texNombrec(a)}$ m$=${texNombrec(a / 1000)}$ km.  `)
+          Comme $1$ km $=${texNombre(1000)}$ m, alors $1$ m $=0,001$ km.<br>
+          Ainsi pour passer des "m" au "km", on divise par $${texNombre(1000)}$.<br>
+            Comme  $${texNombre(a)}\\div ${texNombre(1000)} =${texNombrec(a / 1000)}$, alors $${texNombrec(a)}$ m$=${texNombrec(a / 1000)}$ km.  `)
         } else {
           a = randint(1, 35) / 100
           resultat = calcul(a * 1000)
@@ -135,8 +135,8 @@ export default function ConversionEnTousSens () {
           this.optionsChampTexte = { texteApres: ' m' }
           this.correction = `$${texNombre(a)}$ km$=${texNombrec(a * 1000)}$ m`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          Comme $1$ km $=1000$ m,  pour passer des "km" au "m", on multiplie par $1000$.<br>
-            Comme  $${texNombre(a)}\\times 1000 =${texNombrec(a * 1000)}$, alors $${texNombrec(a)}$ km$=${texNombrec(a * 1000)}$ m.  `)
+          Comme $1$ km $=${texNombre(1000)}$ m,  pour passer des "km" au "m", on multiplie par $${texNombre(1000)}$.<br>
+            Comme  $${texNombre(a)}\\times ${texNombre(1000)} =${texNombrec(a * 1000)}$, alors $${texNombrec(a)}$ km$=${texNombrec(a * 1000)}$ m.  `)
         }
         break
     }

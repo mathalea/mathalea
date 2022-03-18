@@ -170,7 +170,7 @@ export default function chiffreNombreDe () {
             nbDeReste += str.split('')[j]
             j++
           };
-          sortie = `comme $${texNombre(str)} = ${texNombre(nbDe)}\\times ${texNombre(cduNum)}+${texNombre(nbDeReste)}$ alors `
+          sortie = `comme $${texNombre(str, 0)} = ${texNombre(nbDe, 0)}\\times ${texNombre(cduNum, 0)}+${texNombre(nbDeReste, 0)}$ alors `
         };
         return sortie
       };
@@ -179,13 +179,13 @@ export default function chiffreNombreDe () {
       for (let k = 0; k < situations.length; k++) {
         enonces.push({
           enonce: `
-          Dans $${texNombre(nb)}$, quel est le ${situations[k].type} ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant} ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} ?`,
+          Dans $${texNombre(nb, 0)}$, quel est le ${situations[k].type} ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant} ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} ?`,
           question: '',
           correction: `
-          Dans $${texNombre(nb)}$,           
+          Dans $${texNombre(nb, 0)}$,           
           ${nombreDeJustif(situations[k].type, nbStr, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[1])}          
           le ${situations[k].type} ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].determinant}  ${chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].cdu[0]} est 
-          $${miseEnEvidence(texNombre(chiffreNombreCorr(situations[k].type, nbStr, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs)))}$.`
+          $${miseEnEvidence(texNombre(chiffreNombreCorr(situations[k].type, nbStr, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs), 0))}$.`
         })
         reponses[k] = chiffreNombreCorr(situations[k].type, nbStr, chiffreNombre[situations[k].type][situations[k].tranche][situations[k].cdu].rangs)
       }

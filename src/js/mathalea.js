@@ -279,13 +279,13 @@ function contenuExerciceHtml (obj, numeroExercice) {
   const factoExosStatiques = ['crpe', 'dnb', 'bac', 'e3c']
   if (factoExosStatiques.includes(obj.typeExercice)) {
     const crpe = {
-      titreEx: ` Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`,
+      titreEx: `<h3> Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial}</h3>`,
       titreExCorr: `<h3 class="ui dividing header">Exercice ${numeroExercice} − CRPE ${obj.annee} - ${obj.lieu} - ${obj.numeroInitial} - Correction par la Copirelem</h3>`
     }
 
     // Deux fonctions pour factoriser les 3 constantes dnb, bac et e3c
     function titreEx (type) {
-      return ` Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
+      return `<h3> Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
     }
 
     function titreExCorr (type) {
@@ -342,16 +342,16 @@ function contenuExerciceHtml (obj, numeroExercice) {
 
     switch (obj.typeExercice) {
       case 'crpe':
-        contenuUnExercice += crpe.titreExCorr
+        contenuUneCorrection += crpe.titreExCorr
         break
       case 'dnb':
-        contenuUnExercice += dnb.titreExCorr
+        contenuUneCorrection += dnb.titreExCorr
         break
       case 'bac':
-        contenuUnExercice += bac.titreExCorr
+        contenuUneCorrection += bac.titreExCorr
         break
       case 'e3c':
-        contenuUnExercice += e3c.titreExCorr
+        contenuUneCorrection += e3c.titreExCorr
         break
     }
 
@@ -694,7 +694,7 @@ function miseAJourDuCode () {
         if (iMoodle !== null) {
           finUrl += `&iMoodle=${iMoodle}`
         }
-        const moodleJson = new URLSearchParams(window.location.search).get('moodleJson')
+        const moodleJson = encodeURIComponent(new URLSearchParams(window.location.search).get('moodleJson'))
         if (moodleJson !== null) {
           finUrl += `&moodleJson=${moodleJson}`
         }
@@ -944,7 +944,8 @@ function miseAJourDuCode () {
         const id = listeDesExercices[i] // Pour récupérer l'id qui a appelé l'exercice
         const nbQuestions = listeObjetsExercice[i].nbQuestions
         const titre = listeObjetsExercice[i].titre
-        const pointsParQuestions = listeObjetsExercice[i].pointsParQuestions
+        // ToFix à quoi servait ce pointsParQuestions ?? @mathieu.degrange ?
+        // const pointsParQuestions = listeObjetsExercice[i].pointsParQuestions
         let params = ''
         if (listeObjetsExercice[i].sup !== undefined) {
           params += `s=${listeObjetsExercice[i].sup}`
@@ -1751,6 +1752,7 @@ function parametresExercice (exercice) {
         !exercice[i].correctionDetailleeDisponible &&
         !exercice[i].besoinFormulaireNumerique &&
         !exercice[i].besoinFormulaireTexte &&
+        !exercice[i].besoinFormulaireCaseACocher &&
         !exercice[i].interactif
       ) {
         divParametresGeneraux.innerHTML += '<p><em>Cet exercice ne peut pas être paramétré.</em></p>'

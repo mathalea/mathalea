@@ -32,17 +32,16 @@ export default function ExerciceInformationsProblemes () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.sup = parseInt(this.sup)
     // Ebauche de la consigne en fonction des possibilités
     const cocheIndique = ['coche', 'indique']
     const chaqueCe = ['chaque', 'ce']
     const affirmatifNegatif = ['servent', 'ne servent pas']
     this.consigne = 'Dans '
-    this.nbQuestions === 1 ? this.consigne += chaqueCe[1] : this.consigne += chaqueCe[0]
+    this.consigne += this.nbQuestions === 1 ? chaqueCe[1] : chaqueCe[0]
     this.consigne += ' problème, '
-    context.vue === 'diap' ? this.consigne += cocheIndique[1] : this.consigne += cocheIndique[0]
+    this.consigne += context.vue === 'diap' ? cocheIndique[1] : cocheIndique[0]
     this.consigne += ' les informations qui '
-    this.sup !== 1 ? this.consigne += affirmatifNegatif[1] : this.consigne += affirmatifNegatif[0]
+    this.consigne += this.sup !== 1 ? affirmatifNegatif[1] : affirmatifNegatif[0]
     this.consigne += ' à sa résolution.'
     // Fin de l'ébauche de la consigne en fonction des possibilités
 
@@ -580,7 +579,7 @@ export default function ExerciceInformationsProblemes () {
             quidam2 = 'elle'
           }
           nb = randint(13, 21)
-          nb1 = jour() + ' ' + randint(1, 29) + ' ' + nomDuMois(randint(1, 12))
+          nb1 = jour() + ' ' + randint(2, 29) + ' ' + nomDuMois(randint(1, 12))
           nb2 = nb + ' h ' + 5 * randint(2, 11) + ' min'
           nb3 = nb + 2 + ' h ' + 5 * randint(2, 11) + ' min'
           nb4 = nb + 1 + ' h ' + 5 * randint(2, 11) + ' min'
@@ -1085,8 +1084,8 @@ export default function ExerciceInformationsProblemes () {
           nb3 = randint(7, 15)
           nb4 = randint(10, 12) + ' h ' + 5 * randint(2, 11) + ' min'
           nb5 = randint(16, 29)
-          texte += `Un livreur part de son entrepôt avec ${nb1} colis. Au premier arrêt, il depose ${nb2} colis. ${nb3} km plus loin, il livre le reste de ses colis. `
-          texte += `Ensuite, à ${nb4}, le livreur retourne à l'entrepôt, à ${nb5} km de là.<br>`
+          texte += `Un livreur part de son entrepôt avec ${nb1} colis. Au premier arrêt, le plus près, il depose ${nb2} colis. ${nb3} km plus loin, il livre le reste de ses colis. `
+          texte += `Ensuite, à ${nb4}, le livreur reprend la même route et retourne à l'entrepôt, à ${nb5} km de là.<br>`
 
           switch (choixVersion) {
             case 1:
@@ -1100,7 +1099,7 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' colis') + ', ' + texteEnCouleurEtGras(nb2 + ' colis')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4) + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb5 + ' km') + '$-$' + texteGras(nb3 + ' km ') + '.'
+                texteCorr += texteEnCouleurEtGras(nb5 + ' km') + '$-$' + texteEnCouleurEtGras(nb3 + ' km ') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -1202,15 +1201,14 @@ export default function ExerciceInformationsProblemes () {
           }
           break
         case 10:
-          personnage1 = choice(FamilleF)
-          quidam = prenomM()
-          quidam2 = prenomF()
+          quidam = choice(['du Havre', 'de Rotterdam', 'de Hambourg', 'de Marseille', 'de Lisbonne'])
+          quidam2 = choice(['Hong-Kong', 'Rio de Janeiro', 'Auckland', 'Sidney', 'Kuala Lumpur'])
           nb1 = randint(85, 153)
           nb2 = randint(67, 86)
           nb3 = randint(7, 15)
           nb4 = randint(21, 35)
           nb5 = randint(21, 35)
-          texte += `Un cargo mesurant ${nb1} m transporte ${nb2} gros conteneurs de ${nb3} tonnes chacun du Havre à Hong-Kong. `
+          texte += `Un cargo mesurant ${nb1} m transporte ${nb2} gros conteneurs de ${nb3} tonnes chacun ${quidam} à ${quidam2}. `
           texte += `Ce bateau transporte aussi ${nb4} petits conteneurs pour une masse totale de ${nb5} tonnes.<br>`
 
           switch (choixVersion) {

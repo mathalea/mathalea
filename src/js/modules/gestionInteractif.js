@@ -32,7 +32,7 @@ export function exerciceInteractif (exercice) {
  * @param {*} param2
  * @returns {string} code HTML du champ texte avec identifiant champTexteEx__Q__ et le span pour le résultat de la question
  */
-export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', inline = true, numeric = true, indice } = {}) {
+export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', inline = true, numeric = false, indice } = {}) {
   if (context.isHtml && exercice.interactif) {
     return `<div class="ui form ${inline ? 'inline' : ''}" >
       <div class="inline  field" >
