@@ -209,22 +209,22 @@ function questionRecette (exo, i) { // questions avec des masses pour un nombre 
   const liste = [ // liste des ingrédients avec différentes recettes associées et masses
     {
       ingredient: 'farine',
-      recettes: ['gateau au citron', 'gauffres', 'crêpes', 'cake'],
+      recettes: ['gâteau au citron', 'gaufres', 'crêpes', 'cake'],
       quantites_par_pers: [20, 25, 30, 35, 40, 50] // A voir pour l'instant quantités "simples".
     },
     {
       ingredient: 'sucre',
-      recettes: ['gateau', 'mousse au chocolat', 'pain perdu', 'riz au lait'],
+      recettes: ['gâteau', 'mousse au chocolat', 'pain perdu', 'riz au lait'],
       quantites_par_pers: [15, 20, 25, 30, 35]
     },
     {
       ingredient: 'chocolat',
-      recettes: ['gateau', 'mousse au chocolat', 'flan', 'riz au lait'],
+      recettes: ['gâteau', 'mousse au chocolat', 'flan', 'riz au lait'],
       quantites_par_pers: [10, 15, 20, 25, 30, 35]
     },
     {
       ingredient: 'beurre',
-      recettes: ['gateau', 'mousse au chocolat'],
+      recettes: ['gâteau', 'mousse au chocolat'],
       quantites_par_pers: [10, 12, 15, 18]
     }
   ]
