@@ -3075,6 +3075,34 @@ export function decompositionFacteursPremiers (n) {
 }
 
 /**
+ * Renvoie la décomposition en produit de facteurs premiers d'un nombre avec les facteursABarrer barrés
+ * @author Guillaume Valmont
+ * @param {number} nombre
+ * @param {number[]} facteursABarrer
+ * @returns texte en LateX
+ */
+export function decompositionFacteursPremiersBarres (nombreADecomposer, facteursABarrer) {
+  const decomposition = decompositionFacteursPremiersArray(nombreADecomposer)
+  const facteursBarres = []
+  let str = ''
+  for (const nombre of decomposition) {
+    let unNombreAEteBarre = false
+    for (let i = 0; i < facteursABarrer.length; i++) {
+      const facteurABarrer = facteursABarrer[i]
+      if (nombre === facteurABarrer && !facteursBarres.includes(i) && !unNombreAEteBarre) {
+        str += ` \\cancel{${facteurABarrer}} \\times `
+        facteursBarres.push(i)
+        unNombreAEteBarre = true
+      }
+    }
+    if (!unNombreAEteBarre) {
+      str += nombre + ' \\times '
+    }
+  }
+  return str.slice(0, -8)
+}
+
+/**
 * Retourne la liste des diviseurs d'un entier
 * @author Rémi Angot
 */
@@ -3212,7 +3240,7 @@ export function texGraphique (f, xmin = -5, xmax = 5, ymin = -5, ymax = 5) {
 /**
  *  Classe MatriceCarree
  * Générateur de Matrice :
- * Si l'argument est un nombre, alors on s'en sert pour définir le rang de la matrice carrée qu'on rempli de zéros.
+ * Si l'argument est un nombre, alors on s'en sert pour définir la taille de la matrice carrée qu'on rempli de zéros.
  * Sinon, c'est le tableau qui sert à remplir la Matrice
  *  @author Jean-Claude Lhote
  */
@@ -3221,7 +3249,7 @@ export class MatriceCarree {
     let ligne
     this.table = []
     if (typeof (table) === 'number') {
-      this.dim = table // si c'est un nombre qui est passé en argument, c'est le rang, et on rempli la table de 0
+      this.dim = table // si c'est un nombre qui est passé en argument, c'est la taille, et on rempli la table de 0
       for (let i = 0; i < this.dim; i++) {
         ligne = []
         for (let j = 0; j < this.dim; j++) { ligne.push(0) }

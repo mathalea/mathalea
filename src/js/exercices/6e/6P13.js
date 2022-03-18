@@ -73,7 +73,7 @@ export default function AugmenterEtReduireDunPourcentage () {
       }
     }
 
-    for (let i = 0, repa, repb, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, enonceInit, enonceAMC, propositionsAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       prenom1 = prenomM()
       prenom2 = prenomF()
@@ -85,78 +85,24 @@ export default function AugmenterEtReduireDunPourcentage () {
           nombreDecimales(n)
           mr = calcul(pr * billet / 100)
           final1 = calcul(billet - mr)
-          texte = `Un billet d'avion coûte ${billet} €. ${prenom1} bénéficie d'une réduction de $${pr} \\%$.<br>`
-          texte += (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de la réduction est :` : `${numAlpha(0)} Calculer le montant de la réduction.`
+          texte = `Un billet d'avion coûte ${billet} €. ${prenom1} bénéficie d'une réduction de $${pr} \\%$.`
+          enonceInit = texte
+          enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de la réduction est :` : `${numAlpha(0)} Calculer le montant de la réduction.`
+          texte = enonceInit + '<br>' + enonceAMC
           texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: ' €' }) : ''
           texte += '<br>'
-          if (!context.isAmc) setReponse(this, 2 * i, mr, { formatInteractif: 'calcul' })
-          texte += (this.interactif && context.isHtml) ? `${numAlpha(1)} Finalement, ${prenom1} paiera son billet :` : `${numAlpha(1)} Calculer le prix du billet de ${prenom1}.`
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteApres: ' €' }) : ''
-          texteCorr = `${numAlpha(0)} Le montant de la réduction est :     $${billet} € \\times ${pr} \\div 100$` + sp(1)
-          texteCorr += nombreDeChiffresDansLaPartieDecimale(mr) < 3 ? '$ =$' : '$ \\approx$'
-          texteCorr += texteEnCouleurEtGras(` $${texPrix(mr)}$ €.<br>`)
-          texteCorr += `${numAlpha(1)} Finalement, ${prenom1} paiera son billet : $${billet} € - ${texPrix(mr)} € =$` + sp(1)
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)}$ €.`)
-          if (!context.isAmc) setReponse(this, 2 * i + 1, final1)
-          repa = mr
-          repb = final1
-          break
-        case 'augmentation':
-          nombreDecimales(n)
-          calcul(ma = pa * loyer / 100)
-          calcul(final2 = loyer + ma)
-
-          texte = `Le loyer de l'appartement de ${prenom2} coûte ${loyer} €. Au 1er janvier, il augmente de $${pa} \\%$.<br>`
-          texte += (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de l'augmentation est :` : `${numAlpha(0)} Calculer le montant de l'augmentation.`
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: ' €' }) : ''
-          texte += '<br>'
-          texte += (this.interactif && context.isHtml) ? `${numAlpha(1)} Finalement, ${prenom2} paiera son loyer :` : `${numAlpha(1)} Calculer le montant du loyer de ${prenom2}.`
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteApres: ' €' }) : ''
-          if (!context.isAmc) setReponse(this, 2 * i, ma)
-          if (!context.isAmc) setReponse(this, 2 * i + 1, final2)
-          texteCorr = `${numAlpha(0)} Le montant de l'augmentation est :     $${loyer} € \\times ${pa} \\div 100$` + sp(1)
-          texteCorr += nombreDeChiffresDansLaPartieDecimale(ma) < 3 ? '$ =$' : '$ \\approx$'
-          texteCorr += texteEnCouleurEtGras(` $${texPrix(ma)}$ €.<br>`)
-          texteCorr += `${numAlpha(1)} Finalement, ${prenom2} paiera son loyer : $${loyer} € + ${texPrix(ma)} € =$` + sp(1)
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(final2)}$ €.`)
-          repa = ma
-          repb = final2
-          break
-      }
-
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en crée une autre
-        if (context.isAmc) {
-          this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [
+          if (!context.isAmc) {
+            setReponse(this, 2 * i, mr, { formatInteractif: 'calcul' })
+          } else {
+            propositionsAMC = [
               {
                 type: 'AMCNum',
                 propositions: [
                   {
                     texte: texteCorr,
                     reponse: {
-                      texte: 'a)',
-                      valeur: [repa],
-                      param: {
-                        digits: 5,
-                        decimals: 2,
-                        signe: false,
-                        approx: 0,
-                        exposantNbChiffres: 0
-                      }
-                    }
-                  }
-                ]
-              },
-              {
-                type: 'AMCNum',
-                propositions: [
-                  {
-                    texte: '',
-                    reponse: {
-                      texte: 'b)',
-                      valeur: [repb],
+                      texte: enonceAMC,
+                      valeur: [mr],
                       param: {
                         digits: 5,
                         decimals: 2,
@@ -169,6 +115,118 @@ export default function AugmenterEtReduireDunPourcentage () {
                 ]
               }
             ]
+          }
+          enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(1)} Finalement, ${prenom1} paiera son billet :` : `${numAlpha(1)} Calculer le prix du billet de ${prenom1}.`
+          texte += enonceAMC
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteApres: ' €' }) : ''
+          if (!context.isAmc) {
+            setReponse(this, 2 * i + 1, final1)
+          } else {
+            propositionsAMC.push(
+              {
+                type: 'AMCNum',
+                propositions: [
+                  {
+                    texte: '',
+                    reponse: {
+                      texte: enonceAMC,
+                      valeur: [final1],
+                      param: {
+                        digits: 5,
+                        decimals: 2,
+                        signe: false,
+                        approx: 0,
+                        exposantNbChiffres: 0
+                      }
+                    }
+                  }
+                ]
+              }
+            )
+          }
+          texteCorr = `${numAlpha(0)} Le montant de la réduction est : $${billet} € \\times ${pr} \\div 100$` + sp(1)
+          texteCorr += nombreDeChiffresDansLaPartieDecimale(mr) < 3 ? '$ =$' : '$ \\approx$'
+          texteCorr += texteEnCouleurEtGras(` $${texPrix(mr)}$ €.<br>`)
+          texteCorr += `${numAlpha(1)} Finalement, ${prenom1} paiera son billet : $${billet} € - ${texPrix(mr)} € =$` + sp(1)
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)}$ €.`)
+          break
+        case 'augmentation':
+          nombreDecimales(n)
+          calcul(ma = pa * loyer / 100)
+          calcul(final2 = loyer + ma)
+
+          enonceInit = `Le loyer de l'appartement de ${prenom2} coûte ${loyer} €. Au 1er janvier, il augmente de $${pa} \\%$.`
+          enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de l'augmentation est :` : `${numAlpha(0)} Calculer le montant de l'augmentation.`
+          texte = enonceInit + '<br>' + enonceAMC
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: ' €' }) : ''
+          texte += '<br>'
+          if (!context.isAmc) {
+            setReponse(this, 2 * i, ma)
+          } else {
+            propositionsAMC = [
+              {
+                type: 'AMCNum',
+                propositions: [
+                  {
+                    texte: texteCorr,
+                    reponse: {
+                      texte: enonceAMC,
+                      valeur: [ma],
+                      param: {
+                        digits: 5,
+                        decimals: 2,
+                        signe: false,
+                        approx: 0,
+                        exposantNbChiffres: 0
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+          enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(1)} Finalement, ${prenom2} paiera son loyer :` : `${numAlpha(1)} Calculer le montant du loyer de ${prenom2}.`
+          texte += enonceAMC
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteApres: ' €' }) : ''
+          if (!context.isAmc) {
+            setReponse(this, 2 * i + 1, final2)
+          } else {
+            propositionsAMC.push(
+              {
+                type: 'AMCNum',
+                propositions: [
+                  {
+                    texte: texteCorr,
+                    reponse: {
+                      texte: enonceAMC,
+                      valeur: [final2],
+                      param: {
+                        digits: 5,
+                        decimals: 2,
+                        signe: false,
+                        approx: 0,
+                        exposantNbChiffres: 0
+                      }
+                    }
+                  }
+                ]
+              }
+            )
+          }
+          texteCorr = `${numAlpha(0)} Le montant de l'augmentation est :     $${loyer} € \\times ${pa} \\div 100$` + sp(1)
+          texteCorr += nombreDeChiffresDansLaPartieDecimale(ma) < 3 ? '$ =$' : '$ \\approx$'
+          texteCorr += texteEnCouleurEtGras(` $${texPrix(ma)}$ €.<br>`)
+          texteCorr += `${numAlpha(1)} Finalement, ${prenom2} paiera son loyer : $${loyer} € + ${texPrix(ma)} € =$` + sp(1)
+          texteCorr += texteEnCouleurEtGras(`$${texPrix(final2)}$ €.`)
+          break
+      }
+      if (this.listeQuestions.indexOf(texte) === -1) {
+        // Si la question n'a jamais été posée, on en crée une autre
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: enonceInit,
+            options: { multicols: true, barreseparation: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
+            propositions: propositionsAMC
           }
         }
         this.listeQuestions.push(texte)
