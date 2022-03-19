@@ -264,7 +264,6 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             texte = ajouteChampFractionMathLive(this, indexQ, false, false)
             setReponse(this, indexQ, u * 100 + d * 10 + c, { formatInteractif: 'calcul' })
             setReponse(this, indexQ + 1, 100, { formatInteractif: 'calcul' })
-            // setReponse(this, indexQ, fraction(u * 100 + d * 10 + c, 100), { formatInteractif: 'NumDen' })
             indexQ += 2
             texte += `$=${u}+${texFraction(d, '10')}+${texFraction(c, '100')}=$`
             texte += ajouteChampTexteMathLive(this, indexQ, 'largeur10 inline nospacebefore')
