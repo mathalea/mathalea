@@ -164,25 +164,14 @@ export function getUrlSearchOld () {
  * @returns {string} l'url vérifiée réécrite
  */
 export function getUrlSearch () {
-  const urlRacine = window.location.href.split('?')[0]
-  const queryString = window.location.search
-  const urlParams = new URLSearchParams(queryString)
-  if (context.userId) urlParams.set('userId', context.userId)
-  if (context.vue) urlParams.set('v', context.vue)
-  if (context.zoom) urlParams.set('z', context.zoom)
-  if (context.duree) urlParams.set('duree', context.duree)
-  // On finit la réécriture de l'url
-  const entries = urlParams.entries()
-  let urlRewrite = urlRacine + '?'
-  for (const entry of entries) {
-    // On n'écrit pas la série si on est connecté
-    if (!getUserId() || entry[0] !== 'serie') {
-      urlRewrite += entry[0] + '=' + entry[1] + '&'
-    }
-  }
-  urlRewrite = urlRewrite.slice(0, -1)
-  urlRewrite = new URL(urlRewrite)
-  return urlRewrite
+  const url = new URL(window.location.href)
+  if (context.userId) url.searchParams.set('userId', context.userId)
+  if (context.vue) url.searchParams.set('v', context.vue)
+  if (context.zoom) url.searchParams.set('z', context.zoom)
+  if (context.duree) url.searchParams.set('duree', context.duree)
+  // On n'écrit pas la série si on est connecté
+  if (getUserId()) url.searchParams.delete('serie')
+  return url
 }
 
 /**
