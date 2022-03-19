@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, numAlpha, exposant, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere, contraindreValeur, rangeMinMax, stringNombre, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, numAlpha, exposant, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere, contraindreValeur, rangeMinMax, stringNombre, sp, compteOccurences } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
@@ -842,7 +842,8 @@ export default function ProportionnaliteParLinearite () {
   this.nbColsCorr = 1
   this.besoinFormulaireCaseACocher = ['Version simplifiée ne comportant que des nombres entiers']
   this.sup = false
-  this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Echelle\n6 : Surface']
+  this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Recette\n3 : Dilution\n4 : Distance\n5 : Echelle\n6 : Surface\n7 : Mélange']
+  this.sup2 = 7
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions === 1 ? 'Répondre à la question posée en justifiant.' : 'Répondre aux questions posées en justifiant.'
     let indiceQuestion = 0
@@ -855,14 +856,15 @@ export default function ProportionnaliteParLinearite () {
       listeIndexSituationsDisponible = rangeMinMax(1, 6)
     } else {
       if (typeof (this.sup2) === 'number') { // Si c'est un nombre, c'est que le nombre a été saisi dans la barre d'adresses
-        listeIndexSituationsDisponible[0] = contraindreValeur(1, 6, this.sup2, 6)
+        listeIndexSituationsDisponible[0] = contraindreValeur(1, 7, this.sup2, 7)
       } else {
         listeIndexSituationsDisponible = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < listeIndexSituationsDisponible.length; i++) { // on a un tableau avec des strings : ['1', '5', '2','toto','45']
-          listeIndexSituationsDisponible[i] = contraindreValeur(1, 6, parseInt(listeIndexSituationsDisponible[i]), 6) // parseInt en fait un tableau d'entiers
+          listeIndexSituationsDisponible[i] = contraindreValeur(1, 7, parseInt(listeIndexSituationsDisponible[i]), 7) // parseInt en fait un tableau d'entiers
         }
       }
     }
+    if (compteOccurences(listeIndexSituationsDisponible, 7) > 0) listeIndexSituationsDisponible = rangeMinMax(1, 6) // Teste si l'utilisateur a choisi tout
     const listeIndexSituations = combinaisonListes(listeIndexSituationsDisponible, this.nbQuestions) // permet de ne pas avoir 2 fois la même situation si - de questions que de situations
     // boucle pour le nombre de question.
     // A chaque question on vérifie qu'elle n'existe pas déjà pour en refaire une. Sécurité : on ajoute un compteur pour eviter trop d'essais...

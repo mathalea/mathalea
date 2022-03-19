@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences, contraindreValeur, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences, contraindreValeur, sp, rangeMinMax } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
@@ -23,6 +23,7 @@ export default function ProportionnalitePasProportionnalite () {
   this.nbCols = 1
   this.nbColsModifiable = false
   this.nbColsCorrModifiable = false
+  this.sup = 6
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -45,10 +46,11 @@ export default function ProportionnalitePasProportionnalite () {
       } else {
         listeChoixDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < listeChoixDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeChoixDisponibles[i] = contraindreValeur(1, 5, parseInt(listeChoixDisponibles[i]), 1)
+          listeChoixDisponibles[i] = contraindreValeur(1, 6, parseInt(listeChoixDisponibles[i]), 6)
         }
       }
     }
+    if (compteOccurences(listeChoixDisponibles, 6) > 0) listeChoixDisponibles = rangeMinMax(1, 5) // Teste si l'utilisateur a choisi tout
 
     const listeChoix = combinaisonListes(
       listeChoixDisponibles,
@@ -330,5 +332,5 @@ export default function ProportionnalitePasProportionnalite () {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Distance\n3 : Âge\n4 : Épidémie\n5 : Catalogue (tableau de proportionnalité)']
+  this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Distance\n3 : Âge\n4 : Épidémie\n5 : Catalogue (tableau de proportionnalité)\n6 : Mélange']
 }
