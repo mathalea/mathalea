@@ -192,9 +192,11 @@ export default function listerDiviseursParDecompositionFacteursPremiers () {
       entColonnesCorr = ['\\times'].concat(tabTempCorr)
       entColonnesCorrRes = [1].concat(tab1TempCorr)
       // le contenu des lignes
-      for (let l = 0; l < (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1) + 1; l++) {
+      console.log(tabMultiplicitesb, entLignesCorr, entLignesCorrRes, entColonnesCorr, entColonnesCorrRes)
+      for (let l = 0; l < (tabMultiplicitesb[1] + 1) * (tabMultiplicitesb[2] + 1); l++) {
         for (let c = 1; c < (tabMultiplicitesb[0] + 2); c++) {
           // contenuLignesCorr.push(`l : `+l+`, c : `+Number(c));
+          console.log(entLignesCorrRes[l], entColonnesCorrRes[c])
           contenuLignesCorr.push(entLignesCorr[l] + '\\times' + entColonnesCorr[c] + '=' + miseEnEvidence(texNombre(entLignesCorrRes[l] * entColonnesCorrRes[c])))
         };
       };
