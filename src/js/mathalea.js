@@ -83,12 +83,10 @@ function copierVersExerciceForm () {
   const listeTagLength = listeTag.length
   texteCode = ''
   for (i = 0; i < listeTagLength; i++) {
-    if (i === 0) {
-      texteCode += listeTag[i].textContent
-    } else {
-      texteCode += ',' + listeTag[i].textContent
-    }
+    texteCode += listeTag[i].textContent + ','
   }
+  // Suppression de la dernière virgule
+  texteCode = texteCode.slice(0, -1)
   document.getElementById('choix_des_exercices').value = texteCode
   const evenement = new window.Event('change')
   document.getElementById('choix_des_exercices').dispatchEvent(evenement)
