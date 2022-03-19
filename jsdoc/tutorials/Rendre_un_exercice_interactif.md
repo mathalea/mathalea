@@ -291,13 +291,23 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 
 Le fonctionnement de MathLive peut parfois donner un résultat étonnant. Alors qu'on attend la réponse, "**1h45min**", `verifieQuestionMathLive` peut attendre "**1h45\\min**" par exemple.
 
-Si le concepteur de l'exercice se trouve dans la situation où une réponse correcte est considérée fausse, voici la procédure à suivre pour trouver la raison :
+Si le concepteur de l'exercice se trouve dans la situation où une réponse correcte est considérée fausse, voici, au choix, deux procédures différentes à suivre pour trouver la raison.
+
+Méthode JCL :
 * Ouvrir l'inspecteur (CTRL+MAJ+C sur Firefox et Chrome, Command+Option+I sur Safari).
 * Sur l'onglet débugueur, chercher dans l'onglet sources `webpack/src/js/modules/interactif/questionMathLive.js`.
 * En supposant que je formatInteractif est `calcul`, mettre un point d'arrêt sur la ligne 55 (numéro actuel de ligne mais sous réserve de non-rajout de code au-dessus évidemment) juste après le `let saisie = champTexte.value` (clic droit sur 55 puis sur Ajouter un point d'arrêt).
 * Cliquer sur Actualiser.
 * Saisir la réponse attendue dans le champ et valider la saisie.
 * Mettre le curseur sur `saisie` pour visualiser la saisie qu'il a récupéré comme sur cette [capture d'écran](img/Interactif-1.png).
+
+Méthode 2E : On va rajouter deux console log pour comparer la saisie effectuée et la réponse attendue.
+* Chercher (et trouver) le fichier `questionMathLive.js`. On va rajouter deux lignes de code dans la fonction `verifQuestionMathLive()`.
+* Ajouter la ligne de code suivante `console.log('saisie : ', saisie, ' reponse : ', reponse)` entre les lignes 50 et 51 comme montré [ici](img/consoleLogSaisieReponse.png).
+    * On suppose que le `formatInteractif` du `setReponse()` est `calcul` car c'est celui le plus utilisé. Si ce n'est pas le cas, adapter le numéro de la ligne précédente au format utilisé dans la fonction `verifQuestionMathLive()`.
+* Sur votre navigateur, lancer votre exercice, le mettre en mode interactif puis ouvrir l'inspecteur.
+* Saisir votre réponse dans les champs et comparer dans la console la saisie effectuée et la réponse attendue. Adapter votre code en fonction de ce que vous observez.
+* Une fois terminé, dans le code de `questionMathLive.js`, ne pas oublier de supprimer la ligne de code rajoutée pour resoudre votre difficulté.
 
 >>>>## <a id="typeInteractivite_mathLive_CAN" href="#typeInteractivite_mathLive_CAN"></a> [2. 1. 5. Dans les exercices de la Course Aux Nombres](#typeInteractivite_mathLive_CAN)
 

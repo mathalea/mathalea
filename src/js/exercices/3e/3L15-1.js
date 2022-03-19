@@ -78,7 +78,7 @@ export default function ResoudreEquatioeX2EgalA () {
       }
       cpt++
     }
-    this.introduction = (this.interactif && context.isHtml) ? "<em>S'il y a plusieurs réponses, séparer les avec un point-virgule.</em>" : ''
+    this.introduction = (this.interactif && context.isHtml) ? "<em>S'il y a plusieurs réponses, les séparer par un point-virgule.</em>" : ''
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : Solutions entières\n 2 : Solutions rationnelles\n 3 : Solutions irrationnelles\n 4 : Mélange']
