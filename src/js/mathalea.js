@@ -692,8 +692,9 @@ function miseAJourDuCode () {
         if (iMoodle !== null) {
           finUrl += `&iMoodle=${iMoodle}`
         }
-        const moodleJson = encodeURIComponent(new URLSearchParams(window.location.search).get('moodleJson'))
+        let moodleJson = new URLSearchParams(window.location.search).get('moodleJson')
         if (moodleJson !== null) {
+          moodleJson = encodeURIComponent(moodleJson)
           finUrl += `&moodleJson=${moodleJson}`
         }
       }
