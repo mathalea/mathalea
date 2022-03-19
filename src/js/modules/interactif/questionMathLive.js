@@ -13,7 +13,7 @@ export function verifQuestionMathLive (exercice, i) {
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
-  let champTexte, champTexteNum, champTexteDen, saisie, nombreSaisi, grandeurSaisie, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
+  let reponse, champTexte, champTexteNum, champTexteDen, saisie, nombreSaisi, grandeurSaisie, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
   let reponses = []
   if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
     reponses = [exercice.autoCorrection[i].reponse.valeur]
@@ -21,7 +21,9 @@ export function verifQuestionMathLive (exercice, i) {
     reponses = exercice.autoCorrection[i].reponse.valeur
   }
   let resultat = 'KO'
-  for (let reponse of reponses) {
+  let ii = 0
+  while ((resultat === 'KO') & (ii < reponses.length)) {
+    reponse = reponses[ii]
     switch (formatInteractif) {
       case 'Num':
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
@@ -47,6 +49,7 @@ export function verifQuestionMathLive (exercice, i) {
         // Le format par défaut
       // Pour le calcul littéral on remplace dfrac en frac
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+        console.log('saisie : ', saisie, ' reponse : ', reponse)
         saisie = champTexte !== undefined ? champTexte.value : ''
         if (typeof reponse === 'string') {
           reponse = reponse.replaceAll('dfrac', 'frac')
@@ -183,7 +186,7 @@ export function verifQuestionMathLive (exercice, i) {
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
         saisie = champTexte !== undefined ? champTexte.value : ''
 
-        // formatOK et formatKO sont deu x variables globale,
+        // formatOK et formatKO sont deux variables globales,
         // sinon dans le cas où reponses est un tableau, la valeur n'est pas conservée d'un tour de boucle sur l'autre
         // eslint-disable-next-line no-var
         var formatOK, formatKO
@@ -213,7 +216,7 @@ export function verifQuestionMathLive (exercice, i) {
           }
         } else {
           // Dans tous ces cas on est sûr que le format n'est pas bon
-          // Toutefois la valeur peu l'être donc on vérifie
+          // Toutefois la valeur peut l'être donc on vérifie
           nombreSaisi = saisie
           nombreAttendu = reponse.split('^')
           mantisseReponse = nombreAttendu[0]
@@ -255,6 +258,7 @@ export function verifQuestionMathLive (exercice, i) {
 
         break
     }
+    ii++
   }
   if (resultat === 'OK') {
     spanReponseLigne.innerHTML = '😎'
