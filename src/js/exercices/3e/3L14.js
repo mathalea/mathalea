@@ -1,14 +1,21 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite, texFraction, texArrayReponsesCoupleDeFractions, fractionSimplifiee, texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees } from '../../modules/outils.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Résoudre une équation produit nul'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+
+export const dateDeModifImportante = '18/03/2022'
 
 /**
  * Résolution d'équations de type (ax+b)(cx+d)=0
-* @author Jean-Claude Lhote
-* Tout est dans le nom de la fonction.
-* 3L14
-*/
+ * @author Jean-Claude Lhote
+ * Tout est dans le nom de la fonction.
+ * Référence 3L14
+ * Rendu interactif par Guillaume Valmont le 18/03/2022
+ */
 export default function ResoudreUneEquationProduitNul () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -44,6 +51,7 @@ export default function ResoudreUneEquationProduitNul () {
           texteCorr += '<br>' + `$(x+${b})(x+${d})=0$`
           texteCorr += '<br> Soit ' + `$x+${b}=0$` + ' ou ' + `$x+${d}=0$`
           texteCorr += '<br> Donc ' + `$x=${0 - b}$` + ' ou ' + `$x=${0 - d}$`
+          setReponse(this, i, [`${0 - b};${0 - d}`, `${0 - d};${0 - b}`])
           break
         case 2: b = randint(1, 20) // (x-a)(x+b)=0 avec a et b entiers
           d = randint(1, 20, [b])
@@ -52,6 +60,7 @@ export default function ResoudreUneEquationProduitNul () {
           texteCorr += '<br>' + `$(x-${b})(x+${d})=0$`
           texteCorr += '<br> Soit ' + `$x-${b}=0$` + ' ou  ' + `$x+${d}=0$`
           texteCorr += '<br> Donc ' + `$x=${b}$` + ' ou ' + `$x=${0 - d}$`
+          setReponse(this, i, [`${b};${0 - d}`, `${0 - d};${b}`])
           break
 
         case 3: a = randint(2, 6) // (ax+b)(cx+d)=0  avec b/a et d/c entiers.
@@ -65,6 +74,7 @@ export default function ResoudreUneEquationProduitNul () {
           texteCorr += '<br> Donc ' + `$${a}x=${0 - b}$` + ' ou ' + `$${c}x=${0 - d}$`
           texteCorr += '<br> Donc ' + `$x=-${texFraction(b, a)}$` + ' ou ' + `$x=-${texFraction(d, c)}$`
           texteCorr += '<br> Donc ' + `$x=${0 - b / a}$` + ' ou ' + `$x=${0 - d / c}$`
+          setReponse(this, i, [`${0 - b / a};${0 - d / c}`, `${0 - d / c};${0 - b / a}`])
           break
         case 4: a = randint(2, 6) // (ax+b)(cx-d)=0  avec b/a et d/c entiers.
           b = Math.round(randint(1, 5) * a)
@@ -77,6 +87,7 @@ export default function ResoudreUneEquationProduitNul () {
           texteCorr += '<br> Donc ' + `$${a}x=${0 - b}$` + ' ou ' + `$${c}x=${d}$`
           texteCorr += '<br> Donc ' + `$x=-${texFraction(b, a)}$` + ' ou ' + `$x=${texFraction(d, c)}$`
           texteCorr += '<br> Donc ' + `$x=${0 - b / a}$` + ' ou ' + `$x=${d / c}$`
+          setReponse(this, i, [`${0 - b / a};${d / c}`, `${d / c};${0 - b / a}`])
           break
         case 5:
           a = randint(2, 9) // (ax+b)(cx+d)=0 avec b/a et d/c quelconques.
@@ -92,6 +103,7 @@ export default function ResoudreUneEquationProduitNul () {
           if (texFraction(b, a) !== texFractionReduite(b, a)) { texteCorr += `$=-${texFractionReduite(b, a)}$` }
           texteCorr += ' ou ' + `$x=-${texFraction(d, c)}$`
           if (texFraction(d, c) !== texFractionReduite(d, c)) { texteCorr += `$=-${texFractionReduite(d, c)}$` }
+          setReponse(this, i, texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, -d, c))
           break
         case 6:
           a = randint(2, 9) // (ax+b)(cx-d)=0 avec b/a et d/c quelconques.
@@ -107,9 +119,13 @@ export default function ResoudreUneEquationProduitNul () {
           if (texFraction(b, a) !== texFractionReduite(b, a)) { texteCorr += `$=-${texFractionReduite(b, a)}$` }
           texteCorr += ' ou ' + `$x=${texFraction(d, c)}$`
           if (texFraction(d, c) !== texFractionReduite(d, c)) { texteCorr += `$=${texFractionReduite(d, c)}$` }
-
+          setReponse(this, i, texArrayReponsesCoupleDeFractions(fractionSimplifiee(-b, a)[0], fractionSimplifiee(-b, a)[1], fractionSimplifiee(d, c)[0], fractionSimplifiee(d, c)[1]))
           break
       }
+      if (this.interactif) {
+        texte += ajouteChampTexteMathLive(this, i, 'inline largeur25')
+      }
+      this.introduction = (this.interactif && context.isHtml) ? "<em>S'il y a plusieurs réponses, les séparer par un point-virgule. Si c'est une fraction, elle doit être irréductible.</em>" : ''
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
