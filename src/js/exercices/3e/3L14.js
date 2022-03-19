@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite, texFraction, texArrayReponsesCoupleDeFractions, fractionSimplifiee, texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Résoudre une équation produit nul'
@@ -103,6 +103,7 @@ export default function ResoudreUneEquationProduitNul () {
           if (texFraction(b, a) !== texFractionReduite(b, a)) { texteCorr += `$=-${texFractionReduite(b, a)}$` }
           texteCorr += ' ou ' + `$x=-${texFraction(d, c)}$`
           if (texFraction(d, c) !== texFractionReduite(d, c)) { texteCorr += `$=-${texFractionReduite(d, c)}$` }
+          setReponse(this, i, texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, -d, c))
           break
         case 6:
           a = randint(2, 9) // (ax+b)(cx-d)=0 avec b/a et d/c quelconques.
@@ -118,13 +119,13 @@ export default function ResoudreUneEquationProduitNul () {
           if (texFraction(b, a) !== texFractionReduite(b, a)) { texteCorr += `$=-${texFractionReduite(b, a)}$` }
           texteCorr += ' ou ' + `$x=${texFraction(d, c)}$`
           if (texFraction(d, c) !== texFractionReduite(d, c)) { texteCorr += `$=${texFractionReduite(d, c)}$` }
-
+          setReponse(this, i, texArrayReponsesCoupleDeFractions(fractionSimplifiee(-b, a)[0], fractionSimplifiee(-b, a)[1], fractionSimplifiee(d, c)[0], fractionSimplifiee(d, c)[1]))
           break
       }
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur25')
       }
-      this.introduction = (this.interactif && context.isHtml) ? "<em>S'il y a plusieurs réponses, les séparer par un point-virgule.</em>" : ''
+      this.introduction = (this.interactif && context.isHtml) ? "<em>S'il y a plusieurs réponses, les séparer par un point-virgule. Si c'est une fraction, elle doit être irréductible.</em>" : ''
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
