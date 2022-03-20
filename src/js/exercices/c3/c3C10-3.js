@@ -3,7 +3,7 @@ export const titre = 'Multiplier un nombre entier (ou décimal) par 10, 100 ou 1
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '12/12/2021'

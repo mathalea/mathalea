@@ -1,12 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, miseEnEvidence, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 // on importait amcReady de 5L10 cf commit cf25dab mais mieux vaut le déclarer explicitement
 
 export const titre = 'Additions et de soustractions'
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -75,23 +76,23 @@ export default function TablesAdditionsSoustractions () {
         case 'addition':
           texte = `$${a} + ${b} =$`
           if (this.interactif && context.isHtml) {
-            texte = ajouteChampTexte(this, i, {
+            texte = ajouteChampTexteMathLive(this, i, 'largeur10 inline', {
               texte: `$${a} + ${b} = $`
             })
           }
           texteCorr = `$${a} + ${b} = ${a + b}$`
-          setReponse(this, i, a + b)
+          setReponse(this, i, a + b, { formatInteractif: 'calcul' })
           break
         case 'addition_a_trou':
           texte = `$${a} + \\ldots\\ldots = ${a + b}$`
           if (this.interactif && context.isHtml) {
-            texte = ajouteChampTexte(this, i, {
+            texte = ajouteChampTexteMathLive(this, i, 'largeur10 inline', {
               texte: `$${a}~+ $`,
               texteApres: `$= ${a + b}$`
             })
           }
           texteCorr = `$${a} + ${miseEnEvidence(b)} = ${a + b}$`
-          setReponse(this, i, b)
+          setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
         case 'soustraction':
           if (a === b) {
@@ -102,12 +103,12 @@ export default function TablesAdditionsSoustractions () {
           }
           texte = `$${a} - ${b} =$`
           if (this.interactif && context.isHtml) {
-            texte = ajouteChampTexte(this, i, {
+            texte = ajouteChampTexteMathLive(this, i, 'largeur10 inline', {
               texte: `$${a} - ${b} = $`
             })
           }
           texteCorr = `$${a} - ${b} = ${a - b}$`
-          setReponse(this, i, a - b)
+          setReponse(this, i, a - b, { formatInteractif: 'calcul' })
           break
         case 'soustraction_a_trou':
           if (a === b) {
@@ -118,22 +119,23 @@ export default function TablesAdditionsSoustractions () {
           }
           texte = `$${a} - \\ldots\\ldots = ${a - b}$`
           if (this.interactif && context.isHtml) {
-            texte = ajouteChampTexte(this, i, {
+            texte = ajouteChampTexteMathLive(this, i, 'largeur10 inline', {
               texte: `$${a}~- $`,
               texteApres: `$= ${a - b}$`
             })
           }
           texteCorr = `$${a} - ${miseEnEvidence(b)} = ${a - b}$`
-          setReponse(this, i, b)
+          setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
       }
 
-      this.autoCorrection[i].reponse.param = { digits: nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur[0]), decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
+      this.autoCorrection[i].reponse.param = { digits: nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur[0]), decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0, formatInteractif: 'calcul' }
       this.autoCorrection[i].enonce = texte
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
+    console.log(this.autoCorrection)
   }
   this.besoinFormulaireNumerique = ['Valeur maximale', 9999] // Texte, tooltip
   this.besoinFormulaire2Numerique = [

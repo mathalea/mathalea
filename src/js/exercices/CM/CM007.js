@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Ajouter 11'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 
 /**
@@ -33,7 +34,7 @@ export default function Ajouter11 () {
       texte = `$${a}+11 = $`
       texteCorr = `$${a}+11=${a + 11}$`
       setReponse(this, i, a + 11)
-      if (this.interactif) texte += ajouteChampTexte(this, i)
+      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

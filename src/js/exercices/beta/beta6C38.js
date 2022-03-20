@@ -20,7 +20,7 @@ export default function AugmenterEtReduireDunPourcentage () {
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.interactifType = 'numerique'
+  this.interactifType = 'mathLive'
 
   this.nouvelleVersion = function () {
     const n = parseInt(this.sup) - 1
