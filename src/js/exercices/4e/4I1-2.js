@@ -12,7 +12,7 @@ export const amcType = 'qcmMono'
 export const titre = 'Tortue Scratch avec répétitions'
 
 /**
- * Référence : 4I1-1
+ * Référence : 4I2
  * Publié le : 29/06/2021
  * @author Jean-Claude Lhote
  * Géné
