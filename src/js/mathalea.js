@@ -204,6 +204,7 @@ async function gestionModules (listeObjetsExercice) {
         { left: '\\[', right: '\\]', display: true },
         { left: '$', right: '$', display: false }
       ],
+      preProcess: (chaine) => chaine.replaceAll(String.fromCharCode(160), '\\,'),
       throwOnError: true,
       errorColor: '#CC0000',
       strict: 'warn',
