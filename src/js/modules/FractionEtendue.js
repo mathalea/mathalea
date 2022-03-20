@@ -1,4 +1,4 @@
-import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee } from './outils.js'
+import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm } from 'mathjs'
 import { fraction } from './fractions.js'
@@ -845,5 +845,111 @@ export default class FractionX extends Fraction {
       }
     }
     return objets
+  }
+
+  /**
+ * Renvoie un array avec l'ensemble de réponses possibles correspondant à un couple de fractions et de leurs différentes simplifications afin de pouvoir les placer dans un setReponse
+ * Exemple ['-\\frac{a}{b};\\frac{c}{d}', '\\frac{-a}{b};\\frac{c}{d}', '\\frac{a}{-b};\\frac{c}{d}', '\\frac{c}{d};-\\frac{a}{b}', '\\frac{c}{d};\\frac{-a}{b}', '\\frac{c}{d};\\frac{a}{-b}' ...
+ * @author Guillaume Valmont
+ * @param {number} n1 numérateur de la 1e fraction
+ * @param {number} d1 dénominateur de la 1e fraction
+ * @param {number} n2 numérateur de la 2e fraction
+ * @param {number} d2 dénominateur de la 2e fraction
+ * @returns array avec la liste des couples de fractions égales et simplifiées sous la forme '\\frac{n1}{d1};\\frac{n2}{d2}'
+ */
+  static texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees (n1, d1, n2, d2) {
+    return this.texArrayReponsesCoupleDeFractions(n1, d1, n2, d2, true)
+  }
+
+  /**
+ * Fonction destinée à être utilisée conjointement avec setReponse
+ * Exemple [\\frac{18}{6}, \\frac{-18}{-6}, -\\frac{-18}{6}, -\\frac{18}{-6}, \\frac{9}{3}, \\frac{-9}{-3}, -\\frac{-9}{3}, -\\frac{9}{-3}, 3]
+ * @author Guillaume Valmont
+ * @param {number} n numérateur
+ * @param {number} d dénominateur
+ * @returns array avec la liste des fractions égales et simplifiées sous la forme '\\frac{n}{d}'
+ */
+  static texArrayReponsesFractionsEgalesEtSimplifiees (n, d) {
+    const fractionsSimplifiees = this.listerFractionsSimplifiees(n, d)
+    const liste = []
+    for (const fractionSimplifiee of fractionsSimplifiees) {
+      const reponses = this.texArrayReponsesFraction(fractionSimplifiee[0], fractionSimplifiee[1])
+      for (const reponse of reponses) {
+        liste.push(reponse)
+      }
+    }
+    return liste
+  }
+
+  /**
+ * Renvoie un array avec l'ensemble de réponses possibles correspondant à un couple de fractions afin de pouvoir les placer dans un setReponse
+ * Exemple ['-\\frac{a}{b};\\frac{c}{d}', '\\frac{-a}{b};\\frac{c}{d}', '\\frac{a}{-b};\\frac{c}{d}', '\\frac{c}{d};-\\frac{a}{b}', '\\frac{c}{d};\\frac{-a}{b}', '\\frac{c}{d};\\frac{a}{-b}' ...
+ * @author Guillaume Valmont
+ * @param {number} n1 numérateur 1
+ * @param {number} d1 dénominateur 1
+ * @param {number} n2 numérateur 1
+ * @param {number} d2 dénominateur 1
+ * @param {boolean} egalesEtSimplifiees true si on veut inclure l'ensemble des fractions égales et simplifiées
+ * @returns array avec la liste des couples de fractions sous la forme '\\frac{n1}{d1};\\frac{n2}{d2}'
+ */
+  static texArrayReponsesCoupleDeFractions (n1, d1, n2, d2, egalesEtSimplifiees = false) {
+    let listeFraction1, listeFraction2
+    if (egalesEtSimplifiees) {
+      listeFraction1 = this.texArrayReponsesFractionsEgalesEtSimplifiees(n1, d1)
+      listeFraction2 = this.texArrayReponsesFractionsEgalesEtSimplifiees(n2, d2)
+    } else {
+      listeFraction1 = this.texArrayReponsesFraction(n1, d1)
+      listeFraction2 = this.texArrayReponsesFraction(n2, d2)
+    }
+    const listeCouples = []
+    for (const ecriture1 of listeFraction1) {
+      for (const ecriture2 of listeFraction2) {
+        listeCouples.push(ecriture1 + ';' + ecriture2, ecriture2 + ';' + ecriture1)
+      }
+    }
+    return listeCouples
+  }
+
+  /**
+ * Fonction destinée à lister l'ensemble des possibilités d'écriture d'une même fraction pour être comparées dans un setReponse
+ * @author Guillaume Valmont
+ * @param {number} numerateur
+ * @param {number} denominateur
+ * @returns array avec l'ensemble des possibilités d'écriture d'une même fraction au format LateX
+ */
+  static texArrayReponsesFraction (numerateur, denominateur) {
+    const n = Math.abs(numerateur)
+    const d = Math.abs(denominateur)
+    if (d === 1) {
+      return [(numerateur * denominateur).toString()]
+    } else {
+      if (numerateur * denominateur > 0) {
+        return [`\\frac{${n}}{${d}}`, `\\frac{${-n}}{${-d}}`, `-\\frac{${-n}}{${d}}`, `-\\frac{${n}}{${-d}}`]
+      } else if (numerateur * denominateur < 0) {
+        return [`-\\frac{${n}}{${d}}`, `-\\frac{${-n}}{${-d}}`, `\\frac{${-n}}{${d}}`, `\\frac{${n}}{${-d}}`]
+      } else {
+        return ['0']
+      }
+    }
+  }
+
+  /**
+ * Renvoie l'ensemble des fractions égales et simplifiées
+ * Ne change pas et ne déplace pas les signes (s'il y a un "-" au dénominateur, il restera au dénominateur)
+ * @author Guillaume Valmont
+ * @param {number} n
+ * @param {number} d
+ * @returns array de couples [numerateur, denominateur] de l'ensemble des fractions égales et simplifiées
+ */
+  static listerFractionsSimplifiees (n, d) {
+    if (pgcd(n, d) === 1) {
+      return [[n, d]]
+    } else {
+      const liste = []
+      for (const diviseur of listeDiviseurs(pgcd(n, d))) {
+        liste.push([n / diviseur, d / diviseur])
+      }
+      return liste
+    }
   }
 }

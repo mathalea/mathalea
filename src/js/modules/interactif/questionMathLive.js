@@ -49,7 +49,6 @@ export function verifQuestionMathLive (exercice, i) {
         // Le format par défaut
       // Pour le calcul littéral on remplace dfrac en frac
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        console.log('saisie : ', saisie, ' reponse : ', reponse)
         saisie = champTexte !== undefined ? champTexte.value : ''
         if (typeof reponse === 'string') {
           reponse = reponse.replaceAll('dfrac', 'frac')
