@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite, texFraction, texArrayReponsesCoupleDeFractions, fractionSimplifiee, texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite, texFraction } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Résoudre une équation produit nul'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -103,7 +104,7 @@ export default function ResoudreUneEquationProduitNul () {
           if (texFraction(b, a) !== texFractionReduite(b, a)) { texteCorr += `$=-${texFractionReduite(b, a)}$` }
           texteCorr += ' ou ' + `$x=-${texFraction(d, c)}$`
           if (texFraction(d, c) !== texFractionReduite(d, c)) { texteCorr += `$=-${texFractionReduite(d, c)}$` }
-          setReponse(this, i, texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, -d, c))
+          setReponse(this, i, FractionX.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, -d, c))
           break
         case 6:
           a = randint(2, 9) // (ax+b)(cx-d)=0 avec b/a et d/c quelconques.
@@ -119,7 +120,7 @@ export default function ResoudreUneEquationProduitNul () {
           if (texFraction(b, a) !== texFractionReduite(b, a)) { texteCorr += `$=-${texFractionReduite(b, a)}$` }
           texteCorr += ' ou ' + `$x=${texFraction(d, c)}$`
           if (texFraction(d, c) !== texFractionReduite(d, c)) { texteCorr += `$=${texFractionReduite(d, c)}$` }
-          setReponse(this, i, texArrayReponsesCoupleDeFractions(fractionSimplifiee(-b, a)[0], fractionSimplifiee(-b, a)[1], fractionSimplifiee(d, c)[0], fractionSimplifiee(d, c)[1]))
+          setReponse(this, i, FractionX.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, d, c))
           break
       }
       if (this.interactif) {
