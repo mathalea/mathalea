@@ -5,8 +5,7 @@ import { listeQuestionsToContenuSansNumero, randint, choice, calcul, shuffle, ar
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
 import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, baisseCrayon, allerA, leveCrayon, tracePoint, point, segment, tournerG, texteParPoint } from '../../modules/2d.js'
 export const interactifReady = true
-// il y avait un fonctionnement avec amcType cf commit 3ae7c43
-export const interactifType = 'cliqueFigure' // La correction doit être gérée dans l'exercice avec la méthode this.correctionInteractive()
+export const interactifType = 'cliqueFigure'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const titre = 'Tortue Scratch avec répétitions'
@@ -29,6 +28,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
   this.pas_de_version_HMTL = false
   this.typeExercice = 'Scratch'
   this.listePackages = 'scratch3'
+  this.interactif = true
 
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
@@ -39,13 +39,6 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     const objetsCorrection = []
     const paramsCorrection = {}
     const paramsEnonces = {}
-    /*  const typeDeQuestions = [
-      'polygonesReguliers',
-      'spirales',
-      'frises',
-      'rosaces'
-    ]
-    */
 
     const choix = choice([
       'polygonesReguliers',
@@ -512,8 +505,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       if (i === 1) texte += '<br>'
     }
     if (context.isHtml) {
-      texte += '</td></tr>'
-      texte += `<div id="resultatCheckEx${numeroExercice}Q0"></div>`
+      texte += '</td></tr></table>'
     } else {
       texte += '\\end{minipage} '
     }
@@ -545,7 +537,10 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     this.indiceBonneFigure = ordreLutins.indexOf(bonneReponse)
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
     texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}`
-    texte += `<span id="resultatCheckEx${this.numeroExercice}Q0"></span>`
+    if (this.interactif && context.isHtml) {
+      texte += `<span id="resultatCheckEx${this.numeroExercice}Q0"></span>`
+      console.log(this.numeroExercice)
+    }
     this.figures[0] = [{ id: `figure0Ex${this.numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 0) },
       { id: `figure1Ex${numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 1) },
       { id: `figure2Ex${numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 2) },
