@@ -16,7 +16,6 @@ export function exerciceInteractif (exercice) {
   } else if (context.isHtml) {
     if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
     if (exercice.interactifType === 'listeDeroulante')exerciceListeDeroulante(exercice)
-    if (exercice.interactifType === 'numerique')exerciceNumerique(exercice)
     if (exercice.interactifType === 'cliqueFigure')exerciceCliqueFigure(exercice)
     if (exercice.interactifType === 'custom') exerciceCustom(exercice)
     // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
