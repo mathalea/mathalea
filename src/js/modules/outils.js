@@ -2715,7 +2715,7 @@ export function sp (nb = 1) {
   let s = ''
   for (let i = 0; i < nb; i++) {
     if (context.isHtml) s += '&nbsp;'
-    else s += '~'
+    else s += '\\,'
   }
   return s
 }
