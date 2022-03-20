@@ -3,25 +3,18 @@ import { addElement, get, setStyles } from './dom.js'
 import { exerciceCliqueFigure } from './interactif/cliqueFigure.js'
 import { exerciceListeDeroulante } from './interactif/questionListeDeroulante.js'
 import { exerciceMathLive } from './interactif/questionMathLive.js'
-import { exerciceNumerique } from './interactif/questionNumerique.js'
 import { exerciceQcm } from './interactif/questionQcm.js'
 import { isUserIdOk } from './interactif/isUserIdOk.js'
 import { gestionCan } from './interactif/gestionCan.js'
 
 export function exerciceInteractif (exercice) {
-  // passage amsType num à string cf commit 385b5ea
-  if (context.isAmc) {
-    if (exercice.amcType === 'AMCNum' || exercice.amcType === 'AMCOpenNum') exerciceNumerique(exercice)
-    if (exercice.amcType === 'qcmMono' || exercice.amcType === 'qcmMult') exerciceQcm(exercice)
-  } else if (context.isHtml) {
-    if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
-    if (exercice.interactifType === 'listeDeroulante')exerciceListeDeroulante(exercice)
-    if (exercice.interactifType === 'cliqueFigure')exerciceCliqueFigure(exercice)
-    if (exercice.interactifType === 'custom') exerciceCustom(exercice)
-    // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
-    if (exercice.interactifType === 'mathLive') exerciceMathLive(exercice)
-    if (exercice.interactifType === undefined) exerciceNonInteractif(exercice)
-  }
+  if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
+  if (exercice.interactifType === 'listeDeroulante')exerciceListeDeroulante(exercice)
+  if (exercice.interactifType === 'cliqueFigure')exerciceCliqueFigure(exercice)
+  if (exercice.interactifType === 'custom') exerciceCustom(exercice)
+  // Pour les exercices de type custom, on appelle la méthode correctionInteractive() définie dans l'exercice
+  if (exercice.interactifType === 'mathLive') exerciceMathLive(exercice)
+  if (exercice.interactifType === undefined) exerciceNonInteractif(exercice)
 }
 
 /**
