@@ -2,10 +2,11 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, arrondi, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale, texFraction, arrondiVirgule } from '../../modules/outils.js'
-import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const amcReady = true // Jusqu'à l'adaptation à la version 2.6
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcType = 'AMCNum' // Question numérique
 export const titre = 'Calculer la valeur décimale d\'une fraction'
 export const dateDePublication = '18/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -112,7 +113,7 @@ export default function DivisionFraction () {
         texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}\\approx${arrondiVirgule(q)}$`
       }
       setReponse(this, i, q)
-      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexte(this, i)
+      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]

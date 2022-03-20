@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, calcul, texNombrec, texNombre, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 
 export const amcType = 'AMCNum' // Question numérique
 export const titre = 'Calculer le produit de deux décimaux connaissant le produit de deux entiers'
@@ -138,7 +139,7 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
           reponse = enonces[2].reponse
           break
       };
-      if (context.isHtml && this.interactif) texte += ajouteChampTexte(this, i, { inline: false })
+      if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur25')
       setReponse(this, i, reponse)
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
