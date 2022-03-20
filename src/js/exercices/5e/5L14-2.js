@@ -2,10 +2,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, range, combinaisonListes, ecritureParentheseSiNegatif, lettreDepuisChiffre } from '../../modules/outils.js'
-import { ajouteChampTexte, exerciceInteractif } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexte, setReponse, exerciceInteractif } from '../../modules/gestionInteractif.js'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC NumeriqueChoice
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const interactifReady = true
 
 export const titre = 'Substitution'
@@ -123,7 +123,8 @@ export default function ExerciceSubstituer (difficulte = 1) {
           texte: '$~=$'
         })
       }
-      this.autoCorrection[i] = {
+      setReponse(this, i, reponse, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
+      /* this.autoCorrection[i] = {
         enonce: texte + '\\\\' + this.consigne,
         propositions: [
           {
@@ -145,6 +146,7 @@ export default function ExerciceSubstituer (difficulte = 1) {
           }
         }
       }
+      */
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

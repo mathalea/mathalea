@@ -2521,7 +2521,7 @@ export function numberFormat (nb) {
  */
 export function texNombre (nb, precision = 8) {
   const result = afficherNombre(nb, precision, 'texNombre')
-  return result.replace(/\s+/g, '\\,').replace(',', '{,}')
+  return result.replace(',', '{,}').replace(/\s+/g, '\\,')
 }
 
 /**
