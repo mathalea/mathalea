@@ -2627,7 +2627,7 @@ export function numberFormat (nb) {
  */
 export function texNombre (nb, precision = 8) {
   const result = afficherNombre(nb, precision, 'texNombre')
-  return result.replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+  return result.replace(/\s+/g, '\\,').replace(',', '{,}')
 }
 
 /**
@@ -2649,10 +2649,10 @@ export function texNombre2 (nb) {
   }
 
   for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    partieEntiere = partieEntiere.substring(0, i) + '\\thickspace ' + partieEntiere.substring(i)
+    partieEntiere = partieEntiere.substring(0, i) + '\\,' + partieEntiere.substring(i)
   }
   for (let i = 3; i < partieDecimale.length; i += 3) {
-    partieDecimale = partieDecimale.substring(0, i) + '\\thickspace ' + partieDecimale.substring(i)
+    partieDecimale = partieDecimale.substring(0, i) + '\\,' + partieDecimale.substring(i)
     i += 12
   }
   if (partieDecimale === '') {
@@ -2847,7 +2847,7 @@ function afficherNombre (nb, precision, fonction) {
    * @param {number} precision nombre de décimales demandé
    * @returns string avec le nombre dans le format français
    */
-  function insereEspacesNombre (nb, maximumSignificantDigits = 15) {
+  function insereEspacesNombre (nb, maximumSignificantDigits = 15, fonction) {
     if (Number(nb) === 0) return '0'
     // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
     let nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
@@ -2868,7 +2868,7 @@ function afficherNombre (nb, precision, fonction) {
     //   partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
     // }
     for (let i = 3; i < partieDecimale.length; i += 4) { // des paquets de 3 nombres + 1 espace
-      partieDecimale = partieDecimale.substring(0, i) + ' ' + partieDecimale.substring(i)
+      partieDecimale = partieDecimale.substring(0, i) + (fonction === 'texNombre' ? '\\,' : ' ') + partieDecimale.substring(i)
     }
     if (partieDecimale === '') {
       nombre = partieEntiere
@@ -2896,9 +2896,9 @@ function afficherNombre (nb, precision, fonction) {
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
   if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
     window.notify(fonction + ' : Trop de chiffres', { nb, precision })
-    return insereEspacesNombre(nb, 15)
+    return insereEspacesNombre(nb, 15, fonction)
   } else {
-    return insereEspacesNombre(nb, maximumSignificantDigits)
+    return insereEspacesNombre(nb, maximumSignificantDigits, fonction)
   }
 }
 /**
