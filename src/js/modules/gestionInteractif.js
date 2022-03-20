@@ -6,6 +6,7 @@ import { exerciceMathLive } from './interactif/questionMathLive.js'
 import { exerciceQcm } from './interactif/questionQcm.js'
 import { isUserIdOk } from './interactif/isUserIdOk.js'
 import { gestionCan } from './interactif/gestionCan.js'
+import FractionX from './FractionEtendue.js'
 
 export function exerciceInteractif (exercice) {
   if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
@@ -49,7 +50,7 @@ export function ajouteChampTexte (exercice, i, { texte = '', texteApres = '', in
 export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, signe = false, exposantNbChiffres = 0, exposantSigne = false, approx = 0, aussiCorrect, digitsNum, digitsDen, basePuissance, exposantPuissance, baseNbChiffres, milieuIntervalle, formatInteractif = 'calcul' } = {}) {
   let reponses = []
 
-  if (Array.isArray(valeurs)) { // J'ai remis ici une condition non negative.
+  if (Array.isArray(valeurs)) {
     reponses = valeurs // reponses contient donc directement le tableau valeurs
     // si valeur est un tableau ou prend le signe de la première valeur
     if (valeurs[0].num === undefined) {
@@ -65,6 +66,49 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
       signe = valeurs.signe === -1 ? true : signe // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
     }
   }
+
+  switch (formatInteractif) {
+    case 'Num':
+      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : une fraction est attendue !', { reponses })
+      else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
+      break
+    case 'Den':
+      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : une fraction est attendue !', { reponses })
+      break
+    case 'calcul':
+
+      break
+    case 'ecritureScientifique':
+
+      break
+
+    case 'texte':
+      break
+
+    case 'ignorerCasse':
+      break
+    case 'fractionPlusSimple':
+      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : une fraction est attendue !', { reponses })
+      else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
+      break
+    case 'fractionEgale':
+      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : une fraction est attendue !', { reponses })
+      else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
+      break
+    case 'fraction':
+      if (!(reponses[0] instanceof FractionX)) window.notify('setReponse : une fraction est attendue !', { reponses })
+      else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
+      break
+    case 'longueur': // Pour les exercices où l'on attend une mesure avec une unité au choix
+      break
+    case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
+      break
+    case 'intervalle' :
+      break
+    case 'puissance' :
+      break
+  }
+
   if (exercice.autoCorrection[i] === undefined) {
     exercice.autoCorrection[i] = {}
   }
