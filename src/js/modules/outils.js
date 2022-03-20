@@ -2878,7 +2878,10 @@ function afficherNombre (nb, precision, fonction) {
     return nombre
   }
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
-  if (isNaN(nb)) return nb
+  if (isNaN(nb)) {
+    window.notify('AfficherNombre : Le nombre n\'en est pas un', { nb, precision, fonction })
+    return ''
+  }
   if (Number(nb) === 0) return '0'
   // si c'en est un, on le formate.
   const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
