@@ -996,13 +996,47 @@ function Droite (arg1, arg2, arg3, arg4) {
     }
   }
   this.tikz = function () {
+    const tableauOptions = []
+    if (this.color.length > 1 && this.color !== 'black') {
+      tableauOptions.push(this.color)
+    }
+    if (this.epaisseur !== 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`)
+    }
+    if (this.pointilles) {
+      switch (this.pointilles) {
+        case 1:
+          tableauOptions.push(' dash dot ')
+          break
+        case 2:
+          tableauOptions.push(' densely dash dot dot ')
+          break
+        case 3:
+          tableauOptions.push(' dash dot dot ')
+          break
+        case 4:
+          tableauOptions.push(' dotted ')
+          break
+        default:
+          tableauOptions.push(' dashed ')
+          break
+      }
+    }
+
+    if (this.opacite !== 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`)
+    }
+
+    let optionsDraw = []
+    if (tableauOptions.length > 0) {
+      optionsDraw = '[' + tableauOptions.join(',') + ']'
+    }
     const A = point(this.x1, this.y1)
     const B = point(this.x2, this.y2)
     const A1 = pointSurSegment(A, B, -50)
     const B1 = pointSurSegment(B, A, -50)
-    const s = segment(A1, B1, this.color)
-    s.isVisible = this.isVisible
-    return s.tikz() + leNom.tikz()
+
+    if (this.nom !== '') { return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});` + leNom.tikz() } else { return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});` }
   }
   this.svgml = function (coeff, amp) {
     const A = point(this.x1, this.y1)
