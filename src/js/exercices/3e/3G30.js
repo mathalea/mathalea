@@ -23,7 +23,6 @@ export default function CalculDeLongueur () {
   Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 3
-  this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = false
