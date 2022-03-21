@@ -954,7 +954,7 @@ function Droite (arg1, arg2, arg3, arg4) {
       }
     }
     leNom = texteParPosition(this.nom, absNom, ordNom, 'milieu', this.color, 1, 'middle', true)
-  }
+  } else leNom = vide2d()
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
@@ -995,14 +995,22 @@ function Droite (arg1, arg2, arg3, arg4) {
     )}" y2="${B1.ySVG(coeff)}" stroke="${this.color}" ${this.style} id ="${this.id}" />` + leNom.svg(coeff)
     }
   }
-
+  this.tikz = function () {
+    const A = point(this.x1, this.y1)
+    const B = point(this.x2, this.y2)
+    const A1 = pointSurSegment(A, B, -50)
+    const B1 = pointSurSegment(B, A, -50)
+    const s = segment(A1, B1, this.color)
+    s.isVisible = this.isVisible
+    return s.tikz() + leNom.tikz()
+  }
   this.svgml = function (coeff, amp) {
     const A = point(this.x1, this.y1)
     const B = point(this.x2, this.y2)
     const A1 = pointSurSegment(A, B, -50)
     const B1 = pointSurSegment(B, A, -50)
     const s = segment(A1, B1, this.color)
-    s.isVisible = false
+    s.isVisible = this.isVisible
     return s.svgml(coeff, amp) + leNom.svg(coeff)
   }
   this.tikzml = function (amp) {
@@ -1011,7 +1019,7 @@ function Droite (arg1, arg2, arg3, arg4) {
     const A1 = pointSurSegment(A, B, -50)
     const B1 = pointSurSegment(B, A, -50)
     const s = segment(A1, B1, this.color)
-    s.isVisible = false
+    s.isVisible = this.isVisible
     return s.tikzml(amp) + leNom.tikz()
   }
 }
