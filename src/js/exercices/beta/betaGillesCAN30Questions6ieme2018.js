@@ -3,9 +3,10 @@ import { fraction } from '../../modules/fractions.js'
 import {
   mathalea2d, point, polygoneAvecNom, droiteGraduee2, segmentAvecExtremites, segment, milieu, texteParPosition
 } from '../../modules/2d.js'
-import { listeQuestionsToContenu, randint, texNombrec, miseEnEvidence, shuffle, range1, combinaisonListesSansChangerOrdre, prenomF, choice, arrondi, calcul, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombrec, miseEnEvidence, shuffle, prenomF, choice, arrondi, calcul, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { round } from 'mathjs'
 export const titre = 'CAN 6ième 30 questions sujet 2018'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,45 +19,36 @@ export const dateDePublication = '13/03/2022' // La date de publication initiale
  * Gilles Mora
  * Référence
 */
+
+function compareNombres (a, b) {
+  return a - b
+}
+
 export default function SujetCAN20186ieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.nbQuestions = 30// 10,20,30
+  this.nbQuestions = 30 // 10,20,30
   this.nbCols = 1
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let questions = []
-    if (!this.sup) {
-      // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(30), this.nbQuestions)
-    } else {
-      if (typeof this.sup === 'number') {
-        // Si c'est un nombre c'est qu'il y a qu'une seule question
-        questions[0] = this.sup
-        this.nbQuestions = 1
-      } else {
-        questions = this.sup.split('-') // Sinon on créé un tableau à partir des valeurs séparées par des -
-        this.nbQuestions = questions.length
-      }
-    }
-    for (let i = 0; i < questions.length; i++) {
-      questions[i] = parseInt(questions[i]) - 1
-    }
-    const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
-    const typeQuestionsDisponibles = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-      '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-      '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']//
+    const nbQ1 = round(this.nbQuestions * 7 / 30) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+    const nbQ2 = this.nbQuestions - nbQ1
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 4, 5, 6, 7, 10]).slice(-nbQ1)
+    const typeQuestionsDisponiblesNiv2 = shuffle([3, 8, 9,
+      11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2)
+    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2)).sort(compareNombres)
     const listeFractions1 = [[5, 3], [7, 3], [10, 3], [11, 3], [17, 3],
       [13, 6], [17, 6], [23, 6], [8, 7], [15, 7], [20, 7],
       [14, 3], [22, 3], [25, 3]]
     for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction1 = [], propositions, choix, truc, chiffre, chiffre2, a, b, c, d, m, n, k, j, A, B, C, D, E, F, G, H, pol, n1, d1, pol2, l, L, l2, prenom1, xmin, xmax, ymin, ymax, objets, fleurs, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (typeQuestionsDisponibles[listeIndex[i]]) {
-        case '1':
+      switch (typeQuestionsDisponibles[i]) {
+        case 1 :
           a = randint(4, 8)
           b = randint(4, 9)
           texte = `$${a} \\times ${b}=$ `
@@ -68,7 +60,7 @@ export default function SujetCAN20186ieme () {
 
           break
 
-        case '2':
+        case 2 :
           a = randint(21, 29)
           b = randint(11, 19)
 
@@ -81,7 +73,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '3':
+        case 3 :
 
           a = randint(0, 3)
           b = randint(1, 9, a)
@@ -112,7 +104,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '4':
+        case 4 :
 
           a = calcul(randint(1, 3) * 100 + randint(1, 10))
           b = choice([11, 12, 13])
@@ -125,7 +117,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '5':
+        case 5 :
           a = randint(2, 9)
           b = randint(4, 10)
           c = a * b
@@ -141,7 +133,7 @@ export default function SujetCAN20186ieme () {
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
-        case '6':
+        case 6 :
           a = randint(2, 5)
           b = choice([10, 15, 20, 25, 30, 35, 40])
           reponse = calcul(b + 15)
@@ -159,7 +151,7 @@ export default function SujetCAN20186ieme () {
 
           break
 
-        case '7':
+        case 7 :
           a = calcul(randint(13, 35) * 2)
 
           reponse = calcul(a / 2)
@@ -172,7 +164,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '8':
+        case 8 :
           a = randint(3, 6)
           b = choice([1, a - 1])
           reponse = fraction(b, a)// .simplifie()
@@ -199,7 +191,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '9':
+        case 9 :
           a = randint(11, 15)
           b = calcul(randint(2, 5) * 10)
           k = randint(2, 3)
@@ -215,7 +207,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '10':
+        case 10 :
           a = calcul(randint(2, 4) * 12)
           k = choice([3, 4, 6])
           reponse = calcul(a / k)
@@ -227,7 +219,7 @@ export default function SujetCAN20186ieme () {
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
-        case '11':
+        case 11 :
           a = randint(2, 9)
           b = randint(2, 9)
           texte = `Donne l'écriture décimale de $(${a}\\times 10)+\\left(${b}\\times \\dfrac{1}{100}\\right)$.`
@@ -237,7 +229,7 @@ export default function SujetCAN20186ieme () {
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
-        case '12':
+        case 12 :
           a = randint(3, 9)
           b = randint(11, 29, 20)
           reponse = a * 10 + b
@@ -250,7 +242,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '13':
+        case 13 :
           a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
           reponse = calcul(a / 5)
           texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
@@ -276,7 +268,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '14':
+        case 14 :
           a = choice([4, 8, 12, 16])
           b = choice([0.5, 0.25])
           reponse = calcul(a * b)
@@ -294,7 +286,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '15':
+        case 15 :
           fleurs = choice(['roses', 'tulipes', 'pâquerettes', 'mufliers'])
           k = randint(3, 7)
 
@@ -311,7 +303,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '16':
+        case 16 :
           a = choice(['du quart', 'du cinquième', 'des trois quarts', 'de la moitié'])
           texte = `L'écriture décimale ${a} de $1$ est : `
           if (a === 'du quart') {
@@ -334,7 +326,7 @@ export default function SujetCAN20186ieme () {
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
-        case '17':
+        case 17 :
           truc = [['dixièmes', 0.1], ['centièmes', 0.01], ['millièmes', 0.001]]
           a = choice([10, 100, 1000])
           b = randint(1, 9)
@@ -349,7 +341,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '18':
+        case 18 :
           j = randint(3, 8)
           A = point(0, 0)
           B = point(j, 0)
@@ -385,7 +377,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '19':
+        case 19 :
           a = calcul((2 * randint(3, 12) + 1) / 2)
 
           reponse = calcul(a * 2)
@@ -398,7 +390,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '20':
+        case 20 :
           fraction1 = choice(listeFractions1)
           n1 = fraction1[0]
           d1 = fraction1[1]
@@ -418,7 +410,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 2
           break
 
-        case '21':
+        case 21 :
 
           a = calcul(randint(1, 4) * 12)
           if (choice([true, false])) {
@@ -436,7 +428,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '22':
+        case 22 :
 
           a = calcul(randint(1, 4) * 120)
           if (choice([true, false])) {
@@ -454,7 +446,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '23':
+        case 23 :
           chiffre = [['deux', 2], ['trois', 3], ['cinq', 5]]
           chiffre2 = [['vingt', 20], ['trente', 30], ['cinquante', 50]]
           a = randint(0, 2)
@@ -503,7 +495,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '24':
+        case 24 :
           a = calcul(randint(4, 9) / 10)
           k = randint(2, 5)
           reponse = a
@@ -519,7 +511,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '25':
+        case 25 :
           l = randint(2, 8)
           k = randint(2, 5)
           L = k * l
@@ -564,7 +556,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '26':
+        case 26 :
           a = randint(2, 9)
           b = calcul(randint(1, 9) / 10)
 
@@ -577,7 +569,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '27':
+        case 27 :
           prenom1 = prenomF()
 
           b = randint(3, 5)
@@ -592,7 +584,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '28':
+        case 28 :
           a = randint(2, 9)
           texte = `Complète $${a}$ m$^3=$ `
           texteCorr = `$1$ m$^3$ est égal à $1000$ litres. Ainsi, $${a}$ m$^3=${a}\\times 1000=${texNombrec(1000 * a)}$ L.`
@@ -603,7 +595,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '29':
+        case 29 :
           a = calcul(2 + randint(6, 9) / 10)
           b = calcul(2 + randint(1, 7) / 10 + randint(1, 9) / 100)
           c = calcul(2 + randint(0, 7) / 10 + randint(7, 9) / 100 + randint(1, 9) / 1000)
@@ -619,7 +611,7 @@ export default function SujetCAN20186ieme () {
           nbChamps = 1
           break
 
-        case '30':
+        case 30 :
           a = randint(2, 3)
           b = randint(2, 3)
           c = randint(2, 3)
