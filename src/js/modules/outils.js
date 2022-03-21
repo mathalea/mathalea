@@ -937,9 +937,9 @@ export function ecritureAlgebrique (a) {
   if (a instanceof Fraction || a instanceof FractionX) return fraction(a).ecritureAlgebrique
   else if (typeof a === 'number') {
     if (a >= 0) {
-      return '+' + texNombre(a)
+      return '+' + stringNombre(a)
     } else {
-      return texNombre(a)
+      return stringNombre(a)
     }
   } else window.notify('rienSi1 : type de valeur non prise en compte')
 }
@@ -1494,11 +1494,11 @@ export function reduireAxPlusB (a, b) {
   if (a !== 0) {
     if (a === 1) result = 'x'
     else if (a === -1) result = '-x'
-    else result = `${texNombrec(a)}x`
+    else result = `${stringNombre(a)}x`
   }
   if (b !== 0) {
     if (a !== 0) result += `${ecritureAlgebrique(b)}`
-    else result = texNombrec(b)
+    else result = stringNombre(b)
   } else if (a === 0) result = '0'
   return result
 }
