@@ -3464,6 +3464,36 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
       return code
     }
   }
+
+  this.tikzml = function (amp) {
+    let optionsDraw = []
+    const tableauOptions = []
+    const A = point(Omega.x + 1, Omega.y)
+    const azimut = arrondi(angleOriente(A, Omega, M), 1)
+    const anglefin = arrondi(azimut + angle, 1)
+    const N = rotation(M, Omega, angle)
+    if (this.color.length > 1 && this.color !== 'black') {
+      tableauOptions.push(this.color)
+    }
+    if (this.epaisseur !== 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`)
+    }
+    if (this.opacite !== 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`)
+    }
+    if (rayon && fill !== 'none') {
+      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+    }
+    if (rayon && fill !== 'none') {
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+    }
+    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
+
+    optionsDraw = '[' + tableauOptions.join(',') + ']'
+
+    if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) -- cycle ;`
+    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) ;`
+  }
 }
 /**
  * @param {Point} M Point de départ de l'arc
