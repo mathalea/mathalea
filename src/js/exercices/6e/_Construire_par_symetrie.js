@@ -397,7 +397,7 @@ export default class ConstruireParSymetrie extends Exercice {
           sED = droite(p2.listePoints[2], p2.listePoints[1], '', 'gray')
           sED.pointilles = true
           objetsCorrection.push(d, cC, cD, cE, sC, sD, sE, CC, DD, p1, p1.sommets, p2, p2.sommets, sCE, sED)
-          objetsEnonce.push(d, CC, p1)
+          objetsEnonce.push(CC, p1, d)
           if (context.isHtml) {
             numQuestion = 0
             enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'
@@ -452,7 +452,7 @@ export default class ConstruireParSymetrie extends Exercice {
           sED = droite(p2.listePoints[2], p2.listePoints[1], '', 'gray')
           sED.pointilles = true
           objetsCorrection.push(d, cC, cD, cE, sC, sD, sE, CC, DD, p1, p1.sommets, p2, p2.sommets, sCE, sED)
-          objetsEnonce.push(d, CC, p1)
+          objetsEnonce.push(CC, p1, d)
           if (context.isHtml) {
             numQuestion = 0
             enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'
@@ -501,7 +501,7 @@ export default class ConstruireParSymetrie extends Exercice {
           sED.pointilles = true
           //  inter = pointIntersectionDD(sCE, sED)
           objetsCorrection.push(d, cC, cD, cE, sC, sD, sE, CC, DD, p1, p2, sCE, sED)
-          objetsEnonce.push(d, CC, p1)
+          objetsEnonce.push(CC, p1, d)
           if (context.isHtml) {
             numQuestion = 0
             enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'
@@ -521,8 +521,9 @@ export default class ConstruireParSymetrie extends Exercice {
         case 6: // 3 symétries centrales de points
           p1nom = creerNomDePolygone(4, 'PQX')
           B = point(7, randint(-1, 1), `${p1nom[1]}`, 'above')
-          d = droiteParPointEtPente(B, 0);
-          [A, C, D] = this._choisi3Points(d, choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']]))
+          d = droiteParPointEtPente(B, 0)
+          d.isVisible = true
+          ;[A, C, D] = this._choisi3Points(d, choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']]))
           A.nom = p1nom[0]
           A.positionLabel = 'above'
           C.nom = p1nom[2]
@@ -561,8 +562,9 @@ export default class ConstruireParSymetrie extends Exercice {
         case 7: // Symétrie centrale de triangle
           p1nom = creerNomDePolygone(4, 'PQX')
           B = point(7, randint(-1, 1), `${p1nom[1]}`, 'above')
-          d = droiteParPointEtPente(B, 0);
-          [A, C, D] = this._choisi3Points(d, choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']]))
+          d = droiteParPointEtPente(B, 0)
+          d.isVisible = true
+          ;[A, C, D] = this._choisi3Points(d, choice([['dessus', 'dessous', 'dessus'], ['dessous', 'dessus', 'dessous']]))
           A.nom = p1nom[0]
           A.positionLabel = 'above'
           C.nom = p1nom[2]
@@ -615,23 +617,21 @@ export default class ConstruireParSymetrie extends Exercice {
         scale: sc
       }
       if (this.sup2 < 3) g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
-      else g = ''
+      else g = vide2d()
       if (parseInt(this.sup2) === 2) {
         k = 0.8
         carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
       } else {
         k = 0.5
-        carreaux = ''
+        carreaux = vide2d()
       }
-      objetsEnonce.push(g, carreaux)
-      objetsCorrection.push(g, carreaux)
       enonce += mathalea2d(params
         ,
-        objetsEnonce
+        g, carreaux, ...objetsEnonce
       )
       correction += mathalea2d(
         params,
-        objetsCorrection
+        g, carreaux, ...objetsCorrection
       )
 
       if (context.isAmc) {
