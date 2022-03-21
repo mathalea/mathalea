@@ -6,7 +6,7 @@ import {
 import { listeQuestionsToContenu, randint, texNombrec, miseEnEvidence, shuffle, prenomF, choice, arrondi, calcul, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { round } from 'mathjs'
+import { round, min } from 'mathjs'
 export const titre = 'CAN 6ième 30 questions sujet 2018'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -36,8 +36,8 @@ export default function SujetCAN20186ieme () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const nbQ1 = round(this.nbQuestions * 7 / 30) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
-    const nbQ2 = this.nbQuestions - nbQ1
+    const nbQ1 = min(round(this.nbQuestions * 7 / 30), 7) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+    const nbQ2 = min(this.nbQuestions - nbQ1, 23)
     const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 4, 5, 6, 7, 10]).slice(-nbQ1)
     const typeQuestionsDisponiblesNiv2 = shuffle([3, 8, 9,
       11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
