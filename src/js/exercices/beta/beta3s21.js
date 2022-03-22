@@ -92,9 +92,9 @@ export default function StabilisationFrequence () {
               break
           }
           texteCorr += 'd\'apparaitre. <br>'
-          texteCorr += `Comme le dé a été lancé ${nombreAvecEspace(nbLancers)} fois, les fréquences doivent se stabiliser autour de la probabilité. `
+          texteCorr += `Comme le dé a été lancé ${nombreAvecEspace(nbLancers)} fois, les fréquences doivent se stabiliser au niveau de la probabilité. `
           texteCorr += 'Les valeurs du tableau de fréquences sont toutes proches de cette probabilité. <br>'
-          texteCorr += texteEnCouleurEtGras('Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences ; le tableau est bien compatible avec un lancer aléatoire de dé. ')
+          texteCorr += texteEnCouleurEtGras('Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences ; le tableau est bien compatible avec un lancer de dé. ')
           break
 
         case 2:
@@ -114,7 +114,7 @@ export default function StabilisationFrequence () {
           for (let i = 0; i < nbFaces; i++) {
             tabRes[i] = [i, calcul(tabEff[i] / S1)]
           }
-          texteCorr += 'Le dé est équilibré, donc c\'est une situation d\'équiprobabilité. Chaque face du dé a une probabilité égale à '
+          texteCorr += 'Le dé est équilibré, donc c\'est une situation d\'équiprobabilité. La probabilité qu'une face du dès apparaisse est égale à '
           switch (nbFaces) {
             case 4:
               texteCorr += ' $\\dfrac{1}{4} = 25\\%$ '
@@ -132,7 +132,7 @@ export default function StabilisationFrequence () {
               texteCorr += ' $\\dfrac{1}{12} \\approx 8.3\\%$ '
               break
           }
-          texteCorr += 'd\'apparaitre. <br>'
+          texteCorr += '. <br>'
           texteCorr += `Comme le dé a été lancé ${nombreAvecEspace(nbLancers)} fois, les fréquences devraient se stabiliser autour de la probabilité. `
           texteCorr += 'Cependant, une valeur du tableau de fréquences est éloignée de cette probabilité. <br>'
           texteCorr += `Il s'agit de la fréquence d'apparition du ${tabValeur[face]}. <br>`
@@ -154,7 +154,7 @@ export default function StabilisationFrequence () {
             texte += `${tabEff[i]} boules ${tabcoul[i]}, `
           }
           texte += `et ${tabEff[3]} boules ${tabcoul[3]}. <br>`
-          texte += `On prend une boule, on note sa couleur, et on remet la boule dans l'urne. On répète ce processus ${nombreAvecEspace(nbLancers)} fois. `
+          texte += `On prend au hasard une boule, on note sa couleur, et on remet la boule dans l'urne. On répète ce processus ${nombreAvecEspace(nbLancers)} fois. `
           texte += 'On étudie les fréquences d\'apparition de chaque couleur. On obtient les résultats suivants : <br>'
           tabEffModif = tabEff.map(x => x * (1 + randint(-50, 50) / 1000)) // on modifie très légèrement le tirage max 5%
           S2 = tabEff.reduce((a, b) => a + b, 0)
@@ -184,7 +184,7 @@ export default function StabilisationFrequence () {
           }
           texteCorr += '\\\\\\hline\n'
           texteCorr += '\\end{array}\n$ <br>'
-          texteCorr += 'Les probabilités semblent très proches des fréquences observées. <br>'
+          texteCorr += 'Les probabilités sont très proches des fréquences observées. <br>'
           texteCorr += texteEnCouleurEtGras('Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences; le tableau est bien compatible avec un tirage aléatoire dans une urne.')
 
           break
@@ -204,7 +204,7 @@ export default function StabilisationFrequence () {
             texte += `${tabEff[i]} boules ${tabcoul[i]}, `
           }
           texte += `et ${tabEff[3]} boules ${tabcoul[3]}. <br>`
-          texte += `On prend une boule, on note sa couleur, et on remet la boule dans l'urne. On répète ce processus ${nombreAvecEspace(nbLancers)} fois. `
+          texte += `On prend au hasard une boule, on note sa couleur, et on remet la boule dans l'urne. On répète ce processus ${nombreAvecEspace(nbLancers)} fois. `
           texte += 'On étudie les fréquences d\'apparition de chaque couleur. On obtient les résultats suivants : '
           tabEffModif = tabEff.map(x => x * (1 + randint(-50, 50) / 1000)) // on modifie très légèrement le tirage de max 5%
           tabEffModif[face] = 1.75 * tabEff[face] // on augmente de 75% l'effectif d'une couleur
