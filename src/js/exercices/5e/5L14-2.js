@@ -2,10 +2,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, range, combinaisonListes, ecritureParentheseSiNegatif, lettreDepuisChiffre } from '../../modules/outils.js'
-import { ajouteChampTexte, exerciceInteractif } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC NumeriqueChoice
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const interactifReady = true
 
 export const titre = 'Substitution'
@@ -119,11 +120,12 @@ export default function ExerciceSubstituer (difficulte = 1) {
           break
       }
       if (this.interactif) {
-        texte += ajouteChampTexte(this, i, {
+        texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', {
           texte: '$~=$'
         })
       }
-      this.autoCorrection[i] = {
+      setReponse(this, i, reponse, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
+      /* this.autoCorrection[i] = {
         enonce: texte + '\\\\' + this.consigne,
         propositions: [
           {
@@ -145,6 +147,7 @@ export default function ExerciceSubstituer (difficulte = 1) {
           }
         }
       }
+      */
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -156,5 +159,4 @@ export default function ExerciceSubstituer (difficulte = 1) {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication par un facteur positif\n2 : Multiplication par un facteur relatif']
-  exerciceInteractif(this)
 }

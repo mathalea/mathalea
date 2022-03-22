@@ -937,9 +937,9 @@ export function ecritureAlgebrique (a) {
   if (a instanceof Fraction || a instanceof FractionX) return fraction(a).ecritureAlgebrique
   else if (typeof a === 'number') {
     if (a >= 0) {
-      return '+' + texNombre(a)
+      return '+' + stringNombre(a)
     } else {
-      return texNombre(a)
+      return stringNombre(a)
     }
   } else window.notify('rienSi1 : type de valeur non prise en compte')
 }
@@ -1394,112 +1394,6 @@ export function texFractionReduite (n, d) {
 }
 
 /**
- * Renvoie un array avec l'ensemble de réponses possibles correspondant à un couple de fractions et de leurs différentes simplifications afin de pouvoir les placer dans un setReponse
- * Exemple ['-\\frac{a}{b};\\frac{c}{d}', '\\frac{-a}{b};\\frac{c}{d}', '\\frac{a}{-b};\\frac{c}{d}', '\\frac{c}{d};-\\frac{a}{b}', '\\frac{c}{d};\\frac{-a}{b}', '\\frac{c}{d};\\frac{a}{-b}' ...
- * @author Guillaume Valmont
- * @param {number} n1 numérateur de la 1e fraction
- * @param {number} d1 dénominateur de la 1e fraction
- * @param {number} n2 numérateur de la 2e fraction
- * @param {number} d2 dénominateur de la 2e fraction
- * @returns array avec la liste des couples de fractions égales et simplifiées sous la forme '\\frac{n1}{d1};\\frac{n2}{d2}'
- */
-export function texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees (n1, d1, n2, d2) {
-  return texArrayReponsesCoupleDeFractions(n1, d1, n2, d2, true)
-}
-
-/**
- * Fonction destinée à être utilisée conjointement avec setReponse
- * Exemple [\\frac{18}{6}, \\frac{-18}{-6}, -\\frac{-18}{6}, -\\frac{18}{-6}, \\frac{9}{3}, \\frac{-9}{-3}, -\\frac{-9}{3}, -\\frac{9}{-3}, 3]
- * @author Guillaume Valmont
- * @param {number} n numérateur
- * @param {number} d dénominateur
- * @returns array avec la liste des fractions égales et simplifiées sous la forme '\\frac{n}{d}'
- */
-export function texArrayReponsesFractionsEgalesEtSimplifiees (n, d) {
-  const fractionsSimplifiees = listerFractionsSimplifiees(n, d)
-  const liste = []
-  for (const fractionSimplifiee of fractionsSimplifiees) {
-    const reponses = texArrayReponsesFraction(fractionSimplifiee[0], fractionSimplifiee[1])
-    for (const reponse of reponses) {
-      liste.push(reponse)
-    }
-  }
-  return liste
-}
-
-/**
- * Renvoie un array avec l'ensemble de réponses possibles correspondant à un couple de fractions afin de pouvoir les placer dans un setReponse
- * Exemple ['-\\frac{a}{b};\\frac{c}{d}', '\\frac{-a}{b};\\frac{c}{d}', '\\frac{a}{-b};\\frac{c}{d}', '\\frac{c}{d};-\\frac{a}{b}', '\\frac{c}{d};\\frac{-a}{b}', '\\frac{c}{d};\\frac{a}{-b}' ...
- * @author Guillaume Valmont
- * @param {number} n1 numérateur 1
- * @param {number} d1 dénominateur 1
- * @param {number} n2 numérateur 1
- * @param {number} d2 dénominateur 1
- * @param {boolean} egalesEtSimplifiees true si on veut inclure l'ensemble des fractions égales et simplifiées
- * @returns array avec la liste des couples de fractions sous la forme '\\frac{n1}{d1};\\frac{n2}{d2}'
- */
-export function texArrayReponsesCoupleDeFractions (n1, d1, n2, d2, egalesEtSimplifiees = false) {
-  let listeFraction1, listeFraction2
-  if (egalesEtSimplifiees) {
-    listeFraction1 = texArrayReponsesFractionsEgalesEtSimplifiees(n1, d1)
-    listeFraction2 = texArrayReponsesFractionsEgalesEtSimplifiees(n2, d2)
-  } else {
-    listeFraction1 = texArrayReponsesFraction(n1, d1)
-    listeFraction2 = texArrayReponsesFraction(n2, d2)
-  }
-  const listeCouples = []
-  for (const ecriture1 of listeFraction1) {
-    for (const ecriture2 of listeFraction2) {
-      listeCouples.push(ecriture1 + ';' + ecriture2, ecriture2 + ';' + ecriture1)
-    }
-  }
-  return listeCouples
-}
-
-/**
- * Fonction destinée à lister l'ensemble des possibilités d'écriture d'une même fraction pour être comparées dans un setReponse
- * @author Guillaume Valmont
- * @param {number} numerateur
- * @param {number} denominateur
- * @returns array avec l'ensemble des possibilités d'écriture d'une même fraction au format LateX
- */
-export function texArrayReponsesFraction (numerateur, denominateur) {
-  const n = Math.abs(numerateur)
-  const d = Math.abs(denominateur)
-  if (d === 1) {
-    return [(numerateur * denominateur).toString()]
-  } else {
-    if (numerateur * denominateur > 0) {
-      return [`\\frac{${n}}{${d}}`, `\\frac{${-n}}{${-d}}`, `-\\frac{${-n}}{${d}}`, `-\\frac{${n}}{${-d}}`]
-    } else if (numerateur * denominateur < 0) {
-      return [`-\\frac{${n}}{${d}}`, `-\\frac{${-n}}{${-d}}`, `\\frac{${-n}}{${d}}`, `\\frac{${n}}{${-d}}`]
-    } else {
-      return ['0']
-    }
-  }
-}
-
-/**
- * Renvoie l'ensemble des fractions égales et simplifiées
- * Ne change pas et ne déplace pas les signes (s'il y a un "-" au dénominateur, il restera au dénominateur)
- * @author Guillaume Valmont
- * @param {number} n
- * @param {number} d
- * @returns array de couples [numerateur, denominateur] de l'ensemble des fractions égales et simplifiées
- */
-export function listerFractionsSimplifiees (n, d) {
-  if (pgcd(n, d) === 1) {
-    return [[n, d]]
-  } else {
-    const liste = []
-    for (const diviseur of listeDiviseurs(pgcd(n, d))) {
-      liste.push([n / diviseur, d / diviseur])
-    }
-    return liste
-  }
-}
-
-/**
  * produitDeDeuxFractions(num1,den1,num2,den2) retourne deux chaines :
  * la première est la fraction résultat, la deuxième est le calcul mis en forme Latex avec simplification éventuelle
  * Applique une simplification si le numérateur de l'une est égal au dénominateur de l'autre.
@@ -1600,11 +1494,11 @@ export function reduireAxPlusB (a, b) {
   if (a !== 0) {
     if (a === 1) result = 'x'
     else if (a === -1) result = '-x'
-    else result = `${texNombrec(a)}x`
+    else result = `${stringNombre(a)}x`
   }
   if (b !== 0) {
     if (a !== 0) result += `${ecritureAlgebrique(b)}`
-    else result = texNombrec(b)
+    else result = stringNombre(b)
   } else if (a === 0) result = '0'
   return result
 }
@@ -2627,7 +2521,7 @@ export function numberFormat (nb) {
  */
 export function texNombre (nb, precision = 8) {
   const result = afficherNombre(nb, precision, 'texNombre')
-  return result.replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+  return result.replace(',', '{,}').replace(/\s+/g, '\\,')
 }
 
 /**
@@ -2649,10 +2543,10 @@ export function texNombre2 (nb) {
   }
 
   for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    partieEntiere = partieEntiere.substring(0, i) + '\\thickspace ' + partieEntiere.substring(i)
+    partieEntiere = partieEntiere.substring(0, i) + '\\,' + partieEntiere.substring(i)
   }
   for (let i = 3; i < partieDecimale.length; i += 3) {
-    partieDecimale = partieDecimale.substring(0, i) + '\\thickspace ' + partieDecimale.substring(i)
+    partieDecimale = partieDecimale.substring(0, i) + '\\,' + partieDecimale.substring(i)
     i += 12
   }
   if (partieDecimale === '') {
@@ -2715,7 +2609,7 @@ export function sp (nb = 1) {
   let s = ''
   for (let i = 0; i < nb; i++) {
     if (context.isHtml) s += '&nbsp;'
-    else s += '~'
+    else s += '\\,'
   }
   return s
 }
@@ -2847,7 +2741,7 @@ function afficherNombre (nb, precision, fonction) {
    * @param {number} precision nombre de décimales demandé
    * @returns string avec le nombre dans le format français
    */
-  function insereEspacesNombre (nb, maximumSignificantDigits = 15) {
+  function insereEspacesNombre (nb, maximumSignificantDigits = 15, fonction) {
     if (Number(nb) === 0) return '0'
     // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
     let nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
@@ -2868,7 +2762,7 @@ function afficherNombre (nb, precision, fonction) {
     //   partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
     // }
     for (let i = 3; i < partieDecimale.length; i += 4) { // des paquets de 3 nombres + 1 espace
-      partieDecimale = partieDecimale.substring(0, i) + ' ' + partieDecimale.substring(i)
+      partieDecimale = partieDecimale.substring(0, i) + (fonction === 'texNombre' ? '\\,' : ' ') + partieDecimale.substring(i)
     }
     if (partieDecimale === '') {
       nombre = partieEntiere
@@ -2878,7 +2772,10 @@ function afficherNombre (nb, precision, fonction) {
     return nombre
   }
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
-  if (isNaN(nb)) return nb
+  if (isNaN(nb)) {
+    window.notify('AfficherNombre : Le nombre n\'en est pas un', { nb, precision, fonction })
+    return ''
+  }
   if (Number(nb) === 0) return '0'
   // si c'en est un, on le formate.
   const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
@@ -2893,9 +2790,9 @@ function afficherNombre (nb, precision, fonction) {
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
   if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
     window.notify(fonction + ' : Trop de chiffres', { nb, precision })
-    return insereEspacesNombre(nb, 15)
+    return insereEspacesNombre(nb, 15, fonction)
   } else {
-    return insereEspacesNombre(nb, maximumSignificantDigits)
+    return insereEspacesNombre(nb, maximumSignificantDigits, fonction)
   }
 }
 /**
