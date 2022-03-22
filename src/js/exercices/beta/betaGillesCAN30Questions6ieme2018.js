@@ -38,11 +38,11 @@ export default function SujetCAN20186ieme () {
     this.listeCorrections = [] // Liste de questions corrigées
     const nbQ1 = min(round(this.nbQuestions * 7 / 30), 7) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
     const nbQ2 = min(this.nbQuestions - nbQ1, 23)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 4, 5, 6, 7, 10]).slice(-nbQ1)
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 4, 5, 6, 7, 10]).slice(-nbQ1).sort(compareNombres)
     const typeQuestionsDisponiblesNiv2 = shuffle([3, 8, 9,
       11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2)
-    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2)).sort(compareNombres)
+      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
+    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
     const listeFractions1 = [[5, 3], [7, 3], [10, 3], [11, 3], [17, 3],
       [13, 6], [17, 6], [23, 6], [8, 7], [15, 7], [20, 7],
       [14, 3], [22, 3], [25, 3]]
@@ -122,10 +122,10 @@ export default function SujetCAN20186ieme () {
           b = randint(4, 10)
           c = a * b
           if (choice([true, false])) {
-            texte = `Compléte : <br>$${a}\\times .... =${c}$`
+            texte = `Compléte : $${a}\\times .... =${c}$`
             texteCorr = `$${a}\\times ${miseEnEvidence(b)} =${c}$`
           } else {
-            texte = `Compléte :<br> $ .... \\times ${a}=${c}$`
+            texte = `Compléte : $ .... \\times ${a}=${c}$`
             texteCorr = `$ ${miseEnEvidence(b)} \\times ${a}=${c}$`
           }
           reponse = b
