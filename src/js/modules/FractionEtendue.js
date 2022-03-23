@@ -25,12 +25,12 @@ const definePropRo = (obj, prop, get) => {
 export default class FractionX extends Fraction {
   constructor (...args) {
     let num, den, cpt
-    if (args.length === 1) {
+    if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas) ou une fraction
       num = args[0]
       if (!isNaN(num)) {
         den = 1
         cpt = 0
-        while (cpt < 15 && num.toString().indexOf('.') !== -1) {
+        while (cpt < 15 && num.toString().indexOf('.') !== -1) { // On rend le numérateur entier si possible.
           num *= 10
           den *= 10
           cpt++
@@ -47,22 +47,26 @@ export default class FractionX extends Fraction {
         window.notify('FractionX : argument incorrect', { args })
         super(NaN)
       }
-    } else if (args.length === 2) { // deux arguments : numérateur et dénominateur qui peuvent être fractionnaires.
+    } else if (args.length === 2) { // deux arguments : numérateur et dénominateur qui peuvent être fractionnaires ou des nombres (entiers ou décimaux)
       if ((args[0] instanceof FractionX) || (args[0] instanceof Fraction)) {
         num = fraction(args[0].num || args[0].n * args[0].s, args[0].den || args[0].d)
-      } else if (!isNaN(args[0])) num = args[0].toString()
-      else {
+      } else if (!isNaN(args[0])) {
+        num = args[0].toString()
+      } else {
         window.notify('FractionX : Numérateur incorrect ', { args })
         num = NaN
       }
       if ((args[1] instanceof FractionX) || (args[1] instanceof Fraction)) den = fraction(args[1].num || args[1].n * args[1].s, args[1].den || args[1].d)
-      else if (!isNaN(args[1])) den = args[1].toString()
-      else {
+      else if (!isNaN(args[1])) {
+        den = args[1].toString()
+      } else {
         window.notify('FractionX : Dénominateur incorrect ', { args })
         den = NaN
       }
-      if (!isNaN(num) && !isNaN(den)) {
+      if (!isNaN(num) && !isNaN(den)) { // Si ce sont des nombres, on les rend entiers si besoin.
         cpt = 0
+        num = Number(num)
+        den = Number(den)
         while (cpt < 15 && (num.toString().indexOf('.') !== -1 || den.toString().indexOf('.') !== -1)) {
           num *= 10
           den *= 10
