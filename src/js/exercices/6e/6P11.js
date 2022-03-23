@@ -783,8 +783,8 @@ texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit acheter ${stringNombre(cal
 fois ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${sp()}m${exposant(2)}. <br>` +
 `${texteEnCouleur(stringNombre(rapport[alea5]))} $\\times$ ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${sp()}m${exposant(2)} = ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2))}${sp()}m${exposant(2)}<br>`
     texteCorr += rapport[alea5] * liste[alea1].qtt_surface[alea3] < surfaceFinale2
-      ? texteEnCouleurEtGras(`Conclusion : ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2))}${sp()}m${exposant(2)} < ${stringNombre(surfaceFinale2)}${sp()}m${exposant(2)} donc ${prenoms[1]} en a suffisamment pour ${surfaceFinale2}${sp()}m${exposant(2)}.`, 'black') + ' <br>'
-      : texteEnCouleurEtGras(`Conclusion : ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2))}${sp()}m${exposant(2)} > ${stringNombre(surfaceFinale2)}${sp()}m${exposant(2)} donc ${prenoms[1]} n'en a pas assez pour ${surfaceFinale2}${sp()}m${exposant(2)}.`, 'black') + ' <br>'
+      ? texteEnCouleurEtGras(`Conclusion : ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2))}${sp()}m${exposant(2)} < ${stringNombre(surfaceFinale2)}${sp()}m${exposant(2)} donc ${prenoms[1]} n'en a pas assez pour ${surfaceFinale2}${sp()}m${exposant(2)}.`, 'black') + ' <br>'
+      : texteEnCouleurEtGras(`Conclusion : ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2))}${sp()}m${exposant(2)} > ${stringNombre(surfaceFinale2)}${sp()}m${exposant(2)}       donc ${prenoms[1]} en a suffisamment pour ${surfaceFinale2}${sp()}m${exposant(2)}.`, 'black') + ' <br>'
 
     if (!context.isAmc) {
       setReponse(exo, i, calcul(rapport[alea4] * quantite, 2))
