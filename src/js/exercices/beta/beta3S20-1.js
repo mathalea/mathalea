@@ -18,7 +18,7 @@ function graphique (hauteursBarres, etiquettes, { reperageTraitPointille = false
   return mathalea2d(Object.assign({}, fixeBordures([diagramme], { rxmin: -3, rymin: -2, rymax: 1.5 }), { style: 'inline', scale: 1 }), diagramme)
 }
 
-function listeExhaustive (univers, ratios, symboleDifférentié = false) {
+function listeExhaustive (univers, ratios, indices = false) {
   // On créé une liste exhaustive avec répétition de chaque issue
   // [blanche blanche blanche noire noire] pour un ratio 3:2 de billes blanches et noires
   const issues = []
@@ -31,7 +31,7 @@ function listeExhaustive (univers, ratios, symboleDifférentié = false) {
   }
   // adapté par Loïc
   const issuesAbregees = []
-  if (symboleDifférentié) {
+  if (indices) {
     for (let i = 0; i < univers.length; i++) {
       const listIndex = []
       let idx = issues.indexOf(univers[i])
