@@ -304,7 +304,7 @@ export default function ExerciceInequationQuotient () {
         texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
-              ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})$`, ecart, 200]
+              ['$x$', 2.5, 30], [`$${a}x${ecritureAlgebrique(b)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$\\cfrac{${a}x${ecritureAlgebrique(b)}}{${c}x${ecritureAlgebrique(d)}}$`, ecart, 200]
             ],
             ['$-\\infty$', 30, `$${valPetit}$`, 20, `$${valGrand}$`, 20, '$+\\infty$', 30]
           ],
@@ -713,7 +713,7 @@ export default function ExerciceInequationQuotient () {
         texteCorr += mathalea2d({ xmin: -0.5, ymin: -10.6, xmax: 30, ymax: 0.1, scale: 0.5 }, tableauDeVariation({
           tabInit: [
             [
-              ['$x$', 2.5, 30], [`$${a + e * c}x${ecritureAlgebrique(b + e * d)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$(${a + e * c}x${ecritureAlgebrique(b + e * d)})(${c}x${ecritureAlgebrique(d)})$`, ecart, 200]
+              ['$x$', 2.5, 30], [`$${a + e * c}x${ecritureAlgebrique(b + e * d)}$`, 2, 75], [`$${c}x${ecritureAlgebrique(d)}$`, 2, 75], [`$\\cfrac{${a + e * c}x${ecritureAlgebrique(b + e * d)}}{${c}x${ecritureAlgebrique(d)}}$`, ecart, 200]
             ],
             ['$-\\infty$', 30, `$${valPetit}$`, 20, `$${valGrand}$`, 20, '$+\\infty$', 30]
           ],

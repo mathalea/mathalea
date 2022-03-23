@@ -109,26 +109,21 @@ export default function calculsHomothetie () {
       let correctionOA = OA
       if (evaluate(abs(k) < 0.3)) {
         correctionOhA = multiply(multiply(fraction(3, 10), OA), (-1) ** evaluate(k < 0))
-        // console.log(i + 1, k.toString(), 'cas1')
       } else if (evaluate(abs(k) < 1 && abs(k) > 0.7)) {
         correctionOhA = multiply(multiply(fraction(7, 10), OA), (-1) ** evaluate(k < 0))
-        // console.log(i + 1, k.toString(), 'cas2')
       } else if (evaluate(abs(k) > 1 && abs(k) < 1.3)) {
         correctionOhA = multiply(multiply(fraction(13, 10), OA), (-1) ** evaluate(k < 0))
-        // console.log(i + 1, k.toString(), 'cas3')
       } else if (evaluate(abs(k) > 4)) {
         correctionOA = multiply(fraction(2, 1), OA)
-        // console.log(i + 1, k.toString(), 'cas4')
       } else {
         testFigureCorrigee = false
-        // console.log(i + 1, k.toString(), 'cas5')
       }
       const figurealechelle = !(testFigureCorrigee && this.sup4) || [4, 5, 6, 7, 8].includes(listeTypeQuestions[i]) ? '' : '(La figure n\'est pas à l\'échelle)'
       const figurealechelle2 = !(this.sup4) ? '' : '(La figure n\'est pas à l\'échelle)'
       let figure = {
         O: point(0, 0, `${O}`),
-        A: point(multiply(correctionOA, largeurFigure), 0, `${A}`, 'below'),
-        hA: point(multiply(correctionOhA, largeurFigure), 0, `${hA}`, kpositif ? 'below' : 'above')
+        A: point(multiply(correctionOA, largeurFigure).valueOf(), 0, `${A}`, 'below'),
+        hA: point(multiply(correctionOhA, largeurFigure).valueOf(), 0, `${hA}`, kpositif ? 'below' : 'above')
       }
       figure = Object.assign({}, figure, {
         B: homothetie(rotation(figure.A, figure.O, 40), figure.O, 1.2, `${B}`),

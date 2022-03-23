@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, texteEnCouleur, texteEnCouleurEtGras, calcul, texPrix, prenomF } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Résoudre des problèmes de type : ... de plus ou ... de moins'
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
@@ -88,7 +89,7 @@ export default function ProblemesDePlusEtDeMoins () {
           if (this.interactif && !context.isAmc) {
             texte += 'Combien d\'argent en tout possèdent les deux filles ?'
             texte += '<br>Les deux filles possèdent en tout : '
-            texte += ajouteChampTexte(this, i) + '   €.'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline') + '   €.'
             setReponse(this, i, somme)
           } else {
             texte += 'Combien d\'argent en euros possèdent en tout les deux filles ?<br>'
@@ -109,7 +110,7 @@ export default function ProblemesDePlusEtDeMoins () {
           texte = `${prenom2} dit à ${prenom1} : « J'ai ${texPrix(r)} €, soit ${texPrix(e)} € de moins que toi. »<br>`
           if (this.interactif && !context.isAmc) {
             texte += 'Combien d\'argent en tout possèdent les deux filles ?<br>Les deux filles possèdent en tout :'
-            texte += ajouteChampTexte(this, i) + '   €.'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline') + '   €.'
             setReponse(this, i, somme)
           } else {
             texte += 'Combien d\'argent en euros possèdent en tout les deux filles ?<br>'

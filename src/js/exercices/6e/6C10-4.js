@@ -7,7 +7,7 @@ export const titre = 'Effectuer addition de deux entiers'
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 
 /**
  * Additionner deux entiers
