@@ -136,9 +136,9 @@ export default function CalculerDesFrequences () {
 
         texte += '<br><br>Calculer la fréquence de la température ' + `$${temperatures[indexValeur]}^\\circ\\text{C}$.`
         texteCorr = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, la température $${temperatures[indexValeur]}^\\circ\\text{C}$ a été relevée $${frequence}$ fois.<br>`
-        texteCorr += `Il y a $${joursParMois(mois)}$ jours ce mois-ci.<br> La fréquence de la température $${temperatures[indexValeur]}^\\circ\\text{C}$ est :<br>`
-        texteCorr += `$${texFraction(texNombre(frequence), texNombre(joursParMois(mois)))}$`
-        reponse = new FractionX(frequence, joursParMois(mois))
+        texteCorr += `Il y a $${joursParMois(mois, annee)}$ jours ce mois-ci.<br> La fréquence de la température $${temperatures[indexValeur]}^\\circ\\text{C}$ est :<br>`
+        texteCorr += `$${texFraction(texNombre(frequence), texNombre(joursParMois(mois, annee)))}$`
+        reponse = new FractionX(frequence, joursParMois(mois, annee))
         if (arrondi(frequence / nombreTemperatures, 3) === frequence / nombreTemperatures) { // valeurs exactes
           texteCorr += `$=${arrondiVirgule(frequence / nombreTemperatures, 3)}$<br>`
           texteCorr += 'Soit ' + `$${texNombre(calcul(frequence * 100 / nombreTemperatures))}\\thickspace\\%$.`
