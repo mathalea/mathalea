@@ -24,20 +24,58 @@ const definePropRo = (obj, prop, get) => {
  */
 export default class FractionX extends Fraction {
   constructor (...args) {
-    super(...args)
-    if (args.length === 2) { // deux arguments : numérateur et dénominateur qui peuvent être fractionnaires.
-      if (['Fraction', 'FractionX'].includes(args[0].type)) this.num = fraction(args[0].num || args[0].n * args[0].s, args[0].den || args[0].d)
-      else
-      if (!Number.isNaN(args[0])) this.num = args[0]
-      else window.notify('FractionX : Numérateur incorrect ', { args })
-
-      if (['Fraction', 'FractionX'].includes(args[0].type)) this.den = fraction(args[1].num || args[1].n * args[1].s, args[1].den || args[1].d)
-      else
-      if (!Number.isNaN(args[1])) this.den = args[1]
-      else window.notify('FractionX : Dénominateur incorrect ', { args })
-    } else { // un seul argmument : valeur décimale de la fraction -> Fraction de mathjs.
-      this.num = this.n * this.s
-      this.den = this.d
+    let num, den, cpt
+    if (args.length === 1) {
+      num = args[0]
+      if (!isNaN(num)) {
+        den = 1
+        cpt = 0
+        while (cpt < 15 && num.toString().indexOf('.') !== -1) {
+          num *= 10
+          den *= 10
+          cpt++
+        }
+        if (cpt === 15) window.notify('FractionX : trop de chiffres dans la partie décimale ', { args })
+        super(num, den)
+        this.num = num
+        this.den = den
+      } else if ((args[0] instanceof FractionX) || (args[0] instanceof Fraction)) {
+        super(args[0].n, args[0].d)
+        this.num = args[0].num
+        this.den = args[0].den
+      } else {
+        window.notify('FractionX : argument incorrect', { args })
+        super(NaN)
+      }
+    } else if (args.length === 2) { // deux arguments : numérateur et dénominateur qui peuvent être fractionnaires.
+      if ((args[0] instanceof FractionX) || (args[0] instanceof Fraction)) {
+        num = fraction(args[0].num || args[0].n * args[0].s, args[0].den || args[0].d)
+      } else if (!isNaN(args[0])) num = args[0].toString()
+      else {
+        window.notify('FractionX : Numérateur incorrect ', { args })
+        num = NaN
+      }
+      if ((args[1] instanceof FractionX) || (args[1] instanceof Fraction)) den = fraction(args[1].num || args[1].n * args[1].s, args[1].den || args[1].d)
+      else if (!isNaN(args[1])) den = args[1].toString()
+      else {
+        window.notify('FractionX : Dénominateur incorrect ', { args })
+        den = NaN
+      }
+      if (!isNaN(num) && !isNaN(den)) {
+        cpt = 0
+        while (cpt < 15 && (num.toString().indexOf('.') !== -1 || den.toString().indexOf('.') !== -1)) {
+          num *= 10
+          den *= 10
+          cpt++
+        }
+        if (cpt === 15) window.notify('FractionX : Trop de chiffres dans la partie décimale', { args })
+      }
+      super(num, den)
+      this.num = num
+      this.den = den
+    } else {
+      window.notify('FractionX : nombre d\'arguments incorrect', { args })
+      super(NaN)
     }
     this.type = 'FractionX'
     // pour ne pas faire ces calculs à chaque instanciation de Fraction, on passe par defineProperty
