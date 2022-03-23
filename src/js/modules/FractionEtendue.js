@@ -28,14 +28,11 @@ export default class FractionX extends Fraction {
     if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas) ou une fraction
       num = args[0]
       if (!isNaN(num)) {
-        den = 1
-        cpt = 0
-        while (cpt < 15 && num.toString().indexOf('.') !== -1) { // On rend le numérateur entier si possible.
-          num *= 10
-          den *= 10
-          cpt++
-        }
-        if (cpt === 15) window.notify('FractionX : trop de chiffres dans la partie décimale ', { args })
+        cpt = num.toString().split('.')[1]?.length || 0
+        // On rend le numérateur entier si possible.
+        num = Number(num.toString().replace('.', ''))
+        den = 10 ** cpt
+        if (cpt > 15) window.notify('FractionX : trop de chiffres dans la partie décimale ', { args })
         super(num, den)
         this.num = num
         this.den = den
@@ -63,23 +60,31 @@ export default class FractionX extends Fraction {
         window.notify('FractionX : Dénominateur incorrect ', { args })
         den = NaN
       }
+      let numParts, denParts
       if (!isNaN(num) && !isNaN(den)) { // Si ce sont des nombres, on les rend entiers si besoin.
-        cpt = 0
-        num = Number(num)
-        den = Number(den)
-        const maxou = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
-        den = round(den * pow(10, maxou))
-        num = round(num * pow(10, maxou))
-        /*
-        while (cpt < 15 && (num.toString().indexOf('.') !== -1 || den.toString().indexOf('.') !== -1)) {
-          num *= 10
-          den *= 10
-          cpt++
-
+        numParts = num.split('.')
+        denParts = den.split('.')
+        console.log(numParts, denParts)
+        cpt = Math.max(numParts[1]?.length || 0, denParts[1]?.length || 0)
+        while (cpt > 0) {
+          if (numParts[1]?.length !== 0) {
+            numParts[0] += numParts[1][0]
+            numParts[1] = numParts[1].substring(1, numParts[1].length)
+          } else {
+            numParts[0] += '0'
+          }
+          if (denParts[1]?.length !== 0) {
+            denParts[0] += denParts[1][0]
+            denParts[1] = denParts[1].substring(1, denParts[1].length)
+          } else {
+            denParts[0] += '0'
+          }
+          console.log(numParts, denParts)
+          cpt--
         }
-        */
-        if (cpt === 15) window.notify('FractionX : Trop de chiffres dans la partie décimale', { args })
       }
+      num = Number(numParts[0])
+      den = Number(denParts[0])
       super(num, den)
       this.num = num
       this.den = den
