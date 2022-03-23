@@ -65,7 +65,7 @@ function simulationExperienceAlaetoire (univers, ratios, nbEssais) {
     if (realisees.indexOf(refIssue) !== -1) { // On teste si cette référence à cette issue existe dans les issues réalisées
       effectifs[realisees.indexOf(refIssue)] += 1 // Si c'est le cas on ajoute 1
     } else {
-      realisees.push(refIssue) // Sinon on ajoute la référénce aux issues réalisées
+      realisees.push(refIssue) // Sinon on ajoute la référence aux issues réalisées
       effectifs.push(1) // L'effectif de cette référence passe à 1
     }
   }
