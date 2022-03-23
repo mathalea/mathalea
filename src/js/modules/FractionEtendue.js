@@ -1,6 +1,6 @@
-import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd } from './outils.js'
+import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
-import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm } from 'mathjs'
+import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, pow } from 'mathjs'
 import { fraction } from './fractions.js'
 
 // Fonction écrite par Daniel Caillibaud pour créer ajouter les propriétés à la première utilisation de celles-ci.
@@ -67,11 +67,17 @@ export default class FractionX extends Fraction {
         cpt = 0
         num = Number(num)
         den = Number(den)
+        const maxou = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
+        den = round(den * pow(10, maxou))
+        num = round(num * pow(10, maxou))
+        /*
         while (cpt < 15 && (num.toString().indexOf('.') !== -1 || den.toString().indexOf('.') !== -1)) {
           num *= 10
           den *= 10
           cpt++
+
         }
+        */
         if (cpt === 15) window.notify('FractionX : Trop de chiffres dans la partie décimale', { args })
       }
       super(num, den)
