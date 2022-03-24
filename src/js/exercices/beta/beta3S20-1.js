@@ -507,7 +507,7 @@ function diagrammeEffectifsCalculsLoiGrandNombre () {
           <br>
           ${diagrammeEffectifs}
           <br>
-          Calculer le nombre de billes de couleur ${choixIssue} qu'il y a dans l'urne.
+          Estimer le nombre de billes de couleur ${choixIssue} qu'il y a dans l'urne.
           `
   const texteCorr = String.raw`
           La fréquence d'apparition d'une couleur est le quotient
@@ -518,13 +518,13 @@ function diagrammeEffectifsCalculsLoiGrandNombre () {
           ${solution.calculs}
           Donc la fréquence d'apparition de la couleur ${choixIssue} est $${solution.reponse}$.
           <br>
-          Pour un nombre suffisamment grand d'essais, la fréquence d'une issue se stabilise autour de sa probabilité.
+          Pour un nombre suffisamment grand d'essais, la fréquence d'une issue se stabilise quasiment toujours au niveau de sa probabilité.
           <br>
           La proportion de billes de couleur ${choixIssue} est donc proche de cette fréquence.
           <br>
           $${solution.reponse} \times ${totalRatios} \approx ${ratios[choixRef]}$.
           <br>
-          Il y a donc $${ratios[choixRef]}$ billes ${choixIssue}s dans l'urne.
+          Il y a de fortes chances pour qu'il y ait $${ratios[choixRef]}$ billes ${choixIssue}s dans l'urne.
           `
   return { texte: texte, texteCorr: texteCorr }
 }
