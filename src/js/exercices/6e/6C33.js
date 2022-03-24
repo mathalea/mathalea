@@ -1,11 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, range1, combinaisonListes, miseEnEvidence, listeDesDiviseurs, nombreDeChiffresDansLaPartieEntiere, lettreDepuisChiffre } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Calculer en utilisant les priorités opératoires'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcType = 'AMCNum' // Question numérique
 
 /**
@@ -327,7 +328,7 @@ export default function Priorites () {
           texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
         })
       }
-      if (this.interactif && context.isHtml) texte = texte.substring(0, texte.length - 1) + '~=$' + ajouteChampTexte(this, i)
+      if (this.interactif && context.isHtml) texte = texte.substring(0, texte.length - 1) + '~=$' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
       if (this.listeQuestions.indexOf(texte) === -1) {
         if (context.isAmc) {
           this.autoCorrection[i].enonce = texte.substring(0, texte.length - 1) + '~=$'

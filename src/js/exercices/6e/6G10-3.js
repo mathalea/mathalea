@@ -31,7 +31,7 @@ export default function cliqueFigure () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const numeroLettre = randint(1, 20)
       const A = point(0, 0)
-      const B = point(4, randint(-1, 3))
+      const B = point(4, randint(-1, 3, 0))
       A.nom = lettreDepuisChiffre(numeroLettre)
       B.nom = lettreDepuisChiffre(numeroLettre + 1)
       const labels = labelPoint(A, B)

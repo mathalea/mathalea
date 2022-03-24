@@ -3,7 +3,6 @@ import { addElement, get } from '../dom'
 import { verifQuestionCliqueFigure } from './cliqueFigure'
 import { isUserIdOk } from './isUserIdOk'
 import { verifQuestionMathLive } from './questionMathLive'
-import { verifQuestionNumerique } from './questionNumerique'
 import { verifQuestionQcm } from './questionQcm'
 
 export function gestionCan (exercice) {
@@ -17,9 +16,6 @@ export function gestionCan (exercice) {
           let resultat
           if (exercice.interactifType === 'mathLive') {
             resultat = verifQuestionMathLive(exercice, i)
-          }
-          if (exercice.interactifType === 'numerique') {
-            resultat = verifQuestionNumerique(exercice, i)
           }
           if (exercice.interactifType === 'qcm') {
             resultat = verifQuestionQcm(exercice, i)

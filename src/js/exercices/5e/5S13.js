@@ -42,7 +42,7 @@ export default function CalculerDesFrequences () {
         nombreTirages = choice([50, 100, 200, 500, 1000])
         tirages = tirerLesDes(nombreTirages, nombreFaces, nombreDes) // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
         do { indexValeur = randint(0, tirages.length - 1) }
-        while (tirages[indexValeur][1] === 0) // on choisi au hasard l'index d'une valeur dont l'effectif est différent de 0.
+        while (tirages[indexValeur][1] === 0) // on choisit au hasard l'index d'une valeur dont l'effectif est différent de 0.
         if (nombreDes > 1) {
           texte = `On a réalisé $${nombreTirages}$ lancers de $${nombreDes}$ dés à $${nombreFaces}$ faces.<br>`
         } else {
@@ -83,7 +83,7 @@ export default function CalculerDesFrequences () {
       } else if (this.sup === 2) { // ici on trie des notes
         nombreNotes = choice([8, 10, 12])
         notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une liste de notes (série brute)
-        indexValeur = randint(0, notes.length - 1) // on choisi une des notes au hasard
+        indexValeur = randint(0, notes.length - 1) // on choisit une des notes au hasard
         frequence = 0
         for (let j = 0; j < notes.length; j++) { // frequence va contenir l'effectif de la note choisie
           if (notes[j] === notes[indexValeur]) { frequence++ }
@@ -108,9 +108,9 @@ export default function CalculerDesFrequences () {
         const mois = randint(1, 12)
         const annee = randint(1980, 2019)
         const temperaturesDeBase = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5]
-        nombreTemperatures = joursParMois(mois,annee)
+        nombreTemperatures = joursParMois(mois, annee)
         temperatures = unMoisDeTemperature(temperaturesDeBase[mois - 1], mois, annee) // on récupère une série de températures correspondant à 1 mois d'une année (série brute)
-        indexValeur = randint(0, temperatures.length - 1) // on choisi l'index d'une valeur au hasard
+        indexValeur = randint(0, temperatures.length - 1) // on choisit l'index d'une valeur au hasard
         frequence = 0
         for (let j = 0; j < temperatures.length; j++) {
           if (temperatures[j] === temperatures[indexValeur]) { frequence++ } // frequence contient l'effectif de cette valeur
@@ -136,9 +136,9 @@ export default function CalculerDesFrequences () {
 
         texte += '<br><br>Calculer la fréquence de la température ' + `$${temperatures[indexValeur]}^\\circ\\text{C}$.`
         texteCorr = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, la température $${temperatures[indexValeur]}^\\circ\\text{C}$ a été relevée $${frequence}$ fois.<br>`
-        texteCorr += `Il y a $${joursParMois(mois)}$ jours ce mois-ci.<br> La fréquence de la température $${temperatures[indexValeur]}^\\circ\\text{C}$ est :<br>`
-        texteCorr += `$${texFraction(texNombre(frequence), texNombre(joursParMois(mois)))}$`
-        reponse = new FractionX(frequence, joursParMois(mois))
+        texteCorr += `Il y a $${joursParMois(mois, annee)}$ jours ce mois-ci.<br> La fréquence de la température $${temperatures[indexValeur]}^\\circ\\text{C}$ est :<br>`
+        texteCorr += `$${texFraction(texNombre(frequence), texNombre(joursParMois(mois, annee)))}$`
+        reponse = new FractionX(frequence, joursParMois(mois, annee))
         if (arrondi(frequence / nombreTemperatures, 3) === frequence / nombreTemperatures) { // valeurs exactes
           texteCorr += `$=${arrondiVirgule(frequence / nombreTemperatures, 3)}$<br>`
           texteCorr += 'Soit ' + `$${texNombre(calcul(frequence * 100 / nombreTemperatures))}\\thickspace\\%$.`

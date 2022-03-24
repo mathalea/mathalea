@@ -2386,11 +2386,12 @@ function parametresExercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaireNumerique) {
+      const max = exercice[i].besoinFormulaireNumerique[1]
       formSup[i] = document.getElementById('form_sup' + i)
-      formSup[i].value = exercice[i].sup // Rempli le formulaire avec le paramètre supplémentaire
+      formSup[i].value = contraindreValeur(1, max, exercice[i].sup) // Rempli le formulaire avec le paramètre supplémentaire
       formSup[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup = Number(e.target.value)
+        exercice[i].sup = contraindreValeur(1, max, Number(e.target.value))
         miseAJourDuCode()
       })
     }
@@ -2416,11 +2417,12 @@ function parametresExercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaire2Numerique) {
+      const max = exercice[i].besoinFormulaire2Numerique[1]
       formSup2[i] = document.getElementById('form_sup2' + i)
-      formSup2[i].value = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup2[i].value = contraindreValeur(1, max, exercice[i].sup2) // Rempli le formulaire avec le paramètre supplémentaire
       formSup2[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup2 = Number(e.target.value)
+        exercice[i].sup2 = contraindreValeur(1, max, Number(e.target.value))
         miseAJourDuCode()
       })
     }
@@ -2453,11 +2455,12 @@ function parametresExercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaire3Numerique) {
+      const max = exercice[i].besoinFormulaire3Numerique[1]
       formSup3[i] = document.getElementById('form_sup3' + i)
-      formSup3[i].value = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup3[i].value = contraindreValeur(1, max, exercice[i].sup3) // Rempli le formulaire avec le paramètre supplémentaire
       formSup3[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup3 = Number(e.target.value)
+        exercice[i].sup3 = contraindreValeur(1, max, Number(e.target.value))
         miseAJourDuCode()
       })
     }
@@ -2490,11 +2493,12 @@ function parametresExercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaire4Numerique) {
+      const max = exercice[i].besoinFormulaire4Numerique[1]
       formSup4[i] = document.getElementById('form_sup4' + i)
-      formSup4[i].value = exercice[i].sup4 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup4[i].value = contraindreValeur(1, max, exercice[i].sup4) // Rempli le formulaire avec le paramètre supplémentaire
       formSup4[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup4 = Number(e.target.value)
+        exercice[i].sup4 = contraindreValeur(1, max, Number(e.target.value))
         miseAJourDuCode()
       })
     }

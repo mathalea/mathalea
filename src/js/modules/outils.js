@@ -937,9 +937,9 @@ export function ecritureAlgebrique (a) {
   if (a instanceof Fraction || a instanceof FractionX) return fraction(a).ecritureAlgebrique
   else if (typeof a === 'number') {
     if (a >= 0) {
-      return '+' + texNombre(a)
+      return '+' + stringNombre(a)
     } else {
-      return texNombre(a)
+      return stringNombre(a)
     }
   } else window.notify('rienSi1 : type de valeur non prise en compte')
 }
@@ -1348,10 +1348,10 @@ export function egalOuApprox (a, precision) {
   if (typeof a === 'object' && ['Fraction', 'FractionX'].indexOf(a.type) !== -1) {
     return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
   }
-  if (!Number.isNaN(a) && !Number.isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
+  if (!isNaN(a) && !isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
   else {
     window.notify('egalOuApprox : l\'argument n\'est pas un nombre', { a, precision })
-    return 'bad number'
+    return 'Mauvais argument (nombres attendus).'
   }
 }
 
@@ -1494,11 +1494,11 @@ export function reduireAxPlusB (a, b) {
   if (a !== 0) {
     if (a === 1) result = 'x'
     else if (a === -1) result = '-x'
-    else result = `${texNombrec(a)}x`
+    else result = `${stringNombre(a)}x`
   }
   if (b !== 0) {
     if (a !== 0) result += `${ecritureAlgebrique(b)}`
-    else result = texNombrec(b)
+    else result = stringNombre(b)
   } else if (a === 0) result = '0'
   return result
 }
@@ -2521,7 +2521,7 @@ export function numberFormat (nb) {
  */
 export function texNombre (nb, precision = 8) {
   const result = afficherNombre(nb, precision, 'texNombre')
-  return result.replace(/\s+/g, '\\,').replace(',', '{,}')
+  return result.replace(',', '{,}').replace(/\s+/g, '\\,')
 }
 
 /**
