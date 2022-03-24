@@ -44,7 +44,7 @@ function listeExhaustive (univers, ratios, indices = false) {
         for (let j = 0; j < listIndex.length; j++) {
           issuesAbregees.push(issues[listIndex[j]][0].toUpperCase() + `_${j + 1}`)
         }
-      } else issuesAbregees.push(issues[i][0].toUpperCase())
+      } else issuesAbregees.push(issues[listIndex[0]][0].toUpperCase())
     }
   } else {
     for (let index = 0; index < issues.length; index++) {
