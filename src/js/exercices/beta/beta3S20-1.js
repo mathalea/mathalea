@@ -17,7 +17,7 @@ function graphique (hauteursBarres, etiquettes, { reperageTraitPointille = false
   const diagramme = diagrammeBarres(hauteursBarres, etiquettes, { reperageTraitPointille: reperageTraitPointille, couleurDeRemplissage: couleurDeRemplissage, titreAxeVertical: titreAxeVertical, titre: titre, hauteurDiagramme: hauteurDiagramme, coeff: coeff, axeVertical: axeVertical, etiquetteValeur: etiquetteValeur, labelAxeVert: labelAxeVert })
   return mathalea2d(Object.assign({}, fixeBordures([diagramme], { rxmin: -3, rymin: -2, rymax: 1.5 }), { style: 'inline', scale: 1 }), diagramme)
 }
-
+// adapté par Loïc : Ajout du paramètre indices pour pouvoir mettre des indices aux symboles des évènements
 function listeExhaustive (univers, ratios, indices = false) {
   // On créé une liste exhaustive avec répétition de chaque issue
   // [blanche blanche blanche noire noire] pour un ratio 3:2 de billes blanches et noires
