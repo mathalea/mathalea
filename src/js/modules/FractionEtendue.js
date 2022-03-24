@@ -1,6 +1,6 @@
-import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale } from './outils.js'
+import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
-import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, pow } from 'mathjs'
+import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm } from 'mathjs'
 import { fraction } from './fractions.js'
 
 // Fonction écrite par Daniel Caillibaud pour créer ajouter les propriétés à la première utilisation de celles-ci.
@@ -25,9 +25,9 @@ const definePropRo = (obj, prop, get) => {
 export default class FractionX extends Fraction {
   constructor (...args) {
     let num, den, cpt
-    if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas) ou une fraction
+    if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas)
       num = args[0]
-      if (!isNaN(num)) {
+      if (!isNaN(num) && !(num instanceof Fraction) && !(num instanceof FractionX)) {
         cpt = num.toString().split('.')[1]?.length || 0
         // On rend le numérateur entier si possible.
         num = Number(num.toString().replace('.', ''))
@@ -36,25 +36,18 @@ export default class FractionX extends Fraction {
         super(num, den)
         this.num = num
         this.den = den
-      } else if ((args[0] instanceof FractionX) || (args[0] instanceof Fraction)) {
-        super(args[0].n, args[0].d)
-        this.num = args[0].num
-        this.den = args[0].den
       } else {
         window.notify('FractionX : argument incorrect', { args })
         super(NaN)
       }
     } else if (args.length === 2) { // deux arguments : numérateur et dénominateur qui peuvent être fractionnaires ou des nombres (entiers ou décimaux)
-      if ((args[0] instanceof FractionX) || (args[0] instanceof Fraction)) {
-        num = fraction(args[0].num || args[0].n * args[0].s, args[0].den || args[0].d)
-      } else if (!isNaN(args[0])) {
+      if (!isNaN(args[0]) && !(args[0] instanceof Fraction) && !(args[0] instanceof FractionX)) {
         num = args[0].toString()
       } else {
         window.notify('FractionX : Numérateur incorrect ', { args })
         num = NaN
       }
-      if ((args[1] instanceof FractionX) || (args[1] instanceof Fraction)) den = fraction(args[1].num || args[1].n * args[1].s, args[1].den || args[1].d)
-      else if (!isNaN(args[1])) {
+      if (!isNaN(args[1]) && !(args[1] instanceof Fraction) && !(args[1] instanceof FractionX)) {
         den = args[1].toString()
       } else {
         window.notify('FractionX : Dénominateur incorrect ', { args })
@@ -64,30 +57,37 @@ export default class FractionX extends Fraction {
       if (!isNaN(num) && !isNaN(den)) { // Si ce sont des nombres, on les rend entiers si besoin.
         numParts = num.split('.')
         denParts = den.split('.')
-        console.log(numParts, denParts)
         cpt = Math.max(numParts[1]?.length || 0, denParts[1]?.length || 0)
         while (cpt > 0) {
-          if (numParts[1]?.length !== 0) {
+          if (numParts[1] !== undefined && numParts[1].length !== 0) {
             numParts[0] += numParts[1][0]
             numParts[1] = numParts[1].substring(1, numParts[1].length)
           } else {
             numParts[0] += '0'
           }
-          if (denParts[1]?.length !== 0) {
+          if (denParts[1] !== undefined && denParts[1].length !== 0) {
             denParts[0] += denParts[1][0]
             denParts[1] = denParts[1].substring(1, denParts[1].length)
           } else {
             denParts[0] += '0'
           }
-          console.log(numParts, denParts)
           cpt--
         }
+        num = Number(numParts[0])
+        den = Number(denParts[0])
+        if (den === 0) {
+          window.notify('FractionX : Division par zéro !', { args })
+          super(NaN)
+        } else {
+          super(num, den)
+          this.num = num
+          this.den = den
+        }
+      } else {
+        super(num, den)
+        this.num = num
+        this.den = den
       }
-      num = Number(numParts[0])
-      den = Number(denParts[0])
-      super(num, den)
-      this.num = num
-      this.den = den
     } else {
       window.notify('FractionX : nombre d\'arguments incorrect', { args })
       super(NaN)

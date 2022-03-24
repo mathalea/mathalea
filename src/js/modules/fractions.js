@@ -83,13 +83,12 @@ export function fraction (a, b) {
       window.notify('fraction de fractions.js : aucun argument n\'est défini ', { a, b })
       return NaN
     } else {
-      if (typeof a === 'number' || (typeof a === 'object' && ['Fraction', 'FractionX'].indexOf(a.type) !== -1)) {
+      if (typeof a === 'number') {
         return new FractionX(a)
+      } else if (!isNaN(a)) {
+        return new FractionX(Number(a))
       }
-      if (typeof a === 'string') {
-        return new FractionX(a)
-      }
-      window.notify('fraction de fractions.js : l\'argument 1 est de type inconvenant ', { a, b })
+      window.notify('fraction de fractions.js : l\'argument est de type inconvenant ', { a })
       return NaN
     }
   } else { // on a un argument b
@@ -99,15 +98,8 @@ export function fraction (a, b) {
     } else {
       if (typeof a === 'number' && typeof b === 'number') {
         return new FractionX(a, b)
-      }
-      if (['Fraction', 'FractionX'].indexOf(a.type) !== -1 && ['Fraction', 'FractionX'].indexOf(b.type) !== -1) {
-        return new FractionX(a, b)
-      }
-      if (['Fraction', 'FractionX'].indexOf(a.type) !== -1 && typeof b === 'number') {
-        return new FractionX(a, b)
-      }
-      if (typeof a === 'number' && ['Fraction', 'FractionX'].indexOf(b.type) !== -1) {
-        return new FractionX(a, b)
+      } else if (!isNaN(b) && !isNaN(a)) {
+        return new FractionX(Number(a), Number(b))
       }
       window.notify('fraction de fractions.js : les arguments sont de type inconvenant ', { a, b })
       return NaN
