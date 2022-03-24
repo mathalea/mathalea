@@ -1,16 +1,16 @@
 import Exercice from '../Exercice.js'
-import { fraction, obtenirListeFractionsIrreductibles } from '../../modules/fractions.js'
+import { fraction } from '../../modules/fractions.js'
 import {
-  mathalea2d, point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codeSegment, droite
+  mathalea2d, point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codeSegment
 } from '../../modules/2d.js'
-import { listeQuestionsToContenu, randint, texNombre, printlatex, tableauColonneLigne, combinaisonListes, texFraction, miseEnEvidence, shuffle, range1, simplificationDeFractionAvecEtapes, combinaisonListesSansChangerOrdre, choice, calcul, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, printlatex, stringNombre, texFraction, miseEnEvidence, range1, simplificationDeFractionAvecEtapes, combinaisonListesSansChangerOrdre, choice, calcul, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'CAN 3ième 30 questions sujet 2021'
+export const titre = 'CAN 3ième sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '20/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '23/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
@@ -23,7 +23,7 @@ export default function SujetCAN20213ieme () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.nbQuestions = 1// 10,20,30
+  this.nbQuestions = 30// 10,20,30
   this.nbCols = 1
   this.nbColsCorr = 1
 
@@ -33,7 +33,7 @@ export default function SujetCAN20213ieme () {
     let questions = []
     if (!this.sup) {
       // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(1), this.nbQuestions)
+      questions = combinaisonListesSansChangerOrdre(range1(30), this.nbQuestions)
     } else {
       if (typeof this.sup === 'number') {
         // Si c'est un nombre c'est qu'il y a qu'une seule question
@@ -48,9 +48,9 @@ export default function SujetCAN20213ieme () {
       questions[i] = parseInt(questions[i]) - 1
     }
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
-    const typeQuestionsDisponibles = ['25']// '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-    // '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-    // '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'
+    const typeQuestionsDisponibles = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+      '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
+      '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
     const listeFractions18 = [[3, 2], [1, 2], [3, 4], [1, 4], [2, 5],
       [3, 5], [4, 5]
     ]
@@ -58,7 +58,7 @@ export default function SujetCAN20213ieme () {
       [10, 9], [4, 11], [7, 15], [2, 15], [5, 12]
     ]
 
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction18 = [], fraction22 = [], triplet, sCote1, sCote2, s1, s2, s3, s4, s5, s6, propositions, prix, choix, truc, a, b, c, d, e, m, n, p, k, A, B, C, D, E, F, G, pol, code1, code2, code3, code4, code5, code6, L, l2, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, resultat, fraction18 = [], fraction22 = [], triplet, sCote1, sCote2, s1, s2, s3, s4, s5, s6, prix, choix, truc, a, b, c, d, e, m, p, k, A, B, C, D, E, F, G, pol, code1, code2, code3, code4, code5, code6, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[listeIndex[i]]) {
         case '1':
           a = randint(4, 9)
@@ -722,12 +722,12 @@ export default function SujetCAN20213ieme () {
 
         case '25':
 
-          a = calcul(randint(2, 10) * 1000)
+          a = randint(2, 10) * 1000
           b = randint(2, 5)
-          reponse = calcul(a * (1 + b / 100))
-          texte = ` Un capital de $${texNombre(a)}$ € rapporte $${b} \\%$  $${a}-${texNombre(b * a / 100)}$ par an.<br>
+          reponse = a * (1 + b / 100)
+          texte = `           Un capital de $${texNombre(a)}$ € rapporte $${texNombre(b)} \\%$ par an.<br>
            Quelle est la valeur du capital au bout d'un an ?`
-          texteCorr = `Le capital est augmenté de $${b}\\%$ de $${a}$, soit de $${texNombre(b / 100)}\\times ${texNombre(a)}=${texNombre(a * b / 100)}$.<br>
+          texteCorr = `Le capital est augmenté de $${b}\\%$ de $${texNombre(a)}$, soit de $${texNombre(b / 100)}\\times ${texNombre(a)}=${texNombre(a * b / 100)}$.<br>
           Le capital au bout d'un an sera donc de : $${texNombre(a)}+ ${texNombre(a * b / 100)}=${texNombre(a + a * b / 100)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€' }
@@ -735,149 +735,133 @@ export default function SujetCAN20213ieme () {
           break
 
         case '26':
-          a = randint(10, 29)
-          b = randint(3, 8)
-          truc = randint(-8, -2)
+          a = randint(8, 22)
+          b = 4
           texte = `Une urne contient $${a}$  boules numérotées de $1$ à $${a}$. <br>
           On choisit une boule au hasard. Quelle est la probabilité d'obtenir  un nombre premier ? `
-          texteCorr = `Pour $x=${truc}$, on obtient :  $${a}+${b}x=${a}+${b}\\times(${truc})=${a + b * truc}$.`
-          reponse = calcul(a + b * truc)
-
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (a < 11) {
+            texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$.<br>
+          Il y a donc $4$ nombres premiers inférieurs à $${a}$. <br>
+          On en déduit que la probabilité d'obtenir un nombre premier est : $${texFraction(b, a)}${simplificationDeFractionAvecEtapes(b, a)}$.`
+            reponse = [fraction(b, a), fraction(b, a).simplifie()]
+          }
+          if ((a > 10) && (a < 13)) {
+            texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$.<br>
+  Il y a donc $5$ nombres premiers inférieurs à $${a}$. <br>
+  On en déduit que la probabilité d'obtenir un nombre premier est : $${texFraction(b + 1, a)}${simplificationDeFractionAvecEtapes(b + 1, a)}$.`
+            reponse = [fraction(b + 1, a), fraction(b + 1, a).simplifie()]
+          }
+          if ((a > 12) && (a < 17)) {
+            texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$, $13$.<br>
+  Il y a donc $6$ nombres premiers inférieurs à $${a}$. <br>
+  On en déduit que la probabilité d'obtenir un nombre premier est : $${texFraction(b + 2, a)}${simplificationDeFractionAvecEtapes(b + 2, a)}$.`
+            reponse = [fraction(b + 2, a), fraction(b + 2, a).simplifie()]
+          }
+          if ((a > 16) && (a < 19)) {
+            texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$, $13$, $17$.<br>
+  Il y a donc $7$ nombres premiers inférieurs à $${a}$. <br>
+  On en déduit que la probabilité d'obtenir un nombre premier est : $${texFraction(b + 3, a)}${simplificationDeFractionAvecEtapes(b + 3, a)}$.`
+            reponse = [fraction(b + 3, a), fraction(b + 3, a).simplifie()]
+          }
+          if ((a > 18) && (a < 23)) {
+            texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : $2$, $3$, $5$, $7$, $11$, $13$, $17$, $19$.<br>
+  Il y a donc $8$ nombres premiers inférieurs à $${a}$. <br>
+  On en déduit que la probabilité d'obtenir un nombre premier est : $${texFraction(b + 4, a)}${simplificationDeFractionAvecEtapes(b + 4, a)}$.`
+            reponse = [fraction(b + 4, a), fraction(b + 4, a).simplifie()]
+          }
+          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
 
         case '27':
-          a = choice([2, 3, 4, 5, 6, 10]) // nombre de secondes pour remplir un litre
-          b = calcul(60 / a) // nombres de litres/min
-          c = randint(2, b - 1) % 10 // volume du seau à remplir
-          reponse = calcul(c * a)
-          texte = `Le débit d'eau d'un robinet est de $${b}$ L/min. <br>Combien de secondes faut-il pour remplir un seau de $${c}$ L ?`
-          texteCorr = `
-          On commence par déterminer le temps en seconde (puisque dans la question,
-             il est demandé un temps en seconde) qu'il faut pour remplir $1$ L.<br>
-          Comme le débit est de  $${b}$ L 
-          pour une minute soit $60$ secondes, on divise $60$ par $${b}$ pour obtenir 
-          ce temps :  $\\dfrac{60}{${b}}=${a}$ s.<br>
-          Puisqu'il faut $${a}$ s pour remplir un litre, il en faut $${c}$ fois plus pour remplir un seau de 
-          $${c}$ L, soit $${a}\\times ${c}=${a * c}$ s.`
+          a = randint(2, 6) * 3
+          b = randint(4, 9) * 3
+          c = a + b / 100
+          reponse = c / 3
+          texte = `$${texNombre(c)}\\div 3= $`
+          texteCorr = `$${texNombre(c)}\\div 3=(${texNombre(a)}+${texNombre(b / 100)})\\div 3=${texNombre(a)}\\div 3+${texNombre(b / 100)}\\div 3=${texNombre(a / 3)}+${texNombre(b / 300)}=${texNombre(reponse)}$
+          `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'secondes' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$ ' }
           nbChamps = 1
           break
 
         case '28':
-          triplet = [[3, 4, 5], [6, 8, 10]]
-          a = choice(triplet)
-
-          C = point(0, 0, 'C', 'below')
-          A = point(2, 0, 'A', 'below')
-          B = point(2, 3, 'B', 'above')
-
-          xmin = -1
-          ymin = -0.5
-          xmax = 3.5
-          ymax = 3.5
-          pol = polygoneAvecNom(A, B, C)
-          objets = []
-          choix = choice(['a', 'b', 'c'])
+          choix = choice(['a', 'b', 'c'])//
           if (choix === 'a') {
-            objets.push(pol[0])
-            objets.push(
-              texteParPosition(`$${a[0]} \\text{ cm}$`, milieu(A, C).x, milieu(A, C).y - 0.3, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${a[2]} \\text{ cm}$`, milieu(B, C).x - 0.6, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true)
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
-            reponse = a[1]
-            texte = 'Calcule la longueur $AB$. <br>'
+            a = randint(11, 39, [10, 20, 30]) / 1000
+            truc = a * 100
+            reponse = `${stringNombre(truc)}\\times 10^{-2}`
+            texte = `Ecriture  scientifique de $${texNombre(a)}$`
 
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
-            texte += '<br>$AB=$'
-
-            texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
-              On a $AB^2=BC^2-AC^2$, soit $AB^2=${a[2]}^2-${a[0]}^2=${a[2] ** 2 - a[0] ** 2}$.<br>
-              Par conséquent, $AB=${a[1]}$.`
+            texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+          Ici : $${texNombre(a)}=\\underbrace{${texNombre(truc)}}_{1\\leqslant ${texNombre(truc)} <10}\\times 10^{-2}$. `
           }
           if (choix === 'b') {
-            objets.push(pol[0])
-            objets.push(
-              texteParPosition(`$${a[1]} \\text{ cm}$`, milieu(A, B).x + 0.5, milieu(A, B).y, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${a[2]} \\text{ cm}$`, milieu(B, C).x - 0.6, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true)
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
-            reponse = a[0]
-            texte = 'Calcule la longueur $AC$. <br>'
+            a = randint(111, 399, [200, 300]) / 100000
+            truc = a * 1000
+            reponse = `${stringNombre(truc)}\\times 10^{-3}`
+            texte = `Ecriture  scientifique de $${texNombre(a)}$`
 
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
-            texte += '<br>$AC=$'
-
-            texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
-                On a $AC^2=BC^2-AB^2$, soit $AC^2=${a[2]}^2-${a[1]}^2=${a[2] ** 2 - a[1] ** 2}$.<br>
-                Par conséquent, $AC=${a[0]}$.`
+            texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+            Ici : $${texNombre(a)}=\\underbrace{${texNombre(truc)}}_{1\\leqslant ${texNombre(truc)} <10}\\times 10^{-3}$. `
           }
           if (choix === 'c') {
-            objets.push(pol[0])
-            objets.push(
-              texteParPosition(`$${a[1]} \\text{ cm}$`, milieu(A, B).x + 0.4, milieu(A, B).y, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${a[0]} \\text{ cm}$`, milieu(A, C).x, milieu(A, C).y - 0.3, 'milieu', 'black', 1, 'middle', true)
-              , labelPoint(A, B, C), codageAngleDroit(B, A, C))
-            reponse = a[2]
-            texte = 'Calcule la longueur $BC$. <br>'
+            a = randint(111, 399, [200, 300]) / 1000000
+            truc = a * 10000
+            reponse = `${stringNombre(truc)}\\times 10^{-4}`
+            texte = `Ecriture  scientifique de $${texNombre(a)}$`
 
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
-            texte += '<br>$BC=$'
-
-            texteCorr = `On utilise le théorème de Pythagore dans le triangle rectangle $ABC$ :<br>
-                  On a $BC^2=AB^2+AC^2$, soit $BC^2=${a[0]}^2+${a[1]}^2=${a[0] ** 2 + a[1] ** 2}$.<br>
-                  Par conséquent, $BC=${a[2]}$.`
+            texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
+              Ici : $${texNombre(a)}=\\underbrace{${texNombre(truc)}}_{1\\leqslant ${texNombre(truc)} <10}\\times 10^{-4}$. `
           }
-
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' } else { texte += '$\\ldots$ cm' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
 
         case '29':
-          fraction1 = choice(listeFractions1)
-          a = fraction(fraction1[0], fraction1[1])
-          texte = `Ecriture décimale de $${a.texFraction}$. <br>`
-          texteCorr = `$\\dfrac{1}{5}=0,2$, ainsi  $${a.texFraction}=${fraction1[0]}\\times\\dfrac{1}{5}=${texNombre(fraction1[0] / fraction1[1])}$`
-          reponse = calcul(fraction1[0] / fraction1[1])
+          a = randint(4, 9)
+          b = randint(2, 6)
+          truc = randint(4, 8)
+          resultat = (truc + a) * b
+          reponse = truc
+          texte = `Je pense à un nombre, je lui ajoute $${a}$ et je multiplie le résultat par $${b}$.<br>
+          J'obtiens $${resultat}$. Quel est ce nombre ?`
+          texteCorr = `On remonte le programme de calcul en commençant par diviser le nombre obtenu par $${b}$.<br>
+          On obtient $${resultat}\\div ${b}=${resultat / b}$<br>
+          On retranche ensuite $${a}$.<br>
+          On obtient $${resultat / b} -${a}=${truc}$.`
+
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
 
         case '30':
-          a = calcul(randint(2, 6) * 10)
-          n = choice(['pull', 'pantalon', 'tee-shirt', 'vêtement', 'blouson', 'sweat'])
-          b = choice([5, 15])
-          texte = `Le prix d'un ${n} est $${a}$ €. Il baisse de $${b}\\%$ . <br>
-          Quel est son nouveau prix ? `
-
-          if (b === 5) {
-            texteCorr = `
-
-       $10\\%$  de $${a}$ est égal à $${a}\\div 10=${a / 10}$.<br>
-      Puisque $5\\%$  est deux fois plus petit  que $10\\%$ ,  $5\\%$  de $${a}$ est égal à $ ${a / 10}\\div 2=${a / 20}$.<br>
-                   La réduction est donc de : $${texNombre(b * a / 100)}$ €.<br>
-           Le nouveau prix est :   $${a}-${texNombre(b * a / 100)}= ${texNombre(a - (b * a) / 100)}$  €.
-
-    `
-          } else {
-            texteCorr = `
-           $10\\%$  de $${a}$ est égal à $${a}\\div 10=${a / 10}$.<br>
-       $5\\%$  de $${a}$  est égal à la moitié de $10\\%$  de $${a}$, soit
-      $${a / 10}\\div 2=${a / 20}$.<br>
-      Puisque $15\\%$  est égal à $10\\%$  $+5\\%$ ,  $15\\%$  de $${a}$ est égal à $${a / 10}+${a / 20}=${3 * a / 20}$.<br>
-                      La réduction est donc de : $${texNombre(3 * a / 20)}$ €.<br>
-           Le nouveau prix est :   $${a}-${texNombre(b * a / 100)}= ${texNombre(a - (b * a) / 100)}$  €.
-
-  `
+          choix = choice(['a', 'b'])
+          if (choix === 'a') {
+            a = randint(2, 9) * 4
+            texte = `Un article à $${a}$ € est soldé à $${texNombre(a * 0.75)}$ €.<br>
+          Quel est le pourcentage de réduction ?`
+            texteCorr = `La réduction est de $${a}-${texNombre(a * 0.75)}=${texNombre(0.25 * a)}$.<br>
+          Le prix de départ était de $${a}$  €. Le pourcentage de réduction est donné par : $\\dfrac{${texNombre(0.25 * a)}}{${a}}=0,25=25\\%$. `
+            reponse = 25
           }
-          reponse = calcul(a - (b * a) / 100)
+          if (choix === 'b') {
+            a = randint(2, 7) * 10
+            b = randint(1, 4) * 10
+            c = 1 - b / 100
+            texte = `Un article à $${a}$ € est soldé à $${texNombre(a * c)}$ €.<br>
+            Quel est le pourcentage de réduction ?`
+            texteCorr = `La réduction est de $${a}-${texNombre(a * c)}=${texNombre(a - a * c)}$.<br>
+            Le prix de départ était de $${a}$  €. Le pourcentage de réduction est donné par : $\\dfrac{${texNombre(a - a * c)}}{${a}}=${texNombre(b / 100)}=${b}\\%$. `
+            reponse = b
+          }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '%' }
           nbChamps = 1
           break
       }
