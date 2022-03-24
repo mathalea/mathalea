@@ -1,4 +1,4 @@
-import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale } from './outils.js'
+import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, pow, min } from 'mathjs'
 import { fraction } from './fractions.js'
@@ -24,63 +24,34 @@ const definePropRo = (obj, prop, get) => {
  */
 export default class FractionX extends Fraction {
   constructor (...args) {
-    let num, den, cpt
-    if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas) ou une fraction
+    let num, den
+    if (args.length === 1 & !isNaN(num)) { // un seul argument qui peut être un nombre (décimal ou pas)
+      window.notify('FractionX : argument incorrect', { args })
+      super(NaN)
+    } else if (args.length <= 2) { // deux arguments : numérateur et dénominateur qui peuvent être fractionnaires ou des nombres (entiers ou décimaux)
       num = args[0]
-      if (!isNaN(num)) {
-        cpt = num.toString().split('.')[1]?.length || 0
-        // On rend le numérateur entier si possible.
-        num = Number(num.toString().replace('.', ''))
-        den = 10 ** cpt
-        if (cpt > 15) window.notify('FractionX : trop de chiffres dans la partie décimale ', { args })
-        super(num, den)
-        this.num = num
-        this.den = den
-      } else if ((args[0] instanceof FractionX) || (args[0] instanceof Fraction)) {
-        super(args[0].n, args[0].d)
-        this.num = args[0].num
-        this.den = args[0].den
-      } else {
-        window.notify('FractionX : argument incorrect', { args })
-        super(NaN)
-      }
-    } else if (args.length === 2) { // deux arguments : numérateur et dénominateur qui peuvent être fractionnaires ou des nombres (entiers ou décimaux)
-      if ((args[0] instanceof FractionX) || (args[0] instanceof Fraction)) {
-        num = fraction(args[0].num || args[0].n * args[0].s, args[0].den || args[0].d)
-      } else if (!isNaN(args[0])) {
-        num = args[0].toString()
-      } else {
-        window.notify('FractionX : Numérateur incorrect ', { args })
-        num = NaN
-      }
-      if ((args[1] instanceof FractionX) || (args[1] instanceof Fraction)) den = fraction(args[1].num || args[1].n * args[1].s, args[1].den || args[1].d)
-      else if (!isNaN(args[1])) {
-        den = args[1].toString()
-      } else {
-        window.notify('FractionX : Dénominateur incorrect ', { args })
-        den = NaN
-      }
+      den = args.length === 1 ? 1 : args[1]
       if (!isNaN(num) && !isNaN(den)) { // Si ce sont des nombres, on les rend entiers si besoin.
         num = Number(num)
         den = Number(den)
         let maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
         if (maxDecimalesNumDen > 9) { // On peut estimer que num et/ou den ne sont pas décimaux. Essayons de les diviser car peut-être que leur quotient est mieux.
-          const quotientNumDen = num / den
+          const quotientNumDen = calcul(num / den)
           // console.log(quotientNumDen)
           if (nombreDeChiffresDansLaPartieDecimale(quotientNumDen) < 9) { // On peut estimer que le quotient aboutit à un décimal. Ex. dans fraction(7/3,14/3)
             num = quotientNumDen
             den = 1
             maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
           } else { // On peut estimer que le quotient n'aboutit pas à un décimal. Essayons par l'inverse du quotient.
-            const quotientDenNum = den / num
+            const quotientDenNum = calcul(den / num)
             // console.log(quotientDenNum)
             if (nombreDeChiffresDansLaPartieDecimale(quotientDenNum) < 9) { // On peut estimer que l'inverse du quotient aboutit à un décimal. Ex. dans fraction(7/3,7/9)
               den = quotientDenNum
               num = 1
               maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
             } else { // num et/ou den non décimaux et leurs quotients n'aboutissent pas à un décimal. Essayons par l'inverse de chaque nombre.
-              const inverseNum = 1 / num
-              const inverseDen = 1 / den
+              const inverseNum = calcul(1 / num)
+              const inverseDen = calcul(1 / den)
               maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(inverseNum), nombreDeChiffresDansLaPartieDecimale(inverseDen))
               if (maxDecimalesNumDen < 13) { // Ex. dans fraction(1/3,1/7)
                 den = inverseNum
@@ -96,8 +67,8 @@ export default class FractionX extends Fraction {
                 // console.log(denTest, ' ', inverseDenTest)
                 while (min(nombreDeChiffresDansLaPartieDecimale(denTest), nombreDeChiffresDansLaPartieDecimale(inverseDenTest)) > 9 & iDen < testMAX) {
                   iDen++
-                  denTest = den * iDen
-                  inverseDenTest = inverseDen * iDen
+                  denTest = calcul(den * iDen)
+                  inverseDenTest = calcul(inverseDen * iDen)
                   // while (min(nombreDeChiffresDansLaPartieDecimale(denTest), nombreDeChiffresDansLaPartieDecimale(inverseDenTest)) > 13 & iDen < testMAX) {
                 }
                 // console.log(iDen, ' ', denTest, ' ', inverseDenTest)
@@ -105,31 +76,33 @@ export default class FractionX extends Fraction {
                 let numTest = num
                 let inverseNumTest = inverseNum
                 // console.log(numTest, ' ', inverseNumTest)
+                // console.log(iNum, ' ', numTest, ' ', inverseNumTest)
                 while (min(nombreDeChiffresDansLaPartieDecimale(numTest), nombreDeChiffresDansLaPartieDecimale(inverseNumTest)) > 9 & iNum < testMAX) {
                   iNum++
-                  numTest = num * iNum
-                  inverseNumTest = inverseNum * iNum
+                  numTest = calcul(num * iNum)
+                  inverseNumTest = calcul(inverseNum * iNum)
+                  // console.log(iNum, ' ', numTest, ' ', inverseNumTest)
                 }
                 // console.log(iNum, ' ', numTest, ' ', inverseNumTest)
                 if (nombreDeChiffresDansLaPartieDecimale(numTest) < 10) {
                   if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) { // Ex. console.log(new FractionX(11 / 9, 17 / 13))
                     // console.log('toto')
-                    num = numTest * iDen
-                    den = denTest * iNum
+                    num = calcul(numTest * iDen)
+                    den = calcul(denTest * iNum)
                   } else { // Ex. console.log(new FractionX(11 / 9, 13 / 17))
                     // console.log('titi')
-                    num = numTest * inverseDenTest
+                    num = calcul(numTest * inverseDenTest)
                     den = iDen * iNum
                   }
                 } else {
                   if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) { // Ex. console.log(new FractionX(9 / 11, 17 / 13))
                     // console.log('tata')
-                    den = denTest * inverseNumTest
+                    den = calcul(denTest * inverseNumTest)
                     num = iDen * iNum
                   } else { // Ex. console.log(new FractionX(9 / 11, 13 / 17))
                     // console.log('tutu')
-                    den = inverseNumTest * iDen
-                    num = inverseDenTest * iNum
+                    den = calcul(inverseNumTest * iDen)
+                    num = calcul(inverseDenTest * iNum)
                   }
                 }
                 maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
