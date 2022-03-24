@@ -88,13 +88,13 @@ export default class FractionX extends Fraction {
                 let numTest = num
                 let inverseNumTest = inverseNum
                 // console.log(numTest, ' ', inverseNumTest)
-                console.log(iNum, ' ', numTest, ' ', inverseNumTest)
+                // console.log(iNum, ' ', numTest, ' ', inverseNumTest)
                 while (min(nombreDeChiffresDansLaPartieDecimale(numTest), nombreDeChiffresDansLaPartieDecimale(inverseNumTest)) > 9 & iNum < testMAX) {
                   iNum += (iNum % 5 === 3) ? 4 : 2
                   numTest = calcul(num * iNum)
                   inverseNumTest = calcul(inverseNum * iNum)
                 }
-                console.log(iNum, ' ', numTest, ' ', inverseNumTest)
+                // console.log(iNum, ' ', numTest, ' ', inverseNumTest)
                 if (nombreDeChiffresDansLaPartieDecimale(numTest) < 10) {
                   if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) { // Ex. console.log(new FractionX(11 / 9, 17 / 13))
                     // console.log('toto')
