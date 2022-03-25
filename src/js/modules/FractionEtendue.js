@@ -28,7 +28,7 @@ export default class FractionX extends Fraction {
     if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas)
       num = args[0]
       if (!isNaN(num) && !(num instanceof Fraction) && !(num instanceof FractionX)) {
-        if (num.toString().split('.') < 2) cpt = 0
+        if (num.toString().split('.').length < 2) cpt = 0
         else cpt = num.toString().split('.')[1].length
         if (num.toString().split('.').length < 2) cpt = 0
         else cpt = num.toString().split('.')[1].length
