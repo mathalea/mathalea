@@ -29,7 +29,7 @@ export default function EtudierGraphiqueParite () {
     typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0, A, B, s1, s2, s3, s4, a, b, c, f, r, x, C, traceAetB, labA1, labB1, labA0, labB0, lA, lB = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0, A, B, s1, s2, s3, s4, a, b, c, f, r, x, C, traceAetB, labA1, labA0, labB0, lA, lB = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
       switch (typesDeQuestions) {
@@ -50,7 +50,7 @@ export default function EtudierGraphiqueParite () {
           lA = latexParCoordonnees('M\'', -x - 1.1, -a * x + b, 'red', 15, 10, 'white', 6)
           lB = latexParCoordonnees('M', x - 1.1, a * x + b, 'red', 15, 10, 'white', 6)
           labA1 = latexParCoordonnees('f(-x)', 0.5, -a * x + b, 'red', 30, 10, 'white', 8)
-          labB1 = latexParCoordonnees('f(x)', -1.5, a * x + b, 'red', 25, 10, 'white', 8)
+          // labB1 = latexParCoordonnees('f(x)', -1.5, a * x + b, 'red', 25, 10, 'white', 8)
           traceAetB = tracePoint(A, B, 'red') // Variable qui trace les points avec une croix
           traceAetB.taille = 4
           traceAetB.epaisseur = 2
@@ -107,7 +107,7 @@ export default function EtudierGraphiqueParite () {
           texteCorr += 'On observe bien que ces deux points qui ont des abscisses opposées, ont aussi des ordonnées opposées.<br>'
           texteCorr += 'La fonction représentée est impaire.<br>'
 
-          texteCorr += mathalea2d({ xmin: -7.5, xmax: 12, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C, lA, lB, traceAetB, labB0, labB1, labA1, s1, s2, s3, s4, labA0)
+          texteCorr += mathalea2d({ xmin: -7.5, xmax: 12, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C, lA, lB, traceAetB, labB0, labA1, s1, s2, s3, s4, labA0)
           break
         case 3:// Cas f(x)=ax^2
           a = randint(-2, 2, [0])
@@ -197,7 +197,7 @@ export default function EtudierGraphiqueParite () {
           texteCorr += 'On observe bien que ces deux points ont des ordonnées ni égales, ni opposées.<br>'
           texteCorr += 'La fonction représentée est donc ni paire, ni impaire.<br>'
 
-          texteCorr += mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C, lA, lB, traceAetB, labB0, labB1, labA1, s1, s2, s3, s4, labA0)
+          texteCorr += mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C, lA, lB, traceAetB, labB0, s1, s2, s3, s4, labA0)
           break
         case 5:// Cas f(x)=1/ax+b
           a = randint(-2, 2, [0])
@@ -243,7 +243,7 @@ export default function EtudierGraphiqueParite () {
           texteCorr += 'On observe bien que ces deux points ont des ordonnées ni égales, ni opposées.<br>'
           texteCorr += 'La fonction représentée est donc ni paire, ni impaire.<br>'
 
-          texteCorr += mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C, lA, lB, traceAetB, labB0, labB1, labA1, s1, s2, s3, s4, labA0)
+          texteCorr += mathalea2d({ xmin: -7.5, xmax: 9.5, ymin: -7.5, ymax: 7.5, scale: 0.6 }, r, C, lA, lB, traceAetB, labB0, s1, s2, s3, s4, labA0)
           break
         case 6:// Cas f(x)=1/ax
           a = randint(-3, 3, [0, 1, -1])
