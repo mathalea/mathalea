@@ -27,7 +27,7 @@ export default function testFractions () {
     const f1 = new FractionX(a, b)
     const f2 = new Fraction(a, b)
     console.log('Fraction selon FractionX : ', f1.num, ' / ', f1.den, ' fraction selon Fraction : ', f2.n, ' / ', f2.d)
-    this.listeQuestions.push(`FractionX : $\\dfrac{${texNombre(f1.num)}}{${texNombre(f1.den)}}$<br><br>Fraction : $\\dfrac{${texNombre(f2.n)}}{${texNombre(f2.d)}}$`)
+    this.listeQuestions.push(`FractionX : $\\dfrac{${f1.num}}{${f1.den}}$<br><br>Fraction : $\\dfrac{${f2.n}}{${f2.d}}$`)
     this.listeCorrections.push('rien')
     listeQuestionsToContenu(this)
   }
