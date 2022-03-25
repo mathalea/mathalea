@@ -121,7 +121,7 @@ export function verifQuestionMathLive (exercice, i) {
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
         saisie = champTexte !== undefined ? champTexte.value : ''
         if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
-          saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
+          saisieParsee = parse((new FractionEtendue(saisie.replace(',', '.')).toLatex().replace('dfrac', 'frac')))
         } else {
           saisieParsee = parse(saisie)
         }
