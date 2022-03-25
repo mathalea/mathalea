@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { texNombre, listeQuestionsToContenu } from '../../modules/outils.js'
 import FractionX from '../../modules/FractionEtendue'
-import Fraction from 'mathjs'
+import { Fraction } from 'mathjs'
 export const titre = 'Tester la classe FractionX'
 export const dateDePublication = '20/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 

@@ -43,9 +43,9 @@ export default class FractionX extends Fraction {
         window.notify('FractionX : argument incorrect', { args })
         super(NaN)
       }
-    } else if (args.length <= 2) { // deux arguments : numérateur et dénominateur qui peuvent être fractionnaires ou des nombres (entiers ou décimaux)
+    } else if (args.length === 2) { // deux arguments : numérateur et dénominateur qui peuvent être fractionnaires ou des nombres (entiers ou décimaux)
       num = args[0]
-      den = args.length === 1 ? 1 : args[1]
+      den = args[1]
       if (!isNaN(num) && !isNaN(den)) { // Si ce sont des nombres, on les rend entiers si besoin.
         num = Number(num)
         den = Number(den)
