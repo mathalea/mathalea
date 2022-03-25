@@ -28,7 +28,8 @@ export default class FractionX extends Fraction {
     if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas)
       num = args[0]
       if (!isNaN(num) && !(num instanceof Fraction) && !(num instanceof FractionX)) {
-        cpt = num.toString().split('.')[1]?.length || 0
+        if (num.toString().split('.') < 2) cpt = 0
+        else cpt = num.toString().split('.')[1].length
         // On rend le numérateur entier si possible.
         num = Number(num.toString().replace('.', ''))
         den = 10 ** cpt
@@ -57,7 +58,7 @@ export default class FractionX extends Fraction {
       if (!isNaN(num) && !isNaN(den)) { // Si ce sont des nombres, on les rend entiers si besoin.
         numParts = num.split('.')
         denParts = den.split('.')
-        cpt = Math.max(numParts[1]?.length || 0, denParts[1]?.length || 0)
+        cpt = Math.max(numParts[1].length || 0, denParts[1].length || 0)
         while (cpt > 0) {
           if (numParts[1] !== undefined && numParts[1].length !== 0) {
             numParts[0] += numParts[1][0]
