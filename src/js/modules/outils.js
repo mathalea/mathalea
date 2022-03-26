@@ -883,10 +883,10 @@ export function rienSi1 (a) {
 /**
 * Gère l'écriture de l'exposant en mode text
 * @Example
-* // 'dm'+exposant(3)
+* // 'dm'+texteExposant(3)
 * @author Rémi Angot
 */
-export function exposant (texte) {
+export function texteExposant (texte) {
   if (context.isHtml) {
     return `<sup>${texte}</sup>`
   } else {
