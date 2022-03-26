@@ -31,6 +31,15 @@ export default function EcrireUneExpressionNumerique (calculMental) {
     let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    if (this.sup4 === 1) {
+      this.sup = '1-1-2-2-3'
+    } else if (this.sup4 === 2) {
+      this.sup = '1-2-2-3-3'
+    } else if (this.sup4 === 3) {
+      this.sup = '2-2-3-3-4'
+    } else if (this.sup4 === 4) {
+      this.sup = '2-3-4-5'
+    }
     if (!this.sup) { // Si aucune liste n'est saisie
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
     } else {
@@ -122,7 +131,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
           break
       }
-      if (this.questionJamaisPosee(i, expn, expf)) { // Si la question n'a jamais été posée, on en créé une autre
+      if ((this.questionJamaisPosee(i, nbOperations, nbval, this.version) && !this.litteral) || (this.litteral && this.questionJamaisPosee(i, nbOperations, nbval, this.version, resultats[4]))) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.version > 2) {
           if (!context.isAmc) {
             texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' Résultat : ' })
