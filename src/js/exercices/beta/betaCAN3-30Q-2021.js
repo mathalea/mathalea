@@ -3,14 +3,15 @@ import { fraction } from '../../modules/fractions.js'
 import {
   mathalea2d, point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codeSegment
 } from '../../modules/2d.js'
-import { listeQuestionsToContenu, randint, texNombre, printlatex, stringNombre, texFraction, miseEnEvidence, range1, simplificationDeFractionAvecEtapes, combinaisonListesSansChangerOrdre, choice, calcul, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, texFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
+import { round, min } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'CAN 3ième sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '23/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '26/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
@@ -18,6 +19,9 @@ export const dateDePublication = '23/03/2022' // La date de publication initiale
  * Gilles Mora
  * Référence
 */
+function compareNombres (a, b) {
+  return a - b
+}
 export default function SujetCAN20213ieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -30,27 +34,13 @@ export default function SujetCAN20213ieme () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let questions = []
-    if (!this.sup) {
-      // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(30), this.nbQuestions)
-    } else {
-      if (typeof this.sup === 'number') {
-        // Si c'est un nombre c'est qu'il y a qu'une seule question
-        questions[0] = this.sup
-        this.nbQuestions = 1
-      } else {
-        questions = this.sup.split('-') // Sinon on créé un tableau à partir des valeurs séparées par des -
-        this.nbQuestions = questions.length
-      }
-    }
-    for (let i = 0; i < questions.length; i++) {
-      questions[i] = parseInt(questions[i]) - 1
-    }
-    const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
-    const typeQuestionsDisponibles = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-      '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-      '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
+    const nbQ1 = min(round(this.nbQuestions * 7 / 30), 7) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+    const nbQ2 = min(this.nbQuestions - nbQ1, 23)
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7]).slice(-nbQ1).sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([8, 9, 10,
+      11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
+    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
     const listeFractions18 = [[3, 2], [1, 2], [3, 4], [1, 4], [2, 5],
       [3, 5], [4, 5]
     ]
@@ -59,7 +49,7 @@ export default function SujetCAN20213ieme () {
     ]
 
     for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, resultat, fraction18 = [], fraction22 = [], triplet, sCote1, sCote2, s1, s2, s3, s4, s5, s6, prix, choix, truc, a, b, c, d, e, m, p, k, A, B, C, D, E, F, G, pol, code1, code2, code3, code4, code5, code6, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (typeQuestionsDisponibles[listeIndex[i]]) {
+      switch (typeQuestionsDisponibles[i]) {
         case '1':
           a = randint(4, 9)
           b = randint(4, 9)
@@ -199,13 +189,13 @@ export default function SujetCAN20213ieme () {
 
           if (choice([true, false])) {
             reponse = calcul(a * 10000 + b * 100 + c * 10)
-            texte = `$${texNombre(a)}\\times 10000 + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10=$`
-            texteCorr = `$${texNombre(a)}\\times 10000 + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10 =
+            texte = `$${texNombre(a)}\\times ${texNombre(10000)} + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10=$`
+            texteCorr = `$${texNombre(a)}\\times ${texNombre(10000)} + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10 =
      ${texNombre(a * 10000)} + ${texNombre(b * 100)} + ${texNombre(c * 10)}=${texNombre(reponse)}$`
           } else {
             reponse = calcul(c * 10000 + b * 1000 + a * 10)
-            texte = `$ ${texNombre(c)}\\times 10000+ ${texNombre(b)}\\times 1000 + ${texNombre(a)}\\times 10 =$`
-            texteCorr = `$ ${texNombre(c)}\\times 10000+ ${texNombre(b)}\\times 1000 + ${texNombre(a)}\\times 10  =
+            texte = `$ ${texNombre(c)}\\times ${texNombre(10000)}+ ${texNombre(b)}\\times ${texNombre(1000)} + ${texNombre(a)}\\times 10 =$`
+            texteCorr = `$ ${texNombre(c)}\\times ${texNombre(10000)}+ ${texNombre(b)}\\times ${texNombre(1000)} + ${texNombre(a)}\\times 10  =
       ${texNombre(c * 10000)}+ ${texNombre(b * 1000)} + ${texNombre(a * 10)} =${texNombre(reponse)}$`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -363,7 +353,7 @@ export default function SujetCAN20213ieme () {
           reponse = calcul(a * p / 100)
           texte = `$${p}\\%$ de $${a}= $`
           texteCorr = ` Prendre $${p}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\%$  de $${a}$.<br>
-          Comme $10\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors 
+          Comme $10\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors
           $${p}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${reponse}$.
          `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
