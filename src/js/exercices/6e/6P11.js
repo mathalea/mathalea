@@ -146,8 +146,8 @@ function questionAchat (exo, i) { // questions d'origine du 6P11 : achat.
   let enonceAMC1 = `${numAlpha(0)} ${prenoms[0]} a repéré, ${listeDeLieux[index1]}, des ${objet} qui l'intéressent. ` +
 `Elle lit que ${n} ${objet} coûtent ${texPrix(x)}${sp()}€. `
   let texte = enonceAMC1
-  enonceAMC1 += `Elle veut en acheter ${y}.<br> Combien d'euros va-t-elle dépenser ? `
-  texte += `Elle veut en acheter ${y}.<br> Combien va-t-elle dépenser ? `
+  enonceAMC1 += `Elle veut en acheter ${y}.<br> Combien d'euros va-t-elle dépenser${sp()}? `
+  texte += `Elle veut en acheter ${y}.<br> Combien va-t-elle dépenser${sp()}? `
   texte += ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: `${sp()}€` })
   let texteCorr = `${numAlpha(0)} ${y} ${objet}, c'est ${texteEnCouleur(
         stringNombre(y / n)
@@ -266,31 +266,32 @@ function questionRecette (exo, i) { // questions avec des masses pour un nombre 
       quantites_par_pers: [10, 12, 15, 18]
     }
   ]
-  const nbPersonneInit = randint(2, 6) // nombre de personne indiqué dans la recette.
-  const nbPersonneFinal = nbPersonneInit * randint(2, 5) // nombre de personne pour lequel on veut cuisiner
+  const nbPersonneInit = randint(2, 6) // nombre de personnes indiqué dans la recette.
+  const alea4 = randint(2, 5)
+  const nbPersonneFinal = nbPersonneInit * alea4 // nombre de personnes pour lequel on veut cuisiner
   const alea1 = randint(0, 3) // pour le choix de l'ingredient
   const alea2 = randint(0, liste[alea1].recettes.length - 1) // pour le choix de la recette
   const alea3 = randint(0, liste[alea1].quantites_par_pers.length - 1) // pour le choix de la quantité par personne.
-  const quantite = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneInit, 3) // Calcul de la quantité dans la recette à partir de la qtt/personne et du nb de personne
-  const quantite2 = quantite * randint(2, 5)
+  const quantite = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneInit, 3) // Calcul de la quantité dans la recette à partir de la qtt/personne et du nb de personnes
+  const quantite2 = quantite * randint(2, 5, [alea4])
   const quantiteReponse = calcul(liste[alea1].quantites_par_pers[alea3] * nbPersonneFinal, 3) // Pour la correction
   const prenoms = [prenomF(), prenomM()] // Choix de prénoms pour l'énoncé
-  let enonceAMC1 = `${numAlpha(0)} ${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour ${nbPersonneInit} personnes qu'il faut ${quantite} g de ${liste[alea1].ingredient}. ` +
+  let enonceAMC1 = `${numAlpha(0)} ${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour ${nbPersonneInit} personnes qu'il faut ${quantite}${sp()}g de ${liste[alea1].ingredient}. ` +
   `Elle veut adapter sa recette pour ${nbPersonneFinal} personnes.`
   texte = enonceAMC1
-  enonceAMC1 += `<br> Quelle masse, en g, de ${liste[alea1].ingredient} doit-elle prévoir ? `
-  texte += `<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ? `
+  enonceAMC1 += `<br> Quelle masse, en${sp()}g, de ${liste[alea1].ingredient} doit-elle prévoir${sp()}? `
+  texte += `<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir${sp()}? `
   texte += ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' g' })
   texteCorr = `${numAlpha(0)} ${nbPersonneFinal} personnes, c'est ${texteEnCouleur(nbPersonneFinal / nbPersonneInit)} fois ${nbPersonneInit} personnes. ` +
   `Il faut donc ${texteEnCouleur(nbPersonneFinal / nbPersonneInit)} fois plus de ${liste[alea1].ingredient}.<br>` +
-  `${quantite} g $\\times $ ${texteEnCouleur(nbPersonneFinal / nbPersonneInit)} = ${quantiteReponse} g. <br>` +
-  texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit utiliser ${quantiteReponse} g de ${liste[alea1].ingredient} pour ${nbPersonneFinal} personnes.<br>`, 'black')
-  const enonceAMC2 = `${numAlpha(1)} ${prenoms[1]} utilise la même recette de ${liste[alea1].recettes[alea2]}. Il dispose de ${quantite2} g de ${liste[alea1].ingredient}. 
+  `${quantite}${sp()}g $\\times $ ${texteEnCouleur(nbPersonneFinal / nbPersonneInit)} = ${quantiteReponse}${sp()}g. <br>` +
+  texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit utiliser ${quantiteReponse}${sp()}g de ${liste[alea1].ingredient} pour ${nbPersonneFinal} personnes.<br>`, 'black')
+  const enonceAMC2 = `${numAlpha(1)} ${prenoms[1]} utilise la même recette de ${liste[alea1].recettes[alea2]}. Il dispose de ${quantite2}${sp()}g de ${liste[alea1].ingredient}. 
   Pour combien de personnes au maximum peut-il cuisiner${sp()}?`
   texte += '<br> ' + enonceAMC2 + ajouteChampTexteMathLive(exo, i + 1, 'largeur25 inline', { texteApres: ' personnes' })
-  texteCorr += `${numAlpha(1)} ${quantite2} g, c'est ${texteEnCouleur(quantite2 / quantite)} fois ${quantite} g. ` +
+  texteCorr += `${numAlpha(1)} ${quantite2}${sp()}g, c'est ${texteEnCouleur(quantite2 / quantite)} fois ${quantite}${sp()}g. ` +
   `${prenoms[1]} peut donc cuisiner pour ${texteEnCouleur(quantite2 / quantite)} fois plus de personnes.<br>` +
-  `${nbPersonneInit} g $\\times $ ${texteEnCouleur(quantite2 / quantite)} = ${nbPersonneInit * quantite2 / quantite}. <br>` +
+  `${nbPersonneInit}${sp()}g $\\times $ ${texteEnCouleur(quantite2 / quantite)} = ${nbPersonneInit * quantite2 / quantite}. <br>` +
   texteEnCouleurEtGras(`Conclusion : ${prenoms[1]} peut donc préparer sa recette pour ${nbPersonneInit * quantite2 / quantite} personnes.`, 'black')
   if (!context.isAmc) {
     setReponse(exo, i, quantiteReponse)
@@ -395,8 +396,8 @@ function questionDillution (exo, i) { // questions de mélange de volumes
   enonceAMC += volumeInitialAff < 2 ? `${liste[alea1].unite_solvant[0]} d'eau.<br> ` : `${liste[alea1].unite_solvant[1]} d'eau.<br>`
   enonceAMC += `On veut utiliser $${volumeFinalAff}$ ${uniteSolvantVolumeFinal} d'eau. `
   let texte = enonceAMC
-  enonceAMC += `Quel volume, en${sp()}${liste[alea1].unite_solute}, de ${liste[alea1].solute} doit-on prévoir ? `
-  texte += `Quel volume de ${liste[alea1].solute} doit-on prévoir ? `
+  enonceAMC += `Quel volume, en${sp()}${liste[alea1].unite_solute}, de ${liste[alea1].solute} doit-on prévoir${sp()}? `
+  texte += `Quel volume de ${liste[alea1].solute} doit-on prévoir${sp()}? `
   texte += ajouteChampTexteMathLive(exo, i, 'largeur25 inline', { texteApres: ' ' + liste[alea1].unite_solute })
   const texteCorr = `Le volume de ${liste[alea1].solute} est proportionnel au volume d'eau. <br> ` +
 ` ${texteEnCouleur(volumeFinalAff)} ${uniteSolvantVolumeFinal} d'eau, c'est ${texteEnCouleur(stringNombre(volumeFinal / volumeInitial))} fois ${volumeInitialAff} ${liste[alea1].unite_solvant[0]} d'eau. <br> ` +
@@ -512,7 +513,6 @@ function questionDistance (exo, i) { // questions de distance parcourue à une v
       exo.autoCorrection[i] = {
         enonce: '',
         enonceAvant: false,
-        // options: { multicols: true, barreseparation: true },
         propositions: [
           {
             type: 'AMCNum',
@@ -537,21 +537,24 @@ function questionDistance (exo, i) { // questions de distance parcourue à une v
   } else {
     const alea2 = randint(0, liste[alea1].vitesse.length - 1) // pour le choix du temps passé
     const rapportQuestion2 = [0.25, 0.5, 0.75, 1.25, 1.5, 2]
-    const alea3 = randint(0, rapportQuestion2.length - 1, [alea2])
+    let alea3 = randint(0, rapportQuestion2.length - 1)
+    while (duree[alea2].rapport === rapportQuestion2[alea3]) {
+      alea3 = randint(0, rapportQuestion2.length - 1)
+    }
     const reponseQ1 = calcul(duree[alea2].rapport * liste[alea1].vitesse[alea2], 3)
     const distance = stringNombre(calcul(rapportQuestion2[alea3] * liste[alea1].vitesse[alea2])) // pour question 2
     let enonceAMC1 = `${numAlpha(0)} Un ${liste[alea1].locomotion} parcourt en moyenne ${stringNombre(liste[alea1].vitesse[alea2])}${sp()}km en une heure.<br>`
     texte = enonceAMC1
-    enonceAMC1 += `Quelle distance, en${sp()}km, va-t-il parcourir, à la même vitesse, en ${duree[alea2].temps} ? `
-    texte += `Quelle distance va-t-il parcourir, à la même vitesse, en ${duree[alea2].temps} ? `
+    enonceAMC1 += `Quelle distance, en${sp()}km, va-t-il parcourir, à la même vitesse, en ${duree[alea2].temps}${sp()}? `
+    texte += `Quelle distance va-t-il parcourir, à la même vitesse, en ${duree[alea2].temps}${sp()}? `
     texte += ajouteChampTexteMathLive(exo, i, 'largeur25  inline', { texteApres: ' km' })
     texteCorr = `${numAlpha(0)} ${duree[alea2].temps}, c'est ${texteEnCouleur(stringNombre(duree[alea2].rapport))} fois une heure.<br> ` +
   `En une heure, le ${liste[alea1].locomotion} parcourt ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2], 'blue'))}${sp()}km donc en ${duree[alea2].temps}, il va parcourir ${texteEnCouleur(stringNombre(duree[alea2].rapport))} fois ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2], 'blue'))}${sp()}km. <br>` +
   `${texteEnCouleur(stringNombre(duree[alea2].rapport))} $\\times$ ${texteEnCouleur(stringNombre(liste[alea1].vitesse[alea2], 'blue'))}${sp()}km = ${stringNombre(reponseQ1)}${sp()}km <br>` +
   texteEnCouleurEtGras(` Conclusion : Le ${liste[alea1].locomotion} va donc parcourir ${stringNombre(reponseQ1)}${sp()}km.`, 'black') + '<br>'
-    const enonceAMC2 = `${numAlpha(1)} Combien de temps, en minutes, va-t-il mettre pour parcourir ${distance}${sp()}km à cette même vitesse ? `
-    texte += `<br> ${numAlpha(1)} Combien de temps va-t-il mettre pour parcourir ${distance}${sp()}km à cette même vitesse ? ` + ajouteChampTexteMathLive(exo, i + 1, 'largeur25  inline', { texteApres: ' minutes' })
-    texteCorr += `${numAlpha(1)} ${distance}, c'est ${texteEnCouleur(stringNombre(rapportQuestion2[alea3]))} fois ${stringNombre(liste[alea1].vitesse[alea2])}${sp()}km.
+    const enonceAMC2 = `${numAlpha(1)} Combien de temps, en minutes, va-t-il mettre pour parcourir ${distance}${sp()}km à cette même vitesse${sp()}? `
+    texte += `<br> ${numAlpha(1)} Combien de temps va-t-il mettre pour parcourir ${distance}${sp()}km à cette même vitesse${sp()}? ` + ajouteChampTexteMathLive(exo, i + 1, 'largeur25  inline', { texteApres: ' minutes' })
+    texteCorr += `${numAlpha(1)} ${distance}${sp()}km, c'est ${texteEnCouleur(stringNombre(rapportQuestion2[alea3]))} fois ${stringNombre(liste[alea1].vitesse[alea2])}${sp()}km.
       Le ${liste[alea1].locomotion} parcourt ${stringNombre(liste[alea1].vitesse[alea2])}${sp()}km en une heure. <br>` +
   `Il va mettre donc ${texteEnCouleur(stringNombre(rapportQuestion2[alea3]))} fois une heure à parcourir ${distance}${sp()}km. <br>` +
   texteEnCouleurEtGras(`Conclusion : Le ${liste[alea1].locomotion} va donc mettre  ${stringNombre(rapportQuestion2[alea3])} heure${rapportQuestion2[alea3] >= 2 ? 's' : ''} à parcourir ${distance}${sp()}km,  ce qui fait ${calcul(rapportQuestion2[alea3] * 60, 0)} minutes (${stringNombre(rapportQuestion2[alea3])} $\\times$ 60 minutes).`, 'black')
@@ -622,7 +625,7 @@ function questionEchelle (exo, i) { // X cm sur une carte correspond à x km dan
   texte = `${numAlpha(0)} Sur une carte sur laquelle ${distanceCarte} cm représente ${distanceReel}${sp()}km dans la réalité, 
 ${prenoms[0]} mesure son trajet et elle trouve une distance de ${distanceCarte2} cm. <br>`
   const enonceAMC1 = texte + `À quelle distance, en${sp()}km, cela correspond dans la réalité${sp()}?`
-  texte += 'À quelle distance cela correspond dans la réalité ? ' + ajouteChampTexteMathLive(exo, i, 'largeur25  inline', { texteApres: ' km' })
+  texte += `À quelle distance cela correspond dans la réalité${sp()}? ` + ajouteChampTexteMathLive(exo, i, 'largeur25  inline', { texteApres: ' km' })
   texteCorr = `${numAlpha(0)} ${distanceCarte2} cm, c'est ${texteEnCouleur(stringNombre(rapport[alea1]))} fois ${distanceCarte} cm. <br>
 Dans la réalité, ${distanceCarte} cm correspond à ${texteEnCouleur(distanceReel, 'blue')}${sp()}km donc` +
 `  ${distanceCarte2} cm va correspondre à ${texteEnCouleur(stringNombre(rapport[alea1]))} fois ${texteEnCouleur(distanceReel, 'blue')}${sp()}km.  <br>` +
@@ -761,11 +764,11 @@ texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit en acheter ${quantiteF}${s
     const rapport = [0.25, 0.5, 0.75, 1.25, 1.5, 2, 3, 4, 5] // choix parmi des rapports simples (en 6eme cela parait suffisant)
     const quantite = liste[alea1].qtt_matiere_unitaire[alea2]
     const alea4 = randint(0, rapport.length - 1)
-    const surfaceFinale = calcul(rapport[alea4] * liste[alea1].qtt_surface[alea3], 2)
+    const surfaceFinale = calcul(rapport[alea4] * liste[alea1].qtt_surface[alea3], 3)
     const alea5 = randint(0, rapport.length - 1, [alea4])
-    const quantite2 = calcul(rapport[alea5] * liste[alea1].qtt_matiere_unitaire[alea2], 2)
+    const quantite2 = calcul(rapport[alea5] * liste[alea1].qtt_matiere_unitaire[alea2], 3)
     const alea6 = randint(-2, 2, [0])
-    const surfaceFinale2 = calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3] + alea6, 2)
+    const surfaceFinale2 = calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3] + alea6, 3)
     const qttaffichage = stringNombre(quantite) // Pour affichage avec virgule en séparateur.
     const enonceAMC1 = `${numAlpha(0)} ${prenoms[0]} doit acheter ${liste[alea1].matiere}. ` +
 `Sur la notice, il est indiqué de prévoir ${qttaffichage}${sp()}${liste[alea1].unite} pour ${liste[alea1].qtt_surface[alea3]}${sp()}m${texteExposant(2)}. <br> ` +
