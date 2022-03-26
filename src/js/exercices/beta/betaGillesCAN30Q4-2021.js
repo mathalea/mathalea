@@ -3,14 +3,16 @@ import { fraction, obtenirListeFractionsIrreductibles } from '../../modules/frac
 import {
   mathalea2d, point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition
 } from '../../modules/2d.js'
-import { listeQuestionsToContenu, randint, texNombre, texFractionReduite, tableauColonneLigne, combinaisonListes, texFraction, miseEnEvidence, shuffle, range1, simplificationDeFractionAvecEtapes, combinaisonListesSansChangerOrdre, choice, calcul, sp } from '../../modules/outils.js'
+import { round, min } from 'mathjs'
+import { listeQuestionsToContenu, randint, texNombre, texFractionReduite, tableauColonneLigne, combinaisonListes, texFraction, miseEnEvidence, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'CAN 4ième 30 questions sujet 2021'
+export const titre = 'CAN 4ième sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '20/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '26/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
@@ -18,39 +20,29 @@ export const dateDePublication = '20/03/2022' // La date de publication initiale
  * Gilles Mora
  * Référence
 */
+
+function compareNombres (a, b) {
+  return a - b
+}
 export default function SujetCAN20214ieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.nbQuestions = 30// 10,20,30
+  this.nbQuestions = 30
   this.nbCols = 1
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let questions = []
-    if (!this.sup) {
-      // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(30), this.nbQuestions)
-    } else {
-      if (typeof this.sup === 'number') {
-        // Si c'est un nombre c'est qu'il y a qu'une seule question
-        questions[0] = this.sup
-        this.nbQuestions = 1
-      } else {
-        questions = this.sup.split('-') // Sinon on créé un tableau à partir des valeurs séparées par des -
-        this.nbQuestions = questions.length
-      }
-    }
-    for (let i = 0; i < questions.length; i++) {
-      questions[i] = parseInt(questions[i]) - 1
-    }
-    const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
-    const typeQuestionsDisponibles = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-      '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-      '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
+    const nbQ1 = min(round(this.nbQuestions * 8 / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
+    const nbQ2 = min(this.nbQuestions - nbQ1, 23)
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8]).slice(-nbQ1).sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([9, 10,
+      11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
+    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
     const listeFractions1 = [[1, 5], [2, 5], [3, 5], [4, 5], [6, 5],
       [7, 5], [8, 5], [9, 5]
     ]
@@ -59,8 +51,8 @@ export default function SujetCAN20214ieme () {
     ]
 
     for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction1 = [], fraction2 = [], triplet, propositions, prix, choix, truc, a, b, c, d, e, m, n, p, k, A, B, C, D, pol, L, l2, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (typeQuestionsDisponibles[listeIndex[i]]) {
-        case '1':
+      switch (typeQuestionsDisponibles[i]) {
+        case 1:
           a = randint(4, 9)
           b = randint(4, 9)
           texte = `$${a} \\times ${b}=$ `
@@ -72,7 +64,7 @@ export default function SujetCAN20214ieme () {
 
           break
 
-        case '2':
+        case 2:
           a = calcul(randint(6, 12) * 4)
           b = calcul(randint(6, 15) * 3)
           m = choice(['quart', 'tiers'])
@@ -94,7 +86,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '3':
+        case 3:
 
           a = randint(101, 121)
           b = randint(21, 45)
@@ -108,7 +100,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '4':
+        case 4:
 
           a = calcul(randint(3, 9) + randint(1, 4) / 10)
           b = calcul(randint(1, 5) / 10 + randint(2, 9) / 100)
@@ -121,7 +113,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '5':
+        case 5:
           a = randint(11, 18)
           b = randint(3, 5)
           c = a * b
@@ -138,7 +130,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '6':
+        case 6:
           a = calcul(randint(1, 9) * 10 + randint(1, 9) + 0.9 + randint(1, 9) / 100)
           b = calcul(randint(1, 9) * 10 + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000)
 
@@ -156,7 +148,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '7':
+        case 7:
           a = randint(1, 9)
           b = randint(1, 9, a)
 
@@ -192,20 +184,20 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '8':
+        case 8:
           a = randint(2, 5)
           b = randint(2, 9)
           c = randint(2, 9)
 
           if (choice([true, false])) {
             reponse = calcul(a * 10000 + b * 100 + c * 10)
-            texte = `$${texNombre(a)}\\times 10000 + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10=$`
-            texteCorr = `$${texNombre(a)}\\times 10000 + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10 =
+            texte = `$${texNombre(a)}\\times ${texNombre(10000)} + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10=$`
+            texteCorr = `$${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10 =
      ${texNombre(a * 10000)} + ${texNombre(b * 100)} + ${texNombre(c * 10)}=${texNombre(reponse)}$`
           } else {
             reponse = calcul(c * 10000 + b * 1000 + a * 10)
-            texte = `$ ${texNombre(c)}\\times 10000+ ${texNombre(b)}\\times 1000 + ${texNombre(a)}\\times 10 =$`
-            texteCorr = `$ ${texNombre(c)}\\times 10000+ ${texNombre(b)}\\times 1000 + ${texNombre(a)}\\times 10  =
+            texte = `$ ${texNombre(c)}\\times ${texNombre(10000)}+ ${texNombre(b)}\\times ${texNombre(1000)} + ${texNombre(a)}\\times 10 =$`
+            texteCorr = `$ ${texNombre(c)}\\times ${texNombre(10000)}+ ${texNombre(b)}\\times ${texNombre(1000)} + ${texNombre(a)}\\times 10  =
       ${texNombre(c * 10000)}+ ${texNombre(b * 1000)} + ${texNombre(a * 10)} =${texNombre(reponse)}$`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -213,7 +205,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '9':
+        case 9:
           a = randint(2, 6)
           prix = calcul(2 + randint(1, 3) / 10 + 0.05)
           k = randint(2, 4)
@@ -223,14 +215,14 @@ export default function SujetCAN20214ieme () {
              `
 
           texteCorr = `$${a}$ stylos identiques coûtent  $${texNombre(prix)}$ €, donc $${k * a}$
-           de ces mêmes stylos coûtent  $${k}$ fois plus, soit $${k}\\times ${prix}=${texNombre(k * prix)}$ €.`
+           de ces mêmes stylos coûtent  $${k}$ fois plus, soit $${k}\\times ${texNombre(prix)}=${texNombre(k * prix)}$ €.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €' }
           nbChamps = 1
           break
 
-        case '10':
+        case 10:
 
           a = randint(11, 24, 20)
           reponse = calcul(101 * a)
@@ -244,7 +236,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '11':
+        case 11:
           a = randint(-22, -11)
           b = randint(-9, -2)
           texte = `$${a}-(${b})=$`
@@ -254,7 +246,7 @@ export default function SujetCAN20214ieme () {
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
-        case '12':
+        case 12:
           a = choice([2, 2, 2, 3, 3, 4, 5])
           if (a === 2) {
             b = randint(3, 6)
@@ -288,7 +280,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '13':
+        case 13:
           L = randint(8, 12)
           a = calcul(L * randint(2, 7))
           texte = `Un rectangle a une aire de $${a}$ m$^2$ et sa longueur mesure $${L}$ m.<br>
@@ -302,12 +294,13 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '14':
+        case 14:
           a = choice(obtenirListeFractionsIrreductibles())
           c = choice([2, 4])
           b = fraction(1, a.d * c)
           if (choice([true, false])) {
-            texte = `$${a.texFraction} + ${b.texFraction}=$`
+            texte = `$${a.texFraction} + ${b.texFraction}=$
+           `
             texteCorr = `Pour additionner des fractions, on les met au même dénominateur.<br>
           
            Ainsi, $${a.texFraction} + ${b.texFraction}
@@ -326,13 +319,13 @@ export default function SujetCAN20214ieme () {
           =\\dfrac{${b.n + a.n * c}}{${b.d}}${simplificationDeFractionAvecEtapes(a.n * c + b.n, b.d)}$`
           }
 
-          reponse = [a.sommeFraction(b).simplifie(), a.sommeFraction(b)]
-          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
+          reponse = fraction(a.n * c + b.n, b.d)
+          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
 
-        case '15':
+        case 15:
           a = choice([2, 3, 6]) // diviseur de l'heure
           b = calcul(60 / a) // nombre de minutes de l'énoncé
           c = choice([30, 60, 90, 120])
@@ -346,7 +339,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '16':
+        case 16:
           a = randint(-19, -11)
           b = randint(3, 8)
           c = randint(4, 10)
@@ -359,7 +352,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '17':
+        case 17:
           a = choice(obtenirListeFractionsIrreductibles())
           c = choice([2, 3, 4, 5, 6])
           b = a.d * c
@@ -377,7 +370,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '18':
+        case 18:
           a = choice(obtenirListeFractionsIrreductibles())
           c = a.d
 
@@ -405,7 +398,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '19':
+        case 19:
           a = combinaisonListes([0, 1, 2, 3], 3)
           texte = `$10^${a[0]}+10^${a[1]}+10^${a[2]}= $`
           texteCorr = `$10^${a[0]}+10^${a[1]}+10^${a[2]}=
@@ -417,13 +410,13 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '20':
+        case 20:
           a = randint(1, 5) * 10
           p = randint(2, 9, 5) * 10
           reponse = calcul(a * p / 100)
           texte = `$${p}\\%$ de $${a}= $`
-          texteCorr = `$${p}\\%$ de $${a} = ${texNombre(reponse)}$`
-          texteCorr += `          Prendre $${p}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\%$  de $${a}$.<br>
+
+          texteCorr = `          Prendre $${p}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\%$  de $${a}$.<br>
           Comme $10\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors 
           $${p}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${reponse}$.
          `
@@ -432,7 +425,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '21':
+        case 21:
           if (choice([true, false])) {
             L = randint(3, 9)
             B = point(0, 0, 'B', 'below')
@@ -485,7 +478,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '22':
+        case 22:
 
           fraction2 = choice(listeFractions2)
           a = fraction(fraction2[0], fraction2[1])
@@ -497,14 +490,12 @@ export default function SujetCAN20214ieme () {
            <br>
           `
 
-          reponse = a.differenceFraction(b).simplifie()
-
-          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
+          setReponse(this, index, (new FractionEtendue(-fraction2[0], fraction2[1])).simplifie(), { formatInteractif: 'fraction' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
 
-        case '23':
+        case 23:
           a = randint(-5, -2)
           b = randint(2, 4)
           truc = randint(-5, -2)
@@ -520,7 +511,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '24':
+        case 24:
           a = randint(1, 6) * 2
           b = calcul(a + a / 2)
           c = randint(7, 12) * 2
@@ -538,7 +529,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '25':
+        case 25:
 
           a = calcul(randint(1, 12) + randint(1, 9) / 10)
           reponse = calcul(a * 1000)
@@ -549,7 +540,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '26':
+        case 26:
           a = randint(10, 29)
           b = randint(3, 8)
           truc = randint(-8, -2)
@@ -562,7 +553,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '27':
+        case 27:
           a = choice([2, 3, 4, 5, 6, 10]) // nombre de secondes pour remplir un litre
           b = calcul(60 / a) // nombres de litres/min
           c = randint(2, b - 1) % 10 // volume du seau à remplir
@@ -582,7 +573,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '28':
+        case 28:
           triplet = [[3, 4, 5], [6, 8, 10]]
           a = choice(triplet)
 
@@ -651,7 +642,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '29':
+        case 29:
           fraction1 = choice(listeFractions1)
           a = fraction(fraction1[0], fraction1[1])
           texte = `Ecriture décimale de $${a.texFraction}$. <br>`
@@ -662,7 +653,7 @@ export default function SujetCAN20214ieme () {
           nbChamps = 1
           break
 
-        case '30':
+        case 30:
           a = calcul(randint(2, 6) * 10)
           n = choice(['pull', 'pantalon', 'tee-shirt', 'vêtement', 'blouson', 'sweat'])
           b = choice([5, 15])
