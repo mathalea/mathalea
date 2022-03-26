@@ -34,10 +34,10 @@ export default function SujetCAN20213ieme () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const nbQ1 = min(round(this.nbQuestions * 7 / 30), 7) // Choisir d'un nb de questions de niveau 1 parmi les 7 possibles.
-    const nbQ2 = min(this.nbQuestions - nbQ1, 23)
-    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7]).slice(-nbQ1).sort(compareNombres)
-    const typeQuestionsDisponiblesNiv2 = shuffle([8, 9, 10,
+    const nbQ1 = min(round(this.nbQuestions * 8 / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+    const nbQ2 = min(this.nbQuestions - nbQ1, 22)
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8]).slice(-nbQ1).sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([9, 10,
       11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
       21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
@@ -50,7 +50,7 @@ export default function SujetCAN20213ieme () {
 
     for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, resultat, fraction18 = [], fraction22 = [], triplet, sCote1, sCote2, s1, s2, s3, s4, s5, s6, prix, choix, truc, a, b, c, d, e, m, p, k, A, B, C, D, E, F, G, pol, code1, code2, code3, code4, code5, code6, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
-        case '1':
+        case 1:
           a = randint(4, 9)
           b = randint(4, 9)
           texte = `$${a} \\times ${b}=$ `
@@ -62,7 +62,7 @@ export default function SujetCAN20213ieme () {
 
           break
 
-        case '2':
+        case 2:
           a = calcul(randint(6, 12) * 4)
           b = calcul(randint(6, 15) * 3)
           m = choice(['quart', 'tiers'])
@@ -84,7 +84,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '3':
+        case 3:
 
           a = randint(101, 121)
           b = randint(21, 45)
@@ -98,7 +98,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '4':
+        case 4:
 
           a = calcul(randint(3, 9) + randint(1, 4) / 10)
           b = calcul(randint(1, 5) / 10 + randint(2, 9) / 100)
@@ -111,7 +111,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '5':
+        case 5:
           a = randint(11, 18)
           b = randint(3, 5)
           c = a * b
@@ -128,7 +128,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '6':
+        case 6:
           a = calcul(randint(1, 9) * 10 + randint(1, 9) + 0.9 + randint(1, 9) / 100)
           b = calcul(randint(1, 9) * 10 + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000)
 
@@ -146,7 +146,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '7':
+        case 7:
           a = randint(1, 9)
           b = randint(1, 9, a)
 
@@ -182,7 +182,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '8':
+        case 8:
           a = randint(2, 5)
           b = randint(2, 9)
           c = randint(2, 9)
@@ -203,7 +203,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '9':
+        case 9:
           a = randint(2, 6)
           prix = calcul(2 + randint(1, 3) / 10 + 0.05)
           k = randint(2, 4)
@@ -220,7 +220,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '10':
+        case 10:
 
           a = randint(11, 24, 20)
           reponse = calcul(101 * a)
@@ -234,7 +234,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '11':
+        case 11:
           a = choice([15, 35, 42, 10, 14, 21, 22])
 
           texte = `Donne la liste des diviseurs de $${a}$.<br>`
@@ -274,7 +274,7 @@ export default function SujetCAN20213ieme () {
           }
           nbChamps = 1
           break
-        case '12':
+        case 12:
           a = randint(1, 9)// longueur BE
           k = randint(2, 4)
           b = k * a // longueur DC
@@ -314,7 +314,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '13':
+        case 13:
           a = randint(-9, -4)
           b = randint(2, 8)
           c = randint(2, 5)
@@ -328,7 +328,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '14':
+        case 14:
 
           a = randint(1, 5)
           b = choice([0.25, 0.5, 0.75])
@@ -347,7 +347,7 @@ export default function SujetCAN20213ieme () {
           }
           break
 
-        case '15':
+        case 15:
           a = randint(1, 5) * 10
           p = randint(2, 9, 5) * 10
           reponse = calcul(a * p / 100)
@@ -361,7 +361,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '16':
+        case 16:
 
           b = randint(8, 15) // longueur hauteur
 
@@ -394,7 +394,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '17':
+        case 17:
           a = randint(21, 39)
           b = randint(121, 149, [130, 140])
           c = randint(61, 98, [70, 80, 90])
@@ -410,7 +410,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '18':
+        case 18:
           fraction18 = choice(listeFractions18)
           a = fraction(fraction18[0], fraction18[1])
           k = randint(3, 9)
@@ -423,7 +423,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '19':
+        case 19:
           triplet = [[3, 4, 5], [6, 8, 10]]
           a = choice(triplet)
 
@@ -492,7 +492,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '20':
+        case 20:
           a = choice([5, 10, 20, 30, 40])
           b = randint(1, 3)
           reponse = calcul(a * 60 * b + 30 * a)
@@ -506,7 +506,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '21':
+        case 21:
           a = choice([calcul(randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9)), calcul(randint(1, 9) * 10 + randint(1, 9))])
           reponse = calcul(a / 1000)
           texte = `Complète.<br>
@@ -519,7 +519,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '22':
+        case 22:
           k = calcul(randint(2, 5) * 10)
           fraction22 = choice(listeFractions22)
           a = fraction(fraction22[0] * k, fraction22[1] * k)
@@ -538,7 +538,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '23':
+        case 23:
           choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
             b = randint(7, 12)
@@ -693,7 +693,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '24':
+        case 24:
           a = randint(-30, -11)
           b = randint(25, 49)
 
@@ -710,7 +710,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '25':
+        case 25:
 
           a = randint(2, 10) * 1000
           b = randint(2, 5)
@@ -724,7 +724,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '26':
+        case 26:
           a = randint(8, 22)
           b = 4
           texte = `Une urne contient $${a}$  boules numérotées de $1$ à $${a}$. <br>
@@ -764,7 +764,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '27':
+        case 27:
           a = randint(2, 6) * 3
           b = randint(4, 9) * 3
           c = a + b / 100
@@ -778,7 +778,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '28':
+        case 28:
           choix = choice(['a', 'b', 'c'])//
           if (choix === 'a') {
             a = randint(11, 39, [10, 20, 30]) / 1000
@@ -812,7 +812,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '29':
+        case 29:
           a = randint(4, 9)
           b = randint(2, 6)
           truc = randint(4, 8)
@@ -830,7 +830,7 @@ export default function SujetCAN20213ieme () {
           nbChamps = 1
           break
 
-        case '30':
+        case 30:
           choix = choice(['a', 'b'])
           if (choix === 'a') {
             a = randint(2, 9) * 4
