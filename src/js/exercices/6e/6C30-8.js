@@ -50,7 +50,7 @@ export default function DiviserPar101001000 () {
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
     const rang = ['millièmes', 'centièmes', 'dixièmes']
 
-    for (let i = 0, texte, texteCorr, coef, nombre, nombreentier, resultat, texteExposant, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, coef, nombre, nombreentier, resultat, exposant, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
       coef = -randint(1, 3)
