@@ -58,7 +58,7 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
           expf = `Le quotient de $${l1}$ par ${nombreAvecEspace(b)}`
           expl = `$${l1}\\div ${texNombre(b)}$`
           if (estentier(val1 / b * 1000)) expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)} = ${texNombrec(val1 / b)}$`
-          else expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)}=${texFraction(val1, texNombre(b))}${simplificationDeFractionAvecEtapes(val1, texNombre(b))}$`
+          else expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)}=${texFraction(val1, texNombre(b))}${Number.isInteger(b) ? simplificationDeFractionAvecEtapes(val1, b) : ''}$`
           lastOp = 'division'
           break
       }

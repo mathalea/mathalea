@@ -262,6 +262,7 @@ export default function problemesTrigoLongueur () {
                 }
               }]
             }
+            iiAMC++
           }
           j = 0
           texteCorr = mathalea2d({ xmin: min(-sensH, absC + sensH * (absS + 1)), ymin: min(-sensV, ordA + sensV), xmax: max(-sensH, absC + sensH * (absS + 1)), ymax: max(-sensV, ordA + sensV), pixelsParCm: 20, scale: 0.5 }, objets) + '<br>'
@@ -351,6 +352,7 @@ export default function problemesTrigoLongueur () {
                 }
               }]
             }
+            iiAMC++
           }
           break
         case 3:
@@ -540,6 +542,7 @@ export default function problemesTrigoLongueur () {
                 }
               }]
             }
+            iiAMC++
           }
           j = 0
           texteCorr = mathalea2d({ xmin: min(-sensH, ordA + sensH), ymin: -1, xmax: max(-sensH, ordA + sensH), ymax: absS + 1, pixelsParCm: 20, scale: 0.5 }, objets)
@@ -778,6 +781,7 @@ export default function problemesTrigoLongueur () {
                 }
               }]
             }
+            iiAMC++
           }
           texte += '<br>Arrondir les résultats au mètre près. (On supposera le point d\'observation au niveau de l\'eau)'
           texteCorr = mathalea2d({ xmin: min(-sensH, absC + sensH), ymin: -1, xmax: max(-sensH, absC + sensH), ymax: ordA + 1, pixelsParCm: 20, scale: 0.5 }, objets)
@@ -1039,6 +1043,7 @@ export default function problemesTrigoLongueur () {
                 }
               }]
             }
+            iiAMC++
           }
           j = 0
           texteCorr = mathalea2d({ xmin: min(-sensH, absS + sensH), ymin: -1, xmax: max(-sensH, absS + sensH), ymax: ordA + 1, pixelsParCm: 20, scale: 0.5 }, objets)
@@ -1140,6 +1145,7 @@ export default function problemesTrigoLongueur () {
                   }
                 }]
               }
+              iiAMC++
             }
             texteCorr = `Dans le triangle $${A.nom + D.nom + E.nom}$ rectangle en $${D.nom}$ : `
             texteCorr += `<br>$\\cos(\\widehat{${D.nom + A.nom + E.nom}})=\\dfrac{${A.nom + D.nom}}{${A.nom + E.nom}}\\quad$ soit $\\quad\\cos(\\widehat{${D.nom + A.nom + E.nom}})=\\dfrac{${AD}}{${AE}}$,`
@@ -1159,7 +1165,6 @@ export default function problemesTrigoLongueur () {
           enonce: enonceAMC,
           enonceCentre: true,
           enonceAvant: this.nbQuestions > 1, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
-          // enonceAvantUneFois: true, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
           propositions: propositionsAMC
         }
       }
