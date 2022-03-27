@@ -34,7 +34,6 @@ export default function CalculerDesFrequences () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
     for (let i = 0, temperatures, nombreTemperatures, nombreNotes, notes, reponse, nombreDes, nombreFaces, nombreTirages, indexValeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (this.sup === 1) { // ici on lance des dés
         nombreDes = randint(1, 2)
