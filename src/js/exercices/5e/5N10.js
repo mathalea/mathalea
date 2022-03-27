@@ -3,7 +3,7 @@ import { randint, listeQuestionsToContenu, choice, combinaisonListes, texNombre,
 import FractionX from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = "Passer de l'écriture décimale à une écriture fractionnaire et inversement"
+export const titre = "Passer d'une fraction à une écriture décimale et inversement"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -20,7 +20,7 @@ export default function PasserEcritureDecimaleEcritureFractionnaireInversement (
   Exercice.call(this)
   this.nbQuestions = 10
 
-  this.besoinFormulaireNumerique = ['Sens demandé', 3, '1 : De l\'écriture décimale à une écriture fractionnaire\n2 : D\'une écriture fractionnaire à l\'écriture décimale\n3 : Mélange']
+  this.besoinFormulaireNumerique = ['Sens demandé', 3, '1 : De l\'écriture décimale à une fraction\n2 : D\'une fraction à l\'écriture décimale\n3 : Mélange']
   this.sup = 3
   this.besoinFormulaire2CaseACocher = ['Uniquement des fractions décimales']
   this.sup2 = false
@@ -72,7 +72,7 @@ export default function PasserEcritureDecimaleEcritureFractionnaireInversement (
       const ecritureDecimale = numerateur / denominateur
 
       if (listeDesSensDemandes[i] === 'DecimaleAFractionnaire') {
-        texte = `Donner une écriture fractionnaire de $${texNombre(ecritureDecimale, 3)}$.`
+        texte = `Écrire $${texNombre(ecritureDecimale, 3)}$ sous la forme d'une fraction.`
         if (this.interactif) {
           texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: `$${texNombre(ecritureDecimale, 3)} = $` })
         }
