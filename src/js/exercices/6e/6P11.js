@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, numAlpha, exposant, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere, contraindreValeur, rangeMinMax, stringNombre, sp, compteOccurences } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, prenomF, prenomM, texteEnCouleur, texPrix, texteEnCouleurEtGras, numAlpha, texteExposant, arrondi, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere, contraindreValeur, rangeMinMax, stringNombre, sp, compteOccurences } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
@@ -723,11 +723,11 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
     const quantiteF = calcul(quantiteD * coef, 2)
     const surfaceF = calcul(surfaceD * coef, 2)
     const enonceAMC = `${prenoms[0]} doit acheter ${liste[alea1].matiere}. ` +
-`Sur la notice, il est indiqué de prévoir ${quantiteD}${sp()}${liste[alea1].unite} pour ${surfaceD}${sp()}m${exposant(2)}. <br> ` +
-`Combien de${sp()}${liste[alea1].unite} doit-elle en acheter pour une surface de ${surfaceF}${sp()}m${exposant(2)}${sp()}?`
+`Sur la notice, il est indiqué de prévoir ${quantiteD}${sp()}${liste[alea1].unite} pour ${surfaceD}${sp()}m${texteExposant(2)}. <br> ` +
+`Combien de${sp()}${liste[alea1].unite} doit-elle en acheter pour une surface de ${surfaceF}${sp()}m${texteExposant(2)}${sp()}?`
     texte = enonceAMC + ajouteChampTexteMathLive(exo, i, 'largeur25  inline', { texteApres: ' ' + liste[alea1].unite })
-    texteCorr = `${stringNombre(surfaceF)}${sp()}m${exposant(2)}, c'est ${texteEnCouleur(coef)} fois ${surfaceD}${sp()}m${exposant(2)} <br>` +
-`Il va donc falloir ${texteEnCouleur(coef)} fois ${texteEnCouleur(quantiteD, 'blue')}${sp()}${liste[alea1].unite} pour ${stringNombre(surfaceF)}${sp()}m${exposant(2)} <br>` +
+    texteCorr = `${stringNombre(surfaceF)}${sp()}m${texteExposant(2)}, c'est ${texteEnCouleur(coef)} fois ${surfaceD}${sp()}m${texteExposant(2)} <br>` +
+`Il va donc falloir ${texteEnCouleur(coef)} fois ${texteEnCouleur(quantiteD, 'blue')}${sp()}${liste[alea1].unite} pour ${stringNombre(surfaceF)}${sp()}m${texteExposant(2)} <br>` +
 `${texteEnCouleur(coef)} $\\times$ ${texteEnCouleur(quantiteD, 'blue')}${sp()}${liste[alea1].unite} = ${stringNombre(quantiteF)}${sp()}${liste[alea1].unite}<br>` +
 texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit en acheter ${quantiteF}${sp()}${liste[alea1].unite}.`, 'black') + '<br>  '
     if (!context.isAmc) {
@@ -771,23 +771,23 @@ texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit en acheter ${quantiteF}${s
     const surfaceFinale2 = calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3] + alea6, 3)
     const qttaffichage = stringNombre(quantite) // Pour affichage avec virgule en séparateur.
     const enonceAMC1 = `${numAlpha(0)} ${prenoms[0]} doit acheter ${liste[alea1].matiere}. ` +
-`Sur la notice, il est indiqué de prévoir ${qttaffichage}${sp()}${liste[alea1].unite} pour ${liste[alea1].qtt_surface[alea3]}${sp()}m${exposant(2)}. <br> ` +
-`Combien de${sp()}${liste[alea1].unite} doit-elle en acheter pour une surface de ${stringNombre(surfaceFinale)}${sp()}m${exposant(2)}${sp()}?`
+`Sur la notice, il est indiqué de prévoir ${qttaffichage}${sp()}${liste[alea1].unite} pour ${liste[alea1].qtt_surface[alea3]}${sp()}m${texteExposant(2)}. <br> ` +
+`Combien de${sp()}${liste[alea1].unite} doit-elle en acheter pour une surface de ${stringNombre(surfaceFinale)}${sp()}m${texteExposant(2)}${sp()}?`
     texte = enonceAMC1 + ajouteChampTexteMathLive(exo, i, 'largeur25  inline', { texteApres: ' ' + liste[alea1].unite })
-    texteCorr = `${numAlpha(0)} ${stringNombre(surfaceFinale)}${sp()}m${exposant(2)}, c'est ${texteEnCouleur(stringNombre(rapport[alea4]))} fois ${liste[alea1].qtt_surface[alea3]}${sp()}m${exposant(2)}. <br>` +
-`Il va donc falloir ${texteEnCouleur(stringNombre(rapport[alea4]))} fois ${texteEnCouleur(qttaffichage, 'blue')}${sp()}${liste[alea1].unite} pour ${stringNombre(surfaceFinale)}${sp()}m${exposant(2)}. <br>` +
+    texteCorr = `${numAlpha(0)} ${stringNombre(surfaceFinale)}${sp()}m${texteExposant(2)}, c'est ${texteEnCouleur(stringNombre(rapport[alea4]))} fois ${liste[alea1].qtt_surface[alea3]}${sp()}m${texteExposant(2)}. <br>` +
+`Il va donc falloir ${texteEnCouleur(stringNombre(rapport[alea4]))} fois ${texteEnCouleur(qttaffichage, 'blue')}${sp()}${liste[alea1].unite} pour ${stringNombre(surfaceFinale)}${sp()}m${texteExposant(2)}. <br>` +
 `${texteEnCouleur(stringNombre(rapport[alea4]))} $\\times$ ${texteEnCouleur(qttaffichage, 'blue')}${sp()}${liste[alea1].unite} = ${stringNombre(calcul(rapport[alea4] * quantite, 2))}${sp()}${liste[alea1].unite}<br>` +
-texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit acheter ${stringNombre(calcul(rapport[alea4] * quantite, 3))}${sp()}${liste[alea1].unite}.`, 'black') + '<br>  '
-    const enonceAMC2 = `${numAlpha(1)} ${prenoms[1]} a acheté ${liste[alea1].matiere}. Il lui en reste ${stringNombre(quantite2)}${sp()}${liste[alea1].unite}. Sur la notice, il est aussi indiqué de prévoir ${qttaffichage}${sp()}${liste[alea1].unite} pour ${stringNombre(liste[alea1].qtt_surface[alea3])}${sp()}m${exposant(2)}. <br>` +
-`En a-t-il suffisamment pour la surface de ${stringNombre(surfaceFinale2)}${sp()}m${exposant(2)} qu'il lui reste à faire${sp()}?<br>`
+texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} doit acheter ${stringNombre(calcul(rapport[alea4] * quantite, 2))}${sp()}${liste[alea1].unite}.`, 'black') + '<br>  '
+    const enonceAMC2 = `${numAlpha(1)} ${prenoms[1]} a acheté ${liste[alea1].matiere}. Il lui en reste ${stringNombre(quantite2)}${sp()}${liste[alea1].unite}. Sur la notice, il est aussi indiqué de prévoir ${qttaffichage}${sp()}${liste[alea1].unite} pour ${stringNombre(liste[alea1].qtt_surface[alea3])}${sp()}m${texteExposant(2)}. <br>` +
+`En a-t-il suffisamment pour la surface de ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)} qu'il lui reste à faire${sp()}?<br>`
     texte += '<br>' + enonceAMC2 + ajouteChampTexteMathLive(exo, i + 1, 'largeur25  inline', { texteApres: ' (oui ou non)' })
     texteCorr += `${numAlpha(1)} ${stringNombre(quantite2)}${sp()}${liste[alea1].unite}, c'est ${texteEnCouleur(stringNombre(rapport[alea5]))} fois ${qttaffichage}${sp()}${liste[alea1].unite}. <br>` +
 `Avec ${stringNombre(quantite2)}${sp()}${liste[alea1].unite} on peut donc traiter une surface de ${texteEnCouleur(stringNombre(rapport[alea5]))}
-fois ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${sp()}m${exposant(2)}. <br>` +
-`${texteEnCouleur(stringNombre(rapport[alea5]))} $\\times$ ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${sp()}m${exposant(2)} = ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2))}${sp()}m${exposant(2)}<br>`
+fois ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${sp()}m${texteExposant(2)}. <br>` +
+`${texteEnCouleur(stringNombre(rapport[alea5]))} $\\times$ ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${sp()}m${texteExposant(2)} = ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2))}${sp()}m${texteExposant(2)}<br>`
     texteCorr += rapport[alea5] * liste[alea1].qtt_surface[alea3] < surfaceFinale2
-      ? texteEnCouleurEtGras(`Conclusion : ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2))}${sp()}m${exposant(2)} < ${stringNombre(surfaceFinale2)}${sp()}m${exposant(2)} donc ${prenoms[1]} n'en a pas assez pour ${surfaceFinale2}${sp()}m${exposant(2)}.`, 'black') + ' <br>'
-      : texteEnCouleurEtGras(`Conclusion : ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2))}${sp()}m${exposant(2)} > ${stringNombre(surfaceFinale2)}${sp()}m${exposant(2)}       donc ${prenoms[1]} en a suffisamment pour ${surfaceFinale2}${sp()}m${exposant(2)}.`, 'black') + ' <br>'
+      ? texteEnCouleurEtGras(`Conclusion : ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2))}${sp()}m${texteExposant(2)} < ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)} donc ${prenoms[1]} en a suffisamment pour ${surfaceFinale2}${sp()}m${texteExposant(2)}.`, 'black') + ' <br>'
+      : texteEnCouleurEtGras(`Conclusion : ${stringNombre(calcul(rapport[alea5] * liste[alea1].qtt_surface[alea3], 2))}${sp()}m${texteExposant(2)} > ${stringNombre(surfaceFinale2)}${sp()}m${texteExposant(2)} donc ${prenoms[1]} n'en a pas assez pour ${surfaceFinale2}${sp()}m${texteExposant(2)}.`, 'black') + ' <br>'
 
     if (!context.isAmc) {
       setReponse(exo, i, calcul(rapport[alea4] * quantite, 2))

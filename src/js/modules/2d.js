@@ -8537,7 +8537,7 @@ function Courbe2 (f, {
   }
   for (let x = xmin; inferieurouegal(x, xmax); x += pas
   ) {
-    if (!isNaN(f(x))) {
+    if (isFinite(f(x))) {
       if (f(x) < ymax + 1 && f(x) > ymin - 1) {
         points.push(point(x * xunite, f(x) * yunite))
       } else {

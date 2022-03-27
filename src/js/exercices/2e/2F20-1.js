@@ -45,7 +45,6 @@ export default function PointSurCourbe () {
        //
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    console.log(listeTypeDeQuestions)
     let sousChoix
     if (parseInt(this.sup2) === 1) {
       sousChoix = combinaisonListes([0], this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie
