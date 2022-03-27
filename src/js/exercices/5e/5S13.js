@@ -34,7 +34,6 @@ export default function CalculerDesFrequences () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
     for (let i = 0, temperatures, nombreTemperatures, nombreNotes, notes, reponse, nombreDes, nombreFaces, nombreTirages, indexValeur, frequence, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (this.sup === 1) { // ici on lance des dés
         nombreDes = randint(1, 2)
@@ -136,9 +135,9 @@ export default function CalculerDesFrequences () {
 
         texte += '<br><br>Calculer la fréquence de la température ' + `$${temperatures[indexValeur]}^\\circ\\text{C}$.`
         texteCorr = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, la température $${temperatures[indexValeur]}^\\circ\\text{C}$ a été relevée $${frequence}$ fois.<br>`
-        texteCorr += `Il y a $${joursParMois(mois)}$ jours ce mois-ci.<br> La fréquence de la température $${temperatures[indexValeur]}^\\circ\\text{C}$ est :<br>`
-        texteCorr += `$${texFraction(texNombre(frequence), texNombre(joursParMois(mois)))}$`
-        reponse = new FractionX(frequence, joursParMois(mois))
+        texteCorr += `Il y a $${joursParMois(mois, annee)}$ jours ce mois-ci.<br> La fréquence de la température $${temperatures[indexValeur]}^\\circ\\text{C}$ est :<br>`
+        texteCorr += `$${texFraction(texNombre(frequence), texNombre(joursParMois(mois, annee)))}$`
+        reponse = new FractionX(frequence, joursParMois(mois, annee))
         if (arrondi(frequence / nombreTemperatures, 3) === frequence / nombreTemperatures) { // valeurs exactes
           texteCorr += `$=${arrondiVirgule(frequence / nombreTemperatures, 3)}$<br>`
           texteCorr += 'Soit ' + `$${texNombre(calcul(frequence * 100 / nombreTemperatures))}\\thickspace\\%$.`

@@ -883,10 +883,10 @@ export function rienSi1 (a) {
 /**
 * Gère l'écriture de l'exposant en mode text
 * @Example
-* // 'dm'+exposant(3)
+* // 'dm'+texteExposant(3)
 * @author Rémi Angot
 */
-export function exposant (texte) {
+export function texteExposant (texte) {
   if (context.isHtml) {
     return `<sup>${texte}</sup>`
   } else {
@@ -1348,10 +1348,10 @@ export function egalOuApprox (a, precision) {
   if (typeof a === 'object' && ['Fraction', 'FractionX'].indexOf(a.type) !== -1) {
     return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
   }
-  if (!Number.isNaN(a) && !Number.isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
+  if (!isNaN(a) && !isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
   else {
     window.notify('egalOuApprox : l\'argument n\'est pas un nombre', { a, precision })
-    return 'bad number'
+    return 'Mauvais argument (nombres attendus).'
   }
 }
 
@@ -1725,7 +1725,7 @@ export function xcas (expression) {
 * @author Rémi Angot
 */
 export function calcul (x, arrondir = 13) {
-  if (typeof expression === 'string') {
+  if (typeof x === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
     return parseFloat(evaluate(x).toFixed(arrondir === false ? 13 : arrondir))
   } else {

@@ -1,7 +1,7 @@
 import { mathalea2d, codageAngleDroit, codeSegments, pointAdistance, polygoneAvecNom, point, translation, vecteur, rotation, similitude, afficheLongueurSegment } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul, exposant } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul, texteExposant } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -71,13 +71,13 @@ export default function AireCarresRectanglesTriangles () {
       texteCorr = ''
       switch (i) {
         case 0 :
-          texte = `Calculer l'aire du carré en cm${exposant(2)}`
+          texte = `Calculer l'aire du carré en cm${texteExposant(2)}`
 
           texteCorr += `<br>$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}\\times${c}~\\text{cm}=${c * c}~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(c * c, 'cm^2'), { formatInteractif: 'longueur' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer l'aire du carré de côté ${c}cm en cm${exposant(2)}`,
+              enonce: `Calculer l'aire du carré de côté ${c}cm en cm${texteExposant(2)}`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Aire en cm\\up{2}',
@@ -88,13 +88,13 @@ export default function AireCarresRectanglesTriangles () {
           }
           break
         case 1 :
-          texte = `Calculer l'aire du rectangle en cm${exposant(2)}`
+          texte = `Calculer l'aire du rectangle en cm${texteExposant(2)}`
           texteCorr += `<br>$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${L * l
           }~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'longueur' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer l'aire du rectangle de longueur ${L}cm et de largeur ${l}cm en cm${exposant(2)}`,
+              enonce: `Calculer l'aire du rectangle de longueur ${L}cm et de largeur ${l}cm en cm${texteExposant(2)}`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Aire en cm\\up{2}',
@@ -105,12 +105,12 @@ export default function AireCarresRectanglesTriangles () {
           }
           break
         case 2 :
-          texte = `Calculer l'aire du triangle rectangle en cm${exposant(2)}`
+          texte = `Calculer l'aire du triangle rectangle en cm${texteExposant(2)}`
           texteCorr += `<br>$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(calcul((a * b) / 2))}~\\text{cm}^2$`
           setReponse(this, i, new Grandeur(calcul((a * b) / 2), 'cm^2'), { formatInteractif: 'longueur' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer l'aire du triangle rectangle dont les côtés de l'angle droit mesurent ${a}cm et ${b}cm en cm${exposant(2)}`,
+              enonce: `Calculer l'aire du triangle rectangle dont les côtés de l'angle droit mesurent ${a}cm et ${b}cm en cm${texteExposant(2)}`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Aire en cm\\up{2}',
