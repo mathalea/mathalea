@@ -24,28 +24,18 @@ const definePropRo = (obj, prop, get) => {
  */
 export default class FractionX extends Fraction {
   constructor (...args) {
-    let num, den, cpt
-    if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas)
-      num = args[0]
-      if (!isNaN(num) && !(num instanceof Fraction) && !(num instanceof FractionX)) {
-        if (num.toString().split('.').length < 2) cpt = 0
-        else cpt = num.toString().split('.')[1].length
-        if (num.toString().split('.').length < 2) cpt = 0
-        else cpt = num.toString().split('.')[1].length
-        // On rend le numérateur entier si possible.
-        num = Number(num.toString().replace('.', ''))
-        den = 10 ** cpt
-        if (cpt > 15) window.notify('FractionX : trop de chiffres dans la partie décimale ', { args })
-        super(num, den)
-        this.num = num
-        this.den = den
+    let num, den
+    if (args.length > 2) {
+      window.notify('FractionX : nombre d\'arguments incorrect', { args })
+      super(NaN)
+    } else {
+      if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas)
+        num = args[0]
+        den = 1
       } else {
-        window.notify('FractionX : argument incorrect', { args })
-        super(NaN)
+        num = args[0]
+        den = args[1]
       }
-    } else if (args.length === 2) { // deux arguments : numérateur et dénominateur qui peuvent être fractionnaires ou des nombres (entiers ou décimaux)
-      num = args[0]
-      den = args[1]
       if (!isNaN(num) && !isNaN(den)) { // Si ce sont des nombres, on les rend entiers si besoin.
         num = Number(num)
         den = Number(den)
@@ -71,7 +61,7 @@ export default class FractionX extends Fraction {
               if (maxDecimalesNumDen < 13) { // Ex. dans fraction(1/3,1/7)
                 den = inverseNum
                 num = inverseDen
-                // console.log(inverseNum, ' ', inverseDen)
+              // console.log(inverseNum, ' ', inverseDen)
               } else { // Méthode plus bourrin
                 const testMAX = 2000 // Voir explications ci-dessous
                 // Ici, JCL, cela veut dire qu'on traite toutes les fractions de fractions où chaque numérateur ou dénominateur est inférieur à 1000.
@@ -84,7 +74,7 @@ export default class FractionX extends Fraction {
                   iDen += (iDen % 5 === 3) ? 4 : 2
                   denTest = calcul(den * iDen)
                   inverseDenTest = calcul(inverseDen * iDen)
-                  // while (min(nombreDeChiffresDansLaPartieDecimale(denTest), nombreDeChiffresDansLaPartieDecimale(inverseDenTest)) > 13 & iDen < testMAX) {
+                // while (min(nombreDeChiffresDansLaPartieDecimale(denTest), nombreDeChiffresDansLaPartieDecimale(inverseDenTest)) > 13 & iDen < testMAX) {
                 }
                 console.log(iDen, ' ', denTest, ' ', inverseDenTest)
                 let iNum = 1
@@ -100,40 +90,39 @@ export default class FractionX extends Fraction {
                 // console.log(iNum, ' ', numTest, ' ', inverseNumTest)
                 if (nombreDeChiffresDansLaPartieDecimale(numTest) < 10) {
                   if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) { // Ex. console.log(new FractionX(11 / 9, 17 / 13))
-                    // console.log('toto')
+                  // console.log('toto')
                     num = calcul(numTest * iDen)
                     den = calcul(denTest * iNum)
                   } else { // Ex. console.log(new FractionX(11 / 9, 13 / 17))
-                    // console.log('titi')
+                  // console.log('titi')
                     num = calcul(numTest * inverseDenTest)
                     den = iDen * iNum
                   }
                 } else {
                   if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) { // Ex. console.log(new FractionX(9 / 11, 17 / 13))
-                    // console.log('tata')
+                  // console.log('tata')
                     den = calcul(denTest * inverseNumTest)
                     num = iDen * iNum
                   } else { // Ex. console.log(new FractionX(9 / 11, 13 / 17))
-                    // console.log('tutu')
+                  // console.log('tutu')
                     den = calcul(inverseNumTest * iDen)
                     num = calcul(inverseDenTest * iNum)
                   }
                 }
                 maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
-                // console.log(num, ' ', den)
+              // console.log(num, ' ', den)
               }
             }
           }
         }
         den = round(den * pow(10, maxDecimalesNumDen))
         num = round(num * pow(10, maxDecimalesNumDen))
+        super(num, den)
+        this.num = num
+        this.den = den
+      } else {
+        super(NaN)
       }
-      super(num, den)
-      this.num = num
-      this.den = den
-    } else {
-      window.notify('FractionX : nombre d\'arguments incorrect', { args })
-      super(NaN)
     }
     this.type = 'FractionX'
     // pour ne pas faire ces calculs à chaque instanciation de Fraction, on passe par defineProperty
