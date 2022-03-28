@@ -121,7 +121,7 @@ export function verifQuestionMathLive (exercice, i) {
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
         saisie = champTexte !== undefined ? champTexte.value : ''
         if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
-          saisieParsee = parse((new FractionEtendue(saisie.replace(',', '.')).toLatex().replace('dfrac', 'frac')))
+          saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
         } else {
           saisieParsee = parse(saisie)
         }
@@ -136,6 +136,8 @@ export function verifQuestionMathLive (exercice, i) {
             fSaisie = parseInt(saisieParsee[2].num) === 1 ? new FractionEtendue(signeF * parseFloat(saisieParsee[1].num)) : new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
             // fSaisie = new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
             if (fSaisie.isEqual(reponse)) resultat = 'OK'
+          } else {
+            window.notify('QuestionMathLive fractionEgale : problème avec la sortie de parse()', { saisie, saisieParsee })
           }
         }
         break

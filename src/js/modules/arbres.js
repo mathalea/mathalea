@@ -4,7 +4,7 @@ import { fraction } from './fractions'
 import { arrondi, calcul } from './outils'
 
 export function texProba (proba, rationnel, precision) {
-  return rationnel ? fraction(proba).toLatex() : number(arrondi(proba, precision)).toString().replace('.', '{,}')
+  return rationnel ? fraction(proba, 1).toLatex() : number(arrondi(proba, precision)).toString().replace('.', '{,}')
 }
 /**
  * classe pour faire des arbres de probabilités
@@ -22,7 +22,7 @@ export class Arbre {
     this.enfants = enfants !== undefined ? Array(...enfants) : []
     this.nom = nom !== undefined ? String(nom) : ''
     this.rationnel = rationnel !== undefined ? Boolean(rationnel) : true
-    this.proba = proba !== undefined ? (rationnel ? fraction(proba) : number(proba)) : 0
+    this.proba = proba !== undefined ? (rationnel ? fraction(proba, 1) : number(proba)) : 0
     this.visible = visible !== undefined ? visible : true
     this.alter = alter !== undefined ? String(alter) : ''
     this.taille = 0
@@ -69,7 +69,7 @@ export class Arbre {
   setFilsProba (nom, proba, rationnel) { // si le fils nommé nom existe, on fixe sa proba (en gros, on la modifie)
     let arbre = this.getFils(nom)
     if (arbre) {
-      arbre.proba = (rationnel || this.rationnel) ? fraction(proba) : number(proba)
+      arbre.proba = (rationnel || this.rationnel) ? fraction(proba, 1) : number(proba)
     } else { // sinon on ajoute ce fils.
       arbre = new Arbre(this, nom, proba, (rationnel || this.rationnel))
       this.enfants.push(arbre)
@@ -91,21 +91,21 @@ export class Arbre {
   getProba (nom, rationnel) {
     let p = rationnel ? fraction(0, 1) : 0
     let probaArbre = rationnel ? fraction(0, 1) : 0
-    if (this.nom === nom) return (rationnel || this.rationnel) ? fraction(this.proba) : number(this.proba)
+    if (this.nom === nom) return (rationnel || this.rationnel) ? fraction(this.proba, 1) : number(this.proba)
     else {
       for (const arbre of this.enfants) {
-        if (arbre.nom === nom) p = add(p, (rationnel || this.rationnel) ? fraction(arbre.proba) : number(arbre.proba))
+        if (arbre.nom === nom) p = add(p, (rationnel || this.rationnel) ? fraction(arbre.proba, 1) : number(arbre.proba))
         else {
           if (rationnel) {
-            probaArbre = add(fraction(probaArbre), multiply(fraction(arbre.proba), fraction(arbre.getProba(nom, true))))
+            probaArbre = add(fraction(probaArbre, 1), multiply(fraction(arbre.proba, 1), fraction(arbre.getProba(nom, true), 1)))
           } else {
             probaArbre = number(probaArbre) + number(multiply(arbre.proba, number(arbre.getProba(nom, false))))
           }
         }
       }
-      p = add(p, (rationnel || this.rationnel) ? fraction(probaArbre) : number(probaArbre))
+      p = add(p, (rationnel || this.rationnel) ? fraction(probaArbre, 1) : number(probaArbre))
     }
-    return rationnel ? fraction(p) : number(p)
+    return rationnel ? fraction(p, 1) : number(p)
   }
 
   // méthode pour compter les descendants de l'arbre (le nombre de feuilles terminales).
