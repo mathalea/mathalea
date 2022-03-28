@@ -2633,7 +2633,7 @@ export function nombreAvecEspace (nb) {
     if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
       result = '\\numprint{' + nb.toString().replace('.', ',') + '}'
     } else {
-      result = nb.toString().replace('.', ',')
+      result = Number(nb).toString().replace('.', '{,}')
     }
     return result
   }
