@@ -4,7 +4,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 export const titre = 'Tiers'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 
 /**

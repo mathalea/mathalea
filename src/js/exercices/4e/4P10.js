@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, exposant, arrondi, arrondiVirgule, texFractionReduite, produitsEnCroix, quatriemeProportionnelle, calcul, texNombrec, prenomF, prenom, texNombre, nombreAvecEspace, miseEnEvidence, texPrix, katexPopup2, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteExposant, arrondi, arrondiVirgule, texFractionReduite, produitsEnCroix, quatriemeProportionnelle, calcul, texNombrec, prenomF, prenom, texNombre, nombreAvecEspace, miseEnEvidence, texPrix, katexPopup2, numAlpha } from '../../modules/outils.js'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d’unités complexes'
 
 /**
@@ -262,13 +262,13 @@ export default function ProblemesGrandeursComposees () {
                   typeAide,
                   'volume',
                   'Définition : volume (grandeur physique)',
-                  `C’est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube (m${exposant(
+                  `C’est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube (m${texteExposant(
                     3
-                  )}) mais on peut aussi rencontrer le litre (L) avec comme correspondance 1dm${exposant(
+                  )}) mais on peut aussi rencontrer le litre (L) avec comme correspondance 1dm${texteExposant(
                     3
                   )}=1L`
                 ) +
-                ` d'eau en m${exposant(
+                ` d'eau en m${texteExposant(
                   3
                 )} contenu dans cette piscine quand elle est pleine.<br>`
               texte +=
@@ -291,14 +291,14 @@ export default function ProblemesGrandeursComposees () {
               )}\\text{ m}\\times${L}\\text{ m}$`
               texteCorr += ` $=${arrondiVirgule(
                 ((h1 + h2) / 200) * L
-              )}\\text{ m}$${exposant(2)}<br>`
+              )}\\text{ m}$${texteExposant(2)}<br>`
               texteCorr += 'Le volume de ce prisme et donc par extension le volume d\'eau conteu dans la piscine est :<br>'
               texteCorr += `$\\mathcal{A}\\times\\mathcal{h}=${arrondiVirgule(
                 ((h1 + h2) / 200) * L
               )}\\text{ m}^2\\times${l}\\text{ m}$`
               texteCorr += ` $=${arrondiVirgule(
                 ((h1 + h2) / 200) * L * l
-              )}$m${exposant(3)}.<br>`
+              )}$m${texteExposant(3)}.<br>`
               texteCorr +=
                 numAlpha(1) +
                 ` Convertissons le volume de la piscine en litres : $${arrondiVirgule(
@@ -332,7 +332,7 @@ export default function ProblemesGrandeursComposees () {
                   'Définition : volume (grandeur physique)',
                   'C’est le produit de trois longueurs ou le produit d\'une aire et d\'une longueur.<br>L\'unité de mesure du volume est le mètre cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3=\\text{1L}$'
                 ) +
-                ` en dm${exposant(3)} à 0,1 près de ce tonneau.<br>`
+                ` en dm${texteExposant(3)} à 0,1 près de ce tonneau.<br>`
               texte +=
                 numAlpha(1) +
                 ` Si on le remplit ${liquides[index2][0]} (dont la ` +
@@ -1081,10 +1081,10 @@ export default function ProblemesGrandeursComposees () {
             ) +
             ` annuel moyen ${rivieres[index2][6]}${rivieres[index2][0]
             } mesuré à ${rivieres[index2][1]} est de ${rivieres[index2][2]
-            } m${exposant(3)}/s.<br>`
+            } m${texteExposant(3)}/s.<br>`
           texte +=
             numAlpha(0) +
-            ` Calculer le volume d'eau en m${exposant(
+            ` Calculer le volume d'eau en m${texteExposant(
               3
             )} écoulé en ${duree} heures à ce débit.<br>`
           texte +=
@@ -1092,7 +1092,7 @@ export default function ProblemesGrandeursComposees () {
             ` En ${rivieres[index2][4]} à ${rivieres[index2][1]}, ${rivieres[index2][5]
             }${rivieres[index2][0]} a débité ${nombreAvecEspace(
               vMax
-            )} m${exposant(
+            )} m${texteExposant(
               3
             )} en une heure. Quel a été alors le débit en m³/s ?`
           texteCorr =

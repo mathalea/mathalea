@@ -17,8 +17,8 @@ function graphique (hauteursBarres, etiquettes, { reperageTraitPointille = false
   const diagramme = diagrammeBarres(hauteursBarres, etiquettes, { reperageTraitPointille: reperageTraitPointille, couleurDeRemplissage: couleurDeRemplissage, titreAxeVertical: titreAxeVertical, titre: titre, hauteurDiagramme: hauteurDiagramme, coeff: coeff, axeVertical: axeVertical, etiquetteValeur: etiquetteValeur, labelAxeVert: labelAxeVert })
   return mathalea2d(Object.assign({}, fixeBordures([diagramme], { rxmin: -3, rymin: -2, rymax: 1.5 }), { style: 'inline', scale: 1 }), diagramme)
 }
-
-function listeExhaustive (univers, ratios) {
+// adapté par Loïc : Ajout du paramètre indices pour pouvoir mettre des indices aux symboles des évènements
+function listeExhaustive (univers, ratios, indices = false) {
   // On créé une liste exhaustive avec répétition de chaque issue
   // [blanche blanche blanche noire noire] pour un ratio 3:2 de billes blanches et noires
   const issues = []
@@ -29,15 +29,34 @@ function listeExhaustive (univers, ratios) {
       issues.push(univers[j])
     }
   }
+  // adapté par Loïc
   const issuesAbregees = []
-  for (let j = 0; j < issues.length; j++) {
-    issuesAbregees.push(issues[j][0].toUpperCase())
+  if (indices) {
+    for (let i = 0; i < univers.length; i++) {
+      const listIndex = []
+      let idx = issues.indexOf(univers[i])
+      while (idx !== -1) {
+        listIndex.push(idx)
+        idx = issues.indexOf(univers[i], idx + 1)
+      }
+
+      if (listIndex.length !== 1) {
+        for (let j = 0; j < listIndex.length; j++) {
+          issuesAbregees.push(issues[listIndex[j]][0].toUpperCase() + `_${j + 1}`)
+        }
+      } else issuesAbregees.push(issues[listIndex[0]][0].toUpperCase())
+    }
+  } else {
+    for (let index = 0; index < issues.length; index++) {
+      issuesAbregees.push(issues[index][0].toUpperCase())
+    }
   }
+
   return { issues: issues, issuesAbregees: issuesAbregees }
 }
 
 function simulationExperienceAlaetoire (univers, ratios, nbEssais) {
-  const issues = listeExhaustive(univers, ratios).issues
+  const issues = listeExhaustive(univers, ratios, true).issues
   const effectifs = []
   const realisees = []
   for (let j = 0; j < nbEssais; j++) {
@@ -46,7 +65,7 @@ function simulationExperienceAlaetoire (univers, ratios, nbEssais) {
     if (realisees.indexOf(refIssue) !== -1) { // On teste si cette référence à cette issue existe dans les issues réalisées
       effectifs[realisees.indexOf(refIssue)] += 1 // Si c'est le cas on ajoute 1
     } else {
-      realisees.push(refIssue) // Sinon on ajoute la référénce aux issues réalisées
+      realisees.push(refIssue) // Sinon on ajoute la référence aux issues réalisées
       effectifs.push(1) // L'effectif de cette référence passe à 1
     }
   }
@@ -149,8 +168,8 @@ function diagrammeCalculsFrequences (typeReponseAttendue = 0) {
   const choixIssue = urne[choixRef] // Issue correspondante à ce choix (les billes dans l'urne ne sont listées dans le même ordre)
   const remarque = [
     '$\\textit{* On donnera la valeur exacte et simplifiée.}$',
-    '$\\textit{* On donnera une valeur décimale arrondie au millième (si nécessaire).}$',
-    '$\\textit{* On donnera un pourcentage arrondi à l\'unité (si nécessaire).}$'
+    '$\\textit{* On donnera la valeur sous forme décimale arrondie au millième (si nécessaire).}$',
+    '$\\textit{* On donnera la valeur en pourcentage arrondi à l\'unité (si nécessaire).}$'
   ][typeReponseAttendue]
   let solution
   let environ = ''
@@ -200,11 +219,11 @@ function diagrammeCalculsFrequences (typeReponseAttendue = 0) {
           `
   const texteCorr = String.raw`
           La fréquence d'apparition d'une couleur est le quotient
-          du nombre d'apparitions de cette couleur par le nombre total d'essais.
+          du nombre d'apparitions de cette couleur par le nombre total de tirages.
           <br>
           $${experience.effectifs.join('+')}=${nbEssais}$
           <br>
-          Donc il y a eu $${nbEssais}$ essais.
+          Donc il y a eu $${nbEssais}$ tirages.
           <br>
           La bille de couleur ${choixIssue} est apparue
           $${experience.effectifs[posRef]}$ fois sur $${nbEssais}$ tirages.
@@ -247,7 +266,7 @@ function ratiosCalculsProbabilites () {
   const texteCorr = String.raw`
           Comme $${ratios.join('+')}=${sum(ratios)}$, la proportion de billes ${choixIssue}s est $\dfrac{${choixRatio}}{${sum(ratios)}}$.
           ${solution.calculs}
-          Donc la probabilité d'obtenir une bille de couleur ${choixIssue} est ${solution.reponse}.
+          Donc la probabilité d'obtenir une bille de couleur ${choixIssue} est égale à ${solution.reponse}.
           `
   return { texte: texte, texteCorr: texteCorr }
 }
@@ -295,7 +314,7 @@ function probabilitesCalculsRatios () {
           L'expérience consiste à tirer une bille au hasard et
           à noter sa couleur.
           <br>
-          Les probabilités respectives de chaque couleur sont ${probabilites.slice(0, probabilites.length - 1).join(', ')}
+          Les probabilités respectives de tirer chaque couleur sont ${probabilites.slice(0, probabilites.length - 1).join(', ')}
           et ${probabilites[probabilites.length - 1]}.
           <br>
           Dans quel ratio les couleurs sont-elles ?`
@@ -321,7 +340,7 @@ function ratios2EpreuvesCalculsProbabilites () {
     }
     totalRatios = sum(ratios)
   }
-  const issues = listeExhaustive(urne, ratios)
+  const issues = listeExhaustive(urne, ratios, true)
   const choixRef = [randint(1, urne.length) - 1, randint(1, urne.length) - 1] // Choix d'une référence
   const choixIssue = [urne[choixRef[0]], urne[choixRef[1]]] // Issue correspondante à ce choix (les billes dans l'urne ne sont listées dans le même ordre)
   const evenement = choixIssue[0] === choixIssue[1]
@@ -368,7 +387,7 @@ function ratios2EpreuvesCalculsProbabilites () {
           de cette expérience.
           <br>
           $
-          \begin{array}{${listeExhaustive(['|c'], [issues.issues.length + 1]).issues.join('')}|}
+          \begin{array}{${listeExhaustive(['|c'], [issues.issues.length + 1], true).issues.join('')}|}
           ${lignes}
           \hline
           \end{array}
@@ -397,8 +416,8 @@ function ratioPiece2EpreuvesCalculsProbabilites () {
     }
     totalRatios1 = sum(ratios1)
   }
-  const issues1 = listeExhaustive(urne1, ratios1)
-  const issues2 = listeExhaustive(urne2, ratios2)
+  const issues1 = listeExhaustive(urne1, ratios1, true)
+  const issues2 = listeExhaustive(urne2, ratios2, true)
   const choixRef = [randint(1, urne1.length) - 1, randint(1, urne2.length) - 1] // Choix d'une référence
   const choixIssue = [urne1[choixRef[0]], urne2[choixRef[1]]] // Issue correspondante à ce choix (les billes dans l'urne ne sont listées dans le même ordre)
   const evenement = `Obtenir une bille de couleur ${choixIssue[0]} avec l'urne et obtenir ${choixIssue[1]} avec la pièce`
@@ -437,7 +456,7 @@ function ratioPiece2EpreuvesCalculsProbabilites () {
           de cette expérience.
           <br>
           $
-          \begin{array}{${listeExhaustive(['|c'], [issues1.issues.length + 1]).issues.join('')}|}
+          \begin{array}{${listeExhaustive(['|c'], [issues1.issues.length + 1], true).issues.join('')}|}
           ${lignes}
           \hline
           \end{array}
@@ -488,7 +507,7 @@ function diagrammeEffectifsCalculsLoiGrandNombre () {
           <br>
           ${diagrammeEffectifs}
           <br>
-          Calculer le nombre de billes de couleur ${choixIssue} qu'il y a dans l'urne.
+          Estimer le nombre de billes de couleur ${choixIssue} qu'il y a dans l'urne.
           `
   const texteCorr = String.raw`
           La fréquence d'apparition d'une couleur est le quotient
@@ -499,13 +518,13 @@ function diagrammeEffectifsCalculsLoiGrandNombre () {
           ${solution.calculs}
           Donc la fréquence d'apparition de la couleur ${choixIssue} est $${solution.reponse}$.
           <br>
-          Pour un nombre suffisamment grand d'essais, la fréquence d'une issue se stabilise autour de sa probabilité.
+          Pour un nombre suffisamment grand d'essais, la fréquence d'une issue se stabilise quasiment toujours au niveau de sa probabilité.
           <br>
           La proportion de billes de couleur ${choixIssue} est donc proche de cette fréquence.
           <br>
           $${solution.reponse} \times ${totalRatios} \approx ${ratios[choixRef]}$.
           <br>
-          Il y a donc $${ratios[choixRef]}$ billes ${choixIssue}s dans l'urne.
+          Il y a de fortes chances pour qu'il y ait $${ratios[choixRef]}$ billes ${choixIssue}s dans l'urne.
           `
   return { texte: texte, texteCorr: texteCorr }
 }

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { mathalea2d, point, similitude, longueur, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle } from '../../modules/2d.js'
+import { mathalea2d, point, similitude, longueur, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle, fixeBordures } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
 
 export const titre = 'Exprimer le cosinus, le sinus ou la tangente d’un angle en fonction des côtés du triangle'
@@ -24,8 +24,8 @@ export default function ExprimerCosSinTan () {
   this.nbColsCorr = 2
   this.sup = 1
   if (context.isHtml) {
-    this.spacing = 4
-    this.spacingCorr = 4
+    this.spacing = 2
+    this.spacingCorr = 2
   } else {
     this.spacing = 2
     this.spacingCorr = 2
@@ -104,8 +104,8 @@ export default function ExprimerCosSinTan () {
       objetsEnonce.push(sAH, t4, codage2)
     }
 
-    const paramsEnonce = { xmin: Math.min(A.x, B.x, C.x) - 1, ymin: Math.min(A.y, B.y, C.y) - 1, xmax: Math.max(A.x, B.x, C.x) + 1, ymax: Math.max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5, mainlevee: false }
-    const paramsCorrection = { xmin: Math.min(A.x, B.x, C.x) - 1, ymin: Math.min(A.y, B.y, C.y) - 1, xmax: Math.max(A.x, B.x, C.x) + 1, ymax: Math.max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5, mainlevee: false }
+    const paramsEnonce = Object.assign({}, fixeBordures([A, B, C], { rxmin: -1, rxmax: 1, rymin: -1, rymax: 1 }), { scale: 0.5, pixelsParCm: 20, mainlevee: false })
+    const paramsCorrection = Object.assign({}, fixeBordures([A, B, C]), { scale: 0.5, pixelsParCm: 20, mainlevee: false })
     if (!context.isHtml) {
       texte += '\\begin{minipage}{.4\\linewidth}\n'
     }

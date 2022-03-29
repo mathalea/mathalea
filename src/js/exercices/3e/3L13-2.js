@@ -1,12 +1,14 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, calcul, texNombre, texteEnCouleurEtGras, tableauColonneLigne, warnMessage } from '../../modules/outils.js'
+import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Equations résolvantes pour le théorème de Thalès'
 
 /**
  * * Equations résolvantes pour le théorème de Thalès
  * * 3L13-2
  * * modification le 11/01/2021
+ * * correctif le 27/03/2022
  * @author Sébastien Lozano
  */
 export default function EqResolvantesThales () {
@@ -41,16 +43,30 @@ export default function EqResolvantesThales () {
         if (b === c) {
           texte = `Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${a}$ !`
           sortie = warnMessage(texte, 'nombres', 'Keep Cool Guy !')
-        };
+        }
         if (c === a) {
           texte = `Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${b}$ !`
           sortie = warnMessage(texte, 'nombres', 'Keep Cool Guy !')
         }
       } else {
         sortie = ''
-      };
+      }
       return sortie
     };
+
+    // Un fonction pour afficher la simplification si c'est possible
+    function simplificationSiPossible (bool, frac, inc) {
+      let sortie
+      if (!bool) {
+        sortie = `
+        ${texteEnCouleurEtGras('On simplifie la fraction.')}<br>
+        $${inc}=${frac.texFractionSimplifiee}$<br></br>
+        `
+      } else {
+        sortie = ''
+      }
+      return sortie
+    }
 
     if (this.debug) {
       typesDeQuestionsDisponibles = [0, 1, 2, 3]
@@ -119,45 +135,50 @@ export default function EqResolvantesThales () {
         a: calcul(nbAlea[0] * coeff[0]),
         b: calcul(nbAlea[1] * coeff[1]),
         c: calcul(nbAlea[2] * coeff[2]),
-        inc: inc
+        inc: inc,
+        fraction: new FractionX(nbAlea[1] * nbAlea[0], nbAlea[2] / coeff[0] / coeff[1])
       }
 
       // pour les situations, autant de situations que de cas dans le switch !
       const situations = [
-        {
+        { // x/b = a/c
           eq: `\\dfrac{${params.inc}}{${texNombre(params.b)}}=\\dfrac{${texNombre(params.a)}}{${texNombre(params.c)}}`,
           tab: tableauColonneLigne([params.inc, params.a], [params.b], [params.c]),
           a: params.a,
           b: params.b,
           c: params.c,
           inc: params.inc,
+          fraction: params.fraction,
           trivial: (params.b === params.c) || (params.c === params.a)
         },
-        {
+        { // a/c = x/b
           eq: `\\dfrac{${texNombre(params.a)}}{${texNombre(params.c)}}=\\dfrac{${params.inc}}{${texNombre(params.b)}}`,
           tab: tableauColonneLigne([params.a, params.inc], [params.c], [params.b]),
           a: params.a,
           b: params.b,
           c: params.c,
           inc: params.inc,
+          fraction: params.fraction,
           trivial: (params.b === params.c) || (params.c === params.a)
         },
-        {
+        { // b/x = c/a
           eq: `\\dfrac{${texNombre(params.b)}}{${params.inc}}=\\dfrac{${texNombre(params.c)}}{${texNombre(params.a)}}`,
           tab: tableauColonneLigne([params.b, params.c], [params.inc], [params.a]),
           a: params.a,
           b: params.b,
           c: params.c,
           inc: params.inc,
+          fraction: params.fraction,
           trivial: (params.b === params.c) || (params.c === params.a)
         },
-        {
+        { // c/a = b/x
           eq: `\\dfrac{${texNombre(params.c)}}{${texNombre(params.a)}}=\\dfrac{${texNombre(params.b)}}{${params.inc}}`,
           tab: tableauColonneLigne([params.c, params.b], [params.a], [params.inc]),
           a: params.a,
           b: params.b,
           c: params.c,
           inc: params.inc,
+          fraction: params.fraction,
           trivial: (params.b === params.c) || (params.c === params.a)
         }
       ]
@@ -174,6 +195,7 @@ export default function EqResolvantesThales () {
           enoncePlus = `$${situations[k].eq}$`
           corrPlusPremiereLigne = ''
         };
+
         enonces.push({
           enonce: enoncePlus,
           question: '',
@@ -183,14 +205,15 @@ ${texteEnCouleurEtGras('Les produits en croix sont égaux.')}<br>
 $${texNombre(situations[k].c)}\\times ${situations[k].inc} = ${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}$<br>
 ${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(situations[k].c)}`)}.<br>
 $\\dfrac{${texNombre(situations[k].c)}\\times ${situations[k].inc}}{${texNombre(situations[k].c)}}= \\dfrac{${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}}{${texNombre(situations[k].c)}}$<br>
-${texteEnCouleurEtGras('On simplifie et on calcule.')}<br>
-$${situations[k].inc}=${texNombre(calcul(Number(situations[k].b) * Number(situations[k].a) / Number(situations[k].c)))}$
+${texteEnCouleurEtGras('On simplifie les écritures.')}<br>
+$${situations[k].inc}=\\dfrac{${situations[k].fraction.num}}{${situations[k].fraction.den}}$<br>
+${simplificationSiPossible(situations[k].fraction.estIrreductible, situations[k].fraction, situations[k].inc)}
 ${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situations[k].b), texNombre(situations[k].c), situations[k].inc)}
 `
         })
       };
 
-      // autant de case que d'elements dans le tableau des situations
+      // Autant de case que d'elements dans le tableau des situations
       switch (listeTypeDeQuestions[i]) {
         case 0:
           texte = `${enonces[0].enonce}`

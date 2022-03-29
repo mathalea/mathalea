@@ -1,16 +1,16 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, arrondi, choice, lettreDepuisChiffre, rangeMinMax, contraindreValeur, compteOccurences, miseEnEvidence, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, arrondi, choice, lettreDepuisChiffre, rangeMinMax, contraindreValeur, compteOccurences, miseEnEvidence, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
 import { codageAngleDroit, point, mathalea2d, pointAdistance, polygone, nommePolygone, codeSegments, afficheLongueurSegment, rotation, triangle2points2longueurs, angleOriente } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { min, max } from 'mathjs'
 import FractionX from '../../modules/FractionEtendue.js'
-export const titre = "Figures à agrandir ou à reduire d'après une situation de proportionnalité"
+export const titre = "Figures à agrandir ou à réduire d'après une situation de proportionnalité"
 export const interactifReady = true
 export const interactifType = 'mathLive'
-// export const amcReady = true
-// export const amcType = 'AMCHybride'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 export const dateDePublication = '13/03/2022'
 
 /**
@@ -29,7 +29,7 @@ export default function problemesTrigoLongueur () {
     3 : Triangle avec coefficient de réduction ou d'agrandissement
     4 : Triangle avec longueur initiale et longueur finale
     5 : Rectangle avec coefficient de réduction ou d'agrandissement
-    6 : Triangle rectangle inscrit dans un triangle rectangle
+    4 : Rectangle avec longueur initiale et longueur finale
     7 : Mélange`
   ]
   this.sup = 7
@@ -55,7 +55,7 @@ export default function problemesTrigoLongueur () {
     }
     if (compteOccurences(listeTypeQuestions, 7) > 0) listeTypeQuestions = rangeMinMax(1, 6) // Teste si l'utilisateur a choisi tout
     listeTypeQuestions = combinaisonListes(listeTypeQuestions, this.nbQuestions)
-    const texteAgrandissementOuReduction = [' agrandissement', 'e réduction'] // Ne pas supprimer le 'e'
+    const texteAgrandissementOuReduction = [[' agrandissement', 'e réduction'], ['l\'agrandissement demandé', 'la réduction demandée']] // Ne pas supprimer le 'e'
     let ii = 0 // Cet indice permet de gérer les numéros de champs interactifs car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
     let iiAMC // Cet indice permet de gérer les numéros de champs AMC car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
     for (let i = 0, texte, A, B, C, D, BCorr, CCorr, DCorr, polygoneInit, polygoneCorr, choixOrientation, coefAgrandissement, coefReduction, choixAgrandissementOuReduction, sensRotation, nom, nomCorr, absD, absC, absB, alpha, alphaCorr, objets, numA, numACorr, numB, numC, numD, numBCorr, numCCorr, numDCorr, propositionsAMC, enonceAMC, enonceInit, texteCorr, reponse, reponse1, reponse2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -88,16 +88,51 @@ export default function problemesTrigoLongueur () {
           numCCorr = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numACorr, numBCorr])
           nomCorr = lettreDepuisChiffre(numACorr) + lettreDepuisChiffre(numBCorr) + lettreDepuisChiffre(numCCorr)
           objets.push(polygoneInit, codeSegments('||', 'red', polygoneInit.listePoints), afficheLongueurSegment(sensRotation < 0 ? A : B, sensRotation < 0 ? B : A, 'blue', 0.5, '', true), nommePolygone(polygoneInit, nom))
+          enonceInit = `On décide d'effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle équilatéral ${nom}. Quelle sera la longueur du côté du triangle à construire ?`
+          texte = enonceInit
+          enonceAMC = '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          texte += enonceAMC
           if (this.interactif) {
-            // texte = 'modification coefficient efficace affine fichier définition simplifié afficher vérifie figure préfixe film fin signifier modifié identifiant filtre indéfiniment'
-            texte = `Si on décide d'effectuer un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle équilatéral ${nom}, quelle sera la longueur du côté du triangle à construire ?`
             texte += ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
             setReponse(this, i + ii, reponse)
           } else if (!context.isAmc) {
-            texte = `Trace un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle ${nom}.`
+            texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle ${nom}.`
+            texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          } else {
+            propositionsAMC[iiAMC] = {
+              type: 'AMCOpen',
+              propositions:
+                [
+                  {
+                    texte: '',
+                    statut: 1,
+                    sanscadre: true,
+                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
+                    sanslignes: true
+                  }
+                ]
+            }
+            iiAMC++
+            propositionsAMC[iiAMC] = {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: enonceInit,
+                  valeur: [reponse],
+                  alignement: 'center',
+                  param: {
+                    digits: nombreDeChiffresDe(reponse),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(reponse),
+                    signe: false
+                  }
+                }
+              }]
+            }
+            iiAMC++
           }
-          texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
-          texteCorr = `Effectuer un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ implique de multiplier toutes les longueurs par ce coefficient`
+          texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ implique de multiplier toutes les longueurs par ce coefficient`
           if (choixAgrandissementOuReduction >= 4) {
             texteCorr += ` ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}=${coefReduction[choixAgrandissementOuReduction - 4].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 4].den}$`
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
@@ -109,7 +144,7 @@ export default function problemesTrigoLongueur () {
           } else if (choixAgrandissementOuReduction >= 4) {
             texteCorr += ` ou bien $${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse)}$`
           }
-          texteCorr += `<br>Le triangle équilatéral issu d'un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur $${miseEnEvidence(texNombre(reponse))}$.`
+          texteCorr += `<br>Le triangle équilatéral issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur $${miseEnEvidence(texNombre(reponse))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
           objets.push(polygoneCorr, codeSegments('|||', 'blue', polygoneCorr.listePoints), afficheLongueurSegment(sensRotation < 0 ? A : BCorr, sensRotation < 0 ? BCorr : A, 'red', 0.5, '', true), nommePolygone(polygoneCorr, nomCorr))
@@ -140,15 +175,51 @@ export default function problemesTrigoLongueur () {
           nomCorr = lettreDepuisChiffre(numACorr) + lettreDepuisChiffre(numBCorr) + lettreDepuisChiffre(numCCorr) + lettreDepuisChiffre(numDCorr)
           objets.push(polygoneInit, codeSegments('||', 'red', polygoneInit.listePoints), afficheLongueurSegment(A, B, 'blue', 0.5, '', true), nommePolygone(polygoneInit, nom))
           objets.push(codageAngleDroit(A, B, C), codageAngleDroit(D, C, B), codageAngleDroit(A, D, C), codageAngleDroit(B, A, D))
+          enonceInit = `On décide d'effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$, du carré ${nom}. Quelle sera la longueur du côté du carré à construire ?`
+          texte = enonceInit
+          enonceAMC = '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          texte += enonceAMC
           if (this.interactif) {
-            texte = `Si on décide d'effectuer un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$, du carré ${nom}, quelle sera la longueur du côté du carré à construire ?`
             texte += ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
             setReponse(this, i + ii, reponse)
           } else if (!context.isAmc) {
-            texte = `Trace un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du carré ${nom}.`
+            texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du carré ${nom}.`
+            texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          } else {
+            propositionsAMC[iiAMC] = {
+              type: 'AMCOpen',
+              propositions:
+                [
+                  {
+                    texte: '',
+                    statut: 1,
+                    sanscadre: true,
+                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
+                    sanslignes: true
+                  }
+                ]
+            }
+            iiAMC++
+            propositionsAMC[iiAMC] = {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: enonceInit,
+                  valeur: [reponse],
+                  alignement: 'center',
+                  param: {
+                    digits: nombreDeChiffresDe(reponse),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(reponse),
+                    signe: false
+                  }
+                }
+              }]
+            }
+            iiAMC++
           }
-          texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
-          texteCorr = `Effectuer un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ implique de multiplier toutes les longueurs par ce coefficient`
+          texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ implique de multiplier toutes les longueurs par ce coefficient`
           if (choixAgrandissementOuReduction >= 4) {
             texteCorr += ` ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}=${coefReduction[choixAgrandissementOuReduction - 4].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 4].den}$`
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
@@ -160,7 +231,7 @@ export default function problemesTrigoLongueur () {
           } else if (choixAgrandissementOuReduction >= 4) {
             texteCorr += ` ou bien $${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse)}$`
           }
-          texteCorr += `<br>Le carré issu d'un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} du carré ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur $${miseEnEvidence(texNombre(reponse))}$.`
+          texteCorr += `<br>Le carré issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du carré ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur $${miseEnEvidence(texNombre(reponse))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
           objets.push(polygoneCorr, codeSegments('|||', 'blue', polygoneCorr.listePoints), afficheLongueurSegment(A, BCorr, 'red', 0.5, '', true), nommePolygone(polygoneCorr, nomCorr))
@@ -195,22 +266,93 @@ export default function problemesTrigoLongueur () {
           objets.push(afficheLongueurSegment(angleOriente(C, A, B) > 0 ? A : B, angleOriente(C, A, B) > 0 ? B : A, 'blue', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(A, B, C) > 0 ? B : C, angleOriente(A, B, C) > 0 ? C : B, 'blue', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(B, C, A) > 0 ? C : A, angleOriente(B, C, A) > 0 ? A : C, 'blue', 0.5, '', true))
+          enonceInit = `On décide d'effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle ${nom}. Quelles seront les longueurs respectives de chaque côté du triangle à construire ?`
+          enonceAMC = '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
           if (this.interactif) {
-            texte = `Si on décide d'effectuer un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle ${nom}, quelles seront les longueurs respectives de chaque côté du triangle à construire ?`
-            texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
-            texte += '<br> Dans le nouveau triangle, la plus petite longueur sera de : ' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+            texte = enonceInit
+            texte += enonceAMC
+            texte += '<br> Dans le nouveau triangle, la plus petite longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
             setReponse(this, i + ii, min(reponse, reponse1, reponse2))
             ii++
-            texte += '<br> Dans le nouveau triangle, la plus grande longueur sera de : ' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+            texte += '<br> Dans le nouveau triangle, la plus grande longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
             setReponse(this, i + ii, max(reponse, reponse1, reponse2))
             ii++
-            texte += '<br> Dans le nouveau triangle, la dernière longueur sera de : ' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+            texte += '<br> Dans le nouveau triangle, la dernière longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
             setReponse(this, i + ii, choice([reponse, reponse1, reponse2], [min(reponse, reponse1, reponse2), max(reponse, reponse1, reponse2)]))
           } else if (!context.isAmc) {
-            texte = `Trace un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle ${nom}.`
+            texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle ${nom}.`
             texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          } else {
+            propositionsAMC[iiAMC] = {
+              type: 'AMCOpen',
+              propositions:
+                [
+                  {
+                    texte: '',
+                    statut: 1,
+                    sanscadre: true,
+                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
+                    sanslignes: true
+                  }
+                ]
+            }
+            iiAMC++
+            propositionsAMC[iiAMC] = {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: enonceInit + '<br> <br>Dans le nouveau triangle, la plus petite longueur sera :',
+                  valeur: [min(reponse, reponse1, reponse2)],
+                  alignement: 'center',
+                  param: {
+                    digits: nombreDeChiffresDe(min(reponse, reponse1, reponse2)),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(min(reponse, reponse1, reponse2)),
+                    signe: false
+                  }
+                }
+              }]
+            }
+            iiAMC++
+            propositionsAMC[iiAMC] = {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'Dans le nouveau triangle, la plus grande longueur sera :',
+                  valeur: [max(reponse, reponse1, reponse2)],
+                  alignement: 'center',
+                  param: {
+                    digits: nombreDeChiffresDe(max(reponse, reponse1, reponse2)),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(max(reponse, reponse1, reponse2)),
+                    signe: false
+                  }
+                }
+              }]
+            }
+            iiAMC++
+            propositionsAMC[iiAMC] = {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'Dans le nouveau triangle, la dernière longueur sera :',
+                  valeur: [choice([reponse, reponse1, reponse2], [min(reponse, reponse1, reponse2), max(reponse, reponse1, reponse2)])],
+                  alignement: 'center',
+                  param: {
+                    digits: nombreDeChiffresDe(choice([reponse, reponse1, reponse2], [min(reponse, reponse1, reponse2), max(reponse, reponse1, reponse2)])),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(choice([reponse, reponse1, reponse2], [min(reponse, reponse1, reponse2), max(reponse, reponse1, reponse2)])),
+                    signe: false
+                  }
+                }
+              }]
+            }
+            iiAMC++
           }
-          texteCorr = `Effectuer un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ implique de multiplier toutes les longueurs par ce coefficient`
+          texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ implique de multiplier toutes les longueurs par ce coefficient`
           if (choixAgrandissementOuReduction >= 4) {
             texteCorr += ` ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}=${coefReduction[choixAgrandissementOuReduction - 4].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 4].den}$`
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
@@ -228,7 +370,7 @@ export default function problemesTrigoLongueur () {
             texteCorr += `${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse1)}$`
             texteCorr += `${sp(10)}$${absD} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse2)}$`
           }
-          texteCorr += `<br>Le triangle issu d'un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${miseEnEvidence(texNombre(reponse))}$ ; $${miseEnEvidence(texNombre(reponse1))}$ et $${miseEnEvidence(texNombre(reponse2))}$.`
+          texteCorr += `<br>Le triangle issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${miseEnEvidence(texNombre(reponse))}$ ; $${miseEnEvidence(texNombre(reponse1))}$ et $${miseEnEvidence(texNombre(reponse2))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
           objets.push(polygoneCorr, nommePolygone(polygoneCorr, nomCorr))
@@ -265,19 +407,72 @@ export default function problemesTrigoLongueur () {
           objets.push(afficheLongueurSegment(angleOriente(C, A, B) > 0 ? A : B, angleOriente(C, A, B) > 0 ? B : A, 'blue', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(A, B, C) > 0 ? B : C, angleOriente(A, B, C) > 0 ? C : B, 'blue', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(B, C, A) > 0 ? C : A, angleOriente(B, C, A) > 0 ? A : C, 'blue', 0.5, '', true))
+          enonceInit = `On décide d'effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom}, de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)}] mesurera $${texNombre(reponse2)}$.<br>Quelles seront les longueurs respectives des deux autres côtés du triangle à construire ?`
+          enonceAMC = '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
           if (this.interactif) {
-            texte = `On décide d'effectuer un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom}, de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)}] mesurera $${texNombre(reponse2)}$.<br>Quelles seront les longueurs respectives des deux autres côtés du triangle à construire ?`
-            texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
-            texte += '<br> Dans le nouveau triangle, la plus petite longueur à trouver sera de : ' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+            texte = enonceInit
+            texte += enonceAMC
+            texte += '<br> Dans le nouveau triangle, la plus petite longueur à trouver sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
             setReponse(this, i + ii, min(reponse, reponse1))
             ii++
-            texte += '<br> Dans le nouveau triangle, la plus grande longueur à trouver sera de : ' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+            texte += '<br> Dans le nouveau triangle, la plus grande longueur à trouver sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
             setReponse(this, i + ii, max(reponse, reponse1))
           } else if (!context.isAmc) {
-            texte = `Trace un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)}] mesurera $${texNombre(reponse2)}$.`
+            texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)}] mesurera $${texNombre(reponse2)}$.`
             texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x) - 1, ymin: min(A.y, B.y, C.y) - 1, xmax: max(A.x, B.x, C.x) + 1, ymax: max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          } else {
+            propositionsAMC[iiAMC] = {
+              type: 'AMCOpen',
+              propositions:
+                [
+                  {
+                    texte: '',
+                    statut: 1,
+                    sanscadre: true,
+                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
+                    sanslignes: true
+                  }
+                ]
+            }
+            iiAMC++
+            propositionsAMC[iiAMC] = {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: enonceInit + '<br> <br>Dans le nouveau triangle, la plus petite longueur à trouver sera :',
+                  valeur: [min(reponse, reponse1)],
+                  alignement: 'center',
+                  param: {
+                    digits: nombreDeChiffresDe(min(reponse, reponse1)),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(min(reponse, reponse1)),
+                    signe: false
+                  }
+                }
+              }]
+            }
+            iiAMC++
+            propositionsAMC[iiAMC] = {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'Dans le nouveau triangle, la plus grande longueur à trouver sera :',
+                  valeur: [max(reponse, reponse1)],
+                  alignement: 'center',
+                  param: {
+                    digits: nombreDeChiffresDe(max(reponse, reponse1)),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(max(reponse, reponse1)),
+                    signe: false
+                  }
+                }
+              }]
+            }
+            iiAMC++
           }
-          texteCorr = `Effectuer un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} implique de multiplier toutes les longueurs par un coefficient de proportionnalité. Trouvons ce coefficient.<br>`
+          texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} implique de multiplier toutes les longueurs par un coefficient de proportionnalité. Trouvons ce coefficient.<br>`
           texteCorr += `Pour trouver ce coefficient, divisons la longueur connue du futur triangle par sa longueur associée dans le triangle actuel : $${reponse2} \\div ${absD} = ${coefAgrandissement[choixAgrandissementOuReduction]}$. Le coefficient de proportionnalité est donc $${coefAgrandissement[choixAgrandissementOuReduction]}$.<br>`
           texteCorr += `Multiplions toutes les longueurs connues du triangle actuel par $${coefAgrandissement[choixAgrandissementOuReduction]}$`
 
@@ -294,7 +489,7 @@ export default function problemesTrigoLongueur () {
             texteCorr += `${sp(10)} ou bien ${sp(10)}$${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse)}$`
             texteCorr += `${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse1)}$`
           }
-          texteCorr += `<br>Le triangle issu d'un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${texNombre(reponse2)}$ ; $${miseEnEvidence(texNombre(reponse1))}$ et $${miseEnEvidence(texNombre(reponse))}$.`
+          texteCorr += `<br>Le triangle issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${texNombre(reponse2)}$ ; $${miseEnEvidence(texNombre(reponse1))}$ et $${miseEnEvidence(texNombre(reponse))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
           objets.push(polygoneCorr, nommePolygone(polygoneCorr, nomCorr))
@@ -308,7 +503,6 @@ export default function problemesTrigoLongueur () {
           absD = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB, absC]) : 2 * randint(4, 7, [arrondi(absB / 2, 0), arrondi(absC / 2, 0)])
           reponse = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absB, 1)
           reponse1 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absC, 1)
-          reponse2 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absD, 1)
           alpha = randint(10, 170)
           alphaCorr = randint(10, 170, [alpha])
           sensRotation = choice([-1, 1])
@@ -336,19 +530,72 @@ export default function problemesTrigoLongueur () {
           objets.push(afficheLongueurSegment(angleOriente(B, C, D) > 0 ? C : D, angleOriente(B, C, D) > 0 ? D : C, 'blue', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(C, D, A) > 0 ? D : A, angleOriente(C, D, A) > 0 ? A : D, 'blue', 0.5, '', true))
           objets.push(codageAngleDroit(A, B, C), codageAngleDroit(D, C, B), codageAngleDroit(A, D, C), codageAngleDroit(B, A, D))
+          enonceInit = `On décide d'effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du rectangle ${nom}. Quelles seront les longueurs respectives de chaque côté du rectangle à construire ?`
+          enonceAMC = '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
           if (this.interactif) {
-            texte = `Si on décide d'effectuer un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du rectangle ${nom}, quelles seront les longueurs respectives de chaque côté du rectangle à construire ?`
-            texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+            texte = enonceInit
+            texte += enonceAMC
             texte += '<br> Dans le nouveau rectangle, le côté le moins long aura pour longueur : ' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
             setReponse(this, i + ii, min(reponse, reponse1))
             ii++
             texte += '<br> Dans le nouveau rectangle, le côté le plus long aura pour longueur : ' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
             setReponse(this, i + ii, max(reponse, reponse1))
           } else if (!context.isAmc) {
-            texte = `Trace un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du rectangle ${nom}.`
+            texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du rectangle ${nom}.`
             texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          } else {
+            propositionsAMC[iiAMC] = {
+              type: 'AMCOpen',
+              propositions:
+                [
+                  {
+                    texte: '',
+                    statut: 1,
+                    sanscadre: true,
+                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
+                    sanslignes: true
+                  }
+                ]
+            }
+            iiAMC++
+            propositionsAMC[iiAMC] = {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: enonceInit + '<br> <br>Dans le nouveau rectangle, le côté le moins long aura pour longueur :',
+                  valeur: [min(reponse, reponse1)],
+                  alignement: 'center',
+                  param: {
+                    digits: nombreDeChiffresDe(min(reponse, reponse1)),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(min(reponse, reponse1)),
+                    signe: false
+                  }
+                }
+              }]
+            }
+            iiAMC++
+            propositionsAMC[iiAMC] = {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: 'Dans le nouveau rectangle, le côté le plus long aura pour longueur :',
+                  valeur: [max(reponse, reponse1)],
+                  alignement: 'center',
+                  param: {
+                    digits: nombreDeChiffresDe(max(reponse, reponse1)),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(max(reponse, reponse1)),
+                    signe: false
+                  }
+                }
+              }]
+            }
+            iiAMC++
           }
-          texteCorr = `Effectuer un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ implique de multiplier toutes les longueurs par ce coefficient`
+          texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ implique de multiplier toutes les longueurs par ce coefficient`
           if (choixAgrandissementOuReduction >= 4) {
             texteCorr += ` ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}=${coefReduction[choixAgrandissementOuReduction - 4].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 4].den}$`
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
@@ -363,7 +610,7 @@ export default function problemesTrigoLongueur () {
             texteCorr += `${sp(10)} ou bien ${sp(10)}$${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse)}$`
             texteCorr += `${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse1)}$`
           }
-          texteCorr += `<br>Le rectangle issu d'un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${miseEnEvidence(texNombre(reponse))}$ et $${miseEnEvidence(texNombre(reponse1))}$.`
+          texteCorr += `<br>Le rectangle issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${miseEnEvidence(texNombre(reponse))}$ et $${miseEnEvidence(texNombre(reponse1))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
           objets.push(polygoneCorr, nommePolygone(polygoneCorr, nomCorr))
@@ -379,7 +626,6 @@ export default function problemesTrigoLongueur () {
           absD = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB, absC]) : 2 * randint(4, 7, [arrondi(absB / 2, 0), arrondi(absC / 2, 0)])
           reponse = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absB, 1)
           reponse1 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absC, 1)
-          reponse2 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absD, 1)
           alpha = randint(10, 170)
           alphaCorr = randint(10, 170, [alpha])
           sensRotation = choice([-1, 1])
@@ -407,17 +653,51 @@ export default function problemesTrigoLongueur () {
           objets.push(afficheLongueurSegment(angleOriente(B, C, D) > 0 ? C : D, angleOriente(B, C, D) > 0 ? D : C, 'blue', 0.5, '', true))
           objets.push(afficheLongueurSegment(angleOriente(C, D, A) > 0 ? D : A, angleOriente(C, D, A) > 0 ? A : D, 'blue', 0.5, '', true))
           objets.push(codageAngleDroit(A, B, C), codageAngleDroit(D, C, B), codageAngleDroit(A, D, C), codageAngleDroit(B, A, D))
-
+          enonceInit = `On décide d'effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom}, de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}] mesurera $${texNombre(reponse)}$. Quelle sera l'autre dimension du rectangle à construire ?`
+          enonceAMC = '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
           if (this.interactif) {
-            texte = `On décide d'effectuer un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom}, de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}] mesurera $${texNombre(reponse)}$. Quelle sera l'autre dimension du rectangle à construire ?`
+            texte = enonceInit
             texte += ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
-            texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
-            setReponse(this, i + ii, min(reponse, reponse1))
+            texte += enonceAMC
+            setReponse(this, i + ii, reponse1)
           } else if (!context.isAmc) {
-            texte = `Trace un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)}] mesurera $${texNombre(reponse)}$.`
+            texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)}] mesurera $${texNombre(reponse)}$.`
             texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
+          } else {
+            propositionsAMC[iiAMC] = {
+              type: 'AMCOpen',
+              propositions:
+                [
+                  {
+                    texte: '',
+                    statut: 1,
+                    sanscadre: true,
+                    enonce: enonceAMC + `<br>Trace, sur une feuille blanche, ${texteAgrandissementOuReduction[1][choixAgrandissementOuReduction < 4 ? 0 : 1]}.`,
+                    sanslignes: true
+                  }
+                ]
+            }
+            iiAMC++
+            propositionsAMC[iiAMC] = {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                statut: '',
+                reponse: {
+                  texte: enonceInit + '<br> <br>Dans le nouveau rectangle, la deuxième longueur sera :',
+                  valeur: [reponse1],
+                  alignement: 'center',
+                  param: {
+                    digits: nombreDeChiffresDe(reponse1),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(reponse1),
+                    signe: false
+                  }
+                }
+              }]
+            }
+            iiAMC++
           }
-          texteCorr = `Effectuer un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} implique de multiplier toutes les longueurs par un coefficient de proportionnalité. Trouvons ce coefficient.<br>`
+          texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} implique de multiplier toutes les longueurs par un coefficient de proportionnalité. Trouvons ce coefficient.<br>`
           texteCorr += `Pour trouver ce coefficient, divisons la longueur connue du futur rectangle par sa longueur associée dans le rectangle actuel : $${reponse} \\div ${absB} = ${coefAgrandissement[choixAgrandissementOuReduction]}$. Le coefficient de proportionnalité est donc $${coefAgrandissement[choixAgrandissementOuReduction]}$.<br>`
           texteCorr += `Multiplions toutes les longueurs connues du triangle actuel par $${coefAgrandissement[choixAgrandissementOuReduction]}$`
 
@@ -432,7 +712,7 @@ export default function problemesTrigoLongueur () {
           } else if (choixAgrandissementOuReduction >= 4) {
             texteCorr += `${sp(10)} ou bien ${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse1)}$`
           }
-          texteCorr += `<br>Le rectangle issu d'un${texteAgrandissementOuReduction[choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${miseEnEvidence(texNombre(reponse))}$ et $${miseEnEvidence(texNombre(reponse1))}$.`
+          texteCorr += `<br>Le rectangle issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ possède donc des côtés de longueur respective $${miseEnEvidence(texNombre(reponse))}$ et $${miseEnEvidence(texNombre(reponse1))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
           objets = []
           objets.push(polygoneCorr, nommePolygone(polygoneCorr, nomCorr))
@@ -443,6 +723,15 @@ export default function problemesTrigoLongueur () {
           objets.push(codageAngleDroit(A, BCorr, CCorr), codageAngleDroit(DCorr, CCorr, BCorr), codageAngleDroit(A, DCorr, CCorr), codageAngleDroit(BCorr, A, DCorr))
           texteCorr += '<br>' + mathalea2d({ xmin: min(A.x, BCorr.x, CCorr.x, DCorr.x) - 1, ymin: min(A.y, BCorr.y, CCorr.y, DCorr.y) - 1, xmax: max(A.x, BCorr.x, CCorr.x, DCorr.x) + 1, ymax: max(A.y, BCorr.y, CCorr.y, DCorr.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
           break
+      }
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: '',
+          options: { multicols: true, barreseparation: false },
+          enonceCentre: true,
+          enonceAvant: true, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
+          propositions: propositionsAMC
+        }
       }
       if (this.questionJamaisPosee(i, texte, absB, choixAgrandissementOuReduction)) {
         // Si la question n'a jamais été posée, on en crée une autre
