@@ -881,7 +881,8 @@ export function rienSi1 (a) {
 }
 
 /**
-* Gère l'écriture de l'exposant en mode text
+* Gère l'écriture de l'exposant en mode text (ne doit pas s'utiliser entre $ $)
+* Pour le mode maths (entre $ $) on utilisera tout simplement ^3 pour mettre au cube.
 * @Example
 * // 'dm'+texteExposant(3)
 * @author Rémi Angot
