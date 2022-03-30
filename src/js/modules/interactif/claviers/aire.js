@@ -1,10 +1,10 @@
-const longueursKeyboardLayer = {
-  longueursLayer: {
+const airesKeyboardLayer = {
+  airesLayer: {
     styles: '',
     rows: [
       [
-        { label: 'mm', latex: '\\operatorname{mm}' },
-        { label: 'cm', latex: '\\operatorname{cm}' },
+        { label: 'mm^2', latex: '\\operatorname{mm}^2' },
+        { label: 'cm^2', latex: '\\operatorname{cm}^2' },
         { class: 'separator w5' },
         { label: '7', key: '7' },
         { label: '8', key: '8' },
@@ -28,8 +28,8 @@ const longueursKeyboardLayer = {
         }
       ],
       [
-        { label: 'dm', latex: '\\operatorname{dm}' },
-        { label: 'm', latex: '\\operatorname{m}' },
+        { label: 'dm^2', latex: '\\operatorname{dm}^2' },
+        { label: 'm^2', latex: '\\operatorname{m}^2' },
         { class: 'separator w5' },
         { label: '4', latex: '4' },
         { label: '5', key: '5' },
@@ -41,8 +41,8 @@ const longueursKeyboardLayer = {
         { latex: 'f' }
       ],
       [
-        { label: 'dam', latex: '\\operatorname{dam}' },
-        { label: 'hm', latex: '\\operatorname{hm}' },
+        { label: 'dam^2', latex: '\\operatorname{dam}^2' },
+        { label: 'hm^2', latex: '\\operatorname{hm}^2' },
         { class: 'separator w5' },
         { label: '1', key: '1' },
         { label: '2', key: '2' },
@@ -54,7 +54,7 @@ const longueursKeyboardLayer = {
         { label: 'non', key: 'non' }
       ],
       [
-        { label: 'km', latex: '\\operatorname{km}' },
+        { label: 'km^2', latex: '\\operatorname{km}^2' },
 
         { class: 'separator w15' },
         { label: '0', key: '0' },
@@ -81,18 +81,18 @@ const longueursKeyboardLayer = {
     ]
   }
 }
-const LongueursKeyboard = {
-  longueursKeyboard: {
-    label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
-    tooltip: 'Clavier mathématique (longueurs)', // Tooltip when hovering over the label
-    layer: 'longueursLayer'
+const AiresKeyboard = {
+  airesKeyboard: {
+    label: 'Maths et aire', // Label displayed in the Virtual Keyboard Switcher
+    tooltip: 'Clavier mathématique (aires)', // Tooltip when hovering over the label
+    layer: 'airesLayer'
   }
 }
 
-export const clavierLongueur = {
-  customVirtualKeyboardLayers: longueursKeyboardLayer,
-  customVirtualKeyboards: LongueursKeyboard,
-  virtualKeyboards: 'longueursKeyboard roman',
+export const clavierAire = {
+  customVirtualKeyboardLayers: airesKeyboardLayer,
+  customVirtualKeyboards: AiresKeyboard,
+  virtualKeyboards: 'airesKeyboard roman',
   inlineShortcuts: {
     mm: { mode: 'math', value: '\\operatorname{mm}' },
     cm: { mode: 'math', value: '\\operatorname{cm}' },

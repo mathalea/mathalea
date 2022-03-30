@@ -5,7 +5,7 @@ import Grandeur from '../Grandeur.js'
 import { context } from '../context.js'
 import { afficheScore } from '../gestionInteractif.js'
 import { gestionCan } from './gestionCan.js'
-import { sp } from '../outils.js'
+import { sp, texteExposant } from '../outils.js'
 
 export function verifQuestionMathLive (exercice, i) {
   const engine = new ComputeEngine()
@@ -167,10 +167,13 @@ export function verifQuestionMathLive (exercice, i) {
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
         saisie = champTexte !== undefined ? champTexte.value : ''
         grandeurSaisie = saisieToGrandeur(saisie)
+        // console.log('saisie : ', saisie)
+        // console.log('reponse attendue : ', reponse)
+        // console.log(reponse.uniteDeReference)
         if (grandeurSaisie) {
           if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
         } else {
-          resultat = 'essaieEncoreLongueur'
+          resultat = i < 3 ? 'essaieEncoreLongueur' : 'essaieEncoreLongueurTEST'
         }
         break
       case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
@@ -270,8 +273,17 @@ export function verifQuestionMathLive (exercice, i) {
     if (champTexte !== undefined) champTexte.readOnly = true
     if (champTexteNum !== undefined) champTexteNum.readOnly = true
     if (champTexteDen !== undefined) champTexteDen.readOnly = true
-  } else if (resultat === 'essaieEncoreLongueur') {
-    spanReponseLigne.innerHTML = '<em>Il faut saisir une valeur numérique et une unité (cm ou cm² par exemple).</em>'
+  } else if (resultat === 'essaieEncoreLongueur' || resultat === 'essaieEncoreLongueurTEST') {
+    spanReponseLigne.innerHTML = resultat === 'essaieEncoreLongueur'
+      ? '<em>Il faut saisir une valeur numérique et une unité (cm ou cm² par exemple).</em>'
+      : '<em>Il faut saisir une valeur numérique et une unité (' +
+    (reponse.uniteDeReference.indexOf('^') > 0
+      ? reponse.uniteDeReference.split('^')[0] + texteExposant(reponse.uniteDeReference.split('^')[1])
+      : reponse.uniteDeReference) +
+    ' par exemple).</em>'
+    // spanReponseLigne.innerHTML = '<em>Il faut saisir une valeur numérique et une unité ('
+    // spanReponseLigne.innerHTML += reponse.uniteDeReference.indexOf('^') > 0 ? reponse.uniteDeReference.split('^')[0] + texteExposant(reponse.uniteDeReference.split('^')[1]) : reponse.uniteDeReference
+    // spanReponseLigne.innerHTML += ' par exemple).</em>'
     spanReponseLigne.style.color = '#f15929'
     spanReponseLigne.style.fontWeight = 'bold'
   } else if (resultat === 'essaieEncorePuissance') {

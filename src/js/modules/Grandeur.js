@@ -53,13 +53,13 @@ function parseUnite (unite) {
     puissanceUnite = 1
     avantPuissanceUnite = unite
   }
-  const prefixe = avantPuissanceUnite.substring(0, avantPuissanceUnite.length - 1)
-  const puissancePrefixe = prefixeToPuissance(prefixe)
-  const uniteDeReference = unite.substring(prefixe.length)
+  const prefixe = ['t', 'q'].includes(unite) ? unite : avantPuissanceUnite.substring(0, avantPuissanceUnite.length - 1) // Pour prendre en compte la tonne aussi.
+  const puissancePrefixe = prefixeToPuissance(prefixe, unite)
+  const uniteDeReference = ['t', 'q'].includes(unite) ? 'g' : unite.substring(prefixe.length)
   return { prefixe, uniteDeReference, puissanceUnite, puissancePrefixe }
 }
 
-function prefixeToPuissance (prefixe) {
+function prefixeToPuissance (prefixe, unite) {
   let puissancePrefixe
   switch (prefixe) {
     case 'm':
@@ -82,6 +82,12 @@ function prefixeToPuissance (prefixe) {
       break
     case 'k':
       puissancePrefixe = 3
+      break
+    case 'q': // quintal
+      puissancePrefixe = unite === 'q' ? 5 : false
+      break
+    case 't': // tonne
+      puissancePrefixe = unite === 't' ? 6 : false
       break
     case 'M':
       puissancePrefixe = 6

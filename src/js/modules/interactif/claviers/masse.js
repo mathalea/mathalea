@@ -1,10 +1,11 @@
-const longueursKeyboardLayer = {
-  longueursLayer: {
+const massesKeyboardLayer = {
+  massesLayer: {
     styles: '',
     rows: [
       [
-        { label: 'mm', latex: '\\operatorname{mm}' },
-        { label: 'cm', latex: '\\operatorname{cm}' },
+        { label: 'dg', latex: '\\operatorname{dg}' },
+        { label: 'cg', latex: '\\operatorname{cg}' },
+        { label: 'mg', latex: '\\operatorname{mg}' },
         { class: 'separator w5' },
         { label: '7', key: '7' },
         { label: '8', key: '8' },
@@ -28,8 +29,9 @@ const longueursKeyboardLayer = {
         }
       ],
       [
-        { label: 'dm', latex: '\\operatorname{dm}' },
-        { label: 'm', latex: '\\operatorname{m}' },
+        { label: 'hg', latex: '\\operatorname{hg}' },
+        { label: 'dag', latex: '\\operatorname{dag}' },
+        { label: 'g', latex: '\\operatorname{g}' },
         { class: 'separator w5' },
         { label: '4', latex: '4' },
         { label: '5', key: '5' },
@@ -41,9 +43,9 @@ const longueursKeyboardLayer = {
         { latex: 'f' }
       ],
       [
-        { label: 'dam', latex: '\\operatorname{dam}' },
-        { label: 'hm', latex: '\\operatorname{hm}' },
-        { class: 'separator w5' },
+        { class: 'separator w8' },
+        { label: 'kg', latex: '\\operatorname{kg}' },
+        { class: 'separator w15' },
         { label: '1', key: '1' },
         { label: '2', key: '2' },
         { label: '3', key: '3' },
@@ -54,9 +56,12 @@ const longueursKeyboardLayer = {
         { label: 'non', key: 'non' }
       ],
       [
-        { label: 'km', latex: '\\operatorname{km}' },
-
-        { class: 'separator w15' },
+        { class: 'separator w10' },
+        // { class: 'separator w5' },
+        // { class: 'separator' },
+        { label: 't', latex: '\\operatorname{t}' },
+        { label: 'q', latex: '\\operatorname{q}' },
+        { class: 'separator w10' },
         { label: '0', key: '0' },
         { latex: ',' },
         { latex: '\\pi' },
@@ -76,31 +81,34 @@ const longueursKeyboardLayer = {
           class: 'action font-glyph',
           label: '&#x232b;',
           command: ['performWithFeedback', 'deleteBackward']
-        }
+        },
+        { class: 'separator w5' }
       ]
     ]
   }
 }
-const LongueursKeyboard = {
-  longueursKeyboard: {
-    label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
-    tooltip: 'Clavier mathématique (longueurs)', // Tooltip when hovering over the label
-    layer: 'longueursLayer'
+const massesKeyboard = {
+  massesKeyboard: {
+    label: 'Maths et masse', // Label displayed in the Virtual Keyboard Switcher
+    tooltip: 'Clavier mathématique (masses)', // Tooltip when hovering over the label
+    layer: 'massesLayer'
   }
 }
 
-export const clavierLongueur = {
-  customVirtualKeyboardLayers: longueursKeyboardLayer,
-  customVirtualKeyboards: LongueursKeyboard,
-  virtualKeyboards: 'longueursKeyboard roman',
+export const clavierMasse = {
+  customVirtualKeyboardLayers: massesKeyboardLayer,
+  customVirtualKeyboards: massesKeyboard,
+  virtualKeyboards: 'massesKeyboard roman',
   inlineShortcuts: {
-    mm: { mode: 'math', value: '\\operatorname{mm}' },
-    cm: { mode: 'math', value: '\\operatorname{cm}' },
-    dm: { mode: 'math', value: '\\operatorname{dm}' },
-    m: { mode: 'math', value: '\\operatorname{m}' },
-    dam: { mode: 'math', value: '\\operatorname{dam}' },
-    hm: { mode: 'math', value: '\\operatorname{hm}' },
-    km: { mode: 'math', value: '\\operatorname{km}' },
+    mg: { mode: 'math', value: '\\operatorname{mg}' },
+    cg: { mode: 'math', value: '\\operatorname{cg}' },
+    dg: { mode: 'math', value: '\\operatorname{dg}' },
+    g: { mode: 'math', value: '\\operatorname{g}' },
+    dag: { mode: 'math', value: '\\operatorname{dag}' },
+    hg: { mode: 'math', value: '\\operatorname{hg}' },
+    kg: { mode: 'math', value: '\\operatorname{kg}' },
+    q: { mode: 'math', value: '\\operatorname{q}' },
+    t: { mode: 'math', value: '\\operatorname{t}' },
     '*': { mode: 'math', value: '\\times' },
     '.': { mode: 'math', value: ',' }
   }

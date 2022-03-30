@@ -3,8 +3,13 @@ import loadjs from 'loadjs'
 import { context } from './context'
 import { UserFriendlyError } from './messages'
 import { clavierLongueur } from './interactif/claviers/longueur.js'
+import { clavierMasse } from './interactif/claviers/masse.js'
 import { clavierTrigo } from './interactif/claviers/trigo.js'
 import { clavierCollege } from './interactif/claviers/college.js'
+import { clavierAire } from './interactif/claviers/aire'
+import { clavierVolume } from './interactif/claviers/volume'
+import { clavierLAV3 } from './interactif/claviers/claviersLAV3'
+import { clavierLAV1 } from './interactif/claviers/claviersLAV1'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -162,6 +167,21 @@ export async function loadMathLive () {
       }
       if (mf.classList.contains('longueur')) {
         mf.setOptions(clavierLongueur)
+      }
+      if (mf.classList.contains('aire')) {
+        mf.setOptions(clavierAire)
+      }
+      if (mf.classList.contains('volume')) {
+        mf.setOptions(clavierVolume)
+      }
+      if (mf.classList.contains('LAV3')) {
+        mf.setOptions(clavierLAV3)
+      }
+      if (mf.classList.contains('LAV1')) {
+        mf.setOptions(clavierLAV1)
+      }
+      if (mf.classList.contains('masse')) {
+        mf.setOptions(clavierMasse)
       }
       if (mf.classList.contains('grecTrigo')) {
         mf.setOptions(clavierTrigo)
