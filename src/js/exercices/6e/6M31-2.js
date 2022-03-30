@@ -1,6 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombrec, texNombre, sp } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Convertir des volumes ou des capacités'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Conversions d'unités de volumes vers les unités de capacité ou inversement.
@@ -112,60 +116,101 @@ export default function UnitesDeVolumesEtDeCapacite (niveau = 1) {
       }
       switch (listeTypeDeQuestions[i]) {
         case 'dam3toL':
-          texte = `$${texNombre(n)}~\\text{dam}^3=\\dotfill~\\text{L}$`
-          texteCorr = `$${texNombre(n)}~\\text{dam}^3=${texNombre(
+          if (this.interactif) {
+            texte = `$${texNombre(n)}${sp()}\\text{dam}^3=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `${sp(3)}L`
+            setReponse(this, i, n * 1000000)
+          } else {
+            texte = `$${texNombre(n)}${sp()}\\text{dam}^3=\\dotfill${sp()}\\text{L}$`
+          }
+          texteCorr = `$${texNombre(n)}${sp()}\\text{dam}^3=${texNombre(
             n
-          )}\\times1~000\\times1~000~\\text{dm}^3=${texNombrec(
+          )}\\times1${sp()}000\\times1${sp()}000${sp()}\\text{dm}^3=${texNombrec(
             n * 1000000
-          )}~\\text{L}$`
+          )}${sp()}\\text{L}$`
+
           break
         case 'm3toL':
-          texte = `$${texNombre(n)}~\\text{m}^3=\\dotfill~\\text{L}$`
-          texteCorr = `$${texNombre(n)}~\\text{m}^3=${texNombre(
+          if (this.interactif) {
+            texte = `$${texNombre(n)}${sp()}\\text{m}^3=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `${sp(3)}L`
+            setReponse(this, i, n * 1000)
+          } else {
+            texte = `$${texNombre(n)}${sp()}\\text{m}^3=\\dotfill${sp()}\\text{L}$`
+          }
+          texteCorr = `$${texNombre(n)}${sp()}\\text{m}^3=${texNombre(
             n
-          )}\\times1~000~\\text{dm}^3=${texNombrec(n * 1000)}~\\text{L}$`
+          )}\\times1${sp()}000${sp()}\\text{dm}^3=${texNombrec(n * 1000)}${sp()}\\text{L}$`
           break
         case 'dm3toL':
-          texte = `$${texNombre(n)}~\\text{dm}^3=\\dotfill~\\text{L}$`
-          texteCorr = `$${texNombre(n)}~\\text{dm}^3=${texNombre(
+          if (this.interactif) {
+            texte = `$${texNombre(n)}${sp()}\\text{dm}^3=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `${sp(3)}L`
+            setReponse(this, i, n)
+          } else {
+            texte = `$${texNombre(n)}${sp()}\\text{dm}^3=\\dotfill${sp()}\\text{L}$`
+          }
+          texteCorr = `$${texNombre(n)}${sp()}\\text{dm}^3=${texNombre(
             n
-          )}~\\text{L}$`
+          )}${sp()}\\text{L}$`
           break
         case 'cm3toL':
-          texte = `$${texNombre(n)}~\\text{cm}^3=\\dotfill~\\text{L}$`
-          texteCorr = `$${texNombre(n)}~\\text{cm}^3=${texNombre(
+          if (this.interactif) {
+            texte = `$${texNombre(n)}${sp()}\\text{cm}^3=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `${sp(3)}L`
+            setReponse(this, i, calcul(n / 1000))
+          } else {
+            texte = `$${texNombre(n)}${sp()}\\text{cm}^3=\\dotfill${sp()}\\text{L}$`
+          }
+          texteCorr = `$${texNombre(n)}${sp()}\\text{cm}^3=${texNombre(
             n
-          )}\\div 1~000~\\text{dm}^3=${texNombrec(n / 1000)}~\\text{L}$`
+          )}\\div 1${sp()}000${sp()}\\text{dm}^3=${texNombrec(n / 1000)}${sp()}\\text{L}$`
           break
         case 'mm3toL':
-          texte = `$${texNombre(n)}~\\text{mm}^3=\\dotfill~\\text{L}$`
-          texteCorr = `$${texNombre(n)}~\\text{mm}^3=${texNombre(
+          if (this.interactif) {
+            texte = `$${texNombre(n)}${sp()}\\text{mm}^3=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `${sp(3)}L`
+            setReponse(this, i, calcul(n / 1000000))
+          } else {
+            texte = `$${texNombre(n)}${sp()}\\text{mm}^3=\\dotfill${sp()}\\text{L}$`
+          }
+          texteCorr = `$${texNombre(n)}${sp()}\\text{mm}^3=${texNombre(
             n
-          )}\\div1~000\\div 1~000~\\text{dm}^3=${texNombrec(
+          )}\\div1${sp()}000\\div 1${sp()}000${sp()}\\text{dm}^3=${texNombrec(
             n / 1000000
-          )}~\\text{L}$`
+          )}${sp()}\\text{L}$`
           break
         case 'Ltodm3':
-          texte = `$${texNombre(n)}~\\text{L}=\\dotfill~\\text{dm}^3$`
-          texteCorr = `$${texNombre(n)}~\\text{L}=${texNombre(
+          if (this.interactif) {
+            texte = `$${texNombre(n)}${sp()}\\text{L}=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `$${sp(3)}\\text{dm}^3$`
+            setReponse(this, i, n)
+          } else {
+            texte = `$${texNombre(n)}${sp()}\\text{L}=\\dotfill${sp()}\\text{dm}^3$`
+          }
+          texteCorr = `$${texNombre(n)}${sp()}\\text{L}=${texNombre(
             n
-          )}~\\text{dm}^3$`
+          )}${sp()}\\text{dm}^3$`
           break
         case 'Ltocm3':
-          texte = `$${texNombre(n)}~\\text{L}=\\dotfill~\\text{cm}^3$`
-          texteCorr = `$${texNombre(n)}~\\text{L}=${texNombre(
+          if (this.interactif) {
+            texte = `$${texNombre(n)}${sp()}\\text{L}=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `$${sp(3)}\\text{cm}^3$`
+            setReponse(this, i, n * 1000)
+          } else {
+            texte = `$${texNombre(n)}${sp()}\\text{L}=\\dotfill${sp()}\\text{cm}^3$`
+          }
+          texteCorr = `$${texNombre(n)}${sp()}\\text{L}=${texNombre(
             n
-          )}~\\text{dm}^3=${texNombre(
+          )}${sp()}\\text{dm}^3=${texNombre(
             n
-          )}\\times1~000~\\text{cm}^3=${texNombrec(n * 1000)}~\\text{cm}^3$`
+          )}\\times1${sp()}000${sp()}\\text{cm}^3=${texNombrec(n * 1000)}${sp()}\\text{cm}^3$`
           break
         case 'Ltom3':
-          texte = `$${texNombre(n)}~\\text{L}=\\dotfill~\\text{m}^3$`
-          texteCorr = `$${texNombre(n)}~\\text{L}=${texNombre(
+          if (this.interactif) {
+            texte = `$${texNombre(n)}${sp()}\\text{L}=$` + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) + `$${sp(3)}\\text{m}^3$`
+            setReponse(this, i, calcul(n / 1000))
+          } else {
+            texte = `$${texNombre(n)}${sp()}\\text{L}=\\dotfill${sp()}\\text{m}^3$`
+          }
+          texteCorr = `$${texNombre(n)}${sp()}\\text{L}=${texNombre(
             n
-          )}~\\text{dm}^3=${texNombre(n)}\\div1~000~\\text{m}^3=${texNombrec(
+          )}${sp()}\\text{dm}^3=${texNombre(n)}\\div1${sp()}000${sp()}\\text{m}^3=${texNombrec(
             n / 1000
-          )}~\\text{m}^3$`
+          )}${sp()}\\text{m}^3$`
           break
       }
 

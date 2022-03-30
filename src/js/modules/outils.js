@@ -2621,6 +2621,10 @@ export function sp (nb = 1) {
 * @author Rémi Angot
 */
 export function nombreAvecEspace (nb) {
+  if (isNaN(nb)) {
+    window.notify('nombreAvecEspace : argument NaN ou undefined', { nb })
+    return 'NaN'
+  }
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
   if (context.isHtml) {
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, ' ')
@@ -2629,7 +2633,7 @@ export function nombreAvecEspace (nb) {
     if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
       result = '\\numprint{' + nb.toString().replace('.', ',') + '}'
     } else {
-      result = nb.toString().replace('.', ',')
+      result = Number(nb).toString().replace('.', '{,}')
     }
     return result
   }

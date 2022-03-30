@@ -4,6 +4,7 @@ import FractionX from '../../modules/FractionEtendue'
 import { Fraction, evaluate } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive'
 import { setReponse } from '../../modules/gestionInteractif.js'
+import { fraction } from '../../modules/fractions.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +27,7 @@ export default function testFractions () {
   this.nouvelleVersion = function () {
     this.listeCorrections = []
     this.listeQuestions = []
-    console.log(evaluate(this.sup), evaluate(this.sup2))
+    console.log(fraction(1 / 6))
     const a = Number(evaluate(this.sup)) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999)
     const b = Number(evaluate(this.sup2)) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999) / 10 ** 12
     const f1 = new FractionX(a, b)
