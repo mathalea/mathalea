@@ -90,12 +90,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' élèves')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' livres') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb1) + '$\\times$' + texteEnCouleurEtGras(nb4 + ' livres') + '.'
+                texteCorr += texteEnCouleurEtGras(nb1) + `$${sp()}\\times${sp()}$` + texteEnCouleurEtGras(nb4 + ' livres') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb2 + ' ans') + ', ' + texteEnCouleurEtGras(nb2 + 2 + ' ans')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' g') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb1) + '$\\times$' + texteGras(nb4 + ' livres') + '.'
+                texteCorr += texteGras(nb1) + `$${sp()}\\times${sp()}$` + texteGras(nb4 + ' livres') + '.'
               }
               this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
@@ -127,12 +127,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb5 + ' g')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' livres') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb5 + ' g ') + '$\\times$' + texteEnCouleurEtGras(nb4) + '.'
+                texteCorr += texteEnCouleurEtGras(nb5 + ' g') + `$${sp()}\\times${sp()}$` + texteEnCouleurEtGras(nb4) + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb2 + ' ans') + ', ' + texteEnCouleurEtGras(nb2 + 2 + ' ans')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb1 + ' élèves') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb5 + ' g ') + '$\\times$' + texteGras(nb4) + '.'
+                texteCorr += texteGras(nb5 + ' g') + `$${sp()}\\times${sp()}$` + texteGras(nb4) + '.'
               }
               this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
@@ -213,12 +213,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb4 + ' ananas')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' €') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb4) + '$\\times$' + texteEnCouleurEtGras(nb5 + ' €') + '.'
+                texteCorr += texteEnCouleurEtGras(nb4) + `$${sp()}\\times${sp()}$` + texteEnCouleurEtGras(nb5 + ' €') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' barquettes') + ', ' + texteEnCouleurEtGras(nb2 + ' g')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb3 + ' €') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb4) + '$\\times$' + texteGras(nb5 + ' €') + '.'
+                texteCorr += texteGras(nb4) + `$${sp()}\\times${sp()}$` + texteGras(nb5 + ' €') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -251,12 +251,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' barquettes')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb3 + ' €') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb1) + '$\\times$' + texteEnCouleurEtGras(nb3 + ' €') + '.'
+                texteCorr += texteEnCouleurEtGras(nb1) + `$${sp()}\\times${sp()}$` + texteEnCouleurEtGras(nb3 + ' €') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb4 + ' ananas') + ', ' + texteEnCouleurEtGras(nb2 + ' g')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' €') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb1) + '$\\times$' + texteGras(nb3 + ' €') + '.'
+                texteCorr += texteGras(nb1) + `$${sp()}\\times${sp()}$` + texteGras(nb3 + ' €') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -338,12 +338,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' habitants')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' habitants') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb1 + ' habitants ') + '$-$' + texteEnCouleurEtGras(nb5 + ' habitants') + '.'
+                texteCorr += texteEnCouleurEtGras(nb1 + ' habitants') + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb5 + ' habitants') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb2 + ' m') + ', ' + texteEnCouleurEtGras(nb3 + ' km')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' m') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb1 + ' habitants') + '$-$' + texteGras(nb5 + ' habitants') + '.'
+                texteCorr += texteGras(nb1 + ' habitants') + `$${sp()}-${sp()}$` + texteGras(nb5 + ' habitants') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -376,12 +376,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb2 + ' m')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' m') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb2 + ' m') + '$+$' + texteEnCouleurEtGras(nb4 + ' m') + '.'
+                texteCorr += texteEnCouleurEtGras(nb2 + ' m') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb4 + ' m') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' habitants') + ', ' + texteEnCouleurEtGras(nb3 + ' km')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' habitants') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb2 + ' m') + '$+$' + texteGras(nb4 + ' m') + '.'
+                texteCorr += texteGras(nb2 + ' m') + `$${sp()}+${sp()}$` + texteGras(nb4 + ' m') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -463,12 +463,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb3 + ' cases')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' pages') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb3 + ' cases ') + '$\\times$' + texteEnCouleurEtGras(nb5) + '.'
+                texteCorr += texteEnCouleurEtGras(nb3 + ' cases') + `$${sp()}\\times${sp()}$` + texteEnCouleurEtGras(nb5) + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb1) + ', ' + texteEnCouleurEtGras(nb2 + ' €')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' €') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb3 + ' cases') + '$\\times$' + texteGras(nb5) + '.'
+                texteCorr += texteGras(nb3 + ' cases') + `$${sp()}\\times${sp()}$` + texteGras(nb5) + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -501,12 +501,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb2 + ' €')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' €') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb4 + ' €') + '$-$' + texteEnCouleurEtGras(nb2 + ' €') + '.'
+                texteCorr += texteEnCouleurEtGras(nb4 + ' €') + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb2 + ' €') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb1) + ', ' + texteEnCouleurEtGras(nb3 + ' cases')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' pages') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb4 + ' €') + '$-$' + texteGras(nb2 + ' €') + '.'
+                texteCorr += texteGras(nb4 + ' €') + `$${sp()}-${sp()}$` + texteGras(nb2 + ' €') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -594,12 +594,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb2)
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb3) + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb3) + '$-$' + texteEnCouleurEtGras(nb2) + '.'
+                texteCorr += texteEnCouleurEtGras(nb3) + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb2) + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb4) + ', ' + texteEnCouleurEtGras(nb1)
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' minutes') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb3) + '$-$' + texteGras(nb2) + '.'
+                texteCorr += texteGras(nb3) + `$${sp()}-${sp()}$` + texteGras(nb2) + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -632,12 +632,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb4)
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' minutes') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb4) + '$+$' + texteEnCouleurEtGras(nb5 + ' minutes') + '.'
+                texteCorr += texteEnCouleurEtGras(nb4) + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb5 + ' minutes') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb2) + ', ' + texteEnCouleurEtGras(nb3)
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb1) + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb4) + '$+$' + texteGras(nb5 + ' minutes') + '.'
+                texteCorr += texteGras(nb4) + `$${sp()}+${sp()}$` + texteGras(nb5 + ' minutes') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -720,12 +720,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb2 + ' €')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' fois') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb2 + ' € ') + '$\\div$' + texteEnCouleurEtGras(nb5) + '.'
+                texteCorr += texteEnCouleurEtGras(nb2 + ' €') + `$${sp()}\\div${sp()}$` + texteEnCouleurEtGras(nb5) + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' vitesses') + ', ' + texteEnCouleurEtGras(nb3 + ' pouces')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' €') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb2 + ' €') + '$\\div$' + texteGras(nb5) + '.'
+                texteCorr += texteGras(nb2 + ' €') + `$${sp()}\\div${sp()}$` + texteGras(nb5) + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -758,12 +758,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb2 + ' €')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' €') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb4 + ' €') + '$+$' + texteEnCouleurEtGras(nb2 + ' €') + '.'
+                texteCorr += texteEnCouleurEtGras(nb4 + ' €') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb2 + ' €') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' vitesses') + ', ' + texteEnCouleurEtGras(nb3 + ' pouces')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' fois') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb4 + ' €') + '$+$' + texteGras(nb2 + ' €') + '.'
+                texteCorr += texteGras(nb4 + ' €') + `$${sp()}+${sp()}$` + texteGras(nb2 + ' €') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -845,12 +845,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb3 + ' ans')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb1 + 2 + ' ans') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb3 + ' ans ') + '$+$' + texteEnCouleurEtGras(nb1 + 2 + ' ans ') + '.'
+                texteCorr += texteEnCouleurEtGras(nb3 + ' ans') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb1 + 2 + ' ans ') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb2) + ', ' + texteEnCouleurEtGras(nb4 + ' m')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' cm') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb3 + ' ans') + '$+$' + texteGras(nb1 + 2 + ' ans ') + '.'
+                texteCorr += texteGras(nb3 + ' ans') + `$${sp()}+${sp()}$` + texteGras(nb1 + 2 + ' ans ') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -883,12 +883,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb4 + ' m')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' cm') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb4 + ' m') + '$+$' + texteEnCouleurEtGras(nb5 + ' cm') + '.'
+                texteCorr += texteEnCouleurEtGras(nb4 + ' m') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb5 + ' cm') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb1 + 2 + ' ans, ') + texteEnCouleurEtGras(nb3 + ' ans')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb2) + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb4 + ' m') + '$+$' + texteGras(nb5 + ' cm') + '.'
+                texteCorr += texteGras(nb4 + ' m') + `$${sp()}+${sp()}$` + texteGras(nb5 + ' cm') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -969,12 +969,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb2 + ' fois')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' €') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb2) + '$\\times$' + texteEnCouleurEtGras(nb4 + ' € ') + '.'
+                texteCorr += texteEnCouleurEtGras(nb2) + `$${sp()}\\times${sp()}$` + texteEnCouleurEtGras(nb4 + ' € ') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' ans') + ', ' + texteEnCouleurEtGras(nb3)
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' min') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb2) + '$\\times$' + texteGras(nb4 + ' € ') + '.'
+                texteCorr += texteGras(nb2) + `$${sp()}\\times${sp()}$` + texteGras(nb4 + ' € ') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -1007,12 +1007,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb3)
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' min') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb3) + '$+$' + texteEnCouleurEtGras(nb5 + ' min') + '.'
+                texteCorr += texteEnCouleurEtGras(nb3) + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb5 + ' min') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' ans, ') + texteEnCouleurEtGras(nb2 + ' fois')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4 + ' €') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb3) + '$+$' + texteGras(nb5 + ' min') + '.'
+                texteCorr += texteGras(nb3) + `$${sp()}+${sp()}$` + texteGras(nb5 + ' min') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -1094,12 +1094,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb3 + ' km')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' km') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb5 + ' km') + '$-$' + texteEnCouleurEtGras(nb3 + ' km ') + '.'
+                texteCorr += texteEnCouleurEtGras(nb5 + ' km') + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb3 + ' km ') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' colis') + ', ' + texteEnCouleurEtGras(nb2 + ' colis')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb4) + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb5 + ' km') + '$-$' + texteEnCouleurEtGras(nb3 + ' km ') + '.'
+                texteCorr += texteEnCouleurEtGras(nb5 + ' km') + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb3 + ' km ') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -1132,12 +1132,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' colis')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb2 + ' colis') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb1 + ' colis') + '$-$' + texteEnCouleurEtGras(nb2 + ' colis') + '.'
+                texteCorr += texteEnCouleurEtGras(nb1 + ' colis') + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb2 + ' colis') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb3 + ' km, ') + texteEnCouleurEtGras(nb4)
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' km') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb1 + ' colis') + '$-$' + texteGras(nb2 + ' colis') + '.'
+                texteCorr += texteGras(nb1 + ' colis') + `$${sp()}-${sp()}$` + texteGras(nb2 + ' colis') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -1218,12 +1218,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb4 + ' conteneurs')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' tonnes') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb5 + ' tonnes') + '$\\div$' + texteEnCouleurEtGras(nb4) + '.'
+                texteCorr += texteEnCouleurEtGras(nb5 + ' tonnes') + `$${sp()}\\div${sp()}$` + texteEnCouleurEtGras(nb4) + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' m') + ', ' + texteEnCouleurEtGras(nb2 + ' conteneurs')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb3 + ' tonnes') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb5 + ' tonnes') + '$\\div$' + texteGras(nb4) + '.'
+                texteCorr += texteGras(nb5 + ' tonnes') + `$${sp()}\\div${sp()}$` + texteGras(nb4) + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
@@ -1256,12 +1256,12 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb2 + ' conteneurs')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb3 + ' tonnes') + ' sont utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteEnCouleurEtGras(nb2) + '$\\times$' + texteEnCouleurEtGras(nb3 + ' tonnes') + '.'
+                texteCorr += texteEnCouleurEtGras(nb2) + `$${sp()}\\times${sp()}$` + texteEnCouleurEtGras(nb3 + ' tonnes') + '.'
               } else {
                 texteCorr += texteEnCouleurEtGras(nb1 + ' m, ') + texteEnCouleurEtGras(nb4 + ' conteneurs')
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' tonnes') + ' ne sont pas utiles pour la résolution du problème.<br>'
                 texteCorr += 'La solution du problème est donnée par : '
-                texteCorr += texteGras(nb2) + '$\\times$' + texteGras(nb3 + ' tonnes') + '.'
+                texteCorr += texteGras(nb2) + `$${sp()}\\times${sp()}$` + texteGras(nb3 + ' tonnes') + '.'
               }
 
               this.autoCorrection[i].enonce = `${texte}\n`
