@@ -377,7 +377,7 @@ export default function problemesTrigoLongueur () {
           C = pointAdistance(A, absC, 90, lettreDepuisChiffre(numC))
           numR = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC])
           R = pointAdistance(B, absC, 90, lettreDepuisChiffre(numR))
-          numS = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC, numS])
+          numS = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC, numR])
           absS = randint(7, 11)
           S = pointAdistance(B, absS, 90, lettreDepuisChiffre(numS))
           p = polygoneAvecNom(A, B, R, S, C)
