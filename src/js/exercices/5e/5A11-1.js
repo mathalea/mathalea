@@ -39,11 +39,25 @@ export default function ExerciceLabyrintheDivisibilite () {
     this.listeCorrections = []
     this.listeQuestions = []
     this.autoCorrection = []
-
+    let tablesDisponibles
     let texte, texteCorr, trouve
     let laby
     let monChemin
-    const tables = combinaisonListesSansChangerOrdre(this.sup.split('-'), this.nbQuestions)
+    if (!this.sup) { // Si aucune liste n'est saisie
+      tablesDisponibles = [2, 5, 10]
+    } else {
+      if (typeof this.sup === 'number') { // Si c'est un nombre c'est qu'il y a qu'un problème
+        tablesDisponibles = [Number(this.sup)]
+      } else {
+        tablesDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        // this.nbQuestions = tablesDisponibles.length
+        for (let i = 0; i < tablesDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          tablesDisponibles[i] = contraindreValeur(2, 20, parseInt(tablesDisponibles[i], 5)) // parseInt en fait un tableau d'entiers
+        }
+      }
+    }
+    const tables = combinaisonListesSansChangerOrdre(tablesDisponibles, this.nbQuestions)
+
     for (let i = 0; i < this.nbQuestions; i++) {
       tables[i] = contraindreValeur(2, 50, parseInt(tables[i]), 5)
     }
