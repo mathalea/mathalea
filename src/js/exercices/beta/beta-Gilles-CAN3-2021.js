@@ -11,7 +11,7 @@ export const titre = 'CAN 3ième sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '26/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '30/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
@@ -685,7 +685,7 @@ export default function SujetCAN20213ieme () {
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
             texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $3$ segments de longueur $x$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
-                Le périmètre de cette figure est donc : $3\\times x+2\\times ${a}+${b}=2x+${2 * a + b}$.   `
+                Le périmètre de cette figure est donc : $3\\times x+2\\times ${a}+${b}=3x+${2 * a + b}$.   `
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
