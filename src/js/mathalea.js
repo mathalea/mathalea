@@ -1552,7 +1552,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
             const max = listeObjetsExercice[i].besoinFormulaireNumerique[1]
             listeObjetsExercice[i].sup = contraindreValeur(1, max, Number(urlVars[i].s))
           } else { // Il faut que ce soit un string car soit ce n'est pas un nombre, soit ça vient d'un formulaire Texte.
-            listeObjetsExercice[i].sup = urlVars[i].s.toString()
+            listeObjetsExercice[i].sup = typeof urlVars[i].s === 'boolean' ? urlVars[i].s : urlVars[i].s.toString()
           }
           // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
           try {
@@ -1569,7 +1569,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
             const max = listeObjetsExercice[i].besoinFormulaire2Numerique[1]
             listeObjetsExercice[i].sup2 = contraindreValeur(1, max, Number(urlVars[i].s2))
           } else {
-            listeObjetsExercice[i].sup2 = urlVars[i].s2.toString()
+            listeObjetsExercice[i].sup2 = typeof urlVars[i].s2 === 'boolean' ? urlVars[i].s2 : urlVars[i].s2.toString()
           }
           try {
             if (listeObjetsExercice[i].besoinFormulaire2CaseACocher) {
@@ -1585,7 +1585,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
             const max = listeObjetsExercice[i].besoinFormulaire3Numerique[1]
             listeObjetsExercice[i].sup3 = contraindreValeur(1, max, Number(urlVars[i].s3))
           } else {
-            listeObjetsExercice[i].sup3 = urlVars[i].s3.toString()
+            listeObjetsExercice[i].sup3 = typeof urlVars[i].s3 === 'boolean' ? urlVars[i].s3 : urlVars[i].s3.toString()
           }
           try {
             if (listeObjetsExercice[i].besoinFormulaire3CaseACocher) {
@@ -1603,7 +1603,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
             const max = listeObjetsExercice[i].besoinFormulaire4Numerique[1]
             listeObjetsExercice[i].sup4 = contraindreValeur(1, max, Number(urlVars[i].s4))
           } else {
-            listeObjetsExercice[i].sup4 = urlVars[i].s4.toString()
+            listeObjetsExercice[i].sup4 = typeof urlVars[i].s4 === 'boolean' ? urlVars[i].s4 : urlVars[i].s4.toString()
           }
           try {
             formSup4[i].value = listeObjetsExercice[i].sup4
