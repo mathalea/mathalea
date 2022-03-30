@@ -30,7 +30,6 @@ export default function ExerciceLabyrintheDivisibilite () {
   }
   // this.consigne=`Trouve la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
   this.nouvelleVersion = function () {
-    console.log(typeof this.sup)
     this.sup3 = Number(this.sup3)
     const tailleChiffre = 0.8
 

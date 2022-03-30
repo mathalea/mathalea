@@ -2357,7 +2357,6 @@ function parametresExercice (exercice) {
         // Appui sur la touche entrée
         if (e.keyCode === 13) {
           exercice[i].sup = e.target.value // Récupère  la saisie de l'utilisateur
-          console.log(typeof exercice[i].sup)
           miseAJourDuCode()
         }
       })
