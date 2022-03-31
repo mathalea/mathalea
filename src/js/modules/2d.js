@@ -954,7 +954,7 @@ function Droite (arg1, arg2, arg3, arg4) {
       }
     }
     leNom = texteParPosition(this.nom, absNom, ordNom, 'milieu', this.color, 1, 'middle', true)
-  }
+  } else leNom = vide2d()
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
@@ -995,14 +995,56 @@ function Droite (arg1, arg2, arg3, arg4) {
     )}" y2="${B1.ySVG(coeff)}" stroke="${this.color}" ${this.style} id ="${this.id}" />` + leNom.svg(coeff)
     }
   }
+  this.tikz = function () {
+    const tableauOptions = []
+    if (this.color.length > 1 && this.color !== 'black') {
+      tableauOptions.push(this.color)
+    }
+    if (this.epaisseur !== 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`)
+    }
+    if (this.pointilles) {
+      switch (this.pointilles) {
+        case 1:
+          tableauOptions.push(' dash dot ')
+          break
+        case 2:
+          tableauOptions.push(' densely dash dot dot ')
+          break
+        case 3:
+          tableauOptions.push(' dash dot dot ')
+          break
+        case 4:
+          tableauOptions.push(' dotted ')
+          break
+        default:
+          tableauOptions.push(' dashed ')
+          break
+      }
+    }
 
+    if (this.opacite !== 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`)
+    }
+
+    let optionsDraw = []
+    if (tableauOptions.length > 0) {
+      optionsDraw = '[' + tableauOptions.join(',') + ']'
+    }
+    const A = point(this.x1, this.y1)
+    const B = point(this.x2, this.y2)
+    const A1 = pointSurSegment(A, B, -50)
+    const B1 = pointSurSegment(B, A, -50)
+
+    if (this.nom !== '') { return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});` + leNom.tikz() } else { return `\\draw${optionsDraw} (${A1.x},${A1.y})--(${B1.x},${B1.y});` }
+  }
   this.svgml = function (coeff, amp) {
     const A = point(this.x1, this.y1)
     const B = point(this.x2, this.y2)
     const A1 = pointSurSegment(A, B, -50)
     const B1 = pointSurSegment(B, A, -50)
     const s = segment(A1, B1, this.color)
-    s.isVisible = false
+    s.isVisible = this.isVisible
     return s.svgml(coeff, amp) + leNom.svg(coeff)
   }
   this.tikzml = function (amp) {
@@ -1011,7 +1053,7 @@ function Droite (arg1, arg2, arg3, arg4) {
     const A1 = pointSurSegment(A, B, -50)
     const B1 = pointSurSegment(B, A, -50)
     const s = segment(A1, B1, this.color)
-    s.isVisible = false
+    s.isVisible = this.isVisible
     return s.tikzml(amp) + leNom.tikz()
   }
 }
@@ -3421,6 +3463,36 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
       code += `" stroke="${color}" ${this.style} />`
       return code
     }
+  }
+
+  this.tikzml = function (amp) {
+    let optionsDraw = []
+    const tableauOptions = []
+    const A = point(Omega.x + 1, Omega.y)
+    const azimut = arrondi(angleOriente(A, Omega, M), 1)
+    const anglefin = arrondi(azimut + angle, 1)
+    const N = rotation(M, Omega, angle)
+    if (this.color.length > 1 && this.color !== 'black') {
+      tableauOptions.push(this.color)
+    }
+    if (this.epaisseur !== 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`)
+    }
+    if (this.opacite !== 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`)
+    }
+    if (rayon && fill !== 'none') {
+      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+    }
+    if (rayon && fill !== 'none') {
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+    }
+    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
+
+    optionsDraw = '[' + tableauOptions.join(',') + ']'
+
+    if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) -- cycle ;`
+    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) ;`
   }
 }
 /**
@@ -8465,7 +8537,7 @@ function Courbe2 (f, {
   }
   for (let x = xmin; inferieurouegal(x, xmax); x += pas
   ) {
-    if (!isNaN(f(x))) {
+    if (isFinite(f(x))) {
       if (f(x) < ymax + 1 && f(x) > ymin - 1) {
         points.push(point(x * xunite, f(x) * yunite))
       } else {

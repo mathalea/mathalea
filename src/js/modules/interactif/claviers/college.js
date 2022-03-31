@@ -118,6 +118,7 @@ export const clavierCollege = {
   customVirtualKeyboards: collegeKeyboard,
   virtualKeyboards: 'collegeKeyboard roman',
   inlineShortcuts: {
+    D: { mode: 'math', value: 'd' },
     '*': { mode: 'math', value: '\\times' },
     '.': { mode: 'math', value: ',' },
     '%': { mode: 'math', value: '\\%' }

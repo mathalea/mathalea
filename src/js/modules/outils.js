@@ -883,10 +883,10 @@ export function rienSi1 (a) {
 /**
 * Gère l'écriture de l'exposant en mode text
 * @Example
-* // 'dm'+exposant(3)
+* // 'dm'+texteExposant(3)
 * @author Rémi Angot
 */
-export function exposant (texte) {
+export function texteExposant (texte) {
   if (context.isHtml) {
     return `<sup>${texte}</sup>`
   } else {
@@ -937,9 +937,9 @@ export function ecritureAlgebrique (a) {
   if (a instanceof Fraction || a instanceof FractionX) return fraction(a).ecritureAlgebrique
   else if (typeof a === 'number') {
     if (a >= 0) {
-      return '+' + texNombre(a)
+      return '+' + stringNombre(a)
     } else {
-      return texNombre(a)
+      return stringNombre(a)
     }
   } else window.notify('rienSi1 : type de valeur non prise en compte')
 }
@@ -1348,10 +1348,10 @@ export function egalOuApprox (a, precision) {
   if (typeof a === 'object' && ['Fraction', 'FractionX'].indexOf(a.type) !== -1) {
     return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
   }
-  if (!Number.isNaN(a) && !Number.isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
+  if (!isNaN(a) && !isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
   else {
     window.notify('egalOuApprox : l\'argument n\'est pas un nombre', { a, precision })
-    return 'bad number'
+    return 'Mauvais argument (nombres attendus).'
   }
 }
 
@@ -1392,6 +1392,7 @@ export function texFractionReduite (n, d) {
     return texFractionSigne(fractionSimplifiee(n, d)[0], fractionSimplifiee(n, d)[1])
   }
 }
+
 /**
  * produitDeDeuxFractions(num1,den1,num2,den2) retourne deux chaines :
  * la première est la fraction résultat, la deuxième est le calcul mis en forme Latex avec simplification éventuelle
@@ -1493,11 +1494,11 @@ export function reduireAxPlusB (a, b) {
   if (a !== 0) {
     if (a === 1) result = 'x'
     else if (a === -1) result = '-x'
-    else result = `${texNombrec(a)}x`
+    else result = `${stringNombre(a)}x`
   }
   if (b !== 0) {
     if (a !== 0) result += `${ecritureAlgebrique(b)}`
-    else result = texNombrec(b)
+    else result = stringNombre(b)
   } else if (a === 0) result = '0'
   return result
 }
@@ -1724,7 +1725,7 @@ export function xcas (expression) {
 * @author Rémi Angot
 */
 export function calcul (x, arrondir = 13) {
-  if (typeof expression === 'string') {
+  if (typeof x === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
     return parseFloat(evaluate(x).toFixed(arrondir === false ? 13 : arrondir))
   } else {
@@ -2520,7 +2521,7 @@ export function numberFormat (nb) {
  */
 export function texNombre (nb, precision = 8) {
   const result = afficherNombre(nb, precision, 'texNombre')
-  return result.replace(/\s+/g, '\\thickspace ').replace(',', '{,}')
+  return result.replace(',', '{,}').replace(/\s+/g, '\\,')
 }
 
 /**
@@ -2542,10 +2543,10 @@ export function texNombre2 (nb) {
   }
 
   for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    partieEntiere = partieEntiere.substring(0, i) + '\\thickspace ' + partieEntiere.substring(i)
+    partieEntiere = partieEntiere.substring(0, i) + '\\,' + partieEntiere.substring(i)
   }
   for (let i = 3; i < partieDecimale.length; i += 3) {
-    partieDecimale = partieDecimale.substring(0, i) + '\\thickspace ' + partieDecimale.substring(i)
+    partieDecimale = partieDecimale.substring(0, i) + '\\,' + partieDecimale.substring(i)
     i += 12
   }
   if (partieDecimale === '') {
@@ -2608,7 +2609,7 @@ export function sp (nb = 1) {
   let s = ''
   for (let i = 0; i < nb; i++) {
     if (context.isHtml) s += '&nbsp;'
-    else s += '~'
+    else s += '\\,'
   }
   return s
 }
@@ -2620,6 +2621,10 @@ export function sp (nb = 1) {
 * @author Rémi Angot
 */
 export function nombreAvecEspace (nb) {
+  if (isNaN(nb)) {
+    window.notify('nombreAvecEspace : argument NaN ou undefined', { nb })
+    return 'NaN'
+  }
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
   if (context.isHtml) {
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, ' ')
@@ -2628,7 +2633,7 @@ export function nombreAvecEspace (nb) {
     if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
       result = '\\numprint{' + nb.toString().replace('.', ',') + '}'
     } else {
-      result = nb.toString().replace('.', ',')
+      result = Number(nb).toString().replace('.', '{,}')
     }
     return result
   }
@@ -2740,7 +2745,7 @@ function afficherNombre (nb, precision, fonction) {
    * @param {number} precision nombre de décimales demandé
    * @returns string avec le nombre dans le format français
    */
-  function insereEspacesNombre (nb, maximumSignificantDigits = 15) {
+  function insereEspacesNombre (nb, maximumSignificantDigits = 15, fonction) {
     if (Number(nb) === 0) return '0'
     // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
     let nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
@@ -2761,7 +2766,7 @@ function afficherNombre (nb, precision, fonction) {
     //   partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
     // }
     for (let i = 3; i < partieDecimale.length; i += 4) { // des paquets de 3 nombres + 1 espace
-      partieDecimale = partieDecimale.substring(0, i) + ' ' + partieDecimale.substring(i)
+      partieDecimale = partieDecimale.substring(0, i) + (fonction === 'texNombre' ? '\\,' : ' ') + partieDecimale.substring(i)
     }
     if (partieDecimale === '') {
       nombre = partieEntiere
@@ -2771,7 +2776,10 @@ function afficherNombre (nb, precision, fonction) {
     return nombre
   }
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
-  if (isNaN(nb)) return nb
+  if (isNaN(nb)) {
+    window.notify('AfficherNombre : Le nombre n\'en est pas un', { nb, precision, fonction })
+    return ''
+  }
   if (Number(nb) === 0) return '0'
   // si c'en est un, on le formate.
   const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
@@ -2786,9 +2794,9 @@ function afficherNombre (nb, precision, fonction) {
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
   if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
     window.notify(fonction + ' : Trop de chiffres', { nb, precision })
-    return insereEspacesNombre(nb, 15)
+    return insereEspacesNombre(nb, 15, fonction)
   } else {
-    return insereEspacesNombre(nb, maximumSignificantDigits)
+    return insereEspacesNombre(nb, maximumSignificantDigits, fonction)
   }
 }
 /**
@@ -3075,6 +3083,34 @@ export function decompositionFacteursPremiers (n) {
 }
 
 /**
+ * Renvoie la décomposition en produit de facteurs premiers d'un nombre avec les facteursABarrer barrés
+ * @author Guillaume Valmont
+ * @param {number} nombre
+ * @param {number[]} facteursABarrer
+ * @returns texte en LateX
+ */
+export function decompositionFacteursPremiersBarres (nombreADecomposer, facteursABarrer) {
+  const decomposition = decompositionFacteursPremiersArray(nombreADecomposer)
+  const facteursBarres = []
+  let str = ''
+  for (const nombre of decomposition) {
+    let unNombreAEteBarre = false
+    for (let i = 0; i < facteursABarrer.length; i++) {
+      const facteurABarrer = facteursABarrer[i]
+      if (nombre === facteurABarrer && !facteursBarres.includes(i) && !unNombreAEteBarre) {
+        str += ` \\cancel{${facteurABarrer}} \\times `
+        facteursBarres.push(i)
+        unNombreAEteBarre = true
+      }
+    }
+    if (!unNombreAEteBarre) {
+      str += nombre + ' \\times '
+    }
+  }
+  return str.slice(0, -8)
+}
+
+/**
 * Retourne la liste des diviseurs d'un entier
 * @author Rémi Angot
 */
@@ -3212,7 +3248,7 @@ export function texGraphique (f, xmin = -5, xmax = 5, ymin = -5, ymax = 5) {
 /**
  *  Classe MatriceCarree
  * Générateur de Matrice :
- * Si l'argument est un nombre, alors on s'en sert pour définir le rang de la matrice carrée qu'on rempli de zéros.
+ * Si l'argument est un nombre, alors on s'en sert pour définir la taille de la matrice carrée qu'on rempli de zéros.
  * Sinon, c'est le tableau qui sert à remplir la Matrice
  *  @author Jean-Claude Lhote
  */
@@ -3221,7 +3257,7 @@ export class MatriceCarree {
     let ligne
     this.table = []
     if (typeof (table) === 'number') {
-      this.dim = table // si c'est un nombre qui est passé en argument, c'est le rang, et on rempli la table de 0
+      this.dim = table // si c'est un nombre qui est passé en argument, c'est la taille, et on rempli la table de 0
       for (let i = 0; i < this.dim; i++) {
         ligne = []
         for (let j = 0; j < this.dim; j++) { ligne.push(0) }

@@ -1,19 +1,24 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { mathalea2d, point, similitude, longueur, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle } from '../../modules/2d.js'
+import { mathalea2d, point, similitude, longueur, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle, fixeBordures } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Exprimer le cosinus, le sinus ou la tangente d’un angle en fonction des côtés du triangle'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * @author Rémi Angot
  * 3G30-1
- * Donner un rapport trigonométriques en fonctions des longueurs des côtés (pas de valeurs numériques)
+ * Donner un rapport trigonométrique en fonction des longueurs des côtés (pas de valeurs numériques)
  * * Donner les 3 rapports d'un angle
  * * Un triangle est donné, on demande les 6 rapports
  * * Un triangle rectangle et une hauteur, il faut exprimer un rapport de deux manières différentes
  *
  * janvier 2021
+ * Rendu interactif et AMC par EE (Mars 2022)
  */
 export default function ExprimerCosSinTan () {
   Exercice.call(this)
@@ -24,8 +29,8 @@ export default function ExprimerCosSinTan () {
   this.nbColsCorr = 2
   this.sup = 1
   if (context.isHtml) {
-    this.spacing = 4
-    this.spacingCorr = 4
+    this.spacing = 2
+    this.spacingCorr = 2
   } else {
     this.spacing = 2
     this.spacingCorr = 2
@@ -104,8 +109,8 @@ export default function ExprimerCosSinTan () {
       objetsEnonce.push(sAH, t4, codage2)
     }
 
-    const paramsEnonce = { xmin: Math.min(A.x, B.x, C.x) - 1, ymin: Math.min(A.y, B.y, C.y) - 1, xmax: Math.max(A.x, B.x, C.x) + 1, ymax: Math.max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5, mainlevee: false }
-    const paramsCorrection = { xmin: Math.min(A.x, B.x, C.x) - 1, ymin: Math.min(A.y, B.y, C.y) - 1, xmax: Math.max(A.x, B.x, C.x) + 1, ymax: Math.max(A.y, B.y, C.y) + 1, pixelsParCm: 20, scale: 0.5, mainlevee: false }
+    const paramsEnonce = Object.assign({}, fixeBordures([A, B, C], { rxmin: -1, rxmax: 1, rymin: -1, rymax: 1 }), { scale: 0.5, pixelsParCm: 20, mainlevee: false })
+    const paramsCorrection = Object.assign({}, fixeBordures([A, B, C]), { scale: 0.5, pixelsParCm: 20, mainlevee: false })
     if (!context.isHtml) {
       texte += '\\begin{minipage}{.4\\linewidth}\n'
     }
@@ -117,16 +122,152 @@ export default function ExprimerCosSinTan () {
     if (this.sup === 1) {
       texte += `Compléter à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$, $${B.nom + C.nom}$ : `
       texte += `<br>$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+      if (this.interactif) {
+        texte += ajouteChampTexteMathLive(this, 0, 'inline nospacebefore', { tailleExtensible: true })
+        setReponse(this, 0, [
+        `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+        `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
+        `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
+        `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
+        { formatInteractif: 'texte' })
+      }
       texte += `<br>$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+      if (this.interactif) {
+        texte += ajouteChampTexteMathLive(this, 1, 'inline nospacebefore', { tailleExtensible: true })
+        setReponse(this, 1, [
+        `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+        `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
+        `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
+        `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
+        { formatInteractif: 'texte' })
+      }
       texte += `<br>$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+      if (this.interactif) {
+        texte += ajouteChampTexteMathLive(this, 2, 'inline nospacebefore', { tailleExtensible: true })
+        setReponse(this, 2, [
+        `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+        `\\frac{${A.nom + C.nom}}{${B.nom + A.nom}}`,
+        `\\frac{${C.nom + A.nom}}{${A.nom + B.nom}}`,
+        `\\frac{${C.nom + A.nom}}{${B.nom + A.nom}}`],
+        { formatInteractif: 'texte' })
+      }
     }
     if (this.sup === 2) {
       texte += 'Écrire les 6 rapports trigonométriques pour ce triangle.'
+      if (this.interactif) {
+        texte += `<br>$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+        texte += ajouteChampTexteMathLive(this, 0, 'inline nospacebefore', { tailleExtensible: true })
+        setReponse(this, 0, [
+        `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+        `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
+        `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
+        `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
+        { formatInteractif: 'texte' })
+        texte += `<br>$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+        texte += ajouteChampTexteMathLive(this, 1, 'inline nospacebefore', { tailleExtensible: true })
+        setReponse(this, 1, [
+        `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+        `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
+        `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
+        `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
+        { formatInteractif: 'texte' })
+        texte += `<br>$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+        texte += ajouteChampTexteMathLive(this, 2, 'inline nospacebefore', { tailleExtensible: true })
+        setReponse(this, 2, [
+        `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+        `\\frac{${A.nom + C.nom}}{${B.nom + A.nom}}`,
+        `\\frac{${C.nom + A.nom}}{${A.nom + B.nom}}`,
+        `\\frac{${C.nom + A.nom}}{${B.nom + A.nom}}`],
+        { formatInteractif: 'texte' })
+        texte += `<br>$\\cos\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=$`
+        texte += ajouteChampTexteMathLive(this, 3, 'inline nospacebefore', { tailleExtensible: true })
+        setReponse(this, 3, [
+          `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+          `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
+          `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
+          `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
+        { formatInteractif: 'texte' })
+        texte += `<br>$\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=$`
+        texte += ajouteChampTexteMathLive(this, 4, 'inline nospacebefore', { tailleExtensible: true })
+        setReponse(this, 4, [
+          `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+          `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
+          `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
+          `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
+        { formatInteractif: 'texte' })
+        texte += `<br>$\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=$`
+        texte += ajouteChampTexteMathLive(this, 5, 'inline nospacebefore', { tailleExtensible: true })
+        setReponse(this, 4, [
+        `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
+        `\\frac{${B.nom + A.nom}}{${A.nom + C.nom}}`,
+        `\\frac{${A.nom + B.nom}}{${C.nom + A.nom}}`,
+        `\\frac{${B.nom + A.nom}}{${C.nom + A.nom}}`],
+        { formatInteractif: 'texte' })
+      }
     }
     if (this.sup === 3) {
-      choixRapportTrigo = choice(['cosinus', 'sinus', 'tangente'])
-      texte += `Exprimer le ${choixRapportTrigo} de $\\widehat{${A.nom + B.nom + C.nom}}$ de deux manières différentes.`
+      choixRapportTrigo = choice(['le cosinus', 'le sinus', 'la tangente'])
+      texte += `Exprimer ${choixRapportTrigo} de $\\widehat{${A.nom + B.nom + C.nom}}$ de deux manières différentes.`
+      if (this.interactif) {
+        switch (choixRapportTrigo) {
+          case 'le cosinus':
+            texte += `<br>Parmi deux triangles, dans le triangle le plus grand, $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+            texte += ajouteChampTexteMathLive(this, 0, 'inline nospacebefore', { tailleExtensible: true })
+            setReponse(this, 0, [
+              `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
+              `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
+              `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
+              `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
+            { formatInteractif: 'texte' })
+            texte += `<br>Parmi deux triangles, dans le triangle le plus petit, $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+            texte += ajouteChampTexteMathLive(this, 1, 'inline nospacebefore', { tailleExtensible: true })
+            setReponse(this, 1, [
+              `\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}`,
+              `\\frac{${B.nom + H.nom}}{${B.nom + A.nom}}`,
+              `\\frac{${H.nom + B.nom}}{${A.nom + B.nom}}`,
+              `\\frac{${H.nom + B.nom}}{${B.nom + A.nom}}`],
+            { formatInteractif: 'texte' })
+            break
+          case 'le sinus' :
+            texte += `<br>Parmi deux triangles, dans le triangle le plus grand, $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+            texte += ajouteChampTexteMathLive(this, 0, 'inline nospacebefore', { tailleExtensible: true })
+            setReponse(this, 0, [
+                `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
+                `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
+                `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
+                `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
+            { formatInteractif: 'texte' })
+            texte += `<br>Parmi deux triangles, dans le triangle le plus petit, $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+            texte += ajouteChampTexteMathLive(this, 1, 'inline nospacebefore', { tailleExtensible: true })
+            setReponse(this, 1, [
+                `\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}`,
+                `\\frac{${A.nom + H.nom}}{${B.nom + A.nom}}`,
+                `\\frac{${H.nom + A.nom}}{${A.nom + B.nom}}`,
+                `\\frac{${H.nom + A.nom}}{${B.nom + A.nom}}`],
+            { formatInteractif: 'texte' })
+            break
+          case 'la tangente' :
+            texte += `<br>Parmi deux triangles, dans le triangle le plus grand, $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+            texte += ajouteChampTexteMathLive(this, 0, 'inline nospacebefore', { tailleExtensible: true })
+            setReponse(this, 0, [
+                  `\\frac{${A.nom + C.nom}}{${B.nom + A.nom}}`,
+                  `\\frac{${C.nom + A.nom}}{${B.nom + A.nom}}`,
+                  `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
+                  `\\frac{${C.nom + A.nom}}{${A.nom + B.nom}}`],
+            { formatInteractif: 'texte' })
+            texte += `<br>Parmi deux triangles, dans le triangle le plus petit, $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
+            texte += ajouteChampTexteMathLive(this, 1, 'inline nospacebefore', { tailleExtensible: true })
+            setReponse(this, 1, [
+                  `\\frac{${A.nom + H.nom}}{${H.nom + B.nom}}`,
+                  `\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}`,
+                  `\\frac{${H.nom + A.nom}}{${H.nom + B.nom}}`,
+                  `\\frac{${H.nom + A.nom}}{${B.nom + H.nom}}`],
+            { formatInteractif: 'texte' })
+            break
+        }
+      }
     }
+
     if (!context.isHtml) {
       texte += '\n\\end{minipage}\n'
     }
@@ -154,7 +295,7 @@ export default function ExprimerCosSinTan () {
       texteCorr += `<br>$\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=\\dfrac{${A.nom + B.nom}}{${A.nom + C.nom}}$.`
     }
     if (this.sup === 3) {
-      if (choixRapportTrigo === 'cosinus') {
+      if (choixRapportTrigo === 'le cosinus') {
         texteCorr += `<br>$${A.nom + B.nom + C.nom}$ est rectangle en $${A.nom}$ donc `
         if (!context.isHtml) {
           texteCorr += '<br>'
@@ -163,7 +304,7 @@ export default function ExprimerCosSinTan () {
         texteCorr += `<br>$${A.nom + B.nom + H.nom}$ est rectangle en $${H.nom}$ donc `
         texteCorr += `$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=\\dfrac{${B.nom + H.nom}}{${A.nom + B.nom}}$.`
       }
-      if (choixRapportTrigo === 'sinus') {
+      if (choixRapportTrigo === 'le sinus') {
         texteCorr += `<br>$${A.nom + B.nom + C.nom}$ est rectangle en $${A.nom}$ donc `
         if (!context.isHtml) {
           texteCorr += '<br>'
@@ -172,7 +313,7 @@ export default function ExprimerCosSinTan () {
         texteCorr += `<br>$${A.nom + B.nom + H.nom}$ est rectangle en $${H.nom}$ donc `
         texteCorr += `$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=\\dfrac{${A.nom + H.nom}}{${A.nom + B.nom}}$.`
       }
-      if (choixRapportTrigo === 'tangente') {
+      if (choixRapportTrigo === 'la tangente') {
         texteCorr += `<br>$${A.nom + B.nom + C.nom}$ est rectangle en $${A.nom}$ donc `
         if (!context.isHtml) {
           texteCorr += '<br>'

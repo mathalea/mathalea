@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
 import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, texNombre } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Diviser un nombre décimal par 10, 100 ou 1000'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 /**
  * Un entier à un 1 ou 2 chiffres, un nombre décimal avec une partie décimale à un ou 2 chiffres à diviser par 10, 100 ou 1000
@@ -41,7 +42,7 @@ export default function DiviserDecimalPar101001000 () {
         a / b
       )}$`
       setReponse(this, i, calcul(a / b))
-      if (this.interactif) texte += ajouteChampTexte(this, i)
+      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

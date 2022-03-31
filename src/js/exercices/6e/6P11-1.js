@@ -198,7 +198,7 @@ export default function ProportionnaliteParLineariteBis () {
         }
       }
       texteCorr += `
-        <br>${numAlpha(kCorr++)} On peut utiliser l'une ou l'autre des informations de l'énoncé pour répondre en revenant à l'unité.
+        ${numAlpha(kCorr++)} On peut utiliser l'une ou l'autre des informations de l'énoncé pour répondre en revenant à l'unité.
         <br> Par exemple, pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$ €.
         <br> Donc $1$ ${situation.achat_sing} coûte $${texPrix(n1 * situation.pu)}$ € $\\div ${n1} = ${texPrix(situation.pu)}$ €.
         <br> Pour $${texPrix(nMax * situation.pu)}$ €, nous aurons donc $${texPrix(nMax * situation.pu)}$  € $\\div ${texPrix(situation.pu)}$ € $= ${nMax}$.

@@ -2,10 +2,11 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, arrondi, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
-import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const amcReady = true // Jusqu'à l'adaptation à la version 2.6
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcType = 'AMCNum' // Question numérique
 export const titre = 'Effectuer divisions décimales'
 
@@ -138,7 +139,7 @@ export default function DivisionDecimale () {
         texte += (this.interactif) ? '\\approx$' : '$'
       }
       setReponse(this, i, q)
-      if (context.isHtml && this.interactif) texte += ajouteChampTexte(this, i)
+      if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]

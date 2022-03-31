@@ -9,6 +9,8 @@ export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 export const amcReady = true
 
+export const dateDeModifImportante = '17/03/2022'
+
 /**
  * Une fraction étant donnée, il faut l'écrire avec 100 au dénominateur puis donner son écriture sous forme de pourcentage.
  * @author Rémi Angot
@@ -20,19 +22,19 @@ export default function FractionVersPourcentage () {
   this.titre = titre
   this.consigne = 'Compléter :'
   this.nbQuestions = 6
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+  this.nbCols = 2
+  this.nbColsCorr = 2
+
+  this.besoinFormulaireNumerique = ['Difficulté', 2, '1 : Partir d\'une fraction de dénominateur autre que 100\n2 : Partir d\'une fraction de dénominateur 100']
+  this.sup = 1
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const typeDeDenominateurs = [10, 20, 50, 1000, 2, 4, 5, 200] // On créé 3 types de questions
-    const listeTypeDeQuestions = combinaisonListes(typeDeDenominateurs, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    const typeDeDenominateurs = [10, 20, 50, 1000, 2, 4, 5, 200]
+    const listeTypeDeQuestions = combinaisonListes(typeDeDenominateurs, this.nbQuestions)
     for (let i = 0, texte, texteCorr, percenti, den, num, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       den = listeTypeDeQuestions[i]
@@ -46,11 +48,16 @@ export default function FractionVersPourcentage () {
         num = randint(1, den - 1)
       }
       percenti = calcul(num * 100 / den)
-      texte = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{\\phantom{XXXXXX}}{}=\\dfrac{}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
-      if (den < 100) {
-        texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${calcul(100 / den)}}}{${den}{\\color{blue}\\times${calcul(100 / den)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
+      if (this.sup === 1) {
+        texte = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{\\phantom{XXXXXX}}{}=\\dfrac{}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
+        if (den < 100) {
+          texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${calcul(100 / den)}}}{${den}{\\color{blue}\\times${calcul(100 / den)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
+        } else {
+          texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${calcul(den / 100)}}}{${den}{\\color{blue}\\div${calcul(den / 100)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
+        }
       } else {
-        texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${calcul(den / 100)}}}{${den}{\\color{blue}\\div${calcul(den / 100)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
+        texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
+        texteCorr = `$\\dfrac{${percenti}}{100}=${percenti}~\\%$`
       }
       setReponse(this, i, percenti, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -63,5 +70,4 @@ export default function FractionVersPourcentage () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }
