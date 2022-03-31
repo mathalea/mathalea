@@ -1547,12 +1547,12 @@ async function miseAJourDeLaListeDesExercices (preview) {
         }
         if (typeof urlVars[i].s !== 'undefined') {
           // Si le string peut être convertit en int alors on le fait
-          if (isNumeric(urlVars[i].s)) {
+          if (isNumeric(urlVars[i].s) && !listeObjetsExercice[i].besoinFormulaireTexte) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaireNumerique[1]
             listeObjetsExercice[i].sup = contraindreValeur(1, max, Number(urlVars[i].s))
-          } else {
-            listeObjetsExercice[i].sup = urlVars[i].s
+          } else { // Il faut que ce soit un string car soit ce n'est pas un nombre, soit ça vient d'un formulaire Texte.
+            listeObjetsExercice[i].sup = typeof urlVars[i].s === 'boolean' ? urlVars[i].s : urlVars[i].s.toString()
           }
           // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
           try {
@@ -1564,12 +1564,12 @@ async function miseAJourDeLaListeDesExercices (preview) {
           } catch {}
         }
         if (typeof urlVars[i].s2 !== 'undefined') {
-          if (isNumeric(urlVars[i].s2)) {
+          if (isNumeric(urlVars[i].s2 && !listeObjetsExercice[i].besoinFormulaire2Texte)) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire2Numerique[1]
             listeObjetsExercice[i].sup2 = contraindreValeur(1, max, Number(urlVars[i].s2))
           } else {
-            listeObjetsExercice[i].sup2 = urlVars[i].s2
+            listeObjetsExercice[i].sup2 = typeof urlVars[i].s2 === 'boolean' ? urlVars[i].s2 : urlVars[i].s2.toString()
           }
           try {
             if (listeObjetsExercice[i].besoinFormulaire2CaseACocher) {
@@ -1580,12 +1580,12 @@ async function miseAJourDeLaListeDesExercices (preview) {
           } catch (error) {}
         }
         if (typeof urlVars[i].s3 !== 'undefined') {
-          if (isNumeric(urlVars[i].s3)) {
+          if (isNumeric(urlVars[i].s3 && !listeObjetsExercice[i].besoinFormulaire3Texte)) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire3Numerique[1]
             listeObjetsExercice[i].sup3 = contraindreValeur(1, max, Number(urlVars[i].s3))
           } else {
-            listeObjetsExercice[i].sup3 = urlVars[i].s3
+            listeObjetsExercice[i].sup3 = typeof urlVars[i].s3 === 'boolean' ? urlVars[i].s3 : urlVars[i].s3.toString()
           }
           try {
             if (listeObjetsExercice[i].besoinFormulaire3CaseACocher) {
@@ -1598,12 +1598,12 @@ async function miseAJourDeLaListeDesExercices (preview) {
           }
         }
         if (typeof urlVars[i].s4 !== 'undefined') {
-          if (isNumeric(urlVars[i].s4)) {
+          if (isNumeric(urlVars[i].s4 && !listeObjetsExercice[i].besoinFormulaire4Texte)) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire4Numerique[1]
             listeObjetsExercice[i].sup4 = contraindreValeur(1, max, Number(urlVars[i].s4))
           } else {
-            listeObjetsExercice[i].sup4 = urlVars[i].s4
+            listeObjetsExercice[i].sup4 = typeof urlVars[i].s4 === 'boolean' ? urlVars[i].s4 : urlVars[i].s4.toString()
           }
           try {
             formSup4[i].value = listeObjetsExercice[i].sup4
@@ -2386,11 +2386,12 @@ function parametresExercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaireNumerique) {
+      const max = exercice[i].besoinFormulaireNumerique[1]
       formSup[i] = document.getElementById('form_sup' + i)
-      formSup[i].value = exercice[i].sup // Rempli le formulaire avec le paramètre supplémentaire
+      formSup[i].value = contraindreValeur(1, max, exercice[i].sup) // Rempli le formulaire avec le paramètre supplémentaire
       formSup[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup = Number(e.target.value)
+        exercice[i].sup = contraindreValeur(1, max, Number(e.target.value))
         miseAJourDuCode()
       })
     }
@@ -2416,11 +2417,12 @@ function parametresExercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaire2Numerique) {
+      const max = exercice[i].besoinFormulaire2Numerique[1]
       formSup2[i] = document.getElementById('form_sup2' + i)
-      formSup2[i].value = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup2[i].value = contraindreValeur(1, max, exercice[i].sup2) // Rempli le formulaire avec le paramètre supplémentaire
       formSup2[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup2 = Number(e.target.value)
+        exercice[i].sup2 = contraindreValeur(1, max, Number(e.target.value))
         miseAJourDuCode()
       })
     }
@@ -2453,11 +2455,12 @@ function parametresExercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaire3Numerique) {
+      const max = exercice[i].besoinFormulaire3Numerique[1]
       formSup3[i] = document.getElementById('form_sup3' + i)
-      formSup3[i].value = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup3[i].value = contraindreValeur(1, max, exercice[i].sup3) // Rempli le formulaire avec le paramètre supplémentaire
       formSup3[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup3 = Number(e.target.value)
+        exercice[i].sup3 = contraindreValeur(1, max, Number(e.target.value))
         miseAJourDuCode()
       })
     }
@@ -2490,11 +2493,12 @@ function parametresExercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaire4Numerique) {
+      const max = exercice[i].besoinFormulaire4Numerique[1]
       formSup4[i] = document.getElementById('form_sup4' + i)
-      formSup4[i].value = exercice[i].sup4 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup4[i].value = contraindreValeur(1, max, exercice[i].sup4) // Rempli le formulaire avec le paramètre supplémentaire
       formSup4[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup4 = Number(e.target.value)
+        exercice[i].sup4 = contraindreValeur(1, max, Number(e.target.value))
         miseAJourDuCode()
       })
     }

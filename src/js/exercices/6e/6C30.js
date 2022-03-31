@@ -3,11 +3,12 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
-import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 
 export const titre = 'Poser des multiplications de nombres décimaux'
 
@@ -65,7 +66,7 @@ export default function MultiplierDecimaux () {
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
       reponse = calcul(a * b)
       texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication' })
-      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexte(this, i)
+      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
       setReponse(this, i, reponse)
       this.autoCorrection[i].options = { digits: 0, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
 

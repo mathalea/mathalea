@@ -110,7 +110,8 @@ export function verifQuestionMathLive (exercice, i) {
             signeF = 1
           }
           if (saisieParsee[1].num && saisieParsee[2].num) {
-            fSaisie = new FractionEtendue(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+            // fSaisie = new FractionEtendue(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+            fSaisie = parseInt(saisieParsee[2].num) === 1 ? new FractionEtendue(signeF * parseFloat(saisieParsee[1].num)) : new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
             if (fSaisie.estUneSimplification(reponse)) resultat = 'OK'
           }
         }
@@ -132,8 +133,11 @@ export function verifQuestionMathLive (exercice, i) {
             signeF = 1
           }
           if (saisieParsee[1].num && saisieParsee[2].num) {
-            fSaisie = new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+            fSaisie = parseInt(saisieParsee[2].num) === 1 ? new FractionEtendue(signeF * parseFloat(saisieParsee[1].num)) : new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+            // fSaisie = new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
             if (fSaisie.isEqual(reponse)) resultat = 'OK'
+          } else {
+            window.notify('QuestionMathLive fractionEgale : problème avec la sortie de parse()', { saisie, saisieParsee })
           }
         }
         break
@@ -153,7 +157,8 @@ export function verifQuestionMathLive (exercice, i) {
             signeF = 1
           }
           if (saisieParsee[1].num && saisieParsee[2].num) {
-            fSaisie = new FractionEtendue(signeF * parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+            // fSaisie = new FractionEtendue(signeF * parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+            fSaisie = parseInt(saisieParsee[2].num) === 1 ? new FractionEtendue(signeF * parseFloat(saisieParsee[1].num)) : new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
             if (fSaisie.texFSD === reponse.texFSD) resultat = 'OK'
           }
         }

@@ -2230,7 +2230,7 @@ export default {
     "interactifType": "mathLive",
     "name": "beta2N31-5",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3396,7 +3396,7 @@ export default {
     "interactifType": "mathLive",
     "name": "3L13-3",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -3457,15 +3457,14 @@ export default {
     "titre": "Résoudre une équation produit nul",
     "url": "/exercices/3e/3L14.js",
     "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifReady": false,
     "name": "3L14",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -3686,6 +3685,25 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "4A12",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "4AI1-1": {
+    "titre": "Tortue Scratch avec répétitions",
+    "url": "/exercices/4e/4AI1-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "cliqueFigure",
+    "name": "4AI1-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -4007,25 +4025,6 @@ export default {
     "name": "4C23",
     "newEx": {
       "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "4C24": {
-    "titre": "Simplifier des fractions à l’aide des nombres premiers",
-    "url": "/exercices/4e/4C24.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "4C24",
-    "newEx": {
-      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -4434,7 +4433,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "numerique",
     "name": "4G20-2",
     "newEx": {
       "isNew": false,
@@ -4693,25 +4692,6 @@ export default {
       "mathLive"
     ],
     "name": "4G53",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "4I1-2": {
-    "titre": "Tortue Scratch avec répétitions",
-    "url": "/exercices/4e/4I1-2.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "qcmMono"
-    },
-    "interactifReady": true,
-    "interactifType": "cliqueFigure",
-    "name": "4I1-2",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -5973,7 +5953,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "numerique",
     "name": "5L14-2",
     "newEx": {
       "isNew": false,
@@ -6112,22 +6092,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "5N10": {
-    "titre": "Passer de l'écriture décimale à une écriture fractionnaire et inversement",
-    "url": "/exercices/5e/5N10.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "5N10",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
   "5N11-1": {
     "titre": "Tableaux et pourcentages - prix constant",
     "url": "/exercices/5e/5N11-1.js",
@@ -6173,7 +6137,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -6181,15 +6145,14 @@ export default {
     "titre": "Exprimer une fraction sous la forme d’une valeur approchée d’un pourcentage",
     "url": "/exercices/5e/5N11-4.js",
     "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifReady": false,
     "name": "5N11-4",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -6436,7 +6399,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "numerique",
     "name": "5R10",
     "newEx": {
       "isNew": false,
@@ -6692,21 +6655,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "5S12-1": {
-    "titre": "Représenter des données par un diagramme (valeur exacte)",
-    "url": "/exercices/5e/5S12-1.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "5S12-1",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
   "5S12": {
     "titre": "Représenter des données par un diagramme",
     "url": "/exercices/5e/5S12.js",
@@ -6907,7 +6855,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "numerique",
     "name": "6C10-4",
     "newEx": {
       "isNew": false,
@@ -7107,7 +7055,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "numerique",
     "name": "6C20",
     "newEx": {
       "isNew": false,
@@ -7145,7 +7093,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "numerique",
     "name": "6C22",
     "newEx": {
       "isNew": false,
@@ -7183,7 +7131,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "numerique",
     "name": "6C30-1",
     "newEx": {
       "isNew": false,
@@ -9474,17 +9422,14 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "6P14": {
-    "titre": "Figures à agrandir ou à réduire d'après une situation de proportionnalité",
+    "titre": "Figures à agrandir ou à reduire d'après une situation de proportionnalité",
     "url": "/exercices/6e/6P14.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
+    "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "6P14",
@@ -9988,6 +9933,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "betaGillesCAN30Q4-2021": {
+    "titre": "CAN 4ième 30 questions sujet 2021",
+    "url": "/exercices/beta/betaGillesCAN30Q4-2021.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaGillesCAN30Q4-2021",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "betaLicence": {
     "titre": "QCM de positionnement",
     "url": "/exercices/beta/betaLicence.js",
@@ -10446,7 +10407,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "numerique",
     "name": "c3C10-4",
     "newEx": {
       "isNew": false,
@@ -10576,7 +10537,7 @@ export default {
       "text": "AMCNum"
     },
     "interactifReady": true,
-    "interactifType": "mathLive",
+    "interactifType": "numerique",
     "name": "c3C30",
     "newEx": {
       "isNew": false,
@@ -10872,7 +10833,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1S03",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10888,7 +10849,7 @@ export default {
     "interactifType": "qcm",
     "name": "can1S04",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10904,7 +10865,7 @@ export default {
     "interactifType": "qcm",
     "name": "can1S05",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10920,7 +10881,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1S06",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10936,7 +10897,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1S07",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10952,7 +10913,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1S08",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10968,7 +10929,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1S09",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

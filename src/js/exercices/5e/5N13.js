@@ -95,7 +95,7 @@ export default function Exercice_fractions_simplifier (max = 11) {
           ' = ' +
           texFraction(a, b) +
           ' $'
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
       if (this.interactif && context.isHtml) texte = texte.replace(' \\dfrac{\\phantom{00000000000000}}{} = \\dfrac{\\phantom{0000}}{}', '')
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

@@ -2,7 +2,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, enleveElement, choice, range, combinaisonListes, ecritureParentheseSiNegatif, lettreDepuisChiffre } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse, exerciceInteractif } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC NumeriqueChoice
 export const interactifType = 'mathLive'
@@ -119,7 +120,7 @@ export default function ExerciceSubstituer (difficulte = 1) {
           break
       }
       if (this.interactif) {
-        texte += ajouteChampTexte(this, i, {
+        texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', {
           texte: '$~=$'
         })
       }
@@ -158,5 +159,4 @@ export default function ExerciceSubstituer (difficulte = 1) {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Multiplication par un facteur positif\n2 : Multiplication par un facteur relatif']
-  exerciceInteractif(this)
 }

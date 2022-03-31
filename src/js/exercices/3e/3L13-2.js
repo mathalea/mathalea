@@ -1,12 +1,14 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, calcul, texNombre, texteEnCouleurEtGras, tableauColonneLigne, warnMessage } from '../../modules/outils.js'
+import FractionX from '../../modules/FractionEtendue.js'
 export const titre = 'Equations résolvantes pour le théorème de Thalès'
 
 /**
  * * Equations résolvantes pour le théorème de Thalès
  * * 3L13-2
  * * modification le 11/01/2021
+ * * correctif le 27/03/2022
  * @author Sébastien Lozano
  */
 export default function EqResolvantesThales () {
@@ -41,16 +43,31 @@ export default function EqResolvantesThales () {
         if (b === c) {
           texte = `Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${a}$ !`
           sortie = warnMessage(texte, 'nombres', 'Keep Cool Guy !')
-        };
+        }
         if (c === a) {
           texte = `Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${b}$ !`
           sortie = warnMessage(texte, 'nombres', 'Keep Cool Guy !')
         }
       } else {
         sortie = ''
-      };
+      }
       return sortie
     };
+
+    // Un fonction pour afficher la simplification si c'est possible
+    // eslint-disable-next-line no-unused-vars
+    function simplificationSiPossible (bool, frac, inc) {
+      let sortie
+      if (!bool) {
+        sortie = `
+        ${texteEnCouleurEtGras('On simplifie la fraction.')}<br>
+        $${inc}=${frac.texFractionSimplifiee}$<br></br>
+        `
+      } else {
+        sortie = ''
+      }
+      return sortie
+    }
 
     if (this.debug) {
       typesDeQuestionsDisponibles = [0, 1, 2, 3]
@@ -68,10 +85,11 @@ export default function EqResolvantesThales () {
       // on a besoin d'un coeff pour le type de nombres
       let coeff, masterChoix
       let nbAlea = [1, 1, 1]
-      let cTempCase3
-      while (cTempCase3 % 2 !== 0 || cTempCase3 % 5 !== 0) {
-        cTempCase3 = randint(11, 99)
-      };
+      // On génère un c pour s'assurer que le résultat soit décimal.
+      // Au min 10, au max 100
+      const exposantDeDeux = randint(1, 2)
+      const exposantDeCinq = randint(1, 2)
+      const cTempCase3 = 2 ** exposantDeDeux * 5 ** exposantDeCinq
 
       this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
       switch (this.sup) {
@@ -119,45 +137,50 @@ export default function EqResolvantesThales () {
         a: calcul(nbAlea[0] * coeff[0]),
         b: calcul(nbAlea[1] * coeff[1]),
         c: calcul(nbAlea[2] * coeff[2]),
-        inc: inc
+        inc: inc,
+        fraction: new FractionX(nbAlea[1] * nbAlea[0], nbAlea[2] / coeff[0] / coeff[1])
       }
 
       // pour les situations, autant de situations que de cas dans le switch !
       const situations = [
-        {
+        { // x/b = a/c
           eq: `\\dfrac{${params.inc}}{${texNombre(params.b)}}=\\dfrac{${texNombre(params.a)}}{${texNombre(params.c)}}`,
           tab: tableauColonneLigne([params.inc, params.a], [params.b], [params.c]),
           a: params.a,
           b: params.b,
           c: params.c,
           inc: params.inc,
+          fraction: params.fraction,
           trivial: (params.b === params.c) || (params.c === params.a)
         },
-        {
+        { // a/c = x/b
           eq: `\\dfrac{${texNombre(params.a)}}{${texNombre(params.c)}}=\\dfrac{${params.inc}}{${texNombre(params.b)}}`,
           tab: tableauColonneLigne([params.a, params.inc], [params.c], [params.b]),
           a: params.a,
           b: params.b,
           c: params.c,
           inc: params.inc,
+          fraction: params.fraction,
           trivial: (params.b === params.c) || (params.c === params.a)
         },
-        {
+        { // b/x = c/a
           eq: `\\dfrac{${texNombre(params.b)}}{${params.inc}}=\\dfrac{${texNombre(params.c)}}{${texNombre(params.a)}}`,
           tab: tableauColonneLigne([params.b, params.c], [params.inc], [params.a]),
           a: params.a,
           b: params.b,
           c: params.c,
           inc: params.inc,
+          fraction: params.fraction,
           trivial: (params.b === params.c) || (params.c === params.a)
         },
-        {
+        { // c/a = b/x
           eq: `\\dfrac{${texNombre(params.c)}}{${texNombre(params.a)}}=\\dfrac{${texNombre(params.b)}}{${params.inc}}`,
           tab: tableauColonneLigne([params.c, params.b], [params.a], [params.inc]),
           a: params.a,
           b: params.b,
           c: params.c,
           inc: params.inc,
+          fraction: params.fraction,
           trivial: (params.b === params.c) || (params.c === params.a)
         }
       ]
@@ -174,6 +197,7 @@ export default function EqResolvantesThales () {
           enoncePlus = `$${situations[k].eq}$`
           corrPlusPremiereLigne = ''
         };
+
         enonces.push({
           enonce: enoncePlus,
           question: '',
@@ -190,7 +214,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situation
         })
       };
 
-      // autant de case que d'elements dans le tableau des situations
+      // Autant de case que d'elements dans le tableau des situations
       switch (listeTypeDeQuestions[i]) {
         case 0:
           texte = `${enonces[0].enonce}`

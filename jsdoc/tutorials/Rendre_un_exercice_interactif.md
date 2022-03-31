@@ -26,7 +26,6 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
         1. [Lignes de code spécifiques](#typeInteractivite_qcm_lignescodespecifiques)
         1. [Construction des propositions de chaque QCM](#typeInteractivite_qcm_constructions_propositions)
         1. [Usage indispensable de la fonction `propositionsQcm()`](#typeInteractivite_qcm_fonction_propositionsQcm)
-    1. [`numerique`](#typeInteractivite_numerique)
     1. [`cliqueFigure`](#typeInteractivite_cliqueFigure)
     1. [`listeDeroulante`](#typeInteractivite_listeDeroulante)
     1. [`custom`](#typeInteractivite_custom)
@@ -58,7 +57,6 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
 |-----|-----|-----|
 |[`'mathLive'`](#typeInteractivite_mathLive)|pour proposer un champ de réponses avec un clavier virtuel et vérification possible d'égalité formelle|4C10-4|
 |[`'qcm'`](#typeInteractivite_qcm)|pour proposer un qcm|5L10-2|
-|[`'numerique'`](#typeInteractivite_numerique)|pour proposer une réponse numérique|4G20-2|
 |[`'cliqueFigure'`](#typeInteractivite_cliqueFigure)|pour proposer des figures à cliquer|6G10-3|
 |[`'listeDeroulante'`](#typeInteractivite_listeDeroulante)|pour proposer une liste déroulante avec la réponse et différents autres choix possibles|6N43-4|
 |[`'custom'`](#typeInteractivite_custom)|pour proposer une réponse originale, différente des précédentes. |4G20-2|
@@ -421,12 +419,6 @@ Pour chaque question, un QCM sera créé et constitué de plusieurs cases à coc
 >> }
 >>```
 >> En effet, comme la fonction `propositionsQcm()` produit un objet `{texte, texteCorr}` à chaque appel ; si on l'appelle 2 fois, on brasse 2 fois les propositions, et l'ordre des réponses ne sera, alors, pas le même que celui qui est affiché et donc celui sur lequel on clique.
-
-
-
->>## <a id="typeInteractivite_numerique" href="#typeInteractivite_numerique"></a> [2. 3. `numerique`](#typeInteractivite_numerique)
-
-Octobre 2021 : Le type `numerique` est à proscrire au profit de `mathLive`. Ce type est uniquement dans cette documentation car encore en place dans des exercices plus anciens.
 
 
 >>## <a id="typeInteractivite_cliqueFigure" href="#typeInteractivite_cliqueFigure"></a> [2. 4. `cliqueFigure`](#typeInteractivite_cliqueFigure)

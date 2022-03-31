@@ -881,12 +881,13 @@ export function rienSi1 (a) {
 }
 
 /**
-* Gère l'écriture de l'exposant en mode text
+* Gère l'écriture de l'exposant en mode text (ne doit pas s'utiliser entre $ $)
+* Pour le mode maths (entre $ $) on utilisera tout simplement ^3 pour mettre au cube ou ^{42} pour la puissance 42.
 * @Example
-* // 'dm'+exposant(3)
+* // 'dm'+texteExposant(3)
 * @author Rémi Angot
 */
-export function exposant (texte) {
+export function texteExposant (texte) {
   if (context.isHtml) {
     return `<sup>${texte}</sup>`
   } else {
@@ -937,9 +938,9 @@ export function ecritureAlgebrique (a) {
   if (a instanceof Fraction || a instanceof FractionX) return fraction(a).ecritureAlgebrique
   else if (typeof a === 'number') {
     if (a >= 0) {
-      return '+' + texNombre(a)
+      return '+' + stringNombre(a)
     } else {
-      return texNombre(a)
+      return stringNombre(a)
     }
   } else window.notify('rienSi1 : type de valeur non prise en compte')
 }
@@ -1348,10 +1349,10 @@ export function egalOuApprox (a, precision) {
   if (typeof a === 'object' && ['Fraction', 'FractionX'].indexOf(a.type) !== -1) {
     return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
   }
-  if (!Number.isNaN(a) && !Number.isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
+  if (!isNaN(a) && !isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
   else {
     window.notify('egalOuApprox : l\'argument n\'est pas un nombre', { a, precision })
-    return 'bad number'
+    return 'Mauvais argument (nombres attendus).'
   }
 }
 
@@ -1494,11 +1495,11 @@ export function reduireAxPlusB (a, b) {
   if (a !== 0) {
     if (a === 1) result = 'x'
     else if (a === -1) result = '-x'
-    else result = `${texNombrec(a)}x`
+    else result = `${stringNombre(a)}x`
   }
   if (b !== 0) {
     if (a !== 0) result += `${ecritureAlgebrique(b)}`
-    else result = texNombrec(b)
+    else result = stringNombre(b)
   } else if (a === 0) result = '0'
   return result
 }
@@ -1725,7 +1726,7 @@ export function xcas (expression) {
 * @author Rémi Angot
 */
 export function calcul (x, arrondir = 13) {
-  if (typeof expression === 'string') {
+  if (typeof x === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
     return parseFloat(evaluate(x).toFixed(arrondir === false ? 13 : arrondir))
   } else {
@@ -2621,6 +2622,10 @@ export function sp (nb = 1) {
 * @author Rémi Angot
 */
 export function nombreAvecEspace (nb) {
+  if (isNaN(nb)) {
+    window.notify('nombreAvecEspace : argument NaN ou undefined', { nb })
+    return 'NaN'
+  }
   // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
   if (context.isHtml) {
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, ' ')
@@ -2629,7 +2634,7 @@ export function nombreAvecEspace (nb) {
     if (nb > 999 || nombreDeChiffresDansLaPartieDecimale(nb) > 3) {
       result = '\\numprint{' + nb.toString().replace('.', ',') + '}'
     } else {
-      result = nb.toString().replace('.', ',')
+      result = Number(nb).toString().replace('.', '{,}')
     }
     return result
   }
