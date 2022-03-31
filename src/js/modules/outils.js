@@ -8020,7 +8020,6 @@ export function exportQcmAmc (exercice, idExo) {
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
         if (typeof autoCorrection[j].options !== 'undefined') {
           if (autoCorrection[j].options.multicolsAll) {
-            console.log('TATA')
             texQr += '\\setlength{\\columnseprule}{'
             if (autoCorrection[j].options.barreseparation) {
               texQr += '0.5'
