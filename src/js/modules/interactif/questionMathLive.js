@@ -275,8 +275,8 @@ export function verifQuestionMathLive (exercice, i) {
     if (champTexteDen !== undefined) champTexteDen.readOnly = true
   } else if (resultat === 'essaieEncoreLongueur' || resultat === 'essaieEncoreLongueurTEST') {
     spanReponseLigne.innerHTML = resultat === 'essaieEncoreLongueur'
-      ? '<em>Il faut saisir une valeur numérique et une unité (cm ou cm² par exemple).</em>'
-      : '<em>Il faut saisir une valeur numérique et une unité (' +
+      ? '<em>Il faut saisir une valeur numérique et une seule unité (cm ou cm² par exemple).</em>'
+      : '<em>Il faut saisir une valeur numérique et une seule unité (' +
     (reponse.uniteDeReference.indexOf('^') > 0
       ? reponse.uniteDeReference.split('^')[0] + texteExposant(reponse.uniteDeReference.split('^')[1])
       : reponse.uniteDeReference) +
@@ -301,15 +301,16 @@ export function verifQuestionMathLive (exercice, i) {
 }
 
 function saisieToGrandeur (saisie) {
-  const split = saisie.split('\\operatorname{')
-  const mesure = parseFloat(split[0].replace(',', '.'))
-  if (split[1]) {
-    // const unite = split[1].substring(0, split[1].length - 1)
-    const split2 = split[1].split('}')
-    const unite = split2[0] + split2[1]
-    return new Grandeur(mesure, unite)
-  } else {
-    return false
+  if (saisie.split('operatorname').length !== 2) { return false } else {
+    const split = saisie.split('\\operatorname{')
+    const mesure = parseFloat(split[0].replace(',', '.'))
+    if (split[1]) {
+      const split2 = split[1].split('}')
+      const unite = split2[0] + split2[1]
+      return new Grandeur(mesure, unite)
+    } else {
+      return false
+    }
   }
 }
 
