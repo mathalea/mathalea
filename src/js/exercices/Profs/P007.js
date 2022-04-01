@@ -33,8 +33,8 @@ export default function PavagesMathalea2d () {
       // Si aucune grandeur n'est saisie
       [Nx, Ny] = [1, 1]
     } else {
-      if (!isNaN(this.sup2) && Number.isInteger(this.sup2)) { // Si on ne met qu'un nombre alors on prend Nx=Ny
-        [Nx, Ny] = [this.sup2, this.sup2]
+      if (!isNaN(this.sup2)) { // Si on ne met qu'un nombre alors on prend Nx=Ny
+        [Nx, Ny] = [parseInt(this.sup2), parseInt(this.sup2)]
         this.nbQuestions = 1
       } else { // On fixe Nx et Ny avec les valeurs saisies.
         [Nx, Ny] = [parseInt(this.sup2.split('-')[0]), parseInt(this.sup2.split('-')[1])] // Sinon on créé un tableau à partir des valeurs séparées par des -
