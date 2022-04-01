@@ -40,13 +40,13 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     if (!this.sup) { // Si aucune liste n'est saisie
       QuestionsDisponibles = [1, 2, 3]
     } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est qu'il y a qu'un problème
-        QuestionsDisponibles[0] = this.sup
+      if (!isNaN(this.sup)) { // Si c'est un nombre c'est qu'il y a qu'un problème
+        QuestionsDisponibles[0] = contraindreValeur(1, 3, parseInt(this.sup), 1)
       } else {
         QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         // this.nbQuestions = QuestionsDisponibles.length
         for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(1, 3, parseInt(QuestionsDisponibles[i])) // parseInt en fait un tableau d'entiers
+          QuestionsDisponibles[i] = contraindreValeur(1, 3, parseInt(QuestionsDisponibles[i]), 1) // parseInt en fait un tableau d'entiers
         }
       }
     }
