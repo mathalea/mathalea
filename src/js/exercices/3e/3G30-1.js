@@ -145,7 +145,7 @@ export default function ExprimerCosSinTan () {
               statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
               feedback: '',
               sanslignes: true,
-              enonce: `${numAlpha(0)} Déterminer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+              enonce: texteInit + `<br>${numAlpha(0)} Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
               sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
             }
           ]
@@ -170,7 +170,7 @@ export default function ExprimerCosSinTan () {
               statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
               feedback: '',
               sanslignes: true,
-              enonce: `${numAlpha(1)} Déterminer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+              enonce: `${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
               sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
             }
           ]
@@ -195,14 +195,15 @@ export default function ExprimerCosSinTan () {
               statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
               feedback: '',
               sanslignes: true,
-              enonce: `${numAlpha(2)} Déterminer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+              enonce: `${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
               sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
             }
           ]
         }
       }
     } else if (this.sup === 2) {
-      texte += 'Écrire les 6 rapports trigonométriques pour ce triangle.'
+      texte += 'Exprimer les 6 rapports trigonométriques pour ce triangle, en fonction des longueurs respectives de ses côtés.'
+      texteInit = texte
       if (this.interactif) {
         texte += `<br>$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
         texte += ajouteChampTexteMathLive(this, 0, 'inline nospacebefore', { tailleExtensible: true })
@@ -262,7 +263,7 @@ export default function ExprimerCosSinTan () {
                 statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                 feedback: '',
                 sanslignes: true,
-                enonce: `${numAlpha(0)} Déterminer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                enonce: texteInit + `<br>${numAlpha(0)} Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
                 sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
               }
             ]
@@ -274,7 +275,7 @@ export default function ExprimerCosSinTan () {
                 statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                 feedback: '',
                 sanslignes: true,
-                enonce: `${numAlpha(1)} Déterminer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                enonce: `${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
                 sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
               }
             ]
@@ -286,7 +287,7 @@ export default function ExprimerCosSinTan () {
                 statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                 feedback: '',
                 sanslignes: true,
-                enonce: `${numAlpha(2)} Déterminer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                enonce: `${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
                 sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
               }
             ]
@@ -298,7 +299,7 @@ export default function ExprimerCosSinTan () {
                 statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                 feedback: '',
                 sanslignes: true,
-                enonce: `${numAlpha(3)} Déterminer $\\cos\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                enonce: `${numAlpha(3)} Exprimer $\\cos\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
                 sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
               }
             ]
@@ -310,7 +311,7 @@ export default function ExprimerCosSinTan () {
                 statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                 feedback: '',
                 sanslignes: true,
-                enonce: `${numAlpha(4)} Déterminer $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                enonce: `${numAlpha(4)} Exprimer $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
                 sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
               }
             ]
@@ -322,7 +323,7 @@ export default function ExprimerCosSinTan () {
                 statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                 feedback: '',
                 sanslignes: true,
-                enonce: `${numAlpha(5)} Déterminer $\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                enonce: `${numAlpha(5)} Exprimer $\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
                 sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
               }
             ]
@@ -399,7 +400,7 @@ export default function ExprimerCosSinTan () {
                 statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
                 feedback: '',
                 sanslignes: true,
-                enonce: `${numAlpha(0)} Première manière<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                enonce: texte + `<br><br>${numAlpha(0)} Première manière<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
                 sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
               }
             ]
@@ -475,11 +476,8 @@ export default function ExprimerCosSinTan () {
 
     if (context.isAmc) {
       this.autoCorrection[0] = {
-        enonce: texteInit,
-        enonceAvant: true, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
-        enonceAvantUneFois: true, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
-        enonceCentre: false, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
-        melange: false, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
+        enonce: '',
+        enonceAvant: false, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
         options: { multicols: true, barreseparation: true, multicolsAll: this.sup === 1 }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
         // barreseparation (par défaut à false) permet de mettre une barre de séparation entre les deux colonnes.
         propositions: propositionsAMC

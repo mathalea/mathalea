@@ -8324,7 +8324,7 @@ export function exportQcmAmc (exercice, idExo) {
           }
         }
         if (typeof autoCorrection[j].options !== 'undefined') {
-          if (autoCorrection[j].options.multicols) {
+          if (autoCorrection[j].options.multicols || autoCorrection[j].options.multicolsAll) {
             texQr += '\\end{multicols}\n'
           }
         }
