@@ -1547,7 +1547,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
         }
         if (typeof urlVars[i].s !== 'undefined') {
           // Si le string peut être convertit en int alors on le fait
-          if (isNumeric(urlVars[i].s) && !listeObjetsExercice[i].besoinFormulaireTexte) {
+          if (isNumeric(urlVars[i].s) && listeObjetsExercice[i].besoinFormulaireNumerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaireNumerique[1]
             listeObjetsExercice[i].sup = contraindreValeur(1, max, Number(urlVars[i].s))
@@ -1564,7 +1564,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
           } catch {}
         }
         if (typeof urlVars[i].s2 !== 'undefined') {
-          if (isNumeric(urlVars[i].s2 && !listeObjetsExercice[i].besoinFormulaire2Texte)) {
+          if (isNumeric(urlVars[i].s2) && listeObjetsExercice[i].besoinFormulaire2Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire2Numerique[1]
             listeObjetsExercice[i].sup2 = contraindreValeur(1, max, Number(urlVars[i].s2))
@@ -1580,7 +1580,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
           } catch (error) {}
         }
         if (typeof urlVars[i].s3 !== 'undefined') {
-          if (isNumeric(urlVars[i].s3 && !listeObjetsExercice[i].besoinFormulaire3Texte)) {
+          if (isNumeric(urlVars[i].s3) && listeObjetsExercice[i].besoinFormulaire3Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire3Numerique[1]
             listeObjetsExercice[i].sup3 = contraindreValeur(1, max, Number(urlVars[i].s3))
@@ -1598,7 +1598,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
           }
         }
         if (typeof urlVars[i].s4 !== 'undefined') {
-          if (isNumeric(urlVars[i].s4 && !listeObjetsExercice[i].besoinFormulaire4Texte)) {
+          if (isNumeric(urlVars[i].s4) && listeObjetsExercice[i].besoinFormulaire4Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire4Numerique[1]
             listeObjetsExercice[i].sup4 = contraindreValeur(1, max, Number(urlVars[i].s4))
