@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
 export const titre = 'Générateur de compte est bon version semi-aléatoire'
 
@@ -38,6 +38,8 @@ export default function LeCompteEstBonV4 () {
         max = minmax[1]
       }
     }
+    min = contraindreValeur(0, 100, parseInt(min), 50)
+    max = contraindreValeur(min, 100, parseInt(max), 100)
     if (!this.sup) {
       // Si rien n'est saisi
       solutionMathador = TrouverSolutionMathador(min, max)
