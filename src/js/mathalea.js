@@ -2685,13 +2685,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     $('#btn_zoom_plus').click(function () {
       context.zoom = arrondi(Number(context.zoom) + 0.2)
       zoomAffichage(context.zoom)
-      window.history.replaceState('', '', getUrlSearch())
+      miseAJourDuCode()
+      // window.history.replaceState('', '', getUrlSearch())
     })
     $('#btn_zoom_moins').click(function () {
       if (Number(context.zoom > 0.5)) {
         context.zoom = arrondi(Number(context.zoom) - 0.2)
         zoomAffichage(context.zoom)
-        window.history.replaceState('', '', getUrlSearch())
+        miseAJourDuCode()
+        // window.history.replaceState('', '', getUrlSearch())
       }
     })
   }
