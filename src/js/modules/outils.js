@@ -8034,6 +8034,17 @@ export function exportQcmAmc (exercice, idExo) {
           melange = autoCorrection[j].melange
         }
         texQr += `\\element{${ref}}{\n ` // Un seul élément du groupe de question pour AMC... plusieurs questions dedans !
+        if (typeof autoCorrection[j].options !== 'undefined') {
+          if (autoCorrection[j].options.multicolsAll) {
+            texQr += '\\setlength{\\columnseprule}{'
+            if (autoCorrection[j].options.barreseparation) {
+              texQr += '0.5'
+            } else {
+              texQr += '0'
+            }
+            texQr += 'pt}\\begin{multicols}{2}\n'
+          }
+        }
         if (autoCorrection[j].enonceAGauche) {
           texQr += `\\noindent\\fbox{\\begin{minipage}{${autoCorrection[j].enonceAGauche[0]}\\linewidth}\n`
         }
@@ -8058,7 +8069,7 @@ export function exportQcmAmc (exercice, idExo) {
           texQr += `\\end{minipage}}\n\\noindent\\begin{minipage}[t]{${autoCorrection[j].enonceAGauche[1]}\\linewidth}\n`
         }
         if (typeof autoCorrection[j].options !== 'undefined') {
-          if (autoCorrection[j].options.multicols) {
+          if (autoCorrection[j].options.multicols & !autoCorrection[j].options.multicolsAll) {
             texQr += '\\setlength{\\columnseprule}{'
             if (autoCorrection[j].options.barreseparation) {
               texQr += '0.5'
@@ -8329,7 +8340,7 @@ export function exportQcmAmc (exercice, idExo) {
           }
         }
         if (typeof autoCorrection[j].options !== 'undefined') {
-          if (autoCorrection[j].options.multicols) {
+          if (autoCorrection[j].options.multicols || autoCorrection[j].options.multicolsAll) {
             texQr += '\\end{multicols}\n'
           }
         }

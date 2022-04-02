@@ -1,11 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { mathalea2d, point, similitude, longueur, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle, fixeBordures } from '../../modules/2d.js'
-import { listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, creerNomDePolygone, choice, numAlpha } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 
 export const titre = 'Exprimer le cosinus, le sinus ou la tangente d’un angle en fonction des côtés du triangle'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -39,9 +41,10 @@ export default function ExprimerCosSinTan () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
+    this.autoCorrection = []
     this.sup = Number(this.sup)
     let texte = ''; let texteCorr = ''; const objetsEnonce = []; const objetsCorrection = []; let choixRapportTrigo
-
+    let propositionsAMC = []; let texteInit
     const a = point(0, 0)
     const b = point(randint(3, 7), 0)
     const c = similitude(b, a, 90, randint(3, 7) / longueur(a, b))
@@ -111,15 +114,17 @@ export default function ExprimerCosSinTan () {
 
     const paramsEnonce = Object.assign({}, fixeBordures([A, B, C], { rxmin: -1, rxmax: 1, rymin: -1, rymax: 1 }), { scale: 0.5, pixelsParCm: 20, mainlevee: false })
     const paramsCorrection = Object.assign({}, fixeBordures([A, B, C]), { scale: 0.5, pixelsParCm: 20, mainlevee: false })
-    if (!context.isHtml) {
+    if (!context.isHtml & !context.isAmc) {
       texte += '\\begin{minipage}{.4\\linewidth}\n'
     }
     texte += mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
-    if (!context.isHtml) {
+    if (!context.isHtml & !context.isAmc) {
       texte += '\n\\end{minipage}\n'
       texte += '\\begin{minipage}{.6\\linewidth}\n'
     }
     if (this.sup === 1) {
+      texteInit = texte
+      texteInit += `Dans le triangle $${A.nom + B.nom + C.nom}$ et à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$, $${B.nom + C.nom}$ :`
       texte += `Compléter à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$, $${B.nom + C.nom}$ : `
       texte += `<br>$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
       if (this.interactif) {
@@ -130,6 +135,21 @@ export default function ExprimerCosSinTan () {
         `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
         `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
         { formatInteractif: 'texte' })
+      } else if (context.isAmc) {
+        propositionsAMC[0] =
+        {
+          type: 'AMCOpen',
+          propositions: [
+            {
+              texte: '',
+              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              feedback: '',
+              sanslignes: true,
+              enonce: texteInit + `<br>${numAlpha(0)} Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+              sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+            }
+          ]
+        }
       }
       texte += `<br>$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
       if (this.interactif) {
@@ -140,6 +160,21 @@ export default function ExprimerCosSinTan () {
         `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
         `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
         { formatInteractif: 'texte' })
+      } else if (context.isAmc) {
+        propositionsAMC[1] =
+        {
+          type: 'AMCOpen',
+          propositions: [
+            {
+              texte: '',
+              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              feedback: '',
+              sanslignes: true,
+              enonce: `${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+              sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+            }
+          ]
+        }
       }
       texte += `<br>$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
       if (this.interactif) {
@@ -150,10 +185,25 @@ export default function ExprimerCosSinTan () {
         `\\frac{${C.nom + A.nom}}{${A.nom + B.nom}}`,
         `\\frac{${C.nom + A.nom}}{${B.nom + A.nom}}`],
         { formatInteractif: 'texte' })
+      } else if (context.isAmc) {
+        propositionsAMC[2] =
+        {
+          type: 'AMCOpen',
+          propositions: [
+            {
+              texte: '',
+              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              feedback: '',
+              sanslignes: true,
+              enonce: `${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+              sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+            }
+          ]
+        }
       }
-    }
-    if (this.sup === 2) {
-      texte += 'Écrire les 6 rapports trigonométriques pour ce triangle.'
+    } else if (this.sup === 2) {
+      texte += 'Exprimer les 6 rapports trigonométriques pour ce triangle, en fonction des longueurs respectives de ses côtés.'
+      texteInit = texte
       if (this.interactif) {
         texte += `<br>$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
         texte += ajouteChampTexteMathLive(this, 0, 'inline nospacebefore', { tailleExtensible: true })
@@ -203,9 +253,84 @@ export default function ExprimerCosSinTan () {
         `\\frac{${A.nom + B.nom}}{${C.nom + A.nom}}`,
         `\\frac{${B.nom + A.nom}}{${C.nom + A.nom}}`],
         { formatInteractif: 'texte' })
+      } else if (context.isAmc) {
+        propositionsAMC = [
+          {
+            type: 'AMCOpen',
+            propositions: [
+              {
+                texte: '',
+                statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                feedback: '',
+                sanslignes: true,
+                enonce: texteInit + `<br>${numAlpha(0)} Exprimer $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              }
+            ]
+          }, {
+            type: 'AMCOpen',
+            propositions: [
+              {
+                texte: '',
+                statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                feedback: '',
+                sanslignes: true,
+                enonce: `${numAlpha(1)} Exprimer $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              }
+            ]
+          }, {
+            type: 'AMCOpen',
+            propositions: [
+              {
+                texte: '',
+                statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                feedback: '',
+                sanslignes: true,
+                enonce: `${numAlpha(2)} Exprimer $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              }
+            ]
+          }, {
+            type: 'AMCOpen',
+            propositions: [
+              {
+                texte: '',
+                statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                feedback: '',
+                sanslignes: true,
+                enonce: `${numAlpha(3)} Exprimer $\\cos\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              }
+            ]
+          }, {
+            type: 'AMCOpen',
+            propositions: [
+              {
+                texte: '',
+                statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                feedback: '',
+                sanslignes: true,
+                enonce: `${numAlpha(4)} Exprimer $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              }
+            ]
+          }, {
+            type: 'AMCOpen',
+            propositions: [
+              {
+                texte: '',
+                statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                feedback: '',
+                sanslignes: true,
+                enonce: `${numAlpha(5)} Exprimer $\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right).$<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              }
+            ]
+          }
+        ]
       }
-    }
-    if (this.sup === 3) {
+    } else {
       choixRapportTrigo = choice(['le cosinus', 'le sinus', 'la tangente'])
       texte += `Exprimer ${choixRapportTrigo} de $\\widehat{${A.nom + B.nom + C.nom}}$ de deux manières différentes.`
       if (this.interactif) {
@@ -265,10 +390,38 @@ export default function ExprimerCosSinTan () {
             { formatInteractif: 'texte' })
             break
         }
+      } else if (context.isAmc) {
+        propositionsAMC = [
+          {
+            type: 'AMCOpen',
+            propositions: [
+              {
+                texte: '',
+                statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                feedback: '',
+                sanslignes: true,
+                enonce: texte + `<br><br>${numAlpha(0)} Première manière<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              }
+            ]
+          }, {
+            type: 'AMCOpen',
+            propositions: [
+              {
+                texte: '',
+                statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                feedback: '',
+                sanslignes: true,
+                enonce: `${numAlpha(1)} Seconde manière<br>`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              }
+            ]
+          }
+        ]
       }
     }
 
-    if (!context.isHtml) {
+    if (!context.isHtml & !context.isAmc) {
       texte += '\n\\end{minipage}\n'
     }
     if (this.sup === 1 || this.sup === 2 || this.sup === 3) {
@@ -293,18 +446,16 @@ export default function ExprimerCosSinTan () {
       texteCorr += `<br>$\\cos\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=\\dfrac{${A.nom + C.nom}}{${B.nom + C.nom}}$ ;`
       texteCorr += `<br>$\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=\\dfrac{${A.nom + B.nom}}{${B.nom + C.nom}}$ ;`
       texteCorr += `<br>$\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=\\dfrac{${A.nom + B.nom}}{${A.nom + C.nom}}$.`
-    }
-    if (this.sup === 3) {
+    } else if (this.sup === 3) {
       if (choixRapportTrigo === 'le cosinus') {
         texteCorr += `<br>$${A.nom + B.nom + C.nom}$ est rectangle en $${A.nom}$ donc `
-        if (!context.isHtml) {
+        if (!context.isHtml & !context.isAmc) {
           texteCorr += '<br>'
         }
         texteCorr += `$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=\\dfrac{${A.nom + B.nom}}{${B.nom + C.nom}}$ ;`
         texteCorr += `<br>$${A.nom + B.nom + H.nom}$ est rectangle en $${H.nom}$ donc `
         texteCorr += `$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=\\dfrac{${B.nom + H.nom}}{${A.nom + B.nom}}$.`
-      }
-      if (choixRapportTrigo === 'le sinus') {
+      } else if (choixRapportTrigo === 'le sinus') {
         texteCorr += `<br>$${A.nom + B.nom + C.nom}$ est rectangle en $${A.nom}$ donc `
         if (!context.isHtml) {
           texteCorr += '<br>'
@@ -312,8 +463,7 @@ export default function ExprimerCosSinTan () {
         texteCorr += `$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=\\dfrac{${A.nom + C.nom}}{${B.nom + C.nom}}$ ;`
         texteCorr += `<br>$${A.nom + B.nom + H.nom}$ est rectangle en $${H.nom}$ donc `
         texteCorr += `$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=\\dfrac{${A.nom + H.nom}}{${A.nom + B.nom}}$.`
-      }
-      if (choixRapportTrigo === 'la tangente') {
+      } else {
         texteCorr += `<br>$${A.nom + B.nom + C.nom}$ est rectangle en $${A.nom}$ donc `
         if (!context.isHtml) {
           texteCorr += '<br>'
@@ -321,6 +471,16 @@ export default function ExprimerCosSinTan () {
         texteCorr += `$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=\\dfrac{${A.nom + C.nom}}{${A.nom + B.nom}}$ ;`
         texteCorr += `<br>$${A.nom + B.nom + H.nom}$ est rectangle en $${H.nom}$ donc `
         texteCorr += `$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=\\dfrac{${A.nom + H.nom}}{${B.nom + H.nom}}$.`
+      }
+    }
+
+    if (context.isAmc) {
+      this.autoCorrection[0] = {
+        enonce: '',
+        enonceAvant: false, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
+        options: { multicols: true, barreseparation: true, multicolsAll: this.sup === 1 }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
+        // barreseparation (par défaut à false) permet de mettre une barre de séparation entre les deux colonnes.
+        propositions: propositionsAMC
       }
     }
 
