@@ -1,0 +1,1 @@
+{"version":3,"file":"round.js","sourceRoot":"","sources":["../../../src/ts/calculus/round.ts"],"names":[],"mappings":"AACA,MAAM,UAAU,OAAO,CAAE,MAAc,EAAE,YAAoB,EAAE;IAC7D,IAAI;QACF,OAAO,CAAC,IAAI,CAAC,KAAK,CAAC,MAAM,GAAG,EAAE,IAAI,SAAS,CAAC,GAAG,EAAE,IAAI,SAAS,CAAC,CAAA;KAChE;IAAC,OAAO,KAAK,EAAE;QACd,OAAO,GAAG,CAAA;KACX;AACH,CAAC"}
