@@ -381,7 +381,6 @@ export default function SujetCAN20213ieme () {
           xmax = 3
           ymax = 1
           objets = []
-          console.log(context.zoom)
           objets.push(
             texteParPosition('$3 \\text{ cm} $', milieu(A, C).x, milieu(A, C).y + 0.25 * context.zoom, 'milieu', 'black', 1, 'middle', true),
             texteParPosition(`$${b} \\text{ cm} $`, milieu(A, D).x + 0.6, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
