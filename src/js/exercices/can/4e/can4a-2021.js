@@ -1,13 +1,13 @@
-import Exercice from '../Exercice.js'
-import { fraction, obtenirListeFractionsIrreductibles } from '../../modules/fractions.js'
+import Exercice from '../../Exercice.js'
+import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import {
   mathalea2d, point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition
-} from '../../modules/2d.js'
+} from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, randint, texNombre, texFractionReduite, tableauColonneLigne, combinaisonListes, texFraction, miseEnEvidence, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { listeQuestionsToContenu, randint, texNombre, texFractionReduite, tableauColonneLigne, combinaisonListes, texFraction, miseEnEvidence, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 export const titre = 'CAN 4ième sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'

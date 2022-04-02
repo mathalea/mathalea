@@ -1,12 +1,13 @@
-import Exercice from '../Exercice.js'
-import { fraction } from '../../modules/fractions.js'
+import Exercice from '../../Exercice.js'
+import { fraction } from '../../../modules/fractions.js'
 import {
   mathalea2d, point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codeSegment
-} from '../../modules/2d.js'
-import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, texFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+} from '../../../modules/2d.js'
+import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, texFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
 import { round, min } from 'mathjs'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { context } from '../../../modules/context.js'
 export const titre = 'CAN 3ième sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -380,8 +381,9 @@ export default function SujetCAN20213ieme () {
           xmax = 3
           ymax = 1
           objets = []
+          console.log(context.zoom)
           objets.push(
-            texteParPosition('$3 \\text{ cm} $', milieu(A, C).x, milieu(A, C).y + 0.2, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('$3 \\text{ cm} $', milieu(A, C).x, milieu(A, C).y + 0.25 * context.zoom, 'milieu', 'black', 1, 'middle', true),
             texteParPosition(`$${b} \\text{ cm} $`, milieu(A, D).x + 0.6, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
             segment(B, D), segment(D, C), s1, s2, c)
           reponse = calcul(9 * b / 3)
