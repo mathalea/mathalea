@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, contraindreValeur, compteOccurences, rangeMinMax } from '../../modules/outils.js'
 export const titre = 'Nom de l\'exercice'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -16,7 +16,7 @@ export default function NomExercice () {
   this.consigne = 'Consigne'
   this.nbQuestions = 10
 
-  this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n']
+  this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : Fleuriste\n2 : Professeur\n3 : Boulanger\n4 : Mélange']
   this.sup = '1-1-2-3'
 
   this.nbCols = 2
@@ -32,17 +32,21 @@ export default function NomExercice () {
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3']
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
 
-    let listeDesProblemes = [1, 2, 3]
+    let listeDesProblemes = [1, 2, 3] // Paramétrage par défaut
+    const valMaxParametre = 4
     if (this.sup) { // Si une liste est saisie
       if (this.sup.toString().indexOf('-') === -1) { // S'il n'y a pas de tiret ...
-        listeDesProblemes = [contraindreValeur(1, 3, parseInt(this.sup), 1)] // ... on crée un tableau avec une seule valeur
+        listeDesProblemes = [contraindreValeur(1, valMaxParametre, parseInt(this.sup), 1)] // ... on crée un tableau avec une seule valeur
       } else {
         listeDesProblemes = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < listeDesProblemes.length; i++) { // on parcourt notre tableau de strings : ['1', '1', '2'] ...
-          listeDesProblemes[i] = contraindreValeur(1, 3, parseInt(listeDesProblemes[i]), 1) // ... pour en faire un tableau d'entiers : [1, 1, 2]
+          listeDesProblemes[i] = contraindreValeur(1, valMaxParametre, parseInt(listeDesProblemes[i]), 1) // ... pour en faire un tableau d'entiers : [1, 1, 2]
         }
       }
     }
+    // Attention ! Si la valeur max du paramètre n'est pas une option de type "mélange", supprimer la ligne ci-dessous !
+    if (compteOccurences(listeDesProblemes, valMaxParametre) > 0) listeDesProblemes = rangeMinMax(1, valMaxParametre - 1) // Si l'utilisateur a choisi l'option "mélange", on fait une liste avec un de chaque
+
     listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
 
     for (let i = 0, texte, texteCorr, typeDeProbleme, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -52,6 +56,8 @@ export default function NomExercice () {
         typeDeProbleme = 'professeur'
       } else if (listeDesProblemes[i] === 3) {
         typeDeProbleme = 'boulanger'
+      } else {
+        window.notify('listeDesProblemes[i] a une valeur inattendue.\nPeut-être que valMaxParametre est incorrect ?')
       }
       switch (listeTypeQuestions[i]) {
         case 'type1':
