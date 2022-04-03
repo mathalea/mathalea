@@ -3,6 +3,12 @@ import { context } from '../../modules/context.js'
 import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole } from '../../modules/outils.js'
 
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const dateDeModificationImportante = '03/04/2022'
+
 export const titre = 'Résoudre une inéquation quotient'
 
 /**
@@ -25,10 +31,11 @@ export default function ExerciceInequationQuotient () {
   this.correctionDetaillee = false // Désactive la correction détaillée par défaut
   this.sup = 1 // Choix du type d'inéquation
   this.nbQuestions = 1 // Choix du nombre de questions
+  let debutConsigne
   if (this.nbQuestions.toString() === '1') {
-    this.consigne = 'Résoudre l\'inéquation suivante :'
+    debutConsigne = 'Résoudre l\'inéquation suivante :'
   } else {
-    this.consigne = 'Résoudre les inéquations suivantes :'
+    debutConsigne = 'Résoudre les inéquations suivantes :'
   }
   this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
   this.nbCols = 1 // Fixe le nombre de colonnes pour les énoncés de la sortie LateX
@@ -38,6 +45,18 @@ export default function ExerciceInequationQuotient () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions // Stockera la liste des types de questions
+    let correctionInteractif // Pour récupérer l'intervalle solution à saisir
+    let correctionInteractifInterieur // Pour récupérer l'intervalle solution à saisir dans certains cas
+    let correctionInteractifExterieur // Pour récupérer l'intervalle solution à saisir dans certains cas
+    let correctionInteractif1et3 // Pour récupérer l'intervalle solution à saisir dans certains cas
+    let correctionInteractif2et4 // Pour récupérer l'intervalle solution à saisir dans certains cas
+    let correctionInteractifDroite // Pour récupérer l'intervalle solution à saisir dans certains cas
+    let correctionInteractifGauche // Pour récupérer l'intervalle solution à saisir dans certains cas
+    if (this.interactif && !context.isAmc) {
+      this.consigne = `${debutConsigne}<br> Saisir uniquement l'intervalle dans le champ de réponse<br>Taper 'union' pour faire apparaitre $\\bigcup$, 'inf' pour $\\infty$ et 'sauf' pour $\\backslash\\{\\}$`
+    } else {
+      this.consigne = debutConsigne
+    }
     // Convertit le paramètre this.sup en type de question
     switch (this.sup.toString()) {
       case '1':
@@ -217,14 +236,18 @@ export default function ExerciceInequationQuotient () {
         if (Math.min(-a, -b) === -a) {
           if ((signes[i] === '<' || signes[i] === '≤')) {
             texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${-a} , ${-b} \\right[ $.`
+            correctionInteractif = `${pGauche}${-a},${-b}[`
           } else if ((signes[i] === '>' || signes[i] === '≥')) {
             texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${-a} \\right${pDroite} \\bigcup \\left] ${-b}, +\\infty \\right[ $.`
+            correctionInteractif = `]-\\infty,${-a}${pDroite}\\bigcup]${-b},+\\infty[`
           }
         } else {
           if ((signes[i] === '<' || signes[i] === '≤')) {
             texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] ${-b} , ${-a} \\right${pDroite} $.`
+            correctionInteractif = `]${-b},${-a}${pDroite}`
           } else if ((signes[i] === '>' || signes[i] === '≥')) {
             texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${-b} \\right[ \\bigcup \\left${pGauche} ${-a}, +\\infty \\right[ $.`
+            correctionInteractif = `]-\\infty,${-b}[\\bigcup${pGauche}${-a},+\\infty[`
           }
         }
       }
@@ -319,24 +342,33 @@ export default function ExerciceInequationQuotient () {
         let interieur, exterieur
         if (-b / a < -d / c) { // Si la valeur interdite est la deuxième (intervale forcément ouvert avec valGrand)
           interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} , ${valGrand} \\right[ $.`
+          correctionInteractifInterieur = `${pGauche}${valPetit},${valGrand}[`
           exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg] ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractifExterieur = `]-\\infty,${valPetit}${pDroite}\\bigcup]${valGrand},+\\infty[`
         } else { // Si la valeur interdite est la première (invervalle forcément ouvert avec valPetit)
           interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] ${valPetit} , ${valGrand} \\right${pDroite} $.`
+          correctionInteractifInterieur = `]${valPetit},${valGrand}${pDroite}`
           exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg[ \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractifExterieur = `]-\\infty,${valPetit}[\\bigcup${pGauche}${valGrand},+\\infty[`
         }
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (a * c > 0) {
             texteCorr += interieur
+            correctionInteractif = correctionInteractifInterieur
           } else {
             texteCorr += exterieur
+            correctionInteractif = correctionInteractifExterieur
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (a * c > 0) {
             texteCorr += exterieur
+            correctionInteractif = correctionInteractifExterieur
           } else {
             texteCorr += interieur
+            correctionInteractif = correctionInteractifInterieur
           }
         }
+        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)/[(cx+d)(ex+f)]<0'                                 Type 3  //
@@ -517,28 +549,39 @@ export default function ExerciceInequationQuotient () {
         let solutions2et4
         if (zero1 === 'z') { // Si le "vrai zéro" est en première position (les double barres en position 2 et 3), les crochets seront ouverts en valMoyen et valGrand
           solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg] ${valMoyen}, ${valGrand} \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractif1et3 = `]-\\infty,${valPetit}${pDroite}\\bigcup]${valMoyen},${valGrand}[`
           solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg${pGauche} ${valPetit} , ${valMoyen} \\bigg[ \\bigcup \\bigg] ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractif2et4 = `${pGauche}${valPetit},${valMoyen}[\\bigcup]${valGrand},+\\infty[`
         } else if (zero2 === 'z') { // Si le "vrai zéro" est en deuxième position, les crochets seront ouverts en valPetit et valGrand
           solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg[ \\bigcup \\bigg${pGauche} ${valMoyen}, ${valGrand} \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractif1et3 = `]-\\infty,${valPetit}[\\bigcup${pGauche}${valMoyen},${valGrand}[`
           solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] ${valPetit} , ${valMoyen} \\bigg${pDroite} \\bigcup \\bigg] ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractif2et4 = `]${valPetit},${valMoyen}${pDroite}\\bigcup]${valGrand},+\\infty[`
         } else if (zero3 === 'z') { // Si le "vrai zéro" est en troisième position, les crochets seront ouverts en valPetit et valMoyen
           solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg[ \\bigcup \\bigg] ${valMoyen}, ${valGrand} \\bigg${pDroite} $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractif1et3 = `]-\\infty,${valPetit}[\\bigcup]${valMoyen},${valGrand}${pDroite}`
           solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] ${valPetit} , ${valMoyen} \\bigg[ \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractif2et4 = `]${valPetit},${valMoyen}[\\bigcup${pGauche}${valGrand},+\\infty[`
         }
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (a * c * e > 0) {
             texteCorr += solutions1et3
+            correctionInteractif = correctionInteractif1et3
           } else {
             texteCorr += solutions2et4
+            correctionInteractif = correctionInteractif2et4
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (a * c * e > 0) {
             texteCorr += solutions2et4
+            correctionInteractif = correctionInteractif2et4
           } else {
             texteCorr += solutions1et3
+            correctionInteractif = correctionInteractif1et3
           }
         }
+        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)/(cx+d)²<0'                                  Type 4        //
@@ -611,24 +654,33 @@ export default function ExerciceInequationQuotient () {
         let droite
         if (-d / c < -b / a) { // Si la première racine est la valeur interdite, on la prive à gauche
           gauche = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty, ${texFractionReduite(-b, a)} \\right${pDroite} \\backslash \\{${texFractionReduite(-d, c)}\\} $.`
+          correctionInteractifGauche = `]-\\infty,${texFractionReduite(-b, a)}${pDroite}\\backslash\\{${texFractionReduite(-d, c)}\\}`
           droite = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${texFractionReduite(-b, a)}, +\\infty \\right[ $.`
+          correctionInteractifDroite = `${pGauche}${texFractionReduite(-b, a)},+\\infty[`
         } else { // Sinon, on la prive à droite
           gauche = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty, ${texFractionReduite(-b, a)} \\right${pDroite} $.`
+          correctionInteractifGauche = `]-\\infty,${texFractionReduite(-b, a)}${pDroite}`
           droite = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${texFractionReduite(-b, a)}, +\\infty \\right[ \\backslash \\{${texFractionReduite(-d, c)}\\} $.`
+          correctionInteractifDroite = `${pGauche}${texFractionReduite(-b, a)},+\\infty[\\backslash\\{${texFractionReduite(-d, c)}\\}`
         }
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (c > 0) {
             texteCorr += gauche
+            correctionInteractif = correctionInteractifGauche
           } else {
             texteCorr += droite
+            correctionInteractif = correctionInteractifDroite
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (a * c > 0) {
             texteCorr += droite
+            correctionInteractif = correctionInteractifDroite
           } else {
             texteCorr += gauche
+            correctionInteractif = correctionInteractifGauche
           }
         }
+        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)/(cx+d)+e<0'                                 Type 5        //
@@ -728,24 +780,37 @@ export default function ExerciceInequationQuotient () {
         let interieur, exterieur
         if (-(b + e * d) / (a + e * c) < -d / c) { // Si la valeur interdite est la deuxième (intervale forcément ouvert avec valGrand)
           interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} , ${valGrand} \\right[ $.`
+          correctionInteractifInterieur = `${pGauche}${valPetit},${valGrand}[`
           exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg] ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractifExterieur = `]-\\infty,${valPetit}${pDroite}\\bigcup]${valGrand},+\\infty[`
         } else { // Si la valeur interdite est la première (invervalle forcément ouvert avec valPetit)
           interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] ${valPetit} , ${valGrand} \\right${pDroite} $.`
+          correctionInteractifInterieur = `]${valPetit},${valGrand}${pDroite}`
           exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg[ \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractifExterieur = `]-\\infty,${valPetit}[\\bigcup${pGauche}${valGrand},+\\infty[`
         }
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if ((a + e * c) * c > 0) {
             texteCorr += interieur
+            correctionInteractif = correctionInteractifInterieur
           } else {
             texteCorr += exterieur
+            correctionInteractif = correctionInteractifExterieur
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if ((a + e * c) * c > 0) {
             texteCorr += exterieur
+            correctionInteractif = correctionInteractifExterieur
           } else {
             texteCorr += interieur
+            correctionInteractif = correctionInteractifInterieur
           }
         }
+        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
+      }
+      if (this.interactif && !context.isAmc) {
+        texte += ajouteChampTexteMathLive(this, i)
+        setReponse(this, i, correctionInteractif, { formatInteractif: 'texte' })
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre

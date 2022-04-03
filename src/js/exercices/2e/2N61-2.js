@@ -48,7 +48,7 @@ export default function ExerciceInequationProduit () {
     let listeTypeDeQuestions // Stockera la liste des types de questions
     let correctionInteractif // Pour récupérer l'intervalle solution à saisir
     if (this.interactif && !context.isAmc) {
-      this.consigne = `${debutConsigne}<br> Saisir uniquement l'intervalle dans le champ de réponse<br>Taper union pour faire apparaitre $\\bigcup$ et inf pour $\\infty$`
+      this.consigne = `${debutConsigne}<br> Saisir uniquement l'intervalle dans le champ de réponse<br>Taper 'union' pour faire apparaitre $\\bigcup$ et 'inf' pour $\\infty$`
     } else {
       this.consigne = debutConsigne
     }
