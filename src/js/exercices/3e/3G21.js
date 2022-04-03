@@ -9,6 +9,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC
+export const dateDeModificationImportante = '03/04/2022'
 
 export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès'
 
