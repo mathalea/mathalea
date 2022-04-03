@@ -1,5 +1,5 @@
-const UnitesKeyboardLayer = {
-  AiresLayer: {
+const LAVKeyboardLayer = {
+  airesLayer: {
     styles: '',
     rows: [
       [
@@ -80,7 +80,7 @@ const UnitesKeyboardLayer = {
       ]
     ]
   },
-  LongueursLayer: {
+  longueursLayer: {
     styles: '',
     rows: [
       [
@@ -161,7 +161,7 @@ const UnitesKeyboardLayer = {
       ]
     ]
   },
-  VolumesLayer: {
+  volumesLayer: {
     styles: '',
     rows: [
       [
@@ -241,166 +241,40 @@ const UnitesKeyboardLayer = {
         }
       ]
     ]
-  },
-  MassesLayer: {
-    styles: '',
-    rows: [
-      [
-        { label: 'dg', latex: '\\operatorname{dg}' },
-        { label: 'cg', latex: '\\operatorname{cg}' },
-        { label: 'mg', latex: '\\operatorname{mg}' },
-        { class: 'separator w5' },
-        { label: '7', key: '7' },
-        { label: '8', key: '8' },
-        { label: '9', key: '9' },
-        { latex: '\\div' },
-        { class: 'separator w5' },
-        {
-          class: 'tex small',
-          label: '<span><i>x</i>&thinsp;²</span>',
-          insert: '$$#@^{2}$$'
-        },
-        {
-          class: 'tex small',
-          label: '<span><i>x</i><sup>&thinsp;<i>3</i></sup></span>',
-          insert: '$$#@^{3}$$'
-        },
-        {
-          class: 'small',
-          latex: '\\sqrt{#0}',
-          insert: '$$\\sqrt{#0}$$'
-        }
-      ],
-      [
-        { label: 'hg', latex: '\\operatorname{hg}' },
-        { label: 'dag', latex: '\\operatorname{dag}' },
-        { label: 'g', latex: '\\operatorname{g}' },
-        { class: 'separator w5' },
-        { label: '4', latex: '4' },
-        { label: '5', key: '5' },
-        { label: '6', key: '6' },
-        { latex: '\\times' },
-        { class: 'separator w5' },
-        { class: 'small', latex: '\\frac{#0}{#0}' },
-        { label: '=', key: '=' },
-        { latex: 'f' }
-      ],
-      [
-        { class: 'separator w8' },
-        { label: 'kg', latex: '\\operatorname{kg}' },
-        { class: 'separator w15' },
-        { label: '1', key: '1' },
-        { label: '2', key: '2' },
-        { label: '3', key: '3' },
-        { latex: '-' },
-        { class: 'separator w5' },
-        { label: ';', key: ';' },
-        { label: 'oui', key: 'oui' },
-        { label: 'non', key: 'non' }
-      ],
-      [
-        { class: 'separator w10' },
-        // { class: 'separator w5' },
-        // { class: 'separator' },
-        { label: 't', latex: '\\operatorname{t}' },
-        { label: 'q', latex: '\\operatorname{q}' },
-        { class: 'separator w10' },
-        { label: '0', key: '0' },
-        { latex: ',' },
-        { latex: '\\pi' },
-        { latex: '+' },
-        { class: 'separator w5' },
-        {
-          class: 'action',
-          label: "<svg><use xlink:href='#svg-arrow-left' /></svg>",
-          command: ['performWithFeedback', 'moveToPreviousChar']
-        },
-        {
-          class: 'action',
-          label: "<svg><use xlink:href='#svg-arrow-right' /></svg>",
-          command: ['performWithFeedback', 'moveToNextChar']
-        },
-        {
-          class: 'action font-glyph',
-          label: '&#x232b;',
-          command: ['performWithFeedback', 'deleteBackward']
-        },
-        { class: 'separator w5' }
-      ]
-    ]
   }
 }
 
-const UnitesKeyboard = {
-  Longueurs: {
+const LAVKeyboard3 = {
+  LongueurKeyboard: {
     label: 'Longueurs', // Label displayed in the Virtual Keyboard Switcher
-    tooltip: 'Clavier mathématique (Longueurs)', // Tooltip when hovering over the label
-    layer: 'LongueursLayer'
+    tooltip: 'Clavier mathématique (longueurs)', // Tooltip when hovering over the label
+    layer: 'longueursLayer'
   },
-  Aires: {
+  AireKeyboard: {
     label: 'Aires', // Label displayed in the Virtual Keyboard Switcher
-    tooltip: 'Clavier mathématique (Aires)', // Tooltip when hovering over the label
-    layer: 'AiresLayer'
+    tooltip: 'Clavier mathématique (aires)', // Tooltip when hovering over the label
+    layer: 'airesLayer'
   },
-  Volumes: {
+  VolumeKeyboard: {
     label: 'Volumes', // Label displayed in the Virtual Keyboard Switcher
-    tooltip: 'Clavier mathématique (Volumes)', // Tooltip when hovering over the label
-    layer: 'VolumesLayer'
-  },
-  Masses: {
-    label: 'Masses', // Label displayed in the Virtual Keyboard Switcher
-    tooltip: 'Clavier mathématique (Masses)', // Tooltip when hovering over the label
-    layer: 'MassesLayer'
+    tooltip: 'Clavier mathématique (volumes)', // Tooltip when hovering over the label
+    layer: 'volumesLayer'
   }
 }
 
-export function clavierConfiguration (tabConf) {
-  let clavierVirtuel = ''
-  for (let ee = 0; ee < tabConf.length; ee++) {
-    clavierVirtuel = clavierVirtuel + tabConf[ee] + ' '
-  }
-  clavierVirtuel = clavierVirtuel + ' roman'
-  return {
-    customVirtualKeyboardLayers: UnitesKeyboardLayer,
-    customVirtualKeyboards: UnitesKeyboard,
-    virtualKeyboards: clavierVirtuel,
-    inlineShortcuts: {
-      mg: { mode: 'math', value: '\\operatorname{mg}' },
-      cg: { mode: 'math', value: '\\operatorname{cg}' },
-      dg: { mode: 'math', value: '\\operatorname{dg}' },
-      g: { mode: 'math', value: '\\operatorname{g}' },
-      dag: { mode: 'math', value: '\\operatorname{dag}' },
-      hg: { mode: 'math', value: '\\operatorname{hg}' },
-      kg: { mode: 'math', value: '\\operatorname{kg}' },
-      mL: { mode: 'math', value: '\\operatorname{mL}' },
-      cL: { mode: 'math', value: '\\operatorname{cL}' },
-      dL: { mode: 'math', value: '\\operatorname{dL}' },
-      L: { mode: 'math', value: '\\operatorname{L}' },
-      daL: { mode: 'math', value: '\\operatorname{daL}' },
-      hL: { mode: 'math', value: '\\operatorname{hL}' },
-      mm: { mode: 'math', value: '\\operatorname{mm}' },
-      cm: { mode: 'math', value: '\\operatorname{cm}' },
-      dm: { mode: 'math', value: '\\operatorname{dm}' },
-      m: { mode: 'math', value: '\\operatorname{m}' },
-      dam: { mode: 'math', value: '\\operatorname{dam}' },
-      hm: { mode: 'math', value: '\\operatorname{hm}' },
-      km: { mode: 'math', value: '\\operatorname{km}' },
-      mm2: { mode: 'math', value: '\\operatorname{mm}^2' },
-      cm2: { mode: 'math', value: '\\operatorname{cm}^2' },
-      dm2: { mode: 'math', value: '\\operatorname{dm}^2' },
-      m2: { mode: 'math', value: '\\operatorname{m}^2' },
-      dam2: { mode: 'math', value: '\\operatorname{dam}^2' },
-      hm2: { mode: 'math', value: '\\operatorname{hm}^2' },
-      km2: { mode: 'math', value: '\\operatorname{km}^2' },
-      mm3: { mode: 'math', value: '\\operatorname{mm}^3' },
-      cm3: { mode: 'math', value: '\\operatorname{cm}^3' },
-      dm3: { mode: 'math', value: '\\operatorname{dm}^3' },
-      m3: { mode: 'math', value: '\\operatorname{m}^3' },
-      dam3: { mode: 'math', value: '\\operatorname{dam}^3' },
-      hm3: { mode: 'math', value: '\\operatorname{hm}^3' },
-      km3: { mode: 'math', value: '\\operatorname{km}^3' },
-      '*': { mode: 'math', value: '\\times' },
-      '.': { mode: 'math', value: ',' }
-    }
+export const clavierLAV3 = { // 3 claviers : 1 pour Volume, 1 pour Aire, 1 pour Longueur
+  customVirtualKeyboardLayers: LAVKeyboardLayer,
+  customVirtualKeyboards: LAVKeyboard3,
+  virtualKeyboards: 'LongueurKeyboard AireKeyboard VolumeKeyboard roman',
+  inlineShortcuts: {
+    mm: { mode: 'math', value: '\\operatorname{mm}' },
+    cm: { mode: 'math', value: '\\operatorname{cm}' },
+    dm: { mode: 'math', value: '\\operatorname{dm}' },
+    m: { mode: 'math', value: '\\operatorname{m}' },
+    dam: { mode: 'math', value: '\\operatorname{dam}' },
+    hm: { mode: 'math', value: '\\operatorname{hm}' },
+    km: { mode: 'math', value: '\\operatorname{km}' },
+    '*': { mode: 'math', value: '\\times' },
+    '.': { mode: 'math', value: ',' }
   }
 }

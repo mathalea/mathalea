@@ -89,7 +89,7 @@ const massesKeyboardLayer = {
 }
 const massesKeyboard = {
   massesKeyboard: {
-    label: 'Maths et masse', // Label displayed in the Virtual Keyboard Switcher
+    label: 'Masses', // Label displayed in the Virtual Keyboard Switcher
     tooltip: 'Clavier mathématique (masses)', // Tooltip when hovering over the label
     layer: 'massesLayer'
   }

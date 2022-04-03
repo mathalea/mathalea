@@ -3,7 +3,7 @@ import { calcul } from './outils.js'
 /**
  * @class
  * @param {number} mesure
- * @param {string} unite (cm, cm^2, m^3, L, kg, dam^2)
+ * @param {string} unite (cm, cm^2, m^3, L, kg)
  * @author Jean-Claude Lhote et Sébastien Lozano
 */
 class Grandeur {

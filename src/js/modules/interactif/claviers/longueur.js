@@ -83,7 +83,7 @@ const longueursKeyboardLayer = {
 }
 const LongueursKeyboard = {
   longueursKeyboard: {
-    label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
+    label: 'Longueurs', // Label displayed in the Virtual Keyboard Switcher
     tooltip: 'Clavier mathématique (longueurs)', // Tooltip when hovering over the label
     layer: 'longueursLayer'
   }

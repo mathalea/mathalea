@@ -83,7 +83,7 @@ const volumesKeyboardLayer = {
 }
 const VolumesKeyboard = {
   volumesKeyboard: {
-    label: 'Maths et volume', // Label displayed in the Virtual Keyboard Switcher
+    label: 'Volumes', // Label displayed in the Virtual Keyboard Switcher
     tooltip: 'Clavier mathématique (volumes)', // Tooltip when hovering over the label
     layer: 'volumesLayer'
   }

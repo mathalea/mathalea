@@ -83,7 +83,7 @@ const airesKeyboardLayer = {
 }
 const AiresKeyboard = {
   airesKeyboard: {
-    label: 'Maths et aire', // Label displayed in the Virtual Keyboard Switcher
+    label: 'Aires', // Label displayed in the Virtual Keyboard Switcher
     tooltip: 'Clavier mathématique (aires)', // Tooltip when hovering over the label
     layer: 'airesLayer'
   }

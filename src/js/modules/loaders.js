@@ -8,7 +8,7 @@ import { clavierTrigo } from './interactif/claviers/trigo.js'
 import { clavierCollege } from './interactif/claviers/college.js'
 import { clavierAire } from './interactif/claviers/aire'
 import { clavierVolume } from './interactif/claviers/volume'
-import { clavierLAV3 } from './interactif/claviers/claviersLAV3'
+import { clavierConfiguration, clavierLAV3 } from './interactif/claviers/claviersLAV3'
 import { clavierLAV1 } from './interactif/claviers/claviersLAV1'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
@@ -164,6 +164,15 @@ export async function loadMathLive () {
         mf.setOptions({
           virtualKeyboardMode: 'onfocus'
         })
+      }
+      const listeParamClavier = mf.classList
+      if (mf.className.indexOf('unites') !== -1) {
+        let jj = 0
+        while (listeParamClavier[jj].indexOf('unites') === -1) { jj++ }
+        const contenuUnites = listeParamClavier[jj].split('[')[1].split(']')[0].split(',')
+        console.log(contenuUnites)
+        mf.setOptions(clavierConfiguration(contenuUnites))
+        console.log('tableau unites accepté')
       }
       if (mf.classList.contains('longueur')) {
         mf.setOptions(clavierLongueur)
