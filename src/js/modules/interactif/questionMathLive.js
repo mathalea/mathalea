@@ -61,6 +61,7 @@ export function verifQuestionMathLive (exercice, i) {
           reponse = reponse.toString().replace(',', '.')
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
         }
+
         if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
           resultat = 'OK'
         }
@@ -77,10 +78,10 @@ export function verifQuestionMathLive (exercice, i) {
           if (number(saisie[0]) >= 1 & number(saisie[0]) < 10) { resultat = 'OK' }
         }
         break
-
       case 'texte':
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
         saisie = champTexte !== undefined ? champTexte.value : ''
+        console.log(saisie, reponse)
         if (saisie === reponse) {
           resultat = 'OK'
         }
@@ -154,7 +155,8 @@ export function verifQuestionMathLive (exercice, i) {
         break
       case 'fraction': // Pour les exercices où l'on attend un écriture donnée d'une fraction
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        saisie = champTexte !== undefined ? champTexte.value : ''
+        if (champTexte !== undefined) saisie = champTexte.value
+        else saisie = ''
         if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
           saisieParsee = parse(`\\frac{${saisie.replace(',', '.')}}{1}`)
         } else {
