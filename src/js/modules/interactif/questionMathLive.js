@@ -61,6 +61,7 @@ export function verifQuestionMathLive (exercice, i) {
           reponse = reponse.toString().replace(',', '.')
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
         }
+
         if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
           resultat = 'OK'
         }
@@ -77,7 +78,6 @@ export function verifQuestionMathLive (exercice, i) {
           if (number(saisie[0]) >= 1 & number(saisie[0]) < 10) { resultat = 'OK' }
         }
         break
-
       case 'texte':
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
         if (champTexte !== undefined) saisie = champTexte.value
