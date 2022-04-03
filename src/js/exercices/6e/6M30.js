@@ -123,7 +123,6 @@ export default function CalculDeVolumes () {
             if (resultat2 === resultat) resultat2 = Math.round(3 * (l + L + h))
             resultat3 = Math.round(2 * l * L + 2 * L * h + 2 * l * h)
             resultat4 = Math.round(2 * (l + L + h))
-            console.log(resultat, resultat2, resultat3, resultat4)
           } else {
             // avec conversion
             j = randint(1, 2) // pour le choix de l'unité  centrale
