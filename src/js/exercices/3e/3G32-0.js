@@ -377,7 +377,7 @@ export default function problemesTrigoLongueur () {
           C = pointAdistance(A, absC, 90, lettreDepuisChiffre(numC))
           numR = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC])
           R = pointAdistance(B, absC, 90, lettreDepuisChiffre(numR))
-          numS = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC, numS])
+          numS = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC, numR])
           absS = randint(7, 11)
           S = pointAdistance(B, absS, 90, lettreDepuisChiffre(numS))
           p = polygoneAvecNom(A, B, R, S, C)
@@ -393,8 +393,9 @@ export default function problemesTrigoLongueur () {
             texte = `<br>$${lettreDepuisChiffre(numC)}$ représente l'œil de l'observateur, $[${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}]$ représente cet${objet[index][2]} ${objet[index][0]}.<br>`
             texte += '(Le schéma ci-dessous n\'est pas en vraie grandeur et ne respecte pas les proportions.)<br>'
             texte += mathalea2d({ xmin: min(-sensH, ordA + sensH), ymin: -1, xmax: max(-sensH, ordA + sensH), ymax: absS + 1, pixelsParCm: 20, scale: 0.5 }, objets)
-            texte += `<br>${numAlpha(j)}Calculer d'abord la mesure de l'angle $${baita}$, arrondie au centième près.`
+            texte += `<br>${numAlpha(j)}Calculer d'abord $${baita}$, arrondie au centième près.`
             enonceAMC = texte
+            texte = enonceInit + texte
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline nospacebefore', { texteApres: '$\\degree$' })
               setReponse(this, i + ii, arrondi(beta))
@@ -419,7 +420,7 @@ export default function problemesTrigoLongueur () {
                   texte: '',
                   statut: '',
                   reponse: {
-                    texte: `Mesure calculée, arrondie au centième, de l'angle $${baita}$ : `,
+                    texte: `Valeur calculée, arrondie au centième, de $${baita}$ : `,
                     valeur: [arrondi(beta)],
                     alignement: 'center',
                     param: {
