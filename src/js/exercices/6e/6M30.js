@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, calcul, texNombrec, texNombre, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, calcul, texNombrec, texNombre, texFraction, rangeMinMax, contraindreValeur, compteOccurences } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
@@ -12,7 +12,7 @@ export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 /**
- * Calcul de volumes (cube et pavé droit).
+ * Calcul de volumes.
  * @author Jean-Claude Lhote // modifié par Mireille Gain pour y ajouter les décimaux
  * référence 6M30
  */
@@ -32,21 +32,36 @@ export default function CalculDeVolumes () {
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.sup3 = 2
-
-  let typesDeQuestionsDisponibles
-
+  this.sup4 = 8
   this.nouvelleVersion = function (numeroExercice) {
     this.interactifType = parseInt(this.sup3) === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
-    if (this.classe === 6) { // sixième : cube et pavé droit
-      typesDeQuestionsDisponibles = [1, 2]
-    } else if (this.classe === 5) { // cinquième : on ajoute les prismes et le cylindre
-      typesDeQuestionsDisponibles = [1, 2, 3, 4]
-    } else if (this.classe === 4) { // Quatrième : on ajoute pyramides et cones
-      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]
-    } else {
-      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7] // Troisième : on ajoute les boules.
+    let typesDeQuestionsDisponibles = []
+    let thissup4Max
+    switch (this.classe) {
+      case 6 : thissup4Max = 2
+        break
+      case 5 : thissup4Max = 4
+        break
+      case 4 : thissup4Max = 6
+        break
+      case 3 : thissup4Max = 7
+        break
     }
+    if (!this.sup4) { // Si aucune liste n'est saisie
+      typesDeQuestionsDisponibles = rangeMinMax(1, thissup4Max)
+    } else {
+      if (typeof (this.sup4) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+        typesDeQuestionsDisponibles[0] = contraindreValeur(1, thissup4Max + 1, this.sup4, thissup4Max + 1)
+      } else {
+        typesDeQuestionsDisponibles = this.sup4.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          typesDeQuestionsDisponibles[i] = contraindreValeur(1, thissup4Max + 1, parseInt(typesDeQuestionsDisponibles[i]), thissup4Max + 1) // parseInt en fait un tableau d'entiers
+        }
+      }
+    }
+    if (compteOccurences(typesDeQuestionsDisponibles, thissup4Max + 1) > 0) typesDeQuestionsDisponibles = rangeMinMax(1, thissup4Max) // Teste si l'utilisateur a choisi tout
+
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -318,4 +333,5 @@ export default function CalculDeVolumes () {
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
   if (context.isHtml) this.besoinFormulaire3Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Numérique'] // Texte, tooltip
+  this.besoinFormulaire4Texte = ['Type de solides', 'Nombres séparés par des tirets\n1 : Cubes\n2 : Pavés droits\n 3 : Mélange']
 }
