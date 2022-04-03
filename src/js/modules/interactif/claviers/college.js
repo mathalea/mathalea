@@ -121,7 +121,10 @@ export const clavierCollege = {
     D: { mode: 'math', value: 'd' },
     '*': { mode: 'math', value: '\\times' },
     '.': { mode: 'math', value: ',' },
-    '%': { mode: 'math', value: '\\%' }
+    '%': { mode: 'math', value: '\\%' },
+    inf: { mode: 'math', value: '\\infty' },
+    union: { mode: 'math', value: '\\bigcup' },
+    intersection: { mode: 'math', value: '\\bigcap' }
   },
   // virtualKeyboards: 'numeric roman',
   virtualKeyboardMode: 'manual'

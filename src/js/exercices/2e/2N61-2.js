@@ -1,6 +1,13 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const dateDeModificationImportante = '03/04/2022'
 
 export const titre = 'Résoudre une inéquation produit'
 
@@ -24,11 +31,13 @@ export default function ExerciceInequationProduit () {
   this.correctionDetaillee = false // Désactive la correction détaillée par défaut
   this.sup = 1 // Choix du type d'inéquation
   this.nbQuestions = 1 // Choix du nombre de questions
+  let debutConsigne
   if (this.nbQuestions.toString() === '1') {
-    this.consigne = 'Résoudre l\'inéquation suivante :'
+    debutConsigne = 'Résoudre l\'inéquation suivante :'
   } else {
-    this.consigne = 'Résoudre les inéquations suivantes :'
+    debutConsigne = 'Résoudre les inéquations suivantes :'
   }
+
   this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
   this.nbCols = 1 // Fixe le nombre de colonnes pour les énoncés de la sortie LateX
   this.nbColsCorr = 1 // Fixe le nombre de colonnes pour les réponses de la sortie LateX
@@ -37,6 +46,12 @@ export default function ExerciceInequationProduit () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions // Stockera la liste des types de questions
+    let correctionInteractif // Pour récupérer l'intervalle solution à saisir
+    if (this.interactif && !context.isAmc) {
+      this.consigne = `${debutConsigne}<br> Saisir uniquement l'intervalle dans le champ de réponse<br>Taper union pour faire apparaitre $\\bigcup$ et inf pour $\\infty$`
+    } else {
+      this.consigne = debutConsigne
+    }
     // Convertit le paramètre this.sup en type de question
     switch (this.sup.toString()) {
       case '1':
@@ -203,8 +218,10 @@ export default function ExerciceInequationProduit () {
         // Affiche l'ensemble de solutions
         if ((signes[i] === '<' || signes[i] === '≤')) {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${Math.min(-a, -b)} , ${Math.max(-a, -b)} \\right${pDroite} $.`
+          correctionInteractif = `${pGauche}${Math.min(-a, -b)},${Math.max(-a, -b)}${pDroite}`
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${Math.min(-a, -b)} \\right${pDroite} \\bigcup \\left${pGauche} ${Math.max(-a, -b)}, +\\infty \\right[ $.`
+          correctionInteractif = `]-\\infty,${Math.min(-a, -b)}${pDroite}\\bigcup${pGauche}${Math.max(-a, -b)},+\\infty[`
         }
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -266,8 +283,10 @@ export default function ExerciceInequationProduit () {
         // Affiche l'ensemble de solutions
         if ((signes[i] === '<' || signes[i] === '≤')) {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${racines[0]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[1]} , ${racines[2]} \\right${pDroite} $.`
+          correctionInteractif = `]-\\infty,${racines[0]}${pDroite}\\bigcup${pGauche}${racines[1]},${racines[2]}${pDroite}`
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${racines[0]} , ${racines[1]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[2]}, +\\infty \\right[ $.`
+          correctionInteractif = `${pGauche}${racines[0]},${racines[1]}${pDroite}\\bigcup${pGauche}${racines[2]},+\\infty[`
         }
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -351,16 +370,21 @@ export default function ExerciceInequationProduit () {
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (a * c > 0) {
             texteCorr += interieur
+            correctionInteractif = `${pGauche}${valPetit},${valGrand}${pDroite}`
           } else {
             texteCorr += exterieur
+            correctionInteractif = `]-\\infty,${valPetit}${pDroite}\\bigcup${pGauche}${valGrand},+\\infty[`
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (a * c > 0) {
             texteCorr += exterieur
+            correctionInteractif = `]-\\infty,${valPetit}${pDroite}\\bigcup${pGauche}${valGrand},+\\infty[`
           } else {
             texteCorr += interieur
+            correctionInteractif = `${pGauche}${valPetit},${valGrand}${pDroite}`
           }
         }
+        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)(cx+d)(ex+f)<0'                                    Type 4  //
@@ -525,16 +549,21 @@ export default function ExerciceInequationProduit () {
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (a * c * e > 0) {
             texteCorr += solutions1et3
+            correctionInteractif = `]-\\infty,${valPetit}${pDroite}\\bigcup${pGauche}${valMoyen},${valGrand}${pDroite}`
           } else {
             texteCorr += solutions2et4
+            correctionInteractif = `${pGauche}${valPetit},${valMoyen}${pDroite}\\bigcup${pGauche}${valGrand},+\\infty[`
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (a * c * e > 0) {
             texteCorr += solutions2et4
+            correctionInteractif = `${pGauche}${valPetit},${valMoyen}${pDroite}\\bigcup${pGauche}${valGrand},+\\infty[`
           } else {
             texteCorr += solutions1et3
+            correctionInteractif = `]-\\infty,${valPetit}${pDroite}\\bigcup${pGauche}${valMoyen},${valGrand}${pDroite}`
           }
         }
+        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)²(cx+d)<0'                                   Type 5        //
@@ -605,16 +634,26 @@ export default function ExerciceInequationProduit () {
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (c > 0) {
             texteCorr += gauche
+            correctionInteractif = `]-\\infty,${texFractionReduite(-d, c)}${pDroite}`
           } else {
             texteCorr += droite
+            correctionInteractif = `${pGauche}${texFractionReduite(-d, c)},+\\infty[`
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (c > 0) {
             texteCorr += droite
+            correctionInteractif = `${pGauche}${texFractionReduite(-d, c)},+\\infty[`
           } else {
             texteCorr += gauche
+            correctionInteractif = `]-\\infty,${texFractionReduite(-d, c)}${pDroite}`
           }
         }
+        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
+      }
+
+      if (this.interactif && !context.isAmc) {
+        texte += ajouteChampTexteMathLive(this, i)
+        setReponse(this, i, correctionInteractif, { formatInteractif: 'texte' })
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
