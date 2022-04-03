@@ -1,4 +1,4 @@
-import { codeSegments, droite, labelPoint, mathalea2d, point, segment, segmentAvecExtremites, texteSurSegment, tracePointSurDroite } from '../../../modules/2d.js'
+import { codeSegments, droite, labelPoint, mathalea2d, point, segment, segmentAvecExtremites, tracePointSurDroite } from '../../../modules/2d.js'
 import { calcul, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème de longueurs (inverse)'
@@ -57,7 +57,7 @@ export default function ProblemesDeLongueursInverse () {
     s2.color = 'green'
     const abc = calcul(a * b * c)
     const ac = calcul(a * c)
-    objets.push(texteSurSegment(c, F, E), labelPoint(F), codeSegments('O', 'blue', D, ...pointsSurDE, E), s1, s2)
+    objets.push(labelPoint(F), codeSegments('O', 'blue', D, ...pointsSurDE, E), s1, s2)
     this.question = `Sachant que $AB=${calcul(a * b * c)}$ cm et que $CB=DE$, détermine $FE$.<br>` + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 16.5, ymax: 3.5, scale: 0.5, style: 'margin: auto' }, objets)
     this.reponse = c
     this.correction = `Commme $CB=\\dfrac{AB}{${b}}$, alors $CB=\\dfrac{${abc}\\text{ cm}}{${b}}=${ac}$ cm.<br><br>Comme $DE=CB=${ac}$ cm et $FE=\\dfrac{DE}{${a}}$, alors $FE=\\dfrac{${ac}\\text{ cm}}{${a}}=${c}$ cm.`

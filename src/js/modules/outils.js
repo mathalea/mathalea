@@ -881,7 +881,8 @@ export function rienSi1 (a) {
 }
 
 /**
-* Gère l'écriture de l'exposant en mode text
+* Gère l'écriture de l'exposant en mode text (ne doit pas s'utiliser entre $ $)
+* Pour le mode maths (entre $ $) on utilisera tout simplement ^3 pour mettre au cube ou ^{42} pour la puissance 42.
 * @Example
 * // 'dm'+texteExposant(3)
 * @author Rémi Angot
@@ -2517,10 +2518,11 @@ export function numberFormat (nb) {
  * @author Guillaume Valmont
  * @param {number} nb nombre à afficher
  * @param {number} precision nombre de décimales demandé
+ * @param {boolean} force true pour forcer à precision chiffres (ajout de zéros éventuels). false par défaut pour supprimer les zéros non significatifs.
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
-export function texNombre (nb, precision = 8) {
-  const result = afficherNombre(nb, precision, 'texNombre')
+export function texNombre (nb, precision = 8, force = false) {
+  const result = afficherNombre(nb, precision, 'texNombre', force)
   return result.replace(',', '{,}').replace(/\s+/g, '\\,')
 }
 
@@ -2719,11 +2721,11 @@ export const insertCharInString = (string, index, char) => string.substring(0, i
  * @author Guillaume Valmont
  * @param {number} nb nombre à afficher
  * @param {number} precision nombre de décimales demandé
- * @param {boolean} notifier true pour envoyer un message à bugsnag pour prévenir qu'il y a trop de chiffres
+ * @param {boolean} force true pour forcer à precision chiffres (ajout de zéros éventuels). false par défaut pour supprimer les zéros non significatifs.
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
-export function stringNombre (nb, precision = 8) {
-  return afficherNombre(nb, precision, 'stringNombre')
+export function stringNombre (nb, precision = 8, force = false) {
+  return afficherNombre(nb, precision, 'stringNombre', force)
 }
 /**
  * Fonction auxiliaire aux fonctions stringNombre et texNombre
@@ -2735,7 +2737,7 @@ export function stringNombre (nb, precision = 8) {
  * @param {number} precision nombre de décimales demandé
  * @param {string} fonction nom de la fonction qui appelle afficherNombre (texNombre ou stringNombre) -> sert pour le message envoyé à bugsnag
  */
-function afficherNombre (nb, precision, fonction) {
+function afficherNombre (nb, precision, fonction, force = false) {
   /**
    * Fonction auxiliaire de stringNombre pour une meilleure lisibilité
    * Elle renvoie un nombre dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
@@ -2748,7 +2750,20 @@ function afficherNombre (nb, precision, fonction) {
   function insereEspacesNombre (nb, maximumSignificantDigits = 15, fonction) {
     if (Number(nb) === 0) return '0'
     // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
-    let nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
+    let nombre
+    if (Math.abs(nb < 1)) {
+      if (force) {
+        nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits, minimumFractionDigits: maximumSignificantDigits }).format(nb)
+      } else {
+        nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits }).format(nb)
+      }
+    } else {
+      if (force) {
+        nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits, minimumSignificantDigits: maximumSignificantDigits }).format(nb)
+      } else {
+        nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
+      }
+    }
     // console.log('précision : ', precision, 'nb : ', nb, 'nombre : ', nombre)
     const rangVirgule = nombre.indexOf(',')
     let partieEntiere = ''
@@ -2791,12 +2806,13 @@ function afficherNombre (nb, precision, fonction) {
       precision = 0
     }
   }
+
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
   if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
     window.notify(fonction + ' : Trop de chiffres', { nb, precision })
-    return insereEspacesNombre(nb, 15, fonction)
+    return insereEspacesNombre(nb, 15, fonction, force)
   } else {
-    return insereEspacesNombre(nb, maximumSignificantDigits, fonction)
+    return insereEspacesNombre(nb, maximumSignificantDigits, fonction, force)
   }
 }
 /**

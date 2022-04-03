@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Tables de divisions'
@@ -39,6 +39,9 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
       tables[0] = this.sup
     } else {
       tables = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
+    }
+    for (let i = 0; i < tables.length; i++) {
+      tables[i] = contraindreValeur(2, 9, parseInt(tables[i]))
     }
     const couples = creerCouples(
       tables,
