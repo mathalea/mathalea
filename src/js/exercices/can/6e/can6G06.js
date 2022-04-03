@@ -1,6 +1,6 @@
-import NombreDeFacesEtDAretes from '../../6e/6G44EE.js'
+import NombreDeFacesEtDAretes from '../../6e/6G44.js'
 export const titre = 'Compter les arêtes et les faces'
-export { interactifReady, interactifType, amcReady, amcType } from './can6G06.js'
+export { interactifReady, interactifType, amcReady, amcType } from '../../6e/6G44.js'
 
 /*!
  * @author Jean-Claude Lhote
