@@ -105,7 +105,7 @@ export function verifQuestionMathLive (exercice, i) {
         } else {
           saisieParsee = parse(saisie)
         }
-        if (saisieParsee) {
+        if (Array.isArray(saisieParsee)) {
           if (saisieParsee[0] === 'Negate') {
             signeF = -1
             saisieParsee = saisieParsee[1].slice()
@@ -130,7 +130,7 @@ export function verifQuestionMathLive (exercice, i) {
           } else {
             saisieParsee = parse(saisie)
           }
-          if (saisieParsee) {
+          if (Array.isArray(saisieParsee)) {
             if (saisieParsee[0] === 'Negate') {
               signeF = -1
               saisieParsee = saisieParsee[1].slice()
@@ -164,7 +164,7 @@ export function verifQuestionMathLive (exercice, i) {
         } else {
           saisieParsee = parse(saisie)
         }
-        if (saisieParsee) {
+        if (Array.isArray(saisieParsee)) {
           if (saisieParsee[0] === 'Negate') {
             signeF = -1
             saisieParsee = saisieParsee[1].slice()
