@@ -29,7 +29,6 @@ export default function EqResolvantesThales () {
     this.nbQuestions = 2
   };
   this.sup = 1
-  // this.consigne = 'Résoudre les équations suivantes.'
   const debutConsigne = 'Résoudre les équations suivantes.'
   this.tailleDiaporama = 3
 
