@@ -29,7 +29,7 @@ export default function EqResolvantesThales () {
     this.nbQuestions = 2
   };
   this.sup = 1
-  const debutConsigne = 'Résoudre les équations suivantes.'
+  this.consigne = 'Résoudre les équations suivantes.'
   this.tailleDiaporama = 3
 
   this.nbCols = 1
@@ -81,12 +81,6 @@ export default function EqResolvantesThales () {
     } else {
       typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3])])
     };
-
-    if (this.interactif && !context.isAmc) {
-      this.consigne = `${debutConsigne}<br> Saisir la réponse sous forme décimale.`
-    } else {
-      this.consigne = debutConsigne
-    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -224,7 +218,7 @@ $\\dfrac{${texNombre(situations[k].c)}\\times ${situations[k].inc}}{${texNombre(
 ${texteEnCouleurEtGras('On simplifie et on calcule.')}<br>
 $${situations[k].inc}=${texNombre(calcul(Number(situations[k].b) * Number(situations[k].a) / Number(situations[k].c)))}$
 ${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situations[k].b), texNombre(situations[k].c), situations[k].inc)}`,
-          correctionInteractif: [`${texNombre(calcul(Number(situations[k].b) * Number(situations[k].a) / Number(situations[k].c)))}`]
+          correctionInteractif: [`${calcul(Number(situations[k].b) * Number(situations[k].a) / Number(situations[k].c))}`]
         })
       };
 
@@ -278,7 +272,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situation
       };
       if (this.interactif && !context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: `<br> ${inc} = ` })
-        setReponse(this, i, correctionInteractif, { formatInteractif: 'calcul' })
+        setReponse(this, i, new FractionX(correctionInteractif), { formatInteractif: 'fractionEgale' })
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
