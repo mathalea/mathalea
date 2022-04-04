@@ -52,6 +52,7 @@ export default function ExerciceInequationProduit () {
     } else {
       this.consigne = debutConsigne
     }
+    const separateur = ';'
     // Convertit le paramètre this.sup en type de question
     switch (this.sup.toString()) {
       case '1':
@@ -365,23 +366,23 @@ export default function ExerciceInequationProduit () {
           hauteurLignes: [15, 15, 15, 15]
         }))
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
-        const interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} , ${valGrand} \\right${pDroite} $.`
-        const exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        const interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} ${separateur} ${valGrand} \\right${pDroite} $.`
+        const exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (a * c > 0) {
             texteCorr += interieur
-            correctionInteractif = `${pGauche}${valPetit},${valGrand}${pDroite}`
+            correctionInteractif = `${pGauche}${valPetit}${separateur}${valGrand}${pDroite}`
           } else {
             texteCorr += exterieur
-            correctionInteractif = `]-\\infty,${valPetit}${pDroite}\\bigcup${pGauche}${valGrand},+\\infty[`
+            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\bigcup${pGauche}${valGrand}${separateur}+\\infty[`
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (a * c > 0) {
             texteCorr += exterieur
-            correctionInteractif = `]-\\infty,${valPetit}${pDroite}\\bigcup${pGauche}${valGrand},+\\infty[`
+            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\bigcup${pGauche}${valGrand}${separateur}+\\infty[`
           } else {
             texteCorr += interieur
-            correctionInteractif = `${pGauche}${valPetit},${valGrand}${pDroite}`
+            correctionInteractif = `${pGauche}${valPetit}${separateur}${valGrand}${pDroite}`
           }
         }
         correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
@@ -544,23 +545,23 @@ export default function ExerciceInequationProduit () {
           hauteurLignes: [15, 15, 15, 15, 15]
         }))
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
-        const solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valMoyen}, ${valGrand} \\bigg${pDroite} $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
-        const solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg${pGauche} ${valPetit} , ${valMoyen} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        const solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valMoyen}${separateur} ${valGrand} \\bigg${pDroite} $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        const solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg${pGauche} ${valPetit} ${separateur} ${valMoyen} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (a * c * e > 0) {
             texteCorr += solutions1et3
-            correctionInteractif = `]-\\infty,${valPetit}${pDroite}\\bigcup${pGauche}${valMoyen},${valGrand}${pDroite}`
+            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\bigcup${pGauche}${valMoyen}${separateur}${valGrand}${pDroite}`
           } else {
             texteCorr += solutions2et4
-            correctionInteractif = `${pGauche}${valPetit},${valMoyen}${pDroite}\\bigcup${pGauche}${valGrand},+\\infty[`
+            correctionInteractif = `${pGauche}${valPetit}${separateur}${valMoyen}${pDroite}\\bigcup${pGauche}${valGrand},+\\infty[`
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (a * c * e > 0) {
             texteCorr += solutions2et4
-            correctionInteractif = `${pGauche}${valPetit},${valMoyen}${pDroite}\\bigcup${pGauche}${valGrand},+\\infty[`
+            correctionInteractif = `${pGauche}${valPetit}${separateur}${valMoyen}${pDroite}\\bigcup${pGauche}${valGrand}${separateur}+\\infty[`
           } else {
             texteCorr += solutions1et3
-            correctionInteractif = `]-\\infty,${valPetit}${pDroite}\\bigcup${pGauche}${valMoyen},${valGrand}${pDroite}`
+            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\bigcup${pGauche}${valMoyen}${separateur}${valGrand}${pDroite}`
           }
         }
         correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
@@ -629,30 +630,30 @@ export default function ExerciceInequationProduit () {
           hauteurLignes: [15, 15, 15, 15]
         }))
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
-        const gauche = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty, ${texFractionReduite(-d, c)} \\right${pDroite} $.`
-        const droite = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${texFractionReduite(-d, c)}, +\\infty \\right[ $.`
+        const gauche = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty${separateur} ${texFractionReduite(-d, c)} \\right${pDroite} $.`
+        const droite = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${texFractionReduite(-d, c)}${separateur} +\\infty \\right[ $.`
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (c > 0) {
             texteCorr += gauche
-            correctionInteractif = `]-\\infty,${texFractionReduite(-d, c)}${pDroite}`
+            correctionInteractif = `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`
           } else {
             texteCorr += droite
-            correctionInteractif = `${pGauche}${texFractionReduite(-d, c)},+\\infty[`
+            correctionInteractif = `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (c > 0) {
             texteCorr += droite
-            correctionInteractif = `${pGauche}${texFractionReduite(-d, c)},+\\infty[`
+            correctionInteractif = `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`
           } else {
             texteCorr += gauche
-            correctionInteractif = `]-\\infty,${texFractionReduite(-d, c)}${pDroite}`
+            correctionInteractif = `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`
           }
         }
         correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
       }
 
       if (this.interactif && !context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i)
+        texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: '<br>S = ' })
         setReponse(this, i, correctionInteractif, { formatInteractif: 'texte' })
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
