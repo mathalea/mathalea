@@ -22,7 +22,6 @@ export function verifQuestionMathLive (exercice, i) {
   }
   // Ici on va s'occuper de ce champTexte qui pose tant de problèmes
   const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`) || { value: '' }
-  console.log(champTexte.value)
   let resultat = 'KO'
   let ii = 0
   while ((resultat === 'KO') & (ii < reponses.length)) {
@@ -116,7 +115,7 @@ export function verifQuestionMathLive (exercice, i) {
         // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
         saisie = champTexte.value.replace(',', '.') // On remplace la virgule éventuelle par un point.
         if (!isNaN(parseFloat(saisie))) {
-          const newFraction = new FractionEtendue(parseFloat(saisie) * 2, 2)
+          const newFraction = new FractionEtendue(parseFloat(saisie))
           saisieParsee = parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`)
         } else {
           saisieParsee = parse(saisie)
