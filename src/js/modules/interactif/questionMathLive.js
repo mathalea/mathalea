@@ -13,21 +13,23 @@ export function verifQuestionMathLive (exercice, i) {
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
-  let reponse, champTexte, champTexteNum, champTexteDen, saisie, nombreSaisi, grandeurSaisie, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
+  let reponse, saisie, nombreSaisi, grandeurSaisie, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
   let reponses = []
   if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
     reponses = [exercice.autoCorrection[i].reponse.valeur]
   } else {
     reponses = exercice.autoCorrection[i].reponse.valeur
   }
+  // Ici on va s'occuper de ce champTexte qui pose tant de problèmes
+  const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`) || { value: '' }
+  console.log(champTexte.value)
   let resultat = 'KO'
   let ii = 0
   while ((resultat === 'KO') & (ii < reponses.length)) {
     reponse = reponses[ii]
     switch (formatInteractif) {
       case 'Num':
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        if (champTexte !== undefined) num = parseInt(champTexte.value.replace(',', '.'))
+        num = parseInt(champTexte.value.replace(',', '.'))
         if (isNaN(num) || num === undefined) num = 9999
         den = reponse.den
         fSaisie = new FractionEtendue(num, den)
@@ -36,8 +38,7 @@ export function verifQuestionMathLive (exercice, i) {
         }
         break
       case 'Den':
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        if (champTexte !== undefined) den = parseInt(champTexte.value.replace(',', '.'))
+        den = parseInt(champTexte.value.replace(',', '.'))
         if (isNaN(den) || den === undefined) den = 9999
         num = reponse.num
         fSaisie = new FractionEtendue(num, den)
@@ -48,9 +49,7 @@ export function verifQuestionMathLive (exercice, i) {
       case 'calcul':
         // Le format par défaut
       // Pour le calcul littéral on remplace dfrac en frac
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        if (champTexte !== undefined) saisie = champTexte.value.replace(',', '.')
-        else saisie = ''
+        saisie = champTexte.value.replace(',', '.')
         if (typeof reponse === 'string') {
           reponse = reponse.replaceAll('dfrac', 'frac')
         // A réfléchir, est-ce qu'on considère que le début est du brouillon ?
@@ -67,9 +66,7 @@ export function verifQuestionMathLive (exercice, i) {
         }
         break
       case 'ecritureScientifique': // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        if (champTexte !== undefined) saisie = champTexte.value.replace(',', '.')
-        else saisie = ''
+        saisie = champTexte.value.replace(',', '.')
         if (typeof reponse === 'string') {
           reponse = reponse.replace(',', '.').replace('{.}', '.')
         }
@@ -79,7 +76,7 @@ export function verifQuestionMathLive (exercice, i) {
         }
         break
       case 'texte':
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+
         if (champTexte !== undefined) saisie = champTexte.value
         else saisie = ''
         if (saisie === reponse) {
@@ -88,18 +85,14 @@ export function verifQuestionMathLive (exercice, i) {
         break
 
       case 'ignorerCasse':
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        if (champTexte !== undefined) saisie = champTexte.value
-        else saisie = ''
+        saisie = champTexte.value
         if (saisie.toLowerCase() === reponse.toLowerCase()) {
           resultat = 'OK'
         // Pour les exercices de simplifications de fraction
         }
         break
       case 'fractionPlusSimple':
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        if (champTexte !== undefined) saisie = champTexte.value.replace(',', '.')
-        else saisie = ''
+        saisie = champTexte.value.replace(',', '.')
         if (!isNaN(parseFloat(saisie))) {
           saisieParsee = parse(`\\frac{${saisie}}{1}`)
         } else {
@@ -121,15 +114,14 @@ export function verifQuestionMathLive (exercice, i) {
         break
       case 'fractionEgale': // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
         // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        if (champTexte !== undefined) {
-          saisie = champTexte.value.replace(',', '.') // On remplace la virgule éventuelle par un point.
-          if (!isNaN(parseFloat(saisie))) {
-            const newFraction = new FractionEtendue(saisie, 1)
-            saisieParsee = parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`)
-          } else {
-            saisieParsee = parse(saisie)
-          }
+        saisie = champTexte.value.replace(',', '.') // On remplace la virgule éventuelle par un point.
+        if (!isNaN(parseFloat(saisie))) {
+          const newFraction = new FractionEtendue(parseFloat(saisie) * 2, 2)
+          saisieParsee = parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`)
+        } else {
+          saisieParsee = parse(saisie)
+        }
+        if (saisieParsee) {
           if (Array.isArray(saisieParsee)) {
             if (saisieParsee[0] === 'Negate') {
               signeF = -1
@@ -142,23 +134,15 @@ export function verifQuestionMathLive (exercice, i) {
                 fSaisie = parseInt(saisieParsee[2].num) === 1 ? new FractionEtendue(signeF * parseFloat(saisieParsee[1].num)) : new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
                 // fSaisie = new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
                 if (fSaisie.isEqual(reponse)) resultat = 'OK'
-              } else {
-                resultat = 'KO'
               }
-            } else if (saisieParsee.num !== undefined) {
-              if (reponse.isEqual(Number(saisieParsee.num))) resultat = 'OK'
-            } else {
-              resultat = 'KO'
             }
+          } else if (saisieParsee.num !== undefined) {
+            if (reponse.isEqual(Number(saisieParsee.num))) resultat = 'OK'
           }
-        } else {
-          resultat = 'KO'
         }
         break
       case 'fraction': // Pour les exercices où l'on attend un écriture donnée d'une fraction
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        if (champTexte !== undefined) saisie = champTexte.value.replace(',', '.')
-        else saisie = ''
+        saisie = champTexte.value.replace(',', '.')
         if (!isNaN(parseFloat(saisie))) {
           saisieParsee = parse(`\\frac{${saisie}}{1}`)
         } else {
@@ -179,9 +163,7 @@ export function verifQuestionMathLive (exercice, i) {
         }
         break
       case 'longueur': // Pour les exercices où l'on attend une mesure avec une unité au choix
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        if (champTexte !== undefined) saisie = champTexte.value
-        else saisie = ''
+        saisie = champTexte.value
         grandeurSaisie = saisieToGrandeur(saisie)
         if (grandeurSaisie) {
           if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
@@ -190,23 +172,17 @@ export function verifQuestionMathLive (exercice, i) {
         }
         break
       case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        if (champTexte !== undefined) saisie = champTexte.value.replace(',', '.')
-        else saisie = ''
+        saisie = champTexte.value.replace(',', '.')
         nombreSaisi = Number(saisie)
         if (saisie !== '' && nombreSaisi > exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi < exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
         break
       case 'intervalle' :
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        if (champTexte !== undefined) saisie = champTexte.value.replace(',', '.')
-        else saisie = ''
+        saisie = champTexte.value.replace(',', '.')
         nombreSaisi = Number(saisie)
         if (saisie !== '' && nombreSaisi >= exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi <= exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
         break
       case 'puissance' :
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        if (champTexte !== undefined) saisie = champTexte.value.replace(',', '.')
-        else saisie = ''
+        saisie = champTexte.value.replace(',', '.')
         // formatOK et formatKO sont deux variables globales,
         // sinon dans le cas où reponses est un tableau, la valeur n'est pas conservée d'un tour de boucle sur l'autre
         // eslint-disable-next-line no-var
@@ -285,8 +261,6 @@ export function verifQuestionMathLive (exercice, i) {
     spanReponseLigne.innerHTML = '😎'
     spanReponseLigne.style.fontSize = 'large'
     if (champTexte !== undefined) champTexte.readOnly = true
-    if (champTexteNum !== undefined) champTexteNum.readOnly = true
-    if (champTexteDen !== undefined) champTexteDen.readOnly = true
   } else if (resultat === 'essaieEncoreLongueur') {
     spanReponseLigne.innerHTML = '<em>Il faut saisir une valeur numérique et une unité (cm ou cm² par exemple).</em>'
     spanReponseLigne.style.color = '#f15929'
@@ -299,8 +273,6 @@ export function verifQuestionMathLive (exercice, i) {
     spanReponseLigne.innerHTML = '☹️'
     spanReponseLigne.style.fontSize = 'large'
     if (champTexte !== undefined) champTexte.readOnly = true
-    if (champTexteNum !== undefined) champTexteNum.readOnly = true
-    if (champTexteDen !== undefined) champTexteDen.readOnly = true
   }
   return resultat
 }
