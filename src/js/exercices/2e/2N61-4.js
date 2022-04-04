@@ -57,6 +57,7 @@ export default function ExerciceInequationQuotient () {
     } else {
       this.consigne = debutConsigne
     }
+    const separateur = ';'
     // Convertit le paramètre this.sup en type de question
     switch (this.sup.toString()) {
       case '1':
@@ -235,19 +236,19 @@ export default function ExerciceInequationQuotient () {
         // Affiche l'ensemble de solutions selon le sens de l'inégalité et selon l'ordre des racines (l'intervalle sera toujours ouvert pour la racine du dénominateur)
         if (Math.min(-a, -b) === -a) {
           if ((signes[i] === '<' || signes[i] === '≤')) {
-            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${-a} , ${-b} \\right[ $.`
-            correctionInteractif = `${pGauche}${-a},${-b}[`
+            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${-a} ${separateur} ${-b} \\right[ $.`
+            correctionInteractif = `${pGauche}${-a}${separateur}${-b}[`
           } else if ((signes[i] === '>' || signes[i] === '≥')) {
-            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${-a} \\right${pDroite} \\bigcup \\left] ${-b}, +\\infty \\right[ $.`
-            correctionInteractif = `]-\\infty,${-a}${pDroite}\\bigcup]${-b},+\\infty[`
+            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty ${separateur} ${-a} \\right${pDroite} \\bigcup \\left] ${-b}${separateur} +\\infty \\right[ $.`
+            correctionInteractif = `]-\\infty${separateur}${-a}${pDroite}\\bigcup]${-b}${separateur}+\\infty[`
           }
         } else {
           if ((signes[i] === '<' || signes[i] === '≤')) {
-            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] ${-b} , ${-a} \\right${pDroite} $.`
-            correctionInteractif = `]${-b},${-a}${pDroite}`
+            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] ${-b} ${separateur} ${-a} \\right${pDroite} $.`
+            correctionInteractif = `]${-b}${separateur}${-a}${pDroite}`
           } else if ((signes[i] === '>' || signes[i] === '≥')) {
-            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${-b} \\right[ \\bigcup \\left${pGauche} ${-a}, +\\infty \\right[ $.`
-            correctionInteractif = `]-\\infty,${-b}[\\bigcup${pGauche}${-a},+\\infty[`
+            texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty ${separateur} ${-b} \\right[ \\bigcup \\left${pGauche} ${-a}${separateur} +\\infty \\right[ $.`
+            correctionInteractif = `]-\\infty${separateur}${-b}[\\bigcup${pGauche}${-a}${separateur}+\\infty[`
           }
         }
       }
@@ -341,15 +342,15 @@ export default function ExerciceInequationQuotient () {
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         let interieur, exterieur
         if (-b / a < -d / c) { // Si la valeur interdite est la deuxième (intervale forcément ouvert avec valGrand)
-          interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} , ${valGrand} \\right[ $.`
-          correctionInteractifInterieur = `${pGauche}${valPetit},${valGrand}[`
-          exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg] ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
-          correctionInteractifExterieur = `]-\\infty,${valPetit}${pDroite}\\bigcup]${valGrand},+\\infty[`
+          interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} ${separateur} ${valGrand} \\right[ $.`
+          correctionInteractifInterieur = `${pGauche}${valPetit}${separateur}${valGrand}[`
+          exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg${pDroite} \\bigcup \\bigg] ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractifExterieur = `]-\\infty${separateur}${valPetit}${pDroite}\\bigcup]${valGrand}${separateur}+\\infty[`
         } else { // Si la valeur interdite est la première (invervalle forcément ouvert avec valPetit)
-          interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] ${valPetit} , ${valGrand} \\right${pDroite} $.`
-          correctionInteractifInterieur = `]${valPetit},${valGrand}${pDroite}`
-          exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg[ \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
-          correctionInteractifExterieur = `]-\\infty,${valPetit}[\\bigcup${pGauche}${valGrand},+\\infty[`
+          interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] ${valPetit} ${separateur} ${valGrand} \\right${pDroite} $.`
+          correctionInteractifInterieur = `]${valPetit}${separateur}${valGrand}${pDroite}`
+          exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg[ \\bigcup \\bigg${pGauche} ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractifExterieur = `]-\\infty${separateur}${valPetit}[\\bigcup${pGauche}${valGrand}${separateur}+\\infty[`
         }
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (a * c > 0) {
@@ -548,20 +549,20 @@ export default function ExerciceInequationQuotient () {
         let solutions1et3
         let solutions2et4
         if (zero1 === 'z') { // Si le "vrai zéro" est en première position (les double barres en position 2 et 3), les crochets seront ouverts en valMoyen et valGrand
-          solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg] ${valMoyen}, ${valGrand} \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
-          correctionInteractif1et3 = `]-\\infty,${valPetit}${pDroite}\\bigcup]${valMoyen},${valGrand}[`
-          solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg${pGauche} ${valPetit} , ${valMoyen} \\bigg[ \\bigcup \\bigg] ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
-          correctionInteractif2et4 = `${pGauche}${valPetit},${valMoyen}[\\bigcup]${valGrand},+\\infty[`
+          solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg${pDroite} \\bigcup \\bigg] ${valMoyen}${separateur} ${valGrand} \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractif1et3 = `]-\\infty${separateur}${valPetit}${pDroite}\\bigcup]${valMoyen}${separateur}${valGrand}[`
+          solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg${pGauche} ${valPetit} ${separateur} ${valMoyen} \\bigg[ \\bigcup \\bigg] ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractif2et4 = `${pGauche}${valPetit}${separateur}${valMoyen}[\\bigcup]${valGrand}${separateur}+\\infty[`
         } else if (zero2 === 'z') { // Si le "vrai zéro" est en deuxième position, les crochets seront ouverts en valPetit et valGrand
-          solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg[ \\bigcup \\bigg${pGauche} ${valMoyen}, ${valGrand} \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
-          correctionInteractif1et3 = `]-\\infty,${valPetit}[\\bigcup${pGauche}${valMoyen},${valGrand}[`
-          solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] ${valPetit} , ${valMoyen} \\bigg${pDroite} \\bigcup \\bigg] ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
-          correctionInteractif2et4 = `]${valPetit},${valMoyen}${pDroite}\\bigcup]${valGrand},+\\infty[`
+          solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg[ \\bigcup \\bigg${pGauche} ${valMoyen}${separateur} ${valGrand} \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractif1et3 = `]-\\infty${separateur}${valPetit}[\\bigcup${pGauche}${valMoyen}${separateur}${valGrand}[`
+          solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] ${valPetit} ${separateur} ${valMoyen} \\bigg${pDroite} \\bigcup \\bigg] ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractif2et4 = `]${valPetit}${separateur}${valMoyen}${pDroite}\\bigcup]${valGrand}${separateur}+\\infty[`
         } else if (zero3 === 'z') { // Si le "vrai zéro" est en troisième position, les crochets seront ouverts en valPetit et valMoyen
-          solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg[ \\bigcup \\bigg] ${valMoyen}, ${valGrand} \\bigg${pDroite} $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
-          correctionInteractif1et3 = `]-\\infty,${valPetit}[\\bigcup]${valMoyen},${valGrand}${pDroite}`
-          solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] ${valPetit} , ${valMoyen} \\bigg[ \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
-          correctionInteractif2et4 = `]${valPetit},${valMoyen}[\\bigcup${pGauche}${valGrand},+\\infty[`
+          solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg[ \\bigcup \\bigg] ${valMoyen}${separateur} ${valGrand} \\bigg${pDroite} $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractif1et3 = `]-\\infty${separateur}${valPetit}[\\bigcup]${valMoyen}${separateur}${valGrand}${pDroite}`
+          solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] ${valPetit} ${separateur} ${valMoyen} \\bigg[ \\bigcup \\bigg${pGauche} ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractif2et4 = `]${valPetit}${separateur}${valMoyen}[\\bigcup${pGauche}${valGrand}${separateur}+\\infty[`
         }
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         if ((signes[i] === '<' || signes[i] === '≤')) {
@@ -653,15 +654,15 @@ export default function ExerciceInequationQuotient () {
         let gauche
         let droite
         if (-d / c < -b / a) { // Si la première racine est la valeur interdite, on la prive à gauche
-          gauche = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty, ${texFractionReduite(-b, a)} \\right${pDroite} \\backslash \\{${texFractionReduite(-d, c)}\\} $.`
-          correctionInteractifGauche = `]-\\infty,${texFractionReduite(-b, a)}${pDroite}\\backslash\\{${texFractionReduite(-d, c)}\\}`
-          droite = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${texFractionReduite(-b, a)}, +\\infty \\right[ $.`
-          correctionInteractifDroite = `${pGauche}${texFractionReduite(-b, a)},+\\infty[`
+          gauche = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty${separateur} ${texFractionReduite(-b, a)} \\right${pDroite} \\backslash \\{${texFractionReduite(-d, c)}\\} $.`
+          correctionInteractifGauche = [`]-\\infty${separateur}${texFractionReduite(-b, a)}${pDroite}\\backslash\\{${texFractionReduite(-d, c)}\\}`, `]-\\infty${separateur}${texFractionReduite(-d, c)}[\\bigcup]${texFractionReduite(-d, c)}${separateur}${texFractionReduite(-b, a)}${pDroite}`]
+          droite = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${texFractionReduite(-b, a)}${separateur} +\\infty \\right[ $.`
+          correctionInteractifDroite = `${pGauche}${texFractionReduite(-b, a)}${separateur}+\\infty[`
         } else { // Sinon, on la prive à droite
-          gauche = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty, ${texFractionReduite(-b, a)} \\right${pDroite} $.`
-          correctionInteractifGauche = `]-\\infty,${texFractionReduite(-b, a)}${pDroite}`
-          droite = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${texFractionReduite(-b, a)}, +\\infty \\right[ \\backslash \\{${texFractionReduite(-d, c)}\\} $.`
-          correctionInteractifDroite = `${pGauche}${texFractionReduite(-b, a)},+\\infty[\\backslash\\{${texFractionReduite(-d, c)}\\}`
+          gauche = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty${separateur} ${texFractionReduite(-b, a)} \\right${pDroite} $.`
+          correctionInteractifGauche = `]-\\infty${separateur}${texFractionReduite(-b, a)}${pDroite}`
+          droite = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${texFractionReduite(-b, a)}${separateur} +\\infty \\right[ \\backslash \\{${texFractionReduite(-d, c)}\\} $.`
+          correctionInteractifDroite = [`${pGauche}${texFractionReduite(-b, a)}${separateur}+\\infty[\\backslash\\{${texFractionReduite(-d, c)}\\}`, `${pGauche}${texFractionReduite(-b, a)}${separateur}${texFractionReduite(-d, c)}[\\bigcup]${texFractionReduite(-d, c)}${separateur}+\\infty[`]
         }
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (c > 0) {
@@ -680,7 +681,13 @@ export default function ExerciceInequationQuotient () {
             correctionInteractif = correctionInteractifGauche
           }
         }
-        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
+        if (Array.isArray(correctionInteractif)) {
+          for (let kk = 0; kk < correctionInteractif.length; kk++) {
+            correctionInteractif[kk] = correctionInteractif[kk].replaceAll('dfrac', 'frac')
+          }
+        } else {
+          correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
+        }
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)/(cx+d)+e<0'                                 Type 5        //
@@ -779,15 +786,15 @@ export default function ExerciceInequationQuotient () {
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         let interieur, exterieur
         if (-(b + e * d) / (a + e * c) < -d / c) { // Si la valeur interdite est la deuxième (intervale forcément ouvert avec valGrand)
-          interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} , ${valGrand} \\right[ $.`
-          correctionInteractifInterieur = `${pGauche}${valPetit},${valGrand}[`
-          exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg${pDroite} \\bigcup \\bigg] ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
-          correctionInteractifExterieur = `]-\\infty,${valPetit}${pDroite}\\bigcup]${valGrand},+\\infty[`
+          interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} ${separateur} ${valGrand} \\right[ $.`
+          correctionInteractifInterieur = `${pGauche}${valPetit}${separateur}${valGrand}[`
+          exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg${pDroite} \\bigcup \\bigg] ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractifExterieur = `]-\\infty${separateur}${valPetit}${pDroite}\\bigcup]${valGrand}${separateur}+\\infty[`
         } else { // Si la valeur interdite est la première (invervalle forcément ouvert avec valPetit)
-          interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] ${valPetit} , ${valGrand} \\right${pDroite} $.`
-          correctionInteractifInterieur = `]${valPetit},${valGrand}${pDroite}`
-          exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty , ${valPetit} \\bigg[ \\bigcup \\bigg${pGauche} ${valGrand}, +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
-          correctionInteractifExterieur = `]-\\infty,${valPetit}[\\bigcup${pGauche}${valGrand},+\\infty[`
+          interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] ${valPetit} ${separateur} ${valGrand} \\right${pDroite} $.`
+          correctionInteractifInterieur = `]${valPetit}${separateur}${valGrand}${pDroite}`
+          exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg[ \\bigcup \\bigg${pGauche} ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+          correctionInteractifExterieur = `]-\\infty${separateur}${valPetit}[\\bigcup${pGauche}${valGrand}${separateur}+\\infty[`
         }
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if ((a + e * c) * c > 0) {
