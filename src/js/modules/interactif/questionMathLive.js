@@ -116,30 +116,28 @@ export function verifQuestionMathLive (exercice, i) {
         // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
         saisie = champTexte.value.replace(',', '.') // On remplace la virgule éventuelle par un point.
         if (!isNaN(parseFloat(saisie))) {
-          const newFraction = new FractionEtendue(saisie, 1)
+          const newFraction = new FractionEtendue(parseFloat(saisie) * 2, 2)
           saisieParsee = parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`)
         } else {
           saisieParsee = parse(saisie)
         }
-        if (Array.isArray(saisieParsee)) {
-          if (saisieParsee[0] === 'Negate') {
-            signeF = -1
-            saisieParsee = saisieParsee[1].slice()
-          } else {
-            signeF = 1
-          }
-          if (saisieParsee.length === 3 && saisieParsee[0] === 'Divide') {
-            if (saisieParsee[1].num && saisieParsee[2].num) {
-              fSaisie = parseInt(saisieParsee[2].num) === 1 ? new FractionEtendue(signeF * parseFloat(saisieParsee[1].num)) : new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-              // fSaisie = new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-              if (fSaisie.isEqual(reponse)) resultat = 'OK'
+        if (saisieParsee) {
+          if (Array.isArray(saisieParsee)) {
+            if (saisieParsee[0] === 'Negate') {
+              signeF = -1
+              saisieParsee = saisieParsee[1].slice()
             } else {
-              resultat = 'KO'
+              signeF = 1
+            }
+            if (saisieParsee.length === 3 && saisieParsee[0] === 'Divide') {
+              if (saisieParsee[1].num && saisieParsee[2].num) {
+                fSaisie = parseInt(saisieParsee[2].num) === 1 ? new FractionEtendue(signeF * parseFloat(saisieParsee[1].num)) : new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+                // fSaisie = new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+                if (fSaisie.isEqual(reponse)) resultat = 'OK'
+              }
             }
           } else if (saisieParsee.num !== undefined) {
             if (reponse.isEqual(Number(saisieParsee.num))) resultat = 'OK'
-          } else {
-            resultat = 'KO'
           }
         }
         break
