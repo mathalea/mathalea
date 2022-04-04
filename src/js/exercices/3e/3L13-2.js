@@ -2,8 +2,15 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, calcul, texNombre, texteEnCouleurEtGras, tableauColonneLigne, warnMessage } from '../../modules/outils.js'
 import FractionX from '../../modules/FractionEtendue.js'
+
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+
 export const titre = 'Equations résolvantes pour le théorème de Thalès'
 
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const dateDeModificationImportante = '04/04/2022'
 /**
  * * Equations résolvantes pour le théorème de Thalès
  * * 3L13-2 enfants : 4P10-2 et 4L15-1
@@ -22,7 +29,8 @@ export default function EqResolvantesThales () {
     this.nbQuestions = 2
   };
   this.sup = 1
-  this.consigne = 'Résoudre les équations suivantes.'
+  // this.consigne = 'Résoudre les équations suivantes.'
+  const debutConsigne = 'Résoudre les équations suivantes.'
   this.tailleDiaporama = 3
 
   this.nbCols = 1
@@ -74,6 +82,12 @@ export default function EqResolvantesThales () {
     } else {
       typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3])])
     };
+
+    if (this.interactif && !context.isAmc) {
+      this.consigne = `${debutConsigne}<br> Saisir la réponse sous forme décimale.`
+    } else {
+      this.consigne = debutConsigne
+    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -187,6 +201,7 @@ export default function EqResolvantesThales () {
 
       let enoncePlus
       let corrPlusPremiereLigne
+      let correctionInteractif
 
       const enonces = []
       for (let k = 0; k < situations.length; k++) {
@@ -209,7 +224,8 @@ ${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(situations[k]
 $\\dfrac{${texNombre(situations[k].c)}\\times ${situations[k].inc}}{${texNombre(situations[k].c)}}= \\dfrac{${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}}{${texNombre(situations[k].c)}}$<br>
 ${texteEnCouleurEtGras('On simplifie et on calcule.')}<br>
 $${situations[k].inc}=${texNombre(calcul(Number(situations[k].b) * Number(situations[k].a) / Number(situations[k].c)))}$
-${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situations[k].b), texNombre(situations[k].c), situations[k].inc)}`
+${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situations[k].b), texNombre(situations[k].c), situations[k].inc)}`,
+          correctionInteractif: [`${texNombre(calcul(Number(situations[k].b) * Number(situations[k].a) / Number(situations[k].c)))}`]
         })
       };
 
@@ -225,6 +241,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situation
           } else {
             texteCorr = `${enonces[0].correction}`
           };
+          correctionInteractif = enonces[0].correctionInteractif[0].replace('{', '').replace('}', '')
           break
         case 1:
           texte = `${enonces[1].enonce}`
@@ -235,6 +252,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situation
           } else {
             texteCorr = `${enonces[1].correction}`
           };
+          correctionInteractif = enonces[1].correctionInteractif[0].replace('{', '').replace('}', '')
           break
         case 2:
           texte = `${enonces[2].enonce}`
@@ -245,6 +263,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situation
           } else {
             texteCorr = `${enonces[2].correction}`
           };
+          correctionInteractif = enonces[2].correctionInteractif[0].replace('{', '').replace('}', '')
           break
         case 3:
           texte = `${enonces[3].enonce}`
@@ -255,9 +274,13 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situation
           } else {
             texteCorr = `${enonces[3].correction}`
           };
+          correctionInteractif = enonces[3].correctionInteractif[0].replace('{', '').replace('}', '')
           break
       };
-
+      if (this.interactif && !context.isAmc) {
+        texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: `<br> ${inc} = ` })
+        setReponse(this, i, correctionInteractif, { formatInteractif: 'calcul' })
+      }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
