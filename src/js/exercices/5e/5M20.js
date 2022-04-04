@@ -12,4 +12,5 @@ export default function CalculDeVolumes5e () {
   this.sup = 1
   this.titre = titre
   this.classe = 5
+  this.besoinFormulaire4Texte = ['Type de solides', 'Nombres séparés par des tirets\n1  : Cubes\n2 : Pavés droits\n3 : Cylindres\n4 : Prismes droites\n5 : Mélange']
 }
