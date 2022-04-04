@@ -24,14 +24,13 @@ export default function ProblemesThales () {
     let texteCorr = ''
     const typesDeQuestions = randint(1, 2)
     let A, B, C, D, E, M, N, x, k, y, p, codage1, codage2, codage3, codage4, sMN, sBD, sCote, texte1, texte2, texte3, texte4, labels, BC, BD, MN
-    const [nomA, nomB, nomC, nomD] = creerNomDePolygone(4, ['M', 'N'])
-
+    const [nomA, nomB, nomC, nomD] = creerNomDePolygone(4, ['MNQD'])
     switch (typesDeQuestions) {
       case 1:
         x = randint(6, 10)
         k = calcul(randint(12, 19) / 10)
         y = calcul(randint(30, 50) / 10);
-        [A, B, C, D, E] = creerNomDePolygone(5)
+        [A, B, C, D, E] = creerNomDePolygone(5, 'QD')
         texte = `On sait que $${A}${E}=${x}$ cm ; $${A}${D}=${texNombrec(k * x)}$ cm et $${E}${B}=${texNombre(y)}$ cm.<br>`
         texte += `Calculer la valeur exacte de $${D}${C}$.`
         if (context.isHtml) {
@@ -88,7 +87,6 @@ export default function ProblemesThales () {
 
           texte += '<br>' + choice([fig1, fig2])
         }
-
         texteCorr = `Les droites $(${E}${B})$ et $(${D}${C})$ sont perpendiculaires à la même droite $(${A}${D})$, elles sont donc parallèles entre elles.`
         texteCorr += `<br>De plus les points $${A}$, $${E}$, $${D}$  et $${A}$, $${B}$, $${C}$ sont alignés dans cet ordre donc d'après le théorème de Thalès on a :`
         texteCorr += `<br><br>$\\dfrac{${A}${E}}{${A}${D}}=\\dfrac{${E}${B}}{${D}${C}}=\\dfrac{${A}${B}}{${A}${C}}$`

@@ -55,7 +55,7 @@ export default function ExprimerCosSinTan () {
     const B = p2.listePoints[1]
     const C = p2.listePoints[2]
     const codage = codageAngleDroit(B, A, C)
-    const nom = creerNomDePolygone(4, ['D'])
+    const nom = creerNomDePolygone(4, ['DQ'])
     A.nom = nom[0]
     B.nom = nom[1]
     C.nom = nom[2]
