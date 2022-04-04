@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, creerCouples, randint, choice, texNombre, texNombre2, calcul, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
@@ -43,6 +43,9 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       tables[0] = this.sup
     } else {
       tables = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des ;
+      for (let i = 0; i < tables.length; i++) {
+        tables[i] = contraindreValeur(2, 9, parseInt(tables[i]))
+      }
     }
     const couples = creerCouples(
       tables,

@@ -41,7 +41,7 @@ export default function LectureExpressionFonctionsAffines () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const colors = ['blue', 'red', 'green', 'brown', 'purple']
+    const colors = ['blue', 'red', 'black', 'purple', 'brown']
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     const listeDroites = []

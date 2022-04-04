@@ -225,7 +225,7 @@ export default function ExerciceDevelopper (difficulte = 1) {
       setReponse(this, i, reponse)
       texte += ajouteChampTexteMathLive(this, i)
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, k, a, b, c)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

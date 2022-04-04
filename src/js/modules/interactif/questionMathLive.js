@@ -119,24 +119,37 @@ export function verifQuestionMathLive (exercice, i) {
       case 'fractionEgale': // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
         // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        saisie = champTexte !== undefined ? champTexte.value : ''
-        if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
-          saisieParsee = parse((new FractionEtendue(saisie.replace(',', '.')).toLatex().replace('dfrac', 'frac')))
-        } else {
-          saisieParsee = parse(saisie)
-        }
-        if (saisieParsee) {
-          if (saisieParsee[0] === 'Negate') {
-            signeF = -1
-            saisieParsee = saisieParsee[1].slice()
+        if (champTexte !== undefined) {
+          saisie = champTexte.value
+          if (!isNaN(parseFloat(saisie.replace(',', '.')))) {
+            const newFraction = new FractionEtendue(saisie.replace(',', '.'), 1)
+            saisieParsee = parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`)
           } else {
-            signeF = 1
+            saisieParsee = parse(saisie)
           }
-          if (saisieParsee[1].num && saisieParsee[2].num) {
-            fSaisie = parseInt(saisieParsee[2].num) === 1 ? new FractionEtendue(signeF * parseFloat(saisieParsee[1].num)) : new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-            // fSaisie = new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-            if (fSaisie.isEqual(reponse)) resultat = 'OK'
+          if (saisieParsee) {
+            if (saisieParsee[0] === 'Negate') {
+              signeF = -1
+              saisieParsee = saisieParsee[1].slice()
+            } else {
+              signeF = 1
+            }
+            if (saisieParsee.length === 3 && saisieParsee[0] === 'Divide') {
+              if (saisieParsee[1].num && saisieParsee[2].num) {
+                fSaisie = parseInt(saisieParsee[2].num) === 1 ? new FractionEtendue(signeF * parseFloat(saisieParsee[1].num)) : new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+                // fSaisie = new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
+                if (fSaisie.isEqual(reponse)) resultat = 'OK'
+              } else {
+                resultat = 'KO'
+              }
+            } else if (saisieParsee.num !== undefined) {
+              if (reponse.isEqual(Number(saisieParsee.num))) resultat = 'OK'
+            } else {
+              resultat = 'KO'
+            }
           }
+        } else {
+          resultat = 'KO'
         }
         break
       case 'fraction': // Pour les exercices où l'on attend un écriture donnée d'une fraction

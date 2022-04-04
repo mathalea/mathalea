@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texTexte, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
@@ -13,7 +13,7 @@ export const interactifType = ['qcm', 'mathLive']
 /**
  * Conversions de volumes.
  *
- * Dans la correction, on ne voit qu'une multiplication ou qu'un division pour obtenir le résultat
+ * Dans la correction, on ne voit qu`une multiplication ou qu`un division pour obtenir le résultat
  *
  * * 1 : Conversions en mètres-cubes avec des multiplications
  * * 2 : Conversions en mètres-cubes avec des divisions
@@ -25,7 +25,7 @@ export const interactifType = ['qcm', 'mathLive']
  */
 export default function ExerciceConversionsVolumes (niveau = 1) {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = niveau // Niveau de difficulté de l'exercice
+  this.sup = niveau // Niveau de difficulté de l`exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = 1 // interactifType Qcm
   this.titre = titre
@@ -44,12 +44,12 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
     const prefixeMulti = [
       ['da', '10\\times10\\times10', 1000],
       ['h', '100\\times100\\times100', 1000000],
-      ['k', '1~000\\times1~000\\times1~000', 1000000000]
+      ['k', `1${sp()}000\\times1${sp()}000\\times1${sp()}000`, 1000000000]
     ]
     const prefixeDiv = [
       ['d', '10\\div10\\div10', 1000],
       ['c', '100\\div100\\div100', 1000000],
-      ['m', '1~000\\div1~000\\div1~000', 1000000000]
+      ['m', `1${sp()}000\\div1${sp()}000\\div1${sp()}000`, 1000000000]
     ]
     const unite = 'm'
     const listeUnite = ['mm', 'cm', 'dm', 'm', 'dam', 'hm', 'km']
@@ -70,7 +70,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
 
     ) {
       this.autoCorrection[i] = {}
-      // On limite le nombre d'essais pour chercher des valeurs nouvelles
+      // On limite le nombre d`essais pour chercher des valeurs nouvelles
       if (this.sup < 5) {
         typesDeQuestions = this.sup
       } else {
@@ -79,7 +79,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
       k = randint(0, 2) // Choix du préfixe
       if (typesDeQuestions === 1) {
         // niveau 1
-        div = false // Il n'y aura pas de division
+        div = false // Il n`y aura pas de division
       } else if (typesDeQuestions === 2) {
         // niveau 2
         div = true // Avec des divisions
@@ -173,7 +173,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
           '$'
       } else if (typesDeQuestions === 4) {
         const unite1 = randint(0, 3)
-        let ecart = randint(1, 2) // nombre de multiplication par 10 pour passer de l'un à l'autre
+        let ecart = randint(1, 2) // nombre de multiplication par 10 pour passer de l`un à l`autre
         if (ecart > 4 - unite1) {
           ecart = 4 - unite1
         }
@@ -183,14 +183,14 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
         if (randint(0, 1) > 0) {
           switch (ecart) {
             case 1:
-              multiplicationsPar1000 = '\\times 1~000'
+              multiplicationsPar1000 = `\\times 1${sp()}000`
               break
             case 2:
-              multiplicationsPar1000 = '\\times 1~000 \\times 1~000'
+              multiplicationsPar1000 = `\\times 1${sp()}000 \\times 1${sp()}000`
               break
             case 3:
               multiplicationsPar1000 =
-                '\\times 1~000 \\times 1~000 \\times 1~000'
+                `\\times 1${sp()}000 \\times 1${sp()}000 \\times 1${sp()}000`
               break
           }
           resultat = arrondi((a * Math.pow(10, 3 * ecart)), 12)
@@ -224,13 +224,13 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
         } else {
           switch (ecart) {
             case 1:
-              multiplicationsPar1000 = '\\div 1~000'
+              multiplicationsPar1000 = `\\div 1${sp()}000`
               break
             case 2:
-              multiplicationsPar1000 = '\\div 1~000 \\div 1~000'
+              multiplicationsPar1000 = `\\div 1${sp()}000 \\div 1${sp()}000`
               break
             case 3:
-              multiplicationsPar1000 = '\\div 1~000 \\div 1~000 \\div 1~000'
+              multiplicationsPar1000 = `\\div 1${sp()}000 \\div 1${sp()}000 \\div 1${sp()}000`
               break
           }
           resultat = arrondi((a / Math.pow(10, 3 * ecart)), 12)
@@ -264,15 +264,14 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
         }
       }
       // else if(typesDeQuestions==5) { // Pour typesDeQuestions==5
-      // prefixeMulti = [['L',0.001],['dL',0.0001],['cL',0.00001],['mL',0.000001]];
+      // prefixeMulti = [[`L`,0.001],[`dL`,0.0001],[`cL`,0.00001],[`mL`,0.000001]];
       // k = randint(0,1)
       // resultat = arrondi((a*prefixeMulti[k][1]).toString(); // Utilise Algebrite pour avoir le résultat exact même avec des décimaux, 12)
-      // texte = '$ '+ texNombre(a, 3) + texTexte(prefixeMulti[k][0]) + ' = \\dotfill ' + texTexte(unite)  + '^3' + '$';
-      // texteCorr = '$ '+ texNombre(a, 3) + texTexte(prefixeMulti[k][0]) + ' =  ' + texNombre(a, 3) + '\\times' + texNombre(prefixeMulti[k][1]) + texTexte(unite)  + '^3'
-      //  + ' = ' + texNombre(resultat, 3) + texTexte(unite)+ '^2' + '$';
+      // texte = `$ `+ texNombre(a, 3) + texTexte(prefixeMulti[k][0]) + ` = \\dotfill ` + texTexte(unite)  + `^3` + `$`;
+      // texteCorr = `$ `+ texNombre(a, 3) + texTexte(prefixeMulti[k][0]) + ` =  ` + texNombre(a, 3) + `\\times` + texNombre(prefixeMulti[k][1]) + texTexte(unite)  + `^3`
+      //  + ` = ` + texNombre(resultat, 3) + texTexte(unite)+ `^2` + `$`;
       // }
       this.autoCorrection[i].enonce = `${texte}\n`
-      console.log('texNombre : ' + texNombre(resultat, 3))
       this.autoCorrection[i].propositions = [{
         texte: `$${texNombre(resultat, 3)}$`,
         statut: true
@@ -298,7 +297,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en crée une autre
+        // Si la question n`a jamais été posée, on en crée une autre
         if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfill', '\\text{ en }')
         }

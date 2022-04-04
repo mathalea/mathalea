@@ -1,7 +1,7 @@
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { combinaisonListes, listeQuestionsToContenu, randint, lettreDepuisChiffre } from '../../modules/outils.js'
+import { combinaisonListes, listeQuestionsToContenu, randint, lettreDepuisChiffre, contraindreValeur } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
@@ -47,7 +47,7 @@ export default function CalculerUneExpressionNumerique () {
 
     for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
-      nbOperations = parseInt(listeTypeDeQuestions[i] % 6)
+      nbOperations = contraindreValeur(1, 5, parseInt(listeTypeDeQuestions[i]), 2)
       val1 = randint(2, 5)
       val2 = randint(6, 9)
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
