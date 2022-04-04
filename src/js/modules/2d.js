@@ -3846,14 +3846,18 @@ export function arcMainLevee (M, Omega, angle, amp, rayon = false, fill = 'none'
 */
 /**
  * retourne un couple de coordonnées correspondant au centre d'une cible
- * afin xue le point (x,y) se trouve dans la case correspondante à cellule
+ * afin que le point (x,y) se trouve dans la case correspondante à cellule
  * cellule est une chaine comme 'A1' ou 'B3'
  * @author Jean-Claude Lhote
  */
 export function dansLaCibleCarree (x, y, rang, taille, cellule) {
   const lettre = cellule[0]; const chiffrelettre = lettre.charCodeAt(0) - 64
-  const Taille = Math.floor(4 * taille)
-  const chiffre = parseInt(cellule[1]); const dx = randint(-Taille, Taille) / 10; const dy = randint(-Taille, Taille) / 10
+  // const Taille = Math.floor(3 * taille)
+  const chiffre = parseInt(cellule[1])
+  // dx et dy étaient utilisés pour décentrer le point dans la cellule... cela pouvait entrainer des points très proches des cellules voisines
+  // en recentrant les points dans les cellules, on tolère une plus grande marge d'erreur.
+  const dx = 0 // randint(-Taille, Taille) / 10
+  const dy = 0 // randint(-Taille, Taille) / 10
   const delta = taille / 2
   if (chiffre > rang || chiffrelettre > rang) return 'Cette cellule n\'existe pas dans la cible'
   else {
@@ -3869,10 +3873,10 @@ export function dansLaCibleCarree (x, y, rang, taille, cellule) {
  */
 export function dansLaCibleRonde (x, y, rang, taille, cellule) {
   const lettre = cellule[0]; const chiffrelettre = lettre.charCodeAt(0) - 64
-  const Taille = Math.floor(4 * taille)
+  // const Taille = Math.floor(4 * taille)
   const chiffre = parseInt(cellule[1])
-  const drayon = randint(-Taille, Taille) / 10
-  const dangle = randint(-20, 20)
+  const drayon = 0 // randint(-Taille, Taille) / 10
+  const dangle = randint(-7, 7)
   const angle = (chiffrelettre - 1) * 45 - 157.5 + dangle
   const rayon = taille / 2 + (chiffre - 1) * taille + drayon
   const P = similitude(point(1, 0), point(0, 0), angle, rayon)

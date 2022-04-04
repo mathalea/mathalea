@@ -1547,12 +1547,12 @@ async function miseAJourDeLaListeDesExercices (preview) {
         }
         if (typeof urlVars[i].s !== 'undefined') {
           // Si le string peut être convertit en int alors on le fait
-          if (isNumeric(urlVars[i].s)) {
+          if (isNumeric(urlVars[i].s) && listeObjetsExercice[i].besoinFormulaireNumerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaireNumerique[1]
             listeObjetsExercice[i].sup = contraindreValeur(1, max, Number(urlVars[i].s))
-          } else {
-            listeObjetsExercice[i].sup = urlVars[i].s
+          } else { // Il faut que ce soit un string car soit ce n'est pas un nombre, soit ça vient d'un formulaire Texte.
+            listeObjetsExercice[i].sup = typeof urlVars[i].s === 'boolean' ? urlVars[i].s : urlVars[i].s.toString()
           }
           // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
           try {
@@ -1564,12 +1564,12 @@ async function miseAJourDeLaListeDesExercices (preview) {
           } catch {}
         }
         if (typeof urlVars[i].s2 !== 'undefined') {
-          if (isNumeric(urlVars[i].s2)) {
+          if (isNumeric(urlVars[i].s2) && listeObjetsExercice[i].besoinFormulaire2Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire2Numerique[1]
             listeObjetsExercice[i].sup2 = contraindreValeur(1, max, Number(urlVars[i].s2))
           } else {
-            listeObjetsExercice[i].sup2 = urlVars[i].s2
+            listeObjetsExercice[i].sup2 = typeof urlVars[i].s2 === 'boolean' ? urlVars[i].s2 : urlVars[i].s2.toString()
           }
           try {
             if (listeObjetsExercice[i].besoinFormulaire2CaseACocher) {
@@ -1580,12 +1580,12 @@ async function miseAJourDeLaListeDesExercices (preview) {
           } catch (error) {}
         }
         if (typeof urlVars[i].s3 !== 'undefined') {
-          if (isNumeric(urlVars[i].s3)) {
+          if (isNumeric(urlVars[i].s3) && listeObjetsExercice[i].besoinFormulaire3Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire3Numerique[1]
             listeObjetsExercice[i].sup3 = contraindreValeur(1, max, Number(urlVars[i].s3))
           } else {
-            listeObjetsExercice[i].sup3 = urlVars[i].s3
+            listeObjetsExercice[i].sup3 = typeof urlVars[i].s3 === 'boolean' ? urlVars[i].s3 : urlVars[i].s3.toString()
           }
           try {
             if (listeObjetsExercice[i].besoinFormulaire3CaseACocher) {
@@ -1598,12 +1598,12 @@ async function miseAJourDeLaListeDesExercices (preview) {
           }
         }
         if (typeof urlVars[i].s4 !== 'undefined') {
-          if (isNumeric(urlVars[i].s4)) {
+          if (isNumeric(urlVars[i].s4) && listeObjetsExercice[i].besoinFormulaire4Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire4Numerique[1]
             listeObjetsExercice[i].sup4 = contraindreValeur(1, max, Number(urlVars[i].s4))
           } else {
-            listeObjetsExercice[i].sup4 = urlVars[i].s4
+            listeObjetsExercice[i].sup4 = typeof urlVars[i].s4 === 'boolean' ? urlVars[i].s4 : urlVars[i].s4.toString()
           }
           try {
             formSup4[i].value = listeObjetsExercice[i].sup4
@@ -2685,13 +2685,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     $('#btn_zoom_plus').click(function () {
       context.zoom = arrondi(Number(context.zoom) + 0.2)
       zoomAffichage(context.zoom)
-      window.history.replaceState('', '', getUrlSearch())
+      miseAJourDuCode()
+      // window.history.replaceState('', '', getUrlSearch())
     })
     $('#btn_zoom_moins').click(function () {
       if (Number(context.zoom > 0.5)) {
         context.zoom = arrondi(Number(context.zoom) - 0.2)
         zoomAffichage(context.zoom)
-        window.history.replaceState('', '', getUrlSearch())
+        miseAJourDuCode()
+        // window.history.replaceState('', '', getUrlSearch())
       }
     })
   }

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteExposant, arrondi, arrondiVirgule, texFractionReduite, produitsEnCroix, quatriemeProportionnelle, calcul, texNombrec, prenomF, prenom, texNombre, nombreAvecEspace, miseEnEvidence, texPrix, katexPopup2, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteExposant, arrondi, arrondiVirgule, texFractionReduite, produitsEnCroix, quatriemeProportionnelle, calcul, texNombrec, prenomF, prenom, texNombre, nombreAvecEspace, miseEnEvidence, texPrix, katexPopup2, numAlpha, contraindreValeur } from '../../modules/outils.js'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d’unités complexes'
 
 /**
@@ -40,10 +40,13 @@ export default function ProblemesGrandeursComposees () {
     } else {
       if (typeof this.sup === 'number') {
         // Si c'est un nombre c'est qu'il y a qu'une seule grandeur
-        grandeurs[0] = this.sup % 15
+        grandeurs[0] = parseInt(this.sup) % 15
         this.nbQuestions = 1
       } else {
         grandeurs = this.sup.split('-') // Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < grandeurs.length; i++) {
+          grandeurs[i] = contraindreValeur(1, 14, parseInt(grandeurs[i]), randint(1, 14))
+        }
         this.nbQuestions = grandeurs.length
       }
     }

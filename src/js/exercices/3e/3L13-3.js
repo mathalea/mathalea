@@ -365,7 +365,7 @@ export default class ProblemesEnEquation extends Exercice {
             enonce += '<br>Quelle est la mesure de ses côtés égaux ? (la figure n\'est pas en vraie grandeur)'
             intro = `Posons $x$ la longueur d'un des côtés égaux. La longueur de la base est : $x${ecritureAlgebrique(c)}$.<br>`
             intro += 'Le calcul du périmètre donne l\'équation suivante :<br>'
-            equation = `2*x+x${ecritureAlgebrique(c)})=${d}`
+            equation = `2*x+x${ecritureAlgebrique(c)}=${d}`
             conclusion = `<br>Les deux côtés égaux de ce triangle isocèle mesurent donc $${a}$ mm.`
             x = a
           }

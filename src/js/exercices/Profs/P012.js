@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions'
-import { combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
+import { combinaisonListesSansChangerOrdre, contraindreValeur } from '../../modules/outils.js'
 
 export const titre = 'Faire des camemberts pour travailler les fractions'
 
@@ -29,8 +29,14 @@ export default function Camemberts () {
     }
     this.contenu = ''
     const nbParts = this.sup.split('-')
+    for (let i = 0; i < nbParts.length; i++) {
+      nbParts[i] = contraindreValeur(nbParts[i])
+    }
     const secteurs = combinaisonListesSansChangerOrdre(nbParts, this.nbQuestions)
     const nbDisques = this.sup2.split('-')
+    for (let i = 0; i < nbDisques.length; i++) {
+      nbDisques[i] = contraindreValeur(1, 5, parseInt(nbDisques[i]))
+    }
     const unites = combinaisonListesSansChangerOrdre(nbDisques, this.nbQuestions)
     let f
     const fenetre = { xmin: -2.5, xmax: 35, ymin: -2.5, ymax: 2.5, pixelsParCm: 20, scale: 0.5 }

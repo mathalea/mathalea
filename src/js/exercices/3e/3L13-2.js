@@ -55,6 +55,7 @@ export default function EqResolvantesThales () {
     };
 
     // Un fonction pour afficher la simplification si c'est possible
+    // eslint-disable-next-line no-unused-vars
     function simplificationSiPossible (bool, frac, inc) {
       let sortie
       if (!bool) {
@@ -84,10 +85,11 @@ export default function EqResolvantesThales () {
       // on a besoin d'un coeff pour le type de nombres
       let coeff, masterChoix
       let nbAlea = [1, 1, 1]
-      let cTempCase3
-      while (cTempCase3 % 2 !== 0 || cTempCase3 % 5 !== 0) {
-        cTempCase3 = randint(11, 99)
-      };
+      // On génère un c pour s'assurer que le résultat soit décimal.
+      // Au min 10, au max 100
+      const exposantDeDeux = randint(1, 2)
+      const exposantDeCinq = randint(1, 2)
+      const cTempCase3 = 2 ** exposantDeDeux * 5 ** exposantDeCinq
 
       this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
       switch (this.sup) {
@@ -205,9 +207,8 @@ ${texteEnCouleurEtGras('Les produits en croix sont égaux.')}<br>
 $${texNombre(situations[k].c)}\\times ${situations[k].inc} = ${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}$<br>
 ${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(situations[k].c)}`)}.<br>
 $\\dfrac{${texNombre(situations[k].c)}\\times ${situations[k].inc}}{${texNombre(situations[k].c)}}= \\dfrac{${texNombre(situations[k].a)}\\times ${texNombre(situations[k].b)}}{${texNombre(situations[k].c)}}$<br>
-${texteEnCouleurEtGras('On simplifie les écritures.')}<br>
-$${situations[k].inc}=\\dfrac{${situations[k].fraction.num}}{${situations[k].fraction.den}}$<br>
-${simplificationSiPossible(situations[k].fraction.estIrreductible, situations[k].fraction, situations[k].inc)}
+${texteEnCouleurEtGras('On simplifie et on calcule.')}<br>
+$${situations[k].inc}=${texNombre(calcul(Number(situations[k].b) * Number(situations[k].a) / Number(situations[k].c)))}$
 ${trivial(situations[k].trivial, texNombre(situations[k].a), texNombre(situations[k].b), texNombre(situations[k].c), situations[k].inc)}
 `
         })
