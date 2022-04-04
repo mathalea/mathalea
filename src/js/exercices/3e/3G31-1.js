@@ -12,7 +12,7 @@ export const titre = 'Calculer toutes les mesures d’angle d’une figure compl
  * 3G31-1
  * Février 2021
 */
-export default function MonSuperExerciceTropBeau () {
+export default function CalculDAngleFigureComplexe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Calculer la mesure de tous les angles de cette figure.'
@@ -48,7 +48,7 @@ export default function MonSuperExerciceTropBeau () {
     t2c.color = 'blue'
     t2c.epaisseur = 3
     const c2 = codageAngleDroit(C, A, D)
-    const nom = creerNomDePolygone(4)
+    const nom = creerNomDePolygone(4, 'QD')
     A.nom = nom[0]
     B.nom = nom[1]
     C.nom = nom[2]

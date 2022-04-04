@@ -28,7 +28,7 @@ export default function TracerTriangle2Angles () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
+    let listeDeNomsDePolygones
     if (!this.sup3) { // Si aucune liste n'est saisie
       this.sup3 = 0
     }
@@ -43,6 +43,8 @@ export default function TracerTriangle2Angles () {
       i < this.nbQuestions && cpt < 50;
 
     ) {
+      if (i % 5 === 0) listeDeNomsDePolygones = ['PQD']
+
       const c = calcul(randint(40, 70) / 10)
       const b = calcul(randint(40, 80) / 10)
       let ang1
@@ -64,7 +66,8 @@ export default function TracerTriangle2Angles () {
         angle2 = ang1
       }
 
-      const p = creerNomDePolygone(3)
+      const p = creerNomDePolygone(3, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(p)
       texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${texNombre(c)}$ cm, $\\widehat{${p[1] + p[0] + p[2]
         }}=${angle1}\\degree$ et $\\widehat{${p[0] + p[1] + p[2]
         }}=${angle2}\\degree$.`

@@ -25,7 +25,7 @@ export default function RechercheValeurPythagore () {
 
     switch (choice(['a', 'b'])) {
       case 'a':
-        nom = creerNomDePolygone(3, ['Q'])
+        nom = creerNomDePolygone(3, ['QD'])
         a = randint(1, 5) * 2//
         A = point(0, 0, nom[0])
         B = point(4, 0, nom[1])
@@ -48,7 +48,7 @@ export default function RechercheValeurPythagore () {
         this.reponse = [`\\sqrt{${a ** 2 / 2}}`, `${Math.sqrt(a ** 2 / 2)}`]
         break
       case 'b':
-        nom = creerNomDePolygone(3, ['Q'])
+        nom = creerNomDePolygone(3, ['QD'])
         a = choice([8, 18, 32, 50, 72, 98, 128, 162, 200])
         A = point(0, 0, nom[0])
         B = point(4, 0, nom[1])

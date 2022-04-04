@@ -19,12 +19,15 @@ export default function UtiliserLeCodagePourDecrire () {
     let A, B, C, D, E, F, s1, s2, s3, s4, s5, s6, s7, s8, medAC, medBC, dBD, dBC, dAC, dAF
     if (this.classe === 6) { typesDeQuestionsDisponibles = [1, 2, 3] } else { typesDeQuestionsDisponibles = [1, 2, 3, 4] }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objetsEnonce = []
       objetsCorrection = []
       paramsEnonce = {}
       paramsCorrection = {}
-      nom = creerNomDePolygone(6, 'PQ')
+      if (i % 3 === 0) listeDeNomsDePolygones = ['PQD']
+      nom = creerNomDePolygone(6, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(nom)
       for (let i = 0; i < 6; i++) { sommets.push(nom[i]) }
       sommets = shuffle(sommets)
 

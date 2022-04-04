@@ -98,9 +98,11 @@ const affichageUniquementQuestion = (i) => {
       const exercice = questions[i].parentElement.parentElement
       exercice.style.display = 'block'
       if (document.getElementById('scoreTotal')) {
-        corrections[i].style.display = 'block'
-        const correction = corrections[i].parentElement.parentElement
-        correction.style.display = 'block'
+        if (corrections[i] !== undefined) {
+          corrections[i].style.display = 'block'
+          const correction = corrections[i].parentElement.parentElement
+          correction.style.display = 'block'
+        }
       }
     } else {
       window.notify('AffichageUniquementQuestion(i) : questions[i] n\'est pas défini', { i, questions })

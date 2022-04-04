@@ -42,8 +42,11 @@ export default function CalculDeLongueur () {
     this.listeQuestions = []
     this.listeCorrections = []
     let reponse
+    let listeDeNomsDePolygones
     for (let i = 0; i < this.nbQuestions; i++) {
-      const nom = creerNomDePolygone(3)
+      if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
+      const nom = creerNomDePolygone(3, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(nom)
       let texte = ''; let texteCorr = ''; const objetsEnonce = []; const objetsCorrection = []; let choixRapportTrigo
       let ab, bc, ac
       if (this.level === 4) {

@@ -68,12 +68,15 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
       typesDeQuestionsDisponibles,
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cote, nomCarre, L, l, nomRectangle, a, b, c, nomTriangle, triplet, R, donneLeDiametre, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
+      if (i % 4 === 0) listeDeNomsDePolygones = ['QD']
       switch (typesDeQuestions) {
         case 'carre':
           cote = calcul(randint(2, 11) + partieDecimale1)
-          nomCarre = creerNomDePolygone(4)
+          nomCarre = creerNomDePolygone(4, listeDeNomsDePolygones)
+          listeDeNomsDePolygones.push(nomCarre)
           if (choice([true, false])) {
             // 2 énoncés possibles équiprobables
             texte = `Un carré $${nomCarre}$ de $${texNombre(cote)}$ cm de côté .<br>` + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline longueur', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline longueur', { texte: '<br>' + sp(13) + 'Aire : ' })
@@ -89,7 +92,8 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
         case 'rectangle':
           L = calcul(randint(3, 11) + partieDecimale2)
           l = randint(2, L - 1)
-          nomRectangle = creerNomDePolygone(4)
+          nomRectangle = creerNomDePolygone(4, listeDeNomsDePolygones)
+          listeDeNomsDePolygones.push(nomRectangle)
           if (choice([true, false])) {
             // 2 énoncés possibles équiprobables
             texte = `Un rectangle $${nomRectangle}$ de $${texNombre(L)}$ cm de longueur et de $${l}$ cm de largeur.<br>` + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline longueur', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline longueur', { texte: '<br>' + sp(13) + 'Aire : ' })
@@ -107,7 +111,8 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
           a = calcul(triplet[0] * (1 + partieDecimale1))
           b = calcul(triplet[1] * (1 + partieDecimale1))
           c = calcul(triplet[2] * (1 + partieDecimale1))
-          nomTriangle = creerNomDePolygone(3)
+          nomTriangle = creerNomDePolygone(3, listeDeNomsDePolygones)
+          listeDeNomsDePolygones.push(nomTriangle)
           if (choice([true, false])) {
             texte = `Un triangle $${nomTriangle}$ rectangle en $${nomTriangle[1]}$ tel que $${nomTriangle[0] + nomTriangle[1] + ' = ' + texNombre(a)}$ cm, $${nomTriangle[1] + nomTriangle[2] + ' = ' + texNombre(b)}$ cm\
  et $${nomTriangle[0] + nomTriangle[2] + ' = ' + texNombre(c)}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline longueur', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline longueur', { texte: '<br>' + sp(13) + 'Aire : ' })

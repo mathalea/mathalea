@@ -41,8 +41,8 @@ export default function Thales2D () {
 
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // this.autoCorrection[i] = {}
-      if ((i + 1) % 3 === 0) { // Toutes les 3 questions, on repart à zéro sur les noms des polygones
-        listeDeNomsDePolygones = []
+      if (i % 3 === 0) { // Toutes les 3 questions, on repart à zéro sur les noms des polygones
+        listeDeNomsDePolygones = ['QD']
       }
       const nomDesPoints = creerNomDePolygone(5, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nomDesPoints)

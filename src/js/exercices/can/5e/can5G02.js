@@ -28,7 +28,7 @@ export default function AngleTriangleIsocele () {
 
     switch (choice(['a', 'b'])) { //, 'b'
       case 'a':
-        nom = creerNomDePolygone(3, ['Q'])
+        nom = creerNomDePolygone(3, ['QD'])
         a = randint(4, 16, 12) * 5
         A = point(0, 0, nom[0])
         B = point(5, 0, nom[1])
@@ -69,7 +69,7 @@ export default function AngleTriangleIsocele () {
         }
         break
       case 'b':
-        nom = creerNomDePolygone(3, ['Q'])
+        nom = creerNomDePolygone(3, ['QD'])
         a = randint(4, 16, 12) * 5
         A = point(0, 0, nom[0])
         B = point(5, 0, nom[1])

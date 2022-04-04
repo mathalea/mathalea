@@ -21,9 +21,11 @@ export default function NotationSegmentDroiteDemiDroite () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     const listeDesTypesDeQuestions = combinaisonListes([1, 1, 2, 3, 4, 4], this.nbQuestions * 3)
-
+    let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const p = creerNomDePolygone(3, 'PQ')
+      if (i % 5 === 0) listeDeNomsDePolygones = ['PQD']
+      const p = creerNomDePolygone(3, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(p)
       const A = point(0, 0, p[0], 'above left')
       const B = point(1, 1.2, p[1], 'above')
       const C = point(2.2, -0.3, p[2], 'above right')
