@@ -1,15 +1,14 @@
 import Exercice from '../Exercice.js'
-import { fraction, obtenirListeFractionsIrreductibles } from '../../modules/fractions.js'
+import { fraction } from '../../modules/fractions.js'
 import {
-  mathalea2d, point, polygoneAvecNom, codageAngleDroit, demiDroite, labelPoint, segment, milieu, texteParPosition
+  mathalea2d, point, repere2, courbe2, labelPoint, segment, milieu, texteParPosition, codeSegment
 } from '../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, stringNombre, range1, randint, ecritureAlgebrique, texNombre, texFractionReduite, tableauColonneLigne, combinaisonListes, texFraction, printlatex, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, range1, stringNombre, randint, ecritureAlgebrique, texNombre, texFraction, texFractionReduite, printlatex, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
 
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-
+import { context } from '../../modules/context.js'
 export const titre = 'CAN Seconde sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -56,7 +55,8 @@ export default function SujetCAN2021Seconde () {
       questions[i] = parseInt(questions[i]) - 1
     }
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
-    const typeQuestionsDisponibles = [23]
+    const typeQuestionsDisponibles = [18]// '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+    
     const listeFractions3 = [[1, 3, 1, 5], [1, 7, 1, 2], [1, 4, 1, 3], [1, 2, 1, 5], [1, 9, 1, 2], [1, 7, 1, 4],
       [1, 11, 1, 2], [1, 5, 1, 6], [1, 10, 1, 3], [1, 3, 1, 8], [1, 9, 1, 4], [1, 5, 1, 9], [1, 7, 1, 10], [1, 6, 1, 7]
     ]
@@ -66,7 +66,7 @@ export default function SujetCAN2021Seconde () {
     const listeFractions15 = [[5, 3], [7, 9], [3, 7], [5, 7], [9, 7], [2, 9], [4, 7], [11, 5], [11, 3]
     ]
 
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, k1, k2, listeFacteurs16 = [], fraction1 = [], fraction2 = [], triplet, propositions, prix, choix, truc, a, b, c, d, e, m, n, p, k, A, B, C, D, E, pol, L, l2, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, k1, k2, r, f, listeFacteurs16 = [], code1, code2, code3, code4, choix, truc, a, b, c, d, p, k, A, B, C, D, E, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[listeIndex[i]]) {
         case 1:
           a = randint(2, 9)
@@ -327,7 +327,7 @@ export default function SujetCAN2021Seconde () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm$^3$' } else { texte += '$\\ldots$ m$^3$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L' } else { texte += '$\\ldots$ L' }
           nbChamps = 1
           break
 
@@ -388,7 +388,7 @@ export default function SujetCAN2021Seconde () {
       \\end{aligned}$`
           reponse = 100 * a
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
 
@@ -428,15 +428,15 @@ export default function SujetCAN2021Seconde () {
           B = point(6, -1, 'B', 'below')
           C = point(3.91, 0.74, 'C', 'left')
           xmin = -1
-          ymin = -2
-          xmax = 6.5
-          ymax = 4.5
+          ymin = -2.5
+          xmax = 7
+          ymax = 4.7
           objets = []
           objets.push(
-            texteParPosition(`$${d} \\text{ cm}$`, milieu(A, D).x, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\large \\text{?}$', milieu(B, E).x, milieu(B, E).y - 0.3, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${b} \\text{ cm}$`, milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${a} \\text{ cm}$`, milieu(C, B).x + 0.6, milieu(C, B).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`$${d} \\text{ cm}$`, milieu(A, D).x, milieu(A, D).y + 0.3 * context.zoom, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('$\\large \\text{?}$', milieu(B, E).x, milieu(B, E).y - 0.3 * context.zoom, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`$${b} \\text{ cm}$`, milieu(A, C).x - 0.5 * context.zoom, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`$${a} \\text{ cm}$`, milieu(C, B).x + 0.3 * context.zoom, milieu(C, B).y + 0.2 * context.zoom, 'milieu', 'black', 1, 'middle', true),
             labelPoint(A, B, C, D, E), segment(B, E), segment(D, E), segment(A, D), segment(A, B))
           reponse = c
           texte = `$(AD)//(EB)$.<br>
@@ -559,20 +559,175 @@ export default function SujetCAN2021Seconde () {
           nbChamps = 1
           break
 
-          case 23:
-          a = randint(1, 9) 
-          b =randint(1,9)
-          k=randint(1,4)
-          c = a+k
-          d=b+randint(2,4)*k
+        case 23:
+          a = randint(1, 9)
+          b = randint(1, 9)
+          k = randint(1, 4)
+          c = a + k
+          d = b + randint(2, 4) * k
           texte = `Dans un repère du plan, on considère les points $A(${a};${b})$ et $B(${c};${d})$.<br>
           Calculer le coefficient directeur de $(AB)$. 
       `
           texteCorr = ` Le coefficient directeur de la droite $(AB)$ est donné par :<br>
-           $\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${d}-${b}}{${c}-${a}}=${(d-b)/(c-a)}$.
+           $\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${d}-${b}}{${c}-${a}}=${(d - b) / (c - a)}$.
           `
-          reponse = fraction(d-b,c-a)
+          reponse = [`${texFractionReduite(d - b, c - a)}`,`${texFraction(d - b, c - a)}`]
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          break
+
+        case 24:
+          a = randint(2, 10)
+
+          reponse = 4 * a
+          texte = `Déterminer le périmètre d'un carré d'aire $${a ** 2}$ cm$^2$. 
+      `
+          texteCorr = `Si l'aire du carré est $${a ** 2}$ cm$^2$, la longueur de son côté est $\\sqrt{${a ** 2}}=${a}$ cm. <br>
+          On en déduit que le périmètre du carré est $4\\times ${a}=${4 * a}$ cm. `
+
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' }
+          nbChamps = 1
+          break
+
+        case 25:
+          a = randint(2, 10)
+          b = randint(2, 10)
+          reponse = fraction(a, a + b)
+          texte = `On tire une boule dans une urne contenant $${a}$ boules rouges et $${b}$ boules vertes.<br>
+          Quelle est la probabilité de tirer une boule rouge ? 
+      `
+          texteCorr = `Il y a $${b}$ boules rouges sur un total de $${a + b}$ boules. <br>
+          La probabilité de tirer une boule rouge est donc : $\\dfrac{${a}}{${a + b}}${simplificationDeFractionAvecEtapes(a, a + b)}$`
+
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          break
+
+        case 26:
+          choix = choice(['a', 'b', 'c'])
+          if (choix === 'a') {
+            a = choice([40, 60, 80, 100, 120])
+            reponse = a / 4
+            texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
+            Combien de kilomètres a-t-elle parcourus en $15$ minutes ?
+        `
+            texteCorr = `Dans une heure, il y a $4\\times 15$ minutes. <br>Ainsi en $15$ minutes, la voiture aura parcouru $${a}\\div 4=${a / 4}$ km.<br>
+            `
+          }
+
+          if (choix === 'b') {
+            a = choice([60, 90, 120])
+            reponse = a / 6
+            texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
+                          Combien de kilomètres a-t-elle parcourus en $10$ minutes ?
+                      `
+            texteCorr = `Dans une heure, il y a $6\\times 10$ minutes. <br>Ainsi en $10$ minutes, la voiture aura parcouru $${a}\\div 6=${a / 6}$ km.
+                          `
+          }
+
+          if (choix === 'c') {
+            a = choice([30, 60, 90, 120])
+            reponse = a / 3
+            texte = `Une voiture roule à la vitesse moyenne de $${a}$ km/h.<br>
+                                        Combien de kilomètres a-t-elle parcourus en $20$ minutes ?
+                                    `
+            texteCorr = `Dans une heure, il y a $3\\times 20$ minutes. <br>Ainsi en $20$ minutes, la voiture aura parcouru $${a}\\div 3=${a / 3}$ km.
+                                        `
+          }
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km' }
+          nbChamps = 1
+          break
+        case 27:
+          a = randint(1, 10)
+
+          A = point(0, 0, 'A', 'below')
+          B = point(4, 0, 'B', 'below')
+          C = point(4, 4, 'C', 'above')
+          D = point(0, 4, 'D', 'above')
+          code1 = codeSegment(A, B, '|')
+          code2 = codeSegment(B, C, '|')
+          code3 = codeSegment(C, D, '|')
+          code4 = codeSegment(A, D, '|')
+          xmin = -1
+          ymin = -1
+          xmax = 5
+          ymax = 5
+          objets = []
+          objets.push(
+            texteParPosition(`$${a} \\text{ cm}$`, milieu(A, B).x, milieu(A, B).y - 0.4 * context.zoom, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('$\\large \\text{?}$', milieu(D, B).x + 0.2 * context.zoom, milieu(D, B).y + 0.1 * context.zoom, 'milieu', 'black', 1, 'middle', true),
+            labelPoint(A, B, C, D), segment(A, B), segment(B, C), segment(C, D), segment(D, A), segment(B, D), code1, code2, code3, code4)
+          reponse = [`\\sqrt{${2 * a ** 2}}`, `${Math.sqrt(2 * a ** 2)}`, `${a}\\sqrt{2}`]
+          texte = `Compléter : <br>
+            `
+          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+          texteCorr = `Le théorème de Pythagore dans le triangle rectangle $ADB$ donne : <br>
+            $DB^2=AD^2+AB^2$ soit $DB^2=${a}^2+${a}^2=2\\times ${a}^2=${2 * a ** 2}$.<br>
+            Ainsi, $DB=\\sqrt{${2 * a ** 2}}$ ou encore $DB=${a}\\sqrt{2}$.`
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) {
+            texte += '<br>$DB=$'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
+          } else { texte += ' $DB=\\ldots$ cm' }
+
+          nbChamps = 1
+          break
+
+        case 28:
+          a = choice([1, 2, 3, 4, 10])
+          reponse = a ** 3 / 100
+          texte = `La masse volumique d'un solide  est de $10$ g/cm$^3$.<br>
+          Combien pèse (en kg) ce solide qui a la forme d'un cube  d'arête $${a}$ cm  ? 
+      `
+          texteCorr = `Le volume du cube est $${a}^3=${a ** 3}$ cm$^3$.<br>
+          Sa masse  est donc donnée par $${a ** 3}\\times 10=${10 * a ** 3}$ g soit $${texNombre(a ** 3 / 100)}$ kg.
+
+          `
+
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'kg' }
+          nbChamps = 1
+          break
+
+        case 29:
+          a = randint(-1, 6)
+          b = randint(1, 4) + randint(1, 9) / 10
+
+          r = repere2({ xMin: -4, xMax: 4, yMin: -3, yMax: 8, xUnite: 2, yUnite: 1 })
+          // courbe2(x => a * x + b, { repere: repere, color: 'blue' })
+          f = x => 0.5 * x ** 3 + b
+          C = courbe2(f, { repere: r, color: 'red' })
+
+          reponse = [Math.cbrt(2 * (a - b)) - 0.1, Math.cbrt(2 * (a - b)) + 0.1]
+          texte = `Voici la courbe d'une fonction $f$. <br>
+Donner une valeur approchée de l'antécédent de $${a}$ par $f$ ?`
+          texte += mathalea2d({ xmin: -8, xmax: 8.2, ymin: -3, ymax: 8, scale: 1 }, r, C)
+          texteCorr = `L'antécédent de $${a}$ par $f$ est l'abscisse du point de la courbe d'ordonnée $${a}$ : $${texNombre(Math.cbrt(2 * (a - b)), 1)}$ en est une valeur approchée. `
+
+          setReponse(this, index, reponse, { formatInteractif: 'intervalle' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          nbChamps = 1
+          break
+
+        case 30:
+          c = choice([2, 3, 11, 12])
+          p = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]
+          choix = choice(['a', 'b', 'b'])
+          if (choix === 'a') {
+            texte = "On lance deux fois de suite un dé équilibré.<br>Quelle est la probabilité d’obtenir deux fois le même nombre ?<br>Donner le résultat sous la forme d'une fraction irréductible."
+            texteCorr = "Sur $36$ cas possibles équiprobables, il y en a $6$ qui sont des doubles. Donc la probabilité d'obtenir deux fois le même nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$."
+            reponse = fraction(1, 6)
+          }
+          if (choix === 'b') {
+            texte = `On lance deux dés cubiques équilibrés.<br>Quelle est la probabilité d’obtenir un total de $${c}$ ?<br>Donner le résultat sous la forme d'une fraction irréductible.`
+            texteCorr = `Sur $36$ cas possibles équiprobables, il y en a $${p[c - 2]}$ qui donnent une somme de $${c}$. Donc la probabilité d'obtenir un total de $${c}$ est $\\dfrac{${p[c - 2]}}{36}${simplificationDeFractionAvecEtapes(p[c - 2], 36)}$.`
+            reponse = texFractionReduite(p[c - 2], 36)
+          }
+          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
