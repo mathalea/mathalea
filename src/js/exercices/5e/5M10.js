@@ -44,7 +44,7 @@ export default function AireDuParallelogramme () {
     this.listeQuestions = []
     this.autoCorrection = []
     let texte = ''; let params
-    const nom = creerNomDePolygone(12, 'Q')
+    const nom = creerNomDePolygone(12, 'QD')
     const c1 = randint(3, 7)
     const h1 = randint(2, 4)
     const c2 = randint(3, 7)

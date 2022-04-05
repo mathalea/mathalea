@@ -93,6 +93,7 @@ export default class ConstruireParSymetrie extends Exercice {
     let lieux, positionLabelDroite
     this.sup = parseInt(this.sup)
     this.sup3 = Number(this.sup3)
+    let listeDeNomsDePolygones
     if (this.sup3 === 1) lieux = choice([['dessus', 'dessus', 'dessus'], ['dessous', 'dessous', 'dessous']])
     else if (this.sup3 === 2) lieux = choice([['dessus', 'sur', 'dessus'], ['dessous', 'sur', 'dessous']])
     else if (this.sup3 === 3) lieux = choice([['dessus', 'dessous', 'sur'], ['sur', 'dessous', 'dessus'], ['dessus', 'sur', 'dessous']])
@@ -172,11 +173,13 @@ export default class ConstruireParSymetrie extends Exercice {
       i < this.nbQuestions && cpt < 50;
 
     ) {
+      if (i % 3 === 0) listeDeNomsDePolygones = ['PQXD']
       objetsEnonce.length = 0
       objetsCorrection.length = 0
       switch (listeTypeDeQuestions[i]) {
         case 0: // symétrie d'axe horizontal ou vertical de points
-          p1nom = creerNomDePolygone(5, 'PQX')
+          p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
+          listeDeNomsDePolygones.push(p1nom)
           k = choice([true, false]) // k = true axe horizontal sinon vertical
           A = point(0, 0)
           if (k) d = droiteHorizontaleParPoint(A)
@@ -242,7 +245,8 @@ export default class ConstruireParSymetrie extends Exercice {
 
           break
         case 1: // symétries axiales d'axes à 45° de points (6ème)
-          p1nom = creerNomDePolygone(5, 'PQX')
+          p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
+          listeDeNomsDePolygones.push(p1nom)
           A = point(0, 0, `${p1nom[0]}`, 'above')
           k = choice([-1, 1])
           d = droiteParPointEtPente(A, k)
@@ -295,7 +299,8 @@ export default class ConstruireParSymetrie extends Exercice {
 
           break
         case 2: // Axe de symétrie légèrement penché (utilisation du quadrillage plus complexe)
-          p1nom = creerNomDePolygone(5, 'PQX')
+          p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
+          listeDeNomsDePolygones.push(p1nom)
           A = point(0, randint(-1, 1), `${p1nom[0]}`, 'above')
           B = point(6, choice([-1, 1], A.y), `${p1nom[1]}`, 'above')
           d = droite(A, B)
@@ -348,7 +353,8 @@ export default class ConstruireParSymetrie extends Exercice {
           break
 
         case 3: // symétrie axiale (Axe vertical ou horizontal) d'un triangle
-          p1nom = creerNomDePolygone(5, 'PQX')
+          p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
+          listeDeNomsDePolygones.push(p1nom)
           A = point(0, 0, `${p1nom[0]}`, 'above')
           k = choice([true, false]) // si k est true alors d est horizontale sinon elle est verticale
           if (k) d = droiteHorizontaleParPoint(A)
@@ -415,7 +421,8 @@ export default class ConstruireParSymetrie extends Exercice {
 
           break
         case 4: // symetrie axiale (Axe à 45°) d'un triangle
-          p1nom = creerNomDePolygone(5, 'PQX')
+          p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
+          listeDeNomsDePolygones.push(p1nom)
           A = point(0, 0, `${p1nom[0]}`, 'above')
           k = choice([-1, 1])
 
@@ -469,7 +476,8 @@ export default class ConstruireParSymetrie extends Exercice {
           correction = 'Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(d)$.<br><br>'
           break
         case 5: // symetrie axiale Axe légèrement penché
-          p1nom = creerNomDePolygone(5, 'PQX')
+          p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
+          listeDeNomsDePolygones.push(p1nom)
           A = point(0, randint(-1, 1), `${p1nom[0]}`, 'above')
           B = point(6, choice([-1, 1]), `${p1nom[1]}`, 'above')
           d = droite(A, B)
@@ -519,7 +527,8 @@ export default class ConstruireParSymetrie extends Exercice {
           correction = 'Contrôler la figure en vérifiant que les segments en pointillés se coupent bien sur la droite $(d)$.<br><br>'
           break
         case 6: // 3 symétries centrales de points
-          p1nom = creerNomDePolygone(4, 'PQX')
+          p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
+          listeDeNomsDePolygones.push(p1nom)
           B = point(7, randint(-1, 1), `${p1nom[1]}`, 'above')
           d = droiteParPointEtPente(B, 0)
           d.isVisible = true
@@ -560,7 +569,8 @@ export default class ConstruireParSymetrie extends Exercice {
           correction = ''
           break
         case 7: // Symétrie centrale de triangle
-          p1nom = creerNomDePolygone(4, 'PQX')
+          p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
+          listeDeNomsDePolygones.push(p1nom)
           B = point(7, randint(-1, 1), `${p1nom[1]}`, 'above')
           d = droiteParPointEtPente(B, 0)
           d.isVisible = true

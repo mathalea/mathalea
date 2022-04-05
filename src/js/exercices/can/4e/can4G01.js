@@ -31,7 +31,7 @@ export default function LongueurPythagore () {
       [27, 36, 45],
       [30, 40, 50]
     ])
-    const nom = creerNomDePolygone(3, 'Q')
+    const nom = creerNomDePolygone(3, 'QD')
     const [a, b, c] = triplet
     const A = point(0, 0, nom[0])
     const B = pointAdistance(A, b, 0, nom[1]) // triplet[1] sera la longueur c
