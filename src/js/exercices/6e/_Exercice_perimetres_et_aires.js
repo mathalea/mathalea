@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, arrondiVirgule, calcul, texNombrec, creerNomDePolygone, texNombre, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, arrondiVirgule, calcul, texNombrec, creerNomDePolygone, texNombre, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, rangeMinMax, contraindreValeur, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -8,6 +8,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModificationImportante = '05/04/2022'
 
 /**
  * Déterminer le périmètre et l'aire d'un carré, d'un rectangle, d'un triangle rectangle, d'un cercle
@@ -18,7 +19,7 @@ export const amcType = 'AMCHybride'
  * @author Rémi Angot// modifié par Mireille Gain pour le support des décimaux
  * * Relecture EE : Décembre 2021
  */
-export default function ExercicePerimetresEtAires (difficulte = 1) {
+export default function ExercicePerimetresEtAires (difficulte = '1-2') {
   // Calculer le périmètre et l'aire de figures
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = difficulte
@@ -43,12 +44,13 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
       [21, 20, 29],
       [9, 40, 41]
     ]
-    let typesDeQuestionsDisponibles = [
+    const typesDeQuestionsDisponibles = [
       'carre',
       'rectangle',
       'triangle_rectangle',
       'cercle'
-    ]; let typesDeQuestions
+    ]
+    let QuestionsDisponibles
     let partieDecimale1, partieDecimale2
     if (this.sup2) {
       partieDecimale1 = calcul(randint(1, 9) / 10)
@@ -57,22 +59,25 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
       partieDecimale1 = 0
       partieDecimale2 = 0
     }
-
-    if (this.sup === 1) {
-      enleveElement(typesDeQuestionsDisponibles, 'cercle')
-      this.nbCols = 1
-    } else if (this.sup === 2) {
-      typesDeQuestionsDisponibles = ['cercle']
+    if (!this.sup) { // Si aucune liste n'est saisie
+      QuestionsDisponibles = rangeMinMax(1, 4)
+    } else {
+      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
+        QuestionsDisponibles = [contraindreValeur(1, 4, this.sup, 2)]
+      } else {
+        QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
+          QuestionsDisponibles[i] = contraindreValeur(1, 4, parseInt(QuestionsDisponibles[i]), 2) // parseInt en fait un tableau d'entiers
+        }
+        this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
+      }
     }
-    const listeTypeDeQuestions = combinaisonListes(
-      typesDeQuestionsDisponibles,
-      this.nbQuestions
-    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const typesDeQuestions = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
+
     let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cote, nomCarre, L, l, nomRectangle, a, b, c, nomTriangle, triplet, R, donneLeDiametre, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
       if (i % 4 === 0) listeDeNomsDePolygones = ['QD']
-      switch (typesDeQuestions) {
+      switch (typesDeQuestionsDisponibles[typesDeQuestions[i] - 1]) {
         case 'carre':
           cote = calcul(randint(2, 11) + partieDecimale1)
           nomCarre = creerNomDePolygone(4, listeDeNomsDePolygones)
@@ -204,10 +209,9 @@ export default function ExercicePerimetresEtAires (difficulte = 1) {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    3,
-    '1 : Carré, rectangle et triangle rectangle\n2 : Cercles\n3 : Mélange'
+  this.besoinFormulaireTexte = [
+    'Types de figures (nombres séparés par des tirets)',
+    '1 : carré\n2 : rectangle\n3 : triangle rectangle\n4 : cercle'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des décimaux', false]
 }
