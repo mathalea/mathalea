@@ -5,7 +5,7 @@ import Grandeur from '../Grandeur.js'
 import { context } from '../context.js'
 import { afficheScore } from '../gestionInteractif.js'
 import { gestionCan } from './gestionCan.js'
-import { sp } from '../outils.js'
+import { sp, texteExposant } from '../outils.js'
 
 export function verifQuestionMathLive (exercice, i) {
   const engine = new ComputeEngine()
@@ -167,7 +167,7 @@ export function verifQuestionMathLive (exercice, i) {
         if (grandeurSaisie) {
           if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
         } else {
-          resultat = 'essaieEncoreLongueur'
+          resultat = 'essaieEncoreAvecUneSeuleUnite'
         }
         break
       case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
@@ -260,8 +260,12 @@ export function verifQuestionMathLive (exercice, i) {
     spanReponseLigne.innerHTML = '😎'
     spanReponseLigne.style.fontSize = 'large'
     if (champTexte !== undefined) champTexte.readOnly = true
-  } else if (resultat === 'essaieEncoreLongueur') {
-    spanReponseLigne.innerHTML = '<em>Il faut saisir une valeur numérique et une unité (cm ou cm² par exemple).</em>'
+  } else if (resultat === 'essaieEncoreAvecUneSeuleUnite') {
+    spanReponseLigne.innerHTML = '<em>Il faut saisir une valeur numérique et une seule unité (' +
+    (reponse.uniteDeReference.indexOf('^') > 0
+      ? reponse.uniteDeReference.split('^')[0] + texteExposant(reponse.uniteDeReference.split('^')[1])
+      : reponse.uniteDeReference) +
+    ' par exemple).</em>'
     spanReponseLigne.style.color = '#f15929'
     spanReponseLigne.style.fontWeight = 'bold'
   } else if (resultat === 'essaieEncorePuissance') {
@@ -277,15 +281,17 @@ export function verifQuestionMathLive (exercice, i) {
 }
 
 function saisieToGrandeur (saisie) {
-  const split = saisie.split('\\operatorname{')
-  const mesure = parseFloat(split[0].replace(',', '.'))
-  if (split[1]) {
+  if (saisie.split('operatorname').length !== 2) { return false } else {
+    const split = saisie.split('\\operatorname{')
+    const mesure = parseFloat(split[0].replace(',', '.'))
+    if (split[1]) {
     // const unite = split[1].substring(0, split[1].length - 1)
-    const split2 = split[1].split('}')
-    const unite = split2[0] + split2[1]
-    return new Grandeur(mesure, unite)
-  } else {
-    return false
+      const split2 = split[1].split('}')
+      const unite = split2[0] + split2[1]
+      return new Grandeur(mesure, unite)
+    } else {
+      return false
+    }
   }
 }
 
@@ -306,7 +312,7 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres 
  * numerateur = false signifie qu'il y a un champ de saisie pour le numérateur.
  * denominateur = 100 signifie que le dénominateur est déjà renseigné à 100.
  * Dans ce cas, on utilise le format Interactif correspondant : 'Num' ou 'Den'
- * Si les deux champs sont à saisir, on utilise deux réponse de formatInteractif 'calcul'.
+ * Si les deux champs sont à saisir, on utilise deux réponses de formatInteractif 'calcul'.
  */
 export function ajouteChampFractionMathLive (exercice, i, numerateur = false, denominateur = 100, style = '', { texte = '', texteApres = '' } = {}) {
   let code = ''
