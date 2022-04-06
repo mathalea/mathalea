@@ -166,7 +166,6 @@ export default function ProblemesEvenementsRecurrents () {
       }
       let txtIntro = ''
       if (context.isHtml && saveurs[i] === 'engrenages') {
-        console.log(`toto_${Date.now()}`)
         // eslint-disable-next-line no-var
         var pourcentage = '100%'
         const idUnique = `${numeroExercice}_${Date.now()}`
