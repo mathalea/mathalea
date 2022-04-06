@@ -93,13 +93,19 @@ const affichageUniquementQuestion = (i) => {
   }
   if (i !== undefined) {
     context.questionCanEnCours = i + 1
-    questions[i].style.display = 'block'
-    const exercice = questions[i].parentElement.parentElement
-    exercice.style.display = 'block'
-    if (document.getElementById('scoreTotal')) {
-      corrections[i].style.display = 'block'
-      const correction = corrections[i].parentElement.parentElement
-      correction.style.display = 'block'
+    if (questions[i] !== undefined) {
+      questions[i].style.display = 'block'
+      const exercice = questions[i].parentElement.parentElement
+      exercice.style.display = 'block'
+      if (document.getElementById('scoreTotal')) {
+        if (corrections[i] !== undefined) {
+          corrections[i].style.display = 'block'
+          const correction = corrections[i].parentElement.parentElement
+          correction.style.display = 'block'
+        }
+      }
+    } else {
+      window.notify('AffichageUniquementQuestion(i) : questions[i] n\'est pas défini', { i, questions })
     }
   }
   const inputs = document.querySelectorAll('input, math-field ')

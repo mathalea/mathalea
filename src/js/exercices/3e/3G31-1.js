@@ -12,7 +12,7 @@ export const titre = 'Calculer toutes les mesures d’angle d’une figure compl
  * 3G31-1
  * Février 2021
 */
-export default function MonSuperExerciceTropBeau () {
+export default function CalculDAngleFigureComplexe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = 'Calculer la mesure de tous les angles de cette figure.'
@@ -48,7 +48,7 @@ export default function MonSuperExerciceTropBeau () {
     t2c.color = 'blue'
     t2c.epaisseur = 3
     const c2 = codageAngleDroit(C, A, D)
-    const nom = creerNomDePolygone(4)
+    const nom = creerNomDePolygone(4, 'QD')
     A.nom = nom[0]
     B.nom = nom[1]
     C.nom = nom[2]
@@ -56,7 +56,7 @@ export default function MonSuperExerciceTropBeau () {
     const labels = labelPoint(A, B, C, D)
     const BA = longueur(B, A)
     const AD = longueur(A, D, 1)
-    const BAC = Math.ceil(angle(B, A, C))
+    const BAC = Math.round(angle(B, A, C))
     let AC = calcul(BA / Math.cos(radians(BAC)), 1)
     let ACD = Math.round(degres(Math.atan(AD / AC)))
     let a1 = afficheMesureAngle(B, A, C, 'black', 1, BAC + '°')
@@ -65,7 +65,7 @@ export default function MonSuperExerciceTropBeau () {
     const a4 = afficheLongueurSegment(A, C)
     const a5 = codeAngle(A, C, D, 1.2)
     a5.epaisseur = 2
-    const ACB = Math.ceil(angle(A, C, B))
+    const ACB = Math.round(angle(A, C, B))
 
     const objetsMathalea = [t1, t2, c1, c2, labels]
 

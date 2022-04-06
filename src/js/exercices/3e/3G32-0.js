@@ -50,6 +50,7 @@ export default function problemesTrigoLongueur () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    let listeDeNomsDePolygones
     const objet = [['arbre', 'un', '', 'situé'], ['immeuble', 'un', '', 'situé'], ['éolienne', 'une', 'te', 'située'], ['colline', 'une', 'te', 'située']]
     let distance; let beta; let alpha; let taille; let A; let B; let S; let C; let R; let objets = []; let p
     let O; let H; let M; let R2; let Axe; let normalV; let normalH; let P; let HP; let Sph; let OP; let PoleNord; let PoleSud
@@ -377,7 +378,7 @@ export default function problemesTrigoLongueur () {
           C = pointAdistance(A, absC, 90, lettreDepuisChiffre(numC))
           numR = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC])
           R = pointAdistance(B, absC, 90, lettreDepuisChiffre(numR))
-          numS = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC, numS])
+          numS = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC, numR])
           absS = randint(7, 11)
           S = pointAdistance(B, absS, 90, lettreDepuisChiffre(numS))
           p = polygoneAvecNom(A, B, R, S, C)
@@ -393,8 +394,9 @@ export default function problemesTrigoLongueur () {
             texte = `<br>$${lettreDepuisChiffre(numC)}$ représente l'œil de l'observateur, $[${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}]$ représente cet${objet[index][2]} ${objet[index][0]}.<br>`
             texte += '(Le schéma ci-dessous n\'est pas en vraie grandeur et ne respecte pas les proportions.)<br>'
             texte += mathalea2d({ xmin: min(-sensH, ordA + sensH), ymin: -1, xmax: max(-sensH, ordA + sensH), ymax: absS + 1, pixelsParCm: 20, scale: 0.5 }, objets)
-            texte += `<br>${numAlpha(j)}Calculer d'abord la mesure de l'angle $${baita}$, arrondie au centième près.`
+            texte += `<br>${numAlpha(j)}Calculer d'abord $${baita}$, arrondie au centième près.`
             enonceAMC = texte
+            texte = enonceInit + texte
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline nospacebefore', { texteApres: '$\\degree$' })
               setReponse(this, i + ii, arrondi(beta))
@@ -419,7 +421,7 @@ export default function problemesTrigoLongueur () {
                   texte: '',
                   statut: '',
                   reponse: {
-                    texte: `Mesure calculée, arrondie au centième, de l'angle $${baita}$ : `,
+                    texte: `Valeur calculée, arrondie au centième, de $${baita}$ : `,
                     valeur: [arrondi(beta)],
                     alignement: 'center',
                     param: {
@@ -1068,6 +1070,7 @@ export default function problemesTrigoLongueur () {
         case 6:
           {
             let objetsEnonce = []; let paramsEnonce = {}
+            if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
             const AD = randint(5, 9)
             const AE = randint(AD + 1, AD + 4)
             const AC = randint(3, AD - 1)
@@ -1084,7 +1087,8 @@ export default function problemesTrigoLongueur () {
             const codage1 = codageAngleDroit(A, B, C)
             const codage2 = codageAngleDroit(A, D, E)
             const labels = labelPoint(A, B, C, D, E)
-            const nomDesSommets = creerNomDePolygone(5)
+            const nomDesSommets = creerNomDePolygone(5, listeDeNomsDePolygones)
+            listeDeNomsDePolygones.push(nomDesSommets)
             A.nom = nomDesSommets[0]
             B.nom = nomDesSommets[1]
             C.nom = nomDesSommets[2]

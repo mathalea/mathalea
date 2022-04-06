@@ -22,6 +22,7 @@ export default class ProblemesEnEquation extends Exercice {
     super()
     this.titre = titre
     this.nbQuestions = 2
+    this.sup = 2
   }
 
   figureThales (a, b, c, OC) {
@@ -61,7 +62,12 @@ export default class ProblemesEnEquation extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'Thales', 'Thales2', 'tarifs', 'spectacle', 'isocele']
+    let listeTypeDeProblemes
+    if (parseInt(this.sup) === 1) {
+      listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'tarifs', 'spectacle', 'isocele']
+    } else {
+      listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'Thales', 'Thales2', 'tarifs', 'spectacle', 'isocele']
+    }
     const listeDeProblemes = combinaisonListes(listeTypeDeProblemes, this.nbQuestions)
     for (let i = 0, cpt = 0, texte, x, a, b, c, d, variables, enonce, figure, intro, conclusion, equation, resolution, verification, texteCorr; i < this.nbQuestions && cpt < 50;) {
       const quidam = prenom(2)
@@ -365,7 +371,7 @@ export default class ProblemesEnEquation extends Exercice {
             enonce += '<br>Quelle est la mesure de ses côtés égaux ? (la figure n\'est pas en vraie grandeur)'
             intro = `Posons $x$ la longueur d'un des côtés égaux. La longueur de la base est : $x${ecritureAlgebrique(c)}$.<br>`
             intro += 'Le calcul du périmètre donne l\'équation suivante :<br>'
-            equation = `2*x+x${ecritureAlgebrique(c)})=${d}`
+            equation = `2*x+x${ecritureAlgebrique(c)}=${d}`
             conclusion = `<br>Les deux côtés égaux de ce triangle isocèle mesurent donc $${a}$ mm.`
             x = a
           }

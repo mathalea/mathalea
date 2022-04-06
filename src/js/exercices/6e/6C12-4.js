@@ -77,7 +77,7 @@ export default function ExerciceInformationsProblemes () {
             case 1:
               texte += 'Quel est le nombre total de livres distribués ?'
               reponse = nb1 * nb4
-              texteCorr += texteEnCouleurEtGras(nb1) + '$\\times$' + texteEnCouleurEtGras(nb4 + ' livres') + '=' + texteEnCouleurEtGras(reponse + ' livres') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb1) + `$${sp()}\\times${sp()}$` + texteEnCouleurEtGras(nb4 + ' livres') + `${sp()}=${sp()}` + texteEnCouleurEtGras(reponse + ' livres') + '<br>'
               texteCorr += `${reponse} livres sont distribués par le professeur.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'livres' })
@@ -87,7 +87,7 @@ export default function ExerciceInformationsProblemes () {
             case 2:
               texte += 'Quelle est la masse moyenne des livres distribués à chaque enfant ?'
               reponse = nb5 * nb4
-              texteCorr += texteEnCouleurEtGras(nb5 + ' g ') + '$\\times$' + texteEnCouleurEtGras(nb4) + '=' + texteEnCouleurEtGras(reponse + ' g') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb5 + ' g') + `$${sp()}\\times${sp()}$` + texteEnCouleurEtGras(nb4) + `${sp()}=${sp()}` + texteEnCouleurEtGras(reponse + ' g') + '<br>'
               texteCorr += `La masse moyenne des livres distribués à chaque enfant est de ${reponse} g.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'g' })
@@ -148,7 +148,7 @@ export default function ExerciceInformationsProblemes () {
             case 1:
               texte += 'Quel est le prix total des fruits achetés ?'
               reponse = nb4 * nb5
-              texteCorr += texteEnCouleurEtGras(nb4) + '$\\times$' + texteEnCouleurEtGras(nb5 + ' €') + '=' + texteEnCouleurEtGras(stringNombre(reponse1) + ' €') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb4) + `$${sp()}\\times${sp()}$` + texteEnCouleurEtGras(nb5 + ' €') + `${sp()}=${sp()}` + texteEnCouleurEtGras(stringNombre(reponse1) + ' €') + '<br>'
               texteCorr += `Le prix total des fruits achetés est de ${stringNombre(reponse1)} €.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + '€' })
@@ -192,7 +192,7 @@ export default function ExerciceInformationsProblemes () {
             case 2:
               texte += 'Quel est le prix total des légumes achetés ?'
               reponse = nb1 * nb3
-              texteCorr += texteEnCouleurEtGras(nb1) + '$\\times$' + texteEnCouleurEtGras(nb3 + ' €') + '=' + texteEnCouleurEtGras(stringNombre(reponse2) + ' €') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb1) + `$${sp()}\\times${sp()}$` + texteEnCouleurEtGras(nb3 + ' €') + `${sp()}=${sp()}` + texteEnCouleurEtGras(stringNombre(reponse2) + ' €') + '<br>'
               texteCorr += `Le prix total des légumes achetés est de ${stringNombre(reponse2)} €.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + '€' })
@@ -249,7 +249,7 @@ export default function ExerciceInformationsProblemes () {
             case 1:
               texte += `Combien d'habitants compte le village de Saint-${quidam}-Le-Bouquetin ?`
               reponse = nb1 - nb5
-              texteCorr += texteEnCouleurEtGras(nb1 + ' habitants ') + '$-$' + texteEnCouleurEtGras(nb5 + ' habitants') + '=' + texteEnCouleurEtGras(stringNombre(reponse) + ' habitants') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb1 + ' habitants') + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb5 + ' habitants') + `${sp()}=${sp()}` + texteEnCouleurEtGras(stringNombre(reponse) + ' habitants') + '<br>'
               texteCorr += `Le village de Saint-${quidam}-Le-Bouquetin ${stringNombre(reponse)} habitants.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'habitants' })
@@ -259,7 +259,7 @@ export default function ExerciceInformationsProblemes () {
             case 2:
               texte += `À quelle altitude se situe le village de Saint-${quidam}-Le-Bouquetin ?`
               reponse = nb2 + nb4
-              texteCorr += texteEnCouleurEtGras(nb2 + ' m') + '$+$' + texteEnCouleurEtGras(nb4 + ' m') + '=' + texteEnCouleurEtGras(stringNombre(reponse) + ' m') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb2 + ' m') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb4 + ' m') + `${sp()}=${sp()}` + texteEnCouleurEtGras(stringNombre(reponse) + ' m') + '<br>'
               texteCorr += `Le village de Saint-${quidam}-Le-Bouquetin se situe à ${stringNombre(reponse)} m d'altitude.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'm' })
@@ -319,7 +319,7 @@ export default function ExerciceInformationsProblemes () {
             case 1:
               texte += `Combien y a-t-il de cases dans le manga de ${quidam2} ?`
               reponse1 = nb3 * nb5
-              texteCorr += texteEnCouleurEtGras(nb3 + ' cases ') + '$\\times$' + texteEnCouleurEtGras(nb5) + '=' + texteEnCouleurEtGras(stringNombre(reponse1) + ' cases') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb3 + ' cases') + `$${sp()}\\times${sp()}$` + texteEnCouleurEtGras(nb5) + `${sp()}=${sp()}` + texteEnCouleurEtGras(stringNombre(reponse1) + ' cases') + '<br>'
               texteCorr += `Il y a ${stringNombre(reponse1)} cases dans le manga de ${quidam2}.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'cases' })
@@ -362,7 +362,7 @@ export default function ExerciceInformationsProblemes () {
               break
             case 2:
               texte += `Lorsqu'elle a acheté son manga, quelle somme d'argent a-t-on rendu à ${quidam2} ?`
-              texteCorr += texteEnCouleurEtGras(nb4 + ' €') + '$-$' + texteEnCouleurEtGras(nb2 + ' €') + '=' + texteEnCouleurEtGras(stringNombre(reponse2) + ' €') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb4 + ' €') + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb2 + ' €') + `${sp()}=${sp()}` + texteEnCouleurEtGras(stringNombre(reponse2) + ' €') + '<br>'
               texteCorr += `On a rendu à ${quidam2} ${stringNombre(reponse2)} €.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + '€' })
@@ -431,7 +431,7 @@ export default function ExerciceInformationsProblemes () {
           switch (choixVersion) {
             case 1:
               texte += 'Quelle est la durée prévue du film ?'
-              texteCorr += texteEnCouleurEtGras(nb3) + '$-$' + texteEnCouleurEtGras(nb2) + '=' + texteEnCouleurEtGras(minToHour(reponse1[0] * 60 + reponse1[1])) + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb3) + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb2) + `${sp()}=${sp()}` + texteEnCouleurEtGras(minToHour(reponse1[0] * 60 + reponse1[1])) + '<br>'
               texteCorr += `La durée prévue du film est de ${minToHour(reponse1[0] * 60 + reponse1[1])}.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', { texte: '', texteApres: sp(3) + 'h' })
@@ -495,7 +495,7 @@ export default function ExerciceInformationsProblemes () {
               break
             case 2:
               texte += 'À quelle heure se termine l\'émission ?'
-              texteCorr += texteEnCouleurEtGras(nb4) + '$+$' + texteEnCouleurEtGras(nb5 + ' minutes') + '=' + texteEnCouleurEtGras(minToHour(reponse2[0] * 60 + reponse2[1])) + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb4) + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb5 + ' minutes') + `${sp()}=${sp()}` + texteEnCouleurEtGras(minToHour(reponse2[0] * 60 + reponse2[1])) + '<br>'
               texteCorr += `L'émission se termine à ${minToHoraire(reponse2[0] * 60 + reponse2[1])}.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', { texte: '', texteApres: sp(3) + 'h' })
@@ -580,7 +580,7 @@ export default function ExerciceInformationsProblemes () {
             case 1:
               texte += `Quel est le montant de chaque versement que payera la ${personnage1} de ${quidam2} ?`
               reponse1 = arrondi(nb2 / nb5)
-              texteCorr += texteEnCouleurEtGras(nb2 + ' € ') + '$\\div$' + texteEnCouleurEtGras(nb5) + '=' + texteEnCouleurEtGras(stringNombre(reponse1) + ' €') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb2 + ' €') + `$${sp()}\\div${sp()}$` + texteEnCouleurEtGras(nb5) + `${sp()}=${sp()}` + texteEnCouleurEtGras(stringNombre(reponse1) + ' €') + '<br>'
               texteCorr += `La ${personnage1} de ${quidam2} payera ${nb5} fois, la somme de ${stringNombre(reponse1)} €.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + '€' })
@@ -623,7 +623,7 @@ export default function ExerciceInformationsProblemes () {
               break
             case 2:
               texte += `Quel est le montant total des cadeaux offerts à ${quidam2} ?`
-              texteCorr += texteEnCouleurEtGras(nb4 + ' €') + '$+$' + texteEnCouleurEtGras(nb2 + ' €') + '=' + texteEnCouleurEtGras(stringNombre(reponse2) + ' €') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb4 + ' €') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb2 + ' €') + `${sp()}=${sp()}` + texteEnCouleurEtGras(stringNombre(reponse2) + ' €') + '<br>'
               texteCorr += `Le montant total des cadeaux offerts à ${quidam2} est de ${stringNombre(reponse2)} €.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + '€' })
@@ -684,7 +684,7 @@ export default function ExerciceInformationsProblemes () {
             case 1:
               texte += `Quel est l'âge de ${quidam2} ?`
               reponse1 = nb1 + 2 + nb3
-              texteCorr += texteEnCouleurEtGras(nb3 + ' ans ') + '$+$' + texteEnCouleurEtGras(nb1 + 2 + ' ans ') + '=' + texteEnCouleurEtGras(stringNombre(reponse1) + ' ans') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb3 + ' ans') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb1 + 2 + ' ans') + `${sp()}=${sp()}` + texteEnCouleurEtGras(stringNombre(reponse1) + ' ans') + '<br>'
               texteCorr += `${quidam2} a ${stringNombre(reponse1)} ans.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'ans' })
@@ -727,7 +727,7 @@ export default function ExerciceInformationsProblemes () {
               break
             case 2:
               texte += `Combien mesure ${quidam2} ?`
-              texteCorr += texteEnCouleurEtGras(nb4 + ' m') + '$+$' + texteEnCouleurEtGras(nb5 + ' cm') + '=' + texteEnCouleurEtGras(nb4 + ' m') + '$+$' + texteEnCouleurEtGras(stringNombre(arrondi(nb5 / 100)) + ' m') + '=' + texteEnCouleurEtGras(stringNombre(reponse2) + ' m') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb4 + ' m') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb5 + ' cm') + `${sp()}=${sp()}` + texteEnCouleurEtGras(nb4 + ' m') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(stringNombre(arrondi(nb5 / 100)) + ' m') + `${sp()}=${sp()}` + texteEnCouleurEtGras(stringNombre(reponse2) + ' m') + '<br>'
               texteCorr += `${quidam2} mesure ${stringNombre(reponse2)} m.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'm' })
@@ -789,7 +789,7 @@ export default function ExerciceInformationsProblemes () {
             case 1:
               texte += `Combien le ${personnage1} de ${quidam} dépense-t-il chaque semaine pour son journal ?`
 
-              texteCorr += texteEnCouleurEtGras(nb2) + '$\\times$' + texteEnCouleurEtGras(nb4 + ' € ') + '=' + texteEnCouleurEtGras(estentier(reponse1) ? stringNombre(reponse1) : (stringNombre(reponse1) + '0') + '€') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb2) + `$${sp()}\\times${sp()}$` + texteEnCouleurEtGras(nb4 + ' €') + `${sp()}=${sp()}` + texteEnCouleurEtGras(estentier(reponse1) ? stringNombre(reponse1) : (stringNombre(reponse1) + '0') + '€') + '<br>'
               texteCorr += `Le ${personnage1} de ${quidam} dépense chaque semaine ${estentier(reponse1) ? stringNombre(reponse1) : (stringNombre(reponse1) + '0')} € pour son journal.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + '€' })
@@ -832,7 +832,7 @@ export default function ExerciceInformationsProblemes () {
               break
             case 2:
               texte += `À quelle heure le ${personnage1} de ${quidam} arrive-t-il à son travail ?`
-              texteCorr += texteEnCouleurEtGras(nb3) + '$+$' + texteEnCouleurEtGras(nb5 + ' min') + '=' + texteEnCouleurEtGras(minToHour(reponse2[0] * 60 + reponse2[1])) + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb3) + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb5 + ' min') + `${sp()}=${sp()}` + texteEnCouleurEtGras(minToHour(reponse2[0] * 60 + reponse2[1])) + '<br>'
               texteCorr += `Le ${personnage1} de ${quidam} arrive à son travail ${minToHoraire(reponse2[0] * 60 + reponse2[1])}.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline', { texte: '', texteApres: sp(3) + 'h' })
@@ -912,7 +912,7 @@ export default function ExerciceInformationsProblemes () {
             case 1:
               texte += 'Quelle distance sépare l\'entrepôt du premier arrêt ?'
               reponse = nb5 - nb3
-              texteCorr += texteEnCouleurEtGras(nb5 + ' km') + '$-$' + texteEnCouleurEtGras(nb3 + ' km ') + '=' + texteEnCouleurEtGras(reponse + ' km') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb5 + ' km') + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb3 + ' km') + `${sp()}=${sp()}` + texteEnCouleurEtGras(reponse + ' km') + '<br>'
               texteCorr += `La distance séparant l'entrepôt du premier arrêt est de ${reponse} km.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'km' })
@@ -922,7 +922,7 @@ export default function ExerciceInformationsProblemes () {
             case 2:
               texte += 'Combien de colis le livreur a-t-il déposé à son deuxième arrêt ?'
               reponse = nb1 - nb2
-              texteCorr += texteEnCouleurEtGras(nb1 + ' colis') + '$-$' + texteEnCouleurEtGras(nb2 + ' colis') + '=' + texteEnCouleurEtGras(reponse + ' colis') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb1 + ' colis') + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb2 + ' colis') + `${sp()}=${sp()}` + texteEnCouleurEtGras(reponse + ' colis') + '<br>'
               texteCorr += `Le livreur a déposé ${reponse} colis à son deuxième arrêt.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'colis' })
@@ -984,7 +984,7 @@ export default function ExerciceInformationsProblemes () {
             case 1:
               texte += 'Quelle est la masse, en kg, de chacun des petits conteneurs, sachant qu\'ils ont tous la même masse ?'
               reponse1 = arrondi(reponse2 * 1000, 0)
-              texteCorr += texteEnCouleurEtGras(nb5 + ' tonnes') + '$\\div$' + texteEnCouleurEtGras(nb4) + '=' + texteEnCouleurEtGras(stringNombre(reponse2) + ' tonnes') + '=' + texteEnCouleurEtGras(stringNombre(reponse1) + ' kg') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb5 + ' tonnes') + `$${sp()}\\div${sp()}$` + texteEnCouleurEtGras(nb4) + `${sp()}=${sp()}` + texteEnCouleurEtGras(stringNombre(reponse2) + ' tonnes') + `${sp()}=${sp()}` + texteEnCouleurEtGras(stringNombre(reponse1) + ' kg') + '<br>'
               texteCorr += `La masse de chacun des petits conteneurs est de ${stringNombre(reponse1)} kg.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'kg' })
@@ -1028,7 +1028,7 @@ export default function ExerciceInformationsProblemes () {
             case 2:
               texte += 'Quelle est la masse totale, en tonnes, des gros conteneurs ?'
               reponse = nb2 * nb3
-              texteCorr += texteEnCouleurEtGras(nb2) + '$\\times$' + texteEnCouleurEtGras(nb3 + ' tonnes') + '=' + texteEnCouleurEtGras(stringNombre(reponse) + ' tonnes') + '<br>'
+              texteCorr += texteEnCouleurEtGras(nb2) + `$${sp()}\\times${sp()}$` + texteEnCouleurEtGras(nb3 + ' tonnes') + `${sp()}=${sp()}` + texteEnCouleurEtGras(stringNombre(reponse) + ' tonnes') + '<br>'
               texteCorr += `La masse totale des gros conteneurs est de ${reponse} tonnes.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline', { texte: '', texteApres: sp(3) + 'tonnes' })

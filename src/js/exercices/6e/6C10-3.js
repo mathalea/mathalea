@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, creerCouples, choice, texNombre, texNombre2, calcul, contraindreValeur } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
@@ -40,6 +40,9 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
       tables[0] = this.sup
     } else {
       tables = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des ;
+      for (let i = 0; i < tables.length; i++) {
+        tables[i] = contraindreValeur(2, 9, parseInt(tables[i]))
+      }
     }
     const couples = creerCouples(
       tables,
