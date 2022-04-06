@@ -279,7 +279,7 @@ export default function ExerciceAdditionnerFractionProduit () {
           } else {
             signe2 = '-'
           }
-          texte = `$${texFraction(a, b)}+${texFraction(c, d)}\\times${texFraction(e, f)}=$`
+          texte = `$${texFraction(a, b)}+${texFraction(c, d)}\\times${texFraction(e, f)}$`
           texteCorr = `$${texFraction(a, b)}+${texFraction(c, d)}\\times${texFraction(e, f)}$`
 
           c = abs(c) // gestion du signe du produit avec {signe}
