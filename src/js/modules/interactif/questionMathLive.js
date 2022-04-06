@@ -161,7 +161,7 @@ export function verifQuestionMathLive (exercice, i) {
           }
         }
         break
-      case 'longueur': // Pour les exercices où l'on attend une mesure avec une unité au choix
+      case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
         saisie = champTexte.value.replace('²', '^2').replace('³', '^3')
         grandeurSaisie = saisieToGrandeur(saisie)
         if (grandeurSaisie) {

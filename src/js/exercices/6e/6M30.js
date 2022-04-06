@@ -323,7 +323,7 @@ export default function CalculDeVolumes () {
         texte += propositionsQcm(this, i).texte
       } else {
         if (!context.isAmc) {
-          setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'longueur' })
+          setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'unites' })
           texte += ajouteChampTexteMathLive(this, i, 'longueur')
         }
       }

@@ -158,8 +158,8 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
       if (reponses.indexOf(resultat1 * resultat2) === -1) {
         reponses.push(resultat1 * resultat2)
         if (!context.isAmc) {
-          setReponse(this, 2 * i, new Grandeur(resultat1, 'cm'), { formatInteractif: 'longueur' })
-          setReponse(this, 2 * i + 1, new Grandeur(resultat2, 'cm^2'), { formatInteractif: 'longueur' })
+          setReponse(this, 2 * i, new Grandeur(resultat1, 'cm'), { formatInteractif: 'unites' })
+          setReponse(this, 2 * i + 1, new Grandeur(resultat2, 'cm^2'), { formatInteractif: 'unites' })
         } else {
           this.autoCorrection[i] = {
             enonce: texte,

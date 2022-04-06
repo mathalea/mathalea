@@ -172,10 +172,10 @@ export default function PerimetreOuAireDeFiguresComposees () {
           ]
         }
       } else {
-        setReponse(this, i * 4, new Grandeur(L1 + L2 + DA + L1 + l1, 'cm'), { formatInteractif: 'longueur' })
-        setReponse(this, i * 4 + 1, new Grandeur(L1 * l1 + (L2 * l1) / 2, 'cm^2'), { formatInteractif: 'longueur' })
-        setReponse(this, i * 4 + 2, new Grandeur(3 * c + t1 + t2, 'cm'), { formatInteractif: 'longueur' })
-        setReponse(this, i * 4 + 3, new Grandeur(c ** 2 - (c * h) / 2, 'cm^2'), { formatInteractif: 'longueur' })
+        setReponse(this, i * 4, new Grandeur(L1 + L2 + DA + L1 + l1, 'cm'), { formatInteractif: 'unites' })
+        setReponse(this, i * 4 + 1, new Grandeur(L1 * l1 + (L2 * l1) / 2, 'cm^2'), { formatInteractif: 'unites' })
+        setReponse(this, i * 4 + 2, new Grandeur(3 * c + t1 + t2, 'cm'), { formatInteractif: 'unites' })
+        setReponse(this, i * 4 + 3, new Grandeur(c ** 2 - (c * h) / 2, 'cm^2'), { formatInteractif: 'unites' })
       }
       if (this.questionJamaisPosee(i, L1, L2, l1, c, h)) {
         this.listeQuestions.push(texte)

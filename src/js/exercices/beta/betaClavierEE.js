@@ -44,17 +44,17 @@ export default function DesClaviers () {
       texte += numAlpha(0) + 'Mettez une longueur égale à 10 m pour vérifier que c\'est correct : '
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, 0, 'largeur25 inline nospacebefore longueur')
-        setReponse(this, 0, new Grandeur(10, 'm'), { formatInteractif: 'longueur' })
+        setReponse(this, 0, new Grandeur(10, 'm'), { formatInteractif: 'unites' })
       }
       texte += `<br>${numAlpha(1)}Mettez une aire égale à 10 m${texteExposant(2)} pour vérifier que c'est correct : `
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, 1, 'largeur25 inline nospacebefore longueur')
-        setReponse(this, 1, new Grandeur(10, 'm^2'), { formatInteractif: 'longueur' })
+        setReponse(this, 1, new Grandeur(10, 'm^2'), { formatInteractif: 'unites' })
       }
       texte += `<br>${numAlpha(2)}Mettez un volume égal à 10 m${texteExposant(3)} pour vérifier que c'est correct : `
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, 2, 'largeur25 inline nospacebefore longueur')
-        setReponse(this, 2, new Grandeur(10, 'm^3'), { formatInteractif: 'longueur' })
+        setReponse(this, 2, new Grandeur(10, 'm^3'), { formatInteractif: 'unites' })
       }
 
       texte += '<br>Ces deux derniers claviers ont pour défaut de devoir taper sur x² et x³ pour mettre des unités d\'aires ou de volumes ou d\'utiliser l\'accent circonflexe pour la saisie. Pas intuitif pour des 6èmes.'
@@ -62,19 +62,19 @@ export default function DesClaviers () {
       texte += `${numAlpha(3)}Ajout d'un clavier masse : <br>${sp(5)}Mettez une masse égale à 10 g pour vérifier que c'est correct : `
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, 3, 'largeur25 inline nospacebefore masse')
-        setReponse(this, 3, new Grandeur(10, 'g'), { formatInteractif: 'longueur' })
+        setReponse(this, 3, new Grandeur(10, 'g'), { formatInteractif: 'unites' })
       }
       texte += '<br><br>PROPOSITION 1 <br>'
       texte += `<br>Pour régler la difficulté de taper cm${texteExposant(2)} ou  cm${texteExposant(3)} pour des élèves, je propose d'utiliser des claviers dédiés comme ci-dessous.`
       texte += `<br>${numAlpha(4)}Mettez une aire égale à 10 m${texteExposant(2)} pour vérifier que c'est correct : `
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, 4, 'largeur25 inline nospacebefore aire')
-        setReponse(this, 4, new Grandeur(10, 'm^2'), { formatInteractif: 'longueur' })
+        setReponse(this, 4, new Grandeur(10, 'm^2'), { formatInteractif: 'unites' })
       }
       texte += `<br>${numAlpha(5)}Mettez un volume égal à 10 m${texteExposant(3)} pour vérifier que c'est correct : `
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, 5, 'largeur25 inline nospacebefore volume')
-        setReponse(this, 5, new Grandeur(10, 'm^3'), { formatInteractif: 'longueur' })
+        setReponse(this, 5, new Grandeur(10, 'm^3'), { formatInteractif: 'unites' })
       }
       texte += '<br>Avec cette proposition, vous remarquez aussi qu\'en cas de non-réponse, le commentaire est plus explicite et indique quel type d\'unité il manque.<br>'
       texte += `Ces claviers, comme cette dernière remarque, peuvent être une gène pour certains d'entre vous, qui trouveraient que mettre le bon clavier, c'est trop aider les élèves et que c'est à eux de faire le choix entre m, m${texteExposant(2)} et m${texteExposant(3)}. Je vous laisse faire votre avis et le donner ensuite.<br>`
@@ -85,13 +85,13 @@ export default function DesClaviers () {
       texte += `<br>${numAlpha(6)}Mettez un volume égal à 10 cm${texteExposant(3)} pour vérifier que c'est correct : `
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, 6, 'largeur25 inline nospacebefore LAV3')
-        setReponse(this, 6, new Grandeur(10, 'cm^3'), { formatInteractif: 'longueur' })
+        setReponse(this, 6, new Grandeur(10, 'cm^3'), { formatInteractif: 'unites' })
       }
       texte += '<br><br>Choix 2 : Regardez le clavier associé à cette question :'
       texte += `<br>${numAlpha(7)}Mettez un volume égal à 10 dm${texteExposant(2)} pour vérifier que c'est correct : `
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, 7, 'largeur25 inline nospacebefore LAV1')
-        setReponse(this, 7, new Grandeur(10, 'dm^2'), { formatInteractif: 'longueur' })
+        setReponse(this, 7, new Grandeur(10, 'dm^2'), { formatInteractif: 'unites' })
       }
       texte += '<br><br>PROPOSITION 3<br>'
       texte += '<br>Libre à vous d\'être force de proposition (mixage, rajout, refonte des propositions précédentes) et on verra si c\'est possible.'
