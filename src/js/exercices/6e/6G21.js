@@ -44,7 +44,9 @@ export default function ConstruireUnTriangle () {
       }
     } else typesDeQuestionsDisponibles = [1]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      if (i % 5 === 0) listeDeNomsDePolygones = ['PQD']
       IEP = new Alea2iep()
       objetsEnonce = []
       objetsCorrection = []
@@ -52,7 +54,8 @@ export default function ConstruireUnTriangle () {
         texte = 'Le triangle ci-dessous a été réalisé à main levée.<br>Construire ce triangle avec les instruments de géométrie en respectant les mesures indiquées.<br>'
       }
       texteCorr = 'Voici la construction que tu devais réaliser.<br>'
-      nom = creerNomDePolygone(3, 'PQ')
+      nom = creerNomDePolygone(3, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(nom)
       sommets = []
       for (let i = 0; i < 3; i++) sommets.push(nom[i])
       sommets = shuffle(sommets)

@@ -21,7 +21,7 @@ export default function CalculCotePythagore () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
-    const nom = creerNomDePolygone(3, ['Q'])
+    const nom = creerNomDePolygone(3, ['QD'])
     const a = randint(1, 5)//
     const b = randint(6, 10)//
     const A = point(0, 0, nom[0])
