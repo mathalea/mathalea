@@ -441,7 +441,7 @@ export default function CourseAuxNombres6e (numeroExercice) {
           break
       }
       if (typeQuestionsDisponibles[listeIndex[i]] === 'q25') {
-        texte += ajouteChampTexteMathLive(this, q, 'longueur')
+        texte += ajouteChampTexteMathLive(this, q, 'unites[longueurs]')
       } else if (typeQuestionsDisponibles[listeIndex[i]] === 'q13') {
         texte += ajouteChampTexte(this, q)
       } else {
@@ -461,23 +461,23 @@ export default function CourseAuxNombres6e (numeroExercice) {
   }
   this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)',
   `1 : Moitié et double\n
-  2 : quotient de a par b\n
+  2 : Quotient de a par b\n
   3 : Somme astucieuse de 4 nombres entiers\n
   4 : Somme de deux décimaux avec retenue\n
   5 : Double ou triple d'un nombre entier\n
   6 : Double ou triple d'un nombre décimal\n
   7 : Recomposition d'un entier\n
-  8 : tables de multiplication\n
-  9 : soustraire un nombre se finissant par 9\n
+  8 : Tables de multiplication\n
+  9 : Soustraire un nombre se finissant par 9\n
   10 :  Le quart ou le tiers d'un nombre.\n
   11 :  Recomposer un nombre à partir d'un nombre de centaines et d'un nombre d'unités\n
-  12 :  Recomposer une nombre avec chevauchement.\n
-  13 :  conversion heures et minutes\n
+  12 :  Recomposer une nombre avec chevauchement\n
+  13 :  Conversion heures et minutes\n
   14 :  Reste de la division par 3\n
   15 :  Une division par 9 qui tombe juste\n
-  16 :  ajouter un nombre de la forme 10n+9\n
+  16 :  Ajouter un nombre de la forme 10n+9\n
   17 :  4 × #,## × 25 ou 2 × #,## × 50\n
-  18 :  addition à trou\n
+  18 :  Addition à trou\n
   19 :  Nombre pair de 2 chiffres × 5\n
   20 :  Proportionnalité simple\n
   21 :  Ordre de grandeur\n
@@ -489,5 +489,5 @@ export default function CourseAuxNombres6e (numeroExercice) {
   27 :  Calcul de distance à vitesse constante\n
   28 :  Comparaison de périmètre\n
   29 :  Repérage fraction\n
-  30 : Proportionnalité par linéarité\n`]
+  30 :  Proportionnalité par linéarité\n`]
 }

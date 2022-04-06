@@ -72,7 +72,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
       texteCorr = ''
       switch (i) {
         case 0 :
-          texte = 'Calculer le périmètre du carré en cm'
+          texte = 'Calculer le périmètre du carré en cm.'
           texteCorr += `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}+${c}~\\text{cm}+${c}~\\text{cm}+${c}~\\text{cm}=${4 * c
           }~\\text{cm}$`
           setReponse(this, i, new Grandeur(c * 4, 'cm'), { formatInteractif: 'unites' })
@@ -173,7 +173,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'longueur')
+      texte += ajouteChampTexteMathLive(this, i, 'unites[longueurs,aires]')
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

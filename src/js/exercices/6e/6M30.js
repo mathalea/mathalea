@@ -324,7 +324,7 @@ export default function CalculDeVolumes () {
       } else {
         if (!context.isAmc) {
           setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'unites' })
-          texte += ajouteChampTexteMathLive(this, i, 'longueur')
+          texte += ajouteChampTexteMathLive(this, i, 'unites[volumes]')
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

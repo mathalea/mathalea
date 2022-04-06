@@ -4,7 +4,6 @@ import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texTexte,
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import Grandeur from '../../modules/Grandeur.js'
 export const titre = 'Convertir des volumes'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
@@ -294,9 +293,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
         texte += propositionsQcm(this, i).texte
       } else {
         texte += ' ' + a + ' ' + ajouteChampTexteMathLive(this, i, 'longueur')
-        // texte += ' ' + a + ' ' + ajouteChampTexteMathLive(this, i, 'unites[volumes]')
         setReponse(this, i, parseFloat(resultat))
-        // setReponse(this, i, new Grandeur(5, 'dm^3'), { formatInteractif: 'unites' })
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
