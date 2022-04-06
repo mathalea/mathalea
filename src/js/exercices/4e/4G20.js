@@ -62,7 +62,7 @@ export default function Pythagore2D () {
     }
     listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      if (i % 5 === 4) listeDeNomsDePolygones = ['QD']
+      if (i % 5 === 0) listeDeNomsDePolygones = ['QD']
       texte = ''
       texteCorr = ''
       const A1 = point(0, 0)
