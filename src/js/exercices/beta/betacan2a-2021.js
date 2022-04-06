@@ -4,16 +4,15 @@ import {
   mathalea2d, point, repere2, courbe2, labelPoint, segment, milieu, texteParPosition, codeSegment
 } from '../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, range1, stringNombre, randint, ecritureAlgebrique, texNombre, texFraction, texFractionReduite, printlatex, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, stringNombre, randint, ecritureAlgebrique, texNombre, texFractionReduite, printlatex, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { context } from '../../modules/context.js'
 export const titre = 'CAN Seconde sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '31/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '05/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
@@ -30,33 +29,21 @@ export default function SujetCAN2021Seconde () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.nbQuestions = 1
+  this.nbQuestions = 30
   this.nbCols = 1
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let questions = []
-    if (!this.sup) {
-      // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(1), this.nbQuestions)
-    } else {
-      if (typeof this.sup === 'number') {
-        // Si c'est un nombre c'est qu'il y a qu'une seule question
-        questions[0] = this.sup
-        this.nbQuestions = 1
-      } else {
-        questions = this.sup.split('-') // Sinon on créé un tableau à partir des valeurs séparées par des -
-        this.nbQuestions = questions.length
-      }
-    }
-    for (let i = 0; i < questions.length; i++) {
-      questions[i] = parseInt(questions[i]) - 1
-    }
-    const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
-    const typeQuestionsDisponibles = [18]// '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-    
+    const nbQ1 = min(round(this.nbQuestions * 8 / 30), 8) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+    const nbQ2 = min(this.nbQuestions - nbQ1, 22)
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 8, 9]).slice(-nbQ1).sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([7, 10,
+      11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
+    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
+
     const listeFractions3 = [[1, 3, 1, 5], [1, 7, 1, 2], [1, 4, 1, 3], [1, 2, 1, 5], [1, 9, 1, 2], [1, 7, 1, 4],
       [1, 11, 1, 2], [1, 5, 1, 6], [1, 10, 1, 3], [1, 3, 1, 8], [1, 9, 1, 4], [1, 5, 1, 9], [1, 7, 1, 10], [1, 6, 1, 7]
     ]
@@ -67,7 +54,7 @@ export default function SujetCAN2021Seconde () {
     ]
 
     for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, k1, k2, r, f, listeFacteurs16 = [], code1, code2, code3, code4, choix, truc, a, b, c, d, p, k, A, B, C, D, E, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (typeQuestionsDisponibles[listeIndex[i]]) {
+      switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(2, 9)
 
@@ -433,17 +420,17 @@ export default function SujetCAN2021Seconde () {
           ymax = 4.7
           objets = []
           objets.push(
-            texteParPosition(`$${d} \\text{ cm}$`, milieu(A, D).x, milieu(A, D).y + 0.3 * context.zoom, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\large \\text{?}$', milieu(B, E).x, milieu(B, E).y - 0.3 * context.zoom, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${b} \\text{ cm}$`, milieu(A, C).x - 0.5 * context.zoom, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${a} \\text{ cm}$`, milieu(C, B).x + 0.3 * context.zoom, milieu(C, B).y + 0.2 * context.zoom, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`$${d} \\text{ cm}$`, milieu(A, D).x, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('$\\large \\text{?}$', milieu(B, E).x, milieu(B, E).y - 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`$${b} \\text{ cm}$`, milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`$${a} \\text{ cm}$`, milieu(C, B).x + 0.3, milieu(C, B).y + 0.2, 'milieu', 'black', 1, 'middle', true),
             labelPoint(A, B, C, D, E), segment(B, E), segment(D, E), segment(A, D), segment(A, B))
           reponse = c
           texte = `$(AD)//(EB)$.<br>
            $A$, $C$ et $B$ sont alignés <br>
            $D$, $C$ et $E$ sont alignés.<br>
            <br>`
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
           texteCorr = `Le triangle $ACD$ est un agrandissement du triangle $EBC$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${k}$.<br>
           On obtient donc la longueur $EB$ en divisant par $${k}$ la longueur $AD$.<br>
           $EB=\\dfrac{${d}}{${k}}=${c}$ cm.<br>`
@@ -571,8 +558,8 @@ export default function SujetCAN2021Seconde () {
           texteCorr = ` Le coefficient directeur de la droite $(AB)$ est donné par :<br>
            $\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${d}-${b}}{${c}-${a}}=${(d - b) / (c - a)}$.
           `
-          reponse = [`${texFractionReduite(d - b, c - a)}`,`${texFraction(d - b, c - a)}`]
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          reponse = fraction(d - b, c - a)
+          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
@@ -658,13 +645,13 @@ export default function SujetCAN2021Seconde () {
           ymax = 5
           objets = []
           objets.push(
-            texteParPosition(`$${a} \\text{ cm}$`, milieu(A, B).x, milieu(A, B).y - 0.4 * context.zoom, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\large \\text{?}$', milieu(D, B).x + 0.2 * context.zoom, milieu(D, B).y + 0.1 * context.zoom, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`$${a} \\text{ cm}$`, milieu(A, B).x, milieu(A, B).y - 0.4, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('$\\large \\text{?}$', milieu(D, B).x + 0.2, milieu(D, B).y + 0.1, 'milieu', 'black', 1, 'middle', true),
             labelPoint(A, B, C, D), segment(A, B), segment(B, C), segment(C, D), segment(D, A), segment(B, D), code1, code2, code3, code4)
           reponse = [`\\sqrt{${2 * a ** 2}}`, `${Math.sqrt(2 * a ** 2)}`, `${a}\\sqrt{2}`]
           texte = `Compléter : <br>
             `
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
           texteCorr = `Le théorème de Pythagore dans le triangle rectangle $ADB$ donne : <br>
             $DB^2=AD^2+AB^2$ soit $DB^2=${a}^2+${a}^2=2\\times ${a}^2=${2 * a ** 2}$.<br>
             Ainsi, $DB=\\sqrt{${2 * a ** 2}}$ ou encore $DB=${a}\\sqrt{2}$.`
@@ -704,8 +691,8 @@ export default function SujetCAN2021Seconde () {
 
           reponse = [Math.cbrt(2 * (a - b)) - 0.1, Math.cbrt(2 * (a - b)) + 0.1]
           texte = `Voici la courbe d'une fonction $f$. <br>
-Donner une valeur approchée de l'antécédent de $${a}$ par $f$ ?`
-          texte += mathalea2d({ xmin: -8, xmax: 8.2, ymin: -3, ymax: 8, scale: 1 }, r, C)
+Donner une valeur approchée de l'antécédent de $${a}$ par $f$ ?<br>`
+          texte += mathalea2d({ xmin: -8, xmax: 8.2, ymin: -3, ymax: 8, scale: 0.5 }, r, C)
           texteCorr = `L'antécédent de $${a}$ par $f$ est l'abscisse du point de la courbe d'ordonnée $${a}$ : $${texNombre(Math.cbrt(2 * (a - b)), 1)}$ en est une valeur approchée. `
 
           setReponse(this, index, reponse, { formatInteractif: 'intervalle' })
