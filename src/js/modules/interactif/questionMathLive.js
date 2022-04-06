@@ -164,13 +164,10 @@ export function verifQuestionMathLive (exercice, i) {
       case 'longueur': // Pour les exercices où l'on attend une mesure avec une unité au choix
         saisie = champTexte.value
         grandeurSaisie = saisieToGrandeur(saisie)
-        // console.log('saisie : ', saisie)
-        // console.log('reponse attendue : ', reponse)
-        // console.log(reponse.uniteDeReference)
         if (grandeurSaisie) {
           if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
         } else {
-          resultat = 'essaieEncoreLongueur'
+          resultat = 'essaieEncoreAvecUneSeuleUnite'
         }
         break
       case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
@@ -263,7 +260,7 @@ export function verifQuestionMathLive (exercice, i) {
     spanReponseLigne.innerHTML = '😎'
     spanReponseLigne.style.fontSize = 'large'
     if (champTexte !== undefined) champTexte.readOnly = true
-  } else if (resultat === 'essaieEncoreLongueur') {
+  } else if (resultat === 'essaieEncoreAvecUneSeuleUnite') {
     spanReponseLigne.innerHTML = '<em>Il faut saisir une valeur numérique et une seule unité (' +
     (reponse.uniteDeReference.indexOf('^') > 0
       ? reponse.uniteDeReference.split('^')[0] + texteExposant(reponse.uniteDeReference.split('^')[1])
@@ -315,7 +312,7 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', { texteApres 
  * numerateur = false signifie qu'il y a un champ de saisie pour le numérateur.
  * denominateur = 100 signifie que le dénominateur est déjà renseigné à 100.
  * Dans ce cas, on utilise le format Interactif correspondant : 'Num' ou 'Den'
- * Si les deux champs sont à saisir, on utilise deux réponse de formatInteractif 'calcul'.
+ * Si les deux champs sont à saisir, on utilise deux réponses de formatInteractif 'calcul'.
  */
 export function ajouteChampFractionMathLive (exercice, i, numerateur = false, denominateur = 100, style = '', { texte = '', texteApres = '' } = {}) {
   let code = ''

@@ -83,7 +83,7 @@ function prefixeToPuissance (prefixe, unite) {
     case 'k':
       puissancePrefixe = 3
       break
-    case 'q': // quintal
+    case 'q': // quintal, quintaux
       puissancePrefixe = unite === 'q' ? 5 : false
       break
     case 't': // tonne

@@ -356,8 +356,14 @@ const UnitesKeyboard = {
 
 export function clavierConfiguration (tabConf) {
   let clavierVirtuel = ''
+  let clavierTrouve = ''
   for (let ee = 0; ee < tabConf.length; ee++) {
-    clavierVirtuel = clavierVirtuel + tabConf[ee] + ' '
+    if (tabConf[ee].indexOf('ongueur') !== -1) clavierTrouve = 'Longueurs' // Pour pouvoir saisir longueur sans se soucier du pluriel ou de la majuscule initiale
+    else if (tabConf[ee].indexOf('ire') !== -1) clavierTrouve = 'Aires'
+    else if (tabConf[ee].indexOf('olume') !== -1) clavierTrouve = 'Volumes'
+    else if (tabConf[ee].indexOf('asse') !== -1) clavierTrouve = 'Masses'
+    clavierVirtuel = clavierVirtuel + clavierTrouve + ' '
+    clavierTrouve = ''
   }
   clavierVirtuel = clavierVirtuel + ' roman'
   return {
