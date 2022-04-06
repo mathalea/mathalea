@@ -1829,6 +1829,7 @@ export function sommeDesTermesParSigne (liste) {
 export function creerNomDePolygone (nbsommets, listeAEviter = []) {
   let premiersommet = randint(65, 90 - nbsommets)
   let polygone = ''
+  if (listeAEviter === undefined) listeAEviter = []
   for (let i = 0; i < nbsommets; i++) {
     polygone += String.fromCharCode(premiersommet + i)
   }

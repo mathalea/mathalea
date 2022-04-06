@@ -51,7 +51,7 @@ export default function Pythagore2D () {
     } else {
       listeTypeDeQuestions = ['AB', 'BC', 'AC']
     }
-    let listeDeNomsDePolygones
+    let listeDeNomsDePolygones = []
     let reponse
     if (this.sup === 1) {
       this.consigne = "Dans chaque cas, donner l'égalité de Pythagore."
