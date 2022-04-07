@@ -2,7 +2,7 @@
 import loadjs from 'loadjs'
 import { context } from './context'
 import { UserFriendlyError } from './messages'
-import { clavierLongueur } from './interactif/claviers/longueur.js'
+import { clavierLongueur } from './interactif/claviers/longueur_ANCIEN.js'
 import { clavierTrigo } from './interactif/claviers/trigo.js'
 import { clavierCollege } from './interactif/claviers/college.js'
 import { clavierConfiguration } from './interactif/claviers/claviersUnites'
