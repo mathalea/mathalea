@@ -3,8 +3,9 @@ const UnitesKeyboardLayer = {
     styles: '',
     rows: [
       [
-        { label: 'mm^2', latex: '\\operatorname{mm}^2' },
+        { label: 'dm^2', latex: '\\operatorname{dm}^2' },
         { label: 'cm^2', latex: '\\operatorname{cm}^2' },
+        { label: 'mm^2', latex: '\\operatorname{mm}^2' },
         { class: 'separator w5' },
         { label: '7', key: '7' },
         { label: '8', key: '8' },
@@ -28,7 +29,8 @@ const UnitesKeyboardLayer = {
         }
       ],
       [
-        { label: 'dm^2', latex: '\\operatorname{dm}^2' },
+        { label: 'hm^2', latex: '\\operatorname{hm}^2' },
+        { label: 'dam^2', latex: '\\operatorname{dam}^2' },
         { label: 'm^2', latex: '\\operatorname{m}^2' },
         { class: 'separator w5' },
         { label: '4', latex: '4' },
@@ -41,9 +43,9 @@ const UnitesKeyboardLayer = {
         { latex: 'f' }
       ],
       [
-        { label: 'dam^2', latex: '\\operatorname{dam}^2' },
-        { label: 'hm^2', latex: '\\operatorname{hm}^2' },
-        { class: 'separator w5' },
+        { class: 'separator w8' },
+        { label: 'km^2', latex: '\\operatorname{km}^2' },
+        { class: 'separator w15' },
         { label: '1', key: '1' },
         { label: '2', key: '2' },
         { label: '3', key: '3' },
@@ -54,9 +56,10 @@ const UnitesKeyboardLayer = {
         { label: 'non', key: 'non' }
       ],
       [
-        { label: 'km^2', latex: '\\operatorname{km}^2' },
-
-        { class: 'separator w15' },
+        { label: 'ha', latex: '\\operatorname{ha}' },
+        { label: 'a', latex: '\\operatorname{a}' },
+        { label: 'ca', latex: '\\operatorname{ca}' },
+        { class: 'separator w5' },
         { label: '0', key: '0' },
         { latex: ',' },
         { latex: '\\pi' },
@@ -84,8 +87,8 @@ const UnitesKeyboardLayer = {
     styles: '',
     rows: [
       [
-        { label: 'mm', latex: '\\operatorname{mm}' },
         { label: 'cm', latex: '\\operatorname{cm}' },
+        { label: 'mm', latex: '\\operatorname{mm}' },
         { class: 'separator w5' },
         { label: '7', key: '7' },
         { label: '8', key: '8' },
@@ -109,8 +112,8 @@ const UnitesKeyboardLayer = {
         }
       ],
       [
-        { label: 'dm', latex: '\\operatorname{dm}' },
         { label: 'm', latex: '\\operatorname{m}' },
+        { label: 'dm', latex: '\\operatorname{dm}' },
         { class: 'separator w5' },
         { label: '4', latex: '4' },
         { label: '5', key: '5' },
@@ -122,8 +125,8 @@ const UnitesKeyboardLayer = {
         { latex: 'f' }
       ],
       [
-        { label: 'dam', latex: '\\operatorname{dam}' },
         { label: 'hm', latex: '\\operatorname{hm}' },
+        { label: 'dam', latex: '\\operatorname{dam}' },
         { class: 'separator w5' },
         { label: '1', key: '1' },
         { label: '2', key: '2' },
@@ -135,9 +138,9 @@ const UnitesKeyboardLayer = {
         { label: 'non', key: 'non' }
       ],
       [
+        { class: 'separator w5' },
         { label: 'km', latex: '\\operatorname{km}' },
-
-        { class: 'separator w15' },
+        { class: 'separator w10' },
         { label: '0', key: '0' },
         { latex: ',' },
         { latex: '\\pi' },
@@ -165,8 +168,11 @@ const UnitesKeyboardLayer = {
     styles: '',
     rows: [
       [
-        { label: 'mm^3', latex: '\\operatorname{mm}^3' },
+        { label: 'cL', latex: '\\operatorname{cL}' },
+        { label: 'mL', latex: '\\operatorname{mL}' },
+        { class: 'separator w5' },
         { label: 'cm^3', latex: '\\operatorname{cm}^3' },
+        { label: 'mm^3', latex: '\\operatorname{mm}^3' },
         { class: 'separator w5' },
         { label: '7', key: '7' },
         { label: '8', key: '8' },
@@ -190,8 +196,11 @@ const UnitesKeyboardLayer = {
         }
       ],
       [
-        { label: 'dm^3', latex: '\\operatorname{dm}^3' },
+        { label: 'L', latex: '\\operatorname{L}' },
+        { label: 'dL', latex: '\\operatorname{dL}' },
+        { class: 'separator w5' },
         { label: 'm^3', latex: '\\operatorname{m}^3' },
+        { label: 'dm^3', latex: '\\operatorname{dm}^3' },
         { class: 'separator w5' },
         { label: '4', latex: '4' },
         { label: '5', key: '5' },
@@ -203,8 +212,11 @@ const UnitesKeyboardLayer = {
         { latex: 'f' }
       ],
       [
-        { label: 'dam^3', latex: '\\operatorname{dam}^3' },
+        { label: 'hL', latex: '\\operatorname{hL}' },
+        { label: 'daL', latex: '\\operatorname{daL}' },
+        { class: 'separator w5' },
         { label: 'hm^3', latex: '\\operatorname{hm}^3' },
+        { label: 'dam^3', latex: '\\operatorname{dam}^3' },
         { class: 'separator w5' },
         { label: '1', key: '1' },
         { label: '2', key: '2' },
@@ -216,9 +228,10 @@ const UnitesKeyboardLayer = {
         { label: 'non', key: 'non' }
       ],
       [
-        { label: 'km^3', latex: '\\operatorname{km}^3' },
-
         { class: 'separator w15' },
+        { class: 'separator w15' },
+        { label: 'km^3', latex: '\\operatorname{km}^3' },
+        { class: 'separator w10' },
         { label: '0', key: '0' },
         { latex: ',' },
         { latex: '\\pi' },
@@ -300,8 +313,6 @@ const UnitesKeyboardLayer = {
       ],
       [
         { class: 'separator w10' },
-        // { class: 'separator w5' },
-        // { class: 'separator' },
         { label: 't', latex: '\\operatorname{t}' },
         { label: 'q', latex: '\\operatorname{q}' },
         { class: 'separator w10' },
@@ -405,6 +416,8 @@ export function clavierConfiguration (tabConf) {
       dam3: { mode: 'math', value: '\\operatorname{dam}^3' },
       hm3: { mode: 'math', value: '\\operatorname{hm}^3' },
       km3: { mode: 'math', value: '\\operatorname{km}^3' },
+      a: { mode: 'math', value: '\\operatorname{a}' },
+      ha: { mode: 'math', value: '\\operatorname{ha}' },
       '*': { mode: 'math', value: '\\times' },
       '.': { mode: 'math', value: ',' }
     }

@@ -266,7 +266,7 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 
 - Pour comparer des **grandeurs (avec des unités)**, on code, comme dans l'exercice-témoin **6M11** :
 >>``` js
->>setReponse(this, i, new Grandeur(resultat, 'cm'), { formatInteractif: 'longueur' }) // resultat est un nombre. On personnalisera le champ texte avec ajouteChampTexteMathLive(this, i, 'longueur')
+>>setReponse(this, i, new Grandeur(resultat, 'cm'), { formatInteractif: 'unites' }) // resultat est un nombre. On personnalisera le champ texte avec ajouteChampTexteMathLive(this, i, 'longueur')
 >> // Pour utiliser Grandeur, il faudra penser à rajouter dans l'en-tête du fichier : import Grandeur from '../../modules/Grandeur.js'
 >>```
 

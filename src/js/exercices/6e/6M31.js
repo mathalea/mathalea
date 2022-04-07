@@ -292,7 +292,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
       if (this.interactif && this.interactifType === 'qcm') {
         texte += propositionsQcm(this, i).texte
       } else {
-        texte += ajouteChampTexteMathLive(this, i)
+        texte += ' ' + a + ' ' + ajouteChampTexteMathLive(this, i, 'longueur')
         setReponse(this, i, parseFloat(resultat))
       }
 

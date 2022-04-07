@@ -161,8 +161,8 @@ export function verifQuestionMathLive (exercice, i) {
           }
         }
         break
-      case 'longueur': // Pour les exercices où l'on attend une mesure avec une unité au choix
-        saisie = champTexte.value
+      case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
+        saisie = champTexte.value.replace('²', '^2').replace('³', '^3')
         grandeurSaisie = saisieToGrandeur(saisie)
         if (grandeurSaisie) {
           if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
@@ -285,7 +285,6 @@ function saisieToGrandeur (saisie) {
     const split = saisie.split('\\operatorname{')
     const mesure = parseFloat(split[0].replace(',', '.'))
     if (split[1]) {
-    // const unite = split[1].substring(0, split[1].length - 1)
       const split2 = split[1].split('}')
       const unite = split2[0] + split2[1]
       return new Grandeur(mesure, unite)

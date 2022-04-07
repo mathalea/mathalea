@@ -18,16 +18,39 @@ class Grandeur {
   }
 
   /**
-   *
+   * La conversion se fait entre dérivées de la même unité
    * @param {string} unite2 (cm, cm^2...)
    * @returns {Longueur}
    */
-  convertirEn (unite2) {
+  convertirEnAncien (unite2) {
     const unite2Parsee = parseUnite(unite2)
     if (unite2Parsee.puissanceUnite === this.puissanceUnite && unite2Parsee.uniteDeReference === this.uniteDeReference) {
       return new Grandeur(calcul(this.mesure * 10 ** ((this.puissancePrefixe - unite2Parsee.puissancePrefixe) * this.puissanceUnite)), unite2)
     } else {
-      console.log('Conversion impossible')
+      // console.log('Conversion impossible')
+    }
+  }
+
+  /**
+   * La conversion se fait entre dérivées de la même unité
+   * et entre dérivées de m³ et des dérivées de L
+   * et entre dérivées de m² et des ares ou hectares
+   * @param {string} uniteConversion (cm, cm^2...)
+   * @returns {Longueur}
+   * @author Modifiée par Eric Elter
+   */
+  convertirEn (uniteConversion) {
+    const uniteConversionParsee = parseUnite(uniteConversion) // Unité de conversion (issue de la saisie)
+    if (uniteConversionParsee.puissanceUnite === this.puissanceUnite && uniteConversionParsee.uniteDeReference === this.uniteDeReference) { // Mêmes unités
+      return new Grandeur(calcul(this.mesure * 10 ** ((this.puissancePrefixe - uniteConversionParsee.puissancePrefixe) * this.puissanceUnite)), uniteConversion)
+    } else if (uniteConversionParsee.uniteDeReference === 'm^3' & this.uniteDeReference === 'L') { // On met tout en litres.
+      return new Grandeur(calcul(this.mesure * 10 ** ((this.puissancePrefixe - uniteConversionParsee.puissancePrefixe - 3) * this.puissanceUnite)), 'L')
+    } else if (uniteConversionParsee.uniteDeReference === 'L' & this.uniteDeReference === 'm^3') { // On met tout en m³.
+      return new Grandeur(calcul(this.mesure * 10 ** (this.puissancePrefixe * this.puissanceUnite + 3)), 'm^3')
+    } else if (uniteConversionParsee.uniteDeReference === 'm^2' & this.uniteDeReference === 'a') { // On met tout en m².
+      return new Grandeur(calcul(this.mesure * 10 ** (this.puissancePrefixe + 2)), 'm^2')
+    } else if (uniteConversionParsee.uniteDeReference === 'a' & this.uniteDeReference === 'm^2') { // On met tout en a.
+      return new Grandeur(calcul(this.mesure * 10 ** (this.puissancePrefixe * this.puissanceUnite - 2)), 'a')
     }
   }
 
@@ -46,10 +69,19 @@ export default Grandeur
 
 function parseUnite (unite) {
   let puissanceUnite, avantPuissanceUnite
-  if (unite.indexOf('^') > 0) {
+  if (unite.indexOf('^') > 0) { // m² ou m³ et ses dérivées
     puissanceUnite = unite.split('^')[1]
     avantPuissanceUnite = unite.split('^')[0]
-  } else {
+  } else if (unite.indexOf('ha') === 0) { // hectares
+    puissanceUnite = 1
+    avantPuissanceUnite = 'ha'
+  } else if (unite.indexOf('a') === 0) { // ares
+    puissanceUnite = 1
+    avantPuissanceUnite = 'a'
+  } else if (unite.indexOf('ca') === 0) { // centiares
+    puissanceUnite = 1
+    avantPuissanceUnite = 'ca'
+  } else { // m, g, L et leurs dérivées
     puissanceUnite = 1
     avantPuissanceUnite = unite
   }
@@ -83,7 +115,7 @@ function prefixeToPuissance (prefixe, unite) {
     case 'k':
       puissancePrefixe = 3
       break
-    case 'q': // quintal, quintaux
+    case 'q': // quintal
       puissancePrefixe = unite === 'q' ? 5 : false
       break
     case 't': // tonne
