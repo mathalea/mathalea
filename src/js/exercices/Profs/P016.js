@@ -1,11 +1,12 @@
 import { listeQuestionsToContenu, randint, sp } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Simulateur de Dés'
+export const dateDePublication = '06/04/2022'
 
 /**
- * Trace une courbe interpolee par des splines.
+ * Simule des lancers de dés
  * @author Jean-Claude Lhote
- * Référence P014
+ * Référence P016
 */
 export default function SimulateurDes () {
   Exercice.call(this) // Héritage de la classe Exercice()
