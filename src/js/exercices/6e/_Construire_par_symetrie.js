@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone, numAlpha, contraindreValeur } from '../../modules/outils.js'
 import { point, tracePoint, pointSurDroite, labelPoint, droite, droiteVerticaleParPoint, droiteParPointEtPente, codageMediatrice, codageMilieu, segment, polygone, nommePolygone, rotation, symetrieAxiale, grille, seyes, mathalea2d, droiteHorizontaleParPoint, dessousDessus, aireTriangle, projectionOrtho, longueur, translation, vecteur, norme, homothetie, texteParPoint, estSurDroite, vide2d } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const dateDeModificationImportante = '14/11/2021'
@@ -95,8 +95,8 @@ export default class ConstruireParSymetrie extends Exercice {
       this.sup3 = 5
     }
     let lieux, positionLabelDroite
-    this.sup = parseInt(this.sup)
-    this.sup3 = Number(this.sup3)
+    this.sup = parseInt(contraindreValeur(1, 6, this.sup, 6))
+    this.sup3 = parseInt(contraindreValeur(1, 5, this.sup3, 5))
     let listeDeNomsDePolygones
     if (this.sup3 === 1) lieux = choice([['dessus', 'dessus', 'dessus'], ['dessous', 'dessous', 'dessous']])
     else if (this.sup3 === 2) lieux = choice([['dessus', 'sur', 'dessus'], ['dessous', 'sur', 'dessous']])
@@ -553,8 +553,8 @@ export default class ConstruireParSymetrie extends Exercice {
           sD = segment(D, DD)
           sA = segment(A, AA)
 
-          objetsCorrection.push(tracePoint(A, C, D, CC, DD, AA), labelPoint(C, D, CC, DD, AA), cC, cD, cA, sC, sD, sA)
-          objetsEnonce.push(tracePoint(C, D), labelPoint(C, D))
+          objetsCorrection.push(tracePoint(A, B, C, D, CC, DD, AA), labelPoint(A, B, C, D, CC, DD, AA), cC, cD, cA, sC, sD, sA)
+          objetsEnonce.push(tracePoint(A, B, C, D), labelPoint(A, B, C, D))
           if (context.isHtml) {
             numQuestion = 0
             enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'

@@ -42,10 +42,10 @@ export default function NombreDeFacesEtDAretes () {
       for (let i = 0; i < Math.ceil(this.nbQuestions / 2); i++) {
         typeDeQuestion.push(choix1[i % 7], choix2[i % 7])
       }
-    } else if (this.sup === 2) {
+    } else if (this.sup === 1) {
       typeDeQuestion = choix2.slice(0, this.nbQuestions)
     } else { typeDeQuestion = choix1.slice(0, this.nbQuestions) }
-
+    typeDeQuestion = shuffle(typeDeQuestion)
     for (let j = 0, choix; j < this.nbQuestions;) {
       choix = typeDeQuestion[j]
       context.anglePerspective = 20
