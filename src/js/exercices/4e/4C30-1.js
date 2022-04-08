@@ -28,6 +28,9 @@ export default function PuissancesEncadrement () {
 
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
+    if (this.level === 2) {
+      this.sup = 5
+    }
     signeChange = false
     switch (this.sup) {
       case 1: // nombre enier positif

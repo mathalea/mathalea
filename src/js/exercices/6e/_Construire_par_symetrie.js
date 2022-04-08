@@ -90,6 +90,10 @@ export default class ConstruireParSymetrie extends Exercice {
   }
 
   nouvelleVersion () {
+    if (this.version === 5) {
+      this.sup = 5
+      this.sup3 = 5
+    }
     let lieux, positionLabelDroite
     this.sup = parseInt(this.sup)
     this.sup3 = Number(this.sup3)

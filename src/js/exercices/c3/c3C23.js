@@ -22,6 +22,9 @@ export default function CalculsFractionsSimples () {
   this.tailleDiaporama = 4
 
   this.nouvelleVersion = function (i) {
+    if (this.version === 6) {
+      this.sup = 4
+    }
     const den = choice([2, 3, 4, 5, 10])
     let a = randint(1, 10, [den, 2 * den, 3 * den, 4 * den])
     let b = randint(1, 10, [den, 2 * den, 3 * den, 4 * den])

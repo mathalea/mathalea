@@ -10,6 +10,6 @@ export { interactifReady, interactifType } from '../4e/4C30-1.js'
 
 export default function PuissancesEncadrement2nde () {
   PuissancesEncadrement.call(this)
-  this.sup = 5
+  this.level = 2
   this.besoinFormulaireNumerique = false
 }

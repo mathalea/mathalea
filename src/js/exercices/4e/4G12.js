@@ -172,6 +172,9 @@ export default function SerieDeTransformations () {
     }
   }
   this.nouvelleVersion = function () {
+    if (this.version === 1) {
+      this.sup = 1
+    }
     this.autoCorrection = []
     this.sup = contraindreValeur(1, 4, this.sup, 4)
     if (this.sup === 1) typeDeTransfos = ['symax']

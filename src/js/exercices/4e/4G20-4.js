@@ -22,13 +22,12 @@ export default function ArrondirUneValeur () {
   this.nbQuestions = 3
   this.nbCols = 2 // Valeur différente de 3 car sinon en Latex, 3 colonnes, c'est trop
   this.nbColsCorr = 1
-  this.sup = 1
+  this.version = 1
   this.interactifType = interactifType
   this.interactifReady = interactifReady
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.autoCorrection = []
     this.consigne = "Arrondir chaque nombre à l'unité, puis au dixième, puis au centième."
 
@@ -40,11 +39,11 @@ export default function ArrondirUneValeur () {
       this.autoCorrection[3 * i] = {}
       this.autoCorrection[3 * i + 1] = {}
       this.autoCorrection[3 * i + 2] = {}
-      if (this.sup === 1) {
+      if (this.version === 1) {
         rac = randint(2, 300, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289])
         n = Math.sqrt(rac)
         nb = `\\sqrt{${rac}}`
-      } else if (this.sup === 2) {
+      } else { // if (this.version === 2)
         v = randint(11, 99) / 10
         angle = randint(1, 89, 60)
         if (choice([true, false])) {

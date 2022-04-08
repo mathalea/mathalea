@@ -9,7 +9,7 @@ export default class SymetrieCentralePoint extends ConstruireParSymetrie {
   constructor () {
     super()
     this.figure = false
-    this.sup = 5
+    this.version = 5
     this.besoinFormulaireNumerique = false
   }
 }

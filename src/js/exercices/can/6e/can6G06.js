@@ -11,6 +11,6 @@ export default function NombreDeFacesEtDAretesExo () {
   NombreDeFacesEtDAretes.call(this)
   this.titre = titre
   this.nbQuestions = 1
-  this.sup = 3
+  this.version = 3
   this.besoinFormulaireNumerique = false
 }

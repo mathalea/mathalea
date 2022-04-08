@@ -29,6 +29,11 @@ export default function ArrondirUneValeur () {
   this.spacingCorr = context.isHtml ? 2.5 : 3.5
 
   this.nouvelleVersion = function () {
+    if (this.version === 3) {
+      this.sup = 3
+    } else if (this.version === 4) {
+      this.sup = 4
+    }
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
     this.amcType = this.sup2 === 1 ? 'qcmMono' : 'AMCHybride'
@@ -52,7 +57,7 @@ export default function ArrondirUneValeur () {
     this.listeQuestions = []
     this.listeCorrections = []
     let m, c, d, u, di, ci, mi, me, ce, de, n, den, num, nb, rac, angle, v
-    const listeTypeDeQuestion = this.sup < 5 ? combinaisonListes([this.sup], this.nbQuestions) : combinaisonListes([1, 2, 3, 4], this.nbQuestions)
+    const listeTypeDeQuestion = this.sup < 5 ? combinaisonListes([this.version], this.nbQuestions) : combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
       switch (listeTypeDeQuestion[i]) {

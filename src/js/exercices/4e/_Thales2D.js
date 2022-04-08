@@ -35,7 +35,9 @@ export default function Thales2D () {
     this.listeCorrections = [] // Liste de questions corrigées
     let listeDeNomsDePolygones = []
     this.autoCorrection = []
-
+    if (this.level === 4) {
+      this.sup = 1
+    }
     const premiereQuestionPapillon = randint(0, 1) // Pour alterner les configurations et savoir par laquelle on commence
     let reponse, reponse2
 

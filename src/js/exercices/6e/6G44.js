@@ -21,8 +21,10 @@ export default function NombreDeFacesEtDAretes () {
   this.nbQuestions = 4
   this.formatChampTexte = 'largeur15 inline'
   this.sup = 3
-  this.besoinFormulaireNumerique = false
   this.nouvelleVersion = function () {
+    if (this.version === 3) {
+      this.sup = 3
+    }
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -43,7 +45,6 @@ export default function NombreDeFacesEtDAretes () {
     } else if (this.sup === 2) {
       typeDeQuestion = choix2.slice(0, this.nbQuestions)
     } else { typeDeQuestion = choix1.slice(0, this.nbQuestions) }
-    console.log(typeDeQuestion)
 
     for (let j = 0, choix; j < this.nbQuestions;) {
       choix = typeDeQuestion[j]

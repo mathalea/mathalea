@@ -8,6 +8,6 @@ export const titre = 'Additionner ou soustraire des fractions de même dénomina
 
 export default function ExerciceAdditionnerFractions6e () {
   CalculsFractionsSimples.call(this)
-  this.sup = 4
+  this.version = 6
   this.besoinFormulaireNumerique = false
 }
