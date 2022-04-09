@@ -11,6 +11,5 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Pavag
 export default function PavagesEtRotation () {
   PavagesEtTransformations.call(this)
   this.titre = titre
-  this.sup = 4
-  this.besoinFormulaireNumerique = false
+  this.level = 3
 }
