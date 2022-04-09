@@ -125,7 +125,8 @@ export const clavierCollege = {
     inf: { mode: 'math', value: '\\infty' },
     union: { mode: 'math', value: '\\bigcup' },
     intersection: { mode: 'math', value: '\\bigcap' },
-    sauf: { mode: 'math', value: '\\backslash\\{\\}' }
+    sauf: { mode: 'math', value: '\\backslash\\{\\}' },
+    singleton: { mode: 'math', value: '\\left\\{\\right\\}' }
   },
   // virtualKeyboards: 'numeric roman',
   virtualKeyboardMode: 'manual'

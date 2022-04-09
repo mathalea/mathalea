@@ -642,18 +642,18 @@ export default function ExerciceInequationProduit () {
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (c > 0) {
             texteCorr += gauche
-            correctionInteractif = `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`
+            correctionInteractif = `${singletonGauche.replaceAll(' ', '')}]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}${singletonDroite.replaceAll(' ', '')}`
           } else {
             texteCorr += droite
-            correctionInteractif = `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`
+            correctionInteractif = `${singletonGauche.replaceAll(' ', '')}${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[${singletonDroite.replaceAll(' ', '')}`
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (c > 0) {
             texteCorr += droite
-            correctionInteractif = `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`
+            correctionInteractif = `${singletonGauche.replaceAll(' ', '')}${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[${singletonDroite.replaceAll(' ', '')}`
           } else {
             texteCorr += gauche
-            correctionInteractif = `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`
+            correctionInteractif = `${singletonGauche.replaceAll(' ', '')}]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}${singletonDroite.replaceAll(' ', '')}`
           }
         }
         correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
