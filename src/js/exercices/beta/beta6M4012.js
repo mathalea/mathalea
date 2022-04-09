@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, contraindreValeur } from '../../modules/outils.js'
 import { latexParPoint, mathalea2d, point, segment, texteParPoint, tracePoint } from '../../modules/2d.js'
-
+export const dateDePublication = '09/04/2022'
 export const titre = 'Problèmes d\'aires de rectangles'
 
 export default function ProblemesAiresRectangles () {
@@ -13,7 +13,21 @@ export default function ProblemesAiresRectangles () {
   this.nbQuestionsModifiable = true
   this.nbCols = 1
   this.nbColsCorr = 1
-
+  function rangeLesLongeurs (longueursHorizontales, longueursVerticales) {
+    const longueursPossibles = [3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5]
+    let tableau = longueursHorizontales.concat(longueursVerticales)
+    tableau = tableau.sort((a, b) => a - b)
+    console.log(tableau)
+    for (let i = 0; i < tableau.length - 1; i++) { // On élimine les doublons
+      if (tableau[i] === tableau[i + 1]) tableau.splice(i, 1)
+    }
+    const liste = new Set() // liste contiendra un objet qui renseigne sur la taille affichée de chacun des segments horizontaux et verticaux.
+    for (let i = 0; i < 4; i++) {
+      liste.add({ type: 'h', indice: i, longueur: longueursPossibles[tableau.indexOf(longueursHorizontales[i])] })
+      liste.add({ type: 'v', indice: i, longueur: longueursPossibles[tableau.indexOf(longueursVerticales[i])] })
+    }
+    return liste
+  }
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
@@ -34,6 +48,8 @@ export default function ProblemesAiresRectangles () {
       for (let i = 1; i < 4; i++) longueursHorizontales.push(choice(typesDeQuestionsDisponibles, longueursHorizontales))
       const longueursVerticales = [choice(typesDeQuestionsDisponibles)]
       for (let i = 1; i < 4; i++) longueursVerticales.push(choice(typesDeQuestionsDisponibles, longueursVerticales))
+      const listeDeTailles = rangeLesLongeurs(longueursHorizontales, longueursVerticales)
+      console.log(listeDeTailles, longueursHorizontales, longueursVerticales)
       const aires = []
       for (let x = 0; x < 4; x++) {
         aires[x] = []
