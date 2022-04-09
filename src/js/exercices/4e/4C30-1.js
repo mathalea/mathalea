@@ -27,6 +27,9 @@ export default function PuissancesEncadrement () {
   let signeChange
 
   this.nouvelleVersion = function () {
+    if (this.level === 2) {
+      this.sup = 5
+    }
     this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
     signeChange = false
     switch (this.sup) {

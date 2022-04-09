@@ -23,7 +23,7 @@ export default function CalculLongueurThalesMilieu () {
   this.nouvelleVersion = function () {
     let a, A, B, C, D, E, objets, nom
     if (choice([true, false])) {
-      nom = creerNomDePolygone(5, ['Q'])
+      nom = creerNomDePolygone(5, ['QD'])
       a = randint(1, 9) + randint(1, 5) / 10 + randint(1, 9) / 100
 
       A = point(0, 0, nom[0], 'below')
@@ -47,7 +47,7 @@ export default function CalculLongueurThalesMilieu () {
 
       this.reponse = calcul(2 * a)
     } else {
-      nom = creerNomDePolygone(5, ['Q'])
+      nom = creerNomDePolygone(5, ['QD'])
       a = calcul((randint(1, 9) + randint(1, 5) / 10) * 2)
       A = point(0, 0, nom[0], 'below')
       B = point(6, 0, nom[1], 'below')

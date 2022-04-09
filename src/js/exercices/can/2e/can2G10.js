@@ -22,7 +22,7 @@ export default function RelationChasles1 () {
     this.listeQuestions = []
     this.listeCorrections = []
     let texte, texteCorr
-    const nom = creerNomDePolygone(6, ['Q'])
+    const nom = creerNomDePolygone(6, ['QD'])
     switch (choice([1, 2, 3, 4, 5, 6])) {
       case 1 :
         if (this.interactif) {

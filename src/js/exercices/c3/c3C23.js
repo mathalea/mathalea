@@ -20,8 +20,12 @@ export default function CalculsFractionsSimples () {
   this.sup = 4
   this.consigne = 'Calculer'
   this.tailleDiaporama = 4
+  this.version = 'c3'
 
   this.nouvelleVersion = function (i) {
+    if (this.version === '6') {
+      this.sup = 4
+    }
     const den = choice([2, 3, 4, 5, 10])
     let a = randint(1, 10, [den, 2 * den, 3 * den, 4 * den])
     let b = randint(1, 10, [den, 2 * den, 3 * den, 4 * den])
@@ -42,5 +46,4 @@ export default function CalculsFractionsSimples () {
     }
     this.reponse = new FractionX(num, den)
   }
-  this.besoinFormulaireNumerique = ['Opérations', 5, '1 : Additions uniquement\n2 : Soustractions uniquement\n3: Multiplications par un entier uniquement\n4: Additions et soustractions\n5: Additions, soustractions ou multiplications par un entier']
 }

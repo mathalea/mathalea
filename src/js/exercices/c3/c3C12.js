@@ -9,6 +9,6 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/6C34.j
 export default function DerbierChiffreC3 () {
   DernierChiffre.call(this)
   this.nbQuestions = 4
-  this.sup = 2
+  this.version = 2
   this.besoinFormulaireNumerique = false
 }

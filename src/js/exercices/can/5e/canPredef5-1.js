@@ -339,7 +339,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           resultat = calcul(a * (b + 0.25))
           texte = `Une voiture roule à une vitesse constante de ${a} km/h. Quelle distance en km parcourt-elle en ${b} h et 20 min`
           texteCorr = `$${a}\\times ${calcul(b + 0.5)} = ${resultat}$`
-          setReponse(this, i, new Grandeur(resultat, 'km'), { formatInteractif: 'longueur' })
+          setReponse(this, i, new Grandeur(resultat, 'km'), { formatInteractif: 'unites' })
           break
         case 'q28':
           a = randint(3, 9)
@@ -397,6 +397,8 @@ export default function CourseAuxNombres5e (numeroExercice) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' m' })
       } else if (listeTypeQuestions[i] === 'q25') {
         texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ` ${hauteurs[a][3]}` })
+      } else if (listeTypeQuestions[i] === 'q27') {
+        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline unites[longueurs]')
       } else {
         texte += ajouteChampTexteMathLive(this, i)
       }

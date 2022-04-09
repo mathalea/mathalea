@@ -94,7 +94,7 @@ export default function ReciproquePythagore () {
       [60, 80, 100],
       [65, 72, 97]
     ]
-    const nomsTriangles = [] // on mémorise les noms des triangles pour ne pas les redonner
+    let nomsTriangles// on mémorise les noms des triangles pour ne pas les redonner
     for (
       let i = 0,
         texte,
@@ -122,6 +122,7 @@ export default function ReciproquePythagore () {
           statut: false
         }
       ]
+      if (i % 4 === 0) nomsTriangles = ['QD'] // toutes les 4 question on peut à nouveau choisir les mêms sauf Q et D (problème clavier mathLive)
       nomTriangle = creerNomDePolygone(3, nomsTriangles)
       nomsTriangles.push(nomTriangle)
       A = nomTriangle[0]

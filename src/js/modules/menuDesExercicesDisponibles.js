@@ -557,7 +557,7 @@ export function menuDesExercicesDisponibles () {
     ['can5', 'can5 - Course aux nombres niveau 5e', 'can5a - Annales aléatoires', 'can5A - Algorithmes', 'can5C - Calculs', 'can5D - Durées', 'can5G - Géométrie', 'can5M - Mesures', 'can5N - Numération', 'can5P - Proportionnalité', 'can5S - Statistiques'],
     ['can4', 'can4 - Course aux nombres niveau 4e', 'can4a - Annales aléatoires', 'can4C - Calculs', 'can4D - Durées', 'can4G - Géométrie', 'can4L - Calcul littéral', 'can4N - Numération', 'can4P - Proportionnalité', 'can4S - Statistiques'],
     ['can3', 'can3 - Course aux nombres niveau 3e', 'can3a - Annales aléatoires', 'can3C - Calculs', 'can3E - Équations', 'can3F - Fonctions', 'can3G - Géométrie', 'can3L - Calcul littéral', 'can3M - Mesures', 'can3N - Numération', 'can3P - Proportionnalité', 'can3S - Statistiques & probabilités'],
-    ['can2', 'can2 - Course aux nombres niveau 2e', 'can2C - Calculs', 'can2F - Fonctions', 'can2G - Géométrie', 'can2L - Calcul littéral', 'can2N - Numération', 'can2P - Probabilités'],
+    ['can2', 'can2 - Course aux nombres niveau 2e', 'can2a - Annales aléatoires', 'can2C - Calculs', 'can2F - Fonctions', 'can2G - Géométrie', 'can2L - Calcul littéral', 'can2N - Numération', 'can2P - Probabilités'],
     ['can1', 'can1 - Course aux nombres niveau 1e', 'can1C - Calculs', 'can1F - Fonctions', 'can1G - Géométrie', 'can1L - Calcul littéral', 'can1N - Numération', 'can1P - Proportionnalité', 'can1S - Statistiques et probabilités'],
     ['canT', 'canT - Course aux nombres niveau Terminale'],
     ['canEx', 'canExpert - Course aux nombres niveau Terminale expert'],

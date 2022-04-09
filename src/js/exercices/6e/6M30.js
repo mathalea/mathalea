@@ -21,7 +21,6 @@ export default function CalculDeVolumes () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = "Calculer, en détaillant, le volume des solides donnés. Arrondir à l'unité."
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -34,6 +33,7 @@ export default function CalculDeVolumes () {
   this.sup3 = 2
   this.sup4 = 8
   this.nouvelleVersion = function (numeroExercice) {
+    this.consigne = this.interactif ? '' : "Calculer, en détaillant, le volume des solides donnés. Arrondir à l'unité."
     this.interactifType = parseInt(this.sup3) === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     let typesDeQuestionsDisponibles = []
@@ -88,7 +88,7 @@ export default function CalculDeVolumes () {
           c = calcul(randint(2, 10) + partieDecimale1)
           volume = c * c * c
           j = randint(0, 3) // pour le choix de l'unité
-          texte = `Un cube de $${texNombre(c)} ${listeUnites[j][0]}$ d'arête en $${listeUnites[j][1]}$.`
+          texte = `Calculer le volume, en $${listeUnites[j][1]}$ (arrondi à l'unité) d'un cube de $${texNombre(c)} ${listeUnites[j][0]}$ d'arête.`
           texteCorr = `$\\mathcal{V}= c^3 =c \\times c \\times c = ${texNombre(c)}${listeUnites[j][0]}\\times${texNombre(c)}${listeUnites[j][0]}\\times${texNombre(c)}${listeUnites[j][0]}=${texNombrec(volume)}${listeUnites[j][1]}`
           if (volume !== Math.round(volume)) {
             texteCorr += `\\approx ${Math.round(volume)}${listeUnites[j][1]}$`
@@ -109,7 +109,9 @@ export default function CalculDeVolumes () {
             h = calcul(randint(3, 6) + partieDecimale2)
             L = calcul(randint(6, 10) + partieDecimale3)
             volume = l * L * h
-            texte = `Un pavé droit de $${texNombre(l)}${listeUnites[j][0]}$ de largeur, de $${texNombre(L)}${listeUnites[j][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur en $${listeUnites[j][1]}$.`
+            texte = `Calculer le volume, en $${listeUnites[j][1]}$`
+            texte += this.sup2 ? ' (arrondi à l\'unité), ' : ', '
+            texte += `d'un pavé droit de $${texNombre(l)}${listeUnites[j][0]}$ de largeur, de $${texNombre(L)}${listeUnites[j][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l)}${listeUnites[j][0]}\\times${texNombre(L)}${listeUnites[j][0]}\\times${texNombre(h)}${listeUnites[j][0]}=${texNombrec(volume)}${listeUnites[j][1]}`
             if (volume !== Math.round(volume)) {
               texteCorr += `\\approx ${Math.round(volume)}${listeUnites[j][1]}$`
@@ -118,6 +120,7 @@ export default function CalculDeVolumes () {
             }
             resultat = Math.round(volume)
             resultat2 = Math.round(6 * (l + L + h))
+            if (resultat2 === resultat) resultat2 = Math.round(3 * (l + L + h))
             resultat3 = Math.round(2 * l * L + 2 * L * h + 2 * l * h)
             resultat4 = Math.round(2 * (l + L + h))
           } else {
@@ -127,7 +130,7 @@ export default function CalculDeVolumes () {
             h = calcul(randint(3, 6) * 10 + partieDecimale2)
             L = arrondi(randint(6, 10) / 10, 1)
             volume = l * L * h
-            texte = `Un pavé droit de $${texNombre(l)}${listeUnites[j][0]}$ de largeur, de $${texNombre(L)}${listeUnites[j - 1][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j + 1][0]}$ de hauteur en $${listeUnites[j][1]}$.`
+            texte = `Calculer le volume, en $${listeUnites[j][1]}$ (arrondi à l'unité), d'un pavé droit de $${texNombre(l)}${listeUnites[j][0]}$ de largeur, de $${texNombre(L)}${listeUnites[j - 1][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j + 1][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l)}${listeUnites[j][0]}\\times${texNombre(L)}${listeUnites[j - 1][0]}\\times${texNombre(h)}${listeUnites[j + 1][0]}=${l}${listeUnites[j][0]}\\times${texNombrec(L * 10)}${listeUnites[j][0]}\\times${texNombrec(h / 10)}${listeUnites[j][0]}=${texNombrec(volume)}${listeUnites[j][1]}`
             if (volume !== Math.round(volume)) {
               texteCorr += `\\approx ${Math.round(volume)}${listeUnites[j][1]}$`
@@ -151,7 +154,9 @@ export default function CalculDeVolumes () {
             resultat2 = Math.round(4 * volume)
             resultat3 = Math.round(volume / 2)
             resultat4 = Math.round(2 * volume)
-            texte = `Un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur en $${listeUnites[j][1]}$.`
+            texte = `Calculer le volume, en $${listeUnites[j][1]}$`
+            texte += this.sup2 ? ' (arrondi à l\'unité), ' : ', '
+            texte += `d'un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^2\\times${h}${listeUnites[j][0]}=${texNombrec(
               r * r * h
             )}\\pi${listeUnites[j][1]}\\approx${texNombrec(
@@ -161,7 +166,7 @@ export default function CalculDeVolumes () {
             j = randint(2, 3) // pour le choix de l'unité
             r = randint(2, 10)
             h = randint(20, 150)
-            texte = `Un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombrec(h / 10)}${listeUnites[j - 1][0]}$ de hauteur en $${listeUnites[j][1]}$.`
+            texte = `Calculer le volume, en $${listeUnites[j][1]}$ (arrondi à l'unité), d'un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombrec(h / 10)}${listeUnites[j - 1][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^2\\times${texNombrec(h / 10)}${listeUnites[j - 1][0]}=\\pi\\times${r * r}${listeUnites[j][0]}^2\\times${h}${listeUnites[j][0]}=${texNombrec(r * r * h)}\\pi${listeUnites[j][1]}\\approx${Math.round(volume)}${listeUnites[j][1]}$`
             resultat = Math.round(volume)
             resultat2 = Math.round(4 * volume)
@@ -177,7 +182,9 @@ export default function CalculDeVolumes () {
             h = randint(2, 5)
             l = randint(6, 10)
             volume = (c * h * l) / 2
-            texte = `Un prisme droit de hauteur $${texNombre(l)}${listeUnites[j][0]}$ et dont les bases sont des triangles de base $${texNombre(c)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j][0]}$ en $${listeUnites[j][1]}$.`
+            texte = `Calculer le volume, en $${listeUnites[j][1]}$`
+            texte += this.sup2 ? ' (arrondi à l\'unité), ' : ', '
+            texte += `d'un prisme droit de hauteur $${texNombre(l)}${listeUnites[j][0]}$ et dont les bases sont des triangles de base $${texNombre(c)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j][0]}$.`
             texteCorr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${texNombre(c)}${listeUnites[j][0]}\\times${texNombre(h)}${listeUnites[j][0]}}{2}\\times${texNombre(l)}${listeUnites[j][0]}=${texNombre(volume)}${listeUnites[j][1]}`
             if (volume !== Math.round(volume)) {
               texteCorr += `\\approx ${Math.round(volume)}${listeUnites[j][1]}$`
@@ -193,7 +200,7 @@ export default function CalculDeVolumes () {
             c = calcul(randint(2, 10) + partieDecimale3)
             h = randint(30, 50)
             l = arrondi(randint(5, 15) / 10, 1)
-            texte = `Un prisme droit de hauteur $${texNombre(l)}${listeUnites[j - 1][0]}$ et dont les bases sont des triangles de base $${texNombre(c)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j + 1][0]}$ en $${listeUnites[j][1]}$.`
+            texte = `Calculer le volume, en $${listeUnites[j][1]}$ (arrondi à l'unité), d'un prisme droit de hauteur $${texNombre(l)}${listeUnites[j - 1][0]}$ et dont les bases sont des triangles de base $${texNombre(c)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j + 1][0]}$.`
             texteCorr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${c}${listeUnites[j][0]}\\times${h}${listeUnites[j + 1][0]}}{2}\\times${texNombrec(l)}${listeUnites[j - 1][0]}=\\dfrac{${c}${listeUnites[j][0]}\\times${texNombrec(
               calcul(h / 10)
             )}${listeUnites[j][0]}}{2}\\times${l * 10}${listeUnites[j][0]}=${texNombre(volume)}${listeUnites[j][1]}`
@@ -215,7 +222,9 @@ export default function CalculDeVolumes () {
             r = randint(2, 10)
             h = randint(2, 15)
             volume = (r * r * h * Math.PI) / 3
-            texte = `Un cône de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur en $${listeUnites[j][1]}$.`
+            texte = `Calculer le volume, en $${listeUnites[j][1]}$`
+            texte += this.sup2 ? ' (arrondi à l\'unité), ' : ', '
+            texte += `d'un cône de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^2\\times${h}${listeUnites[j][0]}=${texFraction(
               r * r * h,
               3
@@ -229,7 +238,7 @@ export default function CalculDeVolumes () {
             r = randint(2, 10)
             h = randint(20, 150)
             volume = (r * r * h * Math.PI) / 3
-            texte = `Un cône de $${texNombre(r)}${listeUnites[j][0]}$ de rayon et de $${texNombrec(h / 10)}${listeUnites[j - 1][0]}$ de hauteur en $${listeUnites[j][1]}$.`
+            texte = `Calculer le volume, en $${listeUnites[j][1]}$ (arrondi à l'unité), d'un cône de $${texNombre(r)}${listeUnites[j][0]}$ de rayon et de $${texNombrec(h / 10)}${listeUnites[j - 1][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^2\\times${texNombrec(calcul(h / 10))}${listeUnites[j - 1][0]}=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^2\\times${texNombrec(h)}${listeUnites[j][0]}=${texFraction(r * r * h, 3)}\\pi\\approx${texNombre(Math.round(volume))}${listeUnites[j][1]}$`
             resultat = Math.round(volume)
             resultat2 = Math.round(4 * volume)
@@ -245,7 +254,9 @@ export default function CalculDeVolumes () {
             h = randint(2, 5)
             l = randint(6, 10)
             volume = (c * c * h) / 3
-            texte = `Une pyramide de hauteur $${h}${listeUnites[j][0]}$ et dont la base  est un carré de $${texNombre(c)}${listeUnites[j][0]}$ de côté en $${listeUnites[j][1]}$.`
+            texte = `Calculer le volume, en $${listeUnites[j][1]}$`
+            texte += this.sup2 ? ' (arrondi à l\'unité), ' : ', '
+            texte += `d'une pyramide de hauteur $${h}${listeUnites[j][0]}$ et dont la base  est un carré de $${texNombre(c)}${listeUnites[j][0]}$ de côté.`
             texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${texNombre(c)}${listeUnites[j][0]}\\right)^2\\times${h}${listeUnites[j][0]}`
             if (calcul((c * c * h) / 3, false) === arrondi((c * c * h) / 3, 1)) {
               texteCorr += `=${texNombrec(
@@ -264,7 +275,7 @@ export default function CalculDeVolumes () {
             h = randint(30, 50)
             l = arrondi(randint(5, 15) / 10, 1)
             volume = (c * c * h) / 3
-            texte = `Une pyramide de hauteur $${texNombrec(h / 10)}${listeUnites[j - 1][0]}$ et dont la base  est un carré de $${texNombre(c)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j + 1][0]}$ en $${listeUnites[j][1]}$.`
+            texte = `Calculer le volume, en $${listeUnites[j][1]}$ (arrondi à l'unité), d'une pyramide de hauteur $${texNombrec(h / 10)}${listeUnites[j - 1][0]}$ et dont la base  est un carré de $${texNombre(c)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j + 1][0]}$`
             texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\left(${texNombre(c)}${listeUnites[j][0]}\\right)^2\\times${texNombrec(h / 10)}${listeUnites[j - 1][0]}=\\dfrac{1}{3}\\times${c * c}${listeUnites[j][0]}^2\\times${texNombrec(h)}${listeUnites[j][0]}`
             if (volume === Math.round(volume)) {
               texteCorr += `=${texNombre(Math.round(volume))}${listeUnites[j][1]}$`
@@ -281,7 +292,7 @@ export default function CalculDeVolumes () {
           j = randint(0, 3) // pour le choix de l'unité
           r = randint(2, 10)
           volume = (4 * Math.PI * r * r * r) / 3
-          texte = `Une boule de $${r}${listeUnites[j][0]}$ de rayon en $${listeUnites[j][1]}$.`
+          texte = `Calculer le volume, en $${listeUnites[j][1]}$ (arrondi à l'unité), d'une boule de $${r}${listeUnites[j][0]}$ de rayon.`
           texteCorr = `$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times R^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^3=${texFraction(calcul(4 * r * r * r), 3)}\\pi${listeUnites[j][1]}\\approx${texNombre(Math.round(volume))}${listeUnites[j][1]}$`
           resultat = Math.round(volume)
           resultat2 = Math.round(3 * volume)
@@ -312,8 +323,8 @@ export default function CalculDeVolumes () {
         texte += propositionsQcm(this, i).texte
       } else {
         if (!context.isAmc) {
-          setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'longueur' })
-          texte += ajouteChampTexteMathLive(this, i, 'longueur')
+          setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'unites' })
+          texte += ajouteChampTexteMathLive(this, i, 'unites[volumes]')
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
