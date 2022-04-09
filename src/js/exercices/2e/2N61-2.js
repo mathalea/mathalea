@@ -642,21 +642,43 @@ export default function ExerciceInequationProduit () {
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (c > 0) {
             texteCorr += gauche
-            correctionInteractif = `${singletonGauche.replaceAll(' ', '')}]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}${singletonDroite.replaceAll(' ', '')}`
+            correctionInteractif = [
+              `${singletonGauche.replaceAll(' ', '')}]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}${singletonDroite.replaceAll(' ', '')}`,
+              `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`,
+              `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+            ]
           } else {
             texteCorr += droite
-            correctionInteractif = `${singletonGauche.replaceAll(' ', '')}${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[${singletonDroite.replaceAll(' ', '')}`
+            correctionInteractif = [
+              `${singletonGauche.replaceAll(' ', '')}${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[${singletonDroite.replaceAll(' ', '')}`,
+              `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`,
+              `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+            ]
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (c > 0) {
             texteCorr += droite
-            correctionInteractif = `${singletonGauche.replaceAll(' ', '')}${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[${singletonDroite.replaceAll(' ', '')}`
+            correctionInteractif = [
+              `${singletonGauche.replaceAll(' ', '')}${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[${singletonDroite.replaceAll(' ', '')}`,
+              `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`,
+              `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+            ]
           } else {
             texteCorr += gauche
-            correctionInteractif = `${singletonGauche.replaceAll(' ', '')}]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}${singletonDroite.replaceAll(' ', '')}`
+            correctionInteractif = [
+              `${singletonGauche.replaceAll(' ', '')}]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}${singletonDroite.replaceAll(' ', '')}`,
+              `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`,
+              `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+            ]
           }
         }
-        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
+        if (Array.isArray(correctionInteractif)) {
+          for (let kk = 0; kk < correctionInteractif.length; kk++) {
+            correctionInteractif[kk] = correctionInteractif[kk].replaceAll('dfrac', 'frac')
+          }
+        } else {
+          correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
+        }
       }
 
       if (this.interactif && !context.isAmc) {
