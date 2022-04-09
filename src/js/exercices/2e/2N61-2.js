@@ -589,6 +589,9 @@ export default function ExerciceInequationProduit () {
             texteCorr += `<br>$${c}x${ecritureAlgebrique(d)}${texSymbole('>')}0$ si et seulement si $x${texSymbole('>')} ${texFractionReduite(-d, c)}$`
           }
         }
+        // On se prépare au cas où il y aurait aussi un singleton dans l'ensemble de solution
+        let singletonGauche = ''
+        let singletonDroite = ''
         // Prépare l'affichage du tableau de signes
         texteCorr += '<br>On peut donc en déduire le tableau de signes suivant : <br>'
         if (-b / a < -d / c) { // Si la première racine est la racine double
@@ -598,9 +601,11 @@ export default function ExerciceInequationProduit () {
           if (c > 0) {
             ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
             ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
+            if (signes[i] === '≥') singletonGauche = `\\left\\{ ${valPetit} \\right\\} \\bigcup `
           } else {
             ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
             ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
+            if (signes[i] === '≤') singletonGauche = `\\left\\{ ${valPetit} \\right\\} \\bigcup `
           }
         } else { // Si la racine double est la deuxième
           ligne1 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '+', 20]
@@ -609,9 +614,11 @@ export default function ExerciceInequationProduit () {
           if (c > 0) {
             ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
             ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '+', 20]
+            if (signes[i] === '≤') singletonDroite = ` \\bigcup \\left\\{ ${valGrand} \\right\\}`
           } else {
             ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
             ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '-', 20]
+            if (signes[i] === '≥') singletonDroite = ` \\bigcup \\left\\{ ${valGrand} \\right\\}`
           }
         }
         // Affiche le tableau
@@ -630,8 +637,8 @@ export default function ExerciceInequationProduit () {
           hauteurLignes: [15, 15, 15, 15]
         }))
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
-        const gauche = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty${separateur} ${texFractionReduite(-d, c)} \\right${pDroite} $.`
-        const droite = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${texFractionReduite(-d, c)}${separateur} +\\infty \\right[ $.`
+        const gauche = `<br> L'ensemble de solutions de l'inéquation est $S = ${singletonGauche} \\left] -\\infty${separateur} ${texFractionReduite(-d, c)} \\right${pDroite} ${singletonDroite} $.`
+        const droite = `<br> L'ensemble de solutions de l'inéquation est $S = ${singletonGauche} \\left${pGauche} ${texFractionReduite(-d, c)}${separateur} +\\infty \\right[ ${singletonDroite} $.`
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (c > 0) {
             texteCorr += gauche
