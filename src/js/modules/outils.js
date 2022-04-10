@@ -2,7 +2,7 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate, isPrime, gcd, round, equal, Fraction } from 'mathjs'
+import { format, evaluate, isPrime, gcd, round, equal, Fraction, isInteger } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 import { setReponse } from './gestionInteractif.js'
@@ -616,6 +616,7 @@ export function numTrie (arr) {
 export function enleveDoublonNum (arr, tolerance) {
   arr = numTrie(arr)
   let k = 0
+  console.log('++++++++ ', arr)
   while (k < arr.length - 1) {
     if (egal(arr[k], arr[k + 1], tolerance)) {
       arr[k] = calcul((arr[k] + arr[k + 1]) / 2) // On remplace la valeur dont on a trouvé un double par la moyenne des deux valeurs
@@ -2891,29 +2892,29 @@ export function texteEnCouleurEtGras (texte, couleur = '#f15929') {
  * @author Rémi Angot
  */
 export function couleurAleatoire () {
-  // let color = "#";
-  // for (let i = 0; i < 6; i++) {
-  //   color += choice([
-  //     0,
-  //     1,
-  //     2,
-  //     3,
-  //     4,
-  //     5,
-  //     6,
-  //     7,
-  //     8,
-  //     9,
-  //     "A",
-  //     "B",
-  //     "C",
-  //     "D",
-  //     "E",
-  //     "F",
-  //   ]);
-  // }
-  // return color;
   return choice(['white', 'black', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow'])
+}
+
+/**
+ * couleurTab() renvoie :
+ * soit le code d'une couleur au hasard, ainsi que sa traduction française au masculin et au féminin,
+ * soit le code d'une couleur imposée, ainsi que sa traduction française au masculin et au féminin.
+ * @example couleurTab() peut renvoyer ['black','noir','noire'].
+ * @example couleurTab(0) renverra de façon certaine ['black','noir','noire'].
+ * @author Eric Elter
+ */
+export function couleurTab (choixCouleur = 999) {
+  const panelCouleurs = [
+    ['black', 'noir', 'noire'],
+    ['red', 'rouge', 'rouge'],
+    ['green', 'vert', 'verte'],
+    ['blue', 'bleu', 'bleue'],
+    ['hotpink', 'rose', 'rose'],
+    ['sienna', 'marron', 'marron'],
+    ['darkgray', 'gris', 'grise'],
+    ['darkorange', 'orange', 'orange']
+  ]
+  return (choixCouleur === 999 || choixCouleur >= panelCouleurs.length || !isInteger(choixCouleur)) ? choice(panelCouleurs) : panelCouleurs[choixCouleur]
 }
 
 export function arcenciel (i, fondblanc = true) {
