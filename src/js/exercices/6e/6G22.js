@@ -189,7 +189,7 @@ export default function NommerUnAngle () {
         segmentsCorrection.epaisseur = 3
         const ang = angleOriente(pt1, pt2, pt3)
 
-        objetsEnonce.push(codeAngle(pt1, pt2, ang, tailleAngle, '', 'none', 1, 1, couleurAngle[0], 1, true))
+        objetsEnonce.push(codeAngle(pt1, pt2, ang, tailleAngle, '', 'none', 1, 1, couleurAngle[0], 1, false))
         texte += this.sup > 1 ? `<br>${numAlpha(jj)}` : ''
         texte += `Comment peut-on nommer l'angle ${couleurAngle[1]}${sp()}?`
         if (this.interactif && this.interactifType === 'mathLive') {
