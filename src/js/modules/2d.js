@@ -5048,7 +5048,7 @@ export function centreCercleCirconscrit (A, B, C, nom = '', positionLabel = 'abo
  *
  * @author Rémi Angot
  */
-function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 1, opacity = 1, fill = 'none', fillopacity = 1) {
+function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacity = 1, fill = 'none', fillopacity = 1) {
   ObjetMathalea2D.call(this)
   this.sommet = O
   this.depart = A
@@ -5136,7 +5136,7 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 1, opa
  * @returns {CodageAngleDroit} CodageAngleDroit
  * @author Rémi Angot
  */
-export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 1, opacity = 1, fill = 'none', fillopacity = 1) {
+export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacity = 1, fill = 'none', fillopacity = 1) {
   return new CodageAngleDroit(A, O, B, color, d, epaisseur, opacity, fill, fillopacity)
 }
 /**
