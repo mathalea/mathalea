@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, contraindreValeur, combinaisonListes, texteExposant, texNombre, texteEnCouleurEtGras, miseEnEvidence } from '../../modules/outils.js'
 import { latexParCoordonnees, mathalea2d, point, polygone, segment, texteParPosition } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 export const dateDePublication = '09/04/2022'
 export const titre = 'Problèmes d\'aires de rectangles'
 
@@ -8,13 +9,14 @@ export default function ProblemesAiresRectangles () {
   'use strict'
   Exercice.call(this)
   this.titre = titre
-  this.consigne = "Trouver la longueur désignée par un point d'interrogation."
+  this.consigne = "Trouver la  mesure désignée par un point d'interrogation."
   this.nbQuestions = 1
   this.nbQuestionsModifiable = true
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = '5-5-5-5-5'
   this.sup2 = 2
+  this.spacingCorr = context.isHtml ? 3 : 2
   function rangeLesLongeurs (longueursHorizontales, longueursVerticales, typeDeGrille) {
     const longueursPossibles = [3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5]
     let tableau = longueursHorizontales.concat(longueursVerticales)
@@ -101,9 +103,10 @@ export default function ProblemesAiresRectangles () {
       }
       // On prépare la liste des rectangles qui serviront (ou pas)
       const rectangles = []
-      for (let j = 0; j < typeDeGrille[1]; j++) {
-        for (let i = 0; i < typeDeGrille[0]; i++) {
-          rectangles.push(polygone([point(xBordures[i], yBordures[j]), point(xBordures[i + 1], yBordures[j]), point(xBordures[i + 1], yBordures[j + 1]), point(xBordures[i], yBordures[j + 1])], 'black'))
+      for (let i = 0; i < typeDeGrille[0]; i++) {
+        rectangles[i] = []
+        for (let j = 0; j < typeDeGrille[1]; j++) {
+          rectangles[i].push(polygone([point(xBordures[i], yBordures[j]), point(xBordures[i + 1], yBordures[j]), point(xBordures[i + 1], yBordures[j + 1]), point(xBordures[i], yBordures[j + 1])], 'black'))
         }
       }
       // On trace une grille en pointillés pour prolonger les rectangles
@@ -178,18 +181,72 @@ export default function ProblemesAiresRectangles () {
       for (let j = 0; j < typeDeGrille[1]; j++) {
         for (let i = 0; i < typeDeGrille[0]; i++) {
           if (listeCellules.find(el => el[0] === i && el[1] === j)) {
-            rectangles[i + typeDeGrille[0] * j].isVisible = true
-            objetsEnonce.push(rectangles[i + typeDeGrille[0] * j])
+            rectangles[i][j].isVisible = true
+            rectangles[i][j].numero = numeroteur + 1
+            objetsEnonce.push(rectangles[i][j])
             objetsEnonce.push(latexParCoordonnees(`\\fcolorbox{black}{pink}{${(numeroteur + 1).toString()}}`, (xBordures[i] + xBordures[i + 1]) / 2, (yBordures[j] + yBordures[j + 1]) / 2 - 0.5, 'black', 30, 10, '', 10))
             numeroteur++
           }
         }
       }
 
+      console.log(listeCellules)
+      // Correction
+      let colonneOuLigne
+      texteCorr = ''
+      if (alternance === 'ligne' && numeroteur % 2 === 0) colonneOuLigne = false
+      else colonneOuLigne = true
+      for (let i = 0; i < listeCellules.length; i++) {
+        if (colonneOuLigne) {
+          texteCorr += `Puisque la ${longueursHorizontales[listeCellules[i][0]] <= longueursVerticales[listeCellules[i][1]] ? 'largeur' : 'longueur'} 
+            du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')} 
+            est $${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}$ cm et 
+            que son aire est ${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)} cm${texteExposant(2)}, 
+            sa ${longueursHorizontales[listeCellules[i][0]] > longueursVerticales[listeCellules[i][1]] ? 'largeur' : 'longueur'} est : 
+            $\\dfrac{${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}\\text{ cm}^2}{${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}\\text{ cm}}=${texNombre(longueursVerticales[listeCellules[i][1]], 1)}\\text{ cm}$.`
+          if (longueursHorizontales[listeCellules[i][0]] === longueursVerticales[listeCellules[i][1]]) {
+            texteCorr += ` Le rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')} est un carré.<br>`
+          } else {
+            texteCorr += '<br>'
+          }
+        } else {
+          texteCorr += `Comme la ${longueursVerticales[listeCellules[i][1]] <= longueursHorizontales[listeCellules[i][0]] ? 'largeur' : 'longueur'} 
+            du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')} 
+            est $${texNombre(longueursVerticales[listeCellules[i][1]], 1)}$ cm et 
+            que son aire est $${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}$ cm${texteExposant(2)}, 
+            sa ${longueursVerticales[listeCellules[i][1]] > longueursHorizontales[listeCellules[i][0]] ? 'largeur' : 'longueur'} est : 
+            $\\dfrac{${texNombre(aires[listeCellules[i][0]][listeCellules[i][1]], 2)}\\text{ cm}^2}{${texNombre(longueursVerticales[listeCellules[i][1]], 1)}\\text{ cm}}=${texNombre(longueursHorizontales[listeCellules[i][0]], 1)}\\text{ cm}$.`
+          if (longueursVerticales[listeCellules[i][1]] === longueursHorizontales[listeCellules[i][0]]) {
+            texteCorr += ` Le rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[i][0]][listeCellules[i][1]].numero, 'red')} est un carré.<br>`
+          } else {
+            texteCorr += '<br>'
+          }
+        }
+        colonneOuLigne = !colonneOuLigne
+      }
+      if (colonneOuLigne) {
+        if (longueursVerticales[listeCellules[listeCellules.length - 1][1]] === longueursHorizontales[listeCellules[listeCellules.length - 1][0]]) {
+          texteCorr += `La mesure demandée est la longueur du côté du carré numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit 
+          $${miseEnEvidence(texNombre(longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 1) + '\\text{ cm}', 'black')}$.`
+        } else {
+          texteCorr += `La mesure demandée est la ${longueursVerticales[listeCellules[listeCellules.length - 1][1]] > longueursHorizontales[listeCellules[listeCellules.length - 1][0]] ? 'largeur' : 'longueur'} 
+          du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit 
+          $${miseEnEvidence(texNombre(longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 1) + '\\text{ cm}', 'black')}$.`
+        }
+      } else {
+        if (longueursHorizontales[listeCellules[listeCellules.length - 1][0]] === longueursVerticales[listeCellules[listeCellules.length - 1][1]]) {
+          texteCorr += `La mesure demandée est la longueur du côté du carré numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit 
+          $${miseEnEvidence(texNombre(longueursVerticales[listeCellules[listeCellules.length - 1][1]], 1) + '\\text{ cm}', 'black')}$.`
+        } else {
+          texteCorr += `La mesure demandée est la ${longueursHorizontales[listeCellules[listeCellules.length - 1][0]] > longueursVerticales[listeCellules[listeCellules.length - 1][1]] ? 'largeur' : 'longueur'} 
+        du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit 
+        $${miseEnEvidence(texNombre(longueursVerticales[listeCellules[listeCellules.length - 1][1]], 1) + '\\text{ cm}', 'black')}$.`
+        }
+      }
       paramsEnonce = { xmin: -3.5, ymin: -0.5, xmax: xBordures[typeDeGrille[0]] + 1.5, ymax: yBordures[typeDeGrille[1]] + 1.5, pixelsParCm: 30, scale: 0.75, mainlevee: false }
       // paramsCorrection = { xmin: -2.5, ymin: -2.5, xmax: 20, ymax: 20, pixelsParCm: 30, scale: 1, mainlevee: false }
       texte = mathalea2d(paramsEnonce, objetsEnonce)
-      texteCorr = ''// mathalea2d(paramsCorrection, objetsCorrection)
+      // texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
       if (this.questionJamaisPosee(q, ...longueursHorizontales, ...longueursVerticales)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -201,4 +258,5 @@ export default function ProblemesAiresRectangles () {
   }
   this.besoinFormulaireTexte = ['Nombre d\'étapes (de 1 à 7) valeurs séparées par des tirets']
   this.besoinFormulaire2Numerique = ['Difficulté', 2, '1 : facile\n2 : difficile']
+  this.besoinFormulaire3CaseACocher = ['Longueurs entières', true]
 }
