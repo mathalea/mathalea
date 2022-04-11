@@ -209,6 +209,8 @@ export const clavierLycee = {
     parmi: { mode: 'math', value: '\\tbinom{#0}{#1}' },
     pasachantb: { mode: 'math', value: 'P_{#0}({#1})' },
     ang: { mode: 'math', value: '\\widehat{#0}' },
+    vec: { mode: 'math', value: '\\overrightarrow{#0}' },
+    rac: { mode: 'math', value: '\\sqrt{#0}' },
     '<': '<',
     '>': '>',
     '>=': '\\geq',
