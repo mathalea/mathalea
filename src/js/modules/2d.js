@@ -5865,7 +5865,7 @@ function DroiteGraduee2 ({
     S.epaiseur = axeEpaisseur
   } else {
     S = segment(point(x, y), point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]), axeCouleur)
-    S.styleExtremites = '|->'
+    S.styleExtremites = axeStyle || '|->'
     S.epaiseur = axeEpaisseur
     S.tailleExtremites = axeHauteur
   }
