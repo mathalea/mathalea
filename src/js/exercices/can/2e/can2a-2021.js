@@ -705,7 +705,7 @@ Donner une valeur approchée de l'antécédent de $${a}$ par $f$ ?<br>`
           p = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]
           choix = choice(['a', 'b', 'b'])
           if (choix === 'a') {
-            texte = "On lance deux fois de suite un dé équilibré.<br>Quelle est la probabilité d’obtenir deux fois le même nombre ?<br>Donner le résultat sous la forme d'une fraction irréductible."
+            texte = "On lance deux fois de suite un dé cubique équilibré.<br>Quelle est la probabilité d’obtenir deux fois le même nombre ?<br>Donner le résultat sous la forme d'une fraction irréductible."
             texteCorr = "Sur $36$ cas possibles équiprobables, il y en a $6$ qui sont des doubles. Donc la probabilité d'obtenir deux fois le même nombre est $\\dfrac{6}{36}=\\dfrac{1}{6}$."
             reponse = fraction(1, 6)
           }
