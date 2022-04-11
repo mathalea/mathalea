@@ -1,13 +1,13 @@
-import Exercice from '../Exercice.js'
-import { fraction } from '../../modules/fractions.js'
+import Exercice from '../../Exercice.js'
+import { fraction } from '../../../modules/fractions.js'
 import {
   mathalea2d, point, droiteGraduee2, segment, milieu, texteParPosition, codeSegment, polygone, grille
-} from '../../modules/2d.js'
+} from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, calcul, sp, arrondi } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
 
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 export const titre = 'CAN Sixième sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
