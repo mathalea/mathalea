@@ -132,6 +132,7 @@ export default function NommerUnAngle () {
             break
           case numI:
             pt2 = I
+            choixAngle = randint(1, 4)
             switch (choixAngle) {
               case 1:
                 listePt1 = [M]
@@ -173,7 +174,7 @@ export default function NommerUnAngle () {
         resultatPasOK2 = `\\widehat{${listePt1[randint(0, listePt1.length - 1)].nom}${listePt3[randint(0, listePt3.length - 1)].nom}${pt2.nom}}`
         troisBonnesReponses = false
         if (choixSommet === numI) { // Si I est le sommet, que deux bonnes réponses.
-          resultat3 = choice([`\\widehat{${listePt3[0].nom}${listePt1[0].nom}${pt2.nom}}`, `\\widehat{${pt2.nom}}${listePt3[0].nom}${listePt1[0].nom}`])
+          resultat3 = choice([`\\widehat{${listePt3[0].nom}${listePt1[0].nom}${pt2.nom}}`, `\\widehat{${pt2.nom}${listePt3[0].nom}${listePt1[0].nom}}`])
         } else {
           troisBonnesReponses = choice([true, false])
           if (troisBonnesReponses) { // Une 3e réponse vraie
@@ -188,15 +189,16 @@ export default function NommerUnAngle () {
         }
         segmentsCorrection.epaisseur = 3
         const ang = angleOriente(pt1, pt2, pt3)
-
-        objetsEnonce.push(codeAngle(pt1, pt2, ang, tailleAngle, '', 'none', 1, 1, couleurAngle[0], 1, false))
+        const toto = ['|', 'OO', '|||']
+        objetsEnonce.push(codeAngle(pt1, pt2, ang, tailleAngle, toto[jj], 'black', 2, 1, 'none', 1, false))
+        // objetsEnonce.push(codeAngle(pt1, pt2, ang, tailleAngle, toto[jj], couleurAngle[0], 1, 1, couleurAngle[0], 1, false))
         texte += this.sup > 1 ? `<br>${numAlpha(jj)}` : ''
         texte += `Comment peut-on nommer l'angle ${couleurAngle[1]}${sp()}?`
         if (this.interactif && this.interactifType === 'mathLive') {
           texte += ajouteChampTexteMathLive(this, i * this.sup + jj, 'inline largeur25')
         }
         setReponse(this, i * this.sup + jj, resultat, { formatInteractif: 'texte' })
-        objetsCorrection.push(codeAngle(pt1, pt2, ang, tailleAngle, '', 'none', 1, 1, couleurAngle[0], 1, true), segmentsCorrection)
+        objetsCorrection.push(codeAngle(pt1, pt2, ang, tailleAngle, '', 'none', 1, 1, couleurAngle[0], 1, false), segmentsCorrection)
         texteCorr += this.sup > 1 ? (jj > 0 ? '<br>' : '') + `${numAlpha(jj)}` : ''
         texteCorr += `L'angle ${couleurAngle[1]} se nomme, au choix : $${miseEnEvidence(resultat[0], couleurAngle[0])}$`
         for (let ee = 1; ee < resultat.length; ee++) {
