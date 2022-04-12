@@ -131,7 +131,7 @@ export default function problemesTrigoLongueur () {
             enonceAMC = `<br>${numAlpha(j)}Exprimer $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}$ en fonction de $${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numB)}$ et de $${alfa}$.`
             texte += enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore Unités[aires,masse,olume]', { texte: `$${sp(20)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=$` })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
                 `${AB}\\times tan(${alfaInteractif})`,
                 `${BA}\\times tan(${alfaInteractif})`,

@@ -9,7 +9,7 @@ export const interactifType = 'qcm'
 
 export const interactifReady = true
 /**
- * À partir de la donnée des 3 longueurs d'un triangle, déterminer si il est rectangle ou pas.
+ * À partir de la donnée des 3 longueurs d'un triangle, déterminer s'il est rectangle ou pas.
  * @author Rémi Angot
  * 4G21
  */
