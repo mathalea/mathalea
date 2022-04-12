@@ -1,13 +1,13 @@
-import Exercice from '../Exercice.js'
-import { fraction } from '../../modules/fractions.js'
+import Exercice from '../../Exercice.js'
+import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, droiteGraduee2, segment, milieu, texteParPosition, codeSegment
-} from '../../modules/2d.js'
+  mathalea2d, point, droiteGraduee2, segment, milieu, texteParPosition, codeSegment, polygone, grille
+} from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, calcul, sp } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
 
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 export const titre = 'CAN Sixième sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -44,7 +44,7 @@ export default function SujetCAN2021Sixieme () {
       21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
 
-    const listeFractions15 = [[1, 3], [2, 3], [1, 6], [5, 6], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5]
+    const listeFractions15 = [[1, 3], [2, 3], [1, 6], [5, 6], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5], [4, 3], [5, 3], [7, 6], [11, 6], [5, 4], [7, 4], [6, 5], [7, 5], [8, 5], [9, 5]
     ]
     const listeFractions20 = [[1, 10], [3, 10], [7, 10], [9, 10], [1, 2], [1, 4], [3, 4]
     ]
@@ -310,8 +310,32 @@ export default function SujetCAN2021Sixieme () {
         case 15:
           a = choice(listeFractions15)
           b = fraction(a[0], a[1])
-
+          d = droiteGraduee2(
+            {
+              Unite: 6, // nombre de cm pour une unité
+              Min: 0, // Là où commence la droite
+              Max: 2, // Là où finit la droite prévoir 0,5cm pour la flèche
+              x: 0.5,
+              y: 1.8, // les coordonnées du début du tracé dans le SVG
+              axeEpaisseur: 2,
+              axeCouleur: 'none',
+              thickCouleur: 'black',
+              axeStyle: '-',
+              axeHauteur: 4,
+              axePosition: 'H', // Les caractéristiques de l'axe
+              thickEpaisseur: 2, // Les caractéristiques des graduations principales
+              thickSecDist: 1 / a[1],
+              thickSec: true, // Les caractéristiques des graduations secondaires. Pas de couleur, on joue sur l'opacité
+              labelsPrincipaux: true,
+              labelsSecondaires: false
+            }
+          )
+          c = polygone([point(0, 0), point(13, 0), point(13, 2), point(0, 2)], 'black')
+          A = segment(0.5, 2.4, 0.5 + 6 * a[0] / a[1], 2.4)
+          A.epaisseur = 2
+          A.styleExtremites = '|-|'
           texte = `Quelle est la mesure de ce segment ?<br>
+          ${mathalea2d({ xmin: -0.2, xmax: 13.2, ymin: -0.1, ymax: 2.7, pixelsParCm: 20, scale: 1, zoom: 1 }, c, A, d)}
           `
 
           texteCorr = `L'unité est divisée en $${b.d}$. La mesure du segment est donc : $\\dfrac{${b.n}}{${b.d}}$ unité.`
@@ -623,10 +647,24 @@ export default function SujetCAN2021Sixieme () {
         case 30:
 
           a = randint(1, 5)
+          b = randint(2, 4)
+          A = polygone([point(1, 7), point(11, 7), point(11, 6), point(1, 6)], 'black')
+          A.couleurDeRemplissage = 'grey'
+          B = texteParPosition('1 uA', 6, 6.5, 'milieu', 'black', 1, 'middle', false)
+          C = grille(0, 0, 12, 7, 'black', 1, 1, false)
+          D = point(1 + a, 4 - b)
+          d = polygone([D, point(D.x, D.y + 1), point(11, D.y + 1), point(11, 5), point(1, 5), point(1, D.y)], 'black')
+          d.epaisseur = 2
+          d.couleurDeRemplissage = 'white'
+          d.couleurDesHachures = 'grey'
+          d.distanceDesHachures = 3
+          d.hachures = 'north east lines'
+
           texte = `En grisé, on a représenté une unité d'aire, notée uA.<br>
-            Quelle est l'aire de la figure hachurée ?`
+            Quelle est l'aire de la figure hachurée ?<br>`
+          texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 7.5 }, C, A, B, d)
           texteCorr = '$1$ uA est représentée par  .... petits carreaux. La figure grisée compte .... petits carreaux....'
-          reponse = a
+          reponse = arrondi(a / 10 + b, 1)
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'uA' } else { texte += '<br>Aire $=\\ldots $ uA' }
