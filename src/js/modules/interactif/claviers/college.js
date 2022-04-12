@@ -36,6 +36,11 @@ const collegeKeyboardLayer = {
           class: 'small',
           latex: '\\times10^{#0}',
           insert: '$$\\times10^#0$$'
+        },
+        {
+          class: 'small',
+          latex: '\\widehat{#0}',
+          insert: '$$\\widehat{#0}$$' /// Angle
         }
       ],
       [
@@ -54,7 +59,8 @@ const collegeKeyboardLayer = {
           class: 'small',
           latex: '#0^{#1}',
           insert: '$$#0^{#1}$$'
-        }
+        },
+        { class: 'separator w10' }
       ],
       [
         { class: 'tex', label: '<i>c</i>' },
@@ -68,7 +74,8 @@ const collegeKeyboardLayer = {
         { label: ';', key: ';' },
         { label: 'oui', key: 'oui' },
         { label: 'non', key: 'non' },
-        { label: '%', key: '%' }
+        { label: '%', key: '%' },
+        { class: 'separator w10' }
       ],
       [
         { latex: '(' },
@@ -99,7 +106,8 @@ const collegeKeyboardLayer = {
           class: 'action font-glyph',
           label: '&#10006;',
           command: ['toggleVirtualKeyboard', 'toggleVirtualKeyboard']
-        }
+        },
+        { class: 'separator w10' }
       ]
     ]
   }
@@ -122,10 +130,9 @@ export const clavierCollege = {
     '*': { mode: 'math', value: '\\times' },
     '.': { mode: 'math', value: ',' },
     '%': { mode: 'math', value: '\\%' },
-    inf: { mode: 'math', value: '\\infty' },
-    union: { mode: 'math', value: '\\bigcup' },
-    intersection: { mode: 'math', value: '\\bigcap' },
-    sauf: { mode: 'math', value: '\\backslash\\{\\}' }
+    ang: { mode: 'math', value: '\\widehat{#0}' },
+    rac: { mode: 'math', value: '\\sqrt{#0}' },
+    frac: { mode: 'math', value: '\\frac{#0}{#1}' }
   },
   // virtualKeyboards: 'numeric roman',
   virtualKeyboardMode: 'manual'

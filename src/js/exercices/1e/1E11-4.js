@@ -20,7 +20,6 @@ export default function Resolutionavecformecanonique () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacingCorr = 3
-  this.sup = 1
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
