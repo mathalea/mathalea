@@ -7798,6 +7798,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6G22": {
+    "titre": "Nommer un angle",
+    "url": "/exercices/6e/6G22.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
+    "name": "6G22",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6G23-1": {
     "titre": "Mesurer un angle",
     "url": "/exercices/6e/6G23-1.js",

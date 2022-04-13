@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 446 
-- nombre d'exos interactifReady 638 
+- nombre d'exos interactifReady 639 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -260,6 +260,7 @@
 |6G12-1|Tracer des parallèles et des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
 |6G14|Utiliser les propriétés des droites perpendiculaires|OK|AMCOpen|KO|KO|
+|6G22|Nommer un angle|KO|KO|OK|qcm,mathLive|
 |6G23-1|Mesurer un angle|OK|qcmMono|OK|qcm|
 |6G23|Construire un angle de mesure donnée|OK|AMCOpen|KO|KO|
 |6G24-1|Construire le symétrique d’un point par rapport à une droite|OK|AMCOpen|KO|KO|

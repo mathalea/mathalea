@@ -42,7 +42,9 @@ export default class PuissancesEtPrefixe extends Exercice {
         texteCorr = `$10^{${exposant}}$ c'est ${description} donc : ${prefixe}.`
       } else {
         texte = `${prefixe}` + ajouteChampTexteMathLive(this, i, 'texte')
-        setReponse(this, i, `10^{${exposant}}`)
+        if (exposant !== 1) setReponse(this, i, `10^{${exposant}}`)
+        else setReponse(this, i, ['10^{1}', '10'])
+
         texteCorr = `${prefixe}, c'est ${description} soit $10^{${exposant}}$.`
       }
       if (this.questionJamaisPosee(i, exposant)) {
