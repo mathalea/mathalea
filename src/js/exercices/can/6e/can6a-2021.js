@@ -107,7 +107,7 @@ export default function SujetCAN2021Sixieme () {
           c = Math.floor(randint(10, 40) / a) * a // premier nombre.
           maListe = []
           for (let i = 0; i < 2; i++) {
-            maListe.push([c + a * i, texNombre(c + a * i)])
+            maListe.push([c + a * i, c + a * i])
           }
           d = droiteGraduee2({
             Unite: 3 / a,
@@ -119,7 +119,8 @@ export default function SujetCAN2021Sixieme () {
             thickSec: false,
             thickOffset: 0,
             axeStyle: '->',
-            pointListe: [[c - a, '$\\large{?}$']],
+            pointListe: [[c - a, '?']],
+            labelPointTaille: 15,
             labelListe: maListe,
             pointCouleur: 'blue',
             pointStyle: 'x',
@@ -318,7 +319,7 @@ export default function SujetCAN2021Sixieme () {
               x: 0.5,
               y: 1.8, // les coordonnées du début du tracé dans le SVG
               axeEpaisseur: 2,
-              axeCouleur: 'none',
+              axeCouleur: 'white',
               thickCouleur: 'black',
               axeStyle: '-',
               axeHauteur: 4,
@@ -335,14 +336,14 @@ export default function SujetCAN2021Sixieme () {
           A.epaisseur = 2
           A.styleExtremites = '|-|'
           texte = `Quelle est la mesure de ce segment ?<br>
-          ${mathalea2d({ xmin: -0.2, xmax: 13.2, ymin: -0.1, ymax: 2.7, pixelsParCm: 20, scale: 1, zoom: 1 }, c, A, d)}
+          ${mathalea2d({ xmin: -0.2, xmax: 13.2, ymin: -0.1, ymax: 2.7, pixelsParCm: 20, scale: 0.7, zoom: 1 }, c, A, d)}
           `
 
           texteCorr = `L'unité est divisée en $${b.d}$. La mesure du segment est donc : $\\dfrac{${b.n}}{${b.d}}$ unité.`
 
           reponse = fraction(b.n, b.d).simplifie()
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'unité' } else { texte += '$\\ldots$ unité' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'unité' } else { texte += '<br>$\\ldots$ unité' }
           nbChamps = 1
           break
 
@@ -414,7 +415,7 @@ export default function SujetCAN2021Sixieme () {
             reponse = nombre18[a][1] * 100
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$ €' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
 
@@ -588,7 +589,7 @@ export default function SujetCAN2021Sixieme () {
           a = randint(3, 6)
           b = choice([a + 1, 2 * a - 1])
           reponse = fraction(b, a)// .simplifie()
-          texte = 'Quelle est la fraction repérée par le point d’interrogation ?<br>' +
+          texte = "Quelle est la fraction repérée par le point d'interrogation ?<br>" +
            mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
              Unite: 8,
              Min: 1,
@@ -599,7 +600,8 @@ export default function SujetCAN2021Sixieme () {
              thickSec: true,
              thickoffset: 0,
              axeStyle: '|->',
-             pointListe: [[b / a, '$\\large ?$']],
+             pointListe: [[b / a, '?']],
+             labelPointTaille: 15,
              pointCouleur: 'blue',
              pointStyle: 'x',
              labelsPrincipaux: true,
@@ -649,21 +651,21 @@ export default function SujetCAN2021Sixieme () {
           a = randint(1, 5)
           b = randint(2, 4)
           A = polygone([point(1, 7), point(11, 7), point(11, 6), point(1, 6)], 'black')
-          A.couleurDeRemplissage = 'grey'
+          A.couleurDeRemplissage = 'lightgray'
           B = texteParPosition('1 uA', 6, 6.5, 'milieu', 'black', 1, 'middle', false)
           C = grille(0, 0, 12, 7, 'black', 1, 1, false)
           D = point(1 + a, 4 - b)
           d = polygone([D, point(D.x, D.y + 1), point(11, D.y + 1), point(11, 5), point(1, 5), point(1, D.y)], 'black')
           d.epaisseur = 2
           d.couleurDeRemplissage = 'white'
-          d.couleurDesHachures = 'grey'
-          d.distanceDesHachures = 3
+          d.couleurDesHachures = 'gray'
+          d.distanceDesHachures = 4
           d.hachures = 'north east lines'
 
           texte = `En grisé, on a représenté une unité d'aire, notée uA.<br>
             Quelle est l'aire de la figure hachurée ?<br>`
-          texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 7.5 }, C, A, B, d)
-          texteCorr = '$1$ uA est représentée par  .... petits carreaux. La figure grisée compte .... petits carreaux....'
+          texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 7.5, scale: 0.7 }, C, A, B, d)
+          texteCorr = `$1$ uA est représentée par  $10$ petits carreaux. La figure hachurée est constituée de $${arrondi(a / 10 + b, 1) * 10}$. Elle a donc une aire de $${texNombre(arrondi(a / 10 + b, 1))}$ unités.`
           reponse = arrondi(a / 10 + b, 1)
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
