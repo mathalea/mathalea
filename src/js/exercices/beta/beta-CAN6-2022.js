@@ -1,11 +1,11 @@
 import Exercice from '../Exercice.js'
 import { fraction } from '../../modules/fractions.js'
 import {
-  mathalea2d, point, grille, droiteGraduee2, segment, milieu, labelPoint, texteParPosition, codeSegment, codageAngleDroit
+  mathalea2d, point, grille, droiteGraduee2, segment, milieu, labelPoint, texteParPosition, codageAngleDroit
 } from '../../modules/2d.js'
 import { round, min } from 'mathjs'
 
-import { listeQuestionsToContenu, miseEnEvidence, combinaisonListesSansChangerOrdre, range1, randint, texNombre, shuffle, choice, calcul, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, calcul, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -13,7 +13,7 @@ export const titre = 'CAN Sixième sujet 2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '11/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '13/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
@@ -30,50 +30,22 @@ export default function SujetCAN2022Sixieme () {
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType
-  this.nbQuestions = 1// 10,20,30
+  this.nbQuestions = 30
   this.nbCols = 1
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let questions = []
-    if (!this.sup) {
-      // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(1), this.nbQuestions)
-    } else {
-      if (typeof this.sup === 'number') {
-        // Si c'est un nombre c'est qu'il y a qu'une seule question
-        questions[0] = this.sup
-        this.nbQuestions = 1
-      } else {
-        questions = this.sup.split('-') // Sinon on créé un tableau à partir des valeurs séparées par des -
-        this.nbQuestions = questions.length
-      }
-    }
-    for (let i = 0; i < questions.length; i++) {
-      questions[i] = parseInt(questions[i]) - 1
-    }
-    const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
-    const typeQuestionsDisponibles = [26]
-    const hauteurs = [
-      ['fourmi', 3, 115, 'cm'],
-      ['grue', 120, 250, 'dm'],
-      ['tour', 50, 180, 'm'],
-      ['girafe', 40, 50, 'dm'],
-      ['coline', 75, 150, 'm']
-    ]
-    const listeFractions15 = [[1, 3], [2, 3], [1, 6], [5, 6], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5]
-    ]
-    const listeFractions20 = [[1, 10], [3, 10], [7, 10], [9, 10], [1, 2], [1, 4], [3, 4]
-    ]
-    const nombre18 = [
-      ['dixièmes', 10],
-      ['centième', 100],
-      ['millième', 1000]
-    ]
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, maListe, taille1, taille2, chiffre, chiffre2, propositions, p, m, n, code1, code2, code3, code4, choix, truc, a, b, c, d, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (typeQuestionsDisponibles[listeIndex[i]]) {
+    const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.
+    const nbQ2 = min(this.nbQuestions - nbQ1, 20)
+    const typeQuestionsDisponiblesNiv1 = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).slice(-nbQ1).sort(compareNombres)
+    const typeQuestionsDisponiblesNiv2 = shuffle([11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+      21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
+    const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
+
+    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, maListe, taille1, chiffre, chiffre2, propositions, code1, code2, code3, code4, choix, a, b, c, d, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
           b = randint(4, 9)
@@ -258,7 +230,7 @@ export default function SujetCAN2022Sixieme () {
           reponse = a + b - c
           texteCorr = `Le nombre cherché est : $${a}+${b}-${c}=${reponse}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
 
@@ -304,7 +276,7 @@ export default function SujetCAN2022Sixieme () {
 
             texteCorr = `$${a}=\\dfrac{${4 * a}}{4}=${4 * a}\\times \\dfrac{1}{4}$, donc $${4 * a}$ quarts $=${a}$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'quarts' } else { texte += '\\ldots$ quarts' }
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'quarts' } else { texte += '$\\ldots$ quarts' }
           } else {
             a = randint(2, 7)
             reponse = 3 * a
@@ -312,7 +284,7 @@ export default function SujetCAN2022Sixieme () {
 
             texteCorr = `$${a}=\\dfrac{${3 * a}}{3}=${3 * a}\\times \\dfrac{1}{3}$, donc $${3 * a}$ tiers $=${a}$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'tiers' } else { texte += '\\ldots$ tiers' }
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'tiers' } else { texte += '$\\ldots$ tiers' }
           }
 
           nbChamps = 1
@@ -414,7 +386,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           objets.push(
             texteParPosition(`$${texNombre(a / 2)} \\text{ cm}$`, milieu(A, B).x, milieu(A, B).y - 0.4, 'milieu', 'black', 1, 'middle', true),
             texteParPosition(`$${texNombre(a / 2)} \\text{ cm}$`, milieu(D, C).x, milieu(D, C).y + 0.4, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\text{?}$', milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('$\\text{?}$', milieu(B, C).x + 0.3, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
             segment(A, B), segment(B, C), segment(C, D), segment(D, A), code1, code2, code3, code4)
           reponse = b / 2
           texte = `Le périmètre de cette figure est $${a + b}$ cm. <br>
@@ -525,12 +497,12 @@ $${a + 1}$ h et $${reponse}$ min.`
             ymax = 4
             objets = []
             objets.push(
-              texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.4, 'milieu', 'black', 1, 'middle', true),
+              texteParPosition('$\\text{1 unité}$', milieu(C, D).x, milieu(C, D).y + 0.4, 'milieu', 'black', 1, 'middle', true),
               a, s1, s2, labelPoint(A, B), point(A, B))
             reponse = fraction(b, 4)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
             `
-            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
+            texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 20, mainlevee: false, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
             texteCorr = `Une unité correspond à $4$ carreaux, le segment $[AB]$ mesure $${b}$ carreaux, soit $\\dfrac{${b}}{4}=${texNombre(b / 4)}$ unité. `
           } else {
             a = grille(-2, -2, 10, 4, 'gray', 1, 1)
@@ -562,7 +534,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'unité'
-          } else { texte += ' $\\ldots$ unité' }
+          } else { texte += ' <br>$\\ldots$ unité' }
 
           nbChamps = 1
 
@@ -590,7 +562,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           texte = `Complète : <br>
           $${a}$ heures $=$`
           reponse = 60 * a
-          texteCorr = `Dans une heuree, il y a $60$ minutes, donc dans $${a}$ heures, il y a $${a}\\times 60=${a * 60}$ heures.`
+          texteCorr = `Dans une heure, il y a $60$ minutes, donc dans $${a}$ heures, il y a $${a}\\times 60=${a * 60}$ heures.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -636,7 +608,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           }
 
           nbChamps = 1
-          
+
           break
 
         case 24:
@@ -702,90 +674,110 @@ $${a + 1}$ h et $${reponse}$ min.`
           break
 
         case 26:
-          taille1= [['fourmi', 2,5, 'mm'], ['girafe', 40,50,'dm'],['crevette',5,10,'cm'] ,['baleine',15,25,'m'] , ['souris', 40,60, 'mm']]
-         
+          taille1 = [['fourmi', 2, 5, 'mm'], ['girafe', 40, 50, 'dm'], ['crevette', 5, 10, 'cm'], ['baleine', 15, 25, 'm'], ['souris', 40, 60, 'mm']]
+
           a = randint(0, 1)
           b = randint(taille1[a][1], taille1[a][2])
           propositions = shuffle([`$${b}$ m`, `$${b}$ dm`, `$${b}$ cm`, `$${b}$ mm`])
-         
+
           texte = `Choisis parmi les propositions suivantes la taille d'une ${taille1[a][0]} (nombre et unité à recopier)<br>`
-                    texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}${sp(4)} ${propositions[3]}`
+          texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}${sp(4)} ${propositions[3]}`
           texteCorr = `La taille d'une ${taille1[a][0]} est ${b} ${taille1[a][3]}`
           setReponse(this, index, new Grandeur(b, taille1[a][3]), { formatInteractif: 'unites' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
-                    nbChamps = 1
+          nbChamps = 1
           break
 
         case 27:
-          a = randint(3, 6)
-          b = choice([a + 1, 2 * a - 1])
-          reponse = fraction(b, a)// .simplifie()
-          texte = 'Quelle est la fraction repérée par le point d’interrogation ?<br>' +
-           mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
-             Unite: 8,
-             Min: 1,
-             Max: 2,
-             x: 0,
-             y: 0,
-             thickSecDist: 1 / a,
-             thickSec: true,
-             thickoffset: 0,
-             axeStyle: '|->',
-             pointListe: [[b / a, '$\\large ?$']],
-             pointCouleur: 'blue',
-             pointStyle: 'x',
-             labelsPrincipaux: true,
-             step1: 1,
-             step2: 1
-           }))
-          texteCorr = `L'unité est divisée en $${a}$. <br>
-          $1=\\dfrac{${a}}{${a}}$ et $2=\\dfrac{${2 * a}}{${a}}$. Ainsi, le point d'interrogation est   $\\dfrac{${b}}{${a}}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          a = randint(1, 5) + randint(5, 9) / 10
+
+          reponse = 2 * a
+          texte = `Le double de $${texNombre(a)}$ est `
+          texteCorr = `Le double de $${texNombre(a)}$ est $2\\times ${texNombre(a)}=${texNombre(2 * a)}$.`
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
 
         case 28:
-          a = randint(5, 11) * 2
-          b = choice([5, 7, 9])
-          reponse = a * b / 2
-          texte = `$2$ BD identiques coûtent $${a}$ €.<br>
-          Combien coûtent $${b}$ BD identiques ?
-      `
-          texteCorr = `Une BD coûte $${a}\\div 2=${a / 2}$ €, donc $${b}$ BD identiques coûtent $${a / 2}\\times ${b}=${reponse}$ €.
-
-          `
-
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€' }
-          nbChamps = 1
-          break
-
-        case 29:
-          a = randint(2, 5)
-          b = randint(3, 6)
-
-          reponse = a * b
-          texte = `Une usine fabrique des tasses.<br>
-          $${a}$ tailles et $${b}$ couleurs sont possibles.<br>
-          Combien de types de tasses peut-elle fabriquer ?`
-          texteCorr = `Elle peut en fabriquer $${a}\\times ${b}=${a * b}$ types différents. `
+          a = randint(6, 9)
+          b = randint(4, 9)
+          c = a * b
+          reponse = b
+          if (choice([true, false])) {
+            texte = `Compléter : <br>$${a}\\times .... =${c}$`
+            texteCorr = `$${a}\\times ${miseEnEvidence(b)} =${c}$`
+          } else {
+            texte = `Compléter :<br> $ .... \\times ${a}=${c}$`
+            texteCorr = `$ ${miseEnEvidence(b)} \\times ${a}=${c}$`
+          }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
 
-        case 30:
+        case 29:
+          a = randint(2, 5) * 2
+          b = randint(3, 6) * a
 
-          a = randint(1, 5)
-          texte = `En grisé, on a représenté une unité d'aire, notée uA.<br>
-            Quelle est l'aire de la figure hachurée ?`
-          texteCorr = '$1$ uA est représentée par  .... petits carreaux. La figure grisée compte .... petits carreaux....'
-          reponse = a
+          reponse = 1.5 * b
+          texte = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm.<br>
+          $${texNombre(1.5 * a)}$ cubes empilés ont une hauteur de `
+          texteCorr = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm, donc $${texNombre(a / 2)}$ cubes identiques empilés ont une hauteur de $${texNombre(b / 2)}$ cm, donc les 
+          $${texNombre(1.5 * a)}$ cubes empilés ont une hauteur de $${texNombre(b)}+${texNombre(b / 2)}=${reponse}$ cm `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'uA' } else { texte += '<br>Aire $=\\ldots $ uA' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' } else { texte += '$\\ldots$ cm' }
+          nbChamps = 1
+          break
+
+        case 30:
+          choix = choice(['a', 'b', 'c', 'd'])
+
+          if (choix === 'a') {
+            a = randint(2, 5)
+            b = randint(5, 9)
+            texte = `Un bus met $${a}$ heures pour emmener $${b}$ passagers.<br>
+          Combien d'heures, ce même bus mettra-t-il pour emmener $${2 * b}$ passagers ?`
+            texteCorr = 'Il mettra autant de temps :-). '
+            reponse = a
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'h' }
+          }
+          if (choix === 'b') {
+            a = randint(2, 5)
+            b = randint(2, 3) * 10
+            c = randint(2, 3)
+            texte = `Pour faire sécher $${a}$ tee-shirts sur une corde à linge dehors, il faut $${b}$ minutes.<br>
+            Dans les mêmes conditions d'ensoleillement, combien de temps faudra-t-il pour faire sécher $${b * c}$ tee-shirts ?`
+            texteCorr = 'Il faudra autant de temps :-). '
+            reponse = b
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'min' }
+          }
+          if (choix === 'c') {
+            a = randint(2, 5)
+            b = randint(4, 6)
+            c = randint(2, 3)
+            texte = `$${a}$ L de lait coûtent $${b}$ €. Combien coûtent $${b * c}$ L de ce même lait ?`
+            texteCorr = `$${b}$ L coûtent $${c}$ fois plus cher que $${a}$ L, donc $${c * a}$ €.`
+            reponse = c * a
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€' }
+          }
+
+          if (choix === 'd') {
+            a = randint(2, 3)
+            b = randint(9, 15) * 10
+            c = randint(2, 4)
+            texte = `Un bus met $${a}$ heures pour faire $${b}$ km. <br>
+              Combien d'heures mettra-t-il pour faire $${b * c}$ km ?`
+            texteCorr = `Il mettra $${c}$ fois plus de temps, soit $${c}\\times ${a}=${c * b}$ heures. `
+            reponse = c * a
+            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'h' }
+          }
           nbChamps = 1
           break
       }
