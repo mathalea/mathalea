@@ -5667,17 +5667,18 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
  * @param {string} [fill='none'] Facultatif. 'none' par défaut
  * @param {number} [fillOpacite=0.2] Facultatif. 0.2 par défaut
  * @param {boolean} [mesureOn=false] Facultatif. false par défaut
- * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle
- * @param {string} [tailleTexte=1] Pour choisit la taille du texte à côté de l'angle
+ * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré (from EE)
+ * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle (from EE) : encore optimisable
+ * @param {string} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle (from EE)
  * @returns CodeAngle
  * @example codeAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @author Jean-Claude Lhote
  */
-export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
+export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
   if (typeof (angle) !== 'number') {
     angle = angleOriente(debut, centre, angle)
   }
-  if (angle === 90 || angle === -90) {
+  if ((angle === 90 || angle === -90) & !noAngleDroit) {
     return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille)
   } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, fill, fillOpacite, mesureOn, texteACote, tailleTexte)
 }

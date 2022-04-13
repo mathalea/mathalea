@@ -24,13 +24,14 @@ export default function NommerUnAngle () {
   this.nbQuestions = 2
   this.sup = 2
   this.sup2 = 1
+  this.sup3 = false
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     this.interactifType = this.sup2 === 2 ? 'mathLive' : 'qcm'
-
-    for (let i = 0, troisBonnesReponses, listePt1, listePt3, resultatOK1, resultatOK2, resultat3, resultatPasOK1, resultatPasOK2, choixAngle, pt1, pt2, pt3, tailleAngle, aleaChoixCouleur, couleurAngle, segmentsCorrection, resultat; i < this.nbQuestions; i++) {
+    const marquageAngle = this.sup3 ? ['|', 'OO', '|||'] : ['', '', '']
+    for (let i = 0, troisBonnesReponses, listePt1, listePt3, resultatOK1, resultatOK2, resultat3, resultatPasOK1, resultatPasOK2, choixAngle, pt1, pt2, pt3, tailleAngle, aleaChoixCouleurRemplissage, couleurRemplissageAngle, couleurAngle, segmentsCorrection, resultat; i < this.nbQuestions; i++) {
     // On prépare la figure...
       const ChoixHorizontal = choice([-1, 1])
 
@@ -62,15 +63,19 @@ export default function NommerUnAngle () {
       const objetsEnonce = []
       const objetsCorrection = []
       const sommetsDejaTrouves = []
-      const choixCouleur = rangeMinMax(0, 7)
+      const choixCouleurRemplissage = rangeMinMax(0, 7)
+      couleurRemplissageAngle = ['none'] // Par défaut, on ne remplit pas l'angle.
+      couleurAngle = this.sup3 ? 'black' : 'none'
       let texte = ''
       let texteCorr = ''
       let positionIbis = ChoixHorizontal === -1 ? 'right' : 'left'
       for (let jj = 0; jj < this.sup; jj++) {
         const choixSommet = choice(listePoints, sommetsDejaTrouves)
-        aleaChoixCouleur = choice(choixCouleur)
-        couleurAngle = couleurTab(aleaChoixCouleur)
-        enleveElement(choixCouleur, aleaChoixCouleur)
+        if (!this.sup3) {
+          aleaChoixCouleurRemplissage = choice(choixCouleurRemplissage)
+          couleurRemplissageAngle = couleurTab(aleaChoixCouleurRemplissage)
+          enleveElement(choixCouleurRemplissage, aleaChoixCouleurRemplissage)
+        }
         sommetsDejaTrouves[jj] = choixSommet
         switch (choixSommet) {
           case numA: // Si le sommet est A, alors il y a 3 choix possibles d'angles
@@ -158,7 +163,7 @@ export default function NommerUnAngle () {
 
         pt1 = choice(listePt1) // Une fois la possibilité d'angle choisie, il y a deux points possibles.
         pt3 = choice(listePt3)
-        segmentsCorrection = polyline([listePt1[0], A, listePt3[0]], couleurAngle[0])
+        segmentsCorrection = polyline([listePt1[0], A, listePt3[0]], couleurRemplissageAngle[0])
         resultat = []
         for (const item1 in listePt1) {
           for (const item3 in listePt3) {
@@ -189,20 +194,20 @@ export default function NommerUnAngle () {
         }
         segmentsCorrection.epaisseur = 3
         const ang = angleOriente(pt1, pt2, pt3)
-        const toto = ['|', 'OO', '|||']
-        objetsEnonce.push(codeAngle(pt1, pt2, ang, tailleAngle, toto[jj], 'black', 2, 1, 'none', 1, false))
-        // objetsEnonce.push(codeAngle(pt1, pt2, ang, tailleAngle, toto[jj], couleurAngle[0], 1, 1, couleurAngle[0], 1, false))
+
+        objetsEnonce.push(codeAngle(pt1, pt2, ang, tailleAngle, marquageAngle[jj], couleurAngle, 2, 1, couleurRemplissageAngle[0], 1, false, true))
         texte += this.sup > 1 ? `<br>${numAlpha(jj)}` : ''
-        texte += `Comment peut-on nommer l'angle ${couleurAngle[1]}${sp()}?`
+        texte += 'Comment peut-on nommer l\'angle '
+        texte += this.sup3 ? `marqué par ${jj + 1} symbole` + (jj > 0 ? 's' : '') + `${sp()}?` : `${couleurRemplissageAngle[1]}${sp()}?`
         if (this.interactif && this.interactifType === 'mathLive') {
           texte += ajouteChampTexteMathLive(this, i * this.sup + jj, 'inline largeur25')
         }
         setReponse(this, i * this.sup + jj, resultat, { formatInteractif: 'texte' })
-        objetsCorrection.push(codeAngle(pt1, pt2, ang, tailleAngle, '', 'none', 1, 1, couleurAngle[0], 1, false), segmentsCorrection)
+        objetsCorrection.push(codeAngle(pt1, pt2, ang, tailleAngle, '', 'none', 1, 1, couleurRemplissageAngle[0], 1, false), segmentsCorrection)
         texteCorr += this.sup > 1 ? (jj > 0 ? '<br>' : '') + `${numAlpha(jj)}` : ''
-        texteCorr += `L'angle ${couleurAngle[1]} se nomme, au choix : $${miseEnEvidence(resultat[0], couleurAngle[0])}$`
+        texteCorr += `L'angle ${couleurRemplissageAngle[1]} se nomme, au choix : $${miseEnEvidence(resultat[0], couleurRemplissageAngle[0])}$`
         for (let ee = 1; ee < resultat.length; ee++) {
-          texteCorr += `, $${miseEnEvidence(resultat[ee], couleurAngle[0])}$`
+          texteCorr += `, $${miseEnEvidence(resultat[ee], couleurRemplissageAngle[0])}$`
         }
         this.autoCorrection[i * this.sup + jj].enonce = `${texte}\n`
         this.autoCorrection[i * this.sup + jj].propositions = [{
@@ -245,4 +250,5 @@ export default function NommerUnAngle () {
   }
   this.besoinFormulaireNumerique = ['Nombre d\'angles à trouver', 3, '1, 2 ou 3 angles']
   if (context.isHtml) this.besoinFormulaire2Numerique = ['Exercice interactif', 2, '1 : QCM\n2 : Texte']
+  this.besoinFormulaire3CaseACocher = ['Figure en noir et blanc']
 }
