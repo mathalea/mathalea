@@ -54,7 +54,7 @@ export default function SujetCAN2022Sixieme () {
       questions[i] = parseInt(questions[i]) - 1
     }
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
-    const typeQuestionsDisponibles = [23]
+    const typeQuestionsDisponibles = [25]
 
     const listeFractions15 = [[1, 3], [2, 3], [1, 6], [5, 6], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5]
     ]
@@ -594,22 +594,36 @@ $${a + 1}$ h et $${reponse}$ min.`
 
           break
         case 23:
-          if (choice([true, false])) {
+          choix = choice(['a', 'b', 'c'])
+          if (choix === 'a') {
             a = randint(2, 5) + randint(1, 9) / 10
 
             reponse = a * 10
-            texte = `Combien faut-il de pièces de $10$ centimes pour avoir $${texNombre(a, 2, true)}$. <br>
+            texte = `Combien faut-il de pièces de $10$ centimes pour avoir $${texNombre(a, 2, true)}$ €. <br>
                     `
             texteCorr = `Il faut : $${texNombre(a)}\\div 0,1=${texNombre(a)}\\times 10=${a * 10}$ pièces.`
-          } else {
+          }  if (choix === 'b') {
             a = randint(2, 5) + (randint(1, 4) * 2) / 10
 
             reponse = a * 5
-            texte = `Combien faut-il de pièces de $20$ centimes pour avoir $${texNombre(a, 2, true)}$. <br>
+            texte = `Combien faut-il de pièces de $20$ centimes pour avoir $${texNombre(a, 2, true)}$ €. <br>
                      `
-            texteCorr = `Pour un euro, il faut $5$ pièces de $20$ centimes, donc pour $${Math.trunc(a)}$, il en faut $${Math.trunc(a)}\\times 5=${Math.trunc(a) * 5}$. <br>
-           Pour $${texNombre(a) - Math.trunc(a)}$, il en faut $${(texNombre(a) - Math.trunc(a)) * 0.2}$, donc en tout $${reponse}$.`
-          } setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            texteCorr = `Pour un euro, il faut $5$ pièces de $20$ centimes, donc pour $${Math.trunc(a)}$ €, il en faut $${Math.trunc(a)}\\times 5=${Math.trunc(a) * 5}$. <br>
+           Pour $${texNombre(a - Math.trunc(a))}$ €, il en faut $${texNombre((a - Math.trunc(a)) * 5)}$, donc en tout $${reponse}$.`
+          } 
+          if (choix === 'c') {a = randint(2, 9) + 5 / 10
+
+          reponse = a * 2
+          texte = `Combien faut-il de pièces de $50$ centimes pour avoir $${texNombre(a, 2, true)}$ €. <br>
+                   `
+          texteCorr = `Pour un euro, il faut $2$ pièces de $50$ centimes, 
+          donc pour $${Math.trunc(a)}$, 
+          il en faut $${Math.trunc(a)}\\times 2=${Math.trunc(a) * 2}$. <br>
+          Donc pour $${texNombre(a, 2, true)}$ €, il en faut  $${reponse}$.`
+       }
+          
+          
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           }
@@ -618,39 +632,67 @@ $${a + 1}$ h et $${reponse}$ min.`
           break
 
         case 24:
-          a = randint(11, 29)
-          b = randint(3, 9)
-          reponse = a * 100 + b * 1000
-          texte = `$${a}$ centaines et $${b}$ milliers $=$ `
-
-          texteCorr = `$${a}$ centaines et $${b}$ milliers $=${texNombre(a * 100)}+${b * 1000}=${texNombre(a * 100 + b * 1000)}$`
-
+          if (choice([true, false])) {
+          a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
+          reponse = calcul(a / 5)
+          texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+            Unite: 3,
+            Min: 0,
+            Max: 3.2,
+            x: 0,
+            y: 0,
+            thickSecDist: 1 / 5,
+            thickSec: true,
+            thickoffset: 0,
+            axeStyle: '|->',
+            pointListe: [[a / 5, 'A']],
+            pointCouleur: 'blue',
+            pointStyle: 'x',
+            labelsPrincipaux: true,
+            step1: 1,
+            step2: 1
+          }))
+          texteCorr = `L'unité est divisée en $5$. Ainsi, l'abscisse du point A est $\\dfrac{${a}}{5}=${texNombre(reponse)}$`
+        }
+        else{ a = choice([1, 3, 5, 7, 9]) // numérateur
+        reponse = calcul(a / 4)
+        texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+          Unite: 3,
+          Min: 0,
+          Max: 3.2,
+          x: 0,
+          y: 0,
+          thickSecDist: 1 / 4,
+          thickSec: true,
+          thickoffset: 0,
+          axeStyle: '|->',
+          pointListe: [[a / 4, 'A']],
+          pointCouleur: 'blue',
+          pointStyle: 'x',
+          labelsPrincipaux: true,
+          step1: 1,
+          step2: 1
+        }))
+        texteCorr = `L'unité est divisée en $4$. Ainsi, l'abscisse du point A est $\\dfrac{${a}}{4}=${texNombre(reponse)}$`
+     }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
-
           break
 
+          
+
         case 25:
-          if (choice([true, false])) {
-            a = randint(1, 10) * choice([1, 10])
-            reponse = calcul(a * 100)
-            texte = `$${texNombre(a)}$ m  =`
+          
+            a = randint(1, 9) /10+randint(1, 9) /100
+            b=randint(1,9)/10
+            reponse = a+b
+            texte = `$${texNombre(a)}+${texNombre(b)}=$`
+                        texteCorr = ` $${texNombre(a)}+${texNombre(b)}=${texNombre(a+b)}$`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' } else { texte += '$\\ldots$ cm' }
-            texteCorr = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
-                        Comme : $${texNombre(a)}\\times 100 =${texNombre(a * 100)}$, alors $${texNombre(a)}$ m$=${texNombre(a * 100)}$ cm.  
-                        `
-          } else {
-            a = randint(1, 12) * choice([1, 10, 100])
-            reponse = calcul(a / 100)
-            texte = `$${texNombre(a)}$ cm  =`
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm' } else { texte += '$\\ldots$ m' }
-            texteCorr = `Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
-            Ainsi pour passer des "cm" au "m", on divise par $100$.<br>
-              Comme  $${texNombre(a)}\\div 100 =${texNombre(a / 100)}$, alors $${texNombre(a)}$ cm$=${texNombre(a / 100)}$ m.  `
-          }
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')  } else { texte += '$\\ldots$ ' }
+            
+          
 
           nbChamps = 1
           break
