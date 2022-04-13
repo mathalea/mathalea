@@ -318,7 +318,7 @@ export default function SujetCAN2021Sixieme () {
               x: 0.5,
               y: 1.8, // les coordonnées du début du tracé dans le SVG
               axeEpaisseur: 2,
-              axeCouleur: 'none',
+              axeCouleur: 'white',
               thickCouleur: 'black',
               axeStyle: '-',
               axeHauteur: 4,
@@ -649,15 +649,15 @@ export default function SujetCAN2021Sixieme () {
           a = randint(1, 5)
           b = randint(2, 4)
           A = polygone([point(1, 7), point(11, 7), point(11, 6), point(1, 6)], 'black')
-          A.couleurDeRemplissage = 'grey'
+          A.couleurDeRemplissage = 'lightgray'
           B = texteParPosition('1 uA', 6, 6.5, 'milieu', 'black', 1, 'middle', false)
           C = grille(0, 0, 12, 7, 'black', 1, 1, false)
           D = point(1 + a, 4 - b)
           d = polygone([D, point(D.x, D.y + 1), point(11, D.y + 1), point(11, 5), point(1, 5), point(1, D.y)], 'black')
           d.epaisseur = 2
           d.couleurDeRemplissage = 'white'
-          d.couleurDesHachures = 'grey'
-          d.distanceDesHachures = 3
+          d.couleurDesHachures = 'gray'
+          d.distanceDesHachures = 4
           d.hachures = 'north east lines'
 
           texte = `En grisé, on a représenté une unité d'aire, notée uA.<br>
