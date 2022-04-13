@@ -34,7 +34,7 @@ export default function CalculDeVolumes () {
   this.sup4 = 8
   this.nouvelleVersion = function (numeroExercice) {
     this.consigne = this.interactif ? '' : "Calculer, en détaillant, le volume des solides donnés. Arrondir à l'unité."
-    this.interactifType = parseInt(this.sup3) === 2 ? 'mathLive' : 'qcm'
+    this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     let typesDeQuestionsDisponibles = []
     let thissup4Max
@@ -323,8 +323,8 @@ export default function CalculDeVolumes () {
         texte += propositionsQcm(this, i).texte
       } else {
         if (!context.isAmc) {
-          setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'longueur' })
-          texte += ajouteChampTexteMathLive(this, i, 'longueur')
+          setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'unites' })
+          texte += ajouteChampTexteMathLive(this, i, 'unites[volumes]')
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

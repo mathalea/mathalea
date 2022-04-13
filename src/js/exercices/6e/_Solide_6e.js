@@ -45,12 +45,15 @@ export default function Solide6e () {
     let objetsEnonce = []
     let objetsCorrection = []
     let p
+    let listeDeNomsDePolygones
     for (
       let i = 0, texte, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      const nom = creerNomDePolygone(8, 'PQ')
+      if (i % 2 === 0) listeDeNomsDePolygones = ['PQD']
+      const nom = creerNomDePolygone(8, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(nom)
       const anglepersp = choice([30, 45, -30, -45, 150, 135, -150, -135])
       if (anglepersp % 10 === 0) coeffpersp = 0.6
       else coeffpersp = 0.4

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, choice, prenomF, prenomM, texNombre, nombreAvecEspace, calcul, minToHour } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, choice, prenomF, prenomM, texNombre, nombreAvecEspace, calcul, minToHour, stringNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Problème de vitesse'
@@ -108,7 +108,7 @@ export default function VitesseDistanceTemps () {
           texteCorr += '<br><br>'
           texteCorr += `$d=\\dfrac{${texNombre(t)}\\times ${v}}{60}=${texNombre(d)}$ \n`
           texteCorr += '<br><br>'
-          texteCorr += `${pronomgenre.charAt(0).toUpperCase() + pronomgenre.slice(1)} a donc parcouru ${texNombre(d)} km.`
+          texteCorr += `${pronomgenre.charAt(0).toUpperCase() + pronomgenre.slice(1)} a donc parcouru ${stringNombre(d)} km.`
           setReponse(this, i, d)
           break
       }

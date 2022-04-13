@@ -38,7 +38,7 @@ export default function AireCarresRectanglesTriangles () {
 
   this.nouvelleVersion = function (numeroExercice) {
     let texte = ''; let texteCorr = ''
-    const nom = creerNomDePolygone(11, 'Q')
+    const nom = creerNomDePolygone(11, 'QD')
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -74,7 +74,7 @@ export default function AireCarresRectanglesTriangles () {
           texte = `Calculer l'aire du carré en cm${texteExposant(2)}`
 
           texteCorr += `<br>$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}\\times${c}~\\text{cm}=${c * c}~\\text{cm}^2$`
-          setReponse(this, i, new Grandeur(c * c, 'cm^2'), { formatInteractif: 'longueur' })
+          setReponse(this, i, new Grandeur(c * c, 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: `Calculer l'aire du carré de côté ${c}cm en cm${texteExposant(2)}`,
@@ -91,7 +91,7 @@ export default function AireCarresRectanglesTriangles () {
           texte = `Calculer l'aire du rectangle en cm${texteExposant(2)}`
           texteCorr += `<br>$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${L * l
           }~\\text{cm}^2$`
-          setReponse(this, i, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'longueur' })
+          setReponse(this, i, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: `Calculer l'aire du rectangle de longueur ${L}cm et de largeur ${l}cm en cm${texteExposant(2)}`,
@@ -107,7 +107,7 @@ export default function AireCarresRectanglesTriangles () {
         case 2 :
           texte = `Calculer l'aire du triangle rectangle en cm${texteExposant(2)}`
           texteCorr += `<br>$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(calcul((a * b) / 2))}~\\text{cm}^2$`
-          setReponse(this, i, new Grandeur(calcul((a * b) / 2), 'cm^2'), { formatInteractif: 'longueur' })
+          setReponse(this, i, new Grandeur(calcul((a * b) / 2), 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: `Calculer l'aire du triangle rectangle dont les côtés de l'angle droit mesurent ${a}cm et ${b}cm en cm${texteExposant(2)}`,
@@ -121,7 +121,7 @@ export default function AireCarresRectanglesTriangles () {
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'longueur')
+      texte += ajouteChampTexteMathLive(this, i, 'unites[longueurs]')
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

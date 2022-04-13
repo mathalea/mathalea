@@ -55,7 +55,7 @@ export default function ExprimerCosSinTan () {
     const B = p2.listePoints[1]
     const C = p2.listePoints[2]
     const codage = codageAngleDroit(B, A, C)
-    const nom = creerNomDePolygone(4)
+    const nom = creerNomDePolygone(4, ['DQ'])
     A.nom = nom[0]
     B.nom = nom[1]
     C.nom = nom[2]
@@ -247,7 +247,7 @@ export default function ExprimerCosSinTan () {
         { formatInteractif: 'texte' })
         texte += `<br>$\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=$`
         texte += ajouteChampTexteMathLive(this, 5, 'inline nospacebefore', { tailleExtensible: true })
-        setReponse(this, 4, [
+        setReponse(this, 5, [
         `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
         `\\frac{${B.nom + A.nom}}{${A.nom + C.nom}}`,
         `\\frac{${A.nom + B.nom}}{${C.nom + A.nom}}`,

@@ -49,7 +49,7 @@ export default function AireDeTriangles () {
     const objetsEnonce = []; const objetsCorrection = []; let xmin; let xmax; let ymin; let ymax
     let texte = ''; let texteCorr = ''
 
-    const nom = creerNomDePolygone(4 * this.nbQuestions, 'Q')
+    const nom = creerNomDePolygone(20, 'QD')
 
     for (let i = 0; i < this.nbQuestions; i++) {
       objetsEnonce.length = 0
