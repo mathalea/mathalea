@@ -588,7 +588,7 @@ export default function SujetCAN2021Sixieme () {
           a = randint(3, 6)
           b = choice([a + 1, 2 * a - 1])
           reponse = fraction(b, a)// .simplifie()
-          texte = 'Quelle est la fraction repérée par le point d’interrogation ?<br>' +
+          texte = "Quelle est la fraction repérée par le point d'interrogation ?<br>" +
            mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
              Unite: 8,
              Min: 1,
@@ -662,7 +662,7 @@ export default function SujetCAN2021Sixieme () {
 
           texte = `En grisé, on a représenté une unité d'aire, notée uA.<br>
             Quelle est l'aire de la figure hachurée ?<br>`
-          texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 7.5 }, C, A, B, d)
+          texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 7.5, scale: 0.7 }, C, A, B, d)
           texteCorr = `$1$ uA est représentée par  $10$ petits carreaux. La figure hachurée est constituée de $${arrondi(a / 10 + b, 1) * 10}$. Elle a donc une aire de $${texNombre(arrondi(a / 10 + b, 1))}$ unités.`
           reponse = arrondi(a / 10 + b, 1)
 
