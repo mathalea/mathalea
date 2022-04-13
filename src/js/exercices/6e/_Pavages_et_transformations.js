@@ -33,7 +33,13 @@ export default function PavagesEtTransformations () {
     this.listeCorrections = [] // Liste de questions corrigées
     const objetsEnonce = []
     const objetsCorrection = []
-
+    if (this.level === 3) {
+      this.sup = 4
+    } else if (this.level === 4) {
+      this.sup = 3
+    } else if (this.level === 5) {
+      this.sup = 2
+    } else this.sup = 1
     // listes de pavages [nx,ny,xB,yB,xC,yC,xD,yD,zoom,anngle]  : 0=carrés, 1=cerf-volant 2=quadri concave 3=quadri quelconque 4=parallélogrammes 5=triangles rectangles isocèles 6=triangles équilatéraux 7=losanges
     const paves = [[5, 5, 4, 0, 4, 4, 0, 4, 30, 0], [5, 5, 6, 0, 8, 8, 0, 6, 60, -9], [5, 5, 8, 0, 4, 4, 2, 8, 50, 0], [5, 5, 4, 0, 6, 4, 0, 6, 50, 5], [4, 6, 8, 0, 7, 4, -1, 4, 50, 10], [5, 5, 8, 0, 4, 4, 0, 8, 50, 0], [5, 5, 4, 0, 3, 2 * Math.sin(Math.PI / 3), 2, 4 * Math.sin(Math.PI / 3), 20, 0], [4, 4, 3, 1, 4, 4, 1, 3, 20, 0]]
     const quad = []; let quad1; let quad2; let quad3

@@ -5048,25 +5048,33 @@ export function centreCercleCirconscrit (A, B, C, nom = '', positionLabel = 'abo
  *
  * @author Rémi Angot
  */
-function CodageAngleDroit (A, O, B, color = 'black', d = 0.4) {
+function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacity = 1, fill = 'none', fillopacity = 1) {
   ObjetMathalea2D.call(this)
   this.sommet = O
   this.depart = A
   this.arrivee = B
   this.taille = d
   this.color = color
+  this.couleurDeRemplissage = fill
+  this.opaciteDeRemplissage = fillopacity
 
   this.svg = function (coeff) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / coeff)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille * 20 / coeff)
     let o = {}
+    let result = {}
     if (angleOriente(A, this.sommet, B) > 0) {
       o = rotation(this.sommet, a, -90)
     } else {
       o = rotation(this.sommet, a, 90)
     }
-    const result = polyline([a, o, b], color)
+    if (this.couleurDeRemplissage === 'none') result = polyline([a, o, b], color)
+    else result = polygone([this.sommet, a, o, b], color)
+    result.couleurDeRemplissage = this.couleurDeRemplissage
+    result.opaciteDeRemplissage = this.opaciteDeRemplissage
     result.isVisible = false
+    result.epaisseur = epaisseur
+    result.opacite = opacity
     this.id = result.id
     return result.svg(coeff)
   }
@@ -5074,12 +5082,22 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille / context.scale)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille / context.scale)
     let o = {}
+    let result = {}
     if (angleOriente(A, this.sommet, B) > 0) {
       o = rotation(this.sommet, a, -90)
     } else {
       o = rotation(this.sommet, a, 90)
     }
-    return polyline([a, o, b], color).tikz()
+    if (fill === 'none') return polyline([a, o, b], color).tikz()
+    else {
+      result = polygone([this.sommet, a, o, b], color)
+      result.couleurDeRemplissage = this.couleurDeRemplissage
+      result.opaciteDeRemplissage = this.opaciteDeRemplissage
+      result.isVisible = false
+      result.epaisseur = epaisseur
+      result.opacite = opacity
+      return result.tikz()
+    }
   }
   this.svgml = function (coeff, amp) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / coeff)
@@ -5111,11 +5129,15 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4) {
  * @param {Point} B
  * @param {string} [color='black']
  * @param {number} [d =0.4] Taille de l'angle droit en cm.
+ * @param {number} epaisseur épaisseur du trait
+ * @param {number} opacity opacité du trait
+ * @param {string} fill couleur de remplissage
+ * @param {number} fillopacity opacité de remplissage
  * @returns {CodageAngleDroit} CodageAngleDroit
  * @author Rémi Angot
  */
-export function codageAngleDroit (A, O, B, color = 'black', d = 0.4) {
-  return new CodageAngleDroit(A, O, B, color, d)
+export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacity = 1, fill = 'none', fillopacity = 1) {
+  return new CodageAngleDroit(A, O, B, color, d, epaisseur, opacity, fill, fillopacity)
 }
 /**
  * afficheLongueurSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
@@ -5672,7 +5694,7 @@ export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color 
     angle = angleOriente(debut, centre, angle)
   }
   if (angle === 90 || angle === -90) {
-    return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille)
+    return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille, epaisseur, opacite, fill, fillOpacite)
   } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, fill, fillOpacite, mesureOn)
 }
 
@@ -5865,7 +5887,7 @@ function DroiteGraduee2 ({
     S.epaiseur = axeEpaisseur
   } else {
     S = segment(point(x, y), point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]), axeCouleur)
-    S.styleExtremites = '|->'
+    S.styleExtremites = axeStyle || '|->'
     S.epaiseur = axeEpaisseur
     S.tailleExtremites = axeHauteur
   }
