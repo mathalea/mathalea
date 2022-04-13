@@ -335,14 +335,14 @@ export default function SujetCAN2021Sixieme () {
           A.epaisseur = 2
           A.styleExtremites = '|-|'
           texte = `Quelle est la mesure de ce segment ?<br>
-          ${mathalea2d({ xmin: -0.2, xmax: 13.2, ymin: -0.1, ymax: 2.7, pixelsParCm: 20, scale: 1, zoom: 1 }, c, A, d)}
+          ${mathalea2d({ xmin: -0.2, xmax: 13.2, ymin: -0.1, ymax: 2.7, pixelsParCm: 20, scale: 0.7, zoom: 1 }, c, A, d)}
           `
 
           texteCorr = `L'unité est divisée en $${b.d}$. La mesure du segment est donc : $\\dfrac{${b.n}}{${b.d}}$ unité.`
 
           reponse = fraction(b.n, b.d).simplifie()
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'unité' } else { texte += '$\\ldots$ unité' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'unité' } else { texte += '<br>$\\ldots$ unité' }
           nbChamps = 1
           break
 
@@ -414,7 +414,7 @@ export default function SujetCAN2021Sixieme () {
             reponse = nombre18[a][1] * 100
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$ €' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
 
@@ -663,7 +663,7 @@ export default function SujetCAN2021Sixieme () {
           texte = `En grisé, on a représenté une unité d'aire, notée uA.<br>
             Quelle est l'aire de la figure hachurée ?<br>`
           texte += mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 7.5 }, C, A, B, d)
-          texteCorr = '$1$ uA est représentée par  .... petits carreaux. La figure grisée compte .... petits carreaux....'
+          texteCorr = `$1$ uA est représentée par  $10$ petits carreaux. La figure hachurée est constituée de $${arrondi(a / 10 + b, 1) * 10}$. Elle a donc une aire de $${texNombre(arrondi(a / 10 + b, 1))}$ unités.`
           reponse = arrondi(a / 10 + b, 1)
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
