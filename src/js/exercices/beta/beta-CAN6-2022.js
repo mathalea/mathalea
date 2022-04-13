@@ -4,9 +4,10 @@ import {
   mathalea2d, point, grille, droiteGraduee2, segment, milieu, labelPoint, texteParPosition, codeSegment, codageAngleDroit
 } from '../../modules/2d.js'
 import { round, min } from 'mathjs'
+
 import { listeQuestionsToContenu, miseEnEvidence, combinaisonListesSansChangerOrdre, range1, randint, texNombre, shuffle, choice, calcul, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-
+import Grandeur from '../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'CAN Sixième sujet 2022'
 export const interactifReady = true
@@ -54,8 +55,14 @@ export default function SujetCAN2022Sixieme () {
       questions[i] = parseInt(questions[i]) - 1
     }
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
-    const typeQuestionsDisponibles = [25]
-
+    const typeQuestionsDisponibles = [26]
+    const hauteurs = [
+      ['fourmi', 3, 115, 'cm'],
+      ['grue', 120, 250, 'dm'],
+      ['tour', 50, 180, 'm'],
+      ['girafe', 40, 50, 'dm'],
+      ['coline', 75, 150, 'm']
+    ]
     const listeFractions15 = [[1, 3], [2, 3], [1, 6], [5, 6], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5]
     ]
     const listeFractions20 = [[1, 10], [3, 10], [7, 10], [9, 10], [1, 2], [1, 4], [3, 4]
@@ -65,7 +72,7 @@ export default function SujetCAN2022Sixieme () {
       ['centième', 100],
       ['millième', 1000]
     ]
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, maListe, chiffre, chiffre2, propositions, p, m, n, code1, code2, code3, code4, choix, truc, a, b, c, d, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, maListe, taille1, taille2, chiffre, chiffre2, propositions, p, m, n, code1, code2, code3, code4, choix, truc, a, b, c, d, k, s1, s2, A, B, C, D, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[listeIndex[i]]) {
         case 1:
           a = randint(4, 9)
@@ -602,7 +609,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             texte = `Combien faut-il de pièces de $10$ centimes pour avoir $${texNombre(a, 2, true)}$ €. <br>
                     `
             texteCorr = `Il faut : $${texNombre(a)}\\div 0,1=${texNombre(a)}\\times 10=${a * 10}$ pièces.`
-          }  if (choix === 'b') {
+          } if (choix === 'b') {
             a = randint(2, 5) + (randint(1, 4) * 2) / 10
 
             reponse = a * 5
@@ -610,125 +617,105 @@ $${a + 1}$ h et $${reponse}$ min.`
                      `
             texteCorr = `Pour un euro, il faut $5$ pièces de $20$ centimes, donc pour $${Math.trunc(a)}$ €, il en faut $${Math.trunc(a)}\\times 5=${Math.trunc(a) * 5}$. <br>
            Pour $${texNombre(a - Math.trunc(a))}$ €, il en faut $${texNombre((a - Math.trunc(a)) * 5)}$, donc en tout $${reponse}$.`
-          } 
-          if (choix === 'c') {a = randint(2, 9) + 5 / 10
+          }
+          if (choix === 'c') {
+            a = randint(2, 9) + 5 / 10
 
-          reponse = a * 2
-          texte = `Combien faut-il de pièces de $50$ centimes pour avoir $${texNombre(a, 2, true)}$ €. <br>
+            reponse = a * 2
+            texte = `Combien faut-il de pièces de $50$ centimes pour avoir $${texNombre(a, 2, true)}$ €. <br>
                    `
-          texteCorr = `Pour un euro, il faut $2$ pièces de $50$ centimes, 
+            texteCorr = `Pour un euro, il faut $2$ pièces de $50$ centimes, 
           donc pour $${Math.trunc(a)}$, 
           il en faut $${Math.trunc(a)}\\times 2=${Math.trunc(a) * 2}$. <br>
           Donc pour $${texNombre(a, 2, true)}$ €, il en faut  $${reponse}$.`
-       }
-          
-          
+          }
+
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           }
 
           nbChamps = 1
+          
           break
 
         case 24:
           if (choice([true, false])) {
-          a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
-          reponse = calcul(a / 5)
-          texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
-            Unite: 3,
-            Min: 0,
-            Max: 3.2,
-            x: 0,
-            y: 0,
-            thickSecDist: 1 / 5,
-            thickSec: true,
-            thickoffset: 0,
-            axeStyle: '|->',
-            pointListe: [[a / 5, 'A']],
-            pointCouleur: 'blue',
-            pointStyle: 'x',
-            labelsPrincipaux: true,
-            step1: 1,
-            step2: 1
-          }))
-          texteCorr = `L'unité est divisée en $5$. Ainsi, l'abscisse du point A est $\\dfrac{${a}}{5}=${texNombre(reponse)}$`
-        }
-        else{ a = choice([1, 3, 5, 7, 9]) // numérateur
-        reponse = calcul(a / 4)
-        texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
-          Unite: 3,
-          Min: 0,
-          Max: 3.2,
-          x: 0,
-          y: 0,
-          thickSecDist: 1 / 4,
-          thickSec: true,
-          thickoffset: 0,
-          axeStyle: '|->',
-          pointListe: [[a / 4, 'A']],
-          pointCouleur: 'blue',
-          pointStyle: 'x',
-          labelsPrincipaux: true,
-          step1: 1,
-          step2: 1
-        }))
-        texteCorr = `L'unité est divisée en $4$. Ainsi, l'abscisse du point A est $\\dfrac{${a}}{4}=${texNombre(reponse)}$`
-     }
+            a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
+            reponse = calcul(a / 5)
+            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+              Unite: 3,
+              Min: 0,
+              Max: 3.2,
+              x: 0,
+              y: 0,
+              thickSecDist: 1 / 5,
+              thickSec: true,
+              thickoffset: 0,
+              axeStyle: '|->',
+              pointListe: [[a / 5, 'A']],
+              pointCouleur: 'blue',
+              pointStyle: 'x',
+              labelsPrincipaux: true,
+              step1: 1,
+              step2: 1
+            }))
+            texteCorr = `L'unité est divisée en $5$. Ainsi, l'abscisse du point A est $\\dfrac{${a}}{5}=${texNombre(reponse)}$`
+          } else {
+            a = choice([1, 3, 5, 7, 9]) // numérateur
+            reponse = calcul(a / 4)
+            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+              Unite: 3,
+              Min: 0,
+              Max: 3.2,
+              x: 0,
+              y: 0,
+              thickSecDist: 1 / 4,
+              thickSec: true,
+              thickoffset: 0,
+              axeStyle: '|->',
+              pointListe: [[a / 4, 'A']],
+              pointCouleur: 'blue',
+              pointStyle: 'x',
+              labelsPrincipaux: true,
+              step1: 1,
+              step2: 1
+            }))
+            texteCorr = `L'unité est divisée en $4$. Ainsi, l'abscisse du point A est $\\dfrac{${a}}{4}=${texNombre(reponse)}$`
+          }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
 
-          
-
         case 25:
-          
-            a = randint(1, 9) /10+randint(1, 9) /100
-            b=randint(1,9)/10
-            reponse = a+b
-            texte = `$${texNombre(a)}+${texNombre(b)}=$`
-                        texteCorr = ` $${texNombre(a)}+${texNombre(b)}=${texNombre(a+b)}$`
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')  } else { texte += '$\\ldots$ ' }
-            
-          
+
+          a = randint(1, 9) / 10 + randint(1, 9) / 100
+          b = randint(1, 9) / 10
+          reponse = a + b
+          texte = `$${texNombre(a)}+${texNombre(b)}=$`
+          texteCorr = ` $${texNombre(a)}+${texNombre(b)}=${texNombre(a + b)}$`
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$ ' }
 
           nbChamps = 1
           break
 
         case 26:
-          a = 2 + randint(1, 5) / 10
-          b = 2 + randint(1, 4) / 10
-          c = randint(5, 6) - b
-          A = point(0, 0, 'A', 'below')
-          B = point(2.8, 0, 'B', 'below')
-          C = point(3.4, 3.4, 'C', 'above')
-          D = point(-0.6, 3.4, 'D', 'above')
-          code1 = codeSegment(B, C, '|')
-          code2 = codeSegment(A, D, '|')
-          xmin = -1.5
-          ymin = -1
-          xmax = 4
-          ymax = 4
-          objets = []
-          objets.push(
-            texteParPosition(`$${texNombre(a)} \\text{ cm}$`, milieu(A, D).x - 0.7, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${texNombre(b)} \\text{ cm}$`, milieu(A, B).x, milieu(A, B).y - 0.3, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${texNombre(c)} \\text{ cm}$`, milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-            segment(A, B), segment(B, C), segment(C, D), segment(D, A), code1, code2)
-          reponse = 2 * a + b + c
-          texte = `Quel est le périmètre de cette figure ? <br>
-            `
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
-          texteCorr = `Le périmètre est donné par la somme des quatre longueurs : $${texNombre(a)}\\times 2+${texNombre(b)}+${texNombre(c)}=${texNombre(2 * a + b + c)}$ cm.`
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
-          } else { texte += '  $\\mathscr{P}=\\ldots$ cm' }
-
-          nbChamps = 1
+          taille1= [['fourmi', 2,5, 'mm'], ['girafe', 40,50,'dm'],['crevette',5,10,'cm'] ,['baleine',15,25,'m'] , ['souris', 40,60, 'mm']]
+         
+          a = randint(0, 1)
+          b = randint(taille1[a][1], taille1[a][2])
+          propositions = shuffle([`$${b}$ m`, `$${b}$ dm`, `$${b}$ cm`, `$${b}$ mm`])
+         
+          texte = `Choisis parmi les propositions suivantes la taille d'une ${taille1[a][0]} (nombre et unité à recopier)<br>`
+                    texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}${sp(4)} ${propositions[3]}`
+          texteCorr = `La taille d'une ${taille1[a][0]} est ${b} ${taille1[a][3]}`
+          setReponse(this, index, new Grandeur(b, taille1[a][3]), { formatInteractif: 'unites' })
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+                    nbChamps = 1
           break
+
         case 27:
           a = randint(3, 6)
           b = choice([a + 1, 2 * a - 1])
