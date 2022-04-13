@@ -5700,7 +5700,7 @@ export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color 
   if (typeof (angle) !== 'number') {
     angle = angleOriente(debut, centre, angle)
   }
-  if (angle === 90 || angle === -90) {
+  if ((angle === 90 || angle === -90) & !noAngleDroit) {
     return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille, epaisseur, opacite, fill, fillOpacite)
   } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, fill, fillOpacite, mesureOn)
 }
