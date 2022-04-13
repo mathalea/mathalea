@@ -107,7 +107,7 @@ export default function SujetCAN2021Sixieme () {
           c = Math.floor(randint(10, 40) / a) * a // premier nombre.
           maListe = []
           for (let i = 0; i < 2; i++) {
-            maListe.push([c + a * i, texNombre(c + a * i)])
+            maListe.push([c + a * i, c + a * i])
           }
           d = droiteGraduee2({
             Unite: 3 / a,

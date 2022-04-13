@@ -5958,7 +5958,7 @@ function DroiteGraduee2 ({
       T.opacite = pointOpacite
       T.style = pointStyle
       T.epaisseur = pointEpaisseur
-      lab = latexParCoordonnees(p[1], x - 0.6 * absord[1] + (p[0] - Min) * absord[0] * Unite, y + 0.6 * absord[0] + (p[0] - Min) * absord[1] * Unite, pointCouleur, labelPointLargeur, labelPointTaille, '', labelPointTaille)
+      lab = latexParCoordonnees(p[1], x - 0.8 * absord[1] + (p[0] - Min) * absord[0] * Unite, y + 0.8 * absord[0] + (p[0] - Min) * absord[1] * Unite, pointCouleur, labelPointLargeur, labelPointTaille, '', labelPointTaille)
       objets.push(T, lab)
     }
   }
