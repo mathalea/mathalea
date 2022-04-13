@@ -18,29 +18,29 @@ const collegeKeyboardLayer = {
         { latex: '\\div' },
         { class: 'separator w5' },
         {
-          class: 'tex small',
-          label: '<span><i>x</i>&thinsp;²</span>',
-          insert: '$$#@^{2}$$'
-        },
-        {
-          class: 'tex small',
-          label: '<span><i>x</i><sup>&thinsp;<i>3</i></sup></span>',
-          insert: '$$#@^{3}$$'
-        },
-        {
           class: 'small',
           latex: '\\sqrt{#0}',
           insert: '$$\\sqrt{#0}$$'
         },
         {
-          class: 'small',
-          latex: '\\times10^{#0}',
-          insert: '$$\\times10^#0$$'
+          class: 'tex small',
+          label: '<span><i>x</i>&thinsp;²</span>', // Puissance 2
+          insert: '$$#@^{2}$$'
+        },
+        {
+          class: 'tex small',
+          label: '<span><i>x</i><sup>&thinsp;<i>3</i></sup></span>', // Puissance 3
+          insert: '$$#@^{3}$$'
+        },
+        {
+          class: 'tex small',
+          latex: 'x^{#0}', // Puissance n
+          insert: '$$#@^{#0}$$'
         },
         {
           class: 'small',
-          latex: '\\widehat{#0}',
-          insert: '$$\\widehat{#0}$$' /// Angle
+          latex: '\\times10^{#0}',
+          insert: '$$\\times10^#0$$'
         }
       ],
       [
@@ -57,8 +57,8 @@ const collegeKeyboardLayer = {
         { latex: 'f' },
         {
           class: 'small',
-          latex: '#0^{#1}',
-          insert: '$$#0^{#1}$$'
+          latex: '\\widehat{#0}',
+          insert: '$$\\widehat{#0}$$' /// Angle
         },
         { class: 'separator w10' }
       ],

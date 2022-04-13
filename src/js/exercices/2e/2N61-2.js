@@ -48,7 +48,7 @@ export default function ExerciceInequationProduit () {
     let listeTypeDeQuestions // Stockera la liste des types de questions
     let correctionInteractif // Pour récupérer l'intervalle solution à saisir
     if (this.interactif && !context.isAmc) {
-      this.consigne = `${debutConsigne}<br> Saisir uniquement l'intervalle dans le champ de réponse<br>Taper 'union' pour faire apparaitre $\\bigcup$ et 'inf' pour $\\infty$`
+      this.consigne = `${debutConsigne}<br> Saisir uniquement l'intervalle dans le champ de réponse<br>Taper 'union' pour faire apparaitre $\\bigcup$, 'inf' pour $\\infty$ et 'singleton' pour $\\left\\{\\right\\}$`
     } else {
       this.consigne = debutConsigne
     }
@@ -642,21 +642,43 @@ export default function ExerciceInequationProduit () {
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (c > 0) {
             texteCorr += gauche
-            correctionInteractif = `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`
+            correctionInteractif = [
+              `${singletonGauche.replaceAll(' ', '')}]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}${singletonDroite.replaceAll(' ', '')}`,
+              `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`,
+              `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+            ]
           } else {
             texteCorr += droite
-            correctionInteractif = `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`
+            correctionInteractif = [
+              `${singletonGauche.replaceAll(' ', '')}${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[${singletonDroite.replaceAll(' ', '')}`,
+              `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`,
+              `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+            ]
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (c > 0) {
             texteCorr += droite
-            correctionInteractif = `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`
+            correctionInteractif = [
+              `${singletonGauche.replaceAll(' ', '')}${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[${singletonDroite.replaceAll(' ', '')}`,
+              `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`,
+              `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+            ]
           } else {
             texteCorr += gauche
-            correctionInteractif = `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`
+            correctionInteractif = [
+              `${singletonGauche.replaceAll(' ', '')}]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}${singletonDroite.replaceAll(' ', '')}`,
+              `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`,
+              `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+            ]
           }
         }
-        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
+        if (Array.isArray(correctionInteractif)) {
+          for (let kk = 0; kk < correctionInteractif.length; kk++) {
+            correctionInteractif[kk] = correctionInteractif[kk].replaceAll('dfrac', 'frac')
+          }
+        } else {
+          correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
+        }
       }
 
       if (this.interactif && !context.isAmc) {
