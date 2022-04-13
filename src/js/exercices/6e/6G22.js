@@ -10,13 +10,13 @@ export const titre = 'Nommer un angle'
 export const interactifType = ['qcm', 'mathLive']
 export const interactifReady = true
 
-export const dateDePublication = '16/12/21' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '13/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Nommer un angle
  * Ref 6G22
  * @author Eric Elter
- * Publié le 10/04/2022
+ * Publié le 13/04/2022
  */
 export default function NommerUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
