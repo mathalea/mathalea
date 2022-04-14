@@ -7809,7 +7809,7 @@ export default {
     ],
     "name": "6G22",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9592,7 +9592,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -10425,7 +10425,7 @@ export default {
     "interactifReady": false,
     "name": "P015",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10903,7 +10903,7 @@ export default {
     }
   },
   "betaModele00_simple_Course_au_Nombres": {
-    "titre": "Somme de deux entier",
+    "titre": "Somme de deux entiers",
     "url": "/exercices/beta/betaModele00_simple_Course_au_Nombres.js",
     "amcReady": false,
     "interactifReady": true,
