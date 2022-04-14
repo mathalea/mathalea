@@ -519,6 +519,7 @@ export default function SujetCAN20215ieme () {
             thickoffset: 0,
             axeStyle: '|->',
             pointListe: [[b / a, '?']],
+            labelPointTaille: 15,
             pointCouleur: 'blue',
             pointStyle: 'x',
             labelsPrincipaux: true,
