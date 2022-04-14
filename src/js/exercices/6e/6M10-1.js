@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, contraindreValeur, combinaisonListes, texteExposant, texNombre, texteEnCouleurEtGras, miseEnEvidence, stringNombre, arrondi } from '../../modules/outils.js'
-import { latexParCoordonnees, longueur, mathalea2d, point, polygone, segment, texteParPosition, texteParPositionEchelle } from '../../modules/2d.js'
+import { latexParCoordonnees, mathalea2d, point, polygone, segment, texteParPositionEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const dateDePublication = '09/04/2022'
 export const titre = 'Problèmes d\'aires de rectangles'
