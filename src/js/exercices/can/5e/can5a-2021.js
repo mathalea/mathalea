@@ -518,7 +518,7 @@ export default function SujetCAN20215ieme () {
             thickSec: true,
             thickoffset: 0,
             axeStyle: '|->',
-            pointListe: [[b / a, '$\\large ?$']],
+            pointListe: [[b / a, '?']],
             pointCouleur: 'blue',
             pointStyle: 'x',
             labelsPrincipaux: true,
@@ -554,7 +554,7 @@ export default function SujetCAN20215ieme () {
             c = randint(-9, -1) / 100
             d = randint(-9, -1) / 1000
             nombre = a + b + c + d
-            texte = `Donne un encadrement au cen,tième près du nombre $${texNombre(nombre)}$ :<br>`
+            texte = `Donne un encadrement au centième près du nombre $${texNombre(nombre)}$ :<br>`
 
             texteCorr = `Le chiffre des centième est le deuxième chiffre après la virgule. <br>Ainsi : $${texNombre(a + b + c - 0.01)} \\leqslant ${texNombre(nombre)} \\leqslant ${texNombre(a + b + c)}$.`
 
