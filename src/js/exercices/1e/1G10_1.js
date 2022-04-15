@@ -1,0 +1,74 @@
+import Exercice from '../Exercice.js'
+import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+export const titre = 'Valeurs remarquables du cosinus et sinus'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
+export const dateDePublication = '14/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+this.interactif = true
+/**
+ * Description didactique de l'exercice
+ * @author Stéphane Guyon
+ * Référence
+*/
+export default function CosetSin () {
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.consigne = 'Donner la valeur exacte de :'
+  this.nbQuestions = 5 // Nombre de questions par défaut
+  this.nbCols = 2 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  this.video = '' // Id YouTube ou url
+
+  this.nouvelleVersion = function (numeroExercice) {
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
+
+    const typeQuestionsDisponibles = ['cos', 'sin'] // On créé 3 types de questions
+    const mesAngles = [
+      { degres: '90', cos: '0', sin: '1', radian: '\\dfrac{\\pi}{2}' },
+      { degres: '45', cos: '\\dfrac{\\sqrt{2}}{2}', sin: '\\dfrac{\\sqrt{2}}{2}', radian: '\\dfrac{\\pi}{4}' }
+    ]
+    const mesAnglesAleatoires = combinaisonListes(mesAngles, this.nbQuestions)
+    // On mélange
+
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+      const monAngle = mesAnglesAleatoires[i]
+      const degres = monAngle.degres
+      const radian = monAngle.radian
+      const cos = monAngle.cos
+      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+        case 'cos':
+          texte = `Déterminer la valeur exacte de $\\cos\\big(${monAngle.radian}\\big)$`
+          if (this.interactif) { // Si l'exercice est interactif
+            texte += ajouteChampTexteMathLive(this, i)
+            texte += ' = '
+          }
+          texteCorr = `$\\cos\\big(${monAngle.radian}\\big)=${monAngle.cos}$`
+          if (this.interactif) { setReponse(this, i, `$${monAngle.cos}$`, { formatInteractif: 'calcul' }) }
+          break
+        case 'sin':
+          texte = `Déterminer la valeur exacte de $\\sin\\big(${monAngle.radian}\\big)$`
+          if (this.interactif) { // Si l'exercice est interactif
+            texte += ajouteChampTexteMathLive(this, i)
+            texte += ' = '
+          }
+          texteCorr = `$\\sin\\big(${monAngle.radian}\\big)=${monAngle.sin}$`
+          if (this.interactif) { setReponse(this, i, `$${monAngle.sin}$`, { formatInteractif: 'calcul' }) }
+          break
+      }
+      // Si la question n'a jamais été posée, on l'enregistre
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
+    }
+    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+  }
+}
