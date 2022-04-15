@@ -68,7 +68,11 @@ export default function CosetSin () {
       { degres: '90', cos: '0', sin: '1', radian: '\\dfrac{\\pi}{2}' },
       { degres: '45', cos: '\\dfrac{\\sqrt{2}}{2}', sin: '\\dfrac{\\sqrt{2}}{2}', radian: '\\dfrac{\\pi}{4}' }
     ]
-    
+    const nombreAnglesDeBase = mesAngles.length
+    for (let i = 0; i < nombreAnglesDeBase; i++) {
+      mesAngles.push(angleOppose(mesAngles[i]), angleComplementaire(mesAngles[i]), angleSupplementaire(mesAngles[i]))
+    }
+    console.log(mesAngles)
     const mesAnglesAleatoires = combinaisonListes(mesAngles, this.nbQuestions)
     // On mélange
 
