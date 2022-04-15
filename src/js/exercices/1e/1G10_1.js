@@ -10,17 +10,17 @@ export const dateDePublication = '14/04/2022' // La date de publication initiale
 export const dateDeModifImportante = '' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 /**
  * Description didactique de l'exercice
- * @author Stéphane Guyon
+ * @author Stéphane Guyon - Jean Claude Lhote
  * Référence
 */
 export default function CosetSin () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Donner la valeur exacte de :'
-  this.nbQuestions = 5 // Nombre de questions par défaut
+  this.nbQuestions = 3 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.video = '' // Id YouTube ou url
-
+  this.sup = 1 // difficulté par défaut
   function angleOppose (angle) { // ça c'est facile à comprendre
     return { degres: '-' + angle.degres, cos: angle.cos, sin: '-' + angle.sin, radian: '-' + angle.radian }
   }
@@ -81,11 +81,14 @@ export default function CosetSin () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const typeQuestionsDisponibles = ['cos', 'sin'] // On créé 3 types de questions
+    const typeQuestionsDisponibles = ['cos', 'sin'] // On créé 2 types de questions
     // Mettre dans cette liste, les angles du premier quart de cercle.
     const mesAngles = [
       { degres: '90', cos: '0', sin: '1', radian: '\\dfrac{\\pi}{2}' },
-      { degres: '45', cos: '\\dfrac{\\sqrt{2}}{2}', sin: '\\dfrac{\\sqrt{2}}{2}', radian: '\\dfrac{\\pi}{4}' }
+      { degres: '45', cos: '\\dfrac{\\sqrt{2}}{2}', sin: '\\dfrac{\\sqrt{2}}{2}', radian: '\\dfrac{\\pi}{4}' },
+      { degres: '60', cos: '\\dfrac{1}{2}', sin: '\\dfrac{\\sqrt{3}}{2}', radian: '\\dfrac{\\pi}{3}' },
+      { degres: '30', sin: '\\dfrac{1}{2}', cos: '\\dfrac{\\sqrt{3}}{2}', radian: '\\dfrac{\\pi}{6}' },
+      { degres: '0', cos: '1', sin: '0', radian: '0' }
     ]
     const nombreAnglesDeBase = mesAngles.length
 
@@ -93,24 +96,31 @@ export default function CosetSin () {
     for (let i = 0; i < nombreAnglesDeBase; i++) {
       mesAngles.push(angleOppose(mesAngles[i]), angleComplementaire(mesAngles[i]), angleSupplementaire(mesAngles[i]))
     }
-
+  }
+  if (this.sup === 1) {
+    const mesAnglesNiv1 = mesAngles.slice(0, nombreAnglesDeBase)
+    const mesAnglesAleatoires = combinaisonListes(mesAnglesNiv1, this.nbQuestions)
+  }
+  if (this.sup === 2) {
+    const mesAnglesNiv2 = mesAngles.slice(nombreAnglesDeBase, 4 * nombreAnglesDeBase)
+    const mesAnglesAleatoires = combinaisonListes(mesAnglesNiv2, this.nbQuestions)
+  }
+  if (this.sup === 3) {
     for (let i = 0; i < nombreAnglesDeBase; i++) {
       for (let k = -5; k < 6; k++) {
         if (k !== 0) mesAngles.push(angleModulo(mesAngles[i % nombreAnglesDeBase], k))
       }
-    }
-    const mesAnglesNiv1 = mesAngles.slice(0, nombreAnglesDeBase)
-    const mesAnglesNiv2 = mesAngles.slice(nombreAnglesDeBase, 4 * nombreAnglesDeBase)
-    const mesAnglesNiv3 = mesAngles.slice(4 * nombreAnglesDeBase)
+      const mesAnglesNiv3 = mesAngles.slice(4 * nombreAnglesDeBase)
+      const mesAnglesAleatoires = combinaisonListes(mesAnglesNiv3, this.nbQuestions)
+    }}
 
-    console.log(mesAnglesNiv3) // voici le résultat
-
-    const mesAnglesAleatoires = combinaisonListes(mesAngles, this.nbQuestions)
+    // const mesAnglesAleatoires = combinaisonListes(mesAngles, this.nbQuestions)
 
     // On mélange
     if (this.nbQuestions > 10 && this.sup === 1) this.nbQuestions = 10 // on bride car il n'y a que 10 question différentes au niveau 1
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) 
+    { // Boucle principale où i+1 correspond au numéro de la question
       const monAngle = mesAnglesAleatoires[i]
       /* const degres = monAngle.degres
       const radian = monAngle.radian
@@ -140,5 +150,5 @@ export default function CosetSin () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Quart de cercle trigo\n2 : Avec les angles associés']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Quart de cercle trigo\n2 : Avec les angles associés \n3 : Angle quelconque']
 }
