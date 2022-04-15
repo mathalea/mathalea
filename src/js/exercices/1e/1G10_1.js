@@ -21,10 +21,10 @@ export default function CosetSin () {
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.video = '' // Id YouTube ou url
 
-  function angleOppose (angle) {
+  function angleOppose (angle) { // ça c'est facile à comprendre
     return { degres: '-' + angle.degres, cos: angle.cos, sin: '-' + angle.sin, radian: '-' + angle.radian }
   }
-  function complementaire (angleEnRadian) {
+  function complementaire (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son complémentaire
     switch (angleEnRadian) {
       case '\\dfrac{\\pi}{4}':
         return angleEnRadian
@@ -38,7 +38,7 @@ export default function CosetSin () {
         return '90'
     }
   }
-  function supplementaire (angleEnRadian) {
+  function supplementaire (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son supplémentaire
     switch (angleEnRadian) {
       case '\\dfrac{\\pi}{4}':
         return '\\dfrac{3\\pi}{4}'
@@ -52,10 +52,10 @@ export default function CosetSin () {
         return '180'
     }
   }
-  function angleComplementaire (angle) {
+  function angleComplementaire (angle) { // idem angleOppose (facile à compredre)
     return { degres: (90 - parseInt(angle.degres)).toString(), cos: angle.sin, sin: angle.cos, radian: complementaire(angle.radian) }
   }
-  function angleSupplementaire (angle) {
+  function angleSupplementaire (angle) { // idem angleOppose (facile à compredre)
     return { degres: (180 - parseInt(angle.degres)).toString(), cos: '-' + angle.cos, sin: angle.sin, radian: supplementaire(angle.radian) }
   }
   this.nouvelleVersion = function (numeroExercice) {
@@ -64,15 +64,18 @@ export default function CosetSin () {
     this.autoCorrection = []
 
     const typeQuestionsDisponibles = ['cos', 'sin'] // On créé 3 types de questions
+    // Mettre dans cette liste, les angles du premier quart de cercle.
     const mesAngles = [
       { degres: '90', cos: '0', sin: '1', radian: '\\dfrac{\\pi}{2}' },
       { degres: '45', cos: '\\dfrac{\\sqrt{2}}{2}', sin: '\\dfrac{\\sqrt{2}}{2}', radian: '\\dfrac{\\pi}{4}' }
     ]
     const nombreAnglesDeBase = mesAngles.length
+    // ici on complète la liste avec tous les angles associés (donc on multiplie par 4 la taille de la liste)
     for (let i = 0; i < nombreAnglesDeBase; i++) {
       mesAngles.push(angleOppose(mesAngles[i]), angleComplementaire(mesAngles[i]), angleSupplementaire(mesAngles[i]))
     }
-    console.log(mesAngles)
+    console.log(mesAngles) // voici le résultat
+
     const mesAnglesAleatoires = combinaisonListes(mesAngles, this.nbQuestions)
     // On mélange
 
