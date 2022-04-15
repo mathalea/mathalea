@@ -16,7 +16,7 @@ export const dateDeModifImportante = '' // Une date de modification importante a
 export default function CosetSin () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Donner la valeur exacte de :'
-  this.nbQuestions = 1 // Nombre de questions par défaut
+  this.nbQuestions = 5 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.video = '' // Id YouTube ou url
@@ -32,10 +32,10 @@ export default function CosetSin () {
         return '\\dfrac{\\pi}{3}'
       case '\\dfrac{\\pi}{3}':
         return '\\dfrac{\\pi}{6}'
-      case '90' :
+      case '\\dfrac{\\pi}{2}' :
         return '0'
       case '0' :
-        return '90'
+        return '\\dfrac{\\pi}{2}'
     }
   }
   function supplementaire (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son supplémentaire
@@ -46,18 +46,36 @@ export default function CosetSin () {
         return '\\dfrac{5\\pi}{6}'
       case '\\dfrac{\\pi}{3}':
         return '\\dfrac{2\\pi}{3}'
-      case '90' :
-        return '90'
+      case '\\dfrac{\\pi}{2}' :
+        return '\\dfrac{\\pi}{2}'
       case '0' :
-        return '180'
+        return '\\pi'
     }
   }
-  function angleComplementaire (angle) { // idem angleOppose (facile à compredre)
+  function angleComplementaire (angle) { // idem angleOppose (facile à comprendre)
     return { degres: (90 - parseInt(angle.degres)).toString(), cos: angle.sin, sin: angle.cos, radian: complementaire(angle.radian) }
   }
-  function angleSupplementaire (angle) { // idem angleOppose (facile à compredre)
+  function angleSupplementaire (angle) { // idem angleOppose (facile à comprendre)
     return { degres: (180 - parseInt(angle.degres)).toString(), cos: '-' + angle.cos, sin: angle.sin, radian: supplementaire(angle.radian) }
   }
+  function modulo (angleEnRadian, k) {
+    switch (angleEnRadian) {
+      case '\\dfrac{\\pi}{4}':
+        return `\\dfrac{${8 * k + 1}\\pi}{4}`
+      case '\\dfrac{\\pi}{6}':
+        return `\\dfrac{${12 * k + 1}\\pi}{6}`
+      case '\\dfrac{\\pi}{3}':
+        return `\\dfrac{${6 * k + 1}\\pi}{3}`
+      case '\\dfrac{\\pi}{2}' :
+        return `\\dfrac{${4 * k + 1}\\pi}{2}`
+      case '0' :
+        return `${2 * k}\\pi`
+    }
+  }
+  function angleModulo (angle, k) {
+    return { degres: angle.degres, cos: angle.cos, sin: angle.sin, radian: modulo(angle.radian, k) }
+  }
+
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -70,15 +88,27 @@ export default function CosetSin () {
       { degres: '45', cos: '\\dfrac{\\sqrt{2}}{2}', sin: '\\dfrac{\\sqrt{2}}{2}', radian: '\\dfrac{\\pi}{4}' }
     ]
     const nombreAnglesDeBase = mesAngles.length
+
     // ici on complète la liste avec tous les angles associés (donc on multiplie par 4 la taille de la liste)
     for (let i = 0; i < nombreAnglesDeBase; i++) {
       mesAngles.push(angleOppose(mesAngles[i]), angleComplementaire(mesAngles[i]), angleSupplementaire(mesAngles[i]))
     }
-    console.log(mesAngles) // voici le résultat
+
+    for (let i = 0; i < nombreAnglesDeBase; i++) {
+      for (let k = -5; k < 6; k++) {
+        if (k !== 0) mesAngles.push(angleModulo(mesAngles[i % nombreAnglesDeBase], k))
+      }
+    }
+    const mesAnglesNiv1 = mesAngles.slice(0, nombreAnglesDeBase)
+    const mesAnglesNiv2 = mesAngles.slice(nombreAnglesDeBase, 4 * nombreAnglesDeBase)
+    const mesAnglesNiv3 = mesAngles.slice(4 * nombreAnglesDeBase)
+
+    console.log(mesAnglesNiv3) // voici le résultat
 
     const mesAnglesAleatoires = combinaisonListes(mesAngles, this.nbQuestions)
-    // On mélange
 
+    // On mélange
+    if (this.nbQuestions > 10 && this.sup === 1) this.nbQuestions = 10 // on bride car il n'y a que 10 question différentes au niveau 1
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const monAngle = mesAnglesAleatoires[i]
@@ -101,7 +131,7 @@ export default function CosetSin () {
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, listeTypeQuestions[i], monAngle.degres)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -110,4 +140,5 @@ export default function CosetSin () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Quart de cercle trigo\n2 : Avec les angles associés']
 }
