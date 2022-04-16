@@ -107,7 +107,6 @@ const config = {
   entry: {
     mathalea: ['./src/js/firstLoaded.js', './src/js/mathalea.js'],
     mathalea2d: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2d-gui.js'],
-    m2d: [/* ça plante parce qu'on ne peut pas ajouter de propriété à window, faudrait le déclarer qq part './src/js/firstLoaded.js', */'./src/js/modules/m2d/init.ts'],
     mathalea2iep: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2iep-gui.js'],
     alacarte: ['./src/js/firstLoaded.js', './src/js/alacarte.js'] /* */
   },
@@ -138,9 +137,9 @@ const config = {
   // ça c'est la config pour devServer, lancé au `pnpm start`
   devServer: {
     open: true,
-    openPage: 'm2d.html',
+    openPage: 'mathalea.html',
     host: 'localhost',
-    port: 8080, 
+    port: 8080,
     // on active le hot module replacement (HMR)
     hot: true,
     headers: {
@@ -188,11 +187,6 @@ const config = {
       filename: 'mathalea2d.html',
       chunks: ['mathalea2d']
     }), /* */
-    new HtmlWebpackPlugin({
-      template: 'src/html/m2d.html',
-      filename: 'm2d.html',
-      chunks: ['m2d']
-    }),
     new HtmlWebpackPlugin({
       template: 'src/html/mathalea2dsvg.html',
       filename: 'mathalea2dsvg.html',
