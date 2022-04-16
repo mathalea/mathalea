@@ -39,29 +39,33 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
       { degres: '30', sin: ['\\dfrac{1}{2}', '0.5'], cos: '\\dfrac{\\sqrt{3}}{2}', radian: '\\dfrac{\\pi}{6}' },
       { degres: '0', cos: '1', sin: '0', radian: '0' }
     ]
+    const mesAnglesNiv1 = mesAngles.slice()
     const nombreAnglesDeBase = mesAngles.length
 
-    // ici on complète la liste avec tous les angles associés (donc on multiplie par 4 la taille de la liste)
+    // ici on complète la liste avec tous les angles associés en faisant attention de ne pas ajouter deux fois les mêmes.
     for (let i = 0; i < nombreAnglesDeBase; i++) {
-      mesAngles.push(angleOppose(mesAngles[i]), angleComplementaire(mesAngles[i]), angleSupplementaire(mesAngles[i]))
+      if (!mesAngles.find(element => angleOppose(mesAngles[i]).radian === element.radian)) mesAngles.push(angleOppose(mesAngles[i]))
+      if (!mesAngles.find(element => angleComplementaire(mesAngles[i]).radian === element.radian)) mesAngles.push(angleComplementaire(mesAngles[i]))
+      if (!mesAngles.find(element => angleSupplementaire(mesAngles[i]).radian === element.radian)) mesAngles.push(angleSupplementaire(mesAngles[i]))
     }
-    if (this.nbQuestions > 10 && this.sup === 1) this.nbQuestions = 10 // on bride car il n'y a que 10 question différentes au niveau 1
+    const mesAnglesNiv2 = mesAngles.slice()
+    for (let i = 0; i < nombreAnglesDeBase; i++) {
+      for (let k = -5; k < 6; k++) {
+        if (k !== 0) mesAngles.push(angleModulo(mesAngles[i % nombreAnglesDeBase], k))
+      }
+    }
+    const mesAnglesNiv3 = mesAngles.slice()
 
+    if (this.nbQuestions > 10 && this.sup === 1) this.nbQuestions = 10 // on bride car il n'y a que 10 question différentes au niveau 1
+    else if (this.nbQuestions > 26 && this.sup === 2) this.nbQuestions = 26 // Le bridage est un peu plus large pour le niveau 2
+    else if (this.nbQuestions > 126) this.nbQuestions = 126 // là c'est carrément l'opulence avec le niveau 3 !
     if (this.sup === 1) {
-      const mesAnglesNiv1 = mesAngles.slice(0, nombreAnglesDeBase)
       mesAnglesAleatoires = shuffle(mesAnglesNiv1)
     }
     if (this.sup === 2) {
-      const mesAnglesNiv2 = mesAngles.slice(nombreAnglesDeBase, 4 * nombreAnglesDeBase)
       mesAnglesAleatoires = shuffle(mesAnglesNiv2)
     }
     if (this.sup === 3) {
-      for (let i = 0; i < nombreAnglesDeBase; i++) {
-        for (let k = -5; k < 6; k++) {
-          if (k !== 0) mesAngles.push(angleModulo(mesAngles[i % nombreAnglesDeBase], k))
-        }
-      }
-      const mesAnglesNiv3 = mesAngles.slice(4 * nombreAnglesDeBase)
       mesAnglesAleatoires = shuffle(mesAnglesNiv3)
     }
 
@@ -71,15 +75,15 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
       typeQuestionsDisponibles.push(['sin', mesAnglesAleatoires[i]])
     }
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 500;) { // Boucle principale où i+1 correspond au numéro de la question
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 127;) {
       const monAngle = listeTypeQuestions[i][1]
 
       texte = `$\\${listeTypeQuestions[i][0]}\\big(${monAngle.radian}\\big)$`
       texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
       texteCorr = `$\\${listeTypeQuestions[i][0]}\\big(${monAngle.radian}\\big)`
       let valeurFonction = ''
-      
+
       // listeTypeQuestions[i][0] contient 'cos' ou 'sin', donc on s'en sert pour uniformiser le code et on n'a plus besoin de switch.
       // monAngle[listeTypeQuestions[i][0]] fait référence à monAngle.cos ou à monAngle.sin selon la valeur de listeTypeQuestions[i][0].
 
@@ -88,7 +92,7 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
       texteCorr += `=${valeurFonction}$`
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, listeTypeQuestions[i][0][0], monAngle.degres)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, listeTypeQuestions[i][0][0], listeTypeQuestions[i][1].radian)) { // On regarde l'angle en radian et le type de fonction
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -99,9 +103,9 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
   }
 }
 
-function angleOppose (angle) { // ça c'est facile à comprendre
+function angleOppose (angle) { // retourne un objet angle contenant l'angle opposé
   if (angle.degres === '0') return angle
-  else { return { degres: '-' + angle.degres, cos: angle.cos, sin: '-' + angle.sin, radian: '-' + angle.radian } }
+  else { return { degres: '-' + angle.degres, cos: angle.cos, sin: angle.sin === '0' ? angle.sin : '-' + angle.sin, radian: '-' + angle.radian } }
 }
 function complementaireRad (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son complémentaire
   switch (angleEnRadian) {
@@ -131,11 +135,11 @@ function supplementaireRad (angleEnRadian) { // fonction utilitaire pour passer 
       return '\\pi'
   }
 }
-function angleComplementaire (angle) { // idem angleOppose (facile à comprendre)
+function angleComplementaire (angle) { // retourne un objet angle contenant l'angle complémentaire
   return { degres: (90 - parseInt(angle.degres)).toString(), cos: angle.sin, sin: angle.cos, radian: complementaireRad(angle.radian) }
 }
-function angleSupplementaire (angle) { // idem angleOppose (facile à comprendre)
-  return { degres: (180 - parseInt(angle.degres)).toString(), cos: '-' + angle.cos, sin: angle.sin, radian: supplementaireRad(angle.radian) }
+function angleSupplementaire (angle) { // retourne un objet angle contenant l'angle supplémentaire
+  return { degres: (180 - parseInt(angle.degres)).toString(), cos: angle.cos === '0' ? '0' : '-' + angle.cos, sin: angle.sin, radian: supplementaireRad(angle.radian) }
 }
 function moduloRad (angleEnRadian, k) {
   switch (angleEnRadian) {
