@@ -108,7 +108,7 @@ function angleOppose (angle) { // ça c'est facile à comprendre
   if (angle.degres === '0') return angle
   else { return { degres: '-' + angle.degres, cos: angle.cos, sin: '-' + angle.sin, radian: '-' + angle.radian } }
 }
-function complementaire (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son complémentaire
+function complementaireRad (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son complémentaire
   switch (angleEnRadian) {
     case '\\dfrac{\\pi}{4}':
       return angleEnRadian
@@ -122,7 +122,7 @@ function complementaire (angleEnRadian) { // fonction utilitaire pour passer d'u
       return '\\dfrac{\\pi}{2}'
   }
 }
-function supplementaire (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son supplémentaire
+function supplementaireRad (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son supplémentaire
   switch (angleEnRadian) {
     case '\\dfrac{\\pi}{4}':
       return '\\dfrac{3\\pi}{4}'
@@ -137,12 +137,12 @@ function supplementaire (angleEnRadian) { // fonction utilitaire pour passer d'u
   }
 }
 function angleComplementaire (angle) { // idem angleOppose (facile à comprendre)
-  return { degres: (90 - parseInt(angle.degres)).toString(), cos: angle.sin, sin: angle.cos, radian: complementaire(angle.radian) }
+  return { degres: (90 - parseInt(angle.degres)).toString(), cos: angle.sin, sin: angle.cos, radian: complementaireRad(angle.radian) }
 }
 function angleSupplementaire (angle) { // idem angleOppose (facile à comprendre)
-  return { degres: (180 - parseInt(angle.degres)).toString(), cos: '-' + angle.cos, sin: angle.sin, radian: supplementaire(angle.radian) }
+  return { degres: (180 - parseInt(angle.degres)).toString(), cos: '-' + angle.cos, sin: angle.sin, radian: supplementaireRad(angle.radian) }
 }
-function modulo (angleEnRadian, k) {
+function moduloRad (angleEnRadian, k) {
   switch (angleEnRadian) {
     case '\\dfrac{\\pi}{4}':
       return `\\dfrac{${8 * k + 1}\\pi}{4}`
@@ -157,5 +157,5 @@ function modulo (angleEnRadian, k) {
   }
 }
 function angleModulo (angle, k) {
-  return { degres: angle.degres, cos: angle.cos, sin: angle.sin, radian: modulo(angle.radian, k) }
+  return { degres: angle.degres, cos: angle.cos, sin: angle.sin, radian: moduloRad(angle.radian, k) }
 }
