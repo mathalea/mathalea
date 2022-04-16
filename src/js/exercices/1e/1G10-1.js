@@ -79,16 +79,12 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
       texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
       texteCorr = `$\\${listeTypeQuestions[i][0]}\\big(${monAngle.radian}\\big)`
       let valeurFonction = ''
-      switch (listeTypeQuestions[i][0]) { // Suivant le type de question, le contenu sera différent
-        case 'cos':
-          setReponse(this, i, monAngle.cos, { formatInteractif: 'calcul' })
-          valeurFonction = Array.isArray(monAngle.cos) ? monAngle.cos[0] : monAngle.cos
-          break
-        case 'sin':
-          setReponse(this, i, monAngle.sin, { formatInteractif: 'calcul' })
-          valeurFonction = Array.isArray(monAngle.sin) ? monAngle.sin[0] : monAngle.sin
-          break
-      }
+      
+      // listeTypeQuestions[i][0] contient 'cos' ou 'sin', donc on s'en sert pour uniformiser le code et on n'a plus besoin de switch.
+      // monAngle[listeTypeQuestions[i][0]] fait référence à monAngle.cos ou à monAngle.sin selon la valeur de listeTypeQuestions[i][0].
+
+      setReponse(this, i, monAngle[listeTypeQuestions[i][0]], { formatInteractif: 'calcul' })
+      valeurFonction = Array.isArray(monAngle[listeTypeQuestions[i][0]]) ? monAngle[listeTypeQuestions[i][0]][0] : monAngle[listeTypeQuestions[i][0]]
       texteCorr += `=${valeurFonction}$`
 
       // Si la question n'a jamais été posée, on l'enregistre
