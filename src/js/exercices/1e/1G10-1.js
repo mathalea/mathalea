@@ -13,72 +13,21 @@ export const dateDeModifImportante = '' // Une date de modification importante a
  * @author Stéphane Guyon - Jean Claude Lhote
  * Référence
 */
-export default function CosetSin () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Déterminer la valeur exacte de :'
-  this.nbQuestions = 3 // Nombre de questions par défaut
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.video = '' // Id YouTube ou url
-  this.sup = 1 // difficulté par défaut
 
-  function angleOppose (angle) { // ça c'est facile à comprendre
-    if (angle.degres === '0') return angle
-    else { return { degres: '-' + angle.degres, cos: angle.cos, sin: '-' + angle.sin, radian: '-' + angle.radian } }
-  }
-  function complementaire (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son complémentaire
-    switch (angleEnRadian) {
-      case '\\dfrac{\\pi}{4}':
-        return angleEnRadian
-      case '\\dfrac{\\pi}{6}':
-        return '\\dfrac{\\pi}{3}'
-      case '\\dfrac{\\pi}{3}':
-        return '\\dfrac{\\pi}{6}'
-      case '\\dfrac{\\pi}{2}' :
-        return '0'
-      case '0' :
-        return '\\dfrac{\\pi}{2}'
-    }
-  }
-  function supplementaire (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son supplémentaire
-    switch (angleEnRadian) {
-      case '\\dfrac{\\pi}{4}':
-        return '\\dfrac{3\\pi}{4}'
-      case '\\dfrac{\\pi}{6}':
-        return '\\dfrac{5\\pi}{6}'
-      case '\\dfrac{\\pi}{3}':
-        return '\\dfrac{2\\pi}{3}'
-      case '\\dfrac{\\pi}{2}' :
-        return '\\dfrac{\\pi}{2}'
-      case '0' :
-        return '\\pi'
-    }
-  }
-  function angleComplementaire (angle) { // idem angleOppose (facile à comprendre)
-    return { degres: (90 - parseInt(angle.degres)).toString(), cos: angle.sin, sin: angle.cos, radian: complementaire(angle.radian) }
-  }
-  function angleSupplementaire (angle) { // idem angleOppose (facile à comprendre)
-    return { degres: (180 - parseInt(angle.degres)).toString(), cos: '-' + angle.cos, sin: angle.sin, radian: supplementaire(angle.radian) }
-  }
-  function modulo (angleEnRadian, k) {
-    switch (angleEnRadian) {
-      case '\\dfrac{\\pi}{4}':
-        return `\\dfrac{${8 * k + 1}\\pi}{4}`
-      case '\\dfrac{\\pi}{6}':
-        return `\\dfrac{${12 * k + 1}\\pi}{6}`
-      case '\\dfrac{\\pi}{3}':
-        return `\\dfrac{${6 * k + 1}\\pi}{3}`
-      case '\\dfrac{\\pi}{2}' :
-        return `\\dfrac{${4 * k + 1}\\pi}{2}`
-      case '0' :
-        return `${2 * k}\\pi`
-    }
-  }
-  function angleModulo (angle, k) {
-    return { degres: angle.degres, cos: angle.cos, sin: angle.sin, radian: modulo(angle.radian, k) }
+export default class CosEtsin extends Exercice { // Héritage de la classe Exercice()
+  constructor () {
+    super()
+    this.consigne = 'Déterminer la valeur exacte de :'
+    this.nbQuestions = 3 // Nombre de questions par défaut
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.video = '' // Id YouTube ou url
+    this.sup = 1 // difficulté par défaut
+
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Quart de cercle trigo\n2 : Avec les angles associés \n3 : Angle quelconque']
   }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -125,23 +74,23 @@ export default function CosetSin () {
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const monAngle = mesAnglesAleatoires[i]
       /* const degres = monAngle.degres
-      const radian = monAngle.radian
-      const cos = monAngle.cos
-      */
+    const radian = monAngle.radian
+    const cos = monAngle.cos
+    */
       texte = `$\\${listeTypeQuestions[i]}\\big(${monAngle.radian}\\big)$`
       texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
       texteCorr = `$\\${listeTypeQuestions[i]}\\big(${monAngle.radian}\\big)`
-      let fonction = ''
+      let typeDeFonction = ''
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'cos':
-          fonction = monAngle.cos
+          typeDeFonction = monAngle.cos
           break
         case 'sin':
-          fonction = monAngle.sin
+          typeDeFonction = monAngle.sin
           break
       }
-      texteCorr += `=${fonction}$`
-      setReponse(this, i, fonction, { formatInteractif: 'calcul' })
+      texteCorr += `=${typeDeFonction}$`
+      setReponse(this, i, typeDeFonction, { formatInteractif: 'calcul' })
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, listeTypeQuestions[i], monAngle.degres)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
@@ -153,5 +102,60 @@ export default function CosetSin () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Quart de cercle trigo\n2 : Avec les angles associés \n3 : Angle quelconque']
+}
+
+function angleOppose (angle) { // ça c'est facile à comprendre
+  if (angle.degres === '0') return angle
+  else { return { degres: '-' + angle.degres, cos: angle.cos, sin: '-' + angle.sin, radian: '-' + angle.radian } }
+}
+function complementaire (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son complémentaire
+  switch (angleEnRadian) {
+    case '\\dfrac{\\pi}{4}':
+      return angleEnRadian
+    case '\\dfrac{\\pi}{6}':
+      return '\\dfrac{\\pi}{3}'
+    case '\\dfrac{\\pi}{3}':
+      return '\\dfrac{\\pi}{6}'
+    case '\\dfrac{\\pi}{2}' :
+      return '0'
+    case '0' :
+      return '\\dfrac{\\pi}{2}'
+  }
+}
+function supplementaire (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son supplémentaire
+  switch (angleEnRadian) {
+    case '\\dfrac{\\pi}{4}':
+      return '\\dfrac{3\\pi}{4}'
+    case '\\dfrac{\\pi}{6}':
+      return '\\dfrac{5\\pi}{6}'
+    case '\\dfrac{\\pi}{3}':
+      return '\\dfrac{2\\pi}{3}'
+    case '\\dfrac{\\pi}{2}' :
+      return '\\dfrac{\\pi}{2}'
+    case '0' :
+      return '\\pi'
+  }
+}
+function angleComplementaire (angle) { // idem angleOppose (facile à comprendre)
+  return { degres: (90 - parseInt(angle.degres)).toString(), cos: angle.sin, sin: angle.cos, radian: complementaire(angle.radian) }
+}
+function angleSupplementaire (angle) { // idem angleOppose (facile à comprendre)
+  return { degres: (180 - parseInt(angle.degres)).toString(), cos: '-' + angle.cos, sin: angle.sin, radian: supplementaire(angle.radian) }
+}
+function modulo (angleEnRadian, k) {
+  switch (angleEnRadian) {
+    case '\\dfrac{\\pi}{4}':
+      return `\\dfrac{${8 * k + 1}\\pi}{4}`
+    case '\\dfrac{\\pi}{6}':
+      return `\\dfrac{${12 * k + 1}\\pi}{6}`
+    case '\\dfrac{\\pi}{3}':
+      return `\\dfrac{${6 * k + 1}\\pi}{3}`
+    case '\\dfrac{\\pi}{2}' :
+      return `\\dfrac{${4 * k + 1}\\pi}{2}`
+    case '0' :
+      return `${2 * k}\\pi`
+  }
+}
+function angleModulo (angle, k) {
+  return { degres: angle.degres, cos: angle.cos, sin: angle.sin, radian: modulo(angle.radian, k) }
 }
