@@ -15,14 +15,16 @@ export const dateDeModifImportante = '' // Une date de modification importante a
 */
 export default function CosetSin () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Donner la valeur exacte de :'
+  this.consigne = 'Déterminer la valeur exacte de :'
   this.nbQuestions = 3 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.video = '' // Id YouTube ou url
   this.sup = 1 // difficulté par défaut
+
   function angleOppose (angle) { // ça c'est facile à comprendre
-    return { degres: '-' + angle.degres, cos: angle.cos, sin: '-' + angle.sin, radian: '-' + angle.radian }
+    if (angle.degres === '0') return angle
+    else { return { degres: '-' + angle.degres, cos: angle.cos, sin: '-' + angle.sin, radian: '-' + angle.radian } }
   }
   function complementaire (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son complémentaire
     switch (angleEnRadian) {
@@ -126,20 +128,21 @@ export default function CosetSin () {
       const radian = monAngle.radian
       const cos = monAngle.cos
       */
+      texte = `$\\${listeTypeQuestions[i]}\\big(${monAngle.radian}\\big)$`
+      texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
+      texteCorr = `$\\${listeTypeQuestions[i]}\\big(${monAngle.radian}\\big)`
+      let fonction = ''
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'cos':
-          texte = `Déterminer la valeur exacte de $\\cos\\big(${monAngle.radian}\\big)$`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
-          texteCorr = `$\\cos\\big(${monAngle.radian}\\big)=${monAngle.cos}$`
-          setReponse(this, i, `${monAngle.cos}`, { formatInteractif: 'calcul' })
+          fonction = monAngle.cos
           break
         case 'sin':
-          texte = `Déterminer la valeur exacte de $\\sin\\big(${monAngle.radian}\\big)$`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
-          texteCorr = `$\\sin\\big(${monAngle.radian}\\big)=${monAngle.sin}$`
-          setReponse(this, i, `${monAngle.sin}`, { formatInteractif: 'calcul' })
+          fonction = monAngle.sin
           break
       }
+      texteCorr += `=${fonction}$`
+      setReponse(this, i, fonction, { formatInteractif: 'calcul' })
+
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, listeTypeQuestions[i], monAngle.degres)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
