@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, shuffle } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Valeurs remarquables du cosinus et sinus'
@@ -23,7 +23,6 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
     this.video = '' // Id YouTube ou url
     this.sup = 1 // difficulté par défaut
-
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Quart de cercle trigo\n2 : Avec les angles associés \n3 : Angle quelconque']
   }
 
@@ -32,7 +31,6 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let mesAnglesAleatoires = []
-    const typeQuestionsDisponibles = ['cos', 'sin'] // On créé 2 types de questions
     // Mettre dans cette liste, les angles du premier quart de cercle.
     const mesAngles = [
       { degres: '90', cos: '0', sin: '1', radian: '\\dfrac{\\pi}{2}' },
@@ -48,39 +46,40 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
       mesAngles.push(angleOppose(mesAngles[i]), angleComplementaire(mesAngles[i]), angleSupplementaire(mesAngles[i]))
     }
     if (this.nbQuestions > 10 && this.sup === 1) this.nbQuestions = 10 // on bride car il n'y a que 10 question différentes au niveau 1
+
     if (this.sup === 1) {
       const mesAnglesNiv1 = mesAngles.slice(0, nombreAnglesDeBase)
-      mesAnglesAleatoires = combinaisonListes(mesAnglesNiv1, this.nbQuestions)
+      mesAnglesAleatoires = shuffle(mesAnglesNiv1)
     }
     if (this.sup === 2) {
       const mesAnglesNiv2 = mesAngles.slice(nombreAnglesDeBase, 4 * nombreAnglesDeBase)
-      mesAnglesAleatoires = combinaisonListes(mesAnglesNiv2, this.nbQuestions)
+      mesAnglesAleatoires = shuffle(mesAnglesNiv2)
     }
     if (this.sup === 3) {
       for (let i = 0; i < nombreAnglesDeBase; i++) {
         for (let k = -5; k < 6; k++) {
           if (k !== 0) mesAngles.push(angleModulo(mesAngles[i % nombreAnglesDeBase], k))
         }
-        const mesAnglesNiv3 = mesAngles.slice(4 * nombreAnglesDeBase)
-        mesAnglesAleatoires = combinaisonListes(mesAnglesNiv3, this.nbQuestions)
       }
+      const mesAnglesNiv3 = mesAngles.slice(4 * nombreAnglesDeBase)
+      mesAnglesAleatoires = shuffle(mesAnglesNiv3)
     }
 
-    // const mesAnglesAleatoires = combinaisonListes(mesAngles, this.nbQuestions)
+    const typeQuestionsDisponibles = []
+    for (let i = 0; i < mesAnglesAleatoires.length; i++) {
+      typeQuestionsDisponibles.push(['cos', mesAnglesAleatoires[i]])
+      typeQuestionsDisponibles.push(['sin', mesAnglesAleatoires[i]])
+    }
 
-    // On mélange
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 500;) { // Boucle principale où i+1 correspond au numéro de la question
-      const monAngle = mesAnglesAleatoires[i]
-      /* const degres = monAngle.degres
-    const radian = monAngle.radian
-    const cos = monAngle.cos
-    */
-      texte = `$\\${listeTypeQuestions[i]}\\big(${monAngle.radian}\\big)$`
+      const monAngle = listeTypeQuestions[i][1]
+
+      texte = `$\\${listeTypeQuestions[i][0]}\\big(${monAngle.radian}\\big)$`
       texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
-      texteCorr = `$\\${listeTypeQuestions[i]}\\big(${monAngle.radian}\\big)`
+      texteCorr = `$\\${listeTypeQuestions[i][0]}\\big(${monAngle.radian}\\big)`
       let valeurFonction = ''
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
+      switch (listeTypeQuestions[i][0]) { // Suivant le type de question, le contenu sera différent
         case 'cos':
           setReponse(this, i, monAngle.cos, { formatInteractif: 'calcul' })
           valeurFonction = Array.isArray(monAngle.cos) ? monAngle.cos[0] : monAngle.cos
@@ -93,7 +92,7 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
       texteCorr += `=${valeurFonction}$`
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, listeTypeQuestions[i][0], monAngle.degres[0])) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, listeTypeQuestions[i][0][0], monAngle.degres)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
