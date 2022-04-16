@@ -17,7 +17,7 @@ export default function DistanceRepere () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c, d
-    const nom = creerNomDePolygone(2, 'PQ')
+    const nom = creerNomDePolygone(2, 'PQD')
     switch (choice(['a', 'a', 'b'])) {
       case 'a':
         a = randint(1, 6)

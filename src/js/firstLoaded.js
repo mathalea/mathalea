@@ -6,7 +6,11 @@ window.notify = function notify (error, metadatas) {
     if (metadatas) Bugsnag.addMetadata('ajouts', metadatas)
     Bugsnag.notify(error)
   } else {
-    console.error('message qui aurait été envoyé à bugsnag s\'il avait été configuré', error)
-    if (metadatas) console.log('avec les metadatas', metadatas)
+    if (error.toString().indexOf('Trop de chiffres') !== -1) {
+      alert(error + '\nIl y a un risque d\'erreur d\'approximation (la limite est de 15 chiffres significatifs)\nnb : ' + metadatas.nb + '\nprecision (= nombre de décimales demandé) : ' + metadatas.precision)
+    } else {
+      console.error('message qui aurait été envoyé à bugsnag s\'il avait été configuré', error)
+      if (metadatas) console.log('avec les metadatas', metadatas)
+    }
   }
 }

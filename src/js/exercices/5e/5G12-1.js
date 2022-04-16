@@ -10,5 +10,6 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Pavag
 export default function PavagesEtDemiTour () {
   PavagesEtTransformations.call(this)
   this.titre = titre
-  this.sup = 2
+  this.level = 5
+  this.besoinFormulaireNumerique = false
 }

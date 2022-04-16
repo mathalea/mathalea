@@ -14,6 +14,9 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
 1. [Configurer le `typeInteractivite` choisi](#configurer_typeInteractivite)
     1. [`mathLive`](#typeInteractivite_mathLive)
         1. [Lignes de code spécifiques](#typeInteractivite_mathLive_lignescodespecifiques)
+            1.  [`ajouteChampTexteMathLive()`](#ajouteChampTexteMathLive)
+            1.  [`ajouteChampTexte()`](#ajouteChampTexte)
+            1.  [`ajouteChampFractionMathLive()`](#ajouteChampFractionMathLive)
         1. [Détail de la fonction `setReponse()`](#typeInteractivite_mathLive_fonction_setReponse)
         1. [Gestion des différentes types de réponses attendues](#typeInteractivite_mathLive_types_reponses)
         1. [Comprendre pourquoi une réponse correcte est pourtant considérée fausse](#typeInteractivite_mathLive_debug)
@@ -23,7 +26,6 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
         1. [Lignes de code spécifiques](#typeInteractivite_qcm_lignescodespecifiques)
         1. [Construction des propositions de chaque QCM](#typeInteractivite_qcm_constructions_propositions)
         1. [Usage indispensable de la fonction `propositionsQcm()`](#typeInteractivite_qcm_fonction_propositionsQcm)
-    1. [`numerique`](#typeInteractivite_numerique)
     1. [`cliqueFigure`](#typeInteractivite_cliqueFigure)
     1. [`listeDeroulante`](#typeInteractivite_listeDeroulante)
     1. [`custom`](#typeInteractivite_custom)
@@ -55,7 +57,6 @@ MathAlea permet de rendre un exercice interactif. Directement sur l'interface We
 |-----|-----|-----|
 |[`'mathLive'`](#typeInteractivite_mathLive)|pour proposer un champ de réponses avec un clavier virtuel et vérification possible d'égalité formelle|4C10-4|
 |[`'qcm'`](#typeInteractivite_qcm)|pour proposer un qcm|5L10-2|
-|[`'numerique'`](#typeInteractivite_numerique)|pour proposer une réponse numérique|4G20-2|
 |[`'cliqueFigure'`](#typeInteractivite_cliqueFigure)|pour proposer des figures à cliquer|6G10-3|
 |[`'listeDeroulante'`](#typeInteractivite_listeDeroulante)|pour proposer une liste déroulante avec la réponse et différents autres choix possibles|6N43-4|
 |[`'custom'`](#typeInteractivite_custom)|pour proposer une réponse originale, différente des précédentes. |4G20-2|
@@ -119,24 +120,66 @@ Les concepteurs plus curieux, trouveront, aussi, dans ce chapitre :
 >>```
 >>Par défaut, `resultat` est une valeur numérique (donc sans formatage avec `texNombre` par exemple) ou bien un tableau de bons résultats possibles. On verra, [plus bas](#typeInteractivite_mathLive_types_reponses), que `resultat` peut être plus divers que cela (un texte, une fraction, une grandeur avec son unité) et les modifications à apporter alors.
 
-3. Ajouter, pour chaque question, le champ de réponses avec le clavier virtuel après l'énoncé de la sorte :
+3. Ajouter, pour chaque question, le champ de réponses parmi 3 choix possibles, après l'énoncé, de la sorte :
 >>```js 
 >> if (this.interactif) {   // Si l'exercice est interactif
->>      texte += ajouteChampTexteMathLive(this, i)
+>>      // Choix 1 (le plus courant)
+>>      texte += ajouteChampTexteMathLive(this, i) // Fonctionnement par défaut
+>>      // Choix 2
+>>      texte += ajouteChampTexte(this, i) // Fonctionnement par défaut
+>>      // Choix 3
+>>      texte += ajouteChampFractionMathLive(this, i, false, false)
 >> }
->>```
->>`ajouteChampTexteMathLive` a le fonctionnement par défaut ci-dessus, mais possède les options suivantes :
+
+
+>>>>>>## <a id="ajouteChampTexteMathLive" href="#ajouteChampTexteMathLive"></a> [2. 1. 1. 1. `ajouteChampTexteMathLive()`](#ajouteChampTexteMathLive)
+
+>>>>`ajouteChampTexteMathLive()` permet d'ajouter un champ ainsi qu'un clavier virtuel. C'est ce champ qui est le plus utilisé dans la conception interactive des exercices car il possède de nombreuses options comme :
+>>>> - modifier sa longueur, voire proposer une longueur variable,
+>>>> - forcer un retour à ligne ou non, devant le champ,
+>>>> - obliger l'utilisateur à indiquer une unité, en plus de sa réponse numérique,
+>>>> - proposer un clavier incluant des lettres grecques et les 3 principales fonctions trigonométriques,
+>>>> - ôter l'espace par défaut, devant le champ,
+>>>> - noter un texte avant et/ou après le champ.
+
 >>```js 
->> // syntaxe de ajouteChampTexteMathLive() : ajouteChampTexteMathLive(this, i, 'style', {...options})
->>texte += ajouteChampTexteMathLive(this, i,'largeur 25') // 25 % de la largeur de la page est occupés par le champ de réponses
->>texte += ajouteChampTexteMathLive(this, i,'fixed-width-150') // Fixe la largeur du champ à 150 pixels (disponible de 50 en 50 de 100 jusqu'à 500 puis de 100 en 100 jusqu'à 1000)
+>> // syntaxe de ajouteChampTexteMathLive() : ajouteChampTexteMathLive(this, i, {...options})
 >>texte += ajouteChampTexteMathLive(this, i,'inline') // sans retour à la ligne 
->>texte += ajouteChampTexteMathLive(this, i,'inline fixed-width-150') // mélange des deux options précédentes
->>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texte: 'avant' }) // écrit "avant" devant le champ de réponses
->>texte += ajouteChampTexteMathLive(this, i,'inline largeur 25',{ texteApres: 'après' }) // écrit "après" derrière le champ de réponses
->>texte += ajouteChampTexteMathLive(this, i,'longueur') // le champ de réponses oblige l'élève à remplir une valeur numérique ET une unité de longueur (ou d'aires).
+>>texte += ajouteChampTexteMathLive(this, i,'longueur') // le champ de réponses oblige l'élève à remplir une valeur numérique ET une unité de longueur (ou d'aires). le clavier change et permet de saisir aussi des unités de longueur (ou d'aires).
+>>texte += ajouteChampTexteMathLive(this, i,'grecTrigo') // introduction d'un clavier virtuel qui permet de saisir 9 lettres grecques différentes et les fonctions trigonométriques classiques. Avec cette option et sans ce clavier, on peut tout de même saisir une lettre grecque en tapant sur le clavier, par exemple, "alpha" pour obtenir la lettre grecque associée.
+>>texte += ajouteChampTexteMathLive(this, i,'nospacebefore') // permet d'ôter l'espace qui, par défaut, précède le champ.
+>>texte += ajouteChampTexteMathLive(this, i,'inline largeur25 grecTrigo nospacebefore') // mélange possible des options précédentes. Options non compatibles : largeur25 avec fixed-width-150 et longueur avec grecTrigo
+>>texte += ajouteChampTexteMathLive(this, i,'inline largeur25',{ texte: 'avant' }) // écrit "avant" devant le champ de réponses
+>>texte += ajouteChampTexteMathLive(this, i,'inline largeur25',{ texteApres: 'après' }) // écrit "après" derrière le champ de réponses
+>>texte += ajouteChampTexteMathLive(this, i,{ tailleExtensible: true }) // permet de rendre le champ de taille minuscule mais dont la taille augmente à la saisie pour s'adapter au contenu. Cette option rend caduque toutes les options qui ne sont pas dans les accolades, qu'elles soient indiquées ou non, donc ne pas mélanger cette option avec longueur et grecTrigo notamment.
+>>texte += ajouteChampTexteMathLive(this, i,{ texte: 'avant', texteApres: 'après', tailleExtensible: true }) // mélange possible des options entre accolades.
  >>```
 
+
+>>>>>>## <a id="ajouteChampTexte" href="#ajouteChampTexte"></a> [2. 1. 1. 2. `ajouteChampTexte()`](#ajouteChampTexte)
+
+>>>>`ajouteChampTexte()` permet d'ajouter un champ mais n'est associé à aucun clavier virtuel. Le remplissage de ce champ ne pourra se faire qu'avec le clavier de son ordinateur ou avec le clavier virtuel natif d'une tablette ou d'un Smartphone. Ce champ a été conçu dans MathALEA avant le champ induit par `ajouteChampTexteMathLive()` et il est préférable, sauf besoin particulier (comme dans la Course aux Nombres) de ne plus l'utiliser au profit de `ajouteChampTexteMathLive()`. 
+
+>>```js 
+>> // syntaxe de ajouteChampTexte() : ajouteChampTexte(this, i, {...options})
+>>texte += ajouteChampTexte(this, i,'inline') // sans retour à la ligne 
+>> // Il existe d'autres options, non indiquées ici...
+>>```
+
+>>>>>>## <a id="ajouteChampFractionMathLive" href="#ajouteChampFractionMathLive"></a> [2. 1. 1. 3. `ajouteChampFractionMathLive()`](#ajouteChampFractionMathLive)
+
+>>>>`ajouteChampFractionMathLive()` a un usage particulier et ne sert que pour les fractions. Alors que `ajouteChampTexteMathLive()` permet de gérer les fractions comme un tout, `ajouteChampFractionMathLive()` permet de séparer la validation du numérateur et du dénominateur en créant deux champs différents. Dans d'autres cas, elle permet aussi d'aider l'utilisateur en lui signifiant le numérateur tout en créant un champ pour le dénominateur ou le contraire. `ajouteChampFractionMathLive()` met à disposition un clavier virtuel et crée des champs de taille extensible.
+
+>>>>Exercice-témoin : **6N23-1**
+
+>>```js 
+>> // syntaxe de ajouteChampFractionMathLive() : ajouteChampFractionMathLive(this, i, numerateur, denominateur, {...options})
+>>texte += ajouteChampFractionMathLive(this, i, false, false) // Une fraction avec deux champs, l'un pour le numérateur, l'autre pour le dénominateur
+>>texte += ajouteChampFractionMathLive(this, i, false, 100) // Une fraction avec un seul champ pour le numérateur, le dénominateur valant ici 100.
+>>texte += ajouteChampFractionMathLive(this, i, 8, false) // Une fraction avec un seul champ pour le dénominateur, le numérateur valant ici 8.
+>>texte += ajouteChampFractionMathLive(this, i, false, false,{ texte: 'avant' }) // écrit "avant" devant les champs de réponses.
+>>texte += ajouteChampFractionMathLive(this, i, false, false,{ texteApres: 'après' }) // écrit "après" derrière les champs de réponse.
+>>```
 
 >>>>## <a id="typeInteractivite_mathLive_fonction_setReponse" href="#typeInteractivite_mathLive_fonction_setReponse"></a>[2. 1. 2. Détail de la fonction `setReponse()`](#typeInteractivite_mathLive_fonction_setReponse)
 
@@ -186,7 +229,7 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >>setReponse(this, i, 'resultat', { formatInteractif: 'ignorerCasse' }) // resultat = 'Dividende' par exemple
 >>```
 
-- Pour comparer des **fractions**, il y a trois méthodes différentes pour coder.
+- Pour comparer des **fractions** avec [`ajouteChampTexteMathLive`](#ajouteChampTexteMathLive), il y a trois méthodes différentes pour coder :
  
 >>``` js
 >> // Méthode 1 : Exercice-témoin 4C22
@@ -204,9 +247,26 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 >> // Si maFractionReponse est 1/2, l'élève peut toutefois fournir comme bonne réponse 2/4 ou bien 0.5.
 >>```
 
+- Pour comparer des **fractions** avec [`ajouteChampFractionMathLive`](#ajouteChampFractionMathLive), il y a trois méthodes différentes pour coder :
+ 
+>>``` js
+>> // Méthode 1 : Exercice-témoin 6N23-1
+>> // Associée à ajouteChampFractionMathLive(this, i, false, 100)
+>>setReponse(this, i, fraction(reponse, 100), { formatInteractif: 'Num' }) // Le champ n'est que sur le numérateur, le dénominateur vaut, ici, 100.
+>>
+>> // Méthode 2
+>> // Associée à ajouteChampFractionMathLive(this, i, 8, false)
+>>setReponse(this, i, fraction(8, reponse), { formatInteractif: 'Den' }) // Le champ n'est que sur le dénominateur, le numérateur vaut, ici, 8.
+>>
+>> // Méthode 3 : Exercice-témoin 6N23-1
+>> // Associée à ajouteChampFractionMathLive(this, i, false, false)
+>>setReponse(this, i, reponseNum, { formatInteractif: 'calcul' }) // Il y a un champ pour le numérateur.
+>>setReponse(this, i+1, reponseDen, { formatInteractif: 'calcul' }) // Il y a un champ pour le dénominateur.
+>>```
+
 - Pour comparer des **grandeurs (avec des unités)**, on code, comme dans l'exercice-témoin **6M11** :
 >>``` js
->>setReponse(this, i, new Grandeur(resultat, 'cm'), { formatInteractif: 'longueur' }) // resultat est un nombre. On personnalisera le champ texte avec ajouteChampTexteMathLive(this, i, 'longueur')
+>>setReponse(this, i, new Grandeur(resultat, 'cm'), { formatInteractif: 'unites' }) // resultat est un nombre. On personnalisera le champ texte avec ajouteChampTexteMathLive(this, i, 'longueur')
 >> // Pour utiliser Grandeur, il faudra penser à rajouter dans l'en-tête du fichier : import Grandeur from '../../modules/Grandeur.js'
 >>```
 
@@ -229,13 +289,23 @@ Toutes les réponses sont traitées en comparant la saisie de l'élève avec la 
 
 Le fonctionnement de MathLive peut parfois donner un résultat étonnant. Alors qu'on attend la réponse, "**1h45min**", `verifieQuestionMathLive` peut attendre "**1h45\\min**" par exemple.
 
-Si le concepteur de l'exercice se trouve dans la situation où une réponse correcte est considérée fausse, voici la procédure à suivre pour trouver la raison :
+Si le concepteur de l'exercice se trouve dans la situation où une réponse correcte est considérée fausse, voici, au choix, deux procédures différentes à suivre pour trouver la raison.
+
+Méthode JCL :
 * Ouvrir l'inspecteur (CTRL+MAJ+C sur Firefox et Chrome, Command+Option+I sur Safari).
-* Sur l'onglet débugueur, chercher dans l'onglet sources `webpack/src/js/modules/gestionInteractifs.js`.
-* Mettre un point d'arrêt sur la ligne 95 (numéro actuel de ligne mais sous réserve de non-rajout de code au-dessus évidemment) juste après le `let saisie = champTexte.value` (clic droit sur 95 puis sur Ajouter un point d'arrêt).
+* Sur l'onglet débugueur, chercher dans l'onglet sources `webpack/src/js/modules/interactif/questionMathLive.js`.
+* En supposant que je formatInteractif est `calcul`, mettre un point d'arrêt sur la ligne 55 (numéro actuel de ligne mais sous réserve de non-rajout de code au-dessus évidemment) juste après le `let saisie = champTexte.value` (clic droit sur 55 puis sur Ajouter un point d'arrêt).
 * Cliquer sur Actualiser.
 * Saisir la réponse attendue dans le champ et valider la saisie.
 * Mettre le curseur sur `saisie` pour visualiser la saisie qu'il a récupéré comme sur cette [capture d'écran](img/Interactif-1.png).
+
+Méthode 2E : On va rajouter deux console log pour comparer la saisie effectuée et la réponse attendue.
+* Chercher (et trouver) le fichier `questionMathLive.js`. On va rajouter deux lignes de code dans la fonction `verifQuestionMathLive()`.
+* Ajouter la ligne de code suivante `console.log('saisie : ', saisie, ' reponse : ', reponse)` entre les lignes 50 et 51 comme montré [ici](img/consoleLogSaisieReponse.png).
+    * On suppose que le `formatInteractif` du `setReponse()` est `calcul` car c'est celui le plus utilisé. Si ce n'est pas le cas, adapter le numéro de la ligne précédente au format utilisé dans la fonction `verifQuestionMathLive()`.
+* Sur votre navigateur, lancer votre exercice, le mettre en mode interactif puis ouvrir l'inspecteur.
+* Saisir votre réponse dans les champs et comparer dans la console la saisie effectuée et la réponse attendue. Adapter votre code en fonction de ce que vous observez.
+* Une fois terminé, dans le code de `questionMathLive.js`, ne pas oublier de supprimer la ligne de code rajoutée pour resoudre votre difficulté.
 
 >>>>## <a id="typeInteractivite_mathLive_CAN" href="#typeInteractivite_mathLive_CAN"></a> [2. 1. 5. Dans les exercices de la Course Aux Nombres](#typeInteractivite_mathLive_CAN)
 
@@ -349,12 +419,6 @@ Pour chaque question, un QCM sera créé et constitué de plusieurs cases à coc
 >> }
 >>```
 >> En effet, comme la fonction `propositionsQcm()` produit un objet `{texte, texteCorr}` à chaque appel ; si on l'appelle 2 fois, on brasse 2 fois les propositions, et l'ordre des réponses ne sera, alors, pas le même que celui qui est affiché et donc celui sur lequel on clique.
-
-
-
->>## <a id="typeInteractivite_numerique" href="#typeInteractivite_numerique"></a> [2. 3. `numerique`](#typeInteractivite_numerique)
-
-Octobre 2021 : Le type `numerique` est à proscrire au profit de `mathLive`. Ce type est uniquement dans cette documentation car encore en place dans des exercices plus anciens.
 
 
 >>## <a id="typeInteractivite_cliqueFigure" href="#typeInteractivite_cliqueFigure"></a> [2. 4. `cliqueFigure`](#typeInteractivite_cliqueFigure)

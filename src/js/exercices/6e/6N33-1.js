@@ -1,12 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, texNombre, texFraction } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
 export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 
 export const titre = 'Calculer mentalement le pourcentage d’un nombre'
 
@@ -74,7 +75,7 @@ $${p}~\\%~\\text{de }${n}= ${calcul(p / 10)} \\times ${n}\\div${10} =  ${texNomb
             }
           }
       }
-      if (context.isHtml && this.interactif) texte += ajouteChampTexte(this, i, { inline: true })
+      if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
       setReponse(this, i, calcul(n * p / 100))
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte + '='

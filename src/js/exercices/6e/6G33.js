@@ -155,7 +155,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
           texteCorr += "C'est un carré."
           break
         case 'carre2':
-          texte = "Quelle est la nature d'un quadrilatère ayant ses ses diagonales perpendiculaires, de même longueur et sécantes en leur milieu ?"
+          texte = "Quelle est la nature d'un quadrilatère ayant ses diagonales perpendiculaires, de même longueur et sécantes en leur milieu ?"
           A = point(0, 0)
           B = point(3, 0)
           C = point(3, 3)

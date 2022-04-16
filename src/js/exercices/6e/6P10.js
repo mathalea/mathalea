@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, range, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range, combinaisonListes, arrondi, calcul, texNombrec, prenomF, prenomM, texNombre, miseEnEvidence, texPrix, compteOccurences, contraindreValeur, sp, rangeMinMax } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
 export const titre = 'Reconnaître une situation de proportionnalité'
@@ -23,6 +23,7 @@ export default function ProportionnalitePasProportionnalite () {
   this.nbCols = 1
   this.nbColsModifiable = false
   this.nbColsCorrModifiable = false
+  this.sup = 6
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -45,10 +46,11 @@ export default function ProportionnalitePasProportionnalite () {
       } else {
         listeChoixDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < listeChoixDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeChoixDisponibles[i] = contraindreValeur(1, 5, parseInt(listeChoixDisponibles[i]), 1)
+          listeChoixDisponibles[i] = contraindreValeur(1, 6, parseInt(listeChoixDisponibles[i]), 6)
         }
       }
     }
+    if (compteOccurences(listeChoixDisponibles, 6) > 0) listeChoixDisponibles = rangeMinMax(1, 5) // Teste si l'utilisateur a choisi tout
 
     const listeChoix = combinaisonListes(
       listeChoixDisponibles,
@@ -190,10 +192,10 @@ export default function ProportionnalitePasProportionnalite () {
             pu -= 0.1
             p = y * randint(2, 5)
             z = calcul(p * pu, 2)
-            texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}.<br>`
-            texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}$€.<br> ${prenoms[1]} achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(z)}$€.<br>`
+            texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
+            texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}${sp()}$€. ${prenoms[1]} achète quant à lui, au même endroit ${p}${sp()}${objet} pour $${texPrix(z)}$€.<br>`
             texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
-            texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
+            texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(texPrix(somme), 'blue')}$${sp()}€.<br>`
             texteCorr += `${prenoms[1]} a acheté  $${miseEnEvidence(texNombrec(p / y))}$ fois la quantité des ${objet} achetée par ${prenoms[0]} pour $${miseEnEvidence(texPrix(somme), 'blue')}$€.<br>`
             texteCorr += `Il a payé $${texPrix(z)}$€.<br>Mais $${miseEnEvidence(texNombrec(p / y))}\\times${miseEnEvidence(texPrix(somme), 'blue')}$€ $=${texPrix(calcul((p * somme) / y))}$€.<br>`
             texteCorr += `À l'aide de ces données, on constate que le prix unitaire des ${objet} n'est pas le même pour ${prenoms[0]} qui en a acheté $${y}$ que pour ${prenoms[1]} qui en a acheté ${p}, donc ces deux grandeurs ne sont pas proportionnelles.<br>`
@@ -213,7 +215,7 @@ export default function ProportionnalitePasProportionnalite () {
 
           texte = `${prenoms[0]} habite à $${texNombre(x)}$ m du collège. Elle met ${n} minutes pour s'y rendre depuis chez elle.<br>`
           texte += `${prenoms[1]}, lui, habite à $${texNombre(y)}$ m du collège. Il met ${p} minutes pour s'y rendre depuis chez lui.<br>`
-          texte += 'Les durées de trajet pour venir au collège sont-elles proportionnelles aux distances parcoures ?<br>'
+          texte += 'Les durées de trajet pour venir au collège sont-elles proportionnelles aux distances parcourues ?<br>'
           texteCorr = `${prenoms[0]} parcourt ${x} m en ${n} minutes soit environ $\\dfrac{${x}\\text{ m}}{${n}\\text{ min}} ${arrondi(index1, 1) === index1 ? '=' : '\\approx'} ${texNombrec(arrondi(index1, 1))}\\text{ m}/_{\\text{ min}}$`
           texteCorr += ` et ${prenoms[1]} parcourt ${y} m en ${p} minutes soit environ $\\dfrac{${y}\\text{ m}}{${p}\\text{ min}} ${arrondi(index2, 1) === index2 ? '=' : '\\approx'} ${texNombrec(arrondi(index2, 1))}\\text{ m}/_{\\text{ min}}$.<br>`
           if (index1 === index2) {
@@ -228,7 +230,7 @@ export default function ProportionnalitePasProportionnalite () {
           prenoms = [prenomF(), prenomM()]
           x = randint(5, 20)
           y = x + randint(25, 35)
-          texte = `${prenoms[0]} vient d'avoir ${x} ans cette année.<br> Son père ${prenoms[1]} vient de fêter  son ${y}ème anniversaire.<br>`
+          texte = `${prenoms[0]} vient d'avoir ${x} ans cette année. Son père ${prenoms[1]} vient de fêter  son ${y}ème anniversaire.<br>`
           texte += `L'âge de son père est-il proportionnel à l'âge de ${prenoms[0]} ?<br>`
           texteCorr = `Aujourd'hui, la différence d'âge entre ${prenoms[0]
             } et ${prenoms[1]} est de ${y - x} ans.<br>`
@@ -242,7 +244,7 @@ export default function ProportionnalitePasProportionnalite () {
         case 4: // Épidémie
           index1 = randint(0, 5)
           index2 = randint(0, 4)
-          texte = `Une épidémie se répand dans la ville de ${villes[index1]}.<br>`
+          texte = `Une épidémie se répand dans la ville de ${villes[index1]}. `
           texte += `Le nombre de malades ${verbes[index2]} tous les ${index2 + 2
             } jours.<br>`
           texte += `Le nombre de malades est-il proportionnel au nombre de${getVueFromUrl() === 'multi' ? '<br>' : ' '}`
@@ -269,7 +271,7 @@ export default function ProportionnalitePasProportionnalite () {
           met = listeProportionnelOuPas[compteurProportionnelsOuPas]
           compteurProportionnelsOuPas += 1
           if (!met) tirages[p][1] -= 1
-          texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par${getVueFromUrl() === 'multi' ? '<br>' : ' '}correspondance en fonction de la quantité saisie dans le panier.<br>`
+          texte = `${prenoms[1]} relève les prix des ${objet} sur un catalogue par${getVueFromUrl() === 'multi' ? '<br>' : ' '}correspondance en fonction de la quantité saisie dans le panier. `
           texte += 'Il note les prix dans le tableau suivant :<br> <br>'
           texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // construction du tableau des effectifs en un seul morceau
           for (let j = 0; j <= tirages.length; j++) texte += '|c'
@@ -330,5 +332,5 @@ export default function ProportionnalitePasProportionnalite () {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Distance\n3 : Âge\n4 : Épidémie\n5 : Catalogue (tableau de proportionnalité)']
+  this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Distance\n3 : Âge\n4 : Épidémie\n5 : Catalogue (tableau de proportionnalité)\n6 : Mélange']
 }

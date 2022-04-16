@@ -235,11 +235,11 @@ export default function QuestionsMasses () {
                {
                  texte: (this.sup4 === 1) ? correctionAMC : '',
                  statut: '',
-                 alignement: alignementAMC,
                  reponse:
                    {
                      texte: (this.sup4 === 1) ? enonceAMC : '',
                      valeur: [reponseAMC],
+                     alignement: alignementAMC,
                      param:
                        {
                          digits: digitAMC,

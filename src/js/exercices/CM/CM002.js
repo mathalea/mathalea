@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes, contraindreValeur } from '../../modules/outils.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Tables de divisions'
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique
 
@@ -39,6 +40,9 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
     } else {
       tables = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
     }
+    for (let i = 0; i < tables.length; i++) {
+      tables[i] = contraindreValeur(2, 9, parseInt(tables[i]))
+    }
     const couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -62,17 +66,17 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
       if (typeDeQuestions === 'classique') {
         // classique
         texte = '$ ' + a * b + ' \\div ' + a + ' =$'
-        if (this.interactif && context.isHtml) texte = `$ ${a * b} \\div ${a} = $` + ajouteChampTexte(this, i)
+        if (this.interactif && context.isHtml) texte = `$ ${a * b} \\div ${a} = $` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
         setReponse(this, i, b)
       } else {
         // a trous
         if (choice([true, false])) {
           texte = `$ ${a * b} \\div \\ldots\\ldots = ${b}$`
-          if (this.interactif && context.isHtml) texte = `$ ${a * b} \\div $` + ajouteChampTexte(this, i) + `$ = ${b} $`
+          if (this.interactif && context.isHtml) texte = `$ ${a * b} \\div $` + ajouteChampTexteMathLive(this, i, 'largeur15 inline') + `$ = ${b} $`
           setReponse(this, i, a)
         } else {
           texte = `$ \\ldots\\ldots \\div ${a}  = ${b}$`
-          if (this.interactif && context.isHtml) texte = ajouteChampTexte(this, i) + `$ \\div ${b} = ${a} $`
+          if (this.interactif && context.isHtml) texte = ajouteChampTexteMathLive(this, i, 'largeur15 inline') + `$ \\div ${b} = ${a} $`
           setReponse(this, i, a * b)
         }
       }

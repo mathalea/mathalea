@@ -10,9 +10,9 @@ export const dateDeModificationImportante = '14/11/2021'
 export default class ConstruireParSymetrieCentraleFigure extends ConstruireParSymetrie {
   constructor () {
     super()
-    this.sup = 5
-    this.sup2 = 1
+    this.version = 5
     this.figure = true
     this.besoinFormulaireNumerique = false
+    this.besoinFormulaire3Numerique = false
   }
 }

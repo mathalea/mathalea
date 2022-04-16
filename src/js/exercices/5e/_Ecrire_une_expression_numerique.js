@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreDepuisChiffre, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -31,13 +31,25 @@ export default function EcrireUneExpressionNumerique (calculMental) {
     let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    if (this.sup4 === 1) {
+      this.sup = '1-1-2-2-3'
+    } else if (this.sup4 === 2) {
+      this.sup = '1-2-2-3-3'
+    } else if (this.sup4 === 3) {
+      this.sup = '2-2-3-3-4'
+    } else if (this.sup4 === 4) {
+      this.sup = '2-3-4-5'
+    }
     if (!this.sup) { // Si aucune liste n'est saisie
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
     } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
-        typesDeQuestionsDisponibles[0] = this.sup % 6
+      if (typeof this.sup === 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
+        typesDeQuestionsDisponibles = [this.sup % 6]
       } else {
         typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) {
+          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 5, parseInt(typesDeQuestionsDisponibles[i]), randint(1, 5))
+        }
       }
     }
     let expf; let expn; let expc; let decimal; let nbval; let nbOperations; let resultats
@@ -122,7 +134,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
           break
       }
-      if (this.questionJamaisPosee(i, expn, expf)) { // Si la question n'a jamais été posée, on en créé une autre
+      if ((this.questionJamaisPosee(i, nbOperations, nbval, this.version) && !this.litteral) || (this.litteral && this.questionJamaisPosee(i, nbOperations, nbval, this.version, resultats[4]))) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.version > 2) {
           if (!context.isAmc) {
             texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' Résultat : ' })

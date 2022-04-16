@@ -1,7 +1,7 @@
 import { mathalea2d, codageAngleDroit, codeSegments, pointAdistance, polygoneAvecNom, point, translation, vecteur, rotation, similitude, afficheLongueurSegment } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul, exposant } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul, texteExposant } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -35,10 +35,9 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
-
   this.nouvelleVersion = function (numeroExercice) {
     let texte = ''; let texteCorr = ''
-    const nom = creerNomDePolygone(11, 'Q')
+    const nom = creerNomDePolygone(11, 'QD')
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -73,10 +72,10 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
       texteCorr = ''
       switch (i) {
         case 0 :
-          texte = 'Calculer le périmètre du carré en cm'
+          texte = 'Calculer le périmètre du carré en cm.'
           texteCorr += `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}+${c}~\\text{cm}+${c}~\\text{cm}+${c}~\\text{cm}=${4 * c
           }~\\text{cm}$`
-          setReponse(this, i, new Grandeur(c * 4, 'cm'), { formatInteractif: 'longueur' })
+          setReponse(this, i, new Grandeur(c * 4, 'cm'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: `Calculer le périmètre en cm d'un carré de côté ${c}cm.`,
@@ -91,13 +90,13 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           break
 
         case 1 :
-          texte = `Calculer l'aire du carré en cm${exposant(2)}.`
+          texte = `Calculer l'aire du carré en cm${texteExposant(2)}.`
 
           texteCorr += `<br>$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}\\times${c}~\\text{cm}=${c * c}~\\text{cm}^2$`
-          setReponse(this, i, new Grandeur(c * c, 'cm^2'), { formatInteractif: 'longueur' })
+          setReponse(this, i, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer l'aire en cm${exposant(2)} du carré de côté ${c}cm`,
+              enonce: `Calculer l'aire en cm${texteExposant(2)} du carré de côté ${c}cm`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Aire en cm\\up{2}',
@@ -111,7 +110,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           texte = 'Calculer le périmètre du rectangle en cm.'
           texteCorr += `<br>$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}+${l}~\\text{cm}+${L}~\\text{cm}+${l}~\\text{cm}=${2 * L + 2 * l
             }~\\text{cm}$`
-          setReponse(this, i, new Grandeur((L + l) * 2, 'cm'), { formatInteractif: 'longueur' })
+          setReponse(this, i, new Grandeur((L + l) * 2, 'cm'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: `Calculer le périmètre en cm du rectangle de longueur ${L}cm et de largeur ${l}cm`,
@@ -125,13 +124,13 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           }
           break
         case 3 :
-          texte = `Calculer l'aire du rectangle en cm${exposant(2)}.`
+          texte = `Calculer l'aire du rectangle en cm${texteExposant(2)}.`
           texteCorr += `<br>$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}~\\text{cm}\\times${l}~\\text{cm}=${L * l
           }~\\text{cm}^2$`
-          setReponse(this, i, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'longueur' })
+          setReponse(this, i, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer l'aire en cm${exposant(2)} du rectangle de longueur ${L}cm et de largeur ${l}cm`,
+              enonce: `Calculer l'aire en cm${texteExposant(2)} du rectangle de longueur ${L}cm et de largeur ${l}cm`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Aire en cm\\up{2}',
@@ -144,7 +143,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
         case 4 :
           texte = 'Calculer le périmètre du triangle rectangle en cm.'
           texteCorr += `<br>$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}+${b}~\\text{cm}+${texNombre(c2.toFixed(1))}~\\text{cm}=${pIJK}~\\text{cm}$`
-          setReponse(this, i, new Grandeur(pIJK, 'cm'), { formatInteractif: 'longueur' })
+          setReponse(this, i, new Grandeur(pIJK, 'cm'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: `Calculer le périmètre en cm du triangle rectangle dont les côtés mesurent ${a}cm, ${b}cm et $${texNombre(c2.toFixed(1))}$m`,
@@ -158,12 +157,12 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           }
           break
         case 5 :
-          texte = `Calculer l'aire du triangle rectangle en cm${exposant(2)}.`
+          texte = `Calculer l'aire du triangle rectangle en cm${texteExposant(2)}.`
           texteCorr += `<br>$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}~\\text{cm}\\times${b}~\\text{cm}\\div2=${texNombre(calcul((a * b) / 2))}~\\text{cm}^2$`
-          setReponse(this, i, new Grandeur(calcul((a * b) / 2), 'cm^2'), { formatInteractif: 'longueur' })
+          setReponse(this, i, new Grandeur(calcul((a * b) / 2), 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Calculer l'aire en cm${exposant(2)} du triangle rectangle dont les côtés de l'angle droit mesurent ${a}cm et ${b}cm`,
+              enonce: `Calculer l'aire en cm${texteExposant(2)} du triangle rectangle dont les côtés de l'angle droit mesurent ${a}cm et ${b}cm`,
               propositions: [{ texte: texteCorr, statut: 0 }],
               reponse: {
                 texte: 'Aire en cm\\up{2}',
@@ -174,7 +173,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'longueur')
+      texte += ajouteChampTexteMathLive(this, i, 'unites[longueurs,aires]')
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

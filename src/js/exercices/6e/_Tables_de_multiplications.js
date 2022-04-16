@@ -50,6 +50,9 @@ export default class TablesDeMultiplications extends Exercice {
     } else {
       tables = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des -
     }
+    for (let i = 0; i < tables.length; i++) {
+      tables[i] = parseInt(tables[i])
+    }
     const couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],

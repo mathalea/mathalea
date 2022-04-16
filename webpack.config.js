@@ -140,7 +140,7 @@ const config = {
     open: true,
     openPage: 'm2d.html',
     host: 'localhost',
-    port: 8090, 
+    port: 8080, 
     // on active le hot module replacement (HMR)
     hot: true,
     headers: {

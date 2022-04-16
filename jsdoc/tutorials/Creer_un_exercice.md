@@ -97,7 +97,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 export const titre = 'Ajouter 9'   // Après les importations, on exporte le titre de notre exercice.
 export const amcReady = true // Si on prévoit une sortie AMC (Auto Multiple Choice), on écrit cette ligne
 export const interactifReady = true // Si on prévoit que notre exercice soit interactiv, on écrit cette ligne
-export const interactifType = 'numerique' // On précise le type d'interactivité
+export const interactifType = 'mathLive' // On précise le type d'interactivité
 export const amcType = 'AMCNum' // Ainsi que le type d'AMC
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -163,7 +163,7 @@ import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js
 export const titre = 'Ajouter 9'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 
 /**
@@ -345,6 +345,8 @@ export default function PremierOuPas4e () {
   this.besoinFormulaire4CaseACocher = false // Sinon this.besoinFormulaire4CaseACocher = [texte]
 
 ```
+Remarques : l'usage de this.sup (resp this.sup2, this.sup3, this.sup4) rend obligatoire la présence d'un this.besoinFormulaire### qui lui correspond. Pour passer des paramètres sans passer par un formulaire, on utilisera d'autres variables comme this.version, ou this.niveau... Par exemple, _Thales2D.js est appelé avec this.version = 4 ou this.version = 5 selon les références (en 4e ou en 3e).
+
 #### <a id="dependances_particulieres" href="#dependances_particulieres">7. 7. Exercice avec des dépendances particulières</a>
 ``` javascript
   // this.typeExercice = 'MG32' // Pour charger MathGraph32.

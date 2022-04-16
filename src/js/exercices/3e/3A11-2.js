@@ -44,12 +44,6 @@ export default function decompositionFacteursPremiers () {
     } else { // sortie LaTeX
     };
 
-    if (this.interactif) {
-      this.consigne = 'À l\'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.'
-    } else {
-      this.consigne = 'À l\'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.'
-    }
-
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.contenu = '' // Liste de questions
@@ -205,8 +199,8 @@ export default function decompositionFacteursPremiers () {
             const premier = premiersEntreBornes(1000, 2000)[r]
             const racinePremier = Math.trunc(Math.sqrt(premier))
             texte = `À l'aide de la calculatrice, décomposer $${texNombre(premier)}$ en produit de facteurs premiers.`
-            texteCorr = `En testant la divisibilité de $${texNombre(premier)}$ par tous les nombres premiers inférieurs ou égaux à $${racinePremier}$`
-            texteCorr += ' c\'est-à-dire les nombre de la liste $'
+            texteCorr = `Il est suffisant de tester la divisibilité de $${texNombre(premier)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${texNombre(premier)}}$ c'est à dire inférieurs à $${racinePremier}$.<br>`
+            texteCorr += 'Ce sont les nombre de la liste $'
             texteCorr += cribleEratostheneN(racinePremier)[0]
             for (let k = 1; k < cribleEratostheneN(racinePremier).length; k++) {
               texteCorr += '; ' + cribleEratostheneN(racinePremier)[k]

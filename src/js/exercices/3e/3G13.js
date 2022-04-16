@@ -109,26 +109,21 @@ export default function calculsHomothetie () {
       let correctionOA = OA
       if (evaluate(abs(k) < 0.3)) {
         correctionOhA = multiply(multiply(fraction(3, 10), OA), (-1) ** evaluate(k < 0))
-        // console.log(i + 1, k.toString(), 'cas1')
       } else if (evaluate(abs(k) < 1 && abs(k) > 0.7)) {
         correctionOhA = multiply(multiply(fraction(7, 10), OA), (-1) ** evaluate(k < 0))
-        // console.log(i + 1, k.toString(), 'cas2')
       } else if (evaluate(abs(k) > 1 && abs(k) < 1.3)) {
         correctionOhA = multiply(multiply(fraction(13, 10), OA), (-1) ** evaluate(k < 0))
-        // console.log(i + 1, k.toString(), 'cas3')
       } else if (evaluate(abs(k) > 4)) {
         correctionOA = multiply(fraction(2, 1), OA)
-        // console.log(i + 1, k.toString(), 'cas4')
       } else {
         testFigureCorrigee = false
-        // console.log(i + 1, k.toString(), 'cas5')
       }
       const figurealechelle = !(testFigureCorrigee && this.sup4) || [4, 5, 6, 7, 8].includes(listeTypeQuestions[i]) ? '' : '(La figure n\'est pas à l\'échelle)'
       const figurealechelle2 = !(this.sup4) ? '' : '(La figure n\'est pas à l\'échelle)'
       let figure = {
         O: point(0, 0, `${O}`),
-        A: point(multiply(correctionOA, largeurFigure), 0, `${A}`, 'below'),
-        hA: point(multiply(correctionOhA, largeurFigure), 0, `${hA}`, kpositif ? 'below' : 'above')
+        A: point(multiply(correctionOA, largeurFigure).valueOf(), 0, `${A}`, 'below'),
+        hA: point(multiply(correctionOhA, largeurFigure).valueOf(), 0, `${hA}`, kpositif ? 'below' : 'above')
       }
       figure = Object.assign({}, figure, {
         B: homothetie(rotation(figure.A, figure.O, 40), figure.O, 1.2, `${B}`),
@@ -204,45 +199,41 @@ export default function calculsHomothetie () {
           melange = combinaisonListes([0, 1])
           donnee1 = donnees[melange[0]]
           donnee2 = donnees[melange[1]]
-          texte = String.raw`
-                    $${hA}$ est l'image de $${A}$
-                    par une homothétie ${derapportpositifet}
-                    de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
-                    <br><br>
-                    ${illustrerParUneFigureAMainLevee}
-                    Calculer le rapport $k$ de cette homothétie ${figurealechelle}.
-                    ${frapport.enonce}
-                    `
+          texte = String.raw`$${hA}$ est l'image de $${A}$
+par une homothétie ${derapportpositifet}
+de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
+<br><br>
+${illustrerParUneFigureAMainLevee}
+Calculer le rapport $k$ de cette homothétie ${figurealechelle}.
+${frapport.enonce}
+`
           texteCorr = String.raw`
                 $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
                 `
           if (this.correctionDetaillee) {
-            texteCorr = String.raw`
-                  $[${O}${hA}]$ est l'image de $[${O}${A}]$
-                  et $${O} ${hA} ${plusgrandque} ${O} ${A}$
-                  donc c'est ${unAgrandissement} et on a ${intervallek}.
-                  <br><br> ${frapport.solution}
-                  `
-            texteCorr += String.raw`
-                  <br><br>
-                  Le rapport de cette homothétie est ${lopposedu} quotient
-                  de la longueur d'un segment "à l'arrivée"
-                  par sa longueur "au départ".
-                  <br><br>
-                  Soit $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
-                  `
+            texteCorr = String.raw`$[${O}${hA}]$ est l'image de $[${O}${A}]$
+et $${O} ${hA} ${plusgrandque} ${O} ${A}$
+donc c'est ${unAgrandissement} et on a ${intervallek}.
+<br><br> ${frapport.solution}
+`
+            texteCorr += String.raw`<br><br>
+Le rapport de cette homothétie est ${lopposedu} quotient
+de la longueur d'un segment "à l'arrivée"
+par sa longueur "au départ".
+<br><br>
+Soit $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
+`
           }
           break
         case 'image':
-          texte = String.raw`
-                $${hA}$ est l'image de $${A}$ par une homothétie
-                de centre $${O}$ et de rapport $k=${k}$
-                tel que $ {${O}${A}=${OA}\text{ cm}}$.
-                <br><br>
-                ${illustrerParUneFigureAMainLevee}
-                Calculer $${O}${hA}$  ${figurealechelle}.
-                <br><br>${fImage.enonce}
-                `
+          texte = String.raw`$${hA}$ est l'image de $${A}$ par une homothétie
+de centre $${O}$ et de rapport $k=${k}$
+tel que $ {${O}${A}=${OA}\text{ cm}}$.
+<br><br>
+${illustrerParUneFigureAMainLevee}
+Calculer $${O}${hA}$  ${figurealechelle}.
+<br><br>${fImage.enonce}
+`
           texteCorr = String.raw`
                 $${O}${hA}= ${absk} \times ${OA} =  ${OhA}~\text{cm}$.
                 `
@@ -251,46 +242,41 @@ export default function calculsHomothetie () {
                 ${intervallek} donc $[${O}${hA}]$ est ${unAgrandissement} de $[${O}${A}]$.
                 <br><br>${fImage.solution}
                 `
-            texteCorr += String.raw`
-                <br><br>
-                Une homothétie de rapport ${positif} est
-                une transformation qui multiplie
-                toutes les longueurs par ${lopposede} son rapport.
-                <br><br>
-                Soit $${O}${hA}=${signek}k \times ${O}${A}$.
-                <br><br>
-                Donc $${O}${hA}= ${absk} \times ${OA} =  ${OhA}~\text{cm}$.
-                `
+            texteCorr += String.raw`<br><br>
+Une homothétie de rapport ${positif} est
+une transformation qui multiplie
+toutes les longueurs par ${lopposede} son rapport.
+<br><br>
+Soit $${O}${hA}=${signek}k \times ${O}${A}$.
+<br><br>
+Donc $${O}${hA}= ${absk} \times ${OA} =  ${OhA}~\text{cm}$.
+`
           }
           break
         case 'antécédent':
-          texte = String.raw`
-                $${hA}$ est l'image de $${A}$ par une
-                homothétie de centre $${O}$ et de rapport
-                $k=${k}$ tel que $ {${O}${hA}=${OhA}\text{ cm}}$.
-                <br><br>
-                ${illustrerParUneFigureAMainLevee}
-                Calculer $${O}${A}$  ${figurealechelle}.
-                <br><br>${fAntecedent.enonce}
-                `
-          texteCorr = String.raw`
-                $${O}${A}=\dfrac{${O}${hA}}{${absk}}=\dfrac{${OhA}}{${absk}} = ${OA}~\text{cm}$.
-                `
+          texte = String.raw`$${hA}$ est l'image de $${A}$ par une
+homothétie de centre $${O}$ et de rapport
+$k=${k}$ tel que $ {${O}${hA}=${OhA}\text{ cm}}$.
+<br><br>
+${illustrerParUneFigureAMainLevee}
+Calculer $${O}${A}$  ${figurealechelle}.
+<br><br>${fAntecedent.enonce}
+`
+          texteCorr = String.raw`$${O}${A}=\dfrac{${O}${hA}}{${absk}}=\dfrac{${OhA}}{${absk}} = ${OA}~\text{cm}$.`
           if (this.correctionDetaillee) {
             texteCorr = String.raw`
                 ${intervallek} donc $[${O}${hA}]$ est ${unAgrandissement} de $[${O}${A}]$.
                 <br><br>${fAntecedent.solution}
                 `
-            texteCorr += String.raw`
-              <br><br>
-              Une homothétie de rapport ${positif} est
-              une transformation qui multiplie
-              toutes les longueurs par ${lopposede} son rapport.
-              <br><br>
-              Soit $${O}${hA}=${signek}k \times  ${O}${A}$.
-              <br><br>
-              Donc $${O}${A}=\dfrac{${O}${hA}}{${signek}k}=\dfrac{${OhA}}{${absk}} ${OhAtimeskinverse} = ${OA}~\text{cm}$.
-              `
+            texteCorr += String.raw`<br><br>
+Une homothétie de rapport ${positif} est
+une transformation qui multiplie
+toutes les longueurs par ${lopposede} son rapport.
+<br><br>
+Soit $${O}${hA}=${signek}k \times  ${O}${A}$.
+<br><br>
+Donc $${O}${A}=\dfrac{${O}${hA}}{${signek}k}=\dfrac{${OhA}}{${absk}} ${OhAtimeskinverse} = ${OA}~\text{cm}$.
+`
           }
           break
         case 'image2etapes':
@@ -299,44 +285,41 @@ export default function calculsHomothetie () {
           donnee1 = donnees[melange[0]]
           donnee2 = donnees[melange[1]]
           donnee3 = donnees[melange[2]]
-          texte = String.raw`
-                    $${hA}$ et $${hB}$ sont les images respectives
-                    de $${A}$ et $${B}$ par une homothétie
-                    ${derapportpositifet} de centre $${O}$ tel que
-                    $ {${donnee1}}$, $ {${donnee2}}$ et $ {${donnee3}}$.
-                    <br><br>
-                    ${illustrerParUneFigureAMainLevee}
-                    Calculer $${O}${hB}$ ${figurealechelle2}.
-                    <br><br>${fImage2etapes.enonce}
-                    `
+          texte = String.raw`$${hA}$ et $${hB}$ sont les images respectives
+de $${A}$ et $${B}$ par une homothétie
+${derapportpositifet} de centre $${O}$ tel que
+$ {${donnee1}}$, $ {${donnee2}}$ et $ {${donnee3}}$.
+<br><br>
+${illustrerParUneFigureAMainLevee}
+Calculer $${O}${hB}$ ${figurealechelle2}.
+<br><br>${fImage2etapes.enonce}
+`
           texteCorr = String.raw`
                     $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$ et $${O}${hB}= ${absk} \times ${OB} = ${OhB}~\text{cm}$.
                     `
           if (this.correctionDetaillee) {
-            texteCorr = String.raw`
-                    $[${O}${hA}]$ est l'image de $[${O}${A}]$
-                    et $${O} ${hA} ${plusgrandque} ${O} ${A}$
-                    donc c'est ${unAgrandissement} et on a ${intervallek}.
-                    <br><br>${fImage2etapes.solution}
-                    `
-            texteCorr += String.raw`
-                    <br><br>        
-                    Le rapport de cette homothétie est
-                    ${lopposedu} quotient de la longueur d'un segment
-                    "à l'arrivée" par sa longueur "au départ".
-                    <br><br>
-                    Soit $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
-                    <br><br>
-                    $[${O}${hB}]$ est l'image de $[${O}${B}]$.
-                    <br><br>
-                    Or une homothétie de rapport ${positif}
-                    est une transformation qui multiplie
-                    toutes les longueurs par ${lopposede} son rapport.
-                    <br><br>
-                    Soit $${O}${hB}= ${signek}k \times ${O}${B}$.
-                    <br><br>
-                    Donc $${O}${hB}= ${absk} \times ${OB} = ${OhB}~\text{cm}$.
-                    `
+            texteCorr = String.raw`$[${O}${hA}]$ est l'image de $[${O}${A}]$
+et $${O} ${hA} ${plusgrandque} ${O} ${A}$
+donc c'est ${unAgrandissement} et on a ${intervallek}.
+<br><br>${fImage2etapes.solution}
+`
+            texteCorr += String.raw`<br><br>        
+Le rapport de cette homothétie est
+${lopposedu} quotient de la longueur d'un segment
+"à l'arrivée" par sa longueur "au départ".
+<br><br>
+Soit $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
+<br><br>
+$[${O}${hB}]$ est l'image de $[${O}${B}]$.
+<br><br>
+Or une homothétie de rapport ${positif}
+est une transformation qui multiplie
+toutes les longueurs par ${lopposede} son rapport.
+<br><br>
+Soit $${O}${hB}= ${signek}k \times ${O}${B}$.
+<br><br>
+Donc $${O}${hB}= ${absk} \times ${OB} = ${OhB}~\text{cm}$.
+`
           }
           break
         case 'antecendent2etapes':
@@ -345,108 +328,96 @@ export default function calculsHomothetie () {
           donnee1 = donnees[melange[0]]
           donnee2 = donnees[melange[1]]
           donnee3 = donnees[melange[2]]
-          texte = String.raw`
-                      $${hA}$ et $${hB}$ sont les images respectives
-                      de $${A}$ et $${B}$ par une homothétie ${derapportpositifet}
-                      de centre $${O}$ tel que
-                      $ {${donnee1}}$, $ {${donnee2}}$ et $ {${donnee3}}$.
-                      <br><br>
-                      ${illustrerParUneFigureAMainLevee}
-                      Calculer $${O}${B}$ ${figurealechelle2}.
-                      <br><br>${fAntecedent2etapes.enonce}
-                      `
-          texteCorr = String.raw`
-                      $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$ et $${O}${B}=\dfrac{${O}${hB}}{${absk}}=\dfrac{${OhB}}{${absk}} = ${OB}~\text{cm}$.
-                      `
+          texte = String.raw`$${hA}$ et $${hB}$ sont les images respectives
+de $${A}$ et $${B}$ par une homothétie ${derapportpositifet}
+de centre $${O}$ tel que
+$ {${donnee1}}$, $ {${donnee2}}$ et $ {${donnee3}}$.
+<br><br>
+${illustrerParUneFigureAMainLevee}
+Calculer $${O}${B}$ ${figurealechelle2}.
+<br><br>${fAntecedent2etapes.enonce}
+`
+          texteCorr = String.raw`$k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$
+et $${O}${B}=\dfrac{${O}${hB}}{${absk}}=\dfrac{${OhB}}{${absk}} = ${OB}~\text{cm}$.`
           if (this.correctionDetaillee) {
-            texteCorr = String.raw`
-                    $[${O}${hA}]$ est l'image de $[${O}${A}]$
-                    et $${O} ${hA} ${plusgrandque} ${O} ${A}$
-                    donc c'est ${unAgrandissement} et on a ${intervallek}.
-                    <br><br>${fAntecedent2etapes.solution}
-                    `
-            texteCorr += String.raw`
-                      <br><br>
-                      Le rapport d'une homothétie est ${lopposedu} quotient
-                      de la longueur d'un segment "à l'arrivée" par sa longueur "au départ".
-                      <br><br>
-                      Soit $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
-                      <br><br>
-                      $[${O}${hB}]$ est l'image de $[${O}${B}]$.
-                      <br><br>
-                      Or une homothétie de rapport ${positif} est
-                      une transformation qui multiplie
-                      toutes les longueurs par ${lopposede} son rapport.
-                      <br><br>
-                      Soit $${O}${hB}=${signek}k \times ${O}${B}$.
-                      <br><br>
-                      Donc $${O}${B}=\dfrac{${O}${hB}}{${signek}k}=\dfrac{${OhB}}{${absk}} ${OhBtimeskinverse} = ${OB}~\text{cm}$.
-                      `
+            texteCorr = String.raw`$[${O}${hA}]$ est l'image de $[${O}${A}]$
+et $${O} ${hA} ${plusgrandque} ${O} ${A}$
+donc c'est ${unAgrandissement} et on a ${intervallek}.
+<br><br>${fAntecedent2etapes.solution}
+`
+            texteCorr += String.raw`<br><br>
+Le rapport d'une homothétie est ${lopposedu} quotient
+de la longueur d'un segment "à l'arrivée" par sa longueur "au départ".
+<br><br>
+Soit $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
+<br><br>
+$[${O}${hB}]$ est l'image de $[${O}${B}]$.
+<br><br>
+Or une homothétie de rapport ${positif} est
+une transformation qui multiplie
+toutes les longueurs par ${lopposede} son rapport.
+<br><br>
+Soit $${O}${hB}=${signek}k \times ${O}${B}$.
+<br><br>
+Donc $${O}${B}=\dfrac{${O}${hB}}{${signek}k}=\dfrac{${OhB}}{${absk}} ${OhBtimeskinverse} = ${OB}~\text{cm}$.
+`
           }
           break
         case 'aireImage':
           environ = (hAire === hAireArrondie) ? '' : 'environ'
           approx = (environ === 'environ') ? '\\approx' : '='
-          texte = String.raw`
-                Une figure a pour aire $ {${Aire}\text{ cm}^2}$.
-                <br><br>
-                Calculer l'aire de son image par une homothétie de rapport $${signek}${kAire}$ (arrondir au $ {\text{mm}^2}$ près si besoin).
-                `
+          texte = String.raw`Une figure a pour aire $ {${Aire}\text{ cm}^2}$.
+<br><br>
+Calculer l'aire de son image par une homothétie de rapport $${signek}${kAire}$ (arrondir au $ {\text{mm}^2}$ près si besoin).
+`
           texteCorr = String.raw`
                 $ {${parentheseskAire}^2 \times ${Aire} ${approx} ${hAireArrondie}~\text{cm}^2}$
                 `
           if (this.correctionDetaillee) {
-            texteCorr = String.raw`
-                Une homothétie de rapport ${positif} est une transformation qui multiplie toutes les aires par le carré de son rapport.
-                <br><br>
-                $${parentheseskAire}^2 \times ${Aire} = ${hAire}$
-                <br><br>
-                Donc l'aire de l'image de cette figure est ${environ} $ {${hAireArrondie}~\text{cm}^2}$.
-                `
+            texteCorr = String.raw`Une homothétie de rapport ${positif} est une transformation qui multiplie toutes les aires par le carré de son rapport.
+<br><br>
+$${parentheseskAire}^2 \times ${Aire} = ${hAire}$
+<br><br>
+Donc l'aire de l'image de cette figure est ${environ} $ {${hAireArrondie}~\text{cm}^2}$.
+`
           }
           break
         case 'aireAntécédent':
-          texte = String.raw`
-                  L'image d'une figure par une homothétie de rapport $${signek}${kAire}$ a pour aire $ {${hAire}\text{ cm}^2}$.
-                  <br><br>
-                  Calculer l'aire de la figure de départ.
-                  `
-          texteCorr = String.raw`
-                  $ {\dfrac{${hAire}}{${parentheseskAire}^2} = ${Aire}~\text{cm}^2}$
-                  `
+          texte = String.raw`L'image d'une figure par une homothétie de rapport $${signek}${kAire}$ a pour aire $ {${hAire}\text{ cm}^2}$.
+<br><br>
+Calculer l'aire de la figure de départ.
+`
+          texteCorr = String.raw`$ {\dfrac{${hAire}}{${parentheseskAire}^2} = ${Aire}~\text{cm}^2}$
+`
           if (this.correctionDetaillee) {
-            texteCorr = String.raw`
-                  Une homothétie de rapport ${positif} est une transformation qui multiplie toutes les aires par le carré de son rapport.
-                  <br><br>
-                  Notons $\mathscr{A}$ l'aire de la figure de départ.
-                  <br><br>
-                  D'où $${parentheseskAire}^2 \times \mathscr{A} = ${hAire}$.
-                  <br><br>
-                  Puis $\mathscr{A}=\dfrac{${hAire}}{${parentheseskAire}^2}=${Aire}$.
-                  <br><br>
-                  Donc l'aire de la figure de départ est $ {${Aire}~\text{cm}^2}$.
-                  `
+            texteCorr = String.raw`Une homothétie de rapport ${positif} est une transformation qui multiplie toutes les aires par le carré de son rapport.
+<br><br>
+Notons $\mathscr{A}$ l'aire de la figure de départ.
+<br><br>
+D'où $${parentheseskAire}^2 \times \mathscr{A} = ${hAire}$.
+<br><br>
+Puis $\mathscr{A}=\dfrac{${hAire}}{${parentheseskAire}^2}=${Aire}$.
+<br><br>
+Donc l'aire de la figure de départ est $ {${Aire}~\text{cm}^2}$.
+`
           }
           break
         case 'aireRapport':
-          texte = String.raw`
-                    Une figure et son image par une homothétie de rapport ${positif} ont respectivement pour aires $ {${Aire}\text{ cm}^2}$ et $ {${hAire}\text{ cm}^2}$.
-                    <br><br>
-                    Calculer le rapport de l'homothétie.
-                    `
-          texteCorr = String.raw`
-                    $ {k=${signek}\sqrt{\dfrac{${hAire}}{${Aire}}} = ${signek}${kAire}}$
-                    `
+          texte = String.raw`Une figure et son image par une homothétie de rapport ${positif} ont respectivement pour aires $ {${Aire}\text{ cm}^2}$ et $ {${hAire}\text{ cm}^2}$.
+<br><br>
+Calculer le rapport de l'homothétie.
+`
+          texteCorr = String.raw`$ {k=${signek}\sqrt{\dfrac{${hAire}}{${Aire}}} = ${signek}${kAire}}$`
           if (this.correctionDetaillee) {
-            texteCorr = String.raw`
-                    Une homothétie de rapport ${positif} est une transformation qui multiplie toutes les aires par le carré de son rapport.
-                    <br><br>
-                    Notons $k$ le rapport de cette homothétie.
-                    On a donc $k^2 \times ${Aire} = ${hAire}$,
-                    ou encore $k^2=\dfrac{${hAire}}{${Aire}}$.
-                    <br><br>
-                    D'où $ {k=${signek}\sqrt{\dfrac{${hAire}}{${Aire}}} = ${signek}${kAire}}$.
-                    `
+            texteCorr = String.raw`Une homothétie de rapport ${positif} est une transformation qui
+multiplie toutes les aires par le carré de son rapport.
+<br><br>
+Notons $k$ le rapport de cette homothétie.
+On a donc $k^2 \times ${Aire} = ${hAire}$,
+ou encore $k^2=\dfrac{${hAire}}{${Aire}}$.
+<br><br>
+D'où $ {k=${signek}\sqrt{\dfrac{${hAire}}{${Aire}}} = ${signek}${kAire}}$.
+`
           }
           break
         case 'rapport2':
@@ -454,35 +425,32 @@ export default function calculsHomothetie () {
           melange = combinaisonListes([0, 1])
           donnee1 = donnees[melange[0]]
           donnee2 = donnees[melange[1]]
-          texte = String.raw`
-                    $${hA}$ est l'image de $${A}$
-                    par une homothétie ${derapportpositifet}
-                    de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
-                    <br><br>
-                    ${illustrerParUneFigureAMainLevee}
-                    Calculer le rapport $k$ de cette homothétie ${figurealechelle}.
-                    ${frapport2.enonce}
-                    `
+          texte = String.raw`$${hA}$ est l'image de $${A}$
+par une homothétie ${derapportpositifet}
+de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
+<br><br>
+${illustrerParUneFigureAMainLevee}
+Calculer le rapport $k$ de cette homothétie ${figurealechelle}.
+${frapport2.enonce}
+`
           texteCorr = String.raw`
                 $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
                 `
           if (this.correctionDetaillee) {
-            texteCorr = String.raw`
-                  $${O}${hA} = ${calculsOhA} = ${OhA}\text{ cm}$
-                  <br><br>
-                  $[${O}${hA}]$ est l'image de $[${O}${A}]$
-                  et $${O} ${hA} ${plusgrandque} ${O} ${A}$
-                  donc c'est ${unAgrandissement} et on a ${intervallek}.
-                  <br><br> ${frapport.solution}
-                  `
-            texteCorr += String.raw`
-                  <br><br>
-                  Le rapport de cette homothétie est ${lopposedu} quotient
-                  de la longueur d'un segment "à l'arrivée"
-                  par sa longueur "au départ".
-                  <br><br>
-                  Soit $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
-                  `
+            texteCorr = String.raw`$${O}${hA} = ${calculsOhA} = ${OhA}\text{ cm}$
+<br><br>
+$[${O}${hA}]$ est l'image de $[${O}${A}]$
+et $${O} ${hA} ${plusgrandque} ${O} ${A}$
+donc c'est ${unAgrandissement} et on a ${intervallek}.
+<br><br> ${frapport.solution}
+`
+            texteCorr += String.raw`<br><br>
+Le rapport de cette homothétie est ${lopposedu} quotient
+de la longueur d'un segment "à l'arrivée"
+par sa longueur "au départ".
+<br><br>
+Soit $k=${signek}\dfrac{${O}${hA}}{${O}${A}}=${signek}\dfrac{${OhA}}{${OA}}=${k}$.
+`
           }
           break
         case 'encadrerk':
@@ -490,27 +458,30 @@ export default function calculsHomothetie () {
           melange = combinaisonListes([0, 1])
           donnee1 = donnees[melange[0]]
           donnee2 = donnees[melange[1]]
-          texte = String.raw`
-                    $${hA}$ est l'image de $${A}$
-                    par une homothétie ${derapportpositifet}
-                    de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
-                    <br><br>
-                    ${illustrerParUneFigureAMainLevee}
-                    Sans effectuer de calculs, encadrer $k$ le plus précisément possible ${figurealechelle}.
-                    ${frapport.enonce}
-                    `
+          texte = String.raw`$${hA}$ est l'image de $${A}$
+par une homothétie ${derapportpositifet}
+de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
+<br><br>
+${illustrerParUneFigureAMainLevee}
+Sans effectuer de calculs, que peut-on dire du rapport $k$ de cette homothétie ?
+(choisir la bonne réponse)
+<br>
+$\square\hphantom{a} k<-1 \hspace{1cm} \square\hphantom{a} -1 < k < 0 \hspace{1cm} \square\hphantom{a} 0 < k < 1 \hspace{1cm} \square\hphantom{a} k > 1$.
+<br>
+${figurealechelle}.
+${frapport.enonce}
+`
           texteCorr = String.raw`
                 $${intervallek}$.
                 `
           if (this.correctionDetaillee) {
-            texteCorr = String.raw`
-                  $[${O}${hA}]$ est l'image de $[${O}${A}]$
-                  et $${O} ${hA} ${plusgrandque} ${O} ${A}$
-                  donc c'est ${unAgrandissement}.
-                  <br><br>
-                  De plus $${hA}${inNotin}[${O};${A})$ donc ${intervallek}.
-                  <br><br> ${frapport.solution}
-                  `
+            texteCorr = String.raw`$[${O}${hA}]$ est l'image de $[${O}${A}]$
+et $${O} ${hA} ${plusgrandque} ${O} ${A}$
+donc c'est ${unAgrandissement}.
+<br><br>
+De plus $${hA}${inNotin}[${O};${A})$ donc ${intervallek}.
+<br><br> ${frapport.solution}
+`
           }
           break
         case 'encadrerk2':
@@ -518,29 +489,28 @@ export default function calculsHomothetie () {
           melange = combinaisonListes([0, 1])
           donnee1 = donnees[melange[0]]
           donnee2 = donnees[melange[1]]
-          texte = String.raw`
-                      $${hA}$ est l'image de $${A}$
-                      par une homothétie ${derapportpositifet}
-                      de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
-                      <br><br>
-                      ${illustrerParUneFigureAMainLevee}
-                      Sans effectuer de calculs, encadrer $k$ le plus précisément possible ${figurealechelle}.
-                      ${frapport2.enonce}
-                      `
-          texteCorr = String.raw`
-                  $${intervallek}$.
-                  `
+          texte = String.raw`$${hA}$ est l'image de $${A}$
+par une homothétie ${derapportpositifet}
+de centre $${O}$ tel que $ {${donnee1}}$ et $ {${donnee2}}$.
+<br><br>
+${illustrerParUneFigureAMainLevee}
+Sans effectuer de calculs, que peut-on dire du rapport $k$ de cette homothétie ?
+(choisir la bonne réponse)
+<br>
+$\square\hphantom{a} k<-1 \hspace{1cm} \square\hphantom{a} -1 < k < 0 \hspace{1cm} \square\hphantom{a} 0 < k < 1 \hspace{1cm} \square\hphantom{a} k > 1$.
+<br>
+${figurealechelle}.
+${frapport2.enonce}`
+          texteCorr = String.raw`$${intervallek}$.`
           if (this.correctionDetaillee) {
-            texteCorr = String.raw`
-                    $${O}${hA} = ${calculsOhA} = ${OhA}\text{ cm}$
-                    <br><br>
-                    $[${O}${hA}]$ est l'image de $[${O}${A}]$
-                    et $${O} ${hA} ${plusgrandque} ${O} ${A}$
-                    donc c'est ${unAgrandissement}.
-                    <br><br>
-                    De plus $${hA}${inNotin}[${O};${A})$ donc ${intervallek}.
-                    <br><br> ${frapport.solution}
-                    `
+            texteCorr = String.raw`$${O}${hA} = ${calculsOhA} = ${OhA}\text{ cm}$
+<br><br>
+$[${O}${hA}]$ est l'image de $[${O}${A}]$
+et $${O} ${hA} ${plusgrandque} ${O} ${A}$
+donc c'est ${unAgrandissement}.
+<br><br>
+De plus $${hA}${inNotin}[${O};${A})$ donc ${intervallek}.
+<br><br> ${frapport.solution}`
           }
           break
       }

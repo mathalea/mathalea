@@ -5,7 +5,6 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Additions et soustractions de nombres relatifs'
 export const interactifReady = true
-// export const interactifType = 'numerique'
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpenNum'

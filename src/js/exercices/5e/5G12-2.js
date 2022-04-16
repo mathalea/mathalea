@@ -11,7 +11,7 @@ export const dateDePublication = '4/12/2021'
 export default function SerieDeTransformations5e () {
   SerieDeTransformations.call(this)
   this.titre = titre
-  this.sup = 2
+  this.version = 2
   this.nbQuestions = 1
   this.besoinFormulaireNumerique = false
 }

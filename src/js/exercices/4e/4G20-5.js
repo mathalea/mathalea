@@ -10,7 +10,7 @@ export const titre = 'Trouver la valeur arrondie d’une racine carrée'
 export default function ArrondirUneValeur4e () {
   ArrondirUneValeur.call(this)
   this.titre = titre
-  this.sup = 3
+  this.version = 3
   this.sup2 = true
   this.besoinFormulaireNumerique = false
 }

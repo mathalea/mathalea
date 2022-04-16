@@ -44,6 +44,9 @@ export default function variationPolynomeDegre3 () {
     let delta, x1, x2, x3, X1, X3, XXs, minima, mafonction, maderivee, MaFonction, solutions
     let YMAXI, YMINI, XMINI, XMAXI, texte, scalex, scaley
     const coefF = this.sup.split('/')
+    for (let i = 0; i < coefF.length; i++) {
+      coefF[i] = parseFloat(coefF[i])
+    }
     const vecteurs = []; let A; let B; let C; let tangente
 
     const trouverLesRacines = function (a0, b0, c0) { // Une fonction locale pour trouver les racines d'une équation du 2nd degré

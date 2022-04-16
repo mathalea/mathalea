@@ -30,9 +30,9 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           expn = `$${texNombrec(a)}+${texNombrec(b)}$`
           expc = `$${texNombrec(a)}+${texNombrec(b)} = ${texNombrec(a + b)}$`
           break
-        case 1: // différence de deux nombres
+        case 1: // différence entre deux nombres
           if (a < b) { a = a + b }
-          expf = `La différence de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)}`
+          expf = `La différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)}`
           expn = `$${texNombrec(a)}-${texNombrec(b)}$`
           expc = `$${texNombrec(a)}-${texNombrec(b)} = ${texNombrec(a - b)}$`
           break
@@ -69,7 +69,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             c = randint(1, 5)
             b = choice([7, 8, 9, 10, 11, 12, 15, 20, 25, 50]) + c
           }
-          expf = `Le produit de ${nombreAvecEspace(a)} par la différence de ${nombreAvecEspace(b)} et ${nombreAvecEspace(c)}`
+          expf = `Le produit de ${nombreAvecEspace(a)} par la différence entre ${nombreAvecEspace(b)} et ${nombreAvecEspace(c)}`
           expn = `$${texNombrec(a)}${signex}(${texNombrec(b)}-${texNombrec(c)})$`
           expc = `$${texNombrec(a)}${signex}(${texNombrec(b)}-${texNombrec(c)}) = ${texNombrec(a)} \\times ${texNombrec(b - c)}=${texNombrec(a * (b - c))}$`
           break
@@ -92,7 +92,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             b = choice([7, 8, 9, 10, 11, 12, 15, 20, 25, 50]) + c
             a = choice([2, 3, 4, 5]) * (b - c)
           }
-          expf = `Le quotient de ${nombreAvecEspace(a)} par la différence de ${nombreAvecEspace(b)} et ${nombreAvecEspace(c)}`
+          expf = `Le quotient de ${nombreAvecEspace(a)} par la différence entre ${nombreAvecEspace(b)} et ${nombreAvecEspace(c)}`
           expn = `$${texNombrec(a)} \\div (${texNombrec(b)}-${texNombrec(c)})$ ou $\\dfrac{${texNombrec(a)}}{${texNombrec(b)}-${texNombrec(c)}}$`
           expc = `$${texNombrec(a)} \\div (${texNombrec(b)}-${texNombrec(c)}) = ${texNombrec(a)} \\div ${texNombrec(b - c)}=${texNombrec(a / (b - c))}$`
           break
@@ -117,7 +117,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             b = randint(1, 5) * c
             a = choice([7, 8, 9, 10, 11, 12, 15, 20, 25, 50]) * c + b
           }
-          expf = `Le quotient de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par ${nombreAvecEspace(c)}`
+          expf = `Le quotient de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par ${nombreAvecEspace(c)}`
           expn = `$(${texNombrec(a)}-${texNombrec(b)}) \\div ${texNombrec(c)}$ ou $\\dfrac{${texNombrec(a)}-${texNombrec(b)}}{${texNombrec(c)}}$`
           expc = `$(${texNombrec(a)}-${texNombrec(b)}) \\div ${texNombrec(c)} = ${texNombrec(a - b)} \\div ${texNombrec(c)}=${texNombrec((a - b) / c)}$`
           break
@@ -190,7 +190,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           } else {
             if (c <= d) { c = calcul(c + d) }
           }
-          expf = `Le produit de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la différence de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
+          expf = `Le produit de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la différence entre ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombrec(a)}+${texNombrec(b)})${signex}(${texNombrec(c)}-${texNombrec(d)})$`
           expc = `$(${texNombrec(a)}+${texNombrec(b)})${signex}(${texNombrec(c)}-${texNombrec(d)}) = ${texNombrec(a + b)} \\times ${texNombrec(c - d)} = ${texNombrec((a + b) * (c - d))}$`
           break
@@ -203,7 +203,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           } else {
             if (a <= b) { a = calcul(a + b) }
           }
-          expf = `Le produit de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
+          expf = `Le produit de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombrec(a)}-${texNombrec(b)})${signex}(${texNombrec(c)}+${texNombrec(d)})$`
           expc = `$(${texNombrec(a)}-${texNombrec(b)})${signex}(${texNombrec(c)}+${texNombrec(d)}) = ${texNombrec(a - b)} \\times ${texNombrec(c + d)} = ${texNombrec((a - b) * (c + d))}$`
           break
@@ -217,7 +217,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             if (a <= b) { a = calcul(a + b) }
             if (c <= d) { c = calcul(c + d) }
           }
-          expf = `Le produit de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la différence de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
+          expf = `Le produit de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la différence entre ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombrec(a)}-${texNombrec(b)})${signex}(${texNombrec(c)}-${texNombrec(d)})$`
           expc = `$(${texNombrec(a)}-${texNombrec(b)})${signex}(${texNombrec(c)}-${texNombrec(d)}) = ${texNombrec(a - b)} \\times ${texNombrec(c - d)} = ${texNombrec((a - b) * (c - d))}$`
           break
@@ -251,7 +251,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             b = calcul(b * (c + d))
             if (a <= b) { a = calcul(a + b) }
           }
-          expf = `Le quotient de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
+          expf = `Le quotient de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombrec(a)}-${texNombrec(b)}) \\div (${texNombrec(c)}+${texNombrec(d)})$ ou $\\dfrac{${texNombrec(a)}-${texNombrec(b)}}{${texNombrec(c)}+${texNombrec(d)}}$`
           expc = `$(${texNombrec(a)}-${texNombrec(b)}) \\div (${texNombrec(c)}+${texNombrec(d)}) = ${texNombrec(a - b)} \\div ${texNombrec(c + d)} = ${texNombrec((a - b) / (c + d))}$`
           break
@@ -271,7 +271,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             a = calcul(a * (c - d))
             b = calcul(b * (c - d))
           }
-          expf = `Le quotient de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la différence de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
+          expf = `Le quotient de la somme de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la différence entre ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombrec(a)}+${texNombrec(b)}) \\div (${texNombrec(c)}-${texNombrec(d)})$ ou $\\dfrac{${texNombrec(a)}+${texNombrec(b)}}{${texNombrec(c)}-${texNombrec(d)}}$`
           expc = `$(${texNombrec(a)}+${texNombrec(b)}) \\div (${texNombrec(c)}-${texNombrec(d)}) = ${texNombrec(a + b)} \\div ${texNombrec(c - d)} = ${texNombrec((a + b) / (c - d))}$`
           break
@@ -287,7 +287,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             a = calcul(a * (c - d))
             b = calcul(b * (c - d))
           }
-          expf = `Le quotient de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la différence de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
+          expf = `Le quotient de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la différence entre ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$(${texNombrec(a)}-${texNombrec(b)}) \\div (${texNombrec(c)}-${texNombrec(d)})$ ou $\\dfrac{${texNombrec(a)}-${texNombrec(b)}}{${texNombrec(c)}-${texNombrec(d)}}$`
           expc = `$(${texNombrec(a)}-${texNombrec(b)}) \\div (${texNombrec(c)}-${texNombrec(d)}) = ${texNombrec(a - b)} \\div ${texNombrec(c - d)} = ${texNombrec((a - b) / (c - d))}$`
           break
@@ -312,7 +312,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             if (a * b < d * c) { a = calcul(a + c) }
             if (a * b < d * c) { b = calcul(b + d) }
           }
-          expf = `La différence du produit de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)} et du produit de ${nombreAvecEspace(c)} par ${nombreAvecEspace(d)}`
+          expf = `La différence entre le produit de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} et le produit de ${nombreAvecEspace(c)} par ${nombreAvecEspace(d)}`
           expn = `$${texNombrec(a)} \\times ${texNombrec(b)}-${texNombrec(c)} \\times ${texNombrec(d)}$`
           expc = `$${texNombrec(a)} \\times ${texNombrec(b)}-${texNombrec(c)} \\times ${texNombrec(d)} = ${texNombrec(a * b)}-${texNombrec(c * d)} = ${texNombrec(a * b - c * d)}$`
           break
@@ -340,7 +340,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             if (a * b < c / d) { a = calcul(a * c) }
             if (a * b < c / d) { b = calcul(b * c) }
           }
-          expf = `La différence du produit de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)} et du quotient de ${nombreAvecEspace(c)} par ${nombreAvecEspace(d)}`
+          expf = `La différence entre le produit de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)} et le quotient de ${nombreAvecEspace(c)} par ${nombreAvecEspace(d)}`
           expn = `$${texNombrec(a)} \\times ${texNombrec(b)}-${texNombrec(c)} \\div ${texNombrec(d)}$ ou $${texNombrec(a)} \\times ${texNombrec(b)}-\\dfrac{${texNombrec(c)}}{${texNombrec(d)}}$`
           expc = `$${texNombrec(a)} \\times ${texNombrec(b)}-${texNombrec(c)} \\div ${texNombrec(d)} = ${texNombrec(a * b)}-${texNombrec(c / d)} = ${texNombrec(a * b - c / d)}$`
           break
@@ -370,7 +370,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             if (a / b < c / d) { a = calcul(a * c) }
             if (a / c < c / d) { a = calcul(a * d) }
           }
-          expf = `La différence du quotient de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)} et du quotient de ${nombreAvecEspace(c)} par ${nombreAvecEspace(d)}`
+          expf = `La différence entre le quotient de ${nombreAvecEspace(a)} par ${nombreAvecEspace(b)} et le quotient de ${nombreAvecEspace(c)} par ${nombreAvecEspace(d)}`
           expn = `$${texNombrec(a)} \\div ${texNombrec(b)}-${texNombrec(c)} \\div ${texNombrec(d)}$ ou $\\dfrac{${texNombrec(a)}}{${texNombrec(b)}}-\\dfrac{${texNombrec(c)}}{${texNombrec(d)}}$`
           expc = `$${texNombrec(a)} \\div ${texNombrec(b)}-${texNombrec(c)} \\div ${texNombrec(d)} = ${texNombrec(a / b)}-${texNombrec(c / d)} = ${texNombrec(a / b - c / d)}$`
           break
@@ -414,7 +414,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             a = calcul(3 * a)
             b = calcul(3 * b)
           }
-          expf = `Le tiers de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)}`
+          expf = `Le tiers de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)}`
           expn = `$(${texNombrec(a)}-${texNombrec(b)}) \\div  3$ ou $\\dfrac{${texNombrec(a)}-${texNombrec(b)}}{3}$`
           expc = `$(${texNombrec(a)}-${texNombrec(b)}) \\div  3 = ${texNombrec(a - b)} \\div  3 = ${texNombrec((a - b) / 3)}$`
           break
@@ -429,7 +429,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
             a = calcul(3 * a)
             b = calcul(3 * b)
           }
-          expf = `Le produit du tiers de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par le double de la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
+          expf = `Le produit du tiers de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par le double de la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$\\left((${texNombrec(a)}-${texNombrec(b)}) \\div  3\\right) \\times  2${signex}(${texNombrec(c)}+${texNombrec(d)})$`
           expc = `$\\left((${texNombrec(a)}-${texNombrec(b)}) \\div  3\\right) \\times  2${signex}(${texNombrec(c)}+${texNombrec(d)}) = ${texNombrec(a - b)} \\div  3  \\times  2  \\times ${texNombrec(c + d)} = ${texNombrec((a - b) / 3)}  \\times  2  \\times  ${texNombrec(c + d)} =  ${texNombrec(2 * (a - b) / 3)}  \\times  ${texNombrec(c + d)} = ${texNombrec(2 * (c + d) * (a - b) / 3)}$`
           break
@@ -455,7 +455,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           } else {
             if (a <= b) { a = calcul(a + b) }
           }
-          expf = `La somme du double de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} et du triple de la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
+          expf = `La somme du double de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} et du triple de la somme de ${nombreAvecEspace(c)} et ${nombreAvecEspace(d)}`
           expn = `$2${signex}(${texNombrec(a)}-${texNombrec(b)})+3${signex}(${texNombrec(c)}+${texNombrec(d)})$`
           expc = `$2${signex}(${texNombrec(a)}-${texNombrec(b)})+3${signex}(${texNombrec(c)}+${texNombrec(d)}) = 2  \\times  ${texNombrec(a - b)} + 3  \\times  ${texNombrec(c + d)} = ${texNombrec(2 * (a - b))} + ${texNombrec(3 * (c + d))} = ${texNombrec(2 * (a - b) + 3 * (c + d))}$`
           break
@@ -492,7 +492,7 @@ export default function choisirExpressionNumerique (nbOperations, decimal, times
           } else {
             if (a <= b) { a = calcul(a + b) }
           }
-          expf = `Le produit de la différence de ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la somme de ${nombreAvecEspace(c)} et du produit de ${nombreAvecEspace(d)} par ${nombreAvecEspace(e)}`
+          expf = `Le produit de la différence entre ${nombreAvecEspace(a)} et ${nombreAvecEspace(b)} par la somme de ${nombreAvecEspace(c)} et du produit de ${nombreAvecEspace(d)} par ${nombreAvecEspace(e)}`
           expn = `$(${texNombrec(a)}-${texNombrec(b)})${signex}(${texNombrec(c)}+${texNombrec(d)} \\times ${texNombrec(e)})$`
           expc = `$(${texNombrec(a)}-${texNombrec(b)})${signex}(${texNombrec(c)}+${texNombrec(d)} \\times ${texNombrec(e)}) = ${texNombrec(a - b)}${signex}(${texNombrec(c)}+${texNombrec(d * e)}) = ${texNombrec(a - b)}  \\times  ${texNombrec(c + d * e)} = ${texNombrec((a - b) * (c + d * e))}$`
           break
