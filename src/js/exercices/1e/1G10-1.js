@@ -37,8 +37,8 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     const mesAngles = [
       { degres: '90', cos: '0', sin: '1', radian: '\\dfrac{\\pi}{2}' },
       { degres: '45', cos: '\\dfrac{\\sqrt{2}}{2}', sin: '\\dfrac{\\sqrt{2}}{2}', radian: '\\dfrac{\\pi}{4}' },
-      { degres: '60', cos: '\\dfrac{1}{2}', sin: '\\dfrac{\\sqrt{3}}{2}', radian: '\\dfrac{\\pi}{3}' },
-      { degres: '30', sin: '\\dfrac{1}{2}', cos: '\\dfrac{\\sqrt{3}}{2}', radian: '\\dfrac{\\pi}{6}' },
+      { degres: '60', cos: ['\\dfrac{1}{2}', '0.5'], sin: '\\dfrac{\\sqrt{3}}{2}', radian: '\\dfrac{\\pi}{3}' },
+      { degres: '30', sin: ['\\dfrac{1}{2}', '0.5'], cos: '\\dfrac{\\sqrt{3}}{2}', radian: '\\dfrac{\\pi}{6}' },
       { degres: '0', cos: '1', sin: '0', radian: '0' }
     ]
     const nombreAnglesDeBase = mesAngles.length
@@ -47,7 +47,7 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     for (let i = 0; i < nombreAnglesDeBase; i++) {
       mesAngles.push(angleOppose(mesAngles[i]), angleComplementaire(mesAngles[i]), angleSupplementaire(mesAngles[i]))
     }
-
+    if (this.nbQuestions > 10 && this.sup === 1) this.nbQuestions = 10 // on bride car il n'y a que 10 question différentes au niveau 1
     if (this.sup === 1) {
       const mesAnglesNiv1 = mesAngles.slice(0, nombreAnglesDeBase)
       mesAnglesAleatoires = combinaisonListes(mesAnglesNiv1, this.nbQuestions)
@@ -69,9 +69,8 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     // const mesAnglesAleatoires = combinaisonListes(mesAngles, this.nbQuestions)
 
     // On mélange
-    if (this.nbQuestions > 10 && this.sup === 1) this.nbQuestions = 10 // on bride car il n'y a que 10 question différentes au niveau 1
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 500;) { // Boucle principale où i+1 correspond au numéro de la question
       const monAngle = mesAnglesAleatoires[i]
       /* const degres = monAngle.degres
     const radian = monAngle.radian
@@ -80,20 +79,21 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
       texte = `$\\${listeTypeQuestions[i]}\\big(${monAngle.radian}\\big)$`
       texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
       texteCorr = `$\\${listeTypeQuestions[i]}\\big(${monAngle.radian}\\big)`
-      let typeDeFonction = ''
+      let valeurFonction = ''
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'cos':
-          typeDeFonction = monAngle.cos
+          setReponse(this, i, monAngle.cos, { formatInteractif: 'calcul' })
+          valeurFonction = Array.isArray(monAngle.cos) ? monAngle.cos[0] : monAngle.cos
           break
         case 'sin':
-          typeDeFonction = monAngle.sin
+          setReponse(this, i, monAngle.sin, { formatInteractif: 'calcul' })
+          valeurFonction = Array.isArray(monAngle.sin) ? monAngle.sin[0] : monAngle.sin
           break
       }
-      texteCorr += `=${typeDeFonction}$`
-      setReponse(this, i, typeDeFonction, { formatInteractif: 'calcul' })
+      texteCorr += `=${valeurFonction}$`
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, listeTypeQuestions[i], monAngle.degres)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, listeTypeQuestions[i][0], monAngle.degres[0])) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
