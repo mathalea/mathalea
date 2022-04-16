@@ -51,96 +51,96 @@ class ModelePatrons {
                     {}, {}, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
                 ],
                 [
-                    {}, { bordG: c, bordH: b },{ bordG: c, bordH: a }, {}, {}
+                    {}, { bordG: c, bordH: b }, { bordG: c, bordH: a }, {}, {}
                 ]
             ],
             [
                 [
-                    {}, { bordG: c, bordH: b },{ bordG: c, bordH: a }, {}, {}
+                    {}, { bordG: c, bordH: b }, { bordG: c, bordH: a }, {}, {}
                 ],
                 [
                     {}, {}, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
                 ],
                 [
-                    {},{},{}, { bordG: a, bordH: c }, {}
+                    {}, {}, {}, { bordG: a, bordH: c }, {}
                 ]
             ],
             [
                 [
-                    {}, {},{ bordG: c, bordH: a }, {}, {}
+                    {}, {}, { bordG: c, bordH: a }, {}, {}
                 ],
                 [
                     {}, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
                 ],
                 [
-                    {},{}, { bordG: c, bordH: a }, {},{}
+                    {}, {}, { bordG: c, bordH: a }, {}, {}
                 ]
             ],
             [
                 [
-                    {},{ bordG: a, bordH: c }, {}, {},{}
+                    {}, { bordG: a, bordH: c }, {}, {}, {}
                 ],
                 [
                     {}, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
                 ],
                 [
-                    {},{ bordG: a, bordH: c }, {}, {},{}
+                    {}, { bordG: a, bordH: c }, {}, {}, {}
                 ]
             ],
             [
                 [
-                    {},{ bordG: a, bordH: c }, {}, {},{}
+                    {}, { bordG: a, bordH: c }, {}, {}, {}
                 ],
                 [
                     {}, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
                 ],
                 [
-                    {},{},{ bordG: c, bordH: a }, {}, {}
+                    {}, {}, { bordG: c, bordH: a }, {}, {}
                 ]
             ],
             [
                 [
-                    {}, {},{},{ bordG: a, bordH: c }, {}
+                    {}, {}, {}, { bordG: a, bordH: c }, {}
                 ],
                 [
                     {}, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
                 ],
                 [
-                    {},{ bordG: a, bordH: c }, {}, {},{}
+                    {}, { bordG: a, bordH: c }, {}, {}, {}
                 ]
             ],
             [
                 [
-                    {},{ bordG: c, bordH: b } ,{ bordG: c, bordH: a },{},{}
+                    {}, { bordG: c, bordH: b }, { bordG: c, bordH: a }, {}, {}
                 ],
                 [
                     {}, {}, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
                 ],
                 [
-                    {},{}, {}, {},{ bordG: c, bordH: a }
+                    {}, {}, {}, {}, { bordG: c, bordH: a }
                 ]
-            ]
-        ],
-        [
-            [
-                {},{} ,{},{},{}
             ],
             [
-                { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a },{},{}
+                [
+                    {}, {}, {}, {}, {}
+                ],
+                [
+                    { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, {}, {}
+                ],
+                [
+                    {}, {}, { bordG: c, bordH: a }, { bordG: c, bordH: b }, { bordG: c, bordH: a }
+                ]
             ],
             [
-                {},{},{ bordG: c, bordH: a },{bordG: c, bordH: b},{ bordG: c, bordH: a }
-            ]
-        ],
-        [
-            [
-                {},{} ,{},{},{ bordG: c, bordH: a }
-            ],
-            [
-                {},{ bordG: b, bordH: c },{ bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
-            ],
-            [
-                {},{ bordG: a, bordH: c },{},{},{}
+                [
+                    {}, {}, {}, {}, { bordG: c, bordH: a }
+                ],
+                [
+                    {}, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }
+                ],
+                [
+                    {}, { bordG: a, bordH: c }, {}, {}, {}
+                ]
             ]
         ]
     }
@@ -155,7 +155,10 @@ export default class PatronsSolides extends Exercice {
     }
 
     nouvelleVersion() {
-        const a = randint(1, 10)
-        const b = randint(1, 10)
+        const a = randint(1, 5)
+        const b = randint(1, 5, a)
+        const c = randint(1, 5, [a, b])
+        const mesModeles = new ModelePatrons(a, b, c)
+        console.log(mesModeles)
     }
 }
