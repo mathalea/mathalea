@@ -80,7 +80,7 @@ export default function CosetSin () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
+    let mesAnglesAleatoires = []
     const typeQuestionsDisponibles = ['cos', 'sin'] // On créé 2 types de questions
     // Mettre dans cette liste, les angles du premier quart de cercle.
     const mesAngles = [
@@ -96,31 +96,31 @@ export default function CosetSin () {
     for (let i = 0; i < nombreAnglesDeBase; i++) {
       mesAngles.push(angleOppose(mesAngles[i]), angleComplementaire(mesAngles[i]), angleSupplementaire(mesAngles[i]))
     }
-  }
-  if (this.sup === 1) {
-    const mesAnglesNiv1 = mesAngles.slice(0, nombreAnglesDeBase)
-    const mesAnglesAleatoires = combinaisonListes(mesAnglesNiv1, this.nbQuestions)
-  }
-  if (this.sup === 2) {
-    const mesAnglesNiv2 = mesAngles.slice(nombreAnglesDeBase, 4 * nombreAnglesDeBase)
-    const mesAnglesAleatoires = combinaisonListes(mesAnglesNiv2, this.nbQuestions)
-  }
-  if (this.sup === 3) {
-    for (let i = 0; i < nombreAnglesDeBase; i++) {
-      for (let k = -5; k < 6; k++) {
-        if (k !== 0) mesAngles.push(angleModulo(mesAngles[i % nombreAnglesDeBase], k))
+
+    if (this.sup === 1) {
+      const mesAnglesNiv1 = mesAngles.slice(0, nombreAnglesDeBase)
+      mesAnglesAleatoires = combinaisonListes(mesAnglesNiv1, this.nbQuestions)
+    }
+    if (this.sup === 2) {
+      const mesAnglesNiv2 = mesAngles.slice(nombreAnglesDeBase, 4 * nombreAnglesDeBase)
+      mesAnglesAleatoires = combinaisonListes(mesAnglesNiv2, this.nbQuestions)
+    }
+    if (this.sup === 3) {
+      for (let i = 0; i < nombreAnglesDeBase; i++) {
+        for (let k = -5; k < 6; k++) {
+          if (k !== 0) mesAngles.push(angleModulo(mesAngles[i % nombreAnglesDeBase], k))
+        }
+        const mesAnglesNiv3 = mesAngles.slice(4 * nombreAnglesDeBase)
+        mesAnglesAleatoires = combinaisonListes(mesAnglesNiv3, this.nbQuestions)
       }
-      const mesAnglesNiv3 = mesAngles.slice(4 * nombreAnglesDeBase)
-      const mesAnglesAleatoires = combinaisonListes(mesAnglesNiv3, this.nbQuestions)
-    }}
+    }
 
     // const mesAnglesAleatoires = combinaisonListes(mesAngles, this.nbQuestions)
 
     // On mélange
     if (this.nbQuestions > 10 && this.sup === 1) this.nbQuestions = 10 // on bride car il n'y a que 10 question différentes au niveau 1
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) 
-    { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const monAngle = mesAnglesAleatoires[i]
       /* const degres = monAngle.degres
       const radian = monAngle.radian
