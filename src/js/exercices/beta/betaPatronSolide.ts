@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { combinaisonListes, listeQuestionsToContenu, randint, range, shuffle } from '../../modules/outils.js'
 import { boite, fixeBordures, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Compléter des patrons de solides'
 export const interactifReady = true
@@ -145,14 +145,110 @@ class ModelePatrons {
       ]
     }
 }
-
+class FauxPatrons {
+  erzatz: {patron: Patron, fauxCube: boolean, collision: number[][]}[]
+  constructor (a, b, c) {
+    this.erzatz = [
+      {
+        patron: [
+          [
+            { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }
+          ],
+          [
+            { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: null, bordH: null }
+          ],
+          [
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          ]
+        ],
+        fauxCube: true, // est un faux patron même si a=b=c
+        collision: [[0, 0], [0, 3]] // Les faces [0,0] et [0,3] sont les mêmes
+      },
+      {
+        patron: [
+          [
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          ],
+          [
+            { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: null, bordH: null }
+          ],
+          [
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          ]
+        ],
+        fauxCube: true, // est un faux patron même si a=b=c
+        collision: [[1, 2], [null, null]] // il n'y a pas de collision, il manque la face opposée à la face [1,2]
+      },
+      {
+        patron: [
+          [
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          ],
+          [
+            { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: null, bordH: null }
+          ],
+          [
+            { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }
+          ]
+        ],
+        fauxCube: true,
+        collision: [[2, 1], [2, 3]]
+      },
+      {
+        patron: [
+          [
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          ],
+          [
+            { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: null, bordH: null }
+          ],
+          [
+            { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }
+          ]
+        ],
+        fauxCube: true,
+        collision: [[2, 0], [2, 3]]
+      },
+      {
+        patron: [
+          [
+            { bordG: a, bordH: b }, { bordG: a, bordH: c }, { bordG: null, bordH: null }, { bordG: a, bordH: c }, { bordG: null, bordH: null }
+          ],
+          [
+            { bordG: null, bordH: null }, { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: null, bordH: null }
+          ],
+          [
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          ]
+        ],
+        fauxCube: true,
+        collision: [[0, 1], [0, 3]]
+      },
+      {
+        patron: [
+          [
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          ],
+          [
+            { bordG: b, bordH: c }, { bordG: b, bordH: a }, { bordG: b, bordH: a }, { bordG: b, bordH: c }, { bordG: null, bordH: null }
+          ],
+          [
+            { bordG: null, bordH: null }, { bordG: null, bordH: null }, { bordG: c, bordH: a }, { bordG: null, bordH: null }, { bordG: null, bordH: null }
+          ]
+        ],
+        fauxCube: false, // Si a===c, c'est bien un patron de pave, il n'est faux que si c!==a (il faudra éviter ce cas pour les pavés)
+        collision: [[1, 1], [1, 2]]
+      }
+    ]
+  }
+}
 export default class PatronsSolides extends Exercice {
     sup: string
     besoinFormulaireTexte: string[]
     constructor () {
       super()
       this.sup = '1-2-3' // Cette ligne est très importante pour faire faire un exercice simple !
-      this.nbQuestions = 1
+      this.nbQuestions = 3
       this.besoinFormulaireTexte = ['Trois dimensions du parallélépipède rectangle séparés par des tirets']
     }
 
@@ -194,12 +290,32 @@ export default class PatronsSolides extends Exercice {
         }
         return forme
       }
+      /*
       const dimensions = this.sup.split('-')
       const [a, b, c] = [parseInt(dimensions[0]), parseInt(dimensions[1]), parseInt(dimensions[2])]
-      const mesModeles = new ModelePatrons(a, b, c)
-      for (let numero = 0; numero < 11; numero++) {
-        const monPatron = dessinePatron(mesModeles.patrons[numero])
-        const texte = mathalea2d(fixeBordures(monPatron), monPatron)
+      */
+      for (let i = 0; i < this.nbQuestions; i++) {
+        const a = randint(1, 5)
+        const b = randint(1, 5, a)
+        const c = randint(1, 5, [a, b])
+        const mesModeles = new ModelePatrons(a, b, c)
+        const mesFaux = new FauxPatrons(a, b, c)
+        const nombreDeFaux = randint(1, 3)
+        const nombreDeVrais = 5 - nombreDeFaux
+        const vraisPatronsNumeros = shuffle(range(10)).slice(0, nombreDeVrais)
+        const fauxPatronsNumeros = shuffle(range(5)).slice(0, nombreDeFaux)
+        let propositions: {patron: object[], trueOrfalse: boolean}[] = []
+        for (const indice of vraisPatronsNumeros) {
+          propositions.push({ patron: dessinePatron(mesModeles.patrons[indice]), trueOrfalse: true })
+        }
+        for (const indice of fauxPatronsNumeros) {
+          propositions.push({ patron: dessinePatron(mesFaux.erzatz[indice].patron), trueOrfalse: false })
+        }
+        propositions = shuffle(propositions)
+        let texte = ''
+        for (const proposition of propositions) {
+          texte += mathalea2d(Object.assign(fixeBordures(proposition.patron), { style: 'display: inline' }), proposition.patron)
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push('')
       }
