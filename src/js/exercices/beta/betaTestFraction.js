@@ -28,12 +28,11 @@ export default function testFractions () {
   this.nouvelleVersion = function () {
     const engine = new ComputeEngine({ numericMode: 'decimal', numericPrecision: 30 })
     const rac3 = engine.parse('\\frac{\\sqrt{3}}{2}')
-    const sinPiSur3 = engine.parse('\\sin{\\frac{\\pi}{3}}')
+    const sinPiSur3 = engine.parse('\\sin(\\frac{\\pi}{3})')
     console.log(rac3.valueOf(), sinPiSur3.valueOf())
 
     this.listeCorrections = []
     this.listeQuestions = []
-    console.log(fraction(1 / 6))
     const a = Number(evaluate(this.sup)) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999)
     const b = Number(evaluate(this.sup2)) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999) / 10 ** 12
     const f1 = new FractionX(a, b)
