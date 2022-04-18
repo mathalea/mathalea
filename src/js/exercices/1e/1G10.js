@@ -33,7 +33,7 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     this.autoCorrection = []
     let mesAnglesAleatoires = []
     // Mettre dans cette liste, les angles du premier quart de cercle.
-    const mesAngles = [
+    let mesAngles = [
       { degres: '90', cos: '0', sin: '1', radian: '\\dfrac{\\pi}{2}' },
       { degres: '45', cos: '\\dfrac{\\sqrt{2}}{2}', sin: '\\dfrac{\\sqrt{2}}{2}', radian: '\\dfrac{\\pi}{4}' },
       { degres: '60', cos: ['\\dfrac{1}{2}', '0.5'], sin: '\\dfrac{\\sqrt{3}}{2}', radian: '\\dfrac{\\pi}{3}' },
@@ -43,12 +43,21 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     const mesAnglesNiv1 = mesAngles.slice()
     const nombreAnglesDeBase = mesAngles.length
 
-    // ici on complète la liste avec tous les angles associés en faisant attention de ne pas ajouter deux fois les mêmes.
+    /*  // ici on complète la liste avec tous les angles associés en faisant attention de ne pas ajouter deux fois les mêmes.
     for (let i = 0; i < nombreAnglesDeBase; i++) {
       if (!mesAngles.find(element => angleOppose(mesAngles[i]).radian === element.radian)) mesAngles.push(angleOppose(mesAngles[i]))
       if (!mesAngles.find(element => angleComplementaire(mesAngles[i]).radian === element.radian)) mesAngles.push(angleComplementaire(mesAngles[i]))
       if (!mesAngles.find(element => angleSupplementaire(mesAngles[i]).radian === element.radian)) mesAngles.push(angleSupplementaire(mesAngles[i]))
+    } */
+
+    // factorisation du code
+    // ici on complète la liste avec tous les angles associés en faisant des doublons
+    for (let i = 0; i < nombreAnglesDeBase; i++) {
+      mesAngles.push(angleOppose(mesAngles[i]), angleComplementaire(mesAngles[i]), angleSupplementaire(mesAngles[i]))
     }
+    // On supprime les doublons en regardant les degrés (c'est plus rapide que les chaines des radians)
+    mesAngles = [...new Map(mesAngles.map(item => [item.degres, item])).values()]
+
     const mesAnglesNiv2 = mesAngles.slice()
     for (let i = 0; i < nombreAnglesDeBase; i++) {
       for (let k = -5; k < 6; k++) {
@@ -56,6 +65,8 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
       }
     }
     const mesAnglesNiv3 = mesAngles.slice()
+    // Test pour voir s'il y a des doublons
+    // mesAnglesNiv3 = [...new Map(mesAnglesNiv3.map(item => [item.degres, item])).values()]
 
     if (this.nbQuestions > 10 && this.sup === 1) this.nbQuestions = 10 // on bride car il n'y a que 10 question différentes au niveau 1
     else if (this.nbQuestions > 26 && this.sup === 2) this.nbQuestions = 26 // Le bridage est un peu plus large pour le niveau 2
@@ -104,11 +115,11 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
   }
 }
 
-function angleOppose (angle) { // retourne un objet angle contenant l'angle opposé
+function angleOppose (angle) { // retourne l'angle opposé d'un angle du premier cadrant (sinon, on pourrait avoir plusieurs signe '-' collés ensemble)
   if (angle.degres === '0') return angle
   else { return { degres: '-' + angle.degres, cos: angle.cos, sin: angle.sin === '0' ? angle.sin : '-' + angle.sin, radian: '-' + angle.radian } }
 }
-function complementaireRad (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son complémentaire
+function complementaireRad (angleEnRadian) { // retourne la mesure en radians du complémentaire d'un angle du premier quadrant donné également en radians
   switch (angleEnRadian) {
     case '\\dfrac{\\pi}{4}':
       return angleEnRadian
@@ -122,7 +133,7 @@ function complementaireRad (angleEnRadian) { // fonction utilitaire pour passer 
       return '\\dfrac{\\pi}{2}'
   }
 }
-function supplementaireRad (angleEnRadian) { // fonction utilitaire pour passer d'un angle en radian à son supplémentaire
+function supplementaireRad (angleEnRadian) { // retourne la mesure en radians du supplémentaire d'un angle du premier quadrant donné également en radians
   switch (angleEnRadian) {
     case '\\dfrac{\\pi}{4}':
       return '\\dfrac{3\\pi}{4}'
@@ -136,13 +147,13 @@ function supplementaireRad (angleEnRadian) { // fonction utilitaire pour passer 
       return '\\pi'
   }
 }
-function angleComplementaire (angle) { // retourne un objet angle contenant l'angle complémentaire
+function angleComplementaire (angle) { // retourne l'angle complémentaire d'un angle du premier cadrant
   return { degres: (90 - parseInt(angle.degres)).toString(), cos: angle.sin, sin: angle.cos, radian: complementaireRad(angle.radian) }
 }
-function angleSupplementaire (angle) { // retourne un objet angle contenant l'angle supplémentaire
+function angleSupplementaire (angle) { // retourne l'angle supplémentaire d'un angle du premier cadrant
   return { degres: (180 - parseInt(angle.degres)).toString(), cos: angle.cos === '0' ? '0' : '-' + angle.cos, sin: angle.sin, radian: supplementaireRad(angle.radian) }
 }
-function moduloRad (angleEnRadian, k) {
+/* function moduloRad (angleEnRadian, k) {
   switch (angleEnRadian) {
     case '\\dfrac{\\pi}{4}':
       return `\\dfrac{${8 * k + 1}\\pi}{4}`
@@ -155,7 +166,22 @@ function moduloRad (angleEnRadian, k) {
     case '0' :
       return `${2 * k}\\pi`
   }
+} */
+
+function moduloRad (angleEnDegre, k) {
+  const coef = 360 / parseInt(angleEnDegre)
+  if (angleEnDegre === '0') {
+    return `${2 * k}\\pi`
+  } else return `\\dfrac{${coef * k + 1}\\pi}{${coef / 2}}`
 }
+
+function moduloDeg (angleEnDegre, k) {
+  const coef = 360 / parseInt(angleEnDegre)
+  if (angleEnDegre === '0') {
+    return ((2 * k) * 180).toString()
+  } else return ((coef * k + 1) * parseInt(angleEnDegre)).toString()
+}
+
 function angleModulo (angle, k) {
-  return { degres: angle.degres, cos: angle.cos, sin: angle.sin, radian: moduloRad(angle.radian, k) }
+  return { degres: moduloDeg(angle.degres, k), cos: angle.cos, sin: angle.sin, radian: moduloRad(angle.degres, k) }
 }
