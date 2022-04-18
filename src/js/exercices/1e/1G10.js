@@ -25,6 +25,10 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     this.video = '' // Id YouTube ou url
     this.sup = 1 // difficulté par défaut
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Quart de cercle trigo\n2 : Avec les angles associés \n3 : Angle quelconque']
+    // TODO: ajouter tangente avec paramètre caché
+    // TODO: ajouter cercle trigonométrique
+    // TODO: solutionnaire détaillé
+    // TODO: Peut-être mettre en paramètre l'étendue des modulos pour avoir un contrôle sur le niveau de difficulté
   }
 
   nouvelleVersion (numeroExercice) {
