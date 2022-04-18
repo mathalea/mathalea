@@ -23,7 +23,7 @@ export default function CalculLongueurThales2 () {
   this.nouvelleVersion = function () {
     let nom, a, b, c, k, A, B, C, D, E, xmin, xmax, ymin, ymax, objets
     if (choice([true, false])) {
-      nom = creerNomDePolygone(5, ['Q'])
+      nom = creerNomDePolygone(5, ['QD'])
       k = choice([1.5, 2, 2.5])
       b = randint(2, 5) * 2//
       a = k * b
@@ -56,7 +56,7 @@ export default function CalculLongueurThales2 () {
                   <br>`
       this.reponse = calcul(a * c / b)
     } else {
-      nom = creerNomDePolygone(5, ['Q'])
+      nom = creerNomDePolygone(5, ['QD'])
       k = choice([1.5, 2, 2.5])
       b = randint(2, 5) * 2//
       a = k * b

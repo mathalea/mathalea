@@ -21,7 +21,7 @@ export default function Perimetre () {
 
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    const nom = creerNomDePolygone(4, ['Q'])
+    const nom = creerNomDePolygone(4, ['QD'])
     const a = randint(3, 6)//
     const c = randint(3, 5) + randint(3, 9) / 10
     const A = point(0, 0, nom[0])

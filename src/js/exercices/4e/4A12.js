@@ -132,17 +132,6 @@ export default function ProblemesEvenementsRecurrents () {
           cycles = ' sorties'
           break
         case 'engrenages':
-          if (context.isHtml) {
-            // eslint-disable-next-line no-var
-            var pourcentage = '100%'
-            let txtIntro = ''
-            const idUnique = `${numeroExercice}_${Date.now()}`
-            const idDivIntro = `divIntro${idUnique}`
-            txtIntro += warnMessage('Attention, les roues ci-dessous ne comportent pas le nombre de dents de l\'énoncé!', 'nombres', 'Coup de pouce')
-            txtIntro += `<div id="${idDivIntro}" style="width: ${pourcentage}; height: 50px; display : table "></div>`
-            svgEngrenages(idDivIntro, 200, 200)
-            this.introduction = txtIntro
-          }
           texte = `Une première roue possède ${nombreAvecEspace(Commun * A)} dents et une seconde en possède ${nombreAvecEspace(Commun * B)}.<br>
           Elles tournent jusqu'à revenir (pour la première fois) en position initiale<br>`
           if (this.interactif) {
@@ -175,6 +164,19 @@ export default function ProblemesEvenementsRecurrents () {
         default:
           break
       }
+      let txtIntro = ''
+      if (context.isHtml && saveurs[i] === 'engrenages') {
+        // eslint-disable-next-line no-var
+        var pourcentage = '100%'
+        const idUnique = `${numeroExercice}_${Date.now()}`
+        const idDivIntro = `divIntro${idUnique}`
+        txtIntro += warnMessage('Attention, les roues ci-dessous ne comportent pas le nombre de dents de l\'énoncé!', 'nombres', 'Coup de pouce')
+        txtIntro += `<div id="${idDivIntro}" style="width: ${pourcentage}; height: 50px; display : table "></div>`
+        svgEngrenages(idDivIntro, 200, 200)
+      } else {
+        txtIntro = ''
+      }
+      this.introduction = txtIntro
       switch (this.sup) {
         case 1:
           decompositionCommun = texteEnCouleurEtGras(nombreAvecEspace(Commun), 'blue')

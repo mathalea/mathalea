@@ -1,17 +1,18 @@
-import Exercice from '../Exercice.js'
-import { fraction } from '../../modules/fractions.js'
+import Exercice from '../../Exercice.js'
+import { fraction } from '../../../modules/fractions.js'
 import {
   mathalea2d, point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codeSegment
-} from '../../modules/2d.js'
-import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, texFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../modules/outils.js'
-import { setReponse } from '../../modules/gestionInteractif.js'
+} from '../../../modules/2d.js'
+import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, texFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
 import { round, min } from 'mathjs'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { context } from '../../../modules/context.js'
 export const titre = 'CAN 3ième sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '26/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '30/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
@@ -381,8 +382,8 @@ export default function SujetCAN20213ieme () {
           ymax = 1
           objets = []
           objets.push(
-            texteParPosition('$3 \\text{ cm} $', milieu(A, C).x, milieu(A, C).y + 0.2, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${b} \\text{ cm} $`, milieu(A, D).x + 0.6, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('$3 \\text{ cm} $', milieu(A, C).x, milieu(A, C).y + 0.25 * context.zoom, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`$${b} \\text{ cm} $`, milieu(A, D).x + 0.4 * context.zoom, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
             segment(B, D), segment(D, C), s1, s2, c)
           reponse = calcul(9 * b / 3)
           texte = 'Donne le volume exact de ce cône.<br>'
@@ -685,7 +686,7 @@ export default function SujetCAN20213ieme () {
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
             texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $3$ segments de longueur $x$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
-                Le périmètre de cette figure est donc : $3\\times x+2\\times ${a}+${b}=2x+${2 * a + b}$.   `
+                Le périmètre de cette figure est donc : $3\\times x+2\\times ${a}+${b}=3x+${2 * a + b}$.   `
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

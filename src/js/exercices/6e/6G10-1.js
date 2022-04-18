@@ -23,8 +23,11 @@ export default function DescriptionSegmentDroiteDemiDroite () {
     this.autoCorrection = []
     const typesDeQuestionsDisponibles = [1, 4, choice([2, 3])]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const p = creerNomDePolygone(2, 'P')
+      if (i % 5 === 0) listeDeNomsDePolygones = ['QD']
+      const p = creerNomDePolygone(2, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(p)
       const A = point(0, calcul(randint(0, 20) / 10), p[0])
       const B = point(4, calcul(randint(0, 20) / 10), p[1])
       const t1 = tracePointSurDroite(A, B)

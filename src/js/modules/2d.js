@@ -3846,14 +3846,18 @@ export function arcMainLevee (M, Omega, angle, amp, rayon = false, fill = 'none'
 */
 /**
  * retourne un couple de coordonnées correspondant au centre d'une cible
- * afin xue le point (x,y) se trouve dans la case correspondante à cellule
+ * afin que le point (x,y) se trouve dans la case correspondante à cellule
  * cellule est une chaine comme 'A1' ou 'B3'
  * @author Jean-Claude Lhote
  */
 export function dansLaCibleCarree (x, y, rang, taille, cellule) {
   const lettre = cellule[0]; const chiffrelettre = lettre.charCodeAt(0) - 64
-  const Taille = Math.floor(4 * taille)
-  const chiffre = parseInt(cellule[1]); const dx = randint(-Taille, Taille) / 10; const dy = randint(-Taille, Taille) / 10
+  // const Taille = Math.floor(3 * taille)
+  const chiffre = parseInt(cellule[1])
+  // dx et dy étaient utilisés pour décentrer le point dans la cellule... cela pouvait entrainer des points très proches des cellules voisines
+  // en recentrant les points dans les cellules, on tolère une plus grande marge d'erreur.
+  const dx = 0 // randint(-Taille, Taille) / 10
+  const dy = 0 // randint(-Taille, Taille) / 10
   const delta = taille / 2
   if (chiffre > rang || chiffrelettre > rang) return 'Cette cellule n\'existe pas dans la cible'
   else {
@@ -3869,10 +3873,10 @@ export function dansLaCibleCarree (x, y, rang, taille, cellule) {
  */
 export function dansLaCibleRonde (x, y, rang, taille, cellule) {
   const lettre = cellule[0]; const chiffrelettre = lettre.charCodeAt(0) - 64
-  const Taille = Math.floor(4 * taille)
+  // const Taille = Math.floor(4 * taille)
   const chiffre = parseInt(cellule[1])
-  const drayon = randint(-Taille, Taille) / 10
-  const dangle = randint(-20, 20)
+  const drayon = 0 // randint(-Taille, Taille) / 10
+  const dangle = randint(-7, 7)
   const angle = (chiffrelettre - 1) * 45 - 157.5 + dangle
   const rayon = taille / 2 + (chiffre - 1) * taille + drayon
   const P = similitude(point(1, 0), point(0, 0), angle, rayon)
@@ -5044,25 +5048,33 @@ export function centreCercleCirconscrit (A, B, C, nom = '', positionLabel = 'abo
  *
  * @author Rémi Angot
  */
-function CodageAngleDroit (A, O, B, color = 'black', d = 0.4) {
+function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacity = 1, fill = 'none', fillopacity = 1) {
   ObjetMathalea2D.call(this)
   this.sommet = O
   this.depart = A
   this.arrivee = B
   this.taille = d
   this.color = color
+  this.couleurDeRemplissage = fill
+  this.opaciteDeRemplissage = fillopacity
 
   this.svg = function (coeff) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / coeff)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille * 20 / coeff)
     let o = {}
+    let result = {}
     if (angleOriente(A, this.sommet, B) > 0) {
       o = rotation(this.sommet, a, -90)
     } else {
       o = rotation(this.sommet, a, 90)
     }
-    const result = polyline([a, o, b], color)
+    if (this.couleurDeRemplissage === 'none') result = polyline([a, o, b], color)
+    else result = polygone([this.sommet, a, o, b], color)
+    result.couleurDeRemplissage = this.couleurDeRemplissage
+    result.opaciteDeRemplissage = this.opaciteDeRemplissage
     result.isVisible = false
+    result.epaisseur = epaisseur
+    result.opacite = opacity
     this.id = result.id
     return result.svg(coeff)
   }
@@ -5070,12 +5082,22 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille / context.scale)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille / context.scale)
     let o = {}
+    let result = {}
     if (angleOriente(A, this.sommet, B) > 0) {
       o = rotation(this.sommet, a, -90)
     } else {
       o = rotation(this.sommet, a, 90)
     }
-    return polyline([a, o, b], color).tikz()
+    if (fill === 'none') return polyline([a, o, b], color).tikz()
+    else {
+      result = polygone([this.sommet, a, o, b], color)
+      result.couleurDeRemplissage = this.couleurDeRemplissage
+      result.opaciteDeRemplissage = this.opaciteDeRemplissage
+      result.isVisible = false
+      result.epaisseur = epaisseur
+      result.opacite = opacity
+      return result.tikz()
+    }
   }
   this.svgml = function (coeff, amp) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / coeff)
@@ -5107,11 +5129,15 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4) {
  * @param {Point} B
  * @param {string} [color='black']
  * @param {number} [d =0.4] Taille de l'angle droit en cm.
+ * @param {number} epaisseur épaisseur du trait
+ * @param {number} opacity opacité du trait
+ * @param {string} fill couleur de remplissage
+ * @param {number} fillopacity opacité de remplissage
  * @returns {CodageAngleDroit} CodageAngleDroit
  * @author Rémi Angot
  */
-export function codageAngleDroit (A, O, B, color = 'black', d = 0.4) {
-  return new CodageAngleDroit(A, O, B, color, d)
+export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacity = 1, fill = 'none', fillopacity = 1) {
+  return new CodageAngleDroit(A, O, B, color, d, epaisseur, opacity, fill, fillopacity)
 }
 /**
  * afficheLongueurSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
@@ -5536,7 +5562,7 @@ export function codeSegments (mark = '||', color = 'black', ...args) {
  *  la ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @author Jean-Claude Lhote
  */
-function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false) {
+function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.debut = debut
@@ -5579,6 +5605,10 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
       const t = texteParPoint(mesure, M, 'milieu', color)
       t.isVisible = false
       objets.push(t)
+    }
+    if (texteACote !== '') {
+      const texteACOTE = texteParPoint(texteACote, M, 'milieu', color, tailleTexte)
+      objets.push(texteACOTE)
     }
     for (const objet of objets) {
       code += '\n\t' + objet.svg(coeff)
@@ -5659,16 +5689,19 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
  * @param {string} [fill='none'] Facultatif. 'none' par défaut
  * @param {number} [fillOpacite=0.2] Facultatif. 0.2 par défaut
  * @param {boolean} [mesureOn=false] Facultatif. false par défaut
+ * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré (from EE)
+ * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle (from EE) : encore optimisable
+ * @param {string} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle (from EE)
  * @returns CodeAngle
  * @example codeAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
- * @author Jean-Claude Lothe
+ * @author Jean-Claude Lhote
  */
-export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false) {
+export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
   if (typeof (angle) !== 'number') {
     angle = angleOriente(debut, centre, angle)
   }
-  if (angle === 90 || angle === -90) {
-    return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille)
+  if ((angle === 90 || angle === -90) & !noAngleDroit) {
+    return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille, epaisseur, opacite, fill, fillOpacite)
   } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, fill, fillOpacite, mesureOn)
 }
 
@@ -5834,7 +5867,7 @@ function DroiteGraduee2 ({
   thickEpaisseur = 2, thickCouleur = axeCouleur, thickDistance = 1, thickOffset = 0, // Les caractéristiques des graduations principales
   thickSecDist = 0.1, thickSec = false, // Les caractéristiques des graduations secondaires. Pas de couleur, on joue sur l'opacité
   thickTerDist = 0.01, thickTer = false, // Les caractéristiques des graduations tertiaires. Pas de couleur, on joue sur l'opacité
-  pointListe = false, labelPointTaille = 10, labelPointLargeur = 10, pointCouleur = 'blue', pointTaille = 4, pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2, // Liste de points et caractéristiques des points de ces points
+  pointListe = false, labelPointTaille = 10, labelPointLargeur = 20, pointCouleur = 'blue', pointTaille = 4, pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2, // Liste de points et caractéristiques des points de ces points
   labelsPrincipaux = true, labelsSecondaires = false, step1 = 1, step2 = 1,
   labelDistance = (axeHauteur + 10) / context.pixelsParCm,
   labelListe = false,
@@ -5861,7 +5894,7 @@ function DroiteGraduee2 ({
     S.epaiseur = axeEpaisseur
   } else {
     S = segment(point(x, y), point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]), axeCouleur)
-    S.styleExtremites = '|->'
+    S.styleExtremites = axeStyle || '|->'
     S.epaiseur = axeEpaisseur
     S.tailleExtremites = axeHauteur
   }
@@ -5926,15 +5959,13 @@ function DroiteGraduee2 ({
   if (pointListe) {
     let lab
     for (const p of pointListe) {
-      P = point(x + (p[0] - Min) * absord[0] * Unite, y + (p[0] - Min) * absord[1] * Unite, p[1], 'above')
+      P = point(x + (p[0] - Min) * absord[0] * Unite, y + (p[0] - Min) * absord[1] * Unite, p[1])
       T = tracePoint(P, pointCouleur)
       T.taille = pointTaille
       T.opacite = pointOpacite
       T.style = pointStyle
       T.epaisseur = pointEpaisseur
-      lab = labelPoint(P)
-      lab.taille = labelPointTaille
-      lab.largeur = labelPointLargeur
+      lab = latexParCoordonnees(p[1], x - 0.8 * absord[1] + (p[0] - Min) * absord[0] * Unite, y + 0.8 * absord[0] + (p[0] - Min) * absord[1] * Unite, pointCouleur, labelPointLargeur, labelPointTaille, '', labelPointTaille)
       objets.push(T, lab)
     }
   }

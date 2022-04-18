@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { randint } from '../../modules/outils.js'
-export const titre = 'Somme de deux entier'
+export const titre = 'Somme de deux entiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -13,13 +13,14 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author Rémi Angot
  * Référence
 */
-export default function NomExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
-  this.nbQuestions = 1
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+export default class NomExercice extends Exercice {
+  constructor () {
+    super()
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.nbQuestions = 1
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     const a = randint(1, 10)
     const b = randint(1, 10)
     this.question = `$${a}+${b}$`

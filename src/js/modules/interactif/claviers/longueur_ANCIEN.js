@@ -81,9 +81,9 @@ const longueursKeyboardLayer = {
     ]
   }
 }
-const longueursKeyboard = {
+const LongueursKeyboard = {
   longueursKeyboard: {
-    label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
+    label: 'Longueurs', // Label displayed in the Virtual Keyboard Switcher
     tooltip: 'Clavier mathématique (longueurs)', // Tooltip when hovering over the label
     layer: 'longueursLayer'
   }
@@ -91,7 +91,7 @@ const longueursKeyboard = {
 
 export const clavierLongueur = {
   customVirtualKeyboardLayers: longueursKeyboardLayer,
-  customVirtualKeyboards: longueursKeyboard,
+  customVirtualKeyboards: LongueursKeyboard,
   virtualKeyboards: 'longueursKeyboard roman',
   inlineShortcuts: {
     mm: { mode: 'math', value: '\\operatorname{mm}' },

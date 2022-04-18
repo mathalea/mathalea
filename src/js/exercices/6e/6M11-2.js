@@ -73,11 +73,11 @@ export default function PerimetreOuAireDeFiguresComposees () {
       const t1 = arrondi(Math.sqrt(4 + h ** 2), 1) // longueur d'un côté du triangle
       const t2 = arrondi(Math.sqrt((c - 2) ** 2 + h ** 2), 1) // longueur de l'autre côté d'un triangle
       let texte = mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 2 }, fixeBordures(objets1, { rxmin: -1, rymin: -1 })), ...objets1)
-      texte += ajouteChampTexteMathLive(this, i * 4, 'longueur', { texte: 'Périmètre : ' })
-      texte += ajouteChampTexteMathLive(this, i * 4 + 1, 'longueur', { texte: '  Aire : ' })
+      texte += ajouteChampTexteMathLive(this, i * 4, 'unites[longueurs]', { texte: 'Périmètre : ' })
+      texte += ajouteChampTexteMathLive(this, i * 4 + 1, 'unites[aires]', { texte: '  Aire : ' })
       texte += mathalea2d(Object.assign({ scale: 0.7, pixelsParCm: 20, zoom: 2 }, fixeBordures(objets2, { rxmin: -1, rymin: -1 })), ...objets2)
-      texte += ajouteChampTexteMathLive(this, i * 4 + 2, 'longueur', { texte: 'Périmètre : ' })
-      texte += ajouteChampTexteMathLive(this, i * 4 + 3, 'longueur', { texte: '  Aire : ' })
+      texte += ajouteChampTexteMathLive(this, i * 4 + 2, 'unites[longueurs]', { texte: 'Périmètre : ' })
+      texte += ajouteChampTexteMathLive(this, i * 4 + 3, 'unites[aires]', { texte: '  Aire : ' })
       let texteCorr = `La première figure est composée d'un rectangle de ${L1} cm par ${l1} cm`
       texteCorr += ` et d'un triangle rectangle dont les côtés de l'angle droit mesurent ${L2} cm et ${l1} cm.<br>`
       texteCorr += `$\\mathcal{P}_{1}=${L1 + L2}+${texNombre(
@@ -172,10 +172,10 @@ export default function PerimetreOuAireDeFiguresComposees () {
           ]
         }
       } else {
-        setReponse(this, i * 4, new Grandeur(L1 + L2 + DA + L1 + l1, 'cm'), { formatInteractif: 'longueur' })
-        setReponse(this, i * 4 + 1, new Grandeur(L1 * l1 + (L2 * l1) / 2, 'cm^2'), { formatInteractif: 'longueur' })
-        setReponse(this, i * 4 + 2, new Grandeur(3 * c + t1 + t2, 'cm'), { formatInteractif: 'longueur' })
-        setReponse(this, i * 4 + 3, new Grandeur(c ** 2 - (c * h) / 2, 'cm^2'), { formatInteractif: 'longueur' })
+        setReponse(this, i * 4, new Grandeur(L1 + L2 + DA + L1 + l1, 'cm'), { formatInteractif: 'unites' })
+        setReponse(this, i * 4 + 1, new Grandeur(L1 * l1 + (L2 * l1) / 2, 'cm^2'), { formatInteractif: 'unites' })
+        setReponse(this, i * 4 + 2, new Grandeur(3 * c + t1 + t2, 'cm'), { formatInteractif: 'unites' })
+        setReponse(this, i * 4 + 3, new Grandeur(c ** 2 - (c * h) / 2, 'cm^2'), { formatInteractif: 'unites' })
       }
       if (this.questionJamaisPosee(i, L1, L2, l1, c, h)) {
         this.listeQuestions.push(texte)

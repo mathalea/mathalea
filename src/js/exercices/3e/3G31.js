@@ -46,7 +46,7 @@ export default function CalculDAngle () {
     else mEp = ''
     if (this.correctionDetaillee) mEp2 = '<br>'
     else mEp2 = ''
-    const nom = creerNomDePolygone(3)
+    const nom = creerNomDePolygone(3, 'QD')
     let texte = ''; let texteCorr = ''; const objetsEnonce = []; const objetsCorrection = []; let choixRapportTrigo
     let ab, bc, ac, angleABC
     if (this.level === 4) {
