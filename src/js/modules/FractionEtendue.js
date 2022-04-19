@@ -541,9 +541,6 @@ export default class FractionX extends Fraction {
   texSimplificationAvecEtapes () {
     if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
     else if (this.estIrreductible && this.num * this.den > 0) { // irréductible mais négatifs
-      const signe = this.signe === -1 ? '-' : ''
-      const num = -this.num
-      const den = -this.den
       return `=${this.texFSD}`
     } else {
       const signe = this.signe === -1 ? '-' : ''
