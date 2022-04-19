@@ -33,7 +33,7 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
       } else {
         typesDeQuestionsDisponibles = this.sup3.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) {
-          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 5, parseInt(typesDeQuestionsDisponibles[i], 2))
+          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 5, parseInt(typesDeQuestionsDisponibles[i]), 2)
         }
       }
     }
