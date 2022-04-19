@@ -1,4 +1,4 @@
-import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif } from './outils.js'
+import { texNombre, arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif, signeMoinsEnEvidence } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow } from 'mathjs'
 import { fraction } from './fractions.js'
@@ -188,6 +188,17 @@ export default class FractionX extends Fraction {
     definePropRo(this, 'texFraction', () => {
       if (!texFraction) texFraction = `\\dfrac{${this.num}}{${this.den}}`
       return texFraction
+    })
+
+    /**
+     * num/den
+     * @property texFractionSR
+     * @type {string}
+     */
+    let texFractionSR // num/den mais sans traitement des signes des numérateur et dénominateur
+    definePropRo(this, 'texFractionSR', () => {
+      if (!texFractionSR) texFractionSR = `\\dfrac{${signeMoinsEnEvidence(this.num)}}{${signeMoinsEnEvidence(this.den)}}`
+      return texFractionSR
     })
 
     /**
@@ -529,18 +540,15 @@ export default class FractionX extends Fraction {
  */
   texSimplificationAvecEtapes () {
     if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
-    else if (this.irreductible && this.num * this.den > 0) { // irréductible mais négatifs
-      const signe = this.signe === -1 ? '-' : ''
-      const num = -this.num
-      const den = -this.den
-      return `=${signe}\\dfrac{${num}}{${den}}`
+    else if (this.estIrreductible && this.num * this.den > 0) { // irréductible mais négatifs
+      return `=${this.texFSD}`
     } else {
       const signe = this.signe === -1 ? '-' : ''
       const num = Math.abs(this.num)
       const den = Math.abs(this.den)
       const pgcd = gcd(num, den)
       if (pgcd !== 1) {
-        return `=\\dfrac{${this.num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${this.den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+        return `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
       } else {
         return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
       }

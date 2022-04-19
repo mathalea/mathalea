@@ -975,6 +975,17 @@ export function ecritureAlgebriquec (a) {
 }
 
 /**
+ * @param {number} r Un nombre relatif
+ * @param {number} precision nombre de chiffres maximum après la virgule pour texNombre.
+ * @returns {string} met en évidence le signe - si r < 0
+ */
+
+export function signeMoinsEnEvidence (r, precision = 0) {
+  if (r < 0) return miseEnEvidence('-') + texNombre(Math.abs(r), precision)
+  else return texNombre(Math.abs(r), precision)
+}
+
+/**
 * Ajoute des parenthèses aux nombres négatifs
 * @Example
 * // 3 ou (-3)
@@ -1433,18 +1444,19 @@ export function simplificationDeFractionAvecEtapes (num, den) {
   if (num === 0) {
     return '=0'
   }
+  const signe = num * den < 0 ? '-' : ''
   const numAbs = Math.abs(num)
   const denAbs = Math.abs(den)
   // Est-ce que le résultat est simplifiable ?
   const s = pgcd(numAbs, denAbs)
   if (s !== 1) {
     if (numAbs % denAbs === 0) { // si le résultat est entier
-      result += `${numAbs / denAbs}`
+      result += `${num / den}`
     } else {
-      result += `${texFraction(texNombre(num / s, 0) + miseEnEvidence('\\times' + s), texNombre(den / s, 0) + miseEnEvidence('\\times' + s))}=${texFractionSigne(num / s, den / s)}`
+      result += `${signe}${texFraction(numAbs / s + miseEnEvidence('\\times' + s), denAbs / s + miseEnEvidence('\\times' + s))}=${texFractionSigne(num / s, den / s)}`
     }
   } else if (num < 0 || den < 0) {
-    result += `${texFractionSigne(numAbs, denAbs)}`
+    result += `${texFractionSigne(num, den)}`
   } else return ''
   return result
 }

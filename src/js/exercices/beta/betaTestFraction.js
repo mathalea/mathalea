@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, simplificationDeFractionAvecEtapes } from '../../modules/outils.js'
 import FractionX from '../../modules/FractionEtendue'
 import { evaluate, Fraction } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive'
@@ -39,7 +39,9 @@ export default function testFractions () {
     setReponse(this, 0, f1, { formatInteractif: 'fractionPlusSimple' })
     console.log(engine.parse(f1.texFSD.replaceAll('dfrac', 'frac')))
     console.log('Fraction selon FractionX : ', f1.num, ' / ', f1.den, ' fraction selon Fraction : ', f2.n, ' / ', f2.d)
-    const texte = `Saisir une fraction ou ce que vous voulez (la réponse attendue est $${f1.texFSD}$ et le mode Interactif est : ${this.autoCorrection[0].reponse.param.formatInteractif}): ` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+    let texte = `Saisir une fraction ou ce que vous voulez (la réponse attendue est $${f1.texFSD}$ et le mode Interactif est : ${this.autoCorrection[0].reponse.param.formatInteractif}): ` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+    texte += `<br>$${f1.texFractionSR}${f1.texSimplificationAvecEtapes()}$<br><br>`
+    texte += `$${f1.texFractionSR}${simplificationDeFractionAvecEtapes(f1.num, f1.den)}$`
 
     this.listeQuestions.push(texte)
     this.listeCorrections.push(`FractionX : $\\dfrac{${f1.num}}{${f1.den}}$<br><br>Fraction : $\\dfrac{${f2.n}}{${f2.d}}$`)
