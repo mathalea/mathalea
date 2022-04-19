@@ -1,4 +1,4 @@
-import { GVVector } from './elements?js'
+import { GVVector } from './elements.js'
 import { GVGraphicView } from './GraphicView.js'
 import { aleaName } from '../outilsMathjs.js'
 import { cross } from 'mathjs'
