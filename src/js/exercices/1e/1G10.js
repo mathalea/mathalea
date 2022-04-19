@@ -61,7 +61,6 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     }
     // On supprime les doublons en regardant les degrés (c'est plus rapide que les chaines des radians)
     mesAngles = [...new Map(mesAngles.map(item => [item.degres, item])).values()]
-
     const mesAnglesNiv2 = mesAngles.slice()
     for (let i = 0; i < nombreAnglesDeBase; i++) {
       for (let k = -5; k < 6; k++) {
@@ -157,20 +156,6 @@ function angleComplementaire (angle) { // retourne l'angle complémentaire d'un 
 function angleSupplementaire (angle) { // retourne l'angle supplémentaire d'un angle du premier cadrant
   return { degres: (180 - parseInt(angle.degres)).toString(), cos: angle.cos === '0' ? '0' : '-' + angle.cos, sin: angle.sin, radian: supplementaireRad(angle.radian) }
 }
-/* function moduloRad (angleEnRadian, k) {
-  switch (angleEnRadian) {
-    case '\\dfrac{\\pi}{4}':
-      return `\\dfrac{${8 * k + 1}\\pi}{4}`
-    case '\\dfrac{\\pi}{6}':
-      return `\\dfrac{${12 * k + 1}\\pi}{6}`
-    case '\\dfrac{\\pi}{3}':
-      return `\\dfrac{${6 * k + 1}\\pi}{3}`
-    case '\\dfrac{\\pi}{2}' :
-      return `\\dfrac{${4 * k + 1}\\pi}{2}`
-    case '0' :
-      return `${2 * k}\\pi`
-  }
-} */
 
 function moduloRad (angleEnDegre, k) {
   const coef = 360 / parseInt(angleEnDegre)
