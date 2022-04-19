@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@bugsnag/js": "^7.16.2",
-    "@cortex-js/compute-engine": "^0.4.4",
+    "@cortex-js/compute-engine": "^0.6.0",
     "@cortex-js/math-json": "^0.1.1",
     "@svgdotjs/svg.js": "^3.1.2",
     "algebrite": "^1.4.0",
