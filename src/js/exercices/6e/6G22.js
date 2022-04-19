@@ -203,12 +203,15 @@ export default function NommerUnAngle () {
           texte += ajouteChampTexteMathLive(this, i * this.sup + jj, 'inline largeur25')
         }
         setReponse(this, i * this.sup + jj, resultat, { formatInteractif: 'texte' })
-        objetsCorrection.push(codeAngle(pt1, pt2, ang, tailleAngle, '', 'none', 1, 1, couleurRemplissageAngle[0], 1, false), segmentsCorrection)
-        texteCorr += this.sup > 1 ? (jj > 0 ? '<br>' : '') + `${numAlpha(jj)}` : ''
-        texteCorr += `L'angle ${couleurRemplissageAngle[1]} se nomme, au choix : $${miseEnEvidence(resultat[0], couleurRemplissageAngle[0])}$`
+        objetsCorrection.push(codeAngle(pt1, pt2, ang, tailleAngle, marquageAngle[jj], couleurAngle, 2, 1, couleurRemplissageAngle[0], 1, false, true), segmentsCorrection)
+        texteCorr += this.sup > 1 ? `<br>${numAlpha(jj)}` : ''
+        texteCorr += 'L\'angle '
+        texteCorr += this.sup3 ? `marqué par ${jj + 1} symbole` + (jj > 0 ? 's' : '') : `${couleurRemplissageAngle[1]}`
+        texteCorr += ` se nomme, au choix : $${miseEnEvidence(resultat[0], couleurRemplissageAngle[0])}$`
         for (let ee = 1; ee < resultat.length; ee++) {
           texteCorr += `, $${miseEnEvidence(resultat[ee], couleurRemplissageAngle[0])}$`
         }
+        texteCorr += '.'
         this.autoCorrection[i * this.sup + jj].enonce = `${texte}\n`
         this.autoCorrection[i * this.sup + jj].propositions = [{
           texte: `$${resultatOK1}$`,
@@ -241,7 +244,7 @@ export default function NommerUnAngle () {
       objetsEnonce.push(p1[0], p1[1], segment(A, N), segment(C, M), labelPoint(M, N, Ibis))
       objetsCorrection.push(p1[0], p1[1], segment(A, N), segment(C, M), labelPoint(M, N, Ibis))
       texte += '<br>' + mathalea2d(params, objetsEnonce)
-      texteCorr += '.<br>' + mathalea2d(params, objetsCorrection)
+      texteCorr += '<br>' + mathalea2d(params, objetsCorrection)
 
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
