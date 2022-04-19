@@ -26,12 +26,13 @@
   },
   "dependencies": {
     "@bugsnag/js": "^7.16.2",
+    "@cortex-js/compute-engine": "^0.6.0",
     "@cortex-js/math-json": "^0.1.1",
     "@svgdotjs/svg.js": "^3.1.2",
     "algebrite": "^1.4.0",
     "clipboard": "^2.0.10",
     "codemirror": "^5.65.2",
-    "core-js": "^3.21.1",
+    "core-js": "^3.22.0",
     "instrumenpoche": "git+https://git.sesamath.net/sesamath/instrumenpoche.git",
     "jquery": "^3.6.0",
     "jquery-ui": "^1.13.1",
@@ -43,12 +44,16 @@
     "qrcode": "^1.5.0",
     "regenerator-runtime": "^0.13.9",
     "seedrandom": "^3.0.5",
-    "sval": "^0.4.8"
+    "sval": "^0.4.8",
+    "ts-loader": "^9.2.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.8",
+    "@babel/core": "^7.17.9",
+    "@babel/eslint-parser": "^7.17.0",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/preset-modules": "^0.1.5",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
     "babel-loader": "^8.2.4",
     "browserslist": "^4.20.2",
     "copy-webpack-plugin": "^8.1.1",
@@ -59,22 +64,25 @@
     "eslint": "^7.32.0",
     "eslint-config-standard": "16.0.2",
     "eslint-import-resolver-node": "^0.3.6",
-    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
     "esm": "^3.2.25",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^6.0.0",
     "jsdoc": "^3.6.10",
+    "jsdoc-plugin-typescript": "^2.0.7",
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "^1.6.2",
     "minimist": "^1.2.6",
-    "playwright": "^1.20.1",
+    "playwright": "^1.21.0",
     "sesajs-date": "git+https://git.sesamath.net/sesamath/sesajs-date.git",
     "standard-version": "^9.3.2",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.3.1",
-    "webpack": "^5.70.0",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.6.3",
+    "webpack": "^5.72.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^3.11.3"
   },
@@ -123,6 +131,43 @@
     },
     "extends": [
       "standard"
+    ],
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+      "requireConfigFile": false
+    },
+    "overrides": [
+      {
+        "files": "test/**/*.js",
+        "rules": {
+          "no-unused-expressions": "off"
+        },
+        "env": {
+          "mocha": true
+        }
+      },
+      {
+        "files": "testsBrowser/**/*.js",
+        "rules": {
+          "no-unused-expressions": "off"
+        },
+        "env": {
+          "mocha": true
+        },
+        "globals": {
+          "$": true,
+          "browser": true,
+          "expect": true
+        }
+      },
+      {
+        "files": "**/*.ts",
+        "excludedFiles": "**/*.js",
+        "parser": "@typescript-eslint/parser",
+        "plugins": [
+          "@typescript-eslint"
+        ]
+      }
     ]
   }
 }

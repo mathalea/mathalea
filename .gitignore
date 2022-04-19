@@ -52,6 +52,7 @@ _private
 .pnpm-debug.log
 # On ignore ce fichier pour ceux qui utilisent npm (ça reste local chez eux)
 package-lock.json
+pnpm.lock.yaml
 
 # traces MacOS
 .DS_Store

@@ -2240,6 +2240,37 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "betaCanTs": {
+    "titre": "TestTS",
+    "url": "/exercices/beta/betaCanTs.ts",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCanTs",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betaPatronSolide": {
+    "titre": "betaPatronSolide",
+    "url": "/exercices/beta/betaPatronSolide.ts",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaPatronSolide",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "3A10": {
     "titre": "Division Euclidienne - Diviseurs - Multiples",
     "url": "/exercices/3e/3A10.js",

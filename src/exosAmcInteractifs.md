@@ -371,7 +371,7 @@
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|betaModele00_simple_Course_au_Nombres|Somme de deux entiers|KO|KO|OK|mathLive|
+|betaModele00_simple_Course_au_Nombres copy|Somme de deux entiers|KO|KO|OK|mathLive|
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |betaModele33_cliqueFractions|Fractions interactives|KO|KO|OK|custom|
 |betaTestFraction|Tester la classe FractionX|KO|KO|OK|mathLive|

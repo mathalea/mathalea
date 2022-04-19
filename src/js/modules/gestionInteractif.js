@@ -8,7 +8,7 @@ import { isUserIdOk } from './interactif/isUserIdOk.js'
 import { gestionCan } from './interactif/gestionCan.js'
 import FractionX from './FractionEtendue.js'
 import Grandeur from './Grandeur.js'
-import { ComputeEngine, parse } from '@cortex-js/math-json'
+import { ComputeEngine } from '@cortex-js/compute-engine'
 
 export function exerciceInteractif (exercice) {
   if (exercice.interactifType === 'qcm')exerciceQcm(exercice)
@@ -88,7 +88,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
         laReponseDemandee = laReponseDemandee.toString().replace(',', '.')
       }
       try {
-        test = engine.canonical(parse(laReponseDemandee))
+        test = engine.parse(laReponseDemandee).canonical
       } catch (error) {
         window.notify('setReponse : type "calcul" la réponse n\'est pas un nombre valide', { reponses, test })
       }
