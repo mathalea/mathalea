@@ -1071,7 +1071,7 @@ export default function problemesTrigoLongueur () {
         case 6:
           {
             let objetsEnonce = []; let paramsEnonce = {}
-       
+
             const AD = randint(5, 9)
             const AE = randint(AD + 1, AD + 4)
             const AC = randint(3, AD - 1)

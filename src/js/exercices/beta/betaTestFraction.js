@@ -1,10 +1,9 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, simplificationDeFractionAvecEtapes, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionX from '../../modules/FractionEtendue'
-import { Fraction, evaluate } from 'mathjs'
+import { evaluate, Fraction } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { fraction } from '../../modules/fractions.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 
 export const interactifReady = true

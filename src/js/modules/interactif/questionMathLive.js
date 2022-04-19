@@ -9,7 +9,7 @@ import { sp, texteExposant } from '../outils.js'
 
 export function verifQuestionMathLive (exercice, i) {
   const engine = new ComputeEngine()
-  let saisieParsee, signeF, num, den, fSaisie, fReponse
+  let saisieParsee, num, den, fSaisie, fReponse
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
