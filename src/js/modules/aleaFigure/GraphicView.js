@@ -417,8 +417,7 @@ export class GVGraphicView {
      * @returns {GVCircle}
      */
   addCircle (C = this.addPoint()[0], X) {
-    let circle
-    circle = new GVCircle(C, X)
+    const circle = new GVCircle(C, X)
     circle.name = this.getNewName(circle.type)
     this.geometric.push(circle)
     return circle
