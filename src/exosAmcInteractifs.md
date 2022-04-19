@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 446 
-- nombre d'exos interactifReady 639 
+- nombre d'exos interactifReady 641 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -364,6 +364,7 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|mathLive|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|mathLive|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
+|beta-CAN6-2022|CAN Sixième sujet 2022|KO|KO|OK|mathLive|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta5N20bis|Additionner ou soustraire deux fractions (dénominateurs multiples)|OK|qcmMono|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
@@ -371,7 +372,7 @@
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|betaModele00_simple_Course_au_Nombres copy|Somme de deux entiers|KO|KO|OK|mathLive|
+|betaModele00_simple_Course_au_Nombres|Somme de deux entiers|KO|KO|OK|mathLive|
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |betaModele33_cliqueFractions|Fractions interactives|KO|KO|OK|custom|
 |betaTestFraction|Tester la classe FractionX|KO|KO|OK|mathLive|
@@ -504,6 +505,7 @@
 |can3S05|Calculer une moyenne|KO|KO|OK|mathLive|
 |can3S06|Déterminer le rang d’une médiane|KO|KO|OK|mathLive|
 |can3a-2021|CAN 3ième sujet 2021|KO|KO|OK|mathLive|
+|can3a-2022|CAN troisième sujet 2022|KO|KO|OK|mathLive|
 |can4C01|Utiliser les priorités opératoires avec des relatifs|OK|AMCNum|OK|mathLive|
 |can4C02|Trouver l’opposé ou l’inverse d’une fraction|OK|AMCNum|OK|mathLive|
 |can4C03|Effectuer une division avec une fraction|OK|AMCNum|OK|mathLive|
