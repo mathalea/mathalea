@@ -50,18 +50,10 @@ export function verifQuestionMathLive (exercice, i) {
           break
         case 'calcul':
         // Le format par défaut
-          // Pour le calcul littéral on remplace dfrac en frac
           saisie = champTexte.value.replace(',', '.')
-          if (typeof reponse === 'string') {
-            reponse = reponse.replaceAll('dfrac', 'frac')
-            // A réfléchir, est-ce qu'on considère que le début est du brouillon ?
-            // saisie = neTientCompteQueDuDernierMembre(saisie)
-          }
-          // Pour le calcul numérique, on transforme la saisie en nombre décimal
-          if (typeof reponse === 'number' || typeof reponse === 'string') {
-            reponse = reponse.toString().replace(',', '.')
-            saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-          }
+          // La réponse est transformée en chaine compatible avec engine.parse()
+          reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
+          saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
           if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
             resultat = 'OK'
           }
