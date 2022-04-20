@@ -2888,7 +2888,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -16120,7 +16120,7 @@ export default {
     }
   },
   "can6a-2018": {
-    "titre": "CAN 6ième sujet 2018",
+    "titre": "CAN Sixième sujet 2018",
     "url": "/exercices/can/6e/can6a-2018.js",
     "amcReady": false,
     "interactifReady": true,
@@ -16142,6 +16142,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6a-2021",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6a-2022": {
+    "titre": "CAN Sixième sujet 2022",
+    "url": "/exercices/can/6e/can6a-2022.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6a-2022",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"

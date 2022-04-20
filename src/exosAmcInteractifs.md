@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 446 
-- nombre d'exos interactifReady 641 
+- nombre d'exos interactifReady 642 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -644,8 +644,9 @@
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |can6P05|Appliquer un pourcentage (bis)|OK|AMCNum|OK|mathLive|
 |can6S01|Lire un diagramme en barres|OK|AMCNum|OK|mathLive|
-|can6a-2018|CAN 6ième sujet 2018|KO|KO|OK|mathLive|
+|can6a-2018|CAN Sixième sujet 2018|KO|KO|OK|mathLive|
 |can6a-2021|CAN Sixième sujet 2021|KO|KO|OK|mathLive|
+|can6a-2022|CAN Sixième sujet 2022|KO|KO|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
 |canExC01|Somme de nombres complexes|OK|AMCHybride|OK|mathLive|
 |canExC02|produit de nombres complexes|OK|AMCHybride|OK|mathLive|
