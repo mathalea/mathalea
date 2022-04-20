@@ -5,7 +5,7 @@ import {
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 
-import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, calcul, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -664,7 +664,7 @@ $${a + 1}$ h et $${reponse}$ min.`
 
           a = randint(1, 9) / 10 + randint(1, 9) / 100
           b = randint(1, 9) / 10
-          reponse = a + b
+          reponse = arrondi(a + b, 2)
           texte = `$${texNombre(a)}+${texNombre(b)}=$`
           texteCorr = ` $${texNombre(a)}+${texNombre(b)}=${texNombre(a + b)}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -760,9 +760,9 @@ $${a + 1}$ h et $${reponse}$ min.`
             a = randint(2, 5)
             b = randint(4, 6)
             c = randint(2, 3)
-            texte = `$${a}$ L de lait coûtent $${b}$ €. Combien coûtent $${b * c}$ L de ce même lait ?`
-            texteCorr = `$${b}$ L coûtent $${c}$ fois plus cher que $${a}$ L, donc $${c * a}$ €.`
-            reponse = c * a
+            texte = `$${a}$ L de lait coûtent $${b}$ €. Combien coûtent $${a * c}$ L de ce même lait ?`
+            texteCorr = `$${a * c}$ L coûtent $${c}$ fois plus cher que $${a}$ L, donc $${b * a}$ €.`
+            reponse = c * b
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€' }
           }
@@ -773,7 +773,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             c = randint(2, 4)
             texte = `Un bus met $${a}$ heures pour faire $${b}$ km. <br>
               Combien d'heures mettra-t-il pour faire $${b * c}$ km ?`
-            texteCorr = `Il mettra $${c}$ fois plus de temps, soit $${c}\\times ${a}=${c * b}$ heures. `
+            texteCorr = `Il mettra $${c}$ fois plus de temps, soit $${c}\\times ${a}=${c * a}$ heures. `
             reponse = c * a
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'h' }
