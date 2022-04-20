@@ -23,7 +23,8 @@ export function verifQuestionMathLive (exercice, i) {
   }
   try {
     // Ici on va s'occuper de ce champTexte qui pose tant de problèmes
-    champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`) || { value: '' }
+    champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+    if (champTexte === {} || champTexte === undefined) champTexte = { value: '' }
     let resultat = 'KO'
     let ii = 0
     while ((resultat === 'KO') && (ii < reponses.length)) {
