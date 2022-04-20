@@ -4,7 +4,7 @@ import {
   mathalea2d, point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, randint, texNombre, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -121,20 +121,20 @@ export default function SujetCAN2022troisieme () {
         case 4:
           if (choice([true, false])) {
             a = randint(1, 13) * 50
-            reponse = a / 100
+            reponse = arrondi(a / 100, 1)
             texte = `$${a}$ cm  $=$`
 
             texteCorr = `
         Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
         Ainsi pour passer des "m" au "cm", on divise par $100$.<br>
-          Comme : $${a}\\div 100 =${texNombre(a / 100, 2)}$, alors $${a}$ cm$=${texNombre(a / 100, 2)}$ m.  `
+          Comme : $${a}\\div 100 =${texNombre(a / 100, 1)}$, alors $${a}$ cm$=${texNombre(a / 100, 1)}$ m.  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm'
             } else { texte += '  $\\ldots$ m' }
           } else {
             a = randint(1, 9) + randint(1, 9) / 10
-            reponse = a * 100
+            reponse = Math.round(a * 100)
             texte = `$${texNombre(a, 1)}$ m  $=$ `
             texteCorr = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
                 Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 2)}$ m$=${texNombre(reponse, 0)}$ cm.`
@@ -185,7 +185,7 @@ export default function SujetCAN2022troisieme () {
           u = randint(21, 99)
           a = randint(1, 9)
           c = randint(1, 9)
-          reponse = u + a * 0.1 + c * 0.001
+          reponse = arrondi(u + a * 0.1 + c * 0.001, 3)
           if (choice([true, false])) {
             texte = `Ecrire sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ `
             texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=${texNombre(u + a / 10 + c / 1000, 3)}$`
@@ -233,7 +233,7 @@ export default function SujetCAN2022troisieme () {
             b = randint(2, 5) + randint(1, 9) / 10
 
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
-            reponse = a * b
+            reponse = arrondi(a * b, 2)
             texte = `Recopie  le résultat de  : 
             $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
@@ -244,7 +244,7 @@ export default function SujetCAN2022troisieme () {
             a = randint(3, 9) + randint(1, 9) / 10
             b = randint(2, 5) + randint(1, 9) / 10
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
-            reponse = a * b
+            reponse = arrondi(a * b, 2)
             texte = `Recopie  le résultat de  : 
                 $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
@@ -255,7 +255,7 @@ export default function SujetCAN2022troisieme () {
             a = randint(45, 49) + randint(1, 9) / 10
             b = randint(25, 29) + randint(1, 9) / 10
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
-            reponse = a * b
+            reponse = arrondi(a * b, 2)
             texte = `Recopie  le résultat de  : 
                     $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
 
@@ -273,7 +273,7 @@ export default function SujetCAN2022troisieme () {
           c = randint(1, 9, b)
           f = a * 100 + b * 10 + c
           d = choice([0.1, 0.01, 0.001])
-          reponse = f * d
+          reponse = arrondi(f * d, 3)
 
           if (d === 0.1) {
             texte = `$${f}\\times ${texNombre(d, 1)}=$`
@@ -336,7 +336,7 @@ export default function SujetCAN2022troisieme () {
         case 13:
 
           a = randint(1, 25) / 100
-          reponse = a * 100
+          reponse = Math.round(a * 100)
           texte = `Complète :<br>
           $${texNombre(a, 2)}=$`
 
@@ -360,7 +360,7 @@ export default function SujetCAN2022troisieme () {
       &=${texNombre(a, 1)}\\times 100\\\\
       &=${100 * a}
       \\end{aligned}$`
-            reponse = 100 * a
+            reponse = Math.round(100 * a)
           } else {
             a = randint(2, 9) + randint(1, 9) / 10
             b = randint(2, 9, 5)
@@ -372,7 +372,7 @@ export default function SujetCAN2022troisieme () {
       &=${texNombre(a, 1)}\\times 10\\\\
       &=${10 * a}
       \\end{aligned}$`
-            reponse = 10 * a
+            reponse = Math.round(10 * a)
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -449,7 +449,7 @@ export default function SujetCAN2022troisieme () {
 
           a = randint(1, 9) * 10
           p = randint(2, 9, 5) * 10
-          reponse = calcul(a * p / 100)
+          reponse = Math.round(a * p / 100)
           texte = `$${p}\\%$ de $${a}= $`
 
           texteCorr = `          Prendre $${p}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\%$  de $${a}$.<br>
@@ -490,11 +490,11 @@ export default function SujetCAN2022troisieme () {
           a = randint(2, 9) + randint(2, 9) / 10 + randint(2, 9) / 100
           b = choice([0.1, 0.01])
 
-          reponse = a / b
+          reponse = arrondi(a / b, 1)
 
           texte = `$${texNombre(a, 2)}\\div ${texNombre(b, 2)}=$
       `
-          texteCorr = `$${texNombre(a, 2)}\\div ${texNombre(b, 2)}=${texNombre(a, 2)}\\times ${texNombre(1 / b, 2)}=${texNombre(reponse, 2)}$.
+          texteCorr = `$${texNombre(a, 2)}\\div ${texNombre(b, 2)}=${texNombre(a, 2)}\\times ${texNombre(1 / b, 0)}=${texNombre(reponse, 1)}$.
           `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -511,7 +511,7 @@ export default function SujetCAN2022troisieme () {
           C = point(6, 4, 'C', 'above')
           D = point(1, 3, 'D', 'above')
           poly = polygone([A, B, C, D], 'black')
-          reponse = 2 * (a + b)
+          reponse = arrondi(2 * (a + b), 1)
           d = texteParPosition(`$${texNombre(a, 1)} \\text{ cm}$`, 6.2, 2, 'milieu', 'black', 1, 'middle', false)
           e = texteParPosition(`$${texNombre(b * 10, 1)} \\text{ mm}$`, 3, 4, 'milieu', 'black', 1, 'middle', false)
           poly.epaisseur = 1
@@ -587,7 +587,7 @@ export default function SujetCAN2022troisieme () {
           fraction23 = choice(listeFractions23)
           a = fraction(fraction23[0], fraction23[1])
           k = randint(3, 9)
-          reponse = fraction23[0] / fraction23[1]
+          reponse = arrondi(fraction23[0] / fraction23[1], 2)
           texte = `Ecriture décimale de $\\dfrac{${fraction23[0] * k}}{${fraction23[1] * k}}$.`
           texteCorr = `En simplifiant, on obtient : $\\dfrac{${fraction23[0] * k}}{${fraction23[1] * k}}=\\dfrac{${fraction23[0]}}{${fraction23[1]}}=${texNombre(reponse, 2)}$`
 
@@ -618,11 +618,11 @@ export default function SujetCAN2022troisieme () {
           a = choice([2, 3, 6]) // diviseur de l'heure
           b = calcul(60 / a) // nombre de minutes de l'énoncé
           c = choice([30, 60, 90, 120])
-          reponse = c / a
+          reponse = Math.round(c / a)
           texte = `Un véhicule se déplace à vitesse constante de $${c}$ km/h. Combien de km parcourt-il en $${b}$ minutes ?`
-          texteCorr = `Le véhicule parcourt $${c / a}$ km.<br>
+          texteCorr = `Le véhicule parcourt $${Math.round(c / a)}$ km.<br>
          En $${b}$ minutes, il parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
-          ${c / a}$ km.`
+          ${Math.round(c / a)}$ km.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km' }
           nbChamps = 1
@@ -724,11 +724,11 @@ export default function SujetCAN2022troisieme () {
 
           a = choice([10, 20, 25, 50])
           if (a === 10) { b = randint(4, 9) } else { b = randint(11, 19) }
-          reponse = 100 / a * b
+          reponse = Math.round(100 / a) * b
           texte = `Sur $${a}$ élèves, $${b}$ ont voté pour Sylvie.<br>
           Quel est le pourcentage de voix de Sylvie ?
       `
-          texteCorr = `$${a}\\times ${100 / a}=100$, donc s'il y avait $100$ élèves, le nombre de  voix de Sylvie serait $${100 / a}\\times ${b}=${reponse}$.<br>
+          texteCorr = `$${a}\\times ${Math.round(100 / a)}=100$, donc s'il y avait $100$ élèves, le nombre de  voix de Sylvie serait $${Math.round(100 / a)}\\times ${b}=${reponse}$.<br>
           Ainsi, le pourcentage de voix de Sylvie est $${reponse} \\%$.
 
           `
