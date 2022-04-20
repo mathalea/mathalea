@@ -4,7 +4,7 @@ import {
   mathalea2d, point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, randint, texNombre, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, shuffle, simplificationDeFractionAvecEtapes, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -430,7 +430,7 @@ export default function SujetCAN2022troisieme () {
         case 17:
           a = randint(1, 5)
           b = choice([0.25, 0.5, 0.75])
-          d = calcul(b * 60)
+          d = b * 60
           if (!this.interactif) {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b, 2)}$ h $=$ ..... h..... min`
             texteCorr = `$${texNombre(a + b, 2)}$h$ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60  = ${a}$ h $${d}$ min`
@@ -616,7 +616,7 @@ export default function SujetCAN2022troisieme () {
 
         case 25:
           a = choice([2, 3, 6]) // diviseur de l'heure
-          b = calcul(60 / a) // nombre de minutes de l'énoncé
+          b = Math.round(60 / a) // nombre de minutes de l'énoncé
           c = choice([30, 60, 90, 120])
           reponse = Math.round(c / a)
           texte = `Un véhicule se déplace à vitesse constante de $${c}$ km/h. Combien de km parcourt-il en $${b}$ minutes ?`
@@ -756,7 +756,7 @@ export default function SujetCAN2022troisieme () {
             b = randint(1, 9)
             c = randint(0, 9)
             d = randint(0, 9, [b, c])
-            a = calcul(b * 100 + c * 10 + d)
+            a = b * 100 + c * 10 + d
             reponse = a % 3
             texte = `Quel est le reste de la division euclidienne de $${a}$ par $3$ ?`
             if (a % 3 === 0) {
@@ -788,7 +788,7 @@ export default function SujetCAN2022troisieme () {
             b = randint(1, 9)
             c = randint(0, 9)
             d = randint(0, 9, [b, c])
-            a = calcul(b * 100 + c * 10 + d)
+            a = b * 100 + c * 10 + d
             reponse = a % 2
             texte = `Quel est le reste de la division euclidienne de $${a}$ par $2$ ?`
             if (a % 2 === 0) {
