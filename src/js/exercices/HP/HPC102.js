@@ -38,7 +38,7 @@ export default function CalculsLoiNormale () {
       listeTypeDeQuestionsDisponibles = ['N01']
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, variables, expression, resultat, resultat_a, resultat_b, bornea, oppbornea, borneb, oppborneb, calculstep, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, variables, expression, resultat, resultat_a, resultat_b, bornea, oppbornea, borneb, oppborneb, mu, sigma, bornec, borned, calculstep, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case 'N01':
           variables = aleaVariables(
@@ -88,21 +88,35 @@ export default function CalculsLoiNormale () {
         case 'Nmusigma':
           variables = aleaVariables(
             {
-              a: 'pickRandom([-1,1])*round(random(0.1,3),2)',
-              b: 'pickRandom([-1,1])*round(random(0.1,3),2)',
+              a: 'pickRandom([-1,1])*round(random(0.1,3),1)',
+              b: 'pickRandom([-1,1])*round(random(0.1,3),1)',
+              mu: 'randomInt(-30, 30)',
+              sigma: 'round(random(0.1,4),1)',
               test: 'a<b'
             }
           )
+          bornec = texNombre(variables.a*variables.sigma + variables.mu)
+          borned = texNombre(variables.b*variables.sigma + variables.mu)
           bornea = texNombre(variables.a)
           oppbornea = texNombre(-variables.a)
           borneb = texNombre(variables.b)
           oppborneb = texNombre(-variables.b)
+          mu = texNombre(variables.mu)
+          sigma = texNombre(variables.sigma)
           resultat = texNombre(0.5 * math.erf(variables.b / sqrt(2)) - 0.5 * math.erf(variables.a / sqrt(2)), 2)
-          expression = `$\\mathrm{P}(${bornea} < X < ${borneb})$`
+          expression = `$\\mathrm{P}(${bornec} < X < ${borned})$`
           calculstep = []
-          texte = 'Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(0,1)$. <br> Calculer ' + expression
-          texteCorr = 'On décompose pour exprimer la probabilité avec la fonction de répartition $t \\mapsto \\mathrm{P}(X \\leq t)$ en utilisant la tabulation de ses valeurs pour $t \\geq 0$ : <br>'
-          calculstep.push(`\\mathrm{P}(${bornea} < X < ${borneb}) &=  \\mathrm{P}(X < ${borneb}) - \\mathrm{P}(X \\leq ${bornea}) &&`)
+          texte = `Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer ` + expression
+          if (variables.mu < 0) {
+            texteCorr = `On pose $Z = \\frac{X + ${texNombre(-variables.mu)}}{${sigma}}$ `
+            calculstep.push(`\\mathrm{P}(${bornec} < X < ${borned}) &=  \\mathrm{P}\\left(\\frac{${bornec} + ${texNombre(-variables.mu)}}{${sigma}}   < \\frac{X + ${texNombre(-variables.mu)}}{${sigma}} < \\frac{${borned} + ${texNombre(-variables.mu)}}{${sigma}}  \\right) &&`)
+          } else {
+            texteCorr = `On pose $Z = \\frac{X - ${mu}}{${sigma}}$ `
+            calculstep.push(`\\mathrm{P}(${bornec} < X < ${borned}) &=  \\mathrm{P}\\left(\\frac{${bornec} - ${mu}}{${sigma}}   < \\frac{X - ${mu}}{${sigma}} < \\frac{${borned} - ${mu}}{${sigma}}  \\right) &&`)
+          }
+          texteCorr += ' de telle sorte que $Z$ suive une loi $\\mathcal{N}(0,1)$. <br><br>'
+          calculstep.push(`&= \\mathrm{P}\\left( ${bornea}   < Z < ${borneb}  \\right)`)
+          calculstep.push(`&=  \\mathrm{P}(X < ${borneb}) - \\mathrm{P}(X \\leq ${bornea}) &&`)
           if (variables.b < 0) {
             resultat_b = texNombre(0.5 + 0.5 * math.erf(-variables.b / sqrt(2)), 3)
             if (variables.a < 0) {
@@ -135,9 +149,9 @@ export default function CalculsLoiNormale () {
       $\begin{aligned}
       ${calculstep.join('\\\\')}
       \end{aligned}$ <br>`
-      texteCorr += `La probabilité est : $\\mathrm{P}(${bornea} < X < ${borneb}) \\approx ${resultat}$` //  ${resultat}$`
+      texteCorr += `La probabilité est : $\\mathrm{P}(${bornec} < X < ${borned}) \\approx ${resultat}$` //  ${resultat}$`
 
-      texte = texte.replaceAll('frac', 'dfrac')
+      //texte = texte.replaceAll('frac', 'dfrac')
       texteCorr = texteCorr.replaceAll('frac', 'dfrac')
 
       if (this.liste_valeurs.indexOf(expression) === -1) {
