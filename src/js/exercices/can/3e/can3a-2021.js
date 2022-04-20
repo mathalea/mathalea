@@ -3,7 +3,7 @@ import { fraction } from '../../../modules/fractions.js'
 import {
   mathalea2d, point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codeSegment
 } from '../../../modules/2d.js'
-import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, texFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, texFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { round, min } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
