@@ -2,6 +2,8 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, shuffle } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
+import { cercle, cercleCentrePoint, codeAngle, latexParPoint, mathalea2d, point, pointSurCercle, segment } from '../../modules/2d.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Valeurs remarquables du cosinus et sinus'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -94,9 +96,9 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 127;) {
       const monAngle = listeTypeQuestions[i][1]
 
-      texte = `$\\${listeTypeQuestions[i][0]}\\big(${monAngle.radian}\\big)$`
+      texte = `$\\${listeTypeQuestions[i][0]}\\left(${monAngle.radian}\\right)$`
       texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
-      texteCorr = `$\\${listeTypeQuestions[i][0]}\\big(${monAngle.radian}\\big)`
+      texteCorr = `$\\${listeTypeQuestions[i][0]}\\left(${monAngle.radian}\\right)`
       let valeurFonction = ''
 
       // listeTypeQuestions[i][0] contient 'cos' ou 'sin', donc on s'en sert pour uniformiser le code et on n'a plus besoin de switch.
@@ -105,6 +107,11 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
       setReponse(this, i, monAngle[listeTypeQuestions[i][0]], { formatInteractif: 'calcul' })
       valeurFonction = Array.isArray(monAngle[listeTypeQuestions[i][0]]) ? monAngle[listeTypeQuestions[i][0]][0] : monAngle[listeTypeQuestions[i][0]]
       texteCorr += `=${valeurFonction}$`
+
+      if (context.isHtml) {
+        texteCorr += '<br><br>'
+        texteCorr += cercleTrigo(monAngle, listeTypeQuestions[i][0])
+      }
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, listeTypeQuestions[i][0][0], listeTypeQuestions[i][1].radian)) { // On regarde l'angle en radian et le type de fonction
@@ -120,7 +127,7 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
 
 function angleOppose (angle) { // retourne l'angle opposé d'un angle du premier cadrant (sinon, on pourrait avoir plusieurs signe '-' collés ensemble)
   if (angle.degres === '0') return angle
-  else { return { degres: '-' + angle.degres, cos: angle.cos, sin: angle.sin === '0' ? angle.sin : '-' + angle.sin, radian: '-' + angle.radian } }
+  else { return { degres: '-' + angle.degres, cos: angle.cos, sin: angle.sin === '0' ? angle.sin : opposeStringArray(angle.sin), radian: '-' + angle.radian } }
 }
 function complementaireRad (angleEnRadian) { // retourne la mesure en radians du complémentaire d'un angle du premier quadrant donné également en radians
   switch (angleEnRadian) {
@@ -154,7 +161,17 @@ function angleComplementaire (angle) { // retourne l'angle complémentaire d'un 
   return { degres: (90 - parseInt(angle.degres)).toString(), cos: angle.sin, sin: angle.cos, radian: complementaireRad(angle.radian) }
 }
 function angleSupplementaire (angle) { // retourne l'angle supplémentaire d'un angle du premier cadrant
-  return { degres: (180 - parseInt(angle.degres)).toString(), cos: angle.cos === '0' ? '0' : '-' + angle.cos, sin: angle.sin, radian: supplementaireRad(angle.radian) }
+  return { degres: (180 - parseInt(angle.degres)).toString(), cos: angle.cos === '0' ? '0' : opposeStringArray(angle.cos), sin: angle.sin, radian: supplementaireRad(angle.radian) }
+}
+
+function opposeStringArray (value) {
+  if (Array.isArray(value)) {
+    const result = []
+    for (const e of value) {
+      result.push('-' + e)
+    }
+    return result
+  } else return '-' + value
 }
 
 function moduloRad (angleEnDegre, k) {
@@ -173,4 +190,55 @@ function moduloDeg (angleEnDegre, k) {
 
 function angleModulo (angle, k) {
   return { degres: moduloDeg(angle.degres, k), cos: angle.cos, sin: angle.sin, radian: moduloRad(angle.degres, k) }
+}
+
+function cercleTrigo (angle, cosOrSin = 'cos') {
+  const monAngle = parseInt(angle.degres)
+  const r = 5
+  const tAngle = angle.radian
+  const tCos = (Array.isArray(angle.cos)) ? angle.cos[0] : angle.cos
+  const tSin = (Array.isArray(angle.sin)) ? angle.sin[0] : angle.sin
+  const O = point(0, 0)
+  const I = point(r, 0)
+  const J = point(0, r)
+  const I2 = point(-r, 0)
+  const J2 = point(0, -r)
+  const s1 = segment(I, I2)
+  const s2 = segment(J, J2)
+  const c = cercleCentrePoint(O, I)
+  const c2 = cercle(O, 1.2 * r)
+  c2.isVisible = false
+  const M = pointSurCercle(c, monAngle)
+  const M2 = pointSurCercle(c2, monAngle)
+  const sOM = segment(O, M)
+  const sOI = segment(O, I)
+  sOM.epaisseur = 3
+  sOM.color = 'blue'
+  sOI.epaisseur = 3
+  sOI.color = 'blue'
+  const x = point(M.x, 0)
+  const y = point(0, M.y)
+  const sMx = segment(M, x)
+  sMx.pointilles = true
+  const sMy = segment(M, y)
+  sMy.pointilles = true
+  const texteAngle = latexParPoint(tAngle, M2)
+  const Rx = point(M.x, (M.y < 0) ? 1.5 : -1.5)
+  const Ry = point((M.x < 0) ? 0.75 : -1.5, M.y)
+  const texteCosinus = latexParPoint(tCos, Rx)
+  const texteSinus = latexParPoint(tSin, Ry)
+  const sCos = segment(O, point(M.x, 0))
+  const sSin = segment(O, point(0, M.y))
+  sCos.epaisseur = 3
+  sSin.epaisseur = 3
+  const marqueAngle = codeAngle(I, O, M)
+  marqueAngle.color = 'blue'
+  marqueAngle.epaisseur = 3
+  const objetsTrigo = []
+  if (cosOrSin === 'cos') {
+    objetsTrigo.push(texteCosinus, sCos, sMx)
+  } else {
+    objetsTrigo.push(texteSinus, sSin, sMy)
+  }
+  return mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1.5 }, c, texteAngle, marqueAngle, s1, s2, ...objetsTrigo, sOM, sOI)
 }

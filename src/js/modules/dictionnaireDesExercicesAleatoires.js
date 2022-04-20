@@ -292,6 +292,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "1G10": {
+    "titre": "Valeurs remarquables du cosinus et sinus",
+    "url": "/exercices/1e/1G10.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "1G10",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "1N10": {
     "titre": "Déterminer les termes d’une suite définie de façon explicite",
     "url": "/exercices/1e/1N10.js",
