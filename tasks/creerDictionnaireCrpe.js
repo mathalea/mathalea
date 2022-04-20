@@ -1,4 +1,4 @@
-const annee = '2019'
+const annee = '2015'
 const testFolder = 'src/assets/crpe/' + annee
 const fs = require('fs')
 let content = ''
@@ -12,9 +12,10 @@ fs.readdir(testFolder, (_err, files) => {
   })
   console.log(listeFichiers)
   // content += listeFichiers.join('\n')
-  for (const lieu of [['g1', 'Groupement 1'], ['g2', 'Groupement 2'], ['g3', 'Groupement 3'], ['g4', 'Groupement 4'], ['g5', 'Groupement 5'], ['cre', 'Créteil'], ['pol', 'Polynésie'], ['aix', 'Aix-Marseille'], ['ver', 'ESPE Versailles'], ['bes', 'ESPE Besançon'], ['bre', 'ESPE Bretagne'], ['cle', 'ESPE Clermont-Ferrand'], ['dij', 'ESPE Dijon'], ['tou', 'ESPE Toulouse'], ['s2', 'ESPE Paris'], ['s4', 'ESPE Paris - Sujet 2'], ['s5', 'ESPE Dijon - Sujet 2'], ['s6', 'ESPE Dijon - Sujet 3 '], ['s7', 'ESPE Paris - Sujet 3'], ['s8', 'ESPE Roche sur Yon'], ['s9', 'ESPE Paris - Sujet 4'], ['s10', 'ESPE Besançon']]) {
-    for (const ex of ['dida', 'dida1', 'dida2', 'dida3', 'dida4', 'dida5']) {
-    // for (const ex of ['ex1', 'ex2', 'ex3', 'ex4', 'ex5', 'pb']) {
+  for (const lieu of [['g1', 'Groupement 1'], ['g2', 'Groupement 2'], ['g3', 'Groupement 3'], ['g4', 'Groupement 4'], ['g5', 'Groupement 5'], ['espe', 'ESPE'], ['cre', 'Créteil'], ['pol', 'Polynésie'], ['aix', 'Aix-Marseille'], ['ver', 'ESPE Versailles'], ['bes', 'ESPE Besançon'], ['bre', 'ESPE Bretagne'], ['cle', 'ESPE Clermont-Ferrand'], ['dij', 'ESPE Dijon'], ['tou', 'ESPE Toulouse'], ['s2', 'ESPE Paris'], ['s4', 'ESPE Paris - Sujet 2'], ['s5', 'ESPE Dijon - Sujet 2'], ['s6', 'ESPE Dijon - Sujet 3 '], ['s7', 'ESPE Paris - Sujet 3'], ['s8', 'ESPE Roche sur Yon'], ['s9', 'ESPE Paris - Sujet 4'], ['s10', 'ESPE Besançon']]) {
+    // for (const ex of ['dida', 'dida1', 'dida2', 'dida3', 'dida4', 'dida5']) {
+    for (const ex of ['ex1', 'ex2', 'ex3', 'ex4', 'ex5', 'pb', 'ex01', 'ex02', 'ex03', 'ex04', 'ex05',
+      'ex06', 'ex07', 'ex08', 'ex09', 'ex10', 'ex11', 'ex12', 'ex13', 'ex14', 'ex15']) {
       let key = `${annee}-${lieu[0]}-${ex}`
       const listePng = listeFichiers.filter(s => s.includes(key))
       const listePngCor = listeFichiersCor.filter(s => s.includes(key))
