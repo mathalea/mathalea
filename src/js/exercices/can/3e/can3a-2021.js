@@ -3,7 +3,7 @@ import { fraction } from '../../../modules/fractions.js'
 import {
   mathalea2d, point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codeSegment
 } from '../../../modules/2d.js'
-import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, texFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, texFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { round, min } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -64,20 +64,20 @@ export default function SujetCAN20213ieme () {
           break
 
         case 2:
-          a = calcul(randint(6, 12) * 4)
-          b = calcul(randint(6, 15) * 3)
+          a = randint(6, 12) * 4
+          b = randint(6, 15) * 3
           m = choice(['quart', 'tiers'])
 
           if (m === 'quart') {
+            reponse = Math.round(a / 4)
             texte = `Le quart de $${a}$ est :  `
             texteCorr = `Prendre le quart d'un nombre revient à le diviser par $4$.<br>
-                Ainsi le quart de $${a}$ est : $${a}\\div 4 =${texNombre(a / 4)}$.`
-            reponse = a / 4
+                Ainsi le quart de $${a}$ est : $${a}\\div 4 =${reponse}$.`
           } if (m === 'tiers') {
+            reponse = Math.round(b / 3)
             texte = `Le tiers de $${b}$ est :  `
             texteCorr = `Prendre le tiers d'un nombre revient à le diviser par $3$.<br>
-                Ainsi le tiers de $${b}$ est : $${b}\\div 3 =${texNombre(b / 3)}$.`
-            reponse = b / 3
+                Ainsi le tiers de $${b}$ est : $${b}\\div 3 =${reponse}$.`
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -92,8 +92,7 @@ export default function SujetCAN20213ieme () {
 
           reponse = a - b
           texte = `$${a} - ${b}=$ `
-          texteCorr = `$${a}-${b}=${a - b}$`
-          reponse = calcul(a - b)
+          texteCorr = `$${a}-${b}=${reponse}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
@@ -101,11 +100,12 @@ export default function SujetCAN20213ieme () {
 
         case 4:
 
-          a = calcul(randint(3, 9) + randint(1, 4) / 10)
-          b = calcul(randint(1, 5) / 10 + randint(2, 9) / 100)
-          texte = `$${texNombre(a)}+${texNombre(b)}=$ `
-          texteCorr = `$${texNombre(a)}+${texNombre(b)}=${texNombre(a + b)}$ `
-          reponse = calcul(a + b)
+          a = randint(3, 9) + randint(1, 4) / 10
+          b = randint(1, 5) / 10 + randint(2, 9) / 100
+          reponse = arrondi(a + b, 2)
+
+          texte = `$${texNombre(a, 1)}+${texNombre(b, 2)}=$ `
+          texteCorr = `$${texNombre(a, 1)}+${texNombre(b, 2)}=${texNombre(reponse, 2)}$ `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -130,17 +130,17 @@ export default function SujetCAN20213ieme () {
           break
 
         case 6:
-          a = calcul(randint(1, 9) * 10 + randint(1, 9) + 0.9 + randint(1, 9) / 100)
-          b = calcul(randint(1, 9) * 10 + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000)
+          a = arrondi(randint(1, 9) * 10 + randint(1, 9) + 0.9 + randint(1, 9) / 100, 2)
+          b = arrondi(randint(1, 9) * 10 + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000, 3)
 
           if (choice([true, false])) {
             texte = `Quel nombre obtient-on si on ajoute un dixième à $${texNombre(a)}$ ?`
             texteCorr = `$1$ dixième $=0,1$, d'où $${texNombre(a)}+0,1 =${texNombre(a + 0.1)}$`
-            reponse = a + 0.1
+            reponse = arrondi(a + 0.1, 2)
           } else {
             texte = `Quel nombre obtient-on si on ajoute un centième à $${texNombre(b)}$ ?`
             texteCorr = `$1$ centième $=0,01$, d'où $${texNombre(b)}+0,01 =${texNombre(b + 0.01)}$`
-            reponse = b + 0.01
+            reponse = arrondi(b + 0.01, 3)
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -151,13 +151,13 @@ export default function SujetCAN20213ieme () {
           a = randint(1, 9)
           b = randint(1, 9, a)
 
-          k = calcul(a * 100 + b * 10)
+          k = a * 100 + b * 10
           d = choice([0.1, 0.01, 0.001])
-          reponse = calcul(k * d)
+          reponse = arrondi(k * d, 2)
 
           if (d === 0.1) {
             texte = `$${k}\\times ${texNombre(d)}=$`
-            texteCorr = `$${k}\\times ${texNombre(d)}=${texNombre(reponse)}$`
+            texteCorr = `$${k}\\times ${texNombre(d)}=${reponse}$`
             texteCorr += `<br>
         Multiplier par $0,1$ revient à diviser par $10$. <br>
                $${k}\\times ${texNombre(d)}=${k}\\div 10=${a}${b},\\underline{0}$.<br>
@@ -165,14 +165,14 @@ export default function SujetCAN20213ieme () {
           }
           if (d === 0.01) {
             texte = `$${k}\\times ${texNombre(d)}=$`
-            texteCorr = `$${k}\\times ${texNombre(d)}=${texNombre(reponse)}$`
+            texteCorr = `$${k}\\times ${texNombre(d)}=${texNombre(reponse, 1)}$`
             texteCorr += `    <br>    Multiplier par $0,01$ revient à diviser par $100$. <br>
                 $${k}\\times ${texNombre(d)}=${k}\\div 100=${a},${b}\\underline{0}$.<br>
                   `
           }
           if (d === 0.001) {
-            texte = `$${k}\\times ${texNombre(d)}=$`
-            texteCorr = `$${k}\\times ${texNombre(d)}=${texNombre(reponse)}$`
+            texte = `$${k}\\times ${texNombre(d, 3)}=$`
+            texteCorr = `$${k}\\times ${texNombre(d)}=${texNombre(reponse, 2)}$`
             texteCorr += `<br>
         Multiplier par $0,001$ revient à diviser par $1000$. <br>
                 $${k}\\times ${texNombre(d)}=${k}\\div 1000=0,${a}${b}\\underline{0}$.<br>
@@ -189,12 +189,12 @@ export default function SujetCAN20213ieme () {
           c = randint(2, 9)
 
           if (choice([true, false])) {
-            reponse = calcul(a * 10000 + b * 100 + c * 10)
+            reponse = a * 10000 + b * 100 + c * 10
             texte = `$${texNombre(a)}\\times ${texNombre(10000)} + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10=$`
             texteCorr = `$${texNombre(a)}\\times ${texNombre(10000)} + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10 =
      ${texNombre(a * 10000)} + ${texNombre(b * 100)} + ${texNombre(c * 10)}=${texNombre(reponse)}$`
           } else {
-            reponse = calcul(c * 10000 + b * 1000 + a * 10)
+            reponse = c * 10000 + b * 1000 + a * 10
             texte = `$ ${texNombre(c)}\\times ${texNombre(10000)}+ ${texNombre(b)}\\times ${texNombre(1000)} + ${texNombre(a)}\\times 10 =$`
             texteCorr = `$ ${texNombre(c)}\\times ${texNombre(10000)}+ ${texNombre(b)}\\times ${texNombre(1000)} + ${texNombre(a)}\\times 10  =
       ${texNombre(c * 10000)}+ ${texNombre(b * 1000)} + ${texNombre(a * 10)} =${texNombre(reponse)}$`
@@ -206,15 +206,15 @@ export default function SujetCAN20213ieme () {
 
         case 9:
           a = randint(2, 6)
-          prix = calcul(2 + randint(1, 3) / 10 + 0.05)
+          prix = 2 + randint(1, 3) / 10 + 0.05
           k = randint(2, 4)
-          reponse = prix * k
-          texte = `$${a}$ stylos identiques coûtent  $${texNombre(prix)}$ €. <br>
+          reponse = arrondi(prix * k, 2)
+          texte = `$${a}$ stylos identiques coûtent  $${texNombre(prix, 2, true)}$ €. <br>
             Combien coûtent $${k * a}$ de ces mêmes stylos ?
              `
 
-          texteCorr = `$${a}$ stylos identiques coûtent  $${texNombre(prix)}$ €, donc $${k * a}$
-           de ces mêmes stylos coûtent  $${k}$ fois plus, soit $${k}\\times ${prix}=${texNombre(k * prix)}$ €.`
+          texteCorr = `$${a}$ stylos identiques coûtent  $${texNombre(prix, 2, true)}$ €, donc $${k * a}$
+           de ces mêmes stylos coûtent  $${k}$ fois plus, soit $${k}\\times ${texNombre(prix, 2, true)}=${texNombre(k * prix, 2, true)}$ €.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €' }
@@ -224,11 +224,11 @@ export default function SujetCAN20213ieme () {
         case 10:
 
           a = randint(11, 24, 20)
-          reponse = calcul(101 * a)
+          reponse = 101 * a
           texte = `$${a}\\times 101=$`
           texteCorr = `$${a}\\times 101 = ${101 * a}$<br>`
 
-          texteCorr += `$${a}\\times 101 = ${a}\\times (100+1)=${a}\\times 100+${a}\\times 1=${a * 100}+${a}=${101 * a}$`
+          texteCorr += `$${a}\\times 101 = ${a}\\times (100+1)=${a}\\times 100+${a}\\times 1=${texNombre(a * 100, 0)}+${a}=${texNombre(101 * a, 0)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -321,7 +321,7 @@ export default function SujetCAN20213ieme () {
           c = randint(2, 5)
           texte = `$f(x)=${a}x+${b}$<br>
           $f(${c})= $ `
-          reponse = calcul(a * c + b)
+          reponse = a * c + b
           texteCorr = `$f(${c})=${a}\\times ${c}+${b}=${a * c}+${b}=${reponse}$. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -333,12 +333,12 @@ export default function SujetCAN20213ieme () {
 
           a = randint(1, 5)
           b = choice([0.25, 0.5, 0.75])
-          d = calcul(b * 60)
+          d = Math.round(b * 60)
           if (!this.interactif) {
             texte = `$${texNombre(a + b)}$ h $=$ ..... h..... min`
             texteCorr = `$${texNombre(a + b)}$h$ = ${a}$ h $ + ${texNombre(b)} \\times 60  = ${a}$ h $${d}$ min`
           } else {
-            texte = `$${texNombre(a + b)}$ h $=$`
+            texte = `$${texNombre(a + b, 2)}$ h $=$`
             texte += ajouteChampTexteMathLive(this, index, 'largeur10 inline', { texteApres: sp(5) + 'h' })
             setReponse(this, index, a)
             texte += ajouteChampTexteMathLive(this, index + 1, 'largeur10 inline', { texteApres: sp(5) + 'min' })
@@ -351,7 +351,7 @@ export default function SujetCAN20213ieme () {
         case 15:
           a = randint(1, 5) * 10
           p = randint(2, 9, 5) * 10
-          reponse = calcul(a * p / 100)
+          reponse = Math.round(a * p / 100)
           texte = `$${p}\\%$ de $${a}= $`
           texteCorr = ` Prendre $${p}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\%$  de $${a}$.<br>
           Comme $10\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors
@@ -385,7 +385,7 @@ export default function SujetCAN20213ieme () {
             texteParPosition('$3 \\text{ cm} $', milieu(A, C).x, milieu(A, C).y + 0.25 * context.zoom, 'milieu', 'black', 1, 'middle', true),
             texteParPosition(`$${b} \\text{ cm} $`, milieu(A, D).x + 0.4 * context.zoom, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
             segment(B, D), segment(D, C), s1, s2, c)
-          reponse = calcul(9 * b / 3)
+          reponse = 3 * b
           texte = 'Donne le volume exact de ce cône.<br>'
           texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
           texteCorr = `Le volume du cône est  : $\\dfrac{1}{3}\\times \\text{(Aire de la base)}\\times \\text{Hauteur}$.<br>
@@ -401,10 +401,10 @@ export default function SujetCAN20213ieme () {
           c = randint(61, 98, [70, 80, 90])
           d = randint(2, 5)
           e = choice([[b, 200 - b], [c, 100 - c], [d, 10 - d]])
-          reponse = calcul(a * e[0] + a * e[1])
+          reponse = a * e[0] + a * e[1]
           texte = `$${a}\\times ${e[0]}+${a}\\times ${e[1]}= $ `
 
-          texteCorr = `$${a}\\times ${e[0]}+${a}\\times ${e[1]}=${a}\\times( ${e[0]}+ ${e[1]})=${a}\\times ${e[0] + e[1]}=${reponse}$.`
+          texteCorr = `$${a}\\times ${e[0]}+${a}\\times ${e[1]}=${a}\\times( ${e[0]}+ ${e[1]})=${a}\\times ${e[0] + e[1]}=${texNombre(reponse, 0)}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -415,9 +415,9 @@ export default function SujetCAN20213ieme () {
           fraction18 = choice(listeFractions18)
           a = fraction(fraction18[0], fraction18[1])
           k = randint(3, 9)
-          reponse = calcul(fraction18[0] / fraction18[1])
+          reponse = arrondi(fraction18[0] / fraction18[1], 2)
           texte = `Ecriture décimale de $\\dfrac{${fraction18[0] * k}}{${fraction18[1] * k}}$.`
-          texteCorr = `En simpplifiant, on obtient : $\\dfrac{${fraction18[0] * k}}{${fraction18[1] * k}}=\\dfrac{${fraction18[0]}}{${fraction18[1]}}=${texNombre(reponse)}$`
+          texteCorr = `En simpplifiant, on obtient : $\\dfrac{${fraction18[0] * k}}{${fraction18[1] * k}}=\\dfrac{${fraction18[0]}}{${fraction18[1]}}=${texNombre(reponse, 2)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -496,11 +496,11 @@ export default function SujetCAN20213ieme () {
         case 20:
           a = choice([5, 10, 20, 30, 40])
           b = randint(1, 3)
-          reponse = calcul(a * 60 * b + 30 * a)
+          reponse = a * 60 * b + 30 * a
           texte = `Un véhicule se déplace à une vitesse de $${a}$ m/s.<br>
           Quelle distance parcourt-il en  $${b}$ min $30$ s ? `
           texteCorr = `En $1$ minute, il parcourt $60\\times ${a}=${60 * a}$ m et en $30$ s, $${60 * a}\\div 2=${30 * a}$.<br>
-          En $${b}$ min $30$ s, il aura parcouru : $${b}\\times ${60 * a}+${30 * a}=${a * (60 * b + 30)}$ m.`
+          En $${b}$ min $30$ s, il aura parcouru : $${b}\\times ${60 * a}+${30 * a}=${texNombre(a * (60 * b + 30), 0)}$ m.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm' } else { texte += '(en m)' }
@@ -508,12 +508,12 @@ export default function SujetCAN20213ieme () {
           break
 
         case 21:
-          a = choice([calcul(randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9)), calcul(randint(1, 9) * 10 + randint(1, 9))])
-          reponse = calcul(a / 1000)
+          a = choice([randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9), randint(1, 9) * 10 + randint(1, 9)])
+          reponse = arrondi(a / 1000, 3)
           texte = `Complète.<br>
          $${a}$ cm$^3 = $ `
           texteCorr = `$1$ cm$^3 = 0,001 $dm$^3$ et $1$ dm$^3 = 1$ L.<br>
-          $${a}$ cm$^3 = ${a}\\times 0,001=${texNombre(reponse)}$ L.`
+          $${a}$ cm$^3 = ${a}\\times 0,001=${texNombre(reponse, 3)}$ L.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L' } else { texte += '$\\ldots$ L ' }
@@ -521,7 +521,7 @@ export default function SujetCAN20213ieme () {
           break
 
         case 22:
-          k = calcul(randint(2, 5) * 10)
+          k = randint(2, 5) * 10
           fraction22 = choice(listeFractions22)
           a = fraction(fraction22[0] * k, fraction22[1] * k)
 
@@ -573,11 +573,11 @@ export default function SujetCAN20213ieme () {
               texteParPosition(`$${b}  $`, milieu(D, E).x + 0.3, milieu(D, E).y, 'milieu', 'black', 1, 'middle', true),
               texteParPosition(`$${a}  $`, milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
-            reponse = printlatex(`4x+${texNombre(calcul(2 * a + b))}`)
+            reponse = printlatex(`4x+${2 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
             texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $4$ segments de longueur $x$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
-          Le périmètre de cette figure est donc : $4\\times x+2\\times ${a}+${b}=4x+${4 * a + b}$.   `
+          Le périmètre de cette figure est donc : $4\\times x+2\\times ${a}+${b}=4x+${2 * a + b}$.   `
           }
           if (choix === 'b') {
             b = randint(7, 12)
@@ -611,7 +611,7 @@ export default function SujetCAN20213ieme () {
               texteParPosition(`$${b}  $`, milieu(D, E).x + 0.3, milieu(D, E).y, 'milieu', 'black', 1, 'middle', true),
               texteParPosition('$x$', milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
               s1, s2, s3, s4, s5, s6, code1, code2, code3, code4, code5, code6, segment(D, E))
-            reponse = printlatex(`2x+${texNombre(calcul(4 * a + b))}`)
+            reponse = printlatex(`2x+${4 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
             texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $2$ segments de longueur $x$, de $4$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
@@ -647,7 +647,7 @@ export default function SujetCAN20213ieme () {
               texteParPosition(`$${b}  $`, milieu(D, E).x + 0.3, milieu(D, E).y, 'milieu', 'black', 1, 'middle', true),
               texteParPosition('$x$', milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
-            reponse = printlatex(`2x+${texNombre(calcul(3 * a + b))}`)
+            reponse = printlatex(`2x+${3 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
             texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $2$ segments de longueur $x$, de $3$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
@@ -682,7 +682,7 @@ export default function SujetCAN20213ieme () {
               texteParPosition(`$${b}  $`, milieu(D, E).x + 0.3, milieu(D, E).y, 'milieu', 'black', 1, 'middle', true),
               texteParPosition(`$${a}$`, milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
               s1, s2, s4, s5, s6, code1, code2, code4, code5, code6, segment(D, E))
-            reponse = printlatex(`3x+${texNombre(calcul(2 * a + b))}`)
+            reponse = printlatex(`3x+${2 * a + b}`)
             texte = 'Exprime en fonction de $x$, le périmètre de cette figure.<br>'
             texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 40, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
             texteCorr = `La figure est composée de $3$ segments de longueur $x$, de $2$ segments de longueur $${a}$ et d'un segment de longueur $${b}$.<br>
@@ -698,7 +698,7 @@ export default function SujetCAN20213ieme () {
           a = randint(-30, -11)
           b = randint(25, 49)
 
-          reponse = calcul(a - b)
+          reponse = a - b
 
           texte = `Donne la solution de l'équation :<br>
           $${a}-x=${b}$`
@@ -715,11 +715,11 @@ export default function SujetCAN20213ieme () {
 
           a = randint(2, 10) * 1000
           b = randint(2, 5)
-          reponse = a * (1 + b / 100)
+          reponse = Math.round(a * (1 + b / 100))
           texte = `           Un capital de $${texNombre(a)}$ € rapporte $${texNombre(b)} \\%$ par an.<br>
            Quelle est la valeur du capital au bout d'un an ?`
           texteCorr = `Le capital est augmenté de $${b}\\%$ de $${texNombre(a)}$, soit de $${texNombre(b / 100)}\\times ${texNombre(a)}=${texNombre(a * b / 100)}$.<br>
-          Le capital au bout d'un an sera donc de : $${texNombre(a)}+ ${texNombre(a * b / 100)}=${texNombre(a + a * b / 100)}$.`
+          Le capital au bout d'un an sera donc de : $${texNombre(a, 0)}+ ${texNombre(a * b / 100, 0)}=${texNombre(a + a * b / 100, 0)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€' }
           nbChamps = 1
@@ -768,10 +768,10 @@ export default function SujetCAN20213ieme () {
         case 27:
           a = randint(2, 6) * 3
           b = randint(4, 9) * 3
-          c = a + b / 100
-          reponse = c / 3
-          texte = `$${texNombre(c)}\\div 3= $`
-          texteCorr = `$${texNombre(c)}\\div 3=(${texNombre(a)}+${texNombre(b / 100)})\\div 3=${texNombre(a)}\\div 3+${texNombre(b / 100)}\\div 3=${texNombre(a / 3)}+${texNombre(b / 300)}=${texNombre(reponse)}$
+          c = arrondi(a + b / 100, 2)
+          reponse = arrondi(c / 3, 2)
+          texte = `$${texNombre(c, 2)}\\div 3= $`
+          texteCorr = `$${texNombre(c, 2)}\\div 3=(${texNombre(a)}+${texNombre(b / 100, 2)})\\div 3=${texNombre(a)}\\div 3+${texNombre(b / 100, 2)}\\div 3=${texNombre(a / 3, 0)}+${texNombre(b / 300, 2)}=${texNombre(reponse, 2)}$
           `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -782,31 +782,31 @@ export default function SujetCAN20213ieme () {
         case 28:
           choix = choice(['a', 'b', 'c'])//
           if (choix === 'a') {
-            a = randint(11, 39, [10, 20, 30]) / 1000
-            truc = a * 100
-            reponse = `${stringNombre(truc)}\\times 10^{-2}`
-            texte = `Ecriture  scientifique de $${texNombre(a)}$`
+            a = arrondi(randint(11, 39, [10, 20, 30]) / 1000, 3)
+            truc = arrondi(a * 100, 1)
+            reponse = `${stringNombre(truc, 1)}\\times 10^{-2}`
+            texte = `Ecriture  scientifique de $${texNombre(a, 3)}$`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
-          Ici : $${texNombre(a)}=\\underbrace{${texNombre(truc)}}_{1\\leqslant ${texNombre(truc)} <10}\\times 10^{-2}$. `
+          Ici : $${texNombre(a, 3)}=\\underbrace{${texNombre(truc, 1)}}_{1\\leqslant ${texNombre(truc, 1)} <10}\\times 10^{-2}$. `
           }
           if (choix === 'b') {
-            a = randint(111, 399, [200, 300]) / 100000
-            truc = a * 1000
-            reponse = `${stringNombre(truc)}\\times 10^{-3}`
-            texte = `Ecriture  scientifique de $${texNombre(a)}$`
+            a = arrondi(randint(111, 399, [200, 300]) / 100000, 5)
+            truc = arrondi(a * 1000, 2)
+            reponse = `${stringNombre(truc, 2)}\\times 10^{-3}`
+            texte = `Ecriture  scientifique de $${texNombre(a, 5)}$`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
-            Ici : $${texNombre(a)}=\\underbrace{${texNombre(truc)}}_{1\\leqslant ${texNombre(truc)} <10}\\times 10^{-3}$. `
+            Ici : $${texNombre(a, 5)}=\\underbrace{${texNombre(truc, 2)}}_{1\\leqslant ${texNombre(truc, 2)} <10}\\times 10^{-3}$. `
           }
           if (choix === 'c') {
-            a = randint(111, 399, [200, 300]) / 1000000
-            truc = a * 10000
-            reponse = `${stringNombre(truc)}\\times 10^{-4}`
-            texte = `Ecriture  scientifique de $${texNombre(a)}$`
+            a = arrondi(randint(111, 399, [200, 300]) / 1000000, 6)
+            truc = arrondi(a * 10000, 2)
+            reponse = `${stringNombre(truc, 2)}\\times 10^{-4}`
+            texte = `Ecriture  scientifique de $${texNombre(a, 6)}$`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
-              Ici : $${texNombre(a)}=\\underbrace{${texNombre(truc)}}_{1\\leqslant ${texNombre(truc)} <10}\\times 10^{-4}$. `
+              Ici : $${texNombre(a, 6)}=\\underbrace{${texNombre(truc, 2)}}_{1\\leqslant ${texNombre(truc, 2)} <10}\\times 10^{-4}$. `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -835,20 +835,20 @@ export default function SujetCAN20213ieme () {
           choix = choice(['a', 'b'])
           if (choix === 'a') {
             a = randint(2, 9) * 4
-            texte = `Un article à $${a}$ € est soldé à $${texNombre(a * 0.75)}$ €.<br>
+            texte = `Un article à $${a}$ € est soldé à $${texNombre(a * 0.75, 2, true)}$ €.<br>
           Quel est le pourcentage de réduction ?`
-            texteCorr = `La réduction est de $${a}-${texNombre(a * 0.75)}=${texNombre(0.25 * a)}$.<br>
-          Le prix de départ était de $${a}$  €. Le pourcentage de réduction est donné par : $\\dfrac{${texNombre(0.25 * a)}}{${a}}=0,25=25\\%$. `
+            texteCorr = `La réduction est de $${a}-${texNombre(a * 0.75, 2, true)}=${texNombre(0.25 * a, 2, true)}$.<br>
+          Le prix de départ était de $${a}$  €. Le pourcentage de réduction est donné par : $\\dfrac{${texNombre(0.25 * a, 2, true)}}{${a}}=0,25=25\\%$. `
             reponse = 25
           }
           if (choix === 'b') {
             a = randint(2, 7) * 10
             b = randint(1, 4) * 10
-            c = 1 - b / 100
-            texte = `Un article à $${a}$ € est soldé à $${texNombre(a * c)}$ €.<br>
+            c = arrondi(1 - b / 100, 2)
+            texte = `Un article à $${a}$ € est soldé à $${texNombre(a * c, 2, true)}$ €.<br>
             Quel est le pourcentage de réduction ?`
-            texteCorr = `La réduction est de $${a}-${texNombre(a * c)}=${texNombre(a - a * c)}$.<br>
-            Le prix de départ était de $${a}$  €. Le pourcentage de réduction est donné par : $\\dfrac{${texNombre(a - a * c)}}{${a}}=${texNombre(b / 100)}=${b}\\%$. `
+            texteCorr = `La réduction est de $${a}-${texNombre(a * c, 2, true)}=${texNombre(a - a * c, 2, true)}$.<br>
+            Le prix de départ était de $${a}$  €. Le pourcentage de réduction est donné par : $\\dfrac{${texNombre(a - a * c, 2, true)}}{${a}}=${texNombre(b / 100, 2)}=${b}\\%$. `
             reponse = b
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

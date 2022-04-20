@@ -4,7 +4,7 @@ import {
   mathalea2d, point, droiteGraduee2, segment, milieu, texteParPosition, codeSegment, polygone, grille
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -173,14 +173,14 @@ export default function SujetCAN2021Sixieme () {
             b = choice([35, 40, 45, 50, 55])
             texte = `Il est $${a}$ h $${b}$ min.<br>
             Dans une demi-heure, quelle heure sera-t-il ?`
-            reponse = calcul(b - 30)
+            reponse = b - 30
             texteCorr = `Une demi-heure est égale à $30$ minutes. Ainsi $${a}$ h $${b}$ min + $30$ min est égal à $${a + 1}$ h $${b - 30}$ min.`
           }
           if (choix === 'b') {
             b = choice([50, 55])
             texte = `Il est $${a}$ h $${b}$ min.<br>
           Dans un quart d'heure, quelle heure sera-t-il ?`
-            reponse = calcul(b - 45)
+            reponse = b - 45
             texteCorr = `Un quart d'heure est égal à $15$ minutes. Ainsi $${a}$ h $${b}$ min + $15$ min est égal à $${a + 1}$ h $${b - 45}$ min.`
           }
           if (this.interactif) {
@@ -226,7 +226,7 @@ export default function SujetCAN2021Sixieme () {
           c = randint(1, 9, [a, b])
           d = randint(1, 9, [a, b, c])
           m = choice(['centaines', 'dizaines'])
-          n = calcul(a * 1000 + b * 100 + c * 10 + d)
+          n = a * 1000 + b * 100 + c * 10 + d
           texte = `Combien y a-t-il de  ${m} en tout dans $${texNombre(n)}$ ? `
           if (a !== 0) {
             if (m === 'centaines') {
@@ -532,7 +532,7 @@ export default function SujetCAN2021Sixieme () {
         case 25:
           if (choice([true, false])) {
             a = randint(1, 10) * choice([1, 10])
-            reponse = calcul(a * 100)
+            reponse = a * 100
             texte = `$${texNombre(a)}$ m  =`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' } else { texte += '$\\ldots$ cm' }
@@ -541,7 +541,7 @@ export default function SujetCAN2021Sixieme () {
                         `
           } else {
             a = randint(1, 12) * choice([1, 10, 100])
-            reponse = calcul(a / 100)
+            reponse = arrondi(a / 100, 2)
             texte = `$${texNombre(a)}$ cm  =`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm' } else { texte += '$\\ldots$ m' }

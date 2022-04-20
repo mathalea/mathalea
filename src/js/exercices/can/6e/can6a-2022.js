@@ -5,7 +5,7 @@ import {
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 
-import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import Grandeur from '../../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -166,26 +166,24 @@ export default function SujetCAN2022Sixieme () {
           if (choix === 'a') {
             a = randint(4, 9) * 3
 
-            reponse = a / 3
+            reponse = Math.round(a / 3)
             texte = `$${a}$ élèves se mettent par groupe de $3$. <br>
           Il y a `
             texteCorr = `Le nombre de groupes est donné par $${a}\\div 3=${a / 3}$.`
           }
           if (choix === 'b') {
-            a = randint(4, 9) * 4
-
-            reponse = a / 4
+            reponse = randint(4, 9)
+            a = reponse * 4
             texte = `$${a}$ élèves se mettent par groupe de $4$. <br>
             Il y a `
             texteCorr = `Le nombre de groupes est donné par $${a}\\div 4=${a / 4}$.`
           }
           if (choix === 'c') {
-            a = randint(4, 7) * 5
-
-            reponse = a / 5
+            reponse = randint(4, 7)
+            a = reponse * 5
             texte = `$${a}$ élèves se mettent par groupe de $5$. <br>
                 Il y a `
-            texteCorr = `Le nombre de groupes est donné par $${a}\\div 5=${a / 5}$.`
+            texteCorr = `Le nombre de groupes est donné par $${a}\\div 5=${reponse}$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'groupes' } else { texte += '$\\ldots$ groupes.' }
@@ -196,25 +194,22 @@ export default function SujetCAN2022Sixieme () {
 
           choix = choice(['a', 'b', 'c'])//, 'b', 'c'
           if (choix === 'a') {
-            a = randint(4, 9) * 4
-
-            reponse = a / 4
+            reponse = randint(4, 9)
+            a = reponse * 4
             texte = `Le quart de $${a}$ est :  `
-            texteCorr = `Le quart de $${a}$ est : $${a}\\div 4=${a / 4}$.`
+            texteCorr = `Le quart de $${a}$ est : $${a}\\div 4=${reponse}$.`
           }
           if (choix === 'b') {
-            a = choice([100, 200, 40, 80, 120, 160])
-
-            reponse = a / 4
+            reponse = choice([25, 50, 10, 20, 30, 40])
+            a = reponse * 4
             texte = `Le quart de $${a}$ est :  `
-            texteCorr = `Le quart de $${a}$ est : $${a}\\div 4=${a / 4}$.`
+            texteCorr = `Le quart de $${a}$ est : $${a}\\div 4=${reponse}$.`
           }
           if (choix === 'c') {
-            a = randint(4, 10) * 3
-
-            reponse = a / 3
+            reponse = randint(4, 10)
+            a = reponse * 3
             texte = `Le tiers de $${a}$ est :  `
-            texteCorr = `Le tiers de $${a}$ est : $${a}\\div 3=${a / 3}$.`
+            texteCorr = `Le tiers de $${a}$ est : $${a}\\div 3=${reponse}$.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$ ' }
@@ -325,17 +320,17 @@ $${a + 1}$ h et $${reponse}$ min.`
           break
 
         case 15:
-          a = calcul(randint(1, 9) + 0.9 + randint(1, 9) / 100)
-          b = calcul(randint(1, 9) + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000)
+          a = arrondi(randint(1, 9) + 0.9 + randint(1, 9) / 100, 2)
+          b = arrondi(randint(1, 9) + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000, 3)
 
           if (choice([true, false])) {
             texte = `Ajoute un dixième à $${texNombre(a)}$ ?`
-            texteCorr = `$1$ dixième $=0,1$, d'où $${texNombre(a)}+0,1 =${texNombre(a + 0.1)}$`
-            reponse = a + 0.1
+            texteCorr = `$1$ dixième $=0,1$, d'où $${texNombre(a, 2)}+0,1 =${texNombre(a + 0.1, 2)}$`
+            reponse = arrondi(a + 0.1, 2)
           } else {
             texte = `Ajoute un centième à $${texNombre(b)}$ ?`
-            texteCorr = `$1$ centième $=0,01$, d'où $${texNombre(b)}+0,01 =${texNombre(b + 0.01)}$`
-            reponse = b + 0.01
+            texteCorr = `$1$ centième $=0,01$, d'où $${texNombre(b, 3)}+0,01 =${texNombre(b + 0.01, 3)}$`
+            reponse = arrondi(b + 0.01, 3)
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -404,23 +399,23 @@ $${a + 1}$ h et $${reponse}$ min.`
         case 18:
           if (choice([true, false])) {
             a = randint(1, 13) * 50
-            reponse = a / 1000
+            reponse = arrondi(a / 1000, 2)
             texte = `$${texNombre(a)}$ g  =`
 
             texteCorr = `
     Comme $1$ kg $=${texNombre(1000)}$ g, alors $1$ g $=0,001$ kg.<br>
     Ainsi pour passer des "g" au "kg", on divise par $${texNombre(1000)}$.<br>
-      Comme : $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000)}$, alors $${texNombre(a)}$ g$=${texNombre(a / 1000)}$ kg.  `
+      Comme : $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000, 2)}$, alors $${texNombre(a)}$ g$=${texNombre(reponse, 2)}$ kg.  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'kg'
             } else { texte += '  $\\ldots$ kg' }
           } else {
             a = randint(1, 5) / 10
-            reponse = a * 1000
-            texte = `$${texNombre(a)}$ kg  = `
+            reponse = Math.round(a * 1000)
+            texte = `$${texNombre(a, 1)}$ kg  = `
             texteCorr = ` Comme $1$ kg $=${texNombre(1000)}$ g,  pour passer des "kg" au "g", on multiplie par $${texNombre(1000)}$.<br>
-            Comme : $${texNombre(a)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a)}$ kg$=${reponse}$ g.`
+            Comme : $${texNombre(a, 1)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a, 1)}$ kg$=${reponse}$ g.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'g'
@@ -449,7 +444,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           if (choix === 'b') {
             texte = `Ecris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille `
-            reponse = calcul(2 * 1000000 + chiffre[a][1] * 1000)
+            reponse = 2 * 1000000 + chiffre[a][1] * 1000
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${texNombre(2 * 1000000 + chiffre[a][1] * 1000)}$. `
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -459,7 +454,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           if (choix === 'c') {
             texte = `Ecris en chiffres : <br>
               Deux-millions-${chiffre2[a][0]}-mille `
-            reponse = calcul(2 * 1000000 + chiffre2[a][1] * 1000)
+            reponse = 2 * 1000000 + chiffre2[a][1] * 1000
             texteCorr = `Deux-millions-${chiffre2[a][0]}-mille $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre2[a][1] * 1000)} =${texNombre(2 * 1000000 + chiffre2[a][1] * 1000)}$. `
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -469,7 +464,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           if (choix === 'd') {
             texte = `Ecris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille `
-            reponse = calcul(2 * 1000000 + chiffre[a][1] * 1000)
+            reponse = 2 * 1000000 + chiffre[a][1] * 1000
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} =${texNombre(2 * 1000000 + chiffre[a][1] * 1000)}$. `
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -577,14 +572,14 @@ $${a + 1}$ h et $${reponse}$ min.`
           if (choix === 'a') {
             a = randint(2, 5) + randint(1, 9) / 10
 
-            reponse = a * 10
+            reponse = Math.round(a * 10)
             texte = `Combien faut-il de pièces de $10$ centimes pour avoir $${texNombre(a, 2, true)}$ €. <br>
                     `
             texteCorr = `Il faut : $${texNombre(a)}\\div 0,1=${texNombre(a)}\\times 10=${a * 10}$ pièces.`
           } if (choix === 'b') {
             a = randint(2, 5) + (randint(1, 4) * 2) / 10
 
-            reponse = a * 5
+            reponse = Math.round(a * 5)
             texte = `Combien faut-il de pièces de $20$ centimes pour avoir $${texNombre(a, 2, true)}$ €. <br>
                      `
             texteCorr = `Pour un euro, il faut $5$ pièces de $20$ centimes, donc pour $${Math.trunc(a)}$ €, il en faut $${Math.trunc(a)}\\times 5=${Math.trunc(a) * 5}$. <br>
@@ -593,7 +588,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           if (choix === 'c') {
             a = randint(2, 9) + 5 / 10
 
-            reponse = a * 2
+            reponse = Math.round(a * 2)
             texte = `Combien faut-il de pièces de $50$ centimes pour avoir $${texNombre(a, 2, true)}$ €. <br>
                    `
             texteCorr = `Pour un euro, il faut $2$ pièces de $50$ centimes, 
@@ -614,7 +609,7 @@ $${a + 1}$ h et $${reponse}$ min.`
         case 24:
           if (choice([true, false])) {
             a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
-            reponse = calcul(a / 5)
+            reponse = arrondi(a / 5, 1)
             texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
               Unite: 3,
               Min: 0,
@@ -635,7 +630,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             texteCorr = `L'unité est divisée en $5$. Ainsi, l'abscisse du point A est $\\dfrac{${a}}{5}=${texNombre(reponse)}$`
           } else {
             a = choice([1, 3, 5, 7, 9]) // numérateur
-            reponse = calcul(a / 4)
+            reponse = arrondi(a / 4, 2)
             texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
               Unite: 3,
               Min: 0,
@@ -691,9 +686,9 @@ $${a + 1}$ h et $${reponse}$ min.`
         case 27:
           a = randint(1, 5) + randint(5, 9) / 10
 
-          reponse = 2 * a
-          texte = `Le double de $${texNombre(a)}$ est `
-          texteCorr = `Le double de $${texNombre(a)}$ est $2\\times ${texNombre(a)}=${texNombre(2 * a)}$.`
+          reponse = arrondi(2 * a, 1)
+          texte = `Le double de $${texNombre(a, 1)}$ est `
+          texteCorr = `Le double de $${texNombre(a, 1)}$ est $2\\times ${texNombre(a, 1)}=${texNombre(reponse, 1)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
@@ -721,11 +716,11 @@ $${a + 1}$ h et $${reponse}$ min.`
           a = randint(2, 5) * 2
           b = randint(3, 6) * a
 
-          reponse = 1.5 * b
+          reponse = Math.round(1.5 * b)
           texte = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm.<br>
           $${texNombre(1.5 * a)}$ cubes empilés ont une hauteur de `
-          texteCorr = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm, donc $${texNombre(a / 2)}$ cubes identiques empilés ont une hauteur de $${texNombre(b / 2)}$ cm, donc les 
-          $${texNombre(1.5 * a)}$ cubes empilés ont une hauteur de $${texNombre(b)}+${texNombre(b / 2)}=${reponse}$ cm `
+          texteCorr = `$${a}$ cubes identiques empilés ont une hauteur de $${b}$ cm, donc $${texNombre(a / 2, 0)}$ cubes identiques empilés ont une hauteur de $${texNombre(b / 2, 0)}$ cm, donc les 
+          $${texNombre(1.5 * a, 0)}$ cubes empilés ont une hauteur de $${texNombre(b)}+${texNombre(b / 2, 0)}=${reponse}$ cm `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' } else { texte += '$\\ldots$ cm' }
