@@ -16,10 +16,10 @@ const math = create(all)
 export default function CalculsLoiNormale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Calculer les probabilités suivantes :'
+  this.consigne = `Calcul de probabilités pour une loi normale. Les évaluations numériques peuvent se faire à l'aide d'une table de valeur de la loi normale centrée réduite.`
   this.nbQuestions = 4
-  this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
-  this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
+  this.nbCols = 1 // Nombre de colonnes pour la sortie LaTeX
+  this.nbColsCorr = 1 // Nombre de colonnes dans la correction pour la sortie LaTeX
   this.sup = 1
   this.spacing = 1
   this.spacingCorr = 1.5
@@ -33,7 +33,7 @@ export default function CalculsLoiNormale () {
     if (this.sup === 1) {
       listeTypeDeQuestionsDisponibles = ['N01']
     } else if (this.sup === 2) {
-      listeTypeDeQuestionsDisponibles = ['Nmusigma']
+      listeTypeDeQuestionsDisponibles = ['Nmusigma', 'Nmusigmaintervallecentre']
     } else {
       listeTypeDeQuestionsDisponibles = ['N01']
     }
@@ -55,7 +55,7 @@ export default function CalculsLoiNormale () {
           resultat = texNombre(0.5 * math.erf(variables.b / sqrt(2)) - 0.5 * math.erf(variables.a / sqrt(2)), 2)
           expression = `$\\mathrm{P}(${bornea} < X < ${borneb})$`
           calculstep = []
-          texte = 'Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(0,1)$. <br> Calculer ' + expression
+          texte = 'Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(0,1)$. <br> Calculer à $10^{-2}$ près la probabilité : ' + expression
           texteCorr = 'On décompose pour exprimer la probabilité avec la fonction de répartition $t \\mapsto \\mathrm{P}(X \\leq t)$ en utilisant la tabulation de ses valeurs pour $t \\geq 0$ : <br>'
           calculstep.push(`\\mathrm{P}(${bornea} < X < ${borneb}) &=  \\mathrm{P}(X < ${borneb}) - \\mathrm{P}(X \\leq ${bornea}) &&`)
           if (variables.b < 0) {
@@ -106,7 +106,7 @@ export default function CalculsLoiNormale () {
           resultat = texNombre(0.5 * math.erf(variables.b / sqrt(2)) - 0.5 * math.erf(variables.a / sqrt(2)), 2)
           expression = `$\\mathrm{P}(${bornec} < X < ${borned})$`
           calculstep = []
-          texte = `Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer ` + expression
+          texte = `Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer à $10^{-2}$ près la probabilité : ` + expression
           if (variables.mu < 0) {
             texteCorr = `On pose $Z = \\frac{X + ${texNombre(-variables.mu)}}{${sigma}}$ `
             calculstep.push(`\\mathrm{P}(${bornec} < X < ${borned}) &=  \\mathrm{P}\\left(\\frac{${bornec} + ${texNombre(-variables.mu)}}{${sigma}}   < \\frac{X + ${texNombre(-variables.mu)}}{${sigma}} < \\frac{${borned} + ${texNombre(-variables.mu)}}{${sigma}}  \\right) &&`)
@@ -144,6 +144,39 @@ export default function CalculsLoiNormale () {
            }
           calculstep.push(`&\\approx  ${resultat} &&`)
           break
+          case 'Nmusigmaintervallecentre':
+            variables = aleaVariables(
+              {
+                a: 'round(random(0.1,3),1)',
+                mu: 'randomInt(-30, 30)',
+                sigma: 'round(random(0.1,4),1)',
+              }
+            )
+            bornec = texNombre(-variables.a*variables.sigma + variables.mu)
+            borned = texNombre(variables.a*variables.sigma + variables.mu)
+            bornea = texNombre(-variables.a)
+            borneb = texNombre(variables.a)
+            mu = texNombre(variables.mu)
+            sigma = texNombre(variables.sigma)
+            resultat = texNombre(0.5 * math.erf(variables.a / sqrt(2)) - 0.5 * math.erf(-variables.a / sqrt(2)), 2)
+            expression = `$\\mathrm{P}(${bornec} < X < ${borned})$`
+            calculstep = []
+            texte = `Soit $X$  une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer à $10^{-2}$ près la probabilité : ` + expression
+            if (variables.mu < 0) {
+              texteCorr = `On pose $Z = \\frac{X + ${texNombre(-variables.mu)}}{${sigma}}$ `
+              calculstep.push(`\\mathrm{P}(${bornec} < X < ${borned}) &=  \\mathrm{P}\\left(\\frac{${bornec} + ${texNombre(-variables.mu)}}{${sigma}}   < \\frac{X + ${texNombre(-variables.mu)}}{${sigma}} < \\frac{${borned} + ${texNombre(-variables.mu)}}{${sigma}}  \\right) &&`)
+            } else {
+              texteCorr = `On pose $Z = \\frac{X - ${mu}}{${sigma}}$ `
+              calculstep.push(`\\mathrm{P}(${bornec} < X < ${borned}) &=  \\mathrm{P}\\left(\\frac{${bornec} - ${mu}}{${sigma}}   < \\frac{X - ${mu}}{${sigma}} < \\frac{${borned} - ${mu}}{${sigma}}  \\right) &&`)
+            }
+            texteCorr += ' de telle sorte que $Z$ suive une loi $\\mathcal{N}(0,1)$. <br><br>'
+            calculstep.push(`&= \\mathrm{P}\\left( ${bornea}   < Z < ${borneb}  \\right)`)
+            calculstep.push(`&=  \\mathrm{P}(X < ${borneb}) - \\mathrm{P}(X \\leq ${bornea}) &&`)
+            resultat_a = texNombre(0.5 + 0.5 * math.erf(variables.a / sqrt(2)), 3)
+            calculstep.push(` &=  2\\times\\mathrm{P}(X < ${(borneb)}) - 1 && (\\text{par symétrie de la loi normale})`)
+            calculstep.push(` &\\approx  2\\times ${resultat_a} - 1 &&`)
+            calculstep.push(`&\\approx  ${resultat} &&`)
+            break          
       }
       texteCorr += String.raw`
       $\begin{aligned}
@@ -164,5 +197,5 @@ export default function CalculsLoiNormale () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Fonctions de base \n2 : ku'] // \n3 : u/v, uv'];
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Loi normale centrée réduite \n2 : Loi normale quelconque']
 }
