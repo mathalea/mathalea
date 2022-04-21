@@ -7,7 +7,7 @@ const logIfVerbose = (...args) => { if (isVerbose) console.log(...args) }
 function getAllFiles (dir) {
   const files = []
   fs.readdirSync(dir).forEach(entry => {
-    if (entry === 'Exercice.js') return
+    if (entry === 'Exercice.js' || entry === 'ExerciceTS.js') return
     const fullEntry = path.join(dir, entry)
     if (fs.statSync(fullEntry).isDirectory()) {
       getAllFiles(fullEntry).forEach(file => files.push(file))
