@@ -19,4 +19,3 @@ export default class NomExercice extends Exercice {
         this.reponse = a + b;
     }
 }
-//# sourceMappingURL=betaCanTs.js.map

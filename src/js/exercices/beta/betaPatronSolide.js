@@ -302,4 +302,3 @@ export default class PatronsSolides extends Exercice {
         listeQuestionsToContenu(this);
     }
 }
-//# sourceMappingURL=betaPatronSolide.js.map
