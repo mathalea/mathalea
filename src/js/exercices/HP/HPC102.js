@@ -2,6 +2,10 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, texNombre } from '../../modules/outils.js'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
 import { create, all, sqrt } from 'mathjs'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 // import { calcule } from '../../modules/fonctionsMaths.js'
 
 // const math = { simplify: simplify, parse: parse, derivative: derivative }
@@ -52,7 +56,9 @@ export default function CalculsLoiNormale () {
           oppbornea = texNombre(-variables.a)
           borneb = texNombre(variables.b)
           oppborneb = texNombre(-variables.b)
-          resultat = texNombre(0.5 * math.erf(variables.b / sqrt(2)) - 0.5 * math.erf(variables.a / sqrt(2)), 2)
+          bornec = bornea
+          borned = borneb
+          resultat = 0.5 * math.erf(variables.b / sqrt(2)) - 0.5 * math.erf(variables.a / sqrt(2))
           expression = `$\\mathrm{P}(${bornea} < X < ${borneb})$`
           calculstep = []
           texte = 'Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(0,1)$. <br> Calculer à $10^{-2}$ près la probabilité : ' + expression
@@ -83,7 +89,7 @@ export default function CalculsLoiNormale () {
             resultat_b = texNombre(0.5 + 0.5 * math.erf(variables.b / sqrt(2)), 3)
             calculstep.push(`&\\approx  ${resultat_b} - ${resultat_a} &&`)
            }
-          calculstep.push(`&\\approx  ${resultat} &&`)
+          setReponse(this, i, resultat.toFixed(2)) 
           break
         case 'Nmusigma':
           variables = aleaVariables(
@@ -103,7 +109,7 @@ export default function CalculsLoiNormale () {
           oppborneb = texNombre(-variables.b)
           mu = texNombre(variables.mu)
           sigma = texNombre(variables.sigma)
-          resultat = texNombre(0.5 * math.erf(variables.b / sqrt(2)) - 0.5 * math.erf(variables.a / sqrt(2)), 2)
+          resultat = 0.5 * math.erf(variables.b / sqrt(2)) - 0.5 * math.erf(variables.a / sqrt(2))
           expression = `$\\mathrm{P}(${bornec} < X < ${borned})$`
           calculstep = []
           texte = `Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer à $10^{-2}$ près la probabilité : ` + expression
@@ -142,7 +148,7 @@ export default function CalculsLoiNormale () {
             resultat_b = texNombre(0.5 + 0.5 * math.erf(variables.b / sqrt(2)), 3)
             calculstep.push(`&\\approx  ${resultat_b} - ${resultat_a} &&`)
            }
-          calculstep.push(`&\\approx  ${resultat} &&`)
+           setReponse(this, i, resultat.toFixed(2))
           break
           case 'Nmusigmaintervallecentre':
             variables = aleaVariables(
@@ -158,7 +164,7 @@ export default function CalculsLoiNormale () {
             borneb = texNombre(variables.a)
             mu = texNombre(variables.mu)
             sigma = texNombre(variables.sigma)
-            resultat = texNombre(0.5 * math.erf(variables.a / sqrt(2)) - 0.5 * math.erf(-variables.a / sqrt(2)), 2)
+            resultat = 0.5 * math.erf(variables.a / sqrt(2)) - 0.5 * math.erf(-variables.a / sqrt(2))
             expression = `$\\mathrm{P}(${bornec} < X < ${borned})$`
             calculstep = []
             texte = `Soit $X$  une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer à $10^{-2}$ près la probabilité : ` + expression
@@ -175,18 +181,21 @@ export default function CalculsLoiNormale () {
             resultat_a = texNombre(0.5 + 0.5 * math.erf(variables.a / sqrt(2)), 3)
             calculstep.push(` &=  2\\times\\mathrm{P}(X < ${(borneb)}) - 1 && (\\text{par symétrie de la loi normale})`)
             calculstep.push(` &\\approx  2\\times ${resultat_a} - 1 &&`)
-            calculstep.push(`&\\approx  ${resultat} &&`)
+            setReponse(this, i, resultat.toFixed(2))
             break          
       }
+      calculstep.push(`&\\approx  ${texNombre(resultat, 2)} &&`)
       texteCorr += String.raw`
       $\begin{aligned}
       ${calculstep.join('\\\\')}
       \end{aligned}$ <br>`
-      texteCorr += `La probabilité est : $\\mathrm{P}(${bornec} < X < ${borned}) \\approx ${resultat}$` //  ${resultat}$`
+      texteCorr += `La probabilité est : $\\mathrm{P}(${bornec} < X < ${borned}) \\approx ${texNombre(resultat, 2)}$` //  ${resultat}$`
 
       //texte = texte.replaceAll('frac', 'dfrac')
       texteCorr = texteCorr.replaceAll('frac', 'dfrac')
-
+      if (this.interactif) {
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: `La probabilité est : $\\mathrm{P}(${bornec} < X < ${borned}) \\approx $` })
+      }
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
         this.listeQuestions.push(texte)
