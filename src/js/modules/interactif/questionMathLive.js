@@ -58,6 +58,15 @@ export function verifQuestionMathLive (exercice, i) {
             resultat = 'OK'
           }
           break
+        case 'nombreDecimal':
+          saisie = champTexte.value.replace(',', '.')
+          // La réponse est ici arrondie en fonction de reponse.param.decimals
+          reponse = Number(reponse.toString().replaceAll(',', '.')).toFixed(exercice.autoCorrection[i].reponse.param.decimals)
+          saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+          if (engine.parse(reponse).isSame(engine.parse(saisie))) {
+            resultat = 'OK'
+          }
+          break
         case 'ecritureScientifique': // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
           saisie = champTexte.value.replace(',', '.')
           if (typeof reponse === 'string') {
