@@ -36,10 +36,10 @@ export default function testFractions () {
     const b = Number(evaluate(this.sup2)) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999) / 10 ** 12
     const f1 = new FractionX(a, b)
     const f2 = new Fraction(a, b)
-    setReponse(this, 0, f1, { formatInteractif: 'fractionPlusSimple' })
+    setReponse(this, 0, f1.valeurDecimale, { formatInteractif: 'nombreDecimal', decimals: 2 })
     console.log(engine.parse(f1.texFSD.replaceAll('dfrac', 'frac')))
     console.log('Fraction selon FractionX : ', f1.num, ' / ', f1.den, ' fraction selon Fraction : ', f2.n, ' / ', f2.d)
-    let texte = `Saisir une fraction ou ce que vous voulez (la réponse attendue est $${f1.texFSD}$ et le mode Interactif est : ${this.autoCorrection[0].reponse.param.formatInteractif}): ` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+    let texte = `Saisir une fraction ou ce que vous voulez (la réponse attendue est $${f1.texFSD}$ et le mode Interactif est : ${this.autoCorrection[0].reponse.param.formatInteractif} avec ${this.autoCorrection[0].reponse.param.decimals} chiffres après la virgule): ` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
     texte += `<br>$${f1.texFractionSR}${f1.texSimplificationAvecEtapes()}$<br><br>`
     texte += `$${f1.texFractionSR}${simplificationDeFractionAvecEtapes(f1.num, f1.den)}$`
 
