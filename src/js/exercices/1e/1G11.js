@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, abs } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, abs, rienSi1 } from '../../modules/outils.js'
 export const titre = 'Mesure principale d\'un angle'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -24,13 +24,13 @@ export default function MesurePrincipale () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const typeQuestionsDisponibles = ['type1', 'type1', 'type1'] // On créé 3 types de questions
+    const typeQuestionsDisponibles = ['type3', 'type3', 'type3'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, k, p, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'type1':// pi/3
-          k = randint(-5, 5, [0])
+        case 'type1':// k* 2\pi + p*\pi/3
+          k = randint(-5, 5, [0])//
           p = randint(-2, 2, [0])
           texte = `$\\alpha=\\dfrac{${6 * k + p}\\pi}{3}$` // Le LateX entre deux symboles $, les variables dans des ${ }
           texteCorr = `$\\alpha=\\dfrac{${6 * k + p}\\pi}{3}=\\dfrac{(${6 * k} ${ecritureAlgebrique(p)})\\pi}{3}=${k}\\times 2\\pi`
@@ -38,21 +38,28 @@ export default function MesurePrincipale () {
           texteCorr += `\\dfrac{${abs(p)}\\pi}{3}$`
           if (p === 1) { texteCorr += '<br>La mesure principale est donc $\\alpha=\\dfrac{\\pi}{3}$' }
           if (p === -1) { texteCorr += '<br>La mesure principale est donc $\\alpha=-\\dfrac{\\pi}{3}$' }
-          if (p !== 1 && p !== -1) { texteCorr += `<br>La mesure principale est donc $\\alpha=\\dfrac{${p}\\pi}{3}$` }
+          if (p !== 1 && p !== -1) { texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{3}$` }
           break
-        case 'type2':// pi/6
+        case 'type2':// k* 2\pi + p*\pi/6
           k = randint(-5, 5, [0])
           p = randint(-5, 5, [-4, -3, -2, 0, 2, 3, 4])
           texte = `$\\alpha=\\dfrac{${12 * k + p}\\pi}{6}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          texteCorr = `$\\alpha=\\dfrac{${12 * k + p}\\pi}{6}=${k}\\times 2\\pi+\\dfrac{${ecritureAlgebrique(p)}\\pi}{6}$`
-          texteCorr += `<br>La mesure principale est donc $\\alpha=\\dfrac{${p}\\pi}{6}$`
+          texteCorr = `$\\alpha=\\dfrac{${12 * k + p}\\pi}{6}=\\dfrac{${6 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{6}=${k}\\times 2\\pi+\\dfrac{${p}\\pi}{6}$`
+          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{6}$`
           break
-        case 'type3':// pi/5
+        case 'type3':// k* 2\pi + p*\pi/5
           k = randint(-5, 5, [0])
           p = randint(-4, 4, [0])
           texte = `$\\alpha=\\dfrac{${10 * k + p}\\pi}{5}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          texteCorr = `$\\alpha=\\dfrac{${10 * k + p}\\pi}{5}=${k}\\times 2\\pi+\\dfrac{${ecritureAlgebrique(p)}\\pi}{5}$`
-          texteCorr += `<br>La mesure principale est donc $\\alpha=\\dfrac{${p}\\pi}{5}$`
+          texteCorr = `$\\alpha=\\dfrac{${10 * k + p}\\pi}{5}=\\dfrac{${5 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{5}=${k}\\times 2\\pi+\\dfrac{${ecritureAlgebrique(p)}\\pi}{5}$`
+          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\alpha=\\dfrac{${rienSi1(p)}\\pi}{5}$`
+          break
+        case 'type4':// k* 2\pi + p*\pi/4
+          k = randint(-5, 5, [0])
+          p = randint(-3, 3, [-2, 2])
+          texte = `$\\alpha=\\dfrac{${8 * k + p}\\pi}{4}$` // Le LateX entre deux symboles $, les variables dans des ${ }
+          texteCorr = `$\\alpha=\\dfrac{${8 * k + p}\\pi}{4}=${k}\\times 2\\pi+\\dfrac{${ecritureAlgebrique(p)}\\pi}{4}$`
+          texteCorr += `<br>La mesure principale est donc $\\alpha=\\dfrac{${p}\\pi}{4}$`
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
