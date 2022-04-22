@@ -1,5 +1,5 @@
-import { GVPoint, GVVector } from './elements'
-import { GVGraphicView } from './GraphicView'
+import { GVPoint, GVVector } from './elements.js'
+import { GVGraphicView } from './GraphicView.js'
 import { aleaName } from '../outilsMathjs.js'
 import { cross } from 'mathjs'
 export class GVAleaThalesConfig extends GVGraphicView {

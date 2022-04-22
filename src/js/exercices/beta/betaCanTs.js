@@ -1,4 +1,4 @@
-import Exercice from '../ExerciceTs.js';
+import Exercice from '../Exercice';
 import { randint } from '../../modules/outils.js';
 export const titre = 'Somme de deux entiers';
 export const interactifReady = true;

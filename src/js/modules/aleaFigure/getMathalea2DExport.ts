@@ -1,6 +1,6 @@
 import { texteSurSegment, arcPointPointAngle, cercle, segment, polygone, point, mathalea2d } from '../2d.js'
-import { GVPolygon, GVAngle, GVPoint, GVLine, GVSegment, GVCircle } from './elements.js'
-import { GVGraphicView } from './graphicView.js'
+import { GVPolygon, GVAngle, GVPoint, GVLine, GVSegment, GVCircle } from './elements'
+import { GVGraphicView } from './GraphicView'
 export function getMathalea2DExport (graphic: GVGraphicView) {
   if (graphic.allowResize) graphic.resize()
   const scaleppc = 20 / graphic.ppc

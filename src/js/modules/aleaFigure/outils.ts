@@ -36,19 +36,19 @@ export function getDimensions (...figures) {
 export function quotient (x: number, y: number): number {
   return x - x % y
 }
-export function name (s, ...p) {
+export function name (s: string, ...p) {
   p = p.map((x, k) => {
     if (x instanceof GVGrandeur) {
-      return String.raw`${s.raw[k]}` + x.name
+      return String.raw`${s[k]}` + x.name
     } else if (x instanceof GVSegment) {
-      return String.raw`${s.raw[k]}` + `${x.name}` // `[${x.name}]`
+      return String.raw`${s[k]}` + `${x.name}` // `[${x.name}]`
     } else if (x instanceof GVLine) {
-      return String.raw`${s.raw[k]}` + `${x.name}` // `(${x.name})`
+      return String.raw`${s[k]}` + `${x.name}` // `(${x.name})`
     } else if (x instanceof GVPoint || x instanceof GVPolygon) {
-      return String.raw`${s.raw[k]}` + `${x.name}`
+      return String.raw`${s[k]}` + `${x.name}`
     } else {
-      return String.raw`${s.raw[k]}` + `${x}`
+      return String.raw`${s[k]}` + `${x}`
     }
   })
-  return p.join('') + s.raw[s.length - 1]
+  return p.join('') + s[s.length - 1]
 }
