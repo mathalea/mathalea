@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { context } from '../context.js'
 import { GVCartesian, GVCoordinates } from './coordinates.js'
 import { aleaName } from '../outilsMathjs.js'
@@ -119,10 +120,9 @@ export class GVPoint extends GVGraphicObject {
   }
 
   getBarycentriqueCoords (A, B, C) {
-    let a, b, c
-    a = determinant(B.sub(this), C.sub(this))
-    b = determinant(C.sub(this), A.sub(this))
-    c = determinant(A.sub(this), B.sub(this))
+    const a = determinant(B.sub(this), C.sub(this))
+    const b = determinant(C.sub(this), A.sub(this))
+    const c = determinant(A.sub(this), B.sub(this))
     return [a, b, c]
   }
 
@@ -454,8 +454,10 @@ export class GVRectangle extends GVPolygon {
   * @class
   * @classdesc Caracteristics of a triangle
   */
+/*
 export class GVTriangle extends GVPolygon {
   constructor (...args) {
     super(...args)
   }
 }
+*/
