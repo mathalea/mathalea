@@ -29,45 +29,17 @@ export default function MesurePrincipale () {
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, k, p, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'type1':// k* 2\pi + p*\pi/3
-          k = randint(-5, 5, [0])//
-          p = randint(-2, 2, [0])
-          texte = `$\\alpha=\\dfrac{${6 * k + p}\\pi}{3}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          texteCorr = `$\\alpha=\\dfrac{${6 * k + p}\\pi}{3}= \\dfrac{${3 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{3}=${k}\\times 2\\pi+\\dfrac{${rienSi1(p)}\\pi}{3}$`
-          texteCorr += `<br>On vérifie que $\\dfrac{${rienSi1(p)}\\pi}{3}\\in]-\\pi;\\pi]$.`
-          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{3}$`
+        case 'type1':
+          texte = '$\\cos(x+\\pi)=\\ldots$'
+          texteCorr = '$\\cos(x+\\pi)=-\\cos(x)$'
           break
-        case 'type2':// k* 2\pi + p*\pi/6
-          k = randint(-5, 5, [0])
-          p = randint(-5, 5, [-4, -3, -2, 0, 2, 3, 4])
-          texte = `$\\alpha=\\dfrac{${12 * k + p}\\pi}{6}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          texteCorr = `$\\alpha=\\dfrac{${12 * k + p}\\pi}{6}= \\dfrac{${3 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{3}=\\dfrac{${6 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{6}=${k}\\times 2\\pi+\\dfrac{${p}\\pi}{6}$`
-          texteCorr += `<br>On vérifie que $\\dfrac{${rienSi1(p)}\\pi}{6}\\in]-\\pi;\\pi]$.`
-          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{6}$`
+        case 'type2':
+          texte = '$\\cos(x-\\pi)=\\ldots$'
+          texteCorr = '$\\cos(x-\\pi)=-\\cos(x)$'
           break
-        case 'type3':// k* 2\pi + p*\pi/5
-          k = randint(-5, 5, [0])
-          p = randint(-4, 4, [0])
-          texte = `$\\alpha=\\dfrac{${10 * k + p}\\pi}{5}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          texteCorr = `$\\alpha=\\dfrac{${10 * k + p}\\pi}{5}=\\dfrac{${5 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{5}=${k}\\times 2\\pi+\\dfrac{${ecritureAlgebrique(p)}\\pi}{5}$`
-          texteCorr += `<br>On vérifie que $\\dfrac{${rienSi1(p)}\\pi}{5}\\in]-\\pi;\\pi]$.`
-          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{5}$`
-          break
-        case 'type4':// k* 2\pi + p*\pi/4
-          k = randint(-5, 5, [0])
-          p = randint(-3, 3, [-2, 0, 2])
-          texte = `$\\alpha=\\dfrac{${8 * k + p}\\pi}{4}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          texteCorr = `$\\alpha=\\dfrac{${8 * k + p}\\pi}{4}=\\dfrac{${4 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{4}${k}\\times 2\\pi+\\dfrac{${ecritureAlgebrique(p)}\\pi}{4}$`
-          texteCorr += `<br>On vérifie que $\\dfrac{${rienSi1(p)}\\pi}{4}\\in]-\\pi;\\pi]$.`
-          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{4}$`
-          break
-        case 'type5':// k* 2\pi + p*\pi/7
-          k = randint(-5, 5, [0])
-          p = randint(-6, 6, [0])
-          texte = `$\\alpha=\\dfrac{${14 * k + p}\\pi}{7}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          texteCorr = `$\\alpha=\\dfrac{${14 * k + p}\\pi}{7}=\\dfrac{${7 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{7}${k}\\times 2\\pi+\\dfrac{${ecritureAlgebrique(p)}\\pi}{7}$`
-          texteCorr += `<br>On vérifie que $\\dfrac{${rienSi1(p)}\\pi}{7}\\in]-\\pi;\\pi]$.`
-          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{7}$`
+        case 'type3':
+          texte = '$\\cos(x+\\dfrac{\\pi}{2})=\\ldots$'
+          texteCorr = '$\\cos(x+\\dfrac{\\pi}{2})=\\sin(x)$'
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
