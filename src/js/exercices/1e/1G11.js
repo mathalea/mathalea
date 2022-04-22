@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, abs, rienSi1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, rienSi1 } from '../../modules/outils.js'
 export const titre = 'Mesure principale d\'un angle'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -13,7 +13,7 @@ export const dateDeModifImportante = '' // Une date de modification importante a
 */
 export default function MesurePrincipale () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Déterminer la mesure principale de l\'angle $\\alpha$, c\'est à dire sa mesure entre $]-\\pi;\\pi]$'
+  this.consigne = 'Déterminer la mesure principale de l\'angle $\\alpha$, c\'est-à-dire sa mesure sur $]-\\pi;\\pi]$'
   this.nbQuestions = 3 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -24,7 +24,7 @@ export default function MesurePrincipale () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5'] // On créé 3 types de questions
+    const typeQuestionsDisponibles = ['type2'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, k, p, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
@@ -33,17 +33,24 @@ export default function MesurePrincipale () {
           k = randint(-5, 5, [0])//
           p = randint(-2, 2, [0])
           texte = `$\\alpha=\\dfrac{${6 * k + p}\\pi}{3}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          texteCorr = `$\\alpha=\\dfrac{${6 * k + p}\\pi}{3}= \\dfrac{${3 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{3}=${k}\\times 2\\pi+\\dfrac{${rienSi1(p)}\\pi}{3}$`
-          texteCorr += `<br>On vérifie que $\\dfrac{${rienSi1(p)}\\pi}{3}\\in]-\\pi;\\pi]$.`
-          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{3}$`
+          texteCorr = `On cherche le nombre de multiples de $2\\pi$ dans $\\dfrac{${6 * k + p}\\pi}{3}$,`
+          texteCorr += `<br>c'est-à-dire le nombre de multiples de $6\\pi$ dans $${6 * k + p}\\pi$.`
+          texteCorr += `<br><br>$\\alpha=\\dfrac{${6 * k + p}\\pi}{3}= \\dfrac{${6 * (k - 1)} \\pi  ${ecritureAlgebrique(p + 6)}\\pi}{3}=\\dfrac{${6 * k} \\pi  ${ecritureAlgebrique(p)}\\pi}{3}$`
+          texteCorr += `<br><br>Comme $\\dfrac{${rienSi1(p)}\\pi}{3}\\in]-\\pi;\\pi]$,`
+          texteCorr += ` on garde : $\\alpha=\\dfrac{${6 * k} \\pi  ${ecritureAlgebrique(p)}\\pi}{3}=\\dfrac{${rienSi1(p)}\\pi}{3}${ecritureAlgebrique(k)}\\times 2\\pi$.`
+          texteCorr += `<br><br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{3}$.`
           break
         case 'type2':// k* 2\pi + p*\pi/6
           k = randint(-5, 5, [0])
           p = randint(-5, 5, [-4, -3, -2, 0, 2, 3, 4])
           texte = `$\\alpha=\\dfrac{${12 * k + p}\\pi}{6}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          texteCorr = `$\\alpha=\\dfrac{${12 * k + p}\\pi}{6}= \\dfrac{${3 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{3}=\\dfrac{${6 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{6}=${k}\\times 2\\pi+\\dfrac{${p}\\pi}{6}$`
-          texteCorr += `<br>On vérifie que $\\dfrac{${rienSi1(p)}\\pi}{6}\\in]-\\pi;\\pi]$.`
-          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{6}$`
+          texteCorr = `On cherche le nombre de multiples de $2\\pi$ dans $\\dfrac{${12 * k + p}\\pi}{6}$,`
+          texteCorr += `<br>c'est-à-dire le nombre de multiples de $12\\pi$ dans $${12 * k + p}\\pi$.`
+          texteCorr += `<br><br>$\\alpha=\\dfrac{${12 * k + p}\\pi}{6}=\\dfrac{${p + 12}\\pi${ecritureAlgebrique(12 * (k - 1))} \\pi  }{6}=  \\dfrac{${p + 12}\\pi}{6}+\\dfrac{${6 * (k - 1)} \\times 2\\pi}{6} =\\dfrac{${p + 12}\\pi}{6}${ecritureAlgebrique(k-1)}\\times 2\\pi$`
+          texteCorr += `<br><br>Mais  $\\dfrac{${p + 12}\\pi}{6} ~\\notin ~]~-~\\pi~ ;~ \\pi~ [$.`
+          texteCorr += `<br><br>$\\alpha=\\dfrac{${12 * k + p}\\pi}{6}=\\dfrac{${p}${ecritureAlgebrique(12 * k)}\\pi}{6}= \\dfrac{${p}\\pi}{6}+\\dfrac{${6 * k} \\times 2\\pi}{6}=\\dfrac{${rienSi1(p)}\\pi}{6}${ecritureAlgebrique(k)}\\times 2\\pi  .$`
+          texteCorr += `<br><br>Comme $\\dfrac{${rienSi1(p)}\\pi}{6}~\\in~]~-~\\pi~ ;~ \\pi~ [$,`
+          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{6}$.`
           break
         case 'type3':// k* 2\pi + p*\pi/5
           k = randint(-5, 5, [0])
@@ -51,7 +58,7 @@ export default function MesurePrincipale () {
           texte = `$\\alpha=\\dfrac{${10 * k + p}\\pi}{5}$` // Le LateX entre deux symboles $, les variables dans des ${ }
           texteCorr = `$\\alpha=\\dfrac{${10 * k + p}\\pi}{5}=\\dfrac{${5 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{5}=${k}\\times 2\\pi+\\dfrac{${ecritureAlgebrique(p)}\\pi}{5}$`
           texteCorr += `<br>On vérifie que $\\dfrac{${rienSi1(p)}\\pi}{5}\\in]-\\pi;\\pi]$.`
-          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{5}$`
+          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{5}$.`
           break
         case 'type4':// k* 2\pi + p*\pi/4
           k = randint(-5, 5, [0])
@@ -59,7 +66,7 @@ export default function MesurePrincipale () {
           texte = `$\\alpha=\\dfrac{${8 * k + p}\\pi}{4}$` // Le LateX entre deux symboles $, les variables dans des ${ }
           texteCorr = `$\\alpha=\\dfrac{${8 * k + p}\\pi}{4}=\\dfrac{${4 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{4}${k}\\times 2\\pi+\\dfrac{${ecritureAlgebrique(p)}\\pi}{4}$`
           texteCorr += `<br>On vérifie que $\\dfrac{${rienSi1(p)}\\pi}{4}\\in]-\\pi;\\pi]$.`
-          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{4}$`
+          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{4}$.`
           break
         case 'type5':// k* 2\pi + p*\pi/7
           k = randint(-5, 5, [0])
@@ -67,7 +74,7 @@ export default function MesurePrincipale () {
           texte = `$\\alpha=\\dfrac{${14 * k + p}\\pi}{7}$` // Le LateX entre deux symboles $, les variables dans des ${ }
           texteCorr = `$\\alpha=\\dfrac{${14 * k + p}\\pi}{7}=\\dfrac{${7 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{7}${k}\\times 2\\pi+\\dfrac{${ecritureAlgebrique(p)}\\pi}{7}$`
           texteCorr += `<br>On vérifie que $\\dfrac{${rienSi1(p)}\\pi}{7}\\in]-\\pi;\\pi]$.`
-          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{7}$`
+          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{7}$.`
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
