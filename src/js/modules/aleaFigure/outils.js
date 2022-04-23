@@ -33,7 +33,6 @@ export function quotient (x, y) {
 }
 export function name (s, ...p) {
   p = p.map((x, k) => {
-    console.log(x instanceof GVSegment)
     if (x instanceof GVGrandeur) {
       return String.raw`${s.raw[k]}` + x.name
     } else if (x instanceof GVSegment) {
