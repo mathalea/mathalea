@@ -1,7 +1,7 @@
 import { texNombre2 } from '../outils.js'
 import { simplify, parse, unit, max, add, subtract, abs, log10, random, round } from 'mathjs'
 import { aleaName } from '../outilsMathjs.js'
-import { GVGraphicObject, GVPoint } from './elements.js'
+import { GVGraphicObject, GVPoint } from './elements'
 /**
   * Grandeur, methods for operations
   *
