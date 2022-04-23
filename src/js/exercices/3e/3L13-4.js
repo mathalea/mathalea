@@ -138,6 +138,7 @@ Donc l'aire du rectangle $${ABCD}$ est ${environ} $${toTex(solutionDecimale)}~cm
           const graph = graphic.getFigure(ABCD, AB, CD, ...angles.map(x => { x.right = true; return x }))
           const resolution = resoudre(`${exprAB}=${exprCD}`, { suppr1: false, substeps: this.correctionDetaillee })
           const calculAB = calculer('a*(x)+b'.replace('x', resolution.solution.exact), { name: AB.name, suppr1: false, substeps: this.correctionDetaillee, variables: variables })
+          console.log(name`${p} = 2*${calculAB.result} + 2*${BC}`)
           const resolution2 = resoudre(name`${p} = 2*${calculAB.result} + 2*${BC}`, { suppr1: false, substeps: this.correctionDetaillee })
           const calculAire = calculer(`${calculAB.result}*${resolution2.solution.exact}`, { name: '\\mathcal{A}', suppr1: false, substeps: this.correctionDetaillee, variables: variables })
           let solutionDecimale = math.fraction(calculAire.result.replaceAll(' ', '')).valueOf()

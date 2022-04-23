@@ -1,5 +1,5 @@
-import { GVPoint, GVPolygon, GVSegment, GVLine } from './elements'
-import { GVGrandeur } from './grandeurs'
+import { GVPoint, GVPolygon, GVSegment, GVLine } from './elements.js'
+import { GVGrandeur } from './grandeurs.js'
 export function circularPermutation (arg, n = Math.random() * arg.length) {
   if (typeof arg === 'string') {
     arg = arg.split('')
@@ -33,6 +33,7 @@ export function quotient (x, y) {
 }
 export function name (s, ...p) {
   p = p.map((x, k) => {
+    console.log(x instanceof GVSegment)
     if (x instanceof GVGrandeur) {
       return String.raw`${s.raw[k]}` + x.name
     } else if (x instanceof GVSegment) {
