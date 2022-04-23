@@ -1,5 +1,5 @@
 import Exercice from '../ExerciceTs.js'
-import { listeQuestionsToContenu, combinaisonListes, range, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, range, randint, texNombre, choice, egalOuApprox } from '../../modules/outils.js'
 
 export const titre = 'Problèmes concret et pourcentages'
 
@@ -21,11 +21,11 @@ export default class ProblemesConcretsEtPourcentages extends Exercice {
   nouvelleVersion () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
-    const typesDeQuestionsDisponibles = [1] // tableau à compléter par valeurs possibles des types de questions
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4] // tableau à compléter par valeurs possibles des types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    const entreprises = ['La colossale', 'FabrikTout', 'RenovMax']
-    const nomActivité = ['Appels', 'Visites', 'Ventes', 'Devis', '€ de chiffre d\'affaire', '€ de marge']
-    const minMaxCoeffNombres = [[5, 100, 10], [5, 100, 10], [50, 100, 1], [50, 100, 1], [50, 10000, 100], [5, 1000, 100]]
+    const entreprises = ['La colossale', 'Fabrik2', 'RenovMax', 'VenteAToutPrix', 'Maison de demain', 'Les jardins d\'orient', 'Piquesous & compagnie']
+    const nomActivité = ['appels', 'visites', 'ventes', 'devis', '€ de chiffre d\'affaire', '€ de marge']
+    const minMaxCoeffNombres = [[5, 20, 100], [5, 100, 10], [12, 25, 4], [50, 100, 1], [50, 10000, 100], [5, 1000, 100]]
     const listeChoix = combinaisonListes(range(5), this.nbQuestions)
     const nombreObjectif = []
     console.log(listeChoix)
@@ -35,30 +35,62 @@ export default class ProblemesConcretsEtPourcentages extends Exercice {
     const nombreRéalisé = []
 
     for (let ii = 0; ii < this.nbQuestions; ii++) {
-      nombreRéalisé[listeChoix[ii]] = randint(Math.round(nombreObjectif[listeChoix[ii]] / 2), Math.round(nombreObjectif[listeChoix[ii]] * 0.95))
+      nombreRéalisé[ii] = randint(Math.round(nombreObjectif[ii] / 2), Math.round(nombreObjectif[ii] * 0.95))
     }
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, ventes, rdv, marge1, marge2, chiffreAffaire1, chiffreAffaire2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const indexChoix = listeChoix[i]
-      texte = `Le manager de l'entreprise ${entreprises[i % 3]} a fixé comme objectif commerciale de réaliser ${nombreObjectif[indexChoix]} ${nomActivité[indexChoix]} sur une période donnée.<br>`
-      texte += `Sur cette période, l'équipe commerciale a réalisé ${nombreRéalisé[indexChoix]} ${nomActivité[indexChoix]}.<br>`
-      texte += 'Quel est le pourcentage de l\'objectif atteint sur la période ?'
-      texteCorr = '' // Idem pour le texte de la correction.
+      const entreprise = choice(entreprises)
 
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 1:
-
+          if (choice([true, false])) {
+            texte = `Le manager de l'entreprise ${entreprise} a fixé comme objectif commercial de réaliser ${nombreObjectif[i]} ${nomActivité[indexChoix]} sur une période donnée.<br>`
+            texte += `Sur cette période, l'équipe commerciale a réalisé ${nombreRéalisé[i]} ${nomActivité[indexChoix]}.<br>`
+            texte += 'Quel est le pourcentage de l\'objectif atteint sur la période ?'
+            texteCorr = 'Le pourcentage de l\'objectif atteint par l\'équipe est :<br>'
+            texteCorr += `$\\dfrac{${nombreRéalisé[i]}}{${nombreObjectif[i]}}\\times ${100} ${egalOuApprox(100 * nombreRéalisé[i] / nombreObjectif[i], 2)} ${texNombre(100 * nombreRéalisé[i] / nombreObjectif[i], 2)}\\%$`
+          } else {
+            texte = `L'équipe commercial de l'entreprise ${entreprise} a réalisé ${nombreRéalisé[i]} ${nomActivité[indexChoix]}  sur une période donnée.<br>`
+            texte += `Le manager de cette entreprisea fixé comme objectif commercial de réaliser ${nombreObjectif[i]} ${nomActivité[indexChoix]} sur cette période.<br>`
+            texte += 'Quel est le pourcentage de l\'objectif atteint sur la période ?'
+            texteCorr = 'Le pourcentage de l\'objectif atteint par l\'équipe commerciale est :<br>'
+            texteCorr += `$\\dfrac{${nombreRéalisé[i]}}{${nombreObjectif[i]}}\\times ${100} ${egalOuApprox(100 * nombreRéalisé[i] / nombreObjectif[i], 2)} ${texNombre(100 * nombreRéalisé[i] / nombreObjectif[i], 2)}\\%$`
+          }
           break
 
         case 2:
-          // Idem Cas1 mais avec d'autres texte, texteCorr...
+          ventes = randint(minMaxCoeffNombres[2][0], minMaxCoeffNombres[2][1]) * minMaxCoeffNombres[2][2]
+          rdv = randint(minMaxCoeffNombres[2][0], minMaxCoeffNombres[2][1]) * minMaxCoeffNombres[2][2]
+          ;[ventes, rdv] = [Math.min(ventes, rdv), Math.max(ventes, rdv)]
+          texte = `Sur une période donnée, l'entreprise ${entreprise} a obtenu ${rdv} rendez-vous.<br>`
+          texte += `Lors de ces rendez-vous, elle a réalisé ${ventes} ventes.<br>`
+          texte += 'Quel est le pourcentage de transformation de ces rendez-vous ?'
+          texteCorr = 'Le pourcentage de transformation des rendez-vous est de :<br>'
+          texteCorr += `$\\dfrac{${ventes}}{${rdv}}\\times 100 ${egalOuApprox(ventes / rdv * 100, 2)} ${texNombre(ventes / rdv * 100, 2)}\\%$`
           break
 
         case 3:
-
+          chiffreAffaire1 = randint(minMaxCoeffNombres[4][0], minMaxCoeffNombres[4][1])
+          chiffreAffaire2 = randint(minMaxCoeffNombres[4][0], minMaxCoeffNombres[4][1], chiffreAffaire1)
+          chiffreAffaire1 *= minMaxCoeffNombres[4][2]
+          chiffreAffaire2 *= minMaxCoeffNombres[4][2]
+          texte = `L'année dernière l'entreprise ${entreprise} a réalisé un chiffre d'affaire de ${chiffreAffaire1} €.<br>`
+          texte += `Cette année, elle a réalisé un chiffre d'affaire de ${chiffreAffaire2} €.<br>`
+          texte += 'Quel est le pourcentage d\'évolution du chiffre d\'affaire ?'
+          texteCorr = 'Le pourcentage d\'évolution du chiffre d\'affaire est :<br>'
+          texteCorr += `$(\\dfrac{${chiffreAffaire2}}{${chiffreAffaire1}}-1)\\times 100 = \\dfrac{${chiffreAffaire2}-${chiffreAffaire1}}{${chiffreAffaire1}}\\times 100 ${egalOuApprox(100 * chiffreAffaire2 / chiffreAffaire1, 2)} ${texNombre(100 * chiffreAffaire2 / chiffreAffaire1 - 100, 2)}\\%$`
           break
 
         case 4:
-
+          marge1 = randint(minMaxCoeffNombres[5][0], minMaxCoeffNombres[5][1])
+          marge2 = randint(minMaxCoeffNombres[5][0], minMaxCoeffNombres[5][1], marge1)
+          marge1 *= minMaxCoeffNombres[5][2]
+          marge2 *= minMaxCoeffNombres[5][2]
+          texte = `L'année dernière l'entreprise ${entreprise} a réalisé une marge bénéficiare de ${marge1} €.<br>`
+          texte += `Cette année, elle a réalisé une marge bénéficiaire de ${marge2} €.<br>`
+          texte += 'Quel est le pourcentage d\'évolution de la marge ?'
+          texteCorr = 'Le pourcentage d\'évolution de la marge est :<br>'
+          texteCorr += `$(\\dfrac{${marge2}}{${marge1}}-1)\\times 100 = \\dfrac{${marge2}-${marge1}}{${marge1}}\\times 100 ${egalOuApprox(100 * marge2 / marge1, 2)} ${texNombre(100 * marge2 / marge1 - 100, 2)}\\%$`
           break
       }
 
