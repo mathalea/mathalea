@@ -1,8 +1,5 @@
 import { texNombre2 } from '../../modules/outils.js'
 import { round } from 'mathjs'
-/**
- * @class for coordinates
- */
 export class GVCoordinates {
   constructor () {
     this.r = 0
@@ -31,9 +28,6 @@ export class GVCoordinates {
     return `(${texNombre2(round(this.x, 3))}{;}${texNombre2(round(this.y, 3))})`.replaceAll(',', '{,}').replaceAll('{{,}}', '{,}')
   }
 }
-/**
-     * @class for cartesian coordinates
-     */
 export class GVCartesian extends GVCoordinates {
   constructor (x, y) {
     super()
@@ -45,9 +39,6 @@ export class GVCartesian extends GVCoordinates {
     return `(${texNombre2(round(this.x, 3))}{;}${texNombre2(round(this.y, 3))})`.replaceAll(',', '{,}').replaceAll('{{,}}', '{,}')
   }
 }
-/**
-     * @class for polar coordinates
-     */
 export class GVPolar extends GVCoordinates {
   constructor (r, theta) {
     super()

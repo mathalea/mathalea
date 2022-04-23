@@ -5,7 +5,7 @@
   "main": "mathalea.js",
   "scripts": {
     "build": "npm run build:prod",
-    "build:dicos": "node tasks/buildDicos.js",
+    "build:dicos": "tsc && node tasks/buildDicos.js",
     "build:doc": "node tasks/buildDoc.js",
     "build:dev": "webpack --mode=development",
     "build:prod": "npm run build:dicos && webpack --mode=production && npm run doc",

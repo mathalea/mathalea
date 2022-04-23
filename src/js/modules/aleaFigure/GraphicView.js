@@ -1,19 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { randomInt } from 'mathjs'
 import { GVCartesian } from './coordinates.js'
 import { GVRectangle, GVTriangle, GVPolygon, GVVector, GVAngle, GVPoint, GVLine, GVSegment, GVCircle, barycentre } from './elements.js'
 import { getMathalea2DExport } from './getMathalea2DExport.js'
 import { circularPermutation, quotient } from './outils.js'
 import { aleaName } from '../outilsMathjs.js'
-/**
-* Donne une liste d'entiers relatifs dont on connait la somme.
-* @example > listeEntiersSommeConnue(4,10,-2)
-* < [1,-2,6,5]
-* @param {int} nbElements Nombre d'éléments de la liste
-* @param {int} total Somme des éléments de la liste (peut être un nombre négatif)
-* @param {int} [valMin = 1] Valeur minimale de chaque élément (peut être un nombre négatif)
-* @return {Array} Liste d'entiers relatifs
-* @author Frédéric PIOU
-*/
 export function listeEntiersSommeConnue (nbElements, total, valMin = 1) {
   const liste = []
   liste.push(randomInt(valMin, total - (nbElements - 1) * valMin + 1))
@@ -26,11 +17,6 @@ export function listeEntiersSommeConnue (nbElements, total, valMin = 1) {
   }
   return liste
 }
-/**
- * @class
- * @classdesc Caracteristics of a graphic view
- * @author Frédéric PIOU
- */
 export class GVGraphicView {
   constructor (xmin = 0, ymin = 0, xmax = 10, ymax = 10) {
     this.xmin = 0
@@ -45,8 +31,8 @@ export class GVGraphicView {
     this._namesAlea = true
     this.setDimensions(xmin, ymin, xmax, ymax)
     this.names = aleaName('ABCDEFGHIJKLMNOPRSTUVZ'.split(''))
-    this.ppc = 20 // Pixels per Centimeter
-    this.scale = 1 // Scale for Tikz
+    this.ppc = 20
+    this.scale = 1
     this.geometric = []
     this.grid = []
     this.axes = []
@@ -71,11 +57,6 @@ export class GVGraphicView {
     this.ratio = this.height / this.width
   }
 
-  /**
-     * Show any Objects in Mathalea2D
-     * @example
-     * show(A,B,C,ABC)
-     */
   show (...args) {
     const group = []
     args.forEach(x => {
@@ -154,32 +135,22 @@ export class GVGraphicView {
     return listePoints.sort((a, b) => b.x - a.x)[0]
   }
 
-  /**
-     * Resize window of graphic view to the created points
-     * Keep the ratio
-     */
   resize () {
-    // On commence par déterminer les dimensions à partir des abscisses et des ordonnées extrèmes
     const [xmin, ymin, xmax, ymax] = this.getDimensions()
     const [width, height] = [xmax - xmin, ymax - ymin]
-    // On fait une copie des dimensions obtenues
     let newheight = 0 + height
     let newwidth = 0 + width
-    // On calcule le ratio obtenu
     const ratio = height / width
     const k = ratio / this.ratio
-    // S'il faut conserver le ratio on ne modifie qu'une seule dimension
     if (this.saveRatio) {
-      if (k < 1) { // La largeur est plus grande
+      if (k < 1) {
         newheight = height / k
-      } else { // La hauteur est plus grande
+      } else {
         newwidth = width * k
       }
-    } else { // Sinon seul le ratio change
+    } else {
       this.ratio = newheight / newwidth
     }
-    // La hauteur sera utilisée dans tous les cas pour le calcul de l'échelle.
-    // Elle sera donc conservée si le ratio ne l'est pas.
     this.ppc = this.ppc * this.height / newheight
     this.scale = this.scale * this.height / newheight
     const deltaX = (newwidth - width) / 2
@@ -187,9 +158,6 @@ export class GVGraphicView {
     this.setDimensions(xmin - deltaX, ymin - deltaY, xmax + deltaX, ymax + deltaY)
   }
 
-  /**
-     * Give the list sorted of object with a given type
-     */
   getListObjectTypeSelect (typeSelect = 'Point', liste = this.geometric) {
     if (liste.length === 0) { liste = this.geometric }
     switch (typeSelect) {
@@ -216,9 +184,6 @@ export class GVGraphicView {
     }
   }
 
-  /**
-     * Search the last name not used and give a new name
-     */
   getLastNameNotUsed (typeSelect = 'Point') {
     switch (typeSelect) {
       case 'Point': {
@@ -246,14 +211,10 @@ export class GVGraphicView {
           i += 1
         } while (nonUseLetter === undefined)
         return nonUseLetter
-        // return this.names.find(letter => list.find(obj => obj.name.split('')[0] === letter.toLowerCase())?.name.split('_')[0] !== letter.toLowerCase()).toLowerCase()
       }
     }
   }
 
-  /**
-     * Give a new name
-     */
   getNewName (typeSelect = 'Point') {
     switch (typeSelect) {
       case 'Point':
@@ -270,15 +231,7 @@ export class GVGraphicView {
     args.forEach((x, i) => { x.name = names[i] })
   }
 
-  /**
-     * Append new objects to the euclidean plan
-     * @param {number} n Number of point to create
-     * @param {number} step For coordinates
-     * @example
-     * this.addPoint(2,0.5) --> Add two points with coordinates step 0.5 precision
-     */
   addPoint (n = 1, step) {
-    // Il faudrait donner la possibilité d'ajouter des points définis par leurs coordonnées
     const newPoints = []
     for (let i = 0; i < n; i++) {
       let obj
@@ -298,9 +251,6 @@ export class GVGraphicView {
     return newPoints
   }
 
-  /**
-     * Add intersect point of two lines in the view
-     */
   addIntersectLine (line1, line2) {
     if (line1 instanceof GVLine && line2 instanceof GVLine) {
       const delta = line1.a * line2.b - line2.a * line1.b
@@ -335,9 +285,6 @@ export class GVGraphicView {
     }
   }
 
-  /**
-     * Zoom in or out
-     */
   zoom (k = 1.01) {
     const xmin = k * (this.xmin - (this.xmax + this.xmin) / 2) + (this.xmax + this.xmin) / 2
     const xmax = k * (this.xmax - (this.xmax + this.xmin) / 2) + (this.xmax + this.xmin) / 2
@@ -346,9 +293,6 @@ export class GVGraphicView {
     this.setDimensions(xmin, ymin, xmax, ymax)
   }
 
-  /**
-     * Give the distance between tow points, a point and a line, two lines
-     */
   distance (P, Y) {
     if (Y instanceof GVPoint) {
       return Math.sqrt((P.x - Y.x) ** 2 + (P.y - Y.y) ** 2)
@@ -357,9 +301,6 @@ export class GVGraphicView {
     }
   }
 
-  /**
-     * Tempt to estimate if a point is close to the existing points
-     */
   isCloseToExistingPoints (M) {
     const listExistingPoints = this.getListObjectTypeSelect('Point')
     const maxDistance = Math.min(this.height, this.width) / listExistingPoints.length / 3
@@ -369,13 +310,9 @@ export class GVGraphicView {
     return false
   }
 
-  /**
-     * Tempt to estimate if a point is close to the line through the existing point
-     */
   isCloseToLineThroughtExistingPoints (M) {
     const listExistingPoints = this.getListObjectTypeSelect('Point')
     const litsExistingLine = this.getListObjectTypeSelect('Line')
-    // const numberOfPoints = listExistingPoints.length
     const numberOfObjects = listExistingPoints.length + litsExistingLine.length
     const result = []
     const minDimension = Math.min(this.height, this.width) / numberOfObjects / 3
@@ -391,9 +328,6 @@ export class GVGraphicView {
     return result.some(x => x < minDimension && parseFloat(x.toFixed(15)) !== 0)
   }
 
-  /**
-     * Add a new line to the view with new name
-     */
   addLine (P1 = this.addPoint()[0], P2 = this.addPoint()[0]) {
     const line = new GVLine(P1, P2)
     line.name = this.getNewName(line.type)
@@ -401,21 +335,12 @@ export class GVGraphicView {
     return line
   }
 
-  /**
-     * Add a new Segment to the view with new name
-     */
   addSegment (P1 = this.addPoint()[0], P2 = this.addPoint()[0]) {
     const segment = new GVSegment(P1, P2)
     this.geometric.push(segment)
     return segment
   }
 
-  /**
-     * Add a new circle center
-     * @param {GVPoint} C
-     * @param {GVPoint} P
-     * @returns {GVCircle}
-     */
   addCircle (C = this.addPoint()[0], X) {
     const circle = new GVCircle(C, X)
     circle.name = this.getNewName(circle.type)
@@ -423,17 +348,14 @@ export class GVGraphicView {
     return circle
   }
 
-  /**
-     * Get the intersect point of a line and the bordure
-     */
   getExtremPointGraphicLine (L) {
     const x = [
       [L.getXPoint(this.ymin), this.ymin],
-      [L.getXPoint(this.ymax), this.ymax] // [xmin,xmax]
+      [L.getXPoint(this.ymax), this.ymax]
     ]
     const y = [
       [this.xmin, L.getYPoint(this.xmin)],
-      [this.xmax, L.getYPoint(this.xmax)] // [ymin,ymax]
+      [this.xmax, L.getYPoint(this.xmax)]
     ]
     const extremites = []
     for (const u of x) {
@@ -456,23 +378,11 @@ export class GVGraphicView {
     }
   }
 
-  /**
-     * get a point between two points
-     * @param {GVPoint} point1
-     * @param {GVPoint} point2
-     * @returns {GVPoint}
-     */
   getNewPointBetween (A, B) {
     const k = Math.random()
     return new GVPoint(new GVCartesian((A.x - B.x) * k + B.x, (A.y - B.y) * k + B.y))
   }
 
-  /**
-     * Add point between two but not too close to extrems
-     * @param {GVPoint} A
-     * @param {GVPoint} B
-     * @returns {GVPoint}
-     */
   addPointBetween (A, B) {
     const barycentricsCoords = listeEntiersSommeConnue(2, 100, 15)
     const P = barycentre([A, B], barycentricsCoords)
@@ -516,14 +426,6 @@ export class GVGraphicView {
     P.name = P.name || this.getNewName(P.type)
     this.geometric.push(P)
     return P
-    /*
-        const barycentricsCoords = listeEntiersSommeConnue(args.length,100,20*3/args.length)
-        barycentricsCoords[Math.round(Math.random()*(barycentricsCoords.length-2))] = 0
-        const P = barycentre(args,barycentricsCoords)
-        P.name = P.name || this.getNewName(P.type)
-        this.geometric.push(P)
-        return P
-        */
   }
 
   placeLabelsPolygon (...args) {
@@ -559,12 +461,6 @@ export class GVGraphicView {
     }
   }
 
-  /**
-     * Add three point, two point or one point aligned to others
-     * @param  {Point} P1 // If no point or one point we creat new points
-     * @param  {Point} P2 // If no point or one point we creat new points
-     * @returns {GVPoint[]}
-     */
   addPointAligned (P1 = this.addPoint()[0], P2 = this.addPoint()[0]) {
     let P3
     do {
@@ -577,11 +473,6 @@ export class GVGraphicView {
     return [P1, P2, P3]
   }
 
-  /**
-     * P1, P2, P3 with P2P1P3 rectangular in P1
-     * @param args
-     * @returns {GVPoint[]}
-     */
   addRectPoint (...args) {
     let P3, P1, P2
     do {
@@ -601,28 +492,11 @@ export class GVGraphicView {
     return [P1, P2, P3]
   }
 
-  /**
-     * Distances to the sides of a triangle
-     * @param  {GVPoint} P1
-     * @param  {GVPoint} P2
-     * @param  {GVPoint} P3
-     * @returns {number}
-     */
   distanceMinSidesVertices (P1, P2, P3) {
-    // A faire pour n'importe quel nombre de sommets ?
     return Math.min(this.distance(P1, new GVLine(P2, P3)), this.distance(P2, new GVLine(P1, P3)), this.distance(P3, new GVLine(P1, P2)))
   }
 
-  /**
-     * Add three points not aligned or one not aligned with the two others
-     * @param  {GVPoint} P1 If no point we create three new points
-     * @param  {GVPoint} P2 If no point we create three new points
-     * @param  {GVPoint} P3 If no point we create three new points
-     * @returns {GVPoint}
-     */
   addNotAlignedPoint (P1 = this.addPoint()[0], P2 = this.addPoint()[0], P3) {
-    // Le troisième point est écrasé si existant
-    // Réfléchir à un ensemble plus grand de points non alignés
     const minDimension = Math.min(this.height, this.width) / this.getListObjectTypeSelect('Point').length / 3
     do {
       if (P3 !== undefined) { this.geometric.pop() }
@@ -632,12 +506,6 @@ export class GVGraphicView {
     return [P1, P2, P3]
   }
 
-  /**
-     * Add a parallel line to another one or two parallel lines
-     * @param  {GVPoint} P If no args we create two parallels
-     * @param  {GVLine} line If no args we create two parallels
-     * @returns {GVLine}
-     */
   addParallelLine (P = this.addPoint()[0], line = this.addLine()) {
     const parallel = new GVLine(P, line.direction)
     parallel.name = this.getNewName(parallel.type)
@@ -652,25 +520,15 @@ export class GVGraphicView {
     return [line, perpendicular]
   }
 
-  /**
-     * Add the sides of a polygon
-     * @param  {...any} args
-     * @returns {Array}
-     */
   addSidesPolygon (...args) {
     const sides = []
     for (let i = 0; i < args.length - 1; i++) {
-      // sides.push(this.addSegment(args[i], args[i + 1]))
       sides.push(this.addSegment(args[i], args[i + 1]))
     }
     sides.push(this.addSegment(args[args.length - 1], args[0]))
     return sides
   }
 
-  /**
-     * Add labels to the vertices of a polygon.
-     * @param args
-     */
   addLabelsPointsPolygon (...args) {
     const last = args.length - 1
     const vertices = [args[last]].concat(args).concat(args[0])
@@ -704,13 +562,6 @@ export class GVGraphicView {
     return triangle
   }
 
-  /**
-     * Add a group of 4 points making a parallelogram
-     * @param  {GVPoint} A // 0-3 point
-     * @param  {GVPoint} B // 0-3 point
-     * @param  {GVPoint} C // 0-3 point
-     * @returns {GVPolygon}
-     */
   addParallelogram (A = this.addPoint()[0], B = this.addPoint()[0], C = this.addNotAlignedPoint(A, B)[2], D = undefined) {
     D = new GVPoint(new GVCartesian(A.x + C.x - B.x, A.y + C.y - B.y))
     D.name = D.name || this.getNewName(D.type)
@@ -768,12 +619,6 @@ export class GVGraphicView {
     return homotheticPoints
   }
 
-  /**
-       * Add the angle ABC to the graphic view
-       * @param {Point} A
-       * @param {Point} B
-       * @param {Point} C
-       */
   addAngle (A, B, C) {
     const newAngle = new GVAngle(A, B, C)
     this.geometric.push(newAngle)
@@ -792,15 +637,6 @@ export class GVGraphicView {
     return angles
   }
 
-  /**
-     * Rotate points
-     * @param {Point} center
-     * @param {number} angle // Angle in radians
-     * @param {Point} args
-     * @returns {Point[]}
-     * @example
-     * this.addRotate(O, Math.PI()/2, B)
-     */
   addRotate (center, angle, ...args) {
     const rotatePoints = []
     args.map(M => {
@@ -821,10 +657,6 @@ export class GVGraphicView {
     return ggb.join('\n')
   }
 
-  /**
-     * Export to Mathalea2D
-     * @returns {Mathalea2D}
-     */
   getFigure (...args) {
     this.geometricExport = this.show(...args)
     return getMathalea2DExport(this)

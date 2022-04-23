@@ -2,10 +2,6 @@ import { texNombre2 } from '../outils.js'
 import { simplify, parse, unit, max, add, subtract, abs, log10, random, round } from 'mathjs'
 import { aleaName } from '../outilsMathjs.js'
 import { GVGraphicObject } from './elements.js'
-/**
- * Grandeur, methods for operations
- *
- */
 export class GVGrandeur {
   constructor (name, value, precision = 1, unit = '') {
     this.value = round(value, precision)
@@ -67,20 +63,10 @@ export class GVGrandeur {
     return a.pow(2).add(this.pow(2)).sqrt()
   }
 
-  /**
-     * this^n
-     * @param {number} n // Integer
-     * @returns {GVGrandeur}
-     */
   pow (n) {
     return new GVGrandeur(this.name + '^{' + n + '}', Math.pow(this.toFixed, n), n * this.precision, this.unit + '^' + n)
   }
 
-  /**
-     * this^n
-     * @param n // Integer
-     * @returns {GVGrandeur}
-     */
   sqrt () {
     return new GVGrandeur('\\sqrt{' + this.name + '}', Math.pow(this.toFixed, 0.5), Math.floor(0.5 * this.precision), 'cm')
   }
@@ -100,15 +86,6 @@ export class GVGrandeur {
     return new GVGrandeur(this.name, parse(conversion.toString()).args[0].value, precision, newUnit)
   }
 }
-/**
- * Quantity random
- * @param {number} nmin
- * @param {number} nmax
- * @param {number} digit
- * @param {string} name
- * @param {string} unit
- * @returns {GVGrandeur}
- */
 export function qrandom (nmin = 0, nmax = 1, digit = max(0, -log10(abs(nmax - nmin))), name = '', unit = '') {
   return new GVGrandeur(name, round(random(nmin, nmax), max(digit, 0)), digit, unit)
 }

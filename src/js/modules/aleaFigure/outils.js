@@ -28,11 +28,6 @@ export function getDimensions (...figures) {
   const ymax = Math.max(...listeYPoints)
   return [xmin, ymin, xmax, ymax]
 }
-/**
- * Euclidean quotient
- * @param {number} x
- * @returns {number}
- */
 export function quotient (x, y) {
   return x - x % y
 }
@@ -41,9 +36,9 @@ export function name (s, ...p) {
     if (x instanceof GVGrandeur) {
       return String.raw`${s.raw[k]}` + x.name
     } else if (x instanceof GVSegment) {
-      return String.raw`${s.raw[k]}` + `${x.name}` // `[${x.name}]`
+      return String.raw`${s.raw[k]}` + `${x.name}`
     } else if (x instanceof GVLine) {
-      return String.raw`${s.raw[k]}` + `${x.name}` // `(${x.name})`
+      return String.raw`${s.raw[k]}` + `${x.name}`
     } else if (x instanceof GVPoint || x instanceof GVPolygon) {
       return String.raw`${s.raw[k]}` + `${x.name}`
     } else {

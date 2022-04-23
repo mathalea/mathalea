@@ -12,8 +12,6 @@ export class GVAleaThalesConfig extends GVGraphicView {
   }
 
   create (k = undefined) {
-    // Boucle à remplacer par quelque chose de plus efficace
-    // Il faut tout simplement créer un objet configuration de Thalès en indiquant le k
     if (k !== undefined) {
       do {
         this.new()
@@ -27,18 +25,15 @@ export class GVAleaThalesConfig extends GVGraphicView {
     this.geometric = []
     let O, A, B
     if (this.AOB) {
-      [O, A, B] = this.addRectPoint() // Trois points non alignés et formant un triangle OAB rectangle en O
+      [O, A, B] = this.addRectPoint()
     } else if (this.OAB) {
-      [A, O, B] = this.addRectPoint() // Trois points non alignés et formant un triangle OAB rectangle en A
+      [A, O, B] = this.addRectPoint()
     } else {
-      [O, A, B] = this.addNotAlignedPoint() // Trois points non alignés
+      [O, A, B] = this.addNotAlignedPoint()
     }
-    // M est un point de (OA)
-    const M = this.addPointAligned(O, A)[2] // C'est le troisième point de la sortie addPointAligned
-    // On ajoute les droites (OB) et (AB) pour ne pas gêner le point M
+    const M = this.addPointAligned(O, A)[2]
     const dOB = this.addLine(O, B)
     const dAB = this.addLine(A, B)
-    // Exemple d'un vecteur créé à partir de deux points
     const vO = new GVVector(O.x, O.y)
     const vA = new GVVector(A.x, A.y)
     const vB = new GVVector(B.x, B.y)
@@ -46,38 +41,26 @@ export class GVAleaThalesConfig extends GVGraphicView {
     const vOA = vA.sub(vO)
     const vOB = vB.sub(vO)
     const vOM = vM.sub(vO)
-    // On détermine l'orientation de AOB pour la position des labels
     const direct = cross([vOA.x, vOA.y, 0], [vOB.x, vOB.y, 0])[2] > 0
-    // On remplace le point M par son symétrique par rapport à O si besoin
-    // Mauvaise idée !!
-    // Rechercher un point qui corresponde soit par l'aléatoire soir par le barycentre bien choisi
     if (this.classicConfig !== undefined && ((this.classicConfig && vOA.dot(vOM) < 0) || (!this.classicConfig && vOA.dot(vOM) > 0))) {
-      // Object.assign(M, this.addHomothetic(O, -1, M)[0])
       this.classicConfig = vOA.dot(vOM) > 0
     } else if (this.classicConfig === undefined) {
       this.classicConfig = vOA.dot(vOM) > 0
     }
     this.k = (vOA.dot(vOM) < 0 ? -1 : 1) * this.distance(O, M) / this.distance(O, A)
-    // On crée une parallèle à (AB)
-    const dMN = this.addParallelLine(M, dAB)[1] // C'est la seconde parallèle de addParalleleLine
-    // On ajoute le point d'intersection de (OA) et (MN)
-    const [N] = this.addIntersectLine(dMN, dOB) // C'est un tableau pour prévoir l'intersection de cercles par exemple
-    // On commence par nommer les points et les droites
-    const aleaNames = aleaName(5) // Nommage aléatoire des points
-    // const aleaNames = ['O', 'A', 'B', 'M', 'N'] // Pour le debuggage
+    const dMN = this.addParallelLine(M, dAB)[1]
+    const [N] = this.addIntersectLine(dMN, dOB)
+    const aleaNames = aleaName(5)
     const points = [O, A, B, M, N]
     points.forEach((x, i) => { x.name = aleaNames[i] })
-    // On nomme les droites à partir des noms des points
-    dAB.name = A.name + B.name // L'ordre des lettres est conservé
-    dMN.aleaName(M, N) // L'ordre des lettres est aléatoirisé
-    // On positionne les labels des points du mieux possible
-    if (this.k < 0) { // À l'extrémités des triangles
+    dAB.name = A.name + B.name
+    dMN.aleaName(M, N)
+    if (this.k < 0) {
       A.labelPoints = [O, A, B]
       B.labelPoints = [O, B, A]
       M.labelPoints = [O, M, N]
       N.labelPoints = [O, N, M]
     } else if (this.k < 1) {
-      // ? : http://localhost:8080/mathalea.html?ex=betaThales,s=31,s2=3,s3=1,n=1,cd=1&serie=lvxb&v=ex&z=1
       A.labelPoints = [O, A, B]
       B.labelPoints = [O, B, A]
       M.labelPoints = direct ? [O, M, A] : [A, M, O]
@@ -93,14 +76,6 @@ export class GVAleaThalesConfig extends GVGraphicView {
     this.points = [O, A, B, M, N].map(x => { x.label = true; return x })
   }
 
-  /**
-     * Set dimensions
-     * @example
-     * this.setDimensions(0.5) - > rectangle half height from the setting xmin, ymin and xmax
-     * this.setDimensions(7,5) - > rectangle width=7 and height=5
-     * this.setdimensions(0,0,7,6) - > xmin, ymin, xmax, ymax
-     * @param args
-     */
   setDimensions (...args) {
     switch (args.length) {
       case 1: {

@@ -1,13 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { context } from '../context.js'
 import { GVCartesian, GVCoordinates } from './coordinates.js'
 import { aleaName } from '../outilsMathjs.js'
 import { dot, round, cross } from 'mathjs'
 import { latexParCoordonnees, latexParPoint, tracePoint, point, labelPoint } from '../2d.js'
 import { circularPermutation, getDimensions } from './outils.js'
-/**
- * @class
- * @classdesc Graphic object like Point, Line, Segment etc.
- */
 export class GVGraphicObject {
   constructor () {
     this.color = 'black'
@@ -34,10 +31,6 @@ export class GVGraphicObject {
     return this.name
   }
 
-  /**
-     * Move this right to figures
-     * @param figures
-     */
   moveRight (...figures) {
     const [xmin1, ymin1, xmax1, ymax1] = getDimensions(this)
     const [xmin2, ymin2, xmax2, ymax2] = getDimensions(...figures)
@@ -59,10 +52,6 @@ export class GVGraphicObject {
     }
   }
 }
-/**
- * @class
- * @classdesc Caracteristics of a point in an euclidean plan
- */
 export class GVPoint extends GVGraphicObject {
   constructor (arg1, arg2 = 0) {
     super()
@@ -119,10 +108,9 @@ export class GVPoint extends GVGraphicObject {
   }
 
   getBarycentriqueCoords (A, B, C) {
-    let a, b, c
-    a = determinant(B.sub(this), C.sub(this))
-    b = determinant(C.sub(this), A.sub(this))
-    c = determinant(A.sub(this), B.sub(this))
+    const a = determinant(B.sub(this), C.sub(this))
+    const b = determinant(C.sub(this), A.sub(this))
+    const c = determinant(A.sub(this), B.sub(this))
     return [a, b, c]
   }
 
@@ -130,11 +118,6 @@ export class GVPoint extends GVGraphicObject {
     return Math.min(...this.getBarycentriqueCoords(A, B, C)) > 0 || Math.max(...this.getBarycentriqueCoords(A, B, C)) < 0
   }
 
-  /**
-     * Get the symétric of P with this
-     * @param P
-     * @returns {GVPoint}
-     */
   getSymetric (P) {
     return barycentre([this, P], [2, -1])
   }
@@ -164,9 +147,9 @@ export class GVPoint extends GVGraphicObject {
       const v3 = P3.sub(S).getVector().getNormed()
       const corr = new GVVector(0, -0.3 * scaleppc)
       let P
-      if (v1.colinear(v3)) { // Colinéaires
+      if (v1.colinear(v3)) {
         P = S.add(v1.getNormal().multiply(scaleppc * 0.4)).add(corr)
-      } else { // Non colinéaires
+      } else {
         P = S.getSymetric(S.add(v1.add(v3).getNormed().multiply(scaleppc * 0.4))).add(corr)
       }
       if (context.isHtml) {
@@ -175,7 +158,6 @@ export class GVPoint extends GVGraphicObject {
         nameFormat = `$${nameFormat}$`
         label = labelPoint(point(P.x, P.y, nameFormat, 'above'))
       }
-      //
       this.labelPoints = [P1, S, P3]
     } else {
       if (context.isHtml) {
@@ -257,13 +239,7 @@ export class GVVector {
     return parseFloat(cross([this.x, this.y, 0], [V.x, V.y, 0])[2].toFixed(15)) === 0
   }
 }
-/**
-   * @class
-   * @classdesc Caracteristics of a line in an euclidean plan (ax+by=c)
-   */
 export class GVLine extends GVGraphicObject {
-  // Une droite sera définie par deux points distincts ou un point et une direction
-  // Il faudrait deux constructeurs ?
   constructor (A, B) {
     super()
     this.a = 0
@@ -306,11 +282,6 @@ export class GVLine extends GVGraphicObject {
     return new GVLine(P, this.direction.getNormal())
   }
 
-  /**
-     * Get the symétric of P with this
-     * @param P
-     * @returns {GVPoint}
-     */
   getSymetric (P) {
     return barycentre([this.getIntersect(this.getPerpendicularLine(P)), P], [2, -1])
   }
@@ -329,10 +300,6 @@ export function barycentre (P, a) {
   const pointsPonderes = P.map((x, i) => x.multiply(a[i]))
   return pointsPonderes.reduce((accumulator, curr) => accumulator.add(curr)).divide(a.reduce((accumulator, curr) => accumulator + curr))
 }
-/**
-   * @class
-   * @classdesc Caracteristics of a segment in an euclidean plan
-   */
 export class GVSegment extends GVLine {
   constructor (A, B) {
     super(A, B)
@@ -351,19 +318,13 @@ export class GVSegment extends GVLine {
     const P = new GVPoint((this.A.x + this.B.x) / 2, (this.A.y + this.B.y) / 2)
     if (context.isHtml) {
       label = latexParPoint(this.name, point(P.x, P.y, '', 'center'), 'black', 50, 8, '')
-      // LatexParCoordonnees(texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres)
     } else {
       label = latexParPoint(this.name, point(P.x, P.y, '', 'center'), 'black', 20, 8, '')
-      // label = labelPoint(point(P.x, P.y, `$${this.name}$`, 'center'))
     }
     this.label = true
     return label
   }
 }
-/**
-   * @class
-   * @classdesc Caracteristics of a circle in an euclidean plan
-   */
 export class GVCircle extends GVGraphicObject {
   constructor (A, B) {
     super()
@@ -380,10 +341,6 @@ export class GVCircle extends GVGraphicObject {
     return new GVPoint(new GVCartesian(this.A.x + this.r * Math.cos(theta), this.A.y + this.r * Math.sin(theta)))
   }
 }
-/**
-   * @class
-   * @classdesc Caracteristics of an angle
-   */
 export class GVAngle extends GVGraphicObject {
   constructor (A, B, C) {
     super()
@@ -414,10 +371,6 @@ export class GVAngle extends GVGraphicObject {
     this.C = this.B.add(vBC)
   }
 }
-/**
-   * @class
-   * @classdesc Caracteristics of an angle
-   */
 export class GVPolygon extends GVGraphicObject {
   constructor (...args) {
     super()
@@ -436,10 +389,6 @@ export class GVPolygon extends GVGraphicObject {
     return [xmin, ymin, xmax, ymax]
   }
 }
-/**
-   * @class
-   * @classdesc Caracteristics of a triangle
-   */
 export class GVRectangle extends GVPolygon {
   constructor (...args) {
     super(...args)
@@ -450,11 +399,8 @@ export class GVRectangle extends GVPolygon {
     this.ratio = this.longueur / this.largeur
   }
 }
-/**
-  * @class
-  * @classdesc Caracteristics of a triangle
-  */
 export class GVTriangle extends GVPolygon {
+  // eslint-disable-next-line no-useless-constructor
   constructor (...args) {
     super(...args)
   }
