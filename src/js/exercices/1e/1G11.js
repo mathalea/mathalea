@@ -27,7 +27,7 @@ export default function MesurePrincipale () {
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7', 'type8', 'type9'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, k, p, n, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, k, p, n, angle,  texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':// k* 2\pi + p*\pi/n
           p = randint(-2, 2, [0])
@@ -66,15 +66,19 @@ export default function MesurePrincipale () {
           n = 13
           break
       }
-      k = randint(-5, 5, [0, 1])
-      texte = `$\\alpha=\\dfrac{${2 * n * k + p}\\pi}{${n}}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-      texteCorr = `On cherche le nombre de multiples inutiles de $2\\pi$ pour déterminer la mesure principale de $\\dfrac{${2 * n * k + p}\\pi}{${n}}$,`
-      texteCorr += `<br>c'est-à-dire le nombre de multiples de $${2 * n}\\pi$ dans $${2 * n * k + p}\\pi$.`
-      texteCorr += `<br><br>$\\alpha=\\dfrac{${2 * n * k + p}\\pi}{${n}}=\\dfrac{${p + 2 * n}\\pi${ecritureAlgebrique(2 * n * (k - 1))} \\pi  }{${n}}=  \\dfrac{${p + 2 * n}\\pi}{${n}}+\\dfrac{${(k - 1)} \\times ${2 * n}\\pi}{${n}} =\\dfrac{${p + 2 * n}\\pi}{${n}}${ecritureAlgebrique(k - 1)}\\times 2\\pi$`
-      texteCorr += `<br><br>Mais  $\\dfrac{${p + 2 * n}\\pi}{${n}} ~\\notin ~]-\\pi~ ;~ \\pi ]$.`
-      texteCorr += `<br><br>$\\alpha=\\dfrac{${2 * n * k + p}\\pi}{${n}}=\\dfrac{(${p}${ecritureAlgebrique(2 * n * k)})\\pi}{${n}}= \\dfrac{${p}\\pi}{${n}}+\\dfrac{${k} \\times ${2 * n}\\pi}{${n}}=\\dfrac{${rienSi1(p)}\\pi}{${n}}${ecritureAlgebrique(k)}\\times 2\\pi  .$`
-      texteCorr += `<br><br>Comme $\\dfrac{${rienSi1(p)}\\pi}{${n}}~\\in~]-\\pi~ ;~ \\pi ]$,`
-      texteCorr += ` la mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{${n}}$.`
+      k = randint(-5, 5, [0, 1])// modulo 2k\pi
+      angle = 2 * n * (k ) + p
+
+      texte = `$\\alpha=\\dfrac{${angle}\\pi}{${n}}$` // Le LateX entre deux symboles $, les variables dans des ${ }
+      texteCorr = `On cherche le nombre de multiples inutiles de $2\\pi$ pour déterminer la mesure principale de $\\dfrac{${angle}\\pi}{${n}}$,`
+      texteCorr += `<br>c'est-à-dire le nombre de multiples de $${2 * n}\\pi$ dans $${angle}\\pi$.`
+      texteCorr += '<br>On peut diviser le numérateur par le double du dénominateur, pour avoir un ordre de grandeur du meilleur multiple :'
+      texteCorr += `<br> On obtient : $\\quad ${k - 1}<\\dfrac{${angle}}{${2 * n}}< ${k}$`
+      texteCorr += `<br><br>D'une part : $\\alpha=\\dfrac{${angle}\\pi}{${n}}=\\dfrac{${p + 2 * n}\\pi${ecritureAlgebrique(2 * n * (k - 1))} \\pi  }{${n}}=  \\dfrac{${p + 2 * n}\\pi}{${n}}+\\dfrac{${(k - 1)} \\times ${2 * n}\\pi}{${n}} =\\dfrac{${p + 2 * n}\\pi}{${n}}${ecritureAlgebrique(k - 1)}\\times 2\\pi$`
+      texteCorr += `<br><br>D'autre part : $\\alpha=\\dfrac{${2 * n * k + p}\\pi}{${n}}=\\dfrac{(${p}${ecritureAlgebrique(2 * n * k)})\\pi}{${n}}= \\dfrac{${p}\\pi}{${n}}+\\dfrac{${k} \\times ${2 * n}\\pi}{${n}}=\\dfrac{${rienSi1(p)}\\pi}{${n}}${ecritureAlgebrique(k)}\\times 2\\pi  .$`
+      texteCorr += `<br><br>On observe que :  $\\dfrac{${p + 2 * n}\\pi}{${n}} ~\\notin ~]-\\pi~ ;~ \\pi ]$.`
+      texteCorr += `<br><br>Alors que :  $\\dfrac{${rienSi1(p)}\\pi}{${n}}~\\in~]-\\pi~ ;~ \\pi ]$,`
+      texteCorr += `<br> La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{${n}}$.`
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
