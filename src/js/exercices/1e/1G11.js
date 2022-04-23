@@ -24,59 +24,57 @@ export default function MesurePrincipale () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const typeQuestionsDisponibles = ['type2'] // On créé 3 types de questions
+    const typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7', 'type8', 'type9'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, k, p, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, k, p, n, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'type1':// k* 2\pi + p*\pi/3
-          k = randint(-5, 5, [0])//
+        case 'type1':// k* 2\pi + p*\pi/n
           p = randint(-2, 2, [0])
-          texte = `$\\alpha=\\dfrac{${6 * k + p}\\pi}{3}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          texteCorr = `On cherche le nombre de multiples de $2\\pi$ dans $\\dfrac{${6 * k + p}\\pi}{3}$,`
-          texteCorr += `<br>c'est-à-dire le nombre de multiples de $6\\pi$ dans $${6 * k + p}\\pi$.`
-          texteCorr += `<br><br>$\\alpha=\\dfrac{${6 * k + p}\\pi}{3}= \\dfrac{${6 * (k - 1)} \\pi  ${ecritureAlgebrique(p + 6)}\\pi}{3}=\\dfrac{${6 * k} \\pi  ${ecritureAlgebrique(p)}\\pi}{3}$`
-          texteCorr += `<br><br>Comme $\\dfrac{${rienSi1(p)}\\pi}{3}\\in]-\\pi;\\pi]$,`
-          texteCorr += ` on garde : $\\alpha=\\dfrac{${6 * k} \\pi  ${ecritureAlgebrique(p)}\\pi}{3}=\\dfrac{${rienSi1(p)}\\pi}{3}${ecritureAlgebrique(k)}\\times 2\\pi$.`
-          texteCorr += `<br><br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{3}$.`
+          n = 3
           break
-        case 'type2':// k* 2\pi + p*\pi/6
-          k = randint(-5, 5, [0])
+        case 'type2':// k* 2\pi + p*\pi/n
           p = randint(-5, 5, [-4, -3, -2, 0, 2, 3, 4])
-          texte = `$\\alpha=\\dfrac{${12 * k + p}\\pi}{6}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          texteCorr = `On cherche le nombre de multiples de $2\\pi$ dans $\\dfrac{${12 * k + p}\\pi}{6}$,`
-          texteCorr += `<br>c'est-à-dire le nombre de multiples de $12\\pi$ dans $${12 * k + p}\\pi$.`
-          texteCorr += `<br><br>$\\alpha=\\dfrac{${12 * k + p}\\pi}{6}=\\dfrac{${p + 12}\\pi${ecritureAlgebrique(12 * (k - 1))} \\pi  }{6}=  \\dfrac{${p + 12}\\pi}{6}+\\dfrac{${6 * (k - 1)} \\times 2\\pi}{6} =\\dfrac{${p + 12}\\pi}{6}${ecritureAlgebrique(k-1)}\\times 2\\pi$`
-          texteCorr += `<br><br>Mais  $\\dfrac{${p + 12}\\pi}{6} ~\\notin ~]~-~\\pi~ ;~ \\pi~ [$.`
-          texteCorr += `<br><br>$\\alpha=\\dfrac{${12 * k + p}\\pi}{6}=\\dfrac{${p}${ecritureAlgebrique(12 * k)}\\pi}{6}= \\dfrac{${p}\\pi}{6}+\\dfrac{${6 * k} \\times 2\\pi}{6}=\\dfrac{${rienSi1(p)}\\pi}{6}${ecritureAlgebrique(k)}\\times 2\\pi  .$`
-          texteCorr += `<br><br>Comme $\\dfrac{${rienSi1(p)}\\pi}{6}~\\in~]~-~\\pi~ ;~ \\pi~ [$,`
-          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{6}$.`
+          n = 6
           break
-        case 'type3':// k* 2\pi + p*\pi/5
-          k = randint(-5, 5, [0])
+        case 'type3':// k* 2\pi + p*\pi/n
           p = randint(-4, 4, [0])
-          texte = `$\\alpha=\\dfrac{${10 * k + p}\\pi}{5}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          texteCorr = `$\\alpha=\\dfrac{${10 * k + p}\\pi}{5}=\\dfrac{${5 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{5}=${k}\\times 2\\pi+\\dfrac{${ecritureAlgebrique(p)}\\pi}{5}$`
-          texteCorr += `<br>On vérifie que $\\dfrac{${rienSi1(p)}\\pi}{5}\\in]-\\pi;\\pi]$.`
-          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{5}$.`
+          n = 5
           break
-        case 'type4':// k* 2\pi + p*\pi/4
-          k = randint(-5, 5, [0])
+        case 'type4':// k* 2\pi + p*\pi/n
           p = randint(-3, 3, [-2, 0, 2])
-          texte = `$\\alpha=\\dfrac{${8 * k + p}\\pi}{4}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          texteCorr = `$\\alpha=\\dfrac{${8 * k + p}\\pi}{4}=\\dfrac{${4 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{4}${k}\\times 2\\pi+\\dfrac{${ecritureAlgebrique(p)}\\pi}{4}$`
-          texteCorr += `<br>On vérifie que $\\dfrac{${rienSi1(p)}\\pi}{4}\\in]-\\pi;\\pi]$.`
-          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{4}$.`
+          n = 4
           break
-        case 'type5':// k* 2\pi + p*\pi/7
-          k = randint(-5, 5, [0])
+        case 'type5':// k* 2\pi + p*\pi/n
           p = randint(-6, 6, [0])
-          texte = `$\\alpha=\\dfrac{${14 * k + p}\\pi}{7}$` // Le LateX entre deux symboles $, les variables dans des ${ }
-          texteCorr = `$\\alpha=\\dfrac{${14 * k + p}\\pi}{7}=\\dfrac{${7 * k} \\times 2\\pi  ${ecritureAlgebrique(p)}\\pi}{7}${k}\\times 2\\pi+\\dfrac{${ecritureAlgebrique(p)}\\pi}{7}$`
-          texteCorr += `<br>On vérifie que $\\dfrac{${rienSi1(p)}\\pi}{7}\\in]-\\pi;\\pi]$.`
-          texteCorr += `<br>La mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{7}$.`
+          n = 7
+          break
+        case 'type6':// k* 2\pi + p*\pi/n
+          p = randint(-8, 8, [-6, -3, 0, 3, 6])
+          n = 9
+          break
+        case 'type7':// k* 2\pi + p*\pi/n
+          p = randint(-9, 9, [-8, -6, -5, -4, -2, 0, 2, 4, 5, 6, 8])
+          n = 10
+          break
+        case 'type8':// k* 2\pi + p*\pi/n
+          p = randint(-10, 10, [0])
+          n = 11
+          break
+        case 'type9':// k* 2\pi + p*\pi/n
+          p = randint(-12, 12, [0])
+          n = 13
           break
       }
+      k = randint(-5, 5, [0, 1])
+      texte = `$\\alpha=\\dfrac{${2 * n * k + p}\\pi}{${n}}$` // Le LateX entre deux symboles $, les variables dans des ${ }
+      texteCorr = `On cherche le nombre de multiples inutiles de $2\\pi$ pour déterminer la mesure principale de $\\dfrac{${2 * n * k + p}\\pi}{${n}}$,`
+      texteCorr += `<br>c'est-à-dire le nombre de multiples de $${2 * n}\\pi$ dans $${2 * n * k + p}\\pi$.`
+      texteCorr += `<br><br>$\\alpha=\\dfrac{${2 * n * k + p}\\pi}{${n}}=\\dfrac{${p + 2 * n}\\pi${ecritureAlgebrique(2 * n * (k - 1))} \\pi  }{${n}}=  \\dfrac{${p + 2 * n}\\pi}{${n}}+\\dfrac{${(k - 1)} \\times ${2 * n}\\pi}{${n}} =\\dfrac{${p + 2 * n}\\pi}{${n}}${ecritureAlgebrique(k - 1)}\\times 2\\pi$`
+      texteCorr += `<br><br>Mais  $\\dfrac{${p + 2 * n}\\pi}{${n}} ~\\notin ~]-\\pi~ ;~ \\pi ]$.`
+      texteCorr += `<br><br>$\\alpha=\\dfrac{${2 * n * k + p}\\pi}{${n}}=\\dfrac{(${p}${ecritureAlgebrique(2 * n * k)})\\pi}{${n}}= \\dfrac{${p}\\pi}{${n}}+\\dfrac{${k} \\times ${2 * n}\\pi}{${n}}=\\dfrac{${rienSi1(p)}\\pi}{${n}}${ecritureAlgebrique(k)}\\times 2\\pi  .$`
+      texteCorr += `<br><br>Comme $\\dfrac{${rienSi1(p)}\\pi}{${n}}~\\in~]-\\pi~ ;~ \\pi ]$,`
+      texteCorr += ` la mesure principale de $\\alpha$ est donc $\\dfrac{${rienSi1(p)}\\pi}{${n}}$.`
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
