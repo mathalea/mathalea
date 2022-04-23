@@ -1,10 +1,10 @@
-import Exercice from '../ExerciceTs.js'
-import { listeQuestionsToContenu, randint, range, shuffle } from '../../modules/outils.js'
-import { boite, fixeBordures, mathalea2d } from '../../modules/2d.js'
-export const titre = 'Compléter des patrons de solides'
-export const interactifReady = true
-export const interactifType = 'mathLive'
-export const dateDePublication = '16/04/2022'
+import Exercice from '../ExerciceTs';
+import { listeQuestionsToContenu, randint, range, shuffle } from '../../modules/outils.js';
+import { boite, fixeBordures, mathalea2d } from '../../modules/2d.js';
+export const titre = 'Compléter des patrons de solides';
+export const interactifReady = true;
+export const interactifType = 'mathLive';
+export const dateDePublication = '16/04/2022';
 class ModelePatrons {
   constructor (a, b, c) {
     this.patrons = [

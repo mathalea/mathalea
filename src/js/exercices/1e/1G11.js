@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, abs, rienSi1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, rienSi1 } from '../../modules/outils.js'
 export const titre = 'Mesure principale d\'un angle'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle

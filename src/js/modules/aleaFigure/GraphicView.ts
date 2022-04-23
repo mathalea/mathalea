@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { randomInt } from 'mathjs'
-import { GVCartesian } from './coordinates.js'
-import { GVRectangle, GVTriangle, GVPolygon, GVVector, GVAngle, GVPoint, GVLine, GVSegment, GVGraphicObject, GVCircle, barycentre } from './elements.js'
-import { getMathalea2DExport } from './getMathalea2DExport.js'
-import { circularPermutation, quotient } from './outils.js'
+import { GVCartesian } from './coordinates'
+import { GVRectangle, GVTriangle, GVPolygon, GVVector, GVAngle, GVPoint, GVLine, GVSegment, GVGraphicObject, GVCircle, barycentre } from './elements'
+import { getMathalea2DExport } from './getMathalea2DExport'
+import { circularPermutation, quotient } from './outils'
 import { aleaName } from '../outilsMathjs.js'
 /**
  * Donne une liste d'entiers relatifs dont on connait la somme.

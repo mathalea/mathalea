@@ -1,10 +1,10 @@
-import Exercice from '../ExerciceTs.js'
-import { randint } from '../../modules/outils.js'
-export const titre = 'Somme de deux entiers'
-export const interactifReady = true
-export const interactifType = 'mathLive'
-export const dateDePublication = '25/10/2021'
-export const dateDeModifImportante = '24/10/2021'
+import Exercice from '../ExerciceTs';
+import { randint } from '../../modules/outils.js';
+export const titre = 'Somme de deux entiers';
+export const interactifReady = true;
+export const interactifType = 'mathLive';
+export const dateDePublication = '25/10/2021';
+export const dateDeModifImportante = '24/10/2021';
 export default class NomExercice extends Exercice {
   constructor () {
     super()

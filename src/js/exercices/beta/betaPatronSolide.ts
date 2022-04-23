@@ -1,5 +1,5 @@
-import Exercice from '../ExerciceTsTs'
-import { combinaisonListes, listeQuestionsToContenu, randint, range, shuffle } from '../../modules/outils.js'
+import Exercice from '../ExerciceTs'
+import { listeQuestionsToContenu, randint, range, shuffle } from '../../modules/outils.js'
 import { boite, fixeBordures, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Compléter des patrons de solides'
 export const interactifReady = true

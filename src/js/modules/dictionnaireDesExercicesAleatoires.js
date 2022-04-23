@@ -308,6 +308,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "1G11": {
+    "titre": "Mesure principale d'un angle",
+    "url": "/exercices/1e/1G11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1G11",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "1N10": {
     "titre": "Déterminer les termes d’une suite définie de façon explicite",
     "url": "/exercices/1e/1N10.js",
@@ -10119,6 +10134,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "HPC102": {
+    "titre": "Calculs de probabilité avec la loi normale",
+    "url": "/exercices/HP/HPC102.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "HPC102",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "PEA11-1": {
     "titre": "Passer de la base 12 ou 16 à la base 10 et inversement",
     "url": "/exercices/PE/PEA11-1.js",
@@ -10813,6 +10844,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "betaCanTs": {
+    "titre": "Somme de deux entiers",
+    "url": "/exercices/beta/betaCanTs.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCanTs",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "betaEqCarreDansC": {
     "titre": "Racine carrée nombre complexe",
     "url": "/exercices/beta/betaEqCarreDansC.js",
@@ -11125,6 +11172,22 @@ export default {
     "name": "betaModele50_Mathsteps",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betaPatronSolide": {
+    "titre": "Compléter des patrons de solides",
+    "url": "/exercices/beta/betaPatronSolide.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaPatronSolide",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -16136,7 +16199,7 @@ export default {
     }
   },
   "can6a-2018": {
-    "titre": "CAN Sixième sujet 2018",
+    "titre": "CAN 6ième sujet 2018",
     "url": "/exercices/can/6e/can6a-2018.js",
     "amcReady": false,
     "interactifReady": true,

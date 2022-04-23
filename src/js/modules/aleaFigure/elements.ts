@@ -1,11 +1,11 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-unused-vars */
 import { context } from '../context.js'
-import { GVCartesian, GVCoordinates, GVPolar } from './coordinates.js'
+import { GVCartesian, GVCoordinates, GVPolar } from './coordinates'
 import { aleaName } from '../outilsMathjs.js'
 import { dot, round, cross, MathArray, Matrix } from 'mathjs'
 import { latexParCoordonnees, latexParPoint, tracePoint, point, labelPoint } from '../2d.js'
-import { circularPermutation, getDimensions } from './outils.js'
+import { circularPermutation, getDimensions } from './outils'
 /**
   * @class
   * @classdesc Graphic object like Point, Line, Segment etc.
