@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, rienSi1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, rienSi1, sp } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Mesure principale d\'un angle'
@@ -15,7 +15,7 @@ export const dateDeModifImportante = '' // Une date de modification importante a
  * @author Stéphane Guyon
  * Référence
 */
-export default function MesurePrincipale () {
+export default function MesurePrincipale() {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 3 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
@@ -29,11 +29,11 @@ export default function MesurePrincipale () {
     const lettresGrecques = [['α', '${alfa}'], ['β', '\\beta'], ['δ', '\\delta'], ['γ', '\\gamma'], ['ω', '\\omega'], ['ε', '\\epsilon'], ['θ', '\\theta'], ['λ', '\\lambda']]
     const alfa = lettresGrecques[randint(0, 7)][1]
     this.consigne = `Déterminer la mesure principale de l\'angle $${alfa}$, c\'est-à-dire sa mesure sur $]-\\pi;\\pi]$`
-    
+
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7', 'type8', 'type9'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, k, p, n, angle,  texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, k, kMin, p, n, angle, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':// k* 2\pi + p*\pi/n
           p = randint(-2, 2, [0])
@@ -73,23 +73,28 @@ export default function MesurePrincipale () {
           break
       }
       k = randint(-5, 5, [0, 1])// modulo 2k\pi
-      angle = 2 * n * (k ) + p
+      angle = 2 * n * (k) + p
 
       texte = `$${alfa}=\\dfrac{${angle}\\pi}{${n}}$` // Le LateX entre deux symboles $, les variables dans des ${ }
       if (this.interactif) {
-        setReponse(this, i,`$\\dfrac{${rienSi1(p)}\\pi}{${n}}$`)
+        setReponse(this, i, `$\\dfrac{${rienSi1(p)}\\pi}{${n}}$`)
         texte += ' et sa mesure principale est :' + ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
       }
-  
-      
+
+      kMin = angle / (2 * n) < k ? k - 1 : k  // Ce parametre permet d'adapter le code selon si k est la borne inférieure ou supérieure de l'encadrement entre deux entiers de angle/2n.
+
       texteCorr = `On cherche le nombre de multiples inutiles de $2\\pi$ pour déterminer la mesure principale de $\\dfrac{${angle}\\pi}{${n}}$,`
       texteCorr += `<br>c'est-à-dire le nombre de multiples de $${2 * n}\\pi$ dans $${angle}\\pi$.`
       texteCorr += '<br>On peut diviser le numérateur par le double du dénominateur, pour avoir un ordre de grandeur du meilleur multiple :'
-      texteCorr += `<br> On obtient : $\\quad ${k - 1}<\\dfrac{${angle}}{${2 * n}}< ${k}$`
-      texteCorr += `<br><br>D'une part : $${alfa}=\\dfrac{${angle}\\pi}{${n}}=\\dfrac{${p + 2 * n}\\pi${ecritureAlgebrique(2 * n * (k - 1))} \\pi  }{${n}}=  \\dfrac{${p + 2 * n}\\pi}{${n}}+\\dfrac{${(k - 1)} \\times ${2 * n}\\pi}{${n}} =\\dfrac{${p + 2 * n}\\pi}{${n}}${ecritureAlgebrique(k - 1)}\\times 2\\pi$`
-      texteCorr += `<br><br>D'autre part : $${alfa}=\\dfrac{${2 * n * k + p}\\pi}{${n}}=\\dfrac{(${p}${ecritureAlgebrique(2 * n * k)})\\pi}{${n}}= \\dfrac{${p}\\pi}{${n}}+\\dfrac{${k} \\times ${2 * n}\\pi}{${n}}=\\dfrac{${rienSi1(p)}\\pi}{${n}}${ecritureAlgebrique(k)}\\times 2\\pi  .$`
-      texteCorr += `<br><br>On observe que :  $\\dfrac{${p + 2 * n}\\pi}{${n}} ~\\notin ~]-\\pi~ ;~ \\pi ]$.`
-      texteCorr += `<br><br>Alors que :  $\\dfrac{${rienSi1(p)}\\pi}{${n}}~\\in~]-\\pi~ ;~ \\pi ]$,`
+      texteCorr += `<br> On obtient : $\\quad ${kMin}<\\dfrac{${angle}\\pi}{${2 * n}\\pi}< ${kMin + 1}$`
+      texteCorr += `<br><br>D'une part : $${alfa}=\\dfrac{${angle}\\pi}{${n}}=\\dfrac{${angle - 2 * n * (kMin)}\\pi${ecritureAlgebrique(2 * n * (kMin))} \\pi  }{${n}}=  \\dfrac{${angle - 2 * n * (kMin)}\\pi}{${n}}+\\dfrac{${(kMin)} \\times ${2 * n}\\pi}{${n}} =\\dfrac{${angle - 2 * n * kMin}\\pi}{${n}}${ecritureAlgebrique(kMin)}\\times 2\\pi$`
+      texteCorr += `<br><br>D'autre part : $${alfa}=\\dfrac{${2 * n * k + p}\\pi}{${n}}=\\dfrac{${angle - 2 * n * (kMin + 1)}\\pi${ecritureAlgebrique(2 * n * (kMin + 1))}\\pi}{${n}}= \\dfrac{${angle - 2 * n * (kMin + 1)}\\pi}{${n}}+\\dfrac{${kMin + 1} \\times ${2 * n}\\pi}{${n}}=\\dfrac{${angle - 2 * n * (kMin + 1)}\\pi}{${n}}${ecritureAlgebrique(kMin + 1)}\\times 2\\pi$`
+      texteCorr += `<br><br>On observe que : `
+      texteCorr += kMin === k ? `$\\dfrac{${angle - 2 * n * (kMin + 1)}\\pi}{${n}}` : `$\\dfrac{${angle - 2 * n * (kMin)}\\pi}{${n}}`
+      texteCorr += `${sp()}\\notin ${sp()}]-\\pi${sp()} ;${sp()} \\pi ]$.`
+      texteCorr += `<br><br>Alors que : `
+      texteCorr += kMin !== k ? `$\\dfrac{${angle - 2 * n * (kMin + 1)}\\pi}{${n}}` : `$\\dfrac{${angle - 2 * n * (kMin)}\\pi}{${n}}`
+      texteCorr += `${sp()}\\in${sp()}]-\\pi${sp()} ;${sp()} \\pi ]$,`
       texteCorr += `<br> La mesure principale de $${alfa}$ est donc $\\dfrac{${rienSi1(p)}\\pi}{${n}}$.`
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
