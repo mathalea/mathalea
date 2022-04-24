@@ -8626,6 +8626,109 @@ export function courbe2 (...args) {
 }
 
 /**
+ * Integrale(f,{repere,color,epaisseur,step,yMin,yMax,xUnite,yUnite,a,b,opacite,hachures}) // Trace la courbe de f
+ * a et b sont les bornes (dans l'ordre croissant a<b)
+ * opacite = 0.5 par défaut
+ * hachures = 0 par défaut (= 'northeastlines')
+ * @author Jean-Claude Lhote
+ */
+
+function Integrale (f, {
+  repere = {},
+  color = 'black',
+  epaisseur = 2,
+  step = false,
+  xUnite = 1,
+  yUnite = 1,
+  yMin,
+  yMax,
+  a = 0,
+  b = 1,
+  opacite = 0.5,
+  hachures = 0
+} = {}) {
+  ObjetMathalea2D.call(this)
+  this.color = color
+  let ymin, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
+
+  if (typeof yMin === 'undefined') {
+    ymin = repere.yMin
+  } else ymin = yMin
+
+  if (typeof yMax === 'undefined') {
+    ymax = repere.yMax
+  } else ymax = yMax
+
+  xunite = repere.xUnite
+  yunite = repere.yUnite
+
+  if (isNaN(xunite)) { xunite = xUnite };
+  if (isNaN(yunite)) { yunite = yUnite };
+  const objets = []
+  const points = []
+  let pas
+  let p
+  if (!step) {
+    pas = 0.2 / xUnite
+  } else {
+    pas = step
+  }
+  for (let x = a; inferieurouegal(x, b); x += pas
+  ) {
+    if (isFinite(f(x))) {
+      if (f(x) < ymax + 1 && f(x) > ymin - 1) {
+        points.push(point(x * xunite, f(x) * yunite))
+      } else {
+        window.notify('Erreur dans Integrale : Il semble que la fonction ne soit pas continue sur l\'intervalle', { f, a, b })
+      }
+    } else {
+      x += 0.05
+    }
+  }
+  points.push(point(b, 0), point(a, 0))
+  p = polygone([...points], this.color)
+  p.epaisseur = epaisseur
+  p.couleurDeRemplissage = 'blue'
+  p.opaciteDeRemplissage = opacite
+  p.hachures = motifs(hachures)
+  objets.push(p)
+  // LES SORTIES TiKZ et SVG
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+  this.svgml = function (coeff, amp) {
+    let code = ''
+    for (const objet of objets) {
+      if (typeof (objet.svgml) === 'undefined') code += '\n\t' + objet.svg(coeff)
+      else code += '\n\t' + objet.svgml(coeff, amp)
+    }
+    return code
+  }
+  this.tikzml = function (amp) {
+    let code = ''
+    for (const objet of objets) {
+      if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()
+      else code += '\n\t' + objet.tikzml(amp)
+    }
+    return code
+  }
+}
+
+export function integrale (...args) {
+  return new Integrale(...args)
+}
+/**
  * crée un objet correspondant au tracé de la fonction f de la classe Spline
  * f devra être définie avant...
  * @author Jean-Claude Lhote
