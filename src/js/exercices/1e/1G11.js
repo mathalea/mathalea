@@ -15,10 +15,10 @@ export const dateDeModifImportante = '' // Une date de modification importante a
  * @author Stéphane Guyon
  * Référence
 */
-export default function MesurePrincipale() {
+export default function MesurePrincipale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 3 // Nombre de questions par défaut
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
+  this.nbColsddd = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.video = '' // Id YouTube ou url
 
@@ -26,9 +26,9 @@ export default function MesurePrincipale() {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const lettresGrecques = [['α', '${alfa}'], ['β', '\\beta'], ['δ', '\\delta'], ['γ', '\\gamma'], ['ω', '\\omega'], ['ε', '\\epsilon'], ['θ', '\\theta'], ['λ', '\\lambda']]
+    const lettresGrecques = [['α', '\\alpha'], ['β', '\\beta'], ['δ', '\\delta'], ['γ', '\\gamma'], ['ω', '\\omega'], ['ε', '\\epsilon'], ['θ', '\\theta'], ['λ', '\\lambda']]
     const alfa = lettresGrecques[randint(0, 7)][1]
-    this.consigne = `Déterminer la mesure principale de l\'angle $${alfa}$, c\'est-à-dire sa mesure sur $]-\\pi;\\pi]$`
+    this.consigne = `Déterminer la mesure principale de l'angle $${alfa}$, c'est-à-dire sa mesure sur $]-\\pi;\\pi]$`
 
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7', 'type8', 'type9'] // On créé 3 types de questions
 
@@ -81,7 +81,7 @@ export default function MesurePrincipale() {
         texte += ' et sa mesure principale est :' + ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
       }
 
-      kMin = angle / (2 * n) < k ? k - 1 : k  // Ce parametre permet d'adapter le code selon si k est la borne inférieure ou supérieure de l'encadrement entre deux entiers de angle/2n.
+      kMin = angle / (2 * n) < k ? k - 1 : k // Ce parametre permet d'adapter le code selon si k est la borne inférieure ou supérieure de l'encadrement entre deux entiers de angle/2n.
 
       texteCorr = `On cherche le nombre de multiples inutiles de $2\\pi$ pour déterminer la mesure principale de $\\dfrac{${angle}\\pi}{${n}}$,`
       texteCorr += `<br>c'est-à-dire le nombre de multiples de $${2 * n}\\pi$ dans $${angle}\\pi$.`
@@ -89,10 +89,10 @@ export default function MesurePrincipale() {
       texteCorr += `<br> On obtient : $\\quad ${kMin}<\\dfrac{${angle}\\pi}{${2 * n}\\pi}< ${kMin + 1}$`
       texteCorr += `<br><br>D'une part : $${alfa}=\\dfrac{${angle}\\pi}{${n}}=\\dfrac{${angle - 2 * n * (kMin)}\\pi${ecritureAlgebrique(2 * n * (kMin))} \\pi  }{${n}}=  \\dfrac{${angle - 2 * n * (kMin)}\\pi}{${n}}+\\dfrac{${(kMin)} \\times ${2 * n}\\pi}{${n}} =\\dfrac{${angle - 2 * n * kMin}\\pi}{${n}}${ecritureAlgebrique(kMin)}\\times 2\\pi$`
       texteCorr += `<br><br>D'autre part : $${alfa}=\\dfrac{${2 * n * k + p}\\pi}{${n}}=\\dfrac{${angle - 2 * n * (kMin + 1)}\\pi${ecritureAlgebrique(2 * n * (kMin + 1))}\\pi}{${n}}= \\dfrac{${angle - 2 * n * (kMin + 1)}\\pi}{${n}}+\\dfrac{${kMin + 1} \\times ${2 * n}\\pi}{${n}}=\\dfrac{${angle - 2 * n * (kMin + 1)}\\pi}{${n}}${ecritureAlgebrique(kMin + 1)}\\times 2\\pi$`
-      texteCorr += `<br><br>On observe que : `
+      texteCorr += '<br><br>On observe que : '
       texteCorr += kMin === k ? `$\\dfrac{${angle - 2 * n * (kMin + 1)}\\pi}{${n}}` : `$\\dfrac{${angle - 2 * n * (kMin)}\\pi}{${n}}`
       texteCorr += `${sp()}\\notin ${sp()}]-\\pi${sp()} ;${sp()} \\pi ]$.`
-      texteCorr += `<br><br>Alors que : `
+      texteCorr += '<br><br>Alors que : '
       texteCorr += kMin !== k ? `$\\dfrac{${angle - 2 * n * (kMin + 1)}\\pi}{${n}}` : `$\\dfrac{${angle - 2 * n * (kMin)}\\pi}{${n}}`
       texteCorr += `${sp()}\\in${sp()}]-\\pi${sp()} ;${sp()} \\pi ]$,`
       texteCorr += `<br> La mesure principale de $${alfa}$ est donc $\\dfrac{${rienSi1(p)}\\pi}{${n}}$.`
