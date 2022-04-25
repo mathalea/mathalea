@@ -10846,7 +10846,7 @@ export default {
   },
   "betaCanTs": {
     "titre": "Somme de deux entiers",
-    "url": "/exercices/beta/betaCanTs.js",
+    "url": "/exercices/beta/betaCanTs.ts",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
