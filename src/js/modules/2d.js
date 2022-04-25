@@ -4087,7 +4087,7 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbD
 export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
   return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label })
 }
-function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, nbDivisions = 18, semi = false, avecNombre = 'deuxSens' }) {
+function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens' }) {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
@@ -4098,11 +4098,14 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, nbDivisions = 18, s
   let numero
   let azimut
   let rayon
+  let nbDivisions
   let arcPlein
   if (semi) {
     arcPlein = 180
+    nbDivisions = 18
   } else {
     arcPlein = 360
+    nbDivisions = 36
   }
 
   const centre = point(this.x, this.y)
@@ -4118,27 +4121,27 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, nbDivisions = 18, s
     if (avecNombre !== '') {
       if (avecNombre === 'deuxSens') {
         if (i === 0) {
-          numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9), centre, 2), -depart, 'gray')
+          numero = texteParPoint(arcPlein, rotation(homothetie(azimut2, centre, 0.8), centre, 2), -depart, 'gray')
           numero.contour = true
           objets.push(numero)
         }
         if (i === nbDivisions - 1) {
-          numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions - 2), -depart, 'gray')
+          numero = texteParPoint(arcPlein - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions - 2), -depart, 'gray')
         } else {
-          numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, 'gray')
+          numero = texteParPoint(arcPlein - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, 'gray')
         }
         numero.contour = true
         objets.push(numero)
       }
       if (i === 0) {
-        numero = texteParPoint('180', rotation(homothetie(azimut2, centre, 0.8), centre, 2), -depart, 'gray')
+        numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9), centre, 2), -depart, 'gray')
         numero.contour = true
         objets.push(numero)
       }
       if (i === nbDivisions - 1) {
-        numero = texteParPoint(180 - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions - 2), -depart, 'gray')
+        numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions - 2), -depart, 'gray')
       } else {
-        numero = texteParPoint(180 - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, 'gray')
+        numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, 'gray')
       }
       numero.contour = true
       objets.push(numero)
