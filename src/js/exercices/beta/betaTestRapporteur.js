@@ -1,11 +1,11 @@
 import Exercice from '../ExerciceTS.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { mathalea2d, mediatrice, point, segment } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { arc, mathalea2d, point, rapporteur, rotation, segment } from '../../modules/2d.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 
 export default class SuperExoMathalea2d extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.nbQuestions = 1 // Ici le nombre de questions (une seule pour cet exercice non modifiable)
     this.nbQuestionsModifiable = false // désactive le formulaire nombre de questions
@@ -13,11 +13,10 @@ export default class SuperExoMathalea2d extends Exercice {
     this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
     this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
     this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
-  
   }
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  nouvelleVersion() {
+  nouvelleVersion () {
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
@@ -34,15 +33,15 @@ export default class SuperExoMathalea2d extends Exercice {
     /** ******Ici on définit les objets 2d */
     /*************************************/
     const A = point(0, 0)
-    const B = point(7, 0)
-    const C = rotation(B, A, randint(20, 160))
+    const B = point(9, 0)
+    const C = rotation(B, A, randint(50, 160))
     const s = segment(A, B)
     const t = segment(A, C)
     const a = arc(B, A, C)
-    const R = cibleCouronne({ x: 0, y: 0, taille: 5, depart: 0, nbDivisions: 18, nbSubDivisions: 2, semi: true, label: false })
+    const R = rapporteur({ x: 0, y: 0, taille: 7, taille2: 6, depart: 30, nbDivisions: 18, semi: true, avecNombre: 'deuxSens' })
 
     objetsEnonce.push(s, t, a, R) // On rempli les tableaux d'objets Mathalea2d
-    objetsCorrection.push(s, d)
+    objetsCorrection.push(s, t, a, R)
 
     // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
     const paramsEnonce = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false }
