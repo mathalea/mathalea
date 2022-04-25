@@ -4087,6 +4087,7 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbD
 export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
   return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label })
 }
+
 function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens' }) {
   ObjetMathalea2D.call(this)
   this.x = x
@@ -4178,8 +4179,16 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
   }
 }
 
-export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, nbDivisions = 18, semi = false, avecNombre = 'deuxSens' }) {
-  return new Rapporteur({ x, y, taille, depart, nbDivisions, semi, avecNombre })
+/**
+ * place un rapporteur centré en (x,y) avec le zéro orienté à depart degrés.
+ * si semi === false alors les graduations vont de 0 à 180° sinon de 0 à 360°
+ * si avecNombre === "", il n'y a pas de graduations, si avecNombre === "deuxSens" il est gradué dans les deux directions
+ * si avecNombre === "unSens" il est gradué dans le sens trigo.
+ * @param {object} param0 = {x: 'number', y: 'number', taille: 'number', semi: boolean, avecNombre: string}
+ * @returns {object} // crée un instance de l'objet 2d Rapporteur
+ */
+export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens' }) {
+  return new Rapporteur({ x, y, taille, depart, semi, avecNombre })
 }
 
 /**
