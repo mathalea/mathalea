@@ -2,8 +2,13 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, contraindreValeur, combinaisonListes, texteExposant, texNombre, texteEnCouleurEtGras, miseEnEvidence, stringNombre, arrondi } from '../../modules/outils.js'
 import { latexParCoordonnees, mathalea2d, point, polygone, segment, texteParPositionEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
+import Grandeur from '../../modules/Grandeur.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const dateDePublication = '09/04/2022'
 export const titre = 'Problèmes d\'aires de rectangles'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export default function ProblemesAiresRectangles () {
   'use strict'
@@ -197,6 +202,7 @@ export default function ProblemesAiresRectangles () {
   }
   function redigeCorrection (rectangles, longueursHorizontales, longueursVerticales, aires, nombreTotalEtapes, etapeAireInconnue, alternance, numeroteur, listeCellules) {
     let texteCorr = ''
+    let reponse
     let colonneOuLigne
     if ((alternance === 'ligne' && numeroteur % 2 === 0) || (alternance === 'colonne' && numeroteur % 2 === 1)) colonneOuLigne = true
     else colonneOuLigne = false
@@ -207,6 +213,7 @@ export default function ProblemesAiresRectangles () {
       ;[texteCorr, colonneOuLigne] = etapesDeLaFinAEtapeInconnue(texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, etapeAireInconnue, alternance === 'colonne')
       texteCorr += `Nous venons de calculer la largeur et la longueur du rectangle numéro $${miseEnEvidence(rectangles[listeCellules[etapeAireInconnue - 1][0]][listeCellules[etapeAireInconnue - 1][1]].numero)}$.<br>`
       texteCorr += `On en déduit que son aire est $${texNombre(longueursHorizontales[listeCellules[etapeAireInconnue - 1][0]], 1)}\\times ${texNombre(longueursVerticales[listeCellules[etapeAireInconnue - 1][1]], 1)} = ${texNombre(aires[listeCellules[etapeAireInconnue - 1][0]][listeCellules[etapeAireInconnue - 1][1]], 2)}\\text{ cm}^2$.<br>`
+      reponse = [aires[listeCellules[etapeAireInconnue - 1][0]][listeCellules[etapeAireInconnue - 1][1]], 'cm^2']
     } else {
       ;[texteCorr, colonneOuLigne] = etapesDeUnAEtapeInconnue(texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, nombreTotalEtapes, colonneOuLigne)
       if (colonneOuLigne) {
@@ -217,6 +224,7 @@ export default function ProblemesAiresRectangles () {
           texteCorr += `La mesure demandée est la ${longueursVerticales[listeCellules[listeCellules.length - 1][1]] > longueursHorizontales[listeCellules[listeCellules.length - 1][0]] ? 'largeur' : 'longueur'} 
       du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit 
       $${miseEnEvidence(texNombre(longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 1) + '\\text{ cm}', 'black')}$.`
+          reponse = [longueursHorizontales[listeCellules[listeCellules.length - 1][0]], 'cm']
         }
       } else {
         if (longueursHorizontales[listeCellules[listeCellules.length - 1][0]] === longueursVerticales[listeCellules[listeCellules.length - 1][1]]) {
@@ -226,10 +234,11 @@ export default function ProblemesAiresRectangles () {
           texteCorr += `La mesure demandée est la ${longueursHorizontales[listeCellules[listeCellules.length - 1][0]] > longueursVerticales[listeCellules[listeCellules.length - 1][1]] ? 'largeur' : 'longueur'} 
     du rectangle numéro ${texteEnCouleurEtGras(rectangles[listeCellules[listeCellules.length - 1][0]][listeCellules[listeCellules.length - 1][1]].numero, 'red')} soit 
     $${miseEnEvidence(texNombre(longueursVerticales[listeCellules[listeCellules.length - 1][1]], 1) + '\\text{ cm}', 'black')}$.`
+          reponse = [longueursVerticales[listeCellules[listeCellules.length - 1][1]], 'cm']
         }
       }
     }
-    return texteCorr
+    return [texteCorr, reponse]
   }
   function etapesDeLaFinAEtapeInconnue (texteCorr, longueursHorizontales, longueursVerticales, listeCellules, rectangles, aires, etapeAireInconnue, colonneOuLigne) {
     for (let i = listeCellules.length - 1; i >= etapeAireInconnue; i--) {
@@ -298,8 +307,9 @@ export default function ProblemesAiresRectangles () {
 
   function prepareProblemeAire (objetsEnonce, rectangles, typeDeGrille, longueursHorizontales, longueursVerticales, aires, xBordures, yBordures, nombreTotalEtapes, etapeAireInconnue) {
     const [texte, alternance, numeroteur, listeCellules] = dessineCheminAires(objetsEnonce, rectangles, typeDeGrille, longueursHorizontales, longueursVerticales, aires, xBordures, yBordures, nombreTotalEtapes, etapeAireInconnue)
-    const texteCorr = redigeCorrection(rectangles, longueursHorizontales, longueursVerticales, aires, nombreTotalEtapes, etapeAireInconnue, alternance, numeroteur, listeCellules)
-    return [texte, texteCorr]
+    const [texteCorr, rep] = redigeCorrection(rectangles, longueursHorizontales, longueursVerticales, aires, nombreTotalEtapes, etapeAireInconnue, alternance, numeroteur, listeCellules)
+    const reponse = new Grandeur(rep[0], rep[1])
+    return [texte, texteCorr, reponse]
   }
 
   this.nouvelleVersion = function () {
@@ -333,7 +343,7 @@ export default function ProblemesAiresRectangles () {
     if (this.sup2 === 1) choixDesTables = [2, 3, 4, 5, 6, 7, 8, 9]
     else choixDesTables = [3, 4, 6, 7, 8, 9, 11, 12]
 
-    for (let q = 0, cpt = 0, texte, texteCorr; q < this.nbQuestions && cpt < 50;) {
+    for (let q = 0, cpt = 0, texte, texteCorr, reponse; q < this.nbQuestions && cpt < 50;) {
       const typeDeGrille = choisitFormatGrille(nombreTotalEtapes[q])
       // On détermine les 8 longueurs nécessaires et on prépare la grille de rectangles
       const [longueursHorizontales, longueursVerticales] = choisitLongueurs(choixDesTables, typeDeGrille)
@@ -352,7 +362,9 @@ export default function ProblemesAiresRectangles () {
       const objetsEnonce = dessineGrille(typeDeGrille, xBordures, yBordures) // Grille en pointillés sur laquelle on ajoutera les rectangles
       const aires = calculAires(typeDeGrille, longueursHorizontales, longueursVerticales) // tableau contenant toutes les aires des rectangles
       // on crée la question
-        ;[texte, texteCorr] = prepareProblemeAire(objetsEnonce, rectangles, typeDeGrille, longueursHorizontales, longueursVerticales, aires, xBordures, yBordures, nombreTotalEtapes[q], typesDeProblemes[q] === 1 ? false : Math.floor((nombreTotalEtapes[q] + 1) / 2))
+        ;[texte, texteCorr, reponse] = prepareProblemeAire(objetsEnonce, rectangles, typeDeGrille, longueursHorizontales, longueursVerticales, aires, xBordures, yBordures, nombreTotalEtapes[q], typesDeProblemes[q] === 1 ? false : Math.floor((nombreTotalEtapes[q] + 1) / 2))
+      setReponse(this, q, reponse, { formatInteractif: 'unites' })
+      texte += ajouteChampTexteMathLive(this, q, 'largeur25 inline unites[longueurs,aires]', { texte: 'Réponse avec l\'unité : ' })
       if (this.questionJamaisPosee(q, ...longueursHorizontales, ...longueursVerticales)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
