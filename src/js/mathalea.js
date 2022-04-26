@@ -3438,7 +3438,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const div = document.getElementById('ModalEmbed')
       div.innerHTML = `
       <div class="content">
-      <h3 class="ui dividing header">Affichage</h3>
+      <h3 class="ui dividing header">Affichage ou export</h3>
       <div class="ui link relaxed list">
         <div class="active item"><a class="mesLiensModaux"  href="${replaceQueryParam('v', 'diap')}" target="_blank"><i class="play icon"></i>Diaporama (navigation avec les flèches, pause avec la barre espace)</a></div>
         <div class="active item"><a class="mesLiensModaux"  href="${replaceQueryParam('v', 'l')}" target="_blank"><i class="expand icon"></i>Simplifié (sans le menu de coopmaths.fr)</a></div>
@@ -3446,6 +3446,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'embed')}" target="_blank"><i class="tablet alternate icon"></i>Optimisé pour les smartphones</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'can')}" target="_blank"><i class="flag checkered icon"></i>Course aux nombres (interactif et une question à la fois)</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'eval')}" target="_blank"><i class="tasks icon"></i>Interactif et un exercice par page</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'moodle')}" target="_blank"><i class="share square icon"></i>Export Moodle</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'latex')}" target="_blank"><i class="cogs icon"></i>Export LaTeX</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'amc')}" target="_blank"><i class="check square outline icon"></i>Export AMC</a></div>
       </div>
 
       <h3 class="ui dividing header">Imposer un temps</h3>

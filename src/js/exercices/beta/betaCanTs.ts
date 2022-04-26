@@ -1,4 +1,4 @@
-import Exercice from '../Exercice.js'
+import Exercice from '../ExerciceTs'
 import { randint } from '../../modules/outils.js'
 export const titre = 'Somme de deux entiers'
 export const interactifReady = true
@@ -14,10 +14,14 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * Référence
 */
 export default class NomExercice extends Exercice {
+  typeExercice : string
+  question : string
+  correction : string
+  reponse : number
   constructor () {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
-    this.nbQuestions = 1
+    this.nbQuestions = 5
   }
 
   nouvelleVersion () {

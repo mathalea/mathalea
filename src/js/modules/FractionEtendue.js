@@ -1,4 +1,4 @@
-import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul } from './outils.js'
+import { texNombre, arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif, signeMoinsEnEvidence } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow } from 'mathjs'
 import { fraction } from './fractions.js'
@@ -188,6 +188,17 @@ export default class FractionX extends Fraction {
     definePropRo(this, 'texFraction', () => {
       if (!texFraction) texFraction = `\\dfrac{${this.num}}{${this.den}}`
       return texFraction
+    })
+
+    /**
+     * num/den
+     * @property texFractionSR
+     * @type {string}
+     */
+    let texFractionSR // num/den mais sans traitement des signes des numérateur et dénominateur
+    definePropRo(this, 'texFractionSR', () => {
+      if (!texFractionSR) texFractionSR = `\\dfrac{${signeMoinsEnEvidence(this.num)}}{${signeMoinsEnEvidence(this.den)}}`
+      return texFractionSR
     })
 
     /**
@@ -522,6 +533,26 @@ export default class FractionX extends Fraction {
     */
   texQuotientFraction (f2) {
     return `${this.texFraction}\\div ${f2.texFraction}=${this.texFraction}\\times ${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + f2.den}}{${this.den + '\\times' + f2.num}}=\\dfrac{${this.num * f2.den}}{${this.den * f2.num}}`
+  }
+
+  /**
+ * Si la fraction est réductible, retourne une suite d'égalités permettant d'obtenir la fraction irréductible
+ */
+  texSimplificationAvecEtapes () {
+    if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
+    else if (this.estIrreductible && this.num * this.den > 0) { // irréductible mais négatifs
+      return `=${this.texFSD}`
+    } else {
+      const signe = this.signe === -1 ? '-' : ''
+      const num = Math.abs(this.num)
+      const den = Math.abs(this.den)
+      const pgcd = gcd(num, den)
+      if (pgcd !== 1) {
+        return `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+      } else {
+        return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+      }
+    }
   }
 
   /**

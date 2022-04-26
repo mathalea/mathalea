@@ -292,6 +292,37 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "1G10": {
+    "titre": "Valeurs remarquables du cosinus et sinus",
+    "url": "/exercices/1e/1G10.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "1G10",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "1G11": {
+    "titre": "Mesure principale d'un angle",
+    "url": "/exercices/1e/1G11.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "1G11",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "1N10": {
     "titre": "Déterminer les termes d’une suite définie de façon explicite",
     "url": "/exercices/1e/1N10.js",
@@ -2888,7 +2919,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -3477,7 +3508,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -4037,7 +4068,7 @@ export default {
     "interactifType": "mathLive",
     "name": "4C24",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6200,7 +6231,7 @@ export default {
     "interactifType": "mathLive",
     "name": "5N10",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6253,7 +6284,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -6269,7 +6300,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -7809,7 +7840,7 @@ export default {
     ],
     "name": "6G22",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8199,7 +8230,8 @@ export default {
     "titre": "Problèmes d'aires de rectangles",
     "url": "/exercices/6e/6M10-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6M10-1",
     "newEx": {
       "isNew": true,
@@ -9592,7 +9624,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -10103,6 +10135,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "HPC102": {
+    "titre": "Calculs de probabilité avec la loi normale",
+    "url": "/exercices/HP/HPC102.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "HPC102",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "PEA11-1": {
     "titre": "Passer de la base 12 ou 16 à la base 10 et inversement",
     "url": "/exercices/PE/PEA11-1.js",
@@ -10425,7 +10473,7 @@ export default {
     "interactifReady": false,
     "name": "P015",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -10439,6 +10487,22 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "P016",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "beta-CAN6-2022": {
+    "titre": "CAN Sixième sujet 2022",
+    "url": "/exercices/beta/beta-CAN6-2022.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta-CAN6-2022",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -10781,6 +10845,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "betaCanTs": {
+    "titre": "Somme de deux entiers",
+    "url": "/exercices/beta/betaCanTs.ts",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaCanTs",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "betaEqCarreDansC": {
     "titre": "Racine carrée nombre complexe",
     "url": "/exercices/beta/betaEqCarreDansC.js",
@@ -10903,7 +10983,7 @@ export default {
     }
   },
   "betaModele00_simple_Course_au_Nombres": {
-    "titre": "Somme de deux entier",
+    "titre": "Somme de deux entiers",
     "url": "/exercices/beta/betaModele00_simple_Course_au_Nombres.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11100,6 +11180,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "betaPatronSolide": {
+    "titre": "Compléter des patrons de solides",
+    "url": "/exercices/beta/betaPatronSolide.ts",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "betaPatronSolide",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "betaProbaAouB": {
     "titre": "2S30-6",
     "url": "/exercices/beta/betaProbaAouB.js",
@@ -11136,6 +11232,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaProbabilitesJC",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betaProblemesConcretPourcentage": {
+    "titre": "Problèmes concret et pourcentages",
+    "url": "/exercices/beta/betaProblemesConcretPourcentage.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaProblemesConcretPourcentage",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -11198,7 +11309,22 @@ export default {
     "interactifType": "mathLive",
     "name": "betaTestFraction",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betaTestRapporteur": {
+    "titre": "Exo zéro Mathalea2d",
+    "url": "/exercices/beta/betaTestRapporteur.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaTestRapporteur",
+    "newEx": {
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13519,6 +13645,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can3a-2021",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can3a-2022": {
+    "titre": "CAN troisième sujet 2022",
+    "url": "/exercices/can/3e/can3a-2022.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can3a-2022",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16110,6 +16252,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can6a-2021",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6a-2022": {
+    "titre": "CAN Sixième sujet 2022",
+    "url": "/exercices/can/6e/can6a-2022.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6a-2022",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
