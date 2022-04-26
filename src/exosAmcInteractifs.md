@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 446 
-- nombre d'exos interactifReady 639 
+- nombre d'exos interactifReady 647 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -9,6 +9,7 @@
 |1E11-1|Calculer le discriminant d'un polynôme du second degré|OK|AMCNum|OK|mathLive|
 |1E11-2|Résoudre une équation du second degré|KO|KO|OK|mathLive|
 |1E11-3|Déterminer la forme canonique d'un polynôme du second degré|KO|KO|OK|mathLive|
+|1G10|Valeurs remarquables du cosinus et sinus|KO|KO|OK|mathLive|
 |2F10-1|Reconnaître une fonction affine.|OK|qcmMono|OK|qcm|
 |2F10-2|Lecture graphique d’une fonction affine|OK|AMCHybride|OK|mathLive|
 |2F11-1|Déterminer l’image d’un nombre par une fonction de référence.|OK|AMCNum|OK|mathLive|
@@ -278,6 +279,7 @@
 |6G44|Trouver le nombre de faces ou d'arêtes d’un solide|OK|AMCNum|OK|mathLive|
 |6I10|Programmer des déplacements (Scratch)|OK|AMCOpen|KO|KO|
 |6I12|Trouver le bon tracé avec Scratch|OK|qcmMono|OK|custom|
+|6M10-1|Problèmes d'aires de rectangles|KO|KO|OK|mathLive|
 |6M10|Calculer des périmètres et des aires de figures usuelles|OK|AMCHybride|OK|mathLive|
 |6M11-1|Calculer périmètre et aire de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M11-2|Calculer périmètre et aire de figures composées|OK|AMCHybride|OK|mathLive|
@@ -364,16 +366,20 @@
 |CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|mathLive|
 |CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|mathLive|
 |CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
+|HPC102|Calculs de probabilité avec la loi normale|KO|KO|OK|mathLive|
+|beta-CAN6-2022|CAN Sixième sujet 2022|KO|KO|OK|mathLive|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta5N20bis|Additionner ou soustraire deux fractions (dénominateurs multiples)|OK|qcmMono|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
 |betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
+|betaCanTs|Somme de deux entiers|KO|KO|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
-|betaModele00_simple_Course_au_Nombres|Somme de deux entier|KO|KO|OK|mathLive|
+|betaModele00_simple_Course_au_Nombres|Somme de deux entiers|KO|KO|OK|mathLive|
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |betaModele33_cliqueFractions|Fractions interactives|KO|KO|OK|custom|
+|betaPatronSolide|Compléter des patrons de solides|KO|KO|OK|mathLive|
 |betaTestFraction|Tester la classe FractionX|KO|KO|OK|mathLive|
 |betaTestcanPredef6_10qN1|CAN 6ième 10 questions (niveau 1)|KO|KO|OK|mathLive|
 |betaTestcanPredef6_10qN2|CAN 6ième 10 questions (niveau 2)|KO|KO|OK|mathLive|
@@ -504,6 +510,7 @@
 |can3S05|Calculer une moyenne|KO|KO|OK|mathLive|
 |can3S06|Déterminer le rang d’une médiane|KO|KO|OK|mathLive|
 |can3a-2021|CAN 3ième sujet 2021|KO|KO|OK|mathLive|
+|can3a-2022|CAN troisième sujet 2022|KO|KO|OK|mathLive|
 |can4C01|Utiliser les priorités opératoires avec des relatifs|OK|AMCNum|OK|mathLive|
 |can4C02|Trouver l’opposé ou l’inverse d’une fraction|OK|AMCNum|OK|mathLive|
 |can4C03|Effectuer une division avec une fraction|OK|AMCNum|OK|mathLive|
@@ -644,6 +651,7 @@
 |can6S01|Lire un diagramme en barres|OK|AMCNum|OK|mathLive|
 |can6a-2018|CAN 6ième sujet 2018|KO|KO|OK|mathLive|
 |can6a-2021|CAN Sixième sujet 2021|KO|KO|OK|mathLive|
+|can6a-2022|CAN Sixième sujet 2022|KO|KO|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
 |canExC01|Somme de nombres complexes|OK|AMCHybride|OK|mathLive|
 |canExC02|produit de nombres complexes|OK|AMCHybride|OK|mathLive|

@@ -29,6 +29,8 @@ const isServeMode = argv.some(arg => /serve/.test(arg))
 const mode = (isServeMode || env.NODE_ENV === 'development' || /--mode=development/.test(argv)) ? 'development' : 'production'
 const isProdMode = mode === 'production'
 
+const jsDir = path.resolve(__dirname, 'src', 'js')
+
 /*
 // On ajoute ça pour filtrer / logguer ce qui passe par babel
 const babelOptions = require('./package').babel
@@ -103,11 +105,10 @@ const config = {
   mode,
   // les js à compiler, cf https://webpack.js.org/configuration/entry-context/#entry
   entry: {
-
     mathalea: ['./src/js/firstLoaded.js', './src/js/mathalea.js'],
     mathalea2d: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2d-gui.js'],
     mathalea2iep: ['./src/js/firstLoaded.js', './src/js/modules/mathalea2iep-gui.js'],
-    alacarte: ['./src/js/firstLoaded.js', './src/js/alacarte.js']
+    alacarte: ['./src/js/firstLoaded.js', './src/js/alacarte.js'] /* */
   },
   output: {
     // on vide build avant chaque compilation
@@ -137,9 +138,8 @@ const config = {
   devServer: {
     open: true,
     openPage: 'mathalea.html',
-    // openPage: 'mathalea_amc.html',
     host: 'localhost',
-    port: 8080, 
+    port: 8080,
     // on active le hot module replacement (HMR)
     hot: true,
     headers: {
@@ -186,7 +186,7 @@ const config = {
       template: 'src/html/mathalea2d.html',
       filename: 'mathalea2d.html',
       chunks: ['mathalea2d']
-    }),
+    }), /* */
     new HtmlWebpackPlugin({
       template: 'src/html/mathalea2dsvg.html',
       filename: 'mathalea2dsvg.html',
@@ -216,7 +216,7 @@ const config = {
       template: 'src/html/alacarte.html',
       filename: 'alacarte.html',
       chunks: ['alacarte']
-    })
+    }) /* */
   ],
   // La liste des fichiers à traiter
   module: {
@@ -236,6 +236,11 @@ const config = {
         include: path.resolve(__dirname, 'src', 'js'),
         // pas la peine d'exclure assets/externalJs car il est pas dans l'include
         loader: 'babel-loader'
+      },
+      {
+        test: /\.tsx?$/,
+        include: path.resolve(__dirname, 'src', 'js'),
+        loader: 'ts-loader'
       },
       {
         // la règle précédente étant restrictive (pour limiter le nb de js qui passent par babel), faut ajouter les qq modules dont on importe des sources
@@ -260,6 +265,20 @@ const config = {
         type: 'asset'
       }
     ]
+  },
+  resolve: {
+    // important de préciser ça, pour que webpack cherche les fichiers js ET ts lors des imports
+    extensions: ['.ts', '.js'],
+    // des alias pour pouvoir faire du `import xxx from 'modules/xxx'` sans la liste de ../..
+    alias: {
+      exercices: path.resolve(jsDir, 'exercices'),
+      modules: path.resolve(jsDir, 'modules')
+    }
+  },
+  stats: {
+    builtAt: true,
+    colors: true,
+    errorDetails: true
   }
 }
 

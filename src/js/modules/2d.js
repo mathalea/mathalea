@@ -4013,13 +4013,13 @@ export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3 }) {
   return new CibleRonde({ x: x, y: y, rang: rang, num: num, taille: taille })
 }
 /**
- * création d'une cible ronde pour l'auto-correction
+ * création d'une cible couronne en forme de rapporteur ou semi-rapporteur pour l'auto-correction
  * @author Jean-Claude Lhote
  * (x,y) sont les coordonnées du centre de la cible
- * Les secteurs de la cible fot 45°. Ils sont au nombre de rang*8
- * Repérage de A1 à Hn où n est le rang.
+ *
+ *
  */
-function CibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
+function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
@@ -4039,7 +4039,7 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18
 
   const centre = point(this.x, this.y)
   azimut = rotation(point(this.x + this.taille, this.y), centre, depart)
-  let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + 1)
+  let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + taille2)
   const rayons = []
   const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', 'gray')
   const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', 'gray')
@@ -4084,8 +4084,123 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18
   }
 }
 
-export function cibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
-  return new CibleCouronne({ x: x, y: y, taille: taille, depart: depart, nbDivisions: nbDivisions, nbSubDivisions: nbSubDivisions, semi: semi, label: label })
+export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
+  return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label })
+}
+
+function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens' }) {
+  ObjetMathalea2D.call(this)
+  this.x = x
+  this.y = y
+  this.taille = taille
+  this.opacite = 0.7
+  this.color = 'gray'
+  const objets = []
+  let numero
+  let azimut
+  let rayon
+  let nbDivisions
+  let arcPlein
+  if (semi) {
+    arcPlein = 180
+    nbDivisions = 18
+  } else {
+    arcPlein = 360
+    nbDivisions = 36
+  }
+
+  const centre = point(this.x, this.y)
+  azimut = rotation(point(this.x + 1, this.y), centre, depart)
+  let azimut2 = pointSurSegment(centre, azimut, this.taille)
+  const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', 'gray')
+  const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', 'gray')
+  objets.push(segment(centre, azimut2))
+  rayon = segment(azimut, azimut2)
+
+  objets.push(arc1, arc2, rayon)
+  for (let i = 0; i < nbDivisions; i++) {
+    if (avecNombre !== '') {
+      if (avecNombre === 'deuxSens') {
+        if (i === 0) {
+          numero = texteParPoint(arcPlein, rotation(homothetie(azimut2, centre, 0.8), centre, 2), -depart, 'gray')
+          numero.contour = true
+          objets.push(numero)
+        }
+        if (i === nbDivisions - 1) {
+          numero = texteParPoint(arcPlein - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions - 2), -depart, 'gray')
+        } else {
+          numero = texteParPoint(arcPlein - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, 'gray')
+        }
+        numero.contour = true
+        objets.push(numero)
+      }
+      if (i === 0) {
+        numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9), centre, 2), -depart, 'gray')
+        numero.contour = true
+        objets.push(numero)
+      }
+      if (i === nbDivisions - 1) {
+        numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions - 2), -depart, 'gray')
+      } else {
+        numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, 'gray')
+      }
+      numero.contour = true
+      objets.push(numero)
+    }
+    for (let s = 1, r; s < 10; s++) {
+      if (s === 5) {
+        r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92), homothetie(rotation(azimut2, centre, s), centre, 0.99))
+      } else {
+        r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96), homothetie(rotation(azimut2, centre, s), centre, 0.99))
+      }
+      r.opacite = 0.6
+      r.color = 'gray'
+      objets.push(r)
+    }
+    rayon.color = this.color
+    rayon.opacite = this.opacite
+    objets.push(rayon)
+    azimut = rotation(azimut, centre, arcPlein / nbDivisions)
+    azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
+    rayon = segment(azimut, azimut2)
+  }
+  objets.push(segment(centre, azimut2))
+  if (!semi) {
+    rayon = segment(homothetie(rotation(azimut, centre, -90), centre, -0.2), homothetie(rotation(azimut, centre, -90), centre, 0.2))
+    objets.push(rayon)
+    rayon = segment(homothetie(azimut, centre, -0.2), homothetie(azimut, centre, 0.2))
+  } else {
+    rayon = segment(centre, homothetie(rotation(azimut, centre, -90), centre, 0.2))
+  }
+  objets.push(rayon)
+  this.bordures = [x - taille - 1, y - taille - 1, x + taille + 1, y + taille + 1]
+
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+}
+
+/**
+ * place un rapporteur centré en (x,y) avec le zéro orienté à depart degrés.
+ * si semi === false alors les graduations vont de 0 à 180° sinon de 0 à 360°
+ * si avecNombre === "", il n'y a pas de graduations, si avecNombre === "deuxSens" il est gradué dans les deux directions
+ * si avecNombre === "unSens" il est gradué dans le sens trigo.
+ * @param {object} param0 = {x: 'number', y: 'number', taille: 'number', semi: boolean, avecNombre: string}
+ * @returns {object} // crée un instance de l'objet 2d Rapporteur
+ */
+export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens' }) {
+  return new Rapporteur({ x, y, taille, depart, semi, avecNombre })
 }
 
 /**
@@ -5867,7 +5982,7 @@ function DroiteGraduee2 ({
   thickEpaisseur = 2, thickCouleur = axeCouleur, thickDistance = 1, thickOffset = 0, // Les caractéristiques des graduations principales
   thickSecDist = 0.1, thickSec = false, // Les caractéristiques des graduations secondaires. Pas de couleur, on joue sur l'opacité
   thickTerDist = 0.01, thickTer = false, // Les caractéristiques des graduations tertiaires. Pas de couleur, on joue sur l'opacité
-  pointListe = false, labelPointTaille = 10, labelPointLargeur = 10, pointCouleur = 'blue', pointTaille = 4, pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2, // Liste de points et caractéristiques des points de ces points
+  pointListe = false, labelPointTaille = 10, labelPointLargeur = 20, pointCouleur = 'blue', pointTaille = 4, pointStyle = '+', pointOpacite = 0.8, pointEpaisseur = 2, // Liste de points et caractéristiques des points de ces points
   labelsPrincipaux = true, labelsSecondaires = false, step1 = 1, step2 = 1,
   labelDistance = (axeHauteur + 10) / context.pixelsParCm,
   labelListe = false,
@@ -5959,15 +6074,13 @@ function DroiteGraduee2 ({
   if (pointListe) {
     let lab
     for (const p of pointListe) {
-      P = point(x + (p[0] - Min) * absord[0] * Unite, y + (p[0] - Min) * absord[1] * Unite, p[1], 'above')
+      P = point(x + (p[0] - Min) * absord[0] * Unite, y + (p[0] - Min) * absord[1] * Unite, p[1])
       T = tracePoint(P, pointCouleur)
       T.taille = pointTaille
       T.opacite = pointOpacite
       T.style = pointStyle
       T.epaisseur = pointEpaisseur
-      lab = labelPoint(P)
-      lab.taille = labelPointTaille
-      lab.largeur = labelPointLargeur
+      lab = latexParCoordonnees(p[1], x - 0.8 * absord[1] + (p[0] - Min) * absord[0] * Unite, y + 0.8 * absord[0] + (p[0] - Min) * absord[1] * Unite, pointCouleur, labelPointLargeur, labelPointTaille, '', labelPointTaille)
       objets.push(T, lab)
     }
   }
@@ -6944,6 +7057,10 @@ function Repere2 ({
   yLabelListe = false,
   yLabelMin = yThickMin,
   yLabelMax = yThickMax,
+  precisionLabelX = 1,
+  precisionLabelY = 1,
+  xLabelEcart = 0.5,
+  yLabelEcart = 0.5,
   xLegende = '',
   xLegendePosition = [xMax * xUnite + 0.5, 0.5],
   yLegende = '',
@@ -7041,7 +7158,7 @@ function Repere2 ({
     xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
   }
   for (const x of xLabelListe) {
-    const l = texteParPosition(`${texNombre(x)}`, x * xUnite, OrdonneeAxe * yUnite - 0.5, 'milieu', 'black', 1, 'middle', true)
+    const l = texteParPosition(`$${texNombre(x, precisionLabelX)}$`, x * xUnite, OrdonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
     l.isVisible = false
     objets.push(l)
   }
@@ -7050,7 +7167,7 @@ function Repere2 ({
     yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
   }
   for (const y of yLabelListe) {
-    const l = texteParPosition(`${texNombre(y)}`, abscisseAxe * xUnite - 0.5, y * yUnite, 'milieu', 'black', 1, 'middle', true)
+    const l = texteParPosition(`$${texNombre(y, precisionLabelY)}$`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
     l.isVisible = false
     objets.push(l)
   }
@@ -8623,6 +8740,108 @@ export function courbe2 (...args) {
   return new Courbe2(...args)
 }
 
+/**
+ * Integrale(f,{repere,color,epaisseur,step,yMin,yMax,xUnite,yUnite,a,b,opacite,hachures}) // Trace la courbe de f
+ * a et b sont les bornes (dans l'ordre croissant a<b)
+ * opacite = 0.5 par défaut
+ * hachures = 0 par défaut (= 'northeastlines')
+ * @author Jean-Claude Lhote
+ */
+
+function Integrale (f, {
+  repere = {},
+  color = 'black',
+  epaisseur = 2,
+  step = false,
+  xUnite = 1,
+  yUnite = 1,
+  yMin,
+  yMax,
+  a = 0,
+  b = 1,
+  opacite = 0.5,
+  hachures = 0
+} = {}) {
+  ObjetMathalea2D.call(this)
+  this.color = color
+  let ymin, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
+
+  if (typeof yMin === 'undefined') {
+    ymin = repere.yMin
+  } else ymin = yMin
+
+  if (typeof yMax === 'undefined') {
+    ymax = repere.yMax
+  } else ymax = yMax
+
+  xunite = repere.xUnite
+  yunite = repere.yUnite
+
+  if (isNaN(xunite)) { xunite = xUnite };
+  if (isNaN(yunite)) { yunite = yUnite };
+  const objets = []
+  const points = []
+  let pas
+  if (!step) {
+    pas = 0.2 / xUnite
+  } else {
+    pas = step
+  }
+  for (let x = a; inferieurouegal(x, b); x += pas
+  ) {
+    if (isFinite(f(x))) {
+      if (f(x) < ymax + 1 && f(x) > ymin - 1) {
+        points.push(point(x * xunite, f(x) * yunite))
+      } else {
+        window.notify('Erreur dans Integrale : Il semble que la fonction ne soit pas continue sur l\'intervalle', { f, a, b })
+      }
+    } else {
+      x += 0.05
+    }
+  }
+  points.push(point(b, 0), point(a, 0))
+  const p = polygone([...points], this.color)
+  p.epaisseur = epaisseur
+  p.couleurDeRemplissage = 'blue'
+  p.opaciteDeRemplissage = opacite
+  p.hachures = motifs(hachures)
+  objets.push(p)
+  // LES SORTIES TiKZ et SVG
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+  this.svgml = function (coeff, amp) {
+    let code = ''
+    for (const objet of objets) {
+      if (typeof (objet.svgml) === 'undefined') code += '\n\t' + objet.svg(coeff)
+      else code += '\n\t' + objet.svgml(coeff, amp)
+    }
+    return code
+  }
+  this.tikzml = function (amp) {
+    let code = ''
+    for (const objet of objets) {
+      if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()
+      else code += '\n\t' + objet.tikzml(amp)
+    }
+    return code
+  }
+}
+
+export function integrale (...args) {
+  return new Integrale(...args)
+}
 /**
  * crée un objet correspondant au tracé de la fonction f de la classe Spline
  * f devra être définie avant...
