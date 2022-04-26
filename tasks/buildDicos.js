@@ -7,11 +7,11 @@ const logIfVerbose = (...args) => { if (isVerbose) console.log(...args) }
 function getAllFiles (dir) {
   const files = []
   fs.readdirSync(dir).forEach(entry => {
-    if (entry === 'Exercice.js' || entry === 'ExerciceTS.js') return
+    if (entry === 'Exercice.js' || entry === 'ExerciceTs.ts') return
     const fullEntry = path.join(dir, entry)
     if (fs.statSync(fullEntry).isDirectory()) {
       getAllFiles(fullEntry).forEach(file => files.push(file))
-    } else if (/\.js$/.test(entry) && !/^_/.test(entry)) {
+    } else if ((/\.js$/.test(entry) || (/\.ts$/.test(entry))) && !/^_/.test(entry)) {
       files.push(fullEntry)
     } // sinon on ignore
   })
@@ -63,7 +63,7 @@ function sumWarnings () {
 }
 
 for (const file of exercicesList) {
-  const name = path.basename(file, '.js')
+  const name = path.basename(file, path.extname(file))
   // interactifReady est un booléen qui permet de savoir qu'on peut avoir une sortie html qcm interactif
   // amcType est un objet avec une propriété num et une propriété text pour le type de question AMC
   // On avait un fonctionnement avec description cf commit 832f123
@@ -151,6 +151,7 @@ for (const file of exercicesList) {
     }
   } catch (error) {
     // console.log(`${error} dans ${file}`)
+    // Pour les fichiers TS, pour ne pas les compiler, on passe par une regex
     // ça marche pas pour ce fichier, probablement parce qu'il importe du css et qu'on a pas les loader webpack
     // on passe à l'ancienne méthode qui fouille dans le code simport { amcReady } from '../src/js/exercices/3e/3G21';
     const srcContent = fs.readFileSync(file, { encoding: 'utf8' })
@@ -191,12 +192,11 @@ for (const file of exercicesList) {
         console.error(`\x1b[34m${file} est interactifReady mais n'a pas d'export interactifType => Il FAUT L'AJOUTER !!! (à l'ancienne)\x1b[37m`)
       }
       if (interactifReady) {
-        console.log(file)
         // On verifie s'il y a un interactifType
         if (/export +const +interactifType */.test(srcContent)) {
           // regex à vérifier même si elle ne doit théoriquement pas servir puisque le module fonctionne
           // regex suivante ne fonctionnera pas quand interactifReady est un objet
-          interactifType = srcContent.match(/export +const +interactifType *= *("[a-zA-Z0-9].*")/)[1]
+          interactifType = srcContent.match(/export +const +interactifType *= *'([a-zA-Z0-9].*)'/)[1]
         } else {
           interactifType = 'export const interactifType non présent (à l\'ancienne)'
         }

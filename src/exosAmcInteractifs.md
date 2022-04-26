@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 446 
-- nombre d'exos interactifReady 646 
+- nombre d'exos interactifReady 647 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -279,6 +279,7 @@
 |6G44|Trouver le nombre de faces ou d'arêtes d’un solide|OK|AMCNum|OK|mathLive|
 |6I10|Programmer des déplacements (Scratch)|OK|AMCOpen|KO|KO|
 |6I12|Trouver le bon tracé avec Scratch|OK|qcmMono|OK|custom|
+|6M10-1|Problèmes d'aires de rectangles|KO|KO|OK|mathLive|
 |6M10|Calculer des périmètres et des aires de figures usuelles|OK|AMCHybride|OK|mathLive|
 |6M11-1|Calculer périmètre et aire de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M11-2|Calculer périmètre et aire de figures composées|OK|AMCHybride|OK|mathLive|

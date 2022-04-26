@@ -1,4 +1,4 @@
-import Exercice from '../ExerciceTs.js'
+import Exercice from '../ExerciceTs'
 import { listeQuestionsToContenu, combinaisonListes, range, randint, texNombre, choice, egalOuApprox } from '../../modules/outils.js'
 
 export const titre = 'Problèmes concret et pourcentages'

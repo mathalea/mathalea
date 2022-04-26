@@ -1,4 +1,4 @@
-import Exercice from '../ExerciceTS.js'
+import Exercice from '../ExerciceTs'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { arc, mathalea2d, point, rapporteur, rotation, segment } from '../../modules/2d.js'
 

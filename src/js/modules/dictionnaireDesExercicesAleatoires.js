@@ -8230,7 +8230,8 @@ export default {
     "titre": "Problèmes d'aires de rectangles",
     "url": "/exercices/6e/6M10-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6M10-1",
     "newEx": {
       "isNew": true,
@@ -11181,13 +11182,13 @@ export default {
   },
   "betaPatronSolide": {
     "titre": "Compléter des patrons de solides",
-    "url": "/exercices/beta/betaPatronSolide.js",
+    "url": "/exercices/beta/betaPatronSolide.ts",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "betaPatronSolide",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11231,6 +11232,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "betaProbabilitesJC",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betaProblemesConcretPourcentage": {
+    "titre": "Problèmes concret et pourcentages",
+    "url": "/exercices/beta/betaProblemesConcretPourcentage.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaProblemesConcretPourcentage",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -11292,6 +11308,21 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "betaTestFraction",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "betaTestRapporteur": {
+    "titre": "Exo zéro Mathalea2d",
+    "url": "/exercices/beta/betaTestRapporteur.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaTestRapporteur",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
