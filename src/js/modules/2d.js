@@ -4148,7 +4148,11 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
       objets.push(numero)
     }
     for (let s = 1, r; s < 10; s++) {
-      r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.95), homothetie(rotation(azimut2, centre, s), centre, 0.99))
+      if (s === 5) {
+        r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92), homothetie(rotation(azimut2, centre, s), centre, 0.99))
+      } else {
+        r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96), homothetie(rotation(azimut2, centre, s), centre, 0.99))
+      }
       r.opacite = 0.6
       r.color = 'gray'
       objets.push(r)
@@ -4161,6 +4165,14 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
     rayon = segment(azimut, azimut2)
   }
   objets.push(segment(centre, azimut2))
+  if (!semi) {
+    rayon = segment(homothetie(rotation(azimut, centre, -90), centre, -0.2), homothetie(rotation(azimut, centre, -90), centre, 0.2))
+    objets.push(rayon)
+    rayon = segment(homothetie(azimut, centre, -0.2), homothetie(azimut, centre, 0.2))
+  } else {
+    rayon = segment(centre, homothetie(rotation(azimut, centre, -90), centre, 0.2))
+  }
+  objets.push(rayon)
   this.bordures = [x - taille - 1, y - taille - 1, x + taille + 1, y + taille + 1]
 
   this.svg = function (coeff) {
