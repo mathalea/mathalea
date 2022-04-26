@@ -4013,13 +4013,13 @@ export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3 }) {
   return new CibleRonde({ x: x, y: y, rang: rang, num: num, taille: taille })
 }
 /**
- * création d'une cible ronde pour l'auto-correction
+ * création d'une cible couronne en forme de rapporteur ou semi-rapporteur pour l'auto-correction
  * @author Jean-Claude Lhote
  * (x,y) sont les coordonnées du centre de la cible
- * Les secteurs de la cible fot 45°. Ils sont au nombre de rang*8
- * Repérage de A1 à Hn où n est le rang.
+ *
+ *
  */
-function CibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
+function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
@@ -4039,7 +4039,7 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18
 
   const centre = point(this.x, this.y)
   azimut = rotation(point(this.x + this.taille, this.y), centre, depart)
-  let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + 1)
+  let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + taille2)
   const rayons = []
   const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', 'gray')
   const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', 'gray')
@@ -4084,8 +4084,111 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18
   }
 }
 
-export function cibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
-  return new CibleCouronne({ x: x, y: y, taille: taille, depart: depart, nbDivisions: nbDivisions, nbSubDivisions: nbSubDivisions, semi: semi, label: label })
+export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
+  return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label })
+}
+
+function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens' }) {
+  ObjetMathalea2D.call(this)
+  this.x = x
+  this.y = y
+  this.taille = taille
+  this.opacite = 0.7
+  this.color = 'gray'
+  const objets = []
+  let numero
+  let azimut
+  let rayon
+  let nbDivisions
+  let arcPlein
+  if (semi) {
+    arcPlein = 180
+    nbDivisions = 18
+  } else {
+    arcPlein = 360
+    nbDivisions = 36
+  }
+
+  const centre = point(this.x, this.y)
+  azimut = rotation(point(this.x + 1, this.y), centre, depart)
+  let azimut2 = pointSurSegment(centre, azimut, this.taille)
+  const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', 'gray')
+  const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', 'gray')
+  objets.push(segment(centre, azimut2))
+  rayon = segment(azimut, azimut2)
+
+  objets.push(arc1, arc2, rayon)
+  for (let i = 0; i < nbDivisions; i++) {
+    if (avecNombre !== '') {
+      if (avecNombre === 'deuxSens') {
+        if (i === 0) {
+          numero = texteParPoint(arcPlein, rotation(homothetie(azimut2, centre, 0.8), centre, 2), -depart, 'gray')
+          numero.contour = true
+          objets.push(numero)
+        }
+        if (i === nbDivisions - 1) {
+          numero = texteParPoint(arcPlein - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions - 2), -depart, 'gray')
+        } else {
+          numero = texteParPoint(arcPlein - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, 'gray')
+        }
+        numero.contour = true
+        objets.push(numero)
+      }
+      if (i === 0) {
+        numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9), centre, 2), -depart, 'gray')
+        numero.contour = true
+        objets.push(numero)
+      }
+      if (i === nbDivisions - 1) {
+        numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions - 2), -depart, 'gray')
+      } else {
+        numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, 'gray')
+      }
+      numero.contour = true
+      objets.push(numero)
+    }
+    for (let s = 1, r; s < 10; s++) {
+      r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.95), homothetie(rotation(azimut2, centre, s), centre, 0.99))
+      r.opacite = 0.6
+      r.color = 'gray'
+      objets.push(r)
+    }
+    rayon.color = this.color
+    rayon.opacite = this.opacite
+    objets.push(rayon)
+    azimut = rotation(azimut, centre, arcPlein / nbDivisions)
+    azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
+    rayon = segment(azimut, azimut2)
+  }
+  objets.push(segment(centre, azimut2))
+  this.bordures = [x - taille - 1, y - taille - 1, x + taille + 1, y + taille + 1]
+
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+}
+
+/**
+ * place un rapporteur centré en (x,y) avec le zéro orienté à depart degrés.
+ * si semi === false alors les graduations vont de 0 à 180° sinon de 0 à 360°
+ * si avecNombre === "", il n'y a pas de graduations, si avecNombre === "deuxSens" il est gradué dans les deux directions
+ * si avecNombre === "unSens" il est gradué dans le sens trigo.
+ * @param {object} param0 = {x: 'number', y: 'number', taille: 'number', semi: boolean, avecNombre: string}
+ * @returns {object} // crée un instance de l'objet 2d Rapporteur
+ */
+export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens' }) {
+  return new Rapporteur({ x, y, taille, depart, semi, avecNombre })
 }
 
 /**
@@ -8667,7 +8770,6 @@ function Integrale (f, {
   const objets = []
   const points = []
   let pas
-  let p
   if (!step) {
     pas = 0.2 / xUnite
   } else {
@@ -8686,7 +8788,7 @@ function Integrale (f, {
     }
   }
   points.push(point(b, 0), point(a, 0))
-  p = polygone([...points], this.color)
+  const p = polygone([...points], this.color)
   p.epaisseur = epaisseur
   p.couleurDeRemplissage = 'blue'
   p.opaciteDeRemplissage = opacite
