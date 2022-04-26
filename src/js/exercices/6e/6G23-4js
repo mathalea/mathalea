@@ -1,0 +1,148 @@
+import Exercice from '../Exercice.js'
+import { abs, choice, contraindreValeur, lettreDepuisChiffre, listeQuestionsToContenu, numAlpha, randint } from '../../modules/outils.js'
+import { point, mathalea2d, segment, rapporteur, rotation, pointSurSegment, labelPoint, tracePoint, angleModulo } from '../../modules/2d.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+export const titre = 'Mesurer un angle avec rapporteur intégré'
+export const interactifType = 'mathLive'
+export const interactifReady = true
+
+export const dateDePublication = '26/04/2022'
+
+/**
+ * Mesurer un angle avec rapporteur déjà en place
+ * Ref 6G23-4
+ * @author Eric Elter
+ * Publié le 26/04/2022
+ */
+export default function NommerUnAngle () {
+  Exercice.call(this) // Héritage de la classe Exercice()
+  this.consigne = ''
+  this.nbQuestions = 2
+  this.sup = 1
+  this.sup2 = 7
+  this.sup3 = 3
+  this.sup4 = false
+  this.nouvelleVersion = function () {
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
+    for (let i = 0, posA; i < this.nbQuestions; i++) {
+    // On prépare la figure...
+      const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
+      const objetsCorrection = [] // Idem pour la correction
+
+      let texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
+      let texteCorr = '' // Idem pour le texte de la correction.
+      const tailleRapporteur = contraindreValeur(7, 12, this.sup2, 12)
+      const nbAngles = contraindreValeur(1, 4, this.sup3, 1)
+      const sensRot = choice([-1, 1])
+      const sensRot2 = choice([-1, 1])
+      const numA = randint(1, 26, [4, 5, 15, 23, 24, 25])
+      const numB = randint(1, 26, [4, 5, 15, 23, 24, 25, numA])
+      // const angB = this.sup === 1 ? 0 : (this.sup === 2 ? 90 : randint(0, 360) - 180)
+      const angB = this.sup === 1 ? 90 + sensRot * 90 : (this.sup === 2 ? sensRot * 90 : randint(0, 360) - 180)
+      // const posA = sensRot2 === 1 ? (this.sup === 1 ? 'below' : 'right') : (this.sup === 1 ? 'above' : 'left')
+      if (sensRot2 * sensRot === 1) {
+        posA = angB > 135 ? 'above' : (angB > 45 ? 'right' : (angB > -45 ? 'below' : (angB > -135 ? 'left' : 'above')))
+      } else {
+        posA = angB > 135 ? 'below' : (angB > 45 ? 'left' : (angB > -45 ? 'above' : (angB > -135 ? 'right' : 'below')))
+      }
+      const A = point(0, 0, lettreDepuisChiffre(numA), posA)
+      const B1 = rotation(point(tailleRapporteur + 3, 0), A, angB)
+
+      const posB = angB > 135 ? 'above' : (angB > 45 ? 'right' : (angB > -45 ? 'below' : (angB > -135 ? 'left' : 'above')))
+      //  const B = pointSurSegment(A, B1, tailleRapporteur + randint(10, 25) / 10, lettreDepuisChiffre(numB), this.sup === 1 ? 'below' : 'right')
+      const B = pointSurSegment(A, B1, tailleRapporteur + randint(10, 25) / 10, lettreDepuisChiffre(numB), posB)
+      const angC = sensRot * sensRot2 * randint(10, 170 - 20 * (nbAngles - 1), [90])
+      // const posC = this.sup === 1 ? ((angC > 45 & angC < 135) ? 'right' : 'above') : ((angC < 45 || angC > 135) ? 'left' : 'below')
+      const posC = angleModulo(angB + angC) > 135 ? 'above' : (angleModulo(angB + angC) > 45 ? 'right' : (angleModulo(angB + angC) > -45 ? 'below' : (angleModulo(angB + angC) > -135 ? 'left' : 'above')))
+
+      const C1 = rotation(B1, A, angC)
+      const numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB])
+      const C = pointSurSegment(A, C1, tailleRapporteur + randint(10, 25) / 10, lettreDepuisChiffre(numC), posC)
+      const AB = segment(A, B1)
+      const AC = segment(A, C1)
+      const R = rapporteur({ x: 0, y: 0, taille: tailleRapporteur, depart: angC < 0 ? angB + 180 : angB, semi: true, avecNombre: 'deuxSens' })
+      objetsEnonce.push(AB, AC, R, labelPoint(A, B, C), tracePoint(B, C)) // On remplit les tableaux d'objets Mathalea2d
+      texte += nbAngles > 1 ? `<br>${numAlpha(0)}` : ''
+      texte += `Quelle est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numC)}}$ ?`
+      if (this.interactif) {
+        texte += ajouteChampTexteMathLive(this, i * nbAngles, 'inline', { tailleExtensible: true })
+      }
+      setReponse(this, i * nbAngles, abs(angC))
+      if (nbAngles > 1) {
+        const angD = (this.sup4 & nbAngles === 2) ? 180 - angC : sensRot * sensRot2 * randint(10, 170 - 20 * (nbAngles - 2) - abs(angC))
+        const D1 = rotation(B1, A, angC + angD)
+        const numD = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC])
+        const posD = angleModulo(angB + angC + angD) > 135 ? 'above' : (angleModulo(angB + angC + angD) > 45 ? 'right' : (angleModulo(angB + angC + angD) > -45 ? 'below' : (angleModulo(angB + angC + angD) > -135 ? 'left' : 'above')))
+        const D = pointSurSegment(A, D1, tailleRapporteur + randint(10, 25) / 10, lettreDepuisChiffre(numD), posD)
+        const AD = segment(A, D1)
+        texte += `<br>${numAlpha(1)} Quelle est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ ?`
+        if (this.interactif) {
+          texte += ajouteChampTexteMathLive(this, i * nbAngles + 1, 'inline', { tailleExtensible: true })
+        }
+        setReponse(this, i * nbAngles + 1, abs(angD))
+        objetsEnonce.push(AD, labelPoint(D), tracePoint(D)) // On remplit les tableaux d'objets Mathalea2d
+        if (nbAngles > 2) {
+          const angE = (this.sup4 & nbAngles === 3) ? 180 - angC - angD : sensRot * sensRot2 * randint(10, 170 - 20 * (nbAngles - 3) - abs(angC + angD))
+          const E1 = rotation(B1, A, angC + angD + angE)
+          const numE = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC, numD])
+          const posE = angleModulo(angB + angC + angD + angE) > 135 ? 'above' : (angleModulo(angB + angC + angD + angE) > 45 ? 'right' : (angleModulo(angB + angC + angD + angE) > -45 ? 'below' : (angleModulo(angB + angC + angD + angE) > -135 ? 'left' : 'above')))
+          const E = pointSurSegment(A, E1, tailleRapporteur + randint(10, 25) / 10, lettreDepuisChiffre(numE), posE)
+          const AE = segment(A, E1)
+          texte += `<br>${numAlpha(2)} Quelle est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numE)}}$ ?`
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, i * nbAngles + 2, 'inline', { tailleExtensible: true })
+          }
+          setReponse(this, i * nbAngles + 2, abs(angE))
+          objetsEnonce.push(AE, labelPoint(E), tracePoint(E)) // On remplit les tableaux d'objets Mathalea2d
+          // texte += `${angB + angC + angD}+${angC}+${sensRot}+${sensRot2}`
+          if (nbAngles > 3) {
+            const angF = (this.sup4) ? 180 - angC - angD - angE : sensRot * sensRot2 * randint(10, 170 - abs(angC + angD + angE))
+            const F1 = rotation(B1, A, angC + angD + angE + angF)
+            const numF = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC, numD, numE])
+            const posF = angleModulo(angB + angC + angD + angE + angF) > 135 ? 'above' : (angleModulo(angB + angC + angD + angE + angF) > 45 ? 'right' : (angleModulo(angB + angC + angD + angE + angF) > -45 ? 'below' : (angleModulo(angB + angC + angD + angE + angF) > -135 ? 'left' : 'above')))
+            const F = pointSurSegment(A, F1, tailleRapporteur + randint(10, 25) / 10, lettreDepuisChiffre(numF), posF)
+            const AF = segment(A, F1)
+            texte += `<br>${numAlpha(3)} Quelle est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numF)}}$ ?`
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, i * nbAngles + 3, 'inline', { tailleExtensible: true })
+            }
+            setReponse(this, i * nbAngles + 3, abs(angF))
+            objetsEnonce.push(AF, labelPoint(F), tracePoint(F)) // On remplit les tableaux d'objets Mathalea2d
+            // texte += `${angC}+${angD}+${angE}+${angF}`
+          }
+        }
+      }
+      // const R = rapporteur({ x: 0, y: 0, taille: tailleRapporteur, depart: sensRot2 === -1 ? angB + 180 : angB, semi: true, avecNombre: 'deuxSens' })
+
+      // objetsEnonce.push(AB, AC, AD, R, labelPoint(A, B, C, D), tracePoint(B, C, D)) // On remplit les tableaux d'objets Mathalea2d
+      objetsCorrection.push(AB, AC, R)
+
+      // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
+      let paramsEnonce = ''
+      if (this.sup === 1) {
+        paramsEnonce = { xmin: -(tailleRapporteur + 3), ymin: angleModulo(angB + angC) > 0 ? -1 : -(tailleRapporteur + 3), xmax: (tailleRapporteur + 3), ymax: angleModulo(angB + angC) > 0 ? (tailleRapporteur + 3) : 1, pixelsParCm: 20, scale: 1, mainlevee: false }
+      } else if (this.sup === 2) {
+        paramsEnonce = { xmin: abs(angleModulo(angB + angC)) > 90 ? -(tailleRapporteur + 3) : -1, ymin: -(tailleRapporteur + 3), xmax: abs(angleModulo(angB + angC)) > 90 ? 1 : (tailleRapporteur + 3), ymax: (tailleRapporteur + 3), pixelsParCm: 20, scale: 1, mainlevee: false }
+      } else {
+        paramsEnonce = { xmin: -(tailleRapporteur + 3), ymin: -(tailleRapporteur + 3), xmax: tailleRapporteur + 3, ymax: (tailleRapporteur + 3), pixelsParCm: 20, scale: 1, mainlevee: false }
+      }
+      //  paramsEnonce = { xmin: -(tailleRapporteur + 3), ymin: -(tailleRapporteur + 3), xmax: tailleRapporteur + 3, ymax: (tailleRapporteur + 3), pixelsParCm: 20, scale: 1, mainlevee: false }
+      // paramètres de la fenêtre Mathalea2d pour la correction
+      // const paramsCorrection = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1 }
+      // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
+      texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
+      // On ajoute au texte de la correction, la figure de la correction
+      texteCorr += mathalea2d(paramsEnonce, objetsEnonce)
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorr)
+      listeQuestionsToContenu(this)
+    }
+  }
+  this.besoinFormulaireNumerique = ['Position du rapporteur', 3, '1 : Horizontal\n2 : Vertical\n3 : Peu importe']
+  this.besoinFormulaire2Numerique = ['Taille du rapporteur', 12, 'Entre 7 et 12']
+  this.besoinFormulaire3Numerique = ['Nombre d\'angles à mesurer', 4, 'Entre 1 et 4']
+  this.besoinFormulaire4CaseACocher = ['Avec deux points symétriquement opposés']
+}
