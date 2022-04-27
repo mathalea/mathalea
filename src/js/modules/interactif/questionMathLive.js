@@ -1,4 +1,4 @@
-import { ComputeEngine, parse } from '@cortex-js/math-json'
+import { ComputeEngine } from '@cortex-js/compute-engine'
 import FractionEtendue from '../FractionEtendue.js'
 import { number } from 'mathjs'
 import Grandeur from '../Grandeur.js'
@@ -9,275 +9,244 @@ import { sp, texteExposant } from '../outils.js'
 
 export function verifQuestionMathLive (exercice, i) {
   const engine = new ComputeEngine()
-  let saisieParsee, signeF, num, den, fSaisie
+  let saisieParsee, num, den, fSaisie, fReponse
   const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
   let reponse, saisie, nombreSaisi, grandeurSaisie, mantisseSaisie, expoSaisi, nombreAttendu, mantisseReponse, expoReponse
   let reponses = []
+  let champTexte
   if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
     reponses = [exercice.autoCorrection[i].reponse.valeur]
   } else {
     reponses = exercice.autoCorrection[i].reponse.valeur
   }
-  // Ici on va s'occuper de ce champTexte qui pose tant de problèmes
-  const champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`) || { value: '' }
-  let resultat = 'KO'
-  let ii = 0
-  while ((resultat === 'KO') & (ii < reponses.length)) {
-    reponse = reponses[ii]
-    switch (formatInteractif) {
-      case 'Num':
-        num = parseInt(champTexte.value.replace(',', '.'))
-        if (isNaN(num) || num === undefined) num = 9999
-        den = reponse.den
-        fSaisie = new FractionEtendue(num, den)
-        if (fSaisie.isEqual(reponse)) {
-          resultat = 'OK'
-        }
-        break
-      case 'Den':
-        den = parseInt(champTexte.value.replace(',', '.'))
-        if (isNaN(den) || den === undefined) den = 9999
-        num = reponse.num
-        fSaisie = new FractionEtendue(num, den)
-        if (fSaisie.isEqual(reponse)) {
-          resultat = 'OK'
-        }
-        break
-      case 'calcul':
+  try {
+    // Ici on va s'occuper de ce champTexte qui pose tant de problèmes
+    champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+    if (champTexte === {} || champTexte === undefined) champTexte = { value: '' }
+    let resultat = 'KO'
+    let ii = 0
+    while ((resultat === 'KO') && (ii < reponses.length)) {
+      reponse = reponses[ii]
+      switch (formatInteractif) {
+        case 'Num':
+          num = parseInt(champTexte.value.replace(',', '.'))
+          if (isNaN(num) || num === undefined) num = 9999
+          den = reponse.den
+          fSaisie = new FractionEtendue(num, den)
+          if (fSaisie.isEqual(reponse)) {
+            resultat = 'OK'
+          }
+          break
+        case 'Den':
+          den = parseInt(champTexte.value.replace(',', '.'))
+          if (isNaN(den) || den === undefined) den = 9999
+          num = reponse.num
+          fSaisie = new FractionEtendue(num, den)
+          if (fSaisie.isEqual(reponse)) {
+            resultat = 'OK'
+          }
+          break
+        case 'calcul':
         // Le format par défaut
-      // Pour le calcul littéral on remplace dfrac en frac
-        saisie = champTexte.value.replace(',', '.')
-        if (typeof reponse === 'string') {
-          reponse = reponse.replaceAll('dfrac', 'frac')
-        // A réfléchir, est-ce qu'on considère que le début est du brouillon ?
-        // saisie = neTientCompteQueDuDernierMembre(saisie)
-        }
-        // Pour le calcul numérique, on transforme la saisie en nombre décimal
-        if (typeof reponse === 'number' || typeof reponse === 'string') {
-          reponse = reponse.toString().replace(',', '.')
+          saisie = champTexte.value.replace(',', '.')
+          // La réponse est transformée en chaine compatible avec engine.parse()
+          reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-        }
+          if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
+            resultat = 'OK'
+          }
+          break
+        case 'nombreDecimal':
+          saisie = champTexte.value.replace(',', '.')
+          // La réponse est ici arrondie en fonction de reponse.param.decimals
+          reponse = Number(reponse.toString().replaceAll(',', '.')).toFixed(exercice.autoCorrection[i].reponse.param.decimals)
+          saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+          if (engine.parse(reponse).isSame(engine.parse(saisie))) {
+            resultat = 'OK'
+          }
+          break
+        case 'ecritureScientifique': // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
+          saisie = champTexte.value.replace(',', '.')
+          if (typeof reponse === 'string') {
+            reponse = reponse.replace(',', '.').replace('{.}', '.')
+          }
+          if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
+            saisie = saisie.split('\\times')
+            if (number(saisie[0]) >= 1 && number(saisie[0]) < 10) { resultat = 'OK' }
+          }
+          break
+        case 'texte':
 
-        if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
-          resultat = 'OK'
-        }
-        break
-      case 'ecritureScientifique': // Le résultat, pour être considéré correct, devra être saisi en écriture scientifique
-        saisie = champTexte.value.replace(',', '.')
-        if (typeof reponse === 'string') {
-          reponse = reponse.replace(',', '.').replace('{.}', '.')
-        }
-        if (engine.same(engine.canonical(parse(saisie)), engine.canonical(parse(reponse)))) {
-          saisie = saisie.split('\\times')
-          if (number(saisie[0]) >= 1 & number(saisie[0]) < 10) { resultat = 'OK' }
-        }
-        break
-      case 'texte':
+          if (champTexte !== undefined) saisie = champTexte.value
+          else saisie = ''
+          if (saisie === reponse) {
+            resultat = 'OK'
+          }
+          break
 
-        if (champTexte !== undefined) saisie = champTexte.value
-        else saisie = ''
-        if (saisie === reponse) {
-          resultat = 'OK'
-        }
-        break
-
-      case 'ignorerCasse':
-        saisie = champTexte.value
-        if (saisie.toLowerCase() === reponse.toLowerCase()) {
-          resultat = 'OK'
-        // Pour les exercices de simplifications de fraction
-        }
-        break
-      case 'fractionPlusSimple':
-        saisie = champTexte.value.replace(',', '.')
-        if (!isNaN(parseFloat(saisie))) {
-          saisieParsee = parse(`\\frac{${saisie}}{1}`)
-        } else {
-          saisieParsee = parse(saisie)
-        }
-        if (Array.isArray(saisieParsee)) {
-          if (saisieParsee[0] === 'Negate') {
-            signeF = -1
-            saisieParsee = saisieParsee[1].slice()
+        case 'ignorerCasse':
+          saisie = champTexte.value
+          if (saisie.toLowerCase() === reponse.toLowerCase()) {
+            resultat = 'OK'
+            // Pour les exercices de simplifications de fraction
+          }
+          break
+        case 'fractionPlusSimple':
+          saisie = champTexte.value.replace(',', '.')
+          if (!isNaN(parseFloat(saisie))) {
+            saisieParsee = engine.parse(`\\frac{${saisie}}{1}`).canonical
           } else {
-            signeF = 1
+            saisieParsee = engine.parse(saisie)
           }
-          if (saisieParsee[1].num && saisieParsee[2].num) {
-            // fSaisie = new FractionEtendue(parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-            fSaisie = parseInt(saisieParsee[2].num) === 1 ? new FractionEtendue(signeF * parseFloat(saisieParsee[1].num)) : new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-            if (fSaisie.estUneSimplification(reponse)) resultat = 'OK'
-          }
-        }
-        break
-      case 'fractionEgale': // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
+          fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac'))
+          if (saisieParsee.isEqual(fReponse) && saisieParsee.json[1] < fReponse.json[1]) resultat = 'OK'
+          break
+        case 'fractionEgale': // Pour les exercices de calcul où on attend une fraction peu importe son écriture (3/4 ou 300/400 ou 30 000/40 000...)
         // Si l'utilisateur entre un nombre décimal n, on transforme en n/1
-        saisie = champTexte.value.replace(',', '.') // On remplace la virgule éventuelle par un point.
-        if (!isNaN(parseFloat(saisie))) {
-          const newFraction = new FractionEtendue(parseFloat(saisie))
-          saisieParsee = parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`)
-        } else {
-          saisieParsee = parse(saisie)
-        }
-        if (saisieParsee) {
-          if (Array.isArray(saisieParsee)) {
-            if (saisieParsee[0] === 'Negate') {
-              signeF = -1
-              saisieParsee = saisieParsee[1].slice()
-            } else {
-              signeF = 1
+          saisie = champTexte.value.replace(',', '.') // On remplace la virgule éventuelle par un point.
+          if (!isNaN(parseFloat(saisie))) {
+            const newFraction = new FractionEtendue(parseFloat(saisie))
+            saisieParsee = engine.parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`).canonical
+          } else {
+            saisieParsee = engine.parse(saisie).canonical
+          }
+          fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac')).canonical
+          if (saisieParsee) {
+            if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
+          }
+          break
+        case 'fraction': // Pour les exercices où l'on attend un écriture donnée d'une fraction
+          saisie = champTexte.value.replace(',', '.')
+          if (!isNaN(parseFloat(saisie))) {
+            saisieParsee = engine.parse(new FractionEtendue(saisie, 1).texFSD)
+          } else {
+            saisieParsee = engine.parse(saisie.replace('frac', 'dfrac').replace('ddfrac', 'dfrac'))
+          }
+          fReponse = engine.parse(reponse.texFSD)
+          if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
+          break
+        case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
+          saisie = champTexte.value.replace('²', '^2').replace('³', '^3')
+          grandeurSaisie = saisieToGrandeur(saisie)
+          if (grandeurSaisie) {
+            if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
+          } else {
+            resultat = 'essaieEncoreAvecUneSeuleUnite'
+          }
+          break
+        case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
+          saisie = champTexte.value.replace(',', '.')
+          nombreSaisi = Number(saisie)
+          if (saisie !== '' && nombreSaisi > exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi < exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
+          break
+        case 'intervalle' :
+          saisie = champTexte.value.replace(',', '.')
+          nombreSaisi = Number(saisie)
+          if (saisie !== '' && nombreSaisi >= exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi <= exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
+          break
+        case 'puissance' :
+          saisie = champTexte.value.replace(',', '.')
+          // formatOK et formatKO sont deux variables globales,
+          // sinon dans le cas où reponses est un tableau, la valeur n'est pas conservée d'un tour de boucle sur l'autre
+          // eslint-disable-next-line no-var
+          var formatOK, formatKO
+          if (saisie.indexOf('^') !== -1) {
+            nombreSaisi = saisie.split('^')
+            mantisseSaisie = nombreSaisi[0]
+            expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : ''
+            nombreAttendu = reponse.split('^')
+            mantisseReponse = nombreAttendu[0]
+            expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
+            if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
+              formatOK = true
             }
-            if (saisieParsee.length === 3 && saisieParsee[0] === 'Divide') {
-              if (saisieParsee[1].num && saisieParsee[2].num) {
-                fSaisie = parseInt(saisieParsee[2].num) === 1 ? new FractionEtendue(signeF * parseFloat(saisieParsee[1].num)) : new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-                // fSaisie = new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-                if (fSaisie.isEqual(reponse)) resultat = 'OK'
+            // gérer le cas mantisse négative a et exposant impair e, -a^e est correct mais pas du format attendu
+            // si la mantisse attendue est négative on nettoie la chaine des parenthèses
+            if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && expoReponse % 2 === 1) {
+              if ((saisie === `${mantisseReponse.replace(/[()]/g, '')}^{${expoReponse}}`) || (saisie === `${mantisseReponse.replace(/[()]/g, '')}^${expoReponse}`)) {
+                formatKO = true
               }
             }
-          } else if (saisieParsee.num !== undefined) {
-            if (reponse.isEqual(Number(saisieParsee.num))) resultat = 'OK'
-          }
-        }
-        break
-      case 'fraction': // Pour les exercices où l'on attend un écriture donnée d'une fraction
-        saisie = champTexte.value.replace(',', '.')
-        if (!isNaN(parseFloat(saisie))) {
-          saisieParsee = parse(`\\frac{${saisie}}{1}`)
-        } else {
-          saisieParsee = parse(saisie)
-        }
-        if (Array.isArray(saisieParsee)) {
-          if (saisieParsee[0] === 'Negate') {
-            signeF = -1
-            saisieParsee = saisieParsee[1].slice()
+            // si l'exposant est négatif, il se peut qu'on ait une puissance au dénominateur
+            if (parseInt(expoReponse) < 0) {
+              // Si la mantisse est positive
+              if ((saisie === `\\frac{1}{${parseInt(mantisseReponse)}^{${-expoReponse}}`) || (saisie === `\\frac{1}{${parseInt(mantisseReponse)}^${-expoReponse}}`)) {
+                formatKO = true
+              }
+            }
           } else {
-            signeF = 1
-          }
-          if (saisieParsee[1].num && saisieParsee[2].num) {
-            // fSaisie = new FractionEtendue(signeF * parseInt(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-            fSaisie = parseInt(saisieParsee[2].num) === 1 ? new FractionEtendue(signeF * parseFloat(saisieParsee[1].num)) : new FractionEtendue(signeF * parseFloat(saisieParsee[1].num), parseInt(saisieParsee[2].num))
-            if (fSaisie.texFSD === reponse.texFSD) resultat = 'OK'
-          }
-        }
-        break
-      case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
-        saisie = champTexte.value.replace('²', '^2').replace('³', '^3')
-        grandeurSaisie = saisieToGrandeur(saisie)
-        if (grandeurSaisie) {
-          if (grandeurSaisie.estEgal(reponse)) resultat = 'OK'
-        } else {
-          resultat = 'essaieEncoreAvecUneSeuleUnite'
-        }
-        break
-      case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
-        saisie = champTexte.value.replace(',', '.')
-        nombreSaisi = Number(saisie)
-        if (saisie !== '' && nombreSaisi > exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi < exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
-        break
-      case 'intervalle' :
-        saisie = champTexte.value.replace(',', '.')
-        nombreSaisi = Number(saisie)
-        if (saisie !== '' && nombreSaisi >= exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi <= exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
-        break
-      case 'puissance' :
-        saisie = champTexte.value.replace(',', '.')
-        // formatOK et formatKO sont deux variables globales,
-        // sinon dans le cas où reponses est un tableau, la valeur n'est pas conservée d'un tour de boucle sur l'autre
-        // eslint-disable-next-line no-var
-        var formatOK, formatKO
-        if (saisie.indexOf('^') !== -1) {
-          nombreSaisi = saisie.split('^')
-          mantisseSaisie = nombreSaisi[0]
-          expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : ''
-          nombreAttendu = reponse.split('^')
-          mantisseReponse = nombreAttendu[0]
-          expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
-          if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
-            formatOK = true
-          }
-          // gérer le cas mantisse négative a et exposant impair e, -a^e est correct mais pas du format attendu
-          // si la mantisse attendue est négative on nettoie la chaine des parenthèses
-          if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && expoReponse % 2 === 1) {
-            if ((saisie === `${mantisseReponse.replace(/[()]/g, '')}^{${expoReponse}}`) || (saisie === `${mantisseReponse.replace(/[()]/g, '')}^${expoReponse}`)) {
-              formatKO = true
-            }
-          }
-          // si l'exposant est négatif, il se peut qu'on ait une puissance au dénominateur
-          if (parseInt(expoReponse) < 0) {
-          // Si la mantisse est positive
-            if ((saisie === `\\frac{1}{${parseInt(mantisseReponse)}^{${-expoReponse}}`) || (saisie === `\\frac{1}{${parseInt(mantisseReponse)}^${-expoReponse}}`)) {
-              formatKO = true
-            }
-          }
-        } else {
           // Dans tous ces cas on est sûr que le format n'est pas bon
           // Toutefois la valeur peut l'être donc on vérifie
-          nombreSaisi = saisie
-          nombreAttendu = reponse.split('^')
-          mantisseReponse = nombreAttendu[0]
-          expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
-          if (parseInt(expoReponse) < 0) {
-          // Si la mantisse est positive
-            if (nombreSaisi === `\\frac{1}{${mantisseReponse ** (-expoReponse)}}`) {
-              formatKO = true
+            nombreSaisi = saisie
+            nombreAttendu = reponse.split('^')
+            mantisseReponse = nombreAttendu[0]
+            expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : ''
+            if (parseInt(expoReponse) < 0) {
+              // Si la mantisse est positive
+              if (nombreSaisi === `\\frac{1}{${mantisseReponse ** (-expoReponse)}}`) {
+                formatKO = true
+              }
+              // Si elle est négative, le signe - peut être devant la fraction ou au numérateur  ou au dénominateur
+              if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && ((-expoReponse) % 2 === 1)) {
+                if ((nombreSaisi === `-\\frac{1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{-1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{1}{-${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`)) {
+                  formatKO = true
+                }
+              }
             }
-            // Si elle est négative, le signe - peut être devant la fraction ou au numérateur  ou au dénominateur
-            if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && ((-expoReponse) % 2 === 1)) {
-              if ((nombreSaisi === `-\\frac{1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{-1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{1}{-${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`)) {
+            if (parseInt(expoReponse) > 0) {
+              if (nombreSaisi === `${mantisseReponse ** (expoReponse)}`) {
+                formatKO = true
+              }
+            }
+            if (parseInt(expoReponse) === 0) {
+              if (nombreSaisi === '1') {
                 formatKO = true
               }
             }
           }
-          if (parseInt(expoReponse) > 0) {
-            if (nombreSaisi === `${mantisseReponse ** (expoReponse)}`) {
-              formatKO = true
-            }
+          if (formatOK) {
+            resultat = 'OK'
           }
-          if (parseInt(expoReponse) === 0) {
-            if (nombreSaisi === '1') {
-              formatKO = true
-            }
+          if (formatKO) {
+            resultat = 'essaieEncorePuissance'
           }
-        }
-        if (formatOK) {
-          resultat = 'OK'
-        }
-        if (formatKO) {
-          resultat = 'essaieEncorePuissance'
-        }
-        // if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
-        //   resultat = 'OK'
-        // } else {
-        //   resultat = 'KO'
-        // }
+          // if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
+          //   resultat = 'OK'
+          // } else {
+          //   resultat = 'KO'
+          // }
 
-        break
+          break
+      }
+      ii++
     }
-    ii++
-  }
-  if (resultat === 'OK') {
-    spanReponseLigne.innerHTML = '😎'
-    spanReponseLigne.style.fontSize = 'large'
-    if (champTexte !== undefined) champTexte.readOnly = true
-  } else if (resultat === 'essaieEncoreAvecUneSeuleUnite') {
-    spanReponseLigne.innerHTML = '<em>Il faut saisir une valeur numérique et une seule unité (' +
+    if (resultat === 'OK') {
+      spanReponseLigne.innerHTML = '😎'
+      spanReponseLigne.style.fontSize = 'large'
+      if (champTexte !== undefined) champTexte.readOnly = true
+    } else if (resultat === 'essaieEncoreAvecUneSeuleUnite') {
+      spanReponseLigne.innerHTML = '<em>Il faut saisir une valeur numérique et une seule unité (' +
     (reponse.uniteDeReference.indexOf('^') > 0
       ? reponse.uniteDeReference.split('^')[0] + texteExposant(reponse.uniteDeReference.split('^')[1])
       : reponse.uniteDeReference) +
     ' par exemple).</em>'
-    spanReponseLigne.style.color = '#f15929'
-    spanReponseLigne.style.fontWeight = 'bold'
-  } else if (resultat === 'essaieEncorePuissance') {
-    spanReponseLigne.innerHTML = '<br><em>Attention, la réponse est mathématiquement correcte mais n\'a pas le format demandé.</em>'
-    spanReponseLigne.style.color = '#f15929'
-    spanReponseLigne.style.fontWeight = 'bold'
-  } else {
-    spanReponseLigne.innerHTML = '☹️'
-    spanReponseLigne.style.fontSize = 'large'
-    if (champTexte !== undefined) champTexte.readOnly = true
+      spanReponseLigne.style.color = '#f15929'
+      spanReponseLigne.style.fontWeight = 'bold'
+    } else if (resultat === 'essaieEncorePuissance') {
+      spanReponseLigne.innerHTML = '<br><em>Attention, la réponse est mathématiquement correcte mais n\'a pas le format demandé.</em>'
+      spanReponseLigne.style.color = '#f15929'
+      spanReponseLigne.style.fontWeight = 'bold'
+    } else {
+      spanReponseLigne.innerHTML = '☹️'
+      spanReponseLigne.style.fontSize = 'large'
+      if (champTexte !== undefined) champTexte.readOnly = true
+    }
+    return resultat
+  } catch (error) {
+    window.notify(`Erreur dans verif QuestionMathLive : ${error} <br> Avec les métadonnées : `, { champTexte: champTexte, exercice, i, autoCorrection: exercice.autoCorrection[i], formatInteractif, spanReponseLigne })
   }
-  return resultat
 }
 
 function saisieToGrandeur (saisie) {

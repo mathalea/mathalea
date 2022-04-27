@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import { mathalea2d, point, labelPoint, codeSegment, codeAngle, droiteGraduee2, segment, milieu, texteParPosition } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, printlatex, randint, simplificationDeFractionAvecEtapes, texNombre, tableauColonneLigne, miseEnEvidence, shuffle, choice, calcul, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, printlatex, randint, simplificationDeFractionAvecEtapes, texNombre, tableauColonneLigne, miseEnEvidence, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 export const titre = 'CAN 5ième sujet 2021'
@@ -142,11 +142,11 @@ export default function SujetCAN20215ieme () {
           if (choice([true, false])) {
             texte = `Quel nombre obtient-on si on ajoute un dixième à $${texNombre(a)}$ ?`
             texteCorr = `$1$ dixième $=0,1$, d'où $${texNombre(a)}+0,1 =${texNombre(a + 0.1)}$`
-            reponse = a + 0.1
+            reponse = arrondi(a + 0.1, 2)
           } else {
             texte = `Quel nombre obtient-on si on ajoute un centième à $${texNombre(b)}$ ?`
             texteCorr = `$1$ centième $=0,01$, d'où $${texNombre(b)}+0,01 =${texNombre(b + 0.01)}$`
-            reponse = b + 0.01
+            reponse = arrondi(b + 0.01, 3)
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -214,7 +214,7 @@ export default function SujetCAN20215ieme () {
           a = randint(2, 6)
           prix = calcul(2 + randint(1, 3) / 10 + 0.05)
           k = randint(2, 4)
-          reponse = prix * k
+          reponse = arrondi(prix * k, 2)
           texte = `$${a}$ stylos identiques coûtent  $${texNombre(prix)}$ €. <br>
             Combien coûtent $${k * a}$ de ces mêmes stylos ?
              `
@@ -518,7 +518,8 @@ export default function SujetCAN20215ieme () {
             thickSec: true,
             thickoffset: 0,
             axeStyle: '|->',
-            pointListe: [[b / a, '$\\large ?$']],
+            pointListe: [[b / a, '?']],
+            labelPointTaille: 15,
             pointCouleur: 'blue',
             pointStyle: 'x',
             labelsPrincipaux: true,
@@ -554,7 +555,7 @@ export default function SujetCAN20215ieme () {
             c = randint(-9, -1) / 100
             d = randint(-9, -1) / 1000
             nombre = a + b + c + d
-            texte = `Donne un encadrement au cen,tième près du nombre $${texNombre(nombre)}$ :<br>`
+            texte = `Donne un encadrement au centième près du nombre $${texNombre(nombre)}$ :<br>`
 
             texteCorr = `Le chiffre des centième est le deuxième chiffre après la virgule. <br>Ainsi : $${texNombre(a + b + c - 0.01)} \\leqslant ${texNombre(nombre)} \\leqslant ${texNombre(a + b + c)}$.`
 
