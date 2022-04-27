@@ -40,7 +40,6 @@ export default function SujetCAN20215ieme () {
       11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
       21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
-
     const listeFractions13 = [[12, 5], [11, 5], [13, 5], [17, 5], [19, 5],
       [27, 5], [18, 5], [29, 5], [10, 3], [19, 3], [17, 3], [16, 3], [23, 3],
       [29, 3], [29, 7], [17, 7], [15, 7], [13, 7], [17, 7]]
@@ -742,7 +741,7 @@ export default function SujetCAN20215ieme () {
             texteCorr = `En écrivant les deux fractions avec le même dénominateur, on obtient : <br>
             $${a.texFraction}=${a1.texFraction}$ et $${b.texFraction}=${b1.texFraction}$. On en déduit que la plus grande est celle qui a le plus grand numérateur.`
           }
-          if (fraction1[0] / fraction1[1] > fraction1[2] / fraction1[3]) {
+          if (a > b) {
             setReponse(this, index, '>', { formatInteractif: 'texte' })
           } else { setReponse(this, index, '<', { formatInteractif: 'texte' }) }
           if (this.interactif) {
