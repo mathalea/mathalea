@@ -7246,55 +7246,54 @@ function Repere2 ({
       }
       objets.push(traitV)
     }
+  }
+  // LES THICKS
+  if (!xThickListe) {
+    xThickListe = rangeMinMax(xThickMin, xThickMax, [0], xThickDistance)
+  }
+  for (const x of xThickListe) {
+    const thick = segment(x * xUnite, OrdonneeAxe * yUnite - thickHauteur, x * xUnite, OrdonneeAxe * yUnite + thickHauteur)
+    thick.isVisible = false
+    thick.epaisseur = thickEpaisseur
+    thick.color = thickCouleur
+    objets.push(thick)
+  }
+  if (!yThickListe) {
+    yThickListe = rangeMinMax(yThickMin, yThickMax, [0], yThickDistance)
+  }
+  for (const y of yThickListe) {
+    const thick = segment(abscisseAxe * xUnite - thickHauteur, y * yUnite, abscisseAxe * xUnite + thickHauteur, y * yUnite)
+    thick.isVisible = false
+    thick.epaisseur = thickEpaisseur
+    thick.color = thickCouleur
+    objets.push(thick)
+  }
 
-    // LES THICKS
-    if (!xThickListe) {
-      xThickListe = rangeMinMax(xThickMin, xThickMax, [0], xThickDistance)
-    }
-    for (const x of xThickListe) {
-      const thick = segment(x * xUnite, OrdonneeAxe * yUnite - thickHauteur, x * xUnite, OrdonneeAxe * yUnite + thickHauteur)
-      thick.isVisible = false
-      thick.epaisseur = thickEpaisseur
-      thick.color = thickCouleur
-      objets.push(thick)
-    }
-    if (!yThickListe) {
-      yThickListe = rangeMinMax(yThickMin, yThickMax, [0], yThickDistance)
-    }
-    for (const y of yThickListe) {
-      const thick = segment(abscisseAxe * xUnite - thickHauteur, y * yUnite, abscisseAxe * xUnite + thickHauteur, y * yUnite)
-      thick.isVisible = false
-      thick.epaisseur = thickEpaisseur
-      thick.color = thickCouleur
-      objets.push(thick)
-    }
+  // LES LABELS
+  if (!xLabelListe) {
+    xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
+  }
+  for (const x of xLabelListe) {
+    const l = texteParPosition(`$${texNombre(x, precisionLabelX)}$`, x * xUnite, OrdonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+    l.isVisible = false
+    objets.push(l)
+  }
 
-    // LES LABELS
-    if (!xLabelListe) {
-      xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
-    }
-    for (const x of xLabelListe) {
-      const l = texteParPosition(`$${texNombre(x, precisionLabelX)}$`, x * xUnite, OrdonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
-      l.isVisible = false
-      objets.push(l)
-    }
+  if (!yLabelListe) {
+    yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
+  }
+  for (const y of yLabelListe) {
+    const l = texteParPosition(`$${texNombre(y, precisionLabelY)}$`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
+    l.isVisible = false
+    objets.push(l)
+  }
 
-    if (!yLabelListe) {
-      yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
-    }
-    for (const y of yLabelListe) {
-      const l = texteParPosition(`$${texNombre(y, precisionLabelY)}$`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
-      l.isVisible = false
-      objets.push(l)
-    }
-
-    // LES LÉGENDES
-    if (xLegende.length > 0) {
-      objets.push(texteParPosition(xLegende, xLegendePosition[0], xLegendePosition[1], 'droite'))
-    }
-    if (yLegende.length > 0) {
-      objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 'droite'))
-    }
+  // LES LÉGENDES
+  if (xLegende.length > 0) {
+    objets.push(texteParPosition(xLegende, xLegendePosition[0], xLegendePosition[1], 'droite'))
+  }
+  if (yLegende.length > 0) {
+    objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 'droite'))
   }
 
   // LES SORTIES TiKZ et SVG
