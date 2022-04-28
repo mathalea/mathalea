@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { ecritureAlgebrique, listeQuestionsToContenu, calcul, randint, rienSi1, texNombre, stringNombre } from '../../modules/outils.js'
+import { ecritureAlgebrique, listeQuestionsToContenu, calcul, randint, rienSi1, texNombre, stringNombre, sp } from '../../modules/outils.js'
 import { mathalea2d, repere2, cercle, point, segment, milieu, texteParPoint, droite } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -75,11 +75,11 @@ export default function PenteEtOrdonneeOrigineDroite () {
     this.introduction = 'On a représenté ci-dessous une fonction affine $f$.<br><br>' + mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax }, r, d)
     this.consigneCorrection = mathalea2d({ xmin: xMin, xmax: xMax, ymin: yMin, ymax: yMax }, r, d, c, s1, s2, t1, t2)
     let question1 = "Quelle est l'ordonnée à l'origine de la fonction $f$ ?"
-    question1 += ajouteChampTexteMathLive(this, 0)
+    question1 += ajouteChampTexteMathLive(this, 0, 'largeur15 inline ')
     let question2 = 'Quel est le coefficient directeur de $f$ ?'
-    question2 += ajouteChampTexteMathLive(this, 1)
+    question2 += ajouteChampTexteMathLive(this, 1, 'largeur15 inline ')
     let question3 = "En déduire l'expression algébrique de $f$."
-    question3 += ajouteChampTexteMathLive(this, 2)
+    question3 += ajouteChampTexteMathLive(this, 2, 'largeur15 inline nospacebefore', { texte: `$${sp(10)}f : x \\mapsto $` })
 
     setReponse(this, 0, b)
     setReponse(this, 1, [a, `\\frac{${num}}{${den}}`])
@@ -89,7 +89,7 @@ export default function PenteEtOrdonneeOrigineDroite () {
     const correction1 = `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$, l'ordonnée à l'origine est donc $${b}$.`
     let correction2 = `À chaque fois que l'on avance de 1 carreau, on ${a > 0 ? 'monte' : 'descend'} de $${texNombre(a)}$ ${Math.abs(a) >= 2 ? 'carreaux' : 'carreau'},`
     correction2 += ` le coefficient directeur est donc $${texNombre(a)}$.`
-    let correction3 = '$f$ étant une fonction affine, on a $f : x \\mapsto ax + b$ avec $a$ le coefficient directeur (ou pente) et $b$ son ordonné à l\'origine.'
+    let correction3 = '$f$ étant une fonction affine, on a $f : x \\mapsto ax + b$ avec $a$ le coefficient directeur (ou pente) et $b$ son ordonnée à l\'origine.'
     correction3 += `<br>Finalement, $f : x \\mapsto ${rienSi1(a).toString().replace('.', ',')}x ${ecritureAlgebrique(b)}$.`
     this.listeQuestions.push(question1, question2, question3)
     this.listeCorrections.push(correction1, correction2, correction3)
