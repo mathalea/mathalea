@@ -4,7 +4,7 @@ import { mathalea2d, repere2, cercle, point, segment, milieu, texteParPoint, dro
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-export const titre = "Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine"
+export const titre = "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
