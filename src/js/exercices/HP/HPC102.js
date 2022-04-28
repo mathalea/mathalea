@@ -4,6 +4,7 @@ import { aleaVariables } from '../../modules/outilsMathjs.js'
 import { create, all, sqrt } from 'mathjs'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { integrale, repere2, courbe2, mathalea2d, point, TracePoint } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // import { calcule } from '../../modules/fonctionsMaths.js'
@@ -32,7 +33,6 @@ export default function CalculsLoiNormale () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
-
     let listeTypeDeQuestionsDisponibles
     if (this.sup === 1) {
       listeTypeDeQuestionsDisponibles = ['N01']
@@ -42,7 +42,7 @@ export default function CalculsLoiNormale () {
       listeTypeDeQuestionsDisponibles = ['N01']
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, variables, expression, resultat, resultat_a, resultat_b, bornea, oppbornea, borneb, oppborneb, mu, sigma, bornec, borned, calculstep, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, variables, expression, gaussienne, r, C, I, resultat, resultat_a, resultat_b, bornea, oppbornea, borneb, oppborneb, mu, sigma, bornec, borned, calculstep, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case 'N01':
           variables = aleaVariables(
@@ -52,6 +52,10 @@ export default function CalculsLoiNormale () {
               test: 'a<b'
             }
           )
+          gaussienne = x => 1 / math.sqrt(2 * math.pi) * math.exp(-(x ** 2) / 2)
+          r = repere2({ xMin: -4, xMax: 4, yMin: -1, yMax: 3, xUnite: 2, yUnite: 6, axesEpaisseur: 1, yThickDistance: 0.5, ystep: 1, xstep: 50 })
+          C = courbe2(gaussienne, { repere: r, step: 0.1 })
+          I = integrale(gaussienne, { repere: r, step: 0.1, a: variables.a, b: variables.b, hachures: 0 })
           bornea = texNombre(variables.a)
           oppbornea = texNombre(-variables.a)
           borneb = texNombre(variables.b)
@@ -62,6 +66,7 @@ export default function CalculsLoiNormale () {
           expression = `$\\mathrm{P}(${bornea} < X < ${borneb})$`
           calculstep = []
           texte = 'Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(0,1)$. <br> Calculer à $10^{-2}$ près la probabilité : ' + expression
+          texte += mathalea2d({ xmin: -5, xmax: 5, ymin: -0.8, ymax: 2.8, pixelsParCm: 30, yscale: 0.2 }, r, C, I)
           texteCorr = 'On décompose pour exprimer la probabilité avec la fonction de répartition $t \\mapsto \\mathrm{P}(X \\leq t)$ en utilisant la tabulation de ses valeurs pour $t \\geq 0$ : <br>'
           calculstep.push(`\\mathrm{P}(${bornea} < X < ${borneb}) &=  \\mathrm{P}(X < ${borneb}) - \\mathrm{P}(X \\leq ${bornea}) &&`)
           if (variables.b < 0) {
@@ -101,6 +106,10 @@ export default function CalculsLoiNormale () {
               test: 'a<b'
             }
           )
+          gaussienne = x => 1 / variables.sigma / math.sqrt(2 * math.pi) * math.exp(-((x - variables.mu) ** 2) / 2 / (variables.sigma ** 2))
+          r = repere2({ xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, yUnite: 4, axesEpaisseur: 1, xThickDistance: variables.sigma, yThickDistance: 0.5, ystep: 1, xstep: 50 })
+          C = courbe2(gaussienne, { repere: r, step: 0.1 })
+          I = integrale(gaussienne, { repere: r, step: 0.1, a: variables.a * variables.sigma + variables.mu, b: variables.b * variables.sigma + variables.mu, hachures: 0 })
           bornec = texNombre(variables.a * variables.sigma + variables.mu)
           borned = texNombre(variables.b * variables.sigma + variables.mu)
           bornea = texNombre(variables.a)
@@ -113,6 +122,7 @@ export default function CalculsLoiNormale () {
           expression = `$\\mathrm{P}(${bornec} < X < ${borned})$`
           calculstep = []
           texte = `Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer à $10^{-2}$ près la probabilité : ` + expression
+          texte += mathalea2d({ xmin: -5 * variables.sigma + variables.mu, xmax: 5 * variables.sigma + variables.mu, ymin: -0.8, ymax: 2.8, pixelsParCm: 30 }, r, C, I)
           if (variables.mu < 0) {
             texteCorr = `On pose $Z = \\frac{X + ${texNombre(-variables.mu)}}{${sigma}}$ `
             calculstep.push(`\\mathrm{P}(${bornec} < X < ${borned}) &=  \\mathrm{P}\\left(\\frac{${bornec} + ${texNombre(-variables.mu)}}{${sigma}}   < \\frac{X + ${texNombre(-variables.mu)}}{${sigma}} < \\frac{${borned} + ${texNombre(-variables.mu)}}{${sigma}}  \\right) &&`)
