@@ -8739,7 +8739,7 @@ export function courbe2 (...args) {
 }
 
 /**
- * Integrale(f,{repere,color,epaisseur,step,yMin,yMax,xUnite,yUnite,a,b,opacite,hachures}) // Trace la courbe de f
+ * Integrale(f,{repere,color,epaisseur,step,a,b,opacite,hachures}) // Trace la courbe de f
  * a et b sont les bornes (dans l'ordre croissant a<b)
  * opacite = 0.5 par défaut
  * hachures = 0 par défaut (= 'northeastlines')
@@ -8751,10 +8751,6 @@ function Integrale (f, {
   color = 'black',
   epaisseur = 2,
   step = false,
-  xUnite = 1,
-  yUnite = 1,
-  yMin,
-  yMax,
   a = 0,
   b = 1,
   opacite = 0.5,
@@ -8762,26 +8758,17 @@ function Integrale (f, {
 } = {}) {
   ObjetMathalea2D.call(this)
   this.color = color
-  let ymin, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
 
-  if (typeof yMin === 'undefined') {
-    ymin = repere.yMin
-  } else ymin = yMin
+  const ymin = repere.yMin
+  const ymax = repere.yMax
+  const xunite = repere.xUnite
+  const yunite = repere.yUnite
 
-  if (typeof yMax === 'undefined') {
-    ymax = repere.yMax
-  } else ymax = yMax
-
-  xunite = repere.xUnite
-  yunite = repere.yUnite
-
-  if (isNaN(xunite)) { xunite = xUnite };
-  if (isNaN(yunite)) { yunite = yUnite };
   const objets = []
   const points = []
   let pas
   if (!step) {
-    pas = 0.2 / xUnite
+    pas = 0.2 / xunite
   } else {
     pas = step
   }
@@ -8797,7 +8784,7 @@ function Integrale (f, {
       x += 0.05
     }
   }
-  points.push(point(b, 0), point(a, 0))
+  points.push(point(b * xunite, f(b) * yunite), point(b * xunite, 0), point(a * xunite, 0))
   const p = polygone([...points], this.color)
   p.epaisseur = epaisseur
   p.couleurDeRemplissage = 'blue'
