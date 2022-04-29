@@ -1,4 +1,4 @@
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, scientifiqueToDecimal, sp, stringNombre, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, scientifiqueToDecimal, sp, stringNombre, texNombre, arrondi } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 
@@ -51,7 +51,7 @@ export default function NotationScientifique () {
 
           break
         case 1:
-          mantisse = calcul(randint(11, 99) / 10)
+          mantisse = arrondi(randint(11, 99) / 10, 1)
           if (!context.isAmc) {
             exp = randint(1, 5)
           } else {
@@ -59,8 +59,8 @@ export default function NotationScientifique () {
           }
           break
         case 2:
-          if (randint(0, 1) === 1) mantisse = calcul(randint(111, 999) / 100)
-          else mantisse = calcul((randint(1, 9) * 100 + randint(1, 9)) / 100)
+          if (randint(0, 1) === 1) mantisse = arrondi(randint(111, 999) / 100, 2)
+          else mantisse = arrondi((randint(1, 9) * 100 + randint(1, 9)) / 100, 2)
           if (!context.isAmc) {
             exp = randint(1, 7) * choice([-1, 1])
           } else {
@@ -68,8 +68,8 @@ export default function NotationScientifique () {
           }
           break
         case 3:
-          if (randint(0, 1) === 1) mantisse = calcul((randint(1, 9) * 1000 + randint(1, 19) * 5) / 1000)
-          else mantisse = calcul(randint(1111, 9999) / 1000)
+          if (randint(0, 1) === 1) mantisse = arrondi((randint(1, 9) * 1000 + randint(1, 19) * 5) / 1000, 3)
+          else mantisse = arrondi(randint(1111, 9999) / 1000, 3)
           if (!context.isAmc) {
             exp = randint(1, 7) * choice([-1, 1])
           } else {
@@ -111,7 +111,7 @@ export default function NotationScientifique () {
         if (parseInt(this.sup) === 1) {
           setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), { formatInteractif: 'ecritureScientifique', digits: listeTypeDeQuestions[i] + 1, decimals: listeTypeDeQuestions[i], signe: false, exposantNbChiffres: 1, exposantSigne: true, approx: 0 })
         } else {
-          setReponse(this, i, reponse, { formatInteractif: 'calcul' })
+          setReponse(this, i, reponse, { formatInteractif: 'nombreDecimal', decimals: Math.max(0, listeTypeDeQuestions[i] - exp) })
         }
         if (context.isAmc) {
           this.autoCorrection[i].reponse.valeur = [calcul(mantisse * 10 ** exp)]
