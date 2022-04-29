@@ -5430,13 +5430,13 @@ export function texteSurArc (...args) {
  *
  * @author Rémi Angot
  */
-function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, saillant = true, colorArc = 'black', rayon = false, fill = '', fillOpacite = 0.5 } = {}) {
+function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, saillant = true, colorArc = 'black', rayon = false, fill = 'none', fillOpacite = 0.5 } = {}) {
   ObjetMathalea2D.call(this)
   this.depart = A
   this.arrivee = C
   this.sommet = B
   this.distance = distance
-  this.angle = saillant ? angleOriente(this.depart, this.sommet, this.arrivee) : 360 + angleOriente(this.depart, this.sommet, this.arrivee)
+  this.angle = saillant ? angleOriente(this.depart, this.sommet, this.arrivee) : angleOriente(this.depart, this.sommet, this.arrivee) > 0 ? angleOriente(this.depart, this.sommet, this.arrivee) - 360 : 360 + angleOriente(this.depart, this.sommet, this.arrivee)
   this.ecart = ecart
   this.saillant = saillant
 
@@ -5483,7 +5483,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
  * @param {number} fillOpacite taux d'opacité du remplissage (0.5 = 50% par défaut).
  * @returns {object} AfficheMesureAngle
  */
-export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, saillant = true, colorArc = 'black', rayon = false, fill = '', fillOpacite = 0.5 } = {}) {
+export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, saillant = true, colorArc = 'black', rayon = false, fill = 'none', fillOpacite = 0.5 } = {}) {
   return new AfficheMesureAngle(A, B, C, color, distance, label, { ecart, saillant, colorArc, rayon, fill, fillOpacite })
 }
 /**
