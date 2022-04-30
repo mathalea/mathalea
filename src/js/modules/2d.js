@@ -5436,13 +5436,10 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
   this.arrivee = C
   this.sommet = B
   this.distance = distance
-  this.angle = saillant ? angleOriente(this.depart, this.sommet, this.arrivee) : angleOriente(this.depart, this.sommet, this.arrivee) === 180 ? angleOriente(this.arrivee, this.sommet, this.depart) : angleOriente(this.depart, this.sommet, this.arrivee) > 0 ? angleOriente(this.depart, this.sommet, this.arrivee) - 360 : 360 + angleOriente(this.depart, this.sommet, this.arrivee)
+  this.angle = saillant ? angleOriente(this.depart, this.sommet, this.arrivee) : angleOriente(this.depart, this.sommet, this.arrivee) > 0 ? angleOriente(this.depart, this.sommet, this.arrivee) - 360 : 360 + angleOriente(this.depart, this.sommet, this.arrivee)
   this.ecart = ecart
   this.saillant = saillant
-
   this.svg = function (coeff) {
-    // let d = bissectrice(A, B, C);
-    // d.isVisible = false;
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
     const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / coeff), this.sommet, this.angle / 2, '', 'center')
     let mesureAngle
@@ -5454,8 +5451,6 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
     return '\n' + texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true).svg(coeff) + '\n' + arc(M, B, this.angle, rayon, fill, colorArc, fillOpacite).svg(coeff)
   }
   this.tikz = function () {
-    // let d = bissectrice(A, B, C);
-    // d.isVisible = false;
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
     const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart), this.sommet, this.angle / 2, '', 'center')
     let mesureAngle
@@ -9734,7 +9729,7 @@ export function angle (A, O, B) {
 export function angleOriente (A, O, B) {
   const A2 = rotation(A, O, 90)
   const v = vecteur(O, B); const u = vecteur(O, A2)
-  return arrondi(unSiPositifMoinsUnSinon(v.x * u.x + v.y * u.y) * angle(A, O, B), 2)
+  return arrondi(unSiPositifMoinsUnSinon(arrondi(v.x * u.x + v.y * u.y, 10)) * angle(A, O, B), 2)
 }
 /**
  * angleradian(A,O,B) renvoie l'angle AOB en radian
