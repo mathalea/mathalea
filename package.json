@@ -1,6 +1,6 @@
 {
   "name": "mathalea",
-  "version": "2.8.1",
+  "version": "2.8.2",
   "description": "Générateur d'exercices de mathématiques",
   "main": "mathalea.js",
   "scripts": {
@@ -106,7 +106,17 @@
     "Cédric Grolleau",
     "Matthieu Devillers",
     "Liouba Leroux",
-    "Daniel Caillibaud"
+    "Daniel Caillibaud",
+    "Guillaume Valmont",
+    "Gilles Mora",
+    "Laurence Candille",
+    "Éric Schrafstetter",
+    "Éric Elter",
+    "Frédéric Piou",
+    "Florence Tapiero",
+    "Jean-Léon Henry",
+    "Mathieu Degrange",
+    "Loïc Geeraerts"
   ],
   "license": "AGPL-3.0",
   "bugs": {

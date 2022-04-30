@@ -5430,38 +5430,41 @@ export function texteSurArc (...args) {
  *
  * @author Rémi Angot
  */
-function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '') {
+function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, saillant = true, colorArc = 'black', rayon = false, fill = 'none', fillOpacite = 0.5 } = {}) {
   ObjetMathalea2D.call(this)
   this.depart = A
   this.arrivee = C
   this.sommet = B
   this.distance = distance
+  this.angle = saillant ? angleOriente(this.depart, this.sommet, this.arrivee) : angleOriente(this.depart, this.sommet, this.arrivee) > 0 ? angleOriente(this.depart, this.sommet, this.arrivee) - 360 : 360 + angleOriente(this.depart, this.sommet, this.arrivee)
+  this.ecart = ecart
+  this.saillant = saillant
 
   this.svg = function (coeff) {
     // let d = bissectrice(A, B, C);
     // d.isVisible = false;
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
-    const N = rotation(pointSurSegment(this.sommet, M, this.distance + 10 / coeff), this.sommet, angleOriente(this.depart, this.sommet, this.arrivee) / 2, '', 'center')
+    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / coeff), this.sommet, this.angle / 2, '', 'center')
     let mesureAngle
     if (label !== '') {
       mesureAngle = label
     } else {
-      mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '°'
+      mesureAngle = arrondiVirgule(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee), 0) + '°'
     }
-    return '\n' + texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true).svg(coeff) + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff)
+    return '\n' + texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true).svg(coeff) + '\n' + arc(M, B, this.angle, rayon, fill, colorArc, fillOpacite).svg(coeff)
   }
   this.tikz = function () {
     // let d = bissectrice(A, B, C);
     // d.isVisible = false;
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
-    const N = rotation(pointSurSegment(this.sommet, M, this.distance + 0.5), this.sommet, angleOriente(this.depart, this.sommet, this.arrivee) / 2, '', 'center')
+    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart), this.sommet, this.angle / 2, '', 'center')
     let mesureAngle
     if (label !== '') {
       mesureAngle = label
     } else {
-      mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '\\degree'
+      mesureAngle = arrondiVirgule(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee), 0) + '\\degree'
     }
-    return '\n' + texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true).tikz() + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz()
+    return '\n' + texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true).tikz() + '\n' + arc(M, B, this.angle).tikz()
   }
 }
 /**
@@ -5469,13 +5472,19 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
  * @param {Point} A
  * @param {Point} B
  * @param {Point} C
- * @param {string} [color='black'] Facultatif, 'black' par défaut.
+ * @param {string} [color='black'] Facultatif, 'black' couleur de la mesure.
  * @param {number} [distance=1.5] Taille de l'angle. Facultatif, 1.5 par défaut.
  * @param {string} [label=''] Facultatif, vide par défaut.
+ * @param {number} ecart distance entre l'arc et sa mesure.
+ * @param {boolean} saillant false si on veut l'angle rentrant.
+ * @param {string} colorArc  couleur de l'arc.
+ * @param {boolean} rayon true pour fermer l'angle en vue de colorier l'intérieur.
+ * @param {string} fill 'none' si on ne veut pas de remplissage, sinon une couleur.
+ * @param {number} fillOpacite taux d'opacité du remplissage (0.5 = 50% par défaut).
  * @returns {object} AfficheMesureAngle
  */
-export function afficheMesureAngle (...args) {
-  return new AfficheMesureAngle(...args)
+export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, saillant = true, colorArc = 'black', rayon = false, fill = 'none', fillOpacite = 0.5 } = {}) {
+  return new AfficheMesureAngle(A, B, C, color, distance, label, { ecart, saillant, colorArc, rayon, fill, fillOpacite })
 }
 /**
  * macote=afficheCoteSegment(s,'x',-1,'red',2) affiche une côte sur une flèche rouge d'epaisseur 2 placée 1cm sous le segment s avec le texte 'x' écrit en noir (par defaut) 0,5cm au-dessus (par defaut)
@@ -7130,56 +7139,6 @@ function Repere2 ({
   // Cache les objets intermédiaires pour ne pas les afficher en double dans mathalea2d.html
   axeX.isVisible = false
   axeY.isVisible = false
-
-  // LES THICKS
-  if (!xThickListe) {
-    xThickListe = rangeMinMax(xThickMin, xThickMax, [0], xThickDistance)
-  }
-  for (const x of xThickListe) {
-    const thick = segment(x * xUnite, OrdonneeAxe * yUnite - thickHauteur, x * xUnite, OrdonneeAxe * yUnite + thickHauteur)
-    thick.isVisible = false
-    thick.epaisseur = thickEpaisseur
-    thick.color = thickCouleur
-    objets.push(thick)
-  }
-  if (!yThickListe) {
-    yThickListe = rangeMinMax(yThickMin, yThickMax, [0], yThickDistance)
-  }
-  for (const y of yThickListe) {
-    const thick = segment(abscisseAxe * xUnite - thickHauteur, y * yUnite, abscisseAxe * xUnite + thickHauteur, y * yUnite)
-    thick.isVisible = false
-    thick.epaisseur = thickEpaisseur
-    thick.color = thickCouleur
-    objets.push(thick)
-  }
-
-  // LES LABELS
-  if (!xLabelListe) {
-    xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
-  }
-  for (const x of xLabelListe) {
-    const l = texteParPosition(`$${texNombre(x, precisionLabelX)}$`, x * xUnite, OrdonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
-    l.isVisible = false
-    objets.push(l)
-  }
-
-  if (!yLabelListe) {
-    yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
-  }
-  for (const y of yLabelListe) {
-    const l = texteParPosition(`$${texNombre(y, precisionLabelY)}$`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
-    l.isVisible = false
-    objets.push(l)
-  }
-
-  // LES LÉGENDES
-  if (xLegende.length > 0) {
-    objets.push(texteParPosition(xLegende, xLegendePosition[0], xLegendePosition[1], 'droite'))
-  }
-  if (yLegende.length > 0) {
-    objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 'droite'))
-  }
-
   // GRILLE PRINCIPALE
 
   // Les traits horizontaux
@@ -7296,6 +7255,54 @@ function Repere2 ({
       }
       objets.push(traitV)
     }
+  }
+  // LES THICKS
+  if (!xThickListe) {
+    xThickListe = rangeMinMax(xThickMin, xThickMax, [0], xThickDistance)
+  }
+  for (const x of xThickListe) {
+    const thick = segment(x * xUnite, OrdonneeAxe * yUnite - thickHauteur, x * xUnite, OrdonneeAxe * yUnite + thickHauteur)
+    thick.isVisible = false
+    thick.epaisseur = thickEpaisseur
+    thick.color = thickCouleur
+    objets.push(thick)
+  }
+  if (!yThickListe) {
+    yThickListe = rangeMinMax(yThickMin, yThickMax, [0], yThickDistance)
+  }
+  for (const y of yThickListe) {
+    const thick = segment(abscisseAxe * xUnite - thickHauteur, y * yUnite, abscisseAxe * xUnite + thickHauteur, y * yUnite)
+    thick.isVisible = false
+    thick.epaisseur = thickEpaisseur
+    thick.color = thickCouleur
+    objets.push(thick)
+  }
+
+  // LES LABELS
+  if (!xLabelListe) {
+    xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
+  }
+  for (const x of xLabelListe) {
+    const l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, OrdonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+    l.isVisible = false
+    objets.push(l)
+  }
+
+  if (!yLabelListe) {
+    yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
+  }
+  for (const y of yLabelListe) {
+    const l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
+    l.isVisible = false
+    objets.push(l)
+  }
+
+  // LES LÉGENDES
+  if (xLegende.length > 0) {
+    objets.push(texteParPosition(xLegende, xLegendePosition[0], xLegendePosition[1], 'droite'))
+  }
+  if (yLegende.length > 0) {
+    objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 'droite'))
   }
 
   // LES SORTIES TiKZ et SVG
@@ -8741,7 +8748,7 @@ export function courbe2 (...args) {
 }
 
 /**
- * Integrale(f,{repere,color,epaisseur,step,yMin,yMax,xUnite,yUnite,a,b,opacite,hachures}) // Trace la courbe de f
+ * Integrale(f,{repere,color,epaisseur,step,a,b,opacite,hachures}) // Trace la courbe de f
  * a et b sont les bornes (dans l'ordre croissant a<b)
  * opacite = 0.5 par défaut
  * hachures = 0 par défaut (= 'northeastlines')
@@ -8753,10 +8760,6 @@ function Integrale (f, {
   color = 'black',
   epaisseur = 2,
   step = false,
-  xUnite = 1,
-  yUnite = 1,
-  yMin,
-  yMax,
   a = 0,
   b = 1,
   opacite = 0.5,
@@ -8764,26 +8767,17 @@ function Integrale (f, {
 } = {}) {
   ObjetMathalea2D.call(this)
   this.color = color
-  let ymin, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
 
-  if (typeof yMin === 'undefined') {
-    ymin = repere.yMin
-  } else ymin = yMin
+  const ymin = repere.yMin
+  const ymax = repere.yMax
+  const xunite = repere.xUnite
+  const yunite = repere.yUnite
 
-  if (typeof yMax === 'undefined') {
-    ymax = repere.yMax
-  } else ymax = yMax
-
-  xunite = repere.xUnite
-  yunite = repere.yUnite
-
-  if (isNaN(xunite)) { xunite = xUnite };
-  if (isNaN(yunite)) { yunite = yUnite };
   const objets = []
   const points = []
   let pas
   if (!step) {
-    pas = 0.2 / xUnite
+    pas = 0.2 / xunite
   } else {
     pas = step
   }
@@ -8799,7 +8793,7 @@ function Integrale (f, {
       x += 0.05
     }
   }
-  points.push(point(b, 0), point(a, 0))
+  points.push(point(b * xunite, f(b) * yunite), point(b * xunite, 0), point(a * xunite, 0))
   const p = polygone([...points], this.color)
   p.epaisseur = epaisseur
   p.couleurDeRemplissage = 'blue'

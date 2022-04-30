@@ -9,7 +9,7 @@ export const amcType = 'qcmMono' // QCM
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Mesurer un angle'
+export const titre = 'Mesurer un angle sans rapporteur sur l\'énoncé'
 
 /**
  * Construire un angle
@@ -60,9 +60,9 @@ export default function MesurerUnAngle () {
       angle = signes[i] * angle
       p = [choice(['x', 'y', 'z', 't']), lettreDepuisChiffre(randint(1, 16)), choice(['s', 'u', 'v', 'w'])]
       if (!this.sup2) {
-        texte = `Estime la mesure de l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ sans instrument.<br>`
+        texte = `Estimer la mesure de l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ sans instrument.<br>`
       } else {
-        texte = `Mesure l'angle $\\widehat{${p[0] + p[1] + p[2]}}$.<br>`
+        texte = `Mesurer l'angle $\\widehat{${p[0] + p[1] + p[2]}}$.<br>`
       }
       A = point(0, 0)
       B = point(6, 0)

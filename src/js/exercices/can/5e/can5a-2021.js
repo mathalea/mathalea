@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import { mathalea2d, point, labelPoint, codeSegment, codeAngle, droiteGraduee2, segment, milieu, texteParPosition } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, printlatex, randint, simplificationDeFractionAvecEtapes, texNombre, tableauColonneLigne, miseEnEvidence, shuffle, choice, calcul, sp } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, printlatex, randint, simplificationDeFractionAvecEtapes, texNombre, tableauColonneLigne, miseEnEvidence, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 export const titre = 'CAN 5ième sujet 2021'
@@ -40,7 +40,6 @@ export default function SujetCAN20215ieme () {
       11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
       21, 22, 23, 24, 25, 26, 27, 28, 29, 30]).slice(-nbQ2).sort(compareNombres)
     const typeQuestionsDisponibles = (typeQuestionsDisponiblesNiv1.concat(typeQuestionsDisponiblesNiv2))
-
     const listeFractions13 = [[12, 5], [11, 5], [13, 5], [17, 5], [19, 5],
       [27, 5], [18, 5], [29, 5], [10, 3], [19, 3], [17, 3], [16, 3], [23, 3],
       [29, 3], [29, 7], [17, 7], [15, 7], [13, 7], [17, 7]]
@@ -142,11 +141,11 @@ export default function SujetCAN20215ieme () {
           if (choice([true, false])) {
             texte = `Quel nombre obtient-on si on ajoute un dixième à $${texNombre(a)}$ ?`
             texteCorr = `$1$ dixième $=0,1$, d'où $${texNombre(a)}+0,1 =${texNombre(a + 0.1)}$`
-            reponse = a + 0.1
+            reponse = arrondi(a + 0.1, 2)
           } else {
             texte = `Quel nombre obtient-on si on ajoute un centième à $${texNombre(b)}$ ?`
             texteCorr = `$1$ centième $=0,01$, d'où $${texNombre(b)}+0,01 =${texNombre(b + 0.01)}$`
-            reponse = b + 0.01
+            reponse = arrondi(b + 0.01, 3)
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -214,7 +213,7 @@ export default function SujetCAN20215ieme () {
           a = randint(2, 6)
           prix = calcul(2 + randint(1, 3) / 10 + 0.05)
           k = randint(2, 4)
-          reponse = prix * k
+          reponse = arrondi(prix * k, 2)
           texte = `$${a}$ stylos identiques coûtent  $${texNombre(prix)}$ €. <br>
             Combien coûtent $${k * a}$ de ces mêmes stylos ?
              `
@@ -742,7 +741,7 @@ export default function SujetCAN20215ieme () {
             texteCorr = `En écrivant les deux fractions avec le même dénominateur, on obtient : <br>
             $${a.texFraction}=${a1.texFraction}$ et $${b.texFraction}=${b1.texFraction}$. On en déduit que la plus grande est celle qui a le plus grand numérateur.`
           }
-          if (fraction1[0] / fraction1[1] > fraction1[2] / fraction1[3]) {
+          if (a > b) {
             setReponse(this, index, '>', { formatInteractif: 'texte' })
           } else { setReponse(this, index, '<', { formatInteractif: 'texte' }) }
           if (this.interactif) {
