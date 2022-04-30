@@ -1,4 +1,4 @@
-import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, texNomb, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe } from './outils.js'
+import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
 import { fraction, max, ceil, isNumeric } from 'mathjs'
