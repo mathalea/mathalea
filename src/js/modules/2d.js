@@ -5477,17 +5477,17 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
  * @param {Point} A
  * @param {Point} B
  * @param {Point} C
- * @param {string} [color='black'] Facultatif, 'black' couleur de la mesure.
- * @param {number} [distance=1.5] Taille de l'angle. Facultatif, 1.5 par défaut.
- * @param {string} [label=''] Facultatif, vide par défaut.
- * @param {number} ecart distance entre l'arc et sa mesure.
- * @param {boolean} saillant false si on veut l'angle rentrant.
- * @param {string} colorArc  couleur de l'arc.
- * @param {boolean} rayon true pour fermer l'angle en vue de colorier l'intérieur.
- * @param {string} fill 'none' si on ne veut pas de remplissage, sinon une couleur.
- * @param {number} fillOpacite taux d'opacité du remplissage (0.5 = 50% par défaut).
- * @param {number} arcEpaisseur épaisseur de l'arc.
- * @param {boolean} mesureEnGras true pour mettre en gras la mesure affichée.
+ * @param {string} [color='black'] 'black' couleur de la mesure.
+ * @param {number} [distance=1.5] Taille de l'angle.
+ * @param {string} [label=''] Si non vide, remplace la mesure de l'angle par ce label.
+ * @param {number} [ecart=0.5] Distance entre l'arc et sa mesure.
+ * @param {boolean} [saillant=true] false si on veut l'angle rentrant.
+ * @param {string} [colorArc='black']  Couleur de l'arc.
+ * @param {boolean} [rayon=false] true pour fermer l'angle en vue de colorier l'intérieur.
+ * @param {string} [fill='none'] 'none' si on ne veut pas de remplissage, sinon une couleur.
+ * @param {number} [fillOpacite=0.5] Taux d'opacité du remplissage.
+ * @param {number} [arcEpaisseur=1] épaisseur de l'arc.
+ * @param {boolean} [mesureEnGras=false] true pour mettre en gras la mesure affichée.
  * @returns {object} AfficheMesureAngle
  */
 export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, fill = 'none', fillOpacite = 0.5, arcEpaisseur = 1 } = {}) {
