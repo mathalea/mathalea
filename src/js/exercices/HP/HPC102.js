@@ -42,7 +42,7 @@ export default function CalculsLoiNormale () {
       listeTypeDeQuestionsDisponibles = ['N01']
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, variables, expression, gaussienne, r, C, I, resultat, resultat_a, resultat_b, bornea, oppbornea, borneb, oppborneb, mu, sigma, bornec, borned, calculstep, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, variables, expression, gaussienne, r, C, I, graphique, resultat, resultat_a, resultat_b, bornea, oppbornea, borneb, oppborneb, mu, sigma, bornec, borned, calculstep, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case 'N01':
           variables = aleaVariables(
@@ -53,9 +53,10 @@ export default function CalculsLoiNormale () {
             }
           )
           gaussienne = x => 1 / math.sqrt(2 * math.pi) * math.exp(-(x ** 2) / 2)
-          r = repere2({ xMin: -4, xMax: 4, yMin: -1, yMax: 3, xUnite: 2, yUnite: 6, axesEpaisseur: 1, yThickDistance: 0.5, ystep: 1, xstep: 50 })
+          r = repere2({ xMin: -4, xMax: 4, yMin: -1, yMax: 3, xUnite: 2, yUnite: 6, axesEpaisseur: 1, yThickDistance: 0.5 })
           C = courbe2(gaussienne, { repere: r, step: 0.1 })
           I = integrale(gaussienne, { repere: r, step: 0.1, a: variables.a, b: variables.b, hachures: 0 })
+          graphique = mathalea2d({ xmin: -5, xmax: 5, ymin: -0.8, ymax: 2.8, pixelsParCm: 30 }, r, C, I)
           bornea = texNombre(variables.a)
           oppbornea = texNombre(-variables.a)
           borneb = texNombre(variables.b)
@@ -66,7 +67,7 @@ export default function CalculsLoiNormale () {
           expression = `$\\mathrm{P}(${bornea} < X < ${borneb})$`
           calculstep = []
           texte = 'Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(0,1)$. <br> Calculer à $10^{-2}$ près la probabilité : ' + expression
-          texte += mathalea2d({ xmin: -5, xmax: 5, ymin: -0.8, ymax: 2.8, pixelsParCm: 30, yscale: 0.2 }, r, C, I)
+          texte += graphique
           texteCorr = 'On décompose pour exprimer la probabilité avec la fonction de répartition $t \\mapsto \\mathrm{P}(X \\leq t)$ en utilisant la tabulation de ses valeurs pour $t \\geq 0$ : <br>'
           calculstep.push(`\\mathrm{P}(${bornea} < X < ${borneb}) &=  \\mathrm{P}(X < ${borneb}) - \\mathrm{P}(X \\leq ${bornea}) &&`)
           if (variables.b < 0) {
@@ -99,17 +100,18 @@ export default function CalculsLoiNormale () {
         case 'Nmusigma':
           variables = aleaVariables(
             {
-              a: 'pickRandom([-1,1])*round(random(0.1,3),1)',
-              b: 'pickRandom([-1,1])*round(random(0.1,3),1)',
+              a: 'pickRandom([-1,1])*round(random(0.1,2.5),1)',
+              b: 'pickRandom([-1,1])*round(random(0.1,2.5),1)',
               mu: 'randomInt(-30, 30)',
               sigma: 'round(random(0.1,4),1)',
-              test: 'a<b'
+              test: 'a<b-0.2'
             }
           )
           gaussienne = x => 1 / variables.sigma / math.sqrt(2 * math.pi) * math.exp(-((x - variables.mu) ** 2) / 2 / (variables.sigma ** 2))
-          r = repere2({ xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, yUnite: 4, axesEpaisseur: 1, xThickDistance: variables.sigma, yThickDistance: 0.5, ystep: 1, xstep: 50 })
+          r = repere2({ xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, xUnite: 1 / variables.sigma, yUnite: 6 * variables.sigma, axesEpaisseur: 1, xThickListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu],xLabelListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], yThickDistance: 0.5, grilleXMin: variables.mu - 4 * variables.sigma, grilleXDistance: variables.sigma })
           C = courbe2(gaussienne, { repere: r, step: 0.1 })
           I = integrale(gaussienne, { repere: r, step: 0.1, a: variables.a * variables.sigma + variables.mu, b: variables.b * variables.sigma + variables.mu, hachures: 0 })
+          graphique = mathalea2d({ xmin: -5 * variables.sigma + variables.mu, xmax: 5 * variables.sigma + variables.mu, ymin: -0.8, ymax: 2.8, pixelsParCm: 30 }, r, C, I)
           bornec = texNombre(variables.a * variables.sigma + variables.mu)
           borned = texNombre(variables.b * variables.sigma + variables.mu)
           bornea = texNombre(variables.a)
@@ -122,7 +124,7 @@ export default function CalculsLoiNormale () {
           expression = `$\\mathrm{P}(${bornec} < X < ${borned})$`
           calculstep = []
           texte = `Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer à $10^{-2}$ près la probabilité : ` + expression
-          texte += mathalea2d({ xmin: -5 * variables.sigma + variables.mu, xmax: 5 * variables.sigma + variables.mu, ymin: -0.8, ymax: 2.8, pixelsParCm: 30 }, r, C, I)
+          texte += graphique
           if (variables.mu < 0) {
             texteCorr = `On pose $Z = \\frac{X + ${texNombre(-variables.mu)}}{${sigma}}$ `
             calculstep.push(`\\mathrm{P}(${bornec} < X < ${borned}) &=  \\mathrm{P}\\left(\\frac{${bornec} + ${texNombre(-variables.mu)}}{${sigma}}   < \\frac{X + ${texNombre(-variables.mu)}}{${sigma}} < \\frac{${borned} + ${texNombre(-variables.mu)}}{${sigma}}  \\right) &&`)
@@ -168,6 +170,11 @@ export default function CalculsLoiNormale () {
               sigma: 'round(random(0.1,4),1)'
             }
           )
+          gaussienne = x => 1 / variables.sigma / math.sqrt(2 * math.pi) * math.exp(-((x - variables.mu) ** 2) / 2 / (variables.sigma ** 2))
+          r = repere2({ xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, xUnite: 1 / variables.sigma, yUnite: 6 * variables.sigma, axesEpaisseur: 1, xThickListe: [-variables.a * variables.sigma + variables.mu, variables.mu, variables.a * variables.sigma + variables.mu],xLabelListe: [-variables.a * variables.sigma + variables.mu, variables.mu, variables.a * variables.sigma + variables.mu], yThickDistance: 0.5, grilleXMin: variables.mu - 4 * variables.sigma, grilleXDistance: variables.sigma })
+          C = courbe2(gaussienne, { repere: r, step: 0.1 })
+          I = integrale(gaussienne, { repere: r, step: 0.1, a: -variables.a * variables.sigma + variables.mu, b: variables.a * variables.sigma + variables.mu, hachures: 0 })
+          graphique = mathalea2d({ xmin: -5 * variables.sigma + variables.mu, xmax: 5 * variables.sigma + variables.mu, ymin: -0.8, ymax: 2.8, pixelsParCm: 30 }, r, C, I)
           bornec = texNombre(-variables.a * variables.sigma + variables.mu)
           borned = texNombre(variables.a * variables.sigma + variables.mu)
           bornea = texNombre(-variables.a)
@@ -178,6 +185,7 @@ export default function CalculsLoiNormale () {
           expression = `$\\mathrm{P}(${bornec} < X < ${borned})$`
           calculstep = []
           texte = `Soit $X$  une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer à $10^{-2}$ près la probabilité : ` + expression
+          texte += graphique
           if (variables.mu < 0) {
             texteCorr = `On pose $Z = \\frac{X + ${texNombre(-variables.mu)}}{${sigma}}$ `
             calculstep.push(`\\mathrm{P}(${bornec} < X < ${borned}) &=  \\mathrm{P}\\left(\\frac{${bornec} + ${texNombre(-variables.mu)}}{${sigma}}   < \\frac{X + ${texNombre(-variables.mu)}}{${sigma}} < \\frac{${borned} + ${texNombre(-variables.mu)}}{${sigma}}  \\right) &&`)
