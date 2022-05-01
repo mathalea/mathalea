@@ -100,15 +100,15 @@ export default function CalculsLoiNormale () {
         case 'Nmusigma':
           variables = aleaVariables(
             {
-              a: 'pickRandom([-1,1])*round(random(0.1,2.5),1)',
-              b: 'pickRandom([-1,1])*round(random(0.1,2.5),1)',
+              a: 'pickRandom([-1,1])*round(random(0.3,2.5),1)',
+              b: 'pickRandom([-1,1])*round(random(0.3,2.5),1)',
               mu: 'randomInt(-30, 30)',
-              sigma: 'round(random(0.1,4),1)',
-              test: 'a<b-0.2'
+              sigma: 'round(random(1,4),0)',
+              test: 'a<b-0.3'
             }
           )
           gaussienne = x => 1 / variables.sigma / math.sqrt(2 * math.pi) * math.exp(-((x - variables.mu) ** 2) / 2 / (variables.sigma ** 2))
-          r = repere2({ axeYisVisible: false, xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, xUnite: 1 / variables.sigma, yUnite: 6 * variables.sigma, axesEpaisseur: 1, xThickListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], xLabelListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], yThickDistance: 0.5, grilleXMin: variables.mu - 4 * variables.sigma, grilleXDistance: variables.sigma })
+          r = repere2({ axeYisVisible: false, xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, xUnite: 2 / variables.sigma, yUnite: 6 * variables.sigma, axesEpaisseur: 1, xThickListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], xLabelListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], yThickDistance: 0.5, grilleXMin: variables.mu - 4 * variables.sigma, grilleXDistance: variables.sigma })
           C = courbe2(gaussienne, { repere: r, step: 0.1 })
           I = integrale(gaussienne, { repere: r, step: 0.1, a: variables.a * variables.sigma + variables.mu, b: variables.b * variables.sigma + variables.mu, hachures: 0 })
           graphique = mathalea2d({ xmin: (-5 * variables.sigma + variables.mu) * r.xUnite, xmax: (5 * variables.sigma + variables.mu) * r.xUnite, ymin: -0.8, ymax: 2.8, pixelsParCm: 30 }, r, C, I)
@@ -165,9 +165,9 @@ export default function CalculsLoiNormale () {
         case 'Nmusigmaintervallecentre':
           variables = aleaVariables(
             {
-              a: 'round(random(0.1,3),1)',
+              a: 'round(random(0.4,3),1)',
               mu: 'randomInt(-30, 30)',
-              sigma: 'round(random(0.1,4),1)'
+              sigma: 'round(random(1,4),0)'
             }
           )
           gaussienne = x => 1 / variables.sigma / math.sqrt(2 * math.pi) * math.exp(-((x - variables.mu) ** 2) / 2 / (variables.sigma ** 2))
