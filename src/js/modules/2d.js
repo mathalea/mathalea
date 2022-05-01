@@ -1,4 +1,4 @@
-import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe } from './outils.js'
+import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
 import { fraction, max, ceil, isNumeric } from 'mathjs'
@@ -5430,7 +5430,7 @@ export function texteSurArc (...args) {
  *
  * @author Rémi Angot
  */
-function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, saillant = true, colorArc = 'black', rayon = false, fill = 'none', fillOpacite = 0.5 } = {}) {
+function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, fill = 'none', fillOpacite = 0.5, arcEpaisseur = 1 } = {}) {
   ObjetMathalea2D.call(this)
   this.depart = A
   this.arrivee = C
@@ -5439,10 +5439,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
   this.angle = saillant ? angleOriente(this.depart, this.sommet, this.arrivee) : angleOriente(this.depart, this.sommet, this.arrivee) > 0 ? angleOriente(this.depart, this.sommet, this.arrivee) - 360 : 360 + angleOriente(this.depart, this.sommet, this.arrivee)
   this.ecart = ecart
   this.saillant = saillant
-
   this.svg = function (coeff) {
-    // let d = bissectrice(A, B, C);
-    // d.isVisible = false;
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
     const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / coeff), this.sommet, this.angle / 2, '', 'center')
     let mesureAngle
@@ -5451,11 +5448,14 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
     } else {
       mesureAngle = arrondiVirgule(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee), 0) + '°'
     }
-    return '\n' + texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true).svg(coeff) + '\n' + arc(M, B, this.angle, rayon, fill, colorArc, fillOpacite).svg(coeff)
+    const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
+    const marque = arc(M, B, this.angle, rayon, fill, colorArc, fillOpacite)
+    mesure.contour = mesureEnGras
+    mesure.couleurDeRemplissage = color
+    marque.epaisseur = arcEpaisseur
+    return '\n' + mesure.svg(coeff) + '\n' + marque.svg(coeff)
   }
   this.tikz = function () {
-    // let d = bissectrice(A, B, C);
-    // d.isVisible = false;
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
     const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart), this.sommet, this.angle / 2, '', 'center')
     let mesureAngle
@@ -5464,7 +5464,12 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
     } else {
       mesureAngle = arrondiVirgule(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee), 0) + '\\degree'
     }
-    return '\n' + texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true).tikz() + '\n' + arc(M, B, this.angle).tikz()
+    const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
+    const marque = arc(M, B, this.angle, rayon, fill, colorArc, fillOpacite)
+    mesure.contour = mesureEnGras
+    mesure.couleurDeRemplissage = color
+    marque.epaisseur = arcEpaisseur
+    return '\n' + mesure.tikz() + '\n' + marque.tikz()
   }
 }
 /**
@@ -5472,19 +5477,21 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
  * @param {Point} A
  * @param {Point} B
  * @param {Point} C
- * @param {string} [color='black'] Facultatif, 'black' couleur de la mesure.
- * @param {number} [distance=1.5] Taille de l'angle. Facultatif, 1.5 par défaut.
- * @param {string} [label=''] Facultatif, vide par défaut.
- * @param {number} ecart distance entre l'arc et sa mesure.
- * @param {boolean} saillant false si on veut l'angle rentrant.
- * @param {string} colorArc  couleur de l'arc.
- * @param {boolean} rayon true pour fermer l'angle en vue de colorier l'intérieur.
- * @param {string} fill 'none' si on ne veut pas de remplissage, sinon une couleur.
- * @param {number} fillOpacite taux d'opacité du remplissage (0.5 = 50% par défaut).
+ * @param {string} [color='black'] 'black' couleur de la mesure.
+ * @param {number} [distance=1.5] Taille de l'angle.
+ * @param {string} [label=''] Si non vide, remplace la mesure de l'angle par ce label.
+ * @param {number} [ecart=0.5] Distance entre l'arc et sa mesure.
+ * @param {boolean} [saillant=true] false si on veut l'angle rentrant.
+ * @param {string} [colorArc='black']  Couleur de l'arc.
+ * @param {boolean} [rayon=false] true pour fermer l'angle en vue de colorier l'intérieur.
+ * @param {string} [fill='none'] 'none' si on ne veut pas de remplissage, sinon une couleur.
+ * @param {number} [fillOpacite=0.5] Taux d'opacité du remplissage.
+ * @param {number} [arcEpaisseur=1] épaisseur de l'arc.
+ * @param {boolean} [mesureEnGras=false] true pour mettre en gras la mesure affichée.
  * @returns {object} AfficheMesureAngle
  */
-export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, saillant = true, colorArc = 'black', rayon = false, fill = 'none', fillOpacite = 0.5 } = {}) {
-  return new AfficheMesureAngle(A, B, C, color, distance, label, { ecart, saillant, colorArc, rayon, fill, fillOpacite })
+export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, fill = 'none', fillOpacite = 0.5, arcEpaisseur = 1 } = {}) {
+  return new AfficheMesureAngle(A, B, C, color, distance, label, { ecart, mesureEnGras, saillant, colorArc, rayon, fill, fillOpacite, arcEpaisseur })
 }
 /**
  * macote=afficheCoteSegment(s,'x',-1,'red',2) affiche une côte sur une flèche rouge d'epaisseur 2 placée 1cm sous le segment s avec le texte 'x' écrit en noir (par defaut) 0,5cm au-dessus (par defaut)
@@ -9734,7 +9741,7 @@ export function angle (A, O, B) {
 export function angleOriente (A, O, B) {
   const A2 = rotation(A, O, 90)
   const v = vecteur(O, B); const u = vecteur(O, A2)
-  return arrondi(unSiPositifMoinsUnSinon(v.x * u.x + v.y * u.y) * angle(A, O, B), 2)
+  return arrondi(unSiPositifMoinsUnSinon(arrondi(v.x * u.x + v.y * u.y, 10)) * angle(A, O, B), 2)
 }
 /**
  * angleradian(A,O,B) renvoie l'angle AOB en radian
