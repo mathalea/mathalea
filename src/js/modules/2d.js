@@ -7301,7 +7301,7 @@ function Repere2 ({
       xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
     }
     for (const x of xLabelListe) {
-      const l = texteParPosition(`$${texNombre(x, precisionLabelX)}$`, x * xUnite, OrdonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+      const l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, OrdonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
       l.isVisible = false
       objets.push(l)
     }
@@ -7311,7 +7311,7 @@ function Repere2 ({
       yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
     }
     for (const y of yLabelListe) {
-      const l = texteParPosition(`$${texNombre(y, precisionLabelY)}$`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
+      const l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
       l.isVisible = false
       objets.push(l)
     }
