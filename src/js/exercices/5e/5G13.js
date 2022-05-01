@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondiVirgule, texNombre } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, mathalea2d, symetrieAxiale, translation, vecteur, triangle2points2longueurs, droite, pointAdistance, rotation, afficheLongueurSegment, segment, afficheMesureAngle, longueur, droiteParPointEtParallele, angle, polygoneAvecNom, texteParPoint, positionLabelDroite } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, mathalea2d, symetrieAxiale, translation, vecteur, triangle2points2longueurs, droite, pointAdistance, rotation, afficheLongueurSegment, segment, afficheMesureAngle, longueur, droiteParPointEtParallele, angle, polygoneAvecNom, texteParPoint, positionLabelDroite, distancePointDroite } from '../../modules/2d.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles'
@@ -61,17 +61,16 @@ export default function ConservationSymetrie () {
       objetsEnonceOnly = []
       objetsCorrectionOnly = []
       objetsEnonceEtCorr = []
-      d1 = ''
       A = point(0, 0, 'A', 'below')
       B = pointAdistance(A, randint(30, 60) / 10, randint(0, 45), 'B')
       C = triangle2points2longueurs(A, B, randint(40, 60) / 10, randint(30, 50) / 10).listePoints[2]
       C.nom = 'C'
+      d1 = droiteParPointEtParallele(C, droite(A, B))
       poly = polygoneAvecNom(A, B, C) // pour bien placer les labels
       objetsEnonceEtCorr.push(segment(A, B), afficheLongueurSegment(B, A), poly[1])
       switch (listeTypeDeQuestions[i]) {
         case 'parallelisme':
           objetsEnonceEtCorr.push(tracePoint(A, B, C))
-          d1 = droiteParPointEtParallele(C, droite(A, B))
           objetsEnonceEtCorr.push(d1)
           texte = 'La droite $(d_1)$ est parallèle au segment [$AB$] et passe par le point $C$.<br>'
           texteCorr = texte
@@ -101,19 +100,21 @@ export default function ConservationSymetrie () {
           imageA = symetrieAxiale(A, d, 'A\'')
           imageB = symetrieAxiale(B, d, 'B\'')
           imageC = symetrieAxiale(C, d, 'C\'')
-          if (d1 !== '') {
+          if (listeTypeDeQuestions[i] === 'parallelisme') {
             objetsCorrectionOnly.push(droite(symetrieAxiale(point(d1.x1, d1.y1), d), symetrieAxiale(point(d1.x2, d1.y2), d), '$(d_1\')$'))
           }
           figureRetournee = false
           break
         case 'symetrieCentrale':
           centreOuPoint = 'au point $O$'
-          O = point(randint(30, 40) / 10, randint(40, 60) / 10, 'O')
+          do {
+            O = point(randint(25, 45) / 10, randint(35, 65) / 10, 'O')
+            imageA = rotation(A, O, 180, 'A\'')
+            imageB = rotation(B, O, 180, 'B\'')
+            imageC = rotation(C, O, 180, 'C\'')
+          } while (distancePointDroite(O, d1) < 1 || longueur(O, B) < 1 || Math.abs(Math.round(angle(B, A, imageC)) - 90) > 85)
           objetsEnonceEtCorr.push(tracePoint(O), labelPoint(O))
-          imageA = rotation(A, O, 180, 'A\'')
-          imageB = rotation(B, O, 180, 'B\'')
-          imageC = rotation(C, O, 180, 'C\'')
-          if (d1 !== '') {
+          if (listeTypeDeQuestions[i] === 'parallelisme') {
             objetsCorrectionOnly.push(droite(rotation(point(d1.x1, d1.y1), O, 180), rotation(point(d1.x2, d1.y2), O, 180)))
           }
           figureRetournee = true
