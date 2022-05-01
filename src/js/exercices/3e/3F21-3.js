@@ -89,7 +89,7 @@ export default function PenteEtOrdonneeOrigineDroite () {
     if (den === 2) setReponse(this, 2, [`${stringNombre(a)}x+${b}`, `\\frac{${num}}{2}\\times x + ${b}`])
 
     const correction1 = `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$, l'ordonnée à l'origine est donc $${b}$.`
-    let correction2 = `À chaque fois que l'on avance de 1 carreau, on ${a > 0 ? 'monte' : 'descend'} de $${texNombre(a)}$ ${Math.abs(a) >= 2 ? 'carreaux' : 'carreau'},`
+    let correction2 = `À chaque fois que l'on avance de 1 carreau, on ${a > 0 ? 'monte' : 'descend'} de $${texNombre(Math.abs(a))}$ ${Math.abs(a) >= 2 ? 'carreaux' : 'carreau'},`
     correction2 += ` le coefficient directeur est donc $${texNombre(a)}$.`
     let correction3 = `$${nomFonction}$ étant une fonction affine, on a $${nomFonction} : x \\mapsto ax + b$ avec $a$ le coefficient directeur (ou pente) et $b$ son ordonnée à l'origine.`
     correction3 += `<br>Finalement, $${nomFonction} : x \\mapsto ${rienSi1(a).toString().replace('.', ',')}x ${ecritureAlgebrique(b)}$.`
