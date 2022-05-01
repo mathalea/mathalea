@@ -113,7 +113,9 @@ export default function ConservationSymetrie () {
           imageA = rotation(A, O, 180, 'A\'')
           imageB = rotation(B, O, 180, 'B\'')
           imageC = rotation(C, O, 180, 'C\'')
-          objetsCorrectionOnly.push(droite(rotation(point(d1.x1, d1.y1), O, 180), rotation(point(d1.x2, d1.y2), O, 180)))
+          if (d1 !== '') {
+            objetsCorrectionOnly.push(droite(rotation(point(d1.x1, d1.y1), O, 180), rotation(point(d1.x2, d1.y2), O, 180)))
+          }
           figureRetournee = true
           break
       }
