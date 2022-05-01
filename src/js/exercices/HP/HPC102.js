@@ -4,7 +4,7 @@ import { aleaVariables } from '../../modules/outilsMathjs.js'
 import { create, all, sqrt } from 'mathjs'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { integrale, repere2, courbe2, mathalea2d, point, TracePoint } from '../../modules/2d.js'
+import { integrale, repere2, courbe2, mathalea2d } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // import { calcule } from '../../modules/fonctionsMaths.js'
@@ -42,7 +42,7 @@ export default function CalculsLoiNormale () {
       listeTypeDeQuestionsDisponibles = ['N01']
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, variables, expression, gaussienne, r, C, I, graphique, resultat, resultat_a, resultat_b, bornea, oppbornea, borneb, oppborneb, mu, sigma, bornec, borned, calculstep, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, variables, expression, gaussienne, r, C, I, graphique, resultat, resultatA, resultatB, bornea, oppbornea, borneb, oppborneb, mu, sigma, bornec, borned, calculstep, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case 'N01':
           variables = aleaVariables(
@@ -71,29 +71,29 @@ export default function CalculsLoiNormale () {
           texteCorr = 'On décompose pour exprimer la probabilité avec la fonction de répartition $t \\mapsto \\mathrm{P}(X \\leq t)$ en utilisant la tabulation de ses valeurs pour $t \\geq 0$ : <br>'
           calculstep.push(`\\mathrm{P}(${bornea} < X < ${borneb}) &=  \\mathrm{P}(X < ${borneb}) - \\mathrm{P}(X \\leq ${bornea}) &&`)
           if (variables.b < 0) {
-            resultat_b = texNombre(0.5 + 0.5 * math.erf(-variables.b / sqrt(2)), 3)
+            resultatB = texNombre(0.5 + 0.5 * math.erf(-variables.b / sqrt(2)), 3)
             if (variables.a < 0) {
-              resultat_a = texNombre(0.5 + 0.5 * math.erf(-variables.a / sqrt(2)), 3)
+              resultatA = texNombre(0.5 + 0.5 * math.erf(-variables.a / sqrt(2)), 3)
               calculstep.push(` &=  \\mathrm{P}(X > ${(oppborneb)}) - \\mathrm{P}(X \\geq ${oppbornea}) && (\\text{par symétrie de la loi normale})`)
               calculstep.push(` &=  1 - \\mathrm{P}(X \\leq ${(oppborneb)}) - (1-\\mathrm{P}(X < ${oppbornea})) && (\\text{par passage au complémentaire})`)
               calculstep.push(` &=  \\mathrm{P}(X < ${oppbornea}) - \\mathrm{P}(X \\leq ${(oppborneb)}) &&`)
-              calculstep.push(` &\\approx ${resultat_a} - ${resultat_b} &&`)
+              calculstep.push(` &\\approx ${resultatA} - ${resultatB} &&`)
             } else {
-              resultat_a = texNombre(0.5 + 0.5 * math.erf(variables.a / sqrt(2)), 3)
+              resultatA = texNombre(0.5 + 0.5 * math.erf(variables.a / sqrt(2)), 3)
               calculstep.push(` &=  \\mathrm{P}(X > ${(oppborneb)}) - \\mathrm{P}(X \\leq ${bornea}) && (\\text{par symétrie de la loi normale})`)
               calculstep.push(` &=  1 - \\mathrm{P}(X \\leq ${(oppborneb)}) - \\mathrm{P}(X \\leq ${bornea}) && (\\text{par passage au complémentaire})`)
-              calculstep.push(` &\\approx 1 - ${resultat_b} - ${resultat_a} &&`)
+              calculstep.push(` &\\approx 1 - ${resultatB} - ${resultatA} &&`)
             }
           } else if (variables.a < 0) {
-            resultat_a = texNombre(0.5 + 0.5 * math.erf(-variables.a / sqrt(2)), 3)
-            resultat_b = texNombre(0.5 + 0.5 * math.erf(variables.b / sqrt(2)), 3)
+            resultatA = texNombre(0.5 + 0.5 * math.erf(-variables.a / sqrt(2)), 3)
+            resultatB = texNombre(0.5 + 0.5 * math.erf(variables.b / sqrt(2)), 3)
             calculstep.push(` &=  \\mathrm{P}(X < ${(borneb)}) - \\mathrm{P}(X > ${oppbornea}) && (\\text{par symétrie de la loi normale})`)
             calculstep.push(` &=  \\mathrm{P}(X < ${(borneb)}) - (1 - \\mathrm{P}(X \\leq ${oppbornea})) && (\\text{par passage au complémentaire})`)
-            calculstep.push(` &\\approx  ${resultat_b} - (1 - ${resultat_a}) &&`)
+            calculstep.push(` &\\approx  ${resultatB} - (1 - ${resultatA}) &&`)
           } else {
-            resultat_a = texNombre(0.5 + 0.5 * math.erf(variables.a / sqrt(2)), 3)
-            resultat_b = texNombre(0.5 + 0.5 * math.erf(variables.b / sqrt(2)), 3)
-            calculstep.push(`&\\approx  ${resultat_b} - ${resultat_a} &&`)
+            resultatA = texNombre(0.5 + 0.5 * math.erf(variables.a / sqrt(2)), 3)
+            resultatB = texNombre(0.5 + 0.5 * math.erf(variables.b / sqrt(2)), 3)
+            calculstep.push(`&\\approx  ${resultatB} - ${resultatA} &&`)
           }
           setReponse(this, i, resultat.toFixed(2))
           break
@@ -108,7 +108,7 @@ export default function CalculsLoiNormale () {
             }
           )
           gaussienne = x => 1 / variables.sigma / math.sqrt(2 * math.pi) * math.exp(-((x - variables.mu) ** 2) / 2 / (variables.sigma ** 2))
-          r = repere2({ xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, xUnite: 1 / variables.sigma, yUnite: 6 * variables.sigma, axesEpaisseur: 1, xThickListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], xLabelListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], yThickDistance: 0.5, grilleXMin: variables.mu - 4 * variables.sigma, grilleXDistance: variables.sigma })
+          r = repere2({ axeYisVisible: false, xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, xUnite: 1 / variables.sigma, yUnite: 6 * variables.sigma, axesEpaisseur: 1, xThickListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], xLabelListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], yThickDistance: 0.5, grilleXMin: variables.mu - 4 * variables.sigma, grilleXDistance: variables.sigma })
           C = courbe2(gaussienne, { repere: r, step: 0.1 })
           I = integrale(gaussienne, { repere: r, step: 0.1, a: variables.a * variables.sigma + variables.mu, b: variables.b * variables.sigma + variables.mu, hachures: 0 })
           graphique = mathalea2d({ xmin: (-5 * variables.sigma + variables.mu) * r.xUnite, xmax: (5 * variables.sigma + variables.mu) * r.xUnite, ymin: -0.8, ymax: 2.8, pixelsParCm: 30 }, r, C, I)
@@ -136,29 +136,29 @@ export default function CalculsLoiNormale () {
           calculstep.push(`&= \\mathrm{P}\\left( ${bornea}   < Z < ${borneb}  \\right)`)
           calculstep.push(`&=  \\mathrm{P}(X < ${borneb}) - \\mathrm{P}(X \\leq ${bornea}) &&`)
           if (variables.b < 0) {
-            resultat_b = texNombre(0.5 + 0.5 * math.erf(-variables.b / sqrt(2)), 3)
+            resultatB = texNombre(0.5 + 0.5 * math.erf(-variables.b / sqrt(2)), 3)
             if (variables.a < 0) {
-              resultat_a = texNombre(0.5 + 0.5 * math.erf(-variables.a / sqrt(2)), 3)
+              resultatA = texNombre(0.5 + 0.5 * math.erf(-variables.a / sqrt(2)), 3)
               calculstep.push(` &=  \\mathrm{P}(X > ${(oppborneb)}) - \\mathrm{P}(X \\geq ${oppbornea}) && (\\text{par symétrie de la loi normale})`)
               calculstep.push(` &=  1 - \\mathrm{P}(X \\leq ${(oppborneb)}) - (1-\\mathrm{P}(X < ${oppbornea})) && (\\text{par passage au complémentaire})`)
               calculstep.push(` &=  \\mathrm{P}(X < ${oppbornea}) - \\mathrm{P}(X \\leq ${(oppborneb)}) &&`)
-              calculstep.push(` &\\approx ${resultat_a} - ${resultat_b} &&`)
+              calculstep.push(` &\\approx ${resultatA} - ${resultatB} &&`)
             } else {
-              resultat_a = texNombre(0.5 + 0.5 * math.erf(variables.a / sqrt(2)), 3)
+              resultatA = texNombre(0.5 + 0.5 * math.erf(variables.a / sqrt(2)), 3)
               calculstep.push(` &=  \\mathrm{P}(X > ${(oppborneb)}) - \\mathrm{P}(X \\leq ${bornea}) && (\\text{par symétrie de la loi normale})`)
               calculstep.push(` &=  1 - \\mathrm{P}(X \\leq ${(oppborneb)}) - \\mathrm{P}(X \\leq ${bornea}) && (\\text{par passage au complémentaire})`)
-              calculstep.push(` &\\approx 1 - ${resultat_b} - ${resultat_a} &&`)
+              calculstep.push(` &\\approx 1 - ${resultatB} - ${resultatA} &&`)
             }
           } else if (variables.a < 0) {
-            resultat_a = texNombre(0.5 + 0.5 * math.erf(-variables.a / sqrt(2)), 3)
-            resultat_b = texNombre(0.5 + 0.5 * math.erf(variables.b / sqrt(2)), 3)
+            resultatA = texNombre(0.5 + 0.5 * math.erf(-variables.a / sqrt(2)), 3)
+            resultatB = texNombre(0.5 + 0.5 * math.erf(variables.b / sqrt(2)), 3)
             calculstep.push(` &=  \\mathrm{P}(X < ${(borneb)}) - \\mathrm{P}(X > ${oppbornea}) && (\\text{par symétrie de la loi normale})`)
             calculstep.push(` &=  \\mathrm{P}(X < ${(borneb)}) - (1 - \\mathrm{P}(X \\leq ${oppbornea})) && (\\text{par passage au complémentaire})`)
-            calculstep.push(` &\\approx  ${resultat_b} - (1 - ${resultat_a}) &&`)
+            calculstep.push(` &\\approx  ${resultatB} - (1 - ${resultatA}) &&`)
           } else {
-            resultat_a = texNombre(0.5 + 0.5 * math.erf(variables.a / sqrt(2)), 3)
-            resultat_b = texNombre(0.5 + 0.5 * math.erf(variables.b / sqrt(2)), 3)
-            calculstep.push(`&\\approx  ${resultat_b} - ${resultat_a} &&`)
+            resultatA = texNombre(0.5 + 0.5 * math.erf(variables.a / sqrt(2)), 3)
+            resultatB = texNombre(0.5 + 0.5 * math.erf(variables.b / sqrt(2)), 3)
+            calculstep.push(`&\\approx  ${resultatB} - ${resultatA} &&`)
           }
           setReponse(this, i, resultat.toFixed(2))
           break
@@ -171,7 +171,7 @@ export default function CalculsLoiNormale () {
             }
           )
           gaussienne = x => 1 / variables.sigma / math.sqrt(2 * math.pi) * math.exp(-((x - variables.mu) ** 2) / 2 / (variables.sigma ** 2))
-          r = repere2({ xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, xUnite: 1 / variables.sigma, yUnite: 6 * variables.sigma, axesEpaisseur: 1, xThickListe: [-variables.a * variables.sigma + variables.mu, variables.mu, variables.a * variables.sigma + variables.mu], xLabelListe: [-variables.a * variables.sigma + variables.mu, variables.mu, variables.a * variables.sigma + variables.mu], yThickDistance: 0.5, grilleXMin: variables.mu - 4 * variables.sigma, grilleXDistance: variables.sigma })
+          r = repere2({ axeYisVisible: false, xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, xUnite: 1 / variables.sigma, yUnite: 6 * variables.sigma, axesEpaisseur: 1, xThickListe: [-variables.a * variables.sigma + variables.mu, variables.mu, variables.a * variables.sigma + variables.mu], xLabelListe: [-variables.a * variables.sigma + variables.mu, variables.mu, variables.a * variables.sigma + variables.mu], yThickDistance: 0.5, grilleXMin: variables.mu - 4 * variables.sigma, grilleXDistance: variables.sigma })
           C = courbe2(gaussienne, { repere: r, step: 0.1 })
           I = integrale(gaussienne, { repere: r, step: 0.1, a: -variables.a * variables.sigma + variables.mu, b: variables.a * variables.sigma + variables.mu, hachures: 0 })
           graphique = mathalea2d({ xmin: r.xUnite * (-5 * variables.sigma + variables.mu), xmax: (5 * variables.sigma + variables.mu) * r.xUnite, ymin: -0.8, ymax: 2.8, pixelsParCm: 30 }, r, C, I)
@@ -196,9 +196,9 @@ export default function CalculsLoiNormale () {
           texteCorr += ' de telle sorte que $Z$ suive une loi $\\mathcal{N}(0,1)$. <br><br>'
           calculstep.push(`&= \\mathrm{P}\\left( ${bornea}   < Z < ${borneb}  \\right)`)
           calculstep.push(`&=  \\mathrm{P}(X < ${borneb}) - \\mathrm{P}(X \\leq ${bornea}) &&`)
-          resultat_a = texNombre(0.5 + 0.5 * math.erf(variables.a / sqrt(2)), 3)
+          resultatA = texNombre(0.5 + 0.5 * math.erf(variables.a / sqrt(2)), 3)
           calculstep.push(` &=  2\\times\\mathrm{P}(X < ${(borneb)}) - 1 && (\\text{par symétrie de la loi normale})`)
-          calculstep.push(` &\\approx  2\\times ${resultat_a} - 1 &&`)
+          calculstep.push(` &\\approx  2\\times ${resultatA} - 1 &&`)
           setReponse(this, i, resultat.toFixed(2))
           break
       }
