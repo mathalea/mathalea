@@ -104,7 +104,7 @@ export default function CalculsLoiNormale () {
               b: 'pickRandom([-1,1])*round(random(0.3,2.5),1)',
               mu: 'randomInt(-30, 30)',
               sigma: 'round(random(1,4),0)',
-              test: 'a<b-0.3'
+              test: '(a-b)/sigma<-1'
             }
           )
           gaussienne = x => 1 / variables.sigma / math.sqrt(2 * math.pi) * math.exp(-((x - variables.mu) ** 2) / 2 / (variables.sigma ** 2))
@@ -165,7 +165,7 @@ export default function CalculsLoiNormale () {
         case 'Nmusigmaintervallecentre':
           variables = aleaVariables(
             {
-              a: 'round(random(0.4,3),1)',
+              a: 'round(random(0.6,2.5),1)',
               mu: 'randomInt(-30, 30)',
               sigma: 'round(random(1,4),0)'
             }
