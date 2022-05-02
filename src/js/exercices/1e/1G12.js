@@ -1,6 +1,10 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, estentier } from '../../modules/outils.js'
-export const titre = 'Calculs avec cos(x) et sin(x) '
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+export const titre = 'cos et sin associés à un réel x '
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '20/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -24,7 +28,7 @@ export default function MesurePrincipale () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7', 'type8', 'type9', 'type10'] // On créé 3 types de questions
+    const typeQuestionsDisponibles = ['type1'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
@@ -32,23 +36,39 @@ export default function MesurePrincipale () {
         case 'type1':
 
           texte = '$\\cos(x+\\pi)=\\ldots$'
+          if (this.interactif) {
+            setReponse(this, i, '$-\\cos(x)$')
+            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+          }
           texteCorr = '$\\cos(x+\\pi)=-\\cos(x)$'
           break
         case 'type2':
           texte = '$\\cos(x-\\pi)=\\ldots$'
-          texteCorr = '$\\cos(x-\\pi)=-\\cos(x)$'
+          if (this.interactif) {
+            setReponse(this, i, '$-\\cos(x)$')}
+            texteCorr = '$\\cos(x-\\pi)=-\\cos(x)$'
+          
           break
         case 'type3':
           texte = '$\\cos(x+\\dfrac{\\pi}{2})=\\ldots$'
+          if (this.interactif) {
+            setReponse(this, i, '$-\\sin(x)$')
+          }
           texteCorr = '$\\cos(x+\\dfrac{\\pi}{2})=-\\sin(x)$'
           break
         case 'type4':
           texte = '$\\cos(\\dfrac{\\pi}{2}-x)=\\ldots$'
+          if (this.interactif) {
+            setReponse(this, i, '$-\\sin(x)$')
+          }
           texteCorr = '$\\cos(\\dfrac{\\pi}{2}-x)=\\sin(x)$'
           break
         case 'type5':
           k = randint(-5, 5, [0, 1])
           texte = `$\\cos(x${ecritureAlgebrique(k)} \\pi)=\\ldots$`
+          if (this.interactif) {
+            if (estentier(k / 2)) { setReponse(this, i, '$\\cos(x)$') } else { setReponse(this, i, '$-\\cos(x)$') }
+          }
           if (estentier(k / 2)) { texteCorr = `$\\cos(x${ecritureAlgebrique(k)}\\pi)=\\cos(x)$` } else { texteCorr = `$\\cos(x${ecritureAlgebrique(k)}\\pi)=-\\cos(x)$` }
           break
         case 'type6':
