@@ -37,7 +37,7 @@ export default function MesurePrincipale () {
 
           texte = '$\\cos(x+\\pi)=\\ldots$'
           if (this.interactif) {
-            setReponse(this, i, '$-\\cos(x)$')
+            setReponse(this, i, 'cos(x)', { formatInteractif: 'texte' })
             texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
           }
           texteCorr = '$\\cos(x+\\pi)=-\\cos(x)$'
@@ -45,9 +45,10 @@ export default function MesurePrincipale () {
         case 'type2':
           texte = '$\\cos(x-\\pi)=\\ldots$'
           if (this.interactif) {
-            setReponse(this, i, '$-\\cos(x)$')}
-            texteCorr = '$\\cos(x-\\pi)=-\\cos(x)$'
-          
+            setReponse(this, i, '$-\\cos(x)$')
+          }
+          texteCorr = '$\\cos(x-\\pi)=-\\cos(x)$'
+
           break
         case 'type3':
           texte = '$\\cos(x+\\dfrac{\\pi}{2})=\\ldots$'
