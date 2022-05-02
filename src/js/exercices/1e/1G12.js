@@ -141,8 +141,8 @@ export default function MesurePrincipale () {
         case '14':
           texte = '$\\sin\\big(-x\\big)=$'
           if (this.interactif) {
-            setReponse(this, i, '-sin(x)', { formatInteractif: 'texte' })
-            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+            setReponse(this, i, '-sin(x)', { formatInteractif: 'calcul' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline25 nospacebefore trigo', { tailleExtensible: true })
           } else { texte += '$\\ldots$' }
           texteCorr = '$\\sin(-x)=-\\sin(x)$'
           break
