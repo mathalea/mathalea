@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, ecritureAlgebrique, estentier } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebrique } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'cos et sin associés à un réel x '
@@ -22,77 +22,129 @@ export default function MesurePrincipale () {
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.video = '' // Id YouTube ou url
-
+  this.sup = 1
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const typeQuestionsDisponibles = ['type1'] // On créé 3 types de questions
+    const typeQuestionsDisponibles = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14']
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'type1':
-
-          texte = '$\\cos(x+\\pi)=\\ldots$'
+        case '1':
+          texte = '$\\cos\\big(x+\\pi\\big)=$'
           if (this.interactif) {
-            setReponse(this, i, 'cos(x)', { formatInteractif: 'texte' })
+            setReponse(this, i, '-cos(x)', { formatInteractif: 'texte' })
             texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
-          }
+          } else { texte += '$\\ldots$' }
           texteCorr = '$\\cos(x+\\pi)=-\\cos(x)$'
           break
-        case 'type2':
-          texte = '$\\cos(x-\\pi)=\\ldots$'
+        case '2':
+          texte = '$\\cos\\big(x-\\pi\\big)=$'
           if (this.interactif) {
-            setReponse(this, i, '$-\\cos(x)$')
-          }
+            setReponse(this, i, '-cos(x)', { formatInteractif: 'texte' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+          } else { texte += '$\\ldots$' }
           texteCorr = '$\\cos(x-\\pi)=-\\cos(x)$'
 
           break
-        case 'type3':
-          texte = '$\\cos(x+\\dfrac{\\pi}{2})=\\ldots$'
+        case '3':
+          texte = '$\\cos\\left(x+\\dfrac{\\pi}{2}\\right)=$'
           if (this.interactif) {
-            setReponse(this, i, '$-\\sin(x)$')
-          }
-          texteCorr = '$\\cos(x+\\dfrac{\\pi}{2})=-\\sin(x)$'
+            setReponse(this, i, '-sin(x)', { formatInteractif: 'texte' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+          } else { texte += '$\\ldots$' }
+          texteCorr = '$\\cos\\left(x+\\dfrac{\\pi}{2}\\right)=-\\sin(x)$'
           break
-        case 'type4':
-          texte = '$\\cos(\\dfrac{\\pi}{2}-x)=\\ldots$'
+        case '4':
+          texte = '$\\cos\\left(\\dfrac{\\pi}{2}-x\\right)=$'
           if (this.interactif) {
-            setReponse(this, i, '$-\\sin(x)$')
-          }
-          texteCorr = '$\\cos(\\dfrac{\\pi}{2}-x)=\\sin(x)$'
+            setReponse(this, i, 'sin(x)', { formatInteractif: 'texte' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+          } else { texte += '$\\ldots$' }
+          texteCorr = '$\\cos\\left(\\dfrac{\\pi}{2}-x\\right)=\\sin(x)$'
           break
-        case 'type5':
-          k = randint(-5, 5, [0, 1])
-          texte = `$\\cos(x${ecritureAlgebrique(k)} \\pi)=\\ldots$`
+        case '5':
+          texte = '$\\cos\\big(x+3 \\pi\\big)=$'
           if (this.interactif) {
-            if (estentier(k / 2)) { setReponse(this, i, '$\\cos(x)$') } else { setReponse(this, i, '$-\\cos(x)$') }
-          }
-          if (estentier(k / 2)) { texteCorr = `$\\cos(x${ecritureAlgebrique(k)}\\pi)=\\cos(x)$` } else { texteCorr = `$\\cos(x${ecritureAlgebrique(k)}\\pi)=-\\cos(x)$` }
+            setReponse(this, i, '-cos(x)', { formatInteractif: 'texte' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+          } else { texte += '$\\ldots$' }
+          texteCorr = `$\\cos(x${ecritureAlgebrique(k)}\\pi)=-\\cos(x)$`
           break
-        case 'type6':
-
-          texte = '$\\sin(x+\\pi)=\\ldots$'
+        case '6':
+          texte = '$\\sin\\big(x+\\pi\\big)=$'
+          if (this.interactif) {
+            setReponse(this, i, '-sin(x)', { formatInteractif: 'texte' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+          } else { texte += '$\\ldots$' }
           texteCorr = '$\\sin(x+\\pi)=-\\sin(x)$'
           break
-        case 'type7':
-          texte = '$\\sin(x-\\pi)=\\ldots$'
+        case '7':
+          texte = '$\\sin\\big(x-\\pi\\big)=$'
+          if (this.interactif) {
+            setReponse(this, i, '-sin(x)', { formatInteractif: 'texte' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+          } else { texte += '$\\ldots$' }
           texteCorr = '$\\sin(x-\\pi)=-\\sin(x)$'
           break
-        case 'type8':
-          texte = '$\\sin(x+\\dfrac{\\pi}{2})=\\ldots$'
-          texteCorr = '$\\sin(x+\\dfrac{\\pi}{2})=\\cos(x)$'
+        case '8':
+          texte = '$\\sin\\left(x+\\dfrac{\\pi}{2}\\right)=$'
+          if (this.interactif) {
+            setReponse(this, i, 'cos(x)', { formatInteractif: 'texte' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+          } else { texte += '$\\ldots$' }
+          texteCorr = '$\\sin\\left(x+\\dfrac{\\pi}{2}\\right)=\\cos(x)$'
           break
-        case 'type9':
-          texte = '$\\sin(\\dfrac{\\pi}{2}-x)=\\ldots$'
-          texteCorr = '$\\sin(\\dfrac{\\pi}{2}-x)=\\cos(x)$'
+        case '9':
+          texte = '$\\sin\\left(\\dfrac{\\pi}{2}-x\\right)=$'
+          if (this.interactif) {
+            setReponse(this, i, 'cos(x)', { formatInteractif: 'texte' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+          } else { texte += '$\\ldots$' }
+          texteCorr = '$\\sin\\left(\\dfrac{\\pi}{2}-x\\right)=\\cos(x)$'
           break
-        case 'type10':
-          k = randint(-5, 5, [0, 1])
-          texte = `$\\sin(x${ecritureAlgebrique(k)} \\pi)=\\ldots$`
-          if (estentier(k / 2)) { texteCorr = `$\\sin(x${ecritureAlgebrique(k)}\\pi)=\\sin(x)$` } else { texteCorr = `$\\sin(x${ecritureAlgebrique(k)}\\pi)=-\\sin(x)$` }
+        case '10':
+          texte = '$\\sin\\big(x+3 \\pi\\big)=$'
+          if (this.interactif) {
+            setReponse(this, i, '-sin(x)', { formatInteractif: 'texte' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+          } else { texte += '$\\ldots$' }
+          texteCorr = '$\\sin(x+3 \\pi)=-\\sin(x)$'
+          break
+        case '11':
+          texte = '$\\sin\\big(x+2 \\pi\\big)=$'
+          if (this.interactif) {
+            setReponse(this, i, 'sin(x)', { formatInteractif: 'texte' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+          } else { texte += '$\\ldots$' }
+          texteCorr = '$\\sin(x+2 \\pi)=\\sin(x)$'
+          break
+        case '12':
+          texte = '$\\cos\\big(x+2 \\pi\\big)=$'
+          if (this.interactif) {
+            setReponse(this, i, 'cos(x)', { formatInteractif: 'texte' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+          } else { texte += '$\\ldots$' }
+          texteCorr = '$\\cos(x+2 \\pi)=\\cos(x)$'
+          break
+        case '13':
+          texte = '$\\cos\\big(-x\\big)=$'
+          if (this.interactif) {
+            setReponse(this, i, 'cos(x)', { formatInteractif: 'texte' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+          } else { texte += '$\\ldots$' }
+          texteCorr = '$\\cos(-x)=\\cos(x)$'
+          break
+        case '14':
+          texte = '$\\sin\\big(-x\\big)=$'
+          if (this.interactif) {
+            setReponse(this, i, '-sin(x)', { formatInteractif: 'texte' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+          } else { texte += '$\\ldots$' }
+          texteCorr = '$\\sin(-x)=-\\sin(x)$'
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
