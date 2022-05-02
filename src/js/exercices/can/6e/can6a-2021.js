@@ -497,7 +497,7 @@ export default function SujetCAN2021Sixieme () {
           b = randint(22, 32)
           reponse = a * b
 
-          propositions = shuffle([`$${b}$`, `$${reponse}$`, `$${reponse * 20}$`])
+          propositions = shuffle([`$${b}$ feuilles`, `$${reponse}$ feuilles`, `$${reponse * 20}$ feuilles`])
           texte = `Chaque élève de la classe ramène $${a}$ feuilles.<br>
           `
           texteCorr = `La seule réponse vraisemblable est $${reponse}$ feuilles. <br>
@@ -505,10 +505,12 @@ export default function SujetCAN2021Sixieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += `Recopie la réponse vraisemblable.<br>
+            Le maître ramasse en tout : <br>
               ${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'feuilles'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +'feuilles'
           } else {
             texte += `Entoure la réponse vraisemblable.<br> 
+            Le maître ramasse en tout : <br>
             ${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
           }
 

@@ -1,5 +1,5 @@
-import Exercice from '../ExerciceTs.js'
-import { combinaisonListes, listeQuestionsToContenu, randint, range, shuffle } from '../../modules/outils.js'
+import Exercice from '../ExerciceTs'
+import { listeQuestionsToContenu, randint, range, shuffle } from '../../modules/outils.js'
 import { boite, fixeBordures, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Compléter des patrons de solides'
 export const interactifReady = true
@@ -290,14 +290,13 @@ export default class PatronsSolides extends Exercice {
         }
         return forme
       }
-      /*
       const dimensions = this.sup.split('-')
       const [a, b, c] = [parseInt(dimensions[0]), parseInt(dimensions[1]), parseInt(dimensions[2])]
-      */
       for (let i = 0; i < this.nbQuestions; i++) {
-        const a = randint(1, 5)
+      /*  const a = randint(1, 5)
         const b = randint(1, 5, a)
         const c = randint(1, 5, [a, b])
+        */
         const mesModeles = new ModelePatrons(a, b, c)
         const mesFaux = new FauxPatrons(a, b, c)
         const nombreDeFaux = randint(1, 3)

@@ -121,7 +121,7 @@ export default function AireCarresRectanglesTriangles () {
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'unites[longueurs]')
+      texte += ajouteChampTexteMathLive(this, i, 'unites[longueurs,aires]')
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

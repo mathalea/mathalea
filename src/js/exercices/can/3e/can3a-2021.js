@@ -417,7 +417,7 @@ export default function SujetCAN20213ieme () {
           k = randint(3, 9)
           reponse = arrondi(fraction18[0] / fraction18[1], 2)
           texte = `Ecriture décimale de $\\dfrac{${fraction18[0] * k}}{${fraction18[1] * k}}$.`
-          texteCorr = `En simpplifiant, on obtient : $\\dfrac{${fraction18[0] * k}}{${fraction18[1] * k}}=\\dfrac{${fraction18[0]}}{${fraction18[1]}}=${texNombre(reponse, 2)}$`
+          texteCorr = `En simplifiant, on obtient : $\\dfrac{${fraction18[0] * k}}{${fraction18[1] * k}}=\\dfrac{${fraction18[0]}}{${fraction18[1]}}=${texNombre(reponse, 2)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }

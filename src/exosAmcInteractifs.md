@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 446 
-- nombre d'exos interactifReady 643 
+- nombre d'exos interactifReady 649 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -262,7 +262,8 @@
 |6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
 |6G14|Utiliser les propriétés des droites perpendiculaires|OK|AMCOpen|KO|KO|
 |6G22|Nommer un angle|KO|KO|OK|qcm,mathLive|
-|6G23-1|Mesurer un angle|OK|qcmMono|OK|qcm|
+|6G23-1|Mesurer un angle sans rapporteur sur l'énoncé|OK|qcmMono|OK|qcm|
+|6G23-4|Mesurer un angle avec rapporteur intégré|KO|KO|OK|mathLive|
 |6G23|Construire un angle de mesure donnée|OK|AMCOpen|KO|KO|
 |6G24-1|Construire le symétrique d’un point par rapport à une droite|OK|AMCOpen|KO|KO|
 |6G24-2|Construire le symétrique d’une figure par rapport à une droite (cas simples)|OK|AMCOpen|KO|KO|
@@ -279,6 +280,7 @@
 |6G44|Trouver le nombre de faces ou d'arêtes d’un solide|OK|AMCNum|OK|mathLive|
 |6I10|Programmer des déplacements (Scratch)|OK|AMCOpen|KO|KO|
 |6I12|Trouver le bon tracé avec Scratch|OK|qcmMono|OK|custom|
+|6M10-1|Problèmes d'aires de rectangles|KO|KO|OK|mathLive|
 |6M10|Calculer des périmètres et des aires de figures usuelles|OK|AMCHybride|OK|mathLive|
 |6M11-1|Calculer périmètre et aire de carrés, rectangles et triangles rectangles|OK|AMCNum|OK|mathLive|
 |6M11-2|Calculer périmètre et aire de figures composées|OK|AMCHybride|OK|mathLive|
@@ -345,40 +347,22 @@
 |6P14|Figures à agrandir ou à réduire d'après une situation de proportionnalité|OK|AMCHybride|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
-|CM000|Additions et de soustractions|OK|AMCNum|OK|mathLive|
-|CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
-|CM002|Tables de divisions|OK|AMCNum|OK|mathLive|
-|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
-|CM004|Les quatre opérations|OK|AMCNum|OK|mathLive|
-|CM005|Ajouter 9|OK|AMCNum|OK|mathLive|
-|CM006|Soustraire 9|OK|AMCNum|OK|mathLive|
-|CM007|Ajouter 11|OK|AMCNum|OK|mathLive|
-|CM008|Soustraire 11|OK|AMCNum|OK|mathLive|
-|CM009|Moitié|OK|AMCNum|OK|mathLive|
-|CM010|Tiers|OK|AMCNum|OK|mathLive|
-|CM011|Quart|OK|AMCNum|OK|mathLive|
-|CM012|Complément à 100|OK|AMCNum|OK|mathLive|
-|CM013|Complément à une dizaine|OK|AMCNum|OK|mathLive|
-|CM014|Double, moitié, tiers, triple|OK|AMCNum|OK|mathLive|
-|CM015|Somme de deux nombres mariés|OK|AMCNum|OK|mathLive|
-|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCNum|OK|mathLive|
-|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|mathLive|
-|CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|mathLive|
-|CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
 |beta-CAN6-2022|CAN Sixième sujet 2022|KO|KO|OK|mathLive|
 |beta240-1|Utiliser la distributivité (simple ou double) et réduire|KO|KO|OK|mathLive|
 |beta5N20bis|Additionner ou soustraire deux fractions (dénominateurs multiples)|OK|qcmMono|OK|mathLive|
 |beta6C38|Augmenter ou diminuer d’un pourcentage|KO|KO|OK|mathLive|
 |beta6N12-interactif|Multiplier un entier par 10, 100, 1 000...|KO|KO|OK|mathLive|
-|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
 |betaCan2G01|Périmètres de carrés et de rectangles|OK|AMCNum|OK|qcm,mathLive|
+|betaCaNCM2|Course aux nombres CM2|OK|AMCNum|OK|mathLive|
+|betaCanTs|Somme de deux entiers|KO|KO|OK|mathLive|
 |betaLicence|QCM de positionnement|KO|KO|OK|qcm|
 |betaModele00_simple_Course_au_Nombres|Somme de deux entiers|KO|KO|OK|mathLive|
 |betaModele32_cliqueFigure|Choisir la bonne figure|KO|KO|OK|cliqueFigure|
 |betaModele33_cliqueFractions|Fractions interactives|KO|KO|OK|custom|
-|betaTestFraction|Tester la classe FractionX|KO|KO|OK|mathLive|
+|betaPatronSolide|Compléter des patrons de solides|KO|KO|OK|mathLive|
 |betaTestcanPredef6_10qN1|CAN 6ième 10 questions (niveau 1)|KO|KO|OK|mathLive|
 |betaTestcanPredef6_10qN2|CAN 6ième 10 questions (niveau 2)|KO|KO|OK|mathLive|
+|betaTestFraction|Tester la classe FractionX|KO|KO|OK|mathLive|
 |betaTexNombre|Somme de deux entier|KO|KO|OK|mathLive|
 |c3C10-1|Tables de multiplications|OK|AMCNum|OK|mathLive|
 |c3C10-3|Multiplier un nombre entier (ou décimal) par 10, 100 ou 1 000|OK|AMCNum|OK|mathLive|
@@ -412,6 +396,7 @@
 |can1S09|Déterminer une relation de récurrence|KO|KO|OK|mathLive|
 |can1S10|Trouver le sens de variation d’une suite (QCM)|KO|KO|OK|qcm|
 |can1S11|Donner le résultat d’un programme Python|KO|KO|OK|mathLive|
+|can2a-2021|CAN Seconde sujet 2021|KO|KO|OK|mathLive|
 |can2C01|Trouver le nombre d’entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can2C02|Calculer une différence de deux carrés|OK|AMCNum|OK|mathLive|
 |can2C03|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
@@ -464,7 +449,8 @@
 |can2N02|Déterminer le plus petit ensemble de nombres|KO|KO|OK|mathLive|
 |can2P01|Calculer une probabilité|OK|AMCNum|OK|mathLive|
 |can2P02|Dénombrer dans une situation concrète|KO|KO|OK|mathLive|
-|can2a-2021|CAN Seconde sujet 2021|KO|KO|OK|mathLive|
+|can3a-2021|CAN 3ième sujet 2021|KO|KO|OK|mathLive|
+|can3a-2022|CAN troisième sujet 2022|KO|KO|OK|mathLive|
 |can3C01|Calculer avec des puissances|OK|AMCNum|OK|mathLive|
 |can3C02|Calculer une moyenne avec des décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Rendre irréductible une fraction|OK|AMCNum|OK|mathLive|
@@ -505,8 +491,8 @@
 |can3S04|Calculer une étendue|KO|KO|OK|mathLive|
 |can3S05|Calculer une moyenne|KO|KO|OK|mathLive|
 |can3S06|Déterminer le rang d’une médiane|KO|KO|OK|mathLive|
-|can3a-2021|CAN 3ième sujet 2021|KO|KO|OK|mathLive|
-|can3a-2022|CAN troisième sujet 2022|KO|KO|OK|mathLive|
+|can4a-2021|CAN 4ième sujet 2021|KO|KO|OK|mathLive|
+|can4a-2022|CAN 4ième sujet 2022|KO|KO|OK|mathLive|
 |can4C01|Utiliser les priorités opératoires avec des relatifs|OK|AMCNum|OK|mathLive|
 |can4C02|Trouver l’opposé ou l’inverse d’une fraction|OK|AMCNum|OK|mathLive|
 |can4C03|Effectuer une division avec une fraction|OK|AMCNum|OK|mathLive|
@@ -538,7 +524,7 @@
 |can4P03|Calculer une quatrième proportionnelle|OK|AMCNum|OK|mathLive|
 |can4P04|Résoudre un problème avec la proportionnalité|KO|KO|OK|mathLive|
 |can4P05|Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité|KO|KO|OK|mathLive|
-|can4a-2021|CAN 4ième sujet 2021|KO|KO|OK|mathLive|
+|can5a-2021|CAN 5ième sujet 2021|KO|KO|OK|mathLive|
 |can5A01|Travailler les répétitions (Scratch)|OK|AMCNum|OK|mathLive|
 |can5C01|Calculer un produit d’entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Calculer une somme d’entiers|OK|AMCNum|OK|mathLive|
@@ -573,8 +559,10 @@
 |can5P04|Calculer avec une proportion|OK|AMCNum|OK|mathLive|
 |can5P05|Prendre t % d’une quantité|KO|KO|OK|mathLive|
 |can5P06|Ecrire sous la forme d’un pourcentage|OK|AMCNum|OK|mathLive|
-|can5a-2021|CAN 5ième sujet 2021|KO|KO|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
+|can6a-2018|CAN 6ième sujet 2018|KO|KO|OK|mathLive|
+|can6a-2021|CAN Sixième sujet 2021|KO|KO|OK|mathLive|
+|can6a-2022|CAN Sixième sujet 2022|KO|KO|OK|mathLive|
 |can6C01|Trouver un ordre de grandeur (QCM)|OK|qcmMono|OK|qcm|
 |can6C02|Multiplier un nombre pair par 5|OK|AMCNum|OK|mathLive|
 |can6C03|Rechercher un terme dans une somme|OK|AMCNum|OK|mathLive|
@@ -645,12 +633,7 @@
 |can6P04|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |can6P05|Appliquer un pourcentage (bis)|OK|AMCNum|OK|mathLive|
 |can6S01|Lire un diagramme en barres|OK|AMCNum|OK|mathLive|
-|can6a-2018|CAN Sixième sujet 2018|KO|KO|OK|mathLive|
-|can6a-2021|CAN Sixième sujet 2021|KO|KO|OK|mathLive|
-|can6a-2022|CAN Sixième sujet 2022|KO|KO|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
-|canExC01|Somme de nombres complexes|OK|AMCHybride|OK|mathLive|
-|canExC02|produit de nombres complexes|OK|AMCHybride|OK|mathLive|
 |canc3C01|Déterminer un nombre à partir d’une phrase|OK|AMCNum|OK|mathLive|
 |canc3C02|Calculer à partir d’une décomposition|OK|AMCNum|OK|mathLive|
 |canc3C03|Trouver le nombre dans une table de multiplication |OK|AMCNum|OK|mathLive|
@@ -666,3 +649,26 @@
 |canc3N03|Trouver le plus grand nombre entier|OK|AMCNum|OK|mathLive|
 |canc3N04|Arrondir à l'unité|OK|AMCHybride|OK|mathLive|
 |canc3N05|Calculer une somme (partie entière/décimale)|OK|AMCNum|OK|mathLive|
+|canExC01|Somme de nombres complexes|OK|AMCHybride|OK|mathLive|
+|canExC02|produit de nombres complexes|OK|AMCHybride|OK|mathLive|
+|CM000|Additions et de soustractions|OK|AMCNum|OK|mathLive|
+|CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
+|CM002|Tables de divisions|OK|AMCNum|OK|mathLive|
+|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
+|CM004|Les quatre opérations|OK|AMCNum|OK|mathLive|
+|CM005|Ajouter 9|OK|AMCNum|OK|mathLive|
+|CM006|Soustraire 9|OK|AMCNum|OK|mathLive|
+|CM007|Ajouter 11|OK|AMCNum|OK|mathLive|
+|CM008|Soustraire 11|OK|AMCNum|OK|mathLive|
+|CM009|Moitié|OK|AMCNum|OK|mathLive|
+|CM010|Tiers|OK|AMCNum|OK|mathLive|
+|CM011|Quart|OK|AMCNum|OK|mathLive|
+|CM012|Complément à 100|OK|AMCNum|OK|mathLive|
+|CM013|Complément à une dizaine|OK|AMCNum|OK|mathLive|
+|CM014|Double, moitié, tiers, triple|OK|AMCNum|OK|mathLive|
+|CM015|Somme de deux nombres mariés|OK|AMCNum|OK|mathLive|
+|CM016|Diviser un entier par 10, 100 ou 1000|OK|AMCNum|OK|mathLive|
+|CM017|Diviser un nombre décimal par 10, 100 ou 1000|OK|AMCNum|OK|mathLive|
+|CM018|Somme de deux nombres mariés et un entier|OK|AMCNum|OK|mathLive|
+|CM019|Générateur de compte est bon|OK|AMCOpen|KO|KO|
+|HPC102|Calculs de probabilité avec la loi normale|KO|KO|OK|mathLive|

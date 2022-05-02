@@ -2765,7 +2765,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
     if (Number(nb) === 0) return '0'
     // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
     let nombre
-    if (Math.abs(nb < 1)) {
+    if (Math.abs(nb) < 1) {
       if (force) {
         nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits, minimumFractionDigits: maximumSignificantDigits }).format(nb)
       } else {
@@ -2979,7 +2979,7 @@ export function texPrix (nb) {
   if (nombre.toString() === nombre.toFixed(0)) {
     result = nombre
   } else {
-    result = nombre.toFixed(2).toString().replace('.', ',') // Ne gère pas l'espace des milliers
+    result = nombre.toFixed(2).toString().replace('.', '{,}') // Ne gère pas l'espace des milliers
   }
   return result
 }
