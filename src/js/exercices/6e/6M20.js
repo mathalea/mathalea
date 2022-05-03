@@ -1,9 +1,10 @@
 import { longueur, segment, mathalea2d, afficheLongueurSegment, afficheCoteSegment, codageAngleDroit, polygoneAvecNom, triangle2points1hauteur, point, rotation } from '../../modules/2d.js'
-import { combinaisonListesSansChangerOrdre, creerNomDePolygone, listeQuestionsToContenu, randint, shuffle, texNombre, calcul } from '../../modules/outils.js'
+import { combinaisonListesSansChangerOrdre, creerNomDePolygone, listeQuestionsToContenu, randint, shuffle, texNombre, calcul, arrondi } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import Grandeur from '../../modules/Grandeur.js'
 export const titre = 'Calculer l\'aire de triangles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -81,8 +82,8 @@ export default function AireDeTriangles () {
       texteCorr += `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${texNombre(
       calcul((cotes[i] * hauteurs[i]) / 2)
     )}~\\text{cm}^2$`
-      setReponse(this, i, calcul((cotes[i] * hauteurs[i]) / 2))
-      texte += ajouteChampTexteMathLive(this, i)
+      setReponse(this, i, new Grandeur(arrondi(cotes[i] * hauteurs[i] / 2, 3), 'cm^2'), { formatInteractif: 'unites' })
+      texte += ajouteChampTexteMathLive(this, i, 'unites[aires]')
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

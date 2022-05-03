@@ -93,7 +93,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           texte = `Calculer l'aire du carré en cm${texteExposant(2)}.`
 
           texteCorr += `<br>$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}~\\text{cm}\\times${c}~\\text{cm}=${c * c}~\\text{cm}^2$`
-          setReponse(this, i, new Grandeur(L * l, 'cm^2'), { formatInteractif: 'unites' })
+          setReponse(this, i, new Grandeur(c * c, 'cm^2'), { formatInteractif: 'unites' })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: `Calculer l'aire en cm${texteExposant(2)} du carré de côté ${c}cm`,
