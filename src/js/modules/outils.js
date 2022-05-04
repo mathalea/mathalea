@@ -1743,7 +1743,7 @@ export function calcul (x, arrondir = 6) {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
     return parseFloat(evaluate(x).toFixed(arrondir))
   } else {
-    if (egalOuApprox(x, arrondir) !== '=') window.notify('calcul : arrondir semble avoir tronqué des décimales', { x, arrondir })
+    if (!egal(x, arrondi(x, precision), 10 ** (-precision - 1))) window.notify('calcul : arrondir semble avoir tronqué des décimales', { x, arrondir })
     return parseFloat(x.toFixed(arrondir))
   }
 }
