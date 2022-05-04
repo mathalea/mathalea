@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, ecritureAlgebrique } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'cos et sin associés à un réel x '
@@ -28,91 +28,151 @@ export default function MesurePrincipale () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const typeQuestionsDisponibles = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14']
+    const typeQuestionsDisponibles = [
+      {
+        texte: '$\\cos\\big(x+\\pi\\big)=$',
+        reponse: '-cos(x)',
+        texteCorr: '$\\cos(x+\\pi)=-\\cos(x)$'
+      },
 
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, k, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case '1':
-          texte = '$\\cos\\big(x+\\pi\\big)=$'
-          reponse = '-cos(x)'
-          texteCorr = '$\\cos(x+\\pi)=-\\cos(x)$'
-          break
-        case '2':
-          texte = '$\\cos\\big(x-\\pi\\big)=$'
-          reponse = '-cos(x)'
-          texteCorr = '$\\cos(x-\\pi)=-\\cos(x)$'
-
-          break
-        case '3':
-          texte = '$\\cos\\left(x+\\dfrac{\\pi}{2}\\right)=$'
-          reponse = '-sin(x)'
-          texteCorr = '$\\cos\\left(x+\\dfrac{\\pi}{2}\\right)=-\\sin(x)$'
-          break
-        case '4':
-          texte = '$\\cos\\left(\\dfrac{\\pi}{2}-x\\right)=$'
-          reponse = 'sin(x)'
-          texteCorr = '$\\cos\\left(\\dfrac{\\pi}{2}-x\\right)=\\sin(x)$'
-          break
-        case '5':
-          texte = '$\\cos\\big(x+3 \\pi\\big)=$'
-          reponse = '-cos(x)'
-          texteCorr = `$\\cos(x${ecritureAlgebrique(k)}\\pi)=-\\cos(x)$`
-          break
-        case '6':
-          texte = '$\\sin\\big(x+\\pi\\big)=$'
-          reponse = '-sin(x)'
-          texteCorr = '$\\sin(x+\\pi)=-\\sin(x)$'
-          break
-        case '7':
-          texte = '$\\sin\\big(x-\\pi\\big)=$'
-          reponse = '-sin(x)'
-          texteCorr = '$\\sin(x-\\pi)=-\\sin(x)$'
-          break
-        case '8':
-          texte = '$\\sin\\left(x+\\dfrac{\\pi}{2}\\right)=$'
-          reponse = 'cos(x)'
-          texteCorr = '$\\sin\\left(x+\\dfrac{\\pi}{2}\\right)=\\cos(x)$'
-          break
-        case '9':
-          texte = '$\\sin\\left(\\dfrac{\\pi}{2}-x\\right)=$'
-          reponse = 'cos(x)'
-          texteCorr = '$\\sin\\left(\\dfrac{\\pi}{2}-x\\right)=\\cos(x)$'
-          break
-        case '10':
-          texte = '$\\sin\\big(x+3 \\pi\\big)=$'
-          reponse = '-sin(x)'
-          texteCorr = '$\\sin(x+3 \\pi)=-\\sin(x)$'
-          break
-        case '11':
-          texte = '$\\sin\\big(x+2 \\pi\\big)=$'
-          reponse = 'sin(x)'
-          texteCorr = '$\\sin(x+2 \\pi)=\\sin(x)$'
-          break
-        case '12':
-          texte = '$\\cos\\big(x+2 \\pi\\big)=$'
-          reponse = 'cos(x)'
-          texteCorr = '$\\cos(x+2 \\pi)=\\cos(x)$'
-          break
-        case '13':
-          texte = '$\\cos\\big(-x\\big)=$'
-          reponse = 'cos(x)'
-          texteCorr = '$\\cos(-x)=\\cos(x)$'
-          break
-        case '14':
-          texte = '$\\sin\\big(-x\\big)=$'
-          reponse = '-sin(x)'
-          texteCorr = '$\\sin(-x)=-\\sin(x)$'
-          break
+      {
+        texte: '$\\cos\\big(x-\\pi\\big)=$',
+        reponse: '-cos(x)',
+        texteCorr: '$\\cos(x-\\pi)=-\\cos(x)$'
+      },
+      {
+        texte: '$\\cos\\left(x+\\dfrac{\\pi}{2}\\right)=$',
+        reponse: '-sin(x)',
+        texteCorr: '$\\cos\\left(x+\\dfrac{\\pi}{2}\\right)=-\\sin(x)$'
+      },
+      {
+        texte: '$\\cos\\left(\\dfrac{\\pi}{2}-x\\right)=$',
+        reponse: 'sin(x)',
+        texteCorr: '$\\cos\\left(\\dfrac{\\pi}{2}-x\\right)=\\sin(x)$'
+      },
+      {
+        texte: '$\\cos\\big(x-5\\pi\\big)=$',
+        reponse: '-cos(x)',
+        texteCorr: '$\\cos(x-5\\pi)=-\\cos(x)$'
+      },
+      {
+        texte: '$\\cos\\big(x-3\\pi\\big)=$',
+        reponse: '-cos(x)',
+        texteCorr: '$\\cos(x-3\\pi)=-\\cos(x)$'
+      },
+      {
+        texte: '$\\cos\\big(x+5\\pi\\big)=$',
+        reponse: '-cos(x)',
+        texteCorr: '$\\cos(x+5\\pi)=-\\cos(x)$'
+      },
+      {
+        texte: '$\\cos\\big(x+3\\pi\\big)=$',
+        reponse: '-cos(x)',
+        texteCorr: '$\\cos(x+3\\pi)=-\\cos(x)$'
+      },
+      {
+        texte: '$\\sin\\big(x+\\pi\\big)=$',
+        reponse: '-sin(x)',
+        texteCorr: '$\\sin(x+\\pi)=-\\sin(x)$'
+      },
+      {
+        texte: '$\\sin\\big(x+3\\pi\\big)=$',
+        reponse: '-sin(x)',
+        texteCorr: '$\\sin(x+3\\pi)=-\\sin(x)$'
+      },
+      {
+        texte: '$\\sin\\big(x+5\\pi\\big)=$',
+        reponse: '-sin(x)',
+        texteCorr: '$\\sin(x+5\\pi)=-\\sin(x)$'
+      },
+      {
+        texte: '$\\sin\\big(x-\\pi\\big)=$',
+        reponse: '-sin(x)',
+        texteCorr: '$\\sin(x-\\pi)=-\\sin(x)$'
+      },
+      {
+        texte: '$\\sin\\big(x-3\\pi\\big)=$',
+        reponse: '-sin(x)',
+        texteCorr: '$\\sin(x-3\\pi)=-\\sin(x)$'
+      },
+      {
+        texte: '$\\sin\\big(x-5\\pi\\big)=$',
+        reponse: '-sin(x)',
+        texteCorr: '$\\sin(x-5\\pi)=-\\sin(x)$'
+      },
+      {
+        texte: '$\\sin\\left(x+\\dfrac{\\pi}{2}\\right)=$',
+        reponse: 'cos(x)',
+        texteCorr: '$\\sin\\left(x+\\dfrac{\\pi}{2}\\right)=\\cos(x)$'
+      },
+      {
+        texte: '$\\sin\\left(\\dfrac{\\pi}{2}-x\\right)=$',
+        reponse: 'cos(x)',
+        texteCorr: '$\\sin\\left(\\dfrac{\\pi}{2}-x\\right)=\\cos(x)$'
+      },
+      {
+        texte: '$\\sin\\big(x+2\\pi\\big)=$',
+        reponse: 'sin(x)',
+        texteCorr: '$\\sin(x+2\\pi)=\\sin(x)$'
+      },
+      {
+        texte: '$\\sin\\big(x+4\\pi\\big)=$',
+        reponse: 'sin(x)',
+        texteCorr: '$\\sin(x+4\\pi)=\\sin(x)$'
+      },
+      {
+        texte: '$\\sin\\big(x-2\\pi\\big)=$',
+        reponse: 'sin(x)',
+        texteCorr: '$\\sin(x-2\\pi)=\\sin(x)$'
+      },
+      {
+        texte: '$\\sin\\big(x-4\\pi\\big)=$',
+        reponse: 'sin(x)',
+        texteCorr: '$\\sin(x-4\\pi)=\\sin(x)$'
+      },
+      {
+        texte: '$\\cos\\big(x+4\\pi\\big)=$',
+        reponse: 'cos(x)',
+        texteCorr: '$\\cos(x+4\\pi)=\\cos(x)$'
+      },
+      {
+        texte: '$\\cos\\big(x-2\\pi\\big)=$',
+        reponse: 'cos(x)',
+        texteCorr: '$\\cos(x-2\\pi)=\\cos(x)$'
+      },
+      {
+        texte: '$\\cos\\big(x+2\\pi\\big)=$',
+        reponse: 'cos(x)',
+        texteCorr: '$\\cos(x+2\\pi)=\\cos(x)$'
+      },
+      {
+        texte: '$\\cos\\big(x-4\\pi\\big)=$',
+        reponse: 'cos(x)',
+        texteCorr: '$\\cos(x-4\\pi)=\\cos(x)$'
+      },
+      {
+        texte: '$\\cos\\big(-x\\big)=$',
+        reponse: 'cos(x)',
+        texteCorr: '$\\cos(-x)=\\cos(x)$'
+      },
+      {
+        texte: '$\\sin\\big(-x\\big)=$',
+        reponse: '-sin(x)',
+        texteCorr: '$\\sin(-x)=-\\sin(x)$'
       }
-      setReponse(this, i, reponse, { formatInteractif: 'texte' })
+    ]
+    console.log(typeQuestionsDisponibles)
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+      texte = listeTypeQuestions[i].texte
+      setReponse(this, i, listeTypeQuestions[i].reponse, { formatInteractif: 'texte' })
       texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore grecTrigo') // n'ajoute rien si on n'est pas en interactif
       if (!this.interactif) texte += '$\\ldots$'
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, listeTypeQuestions[i].texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
+        this.listeCorrections.push(listeTypeQuestions[i].texteCorr)
         i++
       }
       cpt++
