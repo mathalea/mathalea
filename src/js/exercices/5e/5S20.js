@@ -54,33 +54,33 @@ export default function PlacerProbabilites () {
     lstEvenenementB.push(['Gagner le gros lot au loto', 0.05])
     lstEvenenementB.push(['Avoir de la neige à Nice en juillet', 0.05])
     const carte = choice(['un As', 'un Roi', 'une Dame', 'un Valet', 'un 10', 'un 9', 'un 8', 'un 7', 'un 6', 'un 5', 'un 4', 'un 3', 'un 2'])
-    lstEvenenementB.push([`Obtenir ${carte} en prenant une carte au hasard dans un jeu de 52 cartes`, 0.08])
+    lstEvenenementB.push([`Obtenir ${carte} en prenant une carte au hasard dans un jeu traditionnel de 52 cartes`, 0.08])
     // Evenements peu probables :
     lstEvenenementB.push(['Choisir une balle rouge dans un sac contenant une balle rouge et trois balles vertes', 0.25])
     // Evenements Une chance sur deux :
-    lstEvenenementC.push(['Obtenir ' + choice(['pile', 'face']) + ' quand on lance une pièce d’un euro', 0.5])
-    lstEvenenementC.push(['Obtenir une carte ' + choice(['rouge', 'noire']) + ' dans un jeu de 52 cartes', 0.5])
+    lstEvenenementC.push(['Obtenir ' + choice(['pile', 'face']) + ' quand on lance une pièce équilibrée d’un euro', 0.5])
+    lstEvenenementC.push(['Obtenir une carte ' + choice(['rouge', 'noire']) + ' dans un jeu traditionnel de 52 cartes', 0.5])
     // Evenements probables :
-    lstEvenenementD.push(['La première voiture que je verrai en sortant du collège sera de marque française', 0.6])
+    lstEvenenementD.push(['Il ne pleuvra pas en Bretagne ce prochain 12 juillet', 0.6])
     // Evenements très probables :
     lstEvenenementD.push(['Le prochain président de la République Française aura plus de 40 ans', 0.9])
     // Evenements certains :
-    lstEvenenementA.push(['Le prochain oiseau que je verrai aura des ailes', 1])
-    lstEvenenementA.push(['Le point M, placé à 4 cm de A, est sur le cercle de centre A et de rayon 4 cm', 1])
-    lstEvenenementA.push(['Le point M, placé à 4 cm de A, est dans le disque de centre A et de rayon 5 cm', 1])
+    lstEvenenementA.push(['Le prochain oiseau que je verrai aura des ailes.', 1])
+    lstEvenenementA.push(['Le point M, placé à 4 cm de A, est sur le cercle de centre A et de rayon 4 cm.', 1])
+    lstEvenenementA.push(['Le point M, placé à 4 cm de A, est dans le disque de centre A et de rayon 5 cm.', 1])
     // Evenement divers :
     const m = choice([4, 6, 8, 10, 12, 20, 24, 30, 48, 60, 100]) // nombre de faces du dé
     const n = randint(1, m) // nombre à obtenir
     lstEvenenementB.push([`Obtenir ${n} avec un dé à ${m} faces`, 1 / m])
     if ((m - n + 1) / m < 0.5) {
-      lstEvenenementB.push([`Obtenir un nombre supérieur ou égal à ${n} avec un dé à ${m} faces`, (m - n + 1) / m])
+      lstEvenenementB.push([`Obtenir un nombre supérieur ou égal à ${n} avec un dé équilibré à ${m} faces`, (m - n + 1) / m])
     } else {
-      lstEvenenementD.push([`Obtenir un nombre supérieur ou égal à ${n} avec un dé à ${m} faces`, (m - n + 1) / m])
+      lstEvenenementD.push([`Obtenir un nombre supérieur ou égal à ${n} avec un dé équilibré à ${m} faces`, (m - n + 1) / m])
     }
     if (n / m < 0.5) {
-      lstEvenenementB.push([`Obtenir un nombre inférieur ou égal à ${n} avec un dé à ${m} faces`, n / m])
+      lstEvenenementB.push([`Obtenir un nombre inférieur ou égal à ${n} avec un dé équilibré à ${m} faces`, n / m])
     } else {
-      lstEvenenementD.push([`Obtenir un nombre inférieur ou égal à ${n} avec un dé à ${m} faces`, n / m])
+      lstEvenenementD.push([`Obtenir un nombre inférieur ou égal à ${n} avec un dé équilibré à ${m} faces`, n / m])
     }
 
     // choix des évènements :
