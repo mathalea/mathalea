@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, lettreDepuisChiffre, choice, couleurTab, miseEnEvidence, sp, rangeMinMax, numAlpha, enleveElement } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, lettreDepuisChiffre, choice, couleurTab, miseEnEvidence, sp, rangeMinMax, numAlpha, enleveElement, combinaisonListes } from '../../modules/outils.js'
 import { point, mathalea2d, pointSurSegment, segment, polygoneAvecNom, labelPoint, droite, pointIntersectionDD, codeAngle, angleOriente, polyline } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -30,9 +30,10 @@ export default function NommerUnAngle () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     this.interactifType = this.sup2 === 2 ? 'mathLive' : 'qcm'
-    const marquageAngle = this.sup3 ? ['|', 'OO', '|||'] : ['', '', '']
     for (let i = 0, troisBonnesReponses, listePt1, listePt3, resultatOK1, resultatOK2, resultat3, resultatPasOK1, resultatPasOK2, choixAngle, pt1, pt2, pt3, tailleAngle, aleaChoixCouleurRemplissage, couleurRemplissageAngle, couleurAngle, segmentsCorrection, resultat; i < this.nbQuestions; i++) {
     // On prépare la figure...
+      const marquageAngle = this.sup3 ? combinaisonListes(['X', 'OO', '|||'], 3) : ['', '', '']
+
       const ChoixHorizontal = choice([-1, 1])
 
       const numB = randint(1, 26, [4, 5, 15, 23, 24, 25])
@@ -67,9 +68,12 @@ export default function NommerUnAngle () {
       couleurRemplissageAngle = ['none'] // Par défaut, on ne remplit pas l'angle.
       couleurAngle = this.sup3 ? 'black' : 'none'
       let texte = ''
+      const O = point(0, 0) // Sert à construire les symboles pour les questions
+      const M1 = point(4, 0) // Sert à construire les symboles pour les questions
       let texteCorr = ''
       let positionIbis = ChoixHorizontal === -1 ? 'right' : 'left'
-      for (let jj = 0; jj < this.sup; jj++) {
+      for (let jj = 0, marquageAngleConsigne; jj < this.sup; jj++) {
+        marquageAngleConsigne = []
         const choixSommet = choice(listePoints, sommetsDejaTrouves)
         if (!this.sup3) {
           aleaChoixCouleurRemplissage = choice(choixCouleurRemplissage)
@@ -198,7 +202,11 @@ export default function NommerUnAngle () {
         objetsEnonce.push(codeAngle(pt1, pt2, ang, tailleAngle, marquageAngle[jj], couleurAngle, 2, 1, couleurRemplissageAngle[0], 1, false, true))
         texte += this.sup > 1 ? `<br>${numAlpha(jj)}` : ''
         texte += 'Comment peut-on nommer l\'angle '
-        texte += this.sup3 ? `marqué par ${jj + 1} symbole` + (jj > 0 ? 's' : '') + `${sp()}?` : `${couleurRemplissageAngle[1]}${sp()}?`
+        marquageAngleConsigne.push(codeAngle(M1, O, 79, 1, marquageAngle[jj]))
+        texte += this.sup3
+          ? 'marqué par le symbole' + mathalea2d({ xmin: 0, ymin: 0, xmax: 1.2, ymax: 1.2, pixelsParCm: 20, scale: 0.5, style: 'display:inline' }, marquageAngleConsigne) + `${sp()}?`
+          : `${couleurRemplissageAngle[1]}${sp()}?`
+
         if (this.interactif && this.interactifType === 'mathLive') {
           texte += ajouteChampTexteMathLive(this, i * this.sup + jj, 'inline largeur25')
         }
