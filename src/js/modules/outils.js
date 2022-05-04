@@ -5140,7 +5140,7 @@ export function nombreEnLettres (nb, type = 1) {
   if (estentier(nb)) return partieEntiereEnLettres(nb)
   else {
     partieEntiere = Math.floor(nb)
-    partieDecimale = calcul(nb - partieEntiere)
+    partieDecimale = calcul(nb - partieEntiere, 9)
     nbDec = partieDecimale.toString().replace(/\d*\./, '').length
     partieDecimale = calcul(partieDecimale * 10 ** nbDec)
 

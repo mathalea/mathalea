@@ -9817,9 +9817,9 @@ export function latexParCoordonnees (texte, x, y, color = 'black', largeur = 50,
 
 function FractionParPosition ({ x = 0, y = 0, fraction = { num: 1, den: 2 }, couleur = 'black' } = {}) {
   ObjetMathalea2D.call(this)
-  const num = Math.abs(fraction.n)
-  const den = Math.abs(fraction.d)
-  const signe = unSiPositifMoinsUnSinon(fraction.n) * unSiPositifMoinsUnSinon(fraction.d)
+  const num = Math.abs(fraction.num)
+  const den = Math.abs(fraction.den)
+  const signe = fraction.signe
   const longueur = Math.max(Math.floor(Math.log10(num)) + 1, Math.floor(Math.log10(den)) + 1) * 10
   const offset = 10
 
