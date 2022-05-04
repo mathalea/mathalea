@@ -79,6 +79,7 @@ export default function problemesTrigoLongueur () {
     for (let i = 0, texte, numA, ordA, numB, numC, numR, absC, numS, absS, AB, BA, propositionsAMC, enonceAMC, enonceInit, texteCorr, reponse, j, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       propositionsAMC = []
       iiAMC = 0
+      if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
       const choixAlpha = randint(0, 7)
       const alfa = context.isHtml ? lettresGrecques[choixAlpha][0] : lettresGrecques[choixAlpha][1]
       const alfaInteractif = lettresGrecques[choixAlpha][1]
@@ -1070,7 +1071,7 @@ export default function problemesTrigoLongueur () {
         case 6:
           {
             let objetsEnonce = []; let paramsEnonce = {}
-            if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
+
             const AD = randint(5, 9)
             const AE = randint(AD + 1, AD + 4)
             const AC = randint(3, AD - 1)

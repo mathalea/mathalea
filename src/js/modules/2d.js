@@ -1,4 +1,4 @@
-import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, texNombre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe } from './outils.js'
+import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
 import { fraction, max, ceil, isNumeric } from 'mathjs'
@@ -4013,13 +4013,13 @@ export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3 }) {
   return new CibleRonde({ x: x, y: y, rang: rang, num: num, taille: taille })
 }
 /**
- * création d'une cible ronde pour l'auto-correction
+ * création d'une cible couronne en forme de rapporteur ou semi-rapporteur pour l'auto-correction
  * @author Jean-Claude Lhote
  * (x,y) sont les coordonnées du centre de la cible
- * Les secteurs de la cible fot 45°. Ils sont au nombre de rang*8
- * Repérage de A1 à Hn où n est le rang.
+ *
+ *
  */
-function CibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
+function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
@@ -4039,7 +4039,7 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18
 
   const centre = point(this.x, this.y)
   azimut = rotation(point(this.x + this.taille, this.y), centre, depart)
-  let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + 1)
+  let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + taille2)
   const rayons = []
   const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', 'gray')
   const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', 'gray')
@@ -4084,8 +4084,123 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18
   }
 }
 
-export function cibleCouronne ({ x = 0, y = 0, taille = 5, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
-  return new CibleCouronne({ x: x, y: y, taille: taille, depart: depart, nbDivisions: nbDivisions, nbSubDivisions: nbSubDivisions, semi: semi, label: label })
+export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
+  return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label })
+}
+
+function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens' }) {
+  ObjetMathalea2D.call(this)
+  this.x = x
+  this.y = y
+  this.taille = taille
+  this.opacite = 0.7
+  this.color = 'gray'
+  const objets = []
+  let numero
+  let azimut
+  let rayon
+  let nbDivisions
+  let arcPlein
+  if (semi) {
+    arcPlein = 180
+    nbDivisions = 18
+  } else {
+    arcPlein = 360
+    nbDivisions = 36
+  }
+
+  const centre = point(this.x, this.y)
+  azimut = rotation(point(this.x + 1, this.y), centre, depart)
+  let azimut2 = pointSurSegment(centre, azimut, this.taille)
+  const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', 'gray')
+  const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', 'gray')
+  objets.push(segment(centre, azimut2))
+  rayon = segment(azimut, azimut2)
+
+  objets.push(arc1, arc2, rayon)
+  for (let i = 0; i < nbDivisions; i++) {
+    if (avecNombre !== '') {
+      if (avecNombre === 'deuxSens') {
+        if (i === 0) {
+          numero = texteParPoint(arcPlein, rotation(homothetie(azimut2, centre, 0.8), centre, 2), -depart, 'gray')
+          numero.contour = true
+          objets.push(numero)
+        }
+        if (i === nbDivisions - 1) {
+          numero = texteParPoint(arcPlein - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions - 2), -depart, 'gray')
+        } else {
+          numero = texteParPoint(arcPlein - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, 'gray')
+        }
+        numero.contour = true
+        objets.push(numero)
+      }
+      if (i === 0) {
+        numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9), centre, 2), -depart, 'gray')
+        numero.contour = true
+        objets.push(numero)
+      }
+      if (i === nbDivisions - 1) {
+        numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions - 2), -depart, 'gray')
+      } else {
+        numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, 'gray')
+      }
+      numero.contour = true
+      objets.push(numero)
+    }
+    for (let s = 1, r; s < 10; s++) {
+      if (s === 5) {
+        r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92), homothetie(rotation(azimut2, centre, s), centre, 0.99))
+      } else {
+        r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96), homothetie(rotation(azimut2, centre, s), centre, 0.99))
+      }
+      r.opacite = 0.6
+      r.color = 'gray'
+      objets.push(r)
+    }
+    rayon.color = this.color
+    rayon.opacite = this.opacite
+    objets.push(rayon)
+    azimut = rotation(azimut, centre, arcPlein / nbDivisions)
+    azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
+    rayon = segment(azimut, azimut2)
+  }
+  objets.push(segment(centre, azimut2))
+  if (!semi) {
+    rayon = segment(homothetie(rotation(azimut, centre, -90), centre, -0.2), homothetie(rotation(azimut, centre, -90), centre, 0.2))
+    objets.push(rayon)
+    rayon = segment(homothetie(azimut, centre, -0.2), homothetie(azimut, centre, 0.2))
+  } else {
+    rayon = segment(centre, homothetie(rotation(azimut, centre, -90), centre, 0.2))
+  }
+  objets.push(rayon)
+  this.bordures = [x - taille - 1, y - taille - 1, x + taille + 1, y + taille + 1]
+
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+}
+
+/**
+ * place un rapporteur centré en (x,y) avec le zéro orienté à depart degrés.
+ * si semi === false alors les graduations vont de 0 à 180° sinon de 0 à 360°
+ * si avecNombre === "", il n'y a pas de graduations, si avecNombre === "deuxSens" il est gradué dans les deux directions
+ * si avecNombre === "unSens" il est gradué dans le sens trigo.
+ * @param {object} param0 = {x: 'number', y: 'number', taille: 'number', semi: boolean, avecNombre: string}
+ * @returns {object} // crée un instance de l'objet 2d Rapporteur
+ */
+export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens' }) {
+  return new Rapporteur({ x, y, taille, depart, semi, avecNombre })
 }
 
 /**
@@ -5315,38 +5430,46 @@ export function texteSurArc (...args) {
  *
  * @author Rémi Angot
  */
-function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '') {
+function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, fill = 'none', fillOpacite = 0.5, arcEpaisseur = 1 } = {}) {
   ObjetMathalea2D.call(this)
   this.depart = A
   this.arrivee = C
   this.sommet = B
   this.distance = distance
-
+  this.angle = saillant ? angleOriente(this.depart, this.sommet, this.arrivee) : angleOriente(this.depart, this.sommet, this.arrivee) > 0 ? angleOriente(this.depart, this.sommet, this.arrivee) - 360 : 360 + angleOriente(this.depart, this.sommet, this.arrivee)
+  this.ecart = ecart
+  this.saillant = saillant
   this.svg = function (coeff) {
-    // let d = bissectrice(A, B, C);
-    // d.isVisible = false;
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
-    const N = rotation(pointSurSegment(this.sommet, M, this.distance + 10 / coeff), this.sommet, angleOriente(this.depart, this.sommet, this.arrivee) / 2, '', 'center')
+    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / coeff), this.sommet, this.angle / 2, '', 'center')
     let mesureAngle
     if (label !== '') {
       mesureAngle = label
     } else {
-      mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '°'
+      mesureAngle = arrondiVirgule(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee), 0) + '°'
     }
-    return '\n' + texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true).svg(coeff) + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).svg(coeff)
+    const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
+    const marque = arc(M, B, this.angle, rayon, fill, colorArc, fillOpacite)
+    mesure.contour = mesureEnGras
+    mesure.couleurDeRemplissage = color
+    marque.epaisseur = arcEpaisseur
+    return '\n' + mesure.svg(coeff) + '\n' + marque.svg(coeff)
   }
   this.tikz = function () {
-    // let d = bissectrice(A, B, C);
-    // d.isVisible = false;
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
-    const N = rotation(pointSurSegment(this.sommet, M, this.distance + 0.5), this.sommet, angleOriente(this.depart, this.sommet, this.arrivee) / 2, '', 'center')
+    const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart), this.sommet, this.angle / 2, '', 'center')
     let mesureAngle
     if (label !== '') {
       mesureAngle = label
     } else {
-      mesureAngle = arrondiVirgule(angle(this.depart, this.sommet, this.arrivee), 0) + '\\degree'
+      mesureAngle = arrondiVirgule(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee), 0) + '\\degree'
     }
-    return '\n' + texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true).tikz() + '\n' + arc(M, B, angleOriente(this.depart, this.sommet, this.arrivee)).tikz()
+    const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
+    const marque = arc(M, B, this.angle, rayon, fill, colorArc, fillOpacite)
+    mesure.contour = mesureEnGras
+    mesure.couleurDeRemplissage = color
+    marque.epaisseur = arcEpaisseur
+    return '\n' + mesure.tikz() + '\n' + marque.tikz()
   }
 }
 /**
@@ -5354,13 +5477,21 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
  * @param {Point} A
  * @param {Point} B
  * @param {Point} C
- * @param {string} [color='black'] Facultatif, 'black' par défaut.
- * @param {number} [distance=1.5] Taille de l'angle. Facultatif, 1.5 par défaut.
- * @param {string} [label=''] Facultatif, vide par défaut.
+ * @param {string} [color='black'] 'black' couleur de la mesure.
+ * @param {number} [distance=1.5] Taille de l'angle.
+ * @param {string} [label=''] Si non vide, remplace la mesure de l'angle par ce label.
+ * @param {number} [ecart=0.5] Distance entre l'arc et sa mesure.
+ * @param {boolean} [saillant=true] false si on veut l'angle rentrant.
+ * @param {string} [colorArc='black']  Couleur de l'arc.
+ * @param {boolean} [rayon=false] true pour fermer l'angle en vue de colorier l'intérieur.
+ * @param {string} [fill='none'] 'none' si on ne veut pas de remplissage, sinon une couleur.
+ * @param {number} [fillOpacite=0.5] Taux d'opacité du remplissage.
+ * @param {number} [arcEpaisseur=1] épaisseur de l'arc.
+ * @param {boolean} [mesureEnGras=false] true pour mettre en gras la mesure affichée.
  * @returns {object} AfficheMesureAngle
  */
-export function afficheMesureAngle (...args) {
-  return new AfficheMesureAngle(...args)
+export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, fill = 'none', fillOpacite = 0.5, arcEpaisseur = 1 } = {}) {
+  return new AfficheMesureAngle(A, B, C, color, distance, label, { ecart, mesureEnGras, saillant, colorArc, rayon, fill, fillOpacite, arcEpaisseur })
 }
 /**
  * macote=afficheCoteSegment(s,'x',-1,'red',2) affiche une côte sur une flèche rouge d'epaisseur 2 placée 1cm sous le segment s avec le texte 'x' écrit en noir (par defaut) 0,5cm au-dessus (par defaut)
@@ -5585,7 +5716,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const objets = []
     const depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / context.pixelsParCm)
     const P = rotation(depart, this.centre, this.angle / 2)
-    const M = pointSurSegment(this.centre, P, taille + 0.6 * 20 / coeff)
+    const M = pointSurSegment(this.centre, P, this.taille + 0.6 * 20 / coeff)
     const d = droite(this.centre, P)
     d.isVisible = false
     const mesure = arrondiVirgule(Math.abs(angle), 0) + '°'
@@ -6896,7 +7027,7 @@ export function repere (...args) {
 }
 
 /**
- * repere2({xUnite, yUnite, xMin, xMax, yMin, yMax, axesEpaisseur, axesCouleur, axeXStyle, axeYStyle, thickEpaisseur,
+ * repere2({xUnite, yUnite, xMin, xMax, yMin, yMax, axeX, axeY, axesEpaisseur, axesCouleur, axeXStyle, axeYStyle, thickEpaisseur,
  * thickHauteur, thickCouleur, xThickDistance, xThickListe, xThickMin, xThickMax, yThickDistance, yThickListe,
  * yThickMin, yThickMax, xLabelDistance, xLabelListe, xLabelMin, xLabelMax, yLabelDistance, yLabelListe,
  * yLabelMin, yLabelMax, xLegende,xLegendePosition, yLegende, yLegendePosition, grille, grilleDistance,
@@ -6919,6 +7050,8 @@ function Repere2 ({
   xMax = 10,
   yMin = -10,
   yMax = 10,
+  axeXisVisible = true,
+  axeYisVisible = true,
   axesEpaisseur = 2,
   axesCouleur = 'black',
   axeXStyle = '->',
@@ -6942,6 +7075,10 @@ function Repere2 ({
   yLabelListe = false,
   yLabelMin = yThickMin,
   yLabelMax = yThickMax,
+  precisionLabelX = 1,
+  precisionLabelY = 1,
+  xLabelEcart = 0.5,
+  yLabelEcart = 0.5,
   xLegende = '',
   xLegendePosition = [xMax * xUnite + 0.5, 0.5],
   yLegende = '',
@@ -7007,60 +7144,11 @@ function Repere2 ({
   axeY.epaisseur = axesEpaisseur
   axeY.styleExtremites = axeYStyle
   axeY.color = axesCouleur
-  objets.push(axeX, axeY)
+  if (axeXisVisible) objets.push(axeX)
+  if (axeYisVisible) objets.push(axeY)
   // Cache les objets intermédiaires pour ne pas les afficher en double dans mathalea2d.html
   axeX.isVisible = false
   axeY.isVisible = false
-
-  // LES THICKS
-  if (!xThickListe) {
-    xThickListe = rangeMinMax(xThickMin, xThickMax, [0], xThickDistance)
-  }
-  for (const x of xThickListe) {
-    const thick = segment(x * xUnite, OrdonneeAxe * yUnite - thickHauteur, x * xUnite, OrdonneeAxe * yUnite + thickHauteur)
-    thick.isVisible = false
-    thick.epaisseur = thickEpaisseur
-    thick.color = thickCouleur
-    objets.push(thick)
-  }
-  if (!yThickListe) {
-    yThickListe = rangeMinMax(yThickMin, yThickMax, [0], yThickDistance)
-  }
-  for (const y of yThickListe) {
-    const thick = segment(abscisseAxe * xUnite - thickHauteur, y * yUnite, abscisseAxe * xUnite + thickHauteur, y * yUnite)
-    thick.isVisible = false
-    thick.epaisseur = thickEpaisseur
-    thick.color = thickCouleur
-    objets.push(thick)
-  }
-
-  // LES LABELS
-  if (!xLabelListe) {
-    xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
-  }
-  for (const x of xLabelListe) {
-    const l = texteParPosition(`${texNombre(x)}`, x * xUnite, OrdonneeAxe * yUnite - 0.5, 'milieu', 'black', 1, 'middle', true)
-    l.isVisible = false
-    objets.push(l)
-  }
-
-  if (!yLabelListe) {
-    yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
-  }
-  for (const y of yLabelListe) {
-    const l = texteParPosition(`${texNombre(y)}`, abscisseAxe * xUnite - 0.5, y * yUnite, 'milieu', 'black', 1, 'middle', true)
-    l.isVisible = false
-    objets.push(l)
-  }
-
-  // LES LÉGENDES
-  if (xLegende.length > 0) {
-    objets.push(texteParPosition(xLegende, xLegendePosition[0], xLegendePosition[1], 'droite'))
-  }
-  if (yLegende.length > 0) {
-    objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 'droite'))
-  }
-
   // GRILLE PRINCIPALE
 
   // Les traits horizontaux
@@ -7077,18 +7165,20 @@ function Repere2 ({
         grilleYDistance = yThickDistance
       }
       // On créé la liste avec ces valeurs
-      grilleYListe = rangeMinMax(grilleYMin, grilleYMax, [0], grilleYDistance)
+      grilleYListe = rangeMinMax(grilleYMin, grilleYMax, grilleYDistance)
     }
     for (const y of grilleYListe) {
-      const traitH = segment(xMin * xUnite, y * yUnite, xMax * xUnite, y * yUnite)
-      traitH.isVisible = false
-      traitH.color = grilleYCouleur
-      traitH.opacite = grilleYOpacite
-      traitH.epaisseur = grilleEpaisseur
-      if (grilleY === 'pointilles') {
-        traitH.pointilles = true
+      if (y !== 0 || !axeXisVisible) {
+        const traitH = segment(xMin * xUnite, y * yUnite, xMax * xUnite, y * yUnite)
+        traitH.isVisible = false
+        traitH.color = grilleYCouleur
+        traitH.opacite = grilleYOpacite
+        traitH.epaisseur = grilleEpaisseur
+        if (grilleY === 'pointilles') {
+          traitH.pointilles = true
+        }
+        objets.push(traitH)
       }
-      objets.push(traitH)
     }
   }
   // Les traits verticaux
@@ -7105,18 +7195,20 @@ function Repere2 ({
         grilleXDistance = xThickDistance
       }
       // On créé la liste avec ces valeurs
-      grilleXListe = rangeMinMax(grilleXMin, grilleXMax, [0], grilleXDistance)
+      grilleXListe = rangeMinMax(grilleXMin, grilleXMax, grilleXDistance)
     }
     for (const x of grilleXListe) {
-      const traitV = segment(x * xUnite, yMin * yUnite, x * xUnite, yMax * yUnite)
-      traitV.isVisible = false
-      traitV.color = grilleXCouleur
-      traitV.opacite = grilleXOpacite
-      traitV.epaisseur = grilleEpaisseur
-      if (grilleX === 'pointilles') {
-        traitV.pointilles = true
+      if (x !== 0 || !axeYisVisible) {
+        const traitV = segment(x * xUnite, yMin * yUnite, x * xUnite, yMax * yUnite)
+        traitV.isVisible = false
+        traitV.color = grilleXCouleur
+        traitV.opacite = grilleXOpacite
+        traitV.epaisseur = grilleEpaisseur
+        if (grilleX === 'pointilles') {
+          traitV.pointilles = true
+        }
+        objets.push(traitV)
       }
-      objets.push(traitV)
     }
   }
 
@@ -7178,6 +7270,59 @@ function Repere2 ({
       objets.push(traitV)
     }
   }
+  // LES THICKS
+  if (axeXisVisible) {
+    if (!xThickListe) {
+      xThickListe = rangeMinMax(xThickMin, xThickMax, [0], xThickDistance)
+    }
+    for (const x of xThickListe) {
+      const thick = segment(x * xUnite, OrdonneeAxe * yUnite - thickHauteur, x * xUnite, OrdonneeAxe * yUnite + thickHauteur)
+      thick.isVisible = false
+      thick.epaisseur = thickEpaisseur
+      thick.color = thickCouleur
+      objets.push(thick)
+    }
+  }
+  if (axeYisVisible) {
+    if (!yThickListe) {
+      yThickListe = rangeMinMax(yThickMin, yThickMax, [0], yThickDistance)
+    }
+    for (const y of yThickListe) {
+      const thick = segment(abscisseAxe * xUnite - thickHauteur, y * yUnite, abscisseAxe * xUnite + thickHauteur, y * yUnite)
+      thick.isVisible = false
+      thick.epaisseur = thickEpaisseur
+      thick.color = thickCouleur
+      objets.push(thick)
+    }
+  }
+  // LES LABELS
+  if (axeXisVisible) {
+    if (!xLabelListe) {
+      xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
+    }
+    for (const x of xLabelListe) {
+      const l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, OrdonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+      l.isVisible = false
+      objets.push(l)
+    }
+  }
+  if (axeYisVisible) {
+    if (!yLabelListe) {
+      yLabelListe = rangeMinMax(yLabelMin, yLabelMax, [0], yLabelDistance)
+    }
+    for (const y of yLabelListe) {
+      const l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
+      l.isVisible = false
+      objets.push(l)
+    }
+  }
+  // LES LÉGENDES
+  if (xLegende.length > 0) {
+    objets.push(texteParPosition(xLegende, xLegendePosition[0], xLegendePosition[1], 'droite'))
+  }
+  if (yLegende.length > 0) {
+    objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 'droite'))
+  }
 
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
@@ -7211,9 +7356,169 @@ function Repere2 ({
     return code
   }
 }
-
-export function repere2 (...args) {
-  return new Repere2(...args)
+/**
+ *
+ * @param {object} param0
+ * @returns
+ */
+export function repere2 ({
+  xUnite = 1,
+  yUnite = 1,
+  xMin = -10,
+  xMax = 10,
+  yMin = -10,
+  yMax = 10,
+  axeXisVisible = true,
+  axeYisVisible = true,
+  axesEpaisseur = 2,
+  axesCouleur = 'black',
+  axeXStyle = '->',
+  axeYStyle = '->',
+  thickEpaisseur = 2,
+  thickHauteur = 0.2,
+  thickCouleur = axesCouleur,
+  xThickDistance = 1,
+  xThickListe = false,
+  xThickMin = xMin + xThickDistance,
+  xThickMax = xMax - xThickDistance,
+  yThickDistance = 1,
+  yThickListe = false,
+  yThickMin = yMin + yThickDistance,
+  yThickMax = yMax - yThickDistance,
+  xLabelDistance = xThickDistance,
+  xLabelListe = false,
+  xLabelMin = xThickMin,
+  xLabelMax = xThickMax,
+  yLabelDistance = yThickDistance,
+  yLabelListe = false,
+  yLabelMin = yThickMin,
+  yLabelMax = yThickMax,
+  precisionLabelX = 1,
+  precisionLabelY = 1,
+  xLabelEcart = 0.5,
+  yLabelEcart = 0.5,
+  xLegende = '',
+  xLegendePosition = [xMax * xUnite + 0.5, 0.5],
+  yLegende = '',
+  yLegendePosition = [0.5, yMax * yUnite + 0.5],
+  grille = true,
+  grilleDistance = false,
+  grilleCouleur = 'black',
+  grilleOpacite = 0.5,
+  grilleEpaisseur = 1,
+  grilleSecondaire = false,
+  grilleSecondaireDistance = false,
+  grilleSecondaireCouleur = 'gray',
+  grilleSecondaireOpacite = 0.3,
+  grilleSecondaireEpaisseur = 1,
+  grilleX = grille,
+  grilleXListe = false,
+  grilleXDistance = grilleDistance,
+  grilleXMin = false,
+  grilleXMax = false,
+  grilleXCouleur = grilleCouleur,
+  grilleXOpacite = grilleOpacite,
+  grilleY = grille,
+  grilleYListe = false,
+  grilleYDistance = grilleDistance,
+  grilleYMin = false,
+  grilleYMax = false,
+  grilleYCouleur = grilleCouleur,
+  grilleYOpacite = grilleOpacite,
+  grilleSecondaireX = grilleSecondaire,
+  grilleSecondaireXListe = false,
+  grilleSecondaireXDistance = grilleSecondaireDistance,
+  grilleSecondaireXMin = false,
+  grilleSecondaireXMax = false,
+  grilleSecondaireXCouleur = grilleSecondaireCouleur,
+  grilleSecondaireXOpacite = grilleSecondaireOpacite,
+  grilleSecondaireY = grilleSecondaire,
+  grilleSecondaireYListe = false,
+  grilleSecondaireYDistance = grilleSecondaireDistance,
+  grilleSecondaireYMin = false,
+  grilleSecondaireYMax = false,
+  grilleSecondaireYCouleur = grilleSecondaireCouleur,
+  grilleSecondaireYOpacite = grilleSecondaireOpacite
+} = {}) {
+  return new Repere2({
+    xUnite,
+    yUnite,
+    xMin,
+    xMax,
+    yMin,
+    yMax,
+    axeXisVisible,
+    axeYisVisible,
+    axesEpaisseur,
+    axesCouleur,
+    axeXStyle,
+    axeYStyle,
+    thickEpaisseur,
+    thickHauteur,
+    thickCouleur,
+    xThickDistance,
+    xThickListe,
+    xThickMin,
+    xThickMax,
+    yThickDistance,
+    yThickListe,
+    yThickMin,
+    yThickMax,
+    xLabelDistance,
+    xLabelListe,
+    xLabelMin,
+    xLabelMax,
+    yLabelDistance,
+    yLabelListe,
+    yLabelMin,
+    yLabelMax,
+    precisionLabelX,
+    precisionLabelY,
+    xLabelEcart,
+    yLabelEcart,
+    xLegende,
+    xLegendePosition,
+    yLegende,
+    yLegendePosition,
+    grille,
+    grilleDistance,
+    grilleCouleur,
+    grilleOpacite,
+    grilleEpaisseur,
+    grilleSecondaire,
+    grilleSecondaireDistance,
+    grilleSecondaireCouleur,
+    grilleSecondaireOpacite,
+    grilleSecondaireEpaisseur,
+    grilleX,
+    grilleXListe,
+    grilleXDistance,
+    grilleXMin,
+    grilleXMax,
+    grilleXCouleur,
+    grilleXOpacite,
+    grilleY,
+    grilleYListe,
+    grilleYDistance,
+    grilleYMin,
+    grilleYMax,
+    grilleYCouleur,
+    grilleYOpacite,
+    grilleSecondaireX,
+    grilleSecondaireXListe,
+    grilleSecondaireXDistance,
+    grilleSecondaireXMin,
+    grilleSecondaireXMax,
+    grilleSecondaireXCouleur,
+    grilleSecondaireXOpacite,
+    grilleSecondaireY,
+    grilleSecondaireYListe,
+    grilleSecondaireYDistance,
+    grilleSecondaireYMin,
+    grilleSecondaireYMax,
+    grilleSecondaireYCouleur,
+    grilleSecondaireYOpacite
+  })
 }
 
 /**
@@ -8622,6 +8927,95 @@ export function courbe2 (...args) {
 }
 
 /**
+ * Integrale(f,{repere,color,epaisseur,step,a,b,opacite,hachures}) // Trace la courbe de f
+ * a et b sont les bornes (dans l'ordre croissant a<b)
+ * opacite = 0.5 par défaut
+ * hachures = 0 par défaut (= 'northeastlines')
+ * @author Jean-Claude Lhote
+ */
+
+function Integrale (f, {
+  repere = {},
+  color = 'black',
+  epaisseur = 2,
+  step = false,
+  a = 0,
+  b = 1,
+  opacite = 0.5,
+  hachures = 0
+} = {}) {
+  ObjetMathalea2D.call(this)
+  this.color = color
+
+  const ymin = repere.yMin
+  const ymax = repere.yMax
+  const xunite = repere.xUnite
+  const yunite = repere.yUnite
+
+  const objets = []
+  const points = []
+  let pas
+  if (!step) {
+    pas = 0.2 / xunite
+  } else {
+    pas = step
+  }
+  for (let x = a; inferieurouegal(x, b); x += pas
+  ) {
+    if (isFinite(f(x))) {
+      if (f(x) < ymax + 1 && f(x) > ymin - 1) {
+        points.push(point(x * xunite, f(x) * yunite))
+      } else {
+        window.notify('Erreur dans Integrale : Il semble que la fonction ne soit pas continue sur l\'intervalle', { f, a, b })
+      }
+    } else {
+      x += 0.05
+    }
+  }
+  points.push(point(b * xunite, f(b) * yunite), point(b * xunite, 0), point(a * xunite, 0))
+  const p = polygone([...points], this.color)
+  p.epaisseur = epaisseur
+  p.couleurDeRemplissage = 'blue'
+  p.opaciteDeRemplissage = opacite
+  p.hachures = motifs(hachures)
+  objets.push(p)
+  // LES SORTIES TiKZ et SVG
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+  this.svgml = function (coeff, amp) {
+    let code = ''
+    for (const objet of objets) {
+      if (typeof (objet.svgml) === 'undefined') code += '\n\t' + objet.svg(coeff)
+      else code += '\n\t' + objet.svgml(coeff, amp)
+    }
+    return code
+  }
+  this.tikzml = function (amp) {
+    let code = ''
+    for (const objet of objets) {
+      if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()
+      else code += '\n\t' + objet.tikzml(amp)
+    }
+    return code
+  }
+}
+
+export function integrale (...args) {
+  return new Integrale(...args)
+}
+/**
  * crée un objet correspondant au tracé de la fonction f de la classe Spline
  * f devra être définie avant...
  * @author Jean-Claude Lhote
@@ -9519,7 +9913,7 @@ export function angle (A, O, B) {
 export function angleOriente (A, O, B) {
   const A2 = rotation(A, O, 90)
   const v = vecteur(O, B); const u = vecteur(O, A2)
-  return arrondi(unSiPositifMoinsUnSinon(v.x * u.x + v.y * u.y) * angle(A, O, B), 2)
+  return arrondi(unSiPositifMoinsUnSinon(arrondi(v.x * u.x + v.y * u.y, 10)) * angle(A, O, B), 2)
 }
 /**
  * angleradian(A,O,B) renvoie l'angle AOB en radian

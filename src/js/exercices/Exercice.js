@@ -105,11 +105,11 @@ export default function Exercice () {
   this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
 
   /**
-   * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques
-   * @param {int} i indice de la question
-   * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
-   * @returns {boolean} true si la question n'a jamais été posée
-   */
+     * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques
+     * @param {int} i indice de la question
+     * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
+     * @returns {boolean} true si la question n'a jamais été posée
+     */
   this.questionJamaisPosee = function (i, ...args) {
     if (i === 0) this.listeArguments = []
     let argsConcatenes = ''

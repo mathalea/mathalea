@@ -4,7 +4,7 @@ import {
   mathalea2d, point, droiteGraduee2, segment, milieu, texteParPosition, codeSegment, polygone, grille
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
-import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -87,12 +87,12 @@ export default function SujetCAN2021Sixieme () {
           break
 
         case 3:
-          a = randint(12, 25, [10, 20]) * 2
+          reponse = randint(12, 25, [10, 20])
+          a = reponse * 2
 
-          reponse = a / 2
           texte = `La moitié de $${a}$ est
              `
-          texteCorr = `La moitié de $${a}$ est  $${a}\\div 2=${a / 2}$.`
+          texteCorr = `La moitié de $${a}$ est  $${a}\\div 2=${reponse}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -173,14 +173,14 @@ export default function SujetCAN2021Sixieme () {
             b = choice([35, 40, 45, 50, 55])
             texte = `Il est $${a}$ h $${b}$ min.<br>
             Dans une demi-heure, quelle heure sera-t-il ?`
-            reponse = calcul(b - 30)
+            reponse = b - 30
             texteCorr = `Une demi-heure est égale à $30$ minutes. Ainsi $${a}$ h $${b}$ min + $30$ min est égal à $${a + 1}$ h $${b - 30}$ min.`
           }
           if (choix === 'b') {
             b = choice([50, 55])
             texte = `Il est $${a}$ h $${b}$ min.<br>
           Dans un quart d'heure, quelle heure sera-t-il ?`
-            reponse = calcul(b - 45)
+            reponse = b - 45
             texteCorr = `Un quart d'heure est égal à $15$ minutes. Ainsi $${a}$ h $${b}$ min + $15$ min est égal à $${a + 1}$ h $${b - 45}$ min.`
           }
           if (this.interactif) {
@@ -209,11 +209,10 @@ export default function SujetCAN2021Sixieme () {
         case 9:
 
           a = randint(2, 9) * 2 + 1
-
+          reponse = arrondi(a / 2, 1)
           texte = `Un ruban mesure $${a}$ cm. On le coupe en $2$ morceaux de même longueur.<br>
             Un morceau mesure `
-          texteCorr = `Un morceau mesure : $${a}\\div 2=${texNombre(a / 2)}$ cm`
-          reponse = a / 2
+          texteCorr = `Un morceau mesure : $${a}\\div 2=${texNombre(reponse, 1)}$ cm`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' } else { texte += '$\\ldots$ cm' }
@@ -226,7 +225,7 @@ export default function SujetCAN2021Sixieme () {
           c = randint(1, 9, [a, b])
           d = randint(1, 9, [a, b, c])
           m = choice(['centaines', 'dizaines'])
-          n = calcul(a * 1000 + b * 100 + c * 10 + d)
+          n = a * 1000 + b * 100 + c * 10 + d
           texte = `Combien y a-t-il de  ${m} en tout dans $${texNombre(n)}$ ? `
           if (a !== 0) {
             if (m === 'centaines') {
@@ -252,12 +251,12 @@ export default function SujetCAN2021Sixieme () {
 
         case 11:
 
-          a = randint(1, 2) + randint(3, 7) / 10
+          a = arrondi(randint(1, 2) + randint(3, 7) / 10, 1)
           k = randint(4, 6)
-          reponse = a * k
-          texte = `$${texNombre(a)}\\times ${k}=$`
+          reponse = arrondi(a * k, 1)
+          texte = `$${texNombre(a, 1)}\\times ${k}=$`
 
-          texteCorr = `$${texNombre(a)}\\times ${k}=${texNombre(a * k)}$ `
+          texteCorr = `$${texNombre(a)}\\times ${k}=${texNombre(reponse, 1)}$ `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -268,10 +267,10 @@ export default function SujetCAN2021Sixieme () {
           a = randint(1, 9)
           b = randint(1, 9)
           truc = choice([10, 100])
-          reponse = a - b / truc
+          reponse = arrondi(a - b / truc, 2)
           texte = `Donne l'écriture décimale de $${a}-\\dfrac{${b}}{${truc}}$.`
 
-          texteCorr = `$${a}-\\dfrac{${b}}{${truc}}=${a}-${texNombre(b / truc)}=${texNombre(a - b / truc)}$ `
+          texteCorr = `$${a}-\\dfrac{${b}}{${truc}}=${a}-${texNombre(b / truc, 2)}=${texNombre(a - b / truc, 2)}$ `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -280,11 +279,11 @@ export default function SujetCAN2021Sixieme () {
 
         case 13:
 
-          a = randint(1, 9) + randint(1, 9) / 10
-          reponse = 10 - a
+          a = arrondi(randint(1, 9) + randint(1, 9) / 10, 1)
+          reponse = arrondi(10 - a, 1)
           texte = `Complète :<br>$${texNombre(a)}+\\ldots=10$`
 
-          texteCorr = `Le nombre cherché est donné par la différence : $10-${texNombre(a)}=${texNombre(10 - a)}$. `
+          texteCorr = `Le nombre cherché est donné par la différence : $10-${texNombre(a, 1)}=${texNombre(reponse, 1)}$. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -349,23 +348,23 @@ export default function SujetCAN2021Sixieme () {
 
         case 16:
           if (choice([true, false])) {
-            a = randint(3, 6) + randint(2, 9) / 10
-            b = randint(7, 9) + randint(2, 9) / 10
+            a = arrondi(randint(3, 6) + randint(2, 9) / 10, 1)
+            b = arrondi(randint(7, 9) + randint(2, 9) / 10, 1)
 
             propositions = shuffle([`$${Math.floor(a * b)}$`, `$${Math.floor(a + b)}$`, `$${Math.floor(a * b * 10)}$`])
             reponse = Math.floor(a * b)
-            texte = `Recopie  le nombre le plus proche de  $${texNombre(a)}\\times ${texNombre(b)}$.<br>`
+            texte = `Recopie  le nombre le plus proche de  $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$.<br>`
 
             texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
-            texteCorr = `En remplaçant $${texNombre(a)}$ par $${Math.round(a)}$ et $${texNombre(b)}$ par $${Math.round(b)}$, on obtient : <br>
+            texteCorr = `En remplaçant $${texNombre(a, 1)}$ par $${Math.round(a)}$ et $${texNombre(b, 1)}$ par $${Math.round(b)}$, on obtient : <br>
           $${Math.round(a)}\\times ${Math.round(b)}=${Math.round(a) * Math.round(b)}$, donc le nombre le plus proche est : $${Math.floor(a * b)}$.`
           } else {
-            a = randint(12, 19) + randint(2, 9) / 10
-            b = randint(15, 29, 20) + randint(2, 9) / 10
+            a = arrondi(randint(12, 19) + randint(2, 9) / 10, 1)
+            b = arrondi(randint(15, 29, 20) + randint(2, 9) / 10, 1)
 
             propositions = shuffle([`$${Math.floor(a * b)}$`, `$${Math.floor(a + b)}$`, `$${Math.floor(a * b * 10)}$`])
             reponse = Math.floor(a * b)
-            texte = `Recopie  le nombre le plus proche de  $${texNombre(a)}\\times ${texNombre(b)}$.<br>`
+            texte = `Recopie  le nombre le plus proche de  $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$.<br>`
 
             texte += `${propositions[0]} ${sp(4)} ${propositions[1]} ${sp(4)} ${propositions[2]}`
             texteCorr = 'Le produit de ces deux nombres donne un nombre a trois chiffres.'
@@ -377,8 +376,8 @@ export default function SujetCAN2021Sixieme () {
 
         case 17:
           a = choice([10, 20])
-          b = randint(7, 9) + randint(1, 9) / 10
-          c = a - b
+          b = arrondi(randint(7, 9) + randint(1, 9) / 10, 1)
+          c = arrondi(a - b, 1)
           texte = `Avec $${a}$  €, j'achète un livre à $${texNombre(b)}$  €. <br>
           On me rend 
       `
@@ -435,9 +434,9 @@ export default function SujetCAN2021Sixieme () {
 
           a = choice(listeFractions20)
           b = fraction(a[0], a[1])
-          propositions = shuffle([`$${texNombre(a[0] / a[1])}\\%$`, `$${texNombre(a[0] / a[1] * 100)}\\%$`, `$${texNombre(a[1])}\\%$`, `$${a[0]},${a[1]}\\%$`])
-          reponse = a[0] / a[1] * 100
-          texteCorr = `$\\dfrac{${a[0]}}{${a[1]}}=${texNombre(a[0] / a[1])}=${texNombre((a[0] / a[1]) * 100)}\\%$`
+          reponse = Math.round(a[0] / a[1] * 100)
+          propositions = shuffle([`$${texNombre(a[0] / a[1]), 2}\\%$`, `$${reponse}\\%$`, `$${texNombre(a[1])}\\%$`, `$${a[0]},${a[1]}\\%$`])
+          texteCorr = `$\\dfrac{${a[0]}}{${a[1]}}=${texNombre(a[0] / a[1], 2)}=${reponse}\\%$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte = `Recopie le pourcentage correspondant à $\\dfrac{${a[0]}}{${a[1]}}$.<br>
@@ -456,13 +455,13 @@ export default function SujetCAN2021Sixieme () {
           if (choice([true, false])) {
             a = randint(1, 9) * 40
             texte = `Le quart de $${a}$ km.`
-            reponse = a / 4
-            texteCorr = `Le quart de $${a}$ km est égal à $${a}\\div 4=${a / 4}$ km.`
+            reponse = Math.round(a / 4)
+            texteCorr = `Le quart de $${a}$ km est égal à $${a}\\div 4=${reponse}$ km.`
           } else {
             a = randint(1, 9) * 30
             texte = `Le tiers de $${a}$ km.`
-            reponse = a / 3
-            texteCorr = `Le tiers de $${a}$ km est égal à $${a}\\div 3=${a / 3}$ km.`
+            reponse = Math.round(a / 3)
+            texteCorr = `Le tiers de $${a}$ km est égal à $${a}\\div 3=${reponse}$ km.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -477,13 +476,13 @@ export default function SujetCAN2021Sixieme () {
           if (choice([true, false])) {
             a = randint(1, 9) * 40
             texte = `$25\\%$ de $${a}$ km.`
-            reponse = a / 4
-            texteCorr = `$25 \\%$ de $${a}$ km est égal à $${a}\\div 4=${a / 4}$ km.`
+            reponse = Math.round(a / 4)
+            texteCorr = `$25 \\%$ de $${a}$ km est égal à $${a}\\div 4=${reponse}$ km.`
           } else {
             a = randint(1, 9) * 50
             texte = `$20\\%$ de $${a}$ km.`
-            reponse = a / 5
-            texteCorr = `$20 \\%$ de $${a}$ km est égal à $${a}\\div 5=${a / 5}$ km.`
+            reponse = Math.round(a / 5)
+            texteCorr = `$20 \\%$ de $${a}$ km est égal à $${a}\\div 5=${reponse}$ km.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -496,19 +495,22 @@ export default function SujetCAN2021Sixieme () {
         case 23:
           a = randint(3, 6)
           b = randint(22, 32)
-          propositions = shuffle([`$${b}$`, `$${a * b}$`, `$${a * b * 20}$`])
           reponse = a * b
+
+          propositions = shuffle([`$${b}$ feuilles`, `$${reponse}$ feuilles`, `$${reponse * 20}$ feuilles`])
           texte = `Chaque élève de la classe ramène $${a}$ feuilles.<br>
           `
-          texteCorr = `La seule réponse vraisemblable est $${a * b}$ feuilles. <br>
+          texteCorr = `La seule réponse vraisemblable est $${reponse}$ feuilles. <br>
           On peut prendre $30$ élèves dans la classe comme valeur possible : $30\\times ${a}=${30 * a}$ feuilles.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += `Recopie la réponse vraisemblable.<br>
+            Le maître ramasse en tout : <br>
               ${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'feuilles'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +'feuilles'
           } else {
             texte += `Entoure la réponse vraisemblable.<br> 
+            Le maître ramasse en tout : <br>
             ${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
           }
 
@@ -521,7 +523,7 @@ export default function SujetCAN2021Sixieme () {
           reponse = a * 100 + b * 1000
           texte = `$${a}$ centaines et $${b}$ milliers $=$ `
 
-          texteCorr = `$${a}$ centaines et $${b}$ milliers $=${texNombre(a * 100)}+${b * 1000}=${texNombre(a * 100 + b * 1000)}$`
+          texteCorr = `$${a}$ centaines et $${b}$ milliers $=${texNombre(a * 100, 0)}+${texNombre(b * 1000, 0)}=${texNombre(a * 100 + b * 1000, 0)}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
@@ -532,31 +534,31 @@ export default function SujetCAN2021Sixieme () {
         case 25:
           if (choice([true, false])) {
             a = randint(1, 10) * choice([1, 10])
-            reponse = calcul(a * 100)
-            texte = `$${texNombre(a)}$ m  =`
+            reponse = a * 100
+            texte = `$${texNombre(a, 0)}$ m  =`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm' } else { texte += '$\\ldots$ cm' }
             texteCorr = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
-                        Comme : $${texNombre(a)}\\times 100 =${texNombre(a * 100)}$, alors $${texNombre(a)}$ m$=${texNombre(a * 100)}$ cm.  
+                        Comme : $${texNombre(a, 0)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 0)}$ m$=${texNombre(a * 100, 0)}$ cm.  
                         `
           } else {
             a = randint(1, 12) * choice([1, 10, 100])
-            reponse = calcul(a / 100)
+            reponse = arrondi(a / 100, 2)
             texte = `$${texNombre(a)}$ cm  =`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm' } else { texte += '$\\ldots$ m' }
             texteCorr = `Comme $1$ m $=100$ cm, alors $1$ cm $=0,01$ m.<br>
             Ainsi pour passer des "cm" au "m", on divise par $100$.<br>
-              Comme  $${texNombre(a)}\\div 100 =${texNombre(a / 100)}$, alors $${texNombre(a)}$ cm$=${texNombre(a / 100)}$ m.  `
+              Comme  $${texNombre(a, 0)}\\div 100 =${texNombre(a / 100, 2)}$, alors $${texNombre(a, 0)}$ cm$=${texNombre(a / 100, 2)}$ m.  `
           }
 
           nbChamps = 1
           break
 
         case 26:
-          a = 2 + randint(1, 5) / 10
-          b = 2 + randint(1, 4) / 10
-          c = randint(5, 6) - b
+          a = arrondi(2 + randint(1, 5) / 10, 1)
+          b = arrondi(2 + randint(1, 4) / 10, 1)
+          c = arrondi(randint(5, 6) - b, 1)
           A = point(0, 0, 'A', 'below')
           B = point(2.8, 0, 'B', 'below')
           C = point(3.4, 3.4, 'C', 'above')
@@ -573,11 +575,11 @@ export default function SujetCAN2021Sixieme () {
             texteParPosition(`$${texNombre(b)} \\text{ cm}$`, milieu(A, B).x, milieu(A, B).y - 0.3, 'milieu', 'black', 1, 'middle', true),
             texteParPosition(`$${texNombre(c)} \\text{ cm}$`, milieu(D, C).x, milieu(D, C).y + 0.3, 'milieu', 'black', 1, 'middle', true),
             segment(A, B), segment(B, C), segment(C, D), segment(D, A), code1, code2)
-          reponse = 2 * a + b + c
+          reponse = arrondi(2 * a + b + c, 1)
           texte = `Quel est le périmètre de cette figure ? <br>
             `
           texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
-          texteCorr = `Le périmètre est donné par la somme des quatre longueurs : $${texNombre(a)}\\times 2+${texNombre(b)}+${texNombre(c)}=${texNombre(2 * a + b + c)}$ cm.`
+          texteCorr = `Le périmètre est donné par la somme des quatre longueurs : $${texNombre(a, 1)}\\times 2+${texNombre(b, 1)}+${texNombre(c, 1)}=${texNombre(2 * a + b + c, 1)}$ cm.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
@@ -616,13 +618,13 @@ export default function SujetCAN2021Sixieme () {
           break
 
         case 28:
-          a = randint(5, 11) * 2
+          a = randint(5, 11)
           b = choice([5, 7, 9])
-          reponse = a * b / 2
-          texte = `$2$ BD identiques coûtent $${a}$ €.<br>
+          reponse = a * b
+          texte = `$2$ BD identiques coûtent $${2 * a}$ €.<br>
           Combien coûtent $${b}$ BD identiques ?
       `
-          texteCorr = `Une BD coûte $${a}\\div 2=${a / 2}$ €, donc $${b}$ BD identiques coûtent $${a / 2}\\times ${b}=${reponse}$ €.
+          texteCorr = `Une BD coûte $${2 * a}\\div 2=${a}$ €, donc $${b}$ BD identiques coûtent $${a}\\times ${b}=${reponse}$ €.
 
           `
 
