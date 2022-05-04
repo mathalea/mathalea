@@ -166,6 +166,7 @@ export default function CalculDeVolumes () {
             j = randint(2, 3) // pour le choix de l'unité
             r = randint(2, 10)
             h = randint(20, 150)
+            volume = r * r * h * Math.PI
             texte = `Calculer le volume, en $${listeUnites[j][1]}$ (arrondi à l'unité), d'un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombrec(h / 10)}${listeUnites[j - 1][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^2\\times${texNombrec(h / 10)}${listeUnites[j - 1][0]}=\\pi\\times${r * r}${listeUnites[j][0]}^2\\times${h}${listeUnites[j][0]}=${texNombrec(r * r * h)}\\pi${listeUnites[j][1]}\\approx${Math.round(volume)}${listeUnites[j][1]}$`
             resultat = Math.round(volume)
