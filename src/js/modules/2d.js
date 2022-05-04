@@ -7165,7 +7165,7 @@ function Repere2 ({
         grilleYDistance = yThickDistance
       }
       // On créé la liste avec ces valeurs
-      grilleYListe = rangeMinMax(grilleYMin, grilleYMax, grilleYDistance)
+      grilleYListe = rangeMinMax(grilleYMin, grilleYMax, [], grilleYDistance)
     }
     for (const y of grilleYListe) {
       if (y !== 0 || !axeXisVisible) {
@@ -7195,7 +7195,7 @@ function Repere2 ({
         grilleXDistance = xThickDistance
       }
       // On créé la liste avec ces valeurs
-      grilleXListe = rangeMinMax(grilleXMin, grilleXMax, grilleXDistance)
+      grilleXListe = rangeMinMax(grilleXMin, grilleXMax, [], grilleXDistance)
     }
     for (const x of grilleXListe) {
       if (x !== 0 || !axeYisVisible) {
