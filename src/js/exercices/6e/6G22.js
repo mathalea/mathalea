@@ -10,7 +10,7 @@ export const titre = 'Nommer un angle'
 export const interactifType = ['qcm', 'mathLive']
 export const interactifReady = true
 
-export const dateDePublication = '13/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '13/04/2022'
 
 /**
  * Nommer un angle
@@ -37,15 +37,28 @@ export default function NommerUnAngle () {
       const ChoixHorizontal = choice([-1, 1])
 
       const numB = randint(1, 26, [4, 5, 15, 23, 24, 25])
+      const numA = randint(1, 26, [4, 5, 15, 23, 24, 25, numB])
+      const numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA])
+      const numM = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA, numC])
+      const numN = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA, numC, numM])
+      const numI = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA, numC, numM, numN])
+
+      /* A décommenter pour débugguer (et commenter les 6 lignes du dessus)
+      const numA = 1
+      const numB = 2
+      const numC = 3
+      const numI = 9
+      const numM = 13
+      const numN = 14
+      */
+
       const ordB = randint(0, 2)
       const B = point(0, ordB, lettreDepuisChiffre(numB))
 
-      const numA = randint(1, 26, [4, 5, 15, 23, 24, 25, numB])
       const absA = ChoixHorizontal * randint(7, 12)
       const ordA = randint(4, 8)
       const A = point(absA, ordA, lettreDepuisChiffre(numA))
 
-      const numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA])
       const absC = ChoixHorizontal * randint(7, 12, [absA])
       const ordC = -1 * randint(2, 5)
       const C = point(absC, ordC, lettreDepuisChiffre(numC))
@@ -53,12 +66,9 @@ export default function NommerUnAngle () {
       const fractionSegmentBC = this.sup === 1 ? randint(2, 8, [fractionSegmentAB]) : randint(4, 6, [fractionSegmentAB])
       const AB = segment(A, B).longueur
       const BC = segment(B, C).longueur
-      const numM = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA, numC])
-      const numN = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA, numC, numM])
       const M = pointSurSegment(B, A, AB * fractionSegmentAB / 10, lettreDepuisChiffre(numM))
       const N = pointSurSegment(B, C, BC * fractionSegmentBC / 10, lettreDepuisChiffre(numN), 'below')
       const p1 = polygoneAvecNom(B, A, C)
-      const numI = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA, numC, numM, numN])
       const I = pointIntersectionDD(droite(A, N), droite(C, M), lettreDepuisChiffre(numI), 'left')
       const listePoints = [numA, numB, numC, numM, numN, numI]
       const objetsEnonce = []
@@ -167,7 +177,7 @@ export default function NommerUnAngle () {
 
         pt1 = choice(listePt1) // Une fois la possibilité d'angle choisie, il y a deux points possibles.
         pt3 = choice(listePt3)
-        segmentsCorrection = polyline([listePt1[0], A, listePt3[0]], couleurRemplissageAngle[0])
+        segmentsCorrection = polyline([listePt1[0], pt2, listePt3[0]], couleurRemplissageAngle[0])
         resultat = []
         for (const item1 in listePt1) {
           for (const item3 in listePt3) {
@@ -214,7 +224,9 @@ export default function NommerUnAngle () {
         objetsCorrection.push(codeAngle(pt1, pt2, ang, tailleAngle, marquageAngle[jj], couleurAngle, 2, 1, couleurRemplissageAngle[0], 1, false, true), segmentsCorrection)
         texteCorr += this.sup > 1 ? `<br>${numAlpha(jj)}` : ''
         texteCorr += 'L\'angle '
-        texteCorr += this.sup3 ? `marqué par ${jj + 1} symbole` + (jj > 0 ? 's' : '') : `${couleurRemplissageAngle[1]}`
+        texteCorr += this.sup3
+          ? 'marqué par le symbole' + mathalea2d({ xmin: 0, ymin: 0, xmax: 1.2, ymax: 1.2, pixelsParCm: 20, scale: 0.5, style: 'display:inline' }, marquageAngleConsigne)
+          : `${couleurRemplissageAngle[1]}`
         texteCorr += ` se nomme, au choix : $${miseEnEvidence(resultat[0], couleurRemplissageAngle[0])}$`
         for (let ee = 1; ee < resultat.length; ee++) {
           texteCorr += `, $${miseEnEvidence(resultat[ee], couleurRemplissageAngle[0])}$`
