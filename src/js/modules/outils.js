@@ -1738,11 +1738,12 @@ export function xcas (expression) {
 * Le 2e argument facultatif permet de préciser l'arrondi souhaité
 * @author Rémi Angot
 */
-export function calcul (x, arrondir = 13) {
+export function calcul (x, arrondir = 6) {
   if (typeof x === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
-    return parseFloat(evaluate(x).toFixed(arrondir === false ? 13 : arrondir))
+    return parseFloat(evaluate(x).toFixed(arrondir))
   } else {
+    if (!egal(x, arrondi(x, arrondir), 10 ** (-arrondir - 1))) window.notify('calcul : arrondir semble avoir tronqué des décimales', { x, arrondir })
     return parseFloat(x.toFixed(arrondir))
   }
 }
@@ -5140,7 +5141,7 @@ export function nombreEnLettres (nb, type = 1) {
   if (estentier(nb)) return partieEntiereEnLettres(nb)
   else {
     partieEntiere = Math.floor(nb)
-    partieDecimale = calcul(nb - partieEntiere, 9)
+    partieDecimale = calcul(nb - partieEntiere, 3)
     nbDec = partieDecimale.toString().replace(/\d*\./, '').length
     partieDecimale = calcul(partieDecimale * 10 ** nbDec)
 
