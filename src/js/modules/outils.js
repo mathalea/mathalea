@@ -1734,18 +1734,19 @@ export function xcas (expression) {
 }
 
 /**
-* Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
-* Le 2e argument facultatif permet de préciser l'arrondi souhaité
-* @author Rémi Angot
+* Utilise un arrondi au millionième pour éviter les flottants à rallonge (erreurs d'arrondis des flottants)
+* Le 2e argument facultatif permet de préciser l'arrondi souhaité : c'est le nombre max de chiffres après la virgule souhaités
+* @author Rémi Angot modifié par Jean-Claude Lhote
 */
-export function calcul (x, arrondir = 6) {
+export function calcul (x, arrondir) {
+  const sansPrecision = (arrondir === undefined)
+  if (sansPrecision) arrondir = 6
   if (typeof x === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
-    return parseFloat(evaluate(x).toFixed(arrondir))
-  } else {
-    if (!egal(x, arrondi(x, arrondir), 10 ** (-arrondir - 1))) window.notify('calcul : arrondir semble avoir tronqué des décimales', { x, arrondir })
-    return parseFloat(x.toFixed(arrondir))
+    x = parseFloat(evaluate(x))
   }
+  if (sansPrecision && !egal(x, arrondi(x, arrondir), 10 ** (-arrondir - 1))) window.notify('calcul : arrondir semble avoir tronqué des décimales sans avoir eu de paramètre de précision', { x, arrondir })
+  return parseFloat(x.toFixed(arrondir))
 }
 
 /**
