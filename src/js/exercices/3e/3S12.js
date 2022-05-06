@@ -129,7 +129,7 @@ export default function calculEffectifFrequence () {
     texteCorr += ' D\'après le graphique, il y a ' + lstNombresAnimaux[1] + ' ' + lstAnimauxExo[1] + '. <br>'
     texteCorr += ' La fréquence (ou la proportion) de  ' + lstAnimauxExo[1] + ' est : $ ' + texFractionSigne(lstNombresAnimaux[1], Ntotal) + '$ '
     // test de l'arrondi
-    if (calcul(lstNombresAnimaux[1] / Ntotal) === arrondi(lstNombresAnimaux[1] / Ntotal, 3)) {
+    if (calcul(lstNombresAnimaux[1] / Ntotal, 4) === arrondi(lstNombresAnimaux[1] / Ntotal, 3)) {
       texteCorr += '= '
     } else {
       texteCorr += '$\\approx $ '
@@ -159,7 +159,7 @@ export default function calculEffectifFrequence () {
     texteCorr += ' L\'effectif total des animaux est : ' + Ntotal + '. <br>'
     texteCorr += ' La fréquence (ou la proportion) d\'oiseaux est : $ ' + texFractionSigne(NTotalOiseaux, Ntotal) + '$ '
     // test de l'arrondi
-    if (calcul(NTotalOiseaux / Ntotal) === arrondi(NTotalOiseaux / Ntotal, 3)) {
+    if (calcul(NTotalOiseaux / Ntotal, 4) === arrondi(NTotalOiseaux / Ntotal, 3)) {
       texteCorr += '= '
     } else {
       texteCorr += '$\\approx $ '
