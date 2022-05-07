@@ -2796,7 +2796,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
     // for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
     //   partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
     // }
-    for (let i = 3; i < partieDecimale.length; i += 4) { // des paquets de 3 nombres + 1 espace
+    for (let i = 3; i < partieDecimale.length; i += (fonction === 'texNombre' ? 5 : 4)) { // des paquets de 3 nombres + 1 espace
       partieDecimale = partieDecimale.substring(0, i) + (fonction === 'texNombre' ? '\\,' : ' ') + partieDecimale.substring(i)
     }
     if (partieDecimale === '') {
@@ -2804,6 +2804,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
     } else {
       nombre = partieEntiere + ',' + partieDecimale
     }
+    console.log(nombre)
     return nombre
   }
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
