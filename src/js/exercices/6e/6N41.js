@@ -197,7 +197,7 @@ export default function EgalitesEntreFractions () {
             break
           case 1 :
             texte = `$${a} = ${texFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = ${texFraction(c, '\\phantom{0000}')}$`
-            if (this.interactif) {
+            if (this.interactif && this.interactifType !== 'mathLive') {
               texte = `$${a} = \\ldots$`
             }
             texteCorr = `$${a} = \\dfrac{${a}}{1} =${texFraction(a + miseEnEvidence('\\times' + d), '1' + miseEnEvidence('\\times' + d))} = ${texFraction(c, d)}$`
