@@ -62,7 +62,7 @@ export default function EcritureDecimalePuissanceDe10 () {
           texte = this.interactif
             ? `$10^{${-n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
             : `$10^{${-n}}${sp()}=${sp()}\\dots$`
-          setReponse(this, i, calcul(Math.pow(10, -n)))
+          setReponse(this, i, calcul(Math.pow(10, -n), n))
           if (context.isHtml) {
             texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${texNombre(10 ** n)}}=${texNombre2(1 / 10 ** n)}$`
           } else {
