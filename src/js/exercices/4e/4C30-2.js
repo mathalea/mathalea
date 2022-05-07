@@ -3,6 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, texNombre2, puissanceEnProduit, sp, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { Decimal } from 'decimal.js'
 export const titre = 'Écriture décimale d’une puissance de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -46,7 +47,7 @@ export default function EcritureDecimalePuissanceDe10 () {
           texte = this.interactif
             ? `$10^{${n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
             : `$10^{${n}}${sp()}=${sp()}\\dots$`
-          setReponse(this, i, calcul(Math.pow(10, n)))
+          setReponse(this, i, Decimal.pow(10, n))
           if (n < 2) {
             texteCorr = `$10^${n}=${10 ** n}$`
           } else {
@@ -62,7 +63,7 @@ export default function EcritureDecimalePuissanceDe10 () {
           texte = this.interactif
             ? `$10^{${-n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
             : `$10^{${-n}}${sp()}=${sp()}\\dots$`
-          setReponse(this, i, calcul(Math.pow(10, -n), n))
+          setReponse(this, i, Decimal.pow(10, -n))
           if (context.isHtml) {
             texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${texNombre(10 ** n)}}=${texNombre2(1 / 10 ** n)}$`
           } else {

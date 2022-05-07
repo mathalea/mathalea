@@ -32,6 +32,7 @@
     "clipboard": "^2.0.10",
     "codemirror": "^5.65.2",
     "core-js": "^3.22.0",
+    "decimal.js": "^10.3.1",
     "instrumenpoche": "git+https://git.sesamath.net/sesamath/instrumenpoche.git",
     "jquery": "^3.6.0",
     "jquery-ui": "^1.13.1",
