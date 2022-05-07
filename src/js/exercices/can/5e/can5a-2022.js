@@ -576,20 +576,16 @@ export default function SujetCAN2022cinquieme () {
         case 21:
           if (choice([true, false])) {
             a = randint(11, 69, [20, 30, 40, 50, 60])
-            p = choice([10, 20])
-            reponse = arrondi(a * p / 10, 0)
-            texte = `$${p}\\%$ de $${a*10}= $`
-            if (p === 10) {
-              texteCorr = `        Pour prendre $10\\%$  d'une quantité, on la divise par $10$. Ainsi
-            $${p}\\%$ de $${a*10}= ${a*10}\\div 10=${reponse}$.
-           `
-            } else {
+            
+            reponse = arrondi(a *2, 0)
+            texte = `$20\\%$ de $${a*10}= $`
+           
               texteCorr = `Comme $10\\%$  de $${a*10}$ vaut $${a }$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors
-           $${p}\\%$ de $${a*10}=2\\times  ${a}=${reponse}$.`
-            }
+           $20\\%$ de $${a*10}=2\\times  ${a}=${reponse}$.`
+            
           } else {
             a = randint(11, 69, [20, 30, 40, 50, 60])
-            p = choice([10, 20])
+            p = choice([30, 40])
             reponse = arrondi(2*a * p / 10, 0)
             texte = `gfbhgfghnn`
 
