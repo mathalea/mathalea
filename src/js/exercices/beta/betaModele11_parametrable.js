@@ -11,22 +11,24 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author
  * Référence
 */
-export default function NomExercice () {
-  Exercice.call(this)
-  this.consigne = 'Calcule'
-  this.nbQuestions = 10
+export default class nomExercice extends Exercice {
+  constructor () {
+    super()
+    this.consigne = 'Calcule'
+    this.nbQuestions = 10
 
-  this.besoinFormulaireNumerique = ['Difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile'] // le paramètre sera numérique de valeur max 3 (le 3 en vert)
-  this.sup = 2 // Valeur du paramètre par défaut
-  // Remarques : le paramètre peut aussi être un texte avec : this.besoinFormulaireTexte = [texte, tooltip]
-  //              il peut aussi être une case à cocher avec : this.besoinFormulaireCaseACocher = [texte] (dans ce cas, this.sup = true ou this.sup = false)
+    this.besoinFormulaireNumerique = ['Difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile'] // le paramètre sera numérique de valeur max 3 (le 3 en vert)
+    this.sup = 2 // Valeur du paramètre par défaut
+    // Remarques : le paramètre peut aussi être un texte avec : this.besoinFormulaireTexte = [texte, tooltip]
+    //              il peut aussi être une case à cocher avec : this.besoinFormulaireCaseACocher = [texte] (dans ce cas, this.sup = true ou this.sup = false)
 
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
-  this.video = ''
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.tailleDiaporama = 3
+    this.video = ''
+  }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
