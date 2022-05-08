@@ -1,5 +1,5 @@
 import { longueur, segment, mathalea2d, afficheLongueurSegment, afficheCoteSegment, codageAngleDroit, polygoneAvecNom, triangle2points1hauteur, point, rotation } from '../../modules/2d.js'
-import { combinaisonListesSansChangerOrdre, creerNomDePolygone, listeQuestionsToContenu, randint, shuffle, texNombre, calcul, arrondi } from '../../modules/outils.js'
+import { combinaisonListesSansChangerOrdre, creerNomDePolygone, listeQuestionsToContenu, randint, shuffle, texNombre, calcul, arrondi, combinaisonListes } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -10,12 +10,16 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+
+export const dateDeModifImportante = '08/05/2022'
+
 /**
  * Calculer l'aire de 3 triangles dont une hauteur est tracée.
  *
  * Une figure dynamique est disponible sur laquelle on peut déplacer le pied de la hauteur.
  *
  * @author Rémi Angot conversion mathalea2d Jean-Claude Lhote
+ * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  * Référence 6M20
  */
 export default function AireDeTriangles () {
@@ -25,8 +29,7 @@ export default function AireDeTriangles () {
   this.amcReady = amcReady
   this.amcType = amcType
   this.titre = titre
-  this.consigne =
-    "Calculer l'aire des 3 triangles suivants."
+  this.consigne = "Calculer l'aire des triangles suivants"
   this.spacing = 2
   // eslint-disable-next-line no-undef
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
@@ -34,7 +37,6 @@ export default function AireDeTriangles () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nbQuestionsModifiable = false
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
 
@@ -42,22 +44,25 @@ export default function AireDeTriangles () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.listeQuestions = []
     this.autoCorrection = []
+    if (this.nbQuestions === 1) this.consigne = "Calculer l'aire du triangle suivant"
     const tableauDesCotes = shuffle([5, 6, 7, 8, 9]) // pour s'assurer que les 3 côtés sont différents
     const tableauDesHauteurs = shuffle([3, 4, 5, 6]) // pour s'assurer que les 3 hauteurs sont différents
     const cotes = combinaisonListesSansChangerOrdre(tableauDesCotes, this.nbQuestions)
     const hauteurs = combinaisonListesSansChangerOrdre(tableauDesHauteurs, this.nbQuestions)
     let triH; const A = point(0, 0); let B; let C; let H; let triangle; let polynom; let hauteurpoly; let d
     const objetsEnonce = []; const objetsCorrection = []; let xmin; let xmax; let ymin; let ymax
-    let texte = ''; let texteCorr = ''
 
     const nom = creerNomDePolygone(20, 'QD')
 
-    for (let i = 0; i < this.nbQuestions; i++) {
+    const typeQuestionsDisponibles = ['intérieur', 'extérieur']
+
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objetsEnonce.length = 0
       objetsCorrection.length = 0
       A.nom = nom[i * 4]
       B = rotation(point(cotes[i], 0), A, randint(-60, 60), nom[i * 4 + 1])
-      if (i % 3 === 2) {
+      if (listeTypeQuestions[i] === 'extérieur') {
         d = longueur(A, B) + randint(6, 9) / 3
       } else {
         d = calcul(randint(6, longueur(A, B) * 10 - 6) / 10)
@@ -84,8 +89,14 @@ export default function AireDeTriangles () {
     )}~\\text{cm}^2$`
       setReponse(this, i, new Grandeur(arrondi(cotes[i] * hauteurs[i] / 2, 3), 'cm^2'), { formatInteractif: 'unites' })
       texte += ajouteChampTexteMathLive(this, i, 'unites[aires]')
-      this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCorr)
+      // Si la question n'a jamais été posée, on l'enregistre
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+        // Supprime b, c et d dans la ligne ci-dessus et remplace les par NombreAAjouter !
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
     }
     listeQuestionsToContenu(this)
   }
