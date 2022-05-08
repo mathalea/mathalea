@@ -2267,22 +2267,22 @@ function Polygone (...points) {
 
     if (this.hachures) {
       if (this.couleurDeRemplissage.length < 1) {
-        this.couleurDeRemplissage = 'none'
+        this.couleurDeRemplissage = ['none']
       }
       return pattern({
         motif: this.hachures,
         id: this.id,
         distanceDesHachures: this.distanceDesHachures,
         epaisseurDesHachures: this.epaisseurDesHachures,
-        couleurDesHachures: this.couleurDesHachures,
-        couleurDeRemplissage: this.couleurDeRemplissage,
+        couleurDesHachures: this.couleurDesHachures[0],
+        couleurDeRemplissage: this.couleurDeRemplissage[0],
         opaciteDeRemplissage: this.opaciteDeRemplissage
       }) + `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
     } else {
       if (this.couleurDeRemplissage === '') {
         this.style += ' fill="none" '
       } else {
-        this.style += ` fill="${this.couleurDeRemplissage}" `
+        this.style += ` fill="${this.couleurDeRemplissage[0]}" `
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
       }
       if (this.opacite !== 1) {
@@ -2325,7 +2325,7 @@ function Polygone (...points) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
     if (this.couleurDeRemplissage !== '') {
-      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
     }
 
     if (this.hachures) {
@@ -2335,8 +2335,8 @@ function Polygone (...points) {
           id: this.id,
           distanceDesHachures: this.distanceDesHachures,
           epaisseurDesHachures: this.epaisseurDesHachures,
-          couleurDesHachures: this.couleurDesHachures,
-          couleurDeRemplissage: this.couleurDeRemplissage,
+          couleurDesHachures: this.couleurDesHachures[1],
+          couleurDeRemplissage: this.couleurDeRemplissage[1],
           opaciteDeRemplissage: this.opaciteDeRemplissage
         }))
       }
@@ -2386,6 +2386,7 @@ function Polygone (...points) {
   }
 }
 /**
+ * Propriétés possibles : .color, .opacite, .epaisseur, .couleurDeRemplissage, .opaciteDeRemplissage, .hachures (true or false), .distanceDesHachures, .epaisseurDesHachures,.couleurDesHachures
  * @returns {Polygone} objet Polygone
  * @example polygone(A,B,C,D,E) //Trace ABCDE
  * @example polygone([A,B,C,D],"blue") // Trace ABCD en bleu
@@ -5196,15 +5197,15 @@ export function centreCercleCirconscrit (A, B, C, nom = '', positionLabel = 'abo
  *
  * @author Rémi Angot
  */
-function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacity = 1, fill = 'none', fillopacity = 1) {
+function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
   ObjetMathalea2D.call(this)
   this.sommet = O
   this.depart = A
   this.arrivee = B
   this.taille = d
   this.color = color
-  this.couleurDeRemplissage = fill
-  this.opaciteDeRemplissage = fillopacity
+  this.couleurDeRemplissage = couleurDeRemplissage
+  this.opaciteDeRemplissage = opaciteDeRemplissage
 
   this.svg = function (coeff) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / coeff)
@@ -5216,13 +5217,15 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
     } else {
       o = rotation(this.sommet, a, 90)
     }
-    if (this.couleurDeRemplissage === 'none') result = polyline([a, o, b], color)
-    else result = polygone([this.sommet, a, o, b], color)
-    result.couleurDeRemplissage = this.couleurDeRemplissage
-    result.opaciteDeRemplissage = this.opaciteDeRemplissage
+    if (this.couleurDeRemplissage === 'none') result = polyline([a, o, b], this.color)
+    else {
+      result = polygone([this.sommet, a, o, b], this.color)
+      result.couleurDeRemplissage = this.couleurDeRemplissage
+      result.opaciteDeRemplissage = this.opaciteDeRemplissage
+    }
     result.isVisible = false
     result.epaisseur = epaisseur
-    result.opacite = opacity
+    result.opacite = opacite
     this.id = result.id
     return result.svg(coeff)
   }
@@ -5236,14 +5239,14 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
     } else {
       o = rotation(this.sommet, a, 90)
     }
-    if (fill === 'none') return polyline([a, o, b], color).tikz()
+    if (this.couleurDeRemplissage === 'none') return polyline([a, o, b], this.color).tikz()
     else {
-      result = polygone([this.sommet, a, o, b], color)
+      result = polygone([this.sommet, a, o, b], this.color)
       result.couleurDeRemplissage = this.couleurDeRemplissage
       result.opaciteDeRemplissage = this.opaciteDeRemplissage
       result.isVisible = false
       result.epaisseur = epaisseur
-      result.opacite = opacity
+      result.opacite = opacite
       return result.tikz()
     }
   }
@@ -5256,7 +5259,7 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
     } else {
       o = rotation(this.sommet, a, 90)
     }
-    return polyline([a, o, b], color).svgml(coeff, amp)
+    return polyline([a, o, b], this.color).svgml(coeff, amp)
   }
   this.tikzml = function (amp) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille / context.scale)
@@ -5267,7 +5270,7 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
     } else {
       o = rotation(this.sommet, a, 90)
     }
-    return polyline([a, o, b], color).tikzml(amp)
+    return polyline([a, o, b], this.color).tikzml(amp)
   }
 }
 /**
@@ -5277,15 +5280,15 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
  * @param {Point} B
  * @param {string} [color='black']
  * @param {number} [d =0.4] Taille de l'angle droit en cm.
- * @param {number} epaisseur épaisseur du trait
- * @param {number} opacity opacité du trait
- * @param {string} fill couleur de remplissage
- * @param {number} fillopacity opacité de remplissage
+ * @param {number} [epaisseur=0.5] épaisseur du trait
+ * @param {number} [opacite=1] opacité du trait
+ * @param {string} [couleurDeRemplissage='none'] couleur de remplissage
+ * @param {number} [opaciteDeRemplissage=1] opacité de remplissage
  * @returns {CodageAngleDroit} CodageAngleDroit
  * @author Rémi Angot
  */
-export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacity = 1, fill = 'none', fillopacity = 1) {
-  return new CodageAngleDroit(A, O, B, color, d, epaisseur, opacity, fill, fillopacity)
+export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
+  return new CodageAngleDroit(A, O, B, color, d, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage)
 }
 /**
  * afficheLongueurSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
@@ -9484,8 +9487,8 @@ function convertHexToRGB (couleur = '000000') {
  * La sortie de cette fonction est un tableau où :
  * - le premier élément est cette couleur exploitable en SVG, donc en HTML.
  * - le second élément est cette couleur exploitable en TikZ, donc en Latex.
- * @example colorToLatexOrHTML('red')=['red','red']
- * @example colorToLatexOrHTML('#f15929')=['#f15929','{rgb,255:red,241;green,89;blue,41']
+ * @example colorToLatexOrHTML('red')=['red','{red}']
+ * @example colorToLatexOrHTML('#f15929')=['#f15929','{rgb,255:red,241;green,89;blue,41}']
  * @author Eric Elter
  */
 

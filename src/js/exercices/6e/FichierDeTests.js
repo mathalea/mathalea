@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { point, mathalea2d, tracePoint, segment, colorToLatexOrHTML, droite, polygone, cercle, labelPoint } from '../../modules/2d.js'
+import { point, mathalea2d, tracePoint, segment, colorToLatexOrHTML, droite, polygone, cercle, labelPoint, codageAngleDroit } from '../../modules/2d.js'
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -35,16 +35,23 @@ export default function CalculerUnAngle () {
       const D = point(5, 5)
       // const pt = tracePoint(AA, BB, '#f15929')
       const p1 = tracePoint(A, B, C, 'blue')
-      p1.style = '#'
-      p1.epaisseur = 8
+      p1.style = 'x'
+      p1.epaisseur = 1
       const p2 = segment(A, B, '#f15929')
       const p3 = cercle(A, 5, '#f15929')
       const p4 = polygone(D, B, C)
       p4.color = colorToLatexOrHTML('blue')
+      p4.hachures = true
+      p4.couleurDeRemplissage = ['red', 'red']
+      p4.couleurDesHachures = colorToLatexOrHTML('white')
+      p4.epaisseurDesHachures = 3
       const p5 = labelPoint(A, B, C)
       p5.color = colorToLatexOrHTML('#f15929')
       const p6 = droite(A, D, '(dd)', 'green')
-      objetsEnonce.push(p1, p2, p3, p4, p5, p6)
+      const p7 = codageAngleDroit(B, A, C, '#f15929', 0.4, 0.5, 1, 'green')
+      p7.couleurDeRemplissage = colorToLatexOrHTML('#f15929')
+      console.log('p7 : ', p7)
+      objetsEnonce.push(p1, p2, p3, p4, p5, p6, p7)
       texte += 'essai'
       paramsEnonce = { xmin: -6, ymin: -10, xmax: 6, ymax: 6, pixelsParCm: 20, scale: 1, mainlevee: false }
       texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
