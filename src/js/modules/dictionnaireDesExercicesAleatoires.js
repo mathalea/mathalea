@@ -2640,7 +2640,7 @@ export default {
     }
   },
   "3F21-3": {
-    "titre": "Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine",
+    "titre": "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine",
     "url": "/exercices/3e/3F21-3.js",
     "amcReady": false,
     "interactifReady": true,
@@ -4916,7 +4916,7 @@ export default {
     "interactifType": "mathLive",
     "name": "4L13-2",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -5140,7 +5140,7 @@ export default {
     "interactifReady": false,
     "name": "4S20",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6178,7 +6178,7 @@ export default {
     "interactifType": "mathLive",
     "name": "5L16",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -6942,7 +6942,7 @@ export default {
     "interactifReady": false,
     "name": "5S22",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11291,7 +11291,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can2a-2021",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -12166,7 +12166,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can3a-2021",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -12898,7 +12898,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can4a-2021",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13485,6 +13485,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can5a-2021",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can5a-2022": {
+    "titre": "CAN 5ième sujet 2022",
+    "url": "/exercices/can/5e/can5a-2022.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5a-2022",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -14143,7 +14159,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6a-2018",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -16637,7 +16653,7 @@ export default {
     "interactifReady": false,
     "name": "P016",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

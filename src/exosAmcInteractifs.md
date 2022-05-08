@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 446 
-- nombre d'exos interactifReady 649 
+- nombre d'exos interactifReady 650 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -78,7 +78,7 @@
 |3F13-2|Spécial escape game|KO|KO|OK|mathLive|
 |3F21-1|Déterminer une fonction affine|OK|AMCOpenNum✖︎2|OK|mathLive|
 |3F21-2|Déterminer une fonction affine par la donnée des images de deux nombres|KO|KO|OK|mathLive|
-|3F21-3|Lire graphiquement les caractérisitiques de la courbe représentative d'une fonction affine|KO|KO|OK|mathLive|
+|3F21-3|Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine|KO|KO|OK|mathLive|
 |3G10-1|Trouver les coordonnées de l’image d’un point par une transformation du plan|OK|AMCHybride|OK|mathLive|
 |3G10-2|Trouver l’image d’un point par une transformation choisie aléatoirement|OK|AMCHybride|OK|mathLive|
 |3G12-1|Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage|OK|AMCHybride|OK|mathLive|
@@ -525,6 +525,7 @@
 |can4P04|Résoudre un problème avec la proportionnalité|KO|KO|OK|mathLive|
 |can4P05|Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité|KO|KO|OK|mathLive|
 |can5a-2021|CAN 5ième sujet 2021|KO|KO|OK|mathLive|
+|can5a-2022|CAN 5ième sujet 2022|KO|KO|OK|mathLive|
 |can5A01|Travailler les répétitions (Scratch)|OK|AMCNum|OK|mathLive|
 |can5C01|Calculer un produit d’entiers|OK|AMCNum|OK|mathLive|
 |can5C02|Calculer une somme d’entiers|OK|AMCNum|OK|mathLive|
