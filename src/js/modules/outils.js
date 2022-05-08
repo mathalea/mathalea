@@ -1836,17 +1836,21 @@ export function sommeDesTermesParSigne (liste) {
 }
 
 /**
-* Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument
-* @param {integer} nbsommets
-* @param {string[]} listeAEviter
-* @author Rémi Angot
-**/
+ * Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument
+ * @param {integer} nbsommets
+ * @param {string[]} listeAEviter
+ * @author Rémi Angot
+ * Ajout des while pour s'assurer de bien avoir des lettres majuscules le 08/05/2022 par Guillaume Valmont
+ **/
 export function creerNomDePolygone (nbsommets, listeAEviter = []) {
   let premiersommet = randint(65, 90 - nbsommets)
   let polygone = ''
   if (listeAEviter === undefined) listeAEviter = []
   for (let i = 0; i < nbsommets; i++) {
-    polygone += String.fromCharCode(premiersommet + i)
+    let augmentation = i
+    while (premiersommet + augmentation > 90) augmentation -= 26
+    while (premiersommet + augmentation < 65) augmentation += 26
+    polygone += String.fromCharCode(premiersommet + augmentation)
   }
 
   if (listeAEviter.length < 26 - nbsommets - 1) { // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
