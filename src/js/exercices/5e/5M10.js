@@ -83,7 +83,7 @@ export default function AireDuParallelogramme () {
     texte += mathalea2d(params, P2[0], P2[1], afficheLongueurSegment(B2, A2), afficheLongueurSegment(C2, B2), afficheLongueurSegment(I2, H2), s2, codageAngleDroit(A2, I2, H2), codageAngleDroit(C2, H2, I2))
     params = { xmin: 0, xmax: 0, ymin: 0, ymax: 0, pixelsParCm: 20, scale: 0.5, mainlevee: false }
     params = cadre(P3, params)
-    texte += 'br' + mathalea2d(params, P3[0], P3[1], afficheLongueurSegment(B3, A3), afficheLongueurSegment(C3, B3), afficheLongueurSegment(I3, H3), s3, codageAngleDroit(A3, I3, H3), codageAngleDroit(C3, H3, I3))
+    texte += mathalea2d(params, P3[0], P3[1], afficheLongueurSegment(B3, A3), afficheLongueurSegment(C3, B3), afficheLongueurSegment(I3, H3), s3, codageAngleDroit(A3, I3, H3), codageAngleDroit(C3, H3, I3))
 
     let texteCorr = `Dans chaque parallélogramme, le segment en pointillés est ${texteEnCouleurEtGras('perpendiculaire')} à deux côtés opposés, c'est donc une ${texteEnCouleurEtGras('hauteur')}.<br>`
     texteCorr += `Pour obtenir l'aire, il faut multiplier cette ${texteEnCouleurEtGras('hauteur')} par la longueur de la ${texteEnCouleurEtGras('base')} correspondante.`
