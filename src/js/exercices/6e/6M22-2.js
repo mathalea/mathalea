@@ -196,5 +196,5 @@ export default function Perimetre_aire_et_portions_de_disques (pa = 3) {
     listeQuestionsToContenu(this)
   }
 
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Mélange']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Les deux']
 }
