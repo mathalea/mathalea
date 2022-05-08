@@ -1,10 +1,11 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, labelPoint, droiteGraduee2, grille, segment, milieu, arc, droite, texteParPosition, tracePoint, polygone, codageAngleDroit
+  mathalea2d, point, labelPoint, droiteGraduee2, grille, segment, milieu, arc, droite, texteParPosition, tracePoint, polygone, codageAngleDroit, fixeBordures
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur.js'
+import { paveLPH3d } from '../../../modules/3d.js'
 import { listeQuestionsToContenu, arrondi, tableauColonneLigne, randint, texNombre, shuffle, texFractionReduite, choice, calcul, sp } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
@@ -308,12 +309,16 @@ export default function SujetCAN2022cinquieme () {
 
         case 11:
 
-          a = randint(1, 9)
-          b = randint(1, 9)
-          texte = `Combien y a-t-il de petits cubes dans ce pavé droit ?
+          a = randint(5, 9)
+          b = randint(2, 6)
+          c = choice([2, 4, 5])
+          d = paveLPH3d(0, 0, 0, 1, a, c, b, 'black')
+          texte = `Combien y a-t-il de petits cubes dans ce pavé droit ?<br>
+          ${mathalea2d(Object.assign(fixeBordures(d.c2d), { pixelsParCm: 20, scale: 0.5 }), d.c2d)}
          `
 
-          texteCorr = `Le nombre de petits cubes est donné par le produit :
+          texteCorr = `Le nombre de petits cubes est donné par le produit :<br>
+          $${a}\\times ${b}\\times ${c} = ${a * b * c}$
           `
 
           reponse = a
