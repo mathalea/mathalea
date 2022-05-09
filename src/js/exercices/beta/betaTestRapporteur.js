@@ -38,7 +38,7 @@ export default class SuperExoMathalea2d extends Exercice {
     const s = segment(A, B)
     const t = segment(A, C)
     const a = arc(B, A, C)
-    const R = rapporteur({ x: 0, y: 0, taille: 7, taille2: 6, depart: 0, semi: false, avecNombre: 'deuxSens' })
+    const R = rapporteur({ x: 0, y: 0, taille: 7, taille2: 6, depart: 0, semi: false, avecNombre: 'deuxSens', precisionAuDegre: 1, stepGraduation: 60 })
 
     objetsEnonce.push(s, t, a, R) // On rempli les tableaux d'objets Mathalea2d
     objetsCorrection.push(s, t, a, R)
