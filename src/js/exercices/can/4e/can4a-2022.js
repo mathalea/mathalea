@@ -282,7 +282,7 @@ export default function SujetCAN2022quatrieme () {
           c = randint(1, 9, b)
           f = a * 100 + b * 10 + c
           d = choice([0.1, 0.01, 0.001])
-          reponse = f * d
+          reponse = arrondi(f * d, 3)
 
           if (d === 0.1) {
             texte = `$${f}\\times ${texNombre(d, 1)}=$`
