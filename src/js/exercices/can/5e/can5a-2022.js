@@ -325,7 +325,7 @@ export default function SujetCAN2022cinquieme () {
           $${a}\\times ${b}\\times ${c} = ${a * b * c}$
           `
 
-          reponse = a
+          reponse = a * b * c
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
