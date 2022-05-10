@@ -1847,10 +1847,9 @@ function NomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color = 'black
   const M0 = similitude(P, M, 90 + this.angle, 2 / this.nom.length)
   const M1 = rotation(translation(M0, vecteur(P, M)), M0, this.angle)
   const M2 = rotation(M1, M0, 180)
-  const s = segment(M1, M2)
+  const s = segment(M1, M2, this.color)
   s.styleExtremites = '->'
   s.tailleExtremites = 3
-  s.color = this.color
   objets.push(t, s)
   this.svg = function (coeff) {
     let code = ''
@@ -3001,10 +3000,8 @@ export function cercle (O, r, color = 'black') {
  */
 function Ellipse (O, rx, ry, color) {
   ObjetMathalea2D.call(this)
-  if (color) {
-    this.color = colorToLatexOrHTML(color)
-    // this.styleTikz = `[${color}]`
-  }
+  if (color) this.color = colorToLatexOrHTML(color)
+  else this.color = colorToLatexOrHTML('black')
   this.centre = O
   this.rx = rx
   this.ry = ry
@@ -3040,11 +3037,11 @@ function Ellipse (O, rx, ry, color) {
     if (this.couleurDeRemplissage === '') {
       this.style += ' fill="none" '
     } else {
-      this.style += ` fill="${this.couleurDeRemplissage}" `
+      this.style += ` fill="${this.couleurDeRemplissage[0]}" `
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
     }
 
-    return `<ellipse cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" rx="${rx * coeff}" ry="${ry * coeff}" stroke="${this.color}" ${this.style} id="${this.id}" />`
+    return `<ellipse cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" rx="${rx * coeff}" ry="${ry * coeff}" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
   }
   this.tikz = function () {
     let optionsDraw = []
@@ -3076,6 +3073,12 @@ function Ellipse (O, rx, ry, color) {
     }
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
+    }
+    if (this.opaciteDeRemplissage !== 1) {
+      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+    }
+    if (this.couleurDeRemplissage !== '' & this.couleurDeRemplissage[1] !== 'none') {
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}}`)
     }
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'

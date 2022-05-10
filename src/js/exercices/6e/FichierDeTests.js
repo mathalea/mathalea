@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { point, mathalea2d, tracePoint, segment, colorToLatexOrHTML, droite, polygone, cercle, labelPoint, codageAngleDroit, codeSegment, texteParPoint, codageMediatrice, codageMilieu, codeAngle, codageBissectrice } from '../../modules/2d.js'
+import { point, mathalea2d, tracePoint, segment, colorToLatexOrHTML, droite, polygone, cercle, labelPoint, codageAngleDroit, codeSegment, texteParPoint, codageMediatrice, codageMilieu, codeAngle, codageBissectrice, nomVecteurParPosition, ellipse } from '../../modules/2d.js'
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -60,7 +60,11 @@ export default function CalculedddrUnAngle () {
       // const p13 = codeAngle(C, A, 45, 0.8, 'X', '#f15929', 1, 1, 'blue', 1)
       const p13 = codeAngle(C, A, 45, 0.8, 'X', 'blue', 1, 1, '#f15929', 0.4)
       const p14 = codageBissectrice(C, D, B, '#f15929', 'oo')
-      objetsEnonce.push(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14)
+      const p15 = nomVecteurParPosition('toto', -1, -1, 1, 10, '#f15929')
+      const p16 = ellipse(A, 1, 2)
+      p16.couleurDeRemplissage = colorToLatexOrHTML('#f15929')
+      p16.color = colorToLatexOrHTML('#f15929')
+      objetsEnonce.push(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16)
 
       texte += 'essai'
       paramsEnonce = { xmin: -6, ymin: -10, xmax: 6, ymax: 6, pixelsParCm: 20, scale: 1, mainlevee: false }
