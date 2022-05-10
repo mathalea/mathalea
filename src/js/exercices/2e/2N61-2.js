@@ -682,7 +682,7 @@ export default function ExerciceInequationProduit () {
       }
 
       if (this.interactif && !context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texte: '<br>S = ' })
+        texte += ajouteChampTexteMathLive(this, i, 'inline largeur50 lycee nospacebefore', { texte: '<br>S = ' })
         setReponse(this, i, correctionInteractif, { formatInteractif: 'texte' })
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
