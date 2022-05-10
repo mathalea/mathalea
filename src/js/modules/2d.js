@@ -2329,17 +2329,15 @@ function Polygone (...points) {
     }
 
     if (this.hachures) {
-      if (this.hachures) {
-        tableauOptions.push(pattern({
-          motif: this.hachures,
-          id: this.id,
-          distanceDesHachures: this.distanceDesHachures,
-          epaisseurDesHachures: this.epaisseurDesHachures,
-          couleurDesHachures: this.couleurDesHachures[1],
-          couleurDeRemplissage: this.couleurDeRemplissage[1],
-          opaciteDeRemplissage: this.opaciteDeRemplissage
-        }))
-      }
+      tableauOptions.push(pattern({
+        motif: this.hachures,
+        id: this.id,
+        distanceDesHachures: this.distanceDesHachures,
+        // epaisseurDesHachures: this.epaisseurDesHachures,
+        couleurDesHachures: this.couleurDesHachures[1],
+        couleurDeRemplissage: this.couleurDeRemplissage[1],
+        opaciteDeRemplissage: this.opaciteDeRemplissage
+      }))
     }
     let optionsDraw = []
     if (tableauOptions.length > 0) {
@@ -11030,85 +11028,83 @@ function pattern ({
         break
     }
     return myPattern
-  } else {
-    if (context.sortieNB) {
-      switch (motif) {
-        case 'north east lines':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'horizontal lines':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'vertical lines':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'dots':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'crosshatch dots':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'fivepointed stars':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'sixpointed stars':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'crosshatch':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'bricks':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'grid':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'checkerboard':
-          myPattern = `pattern = ${motif}`
-          break
-        default:
-          myPattern = 'pattern = north east lines'
-          break
-      }
-    } else {
-      switch (motif) {
-        case 'north east lines':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'horizontal lines':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'vertical lines':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'dots':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'crosshatch dots':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'fivepointed stars':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'sixpointed stars':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'crosshatch':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'bricks':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'grid':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'checkerboard':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        default:
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = north east lines`
-          break
-      }
+  } else if (context.sortieNB) {
+    switch (motif) {
+      case 'north east lines':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'horizontal lines':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'vertical lines':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'dots':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'crosshatch dots':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'fivepointed stars':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'sixpointed stars':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'crosshatch':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'bricks':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'grid':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'checkerboard':
+        myPattern = `pattern = ${motif}`
+        break
+      default:
+        myPattern = 'pattern = north east lines'
+        break
+    }
+  } else { // Sortie Latex
+    switch (motif) {
+      case 'north east lines':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'horizontal lines':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'vertical lines':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'dots':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'crosshatch dots':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'fivepointed stars':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'sixpointed stars':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'crosshatch':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'bricks':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'grid':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'checkerboard':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      default:
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = north east lines`
+        break
     }
     return `${myPattern}`
   }
