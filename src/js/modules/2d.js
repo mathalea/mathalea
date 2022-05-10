@@ -1312,7 +1312,7 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
   const O = milieu(A, B)
   const d = droite(A, B)
   const M = tracePointSurDroite(O, d)
-  const v = codeSegments(mark, color, A, O, O, B)
+  const v = codeSegments(mark, this.color, A, O, O, B)
   let code = ''
   this.svg = function (coeff) {
     if (mil) code = M.svg(coeff) + '\n' + v.svg(coeff)
@@ -1440,7 +1440,7 @@ export function bissectrice (A, O, B, color = 'black') {
   return demiDroite(O, M, color)
 }
 /**
- * m = codagebissectrice(A,O,B) ajoute des arcs marqués de part et d'autres de la bissectrice mais ne trace pas celle-ci.
+ * m = codagebissectrice(A,O,B,'blue','oo') ajoute des arcs marqués de part et d'autre de la bissectrice mais ne trace pas celle-ci.
  * @author Jean-Claude Lhote
  */
 function CodageBissectrice (A, O, B, color = 'black', mark = '×') {
@@ -1885,7 +1885,6 @@ export function nomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
  * @author Rémi Angot
  */
 function Segment (arg1, arg2, arg3, arg4, color) {
-  console.log('segment')
   ObjetMathalea2D.call(this)
   this.typeObjet = 'segment'
   this.styleExtremites = ''
@@ -2204,7 +2203,7 @@ export function demiDroiteAvecExtremite (A, B, color = 'black') {
  */
 function Polygone (...points) {
   ObjetMathalea2D.call(this)
-  this.couleurDeRemplissage = 'none'
+  this.couleurDeRemplissage = colorToLatexOrHTML('none')
   this.opaciteDeRemplissage = 1.1
   this.hachures = false
   this.couleurDesHachures = 'black'
@@ -2267,7 +2266,7 @@ function Polygone (...points) {
 
     if (this.hachures) {
       if (this.couleurDeRemplissage.length < 1) {
-        this.couleurDeRemplissage = ['none']
+        this.couleurDeRemplissage = colorToLatexOrHTML('none')
       }
       return pattern({
         motif: this.hachures,
@@ -2324,8 +2323,8 @@ function Polygone (...points) {
     if (this.opaciteDeRemplissage !== 1) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage !== '') {
-      tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
+    if (this.couleurDeRemplissage !== '' & this.couleurDeRemplissage[1] !== 'none') {
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}}`)
     }
 
     if (this.hachures) {
@@ -2333,7 +2332,6 @@ function Polygone (...points) {
         motif: this.hachures,
         id: this.id,
         distanceDesHachures: this.distanceDesHachures,
-        // epaisseurDesHachures: this.epaisseurDesHachures,
         couleurDesHachures: this.couleurDesHachures[1],
         couleurDeRemplissage: this.couleurDeRemplissage[1],
         opaciteDeRemplissage: this.opaciteDeRemplissage
@@ -2348,11 +2346,11 @@ function Polygone (...points) {
     for (const point of this.listePoints) {
       binomeXY += `(${point.x},${point.y})--`
     }
-    if (this.couleurDeRemplissage === '') {
-      return `\\draw ${optionsDraw} ${binomeXY}cycle;`
-    } else {
-      return `\\filldraw ${optionsDraw} ${binomeXY}cycle;`
-    }
+    // if (this.couleurDeRemplissage === '') {
+    return `\\draw${optionsDraw} ${binomeXY}cycle;`
+    // } else {
+    //  return `\\filldraw ${optionsDraw} ${binomeXY}cycle;`
+    // }
   }
   this.svgml = function (coeff, amp) {
     let code = ''; let segmentCourant
@@ -3264,10 +3262,10 @@ export function cercleCentrePoint (...args) {
  * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
  */
 
-function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
+function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2) {
   ObjetMathalea2D.call(this)
-  this.color = color
-  this.couleurDeRemplissage = fill
+  this.color = colorToLatexOrHTML(color)
+  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.opaciteDeRemplissage = fillOpacite
   this.hachures = false
   this.couleurDesHachures = 'black'
@@ -3278,8 +3276,6 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     angle = angleOriente(M, Omega, angle)
   }
   let l = longueur(Omega, M); let large = 0; let sweep = 0
-  // let d = droite(Omega, M)
-  // d.isVisible = false
   const A = point(Omega.x + 1, Omega.y)
   const azimut = angleOriente(A, Omega, M)
   const anglefin = azimut + angle
@@ -3324,7 +3320,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
       }
       if (this.hachures) {
         if (this.couleurDeRemplissage.length < 1) {
-          this.couleurDeRemplissage = 'none'
+          this.couleurDeRemplissage = colorToLatexOrHTML('none')
         }
 
         return pattern({
@@ -3333,18 +3329,18 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
           distanceDesHachures: this.distanceDesHachures,
           epaisseurDesHachures: this.epaisseurDesHachures,
           couleurDesHachures: this.couleurDesHachures,
-          couleurDeRemplissage: this.couleurDeRemplissage,
+          couleurDeRemplissage: this.couleurDeRemplissage[0],
           opaciteDeRemplissage: this.opaciteDeRemplissage
-        }) + `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+        }) + `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color[0]}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
       } else {
         if (this.opacite !== 1) {
           this.style += ` stroke-opacity="${this.opacite}" `
         }
-        if (this.couleurDeRemplissage !== 'none') {
+        if (this.couleurDeRemplissage[0] !== 'none') {
           this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
         }
 
-        return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${this.couleurDeRemplissage}" ${this.style}/>`
+        return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style}/>`
       }
     }
   } else {
@@ -3375,7 +3371,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
       if (this.opacite !== 1) {
         this.style += ` stroke-opacity="${this.opacite}" `
       }
-      return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" ${this.style} id="${this.id}" />`
+      return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style} id="${this.id}" />`
     }
   }
   this.tikz = function () {
@@ -3409,11 +3405,10 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    if (rayon && fill !== 'none') {
+
+    if (rayon && (this.couleurDeRemplissage[1] !== 'none' || this.couleurDeRemplissage !== '')) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
-    if (rayon && fill !== 'none') {
-      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
     }
 
     if (this.hachures) {
@@ -3421,9 +3416,8 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
         motif: this.hachures,
         id: this.id,
         distanceDesHachures: this.distanceDesHachures,
-        epaisseurDesHachures: this.epaisseurDesHachures,
         couleurDesHachures: this.couleurDesHachures,
-        couleurDeRemplissage: this.couleurDeRemplissage,
+        couleurDeRemplissage: this.couleurDeRemplissage[1],
         opaciteDeRemplissage: this.opaciteDeRemplissage
       }))
     }
@@ -3455,7 +3449,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
       }
       P = rotation(M, Omega, angle)
       code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)} `
-      code += `" stroke="${color}" ${this.style}/>`
+      code += `" stroke="${color[0]}" ${this.style}/>`
       return code
     } else {
       if (this.epaisseur !== 1) {
@@ -3464,10 +3458,10 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
       if (this.opacite !== 1) {
         this.style += ` stroke-opacity="${this.opacite}" `
       }
-      if (this.couleurDeRemplissage === '' || this.couleurDeRemplissage === 'none') {
+      if (rayon && (this.couleurDeRemplissage[1] !== 'none' || this.couleurDeRemplissage !== '')) {
         this.style += ' fill="none" '
       } else {
-        this.style += ` fill="${this.couleurDeRemplissage}" `
+        this.style += ` fill="${this.couleurDeRemplissage[0]}" `
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
       }
       la = longueur(M, Omega) // pour obtenir le nombre de points intermédiaires proportionnel au rayon
@@ -3492,7 +3486,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
         code += `${Math.round(Omega.xSVG(coeff) + j * dMx + randint(-1, 1) * amp)} ${Math.round(Omega.ySVG(coeff) + j * dMy + randint(-1, 1) * amp)}, `
       }
       code += `${Math.round(Omega.xSVG(coeff) + 4 * l * dMx + randint(-1, 1) * amp)} ${Math.round(Omega.ySVG(coeff) + 4 * l * dMy + randint(-1, 1) * amp)} Z `
-      code += `" stroke="${color}" ${this.style} />`
+      code += `" stroke="${color[0]}" ${this.style} />`
       return code
     }
   }
@@ -3513,17 +3507,15 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    if (rayon && fill !== 'none') {
+    if (rayon && (this.couleurDeRemplissage[1] !== 'none' || this.couleurDeRemplissage !== '')) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
-    if (rayon && fill !== 'none') {
-      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
     }
     tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
 
     optionsDraw = '[' + tableauOptions.join(',') + ']'
 
-    if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) -- cycle ;`
+    if (rayon) return `\\filldraw  ${optionsDraw} (${arrondi(N.x, 4)},${arrondi(N.y, 4)}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) -- cycle ;`
     else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) ;`
   }
 }
@@ -3538,8 +3530,8 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
  * @author Jean-Claude Lhote
  * @return {Arc} Objet Arc
  */
-export function arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
-  return new Arc(M, Omega, angle, rayon, fill, color, fillOpacite)
+export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2) {
+  return new Arc(M, Omega, angle, rayon, couleurDeRemplissage, color, fillOpacite)
 }
 /**
  *
@@ -5625,7 +5617,7 @@ export function afficheCoteSegment (...args) {
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
  * @param {string} [mark='||'] Symbole posé sur le segment
- * @param {string} [color='black'] Couleur du symbole
+ * @param {string} [color='black'] Couleur du symbole. Code Couleur HTML acceptée.
  *
  * @author Rémi Angot
  */
@@ -5752,8 +5744,6 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     this.couleurDeRemplissage = fill
     this.opaciteDeRemplissage = fillOpacite
   } else { this.couleurDeRemplissage = 'none' }
-  let remplir
-  if (fill === 'none') { remplir = false } else { remplir = true }
   this.angle = angle
 
   this.svg = function (coeff) {
@@ -5765,25 +5755,25 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const d = droite(this.centre, P)
     d.isVisible = false
     const mesure = arrondiVirgule(Math.abs(angle), 0) + '°'
-    const arcangle = arc(depart, this.centre, this.angle, remplir, this.couleurDeRemplissage, this.color)
+    // const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', 'red', 'blue')
+    const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', this.couleurDeRemplissage, this.color)
     arcangle.isVisible = false
-    objets.push(arcangle)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.couleurDeRemplissage = this.couleurDeRemplissage
-    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
+    arcangle.opaciteDeRemplissage = fillOpacite
+    objets.push(arcangle)
     if (this.mark !== '') {
-      const t = texteParPoint(mark, P, 90 - d.angleAvecHorizontale, color)
+      const t = texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color)
       t.isVisible = false
       objets.push(t)
     }
     if (mesureOn) {
-      const t = texteParPoint(mesure, M, 'milieu', color)
+      const t = texteParPoint(mesure, M, 'milieu', this.color)
       t.isVisible = false
       objets.push(t)
     }
     if (texteACote !== '') {
-      const texteACOTE = texteParPoint(texteACote, M, 'milieu', color, tailleTexte)
+      const texteACOTE = texteParPoint(texteACote, M, 'milieu', this.color, tailleTexte)
       objets.push(texteACOTE)
     }
     for (const objet of objets) {
@@ -5794,25 +5784,6 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     } else {
       this.id = arcangle.id // Dans le cas où il n'y a pas de groupe, on récupère l'id
     }
-    return code
-  }
-
-  this.tikz = function () {
-    let code = ''
-    const depart = pointSurSegment(this.centre, this.debut, this.taille / context.scale)
-    const P = rotation(depart, this.centre, this.angle / 2)
-    const M = pointSurSegment(this.centre, P, taille + 0.6 / context.scale)
-    const mesure = arrondiVirgule(Math.abs(angle), 0) + '°'
-    const d = droite(this.centre, P)
-    d.isVisible = false
-    const arcangle = arc(depart, this.centre, this.angle, remplir, this.couleurDeRemplissage, this.color)
-    arcangle.opacite = this.opacite
-    arcangle.epaisseur = this.epaisseur
-    arcangle.couleurDeRemplissage = this.couleurDeRemplissage
-    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
-    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, color).tikz() + '\n'
-    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', color).tikz() + '\n'
-    code += arcangle.tikz()
     return code
   }
 
@@ -5827,14 +5798,13 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const arcangle = arc(depart, this.centre, this.angle, false, this.couleurDeRemplissage, this.color)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.couleurDeRemplissage = this.couleurDeRemplissage
-    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
-    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, color).svg(coeff) + '\n'
-    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', color).svg(coeff) + '\n'
+    arcangle.opaciteDeRemplissage = fillOpacite
+    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).svg(coeff) + '\n'
+    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', this.color).svg(coeff) + '\n'
     code += arcangle.svgml(coeff, amp)
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikz = function () {
     let code = ''
     const depart = pointSurSegment(this.centre, this.debut, this.taille / context.scale)
     const P = rotation(depart, this.centre, this.angle / 2)
@@ -5842,13 +5812,32 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const mesure = arrondiVirgule(Math.abs(angle), 0) + '°'
     const d = droite(this.centre, P)
     d.isVisible = false
-    const arcangle = arc(depart, this.centre, this.angle, remplir, this.couleurDeRemplissage, this.color)
+    const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', this.couleurDeRemplissage, this.color)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.couleurDeRemplissage = this.couleurDeRemplissage
-    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
-    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, color).tikz() + '\n'
-    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', color).tikz() + '\n'
+    arcangle.opaciteDeRemplissage = fillOpacite
+    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
+    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
+    code += arcangle.tikz()
+    return code
+  }
+  this.tikzml = function (amp) {
+    let code = ''
+    const depart = pointSurSegment(this.centre, this.debut, this.taille / context.scale)
+    // const P = rotation(depart, this.centre, this.angle / 2)
+    const M = rotation(depart, this.centre, this.angle / 2)
+    // const M = pointSurSegment(this.centre, P, taille + 0.6 / context.scale)
+    const mesure = arrondiVirgule(Math.abs(angle), 0) + '°'
+    // const d = droite(this.centre, P)
+    const d = droite(this.centre, M)
+    d.isVisible = false
+    const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', this.couleurDeRemplissage, this.color)
+    arcangle.opacite = this.opacite
+    arcangle.epaisseur = this.epaisseur
+    arcangle.opaciteDeRemplissage = fillOpacite
+    // if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
+    if (this.mark !== '') code += texteParPoint(mark, M, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
+    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
     code += arcangle.tikzml(amp)
     return code
   }
@@ -5870,6 +5859,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
  * @param {string} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle (from EE)
  * @returns CodeAngle
  * @example codeAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
+ * @example codeAngle(A,O,B) // code l'angle AOB sans aucune autre option possible
  * @author Jean-Claude Lhote
  */
 export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
@@ -9502,9 +9492,11 @@ function convertHexToRGB (couleur = '000000') {
  */
 
 export function colorToLatexOrHTML (couleur) {
-  let tabCouleur = []
+  const tabCouleur = []
   let rgb = []
-  if (Array.isArray(couleur)) tabCouleur = couleur // Si jamais une fonction rappelle une couleur qui aurait déjà été transformée par cette même fonction
+  if (Array.isArray(couleur)) return couleur // Si jamais une fonction rappelle une couleur qui aurait déjà été transformée par cette même fonction
+  else if (couleur === '') return ''
+  else if (couleur === 'none') return ['none', 'none']
   else {
     tabCouleur[0] = couleur
     if (couleur[0] === '#') {
@@ -9513,8 +9505,8 @@ export function colorToLatexOrHTML (couleur) {
     } else {
       tabCouleur[1] = '{' + couleur + '}'
     }
+    return tabCouleur
   }
-  return tabCouleur
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -9544,9 +9536,9 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
     texte = String(texte)
   }
   if (texte.charAt(0) === '$') {
-    A.positionLabel = 'centre'
+    A.positionLabel = 'above'
     this.svg = function (coeff) {
-      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color[0], texte.length * 8, 12, '', 6).svg(coeff)
+      return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '', 6).svg(coeff)
     }
     this.tikz = function () {
       let code = ''
@@ -9558,7 +9550,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [${this.color[1]}] (${A.x},${A.y
+        code = `\\draw [color=${this.color[1]}] (${A.x},${A.y
           }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
@@ -9571,7 +9563,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
         if (orientation === 'milieu') {
           anchor = `node[anchor = center,scale=${scale}]`
         }
-        code = `\\draw [${this.color[1]}] (${A.x},${A.y}) ${anchor} {${texte}};`
+        code = `\\draw [color=${this.color[1]}] (${A.x},${A.y}) ${anchor} {${texte}};`
       }
       return code
     }
@@ -9579,7 +9571,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
     this.svg = function (coeff) {
       let code = ''; let style = ''
       if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" '
-      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage[0]};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
+      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage[0]};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color[0]};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
       else style += ` style="font-size:${this.taille}px;fill:${this.color[0]};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
         code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
@@ -9622,7 +9614,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [${this.color[1]}] (${A.x},${A.y
+        code = `\\draw [color=${this.color[1]}] (${A.x},${A.y
           }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
@@ -9847,11 +9839,11 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
   this.y = y
   this.largeur = largeur * Math.log10(2 * tailleCaracteres)
   this.hauteur = hauteur * Math.log10(tailleCaracteres)
-  this.colorBackground = colorBackground
+  this.colorBackground = colorToLatexOrHTML(colorBackground)
   this.color = colorToLatexOrHTML(color)
   this.texte = texte
   this.tailleCaracteres = tailleCaracteres
-  this.bordures = [x - texte.length * 0.2, y - 0.02 * this.hauteur, x + texte.length * 0.2, y + 0.02 * this.hauteur]
+  this.bordures = [x - this.texte.length * 0.2, y - 0.02 * this.hauteur, x + this.texte.length * 0.2, y + 0.02 * this.hauteur]
   let taille
   if (this.tailleCaracteres > 19) taille = '\\huge'
   else if (this.tailleCaracteres > 16) taille = '\\LARGE'
@@ -9867,16 +9859,17 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
     const centrage = 0.4 * context.pixelsParCm * Math.log10(tailleCaracteres)
     if (this.colorBackground !== '') {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="margin:auto;width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
-    $\\colorbox{${this.colorBackground}}{$${taille} \\color{${this.color[0]}}{${this.texte}}$}$</div></foreignObject>`
+    $\\colorbox{${this.colorBackground[0]}}{$${taille} \\color{${this.color[0]}}{${this.texte}}$}$</div></foreignObject>`
     } else {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
       $${taille} \\color{${this.color[0]}}{${this.texte}}$</div></foreignObject>`
     }
   }
+
   this.tikz = function () {
     let code
     if (this.colorBackground !== '') {
-      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{ ${colorBackground}}{${taille}  $\\color${this.color[1]}{${texte}}$}};`
+      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{ ${colorBackground[1]}}{${taille}  $\\color${this.color[1]}{${texte}}$}};`
     } else {
       code = `\\draw (${x},${y}) node[anchor = center] {${taille} $\\color${this.color[1]}{${texte}}$};`
     };
@@ -11078,6 +11071,7 @@ function pattern ({
         myPattern = 'pattern = north east lines'
         break
     }
+    return myPattern
   } else { // Sortie Latex
     switch (motif) {
       case 'north east lines':
