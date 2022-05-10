@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d, tableauDeVariation } from '../../modules/2d.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite, miseEnEvidence, texFraction, texSymbole, sp, texteGras, lampeMessage } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -9,7 +9,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModificationImportante = '03/04/2022'
 
-export const titre = 'Résoudre une inéquation produit'
+export const titre = 'Résoudre une inéquation-produit'
 
 /**
  * Résoudre une inéquation produit
@@ -31,12 +31,6 @@ export default function ExerciceInequationProduit () {
   this.correctionDetaillee = false // Désactive la correction détaillée par défaut
   this.sup = 1 // Choix du type d'inéquation
   this.nbQuestions = 1 // Choix du nombre de questions
-  let debutConsigne
-  if (this.nbQuestions.toString() === '1') {
-    debutConsigne = 'Résoudre l\'inéquation suivante :'
-  } else {
-    debutConsigne = 'Résoudre les inéquations suivantes :'
-  }
 
   this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
   this.nbCols = 1 // Fixe le nombre de colonnes pour les énoncés de la sortie LateX
@@ -47,12 +41,12 @@ export default function ExerciceInequationProduit () {
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions // Stockera la liste des types de questions
     let correctionInteractif // Pour récupérer l'intervalle solution à saisir
-    if (this.interactif && !context.isAmc) {
-      this.consigne = `${debutConsigne}<br> Saisir uniquement l'intervalle dans le champ de réponse<br>Taper 'union' pour faire apparaitre $\\bigcup$, 'inf' pour $\\infty$ et 'singleton' pour $\\left\\{\\right\\}$`
-    } else {
-      this.consigne = debutConsigne
-    }
     const separateur = ';'
+    if (this.nbQuestions === 1) {
+      this.consigne = 'Résoudre l\'inéquation suivante :'
+    } else {
+      this.consigne = 'Résoudre les inéquations suivantes :'
+    }
     // Convertit le paramètre this.sup en type de question
     switch (this.sup.toString()) {
       case '1':
@@ -218,11 +212,11 @@ export default function ExerciceInequationProduit () {
         }))
         // Affiche l'ensemble de solutions
         if ((signes[i] === '<' || signes[i] === '≤')) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${Math.min(-a, -b)} , ${Math.max(-a, -b)} \\right${pDroite} $.`
-          correctionInteractif = `${pGauche}${Math.min(-a, -b)},${Math.max(-a, -b)}${pDroite}`
+          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${Math.min(-a, -b)} ${separateur} ${Math.max(-a, -b)} \\right${pDroite} $.`
+          correctionInteractif = `${pGauche}${Math.min(-a, -b)}${separateur}${Math.max(-a, -b)}${pDroite}`
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${Math.min(-a, -b)} \\right${pDroite} \\bigcup \\left${pGauche} ${Math.max(-a, -b)}, +\\infty \\right[ $.`
-          correctionInteractif = `]-\\infty,${Math.min(-a, -b)}${pDroite}\\bigcup${pGauche}${Math.max(-a, -b)},+\\infty[`
+          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty ${separateur} ${Math.min(-a, -b)} \\right${pDroite} \\bigcup \\left${pGauche} ${Math.max(-a, -b)}, +\\infty \\right[ $.`
+          correctionInteractif = `]-\\infty${separateur}${Math.min(-a, -b)}${pDroite}\\bigcup${pGauche}${Math.max(-a, -b)}${separateur}+\\infty[`
         }
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -283,11 +277,11 @@ export default function ExerciceInequationProduit () {
         }))
         // Affiche l'ensemble de solutions
         if ((signes[i] === '<' || signes[i] === '≤')) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty , ${racines[0]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[1]} , ${racines[2]} \\right${pDroite} $.`
+          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty ${separateur} ${racines[0]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[1]} , ${racines[2]} \\right${pDroite} $.`
           correctionInteractif = `]-\\infty,${racines[0]}${pDroite}\\bigcup${pGauche}${racines[1]},${racines[2]}${pDroite}`
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${racines[0]} , ${racines[1]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[2]}, +\\infty \\right[ $.`
-          correctionInteractif = `${pGauche}${racines[0]},${racines[1]}${pDroite}\\bigcup${pGauche}${racines[2]},+\\infty[`
+          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${racines[0]} ${separateur} ${racines[1]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[2]}, +\\infty \\right[ $.`
+          correctionInteractif = `${pGauche}${racines[0]}${separateur}${racines[1]}${pDroite}\\bigcup${pGauche}${racines[2]}${separateur}+\\infty[`
         }
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -682,8 +676,16 @@ export default function ExerciceInequationProduit () {
       }
 
       if (this.interactif && !context.isAmc) {
+        texte += `<br> ${texteGras('Saisir la solution S de l\'ensemble des solutions de cette inéquation.')}${sp(10)}`
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur50 lycee nospacebefore', { texte: '<br>S = ' })
         setReponse(this, i, correctionInteractif, { formatInteractif: 'texte' })
+        if (i === 0) {
+          texte += lampeMessage({
+            titre: 'Quelques commandes pratiques pour le clavier',
+            texte: `Taper '${texteGras('union')}' pour faire apparaitre $\\bigcup$, '${texteGras('inf')}' pour $\\infty$ et '${texteGras('singleton')}' pour $\\left\\{\\right\\}$`,
+            couleur: 'nombres'
+          })
+        }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
