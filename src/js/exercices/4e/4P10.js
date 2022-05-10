@@ -535,7 +535,7 @@ export default function ProblemesGrandeursComposees () {
             ' maximale de cet appareil s\'il fonctionne sur le secteur ?<br>'
           texte +=
             numAlpha(1) +
-            ` Un ${appareils[index1][0]} fonctionne à une puissance maximum de ${appareils[index1][1]} W.<br>Quel est l'ampérage minimum nécessaire pour le fusible qui protégera ce ${appareils[index][0]} des court-ciruits ?<br>`
+            ` Un ${appareils[index1][0]} fonctionne à une puissance maximum de ${appareils[index1][1]} W.<br>Quel est l'ampérage minimum nécessaire pour le fusible qui protégera ce ${appareils[index1][0]} des court-ciruits ?<br>`
           texteCorr =
             numAlpha(0) +
             ` La tension du secteur étant de 230V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
@@ -853,12 +853,12 @@ export default function ProblemesGrandeursComposees () {
           quidam = prenomF()
           texte = `${quidam} se rends à l'épicerie de son quartier. Elle y achète $${texNombre(
             masse
-          )}$ kg de ${fruits[index1][0]} à ${texPrix(
+          )}$ kg de ${fruits[index1][0]} à $${texPrix(
             fruits[index1][1]
-          )} €/kg et pour ${texPrix(prix2)} € de ${fruits[index2][0]
-            } à ${texPrix(fruits[index2][1])} €/kg.<br>`
+          )}$ €/kg et pour $${texPrix(prix2)}$ € de ${fruits[index2][0]
+            } à $${texPrix(fruits[index2][1])}$ €/kg.<br>`
           texte += `Enfin, elle achète $${texNombre(masse3)}$ kg de ${fruits[index][0]
-            } pour ${texPrix(prix3)} €.<br>`
+            } pour $${texPrix(prix3)}$ €.<br>`
           texte +=
             numAlpha(0) +
             ` Combien lui coûtent les ${fruits[index1][0]} ?<br>`
@@ -895,7 +895,7 @@ export default function ProblemesGrandeursComposees () {
           prix1 = locations[index1][1]
           prix2 = cours[index2][1] * randint(2, 6)
           quidam = prenomF()
-          texte = `${quidam} a prévu de louer ${locations[index1][0]} pendant $${nbheures}$ heures. L'heure de location coûte ${texPrix(prix1)} €.<br>`
+          texte = `${quidam} a prévu de louer ${locations[index1][0]} pendant $${texNombre(nbheures)}$ heures. L'heure de location coûte $${texPrix(prix1)}$ €.<br>`
           texte += numAlpha(0) + ' Combien cette location va lui coûter ?<br>'
           texte +=
             numAlpha(1) +
@@ -940,9 +940,7 @@ export default function ProblemesGrandeursComposees () {
               'Définition : Densité de population',
               'C’est le quotient du nombre d\'habitants par la superficie en km$^2$.<br>L\'unité de la densité de population est l\'habitant par km$^2$ (hab/km$^2$).'
             ) +
-            ` de ${villes[index2][0]} était de $${texNombrec(
-              villes[index2][1] / villes[index2][2]
-            )}$ hab/km$^2$ pour une superficie de $${texNombrec(
+            ` de ${villes[index2][0]} était de $${texNombrec(villes[index2][1] / villes[index2][2], 8)}$ hab/km$^2$ pour une superficie de $${texNombrec(
               villes[index2][2] * 100
             )}$ ha.<br> Calculer le nombre d'habitants de ${villes[index2][0]
             } à cette date.<br>`
@@ -950,15 +948,15 @@ export default function ProblemesGrandeursComposees () {
             numAlpha(0) +
             ` En 2016, la densité de population à ${villes[index1][0]
             } était de :<br> $\\dfrac{${texNombre(
-              villes[index1][1]
+              villes[index1][1], 0
             )}\\text{ hab}}{${texNombrec(
-              villes[index1][2] * 100
+              villes[index1][2] * 100, 0
             )}\\text{ ha}}=\\dfrac{${texNombre(
-              villes[index1][1]
+              villes[index1][1], 0
             )}\\text{ hab}}{${texNombre(
-              villes[index1][2]
-            )}\\text{ km}^2}=${texNombrec(
-              villes[index1][1] / villes[index1][2]
+              villes[index1][2], 2
+            )}\\text{ km}^2}\\approx${texNombrec(
+              villes[index1][1] / villes[index1][2], 2
             )}\\text{ hab/km}^{2}$.<br>`
           texteCorr +=
             numAlpha(1) +
