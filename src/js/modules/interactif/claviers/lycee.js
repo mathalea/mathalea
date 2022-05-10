@@ -193,7 +193,6 @@ export const clavierLycee = {
     '*': { mode: 'math', value: '\\times' },
     '.': { mode: 'math', value: ',' },
     '%': { mode: 'math', value: '\\%' },
-    '[': { mode: 'math', value: '[#0]' },
     '(': { mode: 'math', value: '(#0)' },
     '{': { mode: 'math', value: '\\{#0\\}' },
     inf: { mode: 'math', value: '\\infty' },
