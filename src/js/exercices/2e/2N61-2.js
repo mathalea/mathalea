@@ -676,13 +676,13 @@ export default function ExerciceInequationProduit () {
       }
 
       if (this.interactif && !context.isAmc) {
-        texte += `<br> ${texteGras('Saisir la solution S de l\'ensemble des solutions de cette inéquation.')}${sp(10)}`
+        texte += `<br> ${texteGras('Saisir S, l\'ensemble des solutions de cette inéquation.')}${sp(10)}`
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur50 lycee nospacebefore', { texte: '<br>S = ' })
         setReponse(this, i, correctionInteractif, { formatInteractif: 'texte' })
         if (i === 0) {
           texte += lampeMessage({
-            titre: 'Quelques commandes pratiques pour le clavier',
-            texte: `Taper '${texteGras('union')}' pour faire apparaitre $\\bigcup$, '${texteGras('inf')}' pour $\\infty$ et '${texteGras('singleton')}' pour $\\left\\{\\right\\}$`,
+            titre: 'Quelques commandes pratiques pour le clavier : ',
+            texte: `Taper '${texteGras('union')}' pour faire apparaitre $\\bigcup$, '${texteGras('inf')}' pour $\\infty$ et '${texteGras('singleton')}' pour $\\left\\{\\right\\}$.`,
             couleur: 'nombres'
           })
         }
