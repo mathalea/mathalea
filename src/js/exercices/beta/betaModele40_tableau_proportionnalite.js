@@ -12,16 +12,18 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author
  * Référence
 */
-export default function NomExercice () {
-  Exercice.call(this)
-  this.consigne = 'Consigne'
-  this.nbQuestions = 1
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.tailleDiaporama = 3
-  this.video = ''
+export default class NomExercice extends Exercice {
+  constructor () {
+    super()
+    this.consigne = 'Consigne'
+    this.nbQuestions = 1
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.tailleDiaporama = 3
+    this.video = ''
+  }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []

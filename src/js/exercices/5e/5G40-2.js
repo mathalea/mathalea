@@ -3,17 +3,18 @@ import Exercice from '../Exercice.js'
 import { creerNomDePolygone, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Reconnaître un parallélogramme à partir du codage d’une figure'
 
+export const dateDeModifImportante = '08/05/2022'
 /**
  * On doit justifier qu'un quadrilatère est un parallélogramme en citant la bonne propriété
  * @author Rémi Angot
  * Référence 5G40-2
+ * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  * Publié le 5/4/2021
 */
 export default function ParallelogrammeAPartirDUneFigure () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = "Pour chacune des figures suivantes, tracées à main levée, préciser s'il s'agit d'un parallélogramme."
-  this.nbQuestionsModifiable = false
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   // this.sup = 1
