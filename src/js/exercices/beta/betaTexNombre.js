@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { randint, texNombre, listeQuestionsToContenu } from '../../modules/outils.js'
+import { texNombre, listeQuestionsToContenu } from '../../modules/outils.js'
+import { Decimal } from 'decimal.js'
 export const titre = 'Somme de deux entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,10 +25,10 @@ export default function NomExercice () {
   this.nouvelleVersion = function () {
     this.listeCorrections = []
     this.listeQuestions = []
-
-    const a = Number(this.sup) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999)
-    const b = Number(this.sup2) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999) / 10 ** 12
-    const c = a + b
+    Decimal.precision = 40
+    const a = new Decimal(this.sup)
+    const b = new Decimal(this.sup2)
+    const c = a.add(b)
     this.listeQuestions.push(`$${texNombre(a)}+${texNombre(b)}$`)
     this.listeCorrections.push(`$${texNombre(a)} + ${texNombre(b)} = ${texNombre(c)}$`)
     listeQuestionsToContenu(this)

@@ -9,6 +9,7 @@ import { setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
 import FractionX from './FractionEtendue.js'
 import { elimineDoublons } from './interactif/questionQcm.js'
+import { Decimal } from 'decimal.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -2768,20 +2769,29 @@ function afficherNombre (nb, precision, fonction, force = false) {
    * @returns string avec le nombre dans le format français
    */
   function insereEspacesNombre (nb, maximumSignificantDigits = 15, fonction) {
-    if (Number(nb) === 0) return '0'
-    // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
     let nombre
-    if (Math.abs(nb) < 1) {
+    if (nb instanceof Decimal) {
+      if (nb.isZero()) return '0'
       if (force) {
-        nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits, minimumFractionDigits: maximumSignificantDigits }).format(nb)
+        nombre = nb.toSD(maximumSignificantDigits).replace('.', ',')
       } else {
-        nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits }).format(nb)
+        nombre = nb.toString().replace('.', ',')
       }
     } else {
-      if (force) {
-        nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits, minimumSignificantDigits: maximumSignificantDigits }).format(nb)
+      if (Number(nb) === 0) return '0'
+      // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
+      if (Math.abs(nb) < 1) {
+        if (force) {
+          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits, minimumFractionDigits: maximumSignificantDigits }).format(nb)
+        } else {
+          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits }).format(nb)
+        }
       } else {
-        nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
+        if (force) {
+          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits, minimumSignificantDigits: maximumSignificantDigits }).format(nb)
+        } else {
+          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
+        }
       }
     }
     // console.log('précision : ', precision, 'nb : ', nb, 'nombre : ', nombre)
@@ -2797,9 +2807,12 @@ function afficherNombre (nb, precision, fonction, force = false) {
       partieDecimale = nombre.substring(rangVirgule + 1)
     }
     // La partie entière est déjà formatée par le Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
-    // for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    //   partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
-    // }
+    // Dans le cas d'un Number, mais pas d'un Decimal
+    if (nb instanceof Decimal) {
+      for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
+        partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
+      }
+    }
     for (let i = 3; i < partieDecimale.length; i += (fonction === 'texNombre' ? 5 : 4)) { // des paquets de 3 nombres + 1 espace
       partieDecimale = partieDecimale.substring(0, i) + (fonction === 'texNombre' ? '\\,' : ' ') + partieDecimale.substring(i)
     }
@@ -2828,7 +2841,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
   }
 
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
-  if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
+  if (maximumSignificantDigits > 15 && !(nb instanceof Decimal)) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
     window.notify(fonction + ' : Trop de chiffres', { nb, precision })
     return insereEspacesNombre(nb, 15, fonction, force)
   } else {
