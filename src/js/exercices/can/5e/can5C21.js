@@ -80,8 +80,7 @@ export default function SommeDecimaux () {
         ${texNombre(f / 10 + g / 100, 2)}+\\underbrace{${texNombre(b / 10 + c / 100, 2)}+${texNombre(k - b / 10 - c / 100, 2)}}_{=${k}}=${texNombre(this.reponse, 2)}
             $`
       } else {
-        this.question = `
-        $${texNombre(b / 10 + c / 100, 2)}+${texNombre(f / 10 + g / 100, 2)}+${texNombre(k - b / 10 - c / 100, 2)}=$`
+        this.question = `$${texNombre(b / 10 + c / 100, 2)}+${texNombre(f / 10 + g / 100, 2)}+${texNombre(k - b / 10 - c / 100, 2)}=$`
 
         this.correction = `$${texNombre(b / 10 + c / 100, 2)}+${texNombre(f / 10 + g / 100, 2)}+${texNombre(k - b / 10 - c / 100, 2)}=
         \\underbrace{${texNombre(b / 10 + c / 100, 2)}+${texNombre(k - b / 10 - c / 100, 2)}}_{=${k}}+${texNombre(f / 10 + g / 100, 2)}=${texNombre(this.reponse, 2)}$`
