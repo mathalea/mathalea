@@ -4088,7 +4088,7 @@ export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart =
   return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label })
 }
 
-function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens' }) {
+function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens', precisionAuDegre = 1, stepGraduation = 10, rayonsVisibles = true }) {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
@@ -4116,8 +4116,8 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
   const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', 'gray')
   objets.push(segment(centre, azimut2))
   rayon = segment(azimut, azimut2)
-
-  objets.push(arc1, arc2, rayon)
+  if (rayonsVisibles) objets.push(arc1)
+  objets.push(arc2, rayon)
   for (let i = 0; i < nbDivisions; i++) {
     if (avecNombre !== '') {
       if (avecNombre === 'deuxSens') {
@@ -4128,11 +4128,13 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
         }
         if (i === nbDivisions - 1) {
           numero = texteParPoint(arcPlein - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions - 2), -depart, 'gray')
-        } else {
+          numero.contour = true
+          objets.push(numero)
+        } else if ((arcPlein - (1 + i) * 10) % stepGraduation === 0) {
           numero = texteParPoint(arcPlein - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, 'gray')
+          numero.contour = true
+          objets.push(numero)
         }
-        numero.contour = true
-        objets.push(numero)
       }
       if (i === 0) {
         numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9), centre, 2), -depart, 'gray')
@@ -4141,28 +4143,34 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
       }
       if (i === nbDivisions - 1) {
         numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions - 2), -depart, 'gray')
-      } else {
+        numero.contour = true
+        objets.push(numero)
+      } else if ((i + 1) * 10 % stepGraduation === 0) {
         numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, 'gray')
+        numero.contour = true
+        objets.push(numero)
       }
-      numero.contour = true
-      objets.push(numero)
     }
     for (let s = 1, r; s < 10; s++) {
-      if (s === 5) {
+      if (s === 5 && precisionAuDegre < 10) {
         r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92), homothetie(rotation(azimut2, centre, s), centre, 0.99))
-      } else {
+        r.opacite = 0.6
+        r.color = 'gray'
+        objets.push(r)
+      } else if (precisionAuDegre === 1) {
         r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96), homothetie(rotation(azimut2, centre, s), centre, 0.99))
+        r.opacite = 0.6
+        r.color = 'gray'
+        objets.push(r)
       }
-      r.opacite = 0.6
-      r.color = 'gray'
-      objets.push(r)
     }
     rayon.color = this.color
     rayon.opacite = this.opacite
     objets.push(rayon)
     azimut = rotation(azimut, centre, arcPlein / nbDivisions)
     azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
-    rayon = segment(azimut, azimut2)
+    if (rayonsVisibles) rayon = segment(azimut, azimut2)
+    else rayon = segment(homothetie(azimut2, centre, 0.9), azimut2)
   }
   objets.push(segment(centre, azimut2))
   if (!semi) {
@@ -4196,11 +4204,14 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
  * si semi === false alors les graduations vont de 0 à 180° sinon de 0 à 360°
  * si avecNombre === "", il n'y a pas de graduations, si avecNombre === "deuxSens" il est gradué dans les deux directions
  * si avecNombre === "unSens" il est gradué dans le sens trigo.
+ * si precisionAuDegre === 10 alors il n'y aura pas de graduations entre les multiples de 10°, les autres valeurs sont 5 et 1.
+ * stepGraduation est un multiple de 10 qui divise 180 (c'est mieux) donc 10 (par défaut), ou 20, ou 30, ou 60 ou 90.
+ * rayonsVisibles = false permet de supprimer les rayons et le cercle central
  * @param {object} param0 = {x: 'number', y: 'number', taille: 'number', semi: boolean, avecNombre: string}
- * @returns {object} // crée un instance de l'objet 2d Rapporteur
+ * @returns {Rapporteur} // crée un instance de l'objet 2d Rapporteur
  */
-export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens' }) {
-  return new Rapporteur({ x, y, taille, depart, semi, avecNombre })
+export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens', precisionAuDegre = 1, stepGraduation = 10, rayonsVisibles = true }) {
+  return new Rapporteur({ x, y, taille, depart, semi, avecNombre, precisionAuDegre, stepGraduation, rayonsVisibles })
 }
 
 /**

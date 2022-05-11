@@ -4035,7 +4035,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -8283,7 +8283,7 @@ export default {
     "interactifType": "mathLive",
     "name": "6M10-1",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -9337,8 +9337,12 @@ export default {
   "6N33-0": {
     "titre": "Calculer la fraction d’une quantité",
     "url": "/exercices/6e/6N33-0.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "6N33-0",
     "newEx": {
       "isNew": false,
@@ -13704,7 +13708,7 @@ export default {
     }
   },
   "can3a-2022": {
-    "titre": "CAN troisième sujet 2022",
+    "titre": "CAN 3ième sujet 2022",
     "url": "/exercices/can/3e/can3a-2022.js",
     "amcReady": false,
     "interactifReady": true,
@@ -16311,7 +16315,7 @@ export default {
     }
   },
   "can6a-2021": {
-    "titre": "CAN Sixième sujet 2021",
+    "titre": "CAN 6ième sujet 2021",
     "url": "/exercices/can/6e/can6a-2021.js",
     "amcReady": false,
     "interactifReady": true,
@@ -16327,7 +16331,7 @@ export default {
     }
   },
   "can6a-2022": {
-    "titre": "CAN Sixième sujet 2022",
+    "titre": "CAN 6ième sujet 2022",
     "url": "/exercices/can/6e/can6a-2022.js",
     "amcReady": false,
     "interactifReady": true,

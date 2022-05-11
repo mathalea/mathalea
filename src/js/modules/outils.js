@@ -2808,7 +2808,6 @@ function afficherNombre (nb, precision, fonction, force = false) {
     } else {
       nombre = partieEntiere + ',' + partieDecimale
     }
-    console.log(nombre)
     return nombre
   }
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.

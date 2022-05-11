@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 446 
-- nombre d'exos interactifReady 652 
+- nombre d'exos amcReady 447 
+- nombre d'exos interactifReady 653 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -331,6 +331,7 @@
 |6N31-3|Arrondir une valeur|OK|qcmMult|OK|qcm|
 |6N31-4|Intercaler un nombre décimal entre deux nombres décimaux|OK|AMCOpen|OK|mathLive|
 |6N31|Comparer des nombres décimaux|OK|AMCOpen|KO|KO|
+|6N33-0|Calculer la fraction d’une quantité|OK|AMCNum|OK|mathLive|
 |6N33-1|Calculer mentalement le pourcentage d’un nombre|OK|AMCNum|OK|mathLive|
 |6N33-2|Résoudre des problèmes de calcul de pourcentage par complément à 100%|OK|AMCNum|OK|mathLive|
 |6N33-3|Résoudre des problèmes avec des calculs de pourcentages|OK|AMCNum|OK|mathLive|
@@ -514,7 +515,7 @@
 |can3S05|Calculer une moyenne|KO|KO|OK|mathLive|
 |can3S06|Déterminer le rang d’une médiane|KO|KO|OK|mathLive|
 |can3a-2021|CAN 3ième sujet 2021|KO|KO|OK|mathLive|
-|can3a-2022|CAN troisième sujet 2022|KO|KO|OK|mathLive|
+|can3a-2022|CAN 3ième sujet 2022|KO|KO|OK|mathLive|
 |can4C01|Utiliser les priorités opératoires avec des relatifs|OK|AMCNum|OK|mathLive|
 |can4C02|Trouver l’opposé ou l’inverse d’une fraction|OK|AMCNum|OK|mathLive|
 |can4C03|Effectuer une division avec une fraction|OK|AMCNum|OK|mathLive|
@@ -655,8 +656,8 @@
 |can6P05|Appliquer un pourcentage (bis)|OK|AMCNum|OK|mathLive|
 |can6S01|Lire un diagramme en barres|OK|AMCNum|OK|mathLive|
 |can6a-2018|CAN 6ième sujet 2018|KO|KO|OK|mathLive|
-|can6a-2021|CAN Sixième sujet 2021|KO|KO|OK|mathLive|
-|can6a-2022|CAN Sixième sujet 2022|KO|KO|OK|mathLive|
+|can6a-2021|CAN 6ième sujet 2021|KO|KO|OK|mathLive|
+|can6a-2022|CAN 6ième sujet 2022|KO|KO|OK|mathLive|
 |canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
 |canExC01|Somme de nombres complexes|OK|AMCHybride|OK|mathLive|
 |canExC02|produit de nombres complexes|OK|AMCHybride|OK|mathLive|
