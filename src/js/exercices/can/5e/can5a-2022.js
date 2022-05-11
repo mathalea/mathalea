@@ -1,12 +1,12 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, labelPoint, droiteGraduee2, grille, segment, milieu, arc, droite, texteParPosition, tracePoint, polygone, codageAngleDroit, fixeBordures, pointSurSegment, angleModulo, rotation, rapporteur
+  mathalea2d, point, labelPoint, droiteGraduee2, grille, segment, milieu, arc, droite, texteParPosition, tracePoint, polygone, codageAngleDroit, fixeBordures, pointSurSegment, angleModulo, rotation, rapporteur, codeAngle
 } from '../../../modules/2d.js'
 import { round, min, max } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur.js'
 import { paveLPH3d } from '../../../modules/3d.js'
-import { listeQuestionsToContenu, arrondi, tableauColonneLigne, randint, texNombre, shuffle, texFractionReduite, choice, calcul, sp, contraindreValeur, lettreDepuisChiffre } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, arrondi, tableauColonneLigne, randint, texNombre, shuffle, texFractionReduite, choice, calcul, sp, lettreDepuisChiffre } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -49,7 +49,7 @@ export default function SujetCAN2022cinquieme () {
       [11, 5], [13, 5], [17, 5]]
 
     // Pour la question 24
-    let paramsEnonce; const objetsEnonce = []; const objetsCorrection = []; let tailleRapporteur; let sudOuest; let nordOuest; let sudEst; let nordEst; let sensRot; let sensRot2; let numA; let numB; let numC; let angB; let posA; let posB; let B1; let angC; let posC; let C1; let AB; let AC; let ACCorr; let R
+    let paramsEnonce; const objetsEnonce = []; let tailleRapporteur; let sudOuest; let nordOuest; let sudEst; let nordEst; let sensRot; let sensRot2; let numA; let numB; let numC; let angB; let posA; let posB; let B1; let angC; let posC; let C1; let AB; let AC; let ACCorr; let R
 
     for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction30, demiDisque, p, traceA, traceB, traceC, traceH, segmentBC, segmentAB, segmentAD, segmentDC, codage1, codage2, codage3, codage4, s1, s2, poly1, poly2, propositions, chiffre, chiffre2, u, e, f, choix, a, b, c, g, h, k, A, B, C, D, E, F, G, H, d, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
@@ -643,12 +643,12 @@ export default function SujetCAN2022cinquieme () {
 
         case 24:
           a = randint(1, 17, 9)
-          tailleRapporteur = contraindreValeur(7, 12, this.sup2, 12)
+          tailleRapporteur = 7
           // Mise en place des points encadrant l'espace pour le rapporteur. Utiles pour paramsEnonce car le rapporteur peut tourner et optimisons l'espace pour ce rapporteur.
-          sudOuest = point(-(tailleRapporteur + 3), 0)
-          nordOuest = point(-(tailleRapporteur + 3), tailleRapporteur + 3)
-          sudEst = point(tailleRapporteur + 3, 0)
-          nordEst = point(tailleRapporteur + 3, tailleRapporteur + 3)
+          sudOuest = point(-(tailleRapporteur + 0.5), 0)
+          nordOuest = point(-(tailleRapporteur + 0.5), tailleRapporteur + 0.5)
+          sudEst = point(tailleRapporteur + 0.5, 0)
+          nordEst = point(tailleRapporteur + 0.5, tailleRapporteur + 0.5)
 
           // Le centre du rapporteur est A.
           // Le point sur la ligne 0 est B. En fait, on construit B1 et B est entre A et B1 (afin que B ne soit pas toujours à X cm de A car cette distance n'a pas à être fixe pour un élève)
@@ -667,33 +667,31 @@ export default function SujetCAN2022cinquieme () {
             posA = angB > 135 ? 'below' : (angB > 45 ? 'left' : (angB > -45 ? 'above' : (angB > -135 ? 'right' : 'below')))
           }
           A = point(0, 0, lettreDepuisChiffre(numA), posA)
-          B1 = rotation(point(tailleRapporteur + 3, 0), A, angB)
+          B1 = rotation(point(tailleRapporteur + 0.5, 0), A, angB)
 
           posB = angB > 135 ? 'above' : (angB > 45 ? 'right' : (angB > -45 ? 'below' : (angB > -135 ? 'left' : 'above')))
-          B = pointSurSegment(A, B1, tailleRapporteur + randint(10, 25) / 10, lettreDepuisChiffre(numB), posB)
+          B = pointSurSegment(A, B1, tailleRapporteur + 0.5, lettreDepuisChiffre(numB), posB)
           angC = sensRot * sensRot2 * a * 10
           posC = angleModulo(angB + angC) > 135 ? 'above' : (angleModulo(angB + angC) > 45 ? 'right' : (angleModulo(angB + angC) > -45 ? 'below' : (angleModulo(angB + angC) > -135 ? 'left' : 'above')))
 
           C1 = rotation(B1, A, angC)
           numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB])
-          C = pointSurSegment(A, C1, tailleRapporteur + randint(10, 25) / 10, lettreDepuisChiffre(numC), posC)
+          C = pointSurSegment(A, C1, tailleRapporteur + 0.5, lettreDepuisChiffre(numC), posC)
           AB = segment(A, B1)
           AC = segment(A, C1)
           ACCorr = segment(A, C1, 'red')
           ACCorr.epaisseur = 2
-          R = rapporteur({ x: 0, y: 0, taille: tailleRapporteur, depart: angC < 0 ? angB + 180 : angB, semi: true, avecNombre: 'deuxSens' })
+          R = rapporteur({ x: 0, y: 0, taille: tailleRapporteur, depart: angC < 0 ? angB + 180 : angB, semi: true, avecNombre: 'deuxSens', precisionAuDegre: 10, stepGraduation: 90, rayonsVisibles: false })
           sudEst = rotation(sudEst, A, angC < 0 ? angB + 180 : angB)
           nordEst = rotation(nordEst, A, angC < 0 ? angB + 180 : angB)
           sudOuest = rotation(sudOuest, A, angC < 0 ? angB + 180 : angB)
           nordOuest = rotation(nordOuest, A, angC < 0 ? angB + 180 : angB)
-          objetsEnonce.push(R, AB, AC, labelPoint(A, B, C), tracePoint(B, C)) // On remplit les tableaux d'objets Mathalea2d
-          objetsCorrection.push(R, AB, ACCorr, labelPoint(A, B, C), tracePoint(B, C)) // On remplit les tableaux d'objets Mathalea2d
-          texte = `Quelle est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numC)}}$ ?`
+          objetsEnonce.push(R, AB, AC, codeAngle(B, A, angC, 1, '', 'black', 2, 1, 'none', 0, false, true, '?', 2)) // On remplit les tableaux d'objets Mathalea2d
+          texte = 'Donne la mesure de l\'angle.'
           paramsEnonce = { xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), pixelsParCm: 20, scale: 1, mainlevee: false }
           texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
 
           reponse = a * 10
-          // texte = `Donne la mesure de l'angle.
 
           if (a < 9) {
             texteCorr = `L'angle est aigu (sa mesure est inférieure à $90^\\circ$).<br>
