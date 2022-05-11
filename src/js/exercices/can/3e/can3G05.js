@@ -25,7 +25,7 @@ export default function Trigo () {
       [3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [20, 21, 29], [12, 35, 37], [9, 40, 41], [11, 60, 61]
     ] // triplets Pythagore
     const triplet = choice(listeTriplet)
-    const nom = creerNomDePolygone(3, ['Q'])
+    const nom = creerNomDePolygone(3, ['QD'])
     const a = triplet[0]
     const b = triplet[1]
     const c = triplet[2]

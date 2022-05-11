@@ -33,17 +33,19 @@ export default function NommerEtCoderDesPolygones () {
     let params
 
     const liste = combinaisonListes([1, 2, 3, 4, 5, 6, 7, 8], this.nbQuestions)
-
+    let listeDeNomsDePolygones
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
+      if (i % 4 === 0) listeDeNomsDePolygones = ['PQD']
       context.pixelsParCm = 40
       let pol, polcode, polsom, polnom
       function choisirPolygone (n) { // n compris entre 1 et 8 (1 à 4 pour un triangle, 5 à 8 pour une quadrilatère)
         let A, B, C, D
-        const nom = creerNomDePolygone(4, 'PQ'); let pnom; let q; let p; let pcode; let enonce
+        const nom = creerNomDePolygone(4, listeDeNomsDePolygones); let pnom; let q; let p; let pcode; let enonce
+        listeDeNomsDePolygones.push(nom)
         switch (n) {
           case 1: // triangle isocèle
             A = point(3, randint(0, 20) / 10, nom[0])

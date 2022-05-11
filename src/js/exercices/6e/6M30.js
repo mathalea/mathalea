@@ -34,7 +34,7 @@ export default function CalculDeVolumes () {
   this.sup4 = 8
   this.nouvelleVersion = function (numeroExercice) {
     this.consigne = this.interactif ? '' : "Calculer, en détaillant, le volume des solides donnés. Arrondir à l'unité."
-    this.interactifType = parseInt(this.sup3) === 2 ? 'mathLive' : 'qcm'
+    this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     let typesDeQuestionsDisponibles = []
     let thissup4Max
@@ -166,6 +166,7 @@ export default function CalculDeVolumes () {
             j = randint(2, 3) // pour le choix de l'unité
             r = randint(2, 10)
             h = randint(20, 150)
+            volume = r * r * h * Math.PI
             texte = `Calculer le volume, en $${listeUnites[j][1]}$ (arrondi à l'unité), d'un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombrec(h / 10)}${listeUnites[j - 1][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^2\\times${texNombrec(h / 10)}${listeUnites[j - 1][0]}=\\pi\\times${r * r}${listeUnites[j][0]}^2\\times${h}${listeUnites[j][0]}=${texNombrec(r * r * h)}\\pi${listeUnites[j][1]}\\approx${Math.round(volume)}${listeUnites[j][1]}$`
             resultat = Math.round(volume)
@@ -323,8 +324,8 @@ export default function CalculDeVolumes () {
         texte += propositionsQcm(this, i).texte
       } else {
         if (!context.isAmc) {
-          setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'longueur' })
-          texte += ajouteChampTexteMathLive(this, i, 'longueur')
+          setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'unites' })
+          texte += ajouteChampTexteMathLive(this, i, 'unites[volumes]')
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

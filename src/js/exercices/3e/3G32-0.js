@@ -50,6 +50,7 @@ export default function problemesTrigoLongueur () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    let listeDeNomsDePolygones
     const objet = [['arbre', 'un', '', 'situé'], ['immeuble', 'un', '', 'situé'], ['éolienne', 'une', 'te', 'située'], ['colline', 'une', 'te', 'située']]
     let distance; let beta; let alpha; let taille; let A; let B; let S; let C; let R; let objets = []; let p
     let O; let H; let M; let R2; let Axe; let normalV; let normalH; let P; let HP; let Sph; let OP; let PoleNord; let PoleSud
@@ -78,6 +79,7 @@ export default function problemesTrigoLongueur () {
     for (let i = 0, texte, numA, ordA, numB, numC, numR, absC, numS, absS, AB, BA, propositionsAMC, enonceAMC, enonceInit, texteCorr, reponse, j, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       propositionsAMC = []
       iiAMC = 0
+      if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
       const choixAlpha = randint(0, 7)
       const alfa = context.isHtml ? lettresGrecques[choixAlpha][0] : lettresGrecques[choixAlpha][1]
       const alfaInteractif = lettresGrecques[choixAlpha][1]
@@ -130,7 +132,7 @@ export default function problemesTrigoLongueur () {
             enonceAMC = `<br>${numAlpha(j)}Exprimer $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}$ en fonction de $${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numB)}$ et de $${alfa}$.`
             texte += enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo ', { texte: `$${sp(20)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=$` })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
                 `${AB}\\times tan(${alfaInteractif})`,
                 `${BA}\\times tan(${alfaInteractif})`,
@@ -241,8 +243,8 @@ export default function problemesTrigoLongueur () {
           enonceAMC = `${numAlpha(j)}Calculer la largeur de la rivière au mètre près sachant que $${alfa}=${alpha}\\degree$ et $${baita}=${beta}\\degree$.`
           texte += '<br>' + enonceAMC
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore longueur', { texte: `$${sp(25)}$` })
-            setReponse(this, i + ii, new Grandeur(taille, 'm'), { formatInteractif: 'longueur' })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]', { texte: `$${sp(25)}$` })
+            setReponse(this, i + ii, new Grandeur(taille, 'm'), { formatInteractif: 'unites' })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
@@ -319,8 +321,8 @@ export default function problemesTrigoLongueur () {
           reponse = Math.round(2 * Math.PI * 6400 * Math.cos(alpha * Math.PI / 180))
           texteCorr += `Calculons maintenant la longueur $L$ du $${alpha}$e parallèle : $L\\approx 2\\times \\pi\\times ${texNombrec(6400 * Math.cos(alpha * Math.PI / 180))}${sp()}km\\approx ${texNombre(reponse)}${sp()}km$.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore longueur')
-            setReponse(this, i + ii, new Grandeur(reponse, 'km'), { formatInteractif: 'longueur' })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
+            setReponse(this, i + ii, new Grandeur(reponse, 'km'), { formatInteractif: 'unites' })
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
@@ -464,8 +466,8 @@ export default function problemesTrigoLongueur () {
             enonceAMC = `${numAlpha(j)}Calculer alors la longueur $${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numS)}$, arrondie au cm près.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline nospacebefore longueur')
-              setReponse(this, i + ii, new Grandeur(arrondi(taille - hauteur), 'm'), { formatInteractif: 'longueur' })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline nospacebefore unites[longueurs]')
+              setReponse(this, i + ii, new Grandeur(arrondi(taille - hauteur), 'm'), { formatInteractif: 'unites' })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
@@ -507,8 +509,8 @@ export default function problemesTrigoLongueur () {
           enonceAMC += `Calculer la hauteur, en mètres, de cet${objet[index][2]} ${objet[index][0]}, arrondie au mètre près.`
           texte += `Calculer la hauteur de cet${objet[index][2]} ${objet[index][0]}, arrondie au mètre près.`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore longueur')
-            setReponse(this, i + ii, new Grandeur(arrondi(taille, 0), 'm'), { formatInteractif: 'longueur' })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
+            setReponse(this, i + ii, new Grandeur(arrondi(taille, 0), 'm'), { formatInteractif: 'unites' })
             ii++
           } else if (context.isAmc) {
             if (!this.sup) {
@@ -717,8 +719,8 @@ export default function problemesTrigoLongueur () {
           enonceAMC += 'Quelle est la hauteur, en mètres, de la falaise ?'
           texte += 'Quelle est la hauteur de la falaise ?'
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore longueur')
-            setReponse(this, i + ii, new Grandeur(arrondi(taille, 0), 'm'), { formatInteractif: 'longueur' })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
+            setReponse(this, i + ii, new Grandeur(arrondi(taille, 0), 'm'), { formatInteractif: 'unites' })
             ii++
           } else if (context.isAmc) {
             if (!this.sup) {
@@ -761,8 +763,8 @@ export default function problemesTrigoLongueur () {
           enonceAMC += 'À quelle distance, en mètres et arrondie au mètre près, du pied de la falaise se trouve l\'observateur lors du deuxième relevé ?'
           texte += 'À quelle distance du pied de la falaise se trouve l\'observateur lors du deuxième relevé ?'
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore longueur')
-            context.isAmc ? setReponse(this, i + ii, arrondi(taille / Math.tan((alpha + 5) * Math.PI / 180), 0)) : setReponse(this, i + ii, new Grandeur(arrondi(taille / Math.tan((alpha + 5) * Math.PI / 180), 0), 'm'), { formatInteractif: 'longueur' })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
+            context.isAmc ? setReponse(this, i + ii, arrondi(taille / Math.tan((alpha + 5) * Math.PI / 180), 0)) : setReponse(this, i + ii, new Grandeur(arrondi(taille / Math.tan((alpha + 5) * Math.PI / 180), 0), 'm'), { formatInteractif: 'unites' })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
@@ -1023,8 +1025,8 @@ export default function problemesTrigoLongueur () {
           enonceAMC += '(exprimer en mètres et arrondir au mètre près)'
 
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore longueur')
-            setReponse(this, i + ii, new Grandeur(arrondi(taille, 0), 'm'), { formatInteractif: 'longueur' })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
+            setReponse(this, i + ii, new Grandeur(arrondi(taille, 0), 'm'), { formatInteractif: 'unites' })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
@@ -1069,6 +1071,7 @@ export default function problemesTrigoLongueur () {
         case 6:
           {
             let objetsEnonce = []; let paramsEnonce = {}
+
             const AD = randint(5, 9)
             const AE = randint(AD + 1, AD + 4)
             const AC = randint(3, AD - 1)
@@ -1085,7 +1088,8 @@ export default function problemesTrigoLongueur () {
             const codage1 = codageAngleDroit(A, B, C)
             const codage2 = codageAngleDroit(A, D, E)
             const labels = labelPoint(A, B, C, D, E)
-            const nomDesSommets = creerNomDePolygone(5)
+            const nomDesSommets = creerNomDePolygone(5, listeDeNomsDePolygones)
+            listeDeNomsDePolygones.push(nomDesSommets)
             A.nom = nomDesSommets[0]
             B.nom = nomDesSommets[1]
             C.nom = nomDesSommets[2]
@@ -1112,8 +1116,8 @@ export default function problemesTrigoLongueur () {
             texte += `<br>Calculer la longueur $${A.nom + B.nom}$ et donner une valeur approchée au millimètre près.`
             enonceAMC = texte + '<br>'
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore longueur')
-              setReponse(this, i + ii, new Grandeur(arrondi(longueur(A, B), 1), 'cm'), { formatInteractif: 'longueur' })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
+              setReponse(this, i + ii, new Grandeur(arrondi(longueur(A, B), 1), 'cm'), { formatInteractif: 'unites' })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {

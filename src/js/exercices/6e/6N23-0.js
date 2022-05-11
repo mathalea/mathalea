@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, nombreEnLettres } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre, nombreEnLettres, arrondi, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
@@ -81,7 +81,7 @@ export default function EcrireNombresDecimal () {
           // nombre += tranche[j] * 10 ** ((j-1)*3)
         }
         partDec = tranche[0]
-        nombre = calcul(partEnt + partDec / 1000)
+        nombre = calcul(partEnt + partDec / 1000, 3)
         // if (tranche[listeTypeDeQuestions[i]-1]==0) nombre=0
         if (tranche[1] < 2) nombre = 0
         if (tranche[0] === 0) nombre = 0

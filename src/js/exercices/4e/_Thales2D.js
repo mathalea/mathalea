@@ -35,14 +35,16 @@ export default function Thales2D () {
     this.listeCorrections = [] // Liste de questions corrigées
     let listeDeNomsDePolygones = []
     this.autoCorrection = []
-
+    if (this.level === 4) {
+      this.sup = 1
+    }
     const premiereQuestionPapillon = randint(0, 1) // Pour alterner les configurations et savoir par laquelle on commence
     let reponse, reponse2
 
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // this.autoCorrection[i] = {}
-      if ((i + 1) % 3 === 0) { // Toutes les 3 questions, on repart à zéro sur les noms des polygones
-        listeDeNomsDePolygones = []
+      if (i % 3 === 0) { // Toutes les 3 questions, on repart à zéro sur les noms des polygones
+        listeDeNomsDePolygones = ['QD']
       }
       const nomDesPoints = creerNomDePolygone(5, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nomDesPoints)
@@ -188,11 +190,11 @@ export default function Thales2D () {
       if (this.interactif && context.isHtml) {
         texte += '<br><br><em>Il faut saisir une unité.</em>'
         texte += `<br><br>$${nomM + nomN} = $`
-        setReponse(this, i * 2, new Grandeur(calcul(Math.abs(k) * ab), 'cm'), { formatInteractif: 'longueur' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
-        texte += ajouteChampTexteMathLive(this, i * 2, 'longueur')
+        setReponse(this, i * 2, new Grandeur(calcul(Math.abs(k) * ab), 'cm'), { formatInteractif: 'unites' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
+        texte += ajouteChampTexteMathLive(this, i * 2, 'unites[longueurs]')
         texte += `$${nomC + nomB} = $`
-        texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'longueur')
-        setReponse(this, i * 2 + 1, new Grandeur(bc, 'cm'), { formatInteractif: 'longueur' })
+        texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'unites[longueurs]')
+        setReponse(this, i * 2 + 1, new Grandeur(bc, 'cm'), { formatInteractif: 'unites' })
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

@@ -3,17 +3,18 @@ import Exercice from '../Exercice.js'
 import { creerNomDePolygone, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Reconnaître un parallélogramme à partir du codage d’une figure'
 
+export const dateDeModifImportante = '08/05/2022'
 /**
  * On doit justifier qu'un quadrilatère est un parallélogramme en citant la bonne propriété
  * @author Rémi Angot
  * Référence 5G40-2
+ * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  * Publié le 5/4/2021
 */
 export default function ParallelogrammeAPartirDUneFigure () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.consigne = "Pour chacune des figures suivantes, tracées à main levée, préciser s'il s'agit d'un parallélogramme."
-  this.nbQuestionsModifiable = false
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   // this.sup = 1
@@ -76,9 +77,10 @@ export default function ParallelogrammeAPartirDUneFigure () {
 
     const paramsEnonce = { xmin: -1, ymin: -4, xmax: 7.5, ymax: 0.8, pixelsParCm: 20, scale: 0.5, mainlevee: true, amplitude: 0.5 }
 
-    const nomsDejaUtilises = ['O']
+    let nomsDejaUtilises
     let nom
-    function gestionNom () {
+    function gestionNom (i) {
+      if (i % 4 === 0) nomsDejaUtilises = ['OQD']
       nom = creerNomDePolygone(4, nomsDejaUtilises)
       nomsDejaUtilises.push(nom)
       A.nom = nom[0]
@@ -93,14 +95,14 @@ export default function ParallelogrammeAPartirDUneFigure () {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'cotesOpposesMemeLongueur':
-          gestionNom()
+          gestionNom(i)
           texte = mathalea2d(paramsEnonce, [p, sABcodage, sBCcodage, sCDcodage, sADcodage, nommePolygone(p, nom)])
           texteCorr = `On sait que $${A.nom + B.nom} = ${C.nom + D.nom}$ et $${B.nom + C.nom} = ${D.nom + A.nom}$.`
           texteCorr += '<br>Or « Si un quadrilatère a ses côtés opposés de même longueur alors c\'est un parallélogramme ».'
           texteCorr += `<br>Donc $${nom}$ est un parallélogramme.`
           break
         case 'cotesConsecutifsMemeLongueur':
-          gestionNom()
+          gestionNom(i)
           texte = mathalea2d(paramsEnonce, [p, codeSegment(A, B, 'X', 'blue'), codeSegment(B, C, 'X', 'blue'), codeSegment(C, D, '||', 'blue'), codeSegment(D, A, '||', 'blue'), nommePolygone(p, nom)])
 
           texteCorr = `Les côtés consécutifs de $${nom}$ sont de même longueur, ce n'est pas forcément un parallélogramme comme le montre le contre-exemple suivant. (Il s'agit d'un cerf-volant).`
@@ -108,43 +110,43 @@ export default function ParallelogrammeAPartirDUneFigure () {
           texteCorr += '<br>' + mathalea2d({ xmin: -1.5, ymin: -6.5, xmax: 1.5, ymax: 0.5, pixelsParCm: 20, scale: 1 }, [p1, codecerf1, codecerf2, codecerf3, codecerf4])
           break
         case 'diagonalesMemeLongueur':
-          gestionNom()
+          gestionNom(i)
           texte = mathalea2d(paramsEnonce, [p, sAOcodage, sBOcodage, sCOcodage, sDOcodage, sAC, sBD, nommePolygone(p, nom), latexParPoint('O', O, 'black', 200, 12, '')])
           texteCorr = `On sait que $${A.nom + 'O'} = ${'O' + C.nom}$ et $${B.nom + 'O'} = ${'O' + D.nom}$.`
           texteCorr += '<br>Or « Si un quadrilatère a ses diagonales qui se coupent en leur milieu alors c\'est un parallélogramme ».'
           texteCorr += `<br>Donc $${nom}$ est un parallélogramme.`
           break
         case '2cotesOpposesMemeLongueur':
-          gestionNom()
+          gestionNom(i)
           texte = mathalea2d(paramsEnonce, [p, sABcodage, sCDcodage, nommePolygone(p, nom)])
           texteCorr = `Seulement deux côtés opposés sont de même longueur, ce n'est pas suffisant pour que $${nom}$ soit un parallélogramme.`
           break
         case '2cotesOpposesMemeLongueurv2':
-          gestionNom()
+          gestionNom(i)
           texte = mathalea2d(paramsEnonce, [p, sBCcodage, sADcodage, nommePolygone(p, nom)])
           texteCorr = `Seulement deux côtés opposés sont de même longueur, ce n'est pas suffisant pour que $${nom}$ soit un parallélogramme.`
           break
         case '2cotesOpposesMemeLongueurEtParallele':
-          gestionNom()
+          gestionNom(i)
           texte = mathalea2d(paramsEnonce, [p, sAB, sCD, sABcodage, sCDcodage, nommePolygone(p, nom)]) + `$(${A.nom + B.nom}) // (${C.nom + D.nom})$`
           texteCorr = `On sait que $${A.nom + B.nom} = ${C.nom + D.nom}$ et $(${A.nom + B.nom}) // (${C.nom + D.nom})$.`
           texteCorr += '<br>Or « Si un quadrilatère a deux côtés opposés parallèles et de même longueur alors c\'est un parallélogramme ».'
           texteCorr += `<br>Donc $${nom}$ est un parallélogramme.`
           break
         case '2cotesOpposesMemeLongueurEtParallelev2':
-          gestionNom()
+          gestionNom(i)
           texte = mathalea2d(paramsEnonce, [p, sBC, sAD, sBCcodage, sADcodage, nommePolygone(p, nom)]) + `$(${B.nom + C.nom}) // (${A.nom + D.nom})$`
           texteCorr = `On sait que $${B.nom + C.nom} = ${A.nom + D.nom}$ et $(${B.nom + C.nom}) // (${A.nom + D.nom})$.`
           texteCorr += '<br>Or « Si un quadrilatère a deux côtés opposés parallèles et de même longueur alors c\'est un parallélogramme ».'
           texteCorr += `<br>Donc $${nom}$ est un parallélogramme.`
           break
         case '2cotesOpposesEtParalleles':
-          gestionNom()
+          gestionNom(i)
           texte = mathalea2d(paramsEnonce, [p, sAB, sCD, nommePolygone(p, nom)]) + `$(${A.nom + B.nom}) // (${C.nom + D.nom})$`
           texteCorr = `$${nom}$ a deux côtés opposés parallèles, c'est donc un trapèze et pas forcément un parallélogramme.`
           break
         case 'anglesOpposesEgaux':
-          gestionNom()
+          gestionNom(i)
           texte = mathalea2d(paramsEnonce, [p, nommePolygone(p, nom), aABCcodage, aBCDcodage, aCDAcodage, aDABcodage])
           texteCorr = `On sait que $\\widehat{${A.nom + B.nom + C.nom}} = \\widehat{${C.nom + D.nom + A.nom}}$ et $\\widehat{${B.nom + C.nom + D.nom}} = \\widehat{${D.nom + A.nom + B.nom}}$.`
           texteCorr += '<br>Or « Si un quadrilatère a ses angles opposés égaux alors c\'est un parallélogramme ».'

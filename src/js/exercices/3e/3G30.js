@@ -42,8 +42,11 @@ export default function CalculDeLongueur () {
     this.listeQuestions = []
     this.listeCorrections = []
     let reponse
+    let listeDeNomsDePolygones
     for (let i = 0; i < this.nbQuestions; i++) {
-      const nom = creerNomDePolygone(3)
+      if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
+      const nom = creerNomDePolygone(3, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(nom)
       let texte = ''; let texteCorr = ''; const objetsEnonce = []; const objetsCorrection = []; let choixRapportTrigo
       let ab, bc, ac
       if (this.level === 4) {
@@ -59,43 +62,43 @@ export default function CalculDeLongueur () {
       switch (choixRapportTrigo) {
         case 'cosinus': // AB=BCxcos(B)
           bc = randint(10, 15)
-          ab = calcul(bc * Math.cos(angleABCr))
-          ac = calcul(bc * Math.sin(angleABCr))
+          ab = calcul(bc * Math.cos(angleABCr), 3)
+          ac = calcul(bc * Math.sin(angleABCr), 3)
           texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
           texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.`
           break
         case 'sinus':
           bc = randint(10, 15)
-          ab = calcul(bc * Math.cos(angleABCr))
-          ac = calcul(bc * Math.sin(angleABCr))
+          ab = calcul(bc * Math.cos(angleABCr), 3)
+          ac = calcul(bc * Math.sin(angleABCr), 3)
           texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
           texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.`
           break
         case 'tangente':
           ab = randint(7, 10)
-          ac = calcul(ab * Math.tan(angleABCr))
-          bc = calcul(ab / Math.cos(angleABCr))
+          ac = calcul(ab * Math.tan(angleABCr), 3)
+          bc = calcul(ab / Math.cos(angleABCr), 3)
           texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
           texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.`
           break
         case 'invCosinus':
           ab = randint(7, 10)
-          bc = calcul(ab / Math.cos(angleABCr))
-          ac = calcul(bc * Math.sin(angleABCr))
+          bc = calcul(ab / Math.cos(angleABCr), 3)
+          ac = calcul(bc * Math.sin(angleABCr), 3)
           texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
           texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.`
           break
         case 'invSinus':
           ac = randint(7, 10)
-          bc = calcul(ac / Math.sin(angleABCr))
-          ab = calcul(bc * Math.cos(angleABCr))
+          bc = calcul(ac / Math.sin(angleABCr), 3)
+          ab = calcul(bc * Math.cos(angleABCr), 3)
           texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
           texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.`
           break
         case 'invTangente':
           ac = randint(7, 10)
-          bc = calcul(ac / Math.sin(angleABCr))
-          ab = calcul(bc * Math.cos(angleABCr))
+          bc = calcul(ac / Math.sin(angleABCr), 3)
+          ab = calcul(bc * Math.cos(angleABCr), 3)
           texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
           texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.`
           break

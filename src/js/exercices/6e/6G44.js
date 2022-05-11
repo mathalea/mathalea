@@ -21,12 +21,14 @@ export default function NombreDeFacesEtDAretes () {
   this.nbQuestions = 4
   this.formatChampTexte = 'largeur15 inline'
   this.sup = 3
-  this.besoinFormulaireNumerique = false
   this.nouvelleVersion = function () {
+    if (this.version === 3) {
+      this.sup = 3
+    }
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const typeDeQuestion = []
+    let typeDeQuestion = []
     const choixA = []
     const choixB = []
     this.nbQuestions = Math.min(this.nbQuestions, 50) // Comme il n'y a que 70 questions différentes on limite pour éviter que la boucle ne cherche trop longtemps
@@ -36,9 +38,14 @@ export default function NombreDeFacesEtDAretes () {
     }
     const choix1 = shuffle(choixA)
     const choix2 = shuffle(choixB)
-    for (let i = 0; i < Math.ceil(this.nbQuestions / 2); i++) {
-      typeDeQuestion.push(choix1[i % 7], choix2[i % 7])
-    }
+    if (this.sup === 3) {
+      for (let i = 0; i < Math.ceil(this.nbQuestions / 2); i++) {
+        typeDeQuestion.push(choix1[i % 7], choix2[i % 7])
+      }
+    } else if (this.sup === 1) {
+      typeDeQuestion = choix2.slice(0, this.nbQuestions)
+    } else { typeDeQuestion = choix1.slice(0, this.nbQuestions) }
+    typeDeQuestion = shuffle(typeDeQuestion)
     for (let j = 0, choix; j < this.nbQuestions;) {
       choix = typeDeQuestion[j]
       context.anglePerspective = 20
@@ -111,28 +118,28 @@ export default function NombreDeFacesEtDAretes () {
           this.reponse = 5 * n
           this.correction = `Comme chacune des pyramides possède une base à $${n}$ sommets, alors elles ont aussi $${n}$ arêtes latérales auxquelles on ajoute les $${n}$ arêtes latérales du prisme.<br>Si on ajoute les $${n}$ arêtes de chacune des bases des pyramides, on obtient donc $5\\times ${n}$ arêtes soit $${5 * n}$ arêtes.`
           break
-        case 3: // Prisme + 1 pyramides au dessus -> faces ?
+        case 3: // Prisme + 1 pyramide au dessus -> faces ?
           objets.push(...corps.c2d, ...chapeau1.c2d)
           this.question = mathalea2d({ xmin: -6, ymin: -1, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
           this.reponse = 2 * n + 1
           this.correction = `Comme le prisme a $${n}$ faces latérales, alors la pyramide en a $${n}$ aussi.<br>Si on ajoute la face du dessous, ce solide est donc constitué de $2\\times ${n}+1$ faces soit $${2 * n + 1}$ faces.`
 
           break
-        case 4: // Prisme + 1 pyramides au dessus -> arêtes ?
+        case 4: // Prisme + 1 pyramide au dessus -> arêtes ?
           objets.push(...corps.c2d, ...chapeau1.c2d)
           this.question = mathalea2d({ xmin: -6, ymin: -1, xmax: 6, ymax: 4.5, scale: 0.5, style: 'margin: auto' }, objets)
-          this.reponse = 5 * n
-          this.correction = `Comme chacune des pyramides possède une base à $${n}$ sommets, alors elles ont aussi $${n}$ arêtes latérales auxquelles on ajoute les $${n}$ arêtes latérales du prisme.<br>Si on ajoute les $${n}$ arêtes de chacune des bases des pyramides, on obtient donc $5\\times ${n}$ arêtes soit $${5 * n}$ arêtes.`
+          this.reponse = 4 * n
+          this.correction = `Comme le prisme a $${n}$ arêtes latérales, alors la pyramide en a $${n}$ aussi.<br>En ajoutant les arêtes des deux bases du prisme soit $2\\times ${n}$ arêtes, on obtient donc $4\\times ${n}$ arêtes soit $${4 * n}$ arêtes.`
 
           break
-        case 5: // Prisme + 1 pyramides en dessous -> faces ?
+        case 5: // Prisme + 1 pyramide en dessous -> faces ?
           objets.push(...corps.c2d, ...chapeau2.c2d)
           this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 3.5, scale: 0.5, style: 'margin: auto' }, objets)
           this.reponse = 2 * n + 1
           this.correction = `Comme le prisme a $${n}$ faces latérales, alors la pyramide en a $${n}$ aussi.<br>Si on ajoute la face du dessus, ce solide est donc constitué de $2\\times ${n}+1$ faces soit $${2 * n + 1}$ faces.`
 
           break
-        case 6: // Prisme + 1 pyramides en dessous -> arêtes ?
+        case 6: // Prisme + 1 pyramide en dessous -> arêtes ?
           objets.push(...corps.c2d, ...chapeau2.c2d)
           this.question = mathalea2d({ xmin: -6, ymin: -2.5, xmax: 6, ymax: 3.5, scale: 0.5, style: 'margin: auto' }, objets)
           this.reponse = 4 * n
@@ -191,7 +198,6 @@ export default function NombreDeFacesEtDAretes () {
           this.correction = `Le solide est composé d'une pyramide à $${n}$ arêtes latérales et d'un tronc de pyramide<br>qui possède aussi $${n}$ arêtes latérales.<br>Il faut ajouter les $${n}$ arêtes de chacune des bases du tronc de pyramide.<br>Au total, il y a $4\\times ${n}$ arêtes soit $${4 * n}$ arêtes.`
           break
       }
-      choix = this.sup === 1 ? 0 : this.sup === 2 ? 1 : choix
       if (choix % 2 === 1) {
         this.question += '<br>Quel est le nombre de faces de ce solide ?'
       } else {

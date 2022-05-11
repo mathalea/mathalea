@@ -14,13 +14,13 @@ export declare class GVCoordinates {
      * @class for cartesian coordinates
      */
 export declare class GVCartesian extends GVCoordinates {
-    constructor(x: number, y: number);
-    format(): string;
+  constructor(x: number, y: number);
+  format(): string;
 }
 /**
      * @class for polar coordinates
      */
 export declare class GVPolar extends GVCoordinates {
-    constructor(r: number, theta: number);
-    format(): string;
+  constructor(r: number, theta: number);
+  format(): string;
 }

@@ -48,7 +48,7 @@ export default function ExerciceLabyrintheDivisibilite () {
       } else {
         tablesDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         for (let i = 0; i < tablesDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          tablesDisponibles[i] = contraindreValeur(2, 20, parseInt(tablesDisponibles[i], 5)) // parseInt en fait un tableau d'entiers
+          tablesDisponibles[i] = contraindreValeur(2, 20, parseInt(tablesDisponibles[i]), 5) // parseInt en fait un tableau d'entiers
         }
       }
     }

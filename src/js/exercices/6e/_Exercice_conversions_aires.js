@@ -313,7 +313,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
         setReponse(this, i, parseFloat(resultat))
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, prefixeMulti[k][2], div)) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfill', '\\text{ en }')

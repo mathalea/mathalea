@@ -22,6 +22,7 @@ export default class ProblemesEnEquation extends Exercice {
     super()
     this.titre = titre
     this.nbQuestions = 2
+    this.sup = 2
   }
 
   figureThales (a, b, c, OC) {
@@ -61,7 +62,12 @@ export default class ProblemesEnEquation extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'Thales', 'Thales2', 'tarifs', 'spectacle', 'isocele']
+    let listeTypeDeProblemes
+    if (parseInt(this.sup) === 1) {
+      listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'tarifs', 'spectacle', 'isocele']
+    } else {
+      listeTypeDeProblemes = ['basket', 'achats', 'polygone', 'basket2', 'programmes', 'programmes2', 'Thales', 'Thales2', 'tarifs', 'spectacle', 'isocele']
+    }
     const listeDeProblemes = combinaisonListes(listeTypeDeProblemes, this.nbQuestions)
     for (let i = 0, cpt = 0, texte, x, a, b, c, d, variables, enonce, figure, intro, conclusion, equation, resolution, verification, texteCorr; i < this.nbQuestions && cpt < 50;) {
       const quidam = prenom(2)
@@ -135,7 +141,7 @@ export default class ProblemesEnEquation extends Exercice {
           c = 0 // ne sert pas dans ce cas
           equation = `${a}*x+${arrondi(d - b, 2)}=${d}`
           resolution = resoudre(equation, { substeps: true, comment: true })
-          enonce = `${quidam[0]} a acheté $${texNombre(a)}$ kg de ${produit} avec un billet de ${d} €. Le marchand lui a rendu ${texPrix(d - b)} €.<br>`
+          enonce = `${quidam[0]} a acheté $${texNombre(a)}$ kg de ${produit} avec un billet de $${d}$ €. Le marchand lui a rendu $${texPrix(d - b)}$ €.<br>`
           enonce += `Quel est le prix d'un kilogramme de ${produit} ?`
           intro = `Posons $x$ le prix d'un kilogramme de ${produit}.<br>L'énoncé se traduit par l'équation suivante :<br>`
           conclusion = `<br>Le prix d'un kilogramme de ${produit} est donc de $${texNombre(x)}$ €.`
@@ -290,13 +296,13 @@ export default class ProblemesEnEquation extends Exercice {
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
           enonce = `Le ${clubs[a]} d'un village propose deux tarifs à ses pratiquants.<br>`
           enonce += `Le tarif A propose de payer $${texPrix(b)}$ € à chaque séance.<br>`
-          enonce += `Le tarif B propose de payer un abonnement annuel de ${texPrix(c)} € puis de payer ${texPrix(d)} € par séance.<br>`
+          enonce += `Le tarif B propose de payer un abonnement annuel de $${texPrix(c)}$ € puis de payer $${texPrix(d)}$ € par séance.<br>`
           enonce += 'Pour quel nombre de séances le tarif B devient-il plus avantageux que le tarif A ?'
           intro = 'Posons $x$ le nombre de séances.<br>'
           intro += `Le prix à payer avec le tarif A est : $x\\times ${texPrix(b)}$.<br>`
           intro += `Le prix à payer avec le tarif B est : $${texPrix(c)}+x\\times ${texPrix(d)}$.<br>`
           intro += 'Pour que le tarif B soit plus avantageux, $x$ doit vérifier l\'inéquation suivante:<br>'
-          conclusion = `<br>C'est à partir de ${x} séances que le tarif B devient plus avantageux que le tarif A (pour ${x} séances, les deux tarifs sont équivalents).`
+          conclusion = `<br>C'est à partir de $${x}$ séances que le tarif B devient plus avantageux que le tarif A (pour $${x}$ séances, les deux tarifs sont équivalents).`
           figure = ''
           verification = `<br>Vérification :
           <br>

@@ -2,7 +2,7 @@
 import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
-import { format, evaluate, isPrime, gcd, round, equal, Fraction } from 'mathjs'
+import { format, evaluate, isPrime, gcd, round, equal, Fraction, isInteger } from 'mathjs'
 import { loadScratchblocks } from './loaders'
 import { context } from './context.js'
 import { setReponse } from './gestionInteractif.js'
@@ -616,6 +616,7 @@ export function numTrie (arr) {
 export function enleveDoublonNum (arr, tolerance) {
   arr = numTrie(arr)
   let k = 0
+  console.log('++++++++ ', arr)
   while (k < arr.length - 1) {
     if (egal(arr[k], arr[k + 1], tolerance)) {
       arr[k] = calcul((arr[k] + arr[k + 1]) / 2) // On remplace la valeur dont on a trouvé un double par la moyenne des deux valeurs
@@ -971,6 +972,17 @@ export function ecritureAlgebriquec (a) {
     result = miseEnEvidence(texNombrec(a))
   } else result = miseEnEvidence(texNombrec(a), 'black')
   return result
+}
+
+/**
+ * @param {number} r Un nombre relatif
+ * @param {number} precision nombre de chiffres maximum après la virgule pour texNombre.
+ * @returns {string} met en évidence le signe - si r < 0
+ */
+
+export function signeMoinsEnEvidence (r, precision = 0) {
+  if (r < 0) return miseEnEvidence('-') + texNombre(Math.abs(r), precision)
+  else return texNombre(Math.abs(r), precision)
 }
 
 /**
@@ -1429,21 +1441,22 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
 */
 export function simplificationDeFractionAvecEtapes (num, den) {
   let result = '='
-  if (num * den < 0) {
-    result += '-'
-    num = Math.abs(num)
-    den = Math.abs(den)
-  } else if (num === 0) {
+  if (num === 0) {
     return '=0'
   }
+  const signe = num * den < 0 ? '-' : ''
+  const numAbs = Math.abs(num)
+  const denAbs = Math.abs(den)
   // Est-ce que le résultat est simplifiable ?
-  const s = pgcd(num, den)
+  const s = pgcd(numAbs, denAbs)
   if (s !== 1) {
-    if ((num) % (den) === 0) { // si le résultat est entier
-      result += `${(num) / (den)}`
+    if (numAbs % denAbs === 0) { // si le résultat est entier
+      result += `${num / den}`
     } else {
-      result += `${texFraction(Algebrite.eval((num) / s) + miseEnEvidence('\\times' + s), Algebrite.eval(den / s) + miseEnEvidence('\\times' + s))}=${result.charAt(1) === '-' ? '-' : ''}${texFractionSigne(Algebrite.eval((num) / s), Algebrite.eval(den / s))}`
+      result += `${signe}${texFraction(numAbs / s + miseEnEvidence('\\times' + s), denAbs / s + miseEnEvidence('\\times' + s))}=${texFractionSigne(num / s, den / s)}`
     }
+  } else if (num < 0 || den < 0) {
+    result += `${texFractionSigne(num, den)}`
   } else return ''
   return result
 }
@@ -1721,17 +1734,19 @@ export function xcas (expression) {
 }
 
 /**
-* Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
-* Le 2e argument facultatif permet de préciser l'arrondi souhaité
-* @author Rémi Angot
+* Utilise un arrondi au millionième pour éviter les flottants à rallonge (erreurs d'arrondis des flottants)
+* Le 2e argument facultatif permet de préciser l'arrondi souhaité : c'est le nombre max de chiffres après la virgule souhaités
+* @author Rémi Angot modifié par Jean-Claude Lhote
 */
-export function calcul (x, arrondir = 13) {
+export function calcul (x, arrondir) {
+  const sansPrecision = (arrondir === undefined)
+  if (sansPrecision) arrondir = 6
   if (typeof x === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
-    return parseFloat(evaluate(x).toFixed(arrondir === false ? 13 : arrondir))
-  } else {
-    return parseFloat(x.toFixed(arrondir))
+    x = parseFloat(evaluate(x))
   }
+  if (sansPrecision && !egal(x, arrondi(x, arrondir), 10 ** (-arrondir - 1))) window.notify('calcul : arrondir semble avoir tronqué des décimales sans avoir eu de paramètre de précision', { x, arrondir })
+  return parseFloat(x.toFixed(arrondir))
 }
 
 /**
@@ -1821,16 +1836,21 @@ export function sommeDesTermesParSigne (liste) {
 }
 
 /**
-* Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument
-* @param {integer} nbsommets
-* @param {string[]} listeAEviter
-* @author Rémi Angot
-**/
+ * Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument
+ * @param {integer} nbsommets
+ * @param {string[]} listeAEviter
+ * @author Rémi Angot
+ * Ajout des while pour s'assurer de bien avoir des lettres majuscules le 08/05/2022 par Guillaume Valmont
+ **/
 export function creerNomDePolygone (nbsommets, listeAEviter = []) {
   let premiersommet = randint(65, 90 - nbsommets)
   let polygone = ''
+  if (listeAEviter === undefined) listeAEviter = []
   for (let i = 0; i < nbsommets; i++) {
-    polygone += String.fromCharCode(premiersommet + i)
+    let augmentation = i
+    while (premiersommet + augmentation > 90) augmentation -= 26
+    while (premiersommet + augmentation < 65) augmentation += 26
+    polygone += String.fromCharCode(premiersommet + augmentation)
   }
 
   if (listeAEviter.length < 26 - nbsommets - 1) { // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
@@ -2547,7 +2567,7 @@ export function texNombre2 (nb) {
   for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
     partieEntiere = partieEntiere.substring(0, i) + '\\,' + partieEntiere.substring(i)
   }
-  for (let i = 3; i < partieDecimale.length; i += 3) {
+  for (let i = 3; i < partieDecimale.length; i += 5) {
     partieDecimale = partieDecimale.substring(0, i) + '\\,' + partieDecimale.substring(i)
     i += 12
   }
@@ -2751,7 +2771,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
     if (Number(nb) === 0) return '0'
     // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
     let nombre
-    if (Math.abs(nb < 1)) {
+    if (Math.abs(nb) < 1) {
       if (force) {
         nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits, minimumFractionDigits: maximumSignificantDigits }).format(nb)
       } else {
@@ -2780,7 +2800,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
     // for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
     //   partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
     // }
-    for (let i = 3; i < partieDecimale.length; i += 4) { // des paquets de 3 nombres + 1 espace
+    for (let i = 3; i < partieDecimale.length; i += (fonction === 'texNombre' ? 5 : 4)) { // des paquets de 3 nombres + 1 espace
       partieDecimale = partieDecimale.substring(0, i) + (fonction === 'texNombre' ? '\\,' : ' ') + partieDecimale.substring(i)
     }
     if (partieDecimale === '') {
@@ -2890,29 +2910,29 @@ export function texteEnCouleurEtGras (texte, couleur = '#f15929') {
  * @author Rémi Angot
  */
 export function couleurAleatoire () {
-  // let color = "#";
-  // for (let i = 0; i < 6; i++) {
-  //   color += choice([
-  //     0,
-  //     1,
-  //     2,
-  //     3,
-  //     4,
-  //     5,
-  //     6,
-  //     7,
-  //     8,
-  //     9,
-  //     "A",
-  //     "B",
-  //     "C",
-  //     "D",
-  //     "E",
-  //     "F",
-  //   ]);
-  // }
-  // return color;
   return choice(['white', 'black', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow'])
+}
+
+/**
+ * couleurTab() renvoie :
+ * soit le code d'une couleur au hasard, ainsi que sa traduction française au masculin et au féminin,
+ * soit le code d'une couleur imposée, ainsi que sa traduction française au masculin et au féminin.
+ * @example couleurTab() peut renvoyer ['black','noir','noire'].
+ * @example couleurTab(0) renverra de façon certaine ['black','noir','noire'].
+ * @author Eric Elter
+ */
+export function couleurTab (choixCouleur = 999) {
+  const panelCouleurs = [
+    ['black', 'noir', 'noire'],
+    ['red', 'rouge', 'rouge'],
+    ['green', 'vert', 'verte'],
+    ['blue', 'bleu', 'bleue'],
+    ['hotpink', 'rose', 'rose'],
+    ['sienna', 'marron', 'marron'],
+    ['darkgray', 'gris', 'grise'],
+    ['darkorange', 'orange', 'orange']
+  ]
+  return (choixCouleur === 999 || choixCouleur >= panelCouleurs.length || !isInteger(choixCouleur)) ? choice(panelCouleurs) : panelCouleurs[choixCouleur]
 }
 
 export function arcenciel (i, fondblanc = true) {
@@ -2965,7 +2985,7 @@ export function texPrix (nb) {
   if (nombre.toString() === nombre.toFixed(0)) {
     result = nombre
   } else {
-    result = nombre.toFixed(2).toString().replace('.', ',') // Ne gère pas l'espace des milliers
+    result = nombre.toFixed(2).toString().replace('.', '{,}') // Ne gère pas l'espace des milliers
   }
   return result
 }
@@ -5126,7 +5146,7 @@ export function nombreEnLettres (nb, type = 1) {
   if (estentier(nb)) return partieEntiereEnLettres(nb)
   else {
     partieEntiere = Math.floor(nb)
-    partieDecimale = calcul(nb - partieEntiere)
+    partieDecimale = calcul(nb - partieEntiere, 3)
     nbDec = partieDecimale.toString().replace(/\d*\./, '').length
     partieDecimale = calcul(partieDecimale * 10 ** nbDec)
 

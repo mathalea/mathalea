@@ -24,6 +24,7 @@ export default function ConstruireUnTriangleAvecCible () {
     let yMax
     this.listeQuestions = []
     this.listeCorrections = []
+    let listeDeNomsDePolygones
     const celluleAleaRonde = function (rang) {
       const lettre = lettreDepuisChiffre(randint(1, 8))
       const chiffre = Number(randint(1, rang)).toString()
@@ -41,7 +42,9 @@ export default function ConstruireUnTriangleAvecCible () {
       objetsCorrection = []
       texte = 'Le triangle ci-dessous a été réalisé à main levée.<br>Construire ce triangle avec les instruments de géométrie en respectant les mesures indiquées.<br>'
       texteCorr = 'Voici la construction que tu devais réaliser.<br>'
-      nom = creerNomDePolygone(3, 'PQ')
+      if (i % 5 === 0) listeDeNomsDePolygones = ['PQD']
+      nom = creerNomDePolygone(3, listeDeNomsDePolygones)
+      listeDeNomsDePolygones.push(nom)
       sommets = []
       for (let i = 0; i < 3; i++) sommets.push(nom[i])
       A = point(0, 0, sommets[0], 'left')

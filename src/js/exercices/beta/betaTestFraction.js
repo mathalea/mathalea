@@ -1,10 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, simplificationDeFractionAvecEtapes } from '../../modules/outils.js'
 import FractionX from '../../modules/FractionEtendue'
-import { Fraction, evaluate } from 'mathjs'
+import { evaluate, Fraction } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { fraction } from '../../modules/fractions.js'
+import { ComputeEngine } from '@cortex-js/compute-engine'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,16 +25,25 @@ export default function testFractions () {
   this.besoinFormulaireTexte = ['numérateur ', '']
   this.besoinFormulaire2Texte = ['dénominateur ', '']
   this.nouvelleVersion = function () {
+    const engine = new ComputeEngine({ numericMode: 'decimal', numericPrecision: 30 })
+    const rac3 = engine.parse('\\frac{\\sqrt{3}}{2}')
+    const sinPiSur3 = engine.parse('\\sin(\\frac{\\pi}{3})')
+    console.log(rac3.valueOf(), sinPiSur3.valueOf())
+
     this.listeCorrections = []
     this.listeQuestions = []
-    console.log(fraction(1 / 6))
     const a = Number(evaluate(this.sup)) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999)
     const b = Number(evaluate(this.sup2)) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999) / 10 ** 12
     const f1 = new FractionX(a, b)
     const f2 = new Fraction(a, b)
-    setReponse(this, 0, f1, { formatInteractif: 'fractionEgale' })
+    setReponse(this, 0, f1.valeurDecimale, { formatInteractif: 'nombreDecimal', decimals: 2 })
+    console.log(engine.parse(f1.texFSD.replaceAll('dfrac', 'frac')))
     console.log('Fraction selon FractionX : ', f1.num, ' / ', f1.den, ' fraction selon Fraction : ', f2.n, ' / ', f2.d)
-    this.listeQuestions.push('Saisir une fraction ou ce que vous voulez : ' + ajouteChampTexteMathLive(this, 0, 'largeur25 inline'))
+    let texte = `Saisir une fraction ou ce que vous voulez (la réponse attendue est $${f1.texFSD}$ et le mode Interactif est : ${this.autoCorrection[0].reponse.param.formatInteractif} avec ${this.autoCorrection[0].reponse.param.decimals} chiffres après la virgule): ` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline')
+    texte += `<br>$${f1.texFractionSR}${f1.texSimplificationAvecEtapes()}$<br><br>`
+    texte += `$${f1.texFractionSR}${simplificationDeFractionAvecEtapes(f1.num, f1.den)}$`
+
+    this.listeQuestions.push(texte)
     this.listeCorrections.push(`FractionX : $\\dfrac{${f1.num}}{${f1.den}}$<br><br>Fraction : $\\dfrac{${f2.n}}{${f2.d}}$`)
 
     listeQuestionsToContenu(this)

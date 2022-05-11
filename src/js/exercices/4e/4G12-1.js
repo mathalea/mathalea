@@ -116,6 +116,11 @@ export default function TrouverLaTransformations () {
   }
   this.nouvelleVersion = function () {
     this.autoCorrection = []
+    if (this.version === 1) {
+      this.sup = 1
+    } else if (this.version === 2) {
+      this.sup = 2
+    }
     this.sup = contraindreValeur(1, 3, this.sup, 3)
     if (this.sup === 1) typeDeTransfos = ['symax', 'rot180']
     else if (this.sup === 2) typeDeTransfos = ['symax', 'trans', 'rot180']

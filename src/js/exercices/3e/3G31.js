@@ -46,7 +46,7 @@ export default function CalculDAngle () {
     else mEp = ''
     if (this.correctionDetaillee) mEp2 = '<br>'
     else mEp2 = ''
-    const nom = creerNomDePolygone(3)
+    const nom = creerNomDePolygone(3, 'QD')
     let texte = ''; let texteCorr = ''; const objetsEnonce = []; const objetsCorrection = []; let choixRapportTrigo
     let ab, bc, ac, angleABC
     if (this.level === 4) {
@@ -64,7 +64,7 @@ export default function CalculDAngle () {
         bc = arrondi(randint(100, 150) / 10, 1)
         ab = arrondi(randint(40, (bc - 2) * 10) / 10, 1)
         angleABC = Math.round(Math.acos(ab / bc) * 180 / Math.PI)
-        ac = arrondi(calcul(bc * Math.sin(Math.acos(ab / bc))), 1)
+        ac = calcul(bc * Math.sin(Math.acos(ab / bc)), 1)
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,${mEp} $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm.<br>`
         texte += `Calculer $\\widehat{${nom}}$ à $1 \\degree$ près.`
         break
@@ -72,7 +72,7 @@ export default function CalculDAngle () {
         bc = randint(100, 150) / 10
         ac = randint(40, (bc - 2) * 10) / 10
         angleABC = Math.round(Math.asin(ac / bc) * 180 / Math.PI)
-        ab = calcul(bc * Math.cos(Math.asin(ac / bc)))
+        ab = calcul(bc * Math.cos(Math.asin(ac / bc)), 1)
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,${mEp} $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
         texte += `Calculer $\\widehat{${nom}}$ à $1 \\degree$ près.`
         break
@@ -80,7 +80,7 @@ export default function CalculDAngle () {
         ab = randint(40, 100) / 10
         ac = randint(40, 100) / 10
         angleABC = Math.round(Math.atan(ac / ab) * 180 / Math.PI)
-        bc = calcul(ab / Math.cos(Math.atan(ac / ab)))
+        bc = calcul(ab / Math.cos(Math.atan(ac / ab)), 1)
         texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,${mEp} $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm et  $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
         texte += `Calculer $\\widehat{${nom}}$ à $1 \\degree$ près.`
         break
