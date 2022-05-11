@@ -81,14 +81,22 @@ let pi = Decimal().acos(-1).valueOf() // -> '3.14159265358979323846264338328' jo
 La classe Decimal pourra être utilisée dés que Number() ne sera pas assez performant en terme de précision.
 
 attention ! Pour bénéficier des avantages d'utiliser des instances de Decimal, il faudra se passer des opérateurs javascripts conventionnels.
-En effet, si on définit a et b comme instances de Decimal, a+b sera un Number ! javascript va convertir a et b en Number avant de calculer la somme.
+
+En effet, si on définit a et b comme instances de Decimal, a+b sera une chaine de caractère !
+Exemple : 
+a = new Decimal(0.1)
+b = new Decimal(0.2)
+c = a + b // '0.10.2' !
+d = a.add(b) // 0.3 (instance de Decimal)
+
 Pour obtenir un décimal, on utilisera les méthodes de la classe dont héritent les instances :
 let somme = a.add(b) // somme est un Décimal. ici, c'est la méthode add de l'objet a qui est utilisée.
 Une autre syntaxe :
 let somme = Decimal.add(a,b) // ici, c'est la méthode de classe qui est utilisée.
-let produit = a.multiply(b) ou Decimal.multiply(a,b)
+let produit = a.mul(b) ou Decimal.mul(a,b)
 
 Il n'est pas question pour l'instant d'utiliser texNombre() avec des objets de la classe Decimal (c'est dans ma TodoList).
+
 Pour afficher de tels objets, on passera par la méthode toString() de l'objet.
 Mais cette méthode utilise le format anglais avec le point comme séparateur décimal donc elle n'est pas très utile pour Mathalea sauf à traiter ensuite la chaine obtenue à l'aide d'un formateur maison.
 Il semble qu'une méthode toLocaleString() soit prévue... mais pour l'instant, elle ne fonctionne pas avec 'fr-FR'.
@@ -97,5 +105,25 @@ Pour tester les possibilités de la classe Decimal, j'ai trouvé ce site https:/
 
 Il faut savoir que decimal.js est inclus dans les dependences de mathjs.js en version 7.1.1 mais dans mathalea à priori en version 10.3.1
 
-import { Decimal } from 'decimal' devrait vous donner accès à la classe. (non testé)
+import { Decimal } from 'decimal.js' dans la section import de votre fichier vous donnera accès à la classe.
+
+Un exemple :
+
+Dans 4C30-2.js, la classe Decimal est utilisée pour définir les réponses décimales équivalentes à 10^(-n). Il est à noter que les instances de la classe Decimal sont parfaitement compatibles avec le format interactif 'calcul' sans aucune adaptation. Ainsi `setReponse(this, i, Decimal.pow(10, -n))` sera compatible avec la saisie utilisateur `0,00000....1`.
+
+Un autre exemple :
+```js
+const d = randint(1,9)
+const c = randint(1,9)
+const m = randint(1,9)
+const a = (new Decimal(d*100+c*10+m)).div(1000) // a = 0.dcm
+const b = (new Decimal((10-m)*100+(10-d)*10+10-c)).div(1000)
+const somme = a.add(b) // somme est instance de Decimal
+const produit = a.mul(b) // produit aussi
+const angle = Decimal.acos(a).div(Decimal.acos(-1).mul(180)).round() // angle entier en degré dont le cosinus s'approche de a.
+if (somme.lt(produit)) { // méthode lessThan
+    result = `$${texNombre(somme)} < ${texNombre(produit)}` 
+}
+result2 = `$\\cos(${texNombre(angle)}) \\approx ${texNombre(a)}` compatible avec la classe Decimal.
+```
 

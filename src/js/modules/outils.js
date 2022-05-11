@@ -9,6 +9,7 @@ import { setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
 import FractionX from './FractionEtendue.js'
 import { elimineDoublons } from './interactif/questionQcm.js'
+import { Decimal } from 'decimal.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -2667,7 +2668,7 @@ export function nombreAvecEspace (nb) {
  * @param {integer} exp
  * @returns {string} Écriture décimale avec espaces
  */
-export const scientifiqueToDecimal = (mantisse, exp) => {
+/* export const scientifiqueToDecimal = (mantisse, exp) => {
   mantisse = mantisse.toString()
   let indiceVirguleDepart = mantisse.indexOf('.')
   if (indiceVirguleDepart < 0) {
@@ -2694,6 +2695,10 @@ export const scientifiqueToDecimal = (mantisse, exp) => {
     mantisseSansVirgule = partiGauche + mantisseSansVirgule
   }
   return insereEspaceDansNombre(mantisseSansVirgule)
+}
+*/
+export const scientifiqueToDecimal = (mantisse, exp) => {
+  return texNombre(new Decimal(mantisse).mul(Decimal.pow(10, exp)))
 }
 
 /**
@@ -2768,23 +2773,29 @@ function afficherNombre (nb, precision, fonction, force = false) {
    * @returns string avec le nombre dans le format français
    */
   function insereEspacesNombre (nb, maximumSignificantDigits = 15, fonction) {
-    if (Number(nb) === 0) return '0'
-    // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
     let nombre
-    if (Math.abs(nb) < 1) {
+    if (nb instanceof Decimal) {
       if (force) {
-        nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits, minimumFractionDigits: maximumSignificantDigits }).format(nb)
+        nombre = nb.toPrecision(maximumSignificantDigits).replace('.', ',')
       } else {
-        nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits }).format(nb)
+        nombre = nb.toSD(maximumSignificantDigits).toString().replace('.', ',')
       }
     } else {
-      if (force) {
-        nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits, minimumSignificantDigits: maximumSignificantDigits }).format(nb)
+      // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
+      if (Math.abs(nb) < 1) {
+        if (force) {
+          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits, minimumFractionDigits: maximumSignificantDigits }).format(nb)
+        } else {
+          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits }).format(nb)
+        }
       } else {
-        nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
+        if (force) {
+          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits, minimumSignificantDigits: maximumSignificantDigits }).format(nb)
+        } else {
+          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
+        }
       }
     }
-    // console.log('précision : ', precision, 'nb : ', nb, 'nombre : ', nombre)
     const rangVirgule = nombre.indexOf(',')
     let partieEntiere = ''
     if (rangVirgule !== -1) {
@@ -2797,9 +2808,12 @@ function afficherNombre (nb, precision, fonction, force = false) {
       partieDecimale = nombre.substring(rangVirgule + 1)
     }
     // La partie entière est déjà formatée par le Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
-    // for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    //   partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
-    // }
+    // Dans le cas d'un Number, mais pas d'un Decimal
+    if (nb instanceof Decimal) {
+      for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
+        partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
+      }
+    }
     for (let i = 3; i < partieDecimale.length; i += (fonction === 'texNombre' ? 5 : 4)) { // des paquets de 3 nombres + 1 espace
       partieDecimale = partieDecimale.substring(0, i) + (fonction === 'texNombre' ? '\\,' : ' ') + partieDecimale.substring(i)
     }
@@ -2809,26 +2823,41 @@ function afficherNombre (nb, precision, fonction, force = false) {
       nombre = partieEntiere + ',' + partieDecimale
     }
     return nombre
-  }
+  } // fin insereEspacesNombre()
+
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
-  if (isNaN(nb)) {
+  if (isNaN(nb) && !(nb instanceof Decimal)) {
     window.notify('AfficherNombre : Le nombre n\'en est pas un', { nb, precision, fonction })
     return ''
   }
-  if (Number(nb) === 0) return '0'
-  // si c'en est un, on le formate.
-  const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
-  if (Number.isInteger(nb)) precision = 0
-  else {
-    if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
-      precision = 15 - nbChiffresPartieEntiere
-    } else if (precision < 0) {
-      precision = 0
+  if (nb instanceof Decimal) {
+    if (nb.isZero()) return '0'
+  } else if (Number(nb) === 0) return '0'
+  let nbChiffresPartieEntiere
+  if (nb instanceof Decimal) {
+    nbChiffresPartieEntiere = nb.lt(1) ? 0 : nb.abs().toFixed(0).length
+    if (nb.isInteger()) precision = 0
+    else {
+      if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
+        precision = 15 - nbChiffresPartieEntiere
+      } else if (precision < 0) {
+        precision = 0
+      }
+    }
+  } else {
+    nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
+    if (Number.isInteger(nb)) precision = 0
+    else {
+      if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
+        precision = 15 - nbChiffresPartieEntiere
+      } else if (precision < 0) {
+        precision = 0
+      }
     }
   }
 
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
-  if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
+  if (maximumSignificantDigits > 15 && !(nb instanceof Decimal)) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
     window.notify(fonction + ' : Trop de chiffres', { nb, precision })
     return insereEspacesNombre(nb, 15, fonction, force)
   } else {
