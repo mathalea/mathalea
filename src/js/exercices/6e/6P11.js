@@ -144,7 +144,7 @@ function questionAchat (exo, i) { // questions d'origine du 6P11 : achat.
     z = calcul(p * pu, 2)
   }
   let enonceAMC1 = `${numAlpha(0)} ${prenoms[0]} a repéré, ${listeDeLieux[index1]}, des ${objet} qui l'intéressent. ` +
-`Elle lit que ${n} ${objet} coûtent ${texPrix(x)}${sp()}€. `
+`Elle lit que ${n} ${objet} coûtent $${texPrix(x)}$${sp()}€. `
   let texte = enonceAMC1
   enonceAMC1 += `Elle veut en acheter ${y}.<br> Combien d'euros va-t-elle dépenser${sp()}? `
   texte += `Elle veut en acheter ${y}.<br> Combien va-t-elle dépenser${sp()}? `
@@ -157,33 +157,29 @@ function questionAchat (exo, i) { // questions d'origine du 6P11 : achat.
       )} ${objet}.<br> Si ${texteEnCouleur(
         n,
         'blue'
-      )} ${objet} coûtent ${texPrix(x)}${sp()}€, alors ${texteEnCouleur(
+      )} ${objet} coûtent $${texPrix(x)}$${sp()}€, alors ${texteEnCouleur(
         stringNombre(y / n)
       )} fois ${texteEnCouleur(
         n,
         'blue'
       )} ${objet} coûtent ${texteEnCouleur(
         stringNombre(y / n)
-      )} fois ${texPrix(x)}${sp()}€.<br>` +
+      )} fois $${texPrix(x)}$${sp()}€.<br>` +
       `${texteEnCouleur(
         stringNombre(y / n)
       )} $\\times$ ${texteEnCouleur(texPrix(x), 'blue')}${sp()}€ = ${stringNombre(y * x / n)}${sp()}€<br>` +
-texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} dépensera ${texPrix(y * x / n)}${sp()}€.`, 'black') + '<br>'
+texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} dépensera $${texPrix(y * x / n)}$${sp()}€.`, 'black') + '<br>'
   const enonceAMC2 = `${numAlpha(1)} ${prenoms[1]
-        } veut lui aussi acheter ces ${objet}. Il dispose de ${texPrix(
-          z
-        )}${sp()}€.<br> Combien peut-il en acheter${sp()}?<br>`
+        } veut lui aussi acheter ces ${objet}. Il dispose de $${texPrix(z )}$${sp()}€.<br> Combien peut-il en acheter${sp()}?<br>`
   texte += '<br>' + enonceAMC2 + ajouteChampTexteMathLive(exo, i + 1, 'largeur25 inline', { texteApres: ' ' + objet })
-  texteCorr += `${numAlpha(1)} ${texPrix(z)}${sp()}€, c'est ${texteEnCouleur(
+  texteCorr += `${numAlpha(1)} $${texPrix(z)}$${sp()}€, c'est ${texteEnCouleur(
         stringNombre(z / x)
-      )} fois ${texPrix(x)}${sp()}€.<br> Si avec ${texPrix(
-        x
-      )}${sp()}€ on peut acheter ${texteEnCouleur(
+      )} fois $${texPrix(x)}$${sp()}€.<br> Si avec $${texPrix(x)}$${sp()}€ on peut acheter ${texteEnCouleur(
         n,
         'blue'
       )} ${objet}, alors avec ${texteEnCouleur(
         stringNombre(z / x)
-      )} fois ${texPrix(x)}${sp()}€, on peut acheter ${texteEnCouleur(
+      )} fois $${texPrix(x)}$${sp()}€, on peut acheter ${texteEnCouleur(
         stringNombre(z / x)
       )} fois ${texteEnCouleur(n, 'blue')} ${objet}.<br>`
   texteCorr += `${texteEnCouleur(
