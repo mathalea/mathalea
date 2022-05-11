@@ -81,6 +81,8 @@ export function verifQuestionMathLive (exercice, i) {
 
           if (champTexte !== undefined) saisie = champTexte.value
           else saisie = ''
+          // console.log('saisie : ', saisie) // NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
+          // console.log('reponse : ', reponse) // NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
           if (saisie === reponse) {
             resultat = 'OK'
           }
