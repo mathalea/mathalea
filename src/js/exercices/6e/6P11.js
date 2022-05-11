@@ -167,10 +167,10 @@ function questionAchat (exo, i) { // questions d'origine du 6P11 : achat.
       )} fois $${texPrix(x)}$${sp()}€.<br>` +
       `${texteEnCouleur(
         stringNombre(y / n)
-      )} $\\times$ ${texteEnCouleur(texPrix(x), 'blue')}${sp()}€ = ${stringNombre(y * x / n)}${sp()}€<br>` +
+      )} $\\times$ ${texteEnCouleur(`$${texPrix(x)}$`, 'blue')}${sp()}€ = ${stringNombre(y * x / n)}${sp()}€<br>` +
 texteEnCouleurEtGras(`Conclusion : ${prenoms[0]} dépensera $${texPrix(y * x / n)}$${sp()}€.`, 'black') + '<br>'
   const enonceAMC2 = `${numAlpha(1)} ${prenoms[1]
-        } veut lui aussi acheter ces ${objet}. Il dispose de $${texPrix(z )}$${sp()}€.<br> Combien peut-il en acheter${sp()}?<br>`
+        } veut lui aussi acheter ces ${objet}. Il dispose de $${texPrix(z)}$${sp()}€.<br> Combien peut-il en acheter${sp()}?<br>`
   texte += '<br>' + enonceAMC2 + ajouteChampTexteMathLive(exo, i + 1, 'largeur25 inline', { texteApres: ' ' + objet })
   texteCorr += `${numAlpha(1)} $${texPrix(z)}$${sp()}€, c'est ${texteEnCouleur(
         stringNombre(z / x)
