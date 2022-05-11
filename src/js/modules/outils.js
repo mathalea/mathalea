@@ -1734,17 +1734,19 @@ export function xcas (expression) {
 }
 
 /**
-* Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
-* Le 2e argument facultatif permet de préciser l'arrondi souhaité
-* @author Rémi Angot
+* Utilise un arrondi au millionième pour éviter les flottants à rallonge (erreurs d'arrondis des flottants)
+* Le 2e argument facultatif permet de préciser l'arrondi souhaité : c'est le nombre max de chiffres après la virgule souhaités
+* @author Rémi Angot modifié par Jean-Claude Lhote
 */
-export function calcul (x, arrondir = 13) {
+export function calcul (x, arrondir) {
+  const sansPrecision = (arrondir === undefined)
+  if (sansPrecision) arrondir = 6
   if (typeof x === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
-    return parseFloat(evaluate(x).toFixed(arrondir === false ? 13 : arrondir))
-  } else {
-    return parseFloat(x.toFixed(arrondir))
+    x = parseFloat(evaluate(x))
   }
+  if (sansPrecision && !egal(x, arrondi(x, arrondir), 10 ** (-arrondir - 1))) window.notify('calcul : arrondir semble avoir tronqué des décimales sans avoir eu de paramètre de précision', { x, arrondir })
+  return parseFloat(x.toFixed(arrondir))
 }
 
 /**
@@ -1834,17 +1836,21 @@ export function sommeDesTermesParSigne (liste) {
 }
 
 /**
-* Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument
-* @param {integer} nbsommets
-* @param {string[]} listeAEviter
-* @author Rémi Angot
-**/
+ * Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument
+ * @param {integer} nbsommets
+ * @param {string[]} listeAEviter
+ * @author Rémi Angot
+ * Ajout des while pour s'assurer de bien avoir des lettres majuscules le 08/05/2022 par Guillaume Valmont
+ **/
 export function creerNomDePolygone (nbsommets, listeAEviter = []) {
   let premiersommet = randint(65, 90 - nbsommets)
   let polygone = ''
   if (listeAEviter === undefined) listeAEviter = []
   for (let i = 0; i < nbsommets; i++) {
-    polygone += String.fromCharCode(premiersommet + i)
+    let augmentation = i
+    while (premiersommet + augmentation > 90) augmentation -= 26
+    while (premiersommet + augmentation < 65) augmentation += 26
+    polygone += String.fromCharCode(premiersommet + augmentation)
   }
 
   if (listeAEviter.length < 26 - nbsommets - 1) { // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
@@ -2561,7 +2567,7 @@ export function texNombre2 (nb) {
   for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
     partieEntiere = partieEntiere.substring(0, i) + '\\,' + partieEntiere.substring(i)
   }
-  for (let i = 3; i < partieDecimale.length; i += 3) {
+  for (let i = 3; i < partieDecimale.length; i += 5) {
     partieDecimale = partieDecimale.substring(0, i) + '\\,' + partieDecimale.substring(i)
     i += 12
   }
@@ -2794,7 +2800,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
     // for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
     //   partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
     // }
-    for (let i = 3; i < partieDecimale.length; i += 4) { // des paquets de 3 nombres + 1 espace
+    for (let i = 3; i < partieDecimale.length; i += (fonction === 'texNombre' ? 5 : 4)) { // des paquets de 3 nombres + 1 espace
       partieDecimale = partieDecimale.substring(0, i) + (fonction === 'texNombre' ? '\\,' : ' ') + partieDecimale.substring(i)
     }
     if (partieDecimale === '') {
@@ -5140,7 +5146,7 @@ export function nombreEnLettres (nb, type = 1) {
   if (estentier(nb)) return partieEntiereEnLettres(nb)
   else {
     partieEntiere = Math.floor(nb)
-    partieDecimale = calcul(nb - partieEntiere)
+    partieDecimale = calcul(nb - partieEntiere, 3)
     nbDec = partieDecimale.toString().replace(/\d*\./, '').length
     partieDecimale = calcul(partieDecimale * 10 ** nbDec)
 

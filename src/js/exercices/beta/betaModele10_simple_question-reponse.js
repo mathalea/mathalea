@@ -11,16 +11,18 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author
  * Référence
 */
-export default function NomExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Calcule'
-  this.nbQuestions = 10 // Nombre de questions par défaut
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+export default class nomExercice extends Exercice {
+  constructor () {
+    super()
+    this.consigne = 'Calcule'
+    this.nbQuestions = 10 // Nombre de questions par défaut
+    this.nbCols = 2 // Uniquement pour la sortie LaTeX
+    this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+    this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+    this.video = '' // Id YouTube ou url
+  }
 
-  this.nouvelleVersion = function (numeroExercice) {
+  nouvelleVersion (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -31,8 +33,7 @@ export default function NomExercice () {
       texteCorr = `$${a} + 1 = ${a + 1}$`
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, a)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        // Ici, a est utilisée mais pas b, c et d, alors supprime ces trois derniers !
+      if (this.questionJamaisPosee(i, a)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c, d...)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

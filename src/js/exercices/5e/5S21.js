@@ -9,6 +9,7 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
  * @author Jean-Claude Lhote
  * Référence 5S21
  * Ajout de la partie vocabulaire (this.sup !== 1) par Guillaume Valmont le 03/04/2022
+ * Remplacement des this.sup par des this.niveau par Guillaume Valmont le 07/05/2022
  */
 export default function FonctionsProbabilite1 () {
   'use strict'
@@ -21,7 +22,7 @@ export default function FonctionsProbabilite1 () {
   this.nbColsCorr = 1
   context.isHtml ? this.spacing = 2 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 1
-  this.sup = 1
+  this.niveau = 1
 
   function singulier (qualite, index1) {
     if (index1 > 1) {
@@ -67,7 +68,7 @@ export default function FonctionsProbabilite1 () {
 
       texte = `Dans ${lieu} il y a ${somme} ${objets}. ${n[0]} sont ${qualites[index1][0]}, ${n[1]} sont ${qualites[index1][1]}, ${n[2]} sont ${qualites[index1][2]}, ${n[3]} sont ${qualites[index1][3]} et ${n[4]} sont ${qualites[index1][4]}.<br> `
       texte += `${quidam} choisit au hasard l'${article} d'entre ${pronom}.<br> `
-      if (parseInt(this.sup) === 1) {
+      if (parseInt(this.niveau) === 1) {
         texte += numAlpha(0) + ` Quelle est la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ?<br>`
         texte += numAlpha(1) + ` Quelle est la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][p]} ?<br>`
         texte += numAlpha(2) + ` Quelle est la probabilité que son choix ne tombe pas sur l'${article} des ${objets} ${qualites[index1][q]} ?<br>`
@@ -91,7 +92,7 @@ export default function FonctionsProbabilite1 () {
         texteCorr += numAlpha(2) + `Les issues qui réalisent l'événement "Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}" sont :<br>
         - tomber sur ${article} ${objet} ${singulier(qualites[index1][m], index1)} ;<br>
         - tomber sur ${article} ${objet} ${singulier(qualites[index1][p], index1)}.<br>`
-        if (parseInt(this.sup) > 2) {
+        if (parseInt(this.niveau) > 2) {
           texte += numAlpha(3) + ` Quel est l'événement contraire de "Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}" ?<br>`
           texteCorr += numAlpha(3) + ` L'événement contraire de "Tomber sur l'${article} des ${objets} ${qualites[index1][m]} ou ${qualites[index1][p]}" est l'événement "Tomber sur l'${article} des ${objets} ${qualites[index1][indexEvenementContraire[0]]}, ${qualites[index1][indexEvenementContraire[1]]} ou ${qualites[index1][indexEvenementContraire[2]]}".`
         } else {
