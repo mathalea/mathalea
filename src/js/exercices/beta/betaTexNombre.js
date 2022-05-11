@@ -26,13 +26,13 @@ export default function NomExercice () {
     this.listeCorrections = []
     this.listeQuestions = []
     Decimal.precision = 40
-    Decimal.toExpNeg = -20
+    Decimal.toExpNeg = -40
     Decimal.toExpPos = 40
     const a = new Decimal(this.sup)
     const b = new Decimal(this.sup2)
-    this.listeQuestions.push(`$${texNombre(a.div(b), 2, true)}$`)
+    this.listeQuestions.push(`$\\dfrac{${texNombre(a)}}{${texNombre(10000000000000000000000)}}=${texNombre(a.div(10000000000000000000000))}$`)
     const c = a.add(b)
-    for (let i = 20; i > -20; i--) {
+    for (let i = 20; i > -40; i -= 6) {
       this.listeQuestions.push(`$${texNombre(a)}\\times 10^{${texNombre(i)}}=${scientifiqueToDecimal(a, i)}$`)
       this.listeCorrections.push(`$${texNombre(a)}\\times 10^{${texNombre(i)}}=${scientifiqueToDecimal(a, i)}$`)
     }

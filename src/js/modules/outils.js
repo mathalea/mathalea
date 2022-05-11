@@ -2778,7 +2778,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
       if (force) {
         nombre = nb.toPrecision(maximumSignificantDigits).replace('.', ',')
       } else {
-        nombre = nb.toString().replace('.', ',')
+        nombre = nb.toSD(maximumSignificantDigits).toString().replace('.', ',')
       }
     } else {
       // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
