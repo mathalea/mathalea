@@ -2668,7 +2668,7 @@ export function nombreAvecEspace (nb) {
  * @param {integer} exp
  * @returns {string} Écriture décimale avec espaces
  */
-export const scientifiqueToDecimal = (mantisse, exp) => {
+/* export const scientifiqueToDecimal = (mantisse, exp) => {
   mantisse = mantisse.toString()
   let indiceVirguleDepart = mantisse.indexOf('.')
   if (indiceVirguleDepart < 0) {
@@ -2695,6 +2695,10 @@ export const scientifiqueToDecimal = (mantisse, exp) => {
     mantisseSansVirgule = partiGauche + mantisseSansVirgule
   }
   return insereEspaceDansNombre(mantisseSansVirgule)
+}
+*/
+export const scientifiqueToDecimal = (mantisse, exp) => {
+  return texNombre(new Decimal(mantisse).mul(Decimal.pow(10, exp)))
 }
 
 /**
@@ -2771,14 +2775,12 @@ function afficherNombre (nb, precision, fonction, force = false) {
   function insereEspacesNombre (nb, maximumSignificantDigits = 15, fonction) {
     let nombre
     if (nb instanceof Decimal) {
-      if (nb.isZero()) return '0'
       if (force) {
-        nombre = nb.toSD(maximumSignificantDigits).replace('.', ',')
+        nombre = nb.toPrecision(maximumSignificantDigits).replace('.', ',')
       } else {
         nombre = nb.toString().replace('.', ',')
       }
     } else {
-      if (Number(nb) === 0) return '0'
       // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
       if (Math.abs(nb) < 1) {
         if (force) {
@@ -2794,7 +2796,6 @@ function afficherNombre (nb, precision, fonction, force = false) {
         }
       }
     }
-    // console.log('précision : ', precision, 'nb : ', nb, 'nombre : ', nombre)
     const rangVirgule = nombre.indexOf(',')
     let partieEntiere = ''
     if (rangVirgule !== -1) {
@@ -2822,26 +2823,41 @@ function afficherNombre (nb, precision, fonction, force = false) {
       nombre = partieEntiere + ',' + partieDecimale
     }
     return nombre
-  }
+  } // fin insereEspacesNombre()
+
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
-  if (isNaN(nb)) {
+  if (isNaN(nb) && !(nb instanceof Decimal)) {
     window.notify('AfficherNombre : Le nombre n\'en est pas un', { nb, precision, fonction })
     return ''
   }
-  if (Number(nb) === 0) return '0'
-  // si c'en est un, on le formate.
-  const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
-  if (Number.isInteger(nb)) precision = 0
-  else {
-    if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
-      precision = 15 - nbChiffresPartieEntiere
-    } else if (precision < 0) {
-      precision = 0
+  if (nb instanceof Decimal) {
+    if (nb.isZero()) return '0'
+  } else if (Number(nb) === 0) return '0'
+  let nbChiffresPartieEntiere
+  if (nb instanceof Decimal) {
+    nbChiffresPartieEntiere = nb.lt(1) ? 0 : nb.abs().toFixed(0).length
+    if (nb.isInteger()) precision = 0
+    else {
+      if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
+        precision = 15 - nbChiffresPartieEntiere
+      } else if (precision < 0) {
+        precision = 0
+      }
+    }
+  } else {
+    nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
+    if (Number.isInteger(nb)) precision = 0
+    else {
+      if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
+        precision = 15 - nbChiffresPartieEntiere
+      } else if (precision < 0) {
+        precision = 0
+      }
     }
   }
 
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
-  if (maximumSignificantDigits > 15 && !(nb instanceof Decimal)) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
+  if (maximumSignificantDigits > 15 && !(nb instanceof Decimal)) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
     window.notify(fonction + ' : Trop de chiffres', { nb, precision })
     return insereEspacesNombre(nb, 15, fonction, force)
   } else {

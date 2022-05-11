@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { texNombre, listeQuestionsToContenu } from '../../modules/outils.js'
+import { texNombre, listeQuestionsToContenu, scientifiqueToDecimal } from '../../modules/outils.js'
 import { Decimal } from 'decimal.js'
 export const titre = 'Somme de deux entier'
 export const interactifReady = true
@@ -26,11 +26,16 @@ export default function NomExercice () {
     this.listeCorrections = []
     this.listeQuestions = []
     Decimal.precision = 40
+    Decimal.toExpNeg = -20
+    Decimal.toExpPos = 40
     const a = new Decimal(this.sup)
     const b = new Decimal(this.sup2)
+    this.listeQuestions.push(`$${texNombre(a.div(b), 2, true)}$`)
     const c = a.add(b)
-    this.listeQuestions.push(`$${texNombre(a)}+${texNombre(b)}$`)
-    this.listeCorrections.push(`$${texNombre(a)} + ${texNombre(b)} = ${texNombre(c)}$`)
+    for (let i = 20; i > -20; i--) {
+      this.listeQuestions.push(`$${texNombre(a)}\\times 10^{${texNombre(i)}}=${scientifiqueToDecimal(a, i)}$`)
+      this.listeCorrections.push(`$${texNombre(a)}\\times 10^{${texNombre(i)}}=${scientifiqueToDecimal(a, i)}$`)
+    }
     listeQuestionsToContenu(this)
   }
 }

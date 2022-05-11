@@ -122,8 +122,8 @@ const somme = a.add(b) // somme est instance de Decimal
 const produit = a.mul(b) // produit aussi
 const angle = Decimal.acos(a).div(Decimal.acos(-1).mul(180)).round() // angle entier en degré dont le cosinus s'approche de a.
 if (somme.lt(produit)) { // méthode lessThan
-    result = `$${somme.toString().replace('.',',')} < ${produit.toString().replace('.',',')}` // Pour l'instant texNombre ne gère pas les 'Décimaux'
+    result = `$${texNombre(somme)} < ${texNombre(produit)}` 
 }
-result2 = `$\\cos(${angle.toString()}) \\approx ${a.toString().replace('.',',')}` // on voit ici qu'il est urgent de rendre texNombre compatible avec la classe Decimal.
+result2 = `$\\cos(${texNombre(angle)}) \\approx ${texNombre(a)}` compatible avec la classe Decimal.
 ```
 
