@@ -53,6 +53,12 @@ export default function MesurerUnAngleAvecRapporteur () {
       const sensRot2 = choice([-1, 1]) // Ce sens de rotation indique si on fait une rotation de B dans le sens trigo ou l'autre sens.
       const numA = randint(1, 26, [4, 5, 15, 23, 24, 25])
       const numB = randint(1, 26, [4, 5, 15, 23, 24, 25, numA])
+      const numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB])
+      /* A décommenter pour débugguer (et commenter les 6 lignes du dessus)
+      numA = 1
+      numB = 2
+      numC = 3
+      */
       const angB = this.sup === 1 ? 90 + sensRot * 90 : (this.sup === 2 ? sensRot * 90 : randint(0, 360) - 180)
 
       // posA (et posB, pos C...) permet de choisir une position du point pour ne pas que celui-ci soit illisible (géné par le rapporteur ou l'orientation d'une demi-droite)
@@ -70,7 +76,6 @@ export default function MesurerUnAngleAvecRapporteur () {
       const posC = angleModulo(angB + angC) > 135 ? 'above' : (angleModulo(angB + angC) > 45 ? 'right' : (angleModulo(angB + angC) > -45 ? 'below' : (angleModulo(angB + angC) > -135 ? 'left' : 'above')))
 
       const C1 = rotation(B1, A, angC)
-      const numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB])
       const C = pointSurSegment(A, C1, tailleRapporteur + randint(10, 25) / 10, lettreDepuisChiffre(numC), posC)
       const AB = segment(A, B1)
       const AC = segment(A, C1)
@@ -119,7 +124,7 @@ export default function MesurerUnAngleAvecRapporteur () {
       // Ci-dessous, on rajoute des points en fonction du nombre d'angles demandé.
 
       if (nbAngles > 1) {
-        const angD = (this.sup4 & nbAngles === 2) ? 180 - angC : sensRot * sensRot2 * randint(10, 170 - 20 * (nbAngles - 2) - abs(angC))
+        const angD = (this.sup4 & nbAngles === 2) ? angleModulo(180 - angC) : sensRot * sensRot2 * randint(10, 170 - 20 * (nbAngles - 2) - abs(angC))
         const D1 = rotation(B1, A, angC + angD)
         const numD = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC])
         const posD = angleModulo(angB + angC + angD) > 135 ? 'above' : (angleModulo(angB + angC + angD) > 45 ? 'right' : (angleModulo(angB + angC + angD) > -45 ? 'below' : (angleModulo(angB + angC + angD) > -135 ? 'left' : 'above')))
@@ -162,7 +167,7 @@ export default function MesurerUnAngleAvecRapporteur () {
         objetsEnonce.push(AD, labelPoint(D), tracePoint(D)) // On remplit les tableaux d'objets Mathalea2d
         objetsCorrection.push(ADCorr, labelPoint(D), tracePoint(D)) // On remplit les tableaux d'objets Mathalea2d
         if (nbAngles > 2) {
-          const angE = (this.sup4 & nbAngles === 3) ? 180 - angC - angD : sensRot * sensRot2 * randint(10, 170 - 20 * (nbAngles - 3) - abs(angC + angD))
+          const angE = (this.sup4 & nbAngles === 3) ? angleModulo(180 - angC - angD) : sensRot * sensRot2 * randint(10, 170 - 20 * (nbAngles - 3) - abs(angC + angD))
           const E1 = rotation(B1, A, angC + angD + angE)
           const numE = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC, numD])
           const posE = angleModulo(angB + angC + angD + angE) > 135 ? 'above' : (angleModulo(angB + angC + angD + angE) > 45 ? 'right' : (angleModulo(angB + angC + angD + angE) > -45 ? 'below' : (angleModulo(angB + angC + angD + angE) > -135 ? 'left' : 'above')))
@@ -205,7 +210,7 @@ export default function MesurerUnAngleAvecRapporteur () {
           objetsEnonce.push(AE, labelPoint(E), tracePoint(E)) // On remplit les tableaux d'objets Mathalea2d
           objetsCorrection.push(AECorr, labelPoint(E), tracePoint(E)) // On remplit les tableaux d'objets Mathalea2d
           if (nbAngles > 3) {
-            const angF = (this.sup4) ? 180 - angC - angD - angE : sensRot * sensRot2 * randint(10, 170 - abs(angC + angD + angE))
+            const angF = (this.sup4) ? angleModulo(180 - angC - angD - angE) : sensRot * sensRot2 * randint(10, 170 - abs(angC + angD + angE))
             const F1 = rotation(B1, A, angC + angD + angE + angF)
             const numF = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC, numD, numE])
             const posF = angleModulo(angB + angC + angD + angE + angF) > 135 ? 'above' : (angleModulo(angB + angC + angD + angE + angF) > 45 ? 'right' : (angleModulo(angB + angC + angD + angE + angF) > -45 ? 'below' : (angleModulo(angB + angC + angD + angE + angF) > -135 ? 'left' : 'above')))
