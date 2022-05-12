@@ -51,7 +51,7 @@ export default function SujetCAN2022cinquieme () {
     // Pour la question 24
     let paramsEnonce; const objetsEnonce = []; let tailleRapporteur; let sudOuest; let nordOuest; let sudEst; let nordEst; let sensRot; let sensRot2; let numA; let numB; let numC; let angB; let posA; let posB; let B1; let angC; let posC; let C1; let AB; let AC; let ACCorr; let R
 
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction30, demiDisque, p, traceA, traceB, traceC, traceH, segmentBC, segmentAB, segmentAD, segmentDC, codage1, codage2, codage3, codage4, s1, s2, poly1, poly2, propositions, chiffre, chiffre2, u, e, f, choix, a, b, c, g, h, k, A, B, C, D, E, F, G, H, d, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction30, demiDisque, p, traceA, traceB, traceC, traceH, codeA, segmentBC, segmentAB, segmentAD, segmentDC, codage1, codage2, codage3, codage4, s1, s2, poly1, poly2, propositions, chiffre, chiffre2, u, e, f, choix, a, b, c, g, h, k, A, B, C, D, E, F, G, H, d, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -80,13 +80,13 @@ export default function SujetCAN2022cinquieme () {
             c = randint(0, 8)
             d = randint(0, 4)
             if (a === 0) {
-              texte = `Ecris en chiffres le nombre : <br>
+              texte = `Écris en chiffres le nombre : <br>
               ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]
               texteCorr = ` ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]}$=
               ${(chiffre2[b][1] + chiffre[a][1]) * 1000} + ${chiffre[c][1]}=${(chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]}$ `
             } else {
-              texte = `Ecris en chiffres le nombre : <br>
+              texte = `Écris en chiffres le nombre : <br>
                           ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]
               texteCorr = ` ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre[c][0]}$=
@@ -94,13 +94,13 @@ export default function SujetCAN2022cinquieme () {
             }
           } else {
             if (a === 0) {
-              texte = `Ecris en chiffres le nombre : <br>
+              texte = `Écris en chiffres le nombre : <br>
               ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre2[d][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]
               texteCorr = ` ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre2[d][0]}$=
               ${(chiffre2[b][1] + chiffre[a][1]) * 1000} + ${chiffre2[d][1]}=${(chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]}$ `
             } else {
-              texte = `Ecris en chiffres le nombre : <br>
+              texte = `Écris en chiffres le nombre : <br>
                           ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre2[d][0]} `
               reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre2[d][1]
               texteCorr = ` ${chiffre2[b][0]}-${chiffre[a][0]}-mille-${chiffre2[d][0]}$=
@@ -187,7 +187,7 @@ export default function SujetCAN2022cinquieme () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '  $\\ldots$' }
           nbChamps = 1
           break
 
@@ -195,12 +195,12 @@ export default function SujetCAN2022cinquieme () {
           u = randint(21, 99)
           a = randint(1, 9)
           c = randint(1, 9)
-          reponse = u + a * 0.1 + c * 0.001
+          reponse = arrondi(u + a * 0.1 + c * 0.001, 3)
           if (choice([true, false])) {
-            texte = `Ecrire sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ `
+            texte = `Écrire sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$. `
             texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=${texNombre(u + a / 10 + c / 1000, 3)}$`
           } else {
-            texte = `Ecrire sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$ `
+            texte = `Écris sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$. `
             texteCorr = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 10, 1)}=${texNombre(u + a / 10 + c / 1000, 3)}$
              `
           }
@@ -218,7 +218,7 @@ export default function SujetCAN2022cinquieme () {
           texteCorr = `La multiplication est prioritaire : $${a}+${b}\\times ${c}=${a}+${b * c}$
                                    `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
           nbChamps = 1
           break
 
@@ -245,7 +245,7 @@ export default function SujetCAN2022cinquieme () {
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
             reponse = arrondi(a * b, 3)
             texte = `Recopie  le résultat de  :
-            $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
+            $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$.<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
             texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $50\\times ${Math.round(b)}=${50 * Math.round(b)}$.`
@@ -287,27 +287,27 @@ export default function SujetCAN2022cinquieme () {
 
           if (d === 0.1) {
             texte = `$${f}\\times ${texNombre(d, 1)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 1)}=${texNombre(this.reponse)}$`
+            texteCorr = `$${f}\\times ${texNombre(d, 1)}=${texNombre(reponse, 3)}$`
             texteCorr += `
           $${f}\\times ${texNombre(d, 1)}=${f}\\div 10=${a}${b},\\underline{${c}}$ `
           }
           if (d === 0.01) {
             texte = `$${f}\\times ${texNombre(d, 2)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 2)}=${texNombre(this.reponse)}$`
+            texteCorr = `$${f}\\times ${texNombre(d, 2)}=${texNombre(reponse, 3)}$`
             texteCorr += `
           $${f}\\times ${texNombre(d, 2)}=${f}\\div 100=${a},${b}\\underline{${c}}$<br>
                       `
           }
           if (d === 0.001) {
             texte = `$${f}\\times ${texNombre(d, 3)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 3)}=${texNombre(this.reponse)}$`
+            texteCorr = `$${f}\\times ${texNombre(d, 3)}=${texNombre(reponse, 3)}$`
             texteCorr += `
           $${f}\\times ${texNombre(d, 3)}=${f}\\div 1000=0,${a}${b}\\underline{${c}}$<br>
 
              `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '  $\\ldots$ cm' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '  $\\ldots$ ' }
           nbChamps = 1
           break
 
@@ -364,7 +364,7 @@ export default function SujetCAN2022cinquieme () {
 
           reponse = arrondi(a * b * 10, 0)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
           nbChamps = 1
           break
 
@@ -390,13 +390,19 @@ export default function SujetCAN2022cinquieme () {
           e = texteParPosition(`$${a}^\\circ$`, 3.5, 2.3)// angle E
           f = texteParPosition(`$${b}^\\circ$`, 1.5, 5)// angle C
           g = texteParPosition(`$${c}^\\circ$`, 2.7, 5.5)// angle D
-          if (choix === 'a') { h = texteParPosition('?', 7, 8.5) }
-          if (choix === 'b') { h = texteParPosition('?', 6, 7.5) }
+          if (choix === 'a') {
+            h = texteParPosition('?', 7, 8.5)
+            codeA = codeAngle(F, G, H)
+          }
+          if (choix === 'b') {
+            h = texteParPosition('?', 5.8, 7.5)
+            codeA = codeAngle(G, F, H)
+          }
 
           poly1.epaisseur = 1
           poly2.epaisseur = 1
           texte = 'Le triangle $FGH$ est le symétrique du triangle $DEF$ par rapport à la droite $d$<br> '
-          texte += mathalea2d({ xmin: 0, ymin: 0, xmax: 10, ymax: 10, pixelsParCm: 27, scale: 0.7 }, poly1, poly2, labelPoint(C, D, E, F, G, H), d, e, f, g, h)
+          texte += mathalea2d({ xmin: 0, ymin: 0, xmax: 10, ymax: 10, pixelsParCm: 27, scale: 0.7 }, poly1, poly2, labelPoint(C, D, E, F, G, H), d, e, f, g, h, codeA)
           texteCorr = `La symétrie axiale conserve les angles.
            Cela signifie que la mesure de l'angle  $\\widehat{C}$ est égale à celle de l'angle $\\widehat{G}$, celle de l'angle $\\widehat{D}$ est égale à celle de
            l'angle $\\widehat{F}$ et celle de l'angle $\\widehat{E}$ est égale à celle de l'angle $\\widehat{H}$.`
@@ -413,7 +419,7 @@ export default function SujetCAN2022cinquieme () {
 
           a = randint(1, 9)
 
-          texte = `La moitié de $${texNombre((2 * a + 1) / 10, 1)}$
+          texte = `La moitié de $${texNombre((2 * a + 1) / 10, 1)}$ est : 
            `
 
           texteCorr = `La moitié de $${texNombre((2 * a + 1) / 10, 1)}$ est égale à $${texNombre((2 * a + 1) / 10, 1)}\\div 2=${texNombre((2 * a + 1) / 20, 2)}$.
@@ -421,7 +427,7 @@ export default function SujetCAN2022cinquieme () {
 
           reponse = arrondi((2 * a + 1) / 20, 2)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
           nbChamps = 1
           break
         case 16:
@@ -456,7 +462,7 @@ export default function SujetCAN2022cinquieme () {
 
           setReponse(this, index, new Grandeur(2 * a + 5 * b, 'cm'), { formatInteractif: 'unites' })
           if (this.interactif) {
-            texte += ' Recopier la réponse correcte (nombre et unité à recopier).'
+            texte += ' Recopie la réponse correcte (nombre et unité à recopier).'
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 longueur')
           }
           nbChamps = 1
@@ -475,10 +481,10 @@ export default function SujetCAN2022cinquieme () {
             reponse = -a
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           } else {
-            texte = `L'inverse  $${texNombre(a, 1)}$ est :
+            texte = `L'inverse de $${texNombre(a, 1)}$ est :
           `
 
-            texteCorr = `L'inverse  $${texNombre(a, 1)}$ est :$\\dfrac{1}{${texNombre(a, 1)}}$.
+            texteCorr = `L'inverse de $${texNombre(a, 1)}$ est :$\\dfrac{1}{${texNombre(a, 1)}}$.
            `
 
             reponse = fraction(1, a)
@@ -529,7 +535,7 @@ export default function SujetCAN2022cinquieme () {
             a = randint(21, 28)
             k = randint(1, 9)
             reponse = arrondi(a + k / 10, 1)
-            texte = 'Determine l\'abscisse du point A  :<br> ' + mathalea2d({ xmin: -0.8, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, droiteGraduee2({
+            texte = 'Détermine l\'abscisse du point A  :<br> ' + mathalea2d({ xmin: -0.8, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, droiteGraduee2({
               Unite: 10,
               Min: a - 0.2,
               Max: a + 1.2,
@@ -598,7 +604,7 @@ export default function SujetCAN2022cinquieme () {
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
           nbChamps = 1
           break
         case 22:
@@ -625,7 +631,7 @@ export default function SujetCAN2022cinquieme () {
               \\underbrace{${texNombre(a + b / 10 + c / 100, 2)}+${texNombre(k - a - b / 10 - c / 100, 2)}}_{=${k}}+${texNombre(e + f / 10 + g / 100, 2)}=${texNombre(reponse, 2)}$`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
           nbChamps = 1
           break
 
@@ -637,7 +643,7 @@ export default function SujetCAN2022cinquieme () {
           texteCorr = `Multiplier par $0,5$ revient à diviser par $2$. <br>
           Ainsi, $0,5\\times ${2 * a}=${2 * a}\\div 2=${a}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
           nbChamps = 1
           break
 
@@ -739,7 +745,7 @@ export default function SujetCAN2022cinquieme () {
           texteCorr = `$ ${a}+(${b}-${c})\\times ${d}=${a}+${b - c}\\times ${d}=${a}+${d * b - d * c}=${reponse}$`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
           nbChamps = 1
           break
 
@@ -785,7 +791,7 @@ export default function SujetCAN2022cinquieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
-          } else { texte += ' <br>$\\ldots$ unité' }
+          } else { texte += ' $\\ldots$ cm' }
 
           nbChamps = 1
 
@@ -824,7 +830,7 @@ export default function SujetCAN2022cinquieme () {
           a = fraction(fraction30[0], fraction30[1])
 
           reponse = arrondi(fraction30[0] / fraction30[1], 2)
-          texte = `Ecriture décimale de $\\dfrac{${fraction30[0]}}{${fraction30[1]}}$.`
+          texte = `Écriture décimale de $\\dfrac{${fraction30[0]}}{${fraction30[1]}}$.`
           if (fraction30[1] === 4) {
             texteCorr = `$\\dfrac{${fraction30[0]}}{${fraction30[1]}}=
           \\dfrac{${Math.floor(fraction30[0] / 4) * 4}+${fraction30[0] - Math.floor(fraction30[0] / 4) * 4}}{4 }=
