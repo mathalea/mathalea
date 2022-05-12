@@ -1849,6 +1849,8 @@ function parametresExercice (exercice) {
       $('#nombre_de_versions').change(function () {
         miseAJourDuCode()
       })
+      $('#popup_preview .icone_param').remove() //Dans la popup de visualisation pas d'icone engrenage.
+      $('#popup_preview .iconeInteractif').remove() //Dans la popup de visualisation pas d'icone interactif
     } else {
       divParametresGeneraux.innerHTML += '<h4 class="ui dividing header">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + '</h4>'
 
