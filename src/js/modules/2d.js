@@ -3424,7 +3424,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) -- cycle ;`
     else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
   }
-  let code, P, dMx, dMy, dPx, dPy
+  let code, P
 
   this.svgml = function (coeff, amp) {
     this.style = ''
@@ -3491,7 +3491,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     const A = point(Omega.x + 1, Omega.y)
     const azimut = arrondi(angleOriente(A, Omega, M), 1)
     const anglefin = arrondi(azimut + angle, 1)
-    const N = rotation(M, Omega, angle)
+    // const N = rotation(M, Omega, angle)
     if (this.color.length > 1 && this.color !== 'black') {
       tableauOptions.push(this.color)
     }
@@ -3656,11 +3656,6 @@ export function dansLaCibleRonde (x, y, rang, taille, cellule) {
   }
 }
 
-/**
- * création d'une cible carrée pour l'auto-correction
- * @author Jean-Claude Lhote
- * @param {} param0
- */
 function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this)
   this.x = x
@@ -3679,7 +3674,6 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
     numero.contour = true
     objets.push(numero)
   }
-  this.n = num
   let lettre, chiffre
   objets.push(grille(x - rang * this.taille / 2, y - rang * this.taille / 2, x + rang * this.taille / 2, y + rang * this.taille / 2, this.color, this.opacite, this.taille, false))
   for (let i = 0; i < rang; i++) {
@@ -3718,8 +3712,20 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
     return code
   }
 }
-export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6 }) {
-  return new CibleCarree({ x: x, y: y, rang: rang, num: num, taille: taille })
+/**
+ * création d'une cible carrée pour l'auto-correction
+ * @author Jean-Claude Lhote
+ * @param {number} x
+ * @param {number} y // les coordonnées du point en bas à gauche de la cible
+ * @param {number} rang // le nombre de cases de large
+ * @param {number} num // Un numéro ou rien pour identifier la cible (quand il y en a plusieurs)
+ * @param {number} taille // en cm, la taille des cases
+ * @param {string} color // la couleur de la cible
+ * @param {number} opacite // l'opacité de la cible
+ * @param {} param0
+ */
+export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
+  return new CibleCarree({ x, y, rang, num, taille, color, opacite })
 }
 /**
  * création d'une cible ronde pour l'auto-correction
@@ -3728,15 +3734,14 @@ export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6 }) {
  * Les secteurs de la cible fot 45°. Ils sont au nombre de rang*8
  * Repérage de A1 à Hn où n est le rang.
  */
-function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3 }) {
+function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
-  this.n = num
   this.taille = taille
   this.rang = rang
-  this.opacite = 0.5
-  this.color = 'gray'
+  this.opacite = opacite
+  this.color = color
   const objets = []
   let c
   let rayon
@@ -3777,8 +3782,20 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3 }) {
     return code
   }
 }
-export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3 }) {
-  return new CibleRonde({ x: x, y: y, rang: rang, num: num, taille: taille })
+/**
+ * création d'une cible carrée pour l'auto-correction
+ * @author Jean-Claude Lhote
+ * @param {number} x
+ * @param {number} y // les coordonnées du point en bas à gauche de la cible
+ * @param {number} rang // le nombre de cases de large
+ * @param {number} num // Un numéro ou rien pour identifier la cible (quand il y en a plusieurs)
+ * @param {number} taille // en cm, la taille des cases
+ * @param {string} color // la couleur de la cible
+ * @param {number} opacite // l'opacité de la cible
+ * @param {} param0
+ */
+export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, color = 'gray', opacite = 0.5 }) {
+  return new CibleRonde({ x, y, rang, num, taille, color, opacite })
 }
 /**
  * création d'une cible couronne en forme de rapporteur ou semi-rapporteur pour l'auto-correction
