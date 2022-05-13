@@ -11,7 +11,6 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export default function ProblemesAiresRectangles () {
-  'use strict'
   Exercice.call(this)
   this.titre = titre
   this.consigne = "Trouver la  mesure désignée par un point d'interrogation."

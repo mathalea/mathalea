@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { randint, texNombre, listeQuestionsToContenu } from '../../modules/outils.js'
+import { texNombre, listeQuestionsToContenu, scientifiqueToDecimal } from '../../modules/outils.js'
+import { Decimal } from 'decimal.js'
 export const titre = 'Somme de deux entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,12 +25,17 @@ export default function NomExercice () {
   this.nouvelleVersion = function () {
     this.listeCorrections = []
     this.listeQuestions = []
-
-    const a = Number(this.sup) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999)
-    const b = Number(this.sup2) // randint(101, 999) * randint(101, 999) * randint(101, 999) * randint(101, 999) / 10 ** 12
-    const c = a + b
-    this.listeQuestions.push(`$${texNombre(a)}+${texNombre(b)}$`)
-    this.listeCorrections.push(`$${texNombre(a)} + ${texNombre(b)} = ${texNombre(c)}$`)
+    Decimal.precision = 40
+    Decimal.toExpNeg = -40
+    Decimal.toExpPos = 40
+    const a = new Decimal(this.sup)
+    const b = new Decimal(this.sup2)
+    this.listeQuestions.push(`$\\dfrac{${texNombre(a)}}{${texNombre(10000000000000000000000)}}=${texNombre(a.div(10000000000000000000000))}$`)
+    const c = a.add(b)
+    for (let i = 20; i > -40; i -= 6) {
+      this.listeQuestions.push(`$${texNombre(a)}\\times 10^{${texNombre(i)}}=${scientifiqueToDecimal(a, i)}$`)
+      this.listeCorrections.push(`$${texNombre(a)}\\times 10^{${texNombre(i)}}=${scientifiqueToDecimal(a, i)}$`)
+    }
     listeQuestionsToContenu(this)
   }
 }

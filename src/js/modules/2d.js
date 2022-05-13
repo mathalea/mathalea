@@ -5859,7 +5859,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
  * @param {boolean} [mesureOn=false] Facultatif. false par défaut
  * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré (from EE)
  * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle (from EE) : encore optimisable
- * @param {string} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle (from EE)
+ * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle (from EE)
  * @returns CodeAngle
  * @example codeAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @example codeAngle(A,O,B) // code l'angle AOB sans aucune autre option possible
@@ -5871,7 +5871,7 @@ export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color 
   }
   if ((angle === 90 || angle === -90) & !noAngleDroit) {
     return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille, epaisseur, opacite, fill, fillOpacite)
-  } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, fill, fillOpacite, mesureOn)
+  } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, fill, fillOpacite, mesureOn, texteACote, tailleTexte)
 }
 
 function NomAngleParPosition (nom, x, y, color, s) {

@@ -5,6 +5,8 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { min, max } from 'mathjs'
 export const titre = 'Calculer un angle, déduit de figures simples'
+export const amcReady = true // pour définir que l'exercice est exportable AMC
+export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 
@@ -237,10 +239,10 @@ export default function CalculerUnAngle () {
 
       // Commencent ici tous les cas particuliers
 
-      // Angle orange de toutes les corrections
-      if ([8, 13].indexOf(QuestionsDisponibles[i]) !== -1) objetsCorrection.push(afficheMesureAngle(B, A, D, '#f15929', 3, '', { ecart: 0.85, colorArc: '#f15929', arcEpaisseur: 2, mesureEnGras: true })) // On remplit les tableaux d'objets Mathalea2d
-      else if (QuestionsDisponibles[i] === 14) objetsCorrection.push(afficheMesureAngle(E, A, D, '#f15929', 3, '', { ecart: 0.85, colorArc: '#f15929', arcEpaisseur: 2, mesureEnGras: true })) // On remplit les tableaux d'objets Mathalea2d
-      else objetsCorrection.push(afficheMesureAngle(C, A, D, '#f15929', 3, '', { ecart: 0.85, colorArc: '#f15929', arcEpaisseur: 2, mesureEnGras: true })) // On remplit les tableaux d'objets Mathalea2d
+      // Angle orange de toutes les corrections  '#f15929'
+      if ([8, 13].indexOf(QuestionsDisponibles[i]) !== -1) objetsCorrection.push(afficheMesureAngle(B, A, D, 'pink', 3, '', { ecart: 0.85, colorArc: 'pink', arcEpaisseur: 2, mesureEnGras: true })) // On remplit les tableaux d'objets Mathalea2d
+      else if (QuestionsDisponibles[i] === 14) objetsCorrection.push(afficheMesureAngle(E, A, D, 'pink', 3, '', { ecart: 0.85, colorArc: 'pink', arcEpaisseur: 2, mesureEnGras: true })) // On remplit les tableaux d'objets Mathalea2d
+      else objetsCorrection.push(afficheMesureAngle(C, A, D, 'pink', 3, '', { ecart: 0.85, colorArc: 'pink', arcEpaisseur: 2, mesureEnGras: true })) // On remplit les tableaux d'objets Mathalea2d
 
       // Point B
       if (QuestionsDisponibles[i] !== 11) {
@@ -261,7 +263,7 @@ export default function CalculerUnAngle () {
 
       // Création de l'angle "multiple" dans les cas 6, 7, 9 et 10
       if ([6, 7, 9, 10].indexOf(QuestionsDisponibles[i]) !== -1) {
-        objetsEnonce.push(codeAngle(D, A, sensRot * reponse, 3, '', '#f15929', 0, 1, '#f15929', 0.5))
+        objetsEnonce.push(codeAngle(D, A, sensRot * reponse, 3, '', 'pink', 0, 1, 'pink', 0.5))
       }
 
       // Création des angles droits et des angles plats
@@ -285,7 +287,7 @@ export default function CalculerUnAngle () {
       else texte += ` est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ ?`
 
       texte += ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true })
-      setReponse(this, i, abs(reponse)) // abs indispensable à cause du cas 8
+      setReponse(this, i, abs(reponse), { digits: 3, decimals: 0, signe: false }) // abs indispensable à cause du cas 8
 
       // Correction selon les cas
       // Les espaces (sp) sont nécessaires pour contrecarrer l'espace créé par les °.
