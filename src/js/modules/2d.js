@@ -3401,7 +3401,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) -- cycle ;`
     else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
   }
-  let la, da, code, P, dMx, dMy, dPx, dPy
+  let code, P, dMx, dMy, dPx, dPy
 
   this.svgml = function (coeff, amp) {
     this.style = ''
@@ -3413,11 +3413,8 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
         this.style += ` stroke-opacity="${this.opacite}" `
       }
       this.style += ' fill="none" '
-      la = longueur(M, Omega) // pour obtenir le nombre de points intermédiaires proportionnel au rayon
-
-      da = angle / la / 10
       code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
-      for (let k = 0; Math.abs(k) <= Math.abs(angle); k += da) {
+      for (let k = 0; Math.abs(k) <= Math.abs(angle); k += angle < 0 ? -1 : 1) {
         P = rotation(M, Omega, k)
         code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
       }
@@ -3438,15 +3435,13 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
         this.style += ` fill="${this.couleurDeRemplissage}" `
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
       }
-      la = longueur(M, Omega) // pour obtenir le nombre de points intermédiaires proportionnel au rayon
-      da = angle / la / 10
       code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
-      for (let k = 0; k <= angle; k += da) {
+      for (let k = 0; Math.abs(k) <= Math.abs(angle); k += angle < 0 ? -1 : 1) {
         P = rotation(M, Omega, k)
         code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
       }
-      P = rotation(M, Omega, la * da)
-      code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)} `
+      P = rotation(P, Omega, 1)
+      code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
 
       l = longueur(Omega, M)
       dMx = (M.xSVG(coeff) - Omega.xSVG(coeff)) / (4 * l)
@@ -3581,262 +3576,6 @@ function CourbeDeBezier (A, B, C) {
 
 export function courbeDeBezier (...args) {
   return new CourbeDeBezier(...args)
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%% LE DESSIN A MAIN LEVEE %%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
-
-/**
- * Trace un segment entre A et B qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
- * @author Jean-Claude Lhote
- */
-function SegmentMainLevee (A, B, amp, color = 'black') {
-  ObjetMathalea2D.call(this)
-  this.svg = function (coeff) {
-    if (this.epaisseur !== 1) {
-      this.style += ` stroke-width="${this.epaisseur}" `
-    }
-
-    if (this.opacite !== 1) {
-      this.style += ` stroke-opacity="${this.opacite}" `
-    }
-    if (this.couleurDeRemplissage === '') {
-      this.style += ' fill="none" '
-    } else {
-      this.style += ` fill="${this.couleurDeRemplissage}" `
-      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
-    }
-    const l = Math.round(longueur(A, B))
-    const dx = (B.xSVG(coeff) - A.xSVG(coeff)) / (4 * l); const dy = (B.ySVG(coeff) - A.ySVG(coeff)) / (4 * l)
-    let code = `<path d="M${A.xSVG(coeff)} ${A.ySVG(coeff)} C `
-    for (let k = 0; k <= 4 * l; k++) {
-      code += `${A.xSVG(coeff) + k * dx + randint(-1, 1) * amp} ${A.ySVG(coeff) + k * dy + randint(-1, 1) * amp}, `
-    }
-    code += `${B.xSVG(coeff)} ${B.ySVG(coeff)}" stroke="${color}" ${this.style}"/>`
-    return code
-  }
-  this.tikz = function () {
-    let optionsDraw = []
-    const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
-    }
-    if (this.epaisseur !== 1) {
-      tableauOptions.push(`line width = ${this.epaisseur}`)
-    }
-
-    if (this.opacite !== 1) {
-      tableauOptions.push(`opacity = ${this.opacite}`)
-    }
-    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
-    optionsDraw = '[' + tableauOptions.join(',') + ']'
-
-    const code = `\\draw ${optionsDraw} (${A.x},${A.y})--(${B.x},${B.y});`
-    return code
-  }
-}
-export function segmentMainLevee (A, B, amp, color = 'black', epaisseur = 1) {
-  return new SegmentMainLevee(A, B, amp, color, epaisseur)
-}
-/**
- * Trace un cercle de centre A et de rayon r qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
- * @author Jean-Claude Lhote
- */
-function CercleMainLevee (A, r, amp, color = 'black') {
-  ObjetMathalea2D.call(this)
-  this.color = color
-  this.svg = function (coeff) {
-    if (this.epaisseur !== 1) {
-      this.style += ` stroke-width="${this.epaisseur}" `
-    }
-
-    if (this.opacite !== 1) {
-      this.style += ` stroke-opacity="${this.opacite}" `
-    }
-    if (this.couleurDeRemplissage === '') {
-      this.style += ' fill="none" '
-    } else {
-      this.style += ` fill="${this.couleurDeRemplissage}" `
-      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
-    }
-
-    let code = `<path d="M ${A.xSVG(coeff) + r * coeff} ${A.ySVG(coeff)} C ${A.xSVG(coeff) + r * coeff} ${A.ySVG(coeff)}, `
-    for (let k = 1; k < 101; k++) {
-      code += `${A.xSVG(coeff) + r * Math.cos(2 * k * Math.PI / 101) * coeff + randint(-1, 1) * amp} ${A.ySVG(coeff) + r * Math.sin(2 * k * Math.PI / 100) * coeff + randint(-1, 1) * amp}, `
-    }
-    code += ` ${A.xSVG(coeff) + r * coeff} ${A.ySVG(coeff)} Z" stroke="${color}" ${this.style}"/>`
-    return code
-  }
-  this.tikz = function () {
-    let optionsDraw = []
-    const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
-    }
-    if (this.epaisseur !== 1) {
-      tableauOptions.push(`line width = ${this.epaisseur}`)
-    }
-
-    if (this.opacite !== 1) {
-      tableauOptions.push(`opacity = ${this.opacite}`)
-    }
-    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
-    optionsDraw = '[' + tableauOptions.join(',') + ']'
-
-    const code = `\\draw${optionsDraw} (${A.x},${A.y}) circle (${r});`
-    return code
-  }
-}
-export function cercleMainLevee (A, r, amp, color = 'black', epaisseur = 1) {
-  return new CercleMainLevee(A, r, amp, color, epaisseur)
-}
-/**
- * Trace une droite passant par A et B qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
- * @author Jean-Claude Lhote
- */
-function DroiteMainLevee (A, B, amp, color = 'black') {
-  ObjetMathalea2D.call(this)
-  this.svg = function (coeff) {
-    const d = droite(A, B, color)
-    d.isVisible = false
-    return d.svgml(coeff, amp)
-  }
-  this.tikz = function () {
-    const d = droite(A, B, color)
-    d.isVisible = false
-    return d.tikzml(amp)
-  }
-}
-export function droiteMainLevee (A, B, amp, color = 'black', epaisseur = 1) {
-  return new DroiteMainLevee(A, B, amp, color, epaisseur)
-}
-/**
- * Trace un polygone qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
- * @author Jean-Claude Lhote
- */
-function PolygoneMainLevee (points, amp) {
-  ObjetMathalea2D.call(this)
-  this.couleurDeRemplissage = ''
-  this.opaciteDeRemplissage = 1.1
-  // Le premier argument (points) doit être un tableau de points !!!
-  this.listePoints = points
-  //     this.nom = this.listePoints.join();
-  this.svg = function (coeff) {
-    let code = ''; let segmentCourant
-    let A, B
-    for (let k = 1; k <= this.listePoints.length; k++) {
-      B = this.listePoints[k % this.listePoints.length]
-      A = this.listePoints[k - 1]
-      segmentCourant = segment(A, B)
-      segmentCourant.isVisible = false
-      segmentCourant.epaisseur = this.epaisseur
-      segmentCourant.color = this.color
-      segmentCourant.opacite = this.opacite
-      code += segmentCourant.svgml(coeff, amp)
-    }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''; let segmentCourant
-    let A, B
-    for (let k = 1; k <= this.listePoints.length; k++) {
-      B = this.listePoints[k % this.listePoints.length]
-      A = this.listePoints[k - 1]
-      segmentCourant = segment(A, B)
-      segmentCourant.isVisible = false
-      segmentCourant.epaisseur = this.epaisseur
-      segmentCourant.color = this.color
-      segmentCourant.opacite = this.opacite
-      code += segmentCourant.tikzml(amp)
-    }
-    return code
-  }
-}
-export function polygoneMainLevee (points, amp, color = 'black') {
-  return new PolygoneMainLevee(points, amp, color)
-}
-/**
- * Une fonction pour dessiner des arcs à main levée comme son nom l'indique.
-* @author Jean-Claude Lhote
- */
-
-function ArcMainLevee (M, Omega, angle, amp, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
-  ObjetMathalea2D.call(this)
-  this.couleurDeRemplissage = fill
-  this.opaciteDeRemplissage = fillOpacite
-  this.color = color
-  this.svg = function (coeff) {
-    if (this.epaisseur !== 1) {
-      this.style += ` stroke-width="${this.epaisseur}" `
-    }
-    if (this.opacite !== 1) {
-      this.style += ` stroke-opacity="${this.opacite}" `
-    }
-    if (this.couleurDeRemplissage === '' || this.couleurDeRemplissage === 'none') {
-      this.style += ' fill="none" '
-    } else {
-      this.style += ` fill="${this.couleurDeRemplissage}" `
-      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
-    }
-    const la = Math.round(longueur(M, Omega) * 2 * Math.PI * angle / 360) // longueur de l'arc pour obtenir le nombre de points intermédiaires proportionnel au rayon
-    const da = angle / la; let P
-    let code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
-    for (let k = 0; k <= la; k++) {
-      P = rotation(M, Omega, k * da)
-      code += `${P.xSVG(coeff) + randint(-1, 1) * amp} ${P.ySVG(coeff) + randint(-1, 1) * amp}, `
-    }
-    code += `${P.xSVG(coeff) + randint(-1, 1) * amp} ${P.ySVG(coeff) + randint(-1, 1) * amp} `
-    const l = Math.abs(Math.round(longueur(Omega, M)))
-    const dMx = (M.xSVG(coeff) - Omega.xSVG(coeff)) / (4 * l); const dMy = (M.ySVG(coeff) - Omega.ySVG(coeff)) / (4 * l)
-    const dPx = (Omega.xSVG(coeff) - P.xSVG(coeff)) / (4 * l); const dPy = (Omega.ySVG(coeff) - P.ySVG(coeff)) / (4 * l)
-    if (rayon) {
-      for (let k = 0; k <= 4 * l; k++) {
-        code += `${P.xSVG(coeff) + k * dPx + randint(-1, 1) * amp} ${P.ySVG(coeff) + k * dPy + randint(-1, 1) * amp}, `
-      }
-      for (let j = 0; j <= 4 * l; j++) {
-        code += `${Omega.xSVG(coeff) + j * dMx + randint(-1, 1) * amp} ${Omega.ySVG(coeff) + j * dMy + randint(-1, 1) * amp}, `
-      }
-      code += `${Omega.xSVG(coeff) + 4 * l * dMx + randint(-1, 1) * amp} ${Omega.ySVG(coeff) + 4 * l * dMy + randint(-1, 1) * amp} Z `
-    }
-    code += `" stroke="${color}" ${this.style}"/>`
-    return code
-  }
-
-  this.tikz = function () {
-    let optionsDraw = []
-    const tableauOptions = []
-    const A = point(Omega.x + 1, Omega.y)
-    const azimut = angleOriente(A, Omega, M)
-    const anglefin = azimut + angle
-    const N = rotation(M, Omega, angle)
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
-    }
-    if (this.epaisseur !== 1) {
-      tableauOptions.push(`line width = ${this.epaisseur}`)
-    }
-    if (this.opacite !== 1) {
-      tableauOptions.push(`opacity = ${this.opacite}`)
-    }
-    if (rayon && fill !== 'none') {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
-    if (rayon && fill !== 'none') {
-      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
-    }
-    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
-
-    optionsDraw = '[' + tableauOptions.join(',') + ']'
-
-    if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) -- cycle ;`
-    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
-  }
-}
-export function arcMainLevee (M, Omega, angle, amp, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
-  return new ArcMainLevee(M, Omega, angle, amp, rayon, fill, color, fillOpacite)
 }
 
 /*
