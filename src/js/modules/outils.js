@@ -8195,7 +8195,9 @@ export function exportQcmAmc (exercice, idExo) {
                   lastchoice = prop.options.lastChoice
                 }
               }
-              texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmult}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+              texQr += `${(qr > 0 && !(autoCorrection[j].options.avecSymboleMult)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmult}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+              if (prop.enonce !== undefined) texQr += prop.enonce
+
               texQr += `\t\\begin{${horizontalite}}`
               if (ordered) {
                 texQr += '[o]'
