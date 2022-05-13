@@ -3667,6 +3667,7 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
   this.opacite = opacite
   const objets = []
   let numero
+  // Si un numéro est donné on l'ajoute en filigrane.
   if (typeof (num) !== 'undefined') {
     numero = texteParPosition(num, x - rang * this.taille / 4, y - rang * this.taille / 4, 'milieu', this.color)
     numero.opacite = 0.5
@@ -3675,7 +3676,9 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
     objets.push(numero)
   }
   let lettre, chiffre
+  // la grille de la cible
   objets.push(grille(x - rang * this.taille / 2, y - rang * this.taille / 2, x + rang * this.taille / 2, y + rang * this.taille / 2, this.color, this.opacite, this.taille, false))
+  // les labels de la cible
   for (let i = 0; i < rang; i++) {
     lettre = texteParPosition(lettreDepuisChiffre(1 + i), x - rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, y - (rang + 1) * this.taille / 2, 'milieu')
     chiffre = texteParPosition(i + 1, x - (rang + 1) * this.taille / 2, y - rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, 'milieu')
@@ -3684,6 +3687,7 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
     objets.push(lettre)
     objets.push(chiffre)
   }
+  // on définit les bordures (important car les cibles se placent souvent aléatoirement)
   let xmin = 1000
   let ymin = 1000
   let xmax = -1000
@@ -6185,7 +6189,7 @@ function Grille (
   this.color = color
   this.opacite = opacite
   const objets = []
-  for (let i = xmin; i <= xmax; i = i + step) {
+  for (let i = xmin; i <= xmax + 0.005; i = i + step) {
     const s = segment(i, ymin, i, ymax)
     s.color = this.color
     s.opacite = this.opacite
