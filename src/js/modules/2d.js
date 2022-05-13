@@ -3245,7 +3245,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
   if (typeof (angle) !== 'number') {
     angle = angleOriente(M, Omega, angle)
   }
-  let l = longueur(Omega, M); let large = 0; let sweep = 0
+  const l = longueur(Omega, M); let large = 0; let sweep = 0
   // let d = droite(Omega, M)
   // d.isVisible = false
   const A = point(Omega.x + 1, Omega.y)
@@ -3405,24 +3405,25 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
 
   this.svgml = function (coeff, amp) {
     this.style = ''
-    if (!rayon) {
-      if (this.epaisseur !== 1) {
-        this.style += ` stroke-width="${this.epaisseur}" `
-      }
-      if (this.opacite !== 1) {
-        this.style += ` stroke-opacity="${this.opacite}" `
-      }
-      this.style += ' fill="none" '
-      code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
-      for (let k = 0; Math.abs(k) <= Math.abs(angle); k += angle < 0 ? -1 : 1) {
-        P = rotation(M, Omega, k)
-        code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
-      }
-      P = rotation(M, Omega, angle)
-      code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)} `
-      code += `" stroke="${color}" ${this.style}/>`
-      return code
-    } else {
+    // if (!rayon) {
+    if (this.epaisseur !== 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `
+    }
+    if (this.opacite !== 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `
+    }
+    this.style += ' fill="none" '
+    code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
+    for (let k = 0; Math.abs(k) <= Math.abs(angle); k += angle < 0 ? -1 : 1) {
+      P = rotation(M, Omega, k)
+      code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
+    }
+    P = rotation(M, Omega, angle)
+    code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)} `
+    code += `" stroke="${color}" ${this.style}/>`
+    return code
+    // Pas de remplissage à main levée
+  /*  } else {
       if (this.epaisseur !== 1) {
         this.style += ` stroke-width="${this.epaisseur}" `
       }
@@ -3458,6 +3459,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
       code += `" stroke="${color}" ${this.style} />`
       return code
     }
+    */
   }
 
   this.tikzml = function (amp) {
@@ -3476,18 +3478,22 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
+    /*
     if (rayon && fill !== 'none') {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
     if (rayon && fill !== 'none') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
+    */
     tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
 
     optionsDraw = '[' + tableauOptions.join(',') + ']'
 
-    if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) -- cycle ;`
-    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) ;`
+    /* if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) -- cycle ;`
+    else
+    */
+    return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) ;`
   }
 }
 /**
@@ -6169,6 +6175,20 @@ function Grille (
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+  this.svgml = function (coeff, amp) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.svgml(coeff, amp)
+    }
+    return code
+  }
+  this.tikzml = function (amp) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikzml(amp)
     }
     return code
   }
