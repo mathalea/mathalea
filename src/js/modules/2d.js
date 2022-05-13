@@ -3052,6 +3052,29 @@ function Ellipse (O, rx, ry, color) {
     }
     return `\\draw${optionsDraw} (${O.x},${O.y}) ellipse (${rx}cm and ${ry}cm);`
   }
+  this.svgml = function (coeff, amp) {
+    if (this.epaisseur !== 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `
+    }
+
+    if (this.opacite !== 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `
+    }
+    /*
+    if (this.couleurDeRemplissage === '') {
+      this.style += ' fill="none" '
+    } else {
+      this.style += ` fill="${this.couleurDeRemplissage}" `
+      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
+    }
+*/
+    let code = `<path d="M ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)} C ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)}, `
+    for (let k = 1; k < 101; k++) {
+      code += `${O.xSVG(coeff) + rx * Math.cos(2 * k * Math.PI / 101) * coeff + randint(-1, 1) * amp} ${O.ySVG(coeff) + ry * Math.sin(2 * k * Math.PI / 100) * coeff + randint(-1, 1) * amp}, `
+    }
+    code += ` ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)} Z" stroke="${this.color}" ${this.style}"/>`
+    return code
+  }
   this.tikzml = function (amp) {
     let optionsDraw = []
     const tableauOptions = []
