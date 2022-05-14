@@ -3052,6 +3052,29 @@ function Ellipse (O, rx, ry, color) {
     }
     return `\\draw${optionsDraw} (${O.x},${O.y}) ellipse (${rx}cm and ${ry}cm);`
   }
+  this.svgml = function (coeff, amp) {
+    if (this.epaisseur !== 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `
+    }
+
+    if (this.opacite !== 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `
+    }
+    /*
+    if (this.couleurDeRemplissage === '') {
+      this.style += ' fill="none" '
+    } else {
+      this.style += ` fill="${this.couleurDeRemplissage}" `
+      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
+    }
+*/
+    let code = `<path d="M ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)} C ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)}, `
+    for (let k = 1; k < 101; k++) {
+      code += `${O.xSVG(coeff) + rx * Math.cos(2 * k * Math.PI / 101) * coeff + randint(-1, 1) * amp} ${O.ySVG(coeff) + ry * Math.sin(2 * k * Math.PI / 100) * coeff + randint(-1, 1) * amp}, `
+    }
+    code += ` ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)} Z" stroke="${this.color}" ${this.style}"/>`
+    return code
+  }
   this.tikzml = function (amp) {
     let optionsDraw = []
     const tableauOptions = []
@@ -3245,7 +3268,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
   if (typeof (angle) !== 'number') {
     angle = angleOriente(M, Omega, angle)
   }
-  let l = longueur(Omega, M); let large = 0; let sweep = 0
+  const l = longueur(Omega, M); let large = 0; let sweep = 0
   // let d = droite(Omega, M)
   // d.isVisible = false
   const A = point(Omega.x + 1, Omega.y)
@@ -3401,31 +3424,29 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) -- cycle ;`
     else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
   }
-  let la, da, code, P, dMx, dMy, dPx, dPy
+  let code, P
 
   this.svgml = function (coeff, amp) {
     this.style = ''
-    if (!rayon) {
-      if (this.epaisseur !== 1) {
-        this.style += ` stroke-width="${this.epaisseur}" `
-      }
-      if (this.opacite !== 1) {
-        this.style += ` stroke-opacity="${this.opacite}" `
-      }
-      this.style += ' fill="none" '
-      la = longueur(M, Omega) // pour obtenir le nombre de points intermédiaires proportionnel au rayon
-
-      da = angle / la / 10
-      code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
-      for (let k = 0; Math.abs(k) <= Math.abs(angle); k += da) {
-        P = rotation(M, Omega, k)
-        code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
-      }
-      P = rotation(M, Omega, angle)
-      code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)} `
-      code += `" stroke="${color}" ${this.style}/>`
-      return code
-    } else {
+    // if (!rayon) {
+    if (this.epaisseur !== 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `
+    }
+    if (this.opacite !== 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `
+    }
+    this.style += ' fill="none" '
+    code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
+    for (let k = 0; Math.abs(k) <= Math.abs(angle); k += angle < 0 ? -1 : 1) {
+      P = rotation(M, Omega, k)
+      code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
+    }
+    P = rotation(M, Omega, angle)
+    code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)} `
+    code += `" stroke="${color}" ${this.style}/>`
+    return code
+    // Pas de remplissage à main levée
+  /*  } else {
       if (this.epaisseur !== 1) {
         this.style += ` stroke-width="${this.epaisseur}" `
       }
@@ -3438,15 +3459,13 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
         this.style += ` fill="${this.couleurDeRemplissage}" `
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
       }
-      la = longueur(M, Omega) // pour obtenir le nombre de points intermédiaires proportionnel au rayon
-      da = angle / la / 10
       code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
-      for (let k = 0; k <= angle; k += da) {
+      for (let k = 0; Math.abs(k) <= Math.abs(angle); k += angle < 0 ? -1 : 1) {
         P = rotation(M, Omega, k)
         code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
       }
-      P = rotation(M, Omega, la * da)
-      code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)} `
+      P = rotation(P, Omega, 1)
+      code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
 
       l = longueur(Omega, M)
       dMx = (M.xSVG(coeff) - Omega.xSVG(coeff)) / (4 * l)
@@ -3463,6 +3482,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
       code += `" stroke="${color}" ${this.style} />`
       return code
     }
+    */
   }
 
   this.tikzml = function (amp) {
@@ -3471,7 +3491,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     const A = point(Omega.x + 1, Omega.y)
     const azimut = arrondi(angleOriente(A, Omega, M), 1)
     const anglefin = arrondi(azimut + angle, 1)
-    const N = rotation(M, Omega, angle)
+    // const N = rotation(M, Omega, angle)
     if (this.color.length > 1 && this.color !== 'black') {
       tableauOptions.push(this.color)
     }
@@ -3481,18 +3501,22 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
+    /*
     if (rayon && fill !== 'none') {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
     if (rayon && fill !== 'none') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
+    */
     tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
 
     optionsDraw = '[' + tableauOptions.join(',') + ']'
 
-    if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) -- cycle ;`
-    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) ;`
+    /* if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) -- cycle ;`
+    else
+    */
+    return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) ;`
   }
 }
 /**
@@ -3585,262 +3609,6 @@ export function courbeDeBezier (...args) {
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%% LE DESSIN A MAIN LEVEE %%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
-
-/**
- * Trace un segment entre A et B qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
- * @author Jean-Claude Lhote
- */
-function SegmentMainLevee (A, B, amp, color = 'black') {
-  ObjetMathalea2D.call(this)
-  this.svg = function (coeff) {
-    if (this.epaisseur !== 1) {
-      this.style += ` stroke-width="${this.epaisseur}" `
-    }
-
-    if (this.opacite !== 1) {
-      this.style += ` stroke-opacity="${this.opacite}" `
-    }
-    if (this.couleurDeRemplissage === '') {
-      this.style += ' fill="none" '
-    } else {
-      this.style += ` fill="${this.couleurDeRemplissage}" `
-      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
-    }
-    const l = Math.round(longueur(A, B))
-    const dx = (B.xSVG(coeff) - A.xSVG(coeff)) / (4 * l); const dy = (B.ySVG(coeff) - A.ySVG(coeff)) / (4 * l)
-    let code = `<path d="M${A.xSVG(coeff)} ${A.ySVG(coeff)} C `
-    for (let k = 0; k <= 4 * l; k++) {
-      code += `${A.xSVG(coeff) + k * dx + randint(-1, 1) * amp} ${A.ySVG(coeff) + k * dy + randint(-1, 1) * amp}, `
-    }
-    code += `${B.xSVG(coeff)} ${B.ySVG(coeff)}" stroke="${color}" ${this.style}"/>`
-    return code
-  }
-  this.tikz = function () {
-    let optionsDraw = []
-    const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
-    }
-    if (this.epaisseur !== 1) {
-      tableauOptions.push(`line width = ${this.epaisseur}`)
-    }
-
-    if (this.opacite !== 1) {
-      tableauOptions.push(`opacity = ${this.opacite}`)
-    }
-    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
-    optionsDraw = '[' + tableauOptions.join(',') + ']'
-
-    const code = `\\draw ${optionsDraw} (${A.x},${A.y})--(${B.x},${B.y});`
-    return code
-  }
-}
-export function segmentMainLevee (A, B, amp, color = 'black', epaisseur = 1) {
-  return new SegmentMainLevee(A, B, amp, color, epaisseur)
-}
-/**
- * Trace un cercle de centre A et de rayon r qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
- * @author Jean-Claude Lhote
- */
-function CercleMainLevee (A, r, amp, color = 'black') {
-  ObjetMathalea2D.call(this)
-  this.color = color
-  this.svg = function (coeff) {
-    if (this.epaisseur !== 1) {
-      this.style += ` stroke-width="${this.epaisseur}" `
-    }
-
-    if (this.opacite !== 1) {
-      this.style += ` stroke-opacity="${this.opacite}" `
-    }
-    if (this.couleurDeRemplissage === '') {
-      this.style += ' fill="none" '
-    } else {
-      this.style += ` fill="${this.couleurDeRemplissage}" `
-      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
-    }
-
-    let code = `<path d="M ${A.xSVG(coeff) + r * coeff} ${A.ySVG(coeff)} C ${A.xSVG(coeff) + r * coeff} ${A.ySVG(coeff)}, `
-    for (let k = 1; k < 101; k++) {
-      code += `${A.xSVG(coeff) + r * Math.cos(2 * k * Math.PI / 101) * coeff + randint(-1, 1) * amp} ${A.ySVG(coeff) + r * Math.sin(2 * k * Math.PI / 100) * coeff + randint(-1, 1) * amp}, `
-    }
-    code += ` ${A.xSVG(coeff) + r * coeff} ${A.ySVG(coeff)} Z" stroke="${color}" ${this.style}"/>`
-    return code
-  }
-  this.tikz = function () {
-    let optionsDraw = []
-    const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
-    }
-    if (this.epaisseur !== 1) {
-      tableauOptions.push(`line width = ${this.epaisseur}`)
-    }
-
-    if (this.opacite !== 1) {
-      tableauOptions.push(`opacity = ${this.opacite}`)
-    }
-    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
-    optionsDraw = '[' + tableauOptions.join(',') + ']'
-
-    const code = `\\draw${optionsDraw} (${A.x},${A.y}) circle (${r});`
-    return code
-  }
-}
-export function cercleMainLevee (A, r, amp, color = 'black', epaisseur = 1) {
-  return new CercleMainLevee(A, r, amp, color, epaisseur)
-}
-/**
- * Trace une droite passant par A et B qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
- * @author Jean-Claude Lhote
- */
-function DroiteMainLevee (A, B, amp, color = 'black') {
-  ObjetMathalea2D.call(this)
-  this.svg = function (coeff) {
-    const d = droite(A, B, color)
-    d.isVisible = false
-    return d.svgml(coeff, amp)
-  }
-  this.tikz = function () {
-    const d = droite(A, B, color)
-    d.isVisible = false
-    return d.tikzml(amp)
-  }
-}
-export function droiteMainLevee (A, B, amp, color = 'black', epaisseur = 1) {
-  return new DroiteMainLevee(A, B, amp, color, epaisseur)
-}
-/**
- * Trace un polygone qui donne l'impression d'être fait à main levée. amp est l'amplitude de la déformation
- * @author Jean-Claude Lhote
- */
-function PolygoneMainLevee (points, amp) {
-  ObjetMathalea2D.call(this)
-  this.couleurDeRemplissage = ''
-  this.opaciteDeRemplissage = 1.1
-  // Le premier argument (points) doit être un tableau de points !!!
-  this.listePoints = points
-  //     this.nom = this.listePoints.join();
-  this.svg = function (coeff) {
-    let code = ''; let segmentCourant
-    let A, B
-    for (let k = 1; k <= this.listePoints.length; k++) {
-      B = this.listePoints[k % this.listePoints.length]
-      A = this.listePoints[k - 1]
-      segmentCourant = segment(A, B)
-      segmentCourant.isVisible = false
-      segmentCourant.epaisseur = this.epaisseur
-      segmentCourant.color = this.color
-      segmentCourant.opacite = this.opacite
-      code += segmentCourant.svgml(coeff, amp)
-    }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''; let segmentCourant
-    let A, B
-    for (let k = 1; k <= this.listePoints.length; k++) {
-      B = this.listePoints[k % this.listePoints.length]
-      A = this.listePoints[k - 1]
-      segmentCourant = segment(A, B)
-      segmentCourant.isVisible = false
-      segmentCourant.epaisseur = this.epaisseur
-      segmentCourant.color = this.color
-      segmentCourant.opacite = this.opacite
-      code += segmentCourant.tikzml(amp)
-    }
-    return code
-  }
-}
-export function polygoneMainLevee (points, amp, color = 'black') {
-  return new PolygoneMainLevee(points, amp, color)
-}
-/**
- * Une fonction pour dessiner des arcs à main levée comme son nom l'indique.
-* @author Jean-Claude Lhote
- */
-
-function ArcMainLevee (M, Omega, angle, amp, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
-  ObjetMathalea2D.call(this)
-  this.couleurDeRemplissage = fill
-  this.opaciteDeRemplissage = fillOpacite
-  this.color = color
-  this.svg = function (coeff) {
-    if (this.epaisseur !== 1) {
-      this.style += ` stroke-width="${this.epaisseur}" `
-    }
-    if (this.opacite !== 1) {
-      this.style += ` stroke-opacity="${this.opacite}" `
-    }
-    if (this.couleurDeRemplissage === '' || this.couleurDeRemplissage === 'none') {
-      this.style += ' fill="none" '
-    } else {
-      this.style += ` fill="${this.couleurDeRemplissage}" `
-      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
-    }
-    const la = Math.round(longueur(M, Omega) * 2 * Math.PI * angle / 360) // longueur de l'arc pour obtenir le nombre de points intermédiaires proportionnel au rayon
-    const da = angle / la; let P
-    let code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
-    for (let k = 0; k <= la; k++) {
-      P = rotation(M, Omega, k * da)
-      code += `${P.xSVG(coeff) + randint(-1, 1) * amp} ${P.ySVG(coeff) + randint(-1, 1) * amp}, `
-    }
-    code += `${P.xSVG(coeff) + randint(-1, 1) * amp} ${P.ySVG(coeff) + randint(-1, 1) * amp} `
-    const l = Math.abs(Math.round(longueur(Omega, M)))
-    const dMx = (M.xSVG(coeff) - Omega.xSVG(coeff)) / (4 * l); const dMy = (M.ySVG(coeff) - Omega.ySVG(coeff)) / (4 * l)
-    const dPx = (Omega.xSVG(coeff) - P.xSVG(coeff)) / (4 * l); const dPy = (Omega.ySVG(coeff) - P.ySVG(coeff)) / (4 * l)
-    if (rayon) {
-      for (let k = 0; k <= 4 * l; k++) {
-        code += `${P.xSVG(coeff) + k * dPx + randint(-1, 1) * amp} ${P.ySVG(coeff) + k * dPy + randint(-1, 1) * amp}, `
-      }
-      for (let j = 0; j <= 4 * l; j++) {
-        code += `${Omega.xSVG(coeff) + j * dMx + randint(-1, 1) * amp} ${Omega.ySVG(coeff) + j * dMy + randint(-1, 1) * amp}, `
-      }
-      code += `${Omega.xSVG(coeff) + 4 * l * dMx + randint(-1, 1) * amp} ${Omega.ySVG(coeff) + 4 * l * dMy + randint(-1, 1) * amp} Z `
-    }
-    code += `" stroke="${color}" ${this.style}"/>`
-    return code
-  }
-
-  this.tikz = function () {
-    let optionsDraw = []
-    const tableauOptions = []
-    const A = point(Omega.x + 1, Omega.y)
-    const azimut = angleOriente(A, Omega, M)
-    const anglefin = azimut + angle
-    const N = rotation(M, Omega, angle)
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
-    }
-    if (this.epaisseur !== 1) {
-      tableauOptions.push(`line width = ${this.epaisseur}`)
-    }
-    if (this.opacite !== 1) {
-      tableauOptions.push(`opacity = ${this.opacite}`)
-    }
-    if (rayon && fill !== 'none') {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
-    if (rayon && fill !== 'none') {
-      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
-    }
-    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
-
-    optionsDraw = '[' + tableauOptions.join(',') + ']'
-
-    if (rayon) return `\\filldraw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) -- cycle ;`
-    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
-  }
-}
-export function arcMainLevee (M, Omega, angle, amp, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
-  return new ArcMainLevee(M, Omega, angle, amp, rayon, fill, color, fillOpacite)
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% LES TRANSFORMATIONS %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
@@ -3888,11 +3656,6 @@ export function dansLaCibleRonde (x, y, rang, taille, cellule) {
   }
 }
 
-/**
- * création d'une cible carrée pour l'auto-correction
- * @author Jean-Claude Lhote
- * @param {} param0
- */
 function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this)
   this.x = x
@@ -3904,6 +3667,7 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
   this.opacite = opacite
   const objets = []
   let numero
+  // Si un numéro est donné on l'ajoute en filigrane.
   if (typeof (num) !== 'undefined') {
     numero = texteParPosition(num, x - rang * this.taille / 4, y - rang * this.taille / 4, 'milieu', this.color)
     numero.opacite = 0.5
@@ -3911,9 +3675,10 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
     numero.contour = true
     objets.push(numero)
   }
-  this.n = num
   let lettre, chiffre
+  // la grille de la cible
   objets.push(grille(x - rang * this.taille / 2, y - rang * this.taille / 2, x + rang * this.taille / 2, y + rang * this.taille / 2, this.color, this.opacite, this.taille, false))
+  // les labels de la cible
   for (let i = 0; i < rang; i++) {
     lettre = texteParPosition(lettreDepuisChiffre(1 + i), x - rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, y - (rang + 1) * this.taille / 2, 'milieu')
     chiffre = texteParPosition(i + 1, x - (rang + 1) * this.taille / 2, y - rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, 'milieu')
@@ -3922,6 +3687,7 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
     objets.push(lettre)
     objets.push(chiffre)
   }
+  // on définit les bordures (important car les cibles se placent souvent aléatoirement)
   let xmin = 1000
   let ymin = 1000
   let xmax = -1000
@@ -3950,25 +3716,30 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
     return code
   }
 }
-export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6 }) {
-  return new CibleCarree({ x: x, y: y, rang: rang, num: num, taille: taille })
-}
 /**
- * création d'une cible ronde pour l'auto-correction
+ * création d'une cible carrée pour l'auto-correction
  * @author Jean-Claude Lhote
- * (x,y) sont les coordonnées du centre de la cible
- * Les secteurs de la cible fot 45°. Ils sont au nombre de rang*8
- * Repérage de A1 à Hn où n est le rang.
+ * @param {number} x
+ * @param {number} y // les coordonnées du point au centre de la cible
+ * @param {number} rang // le nombre de cases de large
+ * @param {number} num // Un numéro ou rien pour identifier la cible (quand il y en a plusieurs)
+ * @param {number} taille // en cm, la taille des cases
+ * @param {string} color // la couleur de la cible
+ * @param {number} opacite // l'opacité de la cible
+ * @param {} param0
  */
-function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3 }) {
+export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
+  return new CibleCarree({ x, y, rang, num, taille, color, opacite })
+}
+
+function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
-  this.n = num
   this.taille = taille
   this.rang = rang
-  this.opacite = 0.5
-  this.color = 'gray'
+  this.opacite = opacite
+  this.color = color
   const objets = []
   let c
   let rayon
@@ -4009,23 +3780,37 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3 }) {
     return code
   }
 }
-export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3 }) {
-  return new CibleRonde({ x: x, y: y, rang: rang, num: num, taille: taille })
+/**
+ * création d'une cible ronde pour l'auto-correction
+ * @author Jean-Claude Lhote
+ * (x,y) sont les coordonnées du centre de la cible
+ * Les zones de la cible fot 45°. Ils sont au nombre de rang*8
+ * Repérage de A1 à Hn où n est le rang.
+ * @author Jean-Claude Lhote
+ * @param {number} x
+ * @param {number} y // les coordonnées du point en bas à gauche de la cible
+ * @param {number} rang // le nombre de cases de large
+ * @param {number} num // Un numéro ou rien pour identifier la cible (quand il y en a plusieurs)
+ * @param {number} taille // en cm, la taille des cases
+ * @param {string} color // la couleur de la cible
+ * @param {number} opacite // l'opacité de la cible
+ * @param {} param0
+ */
+export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, color = 'gray', opacite = 0.5 }) {
+  return new CibleRonde({ x, y, rang, num, taille, color, opacite })
 }
 /**
  * création d'une cible couronne en forme de rapporteur ou semi-rapporteur pour l'auto-correction
  * @author Jean-Claude Lhote
  * (x,y) sont les coordonnées du centre de la cible
- *
- *
  */
-function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
+function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
   this.taille = taille
-  this.opacite = 0.5
-  this.color = 'gray'
+  this.opacite = opacite
+  this.color = color
   const objets = []
   let numero
   let azimut
@@ -4083,9 +3868,22 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbD
     return code
   }
 }
-
-export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
-  return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label })
+/**
+ * création d'une cible couronne en forme de rapporteur ou semi-rapporteur pour l'auto-correction
+ * @author Jean-Claude Lhote
+ * (x,y) sont les coordonnées du centre de la cible
+ * @param {number} taille distance entre le centre de la cible et l'arc intérieur
+ * @param {number} taille2 distance entre l'arc intérieur et l'arc extérieur de la couronne
+ * @param {number} depart angle pour démarrer la numérotation des zones 0 = est
+ * @param {number} nbDivisions nombre de secteurs dans la couronne ou la semi-couronne
+ * @param {number} nbSubDivisions nombre de graduations à l'intérieur de chaque zone pour un repérage plus précis
+ * @param {boolean} semi si true alors seulement 180° sinon couronne à 360°
+ * @param {boolean} label si true alors des lettres sont ajoutées pour identifier les zones
+ * @param {string} color La couleur de la cible
+ * @param {number} opacite son opacité.
+ */
+export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true, color = 'gray', opacite = 0.5 }) {
+  return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label, color, opacite })
 }
 
 function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens', precisionAuDegre = 1, stepGraduation = 10, rayonsVisibles = true }) {
@@ -4201,12 +3999,12 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
 
 /**
  * place un rapporteur centré en (x,y) avec le zéro orienté à depart degrés.
- * si semi === false alors les graduations vont de 0 à 180° sinon de 0 à 360°
- * si avecNombre === "", il n'y a pas de graduations, si avecNombre === "deuxSens" il est gradué dans les deux directions
+ * @param {boolean} semi si semi === false alors les graduations vont de 0 à 180° sinon de 0 à 360°
+ * @param {string} avecNombre === "", il n'y a pas de graduations, si avecNombre === "deuxSens" il est gradué dans les deux directions
  * si avecNombre === "unSens" il est gradué dans le sens trigo.
- * si precisionAuDegre === 10 alors il n'y aura pas de graduations entre les multiples de 10°, les autres valeurs sont 5 et 1.
- * stepGraduation est un multiple de 10 qui divise 180 (c'est mieux) donc 10 (par défaut), ou 20, ou 30, ou 60 ou 90.
- * rayonsVisibles = false permet de supprimer les rayons et le cercle central
+ * @param {number} precisionAuDegre === 10 alors il n'y aura pas de graduations entre les multiples de 10°, les autres valeurs sont 5 et 1.
+ * @param {number} stepGraduation est un multiple de 10 qui divise 180 (c'est mieux) donc 10 (par défaut), ou 20, ou 30, ou 60 ou 90.
+ * @param {boolean} rayonsVisibles = false permet de supprimer les rayons et le cercle central
  * @param {object} param0 = {x: 'number', y: 'number', taille: 'number', semi: boolean, avecNombre: string}
  * @returns {Rapporteur} // crée un instance de l'objet 2d Rapporteur
  */
@@ -4218,8 +4016,10 @@ export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false
  * M = translation(O,v) //M est l'image de O dans la translation de vecteur v
  * M = translation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
  * M = translation(O,v,'M','below') //M est l'image de O dans la translation de vecteur v, se nomme M et le nom est en dessous du point
- * @param {Point} O
- * @param {}
+ * @param {ObjecMathalea2d} O objet à translater (Point, Droite, Segment, Polygone ou Vecteur)
+ * @param {Vecteur} v vecteur de translation
+ * @param {string} nom nom du translaté pour un Point
+ * @param {string} positionLabel Position du label pour un Point
  * @author Rémi Angot
  */
 export function translation (O, v, nom = '', positionLabel = 'above') {
@@ -6400,7 +6200,7 @@ function Grille (
   this.color = color
   this.opacite = opacite
   const objets = []
-  for (let i = xmin; i <= xmax; i = i + step) {
+  for (let i = xmin; i <= xmax + 0.005; i = i + step) {
     const s = segment(i, ymin, i, ymax)
     s.color = this.color
     s.opacite = this.opacite
@@ -6430,6 +6230,20 @@ function Grille (
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+  this.svgml = function (coeff, amp) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.svgml(coeff, amp)
+    }
+    return code
+  }
+  this.tikzml = function (amp) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikzml(amp)
     }
     return code
   }
