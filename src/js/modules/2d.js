@@ -3720,7 +3720,7 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
  * création d'une cible carrée pour l'auto-correction
  * @author Jean-Claude Lhote
  * @param {number} x
- * @param {number} y // les coordonnées du point en bas à gauche de la cible
+ * @param {number} y // les coordonnées du point au centre de la cible
  * @param {number} rang // le nombre de cases de large
  * @param {number} num // Un numéro ou rien pour identifier la cible (quand il y en a plusieurs)
  * @param {number} taille // en cm, la taille des cases
@@ -3731,13 +3731,7 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
 export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
   return new CibleCarree({ x, y, rang, num, taille, color, opacite })
 }
-/**
- * création d'une cible ronde pour l'auto-correction
- * @author Jean-Claude Lhote
- * (x,y) sont les coordonnées du centre de la cible
- * Les secteurs de la cible fot 45°. Ils sont au nombre de rang*8
- * Repérage de A1 à Hn où n est le rang.
- */
+
 function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this)
   this.x = x
@@ -3787,7 +3781,11 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray'
   }
 }
 /**
- * création d'une cible carrée pour l'auto-correction
+ * création d'une cible ronde pour l'auto-correction
+ * @author Jean-Claude Lhote
+ * (x,y) sont les coordonnées du centre de la cible
+ * Les zones de la cible fot 45°. Ils sont au nombre de rang*8
+ * Repérage de A1 à Hn où n est le rang.
  * @author Jean-Claude Lhote
  * @param {number} x
  * @param {number} y // les coordonnées du point en bas à gauche de la cible
@@ -3805,8 +3803,6 @@ export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, col
  * création d'une cible couronne en forme de rapporteur ou semi-rapporteur pour l'auto-correction
  * @author Jean-Claude Lhote
  * (x,y) sont les coordonnées du centre de la cible
- *
- *
  */
 function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
   ObjetMathalea2D.call(this)
@@ -3872,7 +3868,18 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbD
     return code
   }
 }
-
+/**
+ * création d'une cible couronne en forme de rapporteur ou semi-rapporteur pour l'auto-correction
+ * @author Jean-Claude Lhote
+ * (x,y) sont les coordonnées du centre de la cible
+ * @param {number} taille distance entre le centre de la cible et l'arc intérieur
+ * @param {number} taille2 distance entre l'arc intérieur et l'arc extérieur de la couronne
+ * @param {number} depart angle pour démarrer la numérotation des zones 0 = est
+ * @param {number} nbDivisions nombre de secteurs dans la couronne ou la semi-couronne
+ * @param {number} nbSubDivisions nombre de graduations à l'intérieur de chaque zone pour un repérage plus précis
+ * @param {boolean} semi si true alors seulement 180° sinon couronne à 360°
+ * @param {boolean} label si true alors des lettres sont ajoutées pour identifier les zones
+ */
 export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
   return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label })
 }
@@ -3990,12 +3997,12 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
 
 /**
  * place un rapporteur centré en (x,y) avec le zéro orienté à depart degrés.
- * si semi === false alors les graduations vont de 0 à 180° sinon de 0 à 360°
- * si avecNombre === "", il n'y a pas de graduations, si avecNombre === "deuxSens" il est gradué dans les deux directions
+ * @param {boolean} semi si semi === false alors les graduations vont de 0 à 180° sinon de 0 à 360°
+ * @param {string} avecNombre === "", il n'y a pas de graduations, si avecNombre === "deuxSens" il est gradué dans les deux directions
  * si avecNombre === "unSens" il est gradué dans le sens trigo.
- * si precisionAuDegre === 10 alors il n'y aura pas de graduations entre les multiples de 10°, les autres valeurs sont 5 et 1.
- * stepGraduation est un multiple de 10 qui divise 180 (c'est mieux) donc 10 (par défaut), ou 20, ou 30, ou 60 ou 90.
- * rayonsVisibles = false permet de supprimer les rayons et le cercle central
+ * @param {number} precisionAuDegre === 10 alors il n'y aura pas de graduations entre les multiples de 10°, les autres valeurs sont 5 et 1.
+ * @param {number} stepGraduation est un multiple de 10 qui divise 180 (c'est mieux) donc 10 (par défaut), ou 20, ou 30, ou 60 ou 90.
+ * @param {boolean} rayonsVisibles = false permet de supprimer les rayons et le cercle central
  * @param {object} param0 = {x: 'number', y: 'number', taille: 'number', semi: boolean, avecNombre: string}
  * @returns {Rapporteur} // crée un instance de l'objet 2d Rapporteur
  */
@@ -4007,8 +4014,10 @@ export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false
  * M = translation(O,v) //M est l'image de O dans la translation de vecteur v
  * M = translation(O,v,'M') //M est l'image de O dans la translation de vecteur v et se nomme M
  * M = translation(O,v,'M','below') //M est l'image de O dans la translation de vecteur v, se nomme M et le nom est en dessous du point
- * @param {Point} O
- * @param {}
+ * @param {ObjecMathalea2d} O objet à translater (Point, Droite, Segment, Polygone ou Vecteur)
+ * @param {Vecteur} v vecteur de translation
+ * @param {string} nom nom du translaté pour un Point
+ * @param {string} positionLabel Position du label pour un Point
  * @author Rémi Angot
  */
 export function translation (O, v, nom = '', positionLabel = 'above') {
