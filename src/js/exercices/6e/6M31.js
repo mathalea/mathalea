@@ -10,6 +10,8 @@ export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 
+export const dateDeModifImportante = '14/05/2022'
+
 /**
  * Conversions de volumes.
  *
@@ -22,6 +24,7 @@ export const interactifType = ['qcm', 'mathLive']
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
  * @author Rémi Angot
  * Référence 6M31
+ * Amélioration de l'interactivité (mathLive maintenant inline) par Guillaume Valmont le 14/05/2022
  */
 export default function ExerciceConversionsVolumes (niveau = 1) {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -291,8 +294,8 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
       ]
       if (this.interactif && this.interactifType === 'qcm') {
         texte += propositionsQcm(this, i).texte
-      } else {
-        texte += ' ' + ajouteChampTexteMathLive(this, i, 'longueur')
+      } else if (this.interactif && this.interactifType === 'mathLive') {
+        texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, 'longueur inline largeur25')}$`)
         setReponse(this, i, parseFloat(resultat))
       }
 
