@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, texNombre } from '../../modules/outils.js'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
-import { create, all, sqrt } from 'mathjs'
+import { create, all, sqrt, min } from 'mathjs'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { integrale, repere2, courbe2, mathalea2d } from '../../modules/2d.js'
+import Algebrite from 'algebrite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // import { calcule } from '../../modules/fonctionsMaths.js'
@@ -52,25 +53,24 @@ export default function CalculsLoiExponentielle () {
         case 'loiexp':
           variables = aleaVariables(
             {
-              a: 'pickRandom([-1,1])*round(random(0.3,2.5),1)',
-              b: 'pickRandom([-1,1])*round(random(0.3,2.5),1)',
-              mu: 'randomInt(-30, 30)',
-              lambda: 'round(random(1,10),1)',
+              lambda: 'round(random(0.1,5),1)',
+              a: 'pickRandom([-1,1])*round(random(0.3,2.5),1)/lambda + 1/lambda',
+              b: 'pickRandom([-1,1])*round(random(0.3,8),1)/lambda + 1/lambda',
               test: '(a-b)/lambda<-1'
             }
           )
           densite = x => dexponentielle(x, variables.lambda)
-          r = repere2({ xMin: -4, xMax: 4, yMin: -1, yMax: variables.lambda + 1, xUnite: 2 * variables.lambda, yUnite: 4 / variables.lambda, axesEpaisseur: 1, yThickDistance: 0.5 })
+          r = repere2({ xMin: min(0.3, variables.a - 0.3), xMax: 8, yMin: -1, yMax: variables.lambda + 0.5, xUnite: 2 * variables.lambda, yUnite: 4 / variables.lambda, axesEpaisseur: 1, yThickDistance: 0.5, grille: false })
           C = courbe2(densite, { repere: r, step: 0.01, color: 'red', epaisseur: 3 })
-          I = integrale(densite, { repere: r, step: 0.01, epaisseur: 0, a: variables.a, b: variables.b, hachures: 0 })
-          graphique = mathalea2d({ xmin: -9, xmax: 9, ymin: -0.8, ymax: variables.lambda + 2, pixelsParCm: 30 }, r, C, I)
+          I = integrale(densite, { repere: r, step: 0.001, epaisseur: 0, a: variables.a, b: variables.b, hachures: 0 })
+          graphique = mathalea2d({ xmin: r.xUnite * (-3), xmax: r.xUnite * 8, ymin: -0.8, ymax: r.yUnite * (variables.lambda + 0.5), pixelsParCm: 30 }, r, C, I)
           bornea = texNombre(variables.a)
           oppbornea = texNombre(-variables.a)
           borneb = texNombre(variables.b)
           oppborneb = texNombre(-variables.b)
           bornec = bornea
           borned = borneb
-          resultat = 0.5 * math.erf(variables.b / sqrt(2)) - 0.5 * math.erf(variables.a / sqrt(2))
+          resultat = Algebrite.defint(`${variables.param} * math.exp(-${variables.param} * x)`, 'x', `${variables.a}`, `${variables.b}`)
           expression = `$\\mathrm{P}(${bornea} < X < ${borneb})$`
           calculstep = []
           texte = `Soit $X$ une variable aléatoire réelle suivant une loi exponentielle $\\mathcal{E}(${variables.lambda})$. <br> Calculer à $10^{-2}$ près la probabilité : ` + expression
