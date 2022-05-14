@@ -9,7 +9,14 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModifImportante = '14/05/2022'
 
+/**
+ *
+ * @author
+ * Référence 6D13
+ * Ajout d'une option "Mélange" par Guillaume Valmont le 14/05/2022
+*/
 export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false) {
   Exercice.call(this)
   this.nbQuestions = 5
