@@ -58,7 +58,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr += `\\xrightarrow{+${c}}`
           this.sup ? texteCorr += `${b}x+${a * b + c}` : texteCorr += `(x+${a})\\times  ${b} + ${c}`
           texteCorr += '$<br>'
-          texteCorr += `Le résultat du programme est donc `
+          texteCorr += 'Le résultat du programme est donc '
           this.sup ? texteCorr += `$${b}x+${a * b + c}$.` : texteCorr += `$(x+${a})\\times  ${b} + ${c}$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
@@ -88,7 +88,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr = `$y\\xrightarrow{\\times  ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times  ${c}}(${a}y+${b})\\times ${c}`
           if (this.sup) texteCorr += `=${a * c}y+${b * c}`
           texteCorr += '$<br>'
-          texteCorr += `Le résultat du programme est donc `
+          texteCorr += 'Le résultat du programme est donc '
           this.sup ? texteCorr += `$${a * c}y+${b * c}$.` : texteCorr += `$(${a}y+${b})\\times ${c}$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
@@ -176,7 +176,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           texteCorr += `\\xrightarrow{-${d}}`
           this.sup ? texteCorr += `${a * c}x+${b * c - d}` : texteCorr += `(${a}x+${b})\\times  ${c} - ${d}`
           texteCorr += '$<br>'
-          texteCorr += `Le résultat du programme est donc `
+          texteCorr += 'Le résultat du programme est donc '
           this.sup ? texteCorr += `$${a * c}x+${b * c - d}$.` : texteCorr += `$(${a}x+${b})\\times  ${c} - ${d}$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
@@ -205,10 +205,10 @@ export default function TraduireUnProgrammeDeCalcul () {
           texte += 'Si on note $y$ le nombre de départ, quel est le résultat du programme de calcul ?'
           texteCorr = `$y\\xrightarrow{\\times  ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times  ${c}}(${a}y+${b})\\times  ${c}`
           if (this.sup) texteCorr += `=${a * c}y+${b * c}`
-          texteCorr += `\\xrightarrow{+y}`
+          texteCorr += '\\xrightarrow{+y}'
           this.sup ? texteCorr += `${a * c}y+${b * c}+y=${a * c + 1}y+${b * c}` : texteCorr += `(${a}y+${b})\\times  ${c} + y`
           texteCorr += '$<br>'
-          texteCorr += `Le résultat du programme est donc `
+          texteCorr += 'Le résultat du programme est donc '
           this.sup ? texteCorr += `$${a * c + 1}y+${b * c}$.` : texteCorr += `$(${a}y+${b})\\times  ${c} + y$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
