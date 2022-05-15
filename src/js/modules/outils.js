@@ -2535,6 +2535,8 @@ export function numberFormat (nb) {
 /**
  * La chaîne de caractères en sortie doit être interprétée par KateX et doit donc être placée entre des $ $
  * Renvoie "Trop de chiffres" s'il y a plus de 15 chiffres significatifs (et donc un risque d'erreur d'approximation)
+ * S'utilise indifféremment avec des nombres (nb) au format natif (entier, flottant) ou au format Decimal (nécessite la librairie decimal.js)
+ * Avec comme avantage immédiat pour le format Decimal : precision est illimité.
  * Sinon, renvoie un nombre dans le format français (avec une virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
  * @author Guillaume Valmont
  * @param {number} nb nombre à afficher
