@@ -88,7 +88,9 @@ export default function CalculDeVolumes () {
           c = calcul(randint(2, 10) + partieDecimale1)
           volume = c * c * c
           j = randint(0, 3) // pour le choix de l'unité
-          texte = `Calculer le volume, en$${listeUnites[j][1]}$ (arrondi à l'unité) d'un cube de $${texNombre(c)} ${listeUnites[j][0]}$ d'arête.`
+          texte = `Calculer le volume, en$${listeUnites[j][1]}$`
+          texte += this.sup2 ? ' (arrondi à l\'unité), ' : ', '
+          texte += `d'un cube de $${texNombre(c)} ${listeUnites[j][0]}$ d'arête.`
           texteCorr = `$\\mathcal{V}= c^3 =c \\times c \\times c = ${texNombre(c)}${listeUnites[j][0]}\\times${texNombre(c)}${listeUnites[j][0]}\\times${texNombre(c)}${listeUnites[j][0]}=${texNombrec(volume)}${listeUnites[j][1]}`
           if (volume !== Math.round(volume)) {
             texteCorr += `\\approx ${Math.round(volume)}${listeUnites[j][1]}$`
@@ -155,7 +157,7 @@ export default function CalculDeVolumes () {
             resultat3 = Math.round(volume / 2)
             resultat4 = Math.round(2 * volume)
             texte = `Calculer le volume, en$${listeUnites[j][1]}$`
-            texte += this.sup2 ? ' (arrondi à l\'unité), ' : ', '
+            texte += ' (arrondi à l\'unité), ' // Il faut toujours arrondir à cause de la présence de Pi
             texte += `d'un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}=\\pi \\times R ^2 \\times h =\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^2\\times${h}${listeUnites[j][0]}=${texNombrec(
               r * r * h
@@ -224,7 +226,7 @@ export default function CalculDeVolumes () {
             h = randint(2, 15)
             volume = (r * r * h * Math.PI) / 3
             texte = `Calculer le volume, en$${listeUnites[j][1]}$`
-            texte += this.sup2 ? ' (arrondi à l\'unité), ' : ', '
+            texte += ' (arrondi à l\'unité), ' // Il faut toujours arrondir à cause de la présence de Pi
             texte += `d'un cône de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${listeUnites[j][0]}\\right)^2\\times${h}${listeUnites[j][0]}=${texFraction(
               r * r * h,
