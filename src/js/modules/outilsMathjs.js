@@ -3,6 +3,7 @@ import { texNombre2, obtenirListeFacteursPremiers } from './outils.js'
 import { all, create, format, number, SymbolNode, ConstantNode, OperatorNode, ParenthesisNode, simplify, parse, round } from 'mathjs'
 import { Node, Negative, solveEquation, simplifyExpression, factor } from 'mathsteps'
 import { getNewChangeNodes } from './Change.js'
+import Decimal from 'decimal.js'
 
 const math = create(all)
 
@@ -443,6 +444,7 @@ export function aleaExpression (expression = '(a*x+b)*(c*x-d)', assignations = {
  * Les calculs se font si possible avec mathjs au format fraction
  * @param {Object} variables // Propriété réservée : test
  * @param {Object} params // valueOf à true pour avoir les valeurs décimales, format à true pour appliquer texNombre2
+ * // type à 'decimal' et valueOf à true pour obtenir des instances de Decimal()
  * @returns {Object}
  * @see {@link https://mathjs.org/docs/expressions/syntax.html|Mathjs}
  * @see {@link https://coopmaths.fr/documentation/tutorial-Outils_Mathjs.html|Mathjs}
@@ -455,7 +457,7 @@ export function aleaExpression (expression = '(a*x+b)*(c*x-d)', assignations = {
  * aleaVariables({a: true}) --> {a: Fraction} // Fraction est un objet de mathjs
  * @author Frédéric PIOU
  */
-export function aleaVariables (variables = { a: true, b: true, c: true, d: true }, params = { valueOf: true, format: false }) {
+export function aleaVariables (variables = { a: true, b: true, c: true, d: true }, params = { valueOf: true, format: false, type: 'number' }) {
   // Conservation de la graine aléatoire
   math.config({ randomSeed: context.graine })
   // Placer dans cet objet chacune des variables après calcul
@@ -480,22 +482,26 @@ export function aleaVariables (variables = { a: true, b: true, c: true, d: true 
           )
           break
         case 'number': // On ne fait que le convertir en fraction
-          assignations[v] = math.fraction(variables[v])
+          if (params.type === 'decimal') assignations[v] = math.bignumber(variables[v])
+          else assignations[v] = math.fraction(variables[v])
           break
         case 'string':
           // Parser l'expression
           // Parcourir le noeud et repérer les points sensibles (division, décimaux)
           try { // On tente les calculs exacts avec mathjs
-            assignations[v] = emath.evaluate(variables[v], assignations)
+            if (params.type === 'decimal') assignations[v] = bmath.evaluate(variables[v], assignations)
+            else assignations[v] = emath.evaluate(variables[v], assignations)
           } catch { // Sinon on cherche à la transformer en fraction après coup
             try {
-              assignations[v] = math.fraction(math.evaluate(variables[v], assignations))
+              if (params.type === 'decimal') assignations[v] = math.bignumber(math.evaluate(variables[v], assignations))
+              else assignations[v] = math.fraction(math.evaluate(variables[v], assignations))
             } catch { // Sinon on fait sans mais on revient à des nombres de type 'number'
               const values = Object.assign({}, assignations)
               for (const v of Object.keys(values)) {
                 values[v] = values[v].valueOf()
               }
-              assignations[v] = math.evaluate(variables[v], values)
+              if (params.type === 'decimal') assignations[v] = bmath.evaluate(variables[v], values)
+              else assignations[v] = math.evaluate(variables[v], values)
             }
           }
           break
@@ -508,7 +514,7 @@ export function aleaVariables (variables = { a: true, b: true, c: true, d: true 
   if (params.valueOf) {
     for (const v of Object.keys(assignations)) {
       if (typeof assignations[v] !== 'number') {
-        assignations[v] = assignations[v].valueOf()
+        if (!(assignations[v] instanceof Decimal)) assignations[v] = assignations[v].valueOf()
       }
     }
   }
