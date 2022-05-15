@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texTexte, sp } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texNombre, texTexte, sp } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import Decimal from 'decimal.js'
 export const titre = 'Convertir des volumes'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
@@ -38,12 +39,20 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
   this.amcReady = amcReady
   this.amcType = amcType
   this.interactifReady = interactifReady
-
+  function nombreAleatoire (nbChiffres) { // retourne un entier aléatoire à n chiffres sous la forme d'un Decimal
+    let a = new Decimal(0)
+    for (let i = 0; i < nbChiffres; i++) {
+      a = a.add(randint(1, 9) * 10 ** i)
+    }
+    return a
+  }
   this.nouvelleVersion = function () {
     this.interactifType = parseInt(this.sup3) === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    Decimal.toExpNeg = -20 // pour éviter la conversion en notation scientifique on va jusqu'à 20 décimales (-7 est la valeur par défaut)
+    Decimal.toExpPos = 20 // pour les grands entiers, c'est la valeur par défaut
     const prefixeMulti = [
       ['da', '10\\times10\\times10', 1000],
       ['h', '100\\times100\\times100', 1000000],
@@ -95,18 +104,18 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
       if (this.sup2) {
         // Si la case pour les nombres décimaux est cochée
         a = choice([
-          arrondi(randint(1, 19) + randint(1, 9) / 10, 1),
-          arrondi(randint(1, 9) / 10, 1),
-          arrondi(randint(1, 9) / 100, 2),
-          arrondi(randint(1, 9) + randint(1, 9) / 10 + randint(1, 9) / 100, 2)
+          (new Decimal(randint(10, 199))).div(10),
+          nombreAleatoire(1).div(10),
+          nombreAleatoire(1).div(100),
+          nombreAleatoire(3).div(100)
         ])
         // XX,X 0,X 0,0X X,XX
       } else {
         a = choice([
-          randint(1, 9),
-          randint(1, 9) * 10,
-          randint(1, 9) * 100,
-          randint(1, 9) * 10 + randint(1, 9)
+          nombreAleatoire(1),
+          nombreAleatoire(1).mul(10),
+          nombreAleatoire(1).mul(100),
+          nombreAleatoire(2)
         ])
         // X, X0, X00, XX
       }
@@ -114,10 +123,10 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
       if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
 
-        resultat = arrondi((a * prefixeMulti[k][2]), 12).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-        resultat2 = arrondi((a * 10 ** (k + 1)), 12)
-        resultat3 = arrondi((a * 10 ** (k - 2)), 12)
-        resultat4 = arrondi((a * 10 ** ((k + 2))), 12)
+        resultat = a.mul(prefixeMulti[k][2])
+        resultat2 = a.mul(10 ** (k + 1))
+        resultat3 = a.mul(10 ** (k - 2))
+        resultat4 = a.mul(10 ** ((k + 2)))
         texte =
           '$ ' +
           texNombre(a, 3) +
@@ -139,16 +148,17 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
           texTexte(unite) +
           '^3' +
           ' = ' +
-          texNombre(resultat, 3) +
+          texNombre(resultat, 20) +
           texTexte(unite) +
           '^3' +
           '$'
       } else if (div && typesDeQuestions < 4) {
         k = randint(0, 1) // Pas de conversions de mm^3 en m^3 avec des nombres décimaux car résultat inférieur à 10e-8
-        resultat = arrondi(a / prefixeMulti[k][2], 12).toString() // Attention aux notations scientifiques pour 10e-8
-        resultat2 = arrondi((a / 10 ** (k + 1)), 12)
-        resultat3 = arrondi((a / 10 ** (k - 2)), 12)
-        resultat4 = arrondi((a / 10 ** ((k + 2))), 12)
+        // Le commentaire précédent est sans objet avec Decimal, on peut afficher ici 20 chiffres après la virgule sans passer en notation scientifique !
+        resultat = a.div(prefixeMulti[k][2])
+        resultat2 = a.div(10 ** (k + 1))
+        resultat3 = a.div(10 ** (k - 2))
+        resultat4 = a.div(10 ** (k + 2))
         texte =
           '$ ' +
           texNombre(a, 3) +
@@ -170,7 +180,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
           texTexte(unite) +
           '^3' +
           ' = ' +
-          texNombre(resultat, 3) +
+        texNombre(resultat, 20) + // avec les Decimaux, on peut demander une telle précision, texNombre n'affichera que ce qui est utile (sauf à mettre force, le troisième paramètre à true)
           texTexte(unite) +
           '^3' +
           '$'
@@ -196,10 +206,10 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
                 `\\times 1${sp()}000 \\times 1${sp()}000 \\times 1${sp()}000`
               break
           }
-          resultat = arrondi((a * Math.pow(10, 3 * ecart)), 12)
-          resultat2 = arrondi((a * Math.pow(10, 2 * ecart)), 12)
-          resultat3 = arrondi((a * Math.pow(10, ecart)), 12)
-          resultat4 = arrondi((a * Math.pow(10, -3 * ecart)), 12)
+          resultat = a.mul(10 ** (3 * ecart))
+          resultat2 = a.mul(10 ** (2 * ecart))
+          resultat3 = a.mul(10 ** (ecart))
+          resultat4 = a.div(10 ** (3 * ecart))
           texte =
             '$ ' +
             texNombre(a, 3) +
@@ -220,7 +230,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
             texTexte(listeUnite[unite1]) +
             '^3' +
             ' = ' +
-            texNombre(resultat, 3) +
+            texNombre(resultat, 20) + // avec les Decimaux, on peut demander une telle précision, texNombre n'affichera que ce qui est utile (sauf à mettre force, le troisième paramètre à true)
             texTexte(listeUnite[unite1]) +
             '^3' +
             '$'
@@ -236,10 +246,10 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
               multiplicationsPar1000 = `\\div 1${sp()}000 \\div 1${sp()}000 \\div 1${sp()}000`
               break
           }
-          resultat = arrondi((a / Math.pow(10, 3 * ecart)), 12)
-          resultat2 = arrondi((a / Math.pow(10, 2 * ecart)), 12)
-          resultat3 = arrondi((a / Math.pow(10, ecart)), 12)
-          resultat4 = arrondi((a / Math.pow(10, -3 * ecart)), 12)
+          resultat = a.div(10 ** (3 * ecart))
+          resultat2 = a.div(10 ** (2 * ecart))
+          resultat3 = a.div(10 ** ecart)
+          resultat4 = a.mul(10 ** (3 * ecart))
           texte =
             '$ ' +
             texNombre(a, 3) +
@@ -260,7 +270,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
             texTexte(listeUnite[unite2]) +
             '^3' +
             ' = ' +
-            texNombre(resultat, 3) +
+            texNombre(resultat, 20) +
             texTexte(listeUnite[unite2]) +
             '^3' +
             '$'
@@ -276,19 +286,19 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
       // }
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [{
-        texte: `$${texNombre(resultat, 3)}$`,
+        texte: `$${texNombre(resultat, 20)}$`,
         statut: true
       },
       {
-        texte: `$${texNombre(resultat2, 3)}$`,
+        texte: `$${texNombre(resultat2, 20)}$`,
         statut: false
       },
       {
-        texte: `$${texNombre(resultat3, 3)}$`,
+        texte: `$${texNombre(resultat3, 20)}$`,
         statut: false
       },
       {
-        texte: `$${texNombre(resultat4, 3)}$`,
+        texte: `$${texNombre(resultat4, 20)}$`,
         statut: false
       }
       ]
@@ -296,7 +306,7 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
         texte += propositionsQcm(this, i).texte
       } else if (this.interactif && this.interactifType === 'mathLive') {
         texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, 'longueur inline largeur25')}$`)
-        setReponse(this, i, parseFloat(resultat))
+        setReponse(this, i, resultat)
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
