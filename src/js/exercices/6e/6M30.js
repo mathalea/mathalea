@@ -203,6 +203,7 @@ export default function CalculDeVolumes () {
             c = calcul(randint(2, 10) + partieDecimale3)
             h = randint(30, 50)
             l = arrondi(randint(5, 15) / 10, 1)
+            volume = (c * h * l) / 2
             texte = `Calculer le volume, en$${listeUnites[j][1]}$ (arrondi à l'unité), d'un prisme droit de hauteur $${texNombre(l)}${listeUnites[j - 1][0]}$ et dont les bases sont des triangles de base $${texNombre(c)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j + 1][0]}$.`
             texteCorr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${c}${listeUnites[j][0]}\\times${h}${listeUnites[j + 1][0]}}{2}\\times${texNombrec(l)}${listeUnites[j - 1][0]}=\\dfrac{${c}${listeUnites[j][0]}\\times${texNombrec(
               calcul(h / 10)
