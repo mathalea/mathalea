@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { point, mathalea2d, tracePoint, segment, colorToLatexOrHTML, droite, polygone, cercle, labelPoint, codageAngleDroit, codeSegment, texteParPoint, codageMediatrice, codageMilieu, codeAngle, codageBissectrice, nomVecteurParPosition, ellipse } from '../../modules/2d.js'
+import { point, mathalea2d, tracePoint, segment, colorToLatexOrHTML, droite, polygone, cercle, labelPoint, codageAngleDroit, codeSegment, texteParPoint, codageMediatrice, codageMilieu, codeAngle, codageBissectrice, nomVecteurParPosition, ellipse, arc, cibleCarree, cibleRonde, constructionBissectrice, traceCompas, codageHauteurTriangle, codageMedianeTriangle, afficheLongueurSegment, texteSurSegment, vecteur } from '../../modules/2d.js'
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -28,28 +28,26 @@ export default function CalculedddrUnAngle () {
       texteCorr = ''
       // On prépare la figure...
       const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-      // const objetsCorrection = [] // Idem pour la correction
       const A = point(0, 0, 'A')
       const B = point(0, 5, 'B')
       const C = point(5, 0, 'C')
-      const D = point(5, 5)
-      // const pt = tracePoint(AA, BB, '#f15929')
-      const p1 = tracePoint(A, B, C, 'blue')
+      const D = point(5, 5, 'D')
+      const E = point(7, 1, 'E')
+      const p1 = tracePoint(A, B, D, E, '#f15929')
       p1.style = 'x'
       p1.epaisseur = 1
       const p2 = segment(A, B, '#f15929')
       const p3 = cercle(A, 5, '#f15929')
-      const p4 = polygone(D, B, C)
+      const p4 = polygone(D, E, C)
       p4.color = colorToLatexOrHTML('#f15929')
       // p4.hachures = false
       // p4.couleurDeRemplissage = colorToLatexOrHTML('#f15929')
       // p4.couleurDesHachures = colorToLatexOrHTML('#f15929')
       // p4.epaisseurDesHachures = 3
-      const p5 = labelPoint(A, B, C)
+      const p5 = labelPoint(A, B, C, D, E)
       p5.color = colorToLatexOrHTML('#f15929')
       const p6 = droite(A, D, '(dd)', '#f15929')
-      const p7 = codageAngleDroit(B, A, C, '#f15929', 0.4, 0.5, 1)
-      p7.couleurDeRemplissage = colorToLatexOrHTML('#f15929')
+      const p7 = codageAngleDroit(B, A, C, '#f15929', 0.3, 0.5, 1, '#f15929')
       const p8 = codeSegment(D, B, '|||', '#f15929')
       const p9 = texteParPoint('mon texte', A, 'droite', '#f15929')
       const p10 = texteParPoint('$4\\times5$', B, 'gauche', '#f15929')
@@ -62,14 +60,28 @@ export default function CalculedddrUnAngle () {
       const p14 = codageBissectrice(C, D, B, '#f15929', 'oo')
       const p15 = nomVecteurParPosition('toto', -1, -1, 1, 10, '#f15929')
       const p16 = ellipse(A, 1, 2)
-      p16.couleurDeRemplissage = colorToLatexOrHTML('#f15929')
+      // p16.couleurDeRemplissage = colorToLatexOrHTML('#f15929')
       p16.color = colorToLatexOrHTML('#f15929')
-      objetsEnonce.push(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16)
-
+      // const p17 = cibleCarree({ x: -3, y: 0, rang: 5, num: 8, taille: 0.6, color: '#f15929' })
+      // const p17 = cibleCarree({ x: -2, y: 0, rang: 6, num: 15, taille: 0.6, color: '#f15929' })
+      // const p18 = cibleRonde({ x: -1, y: 1, rang: 6, num: 8, taille: 0.5, color: '#f15929' })
+      // const p19 = constructionBissectrice(B, C, D, true, 'blue', 'x', 2, 'red', 2)
+      // const p19 = constructionBissectrice(B, C, D, false, 'blue', 'x', '1')
+      // const p19 = traceCompas(B, C)
+      const p19 = codageHauteurTriangle(E, D, C, '#f15929')
+      const p20 = codageMedianeTriangle(D, C, '#f15929')
+      const p21 = afficheLongueurSegment(C, D, '#f15929', 0.1, 'km')
+      const p22 = texteSurSegment('JCL', B, C, '#f15929', 0.4, false)
+      const p23 = vecteur(A, C)
+      objetsEnonce.push(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p19, p20, p21, p22)
+      // objetsEnonce.push(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
+      // objetsEnonce.push(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
+      objetsEnonce.push(p23.representant(A, '#f15929'))
+      // objetsEnonce.push(p5, segment(A, C, 'black', '->'))
       texte += 'essai'
-      paramsEnonce = { xmin: -6, ymin: -10, xmax: 6, ymax: 6, pixelsParCm: 20, scale: 1, mainlevee: false }
+      paramsEnonce = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false }
       texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
-      paramsEnonce = { xmin: -6, ymin: -10, xmax: 6, ymax: 6, pixelsParCm: 20, scale: 1, mainlevee: true }
+      paramsEnonce = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: true }
       texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
 
       this.listeQuestions.push(texte)

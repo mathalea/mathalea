@@ -390,51 +390,42 @@ export function tracePoint (...args) {
  *
  * @author Rémi Angot & Jean-Claude Lhote
  */
-function TracePointSurDroite (A, O) {
+function TracePointSurDroite (A, O, color = 'black') {
   ObjetMathalea2D.call(this)
+  this.color = color
   this.lieu = A
   this.taille = 0.2
   this.x = A.x
   this.y = A.y
   let M, d
   this.bordures = [A.x - 0.2, A.y - 0.2, A.x + 0.2, A.x + 0.2]
-  // if (context.isHtml) taille =  4/pixelsParCm; //initiallement 0.2, maintenant 0.2/pixelsParCm*20 pour que la taille soit indépendante du zoom mais ça pose problème en tikz !!!
-  // else taille = 0.2/scale
 
   if (O.constructor === Point) {
-    if (longueur(A, O) < 0.001) window.notify('TracePointSurDroite : points trop rapprochés pour définir une droite', { A, O })
-    M = pointSurSegment(A, O, 1)
-    this.direction = rotation(M, A, 90)
+    if (longueur(this.lieu, O) < 0.001) window.notify('TracePointSurDroite : points trop rapprochés pour définir une droite', { A, O })
+    M = pointSurSegment(this.lieu, O, 1)
+    this.direction = rotation(M, this.lieu, 90)
   }
   if (O.constructor === Droite) {
-    d = droiteParPointEtPerpendiculaire(A, O)
+    d = droiteParPointEtPerpendiculaire(this.lieu, O)
     d.isVisible = false
     this.direction = pointSurSegment(point(d.x1, d.y1), point(d.x2, d.y2), 1)
   }
   this.svg = function (coeff) {
     const A1 = pointSurSegment(this.lieu, this.direction, this.taille * 20 / coeff)
     const A2 = pointSurSegment(this.lieu, this.direction, -this.taille * 20 / coeff)
-    const s = segment(A1, A2)
+    const s = segment(A1, A2, this.color)
     this.id = s.id
-    s.isVisible = false
     return s.svg(coeff)
   }
   this.tikz = function () {
     const A1 = pointSurSegment(this.lieu, this.direction, this.taille / context.scale)
     const A2 = pointSurSegment(this.lieu, this.direction, -this.taille / context.scale)
-    const s = segment(A1, A2)
+    const s = segment(A1, A2, this.color)
     return s.tikz()
   }
-  /* this.svgml=function(coeff,amp){
-
-   }
-   this.tikzml=function(amp){
-
-   }
-   */
 }
-export function tracePointSurDroite (A, O) {
-  return new TracePointSurDroite(A, O)
+export function tracePointSurDroite (A, O, color = 'black') {
+  return new TracePointSurDroite(A, O, color)
 }
 
 export function traceMilieuSegment (A, B) {
@@ -475,7 +466,7 @@ export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
 }
 
 /**
- * Est-ce que le point C appartien au segment [AB]
+ * Est-ce que le point C appartient au segment [AB] ?
  * C'est ce que dira cette fonction
  * @author Jean-Claude Lhote
  */
@@ -1311,16 +1302,13 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
   this.color = color
   const O = milieu(A, B)
   const d = droite(A, B)
-  const M = tracePointSurDroite(O, d)
+  const M = tracePointSurDroite(O, d, this.color)
   const v = codeSegments(mark, this.color, A, O, O, B)
   let code = ''
   this.svg = function (coeff) {
     if (mil) code = M.svg(coeff) + '\n' + v.svg(coeff)
     else code = v.svg(coeff)
     code = `<g id="${this.id}">${code}</g>`
-    M.isVisible = false
-    d.isVisible = false
-    v.isVisible = false
     return code
   }
   this.tikz = function () {
@@ -1454,8 +1442,8 @@ function CodageBissectrice (A, O, B, color = 'black', mark = '×') {
   this.arrivee = pointSurSegment(O, B, 1.5)
 
   this.svg = function (coeff) {
-    const a1 = codeAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 2, 1)
-    const a2 = codeAngle(pointSurSegment(this.centre, this.lieu, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 2, 1)
+    const a1 = codeAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
+    const a2 = codeAngle(pointSurSegment(this.centre, this.lieu, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
     return (
       a1.svg(coeff) +
       '\n' +
@@ -1464,8 +1452,8 @@ function CodageBissectrice (A, O, B, color = 'black', mark = '×') {
     )
   }
   this.tikz = function () {
-    const a1 = codeAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 2, 1)
-    const a2 = codeAngle(pointSurSegment(this.centre, this.lieu, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 2, 1)
+    const a1 = codeAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
+    const a2 = codeAngle(pointSurSegment(this.centre, this.lieu, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
     return a1.tikz() + '\n' + a2.tikz() + '\n'
   }
 }
@@ -1490,9 +1478,14 @@ function ConstructionBissectrice (
   couleurBissectrice = 'red',
   epaiseurBissectrice = 2
 ) {
+  this.color = color
+  this.tailleLosange = tailleLosange
+  this.mark = mark
+  this.couleurBissectrice = couleurBissectrice
+  this.epaiseurBissectrice = epaiseurBissectrice
   if (longueur(A, O) < 0.001 || longueur(O, B) < 0.001) window.notify('ConstructionBissectrice : points confondus', { A, O, B })
-  const M = pointSurSegment(O, A, tailleLosange)
-  const N = pointSurSegment(O, B, tailleLosange)
+  const M = pointSurSegment(O, A, this.tailleLosange)
+  const N = pointSurSegment(O, B, this.tailleLosange)
   const sOM = segment(O, M)
   const sON = segment(O, N)
   sOM.styleExtremites = '-|'
@@ -1503,15 +1496,15 @@ function ConstructionBissectrice (
   const tNP = traceCompas(N, P)
   const tMP = traceCompas(M, P)
   const d = bissectrice(A, O, B)
-  d.color = couleurBissectrice
-  d.epaisseur = epaiseurBissectrice
+  d.color = this.couleurBissectrice
+  d.epaisseur = this.epaiseurBissectrice
   const objets = [sOM, sON, tNP, tMP, d]
   if (detail) {
     const sMP = segment(M, P)
     const sNP = segment(N, P)
     sMP.pointilles = true
     sNP.pointilles = true
-    const codes = codeSegments(mark, color, O, M, M, P, O, N, N, P)
+    const codes = codeSegments(this.mark, this.color, O, M, M, P, O, N, N, P)
     objets.push(sMP, sNP, codes)
   }
   this.svg = function (coeff) {
@@ -1764,6 +1757,8 @@ export function pave (...args) {
  * v = vecteur(x,y) // ses composantes
  * v = vecteur(A,B) // son origine et son extrémité (deux Points)
  * v = vecteur(x,y,'v') // son nom et ses composantes.
+ * v.representant(E,'blue') // Dessine le vecteur v issu de E, en bleu.
+ * Commenter toutes les méthodes possibles
  * @author Jean-Claude Lhote et Rémi Angot
  */
 function Vecteur (arg1, arg2, nom = '') {
@@ -1793,21 +1788,20 @@ function Vecteur (arg1, arg2, nom = '') {
   this.ySVG = function (coeff) {
     return -this.y * coeff
   }
-  this.representant = function (A) {
+  this.representant = function (A, color = 'black') {
     const B = point(A.x + this.x, A.y + this.y)
-    const s = segment(A, B)
-    s.styleExtremites = '|->'
+    const s = segment(A, B, color, '|->')
     return s
   }
   this.representantNomme = function (A, nom, taille = 1, color = 'black') {
     let s, angle, v
     const B = point(A.x + this.x, A.y + this.y)
     const M = milieu(A, B)
-    s = segment(A, B)
+    s = segment(A, B, color)
     angle = s.angleAvecHorizontale
     v = similitude(this, A, 90, 0.5 / this.norme())
     if (Math.abs(angle) > 90) {
-      s = segment(B, A)
+      s = segment(B, A, color)
       angle = s.angleAvecHorizontale
       v = similitude(this, A, -90, 0.5 / this.norme())
     }
@@ -1883,10 +1877,10 @@ export function nomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
  *
  * @author Rémi Angot
  */
-function Segment (arg1, arg2, arg3, arg4, color) {
+function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
   ObjetMathalea2D.call(this)
   this.typeObjet = 'segment'
-  this.styleExtremites = ''
+  this.styleExtremites = styleExtremites
   this.tailleExtremites = 4
   if (arguments.length === 2) {
     if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Segment : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
@@ -1903,19 +1897,29 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     this.y2 = arg2.y
     this.color = colorToLatexOrHTML(arg3)
   } else if (arguments.length === 4) {
-    if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', { arg1, arg2 })
-    this.x1 = arg1
-    this.y1 = arg2
-    this.x2 = arg3
-    this.y2 = arg4
+    if (Number.isNaN(arg3)) {
+      if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', { arg1, arg2 })
+      this.x1 = arg1
+      this.y1 = arg2
+      this.x2 = arg3
+      this.y2 = arg4
+    } else {
+      this.x1 = arg1.x
+      this.y1 = arg1.y
+      this.x2 = arg2.x
+      this.y2 = arg2.y
+      this.color = colorToLatexOrHTML(arg3)
+      this.styleExtremites = arg4
+    }
   } else {
-    // 5 arguments
+    // Au moins 5 arguments
     if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2, y2 et "couleur") les arguments de sont pas des nombres valides', { arg1, arg2 })
     this.x1 = arg1
     this.y1 = arg2
     this.x2 = arg3
     this.y2 = arg4
     this.color = colorToLatexOrHTML(color)
+    this.styleExtremites = arg4
   }
   this.bordures = [Math.min(this.x1, this.x2) - 0.2, Math.min(this.y1, this.y2) - 0.2, Math.max(this.x1, this.x2) + 0.2, Math.max(this.y1, this.y2) + 0.2]
   this.extremite1 = point(this.x1, this.y1)
@@ -1926,36 +1930,12 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     this.extremite1,
     this.extremite2
   )
-  this.svg = function (coeff) {
-    const h = this.tailleExtremites
-    if (this.epaisseur !== 1) {
-      this.style += ` stroke-width="${this.epaisseur}" `
-    }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          this.style += ' stroke-dasharray="6 10" '
-          break
-        case 2:
-          this.style += ' stroke-dasharray="6 3" '
-          break
-        case 3:
-          this.style += ' stroke-dasharray="3 2 6 2 " '
-          break
-        case 4:
-          this.style += ' stroke-dasharray="1 2" '
-          break
-        default:
-          this.style += ' stroke-dasharray="5 5" '
-          break
-      }
-    }
-    if (this.opacite !== 1) {
-      this.style += ` stroke-opacity="${this.opacite}" `
-    }
+
+  this.codeExtremitesSVG = function (coeff) {
     let code = ''
     const A = point(this.x1, this.y1)
     const B = point(this.x2, this.y2)
+    const h = this.tailleExtremites
     if (this.styleExtremites.length > 1) {
       if (this.styleExtremites.substr(-1) === '|') {
         // si ça termine par | on le rajoute en B
@@ -2033,6 +2013,39 @@ function Segment (arg1, arg2, arg3, arg4, color) {
           }" stroke-width="${this.epaisseur}" />`
       }
     }
+    return code
+  }
+
+  this.svg = function (coeff) {
+    if (this.epaisseur !== 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `
+    }
+    if (this.pointilles) {
+      switch (this.pointilles) {
+        case 1:
+          this.style += ' stroke-dasharray="6 10" '
+          break
+        case 2:
+          this.style += ' stroke-dasharray="6 3" '
+          break
+        case 3:
+          this.style += ' stroke-dasharray="3 2 6 2 " '
+          break
+        case 4:
+          this.style += ' stroke-dasharray="1 2" '
+          break
+        default:
+          this.style += ' stroke-dasharray="5 5" '
+          break
+      }
+    }
+    if (this.opacite !== 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `
+    }
+    let code = this.codeExtremitesSVG(coeff)
+    const A = point(this.x1, this.y1)
+    const B = point(this.x2, this.y2)
+
     code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(coeff)}" x2="${B.xSVG(
       coeff
     )}" y2="${B.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} />`
@@ -2043,6 +2056,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     }
     return code
   }
+
   this.tikz = function () {
     let optionsDraw = []
     const tableauOptions = []
@@ -2104,6 +2118,7 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     }
     if (p % 2 === 1) code += ` ${Math.round(B.xSVG(coeff), 0)}, ${B.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style}/>`
     else code += ` ${Math.round(B.xSVG(coeff), 0)}, ${B.ySVG(coeff)} ${B.xSVG(coeff)}, ${B.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style}/>`
+    code += this.codeExtremitesSVG(coeff)
     return code
   }
   this.tikzml = function (amp) {
@@ -3925,25 +3940,23 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
   this.x = x
   this.y = y
   this.rang = rang
-  if (typeof (num) !== 'undefined') this.n = num
   this.taille = taille
   this.color = color
   this.opacite = opacite
   const objets = []
   let numero
   if (typeof (num) !== 'undefined') {
-    numero = texteParPosition(num, x - rang * this.taille / 4, y - rang * this.taille / 4, 'milieu', this.color)
+    numero = texteParPosition(num, this.x - this.rang * this.taille / 4, this.y - this.rang * this.taille / 4, 'milieu', this.color)
     numero.opacite = 0.5
     numero.taille = 30 * this.taille
     numero.contour = true
     objets.push(numero)
   }
-  this.n = num
   let lettre, chiffre
-  objets.push(grille(x - rang * this.taille / 2, y - rang * this.taille / 2, x + rang * this.taille / 2, y + rang * this.taille / 2, this.color, this.opacite, this.taille, false))
+  objets.push(grille(arrondi(this.x - this.rang * this.taille / 2), arrondi(this.y - this.rang * this.taille / 2), arrondi(this.x + this.rang * this.taille / 2), arrondi(this.y + this.rang * this.taille / 2), this.color, this.opacite, this.taille, false))
   for (let i = 0; i < rang; i++) {
-    lettre = texteParPosition(lettreDepuisChiffre(1 + i), x - rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, y - (rang + 1) * this.taille / 2, 'milieu')
-    chiffre = texteParPosition(i + 1, x - (rang + 1) * this.taille / 2, y - rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, 'milieu')
+    lettre = texteParPosition(lettreDepuisChiffre(1 + i), this.x - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, this.y - (this.rang + 1) * this.taille / 2, 'milieu')
+    chiffre = texteParPosition(i + 1, this.x - (this.rang + 1) * this.taille / 2, this.y - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, 'milieu')
     lettre.taille = 10 * this.taille
     chiffre.taille = 10 * this.taille
     objets.push(lettre)
@@ -3977,46 +3990,44 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
     return code
   }
 }
-export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6 }) {
-  return new CibleCarree({ x: x, y: y, rang: rang, num: num, taille: taille })
+export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
+  return new CibleCarree({ x: x, y: y, rang: rang, num: num, taille: taille, color: color, opacite: opacite })
 }
 /**
  * création d'une cible ronde pour l'auto-correction
  * @author Jean-Claude Lhote
  * (x,y) sont les coordonnées du centre de la cible
- * Les secteurs de la cible fot 45°. Ils sont au nombre de rang*8
+ * Les secteurs de la cible font 45°. Ils sont au nombre de rang*8
  * Repérage de A1 à Hn où n est le rang.
  */
-function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3 }) {
+function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
-  this.n = num
   this.taille = taille
   this.rang = rang
-  this.opacite = 0.5
-  this.color = 'gray'
+  this.opacite = opacite
+  this.color = color
   const objets = []
   let c
   let rayon
-  const centre = point(this.x, this.y, this.y)
+  const centre = point(this.x, this.y)
   const azimut = point(this.x + this.rang * this.taille, this.y)
+  objets.push(labelPoint(centre))
   const azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + 0.3)
-  this.bordures = [x - rang * taille - 1, y - rang * taille - 1, x + rang * taille + 1, y + rang * taille + 1]
+  this.bordures = [this.x - this.rang * this.taille - 1, this.y - this.rang * this.taille - 1, this.x + this.rang * this.taille + 1, this.y + this.rang * this.taille + 1]
   for (let i = 0; i < 8; i++) {
-    rayon = segment(centre, rotation(azimut, centre, 45 * i))
-    rayon.color = this.color
+    rayon = segment(centre, rotation(azimut, centre, 45 * i), this.color)
     rayon.opacite = this.opacite
     objets.push(rayon)
-    objets.push(texteParPoint(lettreDepuisChiffre(1 + i), rotation(azimut2, centre, 45 * i + 22.5), 'milieu', 'gray'))
+    objets.push(texteParPoint(lettreDepuisChiffre(1 + i), rotation(azimut2, centre, 45 * i + 22.5), 'milieu'))
   }
   for (let i = 0; i < this.rang; i++) {
-    c = cercle(point(this.x, this.y), this.taille * (1 + i))
+    c = cercle(centre, arrondi(this.taille * (1 + i)), this.color)
     c.opacite = this.opacite
-    c.color = this.color
     objets.push(c)
   }
-  const numero = texteParPosition(nombreAvecEspace(num), this.x, this.y, 0, 'gray')
+  const numero = texteParPosition(nombreAvecEspace(num), this.x, this.y, 0, this.color)
   numero.opacite = 0.5
   numero.taille = 30
   numero.contour = true
@@ -4036,8 +4047,8 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3 }) {
     return code
   }
 }
-export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3 }) {
-  return new CibleRonde({ x: x, y: y, rang: rang, num: num, taille: taille })
+export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, color = 'gray', opacite = 0.5 }) {
+  return new CibleRonde({ x, y, rang, num, taille, color, opacite })
 }
 /**
  * création d'une cible couronne en forme de rapporteur ou semi-rapporteur pour l'auto-correction
@@ -4046,54 +4057,48 @@ export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3 }) {
  *
  *
  */
-function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
+function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
   this.taille = taille
-  this.opacite = 0.5
-  this.color = 'gray'
+  this.opacite = opacite
+  this.color = color
   const objets = []
   let numero
   let azimut
   let rayon
-  let arcPlein
-  if (semi) {
-    arcPlein = 180
-  } else {
-    arcPlein = 360
-  }
+  const arcPlein = semi ? 180 : 360
 
   const centre = point(this.x, this.y)
   azimut = rotation(point(this.x + this.taille, this.y), centre, depart)
   let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + taille2)
   const rayons = []
-  const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', 'gray')
-  const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', 'gray')
+  const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', this.color)
+  const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', this.color)
   rayon = segment(azimut, azimut2)
 
   objets.push(arc1, arc2, rayon)
   for (let i = 0; i < nbDivisions; i++) {
     for (let j = 1; j < nbSubDivisions; j++) {
-      rayons[j - 1] = rotation(rayon, centre, j * arcPlein / nbDivisions / nbSubDivisions)
-      rayons[j - 1].pointilles = 1
-      rayons[j - 1].color = this.color
+      rayons[j - 1] = rotation(rayon, centre, j * arcPlein / nbDivisions / nbSubDivisions, this.color)
+      rayons[j - 1].pointilles = true
       rayons[j - 1].opacite = this.opacite
       objets.push(rayons[j - 1])
     }
     if (label) {
-      numero = texteParPoint(lettreDepuisChiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 'milieu', 'gray')
+      numero = texteParPoint(lettreDepuisChiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 'milieu')
       numero.contour = true
       objets.push(numero)
     }
-    rayon.color = this.color
+    rayon.color = colorToLatexOrHTML(this.color)
     rayon.opacite = this.opacite
     objets.push(rayon)
     azimut = rotation(azimut, centre, arcPlein / nbDivisions)
     azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
-    rayon = segment(azimut, azimut2)
+    rayon = segment(azimut, azimut2) /// / Y a un pb ici car jamais pushé
   }
-  this.bordures = [x - taille - 1, y - taille - 1, x + taille + 1, y + taille + 1]
+  this.bordures = [this.x - taille - 1, this.y - this.taille - 1, this.x + this.taille + 1, this.y + this.taille + 1]
 
   this.svg = function (coeff) {
     let code = ''
@@ -4111,8 +4116,8 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbD
   }
 }
 
-export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true }) {
-  return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label })
+export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true, color = 'gray', opacite = 0.5 }) {
+  return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label, color, opacite })
 }
 
 function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens', precisionAuDegre = 1, stepGraduation = 10, rayonsVisibles = true }) {
@@ -4438,10 +4443,11 @@ export function sensDeRotation (A, O, sens) {
  * @param {point} O Centre de l'homothétie
  * @param {number} k Rapport de l'homothétie
  * @param {string} [nom = ''] Nom du point-image
+ * @param {string} [color = 'black']
  * @param {position} [positionLabel = 'above'] Position du point-image
  * @author Rémi Angot
  */
-export function homothetie (A, O, k, nom = '', positionLabel = 'above') {
+export function homothetie (A, O, k, nom = '', positionLabel = 'above', color = 'black') {
   if (A.constructor === Point) {
     const x = O.x + k * (A.x - O.x)
     const y = O.y + k * (A.y - O.y)
@@ -4453,28 +4459,20 @@ export function homothetie (A, O, k, nom = '', positionLabel = 'above') {
       p2[i] = homothetie(A.listePoints[i], O, k)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2)
+    return polygone(p2, color)
   }
   if (A.constructor === Droite) {
     const M = homothetie(point(A.x1, A.y1), O, k)
     const N = homothetie(point(A.x2, A.y2), O, k)
-    return droite(M, N)
+    return droite(M, N, '', color)
   }
   if (A.constructor === Segment) {
     const M = homothetie(A.extremite1, O, k)
     const N = homothetie(A.extremite2, O, k)
-    const s = segment(M, N)
+    const s = segment(M, N, color)
     s.styleExtremites = A.styleExtremites
     return s
   }
-  /* if (A.constructor==DemiDroite) {
-    let M = homothetie(A.extremite1,O,k)
-    let N = homothetie(A.extremite2,O,k)
-    let s = demiDroite(M,N)
-    s.styleExtremites = A.styleExtremites
-    return s
-  }
-  */
   if (A.constructor === Vecteur) {
     const x = A.x
     const y = A.y
@@ -5208,7 +5206,7 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
   this.arrivee = B
   this.taille = d
   this.color = color
-  this.couleurDeRemplissage = couleurDeRemplissage
+  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.opaciteDeRemplissage = opaciteDeRemplissage
 
   this.svg = function (coeff) {
@@ -5216,7 +5214,7 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille * 20 / coeff)
     let o = {}
     let result = {}
-    if (angleOriente(A, this.sommet, B) > 0) {
+    if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
       o = rotation(this.sommet, a, -90)
     } else {
       o = rotation(this.sommet, a, 90)
@@ -5238,7 +5236,7 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille / context.scale)
     let o = {}
     let result = {}
-    if (angleOriente(A, this.sommet, B) > 0) {
+    if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
       o = rotation(this.sommet, a, -90)
     } else {
       o = rotation(this.sommet, a, 90)
@@ -5295,7 +5293,7 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
   return new CodageAngleDroit(A, O, B, color, d, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage)
 }
 /**
- * afficheLongueurSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+ * afficheLongueurSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon en dessous
  *
  * @author Rémi Angot
  */
@@ -5304,7 +5302,6 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', h
   this.color = color
   this.extremite1 = A
   this.extremite2 = B
-  this.distance = d
   const O = milieu(this.extremite1, this.extremite2)
   const M = rotation(this.extremite1, O, -90)
   const s = segment(this.extremite1, this.extremite2)
@@ -5333,8 +5330,9 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', h
  * Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
  * @param  {Point} A
  * @param  {Point} B
- * @param  {string} [color='black'] Facultatif, 'black' par défaut
- * @param  {number} [d=0.5] Distance entre l'étiquette et le segment. Facultatif, 0.5 par défaut
+ * @param  {string} [color='black'] Code couleur HTML accepté
+ * @param  {number} [d=0.5] Distance entre l'étiquette et le segment.
+ * @param {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment
  * @returns {AfficheLongueurSegment} objet AfficheLongueurSegment
  * @author Rémi Angot
  */
@@ -5353,15 +5351,15 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizontal = fa
   this.color = color
   this.extremite1 = A
   this.extremite2 = B
-  this.distance = horizontal ? (d - 0.1 + (isNumeric(texte) ? nombreDeChiffresDe(texte) : texte.length) / 10) : d
   this.texte = texte
+  this.distance = horizontal ? (d - 0.1 + (isNumeric(this.texte) ? nombreDeChiffresDe(this.texte) : this.texte.length) / 10) : d
   const O = milieu(this.extremite1, this.extremite2)
   const M = rotation(this.extremite1, O, -90)
   const s = segment(this.extremite1, this.extremite2)
   s.isVisible = false
   let angle
   const pos = pointSurSegment(O, M, this.distance)
-  const space = 0.2 * texte.length
+  const space = 0.2 * this.texte.length
   this.bordures = [pos.x - space, pos.y - space, pos.x + space, pos.y + space]
   if (horizontal) {
     angle = 0
@@ -5382,12 +5380,12 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizontal = fa
   }
 }
 /**
- * Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+ * Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon au dessous ou bien horizontal
  * @param {string} texte
  * @param {Point} A
  * @param {Point} B
- * @param {string} [color='black'] Facultatif, 'black' par défaut
- * @param {number} [d=0.5] Distance à la droite. Facultatif, 0.5 par défaut
+ * @param {string} [color='black'] Code couleur HTML accepté
+ * @param {number} [d=0.5] Distance à la droite.
  * @param {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment
  * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
  * @author Rémi Angot
@@ -5451,13 +5449,13 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
   }
 }
 /**
- * Écrit un texte au milieu de l'arc AB au dessus si A est le point le plus à gauche sinon au dessous
+ * Écrit un texte au "milieu" de l'arc AB au dessus si A est le point le plus à gauche sinon en dessous
  * @param {string} texte Texte à afficher (éviter les $$ pour les affichages diaporama)
  * @param {Point} A Extrémité de l'arc
  * @param {Point} B Extrémité de l'arc
  * @param {number} angle Angle au centre
- * @param {string} [color='black'] Facultatif, 'black' par défaut
- * @param {number} [d=0.5] Distance à la droite. Facultatif, 0.5 par défaut
+ * @param {string} [color='black'] Code couleur HTML accepté
+ * @param {number} [d=0.5] Distance à la droite.
  * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
  * @author Rémi Angot et Frédéric Piou
  */
@@ -5758,7 +5756,6 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const d = droite(this.centre, P)
     d.isVisible = false
     const mesure = arrondiVirgule(Math.abs(angle), 0) + '°'
-    // const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', 'red', 'blue')
     const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', this.couleurDeRemplissage, this.color)
     arcangle.isVisible = false
     arcangle.opacite = this.opacite
@@ -6407,10 +6404,17 @@ function LabelY (
 export function labelY (...args) {
   return new LabelY(...args)
 }
-
 /**
- * grille(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordonnées
- *
+ * grille(xmin,ymin,xmax,ymax,color,opacite,step,pointilles) // Trace les axes des abscisses et des ordonnées
+ * @param {number} [xmin=-30]
+ * @param {number} [ymin=-30]
+ * @param {number} [xmax=30]
+ * @param {number} [ymax=30]
+ * @param {string} [color='gray']
+ * @param {number} [opacite=0.4]
+ * @param {number} [step=1]
+ * @param {boolean} [pointilles=false]
+ * @return Une grille quadrillée dont le coin en bas à gauche est (xmin,ymin) et celui à droite est au maximum (xmax,ymax), de couleur et opacité choisie, avec un pas choisi et avec ou sans pointillés
  * @author Rémi Angot
  */
 function Grille (
@@ -6427,25 +6431,23 @@ function Grille (
   this.color = color
   this.opacite = opacite
   const objets = []
-  for (let i = xmin; i <= xmax; i = i + step) {
-    const s = segment(i, ymin, i, ymax)
-    s.color = this.color
+  for (let i = xmin; i <= xmax; i = arrondi(i + step)) {
+    const s = segment(i, ymin, i, ymax, this.color)
     s.opacite = this.opacite
     if (pointilles) {
       s.pointilles = true
     }
     objets.push(s)
   }
-  for (let i = ymin; i <= ymax + 0.005; i = i + step) {
-    const s = segment(xmin, i, xmax, i)
-    s.color = this.color
+  for (let i = ymin; i <= ymax; i = arrondi(i + step)) {
+    const s = segment(xmin, i, xmax, i, this.color)
     s.opacite = this.opacite
     if (pointilles) {
       s.pointilles = true
     }
     objets.push(s)
   }
-  this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${color}, opacite = ${opacite}, pas = ${step})`
+  this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${this.color}, opacite = ${this.opacite}, pas = ${step})`
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
