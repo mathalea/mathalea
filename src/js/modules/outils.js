@@ -2394,7 +2394,6 @@ export function htmlEnumerate (liste, spacing, classe = 'question', id = '', tai
   // Pour diapCorr, on numérote les questions même si un exercice n'en comporte qu'une
   if (liste.length > 1 || context.vue === 'diapCorr') {
     (spacing > 1) ? result = `<ol style="line-height: ${spacing};" ${classeOl ? `class = ${classeOl}` : ''}>` : result = `<ol ${classeOl ? `class = ${classeOl}` : ''}>`
-    console.log(classeOl)
     for (const i in liste) {
       result += `<li class="${classe}" ${id ? 'id="' + id + i + '"' : ''} ${dataTaille(tailleDiaporama)}>` + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     }
@@ -2536,6 +2535,8 @@ export function numberFormat (nb) {
 /**
  * La chaîne de caractères en sortie doit être interprétée par KateX et doit donc être placée entre des $ $
  * Renvoie "Trop de chiffres" s'il y a plus de 15 chiffres significatifs (et donc un risque d'erreur d'approximation)
+ * S'utilise indifféremment avec des nombres (nb) au format natif (entier, flottant) ou au format Decimal (nécessite la librairie decimal.js)
+ * Avec comme avantage immédiat pour le format Decimal : precision est illimité.
  * Sinon, renvoie un nombre dans le format français (avec une virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
  * @author Guillaume Valmont
  * @param {number} nb nombre à afficher
