@@ -544,7 +544,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
       }
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-      } else texte += '<br>'
+      }
+      texte += '<br>'
       setReponse(this, i, [`${punto[i][0]};${punto[i][1]}`, `(${punto[i][0]};${punto[i][1]})`])
       if (context.isAmc) {
         enonceAmc += '<br>'
