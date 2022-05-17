@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, arrondiVirgule, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texNombre, texFraction, personne, prenomF } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texFraction, personne, prenomF } from '../../modules/outils.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -59,9 +59,9 @@ export default function CalculerDesMoyennes () {
         }
         reponse = new FractionX(somme, nombreNotes)
         if (arrondi(somme / nombreNotes, 2) === somme / nombreNotes) { // moyenne exacte
-          texteCorr += `$=${arrondiVirgule(somme / nombreNotes, 2)}$<br>`
+          texteCorr += `$=${texNombre(somme / nombreNotes, 2)}$<br>`
         } else { // moyenne arrondie
-          texteCorr += ` $\\approx${arrondiVirgule(somme / nombreNotes, 2)}$`
+          texteCorr += ` $\\approx${texNombre(somme / nombreNotes, 2)}$`
         }
       } else if (this.sup === 2) { // ici on relève des températures
         const mois = randint(1, 12)
@@ -100,8 +100,8 @@ export default function CalculerDesMoyennes () {
         reponse = new FractionX(somme, nombreTemperatures)
 
         if (arrondi(somme / nombreTemperatures, 2) === somme / nombreTemperatures) {
-          texteCorr += `$=${arrondiVirgule(somme / nombreTemperatures, 2)}^\\circ\\text{C}$` // moyenne exacte
-        } else { texteCorr += `$\\approx${arrondiVirgule(somme / nombreTemperatures, 2)}^\\circ\\text{C}$` } // moyenne arrondie
+          texteCorr += `$=${texNombre(somme / nombreTemperatures, 2)}^\\circ\\text{C}$` // moyenne exacte
+        } else { texteCorr += `$\\approx${texNombre(somme / nombreTemperatures, 2)}^\\circ\\text{C}$` } // moyenne arrondie
       } else { // pointures des membres du club de foot (moyenne pondérée)
         nombreNotes = 5 // 5 colonnes
         notes = listeDeNotes(nombreNotes, randint(33, 35), randint(39, 42), true).sort() // on récupère une série de notes (pointures) distinctes et ordonnées
@@ -131,9 +131,9 @@ export default function CalculerDesMoyennes () {
         reponse = new FractionX(somme, effectifTotal)
 
         if (arrondi(somme / effectifTotal, 2) === somme / effectifTotal) { // moyenne exacte
-          texteCorr += `=${arrondiVirgule(somme / effectifTotal, 2)}$<br>`
+          texteCorr += `=${texNombre(somme / effectifTotal, 2)}$<br>`
         } else { // moyenne arrondie
-          texteCorr += `\\approx${arrondiVirgule(somme / effectifTotal, 2)}$<br>`
+          texteCorr += `\\approx${texNombre(somme / effectifTotal, 2)}$<br>`
         }
       }
       if (this.interactif) {

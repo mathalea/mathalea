@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { homothetie, codeAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
-import { calcul, texFraction, arrondi, texNombre2, listeQuestionsToContenu, randint, creerNomDePolygone, choice, arrondiVirgule } from '../../modules/outils.js'
+import { calcul, texFraction, arrondi, texNombre2, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
@@ -238,10 +238,10 @@ export default function CalculDAngle () {
       this.autoCorrection[0] = {
         enonce: texte,
         propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
-        reponse: { valeur: angleABC, param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0 } }
+        reponse: { valeur: angleABC.toString(), param: { digits: 2, decimals: 0, signe: false, exposantNbChiffres: 0 } }
       }
     } else if (this.interactif && context.isHtml) {
-      setReponse(this, 0, arrondiVirgule(angleABC))
+      setReponse(this, 0, angleABC)
     }
     texte += ajouteChampTexteMathLive(this, 0, 'largeur25 inline', { texteApres: ' °' })
     /****************************************************/

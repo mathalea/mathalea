@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, arrondiVirgule, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texNombre } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, mathalea2d, symetrieAxiale, translation, vecteur, triangle2points2longueurs, droite, pointAdistance, rotation, afficheLongueurSegment, segment, afficheMesureAngle, longueur, droiteParPointEtParallele, angle, polygoneAvecNom, texteParPoint, positionLabelDroite, distancePointDroite, translation2Points } from '../../modules/2d.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
 import { context } from '../../modules/context.js'
@@ -134,12 +134,12 @@ export default function ConservationTransformation () {
         case 'longueurEtAngle':
           objetsEnonceEtCorr.push(segment(A, C), segment(B, C))
           objetsEnonceEtCorr.push(afficheLongueurSegment(C, B))
-          objetsEnonceEtCorr.push(afficheMesureAngle(A, B, C, 'black', 1, arrondiVirgule(angle(A, B, C), 0) + '°'))
-          texte = `L'angle $\\widehat{ABC}$ mesure $${texNombre(arrondiVirgule(angle(A, B, C), 0))}$ °.<br>`
+          objetsEnonceEtCorr.push(afficheMesureAngle(A, B, C, 'black', 1, Math.round(angle(A, B, C)) + '°'))
+          texte = `L'angle $\\widehat{ABC}$ mesure $${texNombre(Math.round(angle(A, B, C)))}$ °.<br>`
           figure = 'du triangle $ABC$'
           texteCorr = texte
           texteCorr += `Or, la ${transformation} conserve les angles.<br>`
-          texteCorr += `Donc l'angle $\\widehat{A'B'C'}$ mesure lui aussi $${texNombre(arrondiVirgule(angle(A, B, C), 0))}$ °.<br><br>`
+          texteCorr += `Donc l'angle $\\widehat{A'B'C'}$ mesure lui aussi $${texNombre(Math.round(angle(A, B, C)))}$ °.<br><br>`
           texteCorr += `Le segment [BC] mesure $${texNombre(longueur(B, C, 1))}$ cm.<br>`
           texteCorr += `Or, la ${transformation} conserve les longueurs.<br>`
           texteCorr += `Donc le segment [B'C'] mesure lui aussi $${texNombre(longueur(B, C, 1))}$ cm.<br>`
@@ -160,7 +160,7 @@ export default function ConservationTransformation () {
       }
       if (listeTypeDeQuestions[i] === 'longueurEtAngle') {
         objetsCorrectionOnly.push(segment(imageA, imageC), segment(imageB, imageC))
-        objetsCorrectionOnly.push(afficheMesureAngle(imageA, imageB, imageC, 'black', 1, arrondiVirgule(angle(A, B, C), 0) + '°'))
+        objetsCorrectionOnly.push(afficheMesureAngle(imageA, imageB, imageC, 'black', 1, Math.round(angle(A, B, C)) + '°'))
         if (figureRetournee) {
           objetsCorrectionOnly.push(afficheLongueurSegment(imageC, imageB))
         } else {

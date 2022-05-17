@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, choice, premiereLettreEnMajuscule, numAlpha, texFractionSigne, calcul, arrondi, arrondiVirgule, texteGras } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, choice, premiereLettreEnMajuscule, numAlpha, texFractionSigne, calcul, arrondi, texteGras, stringNombre } from '../../modules/outils.js'
 import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -134,8 +134,8 @@ export default function calculEffectifFrequence () {
     } else {
       texteCorr += '$\\approx $ '
     }
-    texteCorr += arrondiVirgule(lstNombresAnimaux[1] / Ntotal, 3) + '. <br>'
-    texteCorr += texteGras('La fréquence des ' + lstAnimauxExo[1] + ' est donc : ' + arrondiVirgule(100 * lstNombresAnimaux[1] / Ntotal, 1) + '%. <br>')
+    texteCorr += stringNombre(lstNombresAnimaux[1] / Ntotal, 3) + '. <br>'
+    texteCorr += texteGras('La fréquence des ' + lstAnimauxExo[1] + ' est donc : ' + stringNombre(100 * lstNombresAnimaux[1] / Ntotal, 1) + '%. <br>')
     setReponse(this, 2, [calcul(100 * lstNombresAnimaux[1] / Ntotal, 1), `${calcul(100 * lstNombresAnimaux[1] / Ntotal, 1)}\\%`])
     // question 3
     texteCorr += numAlpha(2) + ' On fait la somme des effectifs de chaque espèce de quadrupèdes : '
@@ -164,8 +164,8 @@ export default function calculEffectifFrequence () {
     } else {
       texteCorr += '$\\approx $ '
     }
-    texteCorr += arrondiVirgule(NTotalOiseaux / Ntotal, 3) + '. <br>'
-    texteCorr += texteGras('La fréquence des oiseaux est donc : ' + arrondiVirgule(100 * NTotalOiseaux / Ntotal, 1) + '%. <br>')
+    texteCorr += stringNombre(NTotalOiseaux / Ntotal, 3) + '. <br>'
+    texteCorr += texteGras('La fréquence des oiseaux est donc : ' + stringNombre(100 * NTotalOiseaux / Ntotal, 1) + '%. <br>')
     setReponse(this, 4, [calcul(100 * NTotalOiseaux / Ntotal, 1), calcul(100 * NTotalOiseaux / Ntotal, 1) + '\\%'])
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

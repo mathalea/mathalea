@@ -1337,9 +1337,10 @@ export function troncature (nombre, precision) {
 
 /**
 * Renvoie la valeur absolue
-* @author Rémi Angot
+* @author Rémi Angot + ajout du support des décimaux par Jean-Claude Lhote
 */
 export function abs (a) {
+  if (a instanceof Decimal) return a.abs()
   return Math.abs(a)
 }
 
@@ -7579,7 +7580,13 @@ export function exportQcmAmc (exercice, idExo) {
       }
     }
     let valeurAMCNum = 0
-    if (autoCorrection[j].reponse !== undefined) { valeurAMCNum = autoCorrection[j].reponse.valeur[0] }
+    if (autoCorrection[j].reponse !== undefined) {
+      if (!Array.isArray(autoCorrection[j].reponse.valeur)) autoCorrection[j].reponse.valeur = [autoCorrection[j].reponse.valeur]
+      valeurAMCNum = autoCorrection[j].reponse.valeur[0]
+      if (typeof valeurAMCNum === 'string') {
+        valeurAMCNum = valeurAMCNum.replace(/\s/g, '').replace(',', '.')
+      }
+    }
     switch (type) {
       case 'qcmMono': // question QCM 1 bonne réponse
         if (elimineDoublons(autoCorrection[j].propositions)) {
