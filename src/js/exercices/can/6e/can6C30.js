@@ -20,53 +20,63 @@ export default function MultiplierDeuxDecimaux () {
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
-    let a, b
+    let a, b, c, d
     switch (choice([1, 2, 3, 4])) {
       case 1:// un entier par un décimal avec une chiffre après la virgule
-        a = new Decimal(randint(2, 9)).div(10)
-        b = randint(2, 9)
-        this.question = `$${texNombre(a, 1)}\\times ${b}=$`
-        this.correction = `$${texNombre(a, 1)}\\times ${b}=${texNombre(a * b, 1)}$`
-        this.reponse = a.mul(b)
-        this.correction += texteEnCouleur(`
-    <br> Mentalement : <br>
-   Comme $${texNombre(a, 1)}=${texNombre(10 * a, 0)}\\times 0,1$, alors $${texNombre(a, 1)}\\times ${b}=${10 * a}\\times ${b}\\times 0,1 =${texNombre(10 * a * b, 0)}\\times 0,1=${texNombre(a * b, 1)}$ `)
-        break
-      case 2:// un entier par un décimal avec deux chiffres après la virgule
-        a = new Decimal(randint(2, 9)).div(100)
-        b = randint(2, 9)
-        this.question = `$${texNombre(a, 2)}\\times ${b}=$`
-        this.correction = `$${texNombre(a, 2)}\\times ${b}=${texNombre(a * b, 2)}$`
-        this.reponse = a.mul(b)
+        a = randint(2, 9)
+        b = (new Decimal(a)).div(10)
+        c = randint(2, 9)
+        this.reponse = b.mul(c)
+        this.question = `$${texNombre(b, 1)}\\times ${c}=$`
+        this.correction = `$${texNombre(b, 1)}\\times ${c}=${texNombre(this.reponse, 1)}$`
 
         this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
-   Comme $${texNombre(a, 2)}=${texNombre(100 * a, 0)}\\times 0,01$, alors $${texNombre(a, 2)}\\times ${b}=${texNombre(100 * a, 0)}\\times ${b}\\times 0,01 =${texNombre(100 * a * b, 0)}\\times 0,01=${texNombre(a * b, 2)}$ `)
+   Comme $${texNombre(b, 1)}=${a}\\times 0,1$, alors $${texNombre(b, 1)}\\times ${c}=${a}\\times 0,1\\times ${c} =
+   ${a * c}\\times 0,1=${texNombre(this.reponse, 1)}$ `)
+        break
+      case 2:// un entier par un décimal avec deux chiffres après la virgule
+        a = randint(2, 9)
+        b = (new Decimal(a)).div(100)
+        c = randint(2, 9)
+        this.reponse = b.mul(c)
+        this.question = `$${texNombre(b, 2)}\\times ${c}=$`
+        this.correction = `$${texNombre(b, 2)}\\times ${c}=${texNombre(this.reponse, 2)}$`
+
+        this.correction += texteEnCouleur(`
+    <br> Mentalement : <br>
+   Comme $${texNombre(b, 2)}=${a}\\times 0,01$, alors $${texNombre(b, 2)}\\times ${c}=${a}\\times 0,01\\times ${c} =
+   ${a * c}\\times 0,01=${texNombre(this.reponse, 2)}$ `)
         break
 
       case 3:// Deux décimaux avec un chiffre après la virgule
-        a = new Decimal(randint(2, 9)).div(10)
-        b = new Decimal(randint(2, 9)).div(10)
-        this.question = `$${texNombre(a, 1)}\\times ${texNombre(b, 1)}=$`
-        this.correction = `$${texNombre(a, 1)}\\times ${texNombre(b, 1)}=${texNombre(a * b, 2)}$`
-        this.reponse = a.mul(b)
+        a = randint(2, 9)
+        b = (new Decimal(a)).div(10)
+        c = randint(2, 9)
+        d = (new Decimal(c)).div(10)
+        this.reponse = b.mul(d)
+        this.question = `$${texNombre(b, 1)}\\times ${texNombre(d, 1)}=$`
+        this.correction = `$${texNombre(b, 1)}\\times ${texNombre(d, 1)}=${texNombre(this.reponse, 2)}$`
 
         this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
-   Comme $${texNombre(a, 1)}=${texNombre(10 * a, 0)}\\times 0,1$ et $${texNombre(b, 1)}=${texNombre(10 * b, 0)}\\times 0,1$,
-    alors $${texNombre(a, 1)}\\times ${texNombre(b, 1)}=${texNombre(10 * a, 0)}\\times ${texNombre(10 * b, 0)}\\times 0,1 \\times 0,1=${texNombre(100 * a * b, 0)}\\times 0,01=${texNombre(a * b, 2)}$ `)
+   Comme $${texNombre(b, 1)}=${a}\\times 0,1$ et $${texNombre(d, 1)}=${c}\\times 0,1$,
+    alors $${texNombre(b, 1)}\\times ${texNombre(d, 1)}=${a}\\times ${c}\\times 0,1 \\times 0,1=${a * c}\\times 0,01=${texNombre(this.reponse, 2)}$ `)
         break
 
       case 4:// Deux décimaux avec un chiffre et deux chiffres après la virgule
-        a = new Decimal(randint(2, 9)).div(10)
-        b = new Decimal(randint(2, 9)).div(100)
-        this.question = `$${texNombre(a, 1)}\\times ${texNombre(b, 2)}=$`
-        this.correction = `$${texNombre(a, 1)}\\times ${texNombre(b, 2)}=${texNombre(a * b, 3)}$`
-        this.reponse = a.mul(b)
+        a = randint(2, 9)
+        b = (new Decimal(a)).div(10)
+        c = randint(2, 9)
+        d = (new Decimal(c)).div(100)
+        this.reponse = b.mul(d)
+        this.question = `$${texNombre(b, 1)}\\times ${texNombre(d, 2)}=$`
+        this.correction = `$${texNombre(b, 1)}\\times ${texNombre(d, 2)}=${texNombre(this.reponse, 3)}$`
+
         this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
-   Comme $${texNombre(a, 1)}=${texNombre(10 * a, 0)}\\times 0,1$ et $${texNombre(b, 2)}=${texNombre(100 * b, 0)}\\times 0,01$,
-    alors $${texNombre(a, 1)}\\times ${texNombre(b, 2)}=${texNombre(10 * a, 0)}\\times ${texNombre(100 * b, 0)}\\times 0,01 \\times 0,1=${texNombre(1000 * a * b, 0)}\\times 0,001=${texNombre(a * b, 3)}$ `)
+   Comme $${texNombre(b, 1)}=${a}\\times 0,1$ et $${texNombre(d, 2)}=${c}\\times 0,01$,
+    alors $${texNombre(b, 1)}\\times ${texNombre(d, 2)}=${a}\\times ${c}\\times 0,01 \\times 0,1=${a * c}\\times 0,001=${texNombre(this.reponse, 3)}$ `)
         break
     }
   }
