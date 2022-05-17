@@ -6093,7 +6093,7 @@ function LabelX (
 ) {
   ObjetMathalea2D.call(this)
   const objets = []
-  for (let x = Math.ceil(xmin / coeff);
+  for (let x = ceil(xmin / coeff);
     x * coeff <= xmax;
     x = x + step
   ) {
@@ -6148,13 +6148,13 @@ function LabelY (
 ) {
   ObjetMathalea2D.call(this)
   const objets = []
-  for (let y = ceil(fraction(ymin, coeff));
-    y.mul(coeff) <= ymax;
-    y = y.add(step)
+  for (let y = ceil(ymin / coeff);
+    y * coeff <= ymax;
+    y = y + step
   ) {
     objets.push(
       texteParPoint(
-        y.mul(coeff),
+        y * coeff,
         point(pos, y),
         'gauche',
         color, 1, 'middle', true
@@ -8418,8 +8418,8 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
       step = istep * 10
       ytick = 5
     }
-    if (labelAxeVert) diagramme.push(labelY(0, max(hauteursBarres), fraction(hauteurDiagramme, max(hauteursBarres)).mul(step), 'black', -1.3, max(hauteursBarres) / hauteurDiagramme))
-    if (axeVertical) diagramme.push(axeY(-1, 0, abscisseBarre, hauteurDiagramme + 1, 0.2, fraction(hauteurDiagramme, max(hauteursBarres)).mul(step), 0.2, 'black', ytick, titreAxeVertical))
+    if (labelAxeVert) diagramme.push(labelY(0, max(hauteursBarres), (fraction(hauteurDiagramme, max(hauteursBarres))).mul(step), 'black', -1.3, max(hauteursBarres) / hauteurDiagramme))
+    if (axeVertical) diagramme.push(axeY(-1, 0, abscisseBarre, hauteurDiagramme + 1, 0.2, (fraction(hauteurDiagramme, max(hauteursBarres))).mul(step), 0.2, 'black', ytick, titreAxeVertical))
   }
   if (titre !== '') diagramme.push(texteParPoint(titre, point((hauteursBarres.length - 1) * coeff / 2, hauteurDiagramme + 1)))
   this.bordures = [1000, 1000, -1000, -1000]
