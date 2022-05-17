@@ -1346,12 +1346,12 @@ export function abs (a) {
 
 /**
 * Retourne un arrondi sous la forme d'un string avec une virgule comme séparateur décimal
-* @author Rémi Angot
+* @author Rémi Angot Fonction rendue inutile par Jean-Claude Lhote : lui substituer texNombre ou stringNombre selon le contexte.
 */
-export function arrondiVirgule (nombre, precision = 2) { //
-  // const tmp = Math.pow(10, precision)
-  return String(round(nombre, precision)).replace('.', ',')
-}
+// export function arrondiVirgule (nombre, precision = 2) { //
+// const tmp = Math.pow(10, precision)
+//  return String(round(nombre, precision)).replace('.', ',')
+// }
 
 /**
 * Retourne égal si la valeur égal l'arrondi souhaité ou environ égal si ce n'est pas le cas
@@ -1492,7 +1492,7 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
     result += `\\dfrac{${texNombrec(b)}\\times${texNombrec(c)}}{${texNombrec(a)}}`
     if (p4 === arrondi(p4, precision)) result += '='
     else result += '\\approx'
-    result += `${arrondiVirgule(p4, precision)}`
+    result += `${texNombre(p4, precision)}`
     return result
   } else {
     return `\\dfrac{${b} \\times${c}}{${a}}`

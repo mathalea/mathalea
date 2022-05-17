@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { reduirePolynomeDegre3, calcul, texFractionSigne, fractionSimplifiee, listeQuestionsToContenu, printlatex, arrondiVirgule, xcas } from '../../modules/outils.js'
+import { reduirePolynomeDegre3, calcul, texFractionSigne, fractionSimplifiee, listeQuestionsToContenu, printlatex, texNombre, xcas } from '../../modules/outils.js'
 import { tableauDeVariation, mathalea2d, repere2, courbe2, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js'
 export const titre = 'étude de fonction de degré 3'
 
@@ -122,7 +122,7 @@ export default function variationPolynomeDegre3 () {
                 ['$-\\infty$', 30, `$${rac[2]}$`, 70, `$${rac[3]}$`, 70, '$+\\infty$', 30]],
               tabLines:
               [['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20],
-                ['Var', 10, '+/$+\\infty$', 30, `-/$${arrondiVirgule(mafonction(rac[0]))}$`, 50, `+/$${arrondiVirgule(mafonction(rac[1]))}$`, 50, '-/$-\\infty$', 30]
+                ['Var', 10, '+/$+\\infty$', 30, `-/$${texNombre(mafonction(rac[0]), 2)}$`, 50, `+/$${texNombre(mafonction(rac[1]), 2)}$`, 50, '-/$-\\infty$', 30]
               ]
             })
           }
@@ -221,7 +221,7 @@ export default function variationPolynomeDegre3 () {
               delatcl: 0.8,
               lgt: 3.5,
               tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
-                ['$-\\infty$', 30, `$${arrondiVirgule(rac[0])}$`, 60, `$${arrondiVirgule(rac[1])}$`, 60, '$+\\infty$', 30]],
+                ['$-\\infty$', 30, `$${texNombre(rac[0], 2)}$`, 60, `$${texNombre(rac[1], 2)}$`, 60, '$+\\infty$', 30]],
               tabLines:
               [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
                 ['Var', 10, '-/$-\\infty$', 30, `+/$${xcas(`simplifier(subst(${MaFonction},x=${rac[4]}))`)}$`, 90, `-/$${xcas(`simplifier(subst(${MaFonction},x=${rac[5]}))`)}$`, 90, '+/$+\\infty$', 30]
@@ -234,10 +234,10 @@ export default function variationPolynomeDegre3 () {
               delatcl: 0.8,
               lgt: 3.5,
               tabInit: [[['$x$', 1.5, 15], ["$f'(x)$", 1, 30], ['$f(x)$', 2.5, 25]],
-                ['$-\\infty$', 30, `$${arrondiVirgule(rac[0])}$`, 60, `$${arrondiVirgule(rac[1])}$`, 60, '$+\\infty$', 30]],
+                ['$-\\infty$', 30, `$${texNombre(rac[0], 2)}$`, 60, `$${texNombre(rac[1], 2)}$`, 60, '$+\\infty$', 30]],
               tabLines:
               [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20],
-                ['Var', 10, '-/$-\\infty$', 30, `+/$${arrondiVirgule(mafonction(rac[0]))}$`, 50, `-/$${arrondiVirgule(mafonction(rac[1]))}$`, 50, '+/$+\\infty$', 30]
+                ['Var', 10, '-/$-\\infty$', 30, `+/$${texNombre(mafonction(rac[0]), 2)}$`, 50, `-/$${texNombre(mafonction(rac[1]), 2)}$`, 50, '+/$+\\infty$', 30]
               ]
             })
           }
@@ -553,12 +553,12 @@ export default function variationPolynomeDegre3 () {
       } else {
         texte += 'Par lecture graphique on peut lire les solutions de $f(x)=0$ : '
         if (solutions.length === 1) {
-          texte += `$x\\approx${arrondiVirgule(solutions[0], 1)}$`
+          texte += `$x\\approx${texNombre(solutions[0], 1)}$`
         } else {
           if (solutions.length === 2) {
-            texte += `$x\\approx${arrondiVirgule(solutions[0], 1)}$ et $x\\approx${arrondiVirgule(solutions[1], 1)}$`
+            texte += `$x\\approx${texNombre(solutions[0], 1)}$ et $x\\approx${texNombre(solutions[1], 1)}$`
           } else {
-            texte += `$x\\approx${arrondiVirgule(solutions[0], 1)}$, $x\\approx${arrondiVirgule(solutions[1], 1)}$ et $x\\approx${arrondiVirgule(solutions[2], 1)}$`
+            texte += `$x\\approx${texNombre(solutions[0], 1)}$, $x\\approx${texNombre(solutions[1], 1)}$ et $x\\approx${texNombre(solutions[2], 1)}$`
           }
         }
       }
