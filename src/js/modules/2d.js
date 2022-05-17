@@ -1463,7 +1463,7 @@ export function codageBissectrice (...args) {
 }
 
 /**
- * m = constructionBissectrice(A,O,B,false,'blue','×',tailleLosange,couleurBissectrice,epaisseurBissectrice) // Trace et code la bissectrice en laissant apparent les traits de construction au compas
+ * m = constructionBissectrice(A,O,B,false,'blue','×',tailleLosange,couleurBissectrice,epaisseurBissectrice,couleurConstruction) // Trace et code la bissectrice en laissant apparent les traits de construction au compas
  *
  * @author Rémi Angot
  */
@@ -1476,36 +1476,39 @@ function ConstructionBissectrice (
   mark = '×',
   tailleLosange = 5,
   couleurBissectrice = 'red',
-  epaiseurBissectrice = 2
+  epaiseurBissectrice = 1,
+  couleurConstruction = 'black'
 ) {
+  ObjetMathalea2D.call(this)
   this.color = color
   this.tailleLosange = tailleLosange
   this.mark = mark
   this.couleurBissectrice = couleurBissectrice
   this.epaiseurBissectrice = epaiseurBissectrice
+  this.couleurConstruction = couleurConstruction
   if (longueur(A, O) < 0.001 || longueur(O, B) < 0.001) window.notify('ConstructionBissectrice : points confondus', { A, O, B })
-  const M = pointSurSegment(O, A, this.tailleLosange)
-  const N = pointSurSegment(O, B, this.tailleLosange)
-  const sOM = segment(O, M)
-  const sON = segment(O, N)
-  sOM.styleExtremites = '-|'
-  sON.styleExtremites = '-|'
-  const dMN = droite(M, N)
-  dMN.isVisible = false
-  const P = symetrieAxiale(O, dMN)
-  const tNP = traceCompas(N, P)
-  const tMP = traceCompas(M, P)
-  const d = bissectrice(A, O, B)
-  d.color = this.couleurBissectrice
+  const d = bissectrice(A, O, B, this.couleurBissectrice)
   d.epaisseur = this.epaiseurBissectrice
-  const objets = [sOM, sON, tNP, tMP, d]
+  const objets = [d]
   if (detail) {
-    const sMP = segment(M, P)
-    const sNP = segment(N, P)
+    const M = pointSurSegment(O, A, this.tailleLosange)
+    const N = pointSurSegment(O, B, this.tailleLosange)
+    const sOM = segment(O, M, this.couleurConstruction)
+    const sON = segment(O, N, this.couleurConstruction)
+    sOM.styleExtremites = '-|'
+    sON.styleExtremites = '-|'
+    const dMN = droite(M, N)
+    const P = symetrieAxiale(O, dMN)
+    const tNP = traceCompas(N, P)
+    tNP.color = colorToLatexOrHTML(this.couleurConstruction)
+    const tMP = traceCompas(M, P)
+    tMP.color = colorToLatexOrHTML(this.couleurConstruction)
+    const sMP = segment(M, P, this.couleurConstruction)
+    const sNP = segment(N, P, this.couleurConstruction)
     sMP.pointilles = true
     sNP.pointilles = true
     const codes = codeSegments(this.mark, this.color, O, M, M, P, O, N, N, P)
-    objets.push(sMP, sNP, codes)
+    objets.push(sOM, sON, tNP, tMP, sMP, sNP, codes)
   }
   this.svg = function (coeff) {
     let code = ''
@@ -3120,11 +3123,16 @@ function Ellipse (O, rx, ry, color) {
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
     }
 */
+
     let code = `<path d="M ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)} C ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)}, `
-    for (let k = 1; k < 101; k++) {
-      code += `${O.xSVG(coeff) + rx * Math.cos(2 * k * Math.PI / 101) * coeff + randint(-1, 1) * amp} ${O.ySVG(coeff) + ry * Math.sin(2 * k * Math.PI / 100) * coeff + randint(-1, 1) * amp}, `
+    let compteur = 1
+    for (let k = 1, variation; k < 181; k++) {
+      variation = (random(0, 2) - 1) * amp / 10
+      code += `${O.xSVG(coeff) + round((rx + variation) * Math.cos(2 * k * Math.PI / 180) * coeff, 2)} ${O.ySVG(coeff) + round((ry + variation) * Math.sin(2 * k * Math.PI / 180) * coeff, 2)}, `
+      compteur++
     }
-    code += ` ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)} Z" stroke="${this.color}" ${this.style}"/>`
+    if (compteur % 2 === 0) code += ` ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)}, `
+    code += ` ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style}"/>`
     return code
   }
   this.tikzml = function (amp) {
@@ -3316,6 +3324,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
+  this.pointilles = false
   const med = rotation(M, Omega, angle / 2)
   if (typeof (angle) !== 'number') {
     angle = angleOriente(M, Omega, angle)
@@ -3324,13 +3333,11 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
   const A = point(Omega.x + 1, Omega.y)
   const azimut = angleOriente(A, Omega, M)
   const anglefin = azimut + angle
-  let angleSVG
+  const angleSVG = angleModulo(angle)
   if (angle > 180) {
-    angleSVG = angle - 360
-    large = 1
-    sweep = 0
+    sweep = 0 // option pour path : permet de savoir quel morceau de cercle tracé parmi les 2 possibles. Voir https://developer.mozilla.org/fr/docs/Web/SVG/Tutorial/Paths pour plus de détails
+    large = 1 // option pour path : permet de savoir sur un morceau de cercle choisi, quel parcours prendre.
   } else if (angle < -180) {
-    angleSVG = 360 + angle
     large = 1
     sweep = 1
   } else {
@@ -3598,7 +3605,7 @@ export function traceCompas (
   const a = arc(B, O, angle, false)
   a.epaisseur = epaisseur
   a.opacite = opacite
-  a.color = color
+  a.color = colorToLatexOrHTML(color)
   a.pointilles = pointilles
   return a
 }
@@ -3824,17 +3831,18 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbD
   this.x = x
   this.y = y
   this.taille = taille
+  this.taille2 = taille2
   this.opacite = opacite
   this.color = color
+  this.depart = depart
   const objets = []
   let numero
   let azimut
   let rayon
   const arcPlein = semi ? 180 : 360
-
   const centre = point(this.x, this.y)
-  azimut = rotation(point(this.x + this.taille, this.y), centre, depart)
-  let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + taille2)
+  azimut = rotation(point(this.x + this.taille, this.y), centre, this.depart)
+  let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + this.taille2)
   const rayons = []
   const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', this.color)
   const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', this.color)
@@ -3858,7 +3866,10 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbD
     objets.push(rayon)
     azimut = rotation(azimut, centre, arcPlein / nbDivisions)
     azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
-    rayon = segment(azimut, azimut2) /// / Y a un pb ici car jamais pushé
+    rayon = segment(azimut, azimut2, this.color)
+  }
+  if (semi) {
+    objets.push(rayon)
   }
   this.bordures = [this.x - taille - 1, this.y - this.taille - 1, this.x + this.taille + 1, this.y + this.taille + 1]
 
@@ -4121,12 +4132,14 @@ export function translation2Points (O, A, B, nom = '', positionLabel = 'above') 
  * @param A Point, Polygone, Droite, Segment ou Vecteur
  * @param {Point} O Centre de rotation
  * @param {number} angle Angle de rotation
- * @param {string} [nom=''] Nom de l'image. Facultatif, vide par défaut
- * @param {string} [positionLabel='above'] Facultatif, 'above' par défaut
+ * @param {string} [nom=''] Nom de l'image
+ * @param {string} [positionLabel='above']
+ * @param {string} [color='black'] Code couleur HTML acceptée
  * @return L'image de A par la rotation de centre O et d'angle angle
  * @author Rémi Angot et Jean-Claude Lhote
  */
-export function rotation (A, O, angle, nom = '', positionLabel = 'above') {
+export function rotation (A, O, angle, nom = '', positionLabel = 'above', color = 'black') {
+  this.color = color
   if (A.constructor === Point) {
     const x = O.x +
       (A.x - O.x) * Math.cos((angle * Math.PI) / 180) -
@@ -4142,28 +4155,20 @@ export function rotation (A, O, angle, nom = '', positionLabel = 'above') {
       p2[i] = rotation(A.listePoints[i], O, angle)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2)
+    return polygone(p2, this.color)
   }
   if (A.constructor === Droite) {
     const M = rotation(point(A.x1, A.y1), O, angle)
     const N = rotation(point(A.x2, A.y2), O, angle)
-    return droite(M, N)
+    return droite(M, N, this.color)
   }
   if (A.constructor === Segment) {
     const M = rotation(A.extremite1, O, angle)
     const N = rotation(A.extremite2, O, angle)
-    const s = segment(M, N)
+    const s = segment(M, N, this.color)
     s.styleExtremites = A.styleExtremites
     return s
   }
-  /* if (A.constructor==DemiDroite) {
-    let M = rotation(A.extremite1,O,angle)
-    let N = rotation(A.extremite2,O,angle)
-    let s = demiDroite(M,N)
-    s.styleExtremites = A.styleExtremites
-    return s
-  }
-*/
   if (A.constructor === Vecteur) {
     const x = A.x * Math.cos((angle * Math.PI) / 180) -
       A.y * Math.sin((angle * Math.PI) / 180)
@@ -5118,7 +5123,7 @@ export function afficheLongueurSegment (...args) {
 }
 
 /**
- * texteSurSegment(A,B) // Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+ * texteSurSegment('mon texte',A,B) // Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon en dessous, ou alors horizontalement
  *
  * @author Rémi Angot
  */
@@ -5133,7 +5138,6 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizontal = fa
   const O = milieu(this.extremite1, this.extremite2)
   const M = rotation(this.extremite1, O, -90)
   const s = segment(this.extremite1, this.extremite2)
-  s.isVisible = false
   let angle
   const pos = pointSurSegment(O, M, this.distance)
   const space = 0.2 * this.texte.length
@@ -5176,7 +5180,7 @@ export function texteSurSegment (...args) {
  *
  * @author Rémi Angot et Frédéric Piou
  */
-function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
+function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5, horizontal = false) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.extremite1 = A
@@ -5186,7 +5190,7 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
   else anglerot = (angle - 180) / 2
-  const d1 = mediatrice(A, B, 'black')
+  const d1 = mediatrice(A, B)
   d1.isVisible = false
   const e = droite(A, B)
   e.isVisible = false
@@ -5212,7 +5216,7 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
     if (this.texte.charAt(0) === '$') {
       return latexParPoint(this.texte.substr(1, this.texte.length - 2), N, this.color, this.texte * 8, 12, '').svg(coeff)
     } else {
-      return texteParPoint(this.texte, N, angle, this.color).svg(coeff)
+      return texteParPoint(this.texte, N, horizontal ? 0 : angle, this.color).svg(coeff)
     }
   }
   this.tikz = function () {
@@ -5233,6 +5237,7 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
  * @param {number} angle Angle au centre
  * @param {string} [color='black'] Code couleur HTML accepté
  * @param {number} [d=0.5] Distance à la droite.
+ * @param {boolean} [horizontal = false] Décide si le texte est horizontal ou pas, quelle que soit la valeur de angle.
  * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
  * @author Rémi Angot et Frédéric Piou
  */
