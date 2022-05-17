@@ -1,7 +1,7 @@
-import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe } from './outils.js'
+import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe, abs } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
-import { fraction, max, ceil, isNumeric } from 'mathjs'
+import { fraction, max, ceil, isNumeric, random, round } from 'mathjs'
 
 /*
   MathALEA2D
@@ -2971,10 +2971,14 @@ function Cercle (O, r, color) {
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
     }
 
-    let code = `<path d="M ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)} C ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)}, `
-    for (let k = 1; k < 101; k++) {
-      code += `${O.xSVG(coeff) + r * Math.cos(2 * k * Math.PI / 101) * coeff + randint(-1, 1) * amp} ${O.ySVG(coeff) + r * Math.sin(2 * k * Math.PI / 100) * coeff + randint(-1, 1) * amp}, `
+    let code = `<path d="M ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)} S ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)}, `
+    let compteur = 1
+    for (let k = 1, variation; k < 181; k++) {
+      variation = (random(0, 2) - 1) * amp / 10
+      code += `${O.xSVG(coeff) + round((r + variation) * Math.cos(2 * k * Math.PI / 180) * coeff, 2)} ${O.ySVG(coeff) + round((r + variation) * Math.sin(2 * k * Math.PI / 180) * coeff, 2)}, `
+      compteur++
     }
+    if (compteur % 2 === 0) code += ` ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)}, `
     code += ` ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style}"/>`
     return code
   }
@@ -3316,23 +3320,24 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
   if (typeof (angle) !== 'number') {
     angle = angleOriente(M, Omega, angle)
   }
-  let l = longueur(Omega, M); let large = 0; let sweep = 0
+  const l = longueur(Omega, M); let large = 0; let sweep = 0
   const A = point(Omega.x + 1, Omega.y)
   const azimut = angleOriente(A, Omega, M)
   const anglefin = azimut + angle
+  let angleSVG
   if (angle > 180) {
-    angle = angle - 360
+    angleSVG = angle - 360
     large = 1
     sweep = 0
   } else if (angle < -180) {
-    angle = 360 + angle
+    angleSVG = 360 + angle
     large = 1
     sweep = 1
   } else {
     large = 0
     sweep = 1 - (angle > 0)
   }
-  const N = rotation(M, Omega, angle)
+  const N = rotation(M, Omega, angleSVG)
   this.bordures = [Math.min(M.x, N.x, med.x) - 0.1, Math.min(M.y, N.y, med.y) - 0.1, Math.max(M.x, N.x, med.x) + 0.1, Math.max(M.y, N.y, med.y) + 0.1]
   if (rayon) {
     this.svg = function (coeff) {
@@ -3412,7 +3417,9 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
       if (this.opacite !== 1) {
         this.style += ` stroke-opacity="${this.opacite}" `
       }
-      return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style} id="${this.id}" />`
+      this.style += ' fill-opacity="0" '
+
+      return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
     }
   }
   this.tikz = function () {
@@ -3472,7 +3479,6 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
 
   this.svgml = function (coeff, amp) {
     this.style = ''
-    // if (!rayon) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
@@ -3480,53 +3486,20 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
       this.style += ` stroke-opacity="${this.opacite}" `
     }
     this.style += ' fill="none" '
-    code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
-    for (let k = 0; Math.abs(k) <= Math.abs(angle); k += angle < 0 ? -1 : 1) {
-      P = rotation(M, Omega, k)
-      code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
+    code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} S ${M.xSVG(coeff)} ${M.ySVG(coeff)}, `
+    let compteur = 1
+    const r = longueur(Omega, M)
+    for (let k = 0, variation; abs(k) <= abs(angle) - 2; k += angle < 0 ? -2 : 2) {
+      variation = (random(0, 2) - 1) / r * amp / 10
+      P = rotation(homothetie(M, Omega, 1 + variation), Omega, k)
+      code += `${round(P.xSVG(coeff), 2)} ${round(P.ySVG(coeff), 2)}, `
+      compteur++
     }
     P = rotation(M, Omega, angle)
-    code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)} `
+    if (compteur % 2 === 0) code += `${P.xSVG(coeff)} ${P.ySVG(coeff)}, ` // Parce qu'on utilise S et non C dans le path
+    code += `${P.xSVG(coeff)} ${P.ySVG(coeff)}`
     code += `" stroke="${color}" ${this.style}/>`
     return code
-    // Pas de remplissage à main levée
-  /*  } else {
-      if (this.epaisseur !== 1) {
-        this.style += ` stroke-width="${this.epaisseur}" `
-      }
-      if (this.opacite !== 1) {
-        this.style += ` stroke-opacity="${this.opacite}" `
-      }
-      if (this.couleurDeRemplissage === '' || this.couleurDeRemplissage === 'none') {
-        this.style += ' fill="none" '
-      } else {
-        this.style += ` fill="${this.couleurDeRemplissage[0]}" `
-        this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
-      }
-      code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
-      for (let k = 0; Math.abs(k) <= Math.abs(angle); k += angle < 0 ? -1 : 1) {
-        P = rotation(M, Omega, k)
-        code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
-      }
-      P = rotation(P, Omega, 1)
-      code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
-
-      l = longueur(Omega, M)
-      dMx = (M.xSVG(coeff) - Omega.xSVG(coeff)) / (4 * l)
-      dMy = (M.ySVG(coeff) - Omega.ySVG(coeff)) / (4 * l)
-      dPx = (Omega.xSVG(coeff) - P.xSVG(coeff)) / (4 * l)
-      dPy = (Omega.ySVG(coeff) - P.ySVG(coeff)) / (4 * l)
-      for (let k = 0; k <= 4 * l; k++) {
-        code += `${Math.round(P.xSVG(coeff) + k * dPx + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + k * dPy + randint(-1, 1) * amp)}, `
-      }
-      for (let j = 0; j <= 4 * l; j++) {
-        code += `${Math.round(Omega.xSVG(coeff) + j * dMx + randint(-1, 1) * amp)} ${Math.round(Omega.ySVG(coeff) + j * dMy + randint(-1, 1) * amp)}, `
-      }
-      code += `${Math.round(Omega.xSVG(coeff) + 4 * l * dMx + randint(-1, 1) * amp)} ${Math.round(Omega.ySVG(coeff) + 4 * l * dMy + randint(-1, 1) * amp)} Z `
-      code += `" stroke="${color[0]}" ${this.style} />`
-      return code
-    }
-    */
   }
 
   this.tikzml = function (amp) {
@@ -3535,9 +3508,8 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
     const A = point(Omega.x + 1, Omega.y)
     const azimut = arrondi(angleOriente(A, Omega, M), 1)
     const anglefin = arrondi(azimut + angle, 1)
-    // const N = rotation(M, Omega, angle)
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
     }
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
@@ -3548,7 +3520,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
     /*
     if (rayon && fill !== 'none') {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-      tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
+    tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
     }
     if (rayon && fill !== 'none') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
@@ -3564,6 +3536,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
     return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) ;`
   }
 }
+
 /**
  * @param {Point} M Point de départ de l'arc
  * @param {Point} Omega Centre de l'arc
