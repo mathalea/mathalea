@@ -195,6 +195,7 @@ export const clavierLycee = {
     '%': { mode: 'math', value: '\\%' },
     '(': { mode: 'math', value: '(#0)' },
     '{': { mode: 'math', value: '\\{#0\\}' },
+    singleton: { mode: 'math', value: '\\{#0\\}' },
     inf: { mode: 'math', value: '\\infty' },
     union: { mode: 'math', value: '\\bigcup' },
     inter: { mode: 'math', value: '\\bigcap' },

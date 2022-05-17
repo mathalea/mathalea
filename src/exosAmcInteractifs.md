@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 447 
-- nombre d'exos interactifReady 653 
+- nombre d'exos amcReady 454 
+- nombre d'exos interactifReady 658 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -54,7 +54,7 @@
 |2N41-6|Développer avec les identités remarquables|KO|KO|OK|mathLive|
 |2N51-4|Équations du premier degré|OK|AMCHybride|OK|mathLive|
 |2N51-5|Équations du premier degré (utilisant la distributivité)|KO|KO|OK|mathLive|
-|2N61-2|Résoudre une inéquation produit|KO|KO|OK|mathLive|
+|2N61-2|Résoudre une inéquation-produit|KO|KO|OK|mathLive|
 |2N61-4|Résoudre une inéquation quotient|KO|KO|OK|mathLive|
 |2S10-2|Calculer une proportion ou appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |2S11-1|Calculer un CM à partir d'un taux d'évolution et inversement|KO|KO|OK|mathLive|
@@ -263,10 +263,10 @@
 |6G12-1|Tracer des parallèles et des perpendiculaires|OK|AMCOpen|KO|KO|
 |6G12|Tracer des parallèles|OK|AMCOpen|KO|KO|
 |6G14|Utiliser les propriétés des droites perpendiculaires|OK|AMCOpen|KO|KO|
-|6G22|Nommer un angle|KO|KO|OK|qcm,mathLive|
+|6G22|Nommer un angle|OK|AMCHybride|OK|qcm,mathLive|
 |6G23-1|Mesurer un angle sans rapporteur sur l'énoncé|OK|qcmMono|OK|qcm|
-|6G23-4|Mesurer un angle avec rapporteur intégré|KO|KO|OK|mathLive|
-|6G23-5|Calculer un angle, déduit de figures simples|KO|KO|OK|mathLive|
+|6G23-4|Mesurer un angle avec rapporteur intégré|OK|AMCHybride|OK|mathLive|
+|6G23-5|Calculer un angle, déduit de figures simples|OK|AMCNum|OK|mathLive|
 |6G23|Construire un angle de mesure donnée|OK|AMCOpen|KO|KO|
 |6G24-1|Construire le symétrique d’un point par rapport à une droite|OK|AMCOpen|KO|KO|
 |6G24-2|Construire le symétrique d’une figure par rapport à une droite (cas simples)|OK|AMCOpen|KO|KO|
@@ -459,7 +459,7 @@
 |can2G11|Utiliser la relation de Chasles/réductions vectorielles*|KO|KO|OK|qcm|
 |can2G12|Reconnaître des vecteurs colinéaires (V/F)|KO|KO|OK|qcm|
 |can2G13|Calculer la norme d’un vecteur|KO|KO|OK|mathLive|
-|can2G14|Déterminer les coordonnées d'un point avec une trabslation|KO|KO|OK|mathLive|
+|can2G14|Déterminer les coordonnées d'un point avec une translation|KO|KO|OK|mathLive|
 |can2G15|Déterminer le déterminant de deux vecteurs.|KO|KO|OK|mathLive|
 |can2L01|Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Calculer les coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
@@ -568,6 +568,9 @@
 |can5C16|Calculer astucieusement avec une factorisation|KO|KO|OK|mathLive|
 |can5C17|Convertir une fraction ou une somme vers un décimal|OK|AMCNum|OK|mathLive|
 |can5C18|Reconnaître une expression numérique (QCM)|KO|KO|OK|qcm|
+|can5C19|Soustraire deux décimaux|OK|AMCNum|OK|mathLive|
+|can5C20|Soustraire deux décimaux*|OK|AMCNum|OK|mathLive|
+|can5C21|Calculer la somme de décimaux qui se marient|OK|AMCNum|OK|mathLive|
 |can5D01|Convertir des heures décimales en heures/minutes et inversement|OK|AMCNum|OK|mathLive|
 |can5D02|Convertir des heures décimales en heures/minutes et inversement*|OK|AMCNum|OK|mathLive|
 |can5D03|Convertir des fractions d’heures en minutes et inversement|OK|AMCNum|OK|mathLive|
@@ -584,6 +587,7 @@
 |can5P05|Prendre t % d’une quantité|KO|KO|OK|mathLive|
 |can5P06|Ecrire sous la forme d’un pourcentage|OK|AMCNum|OK|mathLive|
 |can5a-2021|CAN 5ième sujet 2021|KO|KO|OK|mathLive|
+|can5a-2022|CAN 5ième sujet 2022|KO|KO|OK|mathLive|
 |canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |can6C01|Trouver un ordre de grandeur (QCM)|OK|qcmMono|OK|qcm|
 |can6C02|Multiplier un nombre pair par 5|OK|AMCNum|OK|mathLive|
@@ -615,6 +619,7 @@
 |can6C28|Résoudre un problème de fraction|KO|KO|OK|mathLive|
 |can6C29|Résoudre un problème de partage|OK|AMCNum|OK|mathLive|
 |can6C30|Multiplier deux décimaux|OK|AMCNum|OK|mathLive|
+|can6C31|Soustraire un décimal d’un entier|OK|AMCNum|OK|mathLive|
 |can6D01|Convertir des Heures/minutes en minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Chercher un reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calculer une durée en minutes|OK|AMCNum|OK|mathLive|

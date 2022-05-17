@@ -2046,7 +2046,7 @@ export default {
     }
   },
   "2N61-2": {
-    "titre": "Résoudre une inéquation produit",
+    "titre": "Résoudre une inéquation-produit",
     "url": "/exercices/2e/2N61-2.js",
     "amcReady": false,
     "interactifReady": true,
@@ -4166,7 +4166,7 @@ export default {
     "interactifType": "listeDeroulante",
     "name": "4C30-4",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -5947,7 +5947,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -5996,7 +5996,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -7849,7 +7849,10 @@ export default {
   "6G22": {
     "titre": "Nommer un angle",
     "url": "/exercices/6e/6G22.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": [
       "qcm",
@@ -7857,7 +7860,7 @@ export default {
     ],
     "name": "6G22",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -7917,7 +7920,10 @@ export default {
   "6G23-4": {
     "titre": "Mesurer un angle avec rapporteur intégré",
     "url": "/exercices/6e/6G23-4.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "6G23-4",
@@ -7933,7 +7939,10 @@ export default {
   "6G23-5": {
     "titre": "Calculer un angle, déduit de figures simples",
     "url": "/exercices/6e/6G23-5.js",
-    "amcReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "6G23-5",
@@ -10557,7 +10566,7 @@ export default {
     "interactifType": "mathLive",
     "name": "beta-CAN6-2022",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -12746,7 +12755,7 @@ export default {
     }
   },
   "can2G14": {
-    "titre": "Déterminer les coordonnées d'un point avec une trabslation",
+    "titre": "Déterminer les coordonnées d'un point avec une translation",
     "url": "/exercices/can/2e/can2G14.js",
     "amcReady": false,
     "interactifReady": true,
@@ -14660,6 +14669,63 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can5C19": {
+    "titre": "Soustraire deux décimaux",
+    "url": "/exercices/can/5e/can5C19.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C19",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can5C20": {
+    "titre": "Soustraire deux décimaux*",
+    "url": "/exercices/can/5e/can5C20.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C20",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can5C21": {
+    "titre": "Calculer la somme de décimaux qui se marient",
+    "url": "/exercices/can/5e/can5C21.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5C21",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can5D01": {
     "titre": "Convertir des heures décimales en heures/minutes et inversement",
     "url": "/exercices/can/5e/can5D01.js",
@@ -14942,6 +15008,22 @@ export default {
     "name": "can5a-2021",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can5a-2022": {
+    "titre": "CAN 5ième sujet 2022",
+    "url": "/exercices/can/5e/can5a-2022.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can5a-2022",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -15522,6 +15604,25 @@ export default {
     "name": "can6C30",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can6C31": {
+    "titre": "Soustraire un décimal d’un entier",
+    "url": "/exercices/can/6e/can6C31.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can6C31",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -16322,7 +16423,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6a-2021",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -16338,7 +16439,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6a-2022",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

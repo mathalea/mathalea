@@ -58,6 +58,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
       a,
       k,
       div,
+      prefixe,
       resultat,
       resultat2,
       resultat3,
@@ -114,11 +115,11 @@ export default function ExerciceConversionsAires (niveau = 1) {
           [' h', '\\times100\\times100', 10000],
           [' k', '\\times1~000\\times1~000', 1000000]
         ] // On réinitialise cette liste qui a pu être modifiée dans le cas des ares
-        resultat = calcul(a * prefixeMulti[k][2]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-        resultat2 = calcul(resultat / 10)
-        resultat3 = calcul(resultat * 10)
-        resultat4 = calcul(resultat * 100)
-        resultat5 = calcul(resultat / 100)
+        resultat = calcul(a * prefixeMulti[k][2], 0) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat2 = calcul(resultat / 10, 1)
+        resultat3 = calcul(resultat * 10, 0)
+        resultat4 = calcul(resultat * 100, 0)
+        resultat5 = calcul(resultat / 100, 2)
         texte =
           '$ ' +
           texNombre(a) +
@@ -143,6 +144,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           texTexte(unite) +
           '^2' +
           '$'
+        prefixe = prefixeMulti[k][2]
       } else if (div && typesDeQuestions < 4) {
         prefixeDiv = [
           [' d', '\\div10\\div10', 100],
@@ -150,11 +152,11 @@ export default function ExerciceConversionsAires (niveau = 1) {
           [' m', '\\div1~000\\div1~000', 1000000]
         ]
         k = randint(0, 1) // Pas de conversions de mm^2 en m^2 avec des nombres décimaux car résultat inférieur à 10e-8
-        resultat = calcul(a / prefixeDiv[k][2]) // Attention aux notations scientifiques pour 10e-8
-        resultat2 = calcul(resultat / 10)
-        resultat3 = calcul(resultat * 10)
-        resultat4 = calcul(resultat * 100)
-        resultat5 = calcul(resultat / 100)
+        resultat = calcul(a / prefixeDiv[k][2], 9) // Attention aux notations scientifiques pour 10e-8
+        resultat2 = calcul(resultat / 10, 9)
+        resultat3 = calcul(resultat * 10, 9)
+        resultat4 = calcul(resultat * 100, 9)
+        resultat5 = calcul(resultat / 100, 9)
         texte =
           '$ ' +
           texNombre(a) +
@@ -179,6 +181,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           texTexte(unite) +
           '^2' +
           '$'
+          prefixe = prefixeDiv[k][2]
       } else if (typesDeQuestions === 4) {
         const unite1 = randint(0, 3)
         let ecart = randint(1, 2) // nombre de multiplication par 10 pour passer de l'un à l'autre
@@ -187,11 +190,11 @@ export default function ExerciceConversionsAires (niveau = 1) {
         }
         const unite2 = unite1 + ecart
         if (randint(0, 1) > 0) {
-          resultat = calcul(a * Math.pow(10, 2 * ecart))
-          resultat2 = calcul(resultat / 10)
-          resultat3 = calcul(resultat * 10)
-          resultat4 = calcul(resultat * 100)
-          resultat5 = calcul(resultat / 100)
+          resultat = calcul(a * Math.pow(10, 2 * ecart), 2)
+          resultat2 = calcul(resultat / 10, 3)
+          resultat3 = calcul(resultat * 10, 1)
+          resultat4 = calcul(resultat * 100, 0)
+          resultat5 = calcul(resultat / 100, 4)
           texte =
             '$ ' +
             texNombre(a) +
@@ -217,11 +220,12 @@ export default function ExerciceConversionsAires (niveau = 1) {
             texTexte(listeUnite[unite1]) +
             '^2' +
             '$'
+            prefixe = Math.pow(10, 2 * ecart)
         } else {
-          resultat = calcul(a / Math.pow(10, 2 * ecart))
-          resultat2 = calcul(a / Math.pow(10, ecart))
-          resultat3 = calcul(a / Math.pow(10, 2 * ecart + 1))
-          resultat4 = calcul(a / Math.pow(10, -2 * ecart))
+          resultat = calcul(a / Math.pow(10, 2 * ecart), 9)
+          resultat2 = calcul(a / Math.pow(10, ecart), 9)
+          resultat3 = calcul(a / Math.pow(10, 2 * ecart + 1), 9)
+          resultat4 = calcul(a / Math.pow(10, -2 * ecart), 9)
           texte =
             '$ ' +
             texNombre(a) +
@@ -247,19 +251,20 @@ export default function ExerciceConversionsAires (niveau = 1) {
             texTexte(listeUnite[unite2]) +
             '^2' +
             '$'
+            prefixe = Math.pow(10, 2 * ecart)
         }
       } else if (typesDeQuestions === 5) {
         // Pour typesDeQuestions==5
         prefixeMulti = [
-          ['ha', 10000],
-          ['a', 100]
+          ['ha', '\\times100\\times100', 10000],
+          ['a', '\\times10\\times10', 100]
         ]
         k = randint(0, 1)
-        resultat = calcul(a * prefixeMulti[k][1]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-        resultat2 = calcul(resultat / 10)
-        resultat3 = calcul(resultat * 10)
-        resultat4 = calcul(resultat * 100)
-        resultat5 = calcul(resultat / 100)
+        resultat = calcul(a * prefixeMulti[k][2], 0) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat2 = calcul(resultat / 10, 1)
+        resultat3 = calcul(resultat * 10, 0)
+        resultat4 = calcul(resultat * 100, 0)
+        resultat5 = calcul(resultat / 100, 2)
         texte =
           '$ ' +
           texNombre(a) +
@@ -274,8 +279,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           texTexte(prefixeMulti[k][0]) +
           ' =  ' +
           texNombre(a) +
-          '\\times' +
-          texNombre(prefixeMulti[k][1]) +
+          prefixeMulti[k][1] +
           texTexte(unite) +
           '^2' +
           ' = ' +
@@ -283,6 +287,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
           texTexte(unite) +
           '^2' +
           '$'
+          prefixe = prefixeMulti[k][2]
       }
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [{
@@ -313,7 +318,7 @@ export default function ExerciceConversionsAires (niveau = 1) {
         setReponse(this, i, parseFloat(resultat))
       }
 
-      if (this.questionJamaisPosee(i, a, prefixeMulti[k][2], div)) {
+      if (this.questionJamaisPosee(i, a, prefixe, div)) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfill', '\\text{ en }')
