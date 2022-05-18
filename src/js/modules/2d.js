@@ -1,7 +1,7 @@
 import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, arrondiVirgule, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe, abs } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
-import { fraction, max, ceil, isNumeric, random, round } from 'mathjs'
+import { fraction, max, ceil, isNumeric, random, round, floor } from 'mathjs'
 
 /*
   MathALEA2D
@@ -479,7 +479,7 @@ export function appartientSegment (C, A, B) {
   else return false
 }
 /**
- * Est-ce que le point C appartien à la droite (AB)
+ * Est-ce que le point C appartient à la droite (AB) ?
  * C'est ce que dira cette fonction
  * @author Jean-Claude Lhote
  */
@@ -489,7 +489,7 @@ export function appartientDroite (C, A, B) {
   else return false
 }
 /**
- * Est-ce que le point C appartien à la demi-droite [AB)]
+ * Est-ce que le point C appartient à la demi-droite [AB) ?
  * C'est ce que dira cette fonction
  * @author Jean-Claude Lhote
  */
@@ -1362,7 +1362,7 @@ function ConstructionMediatrice (
   arcn1.isVisible = false
   arcn2.isVisible = false
   d.isVisible = false
-  d.color = couleurMediatrice
+  d.color = colorToLatexOrHTML(couleurMediatrice)
   d.epaisseur = epaisseurMediatrice
   const codage = codageMediatrice(A, B, color, markmilieu)
   codage.isVisible = false
@@ -2617,13 +2617,13 @@ export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black'
  * @author Jean-Claude Lhote
  * @returns {objet} {triangle, pied}
  */
-export function triangle2points1hauteur (A, B, h, d, n = 1) {
+export function triangle2points1hauteur (A, B, h, d, n = 1, color = 'black') {
   if (d === undefined) {
-    d = randint(0, Math.floor(longueur(A, B)))
+    d = randint(0, floor(longueur(A, B)))
   }
   const H = pointSurSegment(A, B, d)
   const C = similitude(A, H, 90 * (3 - n * 2), h / longueur(A, H))
-  return { triangle: polygone(A, B, C), pied: H }
+  return { triangle: polygone(A, B, C, color), pied: H }
 }
 
 /**
@@ -2637,7 +2637,7 @@ export function triangle2points1hauteur (A, B, h, d, n = 1) {
  * @example C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
  * @author Rémi Angot
  */
-export function triangle2points2longueurs (A, B, l1, l2, n = 1) {
+export function triangle2points2longueurs (A, B, l1, l2, n = 1, color = 'black') {
   const c1 = cercle(A, l1)
   const c2 = cercle(B, l2)
   let C
@@ -2648,7 +2648,7 @@ export function triangle2points2longueurs (A, B, l1, l2, n = 1) {
   }
   c1.isVisible = false
   c2.isVisible = false
-  return polygone(A, B, C)
+  return polygone(A, B, C, color)
 }
 
 /**
@@ -2657,7 +2657,7 @@ export function triangle2points2longueurs (A, B, l1, l2, n = 1) {
  * t = triangle2points2angles(A,B,40,60,2) // Trace le triangle ABC tel que CAB = -40° et CBA = 60°
  * @author Rémi Angot
  */
-export function triangle2points2angles (A, B, a1, a2, n = 1) {
+export function triangle2points2angles (A, B, a1, a2, n = 1, color = 'black') {
   if (n === 1) {
     a2 *= -1
   } else {
@@ -2672,7 +2672,7 @@ export function triangle2points2angles (A, B, a1, a2, n = 1) {
   dAc1.isVisible = false
   dBc2.isVisible = false
   const C = pointIntersectionDD(dAc1, dBc2, 'C')
-  return polygone(A, B, C)
+  return polygone(A, B, C, color)
 }
 /**
  *
@@ -2684,7 +2684,7 @@ export function triangle2points2angles (A, B, a1, a2, n = 1) {
  * t = triangle2points1angle1longueur(A,B,40,6) // Trace le triangle ABC tel que CAB = 40° et AC=6
  * @author Jean-Claude Lhote
  */
-export function triangle2points1angle1longueur (A, B, a, l, n = 1) {
+export function triangle2points1angle1longueur (A, B, a, l, n = 1, color = 'black') {
   if (n === 1) {
     a = Math.abs(a) % 180
   } else {
@@ -2692,7 +2692,7 @@ export function triangle2points1angle1longueur (A, B, a, l, n = 1) {
   }
   const P = pointSurSegment(A, B, l)
   const Q = rotation(P, A, a)
-  return polygone(A, B, Q)
+  return polygone(A, B, Q, color)
 }
 /**
  * @param {Point} A Le sommet pour l'angle donné = première extrémité du segment de base du triangle
@@ -2706,7 +2706,7 @@ export function triangle2points1angle1longueur (A, B, a, l, n = 1) {
  * t = triangle2points1angle1longueurOppose(A,B,40,6) // Trace le triangle ABC tel que CAB = 40° et BC=6 Le point C est celui des deux points possible le plus près de A
  * @author Jean-Claude Lhote
  */
-export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1) {
+export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1, color = 'black') {
   let M
   if (n % 2 === 1) {
     a = Math.abs(a) % 180
@@ -2721,7 +2721,7 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1) {
   c.isVisible = false
   if ((n + 1) >> 1 === 1) M = pointIntersectionLC(e, c, '', 1)
   else M = pointIntersectionLC(e, c, '', 2)
-  return polygone(A, B, M)
+  return polygone(A, B, M, color)
 }
 
 /*********************************************/
@@ -2736,12 +2736,12 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1) {
  * @param {objet} C
  * @returns {polygoneAvecNom}
  */
-export function parallelogramme3points (NOM, A, B, C) {
+export function parallelogramme3points (NOM, A, B, C, color = 'black') {
   const D = translation(A, vecteur(B, C), NOM[3])
   A.nom = NOM[0]
   B.nom = NOM[1]
   C.nom = NOM[2]
-  return polygoneAvecNom(A, B, C, D)
+  return polygoneAvecNom(A, B, C, D, color)
 }
 /**
  * parrallelogramme2points1hauteur(A,B,5) renvoie un parallélogramme ABCD de base [AB] et de hauteur h
@@ -2753,7 +2753,7 @@ export function parallelogramme3points (NOM, A, B, C) {
  * @param {number} h
  * @returns {polygoneAvecNom}
  */
-export function parallelogramme2points1hauteur (NOM, A, B, h) {
+export function parallelogramme2points1hauteur (NOM, A, B, h, color = 'black') {
   if (typeof B === 'number') {
     B = pointAdistance(A, B, randint(-180, 180))
   }
@@ -2763,7 +2763,7 @@ export function parallelogramme2points1hauteur (NOM, A, B, h) {
   H = pointSurSegment(A, H, h)
   const D = translation(H, homothetie(vecteur(A, B), A, randint(-4, 4, 0) / 10), NOM[3])
   const C = translation(D, vecteur(A, B), NOM[2])
-  return polygoneAvecNom(A, B, C, D)
+  return polygoneAvecNom(A, B, C, D, color)
 }
 
 /**
@@ -4040,9 +4040,10 @@ export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false
  * @param {Vecteur} v vecteur de translation
  * @param {string} nom nom du translaté pour un Point
  * @param {string} positionLabel Position du label pour un Point
+ * @param {string} [color='black'] Code couleur HTML acceptée
  * @author Rémi Angot
  */
-export function translation (O, v, nom = '', positionLabel = 'above') {
+export function translation (O, v, nom = '', positionLabel = 'above', color = 'black') {
   if (O.constructor === Point) {
     const x = O.x + v.x
     const y = O.y + v.y
@@ -4054,28 +4055,20 @@ export function translation (O, v, nom = '', positionLabel = 'above') {
       p2[i] = translation(O.listePoints[i], v)
       p2[i].nom = O.listePoints[i].nom + '\''
     }
-    return polygone(p2)
+    return polygone(p2, color)
   }
   if (O.constructor === Droite) {
     const M = translation(point(O.x1, O.y1), v)
     const N = translation(point(O.x2, O.y2), v)
-    return droite(M, N)
+    return droite(M, N, color)
   }
   if (O.constructor === Segment) {
     const M = translation(O.extremite1, v)
     const N = translation(O.extremite2, v)
-    const s = segment(M, N)
+    const s = segment(M, N, color)
     s.styleExtremites = O.styleExtremites
     return s
   }
-  /* if (O.constructor==DemiDroite) {
-    let M = translation(O.extremite1,v)
-    let N = translation(O.extremite2,v)
-    let s = demiDroite(M,N)
-    s.styleExtremites = O.styleExtremites
-    return s
-  }
-*/
   if (O.constructor === Vecteur) {
     return O
   }
@@ -4089,7 +4082,7 @@ export function translation (O, v, nom = '', positionLabel = 'above') {
  * @author Rémi Angot
  */
 
-export function translation2Points (O, A, B, nom = '', positionLabel = 'above') {
+export function translation2Points (O, A, B, nom = '', positionLabel = 'above', color = 'black') {
   if (O.constructor === Point) {
     const x = O.x + B.x - A.x
     const y = O.y + B.y - A.y
@@ -4101,28 +4094,20 @@ export function translation2Points (O, A, B, nom = '', positionLabel = 'above') 
       p2[i] = translation2Points(O.listePoints[i], O, A, B)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2)
+    return polygone(p2, color)
   }
   if (O.constructor === Droite) {
     const M = translation2Points(point(O.x1, O.y1), A, B)
     const N = translation2Points(point(O.x2, O.y2), A, B)
-    return droite(M, N)
+    return droite(M, N, color)
   }
   if (O.constructor === Segment) {
     const M = translation2Points(O.extremite1, A, B)
     const N = translation2Points(O.extremite2, A, B)
-    const s = segment(M, N)
+    const s = segment(M, N, color)
     s.styleExtremites = O.styleExtremites
     return s
   }
-  /* if (O.constructor==DemiDroite) {
-    let M = translation2Points(O.extremite1,A,B)
-    let N = translation2Points(O.extremite2,A,B)
-    let s = demiDroite(M,N)
-    s.styleExtremites = O.styleExtremites
-    return s
-  }
-*/
   if (A.constructor === Vecteur) {
     return A
   }
@@ -4139,7 +4124,6 @@ export function translation2Points (O, A, B, nom = '', positionLabel = 'above') 
  * @author Rémi Angot et Jean-Claude Lhote
  */
 export function rotation (A, O, angle, nom = '', positionLabel = 'above', color = 'black') {
-  this.color = color
   if (A.constructor === Point) {
     const x = O.x +
       (A.x - O.x) * Math.cos((angle * Math.PI) / 180) -
@@ -4155,17 +4139,17 @@ export function rotation (A, O, angle, nom = '', positionLabel = 'above', color 
       p2[i] = rotation(A.listePoints[i], O, angle)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2, this.color)
+    return polygone(p2, color)
   }
   if (A.constructor === Droite) {
     const M = rotation(point(A.x1, A.y1), O, angle)
     const N = rotation(point(A.x2, A.y2), O, angle)
-    return droite(M, N, this.color)
+    return droite(M, N, color)
   }
   if (A.constructor === Segment) {
     const M = rotation(A.extremite1, O, angle)
     const N = rotation(A.extremite2, O, angle)
-    const s = segment(M, N, this.color)
+    const s = segment(M, N, color)
     s.styleExtremites = A.styleExtremites
     return s
   }
@@ -4270,9 +4254,10 @@ export function homothetie (A, O, k, nom = '', positionLabel = 'above', color = 
  * @param {string} M Nom de l'image. Facultatif, vide par défaut.
  * @param {string} positionLabel Facultatif, 'above' par défaut.
  * @return {Point} M image de A par la symétrie axiale d'axe d.
+ * @param {string} [color='black'] Code couleur HTML acceptée
  * @author Jean-Claude Lhote
  */
-export function symetrieAxiale (A, d, nom = '', positionLabel = 'above') {
+export function symetrieAxiale (A, d, nom = '', positionLabel = 'above', color = 'black') {
   let x, y
   const a = d.a
   const b = d.b
@@ -4297,27 +4282,20 @@ export function symetrieAxiale (A, d, nom = '', positionLabel = 'above') {
       p2[i] = symetrieAxiale(A.listePoints[i], d)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2)
+    return polygone(p2, color)
   }
   if (A.constructor === Droite) {
     const M = symetrieAxiale(point(A.x1, A.y1), d)
     const N = symetrieAxiale(point(A.x2, A.y2), d)
-    return droite(M, N)
+    return droite(M, N, color)
   }
   if (A.constructor === Segment) {
     const M = symetrieAxiale(A.extremite1, d)
     const N = symetrieAxiale(A.extremite2, d)
-    const s = segment(M, N)
+    const s = segment(M, N, color)
     s.styleExtremites = A.styleExtremites
     return s
   }
-  /* if (A.constructor==DemiDroite) {
-      let M = symetrieAxiale(A.extremite1,d)
-      let N = symetrieAxiale(A.extremite2,d)
-      let s = demiDroite(M,N)
-      s.styleExtremites = A.styleExtremites
-      return s
-   } */
   if (A.constructor === Vecteur) {
     let O
     if (egal(b, 0)) {
@@ -4380,7 +4358,7 @@ export function projectionOrtho (M, d, nom = '', positionLabel = 'above') {
  * N = affiniteOrtho(M,d,rapport,'N','rgiht')
  * @author = Jean-Claude Lhote
  */
-export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above') {
+export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above', color = 'black') {
   const a = d.a
   const b = d.b
   const c = d.c
@@ -4405,27 +4383,20 @@ export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above') {
       p2[i] = affiniteOrtho(A.listePoints[i], d, k)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2)
+    return polygone(p2, color)
   }
   if (A.constructor === Droite) {
     const M = affiniteOrtho(point(A.x1, A.y1), d, k)
     const N = affiniteOrtho(point(A.x2, A.y2), d, k)
-    return droite(M, N)
+    return droite(M, N, color)
   }
   if (A.constructor === Segment) {
     const M = affiniteOrtho(A.extremite1, d, k)
     const N = affiniteOrtho(A.extremite2, d, k)
-    const s = segment(M, N)
+    const s = segment(M, N, color)
     s.styleExtremites = A.styleExtremites
     return s
   }
-  /* if (A.constructor ===  DemiDroite) {
-      let M = affiniteOrtho(A.extremite1, d,k)
-      let N = affiniteOrtho(A.extremite2, d,k)
-      let s = demiDroite(M, N)
-      s.styleExtremites = A.styleExtremites
-      return s
-   } */
   if (A.constructor === Vecteur) {
     let O
     if (egal(b, 0)) {
@@ -4448,7 +4419,7 @@ export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above') {
  * M = similitude(B,O,30,1.1,'M') // Le point M est l'image de B dans la similitude de centre O d'angle 30° et de rapport 1.1
  * @author Jean-Claude Lhote
  */
-export function similitude (A, O, a, k, nom = '', positionLabel = 'above') {
+export function similitude (A, O, a, k, nom = '', positionLabel = 'above', color = 'black') {
   if (A.constructor === Point) {
     const ra = radians(a)
     const x = O.x + k * (Math.cos(ra) * (A.x - O.x) - Math.sin(ra) * (A.y - O.y))
@@ -4461,17 +4432,17 @@ export function similitude (A, O, a, k, nom = '', positionLabel = 'above') {
       p2[i] = similitude(A.listePoints[i], O, a, k)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2)
+    return polygone(p2, color)
   }
   if (A.constructor === Droite) {
     const M = similitude(point(A.x1, A.y1), O, a, k)
     const N = similitude(point(A.x2, A.y2), O, a, k)
-    return droite(M, N)
+    return droite(M, N, color)
   }
   if (A.constructor === Segment) {
     const M = similitude(A.extremite1, O, a, k)
     const N = similitude(A.extremite2, O, a, k)
-    const s = segment(M, N)
+    const s = segment(M, N, color)
     s.styleExtremites = A.styleExtremites
     return s
   }
@@ -6270,7 +6241,7 @@ export function grille (...args) {
 }
 
 /**
- * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les parallèle à l'axe des ordonnées
+ * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace des parallèles à l'axe des ordonnées
  *
  * @author Rémi Angot
  */
@@ -6289,8 +6260,7 @@ function GrilleHorizontale (
   this.opacite = opacite
   const objets = []
   for (let i = ymin; i <= ymax; i += step) {
-    const s = segment(xmin, i, xmax, i)
-    s.color = this.color
+    const s = segment(xmin, i, xmax, i, this.color)
     s.opacite = this.opacite
     if (pointilles) {
       s.pointilles = true
@@ -6314,7 +6284,7 @@ function GrilleHorizontale (
 }
 
 /**
- * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
+ * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace des parallèles à l'axe des ordonnées
  *
  * @author Rémi Angot
  */
@@ -6336,8 +6306,7 @@ function GrilleVerticale (
   this.opacite = opacite
   const objets = []
   for (let i = xmin; i <= xmax; i = i + step) {
-    const s = segment(i, ymin, i, ymax)
-    s.color = this.color
+    const s = segment(i, ymin, i, ymax, this.color)
     s.opacite = this.opacite
     if (pointilles) {
       s.pointilles = true
@@ -8515,8 +8484,8 @@ function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textAbs = ''
     const M = point(x, y)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(X, M, color)
-    const Sy = segment(M, Y, color)
+    const Sx = segment(X, M, this.color)
+    const Sy = segment(M, Y, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = true
@@ -8547,8 +8516,8 @@ function LectureAntecedent (x, y, xscale, yscale, color, textOrd, textAbs) {
     const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(M, X, color)
-    const Sy = segment(Y, M, color)
+    const Sx = segment(M, X, this.color)
+    const Sy = segment(Y, M, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = true
@@ -8561,8 +8530,8 @@ function LectureAntecedent (x, y, xscale, yscale, color, textOrd, textAbs) {
     const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(M, X, color)
-    const Sy = segment(Y, M, color)
+    const Sx = segment(M, X, this.color)
+    const Sy = segment(Y, M, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = true
@@ -8575,8 +8544,8 @@ function LectureAntecedent (x, y, xscale, yscale, color, textOrd, textAbs) {
     const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(M, X, color)
-    const Sy = segment(Y, M, color)
+    const Sx = segment(M, X, this.color)
+    const Sy = segment(Y, M, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = true
@@ -8589,8 +8558,8 @@ function LectureAntecedent (x, y, xscale, yscale, color, textOrd, textAbs) {
     const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(M, X, color)
-    const Sy = segment(Y, M, color)
+    const Sx = segment(M, X, this.color)
+    const Sy = segment(Y, M, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = true
@@ -8725,7 +8694,7 @@ function Courbe2 (f, {
   p = polyline([...points], this.color)
   p.epaisseur = epaisseur
   objets.push(p)
-  // LES SORTIES TiKZ et SVG
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -8815,7 +8784,7 @@ function Integrale (f, {
   p.opaciteDeRemplissage = opacite
   p.hachures = motifs(hachures)
   objets.push(p)
-  // LES SORTIES TiKZ et SVG
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -8895,8 +8864,7 @@ function CourbeSpline (f, {
   const objets = []
   if (traceNoeuds) {
     for (let i = 0; i < f.x.length; i++) {
-      noeuds[i] = tracePoint(point(f.x[i], f.y[i]))
-      noeuds[i].color = 'black'
+      noeuds[i] = tracePoint(point(f.x[i], f.y[i]), 'black')
       noeuds[i].taille = 3
       noeuds[i].style = '+'
       noeuds[i].epaisseur = 2
@@ -8932,7 +8900,6 @@ function CourbeSpline (f, {
   p.opacite = 0.7
   objets.push(p)
 
-  // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -8962,7 +8929,7 @@ function CourbeInterpolee2 (
   xmax
 ) {
   ObjetMathalea2D.call(this)
-  this.color = color
+  this.color = colorToLatexOrHTML(color)
   this.epaisseur = epaisseur
 
   this.svg = function (coeff) {
@@ -8970,7 +8937,7 @@ function CourbeInterpolee2 (
     for (let i = 1; i < tableau.length; i++) {
       code += `${tableau[i][0] * coeff} ${-tableau[i][1] * coeff} `
     }
-    code += `" stroke="${this.color}" stroke-width="${this.epaisseur}" fill="transparent"  id="${this.id}" />`
+    code += `" stroke="${this.color[0]}" stroke-width="${this.epaisseur}" fill="transparent"  id="${this.id}" />`
     return code
   }
   this.tikz = function () {
@@ -9155,7 +9122,7 @@ function AntecedentParDichotomie (xmin, xmax, f, y, precision = 0.01) {
 function CrochetD (A, color = 'blue') {
   ObjetMathalea2D.call(this)
   this.epaisseur = 2
-  this.color = color
+  this.color = colorToLatexOrHTML(color)
   this.taille = 0.2
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
@@ -9186,17 +9153,17 @@ function CrochetD (A, color = 'blue') {
       -2 * this.taille * 20
     } ${A.xSVG(coeff) + this.taille * 20},${A.ySVG(coeff) +
       -2 * this.taille * 20
-    }" fill="none" stroke="${this.color}" ${this.style} />`
+    }" fill="none" stroke="${this.color[0]}" ${this.style} />`
     code += `\n\t<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff) +
       this.taille * 20 * 5
-      }" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${A.nom
+      }" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]}">${A.nom
       }</text>\n `
     return code
   }
   this.tikz = function () {
-    let code = `\\draw[very thick,${this.color}] (${A.x + this.taille / context.scale},${A.y + this.taille / context.scale})--(${A.x
+    let code = `\\draw[very thick,${this.color[1]}] (${A.x + this.taille / context.scale},${A.y + this.taille / context.scale})--(${A.x
       },${A.y + this.taille / context.scale})--(${A.x},${A.y - this.taille / context.scale})--(${A.x + this.taille / context.scale},${A.y - this.taille / context.scale});`
-    code += `\n\t\\draw[${this.color}] (${A.x},${A.y - this.taille / context.scale}) node[below] {$${A.nom}$};`
+    code += `\n\t\\draw[${this.color[1]}] (${A.x},${A.y - this.taille / context.scale}) node[below] {$${A.nom}$};`
     return code
   }
 }
@@ -9207,7 +9174,7 @@ export function crochetD (...args) {
 function CrochetG (A, color = 'blue') {
   ObjetMathalea2D.call(this)
   this.epaisseur = 2
-  this.color = color
+  this.color = colorToLatexOrHTML(color)
   this.taille = 0.2
 
   this.svg = function (coeff) {
@@ -9239,17 +9206,17 @@ function CrochetG (A, color = 'blue') {
       2 * this.taille * 20
     } ${A.xSVG(coeff) - this.taille * 20},${A.ySVG(coeff) -
       2 * this.taille * 20
-    }" fill="none" stroke="${this.color}" ${this.style} />`
+    }" fill="none" stroke="${this.color[0]}" ${this.style} />`
     code += `\n\t<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff) +
       5 * this.taille * 20
-      }" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${A.nom
+      }" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]}">${A.nom
       }</text>\n `
     return code
   }
   this.tikz = function () {
-    let code = `\\draw[very thick,${this.color}] (${A.x - this.taille / context.scale},${A.y + this.taille / context.scale})--(${A.x
+    let code = `\\draw[very thick,${this.color[1]}] (${A.x - this.taille / context.scale},${A.y + this.taille / context.scale})--(${A.x
       },${A.y + this.taille / context.scale})--(${A.x},${A.y - this.taille / context.scale})--(${A.x - this.taille / context.scale},${A.y - this.taille / context.scale});`
-    code += `\n\t\\draw[${this.color}] (${A.x},${A.y - this.taille / context.scale}) node[below] {$${A.nom}$};`
+    code += `\n\t\\draw[${this.color[1]}] (${A.x},${A.y - this.taille / context.scale}) node[below] {$${A.nom}$};`
     return code
   }
 }
@@ -9260,9 +9227,8 @@ export function crochetG (...args) {
 export function intervalle (A, B, color = 'blue', h = 0) {
   const A1 = point(A.x, A.y + h)
   const B1 = point(B.x, B.y + h)
-  const s = segment(A1, B1)
+  const s = segment(A1, B1, color)
   s.epaisseur = 3
-  s.color = color
   return s
 }
 
@@ -9444,11 +9410,11 @@ export function texteParPoint (texte, A, orientation = 'milieu', color = 'black'
 
 function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, scaleFigure) {
   ObjetMathalea2D.call(this)
-  this.color = color
+  this.color = colorToLatexOrHTML(color)
   this.contour = false
   this.taille = 10 * scale
   this.opacite = 1
-  this.couleurDeRemplissage = color
+  this.couleurDeRemplissage = colorToLatexOrHTML(color)
   this.opaciteDeRemplissage = this.opacite
   this.bordures = [A.x - texte.length * 0.2, A.y - 0.4, A.x + texte.length * 0.2, A.y + 0.4]
   if (texte.charAt(0) === '$') {
@@ -9465,7 +9431,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [${color}] (${A.x},${A.y
+        code = `\\draw [${color[1]}] (${A.x},${A.y
           }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
@@ -9478,7 +9444,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
         if (orientation === 'milieu') {
           anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
         }
-        code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`
+        code = `\\draw [${color[1]}] (${A.x},${A.y}) ${anchor} {${texte}};`
       }
       return code
     }
@@ -9486,12 +9452,12 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
     this.svg = function (coeff) {
       let code = ''; let style = ''
       if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" '
-      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
-      else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
+      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage[0]};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color[0]};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
+      else style += ` style="font-size:${this.taille}px;fill:${this.color[0]};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
         code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
-      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color
+      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color[0]
         }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
           coeff
         )})" id="${this.id}" >${texte}</text>\n `
@@ -9500,19 +9466,19 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
           case 'milieu':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="middle" dominant-baseline="central" fill="${this.color
+          )}" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]
             }" id="${this.id}" >${texte}</text>\n `
             break
           case 'gauche':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="end" dominant-baseline="central" fill="${this.color
+          )}" text-anchor="end" dominant-baseline="central" fill="${this.color[0]
             }" id="${this.id}" >${texte}</text>\n `
             break
           case 'droite':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="start" dominant-baseline="central" fill="${this.color
+          )}" text-anchor="start" dominant-baseline="central" fill="${this.color[0]
             }" id="${this.id}" >${texte}</text>\n `
             break
         }
@@ -9531,7 +9497,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y
+        code = `\\draw [${color[1]},fill opacity = ${this.opacite}] (${A.x},${A.y
         }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
@@ -9544,7 +9510,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
         if (orientation === 'milieu') {
           anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
         }
-        code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
+        code = `\\draw [${color[1]},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
       }
       return code
     }
@@ -9837,8 +9803,6 @@ export function angleModulo (a) {
 }
 
 function ObjetLutin () {
-  // let mesObjets
-  // mesObjets.push(this);
   ObjetMathalea2D.call(this)
   this.x = 0
   this.y = 0
