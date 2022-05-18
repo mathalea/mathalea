@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, arrondiVirgule, texFractionReduite, texFractionSigne, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, texFractionReduite, texFractionSigne, texFraction, texNombre } from '../../modules/outils.js'
 
 export const titre = 'Résoudre une équation du second degré'
 
@@ -84,8 +84,8 @@ export default function ResoudreEquationDegre2 () {
 
         texteCorr = `$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
         texteCorr += '<br>$\\Delta>0$ donc l\'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
-        texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\approx ${arrondiVirgule((-b - Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a), 2)}$`
-        texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\approx ${arrondiVirgule((-b + Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a), 2)}$`
+        texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\approx ${texNombre((-b - Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a), 2)}$`
+        texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\approx ${texNombre((-b + Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a), 2)}$`
         texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}} ; \\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\right\\}$.`
       }
       if (listeTypeDeQuestions[i] === 'factorisationParx') {

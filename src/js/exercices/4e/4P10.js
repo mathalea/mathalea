@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteExposant, arrondi, arrondiVirgule, texFractionReduite, produitsEnCroix, quatriemeProportionnelle, calcul, texNombrec, prenomF, prenom, texNombre, nombreAvecEspace, miseEnEvidence, texPrix, katexPopup2, numAlpha, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteExposant, arrondi, texFractionReduite, produitsEnCroix, quatriemeProportionnelle, calcul, texNombrec, prenomF, prenom, texNombre, nombreAvecEspace, miseEnEvidence, texPrix, katexPopup2, numAlpha, contraindreValeur } from '../../modules/outils.js'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d’unités complexes'
 
 /**
@@ -237,9 +237,9 @@ export default function ProblemesGrandeursComposees () {
               calcul(puissance * duree * 0.001)
             )}\\text{ kWh}`
           if (!((prixkWh * puissance * duree) / 10 === Math.round((prixkWh * puissance * duree) / 10))) {
-            texteCorr += `\\approx${arrondiVirgule(((prixkWh * puissance) / 1000) * duree, 2)}$ €`
+            texteCorr += `\\approx${texNombre(((prixkWh * puissance) / 1000) * duree, 2)}$ €`
           } else {
-            texteCorr += `=${arrondiVirgule(
+            texteCorr += `=${texNombre(
               ((prixkWh * puissance) / 1000) * duree,
               2
             )}$ €`
@@ -281,31 +281,31 @@ export default function ProblemesGrandeursComposees () {
                 numAlpha(0) +
                 ` La base de ce prisme droit est un trapèze rectangle de petite base ${h2} cm, de grande base ${h1} cm et de hauteur ${L} m.<br>`
               texteCorr += `$\\mathcal{A}=\\dfrac{\\left(${h1}\\text{ cm}+${h2}\\text{ cm}\\right)}{2}\\times${L}\\text{ m}$`
-              texteCorr += ` $=\\dfrac{\\left(${arrondiVirgule(
-                h1 / 100
-              )}\\text{ m}+${arrondiVirgule(
-                h2 / 100
+              texteCorr += ` $=\\dfrac{\\left(${texNombre(
+                h1 / 100, 2
+              )}\\text{ m}+${texNombre(
+                h2 / 100, 2
               )}\\text{ m}\\right)}{2}\\times${L}\\text{ m}$`
-              texteCorr += ` $=\\dfrac{${arrondiVirgule(
-                (h1 + h2) / 100
+              texteCorr += ` $=\\dfrac{${texNombre(
+                (h1 + h2) / 100, 2
               )}\\text{ m}}{2}\\times${L}\\text{ m}$`
-              texteCorr += ` $=${arrondiVirgule(
-                (h1 + h2) / 200
+              texteCorr += ` $=${texNombre(
+                (h1 + h2) / 200, 2
               )}\\text{ m}\\times${L}\\text{ m}$`
-              texteCorr += ` $=${arrondiVirgule(
-                ((h1 + h2) / 200) * L
+              texteCorr += ` $=${texNombre(
+                ((h1 + h2) / 200) * L, 2
               )}\\text{ m}$${texteExposant(2)}<br>`
               texteCorr += 'Le volume de ce prisme et donc par extension le volume d\'eau conteu dans la piscine est :<br>'
-              texteCorr += `$\\mathcal{A}\\times\\mathcal{h}=${arrondiVirgule(
-                ((h1 + h2) / 200) * L
+              texteCorr += `$\\mathcal{A}\\times\\mathcal{h}=${texNombre(
+                ((h1 + h2) / 200) * L, 2
               )}\\text{ m}^2\\times${l}\\text{ m}$`
-              texteCorr += ` $=${arrondiVirgule(
-                ((h1 + h2) / 200) * L * l
+              texteCorr += ` $=${texNombre(
+                ((h1 + h2) / 200) * L * l, 2
               )}$m${texteExposant(3)}.<br>`
               texteCorr +=
                 numAlpha(1) +
-                ` Convertissons le volume de la piscine en litres : $${arrondiVirgule(
-                  ((h1 + h2) / 200) * L * l
+                ` Convertissons le volume de la piscine en litres : $${texNombre(
+                  ((h1 + h2) / 200) * L * l, 2
                 )}\\text{ m}^3=${texNombre(
                   (h1 + h2) * L * l * 5
                 )}\\text{ dm}^3=${texNombre(

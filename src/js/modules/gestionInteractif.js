@@ -85,7 +85,7 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
         laReponseDemandee = laReponseDemandee.replaceAll('dfrac', 'frac')
       }
       if (typeof laReponseDemandee === 'number' || typeof laReponseDemandee === 'string') {
-        laReponseDemandee = laReponseDemandee.toString().replace(',', '.')
+        laReponseDemandee = laReponseDemandee.toString().replace(/\s/g, '').replace(',', '.')
       }
       try {
         test = engine.parse(laReponseDemandee).canonical
