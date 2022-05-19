@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
 import { tracePoint, vecteur, segment, translation, translationAnimee, codeSegment, texteParPosition, mathalea2d, pavage } from '../../modules/2d.js'
-export const titre = 'Trouver l’image d’une figure par une translation dans un pavage'
+export const titre = 'Trouver limage dune figure par une translation dans un pavage'
 
 /**
  * @author Jean-Claude Lhote

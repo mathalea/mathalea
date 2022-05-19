@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, ecritureAlgebrique, sp } from '../../../modules/outils.js'
-export const titre = 'Donner le résultat d’un programme Python'
+export const titre = 'Donner le résultat dun programme Python'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

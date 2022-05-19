@@ -14,5 +14,5 @@ export default function UneEquationMoyenne () {
   this.sup = false
   this.sup2 = 2
   this.spacingCorr = 1
-  this.consigne = 'Résoudre l’équation :'
+  this.consigne = 'Résoudre léquation :'
 }

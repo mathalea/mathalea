@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../modules/outils.js'
-export const titre = 'Donner la forme explicite d’une suite arithmétique/géométrique'
+export const titre = 'Donner la forme explicite dune suite arithmétique/géométrique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

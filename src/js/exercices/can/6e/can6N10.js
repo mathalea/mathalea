@@ -1,6 +1,6 @@
 import { calcul, randint, texNombrec, choice } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Passer d’un calcul de fractions décimales à une écriture décimale'
+export const titre = 'Passer dun calcul de fractions décimales à une écriture décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

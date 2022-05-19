@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, ecritureAlgebrique, calcul, texNombrec, texFractionReduite } from '../../../modules/outils.js'
-export const titre = 'Calculer un terme d’une suite explicite'
+export const titre = 'Calculer un terme dne suite explicite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, texteEnCouleur, extraireRacineCarree, texRacineCarree } from '../../../modules/outils.js'
-export const titre = 'Calculer la diagonale d’un carré'
+export const titre = 'Calculer la diagonale dun carré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

@@ -1,6 +1,6 @@
 import { choice, randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Trouver le reste d’une division euclidienne'
+export const titre = 'Trouver le reste dune division euclidienne'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

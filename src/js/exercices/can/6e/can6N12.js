@@ -1,6 +1,6 @@
 import sommmeFractionsDecimales from '../../6e/6N10-6.js'
 export { interactifReady, interactifType, amcType, amcReady } from '../../6e/6N10-6.js'
-export const titre = 'Passer d’un calcul de fractions décimales à une écriture décimale*'
+export const titre = 'Passer dun calcul de fractions décimales à une écriture décimale*'
 
 export const dateDePublication = '20/01/2022'
 

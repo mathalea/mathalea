@@ -182,7 +182,7 @@ export default function SolutionInequationQCM () {
             $${a}x>${-b}$<br>
             En divisant par $(${a})$ dans chaque membre, on obtient :<br>
             $x$${texteEnCouleur('$<$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)} 
-            ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
+            ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l\'inégalité).')}<br>
             Les solutions sont les nombres strictement inférieurs   à $${maFraction.texFractionSimplifiee}$. `
         }
         if (N === 'b') {
@@ -213,7 +213,7 @@ export default function SolutionInequationQCM () {
           $${a}x\\geqslant${-b}$<br>
           En divisant par $(${a})$ dans chaque membre, on obtient :<br>
           $x$${texteEnCouleur('$\\leqslant$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)} 
-          ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
+          ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l\'inégalité).')}<br>
           Les solutions sont les nombres  inférieurs ou égaux  à $${maFraction.texFractionSimplifiee}$. `
         }
         if (N === 'c') {
@@ -244,7 +244,7 @@ export default function SolutionInequationQCM () {
           $${a}x\\leqslant${-b}$<br>
           En divisant par $(${a})$ dans chaque membre, on obtient :<br>
           $x$${texteEnCouleur('$\\geqslant$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)} 
-          ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
+          ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l\'inégalité).')}<br>
           Les solutions sont les nombres  supérieurs ou égaux  à $${maFraction.texFractionSimplifiee}$. `
         }
         if (N === 'd') {
@@ -275,7 +275,7 @@ export default function SolutionInequationQCM () {
                       $${a}x<${-b}$<br>
                       En divisant par $(${a})$ dans chaque membre, on obtient :<br>
           $x$${texteEnCouleur('$>$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)} 
-          ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
+          ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l\'inégalité).')}<br>
           Les solutions sont les nombres strictement supérieurs   à $${maFraction.texFractionSimplifiee}$. `
         }
         break

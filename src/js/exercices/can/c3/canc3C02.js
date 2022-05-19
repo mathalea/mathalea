@@ -1,6 +1,6 @@
 import { choice, randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Calculer à partir d’une décomposition'
+export const titre = 'Calculer à partir dune décomposition'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

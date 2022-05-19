@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
 import { tracePoint, mediatrice, codageMediatrice, segment, symetrieAxiale, symetrieAnimee, texteParPosition, mathalea2d, pavage } from '../../modules/2d.js'
-export const titre = 'Trouver l’image d’une figure par une symétrie axiale dans un pavage'
+export const titre = 'Trouver limage dune figure par une symétrie axiale dans un pavage'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '14/12/2020'

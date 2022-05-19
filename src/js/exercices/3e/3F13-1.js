@@ -4,7 +4,7 @@ import { deuxColonnes, randint, texConsigne, numAlpha, calcul } from '../../modu
 import { repere2, graphiqueInterpole, mathalea2d } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Lecture graphique d’images et d’antécédents'
+export const titre = 'Lecture graphique dimages et dantécédents'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

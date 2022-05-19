@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombrec, texFraction } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
-export const titre = 'Donner la nature d’une suite (formule de récurrence)'
+export const titre = 'Donner la nature dune suite (formule de récurrence)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

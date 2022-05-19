@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, texteEnCouleurEtGras } from '../../modules/outils.js'
-export const titre = 'Ranger une liste de nombres entiers dans l’ordre croissant ou décroissant'
+export const titre = 'Ranger une liste de nombres entiers dans lordre croissant ou décroissant'
 
 /**
 * * Ranger une liste de nombres dans l'odre croissant ou décroissant

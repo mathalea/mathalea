@@ -1,6 +1,6 @@
 import { choice, randint, texRacineCarree } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$'
+export const titre = 'Déterminer le nombre de solutions dune équation se ramenant à $x^2=a$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

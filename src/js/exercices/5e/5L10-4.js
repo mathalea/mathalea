@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, texNombre, numAlpha, tableauColonneLigne } from '../../modules/outils.js'
 import { point, polygone, mathalea2d } from '../../modules/2d.js'
-export const titre = 'Produire une formule à partir d’un tableau'
+export const titre = 'Produire une formule à partir dun tableau'
 
 /**
  * * Traduire la dépendance entre deux grandeurs par un tableau de valeurs et produire une formule.

@@ -1,5 +1,5 @@
 import LireAbscisseDecimaleBis2d from '../6e/6N30-1.js'
-export const titre = 'Lire l’abscisse décimale d’un point repéré par une fraction'
+export const titre = 'Lire labscisse décimale dun point repéré par une fraction'
 export { interactifReady, interactifType, amcReady, amcType } from '../6e/6C10.js'
 export const dateDeModifImportante = '27/10/2021'
 /**

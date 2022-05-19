@@ -9,7 +9,7 @@ export const amcType = 'AMCNum' // type de question AMC
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Calculer mentalement le pourcentage d’un nombre'
+export const titre = 'Calculer mentalement le pourcentage dun nombre'
 
 /**
  * Calculer 10, 20, 30, 40 ou 50% d'un nombre

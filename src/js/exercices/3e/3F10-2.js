@@ -7,7 +7,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const titre = 'Fonction : calculs d’images (et d’antécédents)'
+export const titre = 'Fonction : calculs dimages (et dantécédents)'
 
 /**
 * Répondre à des questions sur les fonctions.

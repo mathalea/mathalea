@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes } f
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
-export const titre = 'Calculer la valeur d’une expression littérale'
+export const titre = 'Calculer la valeur dune expression littérale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

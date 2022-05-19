@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, texNombre, texFraction, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Donner l’écriture décimale d’une fraction décimale'
+export const titre = 'Donner lécriture décimale dune fraction décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

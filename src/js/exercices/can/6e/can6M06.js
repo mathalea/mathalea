@@ -3,7 +3,7 @@ import Exercice from '../../Exercice'
 import {
   mathalea2d, tracePoint, point, milieu, texteParPosition, pointAdistance, longueur, cercle, pointIntersectionCC, polygoneAvecNom
 } from '../../../modules/2d.js'
-export const titre = 'Calculer le périmètre d’une figure'
+export const titre = 'Calculer le périmètre dune figure'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

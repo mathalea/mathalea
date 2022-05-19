@@ -9,8 +9,8 @@ export const titre = 'Stabilisation des fréquences'
 * @author Erwan Duplessy
 * 3S21
 * D'après le document "Attendus en fin de 3eme"
-* On donne les fréquences d’apparition de chaque face d’un dé pour 10000 lancers.
-* L’élève interprète les résultats en les comparant aux probabilités théoriques.
+* On donne les fréquences dparition de chaque face du é pour 10000 lancers.
+* Lève interprète les résultats en les comparant aux probabilités théoriques.
 */
 
 export default function StabilisationFrequence () {

@@ -23,7 +23,7 @@ export default function PoucentageP1 () {
     switch (choice(['a', 'b', 'c', 'd', 'e', 'f'])) {
       case 'a':
         b = randint(3, 7) * 5
-        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à lUNSS', 'un sac à roulette'])
         this.question = `$\\dfrac{1}{5}$ des élèves d'une classe de $${b}$ élèves a ${caractere}.<br>
               Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $\\dfrac{1}{5}$ de $${b}$ .<br>
@@ -37,7 +37,7 @@ export default function PoucentageP1 () {
         break
       case 'b':
         b = randint(3, 6) * 6
-        caractere = choice(['des lunettes', 'un frère', ' un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        caractere = choice(['des lunettes', 'un frère', ' un chien', 'un abonnement à une revue', 'une licence à lUNSS', 'un sac à roulette'])
         this.question = `$\\dfrac{1}{6}$ des élèves d'une classe de $${b}$ élèves a ${caractere}.<br>
             Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $\\dfrac{1}{6}$ de $${b}$ .<br>
@@ -51,7 +51,7 @@ export default function PoucentageP1 () {
         break
       case 'c':
         b = randint(2, 5) * 7
-        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à lUNSS', 'un sac à roulette'])
         this.question = `$\\dfrac{1}{7}$ d'une classe de $${b}$ élèves a ${caractere}.<br>
         Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $\\dfrac{1}{7}$ de $${b}$ .<br>
@@ -65,7 +65,7 @@ export default function PoucentageP1 () {
         break
       case 'd':
         b = randint(3, 9) * 4
-        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à lUNSS', 'un sac à roulette'])
         this.question = `$\\dfrac{1}{4}$ d'une classe de $${b}$ élèves a ${caractere}.<br>
             Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $\\dfrac{1}{4}$ de $${b}$ .<br>
@@ -79,7 +79,7 @@ export default function PoucentageP1 () {
         break
       case 'e':
         b = randint(3, 7) * 5
-        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à lUNSS', 'un sac à roulette'])
         this.question = `$20 \\%$  des élèves d'une classe de $${b}$ élèves ont ${caractere}.<br>
               Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $20 \\%$  de $${b}$ .<br>
@@ -91,7 +91,7 @@ export default function PoucentageP1 () {
         break
       case 'f':
         b = randint(3, 9) * 4
-        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à l’UNSS', 'un sac à roulette'])
+        caractere = choice(['des lunettes', 'un frère', 'un chien', 'un abonnement à une revue', 'une licence à lUNSS', 'un sac à roulette'])
         this.question = `$25\\%$  des élèves d'une classe de $${b}$ élèves ont ${caractere}.<br>
                   Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $25 \\%$  de $${b}$ .<br>

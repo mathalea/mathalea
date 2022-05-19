@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, texNombrec, choice, calcul } from '../../../modules/outils.js'
-export const titre = 'Passer du coefficient multiplicateur au taux d’évolution'
+export const titre = 'Passer du coefficient multiplicateur au taux dévolution'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice } from '../../../modules/outils.js'
-export const titre = 'Calculer le produit des solutions d’une équation produit nul'
+export const titre = 'Calculer le produit des solutions dune équation produit nul'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '25/10/2021'

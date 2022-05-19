@@ -13,7 +13,7 @@ export const amcType = 'AMCNum'
 
 /**
  * Puissances d'un relatif (1)
- * * L’objectif est de travailler le sens des règles de calcul sur les puissances plutôt que les formules magiques
+ * * Lobjectif est de travailler le sens des règles de calcul sur les puissances plutôt que les formules magiques
  *
  * Paramétrages possibles :
  * * 1 : produit de puissances de même base

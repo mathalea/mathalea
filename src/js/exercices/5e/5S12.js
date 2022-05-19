@@ -54,7 +54,7 @@ export default function ConstruireUnDiagramme () {
     const lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan',
       'Farnfoss', 'Kinecardine', 'Zeffari', 'Barmwich', 'Swadlincote', 'Swordbreak', 'Loshull', 'Ruyron', 'Fluasall', 'Blueross', 'Vlane']
 
-    texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d’animaux.<br> Voici un tableau qui donne le nombre d’individus de quelques espèces.<br><br>'
+    texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup danimaux.<br> Voici un tableau qui donne le nombre dindividus de quelques espèces.<br><br>'
     texteCorr = ''
     const entete = ['\\text{Animaux}']
     let contenutableau, A, B, T, angle, a, legende, textelegende, hachures, a0, t, alpha

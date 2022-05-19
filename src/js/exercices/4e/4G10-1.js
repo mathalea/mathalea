@@ -1,5 +1,5 @@
 import TransformationsDuPlanEtCoordonnees from '../3e/3G10-1.js'
-export const titre = 'Trouver les coordonnée de l’image d’un point par une translation'
+export const titre = 'Trouver les coordonnée de limage dun point par une translation'
 export { interactifReady, interactifType, amcReady, amcType } from '../3e/3G10-1.js'
 export const dateDePublication = '28/10/2021'
 /**

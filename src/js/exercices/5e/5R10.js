@@ -8,7 +8,7 @@ export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
-export const titre = 'Trouver le terme manquant d’une somme de nombres relatifs'
+export const titre = 'Trouver le terme manquant dune somme de nombres relatifs'
 
 /**
  * Additions à trou dans les relatifs

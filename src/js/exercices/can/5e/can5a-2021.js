@@ -507,7 +507,7 @@ export default function SujetCAN20215ieme () {
           a = randint(3, 6)
           b = choice([-1, -a + 1])
           reponse = fraction(b, a)// .simplifie()
-          texte = 'Quelle est la fraction repérée par le point d’interrogation ?<br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 8, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+          texte = 'Quelle est la fraction repérée par le point dinterrogation ?<br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 8, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
             Unite: 3,
             Min: -1,
             Max: 1,

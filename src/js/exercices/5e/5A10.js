@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, li
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const dateDeModifImportante = '28/10/2021'
-export const titre = 'Écrire la liste de tous les diviseurs d’un entier'
+export const titre = 'Écrire la liste de tous les diviseurs dn entier'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

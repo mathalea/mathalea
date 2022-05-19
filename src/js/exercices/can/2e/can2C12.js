@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, texNombrec, sp, calcul, shuffle } from '../../../modules/outils.js'
-export const titre = 'Déterminer un taux global d’évolution'
+export const titre = 'Déterminer un taux global dévolution'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

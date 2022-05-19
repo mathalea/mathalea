@@ -110,7 +110,7 @@ export default function TracerAvecScratch () {
             nom: myPolyName(n).name,
             codeScratch: `\\begin{scratch}
 \\blockinit{quand \\greenflag est cliqué}
-\\blockpen{stylo en position d’écriture} 
+\\blockpen{stylo en position décriture} 
 \\blockrepeat{répéter \\ovalnum{${n}} fois}
 {
 \\blockmove{avancer de \\ovalnum{${myPolyName(n).nbPas}} pas}

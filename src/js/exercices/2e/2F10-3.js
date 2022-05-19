@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgeb
 import { repere2, droite, mathalea2d, point, tracePoint, labelPoint, texteParPosition } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 
-export const titre = 'Représentation graphique d’une fonction affine'
+export const titre = 'Représentation graphique d\'une fonction affine'
 
 /**
 * @author Stéphane Guyon

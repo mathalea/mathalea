@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, ecritureParentheseSiNegatif, texFractionReduite, abs } from '../../../modules/outils.js'
-export const titre = 'Déterminer le coefficient d’une fonction affine'
+export const titre = 'Déterminer le coefficient dune fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '25/10/2021'

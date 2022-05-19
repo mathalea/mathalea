@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, texNombrec, choice, calcul } from '../../../modules/outils.js'
-export const titre = 'Prendre t % d’une quantité'
+export const titre = 'Prendre t % dune quantité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

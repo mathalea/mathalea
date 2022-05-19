@@ -3,7 +3,7 @@ import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../.
 import {
   mathalea2d, point, texteParPosition, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit, similitude
 } from '../../../modules/2d.js'
-export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'
+export const titre = 'Calculer lhypoténuse avec le théorème de Pythagore'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

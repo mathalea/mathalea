@@ -5,7 +5,7 @@ import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, 
 import { calcule } from '../../modules/fonctionsMaths.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Trouver les coordonnées de l’image d’un point par une transformation du plan'
+export const titre = 'Trouver les coordonnées de limage dun point par une transformation du plan'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

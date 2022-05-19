@@ -4,7 +4,7 @@ import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Lire l’abscisse entière d’un point (grands nombres)'
+export const titre = 'Lire labscisse entière dun point (grands nombres)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

@@ -1,6 +1,6 @@
 import Transformations from '../../6e/_Transformations.js'
 export { interactifReady, interactifType } from '../../6e/_Transformations.js'
-export const titre = 'Trouver l’image d’un point par une transformation'
+export const titre = 'Trouver limage dun point par une transformation'
 
 /*!
  * @author Jean-Claude Lhote

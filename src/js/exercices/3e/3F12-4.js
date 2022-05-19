@@ -4,7 +4,7 @@ import { listeQuestionsToContenuSansNumero, randint, abs, calcul, resolutionSyst
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { courbe2, mathalea2d, repere2 } from '../../modules/2d.js'
-export const titre = 'Lire l’image d’un nombre à partir d’un graphique'
+export const titre = 'Lire limage dun nombre à partir dun graphique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

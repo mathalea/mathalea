@@ -4,7 +4,7 @@ import { randint, listeQuestionsToContenu, combinaisonListes, texteGras } from '
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
-export const titre = 'Déterminer le dernier chiffre d’un calcul'
+export const titre = 'Déterminer le dernier chiffre dun calcul'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
