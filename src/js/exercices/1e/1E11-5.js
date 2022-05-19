@@ -53,7 +53,6 @@ export default function Resolutionavecdelta () {
           p = 1
         }
         if (b2.estParfaite) {
-          console.log('est parfaite')
           if (a < 0) {
             x2 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie().oppose()).simplifie()
             x1 = alpha.simplifie().sommeFraction(b2.racineCarree().simplifie()).simplifie()
