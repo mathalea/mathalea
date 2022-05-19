@@ -159,7 +159,6 @@ Essayez de voir si vous le comprenez ! En cas de besoin, vous pouvez remonter po
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
-
 export const titre = 'Ajouter 9'
 export const amcReady = true
 export const interactifReady = true
@@ -200,6 +199,7 @@ export default function Ajouter9 () {
 
 ### <a id="exercice_plusieurs_questions" href="#exercice_plusieurs_questions">4. 5. Exemple d'un exercice avec plusieurs types de questions visible sur [http://coopmaths.fr/ex6C30](http://coopmaths.fr/ex6C30)</a>
 ```js
+import Decimal from 'decimal.js' // pour utiliser la classe Decimal si il y a des calculs décimaux
 this.nouvelleVersion = function(){
   this.listeQuestions = []
   this.listeCorrections = []
@@ -213,23 +213,26 @@ this.nouvelleVersion = function(){
                               // Combien de chiffres ? Quelles valeurs ?
       case 1 : // xxx * xx,x chiffres inférieurs à 5
         a = randint(2,5)*100+randint(2,5)*10+randint(2,5) // Il n'y a que des entiers JS gèrera très bien le calcul
-        b = calcul(randint(2,5)*10+randint(2,5)+randint(2,5)/10) // Dès qu'il y a des nombres décimaux JS peut faire des erreurs d'où l'utilisation de la fonction calcul qui s'appuiera sur Algebrite
+        b = (new Decimal(randint(2,5))).div(10).plus(randint(2,5)*10+randint(2,5)) // Dès qu'il y a des nombres décimaux JS peut faire des erreurs d'où l'utilisation de la classe Decimal qui travaille avec de vrais décimaux non biaisés.
         break ;
       case 2 : // xx,x * x,x 
-        a = calcul(randint(2,9)*10+randint(2,9)+randint(2,9)/10)
-        b = calcul(randint(6,9)+randint(6,9)/10)
+        a = (new Decimal(randint(2,9))).div(10).plus(randint(2,9)*10+randint(2,9))
+        b = (new Decimal(randint(6,9))).div(10).plus(randint(1,9))
         break ;
       case 3 : // x,xx * x0x 
-        a = calcul(randint(2,9)+randint(2,9)/10+randint(2,9)/100)
-        b = calcul(randint(2,9)*100+randint(2,9))
+        a = (new Decimal(randint(2,9)*10+randint(2,9))).div(100).plus(randint(2,9)) // on crée un décimal à partir d'un entier pour être certain d'avoir les bons chiffres significatifs, puis on peut ensuite décaler ses chiffres significatifs.
+        b = randint(2,9)*100+randint(2,9)
         break ;
       case 4 : // 0,xx * x,x 
-        a = calcul(randint(2,9)/10+randint(2,9)/100)
-        b = calcul(randint(2,9)+randint(2,9)/10)
+        a = (new Decimal(randint(2,9)*10+randint(2,9))).div(100).plus(randint(2,9))
+        b = (new Decimal(randint(2,9)*10+randint(2,9))).div(10)
         break ;
     }
-    texte = `$${texNombre(a)}\\times${texNombre(b)}$` // Les nombres étant définis, il ne reste plus qu'à écrire l'énoncé
-    texteCorr = `$${texNombre(a)}\\times${texNombre(b)}=${texNombre(a*b)}$` // et la correction
+    texte = `$${texNombre(a, 2)}\\times${texNombre(b, 1)}$` // Les nombres étant définis, il ne reste plus qu'à écrire l'énoncé
+    texteCorr = `$${texNombre(a, 2)}\\times${texNombre(b, 1)}=${texNombre(a*b, 3)}$` // et la correction
+    // avec texNombre, on fixe la précision attendue, c'est à dire le nombre maximum de chiffres après la virgule
+    // 2 décimales maxi pour a, une seule pour b, et 3 pour le produit.
+    // les calculs avec la classe Decimal sont exacts, mais avec les flottants de javascript, on a souvent des surprises vers la 15e décimale donc on restreint le nombre de chiffres à prendre en compte.
     if (this.questionJamaisPosee(i, a, b)) {
       this.listeQuestions.push(texte);
       this.listeCorrections.push(texteCorr);
