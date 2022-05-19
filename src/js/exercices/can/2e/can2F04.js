@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, texFractionReduite, choice, reduireAxPlusB, rienSi1, sp } from '../../../modules/outils.js'
-export const titre = 'Trouver les valeurs interdites dune fonction'
+export const titre = 'Trouver les valeurs interdites d’une fonction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '25/10/2021'

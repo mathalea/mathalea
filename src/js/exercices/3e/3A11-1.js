@@ -58,12 +58,12 @@ export default function PremierOuPasCriterePar7Par11 () {
     let stringRappelB = 'Ces critères de divisibilité pourront être utiles :'
     if (context.isHtml) {
       stringRappelB += '<br>'
-      stringRappelB += '- Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq fois son chiffre des unités lest.<br>'
+      stringRappelB += '- Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq fois son chiffre des unités l’est.<br>'
       stringRappelB += '- Un nombre est divisible par 11 si la différence entre la somme de ses chiffres de rangs pairs et la somme de ses chiffres de rangs impairs est nulle ou égale à un multiple de 11.'
       stringRappelB += '<br> <br>'
     } else {
       stringRappelB += itemize([
-        'Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq fois son chiffre des unités lest.',
+        'Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq fois son chiffre des unités l’est.',
         'Un nombre est divisible par 11 si la différence entre la somme de ses chiffres de rangs pairs et la somme de ses chiffres de rangs impairs est nulle ou égale à un multiple de 11.'
       ])
       stringRappelB += '\\par\\vspace{0.5cm}'

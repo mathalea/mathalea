@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, le
 import { point, tracePoint, labelPoint, segment, dansLaCibleCarree, cibleCarree, homothetie, longueur, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Construire limage dun point par une homothetie avec cible auto-corrective'
+export const titre = 'Construire l’image d’un point par une homothetie avec cible auto-corrective'
 
 /**
 * Construction d'images par homothétie avec dispositif d'auto-correction aléatoire

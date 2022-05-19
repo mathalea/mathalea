@@ -34,7 +34,7 @@ export default function ComparerAvecFctRef () {
         a = calcul(randint(1, 9) + randint(5, 9) / 10)
         b = calcul(a + (randint(1, 9) / 10) * choice([1, -1]))
         if (this.interactif) {
-          texte = 'Sélectionner laffirmation correcte. '
+          texte = 'Sélectionner l’affirmation correcte. '
           if (a < b) {
             this.autoCorrection[0] = {
               enonce: texte,
@@ -85,7 +85,7 @@ if(N===2){
     a = calcul(((randint(1, 9) + randint(5, 9) / 10))*(-1))
     b = calcul(a + (randint(1, 9) / 10) * choice([1, -1]))
     if (this.interactif) {
-      texte = 'Sélectionner laffirmation correcte. '
+      texte = 'Sélectionner l’affirmation correcte. '
       if (a < b) {
         this.autoCorrection[0] = {
           enonce: texte,
@@ -142,7 +142,7 @@ if(N===2){
             a = calcul(randint(-10, 10) + (randint(-9, 9, 0) / 10) * choice([-1, 1]))
               b = calcul((a + randint(1, 9) / 10) * choice([-1, 1]))
             if (this.interactif) {
-              texte = 'Sélectionner laffirmation correcte. '
+              texte = 'Sélectionner l’affirmation correcte. '
               if (a < b) {
                 this.autoCorrection[0] = {
                   enonce: texte,
@@ -196,7 +196,7 @@ if(N===2){
           b = calcul((a + (randint(1, 5, 0) / 10) * choice([-1, 1])))
           if(b===1){b= 2}
                 if (this.interactif) {
-                  texte = 'Sélectionner laffirmation correcte. '
+                  texte = 'Sélectionner l’affirmation correcte. '
                   if (a < b) {
                     this.autoCorrection[0] = {
                       enonce: texte,

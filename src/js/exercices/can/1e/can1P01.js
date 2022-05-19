@@ -6,7 +6,7 @@ import { mathalea2d } from '../../../modules/2d.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { context } from '../../../modules/context.js'
-export const titre = 'Calculer des probabilités à partir dun arbre'
+export const titre = 'Calculer des probabilités à partir d’un arbre'
 export const dateDePublication = '25/12/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'

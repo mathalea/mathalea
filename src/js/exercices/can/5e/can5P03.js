@@ -43,7 +43,7 @@ export default function PoucentageP2 () {
         c = choice([150, 250, 300, 350])
 
         this.reponse = calcul((c / a) * b)
-        this.question = `Le débit dun robinet est de $${a}$ L en $${b}$ min. Combien de temps (en minutes) faut-il pour remplir un réservoir de $${c}$ L ?`
+        this.question = `Le débit d’un robinet est de $${a}$ L en $${b}$ min. Combien de temps (en minutes) faut-il pour remplir un réservoir de $${c}$ L ?`
         this.correction = `$\\dfrac{${c}}{${a}}\\times ${b}=${this.reponse}$. Il faut donc $${this.reponse}$ minutes pour remplir le réservoir.`
         break
       case 3:// proportionnalité plats

@@ -2,7 +2,7 @@ import { setReponse } from '../../../modules/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive'
 import { choice, listeQuestionsToContenu, sp, texNombrec, texFractionReduite } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Convertir des fractions dheures en minutes et inversement'
+export const titre = 'Convertir des fractions d’heures en minutes et inversement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

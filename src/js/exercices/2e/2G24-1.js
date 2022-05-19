@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../modules/outils.js'
 import { repere2, mathalea2d, point, tracePoint, labelPoint, segment, nomVecteurParPosition } from '../../modules/2d.js'
 
-export const titre = 'Déterminer les coordonnées dun vecteur à partir des coordonnées de deux points'
+export const titre = 'Déterminer les coordonnées d’un vecteur à partir des coordonnées de deux points'
 
 /**
  * @author Stéphane Guyon

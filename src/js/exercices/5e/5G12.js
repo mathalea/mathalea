@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, choice, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
 import { tracePoint, labelPoint, codageMilieu, segment, rotation, rotationAnimee, texteParPosition, mathalea2d, pavage } from '../../modules/2d.js'
 
-export const titre = 'Trouver limage dune figure par symétrie centrale dans un pavage'
+export const titre = 'Trouver l’image d’une figure par symétrie centrale dans un pavage'
 
 /**
  * Publié le 14/12/2020

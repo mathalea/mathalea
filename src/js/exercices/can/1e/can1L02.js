@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions'
 import { randint, choice, texteEnCouleur, reduirePolynomeDegre3, reduireAxPlusB, ecritureAlgebrique, ecritureParentheseSiNegatif, miseEnEvidence } from '../../../modules/outils.js'
-export const titre = 'Déterminer le nombre de solutions dune équation du second degré'
+export const titre = 'Déterminer le nombre de solutions d’une équation du second degré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

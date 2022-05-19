@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, creerNomDePolygone, choice, numAlpha 
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 
-export const titre = 'Exprimer le cosinus, le sinus ou la tangente dun angle en fonction des côtés du triangle'
+export const titre = 'Exprimer le cosinus, le sinus ou la tangente d’un angle en fonction des côtés du triangle'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true

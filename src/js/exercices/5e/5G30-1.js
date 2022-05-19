@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, arrondi, choisitLettresDifferentes, miseEnEvidence, numAlpha } from '../../modules/outils.js'
 import { point, pointSurSegment, pointIntersectionDD, labelPoint, droite, droiteParPointEtParallele, rotation, similitude, codeAngle, longueur, angle, mathalea2d } from '../../modules/2d.js'
 
-export const titre = 'Déterminer des angles en utilisant les cas dégalité'
+export const titre = 'Déterminer des angles en utilisant les cas d’égalité'
 
 /**
  * Déterminer des angles en utilisant les cas d'égalités : opposés par le sommet, alternes-internes, correspondants...

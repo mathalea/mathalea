@@ -90,11 +90,11 @@ export default function LectureExpressionFonctionsAffines () {
     }
     listeQuestionsToContenu(this)
     if (!this.lineaire) {
-      explain = 'Il sagit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant lordonnée à lorigine et $a$ la pente de la droite.\\\n' + explain
-      this.contenuCorrection = 'Il sagit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant lordonnée à lorigine et $a$ la pente de la droite.\n' + this.contenuCorrection
+      explain = 'Il s’agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l’ordonnée à l’origine et $a$ la pente de la droite.\\\n' + explain
+      this.contenuCorrection = 'Il s’agit de fonctions affines, elles sont donc de la forme $f(x)=ax+b$, $b$ étant l’ordonnée à l’origine et $a$ la pente de la droite.\n' + this.contenuCorrection
     } else {
-      explain = 'Il sagit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la pente de la droite.\\ \n' + explain
-      this.contenuCorrection = 'Il sagit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la ' + katexPopup2(numeroExercice, 1, 'pente', 'pente d\'une droite', 'La pente (le a de y=ax ou y=ax+b) d\'une droite donne le taux d\'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.') + ' de la droite.\n' + this.contenuCorrection
+      explain = 'Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la pente de la droite.\\ \n' + explain
+      this.contenuCorrection = 'Il s’agit de fonctions linéaires, elles sont donc de la forme $f(x)=ax$, $a$ étant la ' + katexPopup2(numeroExercice, 1, 'pente', 'pente d\'une droite', 'La pente (le a de y=ax ou y=ax+b) d\'une droite donne le taux d\'accroissement de y par rapport à x : lorsque x augmente de 1, alors y augmente de a.') + ' de la droite.\n' + this.contenuCorrection
     }
     if (context.isAmc) {
       this.autoCorrection[0] = {

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu, texteGras, texteEnCouleurEtGras, miseEnEvidence } from '../../modules/outils.js'
-export const titre = 'Démontrer léquivalence de deux programmes de calcul'
+export const titre = 'Démontrer l’équivalence de deux programmes de calcul'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '21/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag

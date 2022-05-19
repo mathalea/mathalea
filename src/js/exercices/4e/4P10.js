@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texteExposant, arrondi, texFractionReduite, produitsEnCroix, quatriemeProportionnelle, calcul, texNombrec, prenomF, prenom, texNombre, nombreAvecEspace, miseEnEvidence, texPrix, katexPopup2, numAlpha, contraindreValeur } from '../../modules/outils.js'
-export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d\'unités complexes'
+export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d’unités complexes'
 
 /**
  * problèmes de grandeurs composées
@@ -202,7 +202,7 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'énergie',
               'Définition : énergie (grandeur physique)',
-              'C\'est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.'
+              'C’est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.'
             ) +
             ' consommée.<br>'
           texte += numAlpha(1) + ' Calculer la dépense correspondante.'
@@ -265,7 +265,7 @@ export default function ProblemesGrandeursComposees () {
                   typeAide,
                   'volume',
                   'Définition : volume (grandeur physique)',
-                  `C\'est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube (m${texteExposant(
+                  `C’est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube (m${texteExposant(
                     3
                   )}) mais on peut aussi rencontrer le litre (L) avec comme correspondance 1dm${texteExposant(
                     3
@@ -333,7 +333,7 @@ export default function ProblemesGrandeursComposees () {
                   typeAide,
                   'volume',
                   'Définition : volume (grandeur physique)',
-                  'C\'est le produit de trois longueurs ou le produit d\'une aire et d\'une longueur.<br>L\'unité de mesure du volume est le mètre cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3=\\text{1L}$'
+                  'C’est le produit de trois longueurs ou le produit d\'une aire et d\'une longueur.<br>L\'unité de mesure du volume est le mètre cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3=\\text{1L}$'
                 ) +
                 ` en dm${texteExposant(3)} à 0,1 près de ce tonneau.<br>`
               texte +=
@@ -394,7 +394,7 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'quantité de mouvement',
               'Définition : quantité de mouvement (grandeur physique)',
-              'C\'est le produit de la masse d\'un corps par sa vitesse.<br>L\'unité de mesure de la quantité de mouvement est le ($\\text{kg.m.s}^{-1}$)'
+              'C’est le produit de la masse d\'un corps par sa vitesse.<br>L\'unité de mesure de la quantité de mouvement est le ($\\text{kg.m.s}^{-1}$)'
             ) +
             ' en $\\text{kg.m.s}^{-1}$.<br>'
           texte +=
@@ -530,7 +530,7 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'puissance',
               'Définition : Puissance (grandeur physique)',
-              'C\'est le produit de la force électromotrice (tension) exprimée en Volt (V) par l\'intensité du courant électrique exprimée en ampères (A).<br>L\'unité de mesure de la puissance est le Watt (W)'
+              'C’est le produit de la force électromotrice (tension) exprimée en Volt (V) par l\'intensité du courant électrique exprimée en ampères (A).<br>L\'unité de mesure de la puissance est le Watt (W)'
             ) +
             ' maximale de cet appareil s\'il fonctionne sur le secteur ?<br>'
           texte +=
@@ -938,7 +938,7 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'densité de population',
               'Définition : Densité de population',
-              'C\'est le quotient du nombre d\'habitants par la superficie en km$^2$.<br>L\'unité de la densité de population est l\'habitant par km$^2$ (hab/km$^2$).'
+              'C’est le quotient du nombre d\'habitants par la superficie en km$^2$.<br>L\'unité de la densité de population est l\'habitant par km$^2$ (hab/km$^2$).'
             ) +
             ` de ${villes[index2][0]} était de $${texNombrec(villes[index2][1] / villes[index2][2], 8)}$ hab/km$^2$ pour une superficie de $${texNombrec(
               villes[index2][2] * 100

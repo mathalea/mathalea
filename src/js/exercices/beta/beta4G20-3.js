@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 import { afficheLongueurSegment, barycentre, carre, latexParPoint, mathalea2d, point, polygone, rotation } from '../../modules/2d.js'
 
-export const titre = 'Calculer une valeur manquante avec légalité de Pythagore'
+export const titre = 'Calculer une valeur manquante avec l’égalité de Pythagore'
 
 export default function CalculerValeurManquanteVisuelPythagore () {
   'use strict'

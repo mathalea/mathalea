@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, choice, shuffle2tableaux } from '../.
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Lectures dimages et dantécédents depuis un tableau de valeurs'
+export const titre = 'Lectures d’images et d’antécédents depuis un tableau de valeurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

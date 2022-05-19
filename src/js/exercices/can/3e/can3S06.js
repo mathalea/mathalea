@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, texFractionReduite, sp } from '../../../modules/outils.js'
-export const titre = 'Déterminer le rang dune médiane'
+export const titre = 'Déterminer le rang d’une médiane'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -20,7 +20,7 @@ export default function Mediane () {
     const a = randint(10, 15)
     const n = randint(1, 4)
     const c = a * 2 * n + 1
-    this.question = `Une série statistique de $${c}$ données est rangée dans lordre croissant.<br>
+    this.question = `Une série statistique de $${c}$ données est rangée dans l’ordre croissant.<br>
     Le rang de la médiane est : `
     this.correction = `En notant $x_1$ la plus valeur de la série, puis $x_2$ la suivante, .... et $x_{${c}}$ la plus grande valeur, on obtient :<br>
 $\\underbrace{x_1 ${sp(2)} ; ${sp(2)} x_2 ${sp(2)} ; ${sp(2)} ..... ; ${sp(2)}

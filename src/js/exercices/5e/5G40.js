@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, le
 import { cercleCentrePoint, cercle, codeSegments, pointAdistance, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
-export const titre = 'Construire des parallélogrammes avec dispositif dauto-correction'
+export const titre = 'Construire des parallélogrammes avec dispositif d’auto-correction'
 export const dateDeModifImportante = '08/05/2022'
 
 /**

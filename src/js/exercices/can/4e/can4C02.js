@@ -1,7 +1,7 @@
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { choice, texFractionReduite } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Trouver lopposé ou linverse dune fraction'
+export const titre = 'Trouver l’opposé ou l’inverse d’une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

@@ -43,7 +43,7 @@ export default function PlacerProbabilites () {
       ['Certain', 1]]
 
     // Evenements impossibles :
-    lstEvenenementA.push(['L\'équipe de France de rugby va remporter le prochain match international de football', 0])
+    lstEvenenementA.push(['L’équipe de France de rugby va remporter le prochain match international de football', 0])
     const animal = choice(['un dragon', "l'abominable homme des neiges", 'un chat-garou', 'un dahu', 'un hippocampéléphantocamélos', 'une licorne', 'le Minotaure'])
     lstEvenenementA.push([`Rencontrer ${animal} en sortant du collège`, 0])
     lstEvenenementA.push(['Le point M, placé à 4 cm de A, est sur le cercle de centre A et de rayon 7 cm', 0])
@@ -58,7 +58,7 @@ export default function PlacerProbabilites () {
     // Evenements peu probables :
     lstEvenenementB.push(['Choisir une balle rouge dans un sac contenant une balle rouge et trois balles vertes', 0.25])
     // Evenements Une chance sur deux :
-    lstEvenenementC.push(['Obtenir ' + choice(['pile', 'face']) + ' quand on lance une pièce équilibrée d\'un euro', 0.5])
+    lstEvenenementC.push(['Obtenir ' + choice(['pile', 'face']) + ' quand on lance une pièce équilibrée d’un euro', 0.5])
     lstEvenenementC.push(['Obtenir une carte ' + choice(['rouge', 'noire']) + ' dans un jeu traditionnel de 52 cartes', 0.5])
     // Evenements probables :
     lstEvenenementD.push(['Il ne pleuvra pas en Bretagne ce prochain 12 juillet', 0.6])

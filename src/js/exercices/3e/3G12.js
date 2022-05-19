@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, choice, shuffle, nombreAvecEspace, arcenciel, texcolors } from '../../modules/outils.js'
 import { pavage, tracePoint, labelPoint, segment, rotation, rotationAnimee, codeAngle, texteParPosition, mathalea2d } from '../../modules/2d.js'
-export const titre = 'Trouver limage dune figure par une rotation dans un pavage'
+export const titre = 'Trouver l’image d’une figure par une rotation dans un pavage'
 
 /**
  * Publié le 16/12/2020

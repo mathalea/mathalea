@@ -4,7 +4,7 @@ import {
   listeQuestionsToContenu, reduireAxPlusB, simplificationDeFractionAvecEtapes, reduirePolynomeDegre3, rienSi1, randint, texteCentre, combinaisonListes, ecritureAlgebrique, choice,
   ecritureParentheseSiNegatif, pgcd
 } from '../../modules/outils.js'
-export const titre = 'Montrer qu\'un point appartient ou non à une courbe'
+export const titre = 'Montrer qu’un point appartient ou non à une courbe'
 
 /**
 * Répondre à des questions sur les fonctions.

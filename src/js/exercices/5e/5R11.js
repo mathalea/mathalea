@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, calcul, lettreDepu
 import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Lire labscisse relative dun point'
+export const titre = 'Lire l’abscisse relative d’un point'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

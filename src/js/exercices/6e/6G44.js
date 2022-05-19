@@ -5,7 +5,7 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { listeQuestionsToContenuSansNumero, randint, shuffle } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-export const titre = 'Trouver le nombre de faces ou d\'arêtes d\'un solide'
+export const titre = 'Trouver le nombre de faces ou d\'arêtes d’un solide'
 export const dateDePublication = '7/11/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombrec, ecritureParentheseSiNegatif, rienSi1, texFraction } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
-export const titre = 'Trouver le sens de variation dune suite (QCM)'
+export const titre = 'Trouver le sens de variation d’une suite (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 

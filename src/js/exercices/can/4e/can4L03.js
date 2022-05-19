@@ -14,5 +14,5 @@ export default function UneEquationDifficile () {
   this.sup = false
   this.sup2 = 3
   this.spacingCorr = 1
-  this.consigne = 'Résoudre léquation :'
+  this.consigne = 'Résoudre l’équation :'
 }

@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, calcul, choice } from '../../../modules/outils.js'
-export const titre = 'Trouver le nombre dentiers entre deux valeurs'
+export const titre = 'Trouver le nombre d’entiers entre deux valeurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

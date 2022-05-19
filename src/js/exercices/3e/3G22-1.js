@@ -35,7 +35,7 @@ export default function agrandissement () {
           k = randint(2, 20) / 10
           V2 = V1 * k * k * k
           texte = `Un solide a un volume de $${V1}$ cm³.`
-          texte += k > 1 ? ' On lagrandit ' : ' On le réduit '
+          texte += k > 1 ? ' On l’agrandit ' : ' On le réduit '
 
           texte += ` à l'échelle $${texNombrec(k)}$. <br>Quel est le volume du nouveau solide ?` // Le LateX entre deux symboles $, les variables dans des ${ }
           texteCorr = 'On sait que dans une réduction ou un agrandissement de rapport $k$, les volumes sont multipliés par $k^3$.'
@@ -56,7 +56,7 @@ export default function agrandissement () {
           V2 = V1 * k * k * k
           texte = `Une figure a une aire de $${A1}$ cm². `
           texte += k > 1 ? ' On l\'agrandit ' : ' On la réduit '
-          texte += `et laire obtenue est de $${texNombrec(A1 * k ** 2)}$ cm².`
+          texte += `et l’aire obtenue est de $${texNombrec(A1 * k ** 2)}$ cm².`
           texte += '<br> Quel est le coefficient '
           texte += k > 1 ? ' d\'agrandissement ? ' : ' de réduction ? '
           texteCorr = 'On sait que dans une réduction ou un agrandissement de rapport $k$, les aires sont multipliées par $k^2$.'

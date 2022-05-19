@@ -70,7 +70,7 @@ export default function LireUnDiagramme () {
         this.autoCorrection[q] = {}
       }
 
-      texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d\'animaux.<br> Voici un diagramme qui représente les effectifs de quelques espèces.<br><br>'
+      texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d’animaux.<br> Voici un diagramme qui représente les effectifs de quelques espèces.<br><br>'
       texteCorr = ''
       switch (parseInt(this.sup)) {
         case 1: nbAnimaux = 2; break
@@ -308,7 +308,7 @@ export default function LireUnDiagramme () {
         this.autoCorrection[q].propositions[2].propositions = [{
           texte: 'Plus de la moitié des animaux',
           statut: nbMax > effectiftotal / 2,
-          reponse: { texte: 'c) Part de l\'espèce la plus nombreuse :' }
+          reponse: { texte: 'c) Part de l’espèce la plus nombreuse :' }
         },
         {
           texte: 'Moins de la moitié des animaux',

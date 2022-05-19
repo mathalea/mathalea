@@ -67,7 +67,7 @@ if (typeof window.iMathAlea === 'undefined') {
         questionDiv = questionDiv.parentNode
       }
       if (questionDiv === null) {
-        shadow.appendChild(document.createTextNode('[Erreur de détection de la l\'environnement moodle]'))
+        shadow.appendChild(document.createTextNode('[Erreur de détection de la l’environnement moodle]'))
         return
       }
 

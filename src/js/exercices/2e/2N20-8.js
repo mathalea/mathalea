@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre } from '../../modules/outils.js'
 
-export const titre = 'Déterminer la parité dune expression'
+export const titre = 'Déterminer la parité d’une expression'
 
 /**
  * 2N21

@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, pren
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Augmenter ou diminuer dun pourcentage'
+export const titre = 'Augmenter ou diminuer d’un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

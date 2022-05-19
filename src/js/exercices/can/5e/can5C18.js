@@ -60,8 +60,8 @@ export default function ReconnaitreExp () {
             }
             texte += propositionsQcm(this, i).texte
 
-            texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme (la multiplication est priporitraire sur laddition). <br>
-            On en déduit que lexpression est une somme de deux termes $A$ et $B$ :`
+            texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme (la multiplication est priporitraire sur l’addition). <br>
+            On en déduit que l’expression est une somme de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{${a}}_{A}+\\underbrace{${b}\\times ${c}}_{B}$`
           }
           if (choix === 2) { // a*b+c
@@ -95,8 +95,8 @@ export default function ReconnaitreExp () {
             }
             texte += propositionsQcm(this, i).texte
 
-            texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme (la multiplication est priporitraire sur laddition).<br>
-             On en déduit que lexpression est une somme de deux termes $A$ et $B$ :`
+            texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme (la multiplication est priporitraire sur l’addition).<br>
+             On en déduit que l’expression est une somme de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{${a}\\times  ${b}}_{A}+\\underbrace{ ${c}}_{B}$`
           }
           if (choix === 3) { // a*b-c
@@ -131,7 +131,7 @@ export default function ReconnaitreExp () {
             texte += propositionsQcm(this, i).texte
 
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une différence (la multiplication est priporitraire sur la soustraction).<br>
-             On en déduit que lexpression est une différence de deux termes $A$ et $B$ :`
+             On en déduit que l’expression est une différence de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{${a}\\times  ${b}}_{A}-\\underbrace{ ${c}}_{B}$`
           }
           break
@@ -170,8 +170,8 @@ export default function ReconnaitreExp () {
             }
             texte += propositionsQcm(this, i).texte
 
-            texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme (la multiplication est priporitraire sur laddition). <br>
-            On en déduit que lexpression est une somme de deux termes $A$ et $B$ :`
+            texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme (la multiplication est priporitraire sur l’addition). <br>
+            On en déduit que l’expression est une somme de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{${a}\\times${b}}_{A}+\\underbrace{${c}\\times ${d}}_{B}$`
           }
           if (choix === 2) { // a*b-c*d
@@ -206,8 +206,8 @@ export default function ReconnaitreExp () {
             }
             texte += propositionsQcm(this, i).texte
 
-            texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une différence (la multiplication est priporitraire sur laddition). <br>
-            On en déduit que lexpression est une différence de deux termes $A$ et $B$ :`
+            texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une différence (la multiplication est priporitraire sur l’addition). <br>
+            On en déduit que l’expression est une différence de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{${a}\\times${b}}_{A}-\\underbrace{${c}\\times ${c}}_{B}$`
           }
 
@@ -247,7 +247,7 @@ export default function ReconnaitreExp () {
             texte += propositionsQcm(this, i).texte
 
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est un produit. <br>
-            On en déduit que lexpression est un produit de deux facteurs $A$ et $B$ :`
+            On en déduit que l’expression est un produit de deux facteurs $A$ et $B$ :`
             if (choix === true) { texteCorr += `<br>$\\underbrace{${a}}_{A}\\times\\underbrace{(${b}+ ${c})}_{B}$` } else { texteCorr += `<br>$${a}(${b}+ ${c})=\\underbrace{${a}}_{A}\\times\\underbrace{(${b}+ ${c})}_{B}$` }
           }
 
@@ -283,7 +283,7 @@ export default function ReconnaitreExp () {
             texte += propositionsQcm(this, i).texte
 
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est un produit. <br>
-            On en déduit que lexpression est un produit de deux facteurs $A$ et $B$ :`
+            On en déduit que l’expression est un produit de deux facteurs $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{(${b}+ ${c})}_{A}\\times\\underbrace{${a}}_{B}$`
           }
           if (choix === 3) { // (a+b):c
@@ -318,7 +318,7 @@ export default function ReconnaitreExp () {
             texte += propositionsQcm(this, i).texte
 
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une division. <br>
-          On en déduit que lexpression est le quotient de $A$ par $B$ :`
+          On en déduit que l’expression est le quotient de $A$ par $B$ :`
             texteCorr += `<br> $(\\underbrace{${a}+${b}}_{A})\\div\\underbrace{${c}}_{B}$`
           }
 
@@ -355,7 +355,7 @@ export default function ReconnaitreExp () {
             texte += propositionsQcm(this, i).texte
 
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est un produit. <br>
-            On en déduit que lexpression est un produit de trois facteurs $A$,  $B$ et $C$ :`
+            On en déduit que l’expression est un produit de trois facteurs $A$,  $B$ et $C$ :`
             texteCorr += `<br>$\\underbrace{${a}}_{A}\\times (\\underbrace{${b}+ ${c}}_{B})\\times \\underbrace{${d}}_{C}$`
           }
           if (choix === 5) { // a*(b+c)+d
@@ -391,7 +391,7 @@ export default function ReconnaitreExp () {
             texte += propositionsQcm(this, i).texte
 
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme. <br>
-            On en déduit que lexpression est une somme de deux termes $A$ et  $B$ :`
+            On en déduit que l’expression est une somme de deux termes $A$ et  $B$ :`
             texteCorr += `<br>$\\underbrace{${a}\\times (${b}+ ${c})}_{A}+ \\underbrace{${d}}_{B}$`
           }
           if (choix === 6) { // a*(b+c)-d
@@ -427,7 +427,7 @@ export default function ReconnaitreExp () {
             texte += propositionsQcm(this, i).texte
 
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une différence. <br>
-            On en déduit que lexpression est une différence de deux termes $A$ et  $B$ :`
+            On en déduit que l’expression est une différence de deux termes $A$ et  $B$ :`
             texteCorr += `<br>$\\underbrace{${a}\\times (${b}+ ${c})}_{A}- \\underbrace{${d}}_{B}$`
           }
           break
@@ -471,7 +471,7 @@ export default function ReconnaitreExp () {
             texte += propositionsQcm(this, i).texte
 
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une somme. <br>
-            On en déduit que lexpression est une somme de deux termes $A$ et $B$ :`
+            On en déduit que l’expression est une somme de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{\\dfrac{${a}}{${b}}}_{A}+\\underbrace{${c}}_{B}$`
           }
           if (choix === 2) { // a/b-c
@@ -512,7 +512,7 @@ export default function ReconnaitreExp () {
             texte += propositionsQcm(this, i).texte
 
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une différence. <br>
-            On en déduit que lexpression est une différence de deux termes $A$ et $B$ :`
+            On en déduit que l’expression est une différence de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{\\dfrac{${a}}{${b}}}_{A}-\\underbrace{${c}}_{B}$`
           }
           if (choix === 3) { // a/b-c
@@ -553,7 +553,7 @@ export default function ReconnaitreExp () {
             texte += propositionsQcm(this, i).texte
 
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est une différence. <br>
-            On en déduit que lexpression est une différence de deux termes $A$ et $B$ :`
+            On en déduit que l’expression est une différence de deux termes $A$ et $B$ :`
             texteCorr += `<br>$\\underbrace{${c}}_{A}-\\underbrace{\\dfrac{${a}}{${b}}}_{B}$`
           }
 
@@ -590,7 +590,7 @@ export default function ReconnaitreExp () {
             texte += propositionsQcm(this, i).texte
 
             texteCorr = `La dernière oprération à effectuer pour faire ce calcul est un quotient. <br>
-            On en déduit que lexpression est le quotient de  $A$ par $B$ :`
+            On en déduit que l’expression est le quotient de  $A$ par $B$ :`
             texteCorr += `<br>$\\dfrac{${a}+${b}}{${c}}=\\underbrace{(${a}+${b})}_{A}\\div\\underbrace{${c}}_{B}$`
           }
           break

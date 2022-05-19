@@ -63,7 +63,7 @@ export default function VocabulaireEtOperations () {
         case 1:
           texte +=
             numAlpha(i) +
-            'Traduire la phrase par un calcul (il n\'est pas demandé d\'effectuer ce calcul) : '
+            'Traduire la phrase par un calcul (il n’est pas demandé d’effectuer ce calcul) : '
           expf = 'l' + expf.substring(1)
           texte += `${expf}.`
           expf = 'L' + expf.substring(1)

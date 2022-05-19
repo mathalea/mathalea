@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenuSansNumero, ecritureParentheseSiNegatif, sp, texteCentre } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-export const titre = 'Déterminer les coordonnées dun vecteur'
+export const titre = 'Déterminer les coordonnées d’un vecteur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

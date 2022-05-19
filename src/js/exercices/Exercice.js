@@ -98,7 +98,7 @@ export default function Exercice () {
 
   // this.typeExercice = 'Scratch' // Pour charger Scratchblocks.
   // this.typeExercice = 'IEP' // Pour charger InstrumEnPoche.
-  // this.typeExercice = 'dnb' // Ce n'est pas un exercice aléatoire il est traité différemment. Les exercices DNB sont des images pour la sortie Html et du code LaTeX statique pour la sortie latex.
+  // this.typeExercice = 'dnb' // Ce n’est pas un exercice aléatoire il est traité différemment. Les exercices DNB sont des images pour la sortie Html et du code LaTeX statique pour la sortie latex.
   // this.typeExercice = 'XCas' // Pour charger le JavaScript de XCas qui provient de https://www-fourier.ujf-grenoble.fr/~parisse/giac_fr.html
   // this.typeExercice = 'simple' // Pour les exercices plus simples destinés aux courses aux nombres
 

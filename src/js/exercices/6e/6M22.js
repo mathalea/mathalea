@@ -1,6 +1,6 @@
 import ExercicePerimetresEtAires from './_Exercice_perimetres_et_aires.js'
 
-export const titre = 'Calculer périmètre et aire de disques (à partir dun texte)'
+export const titre = 'Calculer périmètre et aire de disques (à partir d’un texte)'
 export { interactifReady, interactifType, amcReady, amcType } from './_Exercice_perimetres_et_aires.js'
 
 /** */

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { axes, mathalea2d, point, polygoneAvecNom, repere2 } from '../../modules/2d.js'
 import { extraireRacineCarree, listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, fractionSimplifiee, texNombre } from '../../modules/outils.js'
-export const titre = 'Déterminer la nature dun polygone'
+export const titre = 'Déterminer la nature d’un polygone'
 
 /**
  * 2G12

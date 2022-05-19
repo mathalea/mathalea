@@ -8,7 +8,7 @@ export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
-export const titre = 'Placer un point dabscisse un nombre relatif'
+export const titre = 'Placer un point d’abscisse un nombre relatif'
 
 /**
 * Placer un point d'abscisse un nombre relatif

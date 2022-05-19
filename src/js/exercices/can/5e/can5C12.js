@@ -1,7 +1,7 @@
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { calcul, choice, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Calculer la fraction dentier'
+export const titre = 'Calculer la fraction d’entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

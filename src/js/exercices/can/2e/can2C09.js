@@ -32,7 +32,7 @@ export default function MilieuEntre1EtFraction () {
     objets.push(texteParPosition('1', 0, -0.6, 'milieu', 'black', 1, 'middle', true)
     )
     objets.push(fractionParPosition({ x: 8, y: -1, fraction: fraction(n, d), couleur: 'black' }))
-    this.question = 'Donner l\'abscisse du point $M$ sous forme dune fraction irréductible.<br>'
+    this.question = 'Donner l\'abscisse du point $M$ sous forme d’une fraction irréductible.<br>'
     this.question += mathalea2d({
       xmin: -1,
       ymin: -2,

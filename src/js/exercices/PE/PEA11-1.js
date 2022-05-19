@@ -34,9 +34,9 @@ export default function PasserDeLaBase12Ou16ALaBase10 () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const b = choice([12, 16])
     if (b === 12) {
-      this.introduction = 'Les symboles que lon utilise en base 12 sont les dix chiffres habituels, la lettre A pour désigner 10 unités et la lettre B pour désigner 11 unités.'
+      this.introduction = 'Les symboles que l’on utilise en base 12 sont les dix chiffres habituels, la lettre A pour désigner 10 unités et la lettre B pour désigner 11 unités.'
     } else {
-      this.introduction = 'Les symboles que lon utilise en base 16 sont les dix chiffres habituels, la lettre A pour désigner 10 unités, B pour 11 unités, C pour 12 unités, D pour 13 unités, '
+      this.introduction = 'Les symboles que l’on utilise en base 16 sont les dix chiffres habituels, la lettre A pour désigner 10 unités, B pour 11 unités, C pour 12 unités, D pour 13 unités, '
       this.introduction += 'E pour 14 unités et F pour 15 unités.'
     }
     for (let i = 0, texte, texteCorr, n, m, chiffre1, chiffre2, chiffre3, chiffre4, cpt = 0; i < this.nbQuestions && cpt < 50;) {

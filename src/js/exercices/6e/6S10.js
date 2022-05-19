@@ -75,7 +75,7 @@ export default function LectureDiagrammeBarre () {
     const lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan',
       'Farnfoss', 'Kinecardine', 'Zeffari', 'Barmwich', 'Swadlincote', 'Swordbreak', 'Loshull', 'Ruyron', 'Fluasall', 'Blueross', 'Vlane']
 
-    texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d\'animaux.<br>Voici un diagramme en bâtons qui donne le nombre d\'individus pour chaque espèce.<br>'
+    texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d’animaux.<br>Voici un diagramme en bâtons qui donne le nombre d’individus pour chaque espèce.<br>'
     if (!context.isAmc) {
       texte += numAlpha(0) + ' Quels sont les animaux les plus nombreux ?' + ajouteChampTexte(this, 0, { texte: sp(5) + 'les' })
       texte += '<br>' + numAlpha(1) + ' Quels sont les animaux les moins nombreux ?' + ajouteChampTexte(this, 1, { texte: sp(5) + 'les' }) + '<br>'

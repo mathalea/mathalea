@@ -165,7 +165,7 @@ export default function SujetCAN20186ieme () {
           a = randint(3, 6)
           b = choice([1, a - 1])
           reponse = fraction(b, a)// .simplifie()
-          texte = 'Quelle est la fraction repérée par le point dinterrogation ?<br>' + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+          texte = 'Quelle est la fraction repérée par le point d’interrogation ?<br>' + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
             Unite: 8,
             Min: 0,
             Max: 1,

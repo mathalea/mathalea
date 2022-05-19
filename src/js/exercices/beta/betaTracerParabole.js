@@ -6,7 +6,7 @@ import { simplify, floor } from 'mathjs'
 
 const EgalEnviron = (v, d = 3) => ((Math.abs(v) * 10 ** d) % 1 > 0 ? '\\approx' : '=') + texNombre(calcul(v, 3))
 
-export const titre = 'Etude dune parabole'
+export const titre = 'Etude d’une parabole'
 
 /**
  * @author Eric Schrafstetter
@@ -14,7 +14,7 @@ export const titre = 'Etude dune parabole'
 export default function TrouverEquationDeParabole () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = 'Etude dune parabole'
+  this.consigne = 'Etude d’une parabole'
   this.nbQuestions = 2
   this.nbCols = 1
   this.nbColsCorr = 1

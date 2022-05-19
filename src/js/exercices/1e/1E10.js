@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, modalTexteLong } from '../../modules/outils.js'
 import { point, segment, repere2, courbe, mathalea2d } from '../../modules/2d.js'
 
-export const titre = 'Calcul du discriminant d\'une équation du second degré'
+export const titre = 'Calcul du discriminant d’une équation du second degré'
 
 /**
  * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)

@@ -6,7 +6,7 @@ export const titre = 'Fonctions : Notion et vocabulaire'
 
 /**
  * 3F1-act - Notion de fonction - vocabulaire
- * Lobjectif de revenir sur l'introduction de la notion de fonction et son vocabulaire
+ * L’objectif de revenir sur l'introduction de la notion de fonction et son vocabulaire
  * On base l'exercice sur des calculs simples de type périmètres, aires, double, triple, nombre de diviseurs
  * ATTENTION BUG SVG DONC LES ANIMATIONS SONT FILMEES A PARTIR DE CELLES GENEREES PAR LA FONCTION SVG_machine_maths() SOUS FIREFOX
  * DE FACON A AVOIR UN RENDU UNIFORME QUEL QUE SOIT LE NAVIGATEUR ON REND LES ANIMATIONS PAR DES VIDEOS
@@ -177,7 +177,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           // sous question e/
           txtInfo = 'Voici le diagramme d\'une machine qui triple '
           if (context.isHtml) {
-            texte += numAlpha(j) + ' Comme dans lexemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>'
+            texte += numAlpha(j) + ' Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>'
             txtInfo += `<div id="${idDuDivDiag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
             SvgMachineDiag3F1ActMono(idDuDivDiag, 800, 100, 't', 'x', [['3', '3x']])
             texteCorr += numAlpha(j) + ' C\'est une machine qui quadruple, donc sous forme de diagramme.<br>'
@@ -185,7 +185,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             SvgMachineDiag3F1ActMono(idDuDivCorr, 800, 100, 'f', 'x', [['4', '4x']])
             j++ // incrémente la sous question
           } else { // sortie LaTeX
-            texte += '\\item   Comme dans lexemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>'
+            texte += '\\item   Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>'
             txtInfo += '<br>' + tikzMachineDiag('t', 'x', [['\\times 3', '3x']])
             texteCorr += '\\item  C\'est une machine qui quadruple, donc sous forme de diagramme.<br>'
             texteCorr += tikzMachineDiag('f', 'x', [['\\times 4', '4x']])
@@ -291,7 +291,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           // sous question e/
           txtInfo = 'Voici le diagramme d\'une machine qui double '
           if (context.isHtml) {
-            texte += numAlpha(j) + ' Comme dans lexemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{g}$.<br>'
+            texte += numAlpha(j) + ' Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{g}$.<br>'
             txtInfo += `<div id="${idDuDivDiag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
             SvgMachineDiag3F1ActMono(idDuDivDiag, 800, 100, 'g', 'x', [['2', '2x']])
             texteCorr += numAlpha(j) + ' C\'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>'
@@ -299,7 +299,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             SvgMachineDiag3F1ActMono(idDuDivCorr, 800, 100, 'g', 'x', [['x', 'x²']])
             j++ // incrémente la sous question
           } else {
-            texte += '\\item  Comme dans lexemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{g}$.<br>'
+            texte += '\\item  Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{g}$.<br>'
             txtInfo += '<br>' + tikzMachineDiag('g', 'x', [['\\times 2', '2x']])
             texteCorr += '\\item C\'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>'
             texteCorr += tikzMachineDiag('g', 'x', [['\\times x', 'x^2']])
@@ -411,7 +411,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           // sous question e/
           txtInfo = 'Voici le diagramme d\'une machine qui double puis qui ajoute 5 '
           if (context.isHtml) {
-            texte += numAlpha(j) + ' Comme dans lexemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{h}$.<br>'
+            texte += numAlpha(j) + ' Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{h}$.<br>'
             txtInfo += `<div id="${idDuDivDiag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
             SvgMachineDiag3F12(idDuDivDiag, 800, 100, 'h', 'x', [['2', '2x'], ['5', '2x+5']])
             texteCorr += numAlpha(j) + ' C\'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>'
@@ -419,7 +419,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             SvgMachineDiag3F12(idDuDivCorr, 800, 100, 'h', 'x', [['3', '3x'], ['1', '3x+1']])
             j++ // incrémente la sous question
           } else {
-            texte += '\\item  Comme dans lexemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{h}$.<br>'
+            texte += '\\item  Comme dans l’exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{h}$.<br>'
             txtInfo += '<br>' + tikzMachineDiag('h', 'x', [['\\times 2', '2x'], ['+5', '2x+5']])
             texteCorr += '\\item C\'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>'
             texteCorr += tikzMachineDiag('h', 'x', [['\\times 3', '3x'], ['+1', '3x+1']])

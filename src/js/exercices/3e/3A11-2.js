@@ -6,7 +6,7 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Décomposition en facteurs premiers dun entier'
+export const titre = 'Décomposition en facteurs premiers d’un entier'
 
 /**
  * 3A11-2 - decompositionFacteursPremiers

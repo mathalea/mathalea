@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, texNombre, numAlpha, arrondi } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Donner des valeurs approchées dun quotient décimal'
+export const titre = 'Donner des valeurs approchées d’un quotient décimal'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

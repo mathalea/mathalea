@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone, texNombre
 import { point, labelPoint, polygone, similitude, codageAngleDroit, codeAngle, mathalea2d, afficheMesureAngle, afficheLongueurSegment, longueur, angle, texteSurSegment } from '../../modules/2d.js'
 import { radians, degres } from '../../modules/fonctionsMaths.js'
 
-export const titre = 'Calculer toutes les mesures dangle dune figure complexe'
+export const titre = 'Calculer toutes les mesures d’angle d’une figure complexe'
 
 /**
  * Deux triangles rectangles accolés, on connaît deux longueurs et un angle, il faut déterminer tous les autres angles

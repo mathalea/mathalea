@@ -83,13 +83,13 @@ export default function PoucentageP2 () {
         c = (b / a) * 100
         choix = choice([true, false])
         this.question = `Le prix d'un article coûtant $${a}$ euros ${choix ? 'baisse' : 'augmente'} de $${b}$ euros.<br>
-          Quel est le pourcentage ${choix ? 'de réduction' : 'daugmentation'} de ce prix ?`
+          Quel est le pourcentage ${choix ? 'de réduction' : 'd’augmentation'} de ce prix ?`
         this.optionsChampTexte = { texteApres: '%' }
-        this.correction = `${choix ? 'La réduction' : 'Laugmentation'} est $${b}$ euros sur un total de $${a}$ euros.<br>
-          Le pourcentage  ${choix ? 'de baisse' : 'daugmentation'} est donné par le quotient : $\\dfrac{${b}}{${a}}${simplificationDeFractionAvecEtapes(b, a)}=${texNombrec(b / a)}= ${texNombrec((b / a) * 100)}\\%$.
+        this.correction = `${choix ? 'La réduction' : 'L’augmentation'} est $${b}$ euros sur un total de $${a}$ euros.<br>
+          Le pourcentage  ${choix ? 'de baisse' : 'd’augmentation'} est donné par le quotient : $\\dfrac{${b}}{${a}}${simplificationDeFractionAvecEtapes(b, a)}=${texNombrec(b / a)}= ${texNombrec((b / a) * 100)}\\%$.
           `
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
-        Calculez $10 \\%$ du prix. <br>${choix ? 'La réduction' : 'Laugmentation'} est un multiple de $10 \\%$.
+        Calculez $10 \\%$ du prix. <br>${choix ? 'La réduction' : 'L’augmentation'} est un multiple de $10 \\%$.
              `)
         this.reponse = c
 
@@ -100,7 +100,7 @@ export default function PoucentageP2 () {
         b = randint(10, 30)
         choix = choice([true, false])
         this.question = ` Une ${choix ? ' réduction' : 'augmentation'} de $${a}~\\%$  d'un article entraîne une ${choix ? 'réduction' : 'augmentation'} du prix de $${b}$ €.<br>
-          Quel était le prix de cet article avant ${choix ? '  la réduction' : 'laugmentation'} ?  `
+          Quel était le prix de cet article avant ${choix ? '  la réduction' : 'l’augmentation'} ?  `
         this.optionsChampTexte = { texteApres: '€' }
         if (a === 25) {
           this.correction = ` $25~\\%$ du prix représente $${b}$ €, donc $100~\\%$ du prix représente $4$ fois plus que $${b}$ € (car $4\\times 25=100$).<br>

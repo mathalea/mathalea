@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureParentheseSiNegatif, calcul, texteEnCouleur } from '../../modules/outils.js'
 
-export const titre = 'Tester si un nombre est solution dune équation'
+export const titre = 'Tester si un nombre est solution d’une équation'
 
 /**
  * Tester si un nombre est solution d'une équation

@@ -15,11 +15,11 @@ export const amcType = 'AMCHybride'
 export const dateDePublication = '05/03/2022'
 
 /**
- * Calculer la largeur dune rivière @author Jean-Claude Lhote
- * Calcul dun parallèle terrestre @author Jean-Claude Lhote
- * Calculer la hauteur dun objet vu sous un angle donné @author Jean-Claude Lhote
- * Calculer la hauteur dune falaise @author Jean-Claude Lhote
- * Calculer la hauteur dune montagne @author Jean-Claude Lhote
+ * Calculer la largeur d’une rivière @author Jean-Claude Lhote
+ * Calcul d’un parallèle terrestre @author Jean-Claude Lhote
+ * Calculer la hauteur d’un objet vu sous un angle donné @author Jean-Claude Lhote
+ * Calculer la hauteur d’une falaise @author Jean-Claude Lhote
+ * Calculer la hauteur d’une montagne @author Jean-Claude Lhote
  * Triangle rectangle inscrit dans un triangle rectangle @author Rémi Angot
  * Fusion des exercices @author Guillaume Valmont
  * Interactivité des exercices, aléatoirisation des figures et des points dans les exos, AMC-isation de tous les exos @author Eric Elter
@@ -36,9 +36,9 @@ export default function problemesTrigoLongueur () {
     Nombres séparés par des tirets :
     1 : Calculer la largeur d'une rivière
     2 : Calcul d'un parallèle terrestre
-    3 : Calculer la hauteur dun objet vu sous un angle donné
-    4 : Calculer la hauteur dune falaise
-    5 : Calculer la hauteur dune montagne
+    3 : Calculer la hauteur d’un objet vu sous un angle donné
+    4 : Calculer la hauteur d’une falaise
+    5 : Calculer la hauteur d’une montagne
     6 : Triangle rectangle inscrit dans un triangle rectangle
     7 : Mélange`
   ]

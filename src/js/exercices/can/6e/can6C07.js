@@ -1,6 +1,6 @@
 import { calcul, randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Trouver le reste dune division par 3'
+export const titre = 'Trouver le reste d’une division par 3'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

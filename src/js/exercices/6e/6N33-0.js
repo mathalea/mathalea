@@ -5,7 +5,7 @@ import { mathalea2d } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Calculer la fraction dune quantité'
+export const titre = 'Calculer la fraction d’une quantité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

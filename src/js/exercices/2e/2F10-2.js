@@ -5,7 +5,7 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 
-export const titre = 'Lecture graphique d\'une fonction affine'
+export const titre = 'Lecture graphique d’une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

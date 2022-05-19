@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, reduireAxPlusB, randint, choice, texFractionReduite } from '../../../modules/outils.js'
 import { tableauDeVariation, mathalea2d } from '../../../modules/2d.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
-export const titre = 'Dresser le tableau de signes dune fonction affine'
+export const titre = 'Dresser le tableau de signes d’une fonction affine'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -173,7 +173,7 @@ export default function TableauSignes () {
       texte = `Dresser le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par $f(x)=${reduireAxPlusB(a, b)}$ `
     }
 
-    texteCorr = `$f$ est une fonction affine. Elle sannule en $x_0=${texFractionReduite(-b, a)}$. `
+    texteCorr = `$f$ est une fonction affine. Elle s’annule en $x_0=${texFractionReduite(-b, a)}$. `
     if (a > 0) {
       texteCorr += `<br>Comme $${a}>0~$, $~f(x)$ est positif pour $~x>${texFractionReduite(-b, a)} ~$ et négatif pour $~x<${texFractionReduite(-b, a)} $<br>`
       ligne1 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+']

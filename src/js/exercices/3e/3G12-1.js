@@ -1,6 +1,6 @@
 import PavagesEtTransformations from '../6e/_Pavages_et_transformations.js'
 
-export const titre = 'Trouver limage dune figure par une rotation de 90 degrés dans un pavage'
+export const titre = 'Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage'
 export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Pavages_et_transformations.js'
 
 /**

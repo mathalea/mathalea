@@ -79,7 +79,7 @@ export default function PlusPetitEnsemble () {
         c = fraction2[0]
         d = fraction2[1]
         this.question = `Quel est le plus petit ensemble de nombres auquel appartient $${choix ? '-' : ''}${choix2 ? `\\dfrac{${a}}{${b}}` : `\\dfrac{${c}}{${d}}`}$ ?`
-        this.correction = `$${choix ? '-' : ''}${choix2 ? `\\dfrac{${a}}{${b}}` : `\\dfrac{${c}}{${d}}=${choix ? '-' : ''}${texNombrec(c / d)}`}$ ${choix2 ? 'n' : ''} est ${choix2 ? 'pas' : ''} un nombre décimal.
+        this.correction = `$${choix ? '-' : ''}${choix2 ? `\\dfrac{${a}}{${b}}` : `\\dfrac{${c}}{${d}}=${choix ? '-' : ''}${texNombrec(c / d)}`}$ ${choix2 ? 'n’' : ''} est ${choix2 ? 'pas' : ''} un nombre décimal.
           On a donc $${choix ? '-' : ''}${choix2 ? `\\dfrac{${a}}{${b}}` : `\\dfrac{${c}}{${d}}`}\\in$ ${choix2 ? '$\\mathbb{Q}$' : '$\\mathbb{D}$'}
               `
         this.reponse = choix2 ? ['q', 'Q'] : ['d', 'D']

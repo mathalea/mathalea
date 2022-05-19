@@ -1,6 +1,6 @@
 import { calcul, randint, texteEnCouleur } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Calculer la fraction dune quantité'
+export const titre = 'Calculer la fraction d’une quantité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
