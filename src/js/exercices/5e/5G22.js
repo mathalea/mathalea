@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, Triangles } from '../../modules/outils.js'
 import { point, mediatrice, codageMediatrice, constructionMediatrice, bissectrice, codageBissectrice, constructionBissectrice, polygone, nommePolygone, rotation, similitude, medianeTriangle, centreGraviteTriangle, hauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, mathalea2d } from '../../modules/2d.js'
-export const titre = 'Déterminer la nature d’une droite remarquable'
+export const titre = 'Déterminer la nature d\'une droite remarquable'
 
 /**
  * 5G22

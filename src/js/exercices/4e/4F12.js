@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, prenomF } from '../../modules/outils.js'
 import { point, polyline, axes, labelX, labelY, grille, repere, courbeInterpolee, texteParPosition, mathalea2d, repere2, courbe2 } from '../../modules/2d.js'
-export const titre = 'Problème s’appuyant sur la lecture d’une représentation graphique'
+export const titre = 'Problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -61,7 +61,7 @@ export default function ExploiterRepresentationGraphique () {
         texte2 = texteParPosition('temps (en s)', (t1 + 0.5) * xscale, 0.4, 'droite')
 
         this.introduction =
-          'On a représenté ci-dessous l’évolution de la hauteur d’un projectile lancé depuis le sol (en mètre) en fonction du temps (en seconde).'
+          'On a représenté ci-dessous l\'évolution de la hauteur d\'un projectile lancé depuis le sol (en mètre) en fonction du temps (en seconde).'
 
         this.introduction +=
           '<br><br>' +
@@ -82,7 +82,7 @@ export default function ExploiterRepresentationGraphique () {
 
         this.introduction +=
           '<br><br>' +
-          'À l’aide de ce graphique, répondre aux questions suivantes :'
+          'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push(
           'Au bout de combien de temps le projectile retombe-t-il au sol ?'
@@ -116,7 +116,7 @@ export default function ExploiterRepresentationGraphique () {
         texte2 = texteParPosition('distance (en m)', xscale * ((t1 + 2) / 4), 0.4, 'droite')
 
         this.introduction =
-            'On a représenté ci-dessous la trajectoire d’un projectile lancé depuis le sol.'
+            'On a représenté ci-dessous la trajectoire d\'un projectile lancé depuis le sol.'
 
         this.introduction +=
             '<br><br>' +
@@ -137,7 +137,7 @@ export default function ExploiterRepresentationGraphique () {
 
         this.introduction +=
             '<br><br>' +
-            'À l’aide de ce graphique, répondre aux questions suivantes :'
+            'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push(
           'À quelle ditance le projectile est-il retombé ?'
@@ -202,7 +202,7 @@ export default function ExploiterRepresentationGraphique () {
           scale: 1
         }, g1, g2, g3, l, texte1, texte2, l1, l2)
 
-        this.introduction += '<br><br>' + 'À l’aide de ce graphique, répondre aux questions suivantes :'
+        this.introduction += '<br><br>' + 'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push('Pendant combien de temps a-t-elle fait du vélo ?')
         this.listeCorrections.push('Elle a fait du vélo pendant 40 minutes.')
@@ -246,7 +246,7 @@ export default function ExploiterRepresentationGraphique () {
           24
         )
         this.introduction =
-          'On a représenté ci-dessous l’évolution de la température sur une journée.'
+          'On a représenté ci-dessous l\'évolution de la température sur une journée.'
         this.introduction +=
           '<br><br>' +
           mathalea2d(
@@ -264,7 +264,7 @@ export default function ExploiterRepresentationGraphique () {
 
         this.introduction +=
           '<br><br>' +
-          'À l’aide de ce graphique, répondre aux questions suivantes :'
+          'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push(
           'Quelle est la température la plus froide de la journée ?'

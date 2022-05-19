@@ -5,7 +5,7 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
 
-export const titre = 'Lire l’abscisse décimale d’un point (niveau 2)'
+export const titre = 'Lire l\'abscisse décimale d\'un point (niveau 2)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -20,7 +20,7 @@ export const dateDeModificationImportante = '01/02/2022'
  */
 export default function LireAbscisseDecimaleBis2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Lire l’abscisse de chacun des points suivants et donner le résultat sous la forme d’un nombre en écriture décimale.'
+  this.consigne = 'Lire l\'abscisse de chacun des points suivants et donner le résultat sous la forme d\'un nombre en écriture décimale.'
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
   this.nbCols = 1

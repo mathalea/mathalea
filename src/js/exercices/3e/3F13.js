@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, calcul, resolutionSystemeLineaire2x2 } from '../../modules/outils.js'
 import { courbe2, mathalea2d, repere2 } from '../../modules/2d.js'
-export const titre = 'Lire les antécédents d’un nombre à partir d’un graphique'
+export const titre = 'Lire les antécédents d\'un nombre à partir d\'un graphique'
 
 /**
 * Un graphique étant tracé, déterminer les antécédents de nombres donnés.

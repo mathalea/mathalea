@@ -78,7 +78,7 @@ export default function calculEffectifFrequence () {
     texte = texte.substring(0, texte.length - 2)
     texte += '). '
 
-    texte += 'Voici un diagramme en barres qui donne le nombre d’individus pour chaque espèce.<br>'
+    texte += 'Voici un diagramme en barres qui donne le nombre d\'individus pour chaque espèce.<br>'
     texte += numAlpha(0) + ' Quel est l\'effectif des ' + lstAnimauxExo[0] + ' ?<br>'
     texte += ajouteChampTexteMathLive(this, 1)
     texte += numAlpha(1) + ' Calculer la fréquence des ' + lstAnimauxExo[1] + ' ? Donner le résultat sous la forme d\'un pourcentage.<br>'
