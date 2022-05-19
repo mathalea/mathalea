@@ -56,7 +56,7 @@ export default function CalculsLoiNormale () {
           r = repere2({ xMin: -4, xMax: 4, yMin: -1, yMax: 3, xUnite: 2, yUnite: 6, axesEpaisseur: 1, yThickDistance: 0.5 })
           C = courbe2(gaussienne, { repere: r, step: 0.1 })
           I = integrale(gaussienne, { repere: r, step: 0.1, a: variables.a, b: variables.b, hachures: 0 })
-          graphique = mathalea2d({ xmin: -9, xmax: 9, ymin: -0.8, ymax: 2.8, pixelsParCm: 30 }, r, C, I)
+          graphique = mathalea2d({ xmin: -9, xmax: 9, ymin: -0.8, ymax: 2.8, pixelsParCm: 30, scale: 0.75 }, r, C, I)
           bornea = texNombre(variables.a)
           oppbornea = texNombre(-variables.a)
           borneb = texNombre(variables.b)
@@ -67,7 +67,7 @@ export default function CalculsLoiNormale () {
           expression = `$\\mathrm{P}(${bornea} < X < ${borneb})$`
           calculstep = []
           texte = 'Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(0,1)$. <br> Calculer à $10^{-2}$ près la probabilité : ' + expression
-          texte += +graphique < '<br'
+          texte += '<br>' + graphique
           texteCorr = 'On décompose pour exprimer la probabilité avec la fonction de répartition $t \\mapsto \\mathrm{P}(X \\leq t)$ en utilisant la tabulation de ses valeurs pour $t \\geq 0$ : <br>'
           calculstep.push(`\\mathrm{P}(${bornea} < X < ${borneb}) &=  \\mathrm{P}(X < ${borneb}) - \\mathrm{P}(X \\leq ${bornea}) &&`)
           if (variables.b < 0) {
@@ -111,7 +111,7 @@ export default function CalculsLoiNormale () {
           r = repere2({ axeYisVisible: false, xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, xUnite: 2 / variables.sigma, yUnite: 6 * variables.sigma, axesEpaisseur: 1, xThickListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], xLabelListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], yThickDistance: 0.5, grilleXMin: variables.mu - 4 * variables.sigma, grilleXDistance: variables.sigma })
           C = courbe2(gaussienne, { repere: r, step: 0.1 })
           I = integrale(gaussienne, { repere: r, step: 0.1, a: variables.a * variables.sigma + variables.mu, b: variables.b * variables.sigma + variables.mu, hachures: 0 })
-          graphique = mathalea2d({ xmin: (-5 * variables.sigma + variables.mu) * r.xUnite, xmax: (5 * variables.sigma + variables.mu) * r.xUnite, ymin: -0.8, ymax: 2.8, pixelsParCm: 30 }, r, C, I)
+          graphique = mathalea2d({ xmin: (-5 * variables.sigma + variables.mu) * r.xUnite, xmax: (5 * variables.sigma + variables.mu) * r.xUnite, ymin: -0.8, ymax: 2.8, pixelsParCm: 30, scale: 0.75 }, r, C, I)
           bornec = texNombre(variables.a * variables.sigma + variables.mu)
           borned = texNombre(variables.b * variables.sigma + variables.mu)
           bornea = texNombre(variables.a)
@@ -124,7 +124,7 @@ export default function CalculsLoiNormale () {
           expression = `$\\mathrm{P}(${bornec} < X < ${borned})$`
           calculstep = []
           texte = `Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer à $10^{-2}$ près la probabilité : ` + expression
-          texte += graphique
+          texte += +graphique < '<br'
           if (variables.mu < 0) {
             texteCorr = `On pose $Z = \\frac{X + ${texNombre(-variables.mu)}}{${sigma}}$ `
             calculstep.push(`\\mathrm{P}(${bornec} < X < ${borned}) &=  \\mathrm{P}\\left(\\frac{${bornec} + ${texNombre(-variables.mu)}}{${sigma}}   < \\frac{X + ${texNombre(-variables.mu)}}{${sigma}} < \\frac{${borned} + ${texNombre(-variables.mu)}}{${sigma}}  \\right) &&`)
@@ -174,7 +174,7 @@ export default function CalculsLoiNormale () {
           r = repere2({ axeYisVisible: false, xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, xUnite: 2 / variables.sigma, yUnite: 6 * variables.sigma, axesEpaisseur: 1, xThickListe: [-variables.a * variables.sigma + variables.mu, variables.mu, variables.a * variables.sigma + variables.mu], xLabelListe: [-variables.a * variables.sigma + variables.mu, variables.mu, variables.a * variables.sigma + variables.mu], yThickDistance: 0.5, grilleXMin: variables.mu - 4 * variables.sigma, grilleXDistance: variables.sigma })
           C = courbe2(gaussienne, { repere: r, step: 0.1 })
           I = integrale(gaussienne, { repere: r, step: 0.1, a: -variables.a * variables.sigma + variables.mu, b: variables.a * variables.sigma + variables.mu, hachures: 0 })
-          graphique = mathalea2d({ xmin: r.xUnite * (-5 * variables.sigma + variables.mu), xmax: (5 * variables.sigma + variables.mu) * r.xUnite, ymin: -0.8, ymax: 2.8, pixelsParCm: 30 }, r, C, I)
+          graphique = mathalea2d({ xmin: r.xUnite * (-5 * variables.sigma + variables.mu), xmax: (5 * variables.sigma + variables.mu) * r.xUnite, ymin: -0.8, ymax: 2.8, pixelsParCm: 30, scale: 0.75 }, r, C, I)
           bornec = texNombre(-variables.a * variables.sigma + variables.mu)
           borned = texNombre(variables.a * variables.sigma + variables.mu)
           bornea = texNombre(-variables.a)
