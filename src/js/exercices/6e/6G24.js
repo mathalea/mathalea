@@ -1,5 +1,5 @@
 import Transformations from './_Transformations.js'
-export const titre = 'Trouver l’image d’un point par une symétrie axiale'
+export const titre = 'Trouver l\'image d\'un point par une symétrie axiale'
 export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Transformations.js'
 
 /**

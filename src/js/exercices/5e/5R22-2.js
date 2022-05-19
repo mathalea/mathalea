@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, ecritureNombreRelatif, ecritureAlgebrique, combinaisonListes } from '../../modules/outils.js'
 
-export const titre = 'Simplifier l’écriture d’une somme de 2 relatifs et calculer'
+export const titre = 'Simplifier l\'écriture d\'une somme de 2 relatifs et calculer'
 
 /**
 * Simplifier l'écriture d'une somme de 2 relatifs et calculer

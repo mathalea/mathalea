@@ -4,7 +4,7 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Simplifier l’écriture d’une expression littérale'
+export const titre = 'Simplifier l\'écriture d\'une expression littérale'
 
 export const dateDePublication = '07/04/2022'
 
@@ -15,7 +15,7 @@ export const dateDePublication = '07/04/2022'
 */
 export default function NomExercice () {
   Exercice.call(this)
-  this.consigne = 'Simplifie l’écriture'
+  this.consigne = 'Simplifie l\'écriture'
   this.nbQuestions = 10
 
   this.besoinFormulaireNumerique = ['Type de simplification', 3, '1 : × devant une lettre ou une parenthèse\n2 : Carré et cube\n3 : Mélange']

@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureA
 import { repere, courbe, mathalea2d } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 
-export const titre = 'Trouver l’équation d’une parabole'
+export const titre = 'Trouver l\'équation d\'une parabole'
 
 /**
  * @author Jean-Claude Lhote
