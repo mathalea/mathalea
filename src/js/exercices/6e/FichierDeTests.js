@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { point, mathalea2d, tracePoint, segment, colorToLatexOrHTML, droite, polygone, cercle, labelPoint, codageAngleDroit, codeSegment, texteParPoint, codageMediatrice, codageMilieu, codeAngle, codageBissectrice, nomVecteurParPosition, ellipse, arc, constructionBissectrice, codageHauteurTriangle, codageMedianeTriangle, afficheLongueurSegment, texteSurSegment, vecteur, pointIntersectionLC, texteSurArc, grilleVerticale, grilleHorizontale, lectureImage } from '../../modules/2d.js'
+import { point, mathalea2d, tracePoint, segment, colorToLatexOrHTML, droite, polygone, cercle, labelPoint, codageAngleDroit, codeSegment, texteParPoint, codageMediatrice, codageMilieu, codeAngle, codageBissectrice, nomVecteurParPosition, ellipse, arc, constructionBissectrice, codageHauteurTriangle, codageMedianeTriangle, afficheLongueurSegment, texteSurSegment, vecteur, pointIntersectionLC, texteSurArc, grilleVerticale, grilleHorizontale, lectureImage, constructionMediatrice } from '../../modules/2d.js'
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -77,16 +77,16 @@ export default function CalculedddrUnAngle () {
       const p22 = texteSurSegment('JCL', B, C, '#f15929', 0.4, false)
       const p23 = vecteur(A, C)
       const p24 = tracePoint(pointIntersectionLC(p6, p3, 'K', 1))
-      const p25 = texteSurSegment('Rémi', D, E, '#f15929', 0.4, true)
+      const p25 = texteSurSegment('', D, E, '#f15929', 0.4, true)
       const p26 = texteSurArc('MathALEA', D, E, 70, '#f15929')
+      const p27 = constructionMediatrice(D, E, true, '#f15929', 'x')
       // const p27 = grilleHorizontale(-3, -1, 7, 5, '#f15929')
-      // const p28 = lectureImage(-2, -3)
       const p29 = lectureImage(2, 3, 1, 1, 'blue')
-      // objetsEnonce.push(p1, p2, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p19, p20, p21, p22)
+      objetsEnonce.push(p1, p2, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p19, p20, p21, p22)
       // objetsEnonce.push(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
       // objetsEnonce.push(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
-      // objetsEnonce.push(p23.representant(A, '#f15929'), p24, p16, p19a, p25, p26, p28)
-      objetsEnonce.push(p29)
+      objetsEnonce.push(p23.representant(A, '#f15929'), p24, p16, p19a, p25, p26, p29, p27)
+      // objetsEnonce.push(p29)
       texte += 'essai'
       paramsEnonce = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false, amplitude: 0.5 }
       texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)

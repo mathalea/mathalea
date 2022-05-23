@@ -1330,7 +1330,7 @@ export function codageMilieu (...args) {
   return new CodageMilieu(...args)
 }
 /**
- * m = constructionMediatrice(A,B,false,'blue','×') // Trace et code la médiatrice en laissant apparent les traits de construction au compas
+ * m = constructionMediatrice(A,B,true,'blue', '×', '||', 'red', 1) // Trace et code la médiatrice en laissant apparent les traits de construction au compas
  *
  * @author Rémi Angot
  */
@@ -1342,11 +1342,13 @@ function ConstructionMediatrice (
   markmilieu = '×',
   markrayons = '||',
   couleurMediatrice = 'red',
-  epaisseurMediatrice = 2
+  epaisseurMediatrice = 1
 ) {
   if (longueur(A, B) < 0.1) window.notify('ConstructionMediatrice : Points trop rapprochés pour créer cet objet', { A, B })
 
   ObjetMathalea2D.call(this)
+  this.couleurMediatrice = couleurMediatrice
+  this.color = color
   const O = milieu(A, B)
   const m = rotation(A, O, 90)
   const n = rotation(A, O, -90)
@@ -1357,26 +1359,28 @@ function ConstructionMediatrice (
   const arcn1 = traceCompas(A, N)
   const arcn2 = traceCompas(B, N)
   const d = mediatrice(A, B)
+  /*
   arcm1.isVisible = false
   arcm2.isVisible = false
   arcn1.isVisible = false
   arcn2.isVisible = false
   d.isVisible = false
-  d.color = colorToLatexOrHTML(couleurMediatrice)
+  */
+  d.color = colorToLatexOrHTML(this.couleurMediatrice)
   d.epaisseur = epaisseurMediatrice
-  const codage = codageMediatrice(A, B, color, markmilieu)
+  const codage = codageMediatrice(A, B, this.color, markmilieu)
   codage.isVisible = false
   const objets = [arcm1, arcm2, arcn1, arcn2, d, codage]
   if (detail) {
-    const sAM = segment(A, M)
+    const sAM = segment(A, M, this.color)
     sAM.pointilles = true
-    const sBM = segment(B, M)
+    const sBM = segment(B, M, this.color)
     sBM.pointilles = true
-    const sAN = segment(A, N)
+    const sAN = segment(A, N, this.color)
     sAN.pointilles = true
-    const sBN = segment(B, N)
+    const sBN = segment(B, N, this.color)
     sBN.pointilles = true
-    const codes = codeSegments(markrayons, color, A, M, B, M, A, N, B, N)
+    const codes = codeSegments(markrayons, this.color, A, M, B, M, A, N, B, N)
     objets.push(sAM, sBM, sAN, sBN, codes, codage)
   }
   this.svg = function (coeff) {
@@ -5240,7 +5244,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
     if (label !== '') {
       mesureAngle = label
     } else {
-      mesureAngle = Math.round(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee), 0) + '°'
+      mesureAngle = Math.round(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee)) + '°'
     }
     const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
     const marque = arc(M, B, this.angle, rayon, fill, colorArc, fillOpacite)
@@ -5511,7 +5515,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const M = pointSurSegment(this.centre, P, this.taille + 0.6 * 20 / coeff)
     const d = droite(this.centre, P)
     d.isVisible = false
-    const mesure = Math.round(Math.abs(angle), 0) + '°'
+    const mesure = Math.round(Math.abs(angle)) + '°'
     const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', this.couleurDeRemplissage, this.color)
     arcangle.isVisible = false
     arcangle.opacite = this.opacite
@@ -5548,7 +5552,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / context.pixelsParCm)
     const P = rotation(depart, this.centre, this.angle / 2)
     const M = pointSurSegment(this.centre, P, taille + 0.6 * 20 / coeff)
-    const mesure = Math.round(Math.abs(angle), 0) + '°'
+    const mesure = Math.round(Math.abs(angle)) + '°'
     const d = droite(this.centre, P)
     d.isVisible = false
     const arcangle = arc(depart, this.centre, this.angle, false, this.couleurDeRemplissage, this.color)
@@ -5565,7 +5569,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const depart = pointSurSegment(this.centre, this.debut, this.taille / context.scale)
     const P = rotation(depart, this.centre, this.angle / 2)
     const M = pointSurSegment(this.centre, P, taille + 0.6 / context.scale)
-    const mesure = Math.round(Math.abs(angle), 0) + '°'
+    const mesure = Math.round(Math.abs(angle)) + '°'
     const d = droite(this.centre, P)
     d.isVisible = false
     const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', this.couleurDeRemplissage, this.color)
@@ -5583,7 +5587,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     // const P = rotation(depart, this.centre, this.angle / 2)
     const M = rotation(depart, this.centre, this.angle / 2)
     // const M = pointSurSegment(this.centre, P, taille + 0.6 / context.scale)
-    const mesure = Math.round(Math.abs(angle), 0) + '°'
+    const mesure = Math.round(Math.abs(angle)) + '°'
     // const d = droite(this.centre, P)
     const d = droite(this.centre, M)
     d.isVisible = false
@@ -9382,7 +9386,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [${color[1]}] (${A.x},${A.y
+        code = `\\draw [color=${this.color[1]}] (${A.x},${A.y
           }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
@@ -9395,7 +9399,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
         if (orientation === 'milieu') {
           anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
         }
-        code = `\\draw [${color[1]}] (${A.x},${A.y}) ${anchor} {${texte}};`
+        code = `\\draw [color=${this.color[1]}] (${A.x},${A.y}) ${anchor} {${texte}};`
       }
       return code
     }
@@ -9448,7 +9452,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [${color[1]},fill opacity = ${this.opacite}] (${A.x},${A.y
+        code = `\\draw [color=${this.color[1]},fill opacity = ${this.opacite}] (${A.x},${A.y
         }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
@@ -9461,7 +9465,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
         if (orientation === 'milieu') {
           anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
         }
-        code = `\\draw [${color[1]},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
+        code = `\\draw [color=${this.color[1]},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
       }
       return code
     }
@@ -9774,8 +9778,9 @@ function ObjetLutin () {
   this.costume = ''
   this.listeTraces = [] // [[x0,y0,x1,y1,style]...]
   this.color = 'black'
+  this.color = 'red'
   this.epaisseur = 2
-  this.pointilles = false
+  this.pointilles = true
   this.opacite = 1
   this.style = ''
   this.animation = ''
@@ -9841,7 +9846,7 @@ function ObjetLutin () {
 /**
  * Crée une nouvelle instance de l'objet lutin
  * @param  {...any} args En fait, il n'y a pas d'argument... il faudra les renseigner après la création de l'objet.
- * Voire l'objet lutin pour la liste de ses attributs (lutin.x, lutin.y, lutin.orientation, ...)
+ * Voir l'objet lutin pour la liste de ses attributs (lutin.x, lutin.y, lutin.orientation, ...)
  * @returns Instance d'un lutin
  */
 export function creerLutin (...args) {
