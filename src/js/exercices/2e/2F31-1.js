@@ -5,7 +5,7 @@ export const titre = 'Utiliser les variations des fonctions de référence pour 
 export const dateDePublication = '07/01/2022'
 /**
  * Description didactique de l'exercice
- * @author Gilles Mora // Suppression des calcul() inutiles et mise en place de Decimal par Jean-Claude Lhote
+ * @author Gilles Mora // Suppression de calcul et mise en place de Decimal par Jean-Claude Lhote
  * Référence
 */
 function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
