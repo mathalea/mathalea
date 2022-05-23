@@ -6513,8 +6513,21 @@ export function introLatex (entete = 'Exercices', listePackages = '') {
   if (entete === '') { entete = 'Exercices' }
   return `\\documentclass[12pt]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
-\\usepackage[utf8]{inputenc}        
-\\usepackage[T1]{fontenc}
+%\\usepackage[utf8]{inputenc}        
+%\\usepackage[T1]{fontenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXIT WARNING DÛ À LA COMPILATION XETEX %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\usepackage{ifxetex}
+
+\\ifxetex
+  \\usepackage{fontspec}
+\\else
+  \\usepackage[T1]{fontenc}
+  \\usepackage[utf8]{inputenc}
+  \\usepackage{lmodern}
+\\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\usepackage[french]{babel}
 \\usepackage{multicol} 
 \\usepackage{calc} 
@@ -6583,8 +6596,21 @@ export function introLatexCan (entete = 'Course aux nombres', listePackages = ''
   if (entete === '') { entete = 'Course aux nombres' }
   return `\\documentclass[12pt, landscape]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
-\\usepackage[utf8]{inputenc}        
-\\usepackage[T1]{fontenc}
+%\\usepackage[utf8]{inputenc}        
+%\\usepackage[T1]{fontenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXIT WARNING DÛ À LA COMPILATION XETEX %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\usepackage{ifxetex}
+
+\\ifxetex
+  \\usepackage{fontspec}
+\\else
+  \\usepackage[T1]{fontenc}
+  \\usepackage[utf8]{inputenc}
+  \\usepackage{lmodern}
+\\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\usepackage[french]{babel}
 \\usepackage{multicol} 
 \\usepackage{calc} 
@@ -6658,8 +6684,21 @@ ${preambulePersonnalise(listePackages)}
 export function introLatexCoop (listePackages) {
   const introLatexCoop = `\\documentclass[12pt]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
-\\usepackage[utf8]{inputenc}        
-\\usepackage[T1]{fontenc}
+%\\usepackage[utf8]{inputenc}        
+%\\usepackage[T1]{fontenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXIT WARNING DÛ À LA COMPILATION XETEX %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\usepackage{ifxetex}
+
+\\ifxetex
+  \\usepackage{fontspec}
+\\else
+  \\usepackage[T1]{fontenc}
+  \\usepackage[utf8]{inputenc}
+  \\usepackage{lmodern}
+\\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\usepackage[french]{babel}
 \\usepackage{hyperref}
 \\usepackage{multicol} 
