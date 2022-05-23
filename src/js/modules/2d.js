@@ -5260,7 +5260,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
     if (label !== '') {
       mesureAngle = label
     } else {
-      mesureAngle = Math.round(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee), 0) + '\\degree'
+      mesureAngle = Math.round(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee)) + '\\degree'
     }
     const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
     const marque = arc(M, B, this.angle, rayon, fill, colorArc, fillOpacite)

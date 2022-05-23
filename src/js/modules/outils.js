@@ -1337,20 +1337,21 @@ export function troncature (nombre, precision) {
 
 /**
 * Renvoie la valeur absolue
-* @author Rémi Angot
+* @author Rémi Angot + ajout du support des décimaux par Jean-Claude Lhote
 */
 export function abs (a) {
+  if (a instanceof Decimal) return a.abs()
   return Math.abs(a)
 }
 
 /**
 * Retourne un arrondi sous la forme d'un string avec une virgule comme séparateur décimal
-* @author Rémi Angot
+* @author Rémi Angot Fonction rendue inutile par Jean-Claude Lhote : lui substituer texNombre ou stringNombre selon le contexte.
 */
-export function arrondiVirgule (nombre, precision = 2) { //
-  // const tmp = Math.pow(10, precision)
-  return String(round(nombre, precision)).replace('.', ',')
-}
+// export function arrondiVirgule (nombre, precision = 2) { //
+// const tmp = Math.pow(10, precision)
+//  return String(round(nombre, precision)).replace('.', ',')
+// }
 
 /**
 * Retourne égal si la valeur égal l'arrondi souhaité ou environ égal si ce n'est pas le cas
@@ -1491,7 +1492,7 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
     result += `\\dfrac{${texNombrec(b)}\\times${texNombrec(c)}}{${texNombrec(a)}}`
     if (p4 === arrondi(p4, precision)) result += '='
     else result += '\\approx'
-    result += `${arrondiVirgule(p4, precision)}`
+    result += `${texNombre(p4, precision)}`
     return result
   } else {
     return `\\dfrac{${b} \\times${c}}{${a}}`
@@ -3013,6 +3014,10 @@ export function href (texte, lien) {
 */
 export function texPrix (nb) {
   // Remplace le . par la ,
+  if (nb instanceof Decimal) {
+    if (nb.isInteger()) return texNombre(nb, 0)
+    else return texNombre(nb, 2, true)
+  }
   const nombre = Number(nb)
   let result
   if (nombre.toString() === nombre.toFixed(0)) {
@@ -7579,7 +7584,13 @@ export function exportQcmAmc (exercice, idExo) {
       }
     }
     let valeurAMCNum = 0
-    if (autoCorrection[j].reponse !== undefined) { valeurAMCNum = autoCorrection[j].reponse.valeur[0] }
+    if (autoCorrection[j].reponse !== undefined) {
+      if (!Array.isArray(autoCorrection[j].reponse.valeur)) autoCorrection[j].reponse.valeur = [autoCorrection[j].reponse.valeur]
+      valeurAMCNum = autoCorrection[j].reponse.valeur[0]
+      if (typeof valeurAMCNum === 'string') {
+        valeurAMCNum = valeurAMCNum.replace(/\s/g, '').replace(',', '.')
+      }
+    }
     switch (type) {
       case 'qcmMono': // question QCM 1 bonne réponse
         if (elimineDoublons(autoCorrection[j].propositions)) {

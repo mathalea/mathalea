@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { homothetie, codeAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
-import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
+import { stringNombre, calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
@@ -270,7 +270,7 @@ export default function CalculDeLongueur () {
           ],
           reponse: {
             texte: 'résultat',
-            valeur: [reponse],
+            valeur: [stringNombre(reponse, 4, true)],
             param: {
               digits: 3,
               decimals: 1,
@@ -284,7 +284,7 @@ export default function CalculDeLongueur () {
       }
       if (context.isHtml) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' cm' })
-        setReponse(this, i, arrondi(reponse, 1), { formatInteractif: 'calcul' })
+        setReponse(this, i, stringNombre(reponse, 4, true), { formatInteractif: 'calcul' })
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

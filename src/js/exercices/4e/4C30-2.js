@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, puissan
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { Decimal } from 'decimal.js'
-export const titre = 'Écriture décimale d’une puissance de 10'
+export const titre = 'Écriture décimale d\'une puissance de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

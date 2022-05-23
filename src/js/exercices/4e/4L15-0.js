@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, combinaisonListesSansChangerOrdre, ecritureParentheseSiNegatif, fractionSimplifiee, prenomF, prenomM, miseEnEvidence, texteEnCouleur, texteGras } from '../../modules/outils.js'
-export const titre = 'Trouver l’erreur dans une résolution d’équation du premier degré'
+export const titre = 'Trouver l\'erreur dans une résolution d\'équation du premier degré'
 
 /**
  * * Trouver l'erreur dans une equation

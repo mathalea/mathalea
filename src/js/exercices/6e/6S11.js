@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, arrondiVirgule, prenom, texNombre, premiereLettreEnMajuscule, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, shuffle, texNombre, prenom, premiereLettreEnMajuscule, numAlpha } from '../../modules/outils.js'
 export const titre = 'Organiser des données dans un tableau'
 
 /**
@@ -139,7 +139,7 @@ export default function OrganiserDonneesDepuisTexte () {
         texteCorr += '& ' + texNombre(lstTabVal[i][j]) // valeur dans le tableau
         S += lstTabVal[i][j] // somme d'une ligne
       }
-      texteCorr += '& ' + arrondiVirgule(S)
+      texteCorr += '& ' + texNombre(S)
       texteCorr += '\\\\\\hline\n'
     }
     texteCorr += 'TOTAL'
@@ -150,19 +150,19 @@ export default function OrganiserDonneesDepuisTexte () {
         S += lstTabVal[i][j] // somme d'une colonne
       }
       // texteCorr += '& ' + Math.round(S*10)/10;
-      texteCorr += '& ' + arrondiVirgule(S, 1)
+      texteCorr += '& ' + texNombre(S, 1)
       // texteCorr += '& ' + texNombre(S,1);
       SommeTotale += S
     }
-    texteCorr += '& ' + arrondiVirgule(SommeTotale)
+    texteCorr += '& ' + texNombre(SommeTotale)
     texteCorr += '\\\\\\hline\n'
     texteCorr += '\\end{array}\n$'
     texteCorr += '<br>'
 
     // Question 2 :
-    SommeTotale = arrondiVirgule(SommeTotale)
+    SommeTotale = texNombre(SommeTotale)
     if (this.sup) {
-      texteCorr += numAlpha(1) + ` La masse totale de fruits est : ${SommeTotale} kg. <br>`
+      texteCorr += numAlpha(1) + ` La masse totale de fruits est : $${SommeTotale}$ kg. <br>`
     } else {
       texteCorr += numAlpha(1) + ` Le nombre total de fruits est : ${SommeTotale}. <br>`
     }
@@ -184,7 +184,7 @@ export default function OrganiserDonneesDepuisTexte () {
         lstmax = [lstPrenomExo[i]]
       }
     }
-    nmax = arrondiVirgule(nmax, 1)
+    nmax = texNombre(nmax, 1)
     if (lstmax.length > 1) {
       texteCorr += 'Les personnes qui ont rapporté le plus de fruits sont : '
       texteCorr += lstmax[0]
@@ -192,15 +192,15 @@ export default function OrganiserDonneesDepuisTexte () {
         texteCorr += ` et ${lstmax[k]}`
       }
       if (this.sup) {
-        texteCorr += `. La masse maximale rapportée est de ${nmax} kg.<br>`
+        texteCorr += `. La masse maximale rapportée est de $${nmax}$ kg.<br>`
       } else {
-        texteCorr += `. Le nombre maximal de fruits rapporté par une personne est de ${nmax}.<br>`
+        texteCorr += `. Le nombre maximal de fruits rapporté par une personne est de $${nmax}$.<br>`
       }
     } else {
       if (this.sup) {
-        texteCorr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Cette masse maximale est de ${nmax} kg.<br>`
+        texteCorr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Cette masse maximale est de $${nmax}$ kg.<br>`
       } else {
-        texteCorr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Ce nombre maximal de fruits est de ${nmax}.<br>`
+        texteCorr += `La personne qui a rapporté le plus de fruits est ${lstmax}. Ce nombre maximal de fruits est de $${nmax}$.<br>`
       }
     }
 
@@ -221,7 +221,7 @@ export default function OrganiserDonneesDepuisTexte () {
         fmax = [lstFruitExo[j]]
       }
     }
-    nmax = arrondiVirgule(nmax, 1)
+    nmax = texNombre(nmax, 1)
     if (fmax.length > 1) {
       if (this.sup) {
         texteCorr += 'Les fruits présents en la plus grosse quantité sont : '
@@ -233,12 +233,12 @@ export default function OrganiserDonneesDepuisTexte () {
       for (let k = 1; k < fmax.length; k++) {
         texteCorr += ` et les ${fmax[k]}s`
       }
-      texteCorr += `. Il y en a ${nmax} de chaque sorte.<br>`
+      texteCorr += `. Il y en a $${nmax}$ de chaque sorte.<br>`
     } else {
       if (this.sup) {
-        texteCorr += `Il y a plus de ${fmax}s que d'autres fruits. Il y en a ${nmax} kg.`
+        texteCorr += `Il y a plus de ${fmax}s que d'autres fruits. Il y en a $${nmax}$ kg.`
       } else {
-        texteCorr += `Il y a plus de ${fmax}s que d'autres fruits. Il y en a ${nmax}.`
+        texteCorr += `Il y a plus de ${fmax}s que d'autres fruits. Il y en a $${nmax}$.`
       }
     }
 

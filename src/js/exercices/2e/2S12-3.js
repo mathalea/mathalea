@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, texteEnCouleur, calcul, texNombre, texNombrec, arrondi, egalOuApprox } from '../../modules/outils.js'
-export const titre = 'Déterminer un taux d’évolution réciproque'
+export const titre = 'Déterminer un taux d\'évolution réciproque'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '16/01/2022'

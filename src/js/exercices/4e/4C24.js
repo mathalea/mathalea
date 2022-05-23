@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, choice, decompositionFacteursPremiersBarres } 
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionX from '../../modules/FractionEtendue.js'
-export const titre = 'Simplifier des fractions à l’aide des nombres premiers'
+export const titre = 'Simplifier des fractions à l\'aide des nombres premiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
