@@ -3328,10 +3328,10 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
   this.pointilles = false
-  const med = rotation(M, Omega, angle / 2)
   if (typeof (angle) !== 'number') {
     angle = angleOriente(M, Omega, angle)
   }
+  const med = rotation(M, Omega, angle / 2)
   const l = longueur(Omega, M); let large = 0; let sweep = 0
   const A = point(Omega.x + 1, Omega.y)
   const azimut = angleOriente(A, Omega, M)
@@ -3613,6 +3613,262 @@ export function traceCompas (
   return a
 }
 
+function SemiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
+  ObjetMathalea2D.call(this)
+  this.color = colorToLatexOrHTML(color)
+  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+  this.opaciteDeRemplissage = fillOpacite
+  this.hachures = false
+  this.couleurDesHachures = 'black'
+  this.epaisseurDesHachures = 1
+  this.distanceDesHachures = 10
+  this.pointilles = pointilles
+  const angle = emisphere === 'nord' ? 180 : -180
+  const M = point(centre.x + Rx, centre.y)
+  const med = homothetie(rotation(M, centre, angle / 2), centre, Ry / Rx)
+
+  let large = 0; let sweep = 0
+  if (angle > 180) {
+    sweep = 0 // option pour path : permet de savoir quel morceau de cercle tracé parmi les 2 possibles. Voir https://developer.mozilla.org/fr/docs/Web/SVG/Tutorial/Paths pour plus de détails
+    large = 1 // option pour path : permet de savoir sur un morceau de cercle choisi, quel parcours prendre.
+  } else if (angle < -180) {
+    large = 1
+    sweep = 1
+  } else {
+    large = 0
+    sweep = 1 - (angle > 0)
+  }
+  const N = rotation(M, centre, angle)
+  this.bordures = [Math.min(M.x, N.x, med.x) - 0.1, Math.min(M.y, N.y, med.y) - 0.1, Math.max(M.x, N.x, med.x) + 0.1, Math.max(M.y, N.y, med.y) + 0.1]
+  if (rayon) {
+    this.svg = function (coeff) {
+      this.style = ''
+      if (this.epaisseur !== 1) {
+        this.style += ` stroke-width="${this.epaisseur}" `
+      }
+      if (this.pointilles) {
+        switch (this.pointilles) {
+          case 1:
+            this.style += ' stroke-dasharray="6 10" '
+            break
+          case 2:
+            this.style += ' stroke-dasharray="6 3" '
+            break
+          case 3:
+            this.style += ' stroke-dasharray="3 2 6 2 " '
+            break
+          case 4:
+            this.style += ' stroke-dasharray="1 2" '
+            break
+          default:
+            this.style += ' stroke-dasharray="5 5" '
+            break
+        }
+      }
+      if (this.hachures) {
+        if (this.couleurDeRemplissage.length < 1) {
+          this.couleurDeRemplissage = colorToLatexOrHTML('none')
+        }
+
+        return pattern({
+          motif: this.hachures,
+          id: this.id,
+          distanceDesHachures: this.distanceDesHachures,
+          epaisseurDesHachures: this.epaisseurDesHachures,
+          couleurDesHachures: this.couleurDesHachures,
+          couleurDeRemplissage: this.couleurDeRemplissage[0],
+          opaciteDeRemplissage: this.opaciteDeRemplissage
+        }) + `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${Rx * coeff} ${Ry * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${centre.xSVG(coeff)} ${centre.ySVG(coeff)} Z" stroke="${this.color[0]}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+      } else {
+        if (this.opacite !== 1) {
+          this.style += ` stroke-opacity="${this.opacite}" `
+        }
+        if (this.couleurDeRemplissage[0] !== 'none') {
+          this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
+        }
+
+        return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${Rx * coeff} ${Ry * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${centre.xSVG(coeff)} ${centre.ySVG(coeff)} Z" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style}/>`
+      }
+    }
+  } else {
+    this.svg = function (coeff) {
+      this.style = ''
+      if (this.epaisseur !== 1) {
+        this.style += ` stroke-width="${this.epaisseur}" `
+      }
+      if (this.pointilles) {
+        switch (this.pointilles) {
+          case 1:
+            this.style += ' stroke-dasharray="6 10" '
+            break
+          case 2:
+            this.style += ' stroke-dasharray="6 3" '
+            break
+          case 3:
+            this.style += ' stroke-dasharray="3 2 6 2 " '
+            break
+          case 4:
+            this.style += ' stroke-dasharray="1 2" '
+            break
+          default:
+            this.style += ' stroke-dasharray="5 5" '
+            break
+        }
+      }
+      if (this.opacite !== 1) {
+        this.style += ` stroke-opacity="${this.opacite}" `
+      }
+      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
+
+      return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${Rx * coeff} ${Ry * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style} id="${this.id}" />`
+    }
+  }
+  this.tikz = function () {
+    let optionsDraw = []
+    const tableauOptions = []
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
+    }
+    if (this.epaisseur !== 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`)
+    }
+    if (this.pointilles) {
+      switch (this.pointilles) {
+        case 1:
+          tableauOptions.push(' dash dot ')
+          break
+        case 2:
+          tableauOptions.push(' densely dash dot dot ')
+          break
+        case 3:
+          tableauOptions.push(' dash dot dot ')
+          break
+        case 4:
+          tableauOptions.push(' dotted ')
+          break
+        default:
+          tableauOptions.push(' dashed ')
+          break
+      }
+    }
+    if (this.opacite !== 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`)
+    }
+
+    if ((this.couleurDeRemplissage[1] !== 'none' || this.couleurDeRemplissage[1] !== '')) {
+      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
+    }
+
+    if (this.hachures) {
+      tableauOptions.push(pattern({
+        motif: this.hachures,
+        id: this.id,
+        distanceDesHachures: this.distanceDesHachures,
+        couleurDesHachures: this.couleurDesHachures,
+        couleurDeRemplissage: this.couleurDeRemplissage[1],
+        opaciteDeRemplissage: this.opaciteDeRemplissage
+      }))
+    }
+    if (tableauOptions.length > 0) {
+      optionsDraw = '[' + tableauOptions.join(',') + ']'
+    }
+    if (couleurDeRemplissage !== 'none') return `\\filldraw  ${optionsDraw} (${M.x},${M.y}) arc [start angle=0, end angle = ${angle}, x radius = ${Rx}, y radius = ${Ry}]; -- cycle ;`
+    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc [start angle=0, end angle = ${angle}, x radius = ${Rx}, y radius = ${Ry}];`
+  }
+  let code, P
+
+  this.svgml = function (coeff, amp) {
+    this.style = ''
+    if (this.epaisseur !== 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `
+    }
+    if (this.opacite !== 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `
+    }
+    this.style += ' fill="none" '
+    code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} S ${M.xSVG(coeff)} ${M.ySVG(coeff)}, `
+    let compteur = 1
+    const r = longueur(centre, M)
+    for (let k = 0, variation; abs(k) <= abs(angle) - 2; k += angle < 0 ? -2 : 2) {
+      variation = (random(0, 2) - 1) / r * amp / 10
+      P = rotation(homothetie(M, centre, 1 + variation), centre, k)
+      code += `${round(P.xSVG(coeff), 2)} ${round(P.ySVG(coeff), 2)}, `
+      compteur++
+    }
+    P = rotation(M, centre, angle)
+    if (compteur % 2 === 0) code += `${P.xSVG(coeff)} ${P.ySVG(coeff)}, ` // Parce qu'on utilise S et non C dans le path
+    code += `${P.xSVG(coeff)} ${P.ySVG(coeff)}`
+    code += `" stroke="${color}" ${this.style}/>`
+    return code
+  }
+
+  this.tikzml = function (amp) {
+    let optionsDraw = []
+    const tableauOptions = []
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
+    }
+    if (this.epaisseur !== 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`)
+    }
+    if (this.opacite !== 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`)
+    }
+
+    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
+
+    optionsDraw = '[' + tableauOptions.join(',') + ']'
+    if (couleurDeRemplissage !== 'none') return `\\filldraw  ${optionsDraw} (${M.x},${M.y}) arc [start angle=0, end angle = ${angle}, x radius = ${Rx}, y radius = ${Ry}]; -- cycle ;`
+    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc [start angle=0, end angle = ${angle}, x radius = ${Rx}, y radius = ${Ry}];`
+  }
+}
+
+/**
+ * @param {Point} M Point de départ de l'arc
+ * @param {Point} Omega Centre de l'arc
+ * @param {number} angle Compris entre -360 et 360. Valeur négative = sens indirect
+ * @param {boolean} rayon Si true, les rayons délimitant l'arc sont ajoutés. Facultatif, false par défaut
+ * @param {string} fill Facultatif, 'none' par défaut
+ * @param {string} color Facultatif, 'black' par défaut
+ * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @author Jean-Claude Lhote
+ * @return {Arc} Objet Arc
+ */
+export function semiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
+  return new SemiEllipse({ centre, Rx, Ry, emisphere, pointilles, rayon, couleurDeRemplissage, color, fillOpacite })
+}
+
+function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
+  ObjetMathalea2D.call(this)
+  this.color = colorToLatexOrHTML(color)
+  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+  this.opaciteDeRemplissage = fillOpacite
+  const objets = [
+    semiEllipse({ centre, Rx, Ry, emisphere: 'nord', rayon: false, pointilles: 1, couleurDeRemplissage, color, fillOpacite }),
+    semiEllipse({ centre, Rx, Ry, emisphere: 'sud', rayon: false, pointilles: false, couleurDeRemplissage, color, fillOpacite }),
+    segment(point(centre.x + Rx, centre.y + 0.1), sommet, color),
+    segment(point(centre.x - Rx, centre.y + 0.1), sommet, color)
+  ]
+
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      code += objet.svg(coeff) + '\n'
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      code += objet.tikz() + '\n\t'
+    }
+    return code
+  }
+}
+export function cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
+  return new Cone({ centre, Rx, Ry, sommet, couleurDeRemplissage, color, fillOpacite })
+}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% LES COURBES DE BÉZIER %%%%%%%%%%
