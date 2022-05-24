@@ -3612,7 +3612,19 @@ export function traceCompas (
   a.pointilles = pointilles
   return a
 }
-
+/**
+ * @param {Point} centre centre de l'ellipse
+ * @param {number} Rx rayon en X
+ * @param {number} Ry rayon en Y
+ * @param {string} emisphere 'nord' pour tracer au dessus du centre, 'sud' pour tracer en dessous
+ * @param {boolean | number} pointilles Si false, l'ar est en trait plein, sinon en pointillés
+ * @param {boolean} rayon Si true, alors l'arc est fermé par un segment.
+ * @param {string} color Facultatif, 'black' par défaut
+ * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
+ * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @author Jean-Claude Lhote
+ * @return {SemiEllipse} Objet SemiEllipse
+ */
 function SemiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
   ObjetMathalea2D.call(this)
   this.color = colorToLatexOrHTML(color)
@@ -3825,20 +3837,33 @@ function SemiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, 
 }
 
 /**
- * @param {Point} M Point de départ de l'arc
- * @param {Point} Omega Centre de l'arc
- * @param {number} angle Compris entre -360 et 360. Valeur négative = sens indirect
- * @param {boolean} rayon Si true, les rayons délimitant l'arc sont ajoutés. Facultatif, false par défaut
- * @param {string} fill Facultatif, 'none' par défaut
+ * @param {Point} centre centre de l'ellipse
+ * @param {number} Rx rayon en X
+ * @param {number} Ry rayon en Y
+ * @param {string} emisphere 'nord' pour tracer au dessus du centre, 'sud' pour tracer en dessous
+ * @param {boolean | number} pointilles Si false, l'ar est en trait plein, sinon en pointillés
+ * @param {boolean} rayon Si true, alors l'arc est fermé par un segment.
  * @param {string} color Facultatif, 'black' par défaut
+ * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
  * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
  * @author Jean-Claude Lhote
- * @return {Arc} Objet Arc
+ * @return {SemiEllipse} Objet SemiEllipse
  */
 export function semiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
   return new SemiEllipse({ centre, Rx, Ry, emisphere, pointilles, rayon, couleurDeRemplissage, color, fillOpacite })
 }
 
+/**
+ *
+ * @param {Point} centre centre de l'ellipse de base
+ * @param {number} Rx rayon en X
+ * @param {number} Ry rayon en Y
+ * @param {Point} sommet sommet du cône
+ * @param {string} color Facultatif, 'black' par défaut
+ * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
+ * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @author Jean-Claude Lhote
+ */
 function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
   ObjetMathalea2D.call(this)
   this.color = colorToLatexOrHTML(color)
@@ -3866,6 +3891,17 @@ function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 
     return code
   }
 }
+/**
+ *
+ * @param {Point} centre centre de l'ellipse de base
+ * @param {number} Rx rayon en X
+ * @param {number} Ry rayon en Y
+ * @param {Point} sommet sommet du cône
+ * @param {string} color Facultatif, 'black' par défaut
+ * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
+ * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @author Jean-Claude Lhote
+ */
 export function cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
   return new Cone({ centre, Rx, Ry, sommet, couleurDeRemplissage, color, fillOpacite })
 }
