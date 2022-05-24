@@ -1359,17 +1359,9 @@ function ConstructionMediatrice (
   const arcn1 = traceCompas(A, N)
   const arcn2 = traceCompas(B, N)
   const d = mediatrice(A, B)
-  /*
-  arcm1.isVisible = false
-  arcm2.isVisible = false
-  arcn1.isVisible = false
-  arcn2.isVisible = false
-  d.isVisible = false
-  */
   d.color = colorToLatexOrHTML(this.couleurMediatrice)
   d.epaisseur = epaisseurMediatrice
   const codage = codageMediatrice(A, B, this.color, markmilieu)
-  codage.isVisible = false
   const objets = [arcm1, arcm2, arcn1, arcn2, d, codage]
   if (detail) {
     const sAM = segment(A, M, this.color)
@@ -1692,65 +1684,6 @@ function Polyline (...points) {
  */
 export function polyline (...args) {
   return new Polyline(...args)
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%% 3D EN PERSPECTIVE CAVALIERES %%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
-
-/**
- *
- * @param {int} Longueur
- * @param {int} largeur
- * @param {int} profondeur
- *
- */
-function Pave (L = 10, l = 5, h = 5, origine = point(0, 0), cote = true, angleDeFuite = 30, coefficientDeFuite = 0.5) {
-  const objets = []
-  const A = origine; const B = point(A.x + L, A.y); const C = point(B.x, B.y + l); const D = point(A.x, A.y + l)
-  const p = polygone(A, B, C, D)
-  const E = pointAdistance(A, h * coefficientDeFuite, angleDeFuite)
-  const F = translation(B, vecteur(A, E))
-  const G = translation(C, vecteur(A, E))
-  const H = translation(D, vecteur(A, E))
-  const sAE = segment(A, E)
-  const sBF = segment(B, F)
-  const sCG = segment(C, G)
-  const sDH = segment(D, H)
-  const sEF = segment(E, F)
-  const sFG = segment(F, G)
-  const sGH = segment(G, H)
-  const sHE = segment(H, E)
-  sAE.pointilles = true
-  sEF.pointilles = true
-  sHE.pointilles = true
-
-  objets.push(p, sAE, sBF, sCG, sDH, sEF, sFG, sGH, sHE)
-  if (cote) {
-    objets.push(afficheCoteSegment(segment(B, A), '', 1))
-    objets.push(afficheCoteSegment(segment(A, D), '', 1))
-    objets.push(afficheCoteSegment(segment(F, B), h + ' cm', 1))
-  }
-  this.svg = function (coeff) {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.svg(coeff)
-    }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.tikz()
-    }
-    return code
-  }
-}
-
-export function pave (...args) {
-  return new Pave(...args)
 }
 
 /*
@@ -2230,7 +2163,7 @@ function Polygone (...points) {
   this.couleurDeRemplissage = colorToLatexOrHTML('none')
   this.opaciteDeRemplissage = 1.1
   this.hachures = false
-  this.couleurDesHachures = 'black'
+  this.couleurDesHachures = colorToLatexOrHTML('black')
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
   if (Array.isArray(points[0])) {
@@ -2732,10 +2665,10 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1, color =
 }
 
 /*********************************************/
-/** ************* Parrallélogrammes*************/
+/** ************* Parallélogrammes ***********/
 /*********************************************/
 /**
- * function qui retourne le parallélogramme ABCD dont on donne les 3 premiers points A, B et C
+ * fonction qui retourne le parallélogramme ABCD dont on donne les 3 premiers points A, B et C
  *
  * @param {string} NOM
  * @param {objet} A
@@ -2751,8 +2684,8 @@ export function parallelogramme3points (NOM, A, B, C, color = 'black') {
   return polygoneAvecNom(A, B, C, D, color)
 }
 /**
- * parrallelogramme2points1hauteur(A,B,5) renvoie un parallélogramme ABCD de base [AB] et de hauteur h
- * parrallelogramme2points1hauteur(A,7,5) renvoie un parallélogramme ABCD de base 7cm (le point B est choisi sur le cercle de centre A et de rayon 7cm) et de hauteur h
+ * parallelogramme2points1hauteur(A,B,5) renvoie un parallélogramme ABCD de base [AB] et de hauteur h
+ * parallelogramme2points1hauteur(A,7,5) renvoie un parallélogramme ABCD de base 7cm (le point B est choisi sur le cercle de centre A et de rayon 7cm) et de hauteur h
  *
  * @param {String} NOM
  * @param {objet} A
@@ -9778,7 +9711,6 @@ function ObjetLutin () {
   this.costume = ''
   this.listeTraces = [] // [[x0,y0,x1,y1,style]...]
   this.color = 'black'
-  this.color = 'red'
   this.epaisseur = 2
   this.pointilles = true
   this.opacite = 1
@@ -9817,14 +9749,14 @@ function ObjetLutin () {
     for (const trace of this.listeTraces) {
       const A = point(trace[0], trace[1])
       const B = point(trace[2], trace[3])
-      const color = trace[4]
+      const color = colorToLatexOrHTML(trace[4])
       const epaisseur = trace[5]
       const pointilles = trace[6]
       const opacite = trace[7]
       let optionsDraw = []
       const tableauOptions = []
-      if (color.length > 1 && color !== 'black') {
-        tableauOptions.push(color)
+      if (color[1].length > 1 && color[1] !== 'black') {
+        tableauOptions.push(`color =${color[1]}`)
       }
       if ((!isNaN(epaisseur)) && epaisseur !== 1) {
         tableauOptions.push(`line width = ${epaisseur}`)

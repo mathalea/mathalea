@@ -808,7 +808,7 @@ export function cube (x = 0, y = 0, z = 0, alpha = 45, beta = -35, { colorD = 'g
 /**
    * LE PAVE
    * @author Jean-Claude Lhote
-   * usage : pave(A,B,D,E) construit le pavé ABCDEFGH dont les arêtes [AB],[AD] et [AE] sont délimitent 3 faces adjacentes.
+   * usage : pave(A,B,D,E) construit le pavé ABCDEFGH dont les arêtes [AB],[AD] et [AE] délimitent 3 faces adjacentes.
    *
 */
 class Pave3d {
