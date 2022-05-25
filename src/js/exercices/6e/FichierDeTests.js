@@ -36,6 +36,17 @@ export default function CalculedddrUnAngle () {
       const p1 = tracePoint(A, B, D, E, '#f15929')
       p1.style = 'x'
       p1.epaisseur = 1
+      const p5 = labelPoint(A, B, C, D, E)
+      p5.color = colorToLatexOrHTML('#f15929')
+      const m1 = cercle(A, 5, '#f15929', 'blue', 'green')
+      const m2 = cercle(B, 5, 'red', '', '#f15929')
+      const m3 = cercle(C, 5, 'red', '#f15929', 'none') // Voir hachures..
+      const m4 = polygone([A, B, D, C], 'blue', 'red', '')
+      const m5 = arc(A, B, 60, 5, 'red', 'blue', 1, '#f15929')
+      const m6 = arc(C, B, 60, 5, '', '#f15929', 1, 'green')
+      const m7 = arc(E, B, 60, 5, '#f15929', 'blue', 1, 'none')
+      objetsEnonce.push(p1, p5, m1, m2, m3)
+      /*
       const p2 = segment(A, B, '#f15929')
       const p3 = cercle(A, 5, 'blue')
       const p4 = polygone(D, E, C)
@@ -44,8 +55,6 @@ export default function CalculedddrUnAngle () {
       // p4.couleurDeRemplissage = colorToLatexOrHTML('#f15929')
       // p4.couleurDesHachures = colorToLatexOrHTML('#f15929')
       // p4.epaisseurDesHachures = 3
-      const p5 = labelPoint(A, B, C, D, E)
-      p5.color = colorToLatexOrHTML('#f15929')
       const p6 = droite(A, D, '(dd)', '#f15929')
       const p7 = codageAngleDroit(B, A, C, '#f15929', 0.3, 0.5, 1, '#f15929')
       const p8 = codeSegment(D, B, '|||', '#f15929')
@@ -87,6 +96,7 @@ export default function CalculedddrUnAngle () {
       // objetsEnonce.push(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)
       objetsEnonce.push(p23.representant(A, '#f15929'), p24, p16, p19a, p25, p26, p29, p27)
       // objetsEnonce.push(p29)
+      */
       texte += 'essai'
       paramsEnonce = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false, amplitude: 0.5 }
       texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
