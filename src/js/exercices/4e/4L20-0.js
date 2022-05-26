@@ -149,7 +149,7 @@ export default function ExerciceEquationASolutionEntiere () {
           break
         case 'ax+b=cx+d':
           reponse = randint(-9, 9, [0, -1, 1])
-          d = randint(-15, 15)
+          d = randint(-15, 15, 0)
           c = randint(-5, 5, [-1, 0, 1])
           if (!this.sup) {
             reponse = Math.abs(reponse)
