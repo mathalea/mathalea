@@ -1065,7 +1065,9 @@ export function baseValeur (n) {
 export function baseNVersBase10 (stringNombre, b) {
   let result = 0
   if (typeof stringNombre === 'number') {
-    stringNombre = Number(stringNombre).toString()
+    stringNombre = stringNombre.toString()
+  } else if (stringNombre instanceof Decimal) {
+    stringNombre = stringNombre.toNumber().toString()
   }
   for (let i = 0; i < stringNombre.length; i++) {
     result += b ** i * valeurBase(stringNombre.charAt(stringNombre.length - 1 - i))
@@ -1092,7 +1094,8 @@ export function base10VersBaseN (nombre, b) {
   //   nombre -= chiffre * b ** i
   // }
   // return code
-  return nombre.toString(b).toUpperCase()
+  if (nombre instanceof Decimal) return nombre.toNumber().toString(b).toUpperCase()
+  else return nombre.toString(b).toUpperCase()
   // Il y avait un probleme avec 3 = (3)_3
 }
 
