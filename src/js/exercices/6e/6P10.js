@@ -211,8 +211,8 @@ export default function ProportionnalitePasProportionnalite () {
           index1 = new Decimal(x).div(n) // vitesse fille
           index2 = new Decimal(y).div(p) // vitesse garçon
 
-          texte = `${prenoms[0]} habite à $${texNombre(x)}$ m du collège. Elle met ${n} minutes pour s'y rendre depuis chez elle.<br>`
-          texte += `${prenoms[1]}, lui, habite à $${texNombre(y)}$ m du collège. Il met ${p} minutes pour s'y rendre depuis chez lui.<br>`
+          texte = `${prenoms[0]} habite à $${texNombre(x, 0)}$ m du collège. Elle met ${n} minutes pour s'y rendre depuis chez elle.<br>`
+          texte += `${prenoms[1]}, lui, habite à $${texNombre(y, 0)}$ m du collège. Il met ${p} minutes pour s'y rendre depuis chez lui.<br>`
           texte += 'Les durées de trajet pour venir au collège sont-elles proportionnelles aux distances parcourues ?<br>'
           texteCorr = `${prenoms[0]} parcourt ${x} m en ${n} minutes soit environ $\\dfrac{${x}\\text{ m}}{${n}\\text{ min}} ${index1.eq(index1.toDP(1)) ? '=' : '\\approx'} ${texNombre(index1.toDP(1), 1)}\\text{ m}/_{\\text{ min}}$`
           texteCorr += ` et ${prenoms[1]} parcourt ${y} m en ${p} minutes soit environ $\\dfrac{${y}\\text{ m}}{${p}\\text{ min}} ${index2.eq(index2.toDP(1)) ? '=' : '\\approx'} ${texNombre(index2.toDP(1))}\\text{ m}/_{\\text{ min}}$.<br>`
