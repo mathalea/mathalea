@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
 import { repere2, droite, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
+import Decimal from 'decimal.js'
 export const titre = "Lecture graphique des coefficients d'une équation réduite "
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -155,9 +156,8 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
             ]
           }
         }
-      }
-      if (this.sup === 2) { // cas du coeff directeur fractionnaire
-        a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
+      } else { // cas du coeff directeur fractionnaire
+        a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
         b = randint(-5, 5) // ordonnée à l'origine
         d = randint(2, 5, 3) // dénominateur coefficient directeur
         if (a === 0 && b === 0) {
@@ -234,7 +234,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
               scale: 0.5
             }, r, s1, s2, t, l, c)
           }// On trace le graphique
-          setReponse(this, i, 'y=' + reduireAxPlusB(calcul(a / d), b))
+          setReponse(this, i, 'y=' + reduireAxPlusB(new Decimal(a).div(d), b))
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: texte + '<br>',
@@ -246,7 +246,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
                     statut: '',
                     reponse: {
                       texte: 'coefficient directeur',
-                      valeur: calcul(a / d),
+                      valeur: new Decimal(a).div(d).toString(),
                       param: {
                         digits: 3,
                         decimals: 2,

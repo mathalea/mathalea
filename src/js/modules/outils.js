@@ -944,6 +944,12 @@ export function ecritureAlgebrique (a) {
     } else {
       return stringNombre(a)
     }
+  } else if (a instanceof Decimal) {
+    if (a.isPos()) {
+      return '+' + stringNombre(a)
+    } else {
+      return stringNombre(a)
+    }
   } else window.notify('rienSi1 : type de valeur non prise en compte')
 }
 
@@ -1509,16 +1515,18 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
  * @param {number} b
  */
 export function reduireAxPlusB (a, b) {
+  if (!(a instanceof Decimal)) a = new Decimal(a)
+  if (!(b instanceof Decimal)) b = new Decimal(b)
   let result = ''
-  if (a !== 0) {
-    if (a === 1) result = 'x'
-    else if (a === -1) result = '-x'
+  if (!a.isZero()) {
+    if (a.eq(1)) result = 'x'
+    else if (a.eq(-1)) result = '-x'
     else result = `${stringNombre(a)}x`
   }
-  if (b !== 0) {
-    if (a !== 0) result += `${ecritureAlgebrique(b)}`
+  if (!b.isZero()) {
+    if (!a.isZero()) result += `${ecritureAlgebrique(b)}`
     else result = stringNombre(b)
-  } else if (a === 0) result = '0'
+  } else if (a.isZero()) result = '0'
   return result
 }
 /**
