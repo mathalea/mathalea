@@ -203,11 +203,15 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           texteCorr += '$'
 
           texteCorr += '<br>On peut en déduire que l\'équation réduite de la droite $(d)$ est : $y= '
-          if (a === d) { texteCorr += 'x' }
-          if (a === -d) { texteCorr += '-x' }
-          if (a !== d & a !== -d) { texteCorr += `${texFractionReduite(a, d)}x` }
+          if (a === d) {
+            texteCorr += `x${b !== 0 ? ecritureAlgebrique(b) : ''}`
+          } else if (a === -d) {
+            texteCorr += `-x${b !== 0 ? ecritureAlgebrique(b) : ''}`
+          } else {
+            texteCorr += `${texFractionReduite(a, d)}x`
+            if (b !== 0) { texteCorr += `${ecritureAlgebrique(b)}=${reduireAxPlusB(new Decimal(a).div(d), b)}` }
+          }
 
-          if (b !== 0) { texteCorr += `${ecritureAlgebrique(b)}` }
           texteCorr += '$.'
 
           if (a > 0) {

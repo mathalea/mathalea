@@ -2789,14 +2789,17 @@ function afficherNombre (nb, precision, fonction, force = false) {
    * @returns string avec le nombre dans le format français
    */
   function insereEspacesNombre (nb, maximumSignificantDigits = 15, fonction) {
+    let signe
     let nombre
     if (nb instanceof Decimal) {
+      signe = nb.isNeg()
       if (force) {
         nombre = nb.toPrecision(maximumSignificantDigits).replace('.', ',')
       } else {
         nombre = nb.toSD(maximumSignificantDigits).toString().replace('.', ',')
       }
     } else {
+      signe = nb < 0
       // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
       if (Math.abs(nb) < 1) {
         if (force) {
@@ -2826,9 +2829,11 @@ function afficherNombre (nb, precision, fonction, force = false) {
     // La partie entière est déjà formatée par le Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
     // Dans le cas d'un Number, mais pas d'un Decimal
     if (nb instanceof Decimal) {
+      if (signe) partieEntiere = partieEntiere.substring(1)
       for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
         partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
       }
+      if (signe) partieEntiere = '-' + partieEntiere
     }
     for (let i = 3; i < partieDecimale.length; i += (fonction === 'texNombre' ? 5 : 4)) { // des paquets de 3 nombres + 1 espace
       partieDecimale = partieDecimale.substring(0, i) + (fonction === 'texNombre' ? '\\,' : ' ') + partieDecimale.substring(i)
@@ -2851,7 +2856,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
   } else if (Number(nb) === 0) return '0'
   let nbChiffresPartieEntiere
   if (nb instanceof Decimal) {
-    nbChiffresPartieEntiere = nb.lt(1) ? 0 : nb.abs().toFixed(0).length
+    nbChiffresPartieEntiere = nb.abs().lt(1) ? 0 : nb.abs().toFixed(0).length
     if (nb.isInteger()) precision = 0
     else {
       if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
