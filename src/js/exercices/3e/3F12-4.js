@@ -58,8 +58,8 @@ export default function ImageGraphique () {
     const r = repere2({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
     if (this.sup === 1) {
       a = new Decimal(fx2 - fx1).div(x2 - x1)
-      b = a.mul(-x1).plus(fx1)
-      f = x => a * x + b
+      b = a.mul(x1).sub(fx1)
+      f = x => a * x - b
 
       texte += `Déterminer par lecture graphique les images de $${x1}$ et de $${x2}$ par cette fonction $f$.<br>`
       texteCorr = `L'image de $${x1}$ est $${fx1}$, on note $f(${x1})=${fx1}$.<br>`
