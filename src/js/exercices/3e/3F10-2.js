@@ -220,9 +220,9 @@ export default function CalculsImagesFonctions () {
         texte = enonce
       }
       if (tagImage) {
-        texteCorr = correction + '<br>' + `$f(${ant})=${miseEnEvidence(texNombre(reponses[i]))}$`
+        texteCorr = correction + '<br>' + `$f(${ant})=${miseEnEvidence(texNombre(reponses[i], 5))}$`
       } else {
-        texteCorr = correction + '<br>' + `$f(${miseEnEvidence(texNombre(reponses[i]))})=${img}$`
+        texteCorr = correction + '<br>' + `$f(${miseEnEvidence(texNombre(reponses[i], 5))})=${img}$`
       }
       setReponse(this, i, reponses[i])
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {
