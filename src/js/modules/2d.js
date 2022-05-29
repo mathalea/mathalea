@@ -3114,7 +3114,7 @@ export function pointIntersectionLC (d, C, nom = '', n = 1) {
   const xO = O.x
   const yO = O.y
   let Delta, delta, xi, yi, xiPrime, yiPrime
-  if (b === 0) {
+  if (egal(a, 0, 0.000001)) {
     // la droite est verticale
     xi = -c / a
     xiPrime = xi
@@ -3129,7 +3129,7 @@ export function pointIntersectionLC (d, C, nom = '', n = 1) {
       yi = yO - Math.sqrt(Delta) / 2
       yiPrime = yO + Math.sqrt(Delta) / 2
     }
-  } else if (a === 0) {
+  } else if (egal(a, 0, 0.0000001)) {
     // la droite est horizontale
     yi = -c / b
     yiPrime = yi

@@ -1,5 +1,6 @@
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, scientifiqueToDecimal, sp, stringNombre, texNombre, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, scientifiqueToDecimal, sp, stringNombre, texNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -26,6 +27,8 @@ export default function NotationScientifique () {
   this.interactif = false
 
   this.nouvelleVersion = function () {
+    Decimal.toExpNeg = -15
+    Decimal.toExpPos = 20
     let reponse
     if (parseInt(this.sup) === 1) this.consigne = 'Donner l\'écriture scientifique des nombres suivants.'
     else this.consigne = 'Donner l\'écriture décimale des nombres suivants.'
@@ -42,7 +45,7 @@ export default function NotationScientifique () {
       i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case 0:
-          mantisse = randint(1, 9)
+          mantisse = new Decimal(randint(1, 9))
           if (!context.isAmc) {
             exp = randint(1, 5)
           } else {
@@ -51,7 +54,7 @@ export default function NotationScientifique () {
 
           break
         case 1:
-          mantisse = arrondi(randint(11, 99) / 10, 1)
+          mantisse = new Decimal(randint(11, 99)).div(10)
           if (!context.isAmc) {
             exp = randint(1, 5)
           } else {
@@ -59,8 +62,8 @@ export default function NotationScientifique () {
           }
           break
         case 2:
-          if (randint(0, 1) === 1) mantisse = arrondi(randint(111, 999) / 100, 2)
-          else mantisse = arrondi((randint(1, 9) * 100 + randint(1, 9)) / 100, 2)
+          if (choice([false, true])) mantisse = new Decimal(randint(111, 999)).div(100)
+          else mantisse = new Decimal(randint(1, 9)).div(100).plus(randint(1, 9) * 100)
           if (!context.isAmc) {
             exp = randint(1, 7) * choice([-1, 1])
           } else {
@@ -68,8 +71,8 @@ export default function NotationScientifique () {
           }
           break
         case 3:
-          if (randint(0, 1) === 1) mantisse = arrondi((randint(1, 9) * 1000 + randint(1, 19) * 5) / 1000, 3)
-          else mantisse = arrondi(randint(1111, 9999) / 1000, 3)
+          if (choice([true, false])) mantisse = new Decimal(randint(1, 19) * 5).div(1000).plus(randint(1, 9) * 1000)
+          else mantisse = new Decimal(randint(1111, 9999)).div(1000)
           if (!context.isAmc) {
             exp = randint(1, 7) * choice([-1, 1])
           } else {
@@ -77,16 +80,16 @@ export default function NotationScientifique () {
           }
           break
       }
-      reponse = calcul(mantisse * 10 ** exp)
+
       // decimalstring = texNombrec(mantisse * 10 ** exp)
-      scientifiquestring = `${texNombre(mantisse)}\\times 10^{${exp}}`
+      scientifiquestring = `${texNombre(mantisse, 8)}\\times 10^{${exp}}`
       decimalstring = scientifiqueToDecimal(mantisse, exp)
 
       if (this.sup === 1) {
         if (exp > 9 || exp < 0) {
-          reponse = `${stringNombre(mantisse)}\\times 10^{${exp}}`
+          reponse = `${stringNombre(mantisse, 8)}\\times 10^{${exp}}`
         } else {
-          reponse = `${stringNombre(mantisse)}\\times 10^${exp}`
+          reponse = `${stringNombre(mantisse, 8)}\\times 10^${exp}`
         }
         texte = `$${decimalstring}${sp()}=$`
         texteCorr = `$${decimalstring} = ${scientifiquestring}$`
@@ -96,7 +99,7 @@ export default function NotationScientifique () {
           texte += `$${sp()}\\dots$`
         }
       } else {
-        reponse = mantisse * 10 ** exp
+        reponse = mantisse.mul(Decimal.pow(10, exp))
         texteCorr = `$${scientifiquestring} = ${decimalstring}$`
         texte = `$${scientifiquestring}${sp()}=$`
         if (this.interactif) {
@@ -114,7 +117,7 @@ export default function NotationScientifique () {
           setReponse(this, i, reponse, { formatInteractif: 'nombreDecimal', decimals: Math.max(0, listeTypeDeQuestions[i] - exp) })
         }
         if (context.isAmc) {
-          this.autoCorrection[i].reponse.valeur = [calcul(mantisse * 10 ** exp)]
+          this.autoCorrection[i].reponse.valeur = [mantisse.mul(Decimal.pow(10, exp)).toString()]
           if (parseInt(this.sup) === 1) {
             this.amcType = 'AMCNum'
             this.autoCorrection[i].enonce = "Donner l'écriture scientifique du nombre " + texte + '.'
@@ -131,15 +134,15 @@ export default function NotationScientifique () {
                 statut: true
               },
               {
-                texte: `$${texNombrec(mantisse * 10 ** (exp - 1))}$`,
+                texte: `$${texNombre(mantisse.mul(Decimal.pow(10, exp - 1)), 20)}$`,
                 statut: false
               },
               {
-                texte: `$${texNombrec(mantisse * 10 ** (exp + 1))}$`,
+                texte: `$${texNombre(mantisse.mul(Decimal.pow(10, exp + 1)), 20)}$`,
                 statut: false
               },
               {
-                texte: `$${texNombrec(mantisse * 10 ** (-exp))}$`,
+                texte: `$${texNombre(mantisse.mul(Decimal.pow(10, -exp)), 20)}$`,
                 statut: false
               }
             ]
