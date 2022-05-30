@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, choice, arrondi, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, choice, texNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { Decimal } from 'decimal.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Écriture décimale d\'un calcul avec des puissances de 10'
@@ -33,40 +34,40 @@ export default function EcritureDecimaleApresPuissancesDeDix () {
       texteCorr = ''
       switch (listeTypeQuestions[i]) {
         case 'type1':
-          n = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
+          n = new Decimal(choice([randint(2, 9), randint(11, 99), randint(101, 999)]))
           p = randint(0, 7)
           texte = `$${texNombre(n)} \\times 10^{${p}}$`
           texteCorr = texte
-          texteCorr += `$=${texNombre(n * 10 ** p)}$`
-          setReponse(this, i, n * 10 ** p)
+          texteCorr += `$=${texNombre(n.mul(Decimal.pow(10, p)))}$`
+          setReponse(this, i, n.mul(Decimal.pow(10, p)))
           break
         case 'type2':
-          n = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
+          n = new Decimal(choice([randint(2, 9), randint(11, 99), randint(101, 999)]))
           p = randint(1, 7)
           texte = `$${texNombre(n)} \\times 10^{${-p}}$`
           texteCorr = texte
-          texteCorr += `$=${texNombre(arrondi(n * 10 ** (-p), 10))}$`
-          setReponse(this, i, n * 10 ** (-p))
+          texteCorr += `$=${texNombre(n.mul(Decimal.pow(10, -p)), 10)}$`
+          setReponse(this, i, n.mul(Decimal.pow(10, -p)))
           break
         case 'type3':
           n = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
           d = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
           p = randint(1, 7)
-          nb = calcul(n + d / choice([10, 100, 1000]))
-          texte = `$${texNombre(nb)} \\times 10^{${p}}$`
+          nb = (new Decimal(d)).div(choice([10, 100, 1000])).add(n) // nb est Decimal !
+          texte = `$${texNombre(nb, 3)} \\times 10^{${p}}$`
           texteCorr = texte
-          texteCorr += `$=${texNombre(nb * 10 ** (p))}$`
-          setReponse(this, i, nb * 10 ** (p))
+          texteCorr += `$=${texNombre(nb.mul(Decimal.pow(10, p)), 0)}$`
+          setReponse(this, i, nb.mul(Decimal.pow(10, p)))
           break
         case 'type4':
           n = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
           d = choice([randint(2, 9), randint(11, 99), randint(101, 999)])
           p = randint(0, 7)
-          nb = calcul(n + d / choice([10, 100, 1000]))
-          texte = `$${texNombre(nb)} \\times 10^{${-p}}$`
+          nb = (new Decimal(d)).div(choice([10, 100, 1000])).add(n)
+          texte = `$${texNombre(nb, 3)} \\times 10^{${-p}}$`
           texteCorr = texte
-          texteCorr += `$=${texNombre(arrondi(nb * 10 ** (-p), 10))}$`
-          setReponse(this, i, nb * 10 ** (-p))
+          texteCorr += `$=${texNombre(nb.mul(Decimal.pow(10, -p)), 10)}$`
+          setReponse(this, i, nb.mul(Decimal.pow(10, -p)))
           break
       }
 

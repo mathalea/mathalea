@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { homothetie, codeAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
-import { calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
+import { stringNombre, calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
@@ -18,6 +18,7 @@ export const titre = 'Calculer une longueur dans un triangle rectangle en utilis
  * Calculer une longueur en utilisant l'un des trois rapport trigonométrique.
  * * Si this.level=4 alors seul le cosinus sera utilisé.
  * Mars 2021
+ * combinaisonListes des questions par Guillaume Valmont le 23/05/2022
  */
 export default function CalculDeLongueur () {
   Exercice.call(this)
@@ -43,23 +44,23 @@ export default function CalculDeLongueur () {
     this.listeCorrections = []
     let reponse
     let listeDeNomsDePolygones
+    let typeQuestionsDisponibles = ['cosinus', 'sinus', 'tangente', 'invCosinus', 'invSinus', 'invTangente']
+    if (this.level === 4) typeQuestionsDisponibles = ['cosinus', 'invCosinus']
+
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0; i < this.nbQuestions; i++) {
       if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
       const nom = creerNomDePolygone(3, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nom)
-      let texte = ''; let texteCorr = ''; const objetsEnonce = []; const objetsCorrection = []; let choixRapportTrigo
+      let texte = ''; let texteCorr = ''; const objetsEnonce = []; const objetsCorrection = []
       let ab, bc, ac
-      if (this.level === 4) {
-        choixRapportTrigo = choice(['cosinus', 'invCosinus'])
-      } else {
-        choixRapportTrigo = choice(['cosinus', 'sinus', 'tangente', 'invCosinus', 'invSinus', 'invTangente'])
-      }
+
       const angleABC = randint(35, 55)
       const angleABCr = angleABC * Math.PI / 180
       if (!context.isHtml && this.sup) {
         texte += '\\begin{minipage}{.7\\linewidth}\n'
       }
-      switch (choixRapportTrigo) {
+      switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
           bc = randint(10, 15)
           ab = calcul(bc * Math.cos(angleABCr), 3)
@@ -136,7 +137,7 @@ export default function CalculDeLongueur () {
       const m2 = homothetie(M2, M3, 1 + 1.5 / longueur(M3, M2), 'm2', 'center')
       let m4
       let t1, t2, t3
-      switch (choixRapportTrigo) {
+      switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
           t3 = latexParPoint(`${bc} \\text{ cm}`, m3, 'black', 120, 12, '')
           t2 = latexParPoint('?', m1, 'black', 120, 12, '')
@@ -191,7 +192,7 @@ export default function CalculDeLongueur () {
       if (!context.isHtml && this.sup) {
         texte += '\n\\end{minipage}\n'
       }
-      switch (choixRapportTrigo) {
+      switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
@@ -270,7 +271,7 @@ export default function CalculDeLongueur () {
           ],
           reponse: {
             texte: 'résultat',
-            valeur: [reponse],
+            valeur: [stringNombre(reponse, 4, true)],
             param: {
               digits: 3,
               decimals: 1,
@@ -284,7 +285,7 @@ export default function CalculDeLongueur () {
       }
       if (context.isHtml) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' cm' })
-        setReponse(this, i, arrondi(reponse, 1), { formatInteractif: 'calcul' })
+        setReponse(this, i, stringNombre(reponse, 4, true), { formatInteractif: 'calcul' })
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

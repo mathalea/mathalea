@@ -17,6 +17,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 export default class NomExercice extends Exercice {
   constructor () {
     super()
+    this.titre = titre
     this.consigne = 'Clique sur la bonne figure'
     this.nbQuestions = 3
     this.nbCols = 1

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, arrondiVirgule, nombreAvecEspace, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, calcul, texNombre, nombreAvecEspace, texteEnCouleurEtGras } from '../../modules/outils.js'
 
 export const titre = 'Stabilisation des fréquences'
 
@@ -9,8 +9,8 @@ export const titre = 'Stabilisation des fréquences'
 * @author Erwan Duplessy
 * 3S21
 * D'après le document "Attendus en fin de 3eme"
-* On donne les fréquences d’apparition de chaque face d’un dé pour 10000 lancers.
-* L’élève interprète les résultats en les comparant aux probabilités théoriques.
+* On donne les fréquences d\'apparition de chaque face d\'un dé pour 10000 lancers.
+* L\'élève interprète les résultats en les comparant aux probabilités théoriques.
 */
 
 export default function StabilisationFrequence () {
@@ -180,7 +180,7 @@ export default function StabilisationFrequence () {
           texteCorr += '\\\\\\hline\n'
           texteCorr += '\\text{Fréquence d\'apparition (en pourcentage)}'
           for (let i = 0; i < N; i++) {
-            texteCorr += ` & \\text{${arrondiVirgule(100 * tabEff[i] / S1, 1)}} \\% `
+            texteCorr += ` & \\text{${texNombre(100 * tabEff[i] / S1, 1)}} \\% `
           }
           texteCorr += '\\\\\\hline\n'
           texteCorr += '\\end{array}\n$ <br>'
@@ -232,7 +232,7 @@ export default function StabilisationFrequence () {
           texteCorr += '\\\\\\hline\n'
           texteCorr += '\\text{Fréquence d\'apparition (en pourcentage)}'
           for (let i = 0; i < N; i++) {
-            texteCorr += ` & \\text{${arrondiVirgule(100 * tabEff[i] / S1, 1)}} \\% `
+            texteCorr += ` & \\text{${texNombre(100 * tabEff[i] / S1, 1)}} \\% `
           }
           texteCorr += '\\\\\\hline\n'
           texteCorr += '\\end{array}\n$ <br>'
@@ -254,7 +254,7 @@ export default function StabilisationFrequence () {
       texte += '\\\\\\hline\n'
       texte += '\\text{Fréquence d\'apparition}'
       for (let i = 0; i < N; i++) {
-        texte += ` & \\text{${arrondiVirgule(100 * tabRes[i][1], 1)}} \\% `
+        texte += ` & \\text{${texNombre(100 * tabRes[i][1], 1)}} \\% `
       }
       texte += '\\\\\\hline\n'
       texte += '\\end{array}\n$'

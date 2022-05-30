@@ -1,8 +1,7 @@
-import { ordreDeGrandeur, calcul, base10VersBaseN } from './outils.js'
+import { ordreDeGrandeur, base10VersBaseN } from './outils.js'
+import Decimal from 'decimal.js'
 import { mathalea2d, texteParPosition, segment } from './2d.js'
 import { context } from './context.js'
-import { format } from 'mathjs'
-const math = { format: format }
 /**
  *
  * Pose une opération
@@ -14,8 +13,8 @@ const math = { format: format }
 export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0, base = 10 }) { // precision est pour le quotient décimal
   let Code
   const nombreDeChiffresApresLaVirgule = function (x) {
-    const s = Number(x).toString()
-    const pe = Number(Math.floor(x)).toString()
+    const s = x.toString()
+    const pe = x.round().toString()
     if (pe.length === s.length) return 0
     return s.length - pe.length - 1
   }
@@ -34,15 +33,15 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
 
   const DivisionPosee3d = function (divid, divis, precision = 0) {
     const objets = []; let zeroutile = false; const periode = 0
-    precision = Math.min(precision, nombreDeChiffresApresLaVirgule(calcul(divid / divis)))
+    precision = Math.min(precision, nombreDeChiffresApresLaVirgule(divid.div(divis)))
     const decalage = nombreDeChiffresApresLaVirgule(divis)
     const dec1 = nombreDeChiffresApresLaVirgule(divid)
-    if (divid < divis) { zeroutile = true }
-    divis = calcul(divis * 10 ** decalage)
-    divid = calcul(divid * 10 ** (decalage + dec1))
+    if (divid.lt(divis)) { zeroutile = true }
+    divis = divis.mul(10 ** decalage)
+    divid = divid.mul(10 ** (decalage + dec1))
     let dec2 = nombreDeChiffresApresLaVirgule(divid)
     dec2 = precision - dec2 - dec1
-    divid = math.format(divid * 10 ** dec2, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 })
+    divid = divid.mul(10 ** dec2) // math.format(divid * 10 ** dec2, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 })
     const ecriresoustraction = function (upos, P) {
       objets.push(texteParPosition('-', upos - P.length - 0.5, 10 - i * 2, 'milieu', 'black', 1.2, 'middle', false))
       for (let k = 0; k < P.length; k++) {
@@ -60,10 +59,10 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     }
 
     const divd = []; const Q = []; const R = []; const P = []
-    const dividende = Number(divid).toString()
-    const diviseur = Number(divis).toString()
-    const n = Math.log10(ordreDeGrandeur(divid, 1)) // nombre de chiffres du dividende
-    const m = Math.log10(ordreDeGrandeur(divis, 1)) // nombre de chiffre du diviseur
+    const dividende = divid.toString()
+    const diviseur = divis.toString()
+    const n = Math.log10(ordreDeGrandeur(divid.toNumber(), 1)) // nombre de chiffres du dividende
+    const m = Math.log10(ordreDeGrandeur(divis.toNumber(), 1)) // nombre de chiffre du diviseur
     let upos = m
 
     for (let i = 0; i < n; i++) { // on écrit le dividende
@@ -81,19 +80,19 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     divd.push(dividende.substr(0, m))
     if (parseInt(divd[0]) < divis) {
       divd[0] += dividende.substr(m, 1)
-      if (divis / (10 ** dec2) < divis && zeroutile) ecrirequotient(-1, '0')
+      if (divis.div(10 ** dec2).lt(divis) && zeroutile) ecrirequotient(-1, '0')
       upos++
     } else if (zeroutile) { ecrirequotient(-1, '0') }
     while (upos <= n) {
-      Q.push(Number(Math.floor(parseInt(divd[i]) / divis)).toString())
-      R.push(Number(parseInt(divd[i]) % divis).toString())
+      Q.push(new Decimal(divd[i]).div(divis).floor().toString())
+      R.push(new Decimal(divd[i]).mod(divis).toString())
       P.push('')
       if (Q[i] === '0') {
         for (let z = 0; z < m; z++) {
           P[i] += '0'
         }
       } else {
-        P[i] += Number(parseInt(Q[i]) * divis).toString()
+        P[i] += divis.mul(parseInt(Q[i])).toString()
       }
       ecriresoustraction(upos, P[i])
       if (upos < n) {
@@ -139,18 +138,18 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     let decalage
     if (base ? base === 10 : true) {
       decalage = Math.max(dec1, dec2)
-      operande1 = calcul(operande1 * 10 ** decalage)
-      operande2 = calcul(operande2 * 10 ** decalage)
-      sop1 = Number(operande1).toString()
-      sop2 = Number(operande2).toString()
-      resultat = operande1 + operande2
-      sresultat = Number(resultat).toString()
+      operande1 = operande1.mul(10 ** decalage)
+      operande2 = operande2.mul(10 ** decalage)
+      sop1 = operande1.toString()
+      sop2 = operande2.toString()
+      resultat = operande1.plus(operande2)
+      sresultat = resultat.toString()
       lresultat = sresultat.length
     } else {
       decalage = 0
       sop1 = base10VersBaseN(operande1, base)
       sop2 = base10VersBaseN(operande2, base)
-      resultat = operande1 + operande2
+      resultat = operande1.plus(operande2)
       sresultat = base10VersBaseN(resultat, base)
       lresultat = sresultat.length
     }
@@ -210,23 +209,23 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       const dec1 = nombreDeChiffresApresLaVirgule(operande1)
       const dec2 = nombreDeChiffresApresLaVirgule(operande2)
       decalage = Math.max(dec1, dec2)
-      operande1 = calcul(operande1 * 10 ** decalage)
-      operande2 = calcul(operande2 * 10 ** decalage)
-      resultat = operande1 - operande2
-      sresultat = Number(resultat).toString()
+      operande1 = operande1.mul(10 ** decalage)
+      operande2 = operande2.mul(10 ** decalage)
+      resultat = operande1.sub(operande2)
+      sresultat = resultat.toString()
       lresultat = sresultat.length
-      if (operande1 < operande2) {
-        sop2 = Number(operande1).toString()
-        sop1 = Number(operande2).toString()
+      if (operande1.lt(operande2)) {
+        sop2 = operande1.toString()
+        sop1 = operande2.toString()
       } else {
-        sop1 = Number(operande1).toString()
-        sop2 = Number(operande2).toString()
+        sop1 = operande1.toString()
+        sop2 = operande2.toString()
       }
     } else {
       decalage = 0
       sop1 = base10VersBaseN(operande1, base)
       sop2 = base10VersBaseN(operande2, base)
-      resultat = operande1 - operande2
+      resultat = operande1.sub(operande2)
       sresultat = base10VersBaseN(resultat, base)
       lresultat = sresultat.length
     }
@@ -276,7 +275,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     let sop1; let sop2; const objets = []; let operandex; let lignesinutiles = 0
 
     const produits = []; let strprod; const sommes = []
-    if (operande1 < operande2) {
+    if (operande1.lt(operande2)) {
       operandex = operande1
       operande1 = operande2
       operande2 = operandex
@@ -285,10 +284,10 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     if (base ? base === 10 : true) {
       dec1 = nombreDeChiffresApresLaVirgule(operande1)
       dec2 = nombreDeChiffresApresLaVirgule(operande2)
-      operande1 = calcul(operande1 * 10 ** dec1)
-      operande2 = calcul(operande2 * 10 ** dec2)
-      sop1 = Number(operande1).toString()
-      sop2 = Number(operande2).toString()
+      operande1 = operande1.mul(10 ** dec1)
+      operande2 = operande2.mul(10 ** dec2)
+      sop1 = operande1.toString()
+      sop2 = operande2.toString()
     } else {
       dec1 = 0
       dec2 = 0
@@ -341,11 +340,11 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     }
     let resultat
     if (base ? base === 10 : true) {
-      resultat = calcul(operande1 * operande2)
+      resultat = operande1.mul(operande2)
     } else {
-      resultat = base10VersBaseN(operande1 * operande2, base)
+      resultat = base10VersBaseN(operande1.mul(operande2), base)
     }
-    sresultat = Number(resultat).toString()
+    sresultat = resultat.toString()
     const lresultat = sresultat.length
     for (let i = 0; i < lop2; i++) {
       for (let j = produits[i].length; j <= lresultat; j++) {
@@ -406,7 +405,8 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
 
     return code
   }
-
+  operande1 = new Decimal(operande1)
+  operande2 = new Decimal(operande2)
   switch (type) {
     case 'addition':
       if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2, base) } else { Code = `$\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
