@@ -2410,7 +2410,7 @@ export function polygoneRegulier (A, B, n, color = 'black') {
  *
  * @author Rémi Angot
  */
-export function polygoneRegulierIndirect (A, B, n, color = 'black') {
+export function polygoneRegulierIndirect (A, B, n, color = 'black', couleurDeRemplissage = 'none') {
   const listePoints = [A, B]
   for (let i = 1; i < n - 1; i++) {
     listePoints[i + 1] = rotation(
@@ -2419,7 +2419,7 @@ export function polygoneRegulierIndirect (A, B, n, color = 'black') {
       180 - 360 / n
     )
   }
-  return polygone(listePoints, color)
+  return polygone(listePoints, color, couleurDeRemplissage)
 }
 
 /**
@@ -3491,12 +3491,12 @@ export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
  * @param {Point} N //deuxième extrémité de l'arc
  * @param {number} angle //angle au centre de l'arc compris entre -360 et +360 !
  * @param {boolean} rayon //si true, l'arc est fermé par deux rayons aux extrémités
- * @param {string} fill //couleur de remplissage (par défaut 'none'= sans remplissage)
+ * @param {string} couleurDeRemplissage //couleur de remplissage (par défaut 'none'= sans remplissage)
  * @param {string} color //couleur de l'arc
  * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
  * @author Jean-Claude Lhote
  */
-function ArcPointPointAngle (M, N, angle, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
+function ArcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2) {
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
   else anglerot = (angle - 180) / 2
@@ -3510,7 +3510,7 @@ function ArcPointPointAngle (M, N, angle, rayon = false, fill = 'none', color = 
   const Omegax = (d.b * f.c - f.b * d.c) / determinant
   const Omegay = (f.a * d.c - d.a * f.c) / determinant
   const Omega = point(Omegax, Omegay)
-  Arc.call(this, M, Omega, angle, rayon, fill, color, fillOpacite)
+  Arc.call(this, M, Omega, angle, rayon, couleurDeRemplissage, color, fillOpacite)
 }
 export function arcPointPointAngle (...args) {
   return new ArcPointPointAngle(...args)
@@ -3543,6 +3543,7 @@ export function traceCompas (
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
+/* INUTLISEE - A SUPPRIMER ?
 function CourbeDeBezier (A, B, C) {
   ObjetMathalea2D.call(this)
   this.svg = function (coeff) {
@@ -3558,6 +3559,7 @@ function CourbeDeBezier (A, B, C) {
 export function courbeDeBezier (...args) {
   return new CourbeDeBezier(...args)
 }
+*/
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3833,13 +3835,14 @@ export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart =
   return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label, color, opacite })
 }
 
-function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens', precisionAuDegre = 1, stepGraduation = 10, rayonsVisibles = true }) {
+function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens', precisionAuDegre = 1, stepGraduation = 10, rayonsVisibles = true, color = 'gray' }) {
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
   this.taille = taille
   this.opacite = 0.7
-  this.color = 'gray'
+  this.color = color
+  console.log(this.color)
   const objets = []
   let numero
   let azimut
@@ -3857,73 +3860,72 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
   const centre = point(this.x, this.y)
   azimut = rotation(point(this.x + 1, this.y), centre, depart)
   let azimut2 = pointSurSegment(centre, azimut, this.taille)
-  const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', 'gray')
-  const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', 'gray')
-  objets.push(segment(centre, azimut2))
-  rayon = segment(azimut, azimut2)
+  const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', this.color)
+  const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', this.color)
+  // objets.push(segment(centre, azimut2, this.color))
+  objets.push(segment(azimut2, rotation(azimut2, centre, 180), this.color))
+  rayon = segment(azimut, azimut2, this.color)
   if (rayonsVisibles) objets.push(arc1)
-  objets.push(arc2, rayon)
+  // objets.push(arc2, rayon)
+  objets.push(arc2)
   for (let i = 0; i < nbDivisions; i++) {
     if (avecNombre !== '') {
       if (avecNombre === 'deuxSens') {
         if (i === 0) {
-          numero = texteParPoint(arcPlein, rotation(homothetie(azimut2, centre, 0.8), centre, 2), -depart, 'gray')
+          numero = texteParPoint(arcPlein, rotation(homothetie(azimut2, centre, 0.8), centre, 2), -depart, this.color)
           numero.contour = true
           objets.push(numero)
         }
         if (i === nbDivisions - 1) {
-          numero = texteParPoint(arcPlein - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions - 2), -depart, 'gray')
+          numero = texteParPoint(arcPlein - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions - 2), -depart, this.color)
           numero.contour = true
           objets.push(numero)
         } else if ((arcPlein - (1 + i) * 10) % stepGraduation === 0) {
-          numero = texteParPoint(arcPlein - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, 'gray')
+          numero = texteParPoint(arcPlein - (1 + i) * 10, rotation(homothetie(azimut2, centre, 0.8), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, this.color)
           numero.contour = true
           objets.push(numero)
         }
       }
       if (i === 0) {
-        numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9), centre, 2), -depart, 'gray')
+        numero = texteParPoint('0', rotation(homothetie(azimut2, centre, 0.9), centre, 2), -depart, this.color)
         numero.contour = true
         objets.push(numero)
       }
       if (i === nbDivisions - 1) {
-        numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions - 2), -depart, 'gray')
+        numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions - 2), -depart, this.color)
         numero.contour = true
         objets.push(numero)
       } else if ((i + 1) * 10 % stepGraduation === 0) {
-        numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, 'gray')
+        numero = texteParPoint((1 + i) * 10, rotation(homothetie(azimut2, centre, 0.9), centre, arcPlein / nbDivisions), 90 - (1 + i) * 10 - depart, this.color)
         numero.contour = true
         objets.push(numero)
       }
     }
     for (let s = 1, r; s < 10; s++) {
       if (s === 5 && precisionAuDegre < 10) {
-        r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92), homothetie(rotation(azimut2, centre, s), centre, 0.99))
+        r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.92), homothetie(rotation(azimut2, centre, s), centre, 0.99), this.color)
         r.opacite = 0.6
-        r.color = 'gray'
         objets.push(r)
       } else if (precisionAuDegre === 1) {
-        r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96), homothetie(rotation(azimut2, centre, s), centre, 0.99))
+        r = segment(homothetie(rotation(azimut2, centre, s), centre, 0.96), homothetie(rotation(azimut2, centre, s), centre, 0.99), this.color)
         r.opacite = 0.6
-        r.color = 'gray'
         objets.push(r)
       }
     }
-    rayon.color = this.color
-    rayon.opacite = this.opacite
-    objets.push(rayon)
+    if ((i !== 0) & (i !== 36) & (i !== 18)) objets.push(rayon)
     azimut = rotation(azimut, centre, arcPlein / nbDivisions)
     azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
     if (rayonsVisibles) rayon = segment(azimut, azimut2)
-    else rayon = segment(homothetie(azimut2, centre, 0.9), azimut2)
+    else rayon = segment(homothetie(azimut2, centre, 0.9), azimut2, this.color)
+    rayon.color = colorToLatexOrHTML(this.color)
+    rayon.opacite = this.opacite
   }
-  objets.push(segment(centre, azimut2))
   if (!semi) {
-    rayon = segment(homothetie(rotation(azimut, centre, -90), centre, -0.2), homothetie(rotation(azimut, centre, -90), centre, 0.2))
+    rayon = segment(homothetie(rotation(azimut, centre, -90), centre, -0.2), homothetie(rotation(azimut, centre, -90), centre, 0.2), this.color)
     objets.push(rayon)
-    rayon = segment(homothetie(azimut, centre, -0.2), homothetie(azimut, centre, 0.2))
+    rayon = segment(homothetie(azimut, centre, -0.2), homothetie(azimut, centre, 0.2), this.color)
   } else {
-    rayon = segment(centre, homothetie(rotation(azimut, centre, -90), centre, 0.2))
+    rayon = segment(centre, homothetie(rotation(azimut, centre, -90), centre, 0.2), this.color)
   }
   objets.push(rayon)
   this.bordures = [x - taille - 1, y - taille - 1, x + taille + 1, y + taille + 1]
@@ -3955,8 +3957,8 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
  * @param {object} param0 = {x: 'number', y: 'number', taille: 'number', semi: boolean, avecNombre: string}
  * @returns {Rapporteur} // crée un instance de l'objet 2d Rapporteur
  */
-export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens', precisionAuDegre = 1, stepGraduation = 10, rayonsVisibles = true }) {
-  return new Rapporteur({ x, y, taille, depart, semi, avecNombre, precisionAuDegre, stepGraduation, rayonsVisibles })
+export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens', precisionAuDegre = 1, stepGraduation = 10, rayonsVisibles = true, color = 'gray' }) {
+  return new Rapporteur({ x, y, taille, depart, semi, avecNombre, precisionAuDegre, stepGraduation, rayonsVisibles, color })
 }
 
 /**
@@ -4094,17 +4096,19 @@ export function rotation (A, O, angle, nom = '', positionLabel = 'above', color 
  * @author Jean-Claude Lhote
  * A1 Le point de départ de la flèche
  * centre Le centre de la rotation
- * sens Le sens (+1 ou -1) de la rotation. +1=sens trigo
+ * sens Le sens (+1 ou -1) de la rotation. +1=sens trig
  */
-function SensDeRotation (A1, centre, sens) {
+function SensDeRotation (A1, centre, sens, color = 'black') {
   ObjetMathalea2D.call(this)
   const objets = []
   const arc1 = arc(A1, centre, 20 * sens)
+  arc1.color = colorToLatexOrHTML(color)
   const A2 = rotation(A1, centre, 20 * sens)
   const F1 = similitude(A2, centre, -5 * sens, 0.95)
   const F2 = similitude(A2, centre, -5 * sens, 1.05)
-  const s1 = segment(A2, F1)
-  const s2 = segment(A2, F2)
+  const s1 = segment(A2, F1, color)
+  s1.isVisible = true
+  const s2 = segment(A2, F2, color)
   objets.push(arc1, s1, s2)
 
   this.svg = function (coeff) {
@@ -4122,8 +4126,8 @@ function SensDeRotation (A1, centre, sens) {
     return code
   }
 }
-export function sensDeRotation (A, O, sens) {
-  return new SensDeRotation(A, O, sens)
+export function sensDeRotation (A, O, sens, color = 'black') {
+  return new SensDeRotation(A, O, sens, color)
 }
 /**
  * M = homothetie(A,O,k) //M est l'image de A dans l'homothétie de centre O et de rapport k
@@ -4412,8 +4416,7 @@ function ApparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefini
     } else {
       // si ce n'est pas une liste
       code += '\n' + liste.svg(coeff)
-      liste.color = 'orange'
-      console.log(liste)
+    //  liste.color = colorToLatexOrHTML('orange')
     }
     code += `<animate attributeType="CSS"
     attributeName="visibility"
@@ -4521,7 +4524,7 @@ function HomothetieAnimee (
     const p2 = homothetie(p, O, k)
     p2.isVisible = false
     const binomesXY2 = p2.binomesXY(coeff)
-    const code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage}" >
+    const code = `<polygon stroke="${p.color[0]}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage[0]}" >
   <animate attributeName="points" ${animation}
   from="${binomesXY1}"
   to="${binomesXY2}"
@@ -4551,7 +4554,7 @@ function SymetrieAnimee (
     const p2 = symetrieAxiale(p, d)
     p2.isVisible = false
     const binomesXY2 = p2.binomesXY(coeff)
-    const code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage}" >
+    const code = `<polygon stroke="${p.color[0]}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage[0]}" >
     <animate attributeName="points" ${animation}
     from="${binomesXY1}"
     to="${binomesXY2}"
@@ -4576,7 +4579,7 @@ function AffiniteOrthoAnimee (
     const p2 = affiniteOrtho(p, d, k)
     p2.isVisible = false
     const binomesXY2 = p2.binomesXY(coeff)
-    const code = `<polygon stroke="${p.color}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage}" >
+    const code = `<polygon stroke="${p.color[0]}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage[0]}" >
     <animate attributeName="points" ${animation}
     from="${binomesXY1}"
     to="${binomesXY2}"
