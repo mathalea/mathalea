@@ -7,9 +7,11 @@ export const dateDePublication = '01/06/2022'
 /*!
  * @author Stéphane et cie
  */
-export default function CosEtsinsCAN () {
-  CosEtsin.call(this)
-  this.nbQuestions = 1
-  this.can = true
-  this.sup = '3'
+export default class CosEtsinsCAN extends CosEtsin {
+  constructor () {
+    super()
+    this.nbQuestions = 1
+    this.can = true
+    this.sup = 3
+  }
 }
