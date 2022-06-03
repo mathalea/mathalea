@@ -273,21 +273,23 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
   }
   const MultiplicationPosee3d = function (operande1, operande2, base) {
     let sop1; let sop2; const objets = []; let operandex; let lignesinutiles = 0
-
+    let zeroUtile1, zeroUtile2
     const produits = []; let strprod; const sommes = []
-    if (operande1.lt(operande2)) {
+    if (operande1 < operande2) {
       operandex = operande1
       operande1 = operande2
       operande2 = operandex
     }
     let dec1, dec2
     if (base ? base === 10 : true) {
+      zeroUtile1 = operande1.lt(1)
+      zeroUtile2 = operande2.lt(1)
       dec1 = nombreDeChiffresApresLaVirgule(operande1)
       dec2 = nombreDeChiffresApresLaVirgule(operande2)
       operande1 = operande1.mul(10 ** dec1)
       operande2 = operande2.mul(10 ** dec2)
-      sop1 = operande1.toString()
-      sop2 = operande2.toString()
+      sop1 = (zeroUtile1 ? '0' : '') + Number(operande1).toString()
+      sop2 = (zeroUtile2 ? '0' : '') + Number(operande2).toString()
     } else {
       dec1 = 0
       dec2 = 0
