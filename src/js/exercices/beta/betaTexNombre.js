@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { texNombre, listeQuestionsToContenu, scientifiqueToDecimal } from '../../modules/outils.js'
+import { texNombre, listeQuestionsToContenu, scientifiqueToDecimal, stringNombre } from '../../modules/outils.js'
 import { Decimal } from 'decimal.js'
 import { all, create } from 'mathjs'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
@@ -35,21 +35,11 @@ export default function NomExercice () {
     Decimal.toExpNeg = -40
     Decimal.toExpPos = 40
     const a = new Decimal(this.sup)
-    const b = new Decimal(this.sup2)
-    const param = aleaVariables(
-      {
-        r1: 'randomInt(1,999) / pickRandom([10,100,1000,10000])',
-        r2: 'randomInt(100,999) / pickRandom([10,100,1000,10000])',
-        r3: 'random(5,10)',
-        test: 'abs(r1-r2)>10'
-      }, { type: 'decimal', valueOf: true }
-    )
-    console.log('r1 = ', param.r1, param.r1.toString(), ' r2 = ', param.r2, param.r2.toString(), ' r3 = ', param.r3, param.r3.toString())
-    console.log('abs(r1-r2) = ', Decimal.abs(param.r1.sub(param.r2)).toString())
-    for (let i = 20; i > 0; i -= 6) {
-      this.listeQuestions.push(`$${texNombre(a)}\\times 10^{${texNombre(i)}}=${scientifiqueToDecimal(a, i)}$`)
-      this.listeCorrections.push(`$${texNombre(a)}\\times 10^{${texNombre(i)}}=${scientifiqueToDecimal(a, i)}$`)
-    }
+    const b = Number(this.sup)
+
+    console.log(stringNombre(a))
+    console.log(stringNombre(Math.log10(a), 5))
+
     listeQuestionsToContenu(this)
   }
 }
