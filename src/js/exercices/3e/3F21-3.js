@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { ecritureAlgebrique, listeQuestionsToContenu, calcul, randint, rienSi1, texNombre, stringNombre, sp, choice } from '../../modules/outils.js'
+import { ecritureAlgebrique, listeQuestionsToContenu, randint, rienSi1, texNombre, stringNombre, sp, choice } from '../../modules/outils.js'
 import { mathalea2d, repere2, cercle, point, segment, milieu, texteParPoint, droite } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -32,7 +32,7 @@ export default function PenteEtOrdonneeOrigineDroite () {
     this.listeCorrections = [] // Liste de questions corrigées
     const num = randint(-5, 5, 0)
     const den = randint(1, 2)
-    const a = calcul(num / den)
+    const a = num / den
     const b = randint(-4, 4, 0)
     let xMin
     context.isHtml ? xMin = -10 : xMin = -8

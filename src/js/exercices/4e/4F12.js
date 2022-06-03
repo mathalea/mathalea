@@ -61,7 +61,7 @@ export default function ExploiterRepresentationGraphique () {
         texte2 = texteParPosition('temps (en s)', (t1 + 0.5) * xscale, 0.4, 'droite')
 
         this.introduction =
-          'On a représenté ci-dessous l\'évolution de la hauteur d\'un projectile lancé depuis le sol (en mètre) en fonction du temps (en seconde).'
+          'On a représenté ci-dessous l\'évolution de la hauteur d\'un projectile lancé depuis le sol (en mètres) en fonction du temps (en secondes).'
 
         this.introduction +=
           '<br><br>' +
@@ -140,7 +140,7 @@ export default function ExploiterRepresentationGraphique () {
             'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push(
-          'À quelle ditance le projectile est-il retombé ?'
+          'À quelle distance le projectile est-il retombé ?'
         )
         this.listeCorrections.push(
             `Le projectile retombe au sol à une distance de ${t1} m, car la courbe passe par le point de coordonnées $(${texNombrec(
