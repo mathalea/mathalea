@@ -3259,6 +3259,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
   this.color = colorToLatexOrHTML(color)
   this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.opaciteDeRemplissage = fillOpacite
+  this.opacite = 1
   this.hachures = couleurDesHachures !== 'none' & couleurDesHachures !== ''
   this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
   this.epaisseurDesHachures = 1
@@ -4838,7 +4839,7 @@ export function codageMedianeTriangle (...args) {
  * @param {Point} A
  * @param {Point} B
  * @param {Point} C
- * @param {string} color
+ * @param {string} nom
  */
 export function orthoCentre (A, B, C, nom = '', positionLabel = 'above') {
   const d = hauteurTriangle(B, A, C)
@@ -4857,7 +4858,7 @@ export function orthoCentre (A, B, C, nom = '', positionLabel = 'above') {
  * @param {Point} A
  * @param {Point} B
  * @param {Point} C
- * @param {string} color
+ * @param {string} nom
  */
 export function centreCercleCirconscrit (A, B, C, nom = '', positionLabel = 'above') {
   const d = mediatrice(A, B)
@@ -5172,7 +5173,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
     const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
     const marque = arc(M, B, this.angle, rayon, fill, colorArc, fillOpacite)
     mesure.contour = mesureEnGras
-    mesure.couleurDeRemplissage = color
+    mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
     marque.epaisseur = arcEpaisseur
     return '\n' + mesure.svg(coeff) + '\n' + marque.svg(coeff)
   }
@@ -5188,7 +5189,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
     const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
     const marque = arc(M, B, this.angle, rayon, fill, colorArc, fillOpacite)
     mesure.contour = mesureEnGras
-    mesure.couleurDeRemplissage = color
+    mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
     marque.epaisseur = arcEpaisseur
     return '\n' + mesure.tikz() + '\n' + marque.tikz()
   }
@@ -5414,7 +5415,7 @@ export function codeSegments (mark = '||', color = 'black', ...args) {
  *  la ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @author Jean-Claude Lhote
  */
-function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
+function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', fillOpacite = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.debut = debut
@@ -5423,11 +5424,8 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
   this.mark = mark
   this.epaisseur = epaisseur
   this.opacite = opacite
-
-  if (fill !== 'none') {
-    this.couleurDeRemplissage = fill
-    this.opaciteDeRemplissage = fillOpacite
-  } else { this.couleurDeRemplissage = 'none' }
+  this.couleurDeRemplissage = couleurDeRemplissage
+  this.opaciteDeRemplissage = fillOpacite
   this.angle = angle
 
   this.svg = function (coeff) {
@@ -5439,11 +5437,11 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const d = droite(this.centre, P)
     d.isVisible = false
     const mesure = Math.round(Math.abs(angle)) + '°'
-    const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', this.couleurDeRemplissage, this.color)
+    const arcangle = arc(depart, this.centre, this.angle, this.couleurDeRemplissage !== 'none', this.couleurDeRemplissage, this.color)
     arcangle.isVisible = false
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.opaciteDeRemplissage = fillOpacite
+    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
     objets.push(arcangle)
     if (this.mark !== '') {
       const t = texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color)
@@ -5481,7 +5479,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const arcangle = arc(depart, this.centre, this.angle, false, this.couleurDeRemplissage, this.color)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.opaciteDeRemplissage = fillOpacite
+    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
     if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).svg(coeff) + '\n'
     if (mesureOn) code += texteParPoint(mesure, M, 'milieu', this.color).svg(coeff) + '\n'
     code += arcangle.svgml(coeff, amp)
@@ -5495,7 +5493,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const mesure = Math.round(Math.abs(angle)) + '°'
     const d = droite(this.centre, P)
     d.isVisible = false
-    const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', this.couleurDeRemplissage, this.color)
+    const arcangle = arc(depart, this.centre, this.angle, couleurDeRemplissage !== 'none', this.couleurDeRemplissage, this.color)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
     arcangle.opaciteDeRemplissage = fillOpacite
@@ -5514,7 +5512,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     // const d = droite(this.centre, P)
     const d = droite(this.centre, M)
     d.isVisible = false
-    const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', this.couleurDeRemplissage, this.color)
+    const arcangle = arc(depart, this.centre, this.angle, false, this.couleurDeRemplissage, this.color)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
     arcangle.opaciteDeRemplissage = fillOpacite
@@ -5534,7 +5532,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
  * @param {string} [color='black'] Facultatif. 'black' par défaut.
  * @param {number} [epaisseur=1] Facultatif. 1 par défaut.
  * @param {number} [opacite=1] Facultatif. 1 par défaut.
- * @param {string} [fill='none'] Facultatif. 'none' par défaut
+ * @param {string} [couleurDeRemplissage='none'] Facultatif. 'none' par défaut
  * @param {number} [fillOpacite=0.2] Facultatif. 0.2 par défaut
  * @param {boolean} [mesureOn=false] Facultatif. false par défaut
  * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré (from EE)
@@ -5545,23 +5543,21 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
  * @example codeAngle(A,O,B) // code l'angle AOB sans aucune autre option possible
  * @author Jean-Claude Lhote
  */
-export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
+export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', fillOpacite = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
   if (typeof (angle) !== 'number') {
     angle = angleOriente(debut, centre, angle)
   }
   if ((angle === 90 || angle === -90) & !noAngleDroit) {
-    return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille, epaisseur, opacite, fill, fillOpacite)
-  } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, fill, fillOpacite, mesureOn, texteACote, tailleTexte)
+    return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille, epaisseur, opacite, couleurDeRemplissage, fillOpacite)
+  } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, couleurDeRemplissage, fillOpacite, mesureOn, texteACote, tailleTexte)
 }
 
 function NomAngleParPosition (nom, x, y, color, s) {
   ObjetMathalea2D.call(this)
   const objets = []
   objets.push(texteParPosition(nom, x, y, 'milieu', color, 1, 'middle', true))
-  const s1 = segment(x - 0.6, y + 0.4 - s / 10, x + 0.1, y + 0.4 + s / 10)
-  const s2 = segment(x + 0.1, y + 0.4 + s / 10, x + 0.8, y + 0.4 - s / 10)
-  s1.color = color
-  s2.color = color
+  const s1 = segment(x - 0.6, y + 0.4 - s / 10, x + 0.1, y + 0.4 + s / 10, color)
+  const s2 = segment(x + 0.1, y + 0.4 + s / 10, x + 0.8, y + 0.4 - s / 10, color)
   objets.push(s1, s2)
   this.svg = function (coeff) {
     let code = ''
@@ -6266,8 +6262,7 @@ function Seyes (xmin = 0, ymin = 0, xmax = 15, ymax = 15, opacite1 = 0.5, opacit
   const objets = []
   for (let y = ymin; y <= ymax; y = y + 0.25) {
     if (y % 1 !== 0) {
-      const d = segment(xmin, y, xmax, y)
-      d.color = 'red'
+      const d = segment(xmin, y, xmax, y, 'red')
       d.opacite = opacite2
       objets.push(d)
     }
@@ -6863,15 +6858,13 @@ function Repere2 ({
   const objets = []
   // LES AXES
   const OrdonneeAxe = Math.max(0, yMin)
-  const axeX = segment(xMin * xUnite, OrdonneeAxe * yUnite, xMax * xUnite, OrdonneeAxe * yUnite)
+  const axeX = segment(xMin * xUnite, OrdonneeAxe * yUnite, xMax * xUnite, OrdonneeAxe * yUnite, axesCouleur)
   axeX.epaisseur = axesEpaisseur
   axeX.styleExtremites = axeXStyle
-  axeX.color = colorToLatexOrHTML(axesCouleur)
   const abscisseAxe = Math.max(0, xMin)
-  const axeY = segment(abscisseAxe * xUnite, yMin * yUnite, abscisseAxe * xUnite, yMax * yUnite)
+  const axeY = segment(abscisseAxe * xUnite, yMin * yUnite, abscisseAxe * xUnite, yMax * yUnite, axesCouleur)
   axeY.epaisseur = axesEpaisseur
   axeY.styleExtremites = axeYStyle
-  axeY.color = colorToLatexOrHTML(axesCouleur)
   if (axeXisVisible) objets.push(axeX)
   if (axeYisVisible) objets.push(axeY)
   // Cache les objets intermédiaires pour ne pas les afficher en double dans mathalea2d.html
@@ -7279,8 +7272,7 @@ function TraceGraphiqueCartesien (data, repere, {
   for (const [x, y] of data) {
     const M = pointDansRepere(x, y, repere)
     listePoints.push(M)
-    const t = tracePoint(M)
-    t.color = couleurDesPoints
+    const t = tracePoint(M, couleurDesPoints)
     t.style = styleDesPoints
     t.taille = tailleDesPoints
     t.isVisible = false
@@ -7290,7 +7282,7 @@ function TraceGraphiqueCartesien (data, repere, {
   const l = polyline(...listePoints)
   l.isVisible = false
   l.epaisseur = epaisseurDuTrait
-  l.color = couleurDuTrait
+  l.color = colorToLatexOrHTML(couleurDuTrait)
   if (styleDuTrait === 'pointilles') {
     l.pointilles = true
   }
@@ -7341,7 +7333,13 @@ export function traceGraphiqueCartesien (...args) {
  * exemple :
  * tabInit:[[[texte1,taille1,long1],[texte2,taille2,long2]...],[valeur1,long1,valeur2,long2,valeur3,long3...]]
  * tabLines:[[type,long0,codeL1C1,long1,codeL1C2,long2,codeL1C3,long3...],[type,long0,codeL2C1,long1,codeL2C2,long2,codeL2C3,long3...]]
- * @param {*} param0
+ * Pour colors, c'est propre à Latex : color, colorC = blue!15, colorL = green!15
+    colorL (comme couleur de la ligne) pour la zone 1
+    colorV (comme couleur de la variable) pour la zone 2
+    colorC (comme couleur de la colonne) pour la zone 3
+    colorT (comme couleur du tableau) pour la zone 4.
+
+ *  @param {*} param0
  * @author Jean-Claude Lhote
  */
 function TableauDeVariation ({ tabInit, tabLines, lgt, escpl, deltacl, colors, hauteurLignes, colorBackground }) {
@@ -8219,9 +8217,9 @@ export function tableauDeVariation ({ tabInit = ['', ''], tabLines = [], lgt = 3
 function TraceBarre (x, hauteur, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
   ObjetMathalea2D.call(this)
   const p = hauteur === 0 ? vide2d(x, 0) : polygone(point(x - epaisseur / 2, 0), point(x - epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, 0))
-  p.couleurDeRemplissage = couleurDeRemplissage
+  p.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   p.opaciteDeRemplissage = opaciteDeRemplissage
-  p.color = color
+  p.color = colorToLatexOrHTML(color)
   if (hachures) {
     p.hachures = hachures
   }
@@ -8254,9 +8252,9 @@ export function traceBarre (...args) {
 function TraceBarreHorizontale (longueur, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, unite = 1, angle = 'gauche', hachures = false } = {}) {
   ObjetMathalea2D.call(this)
   const p = longueur === 0 ? vide2d(0, y) : polygone(point(0, y - epaisseur / 2), point(0, y + epaisseur / 2), point(unite * longueur, y + epaisseur / 2), point(unite * longueur, y - epaisseur / 2))
-  p.couleurDeRemplissage = couleurDeRemplissage
+  p.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   p.opaciteDeRemplissage = opaciteDeRemplissage
-  p.color = color
+  p.color = colorToLatexOrHTML(color)
   if (hachures) {
     p.hachures = hachures
   }
@@ -8503,7 +8501,6 @@ function Courbe (
   step = 0.1
 ) {
   ObjetMathalea2D.call(this)
-  // this.color = color
   let xscale, yscale
   this.xmin = xmin
   if (r.constructor === Repere) {
@@ -8517,16 +8514,13 @@ function Courbe (
   for (
     let x = xmin / xscale;
     x <= xmax / xscale;
-    // x = x + step
     x = arrondi(x + step)
   ) {
     if (isFinite(f(x * xscale))) {
       points.push(point(x, f(x * xscale) / yscale))
     }
   }
-  // const p = polyline([...points], this.color)
-  // const p = polyline([...points], 'red')
-  const p = polyline([...points], 'red')
+  const p = polyline([...points], color)
   p.epaisseur = epaisseur
   return p
 }
@@ -9105,7 +9099,6 @@ export function intervalle (A, B, color = 'blue', h = 0) {
   const B1 = point(B.x, B.y + h)
   const s = segment(A1, B1, color)
   // s.styleExtremites = '->'
-
   s.epaisseur = 3
   return s
 }
@@ -11509,9 +11502,8 @@ function Pavage () {
 
     for (let i = 0; i < this.nb_polygones; i++) {
       this.barycentres.push(barycentre(this.polygones[i]))
-      this.tracesCentres.push(tracePoint(this.barycentres[i]))
+      this.tracesCentres.push(tracePoint(this.barycentres[i], 'blue'))
       this.tracesCentres[i].opacite = 0.5
-      this.tracesCentres[i].color = 'blue'
       this.tracesCentres[i].taille = 2
       this.coordonnees.push([this.barycentres[i].x, this.barycentres[i].y])
       this.numeros.push(texteParPosition(nombreAvecEspace(i + 1), this.barycentres[i].x + 0.5, this.barycentres[i].y, 'milieu', 'black', 50 / this.echelle, 0, true))

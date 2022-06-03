@@ -46,7 +46,8 @@ export default function CalculedddrUnAngle () {
       const m6 = arc(C, B, 60, 5, '', '#f15929', 1, 'green')
       const m7 = arc(E, B, 60, 5, '#f15929', 'blue', 1, 'none')
       const m8 = rapporteur({ x: 0, y: 0, taille: 7, depart: 20, semi: true, avecNombre: 'unSens', rayonsVisibles: true, precisionAuDegre: 10 })
-      objetsEnonce.push(p1, p5, m8)
+      const p13 = codeAngle(C, A, 45, 5, 'X', 'blue', 1, 1, '#f15929', 0.4)
+      objetsEnonce.push(p1, p5, p13)
       /*
       const p2 = segment(A, B, '#f15929')
       const p3 = cercle(A, 5, 'blue')
