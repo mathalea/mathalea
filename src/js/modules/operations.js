@@ -14,7 +14,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
   let Code
   const nombreDeChiffresApresLaVirgule = function (x) {
     const s = x.toString()
-    const pe = x.round().toString()
+    const pe = x.floor().toString()
     if (pe.length === s.length) return 0
     return s.length - pe.length - 1
   }
