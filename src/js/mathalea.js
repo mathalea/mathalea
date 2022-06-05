@@ -1849,6 +1849,8 @@ function parametresExercice (exercice) {
       $('#nombre_de_versions').change(function () {
         miseAJourDuCode()
       })
+      $('#popup_preview .icone_param').remove() //Dans la popup de visualisation pas d'icone engrenage.
+      $('#popup_preview .iconeInteractif').remove() //Dans la popup de visualisation pas d'icone interactif
     } else {
       divParametresGeneraux.innerHTML += '<h4 class="ui dividing header">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + '</h4>'
 
@@ -2080,16 +2082,10 @@ function parametresExercice (exercice) {
 
     if (exercice[i].besoinFormulaire3Texte) {
       // Création d'un formulaire texte
-      divParametresGeneraux.innerHTML +=
-        "<p></p><div style='display: inline'><label for='form_sup3" +
-        i +
-        "'>" +
-        exercice[i].besoinFormulaire3Texte[0] +
-        " : </label><div style='display: inline' data-tooltip='" +
-        exercice[i].besoinFormulaire3Texte[1] +
-        "' data-inverted=''><input id='form_sup3" +
-        i +
-        "' type='text' size='20' ></div></div>"
+      const paramTooltip = exercice[i].besoinFormulaire3Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire3Texte[1]}"` : ''
+      divParametresGeneraux.innerHTML += `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire3Texte[0]} : </label>
+                    <div style='display: inline' ${paramTooltip} data-inverted=''>
+                    <input id='form_sup3${i}' type='text' size='20' ></div></div>`
     }
 
     if (exercice[i].besoinFormulaire4CaseACocher) {
@@ -2136,16 +2132,10 @@ function parametresExercice (exercice) {
 
     if (exercice[i].besoinFormulaire4Texte) {
       // Création d'un formulaire texte
-      divParametresGeneraux.innerHTML +=
-        "<p></p><div style='display: inline'><label for='form_sup4" +
-        i +
-        "'>" +
-        exercice[i].besoinFormulaire4Texte[0] +
-        " : </label><div style='display: inline' data-tooltip='" +
-        exercice[i].besoinFormulaire4Texte[1] +
-        "' data-inverted=''><input id='form_sup4" +
-        i +
-        "' type='text' size='20' ></div></div>"
+      const paramTooltip = exercice[i].besoinFormulaire4Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire4Texte[1]}"` : ''
+      divParametresGeneraux.innerHTML += `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire4Texte[0]} : </label>
+                    <div style='display: inline' ${paramTooltip} data-inverted=''>
+                    <input id='form_sup4${i}' type='text' size='20' ></div></div>`
     }
   }
 

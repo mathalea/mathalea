@@ -9,6 +9,7 @@ import { setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
 import FractionX from './FractionEtendue.js'
 import { elimineDoublons } from './interactif/questionQcm.js'
+import { Decimal } from 'decimal.js'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -943,6 +944,12 @@ export function ecritureAlgebrique (a) {
     } else {
       return stringNombre(a)
     }
+  } else if (a instanceof Decimal) {
+    if (a.isPos()) {
+      return '+' + stringNombre(a)
+    } else {
+      return stringNombre(a)
+    }
   } else window.notify('rienSi1 : type de valeur non prise en compte')
 }
 
@@ -1064,7 +1071,9 @@ export function baseValeur (n) {
 export function baseNVersBase10 (stringNombre, b) {
   let result = 0
   if (typeof stringNombre === 'number') {
-    stringNombre = Number(stringNombre).toString()
+    stringNombre = stringNombre.toString()
+  } else if (stringNombre instanceof Decimal) {
+    stringNombre = stringNombre.toNumber().toString()
   }
   for (let i = 0; i < stringNombre.length; i++) {
     result += b ** i * valeurBase(stringNombre.charAt(stringNombre.length - 1 - i))
@@ -1091,7 +1100,8 @@ export function base10VersBaseN (nombre, b) {
   //   nombre -= chiffre * b ** i
   // }
   // return code
-  return nombre.toString(b).toUpperCase()
+  if (nombre instanceof Decimal) return nombre.toNumber().toString(b).toUpperCase()
+  else return nombre.toString(b).toUpperCase()
   // Il y avait un probleme avec 3 = (3)_3
 }
 
@@ -1336,20 +1346,21 @@ export function troncature (nombre, precision) {
 
 /**
 * Renvoie la valeur absolue
-* @author Rémi Angot
+* @author Rémi Angot + ajout du support des décimaux par Jean-Claude Lhote
 */
 export function abs (a) {
+  if (a instanceof Decimal) return a.abs()
   return Math.abs(a)
 }
 
 /**
 * Retourne un arrondi sous la forme d'un string avec une virgule comme séparateur décimal
-* @author Rémi Angot
+* @author Rémi Angot Fonction rendue inutile par Jean-Claude Lhote : lui substituer texNombre ou stringNombre selon le contexte.
 */
-export function arrondiVirgule (nombre, precision = 2) { //
-  // const tmp = Math.pow(10, precision)
-  return String(round(nombre, precision)).replace('.', ',')
-}
+// export function arrondiVirgule (nombre, precision = 2) { //
+// const tmp = Math.pow(10, precision)
+//  return String(round(nombre, precision)).replace('.', ',')
+// }
 
 /**
 * Retourne égal si la valeur égal l'arrondi souhaité ou environ égal si ce n'est pas le cas
@@ -1360,8 +1371,9 @@ export function arrondiVirgule (nombre, precision = 2) { //
 export function egalOuApprox (a, precision) {
   if (typeof a === 'object' && ['Fraction', 'FractionX'].indexOf(a.type) !== -1) {
     return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
-  }
-  if (!isNaN(a) && !isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
+  } else if (a instanceof Decimal) {
+    return a.eq(a.toDP(precision)) ? '=' : '\\approx'
+  } else if (!isNaN(a) && !isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
   else {
     window.notify('egalOuApprox : l\'argument n\'est pas un nombre', { a, precision })
     return 'Mauvais argument (nombres attendus).'
@@ -1490,7 +1502,7 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
     result += `\\dfrac{${texNombrec(b)}\\times${texNombrec(c)}}{${texNombrec(a)}}`
     if (p4 === arrondi(p4, precision)) result += '='
     else result += '\\approx'
-    result += `${arrondiVirgule(p4, precision)}`
+    result += `${texNombre(p4, precision)}`
     return result
   } else {
     return `\\dfrac{${b} \\times${c}}{${a}}`
@@ -1504,16 +1516,18 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
  * @param {number} b
  */
 export function reduireAxPlusB (a, b) {
+  if (!(a instanceof Decimal)) a = new Decimal(a)
+  if (!(b instanceof Decimal)) b = new Decimal(b)
   let result = ''
-  if (a !== 0) {
-    if (a === 1) result = 'x'
-    else if (a === -1) result = '-x'
+  if (!a.isZero()) {
+    if (a.eq(1)) result = 'x'
+    else if (a.eq(-1)) result = '-x'
     else result = `${stringNombre(a)}x`
   }
-  if (b !== 0) {
-    if (a !== 0) result += `${ecritureAlgebrique(b)}`
+  if (!b.isZero()) {
+    if (!a.isZero()) result += `${ecritureAlgebrique(b)}`
     else result = stringNombre(b)
-  } else if (a === 0) result = '0'
+  } else if (a.isZero()) result = '0'
   return result
 }
 /**
@@ -1734,17 +1748,19 @@ export function xcas (expression) {
 }
 
 /**
-* Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
-* Le 2e argument facultatif permet de préciser l'arrondi souhaité
-* @author Rémi Angot
+* Utilise un arrondi au millionième pour éviter les flottants à rallonge (erreurs d'arrondis des flottants)
+* Le 2e argument facultatif permet de préciser l'arrondi souhaité : c'est le nombre max de chiffres après la virgule souhaités
+* @author Rémi Angot modifié par Jean-Claude Lhote
 */
-export function calcul (x, arrondir = 13) {
+export function calcul (x, arrondir) {
+  const sansPrecision = (arrondir === undefined)
+  if (sansPrecision) arrondir = 6
   if (typeof x === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
-    return parseFloat(evaluate(x).toFixed(arrondir === false ? 13 : arrondir))
-  } else {
-    return parseFloat(x.toFixed(arrondir))
+    x = parseFloat(evaluate(x))
   }
+  if (sansPrecision && !egal(x, arrondi(x, arrondir), 10 ** (-arrondir - 1))) window.notify('calcul : arrondir semble avoir tronqué des décimales sans avoir eu de paramètre de précision', { x, arrondir })
+  return parseFloat(x.toFixed(arrondir))
 }
 
 /**
@@ -1834,17 +1850,21 @@ export function sommeDesTermesParSigne (liste) {
 }
 
 /**
-* Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument
-* @param {integer} nbsommets
-* @param {string[]} listeAEviter
-* @author Rémi Angot
-**/
+ * Créé un string de nbsommets caractères dans l'ordre alphabétique et en majuscule qui ne soit pas dans la liste donnée en 2e argument
+ * @param {integer} nbsommets
+ * @param {string[]} listeAEviter
+ * @author Rémi Angot
+ * Ajout des while pour s'assurer de bien avoir des lettres majuscules le 08/05/2022 par Guillaume Valmont
+ **/
 export function creerNomDePolygone (nbsommets, listeAEviter = []) {
   let premiersommet = randint(65, 90 - nbsommets)
   let polygone = ''
   if (listeAEviter === undefined) listeAEviter = []
   for (let i = 0; i < nbsommets; i++) {
-    polygone += String.fromCharCode(premiersommet + i)
+    let augmentation = i
+    while (premiersommet + augmentation > 90) augmentation -= 26
+    while (premiersommet + augmentation < 65) augmentation += 26
+    polygone += String.fromCharCode(premiersommet + augmentation)
   }
 
   if (listeAEviter.length < 26 - nbsommets - 1) { // On évite la liste à éviter si elle n'est pas trop grosse sinon on n'en tient pas compte
@@ -2386,7 +2406,7 @@ export function htmlEnumerate (liste, spacing, classe = 'question', id = '', tai
   let result = ''
   // Pour diapCorr, on numérote les questions même si un exercice n'en comporte qu'une
   if (liste.length > 1 || context.vue === 'diapCorr') {
-    (spacing > 1) ? result = `<ol style="line-height: ${spacing};" ${classeOl ? `class = ${classeOl}` : ''}>` : result = '<ol>'
+    (spacing > 1) ? result = `<ol style="line-height: ${spacing};" ${classeOl ? `class = ${classeOl}` : ''}>` : result = `<ol ${classeOl ? `class = ${classeOl}` : ''}>`
     for (const i in liste) {
       result += `<li class="${classe}" ${id ? 'id="' + id + i + '"' : ''} ${dataTaille(tailleDiaporama)}>` + liste[i].replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....') + '</li>' // .replace(/~/g,' ') pour enlever les ~ mais je voulais les garder dans les formules LaTeX donc abandonné
     }
@@ -2528,6 +2548,8 @@ export function numberFormat (nb) {
 /**
  * La chaîne de caractères en sortie doit être interprétée par KateX et doit donc être placée entre des $ $
  * Renvoie "Trop de chiffres" s'il y a plus de 15 chiffres significatifs (et donc un risque d'erreur d'approximation)
+ * S'utilise indifféremment avec des nombres (nb) au format natif (entier, flottant) ou au format Decimal (nécessite la librairie decimal.js)
+ * Avec comme avantage immédiat pour le format Decimal : precision est illimité.
  * Sinon, renvoie un nombre dans le format français (avec une virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
  * @author Guillaume Valmont
  * @param {number} nb nombre à afficher
@@ -2561,7 +2583,7 @@ export function texNombre2 (nb) {
   for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
     partieEntiere = partieEntiere.substring(0, i) + '\\,' + partieEntiere.substring(i)
   }
-  for (let i = 3; i < partieDecimale.length; i += 3) {
+  for (let i = 3; i < partieDecimale.length; i += 5) {
     partieDecimale = partieDecimale.substring(0, i) + '\\,' + partieDecimale.substring(i)
     i += 12
   }
@@ -2661,7 +2683,7 @@ export function nombreAvecEspace (nb) {
  * @param {integer} exp
  * @returns {string} Écriture décimale avec espaces
  */
-export const scientifiqueToDecimal = (mantisse, exp) => {
+/* export const scientifiqueToDecimal = (mantisse, exp) => {
   mantisse = mantisse.toString()
   let indiceVirguleDepart = mantisse.indexOf('.')
   if (indiceVirguleDepart < 0) {
@@ -2688,6 +2710,12 @@ export const scientifiqueToDecimal = (mantisse, exp) => {
     mantisseSansVirgule = partiGauche + mantisseSansVirgule
   }
   return insereEspaceDansNombre(mantisseSansVirgule)
+}
+*/
+export const scientifiqueToDecimal = (mantisse, exp) => {
+  if (exp < -6) Decimal.toExpNeg = exp - 1
+  else if (exp > 20) Decimal.toExpPos = exp + 1
+  return texNombre(new Decimal(mantisse).mul(Decimal.pow(10, exp)))
 }
 
 /**
@@ -2762,23 +2790,32 @@ function afficherNombre (nb, precision, fonction, force = false) {
    * @returns string avec le nombre dans le format français
    */
   function insereEspacesNombre (nb, maximumSignificantDigits = 15, fonction) {
-    if (Number(nb) === 0) return '0'
-    // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
+    let signe
     let nombre
-    if (Math.abs(nb) < 1) {
+    if (nb instanceof Decimal) {
+      signe = nb.isNeg()
       if (force) {
-        nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits, minimumFractionDigits: maximumSignificantDigits }).format(nb)
+        nombre = nb.toPrecision(maximumSignificantDigits).replace('.', ',')
       } else {
-        nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits }).format(nb)
+        nombre = nb.toSD(maximumSignificantDigits).toString().replace('.', ',')
       }
     } else {
-      if (force) {
-        nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits, minimumSignificantDigits: maximumSignificantDigits }).format(nb)
+      signe = nb < 0
+      // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
+      if (Math.abs(nb) < 1) {
+        if (force) {
+          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits, minimumFractionDigits: maximumSignificantDigits }).format(nb)
+        } else {
+          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits }).format(nb)
+        }
       } else {
-        nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
+        if (force) {
+          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits, minimumSignificantDigits: maximumSignificantDigits }).format(nb)
+        } else {
+          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
+        }
       }
     }
-    // console.log('précision : ', precision, 'nb : ', nb, 'nombre : ', nombre)
     const rangVirgule = nombre.indexOf(',')
     let partieEntiere = ''
     if (rangVirgule !== -1) {
@@ -2791,10 +2828,15 @@ function afficherNombre (nb, precision, fonction, force = false) {
       partieDecimale = nombre.substring(rangVirgule + 1)
     }
     // La partie entière est déjà formatée par le Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
-    // for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
-    //   partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
-    // }
-    for (let i = 3; i < partieDecimale.length; i += 4) { // des paquets de 3 nombres + 1 espace
+    // Dans le cas d'un Number, mais pas d'un Decimal
+    if (nb instanceof Decimal) {
+      if (signe) partieEntiere = partieEntiere.substring(1)
+      for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
+        partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
+      }
+      if (signe) partieEntiere = '-' + partieEntiere
+    }
+    for (let i = 3; i < partieDecimale.length; i += (fonction === 'texNombre' ? 5 : 4)) { // des paquets de 3 nombres + 1 espace
       partieDecimale = partieDecimale.substring(0, i) + (fonction === 'texNombre' ? '\\,' : ' ') + partieDecimale.substring(i)
     }
     if (partieDecimale === '') {
@@ -2803,26 +2845,41 @@ function afficherNombre (nb, precision, fonction, force = false) {
       nombre = partieEntiere + ',' + partieDecimale
     }
     return nombre
-  }
+  } // fin insereEspacesNombre()
+
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
-  if (isNaN(nb)) {
+  if (isNaN(nb) && !(nb instanceof Decimal)) {
     window.notify('AfficherNombre : Le nombre n\'en est pas un', { nb, precision, fonction })
     return ''
   }
-  if (Number(nb) === 0) return '0'
-  // si c'en est un, on le formate.
-  const nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
-  if (Number.isInteger(nb)) precision = 0
-  else {
-    if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
-      precision = 15 - nbChiffresPartieEntiere
-    } else if (precision < 0) {
-      precision = 0
+  if (nb instanceof Decimal) {
+    if (nb.isZero()) return '0'
+  } else if (Number(nb) === 0) return '0'
+  let nbChiffresPartieEntiere
+  if (nb instanceof Decimal) {
+    nbChiffresPartieEntiere = nb.abs().lt(1) ? 0 : nb.abs().toFixed(0).length
+    if (nb.isInteger()) precision = 0
+    else {
+      if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
+        precision = 15 - nbChiffresPartieEntiere
+      } else if (precision < 0) {
+        precision = 0
+      }
+    }
+  } else {
+    nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
+    if (Number.isInteger(nb)) precision = 0
+    else {
+      if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
+        precision = 15 - nbChiffresPartieEntiere
+      } else if (precision < 0) {
+        precision = 0
+      }
     }
   }
 
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
-  if (maximumSignificantDigits > 15) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondit
+  if (maximumSignificantDigits > 15 && !(nb instanceof Decimal)) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
     window.notify(fonction + ' : Trop de chiffres', { nb, precision })
     return insereEspacesNombre(nb, 15, fonction, force)
   } else {
@@ -2974,6 +3031,10 @@ export function href (texte, lien) {
 */
 export function texPrix (nb) {
   // Remplace le . par la ,
+  if (nb instanceof Decimal) {
+    if (nb.isInteger()) return texNombre(nb, 0)
+    else return texNombre(nb, 2, true)
+  }
   const nombre = Number(nb)
   let result
   if (nombre.toString() === nombre.toFixed(0)) {
@@ -5140,7 +5201,7 @@ export function nombreEnLettres (nb, type = 1) {
   if (estentier(nb)) return partieEntiereEnLettres(nb)
   else {
     partieEntiere = Math.floor(nb)
-    partieDecimale = calcul(nb - partieEntiere)
+    partieDecimale = calcul(nb - partieEntiere, 3)
     nbDec = partieDecimale.toString().replace(/\d*\./, '').length
     partieDecimale = calcul(partieDecimale * 10 ** nbDec)
 
@@ -7540,7 +7601,13 @@ export function exportQcmAmc (exercice, idExo) {
       }
     }
     let valeurAMCNum = 0
-    if (autoCorrection[j].reponse !== undefined) { valeurAMCNum = autoCorrection[j].reponse.valeur[0] }
+    if (autoCorrection[j].reponse !== undefined) {
+      if (!Array.isArray(autoCorrection[j].reponse.valeur)) autoCorrection[j].reponse.valeur = [autoCorrection[j].reponse.valeur]
+      valeurAMCNum = autoCorrection[j].reponse.valeur[0]
+      if (typeof valeurAMCNum === 'string') {
+        valeurAMCNum = valeurAMCNum.replace(/\s/g, '').replace(',', '.')
+      }
+    }
     switch (type) {
       case 'qcmMono': // question QCM 1 bonne réponse
         if (elimineDoublons(autoCorrection[j].propositions)) {
@@ -8160,7 +8227,9 @@ export function exportQcmAmc (exercice, idExo) {
                   lastchoice = prop.options.lastChoice
                 }
               }
-              texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmult}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+              texQr += `${(qr > 0 && !(autoCorrection[j].options.avecSymboleMult)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmult}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+              if (prop.enonce !== undefined) texQr += prop.enonce
+
               texQr += `\t\\begin{${horizontalite}}`
               if (ordered) {
                 texQr += '[o]'

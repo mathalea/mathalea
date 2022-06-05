@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, lettreDepuisChiffre, choice, couleurTab, miseEnEvidence, sp, rangeMinMax, numAlpha, enleveElement } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, lettreDepuisChiffre, choice, couleurTab, miseEnEvidence, sp, rangeMinMax, numAlpha, enleveElement, combinaisonListes } from '../../modules/outils.js'
 import { point, mathalea2d, pointSurSegment, segment, polygoneAvecNom, labelPoint, droite, pointIntersectionDD, codeAngle, angleOriente, polyline } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -9,8 +9,10 @@ import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const titre = 'Nommer un angle'
 export const interactifType = ['qcm', 'mathLive']
 export const interactifReady = true
+export const amcType = 'AMCHybride' // Question numérique
+export const amcReady = true // Il reste à gérer les options numériques
 
-export const dateDePublication = '13/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '13/04/2022'
 
 /**
  * Nommer un angle
@@ -30,21 +32,38 @@ export default function NommerUnAngle () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     this.interactifType = this.sup2 === 2 ? 'mathLive' : 'qcm'
-    const marquageAngle = this.sup3 ? ['|', 'OO', '|||'] : ['', '', '']
-    for (let i = 0, troisBonnesReponses, listePt1, listePt3, resultatOK1, resultatOK2, resultat3, resultatPasOK1, resultatPasOK2, choixAngle, pt1, pt2, pt3, tailleAngle, aleaChoixCouleurRemplissage, couleurRemplissageAngle, couleurAngle, segmentsCorrection, resultat; i < this.nbQuestions; i++) {
-    // On prépare la figure...
+    let propositionsDuQcm = []
+    for (let i = 0, texteAMC, troisBonnesReponses, listePt1, listePt3, resultatOK1, resultatOK2, resultat3, resultatPasOK1, resultatPasOK2, choixAngle, pt1, pt2, pt3, tailleAngle, aleaChoixCouleurRemplissage, couleurRemplissageAngle, couleurAngle, segmentsCorrection, resultat; i < this.nbQuestions; i++) {
+      const propositionsAMC = []
+      // let figureExo
+      // On prépare la figure...
+      const marquageAngle = this.sup3 ? combinaisonListes(['X', 'OO', '|||'], 3) : ['', '', '']
+
       const ChoixHorizontal = choice([-1, 1])
 
       const numB = randint(1, 26, [4, 5, 15, 23, 24, 25])
+      const numA = randint(1, 26, [4, 5, 15, 23, 24, 25, numB])
+      const numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA])
+      const numM = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA, numC])
+      const numN = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA, numC, numM])
+      const numI = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA, numC, numM, numN])
+
+      /* A décommenter pour débugguer (et commenter les 6 lignes du dessus)
+      const numA = 1
+      const numB = 2
+      const numC = 3
+      const numI = 9
+      const numM = 13
+      const numN = 14
+      */
+
       const ordB = randint(0, 2)
       const B = point(0, ordB, lettreDepuisChiffre(numB))
 
-      const numA = randint(1, 26, [4, 5, 15, 23, 24, 25, numB])
       const absA = ChoixHorizontal * randint(7, 12)
       const ordA = randint(4, 8)
       const A = point(absA, ordA, lettreDepuisChiffre(numA))
 
-      const numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA])
       const absC = ChoixHorizontal * randint(7, 12, [absA])
       const ordC = -1 * randint(2, 5)
       const C = point(absC, ordC, lettreDepuisChiffre(numC))
@@ -52,12 +71,9 @@ export default function NommerUnAngle () {
       const fractionSegmentBC = this.sup === 1 ? randint(2, 8, [fractionSegmentAB]) : randint(4, 6, [fractionSegmentAB])
       const AB = segment(A, B).longueur
       const BC = segment(B, C).longueur
-      const numM = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA, numC])
-      const numN = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA, numC, numM])
       const M = pointSurSegment(B, A, AB * fractionSegmentAB / 10, lettreDepuisChiffre(numM))
       const N = pointSurSegment(B, C, BC * fractionSegmentBC / 10, lettreDepuisChiffre(numN), 'below')
       const p1 = polygoneAvecNom(B, A, C)
-      const numI = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numA, numC, numM, numN])
       const I = pointIntersectionDD(droite(A, N), droite(C, M), lettreDepuisChiffre(numI), 'left')
       const listePoints = [numA, numB, numC, numM, numN, numI]
       const objetsEnonce = []
@@ -67,9 +83,14 @@ export default function NommerUnAngle () {
       couleurRemplissageAngle = ['none'] // Par défaut, on ne remplit pas l'angle.
       couleurAngle = this.sup3 ? 'black' : 'none'
       let texte = ''
+      const O = point(0, 0) // Sert à construire les symboles pour les questions
+      const M1 = point(4, 0) // Sert à construire les symboles pour les questions
       let texteCorr = ''
       let positionIbis = ChoixHorizontal === -1 ? 'right' : 'left'
-      for (let jj = 0; jj < this.sup; jj++) {
+      const Ibis = point(I.x, I.y, lettreDepuisChiffre(numI), positionIbis)
+
+      for (let jj = 0, marquageAngleConsigne; jj < this.sup; jj++) {
+        marquageAngleConsigne = []
         const choixSommet = choice(listePoints, sommetsDejaTrouves)
         if (!this.sup3) {
           aleaChoixCouleurRemplissage = choice(choixCouleurRemplissage)
@@ -163,7 +184,7 @@ export default function NommerUnAngle () {
 
         pt1 = choice(listePt1) // Une fois la possibilité d'angle choisie, il y a deux points possibles.
         pt3 = choice(listePt3)
-        segmentsCorrection = polyline([listePt1[0], A, listePt3[0]], couleurRemplissageAngle[0])
+        segmentsCorrection = polyline([listePt1[0], pt2, listePt3[0]], couleurRemplissageAngle[0])
         resultat = []
         for (const item1 in listePt1) {
           for (const item3 in listePt3) {
@@ -196,9 +217,13 @@ export default function NommerUnAngle () {
         const ang = angleOriente(pt1, pt2, pt3)
 
         objetsEnonce.push(codeAngle(pt1, pt2, ang, tailleAngle, marquageAngle[jj], couleurAngle, 2, 1, couleurRemplissageAngle[0], 1, false, true))
+        texteAMC = 'Comment peut-on nommer l\'angle '
+        marquageAngleConsigne.push(codeAngle(M1, O, 79, 1, marquageAngle[jj]))
+        texteAMC += this.sup3
+          ? 'marqué par le symbole' + mathalea2d({ xmin: 0, ymin: 0, xmax: 1.2, ymax: 1.2, pixelsParCm: 20, scale: 0.5, style: 'display:inline' }, marquageAngleConsigne) + `${sp()}?`
+          : `${couleurRemplissageAngle[1]}${sp()}?`
         texte += this.sup > 1 ? `<br>${numAlpha(jj)}` : ''
-        texte += 'Comment peut-on nommer l\'angle '
-        texte += this.sup3 ? `marqué par ${jj + 1} symbole` + (jj > 0 ? 's' : '') + `${sp()}?` : `${couleurRemplissageAngle[1]}${sp()}?`
+        texte += texteAMC
         if (this.interactif && this.interactifType === 'mathLive') {
           texte += ajouteChampTexteMathLive(this, i * this.sup + jj, 'inline largeur25')
         }
@@ -206,14 +231,15 @@ export default function NommerUnAngle () {
         objetsCorrection.push(codeAngle(pt1, pt2, ang, tailleAngle, marquageAngle[jj], couleurAngle, 2, 1, couleurRemplissageAngle[0], 1, false, true), segmentsCorrection)
         texteCorr += this.sup > 1 ? `<br>${numAlpha(jj)}` : ''
         texteCorr += 'L\'angle '
-        texteCorr += this.sup3 ? `marqué par ${jj + 1} symbole` + (jj > 0 ? 's' : '') : `${couleurRemplissageAngle[1]}`
+        texteCorr += this.sup3
+          ? 'marqué par le symbole' + mathalea2d({ xmin: 0, ymin: 0, xmax: 1.2, ymax: 1.2, pixelsParCm: 20, scale: 0.5, style: 'display:inline' }, marquageAngleConsigne)
+          : `${couleurRemplissageAngle[1]}`
         texteCorr += ` se nomme, au choix : $${miseEnEvidence(resultat[0], couleurRemplissageAngle[0])}$`
         for (let ee = 1; ee < resultat.length; ee++) {
           texteCorr += `, $${miseEnEvidence(resultat[ee], couleurRemplissageAngle[0])}$`
         }
         texteCorr += '.'
-        this.autoCorrection[i * this.sup + jj].enonce = `${texte}\n`
-        this.autoCorrection[i * this.sup + jj].propositions = [{
+        propositionsDuQcm = [{
           texte: `$${resultatOK1}$`,
           statut: true
         },
@@ -232,20 +258,38 @@ export default function NommerUnAngle () {
         {
           texte: `$${resultatPasOK2}$`,
           statut: false
-        }
-        ]
-        this.autoCorrection[i * this.sup + jj].options = {}
+        }]
         if (this.interactif && this.interactifType === 'qcm') {
+          this.autoCorrection[i * this.sup + jj].enonce = `${texte}\n`
+          this.autoCorrection[i * this.sup + jj].propositions = propositionsDuQcm
+          this.autoCorrection[i * this.sup + jj].options = {}
+
           texte += propositionsQcm(this, i * this.sup + jj).texte
         }
+        if (context.isAmc) {
+          propositionsAMC[jj] = {
+            type: 'qcmMult', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+            enonce: texteAMC,
+            propositions: propositionsDuQcm
+          }
+        }
       }
-      const Ibis = point(I.x, I.y, lettreDepuisChiffre(numI), positionIbis)
       const params = { xmin: min(0, absA, absC) - 1, ymin: ordC - 1, xmax: max(0, absA, absC) + 1, ymax: ordA + 1, pixelsParCm: 20, scale: 0.5 }
       objetsEnonce.push(p1[0], p1[1], segment(A, N), segment(C, M), labelPoint(M, N, Ibis))
       objetsCorrection.push(p1[0], p1[1], segment(A, N), segment(C, M), labelPoint(M, N, Ibis))
-      texte += '<br>' + mathalea2d(params, objetsEnonce)
+      const figureExo = mathalea2d(params, objetsEnonce)
+      texte += '<br>' + figureExo
       texteCorr += '<br>' + mathalea2d(params, objetsCorrection)
-
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: figureExo,
+          enonceAvant: true, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
+          enonceCentre: true, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
+          melange: true, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
+          options: { avecSymboleMult: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) des propositions : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
+          propositions: propositionsAMC
+        }
+      }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
       listeQuestionsToContenu(this)

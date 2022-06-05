@@ -20,7 +20,7 @@ export default function CoefficientFonctionAffine () {
   this.nouvelleVersion = function () {
     const b = randint(-3, 3, 0)
     const c = randint(1, 5)
-    const n = choice([-3, -2, 2, 3])
+    const n = choice([-4, -3, -2, 2, 3, 4])
     const d = b + n * c
     if (b > 0) {
       this.question = `$f$ est une fonction affine telle que $f(x)=ax+${b}$ et $f(${c})=${d}$.<br>
@@ -30,6 +30,7 @@ export default function CoefficientFonctionAffine () {
     On en déduit $ ${c}a=${d}-${ecritureParentheseSiNegatif(b)}$, d'où $a=\\dfrac{${d}-${ecritureParentheseSiNegatif(b)}}{${c}}=\\dfrac{${d - b}}{${c}}=${texFractionReduite(d - b, c)}$.`
 
       this.reponse = (d - b) / c
+      console.log(this.reponse)
     } else {
       this.question = `$f$ est une fonction affine telle que $f(x)=ax-${abs(b)}$ et $f(${c})=${d}$.<br>
       La valeur de $a$ est :
@@ -38,6 +39,7 @@ export default function CoefficientFonctionAffine () {
     On en déduit $${c}a=${d}-${ecritureParentheseSiNegatif(b)}$, d'où $a=\\dfrac{${d}-${ecritureParentheseSiNegatif(b)}}{${c}}=\\dfrac{${d - b}}{${c}}=${texFractionReduite(d - b, c)}$.`
 
       this.reponse = (d - b) / c
+      console.log(this.reponse)
     }
   }
 }

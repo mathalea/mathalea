@@ -186,8 +186,8 @@ export default function PerimetreAireDisques (pa = 3) {
           if (context.isHtml && this.interactif) {
             setReponse(this, 2 * i, stringNombre(reponseA1) + '\\pi', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, reponseA2, { formatInteractif: 'calcul' })
-            texte += 'Aire : ' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteApres: ' cm^2' })
-            texte += ' $\\approx$' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteApres: ' cm^2' })
+            texte += 'Aire : ' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteApres: ' cm²' })
+            texte += ' $\\approx$' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteApres: ' cm²' })
           } else {
             this.autoCorrection[i] = {
               enonce: "Calculer l'aire du cercle suivant :<br>" + texte,

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { tableauDeVariation, mathalea2d } from '../../modules/2d.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, randint, calcul, texNombrec, abs, sp, extraireRacineCarree } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, choice, randint, abs, sp } from '../../modules/outils.js'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer ou encadrer'
 export const dateDePublication = '31/01/2022'
 /**
@@ -37,7 +37,7 @@ export default function EncadrerAvecFctRef () {
     }
     // c = choice([2,3,5,6,7,10,11,13,14,15,17,19,21,22,23,26])
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, a, b, c, ligne1, ligne1b, N, choix, choix1, choix2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, b, ligne1, ligne1b, N, choix, choix1, choix2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'carré':
@@ -199,7 +199,7 @@ export default function EncadrerAvecFctRef () {
             `
           }
           if (N === 4) { // cas a<x<b avec b<0
-            a = calcul(randint(2, 12) * (-1))
+            a = -randint(2, 12)
             b = randint(a + 1, -1)
             choix1 = choice([true, false])
             choix2 = choice([true, false])
@@ -267,7 +267,8 @@ export default function EncadrerAvecFctRef () {
               On en déduit que si  $${a} ${choix1 ? '\\leqslant' : ' < '} x ${choix2 ? '\\leqslant' : ' < '}${b}$ alors ${sp(2)}$0 ${choix1 ? '\\leqslant' : ' < '} x^2 ${choix2 ? '\\leqslant' : ' < '}${a ** 2}$.
              
             `
-            } else { texteCorr += `<br>On constate que le minimum de $x^2$ sur $[${a};${b}]$  est $0$ et son maximum est $${b ** 2}$. <br>
+            } else {
+              texteCorr += `<br>On constate que le minimum de $x^2$ sur $[${a};${b}]$  est $0$ et son maximum est $${b ** 2}$. <br>
             On en déduit que si  $${a} ${choix1 ? '\\leqslant' : ' < '} x ${choix2 ? '\\leqslant' : ' < '}${b}$ alors ${sp(2)}$0 ${choix1 ? '\\leqslant' : ' < '} x^2 ${choix2 ? '\\leqslant' : ' < '}${b ** 2}$.
            
           `

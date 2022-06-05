@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, choice, premiereLettreEnMajuscule, numAlpha, texFractionSigne, calcul, arrondi, arrondiVirgule, texteGras } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, choice, premiereLettreEnMajuscule, numAlpha, texFractionSigne, calcul, arrondi, texteGras, stringNombre } from '../../modules/outils.js'
 import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -78,7 +78,7 @@ export default function calculEffectifFrequence () {
     texte = texte.substring(0, texte.length - 2)
     texte += '). '
 
-    texte += 'Voici un diagramme en barres qui donne le nombre d’individus pour chaque espèce.<br>'
+    texte += 'Voici un diagramme en barres qui donne le nombre d\'individus pour chaque espèce.<br>'
     texte += numAlpha(0) + ' Quel est l\'effectif des ' + lstAnimauxExo[0] + ' ?<br>'
     texte += ajouteChampTexteMathLive(this, 1)
     texte += numAlpha(1) + ' Calculer la fréquence des ' + lstAnimauxExo[1] + ' ? Donner le résultat sous la forme d\'un pourcentage.<br>'
@@ -129,13 +129,13 @@ export default function calculEffectifFrequence () {
     texteCorr += ' D\'après le graphique, il y a ' + lstNombresAnimaux[1] + ' ' + lstAnimauxExo[1] + '. <br>'
     texteCorr += ' La fréquence (ou la proportion) de  ' + lstAnimauxExo[1] + ' est : $ ' + texFractionSigne(lstNombresAnimaux[1], Ntotal) + '$ '
     // test de l'arrondi
-    if (calcul(lstNombresAnimaux[1] / Ntotal) === arrondi(lstNombresAnimaux[1] / Ntotal, 3)) {
+    if (calcul(lstNombresAnimaux[1] / Ntotal, 4) === arrondi(lstNombresAnimaux[1] / Ntotal, 3)) {
       texteCorr += '= '
     } else {
       texteCorr += '$\\approx $ '
     }
-    texteCorr += arrondiVirgule(lstNombresAnimaux[1] / Ntotal, 3) + '. <br>'
-    texteCorr += texteGras('La fréquence des ' + lstAnimauxExo[1] + ' est donc : ' + arrondiVirgule(100 * lstNombresAnimaux[1] / Ntotal, 1) + '%. <br>')
+    texteCorr += stringNombre(lstNombresAnimaux[1] / Ntotal, 3) + '. <br>'
+    texteCorr += texteGras('La fréquence des ' + lstAnimauxExo[1] + ' est donc : ' + stringNombre(100 * lstNombresAnimaux[1] / Ntotal, 1) + '%. <br>')
     setReponse(this, 2, [calcul(100 * lstNombresAnimaux[1] / Ntotal, 1), `${calcul(100 * lstNombresAnimaux[1] / Ntotal, 1)}\\%`])
     // question 3
     texteCorr += numAlpha(2) + ' On fait la somme des effectifs de chaque espèce de quadrupèdes : '
@@ -159,13 +159,13 @@ export default function calculEffectifFrequence () {
     texteCorr += ' L\'effectif total des animaux est : ' + Ntotal + '. <br>'
     texteCorr += ' La fréquence (ou la proportion) d\'oiseaux est : $ ' + texFractionSigne(NTotalOiseaux, Ntotal) + '$ '
     // test de l'arrondi
-    if (calcul(NTotalOiseaux / Ntotal) === arrondi(NTotalOiseaux / Ntotal, 3)) {
+    if (calcul(NTotalOiseaux / Ntotal, 4) === arrondi(NTotalOiseaux / Ntotal, 3)) {
       texteCorr += '= '
     } else {
       texteCorr += '$\\approx $ '
     }
-    texteCorr += arrondiVirgule(NTotalOiseaux / Ntotal, 3) + '. <br>'
-    texteCorr += texteGras('La fréquence des oiseaux est donc : ' + arrondiVirgule(100 * NTotalOiseaux / Ntotal, 1) + '%. <br>')
+    texteCorr += stringNombre(NTotalOiseaux / Ntotal, 3) + '. <br>'
+    texteCorr += texteGras('La fréquence des oiseaux est donc : ' + stringNombre(100 * NTotalOiseaux / Ntotal, 1) + '%. <br>')
     setReponse(this, 4, [calcul(100 * NTotalOiseaux / Ntotal, 1), calcul(100 * NTotalOiseaux / Ntotal, 1) + '\\%'])
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

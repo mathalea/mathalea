@@ -139,32 +139,32 @@ export default function TableauCriteresDeDivisibilite () {
           )} & \\color{blue} \\text{oui} & \\text{non} & \\text{non} & \\text{non} \\\\`
           this.autoCorrection[i].propositions = [
             {
-              texte: 'par 2',
+              texte: '2',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 3',
+              texte: '3',
               statut: false,
               feedback: "La somme des chiffres n'est pas divisible par 3."
             },
             {
-              texte: 'par 5',
+              texte: '5',
               statut: false,
               feedback: "Le chiffre des unités n'est ni 0 ni 5."
             },
             {
-              texte: 'par 9',
+              texte: '9',
               statut: false,
               feedback: "La somme des chiffres n'est pas divisible par 9."
             },
             {
-              texte: 'par aucun',
+              texte: 'aucun',
               statut: false,
               feedback: 'Le chiffre des unités est 0, 2, 4, 6 ou 8, il est donc divisible par 2.'
             }
           ]
-          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
+          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
 
           break
         case 'div3':
@@ -174,32 +174,32 @@ export default function TableauCriteresDeDivisibilite () {
           )} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} & \\text{non} \\\\`
           this.autoCorrection[i].propositions = [
             {
-              texte: 'par 2',
+              texte: '2',
               statut: false,
               feedback: "Le chiffre des unités n'est ni 0, ni 2, ni 4, ni 6, ni 8. Il n'est pas divisible par 2."
             },
             {
-              texte: 'par 3',
+              texte: '3',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 5',
+              texte: '5',
               statut: false,
               feedback: "Le chiffre des unités n'est ni 0 ni 5."
             },
             {
-              texte: 'par 9',
+              texte: '9',
               statut: false,
               feedback: "La somme des chiffres n'est pas divisible par 9."
             },
             {
-              texte: 'par aucun',
+              texte: 'aucun',
               statut: false,
               feedback: 'Ce nombre est divisible par 3 car la somme de ses chiffres est divisible par 3.'
             }
           ]
-          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
+          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'div39':
           tableauDeNombres[i] = 9 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
@@ -208,32 +208,32 @@ export default function TableauCriteresDeDivisibilite () {
           )} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} \\\\`
           this.autoCorrection[i].propositions = [
             {
-              texte: 'par 2',
+              texte: '2',
               statut: false,
               feedback: "Le chiffre des unités n'est ni 0, ni 2, ni 4, ni 6, ni 8. Il n'est pas divisible par 2."
             },
             {
-              texte: 'par 3',
+              texte: '3',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 5',
+              texte: '5',
               statut: false,
               feedback: "Le chiffre des unités n'est ni 0 ni 5."
             },
             {
-              texte: 'par 9',
+              texte: '9',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par aucun',
+              texte: 'aucun',
               statut: false,
               feedback: 'Ce nombre est divisible par 9 et par 3 car la somme de ses chiffres est divisible par 9.'
             }
           ]
-          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
+          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'div5':
           tableauDeNombres[i] = 5 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
@@ -242,32 +242,32 @@ export default function TableauCriteresDeDivisibilite () {
           )} & \\text{non} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} \\\\`
           this.autoCorrection[i].propositions = [
             {
-              texte: 'par 2',
+              texte: '2',
               statut: false,
               feedback: "Le chiffre des unités n'est ni 0, ni 2, ni 4, ni 6, ni 8. Il n'est pas divisible par 2."
             },
             {
-              texte: 'par 3',
+              texte: '3',
               statut: false,
               feedback: "La somme des chiffres n'est pas divisible par 3."
             },
             {
-              texte: 'par 5',
+              texte: '5',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 9',
+              texte: '9',
               statut: false,
               feedback: "La somme des chiffres n'est pas divisible par 9."
             },
             {
-              texte: 'par aucun',
+              texte: 'aucun',
               statut: false,
               feedback: `Ce nombre est divisible par 5 car son chiffre des unités est $${tableauDeNombres[i].toString().charAt(tableauDeNombres[i].toString().length - 1)}$.`
             }
           ]
-          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
+          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'div25':
           tableauDeNombres[i] = 10 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
@@ -276,32 +276,32 @@ export default function TableauCriteresDeDivisibilite () {
           )} & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} & \\text{non} \\\\`
           this.autoCorrection[i].propositions = [
             {
-              texte: 'par 2',
+              texte: '2',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 3',
+              texte: '3',
               statut: false,
               feedback: "La somme des chiffres n'est pas divisible par 3."
             },
             {
-              texte: 'par 5',
+              texte: '5',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 9',
+              texte: '9',
               statut: false,
               feedback: "La somme des chiffres n'est pas divisible par 9."
             },
             {
-              texte: 'par aucun',
+              texte: 'aucun',
               statut: false,
               feedback: 'Ce nombre est un multiple de 10. Il est donc divisible par 2 et par 5.'
             }
           ]
-          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
+          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'div23':
           tableauDeNombres[i] = 6 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
@@ -310,32 +310,32 @@ export default function TableauCriteresDeDivisibilite () {
           )} & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} & \\text{non} \\\\`
           this.autoCorrection[i].propositions = [
             {
-              texte: 'par 2',
+              texte: '2',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 3',
+              texte: '3',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 5',
+              texte: '5',
               statut: false,
               feedback: "Le chiffre des unités n'est ni 0 ni 5."
             },
             {
-              texte: 'par 9',
+              texte: '9',
               statut: false,
               feedback: "La somme des chiffres n'est pas divisible par 9."
             },
             {
-              texte: 'par aucun',
+              texte: 'aucun',
               statut: false,
               feedback: 'Ce nombre est un nombre pair. Il est donc divisible par 2.'
             }
           ]
-          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
+          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'div239':
           tableauDeNombres[i] = 18 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
@@ -344,32 +344,32 @@ export default function TableauCriteresDeDivisibilite () {
           )} & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} & \\color{blue} \\text{oui} \\\\`
           this.autoCorrection[i].propositions = [
             {
-              texte: 'par 2',
+              texte: '2',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 3',
+              texte: '3',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 5',
+              texte: '5',
               statut: false,
               feedback: "Le chiffre des unités n'est ni 0 ni 5."
             },
             {
-              texte: 'par 9',
+              texte: '9',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par aucun',
+              texte: 'aucun',
               statut: false,
               feedback: 'Ce nombre est un nombre pair. Il est donc divisible par 2.'
             }
           ]
-          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
+          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'div35':
           tableauDeNombres[i] = 15 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
@@ -378,32 +378,32 @@ export default function TableauCriteresDeDivisibilite () {
           )} & \\text{non} & \\color{blue} \\text{oui} & \\color{blue} \\text{oui} & \\text{non} \\\\`
           this.autoCorrection[i].propositions = [
             {
-              texte: 'par 2',
+              texte: '2',
               statut: false,
               feedback: "Le chiffre des unités n'est ni 0, ni 2, ni 4, ni 6, ni 8. Il n'est pas divisible par 2."
             },
             {
-              texte: 'par 3',
+              texte: '3',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 5',
+              texte: '5',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 9',
+              texte: '9',
               statut: false,
               feedback: "La somme des chiffres n'est pas divisible par 9."
             },
             {
-              texte: 'par aucun',
+              texte: 'aucun',
               statut: false,
               feedback: 'Ce nombre est un nombre pair. Il est donc divisible par 2.'
             }
           ]
-          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
+          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'div2359':
           tableauDeNombres[i] = 90 * (this.sup ? choice(listeDeFacteurs.slice(50)) : choice(listeDeFacteurs)) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
@@ -412,32 +412,32 @@ export default function TableauCriteresDeDivisibilite () {
           )} & \\color{blue} \\text{oui} & \\text{oui} & \\text{oui} & \\text{oui} \\\\`
           this.autoCorrection[i].propositions = [
             {
-              texte: 'par 2',
+              texte: '2',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 3',
+              texte: '3',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 5',
+              texte: '5',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par 9',
+              texte: '9',
               statut: true,
               feedback: 'Correct !'
             },
             {
-              texte: 'par aucun',
+              texte: 'aucun',
               statut: false,
               feedback: 'Ce nombre est un nombre pair. Il est donc divisible par 2.'
             }
           ]
-          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
+          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
         case 'divrien':
           tableauDeNombres[i] = choice(listeDeFacteurs) * (this.sup ? choice(listeDeFacteurs.slice(50)) : 1)
@@ -446,32 +446,32 @@ export default function TableauCriteresDeDivisibilite () {
           )} & \\text{non} & \\text{non} & \\text{non} & \\text{non} \\\\`
           this.autoCorrection[i].propositions = [
             {
-              texte: 'par 2',
+              texte: '2',
               statut: false,
               feedback: "Ce nombre est un nombre impair. Il ,'est pas divisible par 2."
             },
             {
-              texte: 'par 3',
+              texte: '3',
               statut: false,
               feedback: "La somme des chiffres n'est pas divisible par 3."
             },
             {
-              texte: 'par 5',
+              texte: '5',
               statut: false,
               feedback: "Le chiffre des unités n'est ni 0 ni 5."
             },
             {
-              texte: 'par 9',
+              texte: '9',
               statut: false,
               feedback: "La somme des chiffres n'est pas divisible par 9."
             },
             {
-              texte: 'par aucun',
+              texte: 'aucun',
               statut: true,
               feedback: 'Correct !'
             }
           ]
-          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible\n`
+          this.autoCorrection[i].enonce = `$${texNombre2(tableauDeNombres[i])}$ est divisible par\n`
           break
       }
       this.autoCorrection[i].options = {
@@ -479,7 +479,7 @@ export default function TableauCriteresDeDivisibilite () {
         lastChoice: 4
       }
       if (!context.isAmc && this.modeQcm) {
-        texte += `$${texNombre2(tableauDeNombres[i])}$ est divisible ${espace}  `
+        texte += `$${texNombre2(tableauDeNombres[i])}$ est divisible par ${espace} `
         texte += propositionsQcm(this, i).texte
         texte += '<br>'
       }
