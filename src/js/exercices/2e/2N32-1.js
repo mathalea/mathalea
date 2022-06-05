@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
 
-export const titre = 'Existence d’une racine carrée'
+export const titre = 'Existence d\'une racine carrée'
 
 /**
  * 2N32-1, ex 2N10

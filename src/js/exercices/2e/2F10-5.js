@@ -4,7 +4,7 @@ import { resoudre } from '../../modules/outilsMathjs.js'
 import { tableauDeVariation, mathalea2d, labelPoint, point, tracePoint, courbe2, repere2 } from '../../modules/2d.js'
 import { create, all } from 'mathjs'
 
-export const titre = 'Déterminer le signe d’une fonction affine'
+export const titre = 'Déterminer le signe d\'une fonction affine'
 
 /**
 * @author Stéphane Guyon

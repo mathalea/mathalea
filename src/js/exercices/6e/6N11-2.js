@@ -4,7 +4,7 @@ import { pointCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
 
-export const titre = 'Placer un point d’abscisse entière (grands nombres)'
+export const titre = 'Placer un point d\'abscisse entière (grands nombres)'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true

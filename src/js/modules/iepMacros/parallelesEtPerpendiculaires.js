@@ -1,5 +1,4 @@
 import { droite, projectionOrtho, pointSurSegment, droiteParPointEtParallele, longueur, appartientDroite, homothetie, rotation, angleOriente, pointSurDroite, similitude, translation, point, vecteur, translation2Points, estSurDroite, cercle, pointIntersectionLC, droiteParPointEtPerpendiculaire } from '../2d'
-import { calcul } from '../outils'
 
 /**
    * Trace la parallèle à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment
@@ -96,7 +95,7 @@ export const perpendiculaireRegleEquerre2points3epoint = function (A, B, C, desc
     const H = projectionOrtho(C, d)
     dist = longueur(H, C) + 2
   }
-  this.equerreZoom(calcul(dist * 100 / 7.5))
+  this.equerreZoom(dist * 100 / 7.5)
   this.regleModifierLongueur(Math.max(dist * 2, 15))
   const P1 = homothetie(A, B, 1.2)
   const P2 = homothetie(B, A, 1.2)

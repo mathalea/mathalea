@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
 import { tableauDeVariation, mathalea2d, courbe2, repere2 } from '../../modules/2d.js'
 
-export const titre = 'Déterminer le sens de variation d’une fonction affine'
+export const titre = 'Déterminer le sens de variation d\'une fonction affine'
 
 /**
 * @author Stéphane Guyon

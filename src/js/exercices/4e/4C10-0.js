@@ -7,7 +7,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
 export const amcType = 'qcmMono'
-export const titre = 'Signe d’un produit ou d’un quotient de nombres relatifs'
+export const titre = 'Signe d\'un produit ou d\'un quotient de nombres relatifs'
 
 /**
  * Signe d'un produit ou d'on quotient de relatifs

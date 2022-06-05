@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes } from '../../modules/outils.js'
 
-export const titre = 'Utiliser la notion de valeur absolue d’une quantité'
+export const titre = 'Utiliser la notion de valeur absolue d\'une quantité'
 
 /**
  * 2N15-1, ex 2N22

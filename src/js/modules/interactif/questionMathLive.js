@@ -81,6 +81,8 @@ export function verifQuestionMathLive (exercice, i) {
 
           if (champTexte !== undefined) saisie = champTexte.value
           else saisie = ''
+          // console.log('saisie : ', saisie) // NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
+          // console.log('reponse : ', reponse) // NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
           if (saisie === reponse) {
             resultat = 'OK'
           }
@@ -245,7 +247,7 @@ export function verifQuestionMathLive (exercice, i) {
     }
     return resultat
   } catch (error) {
-    window.notify(`Erreur dans verif QuestionMathLive : ${error} <br> Avec les métadonnées : `, { champTexte: champTexte, exercice, i, autoCorrection: exercice.autoCorrection[i], formatInteractif, spanReponseLigne })
+    window.notify(`Erreur dans verif QuestionMathLive : ${error} <br> Avec les métadonnées : `, { champTexteValue: champTexte._slotValue, exercice: exercice.id, i, autoCorrection: exercice.autoCorrection[i], formatInteractif, spanReponseLigne })
   }
 }
 

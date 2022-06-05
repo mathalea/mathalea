@@ -5,7 +5,7 @@ import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, 
 import { calcule } from '../../modules/fonctionsMaths.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Trouver les coordonnées de l’image d’un point par une transformation du plan'
+export const titre = 'Trouver les coordonnées de l\'image d\'un point par une transformation du plan'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -544,7 +544,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
       }
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-      } else texte += '<br>'
+      }
+      texte += '<br>'
       setReponse(this, i, [`${punto[i][0]};${punto[i][1]}`, `(${punto[i][0]};${punto[i][1]})`])
       if (context.isAmc) {
         enonceAmc += '<br>'

@@ -4,7 +4,7 @@ import { randint, combinaisonListes, lettreDepuisChiffre, printlatex, listeQuest
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
-export const titre = 'Donner l’opposé d’une expression'
+export const titre = 'Donner l\'opposé d\'une expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
