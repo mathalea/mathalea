@@ -1,5 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
+import Decimal from 'decimal.js'
 import {
   mathalea2d, point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
 } from '../../../modules/2d.js'
@@ -47,7 +48,7 @@ export default function SujetCAN2022troisieme () {
     ]
     const listeFractions11 = [[2, 3], [5, 8], [3, 5], [5, 6], [5, 7], [5, 9], [3, 7], [6, 7], [5, 4], [4, 5]
     ]
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction23, poly, propositions, chiffre, chiffre2, u, moy, k1, k2, e, f, g, choix, a, b, c, d, p, k, A, B, C, D, I, J, K, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction23, poly, propositions, chiffre, chiffre2, u, moy, a3, k1, k2, e, f, g, choix, a, b, c, d, p, k, A, B, C, D, I, J, K, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -191,13 +192,17 @@ export default function SujetCAN2022troisieme () {
           u = randint(21, 99)
           a = randint(1, 9)
           c = randint(1, 9)
-          reponse = u + a * 0.1 + c * 0.001
+          a3 = new Decimal(a / 10).plus(c / 1000)
+          reponse = a3.plus(u)
+
           if (choice([true, false])) {
             texte = `Ecrire sous forme décimale : $${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}$ `
-            texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=${texNombre(u + a / 10 + c / 1000, 3)}$`
+            texteCorr = `$${u}+\\dfrac{${a}}{10}+\\dfrac{${c}}{1000}=${u}+${texNombre(a / 10, 1)}+${texNombre(c / 1000, 3)}=
+            ${texNombre(reponse, 3)}$`
           } else {
             texte = `Ecrire sous forme décimale : $${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}$ `
-            texteCorr = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 10, 1)}=${texNombre(u + a / 10 + c / 1000, 3)}$
+            texteCorr = `$${u}+\\dfrac{${c}}{1000}+\\dfrac{${a}}{10}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 10, 1)}=
+            ${texNombre(reponse, 3)}$
              `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -356,34 +361,36 @@ export default function SujetCAN2022troisieme () {
 
         case 14:
           if (choice([true, false])) {
-            a = randint(5, 99) / 10
-            b = randint(2, 9) * 5
-            c = 100 - b
-            texte = `$${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$ 
+            a = new Decimal(randint(2, 9) + randint(1, 9) / 10)
+            b = randint(2, 9, 5)
+            c = 10 - b
+            texte = `$${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$
+    `
+            texteCorr = ` On factorise : <br>     $\\begin{aligned}
+    ${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}&=${texNombre(a, 1)}\\times \\underbrace{(${b}+${c})}_{=10}\\\\
+    &=${texNombre(a, 1)}\\times 10\\\\
+    &=${10 * a}
+    \\end{aligned}$`
+            reponse = a.mul(10)
+          } else {
+            a = new Decimal(randint(5, 99)).div(10)
+            b = new Decimal(randint(2, 9)).mul(5)
+            c = new Decimal(b.sub(100)).mul(-1)
+            texte = `$${texNombre(b, 0)}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$
       `
             texteCorr = ` On factorise : <br>     $\\begin{aligned}
       ${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}&=${texNombre(a, 1)}\\times \\underbrace{(${b}+${c})}_{=100}\\\\
       &=${texNombre(a, 1)}\\times 100\\\\
-      &=${100 * a}
+      &=${texNombre(100 * a, 0)}
       \\end{aligned}$`
-            reponse = 100 * a
-          } else {
-            a = randint(2, 9) + randint(1, 9) / 10
-            b = randint(2, 9, 5)
-            c = 10 - b
-            texte = `$${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$ 
-      `
-            texteCorr = ` On factorise : <br>     $\\begin{aligned}
-      ${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}&=${texNombre(a, 1)}\\times \\underbrace{(${b}+${c})}_{=10}\\\\
-      &=${texNombre(a, 1)}\\times 10\\\\
-      &=${10 * a}
-      \\end{aligned}$`
-            reponse = 10 * a
+            reponse = a.mul(100)
           }
+
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
           nbChamps = 1
           break
+
         case 15:
 
           moy = randint(10, 15)
@@ -493,7 +500,7 @@ export default function SujetCAN2022troisieme () {
           break
 
         case 20:
-          a = randint(2, 9) + randint(2, 9) / 10 + randint(2, 9) / 100
+          a = new Decimal(((randint(1, 9) / 10 + randint(1, 9) / 100))).plus(randint(1, 9))
           b = choice([0.1, 0.01])
 
           reponse = a / b
