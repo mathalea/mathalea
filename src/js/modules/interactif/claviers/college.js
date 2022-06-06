@@ -75,7 +75,7 @@ const collegeKeyboardLayer = {
         { label: 'oui', key: 'oui' },
         { label: 'non', key: 'non' },
         { label: '%', key: '%' },
-        { label: '°', key: '°' }
+        { label: '°', latex: '\\operatorname{°}' }
         // { class: 'separator w10' }
       ],
       [
