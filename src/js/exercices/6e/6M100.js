@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, contraindreValeur, combinaisonListes, arrondi, numAlpha, choice } from '../../modules/outils.js'
-import { afficherTempo, arc, cacherTempo, codeSegment, droiteParPointEtPente, droiteParPointEtVecteur, homothetie, longueur, mathalea2d, milieu, point, pointIntersectionDD, polygone, rotation, rotationAnimee, segment, translation, translationAnimee, vecteur } from '../../modules/2d.js'
+import { afficherTempo, arc, cacherTempo, codeSegment, droiteParPointEtPente, homothetie, longueur, mathalea2d, point, pointIntersectionDD, pointSurSegment, polygone, rotation, rotationAnimee, segment, translation, translationAnimee, triangle2points1angle1longueur, vecteur } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 // import Grandeur from '../../modules/Grandeur.js'
 // import { setReponse } from '../../modules/gestionInteractif.js'
@@ -32,7 +32,7 @@ export default function eeeee () {
     }
 
     let typesDeProblemes = []
-    const nbQuestionsDifferentes = 7
+    const nbQuestionsDifferentes = 9
     if (typeof this.sup === 'number') {
       // Si c'est un nombre c'est qu'il n'y a qu'un seul choix pour le nombre d'étapes
       typesDeProblemes[0] = contraindreValeur(1, nbQuestionsDifferentes, this.sup, nbQuestionsDifferentes)
@@ -47,9 +47,10 @@ export default function eeeee () {
     // typesDeProblemes = combinaisonListes([4, 5], this.nbQuestions)
     const color = combinaisonListes(['red', 'blue', 'green', 'gray', 'pink', 'orange'], this.nbQuestions)
 
-    for (let q = 0, cpt = 0, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R,
-      rayon, centreArc, extremiteArc, arcAire1, arcAire2, arcAireCorr, arcAireCorr2, choixArc, choixArc2, choixArcAire2, angleCorr,
-      aleaRayon, aleaDemiDisque, aleaPente, d1, d2, d3, d4, poly, rect, objets, texte, texteCorr, paramsEnonce; q < this.nbQuestions && cpt < 50;) {
+    for (let q = 0, cpt = 0, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, s1, s2,
+      rayonOuCote, pt1, pt2, figAire1, figAire2, figAireCorr, figAireCorr2, choixFig, choixFig2, choixFigAire2, angleCorr,
+      aleaAngle, aleaLongueur, aleaRayon, aleaDemiDisque, aleaPente, d1, d2, d3, d4, poly, rect,
+      objets, texte, texteCorr, paramsEnonce; q < this.nbQuestions && cpt < 50;) {
       objets = []
       A = point(0, 0)
       B = point(randint(5, 10), 0)
@@ -126,73 +127,73 @@ export default function eeeee () {
           poly.opaciteDeRemplissage = 0.5
           poly.color = ''
           objets.push(poly)
-          rayon = arrondi((min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L))) / 2)
-          M = translation(E, vecteur(rayon, 0))
-          N = translation(G, vecteur(0, rayon))
-          O = translation(I, vecteur(-rayon, 0))
-          P = translation(K, vecteur(0, -rayon))
+          rayonOuCote = arrondi((min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L))) / 2)
+          M = translation(E, vecteur(rayonOuCote, 0))
+          N = translation(G, vecteur(0, rayonOuCote))
+          O = translation(I, vecteur(-rayonOuCote, 0))
+          P = translation(K, vecteur(0, -rayonOuCote))
           paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
-          choixArc = randint(0, 3)
-          switch (choixArc) {
+          choixFig = randint(0, 3)
+          switch (choixFig) {
             case 0:
-              centreArc = M
-              extremiteArc = E
-              paramsEnonce.ymin = -0.5 - rayon
+              pt1 = M
+              pt2 = E
+              paramsEnonce.ymin = -0.5 - rayonOuCote
               break
             case 1:
-              centreArc = N
-              extremiteArc = G
-              paramsEnonce.xmax = rayon + B.x + 0.5
+              pt1 = N
+              pt2 = G
+              paramsEnonce.xmax = rayonOuCote + B.x + 0.5
               break
             case 2:
-              centreArc = O
-              extremiteArc = I
-              paramsEnonce.ymax = rayon + C.y + 0.5
+              pt1 = O
+              pt2 = I
+              paramsEnonce.ymax = rayonOuCote + C.y + 0.5
               break
             case 3:
-              centreArc = P
-              extremiteArc = K
-              paramsEnonce.xmin = -0.5 - rayon
+              pt1 = P
+              pt2 = K
+              paramsEnonce.xmin = -0.5 - rayonOuCote
               break
           }
 
-          arcAire1 = arc(extremiteArc, centreArc, 180, false, color[q], 'black', 0.5)
-          choixArc2 = randint(0, 3, [choixArc])
-          choixArcAire2 = [
+          figAire1 = arc(pt2, pt1, 180, false, color[q], 'black', 0.5)
+          choixFig2 = randint(0, 3, [choixFig])
+          choixFigAire2 = [
             [E, M],
             [G, N],
             [I, O],
             [K, P]
           ]
-          paramsEnonce.xmax = choixArc2 === 1 ? rayon + B.x + 0.5 : paramsEnonce.xmax
-          paramsEnonce.xmin = choixArc2 === 3 ? -0.5 - rayon : paramsEnonce.xmin
+          paramsEnonce.xmax = choixFig2 === 1 ? rayonOuCote + B.x + 0.5 : paramsEnonce.xmax
+          paramsEnonce.xmin = choixFig2 === 3 ? -0.5 - rayonOuCote : paramsEnonce.xmin
 
-          angleCorr = choixArc2 - choixArc < 0 ? choixArc2 - choixArc + 4 : choixArc2 - choixArc
+          angleCorr = choixFig2 - choixFig < 0 ? choixFig2 - choixFig + 4 : choixFig2 - choixFig
           angleCorr = angleCorr === 1 ? 90 : angleCorr === 2 ? 0 : -90
-          arcAire2 = arc(choixArcAire2[choixArc2][0], choixArcAire2[choixArc2][1], -180, false, 'white', 'black', 1.1)
-          M = rotation(extremiteArc, centreArc, 60)
-          N = segment(M, centreArc, 'black')
+          figAire2 = arc(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], -180, false, 'white', 'black', 1.1)
+          M = rotation(pt2, pt1, 60)
+          N = segment(M, pt1, 'black')
           N.epaisseur = 2
-          O = rotation(choixArcAire2[choixArc2][0], choixArcAire2[choixArc2][1], -60)
-          P = segment(O, choixArcAire2[choixArc2][1], 'black')
+          O = rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], -60)
+          P = segment(O, choixFigAire2[choixFig2][1], 'black')
           P.epaisseur = 2
-          objets.push(arcAire1, arcAire2, N, codeSegment(M, centreArc, '|||'), P, codeSegment(O, choixArcAire2[choixArc2][1], '|||'), rect)
+          objets.push(figAire1, figAire2, N, codeSegment(M, pt1, '|||'), P, codeSegment(O, choixFigAire2[choixFig2][1], '|||'), rect)
           texte = mathalea2d(paramsEnonce, objets)
           texteCorr = (this.sup2 === 3) ? numAlpha(0) : ''
           texteCorr += (this.sup2 === 1 || this.sup2 === 3) ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
           texteCorr += (this.sup2 === 3) ? '<br>' + numAlpha(1) : ''
           texteCorr += (this.sup2 === 2 || this.sup2 === 3) ? 'Le rectangle hachuré couvre autant de surface que la figure coloriée. Donc, la figure coloriée a une aire égale à celle du rectangle hachuré.' : ''
           objets = []
-          arcAire1 = arc(extremiteArc, centreArc, 180, false, 'white', 'black', 1.1)
-          arcAireCorr = arc(extremiteArc, centreArc, 180, false, color[q], 'black', 0.5)
-          arcAireCorr2 = arc(rotation(choixArcAire2[choixArc2][0], choixArcAire2[choixArc2][1], angleCorr), choixArcAire2[choixArc2][1], -180, false, color[q], 'black', 0.5)
-          objets.push(poly, arcAire1, arcAire2, N, codeSegment(M, centreArc, '|||'), P, codeSegment(O, choixArcAire2[choixArc2][1], '|||'), rect)
-          objets.push(translationAnimee([arcAireCorr], vecteur(centreArc, choixArcAire2[choixArc2][1]), 'begin="2s" dur="5s" "end=7s" repeatCount="1" fill="freeze" id="toto"'))
-          cacherTempo(arcAireCorr, 7, 0, 1)
-          afficherTempo(arcAireCorr2, 7, 10, 1)
-          objets.push(rotationAnimee([arcAireCorr2], choixArcAire2[choixArc2][1], -angleCorr, 'begin="toto.end" dur="5s" repeatCount="1" fill="freeze" id="titi" visibility="hidden"'))
-          paramsEnonce.ymin = choixArc2 === 0 ? -0.5 - rayon : paramsEnonce.ymin
-          paramsEnonce.ymax = choixArc2 === 1 ? rayon + C.y + 0.5 : paramsEnonce.ymax
+          figAire1 = arc(pt2, pt1, 180, false, 'white', 'black', 1.1)
+          figAireCorr = arc(pt2, pt1, 180, false, color[q], 'black', 0.5)
+          figAireCorr2 = arc(rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], angleCorr), choixFigAire2[choixFig2][1], -180, false, color[q], 'black', 0.5)
+          objets.push(poly, figAire1, figAire2, N, codeSegment(M, pt1, '|||'), P, codeSegment(O, choixFigAire2[choixFig2][1], '|||'), rect)
+          objets.push(translationAnimee([figAireCorr], vecteur(pt1, choixFigAire2[choixFig2][1]), 'begin="2s" dur="5s" "end=7s" repeatCount="1" fill="freeze" id="trans"'))
+          cacherTempo(figAireCorr, 7, 0, 1)
+          afficherTempo(figAireCorr2, 7, 10, 1)
+          objets.push(rotationAnimee([figAireCorr2], choixFigAire2[choixFig2][1], -angleCorr, 'begin="trans.end" dur="5s" repeatCount="1" fill="freeze" id="titi" visibility="hidden"'))
+          paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
+          paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
           texteCorr += mathalea2d(paramsEnonce, objets)
           break
         case 4: // Deux demi-disques alternés qui ne s'emboîtent pas
@@ -211,52 +212,50 @@ export default function eeeee () {
           objets.push(poly)
           aleaDemiDisque = choice([true, false])
           aleaRayon = randint(2, 3)
-          rayon = arrondi((min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L))) / 2)
-          rayon = aleaDemiDisque ? rayon : rayon / aleaRayon
-          M = translation(E, vecteur(rayon, 0))
-          N = translation(G, vecteur(0, rayon))
-          O = translation(I, vecteur(-rayon, 0))
-          P = translation(K, vecteur(0, -rayon))
+          rayonOuCote = arrondi((min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L))) / 2)
+          rayonOuCote = aleaDemiDisque ? rayonOuCote : rayonOuCote / aleaRayon
+          M = translation(E, vecteur(rayonOuCote, 0))
+          N = translation(G, vecteur(0, rayonOuCote))
+          O = translation(I, vecteur(-rayonOuCote, 0))
+          P = translation(K, vecteur(0, -rayonOuCote))
           paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
-          choixArc = randint(0, 3)
-          switch (choixArc) {
+          choixFig = randint(0, 3)
+          switch (choixFig) {
             case 0:
-              centreArc = M
-              extremiteArc = E
-              paramsEnonce.ymin = -0.5 - rayon
+              pt1 = M
+              pt2 = E
+              paramsEnonce.ymin = -0.5 - rayonOuCote
               break
             case 1:
-              centreArc = N
-              extremiteArc = G
-              paramsEnonce.xmax = rayon + B.x + 0.5
+              pt1 = N
+              pt2 = G
+              paramsEnonce.xmax = rayonOuCote + B.x + 0.5
               break
             case 2:
-              centreArc = O
-              extremiteArc = I
-              paramsEnonce.ymax = rayon + C.y + 0.5
+              pt1 = O
+              pt2 = I
+              paramsEnonce.ymax = rayonOuCote + C.y + 0.5
               break
             case 3:
-              centreArc = P
-              extremiteArc = K
-              paramsEnonce.xmin = -0.5 - rayon
+              pt1 = P
+              pt2 = K
+              paramsEnonce.xmin = -0.5 - rayonOuCote
               break
           }
-
-          arcAire1 = arc(extremiteArc, centreArc, 180, false, color[q], 'black', 0.5)
-          choixArc2 = randint(0, 3, [choixArc])
-          choixArcAire2 = [
+          figAire1 = arc(pt2, pt1, 180, false, color[q], 'black', 0.5)
+          choixFig2 = randint(0, 3, [choixFig])
+          choixFigAire2 = [
             [E, M],
             [G, N],
             [I, O],
             [K, P]
           ]
-          paramsEnonce.xmax = choixArc2 === 1 ? rayon + B.x + 0.5 : paramsEnonce.xmax
-          paramsEnonce.xmin = choixArc2 === 3 ? -0.5 - rayon : paramsEnonce.xmin
-
-          angleCorr = choixArc2 - choixArc < 0 ? choixArc2 - choixArc + 4 : choixArc2 - choixArc
+          paramsEnonce.xmax = choixFig2 === 1 ? rayonOuCote + B.x + 0.5 : paramsEnonce.xmax
+          paramsEnonce.xmin = choixFig2 === 3 ? -0.5 - rayonOuCote : paramsEnonce.xmin
+          angleCorr = choixFig2 - choixFig < 0 ? choixFig2 - choixFig + 4 : choixFig2 - choixFig
           angleCorr = angleCorr === 1 ? 90 : angleCorr === 2 ? 0 : -90
-          arcAire2 = arc(aleaDemiDisque ? homothetie(choixArcAire2[choixArc2][1], choixArcAire2[choixArc2][0], 1 / aleaRayon) : choixArcAire2[choixArc2][0], aleaDemiDisque ? choixArcAire2[choixArc2][1] : homothetie(choixArcAire2[choixArc2][1], choixArcAire2[choixArc2][0], aleaRayon), -180, false, 'white', 'black', 1.1)
-          objets.push(arcAire1, arcAire2, rect)
+          figAire2 = arc(aleaDemiDisque ? homothetie(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], 1 / aleaRayon) : choixFigAire2[choixFig2][0], aleaDemiDisque ? choixFigAire2[choixFig2][1] : homothetie(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], aleaRayon), -180, false, 'white', 'black', 1.1)
+          objets.push(figAire1, figAire2, rect)
           texte = mathalea2d(paramsEnonce, objets)
           texteCorr = (this.sup2 === 3) ? numAlpha(0) : ''
           texteCorr += (this.sup2 === 1 || this.sup2 === 3) ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
@@ -265,16 +264,16 @@ export default function eeeee () {
             ? ((this.sup2 === 2 || this.sup2 === 3) ? 'Le rectangle hachuré couvre moins de surface que la figure coloriée. Donc, la figure coloriée a une aire plus grande que celle du rectangle hachuré.' : '')
             : ((this.sup2 === 2 || this.sup2 === 3) ? 'Le rectangle hachuré couvre plus de surface que la figure coloriée. Donc, le rectangle hachuré a une aire plus grande que celle de la figure coloriée.' : '')
           objets = []
-          arcAire1 = arc(extremiteArc, centreArc, 180, false, 'white', 'black', 1.1)
-          arcAireCorr = arc(extremiteArc, centreArc, 180, false, color[q], 'black', 0.5)
-          arcAireCorr2 = arc(rotation(choixArcAire2[choixArc2][0], choixArcAire2[choixArc2][1], angleCorr), choixArcAire2[choixArc2][1], -180, false, color[q], 'black', 0.5)
-          objets.push(poly, arcAire1, arcAire2, rect)
-          objets.push(translationAnimee([arcAireCorr], vecteur(centreArc, choixArcAire2[choixArc2][1]), 'begin="2s" dur="5s" "end=7s" repeatCount="1" fill="freeze" id="toto"'))
-          cacherTempo(arcAireCorr, 7, 0, 1)
-          afficherTempo(arcAireCorr2, 7, 10, 1)
-          objets.push(rotationAnimee([arcAireCorr2], choixArcAire2[choixArc2][1], -angleCorr, 'begin="toto.end" dur="5s" repeatCount="1" fill="freeze" id="titi" visibility="hidden"'))
-          paramsEnonce.ymin = choixArc2 === 0 ? -0.5 - rayon : paramsEnonce.ymin
-          paramsEnonce.ymax = choixArc2 === 1 ? rayon + C.y + 0.5 : paramsEnonce.ymax
+          figAire1 = arc(pt2, pt1, 180, false, 'white', 'black', 1.1)
+          figAireCorr = arc(pt2, pt1, 180, false, color[q], 'black', 0.5)
+          figAireCorr2 = arc(rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], angleCorr), choixFigAire2[choixFig2][1], -180, false, color[q], 'black', 0.5)
+          objets.push(poly, figAire1, figAire2, rect)
+          objets.push(translationAnimee([figAireCorr], vecteur(pt1, choixFigAire2[choixFig2][1]), 'begin="2s" dur="5s" "end=7s" repeatCount="1" fill="freeze" id="trans"'))
+          cacherTempo(figAireCorr, 7, 0, 1)
+          afficherTempo(figAireCorr2, 7, 10, 1)
+          objets.push(rotationAnimee([figAireCorr2], choixFigAire2[choixFig2][1], -angleCorr, 'begin="trans.end" dur="5s" repeatCount="1" fill="freeze" id="titi" visibility="hidden"'))
+          paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
+          paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
           texteCorr += mathalea2d(paramsEnonce, objets)
           break
         case 5: // Deux demi-disques en plus
@@ -291,56 +290,56 @@ export default function eeeee () {
           poly.opaciteDeRemplissage = 0.5
           poly.color = ''
           objets.push(poly)
-          rayon = arrondi((min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L))) / 2)
-          M = translation(E, vecteur(rayon, 0))
-          N = translation(G, vecteur(0, rayon))
-          O = translation(I, vecteur(-rayon, 0))
-          P = translation(K, vecteur(0, -rayon))
+          rayonOuCote = arrondi((min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L))) / 2)
+          M = translation(E, vecteur(rayonOuCote, 0))
+          N = translation(G, vecteur(0, rayonOuCote))
+          O = translation(I, vecteur(-rayonOuCote, 0))
+          P = translation(K, vecteur(0, -rayonOuCote))
           paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
-          choixArc = randint(0, 3)
-          switch (choixArc) {
+          choixFig = randint(0, 3)
+          switch (choixFig) {
             case 0:
-              centreArc = M
-              extremiteArc = E
-              paramsEnonce.ymin = -0.5 - rayon
+              pt1 = M
+              pt2 = E
+              paramsEnonce.ymin = -0.5 - rayonOuCote
               break
             case 1:
-              centreArc = N
-              extremiteArc = G
-              paramsEnonce.xmax = rayon + B.x + 0.5
+              pt1 = N
+              pt2 = G
+              paramsEnonce.xmax = rayonOuCote + B.x + 0.5
               break
             case 2:
-              centreArc = O
-              extremiteArc = I
-              paramsEnonce.ymax = rayon + C.y + 0.5
+              pt1 = O
+              pt2 = I
+              paramsEnonce.ymax = rayonOuCote + C.y + 0.5
               break
             case 3:
-              centreArc = P
-              extremiteArc = K
-              paramsEnonce.xmin = -0.5 - rayon
+              pt1 = P
+              pt2 = K
+              paramsEnonce.xmin = -0.5 - rayonOuCote
               break
           }
-          arcAire1 = arc(extremiteArc, centreArc, 180, false, color[q], 'black', 0.5)
-          choixArc2 = randint(0, 3, [choixArc])
-          choixArcAire2 = [
+          figAire1 = arc(pt2, pt1, 180, false, color[q], 'black', 0.5)
+          choixFig2 = randint(0, 3, [choixFig])
+          choixFigAire2 = [
             [E, M],
             [G, N],
             [I, O],
             [K, P]
           ]
-          paramsEnonce.ymin = choixArc2 === 0 ? -0.5 - rayon : paramsEnonce.ymin
-          paramsEnonce.xmax = choixArc2 === 1 ? rayon + B.x + 0.5 : paramsEnonce.xmax
-          paramsEnonce.ymax = choixArc2 === 2 ? rayon + C.y + 0.5 : paramsEnonce.ymax
-          paramsEnonce.xmin = choixArc2 === 3 ? -0.5 - rayon : paramsEnonce.xmin
+          paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
+          paramsEnonce.xmax = choixFig2 === 1 ? rayonOuCote + B.x + 0.5 : paramsEnonce.xmax
+          paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
+          paramsEnonce.xmin = choixFig2 === 3 ? -0.5 - rayonOuCote : paramsEnonce.xmin
 
-          arcAire2 = arc(choixArcAire2[choixArc2][0], choixArcAire2[choixArc2][1], 180, false, color[q], 'black', 0.5)
-          M = rotation(extremiteArc, centreArc, 60)
-          N = segment(M, centreArc, 'black')
+          figAire2 = arc(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], 180, false, color[q], 'black', 0.5)
+          M = rotation(pt2, pt1, 60)
+          N = segment(M, pt1, 'black')
           N.epaisseur = 2
-          O = rotation(choixArcAire2[choixArc2][0], choixArcAire2[choixArc2][1], 60)
-          P = segment(O, choixArcAire2[choixArc2][1], 'black')
+          O = rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], 60)
+          P = segment(O, choixFigAire2[choixFig2][1], 'black')
           P.epaisseur = 2
-          objets.push(arcAire1, arcAire2, N, codeSegment(M, centreArc, '|||'), P, codeSegment(O, choixArcAire2[choixArc2][1], '|||'), rect)
+          objets.push(figAire1, figAire2, N, codeSegment(M, pt1, '|||'), P, codeSegment(O, choixFigAire2[choixFig2][1], '|||'), rect)
           texte = mathalea2d(paramsEnonce, objets)
           texteCorr = (this.sup2 === 3) ? numAlpha(0) : ''
           texteCorr += (this.sup2 === 1 || this.sup2 === 3) ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
@@ -361,56 +360,56 @@ export default function eeeee () {
           poly.opaciteDeRemplissage = 0.5
           poly.color = ''
           objets.push(poly)
-          rayon = arrondi((min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L))) / 2)
-          M = translation(E, vecteur(rayon, 0))
-          N = translation(G, vecteur(0, rayon))
-          O = translation(I, vecteur(-rayon, 0))
-          P = translation(K, vecteur(0, -rayon))
+          rayonOuCote = arrondi((min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L))) / 2)
+          M = translation(E, vecteur(rayonOuCote, 0))
+          N = translation(G, vecteur(0, rayonOuCote))
+          O = translation(I, vecteur(-rayonOuCote, 0))
+          P = translation(K, vecteur(0, -rayonOuCote))
           paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
-          choixArc = randint(0, 3)
-          switch (choixArc) {
+          choixFig = randint(0, 3)
+          switch (choixFig) {
             case 0:
-              centreArc = M
-              extremiteArc = E
-              paramsEnonce.ymin = -0.5 - rayon
+              pt1 = M
+              pt2 = E
+              paramsEnonce.ymin = -0.5 - rayonOuCote
               break
             case 1:
-              centreArc = N
-              extremiteArc = G
-              paramsEnonce.xmax = rayon + B.x + 0.5
+              pt1 = N
+              pt2 = G
+              paramsEnonce.xmax = rayonOuCote + B.x + 0.5
               break
             case 2:
-              centreArc = O
-              extremiteArc = I
-              paramsEnonce.ymax = rayon + C.y + 0.5
+              pt1 = O
+              pt2 = I
+              paramsEnonce.ymax = rayonOuCote + C.y + 0.5
               break
             case 3:
-              centreArc = P
-              extremiteArc = K
-              paramsEnonce.xmin = -0.5 - rayon
+              pt1 = P
+              pt2 = K
+              paramsEnonce.xmin = -0.5 - rayonOuCote
               break
           }
-          arcAire1 = arc(extremiteArc, centreArc, -180, false, 'white', 'black', 1.1)
-          choixArc2 = randint(0, 3, [choixArc])
-          choixArcAire2 = [
+          figAire1 = arc(pt2, pt1, -180, false, 'white', 'black', 1.1)
+          choixFig2 = randint(0, 3, [choixFig])
+          choixFigAire2 = [
             [E, M],
             [G, N],
             [I, O],
             [K, P]
           ]
-          paramsEnonce.ymin = choixArc2 === 0 ? -0.5 - rayon : paramsEnonce.ymin
-          paramsEnonce.xmax = choixArc2 === 1 ? rayon + B.x + 0.5 : paramsEnonce.xmax
-          paramsEnonce.ymax = choixArc2 === 2 ? rayon + C.y + 0.5 : paramsEnonce.ymax
-          paramsEnonce.xmin = choixArc2 === 3 ? -0.5 - rayon : paramsEnonce.xmin
+          paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
+          paramsEnonce.xmax = choixFig2 === 1 ? rayonOuCote + B.x + 0.5 : paramsEnonce.xmax
+          paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
+          paramsEnonce.xmin = choixFig2 === 3 ? -0.5 - rayonOuCote : paramsEnonce.xmin
 
-          arcAire2 = arc(choixArcAire2[choixArc2][0], choixArcAire2[choixArc2][1], -180, false, 'white', 'black', 1.1)
-          M = rotation(extremiteArc, centreArc, -60)
-          N = segment(M, centreArc, 'black')
+          figAire2 = arc(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], -180, false, 'white', 'black', 1.1)
+          M = rotation(pt2, pt1, -60)
+          N = segment(M, pt1, 'black')
           N.epaisseur = 2
-          O = rotation(choixArcAire2[choixArc2][0], choixArcAire2[choixArc2][1], -60)
-          P = segment(O, choixArcAire2[choixArc2][1], 'black')
+          O = rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], -60)
+          P = segment(O, choixFigAire2[choixFig2][1], 'black')
           P.epaisseur = 2
-          objets.push(arcAire1, arcAire2, N, codeSegment(M, centreArc, '|||'), P, codeSegment(O, choixArcAire2[choixArc2][1], '|||'), rect)
+          objets.push(figAire1, figAire2, N, codeSegment(M, pt1, '|||'), P, codeSegment(O, choixFigAire2[choixFig2][1], '|||'), rect)
           texte = mathalea2d(paramsEnonce, objets)
           texteCorr = (this.sup2 === 3) ? numAlpha(0) : ''
           texteCorr += (this.sup2 === 1 || this.sup2 === 3) ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
@@ -453,6 +452,108 @@ export default function eeeee () {
           texteCorr += (this.sup2 === 1 || this.sup2 === 3) ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
           texteCorr += (this.sup2 === 3) ? '<br>' + numAlpha(1) : ''
           texteCorr += (this.sup2 === 2 || this.sup2 === 3) ? 'Le rectangle hachuré couvre moins de surface que la figure coloriée. Donc, la figure coloriée a une aire plus grande que celle du rectangle hachuré.' : ''
+          break
+        case 9: // Deux triangles alternés qui s'emboîtent
+          E = point(entreDeux(A.x, A.x + (B.x - A.x) / 3), A.y)
+          F = point(entreDeux(B.x, A.x + 2 * (B.x - A.x) / 3), A.y)
+          G = point(B.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
+          H = point(B.x, entreDeux(C.y, B.y + 2 * (C.y - B.y) / 3))
+          I = point(entreDeux(B.x, A.x + 2 * (B.x - A.x) / 3), D.y)
+          J = point(entreDeux(A.x, A.x + (B.x - A.x) / 3), D.y)
+          K = point(A.x, entreDeux(C.y, B.y + 2 * (C.y - B.y) / 3))
+          L = point(A.x, entreDeux(B.y, B.y + (C.y - B.y) / 3))
+          poly = polygone(A, B, C, D)
+          poly.couleurDeRemplissage = color[q]
+          poly.opaciteDeRemplissage = 0.5
+          poly.color = ''
+          objets.push(poly)
+          rayonOuCote = (min(longueur(E, F), longueur(G, H), longueur(I, J), longueur(K, L)))
+          M = translation(E, vecteur(rayonOuCote, 0))
+          N = translation(G, vecteur(0, rayonOuCote))
+          O = translation(I, vecteur(-rayonOuCote, 0))
+          P = translation(K, vecteur(0, -rayonOuCote))
+          paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: B.x + 0.5, ymax: C.y + 0.5, pixelsParCm: 30, scale: 0.7, mainlevee: false }
+          aleaLongueur = choice([-1, 1])
+          choixFig = randint(0, 3)
+          switch (choixFig) {
+            case 0:
+              pt1 = M
+              pt2 = E
+              paramsEnonce.ymin = -0.5 - rayonOuCote - aleaLongueur
+              break
+            case 1:
+              pt1 = N
+              pt2 = G
+              paramsEnonce.xmax = rayonOuCote + aleaLongueur + B.x + 0.5
+              break
+            case 2:
+              pt1 = O
+              pt2 = I
+              paramsEnonce.ymax = rayonOuCote + aleaLongueur + C.y + 0.5
+              break
+            case 3:
+              pt1 = P
+              pt2 = K
+              paramsEnonce.xmin = -0.5 - rayonOuCote - aleaLongueur
+              break
+          }
+          aleaAngle = choice([40, 50, 70, 80, 100, 110])
+          Q = pointSurSegment(pt2, pt1, rayonOuCote + aleaLongueur)
+          R = rotation(Q, pt2, -aleaAngle)
+          figAire1 = polygone(pt2, pt1, R)
+          figAire1.color = ''
+          figAire1.couleurDeRemplissage = color[q]
+          figAire1.opaciteDeRemplissage = 0.5
+          choixFig2 = randint(0, 3, [choixFig])
+          choixFigAire2 = [
+            [E, M],
+            [G, N],
+            [I, O],
+            [K, P]
+          ]
+          paramsEnonce.xmax = choixFig2 === 1 ? rayonOuCote + B.x + 0.5 : paramsEnonce.xmax
+          paramsEnonce.xmin = choixFig2 === 3 ? -0.5 - rayonOuCote : paramsEnonce.xmin
+          angleCorr = choixFig2 - choixFig < 0 ? choixFig2 - choixFig + 4 : choixFig2 - choixFig
+          angleCorr = angleCorr === 1 ? 90 : angleCorr === 2 ? 0 : -90
+          S = pointSurSegment(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], rayonOuCote + aleaLongueur)
+          T = rotation(S, choixFigAire2[choixFig2][1], -aleaAngle)
+          figAire2 = polygone(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], T)
+          figAire2.color = ''
+          figAire2.couleurDeRemplissage = 'white'
+          figAire2.opaciteDeRemplissage = 1.1
+          M = rotation(pt2, pt1, 60)
+          N = segment(M, pt1, 'black')
+          N.epaisseur = 2
+          O = rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], -60)
+          P = segment(O, choixFigAire2[choixFig2][1], 'black')
+          P.epaisseur = 2
+          objets.push(figAire1, figAire2, segment(pt2, R), segment(pt1, R), codeSegment(pt2, R, '|||'), codeSegment(pt2, pt1, 'OO'), codeSegment(pt1, R, 'XX'), rect)
+          objets.push(segment(choixFigAire2[choixFig2][0], T), segment(choixFigAire2[choixFig2][1], T), codeSegment(choixFigAire2[choixFig2][1], T, '|||'), codeSegment(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], 'OO'), codeSegment(choixFigAire2[choixFig2][0], T, 'XX'))
+          texte = mathalea2d(paramsEnonce, objets)
+          texteCorr = (this.sup2 === 3) ? numAlpha(0) : ''
+          texteCorr += (this.sup2 === 1 || this.sup2 === 3) ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
+          texteCorr += (this.sup2 === 3) ? '<br>' + numAlpha(1) : ''
+          texteCorr += (this.sup2 === 2 || this.sup2 === 3) ? 'Le rectangle hachuré couvre autant de surface que la figure coloriée. Donc, la figure coloriée a une aire égale à celle du rectangle hachuré.' : ''
+          objets = []
+          figAire1 = polygone(pt2, pt1, R)
+          figAire1.color = ''
+          figAire1.couleurDeRemplissage = 'white'
+          figAire1.opaciteDeRemplissage = 1.1
+          figAireCorr = polygone(pt2, pt1, R)
+          figAireCorr.couleurDeRemplissage = color[q]
+          figAireCorr.opaciteDeRemplissage = 0.5
+          figAireCorr2 = rotation(figAire2, choixFigAire2[choixFig2][0], angleCorr)
+          figAireCorr2.couleurDeRemplissage = color[q]
+          figAireCorr2.opaciteDeRemplissage = 0.5
+          objets.push(poly, figAire1, figAire2, segment(pt2, R), segment(pt1, R), codeSegment(pt2, R, '|||'), codeSegment(pt2, pt1, 'OO'), codeSegment(pt1, R, 'XX'), rect)
+          objets.push(segment(choixFigAire2[choixFig2][0], T), segment(choixFigAire2[choixFig2][1], T), codeSegment(choixFigAire2[choixFig2][1], T, '|||'), codeSegment(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], 'OO'), codeSegment(choixFigAire2[choixFig2][0], T, 'XX'))
+          objets.push(translationAnimee([figAireCorr], vecteur(pt1, choixFigAire2[choixFig2][0]), 'begin="2s" dur="5s" "end=7s" repeatCount="1" fill="freeze" id="trans"'))
+          cacherTempo(figAireCorr, 7, 0, 1)
+          afficherTempo(figAireCorr2, 7, 10, 1)
+          objets.push(rotationAnimee([figAireCorr2], choixFigAire2[choixFig2][0], -angleCorr, 'begin="trans.end" dur="5s" repeatCount="1" fill="freeze" id="titi" visibility="hidden"'))
+          paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
+          paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + 2 + C.y + 0.5 : paramsEnonce.ymax
+          texteCorr += mathalea2d(paramsEnonce, objets)
           break
       }
       texte += (this.sup2 === 3) ? numAlpha(0) : ''
