@@ -10,11 +10,11 @@ import { context } from './context.js'
  * Le paramètre précision précise pour divisiond, le nombre de chiffres après la virgule dans le quotient.
  */
 
-export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0, base = 10 }) { // precision est pour le quotient décimal
+export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0, base = 10, retenuesOn = true }) { // precision est pour le quotient décimal
   let Code
   const nombreDeChiffresApresLaVirgule = function (x) {
     const s = x.toString()
-    const pe = x.round().toString()
+    const pe = x.floor().toString()
     if (pe.length === s.length) return 0
     return s.length - pe.length - 1
   }
@@ -31,7 +31,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     return blancs
   }
 
-  const DivisionPosee3d = function (divid, divis, precision = 0) {
+  const DivisionPosee3d = function (divid, divis, precision = 0, retenuesOn) {
     const objets = []; let zeroutile = false; const periode = 0
     precision = Math.min(precision, nombreDeChiffresApresLaVirgule(divid.div(divis)))
     const decalage = nombreDeChiffresApresLaVirgule(divis)
@@ -126,7 +126,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     return code
   }
 
-  const AdditionPosee3d = function (operande1, operande2, base) {
+  const AdditionPosee3d = function (operande1, operande2, base, retenuesOn) {
     const dec1 = nombreDeChiffresApresLaVirgule(operande1)
     const dec2 = nombreDeChiffresApresLaVirgule(operande2)
     let code = ''
@@ -185,7 +185,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       if (sop1[i] !== ' ') objets.push(texteParPosition(sop1[i], i * 0.6, 4, 'milieu', 'black', 1.2, 'middle', false))
       if (sop2[i] !== ' ') objets.push(texteParPosition(sop2[i], i * 0.6, 3, 'milieu', 'black', 1.2, 'middle', false))
       objets.push(segment(0, 2, (longueuroperandes + 1) * 0.6, 2))
-      if (retenues[i] !== ' ') objets.push(texteParPosition(retenues[i], i * 0.6, 2.5, 'milieu', 'red', 0.8, 'middle', false))
+      if (retenues[i] !== ' ' && retenuesOn) objets.push(texteParPosition(retenues[i], i * 0.6, 2.5, 'milieu', 'red', 0.8, 'middle', false))
       if (sresultat[i] !== ' ') objets.push(texteParPosition(sresultat[i], i * 0.6, 1, 'milieu', 'black', 1.2, 'middle', false))
     }
     if (decalage !== 0) {
@@ -197,7 +197,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     return code
   }
 
-  const SoustractionPosee3d = function (operande1, operande2, base) {
+  const SoustractionPosee3d = function (operande1, operande2, base, retenuesOn) {
     let code = ''
     const objets = []
     let sop1; let sop2
@@ -256,10 +256,10 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     }
     const offsetCarry = lop1 - lop2
     for (let i = 0; i < longueuroperandes + 1; i++) {
-      if (retenues[i] !== '0') objets.push(texteParPosition(retenues[i], i * 0.6 - 0.2 + 0.6 * offsetCarry, 4.1, 'milieu', 'red', 0.8, 'middle', false))
+      if (retenues[i] !== '0' && retenuesOn) objets.push(texteParPosition(retenues[i], i * 0.6 - 0.2 + 0.6 * offsetCarry, 4.1, 'milieu', 'red', 0.8, 'middle', false))
       if (sop1[i] !== ' ') objets.push(texteParPosition(sop1[i], i * 0.6, 4, 'milieu', 'black', 1.2, 'middle', false))
       if (sop2[i] !== ' ') objets.push(texteParPosition(sop2[i], i * 0.6, 3, 'milieu', 'black', 1.2, 'middle', false))
-      if (retenues[i] !== '0') objets.push(texteParPosition(retenues[i], i * 0.6 - 0.6 + 0.6 * offsetCarry, 2.6, 'milieu', 'blue', 0.8, 'middle', false))
+      if (retenues[i] !== '0' && retenuesOn) objets.push(texteParPosition(retenues[i], i * 0.6 - 0.6 + 0.6 * offsetCarry, 2.6, 'milieu', 'blue', 0.8, 'middle', false))
       if (sresultat[i] !== ' ') objets.push(texteParPosition(sresultat[i], i * 0.6, 1, 'milieu', 'black', 1.2, 'middle', false))
     }
     objets.push(segment(0, 2, (longueuroperandes + 1) * 0.6, 2))
@@ -271,23 +271,25 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     code += mathalea2d({ xmin: -0.5, ymin: 0, xmax: longueuroperandes, ymax: 5, pixelsParCm: 20, scale: 0.8 }, objets)
     return code
   }
-  const MultiplicationPosee3d = function (operande1, operande2, base) {
+  const MultiplicationPosee3d = function (operande1, operande2, base, retenuesOn) {
     let sop1; let sop2; const objets = []; let operandex; let lignesinutiles = 0
-
+    let zeroUtile1, zeroUtile2
     const produits = []; let strprod; const sommes = []
-    if (operande1.lt(operande2)) {
+    if (operande1 < operande2) {
       operandex = operande1
       operande1 = operande2
       operande2 = operandex
     }
     let dec1, dec2
     if (base ? base === 10 : true) {
+      zeroUtile1 = operande1.lt(1)
+      zeroUtile2 = operande2.lt(1)
       dec1 = nombreDeChiffresApresLaVirgule(operande1)
       dec2 = nombreDeChiffresApresLaVirgule(operande2)
       operande1 = operande1.mul(10 ** dec1)
       operande2 = operande2.mul(10 ** dec2)
-      sop1 = operande1.toString()
-      sop2 = operande2.toString()
+      sop1 = (zeroUtile1 ? '0' : '') + Number(operande1).toString()
+      sop2 = (zeroUtile2 ? '0' : '') + Number(operande2).toString()
     } else {
       dec1 = 0
       dec2 = 0
@@ -310,7 +312,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
         for (let j = 0; j < sop1.length; j++) {
           if (base ? base === 10 : true) {
             strprod = parseInt(sop1[lop1 - j - 1] * parseInt(sop2[lop2 - i - 1])) + parseInt(retenues[i][0])
-            retenues[i] = `${Number(Math.floor(strprod / 10)).toString()}${retenues[i]}`
+            if (j !== sop1.length - 1) retenues[i] = `${Number(Math.floor(strprod / 10)).toString()}${retenues[i]}`
             produits[i] = `${Number(strprod % 10).toString()}${produits[i]}`
           } else {
             strprod = parseInt(sop1[lop1 - j - 1], base) * parseInt(sop2[lop2 - i - 1], base) + parseInt(retenues[i][0], base)
@@ -318,7 +320,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
             produits[i] = `${Number(strprod % base).toString()}${produits[i]}`
           }
         }
-        produits[i] = `${retenues[i][0]}${produits[i]}`
+        produits[i] = `${Number(Math.floor(strprod / 10)).toString()}${produits[i]}`
       } else {
         for (let j = 0; j < sop1.length; j++) {
           retenues[i] = `0${retenues[i]}`
@@ -385,14 +387,14 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     for (let j = 0; j < lop2; j++) {
       if (sop2[longueurtotale - j] !== '0') {
         for (let i = 0; i <= longueurtotale; i++) {
-          if (produits[j][i] !== ' ' & produits[j][i] !== '°') objets.push(texteParPosition(produits[j][i], i * 0.6, 5 - j + lignesinutiles, 'milieu', 'black', 1.2, 'middle', false))
-          if (retenues[j][i] !== '0') objets.push(texteParPosition(retenues[j][i], i * 0.6, 5.5 - j + lignesinutiles, 'milieu', 'blue', 0.7, 'middle', false))
+          if (produits[j][i] !== ' ' && produits[j][i] !== '°') objets.push(texteParPosition(produits[j][i], i * 0.6, 5 - j + lignesinutiles, 'milieu', 'black', 1.2, 'middle', false))
+          if (retenues[j][i] !== '0' && retenuesOn) objets.push(texteParPosition(`(${retenues[j][i]})`, i * 0.6, 5.5 - j + lignesinutiles, 'milieu', 'blue', 0.7, 'middle', false))
         }
       } else { lignesinutiles++ }
     }
 
     for (let i = 0; i <= longueurtotale; i++) {
-      if (retenues[lop2][i] !== '0') objets.push(texteParPosition(retenues[lop2][i], i * 0.6, 5.5 - lop2 + lignesinutiles, 'milieu', 'red', 0.7, 'middle', false))
+      if (retenues[lop2][i] !== '0' && retenuesOn) objets.push(texteParPosition(retenues[lop2][i], i * 0.6, 5.5 - lop2 + lignesinutiles, 'milieu', 'red', 0.7, 'middle', false))
     }
     objets.push(segment(0, 5.2 - lop2 + lignesinutiles, (longueurtotale + 1) * 0.6, 5.2 - lop2 + lignesinutiles))
     objets.push(segment(0, 5.7, (longueurtotale + 1) * 0.6, 5.7))
@@ -409,20 +411,20 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
   operande2 = new Decimal(operande2)
   switch (type) {
     case 'addition':
-      if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2, base) } else { Code = `$\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2, base, retenuesOn) } else { Code = `$\\opadd[decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
 
       break
     case 'soustraction':
-      if (context.isHtml) { Code = SoustractionPosee3d(operande1, operande2, base) } else { Code = `$\\opsub[carrysub,lastcarry,decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = SoustractionPosee3d(operande1, operande2, base, retenuesOn) } else { Code = `$\\opsub[carrysub,lastcarry,decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
       break
     case 'multiplication':
-      if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2, base) } else { Code = `$\\opmul[displayshiftintermediary=all,decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2, base, retenuesOn) } else { Code = `$\\opmul[displayshiftintermediary=all,decimalsepsymbol={,}]{${operande1}}{${operande2}}$` }
       break
     case 'division':
-      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, precision) } else { Code = `$\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, precision, retenuesOn) } else { Code = `$\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}$` }
       break
     case 'divisionE':
-      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, 0) } else { Code = `$\\opidiv{${operande1}}{${operande2}}$` }
+      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, 0, retenuesOn) } else { Code = `$\\opidiv{${operande1}}{${operande2}}$` }
       break
   }
   return Code
