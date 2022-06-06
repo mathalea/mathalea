@@ -53,7 +53,7 @@ export default function agrandissement () {
           texteCorr += `<br>Le volume obtenu est donc multiplié par $${texNombre(k, 1)}^3$.`
           texteCorr += `<br>Le volume obtenu est donc $V=${V1}\\times ${texNombre(k, 1)}^3=${texNombre(V2, 3)} ~cm^3$.`
           setReponse(this, i, new Grandeur(V2, 'cm^3'), { formatInteractif: 'unites' })
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline unites[Longueurs,Aires,Volumes]')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]')
           break
         case 'type1I': // calcul de V1 connaissant V2 et k
           texte = 'Un solide a été '
@@ -66,7 +66,7 @@ export default function agrandissement () {
           texteCorr += `<br>Le volume obtenu est donc multiplié par $${texNombre(k, 1)}^3$.`
           texteCorr += `<br>Le volume initial est donc $V=\\dfrac{${texNombre(V2, 3)}}{${texNombre(k, 1)}^3}=${V1} ~cm^3$.`
           setReponse(this, i, new Grandeur(V1, 'cm^3'), { formatInteractif: 'unites' })
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline unites[Longueurs,Aires,Volumes]')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]')
           break
 
         case 'type2':// Calcul de k connaissant A1 et A2
@@ -84,7 +84,7 @@ export default function agrandissement () {
           texteCorr += '<br>L\'échelle '
           texteCorr += k.gt(1) ? ' d\'agrandissement' : ' de réduction'
           texteCorr += `est donc $k=${texNombre(k, 1)}$ `
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
 
           setReponse(this, i, k)
           break
@@ -101,13 +101,13 @@ export default function agrandissement () {
           texteCorr += '1$, on en déduit qu\'il s\'agit d\'un '
           texteCorr += k.gt(1) ? 'agrandissement' : 'e réduction'
           texteCorr += ` à l'échelle $${texNombre(k, 1)}$.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           setReponse(this, i, k)
 
           break
         case 'type4':// Calcul de k connaissant V1 et V2
           texte = `Un solide a un volume de $${V1}$ cm³.`
-          texteCorr += k.gt(1) ? ' On l\' agrandit ' : ' On le réduit '
+          texte += k.gt(1) ? ' On l\' agrandit ' : ' On le réduit '
           texte += `et le solide obtenu a un volume de $${texNombre(V2, 3)}$ cm².`
           texte += '<br> Quel est le coefficient '
           texte += k.gt(1) ? ' d\'agrandissement ? ' : ' de réduction ? '
@@ -120,13 +120,13 @@ export default function agrandissement () {
           texteCorr += '<br>L\'échelle '
           texteCorr += k.gt(1) ? ' d\'agrandissement' : ' de réduction'
           texteCorr += ` est donc $k=${texNombre(k, 1)}$ `
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
 
           setReponse(this, i, k)
           break
 
         case 'type6':// conservation de angles k et V1 (angle) donné
-          texte = `Sur une figure, on relève la mesure d'un angle :  de $\\widehat{ABC}=${V1} °$. <br>`
+          texte = `Sur une figure, on relève la mesure d'un angle : $\\widehat{ABC}=${V1} °$. <br>`
           texte += k.gt(1) ? ' On agrandit ' : ' On réduit '
           texte += `cette figure à l'échelle $k=${texNombre(k, 1)}$.`
           texte += '<br> Déterminer la mesure de l\'angle $\\widehat{A\'B\'C\'}$ de la figure '
@@ -134,7 +134,7 @@ export default function agrandissement () {
           texteCorr = 'On sait que dans un agrandissement ou une réduction à l\'échelle $k$,  '
           texteCorr += 'les longueurs sont toutes multipliées par $k$.<br> Par contre, les mesures d\'angles ne sont pas modifiées.<br>'
           texteCorr += `<br>On en déduit : $\\widehat{A'B'C'}=\\widehat{ABC}=${V1} °$`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline grecTrigo')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline collège')
           setReponse(this, i, k)
           setReponse(this, i, new Grandeur(V1, '°'), { formatInteractif: 'unites' })
 
@@ -150,7 +150,7 @@ export default function agrandissement () {
           texteCorr += k.gt(1) ? ' agrandie, ' : ' réduite, '
           texteCorr += `on a l'égalité :  $A=${texNombre(k, 1)}^2\\times${A1}.$`
           texteCorr += `<br>D'où :  $A=${texNombre(A2, 2)}$ cm²`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline unites[Longueurs,Aires,Volumes]')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]')
           setReponse(this, i, new Grandeur(A2, 'cm^2'), { formatInteractif: 'unites' })
 
           break
@@ -163,14 +163,14 @@ export default function agrandissement () {
           texteCorr += '<br>Dans notre exercice, en appelant $A$ l\'aire de la figure initiale, '
           texteCorr += `on a l'égalité :  $${texNombre(A2, 2)}=${texNombre(k, 1)}^2\\times A.$`
           texteCorr += `<br>D'où :  $A=\\dfrac{${texNombre(A2, 2)}}{${texNombre(k, 1)}^2}=${A1}$ cm²`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline unites[Longueurs,Aires,Volumes]')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]')
           setReponse(this, i, new Grandeur(A1, 'cm^2'), { formatInteractif: 'unites' })
 
           break
       }
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, k, l1, A1, V1)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
