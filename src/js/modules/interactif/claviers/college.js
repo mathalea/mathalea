@@ -131,6 +131,8 @@ export const clavierCollege = {
     '*': { mode: 'math', value: '\\times' },
     '.': { mode: 'math', value: ',' },
     '%': { mode: 'math', value: '\\%' },
+    '²': { mode: 'math', value: '^2' },
+    '³': { mode: 'math', value: '^3' },
     pi: { mode: 'math', value: '\\pi' },
     ang: { mode: 'math', value: '\\widehat{#0}' },
     rac: { mode: 'math', value: '\\sqrt{#0}' },
