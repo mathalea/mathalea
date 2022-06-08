@@ -2556,6 +2556,15 @@ export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black'
   return new Boite({ Xmin: Xmin, Ymin: Ymin, Xmax: Xmax, Ymax: Ymax, color: color, colorFill: colorFill, opaciteDeRemplissage: opaciteDeRemplissage, texteIn: texteIn, tailleTexte: tailleTexte, texteColor: texteColor, texteOpacite: texteOpacite, texteMath: texteMath, echelleFigure: echelleFigure })
 }
 
+/**
+ * @param
+ * @author Eric Elter
+ * @returns
+ */
+export function estDansQuadrilatere (M, A, B, C, D) { // Est-ce que M est dans le quadrilatère non croisé ABCD ?
+  return estDansTriangle(M, A, B, C) || estDansTriangle(M, A, C, D)
+}
+
 /*********************************************/
 /** ***************Triangles ******************/
 /*********************************************/
@@ -2675,6 +2684,21 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1) {
   if ((n + 1) >> 1 === 1) M = pointIntersectionLC(e, c, '', 1)
   else M = pointIntersectionLC(e, c, '', 2)
   return polygone(A, B, M)
+}
+
+/**
+ * @param
+ * @author Eric Elter
+ * @returns
+ */
+export function estDansTriangle (M, A, B, C) { // Est-ce que M est dans le triangle ABC ?
+  const vMA = vecteur(M, A)
+  const vMB = vecteur(M, B)
+  const vMC = vecteur(M, C)
+  const x1 = vMB.x * vMC.y - vMB.y * vMC.x
+  const x2 = vMC.x * vMA.y - vMC.y * vMA.x
+  const x3 = vMA.x * vMB.y - vMA.y * vMB.x
+  return x1 > 0 && x2 > 0 && x3 > 0
 }
 
 /*********************************************/
