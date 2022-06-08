@@ -2162,7 +2162,38 @@ export function demiDroiteAvecExtremite (A, B, color = 'black') {
 %%%%%%%%%%%%% LES POLYGONES %%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
-
+/**
+ *
+ * @param {Point} A
+ * @param {Point} B
+ * @param {Point} C
+ * @param {Point} D
+ * @return {boolean} true si [AB] et [CD] sont sécants
+ */
+export function segmentsSecants (A, B, C, D) {
+  const ab = droite(A, B)
+  const cd = droite(C, D)
+  const I = pointIntersectionDD(ab, cd)
+  if (!I) return false
+  const scalaire1 = (I.x - A.x) * (B.x - I.x) + (I.y - A.y) * (B.y - I.y)
+  const scalaire2 = (I.x - C.x) * (D.x - I.x) + (I.y - C.y) * (D.y - I.y)
+  return !(scalaire1 < 0 || scalaire2 < 0)
+}
+/**
+ *
+ * @param {Point} lePoint
+ * @param {Polygone} lePolygone
+ * @return {boolean} true si lePoint est à l'intérieur de lePolygone
+ */
+export function pointEnPolygone (lePoint, lePolygone) {
+  const pointExterieur = point(lePolygone.bordures[0] - 5, lePolygone.bordures[1] - 3) // Point se trouvant en dehors des bordures du polygone
+  let nombreDeFrontieres = 0
+  for (let i = 0; i < lePolygone.listePoints.length - 1; i++) {
+    if (segmentsSecants(pointExterieur, lePoint, lePolygone.listePoints[i], lePolygone.listePoints[i + 1])) nombreDeFrontieres++
+  }
+  if (segmentsSecants(pointExterieur, lePoint, lePolygone.listePoints[0], lePolygone.listePoints[lePolygone.listePoints.length - 1])) nombreDeFrontieres++
+  return nombreDeFrontieres % 2 === 1
+}
 /**
  * polygone(A,B,C,D,E) //Trace ABCDE
  * polygone([A,B,C,D],"blue") // Trace ABCD en bleu
