@@ -9,7 +9,7 @@ export const titre = 'Comparer périmètres et/ou aires de figures'
 
 /**
  * Comparer aires et/ou périmètres de figures avec ceux d'un rectangle référence
- * Ref 6M24
+ * Ref 6M21
  * @author Eric Elter
  * Publié le 08/06/2022
  */
