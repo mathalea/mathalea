@@ -2861,7 +2861,8 @@ export default {
     "titre": "Agrandissement et réduction",
     "url": "/exercices/3e/3G22-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G22-1",
     "newEx": {
       "isNew": false,
@@ -5889,7 +5890,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -5904,7 +5905,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -5919,7 +5920,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -6280,7 +6281,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -8013,7 +8014,7 @@ export default {
     "interactifType": "mathLive",
     "name": "6G23-5",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8476,7 +8477,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -11165,6 +11166,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can1F03": {
+    "titre": "Lire graphiquement le signe de $a$ et de $\\Delta$",
+    "url": "/exercices/can/1e/can1F03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1F03",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can1G01": {
     "titre": "Déterminer les valeurs remarquables du cosinus et sinus",
     "url": "/exercices/can/1e/can1G01.js",
@@ -11182,7 +11199,7 @@ export default {
     }
   },
   "can1G02": {
-    "titre": "Déterminer les valeurs remarquables du cosinus et sinus",
+    "titre": "Déterminer les valeurs remarquables du cosinus et sinus*",
     "url": "/exercices/can/1e/can1G02.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11255,6 +11272,38 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can1L03",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1L04": {
+    "titre": "Résoudre une équation du second degré",
+    "url": "/exercices/can/1e/can1L04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1L04",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1L05": {
+    "titre": "Résoudre une équation du second degré*",
+    "url": "/exercices/can/1e/can1L05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1L05",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -14046,7 +14095,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5C19",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14065,7 +14114,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5C20",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -15004,7 +15053,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6C31",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

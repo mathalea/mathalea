@@ -16,17 +16,17 @@
 |6G23-3|5G13|4G20-5|3G12|2G10-1|ref : 1E15||beta6C33-1|
 |6G24-3|5G20-0|4G22|3G13|2G10-2|ref : 1E16||beta6test2|
 |6G25-3|5G20-1|4G40-1|3G20-1|2G11-1|ref : 1F10||beta6test2021|
-|6G42|5G20-2|4G40-2|3G22-1|2G11-2|ref : 1N10||betaAleaFigure|
-|6I11|5G20|4G51|3G22|2G11-3|ref : 1N11||betaAsymptotesObliques|
-|6M22-2|5G21-1|4G52|3G23|2G12-1|ref : 1P10||betaEqCarreDansC|
-|6M25|5G22-1|4I1|3G31-1|2G12-2|||betaEquations|
-|6N10-4|5G22|4L10-1|3G40|2G12-3|||betaEquationsLog|
-|6N11-3|5G24-1|4L10-2|3I1-1|2G12-4|||betaEqValAbs|
-|6N11-4|5G24-2|4L12|3I1|2G21-1|||betaExo3d|
-|6N12|5G30-1|4L13-0|3L13-4|2G22-1|||betaExoLimite|
-|6N22-1|5G30-2|4L13-1|3L14-1|2G23-2|||betaExoSimpleMatthieu|
-|6N24-1|5G30|4L14-0|3L15|2G24-1|||betaModele10_simple_question-reponse|
-|6N31-1|5G31-1|4L14-1|3S20|2G30-2|||betaModele11_parametrable|
+|6G42|5G20-2|4G40-2|3G22|2G11-2|ref : 1N10||betaAleaFigure|
+|6I11|5G20|4G51|3G23|2G11-3|ref : 1N11||betaAsymptotesObliques|
+|6M22-2|5G21-1|4G52|3G31-1|2G12-1|ref : 1P10||betaEqCarreDansC|
+|6M25|5G22-1|4I1|3G40|2G12-2|||betaEquations|
+|6N10-4|5G22|4L10-1|3I1-1|2G12-3|||betaEquationsLog|
+|6N11-3|5G24-1|4L10-2|3I1|2G12-4|||betaEqValAbs|
+|6N11-4|5G24-2|4L12|3L13-4|2G21-1|||betaExo3d|
+|6N12|5G30-1|4L13-0|3L14-1|2G22-1|||betaExoLimite|
+|6N22-1|5G30-2|4L13-1|3L15|2G23-2|||betaExoSimpleMatthieu|
+|6N24-1|5G30|4L14-0|3S20|2G24-1|||betaModele10_simple_question-reponse|
+|6N31-1|5G31-1|4L14-1||2G30-2|||betaModele11_parametrable|
 |6N31-2|5G31|4L14-2||2G30-3|||betaModele20_plusieurs_types_de_questions|
 |6N32|5G40-1|4L15-0||2G30-4|||betaModele21_parametrables|
 |6N41-1|5G40-2|4L16||2G30-5|||betaModele22_avec_une_serie_de_valeurs|
