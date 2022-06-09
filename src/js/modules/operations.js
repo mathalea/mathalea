@@ -390,7 +390,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     }
 
     for (let i = 0; i <= longueurtotale; i++) {
-      if (retenues[lop2][i] !== '0') objets.push(texteParPosition(retenues[lop2][i], i * 0.6, 5.5 - lop2 + lignesinutiles, 'milieu', 'red', 0.7, 'middle', false))
+      if (retenues[lop2][i] !== '0') objets.push(texteParPosition(retenues[lop2][i], i * 0.6, 5.5, 'milieu', 'red', 0.7, 'middle', false))
     }
     objets.push(segment(0, 5.2 - lop2 + lignesinutiles, (longueurtotale + 1) * 0.6, 5.2 - lop2 + lignesinutiles))
     objets.push(segment(0, 5.7, (longueurtotale + 1) * 0.6, 5.7))
@@ -398,7 +398,9 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       if (sresultat[i] !== ' ') objets.push(texteParPosition(sresultat[i], i * 0.6, 4.5 - lop2 + lignesinutiles, 'milieu', 'black', 1.2, 'middle', false))
     }
     if (dec1 + dec2 !== 0) { objets.push(texteParPosition(',', 0.3 + (longueurtotale - dec2 - dec1) * 0.6, 4.5 - lop2 + lignesinutiles, 'milieu', 'black', 1.2, 'middle', false)) }
-    objets.push(texteParPosition('+', (longueurtotale - lresultat) * 0.6, 6 - lop2 + lignesinutiles, 'milieu', 'black', 1.2, 'middle', false))
+    for (let j = 1; j < lop2 - lignesinutiles; j++) {
+      objets.push(texteParPosition('+', 0, 5 + j - lop2 + lignesinutiles, 'milieu', 'black', 1.2, 'middle', false))
+    }
     const code = mathalea2d({ xmin: -0.5, ymin: 4 - lop2, xmax: longueurtotale + 2, ymax: 8, pixelsParCm: 20, scale: 0.8 }, objets)
 
     return code
