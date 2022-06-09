@@ -1888,17 +1888,15 @@ function Segment (arg1, arg2, arg3, arg4, color) {
   ObjetMathalea2D.call(this)
   /**
  *
- * @param {Segment} s
+ * @param {Segment | Droite | DemiDroite | Cercle} objet
  * @return {boolean} true si les segments sont sécants
  */
-  this.estSecant = function (s) {
+  this.estSecant = function (objet) {
     const ab = droite(this.extremite1, this.extremite2)
-    const cd = droite(s.extremite1, s.extremite2)
+    const cd = droite(objet.extremite1, objet.extremite2)
     const I = pointIntersectionDD(ab, cd)
     if (!I) return false
-    const scalaire1 = (I.x - this.extremite1.x) * (this.extremite2.x - I.x) + (I.y - this.extremite1.y) * (this.extremite2.y - I.y)
-    const scalaire2 = (I.x - s.extremite1.x) * (s.extremite2.x - I.x) + (I.y - s.extremite1.y) * (s.extremite2.y - I.y)
-    return !(scalaire1 < 0 || scalaire2 < 0)
+    else return I.estSur(objet) && I.estSur(this)
   }
 
   this.typeObjet = 'segment'
