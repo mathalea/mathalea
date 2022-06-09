@@ -142,6 +142,32 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
     this.nom = ' ' // Le nom d'un point est par défaut un espace
     // On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
   }
+  /**
+ *
+ * @param {Polygone} lePolygone
+ * @return {boolean} true si le Point est à l'intérieur de lePolygone
+ */
+  this.estDansPolygone = function (lePolygone) {
+    const pointExterieur = point(lePolygone.bordures[0] - 5, lePolygone.bordures[1] - 3) // Point se trouvant en dehors des bordures du polygone
+    let nombreDeFrontieres = 0
+    const s = segment(pointExterieur, this)
+    for (let i = 0; i < lePolygone.listePoints.length - 1; i++) {
+      if (s.estSecant(segment(lePolygone.listePoints[i], lePolygone.listePoints[i + 1]))) nombreDeFrontieres++
+    }
+    if (s.estSecant(segment(lePolygone.listePoints[0], lePolygone.listePoints[lePolygone.listePoints.length - 1]))) nombreDeFrontieres++
+    return nombreDeFrontieres % 2 === 1
+  }
+  /**
+ *
+ * @param {Segment | Cerecle | Droite | DemiDroite} objet
+ * @returns {boolean} true si le point est sur l'objet
+ */
+  this.estSur = function (objet) {
+    if (objet instanceof Droite) return (estSurDroite(this, objet) === 'sur')
+    if (objet instanceof Segment) return appartientSegment(this, objet.extremite1, objet.extremite2)
+    if (objet instanceof DemiDroite) return appartientDemiDroite(this, objet.extremite1, objet.extremite2)
+    if (objet instanceof Cercle) return egal(longueur(this, objet.centre), objet.rayon)
+  }
 }
 /**
  * Crée un objet Point ayant les propriétés suivantes :
@@ -475,7 +501,7 @@ export function appartientSegment (C, A, B) {
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
   const prodscalABAB = (B.x - A.x) ** 2 + (B.y - A.y) ** 2
-  if (prodvect === 0 && prodscal > 0 && prodscal < prodscalABAB) return true
+  if (egal(prodvect, 0) && prodscal > 0 && prodscal < prodscalABAB) return true
   else return false
 }
 /**
@@ -496,7 +522,7 @@ export function appartientDroite (C, A, B) {
 export function appartientDemiDroite (C, A, B) {
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
-  if (prodvect === 0 && prodscal > 0) return true
+  if (egal(prodvect, 0) && prodscal > 0) return true
   else return false
 }
 
@@ -1860,6 +1886,21 @@ export function nomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
  */
 function Segment (arg1, arg2, arg3, arg4, color) {
   ObjetMathalea2D.call(this)
+  /**
+ *
+ * @param {Segment} s
+ * @return {boolean} true si les segments sont sécants
+ */
+  this.estSecant = function (s) {
+    const ab = droite(this.extremite1, this.extremite2)
+    const cd = droite(s.extremite1, s.extremite2)
+    const I = pointIntersectionDD(ab, cd)
+    if (!I) return false
+    const scalaire1 = (I.x - this.extremite1.x) * (this.extremite2.x - I.x) + (I.y - this.extremite1.y) * (this.extremite2.y - I.y)
+    const scalaire2 = (I.x - s.extremite1.x) * (s.extremite2.x - I.x) + (I.y - s.extremite1.y) * (s.extremite2.y - I.y)
+    return !(scalaire1 < 0 || scalaire2 < 0)
+  }
+
   this.typeObjet = 'segment'
   this.styleExtremites = ''
   this.tailleExtremites = 4
@@ -2129,6 +2170,10 @@ export function segmentAvecExtremites (...args) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
+function DemiDroite (A, B, color = 'black') {
+  const B1 = pointSurSegment(B, A, -10)
+  Segment.call(this, A, B1, color)
+}
 /**
  * Trace la demi-droite d'origine A passant par B et de couleur color
  * @param {Point} A
@@ -2138,8 +2183,9 @@ export function segmentAvecExtremites (...args) {
  * @author Rémi Angot
  */
 export function demiDroite (A, B, color = 'black') {
-  const B1 = pointSurSegment(B, A, -10)
-  return segment(A, B1, color)
+  return new DemiDroite(A, B, color)
+  // const B1 = pointSurSegment(B, A, -10)
+  // return segment(A, B1, color)
 }
 
 /**
@@ -2162,38 +2208,6 @@ export function demiDroiteAvecExtremite (A, B, color = 'black') {
 %%%%%%%%%%%%% LES POLYGONES %%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
-/**
- *
- * @param {Point} A
- * @param {Point} B
- * @param {Point} C
- * @param {Point} D
- * @return {boolean} true si [AB] et [CD] sont sécants
- */
-export function segmentsSecants (A, B, C, D) {
-  const ab = droite(A, B)
-  const cd = droite(C, D)
-  const I = pointIntersectionDD(ab, cd)
-  if (!I) return false
-  const scalaire1 = (I.x - A.x) * (B.x - I.x) + (I.y - A.y) * (B.y - I.y)
-  const scalaire2 = (I.x - C.x) * (D.x - I.x) + (I.y - C.y) * (D.y - I.y)
-  return !(scalaire1 < 0 || scalaire2 < 0)
-}
-/**
- *
- * @param {Point} lePoint
- * @param {Polygone} lePolygone
- * @return {boolean} true si lePoint est à l'intérieur de lePolygone
- */
-export function pointEnPolygone (lePoint, lePolygone) {
-  const pointExterieur = point(lePolygone.bordures[0] - 5, lePolygone.bordures[1] - 3) // Point se trouvant en dehors des bordures du polygone
-  let nombreDeFrontieres = 0
-  for (let i = 0; i < lePolygone.listePoints.length - 1; i++) {
-    if (segmentsSecants(pointExterieur, lePoint, lePolygone.listePoints[i], lePolygone.listePoints[i + 1])) nombreDeFrontieres++
-  }
-  if (segmentsSecants(pointExterieur, lePoint, lePolygone.listePoints[0], lePolygone.listePoints[lePolygone.listePoints.length - 1])) nombreDeFrontieres++
-  return nombreDeFrontieres % 2 === 1
-}
 /**
  * polygone(A,B,C,D,E) //Trace ABCDE
  * polygone([A,B,C,D],"blue") // Trace ABCD en bleu
