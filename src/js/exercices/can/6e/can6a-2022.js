@@ -324,11 +324,11 @@ $${a + 1}$ h et $${reponse}$ min.`
           b = arrondi(randint(1, 9) + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000, 3)
 
           if (choice([true, false])) {
-            texte = `Ajoute un dixième à $${texNombre(a)}$ ?`
+            texte = `Ajoute un dixième à $${texNombre(a)}$.`
             texteCorr = `$1$ dixième $=0,1$, d'où $${texNombre(a, 2)}+0,1 =${texNombre(a + 0.1, 2)}$`
             reponse = arrondi(a + 0.1, 2)
           } else {
-            texte = `Ajoute un centième à $${texNombre(b)}$ ?`
+            texte = `Ajoute un centième à $${texNombre(b)}$.`
             texteCorr = `$1$ centième $=0,01$, d'où $${texNombre(b, 3)}+0,01 =${texNombre(b + 0.01, 3)}$`
             reponse = arrondi(b + 0.01, 3)
           }
