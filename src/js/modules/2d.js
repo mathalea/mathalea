@@ -2556,6 +2556,15 @@ export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black'
   return new Boite({ Xmin: Xmin, Ymin: Ymin, Xmax: Xmax, Ymax: Ymax, color: color, colorFill: colorFill, opaciteDeRemplissage: opaciteDeRemplissage, texteIn: texteIn, tailleTexte: tailleTexte, texteColor: texteColor, texteOpacite: texteOpacite, texteMath: texteMath, echelleFigure: echelleFigure })
 }
 
+/**
+ * @param
+ * @author Eric Elter
+ * @returns
+ */
+export function estDansQuadrilatere (M, A, B, C, D) { // Est-ce que M est dans le quadrilatère non croisé ABCD ?
+  return estDansTriangle(M, A, B, C) || estDansTriangle(M, A, C, D)
+}
+
 /*********************************************/
 /** ***************Triangles ******************/
 /*********************************************/
@@ -2675,6 +2684,21 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1) {
   if ((n + 1) >> 1 === 1) M = pointIntersectionLC(e, c, '', 1)
   else M = pointIntersectionLC(e, c, '', 2)
   return polygone(A, B, M)
+}
+
+/**
+ * @param
+ * @author Eric Elter
+ * @returns
+ */
+export function estDansTriangle (M, A, B, C) { // Est-ce que M est dans le triangle ABC ?
+  const vMA = vecteur(M, A)
+  const vMB = vecteur(M, B)
+  const vMC = vecteur(M, C)
+  const x1 = vMB.x * vMC.y - vMB.y * vMC.x
+  const x2 = vMC.x * vMA.y - vMC.y * vMA.x
+  const x3 = vMA.x * vMB.y - vMA.y * vMB.x
+  return x1 > 0 && x2 > 0 && x3 > 0
 }
 
 /*********************************************/
@@ -3366,7 +3390,10 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
       if (this.opacite !== 1) {
         this.style += ` stroke-opacity="${this.opacite}" `
       }
-      return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" ${this.style} id="${this.id}" />`
+      if (this.couleurDeRemplissage !== 'none') {
+        this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
+      }
+      return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${this.couleurDeRemplissage}" ${this.style} id="${this.id}" />`
     }
   }
   this.tikz = function () {
@@ -4740,6 +4767,46 @@ export function afficherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
           montrerParDiv(objet.id) // On attend t0 pour montrer
           const montreRepete = setInterval(function () {
             montrerParDiv(objet.id)
+            compteur++
+            if (typeof r === 'number') {
+              if (compteur >= r) {
+                clearInterval(cacheRepete)
+                clearInterval(montreRepete)
+              }
+            }
+          }, t * 1000) // On montre tous les t s (vu qu'on a décalé de t0)
+        }, t0 * 1000) // Fin de l'animation en boucle
+      }
+    }
+  }, 100) // vérifie toutes les  100ms que le div existe
+}
+
+/**
+ * Masque un objet puis l'affiche au bout de t0 s avant de recommencer r fois toutes les t secondes
+ *
+ *
+ * @param {any} objet dont l'identifiant est accessible par objet.id
+ * @param {number} [t0=1] temps en secondes avant l'apparition
+ * @param {number} [t=5] temps à partir duquel l'animation recommence
+ * @param {string} [r='Infinity'] nombre de répétition (infini si ce n'est pas un nombre)
+
+ *
+ *
+ */
+export function cacherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
+  let compteur = 1 // Nombre d'animations
+  const checkExist = setInterval(function () {
+    if (document.getElementById(objet.id)) {
+      clearInterval(checkExist)
+      montrerParDiv(objet.id)
+      if (r === 1) { // On le cache au bout de t0 et on ne le montre plus
+        setTimeout(function () { cacherParDiv(objet.id) }, t0 * 1000)
+      } else {
+        const montreRepete = setInterval(function () { montrerParDiv(objet.id) }, t * 1000) // On cache tous les t s
+        setTimeout(function () {
+          cacherParDiv(objet.id) // On attend t0 pour montrer
+          const cacheRepete = setInterval(function () {
+            cacherParDiv(objet.id)
             compteur++
             if (typeof r === 'number') {
               if (compteur >= r) {
