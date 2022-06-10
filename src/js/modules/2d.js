@@ -153,8 +153,10 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
     const s = segment(pointExterieur, this)
     for (let i = 0; i < lePolygone.listePoints.length - 1; i++) {
       if (s.estSecant(segment(lePolygone.listePoints[i], lePolygone.listePoints[i + 1]))) nombreDeFrontieres++
+      if (this.estSur(segment(lePolygone.listePoints[i], lePolygone.listePoints[i + 1]))) nombreDeFrontieres--
     }
     if (s.estSecant(segment(lePolygone.listePoints[0], lePolygone.listePoints[lePolygone.listePoints.length - 1]))) nombreDeFrontieres++
+    if (this.estSur(segment(lePolygone.listePoints[0], lePolygone.listePoints[lePolygone.listePoints.length - 1]))) nombreDeFrontieres--
     return nombreDeFrontieres % 2 === 1
   }
   /**
@@ -162,11 +164,11 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
  * @param {Segment | Cerecle | Droite | DemiDroite} objet
  * @returns {boolean} true si le point est sur l'objet
  */
-  this.estSur = function (objet) {
-    if (objet instanceof Droite) return estSurDroite(this, objet)
-    if (objet instanceof Segment) return appartientSegment(this, objet.extremite1, objet.extremite2)
-    if (objet instanceof DemiDroite) return appartientDemiDroite(this, objet.extremite1, objet.extremite2)
-    if (objet instanceof Cercle) return egal(longueur(this, objet.centre), objet.rayon)
+  this.estSur = function (objet, tolerance) {
+    if (objet instanceof Droite) return estSurDroite(this, objet, tolerance)
+    if (objet instanceof Segment) return appartientSegment(this, objet.extremite1, objet.extremite2, tolerance)
+    if (objet instanceof DemiDroite) return appartientDemiDroite(this, objet.extremite1, objet.extremite2, tolerance)
+    if (objet instanceof Cercle) return egal(longueur(this, objet.centre), objet.rayon, tolerance)
   }
 }
 /**
@@ -497,11 +499,11 @@ export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
  * @author Jean-Claude Lhote
  */
 
-export function appartientSegment (C, A, B) {
+export function appartientSegment (C, A, B, tolerance = 0.0001) {
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
   const prodscalABAB = (B.x - A.x) ** 2 + (B.y - A.y) ** 2
-  if (egal(prodvect, 0) && prodscal > 0 && prodscal < prodscalABAB) return true
+  if (egal(prodvect, 0, tolerance) && prodscal > 0 && prodscal < prodscalABAB) return true
   else return false
 }
 /**
@@ -509,9 +511,9 @@ export function appartientSegment (C, A, B) {
  * C'est ce que dira cette fonction
  * @author Jean-Claude Lhote
  */
-export function appartientDroite (C, A, B) {
+export function appartientDroite (C, A, B, tolerance) {
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
-  if (prodvect === 0) return true
+  if (egal(prodvect, 0, tolerance)) return true
   else return false
 }
 /**
@@ -519,10 +521,10 @@ export function appartientDroite (C, A, B) {
  * C'est ce que dira cette fonction
  * @author Jean-Claude Lhote
  */
-export function appartientDemiDroite (C, A, B) {
+export function appartientDemiDroite (C, A, B, tolerance = 0.0001) {
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
-  if (egal(prodvect, 0) && prodscal > 0) return true
+  if (egal(prodvect, 0, tolerance) && prodscal > 0) return true
   else return false
 }
 
@@ -1102,8 +1104,8 @@ export function droite (...args) {
  * @param {droite} d
  * @param {point} A
  */
-export function dessousDessus (d, A) {
-  if (egal(d.a * A.x + d.b * A.y + d.c, 0)) return 'sur'
+export function dessousDessus (d, A, tolerance = 0.0001) {
+  if (egal(d.a * A.x + d.b * A.y + d.c, 0, tolerance)) return 'sur'
   if (egal(d.b, 0)) {
     if (A.x < -d.c / d.a) return 'gauche'
     else return 'droite'
@@ -1119,8 +1121,8 @@ export function dessousDessus (d, A) {
  * @returns {boolean} true si A appartient à d
  * @author Jean-Claude Lhote
  */
-export function estSurDroite (A, d) {
-  return dessousDessus(d, A) === 'sur'
+export function estSurDroite (A, d, tolerance) {
+  return dessousDessus(d, A, tolerance) === 'sur'
 }
 
 /**
