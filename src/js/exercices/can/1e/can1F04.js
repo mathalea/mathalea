@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, choice, sp } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu, choice } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { repere2, courbe2, mathalea2d, texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
@@ -29,41 +29,40 @@ export default function LectureGraphiqueParaboleB () {
 
     let texte, texteCorr, a, alpha, beta, r, F, o
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([2])) {
-        case 1:// cas parabole a>0 et b>0
+      switch (choice([1, 2, 3, 4, 5, 6])) {
+        case 1:// cas parabole a>0 et alpha <0 et b>0
 
           a = randint(0, 1) + randint(5, 9) / 10
           alpha = randint(-4, -2) + randint(4, 9) / 10
-          if (choice([true, false])) {  beta = randint(-2, 1) + randint(2, 7) / 10}else{beta=0}
+          if (choice([true, true, true, false])) { beta = randint(-3, 1) + randint(2, 7) / 10 } else { beta = 0 }
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = 'On donne la courbe représentative d\'une fonction $f$ polynôme du second degré définie par $f(x)=ax^2+bx+c$ .<br>'
+          texte = 'La courbe représente une fonction $f$ polynôme du second degré telle que :<br> $f(x)=ax^2+bx+c$. <br>'
           if (!this.interactif) {
-            texte += `Donner le signe de $b$.
+            texte += `Donner le signe de $b$.<br>
         `
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
             texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: '$b$' }) + '$0$'
-           
+
             setReponse(this, i, '>', { formatInteractif: 'texte' })
-            
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
           r = repere2({
             xMin: -6,
             xMax: 3,
-            yMin: -5,
-            yMax: 5,
-                      thickHauteur: 0.1,
+            yMin: -4,
+            yMax: 4,
+            thickHauteur: 0.1,
             xLabelMin: -5,
             xLabelMax: 2,
-            yLabelMax: 4,
-            yLabelMin: -4,
+            yLabelMax: 3,
+            yLabelMin: -3,
             axeXStyle: '->',
             axeYStyle: '->'
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -6, xmax: 3, ymin: -5, ymax: 5, pixelsParCm: 35, scale: 0.8 }, r, o, courbe2(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({ xmin: -6, xmax: 3, ymin: -4, ymax: 4, pixelsParCm: 20, scale: 0.8 }, r, o, courbe2(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           texteCorr = `L'abscisse du sommet de la parabole est négatif. Celui-ci est donné par : $-\\dfrac{b}{2a}$.<br>
           On en déduit que $\\dfrac{-b}{2a}<0$. <br>
@@ -71,209 +70,199 @@ export default function LectureGraphiqueParaboleB () {
       On a donc $-b<0$ soit $b>0$.`
           break
 
-        case 2:// cas parabole a<0 et b<0
+        case 2:// cas parabole a<0 et alpha <0 et b<0
 
-        a = randint(-1, 0) - randint(5, 9) / 10
-        alpha = randint(-4, -2) + randint(4, 9) / 10
-        if (choice([true, false])) {  beta = randint(-1, 4) - randint(1, 5) / 10}else{beta=0}
-        o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-        texte = 'On donne la courbe représentative d\'une fonction $f$ polynôme du second degré définie par $f(x)=ax^2+bx+c$ .<br>'
-        if (!this.interactif) {
-          texte += `Donner le signe de $b$.
+          a = randint(-1, 0) - randint(5, 9) / 10
+          alpha = randint(-4, -2) + randint(4, 9) / 10
+          if (choice([true, true, true, false])) { beta = randint(-1, 4) - randint(1, 5) / 10 } else { beta = 0 }
+          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          texte = 'La courbe représente une fonction $f$ polynôme du second degré telle que :<br> $f(x)=ax^2+bx+c$. <br>'
+          if (!this.interactif) {
+            texte += `Donner le signe de $b$.<br>
       `
-        } else {
-          texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
-          texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: '$b$' }) + '$0$'
-         
-          setReponse(this, i, '<', { formatInteractif: 'texte' })
-          
-        }
-        // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
-        r = repere2({
-          xMin: -6,
-          xMax: 3,
-          yMin: -5,
-          yMax: 5,
-                    thickHauteur: 0.1,
-          xLabelMin: -4,
-          xLabelMax: 2,
-          yLabelMax: 4,
-          yLabelMin: -4,
-          axeXStyle: '->',
-          axeYStyle: '->'
-        })
+          } else {
+            texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: '$b$' }) + '$0$'
 
-        F = x => a * (x - alpha) ** 2 + beta
-        texte += mathalea2d({ xmin: -6, xmax: 3, ymin: -5, ymax: 5, pixelsParCm: 25, scale: 0.8 }, r, o, courbe2(F, { repere: r, color: 'blue', epaisseur: 2 }))
+            setReponse(this, i, '<', { formatInteractif: 'texte' })
+          }
+          // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
+          r = repere2({
+            xMin: -6,
+            xMax: 3,
+            yMin: -4,
+            yMax: 4,
+            thickHauteur: 0.1,
+            xLabelMin: -4,
+            xLabelMax: 2,
+            yLabelMax: 3,
+            yLabelMin: -4,
+            axeXStyle: '->',
+            axeYStyle: '->'
+          })
 
-        texteCorr = `L'abscisse du sommet de la parabole est négatif. Celui-ci est donné par : $-\\dfrac{b}{2a}$.<br>
+          F = x => a * (x - alpha) ** 2 + beta
+          texte += mathalea2d({ xmin: -6, xmax: 3, ymin: -4, ymax: 4, pixelsParCm: 25, scale: 0.8 }, r, o, courbe2(F, { repere: r, color: 'blue', epaisseur: 2 }))
+
+          texteCorr = `L'abscisse du sommet de la parabole est négatif. Celui-ci est donné par : $-\\dfrac{b}{2a}$.<br>
         On en déduit que $\\dfrac{-b}{2a}<0$. <br>
         La parabole a "les bras" tournés vers le bas, donc $a<0$. <br>
     On a donc $-b>0$ soit $b<0$.`
-        break
+          break
 
+        case 3:// cas parabole a>0 et alpha >0 et b>0
+          a = randint(0, 1) + randint(5, 9) / 10
+          alpha = randint(1, 3) + randint(4, 9) / 10
+          if (choice([true, true, false])) { beta = randint(-3, 1) + randint(2, 7) / 10 } else { beta = 0 }
+          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          texte = 'La courbe représente une fonction $f$ polynôme du second degré telle que :<br> $f(x)=ax^2+bx+c$. <br>'
+          if (!this.interactif) {
+            texte += `Donner le signe de $b$.<br>
+      `
+          } else {
+            texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: '$b$' }) + '$0$'
 
-        case 3:// cas parabole a>0 et delta=0
+            setReponse(this, i, '<', { formatInteractif: 'texte' })
+          }
+          // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
+          r = repere2({
+            xMin: -3,
+            xMax: 6,
+            yMin: -4,
+            yMax: 4,
+            thickHauteur: 0.1,
+            xLabelMin: -2,
+            xLabelMax: 5,
+            yLabelMax: 3,
+            yLabelMin: -3,
+            axeXStyle: '->',
+            axeYStyle: '->'
+          })
+
+          F = x => a * (x - alpha) ** 2 + beta
+          texte += mathalea2d({ xmin: -3, xmax: 6, ymin: -4, ymax: 4, pixelsParCm: 20, scale: 0.8 }, r, o, courbe2(F, { repere: r, color: 'blue', epaisseur: 2 }))
+
+          texteCorr = `L'abscisse du sommet de la parabole est positif. Celui-ci est donné par : $-\\dfrac{b}{2a}$.<br>
+        On en déduit que $\\dfrac{-b}{2a}>0$. <br>
+        La parabole a "les bras" tournés vers le haut, donc $a>0$. <br>
+    On a donc $-b>0$ soit $b<0$.`
+          break
+
+        case 4://  cas parabole a<0 et alpha >0 et b<0
+
+          a = randint(-1, 0) - randint(5, 9) / 10
+          alpha = randint(1, 3) + randint(4, 9) / 10
+          if (choice([true, true, true, false])) { beta = randint(-1, 4) - randint(1, 5) / 10 } else { beta = 0 }
+          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          texte = 'La courbe représente une fonction $f$ polynôme du second degré telle que :<br> $f(x)=ax^2+bx+c$. <br>'
+          if (!this.interactif) {
+            texte += `Donner le signe de $b$.<br>
+      `
+          } else {
+            texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: '$b$' }) + '$0$'
+            setReponse(this, i, '>', { formatInteractif: 'texte' })
+          }
+          // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
+
+          r = repere2({
+            xMin: -3,
+            xMax: 6,
+            yMin: -4,
+            yMax: 4,
+            thickHauteur: 0.1,
+            xLabelMin: -2,
+            xLabelMax: 5,
+            yLabelMax: 3,
+            yLabelMin: -3,
+            axeXStyle: '->',
+            axeYStyle: '->'
+          })
+
+          F = x => a * (x - alpha) ** 2 + beta
+          texte += mathalea2d({ xmin: -3, xmax: 6, ymin: -4, ymax: 4, pixelsParCm: 20, scale: 0.8 }, r, o, courbe2(F, { repere: r, color: 'blue', epaisseur: 2 }))
+
+          texteCorr = `L'abscisse du sommet de la parabole est positif. Celui-ci est donné par : $-\\dfrac{b}{2a}$.<br>
+        On en déduit que $\\dfrac{-b}{2a}>0$. <br>
+        La parabole a "les bras" tournés vers le bas, donc $a<0$. <br>
+    On a donc $-b<0$ soit $b>0$.`
+          break
+
+        case 5:// cas parabole a>0 et b=0
 
           a = randint(0, 1) + randint(5, 9) / 10
-          alpha = randint(-2, 1) + randint(1, 9) / 10
-          beta = 0
+          alpha = 0
+          beta = randint(-3, 2) - randint(1, 5) / 10
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = 'On donne la courbe représentative d\'une fonction $f$ polynôme du second degré définie par $f(x)=ax^2+bx+c$ .<br>'
+          texte = 'La courbe représente une fonction $f$ polynôme du second degré telle que :<br> $f(x)=ax^2+bx+c$. <br>'
           if (!this.interactif) {
-            texte += `Donner le signe de $a$ et de $\\Delta$.
-   `
+            texte += `Donner le signe de $b$.<br>
+    `
           } else {
-            texte += 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a$' }) + '$0$'
-            texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: '$\\Delta$' }) + '$0$'
-            setReponse(this, 2 * i, '>', { formatInteractif: 'texte' })
-            setReponse(this, 2 * i + 1, '=', { formatInteractif: 'texte' })
-          }
-          // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
-          r = repere2({
-            xMin: -5,
-            yMin: -2,
-            yMax: 5,
-            xMax: 5,
-            thickHauteur: 0.1,
-            xLabelMin: -4,
-            xLabelMax: 4,
-            yLabelMax: 4,
-            axeXStyle: '->',
-            yLabelMin: -1,
-            axeYStyle: '->'
-          })
-
-          F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -5, xmax: 5, ymin: -2, ymax: 5, pixelsParCm: 35, scale: 0.8 }, r, o, courbe2(F, { repere: r, color: 'blue', epaisseur: 2 }))
-
-          texteCorr = `La parabole a "les bras" tournés vers le haut, on en déduit que $a>0$. <br>
- De plus, elle  coupe  l'axe des abscisses en un point, donc $f$ a une seule racine et par suite $\\Delta=0$.`
-          break
-
-        case 4:// cas parabole a<0 et delta=0
-
-          a = randint(-1, 0) - randint(5, 9) / 10
-          alpha = randint(-2, 1) + randint(1, 9) / 10
-          beta = 0
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = 'On donne la courbe représentative d\'une fonction $f$ polynôme du second degré définie par $f(x)=ax^2+bx+c$ .<br>'
-          if (!this.interactif) {
-            texte += `Donner le signe de $a$ et de $\\Delta$.
-   `
-          } else {
-            texte += 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a$' }) + '$0$'
-            texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: '$\\Delta$' }) + '$0$'
-            setReponse(this, 2 * i, '<', { formatInteractif: 'texte' })
-            setReponse(this, 2 * i + 1, '=', { formatInteractif: 'texte' })
+            texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: '$b$' }) + '$0$'
+            setReponse(this, i, '=', { formatInteractif: 'texte' })
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 
           r = repere2({
-            xMin: -5,
-            yMin: -5,
-            yMax: 2,
-            xMax: 5,
+            xMin: -4,
+            xMax: 4,
+            yMin: -4,
+            yMax: 4,
             thickHauteur: 0.1,
-            xLabelMin: -4,
-            xLabelMax: 4,
-            yLabelMax: 1,
-            axeXStyle: '->',
-            yLabelMin: -4,
-            axeYStyle: '->'
-          })
-
-          F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -5, xmax: 5, ymin: -5, ymax: 2, pixelsParCm: 35, scale: 0.8 }, r, o, courbe2(F, { repere: r, color: 'blue', epaisseur: 2 }))
-
-          texteCorr = `La parabole a "les bras" tournés vers le bas, on en déduit que $a<0$. <br>
- De plus, elle  coupe  l'axe des abscisses en un point, donc $f$ a une seule racine et par suite $\\Delta=0$.`
-          break
-
-        case 5:// cas parabole a<0 et delta>0
-
-          a = randint(-1, 0) - randint(5, 9) / 10
-          alpha = randint(-2, 1) + randint(1, 9) / 10
-          beta = randint(1, 3) + randint(4, 9) / 10
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = 'On donne la courbe représentative d\'une fonction $f$ polynôme du second degré définie par $f(x)=ax^2+bx+c$ .<br>'
-          if (!this.interactif) {
-            texte += `Donner le signe de $a$ et de $\\Delta$.<br>
-   `
-          } else {
-            texte += 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a$' }) + '$0$'
-            texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: '$\\Delta$' }) + '$0$'
-            setReponse(this, 2 * i, '<', { formatInteractif: 'texte' })
-            setReponse(this, 2 * i + 1, '>', { formatInteractif: 'texte' })
-          }
-          // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
-
-          r = repere2({
-            xMin: -5,
-            yMin: -2,
-            yMax: 5,
-            xMax: 5,
-            thickHauteur: 0.1,
-            xLabelMin: -4,
-            yLabelMin: -1,
+            xLabelMin: -3,
             xLabelMax: 3,
-            yLabelMax: 4,
+            yLabelMax: 3,
+            yLabelMin: -3,
             axeXStyle: '->',
             axeYStyle: '->'
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -5, xmax: 5, ymin: -2, ymax: 5, pixelsParCm: 35, scale: 0.8 }, r, o, courbe2(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({ xmin: -4, xmax: 4, ymin: -4, ymax: 4, pixelsParCm: 20, scale: 0.8 }, r, o, courbe2(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
-          texteCorr = `La parabole a "les bras" tournés vers le bas, on en déduit que $a<0$. <br>
- De plus, elle  coupe  l'axe des abscisses en deux points, donc $f$ a deux racines  et par suite $\\Delta>0$.`
+          texteCorr = `L'abscisse du sommet de la parabole est nul. Celui-ci est donné par : $-\\dfrac{b}{2a}$.<br>
+      On en déduit que $\\dfrac{-b}{2a}=0$ soit $b=0$. `
           break
 
-        case 6:// cas parabole a<0 et delta<0
+        case 6:// cas parabole a<0 et b=0
 
-          a = randint(-1, 0) - randint(3, 7) / 10
-          alpha = randint(-2, 1) + randint(1, 9) / 10
-          beta = randint(-1, 0) - randint(4, 9) / 10
+          a = randint(-1, 0) - randint(5, 9) / 10
+          alpha = 0
+          beta = randint(1, 3) + randint(1, 5) / 10
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = 'On donne la courbe représentative d\'une fonction $f$ polynôme du second degré définie par $f(x)=ax^2+bx+c$ .<br>'
+          texte = 'La courbe représente une fonction $f$ polynôme du second degré telle que :<br> $f(x)=ax^2+bx+c$. <br>'
           if (!this.interactif) {
-            texte += `Donner le signe de $a$ et de $\\Delta$.<br>
-   `
+            texte += `Donner le signe de $b$.<br>
+    `
           } else {
-            texte += 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a$' }) + '$0$'
-            texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: '$\\Delta$' }) + '$0$'
-            setReponse(this, 2 * i, '<', { formatInteractif: 'texte' })
-            setReponse(this, 2 * i + 1, '<', { formatInteractif: 'texte' })
+            texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: '$b$' }) + '$0$'
+            setReponse(this, i, '=', { formatInteractif: 'texte' })
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 
           r = repere2({
-            xMin: -5,
-            yMin: -5,
-            yMax: 2,
-            xMax: 5,
+            xMin: -4,
+            xMax: 4,
+            yMin: -4,
+            yMax: 4,
             thickHauteur: 0.1,
-            xLabelMin: -4,
-            yLabelMin: -4,
-            xLabelMax: 4,
-            yLabelMax: 1,
+            xLabelMin: -3,
+            xLabelMax: 3,
+            yLabelMax: 3,
+            yLabelMin: -3,
             axeXStyle: '->',
             axeYStyle: '->'
           })
 
           F = x => a * (x - alpha) ** 2 + beta
-          texte += mathalea2d({ xmin: -5, xmax: 5, ymin: -5, ymax: 2, pixelsParCm: 35, scale: 0.8 }, r, o, courbe2(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({ xmin: -4, xmax: 4, ymin: -4, ymax: 4, pixelsParCm: 20, scale: 0.8 }, r, o, courbe2(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
-          texteCorr = `La parabole a "les bras" tournés vers le bas, on en déduit que $a<0$. <br>
- De plus, elle ne coupe pas l'axe des abscisses, donc $f$ n'a pas de racines et par suite $\\Delta<0$.`
+          texteCorr = `L'abscisse du sommet de la parabole est nul. Celui-ci est donné par : $-\\dfrac{b}{2a}$.<br>
+      On en déduit que $\\dfrac{-b}{2a}=0$ soit $b=0$. `
           break
       }
 
