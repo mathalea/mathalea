@@ -79,7 +79,7 @@ export function fondEcran (url, x = 0, y = 0, largeur = context.fenetreMathalea2
  * fork de https://javascript.developpez.com/actu/94357/JavaScript-moins-Realiser-une-copie-parfaite-d-objet/
  * Ne fonctionne pas complètement : ne copie pas les méthodes svg et tikz...
  * @param {ObjetMathalea2D} originalObject
- * @returns copie de cet objet.
+ * @returns {object} copie de cet objet.
  */
 export function clone (obj) {
   if (obj === null || typeof obj !== 'object') return obj
@@ -1116,7 +1116,7 @@ export function dessousDessus (d, A) {
  *
  * @param {point} A
  * @param {droite} d
- * @returns true si A appartient à d
+ * @returns {boolean} true si A appartient à d
  * @author Jean-Claude Lhote
  */
 export function estSurDroite (A, d) {
@@ -1158,8 +1158,8 @@ export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rx
 /**
  *
  * @param {droite} d
- * @param {{number}} param1 les bordures de la fenêtre
- * @returns le point qui servira à placer le label.
+ * @param {number} param1 les bordures de la fenêtre
+ * @returns {Point} le point qui servira à placer le label.
  */
 export function positionLabelDroite (d, { xmin = 0, ymin = 0, xmax = 10, ymax = 10 }) {
   let xLab, yLab
@@ -1342,7 +1342,7 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * @param {string} [color='black'] Couleur du codage. Facultatif, 'black' par défaut
  * @param {string} [mark='x'] Peut être '||' ou 'x'. Facultatif, 'x' par défaut
  * @param {boolean} [mil=true] Trace ou nom le point du milieu. Facultatif, true par défaut
- * @returns CodageMilieu
+ * @returns {object} CodageMilieu
  * @example codageMilieu(A,B,'red','||',false) marque les deux moitiés du segment [AB] avec || en rouge, le milieu n'est pas tracé car dernier argument à false.
  */
 export function codageMilieu (...args) {
@@ -2411,7 +2411,7 @@ export function polygone (...args) {
 /**
  * Crée un groupe d'objets contenant le polygone et ses sommets
  * @param  {...any} args
- * @returns [p, p.sommets]
+ * @returns {array} [p, p.sommets]
  */
 export function polygoneAvecNom (...args) {
   const p = polygone(...args)
@@ -2605,7 +2605,7 @@ export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black'
 /**
  * @param
  * @author Eric Elter
- * @returns
+ * @returns {boolean}
  */
 export function estDansQuadrilatere (M, A, B, C, D) { // Est-ce que M est dans le quadrilatère non croisé ABCD ?
   return estDansTriangle(M, A, B, C) || estDansTriangle(M, A, C, D)
@@ -2731,11 +2731,14 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1) {
   else M = pointIntersectionLC(e, c, '', 2)
   return polygone(A, B, M)
 }
-
 /**
- * @param
+ *
+ * @param {Point} M
+ * @param {Point} A
+ * @param {Point} B
+ * @param {Point} C
+ * @returns {boolean}
  * @author Eric Elter
- * @returns
  */
 export function estDansTriangle (M, A, B, C) { // Est-ce que M est dans le triangle ABC ?
   const vMA = vecteur(M, A)
@@ -5747,7 +5750,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
  * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré (from EE)
  * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle (from EE) : encore optimisable
  * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle (from EE)
- * @returns CodeAngle
+ * @returns {object} CodeAngle
  * @example codeAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @author Jean-Claude Lhote
  */
@@ -7297,7 +7300,7 @@ function Repere2 ({
 /**
  *
  * @param {object} param0
- * @returns
+ * @returns {object}
  */
 export function repere2 ({
   xUnite = 1,
@@ -9875,7 +9878,7 @@ export function angleradian (A, O, B) {
  * Parce que le 0 angulaire de Scratch est dirigé vers le Nord et qu'il croît dans le sens indirect
  * Et que le 0 angulaire de 2d est celui du cercle trigonométrique...
  * @param {number} x angle Scratch
- * @returns angle2d
+ * @returns {number} angle2d
  */
 export function angleScratchTo2d (x) {
   let angle2d = 90 - x
@@ -9887,7 +9890,7 @@ export function angleScratchTo2d (x) {
 /**
  * Convertit un nombre de degrés quelconque en une mesure comprise entre -180 et 180
  * @param {number} a
- * @returns angle
+ * @returns {number} angle
  */
 export function angleModulo (a) {
   if (a < -180) return a + 360
@@ -9986,7 +9989,7 @@ function ObjetLutin () {
  * Crée une nouvelle instance de l'objet lutin
  * @param  {...any} args En fait, il n'y a pas d'argument... il faudra les renseigner après la création de l'objet.
  * Voire l'objet lutin pour la liste de ses attributs (lutin.x, lutin.y, lutin.orientation, ...)
- * @returns Instance d'un lutin
+ * @returns {object} Instance d'un lutin
  */
 export function creerLutin (...args) {
   return new ObjetLutin(...args)
