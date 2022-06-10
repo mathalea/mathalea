@@ -1893,6 +1893,9 @@ function Segment (arg1, arg2, arg3, arg4, color) {
  */
   this.estSecant = function (objet) {
     const ab = droite(this.extremite1, this.extremite2)
+    if (objet instanceof Cercle) {
+      return pointIntersectionLC(ab, objet, '', 1) || pointIntersectionLC(ab, objet, '', 2)
+    }
     const cd = droite(objet.extremite1, objet.extremite2)
     const I = pointIntersectionDD(ab, cd)
     if (!I) return false
