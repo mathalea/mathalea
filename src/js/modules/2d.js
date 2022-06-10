@@ -163,7 +163,7 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
  * @returns {boolean} true si le point est sur l'objet
  */
   this.estSur = function (objet) {
-    if (objet instanceof Droite) return (estSurDroite(this, objet) === 'sur')
+    if (objet instanceof Droite) return estSurDroite(this, objet)
     if (objet instanceof Segment) return appartientSegment(this, objet.extremite1, objet.extremite2)
     if (objet instanceof DemiDroite) return appartientDemiDroite(this, objet.extremite1, objet.extremite2)
     if (objet instanceof Cercle) return egal(longueur(this, objet.centre), objet.rayon)
@@ -1894,10 +1894,15 @@ function Segment (arg1, arg2, arg3, arg4, color) {
   this.estSecant = function (objet) {
     const ab = droite(this.extremite1, this.extremite2)
     if (objet instanceof Cercle) {
-      return pointIntersectionLC(ab, objet, '', 1) || pointIntersectionLC(ab, objet, '', 2)
+      return (pointIntersectionLC(ab, objet, '', 1) || pointIntersectionLC(ab, objet, '', 2)) instanceof Point
     }
-    const cd = droite(objet.extremite1, objet.extremite2)
-    const I = pointIntersectionDD(ab, cd)
+    let I
+    if (objet instanceof Droite) {
+      I = pointIntersectionDD(ab, objet)
+    } else {
+      const cd = droite(objet.extremite1, objet.extremite2)
+      I = pointIntersectionDD(ab, cd)
+    }
     if (!I) return false
     else return I.estSur(objet) && I.estSur(this)
   }
