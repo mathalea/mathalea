@@ -79,7 +79,7 @@ export function fondEcran (url, x = 0, y = 0, largeur = context.fenetreMathalea2
  * fork de https://javascript.developpez.com/actu/94357/JavaScript-moins-Realiser-une-copie-parfaite-d-objet/
  * Ne fonctionne pas complètement : ne copie pas les méthodes svg et tikz...
  * @param {ObjetMathalea2D} originalObject
- * @returns copie de cet objet.
+ * @returns {object} copie de cet objet.
  */
 export function clone (obj) {
   if (obj === null || typeof obj !== 'object') return obj
@@ -141,6 +141,34 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
   if (!this.nom) {
     this.nom = ' ' // Le nom d'un point est par défaut un espace
     // On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
+  }
+  /**
+ *
+ * @param {Polygone} lePolygone
+ * @return {boolean} true si le Point est à l'intérieur de lePolygone
+ */
+  this.estDansPolygone = function (lePolygone) {
+    const pointExterieur = point(lePolygone.bordures[0] - 5, lePolygone.bordures[1] - 3) // Point se trouvant en dehors des bordures du polygone
+    let nombreDeFrontieres = 0
+    const s = segment(pointExterieur, this)
+    for (let i = 0; i < lePolygone.listePoints.length - 1; i++) {
+      if (s.estSecant(segment(lePolygone.listePoints[i], lePolygone.listePoints[i + 1]))) nombreDeFrontieres++
+      if (this.estSur(segment(lePolygone.listePoints[i], lePolygone.listePoints[i + 1]))) nombreDeFrontieres--
+    }
+    if (s.estSecant(segment(lePolygone.listePoints[0], lePolygone.listePoints[lePolygone.listePoints.length - 1]))) nombreDeFrontieres++
+    if (this.estSur(segment(lePolygone.listePoints[0], lePolygone.listePoints[lePolygone.listePoints.length - 1]))) nombreDeFrontieres--
+    return nombreDeFrontieres % 2 === 1
+  }
+  /**
+ *
+ * @param {Segment | Cerecle | Droite | DemiDroite} objet
+ * @returns {boolean} true si le point est sur l'objet
+ */
+  this.estSur = function (objet, tolerance) {
+    if (objet instanceof Droite) return estSurDroite(this, objet, tolerance)
+    if (objet instanceof Segment) return appartientSegment(this, objet.extremite1, objet.extremite2, tolerance)
+    if (objet instanceof DemiDroite) return appartientDemiDroite(this, objet.extremite1, objet.extremite2, tolerance)
+    if (objet instanceof Cercle) return egal(longueur(this, objet.centre), objet.rayon, tolerance)
   }
 }
 /**
@@ -471,11 +499,11 @@ export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
  * @author Jean-Claude Lhote
  */
 
-export function appartientSegment (C, A, B) {
+export function appartientSegment (C, A, B, tolerance = 0.0001) {
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
   const prodscalABAB = (B.x - A.x) ** 2 + (B.y - A.y) ** 2
-  if (prodvect === 0 && prodscal > 0 && prodscal < prodscalABAB) return true
+  if (egal(prodvect, 0, tolerance) && prodscal > 0 && prodscal < prodscalABAB) return true
   else return false
 }
 /**
@@ -483,9 +511,9 @@ export function appartientSegment (C, A, B) {
  * C'est ce que dira cette fonction
  * @author Jean-Claude Lhote
  */
-export function appartientDroite (C, A, B) {
+export function appartientDroite (C, A, B, tolerance) {
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
-  if (prodvect === 0) return true
+  if (egal(prodvect, 0, tolerance)) return true
   else return false
 }
 /**
@@ -493,10 +521,10 @@ export function appartientDroite (C, A, B) {
  * C'est ce que dira cette fonction
  * @author Jean-Claude Lhote
  */
-export function appartientDemiDroite (C, A, B) {
+export function appartientDemiDroite (C, A, B, tolerance = 0.0001) {
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
-  if (prodvect === 0 && prodscal > 0) return true
+  if (egal(prodvect, 0, tolerance) && prodscal > 0) return true
   else return false
 }
 
@@ -1076,8 +1104,8 @@ export function droite (...args) {
  * @param {droite} d
  * @param {point} A
  */
-export function dessousDessus (d, A) {
-  if (egal(d.a * A.x + d.b * A.y + d.c, 0)) return 'sur'
+export function dessousDessus (d, A, tolerance = 0.0001) {
+  if (egal(d.a * A.x + d.b * A.y + d.c, 0, tolerance)) return 'sur'
   if (egal(d.b, 0)) {
     if (A.x < -d.c / d.a) return 'gauche'
     else return 'droite'
@@ -1090,11 +1118,11 @@ export function dessousDessus (d, A) {
  *
  * @param {point} A
  * @param {droite} d
- * @returns true si A appartient à d
+ * @returns {boolean} true si A appartient à d
  * @author Jean-Claude Lhote
  */
-export function estSurDroite (A, d) {
-  return dessousDessus(d, A) === 'sur'
+export function estSurDroite (A, d, tolerance) {
+  return dessousDessus(d, A, tolerance) === 'sur'
 }
 
 /**
@@ -1132,8 +1160,8 @@ export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rx
 /**
  *
  * @param {droite} d
- * @param {{number}} param1 les bordures de la fenêtre
- * @returns le point qui servira à placer le label.
+ * @param {number} param1 les bordures de la fenêtre
+ * @returns {Point} le point qui servira à placer le label.
  */
 export function positionLabelDroite (d, { xmin = 0, ymin = 0, xmax = 10, ymax = 10 }) {
   let xLab, yLab
@@ -1316,7 +1344,7 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * @param {string} [color='black'] Couleur du codage. Facultatif, 'black' par défaut
  * @param {string} [mark='x'] Peut être '||' ou 'x'. Facultatif, 'x' par défaut
  * @param {boolean} [mil=true] Trace ou nom le point du milieu. Facultatif, true par défaut
- * @returns CodageMilieu
+ * @returns {object} CodageMilieu
  * @example codageMilieu(A,B,'red','||',false) marque les deux moitiés du segment [AB] avec || en rouge, le milieu n'est pas tracé car dernier argument à false.
  */
 export function codageMilieu (...args) {
@@ -1860,6 +1888,27 @@ export function nomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
  */
 function Segment (arg1, arg2, arg3, arg4, color) {
   ObjetMathalea2D.call(this)
+  /**
+ *
+ * @param {Segment | Droite | DemiDroite | Cercle} objet
+ * @return {boolean} true si les segments sont sécants
+ */
+  this.estSecant = function (objet) {
+    const ab = droite(this.extremite1, this.extremite2)
+    if (objet instanceof Cercle) {
+      return (pointIntersectionLC(ab, objet, '', 1) || pointIntersectionLC(ab, objet, '', 2)) instanceof Point
+    }
+    let I
+    if (objet instanceof Droite) {
+      I = pointIntersectionDD(ab, objet)
+    } else {
+      const cd = droite(objet.extremite1, objet.extremite2)
+      I = pointIntersectionDD(ab, cd)
+    }
+    if (!I) return false
+    else return I.estSur(objet) && I.estSur(this)
+  }
+
   this.typeObjet = 'segment'
   this.styleExtremites = ''
   this.tailleExtremites = 4
@@ -2129,6 +2178,10 @@ export function segmentAvecExtremites (...args) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
+function DemiDroite (A, B, color = 'black') {
+  const B1 = pointSurSegment(B, A, -10)
+  Segment.call(this, A, B1, color)
+}
 /**
  * Trace la demi-droite d'origine A passant par B et de couleur color
  * @param {Point} A
@@ -2138,8 +2191,9 @@ export function segmentAvecExtremites (...args) {
  * @author Rémi Angot
  */
 export function demiDroite (A, B, color = 'black') {
-  const B1 = pointSurSegment(B, A, -10)
-  return segment(A, B1, color)
+  return new DemiDroite(A, B, color)
+  // const B1 = pointSurSegment(B, A, -10)
+  // return segment(A, B1, color)
 }
 
 /**
@@ -2162,38 +2216,6 @@ export function demiDroiteAvecExtremite (A, B, color = 'black') {
 %%%%%%%%%%%%% LES POLYGONES %%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
-/**
- *
- * @param {Point} A
- * @param {Point} B
- * @param {Point} C
- * @param {Point} D
- * @return {boolean} true si [AB] et [CD] sont sécants
- */
-export function segmentsSecants (A, B, C, D) {
-  const ab = droite(A, B)
-  const cd = droite(C, D)
-  const I = pointIntersectionDD(ab, cd)
-  if (!I) return false
-  const scalaire1 = (I.x - A.x) * (B.x - I.x) + (I.y - A.y) * (B.y - I.y)
-  const scalaire2 = (I.x - C.x) * (D.x - I.x) + (I.y - C.y) * (D.y - I.y)
-  return !(scalaire1 < 0 || scalaire2 < 0)
-}
-/**
- *
- * @param {Point} lePoint
- * @param {Polygone} lePolygone
- * @return {boolean} true si lePoint est à l'intérieur de lePolygone
- */
-export function pointEnPolygone (lePoint, lePolygone) {
-  const pointExterieur = point(lePolygone.bordures[0] - 5, lePolygone.bordures[1] - 3) // Point se trouvant en dehors des bordures du polygone
-  let nombreDeFrontieres = 0
-  for (let i = 0; i < lePolygone.listePoints.length - 1; i++) {
-    if (segmentsSecants(pointExterieur, lePoint, lePolygone.listePoints[i], lePolygone.listePoints[i + 1])) nombreDeFrontieres++
-  }
-  if (segmentsSecants(pointExterieur, lePoint, lePolygone.listePoints[0], lePolygone.listePoints[lePolygone.listePoints.length - 1])) nombreDeFrontieres++
-  return nombreDeFrontieres % 2 === 1
-}
 /**
  * polygone(A,B,C,D,E) //Trace ABCDE
  * polygone([A,B,C,D],"blue") // Trace ABCD en bleu
@@ -2396,7 +2418,7 @@ export function polygone (...args) {
 /**
  * Crée un groupe d'objets contenant le polygone et ses sommets
  * @param  {...any} args
- * @returns [p, p.sommets]
+ * @returns {array} [p, p.sommets]
  */
 export function polygoneAvecNom (...args) {
   const p = polygone(...args)
@@ -2587,6 +2609,15 @@ export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black'
   return new Boite({ Xmin: Xmin, Ymin: Ymin, Xmax: Xmax, Ymax: Ymax, color: color, colorFill: colorFill, opaciteDeRemplissage: opaciteDeRemplissage, texteIn: texteIn, tailleTexte: tailleTexte, texteColor: texteColor, texteOpacite: texteOpacite, texteMath: texteMath, echelleFigure: echelleFigure })
 }
 
+/**
+ * @param
+ * @author Eric Elter
+ * @returns {boolean}
+ */
+export function estDansQuadrilatere (M, A, B, C, D) { // Est-ce que M est dans le quadrilatère non croisé ABCD ?
+  return estDansTriangle(M, A, B, C) || estDansTriangle(M, A, C, D)
+}
+
 /*********************************************/
 /** ***************Triangles ******************/
 /*********************************************/
@@ -2706,6 +2737,24 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1) {
   if ((n + 1) >> 1 === 1) M = pointIntersectionLC(e, c, '', 1)
   else M = pointIntersectionLC(e, c, '', 2)
   return polygone(A, B, M)
+}
+/**
+ *
+ * @param {Point} M
+ * @param {Point} A
+ * @param {Point} B
+ * @param {Point} C
+ * @returns {boolean}
+ * @author Eric Elter
+ */
+export function estDansTriangle (M, A, B, C) { // Est-ce que M est dans le triangle ABC ?
+  const vMA = vecteur(M, A)
+  const vMB = vecteur(M, B)
+  const vMC = vecteur(M, C)
+  const x1 = vMB.x * vMC.y - vMB.y * vMC.x
+  const x2 = vMC.x * vMA.y - vMC.y * vMA.x
+  const x3 = vMA.x * vMB.y - vMA.y * vMB.x
+  return x1 > 0 && x2 > 0 && x3 > 0
 }
 
 /*********************************************/
@@ -3397,7 +3446,10 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
       if (this.opacite !== 1) {
         this.style += ` stroke-opacity="${this.opacite}" `
       }
-      return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${fill}" ${this.style} id="${this.id}" />`
+      if (this.couleurDeRemplissage !== 'none') {
+        this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
+      }
+      return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${this.couleurDeRemplissage}" ${this.style} id="${this.id}" />`
     }
   }
   this.tikz = function () {
@@ -4797,6 +4849,46 @@ export function afficherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
  *
  *
  */
+export function cacherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
+  let compteur = 1 // Nombre d'animations
+  const checkExist = setInterval(function () {
+    if (document.getElementById(objet.id)) {
+      clearInterval(checkExist)
+      montrerParDiv(objet.id)
+      if (r === 1) { // On le cache au bout de t0 et on ne le montre plus
+        setTimeout(function () { cacherParDiv(objet.id) }, t0 * 1000)
+      } else {
+        const montreRepete = setInterval(function () { montrerParDiv(objet.id) }, t * 1000) // On cache tous les t s
+        setTimeout(function () {
+          cacherParDiv(objet.id) // On attend t0 pour montrer
+          const cacheRepete = setInterval(function () {
+            cacherParDiv(objet.id)
+            compteur++
+            if (typeof r === 'number') {
+              if (compteur >= r) {
+                clearInterval(cacheRepete)
+                clearInterval(montreRepete)
+              }
+            }
+          }, t * 1000) // On montre tous les t s (vu qu'on a décalé de t0)
+        }, t0 * 1000) // Fin de l'animation en boucle
+      }
+    }
+  }, 100) // vérifie toutes les  100ms que le div existe
+}
+
+/**
+ * Masque un objet puis l'affiche au bout de t0 s avant de recommencer r fois toutes les t secondes
+ *
+ *
+ * @param {any} objet dont l'identifiant est accessible par objet.id
+ * @param {number} [t0=1] temps en secondes avant l'apparition
+ * @param {number} [t=5] temps à partir duquel l'animation recommence
+ * @param {string} [r='Infinity'] nombre de répétition (infini si ce n'est pas un nombre)
+
+ *
+ *
+ */
 export function afficherTempoId (id, t0 = 1, t = 5, r = 'Infinity') {
   let compteur = 1 // Nombre d'animations
   const checkExist = setInterval(function () {
@@ -5665,7 +5757,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
  * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré (from EE)
  * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle (from EE) : encore optimisable
  * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle (from EE)
- * @returns CodeAngle
+ * @returns {object} CodeAngle
  * @example codeAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @author Jean-Claude Lhote
  */
@@ -7215,7 +7307,7 @@ function Repere2 ({
 /**
  *
  * @param {object} param0
- * @returns
+ * @returns {object}
  */
 export function repere2 ({
   xUnite = 1,
@@ -9793,7 +9885,7 @@ export function angleradian (A, O, B) {
  * Parce que le 0 angulaire de Scratch est dirigé vers le Nord et qu'il croît dans le sens indirect
  * Et que le 0 angulaire de 2d est celui du cercle trigonométrique...
  * @param {number} x angle Scratch
- * @returns angle2d
+ * @returns {number} angle2d
  */
 export function angleScratchTo2d (x) {
   let angle2d = 90 - x
@@ -9805,7 +9897,7 @@ export function angleScratchTo2d (x) {
 /**
  * Convertit un nombre de degrés quelconque en une mesure comprise entre -180 et 180
  * @param {number} a
- * @returns angle
+ * @returns {number} angle
  */
 export function angleModulo (a) {
   if (a < -180) return a + 360
@@ -9904,7 +9996,7 @@ function ObjetLutin () {
  * Crée une nouvelle instance de l'objet lutin
  * @param  {...any} args En fait, il n'y a pas d'argument... il faudra les renseigner après la création de l'objet.
  * Voire l'objet lutin pour la liste de ses attributs (lutin.x, lutin.y, lutin.orientation, ...)
- * @returns Instance d'un lutin
+ * @returns {object} Instance d'un lutin
  */
 export function creerLutin (...args) {
   return new ObjetLutin(...args)
