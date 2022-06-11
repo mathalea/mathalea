@@ -1,11 +1,13 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, contraindreValeur, combinaisonListes, arrondi, numAlpha, choice, compteOccurences, rangeMinMax, entreDeux } from '../../modules/outils.js'
-import { afficherTempo, arc, cacherTempo, codeSegment, droiteParPointEtPente, estDansQuadrilatere, estDansTriangle, homothetie, longueur, mathalea2d, milieu, point, pointIntersectionDD, pointSurSegment, polygone, rotation, rotationAnimee, segment, translation, translationAnimee, vecteur } from '../../modules/2d.js'
+import { afficherTempo, arc, cacherTempo, codeSegment, droite, droiteParPointEtPente, estDansQuadrilatere, estDansTriangle, homothetie, longueur, mathalea2d, milieu, ObjetMathalea2D, point, pointIntersectionDD, pointSurSegment, polygone, projectionOrtho, rotation, segment, translation, vecteur } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { context } from '../../modules/context.js'
 export const dateDePublication = '08/06/2022'
 export const titre = 'Comparer périmètres et/ou aires de figures'
-// export const interactifReady = true
-// export const interactifType = 'qcm'
+export const interactifReady = true
+export const interactifType = 'qcm'
 
 /**
  * Comparer aires et/ou périmètres de figures avec ceux d'un rectangle référence
@@ -13,6 +15,54 @@ export const titre = 'Comparer périmètres et/ou aires de figures'
  * @author Eric Elter
  * Publié le 08/06/2022
  */
+function TranslationPuisRotationAnimee (numId, figure1, v, figure2, O, angle, t1 = 5, t2 = 2) {
+  ObjetMathalea2D.call(this)
+  this.svg = function (coeff) {
+    afficherTempo(figure2, t1, t1 + t2, 1)
+    let code = '<g> '
+    // Translation de figure1 de vecteur v
+    if (Array.isArray(figure1)) { // Si la figure1 est constituée d'une liste d'éléments
+      for (const objet of figure1) {
+        code += '\n' + objet.svg(coeff)
+      }
+    } else { // Si la figure1 n'est constituée que d'un élément
+      code += '\n' + figure1.svg(coeff)
+    }
+    code += `<animateTransform
+    attributeName="transform"
+    attributeType="XML"
+    type="translate"
+    from="0 0"
+    to="${arrondi(v.xSVG(coeff), 0)} ${arrondi(v.ySVG(coeff), 0)}"
+    begin="0s" dur="${t1}s" fill="freeze"  repeatCount="1" id="translat${numId}"
+    /></path></g>`
+
+    cacherTempo(figure1, t1, 0, 1)
+
+    // Rotation de figure2 de centre O et de angle angle
+    code += '<g>'
+    if (Array.isArray(figure2)) { // Si la figure2 est constituée d'une liste d'éléments
+      for (const objet of figure2) {
+        code += '\n' + objet.svg(coeff)
+      }
+    } else { // Si la figure2 n'est constituée que d'un élément
+      code += '\n' + figure2.svg(coeff)
+    }
+    code += `<animateTransform
+  attributeName="transform"
+  type="rotate"
+  from="0 ${O.xSVG(coeff)} ${O.ySVG(coeff)}"
+  to="${-angle} ${O.xSVG(coeff)} ${O.ySVG(coeff)}"
+  begin="translat${numId}.end" dur="${t2}s" fill="freeze" repeatCount="1" id="rotat-${numId}"
+  /></path>`
+
+    code += '</g>'
+    return code
+  }
+}
+function translationPuisRotationAnimees (...args) {
+  return new TranslationPuisRotationAnimee(...args)
+}
 
 export default function compareAireEtPerimetreAvecRectangle () {
   Exercice.call(this)
@@ -47,10 +97,16 @@ export default function compareAireEtPerimetreAvecRectangle () {
     const color = combinaisonListes(['red', 'blue', 'green', 'gray', 'pink', 'orange'], this.nbQuestions)
 
     let aireOuPerimetre = 'Les deux'
+    if (this.sup2 === 1) aireOuPerimetre = 'Perimetre'
+    else if (this.sup2 === 2) aireOuPerimetre = 'Aire'
+
+    let compteurInteractif = 0
     for (let q = 0, cpt = 0, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T,
       rayonOuCote, pt1, pt2, figAire1, figAire2, figAireCorr, figAireCorr2, figAire2Corr, choixFig, choixFig2, choixFigAire2, angleCorr,
       aleaAngle, aleaLongueur, aleaRayon, aleaDemiDisque, aleaPente, aleaRapportHomothetie, d1, d2, d3, d4, poly, rect,
-      objets, texte, texteCorr, paramsEnonce; q < this.nbQuestions && cpt < 50;) {
+      objets, texte, texteCorr, paramsEnonce, monQcmPerimetre, monQcmAire, hauteur,
+      reponsePerimetre1, reponsePerimetre2, reponsePerimetre3, reponseAire1, reponseAire2, reponseAire3;
+      q < this.nbQuestions && cpt < 50;) {
       objets = []
       A = point(0, 0)
       B = point(randint(5, 10), 0)
@@ -59,26 +115,35 @@ export default function compareAireEtPerimetreAvecRectangle () {
       rect = polygone(A, B, C, D)
       rect.hachures = true
       rect.pointilles = 2
+      reponsePerimetre1 = false
+      reponsePerimetre2 = false
+      reponsePerimetre3 = false
+      reponseAire1 = false
+      reponseAire2 = false
+      reponseAire3 = false
+
       if (this.sup2 === 4) aireOuPerimetre = choice(['Aire', 'Perimetre'])
-      console.log(this.sup2)
 
       switch (typesDeProblemes[q]) {
         case 1 : // Polygone inscrit dans rectangle
-          E = point(entreDeux(A.x, (A.x + B.x) / 2), A.y)
+          E = A
           G = point(entreDeux((A.x + B.x) / 2, B.x), A.y)
-          F = point(entreDeux(E.x, G.x), entreDeux(A.y, (D.y + A.y) / 2))
-          H = point(entreDeux(G.x, B.x), entreDeux(A.y, (D.y + A.y) / 2))
-          I = point(B.x, entreDeux(B.y, (B.y + C.y) / 2))
-          J = point(entreDeux(H.x, C.x), entreDeux(I.y, C.y))
-          K = point(B.x, entreDeux(I.y, C.y))
-          L = point(entreDeux(J.x, C.x), C.y)
-          N = point(entreDeux(D.x, (C.x + D.x) / 2), C.y)
-          M = point(entreDeux(N.x, J.x), entreDeux(J.y, D.y))
-          O = point(entreDeux(D.x, N.x), entreDeux((D.y + J.y) / 2, D.y))
-          P = point(A.x, entreDeux((B.y + C.y) / 2, C.y))
-          Q = point(entreDeux(A.x, O.x), entreDeux(A.y, P.y))
-          R = point(A.x, entreDeux(A.y, Q.y))
-          poly = polygone(E, F, G, H, I, J, K, L, M, N, O, P, Q, R)
+          F = point(entreDeux(E.x, G.x), entreDeux(A.y, A.y + (D.y + A.y) / 2))
+          H = point(entreDeux(G.x, B.x), entreDeux(A.y, A.y + (D.y + A.y) / 2))
+          I = B
+          J = point(entreDeux(H.x, B.x), entreDeux(H.y, C.y))
+          K = point(B.x, entreDeux(J.y, C.y))
+          L = point(entreDeux(A.x + (A.x + B.x) / 2, B.x), entreDeux(K.y, C.y))
+          M = C
+          N = point(entreDeux(A.x + (A.x + B.x) / 2, L.x), entreDeux(L.y, D.y))
+          O = point(entreDeux(D.x, N.x), D.y)
+          P = point(entreDeux(D.x, O.x), entreDeux(D.y, A.y + (D.y + A.y) / 2))
+          Q = D
+          R = point(entreDeux(A.x, P.x), entreDeux(P.y, A.y + (D.y + A.y) / 2))
+          T = point(entreDeux(A.x, F.x), entreDeux(F.y, A.y + (D.y + A.y) / 2))
+          S = point(A.x, entreDeux(R.y, T.y))
+
+          poly = polygone(E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T)
           poly.couleurDeRemplissage = color[q]
           poly.opaciteDeRemplissage = 0.5
           objets.push(poly, rect)
@@ -89,6 +154,11 @@ export default function compareAireEtPerimetreAvecRectangle () {
           texteCorr += (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
           texteCorr += (this.sup2 === 3) ? '<br>' + numAlpha(1) : ''
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre plus de surface que la figure coloriée. Donc, le rectangle hachuré a une aire plus grande que celle de la figure coloriée.' : ''
+          // QCM interactif
+          if (this.interactif) {
+            reponsePerimetre2 = true
+            reponseAire1 = true
+          }
           break
         case 2: // Rectangle inscrit dans polygone
           E = A
@@ -116,6 +186,11 @@ export default function compareAireEtPerimetreAvecRectangle () {
           texteCorr += (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
           texteCorr += (this.sup2 === 3) ? '<br>' + numAlpha(1) : ''
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre moins de surface que la figure coloriée. Donc, la figure coloriée a une aire plus grande que celle du rectangle hachuré.' : ''
+          // QCM interactif
+          if (this.interactif) {
+            reponsePerimetre2 = true
+            reponseAire2 = true
+          }
           break
         case 3: // Deux demi-disques alternés qui s'emboîtent
           E = point(entreDeux(A.x, A.x + (B.x - A.x) / 3), A.y)
@@ -169,8 +244,8 @@ export default function compareAireEtPerimetreAvecRectangle () {
             [I, O],
             [K, P]
           ]
-          paramsEnonce.xmax = choixFig2 === 1 ? rayonOuCote + B.x + 0.5 : paramsEnonce.xmax
-          paramsEnonce.xmin = choixFig2 === 3 ? -0.5 - rayonOuCote : paramsEnonce.xmin
+          if (choixFig2 === 1) paramsEnonce.xmax = rayonOuCote + B.x + 0.5
+          if (choixFig2 === 3) paramsEnonce.xmin = -0.5 - rayonOuCote
 
           figAire2 = arc(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], -180, false, 'white', 'black', 1.1)
           M = rotation(pt2, pt1, 60)
@@ -194,13 +269,20 @@ export default function compareAireEtPerimetreAvecRectangle () {
             angleCorr = angleCorr === 1 ? 90 : angleCorr === 2 ? 0 : -90
             figAireCorr2 = arc(rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], angleCorr), choixFigAire2[choixFig2][1], -180, false, color[q], 'black', 0.5)
             objets.push(poly, figAire1, figAire2, N, codeSegment(M, pt1, '|||'), P, codeSegment(O, choixFigAire2[choixFig2][1], '|||'), rect)
-            objets.push(translationAnimee([figAireCorr], vecteur(pt1, choixFigAire2[choixFig2][1]), 'begin="2s" dur="5s" "end=7s" repeatCount="1" fill="freeze" id="trans"'))
-            cacherTempo(figAireCorr, 7, 0, 1)
-            afficherTempo(figAireCorr2, 7, 10, 1)
-            objets.push(rotationAnimee([figAireCorr2], choixFigAire2[choixFig2][1], -angleCorr, 'begin="trans.end" dur="5s" repeatCount="1" fill="freeze" id="titi" visibility="hidden"'))
+            objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][1]), figAireCorr2, choixFigAire2[choixFig2][1], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
             texteCorr += mathalea2d(paramsEnonce, objets)
+            if (context.isHtml) {
+              texteCorr += `<br><button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('${figAireCorr.id}').style.visibility = 'visible',document.getElementById('${figAireCorr2.id}').style.visibility = 'hidden',
+              setTimeout(function() {document.getElementById('${figAireCorr.id}').style.visibility = 'hidden'}, 5000),
+              setTimeout(function() {document.getElementById('${figAireCorr2.id}').style.visibility = 'visible'}, 5000),document.getElementById('translat${q}').beginElement()"><i class="redo circle icon"></i>Relancer l'animation de la comparaison d'aires </button>`
+            }
+          }
+          // QCM interactif
+          if (this.interactif) {
+            reponsePerimetre2 = true
+            reponseAire3 = true
           }
           break
         case 4: // Deux demi-disques alternés qui ne s'emboîtent pas
@@ -277,13 +359,21 @@ export default function compareAireEtPerimetreAvecRectangle () {
             angleCorr = angleCorr === 1 ? 90 : angleCorr === 2 ? 0 : -90
             figAireCorr2 = arc(rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], angleCorr), choixFigAire2[choixFig2][1], -180, false, color[q], 'black', 0.5)
             objets.push(poly, figAire1, figAire2, rect)
-            objets.push(translationAnimee([figAireCorr], vecteur(pt1, choixFigAire2[choixFig2][1]), 'begin="2s" dur="5s" "end=7s" repeatCount="1" fill="freeze" id="trans"'))
-            cacherTempo(figAireCorr, 7, 0, 1)
-            afficherTempo(figAireCorr2, 7, 10, 1)
-            objets.push(rotationAnimee([figAireCorr2], choixFigAire2[choixFig2][1], -angleCorr, 'begin="trans.end" dur="5s" repeatCount="1" fill="freeze" id="titi" visibility="hidden"'))
+            objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][1]), figAireCorr2, choixFigAire2[choixFig2][1], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
             texteCorr += mathalea2d(paramsEnonce, objets)
+            if (context.isHtml) {
+              texteCorr += `<br><button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('${figAireCorr.id}').style.visibility = 'visible',document.getElementById('${figAireCorr2.id}').style.visibility = 'hidden',
+              setTimeout(function() {document.getElementById('${figAireCorr.id}').style.visibility = 'hidden'}, 5000),
+              setTimeout(function() {document.getElementById('${figAireCorr2.id}').style.visibility = 'visible'}, 5000),document.getElementById('translat${q}').beginElement()"><i class="redo circle icon"></i>Relancer l'animation de la comparaison d'aires </button>`
+            }
+          }
+          // QCM interactif
+          if (this.interactif) {
+            reponsePerimetre2 = true
+            reponseAire1 = !aleaDemiDisque
+            reponseAire2 = aleaDemiDisque
           }
           break
         case 5: // Deux demi-disques en plus
@@ -356,6 +446,11 @@ export default function compareAireEtPerimetreAvecRectangle () {
           texteCorr += (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
           texteCorr += (this.sup2 === 3) ? '<br>' + numAlpha(1) : ''
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre moins de surface que la figure coloriée. Donc, la figure coloriée a une aire plus grande que celle du rectangle hachuré.' : ''
+          // QCM interactif
+          if (this.interactif) {
+            reponsePerimetre2 = true
+            reponseAire2 = true
+          }
           break
         case 6: // Deux demi-disques en moins
           E = point(entreDeux(A.x, A.x + (B.x - A.x) / 3), A.y)
@@ -427,6 +522,11 @@ export default function compareAireEtPerimetreAvecRectangle () {
           texteCorr += (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
           texteCorr += (this.sup2 === 3) ? '<br>' + numAlpha(1) : ''
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre plus de surface que la figure coloriée. Donc, le rectangle hachuré a une aire plus grande que celle de la figure coloriée.' : ''
+          // QCM interactif
+          if (this.interactif) {
+            reponsePerimetre2 = true
+            reponseAire1 = true
+          }
           break
         case 7: // Un quadrilatère inscrit dans le rectangle
           E = point(entreDeux(A.x, B.x), A.y)
@@ -444,6 +544,11 @@ export default function compareAireEtPerimetreAvecRectangle () {
           texteCorr += (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') ? 'Il faut parcourir moins de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, le rectangle hachuré a un périmètre plus grand que celui de la figure coloriée.' : ''
           texteCorr += (this.sup2 === 3) ? '<br>' + numAlpha(1) : ''
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre plus de surface que la figure coloriée. Donc, le rectangle hachuré a une aire plus grande que celle de la figure coloriée.' : ''
+          // QCM interactif
+          if (this.interactif) {
+            reponsePerimetre1 = true
+            reponseAire1 = true
+          }
           break
         case 8: // Le rectangle inscrit dans un quadrilatère
           aleaPente = choice([0, 0.5])
@@ -466,6 +571,11 @@ export default function compareAireEtPerimetreAvecRectangle () {
           texteCorr += (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
           texteCorr += (this.sup2 === 3) ? '<br>' + numAlpha(1) : ''
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre moins de surface que la figure coloriée. Donc, la figure coloriée a une aire plus grande que celle du rectangle hachuré.' : ''
+          // QCM interactif
+          if (this.interactif) {
+            reponsePerimetre2 = true
+            reponseAire2 = true
+          }
           break
         case 9: // Deux triangles alternés qui s'emboîtent
           E = point(entreDeux(A.x, A.x + (B.x - A.x) / 3), A.y)
@@ -557,13 +667,20 @@ export default function compareAireEtPerimetreAvecRectangle () {
             figAireCorr2.opaciteDeRemplissage = 0.5
             objets.push(poly, figAire1, figAire2, segment(pt2, R), segment(pt1, R), codeSegment(pt2, R, '|||'), codeSegment(pt2, pt1, 'OO'), codeSegment(pt1, R, 'XX'), rect)
             objets.push(segment(choixFigAire2[choixFig2][0], T), segment(choixFigAire2[choixFig2][1], T), codeSegment(choixFigAire2[choixFig2][1], T, '|||'), codeSegment(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], 'OO'), codeSegment(choixFigAire2[choixFig2][0], T, 'XX'))
-            objets.push(translationAnimee([figAireCorr], vecteur(pt1, choixFigAire2[choixFig2][0]), 'begin="2s" dur="5s" "end=7s" repeatCount="1" fill="freeze" id="trans"'))
-            cacherTempo(figAireCorr, 7, 0, 1)
-            afficherTempo(figAireCorr2, 7, 10, 1)
-            objets.push(rotationAnimee([figAireCorr2], choixFigAire2[choixFig2][0], -angleCorr, 'begin="trans.end" dur="5s" repeatCount="1" fill="freeze" id="titi" visibility="hidden"'))
+            objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][0]), figAireCorr2, choixFigAire2[choixFig2][0], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
-            paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + 2 + C.y + 0.5 : paramsEnonce.ymax
+            paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
             texteCorr += mathalea2d(paramsEnonce, objets)
+            if (context.isHtml) {
+              texteCorr += `<br><button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('${figAireCorr.id}').style.visibility = 'visible',document.getElementById('${figAireCorr2.id}').style.visibility = 'hidden',
+              setTimeout(function() {document.getElementById('${figAireCorr.id}').style.visibility = 'hidden'}, 5000),
+              setTimeout(function() {document.getElementById('${figAireCorr2.id}').style.visibility = 'visible'}, 5000),document.getElementById('translat${q}').beginElement()"><i class="redo circle icon"></i>Relancer l'animation de la comparaison d'aires </button>`
+            }
+          }
+          // QCM interactif
+          if (this.interactif) {
+            reponsePerimetre2 = true
+            reponseAire3 = true
           }
           break
         case 10: // Deux triangles alternés qui ne s'emboîtent pas
@@ -618,11 +735,12 @@ export default function compareAireEtPerimetreAvecRectangle () {
           figAire1.couleurDeRemplissage = color[q]
           figAire1.opaciteDeRemplissage = 0.5
           choixFig2 = randint(0, 3, [choixFig])
+          hauteur = longueur(R, projectionOrtho(R, droite(pt1, pt2))) // Longueur de la hauteur issue de R dans figAire1
           choixFigAire2 = [
-            [E, M, arrondi(longueur(E, B) / longueur(E, M))], // Le dernier nombre est le rapport homothétique maximal pour ne pas que le triangle sorte du triangle.
-            [G, N, arrondi(longueur(G, C) / longueur(G, N))],
-            [I, O, arrondi(longueur(I, D) / longueur(I, O))],
-            [K, P, arrondi(longueur(K, A) / longueur(K, P))]
+            [E, M, arrondi(min(hauteur / longueur(B, C), longueur(E, B) / longueur(E, M)))], // Le dernier nombre est le rapport homothétique maximal pour ne pas que le triangle sorte du triangle.
+            [G, N, arrondi(min(hauteur / longueur(A, B), longueur(G, C) / longueur(G, N)))],
+            [I, O, arrondi(min(hauteur / longueur(B, C), longueur(I, D) / longueur(I, O)))],
+            [K, P, arrondi(min(hauteur / longueur(A, B), longueur(K, A) / longueur(K, P)))]
           ]
           if (choixFig2 === 1) paramsEnonce.xmax = rayonOuCote + B.x + 0.5
           if (choixFig2 === 3) paramsEnonce.xmin = -0.5 - rayonOuCote
@@ -661,11 +779,21 @@ export default function compareAireEtPerimetreAvecRectangle () {
             figAireCorr2.opaciteDeRemplissage = 0.5
             objets.push(poly, figAire1, figAire2, segment(pt2, R), segment(pt1, R), rect)
             objets.push(homothetie(segment(choixFigAire2[choixFig2][0], T), choixFigAire2[choixFig2][0], aleaRapportHomothetie), homothetie(segment(choixFigAire2[choixFig2][1], T), choixFigAire2[choixFig2][0], aleaRapportHomothetie))
-            objets.push(translationAnimee([figAireCorr], vecteur(pt1, choixFigAire2[choixFig2][0]), 'begin="2s" dur="5s" "end=7s" repeatCount="1" fill="freeze" id="trans"'))
-            cacherTempo(figAireCorr, 7, 0, 1)
-            afficherTempo(figAireCorr2, 7, 10, 1)
-            objets.push(rotationAnimee([figAireCorr2], choixFigAire2[choixFig2][0], -angleCorr, 'begin="trans.end" dur="5s" repeatCount="1" fill="freeze" id="titi" visibility="hidden"'))
+            objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][0]), figAireCorr2, choixFigAire2[choixFig2][0], -angleCorr))
+            paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
+            paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
             texteCorr += mathalea2d(paramsEnonce, objets)
+            if (context.isHtml) {
+              texteCorr += `<br><button class="btn ui labeled icon button"  style="margin:10px" onclick="document.getElementById('${figAireCorr.id}').style.visibility = 'visible',document.getElementById('${figAireCorr2.id}').style.visibility = 'hidden',
+              setTimeout(function() {document.getElementById('${figAireCorr.id}').style.visibility = 'hidden'}, 5000),
+              setTimeout(function() {document.getElementById('${figAireCorr2.id}').style.visibility = 'visible'}, 5000),document.getElementById('translat${q}').beginElement()"><i class="redo circle icon"></i>Relancer l'animation de la comparaison d'aires </button>`
+            }
+          }
+          // QCM interactif
+          if (this.interactif) {
+            reponsePerimetre2 = true
+            reponseAire1 = !(aleaRapportHomothetie < 1)
+            reponseAire2 = aleaRapportHomothetie < 1
           }
           break
         case 11: // Deux triangles en plus
@@ -715,6 +843,18 @@ export default function compareAireEtPerimetreAvecRectangle () {
           aleaAngle = choice([40, 50, 70, 80, 100, 110])
           Q = pointSurSegment(pt2, pt1, rayonOuCote + aleaLongueur)
           R = rotation(Q, pt2, -aleaAngle)
+          switch (choixFig) {
+            case 0:
+            case 2:
+              paramsEnonce.xmin = -0.5 + min(A.x, R.x)
+              paramsEnonce.xmax = 0.5 + max(B.x, R.x)
+              break
+            case 1 :
+            case 3 :
+              paramsEnonce.ymin = -0.5 + min(A.y, R.y)
+              paramsEnonce.ymax = 0.5 + max(D.y, R.y)
+              break
+          }
           figAire1 = polygone(pt2, pt1, R)
           figAire1.color = ''
           figAire1.couleurDeRemplissage = color[q]
@@ -726,12 +866,30 @@ export default function compareAireEtPerimetreAvecRectangle () {
             [I, O],
             [K, P]
           ]
-          paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote - aleaLongueur : paramsEnonce.ymin
-          paramsEnonce.xmax = choixFig2 === 1 ? rayonOuCote + aleaLongueur + B.x + 0.5 : paramsEnonce.xmax
-          paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + aleaLongueur + C.y + 0.5 : paramsEnonce.ymax
-          paramsEnonce.xmin = choixFig2 === 3 ? -0.5 - rayonOuCote - aleaLongueur : paramsEnonce.xmin
           S = pointSurSegment(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], rayonOuCote + aleaLongueur)
           T = rotation(S, choixFigAire2[choixFig2][1], aleaAngle)
+          switch (choixFig2) {
+            case 0 :
+              paramsEnonce.xmin = -0.5 + min(A.x, T.x, R.x)
+              paramsEnonce.xmax = 0.5 + max(B.x, T.x, R.x)
+              paramsEnonce.ymin = -0.5 - rayonOuCote - aleaLongueur
+              break
+            case 1 :
+              paramsEnonce.ymin = -0.5 + min(A.y, T.y, R.y)
+              paramsEnonce.ymax = 0.5 + max(D.y, T.y, R.y)
+              paramsEnonce.xmax = rayonOuCote + aleaLongueur + B.x + 0.5
+              break
+            case 2 :
+              paramsEnonce.xmin = -0.5 + min(A.x, T.x, R.x)
+              paramsEnonce.xmax = 0.5 + max(B.x, T.x, R.x)
+              paramsEnonce.ymax = rayonOuCote + aleaLongueur + C.y + 0.5
+              break
+            case 3 :
+              paramsEnonce.ymin = -0.5 + min(A.y, T.y, R.y)
+              paramsEnonce.ymax = 0.5 + max(D.y, T.y, R.y)
+              paramsEnonce.xmin = -0.5 - rayonOuCote - aleaLongueur
+              break
+          }
           figAire2 = polygone(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], T)
           figAire2.color = ''
           figAire2.couleurDeRemplissage = color[q]
@@ -744,6 +902,11 @@ export default function compareAireEtPerimetreAvecRectangle () {
           texteCorr += (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
           texteCorr += (this.sup2 === 3) ? '<br>' + numAlpha(1) : ''
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre moins de surface que la figure coloriée. Donc, la figure coloriée a une aire plus grande que celle du rectangle hachuré.' : ''
+          // QCM interactif
+          if (this.interactif) {
+            reponsePerimetre2 = true
+            reponseAire2 = true
+          }
           break
         case 12: // Deux triangles en moins
           E = point(entreDeux(A.x, A.x + (B.x - A.x) / 3), A.y)
@@ -824,13 +987,79 @@ export default function compareAireEtPerimetreAvecRectangle () {
           texteCorr += (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') ? 'Il faut parcourir plus de chemin pour effectuer le tour de la figure coloriée que le tour du rectangle hachuré. Donc, la figure coloriée a un périmètre plus grand que celui du rectangle hachuré.' : ''
           texteCorr += (this.sup2 === 3) ? '<br>' + numAlpha(1) : ''
           texteCorr += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Le rectangle hachuré couvre plus de surface que la figure coloriée. Donc, le rectangle hachuré a une aire plus grande que celle de la figure coloriée.' : ''
+          // QCM interactif
+          if (this.interactif) {
+            reponsePerimetre2 = true
+            reponseAire1 = true
+          }
           break
       }
-      texte += (this.sup2 === 3) ? numAlpha(0) : ''
-      texte += (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') ? 'Entre le rectangle hachuré et la figure coloriée, lequel a le plus grand périmètre ?' : ''
-      texte += this.sup2 === 3 ? '<br>' + numAlpha(1) : ''
-      texte += (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') ? 'Entre le rectangle hachuré et la figure coloriée, lequel a la plus grande aire ?' : ''
-
+      // Gestion des QCM interactifs
+      if (this.interactif) {
+        if (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') {
+          this.autoCorrection[compteurInteractif] = {
+            enonce: 'Peu importe',
+            propositions: [
+              {
+                texte: 'Le rectangle hachuré',
+                statut: reponsePerimetre1, // true ou false pour indiquer si c'est une bonne réponse (true)
+                feedback: ''
+              },
+              {
+                texte: 'La figure coloriée',
+                statut: reponsePerimetre2, // true ou false pour indiquer si c'est une bonne réponse (true)
+                feedback: ''
+              },
+              {
+                texte: 'Autant l\'un que l\'autre',
+                statut: reponsePerimetre3, // true ou false pour indiquer si c'est une bonne réponse (true)
+                feedback: ''
+              }
+            ]
+          }
+          monQcmPerimetre = propositionsQcm(this, compteurInteractif)
+          compteurInteractif++
+        }
+        if (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') {
+          this.autoCorrection[compteurInteractif] = {
+            enonce: 'Peu importe',
+            propositions: [
+              {
+                texte: 'Le rectangle hachuré',
+                statut: reponseAire1, // true ou false pour indiquer si c'est une bonne réponse (true)
+                feedback: ''
+              },
+              {
+                texte: 'La figure coloriée',
+                statut: reponseAire2, // true ou false pour indiquer si c'est une bonne réponse (true)
+                feedback: ''
+              },
+              {
+                texte: 'Autant l\'un que l\'autre',
+                statut: reponseAire3, // true ou false pour indiquer si c'est une bonne réponse (true)
+                feedback: ''
+              }
+            ]
+          }
+          monQcmAire = propositionsQcm(this, compteurInteractif)
+          compteurInteractif++
+        }
+      }
+      // Gestion des énoncés
+      if (this.sup2 === 3) texte += numAlpha(0)
+      if (this.sup2 === 1 || this.sup2 === 3 || aireOuPerimetre !== 'Aire') {
+        texte += 'Entre le rectangle hachuré et la figure coloriée, lequel a le plus grand périmètre ?'
+        if (this.interactif) {
+          texte += monQcmPerimetre.texte
+        }
+      }
+      if (this.sup2 === 3) texte += '<br>' + numAlpha(1)
+      if (this.sup2 === 2 || this.sup2 === 3 || aireOuPerimetre !== 'Perimetre') {
+        texte += 'Entre le rectangle hachuré et la figure coloriée, lequel a la plus grande aire ?'
+        if (this.interactif) {
+          texte += monQcmAire.texte
+        }
+      }
       if (this.questionJamaisPosee(q, texte)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -856,5 +1085,5 @@ export default function compareAireEtPerimetreAvecRectangle () {
   11 : Rectangle avec deux triangles en plus
   12 : Rectangle avec deux triangles en moins
   13 : Mélange `]
-  this.besoinFormulaire2Numerique = ['Périmètres et/ou aires', 4, '1 : Que des périmètres\n2 : Que des aires\n3 : Les deux\n4 : L\'un ou l\'autre au hasard']
+  this.besoinFormulaire2Numerique = ['Périmètres et/ou aires', 4, '1 : Que des périmètres\n2 : Que des aires\n3 : Les deux\n4 : L\'un ou l\'autre au hasard des questions']
 }
