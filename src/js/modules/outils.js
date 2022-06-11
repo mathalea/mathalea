@@ -199,14 +199,24 @@ export function centrage (texte) {
 /**
  * Contraint une valeur à rester dans un intervalle donné. Si elle est trop petite, elle prend la valeur min, si elle est trop grande elle prend la valeur max
  * @author Jean-Claude Lhote à partir du code de Eric Elter
- * @param {number} min borne inférieur
- * @param {number} max borne supérieur
+ * @param {number} min borne inférieure
+ * @param {number} max borne supérieure
  * @param {number} valeur la valeur à contraindre
  * @param {number} defaut valeur par défaut si non entier
  */
-
 export function contraindreValeur (min, max, valeur, defaut) {
   return !(isNaN(valeur)) ? (valeur < min) ? min : (valeur > max) ? max : valeur : defaut
+}
+
+/** Retourne un nombre décimal entre a et b, sans être trop près de a et de b
+ * @param {number} min borne inférieure
+ * @param {number} max borne supérieure
+ * @author Eric Elter
+ * @returns {number}
+ */
+export function entreDeux (a, b) {
+  if (a < b) return arrondi(a + (b - a) * randint(10, 90) / 100, 2)
+  else return arrondi(b + (a - b) * randint(10, 90) / 100, 2)
 }
 
 /**
