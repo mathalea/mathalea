@@ -36,7 +36,6 @@ export default function MultiplierDecimaux () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const retenuesOn = this.sup
     const typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -66,7 +65,8 @@ export default function MultiplierDecimaux () {
 
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
       reponse = calcul(a * b)
-      texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication', retenuesOn })
+      texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication', style: 'display: inline' })
+      texteCorr += Operation({ operande1: b, operande2: a, type: 'multiplication', style: 'display: inline' })
       if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
       setReponse(this, i, reponse)
       this.autoCorrection[i].options = { digits: 0, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
@@ -81,5 +81,4 @@ export default function MultiplierDecimaux () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Présence de retenues', false]
 }
