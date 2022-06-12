@@ -1,4 +1,4 @@
-import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe } from './outils.js'
+import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
 import { fraction, max, ceil, isNumeric } from 'mathjs'
@@ -142,32 +142,71 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
     this.nom = ' ' // Le nom d'un point est par défaut un espace
     // On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
   }
+
   /**
- *
+ * Permet de déterminer si le point sur lequel la méthode est appliquée appartient au polygone passé en argument
+ * fonctionne avec tout type de polygone
+ * Il subsiste un problème pour les points situés sur les côtés qui sont comptés comme intérieur ou extérieur...
+ * L'algorithme comptabilise les franchissements de côtés pour arriver au point en partant d'un point arbitraire extérieur au polygone
  * @param {Polygone} lePolygone
  * @return {boolean} true si le Point est à l'intérieur de lePolygone
+ * @author Jean-Claude Lhote
  */
   this.estDansPolygone = function (lePolygone) {
-    const pointExterieur = point(lePolygone.bordures[0] - 5, lePolygone.bordures[1] - 3) // Point se trouvant en dehors des bordures du polygone
+    const pointExterieur = point(lePolygone.bordures[0] - 123, lePolygone.bordures[1] - 321) // Point arbitraire se trouvant en dehors des bordures du polygone
     let nombreDeFrontieres = 0
+    let passeParSommet = false
     const s = segment(pointExterieur, this)
     for (let i = 0; i < lePolygone.listePoints.length - 1; i++) {
-      if (s.estSecant(segment(lePolygone.listePoints[i], lePolygone.listePoints[i + 1]))) nombreDeFrontieres++
-      if (this.estSur(segment(lePolygone.listePoints[i], lePolygone.listePoints[i + 1]))) nombreDeFrontieres--
+      if (s.estSecant(segment(lePolygone.listePoints[i], lePolygone.listePoints[i + 1]))) {
+        if (lePolygone.listePoints[i].estSur(s) || lePolygone.listePoints[i + 1].estSur(s)) { // Le rayon passe par un sommet
+          if (passeParSommet) { // le rayon est déja passé par un sommet, si il repasse, on ne comptabilise pas, c'est le même
+            passeParSommet = false
+          } else { // c'est la première fois qu'il y passe, on comptabilise
+            nombreDeFrontieres++
+            passeParSommet = true
+          }
+        } else { // Le rayon coupe, mais pas sur un sommet
+          nombreDeFrontieres++
+        }
+      }
     }
-    if (s.estSecant(segment(lePolygone.listePoints[0], lePolygone.listePoints[lePolygone.listePoints.length - 1]))) nombreDeFrontieres++
-    if (this.estSur(segment(lePolygone.listePoints[0], lePolygone.listePoints[lePolygone.listePoints.length - 1]))) nombreDeFrontieres--
+    if (s.estSecant(segment(lePolygone.listePoints[0], lePolygone.listePoints[lePolygone.listePoints.length - 1]))) {
+      if (lePolygone.listePoints[0].estSur(s) || lePolygone.listePoints[lePolygone.listePoints.length - 1].estSur(s)) { // Le rayon passe par un sommet
+        if (passeParSommet) { // le rayon est déja passé par un sommet, si il repasse, on ne comptabilise pas, c'est le même
+          passeParSommet = false
+        } else { // c'est la première fois qu'il y passe, on comptabilise
+          nombreDeFrontieres++
+          passeParSommet = true
+        }
+      } else { // Le rayon coupe, mais pas sur un sommet
+        nombreDeFrontieres++
+      }
+    }
     return nombreDeFrontieres % 2 === 1
   }
   /**
- *
- * @param {Segment | Cerecle | Droite | DemiDroite} objet
+ * Cette méthode appliquée à un point permet de déterminer si ce point appartient à l'objet passé en argument parmi les types suivants
+ * @param {Segment | Cercle | Droite | DemiDroite} objet
  * @returns {boolean} true si le point est sur l'objet
+ * @author Jean-Claude Lhote
  */
-  this.estSur = function (objet, tolerance) {
-    if (objet instanceof Droite) return estSurDroite(this, objet, tolerance)
-    if (objet instanceof Segment) return appartientSegment(this, objet.extremite1, objet.extremite2, tolerance)
-    if (objet instanceof DemiDroite) return appartientDemiDroite(this, objet.extremite1, objet.extremite2, tolerance)
+  this.estSur = function (objet, tolerance = 0.000001) {
+    function appartientDroite (A, d, tolerance) {
+      return egal(d.a * A.x + d.b * A.y + d.c, 0, tolerance)
+    }
+    function appartientSegment (A, s, tolerance) {
+      return egal(longueur(s.extremite1, s.extremite2), longueur(A, s.extremite1) + longueur(A, s.extremite2), tolerance)
+    }
+    function appartientDemiDroite (A, dd, tolerance) {
+      const prodvect = (dd.extremite2.x - dd.extremite1.x) * (A.y - dd.extremite1.y) - (A.x - dd.extremite1.x) * (dd.extremite2.y - dd.extremite1.y)
+      const prodscal = (A.x - dd.extremite1.x) * (dd.extremite2.x - dd.extremite1.x) + (A.y - dd.extremite1.y) * (dd.extremite2.y - dd.extremite1.y)
+      if (egal(prodvect, 0, tolerance) && superieurouegal(prodscal, 0, tolerance)) return true
+      else return false
+    }
+    if (objet instanceof Droite) return appartientDroite(this, objet, tolerance)
+    if (objet instanceof Segment) return appartientSegment(this, objet, tolerance)
+    if (objet instanceof DemiDroite) return appartientDemiDroite(this, objet, tolerance)
     if (objet instanceof Cercle) return egal(longueur(this, objet.centre), objet.rayon, tolerance)
   }
 }
@@ -503,28 +542,17 @@ export function appartientSegment (C, A, B, tolerance = 0.0001) {
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
   const prodscalABAB = (B.x - A.x) ** 2 + (B.y - A.y) ** 2
-  if (egal(prodvect, 0, tolerance) && prodscal > 0 && prodscal < prodscalABAB) return true
+  if (egal(prodvect, 0, tolerance) && superieurouegal(prodscal, 0) && inferieurouegal(prodscal, prodscalABAB)) return true
   else return false
 }
 /**
- * Est-ce que le point C appartien à la droite (AB)
+ * Est-ce que le point C est aligné avec A et B ?
  * C'est ce que dira cette fonction
  * @author Jean-Claude Lhote
  */
-export function appartientDroite (C, A, B, tolerance) {
+export function estAligne (C, A, B, tolerance) {
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   if (egal(prodvect, 0, tolerance)) return true
-  else return false
-}
-/**
- * Est-ce que le point C appartien à la demi-droite [AB)]
- * C'est ce que dira cette fonction
- * @author Jean-Claude Lhote
- */
-export function appartientDemiDroite (C, A, B, tolerance = 0.0001) {
-  const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
-  const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
-  if (egal(prodvect, 0, tolerance) && prodscal > 0) return true
   else return false
 }
 
@@ -1889,14 +1917,17 @@ export function nomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
 function Segment (arg1, arg2, arg3, arg4, color) {
   ObjetMathalea2D.call(this)
   /**
- *
+ * Détermine si un segment sur lequel est appliqué la méthode coupe l'objet passé en argument (dont le type est parmi ceux qui suivent)
  * @param {Segment | Droite | DemiDroite | Cercle} objet
  * @return {boolean} true si les segments sont sécants
+ * @author Jean-Claude Lhote
  */
   this.estSecant = function (objet) {
     const ab = droite(this.extremite1, this.extremite2)
     if (objet instanceof Cercle) {
-      return (pointIntersectionLC(ab, objet, '', 1) || pointIntersectionLC(ab, objet, '', 2)) instanceof Point
+      const P1 = pointIntersectionLC(ab, objet, '', 1)
+      const P2 = pointIntersectionLC(ab, objet, '', 2)
+      return ((P1 instanceof Point && P1.estSur(this)) || (P2 instanceof Point && P2.estSur(this)))
     }
     let I
     if (objet instanceof Droite) {
