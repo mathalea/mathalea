@@ -2785,7 +2785,7 @@ export function estDansTriangle (M, A, B, C) { // Est-ce que M est dans le trian
   const x1 = vMB.x * vMC.y - vMB.y * vMC.x
   const x2 = vMC.x * vMA.y - vMC.y * vMA.x
   const x3 = vMA.x * vMB.y - vMA.y * vMB.x
-  return x1 > 0 && x2 > 0 && x3 > 0
+  return superieurouegal(x1, 0) && superieurouegal(x2, 0) && superieurouegal(x3, 0)
 }
 
 /*********************************************/

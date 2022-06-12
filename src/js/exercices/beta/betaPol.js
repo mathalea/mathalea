@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { carre, mathalea2d, point, segment, tracePoint } from '../../modules/2d.js'
+import { carre, estDansQuadrilatere, mathalea2d, point, segment, tracePoint } from '../../modules/2d.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 
@@ -46,7 +46,6 @@ export default class SuperExoMathalea2d extends Exercice {
     // La boucle s'arrête après 50 tentatives.
 
     const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-    const objetsCorrection = [] // Idem pour la correction
 
     let texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
     let texteCorr = '' // Idem pour le texte de la correction.
@@ -61,18 +60,30 @@ export default class SuperExoMathalea2d extends Exercice {
     const P = carre(C, D)
     const s = segment(C, D)
     console.log('C est-il sur [CD] ?', C.estSur(s))
-    for (let i = 0; i < 250; i++) {
+    const time = new Date()
+    for (let i = 0; i < 2500; i++) {
       A = point(randint(-10, 10), randint(-7, 7))
       if (A.estDansPolygone(P)) B = tracePoint(A, 'blue')
       else B = tracePoint(A, 'red')
-      objetsEnonce.push(B) // On rempli les tableaux d'objets Mathalea2d
+      objetsEnonce.push(B)
     }
-    objetsEnonce.push(P) // On rempli les tableaux d'objets Mathalea2d
-
+    const time2 = new Date()
+    console.log(time2 - time)
+    /*
+    time = new Date()
+    for (let i = 0; i < 2500; i++) {
+      A = point(randint(-10, 10), randint(-7, 7))
+      if (estDansQuadrilatere(A, ...P.listePoints)) B = tracePoint(A, 'blue')
+      else B = tracePoint(A, 'red')
+      objetsEnonce.push(B)
+    }
+    time2 = new Date()
+    console.log(time2 - time)
+    */
+    objetsEnonce.push(P)
     // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
     const paramsEnonce = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false }
     // paramètres de la fenêtre Mathalea2d pour la correction
-    const paramsCorrection = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1 }
     // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
     texte += mathalea2d(paramsEnonce, objetsEnonce)
     // On ajoute au texte de la correction, la figure de la correction
