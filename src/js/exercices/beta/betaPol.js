@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { carre, estDansQuadrilatere, mathalea2d, point, segment, tracePoint } from '../../modules/2d.js'
+import { carre, estDansQuadrilatere, mathalea2d, point, polygone, segment, tracePoint } from '../../modules/2d.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 
@@ -55,17 +55,24 @@ export default class SuperExoMathalea2d extends Exercice {
     /*************************************/
     let A
     let B
-    const C = point(0, -5)
-    const D = point(5, -5)
-    const P = carre(C, D)
-    const s = segment(C, D)
-    console.log('C est-il sur [CD] ?', C.estSur(s))
+    const C = point(0, 0)
+    const D = point(2.5, 2)
+    const E = point(5, 0)
+    const F = point(7, -2.5)
+    const G = point(5, -5)
+    const H = point(3, -7)
+    const I = point(0, -5)
+    const P = polygone(C, D, E, F, G, H, I)
+
+    P.color = 'blue'
     const time = new Date()
-    for (let i = 0; i < 2500; i++) {
-      A = point(randint(-10, 10), randint(-7, 7))
-      if (A.estDansPolygone(P)) B = tracePoint(A, 'blue')
-      else B = tracePoint(A, 'red')
-      objetsEnonce.push(B)
+    for (let x = -10; x < 10; x++) {
+      for (let y = -7; y < 2; y++) {
+        A = point(x, y)
+        if (A.estDansPolygoneConvexe(P)) B = tracePoint(A, 'blue')
+        else B = tracePoint(A, 'red')
+        objetsEnonce.push(B)
+      }
     }
     const time2 = new Date()
     console.log(time2 - time)
