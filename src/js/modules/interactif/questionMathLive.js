@@ -252,6 +252,10 @@ export function verifQuestionMathLive (exercice, i) {
 }
 
 function saisieToGrandeur (saisie) {
+  if (saisie.indexOf('°') > 0) {
+    const split = saisie.split('°')
+    return new Grandeur(parseFloat(split[0].replace(',', '.')), '°')
+  }
   if (saisie.split('operatorname').length !== 2) { return false } else {
     const split = saisie.split('\\operatorname{')
     const mesure = parseFloat(split[0].replace(',', '.'))

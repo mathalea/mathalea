@@ -73,9 +73,6 @@ export default function alignementdetroispoints () {
           d1 = xB - xA
           n2 = yC - yA
           d2 = xC - xA
-          if (n1 * d2 === n2 * d1) { // on évite le cas de l'alignement
-            yA = yA + 1
-          }
           texte = ` $A(${xA};${yA})$ ; $B(${xB};${yB})$ et $C(${xC};${yC})$.`
           texteCorr = 'Pour déterminer si les points $A$, $B$, et $C$ sont alignés, on va étudier les positions relatives des droites $(AB)$ et $(AC)$'
           texteCorr += '<br>On observe déjà que les 3 abscisses sont distinctes. Ni la droite $(AB)$, ni la droite $(AC)$ n\'est verticale.'

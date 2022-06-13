@@ -2152,7 +2152,38 @@ export function demiDroiteAvecExtremite (A, B, color = 'black') {
 %%%%%%%%%%%%% LES POLYGONES %%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
-
+/**
+ *
+ * @param {Point} A
+ * @param {Point} B
+ * @param {Point} C
+ * @param {Point} D
+ * @return {boolean} true si [AB] et [CD] sont sécants
+ */
+export function segmentsSecants (A, B, C, D) {
+  const ab = droite(A, B)
+  const cd = droite(C, D)
+  const I = pointIntersectionDD(ab, cd)
+  if (!I) return false
+  const scalaire1 = (I.x - A.x) * (B.x - I.x) + (I.y - A.y) * (B.y - I.y)
+  const scalaire2 = (I.x - C.x) * (D.x - I.x) + (I.y - C.y) * (D.y - I.y)
+  return !(scalaire1 < 0 || scalaire2 < 0)
+}
+/**
+ *
+ * @param {Point} lePoint
+ * @param {Polygone} lePolygone
+ * @return {boolean} true si lePoint est à l'intérieur de lePolygone
+ */
+export function pointEnPolygone (lePoint, lePolygone) {
+  const pointExterieur = point(lePolygone.bordures[0] - 5, lePolygone.bordures[1] - 3) // Point se trouvant en dehors des bordures du polygone
+  let nombreDeFrontieres = 0
+  for (let i = 0; i < lePolygone.listePoints.length - 1; i++) {
+    if (segmentsSecants(pointExterieur, lePoint, lePolygone.listePoints[i], lePolygone.listePoints[i + 1])) nombreDeFrontieres++
+  }
+  if (segmentsSecants(pointExterieur, lePoint, lePolygone.listePoints[0], lePolygone.listePoints[lePolygone.listePoints.length - 1])) nombreDeFrontieres++
+  return nombreDeFrontieres % 2 === 1
+}
 /**
  * polygone(A,B,C,D,E) //Trace ABCDE
  * polygone([A,B,C,D],"blue") // Trace ABCD en bleu
@@ -2552,6 +2583,15 @@ export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black'
   return new Boite({ Xmin: Xmin, Ymin: Ymin, Xmax: Xmax, Ymax: Ymax, color: color, colorFill: colorFill, opaciteDeRemplissage: opaciteDeRemplissage, texteIn: texteIn, tailleTexte: tailleTexte, texteColor: texteColor, texteOpacite: texteOpacite, texteMath: texteMath, echelleFigure: echelleFigure })
 }
 
+/**
+ * @param
+ * @author Eric Elter
+ * @returns
+ */
+export function estDansQuadrilatere (M, A, B, C, D) { // Est-ce que M est dans le quadrilatère non croisé ABCD ?
+  return estDansTriangle(M, A, B, C) || estDansTriangle(M, A, C, D)
+}
+
 /*********************************************/
 /** ***************Triangles ******************/
 /*********************************************/
@@ -2673,6 +2713,21 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1, color =
   return polygone([A, B, M], color)
 }
 
+/**
+ * @param
+ * @author Eric Elter
+ * @returns
+ */
+export function estDansTriangle (M, A, B, C) { // Est-ce que M est dans le triangle ABC ?
+  const vMA = vecteur(M, A)
+  const vMB = vecteur(M, B)
+  const vMC = vecteur(M, C)
+  const x1 = vMB.x * vMC.y - vMB.y * vMC.x
+  const x2 = vMC.x * vMA.y - vMC.y * vMA.x
+  const x3 = vMA.x * vMB.y - vMA.y * vMB.x
+  return x1 > 0 && x2 > 0 && x3 > 0
+}
+
 /*********************************************/
 /** ************* Parallélogrammes ***********/
 /*********************************************/
@@ -2771,7 +2826,7 @@ export function deplaceLabel (p, nom, positionLabel) {
 
 /**
  * Retourne l'aire du triangle si p est un triangle, false sinon.
- * @param {any} Objet Devrait être un triangle mais peut être tout autre chose.
+ * @param {Polygone} p Devrait être un triangle mais peut être tout autre chose.
  * @example R = aireTriangle(polygone(A,B,C))
  * // R = aire du triangle ABC
  * @example R = aireTriangle(B)
@@ -2779,7 +2834,7 @@ export function deplaceLabel (p, nom, positionLabel) {
  * @return {(number|boolean)} Si le paramètre de la fonction est un triangle, alors retourne son aire, sinon retourne false.
  * @author Jean-Claude Lhote
  */
-
+// JSDOC Valide EE Juin 2022
 export function aireTriangle (p) {
   if (p.listePoints.length !== 3) return false
   const A = p.listePoints[0]
@@ -3250,18 +3305,20 @@ export function cercleCentrePoint (...args) {
   return new CercleCentrePoint(...args)
 }
 
-/**
+/** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
+ * @param {Point} M Extrémité de départ de l'arc
+ * @param {Point} Omega Centre de l'arc
+ * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
+ * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
+ * @param {boolean} [couleurDeRemplissage = 'none'] Couleur ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {number} [fillOpacite = 0.2] Opacité de remplissage de 0 à 1.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @return {code_SVG|code_TikZ|code_SVGml|code_TikZml}
  * @author Jean-Claude Lhote
- * @param {object} M point de départ de l'arc
- * @param {object} Omega centre de l'arc
- * @param {number} angle compris entre -360 et 360 valeur négative = sens indirect
- * @param {boolean} rayon booléen si true, les rayons délimitant l'arc sont ajoutés
- * @param {boolean} couleurDeRemplissage
- * @param {string} color
- * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
- * @param {string} couleurDesHachures
- */
-
+ * @private
+ **/
+// JSDOC Validee EE Juin 2022
 function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2, couleurDesHachures = 'none') {
   ObjetMathalea2D.call(this)
   this.color = colorToLatexOrHTML(color)
@@ -3340,7 +3397,6 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
         if (this.couleurDeRemplissage[0] !== 'none') {
           this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
         }
-
         return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style}/>`
       }
     }
@@ -3372,8 +3428,9 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
       if (this.opacite !== 1) {
         this.style += ` stroke-opacity="${this.opacite}" `
       }
-      this.style += ' fill-opacity="0" '
-
+      if (this.couleurDeRemplissage[0] !== 'none') {
+        this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
+      }
       return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
     }
   }
@@ -3479,33 +3536,42 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
   }
 }
 
-/**
- * @param {Point} M Point de départ de l'arc
+/** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
+ * @param {Point} M Extrémité de départ de l'arc
  * @param {Point} Omega Centre de l'arc
- * @param {number} angle Compris entre -360 et 360. Valeur négative = sens indirect
- * @param {boolean} rayon Si true, les rayons délimitant l'arc sont ajoutés. Facultatif, false par défaut
- * @param {string} fill Facultatif, 'none' par défaut
- * @param {string} color Facultatif, 'black' par défaut
- * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
- * @param {string} couleurDesHachures Facultatif, 'black' par défaut
+ * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
+ * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
+ * @param {boolean} [couleurDeRemplissage = 'none'] Couleur ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {number} [fillOpacite = 0.2] Opacité de remplissage de 0 à 1.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @example arc(M,0,35)
+  // Trace l'arc en noir de centre 0, d'extrémité M et d'angle orienté 35° (sans remplissage et sans hachures)
+ * @example arc(M,O,true,-40,'red','green',0.8,'white')
+  // Trace l'arc en vert de centre 0, d'extrémité M et d'angle orienté -40°, rempli en rouge à 80 %, avec des hachures blanches
+ * @return {Arc}
  * @author Jean-Claude Lhote
- * @return {Arc} Objet Arc
  */
+// JSDOC Validee EE Juin 2022
 export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2, couleurDesHachures = 'none') {
   return new Arc(M, Omega, angle, rayon, couleurDeRemplissage, color, fillOpacite, couleurDesHachures)
 }
-/**
- *
- * @param {Point} M //première extrémité de l'arc
- * @param {Point} N //deuxième extrémité de l'arc
- * @param {number} angle //angle au centre de l'arc compris entre -360 et +360 !
- * @param {boolean} rayon //si true, l'arc est fermé par deux rayons aux extrémités
- * @param {string} couleurDeRemplissage //couleur de remplissage (par défaut 'none'= sans remplissage)
- * @param {string} color //couleur de l'arc
- * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
+
+/** Trace un arc de cercle, connaissant deux extrémités et la mesure de l'angle
+ * @param {Point} M Première extrémité de l'arc
+ * @param {Point} N Deuxième extrémité de l'arc
+ * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
+ * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
+ * @param {boolean} [couleurDeRemplissage = 'none'] Couleur ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {number} [fillOpacite = 0.2] Opacité de remplissage de 0 à 1.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @return {code_SVG|code_TikZ|code_SVGml|code_TikZml}
  * @author Jean-Claude Lhote
+ * @private
  */
-function ArcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2) {
+// JSDOC Validee EE Juin 2022
+function ArcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2, couleurDesHachures = 'none') {
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
   else anglerot = (angle - 180) / 2
@@ -3521,9 +3587,29 @@ function ArcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplissage = 
   const Omega = point(Omegax, Omegay)
   Arc.call(this, M, Omega, angle, rayon, couleurDeRemplissage, color, fillOpacite)
 }
-export function arcPointPointAngle (...args) {
-  return new ArcPointPointAngle(...args)
+
+/** Trace un arc de cercle, connaissant deux extrémités et la mesure de l'angle
+ * @param {Point} M Première extrémité de l'arc
+ * @param {Point} N Deuxième extrémité de l'arc
+ * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
+ * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
+ * @param {boolean} [couleurDeRemplissage = 'none'] Couleur ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {number} [fillOpacite = 0.2] Opacité de remplissage de 0 à 1.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @example arcPointPointAngle(A,B,35)
+  // Trace l'arc en noir d'extrémités A et B (dans cet ordre) et d'angle orienté 35° (sans remplissage et sans hachures)
+ * @example arcPointPointAngle(A,B,true,-40,'red','green',0.8,'white')
+  // Trace l'arc en vert d'extrémités A et B (dans cet ordre) et d'angle orienté -40°, rempli en rouge à 80 %, avec des hachures blanches
+ * @return {ArcPointPointAngle}
+ * @author Jean-Claude Lhote
+ * @private
+ */
+// JSDOC Validee EE Juin 2022
+export function arcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2, couleurDesHachures = 'none') {
+  return new ArcPointPointAngle(M, N, angle, rayon, couleurDeRemplissage, color, fillOpacite, couleurDesHachures)
 }
+
 /**
  * m = traceCompas(O, A, 20) trace un arc de cercle de centre O qui commence 10° avant A et finit 10° après.
  *@author Jean-Claude Lhote
@@ -4296,22 +4382,22 @@ export function projectionOrtho (M, d, nom = '', positionLabel = 'above') {
 }
 /**
  * Construit l'image d'un objet par affinité orthogonale
- * @param {any} Objet Peut être un point, un segment, une droite, un polygone ou un vecteur.
- * @param {number} d Direction de l'affinité.
- * @param {number} k Rapport de l'affinité.
- * @param {string} [nom=''] Nom de l'image (uniquement valable pour un point).
- * @param {number} [positionLabel = 'above'] Position de l'image (uniquement valable pour un point).
- * @param {string} [color='black']  Couleur de la valeur indiquée : du type 'blue' ou du type '#f15929' (non valable pour un point et pour un vecteur).
+ * @param {any} Objet Peut être un point, un segment, une droite, un polygone ou un vecteur
+ * @param {number} d Direction de l'affinité
+ * @param {number} k Rapport de l'affinité
+ * @param {string} [nom=''] Nom de l'image (uniquement valable pour un point)
+ * @param {number} [positionLabel = 'above'] Position de l'image (uniquement valable pour un point)
+ * @param {string} [color='black']  Couleur de la valeur indiquée : du type 'blue' ou du type '#f15929' (non valable pour un point et pour un vecteur)
  * @author Jean-Claude Lhote
  * @example p2 = affiniteOrtho(p1,droite(B, C),k)
- * // p2 est l'image de p1 par une affinité orthogonale dont la direction est la droite (BC) et de rapport k.
+ * // p2 est l'image de p1 par une affinité orthogonale dont la direction est la droite (BC) et de rapport k
  * @example N = affiniteOrtho(M,d,0.5,'point N','right')
- * // N est l'image du point M par une affinité orthogonale de direction d et de rapport 0.5. Le point sera affiché comme "point N" et ce nom sera écrit à droite de sa position.
+ * // N est l'image du point M par une affinité orthogonale de direction d et de rapport 0.5. Le point sera affiché comme "point N" et ce nom sera écrit à droite de sa position
  * @example s = affiniteOrtho(segment(A,B),d,0.1,'','','red')
- * // s est l'image du segment [AB] par une affinité orthogonale de direction d et de rapport 0.1. s sera rouge.
- * @return {objet} Retourne un objet du même type que le premier paramètre de la fonction.
+ * // s est l'image du segment [AB] par une affinité orthogonale de direction d et de rapport 0.1. s sera rouge
+ * @return {objet} Retourne un objet du même type que le premier paramètre de la fonction
  */
-
+// JSDOC Valide EE Juin 2022
 export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above', color = 'black') {
   const a = d.a
   const b = d.b
@@ -4428,7 +4514,9 @@ export function similitude (A, O, a, k, nom = '', positionLabel = 'above', color
  * @param {integer} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier.
  * @return {code_SVG}
  * @author Rémi Angot
+ * @private
  */
+// JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
 function ApparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefinite') {
   ObjetMathalea2D.call(this)
   this.svg = function (coeff) {
@@ -4454,16 +4542,16 @@ function ApparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefini
   }
 }
 /**
- * Fait apparaître une liste d'objets de façon animée.
+ * Fait apparaître une liste d'objets de façon animée
  * @param {any} liste liste d'objets à faire apparaitre
  * @param {integer} [dur = 2] Durée de l'animation en secondes
  * @param {integer} [pourcentage = 0.5] Pourcentage de la durée à partir de laquelle les objets sont visibles
- * @param {integer} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier.
+ * @param {integer} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier
  * @return {ApparitionAnimee}
+ * @example Fonction non utilisée donc pas d'exemple, fonction non testée, peut être bugguée
  * @author Rémi Angot
- * @example apparitionAnimee([s1,s2,s3])
- * @example apparitionAnimee([s1,s2,s3],5,0.2,10)
  */
+// JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
 export function apparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefinite') {
   return new ApparitionAnimee(liste, dur, pourcentage, repeat)
 }
@@ -4664,10 +4752,10 @@ export function cacherParDiv (id) {
  * @param {string} [r='Infinity'] Nombre de répétitions (infini si ce n'est pas un nombre).
  * @example afficherTempo(ob1)
  * // Affiche ob1 au bout de 1 seconde, pendant 4 secondes puis le masque. Ce cycle est répété indéfiniment.
-* @example afficherTempo(ob1,2,9,10)
+ * @example afficherTempo(ob1,2,9,10)
  * // Sur un cycle de 9 secondes, affiche ob1 au bout de 2 seconde puis le masque en fin de cycle. Ce cycle est répété 10 fois.
- * @return {setTimeout}
  */
+// JSDOC Valide EE Juin 2022
 export function afficherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
   let compteur = 1 // Nombre d'animations
   const checkExist = setInterval(function () {
@@ -4697,18 +4785,63 @@ export function afficherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
 }
 
 /**
- * Affiche, un par un, une suite d'objets après t secondes entre chaque apparition, avant de recommencer, après tApresDernier secondes, r fois.
- * @param {any} objets Une suite d'objets sous forme d'un tableau d'objets
- * @param {number} [t=1] Temps en secondes avant chaque apparition.
- * @param {string} [r='Infinity'] Nombre de répétitions (infini si ce n'est pas un nombre).
- * @param {number} [tApresDernier=5] Temps après l'affichage du dernier objet, à partir duquel l'animation recommence.
- * @example afficherUnParUn([s1,s2,s3])
- * // Affiche, séparé de 1 seconde s1, s2 et s3 puis au bout de 5 secondes, cela les masque. Ce cycle est répété indéfiniment.
- * @example afficherUnParUn([s1,s2,s3],2,10,7)
- * // Affiche, séparé de 2 secondes s1, s2 et s3 puis au bout de 7 secondes, cela les masque. Ce cycle est répété 10 fois.
- * @return {setTimeout}
+ * Masque un objet puis l'affiche au bout de t0 s avant de recommencer r fois toutes les t secondes
+ *
+ *
+ * @param {any} objet dont l'identifiant est accessible par objet.id
+ * @param {number} [t0=1] temps en secondes avant l'apparition
+ * @param {number} [t=5] temps à partir duquel l'animation recommence
+ * @param {string} [r='Infinity'] nombre de répétition (infini si ce n'est pas un nombre)
+
+ *
+ *
+ */
+export function cacherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
+  let compteur = 1 // Nombre d'animations
+  const checkExist = setInterval(function () {
+    if (document.getElementById(objet.id)) {
+      clearInterval(checkExist)
+      montrerParDiv(objet.id)
+      if (r === 1) { // On le cache au bout de t0 et on ne le montre plus
+        setTimeout(function () { cacherParDiv(objet.id) }, t0 * 1000)
+      } else {
+        const montreRepete = setInterval(function () { montrerParDiv(objet.id) }, t * 1000) // On cache tous les t s
+        setTimeout(function () {
+          cacherParDiv(objet.id) // On attend t0 pour montrer
+          const cacheRepete = setInterval(function () {
+            cacherParDiv(objet.id)
+            compteur++
+            if (typeof r === 'number') {
+              if (compteur >= r) {
+                clearInterval(cacheRepete)
+                clearInterval(montreRepete)
+              }
+            }
+          }, t * 1000) // On montre tous les t s (vu qu'on a décalé de t0)
+        }, t0 * 1000) // Fin de l'animation en boucle
+      }
+    }
+  }, 100) // vérifie toutes les  100ms que le div existe
+}
+
+/**
+ * Rend visible un element d'après son id
+ *
+ *
+ */
+/**
+ * Masque une suite d'objets puis les affiche un par un, de t secondes en t secondes avant de recommencer r fois, tApresDernier secondes après l'affichage de tous les objets
+ * @param {any} objets Liste d'objets à afficher
+ * @param {number} [t = 1] Temps en secondes entre l'apparition de chaque objet
+ * @param {string} [r = 'Infinity'] Nombre de répétitions (infini si ce n'est pas un nombre).
+ * @param {number} [tApresDernier = 5] Temps, après l'affichage du dernier objet, à partir duquel l'animation recommence.
+ * @example afficherUnParUn([s1,s2])
+ * // Affiche s1 au bout de 1 seconde, puis s2 après 1 nouvelle seconde, puis les masque après 5 secondes. Ce cycle est répété indéfiniment.
+ * @example afficherUnParUn([s1,s2],2,9,10)
+ * // Affiche s1 au bout de 2 secondes, puis s2 après 2 nouvelles secondes, puis les masque après 10 secondes. Ce cycle est répété en tout 9 fois.
  * @author Rémi Angot
  */
+// JSDOC Valide EE Juin 2022
 export function afficherUnParUn (objets, t = 1, r = 'Infinity', tApresDernier = 5) {
   let t0 = t
   const tf = objets.length * t + tApresDernier
@@ -4986,8 +5119,9 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
  * @param  {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
  * @returns {code_SVG|code_TikZ}
  * @author Rémi Angot
+ * @private
  */
-
+// JSDOC Valide EE Juin 2022
 function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false) {
   ObjetMathalea2D.call(this)
   this.color = color
@@ -5030,10 +5164,10 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', h
  * // Affiche la longueur du segment [AB] (en noir, à 0,5 "cm" du segment, complétée par l'unité cm et parallèlement au segment).
  * @example  afficheLongueurSegment(A,B,'blue',1,'mm',true)
  * // Affiche la longueur du segment [AB], en bleu, à 1 "cm" du segment, complétée par l'unité mm et horizontalement.
- * @returns {AfficheLongueurSegment} objet AfficheLongueurSegment
+ * @returns {AfficheLongueurSegment}
  * @author Rémi Angot
  */
-
+// JSDOC Valide EE Juin 2022
 export function afficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false) {
   return new AfficheLongueurSegment(A, B, color, d, unite, horizontal)
 }
@@ -5178,8 +5312,9 @@ export function texteSurArc (...args) {
  * @param {number} [arcEpaisseur=1] Epaisseur de l'arc.
  * @param {boolean} [mesureEnGras=false] True pour mettre en gras la mesure affichée.
  * @returns {code_SVG|code_TikZ}
+ * @private
  */
-
+// JSDOC Valide EE Juin 2022
 function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, couleurDeRemplissage = 'none', fillOpacite = 0.5, arcEpaisseur = 1 } = {}) {
   ObjetMathalea2D.call(this)
   this.depart = A
@@ -5245,6 +5380,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
  * // Affiche le label pop en gras et rouge, sur l'angle rentrant MNO, avec un arc bleu, epais de 2 et de rayon 2 "cm", à 1 "cm" de l'arc rempli en orange avec une opacité de 80%, cerné par ses rayons.
  * @returns {AfficheMesureAngle}
  */
+// JSDOC Valide EE Juin 2022
 export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, couleurDeRemplissage = 'none', fillOpacite = 0.5, arcEpaisseur = 1 } = {}) {
   return new AfficheMesureAngle(A, B, C, color, distance, label, { ecart, mesureEnGras, saillant, colorArc, rayon, couleurDeRemplissage, fillOpacite, arcEpaisseur })
 }
@@ -5261,7 +5397,9 @@ export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
  * @param {boolean} [horizontal=false]  Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
  * @returns {code_SVG|code_TikZ}
  * @author Jean-Claude Lhote
+ * @private
  */
+// JSDOC Valide EE Juin 2022
 function AfficheCoteSegment (
   s,
   Cote = '',
@@ -5356,7 +5494,7 @@ function AfficheCoteSegment (
  * @returns {AfficheCoteSegment}
  * @author Jean-Claude Lhote
  */
-
+// JSDOC Valide EE Juin 2022
 export function afficheCoteSegment (s, Cote = '', positionCote = 0.5, couleurCote = 'black', epaisseurCote = 1, positionValeur = 0.5, couleurValeur = 'black', horizontal = false) {
   return new AfficheCoteSegment(s, Cote, positionCote, couleurCote, epaisseurCote, positionValeur, couleurValeur, horizontal)
 }
@@ -9668,18 +9806,19 @@ export function norme (v) {
 }
 
 /**
- * Renvoie la mesure d'angle en degré.
+ * Renvoie la mesure d'angle en degré
  * @param {Point} A Point d'un côté de l'angle
  * @param {Point} O Sommet de l'angle
  * @param {Point} B Point d'un autre côté de l'angle
- * @param {integer} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle.
+ * @param {integer} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle
  * @return {number}
  * @example x = angle(H,E,T)
- * // x contient la mesure en degré de l'angle HET, arrondi au centième.
+ * // x contient la mesure en degré de l'angle HET, arrondi au centième
  * @example x = angle(H,E,T,0)
- * // x contient la mesure en degré de l'angle HET, arrondi à l'unité.
+ * // x contient la mesure en degré de l'angle HET, arrondi à l'unité
  * @author Rémi Angot
  */
+// JSDOC Validee EE Juin 2022
 export function angle (A, O, B, precision = 2) {
   const OA = longueur(O, A)
   const OB = longueur(O, B)
@@ -9697,8 +9836,8 @@ export function angle (A, O, B, precision = 2) {
 }
 
 /**
- * Convertit un nombre de degrés quelconque en une mesure comprise entre -180 et 180.
- * @param {number} a Valeur en degrés dont on cherche la valeur entre -180 et 180.
+ * Convertit un nombre de degrés quelconque en une mesure comprise entre -180 et 180
+ * @param {number} a Valeur en degrés dont on cherche la valeur entre -180 et 180
  * @return {number}
  * @example x = angleModulo(170)
  * // x contient 170
@@ -9711,7 +9850,7 @@ export function angle (A, O, B, precision = 2) {
  * @example x = angleModulo(-180)
  * // x contient 180
  */
-
+// JSDOC Validee EE Juin 2022
 export function angleModulo (a) {
   while (a <= -180) a = a + 360
   while (a > 180) a = a - 360
@@ -9719,18 +9858,19 @@ export function angleModulo (a) {
 }
 
 /**
- * Retourne la valeur signée de la mesure d'un angle en degré.
+ * Retourne la valeur signée de la mesure d'un angle en degré
  * @param {Point} A Point d'un côté de l'angle
  * @param {Point} O Sommet de l'angle
  * @param {Point} B Point d'un autre côté de l'angle
- * @param {integer} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle orienté.
+ * @param {integer} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle orienté
  * @return {number}
  * @author Jean-Claude Lhote
  * @example x = angleOriente(H,E,T)
- * // x contient la valeur de la mesure de l'angle orienté HET, arrondie au centième.
+ * // x contient la valeur de la mesure de l'angle orienté HET, arrondie au centième
  * @example x = angleOriente(H,E,T,0)
- * // x contient la valeur de la mesure de l'angle orienté HET, arrondie à l'unité.
+ * // x contient la valeur de la mesure de l'angle orienté HET, arrondie à l'unité
  */
+// JSDOC Validee EE Juin 2022
 export function angleOriente (A, O, B, precision = 2) {
   const A2 = rotation(A, O, 90)
   const v = vecteur(O, B); const u = vecteur(O, A2)
@@ -9738,18 +9878,19 @@ export function angleOriente (A, O, B, precision = 2) {
 }
 
 /**
- * Retourne la valeur la mesure d'un angle en radian.
+ * Retourne la valeur la mesure d'un angle en radian
  * @param {Point} A Point d'un côté de l'angle
  * @param {Point} O Sommet de l'angle
  * @param {Point} B Point d'un autre côté de l'angle
- * @param {integer} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle orienté.
+ * @param {integer} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle orienté
  * @return {number}
  * @author Rémi Angot
  * @example x = angleradian(H,E,T)
- * // x contient la valeur de la mesure de l'angle HET en radians, arrondie au centième.
+ * // x contient la valeur de la mesure de l'angle HET en radians, arrondie au centième
  * @example x = angleradian(H,E,T,0)
- * // x contient la valeur de la mesure de l'angle HET en radians, arrondie à l'unité.
+ * // x contient la valeur de la mesure de l'angle HET en radians, arrondie à l'unité
  */
+// JSDOC Validee EE Juin 2022
 export function angleradian (A, O, B, precision = 2) {
   const OA = longueur(O, A)
   const OB = longueur(O, B)
@@ -9765,15 +9906,15 @@ export function angleradian (A, O, B, precision = 2) {
 
 /**
  * Renvoie la mesure d'angle (entre -180° et 180°) dans le cercle trigonométrique à partir d'une mesure d'angle donnée en degrés, qu'utilise Scratch.
- * Parce que le 0 angulaire de Scratch est dirigé vers le Nord et qu'il croît dans le sens indirect.
+ * Parce que le 0 angulaire de Scratch est dirigé vers le Nord et qu'il croît dans le sens indirect
  * @param {number} x Angle Scratch
  * @example x=angleScratchTo2d(0) // x=90
  * @example x=angleScratchTo2d(90) // x=0
  * @example x=angleScratchTo2d(-90) // x=180
  * @example x=angleScratchTo2d(-120) // x=-150
- * @return {number}
+ * @return {angleModulo}
  */
-
+// JSDOC Validee EE Juin 2022
 export function angleScratchTo2d (x) {
   const angle2d = 90 - x
   return angleModulo(angle2d)
@@ -9939,12 +10080,13 @@ export function tournerD (a, lutin = context.lutin) {
   lutin.orientation = angleModulo(lutin.orientation - a)
 }
 /**
- * Déplace le lutin de sa position courante à (x;y).
+ * Déplace le lutin de sa position courante à (x;y)
  * @param {number} x Nouvelle abscisse
  * @param {number} y Nouvelle ordonnée
  * @param {Objet} lutin Lutin
  * @example allerA(10,-5,lutin) // Le lutin prend pour coordonnées (10 ; -5).
  */
+// JSDOC Validee EE Juin 2022
 export function allerA (x, y, lutin = context.lutin) {
   const xdepart = lutin.x
   const ydepart = lutin.y
@@ -9997,6 +10139,7 @@ export function mettreyA (y, lutin = context.lutin) {
  * @param {Objet} lutin Lutin
  * @example ajouterAx(10,lutin) // L'abscisse de lutin est augmentée de 10.
  */
+// JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
 export function ajouterAx (x, lutin = context.lutin) {
   const xdepart = lutin.x
   lutin.x += x / context.unitesLutinParCm
@@ -10013,6 +10156,7 @@ export function ajouterAx (x, lutin = context.lutin) {
  * @param {Objet} lutin Lutin
  * @example ajouterAy(10,lutin) // L'ordonnée de lutin est augmentée de 10.
  */
+// JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
 export function ajouterAy (y, lutin = context.lutin) {
   const ydepart = lutin.y
   lutin.y += y / context.unitesLutinParCm
@@ -10428,8 +10572,9 @@ export function scratchblock (stringLatex) {
  * Afficher le SVG d'un crayon avec la mine sur le point A
  * @param {point} A
  * @return {code_SVG|code_TikZ}
+ * @private
  */
-
+// JSDOC Valide EE Juin 2022
 function AfficherCrayon (A) {
   ObjetMathalea2D.call(this)
   this.x = A.x
@@ -10450,9 +10595,9 @@ function AfficherCrayon (A) {
  * @param {point} A
  * @return {AfficherCrayon}
  */
-
-export function afficherCrayon (...args) {
-  return new AfficherCrayon(...args)
+// JSDOC Valide EE Juin 2022
+export function afficherCrayon (A) {
+  return new AfficherCrayon(A)
 }
 
 /*

@@ -1,7 +1,6 @@
-/* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, texNombre } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -10,17 +9,15 @@ export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Poser des multiplications de nombres décimaux'
+export const titre = 'Poser des multiplications de nombres décimaux (Version 2)'
+
+export const dateDePublication = '08/06/2022'
 
 /**
- * Multiplication de deux nombres décimaux
- *
- * * xxx * xx,x chiffres inférieurs à 5
- * * xx,x * x,x
- * * x,xx * x0x
- * * 0,xx * x,x
- * @author Rémi Angot
- * Référence 6C30
+ * Multiplication de deux nombres décimaux avec des paramètres sur le nombre de chiffres et de décimales dans chaque facteur
+ * Ref 6C30
+ * @author Eric Elter (sur la base de 6C30)
+ * Publié le 08/06/2022
  */
 export default function MultiplierDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -29,40 +26,32 @@ export default function MultiplierDecimaux () {
   this.spacing = 2
   this.spacingCorr = 1 // Important sinon le calcul posé ne fonctionne pas avec opmul et spacing
   this.nbQuestions = 4
-  this.sup = false
   this.listePackages = 'xlop'
+  this.sup = 3
+  this.sup2 = 3
+  this.sup3 = 1
+  this.sup4 = 2
+  this.besoinFormulaireNumerique = ['Choix du nombre de chiffres significatifs dans le premier facteur', 4,
+    '1 : Un chiffre\n2 : Deux chiffres\n3 : Trois chiffres\n4 : Quatre chiffres']
+  this.besoinFormulaire2Numerique = ['Choix du nombre de chiffres significatifs dans le second facteur', 4,
+    '1 : Un chiffre\n2 : Deux chiffres\n3 : Trois chiffres\n4 : Quatre chiffres']
+  this.besoinFormulaire3Numerique = ['Choix du nombre de décimales significatives dans le premier facteur', 3,
+    '1 : Une décimale\n2 : Deux décimales\n3 : Trois décimales']
+  this.besoinFormulaire4Numerique = ['Choix du nombre de décimales significatives dans le second facteur', 3,
+    '1 : Une décimale\n2 : Deux décimales\n3 : Trois décimales']
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4]
-    const listeTypeDeQuestions = combinaisonListes(
-      typesDeQuestionsDisponibles,
-      this.nbQuestions
-    ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    let typesDeQuestions, reponse
+    let reponse
+    const nbChiffresa = parseInt(this.sup)
+    const nbChiffresb = parseInt(this.sup2)
     for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
-      switch (typesDeQuestions) {
-        case 1: // xxx * xx,x chiffres inférieurs à 5
-          a = randint(2, 5) * 100 + randint(2, 5) * 10 + randint(2, 5)
-          b = calcul(randint(2, 5) * 10 + randint(2, 5) + randint(2, 5) / 10)
-          break
-        case 2: // xx,x * x,x
-          a = calcul(randint(2, 9) * 10 + randint(2, 9) + randint(2, 9) / 10)
-          b = calcul(randint(6, 9) + randint(6, 9) / 10)
-          break
-        case 3: // x,xx * x0x
-          a = calcul(randint(2, 9) + randint(2, 9) / 10 + randint(2, 9) / 100)
-          b = calcul(randint(2, 9) * 100 + randint(2, 9))
-          break
-        case 4: // 0,xx * x,x
-          a = calcul(randint(2, 9) / 10 + randint(2, 9) / 100)
-          b = calcul(randint(2, 9) + randint(2, 9) / 10)
-          break
-      }
-
+      a = this.sup === 1 ? randint(2, 9) : 10 * randint(Math.pow(10, nbChiffresa - 2) + 1, Math.pow(10, nbChiffresa - 1) - 1) + randint(1, 9)
+      a = a / Math.pow(10, parseInt(this.sup3))
+      b = this.sup2 === 1 ? randint(2, 9) : 10 * randint(Math.pow(10, nbChiffresb - 2) + 1, Math.pow(10, nbChiffresb - 1) - 1) + randint(1, 9)
+      b = b / Math.pow(10, parseInt(this.sup4))
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
       reponse = calcul(a * b)
       texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication', style: 'display: inline' })
