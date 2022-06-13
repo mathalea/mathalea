@@ -186,28 +186,40 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
     return nombreDeFrontieres % 2 === 1
   }
   /**
- * Cette méthode appliquée à un point permet de déterminer si ce point appartient à l'objet passé en argument parmi les types suivants
- * @param {Segment | Cercle | Droite | DemiDroite} objet
- * @returns {boolean} true si le point est sur l'objet
- * @author Jean-Claude Lhote
+ * fonction qui teste l'appartenance à un triangle
+ * @param {Point} A
+ * @param {Point} B
+ * @param {Point} C
+ * @returns true si le point est dans le triangle ABC
+ * @author Eric Elter et Jean-Claude Lhote
  */
-  this.estSur = function (objet, tolerance = 0.000001) {
-    function appartientDroite (A, d, tolerance) {
-      return egal(d.a * A.x + d.b * A.y + d.c, 0, tolerance)
+  this.estDansTriangle = function (A, B, C) {
+    const vMA = vecteur(this, A)
+    const vMB = vecteur(this, B)
+    const vMC = vecteur(this, C)
+    const x1 = vMB.x * vMC.y - vMB.y * vMC.x
+    const x2 = vMC.x * vMA.y - vMC.y * vMA.x
+    const x3 = vMA.x * vMB.y - vMA.y * vMB.x
+    return (superieurouegal(x1, 0) && superieurouegal(x2, 0) && superieurouegal(x3, 0)) || (inferieurouegal(x1, 0) && inferieurouegal(x2, 0) && inferieurouegal(x3, 0))
+  }
+  /**
+   * fonction qui teste l'appartenance à un polygone convexe
+   * @param {Polygone} P
+   * @returns true si le point appartient au polygone
+   * @author Jean-Claude Lhote
+   */
+  this.estDansPolygoneConvexe = function (P) {
+    const l = P.listePoints.length
+    if (l === 3) {
+      return this.estDansTriangle(...P.listePoints)
+    } else {
+      const A = P.listePoints[0]
+      const B = P.listePoints[1]
+      const C = P.listePoints[l - 1]
+      const P2 = polygone(...P.listePoints.slice(1))
+      if (this.estDansTriangle(A, B, C)) return true
+      else return this.estDansPolygoneConvexe(P2)
     }
-    function appartientSegment (A, s, tolerance) {
-      return egal(longueur(s.extremite1, s.extremite2), longueur(A, s.extremite1) + longueur(A, s.extremite2), tolerance)
-    }
-    function appartientDemiDroite (A, dd, tolerance) {
-      const prodvect = (dd.extremite2.x - dd.extremite1.x) * (A.y - dd.extremite1.y) - (A.x - dd.extremite1.x) * (dd.extremite2.y - dd.extremite1.y)
-      const prodscal = (A.x - dd.extremite1.x) * (dd.extremite2.x - dd.extremite1.x) + (A.y - dd.extremite1.y) * (dd.extremite2.y - dd.extremite1.y)
-      if (egal(prodvect, 0, tolerance) && superieurouegal(prodscal, 0, tolerance)) return true
-      else return false
-    }
-    if (objet instanceof Droite) return appartientDroite(this, objet, tolerance)
-    if (objet instanceof Segment) return appartientSegment(this, objet, tolerance)
-    if (objet instanceof DemiDroite) return appartientDemiDroite(this, objet, tolerance)
-    if (objet instanceof Cercle) return egal(longueur(this, objet.centre), objet.rayon, tolerance)
   }
 }
 /**
@@ -2787,6 +2799,12 @@ export function estDansTriangle (M, A, B, C) { // Est-ce que M est dans le trian
   const x3 = vMA.x * vMB.y - vMA.y * vMB.x
   return superieurouegal(x1, 0) && superieurouegal(x2, 0) && superieurouegal(x3, 0)
 }
+/**
+ *
+ * @param {Point} M Le point à tester
+ * @param {*} P
+ * @returns
+ */
 
 /*********************************************/
 /** ************* Parrallélogrammes*************/
