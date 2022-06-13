@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { carre, estDansQuadrilatere, mathalea2d, point, polygone, segment, tracePoint } from '../../modules/2d.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { mathalea2d, point, polygone, tracePoint } from '../../modules/2d.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 
@@ -56,21 +56,25 @@ export default class SuperExoMathalea2d extends Exercice {
     let A
     let B
     const C = point(0, 0)
-    const D = point(2.5, 2)
+    const D = point(2.5, -2)
     const E = point(5, 0)
-    const F = point(7, -2.5)
+    const F = point(3, -2.5)
     const G = point(5, -5)
-    const H = point(3, -7)
+    const H = point(3, -3)
     const I = point(0, -5)
-    const P = polygone(C, D, E, F, G, H, I)
+    const J = point(2, -3)
+    const P = polygone(C, D, E, F, G, H, I, J)
 
     P.color = 'blue'
     const time = new Date()
-    for (let x = -10; x < 10; x++) {
-      for (let y = -7; y < 2; y++) {
+    for (let x = -0.2; x < 5.2; x += 0.1) {
+      for (let y = -5.2; y < 0.2; y += 0.1) {
         A = point(x, y)
-        if (A.estDansPolygoneConvexe(P)) B = tracePoint(A, 'blue')
+        if (A.estDansPolygoneNonConvexe(P)) B = tracePoint(A, 'blue')
         else B = tracePoint(A, 'red')
+        B.taille = 1
+        B.epaisseur = 1
+        B.style = '+'
         objetsEnonce.push(B)
       }
     }
@@ -89,7 +93,7 @@ export default class SuperExoMathalea2d extends Exercice {
     */
     objetsEnonce.push(P)
     // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-    const paramsEnonce = { xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false }
+    const paramsEnonce = { xmin: -1, ymin: -6, xmax: 8, ymax: 1, pixelsParCm: 20, scale: 1, mainlevee: false }
     // paramètres de la fenêtre Mathalea2d pour la correction
     // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
     texte += mathalea2d(paramsEnonce, objetsEnonce)
