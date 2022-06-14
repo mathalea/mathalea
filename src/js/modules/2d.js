@@ -2285,6 +2285,23 @@ function Polygone (...points) {
     }
     return liste
   }
+  this.triangulation = function () { // retourne une liste de triangles pavant le polygone
+    const flat = polygoneToFlatArray(this)
+    const trianglesIndices = earcut(flat)
+    const triangles = []
+    for (let i = 0; i < trianglesIndices.length; i += 3) {
+      triangles.push(polygone(point(flat[trianglesIndices[i] * 2], flat[trianglesIndices[i] * 2 + 1]), point(flat[trianglesIndices[i + 1] * 2], flat[trianglesIndices[i + 1] * 2 + 1]), point(flat[trianglesIndices[i + 2] * 2], flat[trianglesIndices[i + 2] * 2 + 1])))
+    }
+    return triangles
+  }
+  this.aire = function () {
+    const triangles = this.triangulation()
+    let aire = 0
+    for (let i = 0; i < triangles.length; i++) {
+      aire += aireTriangle(triangles[i])
+    }
+    return aire
+  }
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
@@ -2708,6 +2725,13 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
     trouPol.color = this.color
     trouPol.couleurDeRemplissage = this.backgroundColor
     this.trous.push(trouPol)
+  }
+  this.aire = function () { // retourne l'aire du polygone à trou
+    let aire = this.contour.aire()
+    for (let i = 0; i < this.trous.length; i++) {
+      aire -= this.trous[i].aire()
+    }
+    return aire
   }
   this.svg = function (coeff) {
     let code = this.contour.svg(coeff)
