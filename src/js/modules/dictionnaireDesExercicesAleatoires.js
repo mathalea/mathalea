@@ -10587,7 +10587,7 @@ export default {
     }
   },
   "P010": {
-    "titre": "étude de fonction de degré 3",
+    "titre": "Étude de fonctions de degré 3",
     "url": "/exercices/Profs/P010.js",
     "amcReady": false,
     "interactifReady": false,
@@ -10682,6 +10682,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "P016",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "P017": {
+    "titre": "Encadrer l'aire d'un disque",
+    "url": "/exercices/Profs/P017.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P017",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"

@@ -64,7 +64,7 @@ export default class nomExercice extends Exercice {
           n = choice([3, 5, 7])
           texte = `$${-a}^{${n}} = $`
           texteCorr = `$${-a}^{${n}} = -(${puissanceEnProduit(a, n)}) = - ${a ** n}$`
-          reponse = new FractionX(a ** n)
+          reponse = new FractionX(-(a ** n))
           break
         case 'negParenthesePuissancePaire':
           a = choice([2, 3, randint(4, 9)])
