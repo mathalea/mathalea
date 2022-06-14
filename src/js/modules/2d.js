@@ -2668,7 +2668,7 @@ export function flatArrayToPolygone (flat, noms) {
   return pol
 }
 
-export function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', backgroundColor = 'white' }) {
+function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', backgroundColor = 'white' }) {
   ObjetMathalea2D.call(this)
   const triangles = earcut(data, holes) // on crée le pavage de triangles grâce à Mapbox/earcut
   this.triangulation = [] // contiendra la liste de triangles 2d.
@@ -2723,6 +2723,20 @@ export function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'bla
     }
     return code
   }
+}
+/**
+ * Cet objet permet de créer un polygone avec une surface contenant des 'trous' eux-mêmes polygonaux
+ * cerise sur le gâteau, la propriété this.triangulation fournit une liste de triangles pavant le polygone
+ * @param {number[]} data contient la liste des coordonnées des sommets (contour puis trous)
+ * @param {number[]} holes contient la liste des indices des points formant les trous
+ * @param {string} noms contient les noms des sommets
+ * @param {string} color est la couleur des bords
+ * @param {string} couleurDeRemplissage est la couleur de la surface
+ * @param {string} backgroundColor est la couleur de remplissage des trous
+ * @returns {ObjetMathalea2D} un polygone à trous (ou pas : il peut ne pas y avoir de trou !)
+ */
+export function polygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', backgroundColor = 'white' }) {
+  return new PolygoneATrous({ data, holes, noms, color, couleurDeRemplissage, backgroundColor })
 }
 /*********************************************/
 /** ***************Triangles ******************/
