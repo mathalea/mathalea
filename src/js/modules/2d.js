@@ -1136,16 +1136,6 @@ export function dessousDessus (d, A, tolerance = 0.0001) {
     else return 'dessus'
   }
 }
-/**
- *
- * @param {point} A
- * @param {droite} d
- * @returns {boolean} true si A appartient à d
- * @author Jean-Claude Lhote
- */
-export function estSurDroite (A, d, tolerance) {
-  return dessousDessus(d, A, tolerance) === 'sur'
-}
 
 /**
  * @param {number} rxmin marge à gauche 0.5 par défaut (peut être fixée à 0 si on veut)
