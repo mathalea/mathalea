@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { mathalea2d, point, polygone, tracePoint } from '../../modules/2d.js'
+import { mathalea2d, point, polygone, PolygoneATrous, tracePoint } from '../../modules/2d.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 
@@ -63,10 +63,15 @@ export default class SuperExoMathalea2d extends Exercice {
     const H = point(3, -3)
     const I = point(0, -5)
     const J = point(2, -3)
-    const P = polygone(C, D, E, F, G, H, I, J)
-
-    P.color = 'blue'
-    const time = new Date()
+    const P = new PolygoneATrous({
+      data: [0, 0, 5, 0, 5, 5, 0, 5, 1, 1, 2, 1, 2, 2, 1, 2, 3, 3, 4, 3, 4, 4, 3, 4],
+      holes: [4, 8],
+      noms: 'ABCDEFGHIJKL',
+      color: 'red',
+      couleurDeRemplissage: 'pink',
+      backgroundColor: 'white'
+    })
+    /* const time = new Date()
     for (let x = -0.2; x < 5.2; x += 0.1) {
       for (let y = -5.2; y < 0.2; y += 0.1) {
         A = point(x, y)
@@ -80,9 +85,10 @@ export default class SuperExoMathalea2d extends Exercice {
     }
     const time2 = new Date()
     console.log(time2 - time)
-    objetsEnonce.push(P)
+    */
+    objetsEnonce.push(P, ...P.triangulation)
     // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-    const paramsEnonce = { xmin: -1, ymin: -6, xmax: 8, ymax: 1, pixelsParCm: 20, scale: 1, mainlevee: false }
+    const paramsEnonce = { xmin: -1, ymin: -1, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 1, mainlevee: false }
     // paramètres de la fenêtre Mathalea2d pour la correction
     // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
     texte += mathalea2d(paramsEnonce, objetsEnonce)

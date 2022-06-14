@@ -2668,6 +2668,76 @@ export function flatArrayToPolygone (flat, noms) {
   return pol
 }
 
+function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', backgroundColor = 'white' }) {
+  ObjetMathalea2D.call(this)
+  const triangles = earcut(data, holes) // on crée le pavage de triangles grâce à Mapbox/earcut
+  this.triangulation = [] // contiendra la liste de triangles 2d.
+  let triangle
+  for (let i = 0; i < triangles.length; i += 3) {
+    triangle = polygone(point(data[triangles[i] * 2], data[triangles[i] * 2 + 1]), point(data[triangles[i + 1] * 2], data[triangles[i + 1] * 2 + 1]), point(data[triangles[i + 2] * 2], data[triangles[i + 2] * 2 + 1]))
+    triangle.color = color
+    triangle.couleurDeRemplissage = 'none'
+    this.triangulation.push(triangle)
+  }
+  const sommetsContour = [] // on crée le polygone extérieur
+  for (let i = 0; i < 2 * holes[0]; i += 2) {
+    sommetsContour.push(point(data[i], data[i + 1]))
+    if (noms?.length >= data.length << 1) {
+      sommetsContour[i << 1].nom = noms[i << 1]
+    }
+  }
+  this.contour = polygone(...sommetsContour)
+  this.trous = []
+  this.color = color
+  this.couleurDeRemplissage = couleurDeRemplissage
+  this.contour.couleurDeRemplissage = couleurDeRemplissage
+  this.contour.color = this.color
+  this.backgroundColor = backgroundColor
+  const trous = []
+  let trou, trouPol
+  for (let i = 0; i < holes.length; i++) {
+    trous[i] = []
+    for (let j = holes[i] * 2; j < (i !== holes.length - 1 ? holes[i + 1] * 2 : data.length); j += 2) {
+      trou = point(data[j], data[j + 1])
+      if (noms?.length >= data.length << 1) {
+        trou.nom = noms[j << 1]
+      }
+      trous[i].push(trou)
+    }
+    trouPol = polygone(...trous[i])
+    trouPol.color = this.color
+    trouPol.couleurDeRemplissage = this.backgroundColor
+    this.trous.push(trouPol)
+  }
+  this.svg = function (coeff) {
+    let code = this.contour.svg(coeff)
+    for (let i = 0; i < this.trous.length; i++) {
+      code += this.trous[i].svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = this.contour.tikz()
+    for (let i = 0; i < this.trous.length; i++) {
+      code += '\n\t' + this.trous[i].tikz()
+    }
+    return code
+  }
+}
+/**
+ * Cet objet permet de créer un polygone avec une surface contenant des 'trous' eux-mêmes polygonaux
+ * cerise sur le gâteau, la propriété this.triangulation fournit une liste de triangles pavant le polygone
+ * @param {number[]} data contient la liste des coordonnées des sommets (contour puis trous)
+ * @param {number[]} holes contient la liste des indices des points formant les trous
+ * @param {string} noms contient les noms des sommets
+ * @param {string} color est la couleur des bords
+ * @param {string} couleurDeRemplissage est la couleur de la surface
+ * @param {string} backgroundColor est la couleur de remplissage des trous
+ * @returns {ObjetMathalea2D} un polygone à trous (ou pas : il peut ne pas y avoir de trou !)
+ */
+export function polygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', backgroundColor = 'white' }) {
+  return new PolygoneATrous({ data, holes, noms, color, couleurDeRemplissage, backgroundColor })
+}
 /*********************************************/
 /** ***************Triangles ******************/
 /*********************************************/
