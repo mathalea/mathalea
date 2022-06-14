@@ -2,6 +2,7 @@ import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUn
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
 import { fraction, max, ceil, isNumeric } from 'mathjs'
+import earcut from 'earcut'
 
 /*
   MathALEA2D
@@ -142,49 +143,23 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
     this.nom = ' ' // Le nom d'un point est par défaut un espace
     // On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
   }
-
   /**
  * Permet de déterminer si le point sur lequel la méthode est appliquée appartient au polygone passé en argument
  * fonctionne avec tout type de polygone
- * Il subsiste un problème pour les points situés sur les côtés qui sont comptés comme intérieur ou extérieur...
- * L'algorithme comptabilise les franchissements de côtés pour arriver au point en partant d'un point arbitraire extérieur au polygone
+ * la fonction utilise une triangulation du polygone réalisée par la librairie earcut Copyright (c) 2016, Mapbox.
+ *
  * @param {Polygone} lePolygone
  * @return {boolean} true si le Point est à l'intérieur de lePolygone
  * @author Jean-Claude Lhote
  */
-  this.estDansPolygone = function (lePolygone) {
-    const pointExterieur = point(lePolygone.bordures[0] - 123, lePolygone.bordures[1] - 321) // Point arbitraire se trouvant en dehors des bordures du polygone
-    let nombreDeFrontieres = 0
-    let passeParSommet = false
-    const s = segment(pointExterieur, this)
-    for (let i = 0; i < lePolygone.listePoints.length - 1; i++) {
-      if (s.estSecant(segment(lePolygone.listePoints[i], lePolygone.listePoints[i + 1]))) {
-        if (lePolygone.listePoints[i].estSur(s) || lePolygone.listePoints[i + 1].estSur(s)) { // Le rayon passe par un sommet
-          if (passeParSommet) { // le rayon est déja passé par un sommet, si il repasse, on ne comptabilise pas, c'est le même
-            passeParSommet = false
-          } else { // c'est la première fois qu'il y passe, on comptabilise
-            nombreDeFrontieres++
-            passeParSommet = true
-          }
-        } else { // Le rayon coupe, mais pas sur un sommet
-          nombreDeFrontieres++
-        }
-      }
+  this.estDansPolygoneNonConvexe = function (lePolygone) {
+    const listeTriangles = earcut(polygoneToFlatArray(lePolygone))
+    for (let i = 0; i < listeTriangles.length; i += 3) {
+      if (this.estDansTriangle(lePolygone.listePoints[listeTriangles[i]], lePolygone.listePoints[listeTriangles[i + 1]], lePolygone.listePoints[listeTriangles[i + 2]])) return true
     }
-    if (s.estSecant(segment(lePolygone.listePoints[0], lePolygone.listePoints[lePolygone.listePoints.length - 1]))) {
-      if (lePolygone.listePoints[0].estSur(s) || lePolygone.listePoints[lePolygone.listePoints.length - 1].estSur(s)) { // Le rayon passe par un sommet
-        if (passeParSommet) { // le rayon est déja passé par un sommet, si il repasse, on ne comptabilise pas, c'est le même
-          passeParSommet = false
-        } else { // c'est la première fois qu'il y passe, on comptabilise
-          nombreDeFrontieres++
-          passeParSommet = true
-        }
-      } else { // Le rayon coupe, mais pas sur un sommet
-        nombreDeFrontieres++
-      }
-    }
-    return nombreDeFrontieres % 2 === 1
+    return false
   }
+
   /**
  * fonction qui teste l'appartenance à un triangle
  * @param {Point} A
@@ -220,6 +195,13 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
       if (this.estDansTriangle(A, B, C)) return true
       else return this.estDansPolygoneConvexe(P2)
     }
+  }
+  /**
+ * @author Eric Elter
+ * @returns {boolean}
+ */
+  this.estDansQuadrilatere = function (A, B, C, D) {
+    return this.estDansTriangle(A, B, C) || this.estDansTriangle(A, C, D)
   }
 }
 /**
@@ -2653,12 +2635,37 @@ export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black'
 }
 
 /**
- * @param
- * @author Eric Elter
- * @returns {boolean}
+ * @param {Polygone} P
+ * @returns {number[]} retourne la liste des coordonnées des sommets de P dans un seul tableau.
+ * @author Jean-Claude Lhote
  */
-export function estDansQuadrilatere (M, A, B, C, D) { // Est-ce que M est dans le quadrilatère non croisé ABCD ?
-  return estDansTriangle(M, A, B, C) || estDansTriangle(M, A, C, D)
+export function polygoneToFlatArray (P) {
+  const flatArray = []
+  for (let i = 0; i < P.listePoints.length; i++) {
+    flatArray.push(P.listePoints[i].x, P.listePoints[i].y)
+  }
+  return flatArray
+}
+
+/**
+ * Cette fonction permet de créer un polygone rapidement à partir d'une liste des coordonnées de ses sommets et éventuellement de leur noms
+ * @param {array} flat
+ * @param {string} noms
+ * @returns {Polygone}
+ * @author Jean-Claude Lhote
+ */
+export function flatArrayToPolygone (flat, noms) {
+  const sommets = []
+  for (let i = 0; i < flat.length; i += 2) {
+    sommets.push(point(flat[i], flat[i + 1]))
+  }
+  const pol = polygone(...sommets)
+  if (typeof noms === 'string') {
+    if (noms.length >= sommets.length) {
+      nommePolygone(pol, noms)
+    }
+  }
+  return pol
 }
 
 /*********************************************/
@@ -2781,30 +2788,6 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1) {
   else M = pointIntersectionLC(e, c, '', 2)
   return polygone(A, B, M)
 }
-/**
- *
- * @param {Point} M
- * @param {Point} A
- * @param {Point} B
- * @param {Point} C
- * @returns {boolean}
- * @author Eric Elter
- */
-export function estDansTriangle (M, A, B, C) { // Est-ce que M est dans le triangle ABC ?
-  const vMA = vecteur(M, A)
-  const vMB = vecteur(M, B)
-  const vMC = vecteur(M, C)
-  const x1 = vMB.x * vMC.y - vMB.y * vMC.x
-  const x2 = vMC.x * vMA.y - vMC.y * vMA.x
-  const x3 = vMA.x * vMB.y - vMA.y * vMB.x
-  return (superieurouegal(x1, 0) && superieurouegal(x2, 0) && superieurouegal(x3, 0)) || (inferieurouegal(x1, 0) && inferieurouegal(x2, 0) && inferieurouegal(x3, 0))
-}
-/**
- *
- * @param {Point} M Le point à tester
- * @param {*} P
- * @returns
- */
 
 /*********************************************/
 /** ************* Parrallélogrammes*************/
