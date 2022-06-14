@@ -2682,7 +2682,7 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
   const sommetsContour = [] // on crée le polygone extérieur
   for (let i = 0; i < 2 * holes[0]; i += 2) {
     sommetsContour.push(point(data[i], data[i + 1]))
-    if (noms?.length >= data.length << 1) {
+    if (noms.length >= data.length << 1) {
       sommetsContour[i << 1].nom = noms[i << 1]
     }
   }
@@ -2699,7 +2699,7 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
     trous[i] = []
     for (let j = holes[i] * 2; j < (i !== holes.length - 1 ? holes[i + 1] * 2 : data.length); j += 2) {
       trou = point(data[j], data[j + 1])
-      if (noms?.length >= data.length << 1) {
+      if (noms.length >= data.length << 1) {
         trou.nom = noms[j << 1]
       }
       trous[i].push(trou)
