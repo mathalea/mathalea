@@ -1,7 +1,8 @@
-import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe, abs } from './outils.js'
+import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
-import { fraction, max, ceil, isNumeric, random, round, floor } from 'mathjs'
+import { fraction, max, ceil, isNumeric } from 'mathjs'
+import earcut from 'earcut'
 
 /*
   MathALEA2D
@@ -78,7 +79,7 @@ export function fondEcran (url, x = 0, y = 0, largeur = context.fenetreMathalea2
  * fork de https://javascript.developpez.com/actu/94357/JavaScript-moins-Realiser-une-copie-parfaite-d-objet/
  * Ne fonctionne pas complètement : ne copie pas les méthodes svg et tikz...
  * @param {ObjetMathalea2D} originalObject
- * @returns copie de cet objet.
+ * @returns {object} copie de cet objet.
  */
 export function clone (obj) {
   if (obj === null || typeof obj !== 'object') return obj
@@ -139,6 +140,66 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
   if (!this.nom) {
     this.nom = ' ' // Le nom d'un point est par défaut un espace
     // On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
+  }
+  /**
+ * Permet de déterminer si le point sur lequel la méthode est appliquée appartient au polygone passé en argument
+ * fonctionne avec tout type de polygone
+ * la fonction utilise une triangulation du polygone réalisée par la librairie earcut Copyright (c) 2016, Mapbox.
+ *
+ * @param {Polygone} lePolygone
+ * @return {boolean} true si le Point est à l'intérieur de lePolygone
+ * @author Jean-Claude Lhote
+ */
+  this.estDansPolygoneNonConvexe = function (lePolygone) {
+    const listeTriangles = earcut(polygoneToFlatArray(lePolygone))
+    for (let i = 0; i < listeTriangles.length; i += 3) {
+      if (this.estDansTriangle(lePolygone.listePoints[listeTriangles[i]], lePolygone.listePoints[listeTriangles[i + 1]], lePolygone.listePoints[listeTriangles[i + 2]])) return true
+    }
+    return false
+  }
+
+  /**
+ * fonction qui teste l'appartenance à un triangle
+ * @param {Point} A
+ * @param {Point} B
+ * @param {Point} C
+ * @returns true si le point est dans le triangle ABC
+ * @author Eric Elter et Jean-Claude Lhote
+ */
+  this.estDansTriangle = function (A, B, C) {
+    const vMA = vecteur(this, A)
+    const vMB = vecteur(this, B)
+    const vMC = vecteur(this, C)
+    const x1 = vMB.x * vMC.y - vMB.y * vMC.x
+    const x2 = vMC.x * vMA.y - vMC.y * vMA.x
+    const x3 = vMA.x * vMB.y - vMA.y * vMB.x
+    return (superieurouegal(x1, 0) && superieurouegal(x2, 0) && superieurouegal(x3, 0)) || (inferieurouegal(x1, 0) && inferieurouegal(x2, 0) && inferieurouegal(x3, 0))
+  }
+  /**
+   * fonction qui teste l'appartenance à un polygone convexe
+   * @param {Polygone} P
+   * @returns true si le point appartient au polygone
+   * @author Jean-Claude Lhote
+   */
+  this.estDansPolygoneConvexe = function (P) {
+    const l = P.listePoints.length
+    if (l === 3) {
+      return this.estDansTriangle(...P.listePoints)
+    } else {
+      const A = P.listePoints[0]
+      const B = P.listePoints[1]
+      const C = P.listePoints[l - 1]
+      const P2 = polygone(...P.listePoints.slice(1))
+      if (this.estDansTriangle(A, B, C)) return true
+      else return this.estDansPolygoneConvexe(P2)
+    }
+  }
+  /**
+ * @author Eric Elter
+ * @returns {boolean}
+ */
+  this.estDansQuadrilatere = function (A, B, C, D) {
+    return this.estDansTriangle(A, B, C) || this.estDansTriangle(A, C, D)
   }
 }
 /**
@@ -471,32 +532,21 @@ export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
  * @author Jean-Claude Lhote
  */
 
-export function appartientSegment (C, A, B) {
+export function appartientSegment (C, A, B, tolerance = 0.0001) {
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
   const prodscalABAB = (B.x - A.x) ** 2 + (B.y - A.y) ** 2
-  if (prodvect === 0 && prodscal > 0 && prodscal < prodscalABAB) return true
+  if (egal(prodvect, 0, tolerance) && superieurouegal(prodscal, 0) && inferieurouegal(prodscal, prodscalABAB)) return true
   else return false
 }
 /**
- * Est-ce que le point C appartient à la droite (AB) ?
+ * Est-ce que le point C est aligné avec A et B ?
  * C'est ce que dira cette fonction
  * @author Jean-Claude Lhote
  */
-export function appartientDroite (C, A, B) {
+export function estAligne (C, A, B, tolerance) {
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
-  if (prodvect === 0) return true
-  else return false
-}
-/**
- * Est-ce que le point C appartient à la demi-droite [AB) ?
- * C'est ce que dira cette fonction
- * @author Jean-Claude Lhote
- */
-export function appartientDemiDroite (C, A, B) {
-  const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
-  const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
-  if (prodvect === 0 && prodscal > 0) return true
+  if (egal(prodvect, 0, tolerance)) return true
   else return false
 }
 
@@ -1077,8 +1127,8 @@ export function droite (...args) {
  * @param {droite} d
  * @param {point} A
  */
-export function dessousDessus (d, A) {
-  if (egal(d.a * A.x + d.b * A.y + d.c, 0)) return 'sur'
+export function dessousDessus (d, A, tolerance = 0.0001) {
+  if (egal(d.a * A.x + d.b * A.y + d.c, 0, tolerance)) return 'sur'
   if (egal(d.b, 0)) {
     if (A.x < -d.c / d.a) return 'gauche'
     else return 'droite'
@@ -1091,11 +1141,11 @@ export function dessousDessus (d, A) {
  *
  * @param {point} A
  * @param {droite} d
- * @returns true si A appartient à d
+ * @returns {boolean} true si A appartient à d
  * @author Jean-Claude Lhote
  */
-export function estSurDroite (A, d) {
-  return dessousDessus(d, A) === 'sur'
+export function estSurDroite (A, d, tolerance) {
+  return dessousDessus(d, A, tolerance) === 'sur'
 }
 
 /**
@@ -1133,8 +1183,8 @@ export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rx
 /**
  *
  * @param {droite} d
- * @param {{number}} param1 les bordures de la fenêtre
- * @returns le point qui servira à placer le label.
+ * @param {number} param1 les bordures de la fenêtre
+ * @returns {Point} le point qui servira à placer le label.
  */
 export function positionLabelDroite (d, { xmin = 0, ymin = 0, xmax = 10, ymax = 10 }) {
   let xLab, yLab
@@ -1819,6 +1869,30 @@ export function nomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
  */
 function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
   ObjetMathalea2D.call(this)
+  /**
+ * Détermine si un segment sur lequel est appliqué la méthode coupe l'objet passé en argument (dont le type est parmi ceux qui suivent)
+ * @param {Segment | Droite | DemiDroite | Cercle} objet
+ * @return {boolean} true si les segments sont sécants
+ * @author Jean-Claude Lhote
+ */
+  this.estSecant = function (objet) {
+    const ab = droite(this.extremite1, this.extremite2)
+    if (objet instanceof Cercle) {
+      const P1 = pointIntersectionLC(ab, objet, '', 1)
+      const P2 = pointIntersectionLC(ab, objet, '', 2)
+      return ((P1 instanceof Point && P1.estSur(this)) || (P2 instanceof Point && P2.estSur(this)))
+    }
+    let I
+    if (objet instanceof Droite) {
+      I = pointIntersectionDD(ab, objet)
+    } else {
+      const cd = droite(objet.extremite1, objet.extremite2)
+      I = pointIntersectionDD(ab, cd)
+    }
+    if (!I) return false
+    else return I.estSur(objet) && I.estSur(this)
+  }
+
   this.typeObjet = 'segment'
   this.styleExtremites = styleExtremites
   this.tailleExtremites = 4
@@ -2119,6 +2193,10 @@ export function segmentAvecExtremites (...args) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
+function DemiDroite (A, B, color = 'black') {
+  const B1 = pointSurSegment(B, A, -10)
+  Segment.call(this, A, B1, color)
+}
 /**
  * Trace la demi-droite d'origine A passant par B et de couleur color
  * @param {Point} A
@@ -2128,8 +2206,9 @@ export function segmentAvecExtremites (...args) {
  * @author Rémi Angot
  */
 export function demiDroite (A, B, color = 'black') {
-  const B1 = pointSurSegment(B, A, -10)
-  return segment(A, B1, color)
+  return new DemiDroite(A, B, color)
+  // const B1 = pointSurSegment(B, A, -10)
+  // return segment(A, B1, color)
 }
 
 /**
@@ -2152,38 +2231,6 @@ export function demiDroiteAvecExtremite (A, B, color = 'black') {
 %%%%%%%%%%%%% LES POLYGONES %%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
-/**
- *
- * @param {Point} A
- * @param {Point} B
- * @param {Point} C
- * @param {Point} D
- * @return {boolean} true si [AB] et [CD] sont sécants
- */
-export function segmentsSecants (A, B, C, D) {
-  const ab = droite(A, B)
-  const cd = droite(C, D)
-  const I = pointIntersectionDD(ab, cd)
-  if (!I) return false
-  const scalaire1 = (I.x - A.x) * (B.x - I.x) + (I.y - A.y) * (B.y - I.y)
-  const scalaire2 = (I.x - C.x) * (D.x - I.x) + (I.y - C.y) * (D.y - I.y)
-  return !(scalaire1 < 0 || scalaire2 < 0)
-}
-/**
- *
- * @param {Point} lePoint
- * @param {Polygone} lePolygone
- * @return {boolean} true si lePoint est à l'intérieur de lePolygone
- */
-export function pointEnPolygone (lePoint, lePolygone) {
-  const pointExterieur = point(lePolygone.bordures[0] - 5, lePolygone.bordures[1] - 3) // Point se trouvant en dehors des bordures du polygone
-  let nombreDeFrontieres = 0
-  for (let i = 0; i < lePolygone.listePoints.length - 1; i++) {
-    if (segmentsSecants(pointExterieur, lePoint, lePolygone.listePoints[i], lePolygone.listePoints[i + 1])) nombreDeFrontieres++
-  }
-  if (segmentsSecants(pointExterieur, lePoint, lePolygone.listePoints[0], lePolygone.listePoints[lePolygone.listePoints.length - 1])) nombreDeFrontieres++
-  return nombreDeFrontieres % 2 === 1
-}
 /**
  * polygone(A,B,C,D,E) //Trace ABCDE
  * polygone([A,B,C,D],"blue") // Trace ABCD en bleu
@@ -2392,7 +2439,7 @@ export function polygone (...args) {
 /**
  * Crée un groupe d'objets contenant le polygone et ses sommets
  * @param  {...any} args
- * @returns [p, p.sommets]
+ * @returns {array} [p, p.sommets]
  */
 export function polygoneAvecNom (...args) {
   const p = polygone(...args)
@@ -2584,14 +2631,109 @@ export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black'
 }
 
 /**
- * @param
- * @author Eric Elter
- * @returns
+ * @param {Polygone} P
+ * @returns {number[]} retourne la liste des coordonnées des sommets de P dans un seul tableau.
+ * @author Jean-Claude Lhote
  */
-export function estDansQuadrilatere (M, A, B, C, D) { // Est-ce que M est dans le quadrilatère non croisé ABCD ?
-  return estDansTriangle(M, A, B, C) || estDansTriangle(M, A, C, D)
+export function polygoneToFlatArray (P) {
+  const flatArray = []
+  for (let i = 0; i < P.listePoints.length; i++) {
+    flatArray.push(P.listePoints[i].x, P.listePoints[i].y)
+  }
+  return flatArray
 }
 
+/**
+ * Cette fonction permet de créer un polygone rapidement à partir d'une liste des coordonnées de ses sommets et éventuellement de leur noms
+ * @param {array} flat
+ * @param {string} noms
+ * @returns {Polygone}
+ * @author Jean-Claude Lhote
+ */
+export function flatArrayToPolygone (flat, noms) {
+  const sommets = []
+  for (let i = 0; i < flat.length; i += 2) {
+    sommets.push(point(flat[i], flat[i + 1]))
+  }
+  const pol = polygone(...sommets)
+  if (typeof noms === 'string') {
+    if (noms.length >= sommets.length) {
+      nommePolygone(pol, noms)
+    }
+  }
+  return pol
+}
+
+function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', backgroundColor = 'white' }) {
+  ObjetMathalea2D.call(this)
+  const triangles = earcut(data, holes) // on crée le pavage de triangles grâce à Mapbox/earcut
+  this.triangulation = [] // contiendra la liste de triangles 2d.
+  let triangle
+  for (let i = 0; i < triangles.length; i += 3) {
+    triangle = polygone(point(data[triangles[i] * 2], data[triangles[i] * 2 + 1]), point(data[triangles[i + 1] * 2], data[triangles[i + 1] * 2 + 1]), point(data[triangles[i + 2] * 2], data[triangles[i + 2] * 2 + 1]))
+    triangle.color = color
+    triangle.couleurDeRemplissage = 'none'
+    this.triangulation.push(triangle)
+  }
+  const sommetsContour = [] // on crée le polygone extérieur
+  for (let i = 0; i < 2 * holes[0]; i += 2) {
+    sommetsContour.push(point(data[i], data[i + 1]))
+    if (noms.length >= data.length << 1) {
+      sommetsContour[i << 1].nom = noms[i << 1]
+    }
+  }
+  this.contour = polygone(...sommetsContour)
+  this.trous = []
+  this.color = color
+  this.couleurDeRemplissage = couleurDeRemplissage
+  this.contour.couleurDeRemplissage = couleurDeRemplissage
+  this.contour.color = this.color
+  this.backgroundColor = backgroundColor
+  const trous = []
+  let trou, trouPol
+  for (let i = 0; i < holes.length; i++) {
+    trous[i] = []
+    for (let j = holes[i] * 2; j < (i !== holes.length - 1 ? holes[i + 1] * 2 : data.length); j += 2) {
+      trou = point(data[j], data[j + 1])
+      if (noms.length >= data.length << 1) {
+        trou.nom = noms[j << 1]
+      }
+      trous[i].push(trou)
+    }
+    trouPol = polygone(...trous[i])
+    trouPol.color = this.color
+    trouPol.couleurDeRemplissage = this.backgroundColor
+    this.trous.push(trouPol)
+  }
+  this.svg = function (coeff) {
+    let code = this.contour.svg(coeff)
+    for (let i = 0; i < this.trous.length; i++) {
+      code += this.trous[i].svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = this.contour.tikz()
+    for (let i = 0; i < this.trous.length; i++) {
+      code += '\n\t' + this.trous[i].tikz()
+    }
+    return code
+  }
+}
+/**
+ * Cet objet permet de créer un polygone avec une surface contenant des 'trous' eux-mêmes polygonaux
+ * cerise sur le gâteau, la propriété this.triangulation fournit une liste de triangles pavant le polygone
+ * @param {number[]} data contient la liste des coordonnées des sommets (contour puis trous)
+ * @param {number[]} holes contient la liste des indices des points formant les trous
+ * @param {string} noms contient les noms des sommets
+ * @param {string} color est la couleur des bords
+ * @param {string} couleurDeRemplissage est la couleur de la surface
+ * @param {string} backgroundColor est la couleur de remplissage des trous
+ * @returns {ObjetMathalea2D} un polygone à trous (ou pas : il peut ne pas y avoir de trou !)
+ */
+export function polygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', backgroundColor = 'white' }) {
+  return new PolygoneATrous({ data, holes, noms, color, couleurDeRemplissage, backgroundColor })
+}
 /*********************************************/
 /** ***************Triangles ******************/
 /*********************************************/
@@ -2711,21 +2853,6 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1, color =
   if ((n + 1) >> 1 === 1) M = pointIntersectionLC(e, c, '', 1)
   else M = pointIntersectionLC(e, c, '', 2)
   return polygone([A, B, M], color)
-}
-
-/**
- * @param
- * @author Eric Elter
- * @returns
- */
-export function estDansTriangle (M, A, B, C) { // Est-ce que M est dans le triangle ABC ?
-  const vMA = vecteur(M, A)
-  const vMB = vecteur(M, B)
-  const vMC = vecteur(M, C)
-  const x1 = vMB.x * vMC.y - vMB.y * vMC.x
-  const x2 = vMC.x * vMA.y - vMC.y * vMA.x
-  const x3 = vMA.x * vMB.y - vMA.y * vMB.x
-  return x1 > 0 && x2 > 0 && x3 > 0
 }
 
 /*********************************************/
@@ -5742,7 +5869,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
  * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré (from EE)
  * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle (from EE) : encore optimisable
  * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle (from EE)
- * @returns CodeAngle
+ * @returns {object} CodeAngle
  * @example codeAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @example codeAngle(A,O,B) // code l'angle AOB sans aucune autre option possible
  * @author Jean-Claude Lhote
@@ -7278,7 +7405,7 @@ function Repere2 ({
 /**
  *
  * @param {object} param0
- * @returns
+ * @returns {object}
  */
 export function repere2 ({
   xUnite = 1,
@@ -9921,9 +10048,9 @@ export function angleScratchTo2d (x) {
 }
 
 /**
- *
- * @param
- * @returns
+ * Convertit un nombre de degrés quelconque en une mesure comprise entre -180 et 180
+ * @param {number} a
+ * @returns {number} angle
  */
 
 function ObjetLutin () {
@@ -10014,8 +10141,8 @@ function ObjetLutin () {
 /**
  * Crée une nouvelle instance de l'objet lutin
  * @param  {...any} args En fait, il n'y a pas d'argument... il faudra les renseigner après la création de l'objet.
- * Voir l'objet lutin pour la liste de ses attributs (lutin.x, lutin.y, lutin.orientation, ...)
- * @returns Instance d'un lutin
+ * Voire l'objet lutin pour la liste de ses attributs (lutin.x, lutin.y, lutin.orientation, ...)
+ * @returns {object} Instance d'un lutin
  */
 export function creerLutin (...args) {
   return new ObjetLutin(...args)

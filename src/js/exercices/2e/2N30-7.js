@@ -1,4 +1,4 @@
-export const titre = 'Calculer des probabilités dans une expérience aléatoire à deux épreuves'
+export const titre = 'Problèmes additifs et de comparaison sur les fractions'
 
 // eslint-disable-next-line import/first
 import ProblemesAdditifsFractionsBis from '../4e/4C25-0.js'

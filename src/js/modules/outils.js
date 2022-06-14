@@ -3728,23 +3728,25 @@ export function eclatePuissance (b, e, couleur) {
 
 /**
  * Fonction pour écrire la forme éclatée d'une puissance
- * @param b base
- * @param e exposant
+ * @param b {number} base
+ * @param e {integer} exposant
  * @author Rémi Angot
+ * @return string
  */
 export function puissanceEnProduit (b, e) {
   let str
-  switch (e) {
-    case 0:
-      return '1'
-    case 1:
-      return `${b}`
-    default:
-      str = `${b}`
-      for (let i = 1; i < e; i++) {
-        str = str + `\\times ${b}`
-      }
-      return str
+  if (e === 0) {
+    return '1'
+  } else if (e === 1) {
+    return `${b}`
+  } else if (e > 1) {
+    str = `${ecritureParentheseSiNegatif(b)}`
+    for (let i = 1; i < e; i++) {
+      str = str + `\\times ${ecritureParentheseSiNegatif(b)}`
+    }
+    return str
+  } else if (e < 0) {
+    return `\\dfrac{1}{${puissanceEnProduit(b, -e)}}`
   }
 }
 

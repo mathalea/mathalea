@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { reduirePolynomeDegre3, calcul, texFractionSigne, fractionSimplifiee, listeQuestionsToContenu, printlatex, texNombre, xcas } from '../../modules/outils.js'
 import { tableauDeVariation, mathalea2d, repere2, courbe2, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js'
-export const titre = 'étude de fonction de degré 3'
+export const titre = 'Étude de fonctions de degré 3'
 
 /**
  * tableau de variation d'une fonction et tracé de la courbe (polynomes de degré <= 3)

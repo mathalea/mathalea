@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, contraindreValeur, combinaisonListes, arrondi, numAlpha, choice, compteOccurences, rangeMinMax, entreDeux } from '../../modules/outils.js'
-import { afficherTempo, arc, cacherTempo, codeSegment, droite, droiteParPointEtPente, estDansQuadrilatere, estDansTriangle, homothetie, longueur, mathalea2d, milieu, ObjetMathalea2D, point, pointIntersectionDD, pointSurSegment, polygone, projectionOrtho, rotation, segment, translation, vecteur } from '../../modules/2d.js'
+import { afficherTempo, arc, cacherTempo, codeSegment, droite, droiteParPointEtPente, homothetie, longueur, mathalea2d, milieu, ObjetMathalea2D, point, pointIntersectionDD, pointSurSegment, polygone, projectionOrtho, rotation, segment, translation, vecteur } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { context } from '../../modules/context.js'
@@ -951,7 +951,7 @@ export default function compareAireEtPerimetreAvecRectangle () {
           aleaAngle = choice([40, 50, 70, 80, 100, 110])
           Q = pointSurSegment(pt2, pt1, rayonOuCote + aleaLongueur)
           R = rotation(Q, pt2, aleaAngle)
-          if (!estDansQuadrilatere(R, A, B, C, D)) {
+          if (!R.estDansQuadrilatere(A, B, C, D)) {
             aleaAngle = 180 - aleaAngle
             R = rotation(Q, pt2, aleaAngle)
           }
@@ -968,7 +968,7 @@ export default function compareAireEtPerimetreAvecRectangle () {
           ]
           S = pointSurSegment(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], rayonOuCote + aleaLongueur)
           T = rotation(S, choixFigAire2[choixFig2][0], aleaAngle)
-          if (!estDansQuadrilatere(T, A, B, C, D) || estDansTriangle(T, pt2, pt1, R) || estDansTriangle(R, choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], T)) {
+          if (!T.estDansQuadrilatere(A, B, C, D) || T.estDansTriangle(pt2, pt1, R) || R.estDansTriangle(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], T)) {
             // Si les triangles se croisent, on crée le symétrique du premier par rapport au centre du rectangle.
             S = milieu(A, C)
             choixFigAire2[choixFig2][1] = homothetie(pt1, S, -1)

@@ -43,16 +43,16 @@ export default function PlacerProbabilites () {
       ['Certain', 1]]
 
     // Evenements impossibles :
-    lstEvenenementA.push(['L\'équipe de France de rugby va remporter le prochain match international de football', 0])
+    lstEvenenementA.push(['Que l\'équipe de France de rugby remporte le prochain match international de football', 0])
     const animal = choice(['un dragon', "l'abominable homme des neiges", 'un chat-garou', 'un dahu', 'un hippocampéléphantocamélos', 'une licorne', 'le Minotaure'])
     lstEvenenementA.push([`Rencontrer ${animal} en sortant du collège`, 0])
     lstEvenenementA.push(['Le point M, placé à 4 cm de A, est sur le cercle de centre A et de rayon 7 cm', 0])
     lstEvenenementA.push(['Le point M, placé à 4 cm de A, est dans le disque de centre A et de rayon 3 cm', 0])
-    lstEvenenementA.push(['En France, on peut trouver des vaches espagnoles qui parlent anglais', 0])
-    lstEvenenementA.push(['Aux USA, on peut trouver des pierres qui roulent et qui amassent de la mousse', 0])
+    lstEvenenementA.push(['En France, trouver des vaches espagnoles qui parlent anglais', 0])
+    lstEvenenementA.push(['Aux USA, trouver des pierres qui roulent et qui amassent de la mousse', 0])
     // Evenements improbables :
     lstEvenenementB.push(['Gagner le gros lot au loto', 0.05])
-    lstEvenenementB.push(['Avoir de la neige à Nice en juillet', 0.05])
+    lstEvenenementB.push(['Qu\'il y ait de la neige à Nice en juillet', 0.05])
     const carte = choice(['un As', 'un Roi', 'une Dame', 'un Valet', 'un 10', 'un 9', 'un 8', 'un 7', 'un 6', 'un 5', 'un 4', 'un 3', 'un 2'])
     lstEvenenementB.push([`Obtenir ${carte} en prenant une carte au hasard dans un jeu traditionnel de 52 cartes`, 0.08])
     // Evenements peu probables :
@@ -61,13 +61,13 @@ export default function PlacerProbabilites () {
     lstEvenenementC.push(['Obtenir ' + choice(['pile', 'face']) + ' quand on lance une pièce équilibrée d\'un euro', 0.5])
     lstEvenenementC.push(['Obtenir une carte ' + choice(['rouge', 'noire']) + ' dans un jeu traditionnel de 52 cartes', 0.5])
     // Evenements probables :
-    lstEvenenementD.push(['Il ne pleuvra pas en Bretagne ce prochain 12 juillet', 0.6])
+    lstEvenenementD.push(['Qu\'il ne pleuve pas en Bretagne ce prochain 12 juillet', 0.6])
     // Evenements très probables :
-    lstEvenenementD.push(['Le prochain président de la République Française aura plus de 40 ans', 0.9])
+    lstEvenenementD.push(['Que le prochain président de la République Française ait plus de 40 ans', 0.9])
     // Evenements certains :
-    lstEvenenementA.push(['Le prochain oiseau que je verrai aura des ailes.', 1])
-    lstEvenenementA.push(['Le point M, placé à 4 cm de A, est sur le cercle de centre A et de rayon 4 cm.', 1])
-    lstEvenenementA.push(['Le point M, placé à 4 cm de A, est dans le disque de centre A et de rayon 5 cm.', 1])
+    lstEvenenementA.push(['Que le prochain oiseau que je verrai ait des ailes.', 1])
+    lstEvenenementA.push(['Que le point M, placé à 4 cm de A, soit sur le cercle de centre A et de rayon 4 cm.', 1])
+    lstEvenenementA.push(['Que le point M, placé à 4 cm de A, soit dans le disque de centre A et de rayon 5 cm.', 1])
     // Evenement divers :
     const m = choice([4, 6, 8, 10, 12, 20, 24, 30, 48, 60, 100]) // nombre de faces du dé
     const n = randint(1, m) // nombre à obtenir
