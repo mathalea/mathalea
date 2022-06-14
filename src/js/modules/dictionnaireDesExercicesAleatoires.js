@@ -1426,6 +1426,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2N31-0": {
+    "titre": "Puissances : écriture décimale ou fractionnaire",
+    "url": "/exercices/2e/2N31-0.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N31-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2N31-1": {
     "titre": "Notation scientifique",
     "url": "/exercices/2e/2N31-1.js",
@@ -4352,13 +4367,14 @@ export default {
     }
   },
   "4C35": {
-    "titre": "Écriture fractionnaire ou décimale d'une fraction",
+    "titre": "Puissances : écriture décimale ou fractionnaire",
     "url": "/exercices/4e/4C35.ts",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4C35",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

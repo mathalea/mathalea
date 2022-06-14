@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 456 
-- nombre d'exos interactifReady 676 
+- nombre d'exos interactifReady 677 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -155,6 +155,7 @@
 |4C33-1|Puissances : Le sens des règles de calculs|OK|AMCNum|OK|mathLive|
 |4C33-3|Puissances : Calculs automatisés et règles de calculs|OK|AMCNum|OK|mathLive|
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|OK|mathLive|
+|4C35|Puissances : écriture décimale ou fractionnaire|KO|KO|OK|mathLive|
 |4C36|Utiliser les ordres de grandeur pour vérifier ses résultats|KO|KO|OK|qcm|
 |4F12|Problème s'appuyant sur la lecture d'une représentation graphique|OK|AMCHybride|KO|KO|
 |4G10-1|Trouver les coordonnée de l'image d'un point par une translation|OK|AMCHybride|OK|mathLive|
