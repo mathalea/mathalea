@@ -61,7 +61,7 @@ export default class SuperExoMathalea2d extends Exercice {
       couleurDeRemplissage: 'pink',
       backgroundColor: 'white'
     })
-    objetsEnonce.push(P, ...P.triangulation)
+    objetsEnonce.push(P, ...P.triangulation())
     const A = point(0, 0)
     const B = point(12, 0)
     const C = point(0, 5)

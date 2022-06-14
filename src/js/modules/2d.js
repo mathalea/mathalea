@@ -2688,13 +2688,15 @@ export function flatArrayToPolygone (flat, noms) {
 function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', backgroundColor = 'white' }) {
   ObjetMathalea2D.call(this)
   const triangles = earcut(data, holes) // on crée le pavage de triangles grâce à Mapbox/earcut
-  this.triangulation = [] // contiendra la liste de triangles 2d.
-  let triangle
-  for (let i = 0; i < triangles.length; i += 3) {
-    triangle = polygone(point(data[triangles[i] * 2], data[triangles[i] * 2 + 1]), point(data[triangles[i + 1] * 2], data[triangles[i + 1] * 2 + 1]), point(data[triangles[i + 2] * 2], data[triangles[i + 2] * 2 + 1]))
-    triangle.color = color
-    triangle.couleurDeRemplissage = 'none'
-    this.triangulation.push(triangle)
+  this.triangulation = function () { // retourne la liste de triangles 2d.
+    const triangles2d = []
+    for (let i = 0, triangle; i < triangles.length; i += 3) {
+      triangle = polygone(point(data[triangles[i] * 2], data[triangles[i] * 2 + 1]), point(data[triangles[i + 1] * 2], data[triangles[i + 1] * 2 + 1]), point(data[triangles[i + 2] * 2], data[triangles[i + 2] * 2 + 1]))
+      triangle.color = color
+      triangle.couleurDeRemplissage = 'none'
+      triangles2d.push(triangle)
+    }
+    return triangles2d
   }
   const sommetsContour = [] // on crée le polygone extérieur
   for (let i = 0; i < 2 * holes[0]; i += 2) {
