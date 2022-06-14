@@ -153,18 +153,6 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
  * @author Jean-Claude Lhote
  */
   this.estDansPolygoneNonConvexe = function (lePolygone) {
-    /**
-     *
-     * @param {Polygone} P
-     * @returns {number[]} retourne la liste des coordonnées des sommets de P dans un seul tableau.
-     */
-    function polygoneToFlatArray (P) {
-      const flatArray = []
-      for (let i = 0; i < P.listePoints.length; i++) {
-        flatArray.push(P.listePoints[i].x, P.listePoints[i].y)
-      }
-      return flatArray
-    }
     const listeTriangles = earcut(polygoneToFlatArray(lePolygone))
     for (let i = 0; i < listeTriangles.length; i += 3) {
       if (this.estDansTriangle(lePolygone.listePoints[listeTriangles[i]], lePolygone.listePoints[listeTriangles[i + 1]], lePolygone.listePoints[listeTriangles[i + 2]])) return true
@@ -208,6 +196,13 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
       else return this.estDansPolygoneConvexe(P2)
     }
   }
+}
+/**
+ * @author Eric Elter
+ * @returns {boolean}
+ */
+this.estDansQuadrilatere = function (A, B, C, D) {
+  return this.estDansTriangle(A, B, C) || this.estDansTriangle(A, C, D)
 }
 /**
  * Crée un objet Point ayant les propriétés suivantes :
@@ -2640,12 +2635,37 @@ export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black'
 }
 
 /**
- * @param
- * @author Eric Elter
- * @returns {boolean}
+ * @param {Polygone} P
+ * @returns {number[]} retourne la liste des coordonnées des sommets de P dans un seul tableau.
+ * @author Jean-Claude Lhote
  */
-export function estDansQuadrilatere (M, A, B, C, D) { // Est-ce que M est dans le quadrilatère non croisé ABCD ?
-  return estDansTriangle(M, A, B, C) || estDansTriangle(M, A, C, D)
+export function polygoneToFlatArray (P) {
+  const flatArray = []
+  for (let i = 0; i < P.listePoints.length; i++) {
+    flatArray.push(P.listePoints[i].x, P.listePoints[i].y)
+  }
+  return flatArray
+}
+
+/**
+ * Cette fonction permet de créer un polygone rapidement à partir d'une liste des coordonnées de ses sommets et éventuellement de leur noms
+ * @param {array} flat
+ * @param {string} noms
+ * @returns {Polygone}
+ * @author Jean-Claude Lhote
+ */
+export function flatArrayToPolygone (flat, noms) {
+  const sommets = []
+  for (let i = 0; i < flat.length; i += 2) {
+    sommets.push(point(flat[i], flat[i + 1]))
+  }
+  const pol = polygone(...sommets)
+  if (typeof noms === 'string') {
+    if (noms.length >= sommets.length) {
+      nommePolygone(pol, noms)
+    }
+  }
+  return pol
 }
 
 /*********************************************/
@@ -2768,30 +2788,6 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1) {
   else M = pointIntersectionLC(e, c, '', 2)
   return polygone(A, B, M)
 }
-/**
- *
- * @param {Point} M
- * @param {Point} A
- * @param {Point} B
- * @param {Point} C
- * @returns {boolean}
- * @author Eric Elter
- */
-export function estDansTriangle (M, A, B, C) { // Est-ce que M est dans le triangle ABC ?
-  const vMA = vecteur(M, A)
-  const vMB = vecteur(M, B)
-  const vMC = vecteur(M, C)
-  const x1 = vMB.x * vMC.y - vMB.y * vMC.x
-  const x2 = vMC.x * vMA.y - vMC.y * vMA.x
-  const x3 = vMA.x * vMB.y - vMA.y * vMB.x
-  return (superieurouegal(x1, 0) && superieurouegal(x2, 0) && superieurouegal(x3, 0)) || (inferieurouegal(x1, 0) && inferieurouegal(x2, 0) && inferieurouegal(x3, 0))
-}
-/**
- *
- * @param {Point} M Le point à tester
- * @param {*} P
- * @returns
- */
 
 /*********************************************/
 /** ************* Parrallélogrammes*************/

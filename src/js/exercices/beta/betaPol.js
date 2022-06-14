@@ -80,17 +80,6 @@ export default class SuperExoMathalea2d extends Exercice {
     }
     const time2 = new Date()
     console.log(time2 - time)
-    /*
-    time = new Date()
-    for (let i = 0; i < 2500; i++) {
-      A = point(randint(-10, 10), randint(-7, 7))
-      if (estDansQuadrilatere(A, ...P.listePoints)) B = tracePoint(A, 'blue')
-      else B = tracePoint(A, 'red')
-      objetsEnonce.push(B)
-    }
-    time2 = new Date()
-    console.log(time2 - time)
-    */
     objetsEnonce.push(P)
     // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
     const paramsEnonce = { xmin: -1, ymin: -6, xmax: 8, ymax: 1, pixelsParCm: 20, scale: 1, mainlevee: false }
