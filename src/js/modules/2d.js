@@ -196,13 +196,13 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
       else return this.estDansPolygoneConvexe(P2)
     }
   }
-}
-/**
+  /**
  * @author Eric Elter
  * @returns {boolean}
  */
-this.estDansQuadrilatere = function (A, B, C, D) {
-  return this.estDansTriangle(A, B, C) || this.estDansTriangle(A, C, D)
+  this.estDansQuadrilatere = function (A, B, C, D) {
+    return this.estDansTriangle(A, B, C) || this.estDansTriangle(A, C, D)
+  }
 }
 /**
  * Crée un objet Point ayant les propriétés suivantes :
