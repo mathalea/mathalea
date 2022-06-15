@@ -5415,8 +5415,8 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5, horizontal =
  * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
  * @author Rémi Angot et Frédéric Piou
  */
-export function texteSurArc (...args) {
-  return new TexteSurArc(...args)
+export function texteSurArc (texte, A, B, angle, color = 'black', d = 0.5, horizontal = false) {
+  return new TexteSurArc(texte, A, B, angle, color, d, horizontal)
 }
 
 /**
