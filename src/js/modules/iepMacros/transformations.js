@@ -1,5 +1,5 @@
 import { longueur, homothetie, vecteur, symetrieAxiale, milieu, rotation, translation } from '../2d'
-import { randint, arrondi, stringNombre, calcul } from '../outils'
+import { randint, stringNombre } from '../outils'
 
 /**
    *
@@ -198,10 +198,10 @@ export const homothetiePoint = function (p, centre, k, nom, { couleur = this.cou
     t = this.textePosition(`Comme le rapport est négatif alors ${centre.nom} est entre les points ${p.nom} et ${image.nom}`, positionTexte.x, positionTexte.y, { taille: 15 })
   }
   this.regleSegment(p, centre)
-  const l = arrondi(longueur(p, centre), 1)
-  const lprime = arrondi(calcul(l * Math.abs(k)))
-  const t1 = this.textePosition(`La mesure de ${centre.nom}${p.nom} est ${stringNombre(arrondi(l, 1))} cm et le rapport de l'homothetie est ${stringNombre(k)}`, positionTexte.x, positionTexte.y - 1, { taille: 15 })
-  const t2 = this.textePosition(`donc ${centre.nom}${image.nom} mesure ${stringNombre(l)} cm × ${stringNombre(Math.abs(k))} = ${stringNombre(lprime)} cm`, positionTexte.x, positionTexte.y - 2, { taille: 15 })
+  const l = longueur(p, centre)
+  const lprime = l * Math.abs(k)
+  const t1 = this.textePosition(`La mesure de ${centre.nom}${p.nom} est ${stringNombre(l, 1)} cm et le rapport de l'homothetie est ${stringNombre(k, 3)}`, positionTexte.x, positionTexte.y - 1, { taille: 15 })
+  const t2 = this.textePosition(`donc ${centre.nom}${image.nom} mesure ${stringNombre(l, 1)} cm × ${stringNombre(Math.abs(k), 3)} = ${stringNombre(lprime, 1)} cm`, positionTexte.x, positionTexte.y - 2, { taille: 15 })
   this.regleSegment(centre, image)
   this.pointCreer(image, { couleur: couleur, couleurLabel: couleur }) // on construit l'image
   this.regleMasquer()

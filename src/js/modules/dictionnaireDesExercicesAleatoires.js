@@ -77,7 +77,7 @@ export default {
     }
   },
   "1E10": {
-    "titre": "Calcul du discriminant d’une équation du second degré",
+    "titre": "Calcul du discriminant d'une équation du second degré",
     "url": "/exercices/1e/1E10.js",
     "amcReady": false,
     "interactifReady": false,
@@ -203,7 +203,7 @@ export default {
     }
   },
   "1E12": {
-    "titre": "Trouver l’équation d’une parabole",
+    "titre": "Trouver l'équation d'une parabole",
     "url": "/exercices/1e/1E12.js",
     "amcReady": false,
     "interactifReady": false,
@@ -300,7 +300,7 @@ export default {
     "interactifType": "mathLive",
     "name": "1G10",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -316,7 +316,7 @@ export default {
     "interactifType": "mathLive",
     "name": "1G11",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -332,7 +332,7 @@ export default {
     "interactifType": "mathLive",
     "name": "1G12",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -341,7 +341,7 @@ export default {
     }
   },
   "1N10": {
-    "titre": "Déterminer les termes d’une suite définie de façon explicite",
+    "titre": "Déterminer les termes d'une suite définie de façon explicite",
     "url": "/exercices/1e/1N10.js",
     "amcReady": false,
     "interactifReady": false,
@@ -356,7 +356,7 @@ export default {
     }
   },
   "1N11": {
-    "titre": "Déterminer les termes d’une suite définie par récurrence",
+    "titre": "Déterminer les termes d'une suite définie par récurrence",
     "url": "/exercices/1e/1N11.js",
     "amcReady": false,
     "interactifReady": false,
@@ -405,7 +405,7 @@ export default {
     }
   },
   "2F10-2": {
-    "titre": "Lecture graphique d’une fonction affine",
+    "titre": "Lecture graphique d'une fonction affine",
     "url": "/exercices/2e/2F10-2.js",
     "amcReady": true,
     "amcType": {
@@ -424,7 +424,7 @@ export default {
     }
   },
   "2F10-3": {
-    "titre": "Représentation graphique d’une fonction affine",
+    "titre": "Représentation graphique d'une fonction affine",
     "url": "/exercices/2e/2F10-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -454,7 +454,7 @@ export default {
     }
   },
   "2F10-5": {
-    "titre": "Déterminer le signe d’une fonction affine",
+    "titre": "Déterminer le signe d'une fonction affine",
     "url": "/exercices/2e/2F10-5.js",
     "amcReady": false,
     "interactifReady": false,
@@ -469,7 +469,7 @@ export default {
     }
   },
   "2F10-6": {
-    "titre": "Déterminer le sens de variation d’une fonction affine",
+    "titre": "Déterminer le sens de variation d'une fonction affine",
     "url": "/exercices/2e/2F10-6.js",
     "amcReady": false,
     "interactifReady": false,
@@ -484,7 +484,7 @@ export default {
     }
   },
   "2F11-1": {
-    "titre": "Déterminer l’image d’un nombre par une fonction de référence.",
+    "titre": "Déterminer l'image d'un nombre par une fonction de référence.",
     "url": "/exercices/2e/2F11-1.js",
     "amcReady": true,
     "amcType": {
@@ -518,7 +518,7 @@ export default {
     }
   },
   "2F20-1": {
-    "titre": "Montrer qu’un point appartient ou non à une courbe",
+    "titre": "Montrer qu'un point appartient ou non à une courbe",
     "url": "/exercices/2e/2F20-1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -631,7 +631,7 @@ export default {
     }
   },
   "2F32-3": {
-    "titre": "Déterminer un extremum ou encadrer par lecture d’un tableau de variations",
+    "titre": "Déterminer un extremum ou encadrer par lecture d'un tableau de variations",
     "url": "/exercices/2e/2F32-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -758,7 +758,7 @@ export default {
     }
   },
   "2G12-2": {
-    "titre": "Déterminer les coordonnées milieu d’un segment dans un repère",
+    "titre": "Déterminer les coordonnées milieu d'un segment dans un repère",
     "url": "/exercices/2e/2G12-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -788,7 +788,7 @@ export default {
     }
   },
   "2G12-4": {
-    "titre": "Déterminer la nature d’un polygone",
+    "titre": "Déterminer la nature d'un polygone",
     "url": "/exercices/2e/2G12-4.js",
     "amcReady": false,
     "interactifReady": false,
@@ -848,7 +848,7 @@ export default {
     }
   },
   "2G24-1": {
-    "titre": "Déterminer les coordonnées d’un vecteur à partir des coordonnées de deux points",
+    "titre": "Déterminer les coordonnées d'un vecteur à partir des coordonnées de deux points",
     "url": "/exercices/2e/2G24-1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -1010,7 +1010,7 @@ export default {
     }
   },
   "2N10-2": {
-    "titre": "Placer un point d’abscisse décimale",
+    "titre": "Placer un point d'abscisse décimale",
     "url": "/exercices/2e/2N10-2.js",
     "amcReady": true,
     "amcType": {
@@ -1148,7 +1148,7 @@ export default {
     }
   },
   "2N15-1": {
-    "titre": "Utiliser la notion de valeur absolue d’une quantité",
+    "titre": "Utiliser la notion de valeur absolue d'une quantité",
     "url": "/exercices/2e/2N15-1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -1178,7 +1178,7 @@ export default {
     }
   },
   "2N20-1": {
-    "titre": "Écrire la liste de tous les diviseurs d’un entier",
+    "titre": "Écrire la liste de tous les diviseurs d'un entier",
     "url": "/exercices/2e/2N20-1.js",
     "amcReady": false,
     "interactifReady": true,
@@ -1263,7 +1263,7 @@ export default {
     }
   },
   "2N20-6": {
-    "titre": "Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers",
+    "titre": "Compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers",
     "url": "/exercices/2e/2N20-6.js",
     "amcReady": false,
     "interactifReady": false,
@@ -1293,7 +1293,7 @@ export default {
     }
   },
   "2N20-8": {
-    "titre": "Déterminer la parité d’une expression",
+    "titre": "Déterminer la parité d'une expression",
     "url": "/exercices/2e/2N20-8.js",
     "amcReady": false,
     "interactifReady": false,
@@ -1426,6 +1426,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "2N31-0": {
+    "titre": "Puissances : écriture décimale ou fractionnaire",
+    "url": "/exercices/2e/2N31-0.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "2N31-0",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "2N31-1": {
     "titre": "Notation scientifique",
     "url": "/exercices/2e/2N31-1.js",
@@ -1494,7 +1509,7 @@ export default {
     }
   },
   "2N32-1": {
-    "titre": "Existence d’une racine carrée",
+    "titre": "Existence d'une racine carrée",
     "url": "/exercices/2e/2N32-1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2129,7 +2144,7 @@ export default {
     }
   },
   "2S12-2": {
-    "titre": "Déterminer un taux d’évolution global",
+    "titre": "Déterminer un taux d'évolution global",
     "url": "/exercices/2e/2S12-2.js",
     "amcReady": false,
     "interactifReady": true,
@@ -2145,7 +2160,7 @@ export default {
     }
   },
   "2S12-3": {
-    "titre": "Déterminer un taux d’évolution réciproque",
+    "titre": "Déterminer un taux d'évolution réciproque",
     "url": "/exercices/2e/2S12-3.js",
     "amcReady": false,
     "interactifReady": true,
@@ -2323,7 +2338,7 @@ export default {
     }
   },
   "3A11-2": {
-    "titre": "Décomposition en facteurs premiers d’un entier",
+    "titre": "Décomposition en facteurs premiers d'un entier",
     "url": "/exercices/3e/3A11-2.js",
     "amcReady": false,
     "interactifReady": true,
@@ -2339,7 +2354,7 @@ export default {
     }
   },
   "3A11-3": {
-    "titre": "Compter/lister les diviseurs d’un entier à partir de sa décomposition en facteurs premiers",
+    "titre": "Compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers",
     "url": "/exercices/3e/3A11-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2471,7 +2486,7 @@ export default {
     }
   },
   "3F10-2": {
-    "titre": "Fonction : calculs d’images (et d’antécédents)",
+    "titre": "Fonction : calculs d'images (et d'antécédents)",
     "url": "/exercices/3e/3F10-2.js",
     "amcReady": true,
     "amcType": {
@@ -2490,7 +2505,7 @@ export default {
     }
   },
   "3F10": {
-    "titre": "Lectures d’images et d’antécédents depuis un tableau de valeurs",
+    "titre": "Lectures d'images et d'antécédents depuis un tableau de valeurs",
     "url": "/exercices/3e/3F10.js",
     "amcReady": false,
     "interactifReady": true,
@@ -2506,7 +2521,7 @@ export default {
     }
   },
   "3F12-2": {
-    "titre": "Déterminer l’image d’un nombre par une fonction d’après sa forme algébrique",
+    "titre": "Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique",
     "url": "/exercices/3e/3F12-2.js",
     "amcReady": false,
     "interactifReady": true,
@@ -2541,7 +2556,7 @@ export default {
     }
   },
   "3F12-4": {
-    "titre": "Lire l’image d’un nombre à partir d’un graphique",
+    "titre": "Lire l'image d'un nombre à partir d'un graphique",
     "url": "/exercices/3e/3F12-4.js",
     "amcReady": true,
     "amcType": {
@@ -2560,7 +2575,7 @@ export default {
     }
   },
   "3F12": {
-    "titre": "Fonctions : Calculs d’images",
+    "titre": "Fonctions : Calculs d'images",
     "url": "/exercices/3e/3F12.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2575,7 +2590,7 @@ export default {
     }
   },
   "3F13-1": {
-    "titre": "Lecture graphique d’images et d’antécédents",
+    "titre": "Lecture graphique d'images et d'antécédents",
     "url": "/exercices/3e/3F13-1.js",
     "amcReady": false,
     "interactifReady": true,
@@ -2607,7 +2622,7 @@ export default {
     }
   },
   "3F13": {
-    "titre": "Lire les antécédents d’un nombre à partir d’un graphique",
+    "titre": "Lire les antécédents d'un nombre à partir d'un graphique",
     "url": "/exercices/3e/3F13.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2688,7 +2703,7 @@ export default {
     }
   },
   "3G10-1": {
-    "titre": "Trouver les coordonnées de l’image d’un point par une transformation du plan",
+    "titre": "Trouver les coordonnées de l'image d'un point par une transformation du plan",
     "url": "/exercices/3e/3G10-1.js",
     "amcReady": true,
     "amcType": {
@@ -2707,7 +2722,7 @@ export default {
     }
   },
   "3G10-2": {
-    "titre": "Trouver l’image d’un point par une transformation choisie aléatoirement",
+    "titre": "Trouver l'image d'un point par une transformation choisie aléatoirement",
     "url": "/exercices/3e/3G10-2.js",
     "amcReady": true,
     "amcType": {
@@ -2726,7 +2741,7 @@ export default {
     }
   },
   "3G10-3": {
-    "titre": "Construire l’image d’un point par une rotation avec cible auto-corrective",
+    "titre": "Construire l'image d'un point par une rotation avec cible auto-corrective",
     "url": "/exercices/3e/3G10-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2741,7 +2756,7 @@ export default {
     }
   },
   "3G11": {
-    "titre": "Construire l’image d’un point par une homothetie avec cible auto-corrective",
+    "titre": "Construire l'image d'un point par une homothetie avec cible auto-corrective",
     "url": "/exercices/3e/3G11.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2756,7 +2771,7 @@ export default {
     }
   },
   "3G12-1": {
-    "titre": "Trouver l’image d’une figure par une rotation de 90 degrés dans un pavage",
+    "titre": "Trouver l'image d'une figure par une rotation de 90 degrés dans un pavage",
     "url": "/exercices/3e/3G12-1.js",
     "amcReady": true,
     "amcType": {
@@ -2775,7 +2790,7 @@ export default {
     }
   },
   "3G12": {
-    "titre": "Trouver l’image d’une figure par une rotation dans un pavage",
+    "titre": "Trouver l'image d'une figure par une rotation dans un pavage",
     "url": "/exercices/3e/3G12.js",
     "amcReady": false,
     "interactifReady": false,
@@ -2861,7 +2876,8 @@ export default {
     "titre": "Agrandissement et réduction",
     "url": "/exercices/3e/3G22-1.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "3G22-1",
     "newEx": {
       "isNew": false,
@@ -2903,7 +2919,7 @@ export default {
     }
   },
   "3G30-1": {
-    "titre": "Exprimer le cosinus, le sinus ou la tangente d’un angle en fonction des côtés du triangle",
+    "titre": "Exprimer le cosinus, le sinus ou la tangente d'un angle en fonction des côtés du triangle",
     "url": "/exercices/3e/3G30-1.js",
     "amcReady": true,
     "amcType": {
@@ -2941,7 +2957,7 @@ export default {
     }
   },
   "3G31-1": {
-    "titre": "Calculer toutes les mesures d’angle d’une figure complexe",
+    "titre": "Calculer toutes les mesures d'angle d'une figure complexe",
     "url": "/exercices/3e/3G31-1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3123,7 +3139,7 @@ export default {
     }
   },
   "3G42": {
-    "titre": "Volume d’une boule",
+    "titre": "Volume d'une boule",
     "url": "/exercices/3e/3G42.js",
     "amcReady": true,
     "amcType": {
@@ -3210,7 +3226,7 @@ export default {
     }
   },
   "3L10": {
-    "titre": "Donner l’opposé d’une expression",
+    "titre": "Donner l'opposé d'une expression",
     "url": "/exercices/3e/3L10.js",
     "amcReady": false,
     "interactifReady": true,
@@ -3561,7 +3577,7 @@ export default {
     }
   },
   "3P10-1": {
-    "titre": "Coefficient multiplicateur d’une variation en pourcentage",
+    "titre": "Coefficient multiplicateur d'une variation en pourcentage",
     "url": "/exercices/3e/3P10-1.js",
     "amcReady": false,
     "interactifReady": true,
@@ -3656,7 +3672,7 @@ export default {
     }
   },
   "MG32_3F13": {
-    "titre": "Lire les antécédents d’un nombre à partir d’un graphique",
+    "titre": "Lire les antécédents d'un nombre à partir d'un graphique",
     "url": "/exercices/3e/MG32_3F13.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3756,7 +3772,7 @@ export default {
     }
   },
   "4C10-0": {
-    "titre": "Signe d’un produit ou d’un quotient de nombres relatifs",
+    "titre": "Signe d'un produit ou d'un quotient de nombres relatifs",
     "url": "/exercices/4e/4C10-0.js",
     "amcReady": true,
     "amcType": {
@@ -3775,7 +3791,7 @@ export default {
     }
   },
   "4C10-1": {
-    "titre": "Signe d’un produit de nombres relatifs",
+    "titre": "Signe d'un produit de nombres relatifs",
     "url": "/exercices/4e/4C10-1.js",
     "amcReady": true,
     "amcType": {
@@ -3794,7 +3810,7 @@ export default {
     }
   },
   "4C10-2": {
-    "titre": "Signe d’un quotient de nombres relatifs",
+    "titre": "Signe d'un quotient de nombres relatifs",
     "url": "/exercices/4e/4C10-2.js",
     "amcReady": true,
     "amcType": {
@@ -3986,7 +4002,7 @@ export default {
     }
   },
   "4C22-1": {
-    "titre": "Trouver l’inverse d’un nombre",
+    "titre": "Trouver l'inverse d'un nombre",
     "url": "/exercices/4e/4C22-1.js",
     "amcReady": false,
     "interactifReady": true,
@@ -4075,7 +4091,7 @@ export default {
     }
   },
   "4C24": {
-    "titre": "Simplifier des fractions à l’aide des nombres premiers",
+    "titre": "Simplifier des fractions à l'aide des nombres premiers",
     "url": "/exercices/4e/4C24.js",
     "amcReady": true,
     "amcType": {
@@ -4125,7 +4141,7 @@ export default {
     }
   },
   "4C30-2": {
-    "titre": "Écriture décimale d’une puissance de 10",
+    "titre": "Écriture décimale d'une puissance de 10",
     "url": "/exercices/4e/4C30-2.js",
     "amcReady": true,
     "amcType": {
@@ -4350,8 +4366,40 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "4C35": {
+    "titre": "Puissances : écriture décimale ou fractionnaire",
+    "url": "/exercices/4e/4C35.ts",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4C35",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "4C36": {
+    "titre": "Utiliser les ordres de grandeur pour vérifier ses résultats",
+    "url": "/exercices/4e/4C36.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "4C36",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "4F12": {
-    "titre": "Problème s’appuyant sur la lecture d’une représentation graphique",
+    "titre": "Problème s'appuyant sur la lecture d'une représentation graphique",
     "url": "/exercices/4e/4F12.js",
     "amcReady": true,
     "amcType": {
@@ -4365,7 +4413,7 @@ export default {
     }
   },
   "4G10-1": {
-    "titre": "Trouver les coordonnée de l’image d’un point par une translation",
+    "titre": "Trouver les coordonnée de l'image d'un point par une translation",
     "url": "/exercices/4e/4G10-1.js",
     "amcReady": true,
     "amcType": {
@@ -4383,8 +4431,23 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "4G10-2": {
+    "titre": "Transformer une figure par translation",
+    "url": "/exercices/4e/4G10-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4G10-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "4G10": {
-    "titre": "Trouver l’image d’un point par une symétrie axiale ou centrale ou par une translation",
+    "titre": "Trouver l'image d'un point par une symétrie axiale ou centrale ou par une translation",
     "url": "/exercices/4e/4G10.js",
     "amcReady": true,
     "amcType": {
@@ -4403,7 +4466,7 @@ export default {
     }
   },
   "4G11-1": {
-    "titre": "Trouver l’image d’une figure par une translation dans un pavage",
+    "titre": "Trouver l'image d'une figure par une translation dans un pavage",
     "url": "/exercices/4e/4G11-1.js",
     "amcReady": true,
     "amcType": {
@@ -4422,7 +4485,7 @@ export default {
     }
   },
   "4G11": {
-    "titre": "Trouver l’image d’une figure par une translation dans un pavage",
+    "titre": "Trouver l'image d'une figure par une translation dans un pavage",
     "url": "/exercices/4e/4G11.js",
     "amcReady": false,
     "interactifReady": false,
@@ -4445,6 +4508,21 @@ export default {
     "name": "4G12-1",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "4G12-2": {
+    "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
+    "url": "/exercices/4e/4G12-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "4G12-2",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -4503,7 +4581,7 @@ export default {
     }
   },
   "4G20-2": {
-    "titre": "Déterminer la racine carrée d’un carré parfait (calcul mental)",
+    "titre": "Déterminer la racine carrée d'un carré parfait (calcul mental)",
     "url": "/exercices/4e/4G20-2.js",
     "amcReady": true,
     "amcType": {
@@ -4538,7 +4616,7 @@ export default {
     }
   },
   "4G20-5": {
-    "titre": "Trouver la valeur arrondie d’une racine carrée",
+    "titre": "Trouver la valeur arrondie d'une racine carrée",
     "url": "/exercices/4e/4G20-5.js",
     "amcReady": false,
     "interactifReady": false,
@@ -4646,8 +4724,12 @@ export default {
   "4G31": {
     "titre": "Contrôler si deux droites sont parallèles",
     "url": "/exercices/4e/4G31.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
     "name": "4G31",
     "newEx": {
       "isNew": false,
@@ -4708,7 +4790,7 @@ export default {
     }
   },
   "4G41": {
-    "titre": "Utiliser le cosinus pour calculer la mesure d’un angle dans un triangle rectangle",
+    "titre": "Utiliser le cosinus pour calculer la mesure d'un angle dans un triangle rectangle",
     "url": "/exercices/4e/4G41.js",
     "amcReady": true,
     "amcType": {
@@ -4878,7 +4960,7 @@ export default {
     }
   },
   "4L12": {
-    "titre": "Démontrer l’équivalence de deux programmes de calcul",
+    "titre": "Démontrer l'équivalence de deux programmes de calcul",
     "url": "/exercices/4e/4L12.js",
     "amcReady": false,
     "interactifReady": false,
@@ -4942,7 +5024,7 @@ export default {
     }
   },
   "4L14-0": {
-    "titre": "Tester si un nombre est solution d’une équation",
+    "titre": "Tester si un nombre est solution d'une équation",
     "url": "/exercices/4e/4L14-0.js",
     "amcReady": false,
     "interactifReady": false,
@@ -4957,7 +5039,7 @@ export default {
     }
   },
   "4L14-1": {
-    "titre": "Tester si un nombre est solution d’une équation du premier degré",
+    "titre": "Tester si un nombre est solution d'une équation du premier degré",
     "url": "/exercices/4e/4L14-1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -4987,7 +5069,7 @@ export default {
     }
   },
   "4L15-0": {
-    "titre": "Trouver l’erreur dans une résolution d’équation du premier degré",
+    "titre": "Trouver l'erreur dans une résolution d'équation du premier degré",
     "url": "/exercices/4e/4L15-0.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5071,7 +5153,7 @@ export default {
     }
   },
   "4P10-1": {
-    "titre": "Résoudre un problème de proportionnalité à l’aide d’un graphique",
+    "titre": "Résoudre un problème de proportionnalité à l'aide d'un graphique",
     "url": "/exercices/4e/4P10-1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5102,13 +5184,29 @@ export default {
     }
   },
   "4P10": {
-    "titre": "Résoudre des problèmes de grandeurs composées et de conversion d’unités complexes",
+    "titre": "Résoudre des problèmes de grandeurs composées et de conversion d'unités complexes",
     "url": "/exercices/4e/4P10.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "4P10",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "4P16": {
+    "titre": "Convertir des grandeurs composées",
+    "url": "/exercices/4e/4P16.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "4P16",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -5166,7 +5264,7 @@ export default {
     }
   },
   "5A10": {
-    "titre": "Écrire la liste de tous les diviseurs d’un entier",
+    "titre": "Écrire la liste de tous les diviseurs d'un entier",
     "url": "/exercices/5e/5A10.js",
     "amcReady": false,
     "interactifReady": true,
@@ -5349,7 +5447,7 @@ export default {
     }
   },
   "5G10-1": {
-    "titre": "Construire le symétrique d’un point par rapport à une droite",
+    "titre": "Construire le symétrique d'un point par rapport à une droite",
     "url": "/exercices/5e/5G10-1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5364,7 +5462,7 @@ export default {
     }
   },
   "5G10-2": {
-    "titre": "Construire le symétrique d’une figure par rapport à une droite",
+    "titre": "Construire le symétrique d'une figure par rapport à une droite",
     "url": "/exercices/5e/5G10-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5379,7 +5477,7 @@ export default {
     }
   },
   "5G10": {
-    "titre": "Trouver l’image d’un point par une symétrie axiale",
+    "titre": "Trouver l'image d'un point par une symétrie axiale",
     "url": "/exercices/5e/5G10.js",
     "amcReady": true,
     "amcType": {
@@ -5398,7 +5496,7 @@ export default {
     }
   },
   "5G11-1": {
-    "titre": "Construire le symétrique d’un point par symétrie centrale",
+    "titre": "Construire le symétrique d'un point par symétrie centrale",
     "url": "/exercices/5e/5G11-1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5413,7 +5511,7 @@ export default {
     }
   },
   "5G11-2": {
-    "titre": "Construire l’image d’une figure par symétrie centrale",
+    "titre": "Construire l'image d'une figure par symétrie centrale",
     "url": "/exercices/5e/5G11-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5428,7 +5526,7 @@ export default {
     }
   },
   "5G11-3": {
-    "titre": "Construire le symétrique d’un point avec cible auto-corrective",
+    "titre": "Construire le symétrique d'un point avec cible auto-corrective",
     "url": "/exercices/5e/5G11-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5443,7 +5541,7 @@ export default {
     }
   },
   "5G11-4": {
-    "titre": "Trouver les coordonnée de l’image d’un point par une symétrie centrale",
+    "titre": "Trouver les coordonnée de l'image d'un point par une symétrie centrale",
     "url": "/exercices/5e/5G11-4.js",
     "amcReady": true,
     "amcType": {
@@ -5462,7 +5560,7 @@ export default {
     }
   },
   "5G11-5": {
-    "titre": "Trouver les coordonnée de l’image d’un point par une symétrie axiale ou centrale",
+    "titre": "Trouver les coordonnée de l'image d'un point par une symétrie axiale ou centrale",
     "url": "/exercices/5e/5G11-5.js",
     "amcReady": true,
     "amcType": {
@@ -5500,7 +5598,7 @@ export default {
     }
   },
   "5G11": {
-    "titre": "Trouver l’image d’un point par une symétrie axiale ou centrale",
+    "titre": "Trouver l'image d'un point par une symétrie axiale ou centrale",
     "url": "/exercices/5e/5G11.js",
     "amcReady": true,
     "amcType": {
@@ -5519,7 +5617,7 @@ export default {
     }
   },
   "5G12-1": {
-    "titre": "Symétrique d’une figure dans un pavage",
+    "titre": "Symétrique d'une figure dans un pavage",
     "url": "/exercices/5e/5G12-1.js",
     "amcReady": true,
     "amcType": {
@@ -5573,7 +5671,7 @@ export default {
     }
   },
   "5G12": {
-    "titre": "Trouver l’image d’une figure par symétrie centrale dans un pavage",
+    "titre": "Trouver l'image d'une figure par symétrie centrale dans un pavage",
     "url": "/exercices/5e/5G12.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5598,7 +5696,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -5693,7 +5791,7 @@ export default {
     }
   },
   "5G22": {
-    "titre": "Déterminer la nature d’une droite remarquable",
+    "titre": "Déterminer la nature d'une droite remarquable",
     "url": "/exercices/5e/5G22.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5738,7 +5836,7 @@ export default {
     }
   },
   "5G30-1": {
-    "titre": "Déterminer des angles en utilisant les cas d’égalité",
+    "titre": "Déterminer des angles en utilisant les cas d'égalité",
     "url": "/exercices/5e/5G30-1.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5823,12 +5921,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G40-2": {
-    "titre": "Reconnaître un parallélogramme à partir du codage d’une figure",
+    "titre": "Reconnaître un parallélogramme à partir du codage d'une figure",
     "url": "/exercices/5e/5G40-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5838,12 +5936,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
   "5G40": {
-    "titre": "Construire des parallélogrammes avec dispositif d’auto-correction",
+    "titre": "Construire des parallélogrammes avec dispositif d'auto-correction",
     "url": "/exercices/5e/5G40.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5853,7 +5951,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -5947,7 +6045,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -5967,7 +6065,7 @@ export default {
     }
   },
   "5L10-4": {
-    "titre": "Produire une formule à partir d’un tableau",
+    "titre": "Produire une formule à partir d'un tableau",
     "url": "/exercices/5e/5L10-4.js",
     "amcReady": false,
     "interactifReady": false,
@@ -5996,7 +6094,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -6127,7 +6225,7 @@ export default {
     }
   },
   "5L14-5": {
-    "titre": "Calculer la valeur d’une expression littérale de degré 1 à 1 inconnue",
+    "titre": "Calculer la valeur d'une expression littérale de degré 1 à 1 inconnue",
     "url": "/exercices/5e/5L14-5.js",
     "amcReady": false,
     "interactifReady": false,
@@ -6157,7 +6255,7 @@ export default {
     }
   },
   "5L14": {
-    "titre": "Calculer la valeur d’une expression littérale",
+    "titre": "Calculer la valeur d'une expression littérale",
     "url": "/exercices/5e/5L14.js",
     "amcReady": false,
     "interactifReady": true,
@@ -6188,7 +6286,7 @@ export default {
     }
   },
   "5L16": {
-    "titre": "Simplifier l’écriture d’une expression littérale",
+    "titre": "Simplifier l'écriture d'une expression littérale",
     "url": "/exercices/5e/5L16.js",
     "amcReady": false,
     "interactifReady": true,
@@ -6214,7 +6312,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -6287,7 +6385,7 @@ export default {
     }
   },
   "5N11-3": {
-    "titre": "Écrire une fraction sur 100 puis sous la forme d’un pourcentage",
+    "titre": "Écrire une fraction sur 100 puis sous la forme d'un pourcentage",
     "url": "/exercices/5e/5N11-3.js",
     "amcReady": true,
     "amcType": {
@@ -6306,7 +6404,7 @@ export default {
     }
   },
   "5N11-4": {
-    "titre": "Exprimer une fraction sous la forme d’une valeur approchée d’un pourcentage",
+    "titre": "Exprimer une fraction sous la forme d'une valeur approchée d'un pourcentage",
     "url": "/exercices/5e/5N11-4.js",
     "amcReady": false,
     "interactifReady": true,
@@ -6527,7 +6625,7 @@ export default {
     }
   },
   "5R10-0": {
-    "titre": "Trouver l’opposé d’un nombre relatif",
+    "titre": "Trouver l'opposé d'un nombre relatif",
     "url": "/exercices/5e/5R10-0.js",
     "amcReady": false,
     "interactifReady": false,
@@ -6557,7 +6655,7 @@ export default {
     }
   },
   "5R10": {
-    "titre": "Trouver le terme manquant d’une somme de nombres relatifs",
+    "titre": "Trouver le terme manquant d'une somme de nombres relatifs",
     "url": "/exercices/5e/5R10.js",
     "amcReady": true,
     "amcType": {
@@ -6576,7 +6674,7 @@ export default {
     }
   },
   "5R11-2": {
-    "titre": "Placer un point d’abscisse un nombre relatif",
+    "titre": "Placer un point d'abscisse un nombre relatif",
     "url": "/exercices/5e/5R11-2.js",
     "amcReady": true,
     "amcType": {
@@ -6595,7 +6693,7 @@ export default {
     }
   },
   "5R11": {
-    "titre": "Lire l’abscisse relative d’un point",
+    "titre": "Lire l'abscisse relative d'un point",
     "url": "/exercices/5e/5R11.js",
     "amcReady": true,
     "amcType": {
@@ -6614,7 +6712,7 @@ export default {
     }
   },
   "5R12-2": {
-    "titre": "Déterminer les coordonnées (relatives) d’un point",
+    "titre": "Déterminer les coordonnées (relatives) d'un point",
     "url": "/exercices/5e/5R12-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -6629,7 +6727,7 @@ export default {
     }
   },
   "5R12": {
-    "titre": "Déterminer les coordonnées (positives) d’un point",
+    "titre": "Déterminer les coordonnées (positives) d'un point",
     "url": "/exercices/5e/5R12.js",
     "amcReady": false,
     "interactifReady": false,
@@ -6753,7 +6851,7 @@ export default {
     }
   },
   "5R22-2": {
-    "titre": "Simplifier l’écriture d’une somme de 2 relatifs et calculer",
+    "titre": "Simplifier l'écriture d'une somme de 2 relatifs et calculer",
     "url": "/exercices/5e/5R22-2.js",
     "amcReady": false,
     "interactifReady": false,
@@ -7303,6 +7401,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6C30-0": {
+    "titre": "Poser des multiplications de nombres décimaux (Version 2)",
+    "url": "/exercices/6e/6C30-0.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "6C30-0",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6C30-1": {
     "titre": "Multiplier un nombre décimal par 10, 100 ou 1 000",
     "url": "/exercices/6e/6C30-1.js",
@@ -7475,7 +7592,7 @@ export default {
     }
   },
   "6C31-2": {
-    "titre": "Donner des valeurs approchées d’un quotient décimal",
+    "titre": "Donner des valeurs approchées d'un quotient décimal",
     "url": "/exercices/6e/6C31-2.js",
     "amcReady": false,
     "interactifReady": true,
@@ -7548,7 +7665,7 @@ export default {
     }
   },
   "6C34": {
-    "titre": "Déterminer le dernier chiffre d’un calcul",
+    "titre": "Déterminer le dernier chiffre d'un calcul",
     "url": "/exercices/6e/6C34.js",
     "amcReady": true,
     "amcType": {
@@ -7928,7 +8045,7 @@ export default {
     "interactifType": "mathLive",
     "name": "6G23-4",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -7947,7 +8064,7 @@ export default {
     "interactifType": "mathLive",
     "name": "6G23-5",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -7970,7 +8087,7 @@ export default {
     }
   },
   "6G24-1": {
-    "titre": "Construire le symétrique d’un point par rapport à une droite",
+    "titre": "Construire le symétrique d'un point par rapport à une droite",
     "url": "/exercices/6e/6G24-1.js",
     "amcReady": true,
     "amcType": {
@@ -7984,7 +8101,7 @@ export default {
     }
   },
   "6G24-2": {
-    "titre": "Construire le symétrique d’une figure par rapport à une droite (cas simples)",
+    "titre": "Construire le symétrique d'une figure par rapport à une droite (cas simples)",
     "url": "/exercices/6e/6G24-2.js",
     "amcReady": true,
     "amcType": {
@@ -7998,7 +8115,7 @@ export default {
     }
   },
   "6G24-3": {
-    "titre": "Construire le symétrique d’un point avec cible auto-corrective",
+    "titre": "Construire le symétrique d'un point avec cible auto-corrective",
     "url": "/exercices/6e/6G24-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -8032,7 +8149,7 @@ export default {
     }
   },
   "6G24": {
-    "titre": "Trouver l’image d’un point par une symétrie axiale",
+    "titre": "Trouver l'image d'un point par une symétrie axiale",
     "url": "/exercices/6e/6G24.js",
     "amcReady": true,
     "amcType": {
@@ -8070,7 +8187,7 @@ export default {
     }
   },
   "6G25-2": {
-    "titre": "Trouver l’image d’une figure par une symétrie axiale dans un pavage carré",
+    "titre": "Trouver l'image d'une figure par une symétrie axiale dans un pavage carré",
     "url": "/exercices/6e/6G25-2.js",
     "amcReady": true,
     "amcType": {
@@ -8089,7 +8206,7 @@ export default {
     }
   },
   "6G25-3": {
-    "titre": "Trouver l’image d’une figure par une symétrie axiale dans un pavage",
+    "titre": "Trouver l'image d'une figure par une symétrie axiale dans un pavage",
     "url": "/exercices/6e/6G25-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -8218,7 +8335,7 @@ export default {
     }
   },
   "6G44": {
-    "titre": "Trouver le nombre de faces ou d'arêtes d’un solide",
+    "titre": "Trouver le nombre de faces ou d'arêtes d'un solide",
     "url": "/exercices/6e/6G44.js",
     "amcReady": true,
     "amcType": {
@@ -8410,7 +8527,23 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": true,
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6M21": {
+    "titre": "Comparer périmètres et/ou aires de figures",
+    "url": "/exercices/6e/6M21.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "6M21",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -8449,7 +8582,7 @@ export default {
     }
   },
   "6M22": {
-    "titre": "Calculer périmètre et aire de disques (à partir d’un texte)",
+    "titre": "Calculer périmètre et aire de disques (à partir d'un texte)",
     "url": "/exercices/6e/6M22.js",
     "amcReady": true,
     "amcType": {
@@ -8490,7 +8623,7 @@ export default {
     }
   },
   "6M25": {
-    "titre": "Connaître le cours sur le périmètre et l’aire",
+    "titre": "Connaître le cours sur le périmètre et l'aire",
     "url": "/exercices/6e/6M25.js",
     "amcReady": false,
     "interactifReady": false,
@@ -8689,7 +8822,7 @@ export default {
     }
   },
   "6N10-6": {
-    "titre": "Donner l’écriture (décimale ou en fraction décimale) d’une somme (ou différence) de nombres avec fractions décimales",
+    "titre": "Donner l'écriture (décimale ou en fraction décimale) d'une somme (ou différence) de nombres avec fractions décimales",
     "url": "/exercices/6e/6N10-6.js",
     "amcReady": true,
     "amcType": {
@@ -8724,7 +8857,7 @@ export default {
     }
   },
   "6N11-2": {
-    "titre": "Placer un point d’abscisse entière (grands nombres)",
+    "titre": "Placer un point d'abscisse entière (grands nombres)",
     "url": "/exercices/6e/6N11-2.js",
     "amcReady": true,
     "amcType": {
@@ -8758,7 +8891,7 @@ export default {
     }
   },
   "6N11-4": {
-    "titre": "Ranger une liste de nombres entiers dans l’ordre croissant ou décroissant",
+    "titre": "Ranger une liste de nombres entiers dans l'ordre croissant ou décroissant",
     "url": "/exercices/6e/6N11-4.js",
     "amcReady": false,
     "interactifReady": false,
@@ -8773,7 +8906,7 @@ export default {
     }
   },
   "6N11": {
-    "titre": "Lire l’abscisse entière d’un point (grands nombres)",
+    "titre": "Lire l'abscisse entière d'un point (grands nombres)",
     "url": "/exercices/6e/6N11.js",
     "amcReady": true,
     "amcType": {
@@ -8878,7 +9011,7 @@ export default {
     }
   },
   "6N20-2": {
-    "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l’écriture décimale",
+    "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale",
     "url": "/exercices/6e/6N20-2.js",
     "amcReady": false,
     "interactifReady": true,
@@ -9061,7 +9194,7 @@ export default {
     }
   },
   "6N23-4": {
-    "titre": "Donner l’écriture décimale d’un nombre à partir de différents textes",
+    "titre": "Donner l'écriture décimale d'un nombre à partir de différents textes",
     "url": "/exercices/6e/6N23-4.js",
     "amcReady": true,
     "amcType": {
@@ -9137,7 +9270,7 @@ export default {
     }
   },
   "6N23": {
-    "titre": "Donner l’écriture décimale d’une fraction décimale",
+    "titre": "Donner l'écriture décimale d'une fraction décimale",
     "url": "/exercices/6e/6N23.js",
     "amcReady": true,
     "amcType": {
@@ -9190,7 +9323,7 @@ export default {
     }
   },
   "6N30-1": {
-    "titre": "Lire l’abscisse décimale d’un point (niveau 2)",
+    "titre": "Lire l'abscisse décimale d'un point (niveau 2)",
     "url": "/exercices/6e/6N30-1.js",
     "amcReady": true,
     "amcType": {
@@ -9209,7 +9342,7 @@ export default {
     }
   },
   "6N30-2": {
-    "titre": "Placer un point d’abscisse décimale",
+    "titre": "Placer un point d'abscisse décimale",
     "url": "/exercices/6e/6N30-2.js",
     "amcReady": true,
     "amcType": {
@@ -9228,7 +9361,7 @@ export default {
     }
   },
   "6N30": {
-    "titre": "Lire l’abscisse décimale d’un point",
+    "titre": "Lire l'abscisse décimale d'un point",
     "url": "/exercices/6e/6N30.js",
     "amcReady": true,
     "amcType": {
@@ -9329,7 +9462,7 @@ export default {
     }
   },
   "6N32": {
-    "titre": "Représenter une fraction de l’unité",
+    "titre": "Représenter une fraction de l'unité",
     "url": "/exercices/6e/6N32.js",
     "amcReady": false,
     "interactifReady": false,
@@ -9344,7 +9477,7 @@ export default {
     }
   },
   "6N33-0": {
-    "titre": "Calculer la fraction d’une quantité",
+    "titre": "Calculer la fraction d'une quantité",
     "url": "/exercices/6e/6N33-0.js",
     "amcReady": true,
     "amcType": {
@@ -9363,7 +9496,7 @@ export default {
     }
   },
   "6N33-1": {
-    "titre": "Calculer mentalement le pourcentage d’un nombre",
+    "titre": "Calculer mentalement le pourcentage d'un nombre",
     "url": "/exercices/6e/6N33-1.js",
     "amcReady": true,
     "amcType": {
@@ -9420,7 +9553,7 @@ export default {
     }
   },
   "6N33": {
-    "titre": "Calculer la fraction d’un nombre",
+    "titre": "Calculer la fraction d'un nombre",
     "url": "/exercices/6e/6N33.js",
     "amcReady": true,
     "amcType": {
@@ -9672,7 +9805,7 @@ export default {
     }
   },
   "6P13": {
-    "titre": "Augmenter ou diminuer d’un pourcentage",
+    "titre": "Augmenter ou diminuer d'un pourcentage",
     "url": "/exercices/6e/6P13.js",
     "amcReady": true,
     "amcType": {
@@ -10439,7 +10572,7 @@ export default {
     }
   },
   "P009": {
-    "titre": "Simulation d’expériences aléatoires",
+    "titre": "Simulation d'expériences aléatoires",
     "url": "/exercices/Profs/P009.js",
     "amcReady": false,
     "interactifReady": false,
@@ -10454,7 +10587,7 @@ export default {
     }
   },
   "P010": {
-    "titre": "étude de fonction de degré 3",
+    "titre": "Étude de fonctions de degré 3",
     "url": "/exercices/Profs/P010.js",
     "amcReady": false,
     "interactifReady": false,
@@ -10549,6 +10682,21 @@ export default {
     "amcReady": false,
     "interactifReady": false,
     "name": "P016",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "P017": {
+    "titre": "Encadrer l'aire d'un disque",
+    "url": "/exercices/Profs/P017.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "P017",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -10696,7 +10844,7 @@ export default {
     }
   },
   "beta4G20-3": {
-    "titre": "Calculer une valeur manquante avec l’égalité de Pythagore",
+    "titre": "Calculer une valeur manquante avec l'égalité de Pythagore",
     "url": "/exercices/beta/beta4G20-3.js",
     "amcReady": false,
     "interactifReady": false,
@@ -10775,7 +10923,7 @@ export default {
     }
   },
   "beta6C38": {
-    "titre": "Augmenter ou diminuer d’un pourcentage",
+    "titre": "Augmenter ou diminuer d'un pourcentage",
     "url": "/exercices/beta/beta6C38.js",
     "amcReady": false,
     "interactifReady": true,
@@ -11014,7 +11162,7 @@ export default {
     }
   },
   "betaExoSimpleMatthieu": {
-    "titre": "Ceci est le titre de l’exercice BetaExosimpleMatthieu",
+    "titre": "Ceci est le titre de l'exercice BetaExosimpleMatthieu",
     "url": "/exercices/beta/betaExoSimpleMatthieu.js",
     "amcReady": false,
     "interactifReady": false,
@@ -11258,6 +11406,21 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "betaPol": {
+    "titre": "Exo zéro Mathalea2d",
+    "url": "/exercices/beta/betaPol.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "betaPol",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "betaProbaAouB": {
     "titre": "2S30-6",
     "url": "/exercices/beta/betaProbaAouB.js",
@@ -11443,7 +11606,7 @@ export default {
     }
   },
   "betaTracerParabole": {
-    "titre": "Etude d’une parabole",
+    "titre": "Etude d'une parabole",
     "url": "/exercices/beta/betaTracerParabole.js",
     "amcReady": false,
     "interactifReady": false,
@@ -11556,7 +11719,7 @@ export default {
     }
   },
   "c3C10-4": {
-    "titre": "Tables d’addition",
+    "titre": "Tables d'addition",
     "url": "/exercices/c3/c3C10-4.js",
     "amcReady": true,
     "amcType": {
@@ -11613,7 +11776,7 @@ export default {
     }
   },
   "c3C12": {
-    "titre": "Dernier chiffre d’un calcul",
+    "titre": "Dernier chiffre d'un calcul",
     "url": "/exercices/c3/c3C12.js",
     "amcReady": true,
     "amcType": {
@@ -11773,7 +11936,7 @@ export default {
     }
   },
   "c3N11": {
-    "titre": "Lire l’abscisse entière d’un point (grands nombres)",
+    "titre": "Lire l'abscisse entière d'un point (grands nombres)",
     "url": "/exercices/c3/c3N11.js",
     "amcReady": true,
     "amcType": {
@@ -11792,7 +11955,7 @@ export default {
     }
   },
   "c3N20": {
-    "titre": "Donner l’écriture décimale à partir d’un somme d’entiers et de fractions décimales",
+    "titre": "Donner l'écriture décimale à partir d'un somme d'entiers et de fractions décimales",
     "url": "/exercices/c3/c3N20.js",
     "amcReady": true,
     "amcType": {
@@ -11891,6 +12054,102 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
+      "isNewFeat": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1F03": {
+    "titre": "Lire graphiquement le signe de $a$ et de $\\Delta$",
+    "url": "/exercices/can/1e/can1F03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1F03",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1F04": {
+    "titre": "Lire graphiquement le signe de $b$ dans $ax^2+bx+c$",
+    "url": "/exercices/can/1e/can1F04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1F04",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1F05": {
+    "titre": "Lire graphiquement les valeurs de $b$ et $c$ avec une parabole",
+    "url": "/exercices/can/1e/can1F05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1F05",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1G01": {
+    "titre": "Déterminer les valeurs remarquables du cosinus et sinus",
+    "url": "/exercices/can/1e/can1G01.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1G01",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1G02": {
+    "titre": "Déterminer les valeurs remarquables du cosinus et sinus*",
+    "url": "/exercices/can/1e/can1G02.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1G02",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1G03": {
+    "titre": "Simplifier les sinus et cosinus des angles associés",
+    "url": "/exercices/can/1e/can1G03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1G03",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
       "isNewFeat": false,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
@@ -11923,6 +12182,102 @@ export default {
     "name": "can1L02",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1L03": {
+    "titre": "Trouver les racines à partir d’une forme factorisée",
+    "url": "/exercices/can/1e/can1L03.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1L03",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1L04": {
+    "titre": "Résoudre une équation du second degré",
+    "url": "/exercices/can/1e/can1L04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1L04",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1L05": {
+    "titre": "Résoudre une équation du second degré*",
+    "url": "/exercices/can/1e/can1L05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1L05",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1L06": {
+    "titre": "Déterminer une forme canonique",
+    "url": "/exercices/can/1e/can1L06.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1L06",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1L07": {
+    "titre": "Déterminer un coefficient dans un développement",
+    "url": "/exercices/can/1e/can1L07.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1L07",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1L08": {
+    "titre": "Déterminer un coefficient dans un développement*",
+    "url": "/exercices/can/1e/can1L08.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1L08",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13724,7 +14079,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can3a-2022",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14312,7 +14667,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can4a-2022",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14680,7 +15035,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5C19",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14699,7 +15054,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5C20",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -14718,7 +15073,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5C21",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -15023,7 +15378,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5a-2022",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -15622,7 +15977,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6C31",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

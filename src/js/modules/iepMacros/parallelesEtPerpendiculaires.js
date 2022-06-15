@@ -1,5 +1,4 @@
-import { droite, projectionOrtho, pointSurSegment, droiteParPointEtParallele, longueur, appartientDroite, homothetie, rotation, angleOriente, pointSurDroite, similitude, translation, point, vecteur, translation2Points, estSurDroite, cercle, pointIntersectionLC, droiteParPointEtPerpendiculaire } from '../2d'
-import { calcul } from '../outils'
+import { droite, projectionOrtho, pointSurSegment, droiteParPointEtParallele, longueur, homothetie, rotation, angleOriente, pointSurDroite, similitude, translation, point, vecteur, translation2Points, cercle, pointIntersectionLC, droiteParPointEtPerpendiculaire } from '../2d'
 
 /**
    * Trace la parallèle à (AB) passant par C avec la règle et l'équerre. Peut prolonger le segment [AB] si le pied de la hauteur est trop éloigné des extrémités du segment
@@ -87,7 +86,7 @@ export const perpendiculaireRegleEquerre2points3epoint = function (A, B, C, desc
   let dist
   if (A.nom === undefined) A.nom = 'A'
   if (B.nom === undefined) B.nom = 'B'
-  if (appartientDroite(C, A, B)) {
+  if (C.estSur(droite(A, B))) {
     const H = rotation(C, C, 0)
     const dd = droiteParPointEtPerpendiculaire(C, d)
     C = pointIntersectionLC(dd, cercle(H, 5.5), 1)
@@ -96,7 +95,7 @@ export const perpendiculaireRegleEquerre2points3epoint = function (A, B, C, desc
     const H = projectionOrtho(C, d)
     dist = longueur(H, C) + 2
   }
-  this.equerreZoom(calcul(dist * 100 / 7.5))
+  this.equerreZoom(dist * 100 / 7.5)
   this.regleModifierLongueur(Math.max(dist * 2, 15))
   const P1 = homothetie(A, B, 1.2)
   const P2 = homothetie(B, A, 1.2)
@@ -115,7 +114,7 @@ export const perpendiculaireRegleEquerre2points3epoint = function (A, B, C, desc
  * @param {boolean} description
  */
 export const perpendiculaireRegleEquerreDroitePoint = function (d, P, description) {
-  if (!estSurDroite(P, d)) {
+  if (!P.estSur(d)) {
     const H = projectionOrtho(P, d)
     const A = rotation(P, H, 90)
     const B = rotation(A, H, 180)

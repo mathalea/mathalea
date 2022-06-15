@@ -1,4 +1,4 @@
-import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif, signeMoinsEnEvidence } from './outils.js'
+import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif, signeMoinsEnEvidence, texNombre } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow } from 'mathjs'
 import { fraction } from './fractions.js'
@@ -185,7 +185,7 @@ export default class FractionX extends Fraction {
      */
     let texFraction // num/den mais sans traitement des signes des numérateur et dénominateur
     definePropRo(this, 'texFraction', () => {
-      if (!texFraction) texFraction = `\\dfrac{${this.num}}{${this.den}}`
+      if (!texFraction) texFraction = `\\dfrac{${texNombre(this.num)}}{${texNombre(this.den)}}`
       return texFraction
     })
 
@@ -207,7 +207,7 @@ export default class FractionX extends Fraction {
        */
     let texFSD
     definePropRo(this, 'texFSD', () => {
-      if (!texFSD) texFSD = this.s === -1 ? Math.abs(this.den) === 1 ? '-' + String(Math.abs(this.num)) : `-\\dfrac{${Math.abs(this.num)}}{${Math.abs(this.den)}}` : Math.abs(this.den) === 1 ? String(Math.abs(this.num)) : `\\dfrac{${Math.abs(this.num)}}{${Math.abs(this.den)}}`
+      if (!texFSD) texFSD = this.s === -1 ? Math.abs(this.den) === 1 ? '-' + String(texNombre(Math.abs(this.num))) : `-\\dfrac{${texNombre(Math.abs(this.num))}}{${texNombre(Math.abs(this.den))}}` : Math.abs(this.den) === 1 ? String(texNombre(Math.abs(this.num))) : `\\dfrac{${texNombre(Math.abs(this.num))}}{${texNombre(Math.abs(this.den))}}`
       return texFSD
     })
 

@@ -16,9 +16,9 @@ export const dateDePublication = '13/03/2022'
 /**
  * Trouver comment agrandir ou réduire des longueurs d'une figure et construire la figure demandée
  * @author Eric Elter
- * Référence 3G32-0
+ * Référence 6P14
 */
-export default function problemesTrigoLongueur () {
+export default function agrandirReduireFigure () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.besoinFormulaireTexte = [
@@ -29,12 +29,12 @@ export default function problemesTrigoLongueur () {
     3 : Triangle avec coefficient de réduction ou d'agrandissement
     4 : Triangle avec longueur initiale et longueur finale
     5 : Rectangle avec coefficient de réduction ou d'agrandissement
-    4 : Rectangle avec longueur initiale et longueur finale
+    6 : Rectangle avec longueur initiale et longueur finale
     7 : Mélange`
   ]
   this.sup = 7
   this.nbQuestions = 4
-  this.spacingCorr = 3
+  this.spacingCorr = 1
   this.spacing = 2
 
   this.nouvelleVersion = function () {
@@ -138,7 +138,7 @@ export default function problemesTrigoLongueur () {
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
-          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse}$`
+          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse)}$`
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += ` ou bien $(${absB} \\div 4) \\times 3=${texNombre(arrondi(absB / 4, 1))} \\times 3=${texNombre(reponse)}$`
           } else if (choixAgrandissementOuReduction >= 4) {
@@ -225,7 +225,7 @@ export default function problemesTrigoLongueur () {
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
-          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse}$`
+          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse)}$`
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += ` ou bien $(${absB} \\div 4) \\times 3=${texNombre(arrondi(absB / 4, 1))} \\times 3=${texNombre(reponse)}$`
           } else if (choixAgrandissementOuReduction >= 4) {
@@ -358,9 +358,9 @@ export default function problemesTrigoLongueur () {
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
-          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse}${sp(10)}$`
-          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse1}${sp(10)}$`
-          texteCorr += `$${absD} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse2}$`
+          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse)}${sp(10)}$`
+          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse1)}${sp(10)}$`
+          texteCorr += `$${absD} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse2)}$`
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += `${sp(10)} ou bien ${sp(10)}$(${absB} \\div 4) \\times 3=${texNombre(arrondi(absB / 4, 1))} \\times 3=${texNombre(reponse)}$`
             texteCorr += `${sp(10)}$(${absC} \\div 4) \\times 3=${texNombre(arrondi(absC / 4, 1))} \\times 3=${texNombre(reponse1)}$`
@@ -473,15 +473,15 @@ export default function problemesTrigoLongueur () {
             iiAMC++
           }
           texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} implique de multiplier toutes les longueurs par un coefficient de proportionnalité. Trouvons ce coefficient.<br>`
-          texteCorr += `Pour trouver ce coefficient, divisons la longueur connue du futur triangle par sa longueur associée dans le triangle actuel : $${reponse2} \\div ${absD} = ${coefAgrandissement[choixAgrandissementOuReduction]}$. Le coefficient de proportionnalité est donc $${coefAgrandissement[choixAgrandissementOuReduction]}$.<br>`
+          texteCorr += `Pour trouver ce coefficient, divisons la longueur connue du futur triangle par sa longueur associée dans le triangle actuel : $${texNombre(reponse2)} \\div ${absD} = ${coefAgrandissement[choixAgrandissementOuReduction]}$. Le coefficient de proportionnalité est donc $${coefAgrandissement[choixAgrandissementOuReduction]}$.<br>`
           texteCorr += `Multiplions toutes les longueurs connues du triangle actuel par $${coefAgrandissement[choixAgrandissementOuReduction]}$`
 
           if (choixAgrandissementOuReduction >= 4) {
             texteCorr += `, ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}=${coefReduction[choixAgrandissementOuReduction - 4].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 4].den}$`
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
-          texteCorr += `.<br>$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse}${sp(10)}$`
-          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse1}$`
+          texteCorr += `.<br>$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse)}${sp(10)}$`
+          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse1)}$`
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += `${sp(10)} ou bien ${sp(10)}$(${absB} \\div 4) \\times 3=${texNombre(arrondi(absB / 4, 1))} \\times 3=${texNombre(reponse)}$`
             texteCorr += `${sp(10)}$(${absC} \\div 4) \\times 3=${texNombre(arrondi(absC / 4, 1))} \\times 3=${texNombre(reponse1)}$`
@@ -601,8 +601,8 @@ export default function problemesTrigoLongueur () {
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
-          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse}${sp(10)}$`
-          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse1}$`
+          texteCorr += `$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse)}${sp(10)}$`
+          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse1)}$`
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += `${sp(10)} ou bien ${sp(10)}$(${absB} \\div 4) \\times 3=${texNombre(arrondi(absB / 4, 1))} \\times 3=${texNombre(reponse)}$`
             texteCorr += `${sp(10)}$(${absC} \\div 4) \\times 3=${texNombre(arrondi(absC / 4, 1))} \\times 3=${texNombre(reponse1)}$`
@@ -661,7 +661,7 @@ export default function problemesTrigoLongueur () {
             texte += enonceAMC
             setReponse(this, i + ii, reponse1)
           } else if (!context.isAmc) {
-            texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)}] mesurera $${texNombre(reponse)}$.`
+            texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}] mesurera $${texNombre(reponse)}$.`
             texte += '<br>' + mathalea2d({ xmin: min(A.x, B.x, C.x, D.x) - 1, ymin: min(A.y, B.y, C.y, D.y) - 1, xmax: max(A.x, B.x, C.x, D.x) + 1, ymax: max(A.y, B.y, C.y, D.y) + 1, pixelsParCm: 20, scale: 0.5 }, objets)
           } else {
             propositionsAMC[iiAMC] = {
@@ -698,7 +698,7 @@ export default function problemesTrigoLongueur () {
             iiAMC++
           }
           texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} implique de multiplier toutes les longueurs par un coefficient de proportionnalité. Trouvons ce coefficient.<br>`
-          texteCorr += `Pour trouver ce coefficient, divisons la longueur connue du futur rectangle par sa longueur associée dans le rectangle actuel : $${reponse} \\div ${absB} = ${coefAgrandissement[choixAgrandissementOuReduction]}$. Le coefficient de proportionnalité est donc $${coefAgrandissement[choixAgrandissementOuReduction]}$.<br>`
+          texteCorr += `Pour trouver ce coefficient, divisons la longueur connue du futur rectangle par sa longueur associée dans le rectangle actuel : $${texNombre(reponse)} \\div ${absB} = ${coefAgrandissement[choixAgrandissementOuReduction]}$. Le coefficient de proportionnalité est donc $${coefAgrandissement[choixAgrandissementOuReduction]}$.<br>`
           texteCorr += `Multiplions toutes les longueurs connues du triangle actuel par $${coefAgrandissement[choixAgrandissementOuReduction]}$`
 
           if (choixAgrandissementOuReduction >= 4) {
@@ -706,7 +706,7 @@ export default function problemesTrigoLongueur () {
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
-          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${reponse1}$`
+          texteCorr += `$${absC} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse1)}$`
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += `${sp(10)} ou bien ${sp(10)}$(${absC} \\div 4) \\times 3=${texNombre(arrondi(absC / 4, 1))} \\times 3=${texNombre(reponse1)}$`
           } else if (choixAgrandissementOuReduction >= 4) {

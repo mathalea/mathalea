@@ -1,7 +1,8 @@
 /* eslint-disable no-sequences */
 import Exercice from '../Exercice.js'
+import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, randint, calcul, resolutionSystemeLineaire2x2 } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, resolutionSystemeLineaire2x2 } from '../../modules/outils.js'
 import { courbe2, mathalea2d, repere2 } from '../../modules/2d.js'
 export const titre = 'Lire les antécédents d\'un nombre à partir d\'un graphique'
 
@@ -56,9 +57,9 @@ export default function AntecedentGraphique () {
     texte = 'On a tracé ci-dessous la courbe représentative de la fonction $f$.<br>'
 
     if (this.sup === 1) {
-      a = calcul((fx2 - fx1) / (x2 - x1))
-      b = calcul(fx1 - a * x1)
-      f = x => a * x + b
+      a = new Decimal(fx2 - fx1).div(x2 - x1)
+      b = a.mul(x1).sub(fx1)
+      f = x => a * x - b
       if (fx2 !== fx1) {
         texte += `Déterminer par lecture graphique les antécédents de $${fx1}$ et de $${fx2}$ par cette fonction $f$.<br><br>`
         texteCorr = `L'antécédent de $${fx1}$ est $${x1}$, on note $f(${x1})=${fx1}$.<br>`
@@ -91,8 +92,8 @@ export default function AntecedentGraphique () {
           c = randint(-6, 6);
           [[numa, dena], [numb, denb]] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
         }
-        a = numa / dena
-        b = numb / denb
+        a = new Decimal(numa).div(dena)
+        b = new Decimal(numb).div(denb)
         x2 = 0
         fx2 = c
         f = x => a * x ** 2 + b * x + c

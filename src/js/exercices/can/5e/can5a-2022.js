@@ -694,7 +694,7 @@ export default function SujetCAN2022cinquieme () {
           nordOuest = rotation(nordOuest, A, angC < 0 ? angB + 180 : angB)
           objetsEnonce.push(R, AB, AC, codeAngle(B, A, angC, 1, '', 'black', 2, 1, 'none', 0, false, true, '?', 2)) // On remplit les tableaux d'objets Mathalea2d
           texte = 'Donne la mesure de l\'angle.'
-          paramsEnonce = { xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), pixelsParCm: 20, scale: 1, mainlevee: false }
+          paramsEnonce = { xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), pixelsParCm: 20, scale: 0.4, mainlevee: false }
           texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
 
           reponse = a * 10
