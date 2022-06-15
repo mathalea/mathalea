@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { mathalea2d, point, polygone, PolygoneATrous, tracePoint } from '../../modules/2d.js'
+import { diagrammeCirculaire, fixeBordures, mathalea2d, point, polygone, PolygoneATrous, tracePoint } from '../../modules/2d.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 
@@ -53,17 +53,8 @@ export default class SuperExoMathalea2d extends Exercice {
     /***************************************/
     /** ******Ici on définit les objets 2d */
     /*************************************/
-    let A
-    let B
-    const C = point(0, 0)
-    const D = point(2.5, -2)
-    const E = point(5, 0)
-    const F = point(3, -2.5)
-    const G = point(5, -5)
-    const H = point(3, -3)
-    const I = point(0, -5)
-    const J = point(2, -3)
-    const P = new PolygoneATrous({
+
+    /* const P = new PolygoneATrous({
       data: [0, 0, 5, 0, 5, 5, 0, 5, 1, 1, 2, 1, 2, 2, 1, 2, 3, 3, 4, 3, 4, 4, 3, 4],
       holes: [4, 8],
       noms: 'ABCDEFGHIJKL',
@@ -71,26 +62,31 @@ export default class SuperExoMathalea2d extends Exercice {
       couleurDeRemplissage: 'pink',
       backgroundColor: 'white'
     })
-    /* const time = new Date()
-    for (let x = -0.2; x < 5.2; x += 0.1) {
-      for (let y = -5.2; y < 0.2; y += 0.1) {
-        A = point(x, y)
-        if (A.estDansPolygoneNonConvexe(P)) B = tracePoint(A, 'blue')
-        else B = tracePoint(A, 'red')
-        B.taille = 1
-        B.epaisseur = 1
-        B.style = '+'
-        objetsEnonce.push(B)
-      }
-    }
-    const time2 = new Date()
-    console.log(time2 - time)
-    */
+
     objetsEnonce.push(P, ...P.triangulation)
+    */
+    const effectifs = [15, 25, 30, 10, 20]
+    const modalites = ['jaune', 'rouge', 'bleu', 'vert', 'blanc']
+    const pourcents = [true, true, true, true, true]
+    const valeurs = [true, true, true, true, true]
+    const mesures = [true, true, true, true, true]
+    const visibles = [true, true, true, true, true]
+    const hachures = [false, false, false, false, false]
+    const remplissage = [true, true, true, true, true]
+
+    const diag = diagrammeCirculaire({ rayon: 7, semi: false, legendePosition: 'dessous', effectifs, modalites, mesures, visibles, pourcents, valeurs, hachures, remplissage })
+    objetsEnonce.push(diag)
+
     // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
-    const paramsEnonce = { xmin: -1, ymin: -1, xmax: 8, ymax: 6, pixelsParCm: 20, scale: 1, mainlevee: false }
+
+    const paramsEnonce = Object.assign({}, fixeBordures([diag]), { pixelsParCm: 20, scale: 1, mainlevee: false })
+    console.log(paramsEnonce)
     // paramètres de la fenêtre Mathalea2d pour la correction
     // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
+    for (let i = 0; i < 5; i++) {
+      texte += `${modalites[i]}${visibles[i] ? '' : '(*)'} : ${effectifs[i]} ; `
+    }
+    texte += '<br>(*) secteur non visible<br>'
     texte += mathalea2d(paramsEnonce, objetsEnonce)
     // On ajoute au texte de la correction, la figure de la correction
     texteCorr = ''
