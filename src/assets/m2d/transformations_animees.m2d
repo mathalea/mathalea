@@ -3,7 +3,7 @@ let A = point(7,3,'A')
 let B = homothetie(A,C,3)
 let D = milieu(A,C)
 let d = droite(C,A) // On place les points C et A e on définit la droite(CA)
-let r = polygoneRegulierIndirect(C,A,6) // L'hexagone régulier indirect de sommets C puis A
+let r = polygoneRegulier(A,C,6) // L'hexagone régulier direct de sommets A puis C
 let t = rotation(r,D,180)
 let s = affiniteOrtho(r,d,0.001)
 affiniteOrthoAnimee(r,d,0.001) // sa version applatie 
