@@ -1,7 +1,7 @@
 import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
-import { fraction, max, ceil, isNumeric } from 'mathjs'
+import { fraction, max, ceil, isNumeric, floor, random, round, abs } from 'mathjs'
 import earcut from 'earcut'
 
 /*
@@ -527,19 +527,6 @@ export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
 }
 
 /**
- * Est-ce que le point C appartient au segment [AB] ?
- * C'est ce que dira cette fonction
- * @author Jean-Claude Lhote
- */
-
-export function appartientSegment (C, A, B, tolerance = 0.0001) {
-  const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
-  const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
-  const prodscalABAB = (B.x - A.x) ** 2 + (B.y - A.y) ** 2
-  if (egal(prodvect, 0, tolerance) && superieurouegal(prodscal, 0) && inferieurouegal(prodscal, prodscalABAB)) return true
-  else return false
-}
-/**
  * Est-ce que le point C est aligné avec A et B ?
  * C'est ce que dira cette fonction
  * @author Jean-Claude Lhote
@@ -826,10 +813,16 @@ export function labelLatexPoint ({ points, color = 'black', taille = 8, largeur 
 }
 
 /**
- * P = barycentre(p,'P','below') Crée le point P barycentre du polygone p, son nom 'P' sera placé sous le point si il est tracé et labelisé.
- * @param {Polygone} p
+ * Crée le barycentre d'un polygone
+ * @param {Polygone} p Polygone dont on veut créer le barycentre
+ * @param {string} [nom = ''] Nom du barycentre
+ * @param {Objet} [positionLabel = 'above'] Position du nom par rapport au point
+ * @example G = barycentre(pol) // Crée G, le barycentre du polygone pol, sans lui donner de nom
+ * @example G = barycentre(pol,'G','below') // Crée G, le barycentre du polygone pol, en notant G sous le point, s'il est tracé et labellisé.
  * @author Jean-Claude Lhote
+ * @return {Point}
  */
+// JSDOC Validee EE Juin 2022
 export function barycentre (p, nom = '', positionLabel = 'above') {
   let sommex = 0
   let sommey = 0
@@ -1461,12 +1454,19 @@ function ConstructionMediatrice (
 export function constructionMediatrice (...args) {
   return new ConstructionMediatrice(...args)
 }
+
 /**
- * d = bissectrice(A,O,B) // Bissectrice de l'angle AOB
- * d = bissectrice(A,O,B,'blue') // Bissectrice de l'angle AOB en bleu
- *
+ * Trace la bissectrice d'un angle
+ * @param {Point} A Point d'un côté de l'angle
+ * @param {Point} O Sommet de l'angle
+ * @param {Point} B Point d'un autre côté de l'angle
+ * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
+ * @example bissectrice(M,N,P) // Trace, en noir, la bissectrice de l'angle MNP
+ * @example bissectrice(M,N,P,'red') // Trace, en rouge, la bissectrice de l'angle MNP
  * @author Rémi Angot
+ * @return {demiDroite}
  */
+// JSDOC Validee EE Juin 2022
 export function bissectrice (A, O, B, color = 'black') {
   const demiangle = angleOriente(A, O, B) / 2
   const m = pointSurSegment(O, A, 3)
@@ -2507,14 +2507,14 @@ export function polygoneRegulierIndirect (A, B, n, color = 'black', couleurDeRem
  * @param {string} color facultatif
  * @author Rémi Angot
  */
-export function carre (A, B, color) {
+export function carre (A, B, color = 'black') {
   return polygoneRegulier(A, B, 4, color)
 }
 
 /**
  * carreIndirect(A,B) //Trace le carré indirect qui a pour côté [AB]
  */
-export function carreIndirect (A, B, color) {
+export function carreIndirect (A, B, color = 'black') {
   return polygoneRegulierIndirect(A, B, 4, color)
 }
 
@@ -2961,7 +2961,7 @@ export function deplaceLabel (p, nom, positionLabel) {
  * @return {(number|boolean)} Si le paramètre de la fonction est un triangle, alors retourne son aire, sinon retourne false.
  * @author Jean-Claude Lhote
  */
-// JSDOC Valide EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function aireTriangle (p) {
   if (p.listePoints.length !== 3) return false
   const A = p.listePoints[0]
@@ -4507,9 +4507,10 @@ export function projectionOrtho (M, d, nom = '', positionLabel = 'above') {
     return v
   }
 }
+
 /**
  * Construit l'image d'un objet par affinité orthogonale
- * @param {any} Objet Peut être un point, un segment, une droite, un polygone ou un vecteur
+ * @param {Point|Segment|Droite|Polygone|Vecteur} Objet Objet MathALEA2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
  * @param {number} d Direction de l'affinité
  * @param {number} k Rapport de l'affinité
  * @param {string} [nom=''] Nom de l'image (uniquement valable pour un point)
@@ -4522,9 +4523,9 @@ export function projectionOrtho (M, d, nom = '', positionLabel = 'above') {
  * // N est l'image du point M par une affinité orthogonale de direction d et de rapport 0.5. Le point sera affiché comme "point N" et ce nom sera écrit à droite de sa position
  * @example s = affiniteOrtho(segment(A,B),d,0.1,'','','red')
  * // s est l'image du segment [AB] par une affinité orthogonale de direction d et de rapport 0.1. s sera rouge
- * @return {objet} Retourne un objet du même type que le premier paramètre de la fonction
+ * @return {Point|Segment|Droite|Polygone|Vecteur} Retourne un objet du même type que le paramètre objet de la fonction
  */
-// JSDOC Valide EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above', color = 'black') {
   const a = d.a
   const b = d.b
@@ -4858,11 +4859,11 @@ export function montrerParDiv (id) {
 
 /**
  * Rend invisible un element d'après son id
- *
+ * @param {integer} [id] id propre à un objet MathALEA2d
+ * @example cacherParDiv(s2.id) // Cache l'objet s2
  * @author Rémi Angot
- * @param {string} id
- *
  */
+// JSDOC Validee par EE Juin 2022
 export function cacherParDiv (id) {
   if (document.getElementById(id)) {
     document.getElementById(id).style.visibility = 'hidden'
@@ -4872,8 +4873,8 @@ export function cacherParDiv (id) {
 }
 
 /**
- * Masque un objet puis l'affiche au bout de t0 s avant de recommencer r fois toutes les t secondes
- * @param {any} objet
+ * Masque un objet pendant t0 secondes puis l'affiche pendant (t-t0) secondes avant de recommencer r fois ce cycle en tout
+ * @param {ObjetMathalea2D} objet Objet MathALEA2d masqué puis affiché
  * @param {number} [t0=1] Temps en secondes avant l'apparition.
  * @param {number} [t=5] Temps à partir duquel l'animation recommence.
  * @param {string} [r='Infinity'] Nombre de répétitions (infini si ce n'est pas un nombre).
@@ -4882,7 +4883,7 @@ export function cacherParDiv (id) {
  * @example afficherTempo(ob1,2,9,10)
  * // Sur un cycle de 9 secondes, affiche ob1 au bout de 2 seconde puis le masque en fin de cycle. Ce cycle est répété 10 fois.
  */
-// JSDOC Valide EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function afficherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
   let compteur = 1 // Nombre d'animations
   const checkExist = setInterval(function () {
@@ -4912,17 +4913,18 @@ export function afficherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
 }
 
 /**
- * Masque un objet puis l'affiche au bout de t0 s avant de recommencer r fois toutes les t secondes
- *
- *
- * @param {any} objet dont l'identifiant est accessible par objet.id
- * @param {number} [t0=1] temps en secondes avant l'apparition
- * @param {number} [t=5] temps à partir duquel l'animation recommence
- * @param {string} [r='Infinity'] nombre de répétition (infini si ce n'est pas un nombre)
-
- *
- *
- */
+ * Affiche un objet pendant t0 secondes puis le cache pendant (t-t0) secondes avant de recommencer r fois ce cycle en tout
+ * @param {ObjetMathalea2D} objet Objet MathALEA2d affiché puis masqué
+ * @param {number} [t0=1] Temps en secondes avant l'apparition
+ * @param {number} [t=5] Temps à partir duquel l'animation recommence
+ * @param {string} [r='Infinity'] Nombre de répétitions (infini si ce n'est pas un nombre)
+ * @example cacherTempo(figure1)
+ * // Affiche figure1 pendant 1 seconde, puis le cache pendant 4 secondes et recommence ce cycle indéfiniment.
+ * @example cacherTempo(figure1,2,8,3)
+ * // Affiche figure1 pendant 2 secondes, puis le cache pendant 6 secondes et recommence ce cycle 3 fois en tout.
+ * @author Eric Elter
+*/
+// JSDOC Validee par EE Juin 2022
 export function cacherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
   let compteur = 1 // Nombre d'animations
   const checkExist = setInterval(function () {
@@ -4952,13 +4954,8 @@ export function cacherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
 }
 
 /**
- * Rend visible un element d'après son id
- *
- *
- */
-/**
  * Masque une suite d'objets puis les affiche un par un, de t secondes en t secondes avant de recommencer r fois, tApresDernier secondes après l'affichage de tous les objets
- * @param {any} objets Liste d'objets à afficher
+ * @param {ObjetMathalea2D[]} objets Liste d'objets MathALEA2d masqués puis affichés
  * @param {number} [t = 1] Temps en secondes entre l'apparition de chaque objet
  * @param {string} [r = 'Infinity'] Nombre de répétitions (infini si ce n'est pas un nombre).
  * @param {number} [tApresDernier = 5] Temps, après l'affichage du dernier objet, à partir duquel l'animation recommence.
@@ -4968,7 +4965,7 @@ export function cacherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
  * // Affiche s1 au bout de 2 secondes, puis s2 après 2 nouvelles secondes, puis les masque après 10 secondes. Ce cycle est répété en tout 9 fois.
  * @author Rémi Angot
  */
-// JSDOC Valide EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function afficherUnParUn (objets, t = 1, r = 'Infinity', tApresDernier = 5) {
   let t0 = t
   const tf = objets.length * t + tApresDernier
@@ -5248,7 +5245,7 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
  * @author Rémi Angot
  * @private
  */
-// JSDOC Valide EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false) {
   ObjetMathalea2D.call(this)
   this.color = color
@@ -5294,7 +5291,7 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', h
  * @returns {AfficheLongueurSegment}
  * @author Rémi Angot
  */
-// JSDOC Valide EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function afficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false) {
   return new AfficheLongueurSegment(A, B, color, d, unite, horizontal)
 }
@@ -5441,7 +5438,7 @@ export function texteSurArc (...args) {
  * @returns {code_SVG|code_TikZ}
  * @private
  */
-// JSDOC Valide EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, couleurDeRemplissage = 'none', fillOpacite = 0.5, arcEpaisseur = 1 } = {}) {
   ObjetMathalea2D.call(this)
   this.depart = A
@@ -5507,7 +5504,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
  * // Affiche le label pop en gras et rouge, sur l'angle rentrant MNO, avec un arc bleu, epais de 2 et de rayon 2 "cm", à 1 "cm" de l'arc rempli en orange avec une opacité de 80%, cerné par ses rayons.
  * @returns {AfficheMesureAngle}
  */
-// JSDOC Valide EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, couleurDeRemplissage = 'none', fillOpacite = 0.5, arcEpaisseur = 1 } = {}) {
   return new AfficheMesureAngle(A, B, C, color, distance, label, { ecart, mesureEnGras, saillant, colorArc, rayon, couleurDeRemplissage, fillOpacite, arcEpaisseur })
 }
@@ -5526,7 +5523,7 @@ export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
  * @author Jean-Claude Lhote
  * @private
  */
-// JSDOC Valide EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function AfficheCoteSegment (
   s,
   Cote = '',
@@ -5621,7 +5618,7 @@ function AfficheCoteSegment (
  * @returns {AfficheCoteSegment}
  * @author Jean-Claude Lhote
  */
-// JSDOC Valide EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function afficheCoteSegment (s, Cote = '', positionCote = 0.5, couleurCote = 'black', epaisseurCote = 1, positionValeur = 0.5, couleurValeur = 'black', horizontal = false) {
   return new AfficheCoteSegment(s, Cote, positionCote, couleurCote, epaisseurCote, positionValeur, couleurValeur, horizontal)
 }
@@ -6182,11 +6179,26 @@ export function droiteGraduee2 (...args) {
 }
 
 /**
-* axes(xmin,ymin,xmax,ymax,thick,xstep,ystep,epaisseur) // Trace les axes des abscisses et des ordonnées
-*
-* @author Rémi Angot
+ * Trace un repère orthonormé
+ * @param {number} [xmin=-30] Valeur minimale sur l'axe des abscisses
+ * @param {number} [ymin=-30] Valeur minimale sur l'axe des ordonnées
+ * @param {number} [xmax=30] Valeur maximale sur l'axe des abscisses
+ * @param {number} [ymax=30] Valeur maximale sur l'axe des ordonnées
+ * @param {number} [thick=0.2] Demi-longueur des tirets de chaque graduation
+ * @param {number} [xstep=1] Pas sur l'axe des abscisses
+ * @param {number} [ystep=1] Pas sur l'axe des ordonnées
+ * @param {number} [epaisseur=2] Epaisseur des deux axes
+ * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @author Rémi Angot
+ * @example Axes()
+ * // Trace un repère orthonormé dont les axes des abscisses et des ordonnées ont pour minimum -30, maximum -30, épaisseur 2, avec un pas de 1 et de couleur noire. Le tiret de chaque graduation mesure 0,4.
+ * @example Axes(-10,-5,20,3,0.25,2,0.5,1,'red')
+ * // Trace un repère orthonormé rouge dont les axes des abscisses et des ordonnées ont pour épaisseur 1 et dont le tiret de chaque graduation mesure 0,5.
+ * // L'axe des abscisses va de -10 à 20 avec un pas de 2. L'axe des ordonnées va de -5 à 3 avec un pas de 0,5.
+ * @returns {code_SVG|code_TikZ}
+ * @private
 */
-
+// JSDOC Validee par EE Juin 2022
 function Axes (
   xmin = -30,
   ymin = -30,
@@ -6237,24 +6249,63 @@ function Axes (
   }
   this.commentaire = `Axes(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, thick = ${thick})`
 }
-export function axes (...args) {
-  return new Axes(...args)
+
+/**
+ * Trace un repère orthonormé
+ * @param {number} [xmin=-30] Valeur minimale sur l'axe des abscisses
+ * @param {number} [ymin=-30] Valeur minimale sur l'axe des ordonnées
+ * @param {number} [xmax=30] Valeur maximale sur l'axe des abscisses
+ * @param {number} [ymax=30] Valeur maximale sur l'axe des ordonnées
+ * @param {number} [thick=0.2] Demi-longueur des tirets de chaque graduation
+ * @param {number} [xstep=1] Pas sur l'axe des abscisses
+ * @param {number} [ystep=1] Pas sur l'axe des ordonnées
+ * @param {number} [epaisseur=2] Epaisseur des deux axes
+ * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @author Rémi Angot
+ * @example axes()
+ * // Trace un repère orthonormé dont les axes des abscisses et des ordonnées ont pour minimum -30, maximum -30, épaisseur 2, avec un pas de 1 et de couleur noire. Le tiret de chaque graduation mesure 0,4.
+ * @example axes(-10,-5,20,3,0.25,2,0.5,1,'red')
+ * // Trace un repère orthonormé rouge dont les axes des abscisses et des ordonnées ont pour épaisseur 1 et dont le tiret de chaque graduation mesure 0,5.
+ * // L'axe des abscisses va de -10 à 20 avec un pas de 2. L'axe des ordonnées va de -5 à 3 avec un pas de 0,5.
+ * @returns {Axes}
+*/
+// JSDOC Validee par EE Juin 2022
+export function axes (
+  xmin = -30,
+  ymin = -30,
+  xmax = 30,
+  ymax = 30,
+  thick = 0.2,
+  xstep = 1,
+  ystep = 1,
+  epaisseur = 2,
+  color = 'black'
+) {
+  return new Axes(xmin, ymin, xmax, ymax, thick, xstep, ystep, epaisseur, color)
 }
 
 /**
- * @author Frédéric Piou
- * @param {*} xmin
- * @param {*} ymin
- * @param {*} xmax
- * @param {*} ymax
- * @param {*} thick
- * @param {*} xstep
- * @param {*} ystep
- * @param {*} epaisseur
- * @param {*} color
- * @param {*} ytick
+ * Trace une droite verticale graduée
+ * @param {number} [xmin=-30] Valeur minimale sur l'axe des abscisses
+ * @param {number} [ymin=-30] Valeur minimale sur l'axe des ordonnées
+ * @param {number} [xmax=30] Valeur maximale sur l'axe des abscisses
+ * @param {number} [ymax=30] Valeur maximale sur l'axe des ordonnées
+ * @param {number} [thick=0.2] Demi-longueur des tirets de chaque graduation
+ * @param {number} [xstep=1] Pas sur l'axe des abscisses
+ * @param {number} [ystep=1] Pas sur l'axe des ordonnées
+ * @param {number} [epaisseur=2] Epaisseur des deux axes
+ * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
  * @param {*} titre
- */
+ * @author Frédéric Piou
+
+* @example axes()
+ * // Trace un repère orthonormé dont les axes des abscisses et des ordonnées ont pour minimum -30, maximum -30, épaisseur 2, avec un pas de 1 et de couleur noire. Le tiret de chaque graduation mesure 0,4.
+ * @example axes(-10,-5,20,3,0.25,2,0.5,1,'red')
+ * // Trace un repère orthonormé rouge dont les axes des abscisses et des ordonnées ont pour épaisseur 1 et dont le tiret de chaque graduation mesure 0,5.
+ * // L'axe des abscisses va de -10 à 20 avec un pas de 2. L'axe des ordonnées va de -5 à 3 avec un pas de 0,5.
+ * @returns {Axes}
+*/
+
 function AxeY (
   xmin = -30,
   ymin = -30,
@@ -10150,9 +10201,12 @@ export function creerLutin (...args) {
 
 /**
  * Fait avancer le lutin de d unités de lutin dans la direction de son orientation
- * @param {number} d
- * @param {objet} lutin
+ * @param {number} d Nombre d'unités choisi pour avancer
+ * @param {Objet} lutin Lutin
+ * @example avance(5, lutin) // Fait avancer le lutin de 5 unités
+ * @author Jean-Claude Lhote
  */
+// JSDOC Validee EE Juin 2022
 export function avance (d, lutin = context.lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
   const xdepart = lutin.x
   const ydepart = lutin.y
@@ -10167,17 +10221,23 @@ export function avance (d, lutin = context.lutin) { // A faire avec pointSurCerc
   lutin.xMax = Math.max(lutin.xMax, lutin.x)
   lutin.yMax = Math.max(lutin.yMax, lutin.y)
 }
+
 /**
  * Fait entrer le lutin dans le mode "trace"
  * @param {objet} lutin
+ * @example baisseCrayon(lutin) // Met lutin en mode "trace"
  */
+// JSDOC Validee par EE Juin 2022
 export function baisseCrayon (lutin = context.lutin) {
   lutin.crayonBaisse = true
 }
+
 /**
  * Fait sortir le lutin du mode "trace"
  * @param {objet} lutin
+ * @example leveCrayon(lutin) // Sort lutin du mode "trace"
  */
+// JSDOC Validee par EE Juin 2022
 export function leveCrayon (lutin = context.lutin) {
   lutin.crayonBaisse = false
 }
@@ -10294,10 +10354,15 @@ export function ajouterAy (y, lutin = context.lutin) {
   lutin.yMin = Math.min(lutin.yMin, lutin.y)
   lutin.yMax = Math.max(lutin.yMax, lutin.y)
 }
+
 /**
- * fait "vibrer" le lutin tempo fois autour de sa position courante
+ * Fait "vibrer" le lutin, tempo fois autour de sa position courante
+ * @param {number} tempo Nombre de vibrations
+ * @param {Objet} lutin Lutin
+ * @example attendre(5, lutin) // Fait "vibrer" 5 fois le lutin
  * @author Jean-Claude Lhote
  */
+// JSDOC Validee EE Juin 2022
 export function attendre (tempo, lutin = context.lutin) {
   const x = lutin.x; const y = lutin.y
   lutin.listeTraces.push([x, y, x + 0.08, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
@@ -10696,12 +10761,12 @@ export function scratchblock (stringLatex) {
 */
 
 /**
- * Afficher le SVG d'un crayon avec la mine sur le point A
+ * Affiche (en HTML) un crayon avec la mine sur le point A
  * @param {point} A
- * @return {code_SVG|code_TikZ}
+ * @return {code_SVG}
  * @private
  */
-// JSDOC Valide EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function AfficherCrayon (A) {
   ObjetMathalea2D.call(this)
   this.x = A.x
@@ -10718,11 +10783,11 @@ function AfficherCrayon (A) {
 }
 
 /**
- * Afficher le SVG d'un crayon avec la mine sur le point A
+ * Afficher (en HTML) un crayon avec la mine sur le point A
  * @param {point} A
  * @return {AfficherCrayon}
  */
-// JSDOC Valide EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function afficherCrayon (A) {
   return new AfficherCrayon(A)
 }
