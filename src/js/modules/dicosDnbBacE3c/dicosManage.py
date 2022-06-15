@@ -205,7 +205,7 @@ def manageDico(dicoPath:str,dicoType:str):
     # On crée le repertoire s'il n'existe pas
     if (not os.path.exists(folderToScan)):
         os.makedirs(folderToScan)    
-    # On récupère et range toutes les années présente dans le repertoire à scanner
+    # On récupère et range toutes les années présentes dans le repertoire à scanner
     getAllYears = sorted(os.listdir(folderToScan)) 
     
     # On traite toutes les années
