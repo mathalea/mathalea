@@ -396,7 +396,7 @@ function TracePoint (...points) {
         } else if (this.style === '#') {
           p1 = point(A.x - this.tailleTikz, A.y - this.tailleTikz)
           p2 = point(A.x + this.tailleTikz, A.y - this.tailleTikz)
-          c = carreIndirect(p1, p2, this.color)
+          c = carre(p2, p1, this.color)
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
           c.couleurDeRemplissage = this.color
@@ -2469,6 +2469,7 @@ export function renommePolygone (p, noms) {
 
 /**
  * Trace le polygone régulier direct à n côtés qui a pour côté [AB]
+ * Pour tracer le polygone régulier indirect de côté [AB], on iversera A et B
  * @param {Point} A
  * @param {Point} B
  * @param {integer} n Nombre de côtés
@@ -2488,24 +2489,8 @@ export function polygoneRegulier (A, B, n, color = 'black') {
 }
 
 /**
- * polygoneRegulierIndirect(A,B,n) //Trace le polygone régulier indirect à n côtés qui a pour côté [AB]
- *
- * @author Rémi Angot
- */
-export function polygoneRegulierIndirect (A, B, n, color = 'black') {
-  const listePoints = [A, B]
-  for (let i = 1; i < n - 1; i++) {
-    listePoints[i + 1] = rotation(
-      listePoints[i - 1],
-      listePoints[i],
-      180 - 360 / n
-    )
-  }
-  return polygone(listePoints, color)
-}
-
-/**
  * Trace en 'color' le carré direct qui a pour côté [AB].
+ * Pour faire un carré Indirect de côté [AB], on inversera A et B.
  * @param {Point} A
  * @param {Point} B
  * @param {string} color facultatif
@@ -2513,13 +2498,6 @@ export function polygoneRegulierIndirect (A, B, n, color = 'black') {
  */
 export function carre (A, B, color) {
   return polygoneRegulier(A, B, 4, color)
-}
-
-/**
- * carreIndirect(A,B) //Trace le carré indirect qui a pour côté [AB]
- */
-export function carreIndirect (A, B, color) {
-  return polygoneRegulierIndirect(A, B, 4, color)
 }
 
 function CodageCarre (c, color = 'black', mark = '×') {
@@ -11526,7 +11504,7 @@ function Pavage () {
             P11 = rotation(P2, B, 60)
             P12 = rotation(P6, A, -60)
             P3 = polygoneRegulier(A, C, 4)
-            P4 = polygoneRegulierIndirect(B, C, 4)
+            P4 = polygoneRegulier(C, B, 4)
             P5 = rotation(P4, B, -150)
             P8 = rotation(P3, A, 150)
 
@@ -11622,10 +11600,10 @@ function Pavage () {
           for (let j = 0; j < Nx; j++) {
             C = rotation(A, B, -135)
             P1 = polygoneRegulier(A, B, 8)
-            P2 = polygoneRegulierIndirect(A, B, 8)
+            P2 = polygoneRegulier(B, A, 8)
             P3 = translation(P1, v)
             P4 = translation(P2, v)
-            P5 = polygoneRegulierIndirect(B, C, 4)
+            P5 = polygoneRegulier(C, B, 4)
             P6 = translation(P5, v)
             P7 = translation(P5, w)
             P8 = translation(P6, w)
