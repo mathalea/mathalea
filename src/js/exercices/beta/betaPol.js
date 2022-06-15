@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { mathalea2d, point, polygone, PolygoneATrous, tracePoint } from '../../modules/2d.js'
+import { mathalea2d, point, polygone, polygoneATrous, tracePoint } from '../../modules/2d.js'
 
 export const titre = 'Exo zéro Mathalea2d'
 
@@ -63,7 +63,7 @@ export default class SuperExoMathalea2d extends Exercice {
     const H = point(3, -3)
     const I = point(0, -5)
     const J = point(2, -3)
-    const P = new PolygoneATrous({
+    const P = polygoneATrous({
       data: [0, 0, 5, 0, 5, 5, 0, 5, 1, 1, 2, 1, 2, 2, 1, 2, 3, 3, 4, 3, 4, 4, 3, 4],
       holes: [4, 8],
       noms: 'ABCDEFGHIJKL',
