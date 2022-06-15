@@ -3,5 +3,5 @@ let A = point(7,3,'A')
 let d = droite(C,A) // On place les points C et A e on définit la droite(CA)
 let p = carre(C,A) // Le carré direct de sommets C puis A
 let q = affiniteOrtho(p,d,0.5) // q est le carré "applati" par l'affinité
-let r = polygoneRegulierIndirect(C,A,6) // L'hexagone régulier indirect de sommets C puis A
+let r = polygoneRegulier(A, C, 6) // L'hexagone régulier direct de sommets A puis C
 let s = affiniteOrtho(r,d,0.8) // sa version applatie par l'affinité de rapport 0.8
