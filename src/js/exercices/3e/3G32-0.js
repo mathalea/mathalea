@@ -36,9 +36,9 @@ export default function problemesTrigoLongueur () {
     Nombres séparés par des tirets :
     1 : Calculer la largeur d'une rivière
     2 : Calcul d'un parallèle terrestre
-    3 : Calculer la hauteur d\'un objet vu sous un angle donné
-    4 : Calculer la hauteur d\'une falaise
-    5 : Calculer la hauteur d\'une montagne
+    3 : Calculer la hauteur d'un objet vu sous un angle donné
+    4 : Calculer la hauteur d'une falaise
+    5 : Calculer la hauteur d'une montagne
     6 : Triangle rectangle inscrit dans un triangle rectangle
     7 : Mélange`
   ]
