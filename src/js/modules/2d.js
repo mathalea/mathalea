@@ -1,4 +1,4 @@
-import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal } from './outils.js'
+import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal, combinaisonListes, texcolors, texNombre } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
 import { fraction, max, ceil, isNumeric, Fraction } from 'mathjs'
@@ -2673,6 +2673,14 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
     if (noms.length >= data.length << 1) {
       sommetsContour[i << 1].nom = noms[i << 1]
     }
+  }
+  // On cherche les bordures
+  for (let i = 0, xmin = 1000, xmax = -1000, ymin = 1000, ymax = -1000; i < data.length; i += 2) {
+    xmin = Math.min(xmin, data[i])
+    xmax = Math.max(xmax, data[i])
+    ymin = Math.min(ymin, data[i + 1])
+    ymax = Math.max(ymax, data[i + 1])
+    this.bordures = [xmin, ymin, xmax, ymax]
   }
   this.contour = polygone(...sommetsContour)
   this.trous = []
@@ -8660,6 +8668,133 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
 export function diagrammeBarres (...args) {
   return new DiagrammeBarres(...args)
 }
+
+function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalites = [], semi = false, legende = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
+  ObjetMathalea2D.call(this)
+  const objets = []
+  const listeHachuresDisponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
+  const listeMotifs = combinaisonListes(listeHachuresDisponibles, effectifs.length)
+  this.bordures = [1000, 1000, -1000, -1000]
+  this.x = x
+  this.y = y
+  const centre = point(this.x + rayon, this.y + (semi ? 0 : rayon))
+  const depart = point(this.x + 2 * rayon, (semi ? this.y : this.y + rayon))
+  const contour = semi ? arc(translation(centre, vecteur(rayon, 0)), centre, 180, true, 'white', 'black') : cercle(centre, rayon, 'black')
+  let positionLegende // On prévoit l'emplacement de la légende si celle-ci est demandée
+  switch (legendePosition) {
+    case 'droite':
+      positionLegende = { x: this.x + 2 * rayon + 1, y: this.y }
+      break
+    case 'dessus':
+      positionLegende = { x: this.x, y: this.y + semi ? rayon + 1 : 2 * rayon + 1 }
+      break
+    case 'dessous':
+      positionLegende = { x: this.x, y: this.y - 1.5 }
+      break
+  }
+  let T = point(positionLegende.x, positionLegende.y)
+  const angleTotal = semi ? 180 : 360
+  const effectifTotal = effectifs.reduce((somme, valeur) => somme + valeur)
+  const secteurs = []
+  const legendes = []
+  const etiquettes = []
+  const etiquettes2 = []
+  const etiquettes3 = []
+  let alpha = 0 // alpha est l'angle à partir duquel démarre le secteur
+  let legendeMax = 0
+  for (let i = 0, a, angle, legende, textelegende, hachure; i < effectifs.length; i++) {
+    // on crée les secteurs
+    angle = angleTotal * effectifs[i] / effectifTotal
+    a = arc(rotation(depart, centre, alpha), centre, angle, true)
+    if (hachures[i]) {
+      hachure = motifs(listeMotifs[i])
+      a.hachures = hachure
+      a.couleurDesHachures = texcolors(i + 1)
+      a.couleurDeRemplissage = texcolors(i + 2)
+    } else {
+      hachure = ''
+      a.hachures = ''
+    }
+    a.opaciteDeRemplissage = 0.7
+    if (remplissage[i]) a.couleurDeRemplissage = texcolors(i + 1)
+    if (visibles[i]) secteurs.push(a)
+    if (valeurs[i]) {
+      etiquettes.push(latexParPoint(texNombre(effectifs[i]), similitude(depart, centre, alpha + angle * 3 / 4, 0.8), 'black', 20, 12, 'yellow', 8))
+    }
+    if (pourcents[i]) {
+      etiquettes2.push(latexParPoint(texNombre(100 * effectifs[i] / effectifTotal, 0) + '\\%', similitude(depart, centre, alpha + angle / 4, 0.8), 'black', 20, 12, 'yellow', 8))
+    }
+    if (mesures[i]) {
+      etiquettes3.push(latexParPoint(texNombre(angle, 0) + '\\degree', similitude(depart, centre, alpha + angle / 2, 0.6), 'black', 20, 12, 'yellow', 8))
+    }
+    alpha += angle
+
+    // on crée les légendes
+    switch (legendePosition) {
+      case 'droite':
+        legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
+        textelegende = texteParPoint(modalites[i], translation(T, vecteur(1.2, i * 1.5 + 0.5)), 0, 'black', 1.5, 'gauche', false)
+        legendeMax = Math.max(legendeMax, modalites[i].length * 0.6)
+        break
+      default:
+        legende = carre(T, translation(T, vecteur(1, 0)), 'black')
+        textelegende = texteParPoint(modalites[i], translation(T, vecteur(1.2, 0.5)), 0, 'black', 1.5, 'gauche', false)
+        T = translation(T, vecteur(modalites[i].length * 0.6 + 1, 0))
+        legendeMax = legendeMax + modalites[i].length * 0.6 + 2.2
+        break
+    }
+
+    legende.couleurDeRemplissage = a.couleurDeRemplissage
+    legende.couleurDesHachures = a.couleurDesHachures
+    legende.hachures = hachure
+    legende.opaciteDeRemplissage = 0.7
+    legendes.push(legende, textelegende)
+  }
+  objets.push(contour)
+  objets.push(...secteurs)
+  if (legende) objets.push(...legendes)
+  objets.push(...etiquettes, ...etiquettes2, ...etiquettes3)
+  // calcul des bordures
+  this.bordures[0] = this.x - 0.5
+  this.bordures[1] = this.y - 0.5 - (legende ? (legendePosition === 'dessous' ? 2 : 0) : 0)
+  this.bordures[2] = this.x + rayon * 2 + 1 + (legende ? (legendePosition === 'droite' ? legendeMax : (Math.max(legendeMax, this.x + rayon * 2 + 1) - (this.x + rayon * 2 + 1))) : 0)
+  this.bordures[3] = this.y + (semi ? rayon : rayon * 2) + (legende ? (legendePosition === 'dessus' ? 2 : (legendePosition === 'droite' ? Math.max(this.y + (semi ? rayon : rayon * 2), effectifs.length * 1.5) - (this.y + (semi ? rayon : rayon * 2)) : 0)) : 0)
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+}
+/**
+ *
+ * @param {number[]} effectifs liste des effectifs à donner impérativement
+ * @param {number} x abscisse du point en bas à gauche (défaut 0)
+ * @param {number} y ordonnée du point en bas à gauche (defaut 0)
+ * @param {number} rayon 4 par défaut
+ * @param {string[]} modalites les modalités associées aux effectifs respectifs
+ * @param {boolean} semi true pour un semi-circulaire, false pour un circulaire false par défaut
+ * @param {boolean} legende true pour présence de la légende
+ * @param {string} legendePosition 'droite' (défaut) 'dessus' ou 'dessous'
+ * @param {boolean[]} mesures présence ou non de la mesure de chaque secteur
+ * @param {boolean[]} visibles découpe ou non du secteur (pour créer des diagrammes à compléter)
+ * @param {boolean[]} pourcents présence ou non du pourcentage de l'effectif total associé au secteur
+ * @param {boolean[]} valeurs présence ou non de l'effectif
+ * @param {boolean[]} présence ou non de hachures dans le secteur associé
+ * @param {boolean[]} présence ou non d'une couleur de remplissage dans le secteur associé
+ * @returns
+ */
+export function diagrammeCirculaire ({ effectifs = [100], x = 0, y = 0, rayon = 4, modalites = ['tout'], semi = false, legende = true, legendePosition = 'droite', mesures = [false], visibles = [true], pourcents = [true], valeurs = [false], hachures = [true], remplissage = [false] }) {
+  return new DiagrammeCirculaire({ effectifs, x, y, rayon, modalites, semi, legende, legendePosition, mesures, visibles, pourcents, valeurs, hachures, remplissage })
+}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%% LES COURBES DE FONCTIONS %%%%%%%%%
@@ -10939,22 +11074,22 @@ function pattern ({
         break
       case 'dots':
         myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
-            <circle cx="3" cy="3" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-            <circle cx="8" cy="3" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-            <circle cx="3" cy="8" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-            <circle cx="8" cy="8" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="3" cy="3" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="8" cy="3" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="3" cy="8" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="8" cy="8" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
             </pattern>`
         break
       case 'crosshatch dots':
         myPattern += `<pattern id="pattern${id}" width="12" height="12" x="12" y="12" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="8" cy="2" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="5" cy="5" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="2" cy="8" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="8" cy="8" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="5" cy="11" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="11" cy="5" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="11" cy="11" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="2" cy="2" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="8" cy="2" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="5" cy="5" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="2" cy="8" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="8" cy="8" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="5" cy="11" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="11" cy="5" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="11" cy="11" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
           </pattern>`
         break
       case 'fivepointed stars':
@@ -10988,8 +11123,8 @@ function pattern ({
         break
       case 'checkerboard':
         myPattern += `<pattern id="pattern${id}" width="8" height="8" x="8" y="8" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
-          <polygon points="4,4 8,4 8,0 4,0 "  fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}" />
-          <polygon points="0,4 4,4 4,8 0,8 "  fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}" />
+          <polygon points="4,4 8,4 8,0 4,0 "  fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}" />
+          <polygon points="0,4 4,4 4,8 0,8 "  fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}" />
         
           </pattern>`
         break
