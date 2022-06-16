@@ -1,8 +1,9 @@
-import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal } from './outils.js'
+import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal, combinaisonListes, texcolors, texNombre } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
-import { fraction, max, ceil, isNumeric } from 'mathjs'
+import { fraction, max, ceil, isNumeric, Fraction } from 'mathjs'
 import earcut from 'earcut'
+import FractionX from './FractionEtendue.js'
 
 /*
   MathALEA2D
@@ -396,7 +397,7 @@ function TracePoint (...points) {
         } else if (this.style === '#') {
           p1 = point(A.x - this.tailleTikz, A.y - this.tailleTikz)
           p2 = point(A.x + this.tailleTikz, A.y - this.tailleTikz)
-          c = carreIndirect(p1, p2, this.color)
+          c = carre(p2, p1, this.color)
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
           c.couleurDeRemplissage = this.color
@@ -1135,16 +1136,6 @@ export function dessousDessus (d, A, tolerance = 0.0001) {
     if (d.a * A.x + d.b * A.y + d.c < 0) return 'dessous'
     else return 'dessus'
   }
-}
-/**
- *
- * @param {point} A
- * @param {droite} d
- * @returns {boolean} true si A appartient à d
- * @author Jean-Claude Lhote
- */
-export function estSurDroite (A, d, tolerance) {
-  return dessousDessus(d, A, tolerance) === 'sur'
 }
 
 /**
@@ -2285,6 +2276,23 @@ function Polygone (...points) {
     }
     return liste
   }
+  this.triangulation = function () { // retourne une liste de triangles pavant le polygone
+    const flat = polygoneToFlatArray(this)
+    const trianglesIndices = earcut(flat)
+    const triangles = []
+    for (let i = 0; i < trianglesIndices.length; i += 3) {
+      triangles.push(polygone(point(flat[trianglesIndices[i] * 2], flat[trianglesIndices[i] * 2 + 1]), point(flat[trianglesIndices[i + 1] * 2], flat[trianglesIndices[i + 1] * 2 + 1]), point(flat[trianglesIndices[i + 2] * 2], flat[trianglesIndices[i + 2] * 2 + 1])))
+    }
+    return triangles
+  }
+  this.aire = function () {
+    const triangles = this.triangulation()
+    let aire = 0
+    for (let i = 0; i < triangles.length; i++) {
+      aire += aireTriangle(triangles[i])
+    }
+    return aire
+  }
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
@@ -2469,6 +2477,7 @@ export function renommePolygone (p, noms) {
 
 /**
  * Trace le polygone régulier direct à n côtés qui a pour côté [AB]
+ * Pour tracer le polygone régulier indirect de côté [AB], on iversera A et B
  * @param {Point} A
  * @param {Point} B
  * @param {integer} n Nombre de côtés
@@ -2488,24 +2497,8 @@ export function polygoneRegulier (A, B, n, color = 'black') {
 }
 
 /**
- * polygoneRegulierIndirect(A,B,n) //Trace le polygone régulier indirect à n côtés qui a pour côté [AB]
- *
- * @author Rémi Angot
- */
-export function polygoneRegulierIndirect (A, B, n, color = 'black') {
-  const listePoints = [A, B]
-  for (let i = 1; i < n - 1; i++) {
-    listePoints[i + 1] = rotation(
-      listePoints[i - 1],
-      listePoints[i],
-      180 - 360 / n
-    )
-  }
-  return polygone(listePoints, color)
-}
-
-/**
  * Trace en 'color' le carré direct qui a pour côté [AB].
+ * Pour faire un carré Indirect de côté [AB], on inversera A et B.
  * @param {Point} A
  * @param {Point} B
  * @param {string} color facultatif
@@ -2513,13 +2506,6 @@ export function polygoneRegulierIndirect (A, B, n, color = 'black') {
  */
 export function carre (A, B, color) {
   return polygoneRegulier(A, B, 4, color)
-}
-
-/**
- * carreIndirect(A,B) //Trace le carré indirect qui a pour côté [AB]
- */
-export function carreIndirect (A, B, color) {
-  return polygoneRegulierIndirect(A, B, 4, color)
 }
 
 function CodageCarre (c, color = 'black', mark = '×') {
@@ -2671,13 +2657,15 @@ export function flatArrayToPolygone (flat, noms) {
 function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', backgroundColor = 'white' }) {
   ObjetMathalea2D.call(this)
   const triangles = earcut(data, holes) // on crée le pavage de triangles grâce à Mapbox/earcut
-  this.triangulation = [] // contiendra la liste de triangles 2d.
-  let triangle
-  for (let i = 0; i < triangles.length; i += 3) {
-    triangle = polygone(point(data[triangles[i] * 2], data[triangles[i] * 2 + 1]), point(data[triangles[i + 1] * 2], data[triangles[i + 1] * 2 + 1]), point(data[triangles[i + 2] * 2], data[triangles[i + 2] * 2 + 1]))
-    triangle.color = color
-    triangle.couleurDeRemplissage = 'none'
-    this.triangulation.push(triangle)
+  this.triangulation = function () { // retourne la liste de triangles 2d.
+    const triangles2d = []
+    for (let i = 0, triangle; i < triangles.length; i += 3) {
+      triangle = polygone(point(data[triangles[i] * 2], data[triangles[i] * 2 + 1]), point(data[triangles[i + 1] * 2], data[triangles[i + 1] * 2 + 1]), point(data[triangles[i + 2] * 2], data[triangles[i + 2] * 2 + 1]))
+      triangle.color = color
+      triangle.couleurDeRemplissage = 'none'
+      triangles2d.push(triangle)
+    }
+    return triangles2d
   }
   const sommetsContour = [] // on crée le polygone extérieur
   for (let i = 0; i < 2 * holes[0]; i += 2) {
@@ -2685,6 +2673,14 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
     if (noms.length >= data.length << 1) {
       sommetsContour[i << 1].nom = noms[i << 1]
     }
+  }
+  // On cherche les bordures
+  for (let i = 0, xmin = 1000, xmax = -1000, ymin = 1000, ymax = -1000; i < data.length; i += 2) {
+    xmin = Math.min(xmin, data[i])
+    xmax = Math.max(xmax, data[i])
+    ymin = Math.min(ymin, data[i + 1])
+    ymax = Math.max(ymax, data[i + 1])
+    this.bordures = [xmin, ymin, xmax, ymax]
   }
   this.contour = polygone(...sommetsContour)
   this.trous = []
@@ -2708,6 +2704,13 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
     trouPol.color = this.color
     trouPol.couleurDeRemplissage = this.backgroundColor
     this.trous.push(trouPol)
+  }
+  this.aire = function () { // retourne l'aire du polygone à trou
+    let aire = this.contour.aire()
+    for (let i = 0; i < this.trous.length; i++) {
+      aire -= this.trous[i].aire()
+    }
+    return aire
   }
   this.svg = function (coeff) {
     let code = this.contour.svg(coeff)
@@ -6262,6 +6265,8 @@ function AxeY (
   ytick = ystep,
   titre = ''
 ) {
+  if (!(ystep instanceof Fraction || ystep instanceof FractionX)) ystep = fraction(ystep)
+  if (!(ytick instanceof Fraction || ytick instanceof FractionX)) ytick = fraction(ytick)
   ObjetMathalea2D.call(this)
   const objets = []
   objets.push(texteParPoint(titre, point(xmin - thick - 0.1, ymax), 'gauche', color))
@@ -6378,7 +6383,7 @@ function LabelY (
   ) {
     objets.push(
       texteParPoint(
-        y * coeff,
+        stringNombre(y * coeff, 3),
         point(pos, y),
         'gauche',
         color, 1, 'middle', true
@@ -8663,6 +8668,133 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
 export function diagrammeBarres (...args) {
   return new DiagrammeBarres(...args)
 }
+
+function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalites = [], semi = false, legende = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
+  ObjetMathalea2D.call(this)
+  const objets = []
+  const listeHachuresDisponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
+  const listeMotifs = combinaisonListes(listeHachuresDisponibles, effectifs.length)
+  this.bordures = [1000, 1000, -1000, -1000]
+  this.x = x
+  this.y = y
+  const centre = point(this.x + rayon, this.y + (semi ? 0 : rayon))
+  const depart = point(this.x + 2 * rayon, (semi ? this.y : this.y + rayon))
+  const contour = semi ? arc(translation(centre, vecteur(rayon, 0)), centre, 180, true, 'white', 'black') : cercle(centre, rayon, 'black')
+  let positionLegende // On prévoit l'emplacement de la légende si celle-ci est demandée
+  switch (legendePosition) {
+    case 'droite':
+      positionLegende = { x: this.x + 2 * rayon + 1, y: this.y }
+      break
+    case 'dessus':
+      positionLegende = { x: this.x, y: this.y + semi ? rayon + 1 : 2 * rayon + 1 }
+      break
+    case 'dessous':
+      positionLegende = { x: this.x, y: this.y - 1.5 }
+      break
+  }
+  let T = point(positionLegende.x, positionLegende.y)
+  const angleTotal = semi ? 180 : 360
+  const effectifTotal = effectifs.reduce((somme, valeur) => somme + valeur)
+  const secteurs = []
+  const legendes = []
+  const etiquettes = []
+  const etiquettes2 = []
+  const etiquettes3 = []
+  let alpha = 0 // alpha est l'angle à partir duquel démarre le secteur
+  let legendeMax = 0
+  for (let i = 0, a, angle, legende, textelegende, hachure; i < effectifs.length; i++) {
+    // on crée les secteurs
+    angle = angleTotal * effectifs[i] / effectifTotal
+    a = arc(rotation(depart, centre, alpha), centre, angle, true)
+    if (hachures[i]) {
+      hachure = motifs(listeMotifs[i])
+      a.hachures = hachure
+      a.couleurDesHachures = texcolors(i + 1)
+      a.couleurDeRemplissage = texcolors(i + 2)
+    } else {
+      hachure = ''
+      a.hachures = ''
+    }
+    a.opaciteDeRemplissage = 0.7
+    if (remplissage[i]) a.couleurDeRemplissage = texcolors(i + 1)
+    if (visibles[i]) secteurs.push(a)
+    if (valeurs[i]) {
+      etiquettes.push(latexParPoint(texNombre(effectifs[i]), similitude(depart, centre, alpha + angle * 3 / 4, 0.8), 'black', 20, 12, 'yellow', 8))
+    }
+    if (pourcents[i]) {
+      etiquettes2.push(latexParPoint(texNombre(100 * effectifs[i] / effectifTotal, 0) + '\\%', similitude(depart, centre, alpha + angle / 4, 0.8), 'black', 20, 12, 'yellow', 8))
+    }
+    if (mesures[i]) {
+      etiquettes3.push(latexParPoint(texNombre(angle, 0) + '\\degree', similitude(depart, centre, alpha + angle / 2, 0.6), 'black', 20, 12, 'yellow', 8))
+    }
+    alpha += angle
+
+    // on crée les légendes
+    switch (legendePosition) {
+      case 'droite':
+        legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
+        textelegende = texteParPoint(modalites[i], translation(T, vecteur(1.2, i * 1.5 + 0.5)), 0, 'black', 1.5, 'gauche', false)
+        legendeMax = Math.max(legendeMax, modalites[i].length * 0.6)
+        break
+      default:
+        legende = carre(T, translation(T, vecteur(1, 0)), 'black')
+        textelegende = texteParPoint(modalites[i], translation(T, vecteur(1.2, 0.5)), 0, 'black', 1.5, 'gauche', false)
+        T = translation(T, vecteur(modalites[i].length * 0.6 + 1, 0))
+        legendeMax = legendeMax + modalites[i].length * 0.6 + 2.2
+        break
+    }
+
+    legende.couleurDeRemplissage = a.couleurDeRemplissage
+    legende.couleurDesHachures = a.couleurDesHachures
+    legende.hachures = hachure
+    legende.opaciteDeRemplissage = 0.7
+    legendes.push(legende, textelegende)
+  }
+  objets.push(contour)
+  objets.push(...secteurs)
+  if (legende) objets.push(...legendes)
+  objets.push(...etiquettes, ...etiquettes2, ...etiquettes3)
+  // calcul des bordures
+  this.bordures[0] = this.x - 0.5
+  this.bordures[1] = this.y - 0.5 - (legende ? (legendePosition === 'dessous' ? 2 : 0) : 0)
+  this.bordures[2] = this.x + rayon * 2 + 1 + (legende ? (legendePosition === 'droite' ? legendeMax : (Math.max(legendeMax, this.x + rayon * 2 + 1) - (this.x + rayon * 2 + 1))) : 0)
+  this.bordures[3] = this.y + (semi ? rayon : rayon * 2) + (legende ? (legendePosition === 'dessus' ? 2 : (legendePosition === 'droite' ? Math.max(this.y + (semi ? rayon : rayon * 2), effectifs.length * 1.5) - (this.y + (semi ? rayon : rayon * 2)) : 0)) : 0)
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.svg(coeff)
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      code += '\n\t' + objet.tikz()
+    }
+    return code
+  }
+}
+/**
+ *
+ * @param {number[]} effectifs liste des effectifs à donner impérativement
+ * @param {number} x abscisse du point en bas à gauche (défaut 0)
+ * @param {number} y ordonnée du point en bas à gauche (defaut 0)
+ * @param {number} rayon 4 par défaut
+ * @param {string[]} modalites les modalités associées aux effectifs respectifs
+ * @param {boolean} semi true pour un semi-circulaire, false pour un circulaire false par défaut
+ * @param {boolean} legende true pour présence de la légende
+ * @param {string} legendePosition 'droite' (défaut) 'dessus' ou 'dessous'
+ * @param {boolean[]} mesures présence ou non de la mesure de chaque secteur
+ * @param {boolean[]} visibles découpe ou non du secteur (pour créer des diagrammes à compléter)
+ * @param {boolean[]} pourcents présence ou non du pourcentage de l'effectif total associé au secteur
+ * @param {boolean[]} valeurs présence ou non de l'effectif
+ * @param {boolean[]} présence ou non de hachures dans le secteur associé
+ * @param {boolean[]} présence ou non d'une couleur de remplissage dans le secteur associé
+ * @returns
+ */
+export function diagrammeCirculaire ({ effectifs = [100], x = 0, y = 0, rayon = 4, modalites = ['tout'], semi = false, legende = true, legendePosition = 'droite', mesures = [false], visibles = [true], pourcents = [true], valeurs = [false], hachures = [true], remplissage = [false] }) {
+  return new DiagrammeCirculaire({ effectifs, x, y, rayon, modalites, semi, legende, legendePosition, mesures, visibles, pourcents, valeurs, hachures, remplissage })
+}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%% LES COURBES DE FONCTIONS %%%%%%%%%
@@ -10942,22 +11074,22 @@ function pattern ({
         break
       case 'dots':
         myPattern += `<pattern id="pattern${id}" width="${distanceDesHachures}" height="${distanceDesHachures}"  patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
-            <circle cx="3" cy="3" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-            <circle cx="8" cy="3" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-            <circle cx="3" cy="8" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-            <circle cx="8" cy="8" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="3" cy="3" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="8" cy="3" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="3" cy="8" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+            <circle cx="8" cy="8" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
             </pattern>`
         break
       case 'crosshatch dots':
         myPattern += `<pattern id="pattern${id}" width="12" height="12" x="12" y="12" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
-          <circle cx="2" cy="2" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="8" cy="2" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="5" cy="5" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="2" cy="8" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="8" cy="8" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="5" cy="11" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="11" cy="5" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
-          <circle cx="11" cy="11" r="1.5" fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="2" cy="2" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="8" cy="2" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="5" cy="5" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="2" cy="8" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="8" cy="8" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="5" cy="11" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="11" cy="5" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
+          <circle cx="11" cy="11" r="1.5" fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}"/>
           </pattern>`
         break
       case 'fivepointed stars':
@@ -10991,8 +11123,8 @@ function pattern ({
         break
       case 'checkerboard':
         myPattern += `<pattern id="pattern${id}" width="8" height="8" x="8" y="8" patternTransform="rotate(0 0 0)" patternUnits="userSpaceOnUse">
-          <polygon points="4,4 8,4 8,0 4,0 "  fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}" />
-          <polygon points="0,4 4,4 4,8 0,8 "  fill="${couleurDeRemplissage}" fill-opacity="${opaciteDeRemplissage}" />
+          <polygon points="4,4 8,4 8,0 4,0 "  fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}" />
+          <polygon points="0,4 4,4 4,8 0,8 "  fill="${couleurDesHachures}" fill-opacity="${opaciteDeRemplissage}" />
         
           </pattern>`
         break
@@ -11526,7 +11658,7 @@ function Pavage () {
             P11 = rotation(P2, B, 60)
             P12 = rotation(P6, A, -60)
             P3 = polygoneRegulier(A, C, 4)
-            P4 = polygoneRegulierIndirect(B, C, 4)
+            P4 = polygoneRegulier(C, B, 4)
             P5 = rotation(P4, B, -150)
             P8 = rotation(P3, A, 150)
 
@@ -11622,10 +11754,10 @@ function Pavage () {
           for (let j = 0; j < Nx; j++) {
             C = rotation(A, B, -135)
             P1 = polygoneRegulier(A, B, 8)
-            P2 = polygoneRegulierIndirect(A, B, 8)
+            P2 = polygoneRegulier(B, A, 8)
             P3 = translation(P1, v)
             P4 = translation(P2, v)
-            P5 = polygoneRegulierIndirect(B, C, 4)
+            P5 = polygoneRegulier(C, B, 4)
             P6 = translation(P5, v)
             P7 = translation(P5, w)
             P8 = translation(P6, w)
