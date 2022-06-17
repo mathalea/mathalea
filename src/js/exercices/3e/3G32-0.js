@@ -294,8 +294,6 @@ export default function problemesTrigoLongueur () {
           R = vecteur3d(O, M)
           Axe = arete3d(PoleSud, PoleNord)
           normalV = vecteur3d(0, 0, 1)
-          // M1 = rotationV3d(MInit, normalV, context.anglePerspective) // M1 obtenu depuis M initial
-          // M = rotationV3d(MInit, normalV, context.anglePerspective - 50)
           M = rotationV3d(M, normalV, context.anglePerspective)
           M.c2d.nom = 'M'
           M.c2d.positionLabel = 'below'
@@ -322,10 +320,10 @@ export default function problemesTrigoLongueur () {
           texteCorr += `Considérons que le $${alpha}$e parallèle Nord est un cercle. Soit $H$ le centre de ce cercle situé sur l'axe de rotation de la Terre.<br>`
           texteCorr += 'Les segments $[HP]$ et $[OM]$ sont parallèles, donc les angles alternes-internes $\\widehat{MOP}$ et $\\widehat{OPH}$ sont égaux.<br>'
           texteCorr += 'Dans le triangle $OPH$ rectangle en $H$, $\\cos(\\widehat{OPH})=\\dfrac{HP}{OP}$ d\'où $HP=OP\\times \\cos(\\widehat{OPH})$.<br>'
-          texteCorr += `Le rayon de la Terre étant approximativement de $${texNombrec(6400)}$${sp()}km, nous pouvons calculer $HP$.<br>`
-          texteCorr += `$HP\\approx${texNombrec(6400)}${sp()}km\\times \\cos(${alpha}\\degree)\\approx ${texNombrec(arrondi(6400 * Math.cos(alpha * Math.PI / 180)))}${sp()}km$<br>`
+          texteCorr += `Le rayon de la Terre étant approximativement de $${texNombre(6400)}$${sp()}km, nous pouvons calculer $HP$.<br>`
+          texteCorr += `$HP\\approx${texNombre(6400)}${sp()}km\\times \\cos(${alpha}\\degree)\\approx ${texNombre(arrondi(6400 * Math.cos(alpha * Math.PI / 180)))}${sp()}km$<br>`
           reponse = Math.round(2 * Math.PI * 6400 * Math.cos(alpha * Math.PI / 180))
-          texteCorr += `Calculons maintenant la longueur $L$ du $${alpha}$e parallèle : $L\\approx 2\\times \\pi\\times ${texNombrec(arrondi(6400 * Math.cos(alpha * Math.PI / 180)))}${sp()}km\\approx ${texNombre(reponse)}${sp()}km$.<br>`
+          texteCorr += `Calculons maintenant la longueur $L$ du $${alpha}$e parallèle : $L\\approx 2\\times \\pi\\times ${texNombre(arrondi(6400 * Math.cos(alpha * Math.PI / 180)))}${sp()}km\\approx ${texNombre(reponse)}${sp()}km$.<br>`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
             setReponse(this, i + ii, new Grandeur(reponse, 'km'), { formatInteractif: 'unites' })
