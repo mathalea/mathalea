@@ -358,8 +358,8 @@ export default function SymetrieAxialePavageTriangulaire () {
           d[i].opacite = 0.6
           break
         case 1: // axe vertical
-        case 4: // axe perpendicualire à [BC]
-        case 5: // axe perpendicualire à [AC]
+        case 4: // axe perpendiculaire à [BC]
+        case 5: // axe perpendiculaire à [AC]
           M = triAngles[axes[listeTypesDeQuestions[i]][choix][0]].gra
           N = triAngles[axes[listeTypesDeQuestions[i]][choix][1]].gra
           d[i] = droite(M, N, `$(d_${i + 1})$`, couleurs[i])
@@ -372,12 +372,6 @@ export default function SymetrieAxialePavageTriangulaire () {
       question[i] = choisitTriangle(listeTypesDeQuestions[i], choix)
       triAngles[question[i].antecedent].tri.couleurDeRemplissage = couleurs[i]
       triAngles[question[i].antecedent].tri.opaciteDeRemplissage = 0.7
-      //  triAngles[question[i].image].tri.couleurDeRemplissage = couleurs[i]
-      //  triAngles[question[i].image].tri.opaciteDeRemplissage = 0.2
-      /* for (let j = 0; j < question[i].distracteurs.length; j++) {
-        triAngles[question[i].distracteurs[j]].tri.couleurDeRemplissage = 'brown'
-        triAngles[question[i].distracteurs[j]].tri.opaciteDeRemplissage = 0.3
-      } */
     }
     this.introduction = mathalea2d(paramsEnonce, objetsEnonce)
     for (let i = 0; i < this.nbQuestions; i++) {
