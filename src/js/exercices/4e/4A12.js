@@ -77,7 +77,7 @@ export default function ProblemesEvenementsRecurrents () {
       switch (saveurs[i]) {
         case 'guirlande':
           texte = `Une guirlande électrique est constituée de lumières rouges et vertes.<br>
-          Les lumières rouges s’allument toutes les ${nombreAvecEspace(Commun * A)} secondes et les vertes toutes les ${nombreAvecEspace(Commun * B)} secondes.<br>
+          Les lumières rouges s\'allument toutes les ${nombreAvecEspace(Commun * A)} secondes et les vertes toutes les ${nombreAvecEspace(Commun * B)} secondes.<br>
           À un instant donné, on voit les lumières rouges et vertes allumées en même temps.<br>
           Au bout de combien de temps ce phénomène se reproduira-t-il la prochaine fois ?`
           unite = 'secondes'

@@ -79,7 +79,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       nbval = resultats[3]
       switch (this.version) {
         case 1:
-          this.consigne = 'Traduire la phrase par un calcul (il n’est pas demandé d’effectuer ce calcul).'
+          this.consigne = 'Traduire la phrase par un calcul (il n\'est pas demandé d\'effectuer ce calcul).'
           texte = `${expf}.`
           texteCorr = `${expf} s'écrit<br>${expn}.`
           break

@@ -199,14 +199,24 @@ export function centrage (texte) {
 /**
  * Contraint une valeur à rester dans un intervalle donné. Si elle est trop petite, elle prend la valeur min, si elle est trop grande elle prend la valeur max
  * @author Jean-Claude Lhote à partir du code de Eric Elter
- * @param {number} min borne inférieur
- * @param {number} max borne supérieur
+ * @param {number} min borne inférieure
+ * @param {number} max borne supérieure
  * @param {number} valeur la valeur à contraindre
  * @param {number} defaut valeur par défaut si non entier
  */
-
 export function contraindreValeur (min, max, valeur, defaut) {
   return !(isNaN(valeur)) ? (valeur < min) ? min : (valeur > max) ? max : valeur : defaut
+}
+
+/** Retourne un nombre décimal entre a et b, sans être trop près de a et de b
+ * @param {number} min borne inférieure
+ * @param {number} max borne supérieure
+ * @author Eric Elter
+ * @returns {number}
+ */
+export function entreDeux (a, b) {
+  if (a < b) return arrondi(a + (b - a) * randint(10, 90) / 100, 2)
+  else return arrondi(b + (a - b) * randint(10, 90) / 100, 2)
 }
 
 /**
@@ -944,6 +954,12 @@ export function ecritureAlgebrique (a) {
     } else {
       return stringNombre(a)
     }
+  } else if (a instanceof Decimal) {
+    if (a.isPos()) {
+      return '+' + stringNombre(a)
+    } else {
+      return stringNombre(a)
+    }
   } else window.notify('rienSi1 : type de valeur non prise en compte')
 }
 
@@ -1065,7 +1081,9 @@ export function baseValeur (n) {
 export function baseNVersBase10 (stringNombre, b) {
   let result = 0
   if (typeof stringNombre === 'number') {
-    stringNombre = Number(stringNombre).toString()
+    stringNombre = stringNombre.toString()
+  } else if (stringNombre instanceof Decimal) {
+    stringNombre = stringNombre.toNumber().toString()
   }
   for (let i = 0; i < stringNombre.length; i++) {
     result += b ** i * valeurBase(stringNombre.charAt(stringNombre.length - 1 - i))
@@ -1092,7 +1110,8 @@ export function base10VersBaseN (nombre, b) {
   //   nombre -= chiffre * b ** i
   // }
   // return code
-  return nombre.toString(b).toUpperCase()
+  if (nombre instanceof Decimal) return nombre.toNumber().toString(b).toUpperCase()
+  else return nombre.toString(b).toUpperCase()
   // Il y avait un probleme avec 3 = (3)_3
 }
 
@@ -1337,20 +1356,21 @@ export function troncature (nombre, precision) {
 
 /**
 * Renvoie la valeur absolue
-* @author Rémi Angot
+* @author Rémi Angot + ajout du support des décimaux par Jean-Claude Lhote
 */
 export function abs (a) {
+  if (a instanceof Decimal) return a.abs()
   return Math.abs(a)
 }
 
 /**
 * Retourne un arrondi sous la forme d'un string avec une virgule comme séparateur décimal
-* @author Rémi Angot
+* @author Rémi Angot Fonction rendue inutile par Jean-Claude Lhote : lui substituer texNombre ou stringNombre selon le contexte.
 */
-export function arrondiVirgule (nombre, precision = 2) { //
-  // const tmp = Math.pow(10, precision)
-  return String(round(nombre, precision)).replace('.', ',')
-}
+// export function arrondiVirgule (nombre, precision = 2) { //
+// const tmp = Math.pow(10, precision)
+//  return String(round(nombre, precision)).replace('.', ',')
+// }
 
 /**
 * Retourne égal si la valeur égal l'arrondi souhaité ou environ égal si ce n'est pas le cas
@@ -1361,8 +1381,9 @@ export function arrondiVirgule (nombre, precision = 2) { //
 export function egalOuApprox (a, precision) {
   if (typeof a === 'object' && ['Fraction', 'FractionX'].indexOf(a.type) !== -1) {
     return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
-  }
-  if (!isNaN(a) && !isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
+  } else if (a instanceof Decimal) {
+    return a.eq(a.toDP(precision)) ? '=' : '\\approx'
+  } else if (!isNaN(a) && !isNaN(precision)) return egal(a, arrondi(a, precision)) ? '=' : '\\approx'
   else {
     window.notify('egalOuApprox : l\'argument n\'est pas un nombre', { a, precision })
     return 'Mauvais argument (nombres attendus).'
@@ -1491,7 +1512,7 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
     result += `\\dfrac{${texNombrec(b)}\\times${texNombrec(c)}}{${texNombrec(a)}}`
     if (p4 === arrondi(p4, precision)) result += '='
     else result += '\\approx'
-    result += `${arrondiVirgule(p4, precision)}`
+    result += `${texNombre(p4, precision)}`
     return result
   } else {
     return `\\dfrac{${b} \\times${c}}{${a}}`
@@ -1505,16 +1526,18 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
  * @param {number} b
  */
 export function reduireAxPlusB (a, b) {
+  if (!(a instanceof Decimal)) a = new Decimal(a)
+  if (!(b instanceof Decimal)) b = new Decimal(b)
   let result = ''
-  if (a !== 0) {
-    if (a === 1) result = 'x'
-    else if (a === -1) result = '-x'
+  if (!a.isZero()) {
+    if (a.eq(1)) result = 'x'
+    else if (a.eq(-1)) result = '-x'
     else result = `${stringNombre(a)}x`
   }
-  if (b !== 0) {
-    if (a !== 0) result += `${ecritureAlgebrique(b)}`
+  if (!b.isZero()) {
+    if (!a.isZero()) result += `${ecritureAlgebrique(b)}`
     else result = stringNombre(b)
-  } else if (a === 0) result = '0'
+  } else if (a.isZero()) result = '0'
   return result
 }
 /**
@@ -2777,14 +2800,17 @@ function afficherNombre (nb, precision, fonction, force = false) {
    * @returns string avec le nombre dans le format français
    */
   function insereEspacesNombre (nb, maximumSignificantDigits = 15, fonction) {
+    let signe
     let nombre
     if (nb instanceof Decimal) {
+      signe = nb.isNeg()
       if (force) {
         nombre = nb.toPrecision(maximumSignificantDigits).replace('.', ',')
       } else {
         nombre = nb.toSD(maximumSignificantDigits).toString().replace('.', ',')
       }
     } else {
+      signe = nb < 0
       // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
       if (Math.abs(nb) < 1) {
         if (force) {
@@ -2814,9 +2840,11 @@ function afficherNombre (nb, precision, fonction, force = false) {
     // La partie entière est déjà formatée par le Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
     // Dans le cas d'un Number, mais pas d'un Decimal
     if (nb instanceof Decimal) {
+      if (signe) partieEntiere = partieEntiere.substring(1)
       for (let i = partieEntiere.length - 3; i > 0; i -= 3) {
         partieEntiere = partieEntiere.substring(0, i) + ' ' + partieEntiere.substring(i)
       }
+      if (signe) partieEntiere = '-' + partieEntiere
     }
     for (let i = 3; i < partieDecimale.length; i += (fonction === 'texNombre' ? 5 : 4)) { // des paquets de 3 nombres + 1 espace
       partieDecimale = partieDecimale.substring(0, i) + (fonction === 'texNombre' ? '\\,' : ' ') + partieDecimale.substring(i)
@@ -2839,7 +2867,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
   } else if (Number(nb) === 0) return '0'
   let nbChiffresPartieEntiere
   if (nb instanceof Decimal) {
-    nbChiffresPartieEntiere = nb.lt(1) ? 0 : nb.abs().toFixed(0).length
+    nbChiffresPartieEntiere = nb.abs().lt(1) ? 0 : nb.abs().toFixed(0).length
     if (nb.isInteger()) precision = 0
     else {
       if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
@@ -3013,6 +3041,10 @@ export function href (texte, lien) {
 */
 export function texPrix (nb) {
   // Remplace le . par la ,
+  if (nb instanceof Decimal) {
+    if (nb.isInteger()) return texNombre(nb, 0)
+    else return texNombre(nb, 2, true)
+  }
   const nombre = Number(nb)
   let result
   if (nombre.toString() === nombre.toFixed(0)) {
@@ -3696,23 +3728,25 @@ export function eclatePuissance (b, e, couleur) {
 
 /**
  * Fonction pour écrire la forme éclatée d'une puissance
- * @param b base
- * @param e exposant
+ * @param b {number} base
+ * @param e {integer} exposant
  * @author Rémi Angot
+ * @return string
  */
 export function puissanceEnProduit (b, e) {
   let str
-  switch (e) {
-    case 0:
-      return '1'
-    case 1:
-      return `${b}`
-    default:
-      str = `${b}`
-      for (let i = 1; i < e; i++) {
-        str = str + `\\times ${b}`
-      }
-      return str
+  if (e === 0) {
+    return '1'
+  } else if (e === 1) {
+    return `${b}`
+  } else if (e > 1) {
+    str = `${ecritureParentheseSiNegatif(b)}`
+    for (let i = 1; i < e; i++) {
+      str = str + `\\times ${ecritureParentheseSiNegatif(b)}`
+    }
+    return str
+  } else if (e < 0) {
+    return `\\dfrac{1}{${puissanceEnProduit(b, -e)}}`
   }
 }
 
@@ -6512,8 +6546,21 @@ export function introLatex (entete = 'Exercices', listePackages = '') {
   if (entete === '') { entete = 'Exercices' }
   return `\\documentclass[12pt]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
-\\usepackage[utf8]{inputenc}        
-\\usepackage[T1]{fontenc}
+%\\usepackage[utf8]{inputenc}        
+%\\usepackage[T1]{fontenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXIT WARNING DÛ À LA COMPILATION XETEX %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\usepackage{ifxetex}
+
+\\ifxetex
+  \\usepackage{fontspec}
+\\else
+  \\usepackage[T1]{fontenc}
+  \\usepackage[utf8]{inputenc}
+  \\usepackage{lmodern}
+\\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\usepackage[french]{babel}
 \\usepackage{multicol} 
 \\usepackage{calc} 
@@ -6582,8 +6629,21 @@ export function introLatexCan (entete = 'Course aux nombres', listePackages = ''
   if (entete === '') { entete = 'Course aux nombres' }
   return `\\documentclass[12pt, landscape]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
-\\usepackage[utf8]{inputenc}        
-\\usepackage[T1]{fontenc}
+%\\usepackage[utf8]{inputenc}        
+%\\usepackage[T1]{fontenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXIT WARNING DÛ À LA COMPILATION XETEX %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\usepackage{ifxetex}
+
+\\ifxetex
+  \\usepackage{fontspec}
+\\else
+  \\usepackage[T1]{fontenc}
+  \\usepackage[utf8]{inputenc}
+  \\usepackage{lmodern}
+\\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\usepackage[french]{babel}
 \\usepackage{multicol} 
 \\usepackage{calc} 
@@ -6657,8 +6717,21 @@ ${preambulePersonnalise(listePackages)}
 export function introLatexCoop (listePackages) {
   const introLatexCoop = `\\documentclass[12pt]{article}
 \\usepackage[left=1.5cm,right=1.5cm,top=4cm,bottom=2cm]{geometry}
-\\usepackage[utf8]{inputenc}        
-\\usepackage[T1]{fontenc}
+%\\usepackage[utf8]{inputenc}        
+%\\usepackage[T1]{fontenc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXIT WARNING DÛ À LA COMPILATION XETEX %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\usepackage{ifxetex}
+
+\\ifxetex
+  \\usepackage{fontspec}
+\\else
+  \\usepackage[T1]{fontenc}
+  \\usepackage[utf8]{inputenc}
+  \\usepackage{lmodern}
+\\fi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\usepackage[french]{babel}
 \\usepackage{hyperref}
 \\usepackage{multicol} 
@@ -7579,7 +7652,13 @@ export function exportQcmAmc (exercice, idExo) {
       }
     }
     let valeurAMCNum = 0
-    if (autoCorrection[j].reponse !== undefined) { valeurAMCNum = autoCorrection[j].reponse.valeur[0] }
+    if (autoCorrection[j].reponse !== undefined) {
+      if (!Array.isArray(autoCorrection[j].reponse.valeur)) autoCorrection[j].reponse.valeur = [autoCorrection[j].reponse.valeur]
+      valeurAMCNum = autoCorrection[j].reponse.valeur[0]
+      if (typeof valeurAMCNum === 'string') {
+        valeurAMCNum = valeurAMCNum.replace(/\s/g, '').replace(',', '.')
+      }
+    }
     switch (type) {
       case 'qcmMono': // question QCM 1 bonne réponse
         if (elimineDoublons(autoCorrection[j].propositions)) {
