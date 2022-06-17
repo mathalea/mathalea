@@ -1,7 +1,7 @@
 import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal, combinaisonListes, texcolors, texNombre } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
-import { fraction, max, ceil, isNumeric, Fraction } from 'mathjs'
+import { fraction, max, ceil, isNumeric, Fraction, floor, round, random, abs } from 'mathjs'
 import earcut from 'earcut'
 import FractionX from './FractionEtendue.js'
 
@@ -29,15 +29,14 @@ let numId = 0 // Créer un identifiant numérique unique par objet SVG
 export function ObjetMathalea2D () {
   this.positionLabel = 'above'
   this.isVisible = true
-  this.color = 'black'
+  this.color = colorToLatexOrHTML('black')
   this.style = '' // stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
-  this.styleTikz = ''
+  // this.styleTikz = ''
   this.epaisseur = 1
   this.opacite = 1
   this.pointilles = false
   this.id = numId
   numId++
-  //   mesObjets.push(this);
   context.objets2D.push(this)
 }
 
@@ -116,18 +115,17 @@ export function clone (obj) {
  * @author Rémi Angot
  */
 function Point (arg1, arg2, arg3, positionLabel = 'above') {
-  // ObjetMathalea2D.call(this);
   this.typeObjet = 'point'
   numId++
   this.id = numId
   if (arguments.length === 1) {
     this.nom = arg1
   } else if (arguments.length === 2) {
-    if (Number.isNaN(arg1) || Number.isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
+    if (isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
     this.x = arg1
     this.y = arg2
   } else {
-    if (Number.isNaN(arg1) || Number.isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
+    if (isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
     this.x = arg1
     this.y = arg2
     this.nom = arg3
@@ -224,9 +222,9 @@ export function point (x, y, A, labelPosition = 'above') {
  */
 function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = 'black', opacite = 1, opaciteDeRemplissage = 1 } = {}) {
   ObjetMathalea2D.call(this)
-  if (Number.isNaN(x) || Number.isNaN(y)) window.notify('Plot : les coordonnées ne sont pas valides', { x, y })
-  this.color = couleur
-  this.couleurDeRemplissage = couleurDeRemplissage
+  if (isNaN(x) || isNaN(y)) window.notify('Plot : les coordonnées ne sont pas valides', { x, y })
+  this.color = colorToLatexOrHTML(couleur) // EE : 08/05/2022
+  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.rayon = rayon
   this.x = x
   this.y = y
@@ -235,15 +233,15 @@ function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = '
   this.opaciteDeRemplissage = opaciteDeRemplissage
   this.svg = function (coeff) {
     if (this.couleurDeRemplissage === '') {
-      return `\n\t <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="${this.rayon * coeff}" stroke="${this.color}" stroke-opacity="${this.opacite || 1}"/>`
+      return `\n\t <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="${this.rayon * coeff}" stroke="${this.color[0]}" stroke-opacity="${this.opacite || 1}"/>`
     } else {
-      return `\n\t <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="${this.rayon * coeff}" stroke="${this.color}" fill="${this.couleurDeRemplissage}" stroke-opacity="${this.opacite || 1}" fill-opacity="${this.opaciteDeRemplissage || 1}"/>`
+      return `\n\t <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="${this.rayon * coeff}" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" stroke-opacity="${this.opacite || 1}" fill-opacity="${this.opaciteDeRemplissage || 1}"/>`
     }
   }
   this.tikz = function () {
     const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
     }
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line-width=${this.epaisseur}`)
@@ -255,7 +253,7 @@ function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = '
       tableauOptions.push(`fill opacity=${this.opaciteDeRemplissage}`)
     }
     if (this.couleurDeRemplissage !== '') {
-      tableauOptions.push(`fill=${this.couleurDeRemplissage}`)
+      tableauOptions.push(`fill=${this.couleurDeRemplissage[1]}`)
     }
     let optionsDraw = []
     if (tableauOptions.length > 0) {
@@ -271,6 +269,11 @@ export function plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRempliss
  * tracePoint(A) // Place une croix à l'emplacement du point A
  * tracePoint(A,B,C,D) // Place une croix pour les différents points
  * tracePoint(A,B,C,D,'blue') // Place une croix pour les différents points
+ * Après coup, on peut notamment changer l'épaissseur, le style et l'opacité du point par :
+ * pt = tracePoint(A)
+ * pt.epaisseur = 5 (par défaut : 1)
+ * pt.opacite = 0.2 (par défaut : 0.8 = 80%)
+ * pt.style = '#' (choix parmi 'x','o','#','|','+','.' et par défaut : 'x')
  * @author Rémi Angot & Jean-Claude Lhote
  */
 function TracePoint (...points) {
@@ -325,7 +328,7 @@ function TracePoint (...points) {
           c.isVisible = false
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = this.color
+          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[0]
           c.opaciteDeRemplissage = this.opacite / 2
           objetssvg.push(c)
         } else if (this.style === '#') {
@@ -335,7 +338,7 @@ function TracePoint (...points) {
           c.isVisible = false
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = this.color
+          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[0]
           c.opaciteDeRemplissage = this.opacite / 2
           objetssvg.push(c)
         } else if (this.style === '+') {
@@ -355,7 +358,7 @@ function TracePoint (...points) {
           s1.opacite = this.opacite
           objetssvg.push(s1)
         } else if (this.style === '.') {
-          s1 = plot(A.y, A.y, { couleur: this.color, rayon: this.epaisseur * 0.05, couleurDeRemplissage: this.couleurDeRemplissage })
+          s1 = plot(A.x, A.y, { couleur: this.color, rayon: this.epaisseur * 0.05, couleurDeRemplissage: this.color })
         }
       }
     }
@@ -391,7 +394,7 @@ function TracePoint (...points) {
           c = cercle(p1, this.tailleTikz, this.color)
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = this.color
+          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[1]
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '#') {
@@ -400,7 +403,7 @@ function TracePoint (...points) {
           c = carre(p2, p1, this.color)
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = this.color
+          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[1]
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '+') {
@@ -419,6 +422,8 @@ function TracePoint (...points) {
           s1.epaisseur = this.epaisseur
           s1.opacite = this.opacite
           objetstikz.push(s1)
+        } else if (this.style === '.') {
+          s1 = plot(A.x, A.y, { couleur: this.color, rayon: this.epaisseur * 0.05, couleurDeRemplissage: this.color })
         }
       }
     }
@@ -432,7 +437,11 @@ function TracePoint (...points) {
 /**
  * @param  {Point} args Points précédemment créés. Si le dernier argument est une chaîne de caractère, définit la couleur des points tracés.
  * @returns  {TracePoint} TracePoint
- */
+ * @example tracePoint(A,B,C,'red) // Trace les points A,B,C précédemment créés en rouge
+ * @example tracePoint(A).style = '|' // Le style du point A sera '|' et non 'x' par défaut.
+ * @example tracePoint(A).epaisseur = 5 // L'épaisseur du style du point sera 5 et non 1 par défaut.
+ * @example tracePoint(A).opacite = 0.4 // L'opacité du style du point sera 40% et non 80%(0.8) par défaut.
+  */
 export function tracePoint (...args) {
   return new TracePoint(...args)
 }
@@ -443,51 +452,42 @@ export function tracePoint (...args) {
  *
  * @author Rémi Angot & Jean-Claude Lhote
  */
-function TracePointSurDroite (A, O) {
+function TracePointSurDroite (A, O, color = 'black') {
   ObjetMathalea2D.call(this)
+  this.color = color
   this.lieu = A
   this.taille = 0.2
   this.x = A.x
   this.y = A.y
   let M, d
   this.bordures = [A.x - 0.2, A.y - 0.2, A.x + 0.2, A.x + 0.2]
-  // if (context.isHtml) taille =  4/pixelsParCm; //initiallement 0.2, maintenant 0.2/pixelsParCm*20 pour que la taille soit indépendante du zoom mais ça pose problème en tikz !!!
-  // else taille = 0.2/scale
 
   if (O.constructor === Point) {
-    if (longueur(A, O) < 0.001) window.notify('TracePointSurDroite : points trop rapprochés pour définir une droite', { A, O })
-    M = pointSurSegment(A, O, 1)
-    this.direction = rotation(M, A, 90)
+    if (longueur(this.lieu, O) < 0.001) window.notify('TracePointSurDroite : points trop rapprochés pour définir une droite', { A, O })
+    M = pointSurSegment(this.lieu, O, 1)
+    this.direction = rotation(M, this.lieu, 90)
   }
   if (O.constructor === Droite) {
-    d = droiteParPointEtPerpendiculaire(A, O)
+    d = droiteParPointEtPerpendiculaire(this.lieu, O)
     d.isVisible = false
     this.direction = pointSurSegment(point(d.x1, d.y1), point(d.x2, d.y2), 1)
   }
   this.svg = function (coeff) {
     const A1 = pointSurSegment(this.lieu, this.direction, this.taille * 20 / coeff)
     const A2 = pointSurSegment(this.lieu, this.direction, -this.taille * 20 / coeff)
-    const s = segment(A1, A2)
+    const s = segment(A1, A2, this.color)
     this.id = s.id
-    s.isVisible = false
     return s.svg(coeff)
   }
   this.tikz = function () {
     const A1 = pointSurSegment(this.lieu, this.direction, this.taille / context.scale)
     const A2 = pointSurSegment(this.lieu, this.direction, -this.taille / context.scale)
-    const s = segment(A1, A2)
+    const s = segment(A1, A2, this.color)
     return s.tikz()
   }
-  /* this.svgml=function(coeff,amp){
-
-   }
-   this.tikzml=function(amp){
-
-   }
-   */
 }
-export function tracePointSurDroite (A, O) {
-  return new TracePointSurDroite(A, O)
+export function tracePointSurDroite (A, O, color = 'black') {
+  return new TracePointSurDroite(A, O, color)
 }
 
 export function traceMilieuSegment (A, B) {
@@ -502,7 +502,7 @@ export function traceMilieuSegment (A, B) {
  * @author Rémi Angot
  */
 export function milieu (A, B, nom, positionLabel = 'above') {
-  if (Number.isNaN(longueur(A, B))) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
+  if (isNaN(longueur(A, B))) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   const x = (A.x + B.x) / 2
   const y = (A.y + B.y) / 2
   return new Point(x, y, nom, positionLabel)
@@ -519,7 +519,7 @@ export function milieu (A, B, nom, positionLabel = 'above') {
  * @author Rémi Angot
  */
 export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
-  if (Number.isNaN(longueur(A, B))) window.notify('pointSurSegment : Quelque chose ne va pas avec les points', { A, B })
+  if (isNaN(longueur(A, B))) window.notify('pointSurSegment : Quelque chose ne va pas avec les points', { A, B })
   if (longueur(A, B) === 0) return A
   if (l === undefined || typeof l === 'string') {
     l = (longueur(A, B) * randint(15, 85)) / 100
@@ -528,7 +528,7 @@ export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
 }
 
 /**
- * Est-ce que le point C appartien au segment [AB]
+ * Est-ce que le point C appartient au segment [AB] ?
  * C'est ce que dira cette fonction
  * @author Jean-Claude Lhote
  */
@@ -638,10 +638,8 @@ function LabelPoint (...points) {
   if (!this.taille) this.taille = 10
   if (!this.largeur) this.largeur = 10
   if (typeof points[points.length - 1] === 'string') {
-    this.color = points[points.length - 1]
+    this.color = colorToLatexOrHTML(points[points.length - 1])
     points.length--
-  } else {
-    this.color = 'black'
   }
   let xmin = 1000
   let xmax = -1000
@@ -675,31 +673,31 @@ function LabelPoint (...points) {
       y = A.y
       switch (A.positionLabel) {
         case 'left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x - 10 / coeff, y, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x + 10 / coeff, y, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'below':
-          code += texteParPosition(A.nom, x, y - 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x, y - 10 / coeff, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'above':
-          code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x, y + 10 / coeff, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'above left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x - 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'above right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x + 10 / coeff, y + 10 / coeff, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'below left':
-          code += texteParPosition(A.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x - 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
           break
         case 'below right':
-          code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x + 10 / coeff, y - 10 / coeff, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
           break
         default:
-          code += texteParPosition(A.nom, x, y, 'milieu', this.color, 1, 'middle', true).svg(coeff) + '\n'
+          code += texteParPosition(A.nom, x, y, 'milieu', this.color[0], 1, 'middle', true).svg(coeff) + '\n'
           break
       }
     }
@@ -709,8 +707,8 @@ function LabelPoint (...points) {
   this.tikz = function () {
     let code = ''; let A
     let style = ''
-    if (this.color !== 'black') {
-      style = `,${this.color}`
+    if (this.color[0] !== 'black') {
+      style = `,color=${this.color[1]}`
     }
     for (const unPoint of points) {
       if (unPoint.typeObjet === 'point3d') {
@@ -726,14 +724,18 @@ function LabelPoint (...points) {
 /**
  * Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
  * @param  {...any} args Points
+ * @param {string} [color='black']
  * @returns {LabelPoint} LabelPoint
+ * @example labelPoint(A,B,C) // Retourne le nom des points A, B et C en noir
+ * @example labelPoint(A,B,C,'red') // Retourne le nom des points A, B et C en rouge
+ * @example labelPoint(A,B,C,'#f15929') // Retourne le nom des points A, B et C en orange (code couleur HTML : #f15929)
  * @author Rémi Angot
  */
 export function labelPoint (...args) {
   return new LabelPoint(...args)
 }
 /**
- * labelPoint(A,B) pour nommer les points A et B
+ * labelLatexPoint(A,B) pour nommer les points A et B
  * Le nombre d'arguments n'est pas limité
  * A utiliser par exemple si le label est A_1
  * @author Rémi Angot & Jean-Claude Lhote
@@ -862,7 +864,7 @@ function Droite (arg1, arg2, arg3, arg4) {
 
   ObjetMathalea2D.call(this)
   if (arguments.length === 2) {
-    if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Droite : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
+    if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Droite : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
     this.nom = ''
     this.x1 = arg1.x
     this.y1 = arg1.y
@@ -873,7 +875,7 @@ function Droite (arg1, arg2, arg3, arg4) {
     this.c = (this.x1 - this.x2) * this.y1 + (this.y2 - this.y1) * this.x1
   } else if (arguments.length === 3) {
     if (typeof arg1 === 'number') {
-      if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3)) window.notify('Droite : (attendus : a, b et c) les arguments de sont pas des nombres valides', { arg1, arg2, arg3 })
+      if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3)) window.notify('Droite : (attendus : a, b et c) les arguments de sont pas des nombres valides', { arg1, arg2, arg3 })
 
       // droite d'équation ax +by +c =0
       this.nom = ''
@@ -900,7 +902,7 @@ function Droite (arg1, arg2, arg3, arg4) {
         this.y2 = (-c - a) / b
       }
     } else {
-      if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Droite : (attendus : A, B et "nom") les arguments de sont pas des points valides', { arg1, arg2 })
+      if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Droite : (attendus : A, B et "nom") les arguments de sont pas des points valides', { arg1, arg2 })
       this.x1 = arg1.x
       this.y1 = arg1.y
       this.x2 = arg2.x
@@ -912,7 +914,7 @@ function Droite (arg1, arg2, arg3, arg4) {
     }
   } else if (arguments.length === 4) {
     if (typeof arg1 === 'number') {
-      if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3)) window.notify('Droite : (attendus : a, b, c et "nom") les arguments de sont pas des nombres valides', { arg1, arg2, arg3 })
+      if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3)) window.notify('Droite : (attendus : a, b, c et "nom") les arguments de sont pas des nombres valides', { arg1, arg2, arg3 })
       this.a = arg1
       this.b = arg2
       this.c = arg3
@@ -937,7 +939,7 @@ function Droite (arg1, arg2, arg3, arg4) {
         this.y2 = (-c - a) / b
       }
     } else {
-      if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Droite : (attendus : A, B, "nom" et "couleur") les arguments de sont pas des points valides', { arg1, arg2 })
+      if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Droite : (attendus : A, B, "nom" et "couleur") les arguments de sont pas des points valides', { arg1, arg2 })
       this.x1 = arg1.x
       this.y1 = arg1.y
       this.x2 = arg2.x
@@ -946,7 +948,7 @@ function Droite (arg1, arg2, arg3, arg4) {
       this.b = this.x2 - this.x1
       this.c = (this.x1 - this.x2) * this.y1 + (this.y2 - this.y1) * this.x1
       this.nom = arg3
-      this.color = arg4
+      this.color = colorToLatexOrHTML(arg4)
     }
   }
   if (this.b !== 0) this.pente = -this.a / this.b
@@ -967,7 +969,6 @@ function Droite (arg1, arg2, arg3, arg4) {
     point(this.directeur.x, this.directeur.y)
   )
   let absNom, ordNom, leNom
-  // let pointXmin=pointSurDroite(this,fenetreMathalea2d[0])
   if (this.nom !== '') {
     if (egal(this.b, 0, 0.1)) { // ax+c=0 x=-c/a est l'équation de la droite
       absNom = -this.c / this.a + 0.8 // l'abscisse du label est décalé de 0.8
@@ -1039,17 +1040,17 @@ function Droite (arg1, arg2, arg3, arg4) {
     if (this.nom === '') {
       return `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(coeff)}" x2="${B1.xSVG(
         coeff
-      )}" y2="${B1.ySVG(coeff)}" stroke="${this.color}" ${this.style} id ="${this.id}" />`
+      )}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id ="${this.id}" />`
     } else {
       return `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(coeff)}" x2="${B1.xSVG(
       coeff
-    )}" y2="${B1.ySVG(coeff)}" stroke="${this.color}" ${this.style} id ="${this.id}" />` + leNom.svg(coeff)
+    )}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id ="${this.id}" />` + leNom.svg(coeff)
     }
   }
   this.tikz = function () {
     const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
     }
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
@@ -1094,7 +1095,7 @@ function Droite (arg1, arg2, arg3, arg4) {
     const B = point(this.x2, this.y2)
     const A1 = pointSurSegment(A, B, -50)
     const B1 = pointSurSegment(B, A, -50)
-    const s = segment(A1, B1, this.color)
+    const s = segment(A1, B1, this.color[0])
     s.isVisible = this.isVisible
     return s.svgml(coeff, amp) + leNom.svg(coeff)
   }
@@ -1103,7 +1104,7 @@ function Droite (arg1, arg2, arg3, arg4) {
     const B = point(this.x2, this.y2)
     const A1 = pointSurSegment(A, B, -50)
     const B1 = pointSurSegment(B, A, -50)
-    const s = segment(A1, B1, this.color)
+    const s = segment(A1, B1, this.color[1])
     s.isVisible = this.isVisible
     return s.tikzml(amp) + leNom.tikz()
   }
@@ -1318,6 +1319,15 @@ function CodageMediatrice (A, B, color = 'black', mark = '×') {
     return c.tikzml(amp) + '\n' + v.tikz()
   }
 }
+/**
+ *  Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB]
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [mark='x'] Peut être '||' ou 'x'.
+ * @exemple m = codageMediatrice(A,B,'blue','×') // en bleu
+ * @author Rémi Angot
+ */
 
 export function codageMediatrice (...args) {
   return new CodageMediatrice(...args)
@@ -1333,16 +1343,13 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
   this.color = color
   const O = milieu(A, B)
   const d = droite(A, B)
-  const M = tracePointSurDroite(O, d)
-  const v = codeSegments(mark, color, A, O, O, B)
+  const M = tracePointSurDroite(O, d, this.color)
+  const v = codeSegments(mark, this.color, A, O, O, B)
   let code = ''
   this.svg = function (coeff) {
     if (mil) code = M.svg(coeff) + '\n' + v.svg(coeff)
     else code = v.svg(coeff)
     code = `<g id="${this.id}">${code}</g>`
-    M.isVisible = false
-    d.isVisible = false
-    v.isVisible = false
     return code
   }
   this.tikz = function () {
@@ -1396,7 +1403,7 @@ function ConstructionMediatrice (
   arcn1.isVisible = false
   arcn2.isVisible = false
   d.isVisible = false
-  d.color = couleurMediatrice
+  d.color = colorToLatexOrHTML(couleurMediatrice)
   d.epaisseur = epaisseurMediatrice
   const codage = codageMediatrice(A, B, color, markmilieu)
   codage.isVisible = false
@@ -1462,7 +1469,7 @@ export function bissectrice (A, O, B, color = 'black') {
   return demiDroite(O, M, color)
 }
 /**
- * m = codagebissectrice(A,O,B) ajoute des arcs marqués de part et d'autres de la bissectrice mais ne trace pas celle-ci.
+ * m = codagebissectrice(A,O,B,'blue','oo') ajoute des arcs marqués de part et d'autre de la bissectrice mais ne trace pas celle-ci.
  * @author Jean-Claude Lhote
  */
 function CodageBissectrice (A, O, B, color = 'black', mark = '×') {
@@ -1476,8 +1483,8 @@ function CodageBissectrice (A, O, B, color = 'black', mark = '×') {
   this.arrivee = pointSurSegment(O, B, 1.5)
 
   this.svg = function (coeff) {
-    const a1 = codeAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 2, 1)
-    const a2 = codeAngle(pointSurSegment(this.centre, this.lieu, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 2, 1)
+    const a1 = codeAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
+    const a2 = codeAngle(pointSurSegment(this.centre, this.lieu, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
     return (
       a1.svg(coeff) +
       '\n' +
@@ -1486,8 +1493,8 @@ function CodageBissectrice (A, O, B, color = 'black', mark = '×') {
     )
   }
   this.tikz = function () {
-    const a1 = codeAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 2, 1)
-    const a2 = codeAngle(pointSurSegment(this.centre, this.lieu, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 2, 1)
+    const a1 = codeAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
+    const a2 = codeAngle(pointSurSegment(this.centre, this.lieu, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
     return a1.tikz() + '\n' + a2.tikz() + '\n'
   }
 }
@@ -1497,7 +1504,7 @@ export function codageBissectrice (...args) {
 }
 
 /**
- * m = constructionBissectrice(A,O,B,false,'blue','×',tailleLosange,couleurBissectrice,epaisseurBissectrice) // Trace et code la bissectrice en laissant apparent les traits de construction au compas
+ * m = constructionBissectrice(A,O,B,false,'blue','×',tailleLosange,couleurBissectrice,epaisseurBissectrice,couleurConstruction) // Trace et code la bissectrice en laissant apparent les traits de construction au compas
  *
  * @author Rémi Angot
  */
@@ -1510,31 +1517,39 @@ function ConstructionBissectrice (
   mark = '×',
   tailleLosange = 5,
   couleurBissectrice = 'red',
-  epaiseurBissectrice = 2
+  epaiseurBissectrice = 1,
+  couleurConstruction = 'black'
 ) {
+  ObjetMathalea2D.call(this)
+  this.color = color
+  this.tailleLosange = tailleLosange
+  this.mark = mark
+  this.couleurBissectrice = couleurBissectrice
+  this.epaiseurBissectrice = epaiseurBissectrice
+  this.couleurConstruction = couleurConstruction
   if (longueur(A, O) < 0.001 || longueur(O, B) < 0.001) window.notify('ConstructionBissectrice : points confondus', { A, O, B })
-  const M = pointSurSegment(O, A, tailleLosange)
-  const N = pointSurSegment(O, B, tailleLosange)
-  const sOM = segment(O, M)
-  const sON = segment(O, N)
-  sOM.styleExtremites = '-|'
-  sON.styleExtremites = '-|'
-  const dMN = droite(M, N)
-  dMN.isVisible = false
-  const P = symetrieAxiale(O, dMN)
-  const tNP = traceCompas(N, P)
-  const tMP = traceCompas(M, P)
-  const d = bissectrice(A, O, B)
-  d.color = couleurBissectrice
-  d.epaisseur = epaiseurBissectrice
-  const objets = [sOM, sON, tNP, tMP, d]
+  const d = bissectrice(A, O, B, this.couleurBissectrice)
+  d.epaisseur = this.epaiseurBissectrice
+  const objets = [d]
   if (detail) {
-    const sMP = segment(M, P)
-    const sNP = segment(N, P)
+    const M = pointSurSegment(O, A, this.tailleLosange)
+    const N = pointSurSegment(O, B, this.tailleLosange)
+    const sOM = segment(O, M, this.couleurConstruction)
+    const sON = segment(O, N, this.couleurConstruction)
+    sOM.styleExtremites = '-|'
+    sON.styleExtremites = '-|'
+    const dMN = droite(M, N)
+    const P = symetrieAxiale(O, dMN)
+    const tNP = traceCompas(N, P)
+    tNP.color = colorToLatexOrHTML(this.couleurConstruction)
+    const tMP = traceCompas(M, P)
+    tMP.color = colorToLatexOrHTML(this.couleurConstruction)
+    const sMP = segment(M, P, this.couleurConstruction)
+    const sNP = segment(N, P, this.couleurConstruction)
     sMP.pointilles = true
     sNP.pointilles = true
-    const codes = codeSegments(mark, color, O, M, M, P, O, N, N, P)
-    objets.push(sMP, sNP, codes)
+    const codes = codeSegments(this.mark, this.color, O, M, M, P, O, N, N, P)
+    objets.push(sOM, sON, tNP, tMP, sMP, sNP, codes)
   }
   this.svg = function (coeff) {
     let code = ''
@@ -1572,9 +1587,10 @@ function Polyline (...points) {
   if (Array.isArray(points[0])) {
     // Si le premier argument est un tableau
     this.listePoints = points[0]
-    this.color = points[1]
+    this.color = colorToLatexOrHTML(points[1])
   } else {
     this.listePoints = points
+    this.color = colorToLatexOrHTML('black')
   }
   let xmin = 1000
   let xmax = -1000
@@ -1590,7 +1606,7 @@ function Polyline (...points) {
   this.bordures = [xmin, ymin, xmax, ymax]
   this.nom = ''
   if (points.length < 15) {
-    // Ne nomme pas les ligne brisée trop grande (pratique pour les courbes de fonctions)
+    // Ne nomme pas les lignes brisées trop grandes (pratique pour les courbes de fonction)
     for (const point of points) {
       this.nom += point.nom
     }
@@ -1625,12 +1641,12 @@ function Polyline (...points) {
     for (const point of this.listePoints) {
       binomeXY += `${point.x * coeff},${-point.y * coeff} `
     }
-    return `<polyline points="${binomeXY}" fill="none" stroke="${this.color}" ${this.style} id="${this.id}" />`
+    return `<polyline points="${binomeXY}" fill="none" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
   }
   this.tikz = function () {
     const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
     }
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
@@ -1672,9 +1688,8 @@ function Polyline (...points) {
   this.svgml = function (coeff, amp) {
     let code = ''; let s
     for (let k = 1; k < this.listePoints.length; k++) {
-      s = segment(this.listePoints[k - 1], this.listePoints[k])
+      s = segment(this.listePoints[k - 1], this.listePoints[k], this.color)
       s.epaisseur = this.epaisseur
-      s.color = this.color
       s.opacite = this.opacite
       code += s.svgml(coeff, amp)
     }
@@ -1682,8 +1697,8 @@ function Polyline (...points) {
   }
   this.tikzml = function (amp) {
     const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
     }
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
@@ -1705,6 +1720,13 @@ function Polyline (...points) {
     return `\\draw${optionsDraw} ${binomeXY};`
   }
 }
+/**
+ * Trace une ligne brisée
+ * @example polyline(A,B,C,D,E) // Trace la ligne brisée ABCDE en noir
+ * @example polyline([A,B,C,D,E],'blue') // Trace la ligne brisée ABCDE en bleu
+ * @example polyline([A,B,C,D,E],'#f15929') // Trace la ligne brisée ABCDE en orange (code couleur HTML : #f15929)
+ * @author Rémi Angot
+ */
 export function polyline (...args) {
   return new Polyline(...args)
 }
@@ -1779,6 +1801,8 @@ export function pave (...args) {
  * v = vecteur(x,y) // ses composantes
  * v = vecteur(A,B) // son origine et son extrémité (deux Points)
  * v = vecteur(x,y,'v') // son nom et ses composantes.
+ * v.representant(E,'blue') // Dessine le vecteur v issu de E, en bleu.
+ * Commenter toutes les méthodes possibles
  * @author Jean-Claude Lhote et Rémi Angot
  */
 function Vecteur (arg1, arg2, nom = '') {
@@ -1808,21 +1832,20 @@ function Vecteur (arg1, arg2, nom = '') {
   this.ySVG = function (coeff) {
     return -this.y * coeff
   }
-  this.representant = function (A) {
+  this.representant = function (A, color = 'black') {
     const B = point(A.x + this.x, A.y + this.y)
-    const s = segment(A, B)
-    s.styleExtremites = '|->'
+    const s = segment(A, B, color, '|->')
     return s
   }
   this.representantNomme = function (A, nom, taille = 1, color = 'black') {
     let s, angle, v
     const B = point(A.x + this.x, A.y + this.y)
     const M = milieu(A, B)
-    s = segment(A, B)
+    s = segment(A, B, color)
     angle = s.angleAvecHorizontale
     v = similitude(this, A, 90, 0.5 / this.norme())
     if (Math.abs(angle) > 90) {
-      s = segment(B, A)
+      s = segment(B, A, color)
       angle = s.angleAvecHorizontale
       v = similitude(this, A, -90, 0.5 / this.norme())
     }
@@ -1862,10 +1885,9 @@ function NomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color = 'black
   const M0 = similitude(P, M, 90 + this.angle, 2 / this.nom.length)
   const M1 = rotation(translation(M0, vecteur(P, M)), M0, this.angle)
   const M2 = rotation(M1, M0, 180)
-  const s = segment(M1, M2)
+  const s = segment(M1, M2, this.color)
   s.styleExtremites = '->'
   s.tailleExtremites = 3
-  s.color = this.color
   objets.push(t, s)
   this.svg = function (coeff) {
     let code = ''
@@ -1899,7 +1921,7 @@ export function nomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
  *
  * @author Rémi Angot
  */
-function Segment (arg1, arg2, arg3, arg4, color) {
+function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
   ObjetMathalea2D.call(this)
   /**
  * Détermine si un segment sur lequel est appliqué la méthode coupe l'objet passé en argument (dont le type est parmi ceux qui suivent)
@@ -1926,36 +1948,45 @@ function Segment (arg1, arg2, arg3, arg4, color) {
   }
 
   this.typeObjet = 'segment'
-  this.styleExtremites = ''
+  this.styleExtremites = styleExtremites
   this.tailleExtremites = 4
   if (arguments.length === 2) {
-    if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Segment : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
+    if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Segment : (attendus : A et B) les arguments de sont pas des points valides', { arg1, arg2 })
     this.x1 = arg1.x
     this.y1 = arg1.y
     this.x2 = arg2.x
     this.y2 = arg2.y
   } else if (arguments.length === 3) {
-    if (Number.isNaN(arg1.x) || Number.isNaN(arg1.y) || Number.isNaN(arg2.x) || Number.isNaN(arg2.y)) window.notify('Segment : (attendus : A, B et "couleur") les arguments de sont pas des points valides', { arg1, arg2 })
-
+    if (isNaN(arg1.x) || isNaN(arg1.y) || isNaN(arg2.x) || isNaN(arg2.y)) window.notify('Segment : (attendus : A, B et "couleur") les arguments de sont pas des points valides', { arg1, arg2 })
     this.x1 = arg1.x
     this.y1 = arg1.y
     this.x2 = arg2.x
     this.y2 = arg2.y
-    this.color = arg3
+    this.color = colorToLatexOrHTML(arg3)
   } else if (arguments.length === 4) {
-    if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', { arg1, arg2 })
-    this.x1 = arg1
-    this.y1 = arg2
-    this.x2 = arg3
-    this.y2 = arg4
+    if (isNaN(arg3)) {
+      this.x1 = arg1.x
+      this.y1 = arg1.y
+      this.x2 = arg2.x
+      this.y2 = arg2.y
+      this.color = colorToLatexOrHTML(arg3)
+      this.styleExtremites = arg4
+    } else {
+      if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3) || isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', { arg1, arg2 })
+      this.x1 = arg1
+      this.y1 = arg2
+      this.x2 = arg3
+      this.y2 = arg4
+    }
   } else {
-    // 5 arguments
-    if (Number.isNaN(arg1) || Number.isNaN(arg2) || Number.isNaN(arg3) || Number.isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2, y2 et "couleur") les arguments de sont pas des nombres valides', { arg1, arg2 })
+    // Au moins 5 arguments
+    if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3) || isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2, y2 et "couleur") les arguments de sont pas des nombres valides', { arg1, arg2 })
     this.x1 = arg1
     this.y1 = arg2
     this.x2 = arg3
     this.y2 = arg4
-    this.color = color
+    this.color = colorToLatexOrHTML(color)
+    this.styleExtremites = arg4
   }
   this.bordures = [Math.min(this.x1, this.x2) - 0.2, Math.min(this.y1, this.y2) - 0.2, Math.max(this.x1, this.x2) + 0.2, Math.max(this.y1, this.y2) + 0.2]
   this.extremite1 = point(this.x1, this.y1)
@@ -1966,8 +1997,97 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     this.extremite1,
     this.extremite2
   )
-  this.svg = function (coeff) {
+
+  this.codeExtremitesSVG = function (coeff) {
+    let code = ''
+    const A = point(this.x1, this.y1)
+    const B = point(this.x2, this.y2)
     const h = this.tailleExtremites
+    if (this.styleExtremites.length > 1) {
+      if (this.styleExtremites.substr(-1) === '|') {
+        // si ça termine par | on le rajoute en B
+        const M = pointSurSegment(B, A, h * this.epaisseur / context.pixelsParCm)
+        const B1 = rotation(M, B, 90)
+        const B2 = rotation(M, B, -90)
+        code += `<line x1="${B1.xSVG(coeff)}" y1="${B1.ySVG(
+          coeff
+        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]
+          }" stroke-width="${this.epaisseur}" />`
+      }
+      if (this.styleExtremites.substr(-1) === '>') {
+        // si ça termine par > on rajoute une flèche en B
+        const M = pointSurSegment(B, A, h * this.epaisseur / context.pixelsParCm)
+        const B1 = rotation(B, M, 90)
+        const B1EE = pointSurSegment(B, rotation(B, M, 90), -this.epaisseur / 2 / context.pixelsParCm)
+        const B2 = rotation(B, M, -90)
+        const B2EE = pointSurSegment(B, rotation(B, M, -90), this.epaisseur / 2 / context.pixelsParCm)
+        code += `<line x1="${B1EE.xSVG(coeff)}" y1="${B1EE.ySVG(
+            coeff
+        )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]
+          }" stroke-width="${this.epaisseur}" />`
+        code += `\n\t<line x1="${B2EE.xSVG(coeff)}" y1="${B2EE.ySVG(
+              coeff
+        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]}" stroke-width="${this.epaisseur}" />`
+      }
+      if (this.styleExtremites.substr(-1) === '<') {
+        // si ça termine par < on rajoute une flèche inversée en B
+        const M = pointSurSegment(B, A, -h * this.epaisseur / context.pixelsParCm)
+        const B1 = rotation(B, M, 90)
+        const B2 = rotation(B, M, -90)
+        code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
+          coeff
+        )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]
+          }" stroke-width="${this.epaisseur}" />`
+        code += `\n\t<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
+          coeff
+        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]
+          }" stroke-width="${this.epaisseur}" />`
+      }
+      if (this.styleExtremites[0] === '<') {
+        // si ça commence par < on rajoute une flèche en A
+        const M = pointSurSegment(A, B, h * this.epaisseur / context.pixelsParCm)
+        const A1 = rotation(A, M, 90)
+        const A1EE = pointSurSegment(A, rotation(A, M, 90), -this.epaisseur / 2 / context.pixelsParCm)
+        const A2 = rotation(A, M, -90)
+        const A2EE = pointSurSegment(A, rotation(A, M, -90), this.epaisseur / 2 / context.pixelsParCm)
+        code += `<line x1="${A1EE.xSVG(coeff)}" y1="${A1EE.ySVG(
+            coeff
+        )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color[0]
+          }" stroke-width="${this.epaisseur}" />`
+        code += `\n\t<line x1="${A2EE.xSVG(coeff)}" y1="${A2EE.ySVG(
+              coeff
+        )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color[0]
+          }" stroke-width="${this.epaisseur}" />`
+      }
+      if (this.styleExtremites[0] === '>') {
+        // si ça commence par > on rajoute une flèche inversée en A
+        const M = pointSurSegment(A, B, -h * this.epaisseur / context.pixelsParCm)
+        const A1 = rotation(A, M, 90)
+        const A2 = rotation(A, M, -90)
+        code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
+          coeff
+        )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color[0]
+          }" stroke-width="${this.epaisseur}" />`
+        code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
+          coeff
+        )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color[0]
+          }" stroke-width="${this.epaisseur}" />`
+      }
+      if (this.styleExtremites[0] === '|') {
+        // si ça commence par | on le rajoute en A
+        const N = pointSurSegment(A, B, h * this.epaisseur / context.pixelsParCm)
+        const A1 = rotation(N, A, 90)
+        const A2 = rotation(N, A, -90)
+        code += `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(
+          coeff
+        )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color[0]
+          }" stroke-width="${this.epaisseur}" />`
+      }
+    }
+    return code
+  }
+
+  this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
@@ -1993,89 +2113,13 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
-    let code = ''
+    let code = this.codeExtremitesSVG(coeff)
     const A = point(this.x1, this.y1)
     const B = point(this.x2, this.y2)
-    if (this.styleExtremites.length > 1) {
-      if (this.styleExtremites.substr(-1) === '|') {
-        // si ça termine par | on le rajoute en B
-        const M = pointSurSegment(B, A, h / context.pixelsParCm)
-        const B1 = rotation(M, B, 90)
-        const B2 = rotation(M, B, -90)
-        code += `<line x1="${B1.xSVG(coeff)}" y1="${B1.ySVG(
-          coeff
-        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color
-          }" stroke-width="${this.epaisseur}" />`
-      }
-      if (this.styleExtremites.substr(-1) === '>') {
-        // si ça termine par > on rajoute une flèche en B
-        const M = pointSurSegment(B, A, h / context.pixelsParCm)
-        const B1 = rotation(B, M, 90)
-        const B2 = rotation(B, M, -90)
-        code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
-          coeff
-        )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color
-          }" stroke-width="${this.epaisseur}" />`
-        code += `\n\t<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
-          coeff
-        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color}" stroke-width="${this.epaisseur}" />`
-      }
-      if (this.styleExtremites.substr(-1) === '<') {
-        // si ça termine par < on rajoute une flèche inversée en B
-        const M = pointSurSegment(B, A, -h / context.pixelsParCm)
-        const B1 = rotation(B, M, 90)
-        const B2 = rotation(B, M, -90)
-        code += `<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
-          coeff
-        )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color
-          }" stroke-width="${this.epaisseur}" />`
-        code += `\n\t<line x1="${B.xSVG(coeff)}" y1="${B.ySVG(
-          coeff
-        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color
-          }" stroke-width="${this.epaisseur}" />`
-      }
-      if (this.styleExtremites[0] === '<') {
-        // si ça commence par < on rajoute une flèche en A
-        const M = pointSurSegment(A, B, h / context.pixelsParCm)
-        const A1 = rotation(A, M, 90)
-        const A2 = rotation(A, M, -90)
-        code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
-          coeff
-        )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color
-          }" stroke-width="${this.epaisseur}" />`
-        code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
-          coeff
-        )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color
-          }" stroke-width="${this.epaisseur}" />`
-      }
-      if (this.styleExtremites[0] === '>') {
-        // si ça commence par > on rajoute une flèche inversée en A
-        const M = pointSurSegment(A, B, -h / context.pixelsParCm)
-        const A1 = rotation(A, M, 90)
-        const A2 = rotation(A, M, -90)
-        code += `<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
-          coeff
-        )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color
-          }" stroke-width="${this.epaisseur}" />`
-        code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
-          coeff
-        )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color
-          }" stroke-width="${this.epaisseur}" />`
-      }
-      if (this.styleExtremites[0] === '|') {
-        // si ça commence par | on le rajoute en A
-        const N = pointSurSegment(A, B, h / context.pixelsParCm)
-        const A1 = rotation(N, A, 90)
-        const A2 = rotation(N, A, -90)
-        code += `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(
-          coeff
-        )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color
-          }" stroke-width="${this.epaisseur}" />`
-      }
-    }
+
     code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(coeff)}" x2="${B.xSVG(
       coeff
-    )}" y2="${B.ySVG(coeff)}" stroke="${this.color}" ${this.style} />`
+    )}" y2="${B.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} />`
     if (this.styleExtremites.length > 0) {
       code = `<g id="${this.id}">${code}</g>`
     } else {
@@ -2083,11 +2127,12 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     }
     return code
   }
+
   this.tikz = function () {
     let optionsDraw = []
     const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color =${this.color[1]}`)
     }
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
@@ -2142,8 +2187,9 @@ function Segment (arg1, arg2, arg3, arg4, color) {
       p++
       code += `${Math.round(A.xSVG(coeff) + k * dx + randint(-2, 2, 0) * amp)}, ${Math.round(A.ySVG(coeff) + k * dy + randint(-2, 2, 0) * amp)} `
     }
-    if (p % 2 === 1) code += ` ${Math.round(B.xSVG(coeff), 0)}, ${B.ySVG(coeff)}" stroke="${this.color}" ${this.style}/>`
-    else code += ` ${Math.round(B.xSVG(coeff), 0)}, ${B.ySVG(coeff)} ${B.xSVG(coeff)}, ${B.ySVG(coeff)}" stroke="${this.color}" ${this.style}/>`
+    if (p % 2 === 1) code += ` ${Math.round(B.xSVG(coeff), 0)}, ${B.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style}/>`
+    else code += ` ${Math.round(B.xSVG(coeff), 0)}, ${B.ySVG(coeff)} ${B.xSVG(coeff)}, ${B.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style}/>`
+    code += this.codeExtremitesSVG(coeff)
     return code
   }
   this.tikzml = function (amp) {
@@ -2151,8 +2197,8 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     const B = point(this.x2, this.y2)
     let optionsDraw = []
     const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color =${this.color[1]}`)
     }
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
@@ -2171,6 +2217,13 @@ function Segment (arg1, arg2, arg3, arg4, color) {
     return code
   }
 }
+/**
+ * @param {...args} args Points ou coordonnées + couleur facultative en dernier
+ * @example segment(A,B,'blue') // Segment [AB] de couleur bleu
+ * @example segment(x1,y1,x2,y2,'#f15929') // Segment dont les extrémités sont respectivement (x1,y1) et (x2,y2), de couleur orange (#f15929)
+ * @author Rémi Angot
+ */
+
 export function segment (...args) {
   return new Segment(...args)
 }
@@ -2179,7 +2232,7 @@ export function segment (...args) {
  * @param {...args} args Points ou coordonnées
  * @param {string} color Facultatif
  * @example segmentAvecExtremites(A,B,'blue')
- * @example segmentAvecExtremites(x1,y1,x2,y2,'blue')
+ * @example segmentAvecExtremites(x1,y1,x2,y2,'#f15929')
  * @author Rémi Angot
  */
 export function segmentAvecExtremites (...args) {
@@ -2239,7 +2292,7 @@ export function demiDroiteAvecExtremite (A, B, color = 'black') {
  */
 function Polygone (...points) {
   ObjetMathalea2D.call(this)
-  this.couleurDeRemplissage = 'none'
+  this.couleurDeRemplissage = colorToLatexOrHTML('none')
   this.opaciteDeRemplissage = 1.1
   this.hachures = false
   this.couleurDesHachures = 'black'
@@ -2249,7 +2302,7 @@ function Polygone (...points) {
     // Si le premier argument est un tableau
     this.listePoints = points[0]
     if (points[1]) {
-      this.color = points[1]
+      this.color = colorToLatexOrHTML(points[1])
     }
     this.nom = this.listePoints.join()
   } else {
@@ -2319,34 +2372,34 @@ function Polygone (...points) {
 
     if (this.hachures) {
       if (this.couleurDeRemplissage.length < 1) {
-        this.couleurDeRemplissage = 'none'
+        this.couleurDeRemplissage = colorToLatexOrHTML('none')
       }
       return pattern({
         motif: this.hachures,
         id: this.id,
         distanceDesHachures: this.distanceDesHachures,
         epaisseurDesHachures: this.epaisseurDesHachures,
-        couleurDesHachures: this.couleurDesHachures,
-        couleurDeRemplissage: this.couleurDeRemplissage,
+        couleurDesHachures: this.couleurDesHachures[0],
+        couleurDeRemplissage: this.couleurDeRemplissage[0],
         opaciteDeRemplissage: this.opaciteDeRemplissage
-      }) + `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+      }) + `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
     } else {
       if (this.couleurDeRemplissage === '') {
         this.style += ' fill="none" '
       } else {
-        this.style += ` fill="${this.couleurDeRemplissage}" `
+        this.style += ` fill="${this.couleurDeRemplissage[0]}" `
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
       }
       if (this.opacite !== 1) {
         this.style += ` stroke-opacity="${this.opacite}" `
       }
-      return `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" />`
+      return `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
     }
   }
   this.tikz = function () {
     const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
     }
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
@@ -2376,22 +2429,19 @@ function Polygone (...points) {
     if (this.opaciteDeRemplissage !== 1) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage !== '') {
-      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+    if (this.couleurDeRemplissage !== '' & this.couleurDeRemplissage[1] !== 'none') {
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}}`)
     }
 
     if (this.hachures) {
-      if (this.hachures) {
-        tableauOptions.push(pattern({
-          motif: this.hachures,
-          id: this.id,
-          distanceDesHachures: this.distanceDesHachures,
-          epaisseurDesHachures: this.epaisseurDesHachures,
-          couleurDesHachures: this.couleurDesHachures,
-          couleurDeRemplissage: this.couleurDeRemplissage,
-          opaciteDeRemplissage: this.opaciteDeRemplissage
-        }))
-      }
+      tableauOptions.push(pattern({
+        motif: this.hachures,
+        id: this.id,
+        distanceDesHachures: this.distanceDesHachures,
+        couleurDesHachures: this.couleurDesHachures[1],
+        couleurDeRemplissage: this.couleurDeRemplissage[1],
+        opaciteDeRemplissage: this.opaciteDeRemplissage
+      }))
     }
     let optionsDraw = []
     if (tableauOptions.length > 0) {
@@ -2402,22 +2452,21 @@ function Polygone (...points) {
     for (const point of this.listePoints) {
       binomeXY += `(${point.x},${point.y})--`
     }
-    if (this.couleurDeRemplissage === '') {
-      return `\\draw ${optionsDraw} ${binomeXY}cycle;`
-    } else {
-      return `\\filldraw ${optionsDraw} ${binomeXY}cycle;`
-    }
+    // if (this.couleurDeRemplissage === '') {
+    return `\\draw${optionsDraw} ${binomeXY}cycle;`
+    // } else {
+    //  return `\\filldraw ${optionsDraw} ${binomeXY}cycle;`
+    // }
   }
   this.svgml = function (coeff, amp) {
     let code = ''; let segmentCourant
-    let A = this.listePoints[0]; let B
+    let A, B
     for (let k = 1; k <= this.listePoints.length; k++) {
       B = this.listePoints[k % this.listePoints.length]
       A = this.listePoints[k - 1]
-      segmentCourant = segment(A, B)
+      segmentCourant = segment(A, B, this.color)
       segmentCourant.isVisible = true
       segmentCourant.epaisseur = this.epaisseur
-      segmentCourant.color = this.color
       segmentCourant.opacite = this.opacite
       code += segmentCourant.svgml(coeff, amp)
     }
@@ -2429,10 +2478,9 @@ function Polygone (...points) {
     for (let k = 1; k <= this.listePoints.length; k++) {
       B = this.listePoints[k % this.listePoints.length]
       A = this.listePoints[k - 1]
-      segmentCourant = segment(A, B)
-      segmentCourant.isVisible = false
+      segmentCourant = segment(A, B, this.color)
+      segmentCourant.isVisible = true
       segmentCourant.epaisseur = this.epaisseur
-      segmentCourant.color = this.color
       segmentCourant.opacite = this.opacite
       code += '\t' + segmentCourant.tikzml(amp) + '\n'
     }
@@ -2440,9 +2488,11 @@ function Polygone (...points) {
   }
 }
 /**
+ * Propriétés possibles : .color, .opacite, .epaisseur, .couleurDeRemplissage, .opaciteDeRemplissage, .hachures (true or false), .distanceDesHachures, .epaisseurDesHachures,.couleurDesHachures
  * @returns {Polygone} objet Polygone
  * @example polygone(A,B,C,D,E) //Trace ABCDE
  * @example polygone([A,B,C,D],"blue") // Trace ABCD en bleu
+ * @example polygone([A,B,C,D],"#f15929") // Trace ABCD en orange (code couleur HTML : #f15929)
  * @author Rémi Angot
  */
 export function polygone (...args) {
@@ -2583,7 +2633,7 @@ export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
  * Xmin, Ymin : coordonnées du sommet en bas à gauche
  * Xmax,Ymax : coordonnées du sommet en haut à droite
  * color : la couleur de la bordure
- * colorFill : false si on ne veut pas de remplissage, sinon, la couleur de remplissage (exemple : 'orange')
+ * colorFill : 'none' sinon, la couleur de remplissage (exemple : 'orange') Code couleur HTML accepté
  * opaciteDeRemplissage : valeur de 0 (transparent) à 1 (opaque)
  * texteIn : texte à mettre à l'intérieur
  * tailleTexte : comme son nom l'indique la taille du texte (1 par défaut)
@@ -2593,12 +2643,12 @@ export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
  * @author Jean-Claude Lhote
  */
 class Boite {
-  constructor ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteOpacite = 0.7, texteMath = false, echelleFigure = 1 } = {}) {
+  constructor ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = 'none', opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteOpacite = 0.7, texteMath = false, echelleFigure = 1 } = {}) {
     ObjetMathalea2D.call(this)
     this.forme = polygone([point(Xmin, Ymin), point(Xmax, Ymin), point(Xmax, Ymax), point(Xmin, Ymax)], color)
     this.bordures = this.forme.bordures
-    if (colorFill) {
-      this.forme.couleurDeRemplissage = colorFill
+    if (colorFill !== 'none') {
+      this.forme.couleurDeRemplissage = colorToLatexOrHTML(colorFill)
       this.forme.opaciteDeRemplissage = opaciteDeRemplissage
     }
     if (texteIn !== '') {
@@ -2616,7 +2666,7 @@ class Boite {
   }
 }
 
-export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = false, opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteOpacite = 0.7, texteMath = false, echelleFigure = 1 } = {}) {
+export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black', colorFill = 'none', opaciteDeRemplissage = 0.7, texteIn = '', tailleTexte = 1, texteColor = 'black', texteOpacite = 0.7, texteMath = false, echelleFigure = 1 } = {}) {
   return new Boite({ Xmin: Xmin, Ymin: Ymin, Xmax: Xmax, Ymax: Ymax, color: color, colorFill: colorFill, opaciteDeRemplissage: opaciteDeRemplissage, texteIn: texteIn, tailleTexte: tailleTexte, texteColor: texteColor, texteOpacite: texteOpacite, texteMath: texteMath, echelleFigure: echelleFigure })
 }
 
@@ -2755,13 +2805,13 @@ export function polygoneATrous ({ data = [], holes = [], noms = '', color = 'bla
  * @author Jean-Claude Lhote
  * @returns {objet} {triangle, pied}
  */
-export function triangle2points1hauteur (A, B, h, d, n = 1) {
+export function triangle2points1hauteur (A, B, h, d, n = 1, color = 'black') {
   if (d === undefined) {
-    d = randint(0, Math.floor(longueur(A, B)))
+    d = randint(0, floor(longueur(A, B)))
   }
   const H = pointSurSegment(A, B, d)
   const C = similitude(A, H, 90 * (3 - n * 2), h / longueur(A, H))
-  return { triangle: polygone(A, B, C), pied: H }
+  return { triangle: polygone(A, B, C, color), pied: H }
 }
 
 /**
@@ -2775,7 +2825,7 @@ export function triangle2points1hauteur (A, B, h, d, n = 1) {
  * @example C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
  * @author Rémi Angot
  */
-export function triangle2points2longueurs (A, B, l1, l2, n = 1) {
+export function triangle2points2longueurs (A, B, l1, l2, n = 1, color = 'black') {
   const c1 = cercle(A, l1)
   const c2 = cercle(B, l2)
   let C
@@ -2786,7 +2836,7 @@ export function triangle2points2longueurs (A, B, l1, l2, n = 1) {
   }
   c1.isVisible = false
   c2.isVisible = false
-  return polygone(A, B, C)
+  return polygone(A, B, C, color)
 }
 
 /**
@@ -2795,7 +2845,7 @@ export function triangle2points2longueurs (A, B, l1, l2, n = 1) {
  * t = triangle2points2angles(A,B,40,60,2) // Trace le triangle ABC tel que CAB = -40° et CBA = 60°
  * @author Rémi Angot
  */
-export function triangle2points2angles (A, B, a1, a2, n = 1) {
+export function triangle2points2angles (A, B, a1, a2, n = 1, color = 'black') {
   if (n === 1) {
     a2 *= -1
   } else {
@@ -2810,7 +2860,7 @@ export function triangle2points2angles (A, B, a1, a2, n = 1) {
   dAc1.isVisible = false
   dBc2.isVisible = false
   const C = pointIntersectionDD(dAc1, dBc2, 'C')
-  return polygone(A, B, C)
+  return polygone(A, B, C, color)
 }
 /**
  *
@@ -2822,7 +2872,7 @@ export function triangle2points2angles (A, B, a1, a2, n = 1) {
  * t = triangle2points1angle1longueur(A,B,40,6) // Trace le triangle ABC tel que CAB = 40° et AC=6
  * @author Jean-Claude Lhote
  */
-export function triangle2points1angle1longueur (A, B, a, l, n = 1) {
+export function triangle2points1angle1longueur (A, B, a, l, n = 1, color = 'black') {
   if (n === 1) {
     a = Math.abs(a) % 180
   } else {
@@ -2830,7 +2880,7 @@ export function triangle2points1angle1longueur (A, B, a, l, n = 1) {
   }
   const P = pointSurSegment(A, B, l)
   const Q = rotation(P, A, a)
-  return polygone(A, B, Q)
+  return polygone(A, B, Q, color)
 }
 /**
  * @param {Point} A Le sommet pour l'angle donné = première extrémité du segment de base du triangle
@@ -2844,7 +2894,7 @@ export function triangle2points1angle1longueur (A, B, a, l, n = 1) {
  * t = triangle2points1angle1longueurOppose(A,B,40,6) // Trace le triangle ABC tel que CAB = 40° et BC=6 Le point C est celui des deux points possible le plus près de A
  * @author Jean-Claude Lhote
  */
-export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1) {
+export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1, color = 'black') {
   let M
   if (n % 2 === 1) {
     a = Math.abs(a) % 180
@@ -2859,7 +2909,7 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1) {
   c.isVisible = false
   if ((n + 1) >> 1 === 1) M = pointIntersectionLC(e, c, '', 1)
   else M = pointIntersectionLC(e, c, '', 2)
-  return polygone(A, B, M)
+  return polygone(A, B, M, color)
 }
 
 /*********************************************/
@@ -2874,12 +2924,12 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1) {
  * @param {objet} C
  * @returns {polygoneAvecNom}
  */
-export function parallelogramme3points (NOM, A, B, C) {
+export function parallelogramme3points (NOM, A, B, C, color = 'black') {
   const D = translation(A, vecteur(B, C), NOM[3])
   A.nom = NOM[0]
   B.nom = NOM[1]
   C.nom = NOM[2]
-  return polygoneAvecNom(A, B, C, D)
+  return polygoneAvecNom(A, B, C, D, color)
 }
 /**
  * parrallelogramme2points1hauteur(A,B,5) renvoie un parallélogramme ABCD de base [AB] et de hauteur h
@@ -2891,7 +2941,7 @@ export function parallelogramme3points (NOM, A, B, C) {
  * @param {number} h
  * @returns {polygoneAvecNom}
  */
-export function parallelogramme2points1hauteur (NOM, A, B, h) {
+export function parallelogramme2points1hauteur (NOM, A, B, h, color = 'black') {
   if (typeof B === 'number') {
     B = pointAdistance(A, B, randint(-180, 180))
   }
@@ -2901,7 +2951,7 @@ export function parallelogramme2points1hauteur (NOM, A, B, h) {
   H = pointSurSegment(A, H, h)
   const D = translation(H, homothetie(vecteur(A, B), A, randint(-4, 4, 0) / 10), NOM[3])
   const C = translation(D, vecteur(A, B), NOM[2])
-  return polygoneAvecNom(A, B, C, D)
+  return polygoneAvecNom(A, B, C, D, color)
 }
 
 /**
@@ -2983,8 +3033,8 @@ export function aireTriangle (p) {
 function Cercle (O, r, color) {
   ObjetMathalea2D.call(this)
   if (color) {
-    this.color = color
-    this.styleTikz = `[${color}]`
+    this.color = colorToLatexOrHTML(color)
+    // this.styleTikz = `[${color}]`
   }
   this.centre = O
   this.rayon = r
@@ -3031,7 +3081,7 @@ function Cercle (O, r, color) {
         couleurDesHachures: this.couleurDesHachures,
         couleurDeRemplissage: this.couleurDeRemplissage,
         opaciteDeRemplissage: this.opaciteDeRemplissage
-      }) + `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r * coeff}" stroke="${this.color}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+      }) + `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r * coeff}" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
     } else {
       if (this.opacite !== 1) {
         this.style += ` stroke-opacity="${this.opacite}" `
@@ -3044,14 +3094,14 @@ function Cercle (O, r, color) {
       }
 
       return `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r * coeff
-        }" stroke="${this.color}" ${this.style} id="${this.id}" />`
+        }" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
     }
   }
   this.tikz = function () {
     let optionsDraw = []
     const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
     }
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
@@ -3112,18 +3162,22 @@ function Cercle (O, r, color) {
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
     }
 
-    let code = `<path d="M ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)} C ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)}, `
-    for (let k = 1; k < 101; k++) {
-      code += `${O.xSVG(coeff) + r * Math.cos(2 * k * Math.PI / 101) * coeff + randint(-1, 1) * amp} ${O.ySVG(coeff) + r * Math.sin(2 * k * Math.PI / 100) * coeff + randint(-1, 1) * amp}, `
+    let code = `<path d="M ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)} S ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)}, `
+    let compteur = 1
+    for (let k = 1, variation; k < 181; k++) {
+      variation = (random(0, 2) - 1) * amp / 10
+      code += `${O.xSVG(coeff) + round((r + variation) * Math.cos(2 * k * Math.PI / 180) * coeff, 2)} ${O.ySVG(coeff) + round((r + variation) * Math.sin(2 * k * Math.PI / 180) * coeff, 2)}, `
+      compteur++
     }
-    code += ` ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)} Z" stroke="${this.color}" ${this.style}"/>`
+    if (compteur % 2 === 0) code += ` ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)}, `
+    code += ` ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style}"/>`
     return code
   }
   this.tikzml = function (amp) {
     let optionsDraw = []
     const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
     }
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
@@ -3143,7 +3197,7 @@ function Cercle (O, r, color) {
  * Construit le cercle de centre O, de rayon r et de couleur color
  * @param {Point} O Centre du cercle
  * @param {number} r Rayon du cercle
- * @param {string} [color='black'] Facultatif, 'black' par défaut.
+ * @param {string} [color='black'] Les couleurs sont cette forme '#f15929' sont acceptées aussi
  * @returns {Cercle} objet Cercle
  */
 export function cercle (O, r, color = 'black') {
@@ -3156,10 +3210,8 @@ export function cercle (O, r, color = 'black') {
  */
 function Ellipse (O, rx, ry, color) {
   ObjetMathalea2D.call(this)
-  if (color) {
-    this.color = color
-    this.styleTikz = `[${color}]`
-  }
+  if (color) this.color = colorToLatexOrHTML(color)
+  else this.color = colorToLatexOrHTML('black')
   this.centre = O
   this.rx = rx
   this.ry = ry
@@ -3195,17 +3247,17 @@ function Ellipse (O, rx, ry, color) {
     if (this.couleurDeRemplissage === '') {
       this.style += ' fill="none" '
     } else {
-      this.style += ` fill="${this.couleurDeRemplissage}" `
+      this.style += ` fill="${this.couleurDeRemplissage[0]}" `
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
     }
 
-    return `<ellipse cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" rx="${rx * coeff}" ry="${ry * coeff}" stroke="${this.color}" ${this.style} id="${this.id}" />`
+    return `<ellipse cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" rx="${rx * coeff}" ry="${ry * coeff}" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
   }
   this.tikz = function () {
     let optionsDraw = []
     const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
     }
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
@@ -3232,6 +3284,12 @@ function Ellipse (O, rx, ry, color) {
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
+    if (this.opaciteDeRemplissage !== 1) {
+      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+    }
+    if (this.couleurDeRemplissage !== '' & this.couleurDeRemplissage[1] !== 'none') {
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}}`)
+    }
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
@@ -3253,18 +3311,23 @@ function Ellipse (O, rx, ry, color) {
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
     }
 */
+
     let code = `<path d="M ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)} C ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)}, `
-    for (let k = 1; k < 101; k++) {
-      code += `${O.xSVG(coeff) + rx * Math.cos(2 * k * Math.PI / 101) * coeff + randint(-1, 1) * amp} ${O.ySVG(coeff) + ry * Math.sin(2 * k * Math.PI / 100) * coeff + randint(-1, 1) * amp}, `
+    let compteur = 1
+    for (let k = 1, variation; k < 181; k++) {
+      variation = (random(0, 2) - 1) * amp / 10
+      code += `${O.xSVG(coeff) + round((rx + variation) * Math.cos(2 * k * Math.PI / 180) * coeff, 2)} ${O.ySVG(coeff) + round((ry + variation) * Math.sin(2 * k * Math.PI / 180) * coeff, 2)}, `
+      compteur++
     }
-    code += ` ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)} Z" stroke="${this.color}" ${this.style}"/>`
+    if (compteur % 2 === 0) code += ` ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)}, `
+    code += ` ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style}"/>`
     return code
   }
   this.tikzml = function (amp) {
     let optionsDraw = []
     const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
     }
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
@@ -3301,7 +3364,7 @@ export function pointIntersectionLC (d, C, nom = '', n = 1) {
   const xO = O.x
   const yO = O.y
   let Delta, delta, xi, yi, xiPrime, yiPrime
-  if (egal(a, 0, 0.000001)) {
+  if (egal(b, 0, 0.000001)) {
     // la droite est verticale
     xi = -c / a
     xiPrime = xi
@@ -3440,38 +3503,36 @@ export function cercleCentrePoint (...args) {
  * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
  */
 
-function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
+function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2) {
   ObjetMathalea2D.call(this)
-  this.color = color
-  this.couleurDeRemplissage = fill
+  this.color = colorToLatexOrHTML(color)
+  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.opaciteDeRemplissage = fillOpacite
   this.hachures = false
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
-  const med = rotation(M, Omega, angle / 2)
+  this.pointilles = false
   if (typeof (angle) !== 'number') {
     angle = angleOriente(M, Omega, angle)
   }
+  const med = rotation(M, Omega, angle / 2)
   const l = longueur(Omega, M); let large = 0; let sweep = 0
-  // let d = droite(Omega, M)
-  // d.isVisible = false
   const A = point(Omega.x + 1, Omega.y)
   const azimut = angleOriente(A, Omega, M)
   const anglefin = azimut + angle
+  const angleSVG = angleModulo(angle)
   if (angle > 180) {
-    angle = angle - 360
-    large = 1
-    sweep = 0
+    sweep = 0 // option pour path : permet de savoir quel morceau de cercle tracé parmi les 2 possibles. Voir https://developer.mozilla.org/fr/docs/Web/SVG/Tutorial/Paths pour plus de détails
+    large = 1 // option pour path : permet de savoir sur un morceau de cercle choisi, quel parcours prendre.
   } else if (angle < -180) {
-    angle = 360 + angle
     large = 1
     sweep = 1
   } else {
     large = 0
     sweep = 1 - (angle > 0)
   }
-  const N = rotation(M, Omega, angle)
+  const N = rotation(M, Omega, angleSVG)
   this.bordures = [Math.min(M.x, N.x, med.x) - 0.1, Math.min(M.y, N.y, med.y) - 0.1, Math.max(M.x, N.x, med.x) + 0.1, Math.max(M.y, N.y, med.y) + 0.1]
   if (rayon) {
     this.svg = function (coeff) {
@@ -3500,7 +3561,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
       }
       if (this.hachures) {
         if (this.couleurDeRemplissage.length < 1) {
-          this.couleurDeRemplissage = 'none'
+          this.couleurDeRemplissage = colorToLatexOrHTML('none')
         }
 
         return pattern({
@@ -3509,18 +3570,18 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
           distanceDesHachures: this.distanceDesHachures,
           epaisseurDesHachures: this.epaisseurDesHachures,
           couleurDesHachures: this.couleurDesHachures,
-          couleurDeRemplissage: this.couleurDeRemplissage,
+          couleurDeRemplissage: this.couleurDeRemplissage[0],
           opaciteDeRemplissage: this.opaciteDeRemplissage
-        }) + `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+        }) + `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color[0]}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
       } else {
         if (this.opacite !== 1) {
           this.style += ` stroke-opacity="${this.opacite}" `
         }
-        if (this.couleurDeRemplissage !== 'none') {
+        if (this.couleurDeRemplissage[0] !== 'none') {
           this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
         }
 
-        return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${this.couleurDeRemplissage}" ${this.style}/>`
+        return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style}/>`
       }
     }
   } else {
@@ -3560,8 +3621,8 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
   this.tikz = function () {
     let optionsDraw = []
     const tableauOptions = []
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
     }
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
@@ -3588,11 +3649,10 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    if (rayon && fill !== 'none') {
+
+    if (rayon && (this.couleurDeRemplissage[1] !== 'none' || this.couleurDeRemplissage !== '')) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
-    if (rayon && fill !== 'none') {
-      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
     }
 
     if (this.hachures) {
@@ -3600,9 +3660,8 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
         motif: this.hachures,
         id: this.id,
         distanceDesHachures: this.distanceDesHachures,
-        epaisseurDesHachures: this.epaisseurDesHachures,
         couleurDesHachures: this.couleurDesHachures,
-        couleurDeRemplissage: this.couleurDeRemplissage,
+        couleurDeRemplissage: this.couleurDeRemplissage[1],
         opaciteDeRemplissage: this.opaciteDeRemplissage
       }))
     }
@@ -3616,7 +3675,6 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
 
   this.svgml = function (coeff, amp) {
     this.style = ''
-    // if (!rayon) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
@@ -3624,53 +3682,20 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
       this.style += ` stroke-opacity="${this.opacite}" `
     }
     this.style += ' fill="none" '
-    code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
-    for (let k = 0; Math.abs(k) <= Math.abs(angle); k += angle < 0 ? -1 : 1) {
-      P = rotation(M, Omega, k)
-      code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
+    code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} S ${M.xSVG(coeff)} ${M.ySVG(coeff)}, `
+    let compteur = 1
+    const r = longueur(Omega, M)
+    for (let k = 0, variation; abs(k) <= abs(angle) - 2; k += angle < 0 ? -2 : 2) {
+      variation = (random(0, 2) - 1) / r * amp / 10
+      P = rotation(homothetie(M, Omega, 1 + variation), Omega, k)
+      code += `${round(P.xSVG(coeff), 2)} ${round(P.ySVG(coeff), 2)}, `
+      compteur++
     }
     P = rotation(M, Omega, angle)
-    code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)} `
+    if (compteur % 2 === 0) code += `${P.xSVG(coeff)} ${P.ySVG(coeff)}, ` // Parce qu'on utilise S et non C dans le path
+    code += `${P.xSVG(coeff)} ${P.ySVG(coeff)}`
     code += `" stroke="${color}" ${this.style}/>`
     return code
-    // Pas de remplissage à main levée
-  /*  } else {
-      if (this.epaisseur !== 1) {
-        this.style += ` stroke-width="${this.epaisseur}" `
-      }
-      if (this.opacite !== 1) {
-        this.style += ` stroke-opacity="${this.opacite}" `
-      }
-      if (this.couleurDeRemplissage === '' || this.couleurDeRemplissage === 'none') {
-        this.style += ' fill="none" '
-      } else {
-        this.style += ` fill="${this.couleurDeRemplissage}" `
-        this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
-      }
-      code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} C `
-      for (let k = 0; Math.abs(k) <= Math.abs(angle); k += angle < 0 ? -1 : 1) {
-        P = rotation(M, Omega, k)
-        code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
-      }
-      P = rotation(P, Omega, 1)
-      code += `${Math.round(P.xSVG(coeff) + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + randint(-1, 1) * amp)}, `
-
-      l = longueur(Omega, M)
-      dMx = (M.xSVG(coeff) - Omega.xSVG(coeff)) / (4 * l)
-      dMy = (M.ySVG(coeff) - Omega.ySVG(coeff)) / (4 * l)
-      dPx = (Omega.xSVG(coeff) - P.xSVG(coeff)) / (4 * l)
-      dPy = (Omega.ySVG(coeff) - P.ySVG(coeff)) / (4 * l)
-      for (let k = 0; k <= 4 * l; k++) {
-        code += `${Math.round(P.xSVG(coeff) + k * dPx + randint(-1, 1) * amp)} ${Math.round(P.ySVG(coeff) + k * dPy + randint(-1, 1) * amp)}, `
-      }
-      for (let j = 0; j <= 4 * l; j++) {
-        code += `${Math.round(Omega.xSVG(coeff) + j * dMx + randint(-1, 1) * amp)} ${Math.round(Omega.ySVG(coeff) + j * dMy + randint(-1, 1) * amp)}, `
-      }
-      code += `${Math.round(Omega.xSVG(coeff) + 4 * l * dMx + randint(-1, 1) * amp)} ${Math.round(Omega.ySVG(coeff) + 4 * l * dMy + randint(-1, 1) * amp)} Z `
-      code += `" stroke="${color}" ${this.style} />`
-      return code
-    }
-    */
   }
 
   this.tikzml = function (amp) {
@@ -3679,9 +3704,8 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     const A = point(Omega.x + 1, Omega.y)
     const azimut = arrondi(angleOriente(A, Omega, M), 1)
     const anglefin = arrondi(azimut + angle, 1)
-    // const N = rotation(M, Omega, angle)
-    if (this.color.length > 1 && this.color !== 'black') {
-      tableauOptions.push(this.color)
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
     }
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
@@ -3692,6 +3716,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     /*
     if (rayon && fill !== 'none') {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+    tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
     }
     if (rayon && fill !== 'none') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
@@ -3707,6 +3732,7 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
     return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${arrondi(longueur(Omega, M), 2)}) ;`
   }
 }
+
 /**
  * @param {Point} M Point de départ de l'arc
  * @param {Point} Omega Centre de l'arc
@@ -3718,8 +3744,8 @@ function Arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fi
  * @author Jean-Claude Lhote
  * @return {Arc} Objet Arc
  */
-export function arc (M, Omega, angle, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
-  return new Arc(M, Omega, angle, rayon, fill, color, fillOpacite)
+export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2) {
+  return new Arc(M, Omega, angle, rayon, couleurDeRemplissage, color, fillOpacite)
 }
 /**
  *
@@ -3768,11 +3794,303 @@ export function traceCompas (
   const a = arc(B, O, angle, false)
   a.epaisseur = epaisseur
   a.opacite = opacite
-  a.color = color
+  a.color = colorToLatexOrHTML(color)
   a.pointilles = pointilles
   return a
 }
+/**
+ * @param {Point} centre centre de l'ellipse
+ * @param {number} Rx rayon en X
+ * @param {number} Ry rayon en Y
+ * @param {string} emisphere 'nord' pour tracer au dessus du centre, 'sud' pour tracer en dessous
+ * @param {boolean | number} pointilles Si false, l'ar est en trait plein, sinon en pointillés
+ * @param {boolean} rayon Si true, alors l'arc est fermé par un segment.
+ * @param {string} color Facultatif, 'black' par défaut
+ * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
+ * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @author Jean-Claude Lhote
+ * @return {SemiEllipse} Objet SemiEllipse
+ */
+function SemiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
+  ObjetMathalea2D.call(this)
+  this.color = colorToLatexOrHTML(color)
+  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+  this.opaciteDeRemplissage = fillOpacite
+  this.hachures = false
+  this.couleurDesHachures = 'black'
+  this.epaisseurDesHachures = 1
+  this.distanceDesHachures = 10
+  this.pointilles = pointilles
+  const angle = emisphere === 'nord' ? 180 : -180
+  const M = point(centre.x + Rx, centre.y)
+  const med = homothetie(rotation(M, centre, angle / 2), centre, Ry / Rx)
 
+  let large = 0; let sweep = 0
+  if (angle > 180) {
+    sweep = 0 // option pour path : permet de savoir quel morceau de cercle tracé parmi les 2 possibles. Voir https://developer.mozilla.org/fr/docs/Web/SVG/Tutorial/Paths pour plus de détails
+    large = 1 // option pour path : permet de savoir sur un morceau de cercle choisi, quel parcours prendre.
+  } else if (angle < -180) {
+    large = 1
+    sweep = 1
+  } else {
+    large = 0
+    sweep = 1 - (angle > 0)
+  }
+  const N = rotation(M, centre, angle)
+  this.bordures = [Math.min(M.x, N.x, med.x) - 0.1, Math.min(M.y, N.y, med.y) - 0.1, Math.max(M.x, N.x, med.x) + 0.1, Math.max(M.y, N.y, med.y) + 0.1]
+  if (rayon) {
+    this.svg = function (coeff) {
+      this.style = ''
+      if (this.epaisseur !== 1) {
+        this.style += ` stroke-width="${this.epaisseur}" `
+      }
+      if (this.pointilles) {
+        switch (this.pointilles) {
+          case 1:
+            this.style += ' stroke-dasharray="6 10" '
+            break
+          case 2:
+            this.style += ' stroke-dasharray="6 3" '
+            break
+          case 3:
+            this.style += ' stroke-dasharray="3 2 6 2 " '
+            break
+          case 4:
+            this.style += ' stroke-dasharray="1 2" '
+            break
+          default:
+            this.style += ' stroke-dasharray="5 5" '
+            break
+        }
+      }
+      if (this.hachures) {
+        if (this.couleurDeRemplissage.length < 1) {
+          this.couleurDeRemplissage = colorToLatexOrHTML('none')
+        }
+
+        return pattern({
+          motif: this.hachures,
+          id: this.id,
+          distanceDesHachures: this.distanceDesHachures,
+          epaisseurDesHachures: this.epaisseurDesHachures,
+          couleurDesHachures: this.couleurDesHachures,
+          couleurDeRemplissage: this.couleurDeRemplissage[0],
+          opaciteDeRemplissage: this.opaciteDeRemplissage
+        }) + `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${Rx * coeff} ${Ry * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${centre.xSVG(coeff)} ${centre.ySVG(coeff)} Z" stroke="${this.color[0]}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+      } else {
+        if (this.opacite !== 1) {
+          this.style += ` stroke-opacity="${this.opacite}" `
+        }
+        if (this.couleurDeRemplissage[0] !== 'none') {
+          this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
+        }
+
+        return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${Rx * coeff} ${Ry * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${centre.xSVG(coeff)} ${centre.ySVG(coeff)} Z" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style}/>`
+      }
+    }
+  } else {
+    this.svg = function (coeff) {
+      this.style = ''
+      if (this.epaisseur !== 1) {
+        this.style += ` stroke-width="${this.epaisseur}" `
+      }
+      if (this.pointilles) {
+        switch (this.pointilles) {
+          case 1:
+            this.style += ' stroke-dasharray="6 10" '
+            break
+          case 2:
+            this.style += ' stroke-dasharray="6 3" '
+            break
+          case 3:
+            this.style += ' stroke-dasharray="3 2 6 2 " '
+            break
+          case 4:
+            this.style += ' stroke-dasharray="1 2" '
+            break
+          default:
+            this.style += ' stroke-dasharray="5 5" '
+            break
+        }
+      }
+      if (this.opacite !== 1) {
+        this.style += ` stroke-opacity="${this.opacite}" `
+      }
+      this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
+
+      return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${Rx * coeff} ${Ry * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style} id="${this.id}" />`
+    }
+  }
+  this.tikz = function () {
+    let optionsDraw = []
+    const tableauOptions = []
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
+    }
+    if (this.epaisseur !== 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`)
+    }
+    if (this.pointilles) {
+      switch (this.pointilles) {
+        case 1:
+          tableauOptions.push(' dash dot ')
+          break
+        case 2:
+          tableauOptions.push(' densely dash dot dot ')
+          break
+        case 3:
+          tableauOptions.push(' dash dot dot ')
+          break
+        case 4:
+          tableauOptions.push(' dotted ')
+          break
+        default:
+          tableauOptions.push(' dashed ')
+          break
+      }
+    }
+    if (this.opacite !== 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`)
+    }
+
+    if ((this.couleurDeRemplissage[1] !== 'none' || this.couleurDeRemplissage[1] !== '')) {
+      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
+    }
+
+    if (this.hachures) {
+      tableauOptions.push(pattern({
+        motif: this.hachures,
+        id: this.id,
+        distanceDesHachures: this.distanceDesHachures,
+        couleurDesHachures: this.couleurDesHachures,
+        couleurDeRemplissage: this.couleurDeRemplissage[1],
+        opaciteDeRemplissage: this.opaciteDeRemplissage
+      }))
+    }
+    if (tableauOptions.length > 0) {
+      optionsDraw = '[' + tableauOptions.join(',') + ']'
+    }
+    if (couleurDeRemplissage !== 'none') return `\\filldraw  ${optionsDraw} (${M.x},${M.y}) arc [start angle=0, end angle = ${angle}, x radius = ${Rx}, y radius = ${Ry}]; -- cycle ;`
+    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc [start angle=0, end angle = ${angle}, x radius = ${Rx}, y radius = ${Ry}];`
+  }
+  let code, P
+
+  this.svgml = function (coeff, amp) {
+    this.style = ''
+    if (this.epaisseur !== 1) {
+      this.style += ` stroke-width="${this.epaisseur}" `
+    }
+    if (this.opacite !== 1) {
+      this.style += ` stroke-opacity="${this.opacite}" `
+    }
+    this.style += ' fill="none" '
+    code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} S ${M.xSVG(coeff)} ${M.ySVG(coeff)}, `
+    let compteur = 1
+    const r = longueur(centre, M)
+    for (let k = 0, variation; abs(k) <= abs(angle) - 2; k += angle < 0 ? -2 : 2) {
+      variation = (random(0, 2) - 1) / r * amp / 10
+      P = rotation(homothetie(M, centre, 1 + variation), centre, k)
+      code += `${round(P.xSVG(coeff), 2)} ${round(P.ySVG(coeff), 2)}, `
+      compteur++
+    }
+    P = rotation(M, centre, angle)
+    if (compteur % 2 === 0) code += `${P.xSVG(coeff)} ${P.ySVG(coeff)}, ` // Parce qu'on utilise S et non C dans le path
+    code += `${P.xSVG(coeff)} ${P.ySVG(coeff)}`
+    code += `" stroke="${color}" ${this.style}/>`
+    return code
+  }
+
+  this.tikzml = function (amp) {
+    let optionsDraw = []
+    const tableauOptions = []
+    if (this.color[1].length > 1 && this.color[1] !== 'black') {
+      tableauOptions.push(`color=${this.color[1]}`)
+    }
+    if (this.epaisseur !== 1) {
+      tableauOptions.push(`line width = ${this.epaisseur}`)
+    }
+    if (this.opacite !== 1) {
+      tableauOptions.push(`opacity = ${this.opacite}`)
+    }
+
+    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
+
+    optionsDraw = '[' + tableauOptions.join(',') + ']'
+    if (couleurDeRemplissage !== 'none') return `\\filldraw  ${optionsDraw} (${M.x},${M.y}) arc [start angle=0, end angle = ${angle}, x radius = ${Rx}, y radius = ${Ry}]; -- cycle ;`
+    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc [start angle=0, end angle = ${angle}, x radius = ${Rx}, y radius = ${Ry}];`
+  }
+}
+
+/**
+ * @param {Point} centre centre de l'ellipse
+ * @param {number} Rx rayon en X
+ * @param {number} Ry rayon en Y
+ * @param {string} emisphere 'nord' pour tracer au dessus du centre, 'sud' pour tracer en dessous
+ * @param {boolean | number} pointilles Si false, l'ar est en trait plein, sinon en pointillés
+ * @param {boolean} rayon Si true, alors l'arc est fermé par un segment.
+ * @param {string} color Facultatif, 'black' par défaut
+ * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
+ * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @author Jean-Claude Lhote
+ * @return {SemiEllipse} Objet SemiEllipse
+ */
+export function semiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
+  return new SemiEllipse({ centre, Rx, Ry, emisphere, pointilles, rayon, couleurDeRemplissage, color, fillOpacite })
+}
+
+/**
+ *
+ * @param {Point} centre centre de l'ellipse de base
+ * @param {number} Rx rayon en X
+ * @param {number} Ry rayon en Y
+ * @param {Point} sommet sommet du cône
+ * @param {string} color Facultatif, 'black' par défaut
+ * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
+ * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @author Jean-Claude Lhote
+ */
+function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
+  ObjetMathalea2D.call(this)
+  this.color = colorToLatexOrHTML(color)
+  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+  this.opaciteDeRemplissage = fillOpacite
+  const objets = [
+    semiEllipse({ centre, Rx, Ry, emisphere: 'nord', rayon: false, pointilles: 1, couleurDeRemplissage, color, fillOpacite }),
+    semiEllipse({ centre, Rx, Ry, emisphere: 'sud', rayon: false, pointilles: false, couleurDeRemplissage, color, fillOpacite }),
+    segment(point(centre.x + Rx, centre.y + 0.1), sommet, color),
+    segment(point(centre.x - Rx, centre.y + 0.1), sommet, color)
+  ]
+
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of objets) {
+      code += objet.svg(coeff) + '\n'
+    }
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of objets) {
+      code += objet.tikz() + '\n\t'
+    }
+    return code
+  }
+}
+/**
+ *
+ * @param {Point} centre centre de l'ellipse de base
+ * @param {number} Rx rayon en X
+ * @param {number} Ry rayon en Y
+ * @param {Point} sommet sommet du cône
+ * @param {string} color Facultatif, 'black' par défaut
+ * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
+ * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @author Jean-Claude Lhote
+ */
+export function cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
+  return new Cone({ centre, Rx, Ry, sommet, couleurDeRemplissage, color, fillOpacite })
+}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% LES COURBES DE BÉZIER %%%%%%%%%%
@@ -3849,7 +4167,6 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
   this.x = x
   this.y = y
   this.rang = rang
-  if (typeof (num) !== 'undefined') this.n = num
   this.taille = taille
   this.color = color
   this.opacite = opacite
@@ -3857,7 +4174,7 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
   let numero
   // Si un numéro est donné on l'ajoute en filigrane.
   if (typeof (num) !== 'undefined') {
-    numero = texteParPosition(num, x - rang * this.taille / 4, y - rang * this.taille / 4, 'milieu', this.color)
+    numero = texteParPosition(num, this.x - this.rang * this.taille / 4, this.y - this.rang * this.taille / 4, 'milieu', this.color)
     numero.opacite = 0.5
     numero.taille = 30 * this.taille
     numero.contour = true
@@ -3865,11 +4182,10 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
   }
   let lettre, chiffre
   // la grille de la cible
-  objets.push(grille(x - rang * this.taille / 2, y - rang * this.taille / 2, x + rang * this.taille / 2, y + rang * this.taille / 2, this.color, this.opacite, this.taille, false))
-  // les labels de la cible
+  objets.push(grille(arrondi(this.x - this.rang * this.taille / 2), arrondi(this.y - this.rang * this.taille / 2), arrondi(this.x + this.rang * this.taille / 2), arrondi(this.y + this.rang * this.taille / 2), this.color, this.opacite, this.taille, false))
   for (let i = 0; i < rang; i++) {
-    lettre = texteParPosition(lettreDepuisChiffre(1 + i), x - rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, y - (rang + 1) * this.taille / 2, 'milieu')
-    chiffre = texteParPosition(i + 1, x - (rang + 1) * this.taille / 2, y - rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, 'milieu')
+    lettre = texteParPosition(lettreDepuisChiffre(1 + i), this.x - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, this.y - (this.rang + 1) * this.taille / 2, 'milieu')
+    chiffre = texteParPosition(i + 1, this.x - (this.rang + 1) * this.taille / 2, this.y - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, 'milieu')
     lettre.taille = 10 * this.taille
     chiffre.taille = 10 * this.taille
     objets.push(lettre)
@@ -3931,24 +4247,23 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray'
   const objets = []
   let c
   let rayon
-  const centre = point(this.x, this.y, this.y)
+  const centre = point(this.x, this.y)
   const azimut = point(this.x + this.rang * this.taille, this.y)
+  objets.push(labelPoint(centre))
   const azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + 0.3)
-  this.bordures = [x - rang * taille - 1, y - rang * taille - 1, x + rang * taille + 1, y + rang * taille + 1]
+  this.bordures = [this.x - this.rang * this.taille - 1, this.y - this.rang * this.taille - 1, this.x + this.rang * this.taille + 1, this.y + this.rang * this.taille + 1]
   for (let i = 0; i < 8; i++) {
-    rayon = segment(centre, rotation(azimut, centre, 45 * i))
-    rayon.color = this.color
+    rayon = segment(centre, rotation(azimut, centre, 45 * i), this.color)
     rayon.opacite = this.opacite
     objets.push(rayon)
-    objets.push(texteParPoint(lettreDepuisChiffre(1 + i), rotation(azimut2, centre, 45 * i + 22.5), 'milieu', 'gray'))
+    objets.push(texteParPoint(lettreDepuisChiffre(1 + i), rotation(azimut2, centre, 45 * i + 22.5), 'milieu'))
   }
   for (let i = 0; i < this.rang; i++) {
-    c = cercle(point(this.x, this.y), this.taille * (1 + i))
+    c = cercle(centre, arrondi(this.taille * (1 + i)), this.color)
     c.opacite = this.opacite
-    c.color = this.color
     objets.push(c)
   }
-  const numero = texteParPosition(nombreAvecEspace(num), this.x, this.y, 0, 'gray')
+  const numero = texteParPosition(nombreAvecEspace(num), this.x, this.y, 0, this.color)
   numero.opacite = 0.5
   numero.taille = 30
   numero.contour = true
@@ -3997,49 +4312,47 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbD
   this.x = x
   this.y = y
   this.taille = taille
+  this.taille2 = taille2
   this.opacite = opacite
   this.color = color
+  this.depart = depart
   const objets = []
   let numero
   let azimut
   let rayon
-  let arcPlein
-  if (semi) {
-    arcPlein = 180
-  } else {
-    arcPlein = 360
-  }
-
+  const arcPlein = semi ? 180 : 360
   const centre = point(this.x, this.y)
-  azimut = rotation(point(this.x + this.taille, this.y), centre, depart)
-  let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + taille2)
+  azimut = rotation(point(this.x + this.taille, this.y), centre, this.depart)
+  let azimut2 = pointSurSegment(centre, azimut, longueur(centre, azimut) + this.taille2)
   const rayons = []
-  const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', 'gray')
-  const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', 'gray')
+  const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', this.color)
+  const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', this.color)
   rayon = segment(azimut, azimut2)
 
   objets.push(arc1, arc2, rayon)
   for (let i = 0; i < nbDivisions; i++) {
     for (let j = 1; j < nbSubDivisions; j++) {
-      rayons[j - 1] = rotation(rayon, centre, j * arcPlein / nbDivisions / nbSubDivisions)
-      rayons[j - 1].pointilles = 1
-      rayons[j - 1].color = this.color
+      rayons[j - 1] = rotation(rayon, centre, j * arcPlein / nbDivisions / nbSubDivisions, this.color)
+      rayons[j - 1].pointilles = true
       rayons[j - 1].opacite = this.opacite
       objets.push(rayons[j - 1])
     }
     if (label) {
-      numero = texteParPoint(lettreDepuisChiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 'milieu', 'gray')
+      numero = texteParPoint(lettreDepuisChiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 'milieu')
       numero.contour = true
       objets.push(numero)
     }
-    rayon.color = this.color
+    rayon.color = colorToLatexOrHTML(this.color)
     rayon.opacite = this.opacite
     objets.push(rayon)
     azimut = rotation(azimut, centre, arcPlein / nbDivisions)
     azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
-    rayon = segment(azimut, azimut2)
+    rayon = segment(azimut, azimut2, this.color)
   }
-  this.bordures = [x - taille - 1, y - taille - 1, x + taille + 1, y + taille + 1]
+  if (semi) {
+    objets.push(rayon)
+  }
+  this.bordures = [this.x - taille - 1, this.y - this.taille - 1, this.x + this.taille + 1, this.y + this.taille + 1]
 
   this.svg = function (coeff) {
     let code = ''
@@ -4208,9 +4521,10 @@ export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false
  * @param {Vecteur} v vecteur de translation
  * @param {string} nom nom du translaté pour un Point
  * @param {string} positionLabel Position du label pour un Point
+ * @param {string} [color='black'] Code couleur HTML acceptée
  * @author Rémi Angot
  */
-export function translation (O, v, nom = '', positionLabel = 'above') {
+export function translation (O, v, nom = '', positionLabel = 'above', color = 'black') {
   if (O.constructor === Point) {
     const x = O.x + v.x
     const y = O.y + v.y
@@ -4222,28 +4536,20 @@ export function translation (O, v, nom = '', positionLabel = 'above') {
       p2[i] = translation(O.listePoints[i], v)
       p2[i].nom = O.listePoints[i].nom + '\''
     }
-    return polygone(p2)
+    return polygone(p2, color)
   }
   if (O.constructor === Droite) {
     const M = translation(point(O.x1, O.y1), v)
     const N = translation(point(O.x2, O.y2), v)
-    return droite(M, N)
+    return droite(M, N, color)
   }
   if (O.constructor === Segment) {
     const M = translation(O.extremite1, v)
     const N = translation(O.extremite2, v)
-    const s = segment(M, N)
+    const s = segment(M, N, color)
     s.styleExtremites = O.styleExtremites
     return s
   }
-  /* if (O.constructor==DemiDroite) {
-    let M = translation(O.extremite1,v)
-    let N = translation(O.extremite2,v)
-    let s = demiDroite(M,N)
-    s.styleExtremites = O.styleExtremites
-    return s
-  }
-*/
   if (O.constructor === Vecteur) {
     return O
   }
@@ -4257,7 +4563,7 @@ export function translation (O, v, nom = '', positionLabel = 'above') {
  * @author Rémi Angot
  */
 
-export function translation2Points (O, A, B, nom = '', positionLabel = 'above') {
+export function translation2Points (O, A, B, nom = '', positionLabel = 'above', color = 'black') {
   if (O.constructor === Point) {
     const x = O.x + B.x - A.x
     const y = O.y + B.y - A.y
@@ -4269,28 +4575,20 @@ export function translation2Points (O, A, B, nom = '', positionLabel = 'above') 
       p2[i] = translation2Points(O.listePoints[i], O, A, B)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2)
+    return polygone(p2, color)
   }
   if (O.constructor === Droite) {
     const M = translation2Points(point(O.x1, O.y1), A, B)
     const N = translation2Points(point(O.x2, O.y2), A, B)
-    return droite(M, N)
+    return droite(M, N, color)
   }
   if (O.constructor === Segment) {
     const M = translation2Points(O.extremite1, A, B)
     const N = translation2Points(O.extremite2, A, B)
-    const s = segment(M, N)
+    const s = segment(M, N, color)
     s.styleExtremites = O.styleExtremites
     return s
   }
-  /* if (O.constructor==DemiDroite) {
-    let M = translation2Points(O.extremite1,A,B)
-    let N = translation2Points(O.extremite2,A,B)
-    let s = demiDroite(M,N)
-    s.styleExtremites = O.styleExtremites
-    return s
-  }
-*/
   if (A.constructor === Vecteur) {
     return A
   }
@@ -4300,12 +4598,13 @@ export function translation2Points (O, A, B, nom = '', positionLabel = 'above') 
  * @param A Point, Polygone, Droite, Segment ou Vecteur
  * @param {Point} O Centre de rotation
  * @param {number} angle Angle de rotation
- * @param {string} [nom=''] Nom de l'image. Facultatif, vide par défaut
- * @param {string} [positionLabel='above'] Facultatif, 'above' par défaut
+ * @param {string} [nom=''] Nom de l'image
+ * @param {string} [positionLabel='above']
+ * @param {string} [color='black'] Code couleur HTML acceptée
  * @return L'image de A par la rotation de centre O et d'angle angle
  * @author Rémi Angot et Jean-Claude Lhote
  */
-export function rotation (A, O, angle, nom = '', positionLabel = 'above') {
+export function rotation (A, O, angle, nom = '', positionLabel = 'above', color = 'black') {
   if (A.constructor === Point) {
     const x = O.x +
       (A.x - O.x) * Math.cos((angle * Math.PI) / 180) -
@@ -4321,28 +4620,20 @@ export function rotation (A, O, angle, nom = '', positionLabel = 'above') {
       p2[i] = rotation(A.listePoints[i], O, angle)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2)
+    return polygone(p2, color)
   }
   if (A.constructor === Droite) {
     const M = rotation(point(A.x1, A.y1), O, angle)
     const N = rotation(point(A.x2, A.y2), O, angle)
-    return droite(M, N)
+    return droite(M, N, color)
   }
   if (A.constructor === Segment) {
     const M = rotation(A.extremite1, O, angle)
     const N = rotation(A.extremite2, O, angle)
-    const s = segment(M, N)
+    const s = segment(M, N, color)
     s.styleExtremites = A.styleExtremites
     return s
   }
-  /* if (A.constructor==DemiDroite) {
-    let M = rotation(A.extremite1,O,angle)
-    let N = rotation(A.extremite2,O,angle)
-    let s = demiDroite(M,N)
-    s.styleExtremites = A.styleExtremites
-    return s
-  }
-*/
   if (A.constructor === Vecteur) {
     const x = A.x * Math.cos((angle * Math.PI) / 180) -
       A.y * Math.sin((angle * Math.PI) / 180)
@@ -4399,10 +4690,11 @@ export function sensDeRotation (A, O, sens) {
  * @param {point} O Centre de l'homothétie
  * @param {number} k Rapport de l'homothétie
  * @param {string} [nom = ''] Nom du point-image
+ * @param {string} [color = 'black']
  * @param {position} [positionLabel = 'above'] Position du point-image
  * @author Rémi Angot
  */
-export function homothetie (A, O, k, nom = '', positionLabel = 'above') {
+export function homothetie (A, O, k, nom = '', positionLabel = 'above', color = 'black') {
   if (A.constructor === Point) {
     const x = O.x + k * (A.x - O.x)
     const y = O.y + k * (A.y - O.y)
@@ -4414,28 +4706,20 @@ export function homothetie (A, O, k, nom = '', positionLabel = 'above') {
       p2[i] = homothetie(A.listePoints[i], O, k)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2)
+    return polygone(p2, color)
   }
   if (A.constructor === Droite) {
     const M = homothetie(point(A.x1, A.y1), O, k)
     const N = homothetie(point(A.x2, A.y2), O, k)
-    return droite(M, N)
+    return droite(M, N, '', color)
   }
   if (A.constructor === Segment) {
     const M = homothetie(A.extremite1, O, k)
     const N = homothetie(A.extremite2, O, k)
-    const s = segment(M, N)
+    const s = segment(M, N, color)
     s.styleExtremites = A.styleExtremites
     return s
   }
-  /* if (A.constructor==DemiDroite) {
-    let M = homothetie(A.extremite1,O,k)
-    let N = homothetie(A.extremite2,O,k)
-    let s = demiDroite(M,N)
-    s.styleExtremites = A.styleExtremites
-    return s
-  }
-  */
   if (A.constructor === Vecteur) {
     const x = A.x
     const y = A.y
@@ -4451,9 +4735,10 @@ export function homothetie (A, O, k, nom = '', positionLabel = 'above') {
  * @param {string} M Nom de l'image. Facultatif, vide par défaut.
  * @param {string} positionLabel Facultatif, 'above' par défaut.
  * @return {Point} M image de A par la symétrie axiale d'axe d.
+ * @param {string} [color='black'] Code couleur HTML acceptée
  * @author Jean-Claude Lhote
  */
-export function symetrieAxiale (A, d, nom = '', positionLabel = 'above') {
+export function symetrieAxiale (A, d, nom = '', positionLabel = 'above', color = 'black') {
   let x, y
   const a = d.a
   const b = d.b
@@ -4478,27 +4763,20 @@ export function symetrieAxiale (A, d, nom = '', positionLabel = 'above') {
       p2[i] = symetrieAxiale(A.listePoints[i], d)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2)
+    return polygone(p2, color)
   }
   if (A.constructor === Droite) {
     const M = symetrieAxiale(point(A.x1, A.y1), d)
     const N = symetrieAxiale(point(A.x2, A.y2), d)
-    return droite(M, N)
+    return droite(M, N, color)
   }
   if (A.constructor === Segment) {
     const M = symetrieAxiale(A.extremite1, d)
     const N = symetrieAxiale(A.extremite2, d)
-    const s = segment(M, N)
+    const s = segment(M, N, color)
     s.styleExtremites = A.styleExtremites
     return s
   }
-  /* if (A.constructor==DemiDroite) {
-      let M = symetrieAxiale(A.extremite1,d)
-      let N = symetrieAxiale(A.extremite2,d)
-      let s = demiDroite(M,N)
-      s.styleExtremites = A.styleExtremites
-      return s
-   } */
   if (A.constructor === Vecteur) {
     let O
     if (egal(b, 0)) {
@@ -4561,7 +4839,7 @@ export function projectionOrtho (M, d, nom = '', positionLabel = 'above') {
  * N = affiniteOrtho(M,d,rapport,'N','rgiht')
  * @author = Jean-Claude Lhote
  */
-export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above') {
+export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above', color = 'black') {
   const a = d.a
   const b = d.b
   const c = d.c
@@ -4586,27 +4864,20 @@ export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above') {
       p2[i] = affiniteOrtho(A.listePoints[i], d, k)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2)
+    return polygone(p2, color)
   }
   if (A.constructor === Droite) {
     const M = affiniteOrtho(point(A.x1, A.y1), d, k)
     const N = affiniteOrtho(point(A.x2, A.y2), d, k)
-    return droite(M, N)
+    return droite(M, N, color)
   }
   if (A.constructor === Segment) {
     const M = affiniteOrtho(A.extremite1, d, k)
     const N = affiniteOrtho(A.extremite2, d, k)
-    const s = segment(M, N)
+    const s = segment(M, N, color)
     s.styleExtremites = A.styleExtremites
     return s
   }
-  /* if (A.constructor ===  DemiDroite) {
-      let M = affiniteOrtho(A.extremite1, d,k)
-      let N = affiniteOrtho(A.extremite2, d,k)
-      let s = demiDroite(M, N)
-      s.styleExtremites = A.styleExtremites
-      return s
-   } */
   if (A.constructor === Vecteur) {
     let O
     if (egal(b, 0)) {
@@ -4629,7 +4900,7 @@ export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above') {
  * M = similitude(B,O,30,1.1,'M') // Le point M est l'image de B dans la similitude de centre O d'angle 30° et de rapport 1.1
  * @author Jean-Claude Lhote
  */
-export function similitude (A, O, a, k, nom = '', positionLabel = 'above') {
+export function similitude (A, O, a, k, nom = '', positionLabel = 'above', color = 'black') {
   if (A.constructor === Point) {
     const ra = radians(a)
     const x = O.x + k * (Math.cos(ra) * (A.x - O.x) - Math.sin(ra) * (A.y - O.y))
@@ -4642,17 +4913,17 @@ export function similitude (A, O, a, k, nom = '', positionLabel = 'above') {
       p2[i] = similitude(A.listePoints[i], O, a, k)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2)
+    return polygone(p2, color)
   }
   if (A.constructor === Droite) {
     const M = similitude(point(A.x1, A.y1), O, a, k)
     const N = similitude(point(A.x2, A.y2), O, a, k)
-    return droite(M, N)
+    return droite(M, N, color)
   }
   if (A.constructor === Segment) {
     const M = similitude(A.extremite1, O, a, k)
     const N = similitude(A.extremite2, O, a, k)
-    const s = segment(M, N)
+    const s = segment(M, N, color)
     s.styleExtremites = A.styleExtremites
     return s
   }
@@ -5202,33 +5473,35 @@ export function centreCercleCirconscrit (A, B, C, nom = '', positionLabel = 'abo
  *
  * @author Rémi Angot
  */
-function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacity = 1, fill = 'none', fillopacity = 1) {
+function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
   ObjetMathalea2D.call(this)
   this.sommet = O
   this.depart = A
   this.arrivee = B
   this.taille = d
   this.color = color
-  this.couleurDeRemplissage = fill
-  this.opaciteDeRemplissage = fillopacity
+  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+  this.opaciteDeRemplissage = opaciteDeRemplissage
 
   this.svg = function (coeff) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / coeff)
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille * 20 / coeff)
     let o = {}
     let result = {}
-    if (angleOriente(A, this.sommet, B) > 0) {
+    if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
       o = rotation(this.sommet, a, -90)
     } else {
       o = rotation(this.sommet, a, 90)
     }
-    if (this.couleurDeRemplissage === 'none') result = polyline([a, o, b], color)
-    else result = polygone([this.sommet, a, o, b], color)
-    result.couleurDeRemplissage = this.couleurDeRemplissage
-    result.opaciteDeRemplissage = this.opaciteDeRemplissage
+    if (this.couleurDeRemplissage === 'none') result = polyline([a, o, b], this.color)
+    else {
+      result = polygone([this.sommet, a, o, b], this.color)
+      result.couleurDeRemplissage = this.couleurDeRemplissage
+      result.opaciteDeRemplissage = this.opaciteDeRemplissage
+    }
     result.isVisible = false
     result.epaisseur = epaisseur
-    result.opacite = opacity
+    result.opacite = opacite
     this.id = result.id
     return result.svg(coeff)
   }
@@ -5237,19 +5510,19 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
     const b = pointSurSegment(this.sommet, this.arrivee, this.taille / context.scale)
     let o = {}
     let result = {}
-    if (angleOriente(A, this.sommet, B) > 0) {
+    if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
       o = rotation(this.sommet, a, -90)
     } else {
       o = rotation(this.sommet, a, 90)
     }
-    if (fill === 'none') return polyline([a, o, b], color).tikz()
+    if (this.couleurDeRemplissage === 'none') return polyline([a, o, b], this.color).tikz()
     else {
-      result = polygone([this.sommet, a, o, b], color)
+      result = polygone([this.sommet, a, o, b], this.color)
       result.couleurDeRemplissage = this.couleurDeRemplissage
       result.opaciteDeRemplissage = this.opaciteDeRemplissage
       result.isVisible = false
       result.epaisseur = epaisseur
-      result.opacite = opacity
+      result.opacite = opacite
       return result.tikz()
     }
   }
@@ -5262,7 +5535,7 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
     } else {
       o = rotation(this.sommet, a, 90)
     }
-    return polyline([a, o, b], color).svgml(coeff, amp)
+    return polyline([a, o, b], this.color).svgml(coeff, amp)
   }
   this.tikzml = function (amp) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille / context.scale)
@@ -5273,7 +5546,7 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
     } else {
       o = rotation(this.sommet, a, 90)
     }
-    return polyline([a, o, b], color).tikzml(amp)
+    return polyline([a, o, b], this.color).tikzml(amp)
   }
 }
 /**
@@ -5283,18 +5556,18 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
  * @param {Point} B
  * @param {string} [color='black']
  * @param {number} [d =0.4] Taille de l'angle droit en cm.
- * @param {number} epaisseur épaisseur du trait
- * @param {number} opacity opacité du trait
- * @param {string} fill couleur de remplissage
- * @param {number} fillopacity opacité de remplissage
+ * @param {number} [epaisseur=0.5] épaisseur du trait
+ * @param {number} [opacite=1] opacité du trait
+ * @param {string} [couleurDeRemplissage='none'] couleur de remplissage
+ * @param {number} [opaciteDeRemplissage=1] opacité de remplissage
  * @returns {CodageAngleDroit} CodageAngleDroit
  * @author Rémi Angot
  */
-export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacity = 1, fill = 'none', fillopacity = 1) {
-  return new CodageAngleDroit(A, O, B, color, d, epaisseur, opacity, fill, fillopacity)
+export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
+  return new CodageAngleDroit(A, O, B, color, d, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage)
 }
 /**
- * afficheLongueurSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+ * afficheLongueurSegment(A,B) // Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon en dessous
  *
  * @author Rémi Angot
  */
@@ -5303,7 +5576,6 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', h
   this.color = color
   this.extremite1 = A
   this.extremite2 = B
-  this.distance = d
   const O = milieu(this.extremite1, this.extremite2)
   const M = rotation(this.extremite1, O, -90)
   const s = segment(this.extremite1, this.extremite2)
@@ -5332,8 +5604,9 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', h
  * Note la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous
  * @param  {Point} A
  * @param  {Point} B
- * @param  {string} [color='black'] Facultatif, 'black' par défaut
- * @param  {number} [d=0.5] Distance entre l'étiquette et le segment. Facultatif, 0.5 par défaut
+ * @param  {string} [color='black'] Code couleur HTML accepté
+ * @param  {number} [d=0.5] Distance entre l'étiquette et le segment.
+ * @param {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment
  * @returns {AfficheLongueurSegment} objet AfficheLongueurSegment
  * @author Rémi Angot
  */
@@ -5342,7 +5615,7 @@ export function afficheLongueurSegment (...args) {
 }
 
 /**
- * texteSurSegment(A,B) // Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+ * texteSurSegment('mon texte',A,B) // Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon en dessous, ou alors horizontalement
  *
  * @author Rémi Angot
  */
@@ -5352,15 +5625,14 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizontal = fa
   this.color = color
   this.extremite1 = A
   this.extremite2 = B
-  this.distance = horizontal ? (d - 0.1 + (isNumeric(texte) ? nombreDeChiffresDe(texte) : texte.length) / 10) : d
   this.texte = texte
+  this.distance = horizontal ? (d - 0.1 + (isNumeric(this.texte) ? nombreDeChiffresDe(this.texte) : this.texte.length) / 10) : d
   const O = milieu(this.extremite1, this.extremite2)
   const M = rotation(this.extremite1, O, -90)
   const s = segment(this.extremite1, this.extremite2)
-  s.isVisible = false
   let angle
   const pos = pointSurSegment(O, M, this.distance)
-  const space = 0.2 * texte.length
+  const space = 0.2 * this.texte.length
   this.bordures = [pos.x - space, pos.y - space, pos.x + space, pos.y + space]
   if (horizontal) {
     angle = 0
@@ -5381,12 +5653,12 @@ function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizontal = fa
   }
 }
 /**
- * Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon au dessous
+ * Écrit un texte au milieu de [AB] au dessus si A est le point le plus à gauche sinon au dessous ou bien horizontal
  * @param {string} texte
  * @param {Point} A
  * @param {Point} B
- * @param {string} [color='black'] Facultatif, 'black' par défaut
- * @param {number} [d=0.5] Distance à la droite. Facultatif, 0.5 par défaut
+ * @param {string} [color='black'] Code couleur HTML accepté
+ * @param {number} [d=0.5] Distance à la droite.
  * @param {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment
  * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
  * @author Rémi Angot
@@ -5400,7 +5672,7 @@ export function texteSurSegment (...args) {
  *
  * @author Rémi Angot et Frédéric Piou
  */
-function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
+function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5, horizontal = false) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.extremite1 = A
@@ -5410,7 +5682,7 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
   else anglerot = (angle - 180) / 2
-  const d1 = mediatrice(A, B, 'black')
+  const d1 = mediatrice(A, B)
   d1.isVisible = false
   const e = droite(A, B)
   e.isVisible = false
@@ -5436,7 +5708,7 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
     if (this.texte.charAt(0) === '$') {
       return latexParPoint(this.texte.substr(1, this.texte.length - 2), N, this.color, this.texte * 8, 12, '').svg(coeff)
     } else {
-      return texteParPoint(this.texte, N, angle, this.color).svg(coeff)
+      return texteParPoint(this.texte, N, horizontal ? 0 : angle, this.color).svg(coeff)
     }
   }
   this.tikz = function () {
@@ -5450,13 +5722,14 @@ function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5) {
   }
 }
 /**
- * Écrit un texte au milieu de l'arc AB au dessus si A est le point le plus à gauche sinon au dessous
+ * Écrit un texte au "milieu" de l'arc AB au dessus si A est le point le plus à gauche sinon en dessous
  * @param {string} texte Texte à afficher (éviter les $$ pour les affichages diaporama)
  * @param {Point} A Extrémité de l'arc
  * @param {Point} B Extrémité de l'arc
  * @param {number} angle Angle au centre
- * @param {string} [color='black'] Facultatif, 'black' par défaut
- * @param {number} [d=0.5] Distance à la droite. Facultatif, 0.5 par défaut
+ * @param {string} [color='black'] Code couleur HTML accepté
+ * @param {number} [d=0.5] Distance à la droite.
+ * @param {boolean} [horizontal = false] Décide si le texte est horizontal ou pas, quelle que soit la valeur de angle.
  * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
  * @author Rémi Angot et Frédéric Piou
  */
@@ -5619,7 +5892,7 @@ export function afficheCoteSegment (...args) {
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
  * @param {string} [mark='||'] Symbole posé sur le segment
- * @param {string} [color='black'] Couleur du symbole
+ * @param {string} [color='black'] Couleur du symbole. Code Couleur HTML acceptée.
  *
  * @author Rémi Angot
  */
@@ -5746,8 +6019,6 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     this.couleurDeRemplissage = fill
     this.opaciteDeRemplissage = fillOpacite
   } else { this.couleurDeRemplissage = 'none' }
-  let remplir
-  if (fill === 'none') { remplir = false } else { remplir = true }
   this.angle = angle
 
   this.svg = function (coeff) {
@@ -5759,25 +6030,24 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const d = droite(this.centre, P)
     d.isVisible = false
     const mesure = Math.round(Math.abs(angle)) + '°'
-    const arcangle = arc(depart, this.centre, this.angle, remplir, this.couleurDeRemplissage, this.color)
+    const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', this.couleurDeRemplissage, this.color)
     arcangle.isVisible = false
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.couleurDeRemplissage = this.couleurDeRemplissage
-    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
+    arcangle.opaciteDeRemplissage = fillOpacite
     objets.push(arcangle)
     if (this.mark !== '') {
-      const t = texteParPoint(mark, P, 90 - d.angleAvecHorizontale, color)
+      const t = texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color)
       t.isVisible = false
       objets.push(t)
     }
     if (mesureOn) {
-      const t = texteParPoint(mesure, M, 'milieu', color)
+      const t = texteParPoint(mesure, M, 'milieu', this.color)
       t.isVisible = false
       objets.push(t)
     }
     if (texteACote !== '') {
-      const texteACOTE = texteParPoint(texteACote, M, 'milieu', color, tailleTexte)
+      const texteACOTE = texteParPoint(texteACote, M, 'milieu', this.color, tailleTexte)
       objets.push(texteACOTE)
     }
     for (const objet of objets) {
@@ -5791,41 +6061,38 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     return code
   }
 
-  this.tikz = function () {
-    let code = ''
-    const depart = pointSurSegment(this.centre, this.debut, this.taille / context.scale)
-    const P = rotation(depart, this.centre, this.angle / 2)
-    const M = pointSurSegment(this.centre, P, taille + 0.6 / context.scale)
-    const mesure = Math.round(Math.abs(angle)) + '°'
-    const d = droite(this.centre, P)
-    d.isVisible = false
-    const arcangle = arc(depart, this.centre, this.angle, remplir, this.couleurDeRemplissage, this.color)
-    arcangle.opacite = this.opacite
-    arcangle.epaisseur = this.epaisseur
-    arcangle.couleurDeRemplissage = this.couleurDeRemplissage
-    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
-    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, color).tikz() + '\n'
-    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', color).tikz() + '\n'
-    code += arcangle.tikz()
-    return code
-  }
-
   this.svgml = function (coeff, amp) {
     let code = ''
     const depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / context.pixelsParCm)
     const P = rotation(depart, this.centre, this.angle / 2)
-    const M = pointSurSegment(this.centre, P, taille + 0.6 * 20 / coeff)
+    const M = pointSurSegment(this.centre, P, taille + 0.6 / context.scale)
     const mesure = Math.round(Math.abs(angle)) + '°'
     const d = droite(this.centre, P)
     d.isVisible = false
     const arcangle = arc(depart, this.centre, this.angle, false, this.couleurDeRemplissage, this.color)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.couleurDeRemplissage = this.couleurDeRemplissage
-    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
-    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, color).svg(coeff) + '\n'
-    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', color).svg(coeff) + '\n'
+    arcangle.opaciteDeRemplissage = fillOpacite
+    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).svg(coeff) + '\n'
+    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', this.color).svg(coeff) + '\n'
     code += arcangle.svgml(coeff, amp)
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    const depart = pointSurSegment(this.centre, this.debut, this.taille / context.scale)
+    const P = rotation(depart, this.centre, this.angle / 2)
+    const M = pointSurSegment(this.centre, P, taille + 0.6)
+    const mesure = Math.round(Math.abs(angle)) + '°'
+    const d = droite(this.centre, P)
+    d.isVisible = false
+    const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', this.couleurDeRemplissage, this.color)
+    arcangle.opacite = this.opacite
+    arcangle.epaisseur = this.epaisseur
+    arcangle.opaciteDeRemplissage = fillOpacite
+    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
+    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
+    code += arcangle.tikz()
     return code
   }
   this.tikzml = function (amp) {
@@ -5836,13 +6103,13 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const mesure = Math.round(Math.abs(angle)) + '°'
     const d = droite(this.centre, P)
     d.isVisible = false
-    const arcangle = arc(depart, this.centre, this.angle, remplir, this.couleurDeRemplissage, this.color)
+    const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', this.couleurDeRemplissage, this.color)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.couleurDeRemplissage = this.couleurDeRemplissage
-    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
-    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, color).tikz() + '\n'
-    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', color).tikz() + '\n'
+    arcangle.opaciteDeRemplissage = fillOpacite
+    // if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
+    if (this.mark !== '') code += texteParPoint(mark, M, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
+    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
     code += arcangle.tikzml(amp)
     return code
   }
@@ -5864,6 +6131,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
  * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle (from EE)
  * @returns {object} CodeAngle
  * @example codeAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
+ * @example codeAngle(A,O,B) // code l'angle AOB sans aucune autre option possible
  * @author Jean-Claude Lhote
  */
 export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
@@ -6198,25 +6466,21 @@ function Axes (
   ymin > 0 ? (yabscisse = ymin) : (yabscisse = 0)
   let xordonnee
   xmin > 0 ? (xordonnee = xmin) : (xordonnee = 0)
-  const abscisse = segment(xmin, yabscisse, xmax, yabscisse)
+  const abscisse = segment(xmin, yabscisse, xmax, yabscisse, color)
   abscisse.styleExtremites = '->'
   abscisse.epaisseur = epaisseur
-  abscisse.color = color
-  const ordonnee = segment(xordonnee, ymin, xordonnee, ymax)
+  const ordonnee = segment(xordonnee, ymin, xordonnee, ymax, color)
   ordonnee.styleExtremites = '->'
   ordonnee.epaisseur = epaisseur
   objets.push(abscisse, ordonnee)
-  ordonnee.color = color
   for (let x = xmin; x < xmax; x = x + xstep) {
-    const s = segment(x, yabscisse - thick, x, yabscisse + thick)
+    const s = segment(x, yabscisse - thick, x, yabscisse + thick, color)
     s.epaisseur = epaisseur
-    s.color = color
     objets.push(s)
   }
   for (let y = ymin; y < ymax; y = y + ystep) {
-    const s = segment(xordonnee - thick, y, xordonnee + thick, y)
+    const s = segment(xordonnee - thick, y, xordonnee + thick, y, color)
     s.epaisseur = epaisseur
-    s.color = color
     objets.push(s)
   }
   this.svg = function (coeff) {
@@ -6270,21 +6534,18 @@ function AxeY (
   ObjetMathalea2D.call(this)
   const objets = []
   objets.push(texteParPoint(titre, point(xmin - thick - 0.1, ymax), 'gauche', color))
-  const ordonnee = segment(-1, ymin, -1, ymax)
+  const ordonnee = segment(-1, ymin, -1, ymax, color)
   ordonnee.styleExtremites = '->'
   ordonnee.epaisseur = epaisseur
   objets.push(ordonnee)
-  ordonnee.color = color
   for (let y = ymin; y < ymax; y = fraction(y).add(ystep)) {
-    const s = segment(xmin - thick, y, xmin, y)
+    const s = segment(xmin - thick, y, xmin, y, color)
     s.epaisseur = epaisseur
-    s.color = color
     objets.push(s)
   }
   for (let y = ymin; y < ymax; y = fraction(y).add(ystep.div(ytick))) {
-    const s = segment(xmin - thick / 2, y, xmin, y)
+    const s = segment(xmin - thick / 2, y, xmin, y, color)
     s.epaisseur = epaisseur
-    s.color = color
     objets.push(s)
   }
   this.bordures = [1000, 1000, -1000, -1000]
@@ -6410,10 +6671,17 @@ function LabelY (
 export function labelY (...args) {
   return new LabelY(...args)
 }
-
 /**
- * grille(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordonnées
- *
+ * grille(xmin,ymin,xmax,ymax,color,opacite,step,pointilles) // Trace les axes des abscisses et des ordonnées
+ * @param {number} [xmin=-30]
+ * @param {number} [ymin=-30]
+ * @param {number} [xmax=30]
+ * @param {number} [ymax=30]
+ * @param {string} [color='gray']
+ * @param {number} [opacite=0.4]
+ * @param {number} [step=1]
+ * @param {boolean} [pointilles=false]
+ * @return Une grille quadrillée dont le coin en bas à gauche est (xmin,ymin) et celui à droite est au maximum (xmax,ymax), de couleur et opacité choisie, avec un pas choisi et avec ou sans pointillés
  * @author Rémi Angot
  */
 function Grille (
@@ -6430,25 +6698,23 @@ function Grille (
   this.color = color
   this.opacite = opacite
   const objets = []
-  for (let i = xmin; i <= xmax + 0.005; i = i + step) {
-    const s = segment(i, ymin, i, ymax)
-    s.color = this.color
+  for (let i = xmin; i <= xmax; i = arrondi(i + step)) {
+    const s = segment(i, ymin, i, ymax, this.color)
     s.opacite = this.opacite
     if (pointilles) {
       s.pointilles = true
     }
     objets.push(s)
   }
-  for (let i = ymin; i <= ymax + 0.005; i = i + step) {
-    const s = segment(xmin, i, xmax, i)
-    s.color = this.color
+  for (let i = ymin; i <= ymax; i = arrondi(i + step)) {
+    const s = segment(xmin, i, xmax, i, this.color)
     s.opacite = this.opacite
     if (pointilles) {
       s.pointilles = true
     }
     objets.push(s)
   }
-  this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${color}, opacite = ${opacite}, pas = ${step})`
+  this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${this.color}, opacite = ${this.opacite}, pas = ${step})`
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -6489,7 +6755,7 @@ export function grille (...args) {
 }
 
 /**
- * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les parallèle à l'axe des ordonnées
+ * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace des parallèles à l'axe des ordonnées
  *
  * @author Rémi Angot
  */
@@ -6508,8 +6774,7 @@ function GrilleHorizontale (
   this.opacite = opacite
   const objets = []
   for (let i = ymin; i <= ymax; i += step) {
-    const s = segment(xmin, i, xmax, i)
-    s.color = this.color
+    const s = segment(xmin, i, xmax, i, this.color)
     s.opacite = this.opacite
     if (pointilles) {
       s.pointilles = true
@@ -6533,7 +6798,7 @@ function GrilleHorizontale (
 }
 
 /**
- * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace les axes des abscisses et des ordinnées
+ * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace des parallèles à l'axe des ordonnées
  *
  * @author Rémi Angot
  */
@@ -6555,8 +6820,7 @@ function GrilleVerticale (
   this.opacite = opacite
   const objets = []
   for (let i = xmin; i <= xmax; i = i + step) {
-    const s = segment(i, ymin, i, ymax)
-    s.color = this.color
+    const s = segment(i, ymin, i, ymax, this.color)
     s.opacite = this.opacite
     if (pointilles) {
       s.pointilles = true
@@ -7193,12 +7457,12 @@ function Repere2 ({
   const axeX = segment(xMin * xUnite, OrdonneeAxe * yUnite, xMax * xUnite, OrdonneeAxe * yUnite)
   axeX.epaisseur = axesEpaisseur
   axeX.styleExtremites = axeXStyle
-  axeX.color = axesCouleur
+  axeX.color = colorToLatexOrHTML(axesCouleur)
   const abscisseAxe = Math.max(0, xMin)
   const axeY = segment(abscisseAxe * xUnite, yMin * yUnite, abscisseAxe * xUnite, yMax * yUnite)
   axeY.epaisseur = axesEpaisseur
   axeY.styleExtremites = axeYStyle
-  axeY.color = axesCouleur
+  axeY.color = colorToLatexOrHTML(axesCouleur)
   if (axeXisVisible) objets.push(axeX)
   if (axeYisVisible) objets.push(axeY)
   // Cache les objets intermédiaires pour ne pas les afficher en double dans mathalea2d.html
@@ -7224,9 +7488,8 @@ function Repere2 ({
     }
     for (const y of grilleYListe) {
       if (y !== 0 || !axeXisVisible) {
-        const traitH = segment(xMin * xUnite, y * yUnite, xMax * xUnite, y * yUnite)
+        const traitH = segment(xMin * xUnite, y * yUnite, xMax * xUnite, y * yUnite, grilleYCouleur)
         traitH.isVisible = false
-        traitH.color = grilleYCouleur
         traitH.opacite = grilleYOpacite
         traitH.epaisseur = grilleEpaisseur
         if (grilleY === 'pointilles') {
@@ -7254,9 +7517,8 @@ function Repere2 ({
     }
     for (const x of grilleXListe) {
       if (x !== 0 || !axeYisVisible) {
-        const traitV = segment(x * xUnite, yMin * yUnite, x * xUnite, yMax * yUnite)
+        const traitV = segment(x * xUnite, yMin * yUnite, x * xUnite, yMax * yUnite, grilleXCouleur)
         traitV.isVisible = false
-        traitV.color = grilleXCouleur
         traitV.opacite = grilleXOpacite
         traitV.epaisseur = grilleEpaisseur
         if (grilleX === 'pointilles') {
@@ -7286,9 +7548,8 @@ function Repere2 ({
       grilleSecondaireYListe = rangeMinMax(grilleSecondaireYMin, grilleSecondaireYMax, grilleYListe, grilleSecondaireYDistance)
     }
     for (const y of grilleSecondaireYListe) {
-      const traitH = segment(xMin * xUnite, y * yUnite, xMax * xUnite, y * yUnite)
+      const traitH = segment(xMin * xUnite, y * yUnite, xMax * xUnite, y * yUnite, grilleSecondaireYCouleur)
       traitH.isVisible = false
-      traitH.color = grilleSecondaireYCouleur
       traitH.opacite = grilleSecondaireYOpacite
       traitH.epaisseur = grilleSecondaireEpaisseur
       if (grilleSecondaireY === 'pointilles') {
@@ -7314,9 +7575,8 @@ function Repere2 ({
       grilleSecondaireXListe = rangeMinMax(grilleSecondaireXMin, grilleSecondaireXMax, grilleXListe, grilleSecondaireXDistance)
     }
     for (const x of grilleSecondaireXListe) {
-      const traitV = segment(x * xUnite, yMin * yUnite, x * xUnite, yMax * yUnite)
+      const traitV = segment(x * xUnite, yMin * yUnite, x * xUnite, yMax * yUnite, grilleSecondaireXCouleur)
       traitV.isVisible = false
-      traitV.color = grilleSecondaireXCouleur
       traitV.opacite = grilleSecondaireXOpacite
       traitV.epaisseur = grilleSecondaireEpaisseur
       if (grilleSecondaireX === 'pointilles') {
@@ -7331,10 +7591,9 @@ function Repere2 ({
       xThickListe = rangeMinMax(xThickMin, xThickMax, [0], xThickDistance)
     }
     for (const x of xThickListe) {
-      const thick = segment(x * xUnite, OrdonneeAxe * yUnite - thickHauteur, x * xUnite, OrdonneeAxe * yUnite + thickHauteur)
+      const thick = segment(x * xUnite, OrdonneeAxe * yUnite - thickHauteur, x * xUnite, OrdonneeAxe * yUnite + thickHauteur, thickCouleur)
       thick.isVisible = false
       thick.epaisseur = thickEpaisseur
-      thick.color = thickCouleur
       objets.push(thick)
     }
   }
@@ -7343,10 +7602,9 @@ function Repere2 ({
       yThickListe = rangeMinMax(yThickMin, yThickMax, [0], yThickDistance)
     }
     for (const y of yThickListe) {
-      const thick = segment(abscisseAxe * xUnite - thickHauteur, y * yUnite, abscisseAxe * xUnite + thickHauteur, y * yUnite)
+      const thick = segment(abscisseAxe * xUnite - thickHauteur, y * yUnite, abscisseAxe * xUnite + thickHauteur, y * yUnite, thickCouleur)
       thick.isVisible = false
       thick.epaisseur = thickEpaisseur
-      thick.color = thickCouleur
       objets.push(thick)
     }
   }
@@ -8861,8 +9119,8 @@ function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textAbs = ''
     const M = point(x, y)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(X, M, color)
-    const Sy = segment(M, Y, color)
+    const Sx = segment(X, M, this.color)
+    const Sy = segment(M, Y, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = true
@@ -8874,8 +9132,8 @@ export function lectureImage (...args) {
   return new LectureImage(...args)
 }
 
-function LectureAntecedent (x, y, xscale, yscale, color, textOrd, textAbs) {
-  'use strict'
+function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOrd, textAbs) {
+  // 'use strict'
   ObjetMathalea2D.call(this)
   this.x = x
   this.y = y
@@ -8893,8 +9151,8 @@ function LectureAntecedent (x, y, xscale, yscale, color, textOrd, textAbs) {
     const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(M, X, color)
-    const Sy = segment(Y, M, color)
+    const Sx = segment(M, X, this.color)
+    const Sy = segment(Y, M, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = true
@@ -8907,8 +9165,8 @@ function LectureAntecedent (x, y, xscale, yscale, color, textOrd, textAbs) {
     const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(M, X, color)
-    const Sy = segment(Y, M, color)
+    const Sx = segment(M, X, this.color)
+    const Sy = segment(Y, M, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = true
@@ -8921,8 +9179,8 @@ function LectureAntecedent (x, y, xscale, yscale, color, textOrd, textAbs) {
     const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(M, X, color)
-    const Sy = segment(Y, M, color)
+    const Sx = segment(M, X, this.color)
+    const Sy = segment(Y, M, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = true
@@ -8935,8 +9193,8 @@ function LectureAntecedent (x, y, xscale, yscale, color, textOrd, textAbs) {
     const M = point(x0, y0)
     const X = point(x0, 0)
     const Y = point(0, y0)
-    const Sx = segment(M, X, color)
-    const Sy = segment(Y, M, color)
+    const Sx = segment(M, X, this.color)
+    const Sy = segment(Y, M, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
     Sx.pointilles = true
@@ -8963,8 +9221,9 @@ function Courbe (
   step = 0.1
 ) {
   ObjetMathalea2D.call(this)
-  this.color = color
+  // this.color = color
   let xscale, yscale
+  this.xmin = xmin
   if (r.constructor === Repere) {
     xscale = r.xscale
     yscale = r.yscale
@@ -8976,13 +9235,16 @@ function Courbe (
   for (
     let x = xmin / xscale;
     x <= xmax / xscale;
-    x = x + step
+    // x = x + step
+    x = arrondi(x + step)
   ) {
     if (isFinite(f(x * xscale))) {
       points.push(point(x, f(x * xscale) / yscale))
     }
   }
-  const p = polyline([...points], this.color)
+  // const p = polyline([...points], this.color)
+  // const p = polyline([...points], 'red')
+  const p = polyline([...points], 'red')
   p.epaisseur = epaisseur
   return p
 }
@@ -9071,7 +9333,7 @@ function Courbe2 (f, {
   p = polyline([...points], this.color)
   p.epaisseur = epaisseur
   objets.push(p)
-  // LES SORTIES TiKZ et SVG
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -9109,7 +9371,7 @@ export function courbe2 (...args) {
 }
 
 /**
- * Integrale(f,{repere,color,epaisseur,step,a,b,opacite,hachures}) // Trace la courbe de f
+ * Integrale(f,{repere,color,couleurDeRemplissage,epaisseur,step,a,b,opacite,hachures}) // Trace la courbe de f
  * a et b sont les bornes (dans l'ordre croissant a<b)
  * opacite = 0.5 par défaut
  * hachures = 0 par défaut (= 'northeastlines')
@@ -9119,6 +9381,7 @@ export function courbe2 (...args) {
 function Integrale (f, {
   repere = {},
   color = 'black',
+  couleurDeRemplissage = 'blue',
   epaisseur = 2,
   step = false,
   a = 0,
@@ -9128,7 +9391,7 @@ function Integrale (f, {
 } = {}) {
   ObjetMathalea2D.call(this)
   this.color = color
-
+  this.couleurDeRemplissage = couleurDeRemplissage
   const ymin = repere.yMin
   const ymax = repere.yMax
   const xunite = repere.xUnite
@@ -9157,11 +9420,11 @@ function Integrale (f, {
   points.push(point(b * xunite, f(b) * yunite), point(b * xunite, 0), point(a * xunite, 0))
   const p = polygone([...points], this.color)
   p.epaisseur = epaisseur
-  p.couleurDeRemplissage = 'blue'
+  p.couleurDeRemplissage = colorToLatexOrHTML(this.couleurDeRemplissage)
   p.opaciteDeRemplissage = opacite
   p.hachures = motifs(hachures)
   objets.push(p)
-  // LES SORTIES TiKZ et SVG
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -9218,7 +9481,6 @@ function CourbeSpline (f, {
   ObjetMathalea2D.call(this)
   const noeuds = []
   let points = []
-  this.color = color
   let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
   if (typeof xMin === 'undefined') {
     xmin = repere.xMin
@@ -9241,8 +9503,7 @@ function CourbeSpline (f, {
   const objets = []
   if (traceNoeuds) {
     for (let i = 0; i < f.x.length; i++) {
-      noeuds[i] = tracePoint(point(f.x[i], f.y[i]))
-      noeuds[i].color = 'black'
+      noeuds[i] = tracePoint(point(f.x[i], f.y[i]), 'black')
       noeuds[i].taille = 3
       noeuds[i].style = '+'
       noeuds[i].epaisseur = 2
@@ -9263,7 +9524,7 @@ function CourbeSpline (f, {
       if (y < ymax + 1 && y > ymin - 1) {
         points.push(point(x * xunite, y * yunite))
       } else {
-        p = polyline([...points], this.color)
+        p = polyline([...points], color)
         p.epaisseur = epaisseur
         p.opacite = 0.7
         objets.push(p)
@@ -9273,12 +9534,11 @@ function CourbeSpline (f, {
       x += 0.05
     }
   }
-  p = polyline([...points], this.color)
+  p = polyline([...points], color)
   p.epaisseur = epaisseur
   p.opacite = 0.7
   objets.push(p)
 
-  // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -9297,51 +9557,6 @@ function CourbeSpline (f, {
 
 export function courbeSpline (...args) {
   return new CourbeSpline(...args)
-}
-
-function CourbeInterpolee2 (
-  tableau,
-  color = 'black',
-  epaisseur = 2,
-  r = [1, 1],
-  xmin,
-  xmax
-) {
-  ObjetMathalea2D.call(this)
-  this.color = color
-  this.epaisseur = epaisseur
-
-  this.svg = function (coeff) {
-    let code = `<path d="M ${tableau[0][0] * coeff} ${-tableau[0][1] * coeff} L `
-    for (let i = 1; i < tableau.length; i++) {
-      code += `${tableau[i][0] * coeff} ${-tableau[i][1] * coeff} `
-    }
-    code += `" stroke="${this.color}" stroke-width="${this.epaisseur}" fill="transparent"  id="${this.id}" />`
-    return code
-  }
-  this.tikz = function () {
-    let code = '\\draw plot[smooth] coordinates{'
-    for (let i = 0; i < tableau.length; i++) {
-      code += `(${tableau[i][0]},${tableau[i][1]}) `
-    }
-    code += '};\n'
-    return code
-  }
-}
-
-/**
- *
- * @param {array} tableau de coordonnées [x,y]
- * @param {string} couleur
- * @param {number} epaisseur
- * @param {objet} repere (ou tableau [xscale,yscale])
- * @param {number} xmin
- * @param {number} xmax
- *
- * @author Rémi Angot
- */
-export function courbeInterpolee2 (...args) {
-  return new CourbeInterpolee2(...args)
 }
 
 /**
@@ -9501,7 +9716,7 @@ function AntecedentParDichotomie (xmin, xmax, f, y, precision = 0.01) {
 function CrochetD (A, color = 'blue') {
   ObjetMathalea2D.call(this)
   this.epaisseur = 2
-  this.color = color
+  this.color = colorToLatexOrHTML(color)
   this.taille = 0.2
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
@@ -9532,17 +9747,17 @@ function CrochetD (A, color = 'blue') {
       -2 * this.taille * 20
     } ${A.xSVG(coeff) + this.taille * 20},${A.ySVG(coeff) +
       -2 * this.taille * 20
-    }" fill="none" stroke="${this.color}" ${this.style} />`
+    }" fill="none" stroke="${this.color[0]}" ${this.style} />`
     code += `\n\t<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff) +
       this.taille * 20 * 5
-      }" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${A.nom
+      }" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]}">${A.nom
       }</text>\n `
     return code
   }
   this.tikz = function () {
-    let code = `\\draw[very thick,${this.color}] (${A.x + this.taille / context.scale},${A.y + this.taille / context.scale})--(${A.x
+    let code = `\\draw[very thick,color=${this.color[1]}] (${A.x + this.taille / context.scale},${A.y + this.taille / context.scale})--(${A.x
       },${A.y + this.taille / context.scale})--(${A.x},${A.y - this.taille / context.scale})--(${A.x + this.taille / context.scale},${A.y - this.taille / context.scale});`
-    code += `\n\t\\draw[${this.color}] (${A.x},${A.y - this.taille / context.scale}) node[below] {$${A.nom}$};`
+    code += `\n\t\\draw[color=${this.color[1]}] (${A.x},${A.y - this.taille / context.scale}) node[below] {$${A.nom}$};`
     return code
   }
 }
@@ -9553,7 +9768,7 @@ export function crochetD (...args) {
 function CrochetG (A, color = 'blue') {
   ObjetMathalea2D.call(this)
   this.epaisseur = 2
-  this.color = color
+  this.color = colorToLatexOrHTML(color)
   this.taille = 0.2
 
   this.svg = function (coeff) {
@@ -9585,17 +9800,17 @@ function CrochetG (A, color = 'blue') {
       2 * this.taille * 20
     } ${A.xSVG(coeff) - this.taille * 20},${A.ySVG(coeff) -
       2 * this.taille * 20
-    }" fill="none" stroke="${this.color}" ${this.style} />`
+    }" fill="none" stroke="${this.color[0]}" ${this.style} />`
     code += `\n\t<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff) +
       5 * this.taille * 20
-      }" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${A.nom
+      }" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]}">${A.nom
       }</text>\n `
     return code
   }
   this.tikz = function () {
-    let code = `\\draw[very thick,${this.color}] (${A.x - this.taille / context.scale},${A.y + this.taille / context.scale})--(${A.x
+    let code = `\\draw[very thick,color=${this.color[1]}] (${A.x - this.taille / context.scale},${A.y + this.taille / context.scale})--(${A.x
       },${A.y + this.taille / context.scale})--(${A.x},${A.y - this.taille / context.scale})--(${A.x - this.taille / context.scale},${A.y - this.taille / context.scale});`
-    code += `\n\t\\draw[${this.color}] (${A.x},${A.y - this.taille / context.scale}) node[below] {$${A.nom}$};`
+    code += `\n\t\\draw[color=${this.color[1]}] (${A.x},${A.y - this.taille / context.scale}) node[below] {$${A.nom}$};`
     return code
   }
 }
@@ -9606,12 +9821,56 @@ export function crochetG (...args) {
 export function intervalle (A, B, color = 'blue', h = 0) {
   const A1 = point(A.x, A.y + h)
   const B1 = point(B.x, B.y + h)
-  const s = segment(A1, B1)
+  const s = segment(A1, B1, color)
+  // s.styleExtremites = '->'
+
   s.epaisseur = 3
-  s.color = color
   return s
 }
 
+/**
+ * convertHexToRGB convertit une couleur en héxadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
+ * @example convertHexToRGB('f15929')=[241,89,41]
+ * @author Eric Elter
+ */
+
+function convertHexToRGB (couleur = '000000') {
+  const hexDecoupe = couleur.match(/.{1,2}/g)
+  const hexToRGB = [
+    parseInt(hexDecoupe[0], 16),
+    parseInt(hexDecoupe[1], 16),
+    parseInt(hexDecoupe[2], 16)
+  ]
+  return hexToRGB
+}
+
+/**
+ * colorToLatexOrHTML prend en paramètre une couleur sous forme prédéfinie ('red','yellow',...) ou sous forme HTML en hexadécimal (avec #, genre '#f15929')
+ * La sortie de cette fonction est un tableau où :
+ * - le premier élément est cette couleur exploitable en SVG, donc en HTML.
+ * - le second élément est cette couleur exploitable en TikZ, donc en Latex.
+ * @example colorToLatexOrHTML('red')=['red','{red}']
+ * @example colorToLatexOrHTML('#f15929')=['#f15929','{rgb,255:red,241;green,89;blue,41}']
+ * @author Eric Elter
+ */
+
+export function colorToLatexOrHTML (couleur) {
+  const tabCouleur = []
+  let rgb = []
+  if (Array.isArray(couleur)) return couleur // Si jamais une fonction rappelle une couleur qui aurait déjà été transformée par cette même fonction
+  else if (couleur === '') return ''
+  else if (couleur === 'none') return ['none', 'none']
+  else {
+    tabCouleur[0] = couleur
+    if (couleur[0] === '#') {
+      rgb = convertHexToRGB(couleur.replace('#', ''))
+      tabCouleur[1] = '{rgb,255:red,' + rgb[0] + ';green,' + rgb[1] + ';blue,' + rgb[2] + '}'
+    } else {
+      tabCouleur[1] = '{' + couleur + '}'
+    }
+    return tabCouleur
+  }
+}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% LES TEXTES %%%%%%%%%%%%%%%
@@ -9622,25 +9881,25 @@ export function intervalle (A, B, color = 'blue', h = 0) {
  * texteParPoint('mon texte',A) // Écrit 'mon texte' avec A au centre du texte
  * texteParPoint('mon texte',A,'gauche') // Écrit 'mon texte' à gauche de A (qui sera la fin du texte)
  * texteParPoint('mon texte',A,'droite') // Écrit 'mon texte' à droite de A (qui sera le début du texte)
- * texteParPoint('mon texte',A,45) // Écrit 'mon texte' à centré sur A avec une rotation de 45°
+ * texteParPoint('mon texte',A,45) // Écrit 'mon texte' centré sur A avec une rotation de 45°
  * Si mathOn est true, la chaine est traitée par texteParPoint mais avec une police se rapprochant de la police Katex (quelques soucis d'alignement des caractères sur certains navigateurs)
- * Si le texte commence et fini par des $ la chaine est traitée par latexParPoint
+ * Si le texte commence et finit par des $ la chaine est traitée par latexParPoint
  * @author Rémi Angot
  */
 function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
   ObjetMathalea2D.call(this)
-  this.color = color
+  this.color = colorToLatexOrHTML(color)
   this.contour = false
   this.taille = 10 * scale
   this.opacite = 1
-  this.couleurDeRemplissage = color
+  this.couleurDeRemplissage = this.color
   this.opaciteDeRemplissage = this.opacite
   this.bordures = [A.x - texte.length * 0.2, A.y - 0.4, A.x + texte.length * 0.2, A.y + 0.4]
   if (typeof texte !== 'string') {
     texte = String(texte)
   }
   if (texte.charAt(0) === '$') {
-    A.positionLabel = 'centre'
+    A.positionLabel = 'above'
     this.svg = function (coeff) {
       return latexParPoint(texte.substr(1, texte.length - 2), A, this.color, texte.length * 8, 12, '', 6).svg(coeff)
     }
@@ -9654,7 +9913,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [${color}] (${A.x},${A.y
+        code = `\\draw [color=${this.color[1]}] (${A.x},${A.y
           }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
@@ -9667,7 +9926,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
         if (orientation === 'milieu') {
           anchor = `node[anchor = center,scale=${scale}]`
         }
-        code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`
+        code = `\\draw [color=${this.color[1]}] (${A.x},${A.y}) ${anchor} {${texte}};`
       }
       return code
     }
@@ -9675,12 +9934,12 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
     this.svg = function (coeff) {
       let code = ''; let style = ''
       if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" '
-      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
-      else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
+      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage[0]};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color[0]};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
+      else style += ` style="font-size:${this.taille}px;fill:${this.color[0]};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
         code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
-      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.couleurDeRemplissage
+      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.couleurDeRemplissage[0]
         }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
           coeff
         )})" id="${this.id}" >${texte}</text>\n `
@@ -9689,19 +9948,19 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
           case 'milieu':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="middle" dominant-baseline="central" fill="${this.couleurDeRemplissage
+          )}" text-anchor="middle" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
             }" id="${this.id}" >${texte}</text>\n `
             break
           case 'gauche':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="end" dominant-baseline="central" fill="${this.couleurDeRemplissage
+          )}" text-anchor="end" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
             }" id="${this.id}" >${texte}</text>\n `
             break
           case 'droite':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="start" dominant-baseline="central" fill="${this.couleurDeRemplissage
+          )}" text-anchor="start" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
             }" id="${this.id}" >${texte}</text>\n `
             break
         }
@@ -9718,7 +9977,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [${color}] (${A.x},${A.y
+        code = `\\draw [color=${this.color[1]}] (${A.x},${A.y
           }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
@@ -9732,9 +9991,9 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
           anchor = `node[anchor = center,scale=${scale}]`
         }
         if (mathOn) {
-          code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {$${texte}$};`
+          code = `\\draw [color=${this.color[1]},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {$${texte}$};`
         } else {
-          code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
+          code = `\\draw [color=${this.color[1]},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
         }
       }
       return code
@@ -9747,11 +10006,11 @@ export function texteParPoint (texte, A, orientation = 'milieu', color = 'black'
 
 function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, scaleFigure) {
   ObjetMathalea2D.call(this)
-  this.color = color
+  this.color = colorToLatexOrHTML(color)
   this.contour = false
   this.taille = 10 * scale
   this.opacite = 1
-  this.couleurDeRemplissage = color
+  this.couleurDeRemplissage = colorToLatexOrHTML(color)
   this.opaciteDeRemplissage = this.opacite
   this.bordures = [A.x - texte.length * 0.2, A.y - 0.4, A.x + texte.length * 0.2, A.y + 0.4]
   if (texte.charAt(0) === '$') {
@@ -9768,7 +10027,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [${color}] (${A.x},${A.y
+        code = `\\draw [${color[1]}] (${A.x},${A.y
           }) node[anchor = ${anchor}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
@@ -9781,7 +10040,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
         if (orientation === 'milieu') {
           anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
         }
-        code = `\\draw [${color}] (${A.x},${A.y}) ${anchor} {${texte}};`
+        code = `\\draw [${color[1]}] (${A.x},${A.y}) ${anchor} {${texte}};`
       }
       return code
     }
@@ -9789,12 +10048,12 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
     this.svg = function (coeff) {
       let code = ''; let style = ''
       if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" '
-      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
-      else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
+      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage[0]};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color[0]};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
+      else style += ` style="font-size:${this.taille}px;fill:${this.color[0]};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
         code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
-      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color
+      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color[0]
         }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
           coeff
         )})" id="${this.id}" >${texte}</text>\n `
@@ -9803,19 +10062,19 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
           case 'milieu':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="middle" dominant-baseline="central" fill="${this.color
+          )}" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]
             }" id="${this.id}" >${texte}</text>\n `
             break
           case 'gauche':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="end" dominant-baseline="central" fill="${this.color
+          )}" text-anchor="end" dominant-baseline="central" fill="${this.color[0]
             }" id="${this.id}" >${texte}</text>\n `
             break
           case 'droite':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="start" dominant-baseline="central" fill="${this.color
+          )}" text-anchor="start" dominant-baseline="central" fill="${this.color[0]
             }" id="${this.id}" >${texte}</text>\n `
             break
         }
@@ -9834,7 +10093,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y
+        code = `\\draw [${color[1]},fill opacity = ${this.opacite}] (${A.x},${A.y
         }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
@@ -9847,7 +10106,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
         if (orientation === 'milieu') {
           anchor = `node[anchor = center,scale=${scale * scaleFigure * 1.25}]`
         }
-        code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
+        code = `\\draw [${color[1]},fill opacity = ${this.opacite}] (${A.x},${A.y}) ${anchor} {${texte}};`
       }
       return code
     }
@@ -9931,11 +10190,11 @@ export function latexParPoint (texte, A, color = 'black', largeur = 20, hauteur 
  * @param {String} texte Le code latex qui sera mis en mode math en ligne. Ex : '\\dfrac{4}{5}\\text{cm}'
  * @param {Number} x abscisse du point de centrage
  * @param {Number} y ordonnée du point de centrage
- * @param {String} color couleur
- * @param {Number} largeur Dimensions de la 'box' rectangulaire conteneur de la formule en pixels en considérant la taille de caractère 8='\footnotesize'
- * @param {Number} hauteur Idem pour la hauteur de la box. Prévoir 20 par exemple pour une fraction. Permet le centrage correct.
- * @param {String} colorBackground Couleur du fond de la box. Chaine vide pour un fond transparent.
- * @param {Number} tailleCaracteres Taille de la police utilisée de 5 = \small à 20=\huge... agit sur la box en en modifiant les paramètres hauteur et largeur
+ * @param {String} [color] couleur
+ * @param {Number} [largeur] Dimensions de la 'box' rectangulaire conteneur de la formule en pixels en considérant la taille de caractère 8='\footnotesize'
+ * @param {Number} [hauteur] Idem pour la hauteur de la box. Prévoir 20 par exemple pour une fraction. Permet le centrage correct.
+ * @param {String} [colorBackground] Couleur du fond de la box. Chaine vide pour un fond transparent.
+ * @param {Number} [tailleCaracteres] Taille de la police utilisée de 5 = \small à 20=\huge... agit sur la box en en modifiant les paramètres hauteur et largeur
  */
 function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres) {
   ObjetMathalea2D.call(this)
@@ -9943,11 +10202,11 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
   this.y = y
   this.largeur = largeur * Math.log10(2 * tailleCaracteres)
   this.hauteur = hauteur * Math.log10(tailleCaracteres)
-  this.colorBackground = colorBackground
-  this.color = color
+  this.colorBackground = colorToLatexOrHTML(colorBackground)
+  this.color = colorToLatexOrHTML(color)
   this.texte = texte
   this.tailleCaracteres = tailleCaracteres
-  this.bordures = [x - texte.length * 0.2, y - 0.02 * this.hauteur, x + texte.length * 0.2, y + 0.02 * this.hauteur]
+  this.bordures = [x - this.texte.length * 0.2, y - 0.02 * this.hauteur, x + this.texte.length * 0.2, y + 0.02 * this.hauteur]
   let taille
   if (this.tailleCaracteres > 19) taille = '\\huge'
   else if (this.tailleCaracteres > 16) taille = '\\LARGE'
@@ -9963,19 +10222,19 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
     const centrage = 0.4 * context.pixelsParCm * Math.log10(tailleCaracteres)
     if (this.colorBackground !== '') {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="margin:auto;width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
-    $\\colorbox{${this.colorBackground}}{$${taille} \\color{${color}}{${this.texte}}$}$</div></foreignObject>`
+    $\\colorbox{${this.colorBackground[0]}}{$${taille} \\color{${this.color[0]}}{${this.texte}}$}$</div></foreignObject>`
     } else {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
-      $${taille} \\color{${this.color}}{${this.texte}}$</div></foreignObject>`
+      $${taille} \\color{${this.color[0]}}{${this.texte}}$</div></foreignObject>`
     }
   }
+
   this.tikz = function () {
-    // let code = `\\draw (${A.x},${A.y}) node[anchor = center] {$${texte}$};`;
     let code
     if (this.colorBackground !== '') {
-      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{ ${colorBackground}}{${taille}  $\\color{${color}}{${texte}}$}};`
+      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{ ${colorBackground[1]}}{${taille}  $\\color${this.color[1]}{${texte}}$}};`
     } else {
-      code = `\\draw (${x},${y}) node[anchor = center] {${taille} $\\color{${color}}{${texte}}$};`
+      code = `\\draw (${x},${y}) node[anchor = center] {${taille} $\\color${this.color[1]}{${texte}}$};`
     };
     return code
   }
@@ -10140,8 +10399,6 @@ export function angleModulo (a) {
 }
 
 function ObjetLutin () {
-  // let mesObjets
-  // mesObjets.push(this);
   ObjetMathalea2D.call(this)
   this.x = 0
   this.y = 0
@@ -11136,85 +11393,84 @@ function pattern ({
         break
     }
     return myPattern
-  } else {
-    if (context.sortieNB) {
-      switch (motif) {
-        case 'north east lines':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'horizontal lines':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'vertical lines':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'dots':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'crosshatch dots':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'fivepointed stars':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'sixpointed stars':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'crosshatch':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'bricks':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'grid':
-          myPattern = `pattern = ${motif}`
-          break
-        case 'checkerboard':
-          myPattern = `pattern = ${motif}`
-          break
-        default:
-          myPattern = 'pattern = north east lines'
-          break
-      }
-    } else {
-      switch (motif) {
-        case 'north east lines':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'horizontal lines':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'vertical lines':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'dots':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'crosshatch dots':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'fivepointed stars':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'sixpointed stars':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'crosshatch':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'bricks':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'grid':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        case 'checkerboard':
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
-          break
-        default:
-          myPattern = `pattern color = ${couleurDesHachures} , pattern = north east lines`
-          break
-      }
+  } else if (context.sortieNB) {
+    switch (motif) {
+      case 'north east lines':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'horizontal lines':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'vertical lines':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'dots':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'crosshatch dots':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'fivepointed stars':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'sixpointed stars':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'crosshatch':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'bricks':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'grid':
+        myPattern = `pattern = ${motif}`
+        break
+      case 'checkerboard':
+        myPattern = `pattern = ${motif}`
+        break
+      default:
+        myPattern = 'pattern = north east lines'
+        break
+    }
+    return myPattern
+  } else { // Sortie Latex
+    switch (motif) {
+      case 'north east lines':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'horizontal lines':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'vertical lines':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'dots':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'crosshatch dots':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'fivepointed stars':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'sixpointed stars':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'crosshatch':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'bricks':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'grid':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      case 'checkerboard':
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = ${motif}`
+        break
+      default:
+        myPattern = `pattern color = ${couleurDesHachures} , pattern = north east lines`
+        break
     }
     return `${myPattern}`
   }
