@@ -1,11 +1,13 @@
 import Exercice from '../Exercice.js'
-import { premiereLettreEnMajuscule, listeQuestionsToContenuSansNumero, texcolors, arrondiVirgule, texFraction, combinaisonListes, tableauColonneLigne, choice, randint } from '../../modules/outils.js'
+import { egalOuApprox, premiereLettreEnMajuscule, listeQuestionsToContenuSansNumero, texcolors, texNombre, texFraction, combinaisonListes, tableauColonneLigne, choice, randint, rangeMinMax } from '../../modules/outils.js'
 import { traceGraphiqueCartesien, segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere2, traceBarre, cercleCentrePoint } from '../../modules/2d.js'
 
+export const dateDePublication = '20/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModificationImportante = '17/04/2022'
 export const titre = 'Représenter des données par un diagramme'
 
 /**
- * @author Jean-Claude Lhote
+ * @author Mickael Guironnet - Jean-Claude Lhote
  * Référence 5S12
  */
 export default function ConstruireUnDiagramme () {
@@ -21,6 +23,7 @@ export default function ConstruireUnDiagramme () {
   this.sup = 3
   this.sup2 = 1
   this.sup3 = 1
+  this.sup4 = true
 
   //  this.sup3 = false;
   this.nouvelleVersion = function () {
@@ -33,23 +36,25 @@ export default function ConstruireUnDiagramme () {
     } else {
       typesDeQuestionsDisponibles = [randint(1, 4)]
     }
+    let baseNombreAnimaux
+    if (this.sup4) baseNombreAnimaux = 20
+    else baseNombreAnimaux = randint(15, 24, 20)
     const listeHachuresDisponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
     const listeMotifs = combinaisonListes(listeHachuresDisponibles, 4)
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    let N = 0; let nom; let texte; let texteCorr
+    let nom; let texte; let texteCorr
     let nbAnimaux = 4 // nombre d'animaux différents dans l'énoncé
     const lstAnimauxExo = [] // liste des animaux uniquement cités dans l'exercice
     const lstNombresAnimaux = [] // liste des effectifs de chaque animal
-    let lstVal = [10, 20] // liste des valeurs à éviter pour les effectifs
 
     let paramsEnonce, paramsCorrection, coef, r, lstElementGraph, g
     const objetsEnonce = []
     const objetsCorrection = []
-    const lstAnimaux = ['girafes', 'zèbres', 'gnous', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes', 'lycaons', 'servals', 'phacochères']
+    const lstAnimaux = ['girafes', 'zèbres', 'buffles', 'gazelles', 'crocodiles', 'rhinocéros', 'léopards', 'guépards', 'hyènes']
     const lstNomParc = ['Dramve', 'Fatenmin', 'Batderfa', 'Vihi', 'Genser', 'Barbetdou', 'Dramrendu', 'Secai', 'Cipeudram', 'Cigel', 'Lisino', 'Fohenlan',
       'Farnfoss', 'Kinecardine', 'Zeffari', 'Barmwich', 'Swadlincote', 'Swordbreak', 'Loshull', 'Ruyron', 'Fluasall', 'Blueross', 'Vlane']
 
-    texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d’animaux.<br> Voici un tableau qui donne le nombre d’individus de quelques espèces.<br><br>'
+    texte = 'Dans le parc naturel de ' + choice(lstNomParc) + ', il y a beaucoup d\'animaux.<br> Voici un tableau qui donne le nombre d\'individus de quelques espèces.<br><br>'
     texteCorr = ''
     const entete = ['\\text{Animaux}']
     let contenutableau, A, B, T, angle, a, legende, textelegende, hachures, a0, t, alpha
@@ -59,19 +64,31 @@ export default function ConstruireUnDiagramme () {
       case 3: nbAnimaux = 4; break
       default: nbAnimaux = 4
     }
+
+    const lstCoeffAnimaux = [] // liste des effectifs de chaque animal sur 20
+    lstCoeffAnimaux.push(baseNombreAnimaux)
+    const max = Math.floor(baseNombreAnimaux / nbAnimaux)
+    for (let i = 0; i < nbAnimaux - 1; i++) {
+      let k1 = choice(rangeMinMax(2, max, lstCoeffAnimaux))
+      if (k1 === undefined || k1 === null) {
+        k1 = choice(rangeMinMax(2, max))
+      }
+      // const k1 = randint(2, Math.floor(20 / nbAnimaux), lstCoeffAnimaux)
+      lstCoeffAnimaux.push(k1)
+      lstCoeffAnimaux[0] -= k1
+    }
+
+    const factor = randint(3, 6)
+
     switch (parseInt(this.sup2)) {
       case 1:
         for (let i = 0; i < nbAnimaux; i++) {
-          N = randint(10, 50, lstVal) // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
-          lstNombresAnimaux.push(N)
-          lstVal = lstVal.concat([N - 1, N, N + 1]) // valeurs à supprimer pour éviter des valeurs proches
+          lstNombresAnimaux.push(lstCoeffAnimaux[i] * factor)
         }
         break
       case 2:
         for (let i = 0; i < nbAnimaux; i++) {
-          N = randint(10, 50, lstVal) // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
-          lstNombresAnimaux.push(10 * N)
-          lstVal = lstVal.concat([N - 1, N, N + 1]) // valeurs à supprimer pour éviter des valeurs proches
+          lstNombresAnimaux.push(lstCoeffAnimaux[i] * factor * 10)
         }
         break
     }
@@ -84,10 +101,12 @@ export default function ConstruireUnDiagramme () {
       lstAnimauxExo.push(nom)
       entete.push(`\\text{${nom}}`)
     }
-    texte += `${tableauColonneLigne(entete, ['\\text{Effectifs}'], lstNombresAnimaux)}<br><br>`
 
+    let emptyValues = []
     switch (listeTypeDeQuestions[0]) {
       case 1:
+        emptyValues = Array.apply(null, Array(2 * nbAnimaux)).map(function () { return ' ' })
+        texte += `${tableauColonneLigne(entete, ['\\text{Effectifs}', '\\text{Fréquences}', '\\text{Angles}'], lstNombresAnimaux.concat(emptyValues))}<br><br>`
         texte += 'Représenter ces données par un diagramme circulaire.<br><br>'
         entete.push('\\text{Totaux}')
         contenutableau = []
@@ -96,15 +115,15 @@ export default function ConstruireUnDiagramme () {
         }
         contenutableau.push(effectiftotal)
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(texFraction(lstNombresAnimaux[i], effectiftotal) + '\\approx ' + arrondiVirgule(lstNombresAnimaux[i] / effectiftotal, 2))
+          contenutableau.push(texFraction(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + texNombre(lstNombresAnimaux[i] / effectiftotal, 2))
         }
         contenutableau.push('1')
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(`${texFraction(lstNombresAnimaux[i], effectiftotal)} \\times 360 \\approx ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}\\degree`)
+          contenutableau.push(`${texFraction(lstNombresAnimaux[i], effectiftotal)} \\times 360 ${egalOuApprox(lstNombresAnimaux[i] * 360 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}\\degree`)
         }
         contenutableau.push('360\\degree')
 
-        texteCorr += `${tableauColonneLigne(entete, ['\\text{Effectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
+        texteCorr += `${tableauColonneLigne(entete, ['\\text{Éffectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
 
         A = point(0, 0)
         B = point(6, 0)
@@ -140,6 +159,8 @@ export default function ConstruireUnDiagramme () {
         }
         break
       case 2:
+        emptyValues = Array.apply(null, Array(2 * nbAnimaux)).map(function () { return ' ' })
+        texte += `${tableauColonneLigne(entete, ['\\text{Effectifs}', '\\text{Fréquences}', '\\text{Angles}'], lstNombresAnimaux.concat(emptyValues))}<br><br>`
         texte += 'Représenter ces données par un diagramme semi-circulaire.<br><br>'
         entete.push('\\text{Totaux}')
         contenutableau = []
@@ -148,15 +169,15 @@ export default function ConstruireUnDiagramme () {
         }
         contenutableau.push(effectiftotal)
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(texFraction(lstNombresAnimaux[i], effectiftotal) + '\\approx ' + arrondiVirgule(lstNombresAnimaux[i] / effectiftotal, 2))
+          contenutableau.push(texFraction(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + texNombre(lstNombresAnimaux[i] / effectiftotal, 2))
         }
         contenutableau.push('1')
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(`${texFraction(lstNombresAnimaux[i], effectiftotal)} \\times 180 \\approx ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}\\degree`)
+          contenutableau.push(`${texFraction(lstNombresAnimaux[i], effectiftotal)} \\times 180 ${egalOuApprox(lstNombresAnimaux[i] * 180 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}\\degree`)
         }
         contenutableau.push('180\\degree')
 
-        texteCorr += `${tableauColonneLigne(entete, ['\\text{Effectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
+        texteCorr += `${tableauColonneLigne(entete, ['\\text{Éffectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
 
         A = point(0, 0)
         B = point(6, 0)
@@ -191,6 +212,7 @@ export default function ConstruireUnDiagramme () {
         }
         break
       case 3:
+        texte += `${tableauColonneLigne(entete, ['\\text{Effectifs}'], lstNombresAnimaux)}<br><br>`
         texte += 'Représenter ces données par un diagramme en barres.<br>'
         coef = 1
         switch (parseInt(this.sup2)) {
@@ -208,7 +230,7 @@ export default function ConstruireUnDiagramme () {
           xLabelListe: [],
           yUnite: 0.1 / coef,
           yThickDistance: 10 * coef,
-          yMax: 60 * coef,
+          yMax: Math.max.apply(null, lstNombresAnimaux) + 20 * coef,
           xMin: 0,
           xMax: 10,
           yMin: 0,
@@ -222,11 +244,12 @@ export default function ConstruireUnDiagramme () {
         }
         objetsCorrection.push(r)
         paramsEnonce = { xmin: -6.5, ymin: 0, xmax: 6.5, ymax: 0, pixelsParCm: 20, scale: 1, mainlevee: false }
-        paramsCorrection = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7, pixelsParCm: 20, scale: 1, mainlevee: false }
+        paramsCorrection = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 10, pixelsParCm: 20, scale: 1, mainlevee: false }
 
         break
 
       case 4:
+        texte += `${tableauColonneLigne(entete, ['\\text{Effectifs}'], lstNombresAnimaux)}<br><br>`
         texte += 'Représenter ces données par un graphique cartésien.<br>'
         coef = 1
         switch (parseInt(this.sup2)) {
@@ -244,7 +267,7 @@ export default function ConstruireUnDiagramme () {
           xLabelListe: [],
           yUnite: 0.1 / coef,
           yThickDistance: 10 * coef,
-          yMax: 60 * coef,
+          yMax: Math.max.apply(null, lstNombresAnimaux) + 20 * coef,
           xMin: 0,
           xMax: 10,
           yMin: 0,
@@ -283,4 +306,5 @@ export default function ConstruireUnDiagramme () {
   this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, '1 : Deux espèces\n2 : Trois espèces\n3 : Quatre espèces']
   this.besoinFormulaire2Numerique = ['Valeurs numériques', 2, '1 : Entre 1 et 100\n2 : Entre 100 et 1 000']
   this.besoinFormulaire3Numerique = ['Type de diagramme', 5, '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en barres\n4 : Diagramme cartésien\n5 : Au hasard']
+  this.besoinFormulaire4CaseACocher = ['Valeur exactes', true]
 }

@@ -6781,9 +6781,11 @@ export const dictionnaireDNB = {
     numeroInitial: '2',
     png: '/dnb/2021/tex/png/dnb_2021_06_asie_2.png',
     pngcor: '/dnb/2021/tex/png/dnb_2021_06_asie_2_cor.png',
+    pngcorcoop: '/dnb/2021/tex/png/dnb_2021_06_asie_2_coopmaths_cor.png',
     typeExercice: 'dnb',
     url: '/dnb/2021/tex/dnb_2021_06_asie_2.tex',
     urlcor: '/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex',
+    urlcorcoop: '/dnb/2021/tex/dnb_2021_06_asie_2_coopmaths_cor.tex',
     tags: ['Pythagore', 'Transformations', 'Agrandissement-réduction', 'Trigonométrie']
   },
   dnb_2021_06_asie_3: {
@@ -7053,5 +7055,4 @@ export const dictionnaireDNB = {
     urlcor: '/dnb/2021/tex/dnb_2021_11_ameriquesud_5_cor.tex',
     tags: ['Recherche d\'informations', 'Volumes', 'Pourcentages']
   },
-
 }

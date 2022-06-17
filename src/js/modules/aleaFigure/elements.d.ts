@@ -1,5 +1,5 @@
-import { GVCartesian, GVCoordinates, GVPolar } from './coordinates.js';
-import { MathArray, Matrix } from 'mathjs';
+import { GVCartesian, GVCoordinates, GVPolar } from './coordinates.js'
+import { MathArray, Matrix } from 'mathjs'
 /**
  * @class
  * @classdesc Graphic object like Point, Line, Segment etc.
@@ -180,5 +180,5 @@ export declare class GVRectangle extends GVPolygon {
   * @classdesc Caracteristics of a triangle
   */
 export declare class GVTriangle extends GVPolygon {
-    constructor(...args: GVPoint[]);
+  constructor(...args: GVPoint[]);
 }

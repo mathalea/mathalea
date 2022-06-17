@@ -2,9 +2,10 @@
 import loadjs from 'loadjs'
 import { context } from './context'
 import { UserFriendlyError } from './messages'
-import { clavierLongueur } from './interactif/claviers/longueur.js'
+import { clavierLongueur } from './interactif/claviers/longueur_ANCIEN.js'
 import { clavierTrigo } from './interactif/claviers/trigo.js'
 import { clavierCollege } from './interactif/claviers/college.js'
+import { clavierLycee } from './interactif/claviers/lycee.js'
 import { clavierConfiguration } from './interactif/claviers/claviersUnites'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
@@ -167,6 +168,9 @@ export async function loadMathLive () {
         while (listeParamClavier[jj].indexOf('nites') === -1 & listeParamClavier[jj].indexOf('nités') === -1) { jj++ }
         const contenuUnites = listeParamClavier[jj].split('[')[1].split(']')[0].split(',')
         mf.setOptions(clavierConfiguration(contenuUnites))
+      }
+      if (mf.classList.contains('lycee')) {
+        mf.setOptions(clavierLycee)
       }
       if (mf.classList.contains('longueur')) {
         mf.setOptions(clavierLongueur)

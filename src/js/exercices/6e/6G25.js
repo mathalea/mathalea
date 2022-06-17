@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre } from '../../modules/outils.js'
-import { point, tracePoint, pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, codageMediatrice, segmentAvecExtremites, cercle, pointIntersectionLC, dansLaCibleCarree, cibleCarree, homothetie, similitude, texteParPoint, mathalea2d, positionLabelDroite, fixeBordures, norme, translation, vecteur } from '../../modules/2d.js'
+import { point, tracePoint, pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, codageMediatrice, segmentAvecExtremites, cercle, pointIntersectionLC, dansLaCibleCarree, cibleCarree, homothetie, similitude, texteParPoint, mathalea2d, positionLabelDroite, fixeBordures, norme, translation, vecteur, symetrieAxiale } from '../../modules/2d.js'
 export const titre = 'Construire des médiatrices avec cible auto-corrective'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -49,9 +49,9 @@ export default function ConstruireMediatrices6e () {
     const cA = cercle(A, calcul(randint(25, 40) / 20))
     const cB = cercle(B, calcul(randint(45, 60) / 20))
     const A1 = pointIntersectionLC(dA, cA, noms[0], 1)
-    const A2 = pointIntersectionLC(dA, cA, noms[1], 2)
+    const A2 = symetrieAxiale(A1,medA, noms[1])
     const B1 = pointIntersectionLC(dB, cB, noms[2], 1)
-    const B2 = pointIntersectionLC(dB, cB, noms[3], 2)
+    const B2 = symetrieAxiale(B1,medB, noms[3])
     const sA = segmentAvecExtremites(A1, A2)
     const sB = segmentAvecExtremites(B1, B2)
     sA.color = 'black'

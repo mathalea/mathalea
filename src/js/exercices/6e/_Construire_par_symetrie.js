@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone, numAlpha } from '../../modules/outils.js'
-import { point, tracePoint, pointSurDroite, labelPoint, droite, droiteVerticaleParPoint, droiteParPointEtPente, codageMediatrice, codageMilieu, segment, polygone, nommePolygone, rotation, symetrieAxiale, grille, seyes, mathalea2d, droiteHorizontaleParPoint, dessousDessus, aireTriangle, projectionOrtho, longueur, translation, vecteur, norme, homothetie, texteParPoint, estSurDroite, vide2d } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone, numAlpha, contraindreValeur } from '../../modules/outils.js'
+import { point, tracePoint, pointSurDroite, labelPoint, droite, droiteVerticaleParPoint, droiteParPointEtPente, codageMediatrice, codageMilieu, segment, polygone, nommePolygone, rotation, symetrieAxiale, grille, seyes, mathalea2d, droiteHorizontaleParPoint, dessousDessus, aireTriangle, projectionOrtho, longueur, translation, vecteur, norme, homothetie, texteParPoint, vide2d } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const dateDeModificationImportante = '14/11/2021'
 export const amcReady = true
@@ -90,9 +90,13 @@ export default class ConstruireParSymetrie extends Exercice {
   }
 
   nouvelleVersion () {
+    if (this.version === 5) {
+      this.sup = 5
+      this.sup3 = 5
+    }
     let lieux, positionLabelDroite
-    this.sup = parseInt(this.sup)
-    this.sup3 = Number(this.sup3)
+    this.sup = parseInt(contraindreValeur(1, 6, this.sup, 6))
+    this.sup3 = parseInt(contraindreValeur(1, 5, this.sup3, 5))
     let listeDeNomsDePolygones
     if (this.sup3 === 1) lieux = choice([['dessus', 'dessus', 'dessus'], ['dessous', 'dessous', 'dessous']])
     else if (this.sup3 === 2) lieux = choice([['dessus', 'sur', 'dessus'], ['dessous', 'sur', 'dessous']])
@@ -208,12 +212,12 @@ export default class ConstruireParSymetrie extends Exercice {
           CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'above')
           DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above')
           EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above')
-          cC = estSurDroite(C, d) ? C : codageMediatrice(C, CC, 'red', '|')
-          cD = estSurDroite(D, d) ? D : codageMediatrice(D, DD, 'blue', 'X')
-          cE = estSurDroite(E, d) ? E : codageMediatrice(E, EE, 'green', 'O')
-          sC = estSurDroite(C, d) ? vide2d() : segment(C, CC)
-          sD = estSurDroite(D, d) ? vide2d() : segment(D, DD)
-          sE = estSurDroite(E, d) ? vide2d() : segment(E, EE)
+          cC = C.estSur(d) ? C : codageMediatrice(C, CC, 'red', '|')
+          cD = D.estSur(d) ? D : codageMediatrice(D, DD, 'blue', 'X')
+          cE = E.estSur(d) ? E : codageMediatrice(E, EE, 'green', 'O')
+          sC = C.estSur(d) ? vide2d() : segment(C, CC)
+          sD = D.estSur(d) ? vide2d() : segment(D, DD)
+          sE = E.estSur(d) ? vide2d() : segment(E, EE)
           sCE = droite(CC, EE, '', 'gray')
           sCE.pointilles = true
           sED = droite(EE, D, '', 'gray')
@@ -263,12 +267,12 @@ export default class ConstruireParSymetrie extends Exercice {
           CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'above')
           DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above')
           EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above')
-          cC = estSurDroite(C, d) ? C : codageMediatrice(C, CC, 'red', '|')
-          cD = estSurDroite(D, d) ? D : codageMediatrice(D, DD, 'blue', 'X')
-          cE = estSurDroite(E, d) ? E : codageMediatrice(E, EE, 'green', 'O')
-          sC = estSurDroite(C, d) ? vide2d() : segment(C, CC)
-          sD = estSurDroite(D, d) ? vide2d() : segment(D, DD)
-          sE = estSurDroite(E, d) ? vide2d() : segment(E, EE)
+          cC = C.estSur(d) ? C : codageMediatrice(C, CC, 'red', '|')
+          cD = D.estSur(d) ? D : codageMediatrice(D, DD, 'blue', 'X')
+          cE = E.estSur(d) ? E : codageMediatrice(E, EE, 'green', 'O')
+          sC = C.estSur(d) ? vide2d() : segment(C, CC)
+          sD = D.estSur(d) ? vide2d() : segment(D, DD)
+          sE = E.estSur(d) ? vide2d() : segment(E, EE)
           sCE = droite(CC, EE, '', 'gray')
           sCE.pointilles = true
           sED = droite(EE, D, '', 'gray')
@@ -316,12 +320,12 @@ export default class ConstruireParSymetrie extends Exercice {
           CC = symetrieAxiale(C, d, `${p1nom[2]}'`, 'above')
           DD = symetrieAxiale(D, d, `${p1nom[3]}'`, 'above')
           EE = symetrieAxiale(E, d, `${p1nom[4]}'`, 'above')
-          cC = estSurDroite(C, d) ? C : codageMediatrice(C, CC, 'red', '|')
-          cD = estSurDroite(D, d) ? D : codageMediatrice(D, DD, 'blue', 'X')
-          cE = estSurDroite(E, d) ? E : codageMediatrice(E, EE, 'green', 'O')
-          sC = estSurDroite(C, d) ? vide2d() : segment(C, CC)
-          sD = estSurDroite(D, d) ? vide2d() : segment(D, DD)
-          sE = estSurDroite(E, d) ? vide2d() : segment(E, EE)
+          cC = C.estSur(d) ? C : codageMediatrice(C, CC, 'red', '|')
+          cD = D.estSur(d) ? D : codageMediatrice(D, DD, 'blue', 'X')
+          cE = E.estSur(d) ? E : codageMediatrice(E, EE, 'green', 'O')
+          sC = C.estSur(d) ? vide2d() : segment(C, CC)
+          sD = D.estSur(d) ? vide2d() : segment(D, DD)
+          sE = E.estSur(d) ? vide2d() : segment(E, EE)
           sCE = segment(CC, EE, 'gray')
           sCE.pointilles = true
           sED = segment(EE, D, 'gray')
@@ -388,12 +392,12 @@ export default class ConstruireParSymetrie extends Exercice {
           p2.listePoints[2].nom = `${p1nom[4]}'`
           CC = nommePolygone(p1)
           DD = nommePolygone(p2)
-          cC = estSurDroite(p1.listePoints[0], d) ? vide2d() : codageMediatrice(p1.listePoints[0], p2.listePoints[0], 'red', '|')
-          cD = estSurDroite(p1.listePoints[1], d) ? vide2d() : codageMediatrice(p1.listePoints[1], p2.listePoints[1], 'blue', 'X')
-          cE = estSurDroite(p1.listePoints[2], d) ? vide2d() : codageMediatrice(p1.listePoints[2], p2.listePoints[2], 'green', 'O')
-          sC = estSurDroite(p1.listePoints[0], d) ? vide2d() : segment(p1.listePoints[0], p2.listePoints[0], 'red')
-          sD = estSurDroite(p1.listePoints[1], d) ? vide2d() : segment(p1.listePoints[1], p2.listePoints[1], 'blue')
-          sE = estSurDroite(p1.listePoints[2], d) ? vide2d() : segment(p1.listePoints[2], p2.listePoints[2], 'green')
+          cC = p1.listePoints[0].estSur(d) ? vide2d() : codageMediatrice(p1.listePoints[0], p2.listePoints[0], 'red', '|')
+          cD = p1.listePoints[1].estSur(d) ? vide2d() : codageMediatrice(p1.listePoints[1], p2.listePoints[1], 'blue', 'X')
+          cE = p1.listePoints[2].estSur(d) ? vide2d() : codageMediatrice(p1.listePoints[2], p2.listePoints[2], 'green', 'O')
+          sC = p1.listePoints[0].estSur(d) ? vide2d() : segment(p1.listePoints[0], p2.listePoints[0], 'red')
+          sD = p1.listePoints[1].estSur(d) ? vide2d() : segment(p1.listePoints[1], p2.listePoints[1], 'blue')
+          sE = p1.listePoints[2].estSur(d) ? vide2d() : segment(p1.listePoints[2], p2.listePoints[2], 'green')
 
           sC = segment(p1.listePoints[0], p2.listePoints[0], 'red')
           sD = segment(p1.listePoints[1], p2.listePoints[1], 'blue')
@@ -448,9 +452,9 @@ export default class ConstruireParSymetrie extends Exercice {
           p2.listePoints[2].nom = `${p1nom[4]}'`
           CC = nommePolygone(p1)
           DD = nommePolygone(p2)
-          cC = estSurDroite(p1.listePoints[0], d) ? vide2d() : codageMediatrice(p1.listePoints[0], p2.listePoints[0], 'red', '|')
-          cD = estSurDroite(p1.listePoints[1], d) ? vide2d() : codageMediatrice(p1.listePoints[1], p2.listePoints[1], 'blue', 'X')
-          cE = estSurDroite(p1.listePoints[2], d) ? vide2d() : codageMediatrice(p1.listePoints[2], p2.listePoints[2], 'green', 'O')
+          cC = p1.listePoints[0].estSur(d) ? vide2d() : codageMediatrice(p1.listePoints[0], p2.listePoints[0], 'red', '|')
+          cD = p1.listePoints[1].estSur(d) ? vide2d() : codageMediatrice(p1.listePoints[1], p2.listePoints[1], 'blue', 'X')
+          cE = p1.listePoints[2].estSur(d) ? vide2d() : codageMediatrice(p1.listePoints[2], p2.listePoints[2], 'green', 'O')
           sC = segment(p1.listePoints[0], p2.listePoints[0], 'red')
           sD = segment(p1.listePoints[1], p2.listePoints[1], 'blue')
           sE = segment(p1.listePoints[2], p2.listePoints[2], 'green')
@@ -497,9 +501,9 @@ export default class ConstruireParSymetrie extends Exercice {
           p2.listePoints[2].nom = `${p1nom[4]}'`
           CC = nommePolygone(p1)
           DD = nommePolygone(p2)
-          cC = estSurDroite(p1.listePoints[0], d) ? vide2d() : codageMediatrice(p1.listePoints[0], p2.listePoints[0], 'red', '|')
-          cD = estSurDroite(p1.listePoints[1], d) ? vide2d() : codageMediatrice(p1.listePoints[1], p2.listePoints[1], 'blue', 'X')
-          cE = estSurDroite(p1.listePoints[2], d) ? vide2d() : codageMediatrice(p1.listePoints[2], p2.listePoints[2], 'green', 'O')
+          cC = p1.listePoints[0].estSur(d) ? vide2d() : codageMediatrice(p1.listePoints[0], p2.listePoints[0], 'red', '|')
+          cD = p1.listePoints[1].estSur(d) ? vide2d() : codageMediatrice(p1.listePoints[1], p2.listePoints[1], 'blue', 'X')
+          cE = p1.listePoints[2].estSur(d) ? vide2d() : codageMediatrice(p1.listePoints[2], p2.listePoints[2], 'green', 'O')
           sC = segment(p1.listePoints[0], p2.listePoints[0], 'red')
           sD = segment(p1.listePoints[1], p2.listePoints[1], 'blue')
           sE = segment(p1.listePoints[2], p2.listePoints[2], 'green')
@@ -549,8 +553,8 @@ export default class ConstruireParSymetrie extends Exercice {
           sD = segment(D, DD)
           sA = segment(A, AA)
 
-          objetsCorrection.push(tracePoint(A, C, D, CC, DD, AA), labelPoint(C, D, CC, DD, AA), cC, cD, cA, sC, sD, sA)
-          objetsEnonce.push(tracePoint(C, D), labelPoint(C, D))
+          objetsCorrection.push(tracePoint(A, B, C, D, CC, DD, AA), labelPoint(A, B, C, D, CC, DD, AA), cC, cD, cA, sC, sD, sA)
+          objetsEnonce.push(tracePoint(A, B, C, D), labelPoint(A, B, C, D))
           if (context.isHtml) {
             numQuestion = 0
             enonce = numAlpha(numQuestion) + ' Reproduire la figure ci-dessous.<br>'

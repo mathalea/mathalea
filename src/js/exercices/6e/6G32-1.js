@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenuSansNumero, randint, shuffle, combinaisonListes, lettreDepuisChiffre, texcolors, texteGras, numAlpha } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, droite, segment, demiDroite, polygone, codeAngle, texteParPosition, mathalea2d, appartientDroite } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, droite, segment, demiDroite, polygone, codeAngle, texteParPosition, mathalea2d } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Appliquer les propriétés de conservation de la symétrie axiale'
 
@@ -150,7 +150,7 @@ export default function SymetrieAxialeConservation1 () {
           break
         case 'Triangle':
           choix = randint(0, 9) + randint(0, 1) * 12
-          while (appartientDroite(points[index(choix)], points[index(choix + 1)], points[index(choix + 2)])) {
+          while (points[index(choix)].estSur(droite(points[index(choix + 1)], points[index(choix + 2)]))) {
             choix = randint(0, 9) + randint(0, 1) * 12
           }
           texte = numAlpha(i) + `Quel est le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ ?`
@@ -160,7 +160,7 @@ export default function SymetrieAxialeConservation1 () {
           break
         case 'Angle':
           choix = randint(0, 9) + randint(0, 1) * 12
-          while (appartientDroite(points[index(choix)], points[index(choix + 1)], points[index(choix + 2)])) {
+          while (points[index(choix)].estSur(droite(points[index(choix + 1)], points[index(choix + 2)]))) {
             choix = randint(0, 9) + randint(0, 1) * 12
           }
           texte = numAlpha(i) + `Quel est le symétrique de l'angle $\\widehat{${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}}$ ?`

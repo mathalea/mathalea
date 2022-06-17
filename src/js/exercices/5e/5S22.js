@@ -9,6 +9,6 @@ export const dateDePublication = '03/04/2022'
 export default function FonctionsVocabulaireProbabilite5e () {
   FonctionsProbabilite1.call(this)
   this.titre = titre
-  this.sup = 2
+  this.niveau = 2
   this.spacingCorr = 2
 }

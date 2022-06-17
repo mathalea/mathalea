@@ -287,8 +287,14 @@ function contenuExerciceHtml (obj, numeroExercice) {
       return `<h3> Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
     }
 
-    function titreExCorr (type) {
-      return `<h3 class="ui dividing header">Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+    function titreExCorr (type, coopmaths = false) {
+      let h3Tag = ''
+      if (coopmaths === true) {
+        h3Tag += `<h3 class="ui dividing header">Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé alternatif COOPMATHS</h3>`
+      } else {
+        h3Tag += `<h3 class="ui dividing header">Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+      }
+      return h3Tag
     }
     const dnb = {
       titreEx: titreEx('DNB'),
@@ -371,6 +377,10 @@ function contenuExerciceHtml (obj, numeroExercice) {
         case 'bac':
         case 'e3c':
           contenuUneCorrection += `<img id="${obj.id}Cor" width="90%" src="${obj.pngcor}">`
+          if (typeof obj.pngcorcoop !== 'undefined') {
+            contenuUneCorrection += titreExCorr('DNB', true)
+            contenuUneCorrection += `<img id="${obj.id}Cor" width="90%" src="${obj.pngcorcoop}">`
+          }
           break
       }
       contenuUneCorrection += '</div></div>'
@@ -1440,6 +1450,13 @@ async function miseAJourDeLaListeDesExercices (preview) {
               listeObjetsExercice[i].contenuCorrection = listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : data
             })
         )
+        promises.push(
+          window.fetch(dictionnaireDesExercices[id].urlcorcoop)
+            .then((response) => response.text())
+            .then((data) => {
+              listeObjetsExercice[i].contenuCorrection += listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : '\\begin{LARGE}\\textbf{Correction alternative COOPMATHS}\\end{LARGE} \\par\\vspace{0.5cm}' + data
+            })
+        )
       } else if (dictionnaireDesExercices[id].typeExercice === 'crpe') {
         listeObjetsExercice[i] = dictionnaireDesExercices[id]
         listeObjetsExercice[i].nbQuestionsModifiable = false
@@ -1849,6 +1866,8 @@ function parametresExercice (exercice) {
       $('#nombre_de_versions').change(function () {
         miseAJourDuCode()
       })
+      $('#popup_preview .icone_param').remove() // Dans la popup de visualisation pas d'icone engrenage.
+      $('#popup_preview .iconeInteractif').remove() // Dans la popup de visualisation pas d'icone interactif
     } else {
       divParametresGeneraux.innerHTML += '<h4 class="ui dividing header">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + '</h4>'
 
@@ -2080,16 +2099,10 @@ function parametresExercice (exercice) {
 
     if (exercice[i].besoinFormulaire3Texte) {
       // Création d'un formulaire texte
-      divParametresGeneraux.innerHTML +=
-        "<p></p><div style='display: inline'><label for='form_sup3" +
-        i +
-        "'>" +
-        exercice[i].besoinFormulaire3Texte[0] +
-        " : </label><div style='display: inline' data-tooltip='" +
-        exercice[i].besoinFormulaire3Texte[1] +
-        "' data-inverted=''><input id='form_sup3" +
-        i +
-        "' type='text' size='20' ></div></div>"
+      const paramTooltip = exercice[i].besoinFormulaire3Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire3Texte[1]}"` : ''
+      divParametresGeneraux.innerHTML += `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire3Texte[0]} : </label>
+                    <div style='display: inline' ${paramTooltip} data-inverted=''>
+                    <input id='form_sup3${i}' type='text' size='20' ></div></div>`
     }
 
     if (exercice[i].besoinFormulaire4CaseACocher) {
@@ -2136,16 +2149,10 @@ function parametresExercice (exercice) {
 
     if (exercice[i].besoinFormulaire4Texte) {
       // Création d'un formulaire texte
-      divParametresGeneraux.innerHTML +=
-        "<p></p><div style='display: inline'><label for='form_sup4" +
-        i +
-        "'>" +
-        exercice[i].besoinFormulaire4Texte[0] +
-        " : </label><div style='display: inline' data-tooltip='" +
-        exercice[i].besoinFormulaire4Texte[1] +
-        "' data-inverted=''><input id='form_sup4" +
-        i +
-        "' type='text' size='20' ></div></div>"
+      const paramTooltip = exercice[i].besoinFormulaire4Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire4Texte[1]}"` : ''
+      divParametresGeneraux.innerHTML += `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire4Texte[0]} : </label>
+                    <div style='display: inline' ${paramTooltip} data-inverted=''>
+                    <input id='form_sup4${i}' type='text' size='20' ></div></div>`
     }
   }
 
@@ -3438,7 +3445,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const div = document.getElementById('ModalEmbed')
       div.innerHTML = `
       <div class="content">
-      <h3 class="ui dividing header">Affichage</h3>
+      <h3 class="ui dividing header">Affichage ou export</h3>
       <div class="ui link relaxed list">
         <div class="active item"><a class="mesLiensModaux"  href="${replaceQueryParam('v', 'diap')}" target="_blank"><i class="play icon"></i>Diaporama (navigation avec les flèches, pause avec la barre espace)</a></div>
         <div class="active item"><a class="mesLiensModaux"  href="${replaceQueryParam('v', 'l')}" target="_blank"><i class="expand icon"></i>Simplifié (sans le menu de coopmaths.fr)</a></div>
@@ -3446,6 +3453,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'embed')}" target="_blank"><i class="tablet alternate icon"></i>Optimisé pour les smartphones</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'can')}" target="_blank"><i class="flag checkered icon"></i>Course aux nombres (interactif et une question à la fois)</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'eval')}" target="_blank"><i class="tasks icon"></i>Interactif et un exercice par page</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'moodle')}" target="_blank"><i class="share square icon"></i>Export Moodle</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'latex')}" target="_blank"><i class="cogs icon"></i>Export LaTeX</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'amc')}" target="_blank"><i class="check square outline icon"></i>Export AMC</a></div>
       </div>
 
       <h3 class="ui dividing header">Imposer un temps</h3>

@@ -18,19 +18,24 @@ const collegeKeyboardLayer = {
         { latex: '\\div' },
         { class: 'separator w5' },
         {
+          class: 'small',
+          latex: '\\sqrt{#0}',
+          insert: '$$\\sqrt{#0}$$'
+        },
+        {
           class: 'tex small',
-          label: '<span><i>x</i>&thinsp;²</span>',
+          label: '<span><i>x</i>&thinsp;²</span>', // Puissance 2
           insert: '$$#@^{2}$$'
         },
         {
           class: 'tex small',
-          label: '<span><i>x</i><sup>&thinsp;<i>3</i></sup></span>',
+          label: '<span><i>x</i><sup>&thinsp;<i>3</i></sup></span>', // Puissance 3
           insert: '$$#@^{3}$$'
         },
         {
-          class: 'small',
-          latex: '\\sqrt{#0}',
-          insert: '$$\\sqrt{#0}$$'
+          class: 'tex small',
+          latex: 'x^{#0}', // Puissance n
+          insert: '$$#@^{#0}$$'
         },
         {
           class: 'small',
@@ -52,9 +57,10 @@ const collegeKeyboardLayer = {
         { latex: 'f' },
         {
           class: 'small',
-          latex: '#0^{#1}',
-          insert: '$$#0^{#1}$$'
-        }
+          latex: '\\widehat{#0}',
+          insert: '$$\\widehat{#0}$$' /// Angle
+        },
+        { class: 'separator w10' }
       ],
       [
         { class: 'tex', label: '<i>c</i>' },
@@ -68,7 +74,9 @@ const collegeKeyboardLayer = {
         { label: ';', key: ';' },
         { label: 'oui', key: 'oui' },
         { label: 'non', key: 'non' },
-        { label: '%', key: '%' }
+        { label: '%', key: '%' },
+        { label: '°', latex: '\\operatorname{°}' }
+        // { class: 'separator w10' }
       ],
       [
         { latex: '(' },
@@ -99,7 +107,8 @@ const collegeKeyboardLayer = {
           class: 'action font-glyph',
           label: '&#10006;',
           command: ['toggleVirtualKeyboard', 'toggleVirtualKeyboard']
-        }
+        },
+        { class: 'separator w10' }
       ]
     ]
   }
@@ -122,10 +131,16 @@ export const clavierCollege = {
     '*': { mode: 'math', value: '\\times' },
     '.': { mode: 'math', value: ',' },
     '%': { mode: 'math', value: '\\%' },
-    inf: { mode: 'math', value: '\\infty' },
-    union: { mode: 'math', value: '\\bigcup' },
-    intersection: { mode: 'math', value: '\\bigcap' },
-    sauf: { mode: 'math', value: '\\backslash\\{\\}' }
+    '²': { mode: 'math', value: '^2' },
+    '³': { mode: 'math', value: '^3' },
+    pi: { mode: 'math', value: '\\pi' },
+    ang: { mode: 'math', value: '\\widehat{#0}' },
+    rac: { mode: 'math', value: '\\sqrt{#0}' },
+    frac: { mode: 'math', value: '\\frac{#0}{#1}' },
+    '<': '<',
+    '>': '>',
+    '>=': '\\geq',
+    '<=': '\\leq'
   },
   // virtualKeyboards: 'numeric roman',
   virtualKeyboardMode: 'manual'

@@ -5,7 +5,7 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { listeQuestionsToContenuSansNumero, randint, shuffle } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-export const titre = 'Trouver le nombre de faces ou d\'arêtes d’un solide'
+export const titre = 'Trouver le nombre de faces ou d\'arêtes d\'un solide'
 export const dateDePublication = '7/11/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,8 +21,10 @@ export default function NombreDeFacesEtDAretes () {
   this.nbQuestions = 4
   this.formatChampTexte = 'largeur15 inline'
   this.sup = 3
-  this.besoinFormulaireNumerique = false
   this.nouvelleVersion = function () {
+    if (this.version === 3) {
+      this.sup = 3
+    }
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -40,11 +42,10 @@ export default function NombreDeFacesEtDAretes () {
       for (let i = 0; i < Math.ceil(this.nbQuestions / 2); i++) {
         typeDeQuestion.push(choix1[i % 7], choix2[i % 7])
       }
-    } else if (this.sup === 2) {
+    } else if (this.sup === 1) {
       typeDeQuestion = choix2.slice(0, this.nbQuestions)
     } else { typeDeQuestion = choix1.slice(0, this.nbQuestions) }
-    console.log(typeDeQuestion)
-
+    typeDeQuestion = shuffle(typeDeQuestion)
     for (let j = 0, choix; j < this.nbQuestions;) {
       choix = typeDeQuestion[j]
       context.anglePerspective = 20

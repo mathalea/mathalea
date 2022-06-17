@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-export const titre = 'Déterminer les termes d’une suite définie de façon explicite'
+export const titre = 'Déterminer les termes d\'une suite définie de façon explicite'
 
 /**
  * 1N10

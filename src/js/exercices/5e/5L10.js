@@ -9,6 +9,8 @@ export const interactifType = 'qcm'
 
 export const titre = 'Écrire une expression littérale'
 
+export const dateDeModifImportante = '11/05/2022'
+
 /**
 * Écrire une expression littérale à partir d'une phrase :
 * * Double, triple, moitié, tiers, quart
@@ -17,6 +19,7 @@ export const titre = 'Écrire une expression littérale'
 * * Somme, produit, quotient
 * * Nombre pair, nombre impair, multiple d'un nombre donné
 * @author Rémi Angot
+* Ajout de la possibilité de ne pas poser de question sur l'inverse d'un nombre par Guillaume Valmont le 11/05/2022
 * 5L10
 */
 export default function EcrireUneExpressionLitterale () {
@@ -31,12 +34,16 @@ export default function EcrireUneExpressionLitterale () {
   this.amcReady = amcReady
   this.amcType = amcType
 
+  this.besoinFormulaireCaseACocher = ['Inclure l\'inverse d\'un nombre']
+  this.sup = true
+
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const typeDeQuestionsDisponibles = range1(17)
+    let typeDeQuestionsDisponibles = range1(17)
+    if (!this.sup) typeDeQuestionsDisponibles = range1(17, [10])
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

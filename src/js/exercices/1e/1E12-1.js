@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, arrondi } from '../../modules/outils.js'
 import { repere, courbe, mathalea2d } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 
@@ -65,8 +65,8 @@ export default function LireElementsCarac () {
         case 3: // Coordonnées du sommet
           texte = 'Quelles sont les coordonnées du sommet'
           // On choisit le sommet au hasard
-          alpha = randint(-9, 9)
-          beta = randint(-9, 9)
+          alpha = randint(-5, 5)
+          beta = randint(-5, 5)
           // On fabrique les coefficients
           b = -2 * a * alpha
           c = a * alpha ** 2 + beta

@@ -1,5 +1,5 @@
 import CalculerLaValeurDUneExpressionLitterale from './5L14.js'
-export const titre = 'Calculer la valeur d’une expression littérale de degré 1 à 1 inconnue'
+export const titre = 'Calculer la valeur d\'une expression littérale de degré 1 à 1 inconnue'
 
 /**
  * Caculer la valeur d'une expression littérale de degré 1 à une inconnue

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, arrondiVirgule, calcul, prenom, tirerLesDes, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texNombre, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, calcul, prenom, tirerLesDes, listeDeNotes, joursParMois, unMoisDeTemperature, nomDuMois, texFraction } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import FractionX from '../../modules/FractionEtendue.js'
@@ -97,11 +97,11 @@ export default function CalculerDesFrequences () {
         texteCorr += `Donc la fréquence de la note $${notes[indexValeur]}$ est : ` + `$${texFraction(texNombre(frequence), texNombre(nombreNotes))}$`
         reponse = new FractionX(frequence, nombreNotes)
         if (arrondi(frequence / nombreNotes, 3) === frequence / nombreNotes) { // valeurs exactes
-          texteCorr += `$=${arrondiVirgule(frequence / nombreNotes, 3)}$<br>` // fréquence à 3 chiffres significatifs
+          texteCorr += `$=${texNombre(frequence / nombreNotes, 3)}$<br>` // fréquence à 3 chiffres significatifs
           texteCorr += 'Soit ' + `$${texNombre(calcul(frequence * 100 / nombreNotes))}\\thickspace\\%$.` // fréquence en pourcentage avec 1 décimale
         } else {
-          texteCorr += `$\\approx${arrondiVirgule(frequence / nombreNotes, 3)}$` // valeurs arrondies
-          texteCorr += 'Soit environ ' + `$${arrondiVirgule(calcul(frequence * 100 / nombreNotes), 1)}\\thickspace\\%$.`
+          texteCorr += `$\\approx${texNombre(frequence / nombreNotes, 3)}$<br>` // valeurs arrondies
+          texteCorr += 'Soit environ ' + `$${texNombre(calcul(frequence * 100 / nombreNotes), 1)}\\thickspace\\%$.`
         }
       } else { // ici on relève des températures
         const mois = randint(1, 12)
@@ -139,11 +139,11 @@ export default function CalculerDesFrequences () {
         texteCorr += `$${texFraction(texNombre(frequence), texNombre(joursParMois(mois, annee)))}$`
         reponse = new FractionX(frequence, joursParMois(mois, annee))
         if (arrondi(frequence / nombreTemperatures, 3) === frequence / nombreTemperatures) { // valeurs exactes
-          texteCorr += `$=${arrondiVirgule(frequence / nombreTemperatures, 3)}$<br>`
+          texteCorr += `$=${texNombre(frequence / nombreTemperatures, 3)}$<br>`
           texteCorr += 'Soit ' + `$${texNombre(calcul(frequence * 100 / nombreTemperatures))}\\thickspace\\%$.`
         } else {
-          texteCorr += `$\\approx${arrondiVirgule(frequence / nombreTemperatures, 3)}$<br>` // valeurs arrondies
-          texteCorr += 'Soit environ ' + `$${arrondiVirgule(calcul(frequence * 100 / nombreTemperatures), 1)}\\thickspace\\%$.`
+          texteCorr += `$\\approx${texNombre(frequence / nombreTemperatures, 3)}$<br>` // valeurs arrondies
+          texteCorr += 'Soit environ ' + `$${texNombre(calcul(frequence * 100 / nombreTemperatures), 1)}\\thickspace\\%$.`
         }
       }
       if (this.interactif) {
