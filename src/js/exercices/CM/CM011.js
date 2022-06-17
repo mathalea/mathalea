@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
 import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, texNombrec, texNombre, calcul } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Quart'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 
 /**
@@ -40,7 +41,7 @@ export default function Quart () {
           texte = `$\\text{Le quart de }${a * 4}$`
           texteCorr = `$\\text{Le quart de }${a * 4} \\text{ est } ${a}$`
           setReponse(this, i, a)
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
         case 2: // Impair
           a = randint(2, 9)
@@ -49,7 +50,7 @@ export default function Quart () {
           texteCorr = `$\\text{Le quart de }${a * 4 + b
             } \\text{ est } ${texNombrec(a + b / 4)}$`
           setReponse(this, i, calcul(a + b / 4))
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
         case 3: // Table de 400
           a = randint(2, 9)
@@ -58,7 +59,7 @@ export default function Quart () {
             a * 4 * 100
           )} \\text{ est } ${texNombre(a * 100)}$`
           setReponse(this, i, a * 100)
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
         case 4: // Table de 40
           a = randint(2, 9)
@@ -67,7 +68,7 @@ export default function Quart () {
             a * 4 * 10
           )} \\text{ est } ${texNombre(a * 10)}$`
           setReponse(this, i, a * 10)
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
         case 5: // a,b avec a et b divisibles par 4
           a = randint(2, 9)
@@ -77,7 +78,7 @@ export default function Quart () {
             a * 4 + (b * 4) / 100
           )} \\text{ est } ${texNombrec(a + b / 100)}$`
           setReponse(this, i, calcul(a + b / 100))
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
       }
 

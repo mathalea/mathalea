@@ -6,7 +6,7 @@ import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathL
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Décomposition en facteurs premiers d’un entier'
+export const titre = 'Décomposition en facteurs premiers d\'un entier'
 
 /**
  * 3A11-2 - decompositionFacteursPremiers
@@ -43,12 +43,6 @@ export default function decompositionFacteursPremiers () {
       this.boutonAide += modalVideo('conteMathsNombresPremiers', 'https://coopmaths.fr/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
     } else { // sortie LaTeX
     };
-
-    if (this.interactif) {
-      this.consigne = 'À l\'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.'
-    } else {
-      this.consigne = 'À l\'aide de la calculatrice, décomposer pas à pas les nombres entiers en produit de facteurs premiers.'
-    }
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

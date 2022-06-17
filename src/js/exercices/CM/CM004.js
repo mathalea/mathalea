@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Les quatre opérations'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 
 /**
@@ -56,7 +57,7 @@ export default function QuatreOperations () {
           }
           texte = `$${a}+${b} = $`
           texteCorr = `$${a}+${b}=${a + b}$`
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           setReponse(this, i, a + b)
           break
         case 2: // soustraction
@@ -75,7 +76,7 @@ export default function QuatreOperations () {
           texte = `$${a}-${b}=$`
           texteCorr = `$${a}-${b}=${a - b}$`
           setReponse(this, i, a - b)
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
         case 3: // multiplication
           if (this.sup === 1) {
@@ -93,7 +94,7 @@ export default function QuatreOperations () {
           texte = `$${a}\\times${b}=$`
           texteCorr = `$${a}\\times${b}=${a * b}$`
           setReponse(this, i, a * b)
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
         case 4: // division
           if (this.sup === 1) {
@@ -111,7 +112,7 @@ export default function QuatreOperations () {
           texte = `$${a * b}\\div${a}=$`
           texteCorr = `$${a * b}\\div${a}=${b}$`
           setReponse(this, i, b)
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
       }
 

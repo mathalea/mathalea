@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, lampeMessage, prenomF, prenomM, calcul, texPrix, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Augmenter ou diminuer d’un pourcentage'
+export const titre = 'Augmenter ou diminuer d\'un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -20,7 +20,7 @@ export default function AugmenterEtReduireDunPourcentage () {
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.interactifType = 'numerique'
+  this.interactifType = 'mathLive'
 
   this.nouvelleVersion = function () {
     const n = parseInt(this.sup) - 1

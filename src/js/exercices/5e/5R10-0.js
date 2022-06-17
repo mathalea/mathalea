@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, texteEnCouleur, tableauColonneLigne, combinaisonListes } from '../../modules/outils.js'
-export const titre = 'Trouver l’opposé d’un nombre relatif'
+export const titre = 'Trouver l\'opposé d\'un nombre relatif'
 export const dateDeModifImportante = '26/11/2021'
 
 /**

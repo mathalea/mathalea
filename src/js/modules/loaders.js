@@ -2,7 +2,11 @@
 import loadjs from 'loadjs'
 import { context } from './context'
 import { UserFriendlyError } from './messages'
-
+import { clavierLongueur } from './interactif/claviers/longueur_ANCIEN.js'
+import { clavierTrigo } from './interactif/claviers/trigo.js'
+import { clavierCollege } from './interactif/claviers/college.js'
+import { clavierLycee } from './interactif/claviers/lycee.js'
+import { clavierConfiguration } from './interactif/claviers/claviersUnites'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -137,22 +141,7 @@ export async function loadMathLive () {
   if (champs.length > 0) {
     await import('mathlive')
     for (const mf of champs) {
-      mf.setOptions({
-        customVirtualKeyboardLayers: collegeKeyboardLayer,
-        customVirtualKeyboards: collegeKeyboard,
-        virtualKeyboards: 'collegeKeyboard roman',
-        inlineShortcuts: {
-          '*': { mode: 'math', value: '\\times' },
-          '.': { mode: 'math', value: ',' },
-          '%': { mode: 'math', value: '\\%' }
-        },
-        // virtualKeyboards: 'numeric roman',
-        virtualKeyboardMode: 'manual'
-        // "auto": on touch-enabled devices, show the virtual keyboard panel when the mathfield is focused, otherwise, don’t show it.
-        // "manual": a toggle button to control the virtual keyboard panel is displayed in the mathfield
-        // "onfocus": the virtual keyboard panel is displayed when the mathfield is focused
-        // "off": never show the virtual keyboard panel
-      })
+      mf.setOptions(clavierCollege)
 
       // Evite les problèmes de positionnement du clavier mathématique dans les iframes
       if (context.vue === 'exMoodle') {
@@ -173,45 +162,21 @@ export async function loadMathLive () {
           virtualKeyboardMode: 'onfocus'
         })
       }
+      const listeParamClavier = mf.classList
+      if (mf.className.indexOf('nite') !== -1 || mf.className.indexOf('nité') !== -1) {
+        let jj = 0
+        while (listeParamClavier[jj].indexOf('nites') === -1 & listeParamClavier[jj].indexOf('nités') === -1) { jj++ }
+        const contenuUnites = listeParamClavier[jj].split('[')[1].split(']')[0].split(',')
+        mf.setOptions(clavierConfiguration(contenuUnites))
+      }
+      if (mf.classList.contains('lycee')) {
+        mf.setOptions(clavierLycee)
+      }
       if (mf.classList.contains('longueur')) {
-        mf.setOptions({
-          customVirtualKeyboardLayers: longueursKeyboardLayer,
-          customVirtualKeyboards: longueursKeyboard,
-          virtualKeyboards: 'longueursKeyboard roman',
-          inlineShortcuts: {
-            mm: { mode: 'math', value: '\\operatorname{mm}' },
-            cm: { mode: 'math', value: '\\operatorname{cm}' },
-            dm: { mode: 'math', value: '\\operatorname{dm}' },
-            m: { mode: 'math', value: '\\operatorname{m}' },
-            dam: { mode: 'math', value: '\\operatorname{dam}' },
-            hm: { mode: 'math', value: '\\operatorname{hm}' },
-            km: { mode: 'math', value: '\\operatorname{km}' },
-            '*': { mode: 'math', value: '\\times' },
-            '.': { mode: 'math', value: ',' }
-          }
-        })
+        mf.setOptions(clavierLongueur)
       }
       if (mf.classList.contains('grecTrigo')) {
-        mf.setOptions({
-          customVirtualKeyboardLayers: grecTrigoKeyboardLayer,
-          customVirtualKeyboards: grecTrigoKeyboard,
-          virtualKeyboards: 'grecTrigoKeyboard roman',
-          inlineShortcuts: {
-            alpha: { mode: 'math', value: '\\alpha' },
-            beta: { mode: 'math', value: '\\beta' },
-            gamma: { mode: 'math', value: '\\gamma' },
-            delta: { mode: 'math', value: '\\delta' },
-            epsilon: { mode: 'math', value: '\\epsilon' },
-            theta: { mode: 'math', value: '\\theta' },
-            omega: { mode: 'math', value: '\\omega' },
-            lambda: { mode: 'math', value: '\\lambda' },
-            '*': { mode: 'math', value: '\\times' },
-            '.': { mode: 'math', value: ',' },
-            cos: { mode: 'math', value: 'cos(' },
-            sin: { mode: 'math', value: 'sin(' },
-            tan: { mode: 'math', value: 'tan(' }
-          }
-        })
+        mf.setOptions(clavierTrigo)
       }
       let style = 'font-size: 20px;'
 
@@ -249,302 +214,5 @@ export async function loadMathLive () {
     window.parent.postMessage({ hauteurExercice, iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle')) }, '*')
     const domExerciceInteractifReady = new window.Event('domExerciceInteractifReady', { bubbles: true })
     document.dispatchEvent(domExerciceInteractifReady)
-  }
-}
-
-// Définit un clavier personnalisé cf https://cortexjs.io/mathlive/guides/virtual-keyboards/
-const collegeKeyboardLayer = {
-  collegeLayer: {
-    styles: '',
-    rows: [
-      [
-        { latex: 'a' },
-        { latex: 'x' },
-        { class: 'separator w5' },
-        { label: '7', key: '7' },
-        // Will display the label using the system font. To display
-        // with the TeX font, use:
-        // { class: "tex", label: "7", key: "7" },
-        // or
-        // { latex: "7"},
-        { label: '8', key: '8' },
-        { label: '9', key: '9' },
-        { latex: '\\div' },
-        { class: 'separator w5' },
-        {
-          class: 'tex small',
-          label: '<span><i>x</i>&thinsp;²</span>',
-          insert: '$$#@^{2}$$'
-        },
-        {
-          class: 'tex small',
-          label: '<span><i>x</i><sup>&thinsp;<i>3</i></sup></span>',
-          insert: '$$#@^{3}$$'
-        },
-        {
-          class: 'small',
-          latex: '\\sqrt{#0}',
-          insert: '$$\\sqrt{#0}$$'
-        },
-        {
-          class: 'small',
-          latex: '\\times10^{#0}',
-          insert: '$$\\times10^#0$$'
-        }
-      ],
-      [
-        { class: 'tex', latex: 'b' },
-        { class: 'tex', latex: 'y' },
-        { class: 'separator w5' },
-        { label: '4', latex: '4' },
-        { label: '5', key: '5' },
-        { label: '6', key: '6' },
-        { latex: '\\times' },
-        { class: 'separator w5' },
-        { class: 'small', latex: '\\frac{#0}{#0}' },
-        { label: '=', key: '=' },
-        { latex: 'f' },
-        {
-          class: 'small',
-          latex: '#0^{#1}',
-          insert: '$$#0^{#1}$$'
-        }
-      ],
-      [
-        { class: 'tex', label: '<i>c</i>' },
-        { class: 'tex', label: '<i>z</i>' },
-        { class: 'separator w5' },
-        { label: '1', key: '1' },
-        { label: '2', key: '2' },
-        { label: '3', key: '3' },
-        { latex: '-' },
-        { class: 'separator w5' },
-        { label: ';', key: ';' },
-        { label: 'oui', key: 'oui' },
-        { label: 'non', key: 'non' },
-        { label: '%', key: '%' }
-      ],
-      [
-        { latex: '(' },
-        { latex: ')' },
-
-        { class: 'separator w5' },
-        { label: '0', key: '0' },
-        { latex: ',' },
-        { latex: '\\pi' },
-        { latex: '+' },
-        { class: 'separator w5' },
-        {
-          class: 'action',
-          label: "<svg><use xlink:href='#svg-arrow-left' /></svg>",
-          command: ['performWithFeedback', 'moveToPreviousChar']
-        },
-        {
-          class: 'action',
-          label: "<svg><use xlink:href='#svg-arrow-right' /></svg>",
-          command: ['performWithFeedback', 'moveToNextChar']
-        },
-        {
-          class: 'action font-glyph',
-          label: '&#x232b;',
-          command: ['performWithFeedback', 'deleteBackward']
-        },
-        {
-          class: 'action font-glyph',
-          label: '&#10006;',
-          command: ['toggleVirtualKeyboard', 'toggleVirtualKeyboard']
-        }
-      ]
-    ]
-  }
-}
-
-const collegeKeyboard = {
-  collegeKeyboard: {
-    label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
-    tooltip: 'Clavier mathématique', // Tooltip when hovering over the label
-    layer: 'collegeLayer'
-  }
-}
-const longueursKeyboardLayer = {
-  longueursLayer: {
-    styles: '',
-    rows: [
-      [
-        { label: 'mm', latex: '\\operatorname{mm}' },
-        { label: 'cm', latex: '\\operatorname{cm}' },
-        { class: 'separator w5' },
-        { label: '7', key: '7' },
-        { label: '8', key: '8' },
-        { label: '9', key: '9' },
-        { latex: '\\div' },
-        { class: 'separator w5' },
-        {
-          class: 'tex small',
-          label: '<span><i>x</i>&thinsp;²</span>',
-          insert: '$$#@^{2}$$'
-        },
-        {
-          class: 'tex small',
-          label: '<span><i>x</i><sup>&thinsp;<i>3</i></sup></span>',
-          insert: '$$#@^{3}$$'
-        },
-        {
-          class: 'small',
-          latex: '\\sqrt{#0}',
-          insert: '$$\\sqrt{#0}$$'
-        }
-      ],
-      [
-        { label: 'dm', latex: '\\operatorname{dm}' },
-        { label: 'm', latex: '\\operatorname{m}' },
-        { class: 'separator w5' },
-        { label: '4', latex: '4' },
-        { label: '5', key: '5' },
-        { label: '6', key: '6' },
-        { latex: '\\times' },
-        { class: 'separator w5' },
-        { class: 'small', latex: '\\frac{#0}{#0}' },
-        { label: '=', key: '=' },
-        { latex: 'f' }
-      ],
-      [
-        { label: 'dam', latex: '\\operatorname{dam}' },
-        { label: 'hm', latex: '\\operatorname{hm}' },
-        { class: 'separator w5' },
-        { label: '1', key: '1' },
-        { label: '2', key: '2' },
-        { label: '3', key: '3' },
-        { latex: '-' },
-        { class: 'separator w5' },
-        { label: ';', key: ';' },
-        { label: 'oui', key: 'oui' },
-        { label: 'non', key: 'non' }
-      ],
-      [
-        { label: 'km', latex: '\\operatorname{km}' },
-
-        { class: 'separator w15' },
-        { label: '0', key: '0' },
-        { latex: ',' },
-        { latex: '\\pi' },
-        { latex: '+' },
-        { class: 'separator w5' },
-        {
-          class: 'action',
-          label: "<svg><use xlink:href='#svg-arrow-left' /></svg>",
-          command: ['performWithFeedback', 'moveToPreviousChar']
-        },
-        {
-          class: 'action',
-          label: "<svg><use xlink:href='#svg-arrow-right' /></svg>",
-          command: ['performWithFeedback', 'moveToNextChar']
-        },
-        {
-          class: 'action font-glyph',
-          label: '&#x232b;',
-          command: ['performWithFeedback', 'deleteBackward']
-        }
-      ]
-    ]
-  }
-}
-
-const longueursKeyboard = {
-  longueursKeyboard: {
-    label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
-    tooltip: 'Clavier mathématique (longueurs)', // Tooltip when hovering over the label
-    layer: 'longueursLayer'
-  }
-}
-const grecTrigoKeyboardLayer = {
-  grecTrigoLayer: {
-    styles: '',
-    rows: [
-      [
-        { label: '\\alpha', latex: '\\alpha' },
-        { label: '\\beta', latex: '\\beta' },
-        { class: 'separator w5' },
-        { label: '7', key: '7' },
-        { label: '8', key: '8' },
-        { label: '9', key: '9' },
-        { latex: '\\div' },
-        { class: 'separator w5' },
-        {
-          class: 'tex small',
-          label: '<span><i>x</i>&thinsp;²</span>',
-          insert: '$$#@^{2}$$'
-        },
-        {
-          class: 'tex small',
-          label: '<span><i>x</i><sup>&thinsp;<i>3</i></sup></span>',
-          insert: '$$#@^{3}$$'
-        },
-        {
-          class: 'small',
-          latex: '\\sqrt{#0}',
-          insert: '$$\\sqrt{#0}$$'
-        }
-      ],
-      [
-        { label: '\\gamma', latex: '\\gamma' },
-        { label: '\\delta', latex: '\\delta' },
-        { class: 'separator w5' },
-        { label: '4', latex: '4' },
-        { label: '5', key: '5' },
-        { label: '6', key: '6' },
-        { latex: '\\times' },
-        { class: 'separator w5' },
-        { class: 'small', latex: '\\frac{#0}{#0}' },
-        { label: '=', key: '=' },
-        { latex: 'f' }
-      ],
-      [
-        { label: '\\epsilon', latex: '\\epsilon' },
-        { label: '\\theta', latex: '\\theta' },
-        { class: 'separator w5' },
-        { label: '1', key: '1' },
-        { label: '2', key: '2' },
-        { label: '3', key: '3' },
-        { latex: '-' },
-        { class: 'separator w5' },
-        { label: 'cos', key: 'cos(' },
-        { label: 'sin', key: 'sin(' },
-        { label: 'tan', key: 'tan(' }
-      ],
-      [
-        { label: '\\lambda', latex: '\\lambda' },
-        { label: '\\omega', latex: '\\omega' },
-        { class: 'separator w5' },
-        { label: '0', key: '0' },
-        { latex: ',' },
-        { latex: '\\pi' },
-        { latex: '+' },
-        { class: 'separator w5' },
-        {
-          class: 'action',
-          label: "<svg><use xlink:href='#svg-arrow-left' /></svg>",
-          command: ['performWithFeedback', 'moveToPreviousChar']
-        },
-        {
-          class: 'action',
-          label: "<svg><use xlink:href='#svg-arrow-right' /></svg>",
-          command: ['performWithFeedback', 'moveToNextChar']
-        },
-        {
-          class: 'action font-glyph',
-          label: '&#x232b;',
-          command: ['performWithFeedback', 'deleteBackward']
-        }
-      ]
-    ]
-  }
-}
-
-const grecTrigoKeyboard = {
-  grecTrigoKeyboard: {
-    label: 'Maths', // Label displayed in the Virtual Keyboard Switcher
-    tooltip: 'Clavier mathématique (lettres grecTrigoques)', // Tooltip when hovering over the label
-    layer: 'grecTrigoLayer'
   }
 }

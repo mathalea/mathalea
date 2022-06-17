@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleur, contraindreValeur } from '../../modules/outils.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
 export const titre = 'Déterminer la dernière opération à effectuer dans une expression littérale'
 
@@ -28,10 +28,13 @@ export default function DeterminerDerniereOperationExpressionLitterale () {
     if (!this.sup3 || this.sup3 === 'NaN') { // Si aucune liste n'est saisie
       typesDeQuestionsDisponibles = ['5']
     } else {
-      if (typeof (this.sup3) === 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
-        typesDeQuestionsDisponibles[0] = this.sup3
+      if (typeof this.sup3 === 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
+        typesDeQuestionsDisponibles = [contraindreValeur(1, 5, parseInt(this.sup3), 2)]
       } else {
         typesDeQuestionsDisponibles = this.sup3.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) {
+          typesDeQuestionsDisponibles[i] = contraindreValeur(1, 5, parseInt(typesDeQuestionsDisponibles[i]), 2)
+        }
       }
     }
     let expn; let expc; let decimal = 1; let nbOperations; let resultats; let lastOp; let structureExpression

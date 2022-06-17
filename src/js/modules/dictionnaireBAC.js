@@ -349,7 +349,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_asie_3.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_asie_3_cor.tex',
-    tags: ['Probabilités', 'Variable aléatoire', 'Loi binomiale']
+    tags: ['Dénombrement', 'Variable aléatoire', 'Loi binomiale']
   },
   bac_2021_06_asie_4: {
     annee: '2021',
@@ -409,7 +409,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_asie_8.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_asie_8_cor.tex',
-    tags: ['Probabilités', 'Loi binomiale', 'Dénombrement']
+    tags: ['Variable aléatoire', 'Loi binomiale', 'Dénombrement']
   },
   bac_2021_06_asie_9: {
     annee: '2021',
@@ -433,7 +433,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_1.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_1_cor.tex',
-    tags: ['QCM', 'Exponentielle', 'Probabilités']
+    tags: ['QCM', 'Exponentielle', 'Dénombrement']
   },
   bac_2021_06_etrangers_10: {
     annee: '2021',
@@ -457,7 +457,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_2.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_2_cor.tex',
-    tags: ['Probabilités', 'Loi binomiale']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2021_06_etrangers_3: {
     annee: '2021',
@@ -505,7 +505,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_6.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_6_cor.tex',
-    tags: ['QCM', 'Suites', 'Probabilités']
+    tags: ['QCM', 'Suites', 'Variable aléatoire']
   },
   bac_2021_06_etrangers_7: {
     annee: '2021',
@@ -541,7 +541,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: '/bac/2021/tex/bac_2021_06_etrangers_9.tex',
     urlcor: '/bac/2021/tex/bac_2021_06_etrangers_9_cor.tex',
-    tags: ['Logarithme', 'Probabilités', 'Variable aléatoire']
+    tags: ['Logarithme', 'Variable aléatoire']
   },
   bac_2021_06_metropole_1: {
     annee: '2021',

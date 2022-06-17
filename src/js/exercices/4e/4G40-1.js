@@ -10,7 +10,7 @@ export const titre = 'Encadrer puis arrondir une valeur comprenant un cosinus'
 export default function ArrondirUneValeur4e () {
   ArrondirUneValeur.call(this)
   this.titre = titre
-  this.sup = 4
+  this.version = 4
   this.sup2 = true
   this.spacing = 3
   this.besoinFormulaireNumerique = false

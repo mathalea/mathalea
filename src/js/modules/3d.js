@@ -729,9 +729,20 @@ class PaveLPH3d {
     }
   }
 }
-
-export function paveLPH3d (x, y, z, c, l, p, color = 'black') {
-  return new PaveLPH3d(x, y, z, c, l, p, color)
+/**
+ *
+ * @param {number} x coordonnées du sommet en bas à gauche
+ * @param {number} y
+ * @param {number} z
+ * @param {number} c longueur de l'unité
+ * @param {number} p profondeur
+ * @param {number} l longueur
+ * @param {number} h hauteur
+ * @param {*} color couleur
+ * @returns {object}
+ */
+export function paveLPH3d (x, y, z, c, l, p, h, color = 'black') {
+  return new PaveLPH3d(x, y, z, c, l, p, h, color)
 }
 
 /**

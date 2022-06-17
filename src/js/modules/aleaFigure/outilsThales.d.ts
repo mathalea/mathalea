@@ -1,5 +1,5 @@
-import { GVPoint } from "./elements";
-import { GVGraphicView } from "./GraphicView";
+import { GVPoint } from './elements'
+import { GVGraphicView } from './GraphicView'
 export declare class GVAleaThalesConfig extends GVGraphicView {
     classicConfig: boolean;
     k: number;

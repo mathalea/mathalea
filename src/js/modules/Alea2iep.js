@@ -166,9 +166,13 @@ export default class Alea2iep {
           if (element.style.display === 'none') {
             element.style.display = 'block'
             element.style.marginTop = '30px'
+            // On ajoute une regle css max-width pour éviter le débordement
+            element.style.maxWidth = '95%'
             elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
             iepLoadPromise(element, xml, { zoom: true, autostart: true }).then(iepApp => {
               // la figure est chargée
+              // On surcharge la propriété CSS min-width après que la promesse ait été satisfaite sinon ça marche pas !
+              element.style.minWidth = '90%'
             }).catch(error => { console.log(error) })
           } else {
             element.style.display = 'none'

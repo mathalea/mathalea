@@ -67,11 +67,11 @@ export default function ExerciceEquations () {
           texte = `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ `
           texteCorr = `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ `
           texteCorr += '<br>'
-          texteCorr += `$ (${a}x+${b})(${a}x-${b}) = 0 $ `
+          texteCorr += `$ (${rienSi1(a)}x+${b})(${rienSi1(a)}x-${b}) = 0 $ `
           texteCorr += '<br>'
-          texteCorr += `$${a}x+${b} = 0 \\quad \\text{ou} \\quad ${a}x-${b} = 0$ `
+          texteCorr += `$${rienSi1(a)}x+${b} = 0 \\quad \\text{ou} \\quad ${rienSi1(a)}x-${b} = 0$ `
           texteCorr += '<br>'
-          texteCorr += `$${a}x = ${-b} \\quad \\text{ou} \\quad ${a}x = ${b}$ `
+          texteCorr += `$${rienSi1(a)}x = ${-b} \\quad \\text{ou} \\quad ${rienSi1(a)}x = ${b}$ `
           texteCorr += '<br>'
           if (pgcd(a, b) !== 1) {
             texteCorr += `$x = ${texFraction(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}$ `
@@ -87,11 +87,11 @@ export default function ExerciceEquations () {
           texteCorr += '<br>'
           texteCorr += `$ ${rienSi1(a ** 2)}x^2 - ${b ** 2} = 0 $ `
           texteCorr += '<br>'
-          texteCorr += `$ (${a}x+${b})(${a}x-${b}) = 0 $ `
+          texteCorr += `$ (${rienSi1(a)}x+${b})(${a}x-${b}) = 0 $ `
           texteCorr += '<br>'
-          texteCorr += `$${a}x+${b} = 0 \\quad \\text{ou} \\quad ${a}x-${b} = 0$ `
+          texteCorr += `$${rienSi1(a)}x+${b} = 0 \\quad \\text{ou} \\quad ${rienSi1(a)}x-${b} = 0$ `
           texteCorr += '<br>'
-          texteCorr += `$${a}x = ${-b} \\quad \\text{ou} \\quad ${a}x = ${b}$ `
+          texteCorr += `$${rienSi1(a)}x = ${-b} \\quad \\text{ou} \\quad ${rienSi1(a)}x = ${b}$ `
           texteCorr += '<br>'
           if (pgcd(a, b) !== 1) {
             texteCorr += `$x = ${texFraction(-b, a)} \\quad \\text{ou} \\quad x = ${texFraction(b, a)}$ `
@@ -183,7 +183,7 @@ export default function ExerciceEquations () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ["Type d'équations", 2, "1 : Factoriser avec x en facteur commun\n2 : Factoriser avec l'identité remarquable\n3 : Développer et réduire\n4 : Mélange"]
+  this.besoinFormulaireNumerique = ["Type d'équations", 4, "1 : Factoriser avec x en facteur commun\n2 : Factoriser avec l'identité remarquable\n3 : Développer et réduire\n4 : Mélange"]
 }
 
 function ax2plusbx (a, b) {

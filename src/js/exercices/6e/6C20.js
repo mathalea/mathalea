@@ -2,10 +2,11 @@ import Operation from '../../modules/operations.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const interactifReady = true
 
 export const titre = 'Effectuer additions et soustractions de nombres décimaux'
@@ -153,7 +154,7 @@ export default function AdditionnerSoustrairesDecimaux () {
           break
       }
       setReponse(this, i, reponse)
-      if (this.interactif && context.isHtml) texte += '$~=$' + ajouteChampTexte(this, i)
+      if (this.interactif && context.isHtml) texte += '$~=$' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]

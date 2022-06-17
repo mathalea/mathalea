@@ -3,11 +3,12 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, texNombre } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
-import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const amcReady = true
 export const amcType = 'AMCNum' // Question numérique
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 
 export const titre = 'Poser des multiplications de nombres décimaux'
 
@@ -28,13 +29,13 @@ export default function MultiplierDecimaux () {
   this.spacing = 2
   this.spacingCorr = 1 // Important sinon le calcul posé ne fonctionne pas avec opmul et spacing
   this.nbQuestions = 4
+  this.sup = false
   this.listePackages = 'xlop'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
     const typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
@@ -64,8 +65,9 @@ export default function MultiplierDecimaux () {
 
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
       reponse = calcul(a * b)
-      texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication' })
-      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexte(this, i)
+      texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication', style: 'display: inline' })
+      texteCorr += Operation({ operande1: b, operande2: a, type: 'multiplication', style: 'display: inline' })
+      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
       setReponse(this, i, reponse)
       this.autoCorrection[i].options = { digits: 0, decimals: 0, signe: false, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
 

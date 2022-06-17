@@ -1,10 +1,10 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { deuxColonnes, randint, texConsigne, numAlpha, calcul } from '../../modules/outils.js'
+import { deuxColonnes, randint, texConsigne, numAlpha } from '../../modules/outils.js'
 import { repere2, graphiqueInterpole, mathalea2d } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Lecture graphique d’images et d’antécédents'
+export const titre = 'Lecture graphique d\'images et d\'antécédents'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -75,7 +75,7 @@ export default function AntecedentEtImageGraphique () {
     this.contenuCorrection += `${numAlpha(0)} L'image de $${x0}$ est $${a}$, on note $f(${x0})=${a}$.`
     setReponse(this, 0, a)
     this.contenuCorrection += `<br>${numAlpha(1)} L'image de $${x0 + 5}$ est $${(b + c) / 2}$, on note $f(${x0 + 5})=${(b + c) / 2}$.`
-    setReponse(this, 1, calcul((b + c) / 2))
+    setReponse(this, 1, (b + c) / 2)
     if (ordre === 1) {
       this.contenuCorrection += `<br>${numAlpha(2)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`
       setReponse(this, 2, x0 + 4)

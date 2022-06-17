@@ -1,6 +1,6 @@
-import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee } from './outils.js'
+import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif, signeMoinsEnEvidence, texNombre } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
-import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm } from 'mathjs'
+import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow } from 'mathjs'
 import { fraction } from './fractions.js'
 
 // Fonction écrite par Daniel Caillibaud pour créer ajouter les propriétés à la première utilisation de celles-ci.
@@ -24,20 +24,104 @@ const definePropRo = (obj, prop, get) => {
  */
 export default class FractionX extends Fraction {
   constructor (...args) {
-    super(...args)
-    if (args.length === 2) { // deux arguments : numérateur et dénominateur qui peuvent être fractionnaires.
-      if (['Fraction', 'FractionX'].includes(args[0].type)) this.num = fraction(args[0].num || args[0].n * args[0].s, args[0].den || args[0].d)
-      else
-      if (!Number.isNaN(args[0])) this.num = args[0]
-      else window.notify('FractionX : Numérateur incorrect ', { args })
-
-      if (['Fraction', 'FractionX'].includes(args[0].type)) this.den = fraction(args[1].num || args[1].n * args[1].s, args[1].den || args[1].d)
-      else
-      if (!Number.isNaN(args[1])) this.den = args[1]
-      else window.notify('FractionX : Dénominateur incorrect ', { args })
-    } else { // un seul argmument : valeur décimale de la fraction -> Fraction de mathjs.
-      this.num = this.n * this.s
-      this.den = this.d
+    let num, den
+    if (args.length > 2) {
+      window.notify('FractionX : nombre d\'arguments incorrect', { args })
+      super(NaN)
+    } else {
+      if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas)
+        num = args[0]
+        den = 1
+      } else {
+        num = args[0]
+        den = args[1]
+      }
+      if (!isNaN(num) && !isNaN(den)) { // Si ce sont des nombres, on les rend entiers si besoin.
+        num = Number(num)
+        den = Number(den)
+        let maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
+        if (maxDecimalesNumDen > 9) { // On peut estimer que num et/ou den ne sont pas décimaux. Essayons de les diviser car peut-être que leur quotient est mieux.
+          const quotientNumDen = calcul(num / den, 12)
+          // console.log(quotientNumDen)
+          if (nombreDeChiffresDansLaPartieDecimale(quotientNumDen) < 9) { // On peut estimer que le quotient aboutit à un décimal. Ex. dans fraction(7/3,14/3)
+            num = quotientNumDen
+            den = 1
+            maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
+          } else { // On peut estimer que le quotient n'aboutit pas à un décimal. Essayons par l'inverse du quotient.
+            const quotientDenNum = calcul(den / num, 12)
+            // console.log(quotientDenNum)
+            if (nombreDeChiffresDansLaPartieDecimale(quotientDenNum) < 9) { // On peut estimer que l'inverse du quotient aboutit à un décimal. Ex. dans fraction(7/3,7/9)
+              den = quotientDenNum
+              num = 1
+              maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
+            } else { // num et/ou den non décimaux et leurs quotients n'aboutissent pas à un décimal. Essayons par l'inverse de chaque nombre.
+              const inverseNum = calcul(1 / num, 12)
+              const inverseDen = calcul(1 / den, 12)
+              maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(inverseNum), nombreDeChiffresDansLaPartieDecimale(inverseDen))
+              if (maxDecimalesNumDen < 13) { // Ex. dans fraction(1/3,1/7)
+                den = inverseNum
+                num = inverseDen
+              // console.log(inverseNum, ' ', inverseDen)
+              } else { // Méthode plus bourrin
+                const testMAX = 2000 // Voir explications ci-dessous
+                // Ici, JCL, cela veut dire qu'on traite toutes les fractions de fractions où chaque numérateur ou dénominateur est inférieur à 1000.
+                // Si tu veux davantage que 1000, il faut augmenter ce nombre et dimininuer alors le nb de décimales de test fixé ici à 9.
+                let iDen = 1
+                let denTest = den
+                let inverseDenTest = inverseDen
+                // console.log(denTest, ' ', inverseDenTest)
+                while (min(nombreDeChiffresDansLaPartieDecimale(denTest), nombreDeChiffresDansLaPartieDecimale(inverseDenTest)) > 9 & iDen < testMAX) {
+                  iDen += (iDen % 5 === 3) ? 4 : 2
+                  denTest = calcul(den * iDen, 10)
+                  inverseDenTest = calcul(inverseDen * iDen, 10)
+                // while (min(nombreDeChiffresDansLaPartieDecimale(denTest), nombreDeChiffresDansLaPartieDecimale(inverseDenTest)) > 13 & iDen < testMAX) {
+                }
+                let iNum = 1
+                let numTest = num
+                let inverseNumTest = inverseNum
+                // console.log(numTest, ' ', inverseNumTest)
+                // console.log(iNum, ' ', numTest, ' ', inverseNumTest)
+                while (min(nombreDeChiffresDansLaPartieDecimale(numTest), nombreDeChiffresDansLaPartieDecimale(inverseNumTest)) > 9 & iNum < testMAX) {
+                  iNum += (iNum % 5 === 3) ? 4 : 2
+                  numTest = calcul(num * iNum, 10)
+                  inverseNumTest = calcul(inverseNum * iNum, 10)
+                }
+                // console.log(iNum, ' ', numTest, ' ', inverseNumTest)
+                if (nombreDeChiffresDansLaPartieDecimale(numTest) < 10) {
+                  if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) { // Ex. console.log(new FractionX(11 / 9, 17 / 13))
+                  // console.log('toto')
+                    num = calcul(numTest * iDen, 10)
+                    den = calcul(denTest * iNum, 10)
+                  } else { // Ex. console.log(new FractionX(11 / 9, 13 / 17))
+                  // console.log('titi')
+                    num = calcul(numTest * inverseDenTest, 10)
+                    den = iDen * iNum
+                  }
+                } else {
+                  if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) { // Ex. console.log(new FractionX(9 / 11, 17 / 13))
+                  // console.log('tata')
+                    den = calcul(denTest * inverseNumTest, 10)
+                    num = iDen * iNum
+                  } else { // Ex. console.log(new FractionX(9 / 11, 13 / 17))
+                  // console.log('tutu')
+                    den = calcul(inverseNumTest * iDen, 10)
+                    num = calcul(inverseDenTest * iNum, 10)
+                  }
+                }
+                maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
+              // console.log(num, ' ', den)
+              }
+            }
+          }
+        }
+        den = round(den * pow(10, maxDecimalesNumDen))
+        num = round(num * pow(10, maxDecimalesNumDen))
+        super(num, den)
+        this.num = num
+        this.den = den
+      } else {
+        super(NaN)
+      }
     }
     this.type = 'FractionX'
     // pour ne pas faire ces calculs à chaque instanciation de Fraction, on passe par defineProperty
@@ -101,8 +185,19 @@ export default class FractionX extends Fraction {
      */
     let texFraction // num/den mais sans traitement des signes des numérateur et dénominateur
     definePropRo(this, 'texFraction', () => {
-      if (!texFraction) texFraction = `\\dfrac{${this.num}}{${this.den}}`
+      if (!texFraction) texFraction = `\\dfrac{${texNombre(this.num)}}{${texNombre(this.den)}}`
       return texFraction
+    })
+
+    /**
+     * num/den
+     * @property texFractionSR
+     * @type {string}
+     */
+    let texFractionSR // num/den mais sans traitement des signes des numérateur et dénominateur
+    definePropRo(this, 'texFractionSR', () => {
+      if (!texFractionSR) texFractionSR = `\\dfrac{${signeMoinsEnEvidence(this.num)}}{${signeMoinsEnEvidence(this.den)}}`
+      return texFractionSR
     })
 
     /**
@@ -112,7 +207,7 @@ export default class FractionX extends Fraction {
        */
     let texFSD
     definePropRo(this, 'texFSD', () => {
-      if (!texFSD) texFSD = this.s === -1 ? Math.abs(this.den) === 1 ? '-' + String(Math.abs(this.num)) : `-\\dfrac{${Math.abs(this.num)}}{${Math.abs(this.den)}}` : Math.abs(this.den) === 1 ? String(Math.abs(this.num)) : `\\dfrac{${Math.abs(this.num)}}{${Math.abs(this.den)}}`
+      if (!texFSD) texFSD = this.s === -1 ? Math.abs(this.den) === 1 ? '-' + String(texNombre(Math.abs(this.num))) : `-\\dfrac{${texNombre(Math.abs(this.num))}}{${texNombre(Math.abs(this.den))}}` : Math.abs(this.den) === 1 ? String(texNombre(Math.abs(this.num))) : `\\dfrac{${texNombre(Math.abs(this.num))}}{${texNombre(Math.abs(this.den))}}`
       return texFSD
     })
 
@@ -437,6 +532,26 @@ export default class FractionX extends Fraction {
     */
   texQuotientFraction (f2) {
     return `${this.texFraction}\\div ${f2.texFraction}=${this.texFraction}\\times ${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + f2.den}}{${this.den + '\\times' + f2.num}}=\\dfrac{${this.num * f2.den}}{${this.den * f2.num}}`
+  }
+
+  /**
+ * Si la fraction est réductible, retourne une suite d'égalités permettant d'obtenir la fraction irréductible
+ */
+  texSimplificationAvecEtapes () {
+    if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
+    else if (this.estIrreductible && this.num * this.den > 0) { // irréductible mais négatifs
+      return `=${this.texFSD}`
+    } else {
+      const signe = this.signe === -1 ? '-' : ''
+      const num = Math.abs(this.num)
+      const den = Math.abs(this.den)
+      const pgcd = gcd(num, den)
+      if (pgcd !== 1) {
+        return `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+      } else {
+        return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+      }
+    }
   }
 
   /**
@@ -845,5 +960,111 @@ export default class FractionX extends Fraction {
       }
     }
     return objets
+  }
+
+  /**
+ * Renvoie un array avec l'ensemble de réponses possibles correspondant à un couple de fractions et de leurs différentes simplifications afin de pouvoir les placer dans un setReponse
+ * Exemple ['-\\frac{a}{b};\\frac{c}{d}', '\\frac{-a}{b};\\frac{c}{d}', '\\frac{a}{-b};\\frac{c}{d}', '\\frac{c}{d};-\\frac{a}{b}', '\\frac{c}{d};\\frac{-a}{b}', '\\frac{c}{d};\\frac{a}{-b}' ...
+ * @author Guillaume Valmont
+ * @param {number} n1 numérateur de la 1e fraction
+ * @param {number} d1 dénominateur de la 1e fraction
+ * @param {number} n2 numérateur de la 2e fraction
+ * @param {number} d2 dénominateur de la 2e fraction
+ * @returns array avec la liste des couples de fractions égales et simplifiées sous la forme '\\frac{n1}{d1};\\frac{n2}{d2}'
+ */
+  static texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees (n1, d1, n2, d2) {
+    return this.texArrayReponsesCoupleDeFractions(n1, d1, n2, d2, true)
+  }
+
+  /**
+ * Fonction destinée à être utilisée conjointement avec setReponse
+ * Exemple [\\frac{18}{6}, \\frac{-18}{-6}, -\\frac{-18}{6}, -\\frac{18}{-6}, \\frac{9}{3}, \\frac{-9}{-3}, -\\frac{-9}{3}, -\\frac{9}{-3}, 3]
+ * @author Guillaume Valmont
+ * @param {number} n numérateur
+ * @param {number} d dénominateur
+ * @returns array avec la liste des fractions égales et simplifiées sous la forme '\\frac{n}{d}'
+ */
+  static texArrayReponsesFractionsEgalesEtSimplifiees (n, d) {
+    const fractionsSimplifiees = this.listerFractionsSimplifiees(n, d)
+    const liste = []
+    for (const fractionSimplifiee of fractionsSimplifiees) {
+      const reponses = this.texArrayReponsesFraction(fractionSimplifiee[0], fractionSimplifiee[1])
+      for (const reponse of reponses) {
+        liste.push(reponse)
+      }
+    }
+    return liste
+  }
+
+  /**
+ * Renvoie un array avec l'ensemble de réponses possibles correspondant à un couple de fractions afin de pouvoir les placer dans un setReponse
+ * Exemple ['-\\frac{a}{b};\\frac{c}{d}', '\\frac{-a}{b};\\frac{c}{d}', '\\frac{a}{-b};\\frac{c}{d}', '\\frac{c}{d};-\\frac{a}{b}', '\\frac{c}{d};\\frac{-a}{b}', '\\frac{c}{d};\\frac{a}{-b}' ...
+ * @author Guillaume Valmont
+ * @param {number} n1 numérateur 1
+ * @param {number} d1 dénominateur 1
+ * @param {number} n2 numérateur 1
+ * @param {number} d2 dénominateur 1
+ * @param {boolean} egalesEtSimplifiees true si on veut inclure l'ensemble des fractions égales et simplifiées
+ * @returns array avec la liste des couples de fractions sous la forme '\\frac{n1}{d1};\\frac{n2}{d2}'
+ */
+  static texArrayReponsesCoupleDeFractions (n1, d1, n2, d2, egalesEtSimplifiees = false) {
+    let listeFraction1, listeFraction2
+    if (egalesEtSimplifiees) {
+      listeFraction1 = this.texArrayReponsesFractionsEgalesEtSimplifiees(n1, d1)
+      listeFraction2 = this.texArrayReponsesFractionsEgalesEtSimplifiees(n2, d2)
+    } else {
+      listeFraction1 = this.texArrayReponsesFraction(n1, d1)
+      listeFraction2 = this.texArrayReponsesFraction(n2, d2)
+    }
+    const listeCouples = []
+    for (const ecriture1 of listeFraction1) {
+      for (const ecriture2 of listeFraction2) {
+        listeCouples.push(ecriture1 + ';' + ecriture2, ecriture2 + ';' + ecriture1)
+      }
+    }
+    return listeCouples
+  }
+
+  /**
+ * Fonction destinée à lister l'ensemble des possibilités d'écriture d'une même fraction pour être comparées dans un setReponse
+ * @author Guillaume Valmont
+ * @param {number} numerateur
+ * @param {number} denominateur
+ * @returns array avec l'ensemble des possibilités d'écriture d'une même fraction au format LateX
+ */
+  static texArrayReponsesFraction (numerateur, denominateur) {
+    const n = Math.abs(numerateur)
+    const d = Math.abs(denominateur)
+    if (d === 1) {
+      return [(numerateur * denominateur).toString()]
+    } else {
+      if (numerateur * denominateur > 0) {
+        return [`\\frac{${n}}{${d}}`, `\\frac{${-n}}{${-d}}`, `-\\frac{${-n}}{${d}}`, `-\\frac{${n}}{${-d}}`]
+      } else if (numerateur * denominateur < 0) {
+        return [`-\\frac{${n}}{${d}}`, `-\\frac{${-n}}{${-d}}`, `\\frac{${-n}}{${d}}`, `\\frac{${n}}{${-d}}`]
+      } else {
+        return ['0']
+      }
+    }
+  }
+
+  /**
+ * Renvoie l'ensemble des fractions égales et simplifiées
+ * Ne change pas et ne déplace pas les signes (s'il y a un "-" au dénominateur, il restera au dénominateur)
+ * @author Guillaume Valmont
+ * @param {number} n
+ * @param {number} d
+ * @returns array de couples [numerateur, denominateur] de l'ensemble des fractions égales et simplifiées
+ */
+  static listerFractionsSimplifiees (n, d) {
+    if (pgcd(n, d) === 1) {
+      return [[n, d]]
+    } else {
+      const liste = []
+      for (const diviseur of listeDiviseurs(pgcd(n, d))) {
+        liste.push([n / diviseur, d / diviseur])
+      }
+      return liste
+    }
   }
 }

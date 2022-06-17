@@ -1,4 +1,4 @@
-import { GVGraphicObject, GVPoint } from './elements.js';
+import { GVGraphicObject, GVPoint } from './elements.js'
 /**
  * Grandeur, methods for operations
  *

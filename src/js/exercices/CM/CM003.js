@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes, randint, contraindreValeur } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Tables de multiplications et de divisions'
 export const amcReady = true
@@ -38,6 +38,9 @@ export default function TablesMultiplicationsDivisions (
       tables[0] = this.sup
     } else {
       tables = this.sup.split('-') // Sinon on crée un tableau à partir des valeurs séparées par des ;
+    }
+    for (let i = 0; i < tables.length; i++) {
+      tables[i] = contraindreValeur(2, 9, parseInt(tables[i]))
     }
     const couples = creerCouples(
       tables,

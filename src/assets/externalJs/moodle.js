@@ -95,6 +95,7 @@ if (typeof window.iMathAlea === 'undefined') {
         document.addEventListener('DOMContentLoaded', () => { // facultatif si le fichier est importé en mode module car l'exécution du script est deferred
           answer = questionDiv.querySelector('[name$="_answer"]').value
           answer = answer.substring(answer.indexOf('|') + 1)
+          answer = encodeURIComponent(answer)
           addIframe()
         })
       }

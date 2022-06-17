@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
 import { listeQuestionsToContenu, randint, range1, combinaisonListes } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Double, moitié, tiers, triple'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 
 /**
@@ -41,28 +42,28 @@ export default function DoubleMoitieTiersTriple () {
           texte = `$\\text{Le double de }${a}$`
           texteCorr = `$\\text{Le double de }${a} \\text{ est } ${a * 2}$`
           setReponse(this, i, a * 2)
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
         case 2: // Moitié
           a = randint(2, 9) * 2
           texte = `$\\text{La moitié de }${a * 2}$`
           texteCorr = `$\\text{La moitié de }${a * 2} \\text{ est } ${a}$`
           setReponse(this, i, a)
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
         case 3: // Triple
           a = randint(2, 9)
           texte = `$\\text{Le triple de }${a}$`
           texteCorr = `$\\text{Le triple de }${a} \\text{ est } ${a * 3}$`
           setReponse(this, i, a * 3)
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
         case 4: // Tiers
           a = randint(2, 9)
           texte = `$\\text{Le tiers de }${a * 3}$`
           texteCorr = `$\\text{Le tiers de }${a * 3} \\text{ est } ${a}$`
           setReponse(this, i, a)
-          if (this.interactif) texte += ajouteChampTexte(this, i)
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
       }
 

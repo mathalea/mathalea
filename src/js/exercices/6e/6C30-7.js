@@ -62,11 +62,11 @@ export default function DiviserUnNombreParPuissanceDeDix () {
         texte = `Voici un nombre : $${texNombre3(exemple)}$.<br>`
         texte += `${numAlpha(0)} Entourer le chiffre des unités de ce nombre.<br>`
         texte += `${numAlpha(1)} Compléter les phrases suivantes.<br>`
-        texte += `Diviser $${texNombre3(exemple)}$ par $${texNombre3(calcul(10 ** (3 - choixAlea)))}$, c’est trouver le nombre $\\ldots\\ldots\\ldots$ fois plus $\\ldots\\ldots\\ldots$ que $${texNombre3(exemple)}$.<br>`
+        texte += `Diviser $${texNombre3(exemple)}$ par $${texNombre3(calcul(10 ** (3 - choixAlea)))}$, c\'est trouver le nombre $\\ldots\\ldots\\ldots$ fois plus $\\ldots\\ldots\\ldots$ que $${texNombre3(exemple)}$.<br>`
         texte += `Le chiffre des unités de $${texNombre3(exemple)}$ devient, alors, le chiffre des $\\ldots\\ldots\\ldots\\ldots\\ldots$ et donc $${texNombre3(exemple)} \\div ${texNombre3(calcul(10 ** (3 - choixAlea)))} =\\ldots\\ldots\\ldots\\ldots$<br>`
 
         texteCorr = `${numAlpha(0)} $${unite}$ est le chiffre des unités de $${texNombre3(exemple)}$.<br>`
-        texteCorr += `${numAlpha(1)} Diviser $${texNombre3(exemple)}$ par $${texNombre3(calcul(10 ** (3 - choixAlea)))}$, c’est trouver le nombre ${texteEnCouleurEtGras(texNombre3(calcul(10 ** (3 - choixAlea))))} fois plus ${texteEnCouleurEtGras('petit')} `
+        texteCorr += `${numAlpha(1)} Diviser $${texNombre3(exemple)}$ par $${texNombre3(calcul(10 ** (3 - choixAlea)))}$, c\'est trouver le nombre ${texteEnCouleurEtGras(texNombre3(calcul(10 ** (3 - choixAlea))))} fois plus ${texteEnCouleurEtGras('petit')} `
         texteCorr += `que $${texNombre3(exemple)}$.<br>`
         texteCorr += `Le chiffre des unités de $${texNombre3(exemple)}$ devient, alors, le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])} et donc $${texNombre3(exemple)} \\div ${texNombre3(calcul(10 ** (3 - choixAlea)))} =$ ${texteEnCouleurEtGras(texNombre3(exemple * calcul(10 ** (choixAlea - 3))))}.<br>`
       } else {

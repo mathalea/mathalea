@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, arrondi, calcul, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, arrondi, contraindreValeur, egalOuApprox } from '../../modules/outils.js'
 import { latexParCoordonnees, mathalea2d, point, segment } from '../../modules/2d.js'
 import { number, fraction } from 'mathjs'
 export const titre = 'Probabilités conditionnelles'
@@ -135,9 +135,9 @@ export default function ProbabilitésConditionnelles () {
           texteCorr += '<br><br>3. On a $P_{\\bar{V}}(A)=\\dfrac{P(\\bar{V} \\cap A)}{P(\\bar{V})}=\\dfrac{P(A \\cap \\bar{V})}{P(\\bar{V})}=\\dfrac{P(A) \\times P_A(\\bar{V})}{P(\\bar{V})}$.'
           texteCorr += `<br>Or d'après la question précédente: $P(\\bar{V})=1-P(V)=1-${texProba(av / 100 + (1 - a / 100) * v / 100, this.sup)}=${texProba(1 - (av / 100 + (1 - a / 100) * v / 100), this.sup)}$`
           texteCorr += `<br>et d'après la question $1: P_{A}(\\bar{V})=1-P_{A}(V)=1-${texFraction(av, a)}=${texFraction(a - av, a)}$.`
-          k1 = calcul((a - av) / a)
-          k2 = calcul(1 - (av / 100 + (1 - a / 100) * v / 100))
-          texteCorr += `<br>Donc $P_{\\bar{V}}(A)=\\dfrac{${texProba(a / 100, this.sup)} \\times ${texFraction(a - av, a)}}{${texProba(k2, this.sup)}} ${((a / 100) * k1) / k2 === arrondi(((a / 100) * k1) / k2, 3) ? '=' : '\\approx'}${texProba(((a / 100) * k1) / k2, false)}$.`
+          k1 = (a - av) / a
+          k2 = 1 - (av / 100 + (1 - a / 100) * v / 100)
+          texteCorr += `<br>Donc $P_{\\bar{V}}(A)=\\dfrac{${texProba(a / 100, this.sup)} \\times ${texFraction(a - av, a)}}{${texProba(k2, this.sup)}} ${egalOuApprox((a / 100) * k1 / k2, 3)}${texProba(((a / 100) * k1) / k2, false)}$.`
           texteCorr += `<br><br>4. On a vu que $P(\\bar{V})=1-${texProba(k2, this.sup)}=${texProba(1 - k2, this.sup)}$.`
           texteCorr += '<br>Comme les deux événements sont indépendants, en les appelant $\\bar {V_1}$ et $\\bar{V_2}$, on a : $P(\\bar{V_1}\\cap\\bar{V_2})=P(\\bar{V_1})\\times P(\\bar{V_2})$'
           texteCorr += `<br>La probabilité cherchée est donc égale à $P(\\bar{V_1}\\cap\\bar{V_2})=${texProba(1 - k2, this.sup)} \\times ${texProba(1 - k2, this.sup)}\\approx${texProba((1 - k2) ** 2, false)}$.`
@@ -198,8 +198,8 @@ export default function ProbabilitésConditionnelles () {
 
           texte += '$1.$ Donner les valeurs de $P(C)$, $P( C \\cap E)$ et $P_{\\bar{C}}(E)$.<br>'
           texte += '$2.$ Calculer la probabilité que le client ne souhaite ni une "couleur-soin", ni un "effet coup de soleil".<br>'
-          texte += '$3.$ Calculer la probabilité qu\'un client choisisse l\'"effet coup de soleil" sachant qu\'il a pris une "couleur soin"'
-          texte += '$4.$ Montrer que la probabilité de l\'évènement $E$ est égale à $0,42$.<br>'
+          texte += '$3.$ Calculer la probabilité qu\'un client choisisse l\'"effet coup de soleil" sachant qu\'il a pris une "couleur soin".<br>'
+          texte += `$4.$ Montrer que la probabilité de l\'évènement $E$ est égale à $${texProba(ce / 100 + (1 - c / 100) * ec / 100, false)}$ (à $10^{-3}$ près).<br>`
           texte += '$5.$ Les évènements $C$ et $E$ sont-ils indépendants ?<br>'
           texte += 'On donnera les résultats sous forme de valeurs approchées à $10^{-3}$ près.'
           texteCorr = `1. D'après l'énoncé, on a :<br>$\\bullet~~P(C)=${texProba(c / 100, this.sup)}$.`
@@ -208,7 +208,7 @@ export default function ProbabilitésConditionnelles () {
           texteCorr += '<br>Ce qui permet de construire cet arbre de probabilités : '
           texteCorr += mathalea2d({ xmin: -5, ymin: -1, xmax: 18, ymax: 10 }, objets)
           texteCorr += '<br>$2.$ L\'événement  : le client ne souhaite ni une "couleur-soin", ni un "effet coup de soleil" correspond à $\\bar{C} \\cap \\bar{E}$'
-          texteCorr += `<br>On a $P(\\bar{C} \\cap \\bar{E})=P(\\bar{C}) \\times P_{\\bar{C}}(\\bar{E})=P(\\bar{C}) \\times (1-P_{\\bar{C}}(E))=${texProba(c / 100, false)} \\times ${texProba(1 - ec / 100, false)}\\approx ${texProba((c / 100) * (1 - ec / 100), false)}$.`
+          texteCorr += `<br>On a $P(\\bar{C} \\cap \\bar{E})=P(\\bar{C}) \\times P_{\\bar{C}}(\\bar{E})=P(\\bar{C}) \\times (1-P_{\\bar{C}}(E))=${texProba(1 - c / 100, false)} \\times ${texProba(1 - ec / 100, false)}\\approx ${texProba((1 - c / 100) * (1 - ec / 100), false)}$.`
           texteCorr += '<br>$3.$  La probabilité qu\'un client choisisse l\'"effet coup de soleil" sachant qu\'il a pris une "couleur soin" est $P_{C}(E)$.'
           texteCorr += '<br>On a alors d\'après l\'arbre pondéré :'
           texteCorr += `<br>$P(C) \\times P_{C}(E)=${texProba(c / 100, false)} \\times P_{C}(E)=${texProba(ce / 100, false)}$.`
@@ -221,7 +221,7 @@ export default function ProbabilitésConditionnelles () {
           texteCorr += '<br>$5.$   Pour savoir si les évènements $C$ et $E$ sont-indépendants, on calcule séparément : '
           texteCorr += '<br>$P(C \\cap E)$ et $P(C) \\times P(E)$, pour tester s\'ils sont égaux.'
           texteCorr += `<br>On a $P(C \\cap E)=${texProba(ce / 100, false)}$ `
-          texteCorr += `et $P(C) \\times P(E)=\\approx${texProba(c / 100 * (ce / 100 + (1 - c / 100) * ec / 100), false)}$`
+          texteCorr += `et $P(C) \\times P(E)\\approx${texProba(c / 100 * (ce / 100 + (1 - c / 100) * ec / 100), false)}$`
           texteCorr += '<br>On en déduit que les évènements $C$ et $E$ ne sont pas indépendants.'
           break
       }

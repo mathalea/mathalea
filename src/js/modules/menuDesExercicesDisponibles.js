@@ -260,7 +260,7 @@ function listeHtmlDesExercicesDUnNiveauAvecSousTheme (listeDeThemes) { // liste_
 }
 function getListeHtmlDesExercicesCrpe () {
   let liste = '<div class="accordion">'
-  for (const annee of ['2019', '2018', '2017', '2016']) {
+  for (const annee of ['2019', '2018', '2017', '2016', '2015']) {
     liste += `<div class="title"><i class="dropdown icon"></i> ${annee}</div><div class="content">`
     liste += listeHtmlDesExercicesCrpeAnnee(annee)
     liste += '</div>'
@@ -553,12 +553,12 @@ export function menuDesExercicesDisponibles () {
   }
   const listeThemesCan = [
     ['canc3', 'canc3 - Course aux nombres niveau CM1-CM2', 'canc3C - Calculs', 'canc3D - Durées', 'canc3M - Mesures', 'canc3N - Numération'],
-    ['can6', 'can6 - Course aux nombres niveau 6e', 'can6C - Calculs', 'can6D - Durées', 'can6G - Géométrie', 'can6I - Algorithmique', 'can6M - Mesures', 'can6N - Numération', 'can6P - Proportionnalité', 'can6S - Statistiques'],
-    ['can5', 'can5 - Course aux nombres niveau 5e', 'can5A - Algorithmes', 'can5C - Calculs', 'can5D - Durées', 'can5G - Géométrie', 'can5M - Mesures', 'can5N - Numération', 'can5P - Proportionnalité', 'can5S - Statistiques'],
-    ['can4', 'can4 - Course aux nombres niveau 4e', 'can4C - Calculs', 'can4D - Durées', 'can4G - Géométrie', 'can4L - Calcul littéral', 'can4N - Numération', 'can4P - Proportionnalité', 'can4S - Statistiques'],
-    ['can3', 'can3 - Course aux nombres niveau 3e', 'can3C - Calculs', 'can3E - Équations', 'can3F - Fonctions', 'can3G - Géométrie', 'can3L - Calcul littéral', 'can3M - Mesures', 'can3N - Numération', 'can3P - Proportionnalité', 'can3S - Statistiques & probabilités'],
-    ['can2', 'can2 - Course aux nombres niveau 2e', 'can2C - Calculs', 'can2F - Fonctions', 'can2G - Géométrie', 'can2L - Calcul littéral', 'can2N - Numération', 'can2P - Probabilités'],
-    ['can1', 'can1 - Course aux nombres niveau 1e', 'can1C - Calculs', 'can1F - Fonctions', 'can1G - Géométrie', 'can1L - Calcul littéral', 'can1N - Numération', 'can1P - Proportionnalité', 'can1S - Statistiques et probabilités'],
+    ['can6', 'can6 - Course aux nombres niveau 6e', 'can6a - Annales aléatoires', 'can6C - Calculs', 'can6D - Durées', 'can6G - Géométrie', 'can6I - Algorithmique', 'can6M - Mesures', 'can6N - Numération', 'can6P - Proportionnalité', 'can6S - Statistiques'],
+    ['can5', 'can5 - Course aux nombres niveau 5e', 'can5a - Annales aléatoires', 'can5A - Algorithmes', 'can5C - Calculs', 'can5D - Durées', 'can5G - Géométrie', 'can5N - Numération', 'can5P - Proportionnalité'],
+    ['can4', 'can4 - Course aux nombres niveau 4e', 'can4a - Annales aléatoires', 'can4C - Calculs', 'can4G - Géométrie', 'can4L - Calcul littéral', 'can4P - Proportionnalité'],
+    ['can3', 'can3 - Course aux nombres niveau 3e', 'can3a - Annales aléatoires', 'can3C - Calculs', 'can3F - Fonctions', 'can3G - Géométrie', 'can3L - Calcul littéral', 'can3M - Mesures', 'can3P - Proportionnalité', 'can3S - Statistiques & probabilités'],
+    ['can2', 'can2 - Course aux nombres niveau 2e', 'can2a - Annales aléatoires', 'can2C - Calculs', 'can2F - Fonctions', 'can2G - Géométrie', 'can2L - Calcul littéral', 'can2N - Numération', 'can2P - Probabilités'],
+    ['can1', 'can1 - Course aux nombres niveau 1e', 'can1F - Fonctions', 'can1G - Géométrie', 'can1L - Calcul littéral', 'can1P - Probabilités', 'can1S - Suites'],
     ['canT', 'canT - Course aux nombres niveau Terminale'],
     ['canEx', 'canExpert - Course aux nombres niveau Terminale expert'],
     ['canP', 'canPredef - Courses aux nombres clé en main']]

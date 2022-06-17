@@ -1,12 +1,13 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { randint, listeQuestionsToContenu, combinaisonListes, texteGras } from '../../modules/outils.js'
-import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
-export const titre = 'Déterminer le dernier chiffre d’un calcul'
+export const titre = 'Déterminer le dernier chiffre d\'un calcul'
 export const amcReady = true
 export const interactifReady = true
-export const interactifType = 'numerique'
+export const interactifType = 'mathLive'
 export const amcType = 'AMCNum' // Question numérique
 
 /**
@@ -32,11 +33,12 @@ export default function DernierChiffre () {
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
 
   this.sup = 1 // A décommenter : valeur par défaut d'un premier paramètre
-  //  this.sup2 = false; // A décommenter : valeur par défaut d'un deuxième paramètre
-  //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   this.nouvelleVersion = function () {
+    if (this.version === 2) {
+      this.sup = 2
+    }
     this.sup = parseInt(this.sup)
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
@@ -102,7 +104,7 @@ export default function DernierChiffre () {
           break
       }
 
-      if (context.isHtml && this.interactif) texte += '<br>Le chiffre des unités est : ' + ajouteChampTexte(this, i)
+      if (context.isHtml && this.interactif) texte += '<br>Le chiffre des unités est : ' + ajouteChampTexteMathLive(this, i, 'largeur10 inline')
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte.substring(0, texte.length - 1) + '~=$<br>Le chiffre des unités est : '
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]

@@ -83,12 +83,10 @@ function copierVersExerciceForm () {
   const listeTagLength = listeTag.length
   texteCode = ''
   for (i = 0; i < listeTagLength; i++) {
-    if (i === 0) {
-      texteCode += listeTag[i].textContent
-    } else {
-      texteCode += ',' + listeTag[i].textContent
-    }
+    texteCode += listeTag[i].textContent + ','
   }
+  // Suppression de la dernière virgule
+  texteCode = texteCode.slice(0, -1)
   document.getElementById('choix_des_exercices').value = texteCode
   const evenement = new window.Event('change')
   document.getElementById('choix_des_exercices').dispatchEvent(evenement)
@@ -206,6 +204,7 @@ async function gestionModules (listeObjetsExercice) {
         { left: '\\[', right: '\\]', display: true },
         { left: '$', right: '$', display: false }
       ],
+      preProcess: (chaine) => chaine.replaceAll(String.fromCharCode(160), '\\,'),
       throwOnError: true,
       errorColor: '#CC0000',
       strict: 'warn',
@@ -288,8 +287,14 @@ function contenuExerciceHtml (obj, numeroExercice) {
       return `<h3> Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
     }
 
-    function titreExCorr (type) {
-      return `<h3 class="ui dividing header">Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+    function titreExCorr (type, coopmaths = false) {
+      let h3Tag = ''
+      if (coopmaths === true) {
+        h3Tag += `<h3 class="ui dividing header">Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé alternatif COOPMATHS</h3>`
+      } else {
+        h3Tag += `<h3 class="ui dividing header">Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+      }
+      return h3Tag
     }
     const dnb = {
       titreEx: titreEx('DNB'),
@@ -372,6 +377,10 @@ function contenuExerciceHtml (obj, numeroExercice) {
         case 'bac':
         case 'e3c':
           contenuUneCorrection += `<img id="${obj.id}Cor" width="90%" src="${obj.pngcor}">`
+          if (typeof obj.pngcorcoop !== 'undefined') {
+            contenuUneCorrection += titreExCorr('DNB', true)
+            contenuUneCorrection += `<img id="${obj.id}Cor" width="90%" src="${obj.pngcorcoop}">`
+          }
           break
       }
       contenuUneCorrection += '</div></div>'
@@ -694,8 +703,9 @@ function miseAJourDuCode () {
         if (iMoodle !== null) {
           finUrl += `&iMoodle=${iMoodle}`
         }
-        const moodleJson = new URLSearchParams(window.location.search).get('moodleJson')
+        let moodleJson = new URLSearchParams(window.location.search).get('moodleJson')
         if (moodleJson !== null) {
+          moodleJson = encodeURIComponent(moodleJson)
           finUrl += `&moodleJson=${moodleJson}`
         }
       }
@@ -1440,6 +1450,13 @@ async function miseAJourDeLaListeDesExercices (preview) {
               listeObjetsExercice[i].contenuCorrection = listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : data
             })
         )
+        promises.push(
+          window.fetch(dictionnaireDesExercices[id].urlcorcoop)
+            .then((response) => response.text())
+            .then((data) => {
+              listeObjetsExercice[i].contenuCorrection += listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : '\\begin{LARGE}\\textbf{Correction alternative COOPMATHS}\\end{LARGE} \\par\\vspace{0.5cm}' + data
+            })
+        )
       } else if (dictionnaireDesExercices[id].typeExercice === 'crpe') {
         listeObjetsExercice[i] = dictionnaireDesExercices[id]
         listeObjetsExercice[i].nbQuestionsModifiable = false
@@ -1547,12 +1564,12 @@ async function miseAJourDeLaListeDesExercices (preview) {
         }
         if (typeof urlVars[i].s !== 'undefined') {
           // Si le string peut être convertit en int alors on le fait
-          if (isNumeric(urlVars[i].s)) {
+          if (isNumeric(urlVars[i].s) && listeObjetsExercice[i].besoinFormulaireNumerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaireNumerique[1]
             listeObjetsExercice[i].sup = contraindreValeur(1, max, Number(urlVars[i].s))
-          } else {
-            listeObjetsExercice[i].sup = urlVars[i].s
+          } else { // Il faut que ce soit un string car soit ce n'est pas un nombre, soit ça vient d'un formulaire Texte.
+            listeObjetsExercice[i].sup = typeof urlVars[i].s === 'boolean' ? urlVars[i].s : urlVars[i].s.toString()
           }
           // Un exercice avec un this.sup mais pas de formulaire pouvait poser problème
           try {
@@ -1564,12 +1581,12 @@ async function miseAJourDeLaListeDesExercices (preview) {
           } catch {}
         }
         if (typeof urlVars[i].s2 !== 'undefined') {
-          if (isNumeric(urlVars[i].s2)) {
+          if (isNumeric(urlVars[i].s2) && listeObjetsExercice[i].besoinFormulaire2Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire2Numerique[1]
             listeObjetsExercice[i].sup2 = contraindreValeur(1, max, Number(urlVars[i].s2))
           } else {
-            listeObjetsExercice[i].sup2 = urlVars[i].s2
+            listeObjetsExercice[i].sup2 = typeof urlVars[i].s2 === 'boolean' ? urlVars[i].s2 : urlVars[i].s2.toString()
           }
           try {
             if (listeObjetsExercice[i].besoinFormulaire2CaseACocher) {
@@ -1580,12 +1597,12 @@ async function miseAJourDeLaListeDesExercices (preview) {
           } catch (error) {}
         }
         if (typeof urlVars[i].s3 !== 'undefined') {
-          if (isNumeric(urlVars[i].s3)) {
+          if (isNumeric(urlVars[i].s3) && listeObjetsExercice[i].besoinFormulaire3Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire3Numerique[1]
             listeObjetsExercice[i].sup3 = contraindreValeur(1, max, Number(urlVars[i].s3))
           } else {
-            listeObjetsExercice[i].sup3 = urlVars[i].s3
+            listeObjetsExercice[i].sup3 = typeof urlVars[i].s3 === 'boolean' ? urlVars[i].s3 : urlVars[i].s3.toString()
           }
           try {
             if (listeObjetsExercice[i].besoinFormulaire3CaseACocher) {
@@ -1598,12 +1615,12 @@ async function miseAJourDeLaListeDesExercices (preview) {
           }
         }
         if (typeof urlVars[i].s4 !== 'undefined') {
-          if (isNumeric(urlVars[i].s4)) {
+          if (isNumeric(urlVars[i].s4) && listeObjetsExercice[i].besoinFormulaire4Numerique) {
             // Avec sup numérique, on peut récupérer le max définit dans le formulaire
             const max = listeObjetsExercice[i].besoinFormulaire4Numerique[1]
             listeObjetsExercice[i].sup4 = contraindreValeur(1, max, Number(urlVars[i].s4))
           } else {
-            listeObjetsExercice[i].sup4 = urlVars[i].s4
+            listeObjetsExercice[i].sup4 = typeof urlVars[i].s4 === 'boolean' ? urlVars[i].s4 : urlVars[i].s4.toString()
           }
           try {
             formSup4[i].value = listeObjetsExercice[i].sup4
@@ -1849,6 +1866,8 @@ function parametresExercice (exercice) {
       $('#nombre_de_versions').change(function () {
         miseAJourDuCode()
       })
+      $('#popup_preview .icone_param').remove() // Dans la popup de visualisation pas d'icone engrenage.
+      $('#popup_preview .iconeInteractif').remove() // Dans la popup de visualisation pas d'icone interactif
     } else {
       divParametresGeneraux.innerHTML += '<h4 class="ui dividing header">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + '</h4>'
 
@@ -2080,16 +2099,10 @@ function parametresExercice (exercice) {
 
     if (exercice[i].besoinFormulaire3Texte) {
       // Création d'un formulaire texte
-      divParametresGeneraux.innerHTML +=
-        "<p></p><div style='display: inline'><label for='form_sup3" +
-        i +
-        "'>" +
-        exercice[i].besoinFormulaire3Texte[0] +
-        " : </label><div style='display: inline' data-tooltip='" +
-        exercice[i].besoinFormulaire3Texte[1] +
-        "' data-inverted=''><input id='form_sup3" +
-        i +
-        "' type='text' size='20' ></div></div>"
+      const paramTooltip = exercice[i].besoinFormulaire3Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire3Texte[1]}"` : ''
+      divParametresGeneraux.innerHTML += `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire3Texte[0]} : </label>
+                    <div style='display: inline' ${paramTooltip} data-inverted=''>
+                    <input id='form_sup3${i}' type='text' size='20' ></div></div>`
     }
 
     if (exercice[i].besoinFormulaire4CaseACocher) {
@@ -2136,16 +2149,10 @@ function parametresExercice (exercice) {
 
     if (exercice[i].besoinFormulaire4Texte) {
       // Création d'un formulaire texte
-      divParametresGeneraux.innerHTML +=
-        "<p></p><div style='display: inline'><label for='form_sup4" +
-        i +
-        "'>" +
-        exercice[i].besoinFormulaire4Texte[0] +
-        " : </label><div style='display: inline' data-tooltip='" +
-        exercice[i].besoinFormulaire4Texte[1] +
-        "' data-inverted=''><input id='form_sup4" +
-        i +
-        "' type='text' size='20' ></div></div>"
+      const paramTooltip = exercice[i].besoinFormulaire4Texte[1] ? `data-tooltip="${exercice[i].besoinFormulaire4Texte[1]}"` : ''
+      divParametresGeneraux.innerHTML += `<div style='display: inline'><label for='form_sup2${i}'> ${exercice[i].besoinFormulaire4Texte[0]} : </label>
+                    <div style='display: inline' ${paramTooltip} data-inverted=''>
+                    <input id='form_sup4${i}' type='text' size='20' ></div></div>`
     }
   }
 
@@ -2386,11 +2393,12 @@ function parametresExercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaireNumerique) {
+      const max = exercice[i].besoinFormulaireNumerique[1]
       formSup[i] = document.getElementById('form_sup' + i)
-      formSup[i].value = exercice[i].sup // Rempli le formulaire avec le paramètre supplémentaire
+      formSup[i].value = contraindreValeur(1, max, exercice[i].sup) // Rempli le formulaire avec le paramètre supplémentaire
       formSup[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup = Number(e.target.value)
+        exercice[i].sup = contraindreValeur(1, max, Number(e.target.value))
         miseAJourDuCode()
       })
     }
@@ -2416,11 +2424,12 @@ function parametresExercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaire2Numerique) {
+      const max = exercice[i].besoinFormulaire2Numerique[1]
       formSup2[i] = document.getElementById('form_sup2' + i)
-      formSup2[i].value = exercice[i].sup2 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup2[i].value = contraindreValeur(1, max, exercice[i].sup2) // Rempli le formulaire avec le paramètre supplémentaire
       formSup2[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup2 = Number(e.target.value)
+        exercice[i].sup2 = contraindreValeur(1, max, Number(e.target.value))
         miseAJourDuCode()
       })
     }
@@ -2453,11 +2462,12 @@ function parametresExercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaire3Numerique) {
+      const max = exercice[i].besoinFormulaire3Numerique[1]
       formSup3[i] = document.getElementById('form_sup3' + i)
-      formSup3[i].value = exercice[i].sup3 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup3[i].value = contraindreValeur(1, max, exercice[i].sup3) // Rempli le formulaire avec le paramètre supplémentaire
       formSup3[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup3 = Number(e.target.value)
+        exercice[i].sup3 = contraindreValeur(1, max, Number(e.target.value))
         miseAJourDuCode()
       })
     }
@@ -2490,11 +2500,12 @@ function parametresExercice (exercice) {
     }
 
     if (exercice[i].besoinFormulaire4Numerique) {
+      const max = exercice[i].besoinFormulaire4Numerique[1]
       formSup4[i] = document.getElementById('form_sup4' + i)
-      formSup4[i].value = exercice[i].sup4 // Rempli le formulaire avec le paramètre supplémentaire
+      formSup4[i].value = contraindreValeur(1, max, exercice[i].sup4) // Rempli le formulaire avec le paramètre supplémentaire
       formSup4[i].addEventListener('change', function (e) {
         // Dès que le nombre change, on met à jour
-        exercice[i].sup4 = Number(e.target.value)
+        exercice[i].sup4 = contraindreValeur(1, max, Number(e.target.value))
         miseAJourDuCode()
       })
     }
@@ -3434,7 +3445,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const div = document.getElementById('ModalEmbed')
       div.innerHTML = `
       <div class="content">
-      <h3 class="ui dividing header">Affichage</h3>
+      <h3 class="ui dividing header">Affichage ou export</h3>
       <div class="ui link relaxed list">
         <div class="active item"><a class="mesLiensModaux"  href="${replaceQueryParam('v', 'diap')}" target="_blank"><i class="play icon"></i>Diaporama (navigation avec les flèches, pause avec la barre espace)</a></div>
         <div class="active item"><a class="mesLiensModaux"  href="${replaceQueryParam('v', 'l')}" target="_blank"><i class="expand icon"></i>Simplifié (sans le menu de coopmaths.fr)</a></div>
@@ -3442,6 +3453,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'embed')}" target="_blank"><i class="tablet alternate icon"></i>Optimisé pour les smartphones</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'can')}" target="_blank"><i class="flag checkered icon"></i>Course aux nombres (interactif et une question à la fois)</a></div>
         <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'eval')}" target="_blank"><i class="tasks icon"></i>Interactif et un exercice par page</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'moodle')}" target="_blank"><i class="share square icon"></i>Export Moodle</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'latex')}" target="_blank"><i class="cogs icon"></i>Export LaTeX</a></div>
+        <div class="active item"><a class="mesLiensModaux" href="${replaceQueryParam('v', 'amc')}" target="_blank"><i class="check square outline icon"></i>Export AMC</a></div>
       </div>
 
       <h3 class="ui dividing header">Imposer un temps</h3>

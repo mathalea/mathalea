@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, choice, combinaisonListes, pgcd, texFractionRe
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-export const titre = 'Trouver l’inverse d’un nombre'
+export const titre = 'Trouver l\'inverse d\'un nombre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -154,7 +154,7 @@ export default function ExerciceTrouverInverse () {
               )}\\right) =  1$.`
             }
           }
-          texte = `Quel est l'inverse de $${texNombrec(nombreChoisi)}$ ?` + ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) })
+          texte = `Quel est l'inverse de $${texNombrec(nombreChoisi)}$ ?`
           setReponse(this, i, new FractionEtendue(1, nombreChoisi), { formatInteractif: 'fractionEgale' })
           break
         case 2:
@@ -269,7 +269,7 @@ export default function ExerciceTrouverInverse () {
           nombreInverseDen = couplesDInverses[1]
           nombreChoisi = nombreInverseNum / nombreInverseDen
           if (choice([true, false])) {
-            setReponse(this, i, new FractionEtendue(nombreInverseNum, nombreInverseDen), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, new FractionEtendue(nombreInverseDen, nombreInverseNum), { formatInteractif: 'fractionEgale' })
             // fraction positive
             if (couplesDInverses[2] === true) {
               // inverse décimal
@@ -310,7 +310,7 @@ export default function ExerciceTrouverInverse () {
             )}$ ?`
           } else {
             // fraction négative
-            setReponse(this, i, new FractionEtendue(-nombreInverseNum, nombreInverseDen), { formatInteractif: 'fractionEgale' })
+            setReponse(this, i, new FractionEtendue(-nombreInverseDen, nombreInverseNum), { formatInteractif: 'fractionEgale' })
             if (couplesDInverses[2] === true) {
               // inverse décimal
               texteCorr = `L'inverse de $-${texFraction(
@@ -351,7 +351,9 @@ export default function ExerciceTrouverInverse () {
           }
           break
       }
-
+      if (this.interactif) {
+        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(5) })
+      }
       if (this.questionJamaisPosee(i, typesDeQuestions, nombreChoisi)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

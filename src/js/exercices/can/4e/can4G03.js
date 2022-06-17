@@ -21,7 +21,7 @@ export default function CalculHypotenusePythagore () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   let a, b
   this.nouvelleVersion = function () {
-    const nom = creerNomDePolygone(3, ['Q'])
+    const nom = creerNomDePolygone(3, ['QD'])
     a = randint(2, 7)//
     b = randint(3, 7)//
     const A = point(0, 0, nom[0])

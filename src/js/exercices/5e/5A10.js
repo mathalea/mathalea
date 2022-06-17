@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, li
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const dateDeModifImportante = '28/10/2021'
-export const titre = 'Écrire la liste de tous les diviseurs d’un entier'
+export const titre = 'Écrire la liste de tous les diviseurs d\'un entier'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,18 +37,30 @@ export default function ListeDesDiviseurs5e () {
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     this.autoCorrection = []
+    let nombresDeChiffresMax
+    let nombresDeDiviseursMax
 
+    this.sup3 = contraindreValeur(2, 16, parseInt(this.sup3), 10)
+    if (typeof this.sup === 'number') {
+      nombresDeChiffresMax = [contraindreValeur(1, 5, parseInt(this.sup), 2)]
+    } else {
+      nombresDeChiffresMax = this.sup.split('-')
+      for (let i = 0; i < nombresDeChiffresMax.length; i++) {
+        nombresDeChiffresMax[i] = contraindreValeur(1, 5, parseInt(nombresDeChiffresMax[i]), 2)
+      }
+    }
+    if (typeof this.sup2 === 'number') {
+      nombresDeDiviseursMax = [contraindreValeur(2, parseInt(this.sup3), parseInt(this.sup2), 6)]
+    } else {
+      nombresDeDiviseursMax = this.sup2.split('-')
+      for (let i = 0; i < nombresDeDiviseursMax.length; i++) {
+        nombresDeDiviseursMax[i] = contraindreValeur(2, parseInt(this.sup3), parseInt(nombresDeDiviseursMax[i]), 6)
+      }
+    }
     const typesDeQuestionsDisponibles = [1, 1, 2]
-    const nbChiffresMax = combinaisonListesSansChangerOrdre(this.sup.split('-'), this.nbQuestions)
-    const nbDiviseursMax = combinaisonListesSansChangerOrdre(this.sup2.split('-'), this.nbQuestions)
-    this.sup3 = contraindreValeur(2, 16, parseFloat(this.sup3), 10)
+    const nbChiffresMax = combinaisonListesSansChangerOrdre(nombresDeChiffresMax, this.nbQuestions)
+    const nbDiviseursMax = combinaisonListesSansChangerOrdre(nombresDeDiviseursMax, this.nbQuestions)
 
-    for (let i = 0; i < this.nbQuestions; i++) {
-      nbChiffresMax[i] = contraindreValeur(1, 5, parseFloat(nbChiffresMax[i]), 2)
-    }
-    for (let i = 0; i < this.nbQuestions; i++) {
-      nbDiviseursMax[i] = contraindreValeur(2, parseInt(this.sup3), parseFloat(nbDiviseursMax[i]), 6)
-    }
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
     for (let i = 0, listeDiviseursM = [], nbDiviseursM, M, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

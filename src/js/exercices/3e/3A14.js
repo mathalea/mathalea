@@ -40,13 +40,13 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
     if (!this.sup) { // Si aucune liste n'est saisie
       QuestionsDisponibles = [1, 2, 3]
     } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est qu'il y a qu'un problème
-        QuestionsDisponibles[0] = this.sup
+      if (!isNaN(this.sup)) { // Si c'est un nombre c'est qu'il y a qu'un problème
+        QuestionsDisponibles[0] = contraindreValeur(1, 3, parseInt(this.sup), 1)
       } else {
         QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
         // this.nbQuestions = QuestionsDisponibles.length
         for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(1, 3, parseInt(QuestionsDisponibles[i])) // parseInt en fait un tableau d'entiers
+          QuestionsDisponibles[i] = contraindreValeur(1, 3, parseInt(QuestionsDisponibles[i]), 1) // parseInt en fait un tableau d'entiers
         }
       }
     }
@@ -65,7 +65,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           if (this.interactif && !context.isAmc) {
             texte = `Un fleuriste dispose de ${var1 * objet} iris et de ${var2 * objet} roses. <br>`
             texte += 'Il veut, en utilisant toutes ses fleurs, réaliser un maximum de bouquets '
-            texte += 'contenant tous le même nombre d’iris et le même nombre de roses. <br>'
+            texte += 'contenant tous le même nombre diris et le même nombre de roses. <br>'
             texte += 'Donner le nombre maximal de bouquets que le fleuriste peut réaliser '
             texte += 'et la composition du bouquet.<br><br>'
             texte += numAlpha(0) + `Nombre maximal de bouquets :${sp(20)}`
@@ -77,10 +77,10 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texteCorr += ' Le nombre maximal de bouquets est donc : ' + texteEnCouleurEtGras(`${objet}`) + '.<br><br>'
             setReponse(this, 3 * i, objet)
 
-            texte += numAlpha(1) + `Nombre d’iris dans chaque bouquet :${sp(8)}`
+            texte += numAlpha(1) + `Nombre d'iris dans chaque bouquet :${sp(8)}`
             texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur25') + '<br><br>'
             texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$<br>`
-            texteCorr += 'Le nombre d’iris dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
+            texteCorr += 'Le nombre d\'ris dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
             setReponse(this, 3 * i + 1, var1)
 
             texte += numAlpha(2) + ' Nombre de roses dans chaque bouquet :'
@@ -91,7 +91,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           } else {
             texte = `Un fleuriste dispose de ${var1 * objet} iris et de ${var2 * objet} roses. <br>`
             texte += 'Il veut, en utilisant toutes ses fleurs, réaliser un maximum de bouquets '
-            texte += 'contenant tous le même nombre d’iris et le même nombre de roses. <br><br>'
+            texte += 'contenant tous le même nombre d\'ris et le même nombre de roses. <br><br>'
             texte += numAlpha(0) + 'Quel est le nombre maximal de bouquets ?<br><br>'
             texteCorr = numAlpha(0)
             texteCorr += `- Les diviseurs de ${var1 * objet} sont : ${listeDesDiviseurs(var1 * objet).join(', ')}.<br>`
@@ -99,9 +99,9 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texteCorr += `${objet} est le plus grand nombre qui divise à la fois ${var1 * objet} et ${var2 * objet}.<br>`
             texteCorr += ' Le nombre maximal de bouquets est donc : ' + texteEnCouleurEtGras(`${objet}`) + '.<br><br>'
 
-            texte += numAlpha(1) + 'Quel est le nombre d’iris dans chaque bouquet ?<br><br>'
+            texte += numAlpha(1) + 'Quel est le nombre d\'ris dans chaque bouquet ?<br><br>'
             texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$<br>`
-            texteCorr += 'Le nombre d’iris dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
+            texteCorr += 'Le nombre d\'ris dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
 
             texte += numAlpha(2) + 'Quel est le nombre de roses dans chaque bouquet ?<br><br>'
             texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$<br>`

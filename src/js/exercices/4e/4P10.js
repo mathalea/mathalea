@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, exposant, arrondi, arrondiVirgule, texFractionReduite, produitsEnCroix, quatriemeProportionnelle, calcul, texNombrec, prenomF, prenom, texNombre, nombreAvecEspace, miseEnEvidence, texPrix, katexPopup2, numAlpha } from '../../modules/outils.js'
-export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d’unités complexes'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteExposant, arrondi, texFractionReduite, produitsEnCroix, quatriemeProportionnelle, calcul, texNombrec, prenomF, prenom, texNombre, nombreAvecEspace, miseEnEvidence, texPrix, katexPopup2, numAlpha, contraindreValeur } from '../../modules/outils.js'
+export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d\'unités complexes'
 
 /**
  * problèmes de grandeurs composées
@@ -40,10 +40,13 @@ export default function ProblemesGrandeursComposees () {
     } else {
       if (typeof this.sup === 'number') {
         // Si c'est un nombre c'est qu'il y a qu'une seule grandeur
-        grandeurs[0] = this.sup % 15
+        grandeurs[0] = parseInt(this.sup) % 15
         this.nbQuestions = 1
       } else {
         grandeurs = this.sup.split('-') // Sinon on créé un tableau à partir des valeurs séparées par des -
+        for (let i = 0; i < grandeurs.length; i++) {
+          grandeurs[i] = contraindreValeur(1, 14, parseInt(grandeurs[i]), randint(1, 14))
+        }
         this.nbQuestions = grandeurs.length
       }
     }
@@ -199,7 +202,7 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'énergie',
               'Définition : énergie (grandeur physique)',
-              'C’est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.'
+              'C\'est le produit de la puissance électrique (Watt) par le temps (s) et se mesure en Joule (J).<br>1 J=1 W × 1 s.<br>Cependant pour mesurer des énergies plus importantes on utilise plutôt le kiloWattheure (kWh).<br>1 kWh=1000 W × 1 h.'
             ) +
             ' consommée.<br>'
           texte += numAlpha(1) + ' Calculer la dépense correspondante.'
@@ -234,9 +237,9 @@ export default function ProblemesGrandeursComposees () {
               calcul(puissance * duree * 0.001)
             )}\\text{ kWh}`
           if (!((prixkWh * puissance * duree) / 10 === Math.round((prixkWh * puissance * duree) / 10))) {
-            texteCorr += `\\approx${arrondiVirgule(((prixkWh * puissance) / 1000) * duree, 2)}$ €`
+            texteCorr += `\\approx${texNombre(((prixkWh * puissance) / 1000) * duree, 2)}$ €`
           } else {
-            texteCorr += `=${arrondiVirgule(
+            texteCorr += `=${texNombre(
               ((prixkWh * puissance) / 1000) * duree,
               2
             )}$ €`
@@ -262,13 +265,13 @@ export default function ProblemesGrandeursComposees () {
                   typeAide,
                   'volume',
                   'Définition : volume (grandeur physique)',
-                  `C’est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube (m${exposant(
+                  `C\'est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube (m${texteExposant(
                     3
-                  )}) mais on peut aussi rencontrer le litre (L) avec comme correspondance 1dm${exposant(
+                  )}) mais on peut aussi rencontrer le litre (L) avec comme correspondance 1dm${texteExposant(
                     3
                   )}=1L`
                 ) +
-                ` d'eau en m${exposant(
+                ` d'eau en m${texteExposant(
                   3
                 )} contenu dans cette piscine quand elle est pleine.<br>`
               texte +=
@@ -278,31 +281,31 @@ export default function ProblemesGrandeursComposees () {
                 numAlpha(0) +
                 ` La base de ce prisme droit est un trapèze rectangle de petite base ${h2} cm, de grande base ${h1} cm et de hauteur ${L} m.<br>`
               texteCorr += `$\\mathcal{A}=\\dfrac{\\left(${h1}\\text{ cm}+${h2}\\text{ cm}\\right)}{2}\\times${L}\\text{ m}$`
-              texteCorr += ` $=\\dfrac{\\left(${arrondiVirgule(
-                h1 / 100
-              )}\\text{ m}+${arrondiVirgule(
-                h2 / 100
+              texteCorr += ` $=\\dfrac{\\left(${texNombre(
+                h1 / 100, 2
+              )}\\text{ m}+${texNombre(
+                h2 / 100, 2
               )}\\text{ m}\\right)}{2}\\times${L}\\text{ m}$`
-              texteCorr += ` $=\\dfrac{${arrondiVirgule(
-                (h1 + h2) / 100
+              texteCorr += ` $=\\dfrac{${texNombre(
+                (h1 + h2) / 100, 2
               )}\\text{ m}}{2}\\times${L}\\text{ m}$`
-              texteCorr += ` $=${arrondiVirgule(
-                (h1 + h2) / 200
+              texteCorr += ` $=${texNombre(
+                (h1 + h2) / 200, 2
               )}\\text{ m}\\times${L}\\text{ m}$`
-              texteCorr += ` $=${arrondiVirgule(
-                ((h1 + h2) / 200) * L
-              )}\\text{ m}$${exposant(2)}<br>`
+              texteCorr += ` $=${texNombre(
+                ((h1 + h2) / 200) * L, 2
+              )}\\text{ m}$${texteExposant(2)}<br>`
               texteCorr += 'Le volume de ce prisme et donc par extension le volume d\'eau conteu dans la piscine est :<br>'
-              texteCorr += `$\\mathcal{A}\\times\\mathcal{h}=${arrondiVirgule(
-                ((h1 + h2) / 200) * L
+              texteCorr += `$\\mathcal{A}\\times\\mathcal{h}=${texNombre(
+                ((h1 + h2) / 200) * L, 2
               )}\\text{ m}^2\\times${l}\\text{ m}$`
-              texteCorr += ` $=${arrondiVirgule(
-                ((h1 + h2) / 200) * L * l
-              )}$m${exposant(3)}.<br>`
+              texteCorr += ` $=${texNombre(
+                ((h1 + h2) / 200) * L * l, 2
+              )}$m${texteExposant(3)}.<br>`
               texteCorr +=
                 numAlpha(1) +
-                ` Convertissons le volume de la piscine en litres : $${arrondiVirgule(
-                  ((h1 + h2) / 200) * L * l
+                ` Convertissons le volume de la piscine en litres : $${texNombre(
+                  ((h1 + h2) / 200) * L * l, 2
                 )}\\text{ m}^3=${texNombre(
                   (h1 + h2) * L * l * 5
                 )}\\text{ dm}^3=${texNombre(
@@ -330,9 +333,9 @@ export default function ProblemesGrandeursComposees () {
                   typeAide,
                   'volume',
                   'Définition : volume (grandeur physique)',
-                  'C’est le produit de trois longueurs ou le produit d\'une aire et d\'une longueur.<br>L\'unité de mesure du volume est le mètre cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3=\\text{1L}$'
+                  'C\'est le produit de trois longueurs ou le produit d\'une aire et d\'une longueur.<br>L\'unité de mesure du volume est le mètre cube ($\\text{m}^3$) mais on peut aussi rencontrer le litre (L) avec comme correspondance $\\text{1dm}^3=\\text{1L}$'
                 ) +
-                ` en dm${exposant(3)} à 0,1 près de ce tonneau.<br>`
+                ` en dm${texteExposant(3)} à 0,1 près de ce tonneau.<br>`
               texte +=
                 numAlpha(1) +
                 ` Si on le remplit ${liquides[index2][0]} (dont la ` +
@@ -391,7 +394,7 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'quantité de mouvement',
               'Définition : quantité de mouvement (grandeur physique)',
-              'C’est le produit de la masse d\'un corps par sa vitesse.<br>L\'unité de mesure de la quantité de mouvement est le ($\\text{kg.m.s}^{-1}$)'
+              'C\'est le produit de la masse d\'un corps par sa vitesse.<br>L\'unité de mesure de la quantité de mouvement est le ($\\text{kg.m.s}^{-1}$)'
             ) +
             ' en $\\text{kg.m.s}^{-1}$.<br>'
           texte +=
@@ -527,12 +530,12 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'puissance',
               'Définition : Puissance (grandeur physique)',
-              'C’est le produit de la force électromotrice (tension) exprimée en Volt (V) par l\'intensité du courant électrique exprimée en ampères (A).<br>L\'unité de mesure de la puissance est le Watt (W)'
+              'C\'est le produit de la force électromotrice (tension) exprimée en Volt (V) par l\'intensité du courant électrique exprimée en ampères (A).<br>L\'unité de mesure de la puissance est le Watt (W)'
             ) +
             ' maximale de cet appareil s\'il fonctionne sur le secteur ?<br>'
           texte +=
             numAlpha(1) +
-            ` Un ${appareils[index1][0]} fonctionne à une puissance maximum de ${appareils[index1][1]} W.<br>Quel est l'ampérage minimum nécessaire pour le fusible qui protégera ce ${appareils[index][0]} des court-ciruits ?<br>`
+            ` Un ${appareils[index1][0]} fonctionne à une puissance maximum de ${appareils[index1][1]} W.<br>Quel est l'ampérage minimum nécessaire pour le fusible qui protégera ce ${appareils[index1][0]} des court-ciruits ?<br>`
           texteCorr =
             numAlpha(0) +
             ` La tension du secteur étant de 230V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
@@ -850,12 +853,12 @@ export default function ProblemesGrandeursComposees () {
           quidam = prenomF()
           texte = `${quidam} se rends à l'épicerie de son quartier. Elle y achète $${texNombre(
             masse
-          )}$ kg de ${fruits[index1][0]} à ${texPrix(
+          )}$ kg de ${fruits[index1][0]} à $${texPrix(
             fruits[index1][1]
-          )} €/kg et pour ${texPrix(prix2)} € de ${fruits[index2][0]
-            } à ${texPrix(fruits[index2][1])} €/kg.<br>`
+          )}$ €/kg et pour $${texPrix(prix2)}$ € de ${fruits[index2][0]
+            } à $${texPrix(fruits[index2][1])}$ €/kg.<br>`
           texte += `Enfin, elle achète $${texNombre(masse3)}$ kg de ${fruits[index][0]
-            } pour ${texPrix(prix3)} €.<br>`
+            } pour $${texPrix(prix3)}$ €.<br>`
           texte +=
             numAlpha(0) +
             ` Combien lui coûtent les ${fruits[index1][0]} ?<br>`
@@ -892,7 +895,7 @@ export default function ProblemesGrandeursComposees () {
           prix1 = locations[index1][1]
           prix2 = cours[index2][1] * randint(2, 6)
           quidam = prenomF()
-          texte = `${quidam} a prévu de louer ${locations[index1][0]} pendant $${nbheures}$ heures. L'heure de location coûte ${texPrix(prix1)} €.<br>`
+          texte = `${quidam} a prévu de louer ${locations[index1][0]} pendant $${texNombre(nbheures)}$ heures. L'heure de location coûte $${texPrix(prix1)}$ €.<br>`
           texte += numAlpha(0) + ' Combien cette location va lui coûter ?<br>'
           texte +=
             numAlpha(1) +
@@ -935,11 +938,9 @@ export default function ProblemesGrandeursComposees () {
               typeAide,
               'densité de population',
               'Définition : Densité de population',
-              'C’est le quotient du nombre d\'habitants par la superficie en km$^2$.<br>L\'unité de la densité de population est l\'habitant par km$^2$ (hab/km$^2$).'
+              'C\'est le quotient du nombre d\'habitants par la superficie en km$^2$.<br>L\'unité de la densité de population est l\'habitant par km$^2$ (hab/km$^2$).'
             ) +
-            ` de ${villes[index2][0]} était de $${texNombrec(
-              villes[index2][1] / villes[index2][2]
-            )}$ hab/km$^2$ pour une superficie de $${texNombrec(
+            ` de ${villes[index2][0]} était de $${texNombrec(villes[index2][1] / villes[index2][2], 8)}$ hab/km$^2$ pour une superficie de $${texNombrec(
               villes[index2][2] * 100
             )}$ ha.<br> Calculer le nombre d'habitants de ${villes[index2][0]
             } à cette date.<br>`
@@ -947,15 +948,15 @@ export default function ProblemesGrandeursComposees () {
             numAlpha(0) +
             ` En 2016, la densité de population à ${villes[index1][0]
             } était de :<br> $\\dfrac{${texNombre(
-              villes[index1][1]
+              villes[index1][1], 0
             )}\\text{ hab}}{${texNombrec(
-              villes[index1][2] * 100
+              villes[index1][2] * 100, 0
             )}\\text{ ha}}=\\dfrac{${texNombre(
-              villes[index1][1]
+              villes[index1][1], 0
             )}\\text{ hab}}{${texNombre(
-              villes[index1][2]
-            )}\\text{ km}^2}=${texNombrec(
-              villes[index1][1] / villes[index1][2]
+              villes[index1][2], 2
+            )}\\text{ km}^2}\\approx${texNombrec(
+              villes[index1][1] / villes[index1][2], 2
             )}\\text{ hab/km}^{2}$.<br>`
           texteCorr +=
             numAlpha(1) +
@@ -1081,10 +1082,10 @@ export default function ProblemesGrandeursComposees () {
             ) +
             ` annuel moyen ${rivieres[index2][6]}${rivieres[index2][0]
             } mesuré à ${rivieres[index2][1]} est de ${rivieres[index2][2]
-            } m${exposant(3)}/s.<br>`
+            } m${texteExposant(3)}/s.<br>`
           texte +=
             numAlpha(0) +
-            ` Calculer le volume d'eau en m${exposant(
+            ` Calculer le volume d'eau en m${texteExposant(
               3
             )} écoulé en ${duree} heures à ce débit.<br>`
           texte +=
@@ -1092,7 +1093,7 @@ export default function ProblemesGrandeursComposees () {
             ` En ${rivieres[index2][4]} à ${rivieres[index2][1]}, ${rivieres[index2][5]
             }${rivieres[index2][0]} a débité ${nombreAvecEspace(
               vMax
-            )} m${exposant(
+            )} m${texteExposant(
               3
             )} en une heure. Quel a été alors le débit en m³/s ?`
           texteCorr =

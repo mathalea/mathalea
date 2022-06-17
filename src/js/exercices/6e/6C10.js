@@ -5,7 +5,6 @@ import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, te
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
-
 export const amcReady = true
 export const amcType = 'AMCHybride' // type de question AMC
 export const interactifReady = true
