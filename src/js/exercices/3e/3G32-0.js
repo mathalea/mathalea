@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, numAlpha, stringNombre, combinaisonListes, texNombre, arrondi, texFractionReduite, creerNomDePolygone, choice, sp, lettreDepuisChiffre, rangeMinMax, contraindreValeur, compteOccurences, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
 import { texteSurSegment, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d, tracePoint, labelPoint, pointAdistance, projectionOrtho, droite, longueur, angle, droiteVerticaleParPoint, cercle, pointIntersectionLC, polygone } from '../../modules/2d.js'
-import { arete3d, demicercle3d, point3d, rotationV3d, sphere3d, vecteur3d } from '../../modules/3d.js'
+import { arete3d, CodageAngleDroit3D, demicercle3d, point3d, rotationV3d, sphere3d, vecteur3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
@@ -284,6 +284,7 @@ export default function problemesTrigoLongueur () {
 
           break
         case 2:
+          context.anglePerspective = 20
           objets = []
           alpha = randint(30, 60)
           O = point3d(0, 0, 0, false, 'O')
@@ -295,16 +296,19 @@ export default function problemesTrigoLongueur () {
           normalV = vecteur3d(0, 0, 1)
           M = rotationV3d(M, normalV, context.anglePerspective)
           M.c2d.nom = 'M'
+          M.c2d.positionLabel = 'below'
           normalH = rotationV3d(R, normalV, 90)
           P = rotationV3d(M, normalH, -alpha)
           P.c2d.nom = 'P'
+          P.c2d.positionLabel = 'above right'
           H = point3d(0, 0, P.z, false)
-          R2 = vecteur3d(H, P)
+          R2 = rotationV3d(vecteur3d(H, P), normalV, context.anglePerspective) // Rayon obtenu depuis P
           H.c2d.nom = 'H'
-          Sph = sphere3d(O, 5, 1, 3)
+          H.c2d.positionLabel = 'above right'
+          Sph = sphere3d(O, 5, 2, 3)
           HP = arete3d(H, P)
           OP = arete3d(O, P)
-          objets.push(...Sph.c2d, Axe.c2d, HP.c2d, OP.c2d, codageAngleDroit(P.c2d, H.c2d, O.c2d), tracePoint(H.c2d, P.c2d, O.c2d, M.c2d), labelPoint(H.c2d, P.c2d, O.c2d, M.c2d))
+          objets.push(...Sph.c2d, Axe.c2d, HP.c2d, OP.c2d, new CodageAngleDroit3D(P, H, O), tracePoint(H.c2d, P.c2d, O.c2d, M.c2d), labelPoint(H.c2d, P.c2d, O.c2d, M.c2d))
           objets.push(demicercle3d(H, normalV, R2, 'caché', 'red', 0), demicercle3d(H, normalV, R2, 'visible', 'red', 0))
           objets.push(arete3d(O, M).c2d)
           objets.push(afficheMesureAngle(M.c2d, O.c2d, P.c2d, 'black', 1.5, `${alpha}`))
@@ -317,9 +321,9 @@ export default function problemesTrigoLongueur () {
           texteCorr += 'Les segments $[HP]$ et $[OM]$ sont parallèles, donc les angles alternes-internes $\\widehat{MOP}$ et $\\widehat{OPH}$ sont égaux.<br>'
           texteCorr += 'Dans le triangle $OPH$ rectangle en $H$, $\\cos(\\widehat{OPH})=\\dfrac{HP}{OP}$ d\'où $HP=OP\\times \\cos(\\widehat{OPH})$.<br>'
           texteCorr += `Le rayon de la Terre étant approximativement de $${texNombre(6400)}$${sp()}km, nous pouvons calculer $HP$.<br>`
-          texteCorr += `$HP\\approx${texNombre(6400)}${sp()}km\\times \\cos(${alpha}\\degree)\\approx ${texNombre(6400 * Math.cos(alpha * Math.PI / 180), 6)}${sp()}km$<br>`
+          texteCorr += `$HP\\approx${texNombre(6400)}${sp()}km\\times \\cos(${alpha}\\degree)\\approx ${texNombre(arrondi(6400 * Math.cos(alpha * Math.PI / 180)))}${sp()}km$<br>`
           reponse = Math.round(2 * Math.PI * 6400 * Math.cos(alpha * Math.PI / 180))
-          texteCorr += `Calculons maintenant la longueur $L$ du $${alpha}$e parallèle : $L\\approx 2\\times \\pi\\times ${texNombre(6400 * Math.cos(alpha * Math.PI / 180), 6)}${sp()}km\\approx ${texNombre(reponse)}${sp()}km$.<br>`
+          texteCorr += `Calculons maintenant la longueur $L$ du $${alpha}$e parallèle : $L\\approx 2\\times \\pi\\times ${texNombre(arrondi(6400 * Math.cos(alpha * Math.PI / 180)))}${sp()}km\\approx ${texNombre(reponse)}${sp()}km$.<br>`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
             setReponse(this, i + ii, new Grandeur(reponse, 'km'), { formatInteractif: 'unites' })
