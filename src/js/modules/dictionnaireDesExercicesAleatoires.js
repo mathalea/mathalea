@@ -10938,6 +10938,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "beta6M21-1": {
+    "titre": "Aire d'assemblages de rectangles",
+    "url": "/exercices/beta/beta6M21-1.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "beta6M21-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "beta6N12-interactif": {
     "titre": "Multiplier un entier par 10, 100, 1 000...",
     "url": "/exercices/beta/beta6N12-interactif.js",
