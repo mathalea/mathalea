@@ -2007,7 +2007,7 @@ export function lettreMinusculeDepuisChiffre (i) {
 */
 export function lettreIndiceeDepuisChiffre (i) {
   const indiceLettre = quotientier(i - 1, 26) === 0 ? '' : quotientier(i - 1, 26)
-  return String.fromCharCode(64 + (i - 1) % 26 + 1) + `_{${indiceLettre}}`
+  return String.fromCharCode(64 + (i - 1) % 26 + 1) + (i > 26 ? `_{${indiceLettre}}` : '')
 }
 
 /**

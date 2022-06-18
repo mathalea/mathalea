@@ -3588,10 +3588,13 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
         if (this.opacite !== 1) {
           this.style += ` stroke-opacity="${this.opacite}" `
         }
-        if (this.couleurDeRemplissage[0] !== 'none') {
+        if (this.couleurDeRemplissage === '' || this.couleurDeRemplissage === undefined) {
+          this.style += ' fill="none" '
+        } else {
+          this.style += ` fill="${this.couleurDeRemplissage[0]}" `
           this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
         }
-        return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style}/>`
+        return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style}/>`
       }
     }
   } else {
@@ -3620,7 +3623,10 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
       if (this.opacite !== 1) {
         this.style += ` stroke-opacity="${this.opacite}" `
       }
-      if (this.couleurDeRemplissage[0] !== 'none') {
+      if (this.couleurDeRemplissage === '' || this.couleurDeRemplissage === undefined) {
+        this.style += ' fill="none" '
+      } else {
+        this.style += ` fill="${this.couleurDeRemplissage[0]}" `
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
       }
       return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
@@ -3895,6 +3901,24 @@ export function dansLaCibleRonde (x, y, rang, taille, cellule) {
   }
 }
 
+/**
+ * Crée une cible carrée pour l'auto-correction
+ * @param {number} [x=0] Abscisse du point au centre de la cible
+ * @param {number} [y=0] Ordonnée du point au centre de la cible
+ * @param {number} [rang=4] Nombre de cases en largeur
+ * @param {number} [num] Numéro (ou rien) pour identifier la cible (quand il y en a plusieurs)
+ * @param {number} [taille=0.6] Taille des cases
+ * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
+ * @param {number} [opacite=0.5] Opacité de la cible
+ * @example CibleCarree({})
+ * // Crée une cible Carree, de centre (0,0), avec 4 carrés en largeur dont chacune a pour côté 0.6, de couleur grise avec une opacité de 50 %
+ * @example CibleCarree({ x: 2, y: -1, rang: 5, num: 17, taille: 0.5, color: 'blue', opacite: 0.8 })
+ * // Crée une cible Carree, de centre (2,-1), avec 5 carrés en largeur dont chacune a pour côté 0.5, de couleur bleue avec une opacité de 80 %, portant le numéro 17
+ * @author Jean-Claude Lhote
+ * @return {code_SVG|code_TikZ}
+ * @private
+ */
+// JSDOC Validee EE Juin 2022
 function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this)
   this.x = x
@@ -3953,18 +3977,24 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
     return code
   }
 }
+
 /**
- * création d'une cible carrée pour l'auto-correction
+ * Crée une cible carrée pour l'auto-correction
+ * @param {number} [x=0] Abscisse du point au centre de la cible
+ * @param {number} [y=0] Ordonnée du point au centre de la cible
+ * @param {number} [rang=4] Nombre de cases en largeur
+ * @param {number} [num] Numéro (ou rien) pour identifier la cible (quand il y en a plusieurs)
+ * @param {number} [taille=0.6] Taille des cases
+ * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
+ * @param {number} [opacite=0.5] Opacité de la cible
+ * @example cibleCarree({})
+ * // Crée une cible Carree, de centre (0,0), avec 4 carrés en largeur dont chacune a pour côté 0.6, de couleur grise avec une opacité de 50 %
+ * @example cibleCarree({ x: 2, y: -1, rang: 5, num: 17, taille: 0.5, color: 'blue', opacite: 0.8 })
+ * // Crée une cible Carree, de centre (2,-1), avec 5 carrés en largeur dont chacune a pour côté 0.5, de couleur bleue avec une opacité de 80 %, portant le numéro 17
  * @author Jean-Claude Lhote
- * @param {number} x
- * @param {number} y // les coordonnées du point au centre de la cible
- * @param {number} rang // le nombre de cases de large
- * @param {number} num // Un numéro ou rien pour identifier la cible (quand il y en a plusieurs)
- * @param {number} taille // en cm, la taille des cases
- * @param {string} color // la couleur de la cible
- * @param {number} opacite // l'opacité de la cible
- * @param {} param0
+ * @return {CibleCarree}
  */
+// JSDOC Validee EE Juin 2022
 export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
   return new CibleCarree({ x, y, rang, num, taille, color, opacite })
 }
@@ -4024,22 +4054,42 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray'
  * Repérage de A1 à Hn où n est le rang.
  * @author Jean-Claude Lhote
  * @param {number} x
- * @param {number} y // les coordonnées du point en bas à gauche de la cible
- * @param {number} rang // le nombre de cases de large
- * @param {number} num // Un numéro ou rien pour identifier la cible (quand il y en a plusieurs)
- * @param {number} taille // en cm, la taille des cases
- * @param {string} color // la couleur de la cible
- * @param {number} opacite // l'opacité de la cible
+ * @param {number} y les coordonnées du point en bas à gauche de la cible
+ * @param {number} rang le nombre de cases de large
+ * @param {number} num Un numéro ou rien pour identifier la cible (quand il y en a plusieurs)
+ * @param {number} taille en cm, la taille des cases
+ * @param {string} color la couleur de la cible
+ * @param {number} opacite l'opacité de la cible
  * @param {} param0
  */
 export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, color = 'gray', opacite = 0.5 }) {
   return new CibleRonde({ x, y, rang, num, taille, color, opacite })
 }
+
 /**
- * création d'une cible couronne en forme de rapporteur ou semi-rapporteur pour l'auto-correction
+ * Crée une cible couronne pour l'auto-correction
+ * @param {number} [x=0] Abscisse du point au centre de la cible
+ * @param {number} [y=0] Ordonnée du point au centre de la cible
+ * @param {number} [taille=5] Rayon du cercle intérieur
+ * @param {number} [taille2=1] Longueur des segments dans la couronne
+ * @param {number} [depart=0] Valeur angulaire en degré du départ de la couronne
+ * @param {number} [nbDivisions=18] Nombre de divisions de la couronne
+ * @param {number} [nbSubDivisions=3] Nombre de subdivisions dans chaque division de la couronne
+ * @param {boolean} [semi=false] Pour obtenir une cible semi-circulaire ou circulaire
+ * @param {boolean} [label=true] Pour faire apparaître ou disparaître les lettres dans la couronne
+ * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
+ * @param {number} [opacite=0.5] Opacité de la cible
+ * @example CibleCouronne({})
+ * // Crée une cible couronne circulaire, de centre (0,0), dont le rayon du cercle intérieur est 5, la longueur des segments est 1, la première lettre démarre à 0°,
+ * //    le nombre de divisions de la couronne est 18, le nombre de subdivisions est 3, leur opacité est 50 %, avec les lettres apparentes, de couleur grise
+ * @example CibleCouronne({ x: 2, y: -1, taille: 4, taille2: 2, depart: 35, nbDivisions: 12, nbSubDivisions: 2, semi: true, label: false, color: 'blue', opacite: 0.8 })
+ * // Crée une cible couronne semi-circulaire, de centre (2,-1), dont le rayon du cercle intérieur est 4, la longueur des segments est 2, la première lettre démarre à 35°,
+ * //    le nombre de divisions de la couronne est 12, le nombre de subdivisions est 2, leur opacité est 80 %, avec les lettres non apparentes, de couleur bleue
  * @author Jean-Claude Lhote
- * (x,y) sont les coordonnées du centre de la cible
+ * @return {code_SVG|code_TikZ}
+ * @private
  */
+// JSDOC Validee EE Juin 2022
 function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this)
   this.x = x
@@ -4102,20 +4152,30 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbD
     return code
   }
 }
+
 /**
- * création d'une cible couronne en forme de rapporteur ou semi-rapporteur pour l'auto-correction
+ * Crée une cible couronne pour l'auto-correction
+ * @param {number} [x=0] Abscisse du point au centre de la cible
+ * @param {number} [y=0] Ordonnée du point au centre de la cible
+ * @param {number} [taille=5] Rayon du cercle intérieur
+ * @param {number} [taille2=1] Longueur des segments dans la couronne
+ * @param {number} [depart=0] Valeur angulaire en degré du départ de la couronne
+ * @param {number} [nbDivisions=18] Nombre de divisions de la couronne
+ * @param {number} [nbSubDivisions=3] Nombre de subdivisions dans chaque division de la couronne
+ * @param {boolean} [semi=false] Pour obtenir une cible semi-circulaire ou circulaire
+ * @param {boolean} [label=true] Pour faire apparaître ou disparaître les lettres dans la couronne
+ * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
+ * @param {number} [opacite=0.5] Opacité des segments de divisions et subdivisions
+ * @example cibleCouronne({})
+ * // Crée une cible couronne circulaire, de centre (0,0), dont le rayon du cercle intérieur est 5, la longueur des segments est 1, la première lettre démarre à 0°,
+ * //    le nombre de divisions de la couronne est 18, le nombre de subdivisions est 3, leur opacité est 50 %, avec les lettres apparentes, de couleur grise
+ * @example cibleCouronne({ x: 2, y: -1, taille: 4, taille2: 2, depart: 35, nbDivisions: 12, nbSubDivisions: 2, semi: true, label: false, color: 'blue', opacite: 0.8 })
+ * // Crée une cible couronne semi-circulaire, de centre (2,-1), dont le rayon du cercle intérieur est 4, la longueur des segments est 2, la première lettre démarre à 35°,
+ * //    le nombre de divisions de la couronne est 12, le nombre de subdivisions est 2, leur opacité est 80 %, avec les lettres non apparentes, de couleur bleue
  * @author Jean-Claude Lhote
- * (x,y) sont les coordonnées du centre de la cible
- * @param {number} taille distance entre le centre de la cible et l'arc intérieur
- * @param {number} taille2 distance entre l'arc intérieur et l'arc extérieur de la couronne
- * @param {number} depart angle pour démarrer la numérotation des zones 0 = est
- * @param {number} nbDivisions nombre de secteurs dans la couronne ou la semi-couronne
- * @param {number} nbSubDivisions nombre de graduations à l'intérieur de chaque zone pour un repérage plus précis
- * @param {boolean} semi si true alors seulement 180° sinon couronne à 360°
- * @param {boolean} label si true alors des lettres sont ajoutées pour identifier les zones
- * @param {string} color La couleur de la cible
- * @param {number} opacite son opacité.
+ * @return {CibleCouronne}
  */
+// JSDOC Validee EE Juin 2022
 export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true, color = 'gray', opacite = 0.5 }) {
   return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label, color, opacite })
 }
@@ -4127,7 +4187,6 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
   this.taille = taille
   this.opacite = 0.7
   this.color = color
-  console.log(this.color)
   const objets = []
   let numero
   let azimut
@@ -4214,7 +4273,6 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
   }
   objets.push(rayon)
   this.bordures = [x - taille - 1, y - taille - 1, x + taille + 1, y + taille + 1]
-
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -8856,14 +8914,14 @@ function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalit
     if (hachures[i]) {
       hachure = motifs(listeMotifs[i])
       a.hachures = hachure
-      a.couleurDesHachures = texcolors(i + 1)
-      a.couleurDeRemplissage = texcolors(i + 2)
+      a.couleurDesHachures = colorToLatexOrHTML(texcolors(i + 1))
+      a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 2))
     } else {
       hachure = ''
       a.hachures = ''
     }
     a.opaciteDeRemplissage = 0.7
-    if (remplissage[i]) a.couleurDeRemplissage = texcolors(i + 1)
+    if (remplissage[i]) a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 1))
     if (visibles[i]) secteurs.push(a)
     if (valeurs[i]) {
       etiquettes.push(latexParPoint(texNombre(effectifs[i]), similitude(depart, centre, alpha + angle * 3 / 4, 0.8), 'black', 20, 12, 'yellow', 8))
