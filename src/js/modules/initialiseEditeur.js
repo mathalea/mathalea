@@ -125,6 +125,7 @@ export default function initialiseEditeur () {
   window.codageAngleDroit = codageAngleDroit
   window.afficheLongueurSegment = afficheLongueurSegment
   window.texteSurSegment = texteSurSegment
+  window.texteSurArc = texteSurArc
   window.afficheMesureAngle = afficheMesureAngle
   window.afficheCoteSegment = afficheCoteSegment
   window.codeSegment = codeSegment
@@ -340,6 +341,7 @@ export default function initialiseEditeur () {
     codageAngleDroit: window.codageAngleDroit,
     afficheLongueurSegment: window.afficheLongueurSegment,
     texteSurSegment: window.texteSurSegment,
+    texteSurArc: window.texteSurArc,
     afficheMesureAngle: window.afficheMesureAngle,
     afficheCoteSegment: window.afficheCoteSegment,
     codeSegment: window.codeSegment,
