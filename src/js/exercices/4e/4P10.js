@@ -265,7 +265,7 @@ export default function ProblemesGrandeursComposees () {
                   typeAide,
                   'volume',
                   'Définition : volume (grandeur physique)',
-                  `C\'est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube (m${texteExposant(
+                  `C'est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube (m${texteExposant(
                     3
                   )}) mais on peut aussi rencontrer le litre (L) avec comme correspondance 1dm${texteExposant(
                     3

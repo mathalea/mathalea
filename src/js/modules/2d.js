@@ -2721,7 +2721,7 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
   for (let i = 0; i < 2 * holes[0]; i += 2) {
     sommetsContour.push(point(data[i], data[i + 1]))
     if (noms.length >= data.length << 1) {
-      sommetsContour[i << 1].nom = noms[i << 1]
+      sommetsContour[i >> 1].nom = noms[i << 1]
     }
   }
   // On cherche les bordures
@@ -2745,8 +2745,8 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
     trous[i] = []
     for (let j = holes[i] * 2; j < (i !== holes.length - 1 ? holes[i + 1] * 2 : data.length); j += 2) {
       trou = point(data[j], data[j + 1])
-      if (noms.length >= data.length << 1) {
-        trou.nom = noms[j << 1]
+      if (noms.length >= data.length >> 1) {
+        trou.nom = noms[j >> 1]
       }
       trous[i].push(trou)
     }
@@ -3364,7 +3364,7 @@ export function pointIntersectionLC (d, C, nom = '', n = 1) {
   const xO = O.x
   const yO = O.y
   let Delta, delta, xi, yi, xiPrime, yiPrime
-  if (egal(a, 0, 0.000001)) {
+  if (egal(b, 0, 0.000001)) {
     // la droite est verticale
     xi = -c / a
     xiPrime = xi
