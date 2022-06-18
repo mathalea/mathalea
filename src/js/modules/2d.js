@@ -10195,7 +10195,7 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
     const centrage = 0.4 * context.pixelsParCm * Math.log10(tailleCaracteres)
     if (this.colorBackground !== '') {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="margin:auto;width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
-    $\\colorbox{${this.colorBackground[0]}}{$${taille} \\color{${this.color}}{${this.texte}}$}$</div></foreignObject>`
+    $\\colorbox{${this.colorBackground}}{$${taille} \\color{${this.color}}{${this.texte}}$}$</div></foreignObject>`
     } else {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
       $${taille} \\color{${this.color}}{${this.texte}}$</div></foreignObject>`
