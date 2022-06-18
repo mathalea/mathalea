@@ -1450,13 +1450,15 @@ async function miseAJourDeLaListeDesExercices (preview) {
               listeObjetsExercice[i].contenuCorrection = listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : data
             })
         )
-        promises.push(
-          window.fetch(dictionnaireDesExercices[id].urlcorcoop)
-            .then((response) => response.text())
-            .then((data) => {
-              listeObjetsExercice[i].contenuCorrection += listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : '\\begin{LARGE}\\textbf{Correction alternative COOPMATHS}\\end{LARGE} \\par\\vspace{0.5cm}' + data
-            })
-        )
+        if (typeof dictionnaireDesExercices[id].urlcorcoop !== 'undefined') {
+          promises.push(
+            window.fetch(dictionnaireDesExercices[id].urlcorcoop)
+              .then((response) => response.text())
+              .then((data) => {
+                listeObjetsExercice[i].contenuCorrection += listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : '\\begin{LARGE}\\textbf{Correction alternative COOPMATHS}\\end{LARGE} \\par\\vspace{0.5cm}' + data
+              })
+          )
+        }
       } else if (dictionnaireDesExercices[id].typeExercice === 'crpe') {
         listeObjetsExercice[i] = dictionnaireDesExercices[id]
         listeObjetsExercice[i].nbQuestionsModifiable = false
