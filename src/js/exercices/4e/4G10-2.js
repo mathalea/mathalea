@@ -166,7 +166,7 @@ export default class nomExercice extends Exercice {
       anim.crayonMasquer()
 
       // Énoncé et correction
-      texte = `Trace l'image du triangle $${lettres[0]}${lettres[1]}${lettres[2]}$ par la translation qui transforme $${lettres[3]}$ en $${lettres[4]}$`
+      texte = `Tracer l'image du triangle $${lettres[0]}${lettres[1]}${lettres[2]}$ par la translation qui transforme $${lettres[3]}$ en $${lettres[4]}$.<br>`
       texte += mathalea2d(paramsEnonce, objetsEnonceOnly, objetsEnonceEtCorr)
       texteCorr = mathalea2d(paramsCorrection, objetsCorrectionOnly, objetsEnonceEtCorr)
       texteCorr += anim.htmlBouton()
