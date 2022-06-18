@@ -198,7 +198,7 @@ export default function Can10Questions6N2 () {
         case '8':
           fruits = [
             ['pêches', 4, 11, 19],
-            ['Noix', 5, 4, 9],
+            ['noix', 5, 4, 9],
             ['cerises', 6, 11, 19],
             ['pommes', 2, 21, 29],
             ['framboises', 15, 1, 9],
