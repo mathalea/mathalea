@@ -39,7 +39,7 @@ export default function problemesTrigoLongueur () {
     3 : Calculer la hauteur d'un objet vu sous un angle donné
     4 : Calculer la hauteur d'une falaise
     5 : Calculer la hauteur d'une montagne
-    6 : Triangle rectangle inscrit dans un triangle rectangle
+    6 : Calculer une longueur dans des triangles rectangles imbriqués
     7 : Mélange`
   ]
   this.sup2 = 7

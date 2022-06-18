@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, shuffle, calcul, texteEnCouleurEtGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, shuffle, texteEnCouleurEtGras } from '../../modules/outils.js'
 import { point, tracePoint, segment, texteParPosition, fractionParPosition, mathalea2d } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 
@@ -35,11 +35,11 @@ export default function PlacerProbabilites () {
     let texte = ''
     // liste de vocabulaire. Le nombre donne la position sur l'axe.
     const lstEchelle = [['Impossible', 0],
-      ['Improbable', calcul(1 / 6)],
-      ['Peu probable', calcul(2 / 6)],
-      ['Une chance sur deux', calcul(3 / 6)],
-      ['Probable', calcul(4 / 6)],
-      ['Très probable', calcul(5 / 6)],
+      ['Improbable', 1 / 6],
+      ['Peu probable', 2 / 6],
+      ['Une chance sur deux', 3 / 6],
+      ['Probable', 4 / 6],
+      ['Très probable', 5 / 6],
       ['Certain', 1]]
 
     // Evenements impossibles :
@@ -142,11 +142,11 @@ export default function PlacerProbabilites () {
     let parrondi = 0 // arrondi de la proba au sixième près
     for (let i = 0; i < nbEvenement; i++) {
       p = lstEvenenementExo[i][1]
-      parrondi = Math.round(calcul(6 * p)) // échelle arrondie entre 0 et 7 pour éviter la superposition des textes réponses
+      parrondi = Math.round(6 * p) // échelle arrondie entre 0 et 7 pour éviter la superposition des textes réponses
       ylst[parrondi] += 0.5 // on augmente l'ordonnée si elle est déjà utilisée
       const txtSolution = String.fromCharCode(65 + i) // code 65 correspond à 'A'
-      lstObjet.push(texteParPosition(txtSolution, calcul(L * p), ylst[parrondi], 0, 'black', 1, 'middle'))
-      lstObjet.push(tracePoint(point(calcul(L * p), 0), 'blue'))
+      lstObjet.push(texteParPosition(txtSolution, L * p, ylst[parrondi], 0, 'black', 1, 'middle'))
+      lstObjet.push(tracePoint(point(L * p, 0), 'blue'))
     }
     for (let i = 0; i < nbEvenement; i++) {
       p = lstEvenenementExo[i][1]
