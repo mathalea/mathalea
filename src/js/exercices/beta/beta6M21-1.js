@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
 import { afficheLongueurSegment, mathalea2d, point, polygone, segment } from '../../modules/2d.js'
-export const titre = 'Puissances de 10 et préfixes'
+export const titre = 'Aire d\'assemblages de rectangles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '12/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -11,7 +11,7 @@ export const dateDePublication = '12/04/2022' // La date de publication initiale
  * @author Rémi Angot
  * Référence 6M21
 */
-export default class PuissancesEtPrefixe extends Exercice {
+export default class AireAssemblageRectangles extends Exercice {
   constructor () {
     super()
     this.consigne = 'Calculer l\'aire grisée.'
