@@ -235,7 +235,7 @@ function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = '
     if (this.couleurDeRemplissage === '') {
       return `\n\t <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="${this.rayon * coeff}" stroke="${this.color}" stroke-opacity="${this.opacite || 1}"/>`
     } else {
-      return `\n\t <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="${this.rayon * coeff}" stroke="${this.color}" fill="${this.couleurDeRemplissage[0]}" stroke-opacity="${this.opacite || 1}" fill-opacity="${this.opaciteDeRemplissage || 1}"/>`
+      return `\n\t <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="${this.rayon * coeff}" stroke="${this.color}" fill="${this.couleurDeRemplissage}" stroke-opacity="${this.opacite || 1}" fill-opacity="${this.opaciteDeRemplissage || 1}"/>`
     }
   }
   this.tikz = function () {
@@ -253,7 +253,7 @@ function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = '
       tableauOptions.push(`fill opacity=${this.opaciteDeRemplissage}`)
     }
     if (this.couleurDeRemplissage !== '') {
-      tableauOptions.push(`fill=${this.couleurDeRemplissage[1]}`)
+      tableauOptions.push(`fill=${this.couleurDeRemplissage}`)
     }
     let optionsDraw = []
     if (tableauOptions.length > 0) {
@@ -2379,15 +2379,15 @@ function Polygone (...points) {
         id: this.id,
         distanceDesHachures: this.distanceDesHachures,
         epaisseurDesHachures: this.epaisseurDesHachures,
-        couleurDesHachures: this.couleurDesHachures[0],
-        couleurDeRemplissage: this.couleurDeRemplissage[0],
+        couleurDesHachures: this.couleurDesHachures,
+        couleurDeRemplissage: this.couleurDeRemplissage,
         opaciteDeRemplissage: this.opaciteDeRemplissage
       }) + `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
     } else {
       if (this.couleurDeRemplissage === '') {
         this.style += ' fill="none" '
       } else {
-        this.style += ` fill="${this.couleurDeRemplissage[0]}" `
+        this.style += ` fill="${this.couleurDeRemplissage}" `
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
       }
       if (this.opacite !== 1) {
@@ -2429,8 +2429,8 @@ function Polygone (...points) {
     if (this.opaciteDeRemplissage !== 1) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage !== '' & this.couleurDeRemplissage[1] !== 'none') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}}`)
+    if (this.couleurDeRemplissage !== '' & this.couleurDeRemplissage !== 'none') {
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
     }
 
     if (this.hachures) {
@@ -2438,8 +2438,8 @@ function Polygone (...points) {
         motif: this.hachures,
         id: this.id,
         distanceDesHachures: this.distanceDesHachures,
-        couleurDesHachures: this.couleurDesHachures[1],
-        couleurDeRemplissage: this.couleurDeRemplissage[1],
+        couleurDesHachures: this.couleurDesHachures,
+        couleurDeRemplissage: this.couleurDeRemplissage,
         opaciteDeRemplissage: this.opaciteDeRemplissage
       }))
     }
@@ -3247,7 +3247,7 @@ function Ellipse (O, rx, ry, color) {
     if (this.couleurDeRemplissage === '') {
       this.style += ' fill="none" '
     } else {
-      this.style += ` fill="${this.couleurDeRemplissage[0]}" `
+      this.style += ` fill="${this.couleurDeRemplissage}" `
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
     }
 
@@ -3287,8 +3287,8 @@ function Ellipse (O, rx, ry, color) {
     if (this.opaciteDeRemplissage !== 1) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage !== '' & this.couleurDeRemplissage[1] !== 'none') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}}`)
+    if (this.couleurDeRemplissage !== '' & this.couleurDeRemplissage !== 'none') {
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
     }
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
@@ -3570,18 +3570,18 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
           distanceDesHachures: this.distanceDesHachures,
           epaisseurDesHachures: this.epaisseurDesHachures,
           couleurDesHachures: this.couleurDesHachures,
-          couleurDeRemplissage: this.couleurDeRemplissage[0],
+          couleurDeRemplissage: this.couleurDeRemplissage,
           opaciteDeRemplissage: this.opaciteDeRemplissage
         }) + `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
       } else {
         if (this.opacite !== 1) {
           this.style += ` stroke-opacity="${this.opacite}" `
         }
-        if (this.couleurDeRemplissage[0] !== 'none') {
+        if (this.couleurDeRemplissage !== 'none') {
           this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
         }
 
-        return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${this.couleurDeRemplissage[0]}" ${this.style}/>`
+        return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color}" fill="${this.couleurDeRemplissage}" ${this.style}/>`
       }
     }
   } else {
@@ -3650,9 +3650,9 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
 
-    if (rayon && (this.couleurDeRemplissage[1] !== 'none' || this.couleurDeRemplissage !== '')) {
+    if (rayon && (this.couleurDeRemplissage !== 'none' || this.couleurDeRemplissage !== '')) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-      tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
 
     if (this.hachures) {
@@ -3661,7 +3661,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
         id: this.id,
         distanceDesHachures: this.distanceDesHachures,
         couleurDesHachures: this.couleurDesHachures,
-        couleurDeRemplissage: this.couleurDeRemplissage[1],
+        couleurDeRemplissage: this.couleurDeRemplissage,
         opaciteDeRemplissage: this.opaciteDeRemplissage
       }))
     }
@@ -3716,7 +3716,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
     /*
     if (rayon && fill !== 'none') {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
+    tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
     if (rayon && fill !== 'none') {
       tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
@@ -3874,18 +3874,18 @@ function SemiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, 
           distanceDesHachures: this.distanceDesHachures,
           epaisseurDesHachures: this.epaisseurDesHachures,
           couleurDesHachures: this.couleurDesHachures,
-          couleurDeRemplissage: this.couleurDeRemplissage[0],
+          couleurDeRemplissage: this.couleurDeRemplissage,
           opaciteDeRemplissage: this.opaciteDeRemplissage
         }) + `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${Rx * coeff} ${Ry * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${centre.xSVG(coeff)} ${centre.ySVG(coeff)} Z" stroke="${this.color}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
       } else {
         if (this.opacite !== 1) {
           this.style += ` stroke-opacity="${this.opacite}" `
         }
-        if (this.couleurDeRemplissage[0] !== 'none') {
+        if (this.couleurDeRemplissage !== 'none') {
           this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
         }
 
-        return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${Rx * coeff} ${Ry * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${centre.xSVG(coeff)} ${centre.ySVG(coeff)} Z" stroke="${this.color}" fill="${this.couleurDeRemplissage[0]}" ${this.style}/>`
+        return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${Rx * coeff} ${Ry * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${centre.xSVG(coeff)} ${centre.ySVG(coeff)} Z" stroke="${this.color}" fill="${this.couleurDeRemplissage}" ${this.style}/>`
       }
     }
   } else {
@@ -3918,7 +3918,7 @@ function SemiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, 
       }
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
 
-      return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${Rx * coeff} ${Ry * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${this.couleurDeRemplissage[0]}" ${this.style} id="${this.id}" />`
+      return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${Rx * coeff} ${Ry * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color}" fill="${this.couleurDeRemplissage}" ${this.style} id="${this.id}" />`
     }
   }
   this.tikz = function () {
@@ -3953,9 +3953,9 @@ function SemiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, 
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
 
-    if ((this.couleurDeRemplissage[1] !== 'none' || this.couleurDeRemplissage[1] !== '')) {
+    if ((this.couleurDeRemplissage !== 'none' || this.couleurDeRemplissage !== '')) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-      tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
+      tableauOptions.push(`fill = ${this.couleurDeRemplissage}`)
     }
 
     if (this.hachures) {
@@ -3964,7 +3964,7 @@ function SemiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, 
         id: this.id,
         distanceDesHachures: this.distanceDesHachures,
         couleurDesHachures: this.couleurDesHachures,
-        couleurDeRemplissage: this.couleurDeRemplissage[1],
+        couleurDeRemplissage: this.couleurDeRemplissage,
         opaciteDeRemplissage: this.opaciteDeRemplissage
       }))
     }
@@ -9907,12 +9907,12 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
     this.svg = function (coeff) {
       let code = ''; let style = ''
       if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" '
-      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage[0]};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
+      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
       else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
         code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
         coeff
-      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.couleurDeRemplissage[0]
+      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.couleurDeRemplissage
         }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
           coeff
         )})" id="${this.id}" >${texte}</text>\n `
@@ -9921,19 +9921,19 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
           case 'milieu':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="middle" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
+          )}" text-anchor="middle" dominant-baseline="central" fill="${this.couleurDeRemplissage
             }" id="${this.id}" >${texte}</text>\n `
             break
           case 'gauche':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="end" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
+          )}" text-anchor="end" dominant-baseline="central" fill="${this.couleurDeRemplissage
             }" id="${this.id}" >${texte}</text>\n `
             break
           case 'droite':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
             coeff
-          )}" text-anchor="start" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
+          )}" text-anchor="start" dominant-baseline="central" fill="${this.couleurDeRemplissage
             }" id="${this.id}" >${texte}</text>\n `
             break
         }
@@ -10021,7 +10021,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
     this.svg = function (coeff) {
       let code = ''; let style = ''
       if (mathOn) style = ' font-family= "Book Antiqua"; font-style= "italic" '
-      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage[0]};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
+      if (this.contour) style += ` style="font-size: ${this.taille}px;fill: ${this.couleurDeRemplissage};fill-opacity: ${this.opaciteDeRemplissage};stroke: ${this.color};stroke-width: 0.5px;stroke-linecap: butt;stroke-linejoin:miter;stroke-opacity: ${this.opacite}" `
       else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
         code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
@@ -10195,7 +10195,7 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
     const centrage = 0.4 * context.pixelsParCm * Math.log10(tailleCaracteres)
     if (this.colorBackground !== '') {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="margin:auto;width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
-    $\\colorbox{${this.colorBackground[0]}}{$${taille} \\color{${this.color}}{${this.texte}}$}$</div></foreignObject>`
+    $\\colorbox{${this.colorBackground}}{$${taille} \\color{${this.color}}{${this.texte}}$}$</div></foreignObject>`
     } else {
       return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
       $${taille} \\color{${this.color}}{${this.texte}}$</div></foreignObject>`
