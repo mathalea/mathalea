@@ -29,7 +29,7 @@ let numId = 0 // Créer un identifiant numérique unique par objet SVG
 export function ObjetMathalea2D () {
   this.positionLabel = 'above'
   this.isVisible = true
-  this.color = colorToLatexOrHTML('black')
+  this.color = 'black'
   this.style = '' // stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
   // this.styleTikz = ''
   this.epaisseur = 1
@@ -223,8 +223,8 @@ export function point (x, y, A, labelPosition = 'above') {
 function Plot (x, y, { rayon = 0.05, couleur = 'black', couleurDeRemplissage = 'black', opacite = 1, opaciteDeRemplissage = 1 } = {}) {
   ObjetMathalea2D.call(this)
   if (isNaN(x) || isNaN(y)) window.notify('Plot : les coordonnées ne sont pas valides', { x, y })
-  this.color = colorToLatexOrHTML(couleur) // EE : 08/05/2022
-  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+  this.color = couleur // EE : 08/05/2022
+  this.couleurDeRemplissage = couleurDeRemplissage
   this.rayon = rayon
   this.x = x
   this.y = y
@@ -328,7 +328,7 @@ function TracePoint (...points) {
           c.isVisible = false
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[0]
+          c.couleurDeRemplissage = this.color
           c.opaciteDeRemplissage = this.opacite / 2
           objetssvg.push(c)
         } else if (this.style === '#') {
@@ -338,7 +338,7 @@ function TracePoint (...points) {
           c.isVisible = false
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[0]
+          c.couleurDeRemplissage = this.color
           c.opaciteDeRemplissage = this.opacite / 2
           objetssvg.push(c)
         } else if (this.style === '+') {
@@ -394,7 +394,7 @@ function TracePoint (...points) {
           c = cercle(p1, this.tailleTikz, this.color)
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[1]
+          c.couleurDeRemplissage = this.color
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '#') {
@@ -403,7 +403,7 @@ function TracePoint (...points) {
           c = carre(p2, p1, this.color)
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[1]
+          c.couleurDeRemplissage = this.color
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '+') {
@@ -638,7 +638,7 @@ function LabelPoint (...points) {
   if (!this.taille) this.taille = 10
   if (!this.largeur) this.largeur = 10
   if (typeof points[points.length - 1] === 'string') {
-    this.color = colorToLatexOrHTML(points[points.length - 1])
+    this.color = points[points.length - 1]
     points.length--
   }
   let xmin = 1000
@@ -948,7 +948,7 @@ function Droite (arg1, arg2, arg3, arg4) {
       this.b = this.x2 - this.x1
       this.c = (this.x1 - this.x2) * this.y1 + (this.y2 - this.y1) * this.x1
       this.nom = arg3
-      this.color = colorToLatexOrHTML(arg4)
+      this.color = arg4
     }
   }
   if (this.b !== 0) this.pente = -this.a / this.b
@@ -1403,7 +1403,7 @@ function ConstructionMediatrice (
   arcn1.isVisible = false
   arcn2.isVisible = false
   d.isVisible = false
-  d.color = colorToLatexOrHTML(couleurMediatrice)
+  d.color = couleurMediatrice
   d.epaisseur = epaisseurMediatrice
   const codage = codageMediatrice(A, B, color, markmilieu)
   codage.isVisible = false
@@ -1541,9 +1541,9 @@ function ConstructionBissectrice (
     const dMN = droite(M, N)
     const P = symetrieAxiale(O, dMN)
     const tNP = traceCompas(N, P)
-    tNP.color = colorToLatexOrHTML(this.couleurConstruction)
+    tNP.color = this.couleurConstruction
     const tMP = traceCompas(M, P)
-    tMP.color = colorToLatexOrHTML(this.couleurConstruction)
+    tMP.color = this.couleurConstruction
     const sMP = segment(M, P, this.couleurConstruction)
     const sNP = segment(N, P, this.couleurConstruction)
     sMP.pointilles = true
@@ -1587,10 +1587,10 @@ function Polyline (...points) {
   if (Array.isArray(points[0])) {
     // Si le premier argument est un tableau
     this.listePoints = points[0]
-    this.color = colorToLatexOrHTML(points[1])
+    this.color = points[1]
   } else {
     this.listePoints = points
-    this.color = colorToLatexOrHTML('black')
+    this.color = 'black'
   }
   let xmin = 1000
   let xmax = -1000
@@ -1962,14 +1962,14 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     this.y1 = arg1.y
     this.x2 = arg2.x
     this.y2 = arg2.y
-    this.color = colorToLatexOrHTML(arg3)
+    this.color = arg3
   } else if (arguments.length === 4) {
     if (isNaN(arg3)) {
       this.x1 = arg1.x
       this.y1 = arg1.y
       this.x2 = arg2.x
       this.y2 = arg2.y
-      this.color = colorToLatexOrHTML(arg3)
+      this.color = arg3
       this.styleExtremites = arg4
     } else {
       if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3) || isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', { arg1, arg2 })
@@ -1985,7 +1985,7 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     this.y1 = arg2
     this.x2 = arg3
     this.y2 = arg4
-    this.color = colorToLatexOrHTML(color)
+    this.color = color
     this.styleExtremites = arg4
   }
   this.bordures = [Math.min(this.x1, this.x2) - 0.2, Math.min(this.y1, this.y2) - 0.2, Math.max(this.x1, this.x2) + 0.2, Math.max(this.y1, this.y2) + 0.2]
@@ -2292,7 +2292,7 @@ export function demiDroiteAvecExtremite (A, B, color = 'black') {
  */
 function Polygone (...points) {
   ObjetMathalea2D.call(this)
-  this.couleurDeRemplissage = colorToLatexOrHTML('none')
+  this.couleurDeRemplissage = 'none'
   this.opaciteDeRemplissage = 1.1
   this.hachures = false
   this.couleurDesHachures = 'black'
@@ -2302,7 +2302,7 @@ function Polygone (...points) {
     // Si le premier argument est un tableau
     this.listePoints = points[0]
     if (points[1]) {
-      this.color = colorToLatexOrHTML(points[1])
+      this.color = points[1]
     }
     this.nom = this.listePoints.join()
   } else {
@@ -2372,7 +2372,7 @@ function Polygone (...points) {
 
     if (this.hachures) {
       if (this.couleurDeRemplissage.length < 1) {
-        this.couleurDeRemplissage = colorToLatexOrHTML('none')
+        this.couleurDeRemplissage = 'none'
       }
       return pattern({
         motif: this.hachures,
@@ -2648,7 +2648,7 @@ class Boite {
     this.forme = polygone([point(Xmin, Ymin), point(Xmax, Ymin), point(Xmax, Ymax), point(Xmin, Ymax)], color)
     this.bordures = this.forme.bordures
     if (colorFill !== 'none') {
-      this.forme.couleurDeRemplissage = colorToLatexOrHTML(colorFill)
+      this.forme.couleurDeRemplissage = colorFill
       this.forme.opaciteDeRemplissage = opaciteDeRemplissage
     }
     if (texteIn !== '') {
@@ -3033,7 +3033,7 @@ export function aireTriangle (p) {
 function Cercle (O, r, color) {
   ObjetMathalea2D.call(this)
   if (color) {
-    this.color = colorToLatexOrHTML(color)
+    this.color = color
     // this.styleTikz = `[${color}]`
   }
   this.centre = O
@@ -3210,8 +3210,8 @@ export function cercle (O, r, color = 'black') {
  */
 function Ellipse (O, rx, ry, color) {
   ObjetMathalea2D.call(this)
-  if (color) this.color = colorToLatexOrHTML(color)
-  else this.color = colorToLatexOrHTML('black')
+  if (color) this.color = color
+  else this.color = 'black'
   this.centre = O
   this.rx = rx
   this.ry = ry
@@ -3505,8 +3505,8 @@ export function cercleCentrePoint (...args) {
 
 function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2) {
   ObjetMathalea2D.call(this)
-  this.color = colorToLatexOrHTML(color)
-  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+  this.color = color
+  this.couleurDeRemplissage = couleurDeRemplissage
   this.opaciteDeRemplissage = fillOpacite
   this.hachures = false
   this.couleurDesHachures = 'black'
@@ -3561,7 +3561,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
       }
       if (this.hachures) {
         if (this.couleurDeRemplissage.length < 1) {
-          this.couleurDeRemplissage = colorToLatexOrHTML('none')
+          this.couleurDeRemplissage = 'none'
         }
 
         return pattern({
@@ -3794,7 +3794,7 @@ export function traceCompas (
   const a = arc(B, O, angle, false)
   a.epaisseur = epaisseur
   a.opacite = opacite
-  a.color = colorToLatexOrHTML(color)
+  a.color = color
   a.pointilles = pointilles
   return a
 }
@@ -3813,8 +3813,8 @@ export function traceCompas (
  */
 function SemiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
   ObjetMathalea2D.call(this)
-  this.color = colorToLatexOrHTML(color)
-  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+  this.color = color
+  this.couleurDeRemplissage = couleurDeRemplissage
   this.opaciteDeRemplissage = fillOpacite
   this.hachures = false
   this.couleurDesHachures = 'black'
@@ -3865,7 +3865,7 @@ function SemiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, 
       }
       if (this.hachures) {
         if (this.couleurDeRemplissage.length < 1) {
-          this.couleurDeRemplissage = colorToLatexOrHTML('none')
+          this.couleurDeRemplissage = 'none'
         }
 
         return pattern({
@@ -4052,8 +4052,8 @@ export function semiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = 
  */
 function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
   ObjetMathalea2D.call(this)
-  this.color = colorToLatexOrHTML(color)
-  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+  this.color = color
+  this.couleurDeRemplissage = couleurDeRemplissage
   this.opaciteDeRemplissage = fillOpacite
   const objets = [
     semiEllipse({ centre, Rx, Ry, emisphere: 'nord', rayon: false, pointilles: 1, couleurDeRemplissage, color, fillOpacite }),
@@ -4342,7 +4342,7 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbD
       numero.contour = true
       objets.push(numero)
     }
-    rayon.color = colorToLatexOrHTML(this.color)
+    rayon.color = this.color
     rayon.opacite = this.opacite
     objets.push(rayon)
     azimut = rotation(azimut, centre, arcPlein / nbDivisions)
@@ -5480,7 +5480,7 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
   this.arrivee = B
   this.taille = d
   this.color = color
-  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+  this.couleurDeRemplissage = couleurDeRemplissage
   this.opaciteDeRemplissage = opaciteDeRemplissage
 
   this.svg = function (coeff) {
@@ -7457,12 +7457,12 @@ function Repere2 ({
   const axeX = segment(xMin * xUnite, OrdonneeAxe * yUnite, xMax * xUnite, OrdonneeAxe * yUnite)
   axeX.epaisseur = axesEpaisseur
   axeX.styleExtremites = axeXStyle
-  axeX.color = colorToLatexOrHTML(axesCouleur)
+  axeX.color = axesCouleur
   const abscisseAxe = Math.max(0, xMin)
   const axeY = segment(abscisseAxe * xUnite, yMin * yUnite, abscisseAxe * xUnite, yMax * yUnite)
   axeY.epaisseur = axesEpaisseur
   axeY.styleExtremites = axeYStyle
-  axeY.color = colorToLatexOrHTML(axesCouleur)
+  axeY.color = axesCouleur
   if (axeXisVisible) objets.push(axeX)
   if (axeYisVisible) objets.push(axeY)
   // Cache les objets intermédiaires pour ne pas les afficher en double dans mathalea2d.html
@@ -9420,7 +9420,7 @@ function Integrale (f, {
   points.push(point(b * xunite, f(b) * yunite), point(b * xunite, 0), point(a * xunite, 0))
   const p = polygone([...points], this.color)
   p.epaisseur = epaisseur
-  p.couleurDeRemplissage = colorToLatexOrHTML(this.couleurDeRemplissage)
+  p.couleurDeRemplissage = this.couleurDeRemplissage
   p.opaciteDeRemplissage = opacite
   p.hachures = motifs(hachures)
   objets.push(p)
@@ -9716,7 +9716,7 @@ function AntecedentParDichotomie (xmin, xmax, f, y, precision = 0.01) {
 function CrochetD (A, color = 'blue') {
   ObjetMathalea2D.call(this)
   this.epaisseur = 2
-  this.color = colorToLatexOrHTML(color)
+  this.color = color
   this.taille = 0.2
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
@@ -9768,7 +9768,7 @@ export function crochetD (...args) {
 function CrochetG (A, color = 'blue') {
   ObjetMathalea2D.call(this)
   this.epaisseur = 2
-  this.color = colorToLatexOrHTML(color)
+  this.color = color
   this.taille = 0.2
 
   this.svg = function (coeff) {
@@ -9844,33 +9844,6 @@ function convertHexToRGB (couleur = '000000') {
   return hexToRGB
 }
 
-/**
- * colorToLatexOrHTML prend en paramètre une couleur sous forme prédéfinie ('red','yellow',...) ou sous forme HTML en hexadécimal (avec #, genre '#f15929')
- * La sortie de cette fonction est un tableau où :
- * - le premier élément est cette couleur exploitable en SVG, donc en HTML.
- * - le second élément est cette couleur exploitable en TikZ, donc en Latex.
- * @example colorToLatexOrHTML('red')=['red','{red}']
- * @example colorToLatexOrHTML('#f15929')=['#f15929','{rgb,255:red,241;green,89;blue,41}']
- * @author Eric Elter
- */
-
-export function colorToLatexOrHTML (couleur) {
-  const tabCouleur = []
-  let rgb = []
-  if (Array.isArray(couleur)) return couleur // Si jamais une fonction rappelle une couleur qui aurait déjà été transformée par cette même fonction
-  else if (couleur === '') return ''
-  else if (couleur === 'none') return ['none', 'none']
-  else {
-    tabCouleur[0] = couleur
-    if (couleur[0] === '#') {
-      rgb = convertHexToRGB(couleur.replace('#', ''))
-      tabCouleur[1] = '{rgb,255:red,' + rgb[0] + ';green,' + rgb[1] + ';blue,' + rgb[2] + '}'
-    } else {
-      tabCouleur[1] = '{' + couleur + '}'
-    }
-    return tabCouleur
-  }
-}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% LES TEXTES %%%%%%%%%%%%%%%
@@ -9888,7 +9861,7 @@ export function colorToLatexOrHTML (couleur) {
  */
 function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false) {
   ObjetMathalea2D.call(this)
-  this.color = colorToLatexOrHTML(color)
+  this.color = color
   this.contour = false
   this.taille = 10 * scale
   this.opacite = 1
@@ -10006,11 +9979,11 @@ export function texteParPoint (texte, A, orientation = 'milieu', color = 'black'
 
 function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, scaleFigure) {
   ObjetMathalea2D.call(this)
-  this.color = colorToLatexOrHTML(color)
+  this.color = color
   this.contour = false
   this.taille = 10 * scale
   this.opacite = 1
-  this.couleurDeRemplissage = colorToLatexOrHTML(color)
+  this.couleurDeRemplissage = color
   this.opaciteDeRemplissage = this.opacite
   this.bordures = [A.x - texte.length * 0.2, A.y - 0.4, A.x + texte.length * 0.2, A.y + 0.4]
   if (texte.charAt(0) === '$') {
@@ -10202,8 +10175,8 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
   this.y = y
   this.largeur = largeur * Math.log10(2 * tailleCaracteres)
   this.hauteur = hauteur * Math.log10(tailleCaracteres)
-  this.colorBackground = colorToLatexOrHTML(colorBackground)
-  this.color = colorToLatexOrHTML(color)
+  this.colorBackground = colorBackground
+  this.color = color
   this.texte = texte
   this.tailleCaracteres = tailleCaracteres
   this.bordures = [x - this.texte.length * 0.2, y - 0.02 * this.hauteur, x + this.texte.length * 0.2, y + 0.02 * this.hauteur]
