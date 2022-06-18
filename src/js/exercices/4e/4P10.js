@@ -265,7 +265,7 @@ export default function ProblemesGrandeursComposees () {
                   typeAide,
                   'volume',
                   'Définition : volume (grandeur physique)',
-                  `C\'est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube (m${texteExposant(
+                  `C'est le produit de trois longueurs ou le produit d'une aire et d'une longueur.<br>L'unité de mesure du volume est le mètre cube (m${texteExposant(
                     3
                   )}) mais on peut aussi rencontrer le litre (L) avec comme correspondance 1dm${texteExposant(
                     3
@@ -535,7 +535,7 @@ export default function ProblemesGrandeursComposees () {
             ' maximale de cet appareil s\'il fonctionne sur le secteur ?<br>'
           texte +=
             numAlpha(1) +
-            ` Un ${appareils[index1][0]} fonctionne à une puissance maximum de ${appareils[index1][1]} W.<br>Quel est l'ampérage minimum nécessaire pour le fusible qui protégera ce ${appareils[index1][0]} des court-ciruits ?<br>`
+            ` Un ${appareils[index1][0]} fonctionne à une puissance maximum de ${appareils[index1][1]} W.<br>Quel est l'ampérage minimum nécessaire pour le fusible qui protégera ${index1 === 3 ? 'cet' : 'ce'} ${appareils[index1][0]} des court-ciruits ?<br>`
           texteCorr =
             numAlpha(0) +
             ` La tension du secteur étant de 230V, la puissance maximale de ce ${appareils[index][0]} est de :<br>`
