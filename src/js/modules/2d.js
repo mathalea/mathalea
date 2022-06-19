@@ -2246,9 +2246,16 @@ export function segmentAvecExtremites (...args) {
 */
 
 function DemiDroite (A, B, color = 'black') {
+  ObjetMathalea2D.call(this)
   const B1 = pointSurSegment(B, A, -10)
-  Segment.call(this, A, B1, color)
+  this.color = color
+  const s = segment(A, B1)
+  this.svg = s.svg
+  this.tikz = s.tikz
+  this.svgml = s.svgml
+  this.tikzml = s.tikzml
 }
+
 /**
  * Trace la demi-droite d'origine A passant par B et de couleur color
  * @param {Point} A
