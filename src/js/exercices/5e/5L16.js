@@ -33,9 +33,9 @@ export default function NomExercice () {
     this.autoCorrection = []
 
     if (this.sup2) {
-      this.consigne = '"Désimplifier" l\'écriture'
+      this.consigne = 'On a simplifié des écritures littérales.<br>Réécrire chaque expression en écrivant les symboles × qui sont sous-entendus.'
     } else {
-      this.consigne = 'Simplifier l\'écriture'
+      this.consigne = 'Simplifier l\'écriture.'
     }
 
     let typeQuestionsDisponibles
