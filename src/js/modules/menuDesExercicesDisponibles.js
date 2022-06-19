@@ -653,6 +653,9 @@ export function menuDesExercicesDisponibles () {
       '2S30 - Calculer des probabilités dans des cas simples'],
     ['2S4', '2S4 - Échantillonnage']
   ]
+  const listeThemesTechno1 = [
+    ['techno1P', 'techno1P - Proportions'], ['techno1E', 'techno1E - Évolutions']
+  ]
   const listeThemesEx = [
     ['ExC1', 'ExC1 - Calculs avec nombres complexes'], ['ExE1', 'ExE1 - Équations'], ['ExL1', 'ExL1 - Calcul littéral']
   ]
@@ -751,6 +754,12 @@ export function menuDesExercicesDisponibles () {
       liste_html_des_exercices: '',
       lignes_tableau: ''
     },
+    techno1: {
+      label: 'Première Technologique',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemesTechno1),
+      lignes_tableau: ''
+    },
     T: {
       label: 'Terminale',
       nombre_exercices_dispo: 0,
@@ -808,7 +817,6 @@ export function menuDesExercicesDisponibles () {
   for (const id in listeDesExercicesDisponibles) {
     if ((id[0] === 'c' && id[1] === 'a') || (id[0] === 'c' && id[1] === '3') || (id[0] === 'P' && id[1] === '0') || (id[0] === 'P' && id[1] === 'E') || (id[0] === 'b' && id[1] === 'e') || (id[0] === 'E' && id[1] === 'x') || (id[0] === 'H' && id[1] === 'P')) {
       if (filtre === 'interactif') {
-        // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {
           objExercicesDisponibles[id[0] + id[1]].nombre_exercices_dispo += 1
           objExercicesDisponibles[id[0] + id[1]].lignes_tableau += ligneTableau(id)
@@ -820,7 +828,6 @@ export function menuDesExercicesDisponibles () {
     }
     if (id[0] === '6' || id[0] === '5' || id[0] === '4' || id[0] === '3' || id[0] === '2' || id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
       if (filtre === 'interactif') {
-        // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {
           objExercicesDisponibles[id[0]].nombre_exercices_dispo += 1
           objExercicesDisponibles[id[0]].lignes_tableau += ligneTableau(id)
@@ -832,7 +839,6 @@ export function menuDesExercicesDisponibles () {
     }
     if (id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
       if (filtre === 'interactif') {
-        // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {
           objExercicesDisponibles[id[0]].liste_html_des_exercices += spanExercice(id, dictionnaireDesExercices[id].titre)
         }
@@ -855,6 +861,17 @@ export function menuDesExercicesDisponibles () {
         objExercicesDisponibles.CRPE.lignes_tableau += ligneTableau(id)
       }
     }
+    if (id.substring(0, 7) === 'techno1') {
+      if (filtre === 'interactif') {
+        if (dictionnaireDesExercices[id].interactifReady) {
+          objExercicesDisponibles.techno1.nombre_exercices_dispo += 1
+          objExercicesDisponibles.techno1.lignes_tableau += ligneTableau(id)
+        }
+      } else {
+        objExercicesDisponibles.techno1.nombre_exercices_dispo += 1
+        objExercicesDisponibles.techno1.lignes_tableau += ligneTableau(id)
+      }
+    }
     if (id[0] === 'b' && id[1] === 'a' && id[2] === 'c') {
       if (filtre !== 'interactif') {
         objExercicesDisponibles.BAC.lignes_tableau += ligneTableau(id)
@@ -875,7 +892,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += objExercicesDisponibles.be.lignes_tableau
   } else if (context.vue === 'cm') {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 'C', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'Ex', 'HP', 'PE'],
+      liste_affichage: ['ca', 'C', 'c3', 6, 5, 4, 3, 2, 1, 'techno1', 'T', 'Ex', 'HP', 'PE'],
       active: 'C',
       obj_ex: objExercicesDisponibles
     })
@@ -919,7 +936,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else if (filtre === 'lycee') {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 2, 1, 'T', 'Ex'],
+      liste_affichage: ['ca', 2, 1, 'techno1', 'T', 'Ex'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
@@ -935,7 +952,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else if (context.isAmc) {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'Ex', 'HP', 'PE', 'C'],
+      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 2, 1, 'techno1', 'T', 'Ex', 'HP', 'PE', 'C'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
@@ -943,7 +960,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'Ex', 'HP', 'E3C', 'E3Ctheme', 'BAC', 'BACtheme', 'PE', 'CrpeTheme', 'CRPE', 'C'],
+      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'techno1', 'T', 'Ex', 'HP', 'E3C', 'E3Ctheme', 'BAC', 'BACtheme', 'PE', 'CrpeTheme', 'CRPE', 'C'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
