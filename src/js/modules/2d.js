@@ -202,6 +202,28 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
   this.estDansQuadrilatere = function (A, B, C, D) {
     return this.estDansTriangle(A, B, C) || this.estDansTriangle(A, C, D)
   }
+  /**
+ *
+ * @param {Segment | Cercle | Droite | DemiDroite} objet
+ * @returns {boolean} true si le point est sur l'objet
+ */
+  this.estSur = function (objet) {
+    if (objet instanceof Droite) return (egal(objet.a * this.x + objet.b * this.y + objet.c, 0, 0.000001))
+    if (objet instanceof Segment) {
+      const prodvect = (objet.extremite2.x - objet.extremite1.x) * (this.y - objet.extremite1.y) - (this.x - objet.extremite1.x) * (objet.extremite2.y - objet.extremite1.y)
+      const prodscal = (this.x - objet.extremite1.x) * (objet.extremite2.x - objet.extremite1.x) + (this.y - objet.extremite1.y) * (objet.extremite2.y - objet.extremite1.y)
+      const prodscalABAB = (objet.extremite2.x - objet.extremite1.x) ** 2 + (objet.extremite2.y - objet.extremite1.y) ** 2
+      return (egal(prodvect, 0, 0.00001) && superieurouegal(prodscal, 0) && inferieurouegal(prodscal, prodscalABAB))
+    }
+    if (objet instanceof DemiDroite) {
+      const OM = vecteur(objet.extremite1, this)
+      const vd = vecteur(objet.extremite1, objet.extremite2)
+      const prodscal = OM.x * vd.x + OM.y * vd.y
+      const prodvect = OM.x * vd.y - OM.y * vd.x
+      return (egal(prodvect, 0, 0.000001) && superieurouegal(prodscal, 0, 0.000001))
+    }
+    if (objet instanceof Cercle) return egal(longueur(this, objet.centre), objet.rayon, 0.000001)
+  }
 }
 /**
  * Crée un objet Point ayant les propriétés suivantes :
@@ -525,30 +547,6 @@ export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
     l = (longueur(A, B) * randint(15, 85)) / 100
   }
   return homothetie(B, A, l / longueur(A, B), nom, positionLabel)
-}
-
-/**
- * Est-ce que le point C appartient au segment [AB] ?
- * C'est ce que dira cette fonction
- * @author Jean-Claude Lhote
- */
-
-export function appartientSegment (C, A, B, tolerance = 0.0001) {
-  const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
-  const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
-  const prodscalABAB = (B.x - A.x) ** 2 + (B.y - A.y) ** 2
-  if (egal(prodvect, 0, tolerance) && superieurouegal(prodscal, 0) && inferieurouegal(prodscal, prodscalABAB)) return true
-  else return false
-}
-/**
- * Est-ce que le point C est aligné avec A et B ?
- * C'est ce que dira cette fonction
- * @author Jean-Claude Lhote
- */
-export function estAligne (C, A, B, tolerance) {
-  const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
-  if (egal(prodvect, 0, tolerance)) return true
-  else return false
 }
 
 /**
@@ -2248,9 +2246,16 @@ export function segmentAvecExtremites (...args) {
 */
 
 function DemiDroite (A, B, color = 'black') {
+  ObjetMathalea2D.call(this)
   const B1 = pointSurSegment(B, A, -10)
-  Segment.call(this, A, B1, color)
+  this.color = color
+  const s = segment(A, B1)
+  this.svg = s.svg
+  this.tikz = s.tikz
+  this.svgml = s.svgml
+  this.tikzml = s.tikzml
 }
+
 /**
  * Trace la demi-droite d'origine A passant par B et de couleur color
  * @param {Point} A
