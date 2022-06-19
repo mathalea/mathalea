@@ -2311,6 +2311,10 @@ function Polygone (...points) {
     }
     this.nom = this.listePoints.join()
   } else {
+    if (typeof points[points.length - 1] === 'string') {
+      this.color = points[points.length - 1]
+      points.splice(points.length - 1, 1)
+    }
     this.listePoints = points
     this.nom = this.listePoints.join()
   }
