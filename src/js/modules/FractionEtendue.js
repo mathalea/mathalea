@@ -547,9 +547,13 @@ export default class FractionX extends Fraction {
       const den = Math.abs(this.den)
       const pgcd = gcd(num, den)
       if (pgcd !== 1) {
-        return `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+        let redaction = `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=`
+        if (Math.abs(den / pgcd) !== 1) redaction += `${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+        else redaction += `${signe}${Math.abs(num / pgcd)}`
+        return redaction
       } else {
-        return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+        if (Math.abs(den / pgcd) !== 1) return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+        else return `=${signe}${Math.abs(num / pgcd)}`
       }
     }
   }
