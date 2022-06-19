@@ -202,6 +202,23 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
   this.estDansQuadrilatere = function (A, B, C, D) {
     return this.estDansTriangle(A, B, C) || this.estDansTriangle(A, C, D)
   }
+  /**
+ *
+ * @param {Segment | Cercle | Droite | DemiDroite} objet
+ * @returns {boolean} true si le point est sur l'objet
+ */
+  this.estSur = function (objet) {
+    if (objet instanceof Droite) return (egal(objet.a * this.x + objet.b * this.y + objet.c, 0, 0.000001))
+    if (objet instanceof Segment) return appartientSegment(this, objet.extremite1, objet.extremite2)
+    if (objet instanceof DemiDroite) {
+      const OM = vecteur(objet.extremite1, this)
+      const vd = vecteur(objet.extremite1, objet.extremite2)
+      const prodscal = OM.x * vd.x + OM.y * vd.y
+      const prodvect = OM.x * vd.y - OM.y * vd.x
+      return (egal(prodvect, 0, 0.000001) && superieurouegal(prodscal, 0, 0.000001))
+    }
+    if (objet instanceof Cercle) return egal(longueur(this, objet.centre), objet.rayon, 0.000001)
+  }
 }
 /**
  * Crée un objet Point ayant les propriétés suivantes :
@@ -533,7 +550,7 @@ export function pointSurSegment (A, B, l, nom = '', positionLabel = 'above') {
  * @author Jean-Claude Lhote
  */
 
-export function appartientSegment (C, A, B, tolerance = 0.0001) {
+export function appartientSegment (C, A, B, tolerance = 0.00001) {
   const prodvect = (B.x - A.x) * (C.y - A.y) - (C.x - A.x) * (B.y - A.y)
   const prodscal = (C.x - A.x) * (B.x - A.x) + (C.y - A.y) * (B.y - A.y)
   const prodscalABAB = (B.x - A.x) ** 2 + (B.y - A.y) ** 2
