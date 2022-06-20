@@ -392,6 +392,6 @@ export default function NoteLaCouleur6e () {
   }
   this.besoinFormulaireNumerique = ['Type de plateau', 4, '1 : Plateau couleur sans numéro\n2 : Plateau couleur avec numéros\n3 : Plateau noir et blanc avec nom des couleurs\n4 : Plateau noir et blanc avec numéros']
   this.besoinFormulaire2Numerique = ['Type de programme', 3, '1 : Avancer et tourner\n2 : Boucles\n3 : Mélange']
-  this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximmum 6)', 6]
+  this.besoinFormulaire3Numerique = ['Nombre de couleurs (Maximum 6)', 6]
   this.besoinFormulaire4CaseACocher = ['Plateau de jeu original', false]
 }
