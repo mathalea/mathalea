@@ -1,4 +1,4 @@
-import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif, signeMoinsEnEvidence, texNombre } from './outils.js'
+import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif, signeMoinsEnEvidence, texNombre, egal } from './outils.js'
 import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow } from 'mathjs'
 import { fraction } from './fractions.js'
@@ -309,7 +309,7 @@ export default class FractionX extends Fraction {
  */
     let estIrreductible
     definePropRo(this, 'estIrreductible', () => {
-      if (!estIrreductible) estIrreductible = gcd(this.num, this.den) === 1
+      if (!estIrreductible) estIrreductible = gcd(this.num, this.den) === 1 && this.den !== 1
       return estIrreductible
     })
 
@@ -552,7 +552,7 @@ export default class FractionX extends Fraction {
         else redaction += `${signe}${Math.abs(num / pgcd)}`
         return redaction
       } else {
-        if (Math.abs(den / pgcd) !== 1) return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+        if (!egal(Math.abs(den / pgcd), 1)) return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
         else return `=${signe}${Math.abs(num / pgcd)}`
       }
     }
