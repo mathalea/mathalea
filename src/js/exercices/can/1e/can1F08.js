@@ -1,5 +1,7 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebrique, calcul, texNombrec, texFractionReduite } from '../../../modules/outils.js'
+import Decimal from 'decimal.js'
+import { randint, choice, ecritureAlgebrique, ecritureAlgebriqueSauf1, texNombre, reduireAxPlusB, texteCentre } from '../../../modules/outils.js'
+import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -10,7 +12,7 @@ export const dateDePublication = '20/06/2022' // La date de publication initiale
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Gilles Mora (exercice en partie repris de Gaelle Morvan (1N10))
+ * @author Gilles Mora
  * Référence
 */
 export default function CalculFonctionDeriveeAffine () {
@@ -22,32 +24,55 @@ export default function CalculFonctionDeriveeAffine () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
-    let a, b, k
-    switch (choice([1])) { //
-      case 1:// fonction affine
-        a = randint(1, 7) * choice([-1, 1])
-        b = randint(1, 10) * choice([-1, 1])
-        k = randint(1, 10)
+    let m, p, f
+    switch (choice([1, 2, 3])) { //
+      case 1:// mx+p
+        m = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
+        p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
+        f = new FractionX(m * 10, 10)
+        this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+        ${texteCentre(`$f(x)=${reduireAxPlusB(m, p)}$`)}  
+        Déterminer la fonction dérivée de la fonction $f$.<br>     `
+        if (this.interactif) { this.question += '$f\'(x)=$' }
+        this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=${texNombre(m, 1)}$ et $p=${texNombre(p, 1)}$.<br>
+        La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=${texNombre(m, 1)}$. `
 
-        this.question = 'Soit $(u_n)$ une suite définie pour tout  $n\\in\\mathbb{N}$ par : $u_n = '
-        if (a === 1) { this.question += 'n' } else if (a === -1) { this.question += '-n' } else { this.question += `${a}n` };
-        if (b > 0) { this.question += `+${b}$` } else { this.question += `${b}$` };
-        this.question += `<br>Calculer $u_{${k}}$.`
+        this.reponse = [m, f.texFraction]
 
-        this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient : $u_{${k}} =`
-        if (a === 1) {
-          this.correction += `${k} ${ecritureAlgebrique(b)}`
-        } else {
-          if (a === -1) {
-            this.correction += `-${k} ${ecritureAlgebrique(b)}`
-          } else {
-            this.correction += `${a} \\times ${k} ${ecritureAlgebrique(b)}`
-          }
-        }
-        this.correction += `=${a * k + b}$.`
-        this.reponse = calcul(a * k + b)
         break
-      
+      case 2:// p+mx
+        m = choice([randint(2, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
+        p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
+        f = new FractionX(m * 10, 10)
+        this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+        ${texteCentre(`$f(x)=${texNombre(p, 1)}${ecritureAlgebrique(m)}x$`)}  
+        Déterminer la fonction dérivée de la fonction $f$.<br>     `
+        if (this.interactif) { this.question += '$f\'(x)=$' }
+        this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=${texNombre(m, 1)}$ et $p=${texNombre(p, 1)}$.<br>
+        La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=${texNombre(m, 1)}$. `
+
+        this.reponse = [m, f.texFraction]
+
+        break
+      case 3:// x+p
+        p = choice([randint(1, 10) * choice([-1, 1]), (new Decimal(randint(-19, 19, [0, -10, 10]))).div(10)])
+        m = choice([-1, 1])
+        if (choice([true, false])) {
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+        ${texteCentre(`$f(x)=${reduireAxPlusB(m, p)}$`)}  
+        Déterminer la fonction dérivée de la fonction $f$.<br>     `
+        } else {
+          this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : 
+        ${texteCentre(`$f(x)=${texNombre(p, 1)}${ecritureAlgebriqueSauf1(m)}x$`)}  
+        Déterminer la fonction dérivée de la fonction $f$.<br>     `
+        }
+        if (this.interactif) { this.question += '$f\'(x)=$' }
+        this.correction = `On reconnaît une fonction affine de la forme $f(x)=mx+p$ avec $m=${m}$ et $p=${texNombre(p, 1)}$.<br>
+        La fonction dérivée est donnée par $f'(x)=m$, soit ici $f'(x)=${m}$. `
+
+        this.reponse = m
+
+        break
     }
   }
 }
