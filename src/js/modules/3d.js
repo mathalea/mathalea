@@ -317,14 +317,11 @@ function Sphere3d (centre, rayon, nbParalleles, nbMeridiens, color) {
     c4 = demicercle3d(D, this.normal, rayon3, cote2, this.color, context.anglePerspective)
     this.c2d.push(c1, c2, c3, c4)
   }
-  for (let k = 0, V, W; k < 1; k += 1 / this.nbMeridiens) {
-    V = rotationV3d(prodvec, this.normal, 90 + context.anglePerspective + k * 90)
-    W = rotationV3d(prodvec, this.normal, 90 + context.anglePerspective - (k + 1 / this.nbMeridiens) * 90)
+  for (let k = 0, V; k < 181; k += 90 / this.nbMeridiens) {
+    V = rotationV3d(prodvec, this.normal, context.anglePerspective + k)
     c1 = demicercle3d(this.centre, V, rayon2, cote2, this.color, 0)
     c2 = demicercle3d(this.centre, V, rayon2, cote1, this.color, 0)
-    c3 = demicercle3d(this.centre, W, rayon2, cote2, this.color, 0)
-    c4 = demicercle3d(this.centre, W, rayon2, cote1, this.color, 0)
-    this.c2d.push(c1, c2, c3, c4)
+    this.c2d.push(c1, c2)
   }
 }
 export function sphere3d (centre, rayon, nbParalleles, nbMeridiens, color = 'black') {

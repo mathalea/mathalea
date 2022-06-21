@@ -8,6 +8,12 @@ import { calcule } from './fonctionsMaths.js'
 import Sval from 'sval'
 import Alea2iep from './Alea2iep.js'
 
+function polygoneRegulierIndirect (A, B, n, color) { // fonction supprimée de 2d.js donc mise ici pour assurer la compatibilité avec les vieux scripts mathalea2d
+  return polygoneRegulier(B, A, n, color)
+}
+function carreIndirect (A, B, color) {
+  return carre(B, A, color)
+}
 /**
  * Pour l'autocomplétion, importe les fonctions de mathalea2d, les charge dans window et dans l'interpréteur Sval
  * @returns interpreter Objet Sval
@@ -61,7 +67,9 @@ export default function initialiseEditeur () {
   window.polygone = polygone
   window.polygoneAvecNom = polygoneAvecNom
   window.polygoneRegulier = polygoneRegulier
+  window.polygoneRegulierIndirect = polygoneRegulierIndirect
   window.carre = carre
+  window.carreIndirect = carreIndirect
   window.codageCarre = codageCarre
   window.polygoneRegulierParCentreEtRayon = polygoneRegulierParCentreEtRayon
   window.triangle2points2longueurs = triangle2points2longueurs
@@ -272,7 +280,9 @@ export default function initialiseEditeur () {
     polygone: window.polygone,
     polygoneAvecNom: window.polygoneAvecNom,
     polygoneRegulier: window.polygoneRegulier,
+    polygoneRegulierIndirect: window.polygoneRegulierIndirect,
     carre: window.carre,
+    carreIndirect: window.carreIndirect,
     codageCarre: window.codageCarre,
     polygoneRegulierParCentreEtRayon: window.polygoneRegulierParCentreEtRayon,
     triangle2points2longueurs: window.triangle2points2longueurs,
@@ -354,7 +364,6 @@ export default function initialiseEditeur () {
     courbe: window.courbe,
     courbe2: window.courbe2,
     courbeInterpolee: window.courbeInterpolee,
-    courbeInterpolee2: window.courbeInterpolee2,
     graphiqueInterpole: window.graphiqueInterpole,
     imageInterpolee: window.imageInterpolee,
     antecedentInterpole: window.antecedentInterpole,

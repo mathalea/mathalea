@@ -32,7 +32,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
     let a, b, c, d, resultat, propositions
     const fruits = [
       ['pêches', 4, 10, 30],
-      ['Noix', 5, 4, 13],
+      ['noix', 5, 4, 13],
       ['cerises', 6, 11, 20],
       ['pommes', 2, 20, 40],
       ['framboises', 15, 1, 5],

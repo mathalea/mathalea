@@ -52,7 +52,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
     const fruits2 = [
       ['pêches', 4.5, 10, 30],
-      ['Noix', 5.2, 4, 13],
+      ['noix', 5.2, 4, 13],
       ['cerises', 6.4, 11, 20],
       ['pommes', 2.7, 20, 40],
       ['framboises', 10.5, 1, 5],

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { homothetie, codeAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
-import { stringNombre, calcul, texFraction, quatriemeProportionnelle, texNombre, arrondi, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, combinaisonListes } from '../../modules/outils.js'
+import { stringNombre, texFraction, quatriemeProportionnelle, texNombre, arrondi, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, combinaisonListes } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const interactifReady = true
@@ -63,43 +63,43 @@ export default function CalculDeLongueur () {
       switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
           bc = randint(10, 15)
-          ab = calcul(bc * Math.cos(angleABCr), 3)
-          ac = calcul(bc * Math.sin(angleABCr), 3)
+          ab = bc * Math.cos(angleABCr)
+          ac = bc * Math.sin(angleABCr)
           texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
           texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.`
           break
         case 'sinus':
           bc = randint(10, 15)
-          ab = calcul(bc * Math.cos(angleABCr), 3)
-          ac = calcul(bc * Math.sin(angleABCr), 3)
+          ab = bc * Math.cos(angleABCr)
+          ac = bc * Math.sin(angleABCr)
           texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
           texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.`
           break
         case 'tangente':
           ab = randint(7, 10)
-          ac = calcul(ab * Math.tan(angleABCr), 3)
-          bc = calcul(ab / Math.cos(angleABCr), 3)
+          ac = ab * Math.tan(angleABCr)
+          bc = ab / Math.cos(angleABCr)
           texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
           texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.`
           break
         case 'invCosinus':
           ab = randint(7, 10)
-          bc = calcul(ab / Math.cos(angleABCr), 3)
-          ac = calcul(bc * Math.sin(angleABCr), 3)
+          bc = ab / Math.cos(angleABCr)
+          ac = bc * Math.sin(angleABCr)
           texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
           texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.`
           break
         case 'invSinus':
           ac = randint(7, 10)
-          bc = calcul(ac / Math.sin(angleABCr), 3)
-          ab = calcul(bc * Math.cos(angleABCr), 3)
+          bc = ac / Math.sin(angleABCr)
+          ab = bc * Math.cos(angleABCr)
           texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
           texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.`
           break
         case 'invTangente':
           ac = randint(7, 10)
-          bc = calcul(ac / Math.sin(angleABCr), 3)
-          ab = calcul(bc * Math.cos(angleABCr), 3)
+          bc = ac / Math.sin(angleABCr)
+          ab = bc * Math.cos(angleABCr)
           texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
           texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.`
           break
@@ -200,7 +200,7 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[1], bc)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\cos\\left(${angleABC}\\degree\\right)`)}$`
-          texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(arrondi(ab, 1))}$ cm.`
+          texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ cm.`
           reponse = arrondi(ab, 1)
           break
         case 'sinus':
@@ -210,7 +210,7 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[2], bc)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\sin\\left(${angleABC}\\degree\\right)`)}$`
-          texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(arrondi(ac, 1))}$ cm.`
+          texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ cm.`
           reponse = arrondi(ac, 1)
           break
         case 'tangente':
@@ -220,7 +220,7 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[2], ab)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', ab, `\\tan\\left(${angleABC}\\degree\\right)`)}$`
-          texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(arrondi(ac, 1))}$ cm.`
+          texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ cm.`
           reponse = arrondi(ac, 1)
           break
         case 'invCosinus':
@@ -230,7 +230,7 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ab, nom[1] + nom[2])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\cos\\left(${angleABC}\\degree\\right)`, ab, '\\color{red}{1}')}$`
-          texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(arrondi(bc, 1))}$ cm.`
+          texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ cm.`
           reponse = arrondi(bc, 1)
           break
         case 'invSinus':
@@ -240,7 +240,7 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ac, nom[1] + nom[2])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\sin\\left(${angleABC}\\degree\\right)`, ac, '\\color{red}{1}')}$`
-          texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(arrondi(bc, 1))}$ cm.`
+          texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ cm.`
           reponse = arrondi(bc, 1)
           break
         case 'invTangente':
@@ -250,7 +250,7 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ac, nom[0] + nom[1])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle(`\\tan\\left(${angleABC}\\degree\\right)`, ac, '\\color{red}{1}')}$`
-          texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(arrondi(ab, 1))}$ cm.`
+          texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ cm.`
           reponse = arrondi(ab, 1)
           break
       }

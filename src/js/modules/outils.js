@@ -178,10 +178,10 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
    </div>
 `
   } else {
-    return `\\begin{minipage}{${calcul(largeur1 / 100)}\\linewidth}
+    return `\\begin{minipage}{${largeur1 / 100}\\linewidth}
     ${cont1.replaceAll('<br>', '\\\\\n')}
     \\end{minipage}
-    \\begin{minipage}{${calcul((100 - largeur1) / 100)}\\linewidth}
+    \\begin{minipage}{${(100 - largeur1) / 100}\\linewidth}
     ${cont2.replaceAll('<br>', '\\\\\n')}
     \\end{minipage}
     `
@@ -557,7 +557,7 @@ export function range (max, listeAEviter = []) {
 export function rangeMinMax (min, max, listeAEviter = [], step = 1) {
   // Créer un tableau avec toutes les valeurs de 0 à max sauf celle de la liste à éviter
   const liste = []
-  for (let i = min; i <= max; i = calcul(i + step)) {
+  for (let i = min; i <= max; i = i + step) {
     liste.push(i)
   }
   for (let i = 0; i < listeAEviter.length; i++) {
@@ -619,37 +619,18 @@ export function numTrie (arr) {
   })
 }
 /**
- * retourne un tableau dans lequel les doublons ont été supprimés si il y en a
- * @param {array} arr Tableau duquel ont veut supprimer les doublons numériques
- * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
- * @author Jean-Claude Lhote
- */
-export function enleveDoublonNum (arr, tolerance) {
-  arr = numTrie(arr)
-  let k = 0
-  console.log('++++++++ ', arr)
-  while (k < arr.length - 1) {
-    if (egal(arr[k], arr[k + 1], tolerance)) {
-      arr[k] = calcul((arr[k] + arr[k + 1]) / 2) // On remplace la valeur dont on a trouvé un double par la moyenne des deux valeurs
-      arr.splice(k + 1, 1) // on supprime le doublon.
-    }
-    k++
-  }
-  return arr
-}
-/**
  * retourne un tableau dans lequel les doublons ont été supprimés s'il y en a MAIS SANS TRI
  * @param {array} arr Tableau duquel ont veut supprimer les doublons numériques
  * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
- * @author Eric Elter d'après enleveDoublonNum
- */
-export function enleveDoublonNum2 (arr, tolerance) {
+ * @author Jean-Claude Lhote
+ **/
+export function enleveDoublonNum (arr, tolerance) {
   let k = 0
   while (k < arr.length - 1) {
     let kk = k + 1
     while (kk < arr.length - 1) {
       if (egal(arr[k], arr[kk], tolerance)) {
-        arr[k] = calcul((arr[k] + arr[kk]) / 2) // On remplace la valeur dont on a trouvé un double par la moyenne des deux valeurs
+        arr[k] = (arr[k] + arr[kk]) / 2 // On remplace la valeur dont on a trouvé un double par la moyenne des deux valeurs
         arr.splice(kk, 1) // on supprime le doublon.
       }
       kk++
@@ -1348,10 +1329,10 @@ export function arrondi (nombre, precision = 2) {
  */
 export function troncature (nombre, precision) {
   const tmp = Math.pow(10, precision)
-  const absolu = Math.abs(nombre)
-  const tronc = calcul(Math.floor(absolu * tmp) / tmp)
-  if (nombre < 0) return -tronc
-  else return tronc
+  const absolu = new Decimal(nombre).abs()
+  const tronc = absolu.mul(tmp).floor().div(tmp)
+  if (nombre < 0) return tronc.mul(-1).toNumber()
+  else return tronc.toNumber()
 }
 
 /**
@@ -1508,9 +1489,9 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
       result = '=erreur : division par zéro'
       return result
     }
-    const p4 = calcul(b * c / a)
+    const p4 = new Decimal(b).mul(c).div(a)
     result += `\\dfrac{${texNombrec(b)}\\times${texNombrec(c)}}{${texNombrec(a)}}`
-    if (p4 === arrondi(p4, precision)) result += '='
+    if (p4.eq(p4.toDP(precision))) result += '='
     else result += '\\approx'
     result += `${texNombre(p4, precision)}`
     return result
@@ -1718,9 +1699,9 @@ export function extraireRacineCarree (n) {
   let radical = 1; let facteur = 1
   for (let i = 0; i < facto.length; i++) {
     if (facto[i][1] % 2 === 0) {
-      facteur *= facto[i][0] ** (calcul(facto[i][1] / 2))
+      facteur *= facto[i][0] ** (facto[i][1] >> 1)
     } else if (facto[i][1] > 1) {
-      facteur *= facto[i][0] ** (calcul((facto[i][1] - 1) / 2))
+      facteur *= facto[i][0] ** ((facto[i][1] - 1) >> 1)
       radical *= facto[i][0]
     } else radical *= facto[i][0]
   }
@@ -1780,9 +1761,9 @@ export function calcul (x, arrondir) {
 */
 export function nombreDecimal (expression, arrondir = false) {
   if (!arrondir) {
-    return stringNombre(calcul(expression))
+    return stringNombre(new Decimal(expression), 15)
   } else {
-    return stringNombre(calcul(expression, arrondir))
+    return stringNombre(new Decimal(expression), arrondir)
   }
 }
 
@@ -3377,9 +3358,9 @@ export class MatriceCarree {
       let determinant = 0; let M
       for (let i = 0; i < n; i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
       // if (n==1) determinant=this.table[0][0]
-        if (n === 2) { determinant = calcul(this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1]) } else {
+        if (n === 2) { determinant = this.table[0][0] * this.table[1][1] - this.table[1][0] * this.table[0][1] } else {
           M = this.matriceReduite(0, i)
-          determinant += calcul(((-1) ** i) * this.table[0][i] * M.determinant())
+          determinant += ((-1) ** i) * this.table[0][i] * M.determinant()
         }
       }
       return determinant
@@ -3412,7 +3393,7 @@ export class MatriceCarree {
           ligne = []
           for (let j = 0; j < n; j++) {
             M = this.matriceReduite(i, j)
-            ligne.push(calcul((-1) ** (i + j) * M.determinant()))
+            ligne.push((-1) ** (i + j) * M.determinant())
           }
           resultat.push(ligne)
         }
@@ -3444,7 +3425,7 @@ export class MatriceCarree {
       for (let i = 0; i < n; i++) {
         ligne = []
         for (let j = 0; j < n; j++) {
-          ligne.push(calcul(k * this.table[i][j]))
+          ligne.push(k * this.table[i][j])
         }
         resultat.push(ligne)
       }
@@ -3461,7 +3442,7 @@ export class MatriceCarree {
         for (let i = 0; i < n; i++) {
           somme = 0
           for (let j = 0; j < n; j++) {
-            somme += calcul(this.table[i][j] * V[j])
+            somme += this.table[i][j] * V[j]
           }
           resultat.push(somme)
         }
@@ -3474,7 +3455,7 @@ export class MatriceCarree {
     this.inverse = function () { // retourne la matrice inverse (si elle existe)
       const d = this.determinant()
       if (!egal(d, 0)) {
-        return this.cofacteurs().transposee().multiplieParReel(calcul(1 / d))
+        return this.cofacteurs().transposee().multiplieParReel(1 / d)
       } else return false
     }
     /**
@@ -3487,7 +3468,7 @@ export class MatriceCarree {
         ligne = []
         for (let j = 0; j < n; j++) {
           somme = 0
-          for (let k = 0; k < n; k++) somme += calcul(this.table[i][k] * M.table[k][j])
+          for (let k = 0; k < n; k++) somme += this.table[i][k] * M.table[k][j]
           ligne.push(somme)
         }
         resultat.push(ligne)
@@ -3521,7 +3502,7 @@ export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
     const fb = fraction(b, determinant)
     return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred]]
   }
-  return [[calcul(a / determinant), 1], [calcul(b / determinant), 1]]
+  return [[a / determinant, 1], [b / determinant, 1]]
 }
 /**
  * Fonction qui retourne les coefficients a, b et c de f(x)=ax^3 + bx² + cx + d à partir des données de x1,x2,x3,f(x1),f(x2),f(x3) et d (entiers !)
@@ -3548,9 +3529,9 @@ export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
     // pour l'instant on ne manipule que des entiers, mais on peut imaginer que ce ne soit pas le cas... dans ce cas, la forme est numérateur = nombre & dénominateur=1
   }
   return [
-    [calcul(a / determinant), 1],
-    [calcul(b / determinant), 1],
-    [calcul(b / determinant), 1]
+    [a / determinant, 1],
+    [b / determinant, 1],
+    [b / determinant, 1]
   ]
 }
 /**
@@ -3765,22 +3746,20 @@ export function puissanceEnProduit (b, e) {
  * @author Eric Elter
  */
 export function decimalToScientifique (nbDecimal) {
-  let kk = 0
-  let mantisseNb = nbDecimal
-  if (abs(mantisseNb) >= 10) {
-    while (kk < 50 & (abs(mantisseNb) / 10) > 1) {
-      mantisseNb = calcul(mantisseNb / 10, kk + 1 + nombreDeChiffresDansLaPartieDecimale(nbDecimal))
-      kk++
+  let exposant = 0
+  let mantisseNb = new Decimal(nbDecimal)
+  if (mantisseNb.abs().gte(10)) {
+    while (exposant < 50 && mantisseNb.abs().gt(10)) {
+      mantisseNb = mantisseNb.div(10)
+      exposant++
     }
-    return [mantisseNb, kk]
-  } else if (mantisseNb === 0) {
-    return [nbDecimal, 0]
-  } else if (abs(mantisseNb) < 1) {
-    while (kk < 50 & abs(mantisseNb) < 1) {
-      mantisseNb = calcul(mantisseNb * 10, nombreDeChiffresDansLaPartieDecimale(nbDecimal) - 1 - kk)
-      kk++
+    return [mantisseNb.toNumber(), exposant]
+  } else if (mantisseNb.abs().lt(1)) {
+    while (exposant < 50 && mantisseNb.abs().lt(1)) {
+      mantisseNb = mantisseNb.mul(10)
+      exposant++
     }
-    return [mantisseNb, -1 * kk]
+    return [mantisseNb.toNumber(), -1 * exposant]
   } else return [nbDecimal, 0]
 }
 
@@ -4794,7 +4773,7 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
       // return false;
       return 'L\'une des longueurs de l\'objet triangle n\'est pas définie'
     } else {
-      return calcul(self.l1 + self.l2 + self.l3)
+      return self.l1 + self.l2 + self.l3
     }
   }
 
@@ -4818,9 +4797,9 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     }
     const longueurs = [self.l1, self.l2, self.l3]
     longueurs.sort(function (a, b) {
-      return calcul(a - b)
+      return a - b
     })
-    if (longueurs[2] < calcul(longueurs[0] + longueurs[1])) {
+    if (longueurs[2] < longueurs[0] + longueurs[1]) {
       return true
     } else {
       return false
@@ -4847,9 +4826,9 @@ export function Triangles (l1, l2, l3, a1, a2, a3) {
     }
     const longueurs = [self.l1, self.l2, self.l3]
     longueurs.sort(function (a, b) {
-      return calcul(a - b)
+      return a - b
     })
-    if (longueurs[2] === calcul(longueurs[0] + longueurs[1])) {
+    if (egal(longueurs[2], longueurs[0] + longueurs[1])) {
       return true
     } else {
       return false
@@ -5213,9 +5192,9 @@ export function nombreEnLettres (nb, type = 1) {
   if (estentier(nb)) return partieEntiereEnLettres(nb)
   else {
     partieEntiere = Math.floor(nb)
-    partieDecimale = calcul(nb - partieEntiere, 3)
+    partieDecimale = new Decimal(nb).sub(partieEntiere).toDP(3)
     nbDec = partieDecimale.toString().replace(/\d*\./, '').length
-    partieDecimale = calcul(partieDecimale * 10 ** nbDec)
+    partieDecimale = partieDecimale.mul(10 ** nbDec).toNumber()
 
     switch (nbDec) {
       case 1:
@@ -7824,11 +7803,11 @@ export function exportQcmAmc (exercice, idExo) {
           let reponseF
           let reponseAlsoCorrect
           if (valeurAMCNum.num > 0) {
-            reponseF = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
-            reponseAlsoCorrect = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen))
+            reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
+            reponseAlsoCorrect = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen), 8)
           } else {
-            reponseF = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
-            reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
+            reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
+            reponseAlsoCorrect = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen), 8)
           }
           texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
           texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
@@ -7848,7 +7827,7 @@ export function exportQcmAmc (exercice, idExo) {
             const demiMediane = autoCorrection[j].reponse.param.milieuIntervalle - valeurAMCNum
             nbChiffresPd = Math.max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
             valeurAMCNum = autoCorrection[j].reponse.param.milieuIntervalle
-            autoCorrection[j].reponse.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? calcul(demiMediane * 10 ** nbChiffresPd - 1) : calcul(demiMediane * 10 ** nbChiffresPd)
+            autoCorrection[j].reponse.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? demiMediane * 10 ** nbChiffresPd - 1 : demiMediane * 10 ** nbChiffresPd
           }
           texQr += `\\element{${ref}}{\n `
           texQr += `\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
@@ -8376,11 +8355,11 @@ export function exportQcmAmc (exercice, idExo) {
                 let reponseF
                 let reponseAlsoCorrect
                 if (valeurAMCNum.num > 0) {
-                  reponseF = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
-                  reponseAlsoCorrect = calcul(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen))
+                  reponseF = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
+                  reponseAlsoCorrect = arrondi(valeurAMCNum.num + valeurAMCNum.den / (10 ** digitsDen), 8)
                 } else {
-                  reponseF = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)))
-                  reponseAlsoCorrect = calcul(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen))
+                  reponseF = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** nombreDeChiffresDansLaPartieEntiere(valeurAMCNum.den)), 8)
+                  reponseAlsoCorrect = arrondi(valeurAMCNum.num - valeurAMCNum.den / (10 ** digitsDen), 8)
                 }
                 texQr += `\\AMCnumericChoices{${reponseF}}{digits=${digitsNum + digitsDen},decimals=${digitsDen},sign=${signeNum},approx=0,`
                 texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreexact=1,Tpoint={\\vspace{0.5cm} \\vrule height 0.4pt width 5.5cm },alsocorrect=${reponseAlsoCorrect}}\n`
@@ -8404,7 +8383,7 @@ export function exportQcmAmc (exercice, idExo) {
                   const demiMediane = rep.param.milieuIntervalle - valeurAMCNum
                   nbChiffresPd = Math.max(nbChiffresPd, nombreDeChiffresDansLaPartieDecimale(demiMediane))
                   valeurAMCNum = rep.param.milieuIntervalle
-                  rep.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? calcul(demiMediane * 10 ** nbChiffresPd - 1) : calcul(demiMediane * 10 ** nbChiffresPd)
+                  rep.param.approx = autoCorrection[j].reponse.param.approx === 'intervalleStrict' ? demiMediane * 10 ** nbChiffresPd - 1 : demiMediane * 10 ** nbChiffresPd
                 }
                 texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}-${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
                 if (propositions !== undefined) {

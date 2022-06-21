@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, arrondi, texNombre, inferieurouegal, superieurouegal, texteEnCouleurEtGras, miseEnEvidence, enleveDoublonNum } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, arrondi, texNombre, inferieurouegal, superieurouegal, texteEnCouleurEtGras, miseEnEvidence, enleveDoublonNum, numTrie } from '../../modules/outils.js'
 import { antecedentInterpole, graphiqueInterpole, imageInterpolee, mathalea2d, point, repere2, segment, texteParPosition, tracePoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -208,7 +208,7 @@ export default function LecturesGraphiques () {
             }
             k++
           }
-          antecedents = enleveDoublonNum(antecedents, 0.1)
+          antecedents = numTrie(enleveDoublonNum(antecedents, 0.1))
           antecedentTrouve = antecedents.length
           texte = `Lire graphiquement le nombre d'antécédents de $${texNombre(y0)}$ par la fonction $f$.<br>`
           texte += ajouteChampTexteMathLive(this, i)
