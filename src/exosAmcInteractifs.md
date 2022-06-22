@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 456 
-- nombre d'exos interactifReady 680 
+- nombre d'exos interactifReady 683 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -703,3 +703,6 @@
 |canc3N03|Trouver le plus grand nombre entier|OK|AMCNum|OK|mathLive|
 |canc3N04|Arrondir à l'unité|OK|AMCHybride|OK|mathLive|
 |canc3N05|Calculer une somme (partie entière/décimale)|OK|AMCNum|OK|mathLive|
+|techno1E2|Associer évolution en pourcentage et coefficient|KO|KO|OK|mathLive|
+|techno1P1|Écriture fractionnaire, écriture décimale, pourcentage|KO|KO|OK|mathLive|
+|techno1P2|Appliquer un pourcentage|KO|KO|OK|mathLive|
