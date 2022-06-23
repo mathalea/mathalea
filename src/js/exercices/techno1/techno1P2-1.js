@@ -26,9 +26,8 @@ export default function Proportion () {
         a = randint(10, 100)/* Valeur */
 
         this.question = `Calculer  $${b}\\%$ de $${a}$.  <br> `
-        this.correction = `Calculer p$\\%$ d'un nombre, c'est multiplier ce nombre par $\\dfrac{p}{100}$.
-<br>    Ainsi, $${b}\\%$  de $${a}$ est égal à $\\dfrac{${b}}{100}\\times ${a}=\\dfrac{${b}\\times${a}}{100}=\\dfrac{${b * a}}{100}=${texNombrec(b * a / 100)}$<br>
-.`
+        this.correction = `Calculer $p\\%$ d'un nombre, c'est multiplier ce nombre par $\\dfrac{p}{100}$.
+<br>    Ainsi, $${b}\\%$  de $${a}$ est égal à $${texNombrec(b / 100)}\\times ${a}=${texNombrec(b * a / 100)}$.`
         this.reponse = calcul(b * a / 100)
         break
     }

@@ -27,8 +27,7 @@ export default function Proportion () {
         a = c * d
         this.question = `Calculer  $\\dfrac{${b}}{${c}}$ de $${a}$.  <br> `
         this.correction = `Calculer la fraction d'un nombre, c'est multiplier la fraction par ce nombre.
-<br>    Ainsi, $\\dfrac{${b}}{${c}}$  de $${a}$ est égal à $\\dfrac{${b}}{${c}}\\times ${a}=\\dfrac{${b}\\times${a}}{${c}}=\\dfrac{${b}\\times${c}\\times${d}}{${c}}=${texNombrec(b * d)}$.<br>
-.`
+<br><br>    Ainsi, $\\dfrac{${b}}{${c}}$  de $${a}$ est égal à $\\dfrac{${b}}{${c}}\\times ${a}=\\dfrac{${b}\\times${a}}{${c}}=\\dfrac{${b}\\times${c}\\times${d}}{${c}}=${texNombrec(b * d)}$.`
         this.reponse = calcul(d * b)
         break
     }
