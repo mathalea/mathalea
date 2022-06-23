@@ -9057,7 +9057,7 @@ function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalit
  * @param {boolean[]} valeurs présence ou non de l'effectif
  * @param {boolean[]} présence ou non de hachures dans le secteur associé
  * @param {boolean[]} présence ou non d'une couleur de remplissage dans le secteur associé
- * @returns
+ * @returns ...
  */
 export function diagrammeCirculaire ({ effectifs = [100], x = 0, y = 0, rayon = 4, modalites = ['tout'], semi = false, legende = true, legendePosition = 'droite', mesures = [false], visibles = [true], pourcents = [true], valeurs = [false], hachures = [true], remplissage = [false] }) {
   return new DiagrammeCirculaire({ effectifs, x, y, rayon, modalites, semi, legende, legendePosition, mesures, visibles, pourcents, valeurs, hachures, remplissage })
