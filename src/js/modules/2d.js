@@ -3811,7 +3811,7 @@ export function traceCompas (
  * @param {Point} centre centre de l'ellipse
  * @param {number} Rx rayon en X
  * @param {number} Ry rayon en Y
- * @param {string} emisphere 'nord' pour tracer au dessus du centre, 'sud' pour tracer en dessous
+ * @param {string} hemisphere 'nord' pour tracer au dessus du centre, 'sud' pour tracer en dessous
  * @param {boolean | number} pointilles Si false, l'ar est en trait plein, sinon en pointillés
  * @param {boolean} rayon Si true, alors l'arc est fermé par un segment.
  * @param {string} color Facultatif, 'black' par défaut
@@ -3820,17 +3820,17 @@ export function traceCompas (
  * @author Jean-Claude Lhote
  * @return {SemiEllipse} Objet SemiEllipse
  */
-function SemiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
+function SemiEllipse ({ centre, Rx, Ry, hemisphere = 'nord', pointilles = false, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.couleurDeRemplissage = couleurDeRemplissage
-  this.opaciteDeRemplissage = fillOpacite
+  this.opaciteDeRemplissage = opaciteDeRemplissage
   this.hachures = false
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
   this.pointilles = pointilles
-  const angle = emisphere === 'nord' ? 180 : -180
+  const angle = hemisphere === 'nord' ? 180 : -180
   const M = point(centre.x + Rx, centre.y)
   const med = homothetie(rotation(M, centre, angle / 2), centre, Ry / Rx)
 
@@ -4035,17 +4035,17 @@ function SemiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, 
  * @param {Point} centre centre de l'ellipse
  * @param {number} Rx rayon en X
  * @param {number} Ry rayon en Y
- * @param {string} emisphere 'nord' pour tracer au dessus du centre, 'sud' pour tracer en dessous
+ * @param {string} hemisphere 'nord' pour tracer au dessus du centre, 'sud' pour tracer en dessous
  * @param {boolean | number} pointilles Si false, l'ar est en trait plein, sinon en pointillés
  * @param {boolean} rayon Si true, alors l'arc est fermé par un segment.
  * @param {string} color Facultatif, 'black' par défaut
  * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
- * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @param {number} opaciteDeRemplissage Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
  * @author Jean-Claude Lhote
  * @return {SemiEllipse} Objet SemiEllipse
  */
-export function semiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = false, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
-  return new SemiEllipse({ centre, Rx, Ry, emisphere, pointilles, rayon, couleurDeRemplissage, color, fillOpacite })
+export function semiEllipse ({ centre, Rx, Ry, hemisphere = 'nord', pointilles = false, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
+  return new SemiEllipse({ centre, Rx, Ry, hemisphere, pointilles, rayon, couleurDeRemplissage, color, opaciteDeRemplissage })
 }
 
 /**
@@ -4056,19 +4056,19 @@ export function semiEllipse ({ centre, Rx, Ry, emisphere = 'nord', pointilles = 
  * @param {Point} sommet sommet du cône
  * @param {string} color Facultatif, 'black' par défaut
  * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
- * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @param {number} opaciteDeRemplissage Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
  * @author Jean-Claude Lhote
  */
-function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
+function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.couleurDeRemplissage = couleurDeRemplissage
-  this.opaciteDeRemplissage = fillOpacite
+  this.opaciteDeRemplissage = opaciteDeRemplissage
   const objets = [
-    semiEllipse({ centre, Rx, Ry, emisphere: 'nord', rayon: false, pointilles: 1, couleurDeRemplissage, color, fillOpacite }),
-    semiEllipse({ centre, Rx, Ry, emisphere: 'sud', rayon: false, pointilles: false, couleurDeRemplissage, color, fillOpacite }),
-    segment(point(centre.x + Rx, centre.y + 0.1), sommet, color),
-    segment(point(centre.x - Rx, centre.y + 0.1), sommet, color)
+    semiEllipse({ centre, Rx, Ry, hemisphere: 'nord', rayon: false, pointilles: 1, couleurDeRemplissage: this.couleurDeRemplissage, color: this.color, opaciteDeRemplissage: this.opaciteDeRemplissage }),
+    semiEllipse({ centre, Rx, Ry, hemisphere: 'sud', rayon: false, pointilles: false, couleurDeRemplissage: this.couleurDeRemplissage, color: this.color, opaciteDeRemplissage: this.opaciteDeRemplissage }),
+    segment(point(centre.x + Rx, centre.y + 0.1), sommet, this.color),
+    segment(point(centre.x - Rx, centre.y + 0.1), sommet, this.color)
   ]
 
   this.svg = function (coeff) {
@@ -4094,11 +4094,11 @@ function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 
  * @param {Point} sommet sommet du cône
  * @param {string} color Facultatif, 'black' par défaut
  * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
- * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @param {number} opaciteDeRemplissage Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
  * @author Jean-Claude Lhote
  */
-export function cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2 }) {
-  return new Cone({ centre, Rx, Ry, sommet, couleurDeRemplissage, color, fillOpacite })
+export function cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
+  return new Cone({ centre, Rx, Ry, sommet, couleurDeRemplissage, color, opaciteDeRemplissage })
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -9838,12 +9838,12 @@ export function intervalle (A, B, color = 'blue', h = 0) {
 }
 
 /**
- * convertHexToRGB convertit une couleur en héxadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
+ * convertHexToRGB convertit une couleur en hexadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
  * @example convertHexToRGB('f15929')=[241,89,41]
  * @author Eric Elter
  */
 
-function convertHexToRGB (couleur = '000000') {
+/* function convertHexToRGB (couleur = '000000') {
   const hexDecoupe = couleur.match(/.{1,2}/g)
   const hexToRGB = [
     parseInt(hexDecoupe[0], 16),
@@ -9851,7 +9851,7 @@ function convertHexToRGB (couleur = '000000') {
     parseInt(hexDecoupe[2], 16)
   ]
   return hexToRGB
-}
+} */
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
