@@ -29,11 +29,11 @@ export default function ProportiondeProportion () {
         parmi eux,   $${c}\\%$ à plus de $${d}$ années d'ancienneté.<br>
         Quel est le pourcentage d'adhérents de plus de  $${a}$ ans ayant plus de $${d}$ années d'ancienneté ?`
         this.correction = `La population de référence est celle des membres du club.<br>
-        La première sous-population est celle des plus de $${a}$ ans, <br>
+        La première sous-population est celle des plus de $${a}$ ans, 
         qui représente $p_1=${b}\\%$ de la population de référence. <br>
         Dans cette sous-population, on sait que la population de ceux qui ont plus de $${d}$ années d'ancienneté représente $p_2=${c}\\%$.<br>
         D'après le cours, on calcule $p=p_1\\times p_2$, ce qui rerésente $${b}\\%$ de $${c}\\%$.<br>
-      <br>Ainsi,  $p=\\dfrac{${b}}{${100}}\\times \\dfrac{${c}}{${100}}=\\dfrac{${b}\\times${c}}{10000}=\\dfrac{${b * c}}{${10000}}=${texNombrec(b * c / 10000)}$.<br>
+      <br>Ainsi,  $p=\\texnombre{${b/100}}\\times \\texnombre{${c/100}}=\\dfrac{${b}\\times${c}}{10000}=\\dfrac{${b * c}}{${10000}}=${texNombrec(b * c / 10000)}$.<br>
       Il y a $${texNombrec(b * c / 100)}\\%$ d'adhérents de plus de  $${a}$ ans ayant plus de $${b}$ années d'ancienneté.`
         this.reponse = calcul(b * c / 100)
         break
