@@ -2713,7 +2713,7 @@ export function flatArrayToPolygone (flat, noms) {
   return pol
 }
 
-function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', backgroundColor = 'white' }) {
+function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', couleurDeFond = 'white' }) {
   ObjetMathalea2D.call(this)
   const triangles = earcut(data, holes) // on crée le pavage de triangles grâce à Mapbox/earcut
   this.triangulation = function () { // retourne la liste de triangles 2d.
@@ -2747,7 +2747,7 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
   this.couleurDeRemplissage = couleurDeRemplissage
   this.contour.couleurDeRemplissage = couleurDeRemplissage
   this.contour.color = this.color
-  this.backgroundColor = backgroundColor
+  this.couleurDeFond = couleurDeFond
   const trous = []
   let trou, trouPol
   for (let i = 0; i < holes.length; i++) {
@@ -2761,7 +2761,7 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
     }
     trouPol = polygone(...trous[i])
     trouPol.color = this.color
-    trouPol.couleurDeRemplissage = this.backgroundColor
+    trouPol.couleurDeRemplissage = this.couleurDeFond
     this.trous.push(trouPol)
   }
   this.aire = function () { // retourne l'aire du polygone à trou
@@ -2794,11 +2794,11 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
  * @param {string} noms contient les noms des sommets
  * @param {string} color est la couleur des bords
  * @param {string} couleurDeRemplissage est la couleur de la surface
- * @param {string} backgroundColor est la couleur de remplissage des trous
+ * @param {string} couleurDeFond est la couleur de remplissage des trous
  * @returns {ObjetMathalea2D} un polygone à trous (ou pas : il peut ne pas y avoir de trou !)
  */
-export function polygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', backgroundColor = 'white' }) {
-  return new PolygoneATrous({ data, holes, noms, color, couleurDeRemplissage, backgroundColor })
+export function polygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', couleurDeFond = 'white' }) {
+  return new PolygoneATrous({ data, holes, noms, color, couleurDeRemplissage, couleurDeFond })
 }
 /*********************************************/
 /** ***************Triangles ******************/
@@ -3509,14 +3509,14 @@ export function cercleCentrePoint (...args) {
  * @param {boolean} rayon booléen si true, les rayons délimitant l'arc sont ajoutés
  * @param {boolean} fill
  * @param {string} color
- * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
+ * @param {number} opaciteDeRemplissage // transparence de remplissage de 0 à 1.
  */
 
-function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2) {
+function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.couleurDeRemplissage = couleurDeRemplissage
-  this.opaciteDeRemplissage = fillOpacite
+  this.opaciteDeRemplissage = opaciteDeRemplissage
   this.hachures = false
   this.couleurDesHachures = 'black'
   this.epaisseurDesHachures = 1
@@ -3749,12 +3749,12 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
  * @param {boolean} rayon Si true, les rayons délimitant l'arc sont ajoutés. Facultatif, false par défaut
  * @param {string} fill Facultatif, 'none' par défaut
  * @param {string} color Facultatif, 'black' par défaut
- * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @param {number} opaciteDeRemplissage Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
  * @author Jean-Claude Lhote
  * @return {Arc} Objet Arc
  */
-export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', fillOpacite = 0.2) {
-  return new Arc(M, Omega, angle, rayon, couleurDeRemplissage, color, fillOpacite)
+export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2) {
+  return new Arc(M, Omega, angle, rayon, couleurDeRemplissage, color, opaciteDeRemplissage)
 }
 /**
  *
@@ -3764,10 +3764,10 @@ export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
  * @param {boolean} rayon //si true, l'arc est fermé par deux rayons aux extrémités
  * @param {string} fill //couleur de remplissage (par défaut 'none'= sans remplissage)
  * @param {string} color //couleur de l'arc
- * @param {number} fillOpacite // transparence de remplissage de 0 à 1.
+ * @param {number} opaciteDeRemplissage // transparence de remplissage de 0 à 1.
  * @author Jean-Claude Lhote
  */
-function ArcPointPointAngle (M, N, angle, rayon = false, fill = 'none', color = 'black', fillOpacite = 0.2) {
+function ArcPointPointAngle (M, N, angle, rayon = false, fill = 'none', color = 'black', opaciteDeRemplissage = 0.2) {
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
   else anglerot = (angle - 180) / 2
@@ -3781,7 +3781,7 @@ function ArcPointPointAngle (M, N, angle, rayon = false, fill = 'none', color = 
   const Omegax = (d.b * f.c - f.b * d.c) / determinant
   const Omegay = (f.a * d.c - d.a * f.c) / determinant
   const Omega = point(Omegax, Omegay)
-  Arc.call(this, M, Omega, angle, rayon, fill, color, fillOpacite)
+  Arc.call(this, M, Omega, angle, rayon, fill, color, opaciteDeRemplissage)
 }
 export function arcPointPointAngle (...args) {
   return new ArcPointPointAngle(...args)
@@ -3816,7 +3816,7 @@ export function traceCompas (
  * @param {boolean} rayon Si true, alors l'arc est fermé par un segment.
  * @param {string} color Facultatif, 'black' par défaut
  * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
- * @param {number} fillOpacite Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @param {number} opaciteDeRemplissage Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
  * @author Jean-Claude Lhote
  * @return {SemiEllipse} Objet SemiEllipse
  */
@@ -5751,7 +5751,7 @@ export function texteSurArc (...args) {
  *
  * @author Rémi Angot
  */
-function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, fill = 'none', fillOpacite = 0.5, arcEpaisseur = 1 } = {}) {
+function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, fill = 'none', opaciteDeRemplissage = 0.5, arcEpaisseur = 1 } = {}) {
   ObjetMathalea2D.call(this)
   this.depart = A
   this.arrivee = C
@@ -5770,7 +5770,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
       mesureAngle = Math.round(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee)) + '°'
     }
     const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
-    const marque = arc(M, B, this.angle, rayon, fill, colorArc, fillOpacite)
+    const marque = arc(M, B, this.angle, rayon, fill, colorArc, opaciteDeRemplissage)
     mesure.contour = mesureEnGras
     mesure.couleurDeRemplissage = color
     marque.epaisseur = arcEpaisseur
@@ -5786,7 +5786,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
       mesureAngle = Math.round(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee)) + '\\degree'
     }
     const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
-    const marque = arc(M, B, this.angle, rayon, fill, colorArc, fillOpacite)
+    const marque = arc(M, B, this.angle, rayon, fill, colorArc, opaciteDeRemplissage)
     mesure.contour = mesureEnGras
     mesure.couleurDeRemplissage = color
     marque.epaisseur = arcEpaisseur
@@ -5806,13 +5806,13 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
  * @param {string} [colorArc='black']  Couleur de l'arc.
  * @param {boolean} [rayon=false] true pour fermer l'angle en vue de colorier l'intérieur.
  * @param {string} [fill='none'] 'none' si on ne veut pas de remplissage, sinon une couleur.
- * @param {number} [fillOpacite=0.5] Taux d'opacité du remplissage.
+ * @param {number} [opaciteDeRemplissage=0.5] Taux d'opacité du remplissage.
  * @param {number} [arcEpaisseur=1] épaisseur de l'arc.
  * @param {boolean} [mesureEnGras=false] true pour mettre en gras la mesure affichée.
  * @returns {object} AfficheMesureAngle
  */
-export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, fill = 'none', fillOpacite = 0.5, arcEpaisseur = 1 } = {}) {
-  return new AfficheMesureAngle(A, B, C, color, distance, label, { ecart, mesureEnGras, saillant, colorArc, rayon, fill, fillOpacite, arcEpaisseur })
+export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, fill = 'none', opaciteDeRemplissage = 0.5, arcEpaisseur = 1 } = {}) {
+  return new AfficheMesureAngle(A, B, C, color, distance, label, { ecart, mesureEnGras, saillant, colorArc, rayon, fill, opaciteDeRemplissage, arcEpaisseur })
 }
 /**
  * macote=afficheCoteSegment(s,'x',-1,'red',2) affiche une côte sur une flèche rouge d'epaisseur 2 placée 1cm sous le segment s avec le texte 'x' écrit en noir (par defaut) 0,5cm au-dessus (par defaut)
@@ -6014,7 +6014,7 @@ export function codeSegments (mark = '||', color = 'black', ...args) {
  *  la ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @author Jean-Claude Lhote
  */
-function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
+function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.debut = debut
@@ -6026,7 +6026,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
 
   if (fill !== 'none') {
     this.couleurDeRemplissage = fill
-    this.opaciteDeRemplissage = fillOpacite
+    this.opaciteDeRemplissage = opaciteDeRemplissage
   } else { this.couleurDeRemplissage = 'none' }
   this.angle = angle
 
@@ -6043,7 +6043,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     arcangle.isVisible = false
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.opaciteDeRemplissage = fillOpacite
+    arcangle.opaciteDeRemplissage = opaciteDeRemplissage
     objets.push(arcangle)
     if (this.mark !== '') {
       const t = texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color)
@@ -6081,7 +6081,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const arcangle = arc(depart, this.centre, this.angle, false, this.couleurDeRemplissage, this.color)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.opaciteDeRemplissage = fillOpacite
+    arcangle.opaciteDeRemplissage = opaciteDeRemplissage
     if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).svg(coeff) + '\n'
     if (mesureOn) code += texteParPoint(mesure, M, 'milieu', this.color).svg(coeff) + '\n'
     code += arcangle.svgml(coeff, amp)
@@ -6098,7 +6098,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', this.couleurDeRemplissage, this.color)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.opaciteDeRemplissage = fillOpacite
+    arcangle.opaciteDeRemplissage = opaciteDeRemplissage
     if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
     if (mesureOn) code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
     code += arcangle.tikz()
@@ -6115,7 +6115,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const arcangle = arc(depart, this.centre, this.angle, fill !== 'none', this.couleurDeRemplissage, this.color)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.opaciteDeRemplissage = fillOpacite
+    arcangle.opaciteDeRemplissage = opaciteDeRemplissage
     // if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
     if (this.mark !== '') code += texteParPoint(mark, M, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
     if (mesureOn) code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
@@ -6133,7 +6133,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
  * @param {number} [epaisseur=1] Facultatif. 1 par défaut.
  * @param {number} [opacite=1] Facultatif. 1 par défaut.
  * @param {string} [fill='none'] Facultatif. 'none' par défaut
- * @param {number} [fillOpacite=0.2] Facultatif. 0.2 par défaut
+ * @param {number} [opaciteDeRemplissage=0.2] Facultatif. 0.2 par défaut
  * @param {boolean} [mesureOn=false] Facultatif. false par défaut
  * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré (from EE)
  * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle (from EE) : encore optimisable
@@ -6143,13 +6143,13 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
  * @example codeAngle(A,O,B) // code l'angle AOB sans aucune autre option possible
  * @author Jean-Claude Lhote
  */
-export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', fillOpacite = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
+export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
   if (typeof (angle) !== 'number') {
     angle = angleOriente(debut, centre, angle)
   }
   if ((angle === 90 || angle === -90) & !noAngleDroit) {
-    return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille, epaisseur, opacite, fill, fillOpacite)
-  } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, fill, fillOpacite, mesureOn, texteACote, tailleTexte)
+    return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille, epaisseur, opacite, fill, opaciteDeRemplissage)
+  } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, fill, opaciteDeRemplissage, mesureOn, texteACote, tailleTexte)
 }
 
 function NomAngleParPosition (nom, x, y, color, s) {
