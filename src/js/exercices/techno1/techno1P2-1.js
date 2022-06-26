@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, arrondi, texNombre } from '../../modules/outils.js'
 export const titre = 'Proportion d\'une sous-population'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -40,8 +40,8 @@ export default class nomExercice extends Exercice {
           texteCorr = `La population de référence est celle des spectateurs du match.<br> On peut appeler $N=${N}$ son effectif.<br>
           La sous-population étudiée est celle des spectateurs de moins de 20 ans.<br> On peut appeler $n=${n}$ son effectif.<br>
           D'après le cours, on sait que la proportion d'une sous-population dans une population est :<br>
-          $p=\\dfrac{\\text{Effectif de la sous population}}{\\text{Effectif de la population de référence}}=\\dfrac{n}{N}=\\dfrac{${n}}{${N}}=${arrondi(n / N, 2)}$<br>
-          La proportion de moins de 20 ans parmi les spectateurs est de $p=${arrondi(n / N, 2)}$, soit $p=${arrondi(n * 100 / N, 0)}\\%$`
+          $p=\\dfrac{\\text{Effectif de la sous population}}{\\text{Effectif de la population de référence}}=\\dfrac{n}{N}=\\dfrac{${n}}{${N}}\\approx${texNombre(n / N, 2)}$<br>
+          La proportion de moins de 20 ans parmi les spectateurs est environ de $p=${texNombre(n / N, 2)}$ ou encore $p=${texNombre(n * 100 / N, 0)}\\%$`
           break
         case 'type2':
           texte = `Question ${i + 1} de type 2`
