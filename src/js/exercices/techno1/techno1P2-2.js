@@ -49,7 +49,7 @@ export default class nomExercice extends Exercice {
           N = randint(12, 18) * 2
           n = randint(18, N / 2)
           texte = `L’an passé, parmi les $${N}$ élèves de terminale STMG, $${n}$ ont obtenu une place en BTS ou en IUT.<br>
-            Calculer la valeur approchée, arrondie au centième, de la proportion de bachelier de cette classe.
+            Calculer la valeur approchée, arrondie au centième, de la proportion d'élèves de cette classe qui ont obtenu une place en BTS ou en IUT.
             ` // Le LateX entre deux symboles $, les variables dans des ${ }
           texteCorr = `La population de référence est celle des élèves de Terminale STMG.<br>
              On note $N=${N}$ son effectif.<br>
