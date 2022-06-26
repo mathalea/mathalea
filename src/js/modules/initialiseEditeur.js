@@ -8,17 +8,17 @@ import { calcule } from './fonctionsMaths.js'
 import Sval from 'sval'
 import Alea2iep from './Alea2iep.js'
 
-function polygoneRegulierIndirect(A, B, n, color) { // fonction supprimée de 2d.js donc mise ici pour assurer la compatibilité avec les vieux scripts mathalea2d
+function polygoneRegulierIndirect (A, B, n, color) { // fonction supprimée de 2d.js donc mise ici pour assurer la compatibilité avec les vieux scripts mathalea2d
   return polygoneRegulier(B, A, n, color)
 }
-function carreIndirect(A, B, color) {
+function carreIndirect (A, B, color) {
   return carre(B, A, color)
 }
 /**
  * Pour l'autocomplétion, importe les fonctions de mathalea2d, les charge dans window et dans l'interpréteur Sval
  * @returns interpreter Objet Sval
  */
-export default function initialiseEditeur() {
+export default function initialiseEditeur () {
   context.objets2D = [] // Initialise la liste qui se met à jour à chaque création d'objet 2D
   window.randint = randint
   window.texNombre = texNombre
