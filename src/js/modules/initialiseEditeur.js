@@ -69,6 +69,7 @@ export default function initialiseEditeur () {
   window.polygoneAvecNom = polygoneAvecNom
   window.polygoneRegulier = polygoneRegulier
   window.polygoneRegulierIndirect = polygoneRegulierIndirect
+  window.polygoneATrous = polygoneATrous
   window.carre = carre
   window.carreIndirect = carreIndirect
   window.codageCarre = codageCarre
@@ -198,6 +199,7 @@ export default function initialiseEditeur () {
   window.positionLabelDroite = positionLabelDroite
   window.fixeBordures = fixeBordures
   window.diagrammeBarres = diagrammeBarres
+  window.diagrammeCirculaire = diagrammeCirculaire
   window.axeY = axeY
   window.cone = cone
 
@@ -287,6 +289,7 @@ export default function initialiseEditeur () {
     polygoneAvecNom: window.polygoneAvecNom,
     polygoneRegulier: window.polygoneRegulier,
     polygoneRegulierIndirect: window.polygoneRegulierIndirect,
+    polygoneATrous: window.polygoneATrous,
     carre: window.carre,
     carreIndirect: window.carreIndirect,
     codageCarre: window.codageCarre,
@@ -419,7 +422,9 @@ export default function initialiseEditeur () {
     positionLabelDroite: window.positionLabelDroite,
     fixeBordures: window.fixeBordures,
     diagrammeBarres: window.diagrammeBarres,
+    diagrammeCirculaire: window.diagrammeCirculaire,
     axeY: window.axeY,
+    cone: window.cone,
 
     // 3d
     sensDeRotation3d: window.sensDeRotation3d,
