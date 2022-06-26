@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 456 
-- nombre d'exos interactifReady 687 
+- nombre d'exos interactifReady 692 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -401,6 +401,11 @@
 |can1F07|Déterminer une équation de l’axe de symétrie d’une parabole|KO|KO|OK|mathLive|
 |can1F08|Déterminer la fonction dérivée d’une fonction affine|KO|KO|OK|mathLive|
 |can1F09|Déterminer la fonction dérivée d’une fonction affine*|KO|KO|OK|mathLive|
+|can1F10|Déterminer la fonction dérivée d’un polynôme de degré 2|KO|KO|OK|mathLive|
+|can1F11|Déterminer la fonction dérivée d’un polynôme de degré 3|KO|KO|OK|mathLive|
+|can1F12|Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\sqrt{x}$|KO|KO|OK|mathLive|
+|can1F13|Déterminer le coefficient directeur d’une tangente (fonctions de référence)|KO|KO|OK|mathLive|
+|can1F14|Déterminer un nombre dérivé|KO|KO|OK|mathLive|
 |can1F15|Lire graphiquement un nombre dérivé|KO|KO|OK|mathLive|
 |can1G01|Déterminer les valeurs remarquables du cosinus et sinus|KO|KO|OK|mathLive|
 |can1G02|Déterminer les valeurs remarquables du cosinus et sinus*|KO|KO|OK|mathLive|

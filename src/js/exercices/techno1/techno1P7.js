@@ -28,7 +28,7 @@ export default class nomExercice extends Exercice {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const typeQuestionsDisponibles = ['type1'] // On créé 3 types de questions
+    const typeQuestionsDisponibles = ['type1', 'type2'] // On créé 3 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, O1, O2, A1, A2, C1, C2, O, A, C, H, F, T, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
@@ -52,7 +52,7 @@ export default class nomExercice extends Exercice {
           texte += '<br><br>1. Déterminer la proportion d\'ouvriers dans cette entreprise. '
           texte += '<br>2. Déterminer la proportion de cadres parmi les femmes de cette entreprise. '
           texte += '<br>3. Déterminer la proportion d\'hommes parmi les administratifs de cette entreprise. '
-          texteCorr = `1. On cherche la proportion d\'ouvriers dans cette entreprise.
+          texteCorr = `<B>1.</B> On cherche la proportion d'ouvriers dans cette entreprise.
           <br>La population de référence est celle de l'entreprise.
           <br>On note $N=${T}$ cet effectif.
           <br>La sous-population étudiée est celle des ouvriers.
@@ -60,22 +60,51 @@ export default class nomExercice extends Exercice {
           <br>On sait d'après le cours que la proportion d'ouvriers dans l'entreprise est alors égale à :
           <br> $p=\\dfrac{n}{N}=\\dfrac{${O}}{${T}}\\approx ${texNombre(O / T, 2)}$.
           <br> On peut conclure qu'il y a $${texNombre(O * 100 / T, 0)}\\%$ d'ouvriers dans cette entreprise.
-          <br>2. On cherche maintenant la proportion de cadres parmi les femmes.
+          <br><br><B>2.</B> On cherche maintenant la proportion de cadres parmi les femmes.
         <br> La population de référence est celle des femmes.
         <br>On note $N=${F}$ cet effectif.
         <br>La sous-population étudiée est celle des cadres femmes.
         <br>On note $n=${C2}$ cet effectif.
         <br>On sait d'après le cours que la proportion de cadres parmi les femmes de l'entreprise est alors égale à :
         <br> $p=\\dfrac{n}{N}=\\dfrac{${C2}}{${F}}\\approx ${texNombre(C2 / F, 2)}$.
-        <br> On peut conclure qu'il y a $${texNombre(C2 * 100 / F, 0)}\\%$ cadres parmi les femmes de cette entreprise.
-        <br><B>3.<\b> On cherche maintenant la proportion des hommes parmi les administratifs.
+        <br> On peut conclure qu'il y a $${texNombre(C2 * 100 / F, 0)}\\%$ de cadres parmi les femmes de cette entreprise.
+        <br><br><B>3.</B> On cherche maintenant la proportion des hommes parmi les administratifs.
         <br> La population de référence est celle des administratifs.
-        <br>On note $N=${F}$ cet effectif.
+        <br>On note $N=${A}$ cet effectif.
         <br>La sous-population étudiée est celle des hommes du secteur administratif.
-        <br>On note $n=${C2}$ cet effectif.
+        <br>On note $n=${A1}$ cet effectif.
         <br>On sait d'après le cours que la proportion des hommes parmi les administratifs de l'entreprise est alors égale à :
-        <br> $p=\\dfrac{n}{N}=\\dfrac{${C2}}{${F}}\\approx ${texNombre(C2 / F, 2)}$.
-        <br> On peut conclure qu'il y a $${texNombre(C2 * 100 / F, 0)}\\%$ d'hommes parmi les administratifs de cette entreprise.`
+        <br> $p=\\dfrac{n}{N}=\\dfrac{${A1}}{${A}}\\approx ${texNombre(A1 / A, 2)}$.
+        <br> On peut conclure qu'il y a $${texNombre(A1 * 100 / A, 0)}\\%$ d'hommes parmi les administratifs de cette entreprise.`
+          break
+        case 'type2':
+          texte += '<br><br><B>1.</B> Déterminer la proportion de cadres dans cette entreprise. '
+          texte += '<br><B>2.</B> Déterminer la proportion d\'ouvriers parmi les hommes de cette entreprise. '
+          texte += '<br><B>3.</B> Déterminer la proportion de femmes parmi les administratifs de cette entreprise. '
+          texteCorr = `<B>1.</B> On cherche la proportion de cadres dans cette entreprise.
+            <br>La population de référence est celle de l'entreprise.
+            <br>On note $N=${T}$ cet effectif.
+            <br>La sous-population étudiée est celle des cadres.
+            <br>On note $n=${C}$ cet effectif.
+            <br>On sait d'après le cours que la proportion de cadres dans l'entreprise est alors égale à :
+            <br> $p=\\dfrac{n}{N}=\\dfrac{${C}}{${T}}\\approx ${texNombre(C / T, 2)}$.
+            <br> On peut conclure qu'il y a $${texNombre(C * 100 / T, 0)}\\%$ de cadres dans cette entreprise.
+            <br><br><B>2.</B> On cherche maintenant la proportion d'ouvriers parmi les hommes.
+          <br> La population de référence est celle des hommes.
+          <br>On note $N=${H}$ cet effectif.
+          <br>La sous-population étudiée est celle des ouvriers hommes.
+          <br>On note $n=${O1}$ cet effectif.
+          <br>On sait d'après le cours que la proportion des ouvriers parmi les hommes de l'entreprise est alors égale à :
+          <br> $p=\\dfrac{n}{N}=\\dfrac{${O1}}{${H}}\\approx ${texNombre(O1 / H, 2)}$.
+          <br> On peut conclure qu'il y a $${texNombre(O1 * 100 / H, 0)}\\%$ d'ouvriers parmi les hommes de cette entreprise.
+          <br><br><B>3.<B> On cherche maintenant la proportion des femmes parmi les administratifs.
+          <br> La population de référence est celle des administratifs.
+          <br>On note $N=${F}$ cet effectif.
+          <br>La sous-population étudiée est celle des femmes du secteur administratif.
+          <br>On note $n=${A2}$ cet effectif.
+          <br>On sait d'après le cours que la proportion des femmes parmi les administratifs de l'entreprise est alors égale à :
+          <br> $p=\\dfrac{n}{N}=\\dfrac{${A2}}{${F}}\\approx ${texNombre(A2 / F, 2)}$.
+          <br> On peut conclure qu'il y a $${texNombre(A2 * 100 / F, 0)}\\%$ de femmes parmi les administratifs de cette entreprise.`
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
