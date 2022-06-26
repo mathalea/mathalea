@@ -1,4 +1,4 @@
-import { diagrammeBarres, axeY, texteParPointEchelle, angleScratchTo2d, scratchblock, motifs, nomVecteurParPosition, point, tracePoint, tracePointSurDroite, milieu, pointSurSegment, pointSurCercle, pointSurDroite, pointIntersectionDD, pointAdistance, labelPoint, barycentre, droite, droiteParPointEtVecteur, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteHorizontaleParPoint, droiteVerticaleParPoint, droiteParPointEtPente, mediatrice, codageMediatrice, codageMilieu, constructionMediatrice, bissectrice, codageBissectrice, constructionBissectrice, polyline, pave, vecteur, segment, segmentAvecExtremites, demiDroite, demiDroiteAvecExtremite, polygone, polygoneAvecNom, polygoneRegulier, carre, codageCarre, polygoneRegulierParCentreEtRayon, triangle2points2longueurs, triangle2points2angles, triangle2points1angle1longueur, triangle2points1angle1longueurOppose, nommePolygone, deplaceLabel, aireTriangle, cercle, ellipse, pointIntersectionLC, pointIntersectionCC, cercleCentrePoint, arc, arcPointPointAngle, traceCompas, courbeDeBezier, dansLaCibleCarree, dansLaCibleRonde, cibleCarree, cibleRonde, cibleCouronne, translation, translation2Points, rotation, sensDeRotation, homothetie, symetrieAxiale, distancePointDroite, projectionOrtho, affiniteOrtho, similitude, translationAnimee, apparitionAnimee, rotationAnimee, homothetieAnimee, symetrieAnimee, affiniteOrthoAnimee, montrerParDiv, cacherParDiv, afficherTempo, afficherTempoId, afficherUnParUn, medianeTriangle, centreGraviteTriangle, hauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, orthoCentre, centreCercleCirconscrit, codageAngleDroit, afficheLongueurSegment, texteSurSegment, afficheMesureAngle, afficheCoteSegment, codeSegment, codeSegments, codeAngle, nomAngleSaillantParPosition, nomAngleRentrantParPosition, droiteGraduee, droiteGraduee2, axes, labelX, labelY, grille, grilleHorizontale, grilleVerticale, seyes, repere, repere2, pointDansRepere, traceGraphiqueCartesien, traceBarre, traceBarreHorizontale, lectureImage, lectureAntecedent, courbe, courbe2, courbeInterpolee, graphiqueInterpole, imageInterpolee, antecedentInterpole, crochetD, crochetG, intervalle, texteParPoint, texteParPosition, latexParPoint, latexParCoordonnees, fractionParPosition, longueur, norme, angle, angleOriente, angleradian, creerLutin, avance, baisseCrayon, leveCrayon, orienter, tournerG, tournerD, allerA, mettrexA, mettreyA, ajouterAx, ajouterAy, afficherCrayon, codeSvg, codeTikz, mathalea2d, labyrinthe, pavage, tableau, glisseNombre, boite, plot, papierPointe, traceMilieuSegment, positionLabelDroite, fixeBordures } from './2d.js'
+import { polygoneATrous, semiEllipse, diagrammeBarres, axeY, texteParPointEchelle, angleScratchTo2d, scratchblock, motifs, nomVecteurParPosition, point, tracePoint, tracePointSurDroite, milieu, pointSurSegment, pointSurCercle, pointSurDroite, pointIntersectionDD, pointAdistance, labelPoint, barycentre, droite, droiteParPointEtVecteur, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteHorizontaleParPoint, droiteVerticaleParPoint, droiteParPointEtPente, mediatrice, codageMediatrice, codageMilieu, constructionMediatrice, bissectrice, codageBissectrice, constructionBissectrice, polyline, pave, vecteur, segment, segmentAvecExtremites, demiDroite, demiDroiteAvecExtremite, polygone, polygoneAvecNom, polygoneRegulier, carre, codageCarre, polygoneRegulierParCentreEtRayon, triangle2points2longueurs, triangle2points2angles, triangle2points1angle1longueur, triangle2points1angle1longueurOppose, nommePolygone, deplaceLabel, aireTriangle, cercle, ellipse, pointIntersectionLC, pointIntersectionCC, cercleCentrePoint, arc, arcPointPointAngle, traceCompas, courbeDeBezier, dansLaCibleCarree, dansLaCibleRonde, cibleCarree, cibleRonde, cibleCouronne, translation, translation2Points, rotation, sensDeRotation, homothetie, symetrieAxiale, distancePointDroite, projectionOrtho, affiniteOrtho, similitude, translationAnimee, apparitionAnimee, rotationAnimee, homothetieAnimee, symetrieAnimee, affiniteOrthoAnimee, montrerParDiv, cacherParDiv, afficherTempo, afficherTempoId, afficherUnParUn, medianeTriangle, centreGraviteTriangle, hauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, orthoCentre, centreCercleCirconscrit, codageAngleDroit, afficheLongueurSegment, texteSurSegment, afficheMesureAngle, afficheCoteSegment, codeSegment, codeSegments, codeAngle, nomAngleSaillantParPosition, nomAngleRentrantParPosition, droiteGraduee, droiteGraduee2, axes, labelX, labelY, grille, grilleHorizontale, grilleVerticale, seyes, repere, repere2, pointDansRepere, traceGraphiqueCartesien, traceBarre, traceBarreHorizontale, lectureImage, lectureAntecedent, courbe, courbe2, courbeInterpolee, graphiqueInterpole, imageInterpolee, antecedentInterpole, crochetD, crochetG, intervalle, texteParPoint, texteParPosition, latexParPoint, latexParCoordonnees, fractionParPosition, longueur, norme, angle, angleOriente, angleradian, creerLutin, avance, baisseCrayon, leveCrayon, orienter, tournerG, tournerD, allerA, mettrexA, mettreyA, ajouterAx, ajouterAy, afficherCrayon, codeSvg, codeTikz, mathalea2d, labyrinthe, pavage, tableau, glisseNombre, boite, plot, papierPointe, traceMilieuSegment, positionLabelDroite, fixeBordures, texteSurArc, cone } from './2d.js'
 import { sensDeRotation3d, cube, cube3d, plaque3d, paveLPH3d, barre3d, point3d, vecteur3d, arete3d, droite3d, demicercle3d, cercle3d, polygone3d, sphere3d, cone3d, cylindre3d, prisme3d, pave3d, rotationV3d, rotation3d, translation3d, homothetie3d, CodageAngleDroit3D } from './3d.js'
 import { pointCliquable } from './2dinteractif.js'
 import { randint, texNombre, nombreDecimal, calcul } from './outils.js'
@@ -8,17 +8,17 @@ import { calcule } from './fonctionsMaths.js'
 import Sval from 'sval'
 import Alea2iep from './Alea2iep.js'
 
-function polygoneRegulierIndirect (A, B, n, color) { // fonction supprimée de 2d.js donc mise ici pour assurer la compatibilité avec les vieux scripts mathalea2d
+function polygoneRegulierIndirect(A, B, n, color) { // fonction supprimée de 2d.js donc mise ici pour assurer la compatibilité avec les vieux scripts mathalea2d
   return polygoneRegulier(B, A, n, color)
 }
-function carreIndirect (A, B, color) {
+function carreIndirect(A, B, color) {
   return carre(B, A, color)
 }
 /**
  * Pour l'autocomplétion, importe les fonctions de mathalea2d, les charge dans window et dans l'interpréteur Sval
  * @returns interpreter Objet Sval
  */
-export default function initialiseEditeur () {
+export default function initialiseEditeur() {
   context.objets2D = [] // Initialise la liste qui se met à jour à chaque création d'objet 2D
   window.randint = randint
   window.texNombre = texNombre
@@ -82,6 +82,8 @@ export default function initialiseEditeur () {
   window.aireTriangle = aireTriangle
   window.cercle = cercle
   window.ellipse = ellipse
+  window.semiEllipse = semiEllipse
+  window.polygoneATrous = polygoneATrous
   window.pointIntersectionLC = pointIntersectionLC
   window.pointIntersectionCC = pointIntersectionCC
   window.cercleCentrePoint = cercleCentrePoint
@@ -197,6 +199,7 @@ export default function initialiseEditeur () {
   window.fixeBordures = fixeBordures
   window.diagrammeBarres = diagrammeBarres
   window.axeY = axeY
+  window.cone = cone
 
   // La 3d
   window.sensDeRotation3d = sensDeRotation3d
@@ -297,6 +300,9 @@ export default function initialiseEditeur () {
     aireTriangle: window.aireTriangle,
     cercle: window.cercle,
     ellipse: window.ellipse,
+    cone: window.cone,
+    semiEllipse: window.semiEllipse,
+    polygoneATrous: window.polygoneATrous,
     pointIntersectionLC: window.pointIntersectionLC,
     pointIntersectionCC: window.pointIntersectionCC,
     cercleCentrePoint: window.cercleCentrePoint,
