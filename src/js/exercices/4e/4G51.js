@@ -292,12 +292,12 @@ export default function RepresenterUnSolide4e () {
         const Ry = longueur(A, E) / 3
         objetsEnonce.push(tracePoint(sommet), g, carreaux)
         objetsCorrection.push(tracePoint(sommet), cone({ centre, Rx, Ry, sommet }), g, carreaux)
-        switch (choice(['emisphere nord', 'emisphere sud'])) {
-          case 'emisphere nord':
-            objetsEnonce.push(semiEllipse({ centre, Rx, Ry, emisphere: 'nord', pointilles: true }))
+        switch (choice(['hemisphere nord', 'hemisphere sud'])) {
+          case 'hemisphere nord':
+            objetsEnonce.push(semiEllipse({ centre, Rx, Ry, hemisphere: 'nord', pointilles: true }))
             break
-          case 'emisphere sud':
-            objetsEnonce.push(semiEllipse({ centre, Rx, Ry, emisphere: 'sud' }))
+          case 'hemisphere sud':
+            objetsEnonce.push(semiEllipse({ centre, Rx, Ry, hemisphere: 'sud' }))
             break
         }
 
