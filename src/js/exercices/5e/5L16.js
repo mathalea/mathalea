@@ -144,11 +144,11 @@ export default function NomExercice () {
           resultat = `${a}(${b}+${c}x)`
           break
         case 'x²':
-          texte = '$x \\times x$'
+          donnee = 'x \\times x'
           resultat = 'x^2'
           break
         case 'x³':
-          texte = '$x \\times x \\times x$'
+          donnee = 'x \\times x \\times x'
           resultat = 'x^3'
           break
         case 'a+x²':
