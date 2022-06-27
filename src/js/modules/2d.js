@@ -1041,8 +1041,8 @@ function Droite (arg1, arg2, arg3, arg4) {
       )}" y2="${B1.ySVG(coeff)}" stroke="${this.color}" ${this.style} id ="${this.id}" />`
     } else {
       return `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(coeff)}" x2="${B1.xSVG(
-      coeff
-    )}" y2="${B1.ySVG(coeff)}" stroke="${this.color}" ${this.style} id ="${this.id}" />` + leNom.svg(coeff)
+        coeff
+      )}" y2="${B1.ySVG(coeff)}" stroke="${this.color}" ${this.style} id ="${this.id}" />` + leNom.svg(coeff)
     }
   }
   this.tikz = function () {
@@ -2020,11 +2020,11 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         const B2 = rotation(B, M, -90)
         const B2EE = pointSurSegment(B, rotation(B, M, -90), this.epaisseur / 2 / context.pixelsParCm)
         code += `<line x1="${B1EE.xSVG(coeff)}" y1="${B1EE.ySVG(
-            coeff
+          coeff
         )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color
           }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${B2EE.xSVG(coeff)}" y1="${B2EE.ySVG(
-              coeff
+          coeff
         )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color}" stroke-width="${this.epaisseur}" />`
       }
       if (this.styleExtremites.substr(-1) === '<') {
@@ -2049,11 +2049,11 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         const A2 = rotation(A, M, -90)
         const A2EE = pointSurSegment(A, rotation(A, M, -90), this.epaisseur / 2 / context.pixelsParCm)
         code += `<line x1="${A1EE.xSVG(coeff)}" y1="${A1EE.ySVG(
-            coeff
+          coeff
         )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color
           }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${A2EE.xSVG(coeff)}" y1="${A2EE.ySVG(
-              coeff
+          coeff
         )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color
           }" stroke-width="${this.epaisseur}" />`
       }
@@ -4052,21 +4052,21 @@ export function semiEllipse ({ centre, Rx, Ry, hemisphere = 'nord', pointilles =
  *
  * @param {Point} centre centre de l'ellipse de base
  * @param {number} Rx rayon en X
- * @param {number} Ry rayon en Y
- * @param {Point} sommet sommet du cône
+ * @param {number} hauteur distance centre sommet verticale
  * @param {string} color Facultatif, 'black' par défaut
  * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
  * @param {number} opaciteDeRemplissage Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
  * @author Jean-Claude Lhote
  */
-function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
+function Cone ({ centre, Rx, hauteur, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
   ObjetMathalea2D.call(this)
+  const sommet = point(centre.x, centre.y + hauteur)
   this.color = color
   this.couleurDeRemplissage = couleurDeRemplissage
   this.opaciteDeRemplissage = opaciteDeRemplissage
   const objets = [
-    semiEllipse({ centre, Rx, Ry, hemisphere: 'nord', rayon: false, pointilles: 1, couleurDeRemplissage: this.couleurDeRemplissage, color: this.color, opaciteDeRemplissage: this.opaciteDeRemplissage }),
-    semiEllipse({ centre, Rx, Ry, hemisphere: 'sud', rayon: false, pointilles: false, couleurDeRemplissage: this.couleurDeRemplissage, color: this.color, opaciteDeRemplissage: this.opaciteDeRemplissage }),
+    semiEllipse({ centre, Rx, Ry: Rx / 3, hemisphere: 'nord', rayon: false, pointilles: 1, couleurDeRemplissage, color: this.color, opaciteDeRemplissage }),
+    semiEllipse({ centre, Rx, Ry: Rx / 3, hemisphere: 'sud', rayon: false, pointilles: false, couleurDeRemplissage, color: this.color, opaciteDeRemplissage }),
     segment(point(centre.x + Rx, centre.y + 0.1), sommet, this.color),
     segment(point(centre.x - Rx, centre.y + 0.1), sommet, this.color)
   ]
@@ -4074,6 +4074,7 @@ function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
+      objet.color = this.color
       code += objet.svg(coeff) + '\n'
     }
     return code
@@ -4081,6 +4082,7 @@ function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 
   this.tikz = function () {
     let code = ''
     for (const objet of objets) {
+      objet.color = this.color
       code += objet.tikz() + '\n\t'
     }
     return code
@@ -4097,8 +4099,8 @@ function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 
  * @param {number} opaciteDeRemplissage Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
  * @author Jean-Claude Lhote
  */
-export function cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
-  return new Cone({ centre, Rx, Ry, sommet, couleurDeRemplissage, color, opaciteDeRemplissage })
+export function cone ({ centre, Rx, hauteur, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
+  return new Cone({ centre, Rx, hauteur, couleurDeRemplissage, color, opaciteDeRemplissage })
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -9752,11 +9754,11 @@ function CrochetD (A, color = 'blue') {
     }
     let code = `<polyline points="${A.xSVG(coeff) + this.taille * 20},${A.ySVG(coeff) +
       2 * this.taille * 20 / coeff * coeff
-    } ${A.xSVG(coeff)},${A.ySVG(coeff) + 2 * this.taille * 20} ${A.xSVG(coeff)},${A.ySVG(coeff) +
+      } ${A.xSVG(coeff)},${A.ySVG(coeff) + 2 * this.taille * 20} ${A.xSVG(coeff)},${A.ySVG(coeff) +
       -2 * this.taille * 20
-    } ${A.xSVG(coeff) + this.taille * 20},${A.ySVG(coeff) +
+      } ${A.xSVG(coeff) + this.taille * 20},${A.ySVG(coeff) +
       -2 * this.taille * 20
-    }" fill="none" stroke="${this.color}" ${this.style} />`
+      }" fill="none" stroke="${this.color}" ${this.style} />`
     code += `\n\t<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff) +
       this.taille * 20 * 5
       }" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${A.nom
@@ -9805,11 +9807,11 @@ function CrochetG (A, color = 'blue') {
     }
     let code = `<polyline points="${A.xSVG(coeff) - this.taille * 20},${A.ySVG(coeff) +
       2 * this.taille * 20
-    } ${A.xSVG(coeff)},${A.ySVG(coeff) + 2 * this.taille * 20} ${A.xSVG(coeff)},${A.ySVG(coeff) -
+      } ${A.xSVG(coeff)},${A.ySVG(coeff) + 2 * this.taille * 20} ${A.xSVG(coeff)},${A.ySVG(coeff) -
       2 * this.taille * 20
-    } ${A.xSVG(coeff) - this.taille * 20},${A.ySVG(coeff) -
+      } ${A.xSVG(coeff) - this.taille * 20},${A.ySVG(coeff) -
       2 * this.taille * 20
-    }" fill="none" stroke="${this.color}" ${this.style} />`
+      }" fill="none" stroke="${this.color}" ${this.style} />`
     code += `\n\t<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff) +
       5 * this.taille * 20
       }" text-anchor="middle" dominant-baseline="central" fill="${this.color}">${A.nom
@@ -9920,30 +9922,30 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
       else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
         code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-        coeff
-      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.couleurDeRemplissage
-        }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
           coeff
-        )})" id="${this.id}" >${texte}</text>\n `
+        )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.couleurDeRemplissage
+          }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
+            coeff
+          )})" id="${this.id}" >${texte}</text>\n `
       } else {
         switch (orientation) {
           case 'milieu':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-            coeff
-          )}" text-anchor="middle" dominant-baseline="central" fill="${this.couleurDeRemplissage
-            }" id="${this.id}" >${texte}</text>\n `
+              coeff
+            )}" text-anchor="middle" dominant-baseline="central" fill="${this.couleurDeRemplissage
+              }" id="${this.id}" >${texte}</text>\n `
             break
           case 'gauche':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-            coeff
-          )}" text-anchor="end" dominant-baseline="central" fill="${this.couleurDeRemplissage
-            }" id="${this.id}" >${texte}</text>\n `
+              coeff
+            )}" text-anchor="end" dominant-baseline="central" fill="${this.couleurDeRemplissage
+              }" id="${this.id}" >${texte}</text>\n `
             break
           case 'droite':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-            coeff
-          )}" text-anchor="start" dominant-baseline="central" fill="${this.couleurDeRemplissage
-            }" id="${this.id}" >${texte}</text>\n `
+              coeff
+            )}" text-anchor="start" dominant-baseline="central" fill="${this.couleurDeRemplissage
+              }" id="${this.id}" >${texte}</text>\n `
             break
         }
       }
@@ -10034,30 +10036,30 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
       else style += ` style="font-size:${this.taille}px;fill:${this.color};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
         code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-        coeff
-      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color
-        }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
           coeff
-        )})" id="${this.id}" >${texte}</text>\n `
+        )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color
+          }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
+            coeff
+          )})" id="${this.id}" >${texte}</text>\n `
       } else {
         switch (orientation) {
           case 'milieu':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-            coeff
-          )}" text-anchor="middle" dominant-baseline="central" fill="${this.color
-            }" id="${this.id}" >${texte}</text>\n `
+              coeff
+            )}" text-anchor="middle" dominant-baseline="central" fill="${this.color
+              }" id="${this.id}" >${texte}</text>\n `
             break
           case 'gauche':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-            coeff
-          )}" text-anchor="end" dominant-baseline="central" fill="${this.color
-            }" id="${this.id}" >${texte}</text>\n `
+              coeff
+            )}" text-anchor="end" dominant-baseline="central" fill="${this.color
+              }" id="${this.id}" >${texte}</text>\n `
             break
           case 'droite':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-            coeff
-          )}" text-anchor="start" dominant-baseline="central" fill="${this.color
-            }" id="${this.id}" >${texte}</text>\n `
+              coeff
+            )}" text-anchor="start" dominant-baseline="central" fill="${this.color
+              }" id="${this.id}" >${texte}</text>\n `
             break
         }
       }
@@ -10076,7 +10078,7 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
           anchor = 'east'
         }
         code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y
-        }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
+          }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
         if (orientation === 'gauche') {
