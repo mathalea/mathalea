@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 456 
-- nombre d'exos interactifReady 687 
+- nombre d'exos interactifReady 693 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -401,10 +401,16 @@
 |can1F07|Déterminer une équation de l’axe de symétrie d’une parabole|KO|KO|OK|mathLive|
 |can1F08|Déterminer la fonction dérivée d’une fonction affine|KO|KO|OK|mathLive|
 |can1F09|Déterminer la fonction dérivée d’une fonction affine*|KO|KO|OK|mathLive|
+|can1F10|Déterminer la fonction dérivée d’un polynôme de degré 2|KO|KO|OK|mathLive|
+|can1F11|Déterminer la fonction dérivée d’un polynôme de degré 3|KO|KO|OK|mathLive|
+|can1F12|Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\sqrt{x}$|KO|KO|OK|mathLive|
+|can1F13|Déterminer le coefficient directeur d’une tangente (fonctions de référence)|KO|KO|OK|mathLive|
+|can1F14|Déterminer un nombre dérivé|KO|KO|OK|mathLive|
 |can1F15|Lire graphiquement un nombre dérivé|KO|KO|OK|mathLive|
 |can1G01|Déterminer les valeurs remarquables du cosinus et sinus|KO|KO|OK|mathLive|
 |can1G02|Déterminer les valeurs remarquables du cosinus et sinus*|KO|KO|OK|mathLive|
 |can1G03|Simplifier les sinus et cosinus des angles associés|KO|KO|OK|mathLive|
+|can1G04|Calculer un produit scalaire à l’aide de normes et d’un angle |KO|KO|OK|mathLive|
 |can1L01|Calculer un discriminant|OK|AMCNum|OK|mathLive|
 |can1L02|Déterminer le nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
 |can1L03|Trouver les racines à partir d’une forme factorisée|KO|KO|OK|mathLive|
