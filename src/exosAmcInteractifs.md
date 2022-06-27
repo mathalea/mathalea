@@ -411,6 +411,7 @@
 |can1G01|Déterminer les valeurs remarquables du cosinus et sinus|KO|KO|OK|mathLive|
 |can1G02|Déterminer les valeurs remarquables du cosinus et sinus*|KO|KO|OK|mathLive|
 |can1G03|Simplifier les sinus et cosinus des angles associés|KO|KO|OK|mathLive|
+|can1G04|Calculer un produit scalaire à l’aide de normes et d’un angle |KO|KO|OK|mathLive|
 |can1L01|Calculer un discriminant|OK|AMCNum|OK|mathLive|
 |can1L02|Déterminer le nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
 |can1L03|Trouver les racines à partir d’une forme factorisée|KO|KO|OK|mathLive|

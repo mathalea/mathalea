@@ -11535,6 +11535,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can1G04": {
+    "titre": "Calculer un produit scalaire à l’aide de normes et d’un angle ",
+    "url": "/exercices/can/1e/can1G04.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1G04",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can1L01": {
     "titre": "Calculer un discriminant",
     "url": "/exercices/can/1e/can1L01.js",
