@@ -52,7 +52,13 @@ export default class nomExercice extends Exercice {
         On a donc :  $p_T=\\dfrac{${tarot}}{${effectif}}\\approx${texNombre(tarot / effectif, 2)}\\approx ${texNombre(tarot * 100 / effectif, 0)}%$<br>
           $p_B=\\dfrac{${belotte}}{${effectif}}\\approx${texNombre(belotte / effectif, 2)}\\approx ${texNombre(belotte * 100 / effectif, 0)}%$<br>
           $p_{T\\cap B}=\\dfrac{${inter}}{${effectif}}\\approx${texNombre(inter / effectif, 2)}\\approx ${texNombre(inter * 100 / effectif, 0)}%$<br>
-          `
+         On note $p_{T\\cup B}$ la proportion de personnes du club qui joue au moins à l'un de des deux jeux de cartes.<br>
+         On sait que  $p_{T\\cup B} = p_T + p_B -  p_{T\\cap B}$<br>
+         ce qui revient, en appliquant les données de l'énoncé, à écrire :<br>
+         $p_{T\\cup B} = \\dfrac{${tarot}}{${effectif}} +\\dfrac{${inter}}{${effectif}}-\\dfrac{${inter}}{${effectif}}=\\dfrac{${tarot + belotte - inter}}{${effectif}}$<br>
+         ou encore $p_{T\\cup B} \\approx ${texNombre((tarot + belotte - inter) / effectif, 2)}$<br>
+         Il y a donc environ ${texNombre(100 * (tarot + belotte - inter) / effectif, 0)}%$ de personens du club qui jouent à la belotte et au tarot dans ce club.<br>
+         `
           break
         case 'type2':
           texte = `Question ${i + 1} de type 2`
