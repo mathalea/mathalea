@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { homothetie, codeAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
+import { homothetie, codageAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
 import { texFraction, arrondi, texNombre2, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -120,8 +120,8 @@ export default function CalculDAngle () {
     hypo.color = 'blue'
     //   codageAngle.epaisseur = 3
     //  codageAngle2.epaisseur = 3
-    const codageDeAngle = codeAngle(A, B, C, 2)
-    const codageDeAngleB = codeAngle(A, Bb, Cb, 2)
+    const codageDeAngle = codageAngle(A, B, C, 2)
+    const codageDeAngleB = codageAngle(A, Bb, Cb, 2)
 
     const M1 = milieu(A, B)
     const M2 = milieu(A, C)

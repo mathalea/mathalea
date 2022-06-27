@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codeSegment
+  mathalea2d, point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codageSegment
 } from '../../../modules/2d.js'
 import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, texFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
@@ -552,17 +552,17 @@ export default function SujetCAN20213ieme () {
             F = point(2, 0)
             G = point(1, 0)
             s1 = segment(A, B)
-            code1 = codeSegment(A, B, '||')
+            code1 = codageSegment(A, B, '||')
             s2 = segment(B, C)
-            code2 = codeSegment(B, C, '||')
+            code2 = codageSegment(B, C, '||')
             s3 = segment(A, G)
-            code3 = codeSegment(A, G, '||')
+            code3 = codageSegment(A, G, '||')
             s4 = segment(G, F)
-            code4 = codeSegment(G, F, '||')
+            code4 = codageSegment(G, F, '||')
             s5 = segment(C, D)
-            code5 = codeSegment(C, D, '|')
+            code5 = codageSegment(C, D, '|')
             s6 = segment(E, F)
-            code6 = codeSegment(E, F, '|')
+            code6 = codageSegment(E, F, '|')
             xmin = -1
             ymin = -2
             xmax = 4
@@ -590,17 +590,17 @@ export default function SujetCAN20213ieme () {
             F = point(2, 0)
             G = point(1, 0)
             s1 = segment(A, B)
-            code1 = codeSegment(A, B, '||')
+            code1 = codageSegment(A, B, '||')
             s2 = segment(B, C)
-            code2 = codeSegment(B, C, '||')
+            code2 = codageSegment(B, C, '||')
             s3 = segment(A, G)
-            code3 = codeSegment(A, G, '||')
+            code3 = codageSegment(A, G, '||')
             s4 = segment(G, F)
-            code4 = codeSegment(G, F, '||')
+            code4 = codageSegment(G, F, '||')
             s5 = segment(C, D)
-            code5 = codeSegment(C, D, '|')
+            code5 = codageSegment(C, D, '|')
             s6 = segment(E, F)
-            code6 = codeSegment(E, F, '|')
+            code6 = codageSegment(E, F, '|')
             xmin = -1
             ymin = -2
             xmax = 4
@@ -628,15 +628,15 @@ export default function SujetCAN20213ieme () {
             F = point(2, 0)
             G = point(1, 0)
             s1 = segment(B, G)
-            code1 = codeSegment(B, G, '||')
+            code1 = codageSegment(B, G, '||')
             s2 = segment(B, C)
-            code2 = codeSegment(B, C, '||')
+            code2 = codageSegment(B, C, '||')
             s4 = segment(G, F)
-            code4 = codeSegment(G, F, '||')
+            code4 = codageSegment(G, F, '||')
             s5 = segment(C, D)
-            code5 = codeSegment(C, D, '|')
+            code5 = codageSegment(C, D, '|')
             s6 = segment(E, F)
-            code6 = codeSegment(E, F, '|')
+            code6 = codageSegment(E, F, '|')
             xmin = -1
             ymin = -2
             xmax = 4
@@ -663,15 +663,15 @@ export default function SujetCAN20213ieme () {
             F = point(2, 0)
             G = point(1, 0)
             s1 = segment(B, G)
-            code1 = codeSegment(B, G, '||')
+            code1 = codageSegment(B, G, '||')
             s2 = segment(B, C)
-            code2 = codeSegment(B, C, '||')
+            code2 = codageSegment(B, C, '||')
             s4 = segment(G, F)
-            code4 = codeSegment(G, F, '||')
+            code4 = codageSegment(G, F, '||')
             s5 = segment(C, D)
-            code5 = codeSegment(C, D, '|')
+            code5 = codageSegment(C, D, '|')
             s6 = segment(E, F)
-            code6 = codeSegment(E, F, '|')
+            code6 = codageSegment(E, F, '|')
             xmin = -1
             ymin = -2
             xmax = 4

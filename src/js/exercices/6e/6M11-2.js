@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenuSansNumero, randint, arrondi, texNombrec, texNombre, texTexte } from '../../modules/outils.js'
-import { afficheLongueurSegment, codageAngleDroit, codeSegments, fixeBordures, mathalea2d, point, polygoneAvecNom, segment } from '../../modules/2d.js'
+import { afficheLongueurSegment, codageAngleDroit, codageSegments, fixeBordures, mathalea2d, point, polygoneAvecNom, segment } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -68,7 +68,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
       NO.pointilles = true
       const angles2 = [codageAngleDroit(M, N, O), codageAngleDroit(N, O, P), codageAngleDroit(N, H, S), codageAngleDroit(O, P, M), codageAngleDroit(P, M, N)]
       const objets2 = []
-      objets2.push(p2[0], HS, NO, ...angles2, afficheLongueurSegment(P, M), afficheLongueurSegment(S, N), afficheLongueurSegment(O, S), afficheLongueurSegment(H, S), codeSegments('//', 'black', M, N, M, P, O, P))
+      objets2.push(p2[0], HS, NO, ...angles2, afficheLongueurSegment(P, M), afficheLongueurSegment(S, N), afficheLongueurSegment(O, S), afficheLongueurSegment(H, S), codageSegments('//', 'black', M, N, M, P, O, P))
       const DA = arrondi(Math.sqrt(L2 ** 2 + l1 ** 2), 1)
       const t1 = arrondi(Math.sqrt(4 + h ** 2), 1) // longueur d'un côté du triangle
       const t2 = arrondi(Math.sqrt((c - 2) ** 2 + h ** 2), 1) // longueur de l'autre côté d'un triangle

@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, droiteGraduee2, segment, milieu, texteParPosition, codeSegment, polygone, grille
+  mathalea2d, point, droiteGraduee2, segment, milieu, texteParPosition, codageSegment, polygone, grille
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
@@ -507,7 +507,7 @@ export default function SujetCAN2021Sixieme () {
             texte += `Recopie la réponse vraisemblable.<br>
             Le maître ramasse en tout : <br>
               ${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +'feuilles'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'feuilles'
           } else {
             texte += `Entoure la réponse vraisemblable.<br> 
             Le maître ramasse en tout : <br>
@@ -563,8 +563,8 @@ export default function SujetCAN2021Sixieme () {
           B = point(2.8, 0, 'B', 'below')
           C = point(3.4, 3.4, 'C', 'above')
           D = point(-0.6, 3.4, 'D', 'above')
-          code1 = codeSegment(B, C, '|')
-          code2 = codeSegment(A, D, '|')
+          code1 = codageSegment(B, C, '|')
+          code2 = codageSegment(A, D, '|')
           xmin = -1.5
           ymin = -1
           xmax = 4

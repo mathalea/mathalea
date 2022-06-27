@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, labelPoint, segment, polygone, translation2Points, similitude, codeSegments, grille, seyes, mathalea2d } from '../../modules/2d.js'
+import { point, labelPoint, segment, polygone, translation2Points, similitude, codageSegments, grille, seyes, mathalea2d } from '../../modules/2d.js'
 /**
  * fonction servant à plusieurs exercice autour du cube et du pavé droit
  * références : 6G42 et 6G43
@@ -256,7 +256,7 @@ export default function Solide6e () {
 
       enonce += mathalea2d(params, objetsEnonce)
       if (listeTypeDeQuestions[i] === 1) {
-        codesseg = [codeSegments('||', 'green', [A, B, C, D, A, E, F, G, H, E]), codeSegments('||', 'green', B, F, C, G, D, H)]
+        codesseg = [codageSegments('||', 'green', [A, B, C, D, A, E, F, G, H, E]), codageSegments('||', 'green', B, F, C, G, D, H)]
         AB.color = 'green'
         BC.color = 'green'
         CD.color = 'green'
@@ -270,7 +270,7 @@ export default function Solide6e () {
         CG.color = 'green'
         DH.color = 'green'
       } else {
-        codesseg = [codeSegments('||', 'green', A, B, C, D, E, F, G, H), codeSegments('O', 'red', A, E, B, F, C, G, D, H), codeSegments('×', 'blue', D, A, B, C, F, G, H, E)]
+        codesseg = [codageSegments('||', 'green', A, B, C, D, E, F, G, H), codageSegments('O', 'red', A, E, B, F, C, G, D, H), codageSegments('×', 'blue', D, A, B, C, F, G, H, E)]
         AB.color = 'green'
         BC.color = 'blue'
         CD.color = 'green'

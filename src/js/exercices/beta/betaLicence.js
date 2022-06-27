@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { codageAngleDroit, codeSegments, grille, mathalea2d, point, polygone, rotation, segment, texteParPosition } from '../../modules/2d.js'
+import { codageAngleDroit, codageSegments, grille, mathalea2d, point, polygone, rotation, segment, texteParPosition } from '../../modules/2d.js'
 export const titre = 'QCM de positionnement'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -508,7 +508,7 @@ function figure13 () {
   const O = point(N.x, l)
   const P = point(M.x, l)
   const r = polygone(M, N, O, P)
-  const monCodage = codeSegments('X', 'blue', A, B, B, C, C, A)
+  const monCodage = codageSegments('X', 'blue', A, B, B, C, C, A)
   const texte1 = texteParPosition('4x+1', 2, -1, 'milieu', 'black', 1, 'middle', true)
   const texte2 = texteParPosition('4x+1,5', 8.5, -1, 'milieu', 'black', 1, 'middle', true)
   const texte3 = texteParPosition('2x', 12, 1.5, 'milieu', 'black', 1, 'middle', true)
@@ -552,7 +552,7 @@ function figure16 () {
   const O = point(N.x, l)
   const P = point(M.x, l)
   const c = polygone(M, N, O, P)
-  const monCodage = codeSegments('X', 'blue', [M, N, O, P])
+  const monCodage = codageSegments('X', 'blue', [M, N, O, P])
   const c1 = codageAngleDroit(M, N, O)
   const c2 = codageAngleDroit(N, O, P)
   const c3 = codageAngleDroit(O, P, M)

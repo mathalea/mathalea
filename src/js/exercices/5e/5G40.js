@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre, choice, combinaisonListes } from '../../modules/outils.js'
-import { cercleCentrePoint, cercle, codeSegments, pointAdistance, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, mathalea2d } from '../../modules/2d.js'
+import { cercleCentrePoint, cercle, codageSegments, pointAdistance, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Construire des parallélogrammes avec dispositif d\'auto-correction'
@@ -104,7 +104,7 @@ export default function ConstructionsParallelogrammes () {
           c4.styleExtremites = '|-'
           P = polygoneAvecNom(D, A, B)
           objetsEnonce.push(c1, c4, P[1], cible)
-          objetsCorrection.push(p[0], p[1], cible, traceCompas(D, C, 30), traceCompas(B, C, 30), codeSegments('||', 'red', A, B, D, C), codeSegments('///', 'blue', A, D, B, C))
+          objetsCorrection.push(p[0], p[1], cible, traceCompas(D, C, 30), traceCompas(B, C, 30), codageSegments('||', 'red', A, B, D, C), codageSegments('///', 'blue', A, D, B, C))
           animIEP.parallelogramme3sommetsConsecutifs(D, A, B, C.nom)
           break
         case 2: // trois sommets consécutifs
@@ -129,7 +129,7 @@ export default function ConstructionsParallelogrammes () {
           animIEP.crayonMasquer(0)
           animIEP.parallelogramme3sommetsConsecutifs(D, A, B, C.nom)
           objetsEnonce.push(tracePoint(A, B, D), P[1], cible)
-          objetsCorrection.push(p[0], p[1], cible, traceCompas(D, C, 30), traceCompas(B, C, 30), codeSegments('||', 'red', A, B, D, C), codeSegments('///', 'blue', A, D, B, C))
+          objetsCorrection.push(p[0], p[1], cible, traceCompas(D, C, 30), traceCompas(B, C, 30), codageSegments('||', 'red', A, B, D, C), codageSegments('///', 'blue', A, D, B, C))
 
           break
         case 3: // deux sommmets consécutifs plus le centre
@@ -144,7 +144,7 @@ export default function ConstructionsParallelogrammes () {
           P = polygoneAvecNom(O, A, B)
           animIEP.parallelogramme2sommetsConsecutifsCentre(A, B, O)
           objetsEnonce.push(tracePoint(A, B, O), P[1], cible, cible2)
-          objetsCorrection.push(p[0], p[1], labelPoint(O), cible, cible2, d1, d2, d3, d4, codeSegments('||', 'red', A, O, O, C), codeSegments('|||', 'blue', B, O, O, D))
+          objetsCorrection.push(p[0], p[1], labelPoint(O), cible, cible2, d1, d2, d3, d4, codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D))
 
           break
         case 4: // Un angle formé par deux demi-droites et le centre
@@ -161,7 +161,7 @@ export default function ConstructionsParallelogrammes () {
           animIEP.equerreZoom(200)
           animIEP.parallelogrammeAngleCentre(D, A, B, O)
           objetsEnonce.push(dd1, dd2, tracePoint(O), labelPoint(O, A), texteParPoint('x', pointIntersectionCC(cercleCentrePoint(A, D), cercle(D, 0.5), 1)), texteParPoint('y', similitude(B, A, 4, 1.3)), cible, cible2, cible3)
-          objetsCorrection.push(dd1, dd2, dd3, dd4, p[0], p[1], tracePoint(O), labelPoint(O), cible, cible2, cible3, d1, d3, codeSegments('||', 'red', A, O, O, C))
+          objetsCorrection.push(dd1, dd2, dd3, dd4, p[0], p[1], tracePoint(O), labelPoint(O), cible, cible2, cible3, d1, d3, codageSegments('||', 'red', A, O, O, C))
 
           break
       }

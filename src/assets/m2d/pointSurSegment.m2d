@@ -4,7 +4,7 @@ let D = pointSurSegment(A,B,2,'D') // D est sur [AB] à 1 cm de A
 let E = pointSurSegment(B,A,2,'E') // E est sur [BA] à 1 cm de B
 segmentAvecExtremites(D,E) // pour indiquer l'emplacement de D et E
 segmentAvecExtremites(A,B)
-codeSegments('//','blue',A,D, E,B) // code les segments [AD] et [EB]
+codageSegments('//','blue',A,D, E,B) // code les segments [AD] et [EB]
 let R = point(1,1)
 let S = point(7,1)
 let M = pointSurSegment(R,S,'','M') // quand on ne précise par la distance, le point est au hasard sur le segment

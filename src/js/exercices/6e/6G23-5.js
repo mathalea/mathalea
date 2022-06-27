@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { abs, arrondi, choice, combinaisonListes, compteOccurences, contraindreValeur, lettreDepuisChiffre, listeQuestionsToContenu, miseEnEvidence, randint, rangeMinMax, sp } from '../../modules/outils.js'
-import { point, mathalea2d, segment, rotation, pointSurSegment, labelPoint, tracePoint, angleModulo, afficheMesureAngle, codageAngleDroit, codeAngle } from '../../modules/2d.js'
+import { point, mathalea2d, segment, rotation, pointSurSegment, labelPoint, tracePoint, angleModulo, afficheMesureAngle, codageAngleDroit, codageAngle } from '../../modules/2d.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { min, max } from 'mathjs'
@@ -197,8 +197,8 @@ export default function CalculerUnAngle () {
         pointsPartage = [B1]
         for (let ee = 1; ee <= max(partageAngle, choixPartage); ee++) {
           pointsPartage[ee] = rotation(B1, A, sensRot * ee * arrondi(abs(angC) / partageAngle))
-          objetsEnonce.push(codeAngle(pointsPartage[ee - 1], A, sensRot * arrondi(abs(angC) / partageAngle), 3, 'X'))
-          objetsCorrection.push(codeAngle(pointsPartage[ee - 1], A, sensRot * arrondi(abs(angC) / partageAngle), 3, 'X'))
+          objetsEnonce.push(codageAngle(pointsPartage[ee - 1], A, sensRot * arrondi(abs(angC) / partageAngle), 3, 'X'))
+          objetsCorrection.push(codageAngle(pointsPartage[ee - 1], A, sensRot * arrondi(abs(angC) / partageAngle), 3, 'X'))
           if (ee !== partageAngle - choixPartage || ee !== partageAngle) { // On ne crée pas les angles pour C et D (car créé dans la partie commune)
             objetsEnonce.push(segment(A, pointsPartage[ee]))
             objetsCorrection.push(segment(A, pointsPartage[ee]))
@@ -221,8 +221,8 @@ export default function CalculerUnAngle () {
         pointsPartage = [D1]
         for (let ee = 1; ee <= partageAngle; ee++) {
           pointsPartage[ee] = rotation(pointsPartage[ee - 1], A, sensRot * choixAngD)
-          objetsEnonce.push(codeAngle(pointsPartage[ee - 1], A, sensRot * choixAngD, 3, 'X'))
-          objetsCorrection.push(codeAngle(pointsPartage[ee - 1], A, sensRot * choixAngD, 3, 'X'))
+          objetsEnonce.push(codageAngle(pointsPartage[ee - 1], A, sensRot * choixAngD, 3, 'X'))
+          objetsCorrection.push(codageAngle(pointsPartage[ee - 1], A, sensRot * choixAngD, 3, 'X'))
           if (ee !== 1) { // On ne crée pas les angles pour C (car créé dans la partie commune)
             objetsEnonce.push(segment(A, pointsPartage[ee]))
             objetsCorrection.push(segment(A, pointsPartage[ee]))
@@ -263,7 +263,7 @@ export default function CalculerUnAngle () {
 
       // Création de l'angle "multiple" dans les cas 6, 7, 9 et 10
       if ([6, 7, 9, 10].indexOf(QuestionsDisponibles[i]) !== -1) {
-        objetsEnonce.push(codeAngle(D, A, sensRot * reponse, 3, '', 'pink', 0, 1, 'pink', 0.5))
+        objetsEnonce.push(codageAngle(D, A, sensRot * reponse, 3, '', 'pink', 0, 1, 'pink', 0.5))
       }
 
       // Création des angles droits et des angles plats
