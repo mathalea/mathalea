@@ -1056,8 +1056,8 @@ function Droite (arg1, arg2, arg3, arg4) {
       )}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id ="${this.id}" />`
     } else {
       return `<line x1="${A1.xSVG(coeff)}" y1="${A1.ySVG(coeff)}" x2="${B1.xSVG(
-        coeff
-      )}" y2="${B1.ySVG(coeff)}" stroke="${this.color}" ${this.style} id ="${this.id}" />` + leNom.svg(coeff)
+      coeff
+    )}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} id ="${this.id}" />` + leNom.svg(coeff)
     }
   }
   this.tikz = function () {
@@ -2019,12 +2019,12 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         const B2 = rotation(B, M, -90)
         const B2EE = pointSurSegment(B, rotation(B, M, -90), this.epaisseur / 2 / context.pixelsParCm)
         code += `<line x1="${B1EE.xSVG(coeff)}" y1="${B1EE.ySVG(
-          coeff
-        )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color
+            coeff
+        )}" x2="${B1.xSVG(coeff)}" y2="${B1.ySVG(coeff)}" stroke="${this.color[0]
           }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${B2EE.xSVG(coeff)}" y1="${B2EE.ySVG(
-          coeff
-        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color}" stroke-width="${this.epaisseur}" />`
+              coeff
+        )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]}" stroke-width="${this.epaisseur}" />`
       }
       if (this.styleExtremites.substr(-1) === '<') {
         // si ça termine par < on rajoute une flèche inversée en B
@@ -2048,12 +2048,12 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         const A2 = rotation(A, M, -90)
         const A2EE = pointSurSegment(A, rotation(A, M, -90), this.epaisseur / 2 / context.pixelsParCm)
         code += `<line x1="${A1EE.xSVG(coeff)}" y1="${A1EE.ySVG(
-          coeff
-        )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color
+            coeff
+        )}" x2="${A1.xSVG(coeff)}" y2="${A1.ySVG(coeff)}" stroke="${this.color[0]
           }" stroke-width="${this.epaisseur}" />`
         code += `\n\t<line x1="${A2EE.xSVG(coeff)}" y1="${A2EE.ySVG(
-          coeff
-        )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color
+              coeff
+        )}" x2="${A2.xSVG(coeff)}" y2="${A2.ySVG(coeff)}" stroke="${this.color[0]
           }" stroke-width="${this.epaisseur}" />`
       }
       if (this.styleExtremites[0] === '>') {
@@ -2752,9 +2752,10 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
   this.trous = []
   this.color = color
   this.couleurDeRemplissage = couleurDeRemplissage
-  this.contour.couleurDeRemplissage = couleurDeRemplissage
-  this.contour.color = this.color
+  this.contour.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
+  this.contour.color = colorToLatexOrHTML(this.color)
   this.couleurDeFond = couleurDeFond
+
   const trous = []
   let trou, trouPol
   for (let i = 0; i < holes.length; i++) {
@@ -2767,8 +2768,8 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
       trous[i].push(trou)
     }
     trouPol = polygone(...trous[i])
-    trouPol.color = this.color
-    trouPol.couleurDeRemplissage = this.couleurDeFond
+    trouPol.color = colorToLatexOrHTML(this.color)
+    trouPol.couleurDeRemplissage = colorToLatexOrHTML(this.couleurDeFond)
     this.trous.push(trouPol)
   }
   this.aire = function () { // retourne l'aire du polygone à trou
@@ -3547,27 +3548,54 @@ function CercleCentrePoint (O, M, color = 'black', couleurDeRemplissage = 'none'
 }
 
 /**
- * @author Jean-Claude Lhote
- * @param {object} M point de départ de l'arc
- * @param {object} Omega centre de l'arc
- * @param {number} angle compris entre -360 et 360 valeur négative = sens indirect
- * @param {boolean} rayon booléen si true, les rayons délimitant l'arc sont ajoutés
- * @param {boolean} fill
- * @param {string} color
- * @param {number} opaciteDeRemplissage // transparence de remplissage de 0 à 1.
+ * Construit le cercle (ou le disque) de centre O, passant par M
+ * @param {Point} O Centre du cercle
+ * @param {number} M Point du cercle
+ * @param {string} [color = 'black'] Couleur du cercle ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {number} [epaisseur = 1] Epaisseur du cercle
+ * @param {integer} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [opacite = 1] Opacité du cercle
+ * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
+ * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
+ * @param {number} [distanceDesHachures = 10] Distance des hachures si couleur de remplissage choisie.
+ * @example cercleCentrePoint (A,B)
+ * // Construit un cercle c1 noir de centre A, passant par B
+ * @example cercleCentrePoint (A,B,'red','blue','#f15929',3,2,0.3,0.8)
+ * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 1 d'épaisseur et avec 10 d'écart entre deux hachures
+ * @example cercleCentrePoint (A,B,'red','blue','#f15929',3,2,0.3,0.8,2,12)
+ * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 2 d'épaisseur et avec 12 d'écart entre deux hachures
+ * @returns {CercleCentrePoint}
+ * @author Rémi Angot
  */
 // JSDOC Validee EE Juin 2022
 export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = '', opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
   return new CercleCentrePoint(O, M, color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
 }
 
-function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2) {
+/** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
+ * @param {Point} M Extrémité de départ de l'arc
+ * @param {Point} Omega Centre de l'arc
+ * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
+ * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @return {code_SVG|code_TikZ|code_SVGml|code_TikZml}
+ * @author Jean-Claude Lhote
+ * @private
+ **/
+// JSDOC Validee EE Juin 2022
+function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
   ObjetMathalea2D.call(this)
-  this.color = color
-  this.couleurDeRemplissage = couleurDeRemplissage
+  this.color = colorToLatexOrHTML(color)
+  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.opaciteDeRemplissage = opaciteDeRemplissage
-  this.hachures = false
-  this.couleurDesHachures = 'black'
+  this.opacite = 1
+  this.hachures = couleurDesHachures !== 'none' && couleurDesHachures !== ''
+  this.couleurDesHachures = colorToLatexOrHTML(couleurDesHachures)
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
   this.pointilles = ''
@@ -3780,29 +3808,39 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
  * @param {Point} M Extrémité de départ de l'arc
  * @param {Point} Omega Centre de l'arc
- * @param {number} angle Compris entre -360 et 360. Valeur négative = sens indirect
- * @param {boolean} rayon Si true, les rayons délimitant l'arc sont ajoutés. Facultatif, false par défaut
- * @param {string} fill Facultatif, 'none' par défaut
- * @param {string} color Facultatif, 'black' par défaut
- * @param {number} opaciteDeRemplissage Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
+ * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @example arc(M,0,35)
+  // Trace l'arc en noir de centre 0, d'extrémité M et d'angle orienté 35° (sans remplissage et sans hachures)
+ * @example arc(M,O,true,-40,'red','green',0.8,'white')
+  // Trace l'arc en vert de centre 0, d'extrémité M et d'angle orienté -40°, rempli en rouge à 80 %, avec des hachures blanches
+ * @return {Arc}
  * @author Jean-Claude Lhote
  */
-export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2) {
-  return new Arc(M, Omega, angle, rayon, couleurDeRemplissage, color, opaciteDeRemplissage)
+// JSDOC Validee EE Juin 2022
+export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
+  return new Arc(M, Omega, angle, rayon, couleurDeRemplissage, color, opaciteDeRemplissage, couleurDesHachures)
 }
-/**
- *
- * @param {Point} M //première extrémité de l'arc
- * @param {Point} N //deuxième extrémité de l'arc
- * @param {number} angle //angle au centre de l'arc compris entre -360 et +360 !
- * @param {boolean} rayon //si true, l'arc est fermé par deux rayons aux extrémités
- * @param {string} fill //couleur de remplissage (par défaut 'none'= sans remplissage)
- * @param {string} color //couleur de l'arc
- * @param {number} opaciteDeRemplissage // transparence de remplissage de 0 à 1.
+
+/** Trace un arc de cercle, connaissant deux extrémités et la mesure de l'angle
+ * @param {Point} M Première extrémité de l'arc
+ * @param {Point} N Deuxième extrémité de l'arc
+ * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
+ * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
+ * @param {boolean} [couleurDeRemplissage = 'none'] Couleur ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @return {code_SVG|code_TikZ|code_SVGml|code_TikZml}
  * @author Jean-Claude Lhote
  * @private
  */
-function ArcPointPointAngle (M, N, angle, rayon = false, fill = 'none', color = 'black', opaciteDeRemplissage = 0.2) {
+// JSDOC Validee EE Juin 2022
+function ArcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
   else anglerot = (angle - 180) / 2
@@ -3816,7 +3854,7 @@ function ArcPointPointAngle (M, N, angle, rayon = false, fill = 'none', color = 
   const Omegax = (d.b * f.c - f.b * d.c) / determinant
   const Omegay = (f.a * d.c - d.a * f.c) / determinant
   const Omega = point(Omegax, Omegay)
-  Arc.call(this, M, Omega, angle, rayon, fill, color, opaciteDeRemplissage)
+  Arc.call(this, M, Omega, angle, rayon, couleurDeRemplissage, color, opaciteDeRemplissage)
 }
 
 /** Trace un arc de cercle, connaissant deux extrémités et la mesure de l'angle
@@ -3877,8 +3915,8 @@ export function traceCompas (
  */
 function SemiEllipse ({ centre, Rx, Ry, hemisphere = 'nord', pointilles = false, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
   ObjetMathalea2D.call(this)
-  this.color = color
-  this.couleurDeRemplissage = couleurDeRemplissage
+  this.color = colorToLatexOrHTML(color)
+  this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.opaciteDeRemplissage = opaciteDeRemplissage
   this.hachures = false
   this.couleurDesHachures = colorToLatexOrHTML('black')
@@ -4106,21 +4144,21 @@ export function semiEllipse ({ centre, Rx, Ry, hemisphere = 'nord', pointilles =
  *
  * @param {Point} centre centre de l'ellipse de base
  * @param {number} Rx rayon en X
- * @param {number} hauteur distance centre sommet verticale
+ * @param {number} Ry rayon en Y
+ * @param {Point} sommet sommet du cône
  * @param {string} color Facultatif, 'black' par défaut
  * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
  * @param {number} opaciteDeRemplissage Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
  * @author Jean-Claude Lhote
  */
-function Cone ({ centre, Rx, hauteur, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
+function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
   ObjetMathalea2D.call(this)
-  const sommet = point(centre.x, centre.y + hauteur)
   this.color = color
   this.couleurDeRemplissage = couleurDeRemplissage
   this.opaciteDeRemplissage = opaciteDeRemplissage
   const objets = [
-    semiEllipse({ centre, Rx, Ry: Rx / 3, hemisphere: 'nord', rayon: false, pointilles: 1, couleurDeRemplissage, color: this.color, opaciteDeRemplissage }),
-    semiEllipse({ centre, Rx, Ry: Rx / 3, hemisphere: 'sud', rayon: false, pointilles: false, couleurDeRemplissage, color: this.color, opaciteDeRemplissage }),
+    semiEllipse({ centre, Rx, Ry, hemisphere: 'nord', rayon: false, pointilles: 1, couleurDeRemplissage: this.couleurDeRemplissage, color: this.color, opaciteDeRemplissage: this.opaciteDeRemplissage }),
+    semiEllipse({ centre, Rx, Ry, hemisphere: 'sud', rayon: false, pointilles: false, couleurDeRemplissage: this.couleurDeRemplissage, color: this.color, opaciteDeRemplissage: this.opaciteDeRemplissage }),
     segment(point(centre.x + Rx, centre.y + 0.1), sommet, this.color),
     segment(point(centre.x - Rx, centre.y + 0.1), sommet, this.color)
   ]
@@ -4153,8 +4191,8 @@ function Cone ({ centre, Rx, hauteur, couleurDeRemplissage = 'none', color = 'bl
  * @param {number} opaciteDeRemplissage Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
  * @author Jean-Claude Lhote
  */
-export function cone ({ centre, Rx, hauteur, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
-  return new Cone({ centre, Rx, hauteur, couleurDeRemplissage, color, opaciteDeRemplissage })
+export function cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
+  return new Cone({ centre, Rx, Ry, sommet, couleurDeRemplissage, color, opaciteDeRemplissage })
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -5939,7 +5977,8 @@ export function texteSurArc (texte, A, B, angle, color = 'black', d = 0.5, horiz
  * @returns {code_SVG|code_TikZ}
  * @private
  */
-function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, fill = 'none', opaciteDeRemplissage = 0.5, arcEpaisseur = 1 } = {}) {
+// JSDOC Validee par EE Juin 2022
+function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.5, arcEpaisseur = 1 } = {}) {
   ObjetMathalea2D.call(this)
   this.depart = A
   this.arrivee = C
@@ -5958,7 +5997,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
       mesureAngle = Math.round(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee)) + '°'
     }
     const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
-    const marque = arc(M, B, this.angle, rayon, fill, colorArc, opaciteDeRemplissage)
+    const marque = arc(M, B, this.angle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
     mesure.contour = mesureEnGras
     mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
     marque.epaisseur = arcEpaisseur
@@ -5974,7 +6013,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
       mesureAngle = Math.round(this.saillant ? angle(this.depart, this.sommet, this.arrivee) : 360 - angle(this.depart, this.sommet, this.arrivee)) + '\\degree'
     }
     const mesure = texteParPoint(mesureAngle, N, 'milieu', color, 1, 'middle', true)
-    const marque = arc(M, B, this.angle, rayon, fill, colorArc, opaciteDeRemplissage)
+    const marque = arc(M, B, this.angle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
     mesure.contour = mesureEnGras
     mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
     marque.epaisseur = arcEpaisseur
@@ -5990,17 +6029,22 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
  * @param {number} [distance=1.5] Rayon de l'arc de cercle.
  * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
  * @param {number} [ecart=0.5] Distance entre l'arc et sa mesure.
- * @param {boolean} [saillant=true] false si on veut l'angle rentrant.
- * @param {string} [colorArc='black']  Couleur de l'arc.
- * @param {boolean} [rayon=false] true pour fermer l'angle en vue de colorier l'intérieur.
- * @param {string} [fill='none'] 'none' si on ne veut pas de remplissage, sinon une couleur.
+ * @param {boolean} [saillant=true] True si on veut l'angle saillant, false si on veut l'angle rentrant.
+ * @param {string} [colorArc='black']  Couleur de l'arc  : du type 'blue' ou du type '#f15929'.
+ * @param {boolean} [rayon=false] True pour fermer l'angle, par deux rayons (en vue de colorier l'intérieur).
+ * @param {string} [couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'.
  * @param {number} [opaciteDeRemplissage=0.5] Taux d'opacité du remplissage.
- * @param {number} [arcEpaisseur=1] épaisseur de l'arc.
- * @param {boolean} [mesureEnGras=false] true pour mettre en gras la mesure affichée.
- * @returns {object} AfficheMesureAngle
+ * @param {number} [arcEpaisseur=1] Epaisseur de l'arc.
+ * @param {boolean} [mesureEnGras=false] True pour mettre en gras la mesure affichée.
+ * @example afficheMesureAngle(M,N,O)
+ * // Affiche la mesure de l'angle MNO (en noir, avec un arc de rayon 1,5 "cm").
+ * @example afficheMesureAngle(M,N,O,'red',2,'pop',{ecart:1,saillant:false,colorArc:'blue',rayon:true,couleurDeRemplissage:'#f15929',opaciteDeRemplissage:0.8,arcEpaisseur:2,mesureEnGras:true})
+ * // Affiche le label pop en gras et rouge, sur l'angle rentrant MNO, avec un arc bleu, epais de 2 et de rayon 2 "cm", à 1 "cm" de l'arc rempli en orange avec une opacité de 80%, cerné par ses rayons.
+ * @returns {AfficheMesureAngle}
  */
-export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, fill = 'none', opaciteDeRemplissage = 0.5, arcEpaisseur = 1 } = {}) {
-  return new AfficheMesureAngle(A, B, C, color, distance, label, { ecart, mesureEnGras, saillant, colorArc, rayon, fill, opaciteDeRemplissage, arcEpaisseur })
+// JSDOC Validee par EE Juin 2022
+export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.5, arcEpaisseur = 1 } = {}) {
+  return new AfficheMesureAngle(A, B, C, color, distance, label, { ecart, mesureEnGras, saillant, colorArc, rayon, couleurDeRemplissage, opaciteDeRemplissage, arcEpaisseur })
 }
 
 /**
@@ -6292,7 +6336,7 @@ export function codageSegments (mark = '||', color = 'black', ...args) {
  * @returns {code_SVG|code_TikZ|code_SVGml|code_TikZml}
  * @private
  */
-function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
+function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.debut = debut
@@ -6301,11 +6345,8 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
   this.mark = mark
   this.epaisseur = epaisseur
   this.opacite = opacite
-
-  if (fill !== 'none') {
-    this.couleurDeRemplissage = fill
-    this.opaciteDeRemplissage = opaciteDeRemplissage
-  } else { this.couleurDeRemplissage = 'none' }
+  this.couleurDeRemplissage = couleurDeRemplissage
+  this.opaciteDeRemplissage = opaciteDeRemplissage
   this.angle = angle
 
   this.svg = function (coeff) {
@@ -6321,7 +6362,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     arcangle.isVisible = false
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.opaciteDeRemplissage = opaciteDeRemplissage
+    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
     objets.push(arcangle)
     if (this.mark !== '') {
       const t = texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color)
@@ -6359,7 +6400,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     const arcangle = arc(depart, this.centre, this.angle, false, this.couleurDeRemplissage, this.color)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.opaciteDeRemplissage = opaciteDeRemplissage
+    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
     if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).svg(coeff) + '\n'
     if (mesureOn && texteACote === '') code += texteParPoint(mesure, M, 'milieu', this.color).svg(coeff) + '\n'
     if (texteACote !== '') code += texteParPoint(texteACote, M, 'milieu', this.color, tailleTexte).svg(coeff) + '\n'
@@ -6405,33 +6446,42 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
 }
 
 /**
- * @param {Point} debut
- * @param {Point} centre
- * @param {number} angle
- * @param {number} [taille=0.8] Facultatif. 0.8 par défaut.
- * @param {string} [mark=''] Facultatif. Vide par défaut.
- * @param {string} [color='black'] Facultatif. 'black' par défaut.
- * @param {number} [epaisseur=1] Facultatif. 1 par défaut.
- * @param {number} [opacite=1] Facultatif. 1 par défaut.
- * @param {string} [fill='none'] Facultatif. 'none' par défaut
- * @param {number} [opaciteDeRemplissage=0.2] Facultatif. 0.2 par défaut
- * @param {boolean} [mesureOn=false] Facultatif. false par défaut
- * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré (from EE)
- * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle (from EE) : encore optimisable
- * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle (from EE)
- * @returns {object} CodeAngle
- * @example codeAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
- * @example codeAngle(A,O,B) // code l'angle AOB sans aucune autre option possible
+ * Code un angle
+ * @param {Point} A Point sur un côté de l'angle
+ * @param {Point} O Sommet de l'angle
+ * @param {number|Point} angle Mesure de l'angle ou nom d'un point sur l'autre côté de l'angle
+ * @param {number} [taille=0.8] Taille de l'angle
+ * @param {string} [mark=''] Marque sur l'angle
+ * @param {string} [color='black'] Couleur de l'angle : du type 'blue' ou du type '#f15929'
+ * @param {number} [epaisseur=1] Epaisseur du tracé de l'angle
+ * @param {number} [opacite=1] Opacité de la couleur du tracé de l'angle
+ * @param {string} [couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
+ * @param {number} [opaciteDeRemplissage=0.2] Opacité de la couleur de remplissage de l'angle
+ * @param {boolean} [mesureOn=false] Affichage de la mesure de l'angle
+ * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré ou pas
+ * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle à la place de la mesure de l'angle
+ * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle
+ * @example codageAngle(H,K,30)
+ * // Code l'angle de centre K, avec H sur un côté de l'angle et avec 30° comme mesure d'angle orienté,
+ * // en noir, avec une épaisseur de 1, une opacité de 100 %, un rayon d'arc de 0,8, sans autre option.
+ * @example codageAngle(H,K,G)
+ * // Code l'angle HKG, en noir, avec une épaisseur de 1, une opacité de 100 %, un rayon d'arc de 0,8, sans autre option.
+ * @example codageAngle(H,K,G,2,'x','red',0.5,0.2,'blue',0.8,true,true)
+ * // Code l'angle HKG, en rouge, avec une épaisseur de 0.5 et une opacité de 20 %, rempli en bleu avec une opacité de 80 %
+ * // avec un arc de cercle de rayon 2, avec une marque 'x' sur l'angle, en affichant la mesure de l'angle et sans faire apparaître d'angle droit le cas échéant.
+ * @example codageAngle(H,K,G,2,'x','red',0.5,0.2,'blue',0.8,true,true,'?',2)
+ * // Code l'angle HKG, en rouge, avec une épaisseur de 0.5 et une opacité de 20 %, rempli en bleu avec une opacité de 80 %
+ * // avec un arc de cercle de rayon 2, avec une marque 'x' sur l'angle, en affichant le texte '?' d'une taille de 2 et sans faire apparaître d'angle droit le cas échéant.
  * @author Jean-Claude Lhote
  * @returns {CodageAngle|codageAngleDroit}
  */
-export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
+export function codageAngle (A, O, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
   if (typeof (angle) !== 'number') {
     angle = angleOriente(A, O, angle)
   }
-  if ((angle === 90 || angle === -90) & !noAngleDroit) {
-    return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille, epaisseur, opacite, fill, opaciteDeRemplissage)
-  } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, fill, opaciteDeRemplissage, mesureOn, texteACote, tailleTexte)
+  if ((angle === 90 || angle === -90) && !noAngleDroit) {
+    return new CodageAngleDroit(A, O, rotation(A, O, angle), color, taille, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage)
+  } else return new CodageAngle(A, O, angle, taille, mark, color, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage, mesureOn, texteACote, tailleTexte)
 }
 
 function NomAngleParPosition (nom, x, y, color, s) {
@@ -9414,7 +9464,7 @@ function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalit
  * @param {boolean[]} valeurs présence ou non de l'effectif
  * @param {boolean[]} présence ou non de hachures dans le secteur associé
  * @param {boolean[]} présence ou non d'une couleur de remplissage dans le secteur associé
- * @returns ...
+ * @returns
  */
 export function diagrammeCirculaire ({ effectifs = [100], x = 0, y = 0, rayon = 4, modalites = ['tout'], semi = false, legende = true, legendePosition = 'droite', mesures = [false], visibles = [true], pourcents = [true], valeurs = [false], hachures = [true], remplissage = [false] }) {
   return new DiagrammeCirculaire({ effectifs, x, y, rayon, modalites, semi, legende, legendePosition, mesures, visibles, pourcents, valeurs, hachures, remplissage })
@@ -10103,11 +10153,11 @@ function CrochetD (A, color = 'blue') {
     }
     let code = `<polyline points="${A.xSVG(coeff) + this.taille * 20},${A.ySVG(coeff) +
       2 * this.taille * 20 / coeff * coeff
-      } ${A.xSVG(coeff)},${A.ySVG(coeff) + 2 * this.taille * 20} ${A.xSVG(coeff)},${A.ySVG(coeff) +
+    } ${A.xSVG(coeff)},${A.ySVG(coeff) + 2 * this.taille * 20} ${A.xSVG(coeff)},${A.ySVG(coeff) +
       -2 * this.taille * 20
-      } ${A.xSVG(coeff) + this.taille * 20},${A.ySVG(coeff) +
+    } ${A.xSVG(coeff) + this.taille * 20},${A.ySVG(coeff) +
       -2 * this.taille * 20
-      }" fill="none" stroke="${this.color}" ${this.style} />`
+    }" fill="none" stroke="${this.color[0]}" ${this.style} />`
     code += `\n\t<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff) +
       this.taille * 20 * 5
       }" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]}">${A.nom
@@ -10154,11 +10204,11 @@ function CrochetG (A, color = 'blue') {
     }
     let code = `<polyline points="${A.xSVG(coeff) - this.taille * 20},${A.ySVG(coeff) +
       2 * this.taille * 20
-      } ${A.xSVG(coeff)},${A.ySVG(coeff) + 2 * this.taille * 20} ${A.xSVG(coeff)},${A.ySVG(coeff) -
+    } ${A.xSVG(coeff)},${A.ySVG(coeff) + 2 * this.taille * 20} ${A.xSVG(coeff)},${A.ySVG(coeff) -
       2 * this.taille * 20
-      } ${A.xSVG(coeff) - this.taille * 20},${A.ySVG(coeff) -
+    } ${A.xSVG(coeff) - this.taille * 20},${A.ySVG(coeff) -
       2 * this.taille * 20
-      }" fill="none" stroke="${this.color}" ${this.style} />`
+    }" fill="none" stroke="${this.color[0]}" ${this.style} />`
     code += `\n\t<text x="${A.xSVG(coeff)}" y="${A.ySVG(coeff) +
       5 * this.taille * 20
       }" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]}">${A.nom
@@ -10186,12 +10236,12 @@ export function intervalle (A, B, color = 'blue', h = 0) {
 }
 
 /**
- * convertHexToRGB convertit une couleur en hexadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
+ * convertHexToRGB convertit une couleur en héxadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
  * @example convertHexToRGB('f15929')=[241,89,41]
  * @author Eric Elter
  */
 
-/* function convertHexToRGB (couleur = '000000') {
+function convertHexToRGB (couleur = '000000') {
   const hexDecoupe = couleur.match(/.{1,2}/g)
   const hexToRGB = [
     parseInt(hexDecoupe[0], 16),
@@ -10199,7 +10249,7 @@ export function intervalle (A, B, color = 'blue', h = 0) {
     parseInt(hexDecoupe[2], 16)
   ]
   return hexToRGB
-} */
+}
 
 /**
  * colorToLatexOrHTML prend en paramètre une couleur sous forme prédéfinie ('red','yellow',...) ou sous forme HTML en hexadécimal (avec #, genre '#f15929')
@@ -10295,30 +10345,30 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
       else style += ` style="font-size:${this.taille}px;fill:${this.color[0]};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
         code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+        coeff
+      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.couleurDeRemplissage[0]
+        }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
           coeff
-        )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.couleurDeRemplissage
-          }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
-            coeff
-          )})" id="${this.id}" >${texte}</text>\n `
+        )})" id="${this.id}" >${texte}</text>\n `
       } else {
         switch (orientation) {
           case 'milieu':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-              coeff
-            )}" text-anchor="middle" dominant-baseline="central" fill="${this.couleurDeRemplissage
-              }" id="${this.id}" >${texte}</text>\n `
+            coeff
+          )}" text-anchor="middle" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
+            }" id="${this.id}" >${texte}</text>\n `
             break
           case 'gauche':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-              coeff
-            )}" text-anchor="end" dominant-baseline="central" fill="${this.couleurDeRemplissage
-              }" id="${this.id}" >${texte}</text>\n `
+            coeff
+          )}" text-anchor="end" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
+            }" id="${this.id}" >${texte}</text>\n `
             break
           case 'droite':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-              coeff
-            )}" text-anchor="start" dominant-baseline="central" fill="${this.couleurDeRemplissage
-              }" id="${this.id}" >${texte}</text>\n `
+            coeff
+          )}" text-anchor="start" dominant-baseline="central" fill="${this.couleurDeRemplissage[0]
+            }" id="${this.id}" >${texte}</text>\n `
             break
         }
       }
@@ -10409,30 +10459,30 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
       else style += ` style="font-size:${this.taille}px;fill:${this.color[0]};fill-opacity:${this.opacite};${this.gras ? 'font-weight:bolder' : ''}" `
       if (typeof (orientation) === 'number') {
         code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
+        coeff
+      )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color[0]
+        }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
           coeff
-        )}" text-anchor = "${ancrageDeRotation}" dominant-baseline = "central" fill="${this.color
-          }" transform="rotate(${orientation} ${A.xSVG(coeff)} ${A.ySVG(
-            coeff
-          )})" id="${this.id}" >${texte}</text>\n `
+        )})" id="${this.id}" >${texte}</text>\n `
       } else {
         switch (orientation) {
           case 'milieu':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-              coeff
-            )}" text-anchor="middle" dominant-baseline="central" fill="${this.color
-              }" id="${this.id}" >${texte}</text>\n `
+            coeff
+          )}" text-anchor="middle" dominant-baseline="central" fill="${this.color[0]
+            }" id="${this.id}" >${texte}</text>\n `
             break
           case 'gauche':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-              coeff
-            )}" text-anchor="end" dominant-baseline="central" fill="${this.color
-              }" id="${this.id}" >${texte}</text>\n `
+            coeff
+          )}" text-anchor="end" dominant-baseline="central" fill="${this.color[0]
+            }" id="${this.id}" >${texte}</text>\n `
             break
           case 'droite':
             code = `<text ${style} x="${A.xSVG(coeff)}" y="${A.ySVG(
-              coeff
-            )}" text-anchor="start" dominant-baseline="central" fill="${this.color
-              }" id="${this.id}" >${texte}</text>\n `
+            coeff
+          )}" text-anchor="start" dominant-baseline="central" fill="${this.color[0]
+            }" id="${this.id}" >${texte}</text>\n `
             break
         }
       }
@@ -10450,8 +10500,8 @@ function TexteParPointEchelle (texte, A, orientation = 'milieu', color = 'black'
         if (ancrageDeRotation === 'droite') {
           anchor = 'east'
         }
-        code = `\\draw [${color},fill opacity = ${this.opacite}] (${A.x},${A.y
-          }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
+        code = `\\draw [color=${this.color[1]},fill opacity = ${this.opacite}] (${A.x},${A.y
+        }) node[anchor = ${anchor},scale=${scale * scaleFigure * 1.25}, rotate = ${-orientation}] {${texte}};`
       } else {
         let anchor = ''
         if (orientation === 'gauche') {
