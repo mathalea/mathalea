@@ -1302,9 +1302,16 @@ export function mediatrice (A, B, nom = '', color = 'black') {
 }
 
 /**
- * m = codageMediatrice(A,B,'blue','×') // Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB] en bleu
- *
- * @author Rémi Angot
+ * Code la médiatrice d'un segment
+ * @param {Point} A Première extrémité du segment
+ * @param {Point} B Seconde extrémité du segment
+ * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
+ * @example CodageMediatrice(M,N) // Code, en noir, la médiatrice du segment[MN] avec les marques 'x'
+ * @example CodageMediatrice(M,N,'red','oo') // Code, en rouge, la médiatrice du segment[MN] avec les marques 'oo'
+ * @author  Rémi Angot
+ * @return {code_SVG|code_TikZ|code_SVGml|code_TikZml}
+ * @private
  */
 function CodageMediatrice (A, B, color = 'black', mark = '×') {
   if (longueur(A, B) < 0.1) window.notify('CodageMediatrice : Points trop rapprochés pour créer ce codage', { A, B })
@@ -1313,7 +1320,7 @@ function CodageMediatrice (A, B, color = 'black', mark = '×') {
   const O = milieu(A, B)
   const M = rotation(A, O, 90)
   const c = codageAngleDroit(M, O, B, this.color)
-  const v = codeSegments(mark, this.color, A, O, O, B)
+  const v = codageSegments(mark, this.color, A, O, O, B)
   c.isVisible = false
   v.isVisible = false
   this.svg = function (coeff) {
@@ -1330,23 +1337,35 @@ function CodageMediatrice (A, B, color = 'black', mark = '×') {
     return c.tikzml(amp) + '\n' + v.tikz()
   }
 }
-/**
- *  Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB]
- * @param {Point} A
- * @param {Point} B
- * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
- * @param {string} [mark='x'] Peut être '||' ou 'x'.
- * @exemple m = codageMediatrice(A,B,'blue','×') // en bleu
- * @author Rémi Angot
- */
 
+/**
+ * Code la médiatrice d'un segment
+ * @param {Point} A Première extrémité du segment
+ * @param {Point} B Seconde extrémité du segment
+ * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
+ * @example codageMediatrice(M,N) // Code, en noir, la médiatrice du segment[MN] avec les marques 'x'
+ * @example codageMediatrice(M,N,'red','oo') // Code, en rouge, la médiatrice du segment[MN] avec les marques 'oo'
+ * @author  Rémi Angot
+ * @return {CodageMediatrice}
+ */
+// JSDOC Validee EE Juin 2022
 export function codageMediatrice (...args) {
   return new CodageMediatrice(...args)
 }
+
 /**
- * c=codageMilieu(A,B,'red','||',false) marque les deux moitiés du segment [AB] avec || en rouge, le milieu n'est pas tracé car dernier argument à false.
- * m=codageMilieu(C,D) marque l'emplacement du milieu de [CD] et marque avec X les deux moitiés.
+ * Code le milieu d'un segment
+ * @param {Point} A Première extrémité du segment
+ * @param {Point} B Seconde extrémité du segment
+ * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
+ * @param {boolean} [mil=true] Trace ou nom le point du milieu.
+ * @example CodageMilieu(M,N) // Code, en noir, le milieu du segment[MN] avec les marques 'x', en plaçant le milieu
+ * @example CodageMilieu(M,N,'red','oo',false) // Code, en rouge, le milieu du segment[MN] avec les marques 'oo', sans placer le milieu.
  * @author Jean-Claude Lhote
+ * @return {code_SVG|code_TikZ}
+ * @private
  */
 function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
   if (longueur(A, B) < 0.1) window.notify('CodageMilieu : Points trop rapprochés pour créer ce codage', { A, B })
@@ -1355,7 +1374,7 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
   const O = milieu(A, B)
   const d = droite(A, B)
   const M = tracePointSurDroite(O, d, this.color)
-  const v = codeSegments(mark, this.color, A, O, O, B)
+  const v = codageSegments(mark, this.color, A, O, O, B)
   let code = ''
   this.svg = function (coeff) {
     if (mil) code = M.svg(coeff) + '\n' + v.svg(coeff)
@@ -1368,18 +1387,21 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
     else return v.tikz()
   }
 }
+
 /**
- * Marque les deux moitiés du segment [AB] avec mark en color en traçant éventuellement le milieu
- * @param {Point} A
- * @param {Point} B
+ * Code le milieu d'un segment
+ * @param {Point} A Première extrémité du segment
+ * @param {Point} B Seconde extrémité du segment
  * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
- * @param {string} [mark='x'] Peut être '||' ou 'x'.
+ * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
  * @param {boolean} [mil=true] Trace ou nom le point du milieu.
- * @returns CodageMilieu
- * @example codageMilieu(A,B,'red','||',false) marque les deux moitiés du segment [AB] avec || en rouge, le milieu n'est pas tracé car dernier argument à false.
+ * @example codageMilieu(M,N) // Code, en noir, le milieu du segment[MN] avec les marques 'x', en plaçant le milieu
+ * @example codageMilieu(M,N,'red','oo',false) // Code, en rouge, le milieu du segment[MN] avec les marques 'oo', sans placer le milieu.
+ * @author Jean-Claude Lhote
+ * @return {CodageMilieu}
  */
-export function codageMilieu (...args) {
-  return new CodageMilieu(...args)
+export function codageMilieu (A, B, color = 'black', mark = '×', mil = true) {
+  return new CodageMilieu(A, B, color, mark, mil)
 }
 /**
  * m = constructionMediatrice(A,B,true,'blue', '×', '||', 'red', 1) // Trace et code la médiatrice en laissant apparent les traits de construction au compas
@@ -1424,7 +1446,7 @@ function ConstructionMediatrice (
     sAN.pointilles = 5
     const sBN = segment(B, N, this.color)
     sBN.pointilles = 5
-    const codes = codeSegments(markrayons, this.color, A, M, B, M, A, N, B, N)
+    const codes = codageSegments(markrayons, this.color, A, M, B, M, A, N, B, N)
     objets.push(sAM, sBM, sAN, sBN, codes, codage)
   }
   this.svg = function (coeff) {
@@ -1466,9 +1488,9 @@ export function constructionMediatrice (...args) {
 
 /**
  * Trace la bissectrice d'un angle
- * @param {Point} A Point d'un côté de l'angle
+ * @param {Point} A Point sur un côté de l'angle
  * @param {Point} O Sommet de l'angle
- * @param {Point} B Point d'un autre côté de l'angle
+ * @param {Point} B Point sur l'autre côté de l'angle
  * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
  * @example bissectrice(M,N,P) // Trace, en noir, la bissectrice de l'angle MNP
  * @example bissectrice(M,N,P,'red') // Trace, en rouge, la bissectrice de l'angle MNP
@@ -1482,11 +1504,22 @@ export function bissectrice (A, O, B, color = 'black') {
   const M = rotation(m, O, demiangle)
   return demiDroite(O, M, color)
 }
+
 /**
- * m = codagebissectrice(A,O,B,'blue','oo') ajoute des arcs marqués de part et d'autre de la bissectrice mais ne trace pas celle-ci.
+ * Code la bissectrice d'un angle
+ * @param {Point} A Point sur un côté de l'angle
+ * @param {Point} O Sommet de l'angle
+ * @param {Point} B Point sur l'autre côté de l'angle
+ * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
+ * @param {string} [mark='x'] Symbole posé sur les arcs
+ * @example Codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
+ * @example Codagebissectrice(M,N,P,'red','oo') // Code, en rouge, la bissectrice de l'angle MNP avec les marques 'oo'
  * @author Jean-Claude Lhote
+ * @return {code_SVG|code_TikZ}
+ * @private
  */
-function CodageBissectrice (A, O, B, color = 'black', mark = '×') {
+// JSDOC Validee EE Juin 2022
+function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
   ObjetMathalea2D.call(this)
   this.color = color
   this.mark = mark
@@ -1497,8 +1530,8 @@ function CodageBissectrice (A, O, B, color = 'black', mark = '×') {
   this.arrivee = pointSurSegment(O, B, 1.5)
 
   this.svg = function (coeff) {
-    const a1 = codeAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
-    const a2 = codeAngle(pointSurSegment(this.centre, this.lieu, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
+    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
+    const a2 = codageAngle(pointSurSegment(this.centre, this.lieu, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
     return (
       a1.svg(coeff) +
       '\n' +
@@ -1507,14 +1540,27 @@ function CodageBissectrice (A, O, B, color = 'black', mark = '×') {
     )
   }
   this.tikz = function () {
-    const a1 = codeAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
-    const a2 = codeAngle(pointSurSegment(this.centre, this.lieu, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
+    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
+    const a2 = codageAngle(pointSurSegment(this.centre, this.lieu, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
     return a1.tikz() + '\n' + a2.tikz() + '\n'
   }
 }
 
-export function codageBissectrice (...args) {
-  return new CodageBissectrice(...args)
+/**
+ * Code la bissectrice d'un angle
+ * @param {Point} A Point sur un côté de l'angle
+ * @param {Point} O Sommet de l'angle
+ * @param {Point} B Point sur l'autre côté de l'angle
+ * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
+ * @param {string} [mark='x'] Symbole posé sur les arcs
+ * @example codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
+ * @example codagebissectrice(M,N,P,'red','oo') // Code, en rouge, la bissectrice de l'angle MNP avec les marques 'oo'
+ * @author Jean-Claude Lhote
+ * @return {CodageBissectrice}
+ */
+// JSDOC Validee EE Juin 2022
+export function codageBissectrice (A, O, B, color = 'black', mark = 'x') {
+  return new CodageBissectrice(A, O, B, color, mark)
 }
 
 /**
@@ -1562,7 +1608,7 @@ function ConstructionBissectrice (
     const sNP = segment(N, P, this.couleurConstruction)
     sMP.pointilles = 5
     sNP.pointilles = 5
-    const codes = codeSegments(this.mark, this.color, O, M, M, P, O, N, N, P)
+    const codes = codageSegments(this.mark, this.color, O, M, M, P, O, N, N, P)
     objets.push(sOM, sON, tNP, tMP, sMP, sNP, codes)
   }
   this.svg = function (coeff) {
@@ -2530,7 +2576,7 @@ export function carre (A, B, color = 'black') {
 
 function CodageCarre (c, color = 'black', mark = '×') {
   const objets = []
-  objets.push(codeSegments(mark, color, c.listePoints))
+  objets.push(codageSegments(mark, color, c.listePoints))
   objets.push(
     codageAngleDroit(
       c.listePoints[0],
@@ -4317,6 +4363,23 @@ export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color 
   return new CibleCarree({ x, y, rang, num, taille, color, opacite })
 }
 
+/**
+ * Crée une cible ronde pour l'auto-correction
+ * @param {number} [x=0] Abscisse du point au centre de la cible
+ * @param {number} [y=0] Ordonnée du point au centre de la cible
+ * @param {number} [rang=3] Nombre de cercles centrés sur le centre de la cible
+ * @param {number} [taille=0.3] Distance entre le centre de la cible et le premier cercle (et entre chaque cercle consécutif)
+ * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
+ * @param {number} [opacite=0.5] Opacité de la cible
+ * @example CibleRonde({})
+ * // Crée une cible ronde, de centre (0,0), possédant 3 cercles, avec une distance de 0,3 entre chaque cercle consécutifu cercle intérieur est 5, de couleur grise avec une opacité de 50 %.
+ * @example CibleRonde({ x: 2, y: -1, rang: 10, taille: 1, color: 'blue', opacite: 0.8 })
+ * // Crée une cible ronde, de centre (2,-1), possédant 10 cercles, avec une distance de 1 entre chaque cercle consécutifu cercle intérieur est 5, de couleur bleue avec une opacité de 80 %.
+ * @author Jean-Claude Lhote
+ * @return {code_SVG|code_TikZ}
+ * @private
+ */
+// JSDOC Validee EE Juin 2022
 function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this)
   this.x = x
@@ -4364,23 +4427,23 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray'
     return code
   }
 }
-/**
- * création d'une cible ronde pour l'auto-correction
- * @author Jean-Claude Lhote
- * (x,y) sont les coordonnées du centre de la cible
- * Les zones de la cible fot 45°. Ils sont au nombre de rang*8
- * Repérage de A1 à Hn où n est le rang.
- * @author Jean-Claude Lhote
- * @param {number} x
- * @param {number} y les coordonnées du point en bas à gauche de la cible
- * @param {number} rang le nombre de cases de large
- * @param {number} num Un numéro ou rien pour identifier la cible (quand il y en a plusieurs)
- * @param {number} taille en cm, la taille des cases
- * @param {string} color la couleur de la cible
- * @param {number} opacite l'opacité de la cible
- * @param {} param0
- */
 
+/**
+ * Crée une cible ronde pour l'auto-correction
+ * @param {number} [x=0] Abscisse du point au centre de la cible
+ * @param {number} [y=0] Ordonnée du point au centre de la cible
+ * @param {number} [rang=3] Nombre de cercles centrés sur le centre de la cible
+ * @param {number} [taille=0.3] Distance entre le centre de la cible et le premier cercle (et entre chaque cercle consécutif)
+ * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
+ * @param {number} [opacite=0.5] Opacité de la cible
+ * @example cibleRonde({})
+ * // Crée une cible ronde, de centre (0,0), possédant 3 cercles, avec une distance de 0,3 entre chaque cercle consécutifu cercle intérieur est 5, de couleur grise avec une opacité de 50 %.
+ * @example cibleRonde({ x: 2, y: -1, rang: 10, taille: 1, color: 'blue', opacite: 0.8 })
+ * // Crée une cible ronde, de centre (2,-1), possédant 10 cercles, avec une distance de 1 entre chaque cercle consécutifu cercle intérieur est 5, de couleur bleue avec une opacité de 80 %.
+ * @author Jean-Claude Lhote
+ * @return {CibleRonde}
+ */
+// JSDOC Validee EE Juin 2022
 export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, color = 'gray', opacite = 0.5 }) {
   return new CibleRonde({ x, y, rang, num, taille, color, opacite })
 }
@@ -5524,7 +5587,7 @@ function CodageMedianeTriangle (B, C, color = 'black', mark = '//') {
   ObjetMathalea2D.call(this)
   this.color = color
   const O = milieu(B, C)
-  const c = codeSegments(mark, this.color, B, O, O, C)
+  const c = codageSegments(mark, this.color, B, O, O, C)
   this.svg = function (coeff) {
     return c.svg(coeff)
   }
@@ -5588,11 +5651,25 @@ export function centreCercleCirconscrit (A, B, C, nom = '', positionLabel = 'abo
 */
 
 /**
- * codageAngleDroit(A,O,B) //Fait un codage d'angle droit de 4 mm pour l'angle direct AOB
- * codageAngleDroit(A,O,B,.5) //Fait un codage d'angle droit de 5 mm pour l'angle direct AOB
- *
+ * Code un angle droit
+ * @param {Point} A Point sur un côté de l'angle droit
+ * @param {Point} O Sommet de l'angle droit
+ * @param {Point} B Point sur l'autre côté de l'angle droit
+ * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'
+ * @param {number} [d=0.4] Taille du codage de l'angle droit
+ * @param {number} [epaisseur=0.5] Epaisseur du trait
+ * @param {number} [opacite=1] Opacité du trait
+ * @param {string} [couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
+ * @param {number} [opaciteDeRemplissage=1] Taux d'opacité du remplissage
+ * @example CodageAngleDroit(A,J,T)
+ * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur noire, de taille 0,4, d'épaisseur 0,5 avec une opacité de 100 %, sans remplissage
+ * @example CodageAngleDroit(A,J,T,'pink',1,0.2,0.6,'blue',0.2)
+ * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur rose, de taille 1, d'épaisseur 0,2 avec une opacité de 60 %, rempli en bleu avec une opacité de 20%.
+ * @returns {code_SVG|code_TikZ|code_SVGml|code_TikZml}
  * @author Rémi Angot
+ * @private
  */
+// JSDOC Validee par EE Juin 2022
 function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
   ObjetMathalea2D.call(this)
   this.sommet = O
@@ -5669,20 +5746,26 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
     return polyline([a, o, b], this.color).tikzml(amp)
   }
 }
+
 /**
- * Fait un codage d'angle droit pour l'angle direct AOB.
- * @param {Point} A
- * @param {Point} O
- * @param {Point} B
- * @param {string} [color='black']
- * @param {number} [d =0.4] Taille de l'angle droit en cm.
- * @param {number} [epaisseur=0.5] épaisseur du trait
- * @param {number} [opacite=1] opacité du trait
- * @param {string} [couleurDeRemplissage='none'] couleur de remplissage
- * @param {number} [opaciteDeRemplissage=1] opacité de remplissage
- * @returns {CodageAngleDroit} CodageAngleDroit
+ * Code un angle droit
+ * @param {Point} A Point sur un côté de l'angle droit
+ * @param {Point} O Sommet de l'angle droit
+ * @param {Point} B Point sur l'autre côté de l'angle droit
+ * @param {string} [color='black'] Couleur du codage : du type 'blue' ou du type '#f15929'
+ * @param {number} [d=0.4] Taille du codage de l'angle droit
+ * @param {number} [epaisseur=0.5] Epaisseur du trait
+ * @param {number} [opacite=1] Opacité du trait
+ * @param {string} [couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
+ * @param {number} [opaciteDeRemplissage=1] Taux d'opacité du remplissage
+ * @example CodageAngleDroit(A,J,T)
+ * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur noire, de taille 0,4, d'épaisseur 0,5 avec une opacité de 100 %, sans remplissage
+ * @example CodageAngleDroit(A,J,T,'pink',1,0.2,0.6,'blue',0.2)
+ * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur rose, de taille 1, d'épaisseur 0,2 avec une opacité de 60 %, rempli en bleu avec une opacité de 20%.
+ * @returns {CodageAngleDroit}
  * @author Rémi Angot
  */
+// JSDOC Validee par EE Juin 2022
 export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
   return new CodageAngleDroit(A, O, B, color, d, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage)
 }
@@ -5875,9 +5958,9 @@ export function texteSurArc (texte, A, B, angle, color = 'black', d = 0.5, horiz
 
 /**
  * Affiche la mesure de l'angle ABC arrondie au degré près
- * @param {Point} A Point d'un côté de l'angle
+ * @param {Point} A Point sur un côté de l'angle
  * @param {Point} B Sommet de l'angle
- * @param {Point} C Point d'un autre côté de l'angle
+ * @param {Point} C Point sur l'autre côté de l'angle
  * @param {string} [color='black'] Couleur de la mesure de l'angle : du type 'blue' ou du type '#f15929'.
  * @param {number} [distance=1.5] Taille de l'angle.
  * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
@@ -5937,9 +6020,9 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
 }
 /**
  * Affiche la mesure de l'angle ABC arrondie au degré près
- * @param {Point} A Point d'un côté de l'angle
+ * @param {Point} A Point sur un côté de l'angle
  * @param {Point} B Sommet de l'angle
- * @param {Point} C Point d'un autre côté de l'angle
+ * @param {Point} C Point sur l'autre côté de l'angle
  * @param {string} [color='black'] Couleur de la mesure de l'angle : du type 'blue' ou du type '#f15929'.
  * @param {number} [distance=1.5] Rayon de l'arc de cercle.
  * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
@@ -5972,6 +6055,10 @@ export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
  * @param {number} [positionValeur=0.5] Position de la valeur par rapport à la flèche. Valeur négative ou positive selon la position voulue.
  * @param {string} [couleurValeur='black']  Couleur de la valeur indiquée : du type 'blue' ou du type '#f15929'.
  * @param {boolean} [horizontal=false]  Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
+ * @example AfficheCoteSegment(s)
+ * \\ Affiche la côte du segment s (avec une flèche noire d\'épaisseur 1 "cm", placée 0.5 "cm" sous le segment, avec la longueur du segment, en cm, écrite en noir, 0,5 "cm" au-dessus, et parallèle au segment.
+ * @example AfficheCoteSegment(s,'x',-1,'red',2,1,'blue',true)
+ * \\ Affiche la côte du segment s, avec une flèche rouge d\'épaisseur 2 "cm", placée 1 "cm" sous le segment, avec le texte 'x' écrit en bleu, 1 "cm" au-dessus, et horizontalement.
  * @returns {code_SVG|code_TikZ}
  * @author Jean-Claude Lhote
  * @private
@@ -6077,17 +6164,18 @@ export function afficheCoteSegment (s, Cote = '', positionCote = 0.5, couleurCot
 }
 
 /**
- * codeSegment(A,B,'×','blue') // Code le segment [AB] avec une croix bleue.
- *
- * Attention le premier argument ne peut pas être un segment
+ * Code un segment
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
  * @param {string} [mark='||'] Symbole posé sur le segment
- * @param {string} [color='black'] Couleur du symbole. Code Couleur HTML acceptée.
- *
+ * @param {string} [color='black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
+ * @example CodageSegment(H,K) // Code le segment [HK] avec la marque noire '||'
+ * @example CodageAngle(H,K,'x','green') // Code le segment [HK] avec la marque verte 'x'
  * @author Rémi Angot
+ * @returns {texteParPoint}
+ * @private
  */
-function CodeSegment (A, B, mark = '||', color = 'black') {
+function CodageSegment (A, B, mark = '||', color = 'black') {
   ObjetMathalea2D.call(this)
   this.color = color
   const O = milieu(A, B)
@@ -6101,50 +6189,61 @@ function CodeSegment (A, B, mark = '||', color = 'black') {
   }
   return texteParPoint(mark, O, angle, this.color)
 }
-export function codeSegment (...args) {
-  return new CodeSegment(...args)
-}
+
 /**
- * codeSegments('×','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
- *
- * codeSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé, pratique pour des polygones pas pour des lignes brisées)
- *
- * codeSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
- *
- * codeSegments('×','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
- *
- * @param {string} mark Symbole posé sur le segment
- * @param {string} color Couleur du symbole
- * @param  {...any} args Les segments différement codés. Voir exemples.
- *
+ * Code un segment
+ * @param {Point} A Première extrémité du segment
+ * @param {Point} B Seconde extrémité du segment
+ * @param {string} [mark='||'] Symbole posé sur le segment
+ * @param {string} [color='black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
+ * @example codageSegment(H,K) // Code le segment [HK] avec la marque noire '||'
+ * @example codageAngle(H,K,'x','green') // Code le segment [HK] avec la marque verte 'x'
  * @author Rémi Angot
+ * @returns {CodageSegment}
  */
-function CodeSegments (mark = '||', color = 'black', ...args) {
+export function codageSegment (...args) {
+  return new CodageSegment(...args)
+}
+
+/**
+ * Code plusieurs segments de la même façon
+ * @param {string} [mark='||'] Symbole posé sur le segment
+ * @param {string} [color='black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
+ * @param  {Points|Array.Point|Segments} args Les segments différement codés. Voir exemples.
+ * @example CodageSegments('×','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
+ * @example CodageSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé, pratique pour des polygones pas pour des lignes brisées)
+ * @example CodageSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
+ * @example CodageSegments('×','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
+ * @author Rémi Angot
+ * @returns {code_SVG|code_TikZ}
+ * @private
+ */
+function CodageSegments (mark = '||', color = 'black', ...args) {
   ObjetMathalea2D.call(this)
   this.svg = function (coeff) {
     let code = ''
     if (Array.isArray(args[0])) {
       // Si on donne une liste de points
       for (let i = 0; i < args[0].length - 1; i++) {
-        const codage = codeSegment(args[0][i], args[0][i + 1], mark, color)
+        const codage = codageSegment(args[0][i], args[0][i + 1], mark, color)
         codage.isVisible = false
         code += codage.svg(coeff)
         code += '\n'
       }
-      const codage = codeSegment(args[0][args[0].length - 1], args[0][0], mark, color)
+      const codage = codageSegment(args[0][args[0].length - 1], args[0][0], mark, color)
       codage.isVisible = false
       code += codage.svg(coeff)
       code += '\n'
     } else if (args[0].constructor === Segment) {
       for (let i = 0; i < args.length; i++) {
-        const codage = codeSegment(args[i].extremite1, args[i].extremite2, mark, color)
+        const codage = codageSegment(args[i].extremite1, args[i].extremite2, mark, color)
         codage.isVisible = false
         code += codage.svg(coeff)
         code += '\n'
       }
     } else {
       for (let i = 0; i < args.length; i += 2) {
-        const codage = codeSegment(args[i], args[i + 1], mark, color)
+        const codage = codageSegment(args[i], args[i + 1], mark, color)
         codage.isVisible = false
         code += codage.svg(coeff)
         code += '\n'
@@ -6158,10 +6257,10 @@ function CodeSegments (mark = '||', color = 'black', ...args) {
     if (Array.isArray(args[0])) {
       // Si on donne une liste de points
       for (let i = 0; i < args[0].length - 1; i++) {
-        code += codeSegment(args[0][i], args[0][i + 1], mark, color).tikz()
+        code += codageSegment(args[0][i], args[0][i + 1], mark, color).tikz()
         code += '\n'
       }
-      code += codeSegment(
+      code += codageSegment(
         args[0][args[0].length - 1],
         args[0][0],
         mark,
@@ -6170,7 +6269,7 @@ function CodeSegments (mark = '||', color = 'black', ...args) {
       code += '\n'
     } else if (args[0].constructor === Segment) {
       for (let i = 0; i < args.length; i++) {
-        code += codeSegment(
+        code += codageSegment(
           args[i].extremite1,
           args[i].extremite2,
           mark,
@@ -6180,23 +6279,62 @@ function CodeSegments (mark = '||', color = 'black', ...args) {
       }
     } else {
       for (let i = 0; i < args.length; i += 2) {
-        code += codeSegment(args[i], args[i + 1], mark, color).tikz()
+        code += codageSegment(args[i], args[i + 1], mark, color).tikz()
         code += '\n'
       }
     }
     return code
   }
 }
-export function codeSegments (mark = '||', color = 'black', ...args) {
-  return new CodeSegments(mark, color, ...args)
-}
+
 /**
- * m=codeAngle(A,O,45,'X','black',2,1,'red',0.4)
- * code un angle du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X.
- *  la ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
- * @author Jean-Claude Lhote
+ * Code plusieurs segments de la même façon
+ * @param {string} [mark='||'] Symbole posé sur le segment
+ * @param {string} [color='black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
+ * @param  {Points|Array.Point|Segments} args Les segments différement codés. Voir exemples.
+ * @example codageSegments('×','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
+ * @example codageSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé, pratique pour des polygones pas pour des lignes brisées)
+ * @example codageSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
+ * @example codageSegments('×','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
+ * @author Rémi Angot
+ * @returns {CodageSegments}
  */
-function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
+export function codageSegments (mark = '||', color = 'black', ...args) {
+  return new CodageSegments(mark, color, ...args)
+}
+
+/**
+ * Code un angle
+ * @param {Point} A Point sur un côté de l'angle
+ * @param {Point} O Sommet de l'angle
+ * @param {number|Point} angle Mesure de l'angle ou nom d'un point sur l'autre côté de l'angle
+ * @param {number} [taille=0.8] Taille de l'angle
+ * @param {string} [mark=''] Marque sur l'angle
+ * @param {string} [color='black'] Couleur de l'angle : du type 'blue' ou du type '#f15929'
+ * @param {number} [epaisseur=1] Epaisseur du tracé de l'angle
+ * @param {number} [opacite=1] Opacité de la couleur du tracé de l'angle
+ * @param {string} [couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
+ * @param {number} [opaciteDeRemplissage=0.2] Opacité de la couleur de remplissage de l'angle
+ * @param {boolean} [mesureOn=false] Affichage de la mesure de l'angle
+ * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré ou pas
+ * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle à la place de la mesure de l'angle
+ * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle
+ * @example CodageAngle(H,K,30)
+ * // Code l'angle de centre K, avec H sur un côté de l'angle et avec 30° comme mesure d'angle orienté,
+ * // en noir, avec une épaisseur de 1, une opacité de 100 %, un rayon d'arc de 0,8, sans autre option.
+ * @example CodageAngle(H,K,G)
+ * // Code l'angle HKG, en noir, avec une épaisseur de 1, une opacité de 100 %, un rayon d'arc de 0,8, sans autre option.
+ * @example CodageAngle(H,K,G,2,'x','red',0.5,0.2,'blue',0.8,true,true)
+ * // Code l'angle HKG, en rouge, avec une épaisseur de 0.5 et une opacité de 20 %, rempli en bleu avec une opacité de 80 %
+ * // avec un arc de cercle de rayon 2, avec une marque 'x' sur l'angle, en affichant la mesure de l'angle et sans faire apparaître d'angle droit le cas échéant.
+ * @example CodageAngle(H,K,G,2,'x','red',0.5,0.2,'blue',0.8,true,true,'?',2)
+ * // Code l'angle HKG, en rouge, avec une épaisseur de 0.5 et une opacité de 20 %, rempli en bleu avec une opacité de 80 %
+ * // avec un arc de cercle de rayon 2, avec une marque 'x' sur l'angle, en affichant le texte '?' d'une taille de 2 et sans faire apparaître d'angle droit le cas échéant.
+ * @author Jean-Claude Lhote
+ * @returns {code_SVG|code_TikZ|code_SVGml|code_TikZml}
+ * @private
+ */
+function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.debut = debut
@@ -6229,7 +6367,7 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
       t.isVisible = false
       objets.push(t)
     }
-    if (mesureOn) {
+    if (mesureOn && texteACote === '') {
       const t = texteParPoint(mesure, M, 'milieu', this.color)
       t.isVisible = false
       objets.push(t)
@@ -6262,7 +6400,8 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     arcangle.epaisseur = this.epaisseur
     arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
     if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).svg(coeff) + '\n'
-    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', this.color).svg(coeff) + '\n'
+    if (mesureOn && texteACote === '') code += texteParPoint(mesure, M, 'milieu', this.color).svg(coeff) + '\n'
+    if (texteACote !== '') code += texteParPoint(texteACote, M, 'milieu', this.color, tailleTexte).svg(coeff) + '\n'
     code += arcangle.svgml(coeff, amp)
     return code
   }
@@ -6279,18 +6418,16 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     arcangle.epaisseur = this.epaisseur
     arcangle.opaciteDeRemplissage = opaciteDeRemplissage
     if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
-    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
+    if (mesureOn && texteACote === '') code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
+    if (texteACote !== '') code += texteParPoint(texteACote, M, 'milieu', this.color, tailleTexte).tikz() + '\n'
     code += arcangle.tikz()
     return code
   }
   this.tikzml = function (amp) {
     let code = ''
     const depart = pointSurSegment(this.centre, this.debut, this.taille / context.scale)
-    // const P = rotation(depart, this.centre, this.angle / 2)
     const M = rotation(depart, this.centre, this.angle / 2)
-    // const M = pointSurSegment(this.centre, P, taille + 0.6 / context.scale)
     const mesure = Math.round(Math.abs(angle)) + '°'
-    // const d = droite(this.centre, P)
     const d = droite(this.centre, M)
     d.isVisible = false
     const arcangle = arc(depart, this.centre, this.angle, false, this.couleurDeRemplissage, this.color)
@@ -6299,38 +6436,50 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
     arcangle.opaciteDeRemplissage = opaciteDeRemplissage
     // if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
     if (this.mark !== '') code += texteParPoint(mark, M, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
-    if (mesureOn) code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
+    if (mesureOn && texteACote === '') code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
+    if (texteACote !== '') code += texteParPoint(texteACote, M, 'milieu', this.color, tailleTexte).tikz() + '\n'
     code += arcangle.tikzml(amp)
     return code
   }
 }
+
 /**
- * @param {Point} debut
- * @param {Point} centre
- * @param {number} angle
- * @param {number} [taille=0.8] Facultatif. 0.8 par défaut.
- * @param {string} [mark=''] Facultatif. Vide par défaut.
- * @param {string} [color='black'] Facultatif. 'black' par défaut.
- * @param {number} [epaisseur=1] Facultatif. 1 par défaut.
- * @param {number} [opacite=1] Facultatif. 1 par défaut.
- * @param {string} [couleurDeRemplissage='none'] Facultatif. 'none' par défaut
- * @param {number} [opaciteDeRemplissage=0.2] Facultatif. 0.2 par défaut
- * @param {boolean} [mesureOn=false] Facultatif. false par défaut
- * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré (from EE)
- * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle (from EE) : encore optimisable
- * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle (from EE)
- * @returns {object} CodeAngle
- * @example codeAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
- * @example codeAngle(A,O,B) // code l'angle AOB sans aucune autre option possible
+ * Code un angle
+ * @param {Point} A Point sur un côté de l'angle
+ * @param {Point} O Sommet de l'angle
+ * @param {number|Point} angle Mesure de l'angle ou nom d'un point sur l'autre côté de l'angle
+ * @param {number} [taille=0.8] Taille de l'angle
+ * @param {string} [mark=''] Marque sur l'angle
+ * @param {string} [color='black'] Couleur de l'angle : du type 'blue' ou du type '#f15929'
+ * @param {number} [epaisseur=1] Epaisseur du tracé de l'angle
+ * @param {number} [opacite=1] Opacité de la couleur du tracé de l'angle
+ * @param {string} [couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
+ * @param {number} [opaciteDeRemplissage=0.2] Opacité de la couleur de remplissage de l'angle
+ * @param {boolean} [mesureOn=false] Affichage de la mesure de l'angle
+ * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré ou pas
+ * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle à la place de la mesure de l'angle
+ * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle
+ * @example codageAngle(H,K,30)
+ * // Code l'angle de centre K, avec H sur un côté de l'angle et avec 30° comme mesure d'angle orienté,
+ * // en noir, avec une épaisseur de 1, une opacité de 100 %, un rayon d'arc de 0,8, sans autre option.
+ * @example codageAngle(H,K,G)
+ * // Code l'angle HKG, en noir, avec une épaisseur de 1, une opacité de 100 %, un rayon d'arc de 0,8, sans autre option.
+ * @example codageAngle(H,K,G,2,'x','red',0.5,0.2,'blue',0.8,true,true)
+ * // Code l'angle HKG, en rouge, avec une épaisseur de 0.5 et une opacité de 20 %, rempli en bleu avec une opacité de 80 %
+ * // avec un arc de cercle de rayon 2, avec une marque 'x' sur l'angle, en affichant la mesure de l'angle et sans faire apparaître d'angle droit le cas échéant.
+ * @example codageAngle(H,K,G,2,'x','red',0.5,0.2,'blue',0.8,true,true,'?',2)
+ * // Code l'angle HKG, en rouge, avec une épaisseur de 0.5 et une opacité de 20 %, rempli en bleu avec une opacité de 80 %
+ * // avec un arc de cercle de rayon 2, avec une marque 'x' sur l'angle, en affichant le texte '?' d'une taille de 2 et sans faire apparaître d'angle droit le cas échéant.
  * @author Jean-Claude Lhote
+ * @returns {CodageAngle|codageAngleDroit}
  */
-export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
+export function codageAngle (A, O, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
   if (typeof (angle) !== 'number') {
-    angle = angleOriente(debut, centre, angle)
+    angle = angleOriente(A, O, angle)
   }
   if ((angle === 90 || angle === -90) && !noAngleDroit) {
-    return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage)
-  } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage, mesureOn, texteACote, tailleTexte)
+    return new CodageAngleDroit(A, O, rotation(A, O, angle), color, taille, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage)
+  } else return new CodageAngle(A, O, angle, taille, mark, color, epaisseur, opacite, couleurDeRemplissage, opaciteDeRemplissage, mesureOn, texteACote, tailleTexte)
 }
 
 function NomAngleParPosition (nom, x, y, color, s) {
@@ -10584,9 +10733,9 @@ export function norme (v) {
 
 /**
  * Renvoie la mesure d'angle en degré
- * @param {Point} A Point d'un côté de l'angle
+ * @param {Point} A Point sur un côté de l'angle
  * @param {Point} O Sommet de l'angle
- * @param {Point} B Point d'un autre côté de l'angle
+ * @param {Point} B Point sur l'autre côté de l'angle
  * @param {integer} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle
  * @return {number}
  * @example x = angle(H,E,T)
@@ -10636,9 +10785,9 @@ export function angleModulo (a) {
 
 /**
  * Retourne la valeur signée de la mesure d'un angle en degré
- * @param {Point} A Point d'un côté de l'angle
+ * @param {Point} A Point sur un côté de l'angle
  * @param {Point} O Sommet de l'angle
- * @param {Point} B Point d'un autre côté de l'angle
+ * @param {Point} B Point sur l'autre côté de l'angle
  * @param {integer} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle orienté
  * @return {number}
  * @author Jean-Claude Lhote
@@ -10656,9 +10805,9 @@ export function angleOriente (A, O, B, precision = 2) {
 
 /**
  * Retourne la valeur la mesure d'un angle en radian
- * @param {Point} A Point d'un côté de l'angle
+ * @param {Point} A Point sur un côté de l'angle
  * @param {Point} O Sommet de l'angle
- * @param {Point} B Point d'un autre côté de l'angle
+ * @param {Point} B Point sur l'autre côté de l'angle
  * @param {integer} [precision = 2] Nombre maximal de décimales de la valeur arrondie de la mesure de l'angle orienté
  * @return {number}
  * @author Rémi Angot
