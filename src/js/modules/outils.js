@@ -4440,8 +4440,12 @@ export function texteOuPas (texte) {
 }
 
 /**
- * Crée un tableau avec un nombre de lignes et de colonnes déterminées par la longueur des tableaux des entetes passés en paramètre
- * Les contenus sont en mode maths par défaut, il faut donc penser à remplir les tableaux en utilisant éventuellement la commande \\text{}
+ * Crée un tableau avec un nombre de lignes et de colonnes déterminées
+ * par la longueur des tableaux des entetes passés en paramètre
+ * Les contenus sont en mode maths par défaut, il faut donc penser à remplir les tableaux
+ * en utilisant éventuellement la commande \\text{}
+ *
+ * @example
  * tableauColonneLigne(['coin','A','B'],['1','2'],['A1','B1','A2','B2']) affiche le tableau ci-dessous
  * ------------------
  * | coin | A  | B  |
@@ -4450,7 +4454,42 @@ export function texteOuPas (texte) {
  * ------------------
  * |  2   | A2 | B2 |
  * ------------------
-* @param {array} tabEntetesColonnes contient les entetes des colonnes
+ *
+ * @example
+ * tableauColonneLigne(['coin','A','B','C'],['1','2'],['A1','B1','C1','A2','B2','C2']) affiche le tableau ci-dessous
+ * -----------------------
+ * | coin | A  | B  | C  |
+ * -----------------------
+ * |  1   | A1 | B1 | C1 |
+ * -----------------------
+ * |  2   | A2 | B2 | C2 |
+ * -----------------------
+ *
+ * @example
+ * tableauColonneLigne(['coin','A','B'],['1','2','3'],['A1','B1','A2','B2','A3','B3']) affiche le tableau ci-dessous
+ * ------------------
+ * | coin | A  | B  |
+ * ------------------
+ * |  1   | A1 | B1 |
+ * ------------------
+ * |  2   | A2 | B2 |
+ * ------------------
+ * |  3   | A3 | B3 |
+ * ------------------
+ *
+ * @example
+ * tableauColonneLigne(['coin','A','B','C'],['1','2','3'],['A1','B1','C1','A2','B2','C2','A3','B3','C3']) affiche le tableau ci-dessous
+ * -----------------------
+ * | coin | A  | B  | C  |
+ * -----------------------
+ * |  1   | A1 | B1 | C1 |
+ * -----------------------
+ * |  2   | A2 | B2 | C2 |
+ * -----------------------
+ * |  3   | A3 | B3 | C3 |
+ * -----------------------
+ *
+ * @param {array} tabEntetesColonnes contient les entetes des colonnes
  * @param {array} tabEntetesLignes contient les entetes des lignes
  * @param {array} tabLignes contient les elements de chaque ligne
  * @author Sébastien Lozano
