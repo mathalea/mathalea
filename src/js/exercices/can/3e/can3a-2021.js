@@ -296,11 +296,11 @@ export default function SujetCAN20213ieme () {
           sCote2.styleExtremites = '<->'
           objets = []
           objets.push(
-            texteParPosition(`$${a} $`, milieu(B, E).x + 0.4, milieu(B, E).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\large \\text{?}$', milieu(A, E).x - 0.4, milieu(A, E).y + 1, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`$${a} $`, milieu(B, E).x + 0.4, milieu(B, E).y - 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('$\\large \\text{?}$', milieu(A, E).x - 0.4, milieu(A, E).y + 0.7, 'milieu', 'black', 1, 'middle', true),
             texteParPosition(`$${b} $`, milieu(D, C).x + 0.5, milieu(D, C).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${d} $`, milieu(A, D).x - 1, milieu(A, D).y + 1.8, 'milieu', 'black', 1, 'middle', true),
-            demiDroite(A, C), demiDroite(A, D), labelPoint(A, B, C, D, E), segment(B, E), segment(D, C), sCote1, sCote2)
+            texteParPosition(`$${d} $`, milieu(A, D).x - 1, milieu(A, D).y + 1.5, 'milieu', 'black', 1, 'middle', true),
+            demiDroite(A, C), demiDroite(A, D), labelPoint(A, B, C, D, E), segment(A, D), segment(A, C), segment(B, E), segment(D, C), sCote1, sCote2)
           reponse = c
           texte = '$(BE)//(DC)$.  Détermine la longueur $AE$.<br>'
           texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.5, scale: 1, style: 'margin: auto' }, objets)
