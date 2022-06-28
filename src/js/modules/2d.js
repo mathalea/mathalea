@@ -1367,6 +1367,7 @@ export function codageMediatrice (...args) {
  * @return {code_SVG|code_TikZ}
  * @private
  */
+// JSDOC Validee EE Juin 2022
 function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
   if (longueur(A, B) < 0.1) window.notify('CodageMilieu : Points trop rapprochés pour créer ce codage', { A, B })
   ObjetMathalea2D.call(this)
@@ -1400,20 +1401,36 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * @author Jean-Claude Lhote
  * @return {CodageMilieu}
  */
+// JSDOC Validee EE Juin 2022
 export function codageMilieu (A, B, color = 'black', mark = '×', mil = true) {
   return new CodageMilieu(A, B, color, mark, mil)
 }
+
 /**
- * m = constructionMediatrice(A,B,true,'blue', '×', '||', 'red', 1) // Trace et code la médiatrice en laissant apparent les traits de construction au compas
- *
+ * Trace et code la médiatrice d'un segment, en laissant apparents les traits de construction au compas
+ * @param {Point} A Première extrémité du segment
+ * @param {Point} B Seconde extrémité du segment
+ * @param {boolean} [detail=false] Si détail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
+ * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [markmilieu='x'] Symbole posé sur les deux parties du segment
+ * @param {string} [markrayons='||'] Symbole posé sur les quatre rayons (si détail est true)
+ * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {number} [epaisseurMediatrice = 1] Epaisseur de la médiatrice
+ * @example ConstructionMediatrice(M,N)
+ * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1 et code l'angle droit et le segment avec les marques 'x', en bleu.
+ * @example ConstructionMediatrice(M,N,true,'green','OO','XX','pink',2)
+ * // Trace, en rose, la médiatrice du segment[MN], d'épaisseur 2 et code l'angle droit le segment avec les marques 'OO', les rayons avec les marques 'XX', le tout en vert.
  * @author Rémi Angot
+ * @return {code_SVG|code_TikZ|code_SVGml|code_TikZml}
+ * @private
  */
+// JSDOC Validee EE Juin 2022
 function ConstructionMediatrice (
   A,
   B,
   detail = false,
   color = 'blue',
-  markmilieu = '×',
+  markmilieu = 'x',
   markrayons = '||',
   couleurMediatrice = 'red',
   epaisseurMediatrice = 1
@@ -1482,6 +1499,24 @@ function ConstructionMediatrice (
   }
 }
 
+/**
+ * Trace et code la médiatrice d'un segment, en laissant apparents les traits de construction au compas
+ * @param {Point} A Première extrémité du segment
+ * @param {Point} B Seconde extrémité du segment
+ * @param {boolean} [detail=false] Si détail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
+ * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [markmilieu='x'] Symbole posé sur les deux parties du segment
+ * @param {string} [markrayons='||'] Symbole posé sur les quatre rayons (si détail est true)
+ * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {number} [epaisseurMediatrice = 1] Epaisseur de la médiatrice
+ * @example constructionMediatrice(M,N)
+ * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1 et code l'angle droit et le segment avec les marques 'x', en bleu.
+ * @example constructionMediatrice(M,N,true,'green','OO','XX','pink',2)
+ * // Trace, en rose, la médiatrice du segment[MN], d'épaisseur 2 et code l'angle droit, le segment avec les marques 'OO', les rayons avec les marques 'XX', le tout en vert.
+ * @author Rémi Angot
+ * @return {ConstructionMediatrice}
+ */
+// JSDOC Validee EE Juin 2022
 export function constructionMediatrice (...args) {
   return new ConstructionMediatrice(...args)
 }
@@ -1568,6 +1603,27 @@ export function codageBissectrice (A, O, B, color = 'black', mark = 'x') {
  *
  * @author Rémi Angot
  */
+/**
+ * Trace et code la médiatrice d'un segment, en laissant apparents les traits de construction au compas
+ * @param {Point} A Point sur un côté de l'angle
+ * @param {Point} O Sommet de l'angle
+ * @param {Point} B Point sur l'autre côté de l'angle
+ * @param {boolean} [detail=false] Si détail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
+ * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [mark='×'] Symbole posé sur les arcs
+ * @param {number} [tailleLosange = 5] Epaisseur de la médiatrice
+ * @param {string} [couleurBissectrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {number} [epaisseurBissectrice = 1] Epaisseur de la médiatrice
+ * @param {string} [couleurConstruction = 'black'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @example ConstructionMediatrice(M,N)
+ * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1 et code l'angle droit et le segment avec les marques 'x', en bleu.
+ * @example ConstructionMediatrice(M,N,true,'green','OO','XX','pink',2)
+ * // Trace, en rose, la médiatrice du segment[MN], d'épaisseur 2 et code l'angle droit le segment avec les marques 'OO', les rayons avec les marques 'XX', le tout en vert.
+ * @author Rémi Angot
+ * @return {code_SVG|code_TikZ|code_SVGml|code_TikZml}
+ * @private
+ */
+// JSDOC Validee EE Juin 2022
 function ConstructionBissectrice (
   A,
   O,
@@ -4141,24 +4197,25 @@ export function semiEllipse ({ centre, Rx, Ry, hemisphere = 'nord', pointilles =
 }
 
 /**
- *
- * @param {Point} centre centre de l'ellipse de base
- * @param {number} Rx rayon en X
- * @param {number} Ry rayon en Y
- * @param {Point} sommet sommet du cône
- * @param {string} color Facultatif, 'black' par défaut
- * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
- * @param {number} opaciteDeRemplissage Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
+ * Trace un cône
+ * @param {Point} centre Centre de la base
+ * @param {number} Rx Rayon sur l'axe des abscisses
+ * @param {number} hauteur Distance verticale entre le centre et le sommet.
+ * @param {string} [color = 'black'] Facultatif, 'black' par défaut
+ * @param {string} [couleurDeRemplissage = 'none'] none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
+ * @param {number} [opaciteDeRemplissage = 0.2] Taux d'opacité du remplissage
  * @author Jean-Claude Lhote
+ * @private
  */
-function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
+function Cone ({ centre, Rx, hauteur, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
   ObjetMathalea2D.call(this)
+  const sommet = point(centre.x, centre.y + hauteur)
   this.color = color
   this.couleurDeRemplissage = couleurDeRemplissage
   this.opaciteDeRemplissage = opaciteDeRemplissage
   const objets = [
-    semiEllipse({ centre, Rx, Ry, hemisphere: 'nord', rayon: false, pointilles: 1, couleurDeRemplissage: this.couleurDeRemplissage, color: this.color, opaciteDeRemplissage: this.opaciteDeRemplissage }),
-    semiEllipse({ centre, Rx, Ry, hemisphere: 'sud', rayon: false, pointilles: false, couleurDeRemplissage: this.couleurDeRemplissage, color: this.color, opaciteDeRemplissage: this.opaciteDeRemplissage }),
+    semiEllipse({ centre, Rx, Ry: Rx / 3, hemisphere: 'nord', rayon: false, pointilles: 1, couleurDeRemplissage, color: this.color, opaciteDeRemplissage }),
+    semiEllipse({ centre, Rx, Ry: Rx / 3, hemisphere: 'sud', rayon: false, pointilles: false, couleurDeRemplissage, color: this.color, opaciteDeRemplissage }),
     segment(point(centre.x + Rx, centre.y + 0.1), sommet, this.color),
     segment(point(centre.x - Rx, centre.y + 0.1), sommet, this.color)
   ]
@@ -4166,7 +4223,7 @@ function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
-      objet.color = this.color
+      objet.color = colorToLatexOrHTML(this.color)
       code += objet.svg(coeff) + '\n'
     }
     return code
@@ -4180,19 +4237,10 @@ function Cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 
     return code
   }
 }
-/**
- *
- * @param {Point} centre centre de l'ellipse de base
- * @param {number} Rx rayon en X
- * @param {number} Ry rayon en Y
- * @param {Point} sommet sommet du cône
- * @param {string} color Facultatif, 'black' par défaut
- * @param {string} couleurDeRemplissage si 'none' alors pas de remplissage.
- * @param {number} opaciteDeRemplissage Transparence de remplissage de 0 à 1. Facultatif, 0.2 par défaut
- * @author Jean-Claude Lhote
- */
-export function cone ({ centre, Rx, Ry, sommet, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
-  return new Cone({ centre, Rx, Ry, sommet, couleurDeRemplissage, color, opaciteDeRemplissage })
+
+// Cette fonction donne un rendu correct que si la hauteur est suffisamment grande
+export function cone ({ centre, Rx, hauteur, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2 }) {
+  return new Cone({ centre, Rx, hauteur, couleurDeRemplissage, color, opaciteDeRemplissage })
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -10256,11 +10304,15 @@ function convertHexToRGB (couleur = '000000') {
  * La sortie de cette fonction est un tableau où :
  * - le premier élément est cette couleur exploitable en SVG, donc en HTML.
  * - le second élément est cette couleur exploitable en TikZ, donc en Latex.
+ * @param {string} couleur Une couleur du type 'blue' ou du type '#f15929'
  * @example colorToLatexOrHTML('red')=['red','{red}']
  * @example colorToLatexOrHTML('#f15929')=['#f15929','{rgb,255:red,241;green,89;blue,41}']
+ * @example colorToLatexOrHTML('')=''
+ * @example colorToLatexOrHTML('none')=['none','none']
  * @author Eric Elter
+ * @return {Array.string}
  */
-
+// JSDOC Validee EE Juin 2022
 export function colorToLatexOrHTML (couleur) {
   const tabCouleur = []
   let rgb = []
@@ -11540,6 +11592,13 @@ export function afficherCrayon (A) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
+/**
+ * codeSvg(segment(A,B),polygone(D,E,F),labelPoints(A,B))
+ *
+ * @author Rémi Angot
+ * @private
+ */
+// JSDOC Validee par EE Juin 2022
 export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
   let code = ''
   const fenetrexmin = fenetreMathalea2d[0]
@@ -11576,8 +11635,9 @@ export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
  * codeTikz(segment(A,B),polygone(D,E,F),labelPoints(A,B))
  *
  * @author Rémi Angot
+ * @private
  */
-
+// JSDOC Validee par EE Juin 2022
 export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
   let code = ''
   const fenetrexmin = fenetreMathalea2d[0]
