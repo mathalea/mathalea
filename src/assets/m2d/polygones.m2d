@@ -8,6 +8,6 @@ deplaceLabel(p,'BC','right') // Déplace les noms de B et C à droite
 deplaceLabel(p,'AD','left')
 let s1 = segment(A,C,'blue') // Trace en bleu les diagonales
 let s2 = segment(D,B,'blue')
-s1.pointilles = true // Les diagonales sont en pointillés
-s2.pointilles = true
+s1.pointilles = 5 // Les diagonales sont en pointillés
+s2.pointilles = 5
 p.epaisseur = 2 // Modifie l'épaisseur du polygone

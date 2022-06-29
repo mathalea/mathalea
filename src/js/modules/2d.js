@@ -1292,14 +1292,14 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
  * @param {string} [color='black'] Facultatif, 'black' par défaut
  * @return {Droite} Droite
  * @author Rémi Angot
- */
-export function mediatrice (A, B, nom = '', color = 'black') {
+
+ export function mediatrice (A, B, nom = '', color = 'black') { //Supprimée par EE au profit d'une autre
   if (longueur(A, B) < 0.001) window.notify('mediatrice : Points trop rapprochés pour créer cet objet', { A, B })
   const O = milieu(A, B)
   const M = rotation(A, O, 90)
   const N = rotation(A, O, -90)
   return droite(M, N, nom, color)
-}
+} */
 
 /**
  * Code la médiatrice d'un segment
@@ -1424,47 +1424,65 @@ export function codageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * @return {code_SVG|code_TikZ|code_SVGml|code_TikZml}
  * @private
  */
-// JSDOC Validee EE Juin 2022
-function ConstructionMediatrice (
+function Mediatrice (
   A,
   B,
-  detail = false,
-  color = 'blue',
-  markmilieu = 'x',
-  markrayons = '||',
+  nom = '',
   couleurMediatrice = 'red',
-  epaisseurMediatrice = 1
+  color = 'blue',
+  couleurConstruction = 'black', // traits de construction
+  construction = false,
+  detail = false,
+  markmilieu = '×',
+  markrayons = '||',
+  epaisseurMediatrice = 1,
+  opaciteMediatrice = 1,
+  pointillesMediatrice = ''
 ) {
   if (longueur(A, B) < 0.1) window.notify('ConstructionMediatrice : Points trop rapprochés pour créer cet objet', { A, B })
 
   ObjetMathalea2D.call(this)
-  this.couleurMediatrice = couleurMediatrice
   this.color = color
+  this.couleurMediatrice = couleurMediatrice
+  this.epaisseurMediatrice = epaisseurMediatrice
+  this.opaciteMediatrice = opaciteMediatrice
+  this.pointillesMediatrice = pointillesMediatrice
+  this.couleurConstruction = couleurConstruction
   const O = milieu(A, B)
   const m = rotation(A, O, 90)
   const n = rotation(A, O, -90)
   const M = pointSurSegment(O, m, longueur(A, B) * 0.785)
   const N = pointSurSegment(O, n, longueur(A, B) * 0.785)
-  const arcm1 = traceCompas(A, M)
-  const arcm2 = traceCompas(B, M)
-  const arcn1 = traceCompas(A, N)
-  const arcn2 = traceCompas(B, N)
-  const d = mediatrice(A, B)
-  d.color = colorToLatexOrHTML(this.couleurMediatrice)
-  d.epaisseur = epaisseurMediatrice
-  const codage = codageMediatrice(A, B, this.color, markmilieu)
-  const objets = [arcm1, arcm2, arcn1, arcn2, d, codage]
+  const d = droite(M, N, nom, this.couleurMediatrice)
+  d.isVisible = false
+  d.epaisseur = this.epaisseurMediatrice
+  d.opacite = this.opaciteMediatrice
+  d.pointilles = this.pointillesMediatrice
+  const objets = [d]
+  if (construction) {
+    const arcm1 = traceCompas(A, M, 20, this.couleurConstruction)
+    const arcm2 = traceCompas(B, M, 20, this.couleurConstruction)
+    const arcn1 = traceCompas(A, N, 20, this.couleurConstruction)
+    const arcn2 = traceCompas(B, N, 20, this.couleurConstruction)
+    arcm1.isVisible = false
+    arcm2.isVisible = false
+    arcn1.isVisible = false
+    arcn2.isVisible = false
+    const codage = codageMediatrice(A, B, this.color, markmilieu)
+    codage.isVisible = false
+    objets.push(arcm1, arcm2, arcn1, arcn2, d, codage)
+  }
   if (detail) {
-    const sAM = segment(A, M, this.color)
+    const sAM = segment(A, M, this.couleurConstruction)
     sAM.pointilles = 5
-    const sBM = segment(B, M, this.color)
+    const sBM = segment(B, M, this.couleurConstruction)
     sBM.pointilles = 5
-    const sAN = segment(A, N, this.color)
+    const sAN = segment(A, N, this.couleurConstruction)
     sAN.pointilles = 5
-    const sBN = segment(B, N, this.color)
+    const sBN = segment(B, N, this.couleurConstruction)
     sBN.pointilles = 5
     const codes = codageSegments(markrayons, this.color, A, M, B, M, A, N, B, N)
-    objets.push(sAM, sBM, sAN, sBN, codes, codage)
+    objets.push(sAM, sBM, sAN, sBN, codes)
   }
   this.svg = function (coeff) {
     let code = ''
@@ -1517,8 +1535,8 @@ function ConstructionMediatrice (
  * @return {ConstructionMediatrice}
  */
 // JSDOC Validee EE Juin 2022
-export function constructionMediatrice (...args) {
-  return new ConstructionMediatrice(...args)
+export function mediatrice (...args) {
+  return new Mediatrice(...args)
 }
 
 /**
@@ -1533,13 +1551,13 @@ export function constructionMediatrice (...args) {
  * @return {demiDroite}
  */
 // JSDOC Validee EE Juin 2022
-export function bissectrice (A, O, B, color = 'black') {
+export function bissectrice (A, O, B, color = 'black') { //Supprimée par EE au profit d'une autre
   const demiangle = angleOriente(A, O, B) / 2
   const m = pointSurSegment(O, A, 3)
   const M = rotation(m, O, demiangle)
   return demiDroite(O, M, color)
 }
-
+*/
 /**
  * Code la bissectrice d'un angle
  * @param {Point} A Point sur un côté de l'angle
@@ -1599,10 +1617,11 @@ export function codageBissectrice (A, O, B, color = 'black', mark = 'x') {
 }
 
 /**
- * m = constructionBissectrice(A,O,B,false,'blue','×',tailleLosange,couleurBissectrice,epaisseurBissectrice,couleurConstruction) // Trace et code la bissectrice en laissant apparent les traits de construction au compas
+ * m = bissectrice(A,O,B,'pink','red','green',true,true,'×',tailleLosange,epaisseurBissectrice,couleurConstruction) // Trace et code la bissectrice en laissant apparent les traits de construction au compas
  *
- * @author Rémi Angot
+ * @author Rémi Angot (amendée par EE - juin 2022)
  */
+function Bissectrice (
 /**
  * Trace et code la médiatrice d'un segment, en laissant apparents les traits de construction au compas
  * @param {Point} A Point sur un côté de l'angle
@@ -1628,13 +1647,16 @@ function ConstructionBissectrice (
   A,
   O,
   B,
+  couleurBissectrice = 'red',
+  color = 'blue', // codage
+  couleurConstruction = 'black', // traits de construction
+  construction = false,
   detail = false,
-  color = 'blue',
   mark = '×',
   tailleLosange = 5,
-  couleurBissectrice = 'red',
   epaisseurBissectrice = 1,
-  couleurConstruction = 'black'
+  opaciteBissectrice = 1,
+  pointillesBissectrice = ''
 ) {
   ObjetMathalea2D.call(this)
   this.color = color
@@ -1643,30 +1665,51 @@ function ConstructionBissectrice (
   this.couleurBissectrice = couleurBissectrice
   this.epaisseurBissectrice = epaisseurBissectrice
   this.couleurConstruction = couleurConstruction
-  if (longueur(A, O) < 0.001 || longueur(O, B) < 0.001) window.notify('ConstructionBissectrice : points confondus', { A, O, B })
-  const d = bissectrice(A, O, B, this.couleurBissectrice)
+  this.opaciteBissectrice = opaciteBissectrice
+  this.pointillesBissectrice = pointillesBissectrice
+  if (longueur(A, O) < 0.001 || longueur(O, B) < 0.001) window.notify('Bissectrice : points confondus', { A, O, B })
+  // Construction de la bissectrice
+  const demiangle = angleOriente(A, O, B) / 2
+  const m = pointSurSegment(O, A, 3)
+  const X = rotation(m, O, demiangle)
+  const d = demiDroite(O, X, this.couleurBissectrice)
   d.epaisseur = this.epaisseurBissectrice
+  d.opacite = this.opaciteBissectrice
+  d.pointilles = this.pointillesBissectrice
   const objets = [d]
-  if (detail) {
-    const M = pointSurSegment(O, A, this.tailleLosange)
-    const N = pointSurSegment(O, B, this.tailleLosange)
-    const sOM = segment(O, M, this.couleurConstruction)
-    const sON = segment(O, N, this.couleurConstruction)
-    sOM.styleExtremites = '-|'
-    sON.styleExtremites = '-|'
-    const dMN = droite(M, N)
-    const P = symetrieAxiale(O, dMN)
-    const tNP = traceCompas(N, P)
-    tNP.color = colorToLatexOrHTML(this.couleurConstruction)
-    const tMP = traceCompas(M, P)
-    tMP.color = colorToLatexOrHTML(this.couleurConstruction)
-    const sMP = segment(M, P, this.couleurConstruction)
-    const sNP = segment(N, P, this.couleurConstruction)
-    sMP.pointilles = 5
-    sNP.pointilles = 5
-    const codes = codageSegments(this.mark, this.color, O, M, M, P, O, N, N, P)
-    objets.push(sOM, sON, tNP, tMP, sMP, sNP, codes)
+  // Fin de construction de la bissectrice
+  const M = pointSurSegment(O, A, this.tailleLosange)
+  const N = pointSurSegment(O, B, this.tailleLosange)
+  const dMN = droite(M, N)
+  dMN.isVisible = false
+  const P = symetrieAxiale(O, dMN)
+  if (construction || detail) {
+    if (!M.estSur(segment(O, A))) {
+      const sOM = segment(O, M, this.couleurConstruction)
+      objets.push(sOM)
+    }
+    if (!N.estSur(segment(O, B))) {
+      const sON = segment(O, N, this.couleurConstruction)
+      objets.push(sON)
+    }
+    if (construction) {
+      const codage = codageBissectrice(A, O, B, this.color, mark)
+      const tNP = traceCompas(N, P, 20, this.couleurConstruction)
+      const tMP = traceCompas(M, P, 20, this.couleurConstruction)
+      const tOM = traceCompas(O, M, 20, this.couleurConstruction)
+      const tON = traceCompas(O, N, 20, this.couleurConstruction)
+      objets.push(codage, tNP, tMP, tOM, tON)
+    }
+    if (detail) {
+      const sMP = segment(M, P, this.couleurConstruction)
+      const sNP = segment(N, P, this.couleurConstruction)
+      sMP.pointilles = 5
+      sNP.pointilles = 5
+      const codes = codageSegments(this.mark, this.color, O, M, M, P, O, N, N, P)
+      objets.push(sMP, sNP, codes)
+    }
   }
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -1683,8 +1726,8 @@ function ConstructionBissectrice (
   }
 }
 
-export function constructionBissectrice (...args) {
-  return new ConstructionBissectrice(...args)
+export function bissectrice (...args) {
+  return new Bissectrice(...args)
 }
 
 /*
@@ -1748,6 +1791,7 @@ function Polyline (...points) {
         this.style += ' stroke-dasharray="5 5" '
         break
     }
+
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
@@ -1782,6 +1826,7 @@ function Polyline (...points) {
         tableauOptions.push(' dashed ')
         break
     }
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
@@ -2161,6 +2206,7 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         this.style += ' stroke-dasharray="5 5" '
         break
     }
+
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
@@ -2209,6 +2255,7 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
         tableauOptions.push(' dashed ')
         break
     }
+
     if (this.styleExtremites.length > 1) {
       tableauOptions.push(this.styleExtremites)
     }
@@ -2300,11 +2347,7 @@ function DemiDroite (A, B, color = 'black') {
   ObjetMathalea2D.call(this)
   const B1 = pointSurSegment(B, A, -10)
   this.color = color
-  const s = segment(A, B1)
-  this.svg = s.svg
-  this.tikz = s.tikz
-  this.svgml = s.svgml
-  this.tikzml = s.tikzml
+  return segment(A, B1, this.color)
 }
 
 /**
@@ -2317,8 +2360,6 @@ function DemiDroite (A, B, color = 'black') {
  */
 export function demiDroite (A, B, color = 'black') {
   return new DemiDroite(A, B, color)
-  // const B1 = pointSurSegment(B, A, -10)
-  // return segment(A, B1, color)
 }
 
 /**
@@ -3217,6 +3258,7 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
         tableauOptions.push(' dashed ')
         break
     }
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
@@ -3330,7 +3372,6 @@ function Ellipse (O, rx, ry, color = 'black') {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
-
     switch (this.pointilles) {
       case 1:
         this.style += ' stroke-dasharray="6 10" '
@@ -3348,6 +3389,7 @@ function Ellipse (O, rx, ry, color = 'black') {
         this.style += ' stroke-dasharray="5 5" '
         break
     }
+
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
@@ -3386,6 +3428,7 @@ function Ellipse (O, rx, ry, color = 'black') {
         tableauOptions.push(' dashed ')
         break
     }
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
@@ -3787,6 +3830,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
         tableauOptions.push(' dashed ')
         break
     }
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
@@ -4087,7 +4131,6 @@ function SemiEllipse ({ centre, Rx, Ry, hemisphere = 'nord', pointilles = false,
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
     }
-
     switch (this.pointilles) {
       case 1:
         tableauOptions.push(' dash dot ')
@@ -10199,6 +10242,7 @@ function CrochetD (A, color = 'blue') {
         this.style += ' stroke-dasharray="5 5" '
         break
     }
+
     let code = `<polyline points="${A.xSVG(coeff) + this.taille * 20},${A.ySVG(coeff) +
       2 * this.taille * 20 / coeff * coeff
     } ${A.xSVG(coeff)},${A.ySVG(coeff) + 2 * this.taille * 20} ${A.xSVG(coeff)},${A.ySVG(coeff) +
@@ -10250,6 +10294,7 @@ function CrochetG (A, color = 'blue') {
         this.style += ' stroke-dasharray="5 5" '
         break
     }
+
     let code = `<polyline points="${A.xSVG(coeff) - this.taille * 20},${A.ySVG(coeff) +
       2 * this.taille * 20
     } ${A.xSVG(coeff)},${A.ySVG(coeff) + 2 * this.taille * 20} ${A.xSVG(coeff)},${A.ySVG(coeff) -

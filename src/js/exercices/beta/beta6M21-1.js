@@ -42,7 +42,7 @@ export default class AireAssemblageRectangles extends Exercice {
         p.couleurDeRemplissage = 'gray'
         p.opaciteDeRemplissage = 0.2
         const sCorr = segment(E, G)
-        sCorr.pointilles = true
+        sCorr.pointilles = 5
         const c1 = afficheLongueurSegment(B, A)
         const c2 = afficheLongueurSegment(C, B)
         const c22 = afficheLongueurSegment(C, G)

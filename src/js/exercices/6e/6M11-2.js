@@ -50,7 +50,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
       const p1 = polygoneAvecNom(A, B, C, D, E)
       const angles1 = [codageAngleDroit(A, B, C), codageAngleDroit(B, C, E), codageAngleDroit(C, E, A), codageAngleDroit(E, A, B)]
       const CE = segment(C, E)
-      CE.pointilles = true
+      CE.pointilles = 5
       const objets1 = []
       objets1.push(p1[0], CE, ...angles1, afficheLongueurSegment(D, E), afficheLongueurSegment(A, B), afficheLongueurSegment(E, A), afficheLongueurSegment(B, D))
       const c = randint(4, 7)
@@ -63,9 +63,9 @@ export default function PerimetreOuAireDeFiguresComposees () {
       const S = point(2, c - h)
       const p2 = polygoneAvecNom(M, N, S, O, P)
       const HS = segment(H, S)
-      HS.pointilles = true
+      HS.pointilles = 5
       const NO = segment(N, O)
-      NO.pointilles = true
+      NO.pointilles = 5
       const angles2 = [codageAngleDroit(M, N, O), codageAngleDroit(N, O, P), codageAngleDroit(N, H, S), codageAngleDroit(O, P, M), codageAngleDroit(P, M, N)]
       const objets2 = []
       objets2.push(p2[0], HS, NO, ...angles2, afficheLongueurSegment(P, M), afficheLongueurSegment(S, N), afficheLongueurSegment(O, S), afficheLongueurSegment(H, S), codageSegments('//', 'black', M, N, M, P, O, P))

@@ -100,24 +100,24 @@ export default function GraphiquesEtProportionnalite2 () {
       const B = point(situation.qte_max, calcul(situation.qte_max * situation.prix_unitaire / yscale))
       const s1 = segment(A, B, 'red')
       s1.epaisseur = 2
-      s1.pointilles = true
+      s1.pointilles = 5
       s1.styleExtremites = '->'
       const C = point(0, calcul(situation.qte_max * situation.prix_unitaire / yscale))
       const s2 = segment(B, C, 'red')
       s2.epaisseur = 2
-      s2.pointilles = true
+      s2.pointilles = 5
       s2.styleExtremites = '->'
 
       const D = point(situation.qte2, 0)
       const E = point(situation.qte2, calcul(situation.qte2 * situation.prix_unitaire / yscale))
       const s3 = segment(D, E, 'blue')
       s3.epaisseur = 2
-      s3.pointilles = true
+      s3.pointilles = 5
       s3.styleExtremites = '->'
       const F = point(0, calcul(situation.qte2 * situation.prix_unitaire / yscale))
       const s4 = segment(E, F, 'blue')
       s4.epaisseur = 2
-      s4.pointilles = true
+      s4.pointilles = 5
       s4.styleExtremites = '->'
 
       // on ajoute les appels pour la correction
