@@ -185,11 +185,11 @@ export default function RepresenterUnSolide4e () {
       IA.color = 'black'
 
       if (G.y < C.y && G.x < C.x) {
-        CG.pointilles = true
-        GH.pointilles = true
-        FG.pointilles = true
-        IF.pointilles = true
-        FH.pointilles = true
+        CG.pointilles = 5
+        GH.pointilles = 5
+        FG.pointilles = 5
+        IF.pointilles = 5
+        FH.pointilles = 5
         CG.color = 'gray'
         GH.color = 'gray'
         FG.color = 'gray'
@@ -197,11 +197,11 @@ export default function RepresenterUnSolide4e () {
         GH.opacite = 0.7
         FG.opacite = 0.7
       } else if (E.y > A.y && E.x > A.x) {
-        AE.pointilles = true
-        EF.pointilles = true
-        HE.pointilles = true
-        IE.pointilles = true
-        FH.pointilles = true
+        AE.pointilles = 5
+        EF.pointilles = 5
+        HE.pointilles = 5
+        IE.pointilles = 5
+        FH.pointilles = 5
         AE.color = 'gray'
         EF.color = 'gray'
         HE.color = 'gray'
@@ -209,11 +209,11 @@ export default function RepresenterUnSolide4e () {
         EF.opacite = 0.7
         HE.opacite = 0.7
       } else if (F.x < B.x && F.y > B.y) {
-        BF.pointilles = true
-        FG.pointilles = true
-        EF.pointilles = true
-        IF.pointilles = true
-        FH.pointilles = true
+        BF.pointilles = 5
+        FG.pointilles = 5
+        EF.pointilles = 5
+        IF.pointilles = 5
+        FH.pointilles = 5
         BF.color = 'gray'
         FG.color = 'gray'
         EF.color = 'gray'
@@ -221,11 +221,11 @@ export default function RepresenterUnSolide4e () {
         FG.opacite = 0.7
         EF.opacite = 0.7
       } else if (H.x > D.x && H.y < D.y) {
-        DH.pointilles = true
-        GH.pointilles = true
-        HE.pointilles = true
-        IE.pointilles = true
-        FH.pointilles = true
+        DH.pointilles = 5
+        GH.pointilles = 5
+        HE.pointilles = 5
+        IE.pointilles = 5
+        FH.pointilles = 5
         DH.color = 'gray'
         GH.color = 'gray'
         HE.color = 'gray'
@@ -283,10 +283,10 @@ export default function RepresenterUnSolide4e () {
         const centre = milieu(A, F)
         const sommet = I
         const hauteur = segment(centre, sommet, 'red')
-        hauteur.pointilles = true
+        hauteur.pointilles = 5
         const milieuBF = milieu(B, F)
         const rayon = segment(centre, milieuBF, 'red')
-        rayon.pointilles = true
+        rayon.pointilles = 5
         const angleDroit = codageAngleDroit(milieuBF, centre, sommet, 'red')
         const Rx = longueur(centre, milieuBF)
         const Ry = longueur(A, E) / 3
@@ -294,7 +294,7 @@ export default function RepresenterUnSolide4e () {
         objetsCorrection.push(tracePoint(sommet), cone({ centre, Rx, Ry, sommet }), g, carreaux)
         switch (choice(['hemisphere nord', 'hemisphere sud'])) {
           case 'hemisphere nord':
-            objetsEnonce.push(semiEllipse({ centre, Rx, Ry, hemisphere: 'nord', pointilles: true }))
+            objetsEnonce.push(semiEllipse({ centre, Rx, Ry, hemisphere: 'nord', pointilles: 5 }))
             break
           case 'hemisphere sud':
             objetsEnonce.push(semiEllipse({ centre, Rx, Ry, hemisphere: 'sud' }))

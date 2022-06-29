@@ -174,11 +174,11 @@ export default function RepresenterUnSolide () {
       IA.color = 'black'
 
       if (G.y < C.y && G.x < C.x) {
-        CG.pointilles = true
-        GH.pointilles = true
-        FG.pointilles = true
-        IF.pointilles = true
-        FH.pointilles = true
+        CG.pointilles = 5
+        GH.pointilles = 5
+        FG.pointilles = 5
+        IF.pointilles = 5
+        FH.pointilles = 5
         CG.color = 'gray'
         GH.color = 'gray'
         FG.color = 'gray'
@@ -186,11 +186,11 @@ export default function RepresenterUnSolide () {
         GH.opacite = 0.7
         FG.opacite = 0.7
       } else if (E.y > A.y && E.x > A.x) {
-        AE.pointilles = true
-        EF.pointilles = true
-        HE.pointilles = true
-        IE.pointilles = true
-        FH.pointilles = true
+        AE.pointilles = 5
+        EF.pointilles = 5
+        HE.pointilles = 5
+        IE.pointilles = 5
+        FH.pointilles = 5
         AE.color = 'gray'
         EF.color = 'gray'
         HE.color = 'gray'
@@ -198,11 +198,11 @@ export default function RepresenterUnSolide () {
         EF.opacite = 0.7
         HE.opacite = 0.7
       } else if (F.x < B.x && F.y > B.y) {
-        BF.pointilles = true
-        FG.pointilles = true
-        EF.pointilles = true
-        IF.pointilles = true
-        FH.pointilles = true
+        BF.pointilles = 5
+        FG.pointilles = 5
+        EF.pointilles = 5
+        IF.pointilles = 5
+        FH.pointilles = 5
         BF.color = 'gray'
         FG.color = 'gray'
         EF.color = 'gray'
@@ -210,11 +210,11 @@ export default function RepresenterUnSolide () {
         FG.opacite = 0.7
         EF.opacite = 0.7
       } else if (H.x > D.x && H.y < D.y) {
-        DH.pointilles = true
-        GH.pointilles = true
-        HE.pointilles = true
-        IE.pointilles = true
-        FH.pointilles = true
+        DH.pointilles = 5
+        GH.pointilles = 5
+        HE.pointilles = 5
+        IE.pointilles = 5
+        FH.pointilles = 5
         DH.color = 'gray'
         GH.color = 'gray'
         HE.color = 'gray'

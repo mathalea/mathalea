@@ -87,7 +87,7 @@ export default function TrianglesEgaux () {
         L.nom = tabPointsNames[3]
         // on trace le segment [DE] en pointillés pour que la figure soit plus lisible
         const sgmt_DE = segment(D, E, 'blue')
-        sgmt_DE.pointilles = true
+        sgmt_DE.pointilles = 5
         sgmt_DE.epaisseur = 1.5
 
         // on prépare la fenetre mathalea2d

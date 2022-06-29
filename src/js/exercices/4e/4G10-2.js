@@ -98,7 +98,7 @@ export default class nomExercice extends Exercice {
       // Perpendiculaire
       anim.tempo = 0.5
       anim.couleur = 'red'
-      anim.pointilles = true
+      anim.pointilles = 5
       anim.equerreDeplacer(pied)
       anim.equerreMontrer()
       anim.equerreRotation(AA)

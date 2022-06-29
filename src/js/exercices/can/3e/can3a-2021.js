@@ -372,9 +372,9 @@ export default function SujetCAN20213ieme () {
           D = point(0, -4, 'D', 'above')
           c = ellipse(A, 2, 0.5)
           s1 = segment(D, A)
-          s1.pointilles = true
+          s1.pointilles = 5
           s2 = segment(A, C)
-          s2.pointilles = true
+          s2.pointilles = 5
 
           xmin = -3
           ymin = -5

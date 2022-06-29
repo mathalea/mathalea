@@ -6,6 +6,6 @@ let O = centreCercleCirconscrit(A,B,C,'O')
 let c = cercleCentrePoint(O,A)
 t.epaisseur = 2
 t.color = 'blue'
-c.pointilles = true
+c.pointilles = 5
 labelPoint(A,B,C,O)
 tracePoint(O)
