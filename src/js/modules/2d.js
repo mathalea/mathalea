@@ -1009,24 +1009,22 @@ function Droite (arg1, arg2, arg3, arg4) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          this.style += ' stroke-dasharray="6 10" '
-          break
-        case 2:
-          this.style += ' stroke-dasharray="6 3" '
-          break
-        case 3:
-          this.style += ' stroke-dasharray="3 2 6 2 " '
-          break
-        case 4:
-          this.style += ' stroke-dasharray="1 2" '
-          break
-        default:
-          this.style += ' stroke-dasharray="5 5" '
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        this.style += ' stroke-dasharray="6 10" '
+        break
+      case 2:
+        this.style += ' stroke-dasharray="6 3" '
+        break
+      case 3:
+        this.style += ' stroke-dasharray="3 2 6 2 " '
+        break
+      case 4:
+        this.style += ' stroke-dasharray="1 2" '
+        break
+      case 5:
+        this.style += ' stroke-dasharray="5 5" '
+        break
     }
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
@@ -1053,24 +1051,22 @@ function Droite (arg1, arg2, arg3, arg4) {
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          tableauOptions.push(' dash dot ')
-          break
-        case 2:
-          tableauOptions.push(' densely dash dot dot ')
-          break
-        case 3:
-          tableauOptions.push(' dash dot dot ')
-          break
-        case 4:
-          tableauOptions.push(' dotted ')
-          break
-        default:
-          tableauOptions.push(' dashed ')
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        tableauOptions.push(' dash dot ')
+        break
+      case 2:
+        tableauOptions.push(' densely dash dot dot ')
+        break
+      case 3:
+        tableauOptions.push(' dash dot dot ')
+        break
+      case 4:
+        tableauOptions.push(' dotted ')
+        break
+      case 5:
+        tableauOptions.push(' dashed ')
+        break
     }
 
     if (this.opacite !== 1) {
@@ -1279,14 +1275,14 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
  * @param {string} [color='black'] Facultatif, 'black' par défaut
  * @return {Droite} Droite
  * @author Rémi Angot
- */
-export function mediatrice (A, B, nom = '', color = 'black') {
+
+ export function mediatrice (A, B, nom = '', color = 'black') { //Supprimée par EE au profit d'une autre
   if (longueur(A, B) < 0.001) window.notify('mediatrice : Points trop rapprochés pour créer cet objet', { A, B })
   const O = milieu(A, B)
   const M = rotation(A, O, 90)
   const N = rotation(A, O, -90)
   return droite(M, N, nom, color)
-}
+} */
 
 /**
  * m = codageMediatrice(A,B,'blue','×') // Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB] en bleu
@@ -1369,54 +1365,69 @@ export function codageMilieu (...args) {
   return new CodageMilieu(...args)
 }
 /**
- * m = constructionMediatrice(A,B,false,'blue','×') // Trace et code la médiatrice en laissant apparent les traits de construction au compas
+ * m = mediatrice(A,B,'','red','blue','green',true,true) // Trace et code la médiatrice en laissant apparent les traits de construction au compas
  *
- * @author Rémi Angot
+ * @author Rémi Angot (amendée par EE)
  */
-function ConstructionMediatrice (
+function Mediatrice (
   A,
   B,
-  detail = false,
+  nom = '',
+  couleurMediatrice = 'red',
   color = 'blue',
+  couleurConstruction = 'black', // traits de construction
+  construction = false,
+  detail = false,
   markmilieu = '×',
   markrayons = '||',
-  couleurMediatrice = 'red',
-  epaisseurMediatrice = 2
+  epaisseurMediatrice = 1,
+  opaciteMediatrice = 1,
+  pointillesMediatrice = ''
 ) {
   if (longueur(A, B) < 0.1) window.notify('ConstructionMediatrice : Points trop rapprochés pour créer cet objet', { A, B })
 
   ObjetMathalea2D.call(this)
+  this.color = color
+  this.couleurMediatrice = couleurMediatrice
+  this.epaisseurMediatrice = epaisseurMediatrice
+  this.opaciteMediatrice = opaciteMediatrice
+  this.pointillesMediatrice = pointillesMediatrice
+  this.couleurConstruction = couleurConstruction
   const O = milieu(A, B)
   const m = rotation(A, O, 90)
   const n = rotation(A, O, -90)
   const M = pointSurSegment(O, m, longueur(A, B) * 0.785)
   const N = pointSurSegment(O, n, longueur(A, B) * 0.785)
-  const arcm1 = traceCompas(A, M)
-  const arcm2 = traceCompas(B, M)
-  const arcn1 = traceCompas(A, N)
-  const arcn2 = traceCompas(B, N)
-  const d = mediatrice(A, B)
-  arcm1.isVisible = false
-  arcm2.isVisible = false
-  arcn1.isVisible = false
-  arcn2.isVisible = false
+  const d = droite(M, N, nom, this.couleurMediatrice)
   d.isVisible = false
-  d.color = couleurMediatrice
-  d.epaisseur = epaisseurMediatrice
-  const codage = codageMediatrice(A, B, color, markmilieu)
-  codage.isVisible = false
-  const objets = [arcm1, arcm2, arcn1, arcn2, d, codage]
+  d.epaisseur = this.epaisseurMediatrice
+  d.opacite = this.opaciteMediatrice
+  d.pointilles = this.pointillesMediatrice
+  const objets = [d]
+  if (construction) {
+    const arcm1 = traceCompas(A, M, 20, this.couleurConstruction)
+    const arcm2 = traceCompas(B, M, 20, this.couleurConstruction)
+    const arcn1 = traceCompas(A, N, 20, this.couleurConstruction)
+    const arcn2 = traceCompas(B, N, 20, this.couleurConstruction)
+    arcm1.isVisible = false
+    arcm2.isVisible = false
+    arcn1.isVisible = false
+    arcn2.isVisible = false
+    const codage = codageMediatrice(A, B, this.color, markmilieu)
+    codage.isVisible = false
+    objets.push(arcm1, arcm2, arcn1, arcn2, d, codage)
+  }
   if (detail) {
-    const sAM = segment(A, M)
-    sAM.pointilles = true
-    const sBM = segment(B, M)
-    sBM.pointilles = true
-    const sAN = segment(A, N)
-    sAN.pointilles = true
-    const sBN = segment(B, N)
-    sBN.pointilles = true
-    const codes = codageSegments(markrayons, color, A, M, B, M, A, N, B, N)
-    objets.push(sAM, sBM, sAN, sBN, codes, codage)
+    const sAM = segment(A, M, this.couleurConstruction)
+    sAM.pointilles = 5
+    const sBM = segment(B, M, this.couleurConstruction)
+    sBM.pointilles = 5
+    const sAN = segment(A, N, this.couleurConstruction)
+    sAN.pointilles = 5
+    const sBN = segment(B, N, this.couleurConstruction)
+    sBN.pointilles = 5
+    const codes = codageSegments(markrayons, this.color, A, M, B, M, A, N, B, N)
+    objets.push(sAM, sBM, sAN, sBN, codes)
   }
   this.svg = function (coeff) {
     let code = ''
@@ -1451,21 +1462,22 @@ function ConstructionMediatrice (
   }
 }
 
-export function constructionMediatrice (...args) {
-  return new ConstructionMediatrice(...args)
+export function mediatrice (...args) {
+  return new Mediatrice(...args)
 }
 /**
  * d = bissectrice(A,O,B) // Bissectrice de l'angle AOB
  * d = bissectrice(A,O,B,'blue') // Bissectrice de l'angle AOB en bleu
  *
  * @author Rémi Angot
- */
-export function bissectrice (A, O, B, color = 'black') {
+
+export function bissectrice (A, O, B, color = 'black') { //Supprimée par EE au profit d'une autre
   const demiangle = angleOriente(A, O, B) / 2
   const m = pointSurSegment(O, A, 3)
   const M = rotation(m, O, demiangle)
   return demiDroite(O, M, color)
 }
+*/
 /**
  * m = codagebissectrice(A,O,B,'blue','oo') ajoute des arcs marqués de part et d'autre de la bissectrice mais ne trace pas celle-ci.
  * @author Jean-Claude Lhote
@@ -1502,53 +1514,77 @@ export function codageBissectrice (...args) {
 }
 
 /**
- * m = constructionBissectrice(A,O,B,false,'blue','×',tailleLosange,couleurBissectrice,epaisseurBissectrice,couleurConstruction) // Trace et code la bissectrice en laissant apparent les traits de construction au compas
+ * m = bissectrice(A,O,B,'pink','red','green',true,true,'×',tailleLosange,epaisseurBissectrice,couleurConstruction) // Trace et code la bissectrice en laissant apparent les traits de construction au compas
  *
- * @author Rémi Angot
+ * @author Rémi Angot (amendée par EE - juin 2022)
  */
-function ConstructionBissectrice (
+function Bissectrice (
   A,
   O,
   B,
+  couleurBissectrice = 'red',
+  color = 'blue', // codage
+  couleurConstruction = 'black', // traits de construction
+  construction = false,
   detail = false,
-  color = 'blue',
   mark = '×',
   tailleLosange = 5,
-  couleurBissectrice = 'red',
-  epaiseurBissectrice = 1,
-  couleurConstruction = 'black'
+  epaisseurBissectrice = 1,
+  opaciteBissectrice = 1,
+  pointillesBissectrice = ''
 ) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.tailleLosange = tailleLosange
   this.mark = mark
   this.couleurBissectrice = couleurBissectrice
-  this.epaiseurBissectrice = epaiseurBissectrice
+  this.epaisseurBissectrice = epaisseurBissectrice
   this.couleurConstruction = couleurConstruction
-  if (longueur(A, O) < 0.001 || longueur(O, B) < 0.001) window.notify('ConstructionBissectrice : points confondus', { A, O, B })
-  const d = bissectrice(A, O, B, this.couleurBissectrice)
-  d.epaisseur = this.epaiseurBissectrice
+  this.opaciteBissectrice = opaciteBissectrice
+  this.pointillesBissectrice = pointillesBissectrice
+  if (longueur(A, O) < 0.001 || longueur(O, B) < 0.001) window.notify('Bissectrice : points confondus', { A, O, B })
+  // Construction de la bissectrice
+  const demiangle = angleOriente(A, O, B) / 2
+  const m = pointSurSegment(O, A, 3)
+  const X = rotation(m, O, demiangle)
+  const d = demiDroite(O, X, this.couleurBissectrice)
+  d.epaisseur = this.epaisseurBissectrice
+  d.opacite = this.opaciteBissectrice
+  d.pointilles = this.pointillesBissectrice
   const objets = [d]
-  if (detail) {
-    const M = pointSurSegment(O, A, this.tailleLosange)
-    const N = pointSurSegment(O, B, this.tailleLosange)
-    const sOM = segment(O, M, this.couleurConstruction)
-    const sON = segment(O, N, this.couleurConstruction)
-    sOM.styleExtremites = '-|'
-    sON.styleExtremites = '-|'
-    const dMN = droite(M, N)
-    const P = symetrieAxiale(O, dMN)
-    const tNP = traceCompas(N, P)
-    tNP.color = this.couleurConstruction
-    const tMP = traceCompas(M, P)
-    tMP.color = this.couleurConstruction
-    const sMP = segment(M, P, this.couleurConstruction)
-    const sNP = segment(N, P, this.couleurConstruction)
-    sMP.pointilles = true
-    sNP.pointilles = true
-    const codes = codageSegments(this.mark, this.color, O, M, M, P, O, N, N, P)
-    objets.push(sOM, sON, tNP, tMP, sMP, sNP, codes)
+  // Fin de construction de la bissectrice
+  const M = pointSurSegment(O, A, this.tailleLosange)
+  const N = pointSurSegment(O, B, this.tailleLosange)
+  const dMN = droite(M, N)
+  dMN.isVisible = false
+  const P = symetrieAxiale(O, dMN)
+  if (construction || detail) {
+    if (!M.estSur(segment(O, A))) {
+      const sOM = segment(O, M, this.couleurConstruction)
+      objets.push(sOM)
+    }
+    if (!N.estSur(segment(O, B))) {
+      const sON = segment(O, N, this.couleurConstruction)
+      objets.push(sON)
+    }
+    if (construction) {
+      const codage = codageBissectrice(A, O, B, this.color, mark)
+      const tNP = traceCompas(N, P, 20, this.couleurConstruction)
+      const tMP = traceCompas(M, P, 20, this.couleurConstruction)
+      const tOM = traceCompas(O, M, 20, this.couleurConstruction)
+      const tON = traceCompas(O, N, 20, this.couleurConstruction)
+      objets.push(codage, tNP, tMP, tOM, tON)
+    }
+    if (detail) {
+      const sMP = segment(M, P, this.couleurConstruction)
+      const sNP = segment(N, P, this.couleurConstruction)
+      sMP.pointilles = 5
+      sNP.pointilles = 5
+      const codes = codageSegments(this.mark, this.color, O, M, M, P, O, N, N, P)
+      objets.push(sMP, sNP, codes)
+    }
   }
+
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -1565,8 +1601,8 @@ function ConstructionBissectrice (
   }
 }
 
-export function constructionBissectrice (...args) {
-  return new ConstructionBissectrice(...args)
+export function bissectrice (...args) {
+  return new Bissectrice(...args)
 }
 
 /*
@@ -1613,25 +1649,24 @@ function Polyline (...points) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          this.style += ' stroke-dasharray="6 10" '
-          break
-        case 2:
-          this.style += ' stroke-dasharray="6 3" '
-          break
-        case 3:
-          this.style += ' stroke-dasharray="3 2 6 2 " '
-          break
-        case 4:
-          this.style += ' stroke-dasharray="1 2" '
-          break
-        default:
-          this.style += ' stroke-dasharray="5 5" '
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        this.style += ' stroke-dasharray="6 10" '
+        break
+      case 2:
+        this.style += ' stroke-dasharray="6 3" '
+        break
+      case 3:
+        this.style += ' stroke-dasharray="3 2 6 2 " '
+        break
+      case 4:
+        this.style += ' stroke-dasharray="1 2" '
+        break
+      case 5:
+        this.style += ' stroke-dasharray="5 5" '
+        break
     }
+
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
@@ -1649,25 +1684,24 @@ function Polyline (...points) {
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          tableauOptions.push(' dash dot ')
-          break
-        case 2:
-          tableauOptions.push(' densely dash dot dot ')
-          break
-        case 3:
-          tableauOptions.push(' dash dot dot ')
-          break
-        case 4:
-          tableauOptions.push(' dotted ')
-          break
-        default:
-          tableauOptions.push(' dashed ')
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        tableauOptions.push(' dash dot ')
+        break
+      case 2:
+        tableauOptions.push(' densely dash dot dot ')
+        break
+      case 3:
+        tableauOptions.push(' dash dot dot ')
+        break
+      case 4:
+        tableauOptions.push(' dotted ')
+        break
+      case 5:
+        tableauOptions.push(' dashed ')
+        break
     }
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
@@ -1758,9 +1792,9 @@ function Pave (L = 10, l = 5, h = 5, origine = point(0, 0), cote = true, angleDe
   const sFG = segment(F, G)
   const sGH = segment(G, H)
   const sHE = segment(H, E)
-  sAE.pointilles = true
-  sEF.pointilles = true
-  sHE.pointilles = true
+  sAE.pointilles = 5
+  sEF.pointilles = 5
+  sHE.pointilles = 5
 
   objets.push(p, sAE, sBF, sCG, sDH, sEF, sFG, sGH, sHE)
   if (cote) {
@@ -2089,25 +2123,24 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          this.style += ' stroke-dasharray="6 10" '
-          break
-        case 2:
-          this.style += ' stroke-dasharray="6 3" '
-          break
-        case 3:
-          this.style += ' stroke-dasharray="3 2 6 2 " '
-          break
-        case 4:
-          this.style += ' stroke-dasharray="1 2" '
-          break
-        default:
-          this.style += ' stroke-dasharray="5 5" '
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        this.style += ' stroke-dasharray="6 10" '
+        break
+      case 2:
+        this.style += ' stroke-dasharray="6 3" '
+        break
+      case 3:
+        this.style += ' stroke-dasharray="3 2 6 2 " '
+        break
+      case 4:
+        this.style += ' stroke-dasharray="1 2" '
+        break
+      case 5:
+        this.style += ' stroke-dasharray="5 5" '
+        break
     }
+
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
@@ -2138,26 +2171,25 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          tableauOptions.push(' dash dot ')
-          break
-        case 2:
-          tableauOptions.push(' densely dash dot dot ')
-          break
-        case 3:
-          tableauOptions.push(' dash dot dot ')
-          break
+    switch (this.pointilles) {
+      case 1:
+        tableauOptions.push(' dash dot ')
+        break
+      case 2:
+        tableauOptions.push(' densely dash dot dot ')
+        break
+      case 3:
+        tableauOptions.push(' dash dot dot ')
+        break
 
-        case 4:
-          tableauOptions.push(' dotted ')
-          break
-        default:
-          tableauOptions.push(' dashed ')
-          break
-      }
+      case 4:
+        tableauOptions.push(' dotted ')
+        break
+      case 5:
+        tableauOptions.push(' dashed ')
+        break
     }
+
     if (this.styleExtremites.length > 1) {
       tableauOptions.push(this.styleExtremites)
     }
@@ -2249,11 +2281,7 @@ function DemiDroite (A, B, color = 'black') {
   ObjetMathalea2D.call(this)
   const B1 = pointSurSegment(B, A, -10)
   this.color = color
-  const s = segment(A, B1)
-  this.svg = s.svg
-  this.tikz = s.tikz
-  this.svgml = s.svgml
-  this.tikzml = s.tikzml
+  return segment(A, B1, this.color)
 }
 
 /**
@@ -2266,8 +2294,6 @@ function DemiDroite (A, B, color = 'black') {
  */
 export function demiDroite (A, B, color = 'black') {
   return new DemiDroite(A, B, color)
-  // const B1 = pointSurSegment(B, A, -10)
-  // return segment(A, B1, color)
 }
 
 /**
@@ -2359,24 +2385,22 @@ function Polygone (...points) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          this.style += ' stroke-dasharray="6 10" '
-          break
-        case 2:
-          this.style += ' stroke-dasharray="6 3" '
-          break
-        case 3:
-          this.style += ' stroke-dasharray="3 2 6 2 " '
-          break
-        case 4:
-          this.style += ' stroke-dasharray="1 2" '
-          break
-        default:
-          this.style += ' stroke-dasharray="5 5" '
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        this.style += ' stroke-dasharray="6 10" '
+        break
+      case 2:
+        this.style += ' stroke-dasharray="6 3" '
+        break
+      case 3:
+        this.style += ' stroke-dasharray="3 2 6 2 " '
+        break
+      case 4:
+        this.style += ' stroke-dasharray="1 2" '
+        break
+      case 5:
+        this.style += ' stroke-dasharray="5 5" '
+        break
     }
 
     if (this.hachures) {
@@ -2413,24 +2437,22 @@ function Polygone (...points) {
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          tableauOptions.push(' dash dot ')
-          break
-        case 2:
-          tableauOptions.push(' densely dash dot dot ')
-          break
-        case 3:
-          tableauOptions.push(' dash dot dot ')
-          break
-        case 4:
-          tableauOptions.push(' dotted ')
-          break
-        default:
-          tableauOptions.push(' dashed ')
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        tableauOptions.push(' dash dot ')
+        break
+      case 2:
+        tableauOptions.push(' densely dash dot dot ')
+        break
+      case 3:
+        tableauOptions.push(' dash dot dot ')
+        break
+      case 4:
+        tableauOptions.push(' dotted ')
+        break
+      case 5:
+        tableauOptions.push(' dashed ')
+        break
     }
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity=${this.opacite}`)
@@ -3058,24 +3080,22 @@ function Cercle (O, r, color) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          this.style += ' stroke-dasharray="6 10" '
-          break
-        case 2:
-          this.style += ' stroke-dasharray="6 3" '
-          break
-        case 3:
-          this.style += ' stroke-dasharray="3 2 6 2 " '
-          break
-        case 4:
-          this.style += ' stroke-dasharray="1 2" '
-          break
-        default:
-          this.style += ' stroke-dasharray="5 5" '
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        this.style += ' stroke-dasharray="6 10" '
+        break
+      case 2:
+        this.style += ' stroke-dasharray="6 3" '
+        break
+      case 3:
+        this.style += ' stroke-dasharray="3 2 6 2 " '
+        break
+      case 4:
+        this.style += ' stroke-dasharray="1 2" '
+        break
+      case 5:
+        this.style += ' stroke-dasharray="5 5" '
+        break
     }
 
     if (this.hachures) {
@@ -3115,25 +3135,24 @@ function Cercle (O, r, color) {
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          tableauOptions.push(' dash dot ')
-          break
-        case 2:
-          tableauOptions.push(' densely dash dot dot ')
-          break
-        case 3:
-          tableauOptions.push(' dash dot dot ')
-          break
-        case 4:
-          tableauOptions.push(' dotted ')
-          break
-        default:
-          tableauOptions.push(' dashed ')
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        tableauOptions.push(' dash dot ')
+        break
+      case 2:
+        tableauOptions.push(' densely dash dot dot ')
+        break
+      case 3:
+        tableauOptions.push(' dash dot dot ')
+        break
+      case 4:
+        tableauOptions.push(' dotted ')
+        break
+      case 5:
+        tableauOptions.push(' dashed ')
+        break
     }
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
@@ -3231,25 +3250,24 @@ function Ellipse (O, rx, ry, color) {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          this.style += ' stroke-dasharray="6 10" '
-          break
-        case 2:
-          this.style += ' stroke-dasharray="6 3" '
-          break
-        case 3:
-          this.style += ' stroke-dasharray="3 2 6 2 " '
-          break
-        case 4:
-          this.style += ' stroke-dasharray="1 2" '
-          break
-        default:
-          this.style += ' stroke-dasharray="5 5" '
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        this.style += ' stroke-dasharray="6 10" '
+        break
+      case 2:
+        this.style += ' stroke-dasharray="6 3" '
+        break
+      case 3:
+        this.style += ' stroke-dasharray="3 2 6 2 " '
+        break
+      case 4:
+        this.style += ' stroke-dasharray="1 2" '
+        break
+      case 5:
+        this.style += ' stroke-dasharray="5 5" '
+        break
     }
+
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
@@ -3271,25 +3289,24 @@ function Ellipse (O, rx, ry, color) {
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          tableauOptions.push(' dash dot ')
-          break
-        case 2:
-          tableauOptions.push(' densely dash dot dot ')
-          break
-        case 3:
-          tableauOptions.push(' dash dot dot ')
-          break
-        case 4:
-          tableauOptions.push(' dotted ')
-          break
-        default:
-          tableauOptions.push(' dashed ')
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        tableauOptions.push(' dash dot ')
+        break
+      case 2:
+        tableauOptions.push(' densely dash dot dot ')
+        break
+      case 3:
+        tableauOptions.push(' dash dot dot ')
+        break
+      case 4:
+        tableauOptions.push(' dotted ')
+        break
+      case 5:
+        tableauOptions.push(' dashed ')
+        break
     }
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
@@ -3636,25 +3653,24 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          tableauOptions.push(' dash dot ')
-          break
-        case 2:
-          tableauOptions.push(' densely dash dot dot ')
-          break
-        case 3:
-          tableauOptions.push(' dash dot dot ')
-          break
-        case 4:
-          tableauOptions.push(' dotted ')
-          break
-        default:
-          tableauOptions.push(' dashed ')
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        tableauOptions.push(' dash dot ')
+        break
+      case 2:
+        tableauOptions.push(' densely dash dot dot ')
+        break
+      case 3:
+        tableauOptions.push(' dash dot dot ')
+        break
+      case 4:
+        tableauOptions.push(' dotted ')
+        break
+      case 5:
+        tableauOptions.push(' dashed ')
+        break
     }
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
@@ -3939,25 +3955,24 @@ function SemiEllipse ({ centre, Rx, Ry, hemisphere = 'nord', pointilles = false,
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          tableauOptions.push(' dash dot ')
-          break
-        case 2:
-          tableauOptions.push(' densely dash dot dot ')
-          break
-        case 3:
-          tableauOptions.push(' dash dot dot ')
-          break
-        case 4:
-          tableauOptions.push(' dotted ')
-          break
-        default:
-          tableauOptions.push(' dashed ')
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        tableauOptions.push(' dash dot ')
+        break
+      case 2:
+        tableauOptions.push(' densely dash dot dot ')
+        break
+      case 3:
+        tableauOptions.push(' dash dot dot ')
+        break
+      case 4:
+        tableauOptions.push(' dotted ')
+        break
+      case 5:
+        tableauOptions.push(' dashed ')
+        break
     }
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
@@ -4344,7 +4359,7 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbD
   for (let i = 0; i < nbDivisions; i++) {
     for (let j = 1; j < nbSubDivisions; j++) {
       rayons[j - 1] = rotation(rayon, centre, j * arcPlein / nbDivisions / nbSubDivisions, this.color)
-      rayons[j - 1].pointilles = true
+      rayons[j - 1].pointilles = 5
       rayons[j - 1].opacite = this.opacite
       objets.push(rayons[j - 1])
     }
@@ -5381,22 +5396,22 @@ export function CodageHauteurTriangle (A, B, C, color = 'black') {
   if (B.x < C.x) {
     if (p.x > C.x || p.x < B.x) {
       d.isVisible = true
-      d.pointilles = true
+      d.pointilles = 5
     } else d.isVisible = false
   } else if (C.x < B.x) {
     if (p.x < C.x || p.x > B.x) {
       d.isVisible = true
-      d.pointilles = true
+      d.pointilles = 5
     } else d.isVisible = false
   } else if (B.y < C.y) {
     if (p.y > C.y || p.y < B.y) {
       d.isVisible = true
-      d.pointilles = true
+      d.pointilles = 5
     } else d.isVisible = false
   } else if (C.y < B.y) {
     if (p.y < C.y || p.y > B.y) {
       d.isVisible = true
-      d.pointilles = true
+      d.pointilles = 5
     } else d.isVisible = false
   }
   const c = codageAngleDroit(A, p, q, this.color)
@@ -6340,11 +6355,11 @@ function DroiteGraduee2 ({
     S = segment(point(x - 0.2 * absord[0], y - 0.2 * absord[1]), point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]), axeCouleur)
     S.styleExtremites = '->'
     S.tailleExtremites = axeHauteur
-    S.epaiseur = axeEpaisseur
+    S.epaisseur = axeEpaisseur
   } else {
     S = segment(point(x, y), point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]), axeCouleur)
     S.styleExtremites = axeStyle || '|->'
-    S.epaiseur = axeEpaisseur
+    S.epaisseur = axeEpaisseur
     S.tailleExtremites = axeHauteur
   }
   objets.push(S)
@@ -6713,7 +6728,7 @@ function Grille (
     const s = segment(i, ymin, i, ymax, this.color)
     s.opacite = this.opacite
     if (pointilles) {
-      s.pointilles = true
+      s.pointilles = 5
     }
     objets.push(s)
   }
@@ -6721,7 +6736,7 @@ function Grille (
     const s = segment(xmin, i, xmax, i, this.color)
     s.opacite = this.opacite
     if (pointilles) {
-      s.pointilles = true
+      s.pointilles = 5
     }
     objets.push(s)
   }
@@ -6788,7 +6803,7 @@ function GrilleHorizontale (
     const s = segment(xmin, i, xmax, i, this.color)
     s.opacite = this.opacite
     if (pointilles) {
-      s.pointilles = true
+      s.pointilles = 5
     }
     objets.push(s)
   }
@@ -6834,7 +6849,7 @@ function GrilleVerticale (
     const s = segment(i, ymin, i, ymax, this.color)
     s.opacite = this.opacite
     if (pointilles) {
-      s.pointilles = true
+      s.pointilles = 5
     }
     objets.push(s)
   }
@@ -7504,7 +7519,7 @@ function Repere2 ({
         traitH.opacite = grilleYOpacite
         traitH.epaisseur = grilleEpaisseur
         if (grilleY === 'pointilles') {
-          traitH.pointilles = true
+          traitH.pointilles = 5
         }
         objets.push(traitH)
       }
@@ -7533,7 +7548,7 @@ function Repere2 ({
         traitV.opacite = grilleXOpacite
         traitV.epaisseur = grilleEpaisseur
         if (grilleX === 'pointilles') {
-          traitV.pointilles = true
+          traitV.pointilles = 5
         }
         objets.push(traitV)
       }
@@ -7564,7 +7579,7 @@ function Repere2 ({
       traitH.opacite = grilleSecondaireYOpacite
       traitH.epaisseur = grilleSecondaireEpaisseur
       if (grilleSecondaireY === 'pointilles') {
-        traitH.pointilles = true
+        traitH.pointilles = 5
       }
       objets.push(traitH)
     }
@@ -7591,7 +7606,7 @@ function Repere2 ({
       traitV.opacite = grilleSecondaireXOpacite
       traitV.epaisseur = grilleSecondaireEpaisseur
       if (grilleSecondaireX === 'pointilles') {
-        traitV.pointilles = true
+        traitV.pointilles = 5
       }
       objets.push(traitV)
     }
@@ -7894,7 +7909,7 @@ function TraceGraphiqueCartesien (data, repere, {
   l.epaisseur = epaisseurDuTrait
   l.color = couleurDuTrait
   if (styleDuTrait === 'pointilles') {
-    l.pointilles = true
+    l.pointilles = 5
   }
   objets.push(l)
 
@@ -8885,7 +8900,7 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
     diagramme.push(traceBarre(abscisseBarre, hauteurBarre, etiquettes[j], { couleurDeRemplissage: couleurDeRemplissage }))
     if (reperageTraitPointille) {
       const ligne = segment(-1, hauteurBarre, abscisseBarre, hauteurBarre)
-      ligne.pointilles = true
+      ligne.pointilles = 5
       ligne.epaisseur = 0.2
       diagramme.push(ligne)
     }
@@ -9092,8 +9107,8 @@ function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textAbs = ''
     const Sy = segment(M, Y, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
-    Sx.pointilles = true
-    Sy.pointilles = true
+    Sx.pointilles = 5
+    Sy.pointilles = 5
     return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
   }
   this.tikz = function () {
@@ -9106,8 +9121,8 @@ function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textAbs = ''
     const Sy = segment(M, Y, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
-    Sx.pointilles = true
-    Sy.pointilles = true
+    Sx.pointilles = 5
+    Sy.pointilles = 5
     return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 'milieu', this.color).tikz()
   }
   this.svgml = function (coeff, amp) {
@@ -9120,8 +9135,8 @@ function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textAbs = ''
     const Sy = segment(M, Y, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
-    Sx.pointilles = true
-    Sy.pointilles = true
+    Sx.pointilles = 5
+    Sy.pointilles = 5
     return '\t\n' + Sx.svgml(coeff, amp) + '\t\n' + Sy.svgml(coeff, amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
   }
   this.tikzml = function (amp) {
@@ -9134,8 +9149,8 @@ function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textAbs = ''
     const Sy = segment(M, Y, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
-    Sx.pointilles = true
-    Sy.pointilles = true
+    Sx.pointilles = 5
+    Sy.pointilles = 5
     return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 'milieu', this.color).tikz()
   }
 }
@@ -9166,8 +9181,8 @@ function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOrd, text
     const Sy = segment(Y, M, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
-    Sx.pointilles = true
-    Sy.pointilles = true
+    Sx.pointilles = 5
+    Sy.pointilles = 5
     return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
   }
   this.tikz = function () {
@@ -9180,8 +9195,8 @@ function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOrd, text
     const Sy = segment(Y, M, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
-    Sx.pointilles = true
-    Sy.pointilles = true
+    Sx.pointilles = 5
+    Sy.pointilles = 5
     return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 'milieu', this.color).tikz()
   }
   this.svgml = function (coeff, amp) {
@@ -9194,8 +9209,8 @@ function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOrd, text
     const Sy = segment(Y, M, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
-    Sx.pointilles = true
-    Sy.pointilles = true
+    Sx.pointilles = 5
+    Sy.pointilles = 5
     return '\t\n' + Sx.svgml(coeff, amp) + '\t\n' + Sy.svgml(coeff, amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
   }
   this.tikzml = function (amp) {
@@ -9208,8 +9223,8 @@ function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOrd, text
     const Sy = segment(Y, M, this.color)
     Sx.styleExtremites = '->'
     Sy.styleExtremites = '->'
-    Sx.pointilles = true
-    Sy.pointilles = true
+    Sx.pointilles = 5
+    Sy.pointilles = 5
     return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 'milieu', this.color).tikz()
   }
 }
@@ -9733,25 +9748,24 @@ function CrochetD (A, color = 'blue') {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          this.style += ' stroke-dasharray="6 10" '
-          break
-        case 2:
-          this.style += ' stroke-dasharray="6 3" '
-          break
-        case 3:
-          this.style += ' stroke-dasharray="3 2 6 2 " '
-          break
-        case 4:
-          this.style += ' stroke-dasharray="1 2" '
-          break
-        default:
-          this.style += ' stroke-dasharray="5 5" '
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        this.style += ' stroke-dasharray="6 10" '
+        break
+      case 2:
+        this.style += ' stroke-dasharray="6 3" '
+        break
+      case 3:
+        this.style += ' stroke-dasharray="3 2 6 2 " '
+        break
+      case 4:
+        this.style += ' stroke-dasharray="1 2" '
+        break
+      case 5:
+        this.style += ' stroke-dasharray="5 5" '
+        break
     }
+
     let code = `<polyline points="${A.xSVG(coeff) + this.taille * 20},${A.ySVG(coeff) +
       2 * this.taille * 20 / coeff * coeff
       } ${A.xSVG(coeff)},${A.ySVG(coeff) + 2 * this.taille * 20} ${A.xSVG(coeff)},${A.ySVG(coeff) +
@@ -9786,25 +9800,24 @@ function CrochetG (A, color = 'blue') {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
-    if (this.pointilles) {
-      switch (this.pointilles) {
-        case 1:
-          this.style += ' stroke-dasharray="6 10" '
-          break
-        case 2:
-          this.style += ' stroke-dasharray="6 3" '
-          break
-        case 3:
-          this.style += ' stroke-dasharray="3 2 6 2 " '
-          break
-        case 4:
-          this.style += ' stroke-dasharray="1 2" '
-          break
-        default:
-          this.style += ' stroke-dasharray="5 5" '
-          break
-      }
+    switch (this.pointilles) {
+      case 1:
+        this.style += ' stroke-dasharray="6 10" '
+        break
+      case 2:
+        this.style += ' stroke-dasharray="6 3" '
+        break
+      case 3:
+        this.style += ' stroke-dasharray="3 2 6 2 " '
+        break
+      case 4:
+        this.style += ' stroke-dasharray="1 2" '
+        break
+      case 5:
+        this.style += ' stroke-dasharray="5 5" '
+        break
     }
+
     let code = `<polyline points="${A.xSVG(coeff) - this.taille * 20},${A.ySVG(coeff) +
       2 * this.taille * 20
       } ${A.xSVG(coeff)},${A.ySVG(coeff) + 2 * this.taille * 20} ${A.xSVG(coeff)},${A.ySVG(coeff) -
@@ -11673,7 +11686,7 @@ function Labyrinthe (
     let x = 0; const chemin2d = []; let s1
     for (let j = 0; j < monchemin.length; j++) {
       s1 = segment(point(x * 3 - 1.5, y * 3 + 2.5), point(monchemin[j][0] * 3 - 1.5, monchemin[j][1] * 3 + 2.5), couleur)
-      s1.pointilles = true
+      s1.pointilles = 5
       s1.stylePointilles = 2
       s1.epaisseur = 5
       s1.opacite = 0.3
@@ -11682,7 +11695,7 @@ function Labyrinthe (
       y = monchemin[j][1]
     }
     s1 = segment(point(x * 3 - 1.5, y * 3 + 2.5), point(x * 3 + 1.5, y * 3 + 2.5), couleur)
-    s1.pointilles = true
+    s1.pointilles = 5
     s1.stylePointilles = 2
     s1.epaisseur = 5
     s1.opacite = 0.3

@@ -185,19 +185,19 @@ export default function Solide6e () {
       BF.color = 'black'
       CG.color = 'black'
       if (G.y < C.y && G.x < C.x) {
-        CG.pointilles = true
+        CG.pointilles = 5
         CG.color = 'gray'
         CG.opacite = 0.7
-        GH.pointilles = true
+        GH.pointilles = 5
         GH.color = 'gray'
         GH.opacite = 0.7
-        FG.pointilles = true
+        FG.pointilles = 5
         FG.color = 'gray'
         FG.opacite = 0.7
       } else if (E.y > A.y && E.x > A.x) {
-        AE.pointilles = true
-        EF.pointilles = true
-        HE.pointilles = true
+        AE.pointilles = 5
+        EF.pointilles = 5
+        HE.pointilles = 5
         AE.color = 'gray'
         EF.color = 'gray'
         HE.color = 'gray'
@@ -205,9 +205,9 @@ export default function Solide6e () {
         EF.opacite = 0.7
         HE.opacite = 0.7
       } else if (F.x < B.x && F.y > B.y) {
-        BF.pointilles = true
-        FG.pointilles = true
-        EF.pointilles = true
+        BF.pointilles = 5
+        FG.pointilles = 5
+        EF.pointilles = 5
         BF.color = 'gray'
         FG.color = 'gray'
         EF.color = 'gray'
@@ -215,9 +215,9 @@ export default function Solide6e () {
         FG.opacite = 0.7
         EF.opacite = 0.7
       } else if (H.x > D.x && H.y < D.y) {
-        DH.pointilles = true
-        GH.pointilles = true
-        HE.pointilles = true
+        DH.pointilles = 5
+        GH.pointilles = 5
+        HE.pointilles = 5
         DH.color = 'gray'
         GH.color = 'gray'
         HE.color = 'gray'

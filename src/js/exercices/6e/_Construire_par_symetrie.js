@@ -219,13 +219,13 @@ export default class ConstruireParSymetrie extends Exercice {
           sD = D.estSur(d) ? vide2d() : segment(D, DD)
           sE = E.estSur(d) ? vide2d() : segment(E, EE)
           sCE = droite(CC, EE, '', 'gray')
-          sCE.pointilles = true
+          sCE.pointilles = 5
           sED = droite(EE, D, '', 'gray')
-          sED.pointilles = true
+          sED.pointilles = 5
           sDE = droite(DD, E, '', 'gray')
-          sDE.pointilles = true
+          sDE.pointilles = 5
           sEC = droite(C, E, '', 'gray')
-          sEC.pointilles = true
+          sEC.pointilles = 5
 
           objetsCorrection.push(d, tracePoint(C, D, E, CC, DD, EE), labelPoint(C, D, E, CC, DD, EE), cC, cD, cE, sC, sD, sE, sED, sDE, sCE, sEC)
           objetsEnonce.push(tracePoint(C, D, E), labelPoint(C, D, E), d)
@@ -274,13 +274,13 @@ export default class ConstruireParSymetrie extends Exercice {
           sD = D.estSur(d) ? vide2d() : segment(D, DD)
           sE = E.estSur(d) ? vide2d() : segment(E, EE)
           sCE = droite(CC, EE, '', 'gray')
-          sCE.pointilles = true
+          sCE.pointilles = 5
           sED = droite(EE, D, '', 'gray')
-          sED.pointilles = true
+          sED.pointilles = 5
           sDE = droite(DD, E, '', 'gray')
-          sDE.pointilles = true
+          sDE.pointilles = 5
           sEC = droite(C, E, '', 'gray')
-          sEC.pointilles = true
+          sEC.pointilles = 5
           objetsCorrection.push(d, tracePoint(C, D, E, CC, DD, EE), labelPoint(C, D, E, CC, DD, EE), cC, cD, cE, sC, sD, sE, sED, sDE, sCE, sEC)
           objetsEnonce.push(tracePoint(C, D, E), labelPoint(C, D, E), d)
           if (context.isHtml) {
@@ -327,13 +327,13 @@ export default class ConstruireParSymetrie extends Exercice {
           sD = D.estSur(d) ? vide2d() : segment(D, DD)
           sE = E.estSur(d) ? vide2d() : segment(E, EE)
           sCE = segment(CC, EE, 'gray')
-          sCE.pointilles = true
+          sCE.pointilles = 5
           sED = segment(EE, D, 'gray')
-          sED.pointilles = true
+          sED.pointilles = 5
           sDE = segment(DD, E, 'gray')
-          sDE.pointilles = true
+          sDE.pointilles = 5
           sEC = segment(C, E, 'gray')
-          sEC.pointilles = true
+          sEC.pointilles = 5
 
           objetsCorrection.push(d, tracePoint(C, D, E, CC, DD, EE), labelPoint(C, D, E, CC, DD, EE), cC, cD, cE, sC, sD, sE, sED, sDE, sCE, sEC)
           objetsEnonce.push(tracePoint(C, D, E), labelPoint(C, D, E), d)
@@ -403,9 +403,9 @@ export default class ConstruireParSymetrie extends Exercice {
           sD = segment(p1.listePoints[1], p2.listePoints[1], 'blue')
           sE = segment(p1.listePoints[2], p2.listePoints[2], 'green')
           sCE = droite(p1.listePoints[2], p1.listePoints[1], '', 'gray')
-          sCE.pointilles = true
+          sCE.pointilles = 5
           sED = droite(p2.listePoints[2], p2.listePoints[1], '', 'gray')
-          sED.pointilles = true
+          sED.pointilles = 5
           objetsCorrection.push(d, cC, cD, cE, sC, sD, sE, CC, DD, p1, p1.sommets, p2, p2.sommets, sCE, sED)
           objetsEnonce.push(CC, p1, d)
           if (context.isHtml) {
@@ -459,9 +459,9 @@ export default class ConstruireParSymetrie extends Exercice {
           sD = segment(p1.listePoints[1], p2.listePoints[1], 'blue')
           sE = segment(p1.listePoints[2], p2.listePoints[2], 'green')
           sCE = droite(p1.listePoints[2], p1.listePoints[1], '', 'gray')
-          sCE.pointilles = true
+          sCE.pointilles = 5
           sED = droite(p2.listePoints[2], p2.listePoints[1], '', 'gray')
-          sED.pointilles = true
+          sED.pointilles = 5
           objetsCorrection.push(d, cC, cD, cE, sC, sD, sE, CC, DD, p1, p1.sommets, p2, p2.sommets, sCE, sED)
           objetsEnonce.push(CC, p1, d)
           if (context.isHtml) {
@@ -508,9 +508,9 @@ export default class ConstruireParSymetrie extends Exercice {
           sD = segment(p1.listePoints[1], p2.listePoints[1], 'blue')
           sE = segment(p1.listePoints[2], p2.listePoints[2], 'green')
           sCE = droite(p1.listePoints[2], p1.listePoints[1], '', 'gray')
-          sCE.pointilles = true
+          sCE.pointilles = 5
           sED = droite(p2.listePoints[2], p2.listePoints[1], '', 'gray')
-          sED.pointilles = true
+          sED.pointilles = 5
           //  inter = pointIntersectionDD(sCE, sED)
           objetsCorrection.push(d, cC, cD, cE, sC, sD, sE, CC, DD, p1, p2, sCE, sED)
           objetsEnonce.push(CC, p1, d)

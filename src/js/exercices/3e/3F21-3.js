@@ -66,10 +66,10 @@ export default function PenteEtOrdonneeOrigineDroite () {
     t2.color = '#f15929'
 
     s1.epaisseur = 3
-    s1.pointilles = true
+    s1.pointilles = 5
     s1.color = '#f15929'
     s2.epaisseur = 3
-    s2.pointilles = true
+    s2.pointilles = 5
     s2.color = '#f15929'
 
     const nomFonction = choice(['f', 'g', 'h', 'f_1', 'f_2', 'f_3'])

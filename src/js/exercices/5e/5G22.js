@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, Triangles } from '../../modules/outils.js'
-import { point, mediatrice, codageMediatrice, constructionMediatrice, bissectrice, codageBissectrice, constructionBissectrice, polygone, nommePolygone, rotation, similitude, medianeTriangle, centreGraviteTriangle, hauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, mathalea2d } from '../../modules/2d.js'
+import { point, mediatrice, codageMediatrice, codageBissectrice, bissectrice, polygone, nommePolygone, rotation, similitude, medianeTriangle, centreGraviteTriangle, hauteurTriangle, codageHauteurTriangle, codageMedianeTriangle, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Déterminer la nature d\'une droite remarquable'
 
 /**
@@ -66,12 +66,12 @@ export default function DroiteRemarquableDuTriangle () {
           texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i])
           break
         case 2:
-          d[i] = mediatrice(A[i], B[i], true, 'blue')
+          d[i] = mediatrice(A[i], B[i], '', 'blue')
           d[i].epaisseur = 1
           c[i] = codageMediatrice(A[i], B[i])
           objets[i] = [A[i], B[i], C[i], t[i], d[i], n[i], c[i]]
           texteCorr = `La droite tracée est la médiatrice du segment [$${sommets[i][0]}${sommets[i][1]}]$.<br>`
-          texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i], constructionMediatrice(A[i], B[i], true, 'gray', '×', '||', 'blue', 1))
+          texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i], mediatrice(A[i], B[i], '', 'blue', 'gray', 'green', true, true, '×', '||', 1))
           break
         case 3:
           d[i] = medianeTriangle(C[i], B[i], A[i], 'blue')
@@ -87,7 +87,7 @@ export default function DroiteRemarquableDuTriangle () {
           c[i] = codageBissectrice(A[i], B[i], C[i])
           objets[i] = [A[i], B[i], C[i], t[i], d[i], n[i], c[i]]
           texteCorr = `La droite tracée est la bissectrice de l'angle $\\widehat{${sommets[i][0]}${sommets[i][1]}${sommets[i][2]}}$.<br>`
-          texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i], constructionBissectrice(A[i], B[i], C[i], false, 'red', '×', 3, 'blue', 1))
+          texteCorr += mathalea2d({ xmin: -3, ymin: -3, xmax: 8, ymax: 8, scale: 0.5, pixelsParCm: 20 }, ...objets[i], bissectrice(A[i], B[i], C[i], 'blue', 'red', 'green', true, true, '×', 3, 1))
           break
       }
 
