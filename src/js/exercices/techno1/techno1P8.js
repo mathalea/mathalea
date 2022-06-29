@@ -1,10 +1,10 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texNombre } from '../../modules/outils.js'
 import { min } from 'mathjs'
-export const titre = 'Nom de l\'exercice'
+export const titre = 'Union et Intersection de proportions'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '26/06/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
@@ -16,8 +16,8 @@ export default class nomExercice extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.consigne = 'Consigne'
-    this.nbQuestions = 10 // Nombre de questions par défaut
+    this.consigne = ''
+    this.nbQuestions = 1 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
     this.video = '' // Id YouTube ou url
@@ -37,61 +37,54 @@ export default class nomExercice extends Exercice {
           effectif = randint(22, 80)
           belote = randint(10, effectif - 10)
           tarot = randint(10, effectif - 10)
-          inter = randint(3, min(belote, tarot))
+          inter = randint(3, min(belote, tarot) - 1)
+          union = belote + tarot - inter
           texte = `Dans un club du 3ème age comprenant $${effectif}$ personnes, $${belote}$ jouent à la belote régulièrement,
           $${tarot}$ jouent au tarot et $${inter}$ d'entre eux pratiquent chacun des
           deux jeux de cartes. <br>
-         Quelle est la proportion de personnes du club qui jouent au moins à l'un des deux jeux de cartes ?` // Le LateX entre deux symboles $, les variables dans des ${ }
+         Quelle est la proportion de personnes du club qui jouent  au tarot <B> ou </B> à la belote?` // Le LateX entre deux symboles $, les variables dans des ${ }
           texteCorr = `On note :<br>
-          $\\quad\\bullet\\quad p_T$ la proportion de personnes du club qui jouent au tarot,<br>
-          $\\quad\\bullet\\quad p_B$ la proportion de personnes du club qui jouent à la belote<br>
-          $\\quad\\bullet\\quad p_{T\\cup B}$ la proportion de personnes du club qui jouent au tarot <b>ou<\\b> à la belote.<br>
-          $\\quad\\bullet\\quad p_{T\\cap B}$ la proportion de personnes du club qui jouent au tarot <b>et<\\b> à la belote.<br>
+          $\\quad\\bullet\\quad p_T$ la proportion de personnes du club qui jouent au tarot.<br>
+          $\\quad\\bullet\\quad p_B$ la proportion de personnes du club qui jouent à la belote.<br>
+          $\\quad\\bullet\\quad p_{T\\cup B}$ la proportion de personnes du club qui jouent au tarot <B>ou</B> à la belote.<br>
+          $\\quad\\bullet\\quad p_{T\\cap B}$ la proportion de personnes du club qui jouent au tarot <B>et</B> à la belote.<br>
         La population de référence est les membres du club, son effectif est $${effectif}$.<br>
-       <br>
         <br>D'après le cours, pour calculer la proportion d'une sous-population dans une population, on calcule :<br>
-        $p=\\dfrac{\\text{effectif de la sous-population}}{\\text{effectif de la population de référence}}$.<br>
-        <br>On a donc :  $p_T=\\dfrac{${tarot}}{${effectif}}$.<br>
-          $p_B=\\dfrac{${belote}}{${effectif}} \\quad;\\quad p_{T\\cap B}=\\dfrac{${inter}}{${effectif}}$
+        <br>$p=\\dfrac{\\text{effectif de la sous-population}}{\\text{effectif de la population de référence}}$<br>
+        <br>On a donc :  $p_T=\\dfrac{${tarot}}{${effectif}}\\quad;\\quad p_B=\\dfrac{${belote}}{${effectif}} \\quad;\\quad p_{T\\cap B}=\\dfrac{${inter}}{${effectif}}$<br>
           On sait que  $p_{T\\cup B} = p_T + p_B -  p_{T\\cap B}$.<br>
          ce qui revient, en appliquant les données de l'énoncé, à écrire :<br>
-         $p_{T\\cup B} = \\dfrac{${tarot}}{${effectif}} +\\dfrac{${inter}}{${effectif}}-\\dfrac{${inter}}{${effectif}}=\\dfrac{${tarot + belote - inter}}{${effectif}}$<br>
-         ou encore $p_{T\\cup B} \\approx ${texNombre((union) / effectif, 2)}$<br>
-         Il y a donc environ ${texNombre(100 * (union) / effectif, 0)}%$ de personens du club qui jouent à la belote et au tarot dans ce club.<br>
+         $p_{T\\cup B} = \\dfrac{${tarot}}{${effectif}} +\\dfrac{${belote}}{${effectif}}-\\dfrac{${inter}}{${effectif}}=\\dfrac{${union}}{${effectif}} \\approx ${texNombre(union / effectif, 2)}$<br>
+         Il y a donc environ $${texNombre(100 * union / effectif, 0)}\\%$ de personens du club qui jouent à la belote et au tarot dans ce club.<br>
          `
           break
         case 'type2':
           effectif = randint(22, 80)
           belote = randint(10, effectif - 10)
           tarot = randint(10, effectif - 10)
-          inter = randint(3, min(belote, tarot))
+          inter = randint(3, min(belote, tarot) - 1)
           union = belote + tarot - inter
           texte = `Dans un club du 3ème age comprenant $${effectif}$ personnes, $${belote}$ jouent à la belote régulièrement,
           $${tarot}$ jouent au tarot et $${union}$ d'entre eux pratiquent au moins un des
           deux jeux de cartes. <br>
-         Quelle est la proportion de personnes du club qui jouent à chacun des deux jeux de cartes ?` // Le LateX entre deux symboles $, les variables dans des ${ }
+         Quelle est la proportion de personnes du club qui jouent au tarot <B> et </B> à la belote ?` // Le LateX entre deux symboles $, les variables dans des ${ }
           texteCorr = `On note :<br>
-          $\\quad\\bullet\\quad p_T$ la proportion de personnes du club qui jouent au tarot,<br>
-          $\\quad\\bullet\\quad p_B$ la proportion de personnes du club qui jouent à la belote<br>
-          $\\quad\\bullet\\quad p_{T\\cup B}$ la proportion de personnes du club qui jouent au tarot <b>ou<b> à la belote.<br>
-          $\\quad\\bullet\\quad p_{T\\cap B}$ la proportion de personnes du club qui jouent au tarot <b>et<b> à la belote.<br>
+          $\\quad\\bullet\\quad p_T$ la proportion de personnes du club qui jouent au tarot.<br>
+          $\\quad\\bullet\\quad p_B$ la proportion de personnes du club qui jouent à la belote.<br>
+          $\\quad\\bullet\\quad p_{T\\cup B}$ la proportion de personnes du club qui jouent au tarot <B>ou</B> à la belote.<br>
+          $\\quad\\bullet\\quad p_{T\\cap B}$ la proportion de personnes du club qui jouent au tarot <B>et</B> à la belote.<br>
         La population de référence est les membres du club, son effectif est $${effectif}$.<br>
        <br>
         D'après le cours, pour calculer la proportion d'une sous-population dans une population, on calcule :<br>
-        <br>$p=\\dfrac{\\text{effectif de la sous-population}}{\\text{effectif de la population de référence}}$.<br>
+        <br>$p=\\dfrac{\\text{effectif de la sous-population}}{\\text{effectif de la population de référence}}$<br>
         <br>On a donc :  $p_T=\\dfrac{${tarot}}{${effectif}}\\quad ; \\quad p_B=\\dfrac{${belote}}{${effectif}}\\quad ; \\quad p_{T\\cup B}=\\dfrac{${union}}{${effectif}}$<br>
          On note 
          On sait que  $p_{T\\cup B} = p_T + p_B -  p_{T\\cap B}$.<br>
          ce qui revient, en appliquant les données de l'énoncé, à écrire :
          $ \\dfrac{${union}}{${effectif}}= \\dfrac{${tarot}}{${effectif}} +\\dfrac{${belote}}{${effectif}} - p_{T\\cap B}$<br>
-         $p_{T\\cap B}=\\dfrac{${tarot}}{${effectif}} +\\dfrac{${belote}}{${effectif}}-\\dfrac{${union}}{${effectif}}$<br>
-         $p_{T\\cap B}=\\dfrac{${inter}}{${effectif}}  \\approx ${texNombre(inter / effectif, 2)}$<br>
+         $p_{T\\cap B}=\\dfrac{${tarot}}{${effectif}} +\\dfrac{${belote}}{${effectif}}-\\dfrac{${union}}{${effectif}} =\\dfrac{${inter}}{${effectif}} \\approx ${texNombre(inter / effectif, 2)}$<br>
          Il y a donc environ $${texNombre(100 * inter / effectif, 0)}\\%$ de personens du club qui jouent à la belote et au tarot dans ce club.<br>
          `
-          break
-        case 'type3':
-          texte = `Question ${i + 1} de type 3`
-          texteCorr = `Correction ${i + 1} de type 3`
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
