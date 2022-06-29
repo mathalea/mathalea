@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, creerNomDePolygone, texNombre, choice } from '../../modules/outils.js'
-import { point, labelPoint, polygone, similitude, codageAngleDroit, codeAngle, mathalea2d, afficheMesureAngle, afficheLongueurSegment, longueur, angle, texteSurSegment } from '../../modules/2d.js'
+import { point, labelPoint, polygone, similitude, codageAngleDroit, codageAngle, mathalea2d, afficheMesureAngle, afficheLongueurSegment, longueur, angle, texteSurSegment } from '../../modules/2d.js'
 import { radians, degres } from '../../modules/fonctionsMaths.js'
 
 export const titre = 'Calculer toutes les mesures d\'angle d\'une figure complexe'
@@ -63,7 +63,7 @@ export default function CalculDAngleFigureComplexe () {
     const a2 = afficheLongueurSegment(A, B)
     const a3 = afficheLongueurSegment(D, A)
     const a4 = afficheLongueurSegment(A, C)
-    const a5 = codeAngle(A, C, D, 1.2)
+    const a5 = codageAngle(A, C, D, 1.2)
     a5.epaisseur = 2
     const ACB = Math.round(angle(A, C, B))
 

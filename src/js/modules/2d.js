@@ -1300,7 +1300,7 @@ function CodageMediatrice (A, B, color = 'black', mark = '×') {
   const O = milieu(A, B)
   const M = rotation(A, O, 90)
   const c = codageAngleDroit(M, O, B, this.color)
-  const v = codeSegments(mark, this.color, A, O, O, B)
+  const v = codageSegments(mark, this.color, A, O, O, B)
   c.isVisible = false
   v.isVisible = false
   this.svg = function (coeff) {
@@ -1342,7 +1342,7 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
   const O = milieu(A, B)
   const d = droite(A, B)
   const M = tracePointSurDroite(O, d, this.color)
-  const v = codeSegments(mark, this.color, A, O, O, B)
+  const v = codageSegments(mark, this.color, A, O, O, B)
   let code = ''
   this.svg = function (coeff) {
     if (mil) code = M.svg(coeff) + '\n' + v.svg(coeff)
@@ -1415,7 +1415,7 @@ function ConstructionMediatrice (
     sAN.pointilles = true
     const sBN = segment(B, N)
     sBN.pointilles = true
-    const codes = codeSegments(markrayons, color, A, M, B, M, A, N, B, N)
+    const codes = codageSegments(markrayons, color, A, M, B, M, A, N, B, N)
     objets.push(sAM, sBM, sAN, sBN, codes, codage)
   }
   this.svg = function (coeff) {
@@ -1481,8 +1481,8 @@ function CodageBissectrice (A, O, B, color = 'black', mark = '×') {
   this.arrivee = pointSurSegment(O, B, 1.5)
 
   this.svg = function (coeff) {
-    const a1 = codeAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
-    const a2 = codeAngle(pointSurSegment(this.centre, this.lieu, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
+    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
+    const a2 = codageAngle(pointSurSegment(this.centre, this.lieu, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
     return (
       a1.svg(coeff) +
       '\n' +
@@ -1491,8 +1491,8 @@ function CodageBissectrice (A, O, B, color = 'black', mark = '×') {
     )
   }
   this.tikz = function () {
-    const a1 = codeAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
-    const a2 = codeAngle(pointSurSegment(this.centre, this.lieu, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
+    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
+    const a2 = codageAngle(pointSurSegment(this.centre, this.lieu, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
     return a1.tikz() + '\n' + a2.tikz() + '\n'
   }
 }
@@ -1546,7 +1546,7 @@ function ConstructionBissectrice (
     const sNP = segment(N, P, this.couleurConstruction)
     sMP.pointilles = true
     sNP.pointilles = true
-    const codes = codeSegments(this.mark, this.color, O, M, M, P, O, N, N, P)
+    const codes = codageSegments(this.mark, this.color, O, M, M, P, O, N, N, P)
     objets.push(sOM, sON, tNP, tMP, sMP, sNP, codes)
   }
   this.svg = function (coeff) {
@@ -2569,7 +2569,7 @@ export function carre (A, B, color) {
 
 function CodageCarre (c, color = 'black', mark = '×') {
   const objets = []
-  objets.push(codeSegments(mark, color, c.listePoints))
+  objets.push(codageSegments(mark, color, c.listePoints))
   objets.push(
     codageAngleDroit(
       c.listePoints[0],
@@ -5422,7 +5422,7 @@ function CodageMedianeTriangle (B, C, color = 'black', mark = '//') {
   ObjetMathalea2D.call(this)
   this.color = color
   const O = milieu(B, C)
-  const c = codeSegments(mark, this.color, B, O, O, C)
+  const c = codageSegments(mark, this.color, B, O, O, C)
   this.svg = function (coeff) {
     return c.svg(coeff)
   }
@@ -5897,7 +5897,7 @@ export function afficheCoteSegment (...args) {
   return new AfficheCoteSegment(...args)
 }
 /**
- * codeSegment(A,B,'×','blue') // Code le segment [AB] avec une croix bleue.
+ * codageSegment(A,B,'×','blue') // Code le segment [AB] avec une croix bleue.
  *
  * Attention le premier argument ne peut pas être un segment
  * @param {Point} A Première extrémité du segment
@@ -5907,7 +5907,7 @@ export function afficheCoteSegment (...args) {
  *
  * @author Rémi Angot
  */
-function CodeSegment (A, B, mark = '||', color = 'black') {
+function CodageSegment (A, B, mark = '||', color = 'black') {
   ObjetMathalea2D.call(this)
   this.color = color
   const O = milieu(A, B)
@@ -5921,17 +5921,17 @@ function CodeSegment (A, B, mark = '||', color = 'black') {
   }
   return texteParPoint(mark, O, angle, this.color)
 }
-export function codeSegment (...args) {
-  return new CodeSegment(...args)
+export function codageSegment (...args) {
+  return new CodageSegment(...args)
 }
 /**
- * codeSegments('×','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
+ * codageSegments('×','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
  *
- * codeSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé, pratique pour des polygones pas pour des lignes brisées)
+ * codageSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé, pratique pour des polygones pas pour des lignes brisées)
  *
- * codeSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
+ * codageSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
  *
- * codeSegments('×','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
+ * codageSegments('×','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
  *
  * @param {string} mark Symbole posé sur le segment
  * @param {string} color Couleur du symbole
@@ -5939,32 +5939,32 @@ export function codeSegment (...args) {
  *
  * @author Rémi Angot
  */
-function CodeSegments (mark = '||', color = 'black', ...args) {
+function CodageSegments (mark = '||', color = 'black', ...args) {
   ObjetMathalea2D.call(this)
   this.svg = function (coeff) {
     let code = ''
     if (Array.isArray(args[0])) {
       // Si on donne une liste de points
       for (let i = 0; i < args[0].length - 1; i++) {
-        const codage = codeSegment(args[0][i], args[0][i + 1], mark, color)
+        const codage = codageSegment(args[0][i], args[0][i + 1], mark, color)
         codage.isVisible = false
         code += codage.svg(coeff)
         code += '\n'
       }
-      const codage = codeSegment(args[0][args[0].length - 1], args[0][0], mark, color)
+      const codage = codageSegment(args[0][args[0].length - 1], args[0][0], mark, color)
       codage.isVisible = false
       code += codage.svg(coeff)
       code += '\n'
     } else if (args[0].constructor === Segment) {
       for (let i = 0; i < args.length; i++) {
-        const codage = codeSegment(args[i].extremite1, args[i].extremite2, mark, color)
+        const codage = codageSegment(args[i].extremite1, args[i].extremite2, mark, color)
         codage.isVisible = false
         code += codage.svg(coeff)
         code += '\n'
       }
     } else {
       for (let i = 0; i < args.length; i += 2) {
-        const codage = codeSegment(args[i], args[i + 1], mark, color)
+        const codage = codageSegment(args[i], args[i + 1], mark, color)
         codage.isVisible = false
         code += codage.svg(coeff)
         code += '\n'
@@ -5978,10 +5978,10 @@ function CodeSegments (mark = '||', color = 'black', ...args) {
     if (Array.isArray(args[0])) {
       // Si on donne une liste de points
       for (let i = 0; i < args[0].length - 1; i++) {
-        code += codeSegment(args[0][i], args[0][i + 1], mark, color).tikz()
+        code += codageSegment(args[0][i], args[0][i + 1], mark, color).tikz()
         code += '\n'
       }
-      code += codeSegment(
+      code += codageSegment(
         args[0][args[0].length - 1],
         args[0][0],
         mark,
@@ -5990,7 +5990,7 @@ function CodeSegments (mark = '||', color = 'black', ...args) {
       code += '\n'
     } else if (args[0].constructor === Segment) {
       for (let i = 0; i < args.length; i++) {
-        code += codeSegment(
+        code += codageSegment(
           args[i].extremite1,
           args[i].extremite2,
           mark,
@@ -6000,23 +6000,23 @@ function CodeSegments (mark = '||', color = 'black', ...args) {
       }
     } else {
       for (let i = 0; i < args.length; i += 2) {
-        code += codeSegment(args[i], args[i + 1], mark, color).tikz()
+        code += codageSegment(args[i], args[i + 1], mark, color).tikz()
         code += '\n'
       }
     }
     return code
   }
 }
-export function codeSegments (mark = '||', color = 'black', ...args) {
-  return new CodeSegments(mark, color, ...args)
+export function codageSegments (mark = '||', color = 'black', ...args) {
+  return new CodageSegments(mark, color, ...args)
 }
 /**
- * m=codeAngle(A,O,45,'X','black',2,1,'red',0.4)
+ * m=codageAngle(A,O,45,'X','black',2,1,'red',0.4)
  * code un angle du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X.
  *  la ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
  * @author Jean-Claude Lhote
  */
-function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
+function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
   ObjetMathalea2D.call(this)
   this.color = color
   this.debut = debut
@@ -6140,18 +6140,18 @@ function CodeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'blac
  * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré (from EE)
  * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle (from EE) : encore optimisable
  * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle (from EE)
- * @returns {object} CodeAngle
- * @example codeAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
- * @example codeAngle(A,O,B) // code l'angle AOB sans aucune autre option possible
+ * @returns {object} CodageAngle
+ * @example codageAngle(A,O,45,0.8,'X','black',2,1,'red',0.4) // code un angle à partir du point A dont le sommet est O et la mesure 45° (sens direct) avec une marque en X. La ligne est noire a une épaisseur de 2 une opacité de 100% et le remplissage à 40% d'opacité est rouge.
+ * @example codageAngle(A,O,B) // code l'angle AOB sans aucune autre option possible
  * @author Jean-Claude Lhote
  */
-export function codeAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
+export function codageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, fill = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
   if (typeof (angle) !== 'number') {
     angle = angleOriente(debut, centre, angle)
   }
   if ((angle === 90 || angle === -90) & !noAngleDroit) {
     return new CodageAngleDroit(debut, centre, rotation(debut, centre, angle), color, taille, epaisseur, opacite, fill, opaciteDeRemplissage)
-  } else return new CodeAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, fill, opaciteDeRemplissage, mesureOn, texteACote, tailleTexte)
+  } else return new CodageAngle(debut, centre, angle, taille, mark, color, epaisseur, opacite, fill, opaciteDeRemplissage, mesureOn, texteACote, tailleTexte)
 }
 
 function NomAngleParPosition (nom, x, y, color, s) {

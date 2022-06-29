@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, labelPoint, droiteGraduee2, grille, segment, milieu, arc, droite, texteParPosition, tracePoint, polygone, codageAngleDroit, fixeBordures, pointSurSegment, angleModulo, rotation, rapporteur, codeAngle
+  mathalea2d, point, labelPoint, droiteGraduee2, grille, segment, milieu, arc, droite, texteParPosition, tracePoint, polygone, codageAngleDroit, fixeBordures, pointSurSegment, angleModulo, rotation, rapporteur, codageAngle
 } from '../../../modules/2d.js'
 import { round, min, max } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur.js'
@@ -392,11 +392,11 @@ export default function SujetCAN2022cinquieme () {
           g = texteParPosition(`$${c}^\\circ$`, 2.7, 5.5)// angle D
           if (choix === 'a') {
             h = texteParPosition('?', 7, 8.5)
-            codeA = codeAngle(F, G, H)
+            codeA = codageAngle(F, G, H)
           }
           if (choix === 'b') {
             h = texteParPosition('?', 5.8, 7.5)
-            codeA = codeAngle(G, F, H)
+            codeA = codageAngle(G, F, H)
           }
 
           poly1.epaisseur = 1
@@ -692,7 +692,7 @@ export default function SujetCAN2022cinquieme () {
           nordEst = rotation(nordEst, A, angC < 0 ? angB + 180 : angB)
           sudOuest = rotation(sudOuest, A, angC < 0 ? angB + 180 : angB)
           nordOuest = rotation(nordOuest, A, angC < 0 ? angB + 180 : angB)
-          objetsEnonce.push(R, AB, AC, codeAngle(B, A, angC, 1, '', 'black', 2, 1, 'none', 0, false, true, '?', 2)) // On remplit les tableaux d'objets Mathalea2d
+          objetsEnonce.push(R, AB, AC, codageAngle(B, A, angC, 1, '', 'black', 2, 1, 'none', 0, false, true, '?', 2)) // On remplit les tableaux d'objets Mathalea2d
           texte = 'Donne la mesure de l\'angle.'
           paramsEnonce = { xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x), ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y), pixelsParCm: 20, scale: 0.4, mainlevee: false }
           texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
