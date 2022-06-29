@@ -3,7 +3,7 @@
 /* eslint-disable no-case-declarations */
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, texteEnCouleur, texteGras } from '../../modules/outils.js'
-import { point, tracePoint, milieu, pointSurSegment, pointIntersectionDD, labelPoint, barycentre, droite, vecteur, segment, polygone, nommePolygone, aireTriangle, arc, rotation, translationAnimee, rotationAnimee, codeSegments, grille, angleOriente, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, milieu, pointSurSegment, pointIntersectionDD, labelPoint, barycentre, droite, vecteur, segment, polygone, nommePolygone, aireTriangle, arc, rotation, translationAnimee, rotationAnimee, codageSegments, grille, angleOriente, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Reconnaître des triangles égaux dans différentes configurations'
 
 /**
@@ -194,13 +194,13 @@ export default function TrianglesEgaux () {
             // les segments
             seg_AB_corr,
             seg_DE_corr,
-            codeSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D, E),
+            codageSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D, E),
             seg_AC_corr,
             seg_DI_corr,
-            codeSegments('||', 'red', p.listePoints[0], p.listePoints[2], D, I),
+            codageSegments('||', 'red', p.listePoints[0], p.listePoints[2], D, I),
             seg_BC_corr,
             seg_EI_corr,
-            codeSegments('O', 'green', p.listePoints[1], p.listePoints[2], I, E),
+            codageSegments('O', 'green', p.listePoints[1], p.listePoints[2], I, E),
             // les angles
             arc(pointSurSegment(p.listePoints[1], p.listePoints[0], 0.8), p.listePoints[1], ang_ABC, true, 'red'),
             arc(pointSurSegment(E, D, 0.8), E, ang_DEI, true, 'red'),
@@ -213,13 +213,13 @@ export default function TrianglesEgaux () {
             // les segments
             seg_AB_corr,
             seg_DE_corr,
-            codeSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D, E),
+            codageSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D, E),
             seg_BC_corr,
             seg_DI1_corr,
-            codeSegments('O', 'green', p.listePoints[1], p.listePoints[2], D, I1),
+            codageSegments('O', 'green', p.listePoints[1], p.listePoints[2], D, I1),
             seg_AC_corr,
             seg_EI1_corr,
-            codeSegments('||', 'red', p.listePoints[0], p.listePoints[2], E, I1),
+            codageSegments('||', 'red', p.listePoints[0], p.listePoints[2], E, I1),
             // les angles
             arc(pointSurSegment(p.listePoints[1], p.listePoints[0], 0.8), p.listePoints[1], ang_ABC, true, 'red'),
             arc(pointSurSegment(D, E, 0.8), D, ang_EDI1, true, 'red'),

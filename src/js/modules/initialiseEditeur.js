@@ -128,9 +128,9 @@ export default function initialiseEditeur () {
   window.texteSurArc = texteSurArc
   window.afficheMesureAngle = afficheMesureAngle
   window.afficheCoteSegment = afficheCoteSegment
-  window.codeSegment = codeSegment
-  window.codeSegments = codeSegments
-  window.codeAngle = codeAngle
+  window.codageSegment = codageSegment
+  window.codageSegments = codageSegments
+  window.codageAngle = codageAngle
   window.nomAngleSaillantParPosition = nomAngleSaillantParPosition
   window.nomAngleRentrantParPosition = nomAngleRentrantParPosition
   window.droiteGraduee = droiteGraduee
@@ -347,9 +347,9 @@ export default function initialiseEditeur () {
     texteSurArc: window.texteSurArc,
     afficheMesureAngle: window.afficheMesureAngle,
     afficheCoteSegment: window.afficheCoteSegment,
-    codeSegment: window.codeSegment,
-    codeSegments: window.codeSegments,
-    codeAngle: window.codeAngle,
+    codageSegment: window.codageSegment,
+    codageSegments: window.codageSegments,
+    codageAngle: window.codageAngle,
     nomAngleSaillantParPosition: window.nomAngleSaillantParPosition,
     nomAngleRentrantParPosition: window.nomAngleRentrantParPosition,
     droiteGraduee: window.droiteGraduee,
