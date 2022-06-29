@@ -1285,76 +1285,6 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
 */
 
 /**
- * Renvoie la médiatrice de [AB] nommée nom de couleur color
- * @param {Point} A
- * @param {Point} B
- * @param {string} [nom=''] Facultatif, vide par défaut
- * @param {string} [color='black'] Facultatif, 'black' par défaut
- * @return {Droite} Droite
- * @author Rémi Angot
-
- export function mediatrice (A, B, nom = '', color = 'black') { //Supprimée par EE au profit d'une autre
-  if (longueur(A, B) < 0.001) window.notify('mediatrice : Points trop rapprochés pour créer cet objet', { A, B })
-  const O = milieu(A, B)
-  const M = rotation(A, O, 90)
-  const N = rotation(A, O, -90)
-  return droite(M, N, nom, color)
-} */
-
-/**
- * Code la médiatrice d'un segment
- * @param {Point} A Première extrémité du segment
- * @param {Point} B Seconde extrémité du segment
- * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
- * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
- * @example CodageMediatrice(M,N) // Code, en noir, la médiatrice du segment[MN] avec les marques 'x'
- * @example CodageMediatrice(M,N,'red','oo') // Code, en rouge, la médiatrice du segment[MN] avec les marques 'oo'
- * @author  Rémi Angot
- * @return {code_SVG|code_TikZ|code_SVGml|code_TikZml}
- * @private
- */
-function CodageMediatrice (A, B, color = 'black', mark = '×') {
-  if (longueur(A, B) < 0.1) window.notify('CodageMediatrice : Points trop rapprochés pour créer ce codage', { A, B })
-  ObjetMathalea2D.call(this)
-  this.color = color
-  const O = milieu(A, B)
-  const M = rotation(A, O, 90)
-  const c = codageAngleDroit(M, O, B, this.color)
-  const v = codageSegments(mark, this.color, A, O, O, B)
-  c.isVisible = false
-  v.isVisible = false
-  this.svg = function (coeff) {
-    const code = `<g id="${this.id}">${c.svg(coeff) + '\n' + v.svg(coeff)}</g>`
-    return code
-  }
-  this.tikz = function () {
-    return c.tikz() + '\n' + v.tikz()
-  }
-  this.svgml = function (coeff, amp) {
-    return c.svgml(coeff, amp) + '\n' + v.svg(coeff)
-  }
-  this.tikzml = function (amp) {
-    return c.tikzml(amp) + '\n' + v.tikz()
-  }
-}
-
-/**
- * Code la médiatrice d'un segment
- * @param {Point} A Première extrémité du segment
- * @param {Point} B Seconde extrémité du segment
- * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
- * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
- * @example codageMediatrice(M,N) // Code, en noir, la médiatrice du segment[MN] avec les marques 'x'
- * @example codageMediatrice(M,N,'red','oo') // Code, en rouge, la médiatrice du segment[MN] avec les marques 'oo'
- * @author  Rémi Angot
- * @return {CodageMediatrice}
- */
-// JSDOC Validee EE Juin 2022
-export function codageMediatrice (...args) {
-  return new CodageMediatrice(...args)
-}
-
-/**
  * Code le milieu d'un segment
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
@@ -1407,40 +1337,48 @@ export function codageMilieu (A, B, color = 'black', mark = '×', mil = true) {
 }
 
 /**
- * Trace et code la médiatrice d'un segment, en laissant apparents les traits de construction au compas
+ * Trace la médiatrice d'un segment, en laissant éventuellement apparents les traits de construction au compas
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
- * @param {boolean} [detail=false] Si détail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
+ * @param {string} [nom=''] Nom de la droite qui s'affiche
+ * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée.
  * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [couleurConstruction='black'] Couleur des traits de construction. Code couleur HTML accepté aussi.
+ * @param {boolean} [construction=false] Si construction est true, alors on affiche le codage et aussi les coups de compas utiles à la construction.
+ * @param {boolean} [detail=false] Si detail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
  * @param {string} [markmilieu='x'] Symbole posé sur les deux parties du segment
  * @param {string} [markrayons='||'] Symbole posé sur les quatre rayons (si détail est true)
- * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseurMediatrice = 1] Epaisseur de la médiatrice
- * @example ConstructionMediatrice(M,N)
- * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1 et code l'angle droit et le segment avec les marques 'x', en bleu.
- * @example ConstructionMediatrice(M,N,true,'green','OO','XX','pink',2)
- * // Trace, en rose, la médiatrice du segment[MN], d'épaisseur 2 et code l'angle droit le segment avec les marques 'OO', les rayons avec les marques 'XX', le tout en vert.
- * @author Rémi Angot
+ * @param {number} [opaciteMediatrice = 1] Taux d'opacité de la médiatrice
+ * @param {integer} [pointillesMediatrice = 0] Si cette valeur est entre 1 et 5, la médiatrice est en pointillés
+ * @example Mediatrice(M,N)
+ * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1, avec une opacité de 100 % sans autre option
+ * @example Mediatrice(M,N,'d','blue')
+ * // Trace, en bleu, la médiatrice du segment[MN], d'épaisseur 1, avec une opacité de 100 % et qui s'appelle 'd'
+ * @example Mediatrice(M,N,'','blue','red','green',true,true,'OO','XX',2,0.5,3)
+ * // Trace, en bleu, la médiatrice du segment[MN], d'épaisseur 2, avec une opacité de 50 % sans nom
+ * // Les traits de construction sont dessinés en vert avec la marque 'OO' pour le segment initial et la marque 'XX' pour les rayons, toutes ces marques étant rouge.
+ * @author Rémi Angot {amendée par Eric Elter en juin 2022}
  * @return {code_SVG|code_TikZ|code_SVGml|code_TikZml}
  * @private
  */
+// JSDOC Validee EE Juin 2022
 function Mediatrice (
   A,
   B,
   nom = '',
   couleurMediatrice = 'red',
   color = 'blue',
-  couleurConstruction = 'black', // traits de construction
+  couleurConstruction = 'black',
   construction = false,
   detail = false,
   markmilieu = '×',
   markrayons = '||',
   epaisseurMediatrice = 1,
   opaciteMediatrice = 1,
-  pointillesMediatrice = ''
+  pointillesMediatrice = 0
 ) {
   if (longueur(A, B) < 0.1) window.notify('ConstructionMediatrice : Points trop rapprochés pour créer cet objet', { A, B })
-
   ObjetMathalea2D.call(this)
   this.color = color
   this.couleurMediatrice = couleurMediatrice
@@ -1518,138 +1456,122 @@ function Mediatrice (
 }
 
 /**
- * Trace et code la médiatrice d'un segment, en laissant apparents les traits de construction au compas
+ * Trace la médiatrice d'un segment, en laissant éventuellement apparents les traits de construction au compas
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
- * @param {boolean} [detail=false] Si détail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
+ * @param {string} [nom=''] Nom de la droite qui s'affiche
+ * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée.
  * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [couleurConstruction='black'] Couleur des traits de construction. Code couleur HTML accepté aussi.
+ * @param {boolean} [construction=false] Si construction est true, alors on affiche le codage et aussi les coups de compas utiles à la construction.
+ * @param {boolean} [detail=false] Si detail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
  * @param {string} [markmilieu='x'] Symbole posé sur les deux parties du segment
  * @param {string} [markrayons='||'] Symbole posé sur les quatre rayons (si détail est true)
- * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseurMediatrice = 1] Epaisseur de la médiatrice
- * @example constructionMediatrice(M,N)
- * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1 et code l'angle droit et le segment avec les marques 'x', en bleu.
- * @example constructionMediatrice(M,N,true,'green','OO','XX','pink',2)
- * // Trace, en rose, la médiatrice du segment[MN], d'épaisseur 2 et code l'angle droit, le segment avec les marques 'OO', les rayons avec les marques 'XX', le tout en vert.
- * @author Rémi Angot
- * @return {ConstructionMediatrice}
+ * @param {number} [opaciteMediatrice = 1] Taux d'opacité de la médiatrice
+ * @param {integer} [pointillesMediatrice = 0] Si cette valeur est entre 1 et 5, la médiatrice est en pointillés
+ * @example mediatrice(M,N)
+ * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1, avec une opacité de 100 % sans autre option
+ * @example mediatrice(M,N,'d','blue')
+ * // Trace, en bleu, la médiatrice du segment[MN], d'épaisseur 1, avec une opacité de 100 % et qui s'appelle 'd'
+ * @example mediatrice(M,N,'','blue','red','green',true,true,'OO','XX',2,0.5,3)
+ * // Trace, en bleu, la médiatrice du segment[MN], d'épaisseur 2, avec une opacité de 50 % sans nom
+ * // Les traits de construction sont dessinés en vert avec la marque 'OO' pour le segment initial et la marque 'XX' pour les rayons, toutes ces marques étant rouge.
+ * @author Rémi Angot {amendée par Eric Elter en juin 2022}
+ * @return {Mediatrice}
  */
 // JSDOC Validee EE Juin 2022
-export function mediatrice (...args) {
-  return new Mediatrice(...args)
+export function mediatrice (A, B, nom = '', couleurMediatrice = 'red', color = 'blue', couleurConstruction = 'black', construction = false, detail = false, markmilieu = '×', markrayons = '||', epaisseurMediatrice = 1, opaciteMediatrice = 1, pointillesMediatrice = 0) {
+  return new Mediatrice(A, B, nom, couleurMediatrice, color, couleurConstruction, construction, detail, markmilieu, markrayons, epaisseurMediatrice, opaciteMediatrice, pointillesMediatrice)
 }
 
 /**
- * Trace la bissectrice d'un angle
- * @param {Point} A Point sur un côté de l'angle
- * @param {Point} O Sommet de l'angle
- * @param {Point} B Point sur l'autre côté de l'angle
- * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
- * @example bissectrice(M,N,P) // Trace, en noir, la bissectrice de l'angle MNP
- * @example bissectrice(M,N,P,'red') // Trace, en rouge, la bissectrice de l'angle MNP
- * @author Rémi Angot
- * @return {demiDroite}
- */
-// JSDOC Validee EE Juin 2022
-export function bissectrice (A, O, B, color = 'black') { //Supprimée par EE au profit d'une autre
-  const demiangle = angleOriente(A, O, B) / 2
-  const m = pointSurSegment(O, A, 3)
-  const M = rotation(m, O, demiangle)
-  return demiDroite(O, M, color)
-}
-*/
-/**
- * Code la bissectrice d'un angle
- * @param {Point} A Point sur un côté de l'angle
- * @param {Point} O Sommet de l'angle
- * @param {Point} B Point sur l'autre côté de l'angle
- * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
- * @param {string} [mark='x'] Symbole posé sur les arcs
- * @example Codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
- * @example Codagebissectrice(M,N,P,'red','oo') // Code, en rouge, la bissectrice de l'angle MNP avec les marques 'oo'
- * @author Jean-Claude Lhote
- * @return {code_SVG|code_TikZ}
- * @private
- */
-// JSDOC Validee EE Juin 2022
-function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
-  ObjetMathalea2D.call(this)
-  this.color = color
-  this.mark = mark
-  this.centre = O
-  this.depart = pointSurSegment(O, A, 1.5)
-  this.demiangle = angleOriente(A, O, B) / 2
-  this.lieu = rotation(this.depart, O, this.demiangle)
-  this.arrivee = pointSurSegment(O, B, 1.5)
-
-  this.svg = function (coeff) {
-    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
-    const a2 = codageAngle(pointSurSegment(this.centre, this.lieu, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
-    return (
-      a1.svg(coeff) +
-      '\n' +
-      a2.svg(coeff) +
-      '\n'
-    )
-  }
-  this.tikz = function () {
-    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
-    const a2 = codageAngle(pointSurSegment(this.centre, this.lieu, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
-    return a1.tikz() + '\n' + a2.tikz() + '\n'
-  }
-}
-
-/**
- * Code la bissectrice d'un angle
- * @param {Point} A Point sur un côté de l'angle
- * @param {Point} O Sommet de l'angle
- * @param {Point} B Point sur l'autre côté de l'angle
- * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
- * @param {string} [mark='x'] Symbole posé sur les arcs
- * @example codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
- * @example codagebissectrice(M,N,P,'red','oo') // Code, en rouge, la bissectrice de l'angle MNP avec les marques 'oo'
- * @author Jean-Claude Lhote
- * @return {CodageBissectrice}
- */
-// JSDOC Validee EE Juin 2022
-export function codageBissectrice (A, O, B, color = 'black', mark = 'x') {
-  return new CodageBissectrice(A, O, B, color, mark)
-}
-
-/**
- * m = bissectrice(A,O,B,'pink','red','green',true,true,'×',tailleLosange,epaisseurBissectrice,couleurConstruction) // Trace et code la bissectrice en laissant apparent les traits de construction au compas
- *
- * @author Rémi Angot (amendée par EE - juin 2022)
- */
-function Bissectrice (
-/**
- * Trace et code la médiatrice d'un segment, en laissant apparents les traits de construction au compas
- * @param {Point} A Point sur un côté de l'angle
- * @param {Point} O Sommet de l'angle
- * @param {Point} B Point sur l'autre côté de l'angle
- * @param {boolean} [detail=false] Si détail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
- * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
- * @param {string} [mark='×'] Symbole posé sur les arcs
- * @param {number} [tailleLosange = 5] Epaisseur de la médiatrice
- * @param {string} [couleurBissectrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
- * @param {number} [epaisseurBissectrice = 1] Epaisseur de la médiatrice
- * @param {string} [couleurConstruction = 'black'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
- * @example ConstructionMediatrice(M,N)
- * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1 et code l'angle droit et le segment avec les marques 'x', en bleu.
- * @example ConstructionMediatrice(M,N,true,'green','OO','XX','pink',2)
- * // Trace, en rose, la médiatrice du segment[MN], d'épaisseur 2 et code l'angle droit le segment avec les marques 'OO', les rayons avec les marques 'XX', le tout en vert.
- * @author Rémi Angot
+ * Code la médiatrice d'un segment
+ * @param {Point} A Première extrémité du segment
+ * @param {Point} B Seconde extrémité du segment
+ * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
+ * @example CodageMediatrice(M,N) // Code, en noir, la médiatrice du segment[MN] avec les marques 'x'
+ * @example CodageMediatrice(M,N,'red','oo') // Code, en rouge, la médiatrice du segment[MN] avec les marques 'oo'
+ * @author  Rémi Angot
  * @return {code_SVG|code_TikZ|code_SVGml|code_TikZml}
  * @private
  */
 // JSDOC Validee EE Juin 2022
-function ConstructionBissectrice (
+function CodageMediatrice (A, B, color = 'black', mark = '×') {
+  if (longueur(A, B) < 0.1) window.notify('CodageMediatrice : Points trop rapprochés pour créer ce codage', { A, B })
+  ObjetMathalea2D.call(this)
+  this.color = color
+  const O = milieu(A, B)
+  const M = rotation(A, O, 90)
+  const c = codageAngleDroit(M, O, B, this.color)
+  const v = codageSegments(mark, this.color, A, O, O, B)
+  c.isVisible = false
+  v.isVisible = false
+  this.svg = function (coeff) {
+    const code = `<g id="${this.id}">${c.svg(coeff) + '\n' + v.svg(coeff)}</g>`
+    return code
+  }
+  this.tikz = function () {
+    return c.tikz() + '\n' + v.tikz()
+  }
+  this.svgml = function (coeff, amp) {
+    return c.svgml(coeff, amp) + '\n' + v.svg(coeff)
+  }
+  this.tikzml = function (amp) {
+    return c.tikzml(amp) + '\n' + v.tikz()
+  }
+}
+
+/**
+ * Code la médiatrice d'un segment
+ * @param {Point} A Première extrémité du segment
+ * @param {Point} B Seconde extrémité du segment
+ * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
+ * @example codageMediatrice(M,N) // Code, en noir, la médiatrice du segment[MN] avec les marques 'x'
+ * @example codageMediatrice(M,N,'red','oo') // Code, en rouge, la médiatrice du segment[MN] avec les marques 'oo'
+ * @author  Rémi Angot
+ * @return {CodageMediatrice}
+ */
+// JSDOC Validee EE Juin 2022
+export function codageMediatrice (...args) {
+  return new CodageMediatrice(...args)
+}
+
+/**
+ * Trace la bissectrice d'un angle, en laissant éventuellement apparents les traits de construction au compas
+ * @param {Point} A Point sur un côté de l'angle
+ * @param {Point} O Sommet de l'angle
+ * @param {Point} B Point sur l'autre côté de l'angle
+ * @param {string} [couleurBissectrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [couleurConstruction = 'black'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {boolean} [construction=false] Si construction est true, alors on affiche le codage et aussi les coups de compas utiles à la construction.
+ * @param {boolean} [detail=false] Si detail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
+ * @param {string} [mark='×'] Symbole posé sur les arcs
+ * @param {number} [tailleLosange = 5] Longueur d'un côté du losange de construcion
+ * @param {number} [epaisseurBissectrice = 1] Epaisseur de la bissectrice
+ * @param {number} [opaciteBissectrice = 1] Taux d'opacité de la bissectrice
+ * @param {integer} [pointillesBissectrice = 0] Si cette valeur est entre 1 et 5, la bissectrice est en pointillés
+ * @example Bissectrice(N,R,J)
+ * // Trace, en rouge, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %, sans autre option
+ * @example Bissectrice(N,R,J,'blue')
+ * // Trace, en bleu, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %, sans autre option
+ * @example Bissectrice(N,R,J,'blue','red','green',true,true,'||',6,2,0.5,3)
+ * // Trace, en rouge, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %. Les traits de construction sont dessinés en vert avec les marques '||' en rouge.
+ * @author Rémi Angot (amendée par Eric Elter en juin 2022)
+ * @return {code_SVG|code_TikZ|code_SVGml|code_TikZml}
+ * @private
+ */
+// JSDOC Validee EE Juin 2022
+function Bissectrice (
   A,
   O,
   B,
   couleurBissectrice = 'red',
-  color = 'blue', // codage
-  couleurConstruction = 'black', // traits de construction
+  color = 'blue',
+  couleurConstruction = 'black',
   construction = false,
   detail = false,
   mark = '×',
@@ -1726,8 +1648,91 @@ function ConstructionBissectrice (
   }
 }
 
-export function bissectrice (...args) {
-  return new Bissectrice(...args)
+/**
+ * Trace la bissectrice d'un angle, en laissant éventuellement apparents les traits de construction au compas
+ * @param {Point} A Point sur un côté de l'angle
+ * @param {Point} O Sommet de l'angle
+ * @param {Point} B Point sur l'autre côté de l'angle
+ * @param {string} [couleurBissectrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [couleurConstruction = 'black'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {boolean} [construction=false] Si construction est true, alors on affiche le codage et aussi les coups de compas utiles à la construction.
+ * @param {boolean} [detail=false] Si detail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
+ * @param {string} [mark='×'] Symbole posé sur les arcs
+ * @param {number} [tailleLosange = 5] Longueur d'un côté du losange de construcion
+ * @param {number} [epaisseurBissectrice = 1] Epaisseur de la bissectrice
+ * @param {number} [opaciteBissectrice = 1] Taux d'opacité de la bissectrice
+ * @param {integer} [pointillesBissectrice = 0] Si cette valeur est entre 1 et 5, la bissectrice est en pointillés
+ * @example bissectrice(N,R,J)
+ * // Trace, en rouge, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %, sans autre option
+ * @example bissectrice(N,R,J,'blue')
+ * // Trace, en bleu, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %, sans autre option
+ * @example bissectrice(N,R,J,'blue','red','green',true,true,'||',6,2,0.5,3)
+ * // Trace, en rouge, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %. Les traits de construction sont dessinés en vert avec les marques '||' en rouge.
+ * @author Rémi Angot (amendée par Eric Elter en juin 2022)
+ * @return {Bissectrice}
+ */
+// JSDOC Validee Eric Elter Juin 2022
+export function bissectrice (A, O, B, couleurBissectrice = 'red', color = 'blue', couleurConstruction = 'black', construction = false, detail = false, mark = '×', tailleLosange = 5, epaisseurBissectrice = 1, opaciteBissectrice = 1, pointillesBissectrice = '') {
+  return new Bissectrice(A, O, B, couleurBissectrice, color, couleurConstruction, construction, detail, mark, tailleLosange, epaisseurBissectrice, opaciteBissectrice, pointillesBissectrice)
+}
+
+/**
+ * Code la bissectrice d'un angle
+ * @param {Point} A Point sur un côté de l'angle
+ * @param {Point} O Sommet de l'angle
+ * @param {Point} B Point sur l'autre côté de l'angle
+ * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
+ * @param {string} [mark='x'] Symbole posé sur les arcs
+ * @example Codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
+ * @example Codagebissectrice(M,N,P,'red','oo') // Code, en rouge, la bissectrice de l'angle MNP avec les marques 'oo'
+ * @author Jean-Claude Lhote
+ * @return {code_SVG|code_TikZ}
+ * @private
+ */
+// JSDOC Validee EE Juin 2022
+function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
+  ObjetMathalea2D.call(this)
+  this.color = color
+  this.mark = mark
+  this.centre = O
+  this.depart = pointSurSegment(O, A, 1.5)
+  this.demiangle = angleOriente(A, O, B) / 2
+  this.lieu = rotation(this.depart, O, this.demiangle)
+  this.arrivee = pointSurSegment(O, B, 1.5)
+
+  this.svg = function (coeff) {
+    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
+    const a2 = codageAngle(pointSurSegment(this.centre, this.lieu, 30 / coeff), O, this.demiangle, 30 / coeff, this.mark, this.color, 1, 1)
+    return (
+      a1.svg(coeff) +
+      '\n' +
+      a2.svg(coeff) +
+      '\n'
+    )
+  }
+  this.tikz = function () {
+    const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
+    const a2 = codageAngle(pointSurSegment(this.centre, this.lieu, 1.5 / context.scale), O, this.demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
+    return a1.tikz() + '\n' + a2.tikz() + '\n'
+  }
+}
+
+/**
+ * Code la bissectrice d'un angle
+ * @param {Point} A Point sur un côté de l'angle
+ * @param {Point} O Sommet de l'angle
+ * @param {Point} B Point sur l'autre côté de l'angle
+ * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
+ * @param {string} [mark='x'] Symbole posé sur les arcs
+ * @example codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
+ * @example codagebissectrice(M,N,P,'red','oo') // Code, en rouge, la bissectrice de l'angle MNP avec les marques 'oo'
+ * @author Jean-Claude Lhote
+ * @return {CodageBissectrice}
+ */
+// JSDOC Validee EE Juin 2022
+export function codageBissectrice (A, O, B, color = 'black', mark = 'x') {
+  return new CodageBissectrice(A, O, B, color, mark)
 }
 
 /*
@@ -10062,13 +10067,14 @@ export function courbeSpline (...args) {
   return new CourbeSpline(...args)
 }
 
-/**
- * @SOURCE : https://gist.github.com/ericelliott/80905b159e1f3b28634ce0a690682957
- */
 // y1: start value
 // y2: end value
 // mu: the current frame of the interpolation,
 //     in a linear range from 0-1.
+/**
+ * @SOURCE : https://gist.github.com/ericelliott/80905b159e1f3b28634ce0a690682957
+ * @private
+ */
 const cosineInterpolate = (y1, y2, mu) => {
   const mu2 = (1 - Math.cos(mu * Math.PI)) / 2
   return y1 * (1 - mu2) + y2 * mu2
@@ -10330,10 +10336,12 @@ export function intervalle (A, B, color = 'blue', h = 0) {
 
 /**
  * convertHexToRGB convertit une couleur en héxadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
+ * @param {string} [Couleur='000000'] Code couleur HTML sans le #
  * @example convertHexToRGB('f15929')=[241,89,41]
  * @author Eric Elter
+ * @return {Array.integer}
  */
-
+// JSDOC Validee EE Juin 2022
 function convertHexToRGB (couleur = '000000') {
   const hexDecoupe = couleur.match(/.{1,2}/g)
   const hexToRGB = [

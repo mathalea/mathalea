@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { point, mathalea2d, tracePoint, segment, colorToLatexOrHTML, droite, polygone, cercle, labelPoint, codageAngleDroit, codeSegment, texteParPoint, codageMediatrice, codageMilieu, codeAngle, codageBissectrice, nomVecteurParPosition, ellipse, arc, constructionBissectrice, codageHauteurTriangle, codageMedianeTriangle, afficheLongueurSegment, texteSurSegment, vecteur, pointIntersectionLC, texteSurArc, grilleVerticale, grilleHorizontale, lectureImage, constructionMediatrice, rapporteur } from '../../modules/2d.js'
+import { point, mathalea2d, tracePoint, segment, colorToLatexOrHTML, droite, polygone, cercle, labelPoint, codageAngleDroit, codeSegment, texteParPoint, codageMediatrice, codageMilieu, codageAngle, codageBissectrice, nomVecteurParPosition, ellipse, arc, constructionBissectrice, codageHauteurTriangle, codageMedianeTriangle, afficheLongueurSegment, texteSurSegment, vecteur, pointIntersectionLC, texteSurArc, grilleVerticale, grilleHorizontale, lectureImage, constructionMediatrice, rapporteur } from '../../modules/2d.js'
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -46,7 +46,7 @@ export default function CalculedddrUnAngle () {
       const m6 = arc(C, B, 60, 5, '', '#f15929', 1, 'green')
       const m7 = arc(E, B, 60, 5, '#f15929', 'blue', 1, 'none')
       const m8 = rapporteur({ x: 0, y: 0, taille: 7, depart: 20, semi: true, avecNombre: 'unSens', rayonsVisibles: true, precisionAuDegre: 10 })
-      const p13 = codeAngle(C, A, 45, 5, 'X', 'blue', 1, 1, '#f15929', 0.4)
+      const p13 = codageAngle(C, A, 45, 5, 'X', 'blue', 1, 1, '#f15929', 0.4)
       objetsEnonce.push(p1, p5, p13)
       /*
       const p2 = segment(A, B, '#f15929')
@@ -69,8 +69,8 @@ export default function CalculedddrUnAngle () {
       // const p13b = arc(C, A, -217, true, '#f15929', '#f15929', 0.2)
       // p13b.hachures = true
       // const p13 = arc(C, A, 45, true, 'red', 'blue')
-      // const p13 = codeAngle(C, A, 45, 0.8, 'X', '#f15929', 1, 1, 'blue', 1)
-      const p13 = codeAngle(C, A, 45, 0.8, 'X', 'blue', 1, 1, '#f15929', 0.4)
+      // const p13 = codageAngle(C, A, 45, 0.8, 'X', '#f15929', 1, 1, 'blue', 1)
+      const p13 = codageAngle(C, A, 45, 0.8, 'X', 'blue', 1, 1, '#f15929', 0.4)
       const p14 = codageBissectrice(C, D, B, '#f15929', 'oo')
       const p15 = nomVecteurParPosition('toto', -1, -1, 1, 10, '#f15929')
       const p16 = ellipse(A, 1, 2)
