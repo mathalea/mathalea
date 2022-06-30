@@ -10229,7 +10229,7 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
   this.tikz = function () {
     let code
     if (this.colorBackground !== '') {
-      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{ ${colorBackground[1]}}{${taille}  $\\color{${this.color}}{${texte}}$}};`
+      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{ ${colorBackground}}{${taille}  $\\color{${this.color}}{${texte}}$}};`
     } else {
       code = `\\draw (${x},${y}) node[anchor = center] {${taille} $\\color{${this.color}}{${texte}}$};`
     };
