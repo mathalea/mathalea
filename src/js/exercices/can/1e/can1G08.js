@@ -1,10 +1,10 @@
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, sp, texteCentre, ecritureAlgebrique } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu, sp, texteCentre, ecritureAlgebrique, egal } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { setReponse } from '../../../modules/gestionInteractif.js'
+import { afficheScore, setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer un vecteur normal avec une équation cartésienne'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'custom'
 export const dateDePublication = '29/06/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -17,14 +17,14 @@ export default function VecteurNormEqCart () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur11 inline'
   this.tailleDiaporama = 1
-
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let texte; let texteCorr; let a; let b; let c
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    let texte; let texteCorr
+
+    for (let i = 0, a, b, c, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = randint(-9, 9)
       b = randint(-9, 9, 0)
       c = randint(-5, 5, 0)
@@ -52,5 +52,30 @@ export default function VecteurNormEqCart () {
       cpt++
     }
     listeQuestionsToContenu(this)
+  }
+  this.correctionInteractive = i => {
+    const champTexte1 = document.getElementById(`champTexteEx${this.numeroExercice}Q${2 * i}`)
+    const champTexte2 = document.getElementById(`champTexteEx${this.numeroExercice}Q${2 * i + 1}`)
+    const divFeedback1 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i}`)
+    const divFeedback2 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i + 1}`)
+    let saisie1 = champTexte1.value.replace(',', '.')
+    let saisie2 = champTexte2.value.replace(',', '.')
+    saisie1 = saisie1.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+    saisie2 = saisie2.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+    const x0 = this.autoCorrection[2 * i].reponse.valeur[0]
+    const y0 = this.autoCorrection[2 * i + 1].reponse.valeur[0]
+    const x = Number(saisie1)
+    const y = Number(saisie2)
+    let resultat
+    if (egal(x / x0, y / y0)) {
+      divFeedback1.innerHTML = '😎'
+      divFeedback2.innerHTML = '😎'
+      resultat = 'OK'
+    } else {
+      divFeedback1.innerHTML = '☹️'
+      divFeedback2.innerHTML = '☹️'
+      resultat = 'KO'
+    }
+    return resultat
   }
 }
