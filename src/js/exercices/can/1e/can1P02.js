@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, texNombre, choisitLettresDifferentes } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texNombre, choisitLettresDifferentes, sp } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { Arbre } from '../../../modules/arbres.js'
 import { mathalea2d } from '../../../modules/2d.js'
@@ -37,12 +37,15 @@ export default function LectureProbabilite () {
       // On choisit les probas de l'arbre
       nom1 = choisitLettresDifferentes(1)
       nom2 = choisitLettresDifferentes(1, nom1)
-      pA = (new Decimal(randint(1, 9))).div(10)
+      pA = (new Decimal(randint(1, 9, 5))).div(10)
 
       pB = new Decimal(1 - pA)
       pAC = (new Decimal(randint(1, 9) * 10 + randint(1, 9))).div(100)
       pBC = (new Decimal(randint(1, 9) * 10 + randint(1, 9))).div(100)
-      while (pAC === pBC) {
+      while (pAC === pBC || pAC === 1 - pBC) {
+        pA = (new Decimal(randint(1, 9, 5))).div(10)
+
+        pB = new Decimal(1 - pA)
         pAC = (new Decimal(randint(1, 9) * 10 + randint(1, 9))).div(100)
         pBC = (new Decimal(randint(1, 9) * 10 + randint(1, 9))).div(100)
       }
@@ -99,8 +102,10 @@ export default function LectureProbabilite () {
       texte = 'On donne l\'arbre de probabilités ci dessous :<br>'
       texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline' }, ...objets)
       texte += '<br>Compléter avec la notation qui convient : '
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
-      texte += `$=${texNombre(choix, 2)}$`
+      if (this.interactif) {
+        texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+      } else { texte += `${sp(7)}$\\ldots\\ldots $` }
+      texte += ` $= ${texNombre(choix, 2)}$`
       texteCorr = `On peut lire à l'aide de l'arbre (les probabilités conditionnelles se lisent sur la deuxième partie de l'arbre):<br>
       $p(${nom1})=${texNombre(pA, 2)}$, 
       $p(\\overline{${nom1}})=${texNombre(pB, 2)}$, 
@@ -137,5 +142,4 @@ export default function LectureProbabilite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Probabilité rationnelle', true]
 }
