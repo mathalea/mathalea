@@ -100,7 +100,7 @@ export default function LectureProbabilite () {
       texte = 'On donne l\'arbre de probabilités ci dessous :<br>'
       texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline' }, ...objets)
       texte += `<br>Compléter avec la notation qui convient : `
-      texte += ajouteChampTexteMathLive(this, i,'lycee')
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
       texte += `$=${texNombre(choix, 2)}$`
       texteCorr = `On peut lire à l'aide de l'arbre (les probabilités conditionnelles se lisent sur la deuxième partie de l'arbre):<br>
       $p(${nom1})=${texNombre(pA, 2)}$, 
@@ -111,25 +111,24 @@ export default function LectureProbabilite () {
       $p_{\\overline{${nom1}}}(\\overline{${nom2}})=${texNombre(1 - pBC, 2)}$.
       `
       if (choix === pA) {
-        setReponse(this, i, pA)
+        setReponse(this, i, [`p(${nom1})`, `P(${nom1})`])
       }
       if (choix === pB) {
-        setReponse(this, i, pB)
+        setReponse(this, i, `p(\\overline{${nom1}})`)
       }
 
       if (choix === pAC) {
-        setReponse(this, i, pAC)
+        setReponse(this, i, `$p_{${nom1}}(${nom2})$`)
       }
       if (choix === 1 - pAC) {
-        setReponse(this, i, 1 - pAC)
+        setReponse(this, i, `p_${nom1}(\\overline{${nom2}})`)
       }
       if (choix === pBC) {
-        setReponse(this, i, pBC)
+        setReponse(this, i, `p_\\overline{${nom1}(${nom2})`)
       }
       if (choix === 1 - pBC) {
-        setReponse(this, i, 1 - pBC)
+        setReponse(this, i, `p_\\overline{${nom1}(\\overline{${nom2}})`)
       }
-
       if (this.questionJamaisPosee(i, pA, pAC, pBC)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
