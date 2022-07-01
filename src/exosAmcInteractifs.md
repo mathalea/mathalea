@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 456 
-- nombre d'exos interactifReady 693 
+- nombre d'exos amcReady 462 
+- nombre d'exos interactifReady 704 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -407,11 +407,15 @@
 |can1F13|Déterminer le coefficient directeur d’une tangente (fonctions de référence)|KO|KO|OK|mathLive|
 |can1F14|Déterminer un nombre dérivé|KO|KO|OK|mathLive|
 |can1F15|Lire graphiquement un nombre dérivé|KO|KO|OK|mathLive|
-|can1F17|Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\sqrt{x}$|KO|KO|OK|mathLive|
+|can1F16|Déterminer une équation de tangente à partir des courbes de $f$ et $f’$|KO|KO|OK|mathLive|
+|can1F17|Déterminer la fonction dérivée d’une fonction $1/u(x)$|KO|KO|OK|mathLive|
+|can1F18|Déterminer la fonction dérivée d’une fonction $a/u(x)$|KO|KO|OK|mathLive|
+|can1F19|Calculer une dérivée et écrire le résultat sous la forme d’un quotient|KO|KO|OK|mathLive|
 |can1G01|Déterminer les valeurs remarquables du cosinus et sinus|KO|KO|OK|mathLive|
 |can1G02|Déterminer les valeurs remarquables du cosinus et sinus*|KO|KO|OK|mathLive|
 |can1G03|Simplifier les sinus et cosinus des angles associés|KO|KO|OK|mathLive|
 |can1G04|Calculer un produit scalaire à l’aide de normes et d’un angle |KO|KO|OK|mathLive|
+|can1G05|Déterminer un produit scalaire avec les coordonnées|KO|KO|OK|mathLive|
 |can1L01|Calculer un discriminant|OK|AMCNum|OK|mathLive|
 |can1L02|Déterminer le nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
 |can1L03|Trouver les racines à partir d’une forme factorisée|KO|KO|OK|mathLive|
@@ -422,6 +426,7 @@
 |can1L08|Déterminer un coefficient dans un développement*|KO|KO|OK|mathLive|
 |can1L09|Résoudre une équation $ax^2+bx+c=c$ |KO|KO|OK|mathLive|
 |can1P01|Calculer des probabilités à partir d’un arbre|OK|AMCNum|OK|mathLive|
+|can1P02|Lire une probabilité  à partir d’un arbre|OK|AMCNum|OK|mathLive|
 |can1S01|Calculer un terme d’une suite explicite|KO|KO|OK|mathLive|
 |can1S02|Calculer un terme d’une suite récurrente|KO|KO|OK|mathLive|
 |can1S03|Calculer un terme d’une suite récurrente*|KO|KO|OK|mathLive|
@@ -474,6 +479,7 @@
 |can2G13|Calculer la norme d’un vecteur|KO|KO|OK|mathLive|
 |can2G14|Déterminer les coordonnées d'un point avec une translation|KO|KO|OK|mathLive|
 |can2G15|Déterminer le déterminant de deux vecteurs.|KO|KO|OK|mathLive|
+|can2G16|Trouver un coefficient de colinéarité (graphique)|OK|AMCHybride|OK|mathLive|
 |can2L01|Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Calculer les coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite|KO|KO|OK|mathLive|
@@ -716,4 +722,8 @@
 |HPC102|Calculs de probabilité avec la loi normale|KO|KO|OK|mathLive|
 |techno1E2|Associer évolution en pourcentage et coefficient|KO|KO|OK|mathLive|
 |techno1P1|Écriture fractionnaire, écriture décimale, pourcentage|KO|KO|OK|mathLive|
+|techno1P2-1|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |techno1P2|Appliquer un pourcentage|KO|KO|OK|mathLive|
+|techno1P3|Proportions|OK|AMCNum|OK|mathLive|
+|techno1P4|Proportions de proportions|OK|AMCNum|OK|mathLive|
+|techno1P5|Déterminer un effectif à partir d'une proportion|OK|AMCNum|OK|mathLive|

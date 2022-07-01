@@ -11471,13 +11471,61 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "can1F16": {
+    "titre": "Déterminer une équation de tangente à partir des courbes de $f$ et $f’$",
+    "url": "/exercices/can/1e/can1F16.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1F16",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "can1F17": {
-    "titre": "Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\\sqrt{x}$",
+    "titre": "Déterminer la fonction dérivée d’une fonction $1/u(x)$",
     "url": "/exercices/can/1e/can1F17.js",
     "amcReady": false,
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can1F17",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1F18": {
+    "titre": "Déterminer la fonction dérivée d’une fonction $a/u(x)$",
+    "url": "/exercices/can/1e/can1F18.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1F18",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1F19": {
+    "titre": "Calculer une dérivée et écrire le résultat sous la forme d’un quotient",
+    "url": "/exercices/can/1e/can1F19.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1F19",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -11542,6 +11590,22 @@ export default {
     "interactifReady": true,
     "interactifType": "mathLive",
     "name": "can1G04",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1G05": {
+    "titre": "Déterminer un produit scalaire avec les coordonnées",
+    "url": "/exercices/can/1e/can1G05.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1G05",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -11710,6 +11774,25 @@ export default {
     "name": "can1P01",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can1P02": {
+    "titre": "Lire une probabilité  à partir d’un arbre",
+    "url": "/exercices/can/1e/can1P02.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can1P02",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -12563,6 +12646,25 @@ export default {
     "name": "can2G15",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "can2G16": {
+    "titre": "Trouver un coefficient de colinéarité (graphique)",
+    "url": "/exercices/can/2e/can2G16.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "can2G16",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -17394,6 +17496,40 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "techno1P2-1": {
+    "titre": "Appliquer un pourcentage",
+    "url": "/exercices/techno1/techno1P2-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "techno1P2-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "techno1P2-2": {
+    "titre": "Proportion d'une sous-population",
+    "url": "/exercices/techno1/techno1P2-2.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "techno1P2-2",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "techno1P2": {
     "titre": "Appliquer un pourcentage",
     "url": "/exercices/techno1/techno1P2.js",
@@ -17403,6 +17539,63 @@ export default {
     "name": "techno1P2",
     "newEx": {
       "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "techno1P3": {
+    "titre": "Proportions",
+    "url": "/exercices/techno1/techno1P3.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "techno1P3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "techno1P4": {
+    "titre": "Proportions de proportions",
+    "url": "/exercices/techno1/techno1P4.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "techno1P4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "techno1P5": {
+    "titre": "Déterminer un effectif à partir d'une proportion",
+    "url": "/exercices/techno1/techno1P5.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "techno1P5",
+    "newEx": {
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

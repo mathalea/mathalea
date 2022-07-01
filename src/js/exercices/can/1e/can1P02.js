@@ -71,14 +71,14 @@ export default function LectureProbabilite () {
               new Arbre(
                 {
                   rationnel: false,
-                  nom: `\\bar{${nom2}}`,
+                  nom: `\\overline{${nom2}}`,
                   proba: new Decimal(1 - pAC)
                 })
               ]
             }),
           new Arbre({
             rationnel: false,
-            nom: `\\bar{${nom1}}`,
+            nom: `\\overline{${nom1}}`,
             proba: new Decimal(1 - pA),
             enfants: [new Arbre({
               rationnel: false,
@@ -87,7 +87,7 @@ export default function LectureProbabilite () {
             }),
             new Arbre({
               rationnel: false,
-              nom: `\\bar{${nom2}}`,
+              nom: `\\overline{${nom2}}`,
               proba: new Decimal(1 - pBC)
             })
             ]
@@ -99,7 +99,8 @@ export default function LectureProbabilite () {
       objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
       texte = 'On donne l\'arbre de probabilités ci dessous :<br>'
       texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline' }, ...objets)
-      texte += `<br>Compléter avec la notation qui convient :  ${(this.interactif || !context.isHtml) ? ajouteChampTexteMathLive(this, i, 'largeur10 inline') : '\\ldots'}`
+      texte += `<br>Compléter avec la notation qui convient : `
+      texte += ajouteChampTexteMathLive(this, i,'lycee')
       texte += `$=${texNombre(choix, 2)}$`
       texteCorr = `On peut lire à l'aide de l'arbre (les probabilités conditionnelles se lisent sur la deuxième partie de l'arbre):<br>
       $p(${nom1})=${texNombre(pA, 2)}$, 
