@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, repere2, courbe2, labelPoint, segment, milieu, texteParPosition, codeSegment
+  mathalea2d, point, repere2, courbe2, labelPoint, segment, milieu, texteParPosition, codageSegment
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, stringNombre, randint, ecritureAlgebrique, texNombre, texFractionReduite, printlatex, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
@@ -635,10 +635,10 @@ export default function SujetCAN2021Seconde () {
           B = point(4, 0, 'B', 'below')
           C = point(4, 4, 'C', 'above')
           D = point(0, 4, 'D', 'above')
-          code1 = codeSegment(A, B, '|')
-          code2 = codeSegment(B, C, '|')
-          code3 = codeSegment(C, D, '|')
-          code4 = codeSegment(A, D, '|')
+          code1 = codageSegment(A, B, '|')
+          code2 = codageSegment(B, C, '|')
+          code3 = codageSegment(C, D, '|')
+          code4 = codageSegment(A, D, '|')
           xmin = -1
           ymin = -1
           xmax = 5

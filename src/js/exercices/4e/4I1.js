@@ -136,7 +136,7 @@ export default function TracerAvecScratch () {
         // le lutin2  trace le cadre en pointillés
         const lutin2 = creerLutin()
         lutin2.color = 'black'
-        lutin2.pointilles = true
+        lutin2.pointilles = 5
         allerA(fenetreMathalea2D.xmin * pixelsParCm, fenetreMathalea2D.ymax * pixelsParCm, lutin2)
         baisseCrayon(lutin2)
         allerA(fenetreMathalea2D.xmax * pixelsParCm, fenetreMathalea2D.ymax * pixelsParCm, lutin2)
@@ -193,7 +193,7 @@ export default function TracerAvecScratch () {
         // le lutin3  trace le cadre
         const lutin3 = creerLutin()
         lutin3.color = 'black'
-        lutin3.pointilles = true
+        lutin3.pointilles = 5
         allerA(fenetreMathalea2D.xmin * pixelsParCm, fenetreMathalea2D.ymax * pixelsParCm, lutin3)
         baisseCrayon(lutin3)
         allerA(fenetreMathalea2D.xmax * pixelsParCm, fenetreMathalea2D.ymax * pixelsParCm, lutin3)

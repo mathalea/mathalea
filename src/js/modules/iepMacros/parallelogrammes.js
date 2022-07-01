@@ -74,7 +74,7 @@ export function parallelogramme2sommetsConsecutifsCentre (A, B, O, nomC = '', no
   if (description && nom.length === 4) {
     this.textePosition(`${A.nom + B.nom + C.nom + D.nom} est un parallélogramme donc ses diagonales se coupent en leur milieu.`, xMin - 1, yMin - 1)
   }
-  this.pointilles = true
+  this.pointilles = 5
   this.epaisseur = 1
   this.couleur = this.couleurTraitsDeConstruction
   this.regleDemiDroiteOriginePoint(A, O, { longueur: longueur(A, C) + 3 })
@@ -87,7 +87,7 @@ export function parallelogramme2sommetsConsecutifsCentre (A, B, O, nomC = '', no
   this.pointilles = false
   this.compasTracerArcCentrePoint(O, C)
   this.compasMasquer()
-  this.pointilles = true
+  this.pointilles = 5
   this.regleDemiDroiteOriginePoint(B, O, { longueur: longueur(B, D) + 3 })
   this.regleMasquer()
   this.crayonMasquer()
@@ -127,7 +127,7 @@ export function parallelogrammeAngleCentre (D, A, B, O) {
   this.traitRapide(A, D1)
   this.pointCreer(O, { tempo: 0 })
   this.pointCreer(A, { tempo: 0 })
-  this.regleDemiDroiteOriginePoint(A, O, { couleur: this.couleurTraitsDeConstruction, epaisseur: 1, pointilles: true })
+  this.regleDemiDroiteOriginePoint(A, O, { couleur: this.couleurTraitsDeConstruction, epaisseur: 1, pointilles: 5 })
   this.pointilles = false
   this.regleMasquer()
   this.crayonMasquer()

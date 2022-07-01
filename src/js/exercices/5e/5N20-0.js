@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, calcul, texteEnCouleur, texteGras, numAlpha } from '../../modules/outils.js'
-import { point, labelPoint, segment, cercleCentrePoint, rotation, codageAngleDroit, codeAngle, mathalea2d } from '../../modules/2d.js'
+import { point, labelPoint, segment, cercleCentrePoint, rotation, codageAngleDroit, codageAngle, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Résoudre un problème en utilisant des fractions'
 
 /**
@@ -129,7 +129,7 @@ export default function ProblemesAdditifsFractions5e () {
         if (angle === 90) {
           return codageAngleDroit(A, O, B)
         } else {
-          return codeAngle(A, O, angle, ...args)
+          return codageAngle(A, O, angle, ...args)
         };
       };
 
@@ -198,35 +198,35 @@ L'angle rouge mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet,
       const LLVolsegmentcat1 = rotation(AVols, OVols, situations[0].cat1.angle / 2, situations[0].cat1.nom)
       const segmentLegendeCat1 = segment(LVolsegmentcat1, LLVolsegmentcat1)
       segmentLegendeCat1.styleExtremites = '->'
-      segmentLegendeCat1.pointilles = true
+      segmentLegendeCat1.pointilles = 5
 
       const LVolsegmentcat2 = rotation(LVolsegmentcat1, OVols, situations[0].cat1.angle / 2 + situations[0].cat2.angle / 2, situations[0].cat2.nom)
       LVolsegmentcat2.positionLabel = myLabelPosition(LVolsegmentcat2.y)
       const LLVolsegmentcat2 = rotation(BVols, OVols, situations[0].cat2.angle / 2, situations[0].cat2.nom)
       const segmentLegendeCat2 = segment(LVolsegmentcat2, LLVolsegmentcat2)
       segmentLegendeCat2.styleExtremites = '->'
-      segmentLegendeCat2.pointilles = true
+      segmentLegendeCat2.pointilles = 5
 
       const LVolsegmentcat3 = rotation(LVolsegmentcat2, OVols, situations[0].cat2.angle / 2 + situations[0].cat3.angle / 2, situations[0].cat3.nom)
       LVolsegmentcat3.positionLabel = myLabelPosition(LVolsegmentcat3.y)
       const LLVolsegmentcat3 = rotation(CVols, OVols, situations[0].cat3.angle / 2, situations[0].cat3.nom)
       const segmentLegendeCat3 = segment(LVolsegmentcat3, LLVolsegmentcat3)
       segmentLegendeCat3.styleExtremites = '->'
-      segmentLegendeCat3.pointilles = true
+      segmentLegendeCat3.pointilles = 5
 
       const LVolsegmentcat4 = rotation(LVolsegmentcat3, OVols, situations[0].cat3.angle / 2 + situations[0].cat4.angle / 2, situations[0].cat4.nom)
       LVolsegmentcat4.positionLabel = myLabelPosition(LVolsegmentcat4.y)
       const LLVolsegmentcat4 = rotation(DVols, OVols, situations[0].cat4.angle / 2, situations[0].cat4.nom)
       const segmentLegendeCat4 = segment(LVolsegmentcat4, LLVolsegmentcat4)
       segmentLegendeCat4.styleExtremites = '->'
-      segmentLegendeCat4.pointilles = true
+      segmentLegendeCat4.pointilles = 5
 
       const LVolsegmentcat5 = rotation(LVolsegmentcat4, OVols, situations[0].cat4.angle / 2 + situations[0].cat5.angle / 2, situations[0].cat5.nom)
       LVolsegmentcat5.positionLabel = myLabelPosition(LVolsegmentcat5.y)
       const LLVolsegmentcat5 = rotation(EVols, OVols, situations[0].cat5.angle / 2, situations[0].cat5.nom)
       const segmentLegendeCat5 = segment(LVolsegmentcat5, LLVolsegmentcat5)
       segmentLegendeCat5.styleExtremites = '->'
-      segmentLegendeCat5.pointilles = true
+      segmentLegendeCat5.pointilles = 5
 
       const mesAppels = [
         cVols,

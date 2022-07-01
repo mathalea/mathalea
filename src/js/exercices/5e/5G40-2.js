@@ -1,4 +1,4 @@
-import { point, polygone, segment, milieu, nommePolygone, codeSegment, codeAngle, mathalea2d, latexParPoint } from '../../modules/2d.js'
+import { point, polygone, segment, milieu, nommePolygone, codageSegment, codageAngle, mathalea2d, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { creerNomDePolygone, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Reconnaître un parallélogramme à partir du codage d\'une figure'
@@ -35,21 +35,21 @@ export default function ParallelogrammeAPartirDUneFigure () {
     O.nom = 'O'
     const p = polygone(A, B, C, D)
     const sAC = segment(A, C)
-    sAC.pointilles = true
+    sAC.pointilles = 5
     const sBD = segment(B, D)
-    sBD.pointilles = true
-    const sABcodage = codeSegment(A, B, 'X', 'blue')
-    const sCDcodage = codeSegment(C, D, 'X', 'blue')
-    const sADcodage = codeSegment(A, D, '▼', 'blue')
-    const sBCcodage = codeSegment(B, C, '▼', 'blue')
-    const sAOcodage = codeSegment(A, O, '|', 'blue')
-    const sCOcodage = codeSegment(O, C, '|', 'blue')
-    const sBOcodage = codeSegment(B, O, '||', 'blue')
-    const sDOcodage = codeSegment(O, D, '||', 'blue')
-    const aDABcodage = codeAngle(D, A, B, 0.8, '|', 'black', 1, 1, 'blue')
-    const aBCDcodage = codeAngle(B, C, D, 0.8, '|', 'black', 1, 1, 'blue')
-    const aABCcodage = codeAngle(A, B, C, 0.8, '|||', 'black', 1, 1, 'orange')
-    const aCDAcodage = codeAngle(C, D, A, 0.8, '|||', 'black', 1, 1, 'orange')
+    sBD.pointilles = 5
+    const sABcodage = codageSegment(A, B, 'X', 'blue')
+    const sCDcodage = codageSegment(C, D, 'X', 'blue')
+    const sADcodage = codageSegment(A, D, '▼', 'blue')
+    const sBCcodage = codageSegment(B, C, '▼', 'blue')
+    const sAOcodage = codageSegment(A, O, '|', 'blue')
+    const sCOcodage = codageSegment(O, C, '|', 'blue')
+    const sBOcodage = codageSegment(B, O, '||', 'blue')
+    const sDOcodage = codageSegment(O, D, '||', 'blue')
+    const aDABcodage = codageAngle(D, A, B, 0.8, '|', 'black', 1, 1, 'blue')
+    const aBCDcodage = codageAngle(B, C, D, 0.8, '|', 'black', 1, 1, 'blue')
+    const aABCcodage = codageAngle(A, B, C, 0.8, '|||', 'black', 1, 1, 'orange')
+    const aCDAcodage = codageAngle(C, D, A, 0.8, '|||', 'black', 1, 1, 'orange')
     const sAB = segment(A, B)
     const sBC = segment(B, C)
     const sCD = segment(C, D)
@@ -70,10 +70,10 @@ export default function ParallelogrammeAPartirDUneFigure () {
     const P1 = point(1, -2)
     const p1 = polygone(M1, N1, O1, P1)
 
-    const codecerf1 = codeSegment(M1, N1, 'X', 'blue')
-    const codecerf2 = codeSegment(M1, P1, 'X', 'blue')
-    const codecerf3 = codeSegment(O1, P1, '▼', 'blue')
-    const codecerf4 = codeSegment(O1, N1, '▼', 'blue')
+    const codecerf1 = codageSegment(M1, N1, 'X', 'blue')
+    const codecerf2 = codageSegment(M1, P1, 'X', 'blue')
+    const codecerf3 = codageSegment(O1, P1, '▼', 'blue')
+    const codecerf4 = codageSegment(O1, N1, '▼', 'blue')
 
     const paramsEnonce = { xmin: -1, ymin: -4, xmax: 7.5, ymax: 0.8, pixelsParCm: 20, scale: 0.5, mainlevee: true, amplitude: 0.5 }
 
@@ -103,7 +103,7 @@ export default function ParallelogrammeAPartirDUneFigure () {
           break
         case 'cotesConsecutifsMemeLongueur':
           gestionNom(i)
-          texte = mathalea2d(paramsEnonce, [p, codeSegment(A, B, 'X', 'blue'), codeSegment(B, C, 'X', 'blue'), codeSegment(C, D, '||', 'blue'), codeSegment(D, A, '||', 'blue'), nommePolygone(p, nom)])
+          texte = mathalea2d(paramsEnonce, [p, codageSegment(A, B, 'X', 'blue'), codageSegment(B, C, 'X', 'blue'), codageSegment(C, D, '||', 'blue'), codageSegment(D, A, '||', 'blue'), nommePolygone(p, nom)])
 
           texteCorr = `Les côtés consécutifs de $${nom}$ sont de même longueur, ce n'est pas forcément un parallélogramme comme le montre le contre-exemple suivant. (Il s'agit d'un cerf-volant).`
 

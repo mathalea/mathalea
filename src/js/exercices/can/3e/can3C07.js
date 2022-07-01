@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, texNombrec, calcul, texNum } from '../../../modules/outils.js'
-import { mathalea2d, point, segmentAvecExtremites, codeSegments, labelPoint, texteParPosition } from '../../../modules/2d.js'
+import { mathalea2d, point, segmentAvecExtremites, codageSegments, labelPoint, texteParPosition } from '../../../modules/2d.js'
 export const titre = 'Calculer l’abscisse d’un milieu'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,10 +24,10 @@ export default function MilieuEntre1EtFraction () {
     const B = point(4, 0, 'M', 'below')
     const C = point(8, 0)
     const objets = []
-    objets.push(segmentAvecExtremites(A, B), segmentAvecExtremites(B, C), labelPoint(B), codeSegments('||', 'blue', A, B, B, C))
-    objets.push(texteParPosition(`$${texNum(a)}$`, 0, -0.6, 'milieu', 'black', 1, 'middle', true)
+    objets.push(segmentAvecExtremites(A, B), segmentAvecExtremites(B, C), labelPoint(B), codageSegments('||', 'blue', A, B, B, C))
+    objets.push(texteParPosition(`$${texNum(a)}$`, 0, -1, 'milieu', 'black', 1, 'middle', true)
     )
-    objets.push(texteParPosition(`$${texNum(b)}$`, 8, -0.6, 'milieu', 'black', 1, 'middle', true)
+    objets.push(texteParPosition(`$${texNum(b)}$`, 8, -1, 'milieu', 'black', 1, 'middle', true)
     )
     this.question = 'Donner l\'abscisse du point $M$ sous forme décimale.<br>'
     this.question += mathalea2d({

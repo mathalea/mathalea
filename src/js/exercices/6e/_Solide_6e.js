@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, labelPoint, segment, polygone, translation2Points, similitude, codeSegments, grille, seyes, mathalea2d } from '../../modules/2d.js'
+import { point, labelPoint, segment, polygone, translation2Points, similitude, codageSegments, grille, seyes, mathalea2d } from '../../modules/2d.js'
 /**
  * fonction servant à plusieurs exercice autour du cube et du pavé droit
  * références : 6G42 et 6G43
@@ -185,19 +185,19 @@ export default function Solide6e () {
       BF.color = 'black'
       CG.color = 'black'
       if (G.y < C.y && G.x < C.x) {
-        CG.pointilles = true
+        CG.pointilles = 5
         CG.color = 'gray'
         CG.opacite = 0.7
-        GH.pointilles = true
+        GH.pointilles = 5
         GH.color = 'gray'
         GH.opacite = 0.7
-        FG.pointilles = true
+        FG.pointilles = 5
         FG.color = 'gray'
         FG.opacite = 0.7
       } else if (E.y > A.y && E.x > A.x) {
-        AE.pointilles = true
-        EF.pointilles = true
-        HE.pointilles = true
+        AE.pointilles = 5
+        EF.pointilles = 5
+        HE.pointilles = 5
         AE.color = 'gray'
         EF.color = 'gray'
         HE.color = 'gray'
@@ -205,9 +205,9 @@ export default function Solide6e () {
         EF.opacite = 0.7
         HE.opacite = 0.7
       } else if (F.x < B.x && F.y > B.y) {
-        BF.pointilles = true
-        FG.pointilles = true
-        EF.pointilles = true
+        BF.pointilles = 5
+        FG.pointilles = 5
+        EF.pointilles = 5
         BF.color = 'gray'
         FG.color = 'gray'
         EF.color = 'gray'
@@ -215,9 +215,9 @@ export default function Solide6e () {
         FG.opacite = 0.7
         EF.opacite = 0.7
       } else if (H.x > D.x && H.y < D.y) {
-        DH.pointilles = true
-        GH.pointilles = true
-        HE.pointilles = true
+        DH.pointilles = 5
+        GH.pointilles = 5
+        HE.pointilles = 5
         DH.color = 'gray'
         GH.color = 'gray'
         HE.color = 'gray'
@@ -256,7 +256,7 @@ export default function Solide6e () {
 
       enonce += mathalea2d(params, objetsEnonce)
       if (listeTypeDeQuestions[i] === 1) {
-        codesseg = [codeSegments('||', 'green', [A, B, C, D, A, E, F, G, H, E]), codeSegments('||', 'green', B, F, C, G, D, H)]
+        codesseg = [codageSegments('||', 'green', [A, B, C, D, A, E, F, G, H, E]), codageSegments('||', 'green', B, F, C, G, D, H)]
         AB.color = 'green'
         BC.color = 'green'
         CD.color = 'green'
@@ -270,7 +270,7 @@ export default function Solide6e () {
         CG.color = 'green'
         DH.color = 'green'
       } else {
-        codesseg = [codeSegments('||', 'green', A, B, C, D, E, F, G, H), codeSegments('O', 'red', A, E, B, F, C, G, D, H), codeSegments('×', 'blue', D, A, B, C, F, G, H, E)]
+        codesseg = [codageSegments('||', 'green', A, B, C, D, E, F, G, H), codageSegments('O', 'red', A, E, B, F, C, G, D, H), codageSegments('×', 'blue', D, A, B, C, F, G, H, E)]
         AB.color = 'green'
         BC.color = 'blue'
         CD.color = 'green'

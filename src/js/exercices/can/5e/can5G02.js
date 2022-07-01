@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
 import {
   // eslint-disable-next-line no-unused-vars
-  mathalea2d, point, afficheMesureAngle, codeSegments, longueur, polygoneAvecNom
+  mathalea2d, point, afficheMesureAngle, codageSegments, longueur, polygoneAvecNom
 } from '../../../modules/2d.js'
 import { tan } from '../../../modules/fonctionsMaths.js'
 export const titre = 'Calculer un angle dans un triangle isocèle'
@@ -42,7 +42,7 @@ export default function AngleTriangleIsocele () {
           xmax = Math.max(A.x, B.x, C.x) + 2
           ymax = Math.max(A.y, B.y, C.y) + 2
           objets.push(pol[0], pol[1])
-          objets.push(afficheMesureAngle(B, A, C, 'black', 1), codeSegments('||', 'blue', C, A, C, B))
+          objets.push(afficheMesureAngle(B, A, C, 'black', 1), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[2]}}$ ? <br>
         `
           this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 10, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
@@ -57,7 +57,7 @@ export default function AngleTriangleIsocele () {
           xmax = Math.max(A.x, B.x, C.x) + 1
           ymax = Math.max(A.y, B.y, C.y) + 1.5
           objets.push(pol[0], pol[1])
-          objets.push(afficheMesureAngle(B, A, C, 'black', 1), codeSegments('||', 'blue', C, A, C, B))
+          objets.push(afficheMesureAngle(B, A, C, 'black', 1), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[2]}}$ ? <br>
             `
           this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 30, mainlevee: false, amplitude: 0.3, scale: 0.3, style: 'margin: auto' }, objets)
@@ -82,7 +82,7 @@ export default function AngleTriangleIsocele () {
           xmax = Math.max(A.x, B.x, C.x) + 2
           ymax = Math.max(A.y, B.y, C.y) + 3
           objets.push(pol[0], pol[1])
-          objets.push(afficheMesureAngle(A, C, B, 'black', 2.5), codeSegments('||', 'blue', C, A, C, B))
+          objets.push(afficheMesureAngle(A, C, B, 'black', 2.5), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[1]}}$ ?<br> 
             `
           this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 10, mainlevee: false, amplitude: 0.3, scale: 0.3, style: 'margin: auto' }, objets)
@@ -97,7 +97,7 @@ export default function AngleTriangleIsocele () {
           xmax = Math.max(A.x, B.x, C.x) + 1
           ymax = Math.max(A.y, B.y, C.y) + 1
           objets.push(pol[0], pol[1])
-          objets.push(afficheMesureAngle(A, C, B, 'black', 0.4), codeSegments('||', 'blue', C, A, C, B))
+          objets.push(afficheMesureAngle(A, C, B, 'black', 0.4), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[1]}}$ ?<br> 
               `
           this.question += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 35, mainlevee: false, amplitude: 0.3, scale: 0.3, style: 'margin: auto' }, objets)

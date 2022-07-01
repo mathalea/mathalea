@@ -169,11 +169,11 @@ export default function calculsHomothetie () {
         legendeOBi: agrandissement || !kpositif ? texteSurSegment('?', figure.O, figure.B, 'black', 0.30) : texteSurArc('?', figure.B, figure.O, 60, 'black', 0.30),
         legendeOhBi: !agrandissement || !kpositif ? texteSurSegment('?', figure.O, figure.hB, 'black', 0.30) : texteSurArc('?', figure.hB, figure.O, 60, 'black', 0.30)
       })
-      figure.arcOA.pointilles = true
-      figure.arcOhA.pointilles = true
-      figure.arcOB.pointilles = true
-      figure.arcOhB.pointilles = true
-      figure.arcAhA.pointilles = true
+      figure.arcOA.pointilles = 5
+      figure.arcOhA.pointilles = 5
+      figure.arcOB.pointilles = 5
+      figure.arcOhB.pointilles = 5
+      figure.arcAhA.pointilles = 5
       // const fscale = context.isHtml ? kpositif ? 1 : 0.7 : kpositif ? 0.7 : 0.5
       const fscale = context.isHtml ? 1 : kpositif ? 0.7 : 0.6
       const flabelsRapport = labelPoint(figure.O, figure.A, figure.hA)

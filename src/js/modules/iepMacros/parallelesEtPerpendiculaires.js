@@ -317,7 +317,7 @@ export const paralleleRegleEquerreDroitePointAvecDescription = function (A, B, M
   this.regleDeplacer(homothetie(rotation(B, A, 90), A, 1.5), { tempo: 20 })
   if (description) this.textePosition('Remarque : On peut tracer des pointillés pour matérialiser la position de la règle.', -9.5, 7.9, { couleur: 'pink', taille: 2, tempo: 10 })
   this.crayonMontrer(A)
-  this.tracer(homothetie(rotation(B, A, dessus ? 90 : -90), A, 1.5), { pointilles: true })
+  this.tracer(homothetie(rotation(B, A, dessus ? 90 : -90), A, 1.5), { pointilles: 5 })
   if (description) this.textePosition('3. Faire glisser l\'équerre le long de la règle jusqu\'au point M.', -9, 7.2, { couleur: 'lightblue', taille: 2, tempo: 10 })
   if (!dessus) {
     this.equerreRotation(d.angleAvecHorizontale - 90)

@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import { mathalea2d, point, labelPoint, codeSegment, codeAngle, droiteGraduee2, segment, milieu, texteParPosition } from '../../../modules/2d.js'
+import { mathalea2d, point, labelPoint, codageSegment, codageAngle, droiteGraduee2, segment, milieu, texteParPosition } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, printlatex, randint, simplificationDeFractionAvecEtapes, texNombre, tableauColonneLigne, miseEnEvidence, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
@@ -313,29 +313,29 @@ export default function SujetCAN20215ieme () {
             K = point(1, 1)
             L = point(0, 1)
             s1 = segment(A, B)
-            code1 = codeSegment(A, B, '|')
+            code1 = codageSegment(A, B, '|')
             s2 = segment(B, C)
-            code2 = codeSegment(B, C, '|')
+            code2 = codageSegment(B, C, '|')
             s3 = segment(C, D)
-            code3 = codeSegment(C, D, '|')
+            code3 = codageSegment(C, D, '|')
             s4 = segment(D, E)
-            code4 = codeSegment(D, E, '|')
+            code4 = codageSegment(D, E, '|')
             s5 = segment(E, F)
-            code5 = codeSegment(E, F, '|')
+            code5 = codageSegment(E, F, '|')
             s6 = segment(F, G)
-            code6 = codeSegment(F, G, '|')
+            code6 = codageSegment(F, G, '|')
             s7 = segment(G, H)
-            code7 = codeSegment(G, H, '|')
+            code7 = codageSegment(G, H, '|')
             s8 = segment(H, I)
-            code8 = codeSegment(H, I, '|')
+            code8 = codageSegment(H, I, '|')
             s9 = segment(I, J)
-            code9 = codeSegment(I, J, '|')
+            code9 = codageSegment(I, J, '|')
             s10 = segment(J, K)
-            code10 = codeSegment(J, K, '|')
+            code10 = codageSegment(J, K, '|')
             s11 = segment(K, L)
-            code11 = codeSegment(K, L, '|')
+            code11 = codageSegment(K, L, '|')
             s12 = segment(L, A)
-            code12 = codeSegment(L, A, '|')
+            code12 = codageSegment(L, A, '|')
             xmin = -2
             ymin = -2.1
             xmax = 3
@@ -362,17 +362,17 @@ export default function SujetCAN20215ieme () {
             F = point(2, 0)
             G = point(1, 0)
             s1 = segment(A, B)
-            code1 = codeSegment(A, B, '||')
+            code1 = codageSegment(A, B, '||')
             s2 = segment(B, C)
-            code2 = codeSegment(B, C, '||')
+            code2 = codageSegment(B, C, '||')
             s3 = segment(A, G)
-            code3 = codeSegment(A, G, '||')
+            code3 = codageSegment(A, G, '||')
             s4 = segment(G, F)
-            code4 = codeSegment(G, F, '||')
+            code4 = codageSegment(G, F, '||')
             s5 = segment(C, D)
-            code5 = codeSegment(C, D, '|')
+            code5 = codageSegment(C, D, '|')
             s6 = segment(E, F)
-            code6 = codeSegment(E, F, '|')
+            code6 = codageSegment(E, F, '|')
             xmin = -1
             ymin = -2
             xmax = 4
@@ -401,15 +401,15 @@ export default function SujetCAN20215ieme () {
             F = point(2, 0)
             G = point(1, 0)
             s1 = segment(B, G)
-            code1 = codeSegment(B, G, '||')
+            code1 = codageSegment(B, G, '||')
             s2 = segment(B, C)
-            code2 = codeSegment(B, C, '||')
+            code2 = codageSegment(B, C, '||')
             s4 = segment(G, F)
-            code4 = codeSegment(G, F, '||')
+            code4 = codageSegment(G, F, '||')
             s5 = segment(C, D)
-            code5 = codeSegment(C, D, '|')
+            code5 = codageSegment(C, D, '|')
             s6 = segment(E, F)
-            code6 = codeSegment(E, F, '|')
+            code6 = codageSegment(E, F, '|')
             xmin = -1
             ymin = -2
             xmax = 4
@@ -687,7 +687,7 @@ export default function SujetCAN20215ieme () {
               texteParPosition(`$${a}° $`, 4, 1.5, 'milieu', 'black', 1, 'middle', true),
               texteParPosition(`$${b}° $`, 1.2, 0.25, 'milieu', 'black', 1, 'middle', true),
               texteParPosition('?', 5.3, 0.3, 'milieu', 'black', 1, 'middle', true),
-              s1, s2, s3, codeAngle(B, C, A, 0.8, '|'), codeAngle(C, A, B, 0.8, '||'))
+              s1, s2, s3, codageAngle(B, C, A, 0.8, '|'), codageAngle(C, A, B, 0.8, '||'))
           } else {
             a = choice([100, 110, 120])
             b = choice([45, 50, 55])
@@ -707,7 +707,7 @@ export default function SujetCAN20215ieme () {
               texteParPosition(`$${a}° $`, 2, 1.5, 'milieu', 'black', 1, 'middle', true),
               texteParPosition(`$${b}° $`, 1.2, 0.25, 'milieu', 'black', 1, 'middle', true),
               texteParPosition('?', 5.2, 0.3, 'milieu', 'black', 1, 'middle', true),
-              s1, s2, s3, codeAngle(B, C, A, 0.8, '|'), codeAngle(C, A, B, 0.8, '||'))
+              s1, s2, s3, codageAngle(B, C, A, 0.8, '|'), codageAngle(C, A, B, 0.8, '||'))
           }
           reponse = 180 - a - b
           texte = '<br>'
@@ -798,15 +798,15 @@ export default function SujetCAN20215ieme () {
           C = point(3, 1, 'C', 'above')
           reponse = (b - 2 * a) / 2
           s1 = segment(A, E)
-          code1 = codeSegment(A, E, '||')
+          code1 = codageSegment(A, E, '||')
           s2 = segment(A, C)
-          code2 = codeSegment(A, C, '||')
+          code2 = codageSegment(A, C, '||')
           s3 = segment(C, E)
-          code3 = codeSegment(C, E, '|')
+          code3 = codageSegment(C, E, '|')
           s4 = segment(C, D)
-          code4 = codeSegment(C, D, '|')
+          code4 = codageSegment(C, D, '|')
           s5 = segment(E, D)
-          code5 = codeSegment(E, D, '|')
+          code5 = codageSegment(E, D, '|')
           xmin = -1
           ymin = -1.5
           xmax = 5.5

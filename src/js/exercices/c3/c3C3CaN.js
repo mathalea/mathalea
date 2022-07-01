@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, calcul, texNombrec, choice, texNombre, texPrix, range1, prenom, personne, miseEnEvidence, stringNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { afficheCoteSegment, codeSegments, homothetie, mathalea2d, point, polygoneRegulier, segment, texteSurSegment } from '../../modules/2d.js'
+import { afficheCoteSegment, codageSegments, homothetie, mathalea2d, point, polygoneRegulier, segment, texteSurSegment } from '../../modules/2d.js'
 export const titre = 'Course aux nombres CM1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -384,7 +384,7 @@ export default function CourseAuxNombresCM (numeroExercice) {
               C = polygoneRegulier(A, B, b)
               objets[0] = C
               objets[1] = texteSurSegment(`${stringNombre(a)} cm`, B, A)
-              objets[2] = codeSegments('//', 'red', C.listePoints)
+              objets[2] = codageSegments('//', 'red', C.listePoints)
               texte = 'Quel est le périmètre de ce polygone ?<br>'
               texte += mathalea2d({ xmin: -2.5, xmax: 3, ymin: -1, ymax: 5, pixelsParCm: 20, scale: 0.8 }, objets)
               texteCorr = `Le périmètre mesure : $${b} \\times ${texNombre(a)}=${calcul(a * b)}$.`
