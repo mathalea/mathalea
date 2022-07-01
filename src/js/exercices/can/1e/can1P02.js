@@ -5,7 +5,6 @@ import { Arbre } from '../../../modules/arbres.js'
 import { mathalea2d } from '../../../modules/2d.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import { context } from '../../../modules/context.js'
 export const titre = 'Lire une probabilité  à partir d’un arbre'
 export const dateDePublication = '30/06/2022'
 export const interactifReady = true
@@ -99,7 +98,7 @@ export default function LectureProbabilite () {
       objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
       texte = 'On donne l\'arbre de probabilités ci dessous :<br>'
       texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline' }, ...objets)
-      texte += `<br>Compléter avec la notation qui convient : `
+      texte += '<br>Compléter avec la notation qui convient : '
       texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
       texte += `$=${texNombre(choix, 2)}$`
       texteCorr = `On peut lire à l'aide de l'arbre (les probabilités conditionnelles se lisent sur la deuxième partie de l'arbre):<br>
@@ -114,20 +113,20 @@ export default function LectureProbabilite () {
         setReponse(this, i, [`p(${nom1})`, `P(${nom1})`])
       }
       if (choix === pB) {
-        setReponse(this, i, `p(\\overline{${nom1}})`)
+        setReponse(this, i, [`p(\\overline{${nom1}})`, `P(\\overline{${nom1}})`])
       }
 
       if (choix === pAC) {
-        setReponse(this, i, `$p_{${nom1}}(${nom2})$`)
+        setReponse(this, i, [`p_{${nom1}}(${nom2})`, `P_{${nom1}}(${nom2})`])
       }
       if (choix === 1 - pAC) {
-        setReponse(this, i, `p_${nom1}(\\overline{${nom2}})`)
+        setReponse(this, i, [`p_{${nom1}}(\\overline{${nom2}})`, `P_{${nom1}}(\\overline{${nom2}})`])
       }
       if (choix === pBC) {
-        setReponse(this, i, `p_\\overline{${nom1}(${nom2})`)
+        setReponse(this, i, [`p_{\\overline{${nom1}}}(${nom2})`, `P_{\\overline{${nom1}}}(${nom2})`])
       }
       if (choix === 1 - pBC) {
-        setReponse(this, i, `p_\\overline{${nom1}(\\overline{${nom2}})`)
+        setReponse(this, i, [`p_{\\overline{${nom1}}}(\\overline{${nom2}})`, `P_{\\overline{${nom1}}}(\\overline{${nom2}})`])
       }
       if (this.questionJamaisPosee(i, pA, pAC, pBC)) {
         this.listeQuestions.push(texte)
@@ -138,5 +137,5 @@ export default function LectureProbabilite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Proba rationnelle', true]
+  this.besoinFormulaireCaseACocher = ['Probabilité rationnelle', true]
 }

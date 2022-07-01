@@ -25,8 +25,8 @@ const lyceeKeyboardLayer = {
         },
         {
           class: 'small',
-          latex: 'P_{#0}({#1})',
-          insert: '$$P_{#0}({#1})$$' /// P de A sachant B
+          latex: 'P_{#0}(#1)',
+          insert: '$$P_{#0}(#1)$$' /// P de A sachant B
         },
         { class: 'separator w5' },
         { label: '7', key: '7' },
@@ -212,7 +212,7 @@ export const clavierLycee = {
     ln: { mode: 'math', value: '\\ln' },
     exp: { mode: 'math', value: 'e^#0' }, //
     parmi: { mode: 'math', value: '\\tbinom{#0}{#1}' },
-    pasachantb: { mode: 'math', value: 'P_{#0}({#1})' },
+    pasachantb: { mode: 'math', value: 'P_{#0}(#1)' },
     barre: { mode: 'math', value: '\\overline{#0}' },
     ang: { mode: 'math', value: '\\widehat{#0}' },
     rac: { mode: 'math', value: '\\sqrt{#0}' },

@@ -54,6 +54,7 @@ export function verifQuestionMathLive (exercice, i) {
           // La réponse est transformée en chaine compatible avec engine.parse()
           reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+          // console.log(saisie, reponse) // EE : Ne pas supprimer, utile pour visualiser la différence entre la saisie et la réponse attendue
           if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
             resultat = 'OK'
           }
