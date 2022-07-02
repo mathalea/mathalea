@@ -6785,7 +6785,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2021/tex/dnb_2021_06_asie_2.tex',
     urlcor: '/dnb/2021/tex/dnb_2021_06_asie_2_cor.tex',
-    urlcorcoop: '/dnb/2021/tex/dnb_2021_06_asie_mathalea_2_mathalea_cor.tex',
+    urlcorcoop: '/dnb/2021/tex/dnb_2021_06_asie_mathalea_2_cor.tex',
     tags: ['Pythagore', 'Transformations', 'Agrandissement-réduction', 'Trigonométrie']
   },
   dnb_2021_06_asie_3: {
