@@ -1,5 +1,5 @@
-import { context } from '../../../modules/context'
-import { propositionsQcm } from '../../../modules/interactif/questionQcm'
+import { context } from '../../../modules/context.js'
+import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 import { choice, listeQuestionsToContenu, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer si un nombre est pair (V/F)'

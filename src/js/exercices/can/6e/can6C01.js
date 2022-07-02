@@ -1,5 +1,5 @@
-import { context } from '../../../modules/context'
-import { propositionsQcm } from '../../../modules/interactif/questionQcm'
+import { context } from '../../../modules/context.js'
+import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 import { calcul, listeQuestionsToContenu, randint, texNombre, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver un ordre de grandeur (QCM)'

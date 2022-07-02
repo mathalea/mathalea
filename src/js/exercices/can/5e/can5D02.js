@@ -1,5 +1,5 @@
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { calcul, choice, listeQuestionsToContenu, randint, sp, texNombrec, texFractionReduite }
   from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'

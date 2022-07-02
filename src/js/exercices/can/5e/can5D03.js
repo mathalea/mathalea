@@ -1,5 +1,5 @@
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { choice, listeQuestionsToContenu, sp, texNombrec, texFractionReduite } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir des fractions d’heures en minutes et inversement'

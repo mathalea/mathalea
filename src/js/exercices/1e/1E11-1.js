@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { combinaisonListes, contraindreValeur, lettreDepuisChiffre, listeQuestionsToContenu } from '../../modules/outils.js'
 import { aleaVariables, aleaExpression, toTex } from '../../modules/outilsMathjs.js'
 import { create, all } from 'mathjs'
-import { context } from '../../modules/context'
+import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
 
 export const titre = 'Calculer le discriminant d\'un polynôme du second degré'

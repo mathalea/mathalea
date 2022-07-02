@@ -1,6 +1,6 @@
 import { codageSegments, homothetie, mathalea2d, point, polygone, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { arrondi, choice, combinaisonListes, ecritureAlgebrique, listeQuestionsToContenu, prenom, texNombre, texPrix } from '../../modules/outils.js'
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
