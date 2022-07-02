@@ -1,4 +1,4 @@
-import { fraction } from '../../modules/fractions'
+import { fraction } from '../../modules/fractions.js'
 import Exercice from '../Exercice.js'
 import { randint, texNombrec, miseEnEvidence, texteGras, sp, prenom, itemize, texteEnCouleur, numAlpha, listeQuestionsToContenu, combinaisonListes, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
 

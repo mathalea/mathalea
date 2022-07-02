@@ -1,7 +1,7 @@
-import { droiteGraduee2, mathalea2d } from '../../../modules/2d'
+import { droiteGraduee2, mathalea2d } from '../../../modules/2d.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 import { randint, choice, texteCentre, choisitLettresDifferentes } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver un coefficient de colinéarité (graphique)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

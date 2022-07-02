@@ -1,5 +1,5 @@
 import { shuffle, randint, calcul, texteExposant, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer un volume de pyramide'
 export const interactifReady = true
 export const interactifType = 'mathLive'

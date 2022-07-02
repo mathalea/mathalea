@@ -1,5 +1,5 @@
 import { calcul, randint, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Multiplier un nombre pair par 5'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,5 +1,5 @@
 
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 import { choice, randint, reduirePolynomeDegre3, ecritureParentheseSiNegatif } from '../../../modules/outils'
 export const titre = 'Calculer un discriminant'
 export const interactifReady = true

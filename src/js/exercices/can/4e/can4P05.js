@@ -1,7 +1,7 @@
-import { courbeSpline, droiteParPointEtPente, mathalea2d, point, repere2 } from '../../../modules/2d'
+import { courbeSpline, droiteParPointEtPente, mathalea2d, point, repere2 } from '../../../modules/2d.js'
 import { splineCatmullRom } from '../../../modules/fonctionsMaths'
 import { choice, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité'

@@ -1,5 +1,5 @@
 import { calcul, randint, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Ajouter 10n + 9'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,7 +1,7 @@
 import { context } from '../../../modules/context'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm'
 import { calcul, listeQuestionsToContenu, randint, texNombre, texNombrec, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver un ordre de grandeur (QCM)'
 export const interactifReady = true
 export const interactifType = 'qcm'

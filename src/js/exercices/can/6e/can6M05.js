@@ -1,5 +1,5 @@
 import { calcul, choice, randint, texNombre, texteEnCouleur, texNombrec } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Convertir des m$^3$ et litres'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,5 +1,5 @@
 import { choice, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer l’aire ou un périmètre d’un carré'
 export const interactifReady = true
 export const interactifType = 'mathLive'

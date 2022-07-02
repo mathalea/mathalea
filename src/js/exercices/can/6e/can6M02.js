@@ -1,7 +1,7 @@
 import { context } from '../../../modules/context'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm'
 import { enleveElement, listeQuestionsToContenu, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver la bonne unité'
 export const interactifReady = true
 export const interactifType = 'qcm'

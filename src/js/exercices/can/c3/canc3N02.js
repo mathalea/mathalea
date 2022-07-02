@@ -1,6 +1,6 @@
-import { droiteGraduee2, mathalea2d } from '../../../modules/2d'
+import { droiteGraduee2, mathalea2d } from '../../../modules/2d.js'
 import { randint, texNombre, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver un nombre sur une droite graduée'
 export const interactifReady = true
 export const interactifType = 'mathLive'

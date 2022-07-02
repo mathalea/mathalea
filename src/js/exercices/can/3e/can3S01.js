@@ -1,6 +1,6 @@
-import { fraction } from '../../../modules/fractions'
+import { fraction } from '../../../modules/fractions.js'
 import { randint, choice } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'

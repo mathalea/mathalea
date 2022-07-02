@@ -1,9 +1,9 @@
-import { scratchblock } from '../../../modules/2d'
-import { setReponse } from '../../../modules/gestionInteractif'
+import { scratchblock } from '../../../modules/2d.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm'
 import { calcul, choice, listeQuestionsToContenuSansNumero, randint, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Travailler les répétitions (Scratch)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

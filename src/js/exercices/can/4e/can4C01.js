@@ -1,5 +1,5 @@
-import { choice, ecritureAlgebrique, ecritureParentheseSiNegatif, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { choice, ecritureAlgebrique, ecritureParentheseSiNegatif, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Utiliser les priorités opératoires avec des relatifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { toString, aleaVariables, assignVariables, calculer, toTex, resoudre } from '../../modules/outilsMathjs'
+import { toString, aleaVariables, assignVariables, calculer, toTex, resoudre } from '../../modules/outilsMathjs.js'
 import { GVGraphicView } from '../../modules/aleaFigure/GraphicView'
 import { name } from '../../modules/aleaFigure/outils'
 import { create, all } from 'mathjs'

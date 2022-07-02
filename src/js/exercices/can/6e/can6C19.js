@@ -1,5 +1,5 @@
 import { randint, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer le complément à 100'
 export const interactifReady = true
 export const interactifType = 'mathLive'

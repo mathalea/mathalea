@@ -1,5 +1,5 @@
 import { calcul, choice, randint, texNombrec, sp } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver le nombre qui suit'
 export const interactifReady = true
 export const interactifType = 'mathLive'

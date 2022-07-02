@@ -1,5 +1,5 @@
-import { calcul, choice, randint, texNombre } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, choice, randint, texNombre } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver le nombre manquant dans une somme'
 export const interactifReady = true
 export const interactifType = 'mathLive'

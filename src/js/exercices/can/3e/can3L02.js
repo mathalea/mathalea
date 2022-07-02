@@ -1,5 +1,5 @@
 import { ecritureAlgebrique, randint, texFraction } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre une équation du type ax+b=0'
 export const interactifReady = true
 export const interactifType = 'mathLive'

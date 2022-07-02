@@ -1,5 +1,5 @@
 import { randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Recomposer un entier*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { fraction } from '../../../modules/fractions'
+import { fraction } from '../../../modules/fractions.js'
 import { randint, texFraction, miseEnEvidence, abs, ecritureAlgebrique, texFractionReduite, egal, calcul, texteCentre } from '../../../modules/outils.js'
 import { mathalea2d, repere2, texteParPosition, segment, droite } from '../../../modules/2d.js'
 export const titre = 'Lire graphiquement une fonction affine*'

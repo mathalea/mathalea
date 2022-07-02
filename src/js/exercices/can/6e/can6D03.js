@@ -1,5 +1,5 @@
 import { prenomM, randint, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une durée en minutes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
