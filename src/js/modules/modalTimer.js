@@ -1,7 +1,7 @@
 /* global $ */
 import { context } from './context.js'
-import { addFetchHtmlToParent } from './dom'
-import { getDureeFromUrl, setUrl } from './gestionUrl'
+import { addFetchHtmlToParent } from './dom.js'
+import { getDureeFromUrl, setUrl } from './gestionUrl.js'
 
 export const modalTimer = async () => {
   if (document.getElementById('modalTimer') === null) {

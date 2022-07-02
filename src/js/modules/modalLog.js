@@ -1,7 +1,7 @@
 /* global $ */
 import { context } from './context.js'
-import { addFetchHtmlToParent } from './dom'
-import { getUserId, setUrl } from './gestionUrl'
+import { addFetchHtmlToParent } from './dom.js'
+import { getUserId, setUrl } from './gestionUrl.js'
 
 export const modalLog = async () => {
   if (document.getElementById('modalLog') === null) {
