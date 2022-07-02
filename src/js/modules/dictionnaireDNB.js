@@ -7053,66 +7053,6 @@ export const dictionnaireDNB = {
     urlcor: '/dnb/2021/tex/dnb_2021_11_ameriquesud_5_cor.tex',
     tags: ['Recherche d\'informations', 'Volumes', 'Pourcentages']
   },
-  dnb_2022_06_metropole_mathalea_1: {
-    annee: '2022',
-    lieu: 'Métropole',
-    mois: 'Juin',
-    numeroInitial: 'mathalea',
-    png: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_1.png',
-    pngcor: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_1_cor.png',
-    typeExercice: 'dnb',
-    url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_1.tex',
-    urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_1_cor.tex',
-    tags: ['...tagsToChange']
-  },
-  dnb_2022_06_metropole_mathalea_2: {
-    annee: '2022',
-    lieu: 'Métropole',
-    mois: 'Juin',
-    numeroInitial: 'mathalea',
-    png: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_2.png',
-    pngcor: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_2_cor.png',
-    typeExercice: 'dnb',
-    url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_2.tex',
-    urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_2_cor.tex',
-    tags: ['...tagsToChange']
-  },
-  dnb_2022_06_metropole_mathalea_3: {
-    annee: '2022',
-    lieu: 'Métropole',
-    mois: 'Juin',
-    numeroInitial: 'mathalea',
-    png: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_3.png',
-    pngcor: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_3_cor.png',
-    typeExercice: 'dnb',
-    url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_3.tex',
-    urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_3_cor.tex',
-    tags: ['...tagsToChange']
-  },
-  dnb_2022_06_metropole_mathalea_4: {
-    annee: '2022',
-    lieu: 'Métropole',
-    mois: 'Juin',
-    numeroInitial: 'mathalea',
-    png: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_4.png',
-    pngcor: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_4_cor.png',
-    typeExercice: 'dnb',
-    url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_4.tex',
-    urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_4_cor.tex',
-    tags: ['...tagsToChange']
-  },
-  dnb_2022_06_metropole_mathalea_5: {
-    annee: '2022',
-    lieu: 'Métropole',
-    mois: 'Juin',
-    numeroInitial: 'mathalea',
-    png: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_5.png',
-    pngcor: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_5_cor.png',
-    typeExercice: 'dnb',
-    url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_5.tex',
-    urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_5_cor.tex',
-    tags: ['...tagsToChange']
-  },
   dnb_2022_06_ameriquenord_1: {
     annee: '2022',
     lieu: 'Amérique du Nord',
@@ -7351,6 +7291,66 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_polynesie_5.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_polynesie_5_cor.tex',
+    tags: ['...tagsToChange']
+  },
+  dnb_2022_06_metropole_mathalea_1: {
+    annee: '2022',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    numeroInitial: '1',
+    png: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_1.png',
+    pngcor: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_1_cor.png',
+    typeExercice: 'dnb',
+    url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_1.tex',
+    urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_1_cor.tex',
+    tags: ['...tagsToChange']
+  },
+  dnb_2022_06_metropole_mathalea_2: {
+    annee: '2022',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    numeroInitial: '2',
+    png: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_2.png',
+    pngcor: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_2_cor.png',
+    typeExercice: 'dnb',
+    url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_2.tex',
+    urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_2_cor.tex',
+    tags: ['...tagsToChange']
+  },
+  dnb_2022_06_metropole_mathalea_3: {
+    annee: '2022',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    numeroInitial: '3',
+    png: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_3.png',
+    pngcor: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_3_cor.png',
+    typeExercice: 'dnb',
+    url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_3.tex',
+    urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_3_cor.tex',
+    tags: ['...tagsToChange']
+  },
+  dnb_2022_06_metropole_mathalea_4: {
+    annee: '2022',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    numeroInitial: '4',
+    png: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_4.png',
+    pngcor: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_4_cor.png',
+    typeExercice: 'dnb',
+    url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_4.tex',
+    urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_4_cor.tex',
+    tags: ['...tagsToChange']
+  },
+  dnb_2022_06_metropole_mathalea_5: {
+    annee: '2022',
+    lieu: 'Métropole',
+    mois: 'Juin',
+    numeroInitial: '5',
+    png: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_5.png',
+    pngcor: '/dnb/2022/tex/png/dnb_2022_06_metropole_mathalea_5_cor.png',
+    typeExercice: 'dnb',
+    url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_5.tex',
+    urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_5_cor.tex',
     tags: ['...tagsToChange']
   },
 
