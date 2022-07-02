@@ -1,5 +1,5 @@
-import { longueur, homothetie, vecteur, symetrieAxiale, milieu, rotation, translation } from '../2d'
-import { randint, stringNombre } from '../outils'
+import { longueur, homothetie, vecteur, symetrieAxiale, milieu, rotation, translation } from '../2d.js'
+import { randint, stringNombre } from '../outils.js'
 
 /**
    *
