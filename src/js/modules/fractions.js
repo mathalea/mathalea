@@ -1,5 +1,5 @@
-import FractionX from './FractionEtendue'
-import ListeFraction from './ListeFraction'
+import FractionX from './FractionEtendue.js'
+import ListeFraction from './ListeFraction.js'
 
 /**
  * Des fonctions pour manipuler des objets Fraction ou ListeFraction

@@ -1,4 +1,4 @@
-import { context } from './context'
+import { context } from './context.js'
 import { create } from './dom'
 import { getVueFromUrl, setUrl } from './gestionUrl'
 

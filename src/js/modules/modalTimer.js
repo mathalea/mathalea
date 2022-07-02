@@ -1,5 +1,5 @@
 /* global $ */
-import { context } from './context'
+import { context } from './context.js'
 import { addFetchHtmlToParent } from './dom'
 import { getDureeFromUrl, setUrl } from './gestionUrl'
 
