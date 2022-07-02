@@ -1,5 +1,5 @@
 import { fraction } from '../../../modules/fractions.js'
-import { obtenirListeFractionsIrreductibles, choice, texFraction, randint } from '../../../modules/outils'
+import { obtenirListeFractionsIrreductibles, choice, texFraction, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une somme entre fraction et entier'
 export const interactifReady = true

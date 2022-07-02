@@ -1,5 +1,5 @@
 import { mathalea2d, repere2, traceBarreHorizontale } from '../../../modules/2d.js'
-import { prenom, randint } from '../../../modules/outils'
+import { prenom, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Lire un diagramme en barres'
 export const interactifReady = true

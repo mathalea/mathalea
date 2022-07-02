@@ -1,4 +1,4 @@
-import { calcul, contraindreValeur, randint, texNombre } from '../../../modules/outils'
+import { calcul, contraindreValeur, randint, texNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir en mètres'
 export const interactifReady = true

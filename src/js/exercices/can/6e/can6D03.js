@@ -1,4 +1,4 @@
-import { prenomM, randint, texteEnCouleur } from '../../../modules/outils'
+import { prenomM, randint, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une durée en minutes'
 export const interactifReady = true

@@ -1,4 +1,4 @@
-import { randint, texteEnCouleur } from '../../../modules/outils'
+import { randint, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer le complément à 100'
 export const interactifReady = true

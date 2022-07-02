@@ -1,4 +1,4 @@
-import { texNombrec, randint, sp, texteEnCouleur } from '../../../modules/outils'
+import { texNombrec, randint, sp, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une moyenne avec des décimaux'
 export const interactifReady = true

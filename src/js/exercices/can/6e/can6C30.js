@@ -1,4 +1,4 @@
-import { choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils'
+import { choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js'
 export const titre = 'Multiplier deux décimaux'

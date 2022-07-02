@@ -1,4 +1,4 @@
-import { calcul, choice, miseEnEvidence, randint, texteEnCouleur } from '../../../modules/outils'
+import { calcul, choice, miseEnEvidence, randint, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Compléter un volume au litre'
 export const interactifReady = true

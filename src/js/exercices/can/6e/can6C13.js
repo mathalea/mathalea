@@ -1,4 +1,4 @@
-import { randint, texNombre, choice, texteEnCouleur } from '../../../modules/outils'
+import { randint, texNombre, choice, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js' // ici j'importe la classe Decimal qui va me permettre de créer de tels nombres et d'utiliser leur méthodes de calcul exactes.
 export const titre = 'Calculer la somme de deux décimaux'

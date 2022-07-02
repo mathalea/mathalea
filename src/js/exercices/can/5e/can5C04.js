@@ -1,4 +1,4 @@
-import { calcul, randint, texteEnCouleur, texNombrec } from '../../../modules/outils'
+import { calcul, randint, texteEnCouleur, texNombrec } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer avec triple et moitié'
 export const interactifReady = true

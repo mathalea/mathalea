@@ -1,5 +1,5 @@
 import { fraction } from '../../../modules/fractions.js'
-import { obtenirListeFractionsIrreductibles, choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils'
+import { obtenirListeFractionsIrreductibles, choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Rendre irréductible une fraction'
 export const interactifReady = true

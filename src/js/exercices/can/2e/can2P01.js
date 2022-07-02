@@ -1,5 +1,5 @@
 import { fraction } from '../../../modules/fractions.js'
-import { choice, randint, simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../modules/outils'
+import { choice, randint, simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true

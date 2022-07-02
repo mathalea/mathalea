@@ -1,4 +1,4 @@
-import { calcul, choice, randint, texteEnCouleur } from '../../../modules/outils'
+import { calcul, choice, randint, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Diviser par 9'
 export const interactifReady = true

@@ -1,4 +1,4 @@
-import { calcul, randint, texteEnCouleur } from '../../../modules/outils'
+import { calcul, randint, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver le reste d’une division par 3'
 export const interactifReady = true

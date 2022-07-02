@@ -2,7 +2,7 @@ import { context } from '../../modules/context'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
-import { calcul, combinaisonListes, contraindreValeur, listeQuestionsToContenu, randint, sp, texteEnCouleur } from '../../modules/outils'
+import { calcul, combinaisonListes, contraindreValeur, listeQuestionsToContenu, randint, sp, texteEnCouleur } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Convertir en min vers h et min ou en s vers min et s'
 export const interactifReady = true

@@ -1,4 +1,4 @@
-import { calcul, randint, texteEnCouleur } from '../../../modules/outils'
+import { calcul, randint, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Multiplier un nombre pair par 5'
 export const interactifReady = true

@@ -1,4 +1,4 @@
-import { calcul, choice, randint, texNombrec, sp } from '../../../modules/outils'
+import { calcul, choice, randint, texNombrec, sp } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver le nombre qui suit'
 export const interactifReady = true

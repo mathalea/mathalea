@@ -1,6 +1,6 @@
 import { courbeSpline, droiteParPointEtPente, mathalea2d, point, repere2 } from '../../../modules/2d.js'
-import { splineCatmullRom } from '../../../modules/fonctionsMaths'
-import { choice, randint } from '../../../modules/outils'
+import { splineCatmullRom } from '../../../modules/fonctionsMaths.js'
+import { choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'

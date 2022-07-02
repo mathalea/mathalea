@@ -1,4 +1,4 @@
-import { calcul, choice, texteEnCouleur } from '../../../modules/outils'
+import { calcul, choice, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème de vitesse'
 export const interactifReady = true

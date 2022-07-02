@@ -1,4 +1,4 @@
-import { randint, texteEnCouleur, choice } from '../../../modules/outils'
+import { randint, texteEnCouleur, choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Utiliser la division euclidienne'
 export const interactifReady = true

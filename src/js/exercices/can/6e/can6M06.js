@@ -1,4 +1,4 @@
-import { calcul, creerNomDePolygone, randint, texNombrec, texteEnCouleur } from '../../../modules/outils'
+import { calcul, creerNomDePolygone, randint, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import {
   mathalea2d, tracePoint, point, milieu, texteParPosition, pointAdistance, longueur, cercle, pointIntersectionCC, polygoneAvecNom

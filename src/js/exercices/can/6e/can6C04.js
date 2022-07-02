@@ -1,4 +1,4 @@
-import { calcul, randint, texteEnCouleur } from '../../../modules/outils'
+import { calcul, randint, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Ajouter 10n + 9'
 export const interactifReady = true

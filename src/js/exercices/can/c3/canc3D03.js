@@ -1,4 +1,4 @@
-import { choice, randint } from '../../../modules/outils'
+import { choice, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Ajouter des durées'
 export const interactifReady = true

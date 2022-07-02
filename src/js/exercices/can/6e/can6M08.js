@@ -1,6 +1,6 @@
 import { context } from '../../../modules/context'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm'
-import { choice, texteExposant, listeQuestionsToContenu, randint, texNombrec } from '../../../modules/outils'
+import { choice, texteExposant, listeQuestionsToContenu, randint, texNombrec } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Comparer des aires (V/F)'
 export const interactifReady = true

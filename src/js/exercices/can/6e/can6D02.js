@@ -1,4 +1,4 @@
-import { calcul, randint } from '../../../modules/outils'
+import { calcul, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Chercher un reste en minutes'
 export const interactifReady = true

@@ -1,4 +1,4 @@
-import { calcul, choice, randint, texNombrec } from '../../../modules/outils'
+import { calcul, choice, randint, texNombrec } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer le nombre de centaines, dizaines'
 export const interactifReady = true

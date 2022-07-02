@@ -1,4 +1,4 @@
-import { calcul, randint, texNombre, texNombrec } from '../../../modules/outils'
+import { calcul, randint, texNombre, texNombrec } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Utiliser une proportionnalité'
 export const interactifReady = true
