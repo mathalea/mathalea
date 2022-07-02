@@ -7063,7 +7063,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_ameriquenord_1.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_ameriquenord_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Transformations', 'Agrandissement-réduction']
   },
   dnb_2022_06_ameriquenord_2: {
     annee: '2022',
@@ -7075,7 +7075,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_ameriquenord_2.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_ameriquenord_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Probabilités', 'Ratio', 'Fonctions', 'Arithmétique', 'Volumes']
   },
   dnb_2022_06_ameriquenord_3: {
     annee: '2022',
@@ -7087,7 +7087,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_ameriquenord_3.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_ameriquenord_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Statistiques']
   },
   dnb_2022_06_ameriquenord_4: {
     annee: '2022',
@@ -7099,7 +7099,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_ameriquenord_4.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_ameriquenord_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Algorithmique-programmation', 'Probabilités']
   },
   dnb_2022_06_ameriquenord_5: {
     annee: '2022',
@@ -7111,7 +7111,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_ameriquenord_5.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_ameriquenord_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Arithmétique']
   },
   dnb_2022_06_asie_1: {
     annee: '2022',
@@ -7123,7 +7123,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_asie_1.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_asie_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions', 'Volumes']
   },
   dnb_2022_06_asie_2: {
     annee: '2022',
@@ -7135,7 +7135,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_asie_2.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_asie_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Thalès', 'Pythagore', 'Transformations', 'Agrandissement-réduction']
   },
   dnb_2022_06_asie_3: {
     annee: '2022',
@@ -7147,7 +7147,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_asie_3.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_asie_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Statistiques', 'Tableur', 'Pourcentages']
   },
   dnb_2022_06_asie_4: {
     annee: '2022',
@@ -7159,7 +7159,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_asie_4.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_asie_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Calculs numériques', 'Algorithmique-programmation', 'Pourcentages']
   },
   dnb_2022_06_asie_5: {
     annee: '2022',
@@ -7171,7 +7171,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_asie_5.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_asie_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Coordonnées terrestres', 'Aires et périmètres', 'Vitesses']
   },
   dnb_2022_06_etrangers_1: {
     annee: '2022',
@@ -7183,7 +7183,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_etrangers_1.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_etrangers_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Fonctions', 'Tableur', 'Calcul littéral', 'Pythagore']
   },
   dnb_2022_06_etrangers_2: {
     annee: '2022',
@@ -7195,7 +7195,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_etrangers_2.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_etrangers_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Statistiques', 'Pourcentages', 'Durées', 'Vitesses']
   },
   dnb_2022_06_etrangers_3: {
     annee: '2022',
@@ -7207,7 +7207,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_etrangers_3.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_etrangers_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Trigonométrie', 'Thalès', 'Pythagore']
   },
   dnb_2022_06_etrangers_4: {
     annee: '2022',
@@ -7219,7 +7219,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_etrangers_4.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_etrangers_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Algorithmique-programmation']
   },
   dnb_2022_06_etrangers_5: {
     annee: '2022',
@@ -7231,7 +7231,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_etrangers_5.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_etrangers_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Arithmétique', 'Volumes']
   },
   dnb_2022_06_polynesie_1: {
     annee: '2022',
@@ -7243,7 +7243,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_polynesie_1.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_polynesie_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Vrai-faux', 'Calculs numériques', 'Thalès', 'Arithmétique', 'Ratio']
   },
   dnb_2022_06_polynesie_2: {
     annee: '2022',
@@ -7255,7 +7255,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_polynesie_2.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_polynesie_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Fonctions', 'Lecture graphique']
   },
   dnb_2022_06_polynesie_3: {
     annee: '2022',
@@ -7267,7 +7267,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_polynesie_3.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_polynesie_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Statistiques', 'Probabilités', 'Volumes', 'Équations']
   },
   dnb_2022_06_polynesie_4: {
     annee: '2022',
@@ -7279,7 +7279,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_polynesie_4.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_polynesie_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Programme de calculs', 'Calcul littéral']
   },
   dnb_2022_06_polynesie_5: {
     annee: '2022',
@@ -7291,7 +7291,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_polynesie_5.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_polynesie_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Prise d\'initiatives', 'Pythagore', 'Trigonométrie']
   },
   dnb_2022_06_metropole_mathalea_1: {
     annee: '2022',
@@ -7303,7 +7303,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_1.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Thalès', 'Pythagore', 'Vitesses']
   },
   dnb_2022_06_metropole_mathalea_2: {
     annee: '2022',
@@ -7315,7 +7315,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_2.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Transformations', 'Fonctions', 'Statistiques', 'Agrandissement-réduction']
   },
   dnb_2022_06_metropole_mathalea_3: {
     annee: '2022',
@@ -7327,7 +7327,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_3.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Arithmétique', 'Probabilités']
   },
   dnb_2022_06_metropole_mathalea_4: {
     annee: '2022',
@@ -7339,7 +7339,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_4.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Calcul littéral', 'Algorithmique-programmation', 'Équations']
   },
   dnb_2022_06_metropole_mathalea_5: {
     annee: '2022',
@@ -7351,7 +7351,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_5.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Volumes', 'Pourcentages']
   },
 
 }
