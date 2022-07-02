@@ -68,7 +68,7 @@ export default function LectureProbabilite () {
                 {
                   rationnel: false,
                   nom: `${nom2}`,
-                  proba: pAC
+                  proba: new Decimal(pAC)
                 }),
               new Arbre(
                 {
@@ -85,7 +85,7 @@ export default function LectureProbabilite () {
             enfants: [new Arbre({
               rationnel: false,
               nom: `${nom2}`,
-              proba: pBC
+              proba: new Decimal(pBC)
             }),
             new Arbre({
               rationnel: false,
@@ -106,13 +106,13 @@ export default function LectureProbabilite () {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
       } else { texte += `${sp(7)}$\\ldots\\ldots $` }
       texte += ` $= ${texNombre(choix, 2)}$`
-      texteCorr = `On peut lire à l'aide de l'arbre (les probabilités conditionnelles se lisent sur la deuxième partie de l'arbre):<br>
-      $p(${nom1})=${texNombre(pA, 2)}$, 
-      $p(\\overline{${nom1}})=${texNombre(pB, 2)}$, 
-      $p_{${nom1}}(${nom2})=${texNombre(pAC, 2)}$, 
-      $p_{${nom1}}(\\overline{${nom2}})=${texNombre(1 - pAC, 2)}$, 
-      $p_{\\overline{${nom1}}}(${nom2})=${texNombre(pBC, 2)}$, 
-      $p_{\\overline{${nom1}}}(\\overline{${nom2}})=${texNombre(1 - pBC, 2)}$.
+      texteCorr = `Les probabilités conditionnelles se lisent sur la deuxième partie de l'arbre :<br>
+      $\\bullet$ $P(${nom1})=${texNombre(pA, 2)}$, <br>
+      $\\bullet$ $P(\\overline{${nom1}})=${texNombre(pB, 2)}$, <br>
+      $\\bullet$  $P_{${nom1}}(${nom2})=${texNombre(pAC, 2)}$, <br>
+      $\\bullet$ $P_{${nom1}}(\\overline{${nom2}})=${texNombre(1 - pAC, 2)}$, <br>
+      $\\bullet$ $P_{\\overline{${nom1}}}(${nom2})=${texNombre(pBC, 2)}$, <br>
+      $\\bullet$ $P_{\\overline{${nom1}}}(\\overline{${nom2}})=${texNombre(1 - pBC, 2)}$.
       `
       if (choix === pA) {
         setReponse(this, i, [`p(${nom1})`, `P(${nom1})`])
