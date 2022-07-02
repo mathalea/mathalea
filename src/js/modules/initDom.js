@@ -1,10 +1,10 @@
 /* global $ */
 import { context, setOutputAmc, setOutputHtml, setOutputLatex, setOutputMoodle, setOutputAlc } from './context.js'
-import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom'
-import { getDureeFromUrl, getLogFromUrl, getZoomFromUrl, getVueFromUrl, getUrlVars, goTabVue, replaceQueryParam } from './gestionUrl'
-import { initialiseBoutonsConnexion, modalLog } from './modalLog'
-import { modalTimer } from './modalTimer'
-import { zoomAffichage } from './zoom'
+import { addElement, create, get, addFetchHtmlToParent, fetchHtmlToElement, setStyles } from './dom.js'
+import { getDureeFromUrl, getLogFromUrl, getZoomFromUrl, getVueFromUrl, getUrlVars, goTabVue, replaceQueryParam } from './gestionUrl.js'
+import { initialiseBoutonsConnexion, modalLog } from './modalLog.js'
+import { modalTimer } from './modalTimer.js'
+import { zoomAffichage } from './zoom.js'
 
 const boutonMAJ = () => {
   const btn = create('button', { class: 'btn mini ui labeled icon button', id: 'btn_mise_a_jour_code' })
