@@ -8,6 +8,7 @@ export const titre = 'Déterminer le signe d\'une puissance'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const dateDePublication = '30/06/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '01/07/2022'
 
 /**
  * Déterminer le signe d'une puissance, on choisira la possibilité d'avoir un nombre positif ou négatif et un
@@ -44,69 +45,85 @@ export default class SignePuissance extends Exercice {
           n = randint(-9, 9, [-1, 0, 1])
           texte = `$${a}^{${n}}$`
           texteCorr = `$${a}^{${n}}$ est positif car ${a} est positif.`
-          this.autoCorrection[i] = {}
-          this.autoCorrection[i].enonce = `${texte}\n`
-          this.autoCorrection[i].propositions = [
-            {
-              texte: 'Positif',
-              statut: true
-            },
-            {
-              texte: 'Négatif',
-              statut: false
+          this.autoCorrection[i] = {
+            enonce: `Déterminer le signe de l'expression suivante : ${texte}\n`,
+            propositions: [
+              {
+                texte: 'Positif',
+                statut: true
+              },
+              {
+                texte: 'Négatif',
+                statut: false
+              }
+            ],
+            options: {
+              ordered: true
             }
-          ]
+          }
           break
         case '-a^n':
           a = randint(2, 9)
           n = 2 * randint(1, 4) // permet de n'avoir que des exposant positif, cas intéressant ici
           texte = `$-${a}^{${n}}$`
-          texteCorr = `$-${a}^{${n}}$ est négatif. Attention il n'y a pas de parenthèses autour de -${a}.`
-          this.autoCorrection[i] = {}
-          this.autoCorrection[i].enonce = `${texte}\n`
-          this.autoCorrection[i].propositions = [
-            {
-              texte: 'Positif',
-              statut: false
-            },
-            {
-              texte: 'Négatif',
-              statut: true
+          texteCorr = `$-${a}^{${n}}$ est négatif. Attention il n'y a pas de parenthèses autour de $-${a}$.`
+          this.autoCorrection[i] = {
+            enonce: `Déterminer le signe de l'expression suivante : ${texte}\n`,
+            propositions: [
+              {
+                texte: 'Positif',
+                statut: false
+              },
+              {
+                texte: 'Négatif',
+                statut: true
+              }
+            ],
+            options: {
+              ordered: true
             }
-          ]
+          }
           break
         case '(-a)^n':
           a = randint(2, 9)
           n = randint(-9, 9, [-1, 0, 1])
           texte = `$(-${a})^{${n}}$`
           if (n % 2 === 0) {
-            texteCorr = `$(-${a})^{${n}}$ est positif car l\'exposant est pair.`
-            this.autoCorrection[i] = {}
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: 'Positif',
-                statut: true
-              },
-              {
-                texte: 'Négatif',
-                statut: false
+            texteCorr = `$(-${a})^{${n}}$ est positif car l'exposant est pair.`
+            this.autoCorrection[i] = {
+              enonce: `Déterminer le signe de l'expression suivante : ${texte}\n`,
+              propositions: [
+                {
+                  texte: 'Positif',
+                  statut: true
+                },
+                {
+                  texte: 'Négatif',
+                  statut: false
+                }
+              ],
+              options: {
+                ordered: true
               }
-            ]
+            }
           } else {
-            texteCorr = `$(-${a})^{${n}}$ est négatif car l\'exposant est impair.`
-            this.autoCorrection[i] = {}
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: 'Positif',
-                statut: false
-              },
-              {
-                texte: 'Négatif',
-                statut: true
+            texteCorr = `$(-${a})^{${n}}$ est négatif car l'exposant est impair.`
+            this.autoCorrection[i] = {
+              enonce: `Déterminer le signe de l'expression suivante : ${texte}\n`,
+              propositions: [
+                {
+                  texte: 'Positif',
+                  statut: false
+                },
+                {
+                  texte: 'Négatif',
+                  statut: true
+                }
+              ],
+              options: {
+                ordered: true
               }
-            ]
+            }
           }
           break
         case '-(-a)^n':
@@ -114,33 +131,41 @@ export default class SignePuissance extends Exercice {
           n = randint(-9, 9, [-1, 0, 1])
           texte = `$-(-${a})^{${n}}$`
           if (n % 2 === 0) {
-            texteCorr = `$-(-${a})^{${n}}$ est négatif. L\'exposant est pair donc $(-${a})^{${n}}$ est positif et son opposé est négatif.`
-            this.autoCorrection[i] = {}
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: 'Positif',
-                statut: false
-              },
-              {
-                texte: 'Négatif',
-                statut: true
+            texteCorr = `$-(-${a})^{${n}}$ est négatif. L'exposant est pair donc $(-${a})^{${n}}$ est positif et son opposé est négatif.`
+            this.autoCorrection[i] = {
+              enonce: `Déterminer le signe de l'expression suivante : ${texte}\n`,
+              propositions: [
+                {
+                  texte: 'Positif',
+                  statut: false
+                },
+                {
+                  texte: 'Négatif',
+                  statut: true
+                }
+              ],
+              options: {
+                ordered: true
               }
-            ]
+            }
           } else {
-            texteCorr = `$-(-${a})^{${n}}$ est positif. L\' exposant est impair donc $(-${a})^{${n}}$ est négatif et son opposé est positif.`
-            this.autoCorrection[i] = {}
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: 'Positif',
-                statut: true
-              },
-              {
-                texte: 'Négatif',
-                statut: false
+            texteCorr = `$-(-${a})^{${n}}$ est positif. L' exposant est impair donc $(-${a})^{${n}}$ est négatif et son opposé est positif.`
+            this.autoCorrection[i] = {
+              enonce: `Déterminer le signe de l'expression suivante : ${texte}\n`,
+              propositions: [
+                {
+                  texte: 'Positif',
+                  statut: true
+                },
+                {
+                  texte: 'Négatif',
+                  statut: false
+                }
+              ],
+              options: {
+                ordered: true
               }
-            ]
+            }
           }
           break
       }
