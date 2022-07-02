@@ -1,5 +1,5 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur, texNombrec } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, choice, randint, texNombre, texteEnCouleur, texNombrec } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Convertir en tous sens'
 export const interactifReady = true
 export const interactifType = 'mathLive'

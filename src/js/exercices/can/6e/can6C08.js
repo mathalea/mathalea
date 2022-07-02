@@ -1,5 +1,5 @@
-import { choice, randint, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { choice, randint, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer le quart ou le tiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'

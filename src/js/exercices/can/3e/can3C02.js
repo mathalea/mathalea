@@ -1,5 +1,5 @@
-import { texNombrec, randint, sp, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { texNombrec, randint, sp, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une moyenne avec des décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'

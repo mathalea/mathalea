@@ -1,4 +1,4 @@
-import { loadMG32 } from './loaders'
+import { loadMG32 } from '.loaders.js'
 
 // la liste des exos mtg
 let listeExos = []

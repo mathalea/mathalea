@@ -1,6 +1,6 @@
-import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
-import { calcul, choice, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
+import { calcul, choice, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer la fraction d’entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'

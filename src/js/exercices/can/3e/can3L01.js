@@ -1,5 +1,5 @@
-import { randint, texFraction } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { randint, texFraction } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre une équation du type ax=b'
 export const interactifReady = true
 export const interactifType = 'mathLive'
