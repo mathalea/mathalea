@@ -109,7 +109,7 @@ def newEntry(file:str,dicoType:str)->list:
     return [newLines,filename]
 
 def currentRef(dicoPath:str)->list:
-    """Une fonction pour récupérer tous les fichiers déjà référencé dans le dico
+    """Une fonction pour récupérer tous les fichiers déjà référencés dans le dico
 
     **Paramètres**
 
