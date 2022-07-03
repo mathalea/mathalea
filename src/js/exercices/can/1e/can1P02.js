@@ -13,9 +13,9 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 
 /**
- * On donne un arbre de probabilité et on doit calculer une probabilité partielle manquante
+ * On donne un arbre de probabilité et lit une probabilité sur l'arbre
  * @author Gilles Mora
- * Référence can2P03
+ 
 */
 export default function LectureProbabilite () {
   Exercice.call(this) // Héritage de la classe Exercice()
