@@ -7351,7 +7351,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_5.tex',
     urlcor: '/dnb/2022/tex/dnb_2022_06_metropole_mathalea_5_cor.tex',
-    tags: ['Volumes', 'Pourcentages']
+    tags: ['Volumes', 'Pourcentages', 'Proportionnalité']
   },
 
 }
