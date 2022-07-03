@@ -35,14 +35,14 @@ export default function ProbabilitesNotation () {
         case 1:
           p1 = randint(25, 80)
           p2 = new Decimal(p1).div(100)
-          choix = choice(['q2'])
+          choix = choice(['q3'])
           texte = `Dans un lycée, on choisit au hasard un élève. On note : <br>
       $\\bullet$ $F$ : "L'élève choisi est une fille" ;<br>
-      $\\bullet$ $R$ : "L'élève choisi est un demi-pensionnaire"<br>
+      $\\bullet$ $R$ : "L'élève choisi est un demi-pensionnaire".<br>
       `
           if (choix === 'q1') {
             texte += ` Dans ce lycée il y a $${p1} \\%$ de filles demi-pensionnaires.<br>
-            Compléter l'égalité suivante à l'aide d'une probabilité :`
+            En utilisant les événements $F$ et $R$, compléter l'égalité suivante à l'aide d'une probabilité :`
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
             } else { texte += `${sp(7)}$\\ldots\\ldots $` }
@@ -54,7 +54,7 @@ export default function ProbabilitesNotation () {
             if (choice([true, false])) {
               texte += ` Dans ce lycée $${p1}\\%$ des filles sont demi-pensionnaires.<br>`
             } else { texte += ` Parmi les filles de ce lycée,  $${p1}\\%$ sont demi-pensionnaires.<br>` }
-            texte += ' Compléter l\'égalité suivante à l\'aide d\'une probabilité :'
+            texte += ' En utilisant les événements $F$ et $R$, compléter l\'égalité suivante à l\'aide d\'une probabilité :'
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
             } else { texte += `${sp(7)}$\\ldots\\ldots $` }
@@ -62,6 +62,29 @@ export default function ProbabilitesNotation () {
             texteCorr = `$P_F(R)=${texNombre(p2, 2)}$.`
             setReponse(this, i, ['p_{F}(R)', 'P_{F}(R)'])
           }
+          if (choix === 'q3') {
+            if (choice([true, false])) {
+              texte += ` Dans ce lycée $${p1}\\%$ des garçons sont demi-pensionnaires.<br>`
+            } else { texte += ` Parmi les garçons de ce lycée,  $${p1}\\%$ sont demi-pensionnaires.<br>` }
+            texte += ' En utilisant les événements $F$ et $R$, compléter l\'égalité suivante à l\'aide d\'une probabilité :'
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+            } else { texte += `${sp(7)}$\\ldots\\ldots $` }
+            texte += ` $= ${texNombre(p2, 2)}$`
+            texteCorr = `$P_{\\overline{F}}(R)=${texNombre(p2, 2)}$.`
+            setReponse(this, i, ['P_{\\overline{F}}(R)', 'p_{\\overline{F}}(R)', 'P{_\\overline{F}}(R)', 'P\\overline{_F}({R})',  'P\\overline{_F}({R})'])
+          }
+          if (choix === 'q4') {
+            texte += ` Dans ce lycée il y a $${p1} \\%$ de garçons demi-pensionnaires.<br>
+            En utilisant les événements $F$ et $R$, compléter l'égalité suivante à l'aide d'une probabilité :`
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+            } else { texte += `${sp(7)}$\\ldots\\ldots $` }
+            texte += ` $ = ${texNombre(p2, 2)}$`
+            texteCorr = `$P(\\overline{F}\\cap R)=${texNombre(p2, 2)}$.`
+            setReponse(this, i, ['p(\\overline{F}\\bigcap R)', 'p(R\\bigcap \\overline{F})', 'P(\\overline{F}\\bigcap R)', 'P(R\\bigcap \\overline{F})'])
+          }
+
           break
       }
       if (this.questionJamaisPosee(i, p1)) {
