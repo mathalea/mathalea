@@ -35,8 +35,8 @@ export default function LectureProbabilite () {
     for (let i = 0, cpt = 0, pA, pB, pAC, pBC, omega, texte, texteCorr, choix, nom1, nom2, objets; i < this.nbQuestions && cpt < 50;) {
       objets = []
       // On choisit les probas de l'arbre
-      nom1 = choisitLettresDifferentes(1)
-      nom2 = choisitLettresDifferentes(1, nom1)
+      nom1 = choisitLettresDifferentes(1, 'D')
+      nom2 = choisitLettresDifferentes(1, nom1 + 'D')
       pA = (new Decimal(randint(1, 9, 5))).div(10)
 
       pB = new Decimal(1 - pA)
@@ -50,6 +50,7 @@ export default function LectureProbabilite () {
         pBC = (new Decimal(randint(1, 9) * 10 + randint(1, 9))).div(100)
       }
       choix = choice([pA, pB, pAC, 1 - pAC, pBC, 1 - pBC])
+
       // On définit l'arbre complet
       omega = new Arbre({
         racine: true,
@@ -99,7 +100,7 @@ export default function LectureProbabilite () {
 
       omega.setTailles() // On calcule les tailles des arbres.
       objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
-      texte = 'On donne l\'arbre de probabilités ci dessous :<br>'
+      texte = 'On donne l\'arbre de probabilités ci-dessous :<br>'
       texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline' }, ...objets)
       texte += '<br>Compléter avec la notation qui convient : '
       if (this.interactif) {
@@ -114,24 +115,28 @@ export default function LectureProbabilite () {
       $\\bullet$ $P_{\\overline{${nom1}}}(${nom2})=${texNombre(pBC, 2)}$, <br>
       $\\bullet$ $P_{\\overline{${nom1}}}(\\overline{${nom2}})=${texNombre(1 - pBC, 2)}$.
       `
+
       if (choix === pA) {
         setReponse(this, i, [`p(${nom1})`, `P(${nom1})`])
       }
       if (choix === pB) {
         setReponse(this, i, [`p(\\overline{${nom1}})`, `P(\\overline{${nom1}})`])
       }
-
       if (choix === pAC) {
-        setReponse(this, i, [`p_{${nom1}}(${nom2})`, `P_{${nom1}}(${nom2})`])
+        setReponse(this, i, [`p_${nom1}({${nom2}})`, `P_${nom1}({${nom2}})`]) // Testé et Correct
       }
       if (choix === 1 - pAC) {
-        setReponse(this, i, [`p_{${nom1}}(\\overline{${nom2}})`, `P_{${nom1}}(\\overline{${nom2}})`])
+        setReponse(this, i, [`p_${nom1}({\\overline{${nom2}}})`, `P_${nom1}({\\overline{${nom2}}})`, `p_${nom1}(\\overline{{${nom2}}})`, `P_${nom1}(\\overline{{${nom2}}})`]) // Testé et Correct
       }
       if (choix === pBC) {
-        setReponse(this, i, [`p_{\\overline{${nom1}}}(${nom2})`, `P_{\\overline{${nom1}}}(${nom2})`, `p\\overline{_${nom1}}(${nom2})`, `P\\overline{_${nom1}}(${nom2})`])
+        setReponse(this, i, [`p_{\\overline{${nom1}}}({${nom2}})`, `P_{\\overline{${nom1}}}({${nom2}})`, `p\\overline{_${nom1}}({${nom2}})`, `P\\overline{_${nom1}}({${nom2}})`]) // Testé et Correct
       }
       if (choix === 1 - pBC) {
-        setReponse(this, i, [`p_{\\overline{${nom1}}}(\\overline{${nom2}})`, `P_{\\overline{${nom1}}}(\\overline{${nom2}})`, `p\\overline{_${nom1}}(\\overline{${nom2}})`, `P\\overline{_${nom1}}(\\overline{${nom2}})`])
+        setReponse(this, i, [
+          `p_{\\overline{${nom1}}}({\\overline{${nom2}}})`, `P_{\\overline{${nom1}}}({\\overline{${nom2}}})`,
+          `p\\overline{_${nom1}}(\\overline{{${nom2}}})`, `P\\overline{_${nom1}}(\\overline{{${nom2}}})`,
+          `p_{\\overline{${nom1}}}(\\overline{{${nom2}}})`, `P_{\\overline{${nom1}}}(\\overline{{${nom2}}})`,
+          `p\\overline{_${nom1}}({\\overline{${nom2}}})`, `P\\overline{_${nom1}}({\\overline{${nom2}}})`])
       }
       if (this.questionJamaisPosee(i, pA, pAC, pBC)) {
         this.listeQuestions.push(texte)
