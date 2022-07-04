@@ -43,7 +43,7 @@ export default function CalculerProbabiliteIntersection () {
       reponse3 = new Decimal(pAbarre).mul(pBsachantAbarre)
       reponse4 = new Decimal(pAbarre).mul(pBbarresachantAbarre)
 
-      switch (choice([1,2,3,4])) { //
+      switch (choice([1, 2, 3, 4])) { //
         case 1:
           // On définit l'arbre complet
           omega = new Arbre({
