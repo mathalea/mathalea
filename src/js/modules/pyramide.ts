@@ -1,31 +1,56 @@
-import { randint, stringNombre } from './outils.js'
+import { fraction } from './fractions.js'
+import { FractionX } from './FractionEtendue.js'
+import { randint, stringNombre, choice } from './outils.js'
 import { boite } from './2d.js'
 export class Pyramide {
     operation: string
     nombreEtages: number
     rangeData: number[]
     exclusions: number[]
-    valeurs: number[][]
+    valeurs: number[][] | FractionX[][]
     isVisible: boolean[][]
-
-    constructor ({ operation = '+', nombreEtages = 3, rangeData = [1, 10], exclusions = [] } = {}) {
+    fractionOn: boolean
+    /**
+ *
+ * @param param0 : operation = '+' ou '*' ;
+ * rangeData : si fractionOn est false, ça contient le minimum est le maximum
+ * rangeData : si fractionOn est true, ça contient deux tableaux : le premier contient min et max pour le numérateur, le deuxième contient les dénominateurs possibles
+ */
+    constructor ({ operation = '+', nombreEtages = 3, rangeData = [1, 10], exclusions = [], fractionOn = false } = {}) {
       this.operation = operation
       this.nombreEtages = nombreEtages
       this.rangeData = rangeData
       this.valeurs = []
       this.isVisible = []
+      this.fractionOn = fractionOn
       for (let y = nombreEtages - 1; y >= 0; y--) {
         this.valeurs[y] = []
         this.isVisible[y] = []
-        for (let x = 0; x <= y; x++) {
-          if (y === nombreEtages - 1) this.valeurs[y][x] = randint(rangeData[0], rangeData[1], exclusions)
-          else {
+        for (let x = 0, num, den; x <= y; x++) {
+          if (y === nombreEtages - 1) {
+            if (this.fractionOn) {
+              den = choice(rangeData[1])
+              num = randint(rangeData[0][0], rangeData[0][1], exclusions.concat([den]))
+              this.valeurs[y][x] = fraction(num, den).simplifie()
+            } else {
+              this.valeurs[y][x] = randint(rangeData[0], rangeData[1], exclusions)
+            }
+          } else {
             switch (operation) {
               case '+':
-                this.valeurs[y][x] = this.valeurs[y + 1][x] + this.valeurs[y + 1][x + 1]
+                if (this.fractionOn) {
+                  this.valeurs[y][x] = this.valeurs[y + 1][x].sommeFraction(this.valeurs[y + 1][x + 1]).simplifie()
+                } else {
+                  this.valeurs[y][x] = this.valeurs[y + 1][x] + this.valeurs[y + 1][x + 1]
+                }
                 break
               case '*':
-                this.valeurs[y][x] = this.valeurs[y + 1][x] * this.valeurs[y + 1][x + 1]
+                if (this.fractionOn) {
+                  this.valeurs[y][x] = this.valeurs[y + 1][x].produitFraction(this.valeurs[y + 1][x + 1]).simplifie()
+                } else {
+                  this.valeurs[y][x] = this.valeurs[y + 1][x] * this.valeurs[y + 1][x + 1]
+                }
+
                 break
             }
           }
@@ -70,23 +95,24 @@ export class Pyramide {
 
     representeMoi = function (xO: number = 0, yO: number = 0): object[] {
       const objets = []
+      const hCase = this.fractionOn ? 2 : 1
       for (let y = this.nombreEtages; y > 0; y--) {
         for (let x = 0; x < y; x++) {
           if (this.isVisible[y - 1][x]) {
             objets.push(boite({
               Xmin: xO + x * 4 + (this.nombreEtages - y) * 2,
-              Ymin: yO + this.nombreEtages - y,
+              Ymin: yO + (this.nombreEtages - y) * hCase,
               Xmax: xO + x * 4 + 4 + (this.nombreEtages - y) * 2,
-              Ymax: yO + 1 + this.nombreEtages - y,
-              texteIn: stringNombre(this.valeurs[y - 1][x], 0),
+              Ymax: yO + (1 + this.nombreEtages - y) * hCase,
+              texteIn: this.fractionOn ? `$${this.valeurs[y - 1][x].texFractionSimplifiee}$` : stringNombre(this.valeurs[y - 1][x], 0),
               texteOpacite: 1
             }))
           } else {
             objets.push(boite({
               Xmin: xO + x * 4 + (this.nombreEtages - y) * 2,
-              Ymin: yO + this.nombreEtages - y,
+              Ymin: yO + (this.nombreEtages - y) * hCase,
               Xmax: xO + x * 4 + 4 + (this.nombreEtages - y) * 2,
-              Ymax: yO + 1 + this.nombreEtages - y,
+              Ymax: yO + (1 + this.nombreEtages - y) * hCase,
               texteIn: '',
               texteOpacite: 1
             }))

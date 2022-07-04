@@ -1785,6 +1785,7 @@ export function polyline (...args) {
  *
  */
 function Pave (L = 10, l = 5, h = 5, origine = point(0, 0), cote = true, angleDeFuite = 30, coefficientDeFuite = 0.5) {
+  ObjetMathalea2D.call(this)
   const objets = []
   const A = origine; const B = point(A.x + L, A.y); const C = point(B.x, B.y + l); const D = point(A.x, A.y + l)
   const p = polygone(A, B, C, D)
@@ -1813,6 +1814,7 @@ function Pave (L = 10, l = 5, h = 5, origine = point(0, 0), cote = true, angleDe
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
+      objet.color = this.color
       code += '\n\t' + objet.svg(coeff)
     }
     return code
@@ -2691,8 +2693,12 @@ class Boite {
       this.forme.opaciteDeRemplissage = opaciteDeRemplissage
     }
     if (texteIn !== '') {
-      this.texte = texteParPositionEchelle(texteIn, (Xmin + Xmax) / 2, (Ymin + Ymax) / 2, 'milieu', texteColor, tailleTexte, 'middle', texteMath, echelleFigure)
-      this.texte.opacite = texteOpacite
+      if (texteIn.charAt(0) === '$') {
+        this.texte = latexParCoordonnees(texteIn.replaceAll('$', ''), (Xmin + Xmax) / 2, (Ymin + Ymax) / 2, texteColor)
+      } else {
+        this.texte = texteParPositionEchelle(texteIn, (Xmin + Xmax) / 2, (Ymin + Ymax) / 2, 'milieu', texteColor, tailleTexte, 'middle', texteMath, echelleFigure)
+        this.texte.opacite = texteOpacite
+      }
     } else {
       this.texte = false
     }
