@@ -1276,14 +1276,14 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
  * @return {Droite} Droite
  * @author Rémi Angot
 
- export function mediatrice (A, B, nom = '', color = 'black') { //Supprimée par EE au profit d'une autre
+export function mediatrice (A, B, nom = '', color = 'black') { // Supprimée par EE au profit d'une autre
   if (longueur(A, B) < 0.001) window.notify('mediatrice : Points trop rapprochés pour créer cet objet', { A, B })
   const O = milieu(A, B)
   const M = rotation(A, O, 90)
   const N = rotation(A, O, -90)
   return droite(M, N, nom, color)
-} */
-
+}
+*/
 /**
  * m = codageMediatrice(A,B,'blue','×') // Ajoute le codage du milieu et de l'angle droit pour la médiatrice de [AB] en bleu
  *
@@ -1399,66 +1399,70 @@ function Mediatrice (
   const M = pointSurSegment(O, m, longueur(A, B) * 0.785)
   const N = pointSurSegment(O, n, longueur(A, B) * 0.785)
   const d = droite(M, N, nom, this.couleurMediatrice)
-  d.isVisible = false
-  d.epaisseur = this.epaisseurMediatrice
-  d.opacite = this.opaciteMediatrice
-  d.pointilles = this.pointillesMediatrice
-  const objets = [d]
-  if (construction) {
-    const arcm1 = traceCompas(A, M, 20, this.couleurConstruction)
-    const arcm2 = traceCompas(B, M, 20, this.couleurConstruction)
-    const arcn1 = traceCompas(A, N, 20, this.couleurConstruction)
-    const arcn2 = traceCompas(B, N, 20, this.couleurConstruction)
-    arcm1.isVisible = false
-    arcm2.isVisible = false
-    arcn1.isVisible = false
-    arcn2.isVisible = false
-    const codage = codageMediatrice(A, B, this.color, markmilieu)
-    codage.isVisible = false
-    objets.push(arcm1, arcm2, arcn1, arcn2, d, codage)
-  }
-  if (detail) {
-    const sAM = segment(A, M, this.couleurConstruction)
-    sAM.pointilles = 5
-    const sBM = segment(B, M, this.couleurConstruction)
-    sBM.pointilles = 5
-    const sAN = segment(A, N, this.couleurConstruction)
-    sAN.pointilles = 5
-    const sBN = segment(B, N, this.couleurConstruction)
-    sBN.pointilles = 5
-    const codes = codageSegments(markrayons, this.color, A, M, B, M, A, N, B, N)
-    objets.push(sAM, sBM, sAN, sBN, codes)
-  }
-  this.svg = function (coeff) {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.svg(coeff)
+  if (arguments.length < 5) {
+    return d
+  } else {
+    d.isVisible = false
+    d.epaisseur = this.epaisseurMediatrice
+    d.opacite = this.opaciteMediatrice
+    d.pointilles = this.pointillesMediatrice
+    const objets = [d]
+    if (construction) {
+      const arcm1 = traceCompas(A, M, 20, this.couleurConstruction)
+      const arcm2 = traceCompas(B, M, 20, this.couleurConstruction)
+      const arcn1 = traceCompas(A, N, 20, this.couleurConstruction)
+      const arcn2 = traceCompas(B, N, 20, this.couleurConstruction)
+      arcm1.isVisible = false
+      arcm2.isVisible = false
+      arcn1.isVisible = false
+      arcn2.isVisible = false
+      const codage = codageMediatrice(A, B, this.color, markmilieu)
+      codage.isVisible = false
+      objets.push(arcm1, arcm2, arcn1, arcn2, d, codage)
     }
-    code = `<g id="${this.id}">${code}</g>`
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.tikz()
+    if (detail) {
+      const sAM = segment(A, M, this.couleurConstruction)
+      sAM.pointilles = 5
+      const sBM = segment(B, M, this.couleurConstruction)
+      sBM.pointilles = 5
+      const sAN = segment(A, N, this.couleurConstruction)
+      sAN.pointilles = 5
+      const sBN = segment(B, N, this.couleurConstruction)
+      sBN.pointilles = 5
+      const codes = codageSegments(markrayons, this.color, A, M, B, M, A, N, B, N)
+      objets.push(sAM, sBM, sAN, sBN, codes)
     }
-    return code
-  }
-  this.svgml = function (coeff, amp) {
-    let code = ''
-    for (const objet of objets) {
-      if (typeof (objet.svgml) === 'undefined') code += '\n\t' + objet.svg(coeff)
-      else code += '\n\t' + objet.svgml(coeff, amp)
+    this.svg = function (coeff) {
+      let code = ''
+      for (const objet of objets) {
+        code += '\n\t' + objet.svg(coeff)
+      }
+      code = `<g id="${this.id}">${code}</g>`
+      return code
     }
-    return code
-  }
-  this.tikzml = function (amp) {
-    let code = ''
-    for (const objet of objets) {
-      if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()
-      else code += '\n\t' + objet.tikzml(amp)
+    this.tikz = function () {
+      let code = ''
+      for (const objet of objets) {
+        code += '\n\t' + objet.tikz()
+      }
+      return code
     }
-    return code
+    this.svgml = function (coeff, amp) {
+      let code = ''
+      for (const objet of objets) {
+        if (typeof (objet.svgml) === 'undefined') code += '\n\t' + objet.svg(coeff)
+        else code += '\n\t' + objet.svgml(coeff, amp)
+      }
+      return code
+    }
+    this.tikzml = function (amp) {
+      let code = ''
+      for (const objet of objets) {
+        if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()
+        else code += '\n\t' + objet.tikzml(amp)
+      }
+      return code
+    }
   }
 }
 
@@ -1548,56 +1552,60 @@ function Bissectrice (
   const m = pointSurSegment(O, A, 3)
   const X = rotation(m, O, demiangle)
   const d = demiDroite(O, X, this.couleurBissectrice)
-  d.epaisseur = this.epaisseurBissectrice
-  d.opacite = this.opaciteBissectrice
-  d.pointilles = this.pointillesBissectrice
-  const objets = [d]
   // Fin de construction de la bissectrice
-  const M = pointSurSegment(O, A, this.tailleLosange)
-  const N = pointSurSegment(O, B, this.tailleLosange)
-  const dMN = droite(M, N)
-  dMN.isVisible = false
-  const P = symetrieAxiale(O, dMN)
-  if (construction || detail) {
-    if (!M.estSur(segment(O, A))) {
-      const sOM = segment(O, M, this.couleurConstruction)
-      objets.push(sOM)
+  if (arguments.length < 5) {
+    return d
+  } else {
+    d.epaisseur = this.epaisseurBissectrice
+    d.opacite = this.opaciteBissectrice
+    d.pointilles = this.pointillesBissectrice
+    const objets = [d]
+    const M = pointSurSegment(O, A, this.tailleLosange)
+    const N = pointSurSegment(O, B, this.tailleLosange)
+    const dMN = droite(M, N)
+    dMN.isVisible = false
+    const P = symetrieAxiale(O, dMN)
+    if (construction || detail) {
+      if (!M.estSur(segment(O, A))) {
+        const sOM = segment(O, M, this.couleurConstruction)
+        objets.push(sOM)
+      }
+      if (!N.estSur(segment(O, B))) {
+        const sON = segment(O, N, this.couleurConstruction)
+        objets.push(sON)
+      }
+      if (construction) {
+        const codage = codageBissectrice(A, O, B, this.color, mark)
+        const tNP = traceCompas(N, P, 20, this.couleurConstruction)
+        const tMP = traceCompas(M, P, 20, this.couleurConstruction)
+        const tOM = traceCompas(O, M, 20, this.couleurConstruction)
+        const tON = traceCompas(O, N, 20, this.couleurConstruction)
+        objets.push(codage, tNP, tMP, tOM, tON)
+      }
+      if (detail) {
+        const sMP = segment(M, P, this.couleurConstruction)
+        const sNP = segment(N, P, this.couleurConstruction)
+        sMP.pointilles = 5
+        sNP.pointilles = 5
+        const codes = codageSegments(this.mark, this.color, O, M, M, P, O, N, N, P)
+        objets.push(sMP, sNP, codes)
+      }
     }
-    if (!N.estSur(segment(O, B))) {
-      const sON = segment(O, N, this.couleurConstruction)
-      objets.push(sON)
-    }
-    if (construction) {
-      const codage = codageBissectrice(A, O, B, this.color, mark)
-      const tNP = traceCompas(N, P, 20, this.couleurConstruction)
-      const tMP = traceCompas(M, P, 20, this.couleurConstruction)
-      const tOM = traceCompas(O, M, 20, this.couleurConstruction)
-      const tON = traceCompas(O, N, 20, this.couleurConstruction)
-      objets.push(codage, tNP, tMP, tOM, tON)
-    }
-    if (detail) {
-      const sMP = segment(M, P, this.couleurConstruction)
-      const sNP = segment(N, P, this.couleurConstruction)
-      sMP.pointilles = 5
-      sNP.pointilles = 5
-      const codes = codageSegments(this.mark, this.color, O, M, M, P, O, N, N, P)
-      objets.push(sMP, sNP, codes)
-    }
-  }
 
-  this.svg = function (coeff) {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.svg(coeff)
+    this.svg = function (coeff) {
+      let code = ''
+      for (const objet of objets) {
+        code += '\n\t' + objet.svg(coeff)
+      }
+      return code
     }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const objet of objets) {
-      code += '\n\t' + objet.tikz()
+    this.tikz = function () {
+      let code = ''
+      for (const objet of objets) {
+        code += '\n\t' + objet.tikz()
+      }
+      return code
     }
-    return code
   }
 }
 
@@ -10229,7 +10237,7 @@ function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackgro
   this.tikz = function () {
     let code
     if (this.colorBackground !== '') {
-      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{ ${colorBackground[1]}}{${taille}  $\\color{${this.color}}{${texte}}$}};`
+      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox{ ${colorBackground}}{${taille}  $\\color{${this.color}}{${texte}}$}};`
     } else {
       code = `\\draw (${x},${y}) node[anchor = center] {${taille} $\\color{${this.color}}{${texte}}$};`
     };

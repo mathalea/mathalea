@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, simplificationDeFractionAvecEtapes } from '../../modules/outils.js'
-import FractionX from '../../modules/FractionEtendue'
+import FractionX from '../../modules/FractionEtendue.js'
 import { evaluate, Fraction } from 'mathjs'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 

@@ -1,5 +1,5 @@
-import { calcul, creerNomDePolygone, randint, texNombrec, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, creerNomDePolygone, randint, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 import {
   mathalea2d, tracePoint, point, milieu, texteParPosition, pointAdistance, longueur, cercle, pointIntersectionCC, polygoneAvecNom
 } from '../../../modules/2d.js'

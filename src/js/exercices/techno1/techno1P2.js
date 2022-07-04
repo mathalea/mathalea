@@ -1,7 +1,7 @@
-import AppliquerPourcentage from '../6e/6N33-1'
+import AppliquerPourcentage from '../6e/6N33-1.js'
 export const titre = 'Appliquer un pourcentage'
 export const dateDePublication = '19/06/2022'
-export { interactifReady, interactifType } from '../6e/6N33-1'
+export { interactifReady, interactifType } from '../6e/6N33-1.js'
 
 /**
  * Clone de 6N33-1 pour les 1er

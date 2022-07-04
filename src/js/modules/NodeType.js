@@ -88,5 +88,3 @@ NodeType.isIntegerFraction = function (node, allowUnaryMinus = false) {
   return (Number.isInteger(parseFloat(numerator.value)) &&
           Number.isInteger(parseFloat(denominator.value)))
 }
-
-module.exports = NodeType

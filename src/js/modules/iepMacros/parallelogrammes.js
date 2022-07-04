@@ -4,7 +4,7 @@
  ************************************************
  */
 
-import { translation2Points, longueur, pointSurSegment, similitude, pointAdistance, droite, homothetie } from '../2d'
+import { translation2Points, longueur, pointSurSegment, similitude, pointAdistance, droite, homothetie } from '../2d.js'
 
 /**
    * Trace un parallélogramme à partir de la donnée de 3 sommets consécutifs

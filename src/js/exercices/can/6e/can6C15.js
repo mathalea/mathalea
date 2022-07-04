@@ -1,7 +1,7 @@
-import { context } from '../../../modules/context'
-import FractionEtendue from '../../../modules/FractionEtendue'
-import { pgcd, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { context } from '../../../modules/context.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
+import { pgcd, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver la fraction (définition)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

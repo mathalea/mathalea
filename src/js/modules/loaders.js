@@ -1,12 +1,12 @@
 /* global jQuery */
 import loadjs from 'loadjs'
-import { context } from './context'
-import { UserFriendlyError } from './messages'
+import { context } from './context.js'
+import { UserFriendlyError } from './messages.js'
 import { clavierLongueur } from './interactif/claviers/longueur_ANCIEN.js'
 import { clavierTrigo } from './interactif/claviers/trigo.js'
 import { clavierCollege } from './interactif/claviers/college.js'
 import { clavierLycee } from './interactif/claviers/lycee.js'
-import { clavierConfiguration } from './interactif/claviers/claviersUnites'
+import { clavierConfiguration } from './interactif/claviers/claviersUnites.js'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
