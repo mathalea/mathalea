@@ -1,12 +1,13 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, arrondi } from '../../modules/outils.js'
-import { repere, courbe, mathalea2d } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre } from '../../modules/outils.js'
+import { mathalea2d, repere2, courbe2 } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
+import { min, max } from 'mathjs'
 
 export const titre = 'Lecture graphique d\'éléments caractéristiques d\'un trinôme'
 
 /**
- * @author Jean-Léon Henry
+ * @author Jean-Léon Henry (modifié par EE pour corriger exo et remplacer Repere et Courbe par Repere2 et Courbe2 (juillet 2022))
  * Faire lire sur un graphique :
  * - le signe du coefficient dominant
  * - les racines
@@ -16,14 +17,13 @@ export const titre = 'Lecture graphique d\'éléments caractéristiques d\'un tr
  */
 export default function LireElementsCarac () {
   Exercice.call(this)
-  this.consigne = 'Lecture graphique'
   this.nbQuestions = 5 // Nombre de questions par défaut
-  // this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  // this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  // this.video = '' // Id YouTube ou url
   this.sup = 4
 
   this.nouvelleVersion = function (numeroExercice) {
+    this.consigne = 'Répondre à '
+    this.consigne += this.nbQuestions > 1 ? 'ces questions' : 'cette question'
+    this.consigne += ' par lecture graphique.'
     const pixelsParCm = 20
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -110,16 +110,10 @@ export default function LireElementsCarac () {
         // Nécessaire pour permettre la lecture graphique
         Yscale = 1
       }
-
-      r = repere({
-        xmin: Xmin,
-        ymin: Ymin - Yscale,
-        ymax: Ymax + Yscale,
-        xmax: Xmax,
-        xscale: 1,
-        yscale: Yscale,
-        positionLabelY: -0.8
-      })
+      Xmin = min(0, Xmin)
+      Xmax = max(1, Xmax)
+      const YminEE = Yscale * Math.floor(Ymin / Yscale)
+      r = repere2({ xMin: Xmin, xMax: Xmax, yMin: YminEE - Yscale, yMax: Ymax + Yscale, xUnite: 1, yUnite: 1 / Yscale, yThickDistance: Yscale })
 
       svgYmin = Math.min(calcule(Ymin / Yscale), -1)
       svgYmax = Math.max(calcule(Ymax / Yscale), 1)
@@ -134,7 +128,7 @@ export default function LireElementsCarac () {
         pixelsParCm,
         scale: 0.6
       },
-      courbe(F, Xmin, Xmax, 'blue', 1.5, r), r)
+      courbe2(F, { Xmin: Xmin, Xmax: Xmax, color: 'blue', epaisseur: 1.5, repere: r }), r)
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)
