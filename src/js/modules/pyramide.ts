@@ -68,7 +68,7 @@ export class Pyramide {
       } while (!solvable)
     }
 
-    representeMoi = function (xO: number, yO: number): object[] {
+    representeMoi = function (xO: number = 0, yO: number = 0): object[] {
       const objets = []
       for (let y = this.nombreEtages; y > 0; y--) {
         for (let x = 0; x < y; x++) {
