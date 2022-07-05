@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, prenom, texteEnCouleur, texteGras, texPrix, numAlpha } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, prenom, texteEnCouleur, texteGras, texPrix, numAlpha, premierMultipleSuperieur } from '../../modules/outils.js'
 import { point, segment, mathalea2d, repere2, courbe2 } from '../../modules/2d.js'
 export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'un graphique'
 
@@ -62,30 +62,37 @@ export default function GraphiquesEtProportionnalite2 () {
       // pour aléatoiriser un peu le pas sur l'axe des prix
       let stepAxeSecondaire
       if (yscale === 1) stepAxeSecondaire = choice([0.5, 0.2, 0.25])
-      else stepAxeSecondaire = 1
+      else stepAxeSecondaire = choice([0.5, 0.2, 0.25])
       // on finit les appels
       const mesAppels = [
         r = repere2({
           xMin: 0,
           yMin: 0,
-          yMax: Math.floor((situation.qte_max * situation.prix_unitaire + yscale) / yscale) * yscale,
+          yMax: premierMultipleSuperieur(yscale, (situation.qte_max + 1) * situation.prix_unitaire + yscale),
           xMax: situation.qte_max + 1,
-          xUnite: 1 / xscale,
-          xThickDistance: xscale,
+          xUnite: 1,
           yUnite: 1 / yscale,
           yThickDistance: yscale,
-          xLegende: situation.legendeX,
-          xLegendePosition: [Math.floor((situation.qte_max + xscale) / xscale) * xscale + 0.5, 0.1],
-          yLegende: situation.legendeY,
-          yLegendePosition: [-0.5, Math.floor((situation.qte_max * situation.prix_unitaire + yscale) / yscale) + 0.5],
+          legendeX: situation.legendeX,
+          legendeY: situation.legendeY,
           grille: true,
-          grilleSecondaire: true
+          grilleOpacite: 0.5,
+          grilleXDistance: 1,
+          grilleYDistance: yscale,
+          grilleXMin: 0,
+          grilleYMin: 0,
+          grilleSecondaire: true,
+          grilleSecondaireXDistance: 0.2,
+          grilleSecondaireYDistance: yscale / 5,
+          grilleSecondaireXMin: 0,
+          grilleSecondaireYMin: 0,
+          grilleSecondaireXMax: situation.qte_max + 1,
+          grilleSecondaireYMax: premierMultipleSuperieur(yscale, (situation.qte_max + 1) * situation.prix_unitaire + yscale),
+          yLegendePosition: [0.3, premierMultipleSuperieur(yscale, (situation.qte_max + 1) * situation.prix_unitaire + yscale) + 1]
         })
       ]
-
-      const f = x => calcul(situation.prix_unitaire * x)
-      mesAppels.push(f, courbe2(f, { Xmin: 0, Xmax: situation.qte_max, color: 'black', epaisseur: 1.5, repere: r }))
-
+      const f = x => situation.prix_unitaire * x
+      mesAppels.push(r, courbe2(f, { repere: r, xMin: 0, xMax: situation.qte_max + 1, color: 'black', epaisseur: 1.5 }))
       // on prépare l'objet figure
       const fig = mathalea2d(
         {
@@ -93,7 +100,7 @@ export default function GraphiquesEtProportionnalite2 () {
           ymin: -1,
           xmax: situation.qte_max / xscale + 3,
           ymax: (situation.qte_max * situation.prix_unitaire + yscale) / yscale + 1,
-          pixelsParCm: 40
+          pixelsParCm: 30
         },
         mesAppels
       )
@@ -140,7 +147,7 @@ export default function GraphiquesEtProportionnalite2 () {
           ymin: -1,
           xmax: situation.qte_max / xscale + 3,
           ymax: (situation.qte_max * situation.prix_unitaire + 4) / yscale + 1,
-          pixelsParCm: 40
+          pixelsParCm: 30
         },
         mesAppelsCorr
       )
