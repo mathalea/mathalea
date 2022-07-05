@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, prenom, texteEnCouleur, texteGras, texPrix, numAlpha, premierMultipleSuperieur } from '../../modules/outils.js'
-import { point, segment, mathalea2d, repere2, courbe2 } from '../../modules/2d.js'
+import { point, segment, mathalea2d, repere, courbe } from '../../modules/2d.js'
 export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'un graphique'
 
 /**
@@ -65,7 +65,7 @@ export default function GraphiquesEtProportionnalite2 () {
       else stepAxeSecondaire = choice([0.5, 0.2, 0.25])
       // on finit les appels
       const mesAppels = [
-        r = repere2({
+        r = repere({
           xMin: 0,
           yMin: 0,
           yMax: premierMultipleSuperieur(yscale, (situation.qte_max + 1) * situation.prix_unitaire + yscale),
@@ -92,7 +92,7 @@ export default function GraphiquesEtProportionnalite2 () {
         })
       ]
       const f = x => situation.prix_unitaire * x
-      mesAppels.push(r, courbe2(f, { repere: r, xMin: 0, xMax: situation.qte_max + 1, color: 'black', epaisseur: 1.5 }))
+      mesAppels.push(r, courbe(f, { repere: r, xMin: 0, xMax: situation.qte_max + 1, color: 'black', epaisseur: 1.5 }))
       // on prépare l'objet figure
       const fig = mathalea2d(
         {

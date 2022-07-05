@@ -1,4 +1,4 @@
-import { courbeSpline, mathalea2d, repere2 } from '../../../modules/2d.js'
+import { courbeSpline, mathalea2d, repere } from '../../../modules/2d.js'
 import { splineCatmullRom } from '../../../modules/fonctionsMaths.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
@@ -24,7 +24,7 @@ export default function ImageSpline () {
       Y[x + 6] = randint(-4, 4)
     }
     const f = splineCatmullRom({ tabY: Y, x0: -6, step: 1 })
-    const r = repere2({ xMin: -7, xMax: 7, yMin: -6, yMax: 6 })
+    const r = repere({ xMin: -7, xMax: 7, yMin: -6, yMax: 6 })
     const c = courbeSpline(f, { repere: r, step: 0.1, color: 'red', xMin: -6, xMax: 6, traceNoeuds: true })
     this.reponse = f.image(X)
     this.question = `Quelle est l'image de $${X}$ ?<br>${mathalea2d({ xmin: -7, xmax: 7, ymin: -6, ymax: 6, pixelsParCm: 17, style: 'margin: auto' }, r, c)}`

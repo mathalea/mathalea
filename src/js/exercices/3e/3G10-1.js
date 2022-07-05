@@ -1,4 +1,4 @@
-import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, mathalea2d, point, segment, milieu, pointSurDroite, tracePoint, codageSegments, repere2, labelPoint, droiteHorizontaleParPoint, afficheMesureAngle, vecteur } from '../../modules/2d.js'
+import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, mathalea2d, point, segment, milieu, pointSurDroite, tracePoint, codageSegments, repere, labelPoint, droiteHorizontaleParPoint, afficheMesureAngle, vecteur } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, texNombrec, texNombre } from '../../modules/outils.js'
@@ -551,8 +551,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
         enonceAmc += '<br>'
       }
     }
-    objetsEnonce.push(repere2({ xMin: -10, yMin: -10, xMax: 10, yMax: 10, grilleOpacite: 0.2 }))
-    objetsCorrection.push(repere2({ xMin: -10, yMin: -10, xMax: 10, yMax: 10, grilleOpacite: 0.2 }))
+    objetsEnonce.push(repere({ xMin: -10, yMin: -10, xMax: 10, yMax: 10, grilleOpacite: 0.2 }))
+    objetsCorrection.push(repere({ xMin: -10, yMin: -10, xMax: 10, yMax: 10, grilleOpacite: 0.2 }))
     if (context.isAmc) {
       this.autoCorrection[0] = {
         enonce: enonceAmc + mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.5, mainlevee: false }, objetsEnonce) + '\\\\',

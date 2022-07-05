@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, texNombrec, lettreMinusculeDepuisChiffre, texNombre, miseEnEvidence, premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils.js'
-import { mathalea2d, repere2, courbe2 } from '../../modules/2d.js'
+import { mathalea2d, repere, courbe } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 
 export const titre = 'Trouver l\'équation d\'une parabole'
@@ -131,7 +131,7 @@ ${f(x1) - f(-x1)}=${2 * x1}b
 
       if (Ymax - Ymin < 10) Yscale = 2
       else Yscale = Math.max(1, calcule(Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5)) * 2
-      r = repere2({
+      r = repere({
         xMin: -10,
         yMin: premierMultipleInferieur(Yscale, Ymin) - Yscale,
         yMax: premierMultipleSuperieur(Yscale, Ymax) + Yscale,
@@ -145,7 +145,7 @@ ${f(x1) - f(-x1)}=${2 * x1}b
       svgYmin = Math.min(calcule(Ymin / Yscale), -1)
       svgYmax = Math.max(calcule(Ymax / Yscale), 1)
       F = x => a * x ** 2 + b * x + c
-      texte += mathalea2d({ xmin: -10, xmax: 11, ymin: svgYmin, ymax: svgYmax + 2, pixelsParCm: pixelsParCm, scale: 0.6 }, courbe2(F, { repere: r, xMin: -10, xMax: 10, color: 'blue', epaisseur: 1.5 }), r)
+      texte += mathalea2d({ xmin: -10, xmax: 11, ymin: svgYmin, ymax: svgYmax + 2, pixelsParCm: pixelsParCm, scale: 0.6 }, courbe(F, { repere: r, xMin: -10, xMax: 10, color: 'blue', epaisseur: 1.5 }), r)
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

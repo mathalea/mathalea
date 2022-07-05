@@ -1,7 +1,7 @@
-import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, premierMultipleSuperieur, premierMultipleInferieur, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal, combinaisonListes, texcolors, texNombre } from './outils.js'
+import { calcul, arrondi, egal, randint, choice, rangeMinMax, unSiPositifMoinsUnSinon, lettreDepuisChiffre, nombreAvecEspace, stringNombre, inferieurouegal, numberFormat, nombreDeChiffresDe, superieurouegal, combinaisonListes, texcolors, texNombre } from './outils.js'
 import { radians } from './fonctionsMaths.js'
 import { context } from './context.js'
-import { fraction, max, ceil, isNumeric, Fraction, floor, round, random, abs } from 'mathjs'
+import { Fraction, fraction, max, ceil, isNumeric, floor, round, random, abs } from 'mathjs'
 import earcut from 'earcut'
 import FractionX from './FractionEtendue.js'
 
@@ -7047,343 +7047,7 @@ export function papierPointe ({
 }
 
 /**
- * La fonction Repere n'est pas documentée. Elle est remplacée par la fonction Repere2 qui l'est. Voir ci-dessous.
- */
-function Repere ({
-  xmin = -10,
-  xmax = 10,
-  ymin = -10,
-  ymax = 10,
-  xscale = 1,
-  yscale = 1,
-  xstep = 1,
-  ystep = 1,
-  graduationColor = 'black',
-  afficheZero = false,
-  afficheNumeros = true,
-  afficheLabelX = true,
-  afficheLabelY = true,
-  axesEpaisseur = 2,
-  axesColor = 'black',
-  grilleHorizontaleVisible = false,
-  grillePrincipaleDistance = 1,
-  grillePrincipaleColor = 'gray',
-  grillePrincipaleOpacite = 1.1,
-  grillePrincipalePointilles = false,
-  grillePrincipaleVisible = true,
-  grilleSecondaireDistance = 0.1,
-  grilleSecondaireColor = 'gray',
-  grilleSecondaireOpacite = 0.3,
-  grilleSecondairePointilles = false,
-  grilleSecondaireVisible = false,
-  graduationsxMin = xmin,
-  graduationsxMax = xmax,
-  graduationsyMin = ymin,
-  graduationsyMax = ymax,
-  positionLabelX = -0.6,
-  positionLabelY = -0.6,
-  legendeX = 'x',
-  legendeY = 'y',
-  positionLegendeX,
-  positionLegendeY
-} = {}) {
-  ObjetMathalea2D.call(this)
-  let yabscisse
-  ymin > 0 ? (yabscisse = ymin) : (yabscisse = 0)
-  let xordonnee
-  xmin > 0 ? (xordonnee = xmin) : (xordonnee = 0)
-  if (yscale !== 1) {
-    ymin = premierMultipleInferieur(yscale, ymin)
-    ymax = premierMultipleSuperieur(yscale, ymax)
-  }
-  if (xscale !== 1) {
-    xmin = premierMultipleInferieur(xscale, xmin)
-    xmax = premierMultipleSuperieur(xscale, xmax)
-  }
-  this.svg = function (coeff) {
-    let code = ''
-    if (grillePrincipaleVisible) {
-      if (grilleHorizontaleVisible) {
-        code += grilleHorizontale(
-          xmin / xscale,
-          ymin / yscale,
-          xmax / xscale,
-          ymax / yscale,
-          grillePrincipaleColor,
-          grillePrincipaleOpacite,
-          grillePrincipaleDistance,
-          grillePrincipalePointilles
-        ).svg(coeff)
-      } else {
-        code += grille(
-          xmin / xscale,
-          ymin / yscale,
-          xmax / xscale,
-          ymax / yscale,
-          grillePrincipaleColor,
-          grillePrincipaleOpacite,
-          grillePrincipaleDistance,
-          grillePrincipalePointilles
-        ).svg(coeff)
-      }
-    }
-    if (grilleSecondaireVisible) {
-      code +=
-        grille(
-          xmin / xscale,
-          ymin / yscale,
-          xmax / xscale,
-          ymax / yscale,
-          grilleSecondaireColor,
-          grilleSecondaireOpacite,
-          grilleSecondaireDistance,
-          grilleSecondairePointilles
-        ).svg(coeff)
-    }
-    code +=
-      axes(
-        xmin / xscale,
-        ymin / yscale,
-        xmax / xscale,
-        ymax / yscale,
-        4 / coeff,
-        xstep,
-        ystep,
-        axesEpaisseur,
-        axesColor
-      ).svg(coeff)
-    if (afficheNumeros) {
-      if (afficheZero) {
-        if (afficheLabelX) {
-          code += labelX(
-            premierMultipleSuperieur(xstep, graduationsxMin),
-            graduationsxMax,
-            xstep,
-            graduationColor,
-            yabscisse / yscale + positionLabelX * 20 / coeff,
-            xscale
-          ).svg(coeff)
-        }
-        if (afficheLabelY) {
-          code += labelY(
-            premierMultipleSuperieur(ystep, graduationsyMin),
-            graduationsyMax,
-            ystep,
-            graduationColor,
-            xordonnee / xscale + positionLabelY * 20 / coeff,
-            yscale
-          ).svg(coeff)
-        }
-      } else {
-        if (afficheLabelX) {
-          code += labelX(
-            premierMultipleSuperieur(xstep, graduationsxMin),
-            -1,
-            xstep,
-            graduationColor,
-            yabscisse / yscale + positionLabelX * 20 / coeff,
-            xscale
-          ).svg(coeff)
-        }
-        if (afficheLabelY) {
-          code += labelY(
-            premierMultipleSuperieur(ystep, graduationsyMin),
-            -1,
-            ystep,
-            graduationColor,
-            xordonnee / xscale + positionLabelY * 20 / coeff,
-            yscale
-          ).svg(coeff)
-        }
-        if (afficheLabelX) {
-          code += labelX(
-            Math.max(xstep, premierMultipleSuperieur(xstep, graduationsxMin)),
-            graduationsxMax,
-            xstep,
-            graduationColor,
-            yabscisse / yscale + positionLabelX * 20 / coeff,
-            xscale
-          ).svg(coeff)
-        }
-        if (afficheLabelY) {
-          code += labelY(
-            Math.max(ystep, premierMultipleSuperieur(ystep, graduationsyMin)),
-            graduationsyMax,
-            ystep,
-            graduationColor,
-            xordonnee / xscale + positionLabelY * 20 / coeff,
-            yscale
-          ).svg(coeff)
-        }
-      }
-    }
-    if (positionLegendeX === undefined) {
-      positionLegendeX = [xmax + 4 / coeff, yabscisse + 6 / coeff]
-    }
-    if (positionLegendeY === undefined) {
-      positionLegendeY = [xordonnee + 6 / coeff, ymax + 8 / coeff]
-    }
-    code += texteParPosition(
-      legendeX,
-      positionLegendeX[0] / xscale,
-      positionLegendeX[1] / yscale,
-      'droite', 'black', 1, 'middle', true
-    ).svg(coeff)
-    code += texteParPosition(
-      legendeY,
-      positionLegendeY[0] / xscale,
-      positionLegendeY[1] / yscale,
-      'droite', 'black', 1, 'middle', true
-    ).svg(coeff)
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    if (grillePrincipaleVisible) {
-      if (grilleHorizontaleVisible) {
-        code += grilleHorizontale(
-          xmin / xscale,
-          ymin / yscale,
-          xmax / xscale,
-          ymax / yscale,
-          grillePrincipaleColor,
-          grillePrincipaleOpacite,
-          grillePrincipaleDistance,
-          grillePrincipalePointilles
-        ).tikz()
-      } else {
-        code += grille(
-          xmin / xscale,
-          ymin / yscale,
-          xmax / xscale,
-          ymax / yscale,
-          grillePrincipaleColor,
-          grillePrincipaleOpacite,
-          grillePrincipaleDistance,
-          grillePrincipalePointilles
-        ).tikz()
-      }
-    }
-    if (grilleSecondaireVisible) {
-      code +=
-        grille(
-          xmin / xscale,
-          ymin / yscale,
-          xmax / xscale,
-          ymax / yscale,
-          grilleSecondaireColor,
-          grilleSecondaireOpacite,
-          grilleSecondaireDistance,
-          grilleSecondairePointilles
-        ).tikz()
-    }
-    code +=
-      axes(
-        xmin / xscale,
-        ymin / yscale,
-        xmax / xscale,
-        ymax / yscale,
-        0.2 / context.scale,
-        xstep,
-        ystep,
-        axesEpaisseur,
-        axesColor
-      ).tikz()
-
-    if (afficheZero) {
-      if (afficheLabelX) {
-        code += labelX(
-          premierMultipleSuperieur(xstep, graduationsxMin),
-          graduationsxMax,
-          xstep,
-          graduationColor,
-          yabscisse / yscale + positionLabelX / context.scale,
-          xscale
-        ).tikz()
-      }
-      if (afficheLabelY) {
-        code += labelY(
-          premierMultipleSuperieur(ystep, graduationsyMin),
-          graduationsyMax,
-          ystep,
-          graduationColor,
-          xordonnee / xscale + positionLabelY / context.scale,
-          yscale
-        ).tikz()
-      }
-    } else {
-      if (afficheLabelX) {
-        code += labelX(
-          premierMultipleSuperieur(xstep, graduationsxMin),
-          -1,
-          xstep,
-          graduationColor,
-          yabscisse / yscale + positionLabelX / context.scale,
-          xscale
-        ).tikz()
-      }
-      if (afficheLabelY) {
-        code += labelY(
-          premierMultipleSuperieur(ystep, graduationsyMin),
-          -1,
-          ystep,
-          graduationColor,
-          xordonnee / xscale + positionLabelY / context.scale,
-          yscale
-        ).tikz()
-      }
-      if (afficheLabelX) {
-        code += labelX(
-          Math.max(xstep, premierMultipleSuperieur(xstep, graduationsxMin)),
-          graduationsxMax,
-          xstep,
-          graduationColor,
-          yabscisse / yscale + positionLabelX / context.scale,
-          xscale
-        ).tikz()
-      }
-      if (afficheLabelY) {
-        code += labelY(
-          Math.max(ystep, premierMultipleSuperieur(ystep, graduationsyMin)),
-          graduationsyMax,
-          ystep,
-          graduationColor,
-          xordonnee / xscale + positionLabelY / context.scale,
-          yscale
-        ).tikz()
-      }
-    }
-    if (positionLegendeX === undefined) {
-      positionLegendeX = [xmax + 0.2 / context.scale, yabscisse + 0.3 / context.scale]
-    }
-    if (positionLegendeY === undefined) {
-      positionLegendeY = [xordonnee + 0.3 / context.scale, ymax + 0.2 / context.scale]
-    }
-    code += texteParPosition(
-      legendeX,
-      positionLegendeX[0] / xscale,
-      positionLegendeX[1] / yscale,
-      'droite', 'black', 1, 'middle', true
-    ).tikz()
-    code += texteParPosition(
-      legendeY,
-      positionLegendeY[0] / xscale,
-      positionLegendeY[1] / yscale,
-      'droite', 'black', 1, 'middle', true, true
-    ).tikz()
-    return code
-  }
-
-  this.xscale = xscale
-  this.yscale = yscale
-}
-
-export function repere (...args) {
-  return new Repere(...args)
-}
-
-/**
- * repere2({xUnite, yUnite, xMin, xMax, yMin, yMax, axeX, axeY, axesEpaisseur, axesCouleur, axeXStyle, axeYStyle, thickEpaisseur,
+ * repere({xUnite, yUnite, xMin, xMax, yMin, yMax, axeX, axeY, axesEpaisseur, axesCouleur, axeXStyle, axeYStyle, thickEpaisseur,
  * thickHauteur, thickCouleur, xThickDistance, xThickListe, xThickMin, xThickMax, yThickDistance, yThickListe,
  * yThickMin, yThickMax, xLabelDistance, xLabelListe, xLabelMin, xLabelMax, yLabelDistance, yLabelListe,
  * yLabelMin, yLabelMax, xLegende,xLegendePosition, yLegende, yLegendePosition, grille, grilleDistance,
@@ -7394,12 +7058,12 @@ export function repere (...args) {
  * grilleSecondaireXCouleur, grilleSecondaireXOpacite, grilleSecondaireY, grilleSecondaireYListe, grilleSecondaireYDistance,
  * grilleSecondaireYMin, grilleSecondaireYMax, grilleSecondaireYCouleur, grilleSecondaireYOpacite})
  *
- * repere2() trace un repère classique. De nombreux paramètres permettent d'en modifier l'aspect
+ * repere() trace un repère classique. De nombreux paramètres permettent d'en modifier l'aspect
  *
  * @author Rémi Angot
  */
 
-function Repere2 ({
+function Repere ({
   xUnite = 1,
   yUnite = 1,
   xMin = -10,
@@ -7711,7 +7375,7 @@ function Repere2 ({
  * @param {object} param0
  * @returns {object}
  */
-export function repere2 ({
+export function repere ({
   xUnite = 1,
   yUnite = 1,
   xMin = -10,
@@ -7790,7 +7454,7 @@ export function repere2 ({
   grilleSecondaireYCouleur = grilleSecondaireCouleur,
   grilleSecondaireYOpacite = grilleSecondaireOpacite
 } = {}) {
-  return new Repere2({
+  return new Repere({
     xUnite,
     yUnite,
     xMin,
@@ -9242,75 +8906,14 @@ function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOrd, text
 export function lectureAntecedent (...args) {
   return new LectureAntecedent(...args)
 }
+
 /**
- * courbe(f,xmin,xmax,color,epaisseur,repere,step) // Trace la courbe de f
+ * courbe(f,{repere,color,epaisseur,step,xMin,xMax,yMin,yMax,xUnite,yUnite}) // Trace la courbe de f
  *
  * @author Rémi Angot
  */
 
-function Courbe (
-  f,
-  xmin = -20,
-  xmax = 30,
-  color = 'black',
-  epaisseur = 2,
-  r = [1, 1],
-  step = 0.1
-) {
-  ObjetMathalea2D.call(this)
-  // this.color = color
-  let xscale, yscale
-  this.xmin = xmin
-  if (r.constructor === Repere) {
-    xscale = r.xscale
-    yscale = r.yscale
-  } else {
-    xscale = r[0]
-    yscale = r[1]
-  }
-  const points = []
-  for (
-    let x = xmin / xscale;
-    x <= xmax / xscale;
-    // x = x + step
-    x = arrondi(x + step)
-  ) {
-    if (isFinite(f(x * xscale))) {
-      points.push(point(x, f(x * xscale) / yscale))
-    }
-  }
-  // const p = polyline([...points], this.color)
-  // const p = polyline([...points], 'red')
-  const p = polyline([...points], 'red')
-  p.epaisseur = epaisseur
-  return p
-}
-
-export function courbe (
-  f,
-  xmin = -20,
-  xmax = 30,
-  color = 'black',
-  epaisseur = 2,
-  r = [1, 1],
-  step = 0.1
-) {
-  return new Courbe(f,
-    xmin,
-    xmax,
-    color,
-    epaisseur,
-    r,
-    step)
-}
-
-/**
- * courbe2(f,{repere,color,epaisseur,step,xMin,xMax,yMin,yMax,xUnite,yUnite}) // Trace la courbe de f
- *
- * @author Rémi Angot
- */
-
-function Courbe2 (f, {
+function Courbe (f, {
   repere = {},
   color = 'black',
   epaisseur = 2,
@@ -9403,8 +9006,8 @@ function Courbe2 (f, {
   }
 }
 
-export function courbe2 (...args) {
-  return new Courbe2(...args)
+export function courbe (...args) {
+  return new Courbe(...args)
 }
 
 /**
@@ -9612,18 +9215,19 @@ const cosineInterpolate = (y1, y2, mu) => {
  * @param {*} tableau
  * @param {*} color
  * @param {*} epaisseur
- * @param {Repere2} r
+ * @param {Repere} r
  * @param {*} xmin
  * @param {*} xmax
  */
 function CourbeInterpolee (
   tableau,
-  color = 'black',
-  epaisseur = 2,
-  r = { xMin: -1, yMin: 1 },
-  xmin,
-  xmax
-) {
+  {
+    color = 'black',
+    epaisseur = 2,
+    repere = { xMin: -1, yMin: 1 },
+    xMin,
+    xmax
+  }) {
   ObjetMathalea2D.call(this)
   const mesCourbes = []
   for (let i = 0; i < tableau.length - 1; i++) {
@@ -9633,9 +9237,9 @@ function CourbeInterpolee (
     const y1 = tableau[i + 1][1]
     const f = (x) => cosineInterpolate(y0, y1, (x - x0) / (x1 - x0))
     let depart, fin
-    xmin > x0 ? (depart = xmin) : (depart = x0)
+    xMin > x0 ? (depart = xMin) : (depart = x0)
     xmax < x1 ? (fin = xmax) : (fin = x1)
-    const c = courbe2(f, { repere: r, xMin: depart, xMax: fin, color, epaisseur })
+    const c = courbe(f, { repere, xMin: depart, xMax: fin, color, epaisseur })
     mesCourbes.push(c)
     this.svg = function (coeff) {
       let code = ''
@@ -9656,16 +9260,16 @@ function CourbeInterpolee (
 /**
  *
  * @param {array} tableau de coordonnées [x,y]
- * @param {string} couleur
+ * @param {string} color
  * @param {number} epaisseur
  * @param {objet} repere (ou tableau [xscale,yscale])
- * @param {number} xmin
+ * @param {number} xmin (ceux de la courbe, pas ceux du repère)
  * @param {number} xmax
  *
  * @author Rémi Angot
  */
-export function courbeInterpolee (...args) {
-  return new CourbeInterpolee(...args)
+export function courbeInterpolee (tableau, { color = 'black', epaisseur = 1, repere, xMin = -10, xMax = 10 }) {
+  return new CourbeInterpolee(tableau, { color, epaisseur, repere, xMin, xMax })
 }
 
 function GraphiqueInterpole (
@@ -9688,7 +9292,7 @@ function GraphiqueInterpole (
     let depart, fin
     repere.xMin > x0 ? (depart = repere.xMin) : (depart = x0)
     repere.xMax < x1 ? (fin = repere.xMax) : (fin = x1)
-    const c = courbe2(f, { step: step, xMin: depart, xMax: fin, color: color, epaisseur: epaisseur, xUnite: repere.xUnite, yUnite: repere.yUnite, yMin: repere.yMin, yMax: repere.yMax })
+    const c = courbe(f, { step: step, xMin: depart, xMax: fin, color: color, epaisseur: epaisseur, xUnite: repere.xUnite, yUnite: repere.yUnite, yMin: repere.yMin, yMax: repere.yMax })
     mesCourbes.push(c)
   }
   this.svg = function (coeff) {

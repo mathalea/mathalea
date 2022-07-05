@@ -2,4 +2,4 @@ fenetreMathalea2d = [-9,-14,21,6]
 pixelsParCm = 30
 let f = x => -3*x+4 // Définit la fonction f tel que f(x)=-3x+4 (n'oubliez pas les multiplications implicites)
 repere() // Trace le repère par défaut 
-courbe(f) // Trace la courbe de f
+courbe(f, {repere: r}) // Trace la courbe de f dans le repere r

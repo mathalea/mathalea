@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenu, sp } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import { repere2, mathalea2d, texteParPosition, point, segment, vecteur } from '../../../modules/2d.js'
+import { repere, mathalea2d, texteParPosition, point, segment, vecteur } from '../../../modules/2d.js'
 export const titre = 'Déterminer les coordonnées d’un vecteur à partir d’un graphique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -44,7 +44,7 @@ export default function LectureGraphiqueVecteurRepere () {
       vAB = vecteur(A, B)
       o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
       nomvAB = vAB.representantNomme(A, 'u', 2, 'blue')
-      r1 = repere2({
+      r1 = repere({
         xMin: xmin,
         xMax: xmax,
         xUnite: 1,

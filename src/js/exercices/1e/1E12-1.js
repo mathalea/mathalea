@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils.js'
-import { mathalea2d, repere2, courbe2 } from '../../modules/2d.js'
+import { mathalea2d, repere, courbe } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 import { min, max } from 'mathjs'
 
@@ -110,7 +110,7 @@ export default function LireElementsCarac () {
         // Nécessaire pour permettre la lecture graphique
         Yscale = 1
       }
-      r = repere2({
+      r = repere({
         xMmin: Xmin,
         yMin: premierMultipleInferieur(Yscale, Ymin),
         yMax: premierMultipleSuperieur(Yscale, Ymax),
@@ -134,7 +134,7 @@ export default function LireElementsCarac () {
         pixelsParCm,
         scale: 0.6
       }, r,
-      courbe2(F, { repere: r, xMin: Xmin, xMax: Xmax, color: 'blue', epaisseur: 1.5 }))
+      courbe(F, { repere: r, xMin: Xmin, xMax: Xmax, color: 'blue', epaisseur: 1.5 }))
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)
