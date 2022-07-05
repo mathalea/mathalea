@@ -223,14 +223,17 @@ export default function ExploiterRepresentationGraphique () {
         tmin = randint(-5, 15)
         tmax = tmin + randint(5, 12)
 
-        r = repere({
-          xmin: 0,
-          ymin: tmin - 1,
-          ymax: tmax + 2,
-          xmax: 24,
-          xscale: 2,
-          legendeX: 'Heure',
-          legendeY: 'Température (en °C)'
+        r = repere2({
+          xMin: 0,
+          yMin: tmin - 1,
+          yMax: tmax + 2,
+          xMax: 24,
+          xUnite: 1 / 2,
+          xThickDistance: 2,
+          xLegende: 'Heure',
+          yLegende: 'Température (en °C)',
+          xLegendePosition: [12, tmin - 1.5],
+          yLegendePosition: [-1, tmax + 2.5]
         })
         graphique = courbeInterpolee(
           [

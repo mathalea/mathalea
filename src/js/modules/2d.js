@@ -7670,6 +7670,7 @@ function Repere2 ({
   if (yLegende.length > 0) {
     objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 'droite'))
   }
+  console.log(xLegendePosition, yLegendePosition)
 
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
@@ -9624,7 +9625,7 @@ function CourbeInterpolee (
     let depart, fin
     xmin > x0 ? (depart = xmin) : (depart = x0)
     xmax < x1 ? (fin = xmax) : (fin = x1)
-    const c = courbe(f, depart, fin, color, epaisseur, r)
+    const c = courbe2(f, { xMin: depart, xMax: fin, color: color, epaisseur: epaisseur, repere: r })
     mesCourbes.push(c)
     this.svg = function (coeff) {
       let code = ''
