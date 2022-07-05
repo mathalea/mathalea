@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, prenomF } from '../../modules/outils.js'
-import { point, polyline, axes, labelX, labelY, grille, repere, courbeInterpolee, texteParPosition, mathalea2d, repere2, courbe2 } from '../../modules/2d.js'
+import { point, polyline, axes, labelX, labelY, grille, repere, courbeInterpolee, texteParPosition, mathalea2d, repere2, courbe2, vide2d } from '../../modules/2d.js'
 export const titre = 'Problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -29,7 +29,7 @@ export default function ExploiterRepresentationGraphique () {
     // Vitesses initiales donnant une hauteur entière et une durée de vol entière.
     const vitessesInitiales = [20.87, 28.27, 35.2, 49.6, 63.55, 70.85, 77.45, 84.85, 91.65]
     const vitessesInitialesBis = [10.95, 12.65, 14.15, 15.5, 16.7, 17.9, 19, 20, 21, 21.9, 22.8, 23.7, 24.5, 25.3, 26.1, 26.8, 27.6, 28.2, 29]
-    let V0, xscale
+    let V0, xscale, zero
     let typeDeProbleme
     let enonceAMC
     let v1, v2, v3, situation
@@ -57,9 +57,10 @@ export default function ExploiterRepresentationGraphique () {
         f = (x) => Math.max(-5 * x ** 2 + V0 * Math.sqrt(2) * x / 2, 0)
         repeRe = repere2({ xUnite: 1 * xscale, yUnite: 0.1 * xscale, xMin: 0, yMin: 0, xMax: t1 + 1, yMax: f(t1 / 2) + 11, xThickDistance: 1, yThickDistance: 10, grilleSecondaireY: true, grilleSecondaireYDistance: 2, grilleSecondaireYMin: 0, grilleSecondaireYMax: f(t1 / 2) + 5 }) // ()
         texte1 = texteParPosition('hauteur (en mètre)', 0.2, (f(t1 / 2) / 10 + 0.5) * xscale, 'droite')
-        graphique = courbe2(f, { repere: repeRe, xMax: (t1 + 1) * xscale, step: 0.2 })
+        graphique = courbe2(f, { repere: repeRe, xMax: t1 + 1, step: 0.2 })
         texte2 = texteParPosition('temps (en s)', (t1 + 0.5) * xscale, 0.4, 'droite')
-
+        zero = texteParPosition('0', -0.5, 0, 'milieu', 'black', 1, 'middle', true)
+        console.log(t1, xscale)
         this.introduction =
           'On a représenté ci-dessous l\'évolution de la hauteur d\'un projectile lancé depuis le sol (en mètres) en fonction du temps (en secondes).'
 
@@ -77,7 +78,7 @@ export default function ExploiterRepresentationGraphique () {
             repeRe,
             graphique,
             texte1,
-            texte2
+            texte2, zero
           )
 
         this.introduction +=
@@ -114,6 +115,7 @@ export default function ExploiterRepresentationGraphique () {
         texte1 = texteParPosition('hauteur (en mètre)', 0.2, xscale * (f(t1 / 2) / 2 + 1), 'droite')
         graphique = courbe2(f, { repere: repeRe, step: 0.5 })
         texte2 = texteParPosition('distance (en m)', xscale * ((t1 + 2) / 4), 0.4, 'droite')
+        zero = texteParPosition('0', -0.5, 0, 'milieu', 'black', 1, 'middle', true)
 
         this.introduction =
             'On a représenté ci-dessous la trajectoire d\'un projectile lancé depuis le sol.'
@@ -132,7 +134,7 @@ export default function ExploiterRepresentationGraphique () {
               repeRe,
               texte1,
               graphique,
-              texte2
+              texte2, zero
             )
 
         this.introduction +=
@@ -161,19 +163,35 @@ export default function ExploiterRepresentationGraphique () {
         v1 = randint(1, 4)
         v2 = randint(1, 3, v1)
         v3 = v1 + v2
+        console.log(v3)
+        r = repere2({
+          xMin: 0,
+          yMin: 0,
+          xMax: 60,
+          yMax: v3 + 1,
+          xUnite: 0.1,
+          yUnite: 1,
+          xThickDistance: 10,
+          yThickDistance: 1,
+          grilleSecondaireY: true,
+          grilleSecondaireX: true,
+          grilleSecondaireYDistance: 0.2,
+          grilleSecondaireXDistance: 2,
+          grilleSecondaireXMin: 0,
+          grilleSecondaireXMax: 60,
+          grilleSecondaireYMin: 0,
+          grilleSecondaireYMax: v3 + 1
+        })
         g1 = grille(-1, -1, 6, 8)
         g1.color = 'black'
         g1.opacite = 1
-        g2 = grille(-1, -1, 6, 8, 'gray', 0.2, 0.2)
-        g3 = axes(0, 0, 6, 7)
-        texte1 = texteParPosition('distance (en km)', 0.2, 7.3, 'droite')
-        l1 = labelX(0, 50, 1, 'black', -0.6, 10)
-        l2 = labelY(1, 6, 1, 'black', -0.6, 1)
+        texte1 = texteParPosition('distance (en km)', 0.2, v3 + 1.5, 'droite')
         texte2 = texteParPosition('temps (en min)', 6.5, 0.4, 'droite')
         situation = randint(1, 3)
+        zero = texteParPosition('0', -0.7, 0, 'milieu', 'black', 1, 'middle', true)
 
         if (situation === 1) {
-          l = polyline(point(0, 0), point(1, v1), point(2, v1 + v2), point(3, v1 + v2), point(4, 0))
+          l = polyline(point(0, 0), point(1, v1), point(2, v3), point(3, v3), point(4, 0))
           tempsPause = 20
           periodeRapide = 'de la 20e à la 30e minute'
         }
@@ -196,11 +214,11 @@ export default function ExploiterRepresentationGraphique () {
         this.introduction += '<br><br>' + mathalea2d({
           xmin: -1,
           ymin: -1,
-          xmax: 9,
-          ymax: 8,
-          pixelsParCm: 40,
+          xmax: 10,
+          ymax: v3 + 2,
+          pixelsParCm: 30,
           scale: 1
-        }, g1, g2, g3, l, texte1, texte2, l1, l2)
+        }, zero, r, l, texte1, texte2)
 
         this.introduction += '<br><br>' + 'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
@@ -222,15 +240,16 @@ export default function ExploiterRepresentationGraphique () {
         hmax = randint(12, 16)
         tmin = randint(-5, 15)
         tmax = tmin + randint(5, 12)
-
-        r = repere({
-          xmin: 0,
-          ymin: tmin - 1,
-          ymax: tmax + 2,
-          xmax: 24,
-          xscale: 2,
-          legendeX: 'Heure',
-          legendeY: 'Température (en °C)'
+        zero = tmin < 0 ? texteParPosition('0', -0.5, 0, 'milieu', 'black', 1, 'middle', true) : vide2d()
+        r = repere2({
+          xMin: 0,
+          yMin: tmin - 1,
+          yMax: tmax + 2,
+          xMax: 24,
+          xUnite: 1,
+          yUnite: 1,
+          xLegende: 'Heure',
+          yLegende: 'Température (en °C)'
         })
         graphique = courbeInterpolee(
           [
@@ -252,13 +271,14 @@ export default function ExploiterRepresentationGraphique () {
           mathalea2d(
             {
               xmin: -1,
-              ymin: tmin - 2.5,
-              xmax: 16,
+              ymin: Math.min(tmin - 2.5, -1),
+              xmax: 28,
               ymax: tmax + 3,
-              pixelsParCm: 40,
+              pixelsParCm: 20,
               scale: 1
             },
             r,
+            zero,
             graphique
           )
 
@@ -506,6 +526,7 @@ export default function ExploiterRepresentationGraphique () {
           break
       }
     } else listeQuestionsToContenu(this)
+    console.log(typeDeProbleme, this.sup)
   }
   this.besoinFormulaireNumerique = ['Choix des problèmes', 3, '1 : Projectile\n2 : Trajet à vélo\n3 : Température\n4 : Au hasard']
 }

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, texNombrec, lettreMinusculeDepuisChiffre, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, texNombrec, lettreMinusculeDepuisChiffre, texNombre, miseEnEvidence, premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils.js'
 import { mathalea2d, repere2, courbe2 } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 
@@ -131,14 +131,21 @@ ${f(x1) - f(-x1)}=${2 * x1}b
 
       if (Ymax - Ymin < 10) Yscale = 2
       else Yscale = Math.max(1, calcule(Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5)) * 2
-      const YminEE = Yscale * Math.floor(Ymin / Yscale)
-      r = repere2({ xMin: -10, xMax: 10, yMin: YminEE - Yscale, yMax: Ymax + Yscale, xUnite: 1, yUnite: 1 / Yscale, yThickDistance: Yscale })
+      r = repere2({
+        xMin: -10,
+        yMin: premierMultipleInferieur(Yscale, Ymin) - Yscale,
+        yMax: premierMultipleSuperieur(Yscale, Ymax) + Yscale,
+        xMax: 10,
+        yUnite: 1 / Yscale,
+        yThickDistance: Yscale,
+        grilleYDistance: Yscale,
+        yLabelEcart: 0.8
+      })
 
       svgYmin = Math.min(calcule(Ymin / Yscale), -1)
       svgYmax = Math.max(calcule(Ymax / Yscale), 1)
       F = x => a * x ** 2 + b * x + c
-      texte += mathalea2d({ xmin: -10, xmax: 11, ymin: svgYmin, ymax: svgYmax + 2, pixelsParCm: pixelsParCm, scale: 0.6 }, courbe2(F, { Xmin: -10, Xmax: 10, color: 'blue', epaisseur: 1.5, repere: r }), r)
-
+      texte += mathalea2d({ xmin: -10, xmax: 11, ymin: svgYmin, ymax: svgYmax + 2, pixelsParCm: pixelsParCm, scale: 0.6 }, courbe2(F, { repere: r, xMin: -10, xMax: 10, color: 'blue', epaisseur: 1.5 }), r)
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

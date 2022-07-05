@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils.js'
 import { mathalea2d, repere2, courbe2 } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 import { min, max } from 'mathjs'
@@ -105,15 +105,21 @@ export default function LireElementsCarac () {
       }
 
       if (Ymax - Ymin < 10) Yscale = 2
-      else Yscale = Math.max(1, calcule(Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5)) * 2
+      else Yscale = Math.max(1, Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5) * 2
       if (listeTypeDeQuestions[i] === 3) {
         // Nécessaire pour permettre la lecture graphique
         Yscale = 1
       }
-      Xmin = min(0, Xmin)
-      Xmax = max(1, Xmax)
-      const YminEE = Yscale * Math.floor(Ymin / Yscale)
-      r = repere2({ xMin: Xmin, xMax: Xmax, yMin: YminEE - Yscale, yMax: Ymax + Yscale, xUnite: 1, yUnite: 1 / Yscale, yThickDistance: Yscale })
+      r = repere2({
+        xMmin: Xmin,
+        yMin: premierMultipleInferieur(Yscale, Ymin),
+        yMax: premierMultipleSuperieur(Yscale, Ymax),
+        xMax: Xmax,
+        yUnite: 1 / Yscale,
+        yThickDistance: Yscale,
+        grilleYDistance: Yscale,
+        yLabelEcart: 0.8
+      })
 
       svgYmin = Math.min(calcule(Ymin / Yscale), -1)
       svgYmax = Math.max(calcule(Ymax / Yscale), 1)
@@ -127,8 +133,8 @@ export default function LireElementsCarac () {
         ymax: svgYmax + 2,
         pixelsParCm,
         scale: 0.6
-      },
-      courbe2(F, { Xmin: Xmin, Xmax: Xmax, color: 'blue', epaisseur: 1.5, repere: r }), r)
+      }, r,
+      courbe2(F, { repere: r, xMin: Xmin, xMax: Xmax, color: 'blue', epaisseur: 1.5 }))
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)
