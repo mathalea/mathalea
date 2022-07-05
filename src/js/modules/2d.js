@@ -7670,7 +7670,6 @@ function Repere2 ({
   if (yLegende.length > 0) {
     objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 'droite'))
   }
-  console.log(xLegendePosition, yLegendePosition)
 
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
