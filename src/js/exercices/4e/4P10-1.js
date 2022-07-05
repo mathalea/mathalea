@@ -185,7 +185,6 @@ export default function GraphiquesEtProportionnalite2 () {
       switch (listeTypeDeQuestions[i]) {
         case 1:
           texte = `${enonces[0].enonce}`
-          // texte = `${fig}`;
           if (this.debug) {
             texte += '<br>'
             texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
@@ -205,6 +204,4 @@ export default function GraphiquesEtProportionnalite2 () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
 }
