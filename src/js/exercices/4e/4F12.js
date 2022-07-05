@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, prenomF } from '../../modules/outils.js'
-import { point, polyline, axes, labelX, labelY, grille, repere, courbeInterpolee, texteParPosition, mathalea2d, repere2, courbe2, vide2d } from '../../modules/2d.js'
+import { point, polyline, grille, courbeInterpolee, texteParPosition, mathalea2d, repere2, courbe2, vide2d } from '../../modules/2d.js'
 export const titre = 'Problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -48,7 +48,7 @@ export default function ExploiterRepresentationGraphique () {
     if (this.sup === 4) {
       typeDeProbleme = choice(['temperature', 'projectile', 'projectile2', 'velo'])
     }
-    let f, t1, l, l1, l2, g1, g2, g3, r, graphique, texte1, texte2, fille, hmin, hmax, tmin, tmax
+    let f, t1, l, g1, r, graphique, texte1, texte2, fille, hmin, hmax, tmin, tmax
     switch (typeDeProbleme) {
       case 'projectile': // Courbe de l'altitude de vol en fonction du temps
         V0 = choice(vitessesInitiales)
@@ -56,9 +56,9 @@ export default function ExploiterRepresentationGraphique () {
         xscale = 9 / t1
         f = (x) => Math.max(-5 * x ** 2 + V0 * Math.sqrt(2) * x / 2, 0)
         repeRe = repere2({ xUnite: 1 * xscale, yUnite: 0.1 * xscale, xMin: 0, yMin: 0, xMax: t1 + 1, yMax: f(t1 / 2) + 11, xThickDistance: 1, yThickDistance: 10, grilleSecondaireY: true, grilleSecondaireYDistance: 2, grilleSecondaireYMin: 0, grilleSecondaireYMax: f(t1 / 2) + 5 }) // ()
-        texte1 = texteParPosition('hauteur (en mètre)', 0.2, (f(t1 / 2) / 10 + 0.5) * xscale, 'droite')
+        texte1 = texteParPosition('hauteur (en mètre)', 0.2, (f(t1 / 2) / 10 + 1.5) * xscale, 'droite')
         graphique = courbe2(f, { repere: repeRe, xMax: t1 + 1, step: 0.2 })
-        texte2 = texteParPosition('temps (en s)', (t1 + 0.5) * xscale, 0.4, 'droite')
+        texte2 = texteParPosition('temps (en s)', (t1 + 1) * xscale, 0.4, 'droite')
         zero = texteParPosition('0', -0.5, 0, 'milieu', 'black', 1, 'middle', true)
         console.log(t1, xscale)
         this.introduction =
@@ -528,5 +528,5 @@ export default function ExploiterRepresentationGraphique () {
     } else listeQuestionsToContenu(this)
     console.log(typeDeProbleme, this.sup)
   }
-  this.besoinFormulaireNumerique = ['Choix des problèmes', 3, '1 : Projectile\n2 : Trajet à vélo\n3 : Température\n4 : Au hasard']
+  this.besoinFormulaireNumerique = ['Choix des problèmes', 4, '1 : Projectile\n2 : Trajet à vélo\n3 : Température\n4 : Au hasard']
 }
