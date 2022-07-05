@@ -7754,7 +7754,7 @@ export function repere2 ({
   grilleOpacite = 0.5,
   grilleEpaisseur = 1,
   grilleSecondaire = false,
-  grilleSecondaireDistance = false,
+  grilleSecondaireDistance = 0.1,
   grilleSecondaireCouleur = 'gray',
   grilleSecondaireOpacite = 0.3,
   grilleSecondaireEpaisseur = 1,
