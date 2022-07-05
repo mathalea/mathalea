@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, arrondi } from '../../modules/outils.js'
-import { repere, courbe, mathalea2d } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils.js'
+import { mathalea2d, repere2, courbe2 } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
 
 export const titre = 'Lecture graphique d\'éléments caractéristiques d\'un trinôme'
@@ -105,20 +105,20 @@ export default function LireElementsCarac () {
       }
 
       if (Ymax - Ymin < 10) Yscale = 2
-      else Yscale = Math.max(1, calcule(Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5)) * 2
+      else Yscale = Math.max(1, Math.round(Math.ceil((Ymax - Ymin) / 10) / 5) * 5) * 2
       if (listeTypeDeQuestions[i] === 3) {
         // Nécessaire pour permettre la lecture graphique
         Yscale = 1
       }
-
-      r = repere({
-        xmin: Xmin,
-        ymin: Ymin - Yscale,
-        ymax: Ymax + Yscale,
-        xmax: Xmax,
-        xscale: 1,
-        yscale: Yscale,
-        positionLabelY: -0.8
+      r = repere2({
+        xMmin: Xmin,
+        yMin: premierMultipleInferieur(Yscale, Ymin),
+        yMax: premierMultipleSuperieur(Yscale, Ymax),
+        xMax: Xmax,
+        yUnite: 1 / Yscale,
+        yThickDistance: Yscale,
+        grilleYDistance: Yscale,
+        yLabelEcart: 0.8
       })
 
       svgYmin = Math.min(calcule(Ymin / Yscale), -1)
@@ -133,8 +133,8 @@ export default function LireElementsCarac () {
         ymax: svgYmax + 2,
         pixelsParCm,
         scale: 0.6
-      },
-      courbe(F, Xmin, Xmax, 'blue', 1.5, r), r)
+      }, r,
+      courbe2(F, { repere: r, xMin: Xmin, xMax: Xmax, color: 'blue', epaisseur: 1.5 }))
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)

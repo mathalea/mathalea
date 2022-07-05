@@ -6492,7 +6492,8 @@ function Axes (
   xstep = 1,
   ystep = 1,
   epaisseur = 2,
-  color = 'black'
+  color = 'black',
+  tailleExtremites = 4
 ) {
   ObjetMathalea2D.call(this)
   const objets = []
@@ -6502,10 +6503,12 @@ function Axes (
   xmin > 0 ? (xordonnee = xmin) : (xordonnee = 0)
   const abscisse = segment(xmin, yabscisse, xmax, yabscisse, color)
   abscisse.styleExtremites = '->'
+  abscisse.tailleExtremites = tailleExtremites
   abscisse.epaisseur = epaisseur
   const ordonnee = segment(xordonnee, ymin, xordonnee, ymax, color)
   ordonnee.styleExtremites = '->'
   ordonnee.epaisseur = epaisseur
+  ordonnee.tailleExtremites = tailleExtremites
   objets.push(abscisse, ordonnee)
   for (let x = xmin; x < xmax; x = x + xstep) {
     const s = segment(x, yabscisse - thick, x, yabscisse + thick, color)
