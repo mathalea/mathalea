@@ -9604,12 +9604,20 @@ const cosineInterpolate = (y1, y2, mu) => {
   const mu2 = (1 - Math.cos(mu * Math.PI)) / 2
   return y1 * (1 - mu2) + y2 * mu2
 }
-
+/**
+ *
+ * @param {*} tableau
+ * @param {*} color
+ * @param {*} epaisseur
+ * @param {Repere2} r
+ * @param {*} xmin
+ * @param {*} xmax
+ */
 function CourbeInterpolee (
   tableau,
   color = 'black',
   epaisseur = 2,
-  r = [1, 1],
+  r = { xMin: -1, yMin: 1 },
   xmin,
   xmax
 ) {
@@ -9624,7 +9632,7 @@ function CourbeInterpolee (
     let depart, fin
     xmin > x0 ? (depart = xmin) : (depart = x0)
     xmax < x1 ? (fin = xmax) : (fin = x1)
-    const c = courbe(f, depart, fin, color, epaisseur, r)
+    const c = courbe2(f, { repere: r, xMin: depart, xMax: fin, color, epaisseur })
     mesCourbes.push(c)
     this.svg = function (coeff) {
       let code = ''
