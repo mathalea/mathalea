@@ -1,12 +1,12 @@
 fenetreMathalea2d = [-4,-14,26,6]
 pixelsParCm = 30
-let f = x => x**(1/5) // L'élévation à la puissance se fait avec **
-let r = repere({ // On donne un nom au repère pour l'utiliser dans les réglages de la courbe
-  xmin : 0, // On utilise les deux points et pas le "égal"
-  ymin : 0, // N'oubliez pas les virgules
-  xmax : 100,
-  xscale : 10 // Permet de changer l'unité utilisée pour les abscisses
+const f = x => x**(1/5) // L'élévation à la puissance se fait avec **
+const r = repere({ // On donne un nom au repère pour l'utiliser dans les réglages de la courbe
+  xMin : 0, // On utilise les deux points et pas le "égal"
+  yMin : 0, // N'oubliez pas les virgules
+  xMax : 100,
+  xUnite : 10 // Permet de changer l'unité utilisée pour les abscisses
 })
 // Le repère n'utilisant pas l'unité de base, il faut préciser à la courbe le nom du repère en 6e argument
-courbe(f,0,100,'blue',2,r) // xmin = 0, xmax = 10, couleur bleue
-courbe(x=>x/2,0,20,'red',5,r) // Essayez d'enlever le dernier argument pour voir l'importance de préciser le repère
+const c = courbe(f, {repere: r, xMin: 0, yMin: 100, color: 'blue', epaisseur: 2}) // xmin = 0, xmax = 10, couleur bleue
+const c2 courbe(x=>x/2, {repere: r, xMin: 0, xMax: 20, color: 'red', epaisseur: 5}) 

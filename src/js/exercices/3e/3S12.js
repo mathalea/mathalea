@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu, choice, premiereLettreEnMajuscule, numAlpha, texFractionSigne, calcul, arrondi, texteGras, stringNombre } from '../../modules/outils.js'
-import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
+import { repere, traceBarre, mathalea2d } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Calculer des effectifs et des fréquences'
@@ -92,7 +92,7 @@ export default function calculEffectifFrequence () {
 
     const coef = 1
 
-    const r = repere2({
+    const r = repere({
       grilleX: false,
       grilleY: 'pointilles',
       xThickListe: [],

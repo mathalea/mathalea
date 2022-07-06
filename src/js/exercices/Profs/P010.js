@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { reduirePolynomeDegre3, calcul, texFractionSigne, fractionSimplifiee, listeQuestionsToContenu, printlatex, texNombre, xcas } from '../../modules/outils.js'
-import { tableauDeVariation, mathalea2d, repere2, courbe2, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js'
+import { tableauDeVariation, mathalea2d, repere, courbe, segment, vecteur, rotation, translation, point, tracePoint } from '../../modules/2d.js'
 export const titre = 'Étude de fonctions de degré 3'
 
 /**
@@ -530,7 +530,7 @@ export default function variationPolynomeDegre3 () {
     scalex = Math.abs(10 / (XMAXI - XMINI))
     scaley = calcul(20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI))))
 
-    const monrepere = repere2({
+    const monrepere = repere({
       xUnite: scalex,
       yUnite: scaley,
       xMin: XMINI,
@@ -541,7 +541,7 @@ export default function variationPolynomeDegre3 () {
       xThickDistance: 1,
       yThickDistance: pas
     })
-    const macourbe = courbe2(mafonction, { repere: monrepere, step: 0.1, epaisseur: 1 })
+    const macourbe = courbe(mafonction, { repere: monrepere, step: 0.1, epaisseur: 1 })
     texte = 'Étude des variations de la fonction $f(x)='
     texte += `${printlatex(fxstring)}$.<br>`
     texte += mathalea2d({ xmin: 0, ymin: -8, xmax: 21, ymax: 1, pixelsParCm: 30 }, tableau)

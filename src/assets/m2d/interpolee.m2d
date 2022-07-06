@@ -1,3 +1,3 @@
 let mesPoints = [[0,5],[4,-2],[7,4],[10,-3]]
-courbeInterpolee(mesPoints,'blue')
-repere()
+const r = repere({xMin: 0, xMax: 10, yMin: -4, yMax: 6})
+const courbeInterpolee(mesPoints, {color: 'blue', epaisseur: 2, repere: r}) // trace une courbe passant par mesPoints dans le repère r

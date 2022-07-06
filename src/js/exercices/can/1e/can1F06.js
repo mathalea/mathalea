@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenu, choice, sp, ecritureAlgebrique, rienSi1 } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { repere2, courbe2, mathalea2d, texteParPosition } from '../../../modules/2d.js'
+import { repere, courbe, mathalea2d, texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { calcule } from '../../../modules/fonctionsMaths.js'
 export const titre = 'Lire graphiquement les valeurs de $a$ et $b$ dans $ax^2+b$'
@@ -41,7 +41,7 @@ export default function LectureGraphiqueParaboleaEtb () {
             return calcule(a * x ** 2 + b)
           }
           if (b > 0) {
-            r = repere2({
+            r = repere({
               yUnite: 1,
               xUnite: 2,
               xMin: -3,
@@ -63,9 +63,9 @@ export default function LectureGraphiqueParaboleaEtb () {
 
             texte = 'On donne la courbe représentative d\'une fonction $f$ définie par $f(x)=ax^2+b$ .<br>'
 
-            texte += 'Déterminer les valeurs de $a$ et $b$.<br>' + mathalea2d({ xmin: -6, xmax: 6, ymin: -1, ymax: 8, pixelsParCm: 18, scale: 0.6 }, r, o, courbe2(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            texte += 'Déterminer les valeurs de $a$ et $b$.<br>' + mathalea2d({ xmin: -6, xmax: 6, ymin: -1, ymax: 8, pixelsParCm: 18, scale: 0.6 }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           } else {
-            r = repere2({
+            r = repere({
               yUnite: 1,
               xUnite: 2,
               xMin: -3,
@@ -87,7 +87,7 @@ export default function LectureGraphiqueParaboleaEtb () {
 
             texte = 'On donne la courbe représentative d\'une fonction $f$ définie par $f(x)=ax^2+b$ .<br>'
 
-            texte += 'Déterminer les valeurs de $a$ et $b$.<br>' + mathalea2d({ xmin: -6, xmax: 6, ymin: -4, ymax: 4, pixelsParCm: 18, scale: 0.6 }, r, o, courbe2(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            texte += 'Déterminer les valeurs de $a$ et $b$.<br>' + mathalea2d({ xmin: -6, xmax: 6, ymin: -4, ymax: 4, pixelsParCm: 18, scale: 0.6 }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           }
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a=$' })
@@ -114,7 +114,7 @@ export default function LectureGraphiqueParaboleaEtb () {
             return calcule(a * x ** 2 + b)
           }
           if (b > 0) {
-            r = repere2({
+            r = repere({
               yUnite: 1,
               xUnite: 2,
               xMin: -3,
@@ -136,9 +136,9 @@ export default function LectureGraphiqueParaboleaEtb () {
 
             texte = 'On donne la courbe représentative d\'une fonction $f$ définie par $f(x)=ax^2+b$ .<br>'
 
-            texte += 'Déterminer les valeurs de $a$ et $b$.<br>' + mathalea2d({ xmin: -6, xmax: 6, ymin: -4, ymax: 4, pixelsParCm: 18, scale: 0.6 }, r, o, courbe2(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            texte += 'Déterminer les valeurs de $a$ et $b$.<br>' + mathalea2d({ xmin: -6, xmax: 6, ymin: -4, ymax: 4, pixelsParCm: 18, scale: 0.6 }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           } else {
-            r = repere2({
+            r = repere({
               yUnite: 1,
               xUnite: 2,
               xMin: -3,
@@ -160,7 +160,7 @@ export default function LectureGraphiqueParaboleaEtb () {
 
             texte = 'On donne la courbe représentative d\'une fonction $f$ définie par $f(x)=ax^2+b$ .<br>'
 
-            texte += 'Déterminer les valeurs de $a$ et $b$.<br>' + mathalea2d({ xmin: -6, xmax: 6, ymin: -7, ymax: 1, pixelsParCm: 18, scale: 0.6 }, r, o, courbe2(f, { repere: r, color: 'blue', epaisseur: 2 }))
+            texte += 'Déterminer les valeurs de $a$ et $b$.<br>' + mathalea2d({ xmin: -6, xmax: 6, ymin: -7, ymax: 1, pixelsParCm: 18, scale: 0.6 }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           }
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a=$' })

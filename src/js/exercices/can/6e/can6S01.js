@@ -1,4 +1,4 @@
-import { mathalea2d, repere2, traceBarreHorizontale } from '../../../modules/2d.js'
+import { mathalea2d, repere, traceBarreHorizontale } from '../../../modules/2d.js'
 import { prenom, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Lire un diagramme en barres'
@@ -28,7 +28,7 @@ export default function LectureDiagrammeBarre () {
     const a = randint(2, 10)
     const b = randint(2, 10, a)
     const c = randint(2, 10, [a, b])
-    const r = repere2({
+    const r = repere({
       grilleX: 'pointilles',
       grilleY: false,
       yThickListe: [],
