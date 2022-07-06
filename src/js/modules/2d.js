@@ -839,7 +839,7 @@ export function labelLatexPoint ({ points, color = 'black', taille = 8, largeur 
  * Crée le barycentre d'un polygone
  * @param {Polygone} p Polygone dont on veut créer le barycentre
  * @param {string} [nom = ''] Nom du barycentre
- * @param {position} [positionLabel = 'above'] Position du nom par rapport au point
+ * @param {string} [positionLabel = 'above'] Position du nom par rapport au point
  * @example G = barycentre(pol) // Crée G, le barycentre du polygone pol, sans lui donner de nom
  * @example G = barycentre(pol,'G','below') // Crée G, le barycentre du polygone pol, en notant G sous le point, s'il est tracé et labellisé.
  * @author Jean-Claude Lhote
@@ -1350,7 +1350,7 @@ export function codageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * @param {string} [markrayons='||'] Symbole posé sur les quatre rayons (si détail est true)
  * @param {number} [epaisseurMediatrice = 1] Epaisseur de la médiatrice
  * @param {number} [opaciteMediatrice = 1] Taux d'opacité de la médiatrice
- * @param {integer} [pointillesMediatrice = 0] Si cette valeur est entre 1 et 5, la médiatrice est en pointillés
+ * @param {number} [pointillesMediatrice = 0] Si cette valeur est entre 1 et 5, la médiatrice est en pointillés
  * @example Mediatrice(M,N)
  * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1, avec une opacité de 100 % sans autre option
  * @example Mediatrice(M,N,'d','blue')
@@ -1469,7 +1469,7 @@ function Mediatrice (
  * @param {string} [markrayons='||'] Symbole posé sur les quatre rayons (si détail est true)
  * @param {number} [epaisseurMediatrice = 1] Epaisseur de la médiatrice
  * @param {number} [opaciteMediatrice = 1] Taux d'opacité de la médiatrice
- * @param {integer} [pointillesMediatrice = 0] Si cette valeur est entre 1 et 5, la médiatrice est en pointillés
+ * @param {number} [pointillesMediatrice = 0] Si cette valeur est entre 1 et 5, la médiatrice est en pointillés
  * @example mediatrice(M,N)
  * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1, avec une opacité de 100 % sans autre option
  * @example mediatrice(M,N,'d','blue')
@@ -1553,7 +1553,7 @@ export function codageMediatrice (...args) {
  * @param {number} [tailleLosange = 5] Longueur d'un côté du losange de construcion
  * @param {number} [epaisseurBissectrice = 1] Epaisseur de la bissectrice
  * @param {number} [opaciteBissectrice = 1] Taux d'opacité de la bissectrice
- * @param {integer} [pointillesBissectrice = 0] Si cette valeur est entre 1 et 5, la bissectrice est en pointillés
+ * @param {number} [pointillesBissectrice = 0] Si cette valeur est entre 1 et 5, la bissectrice est en pointillés
  * @example Bissectrice(N,R,J)
  * // Trace, en rouge, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %, sans autre option
  * @example Bissectrice(N,R,J,'blue')
@@ -1662,7 +1662,7 @@ function Bissectrice (
  * @param {number} [tailleLosange = 5] Longueur d'un côté du losange de construcion
  * @param {number} [epaisseurBissectrice = 1] Epaisseur de la bissectrice
  * @param {number} [opaciteBissectrice = 1] Taux d'opacité de la bissectrice
- * @param {integer} [pointillesBissectrice = 0] Si cette valeur est entre 1 et 5, la bissectrice est en pointillés
+ * @param {number} [pointillesBissectrice = 0] Si cette valeur est entre 1 et 5, la bissectrice est en pointillés
  * @example bissectrice(N,R,J)
  * // Trace, en rouge, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %, sans autre option
  * @example bissectrice(N,R,J,'blue')
@@ -3127,8 +3127,12 @@ export function deplaceLabel (p, nom, positionLabel) {
 }
 
 /**
- * aireTriangle(p) retourne l'aire du triangle si p est un triangle, false sinon.
+ * Retourne l'aire du triangle si p est un triangle, false sinon.
+ * @param {Polygone} p Triangle
+ * @example aireTriangle(poygone(A,B,C)) // Retourne l'aire du triangle ABC
+ * @example aireTriangle(poygone(A,B,C,D)) // Retourne false car le polygone n'est pas un triangle
  * @author Jean-Claude Lhote
+ * @return {boolean|number}
  */
 // JSDOC Validee par EE Juin 2022
 export function aireTriangle (p) {
@@ -3155,7 +3159,7 @@ export function aireTriangle (p) {
  * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none'. Code couleur HTML acceptée.
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
- * @param {integer} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
  * @param {number} [opacite = 1] Opacité du cercle
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
@@ -3341,7 +3345,7 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
  * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none'. Code couleur HTML acceptée.
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
- * @param {integer} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
  * @param {number} [opacite = 1] Opacité du cercle
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
@@ -3632,7 +3636,7 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
  * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none'. Code couleur HTML acceptée.
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
- * @param {integer} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
  * @param {number} [opacite = 1] Opacité du cercle
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
@@ -3659,7 +3663,7 @@ function CercleCentrePoint (O, M, color = 'black', couleurDeRemplissage = 'none'
  * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none'. Code couleur HTML acceptée.
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
- * @param {integer} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
  * @param {number} [opacite = 1] Opacité du cercle
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
@@ -4964,7 +4968,7 @@ export function sensDeRotation (A, O, sens, color = 'black') {
  * @param {number} k Rapport de l'homothétie
  * @param {string} [nom = ''] Nom du point-image
  * @param {string} [color = 'black']
- * @param {position} [positionLabel = 'above'] Position du point-image
+ * @param {string} [positionLabel = 'above'] Position du point-image
  * @author Rémi Angot
  */
 export function homothetie (A, O, k, nom = '', positionLabel = 'above', color = 'black') {
@@ -5115,7 +5119,7 @@ export function projectionOrtho (M, d, nom = '', positionLabel = 'above') {
  * @param {number} d Direction de l'affinité
  * @param {number} k Rapport de l'affinité
  * @param {string} [nom=''] Nom de l'image (uniquement valable pour un point)
- * @param {position} [positionLabel = 'above'] Position de l'image (uniquement valable pour un point)
+ * @param {string} [positionLabel = 'above'] Position de l'image (uniquement valable pour un point)
  * @param {string} [color='black']  Couleur de la valeur indiquée : du type 'blue' ou du type '#f15929' (non valable pour un point et pour un vecteur)
  * @author Jean-Claude Lhote
  * @example p2 = affiniteOrtho(p1,droite(B, C),k)
@@ -5237,10 +5241,10 @@ export function similitude (A, O, a, k, nom = '', positionLabel = 'above', color
 
 /**
  * Fait apparaître une liste d'objets de façon animée.
- * @param {any} liste liste d'objets à faire apparaitre
- * @param {integer} [dur = 2] Durée de l'animation en secondes
- * @param {integer} [pourcentage = 0.5] Pourcentage de la durée à partir de laquelle les objets sont visibles
- * @param {integer} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier.
+ * @param {ObjetMathalea2D[]} liste liste d'objets à faire apparaitre
+ * @param {number} [dur = 2] Durée de l'animation en secondes
+ * @param {number} [pourcentage = 0.5] Pourcentage de la durée à partir de laquelle les objets sont visibles
+ * @param {number|string} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier.
  * @return {code_SVG}
  * @author Rémi Angot
  * @private
@@ -5272,10 +5276,10 @@ function ApparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefini
 }
 /**
  * Fait apparaître une liste d'objets de façon animée
- * @param {any} liste liste d'objets à faire apparaitre
- * @param {integer} [dur = 2] Durée de l'animation en secondes
- * @param {integer} [pourcentage = 0.5] Pourcentage de la durée à partir de laquelle les objets sont visibles
- * @param {integer} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier
+ * @param {ObjetMathalea2D[]} liste liste d'objets à faire apparaitre
+ * @param {number} [dur = 2] Durée de l'animation en secondes
+ * @param {number} [pourcentage = 0.5] Pourcentage de la durée à partir de laquelle les objets sont visibles
+ * @param {number|string} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier
  * @return {ApparitionAnimee}
  * @example Fonction non utilisée donc pas d'exemple, fonction non testée, peut être bugguée
  * @author Rémi Angot
@@ -5445,11 +5449,11 @@ export function affiniteOrthoAnimee (...args) {
 
 /**
  * Rend visible un element d'après son id
- *
+ * @param {number} id id propre à un objet MathALEA2d
+ * @example montrerParDiv(s2.id) // Affiche l'objet s2
  * @author Rémi Angot
- * @param {string} id
- *
  */
+// JSDOC Validee par EE Juin 2022
 export function montrerParDiv (id) {
   if (document.getElementById(id)) {
     document.getElementById(id).style.visibility = 'visible'
@@ -5460,7 +5464,7 @@ export function montrerParDiv (id) {
 
 /**
  * Rend invisible un element d'après son id
- * @param {integer} [id] id propre à un objet MathALEA2d
+ * @param {number} id id propre à un objet MathALEA2d
  * @example cacherParDiv(s2.id) // Cache l'objet s2
  * @author Rémi Angot
  */
@@ -5600,8 +5604,8 @@ export function medianeTriangle (A, B, C, color = 'black') {
  * @param {Point} A Premier sommet du triangle
  * @param {Point} B Deuxième sommet du triangle
  * @param {Point} C Troisième sommet du triangle
- * @param {string} nom Nom du centre
- * @param {position} [positionLabel = 'above'] Position du nom par rapport au point
+ * @param {string} [nom=''] Nom du centre
+ * @param {string} [positionLabel = 'above'] Position du nom par rapport au point
  * @example G = centreGraviteTriangle(F,C,N)
  * // Crée G, le centre de gravité du triangle FCN,sans être nommé.
  * @example G = centreGraviteTriangle(F,C,N,'G','below')
@@ -5721,8 +5725,8 @@ export function orthoCentre (A, B, C, nom = '', positionLabel = 'above') {
  * @param {Point} A Premier sommet du triangle
  * @param {Point} B Deuxième sommet du triangle
  * @param {Point} C Troisième sommet du triangle
- * @param {string} nom Nom du centre
- * @param {position} [positionLabel = 'above'] Position du nom par rapport au point
+ * @param {string} [nom=''] Nom du centre
+ * @param {string} [positionLabel = 'above'] Position du nom par rapport au point
  * @example G = centreCercleCirconscrit(F,C,N)
  * // Crée G, le centre du cercle circonscrit au triangle FCN,sans être nommé.
  * @example G = centreCercleCirconscrit(F,C,N,'G','below')
@@ -6307,7 +6311,7 @@ export function codageSegment (...args) {
  * Code plusieurs segments de la même façon
  * @param {string} [mark='||'] Symbole posé sur le segment
  * @param {string} [color='black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
- * @param  {Points|Array.Point|Segments} args Les segments différement codés. Voir exemples.
+ * @param  {Point|Point[]|Segment} args Les segments différement codés. Voir exemples.
  * @example CodageSegments('×','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
  * @example CodageSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé, pratique pour des polygones pas pour des lignes brisées)
  * @example CodageSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
@@ -10363,7 +10367,7 @@ function convertHexToRGB (couleur = '000000') {
  * @example colorToLatexOrHTML('')=''
  * @example colorToLatexOrHTML('none')=['none','none']
  * @author Eric Elter
- * @return {Array.string}
+ * @return {string[]}
  */
 // JSDOC Validee EE Juin 2022
 export function colorToLatexOrHTML (couleur) {
@@ -11051,7 +11055,7 @@ export function creerLutin (...args) {
 /**
  * Fait avancer le lutin de d unités de lutin dans la direction de son orientation
  * @param {number} d Nombre d'unités choisi pour avancer
- * @param {Objet} lutin Lutin
+ * @param {ObjetLutin} lutin Lutin
  * @example avance(5, lutin) // Fait avancer le lutin de 5 unités
  * @author Jean-Claude Lhote
  */
@@ -11073,7 +11077,7 @@ export function avance (d, lutin = context.lutin) { // A faire avec pointSurCerc
 
 /**
  * Fait entrer le lutin dans le mode "trace"
- * @param {objet} lutin
+ * @param {ObjetLutin} lutin
  * @example baisseCrayon(lutin) // Met lutin en mode "trace"
  */
 export function baisseCrayon (lutin = context.lutin) {
@@ -11081,7 +11085,7 @@ export function baisseCrayon (lutin = context.lutin) {
 }
 /**
  * Fait sortir le lutin du mode "trace"
- * @param {objet} lutin
+ * @param {ObjetLutin} lutin
  * @example leveCrayon(lutin) // Sort lutin du mode "trace"
  */
 // JSDOC Validee par EE Juin 2022
@@ -11092,7 +11096,7 @@ export function leveCrayon (lutin = context.lutin) {
  * Fixe l'orientation du lutin à a degrés (au sens Mathalea2d=trigo)
  * Voire la fonction angleScratchTo2d(angle_scratch) pour la conversion
  * @param {number} a
- * @param {objet} lutin
+ * @param {ObjetLutin} lutin
  */
 export function orienter (a, lutin = context.lutin) {
   lutin.orientation = angleModulo(a)
@@ -11100,7 +11104,7 @@ export function orienter (a, lutin = context.lutin) {
 /**
  * Fait tourner de a degrés le lutin dans le sens direct
  * @param {number} a
- * @param {objet} lutin
+ * @param {ObjetLutin} lutin
  */
 export function tournerG (a, lutin = context.lutin) {
   lutin.orientation = angleModulo(lutin.orientation + a)
@@ -11108,7 +11112,7 @@ export function tournerG (a, lutin = context.lutin) {
 /**
  * Fait tourner de a degrés le lutin dans le sens indirect
  * @param {number} a
- * @param {objet} lutin
+ * @param {ObjetLutin} lutin
  */
 export function tournerD (a, lutin = context.lutin) {
   lutin.orientation = angleModulo(lutin.orientation - a)
@@ -11117,7 +11121,7 @@ export function tournerD (a, lutin = context.lutin) {
  * Déplace le lutin de sa position courante à (x;y)
  * @param {number} x Nouvelle abscisse
  * @param {number} y Nouvelle ordonnée
- * @param {Objet} lutin Lutin
+ * @param {ObjetLutin} lutin Lutin
  * @example allerA(10,-5,lutin) // Le lutin prend pour coordonnées (10 ; -5).
  */
 // JSDOC Validee EE Juin 2022
@@ -11138,7 +11142,7 @@ export function allerA (x, y, lutin = context.lutin) {
 /**
  * Change en x à l'abscisse du lutin
  * @param {number} x Nouvelle abscisse
- * @param {Objet} lutin Lutin
+ * @param {ObjetLutin} lutin Lutin
  * @example mettrexA(10,lutin) // L'abscisse de lutin devient 10.
  */
 export function mettrexA (x, lutin = context.lutin) {
@@ -11154,7 +11158,7 @@ export function mettrexA (x, lutin = context.lutin) {
 /**
  * change en y l'ordonnée du lutin
  * @param {number} y Nouvelle ordonnée
- * @param {Objet} lutin Lutin
+ * @param {ObjetLutin} lutin Lutin
  * @example mettreyA(10,lutin) // L'ordonnée de lutin devient 10.
  */
 export function mettreyA (y, lutin = context.lutin) {
@@ -11170,7 +11174,7 @@ export function mettreyA (y, lutin = context.lutin) {
 /**
  * Ajoute x à l'abscisse du lutin
  * @param {number} x Valeur à ajouter à l'abscisse
- * @param {Objet} lutin Lutin
+ * @param {ObjetLutin} lutin Lutin
  * @example ajouterAx(10,lutin) // L'abscisse de lutin est augmentée de 10.
  */
 // JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
@@ -11187,7 +11191,7 @@ export function ajouterAx (x, lutin = context.lutin) {
 /**
  * Ajoute y à l'ordonnée du lutin
  * @param {number} y Valeur à ajouter à l'ordonnée
- * @param {Objet} lutin Lutin
+ * @param {ObjetLutin} lutin Lutin
  * @example ajouterAy(10,lutin) // L'ordonnée de lutin est augmentée de 10.
  */
 // JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
@@ -11205,7 +11209,7 @@ export function ajouterAy (y, lutin = context.lutin) {
 /**
  * Fait "vibrer" le lutin, tempo fois autour de sa position courante
  * @param {number} tempo Nombre de vibrations
- * @param {Objet} lutin Lutin
+ * @param {ObjetLutin} lutin Lutin
  * @example attendre(5, lutin) // Fait "vibrer" 5 fois le lutin
  * @author Jean-Claude Lhote
  */
