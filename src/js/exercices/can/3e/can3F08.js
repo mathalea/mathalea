@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
-import { fraction } from '../../../modules/fractions'
+import { fraction } from '../../../modules/fractions.js'
 import { randint, texFraction, miseEnEvidence, abs, ecritureAlgebrique, texFractionReduite, egal, calcul, texteCentre } from '../../../modules/outils.js'
-import { mathalea2d, repere2, texteParPosition, segment, droite } from '../../../modules/2d.js'
+import { mathalea2d, repere, texteParPosition, segment, droite } from '../../../modules/2d.js'
 export const titre = 'Lire graphiquement une fonction affine*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +27,7 @@ export default function LectureGraphiqueFonctionAffine2 () {
     const a = randint(-5, 5, [0, 4]) // numérateut coefficient directeur non nul
     const b = randint(-2, 2) // ordonnée à l'origine
     const d = randint(2, 5, [-a, a, 2 * a, -2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
-    const r = repere2()// On définit le repère
+    const r = repere()// On définit le repère
     const c = droite(a / d, -1, b)
     const maFraction = fraction(a, d)
 

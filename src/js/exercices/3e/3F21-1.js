@@ -2,7 +2,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, ecritureAlgebrique, randint, reduireAxPlusB, texNombre, katexPopup2 } from '../../modules/outils.js'
-import { droiteParPointEtPente, point, repere2, mathalea2d, positionLabelDroite, latexParPoint } from '../../modules/2d.js'
+import { droiteParPointEtPente, point, repere, mathalea2d, positionLabelDroite, latexParPoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Déterminer une fonction affine'
@@ -64,7 +64,7 @@ export default function LectureExpressionFonctionsAffines () {
       if (this.lineaire) { OrdX0 = 0 } else { OrdX0 = randint(-1 + pente[i] / k, 1 + pente[i] / k, [pente[i], 0]) }
       listeDroites.push([OrdX0, pente[i] / k])
     }
-    const r = repere2({ xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
+    const r = repere({ xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
     const objets2d = []
     objets2d.push(r)
     for (let i = 0; i < nbDroites; i++) {

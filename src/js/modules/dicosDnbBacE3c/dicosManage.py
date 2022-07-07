@@ -93,11 +93,15 @@ def newEntry(file:str,dicoType:str)->list:
     newLines = ''
     # On traite les fichiers tex qui ne sont pas les fichiers de correction 
     if filename[-4:] != '_cor' and  extension == ".tex" :
+        if 'mathalea' in filename:
+            numeroInitial = filename.split('_')[5]
+        else:
+            numeroInitial = filename.split('_')[4]
         newLines = f'''  {filename}: {{
     annee: '{filename[4:8]}',
     lieu: '{locationName(filename.split('_')[3])}',
     mois: '{monthName(filename[9:11])}',
-    numeroInitial: '{filename.split('_')[4]}',
+    numeroInitial: '{numeroInitial}',
     png: '/{dicoType}/{filename[4:8]}/tex/png/{filename}.png',
     pngcor: '/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png',
     typeExercice: '{dicoType}',
@@ -109,7 +113,7 @@ def newEntry(file:str,dicoType:str)->list:
     return [newLines,filename]
 
 def currentRef(dicoPath:str)->list:
-    """Une fonction pour récupérer tous les fichiers déjà référencé dans le dico
+    """Une fonction pour récupérer tous les fichiers déjà référencés dans le dico
 
     **Paramètres**
 

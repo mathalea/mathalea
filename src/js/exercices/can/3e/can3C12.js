@@ -1,5 +1,5 @@
-import { choice, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { choice, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Encadrer une racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'

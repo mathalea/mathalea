@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, sp, ecritureParentheseSiNegatif, ecritureAlgebrique, rienSi1 } from '../../../modules/outils.js'
-import { repere2, courbe2, mathalea2d, texteParPosition } from '../../../modules/2d.js'
+import { repere, courbe, mathalea2d, texteParPosition } from '../../../modules/2d.js'
 import { calcule } from '../../../modules/fonctionsMaths.js'
 export const titre = 'Déterminer une équation de tangente à partir des courbes de $f$ et $f’$'
 export const interactifReady = true
@@ -60,7 +60,7 @@ export default function LectureGraphiqueTangente () {
 
         o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
 
-        r1 = repere2({
+        r1 = repere({
           xMin: -4,
           xMax: 4,
           xUnite: 1.5,
@@ -83,7 +83,7 @@ export default function LectureGraphiqueTangente () {
           grilleSecondaireXMin: -4,
           grilleSecondaireXMax: 4
         })
-        r2 = repere2({
+        r2 = repere({
           xMin: -4,
           xMax: 4,
           xUnite: 1.5,
@@ -114,10 +114,10 @@ export default function LectureGraphiqueTangente () {
         this.question = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
         Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br> `
         this.question += mathalea2d({ xmin: -6, xmax: 6, ymin: -3, ymax: 12, style: 'display: inline', pixelsParCm: 16, scale: 0.5 },
-          r1, o, courbef, courbe2(F, { repere: r1, color: 'blue', epaisseur: 2 })
+          r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
         )
         this.question += `${sp(8)}` + mathalea2d({ xmin: -6, xmax: 6, ymin: -5, ymax: 8, style: 'display: inline', pixelsParCm: 16, scale: 0.5 },
-          r2, o, courbefp, courbe2(f, { repere: r2, color: 'red', epaisseur: 2 })
+          r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
         )
 
         this.correction = `L'équation réduite de la tangente au point d'abscisse $${nbre}$ est  : $y=f'(${nbre})(x-${ecritureParentheseSiNegatif(nbre)})+f(${nbre})$.<br>
@@ -165,7 +165,7 @@ export default function LectureGraphiqueTangente () {
 
         o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
 
-        r1 = repere2({
+        r1 = repere({
           xMin: -4,
           xMax: 4,
           xUnite: 1.5,
@@ -188,7 +188,7 @@ export default function LectureGraphiqueTangente () {
           grilleSecondaireXMin: -4,
           grilleSecondaireXMax: 4
         })
-        r2 = repere2({
+        r2 = repere({
           xMin: -4,
           xMax: 4,
           xUnite: 1.5,
@@ -219,10 +219,10 @@ export default function LectureGraphiqueTangente () {
         this.question = `On donne les représentations graphiques d'une fonction et de sa dérivée.<br>
       Donner l'équation réduite de la tangente à la courbe de $f$ en $x=${nbre}$. <br> `
         this.question += mathalea2d({ xmin: -6, xmax: 6, ymin: -8, ymax: 5, style: 'display: inline', pixelsParCm: 16, scale: 0.5 },
-          r1, o, courbef, courbe2(F, { repere: r1, color: 'blue', epaisseur: 2 })
+          r1, o, courbef, courbe(F, { repere: r1, color: 'blue', epaisseur: 2 })
         )
         this.question += `${sp(8)}` + mathalea2d({ xmin: -6, xmax: 6, ymin: -8, ymax: 6, style: 'display: inline', pixelsParCm: 16, scale: 0.5 },
-          r2, o, courbefp, courbe2(f, { repere: r2, color: 'red', epaisseur: 2 })
+          r2, o, courbefp, courbe(f, { repere: r2, color: 'red', epaisseur: 2 })
         )
 
         this.correction = `L'équation réduite de la tangente au point d'abscisse $${nbre}$ est  : $y=f'(${nbre})(x-${ecritureParentheseSiNegatif(nbre)})+f(${nbre})$.<br>

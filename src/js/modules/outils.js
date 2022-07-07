@@ -3,13 +3,14 @@ import { texteParPosition } from './2d.js'
 import { fraction } from './fractions.js'
 import Algebrite from 'algebrite'
 import { format, evaluate, isPrime, gcd, round, equal, Fraction, isInteger } from 'mathjs'
-import { loadScratchblocks } from './loaders'
+import { loadScratchblocks } from './loaders.js'
 import { context } from './context.js'
 import { setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
 import FractionX from './FractionEtendue.js'
 import { elimineDoublons } from './interactif/questionQcm.js'
-import { Decimal } from 'decimal.js'
+import pkg from 'decimal.js'
+const { Decimal } = pkg
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001

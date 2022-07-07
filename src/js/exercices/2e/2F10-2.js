@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, abs, pgcd, texteEnCouleurEtGras, texFraction, miseEnEvidence, ecritureAlgebrique, texFractionReduite } from '../../modules/outils.js'
-import { repere2, droite, mathalea2d, point, tracePoint, segment, texteParPosition, latexParPoint, vecteur, translation, homothetie } from '../../modules/2d.js'
+import { repere, droite, mathalea2d, point, tracePoint, segment, texteParPosition, latexParPoint, vecteur, translation, homothetie } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -41,7 +41,7 @@ export default function lecturefonctionaffine () {
     for (let i = 0, A, a, b, d, r, f, c, t, l, s1, s2, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       // typesDeQuestions = listeTypeDeQuestions[i]
-      r = repere2()// On définit le repère
+      r = repere()// On définit le repère
 
       if (this.sup === 1) {
         a = randint(0, 10)
@@ -129,7 +129,7 @@ export default function lecturefonctionaffine () {
         a = randint(-5, 5, [0]) // numérateut coefficient directeur non nul
         b = randint(-5, 5) // ordonnée à l'origine
         d = randint(2, 5, [a, 2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
-        r = repere2()// On définit le repère
+        r = repere()// On définit le repère
         c = droite(a / d, -1, b)
         c.color = 'red'
         c.epaisseur = 2

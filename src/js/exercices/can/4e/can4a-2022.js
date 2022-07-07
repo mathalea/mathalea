@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, labelPoint, polygoneAvecNom, milieu, texteParPosition, tracePoint, repere2, polygone, codageAngleDroit, latexParCoordonnees
+  mathalea2d, point, labelPoint, polygoneAvecNom, milieu, texteParPosition, tracePoint, repere, polygone, codageAngleDroit, latexParCoordonnees
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, arrondi, randint, texNombre, shuffle, ecritureParentheseSiNegatif, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
@@ -502,7 +502,7 @@ export default function SujetCAN2022quatrieme () {
           k1 = choice([3, 4, 5])
           b = randint(-k2 + 1, k2 - 1)
           a = randint(-k1 + 1, k1 - 1)
-          r = repere2({
+          r = repere({
             xUnite: k1,
             yUnite: k2,
             xMin: -k1 - 1,

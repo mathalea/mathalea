@@ -1,8 +1,8 @@
-import { droiteGraduee2, mathalea2d } from '../../../modules/2d'
-import { context } from '../../../modules/context'
-import FractionEtendue from '../../../modules/FractionEtendue'
-import { pgcd, randint, texFractionReduite } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { droiteGraduee2, mathalea2d } from '../../../modules/2d.js'
+import { context } from '../../../modules/context.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
+import { pgcd, randint, texFractionReduite } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Trouver une abscisse fractionnaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'

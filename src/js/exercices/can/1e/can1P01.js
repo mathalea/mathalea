@@ -23,7 +23,7 @@ export default function CalculProbaArbre2e () {
   this.sup = true
   this.consigne = ''
   this.nbQuestions = 1
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
+  this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   // this.sup = 1; // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
@@ -92,11 +92,11 @@ export default function CalculProbaArbre2e () {
       })
 
       omega.setTailles() // On calcule les tailles des arbres.
-      objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+      objets = omega.represente(0, 6, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
       pC = omega.getProba('C', false) // on calcule P(C) décimale.
-      texte = `On donne l'arbre de probabilités ci dessous et $P(C)=${texProba(pC)}$.<br>$\\phantom{1. On donne ceci}$`
-      texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline' }, ...objets)
-      texte += `<br>$\\phantom{1. On donne ceci}x=$ ${(this.interactif || !context.isHtml) ? ajouteChampTexteMathLive(this, i, 'largeur10 inline') : '\\ldots'}`
+      texte = `On donne l'arbre de probabilités ci dessous et $P(C)=${texProba(pC)}$.<br>`
+      texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 6, style: 'inline' }, ...objets)
+      texte += `<br>$x=$ ${(this.interactif || !context.isHtml) ? ajouteChampTexteMathLive(this, i, 'largeur10 inline') : '\\ldots'}`
       texteCorr = 'Comme $A$ et $\\bar A$ forment une partition de l\'univers, d\'après la loi des probabilités totales :<br>'
       texteCorr += '$P(C)=P(A \\cap C)+P(\\bar{A} \\cap C)$.<br>'
       texteCorr += `Or $P(\\bar{A} \\cap C)=P(\\bar{A}) \\times P_{\\bar{A}}(C)=${texProba(pB, false)}x$.<br>`

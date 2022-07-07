@@ -1,4 +1,4 @@
-import Operation from '../../modules/operations'
+import Operation from '../../modules/operations.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, calcul, nombreDeChiffresDe } from '../../modules/outils.js'

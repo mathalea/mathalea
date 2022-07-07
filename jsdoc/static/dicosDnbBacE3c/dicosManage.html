@@ -127,11 +127,15 @@ def newEntry(file:str,dicoType:str)-&gt;list:
     newLines = &#39;&#39;
     # On traite les fichiers tex qui ne sont pas les fichiers de correction 
     if filename[-4:] != &#39;_cor&#39; and  extension == &#34;.tex&#34; :
+        if &#39;mathalea&#39; in filename:
+            numeroInitial = filename.split(&#39;_&#39;)[5]
+        else:
+            numeroInitial = filename.split(&#39;_&#39;)[4]
         newLines = f&#39;&#39;&#39;  {filename}: {{
     annee: &#39;{filename[4:8]}&#39;,
     lieu: &#39;{locationName(filename.split(&#39;_&#39;)[3])}&#39;,
     mois: &#39;{monthName(filename[9:11])}&#39;,
-    numeroInitial: &#39;{filename.split(&#39;_&#39;)[4]}&#39;,
+    numeroInitial: &#39;{numeroInitial}&#39;,
     png: &#39;/{dicoType}/{filename[4:8]}/tex/png/{filename}.png&#39;,
     pngcor: &#39;/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png&#39;,
     typeExercice: &#39;{dicoType}&#39;,
@@ -143,7 +147,7 @@ def newEntry(file:str,dicoType:str)-&gt;list:
     return [newLines,filename]
 
 def currentRef(dicoPath:str)-&gt;list:
-    &#34;&#34;&#34;Une fonction pour récupérer tous les fichiers déjà référencé dans le dico
+    &#34;&#34;&#34;Une fonction pour récupérer tous les fichiers déjà référencés dans le dico
 
     **Paramètres**
 
@@ -239,7 +243,7 @@ def manageDico(dicoPath:str,dicoType:str):
     # On crée le repertoire s&#39;il n&#39;existe pas
     if (not os.path.exists(folderToScan)):
         os.makedirs(folderToScan)    
-    # On récupère et range toutes les années présente dans le repertoire à scanner
+    # On récupère et range toutes les années présentes dans le repertoire à scanner
     getAllYears = sorted(os.listdir(folderToScan)) 
     
     # On traite toutes les années
@@ -336,7 +340,7 @@ if __name__ == &#34;__main__&#34;:
 <span>def <span class="ident">currentRef</span></span>(<span>dicoPath: str) ‑> list</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Une fonction pour récupérer tous les fichiers déjà référencé dans le dico</p>
+<div class="desc"><p>Une fonction pour récupérer tous les fichiers déjà référencés dans le dico</p>
 <p><strong>Paramètres</strong></p>
 <pre><code>* dicoPath -- Un string avec le chemin vers le dico
 </code></pre>
@@ -348,7 +352,7 @@ if __name__ == &#34;__main__&#34;:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def currentRef(dicoPath:str)-&gt;list:
-    &#34;&#34;&#34;Une fonction pour récupérer tous les fichiers déjà référencé dans le dico
+    &#34;&#34;&#34;Une fonction pour récupérer tous les fichiers déjà référencés dans le dico
 
     **Paramètres**
 
@@ -595,7 +599,7 @@ Taper 1, 2 ou 3 pour lancer le script --&gt; &#34;&#34;&#34;)
     # On crée le repertoire s&#39;il n&#39;existe pas
     if (not os.path.exists(folderToScan)):
         os.makedirs(folderToScan)    
-    # On récupère et range toutes les années présente dans le repertoire à scanner
+    # On récupère et range toutes les années présentes dans le repertoire à scanner
     getAllYears = sorted(os.listdir(folderToScan)) 
     
     # On traite toutes les années
@@ -673,11 +677,15 @@ Taper 1, 2 ou 3 pour lancer le script --&gt; &#34;&#34;&#34;)
     newLines = &#39;&#39;
     # On traite les fichiers tex qui ne sont pas les fichiers de correction 
     if filename[-4:] != &#39;_cor&#39; and  extension == &#34;.tex&#34; :
+        if &#39;mathalea&#39; in filename:
+            numeroInitial = filename.split(&#39;_&#39;)[5]
+        else:
+            numeroInitial = filename.split(&#39;_&#39;)[4]
         newLines = f&#39;&#39;&#39;  {filename}: {{
     annee: &#39;{filename[4:8]}&#39;,
     lieu: &#39;{locationName(filename.split(&#39;_&#39;)[3])}&#39;,
     mois: &#39;{monthName(filename[9:11])}&#39;,
-    numeroInitial: &#39;{filename.split(&#39;_&#39;)[4]}&#39;,
+    numeroInitial: &#39;{numeroInitial}&#39;,
     png: &#39;/{dicoType}/{filename[4:8]}/tex/png/{filename}.png&#39;,
     pngcor: &#39;/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png&#39;,
     typeExercice: &#39;{dicoType}&#39;,

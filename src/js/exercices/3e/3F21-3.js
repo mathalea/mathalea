@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { ecritureAlgebrique, listeQuestionsToContenu, randint, rienSi1, texNombre, stringNombre, sp, choice } from '../../modules/outils.js'
-import { mathalea2d, repere2, cercle, point, segment, milieu, texteParPoint, droite } from '../../modules/2d.js'
+import { mathalea2d, repere, cercle, point, segment, milieu, texteParPoint, droite } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -40,7 +40,7 @@ export default function PenteEtOrdonneeOrigineDroite () {
     const yMin = xMin
     const yMax = -yMin
 
-    const r = repere2({ xMin, yMin, xMax, yMax })
+    const r = repere({ xMin, yMin, xMax, yMax })
     const f = x => a * x + b
 
     const d = droite(a, -1, b)

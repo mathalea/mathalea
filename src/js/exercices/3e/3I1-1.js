@@ -2,7 +2,7 @@ import { texteEnCouleurEtGras, listeQuestionsToContenu, combinaisonListesSansCha
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 
-import { mathalea2d, repere2, traceGraphiqueCartesien, point, segment, texteParPosition } from '../../modules/2d.js'
+import { mathalea2d, repere, traceGraphiqueCartesien, point, segment, texteParPosition } from '../../modules/2d.js'
 
 export const titre = 'Conjecture de Syracuse'
 
@@ -159,7 +159,7 @@ export default function ConjectureDeSyracuse () {
       const xCoeff = 2
 
       // Le repère
-      const r2 = repere2({
+      const r2 = repere({
         axesEpaisseur: 3,
         grille: false,
         xMin: -1,

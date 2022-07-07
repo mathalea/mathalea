@@ -1,5 +1,5 @@
-import { calcul, randint, texNombre } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, randint, texNombre } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Arrondir à l\'unité'
 export const interactifReady = true
 export const interactifType = 'mathLive'

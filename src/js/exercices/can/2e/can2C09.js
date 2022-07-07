@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { fraction } from '../../../modules/fractions'
+import { fraction } from '../../../modules/fractions.js'
 import { choice, texFraction, texFractionReduite, simplificationDeFractionAvecEtapes, texteEnCouleur } from '../../../modules/outils.js'
 import { mathalea2d, point, segmentAvecExtremites, codageSegments, labelPoint, texteParPosition, fractionParPosition } from '../../../modules/2d.js'
 export const titre = 'Calculer le "milieu" entre 1 et une fraction'
