@@ -178,7 +178,7 @@ export default function ListeDesDiviseurs5e () {
           texteCorr += '.'
           break
       };
-      setReponse(this, i, JSON.stringify(listeDiviseurs(M)).replace('[', '').replace(']', ''))
+      setReponse(this, i, JSON.stringify(listeDiviseurs(M)).replace('[', '').replace(']', ''), { formatInteractif: 'texte' })
       texte += ajouteChampTexteMathLive(this, i, 'largeur35 inline', { texte: `<br> Les diviseurs de $${texNombre(M)}$ sont : ` })
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
