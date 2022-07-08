@@ -5,7 +5,7 @@ import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer un vecteur normal avec une équation cartésienne'
 export const interactifReady = true
 export const interactifType = 'custom'
-export const dateDePublication = '29/06/2022'
+export const dateDePublication = '08/07/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora avec Jean-Claude pour la partie interactive
@@ -43,7 +43,7 @@ export default function VecteurNormEqCart () {
       }
       texteCorr = `Si l'équation est de la forme $ax+by+c=0$, on sait d'après le cours, qu'un vecteur normal $\\vec{u}$ a pour coordonnées $(a;b)$.<br>
     On en déduit qu'un vecteur normal de $d$ est $\\vec{u}(${a};${b})$.<br>
-    Remarque : Tout vecteur colinéaire à $\\vec{u}$ est aussi un vecteur normal de $d$.`
+     Tout vecteur colinéaire à $\\vec{u}$ est aussi un vecteur normal de $d$.`
 
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions.push(texte)
@@ -68,7 +68,7 @@ export default function VecteurNormEqCart () {
     const x = Number(saisie1)
     const y = Number(saisie2)
     let resultat
-    if (egal(x / x0, y / y0)) {
+    if (egal(x / x0, y / y0) && !(x === 0 && y === 0)) {
       divFeedback1.innerHTML = '😎'
       divFeedback2.innerHTML = '😎'
       resultat = 'OK'

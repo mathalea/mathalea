@@ -4,12 +4,12 @@ import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMa
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer un vecteur directeur avec une équation cartésienne'
 export const interactifReady = true
-export const interactifType = 'mathLive'
-export const dateDePublication = '29/06/2022'
+export const interactifType = 'custom'
+export const dateDePublication = '08/07/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Gilles Mora
- * Référence can1G07
+ * @author Gilles Mora avec Jean-Claude pour la partie interactive
+ * Référence can2G17
  *
 */
 export default function VecteurDirEqCart () {
@@ -42,7 +42,8 @@ export default function VecteurDirEqCart () {
         setReponse(this, 2 * i + 1, a)
       }
       texteCorr = `Si l'équation est de la forme $ax+by+c=0$, on sait d'après le cours, qu'un vecteur directeur $\\vec{u}$ a pour coordonnées $\\vec{u}(-b;a)$.<br>
-    On en déduit qu'un vecteur directeur de $d$ est $(${-b};${a})$.`
+    On en déduit qu'un vecteur directeur de $d$ est $\\vec{u}(${-b};${a})$.<br>
+    Tout vecteur colinéaire à $\\vec{u}$ est aussi un vecteur directeur de $d$.`
 
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions.push(texte)
@@ -67,7 +68,7 @@ export default function VecteurDirEqCart () {
     const x = Number(saisie1)
     const y = Number(saisie2)
     let resultat
-    if (egal(x * y0 - y * x0, 0)) {
+    if (egal(x * y0 - y * x0, 0) && !(x === 0 && y === 0)) {
       divFeedback1.innerHTML = '😎'
       divFeedback2.innerHTML = '😎'
       resultat = 'OK'
