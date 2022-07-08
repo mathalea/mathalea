@@ -4792,9 +4792,8 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
     if ((i !== 0) && (i !== 36) && (i !== 18)) objets.push(rayon)
     azimut = rotation(azimut, centre, arcPlein / nbDivisions)
     azimut2 = rotation(azimut2, centre, arcPlein / nbDivisions)
-    if (rayonsVisibles) rayon = segment(azimut, azimut2)
+    if (rayonsVisibles) rayon = segment(azimut, azimut2, this.color)
     else rayon = segment(homothetie(azimut2, centre, 0.9), azimut2, this.color)
-    rayon.color = colorToLatexOrHTML(this.color)
     rayon.opacite = this.opacite
   }
   if (!semi) {
@@ -6555,10 +6554,10 @@ function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'bl
     const mesure = Math.round(Math.abs(angle)) + '°'
     const d = droite(this.centre, P)
     d.isVisible = false
-    const arcangle = arc(depart, this.centre, this.angle, couleurDeRemplissage !== 'none', this.couleurDeRemplissage, this.color)
+    const arcangle = arc(depart, this.centre, this.angle, this.couleurDeRemplissage !== 'none', this.couleurDeRemplissage, this.color)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.opaciteDeRemplissage = opaciteDeRemplissage
+    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
     if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
     if (mesureOn && texteACote === '') code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
     if (texteACote !== '') code += texteParPoint(texteACote, M, 'milieu', this.color, tailleTexte).tikz() + '\n'
@@ -6575,8 +6574,7 @@ function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'bl
     const arcangle = arc(depart, this.centre, this.angle, false, this.couleurDeRemplissage, this.color)
     arcangle.opacite = this.opacite
     arcangle.epaisseur = this.epaisseur
-    arcangle.opaciteDeRemplissage = opaciteDeRemplissage
-    // if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
+    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
     if (this.mark !== '') code += texteParPoint(mark, M, 90 - d.angleAvecHorizontale, this.color).tikz() + '\n'
     if (mesureOn && texteACote === '') code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
     if (texteACote !== '') code += texteParPoint(texteACote, M, 'milieu', this.color, tailleTexte).tikz() + '\n'
@@ -9428,57 +9426,54 @@ export function lectureAntecedent (...args) {
 }
 
 /**
+ * Trace la courbe d'une fonction dans un repère
+ * @param {string} [color='black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [epaisseur=2]  Epaisseur du tracé de la courbe
+ * @param {number} [xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
+ * @param {number} [xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
+ * @param {number} [yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
+ * @param {number} [yMax = repere.yMax]  Ordonnée maximale du tracé de la courbe
+ * @param {number} [step=0.2 / repere.xUnite]  Pas entre deux abscisses du tracé de la fonction
  * courbe(f,{repere,color,epaisseur,step,xMin,xMax,yMin,yMax,xUnite,yUnite}) // Trace la courbe de f
  *
  * @author Rémi Angot
  */
 
 function Courbe (f, {
-  repere = {},
+  // repere = {},
+  repere,
   color = 'black',
   epaisseur = 2,
-  step = false,
-  xMin,
-  xMax,
-  yMin,
-  yMax,
-  xUnite = 1,
-  yUnite = 1
+  xMin = repere.xMin,
+  xMax = repere.xMax,
+  yMin = repere.yMin,
+  yMax = repere.yMax,
+  // xUnite = 1,
+  // yUnite = 1,
+  step = 0.2 / repere.xUnite // booleen ou nombre ?
 } = {}) {
   ObjetMathalea2D.call(this)
   this.color = color
-  let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
-  if (typeof xMin === 'undefined') {
-    xmin = repere.xMin
-  } else xmin = xMin
-  if (typeof yMin === 'undefined') {
-    ymin = repere.yMin
-  } else ymin = yMin
-  if (typeof xMax === 'undefined') {
-    xmax = repere.xMax
-  } else xmax = xMax
-  if (typeof yMax === 'undefined') {
-    ymax = repere.yMax
-  } else ymax = yMax
+  const xunite = repere.xUnite
+  const yunite = repere.yUnite
 
-  xunite = repere.xUnite
-  yunite = repere.yUnite
-
-  if (isNaN(xunite)) { xunite = xUnite };
-  if (isNaN(yunite)) { yunite = yUnite };
+  // if (isNaN(xunite)) { xunite = xUnite };
+  // if (isNaN(yunite)) { yunite = yUnite };
   const objets = []
   let points = []
-  let pas
+  const pas = step
   let p
-  if (!step) {
-    pas = 0.2 / xUnite
+  /* if (!step) {
+    pas = 0.2 / xunite
   } else {
     pas = step
-  }
-  for (let x = xmin; inferieurouegal(x, xmax); x += pas
+  } */
+  // for (let x = xmin; inferieurouegal(x, xmax); x += pas
+  for (let x = xMin; inferieurouegal(x, xMax); x += pas
   ) {
     if (isFinite(f(x))) {
-      if (f(x) < ymax + 1 && f(x) > ymin - 1) {
+      // if (f(x) < ymax + 1 && f(x) > ymin - 1) {
+      if (f(x) < yMax + 1 && f(x) > yMin - 1) {
         points.push(point(x * xunite, f(x) * yunite))
       } else {
         p = polyline([...points], this.color)
@@ -10000,7 +9995,7 @@ export function intervalle (A, B, color = 'blue', h = 0) {
  * @param {string} [Couleur='000000'] Code couleur HTML sans le #
  * @example convertHexToRGB('f15929')=[241,89,41]
  * @author Eric Elter
- * @return {Array.integer}
+ * @return {number[]}
  */
 // JSDOC Validee EE Juin 2022
 function convertHexToRGB (couleur = '000000') {
