@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenu, sp, texteCentre, ecritureAlgebrique, egal } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { afficheScore, setReponse } from '../../../modules/gestionInteractif.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer un vecteur normal avec une équation cartésienne'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -67,7 +67,7 @@ export default function VecteurNormEqCart () {
     const x = Number(saisie1)
     const y = Number(saisie2)
     let resultat
-    if (egal(x / x0, y / y0)) {
+    if (egal(x / x0, y / y0) && !(x === 0 && y === 0)) {
       divFeedback1.innerHTML = '😎'
       divFeedback2.innerHTML = '😎'
       resultat = 'OK'
