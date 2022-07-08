@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, sp, texteCentre, ecritureAlgebrique, egal } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu, sp, texteCentre, ecritureAlgebrique, egal, rienSi1, ecritureAlgebriqueSauf1 } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer un vecteur directeur avec une équation cartésienne'
@@ -25,12 +25,12 @@ export default function VecteurDirEqCart () {
     this.listeCorrections = [] // Liste de questions corrigées
     let texte; let texteCorr; let a; let b; let c
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      a = randint(-9, 9)
+      a = randint(-9, 9, 0)
       b = randint(-9, 9, 0)
       c = randint(-5, 5, 0)
 
       texte = ` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, la droite $d$ a pour équation :
-    ${texteCentre(`$${a}x${ecritureAlgebrique(b)}y${ecritureAlgebrique(c)}=0$`)}
+      ${texteCentre(`$${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}y${ecritureAlgebrique(c)}=0$`)}
  Les coordonnées d'un vecteur directeur $\\vec{u}$ de la droite $d$   sont :<br>`
 
       if (this.interactif) {
