@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { deuxColonnes, randint, texConsigne, numAlpha } from '../../modules/outils.js'
-import { repere2, graphiqueInterpole, mathalea2d } from '../../modules/2d.js'
+import { repere, graphiqueInterpole, mathalea2d } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Lecture graphique d\'images et d\'antécédents'
@@ -25,7 +25,7 @@ export default function AntecedentEtImageGraphique () {
   if (context.isHtml) { this.spacingCorr = 2 }
 
   this.nouvelleVersion = function () {
-    const r = repere2({
+    const r = repere({
       xMin: -5,
       xMax: 5,
       yMin: -4,

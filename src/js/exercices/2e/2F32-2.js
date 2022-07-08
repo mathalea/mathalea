@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, arrondi, texNombre, inferieurouegal, superieurouegal, texteEnCouleurEtGras, miseEnEvidence, enleveDoublonNum, numTrie } from '../../modules/outils.js'
-import { antecedentInterpole, graphiqueInterpole, imageInterpolee, mathalea2d, point, repere2, segment, texteParPosition, tracePoint } from '../../modules/2d.js'
+import { antecedentInterpole, graphiqueInterpole, imageInterpolee, mathalea2d, point, repere, segment, texteParPosition, tracePoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -42,7 +42,7 @@ export default function LecturesGraphiques () {
     const origine = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1, 'middle', true)
     let antecedents = []
     let s = []
-    const r = repere2({
+    const r = repere({
       xMin: -4,
       yMin: -4,
       xMax: 4,

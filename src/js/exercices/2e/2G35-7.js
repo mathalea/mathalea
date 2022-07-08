@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
-import { repere2, droite, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
+import { repere, droite, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -46,7 +46,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
         if (a === 0 && b === 0) {
           a = 1
         }// On évite la situation de double nullité
-        r = repere2()// On définit le repère
+        r = repere()// On définit le repère
         c = droite(a, -1, b) // On définit l'objet qui tracera la courbe dans le repère
         c.color = 'red'
         c.epaisseur = 2
@@ -165,7 +165,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           d = 3
         }// On évite la situation de double nullité
 
-        r = repere2()// On définit le repère
+        r = repere()// On définit le repère
         c = droite(a / d, -1, b) // On définit l'objet qui tracera la courbe dans le repère
         c.color = 'red'
         c.epaisseur = 2// On définit l'objet qui tracera la courbe dans le repère
