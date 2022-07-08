@@ -1,15 +1,15 @@
 import Exercice from '../../Exercice.js'
-import { randint, listeQuestionsToContenu, sp, texteCentre, ecritureAlgebrique, egal } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu, sp, texteCentre, ecritureAlgebrique, egal, rienSi1, ecritureAlgebriqueSauf1 } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { afficheScore, setReponse } from '../../../modules/gestionInteractif.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer un vecteur normal avec une équation cartésienne'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const dateDePublication = '29/06/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Gilles Mora
- * Référence can1G07
+ * @author Gilles Mora avec Jean-Claude pour la partie interactive
+ * Référence can1G08
  *
 */
 export default function VecteurNormEqCart () {
@@ -25,12 +25,12 @@ export default function VecteurNormEqCart () {
     let texte; let texteCorr
 
     for (let i = 0, a, b, c, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      a = randint(-9, 9)
+      a = randint(-9, 9, 0)
       b = randint(-9, 9, 0)
       c = randint(-5, 5, 0)
 
       texte = ` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, la droite $d$ a pour équation :
-    ${texteCentre(`$${a}x${ecritureAlgebrique(b)}y${ecritureAlgebrique(c)}=0$`)}
+    ${texteCentre(`$${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}y${ecritureAlgebrique(c)}=0$`)}
  Les coordonnées d'un vecteur normal $\\vec{u}$ de la droite $d$   sont :<br>`
 
       if (this.interactif) {
@@ -42,7 +42,8 @@ export default function VecteurNormEqCart () {
         setReponse(this, 2 * i + 1, b)
       }
       texteCorr = `Si l'équation est de la forme $ax+by+c=0$, on sait d'après le cours, qu'un vecteur normal $\\vec{u}$ a pour coordonnées $(a;b)$.<br>
-    On en déduit qu'un vecteur normal de $d$ est $(${a};${b})$.`
+    On en déduit qu'un vecteur normal de $d$ est $\\vec{u}(${a};${b})$.<br>
+    Remarque : Tout vecteur colinéaire à $\\vec{u}$ est aussi un vecteur normal de $d$.`
 
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions.push(texte)
