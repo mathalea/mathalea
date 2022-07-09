@@ -17,7 +17,7 @@ export default class PremierOuPas extends Exercice {
     super()
     this.titre = titre
     this.consigne = 'Les nombres suivants sont ils premiers ?'
-    this.nbQuestions = 4 // Nombre de questions par défaut
+    this.nbQuestions = 3 // Nombre de questions par défaut
     this.nbCols = 2 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
     this.video = '' // Id YouTube ou url
