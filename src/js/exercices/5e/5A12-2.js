@@ -47,7 +47,7 @@ export default class PremierOuPas extends Exercice {
           break
         case 'NombreCompose':
           nb1 = choice([7, 11, 13, 17, 19, 23, 29])
-          nb2 = choice([7, 11, 13])
+          nb2 = choice([7, 11, 13, 17, 19])
           nombreATrouver = nb1 * nb2
           texteCorr = `${nombreATrouver} n'est pas un nombre premier, $${nombreATrouver} = ${nb1} \\times ${nb2}$.`
           if ((nombreATrouver !== 49) && (nombreATrouver !== 77)) {
