@@ -55,7 +55,7 @@ export default function ProbaLoiVA () {
           texte += `${tableau}`
 
           if (this.interactif) {
-            texte += `${sp(4)}$a=$ `
+            texte += `${sp(4)}$a= $ `
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
           } else { texte += `${sp(4)}Quelle est la valeur de $a$ ?` }
 
