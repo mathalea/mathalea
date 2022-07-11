@@ -51,20 +51,18 @@ export default class PremierOuPas extends Exercice {
     }
     function EcritListeDivisions (dividende, nombremax) {
       let ind
-      let rsltDiv
       let txt
       ind = 0
       txt = ''
       while (listePremiers[ind] <= nombremax) { // fonctionne car le nombre à trouver est inf à 500
         txt += `$${dividende} \\div  ${listePremiers[ind]}$ `
-        rsltDiv = new Decimal(dividende).div(listePremiers[ind])
-        txt += `${EcritEgalOuApprox(rsltDiv, 2)}<br>`
+        txt += `${EcritEgalOuApprox(new Decimal(dividende).div(listePremiers[ind]), 2)}<br>`
         ind = ind + 1
       }
       return txt
     }
 
-    let nombreATrouver, racineNombreATrouver, nb1, nb2, nb12Min, ind1
+    let nombreATrouver, racineNombreATrouver, nb1, nb2, nb12Min
     let rsltTemp
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
@@ -99,14 +97,12 @@ export default class PremierOuPas extends Exercice {
           texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers dans l'ordre :<br>`
           texteCorr += EcritListeDivisions(nombreATrouver, racineNombreATrouver)
           //
-
-          ind1 = listePremiers.find(el => el < racineNombreATrouver) + 1
-          // a  faire lire ce que donne ind1
-          console.log(ind1)
-          texteCorr += `$${nombreATrouver} \\div  ${listePremiers[ind1]}$ `
-          rsltTemp = new Decimal(nombreATrouver).div(listePremiers[ind1])
+          nb1 = listePremiers.find(el => el >= racineNombreATrouver)
+          // possible car nombreATrouver<500
+          texteCorr += `$${nombreATrouver} \\div  ${nb1}$ `
+          rsltTemp = new Decimal(nombreATrouver).div(nb1)
           texteCorr += EcritEgalOuApprox(rsltTemp, 2)
-          texteCorr += ` et $${rsltTemp.toFixed(2)} < ${listePremiers[ind1]}$. On peut arrêter de chercher.<br>`
+          texteCorr += ` et $${rsltTemp.toFixed(2)} < ${nb1}$, donc on peut arrêter de chercher.<br>`
           //
           texteCorr += `$${nombreATrouver}$ n'a donc pas d'autres diviseurs que $1$ et lui même.`
           this.autoCorrection[i] = {
@@ -134,16 +130,16 @@ export default class PremierOuPas extends Exercice {
           nb12Min = Math.min(nb1, nb2)
           nombreATrouver = nb1 * nb2
           // racineNombreATrouver = Math.round(Math.sqrt(nombreATrouver))
-          texteCorr = `$${nombreATrouver}$ n'est pas un nombre premier.`
+          texteCorr = `$${nombreATrouver}$ n'est pas un nombre premier`
           if ((nombreATrouver !== 49) && (nombreATrouver !== 77)) {
-            texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers  dans l'ordre :<br> `
+            texteCorr += `. On teste les divisions de $${nombreATrouver}$ par les nombres premiers  dans l'ordre :<br> `
             // texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
             // texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
             texteCorr += EcritListeDivisions(nombreATrouver, nb12Min)
             texteCorr += `La dernière division permet d'écrire $${nombreATrouver} = ${nb1} \\times ${nb2}$.<br>`
             texteCorr += `$${nombreATrouver}$ a donc d'autres diviseurs que $1$ et lui même.`
           } else {
-            texteCorr += `$${nombreATrouver} = ${nb1} \\times ${nb2}$.`
+            texteCorr += `, car $${nombreATrouver} = ${nb1} \\times ${nb2}$.`
           }
           this.autoCorrection[i] = {
             enonce: `${nombreATrouver}`,
