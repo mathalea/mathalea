@@ -1,6 +1,12 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, premiersEntreBornes } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
+import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+export const amcReady = true
+export const amcType = 'qcmMono' // type de question AMC
+export const interactifReady = true
+export const interactifType = 'qcm'
+
 export const titre = 'Déterminer si un nombre est premier'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -41,6 +47,26 @@ export default class PremierOuPas extends Exercice {
         case 'PremierInf30':
           nombreATrouver = choice(listePremiers)
           texteCorr = `$${nombreATrouver}$ est un nombre premier qui fait partie de la liste à apprendre.`
+          this.autoCorrection[i] = {
+            enonce: `${nombreATrouver}`,
+            propositions: [
+              {
+                texte: 'est un nombre premier',
+                statut: true, // true ou false pour indiquer si c'est une bonne réponse (true)
+                feedback: 'message1' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
+              },
+              {
+                texte: 'n\'est pas un nombre premier',
+                statut: false, // true ou false pour indiquer si c'est une bonne réponse (true)
+                feedback: 'message1'
+              }
+            ],
+            options: {
+              ordered: true,
+              vertical: true, // facultatif. true : si on veut une présentation en plusieurs colonnes. false : valeur par défaut, les cases à cocher sont à la suite, toutes sur une colonne. Exercice-témoin : can5A01
+              nbCols: 2
+            }
+          }
           break
         case 'PremierSup30':
           nombreATrouver = choice(premiersEntreBornes(30, 500))
@@ -60,6 +86,26 @@ export default class PremierOuPas extends Exercice {
             ind = ind + 1
           }
           texteCorr += `$${nombreATrouver}$ n'a donc pas d'autres diviseurs que $1$ et lui même.`
+          this.autoCorrection[i] = {
+            enonce: `${nombreATrouver}`,
+            propositions: [
+              {
+                texte: 'est un nombre premier',
+                statut: true, // true ou false pour indiquer si c'est une bonne réponse (true)
+                feedback: 'message1' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
+              },
+              {
+                texte: 'n\'est pas un nombre premier',
+                statut: false, // true ou false pour indiquer si c'est une bonne réponse (true)
+                feedback: 'message1'
+              }
+            ],
+            options: {
+              ordered: true,
+              vertical: true, // facultatif. true : si on veut une présentation en plusieurs colonnes. false : valeur par défaut, les cases à cocher sont à la suite, toutes sur une colonne. Exercice-témoin : can5A01
+              nbCols: 2
+            }
+          }
           break
         case 'NombreCompose':
           nb1 = choice([7, 11, 13, 17, 19, 23, 29])
@@ -88,10 +134,32 @@ export default class PremierOuPas extends Exercice {
           } else {
             texteCorr += `$${nombreATrouver} = ${nb1} \\times ${nb2}$.`
           }
-
+          this.autoCorrection[i] = {
+            enonce: `${nombreATrouver}`,
+            propositions: [
+              {
+                texte: 'est un nombre premier',
+                statut: false, // true ou false pour indiquer si c'est une bonne réponse (true)
+                feedback: 'message1' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
+              },
+              {
+                texte: 'n\'est pas un nombre premier',
+                statut: true, // true ou false pour indiquer si c'est une bonne réponse (true)
+                feedback: 'message1'
+              }
+            ],
+            options: {
+              ordered: true,
+              vertical: true, // facultatif. true : si on veut une présentation en plusieurs colonnes. false : valeur par défaut, les cases à cocher sont à la suite, toutes sur une colonne. Exercice-témoin : can5A01
+              nbCols: 2
+            }
+          }
           break
       }
       texte = `${nombreATrouver}`
+      if (this.interactif) {
+        texte += propositionsQcm(this, i).texte
+      }
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
