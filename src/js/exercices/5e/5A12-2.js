@@ -58,6 +58,7 @@ export default class PremierOuPas extends Exercice {
             texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers :`
             nbTemp = 0
             while (listePremiers[nbTemp] <= nb12Min) {
+              // a faire choix du symoble d'egalite et  format deux décimales le cas échéant
               texteCorr += `<br> $${nombreATrouver} \\div  ${listePremiers[nbTemp]} =  ${nombreATrouver / listePremiers[nbTemp]}$`
               nbTemp = nbTemp + 1
             }
