@@ -2,6 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, premiersEntreBornes } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { context } from '../../modules/context.js'
 export const amcReady = true
 export const amcType = 'qcmMono' // type de question AMC
 export const interactifReady = true
@@ -41,7 +42,30 @@ export default class PremierOuPas extends Exercice {
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     const listePremiers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
-    let nombreATrouver, racineNombreATrouver, nb1, nb2, nb12Min, ind
+    function EcritEgalOuApprox (nombre, precision) {
+      if (nombre.equals(nombre.toFixed(precision))) {
+        return `= $${nombre}$`
+      } else {
+        return `$\\approx $ $${nombre.toFixed(precision)}$`
+      }
+    }
+    function EcritListeDivisions (dividende, nombremax) {
+      let ind
+      let rsltDiv
+      let txt
+      ind = 0
+      txt = ''
+      while (listePremiers[ind] <= nombremax) { // fonctionne car le nombre à trouver est inf à 500
+        txt += `$${dividende} \\div  ${listePremiers[ind]}$ `
+        rsltDiv = new Decimal(dividende).div(listePremiers[ind])
+        txt += `${EcritEgalOuApprox(rsltDiv, 2)}<br>`
+        ind = ind + 1
+      }
+      return txt
+    }
+
+    let nombreATrouver, racineNombreATrouver, nb1, nb2, nb12Min, ind1
+    let rsltTemp
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'PremierInf30':
@@ -53,12 +77,10 @@ export default class PremierOuPas extends Exercice {
               {
                 texte: 'est un nombre premier',
                 statut: true // true ou false pour indiquer si c'est une bonne réponse (true)
-                // feedback: 'message1' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
               },
               {
                 texte: 'n\'est pas un nombre premier',
                 statut: false // true ou false pour indiquer si c'est une bonne réponse (true)
-                // feedback: 'message1'
               }
             ],
             options: {
@@ -75,25 +97,17 @@ export default class PremierOuPas extends Exercice {
           // texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
           // texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
           texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers dans l'ordre :<br>`
-          ind = 0
-          while (listePremiers[ind] <= racineNombreATrouver) { // fonctionne car le nombre à trouver est inf à 500
-            texteCorr += `$${nombreATrouver} \\div  ${listePremiers[ind]}$ `
-            const rsltDiv = new Decimal(nombreATrouver).div(listePremiers[ind])
-            if (rsltDiv.equals(rsltDiv.toFixed(2))) {
-              texteCorr += `= $${rsltDiv}$<br>`
-            } else {
-              texteCorr += `$\\approx$ $${rsltDiv.toFixed(2)}$<br>`
-            }
-            ind = ind + 1
-          }
-          texteCorr += `$${nombreATrouver} \\div  ${listePremiers[ind]}$ `
-          let rsltDiv = new Decimal(nombreATrouver).div(listePremiers[ind])
-          if (rsltDiv.equals(rsltDiv.toFixed(2))) {
-            texteCorr += `= $${rsltDiv}$`
-          } else {
-            texteCorr += `$\\approx$ $${rsltDiv.toFixed(2)}$`
-          }
-          texteCorr += ` et $${rsltDiv.toFixed(2)} < ${listePremiers[ind]}$. On peut arrêter de chercher.<br>`
+          texteCorr += EcritListeDivisions(nombreATrouver, racineNombreATrouver)
+          //
+
+          ind1 = listePremiers.find(el => el < racineNombreATrouver) + 1
+          // a  faire lire ce que donne ind1
+          console.log(ind1)
+          texteCorr += `$${nombreATrouver} \\div  ${listePremiers[ind1]}$ `
+          rsltTemp = new Decimal(nombreATrouver).div(listePremiers[ind1])
+          texteCorr += EcritEgalOuApprox(rsltTemp, 2)
+          texteCorr += ` et $${rsltTemp.toFixed(2)} < ${listePremiers[ind1]}$. On peut arrêter de chercher.<br>`
+          //
           texteCorr += `$${nombreATrouver}$ n'a donc pas d'autres diviseurs que $1$ et lui même.`
           this.autoCorrection[i] = {
             enonce: `${nombreATrouver}`,
@@ -101,12 +115,10 @@ export default class PremierOuPas extends Exercice {
               {
                 texte: 'est un nombre premier',
                 statut: true // true ou false pour indiquer si c'est une bonne réponse (true)
-                // feedback: 'message1' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
               },
               {
                 texte: 'n\'est pas un nombre premier',
                 statut: false // true ou false pour indiquer si c'est une bonne réponse (true)
-                // feedback: 'message1'
               }
             ],
             options: {
@@ -121,23 +133,13 @@ export default class PremierOuPas extends Exercice {
           nb2 = choice([7, 11, 13, 17, 19])
           nb12Min = Math.min(nb1, nb2)
           nombreATrouver = nb1 * nb2
-          racineNombreATrouver = Math.round(Math.sqrt(nombreATrouver))
+          // racineNombreATrouver = Math.round(Math.sqrt(nombreATrouver))
           texteCorr = `$${nombreATrouver}$ n'est pas un nombre premier.`
           if ((nombreATrouver !== 49) && (nombreATrouver !== 77)) {
             texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers  dans l'ordre :<br> `
             // texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
             // texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
-            ind = 0
-            while (listePremiers[ind] <= nb12Min) {
-              texteCorr += `$${nombreATrouver} \\div  ${listePremiers[ind]}$ `
-              const rsltDiv = new Decimal(nombreATrouver).div(listePremiers[ind])
-              if (rsltDiv.equals(rsltDiv.toFixed(2))) {
-                texteCorr += `= $${rsltDiv}$<br>`
-              } else {
-                texteCorr += `$\\approx$ $${rsltDiv.toFixed(2)}$<br>`
-              }
-              ind = ind + 1
-            }
+            texteCorr += EcritListeDivisions(nombreATrouver, nb12Min)
             texteCorr += `La dernière division permet d'écrire $${nombreATrouver} = ${nb1} \\times ${nb2}$.<br>`
             texteCorr += `$${nombreATrouver}$ a donc d'autres diviseurs que $1$ et lui même.`
           } else {
@@ -149,12 +151,10 @@ export default class PremierOuPas extends Exercice {
               {
                 texte: 'est un nombre premier',
                 statut: false // true ou false pour indiquer si c'est une bonne réponse (true)
-                // feedback: 'message1' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
               },
               {
                 texte: 'n\'est pas un nombre premier',
                 statut: true // true ou false pour indiquer si c'est une bonne réponse (true)
-                // feedback: 'message1'
               }
             ],
             options: {
@@ -166,7 +166,7 @@ export default class PremierOuPas extends Exercice {
           break
       }
       texte = `${nombreATrouver}`
-      if (this.interactif) {
+      if (this.interactif && !context.isAmc) {
         texte += propositionsQcm(this, i).texte
       }
       // Si la question n'a jamais été posée, on l'enregistre
