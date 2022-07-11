@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, premiersEntreBornes } from '../../modules/outils.js'
+import Decimal from 'decimal.js'
 export const titre = 'Déterminer si un nombre est premier'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -34,7 +35,7 @@ export default class PremierOuPas extends Exercice {
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     const listePremiers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
-    let nombreATrouver, racineNombreATrouver, nb1, nb2, nb12Min, nbTemp
+    let nombreATrouver, racineNombreATrouver, nb1, nb2, nb12Min, ind
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'PremierInf30':
@@ -46,23 +47,46 @@ export default class PremierOuPas extends Exercice {
           racineNombreATrouver = Math.round(Math.sqrt(nombreATrouver))
           texteCorr = `$${nombreATrouver}$ est un nombre premier.`
           texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
-          texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$.`
+          texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
+          ind = 0
+          while (listePremiers[ind] <= racineNombreATrouver) {
+            texteCorr += `$${nombreATrouver} \\div  ${listePremiers[ind]}$ `
+            const rsltDiv = new Decimal(nombreATrouver).div(listePremiers[ind])
+            if (rsltDiv.equals(rsltDiv.toFixed(2))) {
+              texteCorr += `= $${rsltDiv}$<br>`
+            } else {
+              texteCorr += `$\\approx$ $${rsltDiv.toFixed(2)}$<br>`
+            }
+            ind = ind + 1
+          }
+          texteCorr += `$${nombreATrouver}$ n'a donc pas d'autres diviseurs que $1$ et lui même.`
           break
         case 'NombreCompose':
           nb1 = choice([7, 11, 13, 17, 19, 23, 29])
           nb2 = choice([7, 11, 13, 17, 19])
           nb12Min = Math.min(nb1, nb2)
           nombreATrouver = nb1 * nb2
+          racineNombreATrouver = Math.round(Math.sqrt(nombreATrouver))
           texteCorr = `$${nombreATrouver}$ n'est pas un nombre premier.`
           if ((nombreATrouver !== 49) && (nombreATrouver !== 77)) {
-            texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers :`
-            nbTemp = 0
-            while (listePremiers[nbTemp] <= nb12Min) {
-              // a faire choix du symoble d'egalite et  format deux décimales le cas échéant
-              texteCorr += `<br> $${nombreATrouver} \\div  ${listePremiers[nbTemp]} =  ${nombreATrouver / listePremiers[nbTemp]}$`
-              nbTemp = nbTemp + 1
+            // texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers :<br> `
+            texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
+            texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
+            ind = 0
+            while (listePremiers[ind] <= nb12Min) {
+              texteCorr += `$${nombreATrouver} \\div  ${listePremiers[ind]}$ `
+              const rsltDiv = new Decimal(nombreATrouver).div(listePremiers[ind])
+              if (rsltDiv.equals(rsltDiv.toFixed(2))) {
+                texteCorr += `= $${rsltDiv}$<br>`
+              } else {
+                texteCorr += `$\\approx$ $${rsltDiv.toFixed(2)}$<br>`
+              }
+              ind = ind + 1
             }
-            texteCorr += `<br> La dernière permet d'écrire $${nombreATrouver} = ${nb1} \\times ${nb2}$. $${nombreATrouver}$ a donc d'autre diviseur que $1$ et lui même.`
+            texteCorr += `La dernière division permet d'écrire $${nombreATrouver} = ${nb1} \\times ${nb2}$.<br>`
+            texteCorr += `$${nombreATrouver}$ a donc d'autres diviseurs que $1$ et lui même.`
+          } else {
+            texteCorr += `$${nombreATrouver} = ${nb1} \\times ${nb2}$.`
           }
 
           break
