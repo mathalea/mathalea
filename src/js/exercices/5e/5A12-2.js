@@ -52,13 +52,13 @@ export default class PremierOuPas extends Exercice {
             propositions: [
               {
                 texte: 'est un nombre premier',
-                statut: true, // true ou false pour indiquer si c'est une bonne réponse (true)
-                feedback: 'message1' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
+                statut: true // true ou false pour indiquer si c'est une bonne réponse (true)
+                // feedback: 'message1' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
               },
               {
                 texte: 'n\'est pas un nombre premier',
-                statut: false, // true ou false pour indiquer si c'est une bonne réponse (true)
-                feedback: 'message1'
+                statut: false // true ou false pour indiquer si c'est une bonne réponse (true)
+                // feedback: 'message1'
               }
             ],
             options: {
@@ -72,10 +72,11 @@ export default class PremierOuPas extends Exercice {
           nombreATrouver = choice(premiersEntreBornes(30, 500))
           racineNombreATrouver = Math.round(Math.sqrt(nombreATrouver))
           texteCorr = `$${nombreATrouver}$ est un nombre premier.`
-          texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
-          texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
+          // texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
+          // texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
+          texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers dans l'ordre :<br>`
           ind = 0
-          while (listePremiers[ind] <= racineNombreATrouver) {
+          while (listePremiers[ind] <= racineNombreATrouver) { // fonctionne car le nombre à trouver est inf à 500
             texteCorr += `$${nombreATrouver} \\div  ${listePremiers[ind]}$ `
             const rsltDiv = new Decimal(nombreATrouver).div(listePremiers[ind])
             if (rsltDiv.equals(rsltDiv.toFixed(2))) {
@@ -85,19 +86,27 @@ export default class PremierOuPas extends Exercice {
             }
             ind = ind + 1
           }
+          texteCorr += `$${nombreATrouver} \\div  ${listePremiers[ind]}$ `
+          let rsltDiv = new Decimal(nombreATrouver).div(listePremiers[ind])
+          if (rsltDiv.equals(rsltDiv.toFixed(2))) {
+            texteCorr += `= $${rsltDiv}$`
+          } else {
+            texteCorr += `$\\approx$ $${rsltDiv.toFixed(2)}$`
+          }
+          texteCorr += ` et $${rsltDiv.toFixed(2)} < ${listePremiers[ind]}$. On peut arrêter de chercher.<br>`
           texteCorr += `$${nombreATrouver}$ n'a donc pas d'autres diviseurs que $1$ et lui même.`
           this.autoCorrection[i] = {
             enonce: `${nombreATrouver}`,
             propositions: [
               {
                 texte: 'est un nombre premier',
-                statut: true, // true ou false pour indiquer si c'est une bonne réponse (true)
-                feedback: 'message1' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
+                statut: true // true ou false pour indiquer si c'est une bonne réponse (true)
+                // feedback: 'message1' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
               },
               {
                 texte: 'n\'est pas un nombre premier',
-                statut: false, // true ou false pour indiquer si c'est une bonne réponse (true)
-                feedback: 'message1'
+                statut: false // true ou false pour indiquer si c'est une bonne réponse (true)
+                // feedback: 'message1'
               }
             ],
             options: {
@@ -115,9 +124,9 @@ export default class PremierOuPas extends Exercice {
           racineNombreATrouver = Math.round(Math.sqrt(nombreATrouver))
           texteCorr = `$${nombreATrouver}$ n'est pas un nombre premier.`
           if ((nombreATrouver !== 49) && (nombreATrouver !== 77)) {
-            // texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers :<br> `
-            texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
-            texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
+            texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers  dans l'ordre :<br> `
+            // texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
+            // texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
             ind = 0
             while (listePremiers[ind] <= nb12Min) {
               texteCorr += `$${nombreATrouver} \\div  ${listePremiers[ind]}$ `
@@ -139,13 +148,13 @@ export default class PremierOuPas extends Exercice {
             propositions: [
               {
                 texte: 'est un nombre premier',
-                statut: false, // true ou false pour indiquer si c'est une bonne réponse (true)
-                feedback: 'message1' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
+                statut: false // true ou false pour indiquer si c'est une bonne réponse (true)
+                // feedback: 'message1' // qui s'affichera si la réponse est juste ou s'il n'y a qu'une erreur
               },
               {
                 texte: 'n\'est pas un nombre premier',
-                statut: true, // true ou false pour indiquer si c'est une bonne réponse (true)
-                feedback: 'message1'
+                statut: true // true ou false pour indiquer si c'est une bonne réponse (true)
+                // feedback: 'message1'
               }
             ],
             options: {
