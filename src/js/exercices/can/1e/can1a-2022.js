@@ -272,7 +272,7 @@ export default function SujetCAN2022Premiere () {
           L = randint(2, 4)
           h = randint(2, 6, [l, L])
           pav = pave(L, l, h)
-          texte = ' Quel est le volume en cm$^3$ de ce  pavé droit.<br>'
+          texte = ' Quel est le volume en cm$^3$ de ce  pavé droit ?<br>'
           if (l > h) { texte += `${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: h + l * 0.3 + 2, scale: 0.5 }, pav)}` } else { texte += `${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: h + 1, scale: 0.5 }, pav)}` }
           reponse = L * l * h
           texteCorr = `Le volume de ce pavé droit est : $${L}\\text{cm}\\times ${l}\\text{cm}\\times ${h}\\text{cm}=${reponse}\\text{cm}^3$`
@@ -287,7 +287,7 @@ export default function SujetCAN2022Premiere () {
             u = randint(1, 10) * choice([-1, 1])
             k = randint(2, 4)
 
-            texte = `Pour tout entier naturen $n$, <br>
+            texte = `Pour tout entier naturel $n$, <br>
           $\\begin{cases} u_0=${u}\\\\u_{n+1}=u_n ${ecritureAlgebrique(a)}\\end{cases}$<br>
           $u_{${k}}=$`
             texteCorr = 'On calcule les termes successifs :'
