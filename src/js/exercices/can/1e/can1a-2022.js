@@ -209,7 +209,7 @@ export default function SujetCAN2022Premiere () {
           texteCorr = `La fréquence est donnée par le quotient : $\\dfrac{\\text{Nombre de boules noires}}{\\text{Nombre total de boules}}=${f.texFraction}${f.texSimplificationAvecEtapes()}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } 
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
           nbChamps = 1
           break
 
@@ -393,25 +393,25 @@ export default function SujetCAN2022Premiere () {
           traceA = tracePoint(A) // Variable qui trace les points avec une croix
           traceB = tracePoint(B)
           traceC = tracePoint(C)
-          texte = mathalea2d({ xmin: -1, xmax: 6.1, ymin: -1, ymax: 6, pixelsParCm: 25, scale: 0.4 },
-            r, o, traceA, traceB, traceC, segment(A, B), segment(A, C), segment(B, C), labelPoint(A, B, C))
+          texte = mathalea2d({ xmin: -1, xmax: 6.1, ymin: -1, ymax: 6, pixelsParCm: 25, scale: 0.8 },
+            r, o, traceA, traceB, traceC, segment(A, B, 'blue'), segment(A, C, 'blue'), segment(B, C, 'blue'), labelPoint(A, B, C))
           choix = choice(['a', 'b', 'c'])
           if (choix === 'a') {
-            texte += 'Quelle est l’abscisse  du point $A$ ?'
+            texte += '<br>Quelle est l’abscisse  du point $A$ ?'
             texteCorr = `L'abscisse du point $A$ se lit sur l'axe horizontal. <br>
             $x_A=${xA}$.
             `
             reponse = xA
           }
           if (choix === 'b') {
-            texte += 'Quelle est l’ordonnée  du point $A$ ?'
+            texte += '<br>Quelle est l’ordonnée  du point $A$ ?'
             texteCorr = `L'ordonnée du point $A$ se lit sur l'axe vertical. <br>
             $y_A=${yA}$.
             `
             reponse = yA
           }
           if (choix === 'c') {
-            texte += 'Quelle est l’abscisse  du point $B$ ?'
+            texte += '<br>Quelle est l’abscisse  du point $B$ ?'
             texteCorr = `L'abscisse du point $B$ se lit sur l'axe horizontal. <br>
             $x_B=${xB}$.
             `
@@ -563,7 +563,7 @@ export default function SujetCAN2022Premiere () {
             reponse = F(-1) * F(1)
           }
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
-          texte += mathalea2d({ xmin: -3, xmax: 4.6, ymin: -5.1, ymax: 5.1, pixelsParCm: 30, scale: 0.4 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += mathalea2d({ xmin: -3, xmax: 4.6, ymin: -5.1, ymax: 5.1, pixelsParCm: 30, scale: 0.8 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
 
           nbChamps = 1
@@ -600,13 +600,13 @@ export default function SujetCAN2022Premiere () {
             if (nbre >= -2 && nbre <= 2) {
               texte = `On donne la courbe représentative d'une fonction $f$. <br>
               Donner le nombre de solutions de $f(x)= ${nbre}$.<br>`
-              texte += mathalea2d({ xmin: -3, xmax: 4.6, ymin: -5.1, ymax: 5.1, pixelsParCm: 30, scale: 0.4 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+              texte += mathalea2d({ xmin: -3, xmax: 4.6, ymin: -5.1, ymax: 5.1, pixelsParCm: 30, scale: 0.8 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
               texteCorr = `La droite d'équation $y=${nbre}$ coupe $3$ fois la courbe de $f$, on en déduit que le nombre de solutions de l'équation $f(x)=${nbre}$ est $3$.`
               reponse = 3
             } else {
               texte = `On donne la courbe représentative d'une fonction $f$. <br>
               Donner le nombre de solutions de $f(x)= ${nbre}$.<br>`
-              texte += mathalea2d({ xmin: -3, xmax: 4.6, ymin: -5.1, ymax: 5.1, pixelsParCm: 30, scale: 0.4 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+              texte += mathalea2d({ xmin: -3, xmax: 4.6, ymin: -5.1, ymax: 5.1, pixelsParCm: 30, scale: 0.8 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
               texteCorr = `La droite d'équation $y=${nbre}$ coupe $1$ fois la courbe de $f$, on en déduit que le nombre de solutions de l'équation $f(x)=${nbre}$ est $1$.`
               reponse = 1
             }
@@ -642,21 +642,21 @@ export default function SujetCAN2022Premiere () {
             if (nbre > -4 && nbre < 0) {
               texte = `On donne la courbe représentative d'une fonction $f$. <br>
               Donner le nombre de solutions de $f(x)= ${nbre}$.<br>`
-              texte += mathalea2d({ xmin: -3, xmax: 6.1, ymin: -6.1, ymax: 3.1, pixelsParCm: 30, scale: 0.4 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+              texte += mathalea2d({ xmin: -3, xmax: 6.1, ymin: -6.1, ymax: 3.1, pixelsParCm: 30, scale: 0.8 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
               texteCorr = `La droite d'équation $y=${nbre}$ coupe $3$ fois la courbe de $f$, on en déduit que le nombre de solutions de l'équation $f(x)=${nbre}$ est $3$.`
               reponse = 3
             }
             if (nbre === -4 || nbre === 0) {
               texte = `On donne la courbe représentative d'une fonction $f$. <br>
               Donner le nombre de solutions de $f(x)= ${nbre}$. <br>`
-              texte += mathalea2d({ xmin: -3, xmax: 6.1, ymin: -6.1, ymax: 3.1, pixelsParCm: 30, scale: 0.4 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+              texte += mathalea2d({ xmin: -3, xmax: 6.1, ymin: -6.1, ymax: 3.1, pixelsParCm: 30, scale: 0.8 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
               texteCorr = `La droite d'équation $y=${nbre}$ coupe $2$ fois la courbe de $f$, on en déduit que le nombre de solutions de l'équation $f(x)=${nbre}$ est $2$.`
               reponse = 2
             }
             if (nbre > 0 || nbre < -4) {
               texte = `On donne la courbe représentative d'une fonction $f$. <br>
           Donner le nombre de solutions de $f(x)= ${nbre}$. <br>`
-              texte += mathalea2d({ xmin: -3, xmax: 6.1, ymin: -6.1, ymax: 3.1, pixelsParCm: 30, scale: 0.4 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+              texte += mathalea2d({ xmin: -3, xmax: 6.1, ymin: -6.1, ymax: 3.1, pixelsParCm: 30, scale: 0.8 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
               texteCorr = `La droite d'équation $y=${nbre}$  coupe $1$ fois la courbe de $f$, on en déduit que le nombre de solutions de l'équation $f(x)=${nbre}$ est $1$.`
               reponse = 1
             }
@@ -703,7 +703,7 @@ export default function SujetCAN2022Premiere () {
 
           texte = `La courbe représente une fonction $f$ et une tangente à cette représentation.<br>  
             Quel est le coefficent directeur de la tangente au point d'abscisse $${nbre}$ ? <br>  `
-          texte += mathalea2d({ xmin: -3, xmax: 4.6, ymin: -5.1, ymax: 5.1, pixelsParCm: 30, scale: 0.4 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }), courbe(tang, { repere: r, color: 'red', epaisseur: 2 }))
+          texte += mathalea2d({ xmin: -3, xmax: 4.6, ymin: -5.1, ymax: 5.1, pixelsParCm: 30, scale: 0.8 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }), courbe(tang, { repere: r, color: 'red', epaisseur: 2 }))
           texteCorr = `Le coefficient directeur de la tangente à la courbe au point d'abscisse $${nbre}$ est  $${f(nbre)}$.`
 
           reponse = f(nbre)
@@ -837,12 +837,12 @@ export default function SujetCAN2022Premiere () {
             texteParPosition(`${a}`, milieu(A, B).x + 0.3, milieu(A, B).y - 0.2, 'milieu', 'black', 1, 'middle', true),
             texteParPosition('?', milieu(C, E).x, milieu(C, E).y - 0.5, 'milieu', 'black', 1, 'middle', true),
             texteParPosition(`${b}`, milieu(B, E).x, milieu(B, E).y + 0.2, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`${c}`, milieu(D, C).x - 0.3, milieu(C, B).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${c}`, milieu(D, C).x - 0.3, milieu(C, B).y + 0.5, 'milieu', 'black', 1, 'middle', true),
             labelPoint(A, B, C, D, E), droite(B, C), droite(D, A), droite(C, D), droite(A, B))
           reponse = k * c
           texte = `$(AB)//(CD)$<br><br>
           `
-          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.5, style: 'margin: auto' }, objets)
+          texte += mathalea2d({ xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, pixelsParCm: 25, mainlevee: false, amplitude: 0.5, scale: 0.8, style: 'margin: auto' }, objets)
           texteCorr = `Le triangle $ECD$ est un agrandissement du triangle $EAB$. La longueur $BE$ est $${k}$ fois plus grande que la longueur $AB$. 
           On en déduit que la longueur $EC$ est $${k}$ fois plus grande que la longueur $CD$.<br>
           Ainsi, $CE=${k}\\times ${c}=${reponse}$.`
@@ -917,7 +917,7 @@ export default function SujetCAN2022Premiere () {
           omega.setTailles() // On calcule les tailles des arbres.
           objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
           texte = 'On donne l\'arbre de probabilités ci-dessous :<br>'
-          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
+          texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.8 }, ...objets)
 
           if (this.interactif) {
             texte += '<br> $P(A\\cap B)=$ '
