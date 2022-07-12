@@ -4,7 +4,7 @@ const path = require('path')
 require = require('esm')(module) // permet d'importer des fichiers avec export default dans nodejs
 exercices = require("../src/js/modules/dictionnaireDesExercicesAleatoires.js").default
 
-const mathAleaURL = 'https://mathalea.com/' // ne pas oublier le / final
+const mathAleaURL = 'https://coopmaths.fr/' // ne pas oublier le / final
 
 const now = new Date()
 
