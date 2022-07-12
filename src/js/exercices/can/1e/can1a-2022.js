@@ -201,7 +201,7 @@ export default function SujetCAN2022Premiere () {
             d.push(plot(n % 5, -Math.floor(n / 5), { rayon: 0.3, couleur: 'black', couleurDeRemplissage: c[n] ? 'black' : 'white' }))
           }
           f = new FractionX(a, b)
-          texte = `Calculer la réquence de boules noires parmi ces boules :<br>
+          texte = `Calculer la fréquence de boules noires parmi ces boules :<br>
           ${mathalea2d(Object.assign({}, fixeBordures(d)), d)}`
           // $${a}$ boules noires $${b}$ boules au total.
           reponse = f
@@ -209,7 +209,7 @@ export default function SujetCAN2022Premiere () {
           texteCorr = `La fréquence est donnée par le quotient : $\\dfrac{\\text{Nombre de boules noires}}{\\text{Nombre total de boules}}=${f.texFraction}${f.texSimplificationAvecEtapes()}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } 
           nbChamps = 1
           break
 
@@ -341,7 +341,7 @@ export default function SujetCAN2022Premiere () {
             texte = `$${texNombre(a, 1)}$ cm $=$`
             texteCorr = `$1$ m $=10^6$ $\\mu$m, donc $1$ cm $=10^4 =${texNombre(10000, 0)}$ $\\mu$m.<br>
             Ainsi, $${texNombre(a, 1)}$ cm $=${texNombre(a * 10000, 0)}$ $\\mu$m.`
-            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '$\\mu$m' } else { texte += '\\mu m' }
+            if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '$\\mu$m' } else { texte += '..... $\\mu$m' }
             reponse = a * 10000
           } else {
             texte = `$${texNombre(b, 1)}$ $\\mu$m $=$`
@@ -599,13 +599,13 @@ export default function SujetCAN2022Premiere () {
             o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
             if (nbre >= -2 && nbre <= 2) {
               texte = `On donne la courbe représentative d'une fonction $f$. <br>
-          Quel est le nombre de solutions de $f(x)= ${nbre}$ ?`
+              Donner le nombre de solutions de $f(x)= ${nbre}$.<br>`
               texte += mathalea2d({ xmin: -3, xmax: 4.6, ymin: -5.1, ymax: 5.1, pixelsParCm: 30, scale: 0.4 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
               texteCorr = `La droite d'équation $y=${nbre}$ coupe $3$ fois la courbe de $f$, on en déduit que le nombre de solutions de l'équation $f(x)=${nbre}$ est $3$.`
               reponse = 3
             } else {
               texte = `On donne la courbe représentative d'une fonction $f$. <br>
-          Quel est le nombre de solutions de $f(x)= ${nbre}$ ?`
+              Donner le nombre de solutions de $f(x)= ${nbre}$.<br>`
               texte += mathalea2d({ xmin: -3, xmax: 4.6, ymin: -5.1, ymax: 5.1, pixelsParCm: 30, scale: 0.4 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
               texteCorr = `La droite d'équation $y=${nbre}$ coupe $1$ fois la courbe de $f$, on en déduit que le nombre de solutions de l'équation $f(x)=${nbre}$ est $1$.`
               reponse = 1
@@ -641,21 +641,21 @@ export default function SujetCAN2022Premiere () {
             o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
             if (nbre > -4 && nbre < 0) {
               texte = `On donne la courbe représentative d'une fonction $f$. <br>
-          Quel est le nombre de solutions de $f(x)= ${nbre}$ ?`
+              Donner le nombre de solutions de $f(x)= ${nbre}$.<br>`
               texte += mathalea2d({ xmin: -3, xmax: 6.1, ymin: -6.1, ymax: 3.1, pixelsParCm: 30, scale: 0.4 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
               texteCorr = `La droite d'équation $y=${nbre}$ coupe $3$ fois la courbe de $f$, on en déduit que le nombre de solutions de l'équation $f(x)=${nbre}$ est $3$.`
               reponse = 3
             }
             if (nbre === -4 || nbre === 0) {
               texte = `On donne la courbe représentative d'une fonction $f$. <br>
-          Quel est le nombre de solutions de $f(x)= ${nbre}$ ?`
+              Donner le nombre de solutions de $f(x)= ${nbre}$. <br>`
               texte += mathalea2d({ xmin: -3, xmax: 6.1, ymin: -6.1, ymax: 3.1, pixelsParCm: 30, scale: 0.4 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
               texteCorr = `La droite d'équation $y=${nbre}$ coupe $2$ fois la courbe de $f$, on en déduit que le nombre de solutions de l'équation $f(x)=${nbre}$ est $2$.`
               reponse = 2
             }
             if (nbre > 0 || nbre < -4) {
               texte = `On donne la courbe représentative d'une fonction $f$. <br>
-          Donner le nombre de solutions de $f(x)= ${nbre}$ ?`
+          Donner le nombre de solutions de $f(x)= ${nbre}$. <br>`
               texte += mathalea2d({ xmin: -3, xmax: 6.1, ymin: -6.1, ymax: 3.1, pixelsParCm: 30, scale: 0.4 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
               texteCorr = `La droite d'équation $y=${nbre}$  coupe $1$ fois la courbe de $f$, on en déduit que le nombre de solutions de l'équation $f(x)=${nbre}$ est $1$.`
               reponse = 1
