@@ -2478,6 +2478,7 @@ function Polygone (...points) {
     this.listePoints = points
     this.nom = this.listePoints.join()
     this.couleurDeRemplissage = 'none'
+    this.hachures = false
   }
   let xmin = 1000
   let xmax = -1000
