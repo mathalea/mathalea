@@ -17,10 +17,12 @@ let gift = `// Export de Mathalea pour Moodle au format GIFT
 // Créé le ${date.FR}`
 
 for (const [id, exercice] of Object.entries(exercices)) {
-    try {
-        gift += exportExerciceAsGift(id, exercice)
-    } catch(e) {
-        console.error(`Erreur lors de l'export de l'exercice ${id} : ${e}`)
+    if(exercice?.interactifReady) {
+        try {
+            gift += exportExerciceAsGift(id, exercice)
+        } catch(e) {
+            console.error(`Erreur lors de l'export de l'exercice ${id} : ${e}`)
+        }
     }
 }
 
