@@ -1,7 +1,8 @@
 const fs = require("fs")
 const path = require('path')
 
-import exercices from "../src/js/modules/dictionnaireDesExercicesAleatoires.js"
+require = require('esm')(module) // permet d'importer des fichiers avec export default dans nodejs
+exercices = require("../src/js/modules/dictionnaireDesExercicesAleatoires.js").default
 
 const mathAleaURL = 'https://mathalea.com/' // ne pas oublier le / final
 
@@ -24,7 +25,7 @@ for (const [id, exercice] of Object.entries(exercices)) {
 }
 
 
-const exportPath = path.resolve(__dirname, '..', 'assets', 'gift', `mathalea.gift.txt`) 
+const exportPath = path.resolve(__dirname, '..', 'src', 'assets', 'gift', `mathalea.gift.txt`) 
 
 fs.writeFileSync(exportPath, gift)
 
@@ -34,7 +35,7 @@ console.log(`Le fichier est disponible dans le dossier assets/gift/mathalea.gift
 function exportExerciceAsGift(id, exercice) {
     let c = s => s.replace(/[~=#{}:]/g, '\\$&'); // échappement des caratères spéciaux pour les GIFT
 
-    const categorie = exercice.url.match(/^\/exercices\/(.+)\/.+$/)[1]
+    const categorie = 'Mathalea/' + exercice.url.match(/^\/exercices\/(.+)\/.+$/)[1]
     const titre = `Mathalea - ${exercice.titre} (${exercice.name})`
     return `
 
