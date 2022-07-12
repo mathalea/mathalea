@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import FractionX from '../../../modules/FractionEtendue.js'
 import { Arbre } from '../../../modules/arbres.js'
-import { mathalea2d, pave, point, repere, tracePoint, courbe, droite, labelPoint, segment, milieu, texteParPosition } from '../../../modules/2d.js'
+import { mathalea2d, pave, point, repere, tracePoint, courbe, droite, labelPoint, segment, milieu, texteParPosition, plot, fixeBordures } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, arrondi, randint, ecritureParentheseSiNegatif, ecritureAlgebrique, texPrix, rienSi1, texNombre, arcenciel, miseEnEvidence, printlatex, shuffle, reduirePolynomeDegre3, choice, reduireAxPlusB, sp, ecritureAlgebriqueSauf1 } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
@@ -187,12 +187,25 @@ export default function SujetCAN2022Premiere () {
 
         case 7:
           a = randint(1, 6)
-          b = randint(a, 10)
+          b = randint(a + 1, 12)
+          c = []
+          for (let n = 0; n < a; n++) {
+            c.push(true)
+          }
+          for (let n = 0; n < b - a; n++) {
+            c.push(false)
+          }
+          c = shuffle(c)
+          d = []
+          for (let n = 0; n < b; n++) {
+            d.push(plot(n % 5, -Math.floor(n / 5), { rayon: 0.3, couleur: 'black', couleurDeRemplissage: c[n] ? 'black' : 'white' }))
+          }
           f = new FractionX(a, b)
-          texte = `Calculer la réquence de boules noires parmi ces boules :
-          $${a}$ boules noires $${b}$ boules au total.
-             `
+          texte = `Calculer la réquence de boules noires parmi ces boules :<br>
+          ${mathalea2d(Object.assign({}, fixeBordures(d)), d)}`
+          // $${a}$ boules noires $${b}$ boules au total.
           reponse = f
+          console.log(a, b, a + b, reponse)
           texteCorr = `La fréquence est donnée par le quotient : $\\dfrac{\\text{Nombre de boules noires}}{\\text{Nombre total de boules}}=${f.texFraction}${f.texSimplificationAvecEtapes()}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
