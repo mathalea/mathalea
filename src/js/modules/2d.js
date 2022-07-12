@@ -2594,7 +2594,7 @@ function Polygone (...points) {
     if (this.opaciteDeRemplissage !== 1) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage !== '' & this.couleurDeRemplissage !== 'none') {
+    if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage !== 'none') {
       tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
     }
 
@@ -3329,8 +3329,8 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
     if (this.opaciteDeRemplissage !== 1) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage[1] !== 'none') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}}`)
+    if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage !== 'none') {
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
     }
 
     if (this.hachures) {
@@ -3499,7 +3499,7 @@ function Ellipse (O, rx, ry, color = 'black') {
     if (this.opaciteDeRemplissage !== 1) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage !== '' & this.couleurDeRemplissage !== 'none') {
+    if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage !== 'none') {
       tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
     }
     if (tableauOptions.length > 0) {
@@ -3898,7 +3898,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    if (rayon && (this.couleurDeRemplissage[1] !== 'none' && this.couleurDeRemplissage !== '')) {
+    if (rayon && (this.couleurDeRemplissage !== 'none' && this.couleurDeRemplissage !== '')) {
       tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
