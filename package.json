@@ -7,6 +7,7 @@
     "build": "npm run build:prod",
     "build:dicos": "node tasks/buildDicos.js",
     "build:doc": "node tasks/buildDoc.js",
+    "build:gift": "node tasks/buildMoodleGift.js",
     "build:dev": "webpack --mode=development",
     "build:prod": "npm run build:dicos && webpack --mode=production && npm run doc",
     "doc": "node tasks/buildDoc.js && node tasks/showDoc.js",
