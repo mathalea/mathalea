@@ -90,7 +90,7 @@ export default class PremierOuPas extends Exercice {
           break
         case 'PremierSup30':
           nombreATrouver = choice(premiersEntreBornes(30, 500))
-          racineNombreATrouver = Math.round(Math.sqrt(nombreATrouver))
+          racineNombreATrouver = Math.trunc(Math.sqrt(nombreATrouver))
           texteCorr = `$${nombreATrouver}$ est un nombre premier.`
           // texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
           // texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
