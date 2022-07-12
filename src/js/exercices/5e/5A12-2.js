@@ -42,20 +42,22 @@ export default class PremierOuPas extends Exercice {
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     const listePremiers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
-    function EcritEgalOuApprox (nombre, precision) {
-      if (nombre.equals(nombre.toFixed(precision))) {
-        return `= $${nombre}$`
-      } else {
-        return `$\\approx $ $${nombre.toFixed(precision)}$`
-      }
+    /** inutile : $${egalOuApprox(rsltDiv, 2)}$ $${texNombre(rsltDiv, 2)}$ fait le travail
+     * function EcritEgalOuApprox (nombre, precision) {
+     * if (nombre.equals(nombre.toFixed(precision))) {
+     *   return `= $${nombre}$`
+     * } else {
+     *   return `$\\approx $ $${nombre.toFixed(precision)}$`
+     * }
     }
+    */
     function EcritListeDivisions (dividende, nombremax) {
       let ind
       let rsltDiv
       let txt
       ind = 0
       txt = ''
-      while (listePremiers[ind] <= nombremax) { // fonctionne car le nombre à trouver est inf à 500
+      while (listePremiers[ind] <= nombremax) { // fonctionne car nombremax est inf à 500
         txt += `$${dividende} \\div  ${listePremiers[ind]}$ `
         rsltDiv = new Decimal(dividende).div(listePremiers[ind])
         txt += `$${egalOuApprox(rsltDiv, 2)}$ $${texNombre(rsltDiv, 2)}$<br>`
@@ -93,7 +95,7 @@ export default class PremierOuPas extends Exercice {
         case 'PremierSup30':
           nombreATrouver = choice(premiersEntreBornes(30, 500))
           racineNombreATrouver = Math.trunc(Math.sqrt(nombreATrouver))
-          texteCorr = `$${nombreATrouver}$ est un nombre premier.`
+          texteCorr = `$${nombreATrouver}$ est un nombre premier.<br>`
           // texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
           // texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
           texteCorr += `En effet, on teste les divisions de $${nombreATrouver}$ par les nombres premiers dans l'ordre :<br>`
@@ -135,7 +137,7 @@ export default class PremierOuPas extends Exercice {
           // racineNombreATrouver = Math.round(Math.sqrt(nombreATrouver))
           texteCorr = `$${nombreATrouver}$ n'est pas un nombre premier`
           if ((nombreATrouver !== 49) && (nombreATrouver !== 77)) {
-            texteCorr += `<br>.En effet, on teste les divisions de $${nombreATrouver}$ par les nombres premiers  dans l'ordre :<br> `
+            texteCorr += `.<br>En effet, on teste les divisions de $${nombreATrouver}$ par les nombres premiers  dans l'ordre :<br> `
             // texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
             // texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
             texteCorr += EcritListeDivisions(nombreATrouver, nb12Min)
