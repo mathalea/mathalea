@@ -82,7 +82,7 @@ export default class ConstruireParSymetrie extends Exercice {
       lAC = longueur(pA, pC)
       lBC = longueur(pB, pC)
       count3++
-    } while ((lAB < 2 || lAC < 2 || lBC < 2 || aireTriangle(polygone(A, B, C)) < 15) && count3 < 20)
+    } while ((lAB < 2 || lAC < 2 || lBC < 2 || aireTriangle(polygone([A, B, C])) < 15) && count3 < 20)
     if (count3 === 50) { // si on en est là, c'est qu'il y a trop de contraintes
       window.notify('Choisi3Points : Impossible de trouver 3 points', { lieu, d })
     }
@@ -385,7 +385,7 @@ export default class ConstruireParSymetrie extends Exercice {
           D.positionLabel = 'above'
           E.nom = p1nom[4]
           E.positionLabel = 'above'
-          p1 = polygone(C, D, E)
+          p1 = polygone([C, D, E])
           p2 = symetrieAxiale(p1, d)
           p2.listePoints[0].nom = `${p1nom[2]}'`
           p2.listePoints[1].nom = `${p1nom[3]}'`
@@ -445,7 +445,7 @@ export default class ConstruireParSymetrie extends Exercice {
           D.positionLabel = 'above'
           E.nom = p1nom[4]
           E.positionLabel = 'above'
-          p1 = polygone(C, D, E)
+          p1 = polygone([C, D, E])
           p2 = symetrieAxiale(p1, d)
           p2.listePoints[0].nom = `${p1nom[2]}'`
           p2.listePoints[1].nom = `${p1nom[3]}'`
@@ -494,7 +494,7 @@ export default class ConstruireParSymetrie extends Exercice {
           D.positionLabel = 'above'
           E.nom = p1nom[4]
           E.positionLabel = 'above'
-          p1 = polygone(C, D, E)
+          p1 = polygone([C, D, E])
           p2 = symetrieAxiale(p1, d)
           p2.listePoints[0].nom = `${p1nom[2]}'`
           p2.listePoints[1].nom = `${p1nom[3]}'`
@@ -585,7 +585,7 @@ export default class ConstruireParSymetrie extends Exercice {
           C.positionLabel = 'above'
           D.nom = p1nom[3]
           D.positionLabel = 'above'
-          p1 = polygone(A, C, D)
+          p1 = polygone([A, C, D])
           p2 = rotation(p1, B, 180)
           p2.listePoints[0].nom = `${p1nom[0]}'`
           p2.listePoints[1].nom = `${p1nom[2]}'`

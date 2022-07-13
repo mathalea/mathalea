@@ -73,7 +73,7 @@ export default function Thales2D () {
       }
       const M = homothetie(A, C, k)
       const N = homothetie(B, C, k)
-      const MNC = polygone(M, N, C)
+      const MNC = polygone([M, N, C])
       MNC.id = `M2D_${numeroExercice}_${i}_2`
       const m = pointSurSegment(M, N, -0.5)
       const n = pointSurSegment(N, M, -0.5)

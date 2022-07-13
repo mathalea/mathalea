@@ -2,7 +2,7 @@ let A = point(3,10,'A')
 let B = point(9,8,'B')
 let D = point(4,1,'D')
 let C = translation2Points(D,A,B,'C') // C est l'image de D dans la translation qui transforme A en B
-let p = polygone(A,B,C,D) // Trace le quadrilatère
+let p = polygone([A, B, C, D]) // Trace le quadrilatère
 labelPoint(A,B,C,D) // Nomme les points
 deplaceLabel(p,'BC','right') // Déplace les noms de B et C à droite
 deplaceLabel(p,'AD','left')

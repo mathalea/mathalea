@@ -48,7 +48,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
           C = point(0, 6)
           D = point(-2, 3)
           O = point(0, 3)
-          ABCD = polygone(A, B, C, D)
+          ABCD = polygone([A, B, C, D])
           // codage = codageAngleDroit(C, O, B);
           marquesCotes = codageSegments('||', 'blue', A, B, B, C, C, D, D, A)
           // sAC = segment(A, C);
@@ -70,7 +70,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
           C = point(0, 6)
           D = point(-2, 3)
           O = point(0, 3)
-          ABCD = polygone(A, B, C, D)
+          ABCD = polygone([A, B, C, D])
           codage = codageAngleDroit(C, O, B)
           // marquesCotes = codageSegments("||", "blue", A, B, B, C, C, D, D, A);
           sAC = segment(A, C)
@@ -89,7 +89,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
           C = point(5, 3)
           D = point(0, 3)
           O = point(2.5, 1.5)
-          ABCD = polygone(A, B, C, D)
+          ABCD = polygone([A, B, C, D])
           codage1 = codageAngleDroit(A, B, C)
           codage2 = codageAngleDroit(B, C, D)
           codage3 = codageAngleDroit(C, D, A)
@@ -113,7 +113,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
           C = point(5, 3)
           D = point(0, 3)
           O = point(2.5, 1.5)
-          ABCD = polygone(A, B, C, D)
+          ABCD = polygone([A, B, C, D])
           // codage1 = codageAngleDroit(A,B,C);
           // codage2 = codageAngleDroit(B,C,D);
           // codage3 = codageAngleDroit(C,D,A);
@@ -137,7 +137,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
           C = point(3, 3)
           D = point(0, 3)
           O = point(1.5, 1.5)
-          ABCD = polygone(A, B, C, D)
+          ABCD = polygone([A, B, C, D])
           codage1 = codageAngleDroit(A, B, C)
           codage2 = codageAngleDroit(B, C, D)
           codage3 = codageAngleDroit(C, D, A)
@@ -161,7 +161,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
           C = point(3, 3)
           D = point(0, 3)
           O = point(1.5, 1.5)
-          ABCD = polygone(A, B, C, D)
+          ABCD = polygone([A, B, C, D])
           codage = codageAngleDroit(C, O, D)
           // codage2 = codageAngleDroit(B,C,D);
           // codage3 = codageAngleDroit(C,D,A);
@@ -182,7 +182,7 @@ export default function ReconnaitreQuadrilatereParticulier () {
           C = point(3, 3)
           D = point(0, 3)
           O = point(1.5, 1.5)
-          ABCD = polygone(A, B, C, D)
+          ABCD = polygone([A, B, C, D])
           codage = codageAngleDroit(A, B, C)
           // codage2 = codageAngleDroit(B,C,D);
           // codage3 = codageAngleDroit(C,D,A);

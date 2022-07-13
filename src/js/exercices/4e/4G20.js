@@ -68,7 +68,7 @@ export default function Pythagore2D () {
       const A1 = point(0, 0)
       const B1 = point(calcul(randint(22, 50) / 10), 0)
       const C1 = similitude(B1, A1, 90, calcul(randint(22, 50) / 10) / longueur(A1, B1))
-      const p1 = polygone(A1, B1, C1)
+      const p1 = polygone([A1, B1, C1])
       p1.isVisible = false
       const p2 = rotation(p1, A1, randint(0, 360))
       const A = p2.listePoints[0]

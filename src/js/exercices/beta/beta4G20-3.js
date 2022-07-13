@@ -27,7 +27,7 @@ export default function CalculerValeurManquanteVisuelPythagore () {
     const A = point(4, 0, 'A')
     const B = point(0, 3, 'B')
     const C = point(0, 0, 'C')
-    const p1 = polygone(A, B, C)
+    const p1 = polygone([A, B, C])
     p1.isVisible = false
     const p2 = rotation(p1, C, randint(0, 359))
     const a = p2.listePoints[0]

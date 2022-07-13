@@ -111,7 +111,7 @@ export default function CalculDeLongueur () {
       const a = point(0, 0)
       const b = point(ab, 0)
       const c = point(0, ac)
-      const p1 = polygone(a, b, c)
+      const p1 = polygone([a, b, c])
       // p1.isVisible = false
       const p2 = rotation(p1, a, randint(0, 360))
       const A = p2.listePoints[0]

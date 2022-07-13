@@ -123,7 +123,7 @@ export default function ColorierDeplacement () {
     const lstObjet = [r2] // liste de tous les objets Mathalea2d
 
     let p // carré gris représentant le lutin en position de départ
-    p = polygone(point(lstX[0], lstY[0]), point(lstX[0] + 1, lstY[0]), point(lstX[0] + 1, lstY[0] - 1), point(lstX[0], lstY[0] - 1))
+    p = polygone([point(lstX[0], lstY[0]), point(lstX[0] + 1, lstY[0]), point(lstX[0] + 1, lstY[0] - 1), point(lstX[0], lstY[0] - 1)])
     p.opacite = 0.5
     p.couleurDeRemplissage = 'black'
     p.opaciteDeRemplissage = 0.5
@@ -172,7 +172,7 @@ export default function ColorierDeplacement () {
           case 3:
             yLutin += -1; break
           case 4:
-            p = polygone(point(xLutin, yLutin), point(xLutin + 1, yLutin), point(xLutin + 1, yLutin - 1), point(xLutin, yLutin - 1))
+            p = polygone([point(xLutin, yLutin), point(xLutin + 1, yLutin), point(xLutin + 1, yLutin - 1), point(xLutin, yLutin - 1)])
             p.couleurDeRemplissage = couleur
             p.opaciteDeRemplissage = 0.25
             p.epaisseur = 0

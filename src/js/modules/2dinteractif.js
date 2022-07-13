@@ -105,8 +105,8 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
   const B = point(x2, y1)
   const C = point(x2, y2)
   const D = point(x1, y2)
-  const rectangle = polygone(A, B, C, D)
-  const bordure = polygone(A, B, C, D)
+  const rectangle = polygone([A, B, C, D])
+  const bordure = polygone([A, B, C, D])
   if (!options) options = {}
   const out = options.out || { opacity: 0 }
   const over = options.over || { opacity: 0.2 }
