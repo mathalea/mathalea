@@ -2446,31 +2446,33 @@ export function demiDroiteAvecExtremite (A, B, color = 'black') {
  * polygone([A,B,C,D],"blue","red","green") // Trace ABCD en bleu, rempli en rouge et hachuré en vert.
  * @author Rémi Angot
  */
-function Polygone (...points) {
+function Polygone ([...points], color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none') {
   ObjetMathalea2D.call(this)
   this.opaciteDeRemplissage = 1.1
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
-  if (Array.isArray(points[0])) {
-    // Si le premier argument est un tableau
-    this.listePoints = points[0]
-    if (points[1]) {
-      this.color = points[1]
-    }
-    if (points[2]) {
-      this.couleurDeRemplissage = points[2]
-    } else {
-      this.couleurDeRemplissage = 'none'
-    }
-    if (points[3]) {
-      this.couleurDesHachures = points[3]
-      this.hachures = true
-    } else {
-      this.couleurDesHachures = 'black'
-      this.hachures = false
-    }
-    this.nom = this.listePoints.join()
+  // if (Array.isArray(points[0])) {
+  // Si le premier argument est un tableau [Devrait être toujours le cas maintenant...]
+  this.listePoints = points[0]
+  if (points[1]) {
+    this.color = points[1]
   } else {
+    this.color = color
+  }
+  if (points[2]) {
+    this.couleurDeRemplissage = points[2]
+  } else {
+    this.couleurDeRemplissage = couleurDeRemplissage
+  }
+  if (points[3]) {
+    this.couleurDesHachures = points[3]
+    this.hachures = true
+  } else {
+    this.couleurDesHachures = couleurDesHachures
+    this.hachures = false
+  }
+  this.nom = this.listePoints.join()
+  /* } else {
     if (typeof points[points.length - 1] === 'string') {
       this.color = points[points.length - 1]
       points.splice(points.length - 1, 1)
@@ -2479,7 +2481,7 @@ function Polygone (...points) {
     this.nom = this.listePoints.join()
     this.couleurDeRemplissage = 'none'
     this.hachures = false
-  }
+  } */
   let xmin = 1000
   let xmax = -1000
   let ymin = 1000
@@ -2593,11 +2595,11 @@ function Polygone (...points) {
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity=${this.opacite}`)
     }
-    if (this.opaciteDeRemplissage !== 1) {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
     if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage !== 'none') {
       tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
+      if (this.opaciteDeRemplissage !== 1) {
+        tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+      }
     }
 
     if (this.hachures) {
@@ -2619,12 +2621,9 @@ function Polygone (...points) {
     for (const point of this.listePoints) {
       binomeXY += `(${point.x},${point.y})--`
     }
-    // if (this.couleurDeRemplissage === '') {
     return `\\draw${optionsDraw} ${binomeXY}cycle;`
-    // } else {
-    //  return `\\filldraw ${optionsDraw} ${binomeXY}cycle;`
-    // }
   }
+
   this.svgml = function (coeff, amp) {
     let code = ''; let segmentCourant
     let A, B
