@@ -115,7 +115,7 @@ export default function SujetCAN2022Premiere () {
             e = choice([-1, -2, -3])
             reponse = new Decimal(a * 10 ** b + c + d * 10 ** e)
             texte = `Donner l'écriture décimale de :  $${c}+${d}\\times 10^{${e}}+${a}\\times10^${b}$`
-            texteCorr = `$${c}+${d}\\times 10^{${e}}+${a}\\times10^${b}=${c}+${texNombre(c * 10 ** e, 3)}+${texNombre(a * 10 ** b, 3)}=${texNombre(reponse, 3)}$`
+            texteCorr = `$${c}+${d}\\times 10^{${e}}+${a}\\times10^${b}=${c}+${texNombre(d * 10 ** e, 3)}+${texNombre(a * 10 ** b, 3)}=${texNombre(reponse, 3)}$`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
 
@@ -711,8 +711,7 @@ export default function SujetCAN2022Premiere () {
           tang = x => f(nbre) * (x - nbre) + F(nbre)
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
 
-          texte = `La courbe représente une fonction $f$ et une tangente à cette représentation.<br>  
-            Quel est le coefficient directeur de la tangente au point d'abscisse $${nbre}$ ? <br>  `
+          texte = `La courbe représente une fonction $f$ et une tangente à cette représentation.<br> Quel est le coefficient directeur de la tangente au point d'abscisse $${nbre}$ ? <br>  `
           texte += mathalea2d({ xmin: -3, xmax: 4.6, ymin: -5.1, ymax: 5.1, pixelsParCm: 30, scale: 0.8 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }), courbe(tang, { repere: r, color: 'red', epaisseur: 2 }))
           texteCorr = `Le coefficient directeur de la tangente à la courbe au point d'abscisse $${nbre}$ est  $${f(nbre)}$.`
 
@@ -787,9 +786,9 @@ export default function SujetCAN2022Premiere () {
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += '$M($'
+            texte += 'Compléter $M($'
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur11') + `$;${ordonnee})$`
-          } else { texte += `${sp(5)}$M(\\ldots ; ${ordonnee})$` }
+          } else { texte += `${sp(5)}Compléter $M(\\ldots$ ; $${ordonnee})$` }
           nbChamps = 1
           break
 
