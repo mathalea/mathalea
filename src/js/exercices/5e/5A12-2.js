@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, premiersEntreBornes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, choice, premiersEntreBornes, egalOuApprox, texNombre } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { context } from '../../modules/context.js'
@@ -42,21 +42,25 @@ export default class PremierOuPas extends Exercice {
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     const listePremiers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
-    function EcritEgalOuApprox (nombre, precision) {
-      if (nombre.equals(nombre.toFixed(precision))) {
-        return `= $${nombre}$`
-      } else {
-        return `$\\approx $ $${nombre.toFixed(precision)}$`
-      }
+    /** inutile : $${egalOuApprox(rsltDiv, 2)}$ $${texNombre(rsltDiv, 2)}$ fait le travail
+     * function EcritEgalOuApprox (nombre, precision) {
+     * if (nombre.equals(nombre.toFixed(precision))) {
+     *   return `= $${nombre}$`
+     * } else {
+     *   return `$\\approx $ $${nombre.toFixed(precision)}$`
+     * }
     }
+    */
     function EcritListeDivisions (dividende, nombremax) {
       let ind
+      let rsltDiv
       let txt
       ind = 0
       txt = ''
-      while (listePremiers[ind] <= nombremax) { // fonctionne car le nombre à trouver est inf à 500
+      while (listePremiers[ind] <= nombremax) { // fonctionne car nombremax est inf à 500
         txt += `$${dividende} \\div  ${listePremiers[ind]}$ `
-        txt += `${EcritEgalOuApprox(new Decimal(dividende).div(listePremiers[ind]), 2)}<br>`
+        rsltDiv = new Decimal(dividende).div(listePremiers[ind])
+        txt += `$${egalOuApprox(rsltDiv, 2)}$ $${texNombre(rsltDiv, 2)}$<br>`
         ind = ind + 1
       }
       return txt
@@ -90,19 +94,20 @@ export default class PremierOuPas extends Exercice {
           break
         case 'PremierSup30':
           nombreATrouver = choice(premiersEntreBornes(30, 500))
-          racineNombreATrouver = Math.trunc(Math.sqrt(nombreATrouver))
-          texteCorr = `$${nombreATrouver}$ est un nombre premier.`
+          racineNombreATrouver = Math.sqrt(nombreATrouver)
+          texteCorr = `$${nombreATrouver}$ est un nombre premier.<br>`
           // texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
           // texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
-          texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers dans l'ordre :<br>`
+          texteCorr += `En effet, on teste les divisions de $${nombreATrouver}$ par les nombres premiers dans l'ordre :<br>`
           texteCorr += EcritListeDivisions(nombreATrouver, racineNombreATrouver)
           //
-          nb1 = listePremiers.find(el => el >= racineNombreATrouver)
+          nb1 = listePremiers.find(el => el > racineNombreATrouver)
           // possible car nombreATrouver<500
           texteCorr += `$${nombreATrouver} \\div  ${nb1}$ `
           rsltTemp = new Decimal(nombreATrouver).div(nb1)
-          texteCorr += EcritEgalOuApprox(rsltTemp, 2)
-          texteCorr += ` et $${rsltTemp.toFixed(2)} < ${nb1}$, donc on peut arrêter de chercher.<br>`
+          // texteCorr += EcritEgalOuApprox(rsltTemp, 2)
+          texteCorr += `$${egalOuApprox(rsltTemp, 2)}$ $${texNombre(rsltTemp, 2)}$`
+          texteCorr += ` et $${texNombre(rsltTemp, 2)} < ${nb1}$, donc on peut arrêter de chercher.<br>`
           //
           texteCorr += `$${nombreATrouver}$ n'a donc pas d'autres diviseurs que $1$ et lui même.`
           this.autoCorrection[i] = {
@@ -132,7 +137,7 @@ export default class PremierOuPas extends Exercice {
           // racineNombreATrouver = Math.round(Math.sqrt(nombreATrouver))
           texteCorr = `$${nombreATrouver}$ n'est pas un nombre premier`
           if ((nombreATrouver !== 49) && (nombreATrouver !== 77)) {
-            texteCorr += `. On teste les divisions de $${nombreATrouver}$ par les nombres premiers  dans l'ordre :<br> `
+            texteCorr += `.<br>En effet, on teste les divisions de $${nombreATrouver}$ par les nombres premiers  dans l'ordre :<br> `
             // texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
             // texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
             texteCorr += EcritListeDivisions(nombreATrouver, nb12Min)

@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 472 
-- nombre d'exos interactifReady 718 
+- nombre d'exos amcReady 475 
+- nombre d'exos interactifReady 723 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -188,6 +188,7 @@
 |5A10|Écrire la liste de tous les diviseurs d'un entier|KO|KO|OK|mathLive|
 |5A11|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|OK|qcm|
 |5A12-1|Primalité ou pas|OK|qcmMono|OK|qcm|
+|5A12-2|Déterminer si un nombre est premier|OK|qcmMono|OK|qcm|
 |5A13|Décomposition en facteurs premiers|KO|KO|OK|mathLive|
 |5C12-1|Traduire une phrase par une expression et la calculer|OK|AMCOpenNum|OK|mathLive|
 |5C12|Calculer une expression numérique en détaillant les calculs|OK|AMCOpenNum|OK|mathLive|
@@ -419,6 +420,7 @@
 |can1G05|Déterminer un produit scalaire avec les coordonnées|KO|KO|OK|mathLive|
 |can1G06|Déterminer un produit scalaire sur des figures géométriques classiques |KO|KO|OK|mathLive|
 |can1G07|Déterminer une coordonnée avec un produit scalaire|KO|KO|OK|mathLive|
+|can1G08|Déterminer un vecteur normal avec une équation cartésienne|KO|KO|OK|custom|
 |can1L01|Calculer un discriminant|OK|AMCNum|OK|mathLive|
 |can1L02|Déterminer le nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
 |can1L03|Trouver les racines à partir d’une forme factorisée|KO|KO|OK|mathLive|
@@ -433,6 +435,8 @@
 |can1P03|Calculer la probabilité d’une intersection à partir d’un arbre|OK|AMCNum|OK|mathLive|
 |can1P05|Utiliser la formule des probabilités totales dans un arbre|OK|AMCNum|OK|mathLive|
 |can1P06|Déterminer une probabilté dans un tableau de probabilités|OK|AMCNum|OK|mathLive|
+|can1P07|Déterminer une probabilté dans un tableau d’effectifs|OK|AMCNum|OK|mathLive|
+|can1P08|Compléter le tableau d’une loi de probabilité d’une variable aléatoire|OK|AMCNum|OK|mathLive|
 |can1S01|Calculer un terme d’une suite explicite|KO|KO|OK|mathLive|
 |can1S02|Calculer un terme d’une suite récurrente|KO|KO|OK|mathLive|
 |can1S03|Calculer un terme d’une suite récurrente*|KO|KO|OK|mathLive|
@@ -486,6 +490,7 @@
 |can2G14|Déterminer les coordonnées d'un point avec une translation|KO|KO|OK|mathLive|
 |can2G15|Déterminer le déterminant de deux vecteurs.|KO|KO|OK|mathLive|
 |can2G16|Trouver un coefficient de colinéarité (graphique)|OK|AMCHybride|OK|mathLive|
+|can2G17|Déterminer un vecteur directeur avec une équation cartésienne|KO|KO|OK|custom|
 |can2G18|Déterminer les coordonnées d’un vecteur à partir d’un graphique|KO|KO|OK|mathLive|
 |can2L01|Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Calculer les coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
