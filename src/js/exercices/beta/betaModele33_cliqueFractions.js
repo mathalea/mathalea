@@ -38,7 +38,7 @@ export default class NomExercice extends Exercice {
     const barres = []
     const nbParts = []
     const ymin = (context.isHtml) ? -2 : -0.1
-    const unite = polygone(point(0, 0), point(longueur, 0), point(longueur, hauteur), point(0, hauteur))
+    const unite = polygone([point(0, 0), point(longueur, 0), point(longueur, hauteur), point(0, hauteur)])
     this.introduction = `Pour chaque question, l'unité est représentée par ce rectangle : ${mathalea2d({ xmin: -0.1, ymin: -0.1, ymax: hauteur + 0.1, style: 'display: inline; vertical-align: -5px' }, unite)}`
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       const n = randint(1, 4)

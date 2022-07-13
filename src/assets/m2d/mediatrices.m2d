@@ -1,7 +1,7 @@
 let A = point(3,2,'A','left')
 let B = point(10,3,'B','right')
 let C = point(6,6,'C')
-let p = polygone(A,B,C)
+let p = polygone([A,B,C])
 let d1 = mediatrice(A,B,'','blue') // trace la médiatrice de [AB] sans la nommer
 let d2 = mediatrice(B,C,'','blue')
 let d3 = mediatrice(A,C,'','blue')

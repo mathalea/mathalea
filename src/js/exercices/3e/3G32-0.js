@@ -1087,7 +1087,7 @@ export default function problemesTrigoLongueur () {
             const cAE = cercle(A, AE)
             const E = pointIntersectionLC(dDE, cAE, 'E')
             E.positionLabel = 'right'
-            const p = polygone(A, D, E)
+            const p = polygone([A, D, E])
             const dAE = droite(A, E)
             const B = projectionOrtho(C, dAE, 'B', 'above left')
             const codage1 = codageAngleDroit(A, B, C)

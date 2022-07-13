@@ -127,7 +127,7 @@ export default function Solide6e () {
           B = point(11, 0, nom[1], 'right')
           C = point(11, 5, nom[2], 'right')
           D = point(6, 5, nom[3], 'left')
-          p = polygone(A, B, C, D)
+          p = polygone([A, B, C, D])
           E = similitude(B, A, anglepersp, coeffpersp, nom[4], 'left')
           E.x = Math.round(E.x)
           E.y = Math.round(E.y)
@@ -138,14 +138,14 @@ export default function Solide6e () {
           B = point(9 + randint(1, 3), 0, nom[1], 'right')
           C = point(B.x, randint(3, 7), nom[2], 'right')
           D = point(A.x, C.y, nom[3], 'left')
-          p = polygone(A, B, C, D)
+          p = polygone([A, B, C, D])
           E = similitude(B, A, anglepersp, coeffpersp * randint(5, 12) / 10, nom[4], 'left')
           E.x = Math.round(E.x)
           E.y = Math.round(E.y)
           break
       }
 
-      p = polygone(A, B, C, D)
+      p = polygone([A, B, C, D])
       F = translation2Points(E, A, B, nom[5], 'right')
       G = translation2Points(F, B, C, nom[6], 'right')
       H = translation2Points(G, C, D, nom[7], 'left')

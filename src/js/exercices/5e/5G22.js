@@ -54,7 +54,7 @@ export default function DroiteRemarquableDuTriangle () {
       A[i] = rotation(A0, G, a, sommets[i][0], 'below left')
       B[i] = rotation(B0, G, a, sommets[i][1], 'below right')
       C[i] = rotation(C0, G, a, sommets[i][2], 'above')
-      t[i] = polygone(A[i], B[i], C[i])
+      t[i] = polygone([A[i], B[i], C[i]])
       n[i] = nommePolygone(t[i], `${sommets[i][0]}${sommets[i][1]}${sommets[i][2]}`)
       switch (listeTypeDeQuestions[i]) {
         case 1:

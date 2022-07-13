@@ -113,7 +113,7 @@ export default function TableauxEtFonction () {
       const C = point(4, -2)
       const D = point(4, 2)
       const mesAppels = [
-        polygone(A, B, C, D)
+        polygone([A, B, C, D])
       ]
       const figure = mathalea2d(
         fenetreMathalea2D,
