@@ -2,7 +2,7 @@ let C = point(9,7,'C','above')
 let A = point(7,1,'A','right')
 let B = point(0,8,'B')
 labelPoint(A,B,C)
-let t = polygone([A,B,C])
+let t = polygone(A,B,C)
 t.epaisseur=2
 let d = hauteurTriangle(A,B,C)
 codageHauteurTriangle(A,B,C)

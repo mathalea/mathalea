@@ -34,7 +34,7 @@ export default function TrianglesEgaux () {
           C = rotation(B, A, 90, 'C') // le point C à partir de B par rotation autour de A!
           C.x += choice([0, 3, 6]) // on décale l'abscise de C de 0, 3 ou 6 !
           C.y += choice([-3, 0, 3]) // on décale l'abscise de C de -3, 0 ou 3 !
-          p = polygone([A, B, C]) // on trace le polygone ABC
+          p = polygone(A, B, C) // on trace le polygone ABC
           aireABC = aireTriangle(p) // Je savais bien que cette formule servirait un jour !
           if (aireABC < 11 && aireABC > 5) { trouve = true }
         };

@@ -103,11 +103,11 @@ export default function ReciproqueThales () {
     const A = point(0, 0)
     const B = point(x2, y2)
     const C = point(x3, y3)
-    const t1 = polygone([A, B, C])
+    const t1 = polygone(A, B, C)
     t1.id = `M2D_${numeroExercice}_t1`
     const M = homothetie(B, A, k)
     const N = homothetie(C, A, k)
-    const t2 = polygone([A, M, N])
+    const t2 = polygone(A, M, N)
     t2.id = `M2D_${numeroExercice}_t2`
     const m = pointSurSegment(M, N, -0.5)
     const n = pointSurSegment(N, M, -0.5)
