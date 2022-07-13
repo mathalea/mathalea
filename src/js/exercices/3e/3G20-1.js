@@ -103,7 +103,7 @@ export default function ProblemesThales () {
         B = point(7, 4, nomB, 'above')
         C = point(7, 0, nomC, 'below')
         D = point(0, 0, nomD, 'below')
-        p = polygone(A, B, C, D)
+        p = polygone([A, B, C, D])
         codage1 = codageAngleDroit(D, A, B)
         codage2 = codageAngleDroit(A, B, C)
         codage3 = codageAngleDroit(B, C, D)

@@ -314,7 +314,7 @@ export default function SymetrieAxialePavageTriangulaire () {
     const C = rotation(B, A, 60, '')
     const v = vecteur(1.2, 0)
     const w = rotation(vecteur(1.2, 0), A, 60)
-    triAngles[0] = { tri: polygone(A, B, C), gra: centreGraviteTriangle(A, B, C) }
+    triAngles[0] = { tri: polygone([A, B, C]), gra: centreGraviteTriangle(A, B, C) }
     triAngles[1] = { tri: rotation(triAngles[0].tri, B, -60), gra: rotation(triAngles[0].gra, B, -60) }
     for (let i = 0; i < 7; i++) {
       if (i !== 0) {

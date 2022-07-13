@@ -190,7 +190,7 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
       const A = P.listePoints[0]
       const B = P.listePoints[1]
       const C = P.listePoints[l - 1]
-      const P2 = polygone(...P.listePoints.slice(1))
+      const P2 = polygone([...P.listePoints.slice(1)])
       if (this.estDansTriangle(A, B, C)) return true
       else return this.estDansPolygoneConvexe(P2)
     }
@@ -1902,7 +1902,7 @@ function Pave (L = 10, l = 5, h = 5, origine = point(0, 0), cote = true, angleDe
   ObjetMathalea2D.call(this)
   const objets = []
   const A = origine; const B = point(A.x + L, A.y); const C = point(B.x, B.y + l); const D = point(A.x, A.y + l)
-  const p = polygone(A, B, C, D)
+  const p = polygone([A, B, C, D])
   const E = pointAdistance(A, h * coefficientDeFuite, angleDeFuite)
   const F = translation(B, vecteur(A, E))
   const G = translation(C, vecteur(A, E))
@@ -2441,7 +2441,7 @@ export function demiDroiteAvecExtremite (A, B, color = 'black') {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 /**
- * polygone(A,B,C,D,E) //Trace ABCDE
+ * polygone([A, B, C, D, E]) //Trace ABCDE
  * polygone([A,B,C,D],"blue") // Trace ABCD en bleu
  * polygone([A,B,C,D],"blue","red","green") // Trace ABCD en bleu, rempli en rouge et hachuré en vert.
  * @author Rémi Angot
@@ -2505,7 +2505,7 @@ function Polygone (...points) {
     const trianglesIndices = earcut(flat)
     const triangles = []
     for (let i = 0; i < trianglesIndices.length; i += 3) {
-      triangles.push(polygone(point(flat[trianglesIndices[i] * 2], flat[trianglesIndices[i] * 2 + 1]), point(flat[trianglesIndices[i + 1] * 2], flat[trianglesIndices[i + 1] * 2 + 1]), point(flat[trianglesIndices[i + 2] * 2], flat[trianglesIndices[i + 2] * 2 + 1])))
+      triangles.push(polygone([point(flat[trianglesIndices[i] * 2], flat[trianglesIndices[i] * 2 + 1]), point(flat[trianglesIndices[i + 1] * 2], flat[trianglesIndices[i + 1] * 2 + 1]), point(flat[trianglesIndices[i + 2] * 2], flat[trianglesIndices[i + 2] * 2 + 1])]))
     }
     return triangles
   }
@@ -2656,7 +2656,7 @@ function Polygone (...points) {
 /**
  * Propriétés possibles : .color, .opacite, .epaisseur, .couleurDeRemplissage, .opaciteDeRemplissage, .hachures (true or false), .distanceDesHachures, .epaisseurDesHachures,.couleurDesHachures
  * @returns {Polygone} objet Polygone
- * @example polygone(A,B,C,D,E) //Trace ABCDE
+ * @example polygone([A, B, C, D, E]) //Trace ABCDE
  * @example polygone([A,B,C,D],"blue") // Trace ABCD en bleu
  * @example polygone([A,B,C,D],"#f15929") // Trace ABCD en orange (code couleur HTML : #f15929)
  * @author Rémi Angot
@@ -2670,7 +2670,7 @@ export function polygone (...args) {
  * @returns {array} [p, p.sommets]
  */
 export function polygoneAvecNom (...args) {
-  const p = polygone(...args)
+  const p = polygone([...args])
   p.sommets = nommePolygone(p)
   p.sommets.bordures = []
   p.sommets.bordures[0] = p.bordures[0] - 1
@@ -2798,7 +2798,7 @@ export function polygoneRegulierParCentreEtRayon (O, r, n, color = 'black') {
   for (let i = 1; i < n; i++) {
     p[i] = rotation(p[i - 1], O, -360 / n)
   }
-  return polygone(p, color)
+  return polygone([p], color)
 }
 /**
  * Objet composé d'un rectangle horizontal et d'un texte optionnel à l'intérieur
@@ -2872,7 +2872,7 @@ export function flatArrayToPolygone (flat, noms) {
   for (let i = 0; i < flat.length; i += 2) {
     sommets.push(point(flat[i], flat[i + 1]))
   }
-  const pol = polygone(...sommets)
+  const pol = polygone([...sommets])
   if (typeof noms === 'string') {
     if (noms.length >= sommets.length) {
       nommePolygone(pol, noms)
@@ -2887,7 +2887,7 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
   this.triangulation = function () { // retourne la liste de triangles 2d.
     const triangles2d = []
     for (let i = 0, triangle; i < triangles.length; i += 3) {
-      triangle = polygone(point(data[triangles[i] * 2], data[triangles[i] * 2 + 1]), point(data[triangles[i + 1] * 2], data[triangles[i + 1] * 2 + 1]), point(data[triangles[i + 2] * 2], data[triangles[i + 2] * 2 + 1]))
+      triangle = polygone([point(data[triangles[i] * 2], data[triangles[i] * 2 + 1]), point(data[triangles[i + 1] * 2], data[triangles[i + 1] * 2 + 1]), point(data[triangles[i + 2] * 2], data[triangles[i + 2] * 2 + 1])])
       triangle.color = color
       triangle.couleurDeRemplissage = 'none'
       triangles2d.push(triangle)
@@ -2909,7 +2909,7 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
     ymax = Math.max(ymax, data[i + 1])
     this.bordures = [xmin, ymin, xmax, ymax]
   }
-  this.contour = polygone(...sommetsContour)
+  this.contour = polygone([...sommetsContour])
   this.trous = []
   this.color = color
   this.couleurDeRemplissage = couleurDeRemplissage
@@ -2927,7 +2927,7 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
       }
       trous[i].push(trou)
     }
-    trouPol = polygone(...trous[i])
+    trouPol = polygone([...trous[i]])
     trouPol.color = this.color
     trouPol.couleurDeRemplissage = this.couleurDeFond
     this.trous.push(trouPol)
@@ -3057,7 +3057,7 @@ export function triangle2points1angle1longueur (A, B, a, l, n = 1, color = 'blac
   }
   const P = pointSurSegment(A, B, l)
   const Q = rotation(P, A, a)
-  return polygone(A, B, Q, color)
+  return polygone([A, B, Q], color)
 }
 /**
  * @param {Point} A Le sommet pour l'angle donné = première extrémité du segment de base du triangle
@@ -8244,10 +8244,10 @@ function TableauDeVariation ({ tabInit, tabLines, lgt, escpl, deltacl, colors, h
                       segments.push(s)
                       break
                     case 'h':
-                      p = polygone(point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine),
+                      p = polygone([point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine),
                         point(this.lgt + this.deltacl + this.escpl / 2 * (k), yLine),
                         point(this.lgt + this.deltacl + this.escpl / 2 * (k), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 15),
-                        point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 15))
+                        point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 15)])
                       p.couleurDeRemplissage = 'gray'
                       segments.push(p)
                       break
@@ -8878,7 +8878,7 @@ function TableauDeVariation ({ tabInit, tabLines, lgt, escpl, deltacl, colors, h
               }
             }
             for (let n = 0; n <= ZI.length / 4 - 1; n++) {
-              p = polygone(ZI[4 * n], ZI[4 * n + 2], ZI[4 * n + 3], ZI[4 * n + 1])
+              p = polygone([ZI[4 * n], ZI[4 * n + 2], ZI[4 * n + 3], ZI[4 * n + 1]])
               p.opacite = 1
               p.hachures = 'north east lines'
               segments.push(p)
@@ -9032,7 +9032,7 @@ export function tableauDeVariation ({ tabInit = ['', ''], tabLines = [], lgt = 3
  */
 function TraceBarre (x, hauteur, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
   ObjetMathalea2D.call(this)
-  const p = hauteur === 0 ? vide2d(x, 0) : polygone(point(x - epaisseur / 2, 0), point(x - epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, 0))
+  const p = hauteur === 0 ? vide2d(x, 0) : polygone([point(x - epaisseur / 2, 0), point(x - epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, hauteur * unite), point(x + epaisseur / 2, 0)])
   p.couleurDeRemplissage = couleurDeRemplissage
   p.opaciteDeRemplissage = opaciteDeRemplissage
   p.color = color
@@ -9067,7 +9067,7 @@ export function traceBarre (...args) {
  */
 function TraceBarreHorizontale (longueur, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, unite = 1, angle = 'gauche', hachures = false } = {}) {
   ObjetMathalea2D.call(this)
-  const p = longueur === 0 ? vide2d(0, y) : polygone(point(0, y - epaisseur / 2), point(0, y + epaisseur / 2), point(unite * longueur, y + epaisseur / 2), point(unite * longueur, y - epaisseur / 2))
+  const p = longueur === 0 ? vide2d(0, y) : polygone([point(0, y - epaisseur / 2), point(0, y + epaisseur / 2), point(unite * longueur, y + epaisseur / 2), point(unite * longueur, y - epaisseur / 2)])
   p.couleurDeRemplissage = couleurDeRemplissage
   p.opaciteDeRemplissage = opaciteDeRemplissage
   p.color = color
@@ -12335,7 +12335,7 @@ function Pavage () {
           for (let j = 0; j < Nx; j++) {
             C = rotation(A, B, 120)
             D = rotation(B, C, 60)
-            P1 = polygone(A, B, C, D)
+            P1 = polygone([A, B, C, D])
             P2 = rotation(P1, C, -60)
             P3 = rotation(P1, A, 60)
             P4 = translation(P2, v)
@@ -12550,7 +12550,7 @@ function Tableau ({
   const D = point(A.x, A.y + 2 * hauteur)
   // ABCD est le cadre extérieur (A en bas à gauche et B en bas à droite)
   const objets = []
-  objets.push(polygone(A, B, C, D))
+  objets.push(polygone([A, B, C, D]))
   objets.push(segment(point(A.x, A.y + hauteur), point(B.x, B.y + hauteur)))
   // trait horizontal au milieu
   let x = A.x + largeurTitre

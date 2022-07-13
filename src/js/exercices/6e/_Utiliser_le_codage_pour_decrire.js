@@ -78,7 +78,7 @@ export default function UtiliserLeCodagePourDecrire () {
           s2 = segment(C, E)
           s4 = segment(C, F)
           s5 = segment(B, F)
-          s6 = polygone(A, B, C, D)
+          s6 = polygone([A, B, C, D])
           paramsCorrection = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 }
           objetsCorrection.push(labelPoint(A, B, C, D, E, F), s1, s2, s4, s5, s6)
           objetsCorrection.push(codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A))
@@ -96,7 +96,7 @@ export default function UtiliserLeCodagePourDecrire () {
           s2 = segment(A, C)
           E = pointIntersectionDD(droite(A, C), droite(D, B), sommets[4], 'above')
           F = affiniteOrtho(E, droite(B, C), -1.1, sommets[5], 'right')
-          s3 = polygone(A, B, C, D)
+          s3 = polygone([A, B, C, D])
           s4 = segment(B, F)
           s5 = segment(C, F)
           paramsCorrection = { xmin: Math.min(A.x - 1, B.x - 1, C.x - 1, D.x - 1, E.x - 1, F.x - 1), ymin: Math.min(A.y - 1, B.y - 1, C.y - 1, D.y - 1, E.y - 1, F.y - 1), xmax: Math.max(A.x + 1, B.x + 1, C.x + 1, D.x + 1, E.x + 1, F.x + 1), ymax: Math.max(A.y + 1, B.y + 1, C.y + 1, D.y + 1, E.y + 1, F.y + 1), pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: 1 }
@@ -114,7 +114,7 @@ export default function UtiliserLeCodagePourDecrire () {
           D = similitude(B, A, angleOriente(A, B, F) + randint(3, 5), randint(15, 20) / 10, sommets[3], 'below')
           C = translation2Points(point(B.x + 1, B.y + 1), A, D, sommets[2], 'below right')
           E = pointIntersectionDD(droite(A, C), droite(D, B), sommets[4], 'above right')
-          s3 = polygone(A, B, C, D)
+          s3 = polygone([A, B, C, D])
           s4 = segment(B, F)
           s5 = segment(A, F)
           s1 = segment(B, D)
