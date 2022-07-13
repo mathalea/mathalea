@@ -417,13 +417,13 @@ export default function SujetCAN2021Seconde () {
           xmin = -1
           ymin = -2.5
           xmax = 7
-          ymax = 4.7
+          ymax = 5
           objets = []
           objets.push(
-            texteParPosition(`$${d} \\text{ cm}$`, milieu(A, D).x, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\large \\text{?}$', milieu(B, E).x, milieu(B, E).y - 0.3, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${b} \\text{ cm}$`, milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${a} \\text{ cm}$`, milieu(C, B).x + 0.3, milieu(C, B).y + 0.2, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${d} cm`, milieu(A, D).x, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(' ?', milieu(B, E).x, milieu(B, E).y - 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${b}  cm`, milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${a} cm`, milieu(C, B).x + 0.3, milieu(C, B).y + 0.2, 'milieu', 'black', 1, 'middle', true),
             labelPoint(A, B, C, D, E), segment(B, E), segment(D, E), segment(A, D), segment(A, B))
           reponse = c
           texte = `$(AD)//(EB)$.<br>
