@@ -309,7 +309,7 @@ export default function SujetCAN2022Premiere () {
             u = 1
             k = randint(2, 4)
 
-            texte = `Pour tout entier naturen $n$, <br>
+            texte = `Pour tout entier naturel $n$, <br>
               $\\begin{cases} u_0=${u}\\\\u_{n+1}=${a}\\times u_n \\end{cases}$${sp(15)}
               $u_{${k}}=$ `
             texteCorr = 'On calcule les termes avc la formule de récurrence :'
