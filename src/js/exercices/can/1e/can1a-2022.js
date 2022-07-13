@@ -152,55 +152,58 @@ export default function SujetCAN2022Premiere () {
             a = randint(2, 5) * 2
             prix = new Decimal(randint(7, 15)).div(10)
             reponse = new Decimal(prix * a).div(2)
-           
-             if(a===2){
+
+            if (a === 2) {
               texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €.  Combien coûte $${texNombre(a / 2, 0)}$ croissant ?
               `
-            texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
                        $${texNombre(a / 2, 0)}$ croissant coûte $2$ fois moins, soit : <br>
-                       $${texPrix(prix * a)}\\div 2=${texPrix(reponse)}$ €.`}
-                       else{
-                        texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €.  Combien coûtent $${texNombre(a / 2, 0)}$ croissants ?
+                       $${texPrix(prix * a)}\\div 2=${texPrix(reponse)}$ €.`
+            } else {
+              texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €.  Combien coûtent $${texNombre(a / 2, 0)}$ croissants ?
                         `
-                        texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
                        $${texNombre(a / 2, 0)}$ croissants coûtent $2$ fois moins, soit : <br>
-                       $${texPrix(prix * a)}\\div 2=${texPrix(reponse)}$ €.`}
+                       $${texPrix(prix * a)}\\div 2=${texPrix(reponse)}$ €.`
+            }
           }
           if (choix === 'b') {
             a = randint(1, 3) * 3
             prix = new Decimal(randint(7, 15)).div(10)
             reponse = new Decimal(prix).mul(a).div(3)
-           
-                           if(a===3){
-                            texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûte $${texNombre(a / 3, 0)}$ croissant ?
+
+            if (a === 3) {
+              texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûte $${texNombre(a / 3, 0)}$ croissant ?
                             `
-            texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
                                      $${texNombre(a / 3, 0)}$ croissant coûte $3$ fois moins, soit : <br>
-                                     $${texPrix(prix * a)}\\div 3=${texPrix(reponse)}$ €.`}
-                                     else{  
-                                      texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûtent $${texNombre(a / 3, 0)}$ croissants ?
+                                     $${texPrix(prix * a)}\\div 3=${texPrix(reponse)}$ €.`
+            } else {
+              texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûtent $${texNombre(a / 3, 0)}$ croissants ?
                                       `
-                                      texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
                                      $${texNombre(a / 3, 0)}$ croissants coûtent $3$ fois moins, soit : <br>
-                                     $${texPrix(prix * a)}\\div 3=${texPrix(reponse)}$ €.`}
+                                     $${texPrix(prix * a)}\\div 3=${texPrix(reponse)}$ €.`
+            }
           }
           if (choix === 'c') {
             a = randint(1, 3) * 4
             prix = new Decimal(randint(7, 15)).div(10)
             reponse = new Decimal(prix).mul(a).div(4)
-           
-                                         if(a===4){
-                                          texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûte $${texNombre(a / 4, 0)}$ croissant ?
+
+            if (a === 4) {
+              texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûte $${texNombre(a / 4, 0)}$ croissant ?
                                           `
-            texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
                                                    $${texNombre(a / 4, 0)}$ croissant coûte $4$ fois moins, soit : <br>
-                                                   $${texPrix(prix * a)}\\div 4=${texPrix(reponse)}$ €.`}
-                                                   else{
-                                                    texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûtent $${texNombre(a / 4, 0)}$ croissants ?
+                                                   $${texPrix(prix * a)}\\div 4=${texPrix(reponse)}$ €.`
+            } else {
+              texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûtent $${texNombre(a / 4, 0)}$ croissants ?
                                                     `
-                                                    texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
                                                                                            $${texNombre(a / 4, 0)}$ croissants coûtent $4$ fois moins, soit : <br>
-                                                                                           $${texPrix(prix * a)}\\div 4=${texPrix(reponse)}$ €.`}
+                                                                                           $${texPrix(prix * a)}\\div 4=${texPrix(reponse)}$ €.`
+            }
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €' }
@@ -468,16 +471,16 @@ export default function SujetCAN2022Premiere () {
           if (choice([true, false])) {
             texte = `Donner l'arrondi au millième de $${texNombre(nbre, 6)}$.
              `
-             if(e * 10000<5){
-            texteCorr = `Le chiffre qui suit les millièmes est $${texNombre(e * 10000, 0)}<5$, donc l'arrondi au millième de $${texNombre(nbre, 6)}$ est $${texNombre(arrondi(nbre, 3))}$.`}
-            else{  texteCorr =`Le chiffre qui suit les millièmes est $${texNombre(e * 10000, 0)}\\geqslant5$, donc l'arrondi au millième de $${texNombre(nbre, 6)}$ est $${texNombre(arrondi(nbre, 3))}$.`}
+            if (e * 10000 < 5) {
+              texteCorr = `Le chiffre qui suit les millièmes est $${texNombre(e * 10000, 0)}<5$, donc l'arrondi au millième de $${texNombre(nbre, 6)}$ est $${texNombre(arrondi(nbre, 3))}$.`
+            } else { texteCorr = `Le chiffre qui suit les millièmes est $${texNombre(e * 10000, 0)}\\geqslant5$, donc l'arrondi au millième de $${texNombre(nbre, 6)}$ est $${texNombre(arrondi(nbre, 3))}$.` }
             reponse = arrondi(nbre, 3)
           } else {
             texte = `Donner l'arrondi au centième de $${texNombre(nbre, 6)}$.
           `
-          if(d * 1000<5){
-            texteCorr = `Le chiffre qui suit les centièmes est $${texNombre(d * 1000, 0)}<5$, donc l'arrondi au centième de $${texNombre(nbre, 6)}$ est $${texNombre(arrondi(nbre, 2))}$.`}
-            else{  texteCorr =`Le chiffre qui suit les centième est $${texNombre(d * 1000, 0)}\\geqslant5$, donc l'arrondi au centième de $${texNombre(nbre, 6)}$ est $${texNombre(arrondi(nbre, 2))}$.`}
+            if (d * 1000 < 5) {
+              texteCorr = `Le chiffre qui suit les centièmes est $${texNombre(d * 1000, 0)}<5$, donc l'arrondi au centième de $${texNombre(nbre, 6)}$ est $${texNombre(arrondi(nbre, 2))}$.`
+            } else { texteCorr = `Le chiffre qui suit les centième est $${texNombre(d * 1000, 0)}\\geqslant5$, donc l'arrondi au centième de $${texNombre(nbre, 6)}$ est $${texNombre(arrondi(nbre, 2))}$.` }
             reponse = arrondi(nbre, 2)
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
