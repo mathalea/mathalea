@@ -819,7 +819,7 @@ export default function SujetCAN2022Premiere () {
             n = n + 1
             a = q + a
           }
-          texteCorr += `$> ${b}$. Donc l'algorithme retourne $${n}$ `
+          texteCorr += `$> ${b}$. Donc l'algorithme retourne $${n}$.`
           reponse = n
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -959,8 +959,8 @@ export default function SujetCAN2022Premiere () {
             reponse = a * a
             texte = `Donner l'aire d'un carré de périmètre $${4 * a}$ cm.`
 
-            texteCorr = `La longueur du côté est donnée par $${4 * a}}\\div 4=${a}$.<br>
-                      L'aire' est donc $ ${a}\\times ${a}=${a * a}$ cm$^2$. `
+            texteCorr = `La longueur du côté est donnée par $${4 * a}\\div 4=${a}$.<br>
+                      L'aire est donc $ ${a}\\times ${a}=${a * a}$ cm$^2$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm$^2$' }
           }
