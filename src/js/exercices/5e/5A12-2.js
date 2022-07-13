@@ -94,20 +94,20 @@ export default class PremierOuPas extends Exercice {
           break
         case 'PremierSup30':
           nombreATrouver = choice(premiersEntreBornes(30, 500))
-          racineNombreATrouver = Math.trunc(Math.sqrt(nombreATrouver))
+          racineNombreATrouver = Math.sqrt(nombreATrouver)
           texteCorr = `$${nombreATrouver}$ est un nombre premier.<br>`
           // texteCorr += ` $${racineNombreATrouver} \\times ${racineNombreATrouver} < ${nombreATrouver} < ${racineNombreATrouver + 1} \\times ${racineNombreATrouver + 1}$. `
           // texteCorr += ` On teste les divisions de $${nombreATrouver}$ par les nombres premiers inférieurs à $${racineNombreATrouver}$ :<br>`
           texteCorr += `En effet, on teste les divisions de $${nombreATrouver}$ par les nombres premiers dans l'ordre :<br>`
           texteCorr += EcritListeDivisions(nombreATrouver, racineNombreATrouver)
           //
-          nb1 = listePremiers.find(el => el >= racineNombreATrouver)
+          nb1 = listePremiers.find(el => el > racineNombreATrouver)
           // possible car nombreATrouver<500
           texteCorr += `$${nombreATrouver} \\div  ${nb1}$ `
           rsltTemp = new Decimal(nombreATrouver).div(nb1)
           // texteCorr += EcritEgalOuApprox(rsltTemp, 2)
           texteCorr += `$${egalOuApprox(rsltTemp, 2)}$ $${texNombre(rsltTemp, 2)}$`
-          texteCorr += ` et $${rsltTemp.toFixed(2)} < ${nb1}$, donc on peut arrêter de chercher.<br>`
+          texteCorr += ` et $${texNombre(rsltTemp, 2)} < ${nb1}$, donc on peut arrêter de chercher.<br>`
           //
           texteCorr += `$${nombreATrouver}$ n'a donc pas d'autres diviseurs que $1$ et lui même.`
           this.autoCorrection[i] = {
