@@ -712,7 +712,7 @@ Donner une valeur approchée de l'antécédent de $${a}$ par $f$ ?<br>`
           if (choix === 'b') {
             texte = `On lance deux dés cubiques équilibrés.<br>Quelle est la probabilité d’obtenir un total de $${c}$ ?<br>Donner le résultat sous la forme d'une fraction irréductible.`
             texteCorr = `Sur $36$ cas possibles équiprobables, il y en a $${p[c - 2]}$ qui donnent une somme de $${c}$. Donc la probabilité d'obtenir un total de $${c}$ est $\\dfrac{${p[c - 2]}}{36}${simplificationDeFractionAvecEtapes(p[c - 2], 36)}$.`
-            reponse = texFractionReduite(p[c - 2], 36)
+            reponse = fraction(p[c - 2], 36).simplifie()
           }
           setReponse(this, index, reponse, { formatInteractif: 'fraction' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
