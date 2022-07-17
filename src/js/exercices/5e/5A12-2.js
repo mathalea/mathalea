@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, premiersEntreBornes, egalOuApprox, texNombre } from '../../modules/outils.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true

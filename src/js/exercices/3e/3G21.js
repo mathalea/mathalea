@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, listeQuestionsToContenuSansNumero, randint, lettreDepuisChiffre, texNombre, miseEnEvidence, texFraction, creerBoutonMathalea2d, contraindreValeur, choice } from '../../modules/outils.js'
 import { angleOriente, homothetie, mathalea2d, point, pointSurSegment, polygone, rotation, texteParPoint } from '../../modules/2d.js'

@@ -1,4 +1,4 @@
-import { ComputeEngine } from '@cortex-js/compute-engine'
+
 import FractionEtendue from '../FractionEtendue.js'
 import { number } from 'mathjs'
 import Grandeur from '../Grandeur.js'
@@ -6,7 +6,8 @@ import { context } from '../context.js'
 import { afficheScore } from '../gestionInteractif.js'
 import { gestionCan } from './gestionCan.js'
 import { sp, texteExposant } from '../outils.js'
-
+import * as pkg from '@cortex-js/compute-engine'
+const { ComputeEngine } = pkg
 export function verifQuestionMathLive (exercice, i) {
   const engine = new ComputeEngine()
   let saisieParsee, num, den, fSaisie, fReponse

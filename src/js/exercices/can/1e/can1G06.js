@@ -3,7 +3,7 @@ import { randint, choice, texNombre } from '../../../modules/outils.js'
 import {
   mathalea2d, point, labelPoint, afficheLongueurSegment, codageAngleDroit, afficheMesureAngle, codageSegment, pointAdistance, polygone, milieu, segment
 } from '../../../modules/2d.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import FractionX from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer un produit scalaire sur des figures géométriques classiques '
 export const interactifReady = true
