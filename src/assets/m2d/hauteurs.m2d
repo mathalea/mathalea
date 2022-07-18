@@ -1,7 +1,7 @@
 let A = point(5,7,'A','above') 
 let B = point(1,1,'B','below left')
 let C = point(10,5,'C','above right')
-let p = polygone([A,B,C])
+let p = polygone(A,B,C)
 labelPoint(A,B,C)
 let d = hauteurTriangle(A,B,C)
 let e = hauteurTriangle(B,A,C)

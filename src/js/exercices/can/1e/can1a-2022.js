@@ -105,7 +105,7 @@ export default function SujetCAN2022Premiere () {
             d = randint(2, 9)
             e = choice([-1, -2, -3])
             reponse = new Decimal(a * 10 ** b + c + d * 10 ** e)
-            texte = `Donner l'écriture décimale de :  $${a}\\times10^${b}+${c}+${d}\\times 10^{${e}}$`
+            texte = `Donner l'écriture décimale de :  $${a}\\times10^${b}+${c}+${d}\\times 10^{${e}}$.`
             texteCorr = `$${a}\\times10^${b}+${c}+${d}\\times 10^{${e}}=${texNombre(a * 10 ** b, 3)}+${c}+${texNombre(c * 10 ** e, 3)}=${texNombre(reponse, 3)}$`
           } else {
             a = randint(2, 9)
@@ -114,7 +114,7 @@ export default function SujetCAN2022Premiere () {
             d = randint(2, 9)
             e = choice([-1, -2, -3])
             reponse = new Decimal(a * 10 ** b + c + d * 10 ** e)
-            texte = `Donner l'écriture décimale de :  $${c}+${d}\\times 10^{${e}}+${a}\\times10^${b}$`
+            texte = `Donner l'écriture décimale de :  $${c}+${d}\\times 10^{${e}}+${a}\\times10^${b}$.`
             texteCorr = `$${c}+${d}\\times 10^{${e}}+${a}\\times10^${b}=${c}+${texNombre(d * 10 ** e, 3)}+${texNombre(a * 10 ** b, 3)}=${texNombre(reponse, 3)}$`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -132,7 +132,7 @@ export default function SujetCAN2022Premiere () {
           texteCorr = `On se ramène à une équation du type $a\\times x=b$ :<br>
           $\\begin{aligned}
           ${a}x${ecritureAlgebrique(b)}&=0\\\\
-         ${a}x&=${ecritureAlgebrique(-b)}\\\\
+         ${a}x&=${-b}\\\\
                               x&=${f.texFraction}${f.texSimplificationAvecEtapes()}
          \\end{aligned}$<br>
                    
@@ -152,28 +152,58 @@ export default function SujetCAN2022Premiere () {
             a = randint(2, 5) * 2
             prix = new Decimal(randint(7, 15)).div(10)
             reponse = new Decimal(prix * a).div(2)
-            texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €.  Combien coûtent $${texNombre(a / 2, 0)}$ croissants ?
-             `
-            texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
-                       $${texNombre(a / 2, 0)}$ croissants coûtent $2$ fois moins, soit $${texPrix(prix * a)}\\div 2=${texNombre(reponse, 2)}$ €.`
+
+            if (a === 2) {
+              texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €.  Combien coûte $${texNombre(a / 2, 0)}$ croissant ?
+              `
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+                       $${texNombre(a / 2, 0)}$ croissant coûte $2$ fois moins, soit : <br>
+                       $${texPrix(prix * a)}\\div 2=${texPrix(reponse)}$ €.`
+            } else {
+              texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €.  Combien coûtent $${texNombre(a / 2, 0)}$ croissants ?
+                        `
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+                       $${texNombre(a / 2, 0)}$ croissants coûtent $2$ fois moins, soit : <br>
+                       $${texPrix(prix * a)}\\div 2=${texPrix(reponse)}$ €.`
+            }
           }
           if (choix === 'b') {
             a = randint(1, 3) * 3
             prix = new Decimal(randint(7, 15)).div(10)
             reponse = new Decimal(prix).mul(a).div(3)
-            texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûtent $${texNombre(a / 3, 0)}$ croissants ?
-                           `
-            texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
-                                     $${texNombre(a / 3, 0)}$ croissants coûtent $3$ fois moins, soit $${texPrix(prix * a)}\\div 3=${texNombre(reponse, 2)}$ €.`
+
+            if (a === 3) {
+              texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûte $${texNombre(a / 3, 0)}$ croissant ?
+                            `
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+                                     $${texNombre(a / 3, 0)}$ croissant coûte $3$ fois moins, soit : <br>
+                                     $${texPrix(prix * a)}\\div 3=${texPrix(reponse)}$ €.`
+            } else {
+              texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûtent $${texNombre(a / 3, 0)}$ croissants ?
+                                      `
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+                                     $${texNombre(a / 3, 0)}$ croissants coûtent $3$ fois moins, soit : <br>
+                                     $${texPrix(prix * a)}\\div 3=${texPrix(reponse)}$ €.`
+            }
           }
           if (choix === 'c') {
             a = randint(1, 3) * 4
             prix = new Decimal(randint(7, 15)).div(10)
             reponse = new Decimal(prix).mul(a).div(4)
-            texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûtent $${texNombre(a / 4, 0)}$ croissants ?
-                                         `
-            texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
-                                                   $${texNombre(a / 4, 0)}$ croissants coûtent $4$ fois moins, soit $${texPrix(prix * a)}\\div 4=${texNombre(reponse, 2)}$ €.`
+
+            if (a === 4) {
+              texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûte $${texNombre(a / 4, 0)}$ croissant ?
+                                          `
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+                                                   $${texNombre(a / 4, 0)}$ croissant coûte $4$ fois moins, soit : <br>
+                                                   $${texPrix(prix * a)}\\div 4=${texPrix(reponse)}$ €.`
+            } else {
+              texte = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €. Combien coûtent $${texNombre(a / 4, 0)}$ croissants ?
+                                                    `
+              texteCorr = `$${a}$ croissants coûtent  $${texPrix(prix * a)}$ €, donc 
+                                                                                           $${texNombre(a / 4, 0)}$ croissants coûtent $4$ fois moins, soit : <br>
+                                                                                           $${texPrix(prix * a)}\\div 4=${texPrix(reponse)}$ €.`
+            }
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €' }
@@ -237,7 +267,7 @@ export default function SujetCAN2022Premiere () {
           }
           reponse = somme / 4
           texte = `Calculer la moyenne de :
-            $${a}${sp(3)}; ${sp(3)}${b}${sp(3)}; ${sp(3)}${c}${sp(3)}; ${sp(3)}${d}$`
+            $${a}${sp(3)}; ${sp(3)}${b}${sp(3)}; ${sp(3)}${c}${sp(3)}; ${sp(3)}${d}$.`
           texteCorr = `La moyenne est donnée par : $\\dfrac{${a}+${b}+${c}+${d}}{4}=\\dfrac{${somme}}{4}=${reponse}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -249,11 +279,11 @@ export default function SujetCAN2022Premiere () {
           a = randint(1, 9) * 10
           p = randint(2, 9, 5) * 10
           reponse = new Decimal(a * p).div(100)
-          texte = `$${p}\\%$ de $${a}= $`
+          texte = `$${p}$ $\\%$ de $${a}= $`
 
-          texteCorr = `          Prendre $${p}\\%$  de $${a}$ revient à prendre $${texNombre(p / 10, 0)}\\times 10\\%$  de $${a}$.<br>
-            Comme $10\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors
-            $${p}\\%$ de $${a}=${texNombre(p / 10, 0)}\\times ${texNombre(a / 10, 0)}=${texNombre(reponse, 0)}$.
+          texteCorr = `          Prendre $${p}$ $\\%$  de $${a}$ revient à prendre $${texNombre(p / 10, 0)}\\times 10$ $\\%$  de $${a}$.<br>
+            Comme $10$ $\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10$ $\\%$  d'une quantité, on la divise par $10$), alors
+            $${p}$ $\\%$ de $${a}=${texNombre(p / 10, 0)}\\times ${texNombre(a / 10, 0)}=${texNombre(reponse, 0)}$.
            `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -270,7 +300,7 @@ export default function SujetCAN2022Premiere () {
           texte += ` ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: l + 2, scale: 0.8 }, pav)}`
 
           reponse = L * l * h
-          texteCorr = `Le volume de ce pavé droit est : $${L}\\text{cm}\\times ${l}\\text{cm}\\times ${h}\\text{cm}=${reponse}\\text{cm}^3$`
+          texteCorr = `Le volume de ce pavé droit est : $${L}\\times ${l}\\times ${h}=${reponse}$ cm$^3$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' cm$^3$' }
           nbChamps = 1
@@ -294,7 +324,7 @@ export default function SujetCAN2022Premiere () {
               }
             } else {
               for (let indice = 0; indice < k; indice++) {
-                texteCorr += `<br> $u_{${indice + 1}} = ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))} ${ecritureAlgebrique(a)} =
+                texteCorr += `<br> $u_{${indice + 1}} = ${miseEnEvidence(' u_{' + indice + '}', arcenciel(indice, true))} ${ecritureAlgebrique(a)} =
               ${miseEnEvidence(u, arcenciel(indice, true))}  ${a} = ${miseEnEvidence(u + a, arcenciel(indice + 1, true))}$`
                 u = u + a
               }
@@ -303,7 +333,7 @@ export default function SujetCAN2022Premiere () {
             if (this.interactif) {
               setReponse(this, index, reponse, { formatInteractif: 'calcul' })
               texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
-            } else { texte += '$\\ldots$' }
+            } else { texte += ' $\\ldots$' }
           } else {
             a = randint(2, 3)
             u = 1
@@ -315,7 +345,7 @@ export default function SujetCAN2022Premiere () {
             texteCorr = 'On calcule les termes avc la formule de récurrence :'
 
             for (let indice = 0; indice < k; indice++) {
-              texteCorr += `<br> $u_{${indice + 1}} = ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))} \\times ${a} =
+              texteCorr += `<br> $u_{${indice + 1}} = ${miseEnEvidence(' u_{' + indice + '}', arcenciel(indice, true))} \\times ${a} =
                     ${miseEnEvidence(u, arcenciel(indice, true))} \\times ${a} = ${miseEnEvidence(u * a, arcenciel(indice + 1, true))}$`
               u = u * a
             }
@@ -441,12 +471,16 @@ export default function SujetCAN2022Premiere () {
           if (choice([true, false])) {
             texte = `Donner l'arrondi au millième de $${texNombre(nbre, 6)}$.
              `
-            texteCorr = `Le chiffre qui suit les millièmes est $${texNombre(e * 10000, 0)}$, donc l'arrondi au millième de $${texNombre(nbre, 6)}$ est $${texNombre(arrondi(nbre, 3))}$`
+            if (e * 10000 < 5) {
+              texteCorr = `Le chiffre qui suit les millièmes est $${texNombre(e * 10000, 0)}<5$, donc l'arrondi au millième de $${texNombre(nbre, 6)}$ est $${texNombre(arrondi(nbre, 3))}$.`
+            } else { texteCorr = `Le chiffre qui suit les millièmes est $${texNombre(e * 10000, 0)}\\geqslant5$, donc l'arrondi au millième de $${texNombre(nbre, 6)}$ est $${texNombre(arrondi(nbre, 3))}$.` }
             reponse = arrondi(nbre, 3)
           } else {
             texte = `Donner l'arrondi au centième de $${texNombre(nbre, 6)}$.
           `
-            texteCorr = `Le chiffre qui suit les centièmes est $${texNombre(d * 1000, 0)}$, donc l'arrondi au millième de $${texNombre(nbre, 6)}$ est $${texNombre(arrondi(nbre, 2))}$`
+            if (d * 1000 < 5) {
+              texteCorr = `Le chiffre qui suit les centièmes est $${texNombre(d * 1000, 0)}<5$, donc l'arrondi au centième de $${texNombre(nbre, 6)}$ est $${texNombre(arrondi(nbre, 2))}$.`
+            } else { texteCorr = `Le chiffre qui suit les centième est $${texNombre(d * 1000, 0)}\\geqslant5$, donc l'arrondi au centième de $${texNombre(nbre, 6)}$ est $${texNombre(arrondi(nbre, 2))}$.` }
             reponse = arrondi(nbre, 2)
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -488,7 +522,8 @@ export default function SujetCAN2022Premiere () {
           reponse = b * a[3]
           texte = `Si l'on parcourt $${b}$ km en ${a[0]} minutes, alors la vitesse moyenne est : `
           texteCorr = `${a[1]} minutes représentent $\\dfrac{1}{${a[3]}}$ heure.<br>
-          Donc en $1$ heure on parcourt $${b}\\times ${a[3]}=${b * a[3]}$ km. La vitesse moyenne est donc $${b * a[3]}$ km/h. `
+          Donc en $1$ heure, on parcourt $${b}\\times ${a[3]}=${b * a[3]}$ km. <br>
+          La vitesse moyenne est donc $${b * a[3]}$ km/h. `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km/h' } else { texte += ' $\\ldots$ km/h' }
           nbChamps = 1
@@ -500,7 +535,7 @@ export default function SujetCAN2022Premiere () {
           texte = `On applique un coefficient multiplicateur de $${texNombre(a, 2)}$.<br>
           À quelle baisse, en pourcentage, cela correspond-il ?`
           texteCorr = `Multiplier par $${texNombre(a, 2)}$ revient à multiplier par $1-\\dfrac{${texNombre(100 - a * 100, 0)}}{100}$. <br>
-          Cela revient donc à baisser de $${texNombre(100 - a * 100)} \\%$. <br>`
+          Cela revient donc à baisser de $${texNombre(100 - a * 100)} \\%$. `
           reponse = new Decimal(a).mul(-1).add(1).mul(100)
           console.log(reponse)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -516,12 +551,12 @@ export default function SujetCAN2022Premiere () {
 
           if (!this.interactif) {
             texte = `$${texNombre(a + b, 2)}$ h $=$ ..... h ..... min`
-            texteCorr = `$${texNombre(a + b, 2)} $h$ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60$ min $  = ${a}$ h $${texNombre(d, 0)}$ min`
+            texteCorr = `$${texNombre(a + b, 2)}$ h $ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60$ min $  = ${a}$ h $${texNombre(d, 0)}$ min`
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$`
             texte += ajouteChampTexteMathLive(this, index, 'largeur10 inline', { texteApres: sp(5) + 'h' })
             texte += ajouteChampTexteMathLive(this, index + 1, 'largeur10 inline', { texteApres: sp(5) + 'min' })
-            texteCorr = `$${texNombre(a + b, 2)} $h$ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60$ min $ = ${a}$ h $${texNombre(d, 0)}$ min`
+            texteCorr = `$${texNombre(a + b, 2)}$ h $ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60$ min $ = ${a}$ h $${texNombre(d, 0)}$ min`
             setReponse(this, index, a)
             setReponse(this, index + 1, d)
             nbChamps = 2
@@ -810,16 +845,15 @@ export default function SujetCAN2022Premiere () {
           texte += '\\end{array}\n$'
 
           texteCorr = ` L'instruction $\\texttt{while u<${b}}$ signifie : tant que u<${b}.<br>
-  
-          On calcule les valeurs successives des  variables u et n. On s'arrête dès que u dépasse ${b} :<br>
-          On a au départ, u=${a} et n=0, puis, <br>`
+            On calcule les valeurs successives des  variables u et n. On s'arrête dès que u dépasse ${b} :<br>
+          On a au départ, u=${a} et n=0, puis, `
 
           while (a < b) {
-            texteCorr += `<br>n=${n + 1} et u=${a}$ +$ ${q} = ${a + q} `
+            texteCorr += `<br>n = ${n + 1} et u = ${a} $ +$ ${q} = ${a + q} `
             n = n + 1
             a = q + a
           }
-          texteCorr += `$> ${b}$. Donc l'algorithme retourne $${n}$ `
+          texteCorr += `$> ${b}$. Donc l'algorithme retourne $${n}$.`
           reponse = n
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -832,7 +866,7 @@ export default function SujetCAN2022Premiere () {
           b = k * a// BE
           c = randint(b, 22)// DC
           d = k * c// AD
-          A = point(6, 0, 'A', 'right', 'above')
+          A = point(6, 0, 'A', 'right', 'below')
           D = point(0.46, 2.92, 'D', 'above left')
           E = point(4, 1, 'E', 'below')
           B = point(6.22, 2, 'B', 'above right')
@@ -959,8 +993,8 @@ export default function SujetCAN2022Premiere () {
             reponse = a * a
             texte = `Donner l'aire d'un carré de périmètre $${4 * a}$ cm.`
 
-            texteCorr = `La longueur du côté est donnée par $${4 * a}}\\div 4=${a}$.<br>
-                      L'aire' est donc $ ${a}\\times ${a}=${a * a}$ cm$^2$. `
+            texteCorr = `La longueur du côté est donnée par $${4 * a}\\div 4=${a}$.<br>
+                      L'aire est donc $ ${a}\\times ${a}=${a * a}$ cm$^2$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm$^2$' }
           }

@@ -38,7 +38,7 @@ export default class AireAssemblageRectangles extends Exercice {
         const E = point(L - l2, l)
         const F = point(0, l)
         const G = point(L, l)
-        const p = polygone([A, B, C, D, E, F])
+        const p = polygone(A, B, C, D, E, F)
         p.couleurDeRemplissage = 'gray'
         p.opaciteDeRemplissage = 0.2
         const sCorr = segment(E, G)

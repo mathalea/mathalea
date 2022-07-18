@@ -1,7 +1,7 @@
 let A = point(10,0,'A','left')
 let B = point(randint(13,17),randint(-2,2),'B','right')
 let C = point(randint(8,12),randint(5,10),'C','above')
-let t = polygone([A,B,C])
+let t = polygone(A,B,C)
 let O = centreCercleCirconscrit(A,B,C,'O')
 let c = cercleCentrePoint(O,A)
 t.epaisseur = 2

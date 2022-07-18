@@ -72,7 +72,7 @@ export default function TrianglesEgaux () {
           nom1 = choisitLettresDifferentes(3)
           nom1 = nom1 + ' ' + choisitLettresDifferentes(2, nom1)
           nom1 = nom1.replaceAll(',', '')
-          nommeP1 = nommePolygone(polygone([A, B, C, D, E, F]), nom1)
+          nommeP1 = nommePolygone(polygone(A, B, C, D, E, F), nom1)
           Anom = nom1[0]
           Bnom = nom1[1]
           Cnom = nom1[2]
@@ -155,7 +155,7 @@ export default function TrianglesEgaux () {
           nom1 = choisitLettresDifferentes(3)
           nom1 = nom1 + ' ' + choisitLettresDifferentes(2, nom1)
           nom1 = nom1.replaceAll(',', '')
-          nommeP1 = nommePolygone(polygone([A, B, C, D, E, F]), nom1)
+          nommeP1 = nommePolygone(polygone(A, B, C, D, E, F), nom1)
           Anom = nom1[0]
           Bnom = nom1[1]
           Cnom = nom1[2]
@@ -238,7 +238,7 @@ export default function TrianglesEgaux () {
           nom1 = choisitLettresDifferentes(3)
           nom1 = nom1 + ' ' + choisitLettresDifferentes(2, nom1)
           nom1 = nom1.replaceAll(',', '')
-          nommeP1 = nommePolygone(polygone([A, B, C, D, E, F]), nom1)
+          nommeP1 = nommePolygone(polygone(A, B, C, D, E, F), nom1)
           Anom = nom1[0]
           Bnom = nom1[1]
           Cnom = nom1[2]

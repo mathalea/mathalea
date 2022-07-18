@@ -110,13 +110,13 @@ export default function PavagesEtTransformations () {
         yAxy = x * yAI + y * yAJ
         numAxy = 2 * x + 4 * y * nx
         tabfigA.push([xAxy, yAxy, numAxy])
-        quad[numAxy] = translation(polygone([A, B, C, D]), vecteur(xAxy, yAxy))
+        quad[numAxy] = translation(polygone(A, B, C, D), vecteur(xAxy, yAxy))
         tabfigB.push([xAxy + xB, yAxy + yB, numAxy + 1])
-        quad[numAxy + 1] = translation(rotation(polygone([A, B, C, D]), I, 180), vecteur(xAxy, yAxy))
+        quad[numAxy + 1] = translation(rotation(polygone(A, B, C, D), I, 180), vecteur(xAxy, yAxy))
         tabfigD.push([xAxy + xD, yAxy + yD, numAxy + 2 * nx])
-        quad[numAxy + 2 * nx] = translation(rotation(polygone([A, B, C, D]), J, 180), vecteur(xAxy, yAxy))
+        quad[numAxy + 2 * nx] = translation(rotation(polygone(A, B, C, D), J, 180), vecteur(xAxy, yAxy))
         tabfigC.push([xAxy + xC, yAxy + yC, numAxy + 2 * nx + 1])
-        quad[numAxy + 2 * nx + 1] = translation(translation(polygone([A, B, C, D]), vecteur(A, C)), vecteur(xAxy, yAxy))
+        quad[numAxy + 2 * nx + 1] = translation(translation(polygone(A, B, C, D), vecteur(A, C)), vecteur(xAxy, yAxy))
       }
     }
     for (let i = 0; i < quad.length; i++) {

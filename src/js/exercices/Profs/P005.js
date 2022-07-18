@@ -29,7 +29,7 @@ export default function FeuilleDeGrilles () {
           B = point(1 + j * 1.1, -0.5)
           C = point(1 + j * 1.1, 0.5)
           D = point(0 + j * 1.1, 0.5)
-          objets.push(polygone([A, B, C, D]))
+          objets.push(polygone(A, B, C, D))
         }
         objets.push(segment(point(11.5, 0.5), point(15, 2), 'gray'))
         objets.push(segment(point(11.5, -0.5), point(15, -2), 'gray'))
@@ -61,7 +61,7 @@ export default function FeuilleDeGrilles () {
           B = point(1 + j * 1.1, -0.5)
           C = point(1 + j * 1.1, 0.5)
           D = point(0 + j * 1.1, 0.5)
-          objets.push(polygone([A, B, C, D]))
+          objets.push(polygone(A, B, C, D))
         }
         objets.push(segment(point(11.5, 0.5), point(15, 2.5)))
         objets.push(segment(point(11.5, -0.5), point(15, -2.5)))
@@ -83,7 +83,7 @@ export default function FeuilleDeGrilles () {
           B = point(1 + j * 1.1, -0.5)
           C = point(1 + j * 1.1, 0.5)
           D = point(0 + j * 1.1, 0.5)
-          objets.push(polygone([A, B, C, D]))
+          objets.push(polygone(A, B, C, D))
         }
         objets.push(carre(point(1, 1.5), point(2, 1.5)))
         objets.push(texteParPosition('= 1 unité', 3.5, 2))

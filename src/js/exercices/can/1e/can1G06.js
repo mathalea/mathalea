@@ -37,7 +37,7 @@ export default function ProduitScalaireFiguresClassiques () {
         angle = choice([30, 45, 60])
         C = pointAdistance(B, a, angle, 'C', 'above')
         D = pointAdistance(A, a, angle, 'D', 'above')
-        poly = polygone([A, B, C, D])
+        poly = polygone(A, B, C, D)
         a1 = afficheLongueurSegment(B, A, 'black', 0.5, '')
         a2 = afficheLongueurSegment(C, B, 'black', 0.5, '')
         a3 = afficheMesureAngle(B, A, D, 'black', 1.5, `${angle}°`)
@@ -113,7 +113,7 @@ export default function ProduitScalaireFiguresClassiques () {
 
         C = pointAdistance(B, a, 90, 'C', 'above')
         D = pointAdistance(A, a, 90, 'D', 'above')
-        poly = polygone([A, B, C, D])
+        poly = polygone(A, B, C, D)
         I = milieu(A, B, 'I', 'below')
         a1 = afficheLongueurSegment(D, C, 'black', 0.5, '')
         a2 = afficheLongueurSegment(C, B, 'black', 0.5, '')
@@ -198,7 +198,7 @@ export default function ProduitScalaireFiguresClassiques () {
         D = pointAdistance(A, c, 90, 'D', 'above')
         C = pointAdistance(D, b, 0, 'C', 'above')
 
-        poly = polygone([A, B, C, D])
+        poly = polygone(A, B, C, D)
         a1 = afficheLongueurSegment(B, A, 'black', 0.5, '')
         a2 = afficheLongueurSegment(D, C, 'black', 0.5, '')
 
@@ -258,7 +258,7 @@ export default function ProduitScalaireFiguresClassiques () {
         E = pointAdistance(D, a, 180, 'E', 'above')
         F = pointAdistance(E, a, -120, 'F', 'left')
         O = milieu(F, C, 'O', 'below')
-        poly = polygone([A, B, C, D, E, F])
+        poly = polygone(A, B, C, D, E, F)
         a1 = afficheLongueurSegment(B, A, 'black', 0.5, '')
         a2 = afficheLongueurSegment(D, C, 'black', 0.5, '')
         a3 = afficheLongueurSegment(E, D, 'black', 0.5, '')

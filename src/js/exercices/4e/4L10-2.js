@@ -44,7 +44,7 @@ export default function AirePerimetrePolygone () {
           B = pointAdistance(A, 4, 0)
           C = rotation(A, B, -90)
           D = rotation(B, A, 90)
-          quad = polygone([A, B, C, D])
+          quad = polygone(A, B, C, D)
           quad.epaisseur = 2
           texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
             quad, codageAngleDroit(A, B, C), codageAngleDroit(A, D, C), codageAngleDroit(D, C, B), codageAngleDroit(B, A, D), codageSegments('//', 'blue', A, B, B, C, C, D, D, A), texteParPosition(`$${inc1}$`, 2, 4.7)
@@ -62,7 +62,7 @@ export default function AirePerimetrePolygone () {
           F = pointAdistance(E, 6, 0)
           G = similitude(E, F, -90, 2 / 3)
           H = translation(G, vecteur(F, E))
-          quad = polygone([E, F, G, H])
+          quad = polygone(E, F, G, H)
           quad.epaisseur = 2
           o = choice([1, 2])
           if (o === 1) {
@@ -99,7 +99,7 @@ export default function AirePerimetrePolygone () {
           M = point(4, 2.3)
           N = point(2, 2)
           P = point(4, 2)
-          quad = polygone([E, F, G, H])
+          quad = polygone(E, F, G, H)
           quad.epaisseur = 2
           o = choice([1, 2])
           if (o === 1) {
@@ -132,7 +132,7 @@ export default function AirePerimetrePolygone () {
           H = translation(G, vecteur(F, E))
           I = point(l, 3.7)
           J = point(l, 4.3)
-          quad = polygone([E, F, G, H])
+          quad = polygone(E, F, G, H)
           quad.epaisseur = 2
           texte += mathalea2d({ xmin: -1, xmax: 8, ymin: -1, ymax: 5, pixelsParCm: 20 },
             quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), segment(I, J), texteParPosition(`$${inc1}$`, l / 2, 4.7), texteParPosition(`$${inc2}$`, 3 + l / 2, 4.7), texteParPosition(l, -0.7, 2)

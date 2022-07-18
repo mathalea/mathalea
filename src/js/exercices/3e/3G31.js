@@ -95,8 +95,8 @@ export default function CalculDAngle () {
     const bb = point(ab, 0)
     const c = point(0, ac / ratioerreur)
     const cb = point(0, ac)
-    const p1 = polygone([a, b, c])
-    const p3 = polygone([a, bb, cb])
+    const p1 = polygone(a, b, c)
+    const p3 = polygone(a, bb, cb)
     // p1.isVisible = false
     const alpha = randint(0, 360)
     const p2 = rotation(p1, a, alpha)

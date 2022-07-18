@@ -44,7 +44,7 @@ export default class ProblemesEnEquation extends Exercice {
     const O = point(6, 1.5)
     const B = point(0, 0)
     const A = point(0, 3)
-    const OAB = polygone([O, A, B])
+    const OAB = polygone(O, A, B)
     const codage = codageSegments('//', 'black', O, A, O, B)
     return mathalea2d({ xmin: -1, xmax: 7, ymin: -1, ymax: 4, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB, codage)
   }
@@ -53,7 +53,7 @@ export default class ProblemesEnEquation extends Exercice {
     const O = point(3, 1.5)
     const B = point(6, 0)
     const A = point(0, 0)
-    const OAB = polygone([O, A, B])
+    const OAB = polygone(O, A, B)
     const codage = codageSegments('//', 'black', O, A, O, B)
     return mathalea2d({ xmin: -1, xmax: 7, ymin: -1, ymax: 2.5, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB, codage)
   }

@@ -33,7 +33,7 @@ export default function ParallelogrammeAPartirDUneFigure () {
     const D = point(1.5, -3)
     const O = milieu(A, C)
     O.nom = 'O'
-    const p = polygone([A, B, C, D])
+    const p = polygone(A, B, C, D)
     const sAC = segment(A, C)
     sAC.pointilles = 5
     const sBD = segment(B, D)
@@ -68,7 +68,7 @@ export default function ParallelogrammeAPartirDUneFigure () {
     const N1 = point(-1, -2)
     const O1 = point(0, -6)
     const P1 = point(1, -2)
-    const p1 = polygone([M1, N1, O1, P1])
+    const p1 = polygone(M1, N1, O1, P1)
 
     const codecerf1 = codageSegment(M1, N1, 'X', 'blue')
     const codecerf2 = codageSegment(M1, P1, 'X', 'blue')

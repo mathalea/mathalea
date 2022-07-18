@@ -51,7 +51,7 @@ export default function NommerEtCoderDesPolygones () {
             A = point(3, randint(0, 20) / 10, nom[0])
             B = point(randint(7, 8), randint(0, 10) / 10, nom[1])
             C = rotation(B, A, randint(25, 80), nom[2])
-            q = polygone([A, B, C])
+            q = polygone(A, B, C)
             p = rotation(q, barycentre(q), randint(0, 360))
             A = p.listePoints[0]
             B = p.listePoints[1]
@@ -64,7 +64,7 @@ export default function NommerEtCoderDesPolygones () {
             A = point(3, randint(0, 20) / 10, nom[0])
             B = point(randint(7, 8), randint(0, 10) / 10, nom[1])
             C = rotation(B, A, 60, nom[2])
-            q = polygone([A, B, C])
+            q = polygone(A, B, C)
             p = rotation(q, barycentre(q), randint(0, 360))
             A = p.listePoints[0]
             B = p.listePoints[1]
@@ -77,7 +77,7 @@ export default function NommerEtCoderDesPolygones () {
             A = point(3, randint(0, 20) / 10, nom[0])
             B = point(randint(7, 8), randint(0, 10) / 10, nom[1])
             C = similitude(B, A, 90, randint(30, 100) / 100, nom[2])
-            q = polygone([A, B, C])
+            q = polygone(A, B, C)
             p = rotation(q, barycentre(q), randint(0, 360))
             A = p.listePoints[0]
             B = p.listePoints[1]
@@ -90,7 +90,7 @@ export default function NommerEtCoderDesPolygones () {
             A = point(3, randint(0, 20) / 10, nom[0])
             B = point(randint(7, 8), randint(0, 10) / 10, nom[1])
             C = rotation(B, A, 90, nom[2])
-            q = polygone([A, B, C])
+            q = polygone(A, B, C)
             p = rotation(q, barycentre(q), randint(0, 360))
             A = p.listePoints[0]
             B = p.listePoints[1]
@@ -118,7 +118,7 @@ export default function NommerEtCoderDesPolygones () {
             B = point(randint(7, 8), randint(10, 30) / 10, nom[1])
             C = similitude(A, B, -90, randint(30, 80) / 100, nom[2])
             D = translation(C, vecteur(B, A), nom[3])
-            q = polygone([A, B, C, D])
+            q = polygone(A, B, C, D)
             p = rotation(q, barycentre(q), randint(0, 360))
             A = p.listePoints[0]
             B = p.listePoints[1]
@@ -133,7 +133,7 @@ export default function NommerEtCoderDesPolygones () {
             B = point(randint(7, 8), randint(10, 30) / 10, nom[1])
             C = rotation(A, B, randint(100, 150), nom[2])
             D = translation(C, vecteur(B, A), nom[3])
-            q = polygone([A, B, C, D])
+            q = polygone(A, B, C, D)
             p = rotation(q, barycentre(q), randint(0, 360))
             A = p.listePoints[0]
             B = p.listePoints[1]
@@ -148,7 +148,7 @@ export default function NommerEtCoderDesPolygones () {
             B = point(randint(7, 8), randint(10, 30) / 10, nom[1])
             D = similitude(B, A, 90, randint(30, 80) / 100, nom[3])
             C = translation(D, homothetie(vecteur(A, B), A, randint(30, 80) / 100), nom[2])
-            q = polygone([A, B, C, D])
+            q = polygone(A, B, C, D)
             p = rotation(q, barycentre(q), randint(0, 360))
             A = p.listePoints[0]
             B = p.listePoints[1]
