@@ -203,8 +203,8 @@ export default function SujetCAN2022Seconde () {
           nbChamps = 1
           break
         case 7:
-          a = randint(1, 10)
-          b = randint(1, 10, a)
+          a = randint(2, 10)
+          b = randint(2, 10, a)
 
           f = new FractionX(a, a + b)
           texte = `Une urne contient $${a}$ boules noires et $${b}$ boules blanches.<br>
@@ -476,7 +476,7 @@ export default function SujetCAN2022Seconde () {
             }
             texteCorr = `Si on va $k$ fois plus de fois à la piscine, le prix payé n'est  pas $k$ fois plus immportant (il est égal à $${n}\\times ${a}\\times k +${b}$).<br>
 
-                        Ces deux grandeurs  sont donc proportionnelles. `
+                        Ces deux grandeurs sont donc proportionnelles. `
           }
           if (choix === 'e') {
             texte = `VRAI/FAUX<br>
@@ -499,7 +499,7 @@ export default function SujetCAN2022Seconde () {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
             }
             texteCorr = `Le périmètre d'un carré de côté $c$ est donné par : $4\\times c$.<br>
-              Si on multiplie la longueur de son côté par $k$, le périmètre du nouveau carré est alors : $4\\timesc\\times k$. Le périmètre est donc aussi  multiplié par $k$. <br>
+              Si on multiplie la longueur de son côté par $k$, le périmètre du nouveau carré est alors : $4\\times\\times k$. Le périmètre est donc aussi  multiplié par $k$. <br>
               Ces deux grandeurs  sont  donc  proportionnelles. `
           }
           nbChamps = 1
@@ -977,9 +977,7 @@ export default function SujetCAN2022Seconde () {
           texte += '\\end{array}\n$<br>'
           texte += `Que renvoie l'instruction $\\texttt{fin(${b})}$ ?`
           texteCorr = ` L'instruction $\\texttt{while a<${b}}$ signifie : tant que a<$${b}$.<br>
-  
-          
-          On a au départ, a=0 et l'algorithme s'arrête lorsque $a$ dépasse $${b}$. La valeur retournée est donc le plus petit multiple de $${q}$ supérieur ou égal à $${b}$.`
+          On a au départ, a=0 et l'algorithme s'arrête lorsque a dépasse $${b}$. La valeur retournée est donc le plus petit multiple de $${q}$ supérieur ou égal à $${b}$.`
 
           while (a < b) {
             a = q + a
