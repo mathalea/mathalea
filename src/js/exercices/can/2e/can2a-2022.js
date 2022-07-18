@@ -424,7 +424,7 @@ export default function SujetCAN2022Seconde () {
               Ces deux grandeurs ne sont pas proportionnelles. `
           } if (choix === 'b') {
             texte = `VRAI/FAUX<br>
-         L'aire d'un disque est proportionnel à son rayon.`
+         L'aire d'un disque est proportionnelle à son rayon.`
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
             if (this.interactif) {
               texte += '<br>Pour VRAI, écrire V et pour FAUX : F'
