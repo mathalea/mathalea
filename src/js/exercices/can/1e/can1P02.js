@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, texNombre, choisitLettresDifferentes, sp } from '../../../modules/outils.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { Arbre } from '../../../modules/arbres.js'
 import { mathalea2d } from '../../../modules/2d.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
@@ -15,7 +15,7 @@ export const amcType = 'AMCNum'
 /**
  * On donne un arbre de probabilité et lit une probabilité sur l'arbre
  * @author Gilles Mora
- 
+
 */
 export default function LectureProbabilite () {
   Exercice.call(this) // Héritage de la classe Exercice()

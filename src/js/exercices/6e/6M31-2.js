@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, sp, nom
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { min } from 'mathjs'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 export const titre = 'Convertir des volumes ou des capacités'
 export const amcReady = true
 export const amcType = 'AMCNum'

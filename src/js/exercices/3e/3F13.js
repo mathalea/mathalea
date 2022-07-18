@@ -1,6 +1,6 @@
 /* eslint-disable no-sequences */
 import Exercice from '../Exercice.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, resolutionSystemeLineaire2x2 } from '../../modules/outils.js'
 import { courbe, mathalea2d, repere } from '../../modules/2d.js'

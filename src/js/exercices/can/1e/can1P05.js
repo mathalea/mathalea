@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, texNombre } from '../../../modules/outils.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { Arbre } from '../../../modules/arbres.js'
 import { mathalea2d } from '../../../modules/2d.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'

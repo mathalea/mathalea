@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu, combinaisonListes, prenomPronom, premiereLettreEnMajuscule, texNombre, contraindreValeur, compteOccurences, rangeMinMax } from '../../modules/outils.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
