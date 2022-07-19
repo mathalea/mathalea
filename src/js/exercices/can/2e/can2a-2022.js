@@ -875,7 +875,7 @@ export default function SujetCAN2022Seconde () {
           texteCorr = `L'équation $x^2-${a}=${c ** 2 - a}$ est équivalente à $x^2=${c ** 2}$.<br>
           Cette équation a deux solutions $${-c}$ et $${c}$. La solution négative est donc $${-c}$.
           `
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           nbChamps = 1
