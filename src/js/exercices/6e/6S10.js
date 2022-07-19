@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, premiereLettreEnMajuscule, numAlpha, calcul, sp } from '../../modules/outils.js'
-import { repere2, traceBarre, mathalea2d } from '../../modules/2d.js'
+import { repere, traceBarre, mathalea2d } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -119,7 +119,7 @@ export default function LectureDiagrammeBarre () {
         break
     }
 
-    const r = repere2({
+    const r = repere({
       grilleX: false,
       grilleY: 'pointilles',
       xThickListe: [],

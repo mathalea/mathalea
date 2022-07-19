@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, cesar } from '../../modules/outils.js'
-import { point, polygoneRegulier, repere2, graphiqueInterpole, mathalea2d } from '../../modules/2d.js'
+import { point, polygoneRegulier, repere, graphiqueInterpole, mathalea2d } from '../../modules/2d.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Spécial escape game'
 export const interactifReady = true
@@ -77,7 +77,7 @@ export default function PremierEscapeGameMathalea () {
     }
     // On calcule les ordonnées de début et de fin de chaque courbe
     const ord0 = [0, 0, 0, 0]; const ord6 = [0, 0, 0, 0]
-    const r = repere2({ xMin: -1, yMin: -1, xMax: 7, yMax: 6, xUnite: 2 })
+    const r = repere({ xMin: -1, yMin: -1, xMax: 7, yMax: 6, xUnite: 2 })
 
     for (let i = 0; i < type * 2 + 2; i += 2) {
       if (ord[i] > ord[i + 1]) {

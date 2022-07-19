@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, repere2, courbe2, labelPoint, segment, milieu, texteParPosition, codageSegment
+  mathalea2d, point, repere, courbe, labelPoint, segment, milieu, texteParPosition, codageSegment
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, stringNombre, randint, ecritureAlgebrique, texNombre, texFractionReduite, printlatex, shuffle, simplificationDeFractionAvecEtapes, choice, calcul, sp } from '../../../modules/outils.js'
@@ -191,14 +191,14 @@ export default function SujetCAN2021Seconde () {
             b = choice([-1, -2])
             texte = `Ecriture décimale de : <br>
                         $10^3+${a}\\times 10^2+10^{${b}}$`
-            texteCorr = `$10^3+${a}\\times 10^2+10^{${b}}=1000+${a * 100}+${texNombre(10 ** b,2)}=${texNombre(1000 + a * 100 + 10 ** b,2)}$`
+            texteCorr = `$10^3+${a}\\times 10^2+10^{${b}}=1000+${a * 100}+${texNombre(10 ** b, 2)}=${texNombre(1000 + a * 100 + 10 ** b, 2)}$`
             reponse = 1000 + a * 100 + 10 ** b
           } else {
             a = randint(2, 9)
             b = choice([-1, -2])
             texte = `Ecriture décimale de : <br>
                          $${a}\\times 10^3+ 10^2+10^{${b}}$`
-            texteCorr = `$${a}\\times10^3+ 10^2+10^{${b}}=${a * 1000}+100+${texNombre(10 ** b,2)}=${texNombre(a * 1000 + 100 + 10 ** b,2)}$`
+            texteCorr = `$${a}\\times10^3+ 10^2+10^{${b}}=${a * 1000}+100+${texNombre(10 ** b, 2)}=${texNombre(a * 1000 + 100 + 10 ** b, 2)}$`
             reponse = a * 1000 + 100 + 10 ** b
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -227,28 +227,28 @@ export default function SujetCAN2021Seconde () {
             a = randint(11, 39, [10, 20, 30]) / 1000
             truc = a * 100
             reponse = `${stringNombre(truc)}\\times 10^{-2}`
-            texte = `Ecriture  scientifique de $${texNombre(a,3)}$`
+            texte = `Ecriture  scientifique de $${texNombre(a, 3)}$`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
-            Ici : $${texNombre(a,3)}=\\underbrace{${texNombre(truc,3)}}_{1\\leqslant ${texNombre(truc,3)} <10}\\times 10^{-2}$. `
+            Ici : $${texNombre(a, 3)}=\\underbrace{${texNombre(truc, 3)}}_{1\\leqslant ${texNombre(truc, 3)} <10}\\times 10^{-2}$. `
           }
           if (choix === 'b') {
             a = randint(111, 399, [200, 300]) / 100000
             truc = a * 1000
             reponse = `${stringNombre(truc)}\\times 10^{-3}`
-            texte = `Ecriture  scientifique de $${texNombre(a,5)}$`
+            texte = `Ecriture  scientifique de $${texNombre(a, 5)}$`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
-              Ici : $${texNombre(a,5)}=\\underbrace{${texNombre(truc,5)}}_{1\\leqslant ${texNombre(truc,5)} <10}\\times 10^{-3}$. `
+              Ici : $${texNombre(a, 5)}=\\underbrace{${texNombre(truc, 5)}}_{1\\leqslant ${texNombre(truc, 5)} <10}\\times 10^{-3}$. `
           }
           if (choix === 'c') {
             a = randint(111, 399, [200, 300]) / 1000000
             truc = a * 10000
             reponse = `${stringNombre(truc)}\\times 10^{-4}`
-            texte = `Ecriture  scientifique de $${texNombre(a,6)}$`
+            texte = `Ecriture  scientifique de $${texNombre(a, 6)}$`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
-                Ici : $${texNombre(a,6)}=\\underbrace{${texNombre(truc,6)}}_{1\\leqslant ${texNombre(truc,6)} <10}\\times 10^{-4}$. `
+                Ici : $${texNombre(a, 6)}=\\underbrace{${texNombre(truc, 6)}}_{1\\leqslant ${texNombre(truc, 6)} <10}\\times 10^{-4}$. `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -300,17 +300,17 @@ export default function SujetCAN2021Seconde () {
             a = randint(11, 39, [10, 20, 30]) + randint(1, 9) / 10
 
             reponse = a * 1000
-            texte = `$${texNombre(a,1)}$ m$^3=$`
+            texte = `$${texNombre(a, 1)}$ m$^3=$`
 
-            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a,1)}$ m$^3=${texNombre(a,1)}\\times 1000$ L$=${texNombre(a * 1000,1)}$ L`
+            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 1)}$ m$^3=${texNombre(a, 1)}\\times 1000$ L$=${texNombre(a * 1000, 1)}$ L`
           }
           if (choix === 'b') {
             a = randint(11, 39, [10, 20, 30]) + randint(11, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90]) / 100
 
             reponse = a * 1000
-            texte = `$${texNombre(a,2)}$ m$^3=$`
+            texte = `$${texNombre(a, 2)}$ m$^3=$`
 
-            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a,2)}$ m$^3=${texNombre(a,2)}\\times 1000$ L$=${texNombre(a * 1000,2)}$ L`
+            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 2)}$ m$^3=${texNombre(a, 2)}\\times 1000$ L$=${texNombre(a * 1000, 2)}$ L`
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -366,11 +366,11 @@ export default function SujetCAN2021Seconde () {
           a = randint(5, 99) / 10
           b = randint(2, 9) * 5
           c = 100 - b
-          texte = `$${b}\\times${texNombre(a,1)} + ${texNombre(a,1)}\\times${c}=$ 
+          texte = `$${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}=$ 
       `
           texteCorr = ` On factorise : <br>     $\\begin{aligned}
-      ${b}\\times${texNombre(a,1)} + ${texNombre(a,1)}\\times${c}&=${texNombre(a,1)}\\times \\underbrace{(${b}+${c})}_{=100}\\\\
-      &=${texNombre(a,1)}\\times 100\\\\
+      ${b}\\times${texNombre(a, 1)} + ${texNombre(a, 1)}\\times${c}&=${texNombre(a, 1)}\\times \\underbrace{(${b}+${c})}_{=100}\\\\
+      &=${texNombre(a, 1)}\\times 100\\\\
       &=${100 * a}
       \\end{aligned}$`
           reponse = 100 * a
@@ -390,7 +390,7 @@ export default function SujetCAN2021Seconde () {
           texteCorr = `Les coordonnées du milieu sont  données par : 
         $\\left(\\dfrac{${a}+${b}}{2};\\dfrac{${c}+${d}}{2}\\right)=
         \\left(\\dfrac{${a + b}}{2};\\dfrac{${c + d}}{2}\\right)=
-        (${texNombre((a + b) / 2,1)};${texNombre((c + d) / 2,1)})$.`
+        (${texNombre((a + b) / 2, 1)};${texNombre((c + d) / 2, 1)})$.`
           if (this.interactif) {
             setReponse(this, index, fraction(a + b, 2), { formatInteractif: 'fractionEgale' })
             texte += '<br>$\\Bigg($'
@@ -671,7 +671,7 @@ export default function SujetCAN2021Seconde () {
           Combien pèse (en kg) ce solide qui a la forme d'un cube  d'arête $${a}$ cm  ? 
       `
           texteCorr = `Le volume du cube est $${a}^3=${a ** 3}$ cm$^3$.<br>
-          Sa masse  est donc donnée par $${a ** 3}\\times 10=${10 * a ** 3}$ g soit $${texNombre(a ** 3 / 100,2)}$ kg.
+          Sa masse  est donc donnée par $${a ** 3}\\times 10=${10 * a ** 3}$ g soit $${texNombre(a ** 3 / 100, 2)}$ kg.
 
           `
 
@@ -684,10 +684,10 @@ export default function SujetCAN2021Seconde () {
           a = randint(-1, 6)
           b = randint(1, 4) + randint(1, 9) / 10
 
-          r = repere2({ xMin: -4, xMax: 4, yMin: -3, yMax: 8, xUnite: 2, yUnite: 1 })
-          // courbe2(x => a * x + b, { repere: repere, color: 'blue' })
+          r = repere({ xMin: -4, xMax: 4, yMin: -3, yMax: 8, xUnite: 2, yUnite: 1 })
+          // courbe(x => a * x + b, { repere: r, color: 'blue' })
           f = x => 0.5 * x ** 3 + b
-          C = courbe2(f, { repere: r, color: 'red' })
+          C = courbe(f, { repere: r, color: 'red' })
 
           reponse = [Math.cbrt(2 * (a - b)) - 0.1, Math.cbrt(2 * (a - b)) + 0.1]
           texte = `Voici la courbe d'une fonction $f$. <br>

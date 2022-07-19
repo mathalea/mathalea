@@ -1,4 +1,4 @@
 let mesPoints = [[0,5],[4,-2],[7,4],[10,-3]]
-let r = repere({xmin:0,xmax:10,grillePrincipalePointilles:true,ymin:-4})
-courbeInterpolee(mesPoints,'blue',3,r,2,6)// On ne trace la courbe uniquement pour x compris entre 2 et 6
+let r = repere({xMin:0,xMax:10,yMin:-4,yMax:6})
+const c = courbeInterpolee(mesPoints, {color: 'blue', epaisseur: 3, repere: r, xMin: 2, xMax: 6})// On ne trace la courbe uniquement pour x compris entre 2 et 6
 

@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 462 
-- nombre d'exos interactifReady 707 
+- nombre d'exos amcReady 472 
+- nombre d'exos interactifReady 718 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -450,6 +450,10 @@
 |can1L08|Déterminer un coefficient dans un développement*|KO|KO|OK|mathLive|
 |can1L09|Résoudre une équation $ax^2+bx+c=c$ |KO|KO|OK|mathLive|
 |can1P01|Calculer des probabilités à partir d’un arbre|OK|AMCNum|OK|mathLive|
+|can1P02|Lire une probabilité  à partir d’un arbre|OK|AMCNum|OK|mathLive|
+|can1P03|Calculer la probabilité d’une intersection à partir d’un arbre|OK|AMCNum|OK|mathLive|
+|can1P05|Utiliser la formule des probabilités totales dans un arbre|OK|AMCNum|OK|mathLive|
+|can1P06|Déterminer une probabilté dans un tableau de probabilités|OK|AMCNum|OK|mathLive|
 |can1S01|Calculer un terme d’une suite explicite|KO|KO|OK|mathLive|
 |can1S02|Calculer un terme d’une suite récurrente|KO|KO|OK|mathLive|
 |can1S03|Calculer un terme d’une suite récurrente*|KO|KO|OK|mathLive|
@@ -528,6 +532,7 @@
 |can3C10|Encadrer avec des puissances de 10|KO|KO|OK|mathLive|
 |can3C11|Simplifier des fractions ou des racines carrées|OK|AMCNum|OK|mathLive|
 |can3C12|Encadrer une racine carrée|OK|AMCNum|OK|mathLive|
+|can3C13|Pyramide additive fractions|OK|AMCNum|OK|mathLive|
 |can3F01|Lire une image graphiquement|OK|AMCNum|OK|mathLive|
 |can3F02|Calculer une image par une fonction linéaire|OK|AMCNum|OK|mathLive|
 |can3F03|Calculer une image par une fonction affine|OK|AMCNum|OK|mathLive|
@@ -568,6 +573,7 @@
 |can4C08|Calculer une somme de puissances de 10|OK|AMCNum|OK|mathLive|
 |can4C09|Calculer des puissances de +/-2, 3, 4 ou 5|OK|AMCNum|OK|mathLive|
 |can4C10|Calculer une somme/différence de fractions égyptiennes|OK|AMCNum|OK|mathLive|
+|can4C11|Déterminer le signe d’une puissance|KO|KO|OK|qcm|
 |can4G01|Déterminer une longueur avec des triangles semblables|OK|AMCNum|OK|mathLive|
 |can4G02|Trouver l’image d’un point par une transformation|KO|KO|OK|mathLive|
 |can4G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|
@@ -662,6 +668,9 @@
 |can6C29|Résoudre un problème de partage|OK|AMCNum|OK|mathLive|
 |can6C30|Multiplier deux décimaux|OK|AMCNum|OK|mathLive|
 |can6C31|Soustraire un décimal d’un entier|OK|AMCNum|OK|mathLive|
+|can6C32|Pyramide additive|OK|AMCNum|OK|mathLive|
+|can6C33|Pyramide multiplicative|OK|AMCNum|OK|mathLive|
+|can6C34|Pyramide additive inverse|OK|AMCNum|OK|mathLive|
 |can6D01|Convertir des Heures/minutes en minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Chercher un reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calculer une durée en minutes|OK|AMCNum|OK|mathLive|
@@ -682,6 +691,8 @@
 |can6M07|Compléter un volume au litre|OK|AMCNum|OK|mathLive|
 |can6M08|Comparer des aires (V/F)|OK|qcmMono|OK|qcm|
 |can6M09|Calculer des longueurs à partir des périmètres|KO|KO|OK|mathLive|
+|can6M10|Volume de pavé droit|OK|AMCNum|OK|mathLive|
+|can6M11|Volume de pavé droit par dénombrement de cubes unités|OK|AMCNum|OK|mathLive|
 |can6N01|Recomposer un entier|OK|AMCNum|OK|mathLive|
 |can6N02|Recomposer un entier (bis)|OK|AMCNum|OK|mathLive|
 |can6N03|Recomposer un entier*|OK|AMCNum|OK|mathLive|

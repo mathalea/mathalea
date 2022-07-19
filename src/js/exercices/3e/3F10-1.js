@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { droiteParPointEtPente, mathalea2d, point, repere2, tracePoint } from '../../modules/2d.js'
+import { droiteParPointEtPente, mathalea2d, point, repere, tracePoint } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -33,7 +33,7 @@ export default function VocabulaireNotationsFonctions () {
     this.autoCorrection = []
 
     let typesDeQuestionsDisponibles
-    const r = repere2({ xMin: -10, xMax: 10, yMin: -10, yMax: 10 })
+    const r = repere({ xMin: -10, xMax: 10, yMin: -10, yMax: 10 })
     switch (this.sup) {
       case 1: // vocabulaire
         typesDeQuestionsDisponibles = ['vocabulaire']

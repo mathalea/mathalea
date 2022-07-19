@@ -1,4 +1,4 @@
-import { courbeSpline, mathalea2d, point, repere2, tracePoint } from '../../modules/2d.js'
+import { courbeSpline, mathalea2d, point, repere, tracePoint } from '../../modules/2d.js'
 import { splineCatmullRom } from '../../modules/fonctionsMaths.js'
 import Exercice from '../Exercice.js'
 export const titre = 'Interpollation de Catmull-Rom'
@@ -43,7 +43,7 @@ export default function TraceCourbeInterpolee1 () {
       yMin = Math.min(yMin, ordonnees[i])
       yMax = Math.max(yMax, ordonnees[i])
     }
-    const r = repere2({ xMin: xMin - 1, xMax: xMax + 1, yMin: yMin - 1, yax: yMax - 1 })
+    const r = repere({ xMin: xMin - 1, xMax: xMax + 1, yMin: yMin - 1, yax: yMax - 1 })
     const f = splineCatmullRom({
       tabY: ordonnees,
       x0: xMin,

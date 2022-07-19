@@ -72,7 +72,7 @@ export default function ProbabilitesNotation () {
             } else { texte += `${sp(7)}$\\ldots\\ldots $` }
             texte += ` $= ${texNombre(p2, 2)}$`
             texteCorr = `$P_{\\overline{F}}(R)=${texNombre(p2, 2)}$.`
-            setReponse(this, i, ['P_{\\overline{F}}(R)', 'p_{\\overline{F}}(R)', 'P{_\\overline{F}}(R)', 'P\\overline{_F}({R})',  'P\\overline{_F}({R})'])
+            setReponse(this, i, ['P_{\\overline{F}}({R})', 'p_{\\overline{F}}({R})', 'P{_\\overline{F}}({R})', 'P\\overline{_F}({R})', 'P\\overline{_F}({R})'])
           }
           if (choix === 'q4') {
             texte += ` Dans ce lycée il y a $${p1} \\%$ de garçons demi-pensionnaires.<br>
