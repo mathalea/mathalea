@@ -3427,12 +3427,12 @@ export function cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
  */
 function Ellipse (O, rx, ry, color = 'black') {
   ObjetMathalea2D.call(this)
-  this.color = colorToLatexOrHTML(color)
+  this.color = color
   this.centre = O
   this.rx = rx
   this.ry = ry
   this.couleurDeRemplissage = ''
-  this.opaciteDeRemplissage = 1.1
+  this.opaciteDeRemplissage = 1
   this.bordures = [O.x - rx, O.y - ry, O.x + rx, O.y + ry]
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
