@@ -296,10 +296,10 @@ export default function SujetCAN20213ieme () {
           sCote2.styleExtremites = '<->'
           objets = []
           objets.push(
-            texteParPosition(`$${a} $`, milieu(B, E).x + 0.4, milieu(B, E).y - 0.3, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('$\\large \\text{?}$', milieu(A, E).x - 0.4, milieu(A, E).y + 0.7, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${b} $`, milieu(D, C).x + 0.5, milieu(D, C).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${d} $`, milieu(A, D).x - 1, milieu(A, D).y + 1.5, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${a} `, milieu(B, E).x + 0.4, milieu(B, E).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('?', milieu(A, E).x - 0.4, milieu(A, E).y + 0.7, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${b} `, milieu(D, C).x + 0.5, milieu(D, C).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${d} `, milieu(A, D).x - 1, milieu(A, D).y + 1.5, 'milieu', 'black', 1, 'middle', true),
             demiDroite(A, C), demiDroite(A, D), labelPoint(A, B, C, D, E), segment(A, D), segment(A, C), segment(B, E), segment(D, C), sCote1, sCote2)
           reponse = c
           texte = '$(BE)//(DC)$.  Détermine la longueur $AE$.<br>'
@@ -379,11 +379,11 @@ export default function SujetCAN20213ieme () {
           xmin = -3
           ymin = -5
           xmax = 3
-          ymax = 1
+          ymax = 1.5
           objets = []
           objets.push(
-            texteParPosition('$3 \\text{ cm} $', milieu(A, C).x, milieu(A, C).y + 0.25 * context.zoom, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${b} \\text{ cm} $`, milieu(A, D).x + 0.4 * context.zoom, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('3 cm ', milieu(A, C).x, milieu(A, C).y + 0.15 * context.zoom, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${b} cm `, milieu(A, D).x + 0.2 * context.zoom, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
             segment(B, D), segment(D, C), s1, s2, c)
           reponse = 3 * b
           texte = 'Donne le volume exact de ce cône.<br>'

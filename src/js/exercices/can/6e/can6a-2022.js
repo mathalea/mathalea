@@ -379,8 +379,8 @@ $${a + 1}$ h et $${reponse}$ min.`
           ymax = 4
           objets = []
           objets.push(
-            texteParPosition(`$${texNombre(a / 2)} \\text{ cm}$`, milieu(A, B).x, milieu(A, B).y - 0.4, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`$${texNombre(a / 2)} \\text{ cm}$`, milieu(D, C).x, milieu(D, C).y + 0.4, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`$${texNombre(a / 2, 1)} \\text{ cm}$`, milieu(A, B).x, milieu(A, B).y - 0.8, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`$${texNombre(a / 2, 1)} \\text{ cm}$`, milieu(D, C).x, milieu(D, C).y + 0.2, 'milieu', 'black', 1, 'middle', true),
             texteParPosition('$\\text{?}$', milieu(B, C).x + 0.3, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
             segment(A, B), segment(B, C), segment(C, D), segment(D, A), code1, code2, code3, code4)
           reponse = b / 2
