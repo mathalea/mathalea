@@ -382,8 +382,8 @@ export default function SujetCAN20213ieme () {
           ymax = 1.5
           objets = []
           objets.push(
-            texteParPosition('3 cm ', milieu(A, C).x, milieu(A, C).y + 0.15 * context.zoom, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`${b} cm `, milieu(A, D).x + 0.2 * context.zoom, milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition('3 cm ', milieu(A, C).x, milieu(A, C).y + 0.15 , 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${b} cm `, milieu(A, D).x + 0.5 , milieu(A, D).y + 0.3, 'milieu', 'black', 1, 'middle', true),
             segment(B, D), segment(D, C), s1, s2, c)
           reponse = 3 * b
           texte = 'Donne le volume exact de ce cône.<br>'
