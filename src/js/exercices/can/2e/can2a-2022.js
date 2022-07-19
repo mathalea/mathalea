@@ -211,7 +211,7 @@ export default function SujetCAN2022Seconde () {
           On tire une boule au hasard.<br>
           Quelle est la probabilité de tirer une boule noire ?`
           reponse = f
-          texteCorr = `Puisqu'il s'agit d'une sitution d'équiprobabilté, la probabilité  est donnée par le quotient : $\\dfrac{\\text{Nombre de boules noires}}{\\text{Nombre total de boules}}=${f.texFraction}${f.texSimplificationAvecEtapes()}$.`
+          texteCorr = `Puisqu'il s'agit d'une situation d'équiprobabilté, la probabilité  est donnée par le quotient : $\\dfrac{\\text{Nombre de boules noires}}{\\text{Nombre total de boules}}=${f.texFraction}${f.texSimplificationAvecEtapes()}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -247,7 +247,7 @@ export default function SujetCAN2022Seconde () {
           }
           reponse = somme / 4
           texte = `Calculer la moyenne de :
-            $${a}${sp(3)}; ${sp(3)}${b}${sp(3)}; ${sp(3)}${c}${sp(3)}; ${sp(3)}${d}$`
+            $${a}${sp(3)}; ${sp(3)}${b}${sp(3)}; ${sp(3)}${c}${sp(3)}; ${sp(3)}${d}$.`
           texteCorr = `La moyenne est donnée par : $\\dfrac{${a}+${b}+${c}+${d}}{4}=\\dfrac{${somme}}{4}=${reponse}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -412,7 +412,7 @@ export default function SujetCAN2022Seconde () {
         case 14:
           choix = choice(['a', 'b', 'c', 'd', 'e', 'f'])//, 'b', 'c', 'd','e'
           if (choix === 'a') {
-            texte = `VRAI/FAUX<br>
+            texte = `Vrai ou faux<br>
          Le volume d'un cube est proportionnel à la longueur de son arête.`
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
             if (this.interactif) {
@@ -423,7 +423,7 @@ export default function SujetCAN2022Seconde () {
               Si on double la longueur de l'arête, le volume du cube n'est pas multiplié par $2$. Il est multiplié par $2^3$, soit $8$. <br>
               Ces deux grandeurs ne sont pas proportionnelles. `
           } if (choix === 'b') {
-            texte = `VRAI/FAUX<br>
+            texte = `Vrai ou faux<br>
          L'aire d'un disque est proportionnelle à son rayon.`
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
             if (this.interactif) {
@@ -435,7 +435,7 @@ export default function SujetCAN2022Seconde () {
               Ces deux grandeurs ne sont pas proportionnelles. `
           }
           if (choix === 'c') {
-            texte = `VRAI/FAUX<br>
+            texte = `Vrai ou faux<br>
          L'aire d'un rectangle de largeur constante est proportionnelle à sa longueur.`
             setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
             if (this.interactif) {
@@ -449,7 +449,7 @@ export default function SujetCAN2022Seconde () {
           if (choix === 'd') {
             n = randint(13, 35)
             a = randint(4, 6)
-            texte = `VRAI/FAUX<br>
+            texte = `Vrai ou faux<br>
          Je suis allé $${n}$ fois à la piscine. Le prix de l'entrée est $${a}$ euros.<br>
          Pour obtenir le prix total payé, le calcul est : $${n}\\times ${a}$.<br>
          Le prix et le nombre d'entrées à la piscine sont proportionnels.`
@@ -465,7 +465,7 @@ export default function SujetCAN2022Seconde () {
             n = randint(13, 35)
             a = randint(4, 6)
             b = randint(25, 40)
-            texte = `VRAI/FAUX<br>
+            texte = `Vrai ou faux<br>
          Je suis allé $${n}$ fois à la piscine. Le prix de l'entrée est $${a}$ euros et l'abonnement est $${b}$ euros.<br>
          Pour obtenir le prix total payé, le calcul est : $${n}\\times ${a}+${b}$.<br>
          Le prix et le nombre d'entrées à la piscine sont proportionnels.`
@@ -475,11 +475,10 @@ export default function SujetCAN2022Seconde () {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
             }
             texteCorr = `Si on va $k$ fois plus de fois à la piscine, le prix payé n'est  pas $k$ fois plus immportant (il est égal à $${n}\\times ${a}\\times k +${b}$).<br>
-
                         Ces deux grandeurs sont donc proportionnelles. `
           }
           if (choix === 'e') {
-            texte = `VRAI/FAUX<br>
+            texte = `Vrai ou faux<br>
          Le périmètre d'un rectangle est proportionnel à la longueur de de ce rectangle.`
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
             if (this.interactif) {
@@ -491,11 +490,11 @@ export default function SujetCAN2022Seconde () {
                         Ces deux grandeurs  ne sont  donc pas proportionnelles. `
           }
           if (choix === 'f') {
-            texte = `VRAI/FAUX<br>
-         Le périmètre d'un carré  est proportionnel à la longueur de son côté.<br>`
+            texte = `Vrai ou faux<br>
+         Le périmètre d'un carré  est proportionnel à la longueur de son côté.`
             setReponse(this, index, ['V', 'v'], { formatInteractif: 'texte' })
             if (this.interactif) {
-              texte += 'Pour VRAI, écrire V et pour FAUX : F'
+              texte += '<br>Pour VRAI, écrire V et pour FAUX : F'
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
             }
             texteCorr = `Le périmètre d'un carré de côté $c$ est donné par : $4\\times c$.<br>
@@ -528,7 +527,7 @@ export default function SujetCAN2022Seconde () {
             reponse = a * 1000
             texte = `$${texNombre(a, 1)}$ m$^3=$`
 
-            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 1)}$ m$^3=${texNombre(a, 1)}\\times 1000$ L$=${texNombre(a * 1000, 1)}$ L`
+            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 1)}$ m$^3=${texNombre(a, 1)}\\times 1000$ L $ =$ $${texNombre(a * 1000, 1)}$ L`
           }
           if (choix === 'b') {
             a = randint(11, 39, [10, 20, 30]) + randint(11, 99, [10, 20, 30, 40, 50, 60, 70, 80, 90]) / 100
@@ -536,7 +535,7 @@ export default function SujetCAN2022Seconde () {
             reponse = a * 1000
             texte = `$${texNombre(a, 2)}$ m$^3=$`
 
-            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 2)}$ m$^3=${texNombre(a, 2)}\\times 1000$ L$=${texNombre(a * 1000, 2)}$ L`
+            texteCorr = `$1$ m$^3 = 1000$ L, donc  $${texNombre(a, 2)}$ m$^3=${texNombre(a, 2)}\\times 1000$ L $ =$ $${texNombre(a * 1000, 2)}$ L`
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -551,6 +550,11 @@ export default function SujetCAN2022Seconde () {
           reponse = x
           texte = `Déterminer l'antécédent de  $${m * x + p}$ par la fonction $f$ définie par $f(x)=${reduireAxPlusB(m, p)}$.`
           texteCorr = `L'antécédent de $${m * x + p}$ par la fonction est la solution de l'équation $f(x)=${m * x + p}$.<br>
+          $\\begin{aligned}
+          ${reduireAxPlusB(m, p)}&=${m * x + p}\\\\
+         ${m}x&=${m * x}\\\\
+                              x&=${x}
+         \\end{aligned}$<br>
           $${reduireAxPlusB(m, p)}=${m * x + p}$ a pour solution $${x}$ donc l'antécédent de $${m * x + p}$ par $f$ est $${x}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') }
@@ -576,7 +580,7 @@ export default function SujetCAN2022Seconde () {
             reponse = a * h + a / 6
             texte = `Quelle est la distance parcourue en $${h}$ h $10$ min  à $${a}$ km/h ?
                       `
-            texteCorr = `Dans une heure, il y a $6\\times 10$ minutes. <br>Ainsi en $10$ minutes,la distance parcourue est $${a}\\div 6=${a / 6}$ km. <br>
+            texteCorr = `Dans une heure, il y a $6\\times 10$ minutes. <br>Ainsi en $10$ minutes, la distance parcourue est $${a}\\div 6=${a / 6}$ km. <br>
             Donc en $${h}$ h $10$ min, la distance parcourue est $(${a * h}+${a / 6})$ km, soit $${a * h + a / 6}$ km.      `
           }
 
@@ -604,7 +608,7 @@ export default function SujetCAN2022Seconde () {
           Quel est son nouveau prix ?
           `
           texteCorr = ` $${b}$ $\\%$ de $${a}=${texNombre(d, 1)}\\times ${a}= ${texNombre(a * d, 0)}$.<br>
-          Le prix du mateau après la réduction est donc : $${a}-${texNombre(a * d, 0)}=${texNombre(reponse, 0)}$ €. `
+          Le prix du manteau après la réduction est donc : $${a}-${texNombre(a * d, 0)}=${texNombre(reponse, 0)}$ €. `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€' }
@@ -704,28 +708,28 @@ export default function SujetCAN2022Seconde () {
           c = choice([true, false])
           choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
-            texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : "On obtient au moins une fois ${c ? 'PILE' : 'FACE'}" ?`
+            texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient au moins une fois ${c ? 'pile' : 'face'}" ?`
             texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
-            Il y a $3$ issues qui comportent au moins une fois ${c ? 'PILE' : 'FACE'}. Ainsi, la probabilité cherchée est : $\\dfrac{3}{4}$.`
+            Il y a $3$ issues qui comportent au moins une fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $\\dfrac{3}{4}$.`
             reponse = new FractionX(3, 4)
           }
           if (choix === 'b') {
-            texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : "On obtient au plus une fois ${c ? 'PILE' : 'FACE'}" ?`
+            texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient au plus une fois ${c ? 'pile' : 'face'}" ?`
             texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
-            Il y a $3$ issues qui comportent au plus une fois ${c ? 'PILE' : 'FACE'}. Ainsi, la probabilité cherchée est : $\\dfrac{3}{4}$.`
+            Il y a $3$ issues qui comportent au plus une fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $\\dfrac{3}{4}$.`
             reponse = new FractionX(3, 4)
           }
 
           if (choix === 'c') {
-            texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : "On obtient une seule fois ${c ? 'PILE' : 'FACE'}" ?`
+            texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient une seule fois ${c ? 'pile' : 'face'}" ?`
             texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
-            Il y a $2$ issues qui comportent une seule fois ${c ? 'PILE' : 'FACE'}. Ainsi, la probabilité cherchée est : $\\dfrac{1}{2}$.`
+            Il y a $2$ issues qui comportent une seule fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $\\dfrac{1}{2}$.`
             reponse = new FractionX(1, 2)
           }
           if (choix === 'd') {
-            texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : "On obtient deux ${c ? 'PILE' : 'FACE'}" ?`
+            texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient deux fois ${c ? 'piles' : 'faces'} " ?`
             texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
-            Il y a $1$ issue qui comporte deux ${c ? 'PILE' : 'FACE'}. Ainsi, la probabilité cherchée est : $\\dfrac{1}{4}$.`
+            Il y a $1$ issue qui comporte deux fois ${c ? 'piles' : 'faces'}. Ainsi, la probabilité cherchée est : $\\dfrac{1}{4}$.`
             reponse = new FractionX(1, 4)
           }
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
@@ -799,7 +803,7 @@ export default function SujetCAN2022Seconde () {
             listeFacteurs24 = shuffle(listeFacteurs24)
 
             reponse = [`${listeFacteurs24[0]}\\times${listeFacteurs24[1]}\\times ${listeFacteurs24[2]}`]
-            texte = `Décomposer $${listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[2]}$ en produits de facteurs premiers.`
+            texte = `Décomposer $${listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[2]}$ en produit de facteurs premiers.`
 
             texteCorr = `$${listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[2]}=${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[2]}$`
           }
@@ -812,7 +816,7 @@ export default function SujetCAN2022Seconde () {
             }
             reponse = [`${listeFacteurs24[0]}\\times${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[1]}`,
                 `${listeFacteurs24[0]}^2\\times ${listeFacteurs24[1]}`]
-            texte = `Décomposer $${listeFacteurs24[0] * listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[1]}$ en produits de facteurs premiers.`
+            texte = `Décomposer $${listeFacteurs24[0] * listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[1]}$ en produit de facteurs premiers.`
 
             texteCorr = `$${listeFacteurs24[0] * listeFacteurs24[0] * listeFacteurs24[1] * listeFacteurs24[1]}=${listeFacteurs24[0]}\\times ${listeFacteurs24[0]}\\times ${listeFacteurs24[1]}\\times ${listeFacteurs24[1]}=${listeFacteurs24[0]}^2\\times ${listeFacteurs24[1]}^2$`
           }
@@ -952,7 +956,7 @@ export default function SujetCAN2022Seconde () {
             Après une réduction, on obtient une figure d'aire $${a}$ cm$^2$.<br>
             Quel est le rapport de réduction ?`
 
-            texteCorr = `Dans un agrandissement/réduction, quand les longueurs sont multipliées par $k$, les aires sont multipliées par $k^2$.<br>
+            texteCorr = `Dans un/une agrandissement/réduction, quand les longueurs sont multipliées par $k$, les aires sont multipliées par $k^2$.<br>
             Ici, l'aire a été divisée par $16$, soit multipliée par $\\dfrac{1}{16}$. <br>
             On en déduit que le coefficient de réduction est $\\dfrac{1}{4}$. `
           }
@@ -968,10 +972,10 @@ export default function SujetCAN2022Seconde () {
           q = randint(2, 5)
           texte = 'On considère le script python : <br>$\\begin{array}{|l|}\n'
           texte += '\\hline\n'
-          texte += '\\\n \\texttt{def fin(b) :}  \\\n '
+          texte += '\\\n \\texttt{def fin(b):}  \\\n '
           texte += `\\\\\n ${sp(6)} \\texttt{a=0}\\\n `
-          texte += `\\\\\n ${sp(6)} \\texttt{while a < b:}\\\n `
-          texte += `\\\\\n ${sp(12)} \\texttt{a = a+${q}}\\\n `
+          texte += `\\\\\n ${sp(6)} \\texttt{while a$<$b:}\\\n `
+          texte += `\\\\\n ${sp(12)} \\texttt{a=a+${q}}\\\n `
           texte += `\\\\\n ${sp(6)} \\texttt{return a}\\\\\n `
           texte += '\\hline\n'
           texte += '\\end{array}\n$<br>'
