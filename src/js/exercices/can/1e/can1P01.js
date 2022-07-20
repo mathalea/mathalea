@@ -35,7 +35,7 @@ export default function ProbabilitesNotation () {
         case 1:
           p1 = randint(25, 80)
           p2 = new Decimal(p1).div(100)
-          choix = choice(['q1','q2','q3','q4'])
+          choix = choice(['q1', 'q2', 'q3', 'q4'])
           texte = `Dans un lycée, on choisit au hasard un élève. On note : <br>
       $\\bullet$ $F$ : "L'élève choisi est une fille" ;<br>
       $\\bullet$ $R$ : "L'élève choisi est un demi-pensionnaire".<br>
@@ -62,8 +62,8 @@ export default function ProbabilitesNotation () {
             texte += ` $= ${texNombre(p2, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. L'ensemble de référence est l'ensemble des filles.<br>
             $P_F(R)=${texNombre(p2, 2)}$.`
-            setReponse(this, i, ['p_{F}(R)', 'P_{F}(R)', 'P{_{F}}(R)', 'P{_F}({R})', 'P{_F}({R})', 'P_F(R)'])
-         console.log('p_{F}(R)') }
+            setReponse(this, i, ['P_{F}({R})', 'P_{F}(R)'])
+          }
           if (choix === 'q3') {
             if (choice([true, false])) {
               texte += ` Dans ce lycée $${p1}\\%$ des garçons sont demi-pensionnaires.<br>`
