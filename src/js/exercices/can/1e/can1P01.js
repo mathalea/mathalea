@@ -35,7 +35,7 @@ export default function ProbabilitesNotation () {
         case 1:
           p1 = randint(25, 80)
           p2 = new Decimal(p1).div(100)
-          choix = choice(['q3'])
+          choix = choice(['q1','q2','q3','q4'])
           texte = `Dans un lycée, on choisit au hasard un élève. On note : <br>
       $\\bullet$ $F$ : "L'élève choisi est une fille" ;<br>
       $\\bullet$ $R$ : "L'élève choisi est un demi-pensionnaire".<br>
@@ -47,7 +47,8 @@ export default function ProbabilitesNotation () {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
             } else { texte += `${sp(7)}$\\ldots\\ldots $` }
             texte += ` $ = ${texNombre(p2, 2)}$`
-            texteCorr = `$P(F\\cap R)=${texNombre(p2, 2)}$.`
+            texteCorr = `Il ne s'agit pas d'une probabilité conditionnelle. L'ensemble de régérence est l'ensemble des élèves du lycée.<br>
+            $P(F\\cap R)=${texNombre(p2, 2)}$.`
             setReponse(this, i, ['p(F\\bigcap R)', 'p(R\\bigcap F)', 'P(F\\bigcap R)', 'P(R\\bigcap F)'])
           }
           if (choix === 'q2') {
@@ -59,9 +60,10 @@ export default function ProbabilitesNotation () {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
             } else { texte += `${sp(7)}$\\ldots\\ldots $` }
             texte += ` $= ${texNombre(p2, 2)}$`
-            texteCorr = `$P_F(R)=${texNombre(p2, 2)}$.`
-            setReponse(this, i, ['p_{F}(R)', 'P_{F}(R)'])
-          }
+            texteCorr = `Il s'agit d'une probabilité conditionnelle. L'ensemble de référence est l'ensemble des filles.<br>
+            $P_F(R)=${texNombre(p2, 2)}$.`
+            setReponse(this, i, ['p_{F}(R)', 'P_{F}(R)', 'P{_{F}}(R)', 'P{_F}({R})', 'P{_F}({R})', 'P_F(R)'])
+         console.log('p_{F}(R)') }
           if (choix === 'q3') {
             if (choice([true, false])) {
               texte += ` Dans ce lycée $${p1}\\%$ des garçons sont demi-pensionnaires.<br>`
@@ -71,7 +73,8 @@ export default function ProbabilitesNotation () {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
             } else { texte += `${sp(7)}$\\ldots\\ldots $` }
             texte += ` $= ${texNombre(p2, 2)}$`
-            texteCorr = `$P_{\\overline{F}}(R)=${texNombre(p2, 2)}$.`
+            texteCorr = `Il s'agit d'une probabilité conditionnelle. L'ensemble de référence est l'ensemble des garçons.<br>
+            $P_{\\overline{F}}(R)=${texNombre(p2, 2)}$.`
             setReponse(this, i, ['P_{\\overline{F}}({R})', 'p_{\\overline{F}}({R})', 'P{_\\overline{F}}({R})', 'P\\overline{_F}({R})', 'P\\overline{_F}({R})'])
           }
           if (choix === 'q4') {
@@ -81,7 +84,8 @@ export default function ProbabilitesNotation () {
               texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
             } else { texte += `${sp(7)}$\\ldots\\ldots $` }
             texte += ` $ = ${texNombre(p2, 2)}$`
-            texteCorr = `$P(\\overline{F}\\cap R)=${texNombre(p2, 2)}$.`
+            texteCorr = `Il ne s'agit pas d'une probabilité conditionnelle. L'ensemble de régérence est l'ensemble des élèves du lycée.<br>
+            $P(\\overline{F}\\cap R)=${texNombre(p2, 2)}$.`
             setReponse(this, i, ['p(\\overline{F}\\bigcap R)', 'p(R\\bigcap \\overline{F})', 'P(\\overline{F}\\bigcap R)', 'P(R\\bigcap \\overline{F})'])
           }
 
