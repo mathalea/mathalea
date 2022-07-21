@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../modules/outils.js'
-import { tableauDeVariation, mathalea2d, courbe2, repere2 } from '../../modules/2d.js'
+import { tableauDeVariation, mathalea2d, courbe, repere } from '../../modules/2d.js'
 
 export const titre = 'Déterminer le sens de variation d\'une fonction affine'
 
@@ -88,8 +88,8 @@ export default function variationsfonctionaffine () {
 
         texteCorr += 'Pour illustrer la situation, on peut représenter graphiquement la fonction :<br><br>'
         const f = x => a * x + b
-        monRepere = repere2({ xMin: -5, grilleXMin: -5 })
-        maCourbe = courbe2(f, { repere: monRepere })
+        monRepere = repere({ xMin: -5, grilleXMin: -5 })
+        maCourbe = courbe(f, { repere: monRepere })
         // this.spacing = (context.isHtml) ? 2 : 1
         texteCorr += mathalea2d({
           xmin: -7,

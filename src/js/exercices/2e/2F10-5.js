@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, texFractionReduite, itemize, obtenirListeFacteursPremiers, texNombre2 } from '../../modules/outils.js'
 import { resoudre } from '../../modules/outilsMathjs.js'
-import { tableauDeVariation, mathalea2d, labelPoint, point, tracePoint, courbe2, repere2 } from '../../modules/2d.js'
+import { tableauDeVariation, mathalea2d, labelPoint, point, tracePoint, courbe, repere } from '../../modules/2d.js'
 import { create, all } from 'mathjs'
 
 export const titre = 'Déterminer le signe d\'une fonction affine'
@@ -117,8 +117,8 @@ export default function signefonctionaffine () {
 
         texteCorr += '<br>Pour illustrer la situation, on peut représenter graphiquement la fonction :<br><br>'
         const f = x => a * x + b
-        monRepere = repere2()
-        maCourbe = courbe2(f, { repere: monRepere })
+        monRepere = repere()
+        maCourbe = courbe(f, { repere: monRepere })
         const A = point(-b / a, 0, `${this.sup2 ? solution : 'x_0'}`)
         lA = labelPoint(A, 'red')
         tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix

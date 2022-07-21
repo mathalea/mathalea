@@ -270,7 +270,7 @@ function getListeHtmlDesExercicesCrpe () {
 }
 function getListeHtmlDesExercicesDNB () {
   let liste = '<div class="accordion">'
-  for (const annee of ['2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
+  for (const annee of ['2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
     liste += `<div class="title"><i class="dropdown icon"></i> ${annee}</div><div class="content">`
     liste += listeHtmlDesExercicesDNBAnnee(annee)
     liste += '</div>'
@@ -558,7 +558,7 @@ export function menuDesExercicesDisponibles () {
     ['can4', 'can4 - Course aux nombres niveau 4e', 'can4a - Annales aléatoires', 'can4C - Calculs', 'can4G - Géométrie', 'can4L - Calcul littéral', 'can4P - Proportionnalité'],
     ['can3', 'can3 - Course aux nombres niveau 3e', 'can3a - Annales aléatoires', 'can3C - Calculs', 'can3F - Fonctions', 'can3G - Géométrie', 'can3L - Calcul littéral', 'can3M - Mesures', 'can3P - Proportionnalité', 'can3S - Statistiques & probabilités'],
     ['can2', 'can2 - Course aux nombres niveau 2e', 'can2a - Annales aléatoires', 'can2C - Calculs', 'can2F - Fonctions', 'can2G - Géométrie', 'can2L - Calcul littéral', 'can2N - Numération', 'can2P - Probabilités'],
-    ['can1', 'can1 - Course aux nombres niveau 1e', 'can1F - Fonctions', 'can1G - Géométrie', 'can1L - Calcul littéral', 'can1P - Probabilités', 'can1S - Suites'],
+    ['can1', 'can1 - Course aux nombres niveau 1e', 'can1a - Annales aléatoires', 'can1F - Fonctions', 'can1G - Géométrie', 'can1L - Calcul littéral', 'can1P - Probabilités', 'can1S - Suites'],
     ['canT', 'canT - Course aux nombres niveau Terminale'],
     ['canEx', 'canExpert - Course aux nombres niveau Terminale expert'],
     ['canP', 'canPredef - Courses aux nombres clé en main']]

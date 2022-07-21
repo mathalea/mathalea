@@ -1,5 +1,5 @@
-import { choice } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { choice } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Déterminer un agrandissement/réduction avec fraction'
 export const interactifReady = true

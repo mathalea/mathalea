@@ -1,6 +1,6 @@
-import { fraction } from '../../../modules/fractions'
-import { obtenirListeFractionsIrreductibles, choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { fraction } from '../../../modules/fractions.js'
+import { obtenirListeFractionsIrreductibles, choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Rendre irréductible une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'

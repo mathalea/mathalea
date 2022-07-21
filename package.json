@@ -7,8 +7,9 @@
     "build": "npm run build:prod",
     "build:dicos": "node tasks/buildDicos.js",
     "build:doc": "node tasks/buildDoc.js",
+    "build:gift": "node tasks/buildMoodleGift.js",
     "build:dev": "webpack --mode=development",
-    "build:prod": "npm run build:dicos && webpack --mode=production && npm run doc",
+    "build:prod": "npm run build:dicos && npm run build:gift && webpack --mode=production && npm run doc",
     "doc": "node tasks/buildDoc.js && node tasks/showDoc.js",
     "doc:show": "node tasks/showDoc.js",
     "lint": "eslint",
@@ -37,7 +38,7 @@
     "instrumenpoche": "git+https://git.sesamath.net/sesamath/instrumenpoche.git",
     "jquery": "^3.6.0",
     "jquery-ui": "^1.13.1",
-    "katex": "^0.13.24",
+    "katex": "^0.16.0",
     "loadjs": "^4.2.0",
     "mathjs": "^9.5.2",
     "mathlive": "^0.69.11",
@@ -180,5 +181,15 @@
         ]
       }
     ]
+  },
+  "pnpm": {
+    "overrides": {
+      "glob-parent@<5.1.2": ">=5.1.2",
+      "node-forge@<1.0.0": ">=1.0.0",
+      "mathjs@<7.5.1": ">=7.5.1",
+      "typed-function@<0.10.6": ">=0.10.6",
+      "mathjs@<3.17.0": ">=3.17.0",
+      "node-forge@<1.3.0": ">=1.3.0"
+    }
   }
 }

@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 456 
-- nombre d'exos interactifReady 693 
+- nombre d'exos amcReady 475 
+- nombre d'exos interactifReady 723 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -157,6 +157,7 @@
 |4C34|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|OK|mathLive|
 |4C35|Puissances : écriture décimale ou fractionnaire|KO|KO|OK|mathLive|
 |4C36|Utiliser les ordres de grandeur pour vérifier ses résultats|KO|KO|OK|qcm|
+|4C37|Déterminer le signe d'une puissance|OK|qcmMono|OK|qcm|
 |4F12|Problème s'appuyant sur la lecture d'une représentation graphique|OK|AMCHybride|KO|KO|
 |4G10-1|Trouver les coordonnée de l'image d'un point par une translation|OK|AMCHybride|OK|mathLive|
 |4G10|Trouver l'image d'un point par une symétrie axiale ou centrale ou par une translation|OK|AMCHybride|OK|mathLive|
@@ -187,6 +188,7 @@
 |5A10|Écrire la liste de tous les diviseurs d'un entier|KO|KO|OK|mathLive|
 |5A11|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|OK|qcm|
 |5A12-1|Primalité ou pas|OK|qcmMono|OK|qcm|
+|5A12-2|Déterminer si un nombre est premier|OK|qcmMono|OK|qcm|
 |5A13|Décomposition en facteurs premiers|KO|KO|OK|mathLive|
 |5C12-1|Traduire une phrase par une expression et la calculer|OK|AMCOpenNum|OK|mathLive|
 |5C12|Calculer une expression numérique en détaillant les calculs|OK|AMCOpenNum|OK|mathLive|
@@ -407,11 +409,18 @@
 |can1F13|Déterminer le coefficient directeur d’une tangente (fonctions de référence)|KO|KO|OK|mathLive|
 |can1F14|Déterminer un nombre dérivé|KO|KO|OK|mathLive|
 |can1F15|Lire graphiquement un nombre dérivé|KO|KO|OK|mathLive|
-|can1F17|Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\sqrt{x}$|KO|KO|OK|mathLive|
+|can1F16|Déterminer une équation de tangente à partir des courbes de $f$ et $f’$|KO|KO|OK|mathLive|
+|can1F17|Déterminer la fonction dérivée d’une fonction $1/u(x)$|KO|KO|OK|mathLive|
+|can1F18|Déterminer la fonction dérivée d’une fonction $a/u(x)$|KO|KO|OK|mathLive|
+|can1F19|Calculer une dérivée et écrire le résultat sous la forme d’un quotient|KO|KO|OK|mathLive|
 |can1G01|Déterminer les valeurs remarquables du cosinus et sinus|KO|KO|OK|mathLive|
 |can1G02|Déterminer les valeurs remarquables du cosinus et sinus*|KO|KO|OK|mathLive|
 |can1G03|Simplifier les sinus et cosinus des angles associés|KO|KO|OK|mathLive|
 |can1G04|Calculer un produit scalaire à l’aide de normes et d’un angle |KO|KO|OK|mathLive|
+|can1G05|Déterminer un produit scalaire avec les coordonnées|KO|KO|OK|mathLive|
+|can1G06|Déterminer un produit scalaire sur des figures géométriques classiques |KO|KO|OK|mathLive|
+|can1G07|Déterminer une coordonnée avec un produit scalaire|KO|KO|OK|mathLive|
+|can1G08|Déterminer un vecteur normal avec une équation cartésienne|KO|KO|OK|custom|
 |can1L01|Calculer un discriminant|OK|AMCNum|OK|mathLive|
 |can1L02|Déterminer le nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
 |can1L03|Trouver les racines à partir d’une forme factorisée|KO|KO|OK|mathLive|
@@ -422,6 +431,12 @@
 |can1L08|Déterminer un coefficient dans un développement*|KO|KO|OK|mathLive|
 |can1L09|Résoudre une équation $ax^2+bx+c=c$ |KO|KO|OK|mathLive|
 |can1P01|Calculer des probabilités à partir d’un arbre|OK|AMCNum|OK|mathLive|
+|can1P02|Lire une probabilité  à partir d’un arbre|OK|AMCNum|OK|mathLive|
+|can1P03|Calculer la probabilité d’une intersection à partir d’un arbre|OK|AMCNum|OK|mathLive|
+|can1P05|Utiliser la formule des probabilités totales dans un arbre|OK|AMCNum|OK|mathLive|
+|can1P06|Déterminer une probabilté dans un tableau de probabilités|OK|AMCNum|OK|mathLive|
+|can1P07|Déterminer une probabilté dans un tableau d’effectifs|OK|AMCNum|OK|mathLive|
+|can1P08|Compléter le tableau d’une loi de probabilité d’une variable aléatoire|OK|AMCNum|OK|mathLive|
 |can1S01|Calculer un terme d’une suite explicite|KO|KO|OK|mathLive|
 |can1S02|Calculer un terme d’une suite récurrente|KO|KO|OK|mathLive|
 |can1S03|Calculer un terme d’une suite récurrente*|KO|KO|OK|mathLive|
@@ -474,6 +489,9 @@
 |can2G13|Calculer la norme d’un vecteur|KO|KO|OK|mathLive|
 |can2G14|Déterminer les coordonnées d'un point avec une translation|KO|KO|OK|mathLive|
 |can2G15|Déterminer le déterminant de deux vecteurs.|KO|KO|OK|mathLive|
+|can2G16|Trouver un coefficient de colinéarité (graphique)|OK|AMCHybride|OK|mathLive|
+|can2G17|Déterminer un vecteur directeur avec une équation cartésienne|KO|KO|OK|custom|
+|can2G18|Déterminer les coordonnées d’un vecteur à partir d’un graphique|KO|KO|OK|mathLive|
 |can2L01|Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Calculer les coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
 |can2L03|Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite|KO|KO|OK|mathLive|
@@ -500,6 +518,7 @@
 |can3C10|Encadrer avec des puissances de 10|KO|KO|OK|mathLive|
 |can3C11|Simplifier des fractions ou des racines carrées|OK|AMCNum|OK|mathLive|
 |can3C12|Encadrer une racine carrée|OK|AMCNum|OK|mathLive|
+|can3C13|Pyramide additive fractions|OK|AMCNum|OK|mathLive|
 |can3F01|Lire une image graphiquement|OK|AMCNum|OK|mathLive|
 |can3F02|Calculer une image par une fonction linéaire|OK|AMCNum|OK|mathLive|
 |can3F03|Calculer une image par une fonction affine|OK|AMCNum|OK|mathLive|
@@ -540,6 +559,7 @@
 |can4C08|Calculer une somme de puissances de 10|OK|AMCNum|OK|mathLive|
 |can4C09|Calculer des puissances de +/-2, 3, 4 ou 5|OK|AMCNum|OK|mathLive|
 |can4C10|Calculer une somme/différence de fractions égyptiennes|OK|AMCNum|OK|mathLive|
+|can4C11|Déterminer le signe d’une puissance|KO|KO|OK|qcm|
 |can4G01|Déterminer une longueur avec des triangles semblables|OK|AMCNum|OK|mathLive|
 |can4G02|Trouver l’image d’un point par une transformation|KO|KO|OK|mathLive|
 |can4G03|Calculer l’hypoténuse avec le théorème de Pythagore|KO|KO|OK|mathLive|
@@ -635,6 +655,9 @@
 |can6C29|Résoudre un problème de partage|OK|AMCNum|OK|mathLive|
 |can6C30|Multiplier deux décimaux|OK|AMCNum|OK|mathLive|
 |can6C31|Soustraire un décimal d’un entier|OK|AMCNum|OK|mathLive|
+|can6C32|Pyramide additive|OK|AMCNum|OK|mathLive|
+|can6C33|Pyramide multiplicative|OK|AMCNum|OK|mathLive|
+|can6C34|Pyramide additive inverse|OK|AMCNum|OK|mathLive|
 |can6D01|Convertir des Heures/minutes en minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Chercher un reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calculer une durée en minutes|OK|AMCNum|OK|mathLive|
@@ -655,6 +678,8 @@
 |can6M07|Compléter un volume au litre|OK|AMCNum|OK|mathLive|
 |can6M08|Comparer des aires (V/F)|OK|qcmMono|OK|qcm|
 |can6M09|Calculer des longueurs à partir des périmètres|KO|KO|OK|mathLive|
+|can6M10|Volume de pavé droit|OK|AMCNum|OK|mathLive|
+|can6M11|Volume de pavé droit par dénombrement de cubes unités|OK|AMCNum|OK|mathLive|
 |can6N01|Recomposer un entier|OK|AMCNum|OK|mathLive|
 |can6N02|Recomposer un entier (bis)|OK|AMCNum|OK|mathLive|
 |can6N03|Recomposer un entier*|OK|AMCNum|OK|mathLive|
@@ -716,4 +741,8 @@
 |HPC102|Calculs de probabilité avec la loi normale|KO|KO|OK|mathLive|
 |techno1E2|Associer évolution en pourcentage et coefficient|KO|KO|OK|mathLive|
 |techno1P1|Écriture fractionnaire, écriture décimale, pourcentage|KO|KO|OK|mathLive|
+|techno1P2-1|Appliquer un pourcentage|OK|AMCNum|OK|mathLive|
 |techno1P2|Appliquer un pourcentage|KO|KO|OK|mathLive|
+|techno1P3|Proportions|OK|AMCNum|OK|mathLive|
+|techno1P4|Proportions de proportions|OK|AMCNum|OK|mathLive|
+|techno1P5|Déterminer un effectif à partir d'une proportion|OK|AMCNum|OK|mathLive|

@@ -1,4 +1,4 @@
-import { context } from './context'
+import { context } from './context.js'
 
 export function zoomAffichage (facteur) {
   let tailleH3 = 15

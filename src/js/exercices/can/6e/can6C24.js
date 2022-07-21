@@ -1,5 +1,5 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Multiplier par 0,1 ou 0,01 ou 0,001'
 export const interactifReady = true
 export const interactifType = 'mathLive'

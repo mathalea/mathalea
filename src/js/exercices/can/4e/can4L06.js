@@ -1,5 +1,5 @@
-import { calcul, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { calcul, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une expression pour une valeur particulière*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

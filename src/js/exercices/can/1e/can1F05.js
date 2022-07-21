@@ -1,10 +1,10 @@
 import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenu, choice, sp, texNombre } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { repere2, courbe2, mathalea2d, texteParPosition } from '../../../modules/2d.js'
+import { repere, courbe, mathalea2d, texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { calcule } from '../../../modules/fonctionsMaths.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 export const titre = 'Lire graphiquement les valeurs de $b$ et $c$ avec une parabole'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,7 +41,7 @@ export default function LectureGraphiqueParabolebEtc () {
           f = function (x) {
             return calcule(x ** 2 - (x1 + x2) * x + x1 * x2)
           }
-          r = repere2({
+          r = repere({
             yUnite: 1,
             xMin: -5,
             yMin: Math.floor(f((x1 + x2) / 2)) - 1,
@@ -62,7 +62,7 @@ export default function LectureGraphiqueParabolebEtc () {
 
           texte = 'On donne la courbe représentative d\'une fonction $f$ polynôme du second degré définie par $f(x)=x^2+bx+c$ .<br>'
 
-          texte += 'Déterminer les valeurs de $b$ et $c$.<br>' + mathalea2d({ xmin: -5, xmax: 5, ymin: Math.floor(f((x1 + x2) / 2)) - 1, ymax: Math.max(3, f(0) + 1), pixelsParCm: 18, scale: 0.6 }, r, o, courbe2(F, { repere: r, color: 'blue', epaisseur: 2 }))
+          texte += 'Déterminer les valeurs de $b$ et $c$.<br>' + mathalea2d({ xmin: -5, xmax: 5, ymin: Math.floor(f((x1 + x2) / 2)) - 1, ymax: Math.max(3, f(0) + 1), pixelsParCm: 18, scale: 0.6 }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$b=$' })

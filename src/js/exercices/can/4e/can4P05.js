@@ -1,7 +1,7 @@
-import { courbeSpline, droiteParPointEtPente, mathalea2d, point, repere2 } from '../../../modules/2d'
-import { splineCatmullRom } from '../../../modules/fonctionsMaths'
-import { choice, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { courbeSpline, droiteParPointEtPente, mathalea2d, point, repere } from '../../../modules/2d.js'
+import { splineCatmullRom } from '../../../modules/fonctionsMaths.js'
+import { choice, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Reconnaître sur un graphique une situation de proportionnalité ou de non proportionnalité'
@@ -16,7 +16,7 @@ export default function ImageSpline () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    const r = repere2({ xMin: -7, xMax: 7, yMin: -6, yMax: 6 })
+    const r = repere({ xMin: -7, xMax: 7, yMin: -6, yMax: 6 })
     let c
     const type = choice(['lineaire', 'affine', 'autre'])
     switch (type) {

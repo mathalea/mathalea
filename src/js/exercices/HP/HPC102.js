@@ -4,7 +4,7 @@ import { aleaVariables } from '../../modules/outilsMathjs.js'
 import { create, all, sqrt } from 'mathjs'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { integrale, repere2, courbe2, mathalea2d } from '../../modules/2d.js'
+import { integrale, repere, courbe, mathalea2d } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // import { calcule } from '../../modules/fonctionsMaths.js'
@@ -53,8 +53,8 @@ export default function CalculsLoiNormale () {
             }
           )
           gaussienne = x => 1 / math.sqrt(2 * math.pi) * math.exp(-(x ** 2) / 2)
-          r = repere2({ xMin: -4, xMax: 4, yMin: -1, yMax: 3, xUnite: 2, yUnite: 6, axesEpaisseur: 1, yThickDistance: 0.5 })
-          C = courbe2(gaussienne, { repere: r, step: 0.1 })
+          r = repere({ xMin: -4, xMax: 4, yMin: -1, yMax: 3, xUnite: 2, yUnite: 6, axesEpaisseur: 1, yThickDistance: 0.5 })
+          C = courbe(gaussienne, { repere: r, step: 0.1 })
           I = integrale(gaussienne, { repere: r, step: 0.1, a: variables.a, b: variables.b, hachures: 0 })
           graphique = mathalea2d({ xmin: -9, xmax: 9, ymin: -0.8, ymax: 2.8, pixelsParCm: 30, scale: 0.75 }, r, C, I)
           bornea = texNombre(variables.a)
@@ -108,8 +108,8 @@ export default function CalculsLoiNormale () {
             }
           )
           gaussienne = x => 1 / variables.sigma / math.sqrt(2 * math.pi) * math.exp(-((x - variables.mu) ** 2) / 2 / (variables.sigma ** 2))
-          r = repere2({ axeYisVisible: false, xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, xUnite: 2 / variables.sigma, yUnite: 6 * variables.sigma, axesEpaisseur: 1, xThickListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], xLabelListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], yThickDistance: 0.5, grilleXMin: variables.mu - 4 * variables.sigma, grilleXDistance: variables.sigma })
-          C = courbe2(gaussienne, { repere: r, step: 0.1 })
+          r = repere({ axeYisVisible: false, xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, xUnite: 2 / variables.sigma, yUnite: 6 * variables.sigma, axesEpaisseur: 1, xThickListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], xLabelListe: [variables.a * variables.sigma + variables.mu, variables.mu, variables.b * variables.sigma + variables.mu], yThickDistance: 0.5, grilleXMin: variables.mu - 4 * variables.sigma, grilleXDistance: variables.sigma })
+          C = courbe(gaussienne, { repere: r, step: 0.1 })
           I = integrale(gaussienne, { repere: r, step: 0.1, a: variables.a * variables.sigma + variables.mu, b: variables.b * variables.sigma + variables.mu, hachures: 0 })
           graphique = mathalea2d({ xmin: (-5 * variables.sigma + variables.mu) * r.xUnite, xmax: (5 * variables.sigma + variables.mu) * r.xUnite, ymin: -0.8, ymax: 2.8, pixelsParCm: 30, scale: 0.75 }, r, C, I)
           bornec = texNombre(variables.a * variables.sigma + variables.mu)
@@ -171,8 +171,8 @@ export default function CalculsLoiNormale () {
             }
           )
           gaussienne = x => 1 / variables.sigma / math.sqrt(2 * math.pi) * math.exp(-((x - variables.mu) ** 2) / 2 / (variables.sigma ** 2))
-          r = repere2({ axeYisVisible: false, xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, xUnite: 2 / variables.sigma, yUnite: 6 * variables.sigma, axesEpaisseur: 1, xThickListe: [-variables.a * variables.sigma + variables.mu, variables.mu, variables.a * variables.sigma + variables.mu], xLabelListe: [-variables.a * variables.sigma + variables.mu, variables.mu, variables.a * variables.sigma + variables.mu], yThickDistance: 0.5, grilleXMin: variables.mu - 4 * variables.sigma, grilleXDistance: variables.sigma })
-          C = courbe2(gaussienne, { repere: r, step: 0.1 })
+          r = repere({ axeYisVisible: false, xMin: -4 * variables.sigma + variables.mu, xMax: 4 * variables.sigma + variables.mu, yMin: -1, yMax: 3, xUnite: 2 / variables.sigma, yUnite: 6 * variables.sigma, axesEpaisseur: 1, xThickListe: [-variables.a * variables.sigma + variables.mu, variables.mu, variables.a * variables.sigma + variables.mu], xLabelListe: [-variables.a * variables.sigma + variables.mu, variables.mu, variables.a * variables.sigma + variables.mu], yThickDistance: 0.5, grilleXMin: variables.mu - 4 * variables.sigma, grilleXDistance: variables.sigma })
+          C = courbe(gaussienne, { repere: r, step: 0.1 })
           I = integrale(gaussienne, { repere: r, step: 0.1, a: -variables.a * variables.sigma + variables.mu, b: variables.a * variables.sigma + variables.mu, hachures: 0 })
           graphique = mathalea2d({ xmin: r.xUnite * (-5 * variables.sigma + variables.mu), xmax: (5 * variables.sigma + variables.mu) * r.xUnite, ymin: -0.8, ymax: 2.8, pixelsParCm: 30, scale: 0.75 }, r, C, I)
           bornec = texNombre(-variables.a * variables.sigma + variables.mu)

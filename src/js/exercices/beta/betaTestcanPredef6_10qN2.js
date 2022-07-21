@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { droiteGraduee2, mathalea2d } from '../../modules/2d'
+import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, texNombrec, range1, combinaisonListesSansChangerOrdre, prenomF, choice, texteEnCouleur, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -22,7 +22,7 @@ export default function Can10Questions6N2 () {
   this.nbQuestions = 10
   this.nbCols = 1
   this.nbColsCorr = 1
-  
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

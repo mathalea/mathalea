@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 
 import { listeQuestionsToContenu, randint, choice, quotientier, combinaisonListes, ecritureParentheseSiNegatif, texFractionReduite, ecritureAlgebrique } from '../../modules/outils.js'
-import { repere2, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
+import { repere, mathalea2d, point, tracePoint, labelPoint } from '../../modules/2d.js'
 export const titre = 'Déterminer une fonction affine à partir de deux images.'
 
 /**
@@ -127,7 +127,7 @@ export default function Determinerfonctionaffine () {
           break
         case 2:
 
-          r = repere2()
+          r = repere()
 
           xA = randint(0, 3) * choice([-1, 1])// Abscisse de A
           yA = a * xA + b// Ordonnée de A

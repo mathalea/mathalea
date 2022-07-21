@@ -1,7 +1,7 @@
 import { add, number, multiply } from 'mathjs'
-import { barycentre, latexParCoordonnees, latexParPoint, milieu, point, polygone, segment } from './2d'
-import { fraction } from './fractions'
-import { arrondi, calcul } from './outils'
+import { barycentre, latexParCoordonnees, latexParPoint, milieu, point, polygone, segment } from './2d.js'
+import { fraction } from './fractions.js'
+import { arrondi, calcul } from './outils.js'
 
 export function texProba (proba, rationnel, precision) {
   return rationnel ? fraction(proba, 1).toLatex() : number(arrondi(proba, precision)).toString().replace('.', '{,}')
