@@ -2841,7 +2841,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
 
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
   if (isNaN(nb) && !(nb instanceof Decimal)) {
-    window.notify('AfficherNombre : Le nombre n\'en est pas un', { nb, precision, fonction })
+    window.notify("AfficherNombre : Le nombre n'en est pas un", { nb, precision, fonction })
     return ''
   }
   if (nb instanceof Decimal) {
@@ -2849,7 +2849,12 @@ function afficherNombre (nb, precision, fonction, force = false) {
   } else if (Number(nb) === 0) return '0'
   let nbChiffresPartieEntiere
   if (nb instanceof Decimal) {
-    nbChiffresPartieEntiere = nb.abs().lt(1) ? 0 : nb.abs().toFixed(0).length
+    if (nb.abs().lt(1)) {
+      nbChiffresPartieEntiere = 0
+      precision = Decimal.max(nb.log().ceil().add(precision), 0)
+    } else {
+      nbChiffresPartieEntiere = nb.abs().toFixed(0).length
+    }
     if (nb.isInteger()) precision = 0
     else {
       if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
@@ -2859,7 +2864,12 @@ function afficherNombre (nb, precision, fonction, force = false) {
       }
     }
   } else {
-    nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
+    if (Math.abs(nb) < 1) {
+      nbChiffresPartieEntiere = 0
+      precision = Math.max(0, Math.ceil(Math.log10(nb)) + precision)
+    } else {
+      nbChiffresPartieEntiere = Math.abs(nb).toFixed(0).length
+    }
     if (Number.isInteger(nb)) precision = 0
     else {
       if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
