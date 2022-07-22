@@ -1,16 +1,17 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombrec, prenomF, prenomM, texPrix, texteEnCouleurEtGras, texteEnCouleur, calcul } from '../../../modules/outils.js'
-export const titre = 'Résoudre un problème concret'
+import Decimal from 'decimal.js'
+import { randint, choice, texNombrec, prenomF, prenomM, texPrix, texNombre, calcul } from '../../../modules/outils.js'
+export const titre = 'Résoudre un problème avec "de plus", "de moins" (nombres décimaux)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
+export const dateDeModifImportante = '21/07/2022'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora & Jean-Claude Lhote
  * Référence can6C26
  * Date de publication 21/10/2021
 */
-export default function PetitsProblemeArithmetique () {
+export default function PlusOuMoins2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
@@ -18,60 +19,72 @@ export default function PetitsProblemeArithmetique () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    let a, b, r, e, m, somme, prenom1, prenom2
-    switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) {
-      case 1:// de plus
-        r = randint(4, 7) * 10
-        e = randint(1, 3) * 10
-        m = r - e
-        somme = m + r
-        this.reponse = m + r
+    let a, b, c, e, prenom1, prenom2, choix1, reponse1, reponse2
+    switch (choice([1])) {
+      case 1:
+        choix1 = choice([true, false])
         prenom1 = prenomF()
         prenom2 = prenomF()
         while (prenom2 === prenom1) {
-          prenom2 = prenomF()
+          prenom2 = prenomM()
         }
-        this.question = ` ${prenom2} dit à ${prenom1}  : "J'ai ${texPrix(r)} € soit ${texPrix(e)} € de plus que toi."<br>`
-        this.question += 'Combien d\'argent en tout possèdent les deux filles ?'
-        this.correction = `D'après l'énoncé ${prenom2} a : ${texPrix(r)} €<br>${prenom2}  a ${texPrix(e)} €`
-        this.correction += texteEnCouleurEtGras(' de plus ')
-        this.correction += `que ${prenom1} signifie que ${prenom1} a ${texPrix(e)}€`
-        this.correction += texteEnCouleurEtGras(' de moins ')
-        this.correction += `que ${prenom2} . <br>${prenom1} a donc : ${texPrix(r)} € - ${texPrix(e)} € = ${texPrix(m)} €`
-        this.correction += `<br>${texPrix(r)} € + ${texPrix(m)} € = ${texPrix(somme)} €`
-        this.correction += texteEnCouleur(`<br>Les deux filles possèdent en tout : ${texPrix(somme)}€`)
+        a = new Decimal(randint(71, 119, [80, 90, 100, 110])).div(10)
+        b = new Decimal(choice([15, 25, 35, 45, 55, 65])).div(10)
+        c = new Decimal(b).div(100)
+        reponse1 = new Decimal(a).add(b)
+        reponse2 = new Decimal(a).sub(b)
+        this.reponse = choix1 ? reponse1 : reponse2
+        this.question = `${prenom1} et ${prenom2} sont allées acheter un déjeuner dans une sandwicherie.<br>
+                ${prenom1} a payé $${texPrix(a)}$ € pour son déjeuner. ${prenom2} a payé le sien $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '}.
+                <br>Combien ${prenom2} a-t-elle payé son déjeuner ? `
+        this.correction = `${prenom2} a payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '} que celui de ${prenom1}.<br>
+        Elle l'a donc payé  (${choix1 ? `$${texPrix(a)}+${texPrix(b)}$` : `$${texPrix(a)}-${texPrix(b)}$`}) €, soit ${choix1 ? `$${texPrix(reponse1)}$` : `$${texPrix(reponse2)}$`} €.`
+        if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
+
         break
 
-      case 2://  de moins
-        r = randint(4, 7) * 10
-        e = randint(1, 3) * 10
-        m = r + e
-        somme = m + r
-        this.reponse = m + r
+      case 2:
+        choix1 = choice([true, false])
         prenom1 = prenomF()
         prenom2 = prenomF()
         while (prenom2 === prenom1) {
-          prenom2 = prenomF()
+          prenom2 = prenomM()
         }
-        this.question = ` ${prenom2} dit à ${prenom1}  : "J'ai ${texPrix(r)} € soit ${texPrix(e)} € de moins que toi."<br>`
-        this.question += 'Combien d\'argent en tout possèdent les deux filles ? '
+        a = new Decimal(randint(71, 119, [80, 90, 100, 110])).div(10)
+        b = new Decimal(choice([15, 25, 35, 45, 55, 65])).div(10)
+        c = new Decimal(b).div(100)
+        reponse2 = new Decimal(a).add(b)
+        reponse1 = new Decimal(a).sub(b)
+        this.reponse = choix1 ? reponse1 : reponse2
+        this.question = `${prenom1} et ${prenom2} sont allées acheter un déjeuner dans une sandwicherie.<br>
+                    ${prenom1} a payé $${texPrix(a)}$ € pour son déjeuner soit $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}.
+                    <br>Combien ${prenom2} a-t-elle payé son déjeuner ? `
+        this.correction = `${prenom1} a payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '} que celui de ${prenom2}.<br>
+            ${prenom2} a donc payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de moins' : ' de plus '}.  Elle l'a donc payé  (${choix1 ? `$${texPrix(a)}-${texPrix(b)}$` : `$${texPrix(a)}+${texPrix(b)}$`}) €, soit ${choix1 ? `$${texPrix(reponse1)}$` : `$${texPrix(reponse2)}$`} €.`
+        if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
 
-        this.correction = `D'après l'énoncé ${prenom2} a : ${texPrix(r)} €<br>${prenom2}  a ${texPrix(e)} €`
-        this.correction += texteEnCouleurEtGras(' de moins ')
-        this.correction += `que ${prenom1} signifie que ${prenom1} a ${texPrix(e)} €`
-        this.correction += texteEnCouleurEtGras(' de plus ')
-        this.correction += `que ${prenom2} . <br>${prenom1} a donc : ${texPrix(r)} € + ${texPrix(e)}€ = ${texPrix(m)} €`
-        this.correction += `<br>${texPrix(r)} € + ${texPrix(m)} € = ${texPrix(somme)} €`
-        this.correction += texteEnCouleur(`<br>Les deux filles possèdent en tout : ${texPrix(somme)}€`)
         break
 
-      case 3://  age
-        a = randint(10, 20)
-        b = randint(2, 8)
-        this.reponse = a - b
-        this.question = `${prenomF()} a ${a} ans.`
-        this.question += `<br>Sachant qu'elle a ${b} ans de plus que son frère, quel âge a celui-ci?`
-        this.correction = `L'âge de son frère est  : $${a}-${b}=${a - b}$ ans.`
+      case 3:
+        choix1 = choice([true, false])
+        prenom1 = prenomM()
+        prenom2 = prenomM()
+        while (prenom2 === prenom1) {
+          prenom2 = prenomM()
+        }
+        a = new Decimal(randint(130, 160)).div(100)
+        b = randint(2, 15)
+        c = new Decimal(b).div(100)
+        reponse1 = new Decimal(a).add(c)
+        reponse2 = new Decimal(a).sub(c)
+        this.reponse = choix1 ? reponse2 : reponse1
+        this.question = `${prenom1} mesure $${texNombre(a, 2, true)}$ m. Il mesure $${b}$ cm ${choix1 ? 'de plus' : ' de moins '} 
+              que ${prenom2}. <br>
+              Quelle est la taille de ${prenom2} ?`
+        this.correction = `${prenom1} mesure $${b}$ cm ${choix1 ? 'de plus' : ' de moins '} que ${prenom2} donc ${prenom2} mesure $${b}$ cm ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
+              Il mesure donc  (${choix1 ? `$${texNombre(a, 2, true)}-${texNombre(c, 2, true)}$` : `$${texNombre(a, 2, true)}+${texNombre(c, 2, true)}$`}) m, soit  ${choix1 ? `$${texNombre(reponse2, 2, true)}$` : `$${texNombre(reponse1, 2, true)}$`} m. `
+        if (this.interactif) { this.optionsChampTexte = { texteApres: ' m' } }
+
         break
 
       case 4://  boîte d'oeufs
