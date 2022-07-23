@@ -16,14 +16,14 @@ export default function PlusOuMoins () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.tailleDiaporama = 2
+  this.tailleDiaporama = 1
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let choix, a, b, r, e, m, somme, prenom1, prenom2, choix1, reponse1, reponse2
     switch (choice([1, 2])) { // 1, 2
       case 1:
         choix = choice(['a', 'b', 'c', 'd'])//, 'b', 'c'
-        if (choix === 'a') {
+        if (choix === 'a') { // age entre Fille et garcon
           choix1 = choice([true, false])
           prenom1 = prenomM()
           prenom2 = prenomF()
@@ -51,7 +51,7 @@ export default function PlusOuMoins () {
           }
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' ans' } }
         }
-        if (choix === 'b') {
+        if (choix === 'b') { // age avec soeur
           choix1 = choice([true, false])
           prenom1 = prenomM()
 
@@ -78,7 +78,7 @@ export default function PlusOuMoins () {
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' ans' } }
         }
 
-        if (choix === 'c') {
+        if (choix === 'c') { // age avec frere
           a = randint(10, 20)
           b = randint(2, 8)
           choix1 = choice([true, false])
@@ -102,7 +102,7 @@ export default function PlusOuMoins () {
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' ans' } }
         }
 
-        if (choix === 'd') {
+        if (choix === 'd') { // billes de plus de moins
           choix1 = choice([true, false])
           prenom1 = prenomF()
           prenom2 = prenomM()
@@ -135,7 +135,7 @@ export default function PlusOuMoins () {
 
       case 2:
         choix = choice(['a', 'b', 'c'])
-        if (choix === 'a') {
+        if (choix === 'a') { // somme d'argent ensemble avec de plus
           r = randint(4, 7) * 10
           e = randint(1, 3) * 10
           m = r - e
@@ -157,7 +157,7 @@ export default function PlusOuMoins () {
           this.correction += `<br>Les deux filles possèdent en tout : $${texPrix(somme)}$ €.`
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
         }
-        if (choix === 'b') {
+        if (choix === 'b') { // somme d'argent ensemble avec de moins
           r = randint(4, 7) * 10
           e = randint(1, 3) * 10
           m = r + e
@@ -181,7 +181,7 @@ export default function PlusOuMoins () {
           if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
         }
 
-        if (choix === 'c') {
+        if (choix === 'c') { /// / somme de billes
           choix1 = choice([true, false])
           prenom1 = prenomM()
           prenom2 = prenomF()
