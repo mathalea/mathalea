@@ -2851,7 +2851,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
   if (nb instanceof Decimal) {
     if (nb.abs().lt(1)) {
       nbChiffresPartieEntiere = 0
-      precision = Decimal.max(nb.log().ceil().add(precision), 0)
+      precision = Decimal.max(nb.log().ceil().add(precision), 0).toNumber()
     } else {
       nbChiffresPartieEntiere = nb.abs().toFixed(0).length
     }

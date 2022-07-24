@@ -1473,7 +1473,8 @@ function Mediatrice (
 */
 // JSDOC Validee EE Juin 2022
 export function mediatrice (A, B, nom = '', couleurMediatrice = 'red', color = 'blue', couleurConstruction = 'black', construction = false, detail = false, markmilieu = '×', markrayons = '||', epaisseurMediatrice = 1, opaciteMediatrice = 1, pointillesMediatrice = 0) {
-  return new Mediatrice(A, B, nom, couleurMediatrice, color, couleurConstruction, construction, detail, markmilieu, markrayons, epaisseurMediatrice, opaciteMediatrice, pointillesMediatrice)
+  if (arguments.length < 5) return new Mediatrice(A, B, nom, couleurMediatrice)
+  else return new Mediatrice(A, B, nom, couleurMediatrice, color, couleurConstruction, construction, detail, markmilieu, markrayons, epaisseurMediatrice, opaciteMediatrice, pointillesMediatrice)
 }
 
 /**
@@ -3427,12 +3428,12 @@ export function cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
  */
 function Ellipse (O, rx, ry, color = 'black') {
   ObjetMathalea2D.call(this)
-  this.color = colorToLatexOrHTML(color)
+  this.color = color
   this.centre = O
   this.rx = rx
   this.ry = ry
   this.couleurDeRemplissage = ''
-  this.opaciteDeRemplissage = 1.1
+  this.opaciteDeRemplissage = 1
   this.bordures = [O.x - rx, O.y - ry, O.x + rx, O.y + ry]
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
