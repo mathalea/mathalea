@@ -3902,8 +3902,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     if (rayon && (this.couleurDeRemplissage !== 'none' && this.couleurDeRemplissage !== '')) {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}, fill opacity = ${this.opaciteDeRemplissage}}`)
     }
 
     if (this.hachures) {
