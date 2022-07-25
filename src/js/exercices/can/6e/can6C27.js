@@ -1,17 +1,16 @@
 import Exercice from '../../Exercice.js'
-import Decimal from 'decimal.js'
-import { randint, choice, prenomF, prenomM, texPrix, texNombre } from '../../../modules/outils.js'
-export const titre = 'Résoudre un problème avec "de plus", "de moins" (nombres décimaux)'
+import { randint, choice, texNombrec, prenomF, prenomM, texPrix, texteEnCouleurEtGras, texteEnCouleur, calcul } from '../../../modules/outils.js'
+export const titre = 'Résoudre un problème concret'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModifImportante = '23/07/2022'
+
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora & Jean-Claude Lhote
  * Référence can6C26
  * Date de publication 21/10/2021
 */
-export default function PlusOuMoins2 () {
+export default function PetitsProblemeArithmetique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
@@ -19,180 +18,111 @@ export default function PlusOuMoins2 () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    let a, b, c, prenom1, prenom2, choix1, reponse1, reponse2, choix, prix1, prix2, choix2, m1, m2
-    switch (choice([1, 1, 1, 2, 3, 3, 3])) {
-      case 1://sandwich
-        choix = choice(['a', 'b', 'c', 'd'])
-        choix1 = choice([true, false])
+    let a, b, r, e, m, somme, prenom1, prenom2
+    switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) {
+      case 1:// de plus
+        r = randint(4, 7) * 10
+        e = randint(1, 3) * 10
+        m = r - e
+        somme = m + r
+        this.reponse = m + r
         prenom1 = prenomF()
         prenom2 = prenomF()
         while (prenom2 === prenom1) {
-          prenom2 = prenomM()
+          prenom2 = prenomF()
         }
-        a = new Decimal(randint(71, 119, [80, 90, 100, 110])).div(10)
-        b = new Decimal(choice([15, 25, 35, 45, 55, 65])).div(10)
-        c = new Decimal(b).div(100)
-        if (choix === 'a') {//prix1
-          reponse1 = new Decimal(a).add(b)
-          reponse2 = new Decimal(a).sub(b)
-          this.reponse = choix1 ? reponse1 : reponse2
-          this.question = `${prenom1} et ${prenom2} sont allées acheter un déjeuner dans une sandwicherie.<br>
-                ${prenom1} a payé $${texPrix(a)}$ € pour son déjeuner. ${prenom2} a payé le sien $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '}.
-                <br>Combien ${prenom2} a-t-elle payé son déjeuner ? `
-          this.correction = `${prenom2} a payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '} que celui de ${prenom1}.<br>
-        Elle l'a donc payé  (${choix1 ? `$${texPrix(a)}+${texPrix(b)}$` : `$${texPrix(a)}-${texPrix(b)}$`}) €, soit ${choix1 ? `$${texPrix(reponse1)}$` : `$${texPrix(reponse2)}$`} €.`
-        }
-        if (choix === 'b') {//prix2
-          reponse2 = new Decimal(a).add(b)
-          reponse1 = new Decimal(a).sub(b)
-          this.reponse = choix1 ? reponse1 : reponse2
-          this.question = `${prenom1} et ${prenom2} sont allées acheter un déjeuner dans une sandwicherie.<br>
-                      ${prenom1} a payé $${texPrix(a)}$ € pour son déjeuner soit $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}.
-                      <br>Combien ${prenom2} a-t-elle payé son déjeuner ? `
-          this.correction = `${prenom1} a payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '} que celui de ${prenom2}.<br>
-              ${prenom2} a donc payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de moins' : ' de plus '}.  Elle l'a donc payé  (${choix1 ? `$${texPrix(a)}-${texPrix(b)}$` : `$${texPrix(a)}+${texPrix(b)}$`}) €, soit ${choix1 ? `$${texPrix(reponse1)}$` : `$${texPrix(reponse2)}$`} €.`
-        }
-        if (choix === 'c') {//prix ensemble
-          prix1 = new Decimal(a).add(b)
-          prix2 = new Decimal(a).sub(b)
-          reponse2 = new Decimal(a).mul(2).add(b)
-          reponse1 = new Decimal(a).mul(2).sub(b)
-          this.reponse = choix1 ? reponse1 : reponse2
-          this.question = `${prenom1} et ${prenom2} sont allées acheter un déjeuner dans une sandwicherie.<br>
-                      ${prenom1} a payé $${texPrix(a)}$ € pour son déjeuner soit $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '}
-                       que ${prenom2}.
-                      <br>Combien ont-elles payé ensemble leur déjeuner ? `
-          this.correction = `${prenom1} a payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '} 
-          que celui de ${prenom2}.<br>
-              ${prenom2} a donc payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de moins' : ' de plus '}.  
-              Elle l'a donc payé  (${choix1 ? `$${texPrix(a)}-${texPrix(b)}$` : `$${texPrix(a)}+${texPrix(b)}$`}) €, 
-              soit ${choix1 ? `$${texPrix(prix2)}$` : `$${texPrix(prix1)}$`} €.<br>
-              Ensemble, elles ont donc payé : (${choix1 ? `$${texPrix(a)}+${texPrix(prix2)}$` : `$${texPrix(a)}+${texPrix(prix1)}$`}) €, 
-              soit ${choix1 ? `$${texPrix(reponse1)}$` : `$${texPrix(reponse2)}$`} €. `
-        }
-        if (choix === 'd') {//prix ensemble
-          prix1 = new Decimal(a).add(b)
-          prix2 = new Decimal(a).sub(b)
-          reponse2 = new Decimal(a).add(prix1)
-          reponse1 = new Decimal(a).add(prix2)
-          this.reponse = choix1 ? reponse2 : reponse1
-          this.question = `${prenom1} et ${prenom2} sont allées acheter un déjeuner dans une sandwicherie.<br>
-          ${prenom1} a payé $${texPrix(a)}$ € pour son déjeuner. ${prenom2} a payé le sien $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '}.
-                      <br>Combien ont-elles payé ensemble leur déjeuner ? `
-          this.correction = `${prenom2} a payé son déjeuner $${texPrix(b)}$ € ${choix1 ? 'de plus' : ' de moins '} que celui de ${prenom1}.<br>
-          Elle l'a donc payé  (${choix1 ? `$${texPrix(a)}+${texPrix(b)}$` : `$${texPrix(a)}-${texPrix(b)}$`}) €, soit ${choix1 ? `$${texPrix(prix1)}$` : `$${texPrix(prix2)}$`} €. <br>
-              Ensemble, elles ont donc payé : (${choix1 ? `$${texPrix(a)}+${texPrix(prix1)}$` : `$${texPrix(a)}+${texPrix(prix2)}$`}) €, 
-              soit ${choix1 ? `$${texPrix(reponse2)}$` : `$${texPrix(reponse1)}$`} €. `
-        }
-
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ' €' } }
-
+        this.question = ` ${prenom2} dit à ${prenom1}  : "J'ai ${texPrix(r)} € soit ${texPrix(e)} € de plus que toi."<br>`
+        this.question += 'Combien d\'argent en tout possèdent les deux filles ?'
+        this.correction = `D'après l'énoncé ${prenom2} a : ${texPrix(r)} €<br>${prenom2}  a ${texPrix(e)} €`
+        this.correction += texteEnCouleurEtGras(' de plus ')
+        this.correction += `que ${prenom1} signifie que ${prenom1} a ${texPrix(e)}€`
+        this.correction += texteEnCouleurEtGras(' de moins ')
+        this.correction += `que ${prenom2} . <br>${prenom1} a donc : ${texPrix(r)} € - ${texPrix(e)} € = ${texPrix(m)} €`
+        this.correction += `<br>${texPrix(r)} € + ${texPrix(m)} € = ${texPrix(somme)} €`
+        this.correction += texteEnCouleur(`<br>Les deux filles possèdent en tout : ${texPrix(somme)}€`)
         break
 
-      case 2://taille
-        choix1 = choice([true, false])
-        prenom1 = prenomM()
-        prenom2 = prenomM()
+      case 2://  de moins
+        r = randint(4, 7) * 10
+        e = randint(1, 3) * 10
+        m = r + e
+        somme = m + r
+        this.reponse = m + r
+        prenom1 = prenomF()
+        prenom2 = prenomF()
         while (prenom2 === prenom1) {
-          prenom2 = prenomM()
+          prenom2 = prenomF()
         }
-        a = new Decimal(randint(130, 160)).div(100)
-        b = randint(2, 15)
-        c = new Decimal(b).div(100)
-        if (choice([true, false])) {
-          reponse1 = new Decimal(a).add(c)
-          reponse2 = new Decimal(a).sub(c)
-          this.reponse = choix1 ? reponse2 : reponse1
-          this.question = `${prenom1} mesure $${texNombre(a, 2, true)}$ m. Il mesure $${b}$ cm ${choix1 ? 'de plus' : ' de moins '} 
-              que ${prenom2}. <br>
-              Quelle est la taille de ${prenom2} ?`
-          this.correction = `${prenom1} mesure $${b}$ cm ${choix1 ? 'de plus' : ' de moins '} que ${prenom2} donc ${prenom2} mesure $${b}$ cm ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
-              Il mesure donc  (${choix1 ? `$${texNombre(a, 2, true)}-${texNombre(c, 2, true)}$` : `$${texNombre(a, 2, true)}+${texNombre(c, 2, true)}$`}) m, soit  ${choix1 ? `$${texNombre(reponse2, 2, true)}$` : `$${texNombre(reponse1, 2, true)}$`} m. `
+        this.question = ` ${prenom2} dit à ${prenom1}  : "J'ai ${texPrix(r)} € soit ${texPrix(e)} € de moins que toi."<br>`
+        this.question += 'Combien d\'argent en tout possèdent les deux filles ? '
+
+        this.correction = `D'après l'énoncé ${prenom2} a : ${texPrix(r)} €<br>${prenom2}  a ${texPrix(e)} €`
+        this.correction += texteEnCouleurEtGras(' de moins ')
+        this.correction += `que ${prenom1} signifie que ${prenom1} a ${texPrix(e)} €`
+        this.correction += texteEnCouleurEtGras(' de plus ')
+        this.correction += `que ${prenom2} . <br>${prenom1} a donc : ${texPrix(r)} € + ${texPrix(e)}€ = ${texPrix(m)} €`
+        this.correction += `<br>${texPrix(r)} € + ${texPrix(m)} € = ${texPrix(somme)} €`
+        this.correction += texteEnCouleur(`<br>Les deux filles possèdent en tout : ${texPrix(somme)}€`)
+        break
+
+      case 3://  age
+        a = randint(10, 20)
+        b = randint(2, 8)
+        this.reponse = a - b
+        this.question = `${prenomF()} a ${a} ans.`
+        this.question += `<br>Sachant qu'elle a ${b} ans de plus que son frère, quel âge a celui-ci?`
+        this.correction = `L'âge de son frère est  : $${a}-${b}=${a - b}$ ans.`
+        break
+
+      case 4://  boîte d'oeufs
+        a = randint(40, 80, [42, 48, 54, 60, 66, 72, 78])
+        this.reponse = Math.ceil(a / 6)
+        this.question = `Combien de boîtes de 6 oeufs faut-il pour ranger $${a}$ oeufs ?`
+        this.correction = `$${a}=6\\times${Math.floor(a / 6)} + ${a - 6 * Math.floor(a / 6)}$.<br>
+                         Il en faut  donc  : $${Math.floor(a / 6)} +1=${Math.floor(a / 6) + 1}$.`
+        break
+
+      case 5://  brouette
+        a = randint(12, 22) * 10
+        if (a / 20 % 1 !== 0) {
+          this.reponse = Math.ceil(a / 20)
+          this.question = `${prenomM()} a $${a}$ kg de gravats à déplacer avec sa brouette.<br> Dans celle-ci, il met $20$ kg de gravats.<br>
+              Combien de brouettes faudra-t-il pour déplacer tous les gravats? `
+          this.correction = `$${a}=20\\times${Math.floor(a / 20)} + ${a - 20 * Math.floor(a / 20)}$.<br>
+              Il faudra donc $${Math.floor(a / 20)}+1$ brouettes pour déplacer tous les gravats.`
         } else {
-          reponse1 = new Decimal(a).add(c)
-          reponse2 = new Decimal(a).sub(c)
-          this.reponse = choix1 ? reponse1 : reponse2
-          this.question = `${prenom1} mesure $${texNombre(a, 2, true)}$ m. ${prenom2} mesure $${b}$ cm ${choix1 ? 'de plus' : ' de moins '} 
-                    que ${prenom1}. <br>
-                    Quelle est la taille de ${prenom2} ?`
-          this.correction = `${prenom2} mesure $${b}$ cm ${choix1 ? 'de plus' : ' de moins '} que ${prenom1} donc ${prenom2} mesure (${choix1 ? `$${texNombre(a, 2, true)}+${texNombre(c, 2, true)}$` : `$${texNombre(a, 2, true)}-${texNombre(c, 2, true)}$`}) m, soit  ${choix1 ? `$${texNombre(reponse1, 2, true)}$` : `$${texNombre(reponse2, 2, true)}$`} m. `
+          this.reponse = Math.floor(a / 20)
+          this.question = `${prenomM()} a $${a}$ kg de gravats à déplacer avec sa brouette.<br> Dans celle-ci, il met $20$ kg de gravats.<br>
+              Combien de brouettes faudra-t-il pour déplacer tous les gravats? `
+          this.correction = `$${a}=20\\times${Math.floor(a / 20)} + ${a - 20 * Math.floor(a / 20)}$.<br>
+              Il faudra donc $${Math.floor(a / 20)}$ brouettes pour déplacer tous les gravats.`
         }
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ' m' } }
-
         break
 
-      case 3:// primeur
-        choix = choice(['a', 'b', 'c', 'd'])//, 'b', 'c', 'd'
-        choix1 = choice([true, false])
-        choix2 = choice([true, false])
-        prenom1 = prenomM()
-        prenom2 = prenomM()
-        while (prenom2 === prenom1) {
-          prenom2 = prenomM()
-        }
-        a = (new Decimal(randint(1, 5) * 10 + randint(1, 10))).div(10)
-        b = randint(1, 9) * 100
-        c = (new Decimal(b)).div(1000)
-        if (choix === 'a') {//masse1
-          reponse1 = (new Decimal(a)).add(c)
-          reponse2 = (new Decimal(a)).sub(c)
-          this.reponse = choix1 ? reponse2 : reponse1
-          this.question = `Chez le primeur, ${prenom1} a acheté  $${texNombre(a, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
-            Il en a acheté $${b}$ g ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}.<br>
-            Quelle masse de ${choix2 ? 'fruits' : ' légumes '} a acheté ${prenom2} ?`
-          this.correction = `${prenom1} a acheté $${b}$ g de ${choix2 ? 'fruits' : ' légumes '}  ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}, donc ${prenom2} en a acheté $${b}$ g ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
-            Or $${b}$ g $=${texNombre(c, 1)}$ kg. <br>
-            ${prenom2} a donc acheté $(${choix1 ? `${texNombre(a, 1)}-${texNombre(c, 1)}` : `${texNombre(a, 1)}+${texNombre(c, 1)}`})$ kg   
-            soit $${choix1 ? `${texNombre(reponse2, 1)}` : `${texNombre(reponse1, 1)}`}$ kg de ${choix2 ? 'fruits' : ' légumes '}.`
-        }
-        if (choix === 'b') {//masse2
-          reponse1 = (new Decimal(a)).add(c)
-          reponse2 = (new Decimal(a)).sub(c)
-          this.reponse = choix1 ? reponse1 : reponse2
-          this.question = `Chez le primeur, ${prenom1} a acheté  $${texNombre(a, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
-          ${prenom2} en a acheté $${b}$ g ${choix1 ? 'de plus' : ' de moins '}.<br>
-            Quelle masse de ${choix2 ? 'fruits' : ' légumes '} a acheté ${prenom2} ?`
-          this.correction = `$${b}$ g $=${texNombre(c, 1)}$ kg. <br>
-          ${prenom2} a acheté $${texNombre(c, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}  ${choix1 ? 'de plus' : ' de moins '} que ${prenom1}, 
-          donc ${prenom2} en a acheté  $(${choix1 ? `${texNombre(a, 1)}+${texNombre(c, 1)}` : `${texNombre(a, 1)}-${texNombre(c, 1)}`})$ kg   
-            soit $${choix1 ? `${texNombre(reponse1, 1)}` : `${texNombre(reponse2, 1)}`}$ kg de ${choix2 ? 'fruits' : ' légumes '}.`
-        }
-        if (choix === 'c') {//masse ensemble1
-          m1 = (new Decimal(a)).add(c)
-          m2 = (new Decimal(a)).sub(c)
-          reponse1 = (new Decimal(m1)).add(a)
-          reponse2 = (new Decimal(m2)).add(a)
-          this.reponse = choix1 ? reponse1 : reponse2
-          this.question = `Chez le primeur, ${prenom1} a acheté  $${texNombre(a, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
-          ${prenom2} en a acheté $${b}$ g ${choix1 ? 'de plus' : ' de moins '}.<br>
-            Quelle masse de ${choix2 ? 'fruits' : ' légumes '} ont-ils acheté ensemble ?`
-          this.correction = `$${b}$ g $=${texNombre(c, 1)}$ kg. <br>
-          ${prenom2} a acheté $${texNombre(c, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}  ${choix1 ? 'de plus' : ' de moins '} que ${prenom1}, 
-          donc ${prenom2} en a acheté  $(${choix1 ? `${texNombre(a, 1)}+${texNombre(c, 1)}` : `${texNombre(a, 1)}-${texNombre(c, 1)}`})$ kg   
-            soit $${choix1 ? `${texNombre(m1, 1)}` : `${texNombre(m2, 1)}`}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
-            Ensemble, ils ont donc acheté :  $(${choix1 ? `${texNombre(a, 1)}+${texNombre(m1, 1)}` : `${texNombre(a, 1)}+${texNombre(m2, 1)}`})$ kg   
-            soit $${choix1 ? `${texNombre(reponse1, 1)}` : `${texNombre(reponse2, 1)}`}$ kg de ${choix2 ? 'fruits' : ' légumes '}.`
-        }
+      case 6://  rendu de monnaie1
+        a = randint(1, 3) * 10
+        e = randint(1, 4)
+        b = a + 2 * e
+        this.reponse = 50 - a
+        this.question = `Un livre coûte ${texPrix(b)} €. Je donne un billet de $50$  € et ${e} ${e > 1 ? 'pièces' : 'pièce'} de 2  €. <br>
+Combien me rend-on ?`
+        this.correction = `On doit me rendre $${calcul(50 + 2 * e)}-${b}=${this.reponse}$ €.`
+        break
 
-        if (choix === 'd') {//masse ensemble2
-          m1 = (new Decimal(a)).add(c)
-          m2 = (new Decimal(a)).sub(c)
-          reponse1 = (new Decimal(m1)).add(a)
-          reponse2 = (new Decimal(m2)).add(a)
-          this.reponse = choix1 ? reponse2 : reponse1
-          this.question = `Chez le primeur, ${prenom1} a acheté  $${texNombre(a, 1)}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
-          Il en a acheté $${b}$ g ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}.<br>
-          Quelle masse de ${choix2 ? 'fruits' : ' légumes '} ont-ils acheté ensemble ?`
-          this.correction = `${prenom1} a acheté $${b}$ g  ${choix2 ? 'fruits' : ' légumes '} de ${choix1 ? 'de plus' : ' de moins '} que ${prenom2}, donc ${prenom2} en a acheté $${b}$ g ${choix1 ? 'de moins' : ' de plus '} que ${prenom1}.<br>
-            Or $${b}$ g $=${texNombre(c, 1)}$ kg. <br>
-            ${prenom2} a donc acheté $(${choix1 ? `${texNombre(a, 1)}-${texNombre(c, 1)}` : `${texNombre(a, 1)}+${texNombre(c, 1)}`})$ kg   
-            soit $${choix1 ? `${texNombre(m2, 1)}` : `${texNombre(m1, 1)}`}$ kg de ${choix2 ? 'fruits' : ' légumes '}.<br>
-            Ensemble, ils ont donc acheté :  $(${choix1 ? `${texNombre(a, 1)}+${texNombre(m2, 1)}` : `${texNombre(a, 1)}+${texNombre(m1, 1)}`})$ kg   
-            soit $${choix1 ? `${texNombre(reponse2, 1)}` : `${texNombre(reponse1, 1)}`}$ kg de ${choix2 ? 'fruits' : ' légumes '}.`
-        }
-
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ' kg' } }
-
+      case 7://  rendu de monnaie2
+        a = randint(1, 6) + (randint(1, 9)) / 10
+        this.reponse = 10 - a
+        this.question = `Chez le boulanger, je dois payer  $${texPrix(a)}$ €. <br>
+        Je donne un billet de $10$  €. <br>
+Combien me rend-on ?`
+        this.correction = `On doit me rendre $10-${texNombrec(a)}=${texNombrec(10 - a)}$ €.`
+        break
+      case 8:// partage
+        b = randint(4, 7)
+        a = randint(8, 11, 10) * b
+        this.reponse = a / b
+        this.question = `  ${prenomF()} veut partager $${a}$ billes équitablement en $${b}$ enfants. Combien chacun aura-t-il de billes ? <br>`
+        this.correction = `Chaque enfant aura  $${a}\\div ${b}=${texNombrec(a / b)}$ billes.`
         break
     }
   }
