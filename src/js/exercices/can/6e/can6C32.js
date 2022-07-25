@@ -1,7 +1,7 @@
 import { mathalea2d, texteParPosition } from '../../../modules/2d.js'
 import { Pyramide } from '../../../modules/pyramide.ts'
 import Exercice from '../../Exercice.js'
-export const titre = 'Pyramide additive'
+export const titre = 'Calculer dans une pyramide additive'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
