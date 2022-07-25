@@ -2594,11 +2594,8 @@ function Polygone (...points) {
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity=${this.opacite}`)
     }
-    if (this.opaciteDeRemplissage !== 1) {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
     if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage !== 'none') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}, fill opacity = ${this.opaciteDeRemplissage}}`)
     }
 
     if (this.hachures) {
@@ -3329,11 +3326,8 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    if (this.opaciteDeRemplissage !== 1) {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
     if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage !== 'none') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}, fill opacity = ${this.opaciteDeRemplissage}}`)
     }
 
     if (this.hachures) {
@@ -3499,11 +3493,8 @@ function Ellipse (O, rx, ry, color = 'black') {
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    if (this.opaciteDeRemplissage !== 1) {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
     if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage !== 'none') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}, fill opacity = ${this.opaciteDeRemplissage}}`)
     }
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
@@ -3902,8 +3893,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     if (rayon && (this.couleurDeRemplissage !== 'none' && this.couleurDeRemplissage !== '')) {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}, fill opacity = ${this.opaciteDeRemplissage}}`)
     }
 
     if (this.hachures) {
