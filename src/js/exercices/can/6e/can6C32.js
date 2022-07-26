@@ -1,5 +1,5 @@
 import { mathalea2d, texteParPosition } from '../../../modules/2d.js'
-import { Pyramide } from '../../../modules/pyramide.ts'
+import Pyramide from '../../../modules/pyramide.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Pyramide additive'
 export const interactifReady = true
