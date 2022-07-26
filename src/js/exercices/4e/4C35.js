@@ -1,4 +1,4 @@
-import Exercice from '../ExerciceTs'
+import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint, puissanceEnProduit } from '../../modules/outils.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -13,20 +13,20 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  * Référence 4C35
 */
-export default class nomExercice extends Exercice {
-  constructor () {
-    super()
-    this.titre = titre
-    this.consigne = 'Calculer de tête l\'écriture décimale ou fractionnaire des nombres suivants'
-    this.nbQuestions = 8
-    this.nbCols = 2
-    this.nbColsCorr = 2
-    this.video = ''
-    this.sup = false
-    this.besoinFormulaireCaseACocher = ['Avec des nombres négatifs']
-  }
+export const uuid = '125bd'
+export const ref = '4C35'
+export default function PuissanceDecimaleOuFractionnaire () {
+  Exercice.call(this)
+  this.titre = titre
+  this.consigne = 'Calculer de tête l\'écriture décimale ou fractionnaire des nombres suivants'
+  this.nbQuestions = 8
+  this.nbCols = 2
+  this.nbColsCorr = 2
+  this.video = ''
+  this.sup = false
+  this.besoinFormulaireCaseACocher = ['Avec des nombres négatifs']
 
-  nouvelleVersion () {
+  this.nouvelleVersion = () => {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -34,8 +34,8 @@ export default class nomExercice extends Exercice {
     const typeQuestionsDisponibles = ['puissancePos', 'puissanceNeg', 'negPuissancePaire', 'negPuissanceImpaire', 'negParenthesePuissancePaire', 'negParenthesePuissanceImpaire', 'puissance0', 'puissance1', 'negParenthesePuissancePaireNeg', 'negParenthesePuissanceImpaireNeg'] // On créé 3 types de questions
     const typesDeQuestions = (this.sup) ? typeQuestionsDisponibles : ['puissance0', 'puissance1', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg']
     const listeTypeQuestions = combinaisonListes(typesDeQuestions, this.nbQuestions)
-    let texte: string, texteCorr : string
-    let a: number, n : number, reponse: FractionX
+    let texte/** string */, texteCorr /** string */
+    let a /** number */, n /** number */, reponse/** any */
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeQuestions[i]) {
         case 'puissancePos':
