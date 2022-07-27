@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { randint, calcul, choice, texNombrec } from '../../modules/outils.js'
+import { randint, calcul, choice, texNombre } from '../../modules/outils.js'
 export const titre = 'Proportions de proportions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,8 +33,8 @@ export default function ProportiondeProportion () {
         qui représente $p_1=${b}\\%$ de la population de référence. <br>
         Dans cette sous-population, on sait que la population de ceux qui ont plus de $${d}$ années d'ancienneté représente $p_2=${c}\\%$.<br>
         D'après le cours, on calcule $p=p_1\\times p_2$, ce qui rerésente $${b}\\%$ de $${c}\\%$.<br>
-      <br>Ainsi,  $p=${texNombrec(b / 100)}\\times ${texNombrec(c / 100)}=${texNombrec(b * c / 10000)}$.<br>
-      Il y a donc $${texNombrec(b * c / 100)}\\%$ d'adhérents de plus de  $${a}$ ans ayant plus de $${b}$ années d'ancienneté.`
+      <br>Ainsi,  $p=${texNombre(b / 100)}\\times ${texNombre(c / 100)}=${texNombre(b * c / 10000)}$.<br>
+      Il y a donc $${texNombre(b * c / 100)}\\%$ d'adhérents de plus de  $${a}$ ans ayant plus de $${b}$ années d'ancienneté.`
         this.reponse = calcul(b * c / 100)
         break
       case 'lycée':
@@ -50,8 +50,8 @@ export default function ProportiondeProportion () {
              Les élèves de 1ère technologique sont une sous-population des élèves de 1ère, qui représente d'après l'énnoncé d'après l'énoncé, $p_2=${c}\\%$. <br>
              <br>Pour connaître la proportion $p$ des élèves de 1ère technologique par rapport à la population de référence (les élèves du lycée), <br>on sait que : $p=p_1\\times p_2$.<br>
              ce qui revient à calculer $${b}\\%$ de $${c}\\%$.<br>
-             <br>Ainsi, $p=${texNombrec(b / 100)}\\times ${texNombrec(c / 100)}=${texNombrec(b * c / 10000)}$.<br>
-             Il y a $${texNombrec(b * c / 100)}\\%$ d'élèves de 1ère technologique parmi les élèves du lycée.`
+             <br>Ainsi, $p=${texNombre(b / 100)}\\times ${texNombre(c / 100)}=${texNombre(b * c / 10000)}$.<br>
+             Il y a $${texNombre(b * c / 100)}\\%$ d'élèves de 1ère technologique parmi les élèves du lycée.`
         this.reponse = calcul(b * c / 100)
         break
       case 'election':
@@ -67,8 +67,8 @@ export default function ProportiondeProportion () {
                  Les suffrages du candidat sont une sous-population des suffrages exprimés, qui représentent d'après l'énnoncé d'après l'énoncé, $p_2=${c}\\%$. <br>
                  <br>Pour connaître le pourcentage de voix obtenues  par ce candidat par rapport aux nombre d'inscrits, on sait que : $p=p_1\\times p_2$.<br>
                  ce qui revient à calculer $${b}\\%$ de $${c}\\%$.<br>
-                 <br>Ainsi, $p=${texNombrec(b / 100)}\\times ${texNombrec(c / 100)}=${texNombrec(b * c / 10000)}$.<br>
-                Ce candidat a donc obtenu $${texNombrec(b * c / 100)}\\%$ des voix des inscrits.`
+                 <br>Ainsi, $p=${texNombre(b / 100)}\\times ${texNombre(c / 100)}=${texNombre(b * c / 10000)}$.<br>
+                Ce candidat a donc obtenu $${texNombre(b * c / 100)}\\%$ des voix des inscrits.`
         this.reponse = calcul(b * c / 100)
         break
     }

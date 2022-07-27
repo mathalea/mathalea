@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombrec, prenomF, prenomM, texPrix, texteEnCouleurEtGras, texteEnCouleur, calcul } from '../../../modules/outils.js'
+import { randint, choice, texNombre, prenomF, prenomM, texPrix, texteEnCouleurEtGras, texteEnCouleur, calcul } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème concret'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -115,14 +115,14 @@ Combien me rend-on ?`
         this.question = `Chez le boulanger, je dois payer  $${texPrix(a)}$ €. <br>
         Je donne un billet de $10$  €. <br>
 Combien me rend-on ?`
-        this.correction = `On doit me rendre $10-${texNombrec(a)}=${texNombrec(10 - a)}$ €.`
+        this.correction = `On doit me rendre $10-${texNombre(a)}=${texNombre(10 - a)}$ €.`
         break
       case 8:// partage
         b = randint(4, 7)
         a = randint(8, 11, 10) * b
         this.reponse = a / b
         this.question = `  ${prenomF()} veut partager $${a}$ billes équitablement en $${b}$ enfants. Combien chacun aura-t-il de billes ? <br>`
-        this.correction = `Chaque enfant aura  $${a}\\div ${b}=${texNombrec(a / b)}$ billes.`
+        this.correction = `Chaque enfant aura  $${a}\\div ${b}=${texNombre(a / b)}$ billes.`
         break
     }
   }

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, simplificationDeFractionAvecEtapes, calcul, texNombrec, miseEnEvidence, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, simplificationDeFractionAvecEtapes, calcul, texNombre, miseEnEvidence, texFraction } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Calculer la fraction d\'un nombre'
@@ -86,7 +86,7 @@ export default function FractionDUnNombre () {
           texteCorr += `$${texFraction(
             a,
             miseEnEvidence(b)
-          )}\\times${n}=${n}\\div${miseEnEvidence(b)}=${texNombrec(
+          )}\\times${n}=${n}\\div${miseEnEvidence(b)}=${texNombre(
             calcul(n / b)
           )}$`
         } else { // si résultat décimal
@@ -103,9 +103,9 @@ export default function FractionDUnNombre () {
             miseEnEvidence(b)
           )}\\times${n}=(${n}\\div${miseEnEvidence(
             b
-          )})\\times${a}=${texNombrec(
+          )})\\times${a}=${texNombre(
             calcul(n / b)
-          )}\\times${a}=${texNombrec(calcul((n / b) * a))}$<br>`
+          )}\\times${a}=${texNombre(calcul((n / b) * a))}$<br>`
         } else {
           if (calcul((n * a) / b - arrondi((n * a) / b, 4)) === 0) {
             // si n/b non décimal, alors on se rabat sur (n*a)/b
@@ -116,7 +116,7 @@ export default function FractionDUnNombre () {
               b
             )}=${calcul(n * a)}\\div${miseEnEvidence(
               b
-            )}=${texNombrec(calcul((n / b) * a))}$<br>`
+            )}=${texNombre(calcul((n / b) * a))}$<br>`
           } else {
             // si autre méthode et résultat fractionnaire calcul (n*a)/b
             texteCorr += ` $${texFraction(
@@ -141,7 +141,7 @@ export default function FractionDUnNombre () {
             miseEnEvidence(b)
           )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
             b
-          )}=${calcul(n * a)}\\div${miseEnEvidence(b)}=${texNombrec(
+          )}=${calcul(n * a)}\\div${miseEnEvidence(b)}=${texNombre(
             calcul((n / b) * a)
           )}$<br>`
         } else {
@@ -164,9 +164,9 @@ export default function FractionDUnNombre () {
             miseEnEvidence(b)
           )}\\times${n}=(${a}\\div${miseEnEvidence(
             b
-          )})\\times${n}=${texNombrec(
+          )})\\times${n}=${texNombre(
             calcul(a / b)
-          )}\\times${n}=${texNombrec(calcul((n / b) * a))}$`
+          )}\\times${n}=${texNombre(calcul((n / b) * a))}$`
         }
       }
 

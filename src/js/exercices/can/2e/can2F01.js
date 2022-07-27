@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import {
-  randint, calcul, choice, ecritureParentheseSiNegatif, texNombrec,
+  randint, calcul, choice, ecritureParentheseSiNegatif, texNombre,
   ecritureAlgebrique, rienSi1, texteEnCouleur
 } from '../../../modules/outils.js'
 export const titre = 'Calculer une image avec le second degré'
@@ -40,9 +40,9 @@ export default function CalculImageSecondDegre () {
           ${a * x * x}${ecritureAlgebrique(b * x)}+${c}=
           ${a * x * x + b * x + c}$<br>`
           this.correction += texteEnCouleur(` Mentalement : <br>
-          On commence par calculer le carré de $${x}$, soit $${x}^2=${texNombrec(x ** 2)}$. <br>
-   On calcule $${b}\\times ${x}$ que l'on ajoute à $${texNombrec(a * x ** 2)}$, soit $${a * x ** 2}+${b * x}=${a * x ** 2 + b * x}$.<br>
-  Pour finir, on ajoute   $${c}$, ce qui donne $${texNombrec(a * x ** 2 + b * x)}+${c}$, soit $${texNombrec(a * x ** 2 + b * x + c)}$.<br>
+          On commence par calculer le carré de $${x}$, soit $${x}^2=${texNombre(x ** 2)}$. <br>
+   On calcule $${b}\\times ${x}$ que l'on ajoute à $${texNombre(a * x ** 2)}$, soit $${a * x ** 2}+${b * x}=${a * x ** 2 + b * x}$.<br>
+  Pour finir, on ajoute   $${c}$, ce qui donne $${texNombre(a * x ** 2 + b * x)}+${c}$, soit $${texNombre(a * x ** 2 + b * x + c)}$.<br>
     `)
         }
         if (a !== 1 & b !== 1) {
@@ -52,10 +52,10 @@ export default function CalculImageSecondDegre () {
           ${a * x * x}${ecritureAlgebrique(b * x)}+${c}=
           ${a * x * x + b * x + c}$<br>`
           this.correction += texteEnCouleur(` Mentalement : <br>
-              On commence par calculer le carré de $${x}$, soit $${x}^2=${texNombrec(x ** 2)}$. <br>
-     On multiplie ensuite cette valeur par le coefficient devant $x^2$, soit $${a}\\times ${texNombrec(x ** 2)}=${texNombrec(a * x ** 2)}$.<br>
-      On calcule $${b}\\times ${x}$ que l'on ajoute à $${texNombrec(a * x ** 2)}$, soit $${a * x ** 2}+${b * x}=${a * x ** 2 + b * x}$.<br>
-      Pour finir, on ajoute   $${c}$, ce qui donne $${texNombrec(a * x ** 2 + b * x)}+${c}$, soit $${texNombrec(a * x ** 2 + b * x + c)}$.<br>
+              On commence par calculer le carré de $${x}$, soit $${x}^2=${texNombre(x ** 2)}$. <br>
+     On multiplie ensuite cette valeur par le coefficient devant $x^2$, soit $${a}\\times ${texNombre(x ** 2)}=${texNombre(a * x ** 2)}$.<br>
+      On calcule $${b}\\times ${x}$ que l'on ajoute à $${texNombre(a * x ** 2)}$, soit $${a * x ** 2}+${b * x}=${a * x ** 2 + b * x}$.<br>
+      Pour finir, on ajoute   $${c}$, ce qui donne $${texNombre(a * x ** 2 + b * x)}+${c}$, soit $${texNombre(a * x ** 2 + b * x + c)}$.<br>
         `)
         }
         if (a === 1 & b === 1) {
@@ -65,9 +65,9 @@ export default function CalculImageSecondDegre () {
           ${x * x}${ecritureAlgebrique(b * x)}+${c}=
           ${x * x + b * x + c}$<br>`
           this.correction += texteEnCouleur(` Mentalement : <br>
-          On commence par calculer le carré de $${x}$, soit $${x}^2=${texNombrec(x ** 2)}$. <br>
+          On commence par calculer le carré de $${x}$, soit $${x}^2=${texNombre(x ** 2)}$. <br>
    On ajoute  $${x}$ soit $${a * x ** 2}+${x}=${x ** 2 + b * x}$.<br>
-  Pour finir, on ajoute   $${c}$, ce qui donne $${texNombrec(a * x ** 2 + b * x)}+${c}$, soit $${texNombrec(a * x ** 2 + b * x + c)}$.<br>
+  Pour finir, on ajoute   $${c}$, ce qui donne $${texNombre(a * x ** 2 + b * x)}+${c}$, soit $${texNombre(a * x ** 2 + b * x + c)}$.<br>
     `)
         }
         if (a !== 1 & b === 1) {
@@ -77,10 +77,10 @@ export default function CalculImageSecondDegre () {
           ${a * x * x}${ecritureAlgebrique(b * x)}+${c}=
           ${a * x * x + b * x + c}$<br>`
           this.correction += texteEnCouleur(` Mentalement : <br>
-          On commence par calculer le carré de $${x}$, soit $${x}^2=${texNombrec(x ** 2)}$. <br>
- On multiplie ensuite cette valeur par le coefficient devant $x^2$, soit $${a}\\times ${texNombrec(x ** 2)}=${texNombrec(a * x ** 2)}$.<br>
+          On commence par calculer le carré de $${x}$, soit $${x}^2=${texNombre(x ** 2)}$. <br>
+ On multiplie ensuite cette valeur par le coefficient devant $x^2$, soit $${a}\\times ${texNombre(x ** 2)}=${texNombre(a * x ** 2)}$.<br>
  On ajoute  $${x}$ soit $${a * x ** 2}+${x}=${a * x ** 2 + b * x}$.<br>
-  Pour finir, on ajoute   $${c}$, ce qui donne $${texNombrec(a * x ** 2 + b * x)}+${c}$, soit $${texNombrec(a * x ** 2 + b * x + c)}$.<br>
+  Pour finir, on ajoute   $${c}$, ce qui donne $${texNombre(a * x ** 2 + b * x)}+${c}$, soit $${texNombre(a * x ** 2 + b * x + c)}$.<br>
     `)
         }
         this.reponse = calcul(a * x * x + b * x + c)

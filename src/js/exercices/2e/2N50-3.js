@@ -1,6 +1,6 @@
 import { fraction } from '../../modules/fractions.js'
 import Exercice from '../Exercice.js'
-import { randint, texNombrec, miseEnEvidence, texteGras, sp, prenom, itemize, texteEnCouleur, numAlpha, listeQuestionsToContenu, combinaisonListes, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
+import { randint, miseEnEvidence, texteGras, sp, prenom, itemize, texteEnCouleur, numAlpha, listeQuestionsToContenu, combinaisonListes, texNombre, texFractionReduite, reduireAxPlusB } from '../../modules/outils.js'
 
 export const titre = 'Modéliser une situation  à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'
@@ -55,20 +55,20 @@ export default function modeliserEquations () {
               `
 
           texteCorr = `${numAlpha(0)} Le salaire du mois de janvier en fonction de $x$ est : $x+${j}$.<br>
-            Le salaire du mois de février en fonction de $x$ est : $\\left(1+${taux.texFraction}\\right)x+${f}=${texNombrec(1 + t / 100)}x+${f}$.<br>
+            Le salaire du mois de février en fonction de $x$ est : $\\left(1+${taux.texFraction}\\right)x+${f}=${texNombre(1 + t / 100)}x+${f}$.<br>
             ${numAlpha(1)} Globalement, le salaire au mois
                   de février a augmenté de $${a}$ € par rapport à celui du mois de janvier, cela signifie que le salaire du
                    mois de janvier augmenté de $${a}$ € est donc égal au salaire du mois de février.<br>
-            Ainsi, $(x+${j})+${a}=${texNombrec(1 + t / 100)}x+${f}$<br>
+            Ainsi, $(x+${j})+${a}=${texNombre(1 + t / 100)}x+${f}$<br>
             On résout l'équation :<br>
           ${sp(8)} $ \\begin{aligned}
-                        x+${texNombrec(j + a)}&=(1+${texNombrec(t / 100)})x+${f}\\\\
-                       x+${texNombrec(j + a)}&=${texNombrec(1 + t / 100)}x+${f}\\\\
-                       x+${texNombrec(j + a)}-${miseEnEvidence(texNombrec(j + a))}&=${texNombrec(1 + t / 100)}x+${f}-${miseEnEvidence(texNombrec(j + a))}\\\\
-            x&=${texNombrec(1 + t / 100)}x${texNombrec(f - j - a)}\\\\
-            x-${miseEnEvidence(texNombrec(1 + t / 100))}${miseEnEvidence('\\textit{x}')}&=${texNombrec(1 + t / 100)}x${texNombrec(f - j - a)}-${miseEnEvidence(texNombrec(1 + t / 100))}${miseEnEvidence('\\textit{x}')}\\\\
-            \\dfrac{${texNombrec(-t / 100)}x}{${miseEnEvidence(texNombrec(-t / 100))}}&=\\dfrac{${texNombrec(f - j - a)}}{${miseEnEvidence(texNombrec(-t / 100))}}\\\\
-            x&=\\dfrac{${texNombrec(f - j - a)}}{${texNombrec(-t / 100)}}
+                        x+${texNombre(j + a)}&=(1+${texNombre(t / 100)})x+${f}\\\\
+                       x+${texNombre(j + a)}&=${texNombre(1 + t / 100)}x+${f}\\\\
+                       x+${texNombre(j + a)}-${miseEnEvidence(texNombre(j + a))}&=${texNombre(1 + t / 100)}x+${f}-${miseEnEvidence(texNombre(j + a))}\\\\
+            x&=${texNombre(1 + t / 100)}x${texNombre(f - j - a)}\\\\
+            x-${miseEnEvidence(texNombre(1 + t / 100))}${miseEnEvidence('\\textit{x}')}&=${texNombre(1 + t / 100)}x${texNombre(f - j - a)}-${miseEnEvidence(texNombre(1 + t / 100))}${miseEnEvidence('\\textit{x}')}\\\\
+            \\dfrac{${texNombre(-t / 100)}x}{${miseEnEvidence(texNombre(-t / 100))}}&=\\dfrac{${texNombre(f - j - a)}}{${miseEnEvidence(texNombre(-t / 100))}}\\\\
+            x&=\\dfrac{${texNombre(f - j - a)}}{${texNombre(-t / 100)}}
             \\end{aligned}$<br>`
           if (Math.round((f - j - a) / (-t / 100)) === (f - j - a) / (-t / 100)) {
             texteCorr += ` ${sp(40)}$ \\begin{aligned}
@@ -103,12 +103,12 @@ export default function modeliserEquations () {
                           Les deux tarifs sont identiques lorsque : $${reduireAxPlusB(c, a)}=${reduireAxPlusB(d, b)}$.<br>
                 On résout l'équation :<br>
                 $\\begin{aligned}
-                ${texNombrec(c)}x+${a}&=${texNombrec(d)}x+${b}\\\\
-                 ${texNombrec(c)}x-${miseEnEvidence(texNombrec(d))}${miseEnEvidence('\\textit{x}')}+${a}&=${texNombrec(d)}x+${b}-${miseEnEvidence(texNombrec(d))}${miseEnEvidence('\\textit{x}')}\\\\
-                       ${texNombrec(c - d)}x+${a}&=${b}\\\\
-                ${texNombrec(c - d)}x+${a}-${miseEnEvidence(texNombrec(a))}&=${b}-${a}\\\\
-                ${texNombrec(c - d)}x&=${b - a}\\\\
-        \\dfrac{${texNombrec(c - d)}x}{${miseEnEvidence(texNombrec(c - d))}}&=\\dfrac{${b - a}}{${miseEnEvidence(texNombrec(c - d))}}\\\\
+                ${texNombre(c)}x+${a}&=${texNombre(d)}x+${b}\\\\
+                 ${texNombre(c)}x-${miseEnEvidence(texNombre(d))}${miseEnEvidence('\\textit{x}')}+${a}&=${texNombre(d)}x+${b}-${miseEnEvidence(texNombre(d))}${miseEnEvidence('\\textit{x}')}\\\\
+                       ${texNombre(c - d)}x+${a}&=${b}\\\\
+                ${texNombre(c - d)}x+${a}-${miseEnEvidence(texNombre(a))}&=${b}-${a}\\\\
+                ${texNombre(c - d)}x&=${b - a}\\\\
+        \\dfrac{${texNombre(c - d)}x}{${miseEnEvidence(texNombre(c - d))}}&=\\dfrac{${b - a}}{${miseEnEvidence(texNombre(c - d))}}\\\\
         \\end{aligned}$<br>`
           if (Math.round((b - a) / (c - d)) === (b - a) / (c - d)) {
             texteCorr += ` ${sp(40)}$ \\begin{aligned}
@@ -132,7 +132,7 @@ export default function modeliserEquations () {
           texte = `  Une usine fabrique des bouteilles en verre. <br>
             En notant $x$ le nombre de bouteilles fabriquées dans une journée, les coûts de fabrication en euros, sont donnés par :
             $${texNombre(a)}x+${texNombre(b)}$.<br>
-            Ces bouteilles sont toutes revendues au tarif unitaire de $${texNombrec(c)}$ €.<br>
+            Ces bouteilles sont toutes revendues au tarif unitaire de $${texNombre(c)}$ €.<br>
             On appelle recette le produit du nombre de bouteilles vendues par le prix unitaire.<br>
             On appelle résultat net de l'entreprise (lorsqu'elle produit et vend $x$ bouteilles), la différence entre la recette et les coûts de fabrication.<br>
       
@@ -140,16 +140,16 @@ export default function modeliserEquations () {
             <br>
                           `
           texteCorr = `
-      $\\bullet$ La recette est donnée par : $${texNombrec(c)}\\times x=${texNombrec(c)}x$ ;<br>
-      $\\bullet$ Les coûts de fabrication sont donnés par : $${texNombrec(a)}x+${texNombrec(b)}$ ;<br>
+      $\\bullet$ La recette est donnée par : $${texNombre(c)}\\times x=${texNombre(c)}x$ ;<br>
+      $\\bullet$ Les coûts de fabrication sont donnés par : $${texNombre(a)}x+${texNombre(b)}$ ;<br>
       $\\bullet$ Le résultat net est donné par la différence entre la recette et les coûts, donc par :<br>
-       $${texNombrec(c)}x-(${texNombrec(a)}x+${texNombrec(b)})=${texNombrec(c)}x-${texNombrec(a)}x-${texNombrec(b)}=${texNombrec(c - a)}x-${texNombrec(b)}$.<br>
-            Le résultat est nul lorsque  : $${texNombrec(c - a)}x-${texNombrec(b)}=0$<br>
+       $${texNombre(c)}x-(${texNombre(a)}x+${texNombre(b)})=${texNombre(c)}x-${texNombre(a)}x-${texNombre(b)}=${texNombre(c - a)}x-${texNombre(b)}$.<br>
+            Le résultat est nul lorsque  : $${texNombre(c - a)}x-${texNombre(b)}=0$<br>
             On résout l'équation :<br>
            $\\begin{aligned}
-                  ${texNombrec(c - a)}x-${texNombrec(b)}+${miseEnEvidence(texNombre(b))}&=0+${miseEnEvidence(texNombrec(b))}\\\\
-            ${texNombrec(c - a)}x&=${texNombrec(b)}\\\\
-            \\dfrac{${texNombrec(c - a)}x}{${miseEnEvidence(texNombrec(c - a))}}&=\\dfrac{${texNombrec(b)}}{${miseEnEvidence(texNombrec(c - a))}}\\\\
+                  ${texNombre(c - a)}x-${texNombre(b)}+${miseEnEvidence(texNombre(b))}&=0+${miseEnEvidence(texNombre(b))}\\\\
+            ${texNombre(c - a)}x&=${texNombre(b)}\\\\
+            \\dfrac{${texNombre(c - a)}x}{${miseEnEvidence(texNombre(c - a))}}&=\\dfrac{${texNombre(b)}}{${miseEnEvidence(texNombre(c - a))}}\\\\
                  \\end{aligned}$<br>`
           if (Math.round((b) / (c - a)) === b / (c - a)) {
             texteCorr += `${sp(37)} $\\begin{aligned}
@@ -185,13 +185,13 @@ export default function modeliserEquations () {
             Puisque le coût total est de $${c}$ €, on obtient l'équation : <br>
             $\\begin{aligned}
             ${a}\\times (x-${d})+${b}\\times x &=${c}\\\\
-                        ${texNombrec(a)}x-${texNombrec(a * d)}+${b} x &=${c}\\\\
-            ${texNombrec(a + b)}x-${texNombrec(a * d)} &=${c}\\\\
-            ${texNombrec(a + b)}x-${texNombrec(a * d)}+${miseEnEvidence(texNombrec(a * d))} &=${c}+${miseEnEvidence(texNombrec(a * d))}\\\\
-            ${texNombrec(a + b)}x &=${texNombrec(c + a * d)}\\\\
-            \\dfrac{${texNombrec(a + b)}x}{${miseEnEvidence(texNombrec(a + b))}} &= \\dfrac{${texNombrec(c + a * d)}}{${miseEnEvidence(texNombrec(a + b))}}\\\\
-            x &= ${texNombrec((c + a * d) / (a + b))}\\end{aligned}$<br>
-      Le prix de la place de théâtre pour un adulte est : $${texNombrec((c + a * d) / (a + b))}$ €.
+                        ${texNombre(a)}x-${texNombre(a * d)}+${b} x &=${c}\\\\
+            ${texNombre(a + b)}x-${texNombre(a * d)} &=${c}\\\\
+            ${texNombre(a + b)}x-${texNombre(a * d)}+${miseEnEvidence(texNombre(a * d))} &=${c}+${miseEnEvidence(texNombre(a * d))}\\\\
+            ${texNombre(a + b)}x &=${texNombre(c + a * d)}\\\\
+            \\dfrac{${texNombre(a + b)}x}{${miseEnEvidence(texNombre(a + b))}} &= \\dfrac{${texNombre(c + a * d)}}{${miseEnEvidence(texNombre(a + b))}}\\\\
+            x &= ${texNombre((c + a * d) / (a + b))}\\end{aligned}$<br>
+      Le prix de la place de théâtre pour un adulte est : $${texNombre((c + a * d) / (a + b))}$ €.
               `
 
           break
@@ -209,14 +209,14 @@ export default function modeliserEquations () {
           texteCorr = `En notant $x$ le nombre choisi au départ, on obtient  :<br>
           $\\bullet$ Multiplier ce nombre par $${a}$ : ${sp(6)}$${a}\\times x=${a}x$ ;<br>
           $\\bullet$ Ajouter $${b}$ : ${sp(6)}$${a}x+${b}$ ; <br>
-          $\\bullet$ Multiplier le résultat par $${c}$ :${sp(6)}$${c}\\times (${a}x+${b})=${texNombrec(c * a)}x+${texNombrec(b * c)}$.<br>
+          $\\bullet$ Multiplier le résultat par $${c}$ :${sp(6)}$${c}\\times (${a}x+${b})=${texNombre(c * a)}x+${texNombre(b * c)}$.<br>
           <br>
           On cherche $x$ tel que : <br>
           $\\begin{aligned}
-          ${texNombrec(c * a)}x+${texNombrec(b * c)}&=${texNombrec(res)}\\\\
-         ${texNombrec(c * a)}x+${texNombrec(b * c)}-${miseEnEvidence(texNombrec(b * c))}&=${texNombrec(res)}-${miseEnEvidence(texNombrec(b * c))}\\\\
-         ${texNombrec(c * a)}x&=${texNombrec(res - b * c)}\\\\
-         \\dfrac{${texNombrec(c * a)}x}{${miseEnEvidence(texNombrec(c * a))}}&=\\dfrac{${texNombrec(res - b * c)}}{${miseEnEvidence(texNombrec(c * a))}}\\\\
+          ${texNombre(c * a)}x+${texNombre(b * c)}&=${texNombre(res)}\\\\
+         ${texNombre(c * a)}x+${texNombre(b * c)}-${miseEnEvidence(texNombre(b * c))}&=${texNombre(res)}-${miseEnEvidence(texNombre(b * c))}\\\\
+         ${texNombre(c * a)}x&=${texNombre(res - b * c)}\\\\
+         \\dfrac{${texNombre(c * a)}x}{${miseEnEvidence(texNombre(c * a))}}&=\\dfrac{${texNombre(res - b * c)}}{${miseEnEvidence(texNombre(c * a))}}\\\\
          x&=${texFractionReduite(res - b * c, c * a)}
          \\end{aligned}$<br>
            Le nombre que l'on doit choisir pour obtenir $${res}$ à la fin du programme est :  $${texFractionReduite(res - b * c, c * a)}$.        
@@ -242,7 +242,7 @@ export default function modeliserEquations () {
       On cherche donc $x$ tel que : <br>
       $\\begin{aligned}
       ${a}x+${b}&=${c}x\\\\
-      ${a}x+${b}-${miseEnEvidence(texNombrec(c))}${miseEnEvidence('\\textit{x}')}&=${c}x-${miseEnEvidence(texNombrec(c))}${miseEnEvidence('\\textit{x}')}\\\\
+      ${a}x+${b}-${miseEnEvidence(texNombre(c))}${miseEnEvidence('\\textit{x}')}&=${c}x-${miseEnEvidence(texNombre(c))}${miseEnEvidence('\\textit{x}')}\\\\
       ${reduireAxPlusB(a - c, 0)}+${b}&=0\\\\
       ${reduireAxPlusB(a - c, 0)}+${b}-${miseEnEvidence(b)}&=0-${miseEnEvidence(b)}
       \\end{aligned}$<br>`
@@ -273,29 +273,29 @@ export default function modeliserEquations () {
           texte += `<br>
           ${texteGras('Programme 2 :')}<br>
                       `
-          texte += itemize(['Choisir un nombre', `Multiplier par $${texNombrec(2 * a)}$ `, `Ajouter $${b}$`])
+          texte += itemize(['Choisir un nombre', `Multiplier par $${texNombre(2 * a)}$ `, `Ajouter $${b}$`])
           texte += '<br>Déterminer les nombres éventuels que l\'on peut entrer dans ces deux programmes pour qu\'au final ils donnent le même résultat.<br><br>'
           texteCorr = `En notant $x$ le nombre choisi au départ : <br>
                  
                  On obtient avec le ${texteGras('programme 1 :')} <br>
       $\\bullet$ Ajouter $${a}$ :${sp(5)} $x+${a}$ ;<br>
-      $\\bullet$ Prendre le carré du résultat :${sp(5)} $(x+${a})^2=x^2+2\\times x\\times ${a}+${a}^2=x^2+${texNombrec(2 * a)}x+${texNombrec(a * a)}$ ;<br>
+      $\\bullet$ Prendre le carré du résultat :${sp(5)} $(x+${a})^2=x^2+2\\times x\\times ${a}+${a}^2=x^2+${texNombre(2 * a)}x+${texNombre(a * a)}$ ;<br>
                   <br> On obtient avec le ${texteGras('programme 2 :')} <br>
-      $\\bullet$ Multiplier par $${texNombrec(2 * a)}$ :${sp(5)} $x\\times ${texNombrec(2 * a)}=${texNombrec(2 * a)}x$ ;<br>
-      $\\bullet$ Ajouter $${b}$ : ${sp(5)} $${texNombrec(2 * a)}x+${b}$.<br><br>
+      $\\bullet$ Multiplier par $${texNombre(2 * a)}$ :${sp(5)} $x\\times ${texNombre(2 * a)}=${texNombre(2 * a)}x$ ;<br>
+      $\\bullet$ Ajouter $${b}$ : ${sp(5)} $${texNombre(2 * a)}x+${b}$.<br><br>
       Les deux programmes donnent le même résultat lorsque : <br>
       $\\begin{aligned}
-      x^2+${texNombrec(2 * a)}x+${texNombrec(a * a)}&=${texNombrec(2 * a)}x+${b}\\\\
-      x^2+${texNombrec(2 * a)}x+${texNombrec(a * a)}-${miseEnEvidence(texNombrec(2 * a))}${miseEnEvidence('\\textit{x}')}&=${texNombrec(2 * a)}x+${b}-${miseEnEvidence(texNombrec(2 * a))}${miseEnEvidence('\\textit{x}')}\\\\
-      x^2+${texNombrec(a * a)}&=${b}\\\\
-      x^2+${texNombrec(a * a)}-${miseEnEvidence(texNombrec(a * a))}&=${b}-${miseEnEvidence(texNombrec(a * a))}\\\\
-      x^2&=${texNombrec(b - a * a)}
+      x^2+${texNombre(2 * a)}x+${texNombre(a * a)}&=${texNombre(2 * a)}x+${b}\\\\
+      x^2+${texNombre(2 * a)}x+${texNombre(a * a)}-${miseEnEvidence(texNombre(2 * a))}${miseEnEvidence('\\textit{x}')}&=${texNombre(2 * a)}x+${b}-${miseEnEvidence(texNombre(2 * a))}${miseEnEvidence('\\textit{x}')}\\\\
+      x^2+${texNombre(a * a)}&=${b}\\\\
+      x^2+${texNombre(a * a)}-${miseEnEvidence(texNombre(a * a))}&=${b}-${miseEnEvidence(texNombre(a * a))}\\\\
+      x^2&=${texNombre(b - a * a)}
       \\end{aligned}$
       <br>
             `
           if (b < a * a) {
             texteCorr += `
-           L'équation n'a pas de solution car $${texNombrec(b - a * a)}<0$. <br>Par conséquent il n'existe pas de nombre qui donne le même résultat avec les deux programmes.
+           L'équation n'a pas de solution car $${texNombre(b - a * a)}<0$. <br>Par conséquent il n'existe pas de nombre qui donne le même résultat avec les deux programmes.
                   `
           } else {
             if (b === a * a) {

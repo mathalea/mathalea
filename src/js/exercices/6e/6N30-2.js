@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombrec, lettreDepuisChiffre, htmlConsigne, egal, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombre, lettreDepuisChiffre, htmlConsigne, egal, calcul } from '../../modules/outils.js'
 import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const titre = 'Placer un point d\'abscisse décimale'
@@ -147,7 +147,7 @@ export default function PlacerPointsSurAxe () {
       objetsEnonce.push(droite)
       objetsCorr.push(droite)
 
-      texte = `Placer les points : $${l1}(${texNombrec(abs1)}), ${l2}(${texNombrec(abs2)}), ${l3}(${texNombrec(abs3)})$<br>`
+      texte = `Placer les points : $${l1}(${texNombre(abs1)}), ${l2}(${texNombre(abs2)}), ${l3}(${texNombre(abs3)})$<br>`
 
       texte += mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75, pixelsParCm: 40 }, objetsEnonce)
       if (this.interactif && !context.isAmc) {

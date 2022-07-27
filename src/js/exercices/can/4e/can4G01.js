@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, creerNomDePolygone, texteEnCouleur, texNombrec } from '../../../modules/outils.js'
+import { randint, choice, creerNomDePolygone, texteEnCouleur, texNombre } from '../../../modules/outils.js'
 import { afficheLongueurSegment, codageAngle, mathalea2d, point, pointAdistance, polygoneAvecNom } from '../../../modules/2d.js'
 export const titre = 'Déterminer une longueur avec des triangles semblables'
 export const interactifReady = true
@@ -71,11 +71,11 @@ export default function LongueurPythagore () {
     }
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
     Les deux valeurs sur le graphique montrent que ce triangle est semblable au triangle rectangle $3$, $4$, $5$ (qui correspond à un triplet pythagoricien bien connu). <br>
-    Pour obtenir ses longueurs, il suffit de multiplier les nombres $3$, $4$, $5$ par $${texNombrec(triplet[0] / 3)}$.<br>
+    Pour obtenir ses longueurs, il suffit de multiplier les nombres $3$, $4$, $5$ par $${texNombre(triplet[0] / 3)}$.<br>
     On obtient ainsi les longueurs : <br>
-    $\\bullet$  $${texNombrec(triplet[0] / 3)}\\times 3= ${texNombrec(triplet[0])}$ cm ;<br>
-    $\\bullet$  $${texNombrec(triplet[0] / 3)}\\times 4= ${texNombrec(triplet[1])}$ cm ;<br>
-    $\\bullet$  $${texNombrec(triplet[0] / 3)}\\times 5= ${texNombrec(triplet[2])}$ cm ;<br>
+    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 3= ${texNombre(triplet[0])}$ cm ;<br>
+    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 4= ${texNombre(triplet[1])}$ cm ;<br>
+    $\\bullet$  $${texNombre(triplet[0] / 3)}\\times 5= ${texNombre(triplet[2])}$ cm ;<br>
     On obtient la longueur manquante par déduction.`)
   }
 }

@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, texFractionReduite, texNombrec, sp, texteEnCouleur, calcul } from '../../../modules/outils.js'
+import { randint, choice, texFractionReduite, texNombre, sp, texteEnCouleur, calcul } from '../../../modules/outils.js'
 export const titre = 'Calculer une moyenne'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -42,7 +42,7 @@ export default function MoyenneStat () {
         this.question = `$${b}$${sp(2)} ; ${sp(2)} $${a}$ ${sp(2)} ; ${sp(2)}$${c}$${sp(2)} ; ${sp(2)}$${d}$ ${sp(2)} ; ${sp(2)}$${f}$<br>
         Quelle est la moyenne de cette série ?`
         this.correction = `La somme des $5$ valeurs est : $${b}+${a}+${c}+${d}+${f}= ${e}$.<br>
-         La moyenne est donc $\\dfrac{${texNombrec(e)}}{5}=${texFractionReduite(e, 5)}$.`
+         La moyenne est donc $\\dfrac{${texNombre(e)}}{5}=${texFractionReduite(e, 5)}$.`
 
         this.reponse = e / 5
         break
@@ -53,14 +53,14 @@ export default function MoyenneStat () {
           e = calcul(randint(2, 9) / 100)
           b = a - e
           c = a + e
-          this.question = `$${texNombrec(a)}$ ${sp(2)} ; ${sp(2)}  $${texNombrec(b)}$  ${sp(2)} ; ${sp(2)}  $${texNombrec(c)}$<br>
+          this.question = `$${texNombre(a)}$ ${sp(2)} ; ${sp(2)}  $${texNombre(b)}$  ${sp(2)} ; ${sp(2)}  $${texNombre(c)}$<br>
             Quelle est la moyenne de cette série ?`
-          this.correction = `La somme des $3$ valeurs est : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)} =${texNombrec(3 * a)}$.<br>
-          La moyenne est donc $\\dfrac{${texNombrec(3 * a)}}{3}=${texNombrec(a)}$.`
+          this.correction = `La somme des $3$ valeurs est : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)} =${texNombre(3 * a)}$.<br>
+          La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${texNombre(a)}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          En écrivant les valeurs dans l'ordre croissant : <br>$\\underbrace{${texNombrec(b)}}_{${texNombrec(a)}- ${texNombrec(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombrec(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombrec(c)}}_{${texNombrec(a)}+ ${texNombrec(e)}}$, 
-                    on remarque que les écarts entre la valeur intermédiaire ($${texNombrec(a)}$) et les deux autres valeurs ($${texNombrec(a - e)}$ et $${texNombrec(a + e)}$) sont égaux (ils valent $${texNombrec(e)}$).<br>
-          On en déduit que la moyenne est la valeur intermédiaire : $${texNombrec(a)}$.
+          En écrivant les valeurs dans l'ordre croissant : <br>$\\underbrace{${texNombre(b)}}_{${texNombre(a)}- ${texNombre(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(c)}}_{${texNombre(a)}+ ${texNombre(e)}}$, 
+                    on remarque que les écarts entre la valeur intermédiaire ($${texNombre(a)}$) et les deux autres valeurs ($${texNombre(a - e)}$ et $${texNombre(a + e)}$) sont égaux (ils valent $${texNombre(e)}$).<br>
+          On en déduit que la moyenne est la valeur intermédiaire : $${texNombre(a)}$.
 
             
             
@@ -72,14 +72,14 @@ export default function MoyenneStat () {
           e = randint(2, 9) / 100
           b = a - e
           c = a + e
-          this.question = `$${texNombrec(b)}$ ${sp(2)} ; ${sp(2)}  $${texNombrec(c)}$  ${sp(2)} ; ${sp(2)}  $${texNombrec(a)}$<br>
+          this.question = `$${texNombre(b)}$ ${sp(2)} ; ${sp(2)}  $${texNombre(c)}$  ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$<br>
             Quelle est la moyenne de cette série ?`
-          this.correction = `La somme des $3$ valeurs est : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)} =${texNombrec(3 * a)}$.<br>
-          La moyenne est donc $\\dfrac{${texNombrec(3 * a)}}{3}=${texNombrec(a)}$.`
+          this.correction = `La somme des $3$ valeurs est : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)} =${texNombre(3 * a)}$.<br>
+          La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${texNombre(a)}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          En écrivant les valeurs dans l'ordre croissant : <br>$\\underbrace{${texNombrec(b)}}_{${texNombrec(a)}- ${texNombrec(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombrec(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombrec(c)}}_{${texNombrec(a)}+ ${texNombrec(e)}}$, 
-                    on remarque que les écarts entre la valeur intermédiaire ($${texNombrec(a)}$) et les deux autres valeurs ($${texNombrec(a - e)}$ et $${texNombrec(a + e)}$) sont égaux (ils valent $${texNombrec(e)}$).<br>
-          On en déduit que la moyenne est la valeur intermédiaire : $${texNombrec(a)}$.
+          En écrivant les valeurs dans l'ordre croissant : <br>$\\underbrace{${texNombre(b)}}_{${texNombre(a)}- ${texNombre(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(c)}}_{${texNombre(a)}+ ${texNombre(e)}}$, 
+                    on remarque que les écarts entre la valeur intermédiaire ($${texNombre(a)}$) et les deux autres valeurs ($${texNombre(a - e)}$ et $${texNombre(a + e)}$) sont égaux (ils valent $${texNombre(e)}$).<br>
+          On en déduit que la moyenne est la valeur intermédiaire : $${texNombre(a)}$.
 
             
             
@@ -91,16 +91,16 @@ export default function MoyenneStat () {
           e = randint(2, 9)
           b = a - e
           c = a + e
-          this.question = `$${texNombrec(c)}$${sp(2)} ; ${sp(2)} $${texNombrec(a)}$ ${sp(2)} ; ${sp(2)}$${texNombrec(b)}$<br>
+          this.question = `$${texNombre(c)}$${sp(2)} ; ${sp(2)} $${texNombre(a)}$ ${sp(2)} ; ${sp(2)}$${texNombre(b)}$<br>
                             Quelle est la moyenne de cette série ?`
 
-          this.correction = `La somme des $3$ valeurs est : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)} =${texNombrec(3 * a)}$.<br>
-                            La moyenne est donc $\\dfrac{${texNombrec(3 * a)}}{3}=${texNombrec(a)}$.`
+          this.correction = `La somme des $3$ valeurs est : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)} =${texNombre(3 * a)}$.<br>
+                            La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${texNombre(a)}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          On remarque que les écarts entre la valeur intermédiaire ($${texNombrec(a)}$) et les deux autres valeurs ($${texNombrec(a - e)}$ et $${texNombrec(a + e)}$) sont égaux (ils valent $${texNombrec(e)}$) :                
-          $\\underbrace{${texNombrec(c)}}_{${a}+ ${e}}$ ${sp(2)} ; ${sp(2)}  $${texNombrec(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombrec(b)}}_{${a}- ${e}}$. <br>
+          On remarque que les écarts entre la valeur intermédiaire ($${texNombre(a)}$) et les deux autres valeurs ($${texNombre(a - e)}$ et $${texNombre(a + e)}$) sont égaux (ils valent $${texNombre(e)}$) :                
+          $\\underbrace{${texNombre(c)}}_{${a}+ ${e}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(b)}}_{${a}- ${e}}$. <br>
                                       
-                            On en déduit que la moyenne est la valeur intermédiaire : $${texNombrec(a)}$.
+                            On en déduit que la moyenne est la valeur intermédiaire : $${texNombre(a)}$.
                   
                               
                               
@@ -112,15 +112,15 @@ export default function MoyenneStat () {
           e = randint(2, 9)
           b = a - e
           c = a + e
-          this.question = `$${texNombrec(a)}$${sp(2)} ; ${sp(2)} $${texNombrec(c)}$ ${sp(2)} ; ${sp(2)}$${texNombrec(b)}$<br>
+          this.question = `$${texNombre(a)}$${sp(2)} ; ${sp(2)} $${texNombre(c)}$ ${sp(2)} ; ${sp(2)}$${texNombre(b)}$<br>
                             Quelle est la moyenne de cette série ?`
 
-          this.correction = `La somme des $3$ valeurs est : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)} =${texNombrec(3 * a)}$.<br>
-                            La moyenne est donc $\\dfrac{${texNombrec(3 * a)}}{3}=${texNombrec(a)}$.`
+          this.correction = `La somme des $3$ valeurs est : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)} =${texNombre(3 * a)}$.<br>
+                            La moyenne est donc $\\dfrac{${texNombre(3 * a)}}{3}=${texNombre(a)}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
-          En écrivant les valeurs dans l'ordre croissant : $\\underbrace{${texNombrec(b)}}_{${texNombrec(a)}- ${texNombrec(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombrec(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombrec(c)}}_{${texNombrec(a)}+ ${texNombrec(e)}}$, 
-                    on remarque que les écarts entre la valeur intermédiaire ($${texNombrec(a)}$) et les deux autres valeurs ($${texNombrec(a - e)}$ et $${texNombrec(a + e)}$) sont égaux (ils valent $${texNombrec(e)}$).<br>
-          On en déduit que la moyenne est la valeur intermédiaire : $${texNombrec(a)}$.
+          En écrivant les valeurs dans l'ordre croissant : $\\underbrace{${texNombre(b)}}_{${texNombre(a)}- ${texNombre(e)}}$ ${sp(2)} ; ${sp(2)}  $${texNombre(a)}$  ${sp(2)} ; ${sp(2)}  $\\underbrace{${texNombre(c)}}_{${texNombre(a)}+ ${texNombre(e)}}$, 
+                    on remarque que les écarts entre la valeur intermédiaire ($${texNombre(a)}$) et les deux autres valeurs ($${texNombre(a - e)}$ et $${texNombre(a + e)}$) sont égaux (ils valent $${texNombre(e)}$).<br>
+          On en déduit que la moyenne est la valeur intermédiaire : $${texNombre(a)}$.
                               
                               
                             `)

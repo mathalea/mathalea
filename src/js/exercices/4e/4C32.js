@@ -81,7 +81,7 @@ export default function NotationScientifique () {
           break
       }
 
-      // decimalstring = texNombrec(mantisse * 10 ** exp)
+      // decimalstring = texNombre(mantisse * 10 ** exp)
       scientifiquestring = `${texNombre(mantisse, 8)}\\times 10^{${exp}}`
       decimalstring = scientifiqueToDecimal(mantisse, exp)
 

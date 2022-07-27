@@ -34,7 +34,6 @@ export default function NomExercice () {
     Decimal.toExpNeg = -40
     Decimal.toExpPos = 40
     const a = new Decimal(this.sup)
-    const b = Number(this.sup)
 
     console.log(stringNombre(a))
     console.log(stringNombre(Math.log10(a), 5))

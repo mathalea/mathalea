@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombre, miseEnEvidence } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const titre = 'Calcul avec les puissances de dix'
 
@@ -75,11 +75,11 @@ export default function CalculsAvecPuissancesDeDix () {
       mantisse1 = calcul(mantisse * 10 ** decalage)
       exp1 = exp - decalage
 
-      decimalstring = `${texNombrec(mantisse1)} \\times 10^{${exp1}}`
+      decimalstring = `${texNombre(mantisse1)} \\times 10^{${exp1}}`
       scientifiquestring = `${texNombre(mantisse)} \\times 10^{${exp}}`
       if (this.sup === 1) {
         texte = `$${decimalstring}$`
-        texteCorr = `$${miseEnEvidence(`${texNombrec(mantisse1)}`, 'blue')}\\times ${miseEnEvidence(`10^{${exp1}}`)} = ${miseEnEvidence(`${texNombre(mantisse)}\\times 10^{${decalage}}`, 'blue')}\\times  ${miseEnEvidence(`10^{${exp1}}`)} = ${scientifiquestring}$`
+        texteCorr = `$${miseEnEvidence(`${texNombre(mantisse1)}`, 'blue')}\\times ${miseEnEvidence(`10^{${exp1}}`)} = ${miseEnEvidence(`${texNombre(mantisse)}\\times 10^{${decalage}}`, 'blue')}\\times  ${miseEnEvidence(`10^{${exp1}}`)} = ${scientifiquestring}$`
         this.autoCorrection[i] = {}
         this.autoCorrection[i].enonce = `${texte}\n`
         this.autoCorrection[i].options = {

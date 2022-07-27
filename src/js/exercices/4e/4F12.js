@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, prenomF } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, texNombre, prenomF } from '../../modules/outils.js'
 import { point, polyline, grille, courbeInterpolee, texteParPosition, mathalea2d, repere, courbe, vide2d } from '../../modules/2d.js'
 export const titre = 'Problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const amcReady = true
@@ -89,9 +89,9 @@ export default function ExploiterRepresentationGraphique () {
           'Au bout de combien de temps le projectile retombe-t-il au sol ?'
         )
         this.listeCorrections.push(
-          `Au bout de ${texNombrec(
+          `Au bout de ${texNombre(
             t1
-          )} s, le projectile retombe au sol car la courbe passe par le point de coordonnées $(${texNombrec(
+          )} s, le projectile retombe au sol car la courbe passe par le point de coordonnées $(${texNombre(
             t1
           )}~;~0)$.`
         )
@@ -100,7 +100,7 @@ export default function ExploiterRepresentationGraphique () {
           'Quelle est la hauteur maximale atteinte par le projectile ?'
         )
         this.listeCorrections.push(
-          `Le point le plus haut de la courbe a pour abscisse $${texNombrec(
+          `Le point le plus haut de la courbe a pour abscisse $${texNombre(
             (t1 / 2)
           )}$ et pour ordonnée $${Math.round(f(t1 / 2))}$ donc la hauteur maximale est de $${Math.round(f(t1 / 2))}$ m.`
         )
@@ -145,7 +145,7 @@ export default function ExploiterRepresentationGraphique () {
           'À quelle distance le projectile est-il retombé ?'
         )
         this.listeCorrections.push(
-            `Le projectile retombe au sol à une distance de ${t1} m, car la courbe passe par le point de coordonnées $(${texNombrec(
+            `Le projectile retombe au sol à une distance de ${t1} m, car la courbe passe par le point de coordonnées $(${texNombre(
               t1
             )}~;~0)$.`
         )
@@ -154,7 +154,7 @@ export default function ExploiterRepresentationGraphique () {
           'Quelle est la hauteur maximale atteinte par le projectile ?'
         )
         this.listeCorrections.push(
-            `Le point le plus haut de la courbe a pour abscisse $${texNombrec((t1 / 2))}$ et pour ordonnée $${Math.round(f(t1 / 2))}$ donc la hauteur maximale est de $${Math.round(f(t1 / 2))}$ m.`
+            `Le point le plus haut de la courbe a pour abscisse $${texNombre((t1 / 2))}$ et pour ordonnée $${Math.round(f(t1 / 2))}$ donc la hauteur maximale est de $${Math.round(f(t1 / 2))}$ m.`
         )
 
         break

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, texNombrec, choice, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, texNombre, choice, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Donner l\'écriture décimale à partir d\'un somme d\'entiers et de fractions décimales'
 export const interactifReady = true
@@ -43,32 +43,32 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':
           texte = `$${a} + \\dfrac{${b}}{10} + \\dfrac{${c}}{100}$`
-          texteCorr = `$${a} + \\dfrac{${b}}{10} + \\dfrac{${c}}{100} = ${texNombrec(a + b / 10 + c / 100)} $`
+          texteCorr = `$${a} + \\dfrac{${b}}{10} + \\dfrac{${c}}{100} = ${texNombre(a + b / 10 + c / 100)} $`
           reponse = calcul(a + b / 10 + c / 100)
           break
         case 'type2':
           texte = `$${a} + \\dfrac{${c}}{100} + \\dfrac{${b}}{10} $`
-          texteCorr = `$${a} + \\dfrac{${c}}{100} + \\dfrac{${b}}{10}  = ${texNombrec(a + b / 10 + c / 100)} $`
+          texteCorr = `$${a} + \\dfrac{${c}}{100} + \\dfrac{${b}}{10}  = ${texNombre(a + b / 10 + c / 100)} $`
           reponse = calcul(a + b / 10 + c / 100)
           break
         case 'type3':
           texte = `$\\dfrac{${c}}{100} + \\dfrac{${b}}{10} + ${a}$`
-          texteCorr = `$\\dfrac{${c}}{100} + \\dfrac{${b}}{10} + ${a} = ${texNombrec(a + b / 10 + c / 100)} $`
+          texteCorr = `$\\dfrac{${c}}{100} + \\dfrac{${b}}{10} + ${a} = ${texNombre(a + b / 10 + c / 100)} $`
           reponse = calcul(a + b / 10 + c / 100)
           break
         case 'type4':
           texte = `$\\dfrac{${c}}{100} + ${a} + \\dfrac{${b}}{10} $`
-          texteCorr = `$\\dfrac{${c}}{100} + ${a} + \\dfrac{${b}}{10}  = ${texNombrec(a + b / 10 + c / 100)} $`
+          texteCorr = `$\\dfrac{${c}}{100} + ${a} + \\dfrac{${b}}{10}  = ${texNombre(a + b / 10 + c / 100)} $`
           reponse = calcul(a + b / 10 + c / 100)
           break
         case 'type5':
           texte = `$${a} + \\dfrac{${b}}{100}$`
-          texteCorr = `$${a} + \\dfrac{${b}}{100} = ${texNombrec(a + b / 100)}$`
+          texteCorr = `$${a} + \\dfrac{${b}}{100} = ${texNombre(a + b / 100)}$`
           reponse = calcul(a + b / 100)
           break
         case 'type6':
           texte = `$\\dfrac{${b}}{100} + ${a}$`
-          texteCorr = `$\\dfrac{${b}}{100} + ${a} = ${texNombrec(a + b / 100)}$`
+          texteCorr = `$\\dfrac{${b}}{100} + ${a} = ${texNombre(a + b / 100)}$`
           reponse = calcul(a + b / 100)
           break
       }

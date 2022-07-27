@@ -1,5 +1,5 @@
 import { fraction } from '../../../modules/fractions.js'
-import { calcul, choice, randint, texNombre, texNombrec } from '../../../modules/outils.js'
+import { calcul, choice, randint, texNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Simplifier des fractions ou des racines carrées'
 export const interactifReady = true
@@ -50,8 +50,8 @@ export default function SimplifieFractionOuRacinesCarrees () {
           a = randint(1, 9) / 10
 
           resultat = a
-          this.question = `$\\sqrt{${texNombrec(a ** 2)}}=$`
-          this.correction = `$${texNombrec(a ** 2)}$ est le carré du nombre positif $${texNombre(a)}$ donc $\\sqrt{${texNombrec(a ** 2)}}=${texNombre(a)}$.`
+          this.question = `$\\sqrt{${texNombre(a ** 2)}}=$`
+          this.correction = `$${texNombre(a ** 2)}$ est le carré du nombre positif $${texNombre(a)}$ donc $\\sqrt{${texNombre(a ** 2)}}=${texNombre(a)}$.`
           this.reponse = resultat
           this.formatInteractif = 'calcul'
         }

@@ -1,6 +1,6 @@
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
-import { choice, listeQuestionsToContenu, sp, texNombrec, texFractionReduite } from '../../../modules/outils.js'
+import { choice, listeQuestionsToContenu, sp, texNombre, texFractionReduite } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Convertir des fractions d’heures en minutes et inversement'
 export const interactifReady = true
@@ -34,10 +34,10 @@ export default function HeuresFractionHeuresMinutes2 () {
           } else {
             texte = `Compléter : <br>$\\dfrac{${a}}{${b}}$ h $=$`
             texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: sp(5) + 'min' })
-            texteCorr = `$${texNombrec(a + b)}$h$ = ${a}$ h $ + ${texNombrec(b)} \\times 60  = ${a}$ h $${d}$ min`
+            texteCorr = `$${texNombre(a + b)}$h$ = ${a}$ h $ + ${texNombre(b)} \\times 60  = ${a}$ h $${d}$ min`
             setReponse(this, i, a * 60 / b)
           }
-          texteCorr = `$\\dfrac{${a}}{${b}}$ h $= \\dfrac{${a}}{${b}}\\times 60$ min  $= ${a}\\times \\dfrac{60}{${b}}$ min $= ${a}\\times ${texNombrec(60 / b)}$ min$=${texNombrec(a * 60 / b)}$ min`
+          texteCorr = `$\\dfrac{${a}}{${b}}$ h $= \\dfrac{${a}}{${b}}\\times 60$ min  $= ${a}\\times \\dfrac{60}{${b}}$ min $= ${a}\\times ${texNombre(60 / b)}$ min$=${texNombre(a * 60 / b)}$ min`
           break
 
         case 2 :

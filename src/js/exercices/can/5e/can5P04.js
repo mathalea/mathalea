@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
+import { randint, calcul, choice, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 export const titre = 'Calculer avec une proportion'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,9 +27,9 @@ export default function PoucentageP1 () {
         this.question = `$\\dfrac{1}{5}$ des élèves d'une classe de $${b}$ élèves a ${caractere}.<br>
               Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $\\dfrac{1}{5}$ de $${b}$ .<br>
-        $\\dfrac{1}{5}\\times ${b}=\\dfrac{${b}}{5}=${texNombrec(b / 5)}$.<br>
-        $${texNombrec(b / 5)}$ élèves ont ${caractere} .<br>
-          Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 5)}=${texNombrec(b - b / 5)}$`
+        $\\dfrac{1}{5}\\times ${b}=\\dfrac{${b}}{5}=${texNombre(b / 5)}$.<br>
+        $${texNombre(b / 5)}$ élèves ont ${caractere} .<br>
+          Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombre(b / 5)}=${texNombre(b - b / 5)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Pour calculer $\\dfrac{1}{5}$ d'une quantité, on la divise par $5$. <br>
           Ainsi, $\\dfrac{1}{5}\\times ${b}=${b}\\div 5=${b / 5}$.`)
@@ -41,9 +41,9 @@ export default function PoucentageP1 () {
         this.question = `$\\dfrac{1}{6}$ des élèves d'une classe de $${b}$ élèves a ${caractere}.<br>
             Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $\\dfrac{1}{6}$ de $${b}$ .<br>
-        $\\dfrac{1}{6}\\times ${b}=\\dfrac{${b}}{6}=${texNombrec(b / 6)}$.<br>
-        $${texNombrec(b / 6)}$ élèves ont ${caractere} .<br>
-          Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 6)}=${texNombrec(b - b / 6)}$`
+        $\\dfrac{1}{6}\\times ${b}=\\dfrac{${b}}{6}=${texNombre(b / 6)}$.<br>
+        $${texNombre(b / 6)}$ élèves ont ${caractere} .<br>
+          Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombre(b / 6)}=${texNombre(b - b / 6)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Pour calculer $\\dfrac{1}{6}$ d'une quantité, on la divise par $6$. <br>
           Ainsi, $\\dfrac{1}{6}\\times ${b}=${b}\\div 6=${b / 6}$.`)
@@ -55,9 +55,9 @@ export default function PoucentageP1 () {
         this.question = `$\\dfrac{1}{7}$ d'une classe de $${b}$ élèves a ${caractere}.<br>
         Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $\\dfrac{1}{7}$ de $${b}$ .<br>
-        $\\dfrac{1}{7}\\times ${b}=\\dfrac{${b}}{7}=${texNombrec(b / 7)}$.<br>
-        $${texNombrec(b / 7)}$ élèves ont ${caractere} .<br>
-          Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 7)}=${texNombrec(b - b / 7)}$`
+        $\\dfrac{1}{7}\\times ${b}=\\dfrac{${b}}{7}=${texNombre(b / 7)}$.<br>
+        $${texNombre(b / 7)}$ élèves ont ${caractere} .<br>
+          Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombre(b / 7)}=${texNombre(b - b / 7)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Pour calculer $\\dfrac{1}{7}$ d'une quantité, on la divise par $7$. <br>
           Ainsi, $\\dfrac{1}{7}\\times ${b}=${b}\\div 7=${b / 7}$.`)
@@ -69,9 +69,9 @@ export default function PoucentageP1 () {
         this.question = `$\\dfrac{1}{4}$ d'une classe de $${b}$ élèves a ${caractere}.<br>
             Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $\\dfrac{1}{4}$ de $${b}$ .<br>
-            $\\dfrac{1}{4}\\times ${b}=\\dfrac{${b}}{4}=${texNombrec(b / 4)}$.<br>
-            $${texNombrec(b / 4)}$ élèves ont ${caractere} .<br>
-              Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 4)}=${texNombrec(b - b / 4)}$`
+            $\\dfrac{1}{4}\\times ${b}=\\dfrac{${b}}{4}=${texNombre(b / 4)}$.<br>
+            $${texNombre(b / 4)}$ élèves ont ${caractere} .<br>
+              Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombre(b / 4)}=${texNombre(b - b / 4)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
               Pour calculer $\\dfrac{1}{4}$ d'une quantité, on la divise par $4$. <br>
               Ainsi, $\\dfrac{1}{4}\\times ${b}=${b}\\div 4=${b / 4}$.`)
@@ -84,9 +84,9 @@ export default function PoucentageP1 () {
               Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $20 \\%$  de $${b}$ .<br>
              Prendre $20 \\%$  d'une quantité revient à en prendre le cinquième, c'est-à-dire à la diviser par $5$.<br>
-              $20\\%$  de $${b}$ est égal à $\\dfrac{${b}}{5}=${texNombrec(b / 5)}$.<br>
-                            $${texNombrec(b / 5)}$ élèves ont ${caractere} .<br>
-                Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 5)}=${texNombrec(b - b / 5)}$`
+              $20\\%$  de $${b}$ est égal à $\\dfrac{${b}}{5}=${texNombre(b / 5)}$.<br>
+                            $${texNombre(b / 5)}$ élèves ont ${caractere} .<br>
+                Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombre(b / 5)}=${texNombre(b - b / 5)}$`
         this.reponse = calcul(8 * b / 10)
         break
       case 'f':
@@ -96,9 +96,9 @@ export default function PoucentageP1 () {
                   Quel est le nombre d'élèves n'en ayant pas ?`
         this.correction = `On calcule d'abord $25 \\%$  de $${b}$ .<br>
                   Prendre $25 \\%$  d'une quantité revient à en prendre le quart, c'est-à-dire à la diviser par $4$.<br>
-                   $25 \\%$  de $${b}$ est égal à $\\dfrac{${b}}{4}=${texNombrec(b / 4)}$.<br>
-                                 $${texNombrec(b / 4)}$ élèves ont ${caractere} .<br>
-                     Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombrec(b / 4)}=${texNombrec(b - b / 4)}$`
+                   $25 \\%$  de $${b}$ est égal à $\\dfrac{${b}}{4}=${texNombre(b / 4)}$.<br>
+                                 $${texNombre(b / 4)}$ élèves ont ${caractere} .<br>
+                     Le nombre d'élèves  n'en ayant pas est donc donné par : $${b}-${texNombre(b / 4)}=${texNombre(b - b / 4)}$`
         this.reponse = calcul(b - 0.25 * b)
         break
     }

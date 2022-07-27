@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, texNombrec, prenomF } from '../../../modules/outils.js'
+import { randint, choice, texNombre, prenomF } from '../../../modules/outils.js'
 export const titre = 'Rechercher un prix unitaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,11 +31,11 @@ export default function RecherchePrix () {
     const pu = choice([0.9, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6])
     this.question = `A la boulangerie, ${prenom1} achète $${a}$ ${p}.<br>
      Elle paie avec un billet de $${t}$ euros.<br>
-    On lui rend $${texNombrec(t - a * pu)}$ euros.<br>
+    On lui rend $${texNombre(t - a * pu)}$ euros.<br>
     Quel est le prix d'${s} ?`
-    this.correction = `${prenom1} achète $${a}$ ${p}. Comme on lui rend $${texNombrec(t - a * pu)}$ euros sur son billet de $${t}$ euros,
-    ses ${p} lui ont coûté : $${t}-${texNombrec(t - a * pu)}=${texNombrec(a * pu)}$ euros.<br>
-    Le prix d'${s} est donc donné par :  $${texNombrec(a * pu)}\\div ${a}=${texNombrec(pu)}$ euros. `
+    this.correction = `${prenom1} achète $${a}$ ${p}. Comme on lui rend $${texNombre(t - a * pu)}$ euros sur son billet de $${t}$ euros,
+    ses ${p} lui ont coûté : $${t}-${texNombre(t - a * pu)}=${texNombre(a * pu)}$ euros.<br>
+    Le prix d'${s} est donc donné par :  $${texNombre(a * pu)}\\div ${a}=${texNombre(pu)}$ euros. `
     this.reponse = pu
   }
 }

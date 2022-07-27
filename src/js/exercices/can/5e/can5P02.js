@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { calcul, choice, texNombrec, randint, texNombre, texFractionReduite, texteEnCouleur, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
+import { calcul, choice, randint, texNombre, texFractionReduite, texteEnCouleur, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
 export const titre = 'Déterminer (ou calculer avec) un pourcentage de proportion'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -34,7 +34,7 @@ export default function PoucentageP2 () {
           this.question = ` Dans un groupe de $${a}$ enfants, $${b}$  sont des ${n}.<br>
       ${d} représentent ..... % du groupe.`
           this.optionsChampTexte = { texteApres: '%' }
-          this.correction = `La proportion de ${n} est donnée par $\\dfrac{${b}}{${a}}=${texFractionReduite(b, a)}=${texNombrec(b / a)}$, soit $${texNombrec((b / a) * 100)}$%.`
+          this.correction = `La proportion de ${n} est donnée par $\\dfrac{${b}}{${a}}=${texFractionReduite(b, a)}=${texNombre(b / a)}$, soit $${texNombre((b / a) * 100)}$%.`
           this.reponse = calcul((b / a) * 100)
         } else {
           a = choice([30, 60])
@@ -45,7 +45,7 @@ export default function PoucentageP2 () {
           this.question = ` Dans un groupe de $${a}$ enfants, $${b}$  sont des ${n}.<br>
           ${d} représentent ..... % du groupe.`
           this.optionsChampTexte = { texteApres: '%' }
-          this.correction = `La proportion de ${n} est donnée par $\\dfrac{${b}}{${a}}=${texFractionReduite(b, a)}=${texNombrec(b / a)}$, soit $${texNombrec((b / a) * 100)}$%.`
+          this.correction = `La proportion de ${n} est donnée par $\\dfrac{${b}}{${a}}=${texFractionReduite(b, a)}=${texNombre(b / a)}$, soit $${texNombre((b / a) * 100)}$%.`
           this.reponse = calcul((b / a) * 100)
         }
         break
@@ -60,11 +60,11 @@ export default function PoucentageP2 () {
         Quel est le nombre de ${d} dans cette ville ?`
         this.optionsChampTexte = { texteApres: '' }
         this.correction = `Les ${n}  représentent $${b}$ %  des logements.<br>
-        Il y en a donc : $${texNombrec(b / 100)}\\times ${texNombre(a)}=${texNombrec(b * a / 100)}$.<br>
-        Dans cette ville, il y a  $${texNombrec(b * a / 100)}$ ${n}.<br>
+        Il y en a donc : $${texNombre(b / 100)}\\times ${texNombre(a)}=${texNombre(b * a / 100)}$.<br>
+        Dans cette ville, il y a  $${texNombre(b * a / 100)}$ ${n}.<br>
         Parmi ces ${n}, il y a $${c}$ % de ${d}.<br>
-        $${c}$ % de $${texNombrec(b * a / 100)}=${texNombrec(c / 100)}\\times ${b * a / 100}=${texNombrec(c * b * a / 10000)}$.<br>
-        Il y a donc $${texNombrec(c * b * a / 10000)}$ ${n} de type ${d} dans cette ville.
+        $${c}$ % de $${texNombre(b * a / 100)}=${texNombre(c / 100)}\\times ${b * a / 100}=${texNombre(c * b * a / 10000)}$.<br>
+        Il y a donc $${texNombre(c * b * a / 10000)}$ ${n} de type ${d} dans cette ville.
         `
         this.correction += texteEnCouleur(`
         <br> Mentalement : <br>
@@ -86,7 +86,7 @@ export default function PoucentageP2 () {
           Quel est le pourcentage ${choix ? 'de réduction' : 'd’augmentation'} de ce prix ?`
         this.optionsChampTexte = { texteApres: '%' }
         this.correction = `${choix ? 'La réduction' : 'L’augmentation'} est $${b}$ euros sur un total de $${a}$ euros.<br>
-          Le pourcentage  ${choix ? 'de baisse' : 'd’augmentation'} est donné par le quotient : $\\dfrac{${b}}{${a}}${simplificationDeFractionAvecEtapes(b, a)}=${texNombrec(b / a)}= ${texNombrec((b / a) * 100)}\\%$.
+          Le pourcentage  ${choix ? 'de baisse' : 'd’augmentation'} est donné par le quotient : $\\dfrac{${b}}{${a}}${simplificationDeFractionAvecEtapes(b, a)}=${texNombre(b / a)}= ${texNombre((b / a) * 100)}\\%$.
           `
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Calculez $10 \\%$ du prix. <br>${choix ? 'La réduction' : 'L’augmentation'} est un multiple de $10 \\%$.

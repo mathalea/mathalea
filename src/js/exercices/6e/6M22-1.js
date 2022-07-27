@@ -1,6 +1,6 @@
 import { pointAdistance, point, segment, rotation, cercle, tracePoint, mathalea2d, afficheLongueurSegment, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, arrondi, texNombre, contraindreValeur, randint, interactivite, texNombrec, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, arrondi, texNombre, contraindreValeur, randint, interactivite, stringNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -68,12 +68,12 @@ export default function PerimetreAireDisques (pa = 3) {
       if (this.sup === 1) {
       // si on ne demande pas les aires
         if (i % 2 === 0) {
-          texteCorr = `$\\mathcal{P}_1=2\\times${texNombre(r)}\\times \\pi=${texNombrec(2 * r)
+          texteCorr = `$\\mathcal{P}_1=2\\times${texNombre(r)}\\times \\pi=${texNombre(2 * r)
         }\\pi\\approx${texNombre(
           arrondi(2 * r * Math.PI, 1)
         )}$ cm<br>`
         } else {
-          texteCorr = `$\\mathcal{P}_1=${texNombrec(2 * r)}\\times \\pi=${texNombrec(2 * r)
+          texteCorr = `$\\mathcal{P}_1=${texNombre(2 * r)}\\times \\pi=${texNombre(2 * r)
         }\\pi\\approx${texNombre(
           arrondi(2 * r * Math.PI, 1)
         )}$ cm<br>`
@@ -85,12 +85,12 @@ export default function PerimetreAireDisques (pa = 3) {
       }
       if (this.sup === 2) {
         if (i % 2 === 0) {
-          texteCorr = `$\\mathcal{A}_1=${texNombre(r)}\\times ${texNombre(r)}\\times\\pi=${texNombrec(r * r)
+          texteCorr = `$\\mathcal{A}_1=${texNombre(r)}\\times ${texNombre(r)}\\times\\pi=${texNombre(r * r)
         }\\pi\\approx${texNombre(
           arrondi(r * r * Math.PI, 1)
         )}~\\text{cm}^2$<br>`
         } else {
-          texteCorr = `$\\mathcal{A}_1=\\dfrac{${texNombrec(2 * r)}}{2}\\times \\dfrac{${texNombrec(2 * r)}}{2}\\times\\pi=${texNombrec(r * r)
+          texteCorr = `$\\mathcal{A}_1=\\dfrac{${texNombre(2 * r)}}{2}\\times \\dfrac{${texNombre(2 * r)}}{2}\\times\\pi=${texNombre(r * r)
           }\\pi\\approx${texNombre(
             arrondi(r * r * Math.PI, 1)
           )}~\\text{cm}^2$<br>`
@@ -102,22 +102,22 @@ export default function PerimetreAireDisques (pa = 3) {
       }
       if (this.sup === 3) {
         if (i % 2 === 0) {
-          texteCorr = `$\\mathcal{P}_1=2\\times${texNombre(r)}\\times \\pi=${texNombrec(2 * r)
+          texteCorr = `$\\mathcal{P}_1=2\\times${texNombre(r)}\\times \\pi=${texNombre(2 * r)
         }\\pi\\approx${texNombre(
           arrondi(2 * r * Math.PI, 1)
         )}$ cm<br>`
           texteCorr += '<br>'
-          texteCorr += `$\\mathcal{A}_1=${texNombre(r)}\\times ${texNombre(r)}\\times \\pi=${texNombrec(r * r)
+          texteCorr += `$\\mathcal{A}_1=${texNombre(r)}\\times ${texNombre(r)}\\times \\pi=${texNombre(r * r)
         }\\pi\\approx${texNombre(
           arrondi(r * r * Math.PI, 1)
         )}~\\text{cm}^2$<br>`
         } else {
-          texteCorr = `$\\mathcal{P}_1=${texNombrec(2 * r)}\\times \\pi=${texNombrec(2 * r)
+          texteCorr = `$\\mathcal{P}_1=${texNombre(2 * r)}\\times \\pi=${texNombre(2 * r)
           }\\pi\\approx${texNombre(
             arrondi(2 * r * Math.PI, 1)
           )}$ cm<br>`
           texteCorr += '<br>'
-          texteCorr += `$\\mathcal{A}_1=\\dfrac{${texNombrec(2 * r)}}{2}\\times \\dfrac{${texNombrec(2 * r)}}{2}\\times\\pi=${texNombrec(r * r)
+          texteCorr += `$\\mathcal{A}_1=\\dfrac{${texNombre(2 * r)}}{2}\\times \\dfrac{${texNombre(2 * r)}}{2}\\times\\pi=${texNombre(r * r)
           }\\pi\\approx${texNombre(
             arrondi(r * r * Math.PI, 1)
           )}~\\text{cm}^2$<br>`
