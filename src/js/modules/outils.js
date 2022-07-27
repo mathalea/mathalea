@@ -9,8 +9,7 @@ import { setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
 import FractionX from './FractionEtendue.js'
 import { elimineDoublons } from './interactif/questionQcm.js'
-import pkg from 'decimal.js'
-const { Decimal } = pkg
+import Decimal from 'decimal.js/decimal.mjs'
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -2882,7 +2881,8 @@ function afficherNombre (nb, precision, fonction, force = false) {
 
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
   if (maximumSignificantDigits > 15 && !(nb instanceof Decimal)) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
-    window.notify(fonction + ' : Trop de chiffres', { nb, precision })
+    console.log(nb, nb instanceof Decimal, maximumSignificantDigits)
+    // window.notify(fonction + ' : Trop de chiffres', { nb, precision })
     return insereEspacesNombre(nb, 15, fonction, force)
   } else {
     return insereEspacesNombre(nb, maximumSignificantDigits, fonction, force)
