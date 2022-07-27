@@ -4,6 +4,7 @@ import { randint, texNombre, choice } from '../../../modules/outils.js'
 export const titre = 'Trouver $a+1$ ou $a-1$ connaissant $2a$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '27/07/2022'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
