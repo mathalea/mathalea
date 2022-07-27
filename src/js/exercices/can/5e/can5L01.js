@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
-import { randint, texNombre, texNombrec, choice } from '../../../modules/outils.js'
+import { randint, texNombre, choice } from '../../../modules/outils.js'
 export const titre = 'Trouver $a+1$ ou $a-1$ connaissant $2a$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,12 +26,12 @@ export default function MoitiePlusOuMoinsUn () {
       this.reponse = new Decimal(a).div(2).add(1)
       this.question = `On a  $2\\times a=${texNombre(a, 1)}$.<br>
       Combien vaut $a+1$ ?`
-      this.correction = `$2\\times a=${texNombre(a, 1)}$, donc le nombre $a$ est égal à $\\dfrac{${texNombre(a, 1)}}{2}=${texNombre(b, 2)}$.<br>Donc $a+1=${texNombrec(b, 2)}+1=${texNombre(this.reponse, 3)}$.`
+      this.correction = `$2\\times a=${texNombre(a, 1)}$, donc le nombre $a$ est égal à $\\dfrac{${texNombre(a, 1)}}{2}=${texNombre(b, 2)}$.<br>Donc $a+1=${texNombre(b, 2)}+1=${texNombre(this.reponse, 3)}$.`
     } else {
       this.reponse = new Decimal(a).div(2).sub(1)
       this.question = `On a  $2\\times a=${texNombre(a, 1)}$.<br>
       Combien vaut $a-1$ ?`
-      this.correction = `$2\\times a=${texNombre(a, 1)}$, donc le nombre $a$ est égal à $\\dfrac{${texNombre(a, 1)}}{2}=${texNombre(b, 2)}$.<br>Donc $a-1=${texNombrec(b, 2)}-1=${texNombre(this.reponse, 3)}$.`
+      this.correction = `$2\\times a=${texNombre(a, 1)}$, donc le nombre $a$ est égal à $\\dfrac{${texNombre(a, 1)}}{2}=${texNombre(b, 2)}$.<br>Donc $a-1=${texNombre(b, 2)}-1=${texNombre(this.reponse, 3)}$.`
     }
   }
 }
