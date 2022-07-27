@@ -2575,10 +2575,6 @@ export function texNombre2 (nb) {
   return nombre
 }
 
-export function texNombrec2 (expr, precision = 12) {
-  return texNombre(expr, precision)
-}
-
 export function nombrec2 (nb) {
   return math.evaluate(nb)
 }

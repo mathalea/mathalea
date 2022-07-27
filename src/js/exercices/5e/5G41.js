@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { texNombrec, choice, texteGras, listeQuestionsToContenu, randint, arrondi, calcul, choisitLettresDifferentes, lettreDepuisChiffre, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { texNombre, choice, texteGras, listeQuestionsToContenu, randint, arrondi, calcul, choisitLettresDifferentes, lettreDepuisChiffre, texNombre, miseEnEvidence } from '../../modules/outils.js'
 import { cercle, demiDroite, droite, cercleCentrePoint, pointIntersectionDD, codageSegments, texteParPosition, pointAdistance, codageAngleDroit, afficheMesureAngle, afficheLongueurSegment, point, labelPoint, similitude, polygoneAvecNom, tracePoint, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d, milieu, pointIntersectionCC } from '../../modules/2d.js'
 
 export const titre = 'Construire des quadrilatères particuliers'
