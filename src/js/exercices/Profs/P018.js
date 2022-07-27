@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2d.js'
-import { Pyramide } from '../../modules/pyramide.ts'
+import Pyramide from '../../modules/pyramide.js'
 export const titre = 'Générateur de pyramides'
 
 export default class Pyramides extends Exercice {

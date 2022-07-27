@@ -2594,11 +2594,8 @@ function Polygone (...points) {
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity=${this.opacite}`)
     }
-    if (this.opaciteDeRemplissage !== 1) {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
     if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage !== 'none') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}, fill opacity = ${this.opaciteDeRemplissage}}`)
     }
 
     if (this.hachures) {
@@ -3329,11 +3326,8 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    if (this.opaciteDeRemplissage !== 1) {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
     if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage !== 'none') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}, fill opacity = ${this.opaciteDeRemplissage}}`)
     }
 
     if (this.hachures) {
@@ -3428,12 +3422,12 @@ export function cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
  */
 function Ellipse (O, rx, ry, color = 'black') {
   ObjetMathalea2D.call(this)
-  this.color = colorToLatexOrHTML(color)
+  this.color = color
   this.centre = O
   this.rx = rx
   this.ry = ry
   this.couleurDeRemplissage = ''
-  this.opaciteDeRemplissage = 1.1
+  this.opaciteDeRemplissage = 1
   this.bordures = [O.x - rx, O.y - ry, O.x + rx, O.y + ry]
   this.svg = function (coeff) {
     if (this.epaisseur !== 1) {
@@ -3499,11 +3493,8 @@ function Ellipse (O, rx, ry, color = 'black') {
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    if (this.opaciteDeRemplissage !== 1) {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
     if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage !== 'none') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}, fill opacity = ${this.opaciteDeRemplissage}}`)
     }
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
@@ -3902,8 +3893,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     if (rayon && (this.couleurDeRemplissage !== 'none' && this.couleurDeRemplissage !== '')) {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}, fill opacity = ${this.opaciteDeRemplissage}}`)
     }
 
     if (this.hachures) {
@@ -11423,24 +11413,35 @@ export function mathalea2d (
     code = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
       }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
       } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" ${style ? `style="${style}"` : ''}>\n`
-    // code += codeSvg(...objets);
     for (const objet of objets) {
       if (Array.isArray(objet)) {
         for (let i = 0; i < objet.length; i++) {
-          try {
-            if (objet[i].isVisible) {
-              if ((!mainlevee) || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
-              else { code += '\t' + objet[i].svgml(pixelsParCm, amplitude) + '\n' }
+          if (Array.isArray(objet[i])) { // EE : Test nécessaire pour les cubes 3d
+            for (let j = 0; j < objet[i].length; j++) {
+              try {
+                if (objet[i][j].isVisible) {
+                  if ((!mainlevee) || typeof (objet[i][j].svgml) === 'undefined') code += '\t' + objet[i][j].svg(pixelsParCm) + '\n'
+                  else { code += '\t' + objet[i][j].svgml(pixelsParCm, amplitude) + '\n' }
+                }
+              } catch (error) { }
             }
-          } catch (error) { }// console.log('premiere boucle', error.message, objet[i], i) }
+          } else {
+            try {
+              if (objet[i].isVisible) {
+                if ((!mainlevee) || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
+                else { code += '\t' + objet[i].svgml(pixelsParCm, amplitude) + '\n' }
+              }
+            } catch (error) { }// console.log('premiere boucle', error.message, objet[i], i) }
+          }
         }
+      } else {
+        try {
+          if (objet.isVisible) {
+            if ((!mainlevee) || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
+            else { code += '\t' + objet.svgml(pixelsParCm, amplitude) + '\n' }
+          }
+        } catch (error) { console.log('le try tout seul', error.message, objet) }
       }
-      try {
-        if (objet.isVisible) {
-          if ((!mainlevee) || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
-          else { code += '\t' + objet.svgml(pixelsParCm, amplitude) + '\n' }
-        }
-      } catch (error) { console.log('le try tout seul', error.message, objet) }
     }
     code += '\n</svg>'
     code = code.replace(/\\thickspace/gm, ' ')
