@@ -430,7 +430,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           a = randint(0, 2)
           choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille `
             reponse = 2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000
             texteCorr = `Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille$=
@@ -442,7 +442,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           }
 
           if (choix === 'b') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille `
             reponse = 2 * 1000000 + chiffre[a][1] * 1000
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${texNombre(2 * 1000000 + chiffre[a][1] * 1000)}$. `
@@ -452,7 +452,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           }
 
           if (choix === 'c') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre2[a][0]}-mille `
             reponse = 2 * 1000000 + chiffre2[a][1] * 1000
             texteCorr = `Deux-millions-${chiffre2[a][0]}-mille $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre2[a][1] * 1000)} =${texNombre(2 * 1000000 + chiffre2[a][1] * 1000)}$. `
@@ -462,7 +462,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           }
 
           if (choix === 'd') {
-            texte = `Ecris en chiffres : <br>
+            texte = `Écris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille `
             reponse = 2 * 1000000 + chiffre[a][1] * 1000
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} =${texNombre(2 * 1000000 + chiffre[a][1] * 1000)}$. `

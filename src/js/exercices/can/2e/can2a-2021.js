@@ -189,14 +189,14 @@ export default function SujetCAN2021Seconde () {
           if (choice([true, false])) {
             a = randint(2, 9)
             b = choice([-1, -2])
-            texte = `Ecriture décimale de : <br>
+            texte = `Écriture décimale de : <br>
                         $10^3+${a}\\times 10^2+10^{${b}}$`
             texteCorr = `$10^3+${a}\\times 10^2+10^{${b}}=1000+${a * 100}+${texNombre(10 ** b, 2)}=${texNombre(1000 + a * 100 + 10 ** b, 2)}$`
             reponse = 1000 + a * 100 + 10 ** b
           } else {
             a = randint(2, 9)
             b = choice([-1, -2])
-            texte = `Ecriture décimale de : <br>
+            texte = `Écriture décimale de : <br>
                          $${a}\\times 10^3+ 10^2+10^{${b}}$`
             texteCorr = `$${a}\\times10^3+ 10^2+10^{${b}}=${a * 1000}+100+${texNombre(10 ** b, 2)}=${texNombre(a * 1000 + 100 + 10 ** b, 2)}$`
             reponse = a * 1000 + 100 + 10 ** b
@@ -227,7 +227,7 @@ export default function SujetCAN2021Seconde () {
             a = randint(11, 39, [10, 20, 30]) / 1000
             truc = a * 100
             reponse = `${stringNombre(truc)}\\times 10^{-2}`
-            texte = `Ecriture  scientifique de $${texNombre(a, 3)}$`
+            texte = `Écriture  scientifique de $${texNombre(a, 3)}$`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
             Ici : $${texNombre(a, 3)}=\\underbrace{${texNombre(truc, 3)}}_{1\\leqslant ${texNombre(truc, 3)} <10}\\times 10^{-2}$. `
@@ -236,7 +236,7 @@ export default function SujetCAN2021Seconde () {
             a = randint(111, 399, [200, 300]) / 100000
             truc = a * 1000
             reponse = `${stringNombre(truc)}\\times 10^{-3}`
-            texte = `Ecriture  scientifique de $${texNombre(a, 5)}$`
+            texte = `Écriture  scientifique de $${texNombre(a, 5)}$`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
               Ici : $${texNombre(a, 5)}=\\underbrace{${texNombre(truc, 5)}}_{1\\leqslant ${texNombre(truc, 5)} <10}\\times 10^{-3}$. `
@@ -245,7 +245,7 @@ export default function SujetCAN2021Seconde () {
             a = randint(111, 399, [200, 300]) / 1000000
             truc = a * 10000
             reponse = `${stringNombre(truc)}\\times 10^{-4}`
-            texte = `Ecriture  scientifique de $${texNombre(a, 6)}$`
+            texte = `Écriture  scientifique de $${texNombre(a, 6)}$`
 
             texteCorr = `L'écriture scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
                 Ici : $${texNombre(a, 6)}=\\underbrace{${texNombre(truc, 6)}}_{1\\leqslant ${texNombre(truc, 6)} <10}\\times 10^{-4}$. `
@@ -323,7 +323,7 @@ export default function SujetCAN2021Seconde () {
           b = fraction(a[0], a[1])
           k1 = choice([3, 5, 7, 9])
 
-          texte = `Ecrire $\\dfrac{${b.n * k1}}{${b.d * k1}}$ sous forme d'une fraction irréductible.
+          texte = `Écrire $\\dfrac{${b.n * k1}}{${b.d * k1}}$ sous forme d'une fraction irréductible.
              `
 
           texteCorr = `$\\dfrac{${b.n * k1}}{${b.d * k1}}=\\dfrac{${b.n}\\times ${k1}}{${b.d}\\times ${k1}}=\\dfrac{${b.n}}{${b.d}}$.`

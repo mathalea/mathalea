@@ -28,7 +28,7 @@ export default function AugmenterEtReduireDunPourcentage () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.introduction = lampeMessage({
       titre: 'Calculatrice autorisée.',
-      texte: 'Ecrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
+      texte: 'Écrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
       couleur: 'nombres'
     })
     const typeQuestionsDisponibles = ['augmentation', 'réduction'] // On créé 2 types de questions

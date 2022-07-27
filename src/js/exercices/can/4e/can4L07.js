@@ -30,7 +30,7 @@ export default function ReduireExp () {
           a = randint(1, 10)
           b = randint(1, 10)
           c = randint(1, 10)
-          this.question = `Ecrire le plus simplement possible : <br>$${rienSi1(a)}x+${rienSi1(b)}x+${texNombre(c)}=$`
+          this.question = `Écrire le plus simplement possible : <br>$${rienSi1(a)}x+${rienSi1(b)}x+${texNombre(c)}=$`
           this.correction = `$${rienSi1(a)}x+${rienSi1(b)}x+${texNombre(c)}=(${a}+${b})x+${c}=${texNombre(calcul(a + b))}x+${texNombre(c)}$=`
           this.reponse = printlatex(`${texNombre(calcul(a + b))}x+${texNombre(c)}`)
         }
@@ -38,7 +38,7 @@ export default function ReduireExp () {
           a = randint(1, 5)
           b = randint(1, 5)
           c = randint(1, 5)
-          this.question = `Ecrire le plus simplement possible : <br>$${rienSi1(b)}x+${texNombre(c)}+${rienSi1(a)}x=$`
+          this.question = `Écrire le plus simplement possible : <br>$${rienSi1(b)}x+${texNombre(c)}+${rienSi1(a)}x=$`
           this.correction = `$${rienSi1(b)}x+${texNombre(c)}+${rienSi1(a)}x=(${a}+${b})x+${c}=${texNombre(calcul(a + b))}x+${texNombre(c)}$`
           this.reponse = printlatex(`${texNombre(calcul(a + b))}x+${texNombre(c)}`)
         }
@@ -46,7 +46,7 @@ export default function ReduireExp () {
           a = randint(-4, -1)
           b = randint(-4, -1)
           c = randint(1, 10)
-          this.question = `Ecrire le plus simplement possible : <br>$${rienSi1(b)}x+${texNombre(c)}${rienSi1(a)}x=$`
+          this.question = `Écrire le plus simplement possible : <br>$${rienSi1(b)}x+${texNombre(c)}${rienSi1(a)}x=$`
           this.correction = `$${rienSi1(b)}x+${texNombre(c)}${rienSi1(a)}x=(${a}${b})x+${c}=${texNombre(calcul(a + b))}x+${texNombre(c)}$`
           this.reponse = printlatex(`${texNombre(calcul(a + b))}x+${texNombre(c)}`)
         }
@@ -61,7 +61,7 @@ export default function ReduireExp () {
           d = randint(1, 5)
           e = choice([-1, 1])
           a = randint(1, 4, d)
-          this.question = `Ecrire le plus simplement possible : <br>$${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2${signe(e)}x=$`
+          this.question = `Écrire le plus simplement possible : <br>$${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2${signe(e)}x=$`
 
           if (b + e === 0) {
             this.correction = `$${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2+x=(${a} + ${d})x^2+(${b}${ecritureAlgebrique(e)})x+${texNombre(c)}=${texNombre(calcul(a + d))}x^2+${texNombre(c)}$`
@@ -77,7 +77,7 @@ export default function ReduireExp () {
           d = randint(-5, -2)
           e = choice([-1, 1])
           a = randint(-5, 5, 0)
-          this.question = `Ecrire le plus simplement possible : <br>$${rienSi1(a)}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}x^2${signe(e)}x=$`
+          this.question = `Écrire le plus simplement possible : <br>$${rienSi1(a)}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}x^2${signe(e)}x=$`
 
           if (a + d === 0) {
             this.correction = `$${rienSi1(a)}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}x^2+x=
@@ -100,15 +100,15 @@ export default function ReduireExp () {
           a = randint(-9, 9, 0)
           b = randint(-9, 9, [0, -1, 1])
           if (b > 0) {
-            this.question = `Ecrire le plus simplement possible : <br>$${rienSi1(a)}x\\times${b}x=$`
-          } else { this.question = `Ecrire le plus simplement possible : <br>$${rienSi1(a)}x\\times(${b}x)$=` }
+            this.question = `Écrire le plus simplement possible : <br>$${rienSi1(a)}x\\times${b}x=$`
+          } else { this.question = `Écrire le plus simplement possible : <br>$${rienSi1(a)}x\\times(${b}x)$=` }
           if (b > 0) { this.correction = `$${rienSi1(a)}x\\times${b}x=(${texNombre(a)}\\times  ${ecritureParentheseSiNegatif(b)})x^2=${texNombre(calcul(a * b))}x^2$` } else { this.correction = `$${rienSi1(a)}x\\times (${b}x)=(${texNombre(a)}\\times  ${ecritureParentheseSiNegatif(b)})x^2=${texNombre(calcul(a * b))}x^2$` }
           this.reponse = printlatex(`${texNombre(calcul(a * b))}x^2`)
         }
         if (choix === 2) {
           a = randint(-9, 9, 0)
           b = randint(-9, 9, [0, -1, 1])
-          this.question = `Ecrire le plus simplement possible : <br>$${rienSi1(a)}x\\times${ecritureParentheseSiNegatif(b)}=$`
+          this.question = `Écrire le plus simplement possible : <br>$${rienSi1(a)}x\\times${ecritureParentheseSiNegatif(b)}=$`
           this.correction = `$${rienSi1(a)}x\\times${ecritureParentheseSiNegatif(b)}=${texNombre(calcul(a * b))}x$`
           this.reponse = printlatex(`${texNombre(calcul(a * b))}x`)
         }

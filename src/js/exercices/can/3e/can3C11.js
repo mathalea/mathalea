@@ -29,7 +29,7 @@ export default function SimplifieFractionOuRacinesCarrees () {
         maFraction = fraction(a * k, b * k)
         k = calcul(maFraction.n / maFraction.numIrred)
         resultat = maFraction.simplifie()
-        this.question = `Ecrire $${maFraction.texFraction}$ sous la forme d'une fraction irréductible.`
+        this.question = `Écrire $${maFraction.texFraction}$ sous la forme d'une fraction irréductible.`
         this.correction = `$${maFraction.texFraction}=\\dfrac{${resultat.n}\\times ${k}}{${resultat.d}\\times ${k}} =${resultat.texFraction}$.`
         this.reponse = resultat
         this.formatInteractif = 'fraction'

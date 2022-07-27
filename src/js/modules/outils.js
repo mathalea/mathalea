@@ -2655,7 +2655,7 @@ export function nombreAvecEspace (nb) {
     window.notify('nombreAvecEspace : argument NaN ou undefined', { nb })
     return 'NaN'
   }
-  // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
+  // Écrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
   if (context.isHtml) {
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, ' ')
   } else {
@@ -4203,7 +4203,7 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
   }
 }
 /**
- * Ecrit un string sans accents
+ * Écrit un string sans accents
  * @param {string} str
  * @author Sébastien Lozano
  * @source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent

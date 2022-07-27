@@ -1167,7 +1167,7 @@ export default class Alea2iep {
  */
 
   /**
-   * Ecris un texte collé au point. On peut choisir un fond, un cadre, l'opacité du fond, la police...
+   * Écris un texte collé au point. On peut choisir un fond, un cadre, l'opacité du fond, la police...
    * @param {string} texte
    * @param {point} A
    * @param {objet} options Défaut : { tempo: this.tempo, police: false, couleur: this.couleurTexte, couleurFond, opaciteFond, couleurCadre, epaisseurCadre, marge, margeGauche, margeDroite, margeHaut, margeBas }
@@ -1214,7 +1214,7 @@ export default class Alea2iep {
   }
 
   /**
-   * Ecris un texte collé au point de coordonnées (x,y). On peut choisir un fond, un cadre, l'opacité du fond, la police...
+   * Écris un texte collé au point de coordonnées (x,y). On peut choisir un fond, un cadre, l'opacité du fond, la police...
    * @param {string} texte
    * @param {int} x Abscisse du coin en haut à gauche
    * @param {int} y Ordonnée du coin en haut à gauche
