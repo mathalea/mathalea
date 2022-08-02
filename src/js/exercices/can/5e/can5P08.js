@@ -98,7 +98,7 @@ export default function Proportionnalite3 () {
         `
         }
         if (choix === 'c') {
-          poids1 = randint(9, 14, 10)// masse de 5 fruits
+          poids1 = randint(9, 14, 10)// masse de 5 fruit
           poids2 = poids1 - randint(1, 4)// 2ième masse
           fruits2 = choice(listefruits2)
           this.formatInteractif = 'fractionEgale'
