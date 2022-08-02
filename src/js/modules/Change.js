@@ -1,5 +1,5 @@
 import { ChangeTypes } from 'mathsteps'
-import NodeType from './NodeType.js'
+import { NodeType } from './NodeType.js'
 
 const Change = {
   changeFormatFunctionMap: {}
