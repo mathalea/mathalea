@@ -24,7 +24,7 @@ export default function Proportionnalite2 () {
     let a, b, fruits, fruits2, poids1, frac, choix
     const listefruits1 = [
       ['abricot'], ['melon'], ['tomate'], ['pomme'],
-      ['framboise'], ['fraise'], ['citron'], ['banane']
+      ['fraise'], ['citron'], ['banane']
     ]
     const listefruits2 = [
       ['pastèques', 'pastèque'], ['melons', 'melon'], ['potimarrons', 'potimarron'], ['citrouilles', 'citrouille']
@@ -78,7 +78,7 @@ export default function Proportionnalite2 () {
         }
 
         if (choix === 'c') {
-          a = randint(5, 10)// kg pour 11 €
+          a = randint(5, 8)// kg pour 11 €
           b = a - randint(1, 2)
           fruits = choice(listefruits1)
           this.formatInteractif = 'fractionEgale'
@@ -110,7 +110,7 @@ export default function Proportionnalite2 () {
           this.formatInteractif = 'fractionEgale'
           frac = new FractionX(a * poids1, 3)
           this.reponse = frac
-          this.question = `$3$ ${fruits2[0]} ont une masse $${poids1}$ kg.<br>
+          this.question = `$3$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
       Quelle est la masse de  $${a}$  de ces mêmes ${fruits2[0]} ? <br>
       Donner la valeur exacte de ce nombre.`
           if (this.interactif) { this.optionsChampTexte = { texteApres: '  kg' } }
@@ -125,7 +125,7 @@ export default function Proportionnalite2 () {
           this.formatInteractif = 'fractionEgale'
           frac = new FractionX(a * poids1, 4)
           this.reponse = frac
-          this.question = `$4$ ${fruits2[0]} ont une masse $${poids1}$ kg.<br>
+          this.question = `$4$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
     Quelle est la masse de  $${a}$  de ces mêmes ${fruits2[0]} ? <br>
     Donner la valeur exacte de ce nombre.`
           if (this.interactif) { this.optionsChampTexte = { texteApres: '  kg' } }

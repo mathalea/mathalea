@@ -74,7 +74,7 @@ export default function Proportionnalite3 () {
           this.formatInteractif = 'fractionEgale'
           frac = new FractionX(3 * poids2, poids1)
           this.reponse = frac
-          this.question = `$3$ ${fruits2[0]} ont une masse $${poids1}$ kg.<br>
+          this.question = `$3$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
       Combien faut-il acheter de  ces mêmes ${fruits2[0]} pour totaliser une masse de $${poids2}$ kg ? <br>
       Donner la valeur exacte de ce nombre.`
           if (this.interactif) { this.optionsChampTexte = { texteApres: `  de ${fruits2[0]}.` } }
@@ -89,7 +89,7 @@ export default function Proportionnalite3 () {
           this.formatInteractif = 'fractionEgale'
           frac = new FractionX(2 * poids2, poids1)
           this.reponse = frac
-          this.question = `$2$ ${fruits2[0]} ont une masse $${poids1}$ kg.<br>
+          this.question = `$2$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
         Combien faut-il acheter  de ces mêmes ${fruits2[0]} pour totaliser une masse de $${poids2}$ kg ? <br>
         Donner la valeur exacte de ce nombre.`
           if (this.interactif) { this.optionsChampTexte = { texteApres: `  de ${fruits2[0]}.` } }
@@ -104,7 +104,7 @@ export default function Proportionnalite3 () {
           this.formatInteractif = 'fractionEgale'
           frac = new FractionX(5 * poids2, poids1)
           this.reponse = frac
-          this.question = `$5$ ${fruits2[0]} ont une masse $${poids1}$ kg.<br>
+          this.question = `$5$ ${fruits2[0]} (identiques) ont une masse $${poids1}$ kg.<br>
             Combien faut-il acheter de  ces mêmes ${fruits2[0]} pour totaliser une masse de $${poids2}$ kg ? <br>
             Donner la valeur exacte de ce nombre.`
           if (this.interactif) { this.optionsChampTexte = { texteApres: `  de ${fruits2[0]}.` } }
