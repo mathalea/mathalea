@@ -1,6 +1,7 @@
 {
   "name": "mathalea",
   "version": "2.8.2",
+  "type": "module",
   "description": "Générateur d'exercices de mathématiques",
   "main": "mathalea.js",
   "scripts": {
@@ -23,7 +24,8 @@
     "release": "standard-version --release-as patch",
     "release:minor": "standard-version --release-as minor",
     "release:patch": "standard-version --release-as patch",
-    "release:major": "standard-version --release-as major"
+    "release:major": "standard-version --release-as major",
+    "buildDicosV3": "cd ./src/js/modulesV3 && node exercice_to_json2.js"
   },
   "dependencies": {
     "@bugsnag/js": "^7.16.7",
