@@ -48,7 +48,7 @@ export default function RelationChasles1 () {
 
           texte += propositionsQcm(this, 0).texte
         } else {
-          texte = `Ecrire à l'aide d'un seul vecteur : <br>
+          texte = `Écrire à l'aide d'un seul vecteur : <br>
         $\\overrightarrow{${nom[5]}${nom[0]}}+\\overrightarrow{${nom[2]}${nom[5]}}=$`
         }
 
@@ -85,7 +85,7 @@ export default function RelationChasles1 () {
 
           texte += propositionsQcm(this, 0).texte
         } else {
-          texte = `Ecrire à l'aide d'un seul vecteur : <br>
+          texte = `Écrire à l'aide d'un seul vecteur : <br>
         $\\overrightarrow{${nom[0]}${nom[1]}}-\\overrightarrow{${nom[1]}${nom[0]}}=$`
         }
 
@@ -122,7 +122,7 @@ export default function RelationChasles1 () {
 
           texte += propositionsQcm(this, 0).texte
         } else {
-          texte = `Ecrire à l'aide d'un seul vecteur : <br>
+          texte = `Écrire à l'aide d'un seul vecteur : <br>
         $-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
         }
 
@@ -159,7 +159,7 @@ export default function RelationChasles1 () {
 
           texte += propositionsQcm(this, 0).texte
         } else {
-          texte = `Ecrire à l'aide d'un seul vecteur : <br>
+          texte = `Écrire à l'aide d'un seul vecteur : <br>
         $-\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[1]}}=$`
         }
 
@@ -197,7 +197,7 @@ export default function RelationChasles1 () {
 
           texte += propositionsQcm(this, 0).texte
         } else {
-          texte = `Ecrire à l'aide d'un seul vecteur : <br>
+          texte = `Écrire à l'aide d'un seul vecteur : <br>
         $\\overrightarrow{${nom[4]}${nom[1]}}-\\overrightarrow{${nom[4]}${nom[2]}}=$`
         }
 
@@ -234,7 +234,7 @@ export default function RelationChasles1 () {
 
           texte += propositionsQcm(this, 0).texte
         } else {
-          texte = `Ecrire à l'aide d'un seul vecteur : <br>
+          texte = `Écrire à l'aide d'un seul vecteur : <br>
         $\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
         }
 

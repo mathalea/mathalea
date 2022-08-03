@@ -6790,7 +6790,7 @@ $CATEGORY: Mathalea/can/5e
 
 $CATEGORY: Mathalea/can/5e
 
-:: Mathalea - Ecrire sous la forme d’un pourcentage (can5P06) ::
+:: Mathalea - Écrire sous la forme d’un pourcentage (can5P06) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="can5P06" />
 {
@@ -7560,7 +7560,7 @@ $CATEGORY: Mathalea/can/6e
 
 $CATEGORY: Mathalea/can/6e
 
-:: Mathalea - Ecrire sous forme d'une fraction décimale (can6N11) ::
+:: Mathalea - Écrire sous forme d'une fraction décimale (can6N11) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="can6N11" />
 {

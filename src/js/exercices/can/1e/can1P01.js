@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint, choice, texNombre, sp } from '../../.
 import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-export const titre = 'Ecrire une probabilté avec les notations'
+export const titre = 'Écrire une probabilté avec les notations'
 export const dateDePublication = '21/07/2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'

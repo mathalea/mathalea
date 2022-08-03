@@ -10299,7 +10299,7 @@ export function texteParPositionEchelle (texte, x, y, orientation = 'milieu', co
  * @param {string} [color='black'] // Couleur du texte
  * @param {number} [scale=1] // Echelle du texte.
  * @param {string} [ancrageDeRotation='middle'] // Choix parmi 'middle', 'start' ou 'end'. En cas d'orientation avec un angle, permet de savoir où est le centre de la rotation par rapport au texte.
- * @param {string} [mathOn=false] // Ecriture dans le style de Latex.
+ * @param {string} [mathOn=false] // Écriture dans le style de Latex.
  *
  * @author Rémi Angot
  */
@@ -10308,7 +10308,7 @@ export function texteParPosition (texte, x, y, orientation = 'milieu', color = '
 }
 
 /**
- * latexParPoint('\\dfrac{3}{5}',A,'black',12,20,"white") Ecrit la fraction 3/5 à l'emplacement du label du point A en noir, avec un fond blanc.
+ * latexParPoint('\\dfrac{3}{5}',A,'black',12,20,"white") Écrit la fraction 3/5 à l'emplacement du label du point A en noir, avec un fond blanc.
  * 12 est la largeur en pixels 20 la hauteur en pixels (utilisé à des fins de centrage). Pour un bon centrage sur A, il faut que A.positionLabel='center'.
  * si colorBackground="", le fond est transparent.
  * tailleCaracteres est à 8 par défaut et correspond à \footnotesize. tailleCaracteres va de 5 = \small à 20 = \huge
@@ -12557,14 +12557,14 @@ function Tableau ({
   // trait horizontal au milieu
   let x = A.x + largeurTitre
   // x est l'abscisse de la première séparation verticale
-  // Ecrit le texte dans les colonnes
+  // Écrit le texte dans les colonnes
   for (let i = 0; i < nbColonnes; i++) {
     objets.push(segment(point(x, A.y), point(x, C.y)))
     if (ligne1[i + 1]) objets.push(latexParCoordonnees(ligne1[i + 1], x + largeur / 2, A.y + 1.4 * hauteur))
     if (ligne2[i + 1]) objets.push(latexParCoordonnees(ligne2[i + 1], x + largeur / 2, A.y + 0.4 * hauteur))
     x += largeur
   }
-  // Ecrit les titres
+  // Écrit les titres
   if (ligne1[0]) {
     if (context.isHtml) {
       objets.push(latexParCoordonnees(ligne1[0], A.x + largeurTitre / 4, A.y + 1.4 * hauteur))
