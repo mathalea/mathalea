@@ -1,4 +1,4 @@
-import { calcul, randint, texNombrec, choice } from '../../../modules/outils.js'
+import { calcul, randint, texNombre, choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Passer de la fraction décimale à l’écriture décimale*'
 export const interactifReady = true
@@ -25,15 +25,15 @@ export default function FractionDecimaleEcritureDecimale2 () {
 
         this.reponse = calcul(a * 0.1 + b * 0.01)
         if (choice([true, false])) {
-          this.question = `Écrire sous forme décimale : $\\dfrac{${a}}{10}+\\dfrac{${b}}{100}$ `
-          this.correction = `$\\dfrac{${a}}{10}+\\dfrac{${b}}{100}=${texNombrec(a / 10)}+${texNombrec(b / 100)}=${texNombrec(a / 10 + b / 100)}$<br>
+          this.question = `Ecrire sous forme décimale : $\\dfrac{${a}}{10}+\\dfrac{${b}}{100}$ `
+          this.correction = `$\\dfrac{${a}}{10}+\\dfrac{${b}}{100}=${texNombre(a / 10)}+${texNombre(b / 100)}=${texNombre(a / 10 + b / 100)}$<br>
           <br> Ou encore <br><br>
-          $\\dfrac{${a}}{10}+\\dfrac{${b}}{100}= \\dfrac{${a}\\times 10}{10\\times 10}+\\dfrac{${b}}{100}=\\dfrac{${a * 10}}{100}+\\dfrac{${b}}{100}=\\dfrac{${a * 10 + b}}{100}=${texNombrec(a / 10 + b / 100)}$`
+          $\\dfrac{${a}}{10}+\\dfrac{${b}}{100}= \\dfrac{${a}\\times 10}{10\\times 10}+\\dfrac{${b}}{100}=\\dfrac{${a * 10}}{100}+\\dfrac{${b}}{100}=\\dfrac{${a * 10 + b}}{100}=${texNombre(a / 10 + b / 100)}$`
         } else {
-          this.question = `Écrire sous forme décimale : $\\dfrac{${b}}{100}+\\dfrac{${a}}{10}$ `
-          this.correction = `$\\dfrac{${b}}{100}+\\dfrac{${a}}{10}=${texNombrec(b / 100)}+${texNombrec(a / 10)}=${texNombrec(a / 10 + b / 100)}$<br>
+          this.question = `Ecrire sous forme décimale : $\\dfrac{${b}}{100}+\\dfrac{${a}}{10}$ `
+          this.correction = `$\\dfrac{${b}}{100}+\\dfrac{${a}}{10}=${texNombre(b / 100)}+${texNombre(a / 10)}=${texNombre(a / 10 + b / 100)}$<br>
           <br> Ou encore <br><br>
-          $\\dfrac{${b}}{100}+\\dfrac{${a}}{10}= \\dfrac{${b}}{100}+\\dfrac{${a}\\times 10}{10\\times 10}=\\dfrac{${b}}{100}+\\dfrac{${a * 10}}{100}=\\dfrac{${a * 10 + b}}{100}=${texNombrec(a / 10 + b / 100)}$`
+          $\\dfrac{${b}}{100}+\\dfrac{${a}}{10}= \\dfrac{${b}}{100}+\\dfrac{${a}\\times 10}{10\\times 10}=\\dfrac{${b}}{100}+\\dfrac{${a * 10}}{100}=\\dfrac{${a * 10 + b}}{100}=${texNombre(a / 10 + b / 100)}$`
         }
         break
       case 'b':
@@ -42,15 +42,15 @@ export default function FractionDecimaleEcritureDecimale2 () {
 
         this.reponse = calcul(b * 0.01 + c * 0.001)
         if (choice([true, false])) {
-          this.question = `Écrire sous forme décimale : $\\dfrac{${c}}{1000}+\\dfrac{${b}}{100}$ `
-          this.correction = `$\\dfrac{${c}}{1000}+\\dfrac{${b}}{100}=${texNombrec(c / 1000)}+${texNombrec(b / 100)}=${texNombrec(c / 1000 + b / 100)}$<br>
+          this.question = `Ecrire sous forme décimale : $\\dfrac{${c}}{1000}+\\dfrac{${b}}{100}$ `
+          this.correction = `$\\dfrac{${c}}{1000}+\\dfrac{${b}}{100}=${texNombre(c / 1000)}+${texNombre(b / 100)}=${texNombre(c / 1000 + b / 100)}$<br>
           <br> Ou encore <br><br>
-              $\\dfrac{${c}}{1000}+\\dfrac{${b}}{100}=\\dfrac{${c}}{1000}+\\dfrac{${b}\\times 10}{100\\times 10}=\\dfrac{${c}}{1000}+\\dfrac{${b * 10}}{1000}=\\dfrac{${b * 10 + c}}{1000}=${texNombrec(c / 1000 + b / 100)}$`
+              $\\dfrac{${c}}{1000}+\\dfrac{${b}}{100}=\\dfrac{${c}}{1000}+\\dfrac{${b}\\times 10}{100\\times 10}=\\dfrac{${c}}{1000}+\\dfrac{${b * 10}}{1000}=\\dfrac{${b * 10 + c}}{1000}=${texNombre(c / 1000 + b / 100)}$`
         } else {
-          this.question = `Écrire sous forme décimale : $\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}$ `
-          this.correction = `$\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}=${texNombrec(b / 100)}+${texNombrec(c / 1000)}=${texNombrec(b / 100 + c / 1000)}$<br>
+          this.question = `Ecrire sous forme décimale : $\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}$ `
+          this.correction = `$\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}=${texNombre(b / 100)}+${texNombre(c / 1000)}=${texNombre(b / 100 + c / 1000)}$<br>
           <br> Ou encore <br><br>
-              $\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}=\\dfrac{${b}\\times 10}{100\\times 10}+\\dfrac{${c}}{1000}=\\dfrac{${b * 10}}{1000}+\\dfrac{${c}}{1000}=\\dfrac{${b * 10 + c}}{1000}=${texNombrec(c / 1000 + b / 100)}$`
+              $\\dfrac{${b}}{100}+\\dfrac{${c}}{1000}=\\dfrac{${b}\\times 10}{100\\times 10}+\\dfrac{${c}}{1000}=\\dfrac{${b * 10}}{1000}+\\dfrac{${c}}{1000}=\\dfrac{${b * 10 + c}}{1000}=${texNombre(c / 1000 + b / 100)}$`
         }
         break
     }

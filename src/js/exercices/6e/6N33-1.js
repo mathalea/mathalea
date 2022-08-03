@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, texNombre, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, texNombre, texFraction } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 
@@ -59,8 +59,8 @@ export default function PourcentageDunNombre () {
         default :
           texteCorr = `$${p}~\\%~\\text{de }${n}=${texFraction(p, 100)}\\times${n}=(${p}\\times${n})\\div100=${texNombre(p * n)}\\div100=${texNombre(calcul((p * n) / 100))}$`
           if (this.sup2) {
-            texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${texFraction(p, 100)}\\times${n}=(${n}\\div100)\\times${p}=${texNombrec(calcul(n / 100))}\\times${p}=${texNombre(calcul((p * n) / 100))}$`
-            texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${texFraction(p, 100)}\\times${n}=${texNombrec(calcul(p / 100))}\\times${n}=${texNombre(calcul((p * n) / 100))}$`
+            texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${texFraction(p, 100)}\\times${n}=(${n}\\div100)\\times${p}=${texNombre(calcul(n / 100))}\\times${p}=${texNombre(calcul((p * n) / 100))}$`
+            texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${texFraction(p, 100)}\\times${n}=${texNombre(calcul(p / 100))}\\times${n}=${texNombre(calcul((p * n) / 100))}$`
             if (p === 60) {
               texteCorr += `<br>$${p}~\\%~\\text{de }${n}$ c'est $50~\\%~\\text{de }${n}$
 plus $10 ~\\%~\\text{de }${n} $ soit la moitié de $ ${n} \\text{ plus } 10 ~\\%~\\text{de }${n} $ :

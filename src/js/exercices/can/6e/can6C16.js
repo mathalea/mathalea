@@ -1,4 +1,4 @@
-import { calcul, randint, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
+import { calcul, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer le double ou la moitié'
 export const interactifReady = true
@@ -20,7 +20,7 @@ export default function DoubleEtMoitie () {
   this.nouvelleVersion = function () {
     const a = randint(1, 25) * 2 // variables aléatoires
     this.question = `Le double d'un nombre vaut $${2 * a}$, combien vaut sa moitié ?<br>`
-    this.correction = `Sa moitié vaut : $${texNombrec(a / 2)}$.
+    this.correction = `Sa moitié vaut : $${texNombre(a / 2)}$.
      `
     this.correction += texteEnCouleur(`
     <br> Mentalement : <br>

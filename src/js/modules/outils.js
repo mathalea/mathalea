@@ -912,9 +912,9 @@ export function ecritureNombreRelatif (a) {
 export function ecritureNombreRelatifc (a) {
   let result = ''
   if (a > 0) {
-    result = miseEnEvidence('(+' + texNombrec(a) + ')', 'blue')
+    result = miseEnEvidence('(+' + texNombre(a) + ')', 'blue')
   } else if (a < 0) {
-    result = miseEnEvidence('(' + texNombrec(a) + ')')
+    result = miseEnEvidence('(' + texNombre(a) + ')')
   } else { // ne pas mettre de parenthèses pour 0
     result = miseEnEvidence('0', 'black')
   }
@@ -965,10 +965,10 @@ export function ecritureAlgebriqueSauf1 (a) {
 export function ecritureAlgebriquec (a) {
   let result = ''
   if (a > 0) {
-    result = miseEnEvidence('+' + texNombrec(a), 'blue')
+    result = miseEnEvidence('+' + texNombre(a), 'blue')
   } else if (a < 0) {
-    result = miseEnEvidence(texNombrec(a))
-  } else result = miseEnEvidence(texNombrec(a), 'black')
+    result = miseEnEvidence(texNombre(a))
+  } else result = miseEnEvidence(texNombre(a), 'black')
   return result
 }
 
@@ -1490,7 +1490,7 @@ export function quatriemeProportionnelle (a, b, c, precision) { // calcul de b*c
       return result
     }
     const p4 = new Decimal(b).mul(c).div(a)
-    result += `\\dfrac{${texNombrec(b)}\\times${texNombrec(c)}}{${texNombrec(a)}}`
+    result += `\\dfrac{${texNombre(b)}\\times${texNombre(c)}}{${texNombre(a)}}`
     if (p4.eq(p4.toDP(precision))) result += '='
     else result += '\\approx'
     result += `${texNombre(p4, precision)}`
@@ -1768,17 +1768,6 @@ export function nombreDecimal (expression, arrondir = false) {
 }
 
 /**
-* Utilise Algebrite pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux et retourne un string avec la virgule comme séparateur décimal
-* @author Rémi Angot
-* texNombrec n'apportant rien, je la shinte.
-*/
-
-export function texNombrec (expression, precision) {
-  // return texNombre(parseFloat(Algebrite.eval(expression)))
-  return texNombre(expression, precision)
-}
-
-/**
 * Formattage pour une sortie LaTeX entre $$
 * formatFraction = false : si l'expression est un objet fraction du module mathjs alors elle peut donner l'écriture fractionnaire
 * Pour une fraction négative la sortie est -\dfrac{6}{7} au lieu de \dfrac{-6}{7}
@@ -1805,9 +1794,9 @@ export function texNum (expression, formatFraction = false) {
  * @param {string} expression l'expression à calculer
  */
 export function texNombreCoul (nombre) {
-  if (nombre > 0) return miseEnEvidence(texNombrec(nombre), 'green')
-  else if (nombre < 0) return miseEnEvidence(texNombrec(nombre), 'red')
-  else return miseEnEvidence(texNombrec(0), 'black')
+  if (nombre > 0) return miseEnEvidence(texNombre(nombre), 'green')
+  else if (nombre < 0) return miseEnEvidence(texNombre(nombre), 'red')
+  else return miseEnEvidence(texNombre(0), 'black')
 }
 
 /**
@@ -2584,10 +2573,6 @@ export function texNombre2 (nb) {
     nombre = partieEntiere + '{,}' + partieDecimale
   }
   return nombre
-}
-
-export function texNombrec2 (expr, precision = 12) {
-  return texNombre(expr, precision)
 }
 
 export function nombrec2 (nb) {

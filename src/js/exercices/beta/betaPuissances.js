@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenuSansNumero, combinaisonListes, randint, texNombrec, lettreDepuisChiffre, texFractionReduite, ecritureParentheseSiNegatif, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, combinaisonListes, randint, texNombre, lettreDepuisChiffre, texFractionReduite, ecritureParentheseSiNegatif, choice } from '../../modules/outils.js'
 
 export const titre = 'Exercice exemple'
 
@@ -49,7 +49,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             e4 = randint(-3, -1, e1)
             e5 = randint(-4, 4, [-1, 0, 1])
           }
-          texte = `$${lettreDepuisChiffre(i + 1)} =  \\dfrac{ ${texNombrec(a * 10 ** e1)}  \\times 10^{${e2}} \\times ${b} \\times 10^{${e3}} }{ ${c} \\times 10^{${e4}} \\times 10^{${e5}} }$`
+          texte = `$${lettreDepuisChiffre(i + 1)} =  \\dfrac{ ${texNombre(a * 10 ** e1)}  \\times 10^{${e2}} \\times ${b} \\times 10^{${e3}} }{ ${c} \\times 10^{${e4}} \\times 10^{${e5}} }$`
           texteCorr = texte
           texteCorr += '<br>'
           texteCorr += `$${lettreDepuisChiffre(i + 1)} =  \\dfrac{ ${a} \\times 10^{${e1}} \\times 10^{${e2}} \\times ${b} \\times 10^{${e3}} }{ ${c} \\times 10^{${e4}} \\times 10^{${e5}} }$`

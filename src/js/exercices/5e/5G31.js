@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texNombrec, lettreDepuisChiffre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texNombre, lettreDepuisChiffre } from '../../modules/outils.js'
 
 export const titre = 'Somme des angles dans un triangle'
 
@@ -92,8 +92,8 @@ export default function ExerciceAnglesTriangles () {
             texteCorr += `Soit  $${angle1}\\degree+2\\times  \\widehat{${s2 + s3 + s1}}=180\\degree$.<br>`
             texteCorr += `D'où $2\\times  \\widehat{${s2 + s3 + s1}}=180\\degree-${angle1}\\degree$.<br>D'où `
           }
-          texteCorr += `$\\widehat{${s2 + s3 + s1}}=\\left(180\\degree-${angle1}\\degree\\right)\\div  2=${180 - angle1}\\degree\\div  2=${texNombrec((180 - angle1) / 2)}\\degree$<br>`
-          texteCorr += `L'angle $\\widehat{${s2 + s3 + s1}}$ mesure $${texNombrec((180 - angle1) / 2)}\\degree$.`
+          texteCorr += `$\\widehat{${s2 + s3 + s1}}=\\left(180\\degree-${angle1}\\degree\\right)\\div  2=${180 - angle1}\\degree\\div  2=${texNombre((180 - angle1) / 2)}\\degree$<br>`
+          texteCorr += `L'angle $\\widehat{${s2 + s3 + s1}}$ mesure $${texNombre((180 - angle1) / 2)}\\degree$.`
           break
         case 4: // triangle isocèle, angle à la base connu
           angle2 = randint(10, 80)

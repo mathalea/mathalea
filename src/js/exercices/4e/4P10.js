@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, texteExposant, arrondi, texFractionReduite, produitsEnCroix, quatriemeProportionnelle, calcul, texNombrec, prenomF, prenom, texNombre, nombreAvecEspace, miseEnEvidence, texPrix, katexPopup2, numAlpha, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, texteExposant, arrondi, texFractionReduite, produitsEnCroix, quatriemeProportionnelle, calcul, prenomF, prenom, texNombre, nombreAvecEspace, miseEnEvidence, texPrix, katexPopup2, numAlpha, contraindreValeur } from '../../modules/outils.js'
 export const titre = 'Résoudre des problèmes de grandeurs composées et de conversion d\'unités complexes'
 
 /**
@@ -188,7 +188,7 @@ export default function ProblemesGrandeursComposees () {
             duree
           )} heures `
           if (nbQuartsDHeures !== 0) { texte += `et ${nbQuartsDHeures * 15} minutes` }
-          texte += `.<br>Le prix d'un kWh est de $${texNombrec(
+          texte += `.<br>Le prix d'un kWh est de $${texNombre(
             prixkWh
           )}$ €.<br>`
           if (context.isHtml) {
@@ -346,7 +346,7 @@ export default function ProblemesGrandeursComposees () {
                   'Définition : densité (grandeur physique)',
                   'La densité d\'une substance est égale à la masse volumique de la substance divisée par la masse volumique du corps de référence à la même température.<br>Pour les liquides et les solides, l\'eau est utilisée comme référence (sa masse volumique est de 1kg/dm$^3$), pour les gaz, la mesure s\'effectue par rapport à l\'air.<br>Donc pour les liquides, la densité est égale à la masse volumique exprimée en kg/dm$^3$.'
                 ) +
-                ` est de $${texNombrec(liquides[index2][1])} $kg/dm$^3$), quelle masse ${liquides[index2][0]
+                ` est de $${texNombre(liquides[index2][1])} $kg/dm$^3$), quelle masse ${liquides[index2][0]
                 } en kg contiendra-t-il au gramme près ?<br>`
               texteCorr =
                 numAlpha(0) +
@@ -362,7 +362,7 @@ export default function ProblemesGrandeursComposees () {
                 ` La masse ${liquides[index2][0]} contenue dans ce tonneau est :<br>`
               texteCorr += `$${texNombre(
                 arrondi((r * r * h * Math.PI) / 1000, 1)
-              )}\\text{ dm}^3\\times ${texNombrec(
+              )}\\text{ dm}^3\\times ${texNombre(
                 liquides[index2][1]
               )} \\times 1 \\dfrac{kg}{dm^3}\\approx${texNombre(
                 arrondi(((r * r * h * Math.PI) / 1000) * liquides[index2][1], 3)
@@ -384,7 +384,7 @@ export default function ProblemesGrandeursComposees () {
               'Définition : Vitesse (grandeur physique)',
               'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)'
             ) +
-            ` de $${texNombrec(vitesseMoy)}$ m/s.<br>`
+            ` de $${texNombre(vitesseMoy)}$ m/s.<br>`
           texte += `Elle pèse ${masse} kg.<br>`
           texte +=
             numAlpha(0) +
@@ -410,12 +410,12 @@ export default function ProblemesGrandeursComposees () {
             ' en Joules.'
           texteCorr =
             numAlpha(0) +
-            ` La quantité de mouvement de ${quidam} est : $${masse} \\text{ kg}\\times ${vitesseMoy}\\text{ m/s}=${texNombrec(
+            ` La quantité de mouvement de ${quidam} est : $${masse} \\text{ kg}\\times ${vitesseMoy}\\text{ m/s}=${texNombre(
               masse * vitesseMoy
             )}\\text{ kg.m.s}^{-1}$<br>`
           texteCorr +=
             numAlpha(1) +
-            ` L'énergie cinétique de ${quidam} est : $\\dfrac{1}{2}\\times ${masse} \\text{ kg}\\times (${vitesseMoy}\\text{ m/s})^2=\\dfrac{${masse}\\times${vitesseMoy}^2}{2}\\text{ J}=${texNombrec(
+            ` L'énergie cinétique de ${quidam} est : $\\dfrac{1}{2}\\times ${masse} \\text{ kg}\\times (${vitesseMoy}\\text{ m/s})^2=\\dfrac{${masse}\\times${vitesseMoy}^2}{2}\\text{ J}=${texNombre(
               (masse * vitesseMoy ** 2) / 2
             )}\\text{ J}$`
           break
@@ -484,7 +484,7 @@ export default function ProblemesGrandeursComposees () {
             'black'
           )}\\text{ m} = \\dfrac{${texNombre(
             index1
-          )}\\text{ J}}{${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2}}\\approx${texNombrec(
+          )}\\text{ J}}{${index}\\text{ kg}\\times 9,81 \\text{m.s}^{-2}}\\approx${texNombre(
             arrondi(index1 / (9.81 * index))
           )}\\text{ m}.$`
           break
@@ -546,7 +546,7 @@ export default function ProblemesGrandeursComposees () {
             numAlpha(1) +
             ' Pour fonctionner à la puissance maximum, cet appareil a besoin d\'un courant d\'une intensité de :<br>'
           texteCorr += `$\\dfrac{${appareils[index1][1]
-            }\\text{ W}}{230 \\text{ V}} \\approx ${texNombrec(
+            }\\text{ W}}{230 \\text{ V}} \\approx ${texNombre(
               arrondi(appareils[index1][1] / 230)
             )}\\text{ A}$.<br>`
           texteCorr += `Le fusible nécessaire pour protéger cet appareil des courts-circuits devra avoir une intensité de rupture minimum de ${I2} ampères.`
@@ -572,7 +572,7 @@ export default function ProblemesGrandeursComposees () {
                   'Définition : Vitesse (grandeur physique)',
                   'La vitesse est le quotient de la distance parcourue par le temps de parcours.<br>L\'unité officielle est le mètre par seconde ($\\text{m/s}$  ou  $\\text{m.s}^{-1}$) mais on utilise souvent le kilomètre par heure ($\\text{km/h}$  ou  $\\text{km.h}^{-1}$)'
                 ) +
-                ` de $${texNombrec(vitesseMoy)}$ m/s.<br>`
+                ` de $${texNombre(vitesseMoy)}$ m/s.<br>`
               texte +=
                 numAlpha(0) +
                 ` En se déplaçant à cette vitesse pendant ${duree} h, quelle est la distance parcourue par ${quidam} en km ?<br>`
@@ -584,19 +584,19 @@ export default function ProblemesGrandeursComposees () {
               texteCorr =
                 numAlpha(0) +
                 ` La distance parcourue par ${quidam} ${vitesses[index1][0]
-                } en ${duree} h à la vitesse de $${texNombrec(
+                } en ${duree} h à la vitesse de $${texNombre(
                   vitesseMoy
                 )}$ m/s est :<br>`
-              texteCorr += `$${texNombrec(
+              texteCorr += `$${texNombre(
                 vitesseMoy
-              )}\\text{ m/s}\\times${duree}\\text{ h}=\\dfrac{${texNombrec(
+              )}\\text{ m/s}\\times${duree}\\text{ h}=\\dfrac{${texNombre(
                 vitesseMoy
               )}\\text{ m}}{1 \\text{ s}}\\times ${duree}\\times ${texNombre(
                 3600
               )}\\text{ s}`
-              texteCorr += `=${texNombrec(
+              texteCorr += `=${texNombre(
                 vitesseMoy * 3600 * duree
-              )}\\text{ m}=${texNombrec(
+              )}\\text{ m}=${texNombre(
                 vitesseMoy * 3.6 * duree
               )}\\text{ km}$<br>`
               texteCorr +=
@@ -607,7 +607,7 @@ export default function ProblemesGrandeursComposees () {
               texteCorr += ` Partons de la formule $\\mathcal{V}=\\dfrac{\\mathcal{d}}{\\mathcal{t}}$ et remplaçons : $\\dfrac{${vitesseMoy}\\text{ m}}{1 \\text{ s}}=\\dfrac{${texNombre(
                 distance
               )}\\text{ km}}{\\mathcal{t}\\text{ h}}$<br>`
-              texteCorr += `Rendons les unités homogènes : $\\dfrac{${vitesseMoy}\\text{ m}}{1 \\text{ s}}=\\dfrac{${texNombrec(
+              texteCorr += `Rendons les unités homogènes : $\\dfrac{${vitesseMoy}\\text{ m}}{1 \\text{ s}}=\\dfrac{${texNombre(
                 distance * 1000
               )}\\text{ m}}{\\mathcal{t}\\text{ h}\\times ${texNombre(
                 3600
@@ -616,19 +616,19 @@ export default function ProblemesGrandeursComposees () {
                 [
                   [`${vitesseMoy}\\text{ m}`, '1 \\text{ s}'],
                   [
-                    `${texNombrec(distance * 1000)}\\text{ m}`,
+                    `${texNombre(distance * 1000)}\\text{ m}`,
                     `\\mathcal{t}\\times ${texNombre(3600)}\\text{ s/h}`
                   ]
                 ]
               )}<br>`
-              texteCorr += `D'où : $\\mathcal{t}=\\dfrac{1 \\text{ s}\\times${texNombrec(
+              texteCorr += `D'où : $\\mathcal{t}=\\dfrac{1 \\text{ s}\\times${texNombre(
                 distance * 1000
               )}\\text{ m}}{${vitesseMoy}\\text{ m}\\times${texNombre(
                 3600
               )}\\text{ s}}$ (t est le nombre décimal d'heures : les mètres et les secondes disparaissent car elles sont présentes au numérateur et au dénominateur.)<br>`
-              texteCorr += `Soit : $\\mathcal{t}\\approx${texNombrec(
+              texteCorr += `Soit : $\\mathcal{t}\\approx${texNombre(
                 (distance * 1000) / vitesseMoy / 3600
-              )}\\text{ h}\\approx${texNombrec(
+              )}\\text{ h}\\approx${texNombre(
                 arrondi((distance * 1000) / vitesseMoy, 0)
               )}\\text{ s}\\approx`
               nbheures = Math.floor((distance * 1000) / vitesseMoy / 3600) // conversion en h min s
@@ -678,7 +678,7 @@ export default function ProblemesGrandeursComposees () {
                 duree
               )}\\times 340\\text{ m}}{${miseEnEvidence(
                 duree
-              )}\\times 1\\text{ s}}=\\dfrac{${texNombrec(
+              )}\\times 1\\text{ s}}=\\dfrac{${texNombre(
                 duree * 340
               )}\\text{ m}}{${duree}\\text{ s}}$<br>`
               texteCorr += `La distance à laquelle l'éclair est tombé est donc de ${nombreAvecEspace(
@@ -695,8 +695,8 @@ export default function ProblemesGrandeursComposees () {
                 '1 \\text{ s}',
                 distance + '\\text{ m}',
                 0
-              )}=${texNombrec(arrondi(distance / 340))}\\text{ s}$<br>`
-              texteCorr += `${quidam} entendra le tonnerre $${texNombrec(
+              )}=${texNombre(arrondi(distance / 340))}\\text{ s}$<br>`
+              texteCorr += `${quidam} entendra le tonnerre $${texNombre(
                 arrondi(distance / 340)
               )}$ secondes après avoir vu l'éclair tomber sur le clocher.`
               break
@@ -820,7 +820,7 @@ export default function ProblemesGrandeursComposees () {
                 3600
               )}}{${duree}}\\text{km.h}^{-1}`
               vitesseMoy = arrondi((distance * 3600) / duree)
-              texteCorr += `\\approx${texNombrec(vitesseMoy)}$ km/h<br>`
+              texteCorr += `\\approx${texNombre(vitesseMoy)}$ km/h<br>`
               texteCorr +=
                 numAlpha(2) +
                 ` Si elle court 21,0975 km à cette vitesse de $${texNombre(
@@ -900,7 +900,7 @@ export default function ProblemesGrandeursComposees () {
           texte +=
             numAlpha(1) +
             ` ${quidam} a pris des leçons particulières ${cours[index2][0]
-            }. En tout ce mois-ci elle a eu $${texNombrec(
+            }. En tout ce mois-ci elle a eu $${texNombre(
               prix2 / cours[index2][1]
             )}$ heures de cours pour ${texPrix(
               prix2
@@ -927,7 +927,7 @@ export default function ProblemesGrandeursComposees () {
             numAlpha(0) +
             ` En 2016, à ${villes[index1][0]} il y avait $${texNombre(
               villes[index1][1]
-            )}$ habitants pour une superficie de $${texNombrec(
+            )}$ habitants pour une superficie de $${texNombre(
               villes[index1][2] * 100
             )}$ ha.<br> Calculer la densité de population en hab/km$^2$.<br>`
           texte +=
@@ -940,7 +940,7 @@ export default function ProblemesGrandeursComposees () {
               'Définition : Densité de population',
               'C\'est le quotient du nombre d\'habitants par la superficie en km$^2$.<br>L\'unité de la densité de population est l\'habitant par km$^2$ (hab/km$^2$).'
             ) +
-            ` de ${villes[index2][0]} était de $${texNombrec(villes[index2][1] / villes[index2][2], 8)}$ hab/km$^2$ pour une superficie de $${texNombrec(
+            ` de ${villes[index2][0]} était de $${texNombre(villes[index2][1] / villes[index2][2], 8)}$ hab/km$^2$ pour une superficie de $${texNombre(
               villes[index2][2] * 100
             )}$ ha.<br> Calculer le nombre d'habitants de ${villes[index2][0]
             } à cette date.<br>`
@@ -949,25 +949,25 @@ export default function ProblemesGrandeursComposees () {
             ` En 2016, la densité de population à ${villes[index1][0]
             } était de :<br> $\\dfrac{${texNombre(
               villes[index1][1], 0
-            )}\\text{ hab}}{${texNombrec(
+            )}\\text{ hab}}{${texNombre(
               villes[index1][2] * 100, 0
             )}\\text{ ha}}=\\dfrac{${texNombre(
               villes[index1][1], 0
             )}\\text{ hab}}{${texNombre(
               villes[index1][2], 2
-            )}\\text{ km}^2}\\approx${texNombrec(
+            )}\\text{ km}^2}\\approx${texNombre(
               villes[index1][1] / villes[index1][2], 2
             )}\\text{ hab/km}^{2}$.<br>`
           texteCorr +=
             numAlpha(1) +
             ` À cette date, le nombre d'habitants de ${villes[index2][0]
-            } était de :<br> $${texNombrec(
+            } était de :<br> $${texNombre(
               villes[index2][1] / villes[index2][2]
-            )}\\text{ hab/km}^2\\times ${texNombrec(
+            )}\\text{ hab/km}^2\\times ${texNombre(
               villes[index2][2] * 100
-            )}\\text{ ha}=${texNombrec(
+            )}\\text{ ha}=${texNombre(
               villes[index2][1] / villes[index2][2]
-            )}\\text{ hab/km}^2\\times ${texNombrec(
+            )}\\text{ hab/km}^2\\times ${texNombre(
               villes[index2][2]
             )}\\text{ km}^{2}=${texNombre(villes[index2][1])}\\text{ hab}$.`
           break
@@ -1008,7 +1008,7 @@ export default function ProblemesGrandeursComposees () {
               v1
             )}\\text{ cm}^3=${texNombre(
               materiaux[index1][1]
-            )}\\text{ kg/m}^3\\times ${texNombrec(
+            )}\\text{ kg/m}^3\\times ${texNombre(
               v1 / 1000000
             )}\\text{ m}^3=${texNombre(masse)}\\text{ kg}$.<br>`
           texteCorr +=
@@ -1018,7 +1018,7 @@ export default function ProblemesGrandeursComposees () {
               materiaux[index2][1]
             )}\\text{ kg/m}^3\\approx${texNombre(
               v2
-            )}\\text{ m}^3\\approx${texNombrec(
+            )}\\text{ m}^3\\approx${texNombre(
               v2 * 1000000
             )}\\text{ cm}^3$<br>`
           break
@@ -1054,7 +1054,7 @@ export default function ProblemesGrandeursComposees () {
             ` La concentration en ${solutes[index1][0]} de cette solution aqueuse est de :<br>`
           texteCorr += ` $\\dfrac{${texNombre(masse)}\\text{ g}}{${texNombre(
             volume1
-          )}\\text{ litres}}=${texNombrec(
+          )}\\text{ litres}}=${texNombre(
             arrondi(masse / volume1)
           )}\\text{ g/L}$<br>`
           texteCorr +=
@@ -1113,7 +1113,7 @@ export default function ProblemesGrandeursComposees () {
             vMax
           )}\\text{ m}^3}{1\\text{ h}}=\\dfrac{${texNombre(
             vMax
-          )}\\text{ m}^3}{${texNombre(3600)}\\text{ s}}=${texNombrec(
+          )}\\text{ m}^3}{${texNombre(3600)}\\text{ s}}=${texNombre(
             vMax / 3600
           )}\\text{ m}^3\\text{/s}$<br>`
 
@@ -1153,18 +1153,18 @@ export default function ProblemesGrandeursComposees () {
             }\\text{ s}\\times ${vitesseMoy} \\text{ ${unites[index]
             }/s} = ${tailleFichier} \\text{ ${unites[index]} }$`
           if (tailleFichier > 1000) {
-            texteCorr += `$ =${texNombrec(tailleFichier / 1000)} \\text{ ${unites[index + 1]
+            texteCorr += `$ =${texNombre(tailleFichier / 1000)} \\text{ ${unites[index + 1]
               }}.$<br>`
           }
           texteCorr +=
             numAlpha(1) + ' La durée du téléchargement sera de :<br>'
           if (index === 0) {
-            texteCorr += `$${masse}\\times ${texNombrec(
+            texteCorr += `$${masse}\\times ${texNombre(
               10 ** 6
             )} \\text{ ko} \\div ${vitesseMoy} \\text{ ${unites[index]}/s}$`
             tailleFichier = masse * 10 ** 6
           } else {
-            texteCorr += `$${masse}\\times ${texNombrec(
+            texteCorr += `$${masse}\\times ${texNombre(
               10 ** 3
             )} \\text{ Mo} \\div ${vitesseMoy} \\text{ ${unites[index]}/s}$`
             tailleFichier = masse * 10 ** 3

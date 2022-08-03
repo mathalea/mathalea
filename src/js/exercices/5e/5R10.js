@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, ecritureParentheseSiMoins, texNombrec, texNombre, arrondi, choice, combinaisonListes, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ecritureParentheseSiMoins, texNombre, arrondi, choice, combinaisonListes, nombreDeChiffresDansLaPartieEntiere } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 
 export const interactifReady = true
@@ -64,8 +64,8 @@ export default function TermeInconnuDeSomme () {
           if (this.interactif && !context.isAmc) {
             texte = `$${texNombre(a)} + $${ajouteChampTexte(this, i, { texte: '' })}$ = ${texNombre(b)}$`
           }
-          texteCorr = `$${texNombre(a)} + ${ecritureParentheseSiMoins(texNombrec(b - a))} = ${texNombre(b)}$`
-          texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombrec(b - a)}$`
+          texteCorr = `$${texNombre(a)} + ${ecritureParentheseSiMoins(texNombre(b - a))} = ${texNombre(b)}$`
+          texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombre(b - a)}$`
 
           break
 
@@ -74,8 +74,8 @@ export default function TermeInconnuDeSomme () {
           if (this.interactif && !context.isAmc) {
             texte = `${ajouteChampTexte(this, i, { texte: '' })}$ + ${texNombre(a)} = ${texNombre(b)}$`
           }
-          texteCorr = `$${ecritureParentheseSiMoins(texNombrec(b - a))} + ${texNombre(a)} = ${texNombre(b)}$`
-          texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombrec(b - a)}$`
+          texteCorr = `$${ecritureParentheseSiMoins(texNombre(b - a))} + ${texNombre(a)} = ${texNombre(b)}$`
+          texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombre(b - a)}$`
           break
 
         case 3:
@@ -83,8 +83,8 @@ export default function TermeInconnuDeSomme () {
           if (this.interactif && !context.isAmc) {
             texte = `$${texNombre(b)} = $${ajouteChampTexte(this, i, { texte: '' })}$ + ${texNombre(a)}$`
           }
-          texteCorr = `$${texNombre(b)}=${ecritureParentheseSiMoins(texNombrec(b - a))} + ${texNombre(a)}$`
-          texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombrec(b - a)}$`
+          texteCorr = `$${texNombre(b)}=${ecritureParentheseSiMoins(texNombre(b - a))} + ${texNombre(a)}$`
+          texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombre(b - a)}$`
           break
 
         case 4:
@@ -92,8 +92,8 @@ export default function TermeInconnuDeSomme () {
           if (this.interactif && !context.isAmc) {
             texte = `$ ${texNombre(b)} = ${texNombre(a)} + $${ajouteChampTexte(this, i, { texte: '' })}`
           }
-          texteCorr = `$${texNombre(b)}=${texNombre(a)} + ${ecritureParentheseSiMoins(texNombrec(b - a))}$`
-          texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombrec(b - a)}$`
+          texteCorr = `$${texNombre(b)}=${texNombre(a)} + ${ecritureParentheseSiMoins(texNombre(b - a))}$`
+          texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombre(b - a)}$`
           break
       }
 

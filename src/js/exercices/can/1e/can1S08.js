@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureParentheseSiNegatif, texNombrec } from '../../../modules/outils.js'
+import { randint, choice, ecritureParentheseSiNegatif, texNombre } from '../../../modules/outils.js'
 export const titre = 'Calculer la raison d’une suite arithmétique/géométrique*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -64,8 +64,8 @@ Donner la raison $q$ de cette suite.`
           }
           this.correction = `La suite $(${s}_n)$ est une suite géométrique  de raison $q$ positive. Donc, pour tout entier naturel $n$ et $p$, on a : $u_n=u_p\\times q^{n-p}$.<br>
         Ainsi, $${s}_{${i + 2}}=${s}_{${i}}\\times q^{${i + 2}-${i}}=${s}_{${i}}\\times q^{2}$.<br>
-       On en déduit :  $q^2=\\dfrac{${s}_{${i + 2}}}{${s}_{${i}}}=\\dfrac{${v}}{${u}}=${texNombrec(q * q)}$.<br>
-       Puisque $q$ est un nombre positif, on obtient : $q=${texNombrec(q)}$.`
+       On en déduit :  $q^2=\\dfrac{${s}_{${i + 2}}}{${s}_{${i}}}=\\dfrac{${v}}{${u}}=${texNombre(q * q)}$.<br>
+       Puisque $q$ est un nombre positif, on obtient : $q=${texNombre(q)}$.`
 
           this.reponse = q
         }

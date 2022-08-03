@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, texNombre, calcul, texNombrec, creerNomDePolygone, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, rangeMinMax, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, texNombre, calcul, creerNomDePolygone, arrondi, sp, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale, rangeMinMax, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
@@ -89,8 +89,8 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
             texte = `Un carré $${nomCarre}$ tel que $${nomCarre[0] + nomCarre[1]} = ${texNombre(cote)}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
           }
 
-          texteCorr = `$\\mathcal{P}_{${nomCarre}}=4\\times${texNombre(cote)}~\\text{cm}=${texNombrec(4 * cote)}~\\text{cm}$<br>`
-          texteCorr += `$\\mathcal{A}_{${nomCarre}}=${texNombre(cote)}~\\text{cm}\\times${texNombre(cote)}~\\text{cm}=${texNombrec(cote * cote)}~\\text{cm}^2$`
+          texteCorr = `$\\mathcal{P}_{${nomCarre}}=4\\times${texNombre(cote)}~\\text{cm}=${texNombre(4 * cote)}~\\text{cm}$<br>`
+          texteCorr += `$\\mathcal{A}_{${nomCarre}}=${texNombre(cote)}~\\text{cm}\\times${texNombre(cote)}~\\text{cm}=${texNombre(cote * cote)}~\\text{cm}^2$`
           resultat1 = calcul(4 * cote)
           resultat2 = calcul(cote * cote)
           break
@@ -105,8 +105,8 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
           } else {
             texte = `Un rectangle $${nomRectangle}$ tel que $${nomRectangle[0] + nomRectangle[1] + ' = ' + texNombre(L)}$ cm et $${nomRectangle[1] + nomRectangle[2] + ' = ' + l}$ cm.` + '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texte: '<br>' + sp(13) + 'Aire : ' })
           }
-          texteCorr = `$\\mathcal{P}_{${nomRectangle}}=(${texNombre(L)}~\\text{cm}+${l}~\\text{cm})\\times2=${texNombrec((L + l) * 2)}~\\text{cm}$<br>`
-          texteCorr += `$\\mathcal{A}_{${nomRectangle}}=${texNombre(L)}~\\text{cm}\\times${l}~\\text{cm}=${texNombrec(L * l)}~\\text{cm}^2$`
+          texteCorr = `$\\mathcal{P}_{${nomRectangle}}=(${texNombre(L)}~\\text{cm}+${l}~\\text{cm})\\times2=${texNombre((L + l) * 2)}~\\text{cm}$<br>`
+          texteCorr += `$\\mathcal{A}_{${nomRectangle}}=${texNombre(L)}~\\text{cm}\\times${l}~\\text{cm}=${texNombre(L * l)}~\\text{cm}^2$`
           resultat1 = calcul(2 * L + 2 * l)
           resultat2 = calcul(L * l)
           break
@@ -127,7 +127,7 @@ export default function ExercicePerimetresEtAires (difficulte = '1-2') {
 
           texteCorr = `$\\mathcal{P}_{${nomTriangle}}=${texNombre(a)}~\\text{cm}+${texNombre(b)}
           ~\\text{cm}+${texNombre(c)}~\\text{cm}=${texNombre(a + b + c)}~\\text{cm}$<br>`
-          texteCorr += `$\\mathcal{A}_{${nomTriangle}}=${texNombre(a)}~\\text{cm}\\times${texNombre(b)}~\\text{cm}\\div2=${texNombrec(a * b / 2)}~\\text{cm}^2$`
+          texteCorr += `$\\mathcal{A}_{${nomTriangle}}=${texNombre(a)}~\\text{cm}\\times${texNombre(b)}~\\text{cm}\\div2=${texNombre(a * b / 2)}~\\text{cm}^2$`
           resultat1 = calcul(a + b + c)
           resultat2 = calcul(a * b / 2)
           break

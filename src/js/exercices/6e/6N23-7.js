@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, choice, listeQuestionsToContenu, randint, texNombrec } from '../../modules/outils.js'
+import { calcul, choice, listeQuestionsToContenu, randint, texNombre } from '../../modules/outils.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -84,13 +84,13 @@ export default function RecompositionDecimale () {
           if (m === 1) texteCorr += 'Il y a 1 petit cube représentant $\\dfrac{1}{1000}$.<br>'
           else texteCorr += `Il y a ${m} cubes représentant chacun $\\dfrac{1}{1000}$, soit $\\dfrac{${m}}{1000}$.<br>`
         }
-        texteCorr += `Le nombre représenté ci-dessus est donc : $${texNombrec(e + d / 10 + c / 100 + m / 1000)}$.`
+        texteCorr += `Le nombre représenté ci-dessus est donc : $${texNombre(e + d / 10 + c / 100 + m / 1000)}$.`
       } else {
         texteCorr += 'On compte '
         if (e === 1) texteCorr += '1 unité, '
         texteCorr += `$\\dfrac{${d}}{10}$, `
         texteCorr += `$\\dfrac{${c}}{100}$ et `
-        texteCorr += `$\\dfrac{${m}}{1000}$.<br>Le nombre décimal représenté ci-dessus est le nombre $${texNombrec(e + d / 10 + c / 100 + m / 1000)}$.`
+        texteCorr += `$\\dfrac{${m}}{1000}$.<br>Le nombre décimal représenté ci-dessus est le nombre $${texNombre(e + d / 10 + c / 100 + m / 1000)}$.`
       }
       if (reponses.indexOf(calcul(e + d / 10 + c / 100 + m / 1000)) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
