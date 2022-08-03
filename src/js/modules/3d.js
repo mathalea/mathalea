@@ -581,7 +581,7 @@ export function pyramideTronquee3d (base, sommet, coeff = 0.5, color = 'black') 
    *
 */
 class Cube3d {
-  constructor (x, y, z, c, color = 'black', colorAV = 'lightgray', colorTOP = 'white', colorDr = 'darkgray') {
+  constructor (x, y, z, c, color = 'black') {
     ObjetMathalea2D.call(this)
     const A = point3d(x, y, z)
     const vx = vecteur3d(c, 0, 0)
@@ -597,14 +597,14 @@ class Cube3d {
     const faceAV = polygone([A.c2d, B.c2d, C.c2d, D.c2d], color)
     const faceDr = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
     const faceTOP = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
-    faceAV.couleurDeRemplissage = colorAV
-    faceTOP.couleurDeRemplissage = colorTOP
-    faceDr.couleurDeRemplissage = colorDr
+    faceAV.couleurDeRemplissage = 'lightgray'
+    faceTOP.couleurDeRemplissage = 'white'
+    faceDr.couleurDeRemplissage = 'darkgray'
     this.c2d = [faceAV, faceDr, faceTOP]
   }
 }
-export function cube3d (x, y, z, c, color = 'black', colorAV = 'lightgray', colorTOP = 'white', colorDr = 'darkgray') {
-  return new Cube3d(x, y, z, c, color, colorAV, colorTOP, colorDr)
+export function cube3d (x, y, z, c) {
+  return new Cube3d(x, y, z, c)
 }
 /**
  * @author Jean-Claude Lhote

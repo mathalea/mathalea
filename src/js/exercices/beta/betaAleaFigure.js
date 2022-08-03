@@ -3,11 +3,11 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { parse, create, all, unit } from 'mathjs'
 import { toString, aleaVariables, assignVariables, calculer, toTex, resoudre, aleaName } from '../../modules/outilsMathjs.js'
-import { GVGraphicView } from '../../modules/aleaFigure/GraphicView.js'
-import { GVGrandeur } from '../../modules/aleaFigure/grandeurs.js'
-import { GVLine, GVSegment, GVVector, GVPoint } from '../../modules/aleaFigure/elements.js'
-import { GVAleaThalesConfig } from '../../modules/aleaFigure/outilsThales.js'
-import { circularPermutation, name } from '../../modules/aleaFigure/outils.js'
+import { GVGraphicView } from '../../modules/aleaFigure/GraphicView.ts'
+import { GVGrandeur } from '../../modules/aleaFigure/grandeurs'
+import { GVLine, GVSegment, GVVector, GVPoint } from '../../modules/aleaFigure/elements'
+import { GVAleaThalesConfig } from '../../modules/aleaFigure/outilsThales'
+import { circularPermutation, name } from '../../modules/aleaFigure/outils.ts'
 
 // eslint-disable-next-line no-debugger
 debugger

@@ -1,6 +1,7 @@
 import { texteSurSegment, arcPointPointAngle, cercle, segment, polygone, point, mathalea2d } from '../2d.js'
-import { GVPolygon, GVAngle, GVPoint, GVLine, GVSegment, GVCircle } from './elements.js'
-export function getMathalea2DExport (graphic /** GVGraphicView */) {
+import { GVPolygon, GVAngle, GVPoint, GVLine, GVSegment, GVCircle } from './elements'
+import { GVGraphicView } from './GraphicView'
+export function getMathalea2DExport (graphic: GVGraphicView) {
   if (graphic.allowResize) graphic.resize()
   const scaleppc = 20 / graphic.ppc
   const clip = { xmin: graphic.xmin - scaleppc, xmax: graphic.xmax + scaleppc, ymin: graphic.ymin - scaleppc, ymax: graphic.ymax + scaleppc }
@@ -10,10 +11,10 @@ export function getMathalea2DExport (graphic /** GVGraphicView */) {
 
   if (graphic.clipVisible) {
     const drawClip = polygone(
-      point(clip.xmin, clip.ymin, '', 'above'),
-      point(clip.xmax, clip.ymin, '', 'above'),
-      point(clip.xmax, clip.ymax, '', 'above'),
-      point(clip.xmin, clip.ymax, '', 'above')
+      point(clip.xmin, clip.ymin),
+      point(clip.xmax, clip.ymin),
+      point(clip.xmax, clip.ymax),
+      point(clip.xmin, clip.ymax)
     )
     objs.push(drawClip)
   }
@@ -38,7 +39,7 @@ export function getMathalea2DExport (graphic /** GVGraphicView */) {
         objs.push(texteSurSegment(obj.text, points[0], points[1], obj.textColor, 0.5 * scaleppc))
       }
     } else if (obj instanceof GVCircle) {
-      objs.push(cercle(obj.A.M2D, obj.r))
+      objs.push(cercle(obj.A, obj.r))
     } else if (obj instanceof GVAngle) {
       if (Math.abs(obj.angle).toFixed(13) === (Math.PI / 2).toFixed(13) && obj.right) {
         const P1 = obj.A
@@ -86,5 +87,5 @@ export function getMathalea2DExport (graphic /** GVGraphicView */) {
     arrow.styleExtremites = '->'
     if (points !== undefined) objs.push(arrow)
   }
-  return mathalea2d(Object.assign({}, { mainlevee: false, pixelsParCm: graphic.ppc, scale: graphic.scale * 0.7 }, clip), objs)
+  return mathalea2d(Object.assign({ mainlevee: false, pixelsParCm: graphic.ppc, scale: graphic.scale * 0.7 }, clip), objs)
 }
