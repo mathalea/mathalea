@@ -121,7 +121,7 @@ export default function CalculerDesFrequences () {
         for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '|c' }
         texte += '}\\hline  \\text{Jour}'
         for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '&' + texNombre(j + 1) }
-        texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}'
+        texte += '\\\\\\hline \\text{Température\\thickspace en }^\\circ\\text{C}'
         for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '&' + temperatures[j] }
         texte += '\\\\\\hline\\end{array}$<br><br>'
         texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // On construit le tableau des températures
@@ -129,7 +129,7 @@ export default function CalculerDesFrequences () {
         for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '|c' }
         texte += '}\\hline  \\text{Jour}'
         for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '&' + texNombre(j + 1) }
-        texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}'
+        texte += '\\\\\\hline \\text{Température\\thickspace en }^\\circ\\text{C}'
         for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '&' + temperatures[j] }
         texte += '\\\\\\hline\\end{array}$'
 

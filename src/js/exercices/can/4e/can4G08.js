@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, texNombrec, texFractionReduite } from '../../../modules/outils.js'
+import { randint, calcul, choice, texNombre, texFractionReduite } from '../../../modules/outils.js'
 import {
   mathalea2d, point, labelPoint, segment, texteParPosition, milieu, tracePoint, codageAngleDroit
 } from '../../../modules/2d.js'
@@ -73,14 +73,14 @@ export default function QuestionsAiresEtPerimetres () {
         D = point(2, 5, 'R')
 
         objets.push(segment(A, B), segment(B, C), segment(C, D), segment(D, A), tracePoint(A, B, C, D))
-        objets.push(texteParPosition(`${texNombrec(b)} m`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true),
-          texteParPosition(`${texNombrec(a)} m`, milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
-          texteParPosition(`${texNombrec(c)} m`, milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true),
-          texteParPosition(`${texNombrec(d)} m`, milieu(C, D).x, milieu(C, D).y + 0.5, 'milieu', 'black', 1, 'middle', true))
+        objets.push(texteParPosition(`${texNombre(b)} m`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition(`${texNombre(a)} m`, milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition(`${texNombre(c)} m`, milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true),
+          texteParPosition(`${texNombre(d)} m`, milieu(C, D).x, milieu(C, D).y + 0.5, 'milieu', 'black', 1, 'middle', true))
 
         this.question = 'Quel est le périmètre de cette figure (en m) ?<br>'
         this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 6, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
-        this.correction = ` Le périmètre est donné par : $${texNombrec(a)}+${texNombrec(b)}+${texNombrec(c)}+${texNombrec(d)}=${texNombrec(a + b + c + d)}$.<br>`
+        this.correction = ` Le périmètre est donné par : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}=${texNombre(a + b + c + d)}$.<br>`
         this.reponse = a + b + c + d
 
         break
@@ -138,7 +138,7 @@ export default function QuestionsAiresEtPerimetres () {
         C = point(6, 3.46, 'C')
 
         objets.push(segment(A, B), segment(B, C), segment(C, A), labelPoint(A, B, C), tracePoint(A, B, C), codageAngleDroit(A, C, B))
-        objets.push(texteParPosition(`${texNombrec(a)} m`, milieu(B, C).x + 0.5, milieu(B, C).y + 0.5, 'milieu', 'black', 1, 'middle', true)
+        objets.push(texteParPosition(`${texNombre(a)} m`, milieu(B, C).x + 0.5, milieu(B, C).y + 0.5, 'milieu', 'black', 1, 'middle', true)
         )
 
         this.question = ` L'aire du triangle $ABC$ est $${b}$ m$^2$. Donner la longueur $AC$ (en m).<br>`

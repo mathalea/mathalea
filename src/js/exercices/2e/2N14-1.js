@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombrec, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, texNombre } from '../../modules/outils.js'
 import { setReponse, ajouteChampTexte } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true
@@ -58,8 +58,8 @@ export default function EnsembleDeNombres () {
           a = b + c / 10 + d / 100
           a = a * choice([-1, 1])
 
-          texte = `$${texNombrec(b + c / 10 + d / 100)}\\in \\dots$`
-          texteCorr = `$${texNombrec(b + c / 10 + d / 100)}$ est un nombre décimal, on a donc $${texNombrec(b + c / 10 + d / 100)}\\in \\mathbb{D}$
+          texte = `$${texNombre(b + c / 10 + d / 100)}\\in \\dots$`
+          texteCorr = `$${texNombre(b + c / 10 + d / 100)}$ est un nombre décimal, on a donc $${texNombre(b + c / 10 + d / 100)}\\in \\mathbb{D}$
                     `
           setReponse(this, i, 'D', { formatInteractif: 'texte' })
           break
@@ -69,8 +69,8 @@ export default function EnsembleDeNombres () {
           b = randint(0, 9)
           c = randint(0, 9)
 
-          texte = `$\\sqrt{${texNombrec(a * a)}}\\in \\dots$`
-          texteCorr = `$\\sqrt{${a * a}}=${a}$  est un entier naturel, on a donc $\\sqrt{${texNombrec(a * a)}}\\in \\mathbb{N}$
+          texte = `$\\sqrt{${texNombre(a * a)}}\\in \\dots$`
+          texteCorr = `$\\sqrt{${a * a}}=${a}$  est un entier naturel, on a donc $\\sqrt{${texNombre(a * a)}}\\in \\mathbb{N}$
                     `
           setReponse(this, i, 'N', { formatInteractif: 'texte' })
           break
@@ -80,8 +80,8 @@ export default function EnsembleDeNombres () {
           b = randint(2, 6)
           c = randint(0, 9)
 
-          texte = `$\\dfrac{${texNombrec(b * a)}}{${a}}\\in \\dots$`
-          texteCorr = `$\\dfrac{${texNombrec(b * a)}}{${a}}=\\dfrac{${b}\\times ${a}}{${a}}=${b}$  est un entier naturel, on a donc $\\dfrac{${texNombrec(b * a)}}{${a}}\\in \\mathbb{N}$
+          texte = `$\\dfrac{${texNombre(b * a)}}{${a}}\\in \\dots$`
+          texteCorr = `$\\dfrac{${texNombre(b * a)}}{${a}}=\\dfrac{${b}\\times ${a}}{${a}}=${b}$  est un entier naturel, on a donc $\\dfrac{${texNombre(b * a)}}{${a}}\\in \\mathbb{N}$
                     `
           setReponse(this, i, 'N', { formatInteractif: 'texte' })
           break

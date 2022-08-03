@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { randint, texNombrec, miseEnEvidence, listeQuestionsToContenu, combinaisonListes, sp, rienSi1, texFractionReduite, reduireAxPlusB, stringNombre } from '../../modules/outils.js'
+import { randint, texNombre, miseEnEvidence, listeQuestionsToContenu, combinaisonListes, sp, rienSi1, texFractionReduite, reduireAxPlusB, stringNombre } from '../../modules/outils.js'
 import { texteSurSegment, codageSegments, codageAngleDroit, segmentAvecExtremites, milieu, labelPoint, point, segment, texteParPosition, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Modéliser une situation géométrique à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'
@@ -39,8 +39,8 @@ export default function modeliserEquationsGeometrie () {
           D = point(0, 6, 'D')
 
           objets.push(segment(A, B), segment(B, C), segment(D, A), segment(C, D), labelPoint(A, B, C, D))
-          objets.push(texteParPosition(`x+${texNombrec(a)}`, milieu(C, D).x + 0, milieu(C, D).y + 0.7, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`${texNombrec(d)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true))
+          objets.push(texteParPosition(`x+${texNombre(a)}`, milieu(C, D).x + 0, milieu(C, D).y + 0.7, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${texNombre(d)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true))
 
           texte = ` Un rectangle a pour largeur $${d}$ cm et pour longueur $x$ cm.<br>
             En ajoutant $${a}$ cm à la longueur de ce rectangle, on obtient un nouveau rectangle dont le périmètre est $${b}$ cm.<br>
@@ -56,9 +56,9 @@ export default function modeliserEquationsGeometrie () {
        2x+${2 * a + 2 * d}${miseEnEvidence(-2 * a - 2 * d)}&=${b}${miseEnEvidence(-2 * a - 2 * d)}\\\\
        2x&=${b - 2 * a - 2 * d}\\\\
        x&=\\dfrac{${b - 2 * a - 2 * d}}{2}\\\\
-       x&=${texNombrec(c / 2)}\\end{aligned}$<br>
+       x&=${texNombre(c / 2)}\\end{aligned}$<br>
 
-       La longueur $x$ du rectangle initial est  $${texNombrec(c / 2)}$ cm.
+       La longueur $x$ du rectangle initial est  $${texNombre(c / 2)}$ cm.
        `
           break
         case 'typeE2':
@@ -74,8 +74,8 @@ export default function modeliserEquationsGeometrie () {
           D = point(0, 6, 'D')
 
           objets.push(segment(A, B), segment(B, C), segment(D, A), segment(C, D), labelPoint(A, B, C, D))
-          objets.push(texteParPosition(`x+${texNombrec(a)}`, milieu(C, D).x + 0, milieu(C, D).y + 0.7, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`${texNombrec(d)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true))
+          objets.push(texteParPosition(`x+${texNombre(a)}`, milieu(C, D).x + 0, milieu(C, D).y + 0.7, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${texNombre(d)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true))
           texte = ` Un rectangle a pour largeur $${d}$ cm et pour longueur $x$ cm.<br>
              En ajoutant $${a}$ cm à la longueur de ce rectangle, on obtient un nouveau rectangle dont l'aire est $${b}$ cm$^2$.<br>
               Quelle est la longueur $x$ du rectangle initial ? <br>
@@ -105,7 +105,7 @@ export default function modeliserEquationsGeometrie () {
           B = point(10, 0, 'B', 'below')
           C = point(0, 6, 'C')
           objets.push(segment(A, B), segment(B, C), segment(A, C), labelPoint(A, B, C), codageAngleDroit(B, A, C))
-          objets.push(texteParPosition(`${texNombrec(a)}`, milieu(A, B).x + 0, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true),
+          objets.push(texteParPosition(`${texNombre(a)}`, milieu(A, B).x + 0, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true),
             texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true))
           texte = ` Un triangle $ABC$ est rectangle en $A$. On a $AB= ${a}$ cm  et $AC= x$ cm.<br>
          Sachant que le carré de son hypoténuse est $${b}$, déterminer la valeur exacte de $x$. `
@@ -142,10 +142,10 @@ export default function modeliserEquationsGeometrie () {
           P = point(0, 6, 'P')
 
           objets.push(segment(M, N), segment(N, P), segment(M, P), labelPoint(M, N, P), codageAngleDroit(N, M, P))
-          objets.push(texteParPosition(`${texNombrec(a)}`, milieu(M, P).x - 0.5, milieu(M, P).y, 'milieu', 'black', 1, 'middle', true),
+          objets.push(texteParPosition(`${texNombre(a)}`, milieu(M, P).x - 0.5, milieu(M, P).y, 'milieu', 'black', 1, 'middle', true),
             texteParPosition('x', milieu(M, N).x + 0, milieu(M, N).y - 0.5, 'milieu', 'black', 1, 'middle', true),
-            texteSurSegment(`$x+${texNombrec(b)}$`, P, N, 'black', 0.5))
-          // texteParPosition(`$$x+$$${texNombrec(b)}`, milieu(P, N).x + 1, milieu(P, N).y, 0, 'black', 2, 'middle', true))
+            texteSurSegment(`$x+${texNombre(b)}$`, P, N, 'black', 0.5))
+          // texteParPosition(`$$x+$$${texNombre(b)}`, milieu(P, N).x + 1, milieu(P, N).y, 0, 'black', 2, 'middle', true))
           texte = ` Un triangle $MNP$ est rectangle en $M$. On a $MP= ${a}$ cm  et $MN= x$ cm.<br>
              L'hypoténuse du triangle $MNP$ mesure  $${b}$ cm de plus que le côté $[MN]$.<br>
              Déterminer la valeur de $x$ sous la forme d'une fraction irréductible ou d'un nombre entier le cas échéant. `
@@ -224,8 +224,8 @@ export default function modeliserEquationsGeometrie () {
                     Puisque l'aire du trapèze est $${c}$ cm$^2$, $x$ est donc la solution de l'équation : $${reduireAxPlusB(b, 0)} + ${reduireAxPlusB((a - b) / 2, 0)}=${c}$.<br>
                     $\\begin{aligned}
                     ${reduireAxPlusB(b, 0)} + ${reduireAxPlusB((a - b) / 2, 0)}&=${c}\\\\
-                    ${texNombrec(b + (a - b) / 2)}x&=${c}\\\\
-                    \\dfrac{${texNombrec(b + d)}x}{${miseEnEvidence(texNombrec(b + d))}}&=\\dfrac{${c}}{${miseEnEvidence(texNombrec(b + d))}}\\\\
+                    ${texNombre(b + (a - b) / 2)}x&=${c}\\\\
+                    \\dfrac{${texNombre(b + d)}x}{${miseEnEvidence(texNombre(b + d))}}&=\\dfrac{${c}}{${miseEnEvidence(texNombre(b + d))}}\\\\
                     x&=${texFractionReduite(c, b + d)}
                     \\end{aligned}$<br>
                     La hauteur du trapèze est : $${texFractionReduite(c, b + d)}$ cm.`
@@ -247,29 +247,29 @@ export default function modeliserEquationsGeometrie () {
           E = point(5, 10, 'E')
 
           objets.push(segment(A, B), segment(B, C), segment(C, D), segment(A, D), segment(E, C), segment(E, D), segment(E, H), codageAngleDroit(E, H, C), labelPoint(A, H, D, B, C, E), codageSegments('//', 'blue', D, E, E, C))
-          objets.push(texteParPosition(`${texNombrec(a)}`, milieu(B, C).x + 0.4, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`${texNombrec(b)}`, milieu(E, H).x + 0.4, milieu(E, H).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`x + ${texNombrec(c)}`, milieu(A, B).x + 0.4, milieu(A, B).y - 0.4, 'milieu', 'black', 1, 'middle', true))
+          objets.push(texteParPosition(`${texNombre(a)}`, milieu(B, C).x + 0.4, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`${texNombre(b)}`, milieu(E, H).x + 0.4, milieu(E, H).y, 'milieu', 'black', 1, 'middle', true),
+            texteParPosition(`x + ${texNombre(c)}`, milieu(A, B).x + 0.4, milieu(A, B).y - 0.4, 'milieu', 'black', 1, 'middle', true))
 
           texte = ` La figure ci-dessous (qui n'est pas à l'échelle) est composée d'un rectangle $ABCD$ et d'un triangle isocèle $DEC$. <br>
         L'unité est le mètre.<br> ` +
         mathalea2d({ xmin: -1, ymin: -1, xmax: 12, ymax: 11, pixelsParCm: 20, scale: 1 }, objets)
 
-          texte += `Sachant que l'aire de cette figure est $${texNombrec(d)}$ m$^2$ et en utilisant les données du graphique, déterminer la  valeur exacte de $x$.<br>
+          texte += `Sachant que l'aire de cette figure est $${texNombre(d)}$ m$^2$ et en utilisant les données du graphique, déterminer la  valeur exacte de $x$.<br>
          <br>`
           texteCorr = mathalea2d({ xmin: -1, ymin: -1, xmax: 16, ymax: 11, pixelsParCm: 20, scale: 0.7 }, objets)
           texteCorr += `<br>La figure est  constituée du rectangle $ABCD$ et du triangle isocèle $DEC$.   <br>
         Son aire est donc la somme des aires de ces deux figures. <br>
         $\\bullet~$ L' aire du rectangle $ABCD$ est : $${a}\\times (x+${c})=${reduireAxPlusB(a, a * c)}$ ;<br>
         $\\bullet~$ L' aire de triangle isocèle $DEC$ est : $\\dfrac{${b}\\times(x +${c})}{2}=${texFractionReduite(b, 2)}(x+${c})=${reduireAxPlusB(b / 2, (b * c) / 2)}$.<br>
-        L'aire de la figure étant $${texNombrec(d)}$ m$^2$, on cherche $x$ tel que : <br>
+        L'aire de la figure étant $${texNombre(d)}$ m$^2$, on cherche $x$ tel que : <br>
         $\\begin{aligned}
-        (${reduireAxPlusB(a, a * c)})+(${reduireAxPlusB(b / 2, (b * c) / 2)})&=${texNombrec(d)}\\\\
-        ${reduireAxPlusB(a, a * c)}+${reduireAxPlusB(b / 2, (b * c) / 2)}&=${texNombrec(d)}\\\\
-        ${reduireAxPlusB(a + b / 2, a * c + (b * c) / 2)}&=${texNombrec(d)}\\\\
-        ${reduireAxPlusB(a + b / 2, a * c + (b * c) / 2)}${miseEnEvidence(texNombrec(-a * c - (b * c) / 2))}&=${d}${miseEnEvidence(texNombrec(-a * c - (b * c) / 2))}\\\\
+        (${reduireAxPlusB(a, a * c)})+(${reduireAxPlusB(b / 2, (b * c) / 2)})&=${texNombre(d)}\\\\
+        ${reduireAxPlusB(a, a * c)}+${reduireAxPlusB(b / 2, (b * c) / 2)}&=${texNombre(d)}\\\\
+        ${reduireAxPlusB(a + b / 2, a * c + (b * c) / 2)}&=${texNombre(d)}\\\\
+        ${reduireAxPlusB(a + b / 2, a * c + (b * c) / 2)}${miseEnEvidence(texNombre(-a * c - (b * c) / 2))}&=${d}${miseEnEvidence(texNombre(-a * c - (b * c) / 2))}\\\\
                 ${reduireAxPlusB(a + b / 2, 0)}&=${reduireAxPlusB(0, d - a * c - (b * c) / 2)}\\\\
-                \\dfrac{${reduireAxPlusB(a + b / 2, 0)}}{${miseEnEvidence(texNombrec(a + b / 2))}}&=\\dfrac{${texNombrec(d - a * c - (b * c) / 2)}}{${miseEnEvidence(texNombrec(a + b / 2))}}\\\\
+                \\dfrac{${reduireAxPlusB(a + b / 2, 0)}}{${miseEnEvidence(texNombre(a + b / 2))}}&=\\dfrac{${texNombre(d - a * c - (b * c) / 2)}}{${miseEnEvidence(texNombre(a + b / 2))}}\\\\
                 x&=${texFractionReduite((d - a * c - (b * c) / 2) * 10, (a + b / 2) * 10)}
                 \\end{aligned}$<br> 
                 La valeur de $x$ cherchée est donc : $ ${texFractionReduite((d - a * c - (b * c) / 2) * 10, (a + b / 2) * 10)}$.
@@ -291,7 +291,7 @@ export default function modeliserEquationsGeometrie () {
           L = point(0, -1, 'L')
 
           objets.push(segment(A, B), segment(A, E), segmentAvecExtremites(K, L), segment(E, M), segment(M, D), segment(B, C), segment(D, C), codageAngleDroit(B, M, D), codageAngleDroit(M, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, M), labelPoint(A, M, B, C, D, E), codageSegments('//', 'blue', A, E, E, M, A, M), codageSegments('/', 'blue', M, B, B, C, C, D, D, M))
-          objets.push(texteParPosition('$x$', milieu(A, M).x, milieu(A, M).y - 0.3, 0, 'black', 2, 'middle', true), texteParPosition(`${texNombrec(a)}`, milieu(A, B).x, milieu(A, B).y - 1.5, 'milieu', 'black', 1, 'middle', true))
+          objets.push(texteParPosition('$x$', milieu(A, M).x, milieu(A, M).y - 0.3, 0, 'black', 2, 'middle', true), texteParPosition(`${texNombre(a)}`, milieu(A, B).x, milieu(A, B).y - 1.5, 'milieu', 'black', 1, 'middle', true))
 
           texte = `$[AB]$ est un segment de longueur $${a}$ et $M$ est un point de ce segment.<br>
       Du même côté du segment $[AB]$, on trace le triangle équilatéral $AME$ et le carré $MBCD$.<br>

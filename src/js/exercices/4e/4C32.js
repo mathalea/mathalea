@@ -12,7 +12,7 @@ export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
 
 /**
- * Ecrire un nombre décimal en notation scientifique et inversement
+ * Écrire un nombre décimal en notation scientifique et inversement
  * @author Jean-Claude Lhote
  * 4C32
  */
@@ -81,7 +81,7 @@ export default function NotationScientifique () {
           break
       }
 
-      // decimalstring = texNombrec(mantisse * 10 ** exp)
+      // decimalstring = texNombre(mantisse * 10 ** exp)
       scientifiquestring = `${texNombre(mantisse, 8)}\\times 10^{${exp}}`
       decimalstring = scientifiqueToDecimal(mantisse, exp)
 

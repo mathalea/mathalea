@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, calcul, texNombre } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Diviser un nombre décimal par 10, 100 ou 1000'
 export const amcReady = true
@@ -38,7 +38,7 @@ export default function DiviserDecimalPar101001000 () {
       ])
       b = choice([10, 100, 1000])
       texte = `$${texNombre(a)}\\div${texNombre(b)}=$`
-      texteCorr = `$${texNombre(a)}\\div${texNombre(b)}=${texNombrec(
+      texteCorr = `$${texNombre(a)}\\div${texNombre(b)}=${texNombre(
         a / b
       )}$`
       setReponse(this, i, calcul(a / b))

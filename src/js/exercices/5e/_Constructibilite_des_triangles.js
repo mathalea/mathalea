@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, randint, calcul, texNombrec, texNombre, texteEnCouleur, Triangles } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, randint, calcul, texNombre, texteEnCouleur, Triangles } from '../../modules/outils.js'
 
 export const titre = 'Constructibilité des triangles via les longueurs'
 
@@ -366,7 +366,7 @@ export default function ConstructibiliteDesTriangles () {
               texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[2].angle} est le ${operation} de ${currentTriangle[0].angle} = $${texNombre(currentTriangle[0].valeur)}\\degree$  d'où ${currentTriangle[2].angle} = $${texNombre(currentTriangle[2].valeur)}\\degree$.`
               break
           };
-          texteCorr += `<br>Donc ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${texNombre(currentTriangle[0].valeur)}\\degree + ${texNombre(currentTriangle[1].valeur)}\\degree + ${texNombre(currentTriangle[2].valeur)}\\degree = ${texNombrec(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}\\degree$.`
+          texteCorr += `<br>Donc ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${texNombre(currentTriangle[0].valeur)}\\degree + ${texNombre(currentTriangle[1].valeur)}\\degree + ${texNombre(currentTriangle[2].valeur)}\\degree = ${texNombre(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}\\degree$.`
           texteCorr += '<br> On constate que la somme des trois angles du triangle vaut bien $180\\degree$.'
           texteCorr += `<br> ${texteEnCouleur('On peut donc construire le triangle ' + triangle.getNom())}.`
           texteCorr += `<br><br>  ${texteEnCouleur('Il existe une infinité de triangles avec ces mesures.')}`

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, shuffle, texNombrec, obtenirListeFacteursPremiers, choice, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, texNombre, obtenirListeFacteursPremiers, choice, combinaisonListes } from '../../modules/outils.js'
 
 export const titre = 'Deviner un nombre relatif'
 
@@ -70,7 +70,7 @@ export default function DevinerNombreRelatif () {
         case 4:
           break
       }
-      texteCorr = `Je suis $${texNombrec(signe * (unite + dixieme / 10 + centieme / 100))}$.`
+      texteCorr = `Je suis $${texNombre(signe * (unite + dixieme / 10 + centieme / 100))}$.`
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

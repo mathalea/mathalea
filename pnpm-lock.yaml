@@ -1,5 +1,13 @@
 lockfileVersion: 5.4
 
+overrides:
+  glob-parent@<5.1.2: '>=5.1.2'
+  node-forge@<1.0.0: '>=1.0.0'
+  mathjs@<7.5.1: '>=7.5.1'
+  typed-function@<0.10.6: '>=0.10.6'
+  mathjs@<3.17.0: '>=3.17.0'
+  node-forge@<1.3.0: '>=1.3.0'
+
 specifiers:
   '@babel/core': ^7.18.5
   '@babel/eslint-parser': ^7.18.2
@@ -1352,7 +1360,7 @@ packages:
       anymatch: 2.0.0_supports-color@6.1.0
       async-each: 1.0.3
       braces: 2.3.2_supports-color@6.1.0
-      glob-parent: 3.1.0
+      glob-parent: 5.1.2
       inherits: 2.0.4
       is-binary-path: 1.0.1
       is-glob: 4.0.3
@@ -1476,10 +1484,6 @@ packages:
       array-ify: 1.0.0
       dot-prop: 5.3.0
     dev: true
-
-  /complex.js/2.0.1:
-    resolution: {integrity: sha512-zu2kFxCi8x66budGAEfHcLk0+dcT4EdtiwJ9oIFrvDq8ARJ4T4F3hC0qXc5tn+FzIOYaEOZfO6ew6t6wmGfwpg==}
-    dev: false
 
   /complex.js/2.1.1:
     resolution: {integrity: sha512-8njCHOTtFFLtegk6zQo0kkVX1rngygb/KQI6z1qZxlFI3scluC+LVTCFbrkWjBv4vvLlbQ9t88IPMC6k95VTTg==}
@@ -1903,10 +1907,6 @@ packages:
 
   /decimal.js/10.3.1:
     resolution: {integrity: sha512-V0pfhfr8suzyPGOx3nmq4aHqabehUZn6Ch9kyFpV79TGDTWFmHqUqXdabR7QHqxzrYolF4+tVmJhUG4OURg5dQ==}
-    dev: false
-
-  /decimal.js/7.1.1:
-    resolution: {integrity: sha512-JAYTBScouq/tbesTv17VT4/Zf4kOguK6LRp9lK8IasQpzC1u4X5z+fNIasI3Le+kBXpo83hyTp6asVgTHIDlGw==}
     dev: false
 
   /decode-uri-component/0.2.0:
@@ -2754,10 +2754,6 @@ packages:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
 
-  /fraction.js/4.0.0:
-    resolution: {integrity: sha512-VFj4e6g5arfi1iH4YOHao6Aq8ZB9e+R4mW8dUZA0qeLqVQWKMc4+4N/U1eTWPuddMsXd0MjwGRFRzBW2G7msBA==}
-    dev: false
-
   /fraction.js/4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: false
@@ -2886,18 +2882,11 @@ packages:
       ini: 1.3.8
     dev: true
 
-  /glob-parent/3.1.0:
-    resolution: {integrity: sha512-E8Ak/2+dZY6fnzlR7+ueWvhsH1SjHr4jjss4YS/h4py44jY9MhK/VFdaZJAWDz6BbL21KeteKxFSFpq8OS5gVA==}
-    dependencies:
-      is-glob: 3.1.0
-      path-dirname: 1.0.2
-
   /glob-parent/5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
     dependencies:
       is-glob: 4.0.3
-    dev: true
 
   /glob-to-regexp/0.4.1:
     resolution: {integrity: sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==}
@@ -3374,12 +3363,6 @@ packages:
     resolution: {integrity: sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==}
     engines: {node: '>=8'}
 
-  /is-glob/3.1.0:
-    resolution: {integrity: sha512-UFpDDrPgM6qpnFNI+rh/p3bUaq9hKLZN8bMUWzxmcnZVS3omf4IPK+BrewlnWjO1WmUsMYuSjKh4UJuV4+Lqmw==}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      is-extglob: 2.1.1
-
   /is-glob/4.0.3:
     resolution: {integrity: sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==}
     engines: {node: '>=0.10.0'}
@@ -3834,19 +3817,6 @@ packages:
     hasBin: true
     dev: true
 
-  /mathjs/3.11.2:
-    resolution: {integrity: sha512-usttjbeFeA+ubBzc8KIIzDQyAbnBAXvQ9ZPZc7LYLZ1Blji7FaKdW+ATnSO5HIuCdybbII6zsGnen68FT026Gw==}
-    engines: {node: '>= 0.1'}
-    hasBin: true
-    dependencies:
-      complex.js: 2.0.1
-      decimal.js: 7.1.1
-      fraction.js: 4.0.0
-      seed-random: 2.2.0
-      tiny-emitter: 1.0.2
-      typed-function: 0.10.5
-    dev: false
-
   /mathjs/9.5.2:
     resolution: {integrity: sha512-c0erTq0GP503/Ch2OtDOAn50GIOsuxTMjmE00NI/vKJFSWrDaQHRjx6ai+16xYv70yBSnnpUgHZGNf9FR9IwmA==}
     engines: {node: '>= 12'}
@@ -4093,9 +4063,9 @@ packages:
       tslib: 2.4.0
     dev: true
 
-  /node-forge/0.10.0:
-    resolution: {integrity: sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY62+5oOjDEMHRnd0Y7HQ+x7uzxOzC6JA==}
-    engines: {node: '>= 6.0.0'}
+  /node-forge/1.3.1:
+    resolution: {integrity: sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==}
+    engines: {node: '>= 6.13.0'}
 
   /node-releases/2.0.5:
     resolution: {integrity: sha512-U9h1NLROZTq9uE1SNffn6WuPDg8icmi3ns4rEl/oTfIle4iLjTliCzgTsbaIFMq/Xn078/lfY/BL0GWZ+psK4Q==}
@@ -4349,9 +4319,6 @@ packages:
   /pascalcase/0.1.1:
     resolution: {integrity: sha512-XHXfu/yOQRy9vYOtUDVMN60OEJjW013GoObG1o+xwQTpB9eYJX/BjXMsdW13ZDPruFhYYn0AG22w0xgQMwl3Nw==}
     engines: {node: '>=0.10.0'}
-
-  /path-dirname/1.0.2:
-    resolution: {integrity: sha512-ALzNPpyNq9AqXMBjeymIjFDAkAFH06mHJH/cSBHAgU0s4vfpBn6b2nf8tiRLvagKD8RbTpq2FKTBg7cl9l3c7Q==}
 
   /path-exists/3.0.0:
     resolution: {integrity: sha512-bpC7GYwiDYQ4wYLe+FA8lhRjhQCMcQGuSgGGqDkg/QerRWw9CmGRT0iSOVRSZJ29NMLZgIzqaljJ63oaL4NIJQ==}
@@ -4924,10 +4891,6 @@ packages:
       ajv: 6.12.6
       ajv-keywords: 3.5.2_ajv@6.12.6
 
-  /seed-random/2.2.0:
-    resolution: {integrity: sha1-KpsZ4lCoFwmSMaW5mk2vgLf77VQ=}
-    dev: false
-
   /seedrandom/3.0.5:
     resolution: {integrity: sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==}
     dev: false
@@ -4942,7 +4905,7 @@ packages:
   /selfsigned/1.10.14:
     resolution: {integrity: sha512-lkjaiAye+wBZDCBsu5BGi0XiLRxeUlsGod5ZP924CRSEoGuZAw/f7y9RKu28rwTfiHVhdavhB0qH0INV6P1lEA==}
     dependencies:
-      node-forge: 0.10.0
+      node-forge: 1.3.1
 
   /semver/5.7.1:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==}
@@ -5507,10 +5470,6 @@ packages:
   /thunky/1.1.0:
     resolution: {integrity: sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==}
 
-  /tiny-emitter/1.0.2:
-    resolution: {integrity: sha512-y87VH5ncX+MzK2rqEF6v7Ad8gOdQDV1jiFT5bXUrWGBTFN9EFLrvufpWryNipgFDCzQ4fTOTPUCZGLYoQ2D9UA==}
-    dev: false
-
   /tiny-emitter/2.1.0:
     resolution: {integrity: sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==}
     dev: false
@@ -5632,11 +5591,6 @@ packages:
     dependencies:
       media-typer: 0.3.0
       mime-types: 2.1.35
-
-  /typed-function/0.10.5:
-    resolution: {integrity: sha512-5BI8zKF/aZhsXJJKcRvcOuDCzBVY4R08Ok8ilRWHpQ5Np+LwzWeGzaIUNUw++d19Vvv8iqzvaN9/h5WDdY8cmg==}
-    engines: {node: '>= 0.10'}
-    dev: false
 
   /typed-function/2.1.0:
     resolution: {integrity: sha512-bctQIOqx2iVbWGDGPWwIm18QScpu2XRmkC19D8rQGFsjKSgteq/o1hTZvIG/wuDq8fanpBDrLkLq+aEN/6y5XQ==}
@@ -6151,7 +6105,7 @@ packages:
     dependencies:
       core-js: 3.23.1
       docdash: 1.2.0
-      sesajstools: git.sesamath.net/sesamath/sesajstools/c4dbeedebce5d97c9ed53a2ad5a14fa80ec4afb0
+      sesajstools: git.sesamath.net/sesamath/sesajstools/5d71aac9d6b16dcc67935c1a0703b4e4a816c183
       whatwg-fetch: 3.6.2
     dev: false
 
@@ -6161,10 +6115,10 @@ packages:
     version: 1.2.1
     dev: true
 
-  git.sesamath.net/sesamath/sesajstools/c4dbeedebce5d97c9ed53a2ad5a14fa80ec4afb0:
-    resolution: {commit: c4dbeedebce5d97c9ed53a2ad5a14fa80ec4afb0, repo: https://git.sesamath.net/sesamath/sesajstools.git, type: git}
+  git.sesamath.net/sesamath/sesajstools/5d71aac9d6b16dcc67935c1a0703b4e4a816c183:
+    resolution: {commit: 5d71aac9d6b16dcc67935c1a0703b4e4a816c183, repo: https://git.sesamath.net/sesamath/sesajstools.git, type: git}
     name: sesajstools
-    version: 1.0.33
+    version: 1.0.32
     dependencies:
       lodash.isequal: 4.5.0
     dev: false
@@ -6175,5 +6129,5 @@ packages:
     version: 0.2.0
     engines: {node: '>=6.0.0'}
     dependencies:
-      mathjs: 3.11.2
+      mathjs: 9.5.2
     dev: false

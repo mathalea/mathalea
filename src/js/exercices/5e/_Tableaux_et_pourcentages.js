@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombrec, texNombre, miseEnEvidence, texPrix, tableauColonneLigne } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListesSansChangerOrdre, calcul, texNombre, miseEnEvidence, texPrix, tableauColonneLigne } from '../../modules/outils.js'
 
 /**
  * * Tableaux et pourcentages
@@ -95,7 +95,7 @@ export default function TableauxEtPourcentages () {
           case 'pourcentage':
             sortie = `-- L'énoncé indique le montant pour une remise de $${remiseInit.str}$ du prix initial or $${texNombre(remise.nb / remiseInit.nb)} \\times ${remiseInit.str} = ${remise.str}$.<br>
 Donc pour une remise de $${remise.str}$ du prix initial, le montant de la remise sera $${texNombre(remise.nb / remiseInit.nb)}$ fois celui de la remise de $${remiseInit.str}$ du prix initial,<br>
-d'où le calcul pour le montant de la remise : $${miseEnEvidence(`${texPrix(prix * remiseInit.nb / 100)} \\times ${texNombre(remise.nb / remiseInit.nb)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
+d'où le calul pour le montant de la remise : $${miseEnEvidence(`${texPrix(prix * remiseInit.nb / 100)} \\times ${texNombre(remise.nb / remiseInit.nb)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
 Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.<br><br>
 Mais on peut aussi calculer directement le prix réduit en faisant :<br>
 $${miseEnEvidence(`${texPrix(prix)} \\times (100\\% - ${remise.str}) = ${texPrix(prix)} \\times ${100 - remise.nb}\\% = ${texPrix(prix)} \\times ${texNombre(calcul(1 - remise.nb / 100))} = ${texPrix(prix * calcul(1 - remise.nb / 100))}`)}$
@@ -103,18 +103,18 @@ $${miseEnEvidence(`${texPrix(prix)} \\times (100\\% - ${remise.str}) = ${texPrix
             break
           case 'remise':
             sortie = `-- L'énoncé indique $${texPrix(prix * remise.nb / 100)}$ € de remise pour un montant de $${texPrix(prix)}$ €<br>
-d'où le calcul pour le pourcentage de remise : $${miseEnEvidence(`${texPrix(prix * remise.nb / 100)} \\div ${texPrix(prix)} = ${texNombrec(remise.nb / 100)} = ${remise.str}`)}$.<br>
+d'où le calcul pour le pourcentage de remise : $${miseEnEvidence(`${texPrix(prix * remise.nb / 100)} \\div ${texPrix(prix)} = ${texNombre(remise.nb / 100)} = ${remise.str}`)}$.<br>
 Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.`
 
             break
           case 'nouveau_prix':
             sortie = `-- L'énoncé indique un nouveau prix de $${texPrix(prix - prix * remise.nb / 100)}$ € pour un montant de $${texPrix(prix)}$ €<br>
 d'où le calcul pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)} - ${texPrix(prix - prix * remise.nb / 100)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
-Et celui pour le pourcentage de remise : $${miseEnEvidence(`${texPrix(prix * remise.nb / 100)} \\div ${texPrix(prix)} = ${texNombrec(remise.nb / 100)} = ${remise.str}`)}$.`
+Et celui pour le pourcentage de remise : $${miseEnEvidence(`${texPrix(prix * remise.nb / 100)} \\div ${texPrix(prix)} = ${texNombre(remise.nb / 100)} = ${remise.str}`)}$.`
             break
           case 'pourcentage_constant':
             sortie = `-- L'énoncé indique un prix de $${texPrix(prix)}$ € et une remise de $${remise.str}$ du prix initial<br>
-d'où le calcul pour le montant de la remise : $${miseEnEvidence(`${texPrix(prix)} \\times ${remise.str} = ${texPrix(prix)} \\times ${texNombre(remise.nb / 100)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
+d'où le calul pour le montant de la remise : $${miseEnEvidence(`${texPrix(prix)} \\times ${remise.str} = ${texPrix(prix)} \\times ${texNombre(remise.nb / 100)} = ${texPrix(prix * remise.nb / 100)}`)}$.<br>
 Et celui pour le nouveau prix : $${miseEnEvidence(`${texPrix(prix)}-${texPrix(prix * remise.nb / 100)} = ${texPrix(prix - prix * remise.nb / 100)}`)}$.<br><br>
 Mais on peut aussi calculer directement le prix réduit en faisant :<br>
 $${miseEnEvidence(`${texPrix(prix)} \\times (100\\% - ${remise.str}) = ${texPrix(prix)} \\times ${100 - remise.nb}\\% = ${texPrix(prix)} \\times ${texNombre(calcul(1 - remise.nb / 100))} = ${texPrix(prix * calcul(1 - remise.nb / 100))}`)}$
