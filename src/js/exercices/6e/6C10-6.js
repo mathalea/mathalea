@@ -85,11 +85,11 @@ export default function RoseMultiplicative () {
     switch (contraindreValeur(1, 4, this.sup3, 1)) {
       case 1:
         type = 'produit'
-        this.consigne = 'Calculer les produits des nombres à l\'origine des flèches'
+        this.consigne = 'Calculer les produits à l\'extrémité des flèches'
         break
       case 2:
         type = 'facteur'
-        this.consigne = 'Retrouver les facteurs du produit à l\'extrémité des flèches'
+        this.consigne = 'Retrouver les facteurs à l\'origine des flèches'
         break
       case 3:
         type = 'can1'
