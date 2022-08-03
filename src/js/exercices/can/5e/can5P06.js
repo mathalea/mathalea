@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
-import { randint, texNombrec, choice, calcul, texFraction } from '../../../modules/outils.js'
-export const titre = 'Écrire sous la forme d’un pourcentage'
+import { randint, texNombre, choice, calcul, texFraction } from '../../../modules/outils.js'
+export const titre = 'Ecrire sous la forme d’un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -28,18 +28,18 @@ export default function EcrirePourcentage () {
     switch (choice(['a', 'b', 'c'])) { //
       case 'a':
         a = calcul(randint(10, 99) / 100)
-        this.question = `Compléter : $${texNombrec(a)}=.... \\%$`
+        this.question = `Compléter : $${texNombre(a)}=.... \\%$`
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } }
-        this.correction = `$${texNombrec(a)}=\\dfrac{${texNombrec(a * 100)}}{100}=${texNombrec(a * 100)} \\%$`
+        this.correction = `$${texNombre(a)}=\\dfrac{${texNombre(a * 100)}}{100}=${texNombre(a * 100)} \\%$`
         this.reponse = a * 100
         break
       case 'b':
         a = calcul(randint(0, 9) / 100)
         b = calcul(randint(0, 9) / 1000)
         if (a === 0 && b === 0) { b = 1 }
-        this.question = `Compléter : $${texNombrec(a + b)}=.... \\%$`
+        this.question = `Compléter : $${texNombre(a + b)}=.... \\%$`
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } }
-        this.correction = `$${texNombrec(a + b)}=\\dfrac{${texNombrec((a + b) * 100)}}{100}=${texNombrec((a + b) * 100)} \\%$`
+        this.correction = `$${texNombre(a + b)}=\\dfrac{${texNombre((a + b) * 100)}}{100}=${texNombre((a + b) * 100)} \\%$`
         this.reponse = (a + b) * 100
 
         break
@@ -48,10 +48,10 @@ export default function EcrirePourcentage () {
         n = fraction[0]
         d = fraction[1]
 
-        this.question = `Compléter : $${texFraction(texNombrec(n), d)}=.... \\%$`
+        this.question = `Compléter : $${texFraction(texNombre(n), d)}=.... \\%$`
         if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } }
-        this.correction = `$${texFraction(n, d)}=\\dfrac{${texNombrec(n)}\\times ${texNombrec(100 / d)}}{${texNombrec(d)}\\times ${texNombrec(100 / d)}}=
-        \\dfrac{${texNombrec((n * 100) / d)}}{100}=${texNombrec((n * 100) / d)} \\%$`
+        this.correction = `$${texFraction(n, d)}=\\dfrac{${texNombre(n)}\\times ${texNombre(100 / d)}}{${texNombre(d)}\\times ${texNombre(100 / d)}}=
+        \\dfrac{${texNombre((n * 100) / d)}}{100}=${texNombre((n * 100) / d)} \\%$`
         this.reponse = (n * 100) / d
 
         break

@@ -1,4 +1,4 @@
-import { calcul, randint, texNombrec, texteEnCouleur } from '../../../modules/outils.js'
+import { calcul, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Multiplier par les multiples de 101'
 export const interactifReady = true
@@ -24,6 +24,6 @@ export default function MutliplierParN0N () {
     this.question = `$${b}\\times ${a * 101}=$`
     this.correction = `$${b}\\times ${a * 101}= ${101 * a * b}$<br><br>`
     this.correction += `${texteEnCouleur('Mentalement :')}<br>`
-    this.correction += `${texteEnCouleur('On calcule $' + a + '\\times ' + b + '=' + texNombrec(a * b) + '$ puis on multiplie par $101$ ce qui revient à ajouter $' + texNombrec(a * b * 100) + '$ et $' + texNombrec(a * b) + '$.')}`
+    this.correction += `${texteEnCouleur('On calcule $' + a + '\\times ' + b + '=' + texNombre(a * b) + '$ puis on multiplie par $101$ ce qui revient à ajouter $' + texNombre(a * b * 100) + '$ et $' + texNombre(a * b) + '$.')}`
   }
 }

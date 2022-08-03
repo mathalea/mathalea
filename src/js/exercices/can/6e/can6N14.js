@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, texNombrec } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, texNombre } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Déterminer un nombre à partir de son nombre de dixièmes, centièmes, millièmes (QCM)'
 export const interactifReady = true
@@ -37,26 +37,26 @@ export default function DeterminerLeNombre () {
             options: { horizontal: true },
             propositions: [
               {
-                texte: `$${texNombrec(a / 10)}$`,
+                texte: `$${texNombre(a / 10)}$`,
                 statut: true
               },
               {
-                texte: `$${texNombrec(a * 10)}$`,
+                texte: `$${texNombre(a * 10)}$`,
                 statut: false
               },
               {
-                texte: `$${texNombrec(a / 100)}$`,
+                texte: `$${texNombre(a / 100)}$`,
                 statut: false
               },
               {
-                texte: `$${texNombrec(a / 1000)}$`,
+                texte: `$${texNombre(a / 1000)}$`,
                 statut: false
               }
             ]
           }
           texte += propositionsQcm(this, i).texte
           texteCorr = ` $1$ dixième est égal à $0,1$. <br>
-          Ainsi, $${a}$ dixièmes $=${a}\\times 0,1=${texNombrec(a / 10)}$. `
+          Ainsi, $${a}$ dixièmes $=${a}\\times 0,1=${texNombre(a / 10)}$. `
 
           break
         case 2 :
@@ -69,26 +69,26 @@ export default function DeterminerLeNombre () {
             options: { horizontal: true },
             propositions: [
               {
-                texte: `$${texNombrec(a / 100)}$`,
+                texte: `$${texNombre(a / 100)}$`,
                 statut: true
               },
               {
-                texte: `$${texNombrec(a * 100)}$`,
+                texte: `$${texNombre(a * 100)}$`,
                 statut: false
               },
               {
-                texte: `$${texNombrec(a / 1000)}$`,
+                texte: `$${texNombre(a / 1000)}$`,
                 statut: false
               },
               {
-                texte: `$${texNombrec(a / 10000)}$`,
+                texte: `$${texNombre(a / 10000)}$`,
                 statut: false
               }
             ]
           }
           texte += propositionsQcm(this, i).texte
           texteCorr = ` $1$ centième est égal à $0,01$. <br>
-          Ainsi, $${a}$ centièmes $=${a}\\times 0,01=${texNombrec(a / 100)}$. `
+          Ainsi, $${a}$ centièmes $=${a}\\times 0,01=${texNombre(a / 100)}$. `
           break
 
         case 3 :
@@ -101,26 +101,26 @@ export default function DeterminerLeNombre () {
             options: { horizontal: true },
             propositions: [
               {
-                texte: `$${texNombrec(a / 1000)}$`,
+                texte: `$${texNombre(a / 1000)}$`,
                 statut: true
               },
               {
-                texte: `$${texNombrec(a / 10000)}$`,
+                texte: `$${texNombre(a / 10000)}$`,
                 statut: false
               },
               {
-                texte: `$${texNombrec(a / 100)}$`,
+                texte: `$${texNombre(a / 100)}$`,
                 statut: false
               },
               {
-                texte: `$${texNombrec(a / 10)}$`,
+                texte: `$${texNombre(a / 10)}$`,
                 statut: false
               }
             ]
           }
           texte += propositionsQcm(this, i).texte
           texteCorr = ` $1$ millième est égal à $0,001$. <br>
-          Ainsi, $${a}$ millièmes $=${a}\\times 0,001=${texNombrec(a / 1000)}$. `
+          Ainsi, $${a}$ millièmes $=${a}\\times 0,001=${texNombre(a / 1000)}$. `
           break
       }
 

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { randint, calcul, choice, texNombrec } from '../../modules/outils.js'
+import { randint, calcul, choice, texNombre } from '../../modules/outils.js'
 export const titre = 'Appliquer un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +27,7 @@ export default function Proportion () {
 
         this.question = `Calculer  $${b}\\%$ de $${a}$.  <br> `
         this.correction = `Calculer $p\\%$ d'un nombre, c'est multiplier ce nombre par $\\dfrac{p}{100}$.
-<br>    Ainsi, $${b}\\%$  de $${a}$ est égal à $${texNombrec(b / 100)}\\times ${a}=${texNombrec(b * a / 100)}$.`
+<br>    Ainsi, $${b}\\%$  de $${a}$ est égal à $${texNombre(b / 100)}\\times ${a}=${texNombre(b * a / 100)}$.`
         this.reponse = calcul(b * a / 100)
         break
     }

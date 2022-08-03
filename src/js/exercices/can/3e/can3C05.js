@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, calcul, texNombrec, rienSi1 } from '../../../modules/outils.js'
+import { randint, calcul, texNombre, rienSi1 } from '../../../modules/outils.js'
 export const titre = 'Calculer avec  une puissance de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,8 +24,8 @@ export default function CalculPuissance10 () {
     const N = calcul(2 * randint(1, 6, a) + 1) / 2
     const c = randint(1, 3)
     const d = randint(1, 3)
-    this.question = `Calculer sous forme décimale : $B=${texNombrec(n)}\\times 10^{${rienSi1(c)}}+${texNombrec(N)}\\times 10^{${rienSi1(d)}}$`
-    this.correction = `$B=${texNombrec(n)}\\times 10^{${rienSi1(c)}}+${texNombrec(N)}\\times 10^{${rienSi1(d)}}=${texNombrec(n * 10 ** c)}+${texNombrec(N * 10 ** d)}=${texNombrec(n * 10 ** c + N * 10 ** d)}$.`
+    this.question = `Calculer sous forme décimale : $B=${texNombre(n)}\\times 10^{${rienSi1(c)}}+${texNombre(N)}\\times 10^{${rienSi1(d)}}$`
+    this.correction = `$B=${texNombre(n)}\\times 10^{${rienSi1(c)}}+${texNombre(N)}\\times 10^{${rienSi1(d)}}=${texNombre(n * 10 ** c)}+${texNombre(N * 10 ** d)}=${texNombre(n * 10 ** c + N * 10 ** d)}$.`
     this.reponse = calcul(n * 10 ** c + N * 10 ** d)
   }
 }

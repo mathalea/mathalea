@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, texNombrec, choice, calcul } from '../../../modules/outils.js'
+import { randint, texNombre, choice, calcul } from '../../../modules/outils.js'
 export const titre = 'Prendre t % d’une quantité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -29,8 +29,8 @@ export default function PoucentageP2 () {
         if (!this.interactif) {
           this.question += '.... '
         }
-        this.correction = `$${a}~\\%=\\dfrac{${a}}{100}=${texNombrec(a / 100)}$ <br>
-    Donc prendre $${a}~\\%$ d'une quantité revient à la multiplier par $${texNombrec(a / 100)}$.`
+        this.correction = `$${a}~\\%=\\dfrac{${a}}{100}=${texNombre(a / 100)}$ <br>
+    Donc prendre $${a}~\\%$ d'une quantité revient à la multiplier par $${texNombre(a / 100)}$.`
         this.reponse = a / 100
         break
       case 'b':
@@ -40,20 +40,20 @@ export default function PoucentageP2 () {
         if (!this.interactif) {
           this.question += '.... '
         }
-        this.correction = `$${a}~\\%=\\dfrac{${a}}{100}=${texNombrec(a / 100)}$ <br>
-       Donc prendre $${a}~\\%$ d'une quantité revient à la multiplier par $${texNombrec(a / 100)}$.`
+        this.correction = `$${a}~\\%=\\dfrac{${a}}{100}=${texNombre(a / 100)}$ <br>
+       Donc prendre $${a}~\\%$ d'une quantité revient à la multiplier par $${texNombre(a / 100)}$.`
         this.reponse = a / 100
         break
       case 'c':
         u = randint(1, 99)
         a = calcul(randint(1, 9) / 10)
 
-        this.question = `Prendre $${texNombrec(u + a)}~\\%$ d'une quantité revient à la multiplier par `
+        this.question = `Prendre $${texNombre(u + a)}~\\%$ d'une quantité revient à la multiplier par `
         if (!this.interactif) {
           this.question += '.... '
         }
-        this.correction = `$${texNombrec(u + a)}~\\%=\\dfrac{${texNombrec(u + a)}}{100}=${texNombrec((u + a) / 100)}$ <br>
-       Donc prendre $${texNombrec(u + a)}~\\%$ d'une quantité revient à la multiplier par $${texNombrec((u + a) / 100)}$.`
+        this.correction = `$${texNombre(u + a)}~\\%=\\dfrac{${texNombre(u + a)}}{100}=${texNombre((u + a) / 100)}$ <br>
+       Donc prendre $${texNombre(u + a)}~\\%$ d'une quantité revient à la multiplier par $${texNombre((u + a) / 100)}$.`
         this.reponse = (u + a) / 100
         break
     }

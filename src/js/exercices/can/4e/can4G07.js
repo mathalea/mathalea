@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, texNombrec, creerNomDePolygone } from '../../../modules/outils.js'
+import { randint, calcul, choice, texNombre, creerNomDePolygone } from '../../../modules/outils.js'
 import {
   mathalea2d, point, labelPoint, segment, codageSegments
 } from '../../../modules/2d.js'
@@ -36,13 +36,13 @@ export default function CalculLongueurThalesMilieu () {
         codageSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
 
       this.question = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et  
-      $${nom[3]}${nom[4]}=${texNombrec(a)}$.
+      $${nom[3]}${nom[4]}=${texNombre(a)}$.
       Calculer $${nom[1]}${nom[2]}$.<br>
      `
       this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 5, pixelsParCm: 18, mainlevee: false, amplitude: 0.5, style: 'margin: auto' }, objets)
       this.correction = ` Les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$ sont 2 fois plus grandes que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$.<br>
       Le triangle $${nom[0]}${nom[1]}${nom[2]}$ est un agrandissement du triangle $${nom[0]}${nom[3]}${nom[4]}$.<br>
-      Ainsi : $${nom[1]}${nom[2]}=2\\times ${nom[3]}${nom[4]}=2\\times ${texNombrec(a)}=${texNombrec(2 * a)}$.
+      Ainsi : $${nom[1]}${nom[2]}=2\\times ${nom[3]}${nom[4]}=2\\times ${texNombre(a)}=${texNombre(2 * a)}$.
   `
 
       this.reponse = calcul(2 * a)
@@ -59,12 +59,12 @@ export default function CalculLongueurThalesMilieu () {
         codageSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
 
       this.question = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et 
-       $${nom[1]}${nom[2]}=${texNombrec(a)}$. 
+       $${nom[1]}${nom[2]}=${texNombre(a)}$. 
          Calculer $${nom[3]}${nom[4]}$.<br>`
       this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 5, pixelsParCm: 18, mainlevee: false, amplitude: 0.5, style: 'margin: auto' }, objets)
       this.correction = ` Les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont 2 fois plus petites que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
       Le triangle $${nom[0]}${nom[3]}${nom[4]}$ est une réduction du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>
-            Ainsi : $${nom[3]}${nom[4]}= ${nom[1]}${nom[2]} \\div 2 = ${texNombrec(a)}\\div 2 =${texNombrec(a / 2)}$.
+            Ainsi : $${nom[3]}${nom[4]}= ${nom[1]}${nom[2]} \\div 2 = ${texNombre(a)}\\div 2 =${texNombre(a / 2)}$.
      `
 
       this.reponse = calcul(a / 2)

@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, ecritureAlgebrique, extraireRacineCarree, ecritureParentheseSiNegatif, texNombrec, miseEnEvidence, randint, sp, calcul, choice, texFractionReduite } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, ecritureAlgebrique, extraireRacineCarree, ecritureParentheseSiNegatif, texNombre, miseEnEvidence, randint, sp, calcul, choice, texFractionReduite } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Résoudre une équation avec une fonction de référence*'
 export const interactifReady = true
@@ -177,13 +177,13 @@ export default function ResoudreEquationsFonctionDeReference2 () {
         }
         if (k > 0) {
           if (k === 1 || k === 4 || k === 9 || k === 16 || k === 25) {
-            texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombrec(k)}}$ et $\\sqrt{${texNombrec(k)}}$.
-            <br> Comme $-\\sqrt{${texNombrec(k)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors
+            texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombre(k)}}$ et $\\sqrt{${texNombre(k)}}$.
+            <br> Comme $-\\sqrt{${texNombre(k)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors
             les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}$ et $${extraireRacineCarree(k)[0]}$.<br>
             Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$.`
           } else {
             if (extraireRacineCarree(k)[1] !== k) {
-              texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombrec(k)}}$ et $\\sqrt{${texNombrec(k)}}$. <br>
+              texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombre(k)}}$ et $\\sqrt{${texNombre(k)}}$. <br>
                 Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors
                 les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$.<br>
                 Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}$.`
@@ -195,11 +195,11 @@ export default function ResoudreEquationsFonctionDeReference2 () {
           }
         }
         if (k === 0) {
-          texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}$, alors l'équation a une solution : $0$.<br>
+          texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k)}$, alors l'équation a une solution : $0$.<br>
           Ainsi, $S=\\{0\\}$. `
         }
         if (k < 0) {
-          texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(c - b)}$, alors l'équation n'a pas de solution.
+          texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(c - b)}$, alors l'équation n'a pas de solution.
             <br>Ainsi, $S=\\emptyset$. `
         }
         break
@@ -356,13 +356,13 @@ ${sp(50)} $-x^2${ecritureAlgebrique(b)}=${c}$`
         }
         if (k > 0) {
           if (k === 1 || k === 4 || k === 9 || k === 16 || k === 25) {
-            texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombrec(k)}}$ et $\\sqrt{${texNombrec(k)}}$.
-      <br> Comme $-\\sqrt{${texNombrec(k)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors
+            texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombre(k)}}$ et $\\sqrt{${texNombre(k)}}$.
+      <br> Comme $-\\sqrt{${texNombre(k)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors
       les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}$ et $${extraireRacineCarree(k)[0]}$.<br>
       Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$.`
           } else {
             if (extraireRacineCarree(k)[1] !== k) {
-              texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombrec(k)}}$ et $\\sqrt{${texNombrec(k)}}$. <br>
+              texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k)}>0$, donc l'équation a deux solutions : $-\\sqrt{${texNombre(k)}}$ et $\\sqrt{${texNombre(k)}}$. <br>
           Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors
           les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$.<br>
           Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}$.`
@@ -374,11 +374,11 @@ ${sp(50)} $-x^2${ecritureAlgebrique(b)}=${c}$`
           }
         }
         if (k === 0) {
-          texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}$, alors l'équation a une solution : $0$.<br>
+          texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k)}$, alors l'équation a une solution : $0$.<br>
     Ainsi, $S=\\{0\\}$. `
         }
         if (k < 0) {
-          texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombrec(k)}$, alors l'équation n'a pas de solution.
+          texteCorr += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k)}$, alors l'équation n'a pas de solution.
       <br>Ainsi, $S=\\emptyset$. `
         }
         break
