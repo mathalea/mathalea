@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, texNombre, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, texNombre, choice, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
