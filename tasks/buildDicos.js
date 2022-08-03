@@ -1,3 +1,6 @@
+// Pour utiliser require et import dans le même fichier
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
 const fs = require('fs')
 const path = require('path')
 
