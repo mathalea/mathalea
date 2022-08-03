@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, texFraction, texNombre } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice, texFraction, texNombrec } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 export const titre = 'Déterminer une relation de récurrence'
@@ -46,9 +46,9 @@ export default function RelationRec () {
             texte += ` Donner le premier terme de cette suite et l'expression de $${s}_{n+1}$ en fonction de $${s}_{n}$.  `
           }
 
-          texteCorr = `On a $${s}_{n+1}=\\underbrace{${s}_{n}-${texNombre(a / 100)}${s}_{n}}_{\\text{Perte de } ${a} \\%} +${b}=${texNombre(1 - a / 100)}${s}_{n}+${b}$.<br>
+          texteCorr = `On a $${s}_{n+1}=\\underbrace{${s}_{n}-${texNombrec(a / 100)}${s}_{n}}_{\\text{Perte de } ${a} \\%} +${b}=${texNombrec(1 - a / 100)}${s}_{n}+${b}$.<br>
 
-          Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=${texNombre(1 - a / 100)}${s}_{n}+${b}$.<br>`
+          Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=${texNombrec(1 - a / 100)}${s}_{n}+${b}$.<br>`
           setReponse(this, 2 * i, 1 - a / 100)
           setReponse(this, 2 * i + 1, b)
           break
@@ -71,9 +71,9 @@ export default function RelationRec () {
             texte += ` Donner le premier terme de cette suite et l'expression de $${s}_{n+1}$ en fonction de $${s}_{n}$.  `
           }
 
-          texteCorr = `On a $${s}_{n+1}=\\underbrace{${s}_{n}-${texNombre(a / 100)}${s}_{n}}_{\\text{Perte de } ${a} \\%} =${texNombre(1 - a / 100)}${s}_{n}$.<br>
+          texteCorr = `On a $${s}_{n+1}=\\underbrace{${s}_{n}-${texNombrec(a / 100)}${s}_{n}}_{\\text{Perte de } ${a} \\%} =${texNombrec(1 - a / 100)}${s}_{n}$.<br>
 
-          Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=${texNombre(1 - a / 100)}${s}_{n}$.<br>`
+          Le premier terme de la suite est $${s}_{0}=${c}$ et  $${s}_{n+1}=${texNombrec(1 - a / 100)}${s}_{n}$.<br>`
           setReponse(this, 2 * i, 1 - a / 100)
           setReponse(this, 2 * i + 1, 0)
           break

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, pgcd, calcul, texFraction, stringNombre, texNombre, arrondi } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, pgcd, calcul, texNombrec, texFraction, stringNombre, texNombre, arrondi } from '../../modules/outils.js'
 import { mathalea2d } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -129,7 +129,7 @@ export default function FractionDuneQuantite () {
           den = calcul(denIrred * k, 2)
           num = calcul(numIrred * k, 2)
           frac = fraction(num, den)
-          texte = `Un bâton de $${texNombre(longueur / 100)}$ mètre`
+          texte = `Un bâton de $${texNombrec(longueur / 100)}$ mètre`
           if (longueur >= 200) texte += 's'
           texte += ` de longueur est coupé à $${frac.texFractionSimplifiee}$ de sa longueur.<br>`
           texte += 'Calculer la longueur de chacun des morceaux en mètres.<br>'
@@ -141,9 +141,9 @@ export default function FractionDuneQuantite () {
             texte += 'Ce bâton est représenté ci dessous :<br>'
             texte += mathalea2d({ xmin: -0.5, ymin: 0, xmax: 10, ymax: 2 }, frac.representationIrred(0, 1, 8, 0, 'segment', 'blue', '0', `${stringNombre(calcul(longueur / 100, 1))}`))
           }
-          texteCorr = `$${texFraction(1, denIrred)}$ de $${texNombre(longueur / 100, 1)}$ représente $${texNombre(longueur / 100, 1)} \\div ${denIrred} = ${texNombre(longueur / 100 / denIrred, 3)}$.<br>`
-          texteCorr += `Le premier morceau du bâton correspondant à $${frac.texFractionSimplifiee}$ du bâton mesure : $${numIrred} \\times ${texNombre(longueur / 100 / denIrred, 3)}=${texNombre(numIrred * longueur / 100 / denIrred, 3)}$ m.<br>`
-          texteCorr += `Le deuxième morceau mesure donc : $${texNombre(longueur / 100, 1)}-${texNombre(numIrred * longueur / 100 / denIrred, 3)}=${texNombre(longueur / 100 - numIrred * longueur / 100 / denIrred, 3)}$ m.`
+          texteCorr = `$${texFraction(1, denIrred)}$ de $${texNombrec(longueur / 100, 1)}$ représente $${texNombrec(longueur / 100, 1)} \\div ${denIrred} = ${texNombrec(longueur / 100 / denIrred, 3)}$.<br>`
+          texteCorr += `Le premier morceau du bâton correspondant à $${frac.texFractionSimplifiee}$ du bâton mesure : $${numIrred} \\times ${texNombrec(longueur / 100 / denIrred, 3)}=${texNombrec(numIrred * longueur / 100 / denIrred, 3)}$ m.<br>`
+          texteCorr += `Le deuxième morceau mesure donc : $${texNombrec(longueur / 100, 1)}-${texNombrec(numIrred * longueur / 100 / denIrred, 3)}=${texNombrec(longueur / 100 - numIrred * longueur / 100 / denIrred, 3)}$ m.`
 
           break
       }

@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { calcul, choice, texNombre, randint, texPrix } from '../../../modules/outils.js'
+import { calcul, choice, texNombrec, randint, texPrix } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème de proportionnalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -86,9 +86,9 @@ export default function PoucentageP2 () {
           this.question = `Déterminer la valeur qui manque dans ce tableau de proportionnalité : <br>
 $\\begin{array}{|l|c|c|}\n`
           this.question += '\\hline\n'
-          this.question += `\\\\\n\\phantom{-5}${texNombre(a)} \\phantom{-5}& \\phantom{-5}${texNombre(b)} \\phantom{-5}& \\phantom{-5}? \\phantom{-5} \\\\\n \\\\\n`
+          this.question += `\\\\\n\\phantom{-5}${texNombrec(a)} \\phantom{-5}& \\phantom{-5}${texNombrec(b)} \\phantom{-5}& \\phantom{-5}? \\phantom{-5} \\\\\n \\\\\n`
           this.question += '\\hline\n'
-          this.question += `\\\\\n\\phantom{-5}${texNombre(c)}\\phantom{-5} & \\phantom{-5}${texNombre(d)}\\phantom{-5} & \\phantom{-5}${texNombre(c + d)} \\phantom{-5} \\\\\n \\\\\n`
+          this.question += `\\\\\n\\phantom{-5}${texNombrec(c)}\\phantom{-5} & \\phantom{-5}${texNombrec(d)}\\phantom{-5} & \\phantom{-5}${texNombrec(c + d)} \\phantom{-5} \\\\\n \\\\\n`
           this.question += '\\hline\n'
           this.question += '\\end{array}\n$'
 

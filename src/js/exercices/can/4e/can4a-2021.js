@@ -645,7 +645,7 @@ export default function SujetCAN20214ieme () {
         case 29:
           fraction1 = choice(listeFractions1)
           a = fraction(fraction1[0], fraction1[1])
-          texte = `Écriture décimale de $${a.texFraction}$. <br>`
+          texte = `Ecriture décimale de $${a.texFraction}$. <br>`
           texteCorr = `$\\dfrac{1}{5}=0,2$, ainsi  $${a.texFraction}=${fraction1[0]}\\times\\dfrac{1}{5}=${texNombre(fraction1[0] / fraction1[1])}$`
           reponse = calcul(fraction1[0] / fraction1[1])
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })

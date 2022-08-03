@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 478 
-- nombre d'exos interactifReady 728 
+- nombre d'exos amcReady 475 
+- nombre d'exos interactifReady 725 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -133,7 +133,6 @@
 |4C10-3|Multiplication de deux entiers relatifs|KO|KO|OK|mathLive|
 |4C10-4|Quotient de deux entiers relatifs|KO|KO|OK|mathLive|
 |4C10-6|Multiplications et quotients de relatifs : signe avec une lettre|OK|qcmMono|OK|qcm|
-|4C10-7|Opérations avec deux entiers relatifs|KO|KO|OK|mathLive|
 |4C11|Calculs utilisant les priorités opératoires|KO|KO|OK|mathLive|
 |4C20-2|Fractions égales et égalité des produits en croix 4e|OK|qcmMono|OK|qcm|
 |4C20|Comparer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
@@ -452,7 +451,7 @@
 |can1L07|Déterminer un coefficient dans un développement|KO|KO|OK|mathLive|
 |can1L08|Déterminer un coefficient dans un développement*|KO|KO|OK|mathLive|
 |can1L09|Résoudre une équation $ax^2+bx+c=c$ |KO|KO|OK|mathLive|
-|can1P01|Écrire une probabilté avec les notations|OK|AMCNum|OK|mathLive|
+|can1P01|Calculer des probabilités à partir d’un arbre|OK|AMCNum|OK|mathLive|
 |can1P02|Lire une probabilité  à partir d’un arbre|OK|AMCNum|OK|mathLive|
 |can1P03|Calculer la probabilité d’une intersection à partir d’un arbre|OK|AMCNum|OK|mathLive|
 |can1P05|Utiliser la formule des probabilités totales dans un arbre|OK|AMCNum|OK|mathLive|
@@ -527,6 +526,7 @@
 |can2P01|Calculer une probabilité|OK|AMCNum|OK|mathLive|
 |can2P02|Dénombrer dans une situation concrète|KO|KO|OK|mathLive|
 |can2a-2021|CAN Seconde sujet 2021|KO|KO|OK|mathLive|
+|can2a-2022|CAN seconde sujet 2022|KO|KO|OK|mathLive|
 |can3C01|Calculer avec des puissances|OK|AMCNum|OK|mathLive|
 |can3C02|Calculer une moyenne avec des décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Rendre irréductible une fraction|OK|AMCNum|OK|mathLive|
@@ -640,9 +640,7 @@
 |can5P03|Résoudre un problème de proportionnalité|OK|AMCNum|OK|mathLive|
 |can5P04|Calculer avec une proportion|OK|AMCNum|OK|mathLive|
 |can5P05|Prendre t % d’une quantité|KO|KO|OK|mathLive|
-|can5P06|Écrire sous la forme d’un pourcentage|OK|AMCNum|OK|mathLive|
-|can5P07|Résoudre un problème de proportionnalité*|OK|AMCNum|OK|mathLive|
-|can5P08|Résoudre un problème de proportionnalité**|OK|AMCNum|OK|mathLive|
+|can5P06|Ecrire sous la forme d’un pourcentage|OK|AMCNum|OK|mathLive|
 |can5a-2021|CAN 5ième sujet 2021|KO|KO|OK|mathLive|
 |can5a-2022|CAN 5ième sujet 2022|KO|KO|OK|mathLive|
 |can5a-xxxx|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
@@ -672,7 +670,7 @@
 |can6C24|Multiplier par 0,1 ou 0,01 ou 0,001|OK|AMCNum|OK|mathLive|
 |can6C25|Rechercher un prix unitaire|KO|KO|OK|mathLive|
 |can6C26|Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01|OK|AMCNum|OK|mathLive|
-|can6C27|Résoudre un problème de rendu de monnaie|KO|KO|OK|mathLive|
+|can6C27|Résoudre un problème concret|KO|KO|OK|mathLive|
 |can6C28|Résoudre un problème de fraction|KO|KO|OK|mathLive|
 |can6C29|Résoudre un problème de partage|OK|AMCNum|OK|mathLive|
 |can6C30|Multiplier deux décimaux|OK|AMCNum|OK|mathLive|
@@ -680,7 +678,6 @@
 |can6C32|Pyramide additive|OK|AMCNum|OK|mathLive|
 |can6C33|Pyramide multiplicative|OK|AMCNum|OK|mathLive|
 |can6C34|Pyramide additive inverse|OK|AMCNum|OK|mathLive|
-|can6C35|Résoudre un problème avec "de plus", "de moins"|OK|AMCNum|OK|mathLive|
 |can6D01|Convertir des Heures/minutes en minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Chercher un reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calculer une durée en minutes|OK|AMCNum|OK|mathLive|
@@ -713,7 +710,7 @@
 |can6N08|Déterminer le nombre de centaines, dizaines|OK|AMCNum|OK|mathLive|
 |can6N09|Trouver le nombre qui suit|OK|AMCNum|OK|mathLive|
 |can6N10|Passer d’un calcul de fractions décimales à une écriture décimale|OK|AMCNum|OK|mathLive|
-|can6N11|Écrire sous forme d'une fraction décimale|OK|AMCNum|OK|mathLive|
+|can6N11|Ecrire sous forme d'une fraction décimale|OK|AMCNum|OK|mathLive|
 |can6N12|Passer d’un calcul de fractions décimales à une écriture décimale*|OK|AMCNum|OK|mathLive|
 |can6N13|Passer d’un calcul de fractions décimales à une écriture décimale**|OK|AMCNum|OK|mathLive|
 |can6N14|Déterminer un nombre à partir de son nombre de dixièmes, centièmes, millièmes (QCM)|KO|KO|OK|qcm|

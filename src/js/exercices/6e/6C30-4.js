@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, texNombre, texNombre2, calcul, choice, texFraction } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombrec, texNombre2, calcul, choice, texFraction } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true
@@ -70,9 +70,9 @@ export default function PlacerLaVirgule () {
       if (!this.interactif) {
         texte += `$~~ = ~~\\phantom{......}${texNombre2(nombreentier)}$<br>`
       }
-      texteCorr = `Quand on multiplie par $${texNombre2(calcul(10 ** coef))}=${texFraction(1, calcul(10 ** (-coef)))}$, chaque chiffre prend une valeur $${texNombre(10 ** (-coef))}$ fois plus petite.<br>`
+      texteCorr = `Quand on multiplie par $${texNombre2(calcul(10 ** coef))}=${texFraction(1, calcul(10 ** (-coef)))}$, chaque chiffre prend une valeur $${texNombrec(10 ** (-coef))}$ fois plus petite.<br>`
       texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
-      texteCorr += `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))} = ${texNombre2(resultat)}$`// ${texNombre(Math.floor(resultat))}${miseEnEvidence(',')}${texNombre(resultat-Math.floor(resultat)).replace('0,','')}$`
+      texteCorr += `$${texNombre2(nombre)} \\times ${texNombre2(calcul(10 ** coef))} = ${texNombre2(resultat)}$`// ${texNombrec(Math.floor(resultat))}${miseEnEvidence(',')}${texNombrec(resultat-Math.floor(resultat)).replace('0,','')}$`
 
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`

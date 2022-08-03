@@ -1,4 +1,4 @@
-import { calcul, choice, randint, texNombre } from '../../../modules/outils.js'
+import { calcul, choice, randint, texNombrec } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une somme (partie entière/décimale)'
 export const interactifReady = true
@@ -25,18 +25,18 @@ export default function CompositionDeNombreDecimalC3 () {
     switch (choice([1, 2, 3])) {
       case 1:
         this.reponse = calcul(a + b / 10 + c / 100)
-        this.question = `$${a} + ${texNombre(b / 10 + c / 100)}=$`
-        this.correction = `$${a} + ${texNombre(b / 10 + c / 100)}=${texNombre(this.reponse)}$`
+        this.question = `$${a} + ${texNombrec(b / 10 + c / 100)}=$`
+        this.correction = `$${a} + ${texNombrec(b / 10 + c / 100)}=${texNombrec(this.reponse)}$`
         break
       case 2:
         this.reponse = calcul(a + b / 100 + c / 1000)
-        this.question = `$${a} + ${texNombre(b / 100 + c / 1000)}=$`
-        this.correction = `$${a}+ ${texNombre(b / 100 + c / 1000)}=${texNombre(this.reponse)}$`
+        this.question = `$${a} + ${texNombrec(b / 100 + c / 1000)}=$`
+        this.correction = `$${a}+ ${texNombrec(b / 100 + c / 1000)}=${texNombrec(this.reponse)}$`
         break
       case 3:
         this.reponse = calcul(a + b / 10 + c / 1000)
-        this.question = `$${a} + ${texNombre(b / 10 + c / 1000)}=$`
-        this.correction = `$${a} + ${texNombre(b / 10 + c / 1000)}=${texNombre(this.reponse)}$`
+        this.question = `$${a} + ${texNombrec(b / 10 + c / 1000)}=$`
+        this.correction = `$${a} + ${texNombrec(b / 10 + c / 1000)}=${texNombrec(this.reponse)}$`
         break
     }
   }

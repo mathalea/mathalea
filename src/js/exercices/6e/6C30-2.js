@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, calcul, texNombre, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, calcul, texNombrec, texNombre, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const amcReady = true
@@ -73,7 +73,7 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
             `,
         question: '',
         correction: `
-          $${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (10 ** situations[0].p1)))}\\times ${calcul(situations[0].d2 * 10 + situations[0].u2)} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${texNombre(10 ** situations[0].p1)} \\times ${calcul(situations[0].d2 * 10 + situations[0].u2)} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${calcul(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p1)} =  ${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p1)} = ${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * calcul(10 ** situations[0].p1))}$
+          $${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (10 ** situations[0].p1)))}\\times ${calcul(situations[0].d2 * 10 + situations[0].u2)} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${texNombrec(10 ** situations[0].p1)} \\times ${calcul(situations[0].d2 * 10 + situations[0].u2)} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${calcul(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombrec(10 ** situations[0].p1)} =  ${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombrec(10 ** situations[0].p1)} = ${texNombrec(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * calcul(10 ** situations[0].p1))}$
           `,
         reponse: calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p1)
       })
@@ -84,7 +84,7 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
             `,
         question: '',
         correction: `
-          $${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1)))}\\times ${texNombre(calcul((situations[0].d2 * 10 + situations[0].u2) * (10 ** situations[0].p2)))} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${calcul(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * calcul(10 ** situations[0].p2))}$
+          $${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1)))}\\times ${texNombre(calcul((situations[0].d2 * 10 + situations[0].u2) * (10 ** situations[0].p2)))} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${calcul(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombrec(10 ** situations[0].p2)} = ${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombrec(10 ** situations[0].p2)} = ${texNombrec(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * calcul(10 ** situations[0].p2))}$
           `,
         reponse: calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p2)
       })
@@ -95,7 +95,7 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
           `,
         question: '',
         correction: `
-          $${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (10 ** situations[0].p1)))}\\times ${texNombre(calcul((situations[0].d2 * 10 + situations[0].u2) * (10 ** situations[0].p2)))} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${texNombre(10 ** situations[0].p1)} \\times ${calcul(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p2)} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${calcul(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p1)}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p1)}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * calcul(10 ** situations[0].p1) * calcul(10 ** situations[0].p2))}$
+          $${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (10 ** situations[0].p1)))}\\times ${texNombre(calcul((situations[0].d2 * 10 + situations[0].u2) * (10 ** situations[0].p2)))} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${texNombrec(10 ** situations[0].p1)} \\times ${calcul(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombrec(10 ** situations[0].p2)} = ${calcul(situations[0].d1 * 10 + situations[0].u1)}\\times ${calcul(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombrec(10 ** situations[0].p1)}\\times ${texNombrec(10 ** situations[0].p2)} = ${texNombre(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombrec(10 ** situations[0].p1)}\\times ${texNombrec(10 ** situations[0].p2)} = ${texNombrec(calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * calcul(10 ** situations[0].p1) * calcul(10 ** situations[0].p2))}$
           `,
         reponse: calcul((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p1 * 10 ** situations[0].p2)
       })

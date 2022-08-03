@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, calcul, creerNomDePolygone, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, enleveElement, choice, combinaisonListes, calcul, texNombrec, creerNomDePolygone, texNombre } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 export const titre = 'Déterminer si un triangle est rectangle ou pas'
 export const amcReady = true
@@ -167,12 +167,12 @@ export default function ReciproquePythagore () {
       texte += '<br>Ce triangle est-il rectangle ?'
       texteCorr = `Dans le triangle $${nomTriangle}$, le plus grand côté est $[${A + B
         }]$.`
-      texteCorr += `<br>$${A + B}^2=${texNombre(c)}^2=${texNombre(
+      texteCorr += `<br>$${A + B}^2=${texNombre(c)}^2=${texNombrec(
         c ** 2
       )}$`
       texteCorr += `<br>$${A + C}^2+${B + C}^2=${texNombre(b)}^2+${texNombre(
         a
-      )}^2=${texNombre(b ** 2 + a ** 2)}$`
+      )}^2=${texNombrec(b ** 2 + a ** 2)}$`
       if (listeTypeDeQuestions[i] === 'rectangle') {
         this.autoCorrection[i].propositions[0].statut = true
         texteCorr += `<br>On constate que $${A + B}^2=${A + C}^2+${B + C

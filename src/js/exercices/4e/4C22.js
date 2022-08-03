@@ -467,7 +467,7 @@ export default function ExerciceMultiplierFractions () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     3,
-    ' 1 : Fractions à numérateur et dénominateur positifs \n 2 : Type 1 et type 3 pour 50%/50%\n 3 : Écritures fractionnaires à numérateur et dénominateur entiers relatifs'
+    ' 1 : Fractions à numérateur et dénominateur positifs \n 2 : Type 1 et type 3 pour 50%/50%\n 3 : Ecritures fractionnaires à numérateur et dénominateur entiers relatifs'
   ]
   this.besoinFormulaire2CaseACocher = ['Avec décomposition']
   this.besoinFormulaire3CaseACocher = ['Demander une fraction irréductible']

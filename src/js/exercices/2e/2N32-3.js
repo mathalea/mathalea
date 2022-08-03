@@ -9,8 +9,8 @@ export const titre = 'Écrire le nombre proposé sous la forme $a\\sqrt{b}$'
  */
 export default function ExtraireUnCarreParfaitDUneRacineCarree () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = 'Écrire le nombre proposé sous la forme $a\\sqrt{b}$'
-  this.consigne = ' Écrire le nombre proposé sous la forme $a\\sqrt{b}$ où $a$ est un entier et $b$ le plus petit entier possible:'
+  this.titre = 'Ecrire le nombre proposé sous la forme $a\\sqrt{b}$'
+  this.consigne = ' Ecrire le nombre proposé sous la forme $a\\sqrt{b}$ où $a$ est un entier et $b$ le plus petit entier possible:'
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -27,11 +27,11 @@ export default function ExtraireUnCarreParfaitDUneRacineCarree () {
       b = a * a
       c = randint(2, 7, [4])
       d = c * b
-      if (this.sup === 1) { texte = `Écrire $\\sqrt{ ${d} } $ sous la forme $a\\sqrt{ ${c} } $ où $a$ est un entier:` }
+      if (this.sup === 1) { texte = `Ecrire $\\sqrt{ ${d} } $ sous la forme $a\\sqrt{ ${c} } $ où $a$ est un entier:` }
       texteCorr = `On cherche le plus grand carré parfait diviseur de ${d}, c'est ${b}.
                             On a donc la décomposition : $${d}=${c} \\times ${b}=${c} \\times ${a}^{2}$ qui permet d'écrire que
                             $\\sqrt{${d}}=\\sqrt{${a}^{2} \\times ${c} }=${a}\\times \\sqrt{${c}}$`
-      if (this.sup === 2) { texte = `Écrire $\\sqrt{ ${d} } $ sous la forme $a\\sqrt{ b } $ où $a$ est un entier et $b$ le plus petit entier possible:` }
+      if (this.sup === 2) { texte = `Ecrire $\\sqrt{ ${d} } $ sous la forme $a\\sqrt{ b } $ où $a$ est un entier et $b$ le plus petit entier possible:` }
       texteCorr = `On cherche le plus grand carré parfait diviseur de ${d}, c'est ${b}.
                             On a donc la décomposition : $${d}=${c} \\times ${b}=${c} \\times ${a}^{2}$ qui permet d'écrire que
                             $\\sqrt{${d}}=\\sqrt{${a}^{2} \\times ${c} }=${a}\\times \\sqrt{${c}}$`

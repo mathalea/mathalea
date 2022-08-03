@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, ecritureParentheseSiNegatif, texNombre, reduireAxPlusB, texteCentre, listeQuestionsToContenuSansNumero, sp } from '../../../modules/outils.js'
+import { randint, ecritureParentheseSiNegatif, texNombrec, reduireAxPlusB, texteCentre, listeQuestionsToContenuSansNumero, sp } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Calculer les coordonnées d’un point sur une droite'
@@ -30,12 +30,12 @@ export default function CoordonneesPointDroite () {
     if (a === 1) {
       this.listeCorrections = [`Puisque $${c}$ est l'abscisse de ce point, son ordonnée est donnée par :<br>
         $y= ${c}+${ecritureParentheseSiNegatif(b)}=${a * c + b}$.<br>
-  Les coordonnées du  point sont donc : $(${c};${texNombre(a * c + b)})$.`]
+  Les coordonnées du  point sont donc : $(${c};${texNombrec(a * c + b)})$.`]
     } else {
       this.listeCorrections = [`Puisque $${c}$ est l'abscisse de ce point, son ordonnée est donnée par :<br>
 
   $y=${a}\\times ${ecritureParentheseSiNegatif(c)}+${ecritureParentheseSiNegatif(b)}=${a * c} + ${ecritureParentheseSiNegatif(b)}=${a * c + b}$.<br>
-  Les coordonnées du  point sont donc : $(${c};${texNombre(a * c + b)})$.`]
+  Les coordonnées du  point sont donc : $(${c};${texNombrec(a * c + b)})$.`]
     }
 
     setReponse(this, 0, c)

@@ -2,7 +2,8 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, choice, texNombre } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import pkg from 'decimal.js'
+const { Decimal } = pkg
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Écriture décimale d\'un calcul avec des puissances de 10'

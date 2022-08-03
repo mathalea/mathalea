@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, calcul, choice, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import { randint, calcul, choice, texNombrec, texNombre, texteEnCouleur } from '../../../modules/outils.js'
 export const titre = 'Calculer un prix après une évolution en pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,15 +27,15 @@ export default function PoucentageE () {
         this.question = `Le prix d'un ${n} est $${a}$ €. Il baisse de $${b}\\%$ . <br>
         Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
-        this.correction = `Le nouveau prix est de $${texNombre(a - (b * a) / 100)} $ €.`
+        this.correction = `Le nouveau prix est de $${texNombrec(a - (b * a) / 100)} $ €.`
         if (b === 10) {
           this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
     On calcule d'abord le montant de la réduction. <br>
     Prendre $10\\%$  d'une quantité revient à la diviser par $10$. <br>
     Ainsi, $${b}\\%$  de $${a}$ est égal à $${a}\\div 10=${a / 10}$.<br>
-                 La réduction est donc de : $${texNombre(b * a / 100)}$ €.<br>
-         Le nouveau prix est :   $${a}-${texNombre(b * a / 100)}= ${texNombre(a - (b * a) / 100)}$  €.
+                 La réduction est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+         Le nouveau prix est :   $${a}-${texNombrec(b * a / 100)}= ${texNombrec(a - (b * a) / 100)}$  €.
     
   `)
         } else {
@@ -45,8 +45,8 @@ export default function PoucentageE () {
     Pour calculer $20\\%$  d'une quantité, on commence par calculer $10\\%$  en divisant 
     par $10$ :<br> $10\\%$  de $${a}$ est égal à $${a}\\div 10=${a / 10}$.<br>
     Puisque $20\\%$  est deux fois plus grand que $10\\%$ ,  $20\\%$  de $${a}$ est égal à $2\\times ${a / 10}=${2 * a / 10}$.<br>
-                    La réduction est donc de : $${texNombre(b * a / 100)}$ €.<br>
-         Le nouveau prix est :   $${a}-${texNombre(b * a / 100)}= ${texNombre(a - (b * a) / 100)}$  €.
+                    La réduction est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+         Le nouveau prix est :   $${a}-${texNombrec(b * a / 100)}= ${texNombrec(a - (b * a) / 100)}$  €.
     
 `)
         }
@@ -60,7 +60,7 @@ export default function PoucentageE () {
         Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
         this.correction = `
-         Le nouveau prix est :  $ ${texNombre(a - (b * a) / 100)} $ €.`
+         Le nouveau prix est :  $ ${texNombrec(a - (b * a) / 100)} $ €.`
         if (b === 5) {
           this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
@@ -68,8 +68,8 @@ export default function PoucentageE () {
     Pour calculer $5\\%$  d'une quantité, on commence par calculer $10\\%$  en divisant 
     par $10$ :<br> $10\\%$  de $${a}$ est égal à $${a}\\div 10=${a / 10}$.<br>
     Puisque $5\\%$  est deux fois plus petit  que $10\\%$ ,  $5\\%$  de $${a}$ est égal à $ ${a / 10}\\div 2=${a / 20}$.<br>
-                 La réduction est donc de : $${texNombre(b * a / 100)}$ €.<br>
-         Le nouveau prix est :   $${a}-${texNombre(b * a / 100)}= ${texNombre(a - (b * a) / 100)}$  €.
+                 La réduction est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+         Le nouveau prix est :   $${a}-${texNombrec(b * a / 100)}= ${texNombrec(a - (b * a) / 100)}$  €.
     
   `)
         } else {
@@ -81,8 +81,8 @@ export default function PoucentageE () {
     Puis on calcule $5\\%$  de $${a}$ qui est égal à la moitié de $10\\%$  de $${a}$, soit 
     $${a / 10}\\div 2=${a / 20}$.<br>
     Puisque $15\\%$  est égal à $10\\%$  $+5\\%$ ,  $15\\%$  de $${a}$ est égal à $${a / 10}+${a / 20}=${3 * a / 20}$.<br>
-                    La réduction est donc de : $${texNombre(3 * a / 20)}$ €.<br>
-         Le nouveau prix est :   $${a}-${texNombre(b * a / 100)}= ${texNombre(a - (b * a) / 100)}$  €.
+                    La réduction est donc de : $${texNombrec(3 * a / 20)}$ €.<br>
+         Le nouveau prix est :   $${a}-${texNombrec(b * a / 100)}= ${texNombrec(a - (b * a) / 100)}$  €.
     
 `)
         }
@@ -97,16 +97,16 @@ export default function PoucentageE () {
         Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
         this.correction = `
-         Le nouveau prix est :  $ ${texNombre(a + (b * a) / 100)} $ €.`
+         Le nouveau prix est :  $ ${texNombrec(a + (b * a) / 100)} $ €.`
         this.reponse = calcul(a + (b * a) / 100)
         if (b === 10) {
           this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
     On calcule d'abord le montant de l'augmentation. <br>
     Prendre $10\\%$  d'une quantité revient à la diviser par $10$. <br>
-    Ainsi, $${b}\\%$  de $${a}$ est égal à $${a}\\div 10=${texNombre(a / 10)}$.<br>
-                 L'augmentation est donc de : $${texNombre(b * a / 100)}$ €.<br>
-         Le nouveau prix est :   $${a}+${texNombre(b * a / 100)}= ${texNombre(a + (b * a) / 100)}$  €.
+    Ainsi, $${b}\\%$  de $${a}$ est égal à $${a}\\div 10=${texNombrec(a / 10)}$.<br>
+                 L'augmentation est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+         Le nouveau prix est :   $${a}+${texNombrec(b * a / 100)}= ${texNombrec(a + (b * a) / 100)}$  €.
     
   `)
         } else {
@@ -114,10 +114,10 @@ export default function PoucentageE () {
     <br> Mentalement : <br>
     On calcule d'abord le montant de l'augmentation. <br>
     Pour calculer $20\\%$ d'une quantité, on commence par calculer $10\\%$  en divisant 
-    par $10$ :<br> $10\\%$  de $${a}$ est égal à $${a}\\div 10=${texNombre(a / 10)}$.<br>
+    par $10$ :<br> $10\\%$  de $${a}$ est égal à $${a}\\div 10=${texNombrec(a / 10)}$.<br>
     Puisque $20\\%$  est deux fois plus grand que $10\\%$ ,  $20\\%$  de $${a}$ est égal à $2\\times ${a / 10}=${2 * a / 10}$.<br>
-                    L'augmentation est donc de : $${texNombre(b * a / 100)}$ €.<br>
-         Le nouveau prix est :   $${a}+${texNombre(b * a / 100)}= ${texNombre(a + (b * a) / 100)}$  €.
+                    L'augmentation est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+         Le nouveau prix est :   $${a}+${texNombrec(b * a / 100)}= ${texNombrec(a + (b * a) / 100)}$  €.
     
 `)
         }
@@ -129,16 +129,16 @@ export default function PoucentageE () {
         Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
         this.correction = `
-         Le nouveau prix est :   $ ${texNombre(a + (b * a) / 100)} $ €.`
+         Le nouveau prix est :   $ ${texNombrec(a + (b * a) / 100)} $ €.`
         this.reponse = calcul(a + (b * a) / 100)
         if (b === 1) {
           this.correction += texteEnCouleur(`
         <br> Mentalement : <br>
         On calcule d'abord le montant de l'augmentation. <br>
         Prendre $1\\%$  d'une quantité revient à la diviser par $100$. <br>
-        Ainsi, $${b}\\%$  de $${a}$ est égal à $${a}\\div 100=${texNombre(a / 100)}$.<br>
-                     L'augmentation est donc de : $${texNombre(b * a / 100)}$ €.<br>
-             Le nouveau prix est :   $${a}+${texNombre(b * a / 100)}= ${texNombre(a + (b * a) / 100)}$  €.
+        Ainsi, $${b}\\%$  de $${a}$ est égal à $${a}\\div 100=${texNombrec(a / 100)}$.<br>
+                     L'augmentation est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+             Le nouveau prix est :   $${a}+${texNombrec(b * a / 100)}= ${texNombrec(a + (b * a) / 100)}$  €.
         
       `)
         }
@@ -149,8 +149,8 @@ export default function PoucentageE () {
         Pour calculer $5\\%$  d'une quantité, on commence par calculer $10\\%$  en divisant 
         par $10$ :<br> $10\\%$  de $${a}$ est égal à $${a}\\div 10=${a / 10}$.<br>
         Puisque $5\\%$  est deux fois plus petit  que $10\\%$ ,  $5\\%$  de $${a}$ est égal à $ ${a / 10}\\div 2=${a / 20}$.<br>
-                     L'augmentation est donc de : $${texNombre(b * a / 100)}$ €.<br>
-             Le nouveau prix est :   $${a}+${texNombre(b * a / 100)}= ${texNombre(a + (b * a) / 100)}$  €.
+                     L'augmentation est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+             Le nouveau prix est :   $${a}+${texNombrec(b * a / 100)}= ${texNombrec(a + (b * a) / 100)}$  €.
         
       `)
         }
@@ -161,8 +161,8 @@ export default function PoucentageE () {
         Pour calculer $${b}\\%$  d'une quantité, on commence par calculer $1\\%$  en divisant 
         par $100$ :<br> $1\\%$  de $${a}$ est égal à $${a}\\div 100=${a / 100}$.<br>
         Puisque $${b}\\%$  est $${b}$ fois plus grand que $1\\%$ ,  $${b}\\%$  de $${a}$ est égal à $${b}\\times ${a / 100}=${b * a / 100}$.<br>
-                        L'augmentation est donc de : $${texNombre(b * a / 100)}$ €.<br>
-             Le nouveau prix est :   $${a}+${texNombre(b * a / 100)}= ${texNombre(a + (b * a) / 100)}$  €.
+                        L'augmentation est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+             Le nouveau prix est :   $${a}+${texNombrec(b * a / 100)}= ${texNombrec(a + (b * a) / 100)}$  €.
         
     `)
         }
@@ -175,16 +175,16 @@ export default function PoucentageE () {
           Quel est son nouveau prix ? `
         this.optionsChampTexte = { texteApres: '€' }
         this.correction = `
-         Le nouveau prix est :   $ ${texNombre(a - (b * a) / 100)} €.$`
+         Le nouveau prix est :   $ ${texNombrec(a - (b * a) / 100)} €.$`
         this.reponse = calcul(a - (b * a) / 100)
         if (b === 1) {
           this.correction += texteEnCouleur(`
         <br> Mentalement : <br>
         On calcule d'abord le montant de la réduction. <br>
         Prendre $1\\%$  d'une quantité revient à la diviser par $100$. <br>
-        Ainsi, $${b}\\%$  de $${a}$ est égal à $${a}\\div 100=${texNombre(a / 100)}$.<br>
-        La réduction est donc de : $${texNombre(b * a / 100)}$ €.<br>
-             Le nouveau prix est :   $${a}-${texNombre(b * a / 100)}= ${texNombre(a - (b * a) / 100)}$  €.
+        Ainsi, $${b}\\%$  de $${a}$ est égal à $${a}\\div 100=${texNombrec(a / 100)}$.<br>
+        La réduction est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+             Le nouveau prix est :   $${a}-${texNombrec(b * a / 100)}= ${texNombrec(a - (b * a) / 100)}$  €.
         
       `)
         }
@@ -195,8 +195,8 @@ export default function PoucentageE () {
         Pour calculer $5\\%$  d'une quantité, on commence par calculer $10\\%$  en divisant 
         par $10$ :<br> $10\\%$  de $${a}$ est égal à $${a}\\div 10=${a / 10}$.<br>
         Puisque $5\\%$  est deux fois plus petit  que $10\\%$ ,  $5\\%$  de $${a}$ est égal à $ ${a / 10}\\div 2=${a / 20}$.<br>
-        La réduction est donc de : $${texNombre(b * a / 100)}$ €.<br>
-             Le nouveau prix est :   $${a}-${texNombre(b * a / 100)}= ${texNombre(a - (b * a) / 100)}$  €.
+        La réduction est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+             Le nouveau prix est :   $${a}-${texNombrec(b * a / 100)}= ${texNombrec(a - (b * a) / 100)}$  €.
         
       `)
         }
@@ -207,8 +207,8 @@ export default function PoucentageE () {
         Pour calculer $${b}\\%$  d'une quantité, on commence par calculer $1\\%$  en divisant 
         par $100$ :<br> $1\\%$  de $${a}$ est égal à $${a}\\div 100=${a / 100}$.<br>
         Puisque $${b}\\%$  est $${b}$ fois plus grand que $1\\%$,  $${b}\\%$  de $${a}$ est égal à $${b}\\times ${a / 100}=${b * a / 100}$.<br>
-        La réduction est donc de : $${texNombre(b * a / 100)}$ €.<br>
-             Le nouveau prix est :   $${a}-${texNombre(b * a / 100)}= ${texNombre(a - (b * a) / 100)}$  €.
+        La réduction est donc de : $${texNombrec(b * a / 100)}$ €.<br>
+             Le nouveau prix est :   $${a}-${texNombrec(b * a / 100)}= ${texNombrec(a - (b * a) / 100)}$  €.
         
     `)
         }

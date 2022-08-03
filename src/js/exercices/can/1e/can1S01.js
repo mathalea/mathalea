@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, choice, ecritureAlgebrique, calcul, texNombre, texFractionReduite } from '../../../modules/outils.js'
+import { randint, choice, ecritureAlgebrique, calcul, texNombrec, texFractionReduite } from '../../../modules/outils.js'
 export const titre = 'Calculer un terme d’une suite explicite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -104,10 +104,10 @@ export default function CalculTermeSuiteExp () {
          `
         this.correction = `Dans l'expression de $u_n$ on remplace $n$ par $${k}$, on obtient :<br> $u_{${k}} = `
         if (choix === true) {
-          this.correction += `${a}+\\dfrac{${b}}{${k}}=${a}+${texNombre(b / k)}=${texNombre(a + b / k)}$.`
+          this.correction += `${a}+\\dfrac{${b}}{${k}}=${a}+${texNombrec(b / k)}=${texNombrec(a + b / k)}$.`
           this.reponse = calcul(a + b / k)
         } else {
-          this.correction += `${a}-\\dfrac{${b}}{${k}}=${a}-${texNombre(b / k)}=${texNombre(a - b / k)}$.`
+          this.correction += `${a}-\\dfrac{${b}}{${k}}=${a}-${texNombrec(b / k)}=${texNombrec(a - b / k)}$.`
           this.reponse = calcul(a - b / k)
         }
 

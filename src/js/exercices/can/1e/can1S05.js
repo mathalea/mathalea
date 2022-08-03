@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombre, texFractionReduite, ecritureParentheseSiNegatif, rienSi1 } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombrec, texFractionReduite, ecritureParentheseSiNegatif, rienSi1 } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Donner la nature d’une suite (formule explicite)'
 export const interactifReady = true
@@ -77,7 +77,7 @@ export default function NatureSuiteEx () {
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: `arithmétique de raison $${texNombre(a / d)}$`,
+                  texte: `arithmétique de raison $${texNombrec(a / d)}$`,
                   statut: true
                 },
                 {
@@ -85,7 +85,7 @@ export default function NatureSuiteEx () {
                   statut: false
                 },
                 {
-                  texte: `géométrique de raison $${texNombre(a / d)}$`,
+                  texte: `géométrique de raison $${texNombrec(a / d)}$`,
                   statut: false
                 }
               ]

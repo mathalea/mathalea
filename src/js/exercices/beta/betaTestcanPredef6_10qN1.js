@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
-import { listeQuestionsToContenu, randint, texNombre, range1, combinaisonListesSansChangerOrdre, prenomF, choice, texteEnCouleur, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, texNombrec, range1, combinaisonListesSansChangerOrdre, prenomF, choice, texteEnCouleur, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'CAN 6ième 10 questions (niveau 1)'
@@ -103,22 +103,22 @@ export default function Can10Questions6N1 () {
         case '4':
           a = calcul(randint(2, 9) / 10)
           b = choice([1, 10])
-          texte = `$${b}-${texNombre(a)}=$`
-          texteCorr = `$${b}-${texNombre(a)}=${texNombre(1 - a)}$`
+          texte = `$${b}-${texNombrec(a)}=$`
+          texteCorr = `$${b}-${texNombrec(a)}=${texNombrec(1 - a)}$`
           reponse = calcul(b - a)
           setReponse(this, i, reponse, { formatInteractif: 'calcul' })
           if (b === 1) {
             texteCorr += texteEnCouleur(`
     <br> Mentalement : <br>
     $1$ unité = $10$ dixièmes.<br>
-    On enlève $${texNombre(10 * a)}$ dixièmes à $10$ dixièmes, il en reste $${texNombre(10 * (1 - a))}$.<br>
-    Ainsi, $1-${texNombre(a)}=${texNombre(1 - a)}$.  `)
+    On enlève $${texNombrec(10 * a)}$ dixièmes à $10$ dixièmes, il en reste $${texNombrec(10 * (1 - a))}$.<br>
+    Ainsi, $1-${texNombrec(a)}=${texNombrec(1 - a)}$.  `)
           } else {
             texteCorr += texteEnCouleur(`
     <br> Mentalement : <br>
     $10$ unités = $100$ dixièmes.<br>
-    On enlève $${texNombre(10 * a)}$ dixièmes à $100$ dixièmes, il en reste $${texNombre(10 * (10 - a))}$.<br>
-    Ainsi, $10-${texNombre(a)}=${texNombre(10 - a)}$.  `)
+    On enlève $${texNombrec(10 * a)}$ dixièmes à $100$ dixièmes, il en reste $${texNombrec(10 * (10 - a))}$.<br>
+    Ainsi, $10-${texNombrec(a)}=${texNombrec(10 - a)}$.  `)
           }
           break
 
@@ -127,7 +127,7 @@ export default function Can10Questions6N1 () {
           c = Math.floor(randint(10, 40) / a) * a // premier nombre.
           maListe = []
           for (let q = 0; q < 3; q++) {
-            maListe.push([c + a * q, texNombre(c + a * q)])
+            maListe.push([c + a * q, texNombrec(c + a * q)])
           }
           d = droiteGraduee2({
             Unite: 3 / a,
@@ -147,7 +147,7 @@ export default function Can10Questions6N1 () {
           })
           reponse = c + 3 * a
           texte = mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 2, scale: 0.5 }, d) + 'Quel est le nombre écrit sous le point A ?'
-          texteCorr = `${texteEnCouleur('Comme les graduations vont de ' + a)} ${texteEnCouleur('en ' + a)} ${texteEnCouleur(', le nombre écrit sous le point $A$ correspond à ')} ${texteEnCouleur(c + 2 * a)} ${texteEnCouleur(' + ' + a)} ${texteEnCouleur('donc c\'est ' + texNombre(c + 3 * a) + '.')}`
+          texteCorr = `${texteEnCouleur('Comme les graduations vont de ' + a)} ${texteEnCouleur('en ' + a)} ${texteEnCouleur(', le nombre écrit sous le point $A$ correspond à ')} ${texteEnCouleur(c + 2 * a)} ${texteEnCouleur(' + ' + a)} ${texteEnCouleur('donc c\'est ' + texNombrec(c + 3 * a) + '.')}`
           setReponse(this, i, reponse, { formatInteractif: 'calcul' })
           break
         case '6':
@@ -156,30 +156,30 @@ export default function Can10Questions6N1 () {
           c = randint(2, 9)
           reponse = calcul(a * 1000 + b * 10 + c * 100)
           if (choice([true, false])) {
-            texte = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100=$`
-            texteCorr = `$${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(reponse)}$`
+            texte = `$${texNombrec(a)}\\times 1000 + ${texNombrec(b)}\\times 10 + ${texNombrec(c)}\\times 100=$`
+            texteCorr = `$${texNombrec(a)}\\times 1000 + ${texNombrec(b)}\\times 10 + ${texNombrec(c)}\\times 100 =${texNombrec(reponse)}$`
             texteCorr += texteEnCouleur(`<br> Mentalement : <br>
       On décompose le calcul (milliers, centaines puis dizaines) : <br>
-      $\\bullet$ $${texNombre(a)}\\times 1000=${texNombre(a * 1000)}$.<br>
-      $\\bullet$ $${texNombre(c)}\\times 100=${texNombre(c * 100)}$.<br>
-      $\\bullet$ $${texNombre(b)}\\times 10=${texNombre(b * 10)}$.<br>
+      $\\bullet$ $${texNombrec(a)}\\times 1000=${texNombrec(a * 1000)}$.<br>
+      $\\bullet$ $${texNombrec(c)}\\times 100=${texNombrec(c * 100)}$.<br>
+      $\\bullet$ $${texNombrec(b)}\\times 10=${texNombrec(b * 10)}$.<br>
       Ainsi,  <br>
       $\\begin{aligned}
-    ${texNombre(a)}\\times 1000 + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 &=${texNombre(a * 1000)}+${texNombre(c * 100)}+${texNombre(b * 10)}\\\\
-    &=${texNombre(reponse)}
+    ${texNombrec(a)}\\times 1000 + ${texNombrec(b)}\\times 10 + ${texNombrec(c)}\\times 100 &=${texNombrec(a * 1000)}+${texNombrec(c * 100)}+${texNombrec(b * 10)}\\\\
+    &=${texNombrec(reponse)}
     \\end{aligned}$.`)
           } else {
-            texte = `$ ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times 1000 =$`
-            texteCorr = `$ ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times 1000  =${texNombre(reponse)}$`
+            texte = `$ ${texNombrec(c)}\\times 100+ ${texNombrec(b)}\\times 10 + ${texNombrec(a)}\\times 1000 =$`
+            texteCorr = `$ ${texNombrec(c)}\\times 100+ ${texNombrec(b)}\\times 10 + ${texNombrec(a)}\\times 1000  =${texNombrec(reponse)}$`
             texteCorr += texteEnCouleur(`<br> Mentalement : <br>
     On décompose le calcul (milliers, centaines puis dizaines) : <br>
-    $\\bullet$ $${texNombre(a)}\\times 1000=${texNombre(a * 1000)}$.<br>
-    $\\bullet$ $${texNombre(c)}\\times 100=${texNombre(c * 100)}$.<br>
-    $\\bullet$ $${texNombre(b)}\\times 10=${texNombre(b * 10)}$.<br>
+    $\\bullet$ $${texNombrec(a)}\\times 1000=${texNombrec(a * 1000)}$.<br>
+    $\\bullet$ $${texNombrec(c)}\\times 100=${texNombrec(c * 100)}$.<br>
+    $\\bullet$ $${texNombrec(b)}\\times 10=${texNombrec(b * 10)}$.<br>
     Ainsi, <br>$\\begin{aligned}
-    ${texNombre(c)}\\times 100+ ${texNombre(b)}\\times 10 + ${texNombre(a)}\\times 1000 &=${texNombre(a)}\\times 1000 + ${texNombre(c)}\\times 100 + ${texNombre(b)}\\times 10\\\\
-    & =${texNombre(a * 1000)}+${texNombre(c * 100)}+${texNombre(b * 10)}\\\\
-    &=${texNombre(reponse)}
+    ${texNombrec(c)}\\times 100+ ${texNombrec(b)}\\times 10 + ${texNombrec(a)}\\times 1000 &=${texNombrec(a)}\\times 1000 + ${texNombrec(c)}\\times 100 + ${texNombrec(b)}\\times 10\\\\
+    & =${texNombrec(a * 1000)}+${texNombrec(c * 100)}+${texNombrec(b * 10)}\\\\
+    &=${texNombrec(reponse)}
     \\end{aligned}$. `)
           }
           setReponse(this, i, reponse, { formatInteractif: 'calcul' })
@@ -210,12 +210,12 @@ export default function Can10Questions6N1 () {
           b = fruits[a][1]
           c = randint(fruits[a][2], fruits[a][3])
           reponse = calcul(c / 5 * b)
-          texte = `$${texNombre(c / 10)}$ kg de ${fruits[a][0]} coûtent $${texNombre(c / 10 * b)}$ €, 
-            combien coûtent $${texNombre(c / 5)}$ kg de ${fruits[a][0]} ?`
+          texte = `$${texNombrec(c / 10)}$ kg de ${fruits[a][0]} coûtent $${texNombrec(c / 10 * b)}$ €, 
+            combien coûtent $${texNombrec(c / 5)}$ kg de ${fruits[a][0]} ?`
           texteCorr = `On reconnaît une situation de proportionnalité : <br>
             La masse de ${fruits[a][0]} est proportionnelle au prix.<br>
-            On remarque qu'on demande le prix pour une quantité double ($${texNombre(c / 5)}=2\\times ${texNombre(c / 10)}$).<br> 
-            Ainsi, le prix à payer pour $${texNombre(c / 5)}$ kg de ${fruits[a][0]} est :  $${texNombre(c / 10 * b)} \\times 2 = ${texNombre(reponse)}$ €`
+            On remarque qu'on demande le prix pour une quantité double ($${texNombrec(c / 5)}=2\\times ${texNombrec(c / 10)}$).<br> 
+            Ainsi, le prix à payer pour $${texNombrec(c / 5)}$ kg de ${fruits[a][0]} est :  $${texNombrec(c / 10 * b)} \\times 2 = ${texNombrec(reponse)}$ €`
           setReponse(this, i, reponse, { formatInteractif: 'calcul' })
           break
 

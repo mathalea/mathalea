@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, calcul, texNombre, stringNombre, texPrix } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, abs, calcul, texNombrec, texNombre, stringNombre, texPrix } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Variations en pourcentage'
@@ -56,7 +56,7 @@ export default function EvolutionsEnPourcentage () {
           depart = choice([calcul(randint(11, 99) / 10), randint(11, 99), randint(11, 99) * 10])
           taux = choice([10, 20, 30, 40, 60])
           taux *= choice([-1, 1])
-          coeff = texNombre(1 + taux / 100)
+          coeff = texNombrec(1 + taux / 100)
           arrive = calcul(depart * (1 + taux / 100))
           switch (listeTypeDeQuestions[i]) {
             case 'finale':
@@ -124,7 +124,7 @@ export default function EvolutionsEnPourcentage () {
               break
           }
           arrive = calcul(depart * (1 + taux / 100))
-          coeff = texNombre(1 + taux / 100)
+          coeff = texNombrec(1 + taux / 100)
           date = new Date()
           cetteAnnee = date.getFullYear()
           anneeDerniere = cetteAnnee - 1
@@ -179,7 +179,7 @@ export default function EvolutionsEnPourcentage () {
           depart = randint(700, 1400)
           taux = randint(1, 12)
           taux *= choice([-1, 1])
-          coeff = texNombre(1 + taux / 100)
+          coeff = texNombrec(1 + taux / 100)
           arrive = calcul(depart * (1 + taux / 100))
           facture = choice(["ma facture annuelle d'électricité", 'ma facture annuelle de gaz', "ma taxe d'habitation", 'mon ordinateur', 'mon vélo électrique'])
           switch (listeTypeDeQuestions[i]) {
@@ -232,7 +232,7 @@ export default function EvolutionsEnPourcentage () {
           depart = choice([randint(11, 99) * 1000, randint(11, 99) * 10000])
           taux = randint(5, 35)
           taux *= choice([-1, 1])
-          coeff = texNombre(1 + taux / 100)
+          coeff = texNombrec(1 + taux / 100)
           arrive = calcul(depart * (1 + taux / 100))
           nb = randint(5, 15)
           switch (listeTypeDeQuestions[i]) {

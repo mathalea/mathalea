@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, texNombre, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, texNombrec, texNombre, calcul } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Quart'
 export const amcReady = true
@@ -48,7 +48,7 @@ export default function Quart () {
           b = choice([1, 2, 3])
           texte = `$\\text{Le quart de }${a * 4 + b}$`
           texteCorr = `$\\text{Le quart de }${a * 4 + b
-            } \\text{ est } ${texNombre(a + b / 4)}$`
+            } \\text{ est } ${texNombrec(a + b / 4)}$`
           setReponse(this, i, calcul(a + b / 4))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
@@ -73,10 +73,10 @@ export default function Quart () {
         case 5: // a,b avec a et b divisibles par 4
           a = randint(2, 9)
           b = randint(2, 9)
-          texte = `$\\text{Le quart de }${texNombre(a * 4 + (b * 4) / 100)}$`
-          texteCorr = `$\\text{Le quart de }${texNombre(
+          texte = `$\\text{Le quart de }${texNombrec(a * 4 + (b * 4) / 100)}$`
+          texteCorr = `$\\text{Le quart de }${texNombrec(
             a * 4 + (b * 4) / 100
-          )} \\text{ est } ${texNombre(a + b / 100)}$`
+          )} \\text{ est } ${texNombrec(a + b / 100)}$`
           setReponse(this, i, calcul(a + b / 100))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
