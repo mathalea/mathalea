@@ -216,10 +216,10 @@ export default function SujetCAN2022troisieme () {
           c = randint(3, 9)
           reponse = a + b * c
           texte = `$${a}+${b}\\times ${c}=$`
-          texteCorr = `La multiplication est prioritaire : $${a}+${b}\\times ${c}=${a}+${b * c}$
+          texteCorr = `La multiplication est prioritaire : $${a}+${b}\\times ${c}=${a}+${b * c}$.
                                    `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += '$\\ldots$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') } else { texte += ' $\\ldots$' }
           nbChamps = 1
           break
 
@@ -246,7 +246,7 @@ export default function SujetCAN2022troisieme () {
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
             reponse = a * b
             texte = `Recopie  le résultat de  : 
-            $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
+            $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$.<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
             texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $50\\times ${Math.round(b)}=${50 * Math.round(b)}$.`
@@ -257,7 +257,7 @@ export default function SujetCAN2022troisieme () {
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
             reponse = a * b
             texte = `Recopie  le résultat de  : 
-                $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
+                $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$.<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
             texteCorr = `En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $${Math.round(a)}\\times ${Math.round(b)}=${Math.round(a) * Math.round(b)}$.`
@@ -268,7 +268,7 @@ export default function SujetCAN2022troisieme () {
             propositions = shuffle([`$${texNombre(a * b / 10, 3)}$`, `$${texNombre(a * b * 10, 1)}$`, `$${texNombre(a * b, 2)}$`])
             reponse = a * b
             texte = `Recopie  le résultat de  : 
-                    $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$<br>`
+                    $${texNombre(a, 1)}\\times ${texNombre(b, 1)}$.<br>`
 
             texte += `${propositions[0]} ${sp(6)} ${propositions[1]} ${sp(6)} ${propositions[2]}`
             texteCorr = 'En prenant un ordre de grandeur pour chacun des deux nombres, on obtient  $30\\times 50=1500$.'
@@ -287,23 +287,23 @@ export default function SujetCAN2022troisieme () {
           reponse = arrondi(f * d, 3)
 
           if (d === 0.1) {
-            texte = `$${f}\\times ${texNombre(d, 1)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 1)}=${texNombre(this.reponse)}$`
-            texteCorr += `
-          $${f}\\times ${texNombre(d, 1)}=${f}\\div 10=${a}${b},\\underline{${c}}$ `
+            texte = `$${f}\\times ${texNombre(d)}=$`
+
+            texteCorr = `
+          $${f}\\times ${texNombre(d)}=${f}\\div 10=${a}${b},${c}$ `
           }
           if (d === 0.01) {
-            texte = `$${f}\\times ${texNombre(d, 2)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 2)}=${texNombre(this.reponse)}$`
-            texteCorr += `
-          $${f}\\times ${texNombre(d, 2)}=${f}\\div 100=${a},${b}\\underline{${c}}$<br>
+            texte = `$${f}\\times ${texNombre(d)}=$`
+
+            texteCorr = `
+          $${f}\\times ${texNombre(d)}=${f}\\div 100=${a},${b}${c}$<br>
                       `
           }
           if (d === 0.001) {
-            texte = `$${f}\\times ${texNombre(d, 3)}=$`
-            texteCorr = `$${f}\\times ${texNombre(d, 3)}=${texNombre(this.reponse)}$`
-            texteCorr += `
-          $${f}\\times ${texNombre(d, 3)}=${f}\\div 1000=0,${a}${b}\\underline{${c}}$<br>
+            texte = `$${f}\\times ${texNombre(d)}=$`
+
+            texteCorr = `
+          $${f}\\times ${texNombre(d)}=${f}\\div 1000=0,${a}${b}${c}$<br>
           
              `
           }
@@ -334,8 +334,7 @@ export default function SujetCAN2022troisieme () {
           b = randint(1, 5, a)
 
           reponse = a ** 2 + 2 * b ** 2
-          texte = `$a=${a}$ et $b=${b}$<br>
-          Calcule  $a^2+2\\times b^2$`
+          texte = `Sachant que $a=${a}$ et $b=${b}$, calcule  $a^2+2\\times b^2$`
           reponse = a ** 2 + 2 * b ** 2
           texteCorr = `$a^2+2\\times b^2=${a}^2+2\\times ${b}^2=${a ** 2}+2\\times ${b ** 2}=${a ** 2}+${2 * b ** 2}=${reponse}$ `
 
@@ -354,7 +353,7 @@ export default function SujetCAN2022troisieme () {
           texteCorr = `$${texNombre(a, 2)}=\\dfrac{${texNombre(a * 100, 0)}}{100}=${texNombre(a * 100, 0)} \\%$ `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '$\\%$' } else { texte += '$\\ldots \\%$' }
+          if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' $\\%$' } else { texte += ' $\\ldots \\%$' }
           nbChamps = 1
 
           break
@@ -401,9 +400,9 @@ export default function SujetCAN2022troisieme () {
           c = moy + k1
           d = moy + k2
           texte = `Calcule la moyenne de :<br>
-         $${texNombre(a, 1)}$ ${sp(4)} $${texNombre(b, 1)}$${sp(4)}$${texNombre(c, 1)}$${sp(4)}$${texNombre(d, 1)}$`
+         $${texNombre(a, 1)}$ ${sp(4)} $${texNombre(b, 1)}$ ${sp(4)} $${texNombre(c, 1)}$ ${sp(4)}$ ${texNombre(d, 1)}$`
 
-          texteCorr = `$\\underbrace{${texNombre(a, 1)}}_{${moy}-${k2}}$ ${sp(4)} $\\underbrace{${texNombre(b, 1)}}_{${moy}-${k1}}$ ${sp(4)}$${texNombre(moy)}$${sp(4)}
+          texteCorr = `$\\underbrace{${texNombre(a, 1)}}_{${moy}-${k2}}$ ${sp(4)} $\\underbrace{${texNombre(b, 1)}}_{${moy}-${k1}}$ ${sp(4)}
           $\\underbrace{${texNombre(c, 1)}}_{${moy}+${k1}}$${sp(4)}$\\underbrace{${texNombre(d, 1)}}_{${moy}+${k2}}$<br>
           La moyenne est donc $${moy}$.`
 
@@ -445,14 +444,14 @@ export default function SujetCAN2022troisieme () {
           b = choice([0.25, 0.5, 0.75])
           d = calcul(b * 60)
           if (!this.interactif) {
-            texte = `Convertir en heures/minutes : <br>$${texNombre(a + b, 2)}$ h $=$ ..... h..... min`
-            texteCorr = `$${texNombre(a + b, 2)}$h$ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60  = ${a}$ h $${d}$ min`
+            texte = `Convertis en heures/minutes : <br>$${texNombre(a + b, 2)}$ h $=$ $\\ldots$ h $\\ldots$ min`
+            texteCorr = `$${texNombre(a + b, 2)}$ h $ = ${a}$ h $ +$ $${texNombre(b, 2)} \\times 60$ min  $ = ${a}$ h $${d}$ min`
           } else {
-            texte = `Convertir en heures/minutes : <br>$${texNombre(a + b, 2)}$ h $=$`
+            texte = `Convertis en heures/minutes : <br>$${texNombre(a + b, 2)}$ h $=$`
             texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'h' })
             setReponse(this, index, a)
             texte += ajouteChampTexteMathLive(this, index + 1, 'largeur12 inline', { texteApres: sp(5) + 'min' })
-            texteCorr = `$${texNombre(a + b, 2)}$h$ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60$ min $  = ${a}$ h $${d}$ min`
+            texteCorr = `$${texNombre(a + b, 2)}$ h$ = ${a}$ h $ +$ $${texNombre(b, 2)} \\times 60$ min $  = ${a}$ h $${d}$ min`
             setReponse(this, index + 1, d)
             nbChamps = 2
           }
@@ -463,11 +462,11 @@ export default function SujetCAN2022troisieme () {
           a = randint(1, 9) * 10
           p = randint(2, 9, 5) * 10
           reponse = calcul(a * p / 100)
-          texte = `$${p}\\%$ de $${a}= $`
+          texte = `$${p}$ $\\%$ de $${a}= $`
 
-          texteCorr = `          Prendre $${p}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\%$  de $${a}$.<br>
-            Comme $10\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10\\%$  d'une quantité, on la divise par $10$), alors
-            $${p}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${reponse}$.
+          texteCorr = `          Prendre $${p}$ $\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\%$  de $${a}$.<br>
+            Comme $10$ $\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10$ $\\%$  d'une quantité, on la divise par $10$), alors
+            $${p}$ $\\%$ de $${a}=${p / 10}\\times ${a / 10}=${reponse}$.
            `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -485,12 +484,12 @@ export default function SujetCAN2022troisieme () {
           if (choice([true, false])) {
             texte = `$${a}+${c}+${b}+${d}+${e}=$
       `
-            texteCorr = `$${a}+${c}+${b}+${d}+${e}=\\underbrace{${a}+${b}}_{=100}+\\underbrace{${c}+${d}}_{=100}+${e}=${reponse}$
+            texteCorr = `$${a}+${c}+${b}+${d}+${e}=\\underbrace{${a}+${b}}_{=100}+\\underbrace{${c}+${d}}_{=100} +${e}=${reponse}$
           `
           } else {
             texte = `$${a}+${e}+${c}+${b}+${d}=$
           `
-            texteCorr = `$${a}+${e}+${c}+${b}+${d}=\\underbrace{${a}+${b}}_{=100}+\\underbrace{${c}+${d}}_{=100}+${e}=${reponse}$
+            texteCorr = `$${a}+${e}+${c}+${b}+${d}=\\underbrace{${a}+${b}}_{=100}+\\underbrace{${c}+${d}}_{=100} +${e}=${reponse}$
               `
           }
 
@@ -503,11 +502,11 @@ export default function SujetCAN2022troisieme () {
           a = new Decimal(((randint(1, 9) / 10 + randint(1, 9) / 100))).plus(randint(1, 9))
           b = choice([0.1, 0.01])
 
-          reponse = a / b
+          reponse = new Decimal(a).div(b)
 
-          texte = `$${texNombre(a, 2)}\\div ${texNombre(b, 2)}=$
+          texte = `$${texNombre(a, 2)}\\div ${texNombre(b)}=$
       `
-          texteCorr = `$${texNombre(a, 2)}\\div ${texNombre(b, 2)}=${texNombre(a, 2)}\\times ${texNombre(1 / b, 2)}=${texNombre(reponse, 2)}$.
+          texteCorr = `$${texNombre(a, 2)}\\div ${texNombre(b)}=${texNombre(a, 2)}\\times ${texNombre(1 / b, 2)}=${texNombre(reponse, 2)}$
           `
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -532,7 +531,7 @@ export default function SujetCAN2022troisieme () {
           texte = 'Périmètre du parallélogramme $ABCD$ :<br> '
           texte += mathalea2d({ xmin: -1.5, ymin: -1, xmax: 7.1, ymax: 6, scale: 0.7 }, poly, labelPoint(A, B, C, D), d, e)
           texteCorr = `Le périmètre en cm est donné par : 
-          $2\\times ${texNombre(a, 1)}+2\\times ${texNombre(b, 1)} =2\\times(${texNombre(a, 1)}+${texNombre(b, 1)})=${reponse}$ cm`
+          $2\\times ${texNombre(a, 1)}+2\\times ${texNombre(b, 1)} =2\\times(${texNombre(a, 1)}+${texNombre(b, 1)})=${reponse}$ cm.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -552,39 +551,39 @@ export default function SujetCAN2022troisieme () {
           g = randint(2, 9) * choice([-1, 1])
           choix = choice(['a', 'b', 'c'])
           if (choix === 'a') {
-            texte = `Calcule : <br>
-            $\\dfrac{${a}}{${b}}\\times\\dfrac{${c}}{${d}}\\times\\dfrac{0}{${e}}\\times\\dfrac{${f}}{${g}}$ `
+            texte = `Calcule : 
+            $\\dfrac{${a}}{${b}}\\times\\dfrac{${c}}{${d}}\\times\\dfrac{0}{${e}}\\times\\dfrac{${f}}{${g}}$. `
             reponse = fraction(0, 1)
-            texteCorr = 'Il s\'agit d\'un produit avec un facteur nul, donc la résultat est 0.'
+            texteCorr = 'Il s\'agit d\'un produit avec un facteur nul, donc le résultat est 0.'
           }
           if (choix === 'b') {
             if (choice([true, false])) {
-              texte = `Calcule : <br>
-            $\\dfrac{${a}}{${b}}\\times\\dfrac{${c}}{${d}}\\times\\dfrac{${d}}{${a}}\\times\\dfrac{${b}}{${c}}$ `
+              texte = `Calcule : 
+            $\\dfrac{${a}}{${b}}\\times\\dfrac{${c}}{${d}}\\times\\dfrac{${d}}{${a}}\\times\\dfrac{${b}}{${c}}$. `
               reponse = fraction(3, 3)
               texteCorr = `En simplifiant, on obtient : <br>
-            $\\dfrac{${a}}{${a}}\\times\\dfrac{${b}}{${b}}\\times\\dfrac{${c}}{${c}}\\times\\dfrac{${d}}{${d}}=1$ .`
+            $\\dfrac{${a}}{${a}}\\times\\dfrac{${b}}{${b}}\\times\\dfrac{${c}}{${c}}\\times\\dfrac{${d}}{${d}}=1$`
             } else {
-              texte = `Calcule : <br>
+              texte = `Calcule : 
     $\\dfrac{${a}}{${b}}\\times\\dfrac{${-c}}{${d}}\\times\\dfrac{${d}}{${a}}\\times\\dfrac{${b}}{${c}}$ `
               reponse = fraction(-3, 3)
               texteCorr = `En simplifiant, on obtient : <br>
-    $\\dfrac{${a}}{${a}}\\times\\dfrac{${b}}{${b}}\\times\\dfrac{${d}}{${d}}\\times\\dfrac{${-c}}{${c}}=-1$ .`
+    $\\dfrac{${a}}{${a}}\\times\\dfrac{${b}}{${b}}\\times\\dfrac{${d}}{${d}}\\times\\dfrac{${-c}}{${c}}=-1$`
             }
           }
           if (choix === 'c') {
             if (choice([true, false])) {
-              texte = `Calcule : <br>
-            $\\dfrac{${a}}{${f}}\\times\\dfrac{${c}}{${d}}\\times\\dfrac{${d}}{${a}}\\times\\dfrac{${e}}{${c}}$ `
+              texte = `Calcule : 
+            $\\dfrac{${a}}{${f}}\\times\\dfrac{${c}}{${d}}\\times\\dfrac{${d}}{${a}}\\times\\dfrac{${e}}{${c}}$. `
               reponse = fraction(e, f)
-              texteCorr = `En simplifiant, on obtient : <br>
-            $\\dfrac{${a}}{${a}}\\times\\dfrac{${c}}{${c}}\\times\\dfrac{${d}}{${d}}\\times\\dfrac{${e}}{${f}}=\\dfrac{${e}}{${f}}${simplificationDeFractionAvecEtapes(e, f)}$ .`
+              texteCorr = `En simplifiant, on obtient : 
+            $\\dfrac{${a}}{${a}}\\times\\dfrac{${c}}{${c}}\\times\\dfrac{${d}}{${d}}\\times\\dfrac{${e}}{${f}}=\\dfrac{${e}}{${f}}${simplificationDeFractionAvecEtapes(e, f)}$ `
             } else {
-              texte = `Calcule : <br>
-    $\\dfrac{${a}}{${b}}\\times\\dfrac{${e}}{${d}}\\times\\dfrac{${d}}{${a}}\\times\\dfrac{${b}}{${f}}$ `
+              texte = `Calcule : 
+    $\\dfrac{${a}}{${b}}\\times\\dfrac{${e}}{${d}}\\times\\dfrac{${d}}{${a}}\\times\\dfrac{${b}}{${f}}$. `
               reponse = fraction(e, f)
               texteCorr = `En simplifiant, on obtient : <br>
-    $\\dfrac{${a}}{${a}}\\times\\dfrac{${b}}{${b}}\\times\\dfrac{${d}}{${d}}\\times\\dfrac{${e}}{${f}}=\\dfrac{${e}}{${f}}${simplificationDeFractionAvecEtapes(e, f)}$ .`
+    $\\dfrac{${a}}{${a}}\\times\\dfrac{${b}}{${b}}\\times\\dfrac{${d}}{${d}}\\times\\dfrac{${e}}{${f}}=\\dfrac{${e}}{${f}}${simplificationDeFractionAvecEtapes(e, f)}$`
             }
           }
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
@@ -632,7 +631,7 @@ export default function SujetCAN2022troisieme () {
           b = calcul(60 / a) // nombre de minutes de l'énoncé
           c = choice([30, 60, 90, 120])
           reponse = c / a
-          texte = `Un véhicule se déplace à vitesse constante de $${c}$ km/h. Combien de km parcourt-il en $${b}$ minutes ?`
+          texte = `Un véhicule se déplace à vitesse constante de $${c}$ km/h. <br>Combien de km parcourt-il en $${b}$ minutes ?`
           texteCorr = `Le véhicule parcourt $${c / a}$ km.<br>
          En $${b}$ minutes, il parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
           ${c / a}$ km.`
@@ -657,8 +656,8 @@ export default function SujetCAN2022troisieme () {
             objets = []
             objets.push(poly[0])
             objets.push(
-              texteParPosition(`$${a} \\text{ cm}$`, milieu(I, K).x, milieu(I, K).y - 0.3, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${b} \\text{ cm}$`, milieu(J, K).x + 0.6, milieu(J, K).y, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${a}`, milieu(I, K).x, milieu(I, K).y - 0.3, 'milieu', 'black', 1, 'middle', true)
+              , texteParPosition(`${b}`, milieu(J, K).x + 0.6, milieu(J, K).y, 'milieu', 'black', 1, 'middle', true)
               , labelPoint(I, J, K), codageAngleDroit(J, I, K))
             propositions = shuffle([`$IJ=\\sqrt{${a ** 2 + b ** 2}}$`, `$IJ=\\sqrt{${b ** 2 - a ** 2}}$`, `$IJ=\\sqrt{${a + b}}$`, `$IJ=${b - a}$`])
 
@@ -685,8 +684,8 @@ export default function SujetCAN2022troisieme () {
             objets = []
             objets.push(poly[0])
             objets.push(
-              texteParPosition(`$${a} \\text{ cm}$`, milieu(I, K).x, milieu(I, K).y - 0.3, 'milieu', 'black', 1, 'middle', true)
-              , texteParPosition(`$${b} \\text{ cm}$`, milieu(J, I).x - 0.6, milieu(J, I).y, 'milieu', 'black', 1, 'middle', true)
+              texteParPosition(`${a}`, milieu(I, K).x, milieu(I, K).y - 0.3, 'milieu', 'black', 1, 'middle', true)
+              , texteParPosition(`${b}`, milieu(J, I).x - 0.6, milieu(J, I).y, 'milieu', 'black', 1, 'middle', true)
               , labelPoint(I, J, K), codageAngleDroit(J, I, K))
             propositions = shuffle([`$IJ=\\sqrt{${a ** 2 + b ** 2}}$`, `$IJ=\\sqrt{${b ** 2 - a ** 2}}$`, `$IJ=\\sqrt{${a + b}}$`, `$IJ=${b - a}$`])
 
@@ -714,10 +713,10 @@ export default function SujetCAN2022troisieme () {
             texte = `Benoît prend le départ d'un marathon à $${a}$h $${b}$. <br>
             Il parcourt la distance en $3$ h  $${c}$ min. <br>
             À quelle heure arrive-t-il ?<br>
-             ..... h..... min`
-            texteCorr = `On ajoute $3$ h à $${a}$h $${b}$. Cela fait $${a + 3}$h $${b}$.<br>
-            On complète l'heure avec $60-${b}$ soit $${60 - b}$ min. Il reste $${c}-${60 - b}$ soit $${c - 60 + b}$ min qu'il faut encore ajouter.<br>
-            Benoît arrive  à $${a + 4}$h $${c - 60 + b}$.`
+             $\\ldots$  h $\\ldots$ min`
+            texteCorr = `On ajoute $3$ h à $${a}$ h $${b}$. Cela fait $${a + 3}$h $${b}$.<br>
+            On complète l'heure avec $60-${b}$, soit $${60 - b}$ min. Il reste $${c}-${60 - b}$, soit $${c - 60 + b}$ min qu'il faut encore ajouter.<br>
+            Benoît arrive  à $${a + 4}$ h $${c - 60 + b}$.`
           } else {
             texte = `Benoît prend le départ d'un marathon à $${a}$h $${b}$. <br>
             Il parcourt la distance en $3$ h  $${c}$ min. <br>
@@ -725,9 +724,9 @@ export default function SujetCAN2022troisieme () {
             texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'h' })
             setReponse(this, index, a + 4)
             texte += ajouteChampTexteMathLive(this, index + 1, 'largeur12 inline', { texteApres: sp(5) + 'min' })
-            texteCorr = `On ajoute $3$ h à $${a}$h $${b}$. Cela fait $${a + 3}$h $${b}$.<br>
-            On complète l'heure avec $60-${b}$ min soit $${60 - b}$. Il reste $${c}-${60 - b}$ soit $${c - 60 + b}$ min qu'il faut encore ajouter.<br>
-            Benoît arrive  à $${a + 4}$h $${c - 60 + b}$.`
+            texteCorr = `On ajoute $3$ h à $${a}$ h $${b}$. Cela fait $${a + 3}$ h $${b}$.<br>
+            On complète l'heure avec $60-${b}$ min, soit $${60 - b}$. Il reste $${c}-${60 - b}$, soit $${c - 60 + b}$ min qu'il faut encore ajouter.<br>
+            Benoît arrive  à $${a + 4}$ h $${c - 60 + b}$.`
             setReponse(this, index + 1, c - 60 + b)
             nbChamps = 2
           }
@@ -773,14 +772,14 @@ export default function SujetCAN2022troisieme () {
             reponse = a % 3
             texte = `Quel est le reste de la division euclidienne de $${a}$ par $3$ ?`
             if (a % 3 === 0) {
-              texteCorr = `Le reste de la division de $${a}$ par $3$ est $${a % 3}$.`
+              texteCorr = `Le reste de la division de $${a}$ par $3$ est $${a % 3}$. <br>`
               texteCorr += ` Un entier est divisible par $3$ lorsque la somme de ses chiffres est un multiple de $3$.<br> 
             La somme des chiffres qui composent $${a}$ est :  $${b}+${c}+${d}=${b + c + d}$.<br>
          $${b + c + d}$ est un mutiple de $3$, donc le reste de la division de $${a}$ par $3$ est $0$.
             `
             }
             if (a % 3 === 2) {
-              texteCorr = `Le reste de la division de $${a}$ par $3$ est ${a % 3}.`
+              texteCorr = `Le reste de la division de $${a}$ par $3$ est ${a % 3}. <br>`
               texteCorr += `Un entier est divisible par $3$ lorsque la somme de ses chiffres est un multiple de $3$.<br> 
             La somme des chiffres qui composent $${a}$ est : $${b}+${c}+${d}=${b + c + d}$.<br>
             $${b + c + d}$ n'est pas un mutiple de $3$. <br>
@@ -789,7 +788,7 @@ export default function SujetCAN2022troisieme () {
            Ainsi, le reste de la division de $${a}$ par $3$ est donc $2$.`
             }
             if (a % 3 === 1) {
-              texteCorr = `Le reste de la division de $${a}$ par $3$ est ${a % 3}.`
+              texteCorr = `Le reste de la division de $${a}$ par $3$ est ${a % 3}.<br>`
               texteCorr += `Un entier est divisible par $3$ lorsque la somme de ses chiffres est un multiple de $3$.<br> 
            La somme des chiffres qui composent $${a}$ est : $${b}+${c}+${d}=${b + c + d}$.<br>
            $${b + c + d}$ n'est pas un mutiple de $3$. <br>
