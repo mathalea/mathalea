@@ -1,4 +1,5 @@
 import Exercice from '../Exercice.js'
+import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
 import { point, tracePoint, milieu, labelPoint, segment, translation2Points, similitude, grille, seyes, mathalea2d } from '../../modules/2d.js'
 
@@ -71,13 +72,13 @@ export default function RepresenterUnSolide () {
       switch (listeTypeDeQuestions[i]) {
         case 1: // cube
           enonce = `$${nom}$ est un cube.<br>`
-          enonce += 'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
+          if (context.isHtml) { enonce += 'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>' }
           correction = 'Figure complétée :<br>'
           break
 
         case 2: // pavé droit
           enonce = `$${nom}$ est un pavé droit.<br>`
-          enonce += 'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>'
+          if (context.isHtml) { enonce += 'Reproduire et compléter la figure ci-dessous, en repassant de la même couleur les segments parallèles et de même longueur.<br>' }
           correction = 'Figure complétée :<br>'
           break
 
