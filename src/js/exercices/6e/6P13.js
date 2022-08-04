@@ -45,7 +45,7 @@ export default function AugmenterEtReduireDunPourcentage () {
     this.introduction = (this.interactif && context.isHtml)
       ? lampeMessage({
         titre: 'Calculatrice autorisée.',
-        texte: 'Écrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
+        texte: 'Ecrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',
         couleur: 'nombres'
       })
       : ''

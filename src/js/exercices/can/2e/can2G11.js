@@ -48,7 +48,7 @@ export default function RelationChasles2 () {
 
           texte += propositionsQcm(this, 0).texte
         } else {
-          texte = `Écrire à l'aide d'un seul vecteur : <br>
+          texte = `Ecrire à l'aide d'un seul vecteur : <br>
       $\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[2]}${nom[3]}}+\\overrightarrow{${nom[1]}${nom[2]}}=$`
         }
         texteCorr = `On utilise la relation de Chasles :<br>
@@ -90,7 +90,7 @@ export default function RelationChasles2 () {
 
             texte += propositionsQcm(this, 0).texte
           } else {
-            texte = `Écrire à l'aide d'un seul vecteur : <br>
+            texte = `Ecrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[5]}${nom[1]}}+\\overrightarrow{${nom[2]}${nom[3]}}-\\overrightarrow{${nom[2]}${nom[1]}}=$`
           }
 
@@ -131,7 +131,7 @@ export default function RelationChasles2 () {
 
             texte += propositionsQcm(this, 0).texte
           } else {
-            texte = `Écrire à l'aide d'un seul vecteur : <br>
+            texte = `Ecrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[0]}${nom[1]}}-\\overrightarrow{${nom[3]}${nom[2]}}+\\overrightarrow{${nom[1]}${nom[2]}}=$`
           }
 
@@ -175,7 +175,7 @@ export default function RelationChasles2 () {
 
             texte += propositionsQcm(this, 0).texte
           } else {
-            texte = `Écrire à l'aide d'un seul vecteur : <br>
+            texte = `Ecrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[3]}${nom[4]}}+\\overrightarrow{${nom[5]}${nom[0]}}+\\overrightarrow{${nom[4]}${nom[3]}}=$`
           }
 
@@ -212,7 +212,7 @@ export default function RelationChasles2 () {
 
             texte += propositionsQcm(this, 0).texte
           } else {
-            texte = `Écrire à l'aide d'un seul vecteur : <br>
+            texte = `Ecrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[2]}${nom[0]}}+\\overrightarrow{${nom[3]}${nom[2]}}+\\overrightarrow{${nom[0]}${nom[3]}}=$`
           }
 
@@ -250,7 +250,7 @@ export default function RelationChasles2 () {
 
             texte += propositionsQcm(this, 0).texte
           } else {
-            texte = `Écrire à l'aide d'un seul vecteur : <br>
+            texte = `Ecrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[4]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[1]}}+\\overrightarrow{${nom[0]}${nom[4]}}=$`
           }
 
@@ -287,7 +287,7 @@ export default function RelationChasles2 () {
 
             texte += propositionsQcm(this, 0).texte
           } else {
-            texte = `Écrire à l'aide d'un seul vecteur : <br>
+            texte = `Ecrire à l'aide d'un seul vecteur : <br>
           $\\overrightarrow{${nom[6]}${nom[1]}}-\\overrightarrow{${nom[6]}${nom[0]}}+\\overrightarrow{${nom[1]}${nom[0]}}=$`
           }
 

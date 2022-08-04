@@ -1473,7 +1473,8 @@ function Mediatrice (
 */
 // JSDOC Validee EE Juin 2022
 export function mediatrice (A, B, nom = '', couleurMediatrice = 'red', color = 'blue', couleurConstruction = 'black', construction = false, detail = false, markmilieu = '×', markrayons = '||', epaisseurMediatrice = 1, opaciteMediatrice = 1, pointillesMediatrice = 0) {
-  return new Mediatrice(A, B, nom, couleurMediatrice, color, couleurConstruction, construction, detail, markmilieu, markrayons, epaisseurMediatrice, opaciteMediatrice, pointillesMediatrice)
+  if (arguments.length < 5) return new Mediatrice(A, B, nom, couleurMediatrice)
+  else return new Mediatrice(A, B, nom, couleurMediatrice, color, couleurConstruction, construction, detail, markmilieu, markrayons, epaisseurMediatrice, opaciteMediatrice, pointillesMediatrice)
 }
 
 /**
@@ -2593,11 +2594,8 @@ function Polygone (...points) {
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity=${this.opacite}`)
     }
-    if (this.opaciteDeRemplissage !== 1) {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
     if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage !== 'none') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}, fill opacity = ${this.opaciteDeRemplissage}}`)
     }
 
     if (this.hachures) {
@@ -3328,11 +3326,8 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    if (this.opaciteDeRemplissage !== 1) {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
     if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage !== 'none') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}, fill opacity = ${this.opaciteDeRemplissage}}`)
     }
 
     if (this.hachures) {
@@ -3498,11 +3493,8 @@ function Ellipse (O, rx, ry, color = 'black') {
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    if (this.opaciteDeRemplissage !== 1) {
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
-    }
     if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage !== 'none') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}, fill opacity = ${this.opaciteDeRemplissage}}`)
     }
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
@@ -3901,8 +3893,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     if (rayon && (this.couleurDeRemplissage !== 'none' && this.couleurDeRemplissage !== '')) {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}}`)
-      tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
+      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage}, fill opacity = ${this.opaciteDeRemplissage}}`)
     }
 
     if (this.hachures) {
@@ -10308,7 +10299,7 @@ export function texteParPositionEchelle (texte, x, y, orientation = 'milieu', co
  * @param {string} [color='black'] // Couleur du texte
  * @param {number} [scale=1] // Echelle du texte.
  * @param {string} [ancrageDeRotation='middle'] // Choix parmi 'middle', 'start' ou 'end'. En cas d'orientation avec un angle, permet de savoir où est le centre de la rotation par rapport au texte.
- * @param {string} [mathOn=false] // Écriture dans le style de Latex.
+ * @param {string} [mathOn=false] // Ecriture dans le style de Latex.
  *
  * @author Rémi Angot
  */
@@ -10317,7 +10308,7 @@ export function texteParPosition (texte, x, y, orientation = 'milieu', color = '
 }
 
 /**
- * latexParPoint('\\dfrac{3}{5}',A,'black',12,20,"white") Écrit la fraction 3/5 à l'emplacement du label du point A en noir, avec un fond blanc.
+ * latexParPoint('\\dfrac{3}{5}',A,'black',12,20,"white") Ecrit la fraction 3/5 à l'emplacement du label du point A en noir, avec un fond blanc.
  * 12 est la largeur en pixels 20 la hauteur en pixels (utilisé à des fins de centrage). Pour un bon centrage sur A, il faut que A.positionLabel='center'.
  * si colorBackground="", le fond est transparent.
  * tailleCaracteres est à 8 par défaut et correspond à \footnotesize. tailleCaracteres va de 5 = \small à 20 = \huge
@@ -11422,24 +11413,35 @@ export function mathalea2d (
     code = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
       }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
       } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" ${style ? `style="${style}"` : ''}>\n`
-    // code += codeSvg(...objets);
     for (const objet of objets) {
       if (Array.isArray(objet)) {
         for (let i = 0; i < objet.length; i++) {
-          try {
-            if (objet[i].isVisible) {
-              if ((!mainlevee) || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
-              else { code += '\t' + objet[i].svgml(pixelsParCm, amplitude) + '\n' }
+          if (Array.isArray(objet[i])) { // EE : Test nécessaire pour les cubes 3d
+            for (let j = 0; j < objet[i].length; j++) {
+              try {
+                if (objet[i][j].isVisible) {
+                  if ((!mainlevee) || typeof (objet[i][j].svgml) === 'undefined') code += '\t' + objet[i][j].svg(pixelsParCm) + '\n'
+                  else { code += '\t' + objet[i][j].svgml(pixelsParCm, amplitude) + '\n' }
+                }
+              } catch (error) { }
             }
-          } catch (error) { }// console.log('premiere boucle', error.message, objet[i], i) }
+          } else {
+            try {
+              if (objet[i].isVisible) {
+                if ((!mainlevee) || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
+                else { code += '\t' + objet[i].svgml(pixelsParCm, amplitude) + '\n' }
+              }
+            } catch (error) { }// console.log('premiere boucle', error.message, objet[i], i) }
+          }
         }
+      } else {
+        try {
+          if (objet.isVisible) {
+            if ((!mainlevee) || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
+            else { code += '\t' + objet.svgml(pixelsParCm, amplitude) + '\n' }
+          }
+        } catch (error) { console.log('le try tout seul', error.message, objet) }
       }
-      try {
-        if (objet.isVisible) {
-          if ((!mainlevee) || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
-          else { code += '\t' + objet.svgml(pixelsParCm, amplitude) + '\n' }
-        }
-      } catch (error) { console.log('le try tout seul', error.message, objet) }
     }
     code += '\n</svg>'
     code = code.replace(/\\thickspace/gm, ' ')
@@ -12555,14 +12557,14 @@ function Tableau ({
   // trait horizontal au milieu
   let x = A.x + largeurTitre
   // x est l'abscisse de la première séparation verticale
-  // Écrit le texte dans les colonnes
+  // Ecrit le texte dans les colonnes
   for (let i = 0; i < nbColonnes; i++) {
     objets.push(segment(point(x, A.y), point(x, C.y)))
     if (ligne1[i + 1]) objets.push(latexParCoordonnees(ligne1[i + 1], x + largeur / 2, A.y + 1.4 * hauteur))
     if (ligne2[i + 1]) objets.push(latexParCoordonnees(ligne2[i + 1], x + largeur / 2, A.y + 0.4 * hauteur))
     x += largeur
   }
-  // Écrit les titres
+  // Ecrit les titres
   if (ligne1[0]) {
     if (context.isHtml) {
       objets.push(latexParCoordonnees(ligne1[0], A.x + largeurTitre / 4, A.y + 1.4 * hauteur))

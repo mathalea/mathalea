@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombre, texFraction } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, choice, ecritureAlgebrique, texNombrec, texFraction } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
 export const titre = 'Donner la nature d’une suite (formule de récurrence)'
 export const interactifReady = true
@@ -280,35 +280,35 @@ export default function NatureSuiteRec () {
           u = randint(1, 10) * choice([-1, 1])
 
           if (this.interactif) {
-            texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} -${s}_{n}= ${texNombre(a)}${s}_n $.<br>
+            texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} -${s}_{n}= ${texNombrec(a)}${s}_n $.<br>
           Alors, $(${s}_n)$ est une suite ...`
             this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: `géométrique de raison $${texNombre(1 + a)}$`,
+                  texte: `géométrique de raison $${texNombrec(1 + a)}$`,
                   statut: true
                 },
                 {
-                  texte: `géométrique de raison $${texNombre(a)}$`,
+                  texte: `géométrique de raison $${texNombrec(a)}$`,
                   statut: false
                 },
                 {
-                  texte: `arithmétique de raison $${texNombre(a)}$`,
+                  texte: `arithmétique de raison $${texNombrec(a)}$`,
                   statut: false
                 }
               ]
             }
             texte += propositionsQcm(this, i).texte
           } else {
-            texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} -${s}_{n}= ${texNombre(a)}${s}_n $.<br>
+            texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} -${s}_{n}= ${texNombrec(a)}${s}_n $.<br>
           Quelle est la nature de cette suite ? Donner sa raison.`
           }
 
-          texteCorr = `$${s}_{n+1} -${s}_{n}= ${texNombre(a)}${s}_n$ s'écrit : $${s}_{n+1} = ${texNombre(a)}${s}_n+${s}_{n}=${texNombre(1 + a)}${s}_n$.<br>
-           La formule de récurrence est de la forme $${s}_{n+1}=q\\times ${s}_n$ avec $q=${texNombre(1 + a)}$.<br>
-        On en déduit que $(${s}_n)$ est une suite géométrique de raison $${texNombre(1 + a)}$ et de premier terme $${s}_0=${u}$.`
+          texteCorr = `$${s}_{n+1} -${s}_{n}= ${texNombrec(a)}${s}_n$ s'écrit : $${s}_{n+1} = ${texNombrec(a)}${s}_n+${s}_{n}=${texNombrec(1 + a)}${s}_n$.<br>
+           La formule de récurrence est de la forme $${s}_{n+1}=q\\times ${s}_n$ avec $q=${texNombrec(1 + a)}$.<br>
+        On en déduit que $(${s}_n)$ est une suite géométrique de raison $${texNombrec(1 + a)}$ et de premier terme $${s}_0=${u}$.`
 
           break
         case 8 :// suite géo avec raison fraction

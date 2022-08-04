@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone, texNombre, creerBoutonMathalea2d, nombreDeChiffresDansLaPartieEntiere, texteGras } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, texNombrec, creerNomDePolygone, texNombre, creerBoutonMathalea2d, nombreDeChiffresDansLaPartieEntiere, texteGras } from '../../modules/outils.js'
 import { point, pointSurSegment, pointAdistance, polygone, triangle2points2longueurs, homothetie, similitude, texteParPoint, longueur, angle, angleOriente, mathalea2d } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -95,7 +95,7 @@ export default function Thales2D () {
       }
       const marqueNomC = texteParPoint(nomC, c, 'milieu', 'black', 1, 'middle', true)
 
-      texte = `Sur la figure suivante, $${nomA + nomC}=${ac}~\\text{cm}$, $${nomA + nomB}=${ab}~\\text{cm}$, $${nomC + nomM}=${texNombre(Math.abs(k) * ac)}~\\text{cm}$, $${nomC + nomN}=${texNombre(Math.abs(k) * bc)}~\\text{cm}$ et $(${nomA + nomB})//(${nomM + nomN})$.<br>`
+      texte = `Sur la figure suivante, $${nomA + nomC}=${ac}~\\text{cm}$, $${nomA + nomB}=${ab}~\\text{cm}$, $${nomC + nomM}=${texNombrec(Math.abs(k) * ac)}~\\text{cm}$, $${nomC + nomN}=${texNombrec(Math.abs(k) * bc)}~\\text{cm}$ et $(${nomA + nomB})//(${nomM + nomN})$.<br>`
       if (!this.interactif) {
         texte += `Calculer $${nomM + nomN}$ et $${nomC + nomB}$.<br><br>`
       }
@@ -152,36 +152,36 @@ export default function Thales2D () {
         texteCorr += `$\\dfrac{${nomC + nomM}}{${nomC + nomA}}=\\dfrac{${nomC + nomN}}{${nomC + nomB}}=\\dfrac{${nomM + nomN}}{${nomA + nomB}}$`
       }
       texteCorr += '<br><br>'
-      texteCorr += `$\\dfrac{${texNombre(Math.abs(k) * ac)}}{${texNombre(ac)}}=\\dfrac{${texNombre(Math.abs(k) * bc)}}{${nomC + nomB}}=\\dfrac{${nomM + nomN}}{${texNombre(ab)}}$`
+      texteCorr += `$\\dfrac{${texNombrec(Math.abs(k) * ac)}}{${texNombre(ac)}}=\\dfrac{${texNombrec(Math.abs(k) * bc)}}{${nomC + nomB}}=\\dfrac{${nomM + nomN}}{${texNombre(ab)}}$`
       texteCorr += '<br><br>'
       if (this.correctionDetaillee) {
         texteCorr += texteGras(`Calcul de ${nomM + nomN} : `)
         texteCorr += '<br><br>'
-        texteCorr += `On utilise l'égalité $\\dfrac{${texNombre(Math.abs(k) * ac)}}{${texNombre(ac)}}=\\dfrac{${nomM + nomN}}{${texNombre(ab)}}$.`
+        texteCorr += `On utilise l'égalité $\\dfrac{${texNombrec(Math.abs(k) * ac)}}{${texNombre(ac)}}=\\dfrac{${nomM + nomN}}{${texNombre(ab)}}$.`
         texteCorr += '<br><br>'
         texteCorr += 'Les produits en croix sont égaux,'
         texteCorr += '<br><br>'
-        texteCorr += `donc $${texNombre(Math.abs(k) * ac)}\\times ${texNombre(ab)}=${nomM + nomN}\\times ${texNombre(ac)}$.`
+        texteCorr += `donc $${texNombrec(Math.abs(k) * ac)}\\times ${texNombre(ab)}=${nomM + nomN}\\times ${texNombre(ac)}$.`
         texteCorr += '<br><br>'
         texteCorr += `On divise les deux membres par $${texNombre(ac)}$.`
         texteCorr += '<br><br>'
       }
-      texteCorr += `$${nomM + nomN}=\\dfrac{${texNombre(Math.abs(k) * ac)}\\times${texNombre(ab)}}{${texNombre(ac)}}=${texNombre(Math.abs(k) * ab)}$ cm`
+      texteCorr += `$${nomM + nomN}=\\dfrac{${texNombrec(Math.abs(k) * ac)}\\times${texNombre(ab)}}{${texNombre(ac)}}=${texNombrec(Math.abs(k) * ab)}$ cm`
       reponse = Math.abs(k) * ab
       texteCorr += '<br><br>'
       if (this.correctionDetaillee) {
         texteCorr += texteGras(`Calcul de ${nomC + nomB} : `)
         texteCorr += '<br><br>'
-        texteCorr += `On utilise l'égalité $\\dfrac{${texNombre(Math.abs(k) * bc)}}{${nomC + nomB}}=\\dfrac{${texNombre(Math.abs(k) * ac)}}{${texNombre(ac)}}$.`
+        texteCorr += `On utilise l'égalité $\\dfrac{${texNombrec(Math.abs(k) * bc)}}{${nomC + nomB}}=\\dfrac{${texNombrec(Math.abs(k) * ac)}}{${texNombre(ac)}}$.`
         texteCorr += '<br><br>'
         texteCorr += 'Les produits en croix sont égaux,'
         texteCorr += '<br><br>'
-        texteCorr += `donc $${texNombre(Math.abs(k) * ac)}\\times ${nomC + nomB}=${texNombre(ac)}\\times ${texNombre(Math.abs(k) * bc)}$.`
+        texteCorr += `donc $${texNombrec(Math.abs(k) * ac)}\\times ${nomC + nomB}=${texNombre(ac)}\\times ${texNombrec(Math.abs(k) * bc)}$.`
         texteCorr += '<br><br>'
-        texteCorr += `On divise les deux membres par $${texNombre(Math.abs(k) * ac)}$.`
+        texteCorr += `On divise les deux membres par $${texNombrec(Math.abs(k) * ac)}$.`
         texteCorr += '<br><br>'
       }
-      texteCorr += `$${nomC + nomB}=\\dfrac{${texNombre(Math.abs(k) * bc)}\\times${texNombre(ac)}}{${texNombre(Math.abs(k) * ac)}}=${texNombre(bc)}$ cm`
+      texteCorr += `$${nomC + nomB}=\\dfrac{${texNombrec(Math.abs(k) * bc)}\\times${texNombre(ac)}}{${texNombrec(Math.abs(k) * ac)}}=${texNombrec(bc)}$ cm`
       reponse2 = bc
       if (context.isHtml) {
         texte += `<br><div style="display: inline-block;margin-top:20px;">${boutonAideMathalea2d}</div>`

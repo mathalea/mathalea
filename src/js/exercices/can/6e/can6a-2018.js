@@ -448,7 +448,7 @@ export default function SujetCAN20186ieme () {
           a = randint(0, 2)
           choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
-            texte = `Écris en chiffres : <br>
+            texte = `Ecris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille-${chiffre[a][0]} `
             reponse = 2 * 1000000 + chiffre[a][1] * 100000 + chiffre[a][1] * 1000 + chiffre[a][1]
             texteCorr = `Deux-millions-${chiffre[a][0]}-cent-${chiffre[a][0]}-mille-${chiffre[a][0]} $=
@@ -460,7 +460,7 @@ export default function SujetCAN20186ieme () {
           }
 
           if (choix === 'b') {
-            texte = `Écris en chiffres : <br>
+            texte = `Ecris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} `
             reponse = 2 * 1000000 + chiffre[a][1] * 1000 + chiffre[a][1]
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${texNombre(2 * 1000000 + chiffre[a][1] * 1000 + chiffre[a][1])}$. `
@@ -470,7 +470,7 @@ export default function SujetCAN20186ieme () {
           }
 
           if (choix === 'c') {
-            texte = `Écris en chiffres : <br>
+            texte = `Ecris en chiffres : <br>
               Deux-millions-${chiffre2[a][0]}-mille-${chiffre[a][0]} `
             reponse = 2 * 1000000 + chiffre2[a][1] * 1000 + chiffre[a][1]
             texteCorr = `Deux-millions-${chiffre2[a][0]}-mille-${chiffre[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre2[a][1] * 1000)} + ${texNombre(chiffre[a][1])}=${texNombre(2 * 1000000 + chiffre2[a][1] * 1000 + chiffre[a][1])}$. `
@@ -480,7 +480,7 @@ export default function SujetCAN20186ieme () {
           }
 
           if (choix === 'd') {
-            texte = `Écris en chiffres : <br>
+            texte = `Ecris en chiffres : <br>
               Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} `
             reponse = 2 * 1000000 + chiffre[a][1] * 1000 + chiffre2[a][1]
             texteCorr = `Deux-millions-${chiffre[a][0]}-mille-${chiffre2[a][0]} $=${texNombre(2 * 1000000)}  + ${texNombre(chiffre[a][1] * 1000)} + ${texNombre(chiffre2[a][1])}=${texNombre(2 * 1000000 + chiffre[a][1] * 1000 + chiffre2[a][1])}$. `

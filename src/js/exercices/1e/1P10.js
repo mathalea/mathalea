@@ -82,14 +82,14 @@ export default function ProbabilitésConditionnelles () {
           objets.push(latexParCoordonnees(texProba(v / 100, this.sup), 6.8, 2.7, 'black', 20, 20, 'white', 6))// proba de B sachant \\bar A
           objets.push(latexParCoordonnees(`P(A\\cap V)=${texProba(av / 100, this.sup)}`, 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B \\cap A
           /*  } else {
-            objets.push(latexParCoordonnees(texNombre(a / 100), 2.5, 4, 'black', 20, 12, 'white', 6))
-            objets.push(latexParCoordonnees(texNombre(1 - a / 100), 2.5, 2, 'black', 20, 12, 'white', 6))
-            // objets.push(latexParCoordonnees(texNombre(1 - v / 100), 6.8, 6.5, 'black', 20, 12, 'white', 6))
-            // objets.push(latexParCoordonnees(texNombre(v / 100), 6.8, 4.8, 'black', 20, 12, 'white', 6))
-            objets.push(latexParCoordonnees(texNombre((100 - v) / 100), 6.8, 0.7, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant \\bar A
-            objets.push(latexParCoordonnees(texNombre(v / 100), 6.8, 2.5, 'black', 20, 20, 'white', 6))// proba de B sachant \\bar A
+            objets.push(latexParCoordonnees(texNombrec(a / 100), 2.5, 4, 'black', 20, 12, 'white', 6))
+            objets.push(latexParCoordonnees(texNombrec(1 - a / 100), 2.5, 2, 'black', 20, 12, 'white', 6))
+            // objets.push(latexParCoordonnees(texNombrec(1 - v / 100), 6.8, 6.5, 'black', 20, 12, 'white', 6))
+            // objets.push(latexParCoordonnees(texNombrec(v / 100), 6.8, 4.8, 'black', 20, 12, 'white', 6))
+            objets.push(latexParCoordonnees(texNombrec((100 - v) / 100), 6.8, 0.7, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant \\bar A
+            objets.push(latexParCoordonnees(texNombrec(v / 100), 6.8, 2.5, 'black', 20, 20, 'white', 6))// proba de B sachant \\bar A
             objets.push(latexParCoordonnees('P(A\\cap V)=', 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
-            objets.push(latexParCoordonnees(texNombre(av / 100), 14.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
+            objets.push(latexParCoordonnees(texNombrec(av / 100), 14.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
           }
 */
           objets.push(latexParCoordonnees('V', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A
@@ -172,14 +172,14 @@ export default function ProbabilitésConditionnelles () {
           objets.push(latexParCoordonnees(texProba(ec / 100, this.sup), 6.8, 2.7, 'black', 20, 20, 'white', 6))// proba de E sachant \\bar C
           objets.push(latexParCoordonnees(`P(C\\cap E)=${texProba(ce / 100, this.sup)}`, 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de C \\cap E
           /*  } else {
-            objets.push(latexParCoordonnees(texNombre(a / 100), 2.5, 4, 'black', 20, 12, 'white', 6))
-            objets.push(latexParCoordonnees(texNombre(1 - a / 100), 2.5, 2, 'black', 20, 12, 'white', 6))
-            // objets.push(latexParCoordonnees(texNombre(1 - v / 100), 6.8, 6.5, 'black', 20, 12, 'white', 6))
-            // objets.push(latexParCoordonnees(texNombre(v / 100), 6.8, 4.8, 'black', 20, 12, 'white', 6))
-            objets.push(latexParCoordonnees(texNombre((100 - v) / 100), 6.8, 0.7, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant \\bar A
-            objets.push(latexParCoordonnees(texNombre(v / 100), 6.8, 2.5, 'black', 20, 20, 'white', 6))// proba de B sachant \\bar A
+            objets.push(latexParCoordonnees(texNombrec(a / 100), 2.5, 4, 'black', 20, 12, 'white', 6))
+            objets.push(latexParCoordonnees(texNombrec(1 - a / 100), 2.5, 2, 'black', 20, 12, 'white', 6))
+            // objets.push(latexParCoordonnees(texNombrec(1 - v / 100), 6.8, 6.5, 'black', 20, 12, 'white', 6))
+            // objets.push(latexParCoordonnees(texNombrec(v / 100), 6.8, 4.8, 'black', 20, 12, 'white', 6))
+            objets.push(latexParCoordonnees(texNombrec((100 - v) / 100), 6.8, 0.7, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant \\bar A
+            objets.push(latexParCoordonnees(texNombrec(v / 100), 6.8, 2.5, 'black', 20, 20, 'white', 6))// proba de B sachant \\bar A
             objets.push(latexParCoordonnees('P(A\\cap V)=', 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
-            objets.push(latexParCoordonnees(texNombre(av / 100), 14.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
+            objets.push(latexParCoordonnees(texNombrec(av / 100), 14.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B sachant \\bar A
           }
 */
           objets.push(latexParCoordonnees('E', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A

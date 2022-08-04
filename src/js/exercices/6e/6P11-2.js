@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, choice, randint, prenom, texPrix, texNombre, miseEnEvidence, texMasse, stringNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, choice, randint, prenom, texPrix, texNombre, texNombrec, miseEnEvidence, texMasse, stringNombre } from '../../modules/outils.js'
 import { mathalea2d, tableau } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -110,7 +110,7 @@ export const interactifType = 'mathLive'
             monTableau = tableau({
               largeurTitre: 10,
               ligne1: ['\\text{Nombre d\'objets}', np, ng],
-              ligne2: ['\\text{Volume des objets (en cm³)}', `${texNombre(pp)}`, `${miseEnEvidence(texNombre(pg))}`],
+              ligne2: ['\\text{Volume des objets (en cm³)}', `${texNombre(pp)}`, `${miseEnEvidence(texNombrec(pg))}`],
               flecheHaut: [[1, 2, `${miseEnEvidence('\\times' + cm)}`]]
             })
             setReponse(this, i, pg)

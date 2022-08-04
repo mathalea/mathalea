@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, combinaisonListes, troncature, calcul, texNombre, texPrix, carreParfait } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListes, troncature, calcul, texNombre, texNombrec, texPrix, carreParfait } from '../../modules/outils.js'
 export const titre = 'Calculer la racine carrée de (x² +/- y²)'
 
 /**
@@ -49,12 +49,12 @@ export default function CalculerUneExpressionLitteralePythagore () {
 
       texteCorr = `$\\begin{aligned}a^2 + b^2&
    = ${texNombre(a)} \\times ${texNombre(a)} + ${texNombre(b)} \\times ${texNombre(b)} 
-   \\\\&= ${texNombre(a * a)} + ${texNombre(b * b)} 
-   \\\\&= ${texNombre((a * a + b * b))}\\end{aligned}$`
-      texteCorr += `<br>$\\phantom{123456}\\sqrt{${texNombre(a * a + b * b)}}$`
+   \\\\&= ${texNombrec(a * a)} + ${texNombrec(b * b)} 
+   \\\\&= ${texNombrec((a * a + b * b))}\\end{aligned}$`
+      texteCorr += `<br>$\\phantom{123456}\\sqrt{${texNombrec(a * a + b * b)}}$`
 
       if (carreParfait(calcul(100 * s))) {
-        texteCorr += `$\\phantom{1}=\\phantom{1}${texNombre(racs)}$  (qui est la valeur exacte de $\\sqrt{${texNombre(a * a + b * b)}}$)`
+        texteCorr += `$\\phantom{1}=\\phantom{1}${texNombre(racs)}$  (qui est la valeur exacte de $\\sqrt{${texNombrec(a * a + b * b)}}$)`
       } else {
         if (1000 * miracs < 5) {
           texteCorr += `$\\phantom{1}≈\\phantom{1}${texPrix(troncature(racs, 2))}$`
@@ -65,12 +65,12 @@ export default function CalculerUneExpressionLitteralePythagore () {
 
       texteCorr += `<br><br>$\\begin{aligned}a^2 - b^2& 
   = ${texNombre(a)} \\times ${texNombre(a)} - ${texNombre(b)} \\times ${texNombre(b)} 
-  \\\\&= ${texNombre(a * a)} - ${texNombre(b * b)} 
-  \\\\&= ${texNombre(a * a - b * b)}\\end{aligned}$`
-      texteCorr += `<br>$\\phantom{123456}\\sqrt{${texNombre(a * a - b * b)}}$`
+  \\\\&= ${texNombrec(a * a)} - ${texNombrec(b * b)} 
+  \\\\&= ${texNombrec(a * a - b * b)}\\end{aligned}$`
+      texteCorr += `<br>$\\phantom{123456}\\sqrt{${texNombrec(a * a - b * b)}}$`
 
       if (carreParfait(calcul(100 * d))) {
-        texteCorr += `$\\phantom{1}=\\phantom{1}${texNombre(racd)}$  (qui est la valeur exacte de $\\sqrt{${texNombre(a * a - b * b)}}$)`
+        texteCorr += `$\\phantom{1}=\\phantom{1}${texNombre(racd)}$  (qui est la valeur exacte de $\\sqrt{${texNombrec(a * a - b * b)}}$)`
       } else {
         if (1000 * miracd < 5) {
           texteCorr += `$\\phantom{1}≈\\phantom{1}${texPrix(troncature(racd, 2))}$`

@@ -1,4 +1,4 @@
-import { calcul, choice, randint, texNombre, texteEnCouleur } from '../../../modules/outils.js'
+import { calcul, choice, randint, texNombre, texteEnCouleur, texNombrec } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer la valeur décimale d’une fraction'
 export const interactifReady = true
@@ -37,7 +37,7 @@ export default function ValeursDecimalesFractions () {
           this.correction = `$\\dfrac{${a}}{5}=${texNombre(this.reponse)}$`
           this.correction += texteEnCouleur(`
   <br> Mentalement : <br>
-   $\\dfrac{${a}}{5}=\\dfrac{5}{5}+\\dfrac{${a - 5}}{5}=1+${texNombre((a - 5) / 5)}=${texNombre(this.reponse)}$.`)
+   $\\dfrac{${a}}{5}=\\dfrac{5}{5}+\\dfrac{${a - 5}}{5}=1+${texNombrec((a - 5) / 5)}=${texNombre(this.reponse)}$.`)
         }
         break
       case 2:
@@ -55,14 +55,14 @@ export default function ValeursDecimalesFractions () {
           this.correction += texteEnCouleur(`
           <br> Mentalement : <br>
           $\\dfrac{${b}}{4}=\\dfrac{4}{4}+\\dfrac{${b - 4}}{4}=
-          1+${texNombre((b - 4) / 4)}=${texNombre(this.reponse)}$.`)
+          1+${texNombrec((b - 4) / 4)}=${texNombre(this.reponse)}$.`)
         }
         if (b === 9 || b === 11) {
           this.correction = `$\\dfrac{${b}}{4}=${texNombre(this.reponse)}$`
           this.correction += texteEnCouleur(`
           <br> Mentalement : <br>
           $\\dfrac{${b}}{4}=\\dfrac{8}{4}+\\dfrac{${b - 8}}{4}=
-          2+${texNombre((b - 8) / 4)}=${texNombre(this.reponse)}$.`)
+          2+${texNombrec((b - 8) / 4)}=${texNombre(this.reponse)}$.`)
         }
 
         break

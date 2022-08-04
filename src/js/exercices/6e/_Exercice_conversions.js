@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texFraction, texTexte, calcul, texNombre2 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, arrondi, texNombre, texNombrec, texFraction, texTexte, calcul, texNombre2 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { format, evaluate } from 'mathjs'
@@ -123,7 +123,7 @@ export default function ExerciceConversions (niveau = 1) {
           texNombre(prefixeMulti[k][1]) +
           texTexte(unite) +
           ' = ' +
-          texNombre(resultat) +
+          texNombrec(resultat) +
           texTexte(unite) +
           '$'
       } else if (div &&
@@ -195,7 +195,7 @@ export default function ExerciceConversions (niveau = 1) {
             texNombre(Math.pow(10, 3 * ecart)) +
             texTexte(unite) +
             ' = ' +
-            texNombre(resultat) +
+            texNombrec(resultat) +
             texTexte(unite) +
             '$'
         } else {

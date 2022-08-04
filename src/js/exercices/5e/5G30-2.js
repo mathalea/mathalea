@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, choice, rangeMinMax, contraindreValeur, compteOccurences, combinaisonListes } from '../../modules/outils.js'
+import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
 import { labelPoint, texteSurArc, homothetie, point, rotation, mathalea2d, fixeBordures, droite, translation, vecteur, arcPointPointAngle } from '../../modules/2d.js'
 import { pickRandom } from 'mathjs'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
@@ -63,16 +63,18 @@ export default function exercicesAnglesAIC () {
   Exercice.call(this)
   const formulaire = [
     '1 : Angles marqués alternes-internes ou correspondants ?',
-    '2 : Déterminer si des droites sont parallèles (angles marqués)',
+    '2 : Déterminer si des droites sont parallèles (angles marqués).',
     '3 : Calculer la mesure d\'un angle.',
-    '4 : Nommer un angle alterne-interne ou correspondant à un angle marqué',
-    '5 : Nommer un angle alterne-interne ou correspondant à un angle nommé',
-    '6 : Déterminer si des droites sont parallèles (utiliser les noms d\'angles)',
+    '4 : Nommer un angle alterne-interne ou correspondant à un angle marqué.',
+    '5 : Nommer un angle alterne-interne ou correspondant à un angle nommé.',
+    '6 : Déterminer si des droites sont parallèles (utiliser les noms d\'angles).',
     '7 : Calculer la mesure d\'un angle. (utiliser le nom des angles) ?',
     '8 : Mélange des questions'
   ]
-  this.nbQuestions = 7
-  this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n' + formulaire.join('\n')]
+  this.nbQuestions = 1
+  this.besoinFormulaireNumerique = [
+    'Type de question', 8, formulaire.join('\n')
+  ]
   this.consigne = ''
   this.nbCols = 0
   this.nbColsCorr = 0
@@ -82,29 +84,28 @@ export default function exercicesAnglesAIC () {
   this.correctionDetaillee = true
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
-  this.sup = 8
+  this.sup = 'all' // Type d'exercice
   this.nouvelleVersion = function (numeroExercice, dDebug = false) {
+    if (this.sup === 'all') this.nbQuestions = formulaire.length - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
-    let QuestionsDisponibles = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      QuestionsDisponibles = rangeMinMax(1, 7)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        QuestionsDisponibles[0] = contraindreValeur(1, 8, this.sup, 8)
-      } else {
-        QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(1, 8, parseInt(QuestionsDisponibles[i]), 8) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
-    if (compteOccurences(QuestionsDisponibles, 8) > 0) QuestionsDisponibles = rangeMinMax(1, 7) // Teste si l'utilisateur a choisi tout
-    QuestionsDisponibles = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
-    console.log(QuestionsDisponibles)
+    let nquestion = 0
     for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 100;) { // Boucle principale où i+1 correspond au numéro de la question
-      switch (QuestionsDisponibles[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+      if (this.sup === 'all') {
+        nquestion += 1
+      } else if (this.sup === 8) {
+        nquestion = choice([1, 2, 3, 4, 5, 6, 7])
+      } else {
+        nquestion = this.sup
+      }
+      if (dDebug) {
+        console.log(`
+          ********************************
+          Exercice ${i + 1} Case ${nquestion}
+          ********************************`)
+      }
+      switch (nquestion) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 1: {
           const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
           const objetsEnonceml = [] // Idem pour l'enoncé à main levée si besoin

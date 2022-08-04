@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, prenom, choice, texteEnCouleur, calcul, texNombre } from '../../../modules/outils.js'
+import { randint, prenom, choice, texteEnCouleur, calcul, texNombrec } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème avec la proportionnalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,7 +37,7 @@ export default function ProportionnaliteNotes () {
 
       this.question = `${prenom()} a obtenu $${n}$ sur $40$ à son devoir.<br>
         Quelle est sa note sur $20$ ?`
-      this.correction = `Sa note est de $${texNombre(n / 2)}$ sur $20$.`
+      this.correction = `Sa note est de $${texNombrec(n / 2)}$ sur $20$.`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
       Pour obtenir la note sur $20$, on divise la note sur $40$ par $2$. `)
       this.reponse = n / 2
@@ -48,7 +48,7 @@ export default function ProportionnaliteNotes () {
 
       this.question = `${prenom()} a obtenu $${n}$ sur $50$ à son devoir.<br>
         Quelle est sa note sur $20$ ?`
-      this.correction = `Sa note est de $${texNombre(n * 2 / 5)}$ sur $20$.`
+      this.correction = `Sa note est de $${texNombrec(n * 2 / 5)}$ sur $20$.`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Pour obtenir la note sur $20$, on multiplie sa note par $2$ (on obtient $${n * 2}$), puis on divise le résultat par $5$, soit  $${n * 2}\\div 5=${n * 2 / 5}$.<br>
         En multipliant par $2$, on obtient sa note sur $100$, puis en divisant par $5$, on la ramène sur $20$. `)
@@ -60,7 +60,7 @@ export default function ProportionnaliteNotes () {
 
       this.question = `${prenom()} a obtenu $${n}$ sur $60$ à son devoir.<br>
         Quelle est sa note sur $20$ ?`
-      this.correction = `Sa note est de $${texNombre(n / 3)}$ sur $20$.`
+      this.correction = `Sa note est de $${texNombrec(n / 3)}$ sur $20$.`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Pour obtenir la note sur $20$, on divise la note sur $60$ par $3$. `)
       this.reponse = n / 3
@@ -71,7 +71,7 @@ export default function ProportionnaliteNotes () {
 
       this.question = `${prenom()} a obtenu $${n}$ sur $80$ à son devoir.<br>
         Quelle est sa note sur $20$ ?`
-      this.correction = `Sa note est de $${texNombre(n / 4)}$ sur $20$.`
+      this.correction = `Sa note est de $${texNombrec(n / 4)}$ sur $20$.`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Pour obtenir la note sur $20$, on divise la note sur $80$ par $4$. `)
       this.reponse = n / 4
@@ -82,7 +82,7 @@ export default function ProportionnaliteNotes () {
 
       this.question = `${prenom()} a obtenu $${n}$ sur $100$ à son devoir.<br>
         Quelle est sa note sur $20$ ?`
-      this.correction = `Sa note est de $${texNombre(n / 5)}$ sur $20$.`
+      this.correction = `Sa note est de $${texNombrec(n / 5)}$ sur $20$.`
       this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Pour obtenir la note sur $20$, on divise la note sur $100$ par $5$. `)
       this.reponse = n / 5

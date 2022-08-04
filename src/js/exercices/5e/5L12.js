@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, rienSi1, calcul, lettreDepuisChiffre, texNombre } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, range1, combinaisonListes, rienSi1, calcul, texNombrec, lettreDepuisChiffre, texNombre } from '../../modules/outils.js'
 
 export const titre = 'Réduire une expression littérale'
 
@@ -61,11 +61,11 @@ export default function ReduireUneExpressionLitterale () {
           break
         case 4: // a+x+b+c+dx
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x=${texNombre(1 + d)}x+${texNombre(a + b + c)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x=${texNombrec(1 + d)}x+${texNombrec(a + b + c)}$`
           break
         case 5: // ax+y+bx+c+dy
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y=${texNombre(a + b)}x+${texNombre(1 + d)}y+${texNombre(c)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y=${texNombrec(a + b)}x+${texNombrec(1 + d)}y+${texNombre(c)}$`
           break
         case 6: // ax+b-cx
           if (c > a) {
@@ -75,7 +75,7 @@ export default function ReduireUneExpressionLitterale () {
             a++
           }
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}-${texNombre(c)}x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}-${texNombre(c)}x=${texNombre(a - c)}x+${texNombre(b)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}-${texNombre(c)}x=${texNombrec(a - c)}x+${texNombre(b)}$`
           break
         case 7: // ax-cx
           if (c > a) {

@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenuSansNumero, randint, arrondi, texNombre, texTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, arrondi, texNombrec, texNombre, texTexte } from '../../modules/outils.js'
 import { afficheLongueurSegment, codageAngleDroit, codageSegments, fixeBordures, mathalea2d, point, polygoneAvecNom, segment } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -82,18 +82,18 @@ export default function PerimetreOuAireDeFiguresComposees () {
       texteCorr += ` et d'un triangle rectangle dont les côtés de l'angle droit mesurent ${L2} cm et ${l1} cm.<br>`
       texteCorr += `$\\mathcal{P}_{1}=${L1 + L2}+${texNombre(
       DA
-    )}+${L1}+${l1}=${texNombre(L1 + L2 + DA + L1 + l1)}$ cm.<br>`
+    )}+${L1}+${l1}=${texNombrec(L1 + L2 + DA + L1 + l1)}$ cm.<br>`
       texteCorr += `$\\mathcal{A}_{1}=${L1}\\times${l1}+${L2}\\times${l1}\\div2=${L1 * l1
-      }+${texNombre((L2 * l1) / 2)}=${texNombre(L1 * l1 + (L2 * l1) / 2)}~${texTexte(
+      }+${texNombrec((L2 * l1) / 2)}=${texNombrec(L1 * l1 + (L2 * l1) / 2)}~${texTexte(
         ' cm'
       )}^2$.`
       texteCorr += '<br><br>'
       texteCorr += `La deuxième figure est un carré de côté ${c} cm auquel il faut enlever un triangle de ${c} cm de base et ${h} cm de hauteur.<br>`
       texteCorr += `$\\mathcal{P}_{2}=${c}+${c}+${c}+${texNombre(
       t1
-    )}+${texNombre(t2)}=${texNombre(3 * c + t1 + t2)}$ cm<br>`
+    )}+${texNombre(t2)}=${texNombrec(3 * c + t1 + t2)}$ cm<br>`
       texteCorr += `$\\mathcal{A}_{2}=${c}\\times${c}-${c}\\times${h}\\div2=${c * c
-      }-${texNombre((c * h) / 2)}=${texNombre(c ** 2 - (c * h) / 2)}~${texTexte(
+      }-${texNombrec((c * h) / 2)}=${texNombrec(c ** 2 - (c * h) / 2)}~${texTexte(
         ' cm'
       )}^2$.`
       if (context.isAmc) {

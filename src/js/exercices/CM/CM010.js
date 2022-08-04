@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, range1, combinaisonListes, texNombre, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, range1, combinaisonListes, texNombrec, texNombre, calcul } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const titre = 'Tiers'
 export const amcReady = true
@@ -64,10 +64,10 @@ export default function Tiers () {
         case 4: // a,b avec a et b divisibles par 3
           a = randint(2, 9)
           b = randint(2, 9)
-          texte = `$\\text{Le tiers de }${texNombre(a * 3 + (b * 3) / 100)}$`
-          texteCorr = `$\\text{Le tiers de }${texNombre(
+          texte = `$\\text{Le tiers de }${texNombrec(a * 3 + (b * 3) / 100)}$`
+          texteCorr = `$\\text{Le tiers de }${texNombrec(
             a * 3 + (b * 3) / 100
-          )} \\text{ est } ${texNombre(a + b / 100)}$`
+          )} \\text{ est } ${texNombrec(a + b / 100)}$`
           setReponse(this, i, calcul(a + b / 100))
           if (this.interactif) texte += ajouteChampTexte(this, i)
           break

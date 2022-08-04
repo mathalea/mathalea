@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, texNombre, combinaisonListesSansChangerOrdre, range1 } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calcul, texNombrec, texNombre, combinaisonListesSansChangerOrdre, range1 } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Course aux nombres CM2'
@@ -131,28 +131,28 @@ export default function CourseAuxNombresCM (numeroExercice) {
           a = calcul(randint(1, 5) + randint(1, 5) / 10)
           b = randint(1, 4)
           texte = `$${texNombre(a)}+${b}$`
-          texteCorr = `$${texNombre(a)}+${b}=${texNombre(a + b)}$`
+          texteCorr = `$${texNombre(a)}+${b}=${texNombrec(a + b)}$`
           setReponse(this, i, a + b, { formatInteractif: 'calcul' })
           break
         case 'q8': // Somme décimaux
           a = calcul(randint(1, 5) + randint(1, 5) / 10)
           b = calcul(randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100)
           texte = `$${texNombre(a)}+${texNombre(b)}$`
-          texteCorr = `$${texNombre(a)}+${texNombre(b)}=${texNombre(a + b)}$`
+          texteCorr = `$${texNombre(a)}+${texNombre(b)}=${texNombrec(a + b)}$`
           setReponse(this, i, calcul(a + b), { formatInteractif: 'calcul' })
           break
         case 'q9': // Différence décimaux
           a = calcul(randint(1, 5) + randint(1, 5) / 10)
           b = calcul(randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100)
-          texte = `$${texNombre(a + b)}-${texNombre(a)}$`
-          texteCorr = `$${texNombre(a + b)}-${texNombre(a)}=${texNombre(b)}$`
+          texte = `$${texNombrec(a + b)}-${texNombre(a)}$`
+          texteCorr = `$${texNombrec(a + b)}-${texNombre(a)}=${texNombre(b)}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
         case 'q10': // Différence décimaux avec retenue
           a = calcul(randint(1, 5) + randint(5, 9) / 10)
           b = calcul(randint(1, 4) + randint(5, 9) / 10)
-          texte = `$${texNombre(a + b)}-${texNombre(a)}$`
-          texteCorr = `$${texNombre(a + b)}-${texNombre(a)}=${texNombre(b)}$`
+          texte = `$${texNombrec(a + b)}-${texNombre(a)}$`
+          texteCorr = `$${texNombrec(a + b)}-${texNombre(a)}=${texNombre(b)}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
           break
       }

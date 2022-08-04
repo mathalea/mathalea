@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texPrix, modalUrl } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, choice, combinaisonListes, calcul, texNombrec, texPrix, modalUrl } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Coefficient multiplicateur d\'une variation en pourcentage'
@@ -60,13 +60,13 @@ export default function CoefficientEvolution () {
           reponse = calcul(1 - taux / 100)
           break
         case 'taux+':
-          coeff = texNombre(1 + taux / 100)
+          coeff = texNombrec(1 + taux / 100)
           texte = this.interactif ? `Multiplier par $${coeff}$ revient à faire...` : `Multiplier par $${coeff}$ revient à...`
           texteCorr = `Multiplier par $${coeff}$ revient à augmenter de $${taux}~\\%$ car $${coeff} = ${100 + taux}~\\% = 100~\\% + ${taux}~\\%$.`
           reponse = `+${taux}\\%`
           break
         case 'taux-':
-          coeff = texNombre(1 - taux / 100)
+          coeff = texNombrec(1 - taux / 100)
           texte = this.interactif ? `Multiplier par $${coeff}$ revient à faire...` : `Multiplier par $${coeff}$ revient à...`
           texteCorr = `Multiplier par $${coeff}$ revient à diminuer de $${taux}~\\%$ car $${coeff} = ${100 - taux}~\\% = 100~\\% - ${taux}~\\%$.`
           reponse = `-${taux}\\%`

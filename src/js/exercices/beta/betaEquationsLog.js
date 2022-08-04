@@ -50,7 +50,7 @@ export default function EquationAvecUnLogarithme () {
         case '2lnu=lnv': // Equation du type 2.ln(u) = ln(v)
           nbelt = 2 // 2 éléments u et v
           texte = `$2\\ln(${droites[0]})=\\ln(${droites[1]})$`
-          formule = '<br>Écrivons le côté gauche sous la forme $\\ln(a)$ en utilisant la propriété $n.\\ln(a)=\\ln(a^n)$ :'
+          formule = '<br>Ecrivons le côté gauche sous la forme $\\ln(a)$ en utilisant la propriété $n.\\ln(a)=\\ln(a^n)$ :'
           formule += `<br>$\\ln[(${droites[0]})^2]=\\ln(${droites[1]})$`
           formule += Txtsimplifier
           formule += `<br>$(${droites[0]})^2=${droites[1]}$`
@@ -61,7 +61,7 @@ export default function EquationAvecUnLogarithme () {
         case 'lnu+lnv=lnw': // Equation du type ln(u) + ln(v) = ln(w)
           nbelt = 3 // 3 éléments u, v et w
           texte = `$\\ln(${droites[0]})+\\ln(${droites[1]})=\\ln(${droites[2]})$`
-          formule = '<br>Écrivons le côté gauche sous la forme $\\ln(a)$ en utilisant la propriété $\\ln(u)+\\ln(v)=\\ln(uv)$ :'
+          formule = '<br>Ecrivons le côté gauche sous la forme $\\ln(a)$ en utilisant la propriété $\\ln(u)+\\ln(v)=\\ln(uv)$ :'
           formule += `<br>$\\ln[(${droites[0]})(${droites[1]})]=\\ln(${droites[2]})$`
           formule += Txtsimplifier
           formule += `<br>$(${droites[0]})(${droites[1]})=${droites[2]}$`
