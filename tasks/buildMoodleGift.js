@@ -1,45 +1,42 @@
-const fs = require("fs")
-const path = require('path')
-
-require = require('esm')(module) // permet d'importer des fichiers avec export default dans nodejs
-exercices = require("../src/js/modules/dictionnaireDesExercicesAleatoires.js").default
+import fs from 'fs'
+import path from 'path' // permet d'importer des fichiers avec export default dans nodejs
+import * as exercices from '../src/js/modules/dictionnaireDesExercicesAleatoires.js'
 
 const mathAleaURL = 'https://coopmaths.fr/' // ne pas oublier le / final
 
 const now = new Date()
 
 const date = {
-    // US: now.getFullYear() + '-' + (now.getMonth() + 1).toString().padStart(2, '0') + '-' + now.getDate().toString().padStart(2, '0'),
-    FR: now.getDate().toString().padStart(2, '0') + '/' + (now.getMonth() + 1).toString().padStart(2, '0') + '/' + now.getFullYear()
+  // US: now.getFullYear() + '-' + (now.getMonth() + 1).toString().padStart(2, '0') + '-' + now.getDate().toString().padStart(2, '0'),
+  FR: now.getDate().toString().padStart(2, '0') + '/' + (now.getMonth() + 1).toString().padStart(2, '0') + '/' + now.getFullYear()
 }
 
 let gift = `// Export de Mathalea pour Moodle au format GIFT
 // Créé le ${date.FR}`
 
 for (const [id, exercice] of Object.entries(exercices)) {
-    if(exercice?.interactifReady) {
-        try {
-            gift += exportExerciceAsGift(id, exercice)
-        } catch(e) {
-            console.error(`Erreur lors de l'export de l'exercice ${id} : ${e}`)
-        }
+  if (exercice?.interactifReady) {
+    try {
+      gift += exportExerciceAsGift(id, exercice)
+    } catch (e) {
+      console.error(`Erreur lors de l'export de l'exercice ${id} : ${e}`)
     }
+  }
 }
 
-
-const exportPath = path.resolve(__dirname, '..', 'src', 'assets', 'gift', `mathalea.gift.txt`) 
+const exportPath = path.resolve('.', 'src', 'assets', 'gift', 'mathalea.gift.txt')
 
 fs.writeFileSync(exportPath, gift)
 
-console.log(`Export de Mathalea pour Moodle au format GIFT terminé.`)
-console.log(`Le fichier est disponible dans le dossier assets/gift/mathalea.gift.txt`)
+console.log('Export de Mathalea pour Moodle au format GIFT terminé.')
+console.log('Le fichier est disponible dans le dossier assets/gift/mathalea.gift.txt')
 
-function exportExerciceAsGift(id, exercice) {
-    let c = s => s.replace(/[~=#{}:]/g, '\\$&'); // échappement des caratères spéciaux pour les GIFT
+function exportExerciceAsGift (id, exercice) {
+  const c = s => s.replace(/[~=#{}:]/g, '\\$&') // échappement des caratères spéciaux pour les GIFT
 
-    const categorie = 'Mathalea/' + exercice.url.match(/^\/exercices\/(.+)\/.+$/)[1]
-    const titre = `Mathalea - ${exercice.titre} (${exercice.name})`
-    return `
+  const categorie = 'Mathalea/' + exercice.url.match(/^\/exercices\/(.+)\/.+$/)[1]
+  const titre = `Mathalea - ${exercice.titre} (${exercice.name})`
+  return `
 
 $CATEGORY: ${categorie}
 
@@ -52,5 +49,5 @@ $CATEGORY: ${categorie}
     <mathalea-moodle ex\\="${c(id)}" correction />
 }`
 
-    // Remarque en vrac : Il est théoriquement possible que le titre et le nom du fichier soit différent
+  // Remarque en vrac : Il est théoriquement possible que le titre et le nom du fichier soit différent
 }
