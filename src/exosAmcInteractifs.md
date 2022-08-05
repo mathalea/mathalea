@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 472 
-- nombre d'exos interactifReady 718 
+- nombre d'exos amcReady 475 
+- nombre d'exos interactifReady 725 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -188,6 +188,7 @@
 |5A10|Écrire la liste de tous les diviseurs d'un entier|KO|KO|OK|mathLive|
 |5A11|Critères de divisibilité (plusieurs possibles)|OK|qcmMult|OK|qcm|
 |5A12-1|Primalité ou pas|OK|qcmMono|OK|qcm|
+|5A12-2|Déterminer si un nombre est premier|OK|qcmMono|OK|qcm|
 |5A13|Décomposition en facteurs premiers|KO|KO|OK|mathLive|
 |5C12-1|Traduire une phrase par une expression et la calculer|OK|AMCOpenNum|OK|mathLive|
 |5C12|Calculer une expression numérique en détaillant les calculs|OK|AMCOpenNum|OK|mathLive|
@@ -440,6 +441,7 @@
 |can1G05|Déterminer un produit scalaire avec les coordonnées|KO|KO|OK|mathLive|
 |can1G06|Déterminer un produit scalaire sur des figures géométriques classiques |KO|KO|OK|mathLive|
 |can1G07|Déterminer une coordonnée avec un produit scalaire|KO|KO|OK|mathLive|
+|can1G08|Déterminer un vecteur normal avec une équation cartésienne|KO|KO|OK|custom|
 |can1L01|Calculer un discriminant|OK|AMCNum|OK|mathLive|
 |can1L02|Déterminer le nombre de solutions d’une équation du second degré|KO|KO|OK|mathLive|
 |can1L03|Trouver les racines à partir d’une forme factorisée|KO|KO|OK|mathLive|
@@ -454,6 +456,8 @@
 |can1P03|Calculer la probabilité d’une intersection à partir d’un arbre|OK|AMCNum|OK|mathLive|
 |can1P05|Utiliser la formule des probabilités totales dans un arbre|OK|AMCNum|OK|mathLive|
 |can1P06|Déterminer une probabilté dans un tableau de probabilités|OK|AMCNum|OK|mathLive|
+|can1P07|Déterminer une probabilté dans un tableau d’effectifs|OK|AMCNum|OK|mathLive|
+|can1P08|Compléter le tableau d’une loi de probabilité d’une variable aléatoire|OK|AMCNum|OK|mathLive|
 |can1S01|Calculer un terme d’une suite explicite|KO|KO|OK|mathLive|
 |can1S02|Calculer un terme d’une suite récurrente|KO|KO|OK|mathLive|
 |can1S03|Calculer un terme d’une suite récurrente*|KO|KO|OK|mathLive|
@@ -465,6 +469,7 @@
 |can1S09|Déterminer une relation de récurrence|KO|KO|OK|mathLive|
 |can1S10|Trouver le sens de variation d’une suite (QCM)|KO|KO|OK|qcm|
 |can1S11|Donner le résultat d’un programme Python|KO|KO|OK|mathLive|
+|can1a-2022|CAN première sujet 2022|KO|KO|OK|mathLive|
 |can2C01|Trouver le nombre d’entiers entre deux valeurs|OK|AMCNum|OK|mathLive|
 |can2C02|Calculer une différence de deux carrés|OK|AMCNum|OK|mathLive|
 |can2C03|Calculer avec  des puissances|OK|AMCNum|OK|mathLive|
@@ -506,6 +511,7 @@
 |can2G14|Déterminer les coordonnées d'un point avec une translation|KO|KO|OK|mathLive|
 |can2G15|Déterminer le déterminant de deux vecteurs.|KO|KO|OK|mathLive|
 |can2G16|Trouver un coefficient de colinéarité (graphique)|OK|AMCHybride|OK|mathLive|
+|can2G17|Déterminer un vecteur directeur avec une équation cartésienne|KO|KO|OK|custom|
 |can2G18|Déterminer les coordonnées d’un vecteur à partir d’un graphique|KO|KO|OK|mathLive|
 |can2L01|Déterminer le nombre de solutions d’une équation se ramenant à $x^2=a$|OK|AMCNum|OK|mathLive|
 |can2L02|Calculer les coordonnées d’un point sur une droite|KO|KO|OK|mathLive|
@@ -520,6 +526,7 @@
 |can2P01|Calculer une probabilité|OK|AMCNum|OK|mathLive|
 |can2P02|Dénombrer dans une situation concrète|KO|KO|OK|mathLive|
 |can2a-2021|CAN Seconde sujet 2021|KO|KO|OK|mathLive|
+|can2a-2022|CAN seconde sujet 2022|KO|KO|OK|mathLive|
 |can3C01|Calculer avec des puissances|OK|AMCNum|OK|mathLive|
 |can3C02|Calculer une moyenne avec des décimaux|OK|AMCNum|OK|mathLive|
 |can3C03|Rendre irréductible une fraction|OK|AMCNum|OK|mathLive|
@@ -636,7 +643,7 @@
 |can5P06|Ecrire sous la forme d’un pourcentage|OK|AMCNum|OK|mathLive|
 |can5a-2021|CAN 5ième sujet 2021|KO|KO|OK|mathLive|
 |can5a-2022|CAN 5ième sujet 2022|KO|KO|OK|mathLive|
-|canPredef5-1|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
+|can5a-xxxx|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
 |can6C01|Trouver un ordre de grandeur (QCM)|OK|qcmMono|OK|qcm|
 |can6C02|Multiplier un nombre pair par 5|OK|AMCNum|OK|mathLive|
 |can6C03|Rechercher un terme dans une somme|OK|AMCNum|OK|mathLive|
@@ -716,7 +723,7 @@
 |can6a-2018|CAN 6ième sujet 2018|KO|KO|OK|mathLive|
 |can6a-2021|CAN 6ième sujet 2021|KO|KO|OK|mathLive|
 |can6a-2022|CAN 6ième sujet 2022|KO|KO|OK|mathLive|
-|canPredef6-3|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
+|can6a-xxxx|Course aux nombres fin de 6e|OK|AMCNum|OK|mathLive|
 |canExC01|Somme de nombres complexes|OK|AMCHybride|OK|mathLive|
 |canExC02|produit de nombres complexes|OK|AMCHybride|OK|mathLive|
 |canc3C01|Déterminer un nombre à partir d’une phrase|OK|AMCNum|OK|mathLive|

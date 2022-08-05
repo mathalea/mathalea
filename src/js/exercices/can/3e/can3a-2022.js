@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import {
   mathalea2d, point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
 } from '../../../modules/2d.js'

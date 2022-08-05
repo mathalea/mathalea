@@ -1,6 +1,6 @@
-import { GVPoint, GVPolygon, GVSegment, GVLine } from './elements'
-import { GVGrandeur } from './grandeurs'
-export function circularPermutation (arg: any[] | string, n: number = Math.random() * arg.length): any[] {
+import { GVPoint, GVPolygon, GVSegment, GVLine } from './elements.js'
+import { GVGrandeur } from './grandeurs.js'
+export function circularPermutation (arg /** string | any[] */, n/** number */ = Math.random() * arg.length)/** any[] */ {
   if (typeof arg === 'string') {
     arg = arg.split('')
   }
@@ -33,7 +33,7 @@ export function getDimensions (...figures) {
   * @param {number} x
   * @returns {number}
   */
-export function quotient (x: number, y: number): number {
+export function quotient (x/** number */, y/** number */)/** number */ {
   return x - x % y
 }
 export function name (s, ...p) {

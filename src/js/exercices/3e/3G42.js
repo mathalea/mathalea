@@ -4,7 +4,7 @@ import { mathalea2d } from '../../modules/2d.js'
 import { point3d, vecteur3d, sphere3d, cylindre3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

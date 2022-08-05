@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texteExposant, pgcd, fractionSimplifiee, texFractionReduite, texNombre, sp, katexPopup2, numAlpha } from '../../modules/outils.js'
 export const titre = 'Connaître les effets des agrandissements/réductions sur les aires et les volumes'

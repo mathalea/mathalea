@@ -4,7 +4,7 @@ import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMa
 import { repere, courbe, mathalea2d, texteParPosition } from '../../../modules/2d.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { calcule } from '../../../modules/fonctionsMaths.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 export const titre = 'Lire graphiquement les valeurs de $b$ et $c$ avec une parabole'
 export const interactifReady = true
 export const interactifType = 'mathLive'

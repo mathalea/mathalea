@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import { randint, choice, texNombre, texteCentre } from '../../../modules/outils.js'
 export const titre = 'Déterminer la fonction dérivée d’une fonction $k/x$ ou $k\\sqrt{x}$'
 export const interactifReady = true
