@@ -6,7 +6,7 @@
   "main": "mathalea.js",
   "scripts": {
     "build": "npm run build:prod",
-    "build:dicos": "node tasks/buildDicos.js",
+    "build:dicos": "node --es-module-specifier-resolution=node tasks/buildDicos.js",
     "build:doc": "node tasks/buildDoc.js",
     "build:gift": "node tasks/buildMoodleGift.js",
     "build:dev": "webpack --mode=development",
