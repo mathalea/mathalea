@@ -9447,36 +9447,48 @@ function Courbe (f, {
   // repere,
   color = 'black',
   epaisseur = 2,
-  xMin = repere.xMin,
-  xMax = repere.xMax,
-  yMin = repere.yMin,
-  yMax = repere.yMax,
+  step = false,
+  xMin,
+  xMax,
+  yMin,
+  yMax,
   xUnite = 1,
-  yUnite = 1,
-  step = 0.2 / repere.xUnite // booleen ou nombre ?
+  yUnite = 1
 } = {}) {
   ObjetMathalea2D.call(this)
   this.color = color
-  const xunite = repere.xUnite
-  const yunite = repere.yUnite
+  let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
+  if (typeof xMin === 'undefined') {
+    xmin = repere.xMin
+  } else xmin = xMin
+  if (typeof yMin === 'undefined') {
+    ymin = repere.yMin
+  } else ymin = yMin
+  if (typeof xMax === 'undefined') {
+    xmax = repere.xMax
+  } else xmax = xMax
+  if (typeof yMax === 'undefined') {
+    ymax = repere.yMax
+  } else ymax = yMax
 
-  // if (isNaN(xunite)) { xunite = xUnite };
-  // if (isNaN(yunite)) { yunite = yUnite };
+  xunite = repere.xUnite
+  yunite = repere.yUnite
+
+  if (isNaN(xunite)) { xunite = xUnite };
+  if (isNaN(yunite)) { yunite = yUnite };
   const objets = []
   let points = []
-  const pas = step
+  let pas
   let p
-  /* if (!step) {
-    pas = 0.2 / xunite
+  if (!step) {
+    pas = 0.2 / xUnite
   } else {
     pas = step
-  } */
-  // for (let x = xmin; inferieurouegal(x, xmax); x += pas
-  for (let x = xMin; inferieurouegal(x, xMax); x += pas
+  }
+  for (let x = xmin; inferieurouegal(x, xmax); x += pas
   ) {
     if (isFinite(f(x))) {
-      // if (f(x) < ymax + 1 && f(x) > ymin - 1) {
-      if (f(x) < yMax + 1 && f(x) > yMin - 1) {
+      if (f(x) < ymax + 1 && f(x) > ymin - 1) {
         points.push(point(x * xunite, f(x) * yunite))
       } else {
         p = polyline([...points], this.color)
@@ -11419,24 +11431,35 @@ export function mathalea2d (
     code = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
       }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
       } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" ${style ? `style="${style}"` : ''}>\n`
-    // code += codeSvg(...objets);
     for (const objet of objets) {
       if (Array.isArray(objet)) {
         for (let i = 0; i < objet.length; i++) {
-          try {
-            if (objet[i].isVisible) {
-              if ((!mainlevee) || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
-              else { code += '\t' + objet[i].svgml(pixelsParCm, amplitude) + '\n' }
+          if (Array.isArray(objet[i])) { // EE : Test nécessaire pour les cubes 3d
+            for (let j = 0; j < objet[i].length; j++) {
+              try {
+                if (objet[i][j].isVisible) {
+                  if ((!mainlevee) || typeof (objet[i][j].svgml) === 'undefined') code += '\t' + objet[i][j].svg(pixelsParCm) + '\n'
+                  else { code += '\t' + objet[i][j].svgml(pixelsParCm, amplitude) + '\n' }
+                }
+              } catch (error) { }
             }
-          } catch (error) { }// console.log('premiere boucle', error.message, objet[i], i) }
+          } else {
+            try {
+              if (objet[i].isVisible) {
+                if ((!mainlevee) || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
+                else { code += '\t' + objet[i].svgml(pixelsParCm, amplitude) + '\n' }
+              }
+            } catch (error) { }// console.log('premiere boucle', error.message, objet[i], i) }
+          }
         }
+      } else {
+        try {
+          if (objet.isVisible) {
+            if ((!mainlevee) || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
+            else { code += '\t' + objet.svgml(pixelsParCm, amplitude) + '\n' }
+          }
+        } catch (error) { console.log('le try tout seul', error.message, objet) }
       }
-      try {
-        if (objet.isVisible) {
-          if ((!mainlevee) || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
-          else { code += '\t' + objet.svgml(pixelsParCm, amplitude) + '\n' }
-        }
-      } catch (error) { console.log('le try tout seul', error.message, objet) }
     }
     code += '\n</svg>'
     code = code.replace(/\\thickspace/gm, ' ')
