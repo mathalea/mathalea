@@ -2851,7 +2851,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
   if (nb instanceof Decimal) {
     if (nb.abs().lt(1)) {
       nbChiffresPartieEntiere = 0
-      precision = Decimal.max(nb.log().ceil().add(precision), 0).toNumber()
+      precision = Decimal.max(nb.abs().log().ceil().add(precision), 0).toNumber()
     } else {
       nbChiffresPartieEntiere = nb.abs().toFixed(0).length
     }
@@ -2866,7 +2866,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
   } else {
     if (Math.abs(nb) < 1) {
       nbChiffresPartieEntiere = 0
-      precision = Math.max(0, Math.ceil(Math.log10(nb)) + precision)
+      precision = Math.max(0, Math.ceil(Math.log10(Math.abs(nb))) + precision)
     } else {
       nbChiffresPartieEntiere = Math.abs(nb).toFixed(0).length
     }
