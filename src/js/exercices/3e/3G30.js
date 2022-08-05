@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import { context } from '../../modules/context.js'
 import { homothetie, codageAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
-import { texFraction, quatriemeProportionnelle, texNombre, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, combinaisonListes } from '../../modules/outils.js'
+import { texFraction, quatriemeProportionnelle, texNombre, texteEnCouleurEtGras, listeQuestionsToContenu, randint, creerNomDePolygone, combinaisonListes, choice } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
@@ -52,6 +52,7 @@ export default function CalculDeLongueur () {
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0; i < this.nbQuestions; i++) {
+      const unite = choice(['m', 'cm', 'dm', 'mm'])
       if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
       const nom = creerNomDePolygone(3, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(nom)
@@ -68,43 +69,43 @@ export default function CalculDeLongueur () {
           bc = new Decimal(randint(10, 15))
           ab = Decimal.cos(angleABCr).mul(bc)
           ac = Decimal.sin(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.`
+          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ ${unite} près.`
           break
         case 'sinus':
           bc = new Decimal(randint(10, 15))
           ab = Decimal.cos(angleABCr).mul(bc)
           ac = Decimal.sin(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.`
+          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ ${unite} près.`
           break
         case 'tangente':
           ab = new Decimal(randint(7, 10))
           ac = Decimal.tan(angleABCr).mul(ab)
           bc = new Decimal(ab).div(Decimal.cos(angleABCr))
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ cm près.`
+          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texte += `Calculer $${nom[0] + nom[2]}$ à $0,1$ ${unite} près.`
           break
         case 'invCosinus':
           ab = new Decimal(randint(7, 10))
           bc = new Decimal(ab).div(Decimal.cos(angleABCr))
           ac = Decimal.sin(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.`
+          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ ${unite} près.`
           break
         case 'invSinus':
           ac = new Decimal(randint(7, 10))
           bc = new Decimal(ac).div(Decimal.sin(angleABCr))
           ab = Decimal.cos(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ cm près.`
+          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texte += `Calculer $${nom[1] + nom[2]}$ à $0,1$ ${unite} près.`
           break
         case 'invTangente':
           ac = new Decimal(randint(7, 10))
           bc = new Decimal(ac).div(Decimal.sin(angleABCr))
           ab = Decimal.cos(angleABCr).mul(bc)
-          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ cm et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
-          texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ cm près.`
+          texte += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texte += `Calculer $${nom[0] + nom[1]}$ à $0,1$ ${unite} près.`
           break
       }
 
@@ -142,37 +143,37 @@ export default function CalculDeLongueur () {
       let t1, t2, t3
       switch (listeTypeQuestions[i]) {
         case 'cosinus': // AB=BCxcos(B)
-          t3 = latexParPoint(`${bc} \\text{ cm}`, m3, 'black', 120, 12, '')
+          t3 = latexParPoint(`${bc} \\text{ ${unite}}`, m3, 'black', 120, 12, '')
           t2 = latexParPoint('?', m1, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t1 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 20, 12, '')
           break
         case 'sinus':
-          t3 = latexParPoint(`${bc} \\text{ cm}`, m3, 'black', 120, 12, '')
+          t3 = latexParPoint(`${bc} \\text{ ${unite}}`, m3, 'black', 120, 12, '')
           t2 = latexParPoint('?', m2, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t1 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
           break
         case 'tangente':
-          t1 = latexParPoint(`${ab} \\text{ cm}`, m1, 'black', 120, 12, '')
+          t1 = latexParPoint(`${ab} \\text{ ${unite}}`, m1, 'black', 120, 12, '')
           t2 = latexParPoint('?', m2, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t3 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
           break
         case 'invCosinus':
-          t1 = latexParPoint(`${ab} \\text{ cm}`, m1, 'black', 120, 12, '')
+          t1 = latexParPoint(`${ab} \\text{ ${unite}}`, m1, 'black', 120, 12, '')
           t3 = latexParPoint('?', m3, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t2 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
           break
         case 'invSinus':
-          t2 = latexParPoint(`${ac} \\text{ cm}`, m2, 'black', 120, 12, '')
+          t2 = latexParPoint(`${ac} \\text{ ${unite}}`, m2, 'black', 120, 12, '')
           t3 = latexParPoint('?', m3, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t1 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
           break
         case 'invTangente':
-          t2 = latexParPoint(`${ac} \\text{ cm}`, m2, 'black', 120, 12, '')
+          t2 = latexParPoint(`${ac} \\text{ ${unite}}`, m2, 'black', 120, 12, '')
           t1 = latexParPoint('?', m1, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
           t3 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
@@ -203,7 +204,7 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[1], bc)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\cos\\left(${angleABC}\\degree\\right)`)}$`
-          texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ cm.`
+          texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
           reponse = ab.toDP(1)
           break
         case 'sinus':
@@ -213,7 +214,7 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[2], bc)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\sin\\left(${angleABC}\\degree\\right)`)}$`
-          texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ cm.`
+          texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
           reponse = ac.toDP(1)
           break
         case 'tangente':
@@ -223,7 +224,7 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(nom[0] + nom[2], ab)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', ab, `\\tan\\left(${angleABC}\\degree\\right)`)}$`
-          texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ cm.`
+          texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
           reponse = ac.toDP(1)
           break
         case 'invCosinus':
@@ -233,7 +234,7 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ab, nom[1] + nom[2])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\cos\\left(${angleABC}\\degree\\right)`, ab, '\\color{red}{1}')}$`
-          texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ cm.`
+          texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
           reponse = bc.toDP(1)
           break
         case 'invSinus':
@@ -243,7 +244,7 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ac, nom[1] + nom[2])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\sin\\left(${angleABC}\\degree\\right)`, ac, '\\color{red}{1}')}$`
-          texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ cm.`
+          texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
           reponse = bc.toDP(1)
           break
         case 'invTangente':
@@ -253,7 +254,7 @@ export default function CalculDeLongueur () {
           texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${texFraction(ac, nom[0] + nom[1])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle(`\\tan\\left(${angleABC}\\degree\\right)`, ac, '\\color{red}{1}')}$`
-          texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ cm.`
+          texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
           reponse = ab.toDP(1)
           break
       }
@@ -288,7 +289,7 @@ export default function CalculDeLongueur () {
       }
       if (context.isHtml) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline longueur')
-        setReponse(this, i, new Grandeur(reponse, 'cm'), { formatInteractif: 'unites' })
+        setReponse(this, i, new Grandeur(reponse, unite), { formatInteractif: 'unites' })
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
