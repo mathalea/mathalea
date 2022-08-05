@@ -206,7 +206,7 @@ function cercleTrigo (angle, cosOrSin = 'cos') {
   const s1 = segment(I, I2)
   const s2 = segment(J, J2)
   const c = cercleCentrePoint(O, I)
-  const c2 = cercle(O, 1.2 * r)
+  const c2 = cercle(O, 5.7)
   c2.isVisible = false
   const M = pointSurCercle(c, monAngle)
   const M2 = pointSurCercle(c2, monAngle)
@@ -240,5 +240,5 @@ function cercleTrigo (angle, cosOrSin = 'cos') {
   } else {
     objetsTrigo.push(texteSinus, sSin, sMy)
   }
-  return mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1.5 }, c, texteAngle, marqueAngle, s1, s2, ...objetsTrigo, sOM, sOI)
+  return mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.8, ymax: r + 1.8 }, c, texteAngle, marqueAngle, s1, s2, ...objetsTrigo, sOM, sOI)
 }
