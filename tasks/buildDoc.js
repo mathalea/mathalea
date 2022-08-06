@@ -1,10 +1,10 @@
 // lance jsdoc sur tous les jsdoc/*.json existants
-import * as pkg from 'child_process'
-const path = require('path')
 const fs = require('fs')
-const execFile = pkg.execFile
-const jsDocDir = path.resolve('.', 'jsdoc')
-const jsDocBin = path.resolve('.', 'node_modules', '.bin', 'jsdoc')
+const path = require('path')
+const { execFile } = require('child_process')
+
+const jsDocDir = path.resolve(__dirname, '..', 'jsdoc')
+const jsDocBin = path.resolve(__dirname, '..', 'node_modules', '.bin', 'jsdoc')
 
 fs.readdirSync(jsDocDir).forEach(entry => {
   if (!/\.json/.test(entry)) return

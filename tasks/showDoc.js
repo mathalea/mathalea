@@ -1,8 +1,8 @@
 // affiche la doc dans un navigateur
 // cf https://github.com/webpack/webpack-dev-server/blob/master/examples/api/simple/server.js
-import webpack from 'webpack'
-import Server from 'webpack-dev-server/lib/Server.js'
 const path = require('path')
+const webpack = require('webpack')
+const Server = require('webpack-dev-server/lib/Server')
 const host = process.env.HOST || 'localhost'
 const port = process.env.PORT || 8081
 const ip = process.env.IP || '127.0.0.1'
