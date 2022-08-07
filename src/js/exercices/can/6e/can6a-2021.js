@@ -660,7 +660,7 @@ export default function SujetCAN2021Sixieme () {
           d = polygone([D, point(D.x, D.y + 1), point(11, D.y + 1), point(11, 5), point(1, 5), point(1, D.y)], 'black')
           d.epaisseur = 2
           d.couleurDeRemplissage = colorToLatexOrHTML('white')
-          d.couleurDesHachures = 'gray'
+          d.couleurDesHachures = colorToLatexOrHTML('gray')
           d.distanceDesHachures = 4
           d.hachures = 'north east lines'
 

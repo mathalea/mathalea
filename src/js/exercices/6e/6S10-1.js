@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { premiereLettreEnMajuscule, texcolors, combinaisonListes, choice, randint, listeQuestionsToContenu, numAlpha, calcul } from '../../modules/outils.js'
-import { traceGraphiqueCartesien, segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere, traceBarre, cercleCentrePoint } from '../../modules/2d.js'
+import { traceGraphiqueCartesien, segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere, traceBarre, cercleCentrePoint, colorToLatexOrHTML } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { context } from '../../modules/context.js'
 
@@ -109,7 +109,7 @@ export default function LireUnDiagramme () {
             a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
             hachures = motifs(listeMotifs[i])
             a.hachures = hachures
-            a.couleurDeRemplissage = texcolors(i + 1)
+            a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 1))
             a.couleurDesHachures = a.couleurDeRemplissage
             objets.push(a)
             alpha += angle
@@ -139,7 +139,7 @@ export default function LireUnDiagramme () {
             a = arc(rotation(B, A, alpha), A, angle, true, texcolors(i + 1), 'black', 0.7)
             hachures = motifs(listeMotifs[i])
             a.hachures = hachures
-            a.couleurDeRemplissage = texcolors(i + 1)
+            a.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i + 1))
             a.couleurDesHachures = a.couleurDeRemplissage
             objets.push(a)
             alpha += angle

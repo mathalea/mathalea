@@ -308,9 +308,9 @@ export default function SerieDeTransformations () {
       }
 
       polys[0].opaciteDeRemplissage = 0.7
-      polys[0].couleurDeRemplissage = texcolors(11)
+      polys[0].couleurDeRemplissage = colorToLatexOrHTML(texcolors(11))
       polys[28].opaciteDeRemplissage = 0.7
-      polys[28].couleurDeRemplissage = texcolors(11 + (chemin.length - 1))
+      polys[28].couleurDeRemplissage = colorToLatexOrHTML(texcolors(11 + (chemin.length - 1)))
       objetsEnonce.push(...polys)
       objetsEnonce.push(...maGrille)
 
@@ -333,8 +333,8 @@ export default function SerieDeTransformations () {
       }
       for (let k = 1, figure; k < chemin.length - 1; k++) {
         figure = translation(polys[chemin[k]], vecteur(0, 0))
-        figure.color = texcolors(k + 11)
-        figure.couleurDeRemplissage = texcolors(k + 11)
+        figure.color = colorToLatexOrHTML(texcolors(k + 11))
+        figure.couleurDeRemplissage = colorToLatexOrHTML(texcolors(k + 11))
         figure.opaciteDeRemplissage = 0.6
         objetsCorrection.push(figure)
       }

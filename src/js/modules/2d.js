@@ -2478,7 +2478,7 @@ function Polygone (...points) {
     }
     this.listePoints = points
     this.nom = this.listePoints.join()
-    this.couleurDeRemplissage = 'none'
+    this.couleurDeRemplissage = colorToLatexOrHTML('none')
     this.hachures = false
   }
   let xmin = 1000
@@ -3432,7 +3432,7 @@ function Ellipse (O, rx, ry, color = 'black') {
   this.centre = O
   this.rx = rx
   this.ry = ry
-  this.couleurDeRemplissage = ''
+  this.couleurDeRemplissage = colorToLatexOrHTML('none')
   this.opaciteDeRemplissage = 1
   this.bordures = [O.x - rx, O.y - ry, O.x + rx, O.y + ry]
   this.svg = function (coeff) {
@@ -4132,7 +4132,7 @@ function SemiEllipse ({ centre, Rx, Ry, hemisphere = 'nord', pointilles = false,
 
       if (this.hachures) {
         if (this.couleurDeRemplissage.length < 1) {
-          this.couleurDeRemplissage = 'none'
+          this.couleurDeRemplissage = colorToLatexOrHTML('none')
         }
 
         return pattern({

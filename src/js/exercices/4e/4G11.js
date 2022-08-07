@@ -189,20 +189,20 @@ export default function PavageEtTranslation2d () {
         A = monpavage.barycentres[couples[i][0] - 1]
         B = monpavage.barycentres[couples[i][1] - 1]
         d = v.representant(A, B)
-        d.color = texcolors(i)
+        d.color = colorToLatexOrHTML(texcolors(i))
         t = this.nbQuestions * 3
         P1 = monpavage.polygones[couples[i][0] - 1]
-        P1.color = texcolors(i)
-        P1.couleurDeRemplissage = texcolors(i)
+        P1.color = colorToLatexOrHTML(texcolors(i))
+        P1.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
         P1.opaciteDeRemplissage = 0.5
         P1.epaisseur = 2
         P2 = monpavage.polygones[couples[i][1] - 1]
-        P2.color = texcolors(i)
-        P2.couleurDeRemplissage = texcolors(i)
+        P2.color = colorToLatexOrHTML(texcolors(i))
+        P2.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
         P2.opaciteDeRemplissage = 0.5
         P2.epaisseur = 2
         P3 = translationAnimee(P1, v, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
-        P3.color = texcolors(i)
+        P3.color = colorToLatexOrHTML(texcolors(i))
         P3.epaisseur = 2
         objetsCorrection.push(tracePoint(A, B), d, codageSegment(A, B, '//', texcolors(i)), P1, P2, P3)
       }

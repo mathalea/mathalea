@@ -2,7 +2,7 @@
 import Exercice from '../../Exercice.js'
 import { context } from '../../../modules/context.js'
 import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, stringNombre } from '../../../modules/outils.js'
-import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, baisseCrayon, allerA, point, texteParPositionEchelle, tracePoint } from '../../../modules/2d.js'
+import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, baisseCrayon, allerA, point, texteParPositionEchelle, tracePoint, colorToLatexOrHTML } from '../../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../../modules/noteLaCouleur.js'
 export const titre = 'Noter la couleur (scratch)'
 
@@ -87,7 +87,7 @@ export default function CanNoteLaCouleur6 () {
         ydepart = 10 + randint(1, 4) * 20
 
         pion = noteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif, nx: 6, ny: 5, pas: 20 })
-        lutin.color = context.isHtml ? 'green' : 'black'
+        lutin.color = context.isHtml ? colorToLatexOrHTML('green') : colorToLatexOrHTML('black')
         lutin.epaisseur = 2
         lutin.pointilles = 2
         allerA(xdepart, ydepart, lutin)
