@@ -1,6 +1,9 @@
-import fs from 'fs'
-import path from 'path' // permet d'importer des fichiers avec export default dans nodejs
-import * as exercices from '../src/js/modules/dictionnaireDesExercicesAleatoires.js'
+// permet d'importer des fichiers avec export default dans nodejs
+const path = require('path')
+const fs = require('fs')
+const requireImport = require('esm')(module) // permet d'importer des fichiers avec export default dans nodejs
+
+const exercices = requireImport('../src/js/modules/dictionnaireDesExercicesAleatoires.js').default
 
 const mathAleaURL = 'https://coopmaths.fr/' // ne pas oublier le / final
 
