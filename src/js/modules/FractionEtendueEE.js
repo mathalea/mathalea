@@ -1,5 +1,5 @@
 import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul } from './outils.js'
-import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
+import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition, colorToLatexOrHTML } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, pow, min } from 'mathjs'
 import { fraction } from './fractions.js'
 
@@ -746,7 +746,7 @@ export default class FractionX extends Fraction {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
             dep = carre(O, C)
-            dep.color = 'black'
+            dep.color = colorToLatexOrHTML('black')
             dep.couleurDeRemplissage = couleur
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
@@ -760,7 +760,7 @@ export default class FractionX extends Fraction {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
             dep = carre(O, C)
-            dep.color = 'black'
+            dep.color = colorToLatexOrHTML('black')
             objets.push(dep)
           }
         }
@@ -768,7 +768,7 @@ export default class FractionX extends Fraction {
           O = point(x + k * (rayon + 1) + (i % diviseur) * rayon / diviseur, y + quotientier(i, diviseur) * rayon / diviseur)
           C = translation(O, vecteur(rayon / diviseur, 0))
           dep = carre(O, C)
-          dep.color = 'black'
+          dep.color = colorToLatexOrHTML('black')
           dep.couleurDeRemplissage = couleur
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)
@@ -897,7 +897,7 @@ export default class FractionX extends Fraction {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
             dep = carre(O, C)
-            dep.color = 'black'
+            dep.color = colorToLatexOrHTML('black')
             dep.couleurDeRemplissage = couleur
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
@@ -911,7 +911,7 @@ export default class FractionX extends Fraction {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
             dep = carre(O, C)
-            dep.color = 'black'
+            dep.color = colorToLatexOrHTML('black')
             objets.push(dep)
           }
         }
@@ -919,7 +919,7 @@ export default class FractionX extends Fraction {
           O = point(x + k * (rayon + 1) + (i % diviseur) * rayon / diviseur, y + quotientier(i, diviseur) * rayon / diviseur)
           C = translation(O, vecteur(rayon / diviseur, 0))
           dep = carre(O, C)
-          dep.color = 'black'
+          dep.color = colorToLatexOrHTML('black')
           dep.couleurDeRemplissage = couleur
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)

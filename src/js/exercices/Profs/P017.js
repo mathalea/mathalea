@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { arrondi, listeQuestionsToContenu, sp, texNombre, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { cercle, droite, longueur, mathalea2d, point, polygone, symetrieAxiale, translation, vecteur } from '../../modules/2d.js'
+import { cercle, colorToLatexOrHTML, droite, longueur, mathalea2d, point, polygone, symetrieAxiale, translation, vecteur } from '../../modules/2d.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Encadrer l\'aire d\'un disque'
@@ -69,20 +69,20 @@ export default function encadrerAireDisque () {
           D = translation(centre, vecteur(abscisse1.num / abscisse1.den, ordonnee2.num / ordonnee2.den))
           Kre = polygone([A, B, C, D], 'green')
           Kre2 = symetrieAxiale(Kre, droite(centre, point(centre.x, centre.y + 1)))
-          Kre.couleurDeRemplissage = 'green'
+          Kre.couleurDeRemplissage = colorToLatexOrHTML('green')
           Kre.opaciteDeRemplissage = 0.5
-          Kre2.color = 'green'
-          Kre2.couleurDeRemplissage = 'green'
+          Kre2.color = colorToLatexOrHTML('green')
+          Kre2.couleurDeRemplissage = colorToLatexOrHTML('green')
           Kre2.opaciteDeRemplissage = 0.5
           objets.push(Kre, Kre2)
           Kre = symetrieAxiale(Kre, droite(centre, point(centre.x + 1, centre.y)))
           Kre2 = symetrieAxiale(Kre2, droite(centre, point(centre.x + 1, centre.y)))
           compteurExterieur = compteurExterieur + 4
-          Kre.color = 'green'
-          Kre.couleurDeRemplissage = 'green'
+          Kre.color = colorToLatexOrHTML('green')
+          Kre.couleurDeRemplissage = colorToLatexOrHTML('green')
           Kre.opaciteDeRemplissage = 0.5
-          Kre2.color = 'green'
-          Kre2.couleurDeRemplissage = 'green'
+          Kre2.color = colorToLatexOrHTML('green')
+          Kre2.couleurDeRemplissage = colorToLatexOrHTML('green')
           Kre2.opaciteDeRemplissage = 0.5
           objets.push(Kre, Kre2)
           ordonnee1 = ordonnee2
@@ -112,20 +112,20 @@ export default function encadrerAireDisque () {
         while (longueur(centre, B) <= rayon && longueur(centre, C) <= rayon && longueur(centre, D) <= rayon) {
           Kre = polygone([A, B, C, D], 'blue')
           Kre2 = symetrieAxiale(Kre, droite(centre, point(centre.x, centre.y + 1)))
-          Kre.couleurDeRemplissage = 'blue'
+          Kre.couleurDeRemplissage = colorToLatexOrHTML('blue')
           Kre.opaciteDeRemplissage = 0.5
-          Kre2.color = 'blue'
-          Kre2.couleurDeRemplissage = 'blue'
+          Kre2.color = colorToLatexOrHTML('blue')
+          Kre2.couleurDeRemplissage = colorToLatexOrHTML('blue')
           Kre2.opaciteDeRemplissage = 0.5
           objets.push(Kre, Kre2)
           Kre = symetrieAxiale(Kre, droite(centre, point(centre.x + 1, centre.y)))
           Kre2 = symetrieAxiale(Kre2, droite(centre, point(centre.x + 1, centre.y)))
           compteurInterieur = compteurInterieur + 4
-          Kre.color = 'blue'
-          Kre.couleurDeRemplissage = 'blue'
+          Kre.color = colorToLatexOrHTML('blue')
+          Kre.couleurDeRemplissage = colorToLatexOrHTML('blue')
           Kre.opaciteDeRemplissage = 0.5
-          Kre2.color = 'blue'
-          Kre2.couleurDeRemplissage = 'blue'
+          Kre2.color = colorToLatexOrHTML('blue')
+          Kre2.couleurDeRemplissage = colorToLatexOrHTML('blue')
           Kre2.opaciteDeRemplissage = 0.5
           objets.push(Kre, Kre2)
           ordonnee1 = ordonnee2

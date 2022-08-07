@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes, centrage, texteEnCouleur, contraindreValeur, enleveElement, compteOccurences, miseEnEvidence, calcul } from '../../modules/outils.js'
-import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
+import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle, colorToLatexOrHTML } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -298,12 +298,12 @@ export default function SerieDeTransformations () {
         for (let y = 0, numero; y < 5; y++) {
           numero = texteParPointEchelle(Number(x * 6 + y).toString(), point(x * 3.2 + 1.6, y * 3.2 + 1.6), 'milieu', context.isHtml ? 'yellow' : 'black', 1.2, 'middle', true, 0.4)
           numero.contour = context.isHtml
-          numero.couleurDeRemplissage = 'black'
+          numero.couleurDeRemplissage = colorToLatexOrHTML('black')
           numero.opacite = context.isHtml ? 0.5 : 1
           numero.opaciteDeRemplissage = 1
           maGrille.push(numero)
           polys[x * 6 + y].opacite = 0.7
-          polys[x * 6 + y].color = 'blue'
+          polys[x * 6 + y].color = colorToLatexOrHTML('blue')
         }
       }
 
@@ -318,7 +318,7 @@ export default function SerieDeTransformations () {
         for (let y = 0, label; y < 6; y++) {
           label = texteParPointEchelle(noeuds[x * 6 + y].nom, translation(noeuds[x * 6 + y], vecteur(0.3, 0.3)), 'milieu', context.isHtml ? 'red' : 'black', 1.2, 'middle', true, 0.4)
           label.contour = context.isHtml
-          label.couleurDeRemplissage = 'black'
+          label.couleurDeRemplissage = colorToLatexOrHTML('black')
           label.opacite = context.isHtml ? 0.8 : 1
           label.opaciteDeRemplissage = 1
           objetsEnonce.push(label)

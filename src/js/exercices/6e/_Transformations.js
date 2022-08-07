@@ -1,4 +1,4 @@
-import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, segment, vecteur, latexParCoordonnees, codeSegments, afficheMesureAngle, milieu, translation, texteParPositionEchelle, labelLatexPoint, colorToLatexOrHTML } from '../../modules/2d.js'
+import { mathalea2d, point, droiteParPointEtPente, droiteHorizontaleParPoint, droiteVerticaleParPoint, tracePoint, segment, vecteur, latexParCoordonnees, afficheMesureAngle, milieu, translation, texteParPositionEchelle, labelLatexPoint, colorToLatexOrHTML, codageSegments } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, numAlpha, rangeMinMax, contraindreValeur, lettreDepuisChiffre, enleveElementNo, enleveElementBis, compteOccurences, arrondi, egal } from '../../modules/outils.js'
@@ -79,7 +79,7 @@ export default function Transformations () {
       for (let j = 0; j < 10; j++) {
         croix = tracePoint(point(j - 4, i - 4), 'gray')
         croix.taille = 2
-        // croix.color = 'gray'
+        // croix.color = colorToLatexOrHTML('gray')
         croix.style = 'x'
         croix.opacite = 1
         objetsEnonce.push(croix)
@@ -181,7 +181,7 @@ export default function Transformations () {
       traceAnt.opacite = 1
       traceIm.opacite = 1
       traceIm.epaisseur = 2
-      traceIm.color = 'orange'
+      traceIm.color = colorToLatexOrHTML('orange')
       traceO = tracePoint(O)
       traceO.epaisseur = 2
       traceO.opacite = 1

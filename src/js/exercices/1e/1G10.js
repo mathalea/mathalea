@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, shuffle } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { cercle, cercleCentrePoint, codageAngle, latexParPoint, mathalea2d, point, pointSurCercle, segment } from '../../modules/2d.js'
+import { cercle, cercleCentrePoint, codageAngle, colorToLatexOrHTML, latexParPoint, mathalea2d, point, pointSurCercle, segment } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Valeurs remarquables du cosinus et sinus'
 export const interactifReady = true
@@ -213,9 +213,9 @@ function cercleTrigo (angle, cosOrSin = 'cos') {
   const sOM = segment(O, M)
   const sOI = segment(O, I)
   sOM.epaisseur = 3
-  sOM.color = 'blue'
+  sOM.color = colorToLatexOrHTML('blue')
   sOI.epaisseur = 3
-  sOI.color = 'blue'
+  sOI.color = colorToLatexOrHTML('blue')
   const x = point(M.x, 0)
   const y = point(0, M.y)
   const sMx = segment(M, x)
@@ -232,7 +232,7 @@ function cercleTrigo (angle, cosOrSin = 'cos') {
   sCos.epaisseur = 3
   sSin.epaisseur = 3
   const marqueAngle = codageAngle(I, O, M)
-  marqueAngle.color = 'blue'
+  marqueAngle.color = colorToLatexOrHTML('blue')
   marqueAngle.epaisseur = 3
   const objetsTrigo = []
   if (cosOrSin === 'cos') {

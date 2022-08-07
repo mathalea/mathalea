@@ -313,7 +313,7 @@ function TracePoint (...points) {
   if (typeof points[points.length - 1] === 'string') {
     this.color = points[points.length - 1]
     points.length--
-  } else this.color = 'black'
+  } else this.color = colorToLatexOrHTML('black')
   for (const unPoint of points) {
     if (unPoint.typeObjet !== 'point3d' && unPoint.typeObjet !== 'point') window.notify('TracePoint : argument invalide', { ...points })
     lePoint = unPoint.typeObjet === 'point' ? unPoint : unPoint.c2d
@@ -8248,7 +8248,7 @@ function TableauDeVariation ({ tabInit, tabLines, lgt, escpl, deltacl, colors, h
                         point(this.lgt + this.deltacl + this.escpl / 2 * (k), yLine),
                         point(this.lgt + this.deltacl + this.escpl / 2 * (k), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 15),
                         point(this.lgt + this.deltacl + this.escpl / 2 * (k - 1), yLine - tabInit0[i][1] * this.hauteurLignes[i] / 15))
-                      p.couleurDeRemplissage = 'gray'
+                      p.couleurDeRemplissage = colorToLatexOrHTML('gray')
                       segments.push(p)
                       break
                     case '+':
@@ -10024,20 +10024,21 @@ function convertHexToRGB (couleur = '000000') {
 }
 
 /**
- * colorToLatexOrHTML prend en paramètre une couleur sous forme prédéfinie ('red','yellow',...) ou sous forme HTML en hexadécimal (avec #, genre '#f15929')
+ * ColorToLatexOrHTML prend en paramètre une couleur sous forme prédéfinie ('red','yellow',...) ou sous forme HTML en hexadécimal (avec #, genre '#f15929')
  * La sortie de cette fonction est un tableau où :
  * - le premier élément est cette couleur exploitable en SVG, donc en HTML.
  * - le second élément est cette couleur exploitable en TikZ, donc en Latex.
  * @param {string} couleur Une couleur du type 'blue' ou du type '#f15929'
- * @example colorToLatexOrHTML('red')=['red','{red}']
- * @example colorToLatexOrHTML('#f15929')=['#f15929','{rgb,255:red,241;green,89;blue,41}']
- * @example colorToLatexOrHTML('')=''
- * @example colorToLatexOrHTML('none')=['none','none']
+ * @example ColorToLatexOrHTML('red')=['red','{red}']
+ * @example ColorToLatexOrHTML('#f15929')=['#f15929','{rgb,255:red,241;green,89;blue,41}']
+ * @example ColorToLatexOrHTML('')=''
+ * @example ColorToLatexOrHTML('none')=['none','none']
  * @author Eric Elter
  * @return {string[]}
+ * @private
  */
 // JSDOC Validee EE Juin 2022
-export function colorToLatexOrHTML (couleur) {
+function ColorToLatexOrHTML (couleur) {
   const tabCouleur = []
   let rgb = []
   if (Array.isArray(couleur)) return couleur // Si jamais une fonction rappelle une couleur qui aurait déjà été transformée par cette même fonction
@@ -10054,6 +10055,25 @@ export function colorToLatexOrHTML (couleur) {
     return tabCouleur
   }
 }
+
+/**
+ * colorToLatexOrHTML prend en paramètre une couleur sous forme prédéfinie ('red','yellow',...) ou sous forme HTML en hexadécimal (avec #, genre '#f15929')
+ * La sortie de cette fonction est un tableau où :
+ * - le premier élément est cette couleur exploitable en SVG, donc en HTML.
+ * - le second élément est cette couleur exploitable en TikZ, donc en Latex.
+ * @param {string} couleur Une couleur du type 'blue' ou du type '#f15929'
+ * @example colorToLatexOrHTML('red')=['red','{red}']
+ * @example colorToLatexOrHTML('#f15929')=['#f15929','{rgb,255:red,241;green,89;blue,41}']
+ * @example colorToLatexOrHTML('')=''
+ * @example colorToLatexOrHTML('none')=['none','none']
+ * @author Eric Elter
+ * @return {string[]}
+ */
+// JSDOC Validee EE Juin 2022
+export function colorToLatexOrHTML (couleur) {
+  return new ColorToLatexOrHTML(couleur)
+}
+
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% LES TEXTES %%%%%%%%%%%%%%%
@@ -10644,7 +10664,7 @@ function ObjetLutin () {
   this.isVisible = true
   this.costume = ''
   this.listeTraces = [] // [[x0,y0,x1,y1,style]...]
-  this.color = 'black'
+  this.color = colorToLatexOrHTML('black')
   this.epaisseur = 2
   this.pointilles = ''
   this.opacite = 1
@@ -10655,7 +10675,7 @@ function ObjetLutin () {
     for (const trace of this.listeTraces) {
       const A = point(trace[0], trace[1])
       const B = point(trace[2], trace[3])
-      const color = trace[4]
+      const color = colorToLatexOrHTML(trace[4])
       const epaisseur = trace[5]
       const pointilles = trace[6]
       const opacite = trace[7]
@@ -10671,7 +10691,7 @@ function ObjetLutin () {
       }
       code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
         coeff
-      )}" x2="${B.xSVG(coeff)}" y2="${B.ySVG(coeff)}" stroke="${color}" ${style}  />`
+      )}" x2="${B.xSVG(coeff)}" y2="${B.ySVG(coeff)}" stroke="${color[0]}" ${style}  />`
     }
     if (this.isVisible && this.animation !== '') {
       code += '\n <g>' + this.animation + '</g>'

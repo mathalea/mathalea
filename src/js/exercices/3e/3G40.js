@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { numAlpha, combinaisonListes, randint, choisitLettresDifferentes, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { mathalea2d, tracePoint, labelPoint } from '../../modules/2d.js'
+import { mathalea2d, tracePoint, labelPoint, colorToLatexOrHTML } from '../../modules/2d.js'
 import { point3d, droite3d, vecteur3d, arete3d, sphere3d, rotation3d, rotationV3d, demicercle3d, sensDeRotation3d } from '../../modules/3d.js'
 
 export const titre = 'Repérage sur la sphère'
@@ -42,12 +42,12 @@ export default function ReperageSurLaSphere () {
     const Ps = labelPoint(PoleSud.c2d)
     Pn.taille = 3
     Ps.taille = 3
-    Pn.color = 'brown'
-    Ps.color = 'brown'
+    Pn.color = colorToLatexOrHTML('brown')
+    Ps.color = colorToLatexOrHTML('brown')
 
     const Axe = arete3d(PoleSud, PoleNord)
     Axe.c2d.epaisseur = 2
-    Axe.c2d.color = 'blue'
+    Axe.c2d.color = colorToLatexOrHTML('blue')
     const normalV = vecteur3d(0, 0, 1)
     M = rotationV3d(M, normalV, context.anglePerspective)
     const R = vecteur3d(O, M)
@@ -66,10 +66,10 @@ export default function ReperageSurLaSphere () {
     const latitudes = []; const longitudes = []; const P = []; const EstouOuest = []; const NordouSud = []; let nom = []
     const E = labelPoint(point3d(13.2, 0, 0, true, 'E').c2d)
     E.taille = 3
-    E.color = 'brown'
+    E.color = colorToLatexOrHTML('brown')
     const W = labelPoint(point3d(-12, 0, 0, true, 'O').c2d)
     W.taille = 3
-    W.color = 'brown'
+    W.color = colorToLatexOrHTML('brown')
     objetsEnonce.push(...Sph.c2d, Axe.c2d, equateur1, equateur2, greenwitch, Pn, Ps, ...rotationTerre.c2d, E, W)
     objetsCorrection.push(...Sph.c2d, Axe.c2d, equateur1, equateur2, greenwitch, Pn, Ps, ...rotationTerre.c2d, E, W)
     for (let i = 0; i < this.nbQuestions; i++) {
@@ -100,12 +100,12 @@ export default function ReperageSurLaSphere () {
       P[i].c2d.nom = `${nom[i]}`
       P[i].c2d.positionLabel = 'above left'
       lab = labelPoint(P[i].c2d)
-      lab.color = 'blue'
+      lab.color = colorToLatexOrHTML('blue')
       lab.taille = 2
       croix = tracePoint(P[i].c2d)
       croix.taille = 2.5
       croix.epaisseur = 2
-      croix.color = 'blue'
+      croix.color = colorToLatexOrHTML('blue')
       croix.style = 'o'
       switch (listeTypeDeQuestions[i]) {
         case 1:

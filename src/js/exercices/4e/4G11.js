@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
-import { tracePoint, vecteur, segment, translation, translationAnimee, codageSegment, texteParPosition, mathalea2d, pavage } from '../../modules/2d.js'
+import { tracePoint, vecteur, segment, translation, translationAnimee, codageSegment, texteParPosition, mathalea2d, pavage, colorToLatexOrHTML } from '../../modules/2d.js'
 export const titre = 'Trouver l\'image d\'une figure par une translation dans un pavage'
 
 /**
@@ -143,7 +143,7 @@ export default function PavageEtTranslation2d () {
         }
         d = segment(A, B)
         d.styleExtremites = '->'
-        d.color = 'red'
+        d.color = colorToLatexOrHTML('red')
         d.epaisseur = 3
         for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)
           image = translacion(monpavage, v, i)

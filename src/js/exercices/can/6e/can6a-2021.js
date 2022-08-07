@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, droiteGraduee2, segment, milieu, texteParPosition, codageSegment, polygone, grille
+  mathalea2d, point, droiteGraduee2, segment, milieu, texteParPosition, codageSegment, polygone, grille, colorToLatexOrHTML
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, choice, sp, arrondi } from '../../../modules/outils.js'
@@ -435,7 +435,7 @@ export default function SujetCAN2021Sixieme () {
           a = choice(listeFractions20)
           b = fraction(a[0], a[1])
           reponse = Math.round(a[0] / a[1] * 100)
-          propositions = shuffle([`$${texNombre(a[0] / a[1]), 2}\\%$`, `$${reponse}\\%$`, `$${texNombre(a[1])}\\%$`, `$${a[0]},${a[1]}\\%$`])
+          propositions = shuffle([`$${texNombre(a[0] / a[1], 2)}\\%$`, `$${reponse}\\%$`, `$${texNombre(a[1])}\\%$`, `$${a[0]},${a[1]}\\%$`])
           texteCorr = `$\\dfrac{${a[0]}}{${a[1]}}=${texNombre(a[0] / a[1], 2)}=${reponse}\\%$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -653,13 +653,13 @@ export default function SujetCAN2021Sixieme () {
           a = randint(1, 5)
           b = randint(2, 4)
           A = polygone([point(1, 7), point(11, 7), point(11, 6), point(1, 6)], 'black')
-          A.couleurDeRemplissage = 'lightgray'
+          A.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
           B = texteParPosition('1 uA', 6, 6.5, 'milieu', 'black', 1, 'middle', false)
           C = grille(0, 0, 12, 7, 'black', 1, 1, false)
           D = point(1 + a, 4 - b)
           d = polygone([D, point(D.x, D.y + 1), point(11, D.y + 1), point(11, 5), point(1, 5), point(1, D.y)], 'black')
           d.epaisseur = 2
-          d.couleurDeRemplissage = 'white'
+          d.couleurDeRemplissage = colorToLatexOrHTML('white')
           d.couleurDesHachures = 'gray'
           d.distanceDesHachures = 4
           d.hachures = 'north east lines'

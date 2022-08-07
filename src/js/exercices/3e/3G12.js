@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, choice, shuffle, nombreAvecEspace, arcenciel, texcolors } from '../../modules/outils.js'
-import { pavage, tracePoint, labelPoint, segment, rotation, rotationAnimee, codageAngle, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { pavage, tracePoint, labelPoint, segment, rotation, rotationAnimee, codageAngle, texteParPosition, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
 export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pavage'
 
 /**
@@ -147,7 +147,7 @@ export default function PavageEtRotation2D () {
         label = labelPoint(A)
         trace.epaisseur = 3
         trace.taille = 4
-        trace.color = 'red'
+        trace.color = colorToLatexOrHTML('red')
         alpha = alphas[typeDePavage - 1][randint(0, alphas[typeDePavage - 1].length - 1)]
         sensdirect = choice([1, -1])
         for (let i = 1; i <= monpavage.nb_polygones; i++) { // on crée une liste des couples (antécédents, images)

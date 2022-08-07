@@ -520,7 +520,7 @@ export default function SujetCAN2022quatrieme () {
             axeYStyle: '->'
           })
 
-          // C.color = 'red'
+          // C.color = colorToLatexOrHTML('red')
           // C.epaisseur = 2
 
           A = point(a, b)

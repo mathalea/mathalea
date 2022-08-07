@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../modules/outils.js'
-import { point, labelPoint, segment, segmentAvecExtremites, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { point, labelPoint, segment, segmentAvecExtremites, texteParPosition, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
 
 /* auteur Stéphane Guyon */
 export const titre = 'Résoudre une équation avec des valeurs absolues'
@@ -65,7 +65,7 @@ export default function ValeurAbsolueEtEquation () {
             x1.nom = c + b
             x1.positionLabel = 'below'
             const s1 = segmentAvecExtremites(x0, x1)
-            s1.color = 'blue'
+            s1.color = colorToLatexOrHTML('blue')
             s1.epaisseur = 2
             const s2 = segmentAvecExtremites(x0, A)
             const l = labelPoint(A, x0, x1)

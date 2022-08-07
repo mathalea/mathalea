@@ -1,4 +1,4 @@
-import { point, vecteur, droite, segment, polyline, polygone } from './2d.js'
+import { point, vecteur, droite, segment, polyline, polygone, colorToLatexOrHTML } from './2d.js'
 import { matrix, multiply, norm, cross, dot } from 'mathjs'
 import { context } from './context.js'
 const math = { matrix: matrix, multiply: multiply, norm: norm, cross: cross, dot: dot }
@@ -18,7 +18,7 @@ let numId = 0
 function ObjetMathalea2D () {
   this.positionLabel = 'above'
   this.isVisible = true
-  this.color = 'black'
+  this.color = colorToLatexOrHTML('black')
   this.style = '' // stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
   this.styleTikz = ''
   this.epaisseur = 1
@@ -255,7 +255,7 @@ class Polygone3d {
       }
     } else {
       this.listePoints = args
-      this.color = 'black'
+      this.color = colorToLatexOrHTML('black')
     }
     const segments3d = []; let A; const segments = []
     A = this.listePoints[0]
@@ -368,9 +368,9 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
       s = segment(this.sommet.c2d, c1.listePoints[i])
       if (cote1 === 'caché') {
         s.pointilles = 2
-        s.color = 'gray'
+        s.color = colorToLatexOrHTML('gray')
       } else {
-        s.color = 'black'
+        s.color = colorToLatexOrHTML('black')
       }
       this.c2d.push(s)
     }
@@ -380,9 +380,9 @@ function Cone3d (centrebase, sommet, normal, rayon, generatrices = 18) {
       s = segment(this.sommet.c2d, c2.listePoints[i])
       if (cote2 === 'caché') {
         s.pointilles = 2
-        s.color = 'gray'
+        s.color = colorToLatexOrHTML('gray')
       } else {
-        s.color = 'black'
+        s.color = colorToLatexOrHTML('black')
       }
       this.c2d.push(s)
     }
@@ -631,13 +631,13 @@ class Barre3d {
       H = translation3d(D, vy)
       faceAv = polygone([A.c2d, B.c2d, C.c2d, D.c2d], color)
       faceTop = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
-      faceAv.couleurDeRemplissage = 'lightgray'
-      faceTop.couleurDeRemplissage = 'white'
+      faceAv.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+      faceTop.couleurDeRemplissage = colorToLatexOrHTML('white')
       this.c2d.push(faceAv, faceTop)
       A = translation3d(A, vx)
     }
     const faceD = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
-    faceD.couleurDeRemplissage = 'darkgray'
+    faceD.couleurDeRemplissage = colorToLatexOrHTML('darkgray')
     this.c2d.push(faceD)
   }
 }
@@ -670,16 +670,16 @@ class Plaque3d {
         H = translation3d(D, vy)
         if (j === 0) {
           faceAv = polygone([A.c2d, B.c2d, C.c2d, D.c2d], color)
-          faceAv.couleurDeRemplissage = 'lightgray'
+          faceAv.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
           this.c2d.push(faceAv)
         }
         if (i === l - 1) {
           faceD = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
-          faceD.couleurDeRemplissage = 'darkgray'
+          faceD.couleurDeRemplissage = colorToLatexOrHTML('darkgray')
           this.c2d.push(faceD)
         }
         faceTop = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
-        faceTop.couleurDeRemplissage = 'white'
+        faceTop.couleurDeRemplissage = colorToLatexOrHTML('white')
         this.c2d.push(faceTop)
       }
     }
@@ -711,17 +711,17 @@ class PaveLPH3d {
           H = translation3d(D, vy)
           if (j === 0) {
             faceAv = polygone([A.c2d, B.c2d, C.c2d, D.c2d], color)
-            faceAv.couleurDeRemplissage = 'lightgray'
+            faceAv.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
             this.c2d.push(faceAv)
           }
           if (i === l - 1) {
             faceD = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
-            faceD.couleurDeRemplissage = 'darkgray'
+            faceD.couleurDeRemplissage = colorToLatexOrHTML('darkgray')
             this.c2d.push(faceD)
           }
           if (k === h - 1) {
             faceTop = polygone([D.c2d, C.c2d, G.c2d, H.c2d], color)
-            faceTop.couleurDeRemplissage = 'white'
+            faceTop.couleurDeRemplissage = colorToLatexOrHTML('white')
             this.c2d.push(faceTop)
           }
         }
