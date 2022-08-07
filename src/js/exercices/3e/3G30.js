@@ -41,7 +41,7 @@ export default function CalculDeLongueur () {
   }
 
   this.nouvelleVersion = function () {
-    this.consigne = 'Donner le résultat arrondi à 0,1 en précisant l\'unité'
+    this.consigne = ''
     this.autoCorrection = []
     this.listeQuestions = []
     this.listeCorrections = []
