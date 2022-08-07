@@ -105,7 +105,6 @@ export default function ModelisationProblemes () {
         brouilleLesCartes = shuffle(range(this.nbQuestions - 1))
     }
     const listeTypeDeQuestions = shuffle(typesDeQuestionsDisponibles)
-    console.log(listeTypeDeQuestions)
     const b1 = randint(15, 50)
     let c1 = randint(5, 9)
     const c3 = randint(5, 9)

@@ -40,7 +40,7 @@ export default function EtudierGraphiqueParite () {
           x = randint(-1, 1, [0]) * 2
           f = x => a * x + b
           C = courbe(f, { repere: r, step: 0.25 })
-          // C.color = 'red'
+          // C.color = colorToLatexOrHTML('red')
           // C.epaisseur = 2
           B = point(x, a * x + b)
           A = point(-x, -a * x + b)
@@ -73,7 +73,7 @@ export default function EtudierGraphiqueParite () {
           x = randint(2, 3, [0])
           f = x => a * x
           C = courbe(f, { repere: r, step: 0.25 })
-          // C.color = 'red'
+          // C.color = colorToLatexOrHTML('red')
           // C.epaisseur = 2
           B = point(x, a * x)
           A = point(-x, -a * x)
@@ -118,7 +118,7 @@ export default function EtudierGraphiqueParite () {
           x = 1
           f = x => a * x * x + b
           C = courbe(f, { repere: r })
-          // C.color = 'red'
+          // C.color = colorToLatexOrHTML('red')
           // C.epaisseur = 2
           B = point(x, a * x * x + b)
           A = point(-x, a * x * x + b)
@@ -162,7 +162,7 @@ export default function EtudierGraphiqueParite () {
           x = 4 - abs(b)
           f = x => a * (x - b) * (x - b) + c
           C = courbe(f, { repere: r, step: 0.25 })
-          // C.color = 'red'
+          // C.color = colorToLatexOrHTML('red')
           // C.epaisseur = 2
           B = point(x, a * (x - b) * (x - b) + c)
           A = point(-x, a * (-x - b) * (-x - b) + c)
@@ -208,7 +208,7 @@ export default function EtudierGraphiqueParite () {
 
           f = x => 1 / (a * x + b)
           C = courbe(f, { repere: r, step: 0.01 })
-          // C.color = 'red'
+          // C.color = colorToLatexOrHTML('red')
           // C.epaisseur = 2
           B = point(x, 1 / (a * x + b))
           A = point(-x, 1 / (-a * x + b))
@@ -251,7 +251,7 @@ export default function EtudierGraphiqueParite () {
           x = 2
           f = x => 1 / (a * x)
           C = courbe(f, { repere: r, step: 0.01 })
-          // C.color = 'red'
+          // C.color = colorToLatexOrHTML('red')
           // C.epaisseur = 2
           B = point(x, 1 / (a * x))
           A = point(-x, -1 / (a * x))

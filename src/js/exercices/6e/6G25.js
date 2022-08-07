@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre } from '../../modules/outils.js'
-import { point, tracePoint, pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, codageMediatrice, segmentAvecExtremites, cercle, pointIntersectionLC, dansLaCibleCarree, cibleCarree, homothetie, similitude, texteParPoint, mathalea2d, positionLabelDroite, fixeBordures, norme, translation, vecteur, symetrieAxiale } from '../../modules/2d.js'
+import { point, tracePoint, pointAdistance, labelPoint, droite, droiteParPointEtPerpendiculaire, codageMediatrice, segmentAvecExtremites, cercle, pointIntersectionLC, dansLaCibleCarree, cibleCarree, homothetie, similitude, texteParPoint, mathalea2d, positionLabelDroite, fixeBordures, norme, translation, vecteur, symetrieAxiale, colorToLatexOrHTML } from '../../modules/2d.js'
 export const titre = 'Construire des médiatrices avec cible auto-corrective'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -44,18 +44,18 @@ export default function ConstruireMediatrices6e () {
 
     const dA = droiteParPointEtPerpendiculaire(A, medA)
     const dB = droiteParPointEtPerpendiculaire(B, medB)
-    medA.color = 'blue'
-    medB.color = 'green'
+    medA.color = colorToLatexOrHTML('blue')
+    medB.color = colorToLatexOrHTML('green')
     const cA = cercle(A, calcul(randint(25, 40) / 20))
     const cB = cercle(B, calcul(randint(45, 60) / 20))
     const A1 = pointIntersectionLC(dA, cA, noms[0], 1)
-    const A2 = symetrieAxiale(A1,medA, noms[1])
+    const A2 = symetrieAxiale(A1, medA, noms[1])
     const B1 = pointIntersectionLC(dB, cB, noms[2], 1)
-    const B2 = symetrieAxiale(B1,medB, noms[3])
+    const B2 = symetrieAxiale(B1, medB, noms[3])
     const sA = segmentAvecExtremites(A1, A2)
     const sB = segmentAvecExtremites(B1, B2)
-    sA.color = 'black'
-    sB.color = 'black'
+    sA.color = colorToLatexOrHTML('black')
+    sB.color = colorToLatexOrHTML('black')
 
     const objetsEnonce = []
     const objetsCorrection = []
@@ -68,7 +68,7 @@ export default function ConstruireMediatrices6e () {
     result = dansLaCibleCarree(I.x, I.y, 6, 0.6, cellule)
     const cible = cibleCarree({ x: result[0], y: result[1], rang: 6, taille: 0.6 })
     cible.taille = 0.6
-    cible.color = 'orange'
+    cible.color = colorToLatexOrHTML('orange')
     cible.opacite = 0.7
 
     objetsEnonce.push(cible, sA, sB, nomA1, nomA2, nomB1, nomB2)

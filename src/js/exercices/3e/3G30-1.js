@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { mathalea2d, point, similitude, longueur, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle, fixeBordures } from '../../modules/2d.js'
+import { mathalea2d, point, similitude, longueur, polygone, rotation, codageAngleDroit, nommePolygone, segment, texteSurSegment, droite, projectionOrtho, pointSurSegment, texteParPoint, afficheMesureAngle, fixeBordures, colorToLatexOrHTML } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, creerNomDePolygone, choice, numAlpha } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
@@ -79,7 +79,7 @@ export default function ExprimerCosSinTan () {
     }
     const hypo = segment(C, B)
     hypo.epaisseur = 2
-    hypo.color = 'blue'
+    hypo.color = colorToLatexOrHTML('blue')
     codageAngle.epaisseur = 3
     codageAngle2.epaisseur = 3
     const d = droite(B, C)
@@ -103,7 +103,7 @@ export default function ExprimerCosSinTan () {
     }
     const hypo3 = segment(A, B)
     hypo3.epaisseur = 2
-    hypo3.color = 'blue'
+    hypo3.color = colorToLatexOrHTML('blue')
 
     objetsEnonce.push(p2, codage, nomme)
     objetsCorrection.push(p2, codage, nomme, t1, t2, t3, hypo, codageAngle)

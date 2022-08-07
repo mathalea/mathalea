@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre, choice, combinaisonListes } from '../../modules/outils.js'
-import { cercleCentrePoint, cercle, codageSegments, pointAdistance, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, mathalea2d } from '../../modules/2d.js'
+import { cercleCentrePoint, cercle, codageSegments, pointAdistance, pointIntersectionCC, point, labelPoint, similitude, polygoneAvecNom, tracePoint, texteParPoint, droite, segment, traceCompas, dansLaCibleCarree, cibleCarree, rotation, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Construire des parallélogrammes avec dispositif d\'auto-correction'
@@ -69,13 +69,13 @@ export default function ConstructionsParallelogrammes () {
       const result3 = dansLaCibleCarree(B.x, B.y, 5, 0.5, cellule3)
 
       const cible = cibleCarree({ x: result[0], y: result[1], rang: 5, num: 1, taille: 0.5 })
-      cible.color = 'gray'
+      cible.color = colorToLatexOrHTML('gray')
       cible.opacite = 0.7
       const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: 2, taille: 0.5 })
-      cible2.color = 'gray'
+      cible2.color = colorToLatexOrHTML('gray')
       cible2.opacite = 0.7
       const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: 3, taille: 0.5 })
-      cible3.color = 'gray'
+      cible3.color = colorToLatexOrHTML('gray')
       cible3.opacite = 0.7
       const xMin = Math.min(A.x, B.x, C.x, D.x) - 3
       const yMin = Math.min(A.y, B.y, C.y, D.y) - 3

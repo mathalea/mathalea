@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, calcul, shuffle, arrondi } from '../../modules/outils.js'
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
-import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, baisseCrayon, allerA, leveCrayon, tracePoint, point, segment, tournerG, texteParPoint } from '../../modules/2d.js'
+import { angleScratchTo2d, orienter, mathalea2d, scratchblock, creerLutin, avance, tournerD, baisseCrayon, allerA, leveCrayon, tracePoint, point, segment, tournerG, texteParPoint, colorToLatexOrHTML } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'cliqueFigure'
 export const amcReady = true
@@ -69,7 +69,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
 
     for (let i = 0; i < 4; i++) { // Ici on crée 4 instance de l'objet Lutin.
       lutins[i] = creerLutin()
-      lutins.color = 'green' // la couleur de la trace
+      lutins.color = colorToLatexOrHTML('green') // la couleur de la trace
       lutins.epaisseur = 3 // son epaisseur
       lutins.pointilles = false // le type de pointillés (on peut mettre false pour avoir un trait plein)
       allerA(xDepart, yDepart, lutins[i]) // ça c'est pour faire bouger le lutin (écrire le programme ne le fait pas exécuter !)
@@ -470,7 +470,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     for (let i = 0; i < 4; i++) { // ajouter le point de départ de chaque tracé
       depart[i] = tracePoint(point(lutins[i].listeTraces[0][0], lutins[i].listeTraces[0][1]))
       depart[i].taille = 5
-      depart[i].color = 'blue'
+      depart[i].color = colorToLatexOrHTML('blue')
       depart[i].epaisseur = 2
       if (i === bonneReponse) {
         objetsCorrection.push(depart[i])

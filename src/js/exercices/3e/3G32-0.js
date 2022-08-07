@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, numAlpha, stringNombre, combinaisonListes, texNombre, arrondi, texFractionReduite, creerNomDePolygone, choice, sp, lettreDepuisChiffre, rangeMinMax, contraindreValeur, compteOccurences, nombreDeChiffresDe, nombreDeChiffresDansLaPartieDecimale } from '../../modules/outils.js'
-import { texteSurSegment, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d, tracePoint, labelPoint, pointAdistance, projectionOrtho, droite, longueur, angle, droiteVerticaleParPoint, cercle, pointIntersectionLC, polygone } from '../../modules/2d.js'
+import { texteSurSegment, polygoneAvecNom, afficheMesureAngle, codageAngleDroit, point, segment, texteParPosition, milieu, mathalea2d, tracePoint, labelPoint, pointAdistance, projectionOrtho, droite, longueur, angle, droiteVerticaleParPoint, cercle, pointIntersectionLC, polygone, colorToLatexOrHTML } from '../../modules/2d.js'
 import { arete3d, CodageAngleDroit3D, demicercle3d, point3d, rotationV3d, sphere3d, vecteur3d } from '../../modules/3d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -111,8 +111,8 @@ export default function problemesTrigoLongueur () {
           S = point(absC + sensH * absS, 0, lettreDepuisChiffre(numS))
           p = polygoneAvecNom(A, B, S)
           R = polygoneAvecNom(point(absC, -1 * sensV), point(absC + sensH * absS, -1 * sensV), point(absC + sensH * absS, ordA + sensV), point(absC, ordA + sensV))
-          R[0].color = 'blue'
-          R[0].couleurDeRemplissage = 'blue'
+          R[0].color = colorToLatexOrHTML('blue')
+          R[0].couleurDeRemplissage = colorToLatexOrHTML('blue')
           R[0].opaciteDeRemplissage = 0.5
           R[0].opacite = 0.5
           objets.push(p[1], p[0], R[0], segment(A, C), codageAngleDroit(A, B, C), labelPoint(C))

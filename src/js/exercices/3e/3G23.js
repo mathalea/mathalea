@@ -3,7 +3,7 @@
 /* eslint-disable no-case-declarations */
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, texteEnCouleur, texteGras } from '../../modules/outils.js'
-import { point, tracePoint, milieu, pointSurSegment, pointIntersectionDD, labelPoint, barycentre, droite, vecteur, segment, polygone, nommePolygone, aireTriangle, arc, rotation, translationAnimee, rotationAnimee, codageSegments, grille, angleOriente, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, milieu, pointSurSegment, pointIntersectionDD, labelPoint, barycentre, droite, vecteur, segment, polygone, nommePolygone, aireTriangle, arc, rotation, translationAnimee, rotationAnimee, codageSegments, grille, angleOriente, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
 export const titre = 'Reconnaître des triangles égaux dans différentes configurations'
 
 /**
@@ -41,7 +41,7 @@ export default function TrianglesEgaux () {
         G = barycentre(p) // le barycentre de ABC
         const angleChoisi1 = choice([0, 90, 270])
         p = rotation(p, G, angleChoisi1) // on tourne ABC de façon aléatoire autour de son barycentre
-        p.couleurDeRemplissage = 'gray' // remplissage de ABC
+        p.couleurDeRemplissage = colorToLatexOrHTML('gray') // remplissage de ABC
         p.opaciteDeRemplissage = 0.2 // 0.5;//remplissage de ABC
         nom1 = nommePolygone(p, 'ABC', 0.4) // on  nomme ABC en plaçant A,B et C à 0,4
         grid = grille(-3, -3, 27, 18, 'gray', 0.4, 1) // on trace une grille
@@ -56,9 +56,9 @@ export default function TrianglesEgaux () {
         r = rotation(q, Gq, angleChoisi2) // on fait tourner q encore autour de son barycentre
         X = milieu(r.listePoints[0], r.listePoints[1]) // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux
         s = rotation(r, X, 180) // on fait topurner r autour du milieu des deux extremites du plus grand côté
-        r.couleurDeRemplissage = 'red' // solution 1 en rouge
+        r.couleurDeRemplissage = colorToLatexOrHTML('red') // solution 1 en rouge
         r.opaciteDeRemplissage = 0.2 // 0.5; //
-        s.couleurDeRemplissage = 'blue' // solution 2 en bleu
+        s.couleurDeRemplissage = colorToLatexOrHTML('blue') // solution 2 en bleu
         s.opaciteDeRemplissage = 0.2 // 0.5; //
 
         // mes ajouts par rapport à la figure de JC

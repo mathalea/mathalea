@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { contraindreValeur, listeQuestionsToContenu, randint, rangeMinMax, shuffle } from '../../modules/outils.js'
-import { fixeBordures, mathalea2d, point, rotation, similitude, texteParPoint, longueur, milieu, segment, homothetie, polygoneRegulierParCentreEtRayon } from '../../modules/2d.js'
+import { fixeBordures, mathalea2d, point, rotation, similitude, texteParPoint, longueur, milieu, segment, homothetie, polygoneRegulierParCentreEtRayon, colorToLatexOrHTML } from '../../modules/2d.js'
 export const titre = 'Rose multiplicative'
 
 /**
@@ -54,15 +54,15 @@ export function rose ({ values = [3, 4, 5], type = 'produit' }) {
           objets.push(texteParPoint(values[i].toString(), M))
         }
       }
-      if (type === 'can1' && indexInconnue === i) bulle1.color = 'red'
-      else bulle1.color = 'black'
+      if (type === 'can1' && indexInconnue === i) bulle1.color = colorToLatexOrHTML('red')
+      else bulle1.color = colorToLatexOrHTML('black')
     }
     if (type === 'solution' || type === 'facteur' || type === 'can1' || type === 'can2') { // on ajoute les produits
       if (!(type === 'can2' && indexInconnue === i)) {
         objets.push(texteParPoint((values[i] * values[(i + 1) % n]).toString(), P))
       }
-      if (type === 'can2' && indexInconnue === i) bulle2.color = 'red'
-      else bulle2.color = 'black'
+      if (type === 'can2' && indexInconnue === i) bulle2.color = colorToLatexOrHTML('red')
+      else bulle2.color = colorToLatexOrHTML('black')
     }
     objets.push(bulle2)
   }
