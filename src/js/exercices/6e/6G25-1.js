@@ -10,6 +10,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
+* Référence 6G25-1
 * Relecture : Novembre 2021 par EE
 */
 

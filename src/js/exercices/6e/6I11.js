@@ -2,7 +2,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, combinaisonListes, stringNombre } from '../../modules/outils.js'
-import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, baisseCrayon, allerA, point, texteParPositionEchelle } from '../../modules/2d.js'
+import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, baisseCrayon, allerA, point, texteParPositionEchelle, colorToLatexOrHTML } from '../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 export const titre = 'Note la couleur (scratch)'
 
@@ -103,7 +103,7 @@ export default function NoteLaCouleur6e () {
             ydepart = -165 + randint(3, 8) * 30 + (this.relatif ? 0 : 180)
 
             pion = noteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif })
-            lutin.color = context.isHtml ? 'green' : 'black'
+            lutin.color = context.isHtml ? colorToLatexOrHTML('green') : colorToLatexOrHTML('black')
             lutin.epaisseur = 2
             lutin.pointilles = 2
             allerA(xdepart, ydepart, lutin)
@@ -197,7 +197,7 @@ export default function NoteLaCouleur6e () {
 
             pion = noteLaCouleur({ x: xdepart, y: ydepart, orientation: angledepart, plateau: lePlateau.plateauNLC, relatif: this.relatif })
             pion.codeScratch = ''
-            lutin.color = context.isHtml ? 'green' : 'black'
+            lutin.color = context.isHtml ? colorToLatexOrHTML('green') : colorToLatexOrHTML('black')
             lutin.epaisseur = 2
             lutin.pointilles = 2
             allerA(xdepart, ydepart, lutin)

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, texFraction } from '../../modules/outils.js'
 import { mathalea2d, polygone, point } from '../../modules/2d.js'
-import { fractionCliquable, rectangleCliquable } from '../../modules/2dinteractif'
+import { fractionCliquable, rectangleCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Fractions interactives'

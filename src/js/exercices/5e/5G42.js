@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, choisitLettresDifferentes } from '../../modules/outils.js'
-import { mathalea2d, point, rotation, codageSegments, segment, polygoneAvecNom, codageAngleDroit, labelPoint, similitude } from '../../modules/2d.js'
+import { mathalea2d, point, rotation, codageSegments, segment, polygoneAvecNom, codageAngleDroit, labelPoint, similitude, colorToLatexOrHTML } from '../../modules/2d.js'
 export const titre = 'Nature de parallélogrammes'
 
 /**
@@ -40,10 +40,10 @@ export default function demonstrationsParallelogrammes () {
       s4 = segment(D, A)
       d1 = segment(A, C)
       d2 = segment(B, D)
-      s1.color = 'blue'
-      s3.color = 'blue'
-      s2.color = 'red'
-      s4.color = 'red'
+      s1.color = colorToLatexOrHTML('blue')
+      s3.color = colorToLatexOrHTML('blue')
+      s2.color = colorToLatexOrHTML('red')
+      s4.color = colorToLatexOrHTML('red')
       objets.push(s1, s2, s3, s4, p[1])
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent

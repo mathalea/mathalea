@@ -1,7 +1,9 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, stringNombre } from '../../modules/outils.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import { texNombre, listeQuestionsToContenu, scientifiqueToDecimal, stringNombre } from '../../modules/outils.js'
+import pkg from 'decimal.js'
 import { all, create } from 'mathjs'
+import { aleaVariables } from '../../modules/outilsMathjs.js'
+const { Decimal } = pkg
 export const titre = 'Somme de deux entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'

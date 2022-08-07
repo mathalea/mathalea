@@ -1,4 +1,4 @@
-import { codageSegments, droite, labelPoint, mathalea2d, point, segment, segmentAvecExtremites, tracePointSurDroite } from '../../../modules/2d.js'
+import { codageSegments, colorToLatexOrHTML, droite, labelPoint, mathalea2d, point, segment, segmentAvecExtremites, tracePointSurDroite } from '../../../modules/2d.js'
 import { calcul, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème de longueurs (inverse)'
@@ -52,9 +52,9 @@ export default function ProblemesDeLongueursInverse () {
     const s1 = segment(pointsSurAB[pointsSurAB.length - 1], D)
     const s2 = segment(B, E)
     s1.pointilles = 2
-    s1.color = 'green'
+    s1.color = colorToLatexOrHTML('green')
     s2.pointilles = 2
-    s2.color = 'green'
+    s2.color = colorToLatexOrHTML('green')
     const abc = calcul(a * b * c)
     const ac = calcul(a * c)
     objets.push(labelPoint(F), codageSegments('O', 'blue', D, ...pointsSurDE, E), s1, s2)

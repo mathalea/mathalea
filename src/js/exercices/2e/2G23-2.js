@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../modules/outils.js'
-import { repere, mathalea2d, point, vecteur, nomVecteurParPosition, texteParPosition, longueur, homothetie, latexParPoint } from '../../modules/2d.js'
+import { repere, mathalea2d, point, vecteur, nomVecteurParPosition, texteParPosition, longueur, homothetie, latexParPoint, colorToLatexOrHTML } from '../../modules/2d.js'
 
 export const titre = 'Coordonnées de vecteurs et translations.'
 
@@ -57,7 +57,7 @@ export default function TranslationEtCoordonnes () {
       k = vi.representant(O) // Variable qui trace [OI]
       j = vj.representant(O)// Variable qui trace [OJ]
       s.epaisseur = 2// Variable qui grossit le tracé du vecteur AB
-      s.color = 'red'
+      s.color = colorToLatexOrHTML('red')
       k.epaisseur = 2// Variable qui grossit le tracé du vecteur OI
       j.epaisseur = 2// Variable qui grossit le tracé du vecteur OJ
       nomi = nomVecteurParPosition('i', 0.5, -0.7, 1.5, 0)

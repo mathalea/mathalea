@@ -1,4 +1,4 @@
-import { point, polygone, segment, milieu, nommePolygone, codageSegment, codageAngle, mathalea2d, latexParPoint } from '../../modules/2d.js'
+import { point, polygone, segment, milieu, nommePolygone, codageSegment, codageAngle, mathalea2d, latexParPoint, colorToLatexOrHTML } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { creerNomDePolygone, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Reconnaître un parallélogramme à partir du codage d\'une figure'
@@ -55,13 +55,13 @@ export default function ParallelogrammeAPartirDUneFigure () {
     const sCD = segment(C, D)
     const sAD = segment(A, D)
     sAB.epaisseur = 2
-    sAB.color = 'blue'
+    sAB.color = colorToLatexOrHTML('blue')
     sCD.epaisseur = 2
-    sCD.color = 'blue'
+    sCD.color = colorToLatexOrHTML('blue')
     sBC.epaisseur = 2
-    sBC.color = 'green'
+    sBC.color = colorToLatexOrHTML('green')
     sAD.epaisseur = 2
-    sAD.color = 'green'
+    sAD.color = colorToLatexOrHTML('green')
 
     // Cerf-volant
     const M1 = point(0, 0)

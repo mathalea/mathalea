@@ -9,7 +9,8 @@ import { setReponse } from './gestionInteractif.js'
 import { getVueFromUrl } from './gestionUrl.js'
 import FractionX from './FractionEtendue.js'
 import { elimineDoublons } from './interactif/questionQcm.js'
-import Decimal from 'decimal.js/decimal.mjs'
+import pkg from 'decimal.js'
+const { Decimal } = pkg
 
 const math = { format: format, evaluate: evaluate }
 const epsilon = 0.000001
@@ -1988,7 +1989,7 @@ export function lettreMinusculeDepuisChiffre (i) {
 */
 export function lettreIndiceeDepuisChiffre (i) {
   const indiceLettre = quotientier(i - 1, 26) === 0 ? '' : quotientier(i - 1, 26)
-  return String.fromCharCode(64 + (i - 1) % 26 + 1) + `_{${indiceLettre}}`
+  return String.fromCharCode(64 + (i - 1) % 26 + 1) + (i > 26 ? `_{${indiceLettre}}` : '')
 }
 
 /**
@@ -2654,7 +2655,7 @@ export function nombreAvecEspace (nb) {
     window.notify('nombreAvecEspace : argument NaN ou undefined', { nb })
     return 'NaN'
   }
-  // Écrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
+  // Ecrit \nombre{nb} pour tous les nombres supérieurs à 1 000 (pour la gestion des espaces)
   if (context.isHtml) {
     return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, ' ')
   } else {
@@ -2840,7 +2841,7 @@ function afficherNombre (nb, precision, fonction, force = false) {
 
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
   if (isNaN(nb) && !(nb instanceof Decimal)) {
-    window.notify('AfficherNombre : Le nombre n\'en est pas un', { nb, precision, fonction })
+    window.notify("AfficherNombre : Le nombre n'en est pas un", { nb, precision, fonction })
     return ''
   }
   if (nb instanceof Decimal) {
@@ -2848,7 +2849,12 @@ function afficherNombre (nb, precision, fonction, force = false) {
   } else if (Number(nb) === 0) return '0'
   let nbChiffresPartieEntiere
   if (nb instanceof Decimal) {
-    nbChiffresPartieEntiere = nb.abs().lt(1) ? 0 : nb.abs().toFixed(0).length
+    if (nb.abs().lt(1)) {
+      nbChiffresPartieEntiere = 0
+      precision = Decimal.max(nb.abs().log().ceil().add(precision), 0).toNumber()
+    } else {
+      nbChiffresPartieEntiere = nb.abs().toFixed(0).length
+    }
     if (nb.isInteger()) precision = 0
     else {
       if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
@@ -2858,7 +2864,12 @@ function afficherNombre (nb, precision, fonction, force = false) {
       }
     }
   } else {
-    nbChiffresPartieEntiere = Math.abs(nb) < 1 ? 0 : Math.abs(nb).toFixed(0).length
+    if (Math.abs(nb) < 1) {
+      nbChiffresPartieEntiere = 0
+      precision = Math.max(0, Math.ceil(Math.log10(Math.abs(nb))) + precision)
+    } else {
+      nbChiffresPartieEntiere = Math.abs(nb).toFixed(0).length
+    }
     if (Number.isInteger(nb)) precision = 0
     else {
       if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable
@@ -4192,7 +4203,7 @@ export function katexPopupTest (texte, titrePopup, textePopup) {
   }
 }
 /**
- * Écrit un string sans accents
+ * Ecrit un string sans accents
  * @param {string} str
  * @author Sébastien Lozano
  * @source --> http://www.finalclap.com/faq/257-javascript-supprimer-remplacer-accent

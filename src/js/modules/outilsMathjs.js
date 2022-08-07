@@ -1125,7 +1125,7 @@ export function programmeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3
       stepsSimplified.push(toTex(nodeSimplifie, { suppr1: false }, debug))
       stepsInv.push(toTex(nodesInv[i - 1], { suppr1: false }, debug))
       stepsSimplifiedInv.push(toTex(nodeSimplifie, { suppr1: false }, debug))
-      phrases.push('Écrire le résultat')
+      phrases.push('Ecrire le résultat')
       // phrasesInv.push(debutPhraseInv + stepPrint)
       phrasesInv.push('Résultat du programme')
     }
@@ -1170,7 +1170,7 @@ export function traduireProgrammeCalcul (stepProg = ['+', '-', '*', '/', '^2', '
           <br>
           Notons $x$ le nombre choisi.
           <br>
-          Écrire le résultat du programme de calcul en fonction de $x$.
+          Ecrire le résultat du programme de calcul en fonction de $x$.
           `
   const texteCorr = String.raw`Solution détaillée
           <br>
@@ -1190,7 +1190,7 @@ export function ecrireProgrammeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*
     stepsSolutionDetaillee[i] += '&' + programme.steps[i]
     if (programme.steps[i] !== programme.stepsSimplified[i]) stepsSolutionDetaillee[i] += '&=' + programme.stepsSimplified[i]
   })
-  let texte = String.raw`Voici une expression. Écrire le programme de calcul correspondant.
+  let texte = String.raw`Voici une expression. Ecrire le programme de calcul correspondant.
           <br>
           $${programme.stepsSimplified[programme.stepsSimplified.length - 1]}$
           `

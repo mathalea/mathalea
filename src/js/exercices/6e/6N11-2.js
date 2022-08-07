@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, lettreDepuisChiffre, htmlConsigne, texNombre, egal, shuffle, stringNombre } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
-import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
+import { colorToLatexOrHTML, droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
 
 export const titre = 'Placer un point d\'abscisse entière (grands nombres)'
 export const interactifReady = true
@@ -129,7 +129,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
 
       A = point(abscisse[0][0] * tailleUnite, 0, l1)
       traceA = tracePoint(A)
-      traceA.color = 'blue'
+      traceA.color = colorToLatexOrHTML('blue')
       traceA.epaisseur = 3
       traceA.taille = 5
       labels = labelPoint(A)
@@ -137,12 +137,12 @@ export default function PlacerUnPointAbscisseEntiere2d () {
         A.nom = lettreDepuisChiffre(i * 3 + 1)
         B = point(abscisse[1][0] * tailleUnite, 0, l2)
         traceB = tracePoint(B)
-        traceB.color = 'blue'
+        traceB.color = colorToLatexOrHTML('blue')
         traceB.epaisseur = 3
         traceB.taille = 5
         C = point(abscisse[2][0] * tailleUnite, 0, l3)
         traceC = tracePoint(C)
-        traceC.color = 'blue'
+        traceC.color = colorToLatexOrHTML('blue')
         traceC.epaisseur = 3
         traceC.taille = 5
         labels = labelPoint(A, B, C)

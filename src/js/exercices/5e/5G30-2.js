@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, choice, rangeMinMax, contraindreValeur, compteOccurences, combinaisonListes } from '../../modules/outils.js'
-import { labelPoint, texteSurArc, homothetie, point, rotation, mathalea2d, fixeBordures, droite, translation, vecteur, arcPointPointAngle } from '../../modules/2d.js'
+import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
+import { labelPoint, texteSurArc, homothetie, point, rotation, mathalea2d, fixeBordures, droite, translation, vecteur, arcPointPointAngle, colorToLatexOrHTML } from '../../modules/2d.js'
 import { pickRandom } from 'mathjs'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
 export const titre = 'Angles et parallèles'
@@ -63,16 +63,18 @@ export default function exercicesAnglesAIC () {
   Exercice.call(this)
   const formulaire = [
     '1 : Angles marqués alternes-internes ou correspondants ?',
-    '2 : Déterminer si des droites sont parallèles (angles marqués)',
+    '2 : Déterminer si des droites sont parallèles (angles marqués).',
     '3 : Calculer la mesure d\'un angle.',
-    '4 : Nommer un angle alterne-interne ou correspondant à un angle marqué',
-    '5 : Nommer un angle alterne-interne ou correspondant à un angle nommé',
-    '6 : Déterminer si des droites sont parallèles (utiliser les noms d\'angles)',
+    '4 : Nommer un angle alterne-interne ou correspondant à un angle marqué.',
+    '5 : Nommer un angle alterne-interne ou correspondant à un angle nommé.',
+    '6 : Déterminer si des droites sont parallèles (utiliser les noms d\'angles).',
     '7 : Calculer la mesure d\'un angle. (utiliser le nom des angles) ?',
     '8 : Mélange des questions'
   ]
-  this.nbQuestions = 7
-  this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n' + formulaire.join('\n')]
+  this.nbQuestions = 1
+  this.besoinFormulaireNumerique = [
+    'Type de question', 8, formulaire.join('\n')
+  ]
   this.consigne = ''
   this.nbCols = 0
   this.nbColsCorr = 0
@@ -82,29 +84,28 @@ export default function exercicesAnglesAIC () {
   this.correctionDetaillee = true
   context.isHtml ? (this.spacing = 2.5) : (this.spacing = 0)
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 0)
-  this.sup = 8
+  this.sup = 'all' // Type d'exercice
   this.nouvelleVersion = function (numeroExercice, dDebug = false) {
+    if (this.sup === 'all') this.nbQuestions = formulaire.length - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
-    let QuestionsDisponibles = []
-    if (!this.sup) { // Si aucune liste n'est saisie
-      QuestionsDisponibles = rangeMinMax(1, 7)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        QuestionsDisponibles[0] = contraindreValeur(1, 8, this.sup, 8)
-      } else {
-        QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(1, 8, parseInt(QuestionsDisponibles[i]), 8) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
-    if (compteOccurences(QuestionsDisponibles, 8) > 0) QuestionsDisponibles = rangeMinMax(1, 7) // Teste si l'utilisateur a choisi tout
-    QuestionsDisponibles = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
-    console.log(QuestionsDisponibles)
+    let nquestion = 0
     for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 100;) { // Boucle principale où i+1 correspond au numéro de la question
-      switch (QuestionsDisponibles[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+      if (this.sup === 'all') {
+        nquestion += 1
+      } else if (this.sup === 8) {
+        nquestion = choice([1, 2, 3, 4, 5, 6, 7])
+      } else {
+        nquestion = this.sup
+      }
+      if (dDebug) {
+        console.log(`
+          ********************************
+          Exercice ${i + 1} Case ${nquestion}
+          ********************************`)
+      }
+      switch (nquestion) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 1: {
           const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
           const objetsEnonceml = [] // Idem pour l'enoncé à main levée si besoin
@@ -124,8 +125,8 @@ export default function exercicesAnglesAIC () {
           const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
           const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
           for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = 'red'
-            anglesB[i].couleurDeRemplissage = 'red'
+            anglesA[i].couleurDeRemplissage = colorToLatexOrHTML('red')
+            anglesB[i].couleurDeRemplissage = colorToLatexOrHTML('red')
           }
           const ab = choice([
             choice(['aa', 'bb', 'cc', 'dd']),
@@ -195,8 +196,8 @@ export default function exercicesAnglesAIC () {
           const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
           const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
           for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = 'blue'
-            anglesB[i].couleurDeRemplissage = 'blue'
+            anglesA[i].couleurDeRemplissage = colorToLatexOrHTML('blue')
+            anglesB[i].couleurDeRemplissage = colorToLatexOrHTML('blue')
           }
           const a = ['a', 'b', 'c', 'd'][parseInt(ab.a)]
           const b = ['a', 'b', 'c', 'd'][parseInt(ab.b)]
@@ -225,69 +226,69 @@ export default function exercicesAnglesAIC () {
           let angles, calculs
           switch (a + b) {
             case 'ab':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               calculs = `$180°-${anglesB.labelb.texte} = ${anglesB.labela.texte}$`
               break
             case 'ac':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               break
             case 'ad':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               calculs = `$180°-${anglesB.labeld.texte} = ${anglesB.labela.texte}$`
               break
             case 'ba':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               calculs = `$180°-${anglesB.labela.texte} = ${anglesB.labelb.texte}$`
               break
             case 'bc':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               calculs = `$180°-${anglesB.labelc.texte} = ${anglesB.labelb.texte}$`
               break
             case 'bd':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               break
             case 'cb':
-              anglesB.a.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.a.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'alternes-internes'
               calculs = `$180°-${anglesB.labelb.texte} = ${anglesB.labela.texte}$`
               break
             case 'cd':
-              anglesB.a.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.a.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'alternes-internes'
               calculs = `$180°-${anglesB.labeld.texte} = ${anglesB.labela.texte}$`
               break
             case 'da':
-              anglesB.b.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.b.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'alternes-internes'
               calculs = `$180°-${anglesB.labela.texte} = ${anglesB.labelb.texte}$`
               break
             case 'dc':
-              anglesB.b.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.b.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               calculs = `$180°-${anglesB.labelc.texte} = ${anglesB.labelb.texte}$`
               angles = 'alternes-internes'
@@ -341,8 +342,8 @@ export default function exercicesAnglesAIC () {
           const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
           const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
           for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = 'blue'
-            anglesB[i].couleurDeRemplissage = 'blue'
+            anglesA[i].couleurDeRemplissage = colorToLatexOrHTML('blue')
+            anglesB[i].couleurDeRemplissage = colorToLatexOrHTML('blue')
           }
           const a = ['a', 'b', 'c', 'd'][parseInt(ab.a)]
           const b = ['a', 'b', 'c', 'd'][parseInt(ab.b)]
@@ -372,78 +373,78 @@ export default function exercicesAnglesAIC () {
           let angles, calculs, mesure
           switch (a + b) {
             case 'ab':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               calculs = `$180°- ${anglesB.labela.texte}=${anglesB.labelb.texte}$`
               mesure = anglesB.labelb.texte
               break
             case 'ac':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               mesure = anglesB.labela.texte
               break
             case 'ad':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               calculs = `$180°-${anglesB.labela.texte}=${anglesB.labeld.texte}$`
               mesure = anglesB.labeld.texte
               break
             case 'ba':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               calculs = `$180°-${anglesB.labelb.texte}=${anglesB.labela.texte}$`
               mesure = anglesB.labela.texte
               break
             case 'bc':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labelc.texte}$`
               mesure = anglesB.labelc.texte
               break
             case 'bd':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               mesure = anglesB.labelb.texte
               break
             case 'cb':
-              anglesB.a.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.a.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'alternes-internes'
               calculs = `$180°- ${anglesB.labela.texte}=${anglesB.labelb.texte}$`
               mesure = anglesB.labelb.texte
               break
             case 'cd':
-              anglesB.a.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.a.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'alternes-internes'
               calculs = `$180°-${anglesB.labela.texte}=${anglesB.labeld.texte}$`
               mesure = anglesB.labeld.texte
               break
             case 'da':
-              anglesB.b.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.b.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'alternes-internes'
               calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labela.texte}$`
               mesure = anglesB.labela.texte
               break
             case 'dc':
-              anglesB.b.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.b.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labelc.texte}$`
               angles = 'alternes-internes'
@@ -525,8 +526,8 @@ export default function exercicesAnglesAIC () {
             anglesB.OX.positionLabel = 'left'
           }
           for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = 'red'
-            anglesB[i].couleurDeRemplissage = 'red'
+            anglesA[i].couleurDeRemplissage = colorToLatexOrHTML('red')
+            anglesB[i].couleurDeRemplissage = colorToLatexOrHTML('red')
           }
           const ab = choice([
             choice(['aa', 'bb', 'cc', 'dd']),
@@ -628,8 +629,8 @@ export default function exercicesAnglesAIC () {
             anglesB.OX.positionLabel = 'left'
           }
           for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = 'red'
-            anglesB[i].couleurDeRemplissage = 'red'
+            anglesA[i].couleurDeRemplissage = colorToLatexOrHTML('red')
+            anglesB[i].couleurDeRemplissage = colorToLatexOrHTML('red')
           }
           const ab = choice([
             choice(['aa', 'bb', 'cc', 'dd']),
@@ -737,8 +738,8 @@ export default function exercicesAnglesAIC () {
             anglesB.OX.positionLabel = 'left'
           }
           for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = 'red'
-            anglesB[i].couleurDeRemplissage = 'red'
+            anglesA[i].couleurDeRemplissage = colorToLatexOrHTML('red')
+            anglesB[i].couleurDeRemplissage = colorToLatexOrHTML('red')
           }
           const a = ['a', 'b', 'c', 'd'][parseInt(ab.a)]
           const b = ['a', 'b', 'c', 'd'][parseInt(ab.b)]
@@ -775,69 +776,69 @@ export default function exercicesAnglesAIC () {
           let angles, calculs
           switch (a + b) {
             case 'ab':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               calculs = `$180°-${anglesB.labelb.texte} = ${anglesB.labela.texte}$`
               break
             case 'ac':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               break
             case 'ad':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               calculs = `$180°-${anglesB.labeld.texte} = ${anglesB.labela.texte}$`
               break
             case 'ba':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               calculs = `$180°-${anglesB.labela.texte} = ${anglesB.labelb.texte}$`
               break
             case 'bc':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               calculs = `$180°-${anglesB.labelc.texte} = ${anglesB.labelb.texte}$`
               break
             case 'bd':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               break
             case 'cb':
-              anglesB.a.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.a.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'alternes-internes'
               calculs = `$180°-${anglesB.labelb.texte} = ${anglesB.labela.texte}$`
               break
             case 'cd':
-              anglesB.a.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.a.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'alternes-internes'
               calculs = `$180°-${anglesB.labeld.texte} = ${anglesB.labela.texte}$`
               break
             case 'da':
-              anglesB.b.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.b.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'alternes-internes'
               calculs = `$180°-${anglesB.labela.texte} = ${anglesB.labelb.texte}$`
               break
             case 'dc':
-              anglesB.b.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.b.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'alternes-internes'
               calculs = `$180°-${anglesB.labelc.texte} = ${anglesB.labelb.texte}$`
@@ -925,8 +926,8 @@ export default function exercicesAnglesAIC () {
             anglesB.OX.positionLabel = 'left'
           }
           for (const i of ['a', 'b', 'c', 'd']) {
-            anglesA[i].couleurDeRemplissage = 'blue'
-            anglesB[i].couleurDeRemplissage = 'blue'
+            anglesA[i].couleurDeRemplissage = colorToLatexOrHTML('blue')
+            anglesB[i].couleurDeRemplissage = colorToLatexOrHTML('blue')
           }
           const a = ['a', 'b', 'c', 'd'][parseInt(ab.a)]
           const b = ['a', 'b', 'c', 'd'][parseInt(ab.b)]
@@ -964,78 +965,78 @@ export default function exercicesAnglesAIC () {
           let angles, calculs, mesure
           switch (a + b) {
             case 'ab':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               calculs = `$180°- ${anglesB.labela.texte}=${anglesB.labelb.texte}$`
               mesure = anglesB.labelb.texte
               break
             case 'ac':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               mesure = anglesB.labela.texte
               break
             case 'ad':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'correspondants'
               calculs = `$180°-${anglesB.labela.texte}=${anglesB.labeld.texte}$`
               mesure = anglesB.labeld.texte
               break
             case 'ba':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               calculs = `$180°-${anglesB.labelb.texte}=${anglesB.labela.texte}$`
               mesure = anglesB.labela.texte
               break
             case 'bc':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labelc.texte}$`
               mesure = anglesB.labelc.texte
               break
             case 'bd':
-              anglesB[a].couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB[a].couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'correspondants'
               mesure = anglesB.labelb.texte
               break
             case 'cb':
-              anglesB.a.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.a.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'alternes-internes'
               calculs = `$180°- ${anglesB.labela.texte}=${anglesB.labelb.texte}$`
               mesure = anglesB.labelb.texte
               break
             case 'cd':
-              anglesB.a.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.a.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'a'], anglesB.a)
               angles = 'alternes-internes'
               calculs = `$180°-${anglesB.labela.texte}=${anglesB.labeld.texte}$`
               mesure = anglesB.labeld.texte
               break
             case 'da':
-              anglesB.b.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.b.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               angles = 'alternes-internes'
               calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labela.texte}$`
               mesure = anglesB.labela.texte
               break
             case 'dc':
-              anglesB.b.couleurDeRemplissage = 'green'
-              anglesA[a].couleurDeRemplissage = 'red'
+              anglesB.b.couleurDeRemplissage = colorToLatexOrHTML('green')
+              anglesA[a].couleurDeRemplissage = colorToLatexOrHTML('red')
               objetsCorrection.push(anglesB['label' + 'b'], anglesB.b)
               calculs = `$180°- ${anglesB.labelb.texte}=${anglesB.labelc.texte}$`
               angles = 'alternes-internes'

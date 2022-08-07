@@ -12,7 +12,7 @@ export const amcReady = true
 export const amcType = 'AMCNum' // type de question AMC
 
 /**
- * Écrire un nombre décimal en notation scientifique et inversement
+ * Ecrire un nombre décimal en notation scientifique et inversement
  * @author Jean-Claude Lhote
  * 4C32
  */

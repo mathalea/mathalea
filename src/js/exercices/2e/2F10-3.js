@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
-import { repere, droite, mathalea2d, point, tracePoint, labelPoint, texteParPosition } from '../../modules/2d.js'
+import { repere, droite, mathalea2d, point, tracePoint, labelPoint, texteParPosition, colorToLatexOrHTML } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
 
 export const titre = 'Représentation graphique d\'une fonction affine'
@@ -48,7 +48,7 @@ export default function representerfonctionaffine () {
         const A = point(xA, yA, 'A')
         const B = point(xB, yB, 'B')
         c = droite(A, B)
-        c.color = 'red'
+        c.color = colorToLatexOrHTML('red')
         c.epaisseur = 2
 
         cadre = {
@@ -108,7 +108,7 @@ export default function representerfonctionaffine () {
         const A1 = point(xA, yA, 'A')
         const B1 = point(xB, yB, 'B')
         c = droite(A1, B1)
-        c.color = 'red'
+        c.color = colorToLatexOrHTML('red')
         c.epaisseur = 2
 
         cadre = {

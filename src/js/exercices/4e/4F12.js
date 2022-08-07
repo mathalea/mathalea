@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, prenomF } from '../../modules/outils.js'
-import { point, polyline, grille, courbeInterpolee, texteParPosition, mathalea2d, repere, courbe, vide2d } from '../../modules/2d.js'
+import { point, polyline, grille, courbeInterpolee, texteParPosition, mathalea2d, repere, courbe, vide2d, colorToLatexOrHTML } from '../../modules/2d.js'
 export const titre = 'Problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -183,7 +183,7 @@ export default function ExploiterRepresentationGraphique () {
           grilleSecondaireYMax: v3 + 1
         })
         g1 = grille(-1, -1, 6, 8)
-        g1.color = 'black'
+        g1.color = colorToLatexOrHTML('black')
         g1.opacite = 1
         texte1 = texteParPosition('distance (en km)', 0.2, v3 + 1.5, 'droite')
         texte2 = texteParPosition('temps (en min)', 6.5, 0.4, 'droite')
@@ -206,7 +206,7 @@ export default function ExploiterRepresentationGraphique () {
           periodeRapide = 'durant les 10 premières minutes'
         }
         l.epaisseur = 2
-        l.color = 'blue'
+        l.color = colorToLatexOrHTML('blue')
 
         fille = prenomF()
         this.introduction = `${fille} fait du vélo avec son smartphone sur une voie-verte rectiligne qui part de chez elle. Une application lui permet de voir à quelle distance de chez elle, elle se trouve.`

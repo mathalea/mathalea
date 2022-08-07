@@ -1,4 +1,4 @@
-import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, mathalea2d, point, segment, milieu, pointSurDroite, tracePoint, codageSegments, repere, labelPoint, droiteHorizontaleParPoint, afficheMesureAngle, vecteur } from '../../modules/2d.js'
+import { codageAngleDroit, droiteParPointEtPente, droiteVerticaleParPoint, mathalea2d, point, segment, milieu, pointSurDroite, tracePoint, codageSegments, repere, labelPoint, droiteHorizontaleParPoint, afficheMesureAngle, vecteur, colorToLatexOrHTML } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, choice, combinaisonListes, imagePointParTransformation, texFractionReduite, texNombrec, texNombre } from '../../modules/outils.js'
@@ -76,10 +76,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
     droited2.epaisseur = 2
     droited.epaisseur = 2
     droitedprime.epaisseur = 2
-    droited1.color = 'green'
-    droited2.color = 'green'
-    droited.color = 'green'
-    droitedprime.color = 'green'
+    droited1.color = colorToLatexOrHTML('green')
+    droited2.color = colorToLatexOrHTML('green')
+    droited.color = colorToLatexOrHTML('green')
+    droitedprime.color = colorToLatexOrHTML('green')
     droited1.opacite = 0.5
     droited1.nom = '(d_1)'
     droited2.opacite = 0.5

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, labelPoint, segment, polygone, translation2Points, similitude, codageSegments, grille, seyes, mathalea2d } from '../../modules/2d.js'
+import { point, labelPoint, segment, polygone, translation2Points, similitude, codageSegments, grille, seyes, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
 /**
  * fonction servant à plusieurs exercice autour du cube et du pavé droit
  * références : 6G42 et 6G43
@@ -173,34 +173,34 @@ export default function Solide6e () {
       BF.epaisseur = 2
       CG.epaisseur = 2
       DH.epaisseur = 2
-      AB.color = 'black'
-      BC.color = 'black'
-      CD.color = 'black'
-      DA.color = 'black'
-      EF.color = 'black'
-      FG.color = 'black'
-      GH.color = 'black'
-      HE.color = 'black'
-      AE.color = 'black'
-      BF.color = 'black'
-      CG.color = 'black'
+      AB.color = colorToLatexOrHTML('black')
+      BC.color = colorToLatexOrHTML('black')
+      CD.color = colorToLatexOrHTML('black')
+      DA.color = colorToLatexOrHTML('black')
+      EF.color = colorToLatexOrHTML('black')
+      FG.color = colorToLatexOrHTML('black')
+      GH.color = colorToLatexOrHTML('black')
+      HE.color = colorToLatexOrHTML('black')
+      AE.color = colorToLatexOrHTML('black')
+      BF.color = colorToLatexOrHTML('black')
+      CG.color = colorToLatexOrHTML('black')
       if (G.y < C.y && G.x < C.x) {
         CG.pointilles = 5
-        CG.color = 'gray'
+        CG.color = colorToLatexOrHTML('gray')
         CG.opacite = 0.7
         GH.pointilles = 5
-        GH.color = 'gray'
+        GH.color = colorToLatexOrHTML('gray')
         GH.opacite = 0.7
         FG.pointilles = 5
-        FG.color = 'gray'
+        FG.color = colorToLatexOrHTML('gray')
         FG.opacite = 0.7
       } else if (E.y > A.y && E.x > A.x) {
         AE.pointilles = 5
         EF.pointilles = 5
         HE.pointilles = 5
-        AE.color = 'gray'
-        EF.color = 'gray'
-        HE.color = 'gray'
+        AE.color = colorToLatexOrHTML('gray')
+        EF.color = colorToLatexOrHTML('gray')
+        HE.color = colorToLatexOrHTML('gray')
         AE.opacite = 0.7
         EF.opacite = 0.7
         HE.opacite = 0.7
@@ -208,9 +208,9 @@ export default function Solide6e () {
         BF.pointilles = 5
         FG.pointilles = 5
         EF.pointilles = 5
-        BF.color = 'gray'
-        FG.color = 'gray'
-        EF.color = 'gray'
+        BF.color = colorToLatexOrHTML('gray')
+        FG.color = colorToLatexOrHTML('gray')
+        EF.color = colorToLatexOrHTML('gray')
         BF.opacite = 0.7
         FG.opacite = 0.7
         EF.opacite = 0.7
@@ -218,9 +218,9 @@ export default function Solide6e () {
         DH.pointilles = 5
         GH.pointilles = 5
         HE.pointilles = 5
-        DH.color = 'gray'
-        GH.color = 'gray'
-        HE.color = 'gray'
+        DH.color = colorToLatexOrHTML('gray')
+        GH.color = colorToLatexOrHTML('gray')
+        HE.color = colorToLatexOrHTML('gray')
         DH.opacite = 0.7
         GH.opacite = 0.7
         HE.opacite = 0.7
@@ -257,32 +257,32 @@ export default function Solide6e () {
       enonce += mathalea2d(params, objetsEnonce)
       if (listeTypeDeQuestions[i] === 1) {
         codesseg = [codageSegments('||', 'green', [A, B, C, D, A, E, F, G, H, E]), codageSegments('||', 'green', B, F, C, G, D, H)]
-        AB.color = 'green'
-        BC.color = 'green'
-        CD.color = 'green'
-        DA.color = 'green'
-        EF.color = 'green'
-        FG.color = 'green'
-        GH.color = 'green'
-        HE.color = 'green'
-        AE.color = 'green'
-        BF.color = 'green'
-        CG.color = 'green'
-        DH.color = 'green'
+        AB.color = colorToLatexOrHTML('green')
+        BC.color = colorToLatexOrHTML('green')
+        CD.color = colorToLatexOrHTML('green')
+        DA.color = colorToLatexOrHTML('green')
+        EF.color = colorToLatexOrHTML('green')
+        FG.color = colorToLatexOrHTML('green')
+        GH.color = colorToLatexOrHTML('green')
+        HE.color = colorToLatexOrHTML('green')
+        AE.color = colorToLatexOrHTML('green')
+        BF.color = colorToLatexOrHTML('green')
+        CG.color = colorToLatexOrHTML('green')
+        DH.color = colorToLatexOrHTML('green')
       } else {
         codesseg = [codageSegments('||', 'green', A, B, C, D, E, F, G, H), codageSegments('O', 'red', A, E, B, F, C, G, D, H), codageSegments('×', 'blue', D, A, B, C, F, G, H, E)]
-        AB.color = 'green'
-        BC.color = 'blue'
-        CD.color = 'green'
-        DA.color = 'blue'
-        EF.color = 'green'
-        FG.color = 'blue'
-        GH.color = 'green'
-        HE.color = 'blue'
-        AE.color = 'red'
-        BF.color = 'red'
-        CG.color = 'red'
-        DH.color = 'red'
+        AB.color = colorToLatexOrHTML('green')
+        BC.color = colorToLatexOrHTML('blue')
+        CD.color = colorToLatexOrHTML('green')
+        DA.color = colorToLatexOrHTML('blue')
+        EF.color = colorToLatexOrHTML('green')
+        FG.color = colorToLatexOrHTML('blue')
+        GH.color = colorToLatexOrHTML('green')
+        HE.color = colorToLatexOrHTML('blue')
+        AE.color = colorToLatexOrHTML('red')
+        BF.color = colorToLatexOrHTML('red')
+        CG.color = colorToLatexOrHTML('red')
+        DH.color = colorToLatexOrHTML('red')
       }
 
       objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),

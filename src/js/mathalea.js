@@ -2,9 +2,9 @@
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan, arrondi, dataTailleDiaporama, contraindreValeur } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGo, replaceQueryParam, goTabVue } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
-import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
-import { waitFor } from './modules/outilsDom'
-import { mg32DisplayAll } from './modules/mathgraph'
+import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders.js'
+import { waitFor } from './modules/outilsDom.js'
+import { mg32DisplayAll } from './modules/mathgraph.js'
 import {
   errorHandler,
   getInvalidModuleError, getNoLatexError,

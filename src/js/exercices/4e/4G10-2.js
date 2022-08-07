@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu, choisitLettresDifferentes } from '../../modules/outils.js'
-import { afficheLongueurSegment, codageAngleDroit, droite, droiteParPointEtPerpendiculaire, labelPoint, mathalea2d, point, pointAdistance, pointIntersectionDD, pointSurDroite, polygoneAvecNom, segment, translation2Points, triangle2points2longueurs, vecteur } from '../../modules/2d.js'
+import { afficheLongueurSegment, codageAngleDroit, colorToLatexOrHTML, droite, droiteParPointEtPerpendiculaire, labelPoint, mathalea2d, point, pointAdistance, pointIntersectionDD, pointSurDroite, polygoneAvecNom, segment, translation2Points, triangle2points2longueurs, vecteur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Transformer une figure par translation'
 
@@ -47,7 +47,7 @@ export default class nomExercice extends Exercice {
       function segmente (point, image) {
         const segmentAA = segment(point, image)
         segmentAA.styleExtremites = '|->'
-        segmentAA.color = 'red'
+        segmentAA.color = colorToLatexOrHTML('red')
         segmentAA.pointilles = 2
         return segmentAA
       }

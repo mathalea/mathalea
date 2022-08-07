@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
-import { point, polygone, grille, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { point, polygone, grille, texteParPosition, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -125,7 +125,7 @@ export default function ColorierDeplacement () {
     let p // carré gris représentant le lutin en position de départ
     p = polygone(point(lstX[0], lstY[0]), point(lstX[0] + 1, lstY[0]), point(lstX[0] + 1, lstY[0] - 1), point(lstX[0], lstY[0] - 1))
     p.opacite = 0.5
-    p.couleurDeRemplissage = 'black'
+    p.couleurDeRemplissage = colorToLatexOrHTML('black')
     p.opaciteDeRemplissage = 0.5
     p.epaisseur = 0
     lstObjet.push(p)

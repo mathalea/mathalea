@@ -5,7 +5,7 @@ let t = polygone(A,B,C)
 let O = centreCercleCirconscrit(A,B,C,'O')
 let c = cercleCentrePoint(O,A)
 t.epaisseur = 2
-t.color = 'blue'
+t.color = colorToLatexOrHTML('blue')
 c.pointilles = 5
 labelPoint(A,B,C,O)
 tracePoint(O)

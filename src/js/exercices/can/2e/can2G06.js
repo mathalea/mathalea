@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, ecritureParentheseSiNegatif, calcul, reduireAxPlusB } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
-import { courbe, mathalea2d, point, repere, tracePoint } from '../../../modules/2d.js'
+import { colorToLatexOrHTML, courbe, mathalea2d, point, repere, tracePoint } from '../../../modules/2d.js'
 export const titre = 'Déterminer le coefficient directeur d\'une droite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -52,8 +52,8 @@ export default function CoeffDirecteurDroite () {
         yB = calcul(b + a * xB)
         tA = tracePoint(point(xA, yA))
         tB = tracePoint(point(xB, yB))
-        tA.color = 'red'
-        tB.color = 'red'
+        tA.color = colorToLatexOrHTML('red')
+        tB.color = colorToLatexOrHTML('red')
         rep = repere({ xMin: -5, yMin: -5, xMax: 5, yMax: 5 })
         this.formatInteractif = 'calcul'
         this.question = 'Donner le coefficient directeur de la droite bleue.<br>'

@@ -1,4 +1,4 @@
-import { labelPoint, mathalea2d, tracePoint } from '../../modules/2d.js'
+import { colorToLatexOrHTML, labelPoint, mathalea2d, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { lettreDepuisChiffre, listeQuestionsToContenu, miseEnEvidence, randint } from '../../modules/outils.js'
 import { radians, sin } from '../../modules/fonctionsMaths.js'
@@ -141,7 +141,7 @@ export default function ReperagePaveDroit () {
       s3.c2d.epaisseur = 3
       t = tracePoint(pointAplacer)
       t.epaisseur = 2
-      t.color = 'red'
+      t.color = colorToLatexOrHTML('red')
       t.taille = 6
       objetsAtracerCorr = [s1.c2d, s2.c2d, s3.c2d, t, labelPoint(pointAplacer)].concat(objetsAtracer)
       texteCorr = mathalea2d({ xmin: -1, xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)), ymin: -1, ymax: hauteur + profondeur * context.coeffPerspective * sin(context.anglePerspective), style: 'display: block; margin-top:20px;' }, objetsAtracerCorr)
