@@ -71,7 +71,7 @@ export default function agrandissement () {
 
         case 'type2':// Calcul de k connaissant A1 et A2
           texte = `Une figure a une aire de $${A1}$ cm². `
-          texte += k.gt(1) ? ' On l\' agrandit ' : ' On la réduit '
+          texte += k.gt(1) ? ' On l\'agrandit ' : ' On la réduit '
           texte += `et l'aire obtenue est de $${texNombre(A2, 2)}$ cm².`
           texte += '<br> Quel est le coefficient '
           texte += k.gt(1) ? ' d\'agrandissement ? ' : ' de réduction ? '
@@ -81,9 +81,9 @@ export default function agrandissement () {
           texteCorr += `, on a l'égalité :  $${texNombre(A2, 2)}=k^2\\times${A1}.$`
           texteCorr += `<br>On en déduit que : $k^2=\\dfrac{${texNombre(A2, 2)}}{${A1}}=${texNombre(A2.div(A1), 2)}$.`
           texteCorr += `<br>$k$ est un nombre positif, on peut conclure que : $k=\\sqrt{${texNombre(A2.div(A1), 2)}}=${texNombre(k, 1)}$.`
-          texteCorr += '<br>L\'échelle '
+          texteCorr += '<br>Le coefficient'
           texteCorr += k.gt(1) ? ' d\'agrandissement' : ' de réduction'
-          texteCorr += `est donc $k=${texNombre(k, 1)}$ `
+          texteCorr += ` est donc $k=${texNombre(k, 1)}$.`
           texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
 
           setReponse(this, i, k)
@@ -98,8 +98,8 @@ export default function agrandissement () {
           texteCorr += `$k=\\dfrac{${texNombre(l2, 1)}}{${l1}}= ${texNombre(k, 1)}$.<br>`
           texteCorr += 'Comme $k'
           texteCorr += k.gt(1) ? ' >' : ' <'
-          texteCorr += '1$, on en déduit qu\'il s\'agit d\'un '
-          texteCorr += k.gt(1) ? 'agrandissement' : 'e réduction'
+          texteCorr += '1$, on en déduit qu\'il s\'agit d\'un'
+          texteCorr += k.gt(1) ? ' agrandissement' : 'e réduction'
           texteCorr += ` à l'échelle $${texNombre(k, 1)}$.`
           texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           setReponse(this, i, k)
@@ -107,8 +107,8 @@ export default function agrandissement () {
           break
         case 'type4':// Calcul de k connaissant V1 et V2
           texte = `Un solide a un volume de $${V1}$ cm³.`
-          texte += k.gt(1) ? ' On l\' agrandit ' : ' On le réduit '
-          texte += `et le solide obtenu a un volume de $${texNombre(V2, 3)}$ cm².`
+          texte += k.gt(1) ? ' On l\'agrandit ' : ' On le réduit '
+          texte += `et le solide obtenu a un volume de $${texNombre(V2, 3)}$ cm³.`
           texte += '<br> Quel est le coefficient '
           texte += k.gt(1) ? ' d\'agrandissement ? ' : ' de réduction ? '
           texteCorr = 'On sait que dans une réduction ou un agrandissement de rapport $k$, les volumes sont multipliées par $k^3$.'
@@ -133,7 +133,7 @@ export default function agrandissement () {
           texte += k.gt(1) ? '  agrandie. ' : ' réduite. '
           texteCorr = 'On sait que dans un agrandissement ou une réduction à l\'échelle $k$,  '
           texteCorr += 'les longueurs sont toutes multipliées par $k$.<br> Par contre, les mesures d\'angles ne sont pas modifiées.<br>'
-          texteCorr += `<br>On en déduit : $\\widehat{A'B'C'}=\\widehat{ABC}=${V1} °$`
+          texteCorr += `<br>On en déduit : $\\widehat{A'B'C'}=\\widehat{ABC}=${V1} °$.`
           texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline collège')
           setReponse(this, i, k)
           setReponse(this, i, new Grandeur(V1, '°'), { formatInteractif: 'unites' })
