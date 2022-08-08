@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, shuffle } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { cercle, cercleCentrePoint, codeAngle, latexParPoint, mathalea2d, point, pointSurCercle, segment } from '../../modules/2d.js'
+import { cercle, cercleCentrePoint, codageAngle, colorToLatexOrHTML, latexParPoint, mathalea2d, point, pointSurCercle, segment } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Valeurs remarquables du cosinus et sinus'
 export const interactifReady = true
@@ -206,22 +206,22 @@ function cercleTrigo (angle, cosOrSin = 'cos') {
   const s1 = segment(I, I2)
   const s2 = segment(J, J2)
   const c = cercleCentrePoint(O, I)
-  const c2 = cercle(O, 1.2 * r)
+  const c2 = cercle(O, 5.7)
   c2.isVisible = false
   const M = pointSurCercle(c, monAngle)
   const M2 = pointSurCercle(c2, monAngle)
   const sOM = segment(O, M)
   const sOI = segment(O, I)
   sOM.epaisseur = 3
-  sOM.color = 'blue'
+  sOM.color = colorToLatexOrHTML('blue')
   sOI.epaisseur = 3
-  sOI.color = 'blue'
+  sOI.color = colorToLatexOrHTML('blue')
   const x = point(M.x, 0)
   const y = point(0, M.y)
   const sMx = segment(M, x)
-  sMx.pointilles = true
+  sMx.pointilles = 5
   const sMy = segment(M, y)
-  sMy.pointilles = true
+  sMy.pointilles = 5
   const texteAngle = latexParPoint(tAngle, M2)
   const Rx = point(M.x, (M.y < 0) ? 1.5 : -1.5)
   const Ry = point((M.x < 0) ? 0.75 : -1.5, M.y)
@@ -231,8 +231,8 @@ function cercleTrigo (angle, cosOrSin = 'cos') {
   const sSin = segment(O, point(0, M.y))
   sCos.epaisseur = 3
   sSin.epaisseur = 3
-  const marqueAngle = codeAngle(I, O, M)
-  marqueAngle.color = 'blue'
+  const marqueAngle = codageAngle(I, O, M)
+  marqueAngle.color = colorToLatexOrHTML('blue')
   marqueAngle.epaisseur = 3
   const objetsTrigo = []
   if (cosOrSin === 'cos') {
@@ -240,5 +240,5 @@ function cercleTrigo (angle, cosOrSin = 'cos') {
   } else {
     objetsTrigo.push(texteSinus, sSin, sMy)
   }
-  return mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.5, ymax: r + 1.5 }, c, texteAngle, marqueAngle, s1, s2, ...objetsTrigo, sOM, sOI)
+  return mathalea2d({ xmin: -r - 3, xmax: r + 3, ymin: -r - 1.8, ymax: r + 1.8 }, c, texteAngle, marqueAngle, s1, s2, ...objetsTrigo, sOM, sOI)
 }

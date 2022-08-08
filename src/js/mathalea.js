@@ -2,9 +2,9 @@
 import { strRandom, creerDocumentAmc, telechargeFichier, introLatex, introLatexCoop, scratchTraductionFr, modalYoutube, exerciceSimpleToContenu, listeQuestionsToContenu, introLatexCan, arrondi, dataTailleDiaporama, contraindreValeur } from './modules/outils.js'
 import { getUrlVars, getFilterFromUrl, setUrl, getUrlSearch, getUserId, setUrlAndGo, replaceQueryParam, goTabVue } from './modules/gestionUrl.js'
 import { menuDesExercicesDisponibles, dictionnaireDesExercices, apparenceExerciceActif, supprimerExo } from './modules/menuDesExercicesDisponibles.js'
-import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders'
-import { waitFor } from './modules/outilsDom'
-import { mg32DisplayAll } from './modules/mathgraph'
+import { loadIep, loadPrism, loadGiac, loadMathLive } from './modules/loaders.js'
+import { waitFor } from './modules/outilsDom.js'
+import { mg32DisplayAll } from './modules/mathgraph.js'
 import {
   errorHandler,
   getInvalidModuleError, getNoLatexError,
@@ -287,8 +287,14 @@ function contenuExerciceHtml (obj, numeroExercice) {
       return `<h3> Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial})</h3>`
     }
 
-    function titreExCorr (type) {
-      return `<h3 class="ui dividing header">Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+    function titreExCorr (type, coopmaths = false) {
+      let h3Tag = ''
+      if (coopmaths === true) {
+        h3Tag += `<h3 class="ui dividing header">Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé alternatif COOPMATHS</h3>`
+      } else {
+        h3Tag += `<h3 class="ui dividing header">Exercice ${numeroExercice} − ${type} ${obj.mois} ${obj.annee} - ${obj.lieu} (ex ${obj.numeroInitial}) - Corrigé par l'APMEP</h3>`
+      }
+      return h3Tag
     }
     const dnb = {
       titreEx: titreEx('DNB'),
@@ -371,6 +377,10 @@ function contenuExerciceHtml (obj, numeroExercice) {
         case 'bac':
         case 'e3c':
           contenuUneCorrection += `<img id="${obj.id}Cor" width="90%" src="${obj.pngcor}">`
+          if (typeof obj.pngcorcoop !== 'undefined') {
+            contenuUneCorrection += titreExCorr('DNB', true)
+            contenuUneCorrection += `<img id="${obj.id}Cor" width="90%" src="${obj.pngcorcoop}">`
+          }
           break
       }
       contenuUneCorrection += '</div></div>'
@@ -1440,6 +1450,15 @@ async function miseAJourDeLaListeDesExercices (preview) {
               listeObjetsExercice[i].contenuCorrection = listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : data
             })
         )
+        if (typeof dictionnaireDesExercices[id].urlcorcoop !== 'undefined') {
+          promises.push(
+            window.fetch(dictionnaireDesExercices[id].urlcorcoop)
+              .then((response) => response.text())
+              .then((data) => {
+                listeObjetsExercice[i].contenuCorrection += listeObjetsExercice[i].correctionIsCachee ? 'Correction masquée' : '\\begin{LARGE}\\textbf{Correction alternative COOPMATHS}\\end{LARGE} \\par\\vspace{0.5cm}' + data
+              })
+          )
+        }
       } else if (dictionnaireDesExercices[id].typeExercice === 'crpe') {
         listeObjetsExercice[i] = dictionnaireDesExercices[id]
         listeObjetsExercice[i].nbQuestionsModifiable = false
@@ -1849,8 +1868,8 @@ function parametresExercice (exercice) {
       $('#nombre_de_versions').change(function () {
         miseAJourDuCode()
       })
-      $('#popup_preview .icone_param').remove() //Dans la popup de visualisation pas d'icone engrenage.
-      $('#popup_preview .iconeInteractif').remove() //Dans la popup de visualisation pas d'icone interactif
+      $('#popup_preview .icone_param').remove() // Dans la popup de visualisation pas d'icone engrenage.
+      $('#popup_preview .iconeInteractif').remove() // Dans la popup de visualisation pas d'icone interactif
     } else {
       divParametresGeneraux.innerHTML += '<h4 class="ui dividing header">Exercice n°' + (i + 1) + ' : ' + exercice[i].titre + '</h4>'
 

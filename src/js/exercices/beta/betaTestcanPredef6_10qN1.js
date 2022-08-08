@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { droiteGraduee2, mathalea2d } from '../../modules/2d'
+import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
 import { listeQuestionsToContenu, randint, texNombrec, range1, combinaisonListesSansChangerOrdre, prenomF, choice, texteEnCouleur, calcul } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -198,7 +198,7 @@ export default function Can10Questions6N1 () {
         case '8':
           fruits = [
             ['pêches', 4, 11, 19],
-            ['Noix', 5, 4, 9],
+            ['noix', 5, 4, 9],
             ['cerises', 6, 11, 19],
             ['pommes', 3, 21, 29],
             ['framboises', 15, 1, 9],

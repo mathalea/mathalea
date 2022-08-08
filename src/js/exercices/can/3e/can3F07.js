@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { randint, calcul, texFraction, miseEnEvidence, reduireAxPlusB, texteCentre } from '../../../modules/outils.js'
-import { courbe2, mathalea2d, point, repere2, tracePoint, texteParPosition, segment } from '../../../modules/2d.js'
+import { courbe, mathalea2d, point, repere, tracePoint, texteParPosition, segment, colorToLatexOrHTML } from '../../../modules/2d.js'
 export const titre = 'Lire graphiquement une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,14 +31,14 @@ export default function LectureGraphiqueFonctionAffine1 () {
     const tA = tracePoint(point(xA, yA))
     const tB = tracePoint(point(xB, yB))
 
-    tA.color = 'red'
-    tB.color = 'red'
+    tA.color = colorToLatexOrHTML('red')
+    tB.color = colorToLatexOrHTML('red')
 
-    const repere = repere2({ xMin: -8, yMin: -8, xMax: 8, yMax: 8 })
+    const rep = repere({ xMin: -8, yMin: -8, xMax: 8, yMax: 8 })
     this.formatInteractif = 'calcul'
     this.question = '$f$ est une fonction affine définie par $f(x)=...$<br>'
     this.question += `${mathalea2d({ xmin: -7, ymin: -7, xmax: 7, ymax: 7, pixelsParCm: 15, scale: 0.6, style: 'margin: auto' },
-        repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }), o)}`
+        rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o)}`
 
     this.reponse = [`${a}x+${b}`]
     this.correction = `<br> $f$ est de la forme 
@@ -61,13 +61,13 @@ export default function LectureGraphiqueFonctionAffine1 () {
     s1.styleExtremites = '->'
     if (a > 0) {
       this.correction += `${mathalea2d({ xmin: -7, ymin: -7, xmax: 7, ymax: 7, pixelsParCm: 15, scale: 0.6, style: 'margin: auto' },
-        repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }), o, s1, s2,
+        rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o, s1, s2,
          texteParPosition('1', 0.5, b - 0.5, 0, 'green', 1, 'middle', true)
        , texteParPosition(a, 1.5, b + a / 2, 0, 'red', 1, 'middle', true))}<br>`
     }
     if (a < 0) {
       this.correction += `${mathalea2d({ xmin: -7, ymin: -7, xmax: 7, ymax: 7, pixelsParCm: 15, scale: 0.5, style: 'margin: auto' },
-        repere, courbe2(x => a * x + b, { repere: repere, color: 'blue' }), o, s1, s2,
+        rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o, s1, s2,
          texteParPosition('1', 0.5, b + 0.5, 0, 'green', 1, 'middle', true)
        , texteParPosition(a, 1.5, b + a / 2, 0, 'red', 1, 'middle', true))}<br>`
     }

@@ -1,13 +1,14 @@
 import Exercice from '../../Exercice.js'
-import { fraction } from '../../../modules/fractions'
+import { fraction } from '../../../modules/fractions.js'
 import { randint, listeQuestionsToContenu, reduireAxPlusB, reduirePolynomeDegre3, sp, ecritureParentheseSiNegatif, choice, ecritureAlgebrique } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../modules/interactif/questionQcm.js'
-export const titre = 'Déterminer le sens de variation d’un pôlynome du second degré (QCM)'
+export const titre = 'Déterminer le sens de variation d’un pôlynome du second degré'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '1/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '10/06/2022' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * étude de variation d'une fonction du 2nd degré.
@@ -33,55 +34,57 @@ export default function SecondDegreVariations () {
         maFractionN = fraction(b, 2 * a)
         texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$.<br> 
             Le plus grand intervalle sur lequel la fonction $f$ est croissante est :`
-        if (b === 0) {
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { vertical: true },
-            propositions: [
-              {
-                texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a > 0
-              },
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                statut: a < 0
-              },
-              {
-                texte: `$\\bigg[${a}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a === 0
-              },
-              {
-                texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${a} \\bigg]$ `,
-                statut: a === 0
-              }
-            ]
+        if (this.interactif) {
+          if (b === 0) {
+            this.autoCorrection[0] = {
+              enonce: texte,
+              options: { vertical: false },
+              propositions: [
+                {
+                  texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                  statut: a > 0
+                },
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
+                  statut: a < 0
+                },
+                {
+                  texte: `$\\bigg[${a}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                  statut: a === 0
+                },
+                {
+                  texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${a} \\bigg]$ `,
+                  statut: a === 0
+                }
+              ]
+            }
+          } else {
+            this.autoCorrection[0] = {
+              enonce: texte,
+              options: { vertical: false },
+              propositions: [
+                {
+                  texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                  statut: a > 0
+                },
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
+                  statut: a < 0
+                },
+                {
+                  texte: `$\\bigg[${maFractionN.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                  statut: a === 0
+                },
+                {
+                  texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFractionN.texFractionSimplifiee} \\bigg]$ `,
+                  statut: a === 0
+                }
+              ]
+            }
           }
-        } else {
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { vertical: true },
-            propositions: [
-              {
-                texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a > 0
-              },
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                statut: a < 0
-              },
-              {
-                texte: `$\\bigg[${maFractionN.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a === 0
-              },
-              {
-                texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFractionN.texFractionSimplifiee} \\bigg]$ `,
-                statut: a === 0
-              }
-            ]
-          }
-        }
 
-        texte += propositionsQcm(this, 0).texte
+          texte += propositionsQcm(this, 0).texte
+        }
         if (a > 0) {
           texteCorr = `Comme le coefficient $${a}$ devant $x^2$ est strictement positif, la fonction est d'abord décroissante puis croissante (la parabole est "tournée vers le haut").
           <br> $-\\dfrac{b}{2a}=-\\dfrac{${b}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${maFraction.texFractionSimplifiee}$.
@@ -110,30 +113,32 @@ export default function SecondDegreVariations () {
             <br>  Le plus grand intervalle sur lequel la fonction $f$ est croissante est :`
           }
         }
-        this.autoCorrection[0] = {
-          enonce: texte,
-          options: { vertical: true },
-          propositions: [
-            {
-              texte: `$\\bigg[${-b}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-              statut: a > 0
-            },
-            {
-              texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${-b} \\bigg]$ `,
-              statut: a < 0
-            },
-            {
-              texte: `$\\bigg[${b}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-              statut: a === 0
-            },
-            {
-              texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${b} \\bigg]$ `,
-              statut: a === 0
-            }
-          ]
-        }
+        if (this.interactif) {
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { vertical: false },
+            propositions: [
+              {
+                texte: `$\\bigg[${-b}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                statut: a > 0
+              },
+              {
+                texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${-b} \\bigg]$ `,
+                statut: a < 0
+              },
+              {
+                texte: `$\\bigg[${b}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                statut: a === 0
+              },
+              {
+                texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${b} \\bigg]$ `,
+                statut: a === 0
+              }
+            ]
+          }
 
-        texte += propositionsQcm(this, 0).texte
+          texte += propositionsQcm(this, 0).texte
+        }
         if (a > 0) {
           if (b > 0) {
             texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré : 
@@ -194,30 +199,32 @@ export default function SecondDegreVariations () {
             <br>     Le plus grand intervalle sur lequel la fonction $f$ est croissante est :`
           }
         }
-        this.autoCorrection[0] = {
-          enonce: texte,
-          options: { vertical: true },
-          propositions: [
-            {
-              texte: `$\\bigg[${maFraction.texFractionSimplifiee} ${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-              statut: a > 0
-            },
-            {
-              texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$ `,
-              statut: a < 0
-            },
-            {
-              texte: `$\\bigg[${maFractionN.texFractionSimplifiee} ${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-              statut: a === 0
-            },
-            {
-              texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFractionN.texFractionSimplifiee} \\bigg]$ `,
-              statut: a === 0
-            }
-          ]
-        }
+        if (this.interactif) {
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { vertical: false },
+            propositions: [
+              {
+                texte: `$\\bigg[${maFraction.texFractionSimplifiee} ${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                statut: a > 0
+              },
+              {
+                texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$ `,
+                statut: a < 0
+              },
+              {
+                texte: `$\\bigg[${maFractionN.texFractionSimplifiee} ${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                statut: a === 0
+              },
+              {
+                texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFractionN.texFractionSimplifiee} \\bigg]$ `,
+                statut: a === 0
+              }
+            ]
+          }
 
-        texte += propositionsQcm(this, 0).texte
+          texte += propositionsQcm(this, 0).texte
+        }
         if (a < 0) {
           texteCorr = `On reconnaît une forme factorisée d'une fonction polynôme du second degré : 
           <br>       $f(x)=a(x-x_1)(x-x_2)$ où $x_1$ et $x_2$ sont les racines du polynôme.
@@ -241,55 +248,57 @@ export default function SecondDegreVariations () {
         maFractionN = fraction(b, 2 * a)
         texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$.
         <br>          Le plus grand intervalle sur lequel la fonction $f$ est décroissante est :`
-        if (b === 0) {
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { vertical: true },
-            propositions: [
-              {
-                texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a < 0
-              },
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                statut: a > 0
-              },
-              {
-                texte: `$\\bigg[${a}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a === 0
-              },
-              {
-                texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${a} \\bigg]$ `,
-                statut: a === 0
-              }
-            ]
+        if (this.interactif) {
+          if (b === 0) {
+            this.autoCorrection[0] = {
+              enonce: texte,
+              options: { vertical: false },
+              propositions: [
+                {
+                  texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                  statut: a < 0
+                },
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
+                  statut: a > 0
+                },
+                {
+                  texte: `$\\bigg[${a}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                  statut: a === 0
+                },
+                {
+                  texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${a} \\bigg]$ `,
+                  statut: a === 0
+                }
+              ]
+            }
+          } else {
+            this.autoCorrection[0] = {
+              enonce: texte,
+              options: { vertical: false },
+              propositions: [
+                {
+                  texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                  statut: a < 0
+                },
+                {
+                  texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
+                  statut: a > 0
+                },
+                {
+                  texte: `$\\bigg[${maFractionN.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                  statut: a === 0
+                },
+                {
+                  texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFractionN.texFractionSimplifiee} \\bigg]$ `,
+                  statut: a === 0
+                }
+              ]
+            }
           }
-        } else {
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { vertical: true },
-            propositions: [
-              {
-                texte: `$\\bigg[${maFraction.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a < 0
-              },
-              {
-                texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${maFraction.texFractionSimplifiee} \\bigg]$ `,
-                statut: a > 0
-              },
-              {
-                texte: `$\\bigg[${maFractionN.texFractionSimplifiee}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-                statut: a === 0
-              },
-              {
-                texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFractionN.texFractionSimplifiee} \\bigg]$ `,
-                statut: a === 0
-              }
-            ]
-          }
-        }
 
-        texte += propositionsQcm(this, 0).texte
+          texte += propositionsQcm(this, 0).texte
+        }
         if (a > 0) {
           texteCorr = `Comme le coefficient $${a}$ devant $x^2$ est strictement positif, la fonction est d'abord décroissante puis croissante (la parabole est "tournée vers le haut").
           <br>         $-\\dfrac{b}{2a}=-\\dfrac{${b}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${maFraction.texFractionSimplifiee}$.
@@ -318,30 +327,32 @@ export default function SecondDegreVariations () {
             <br>         Le plus grand intervalle sur lequel la fonction $f$ est décroissante est :`
           }
         }
-        this.autoCorrection[0] = {
-          enonce: texte,
-          options: { vertical: true },
-          propositions: [
-            {
-              texte: `$\\bigg[${-b}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-              statut: a < 0
-            },
-            {
-              texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${-b} \\bigg]$ `,
-              statut: a > 0
-            },
-            {
-              texte: `$\\bigg[${b}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-              statut: a === 0
-            },
-            {
-              texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${b} \\bigg]$ `,
-              statut: a === 0
-            }
-          ]
-        }
+        if (this.interactif) {
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { vertical: false },
+            propositions: [
+              {
+                texte: `$\\bigg[${-b}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                statut: a < 0
+              },
+              {
+                texte: `$\\bigg]-\\infty${sp(1)} ;${sp(1)}${-b} \\bigg]$ `,
+                statut: a > 0
+              },
+              {
+                texte: `$\\bigg[${b}${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                statut: a === 0
+              },
+              {
+                texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${b} \\bigg]$ `,
+                statut: a === 0
+              }
+            ]
+          }
 
-        texte += propositionsQcm(this, 0).texte
+          texte += propositionsQcm(this, 0).texte
+        }
         if (a > 0) {
           if (b > 0) {
             texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré : 
@@ -402,30 +413,32 @@ export default function SecondDegreVariations () {
             <br>                           Le plus grand intervalle sur lequel la fonction $f$ est décroissante est :`
           }
         }
-        this.autoCorrection[0] = {
-          enonce: texte,
-          options: { vertical: true },
-          propositions: [
-            {
-              texte: `$\\bigg[${maFraction.texFractionSimplifiee} ${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-              statut: a < 0
-            },
-            {
-              texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$ `,
-              statut: a > 0
-            },
-            {
-              texte: `$\\bigg[${maFractionN.texFractionSimplifiee} ${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
-              statut: a === 0
-            },
-            {
-              texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFractionN.texFractionSimplifiee} \\bigg]$ `,
-              statut: a === 0
-            }
-          ]
-        }
+        if (this.interactif) {
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { vertical: false },
+            propositions: [
+              {
+                texte: `$\\bigg[${maFraction.texFractionSimplifiee} ${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                statut: a < 0
+              },
+              {
+                texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFraction.texFractionSimplifiee} \\bigg]$ `,
+                statut: a > 0
+              },
+              {
+                texte: `$\\bigg[${maFractionN.texFractionSimplifiee} ${sp(1)} ;${sp(1)} +\\infty\\bigg[$ `,
+                statut: a === 0
+              },
+              {
+                texte: `$\\bigg]-\\infty ${sp(1)} ;${sp(1)} ${maFractionN.texFractionSimplifiee} \\bigg]$ `,
+                statut: a === 0
+              }
+            ]
+          }
 
-        texte += propositionsQcm(this, 0).texte
+          texte += propositionsQcm(this, 0).texte
+        }
         if (a < 0) {
           texteCorr = `On reconnaît une forme factorisée d'une fonction polynôme du second degré : 
           <br>              $f(x)=a(x-x_1)(x-x_2)$ où $x_1$ et $x_2$ sont les racines du polynôme.

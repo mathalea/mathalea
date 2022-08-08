@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, shuffle, calcul, texteEnCouleur, combinaisonListes } from '../../modules/outils.js'
-import { creerLutin, avance, baisseCrayon, leveCrayon, tournerD, allerA, mathalea2d, scratchblock } from '../../modules/2d.js'
+import { creerLutin, avance, baisseCrayon, leveCrayon, tournerD, allerA, mathalea2d, scratchblock, colorToLatexOrHTML } from '../../modules/2d.js'
 
 export const titre = 'Dessiner avec scratch'
 
@@ -110,7 +110,7 @@ export default function TracerAvecScratch () {
             nom: myPolyName(n).name,
             codeScratch: `\\begin{scratch}
 \\blockinit{quand \\greenflag est cliqué}
-\\blockpen{stylo en position d\'écriture} 
+\\blockpen{stylo en position d'écriture} 
 \\blockrepeat{répéter \\ovalnum{${n}} fois}
 {
 \\blockmove{avancer de \\ovalnum{${myPolyName(n).nbPas}} pas}
@@ -135,8 +135,8 @@ export default function TracerAvecScratch () {
         // Les figures de l'énoncé
         // le lutin2  trace le cadre en pointillés
         const lutin2 = creerLutin()
-        lutin2.color = 'black'
-        lutin2.pointilles = true
+        lutin2.color = colorToLatexOrHTML('black')
+        lutin2.pointilles = 5
         allerA(fenetreMathalea2D.xmin * pixelsParCm, fenetreMathalea2D.ymax * pixelsParCm, lutin2)
         baisseCrayon(lutin2)
         allerA(fenetreMathalea2D.xmax * pixelsParCm, fenetreMathalea2D.ymax * pixelsParCm, lutin2)
@@ -146,7 +146,7 @@ export default function TracerAvecScratch () {
         leveCrayon(lutin2)
         // le lutin2 fait la bonne figure
         lutin2.pointilles = false
-        lutin2.color = 'blue'
+        lutin2.color = colorToLatexOrHTML('blue')
         allerA(tabAbsDemLutin2[0], 0, lutin2)
         baisseCrayon(lutin2)
         for (let k = 1; k < n + 1; k++) {
@@ -192,8 +192,8 @@ export default function TracerAvecScratch () {
         // les figures de la correction
         // le lutin3  trace le cadre
         const lutin3 = creerLutin()
-        lutin3.color = 'black'
-        lutin3.pointilles = true
+        lutin3.color = colorToLatexOrHTML('black')
+        lutin3.pointilles = 5
         allerA(fenetreMathalea2D.xmin * pixelsParCm, fenetreMathalea2D.ymax * pixelsParCm, lutin3)
         baisseCrayon(lutin3)
         allerA(fenetreMathalea2D.xmax * pixelsParCm, fenetreMathalea2D.ymax * pixelsParCm, lutin3)
@@ -203,7 +203,7 @@ export default function TracerAvecScratch () {
         leveCrayon(lutin3)
         // le lutin3 fait la bonne figure
         lutin3.pointilles = false
-        lutin3.color = 'green'
+        lutin3.color = colorToLatexOrHTML('green')
         allerA(tabAbsDemLutin2[0], 0, lutin3)
         baisseCrayon(lutin3)
         for (let k = 1; k < n + 1; k++) {
@@ -211,7 +211,7 @@ export default function TracerAvecScratch () {
           tournerD(calcul(360 / n, 2), lutin3)
         };
         // le lutin3 fait un polygone régulier avec un côté de plus
-        lutin3.color = 'red'
+        lutin3.color = colorToLatexOrHTML('red')
         leveCrayon(lutin3)
         allerA(tabAbsDemLutin2[1], 0, lutin3)
         baisseCrayon(lutin3)

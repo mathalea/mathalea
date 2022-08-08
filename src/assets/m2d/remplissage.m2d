@@ -4,14 +4,14 @@ let C = point(4,4,'C')
 let O = point(10,4,'O')
 let c = cercle(O,2)
 let p = polygone(A,B,C)
-p.color = 'blue' // contour du polygone en bleu
+p.color = colorToLatexOrHTML('blue') // contour du polygone en bleu
 p.epaisseur = 2 // épaisseur du contour
-p.couleurDeRemplissage = 'gray' // couleur de remplissage du polygone
-c.couleurDeRemplissage = 'green' // couleur de remplissage du cercle
+p.couleurDeRemplissage = colorToLatexOrHTML('gray') // couleur de remplissage du polygone
+c.couleurDeRemplissage = colorToLatexOrHTML('green') // couleur de remplissage du cercle
 c.opaciteDeRemplissage = .3 // opacité de la couleur de remplissage du cercle (par défaut à 70%)
 let l = labelPoint(A,B,C)
 labelPoint(O)
 let t = tracePoint(O)
-t.color = 'red' // change la couleur de la croix pour le point O
-l.color = 'blue' // change la couleur des noms des points A, B et C
+t.color = colorToLatexOrHTML('red') // change la couleur de la croix pour le point O
+l.color = colorToLatexOrHTML('blue') // change la couleur des noms des points A, B et C
 

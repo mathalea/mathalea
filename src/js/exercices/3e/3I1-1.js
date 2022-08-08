@@ -1,8 +1,8 @@
-import { texteEnCouleurEtGras, listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, calcul, modalYoutube, lampeMessage, enumerateSansPuceSansNumero, texteGras } from '../../modules/outils.js'
+import { texteEnCouleurEtGras, listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, modalYoutube, lampeMessage, enumerateSansPuceSansNumero, texteGras } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 
-import { mathalea2d, repere2, traceGraphiqueCartesien, point, segment, texteParPosition } from '../../modules/2d.js'
+import { mathalea2d, repere, traceGraphiqueCartesien, point, segment, texteParPosition } from '../../modules/2d.js'
 
 export const titre = 'Conjecture de Syracuse'
 
@@ -159,7 +159,7 @@ export default function ConjectureDeSyracuse () {
       const xCoeff = 2
 
       // Le repère
-      const r2 = repere2({
+      const r2 = repere({
         axesEpaisseur: 3,
         grille: false,
         xMin: -1,
@@ -173,9 +173,9 @@ export default function ConjectureDeSyracuse () {
         xThickMin: 0,
         xThickDistance: 1 * xCoeff,
         xLegende: 'Applications de l\'algorithme',
-        xLegendePosition: [calcul((syracuse({ N: entier }).tempsDeVol() + 2) / xCoeff), 0],
+        xLegendePosition: [(syracuse({ N: entier }).tempsDeVol() + 2) / xCoeff, 0],
         yLegende: 'Altitude',
-        yLegendePosition: [-1, calcul((syracuse({ N: entier }).altitudeMaximale() + 8) / yCoeff)]
+        yLegendePosition: [-1, (syracuse({ N: entier }).altitudeMaximale() + 8) / yCoeff]
       })
 
       // Le graphique cartésien
@@ -203,11 +203,11 @@ export default function ConjectureDeSyracuse () {
       paramsCorrection = {
         xmin: -2,
         ymin: -2,
-        xmax: calcul((syracuse({ N: entier }).tempsDeVol() + 20) / xCoeff),
-        ymax: calcul((syracuse({ N: entier }).altitudeMaximale() + 10) / yCoeff),
+        xmax: (syracuse({ N: entier }).tempsDeVol() + 20) / xCoeff,
+        ymax: (syracuse({ N: entier }).altitudeMaximale() + 10) / yCoeff,
         pixelsParCm: 30,
         // scale: 0.7,
-        optionsTikz: [`xscale=${18 / calcul((syracuse({ N: entier }).tempsDeVol() + 20) / xCoeff)}`, `yscale=${7 / calcul((syracuse({ N: entier }).altitudeMaximale() + 10) / yCoeff)}`],
+        optionsTikz: [`xscale=${18 / (syracuse({ N: entier }).tempsDeVol() + 20) / xCoeff}`, `yscale=${7 / ((syracuse({ N: entier }).altitudeMaximale() + 10) / yCoeff)}`],
         mainlevee: false
       }
 

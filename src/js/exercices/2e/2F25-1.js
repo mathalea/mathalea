@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite } from '../../modules/outils.js'
-import { courbe2, latexParCoordonnees, mathalea2d, point, repere2, segment, tracePoint } from '../../modules/2d.js'
+import { courbe, latexParCoordonnees, mathalea2d, point, repere, segment, tracePoint } from '../../modules/2d.js'
 import { abs } from 'mathjs'
 
 export const titre = 'Propriétés graphiques de la parité d\'une fonction.'
@@ -36,11 +36,11 @@ export default function EtudierGraphiqueParite () {
         case 1:// Cas f(x)=ax+b
           a = randint(-2, 2, [0])
           b = randint(-2, 2, [0])
-          r = repere2({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
+          r = repere({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
           x = randint(-1, 1, [0]) * 2
           f = x => a * x + b
-          C = courbe2(f, { repere: r, step: 0.25 })
-          // C.color = 'red'
+          C = courbe(f, { repere: r, step: 0.25 })
+          // C.color = colorToLatexOrHTML('red')
           // C.epaisseur = 2
           B = point(x, a * x + b)
           A = point(-x, -a * x + b)
@@ -69,11 +69,11 @@ export default function EtudierGraphiqueParite () {
           break
         case 2:// Cas f(x)=ax
           a = randint(-2, 2, [0])
-          r = repere2({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
+          r = repere({ xMin: -7, xMax: 9, yMin: -7, yMax: 7 })
           x = randint(2, 3, [0])
           f = x => a * x
-          C = courbe2(f, { repere: r, step: 0.25 })
-          // C.color = 'red'
+          C = courbe(f, { repere: r, step: 0.25 })
+          // C.color = colorToLatexOrHTML('red')
           // C.epaisseur = 2
           B = point(x, a * x)
           A = point(-x, -a * x)
@@ -88,10 +88,10 @@ export default function EtudierGraphiqueParite () {
           s2 = segment(-x, -a * x, -x, 0, 'red')
           s3 = segment(-x, -a * x, 0, -a * x, 'red')
           s4 = segment(x, a * x, 0, a * x, 'red')
-          s1.pointilles = true
-          s2.pointilles = true
-          s3.pointilles = true
-          s4.pointilles = true
+          s1.pointilles = 5
+          s2.pointilles = 5
+          s3.pointilles = 5
+          s4.pointilles = 5
           s1.epaisseur = 2
           s2.epaisseur = 2
           s3.epaisseur = 2
@@ -114,11 +114,11 @@ export default function EtudierGraphiqueParite () {
           b = randint(1, 5)
           if (a > 0) { b = -b }
 
-          r = repere2({ xMin: -4, xMax: 4, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
+          r = repere({ xMin: -4, xMax: 4, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
           x = 1
           f = x => a * x * x + b
-          C = courbe2(f, { repere: r })
-          // C.color = 'red'
+          C = courbe(f, { repere: r })
+          // C.color = colorToLatexOrHTML('red')
           // C.epaisseur = 2
           B = point(x, a * x * x + b)
           A = point(-x, a * x * x + b)
@@ -132,10 +132,10 @@ export default function EtudierGraphiqueParite () {
           s2 = segment(-x, a * x * x + b, -x, 0, 'red')
           s3 = segment(-x, a * x * x + b, 0, a * x * x + b, 'red')
           s4 = segment(x, a * x * x + b, 0, a * x * x + b, 'red')
-          s1.pointilles = true
-          s2.pointilles = true
-          s3.pointilles = true
-          s4.pointilles = true
+          s1.pointilles = 5
+          s2.pointilles = 5
+          s3.pointilles = 5
+          s4.pointilles = 5
           s1.epaisseur = 2
           s2.epaisseur = 2
           s3.epaisseur = 2
@@ -158,11 +158,11 @@ export default function EtudierGraphiqueParite () {
           b = randint(-3, 3, [0])
           c = randint(1, 3)
           if (a > 0) { c = -c }
-          r = repere2({ xMin: -5 + b, xMax: 5 + b, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
+          r = repere({ xMin: -5 + b, xMax: 5 + b, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
           x = 4 - abs(b)
           f = x => a * (x - b) * (x - b) + c
-          C = courbe2(f, { repere: r, step: 0.25 })
-          // C.color = 'red'
+          C = courbe(f, { repere: r, step: 0.25 })
+          // C.color = colorToLatexOrHTML('red')
           // C.epaisseur = 2
           B = point(x, a * (x - b) * (x - b) + c)
           A = point(-x, a * (-x - b) * (-x - b) + c)
@@ -177,10 +177,10 @@ export default function EtudierGraphiqueParite () {
           s2 = segment(-x, a * (-x - b) * (-x - b) + c, -x, 0, 'red')
           s3 = segment(-x, a * (-x - b) * (-x - b) + c, 0, a * (-x - b) * (-x - b) + c, 'red')
           s4 = segment(x, a * (x - b) * (x - b) + c, 0, a * (x - b) * (x - b) + c, 'red')
-          s1.pointilles = true
-          s2.pointilles = true
-          s3.pointilles = true
-          s4.pointilles = true
+          s1.pointilles = 5
+          s2.pointilles = 5
+          s3.pointilles = 5
+          s4.pointilles = 5
           s1.epaisseur = 2
           s2.epaisseur = 2
           s3.epaisseur = 2
@@ -203,12 +203,12 @@ export default function EtudierGraphiqueParite () {
           a = randint(-2, 2, [0])
           b = randint(-3, 3, [0])
           c = Math.trunc(-b / a)
-          r = repere2({ xMin: -7 + c, xMax: 7 + c, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
+          r = repere({ xMin: -7 + c, xMax: 7 + c, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
           x = randint(-3, 3, [-b / a, 0, 1, -1])
 
           f = x => 1 / (a * x + b)
-          C = courbe2(f, { repere: r, step: 0.01 })
-          // C.color = 'red'
+          C = courbe(f, { repere: r, step: 0.01 })
+          // C.color = colorToLatexOrHTML('red')
           // C.epaisseur = 2
           B = point(x, 1 / (a * x + b))
           A = point(-x, 1 / (-a * x + b))
@@ -223,10 +223,10 @@ export default function EtudierGraphiqueParite () {
           s2 = segment(-x, 1 / (-a * x + b), -x, 0, 'red')
           s3 = segment(-x, 1 / (-a * x + b), 0, 1 / (-a * x + b), 'red')
           s4 = segment(x, 1 / (a * x + b), 0, 1 / (a * x + b), 'red')
-          s1.pointilles = true
-          s2.pointilles = true
-          s3.pointilles = true
-          s4.pointilles = true
+          s1.pointilles = 5
+          s2.pointilles = 5
+          s3.pointilles = 5
+          s4.pointilles = 5
           s1.epaisseur = 2
           s2.epaisseur = 2
           s3.epaisseur = 2
@@ -247,11 +247,11 @@ export default function EtudierGraphiqueParite () {
           break
         case 6:// Cas f(x)=1/ax
           a = randint(-3, 3, [0, 1, -1])
-          r = repere2({ xMin: -4, xMax: 4, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
+          r = repere({ xMin: -4, xMax: 4, yMin: -9, yMax: 9, xUnite: 1, yUnite: 1 })
           x = 2
           f = x => 1 / (a * x)
-          C = courbe2(f, { repere: r, step: 0.01 })
-          // C.color = 'red'
+          C = courbe(f, { repere: r, step: 0.01 })
+          // C.color = colorToLatexOrHTML('red')
           // C.epaisseur = 2
           B = point(x, 1 / (a * x))
           A = point(-x, -1 / (a * x))
@@ -265,10 +265,10 @@ export default function EtudierGraphiqueParite () {
           s2 = segment(-x, -1 / (a * x), -x, 0, 'red')
           s3 = segment(-x, -1 / (a * x), 0, -1 / (a * x), 'red')
           s4 = segment(x, 1 / (a * x), 0, 1 / (a * x), 'red')
-          s1.pointilles = true
-          s2.pointilles = true
-          s3.pointilles = true
-          s4.pointilles = true
+          s1.pointilles = 5
+          s2.pointilles = 5
+          s3.pointilles = 5
+          s4.pointilles = 5
           s1.epaisseur = 2
           s2.epaisseur = 2
           s3.epaisseur = 2

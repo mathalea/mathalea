@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, tracePoint, milieu, labelPoint, segment, translation2Points, similitude, grille, seyes, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, milieu, labelPoint, segment, translation2Points, similitude, grille, seyes, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
 
 export const titre = 'Compléter une représentation en perspective cavalière'
 
@@ -151,64 +151,64 @@ export default function RepresenterUnSolide5e () {
       IF.epaisseur = 1
       BD.epaisseur = 2
       FH.epaisseur = 2
-      AB.color = 'black'
-      BC.color = 'black'
-      CD.color = 'black'
-      DA.color = 'black'
-      EF.color = 'black'
-      FG.color = 'black'
-      GH.color = 'black'
-      HE.color = 'black'
-      AE.color = 'black'
-      BF.color = 'black'
-      CG.color = 'black'
-      IA.color = 'black'
+      AB.color = colorToLatexOrHTML('black')
+      BC.color = colorToLatexOrHTML('black')
+      CD.color = colorToLatexOrHTML('black')
+      DA.color = colorToLatexOrHTML('black')
+      EF.color = colorToLatexOrHTML('black')
+      FG.color = colorToLatexOrHTML('black')
+      GH.color = colorToLatexOrHTML('black')
+      HE.color = colorToLatexOrHTML('black')
+      AE.color = colorToLatexOrHTML('black')
+      BF.color = colorToLatexOrHTML('black')
+      CG.color = colorToLatexOrHTML('black')
+      IA.color = colorToLatexOrHTML('black')
 
       if (G.y < C.y && G.x < C.x) {
-        CG.pointilles = true
-        GH.pointilles = true
-        FG.pointilles = true
-        IF.pointilles = true
-        FH.pointilles = true
-        CG.color = 'gray'
-        GH.color = 'gray'
-        FG.color = 'gray'
+        CG.pointilles = 5
+        GH.pointilles = 5
+        FG.pointilles = 5
+        IF.pointilles = 5
+        FH.pointilles = 5
+        CG.color = colorToLatexOrHTML('gray')
+        GH.color = colorToLatexOrHTML('gray')
+        FG.color = colorToLatexOrHTML('gray')
         CG.opacite = 0.7
         GH.opacite = 0.7
         FG.opacite = 0.7
       } else if (E.y > A.y && E.x > A.x) {
-        AE.pointilles = true
-        EF.pointilles = true
-        HE.pointilles = true
-        IE.pointilles = true
-        FH.pointilles = true
-        AE.color = 'gray'
-        EF.color = 'gray'
-        HE.color = 'gray'
+        AE.pointilles = 5
+        EF.pointilles = 5
+        HE.pointilles = 5
+        IE.pointilles = 5
+        FH.pointilles = 5
+        AE.color = colorToLatexOrHTML('gray')
+        EF.color = colorToLatexOrHTML('gray')
+        HE.color = colorToLatexOrHTML('gray')
         AE.opacite = 0.7
         EF.opacite = 0.7
         HE.opacite = 0.7
       } else if (F.x < B.x && F.y > B.y) {
-        BF.pointilles = true
-        FG.pointilles = true
-        EF.pointilles = true
-        IF.pointilles = true
-        FH.pointilles = true
-        BF.color = 'gray'
-        FG.color = 'gray'
-        EF.color = 'gray'
+        BF.pointilles = 5
+        FG.pointilles = 5
+        EF.pointilles = 5
+        IF.pointilles = 5
+        FH.pointilles = 5
+        BF.color = colorToLatexOrHTML('gray')
+        FG.color = colorToLatexOrHTML('gray')
+        EF.color = colorToLatexOrHTML('gray')
         BF.opacite = 0.7
         FG.opacite = 0.7
         EF.opacite = 0.7
       } else if (H.x > D.x && H.y < D.y) {
-        DH.pointilles = true
-        GH.pointilles = true
-        HE.pointilles = true
-        IE.pointilles = true
-        FH.pointilles = true
-        DH.color = 'gray'
-        GH.color = 'gray'
-        HE.color = 'gray'
+        DH.pointilles = 5
+        GH.pointilles = 5
+        HE.pointilles = 5
+        IE.pointilles = 5
+        FH.pointilles = 5
+        DH.color = colorToLatexOrHTML('gray')
+        GH.color = colorToLatexOrHTML('gray')
+        HE.color = colorToLatexOrHTML('gray')
         DH.opacite = 0.7
         GH.opacite = 0.7
         HE.opacite = 0.7
@@ -261,18 +261,18 @@ export default function RepresenterUnSolide5e () {
 
       enonce += mathalea2d(params, objetsEnonce)
       if (listeTypeDeQuestions[i] === 1) {
-        AB.color = 'green'
-        BC.color = 'red'
-        CD.color = 'green'
-        DA.color = 'red'
-        EF.color = 'green'
-        FG.color = 'red'
-        GH.color = 'green'
-        HE.color = 'red'
-        AE.color = 'blue'
-        BF.color = 'blue'
-        CG.color = 'blue'
-        DH.color = 'blue'
+        AB.color = colorToLatexOrHTML('green')
+        BC.color = colorToLatexOrHTML('red')
+        CD.color = colorToLatexOrHTML('green')
+        DA.color = colorToLatexOrHTML('red')
+        EF.color = colorToLatexOrHTML('green')
+        FG.color = colorToLatexOrHTML('red')
+        GH.color = colorToLatexOrHTML('green')
+        HE.color = colorToLatexOrHTML('red')
+        AE.color = colorToLatexOrHTML('blue')
+        BF.color = colorToLatexOrHTML('blue')
+        CG.color = colorToLatexOrHTML('blue')
+        DH.color = colorToLatexOrHTML('blue')
         objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
           g,
           carreaux
@@ -280,18 +280,18 @@ export default function RepresenterUnSolide5e () {
       }
 
       if (listeTypeDeQuestions[i] === 2) {
-        AB.color = 'green'
-        BC.color = 'red'
-        CD.color = 'green'
-        DA.color = 'red'
-        EF.color = 'green'
-        FG.color = 'red'
-        GH.color = 'green'
-        HE.color = 'red'
-        AE.color = 'blue'
-        BF.color = 'blue'
-        CG.color = 'blue'
-        DH.color = 'blue'
+        AB.color = colorToLatexOrHTML('green')
+        BC.color = colorToLatexOrHTML('red')
+        CD.color = colorToLatexOrHTML('green')
+        DA.color = colorToLatexOrHTML('red')
+        EF.color = colorToLatexOrHTML('green')
+        FG.color = colorToLatexOrHTML('red')
+        GH.color = colorToLatexOrHTML('green')
+        HE.color = colorToLatexOrHTML('red')
+        AE.color = colorToLatexOrHTML('blue')
+        BF.color = colorToLatexOrHTML('blue')
+        CG.color = colorToLatexOrHTML('blue')
+        DH.color = colorToLatexOrHTML('blue')
         objetsCorrection.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H),
           g,
           carreaux
@@ -299,18 +299,18 @@ export default function RepresenterUnSolide5e () {
       }
 
       if (listeTypeDeQuestions[i] === 4) {
-        AB.color = 'green'
-        BC.color = 'red'
-        CD.color = 'green'
-        DA.color = 'red'
-        EF.color = 'green'
-        FG.color = 'red'
-        GH.color = 'green'
-        HE.color = 'red'
-        AE.color = 'blue'
-        BF.color = 'blue'
-        CG.color = 'blue'
-        DH.color = 'blue'
+        AB.color = colorToLatexOrHTML('green')
+        BC.color = colorToLatexOrHTML('red')
+        CD.color = colorToLatexOrHTML('green')
+        DA.color = colorToLatexOrHTML('red')
+        EF.color = colorToLatexOrHTML('green')
+        FG.color = colorToLatexOrHTML('red')
+        GH.color = colorToLatexOrHTML('green')
+        HE.color = colorToLatexOrHTML('red')
+        AE.color = colorToLatexOrHTML('blue')
+        BF.color = colorToLatexOrHTML('blue')
+        CG.color = colorToLatexOrHTML('blue')
+        DH.color = colorToLatexOrHTML('blue')
         objetsCorrection.push(AB, DA, BD, EF, HE, AE, BF, DH, FH,
           g,
           carreaux
@@ -318,18 +318,18 @@ export default function RepresenterUnSolide5e () {
       }
 
       if (listeTypeDeQuestions[i] === 6) {
-        AB.color = 'green'
-        BC.color = 'red'
-        CD.color = 'green'
-        DA.color = 'red'
-        EF.color = 'green'
-        FG.color = 'red'
-        GH.color = 'green'
-        HE.color = 'red'
-        AE.color = 'blue'
-        BF.color = 'blue'
-        CG.color = 'blue'
-        DH.color = 'blue'
+        AB.color = colorToLatexOrHTML('green')
+        BC.color = colorToLatexOrHTML('red')
+        CD.color = colorToLatexOrHTML('green')
+        DA.color = colorToLatexOrHTML('red')
+        EF.color = colorToLatexOrHTML('green')
+        FG.color = colorToLatexOrHTML('red')
+        GH.color = colorToLatexOrHTML('green')
+        HE.color = colorToLatexOrHTML('red')
+        AE.color = colorToLatexOrHTML('blue')
+        BF.color = colorToLatexOrHTML('blue')
+        CG.color = colorToLatexOrHTML('blue')
+        DH.color = colorToLatexOrHTML('blue')
         objetsCorrection.push(AB, EF, AE, BF, IA, IB, IE, IF, tracePoint(I),
           g,
           carreaux

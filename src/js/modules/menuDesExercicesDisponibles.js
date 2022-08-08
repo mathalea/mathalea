@@ -270,7 +270,7 @@ function getListeHtmlDesExercicesCrpe () {
 }
 function getListeHtmlDesExercicesDNB () {
   let liste = '<div class="accordion">'
-  for (const annee of ['2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
+  for (const annee of ['2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
     liste += `<div class="title"><i class="dropdown icon"></i> ${annee}</div><div class="content">`
     liste += listeHtmlDesExercicesDNBAnnee(annee)
     liste += '</div>'
@@ -554,11 +554,11 @@ export function menuDesExercicesDisponibles () {
   const listeThemesCan = [
     ['canc3', 'canc3 - Course aux nombres niveau CM1-CM2', 'canc3C - Calculs', 'canc3D - Durées', 'canc3M - Mesures', 'canc3N - Numération'],
     ['can6', 'can6 - Course aux nombres niveau 6e', 'can6a - Annales aléatoires', 'can6C - Calculs', 'can6D - Durées', 'can6G - Géométrie', 'can6I - Algorithmique', 'can6M - Mesures', 'can6N - Numération', 'can6P - Proportionnalité', 'can6S - Statistiques'],
-    ['can5', 'can5 - Course aux nombres niveau 5e', 'can5a - Annales aléatoires', 'can5A - Algorithmes', 'can5C - Calculs', 'can5D - Durées', 'can5G - Géométrie', 'can5M - Mesures', 'can5N - Numération', 'can5P - Proportionnalité', 'can5S - Statistiques'],
-    ['can4', 'can4 - Course aux nombres niveau 4e', 'can4a - Annales aléatoires', 'can4C - Calculs', 'can4D - Durées', 'can4G - Géométrie', 'can4L - Calcul littéral', 'can4N - Numération', 'can4P - Proportionnalité', 'can4S - Statistiques'],
-    ['can3', 'can3 - Course aux nombres niveau 3e', 'can3a - Annales aléatoires', 'can3C - Calculs', 'can3E - Équations', 'can3F - Fonctions', 'can3G - Géométrie', 'can3L - Calcul littéral', 'can3M - Mesures', 'can3N - Numération', 'can3P - Proportionnalité', 'can3S - Statistiques & probabilités'],
+    ['can5', 'can5 - Course aux nombres niveau 5e', 'can5a - Annales aléatoires', 'can5A - Algorithmes', 'can5C - Calculs', 'can5D - Durées', 'can5G - Géométrie', 'can5N - Numération', 'can5P - Proportionnalité'],
+    ['can4', 'can4 - Course aux nombres niveau 4e', 'can4a - Annales aléatoires', 'can4C - Calculs', 'can4G - Géométrie', 'can4L - Calcul littéral', 'can4P - Proportionnalité'],
+    ['can3', 'can3 - Course aux nombres niveau 3e', 'can3a - Annales aléatoires', 'can3C - Calculs', 'can3F - Fonctions', 'can3G - Géométrie', 'can3L - Calcul littéral', 'can3M - Mesures', 'can3P - Proportionnalité', 'can3S - Statistiques & probabilités'],
     ['can2', 'can2 - Course aux nombres niveau 2e', 'can2a - Annales aléatoires', 'can2C - Calculs', 'can2F - Fonctions', 'can2G - Géométrie', 'can2L - Calcul littéral', 'can2N - Numération', 'can2P - Probabilités'],
-    ['can1', 'can1 - Course aux nombres niveau 1e', 'can1C - Calculs', 'can1F - Fonctions', 'can1G - Géométrie', 'can1L - Calcul littéral', 'can1N - Numération', 'can1P - Proportionnalité', 'can1S - Statistiques et probabilités'],
+    ['can1', 'can1 - Course aux nombres niveau 1e', 'can1a - Annales aléatoires', 'can1F - Fonctions', 'can1G - Géométrie', 'can1L - Calcul littéral', 'can1P - Probabilités', 'can1S - Suites'],
     ['canT', 'canT - Course aux nombres niveau Terminale'],
     ['canEx', 'canExpert - Course aux nombres niveau Terminale expert'],
     ['canP', 'canPredef - Courses aux nombres clé en main']]
@@ -652,6 +652,9 @@ export function menuDesExercicesDisponibles () {
     ['2S3', '2S3 - Modéliser le hasard, calculer des probabiltés', '2S31 - Utiliser des modèles théoriques de référence',
       '2S30 - Calculer des probabilités dans des cas simples'],
     ['2S4', '2S4 - Échantillonnage']
+  ]
+  const listeThemesTechno1 = [
+    ['techno1P', 'techno1P - Proportions'], ['techno1E', 'techno1E - Évolutions']
   ]
   const listeThemesEx = [
     ['ExC1', 'ExC1 - Calculs avec nombres complexes'], ['ExE1', 'ExE1 - Équations'], ['ExL1', 'ExL1 - Calcul littéral']
@@ -751,6 +754,12 @@ export function menuDesExercicesDisponibles () {
       liste_html_des_exercices: '',
       lignes_tableau: ''
     },
+    techno1: {
+      label: 'Première Technologique',
+      nombre_exercices_dispo: 0,
+      liste_html_des_exercices: listeHtmlDesExercicesDUnNiveau(listeThemesTechno1),
+      lignes_tableau: ''
+    },
     T: {
       label: 'Terminale',
       nombre_exercices_dispo: 0,
@@ -808,7 +817,6 @@ export function menuDesExercicesDisponibles () {
   for (const id in listeDesExercicesDisponibles) {
     if ((id[0] === 'c' && id[1] === 'a') || (id[0] === 'c' && id[1] === '3') || (id[0] === 'P' && id[1] === '0') || (id[0] === 'P' && id[1] === 'E') || (id[0] === 'b' && id[1] === 'e') || (id[0] === 'E' && id[1] === 'x') || (id[0] === 'H' && id[1] === 'P')) {
       if (filtre === 'interactif') {
-        // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {
           objExercicesDisponibles[id[0] + id[1]].nombre_exercices_dispo += 1
           objExercicesDisponibles[id[0] + id[1]].lignes_tableau += ligneTableau(id)
@@ -820,7 +828,6 @@ export function menuDesExercicesDisponibles () {
     }
     if (id[0] === '6' || id[0] === '5' || id[0] === '4' || id[0] === '3' || id[0] === '2' || id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
       if (filtre === 'interactif') {
-        // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {
           objExercicesDisponibles[id[0]].nombre_exercices_dispo += 1
           objExercicesDisponibles[id[0]].lignes_tableau += ligneTableau(id)
@@ -832,7 +839,6 @@ export function menuDesExercicesDisponibles () {
     }
     if (id[0] === '1' || id[0] === 'T' || id[0] === 'C') {
       if (filtre === 'interactif') {
-        // avant il y avait un focntionnement avec qcmInteractif qui devient interactifReady cf commit f59bb8e
         if (dictionnaireDesExercices[id].interactifReady) {
           objExercicesDisponibles[id[0]].liste_html_des_exercices += spanExercice(id, dictionnaireDesExercices[id].titre)
         }
@@ -855,6 +861,17 @@ export function menuDesExercicesDisponibles () {
         objExercicesDisponibles.CRPE.lignes_tableau += ligneTableau(id)
       }
     }
+    if (id.substring(0, 7) === 'techno1') {
+      if (filtre === 'interactif') {
+        if (dictionnaireDesExercices[id].interactifReady) {
+          objExercicesDisponibles.techno1.nombre_exercices_dispo += 1
+          objExercicesDisponibles.techno1.lignes_tableau += ligneTableau(id)
+        }
+      } else {
+        objExercicesDisponibles.techno1.nombre_exercices_dispo += 1
+        objExercicesDisponibles.techno1.lignes_tableau += ligneTableau(id)
+      }
+    }
     if (id[0] === 'b' && id[1] === 'a' && id[2] === 'c') {
       if (filtre !== 'interactif') {
         objExercicesDisponibles.BAC.lignes_tableau += ligneTableau(id)
@@ -875,7 +892,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += objExercicesDisponibles.be.lignes_tableau
   } else if (context.vue === 'cm') {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 'C', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'Ex', 'HP', 'PE'],
+      liste_affichage: ['ca', 'C', 'c3', 6, 5, 4, 3, 2, 1, 'techno1', 'T', 'Ex', 'HP', 'PE'],
       active: 'C',
       obj_ex: objExercicesDisponibles
     })
@@ -919,7 +936,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else if (filtre === 'lycee') {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 2, 1, 'T', 'Ex'],
+      liste_affichage: ['ca', 2, 1, 'techno1', 'T', 'Ex'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
@@ -935,7 +952,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else if (context.isAmc) {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 2, 1, 'T', 'Ex', 'HP', 'PE', 'C'],
+      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 2, 1, 'techno1', 'T', 'Ex', 'HP', 'PE', 'C'],
       active: '',
       obj_ex: objExercicesDisponibles
     })
@@ -943,7 +960,7 @@ export function menuDesExercicesDisponibles () {
     listeHtmlDesExercicesTab += htmlAffichage.lignes
   } else {
     htmlAffichage = htmlListes({
-      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'T', 'Ex', 'HP', 'E3C', 'E3Ctheme', 'BAC', 'BACtheme', 'PE', 'CrpeTheme', 'CRPE', 'C'],
+      liste_affichage: ['ca', 'c3', 6, 5, 4, 3, 'DNB', 'DNBtheme', 2, 1, 'techno1', 'T', 'Ex', 'HP', 'E3C', 'E3Ctheme', 'BAC', 'BACtheme', 'PE', 'CrpeTheme', 'CRPE', 'C'],
       active: '',
       obj_ex: objExercicesDisponibles
     })

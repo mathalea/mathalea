@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul, creerNomDePolygone, texNombre, choice } from '../../modules/outils.js'
-import { point, labelPoint, polygone, similitude, codageAngleDroit, codeAngle, mathalea2d, afficheMesureAngle, afficheLongueurSegment, longueur, angle, texteSurSegment } from '../../modules/2d.js'
+import { listeQuestionsToContenu, randint, creerNomDePolygone, texNombre, choice } from '../../modules/outils.js'
+import { point, labelPoint, polygone, similitude, codageAngleDroit, codageAngle, mathalea2d, afficheMesureAngle, afficheLongueurSegment, longueur, angle, texteSurSegment, colorToLatexOrHTML } from '../../modules/2d.js'
 import { radians, degres } from '../../modules/fonctionsMaths.js'
 
 export const titre = 'Calculer toutes les mesures d\'angle d\'une figure complexe'
@@ -39,13 +39,13 @@ export default function CalculDAngleFigureComplexe () {
     const C = point(0, randint(3, 7, longueur(A, B)), '', 'above') // On exclue AB pour ne pas avoir un triangle isocèle
     const t1 = polygone(A, B, C)
     const t1c = polygone(A, B, C)
-    t1c.color = 'blue'
+    t1c.color = colorToLatexOrHTML('blue')
     t1c.epaisseur = 3
     const c1 = codageAngleDroit(A, B, C)
-    const D = similitude(C, A, -90, calcul(randint(7, 12, 10) / 10), '', 'right') // On exclue 10 pour ne pas avoir un triangle isocèle
+    const D = similitude(C, A, -90, randint(7, 12, 10) / 10, '', 'right') // On exclue 10 pour ne pas avoir un triangle isocèle
     const t2 = polygone(C, A, D)
     const t2c = polygone(C, A, D)
-    t2c.color = 'blue'
+    t2c.color = colorToLatexOrHTML('blue')
     t2c.epaisseur = 3
     const c2 = codageAngleDroit(C, A, D)
     const nom = creerNomDePolygone(4, 'QD')
@@ -57,13 +57,13 @@ export default function CalculDAngleFigureComplexe () {
     const BA = longueur(B, A)
     const AD = longueur(A, D, 1)
     const BAC = Math.round(angle(B, A, C))
-    let AC = calcul(BA / Math.cos(radians(BAC)), 1)
+    let AC = BA / Math.cos(radians(BAC))
     let ACD = Math.round(degres(Math.atan(AD / AC)))
     let a1 = afficheMesureAngle(B, A, C, 'black', 1, BAC + '°')
     const a2 = afficheLongueurSegment(A, B)
     const a3 = afficheLongueurSegment(D, A)
     const a4 = afficheLongueurSegment(A, C)
-    const a5 = codeAngle(A, C, D, 1.2)
+    const a5 = codageAngle(A, C, D, 1.2)
     a5.epaisseur = 2
     const ACB = Math.round(angle(A, C, B))
 
@@ -76,7 +76,7 @@ export default function CalculDAngleFigureComplexe () {
         }
         texte = mathalea2d({ xmin: -1, ymin: -1, xmax: D.x + 1, ymax: Math.max(C.y, D.y) + 1 }, objetsMathalea)
         if (!this.sup) {
-          texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA)}$ cm, $${A.nom + D.nom} = ${texNombre(AD)}$ cm et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}°$.`
+          texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}°$.`
         }
         texteCorr = ''
         if (this.correctionDetaillee) {
@@ -86,19 +86,19 @@ export default function CalculDAngleFigureComplexe () {
           texteCorr += '<br>'
         }
         texteCorr += `$${C.nom + B.nom + A.nom}$ est rectangle en $${B.nom}$ donc $\\cos\\left(\\widehat{${B.nom + A.nom + C.nom}}\\right)=\\dfrac{${B.nom + A.nom}}{${A.nom + C.nom}}\\quad$ `
-        texteCorr += `soit $\\quad\\cos(${BAC}°)=\\dfrac{${texNombre(BA)}}{${A.nom + C.nom}}\\quad$ et $\\quad ${A.nom + C.nom}=\\dfrac{${texNombre(BA)}}{\\cos(${BAC}°)}\\approx${texNombre(AC)}$ cm.`
+        texteCorr += `soit $\\quad\\cos(${BAC}°)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}\\quad$ et $\\quad ${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\cos(${BAC}°)}\\approx${texNombre(AC, 1)}$ cm.`
         if (this.correctionDetaillee) {
           const texte3 = texteSurSegment('adjacent', C, A)
           const texte4 = texteSurSegment('opposé', A, D, 'black')
           texteCorr += '<br><br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: D.x + 1, ymax: Math.max(C.y, D.y) + 1 }, t1, t2c, c1, c2, a3, a4, a5, labels, texte3, texte4)
         }
         texteCorr += `<br><br>$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}\\quad$ `
-        texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD)}}{${texNombre(AC)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}=\\text{arctan}\\left(\\dfrac{${texNombre(AD)}}{${texNombre(AC)}}\\right)\\approx${ACD}$°.`
+        texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}=\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}$°.`
         texteCorr += `<br><br>La somme des angles d'un triangle est égale à 180° donc $\\widehat{${B.nom + C.nom + A.nom}}=180°-90°-${BAC}°=${90 - BAC}°$.`
         texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180°-90°-${ACD}°\\approx${90 - ACD}°$.`
         break
       case 'BA-AD-ACB':
-        AC = calcul(BA / Math.sin(radians(ACB)), 1)
+        AC = BA / Math.sin(radians(ACB))
         ACD = Math.round(degres(Math.atan(AD / AC)))
         a1 = afficheMesureAngle(A, C, B, 'black', 1, ACB + '°')
         if (this.sup) {
@@ -106,7 +106,7 @@ export default function CalculDAngleFigureComplexe () {
         }
         texte = mathalea2d({ xmin: -1, ymin: -1, xmax: D.x + 1, ymax: Math.max(C.y, D.y) + 1 }, objetsMathalea)
         if (!this.sup) {
-          texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA)}$ cm, $${A.nom + D.nom} = ${texNombre(AD)}$ cm et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}°$.`
+          texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}°$.`
         }
         texteCorr = ''
         if (this.correctionDetaillee) {
@@ -116,14 +116,14 @@ export default function CalculDAngleFigureComplexe () {
           texteCorr += '<br>'
         }
         texteCorr += `$${C.nom + B.nom + A.nom}$ est rectangle en $${B.nom}$ donc $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=\\dfrac{${B.nom + A.nom}}{${A.nom + C.nom}}\\quad$ `
-        texteCorr += `soit $\\quad\\sin(${ACB}°)=\\dfrac{${texNombre(BA)}}{${A.nom + C.nom}}\\quad$ et $\\quad ${A.nom + C.nom}=\\dfrac{${texNombre(BA)}}{\\sin(${ACB}°)}\\approx${texNombre(AC)}$ cm.`
+        texteCorr += `soit $\\quad\\sin(${ACB}°)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}\\quad$ et $\\quad ${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\sin(${ACB}°)}\\approx${texNombre(AC, 1)}$ cm.`
         if (this.correctionDetaillee) {
           const texte3 = texteSurSegment('adjacent', C, A)
           const texte4 = texteSurSegment('opposé', A, D, 'black')
           texteCorr += '<br><br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: D.x + 1, ymax: Math.max(C.y, D.y) + 1 }, t1, t2c, c1, c2, a3, a4, a5, labels, texte3, texte4)
         }
         texteCorr += `<br><br>$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}\\quad$ `
-        texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD)}}{${texNombre(AC)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}=\\text{arctan}\\left(\\dfrac{${texNombre(AD)}}{${texNombre(AC)}}\\right)\\approx${ACD}$°.`
+        texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}=\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}$°.`
         texteCorr += `<br><br>La somme des angles d'un triangle est égale à 180° donc $\\widehat{${B.nom + C.nom + A.nom}}=180°-90°-${BAC}°=${90 - BAC}°$.`
         texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180°-90°-${ACD}°\\approx${90 - ACD}°$.`
         break

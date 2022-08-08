@@ -1,13 +1,12 @@
 import iepLoadPromise from 'instrumenpoche'
 import { angleOriente, droite, homothetie, longueur, milieu, norme, point, pointAdistance, pointSurSegment, rotation, segment, translation, translation2Points, vecteur } from './2d.js'
 import { context } from './context.js'
-import { bissectriceAuCompas, cercleCirconscrit, hauteur, mediane, mediatriceAuCompas, mediatriceRegleEquerre } from './iepMacros/droitesRemarquables'
+import { bissectriceAuCompas, cercleCirconscrit, hauteur, mediane, mediatriceAuCompas, mediatriceRegleEquerre } from './iepMacros/droitesRemarquables.js'
 import { paralleleAuCompas, paralleleAuCompasAvecDescription, paralleleRegleEquerre2points3epoint, paralleleRegleEquerreDroitePointAvecDescription, perpendiculaireCompasPoint, perpendiculaireCompasPointSurLaDroite, perpendiculaireRegleEquerre2points3epoint, perpendiculaireRegleEquerreDroitePoint, perpendiculaireRegleEquerrePointSurLaDroite } from './iepMacros/parallelesEtPerpendiculaires.js'
-import { parallelogramme2sommetsConsecutifsCentre, parallelogramme3sommetsConsecutifs, parallelogrammeAngleCentre, partageSegment } from './iepMacros/parallelogrammes'
+import { parallelogramme2sommetsConsecutifsCentre, parallelogramme3sommetsConsecutifs, parallelogrammeAngleCentre, partageSegment } from './iepMacros/parallelogrammes.js'
 import { carre1point1longueur } from './iepMacros/quadrilateres.js'
-import { demiTourPoint, demiTourPolygone, homothetiePoint, homothetiePolygone, rotationPoint, rotationPolygone, symetrieAxialePoint, symetrieAxialePolygone, translationPoint, translationPolygone } from './iepMacros/transformations'
+import { demiTourPoint, demiTourPolygone, homothetiePoint, homothetiePolygone, rotationPoint, rotationPolygone, symetrieAxialePoint, symetrieAxialePolygone, translationPoint, translationPolygone } from './iepMacros/transformations.js'
 import { triangle1longueur2angles, triangle2longueurs1angle, triangle3longueurs, triangleEquilateral, triangleEquilateral2Sommets, triangleRectangle2Cotes, triangleRectangleCoteHypotenuse } from './iepMacros/triangles.js'
-import { calcul } from './outils.js'
 
 /*
  * Classe parente de tous les objets Alea2iep
@@ -94,7 +93,7 @@ export default class Alea2iep {
 
   // Transforme les coordonnées MathALEA2D en coordonnées pour le XML d'IEP
   x (A) {
-    const x = calcul((A.x + this.translationX) * 30, 0)
+    const x = Math.round((A.x + this.translationX) * 30)
     if (A.x > this.xMax) {
       this.xMax = A.x
     }
@@ -105,7 +104,7 @@ export default class Alea2iep {
   }
 
   y (A) {
-    const y = calcul((-A.y + this.translationY) * 30, 0)
+    const y = Math.round((-A.y + this.translationY) * 30)
     if (A.y < this.yMin) {
       this.yMin = A.y
     }
@@ -436,7 +435,7 @@ export default class Alea2iep {
  * @param {int} angle
  * @param {objet} options
  */
-  rotation (objet, a, { tempo = this.tempo, sens = calcul(this.vitesse / 2, 0) } = {}) {
+  rotation (objet, a, { tempo = this.tempo, sens = Math.round(this.vitesse / 2) } = {}) {
     let angle
     if (a.typeObjet === 'point') {
       const d = droite(this[objet].position, a)
@@ -714,7 +713,7 @@ export default class Alea2iep {
 * @param {objet} options Défaut : { tempo: this.tempo, vitesse: this.vitesse }
 */
   compasEcarter (l, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
-    const codeXML = `<action ecart="${calcul(l * 30, 1)}" mouvement="ecarter" objet="compas" tempo="${tempo}" vitesse="${vitesse}" />`
+    const codeXML = `<action ecart="${l * 30}" mouvement="ecarter" objet="compas" tempo="${tempo}" vitesse="${vitesse}" />`
     this.compas.ecartement = l
     this.liste_script.push(codeXML)
   }
@@ -739,7 +738,7 @@ export default class Alea2iep {
 * @param {point} B Mine du compas
 * @param {objet} options Défaut : { tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2 }
 */
-  compasEcarter2Points (A, B, { tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2) } = {}) {
+  compasEcarter2Points (A, B, { tempo = this.tempo, vitesse = this.vitesse, sens = this.vitesse / 2 } = {}) {
     this.compasMontrer(A)
     this.compasDeplacer(A, { tempo: tempo, vitesse: vitesse })
     const s = segment(A, B)
@@ -780,7 +779,7 @@ export default class Alea2iep {
 * @param {objet} options Défaut : { tempo: this.tempo, sens: this.vitesse / 2, epaisseur: this.epaisseur, couleur: this.couleurCompas, pointilles: this.pointilles }
 * @return {id}
 */
-  compasTracerArc2Angles (angle1, angle2, { tempo = this.tempo, sens = calcul(this.vitesse / 2, 0), epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = this.pointilles } = {}) {
+  compasTracerArc2Angles (angle1, angle2, { tempo = this.tempo, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = this.pointilles } = {}) {
     const pointillesTexte = pointilles ? 'pointille="tiret"' : ''
     this.idIEP += 1
     if (Math.abs(this.compas.angle - angle1) > Math.abs(this.compas.angle - angle2)) { // On cherche à commencer par le point le plus proche de la position courante du compas
@@ -809,7 +808,7 @@ export default class Alea2iep {
 * @param {objet} options Défaut : { delta: 10, tempo: this.tempo, sens: this.vitesse / 2, epaisseur: this.epaisseur, couleur: this.couleurCompas, pointilles: this.pointilles }
 * @return {id}
 */
-  compasTracerArcCentrePoint (centre, point, { delta = 10, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2, 0), epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = this.pointilles } = {}) {
+  compasTracerArcCentrePoint (centre, point, { delta = 10, tempo = this.tempo, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, couleur = this.couleurCompas, pointilles = this.pointilles } = {}) {
     this.compasMontrer()
     this.compasDeplacer(centre, { tempo: tempo, vitesse: vitesse })
     const s = segment(centre, point)
@@ -828,7 +827,7 @@ export default class Alea2iep {
 * @param {point} point Point de départ du tracé du cercle
 * @param {objet} options Défaut : { tempo: this.tempo, sens: this.vitesse / 2, epaisseur: this.epaisseur, couleur: this.couleurCompas, pointilles: this.pointilles }
 */
-  compasCercleCentrePoint (centre, point, { tempo = this.tempo, couleur = this.couleur, vitesse = this.vitesse, sens = calcul(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
+  compasCercleCentrePoint (centre, point, { tempo = this.tempo, couleur = this.couleur, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
     this.compasEcarter2Points(centre, point, { vitesse: vitesse, tempo: tempo })
     const d = droite(centre, point)
     const angle1 = d.angleAvecHorizontale
@@ -911,7 +910,7 @@ export default class Alea2iep {
  * @param {point} B
  * @param {objet} options Défaut : { tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2 }
  */
-  rapporteurDeplacerRotation2Points (A, B, { tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2) } = {}) {
+  rapporteurDeplacerRotation2Points (A, B, { tempo = this.tempo, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2) } = {}) {
     const d = droite(A, B)
     d.isVisible = false
     this.rapporteurMontrer()
@@ -941,7 +940,7 @@ export default class Alea2iep {
  * @param {int} angle
  * @param {objet} options { longueur: 0.9 * this.regle.longueur, couleur: this.couleur, tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2, epaisseur: this.epaisseur, pointilles: this.pointilles }
  */
-  rapporteurTracerDemiDroiteAngle (A, B, angle, { longueur = 0.9 * this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = calcul(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
+  rapporteurTracerDemiDroiteAngle (A, B, angle, { longueur = 0.9 * this.regle.longueur, couleur = this.couleur, tempo = this.tempo, vitesse = this.vitesse, sens = Math.round(this.vitesse / 2), epaisseur = this.epaisseur, pointilles = this.pointilles } = {}) {
     if (angle > 0) {
       this.rapporteurDeplacerRotation2Points(A, B, { tempo: tempo, vitesse: vitesse, sens: sens })
       this.rapporteurCrayonMarqueAngle(angle, { tempo: tempo, vitesse: vitesse, sens: sens })
@@ -952,7 +951,7 @@ export default class Alea2iep {
     }
     const d = droite(A, B)
     d.isVisible = false
-    const M = pointAdistance(A, calcul(this.rapporteur.rayon * this.rapporteur.zoom / 100, 1), d.angleAvecHorizontale + angle)
+    const M = pointAdistance(A, this.rapporteur.rayon * this.rapporteur.zoom / 100, d.angleAvecHorizontale + angle)
     this.rapporteurMasquer({ tempo: tempo })
     this.regleDemiDroiteOriginePoint(A, M, { longueur: longueur, couleur: couleur, tempo: tempo, vitesse: vitesse, sens: sens, epaisseur: epaisseur, pointilles: pointilles })
   }
@@ -1013,8 +1012,8 @@ export default class Alea2iep {
     if (!options.longueur) {
       options.longueur = this.regle.longueur
     }
-    const M = homothetie(B, A, calcul((-options.longueur * 0.5 + longueur(A, B) * 0.5) / longueur(A, B)))
-    const N = homothetie(A, B, calcul((-options.longueur * 0.5 + longueur(A, B) * 0.5) / longueur(A, B)))
+    const M = homothetie(B, A, (-options.longueur * 0.5 + longueur(A, B) * 0.5) / longueur(A, B))
+    const N = homothetie(A, B, (-options.longueur * 0.5 + longueur(A, B) * 0.5) / longueur(A, B))
     if (this.x(A) <= this.x(B)) {
       this.regleMontrer(M)
       this.regleRotation(N, options)
@@ -1227,7 +1226,7 @@ export default class Alea2iep {
   }
 
   longueurSegment (A, B, dy, options) {
-    const l = calcul(longueur(A, B, 1))
+    const l = longueur(A, B)
     const v = vecteur(A, B)
     const w = vecteur(-v.y * dy / norme(v), v.x * dy / norme(v))
     const ancrage = translation(translation(pointSurSegment(A, B, l / 2 - 0.7), w), vecteur(0, 1))

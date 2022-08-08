@@ -3,7 +3,7 @@
 /* eslint-disable no-case-declarations */
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, texteEnCouleur, texteGras } from '../../modules/outils.js'
-import { point, tracePoint, milieu, pointSurSegment, pointIntersectionDD, labelPoint, barycentre, droite, vecteur, segment, polygone, nommePolygone, aireTriangle, arc, rotation, translationAnimee, rotationAnimee, codeSegments, grille, angleOriente, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, milieu, pointSurSegment, pointIntersectionDD, labelPoint, barycentre, droite, vecteur, segment, polygone, nommePolygone, aireTriangle, arc, rotation, translationAnimee, rotationAnimee, codageSegments, grille, angleOriente, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
 export const titre = 'Reconnaître des triangles égaux dans différentes configurations'
 
 /**
@@ -41,7 +41,7 @@ export default function TrianglesEgaux () {
         G = barycentre(p) // le barycentre de ABC
         const angleChoisi1 = choice([0, 90, 270])
         p = rotation(p, G, angleChoisi1) // on tourne ABC de façon aléatoire autour de son barycentre
-        p.couleurDeRemplissage = 'gray' // remplissage de ABC
+        p.couleurDeRemplissage = colorToLatexOrHTML('gray') // remplissage de ABC
         p.opaciteDeRemplissage = 0.2 // 0.5;//remplissage de ABC
         nom1 = nommePolygone(p, 'ABC', 0.4) // on  nomme ABC en plaçant A,B et C à 0,4
         grid = grille(-3, -3, 27, 18, 'gray', 0.4, 1) // on trace une grille
@@ -56,9 +56,9 @@ export default function TrianglesEgaux () {
         r = rotation(q, Gq, angleChoisi2) // on fait tourner q encore autour de son barycentre
         X = milieu(r.listePoints[0], r.listePoints[1]) // on place le milieu des deux premiers points de la figure obtenue qui sont les images des points A et B initiaux
         s = rotation(r, X, 180) // on fait topurner r autour du milieu des deux extremites du plus grand côté
-        r.couleurDeRemplissage = 'red' // solution 1 en rouge
+        r.couleurDeRemplissage = colorToLatexOrHTML('red') // solution 1 en rouge
         r.opaciteDeRemplissage = 0.2 // 0.5; //
-        s.couleurDeRemplissage = 'blue' // solution 2 en bleu
+        s.couleurDeRemplissage = colorToLatexOrHTML('blue') // solution 2 en bleu
         s.opaciteDeRemplissage = 0.2 // 0.5; //
 
         // mes ajouts par rapport à la figure de JC
@@ -87,7 +87,7 @@ export default function TrianglesEgaux () {
         L.nom = tabPointsNames[3]
         // on trace le segment [DE] en pointillés pour que la figure soit plus lisible
         const sgmt_DE = segment(D, E, 'blue')
-        sgmt_DE.pointilles = true
+        sgmt_DE.pointilles = 5
         sgmt_DE.epaisseur = 1.5
 
         // on prépare la fenetre mathalea2d
@@ -194,13 +194,13 @@ export default function TrianglesEgaux () {
             // les segments
             seg_AB_corr,
             seg_DE_corr,
-            codeSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D, E),
+            codageSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D, E),
             seg_AC_corr,
             seg_DI_corr,
-            codeSegments('||', 'red', p.listePoints[0], p.listePoints[2], D, I),
+            codageSegments('||', 'red', p.listePoints[0], p.listePoints[2], D, I),
             seg_BC_corr,
             seg_EI_corr,
-            codeSegments('O', 'green', p.listePoints[1], p.listePoints[2], I, E),
+            codageSegments('O', 'green', p.listePoints[1], p.listePoints[2], I, E),
             // les angles
             arc(pointSurSegment(p.listePoints[1], p.listePoints[0], 0.8), p.listePoints[1], ang_ABC, true, 'red'),
             arc(pointSurSegment(E, D, 0.8), E, ang_DEI, true, 'red'),
@@ -213,13 +213,13 @@ export default function TrianglesEgaux () {
             // les segments
             seg_AB_corr,
             seg_DE_corr,
-            codeSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D, E),
+            codageSegments('×', 'blue', p.listePoints[0], p.listePoints[1], D, E),
             seg_BC_corr,
             seg_DI1_corr,
-            codeSegments('O', 'green', p.listePoints[1], p.listePoints[2], D, I1),
+            codageSegments('O', 'green', p.listePoints[1], p.listePoints[2], D, I1),
             seg_AC_corr,
             seg_EI1_corr,
-            codeSegments('||', 'red', p.listePoints[0], p.listePoints[2], E, I1),
+            codageSegments('||', 'red', p.listePoints[0], p.listePoints[2], E, I1),
             // les angles
             arc(pointSurSegment(p.listePoints[1], p.listePoints[0], 0.8), p.listePoints[1], ang_ABC, true, 'red'),
             arc(pointSurSegment(D, E, 0.8), D, ang_EDI1, true, 'red'),

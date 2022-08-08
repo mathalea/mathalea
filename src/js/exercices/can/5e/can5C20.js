@@ -1,5 +1,5 @@
-import { randint, texNombre, texteEnCouleur, arrondi } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { randint, texNombre, texteEnCouleur, arrondi } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Soustraire deux décimaux*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

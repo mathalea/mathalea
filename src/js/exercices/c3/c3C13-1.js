@@ -1,4 +1,4 @@
-import QuestionsMasses from '../6e/6C12-1'
+import QuestionsMasses from '../6e/6C12-1.js'
 export const titre = 'Résoudre des problèmes de masses'
 export const interactifReady = true
 export const interactifType = 'mathLive'

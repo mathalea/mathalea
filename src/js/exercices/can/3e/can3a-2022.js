@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 import {
   mathalea2d, point, labelPoint, polygoneAvecNom, milieu, texteParPosition, polygone, codageAngleDroit
 } from '../../../modules/2d.js'
@@ -422,7 +422,7 @@ export default function SujetCAN2022troisieme () {
           B = point(0, 4, 'B', 'above')
           C = point(6, 0, 'C', 'below')
           poly = polygone([A, B, C], 'black')
-          poly.couleurDeRemplissage = 'lightgray'
+          poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
           d = texteParPosition(`$${c} \\text{ cm}^2$`, 1.5, 1.5, 'milieu', 'black', 1, 'middle', false)
           e = texteParPosition(`$${a} \\text{ cm}$`, -0.7, 2, 'milieu', 'black', 1, 'middle', false)
           poly.epaisseur = 1

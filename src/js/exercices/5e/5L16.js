@@ -7,11 +7,13 @@ export const interactifType = 'mathLive'
 export const titre = 'Simplifier l\'écriture d\'une expression littérale'
 
 export const dateDePublication = '07/04/2022'
+export const dateDeModifImportante = '18/06/2022'
 
 /**
  * Description didactique de l'exercice
  * @author Guillaume Valmont
  * Référence 5L16
+ * Ajout du paramètre de procédure inverse par Guillaume Valmont le 18/06/2022
 */
 export default function NomExercice () {
   Exercice.call(this)
@@ -20,6 +22,8 @@ export default function NomExercice () {
 
   this.besoinFormulaireNumerique = ['Type de simplification', 3, '1 : × devant une lettre ou une parenthèse\n2 : Carré et cube\n3 : Mélange']
   this.sup = 3
+  this.besoinFormulaire2CaseACocher = ['Procédure inverse']
+  this.sup2 = false
   this.nbCols = 2
   this.nbColsCorr = 2
 
@@ -27,6 +31,12 @@ export default function NomExercice () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
+
+    if (this.sup2) {
+      this.consigne = 'On a simplifié des écritures littérales.<br>Réécrire chaque expression en écrivant les symboles × qui sont sous-entendus.'
+    } else {
+      this.consigne = 'Simplifier l\'écriture.'
+    }
 
     let typeQuestionsDisponibles
     switch (contraindreValeur(1, 3, parseInt(this.sup), 3)) {
@@ -42,73 +52,77 @@ export default function NomExercice () {
     }
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
 
-    for (let i = 0, texte, resultat, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, donnee, resultat, reponse, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(2, 9)
       const b = randint(2, 9, [a])
       const c = randint(2, 9, [a, b])
-      const inverserFacteurs = choice([true, false])
-      const inverserParentheses = choice([true, false])
+      let inverserFacteurs = choice([true, false])
+      let inverserParentheses = choice([true, false])
+      if (this.sup2) {
+        inverserFacteurs = false
+        inverserParentheses = false
+      }
       switch (listeTypeQuestions[i]) {
         case 'ax':
           if (inverserFacteurs) {
-            texte = `$x \\times ${a}$`
+            donnee = `x \\times ${a}`
           } else {
-            texte = `$${a} \\times x$`
+            donnee = `${a} \\times x`
           }
           resultat = `${a}x`
           break
         case 'ax+b':
           if (inverserFacteurs) {
-            texte = `$x \\times ${a} + ${b}$`
+            donnee = `x \\times ${a} + ${b}`
           } else {
-            texte = `$${a} \\times x + ${b}$`
+            donnee = `${a} \\times x + ${b}`
           }
           resultat = `${a}x+${b}`
           break
         case 'b+ax':
           if (inverserFacteurs) {
-            texte = `$${b} + x \\times ${a}$`
+            donnee = `${b} + x \\times ${a}`
           } else {
-            texte = `$${b} + ${a} \\times x$`
+            donnee = `${b} + ${a} \\times x`
           }
           resultat = `${b}+${a}x`
           break
         case 'a+x':
-          texte = `$${a} + x$`
+          donnee = `${a} + x`
           resultat = `${a}+x`
           break
         case 'x+a':
-          texte = `$x + ${a}$`
+          donnee = `x + ${a}`
           resultat = `x+${a}`
           break
         case 'a(x+b)':
           if (inverserParentheses) {
-            texte = `$(x + ${b}) \\times ${a}$`
+            donnee = `(x + ${b}) \\times ${a}`
           } else {
-            texte = `$${a} \\times (x + ${b})$`
+            donnee = `${a} \\times (x + ${b})`
           }
           resultat = `${a}(x+${b})`
           break
         case 'a(b+x)':
           if (inverserParentheses) {
-            texte = `$(${b} + x) \\times ${a}$`
+            donnee = `(${b} + x) \\times ${a}`
           } else {
-            texte = `$${a} \\times (${b} + x)$`
+            donnee = `${a} \\times (${b} + x)`
           }
           resultat = `${a}(${b}+x)`
           break
         case 'a(bx+c)':
           if (inverserParentheses) {
             if (inverserFacteurs) {
-              texte = `$(x \\times ${b} + ${c}) \\times ${a}$`
+              donnee = `(x \\times ${b} + ${c}) \\times ${a}`
             } else {
-              texte = `$(${b} \\times x + ${c}) \\times ${a}$`
+              donnee = `(${b} \\times x + ${c}) \\times ${a}`
             }
           } else {
             if (inverserFacteurs) {
-              texte = `$${a} \\times (x \\times ${b} + ${c})$`
+              donnee = `${a} \\times (x \\times ${b} + ${c})`
             } else {
-              texte = `$${a} \\times (${b} \\times x + ${c})$`
+              donnee = `${a} \\times (${b} \\times x + ${c})`
             }
           }
           resultat = `${a}(${b}x+${c})`
@@ -116,55 +130,55 @@ export default function NomExercice () {
         case 'a(b+cx)':
           if (inverserParentheses) {
             if (inverserFacteurs) {
-              texte = `$(${b} + x \\times ${c}) \\times ${a}$`
+              donnee = `(${b} + x \\times ${c}) \\times ${a}`
             } else {
-              texte = `$(${b} + ${c} \\times x) \\times ${a}$`
+              donnee = `(${b} + ${c} \\times x) \\times ${a}`
             }
           } else {
             if (inverserFacteurs) {
-              texte = `$${a} \\times (${b} + x \\times ${c})$`
+              donnee = `${a} \\times (${b} + x \\times ${c})`
             } else {
-              texte = `$${a} \\times (${b} + ${c} \\times x)$`
+              donnee = `${a} \\times (${b} + ${c} \\times x)`
             }
           }
           resultat = `${a}(${b}+${c}x)`
           break
         case 'x²':
-          texte = '$x \\times x$'
+          donnee = 'x \\times x'
           resultat = 'x^2'
           break
         case 'x³':
-          texte = '$x \\times x \\times x$'
+          donnee = 'x \\times x \\times x'
           resultat = 'x^3'
           break
         case 'a+x²':
-          texte = `$${a} + x \\times x$`
+          donnee = `${a} + x \\times x`
           resultat = `${a}+x^2`
           break
         case 'x²+a':
-          texte = `$x \\times x + ${a}$`
+          donnee = `x \\times x + ${a}`
           resultat = `x^2+${a}`
           break
         case 'a+x³':
-          texte = `$${a} + x \\times x \\times x$`
+          donnee = `${a} + x \\times x \\times x`
           resultat = `${a}+x^3`
           break
         case 'x³+a':
-          texte = `$x \\times x \\times x + ${a}$`
+          donnee = `x \\times x \\times x + ${a}`
           resultat = `x^3+${a}`
           break
         case 'ax²':
           if (inverserParentheses) {
             if (inverserFacteurs) {
-              texte = `$x \\times ${a} \\times x$`
+              donnee = `x \\times ${a} \\times x`
             } else {
-              texte = `$${a} \\times x \\times x$`
+              donnee = `${a} \\times x \\times x`
             }
           } else {
             if (inverserFacteurs) {
-              texte = `$x \\times x \\times ${a}$`
+              donnee = `x \\times x \\times ${a}`
             } else {
-              texte = `$${a} \\times x \\times x$`
+              donnee = `${a} \\times x \\times x`
             }
           }
           resultat = `${a}x^2`
@@ -172,15 +186,15 @@ export default function NomExercice () {
         case 'ax²+b':
           if (inverserParentheses) {
             if (inverserFacteurs) {
-              texte = `$x \\times ${a} \\times x + ${b}$`
+              donnee = `x \\times ${a} \\times x + ${b}`
             } else {
-              texte = `$${a} \\times x \\times x + ${b}$`
+              donnee = `${a} \\times x \\times x + ${b}`
             }
           } else {
             if (inverserFacteurs) {
-              texte = `$x \\times x \\times ${a} + ${b}$`
+              donnee = `x \\times x \\times ${a} + ${b}`
             } else {
-              texte = `$${a} \\times x \\times x + ${b}$`
+              donnee = `${a} \\times x \\times x + ${b}`
             }
           }
           resultat = `${a}x^2+${b}`
@@ -188,15 +202,15 @@ export default function NomExercice () {
         case 'b+ax²':
           if (inverserParentheses) {
             if (inverserFacteurs) {
-              texte = `$${b} + x \\times ${a} \\times x$`
+              donnee = `${b} + x \\times ${a} \\times x`
             } else {
-              texte = `$${b} + ${a} \\times x \\times x$`
+              donnee = `${b} + ${a} \\times x \\times x`
             }
           } else {
             if (inverserFacteurs) {
-              texte = `$${b} + x \\times x \\times ${a}$`
+              donnee = `${b} + x \\times x \\times ${a}`
             } else {
-              texte = `$${b} + ${a} \\times x \\times x$`
+              donnee = `${b} + ${a} \\times x \\times x`
             }
           }
           resultat = `${b}+${a}x^2`
@@ -204,15 +218,15 @@ export default function NomExercice () {
         case 'abx²':
           if (inverserParentheses) {
             if (inverserFacteurs) {
-              texte = `$x \\times ${a} \\times x \\times ${b}$`
+              donnee = `x \\times ${a} \\times x \\times ${b}`
             } else {
-              texte = `$${a} \\times x \\times x \\times ${b}$`
+              donnee = `${a} \\times x \\times x \\times ${b}`
             }
           } else {
             if (inverserFacteurs) {
-              texte = `$x \\times x \\times ${a} \\times ${b}$`
+              donnee = `x \\times x \\times ${a} \\times ${b}`
             } else {
-              texte = `$${a} \\times x \\times x \\times ${b}$`
+              donnee = `${a} \\times x \\times x \\times ${b}`
             }
           }
           resultat = `${a * b}x^2`
@@ -220,15 +234,15 @@ export default function NomExercice () {
         case 'ax³':
           if (inverserParentheses) {
             if (inverserFacteurs) {
-              texte = `$x \\times x \\times ${a} \\times x$`
+              donnee = `x \\times x \\times ${a} \\times x`
             } else {
-              texte = `$x \\times ${a} \\times x \\times x$`
+              donnee = `x \\times ${a} \\times x \\times x`
             }
           } else {
             if (inverserFacteurs) {
-              texte = `$x \\times x \\times x \\times ${a}$`
+              donnee = `x \\times x \\times x \\times ${a}`
             } else {
-              texte = `$${a} \\times x \\times x \\times x$`
+              donnee = `${a} \\times x \\times x \\times x`
             }
           }
           resultat = `${a}x^3`
@@ -236,15 +250,15 @@ export default function NomExercice () {
         case 'ax³+b':
           if (inverserParentheses) {
             if (inverserFacteurs) {
-              texte = `$x \\times x \\times ${a} \\times x + ${b}$`
+              donnee = `x \\times x \\times ${a} \\times x + ${b}`
             } else {
-              texte = `$x \\times ${a} \\times x \\times x + ${b}$`
+              donnee = `x \\times ${a} \\times x \\times x + ${b}`
             }
           } else {
             if (inverserFacteurs) {
-              texte = `$x \\times x \\times x \\times ${a} + ${b}$`
+              donnee = `x \\times x \\times x \\times ${a} + ${b}`
             } else {
-              texte = `$${a} \\times x \\times x \\times x + ${b}$`
+              donnee = `${a} \\times x \\times x \\times x + ${b}`
             }
           }
           resultat = `${a}x^3+${b}`
@@ -252,15 +266,15 @@ export default function NomExercice () {
         case 'b+ax³':
           if (inverserParentheses) {
             if (inverserFacteurs) {
-              texte = `$${b} + x \\times x \\times ${a} \\times x$`
+              donnee = `${b} + x \\times x \\times ${a} \\times x`
             } else {
-              texte = `$${b} + x \\times ${a} \\times x \\times x$`
+              donnee = `${b} + x \\times ${a} \\times x \\times x`
             }
           } else {
             if (inverserFacteurs) {
-              texte = `$${b} + x \\times x \\times x \\times ${a}$`
+              donnee = `${b} + x \\times x \\times x \\times ${a}`
             } else {
-              texte = `$${b} + ${a} \\times x \\times x \\times x$`
+              donnee = `${b} + ${a} \\times x \\times x \\times x`
             }
           }
           resultat = `${b}+${a}x^3`
@@ -268,25 +282,36 @@ export default function NomExercice () {
         case 'abx³':
           if (inverserParentheses) {
             if (inverserFacteurs) {
-              texte = `$${b} \\times x \\times x \\times ${a} \\times x$`
+              donnee = `${b} \\times x \\times x \\times ${a} \\times x`
             } else {
-              texte = `$${b} \\times x \\times ${a} \\times x \\times x$`
+              donnee = `${b} \\times x \\times ${a} \\times x \\times x`
             }
           } else {
             if (inverserFacteurs) {
-              texte = `$${b} \\times x \\times x \\times x \\times ${a}$`
+              donnee = `${b} \\times x \\times x \\times x \\times ${a}`
             } else {
-              texte = `$${b} \\times ${a} \\times x \\times x \\times x$`
+              donnee = `${b} \\times ${a} \\times x \\times x \\times x`
             }
           }
           resultat = `${a * b}x^3`
           break
       }
+      if (this.sup2) {
+        texte = `$${resultat}$`
+        texteCorr = `$${resultat} = ${donnee}$`
+        reponse = donnee
+      } else {
+        texte = `$${donnee}$`
+        texteCorr = `$${donnee} = ${resultat}$`
+        reponse = resultat
+      }
+      // On formate la réponse de façon à ce qu'elle corresponde exactement à celle attendue par MathLive
+      reponse = reponse.replace(/\s/g, '') // En retirant les espaces
+      reponse = reponse.replace(/\\timesx/g, '\\times x') // Et en les remettant entre les times et les x
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i)
       }
-      texteCorr = texte + `$=${resultat}$`
-      setReponse(this, i, resultat, { formatInteractif: 'ignorerCasse' })
+      setReponse(this, i, reponse, { formatInteractif: 'ignorerCasse' })
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

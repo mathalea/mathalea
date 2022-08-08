@@ -1,8 +1,8 @@
-import { context } from '../../../modules/context'
-import { setReponse } from '../../../modules/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive'
-import { choice, listeQuestionsToContenu, miseEnEvidence, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { context } from '../../../modules/context.js'
+import { setReponse } from '../../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { choice, listeQuestionsToContenu, miseEnEvidence, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer avec des puissances'
 export const interactifReady = true
 export const interactifType = 'mathLive'

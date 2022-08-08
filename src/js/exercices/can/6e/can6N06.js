@@ -1,5 +1,5 @@
-import { arrondi, calcul, randint, texNombre, choice } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { arrondi, calcul, randint, texNombre, choice } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Arrondir au dixième ou au centième'
 export const interactifReady = true
 export const interactifType = 'mathLive'

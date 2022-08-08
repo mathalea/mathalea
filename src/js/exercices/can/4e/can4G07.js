@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, calcul, choice, texNombrec, creerNomDePolygone } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, labelPoint, segment, codeSegments
+  mathalea2d, point, labelPoint, segment, codageSegments
 } from '../../../modules/2d.js'
 export const titre = 'Calculer une longueur avec le théorème de Thalès (milieu)'
 export const interactifReady = true
@@ -33,7 +33,7 @@ export default function CalculLongueurThalesMilieu () {
       E = point(3, 0, nom[4], 'below')
       objets = []
       objets.push(segment(A, B), segment(D, E), segment(A, C), segment(B, C),
-        codeSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
+        codageSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
 
       this.question = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et  
       $${nom[3]}${nom[4]}=${texNombrec(a)}$.
@@ -56,7 +56,7 @@ export default function CalculLongueurThalesMilieu () {
       E = point(3, 0, nom[4], 'below')
       objets = []
       objets.push(segment(A, B), segment(D, E), segment(A, C), segment(B, C),
-        codeSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
+        codageSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
 
       this.question = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et 
        $${nom[1]}${nom[2]}=${texNombrec(a)}$. 

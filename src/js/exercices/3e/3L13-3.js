@@ -1,9 +1,9 @@
-import { codeSegments, homothetie, mathalea2d, point, polygone, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d'
-import { setReponse } from '../../modules/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive'
-import { arrondi, choice, combinaisonListes, ecritureAlgebrique, listeQuestionsToContenu, prenom, texNombre, texPrix } from '../../modules/outils'
-import { aleaVariables, resoudre } from '../../modules/outilsMathjs'
-import Exercice from '../Exercice'
+import { codageSegments, homothetie, mathalea2d, point, polygone, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d.js'
+import { setReponse } from '../../modules/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { arrondi, choice, combinaisonListes, ecritureAlgebrique, listeQuestionsToContenu, prenom, texNombre, texPrix } from '../../modules/outils.js'
+import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
+import Exercice from '../Exercice.js'
 export const titre = 'Problèmes à mettre en équation et à résoudre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -45,7 +45,7 @@ export default class ProblemesEnEquation extends Exercice {
     const B = point(0, 0)
     const A = point(0, 3)
     const OAB = polygone(O, A, B)
-    const codage = codeSegments('//', 'black', O, A, O, B)
+    const codage = codageSegments('//', 'black', O, A, O, B)
     return mathalea2d({ xmin: -1, xmax: 7, ymin: -1, ymax: 4, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB, codage)
   }
 
@@ -54,7 +54,7 @@ export default class ProblemesEnEquation extends Exercice {
     const B = point(6, 0)
     const A = point(0, 0)
     const OAB = polygone(O, A, B)
-    const codage = codeSegments('//', 'black', O, A, O, B)
+    const codage = codageSegments('//', 'black', O, A, O, B)
     return mathalea2d({ xmin: -1, xmax: 7, ymin: -1, ymax: 2.5, pixelsParCm: 20, scale: 0.8, zoom: 1 }, OAB, codage)
   }
 

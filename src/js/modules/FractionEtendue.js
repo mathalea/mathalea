@@ -1,5 +1,5 @@
-import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif, signeMoinsEnEvidence, texNombre } from './outils.js'
-import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition } from './2d.js'
+import { arrondi, obtenirListeFacteursPremiers, quotientier, extraireRacineCarree, fractionSimplifiee, listeDiviseurs, pgcd, nombreDeChiffresDansLaPartieDecimale, calcul, miseEnEvidence, ecritureParentheseSiNegatif, signeMoinsEnEvidence, texNombre, egal } from './outils.js'
+import { point, vecteur, segment, carre, cercle, arc, translation, rotation, texteParPosition, colorToLatexOrHTML } from './2d.js'
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow } from 'mathjs'
 import { fraction } from './fractions.js'
 
@@ -309,7 +309,7 @@ export default class FractionX extends Fraction {
  */
     let estIrreductible
     definePropRo(this, 'estIrreductible', () => {
-      if (!estIrreductible) estIrreductible = gcd(this.num, this.den) === 1
+      if (!estIrreductible) estIrreductible = gcd(this.num, this.den) === 1 && this.den !== 1
       return estIrreductible
     })
 
@@ -547,9 +547,13 @@ export default class FractionX extends Fraction {
       const den = Math.abs(this.den)
       const pgcd = gcd(num, den)
       if (pgcd !== 1) {
-        return `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+        let redaction = `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=`
+        if (Math.abs(den / pgcd) !== 1) redaction += `${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+        else redaction += `${signe}${Math.abs(num / pgcd)}`
+        return redaction
       } else {
-        return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+        if (!egal(Math.abs(den / pgcd), 1)) return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+        else return `=${signe}${Math.abs(num / pgcd)}`
       }
     }
   }
@@ -779,7 +783,7 @@ export default class FractionX extends Fraction {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
             dep = carre(O, C)
-            dep.color = 'black'
+            dep.color = colorToLatexOrHTML('black')
             dep.couleurDeRemplissage = couleur
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
@@ -793,7 +797,7 @@ export default class FractionX extends Fraction {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
             dep = carre(O, C)
-            dep.color = 'black'
+            dep.color = colorToLatexOrHTML('black')
             objets.push(dep)
           }
         }
@@ -801,7 +805,7 @@ export default class FractionX extends Fraction {
           O = point(x + k * (rayon + 1) + (i % diviseur) * rayon / diviseur, y + quotientier(i, diviseur) * rayon / diviseur)
           C = translation(O, vecteur(rayon / diviseur, 0))
           dep = carre(O, C)
-          dep.color = 'black'
+          dep.color = colorToLatexOrHTML('black')
           dep.couleurDeRemplissage = couleur
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)
@@ -930,7 +934,7 @@ export default class FractionX extends Fraction {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
             dep = carre(O, C)
-            dep.color = 'black'
+            dep.color = colorToLatexOrHTML('black')
             dep.couleurDeRemplissage = couleur
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
@@ -944,7 +948,7 @@ export default class FractionX extends Fraction {
             O = point(x + k * (rayon + 1) + j * rayon / diviseur, y + h * rayon / diviseur)
             C = translation(O, vecteur(rayon / diviseur, 0))
             dep = carre(O, C)
-            dep.color = 'black'
+            dep.color = colorToLatexOrHTML('black')
             objets.push(dep)
           }
         }
@@ -952,7 +956,7 @@ export default class FractionX extends Fraction {
           O = point(x + k * (rayon + 1) + (i % diviseur) * rayon / diviseur, y + quotientier(i, diviseur) * rayon / diviseur)
           C = translation(O, vecteur(rayon / diviseur, 0))
           dep = carre(O, C)
-          dep.color = 'black'
+          dep.color = colorToLatexOrHTML('black')
           dep.couleurDeRemplissage = couleur
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)

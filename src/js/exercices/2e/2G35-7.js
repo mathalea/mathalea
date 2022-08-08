@@ -1,10 +1,10 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
-import { repere2, droite, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
+import { repere, droite, segment, tracePoint, labelPoint, point, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js/decimal.mjs'
 export const titre = "Lecture graphique des coefficients d'une équation réduite "
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -46,9 +46,9 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
         if (a === 0 && b === 0) {
           a = 1
         }// On évite la situation de double nullité
-        r = repere2()// On définit le repère
+        r = repere()// On définit le repère
         c = droite(a, -1, b) // On définit l'objet qui tracera la courbe dans le repère
-        c.color = 'red'
+        c.color = colorToLatexOrHTML('red')
         c.epaisseur = 2
         texte = 'A partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br>'
         texte += mathalea2d({
@@ -84,7 +84,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           const A = point(0, b, 'A')
           t = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
           l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = 'blue'
+          l.color = colorToLatexOrHTML('blue')
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -8,
@@ -103,7 +103,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           const A = point(0, b, 'A')
           t = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
           l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = 'blue'
+          l.color = colorToLatexOrHTML('blue')
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -8,
@@ -165,9 +165,9 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           d = 3
         }// On évite la situation de double nullité
 
-        r = repere2()// On définit le repère
+        r = repere()// On définit le repère
         c = droite(a / d, -1, b) // On définit l'objet qui tracera la courbe dans le repère
-        c.color = 'red'
+        c.color = colorToLatexOrHTML('red')
         c.epaisseur = 2// On définit l'objet qui tracera la courbe dans le repère
 
         texte = 'A partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br>'
@@ -228,7 +228,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           const A = point(0, b, 'A')
           t = tracePoint(A, 'red') // Variable qui trace les points avec une croix
           l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = 'red'
+          l.color = colorToLatexOrHTML('red')
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -6,

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, prenom, texteEnCouleur } from '../../modules/outils.js'
-import { point, segment, codageCarre, polygoneRegulierParCentreEtRayon, nommePolygone, afficheCoteSegment, codeSegments, mathalea2d } from '../../modules/2d.js'
+import { point, segment, codageCarre, polygoneRegulierParCentreEtRayon, nommePolygone, afficheCoteSegment, codageSegments, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Mettre en équation un problème sans objectif de résolution'
 
 /**
@@ -114,7 +114,7 @@ export default function MettreEnEquationSansResoudre () {
       // on finit les appels
       const mesAppels = [
         po,
-        codeSegments('X', 'blue', po.listePoints),
+        codageSegments('X', 'blue', po.listePoints),
         afficheCoteSegment(s, `${inc}`, 1, 'red', 2, 0.5, 'black'),
         nommePolygone(po, myPolyName(n).nameParSommets),
         anglesDroitsIfIsCarre

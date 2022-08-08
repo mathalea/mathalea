@@ -1,6 +1,6 @@
-import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
-import { choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
+import { choice, simplificationDeFractionAvecEtapes } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Déterminer la somme de fractions à dénominateurs compatibles'
 export const interactifReady = true
 export const interactifType = 'mathLive'

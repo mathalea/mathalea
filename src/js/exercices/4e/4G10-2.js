@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu, choisitLettresDifferentes } from '../../modules/outils.js'
-import { afficheLongueurSegment, codageAngleDroit, droite, droiteParPointEtPerpendiculaire, labelPoint, mathalea2d, point, pointAdistance, pointIntersectionDD, pointSurDroite, polygoneAvecNom, segment, translation2Points, triangle2points2longueurs, vecteur } from '../../modules/2d.js'
+import { afficheLongueurSegment, codageAngleDroit, colorToLatexOrHTML, droite, droiteParPointEtPerpendiculaire, labelPoint, mathalea2d, point, pointAdistance, pointIntersectionDD, pointSurDroite, polygoneAvecNom, segment, translation2Points, triangle2points2longueurs, vecteur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Transformer une figure par translation'
 
@@ -47,7 +47,7 @@ export default class nomExercice extends Exercice {
       function segmente (point, image) {
         const segmentAA = segment(point, image)
         segmentAA.styleExtremites = '|->'
-        segmentAA.color = 'red'
+        segmentAA.color = colorToLatexOrHTML('red')
         segmentAA.pointilles = 2
         return segmentAA
       }
@@ -98,7 +98,7 @@ export default class nomExercice extends Exercice {
       // Perpendiculaire
       anim.tempo = 0.5
       anim.couleur = 'red'
-      anim.pointilles = true
+      anim.pointilles = 5
       anim.equerreDeplacer(pied)
       anim.equerreMontrer()
       anim.equerreRotation(AA)
@@ -166,7 +166,7 @@ export default class nomExercice extends Exercice {
       anim.crayonMasquer()
 
       // Énoncé et correction
-      texte = `Trace l'image du triangle $${lettres[0]}${lettres[1]}${lettres[2]}$ par la translation qui transforme $${lettres[3]}$ en $${lettres[4]}$`
+      texte = `Tracer l'image du triangle $${lettres[0]}${lettres[1]}${lettres[2]}$ par la translation qui transforme $${lettres[3]}$ en $${lettres[4]}$.<br>`
       texte += mathalea2d(paramsEnonce, objetsEnonceOnly, objetsEnonceEtCorr)
       texteCorr = mathalea2d(paramsCorrection, objetsCorrectionOnly, objetsEnonceEtCorr)
       texteCorr += anim.htmlBouton()

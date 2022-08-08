@@ -1,5 +1,5 @@
-import { choice, randint } from '../../../modules/outils'
-import Exercice from '../../Exercice'
+import { choice, randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice.js'
 export const titre = 'Calculer le prochain multiple de 3 ou de 9'
 export const interactifReady = true
 export const interactifType = 'mathLive'

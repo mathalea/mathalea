@@ -21,7 +21,7 @@ export default function PoucentageP2 () {
   this.nouvelleVersion = function () {
     let a, b, c, d, n, u
     const fruits = [
-      ['pêches', 3.5, 10, 30], ['Noix', 4.5, 4, 13], ['cerises', 5.5, 11, 20], ['pommes', 2.5, 20, 40],
+      ['pêches', 3.5, 10, 30], ['noix', 4.5, 4, 13], ['cerises', 5.5, 11, 20], ['pommes', 2.5, 20, 40],
       ['framboises', 6.5, 1, 5], ['fraises', 4.5, 5, 10], ['citrons', 1.5, 15, 30], ['bananes', 2.5, 15, 25]
     ]
     const plat = [

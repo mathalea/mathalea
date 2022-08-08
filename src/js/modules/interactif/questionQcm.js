@@ -1,7 +1,7 @@
 /* global $ */
 
-import { get } from '../dom'
-import { messageFeedback } from '../messages'
+import { get } from '../dom.js'
+import { messageFeedback } from '../messages.js'
 import { shuffleJusqua } from '../outils.js'
 import { context } from '../context.js'
 import { gestionCan } from './gestionCan.js'
