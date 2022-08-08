@@ -163,7 +163,9 @@ export default function AgrandissementReduction () {
           mtg32App.giveFormula2(idDoc, 'c', c.toString())
           mtg32App.giveFormula2(idDoc, 'h1', h1.toString())
           mtg32App.giveFormula2(idDoc, 'h2', h2.toString())
-          mtg32App.calculate(idDoc)
+          // le 2e argument à true sert à recalculer les rand() éventuels contenus dans les formules, 
+          // à priori inutile ici (car on initialise une figure), mais ça mange pas de pain
+          mtg32App.calculate(idDoc, true)
           return mtg32App.display(idDoc)
         }
         break
@@ -307,7 +309,7 @@ export default function AgrandissementReduction () {
           mtg32App.giveFormula2(idDoc, 'r', r.toString())
           mtg32App.giveFormula2(idDoc, 'h1', h1.toString())
           mtg32App.giveFormula2(idDoc, 'h2', h2.toString())
-          mtg32App.calculate(idDoc)
+          mtg32App.calculate(idDoc, true)
           return mtg32App.display(idDoc)
         }
         break
@@ -422,7 +424,7 @@ export default function AgrandissementReduction () {
           mtg32App.giveFormula2(idDoc, 'h1', h1.toString())
           mtg32App.giveFormula2(idDoc, 'h2', texNombre(h2, 0))
           mtg32App.giveFormula2(idDoc, "c'", c2.toString())
-          mtg32App.calculate(idDoc)
+          mtg32App.calculate(idDoc, true)
           return mtg32App.display(idDoc)
         }
         break
@@ -529,7 +531,7 @@ export default function AgrandissementReduction () {
         texteCorr += `$V-V' \\approx ${texNombre(pi.div(3).mul(r.pow(2)).mul(h1).mul(h2.plus(c).div(h1).pow(3)), 3)}$ dm${texteExposant(3)}$ - ${texNombre(pi.div(3).mul(h2.div(h1).pow(3).mul(r.pow(2))).mul(h1), 3)}$ dm${texteExposant(3)} $\\approx ${texNombre(kprime.pow(3).sub(1).mul(r2.pow(2)).mul(h2).mul(pi).div(3), 1)}$ dm${texteExposant(3)}.<br>`
         this.MG32codeBase64 = codeBase64
         this.mg32init = (mtg32App, idDoc) => {
-          mtg32App.calculate(idDoc)
+          mtg32App.calculate(idDoc, true)
           return mtg32App.display(idDoc)
         }
         break
@@ -673,7 +675,7 @@ export default function AgrandissementReduction () {
           mtg32App.giveFormula2(idDoc, 'r', r.toString())
           mtg32App.giveFormula2(idDoc, 'h1', h1.toString())
           mtg32App.giveFormula2(idDoc, 'h2', h2.toString())
-          mtg32App.calculate(idDoc)
+          mtg32App.calculate(idDoc, true)
           return mtg32App.display(idDoc)
         }
         break
