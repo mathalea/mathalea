@@ -4,6 +4,7 @@ import { context } from './context.js'
 import { fraction, Fraction, max, ceil, isNumeric, floor, random, round, abs } from 'mathjs'
 import earcut from 'earcut'
 import FractionX from './FractionEtendue.js'
+import Decimal from 'decimal.js'
 
 /*
   MathALEA2D
@@ -10059,6 +10060,7 @@ function TexteParPoint (texte, A, orientation = 'milieu', color = 'black', scale
   this.opacite = 1
   this.couleurDeRemplissage = this.color
   this.opaciteDeRemplissage = this.opacite
+  if (typeof texte === 'number' || texte instanceof Decimal) texte = stringNombre(texte)
   this.bordures = [A.x - texte.length * 0.2, A.y - 0.4, A.x + texte.length * 0.2, A.y + 0.4]
   if (typeof texte !== 'string') {
     texte = String(texte)
