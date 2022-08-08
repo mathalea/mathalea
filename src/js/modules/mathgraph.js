@@ -90,7 +90,7 @@ async function mg32Display (container, exo) {
   const modification = new Function('numero_figure', code_pour_modifier_la_figure)
   modification(numero_figure)
   */
-  if (typeof exo.mg32init === 'function') exo.mg32init(mtgApp, idDoc, idDocCorr)
+  if (typeof exo.mg32init === 'function') await exo.mg32init(mtgApp, idDoc, idDocCorr)
   return mtgApp
 }
 

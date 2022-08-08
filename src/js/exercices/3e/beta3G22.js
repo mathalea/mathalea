@@ -164,7 +164,7 @@ export default function AgrandissementReduction () {
           mtg32App.giveFormula2(idDoc, 'h1', h1.toString())
           mtg32App.giveFormula2(idDoc, 'h2', h2.toString())
           mtg32App.calculate(idDoc)
-          mtg32App.display(idDoc)
+          return mtg32App.display(idDoc)
         }
         break
       case 2: // calcul de l'aire de base, du volume d'un cône. puis, calcul de la section, du volume du cône réduit et du volume du tronc
