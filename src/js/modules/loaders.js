@@ -105,7 +105,7 @@ export async function loadIep (elt, xml) {
  */
 export async function loadMG32 (elt, svgOptions, mtgOptions) {
   try {
-    await load('mathgraph')
+    if (typeof window.mtgLoad !== 'function') await load('mathgraph')
     if (typeof window.mtgLoad !== 'function') throw Error('mtgLoad n’existe pas')
     // cf https://www.mathgraph32.org/documentation/loading/global.html#mtgLoad
     // la syntaxe qui retourne une promesse fonctionne avec un import seulement (il faudrait mettre mathgraph dans nos dépendances et l'importer)
