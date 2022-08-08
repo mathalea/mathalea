@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 475 
-- nombre d'exos interactifReady 725 
+- nombre d'exos amcReady 483 
+- nombre d'exos interactifReady 735 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -36,6 +36,7 @@
 |2N30-3|Multiplier des fractions|OK|AMCNum|OK|mathLive|
 |2N30-4|Diviser des fractions|OK|AMCNum|OK|mathLive|
 |2N30-5|Fractions et priorités opératoires|KO|KO|OK|mathLive|
+|2N31-0|Puissances : écriture décimale ou fractionnaire|KO|KO|OK|mathLive|
 |2N31-1|Notation scientifique|OK|AMCNum|OK|mathLive|
 |2N31-2|Puissances : le sens des règles de calculs|OK|AMCNum|OK|mathLive|
 |2N31-4|Calculs utilisant les priorités opératoires et les puissances|OK|AMCOpenNum|KO|KO|
@@ -360,6 +361,7 @@
 |6P14|Figures à agrandir ou à réduire d'après une situation de proportionnalité|OK|AMCHybride|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
 |6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
+|FichierDeTests|Calculer un angle, déduit de figures simples|KO|KO|OK|mathLive|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|mathLive|
 |CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |CM002|Tables de divisions|OK|AMCNum|OK|mathLive|
@@ -451,9 +453,10 @@
 |can1L07|Déterminer un coefficient dans un développement|KO|KO|OK|mathLive|
 |can1L08|Déterminer un coefficient dans un développement*|KO|KO|OK|mathLive|
 |can1L09|Résoudre une équation $ax^2+bx+c=c$ |KO|KO|OK|mathLive|
-|can1P01|Calculer des probabilités à partir d’un arbre|OK|AMCNum|OK|mathLive|
+|can1P01|Ecrire une probabilté avec les notations|OK|AMCNum|OK|mathLive|
 |can1P02|Lire une probabilité  à partir d’un arbre|OK|AMCNum|OK|mathLive|
 |can1P03|Calculer la probabilité d’une intersection à partir d’un arbre|OK|AMCNum|OK|mathLive|
+|can1P04|Calculer des probabilités à partir d’un arbre|OK|AMCNum|OK|mathLive|
 |can1P05|Utiliser la formule des probabilités totales dans un arbre|OK|AMCNum|OK|mathLive|
 |can1P06|Déterminer une probabilté dans un tableau de probabilités|OK|AMCNum|OK|mathLive|
 |can1P07|Déterminer une probabilté dans un tableau d’effectifs|OK|AMCNum|OK|mathLive|
@@ -641,6 +644,8 @@
 |can5P04|Calculer avec une proportion|OK|AMCNum|OK|mathLive|
 |can5P05|Prendre t % d’une quantité|KO|KO|OK|mathLive|
 |can5P06|Ecrire sous la forme d’un pourcentage|OK|AMCNum|OK|mathLive|
+|can5P07|Résoudre un problème de proportionnalité*|OK|AMCNum|OK|mathLive|
+|can5P08|Résoudre un problème de proportionnalité**|OK|AMCNum|OK|mathLive|
 |can5a-2021|CAN 5ième sujet 2021|KO|KO|OK|mathLive|
 |can5a-2022|CAN 5ième sujet 2022|KO|KO|OK|mathLive|
 |can5a-xxxx|Course aux nombres début de 5e|OK|AMCNum|OK|mathLive|
@@ -675,9 +680,10 @@
 |can6C29|Résoudre un problème de partage|OK|AMCNum|OK|mathLive|
 |can6C30|Multiplier deux décimaux|OK|AMCNum|OK|mathLive|
 |can6C31|Soustraire un décimal d’un entier|OK|AMCNum|OK|mathLive|
-|can6C32|Pyramide additive|OK|AMCNum|OK|mathLive|
-|can6C33|Pyramide multiplicative|OK|AMCNum|OK|mathLive|
-|can6C34|Pyramide additive inverse|OK|AMCNum|OK|mathLive|
+|can6C32|Calculer dans une pyramide additive|OK|AMCNum|OK|mathLive|
+|can6C33|Calculer dans une pyramide multiplicative|OK|AMCNum|OK|mathLive|
+|can6C34|Calculer dans une pyramide additive inverse|OK|AMCNum|OK|mathLive|
+|can6C35|Résoudre un problème avec "de plus", "de moins"|OK|AMCNum|OK|mathLive|
 |can6D01|Convertir des Heures/minutes en minutes|OK|AMCNum|OK|mathLive|
 |can6D02|Chercher un reste en minutes|OK|AMCNum|OK|mathLive|
 |can6D03|Calculer une durée en minutes|OK|AMCNum|OK|mathLive|
@@ -732,6 +738,10 @@
 |canc3C04|Calculer le double ou moitié|OK|AMCNum|OK|mathLive|
 |canc3C05|Déterminer si un nombre est pair (V/F)|OK|qcmMono|OK|qcm|
 |canc3C06|Trouver le nombre manquant dans une somme|OK|AMCNum|OK|mathLive|
+|canc3C07|Résoudre un problème avec "de plus", "de moins"|OK|AMCNum|OK|mathLive|
+|canc3C08|Résoudre un problème avec "de plus", "de moins"*|OK|AMCNum|OK|mathLive|
+|canc3C09|Résoudre un problème avec "fois plus", "fois moins"|OK|AMCNum|OK|mathLive|
+|canc3C10|Résoudre un problème avec "fois plus", "fois moins"*|OK|AMCNum|OK|mathLive|
 |canc3D01|Lire l'heure|OK|AMCHybride|OK|mathLive|
 |canc3D02|Lire une durée|KO|KO|OK|mathLive|
 |canc3D03|Ajouter des durées|KO|KO|OK|mathLive|
