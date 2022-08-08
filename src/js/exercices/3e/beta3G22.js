@@ -46,14 +46,14 @@ export default function AgrandissementReduction () {
       case 1: // calcul de l'aire de base, du volume d'une pyramide à base carrée. puis, calcul de la section, du volume de la petite pyramide et du volume du tronc
         c = new Decimal(randint(30, 60)).div(10)
         h1 = new Decimal(randint(12, 20)).div(2)
-        h2 = new Decimal(randint(3, h1.floor().sub(1)))
+        h2 = new Decimal(randint(3, h1.floor().sub(1).toNumber()))
         if (this.sup2 < 3) {
           if (parseInt(this.sup2) === 1) {
             // on veut un coefficient de réduction décimal à 1 chiffre après la virgule
             while (!h2.div(h1).mul(10).eq(h2.div(h1).mul(10).round())) {
               c = new Decimal(randint(30, 60)).div(10)
               h1 = new Decimal(randint(12, 20)).div(2)
-              h2 = randint(3, h1.floor().sub(1))
+              h2 = new Decimal(randint(3, h1.floor().sub(1).toNumber()))
             }
           } else {
             // coefficient qui peut être décimal avec plus d'un chiffre ou rationnel non décimal.
@@ -160,9 +160,9 @@ export default function AgrandissementReduction () {
 
         this.MG32codeBase64 = codeBase64
         this.mg32init = (mtg32App, idDoc) => {
-          mtg32App.giveFormula2(idDoc, 'c', c)
-          mtg32App.giveFormula2(idDoc, 'h1', h1)
-          mtg32App.giveFormula2(idDoc, 'h2', h2)
+          mtg32App.giveFormula2(idDoc, 'c', c.toString())
+          mtg32App.giveFormula2(idDoc, 'h1', h1.toString())
+          mtg32App.giveFormula2(idDoc, 'h2', h2.toString())
           mtg32App.calculate(idDoc)
           mtg32App.display(idDoc)
         }
@@ -304,9 +304,9 @@ export default function AgrandissementReduction () {
         texteCorr += `$ \\approx ${texNombre((fractionSimplifiee(h2.mul(10), h1.mul(10))[1] ** 3 - fractionSimplifiee(h2.mul(10), h1.mul(10))[0] ** 3) * r.pow(2).mul(h1).mul(pi).div(fractionSimplifiee(h2.mul(10), h1.mul(10))[1] ** 3 * 3), 3)}$ cm${texteExposant(3)}<br>`
         this.MG32codeBase64 = codeBase64
         this.mg32init = (mtg32App, idDoc) => {
-          mtg32App.giveFormula2(idDoc, 'r', r)
-          mtg32App.giveFormula2(idDoc, 'h1', h1)
-          mtg32App.giveFormula2(idDoc, 'h2', h2)
+          mtg32App.giveFormula2(idDoc, 'r', r.toString())
+          mtg32App.giveFormula2(idDoc, 'h1', h1.toString())
+          mtg32App.giveFormula2(idDoc, 'h2', h2.toString())
           mtg32App.calculate(idDoc)
           mtg32App.display(idDoc)
         }
@@ -418,10 +418,10 @@ export default function AgrandissementReduction () {
 
         this.MG32codeBase64 = codeBase64
         this.mg32init = (mtg32App, idDoc) => {
-          mtg32App.giveFormula2(idDoc, 'c', `${c}`)
-          mtg32App.giveFormula2(idDoc, 'h1', `${h1}`)
-          mtg32App.giveFormula2(idDoc, 'h2', `${texNombre(h2, 0)}`)
-          mtg32App.giveFormula2(idDoc, "c'", `${c2}`)
+          mtg32App.giveFormula2(idDoc, 'c', c.toString())
+          mtg32App.giveFormula2(idDoc, 'h1', h1.toString())
+          mtg32App.giveFormula2(idDoc, 'h2', texNombre(h2, 0))
+          mtg32App.giveFormula2(idDoc, "c'", c2.toString())
           mtg32App.calculate(idDoc)
           mtg32App.display(idDoc)
         }
@@ -670,9 +670,9 @@ export default function AgrandissementReduction () {
         texteCorr += numAlpha(4) + ` L'épaisseur de chocolat est alors de : $${texNombre(h1, 1)}\\text{ cm}-${texNombre(kprime.mul(h1), 4)} \\text{ cm}\\approx ${texNombre(h1.sub(kprime.mul(h1)).mul(10), 2)}$ mm !`
         this.MG32codeBase64 = codeBase64
         this.mg32init = (mtg32App, idDoc) => {
-          mtg32App.giveFormula2(idDoc, 'r', r)
-          mtg32App.giveFormula2(idDoc, 'h1', h1)
-          mtg32App.giveFormula2(idDoc, 'h2', h2)
+          mtg32App.giveFormula2(idDoc, 'r', r.toString())
+          mtg32App.giveFormula2(idDoc, 'h1', h1.toString())
+          mtg32App.giveFormula2(idDoc, 'h2', h2.toString())
           mtg32App.calculate(idDoc)
           mtg32App.display(idDoc)
         }
