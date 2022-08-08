@@ -308,7 +308,7 @@ export default function AgrandissementReduction () {
           mtg32App.giveFormula2(idDoc, 'h1', h1.toString())
           mtg32App.giveFormula2(idDoc, 'h2', h2.toString())
           mtg32App.calculate(idDoc)
-          mtg32App.display(idDoc)
+          return mtg32App.display(idDoc)
         }
         break
       case 3: // calcul de l'aire de base, du volume d'une pyramide à base triangulaire. puis, calcul de la section, du volume de la petite pyramide et du volume du tronc
@@ -423,7 +423,7 @@ export default function AgrandissementReduction () {
           mtg32App.giveFormula2(idDoc, 'h2', texNombre(h2, 0))
           mtg32App.giveFormula2(idDoc, "c'", c2.toString())
           mtg32App.calculate(idDoc)
-          mtg32App.display(idDoc)
+          return mtg32App.display(idDoc)
         }
         break
       case 4: // Un tronc de cône étant donné (seau), calcul de la hauteur du cône dont il est issu, de son volume, puis du volume du seau. Lecture graphique du volume d'eau à mi hauteur et calcul de ce volume
@@ -530,7 +530,7 @@ export default function AgrandissementReduction () {
         this.MG32codeBase64 = codeBase64
         this.mg32init = (mtg32App, idDoc) => {
           mtg32App.calculate(idDoc)
-          mtg32App.display(idDoc)
+          return mtg32App.display(idDoc)
         }
         break
       case 5: // Un problème avec un cône Vanille Chocolat.
@@ -674,7 +674,7 @@ export default function AgrandissementReduction () {
           mtg32App.giveFormula2(idDoc, 'h1', h1.toString())
           mtg32App.giveFormula2(idDoc, 'h2', h2.toString())
           mtg32App.calculate(idDoc)
-          mtg32App.display(idDoc)
+          return mtg32App.display(idDoc)
         }
         break
     }
