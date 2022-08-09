@@ -9,5 +9,5 @@ export default function FabriqueAYohaku6B () {
   this.besoinFormulaireNumerique = false
   this.besoinFormulaire2Numerique = false
   this.besoinFormulaire3Numerique = false
-  this.besoinFormulaire4CaseACocher = ['Avec aide', false]
+  this.besoinFormulaire4CaseACocher = ['Avec aide (la présence d\'une valeur impose une solution unique)', false]
 }
