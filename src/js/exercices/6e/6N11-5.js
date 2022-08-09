@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { randint, listeQuestionsToContenu, combinaisonListes, texNombre, miseEnEvidence } from '../../modules/outils.js'
+import { randint, listeQuestionsToContenu, combinaisonListes, texNombre, miseEnEvidence, choice } from '../../modules/outils.js'
 export const titre = 'Comparer deux nombres entiers'
 
 export const dateDePublication = '07/08/2022'
@@ -46,30 +46,43 @@ export default class ComparerDeuxNombresEntiers extends Exercice {
 
     const typesDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
     const nombreDeChiffres = combinaisonListes([3, 4, 5, 8], this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const nbChiffresPremierNombre = nombreDeChiffres[i]
-      let nbChiffresDeuxiemeNombre, nbChiffresIdentiques
+    for (let i = 0, texte, texteCorr, a, b, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typesDeQuestions[i]) {
-        case 'differentNbDeChiffres':
-          nbChiffresDeuxiemeNombre = nbChiffresPremierNombre + randint(-1, 1, [0])
-          nbChiffresIdentiques = 0
+        case 'differentNbDeChiffres': {
+          a = randint(10 ** (nombreDeChiffres[i] - 1), 10 ** nombreDeChiffres[i] - 1)
+          b = a
+          const enleveOuAjoute = choice(['enleve', 'ajoute'])
+          const indexEnleveOuAjoute = randint(Math.floor(nombreDeChiffres[i] / 2), nombreDeChiffres[i])
+          const premiereMoitie = b.toString().slice(0, indexEnleveOuAjoute)
+          const deuxiemeMoitie = b.toString().slice(indexEnleveOuAjoute)
+          const chiffreInsere = ((parseInt(b.toString().slice(indexEnleveOuAjoute - 1, indexEnleveOuAjoute)) + 9) % 10).toString()
+          b = parseInt(premiereMoitie + chiffreInsere + deuxiemeMoitie)
+          if (enleveOuAjoute === 'enleve') {
+            const c = a
+            a = b
+            b = c
+          }
           break
-        case 'memeNbDeChiffres':
-          nbChiffresDeuxiemeNombre = nbChiffresPremierNombre
-          nbChiffresIdentiques = randint(1, nbChiffresPremierNombre - 1)
+        }
+        case 'memeNbDeChiffres': {
+          const nbChiffresIdentiques = randint(1, nombreDeChiffres[i] - 1)
+          const partieIdentique = randint(10 ** (nbChiffresIdentiques - 1), 10 ** nbChiffresIdentiques - 1)
+          const nbChiffresDifferentsPremierNombre = nombreDeChiffres[i] - nbChiffresIdentiques
+          const nbChiffresDifferentsDeuxiemeNombre = nombreDeChiffres[i] - nbChiffresIdentiques
+          a = partieIdentique * 10 ** nbChiffresDifferentsPremierNombre + randint(10 ** (nbChiffresDifferentsPremierNombre - 1), 10 ** nbChiffresDifferentsPremierNombre - 1)
+          b = partieIdentique * 10 ** nbChiffresDifferentsDeuxiemeNombre + randint(10 ** (nbChiffresDifferentsDeuxiemeNombre - 1), 10 ** nbChiffresDifferentsDeuxiemeNombre - 1)
+          while (b % 10 === a % 10) {
+            b = b - b % 10 + randint(0, 9)
+          }
           break
+        }
       }
-      const partieIdentique = randint(10 ** (nbChiffresIdentiques - 1), 10 ** nbChiffresIdentiques - 1)
-      const nbChiffresDifferentsPremierNombre = nbChiffresPremierNombre - nbChiffresIdentiques
-      const nbChiffresDifferentsDeuxiemeNombre = nbChiffresDeuxiemeNombre - nbChiffresIdentiques
-      const a = partieIdentique * 10 ** nbChiffresDifferentsPremierNombre + randint(10 ** (nbChiffresDifferentsPremierNombre - 1), 10 ** nbChiffresDifferentsPremierNombre - 1)
-      const b = partieIdentique * 10 ** nbChiffresDifferentsDeuxiemeNombre + randint(10 ** (nbChiffresDifferentsDeuxiemeNombre - 1), 10 ** nbChiffresDifferentsDeuxiemeNombre - 1)
       texte = `$${texNombre(a, 0)}$ et $${texNombre(b, 0)}$`
       texteCorr = ''
       switch (typesDeQuestions[i]) {
         case 'differentNbDeChiffres':
           if (this.correctionDetaillee) {
-            texteCorr += `$${texNombre(a)}$ compte ${nbChiffresPremierNombre} chiffres alors que $${texNombre(b)}$ en compte ${nbChiffresDeuxiemeNombre}.<br>`
+            texteCorr += `$${texNombre(a)}$ compte $${a.toString().length}$ chiffres alors que $${texNombre(b)}$ en compte $${b.toString().length}$.<br>`
             if (a > b) {
               texteCorr += `Comme $${texNombre(a)}$ compte plus de chiffres que $${texNombre(b)}$, alors $${texNombre(a)}$ est plus grand que $${texNombre(b)}$.<br>`
             } else {
@@ -113,6 +126,7 @@ export default class ComparerDeuxNombresEntiers extends Exercice {
       } else {
         texteCorr += `$${texNombre(a)}$ < $${texNombre(b)}$`
       }
+      if (this.correctionDetaillee) texteCorr += '.'
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
