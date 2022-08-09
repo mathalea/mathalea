@@ -65,7 +65,10 @@ async function mg32Display (container, exo) {
     fig: MG32codeBase64,
     isEditable: Boolean(mg32Editable)
   }
-  const mtgApp = await loadMG32(container, svgOptions, mtgOptions)
+
+  // si on avait déjà chargé mtgApp, faut virer le doc avant de le remettre
+  if (mtgApp) mtgApp.removeDoc(idDoc)
+  mtgApp = await loadMG32(container, svgOptions, mtgOptions)
   const idDocCorr = MG32codeBase64corr ? `MG32svgcorr${indexExo}` : ''
   if (idDocCorr) {
     container = document.getElementById(`MG32divcorr${indexExo}`)
@@ -90,7 +93,7 @@ async function mg32Display (container, exo) {
   const modification = new Function('numero_figure', code_pour_modifier_la_figure)
   modification(numero_figure)
   */
-  if (typeof exo.mg32init === 'function') exo.mg32init(mtgApp, idDoc, idDocCorr)
+  if (typeof exo.mg32init === 'function') await exo.mg32init(mtgApp, idDoc, idDocCorr)
   return mtgApp
 }
 
