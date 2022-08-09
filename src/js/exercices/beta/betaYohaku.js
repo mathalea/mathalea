@@ -77,7 +77,6 @@ class Yohaku {
     if (this.Case !== null) {
       donnees.push(texteParPosition(stringNombre(this.cellules[this.Case]), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur))
     }
-    console.log(this.Case)
     if (this.solution) {
       for (let i = 0; i < this.cellules.length; i++) {
         if (i !== this.Case) donnees.push(texteParPosition(stringNombre(this.cellules[i]), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur))
@@ -88,7 +87,7 @@ class Yohaku {
   }
 }
 
-export default function fabriqueAYohaku () {
+export default function FabriqueAYohaku () {
   Exercice.call(this)
   this.nbQuestions = 3
   this.sup = 30
@@ -102,11 +101,11 @@ export default function fabriqueAYohaku () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-    for (let i = 0; i < this.nbQuestions; i++) {
+    for (let i = 0, cpt = 0, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
       const donnees = []
       const taille = contraindreValeur(2, 5, this.sup3, 3)
       const max = contraindreValeur(taille ** 2 + 1, 999, this.sup, 30)
-      const operateur = this.sup2 === 1 ? 'addition' : 'multiplication'
+      const operateur = parseInt(this.sup2) === 1 ? 'addition' : 'multiplication'
       const Case = this.sup4 ? randint(0, taille ** 2 - 1) : null
       for (let j = 0; j < taille; j++) {
         for (let k = 0; k < taille; k++) {
@@ -115,9 +114,20 @@ export default function fabriqueAYohaku () {
       }
 
       const yohaku = new Yohaku({ taille, operation: operateur, cellules: donnees, Case })
-      this.listeQuestions.push(yohaku.representation())
+      texte = operateur === 'addition'
+        ? 'Les nombres en bout de ligne ou de colonne sont les sommes des nombres contenus dans la ligne ou la colonne.'
+        : 'Les nombres en bout de ligne ou de colonne sont les produits des nombres contenus dans la ligne ou la colonne.'
+      texte += '<br>Compléter la grille avec des nombres qui conviennent (plusieurs solutions possibles).'
+      texte += yohaku.representation()
+      texteCorr = 'La grille ci-dessous n\'est donnnée qu\'à titre d\'exemple, il y a d\'autres solutions'
       yohaku.solution = true
-      this.listeCorrections.push(yohaku.representation())
+      texteCorr += yohaku.representation()
+      if (this.questionJamaisPosee(i, ...donnees)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
     }
     listeQuestionsToContenu(this)
   }
