@@ -5,8 +5,8 @@ import { calculer } from '../../modules/outilsMathjs.js'
 import { create, all } from 'mathjs'
 export const titre = 'Générateur de Yohaku'
 const math = create(all)
-class Yohaku {
-  constructor ({ type = 'entiers', largeur = 2, hauteur = 2, taille = 3, Case = null, cellules = [], resultats = [], operation = 'addition', valeurMax = 50, solution = false }) {
+export class Yohaku {
+  constructor ({ type = 'entiers', largeur = 2, hauteur = 2, taille = 3, Case = null, cellules = [], resultats = [], operation = 'addition', valeurMax = 50, solution = false, cellulesPreremplies = [] }) {
     this.largeur = largeur
     this.hauteur = hauteur
     this.Case = Case
@@ -17,6 +17,7 @@ class Yohaku {
     this.valeurMax = valeurMax || 50
     this.solution = solution
     this.type = type
+    this.cellulesPreremplies = cellulesPreremplies
     console.log(this.type, this.valeurMax)
 
     // Si les cellules ne sont pas données, on en calcule le contenu aléatoirement.
@@ -187,6 +188,10 @@ class Yohaku {
             if (i !== this.Case) donnees.push(latexParCoordonnees(this.cellules[i], (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'black', 50))
           }
         }
+      }
+    } else if (this.cellulesPreremplies.length !== 0) {
+      for (let i = 0; i < this.cellulesPreremplies.length; i++) {
+        if (i !== this.Case) donnees.push(texteParPosition(stringNombre(this.cellulesPreremplies[i]), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur))
       }
     }
     return mathalea2d(Object.assign({}, fixeBordures([...lignes, ...colonnes, ...resultats, ...donnees, operateur])), operateur, ...lignes, ...colonnes, ...resultats, ...donnees)
