@@ -148,7 +148,7 @@ class Yohaku {
         resultats[i] = texteParPosition(this.resultats[i], (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur)
       } else {
         if (this.type !== 'littéraux') {
-          resultats[i] = latexParCoordonnees(this.resultats[i].toLatex().replace('frac', 'dfrac'), (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 20)
+          resultats[i] = latexParCoordonnees(this.resultats[i].toLatex().replace('frac', 'dfrac'), (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 'black', 20)
         } else {
           resultats[i] = latexParCoordonnees(this.resultats[i], (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 'black', operateur === 'addition' ? 50 : 80)
         }
@@ -227,9 +227,9 @@ export default function FabriqueAYohaku () {
       texte = operateur === 'addition'
         ? 'Les nombres en bout de ligne ou de colonne sont les sommes des nombres contenus dans la ligne ou la colonne.'
         : 'Les nombres en bout de ligne ou de colonne sont les produits des nombres contenus dans la ligne ou la colonne.'
-      texte += '<br>Compléter la grille avec des nombres qui conviennent (plusieurs solutions possibles).'
+      texte += '<br>Compléter la grille avec des nombres qui conviennent (plusieurs solutions possibles).<br>'
       texte += yohaku.representation()
-      texteCorr = 'La grille ci-dessous n\'est donnnée qu\'à titre d\'exemple, il y a d\'autres solutions'
+      texteCorr = 'La grille ci-dessous n\'est donnnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br>'
       yohaku.solution = true
       texteCorr += yohaku.representation()
       if (this.questionJamaisPosee(i, ...donnees)) {
