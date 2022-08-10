@@ -1,6 +1,7 @@
 import { mathalea2d, fixeBordures, segment, point, texteParPosition, tracePoint, latexParCoordonnees } from '../../modules/2d.js'
 import { choice, contraindreValeur, listeQuestionsToContenu, randint, stringNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { calculer } from '../../modules/outilsMathjs.js'
 import { create, all } from 'mathjs'
 export const titre = 'Générateur de Yohaku'
 const math = create(all)
@@ -30,7 +31,7 @@ class Yohaku {
             cellules.push(randint(-this.valeurMax, this.valeurMax, 0))
             break
           case 'littéraux' :
-            cellules.push(math.parse(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`))
+            cellules.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`).printResult)
             break
           case 'fractions dénominateurs multiples':
             cellules.push(math.fraction(randint(1, this.valeurMax), den))
@@ -57,7 +58,7 @@ class Yohaku {
             cellules.push(randint(-this.valeurMax, this.valeurMax, 0))
             break
           case 'littéraux' :
-            cellules.push(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`)
+            cellules.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`).printResult)
             break
           case 'fractions dénominateurs multiples':
             cellules.push(math.fraction(randint(1, this.valeurMax), cellules[i - 1].d))
@@ -109,7 +110,7 @@ class Yohaku {
           }
         } else {
           initialValue = math.parse('0')
-          this.resultats[i] = valeurs.reduce((previous, current) => math.simplify(`${previous.toString()}+${current.toString()}`), initialValue)
+          this.resultats[i] = valeurs.reduce((previous, current) => calculer(`${previous.toString()}+${current.toString()}`).printResult, initialValue)
         }
         break
       case 'multiplication':
@@ -123,7 +124,7 @@ class Yohaku {
           }
         } else {
           initialValue = math.parse('1')
-          this.resultats[i] = valeurs.reduce((previous, current) => math.simplify(`(${previous.toString()})*(${current.toString()})`), initialValue)
+          this.resultats[i] = valeurs.reduce((previous, current) => calculer(`(${previous.toString()})*(${current.toString()})`).printResult, initialValue)
         }
         break
     }
