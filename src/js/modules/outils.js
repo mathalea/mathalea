@@ -3114,10 +3114,10 @@ export function nombreDeChiffresDe (nb) {
 export function texFractionSigne (num, den) {
   if (den === 1) return String(num)
   if (num * den > 0) {
-    return `\\dfrac{${Math.abs(num)}}{${Math.abs(den)}}`
+    return `\\dfrac{${texNombre(Math.abs(num))}}{${texNombre(Math.abs(den))}}`
   }
   if (num * den < 0) {
-    return `-\\dfrac{${Math.abs(num)}}{${Math.abs(den)}}`
+    return `-\\dfrac{${texNombre(Math.abs(num))}}{${texNombre(Math.abs(den))}}`
   }
   return '0'
 }
