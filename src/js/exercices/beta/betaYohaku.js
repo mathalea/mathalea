@@ -148,9 +148,9 @@ class Yohaku {
         resultats[i] = texteParPosition(this.resultats[i], (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur)
       } else {
         if (this.type !== 'littéraux') {
-          resultats[i] = latexParCoordonnees(this.resultats[i].toLatex().replace('frac', 'dfrac'), (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur)
+          resultats[i] = latexParCoordonnees(this.resultats[i].toLatex().replace('frac', 'dfrac'), (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 20)
         } else {
-          resultats[i] = latexParCoordonnees(this.resultats[i], (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur)
+          resultats[i] = latexParCoordonnees(this.resultats[i], (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 'black', operateur === 'addition' ? 50 : 80)
         }
       }
     }
@@ -159,9 +159,9 @@ class Yohaku {
         resultats[i] = texteParPosition(this.resultats[i], (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur)
       } else {
         if (this.type !== 'littéraux') {
-          resultats[i] = latexParCoordonnees(this.resultats[i].toLatex().replace('frac', 'dfrac'), (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur)
+          resultats[i] = latexParCoordonnees(this.resultats[i].toLatex().replace('frac', 'dfrac'), (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur, 'black', 20)
         } else {
-          resultats[i] = latexParCoordonnees(this.resultats[i], (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur)
+          resultats[i] = latexParCoordonnees(this.resultats[i], (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur, 'black', operateur === 'addition' ? 50 : 80)
         }
       }
     }
@@ -170,9 +170,9 @@ class Yohaku {
         donnees.push(texteParPosition(stringNombre(this.cellules[this.Case]), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur))
       } else {
         if (this.type !== 'littéraux') {
-          donnees.push(latexParCoordonnees(this.cellules[this.Case].toLatex().replace('frac', 'dfrac'), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur))
+          donnees.push(latexParCoordonnees(this.cellules[this.Case].toLatex().replace('frac', 'dfrac'), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur, 'black', 20))
         } else {
-          donnees.push(latexParCoordonnees(this.cellules[this.Case], (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur))
+          donnees.push(latexParCoordonnees(this.cellules[this.Case], (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur, 'black', 50))
         }
       }
     }
@@ -182,9 +182,9 @@ class Yohaku {
           if (i !== this.Case) donnees.push(texteParPosition(stringNombre(this.cellules[i]), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur))
         } else {
           if (this.type !== 'littéraux') {
-            if (i !== this.Case) donnees.push(latexParCoordonnees(this.cellules[i].toLatex().replace('frac', 'dfrac'), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur))
+            if (i !== this.Case) donnees.push(latexParCoordonnees(this.cellules[i].toLatex().replace('frac', 'dfrac'), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'black', 20))
           } else {
-            if (i !== this.Case) donnees.push(latexParCoordonnees(this.cellules[i], (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur))
+            if (i !== this.Case) donnees.push(latexParCoordonnees(this.cellules[i], (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'black', 50))
           }
         }
       }
@@ -221,7 +221,7 @@ export default function FabriqueAYohaku () {
         }
       }
 */
-      const largeur = this.type === 'littéraux' ? 4 : 2
+      const largeur = this.type === 'littéraux' ? operateur === 'addition' ? 4 : 5 : 2
       const yohaku = new Yohaku({ type, taille, largeur, operation: operateur, cellules: donnees, Case, valeurMax })
       yohaku.calculeResultats()
       texte = operateur === 'addition'
