@@ -1,9 +1,12 @@
 import { mathalea2d, fixeBordures, segment, point, texteParPosition, tracePoint, latexParCoordonnees } from '../../modules/2d.js'
-import { choice, contraindreValeur, listeQuestionsToContenu, randint, stringNombre } from '../../modules/outils.js'
+import { choice, contraindreValeur, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint, stringNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { calculer } from '../../modules/outilsMathjs.js'
 import { create, all } from 'mathjs'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Générateur de Yohaku'
+export const interactifReady = true
+export const interactifType = 'custom'
 const math = create(all)
 export class Yohaku {
   constructor ({ type = 'entiers', largeur = 2, hauteur = 2, taille = 3, Case = null, cellules = [], resultats = [], operation = 'addition', valeurMax = 50, solution = false, cellulesPreremplies = [] }) {
@@ -86,49 +89,47 @@ export class Yohaku {
       for (let j = 0; j < this.taille; j++) {
         valeurs.push(this.cellules[i + j * this.taille])
       }
-      this.operate(valeurs, i)
+      this.resultats[i] = this.operate(valeurs)
     }
     for (let i = this.taille; i < this.taille * 2; i++) {
       valeurs = []
       for (let j = 0; j < this.taille; j++) {
         valeurs.push(this.cellules[(i - this.taille) * this.taille + j])
       }
-      this.operate(valeurs, i)
+      this.resultats[i] = this.operate(valeurs)
     }
   }
 
   // fonction utilisée par calculeResultats
-  operate (valeurs, i) {
+  operate (valeurs) {
     let initialValue
     switch (this.operation) {
       case 'addition':
         if (this.type !== 'littéraux') {
           if (this.type.substring(0, 4) === 'frac') {
             initialValue = math.fraction('0')
-            this.resultats[i] = valeurs.reduce((previous, current) => math.fraction(math.add(previous, current)), initialValue)
+            return valeurs.reduce((previous, current) => math.fraction(math.add(previous, current)), initialValue)
           } else {
             initialValue = math.number(0)
-            this.resultats[i] = valeurs.reduce((previous, current) => math.add(previous, current), initialValue)
+            return valeurs.reduce((previous, current) => math.add(previous, current), initialValue)
           }
         } else {
           initialValue = math.parse('0')
-          this.resultats[i] = valeurs.reduce((previous, current) => calculer(`${previous.toString()}+${current.toString()}`).printResult, initialValue)
+          return valeurs.reduce((previous, current) => calculer(`${previous.toString()}+${current.toString()}`).printResult, initialValue)
         }
-        break
       case 'multiplication':
         if (this.type !== 'littéraux') {
           if (this.type.substring(0, 4) === 'frac') {
             initialValue = math.fraction('1')
-            this.resultats[i] = valeurs.reduce((previous, current) => math.fraction(math.multiply(previous, current)), initialValue)
+            return valeurs.reduce((previous, current) => math.fraction(math.multiply(previous, current)), initialValue)
           } else {
             initialValue = math.number(1)
-            this.resultats[i] = valeurs.reduce((previous, current) => math.multiply(previous, current), initialValue)
+            return valeurs.reduce((previous, current) => math.multiply(previous, current), initialValue)
           }
         } else {
           initialValue = math.parse('1')
-          this.resultats[i] = valeurs.reduce((previous, current) => calculer(`(${previous.toString()})*(${current.toString()})`).printResult, initialValue)
+          return valeurs.reduce((previous, current) => calculer(`(${previous.toString()})*(${current.toString()})`).printResult, initialValue)
         }
-        break
     }
   }
 
@@ -206,6 +207,7 @@ export default function FabriqueAYohaku () {
   this.sup3 = 3
   this.sup4 = false
   this.type = 'entiers'
+  this.yohaku = []
   this.besoinFormulaireNumerique = ['Valeur maximale des données', 999]
   this.besoinFormulaire2Numerique = ['Opération', 2, '1 : Addition\n2 : Multiplication']
   this.besoinFormulaire3Numerique = ['Taille de la grille (nombre de cases horizontales)', 5]
@@ -226,8 +228,14 @@ export default function FabriqueAYohaku () {
         }
       }
 */
+      const cellulesPreremplies = []
+      if (this.interactif) {
+        for (let k = 0; k < taille ** 2; k++) {
+          cellulesPreremplies[k] = lettreMinusculeDepuisChiffre(k + 1)
+        }
+      }
       const largeur = this.type === 'littéraux' ? operateur === 'addition' ? 4 : 5 : 2
-      const yohaku = new Yohaku({ type, taille, largeur, operation: operateur, cellules: donnees, Case, valeurMax })
+      const yohaku = new Yohaku({ type, taille, largeur, operation: operateur, cellules: donnees, Case, valeurMax, cellulesPreremplies })
       yohaku.calculeResultats()
       const mot = type === 'littéraux' ? 'expressions' : 'nombres'
       texte = operateur === 'addition'
@@ -235,9 +243,13 @@ export default function FabriqueAYohaku () {
         : `Les ${mot} en bout de ligne ou de colonne sont les produits des ${mot} contenus dans la ligne ou la colonne.`
       texte += `<br>Compléter la grille avec des ${mot} qui conviennent (plusieurs solutions possibles).<br>`
       texte += yohaku.representation()
+      for (let k = 0; k < yohaku.cellulesPreremplies.length; k++) {
+        texte += ajouteChampTexteMathLive(this, i * taille ** 2 + k, 'largeur10 inline', { texte: `${lettreMinusculeDepuisChiffre(k + 1)}=` })
+      }
       texteCorr = 'La grille ci-dessous n\'est donnnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br>'
       yohaku.solution = true
       texteCorr += yohaku.representation()
+      this.yohaku[i] = yohaku
       if (this.questionJamaisPosee(i, ...donnees)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -246,5 +258,43 @@ export default function FabriqueAYohaku () {
       cpt++
     }
     listeQuestionsToContenu(this)
+  }
+  this.correctionInteractive = i => {
+    const taille = parseInt(this.sup3)
+    const champsTexte = []
+    const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${(i + 1) * taille * taille - 1}`)
+    const saisies = []
+    for (let k = 0; k < taille ** 2; k++) {
+      champsTexte[k] = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * taille ** 2 + k}`)
+      saisies[k] = champsTexte[k].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1')
+    }
+    let resultat
+    if (this.saisieCoherente(saisies, taille, i)) {
+      divFeedback.innerHTML = '😎'
+      resultat = 'OK'
+    } else {
+      divFeedback.innerHTML = '☹️'
+      resultat = 'KO'
+    }
+    return resultat
+  }
+  this.saisieCoherente = function (saisies, taille, question) {
+    let resultatOK = true
+    let valeurs
+    for (let i = 0; i < taille; i++) {
+      valeurs = []
+      for (let j = 0; j < taille; j++) {
+        valeurs.push(saisies[i + j * taille])
+      }
+      resultatOK = resultatOK && (this.yohaku[question].operate(valeurs) === this.yohaku[question].resultats[i])
+    }
+    for (let i = taille; i < taille * 2; i++) {
+      valeurs = []
+      for (let j = 0; j < taille; j++) {
+        valeurs.push(saisies[(i - taille) * taille + j])
+      }
+      resultatOK = resultatOK && (this.yohaku[question].operate(valeurs) === this.yohaku[question].resultats[i])
+    }
+    return resultatOK
   }
 }
