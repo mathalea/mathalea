@@ -10,7 +10,6 @@ export class Yohaku {
     this.largeur = largeur
     this.hauteur = hauteur
     this.Case = Case
-    this.cellules = cellules
     this.resultats = resultats
     this.taille = taille || 2
     this.operation = operation || 'addition'
@@ -76,6 +75,7 @@ export class Yohaku {
         }
       }
     }
+    this.cellules = cellules
   }
 
   // méthode qui calcule les résultats si on le veut (sinon on peut les renseigner dans this.resultats manuellement)
@@ -97,6 +97,7 @@ export class Yohaku {
     }
   }
 
+  // fonction utilisée par calculeResultats
   operate (valeurs, i) {
     let initialValue
     switch (this.operation) {
@@ -129,7 +130,6 @@ export class Yohaku {
         }
         break
     }
-    console.log(this.resultats)
   }
 
   representation () {
@@ -191,7 +191,7 @@ export class Yohaku {
       }
     } else if (this.cellulesPreremplies.length !== 0) {
       for (let i = 0; i < this.cellulesPreremplies.length; i++) {
-        if (i !== this.Case) donnees.push(texteParPosition(stringNombre(this.cellulesPreremplies[i]), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur))
+        if (i !== this.Case) donnees.push(texteParPosition(this.cellulesPreremplies[i], (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur))
       }
     }
     return mathalea2d(Object.assign({}, fixeBordures([...lignes, ...colonnes, ...resultats, ...donnees, operateur])), operateur, ...lignes, ...colonnes, ...resultats, ...donnees)
