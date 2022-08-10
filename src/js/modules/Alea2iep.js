@@ -8,6 +8,18 @@ import { carre1point1longueur } from './iepMacros/quadrilateres.js'
 import { demiTourPoint, demiTourPolygone, homothetiePoint, homothetiePolygone, rotationPoint, rotationPolygone, symetrieAxialePoint, symetrieAxialePolygone, translationPoint, translationPolygone } from './iepMacros/transformations.js'
 import { triangle1longueur2angles, triangle2longueurs1angle, triangle3longueurs, triangleEquilateral, triangleEquilateral2Sommets, triangleRectangle2Cotes, triangleRectangleCoteHypotenuse } from './iepMacros/triangles.js'
 
+const store = {}
+
+export class StoreIep {
+  static getXml (id) {
+    return store[id]
+  }
+
+  static saveXml (id, xml) {
+    store[id] = xml
+  }
+}
+
 /*
  * Classe parente de tous les objets Alea2iep
  *
@@ -135,13 +147,24 @@ export default class Alea2iep {
    * @param {int} numeroExercice - Numéro de l'exercice
    * @param {int} i - Numéro de la question
    */
-  html (id1, id2) {
-    if (context.isHtml) {
-      const id = `IEP_${id1}_${id2}`
-      window.listeScriptsIep[id] = this.script() // On ajoute le script
-      const codeHTML = `<div id="IEPContainer${id}" ></div>`
-      window.listeAnimationsIepACharger.push(id)
-      return codeHTML
+  html (id1, id2 = 0) {
+    if (context.versionMathalea === 3) {
+      if (context.isHtml) {
+        const id = `IEP_${id1}_${id2}`
+        StoreIep.saveXml(id, this.script())
+        const codeHTML = `<alea-instrumenpoche id=${id}>`
+        return codeHTML
+      }
+      return ''
+    } else {
+      if (context.isHtml) {
+        const id = `IEP_${id1}_${id2}`
+        window.listeScriptsIep[id] = this.script() // On ajoute le script
+        const codeHTML = `<div id="IEPContainer${id}" ></div>`
+        window.listeAnimationsIepACharger.push(id)
+        return codeHTML
+      }
+      return ''
     }
   }
 
@@ -152,36 +175,46 @@ export default class Alea2iep {
    * @return Code HTML avec le bouton qui affiche ou masque un div avec l'animation
    */
   htmlBouton (id1, id2 = '') {
-    if (context.isHtml) {
-      const id = `IEP_${id1}_${id2}`
-      window.listeScriptsIep[id] = this.script() // On ajoute le script
-      const codeHTML = `<br><button class="ui mini compact button" id="btnAnimation${id}" onclick="toggleVisibilityIEP('${id}')" style="margin-top:20px"><i class="large play circle outline icon"></i>Voir animation</button>
+    if (context.versionMathalea === 3) {
+      if (context.isHtml) {
+        const id = `IEP_${id1}_${id2}`
+        StoreIep.saveXml(id, this.script())
+        const codeHTML = `<alea-buttoninstrumenpoche id=${id}>`
+        return codeHTML
+      }
+      return ''
+    } else {
+      if (context.isHtml) {
+        const id = `IEP_${id1}_${id2}`
+        window.listeScriptsIep[id] = this.script() // On ajoute le script
+        const codeHTML = `<br><button class="ui mini compact button" id="btnAnimation${id}" onclick="toggleVisibilityIEP('${id}')" style="margin-top:20px"><i class="large play circle outline icon"></i>Voir animation</button>
             <div id="IEPContainer${id}" style="display: none;" ></div>`
-      if (!window.toggleVisibilityIEP) {
-        window.toggleVisibilityIEP = function (id) {
-          const element = document.getElementById(`IEPContainer${id}`)
-          const elementBtn = document.getElementById(`btnAnimation${id}`)
-          const xml = window.listeScriptsIep[id]
-          if (element.style.display === 'none') {
-            element.style.display = 'block'
-            element.style.marginTop = '30px'
-            // On ajoute une regle css max-width pour éviter le débordement
-            element.style.maxWidth = '95%'
-            elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
-            iepLoadPromise(element, xml, { zoom: true, autostart: true }).then(iepApp => {
+        if (!window.toggleVisibilityIEP) {
+          window.toggleVisibilityIEP = function (id) {
+            const element = document.getElementById(`IEPContainer${id}`)
+            const elementBtn = document.getElementById(`btnAnimation${id}`)
+            const xml = window.listeScriptsIep[id]
+            if (element.style.display === 'none') {
+              element.style.display = 'block'
+              element.style.marginTop = '30px'
+              // On ajoute une regle css max-width pour éviter le débordement
+              element.style.maxWidth = '95%'
+              elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
+              iepLoadPromise(element, xml, { zoom: true, autostart: true }).then(iepApp => {
               // la figure est chargée
               // On surcharge la propriété CSS min-width après que la promesse ait été satisfaite sinon ça marche pas !
-              element.style.minWidth = '90%'
-            }).catch(error => { console.log(error) })
-          } else {
-            element.style.display = 'none'
-            elementBtn.innerHTML = '<i class="large play circle outline icon"></i>Voir animation'
+                element.style.minWidth = '90%'
+              }).catch(error => { console.log(error) })
+            } else {
+              element.style.display = 'none'
+              elementBtn.innerHTML = '<i class="large play circle outline icon"></i>Voir animation'
+            }
           }
         }
+        return codeHTML
+      } else {
+        return ''
       }
-      return codeHTML
-    } else {
-      return ''
     }
   }
 
