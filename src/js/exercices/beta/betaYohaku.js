@@ -224,10 +224,11 @@ export default function FabriqueAYohaku () {
       const largeur = this.type === 'littéraux' ? operateur === 'addition' ? 4 : 5 : 2
       const yohaku = new Yohaku({ type, taille, largeur, operation: operateur, cellules: donnees, Case, valeurMax })
       yohaku.calculeResultats()
+      const mot = type === 'littéraux' ? 'expressions' : 'nombres'
       texte = operateur === 'addition'
-        ? 'Les nombres en bout de ligne ou de colonne sont les sommes des nombres contenus dans la ligne ou la colonne.'
-        : 'Les nombres en bout de ligne ou de colonne sont les produits des nombres contenus dans la ligne ou la colonne.'
-      texte += '<br>Compléter la grille avec des nombres qui conviennent (plusieurs solutions possibles).<br>'
+        ? `Les ${mot} en bout de ligne ou de colonne sont les sommes des ${mot} contenus dans la ligne ou la colonne.`
+        : `Les ${mot} en bout de ligne ou de colonne sont les produits des ${mot} contenus dans la ligne ou la colonne.`
+      texte += `<br>Compléter la grille avec des ${mot} qui conviennent (plusieurs solutions possibles).<br>`
       texte += yohaku.representation()
       texteCorr = 'La grille ci-dessous n\'est donnnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br>'
       yohaku.solution = true
