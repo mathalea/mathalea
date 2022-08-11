@@ -1,6 +1,8 @@
 import FabriqueAYohaku from '../beta/betaYohaku.js'
 export const titre = 'Yahoku additif fractions niveau 1'
 export const dateDePublication = '10/08/2022'
+export { interactifReady, interactifType } from '../beta/betaYohaku.js'
+
 export default function FabriqueAYohaku4CF2 () {
   FabriqueAYohaku.call(this)
   this.sup = 10

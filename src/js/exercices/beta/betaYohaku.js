@@ -1,5 +1,5 @@
 import { mathalea2d, fixeBordures, segment, point, texteParPosition, tracePoint, latexParCoordonnees } from '../../modules/2d.js'
-import { choice, contraindreValeur, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint, stringNombre } from '../../modules/outils.js'
+import { choice, contraindreValeur, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint, sp, stringNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { calculer } from '../../modules/outilsMathjs.js'
 import { create, all } from 'mathjs'
@@ -244,7 +244,8 @@ export default function FabriqueAYohaku () {
       texte += `<br>Compléter la grille avec des ${mot} qui conviennent (plusieurs solutions possibles).<br>`
       texte += yohaku.representation()
       for (let k = 0; k < yohaku.cellulesPreremplies.length; k++) {
-        texte += ajouteChampTexteMathLive(this, i * taille ** 2 + k, 'largeur10 inline', { texte: `${lettreMinusculeDepuisChiffre(k + 1)}=` })
+        texte += ajouteChampTexteMathLive(this, i * taille ** 2 + k, 'largeur10 inline nospacebefore', { texte: `${lettreMinusculeDepuisChiffre(k + 1)}=`, tailleExtensible: true })
+        texte += sp(4)
       }
       texteCorr = 'La grille ci-dessous n\'est donnnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br>'
       yohaku.solution = true
