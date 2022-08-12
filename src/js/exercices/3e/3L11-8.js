@@ -1,6 +1,6 @@
-import FabriqueAYohaku from '../beta/betaYohaku.js'
+import FabriqueAYohaku from '../6e/Yohaku.js'
 export const titre = 'Yahoku multiplicatif expressions littérales niveau 1'
-export { interactifReady, interactifType } from '../beta/betaYohaku.js'
+export { interactifReady, interactifType } from '../6e/Yohaku.js'
 
 export const dateDePublication = '10/08/2022'
 

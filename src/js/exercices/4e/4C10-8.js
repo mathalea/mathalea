@@ -1,7 +1,7 @@
-import FabriqueAYohaku from '../beta/betaYohaku.js'
+import FabriqueAYohaku from '../6e/Yohaku.js'
 export const titre = 'Yahoku multiplicatif nombres relatifs niveau 1'
 export const dateDePublication = '10/08/2022'
-export { interactifReady, interactifType } from '../beta/betaYohaku.js'
+export { interactifReady, interactifType } from '../6e/Yohaku.js'
 
 export default function FabriqueAYohaku4R1 () {
   FabriqueAYohaku.call(this)
