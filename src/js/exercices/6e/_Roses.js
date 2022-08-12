@@ -232,12 +232,12 @@ export function ExoRose () {
   this.tailleDiaporama = 3
   this.nbQuestions = 1
   this.sup = 10
-  this.sup2 = 3
+  this.sup2 = 4
   this.sup3 = 1
   this.operation = 'multiplication'
   this.type = 'résultats'
   this.typeDonnees = 'entiers'
-  this.nombreDeValeurs = 3
+  this.nombreDeValeurs = 4
   this.valeurMax = 10
   this.roses = []
 
