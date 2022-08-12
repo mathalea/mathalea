@@ -4263,13 +4263,11 @@ export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
 /**
  * Crée une liste de questions alphabétique
  * @param {number} k valeur numérique
- * @author Sébastien Lozano
+ * @author Sébastien Lozano (Rajout par EE, l'opportunité d'enlever l'espace final qui est par défaut)
  */
-export function numAlpha (k) {
-  'use strict'
-  if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + ') &nbsp;</span>'
-  // else return '\\textcolor [HTML] {f15929} {'+String.fromCharCode(97+k)+'/}';
-  else return '\\textbf {' + String.fromCharCode(97 + k) + '.} '
+export function numAlpha (k, nospace = false) {
+  if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + String.fromCharCode(97 + k) + ')' + (nospace ? '' : '&nbsp;') + '</span>'
+  else return '\\textbf {' + String.fromCharCode(97 + k) + '.}' + (nospace ? '' : ' ')
 }
 
 /**

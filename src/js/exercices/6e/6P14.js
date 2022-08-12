@@ -6,7 +6,7 @@ import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { min, max } from 'mathjs'
 import FractionX from '../../modules/FractionEtendue.js'
-export const titre = "Figures à agrandir ou à réduire d'après une situation de proportionnalité"
+export const titre = "Agrandir ou réduire des figures, d'après une situation de proportionnalité"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

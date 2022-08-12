@@ -77,7 +77,7 @@ export default function ProblemesEvenementsRecurrents () {
       switch (saveurs[i]) {
         case 'guirlande':
           texte = `Une guirlande électrique est constituée de lumières rouges et vertes.<br>
-          Les lumières rouges s\'allument toutes les ${nombreAvecEspace(Commun * A)} secondes et les vertes toutes les ${nombreAvecEspace(Commun * B)} secondes.<br>
+          Les lumières rouges s'allument toutes les ${nombreAvecEspace(Commun * A)} secondes et les vertes toutes les ${nombreAvecEspace(Commun * B)} secondes.<br>
           À un instant donné, on voit les lumières rouges et vertes allumées en même temps.<br>
           Au bout de combien de temps ce phénomène se reproduira-t-il la prochaine fois ?`
           unite = 'secondes'
@@ -230,18 +230,18 @@ export default function ProblemesEvenementsRecurrents () {
         texteCorr += 'On multiplie les facteurs communs aux deux décompositions avec les facteurs spécifiques à chaque décomposition :<br>'
       }
       texteCorr += `${decompositionCommun} $\\times$ ${decompositionA} $\\times$ ${decompositionB} = ${nombreAvecEspace(Commun * A * B)}<br>
-      Ce phénomène se produira à nouveau au bout de ${nombreAvecEspace(Commun * A * B)} ${unite}.<br>
-      (Après ${texteEnCouleurEtGras(nombreAvecEspace(B) + cycles, 'green')} pour ${texteEnCouleurEtGras(phenomene1, 'red')} et après ${texteEnCouleurEtGras(nombreAvecEspace(A) + cycles, 'red')} pour ${texteEnCouleurEtGras(phenomene2, 'green')})<br>`
+      Ce phénomène se produira à nouveau au bout de ${nombreAvecEspace(Commun * A * B)} ${unite}, 
+      après ${texteEnCouleurEtGras(nombreAvecEspace(B) + cycles, 'green')} pour ${texteEnCouleurEtGras(phenomene1, 'red')} et après ${texteEnCouleurEtGras(nombreAvecEspace(A) + cycles, 'red')} pour ${texteEnCouleurEtGras(phenomene2, 'green')}.<br>`
       if (this.correctionDetaillee) {
         texteCorr += `${nombreAvecEspace(Commun * A * B)} est bien un multiple de ${texteEnCouleurEtGras(nombreAvecEspace(Commun * A), 'red')} car :
          ${decompositionCommun} $\\times$ ${decompositionA} $\\times$ ${decompositionB} =
          (${decompositionCommun} $\\times$ ${decompositionA}) $\\times$ ${decompositionB} =
-         ${texteEnCouleurEtGras(nombreAvecEspace(Commun * A), 'red')} $\\times$ ${texteEnCouleurEtGras(nombreAvecEspace(B), 'green')}<br>
+         ${texteEnCouleurEtGras(nombreAvecEspace(Commun * A), 'red')} $\\times$ ${texteEnCouleurEtGras(nombreAvecEspace(B), 'green')}.<br>
         ${nombreAvecEspace(Commun * A * B)} est bien un multiple de ${texteEnCouleurEtGras(nombreAvecEspace(Commun * B), 'green')} car :
          ${decompositionCommun} $\\times$ ${decompositionA} $\\times$ ${decompositionB} =
          ${decompositionCommun} $\\times$ ${decompositionB} $\\times$ ${decompositionA} =
          (${decompositionCommun} $\\times$ ${decompositionB}) $\\times$ ${decompositionA} =
-         ${texteEnCouleurEtGras(nombreAvecEspace(Commun * B), 'green')} $\\times$ ${texteEnCouleurEtGras(nombreAvecEspace(A), 'red')}<br>`
+         ${texteEnCouleurEtGras(nombreAvecEspace(Commun * B), 'green')} $\\times$ ${texteEnCouleurEtGras(nombreAvecEspace(A), 'red')}.<br>`
       }
       if (saveurs[i] === 'engrenages') {
         switch (variableEngrenages) {

@@ -55,6 +55,8 @@ export function verifQuestionMathLive (exercice, i) {
           // La réponse est transformée en chaine compatible avec engine.parse()
           reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
           saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+          // console.log('saisie : ', saisie) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
+          // console.log('reponse : ', reponse) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
           if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
             resultat = 'OK'
           }
@@ -82,8 +84,8 @@ export function verifQuestionMathLive (exercice, i) {
 
           if (champTexte !== undefined) saisie = champTexte.value
           else saisie = ''
-          // console.log('saisie : ', saisie) // NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
-          // console.log('reponse : ', reponse) // NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
+          // console.log('saisie : ', saisie) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
+          // console.log('reponse : ', reponse) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
           if (saisie === reponse) {
             resultat = 'OK'
           }
