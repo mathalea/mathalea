@@ -1,11 +1,12 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombre, miseEnEvidence, modalPdf, modalVideo, listeDiviseurs, numAlpha, cribleEratostheneN, tableauColonneLigne } from '../../modules/outils.js'
-export const titre = 'Compter/lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
+export const titre = 'Compter et lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
 
 /**
- * 3A11-3 - Lister/Compter les diviseurs d'un entier à partir de sa decomposition en facteurs premiers
+ * Compter et lister les diviseurs d'un entier à partir de sa decomposition en facteurs premiers
  * @author Sébastien Lozano
+ * Référence 3A10-4
  */
 export default function listerDiviseursParDecompositionFacteursPremiers () {
   'use strict'
