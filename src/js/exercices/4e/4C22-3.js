@@ -1,14 +1,15 @@
 import FabriqueAYohaku from '../beta/betaYohaku.js'
-export const titre = 'Yahoku multiplicatif niveau 1'
+export const titre = 'Yahoku multiplicatif fractions niveau 1'
 export const dateDePublication = '10/08/2022'
 export { interactifReady, interactifType } from '../beta/betaYohaku.js'
-export default function FabriqueAYohaku6B () {
+
+export default function FabriqueAYohaku4CF2 () {
   FabriqueAYohaku.call(this)
   this.sup = 10
   this.sup2 = 2
   this.sup3 = 2
   this.sup4 = false
-  this.type = 'entiers'
+  this.type = 'fractions positives dénominateurs premiers'
   this.besoinFormulaireNumerique = false
   this.besoinFormulaire2Numerique = false
   this.besoinFormulaire3Numerique = false
