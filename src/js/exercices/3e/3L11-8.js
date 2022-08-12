@@ -1,15 +1,16 @@
-import FabriqueAYohaku from './Yohaku.js'
-export const titre = 'Yahoku additif niveau 1'
-export const dateDePublication = '10/08/2022'
+import FabriqueAYohaku from '../6e/Yohaku.js'
+export const titre = 'Yahoku multiplicatif expressions littérales niveau 1'
 export { interactifReady, interactifType } from '../6e/Yohaku.js'
 
-export default function FabriqueAYohaku6A () {
+export const dateDePublication = '10/08/2022'
+
+export default function FabriqueAYohaku3L1 () {
   FabriqueAYohaku.call(this)
   this.sup = 10
-  this.sup2 = 1
+  this.sup2 = 2
   this.sup3 = 2
   this.sup4 = false
-  this.type = 'entiers'
+  this.type = 'littéraux'
   this.besoinFormulaireNumerique = false
   this.besoinFormulaire2Numerique = false
   this.besoinFormulaire3Numerique = false

@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, decompositionFacteursPremiers, modalPdf, katexPopup2, numAlpha, warnMessage, lampeMessage, ppcm, choice } from '../../modules/outils.js'
 import { svgEngrenages } from '../../modules/macroSvgJs.js'
-export const titre = 'Engrenages'
+export const titre = 'Résoudre un exercice d\'engrenages'
 
 /**
  * 3A13 - ppcmEngrenages
@@ -36,7 +36,7 @@ export default function ppcmEngrenages () {
     let typesDeQuestions
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
       // this.boutonAide = '';
-      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A13.pdf', 'Aide mémoire - Arithmétique (Sébastien Lozano)', 'Aide mémoire')
+      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A13.pdf', 'Aide-mémoire - Arithmétique (Sébastien Lozano)', 'Aide-mémoire')
     } else { // sortie LaTeX
     };
 
@@ -48,7 +48,7 @@ export default function ppcmEngrenages () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4]
     // let typesDeQuestionsDisponibles = [1];
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-    let txtIntro = 'Boîte de vitesse, transmission de vélo, de moto, perceuse electrique, tout ça fonctionne avec des engrenages ! Mais au fait, comment ça marche, les engrenages ?'
+    let txtIntro = 'Boîte de vitesse, transmission de vélo, de moto, perceuse électrique, tout cela fonctionne avec des engrenages ! Mais au fait, comment ça fonctionne, les engrenages ?'
     if (context.isHtml) {
       const idUnique = `${numEx}_${Date.now()}`
       const idDivIntro = `divIntro${idUnique}`
@@ -70,9 +70,9 @@ export default function ppcmEngrenages () {
       let nbDentsr2
       let txtPopup = 'Étant donnés deux nombres entiers a et b, lorsque le plus petit multiple commun à $a$ et $b$ vaut $a \\times b$ ( $ppcm(a,b)=a\\times b$ ), on dit que '
       if (context.isHtml) {
-        txtPopup += '<b>les nombres a et b sont premiers entre eux</b>'
+        txtPopup += '<b>les nombres a et b sont premiers entre eux</b>.'
       } else {
-        txtPopup += '$\\textbf{les nombres a et b sont premiers entre eux}$'
+        txtPopup += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
       };
 
       switch (typesDeQuestions) {
@@ -132,7 +132,7 @@ export default function ppcmEngrenages () {
             texteCorr += `Le plus petit multiple commun à $${nbDentsr1}$ et $${nbDentsr2}$ vaut donc $ppcm(${nbDentsr1},${nbDentsr2}) = ${ppcm(nbDentsr1, nbDentsr2)}$.`
             texteCorr += '<br>'
             if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
-              texteCorr += 'Le $ppcm(' + nbDentsr1 + ';' + nbDentsr2 + ')=' + nbDentsr1 + '\\times' + nbDentsr2 + `$ donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
+              texteCorr += '$ppcm(' + nbDentsr1 + ';' + nbDentsr2 + ')=' + nbDentsr1 + '\\times' + nbDentsr2 + `$ donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
               texteCorr += katexPopup2(
                 numeroExercice + 2,
                 1,
@@ -174,7 +174,7 @@ export default function ppcmEngrenages () {
             texte += katexPopup2(
               numeroExercice + 3,
               1,
-              'nombres premiers entre eux',
+              'nombres premiers entre eux ?',
               'Définition : Nombres premiers entre eux',
               txtPopup // `Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texteGras('les nombres a et b sont premiers entre eux')}.`
             )
@@ -246,7 +246,7 @@ export default function ppcmEngrenages () {
             texteCorr += ' tours '
           };
           texteCorr += `}) = ${nbDentsr1} \\text{ dents/tour}.$`
-          texteCorr += `<br>La roue n$\\degree$1 a donc : $${nbDentsr1}$ dents.`
+          texteCorr += `<br>La roue n$\\degree$1 a donc $${nbDentsr1}$ dents.`
           break
       };
 

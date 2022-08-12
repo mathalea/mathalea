@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, modalPdf, numAlpha, premiersEntreBornes, warnMessage, decompositionFacteursPremiersArray } from '../../modules/outils.js'
-export const titre = 'Fractions irréductibles'
+export const titre = 'Rendre irréductible une fraction'
 
 /**
  * 3A12 - Fractions irreductibles
@@ -41,7 +41,7 @@ export default function FractionsIrreductibles () {
     const typesDeQuestionsDisponibles = [1]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    this.introduction = warnMessage('À la question ' + numAlpha(3) + ' une observation judicieuse et argumentée pourra faire gagner du temps !', 'nombres', 'Coup de pouce')
+    this.introduction = warnMessage('À la question ' + numAlpha(3, true) + ', une observation judicieuse et argumentée pourra faire gagner du temps !', 'nombres', 'Coup de pouce')
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]

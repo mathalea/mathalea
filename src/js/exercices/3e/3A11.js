@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, combinaisonListesSansChangerOrdre, nombreAvecEspace, texteEnCouleurEtGras, modalPdf, modalVideo, cribleEratostheneN, warnMessage } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-export const titre = 'Primalité ou pas'
+export const titre = 'Justifier si des nombres sont premiers ou pas'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -113,7 +113,7 @@ export default function PremierOuPas () {
         case 3: // Multiple de 5
           N = 5 * randint(20, 1999)
           texte = nombreAvecEspace(N)
-          texteCorr = `Comme le dernier chiffre de ${nombreAvecEspace(N)} est un ${N.toString().charAt(N.toString().length - 1)} alors ${nombreAvecEspace(N)} est divisible par 5, `
+          texteCorr = `Comme le dernier chiffre de ${nombreAvecEspace(N)} est un ${N.toString().charAt(N.toString().length - 1)}, alors ${nombreAvecEspace(N)} est divisible par 5, `
           texteCorr += 'il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même, '
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
           bonneReponse = 'non'
