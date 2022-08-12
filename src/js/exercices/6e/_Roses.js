@@ -5,9 +5,12 @@ import { create, all } from 'mathjs'
 import { calculer } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import * as pkg from '@cortex-js/compute-engine'
+const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
 const math = create(all)
+const engine = new ComputeEngine()
 /**
  * Travailler les tables de multiplication autrement
  * @author Jean-Claude Lhote
@@ -229,12 +232,12 @@ export function ExoRose () {
   this.tailleDiaporama = 3
   this.nbQuestions = 1
   this.sup = 10
-  this.sup2 = 5
+  this.sup2 = 3
   this.sup3 = 1
   this.operation = 'multiplication'
   this.type = 'résultats'
   this.typeDonnees = 'entiers'
-  this.nombreDeValeurs = 5
+  this.nombreDeValeurs = 3
   this.valeurMax = 10
   this.roses = []
 
@@ -371,26 +374,32 @@ export function ExoRose () {
     let resultatOK = true
     if (this.type === 'can2') {
       if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-        return this.roses[question].operate(this.roses[question].values[(this.indexInconnue[question] + 1) % this.nombreDeValeurs], this.roses[question].values[this.indexInconnue[question]]).toLatex() === saisies[0]
+        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]].toLatex()).canonical.isSame(engine.parse(saisies[0]).canonical)
       } else {
-        return calculer(this.roses[question].operate(this.roses[question].values[(this.indexInconnue[question] + 1) % this.nombreDeValeurs], this.roses[question].values[this.indexInconnue[question]]).toString()).printResult === calculer(saisies[0]).printResult
+        return engine.parse(this.roses[question].resultats[this.indexInconnue[question]]).canonical.isSame(engine.parse(saisies[0]).canonical)
       }
     } else if (this.type === 'can1') {
       if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-        return saisies[0] === this.roses[question].values[this.indexInconnue[question]].toLatex()
+        return engine.parse(saisies[0]).canonical.isSame(engine.parse(this.roses[question].values[this.indexInconnue[question]].toLatex()).canonical)
       } else {
-        return calculer(saisies[0]).printResult === calculer(this.roses[question].values[this.indexInconnue[question]].toString()).printResult
+        return engine.parse(saisies[0]).canonical.isSame(engine.parse(this.roses[question].values[this.indexInconnue[question]]).canonical)
       }
     } else {
       for (let i = 0; i < taille; i++) {
         if (this.type === 'résultats') {
           if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-            resultatOK = resultatOK && saisies[i] === this.roses[question].resultats[i].toLatex()
+            resultatOK = resultatOK && engine.parse(saisies[i]).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toLatex()))
           } else {
-            resultatOK = resultatOK && saisies[i].toString() === this.roses[question].resultats[i].toString()
+            resultatOK = resultatOK && engine.parse(saisies[i]).canonical.isEqual(engine.parse(this.roses[question].resultats[i]).canonical)
           }
         } else {
-          resultatOK = resultatOK && this.roses[question].operate(saisies[i], saisies[(i + 1) % this.nombreDeValeurs]) === this.roses[question].resultats[i]
+          if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
+            console.log(engine.parse(`${saisies[i]}${this.roses[question].operation === 'addition' ? '+' : '\\times'}${saisies[(i + 1) % this.nombreDeValeurs]}`).canonical)
+            console.log(engine.parse(this.roses[question].resultats[i].toLatex()))
+            resultatOK = resultatOK && engine.parse(`${saisies[i]}${this.roses[question].operation === 'addition' ? '+' : '\\times'}${saisies[(i + 1) % this.nombreDeValeurs]}`).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toLatex()))
+          } else {
+            resultatOK = resultatOK && engine.parse(this.roses[question].operate(saisies[i], saisies[(i + 1) % this.nombreDeValeurs])).canonical.isEqual(engine.parse(this.roses[question].resultats[i]).canonical)
+          }
         }
       }
       return resultatOK
