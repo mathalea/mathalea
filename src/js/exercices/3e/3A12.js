@@ -26,7 +26,7 @@ export default function ppcmEngrenages () {
   this.listePackages = 'bclogo'
   this.sup = false
 
-  const numEx = '3A13' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
+  const numEx = '3A12' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
   if (context.isHtml) {
     // eslint-disable-next-line no-var
