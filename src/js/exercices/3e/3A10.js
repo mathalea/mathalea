@@ -30,7 +30,6 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
 
-
   this.nouvelleVersion = function (numeroExercice) {
     const nbChiffresMax = combinaisonListesSansChangerOrdre(this.sup.toString().split('-'), this.nbQuestions)
     const nbDiviseursMax = combinaisonListesSansChangerOrdre(this.sup2.toString().split('-'), this.nbQuestions)
