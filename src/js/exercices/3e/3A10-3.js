@@ -124,7 +124,7 @@ export default function decompositionFacteursPremiers () {
               tabMultiplicites[k] = randint(1, 2)
             };
             // yapluka écrire le nombre dans l'énoncé et sa décomposition dans la correction
-            texte = 'À l\'aide de la calculatrice, décomposer '
+            texte = 'À l\'aide de la calculatrice, si c\'est possible, décomposer '
             let nombreTodecompose = 1
             for (let k = 0; k < tabRangs.length; k++) {
               for (let m = 0; m < tabMultiplicites[k]; m++) {
@@ -191,7 +191,7 @@ export default function decompositionFacteursPremiers () {
               premier1 = premier2
               premier2 = p
             };
-            texte = `À l'aide de la calculatrice, décomposer $${texNombre(premier1 * premier2)}$ en produit de facteurs premiers.`
+            texte = `À l'aide de la calculatrice, si c'est possible, décomposer $${texNombre(premier1 * premier2)}$ en produit de facteurs premiers.`
             const racinePrem = Math.trunc(Math.sqrt(premier1 * premier2))
             texteCorr = `Il est suffisant de tester la divisibilité de $${texNombre(premier1 * premier2)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${texNombre(premier1 * premier2)}}$, c'est-à-dire inférieurs à $${texNombre(racinePrem)}$.<br>`
             texteCorr += 'Ce sont les nombres de la liste suivante : <br>$'
@@ -218,7 +218,7 @@ export default function decompositionFacteursPremiers () {
             const r = randint(0, premiersEntreBornes(1000, 2000).length - 1)
             const premier = premiersEntreBornes(1000, 2000)[r]
             const racinePremier = Math.trunc(Math.sqrt(premier))
-            texte = `À l'aide de la calculatrice, décomposer $${texNombre(premier)}$ en produit de facteurs premiers.`
+            texte = `À l'aide de la calculatrice, si c'est possible, décomposer $${texNombre(premier)}$ en produit de facteurs premiers.`
             texteCorr = `Il est suffisant de tester la divisibilité de $${texNombre(premier)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${texNombre(premier)}}$, c'est-à-dire inférieurs à $${racinePremier}$.<br>`
             texteCorr += 'Ce sont les nombres de la liste $'
             texteCorr += cribleEratostheneN(racinePremier)[0]
