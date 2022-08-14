@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, decompositionFacteursPremiers, modalPdf, katexPopup2, numAlpha, warnMessage, lampeMessage, ppcm, choice } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texNombre, miseEnEvidence, decompositionFacteursPremiers, modalPdf, katexPopup2, numAlpha, warnMessage, lampeMessage, ppcm, pgcd, choice } from '../../modules/outils.js'
 import { svgEngrenages } from '../../modules/macroSvgJs.js'
 export const titre = 'Résoudre un exercice d\'engrenages'
 
@@ -75,6 +75,12 @@ export default function ppcmEngrenages () {
       } else {
         txtPopup += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
       };
+      let txtPopupBis = 'Étant donnés deux nombres entiers a et b, lorsque le plus grang diviseur commun à $a$ et $b$ vaut $1$ ( $pgcd(a,b)=1$ ), on dit que '
+      if (context.isHtml) {
+        txtPopupBis += '<b>les nombres a et b sont premiers entre eux</b>.'
+      } else {
+        txtPopupBis += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
+      };
 
       switch (typesDeQuestions) {
         case 1:
@@ -139,10 +145,12 @@ export default function ppcmEngrenages () {
                 1,
                 'nombres premiers entre eux.',
                 'Définition : Nombres premiers entre eux',
-                txtPopup // `Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texteGras('les nombres a et b sont premiers entre eux')}.`
+                txtPopup
               )
             };
-            texteCorr += '<br><br>' + numAlpha(1) + ` Chaque roue doit tourner de $ppcm(${nbDentsr1},${nbDentsr2})=${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents.`
+            texteCorr += '<br><br>' + numAlpha(1) + ` Pour retrouver la position initiale,
+            chaque roue doit tourner de façon à ce que le nombre total de dents utilisé soit un multiple de son nombre
+            de dents soit au minimum de $ppcm(${nbDentsr1},${nbDentsr2})=${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents.`
             texteCorr += `<br> Cela correspond à $(${ppcm(nbDentsr1, nbDentsr2)}\\text{ dents})\\div (${nbDentsr1}\\text{ dents/tour}) = ${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$`
             if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
               texteCorr += ' tour '
@@ -177,14 +185,18 @@ export default function ppcmEngrenages () {
               1,
               'nombres premiers entre eux ?',
               'Définition : Nombres premiers entre eux',
-              txtPopup // `Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texteGras('les nombres a et b sont premiers entre eux')}.`
+              txtPopup + '<br>' + txtPopupBis
             )
           };
           texte += '<br>' + numAlpha(1) + ' En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.'
           texteCorr = 'Pour un nombre de dents plus élevé, il est plus commode d\'utiliser les décompositions en produit de facteurs premiers.'
           texteCorr += '<br>' + numAlpha(0) + ` Décomposition de $${nbDentsr1}$ en produit de facteurs premiers :  $${nbDentsr1} = ${decompositionFacteursPremiers(nbDentsr1)}$.`
           texteCorr += `<br> Décomposition de $${nbDentsr2}$ en produit de facteurs premiers :  $${nbDentsr2} = ${decompositionFacteursPremiers(nbDentsr2)}$.`
-          texteCorr += `<br> D'où $ppcm(${nbDentsr1},${nbDentsr2})= ${decompositionFacteursPremiers(ppcm(nbDentsr1, nbDentsr2))}$.<br>`
+
+          texteCorr += '<br><b>Proposition de deux corrections valables :</b> <br>'
+          texteCorr += '<b>Proposition de correction 1 :</b> <br>'
+
+          texteCorr += `D'après les calculs précédents, $ppcm(${nbDentsr1},${nbDentsr2})= ${decompositionFacteursPremiers(ppcm(nbDentsr1, nbDentsr2))}$.<br>`
           if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
             texteCorr += 'Le $ppcm(' + nbDentsr1 + ';' + nbDentsr2 + ')=' + nbDentsr1 + '\\times' + nbDentsr2 + `$ donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
             texteCorr += katexPopup2(
@@ -192,10 +204,26 @@ export default function ppcmEngrenages () {
               1,
               'nombres premiers entre eux.',
               'Définition : Nombres premiers entre eux',
-              txtPopup // `Étant donnés deux nombres entiers a et b, lorsque $ppcm(a,b)=a\\times b$, on dit que ${texteGras('les nombres a et b sont premiers entre eux')}.`
+              txtPopup
             )
           };
-          texteCorr += '<br><br>' + numAlpha(1) + ` Chaque roue doit tourner de $ppcm(${nbDentsr1},${nbDentsr2})=${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents.`
+          texteCorr += '<br><b>Proposition de correction 2 :</b> <br>'
+
+          texteCorr += `D'après les calculs précédents, $pgcd(${nbDentsr1},${nbDentsr2})= ${pgcd(nbDentsr1, nbDentsr2) === 1 ? 1 : ''} ${decompositionFacteursPremiers(pgcd(nbDentsr1, nbDentsr2))}$.<br>`
+          if (pgcd(nbDentsr1, nbDentsr2) === 1) {
+            texteCorr += `Le $pgcd(${nbDentsr1};${nbDentsr2})=1$ donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
+            texteCorr += katexPopup2(
+              numeroExercice + 5,
+              1,
+              'nombres premiers entre eux.',
+              'Définition : Nombres premiers entre eux',
+              txtPopupBis
+            )
+          };
+
+          texteCorr += '<br><br>' + numAlpha(1) + ` Pour retrouver la position initiale,
+          chaque roue doit tourner de façon à ce que le nombre total de dents utilisé soit un multiple de son nombre
+          de dents soit au minimum de $ppcm(${nbDentsr1},${nbDentsr2})=${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents.`
           texteCorr += `<br> Cela correspond à $(${texNombre(ppcm(nbDentsr1, nbDentsr2))}\\text{ dents})\\div (${nbDentsr1}\\text{ dents/tour}) = ${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$`
           if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
             texteCorr += ' tour '
