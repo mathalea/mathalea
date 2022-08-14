@@ -27,6 +27,9 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
   this.sup = '3'
   this.sup2 = '10'
   this.sup3 = 13
+  this.correctionDetailleeDisponible = true
+  this.correctionDetaillee = false
+
 
   this.nouvelleVersion = function (numeroExercice) {
     const nbChiffresMax = combinaisonListesSansChangerOrdre(this.sup.toString().split('-'), this.nbQuestions)
@@ -157,7 +160,7 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
           textesCorr[5] = `${p2} n'est ni un multiple, ni un diviseur de ${p1} car ${p1}=${p2}$\\times$${Math.trunc(p1 / p2)}+${texteEnCouleur(p1 % p2)} et ${p2}=${p1}$\\times$${Math.trunc(p2 / p1)}+${texteEnCouleur(p2 % p1)}.`
           // on mélange pour que l'ordre change!
           shuffle2tableaux(textes, textesCorr)
-          texte = 'Avec la calculatrice, compléter chaque phrase avec "est un diviseur de" ou "est un multiple de" ou "n\'est ni un diviseur, ni un multiple de".'
+          texte = 'Après avoir testé avec la calculatrice, compléter chaque phrase avec "est un diviseur de" ou "est un multiple de" ou "n\'est ni un diviseur, ni un multiple de".'
           texte += '<br>'
           texteCorr = ''
           for (let j = 0; j < 5; j++) {
@@ -182,9 +185,24 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
           } while (nbDiviseursM < Math.max(2, nbDiviseursMax[i] - 3) || nbDiviseursM > nbDiviseursMax[i])
           texte = `Écrire la liste de tous les diviseurs de ${M}.`
           texteCorr = `Pour trouver la liste des diviseurs de ${M}, on cherche tous les produits de deux facteurs qui donnent ${M}, en écrivant toujours le plus petit facteur en premier.<br>`
-          texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré vaut ${M}, par exemple ici, ${Math.trunc(Math.sqrt(M))}$\\times$${Math.trunc(Math.sqrt(M))} = ${Math.trunc(Math.sqrt(M)) * Math.trunc(Math.sqrt(M))}<${M}`
+          texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré est inférieur à ${M}, par exemple ici, ${Math.trunc(Math.sqrt(M))}$\\times$${Math.trunc(Math.sqrt(M))} = ${Math.trunc(Math.sqrt(M)) * Math.trunc(Math.sqrt(M))}<${M}`
           texteCorr += ` et ${Math.trunc(Math.sqrt(M)) + 1}$\\times$${Math.trunc(Math.sqrt(M)) + 1} = ${(Math.trunc(Math.sqrt(M)) + 1) * (Math.trunc(Math.sqrt(M)) + 1)}>${M} donc il suffit d'arrêter la recherche de facteurs à ${Math.trunc(Math.sqrt(M))}.`
-          texteCorr += ` En effet, si ${M} est le produit de deux entiers p$\\times$q avec p < q alors si p$\\times$p > ${M}, c'est que q$\\times$q < ${M} mais, dans ce cas, p serait supérieur à q sinon p$\\times$q serait inférieur à ${M} ce qui ne doit pas être le cas.<br>`
+          if (this.correctionDetaillee) {
+            context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
+            texteCorr += `$\\textbf{Preuve du propos précédent}$ <br>
+            Supposons que ${M} soit le produit de deux entiers p$\\times$q avec p < q :`
+            if (context.isHtml) {
+              texteCorr += `<br>- si p$\\times$p > ${M}, c'est que q$\\times$q < ${M}, sinon p$\\times$q ne peut être égal à ${M}.<br>
+              - mais, dans ce cas, p serait supérieur à q sinon p$\\times$q serait inférieur à ${M} ce qui ne doit pas être le cas.<br>`
+            } else {
+              texteCorr += `\\begin{itemize}
+              \\item si p$\\times$p > ${M}, c'est que q$\\times$q < ${M}, sinon p$\\times$q ne peut être égal à ${M}.
+              \\item mais, dans ce cas, p serait supérieur à q sinon p$\\times$q serait inférieur à ${M} ce qui ne doit pas être le cas.
+              \\end{itemize}`
+            }
+            texteCorr += `Donc il est bien suffisant d'arrêter la recherche lorsque le carré de p dépasse ${M}.`
+            context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
+          }
           if (listeDiviseursM.length % 2 === 0) { // si il y a un nombre pair de diviseurs
             for (let m = 0; m < (listeDiviseursM.length / 2); m++) {
               texteCorr += '' + listeDiviseursM[m] + '$\\times$' + listeDiviseursM[(listeDiviseursM.length - m - 1)] + ` = ${M}<br>`
