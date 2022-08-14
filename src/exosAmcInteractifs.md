@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
 - nombre d'exos amcReady 485 
-- nombre d'exos interactifReady 749 
+- nombre d'exos interactifReady 757 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -67,10 +67,10 @@
 |2S20-4|Calculer des étendues|KO|KO|OK|mathLive|
 |2S30-5|Expérience aléatoire à deux épreuves|OK|AMCNum|OK|mathLive|
 |beta2N31-5|Calculer avec des nombres en écriture scientifique|KO|KO|OK|mathLive|
-|3A11-1|Justifier si des nombres sont premiers ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|
-|3A11-2|Décomposer un entier en facteurs premiers|KO|KO|OK|mathLive|
-|3A11|Justifier si des nombres sont premiers ou pas|OK|qcmMono|OK|qcm|
-|3A13-1|Résoudre des problèmes avec recherche de diviseurs communs|OK|AMCHybride|OK|mathLive|
+|3A10-1|Justifier si des nombres sont premiers ou pas|OK|qcmMono|OK|qcm|
+|3A10-2|Justifier si des nombres sont premiers ou pas - Variante avec les critères de divisibilité par 7 et par 11|OK|qcmMono|OK|qcm|
+|3A10-3|Décomposer un entier en facteurs premiers|KO|KO|OK|mathLive|
+|3A12-1|Résoudre des problèmes avec recherche de diviseurs communs|OK|AMCHybride|OK|mathLive|
 |3F10-1|Vocabulaire et notations des fonctions (généralités)|OK|qcmMult|OK|qcm|
 |3F10-2|Fonction : calculs d'images (et d'antécédents)|OK|AMCNum|OK|mathLive|
 |3F10|Lectures d'images et d'antécédents depuis un tableau de valeurs|KO|KO|OK|mathLive|
@@ -110,6 +110,7 @@
 |3L11-6|Factoriser une expression complexe|KO|KO|OK|mathLive|
 |3L11-7|Développer des carrés avec la double distributivité|KO|KO|OK|mathLive|
 |3L11-8|Yahoku multiplicatif expressions littérales niveau 1|KO|KO|OK|custom|
+|3L11-9|Rose multiplicative littéraux|KO|KO|OK|custom|
 |3L11|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |3L12-1|Développer (a-b)(a+b)|KO|KO|OK|mathLive|
 |3L12|Factoriser a²-b²|KO|KO|OK|mathLive|
@@ -137,15 +138,18 @@
 |4C10-6|Multiplications et quotients de relatifs : signe avec une lettre|OK|qcmMono|OK|qcm|
 |4C10-7|Opérations avec deux entiers relatifs|KO|KO|OK|mathLive|
 |4C10-8|Yahoku multiplicatif nombres relatifs niveau 1|KO|KO|OK|custom|
+|4C10-9|Rose multiplicative relatifs|KO|KO|OK|custom|
 |4C11|Calculs utilisant les priorités opératoires|KO|KO|OK|mathLive|
 |4C20-2|Fractions égales et égalité des produits en croix 4e|OK|qcmMono|OK|qcm|
 |4C20|Comparer deux fractions (dénominateurs multiples)|OK|qcmMono|OK|qcm|
 |4C21-1|Additionner deux fractions|OK|AMCNum|OK|mathLive|
 |4C21-2|Yahoku additif fractions niveau 1|KO|KO|OK|custom|
+|4C21-3|Rose additive fractions|KO|KO|OK|custom|
 |4C21|Additionner ou soustraire deux fractions|OK|AMCNum|OK|mathLive|
 |4C22-1|Trouver l'inverse d'un nombre|KO|KO|OK|mathLive|
 |4C22-2|Diviser des fractions|OK|AMCNum|OK|mathLive|
 |4C22-3|Yahoku multiplicatif fractions niveau 1|KO|KO|OK|custom|
+|4C22-4|Rose multiplicative fractions|KO|KO|OK|custom|
 |4C22|Multiplier des fractions|OK|AMCNum|OK|mathLive|
 |4C23-1|Fractions et priorités opératoires|OK|AMCNum|OK|mathLive|
 |4C23|Somme, différence ou produit de fractions|KO|KO|OK|mathLive|
@@ -183,6 +187,7 @@
 |4G53|Calculs de volumes|OK|qcmMono|OK|qcm,mathLive|
 |4I1-2|Tortue Scratch avec répétitions|OK|qcmMono|OK|cliqueFigure|
 |4L10-3|Yahoku additif expressions littérales niveau 1|KO|KO|OK|custom|
+|4L10-4|Rose additive littéraux|KO|KO|OK|custom|
 |4L10|Utiliser la simple distributivité|KO|KO|OK|mathLive|
 |4L11|Factoriser une expression littérale|OK|AMCOpen|OK|mathLive|
 |4L13-2|Mettre un problème en équation et le résoudre|OK|AMCNum|OK|mathLive|
@@ -232,6 +237,7 @@
 |5R20-2|Addition à trou de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |5R20-3|Additions de 5 nombres relatifs|OK|AMCNum|OK|mathLive|
 |5R20-6|Yahoku additif nombres relatifs niveau 1|KO|KO|OK|custom|
+|5R20-7|Rose additive relatifs|KO|KO|OK|custom|
 |5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm,mathLive|
 |5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|mathLive|
 |5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|mathLive|
@@ -239,11 +245,13 @@
 |5S13-2|Calculs de fréquences|OK|AMCHybride|OK|mathLive|
 |5S13|Calculer des fréquences|OK|AMCHybride|OK|mathLive|
 |5S14|Calculer des moyennes|OK|AMCHybride|OK|mathLive|
+|6C10-0|Rose additive|KO|KO|OK|custom|
 |6C10-1|Réviser les tables de multiplication|OK|AMCNum|OK|mathLive|
 |6C10-2|Utiliser tables de multiplications pour effectuer produits avec multiple de 10|OK|qcmMono|OK|qcm,mathLive|
 |6C10-3|Utiliser tables de multiplications pour effectuer produits avec décimaux|OK|qcmMono|OK|qcm|
 |6C10-4|Effectuer addition de deux entiers|OK|AMCNum|OK|mathLive|
 |6C10-5|Parcourir un labyrinthe de multiples|OK|AMCOpen|KO|KO|
+|6C10-6|Rose multiplicative|KO|KO|OK|custom|
 |6C10-7a|Yahoku additif niveau 1|KO|KO|OK|custom|
 |6C10-7b|Yahoku multiplicatif niveau 1|KO|KO|OK|custom|
 |6C10|Poser additions, soustractions et multiplications de nombres entiers|OK|AMCHybride|OK|mathLive|

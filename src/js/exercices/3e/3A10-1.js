@@ -27,7 +27,7 @@ export default function PremierOuPas () {
   this.nbCols = 2
   this.nbColsCorr = 1
   this.sup = 1
-  this.sup2 = true
+  this.sup2 = false // Par défaut on n'affiche pas la liste des nombres premiers
   this.nbQuestionsModifiable = false
   this.listePackages = 'bclogo'
   const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
@@ -66,10 +66,6 @@ export default function PremierOuPas () {
     };
     stringRappel += '.'
 
-    if (this.sup2) {
-      this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
-    } else this.introduction = ''
-
     for (let i = 0, texte, texteCorr, r1, r2, prime1, prime2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
@@ -86,6 +82,9 @@ export default function PremierOuPas () {
       let evenSum // pour la somme des chiffres de rang impair
       let oddSum // pour la somme des chiffres de rang pair
       let bonneReponse
+      if (this.sup2) {
+        this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
+      } else this.introduction = ''
       switch (typesDeQuestions) {
         case 1: // nombre pair
           N = 2 * randint(51, 4999)
@@ -217,10 +216,15 @@ export default function PremierOuPas () {
           texteCorr += texteEnCouleurEtGras(`${N} = ` + nombreAvecEspace(prime1 * prime2) + ' n\'est donc pas premier.')
           bonneReponse = 'non'
           break
-        case 7: // nombre premier inférieur à 529
+        case 7: // nombre premier inférieur à 529, si le nombre premier dépasse 100 on affiche le coup de pouce
           // rang du nombre premier choisi
           r = randint(0, prems.length - 1)
           N = prems[r] // on choisit un nombre premier inférieur à 529
+          if (N > 100) {
+            this.sup2 = true
+          } else {
+            this.sup2 = false
+          }
           texte = N + ''
           r = 0
           tabPremiersATester = []

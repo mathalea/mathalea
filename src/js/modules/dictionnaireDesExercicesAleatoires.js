@@ -2304,6 +2304,75 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "3A10-1": {
+    "titre": "Justifier si des nombres sont premiers ou pas",
+    "url": "/exercices/3e/3A10-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "3A10-1",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "3A10-2": {
+    "titre": "Justifier si des nombres sont premiers ou pas - Variante avec les critères de divisibilité par 7 et par 11",
+    "url": "/exercices/3e/3A10-2.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "3A10-2",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "3A10-3": {
+    "titre": "Décomposer un entier en facteurs premiers",
+    "url": "/exercices/3e/3A10-3.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3A10-3",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "3A10-4": {
+    "titre": "Compter et lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers",
+    "url": "/exercices/3e/3A10-4.js",
+    "amcReady": false,
+    "interactifReady": false,
+    "name": "3A10-4",
+    "newEx": {
+      "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "3A10": {
     "titre": "Comprendre le vocabulaire : division euclidienne, diviseurs, multiples",
     "url": "/exercices/3e/3A10.js",
@@ -2320,14 +2389,10 @@ export default {
     }
   },
   "3A11-1": {
-    "titre": "Justifier si des nombres sont premiers ou pas - Variante avec les critères de divisibilité par 7 et par 11",
+    "titre": "Résoudre des problèmes de conjonction de phénomènes",
     "url": "/exercices/3e/3A11-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "qcmMono"
-    },
-    "interactifReady": true,
-    "interactifType": "qcm",
+    "amcReady": false,
+    "interactifReady": false,
     "name": "3A11-1",
     "newEx": {
       "isNew": false,
@@ -2338,46 +2403,11 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "3A11-2": {
-    "titre": "Décomposer un entier en facteurs premiers",
-    "url": "/exercices/3e/3A11-2.js",
-    "amcReady": false,
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "3A11-2",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "3A11-3": {
-    "titre": "Compter/lister les diviseurs d'un entier à partir de sa décomposition en facteurs premiers",
-    "url": "/exercices/3e/3A11-3.js",
+  "3A11": {
+    "titre": "Rendre irréductible une fraction",
+    "url": "/exercices/3e/3A11.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "3A11-3",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "3A11": {
-    "titre": "Justifier si des nombres sont premiers ou pas",
-    "url": "/exercices/3e/3A11.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "qcmMono"
-    },
-    "interactifReady": true,
-    "interactifType": "qcm",
     "name": "3A11",
     "newEx": {
       "isNew": false,
@@ -2388,12 +2418,16 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "3A12-2": {
-    "titre": "Problèmes d'évenements récurrents",
-    "url": "/exercices/3e/3A12-2.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "3A12-2",
+  "3A12-1": {
+    "titre": "Résoudre des problèmes avec recherche de diviseurs communs",
+    "url": "/exercices/3e/3A12-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCHybride"
+    },
+    "interactifReady": true,
+    "interactifType": "mathLive",
+    "name": "3A12-1",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -2404,45 +2438,11 @@ export default {
     }
   },
   "3A12": {
-    "titre": "Rendre irréductible une fraction",
+    "titre": "Résoudre un exercice d'engrenages",
     "url": "/exercices/3e/3A12.js",
     "amcReady": false,
     "interactifReady": false,
     "name": "3A12",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "3A13-1": {
-    "titre": "Résoudre des problèmes avec recherche de diviseurs communs",
-    "url": "/exercices/3e/3A13-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCHybride"
-    },
-    "interactifReady": true,
-    "interactifType": "mathLive",
-    "name": "3A13-1",
-    "newEx": {
-      "isNew": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
-  "3A13": {
-    "titre": "Résoudre un exercice d'engrenages",
-    "url": "/exercices/3e/3A13.js",
-    "amcReady": false,
-    "interactifReady": false,
-    "name": "3A13",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -3379,6 +3379,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "3L11-9": {
+    "titre": "Rose multiplicative littéraux",
+    "url": "/exercices/3e/3L11-9.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "3L11-9",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "3L11": {
     "titre": "Utiliser la simple distributivité",
     "url": "/exercices/3e/3L11.js",
@@ -3928,6 +3944,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "4C10-9": {
+    "titre": "Rose multiplicative relatifs",
+    "url": "/exercices/4e/4C10-9.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "4C10-9",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "4C11": {
     "titre": "Calculs utilisant les priorités opératoires",
     "url": "/exercices/4e/4C11.js",
@@ -4032,6 +4064,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "4C21-3": {
+    "titre": "Rose additive fractions",
+    "url": "/exercices/4e/4C21-3.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "4C21-3",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "4C21": {
     "titre": "Additionner ou soustraire deux fractions",
     "url": "/exercices/4e/4C21.js",
@@ -4093,6 +4141,22 @@ export default {
     "interactifReady": true,
     "interactifType": "custom",
     "name": "4C22-3",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "4C22-4": {
+    "titre": "Rose multiplicative fractions",
+    "url": "/exercices/4e/4C22-4.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "4C22-4",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -5016,6 +5080,22 @@ export default {
     "interactifReady": true,
     "interactifType": "custom",
     "name": "4L10-3",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "4L10-4": {
+    "titre": "Rose additive littéraux",
+    "url": "/exercices/4e/4L10-4.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "4L10-4",
     "newEx": {
       "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -6961,6 +7041,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "5R20-7": {
+    "titre": "Rose additive relatifs",
+    "url": "/exercices/5e/5R20-7.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "5R20-7",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "5R20": {
     "titre": "Addition de deux entiers relatifs",
     "url": "/exercices/5e/5R20.js",
@@ -7217,6 +7313,22 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6C10-0": {
+    "titre": "Rose additive",
+    "url": "/exercices/6e/6C10-0.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "6C10-0",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6C10-1": {
     "titre": "Réviser les tables de multiplication",
     "url": "/exercices/6e/6C10-1.js",
@@ -7314,10 +7426,11 @@ export default {
     "titre": "Rose multiplicative",
     "url": "/exercices/6e/6C10-6.js",
     "amcReady": false,
-    "interactifReady": false,
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "6C10-6",
     "newEx": {
-      "isNew": false,
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -11560,12 +11673,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques",
+    "name": "betaModele30_constructions_géométriques",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
