@@ -1,9 +1,9 @@
-import ppcmEngrenages from '../3e/3A13.js'
+import ppcmEngrenages from '../3e/3A10-4.js'
 export const titre = 'Engrenages'
 export const dateDeModifImportante = '14/11/2021'
 
 /**
- * Clone de 3A11-3 pour les 2nde
+ * Clone de 3A10-4 pour les 2nde
  *
  * @author Jean-Claude Lhote
  */

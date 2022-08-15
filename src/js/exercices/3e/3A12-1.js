@@ -15,7 +15,7 @@ export const amcType = 'AMCHybride'
  * en cherchant le plus grand diviseur commun de deux nombres.
  * Donner ensuite la composition de chaque groupe, bouquet ou corbeille.
  * @author Laurence Candille et Jean-Claude Lhote (pour l'export AMC)
- * Référence 3A14
+ * Référence 3A12-1
  * Date août 2021
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {

@@ -9,13 +9,13 @@ export const interactifType = 'mathLive'
 export const titre = 'Décomposer un entier en facteurs premiers'
 
 /**
- * 3A11-2 - decompositionFacteursPremiers
  * Décomposer un nombre en facteurs premiers et compter son nombre de diviseurs à partir d'un tableau
  * plusieurs type de nombres à décomposer
  * type 1 : 3 à 5 facteurs premiers max, multiplicités 0,1,2 ou 3 max à préciser
  * type 2 : un produit de deux premiers entre 30 et 100, multiplicité 1 ... suffisamment de possibilités?
  * type 3 : un grand nombre premier au delà de 1000 et inférieur à 2 000
  * @author Sébastien Lozano (Rajout par EE du this.sup2)
+ * Référence 3A10-3
  */
 export default function decompositionFacteursPremiers () {
   'use strict'
