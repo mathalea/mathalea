@@ -220,6 +220,7 @@ export default function PremierOuPas () {
           // rang du nombre premier choisi
           r = randint(0, prems.length - 1)
           N = prems[r] // on choisit un nombre premier inférieur à 529
+
           if (N > 100) {
             this.sup2 = true
           } else {
@@ -234,16 +235,16 @@ export default function PremierOuPas () {
           }
           texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par `
           if (N === 2 || N === 3) {
-            texteCorr += 'aucun nombre dans le cas présent, le reste n\'est jamais nul !'
+            texteCorr += 'aucun nombre dans le cas présent, le reste n\'est jamais nul,'
           } else {
             texteCorr += 'les nombres '
             texteCorr += tabPremiersATester[0]
             for (let k = 1; k < tabPremiersATester.length; k++) {
               texteCorr += ', ' + tabPremiersATester[k]
             };
-            texteCorr += ', le reste n\'est jamais nul.'
+            texteCorr += ', le reste n\'est jamais nul,'
           }
-          texteCorr += '<br>' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
+          texteCorr += ' ' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
 
           bonneReponse = 'oui'
           break
@@ -260,16 +261,16 @@ export default function PremierOuPas () {
           }
           texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par `
           if (N === 2 || N === 3) {
-            texteCorr += 'aucun nombre dans le cas présent, le reste n\'est jamais nul !'
+            texteCorr += 'aucun nombre dans le cas présent, le reste n\'est jamais nul,'
           } else {
             texteCorr += 'les nombres '
             texteCorr += tabPremiersATester[0]
             for (let k = 1; k < tabPremiersATester.length; k++) {
               texteCorr += ', ' + tabPremiersATester[k]
             };
-            texteCorr += ', le reste n\'est jamais nul.'
+            texteCorr += ', le reste n\'est jamais nul,'
           }
-          texteCorr += '<br>' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
+          texteCorr += ' ' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
           bonneReponse = 'oui'
           break
       };

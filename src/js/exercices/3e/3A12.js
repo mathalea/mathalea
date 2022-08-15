@@ -148,7 +148,7 @@ export default function ppcmEngrenages () {
                 txtPopup
               )
             };
-            texteCorr += '<br><br>' + numAlpha(1) + ` Pour retrouver la position initiale,
+            texteCorr += numAlpha(1) + ` Pour retrouver la position initiale,
             chaque roue doit tourner de façon à ce que le nombre total de dents utilisé soit un multiple de son nombre
             de dents soit au minimum de $ppcm(${nbDentsr1},${nbDentsr2})=${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents.`
             texteCorr += `<br> Cela correspond à $(${ppcm(nbDentsr1, nbDentsr2)}\\text{ dents})\\div (${nbDentsr1}\\text{ dents/tour}) = ${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$`
@@ -207,7 +207,7 @@ export default function ppcmEngrenages () {
               txtPopup
             )
           };
-          texteCorr += '<br><b>Proposition de correction 2 :</b> <br>'
+          texteCorr += '<b>Proposition de correction 2 :</b> <br>'
 
           texteCorr += `D'après les calculs précédents, $pgcd(${nbDentsr1},${nbDentsr2})= ${pgcd(nbDentsr1, nbDentsr2) === 1 ? 1 : ''} ${decompositionFacteursPremiers(pgcd(nbDentsr1, nbDentsr2))}$.<br>`
           if (pgcd(nbDentsr1, nbDentsr2) === 1) {
@@ -221,7 +221,7 @@ export default function ppcmEngrenages () {
             )
           };
 
-          texteCorr += '<br><br>' + numAlpha(1) + ` Pour retrouver la position initiale,
+          texteCorr += numAlpha(1) + ` Pour retrouver la position initiale,
           chaque roue doit tourner de façon à ce que le nombre total de dents utilisé soit un multiple de son nombre
           de dents soit au minimum de $ppcm(${nbDentsr1},${nbDentsr2})=${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents.`
           texteCorr += `<br> Cela correspond à $(${texNombre(ppcm(nbDentsr1, nbDentsr2))}\\text{ dents})\\div (${nbDentsr1}\\text{ dents/tour}) = ${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$`
@@ -268,7 +268,7 @@ export default function ppcmEngrenages () {
             texteCorr += ' tours '
           };
           texteCorr += '.'
-          texteCorr += `<br> on obtient donc $(${texNombre(ppcm(nbDentsr1, nbDentsr2))}\\text{ dents})\\div (${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}\\text{`
+          texteCorr += `<br> On obtient donc $(${texNombre(ppcm(nbDentsr1, nbDentsr2))}\\text{ dents})\\div (${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}\\text{`
           if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
             texteCorr += ' tour '
           } else {

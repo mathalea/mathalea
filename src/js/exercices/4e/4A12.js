@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true // pour définir que l'exercice est exportable AMC
 export const amcType = 'AMCNum'
 
-export const titre = 'Problèmes d\'évenements récurrents'
+export const titre = 'Résoudre des problèmes de conjonction de phénomènes'
 
 /**
  * Problèmes d'événements récurrents avec résolution à l'aide de décompositions en produits de facteurs premiers
@@ -119,7 +119,7 @@ export default function ProblemesEvenementsRecurrents () {
           break
         case 'restau-ciné':
           texte = `Pour sa résolution de cette année, ${Robert.prenom} a décidé de ne pas abuser des bonnes choses :<br>
-          ${Robert.Pronom} s'accorde le droit d'aller au restaurant tous les ${nombreAvecEspace(Commun * A)} jours et d'aller au cinéma tous les ${nombreAvecEspace(Commun * B)} jours.<br>
+          ${Robert.pronom} s'accorde le droit d'aller au restaurant tous les ${nombreAvecEspace(Commun * A)} jours et d'aller au cinéma tous les ${nombreAvecEspace(Commun * B)} jours.<br>
           Aujourd'hui, ${Robert.pronom} s'est fait un « restau - ciné ».<br>
           Au bout de combien de temps s'en fera-t-${Robert.pronom} un autre ?`
           unite = 'jours'

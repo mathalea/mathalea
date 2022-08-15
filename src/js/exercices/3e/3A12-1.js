@@ -185,7 +185,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
           } else {
             texte = `Un boulanger dispose de ${var1 * objet} croissants et de ${var2 * objet} brioches. <br>`
             texte += 'Il veut, en utilisant toutes ses viennoiseries, réaliser un maximum de corbeilles '
-            texte += 'contenant toutes le même nombre de croissants et le même nombre de brioches. <br>'
+            texte += 'contenant toutes le même nombre de croissants et le même nombre de brioches. <br><br>'
             texte += numAlpha(0) + 'Quel est le nombre maximal de corbeilles ?<br><br>'
             texteCorr = numAlpha(0)
             texteCorr += `- Les diviseurs de ${var1 * objet} sont : ${listeDesDiviseurs(var1 * objet).join(', ')}.<br>`

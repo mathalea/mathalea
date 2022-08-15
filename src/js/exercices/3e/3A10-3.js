@@ -24,8 +24,7 @@ export default function decompositionFacteursPremiers () {
   // pas de différence entre la version html et la version latex pour la consigne
   // mais une différence selon que l'exo est affiché en interactif ou non
   this.consigne = ''
-  // this.consigne += `<br>`;
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
+  context.isHtml ? this.spacing = 2 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.nbQuestions = 3
   // this.correctionDetailleeDisponible = true;

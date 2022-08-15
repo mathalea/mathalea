@@ -21,8 +21,7 @@ export default function PremierOuPasCriterePar7Par11 () {
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.'
-
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
+  context.isHtml ? this.spacing = 1 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.nbQuestions = 7
 
@@ -58,7 +57,7 @@ export default function PremierOuPasCriterePar7Par11 () {
     let stringRappelB = 'Ces critères de divisibilité pourront être utiles :'
     if (context.isHtml) {
       stringRappelB += '<br>'
-      stringRappelB += '- Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq fois son chiffre des unités lest.<br>'
+      stringRappelB += '- Un nombre est divisible par 7 si la somme de son nombre de dizaines et de cinq fois son chiffre des unités l\'est.<br>'
       stringRappelB += '- Un nombre est divisible par 11 si la différence entre la somme de ses chiffres de rangs pairs et la somme de ses chiffres de rangs impairs est nulle ou égale à un multiple de 11.'
       stringRappelB += '<br> <br>'
     } else {
@@ -139,7 +138,7 @@ export default function PremierOuPasCriterePar7Par11 () {
             N1Longueur = N1.toString().length
             sum1 = Number(N1.toString().substring(0, N1Longueur - 1)) + 5 * Number(N1.toString().charAt(N1Longueur - 1))
           };
-          texteCorr += `Comme ${N1.toString().substring(0, N1Longueur - 1)} + 5$\\times$${N1.toString().charAt(N1Longueur - 1)} = ${sum1} est un multiple de 7 alors 7 divise ${N} aussi `
+          texteCorr += `Comme ${N1.toString().substring(0, N1Longueur - 1)} + 5$\\times$${N1.toString().charAt(N1Longueur - 1)} = ${sum1} est un multiple de 7, alors 7 divise ${N} aussi `
           texteCorr += 'qui admet donc au moins trois diviseurs : 1, 7 et lui-même, '
           texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
           bonneReponse = 'non'

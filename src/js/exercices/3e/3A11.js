@@ -214,9 +214,9 @@ export default function FractionsIrreductibles () {
           // case 3 : // reduction de A sur B
           texte += '<br>' + numAlpha(2) + ` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ irréductible `
           if (context.isHtml) {
-            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + 'et au ' + numAlpha(1) + '.'
+            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + 'et au ' + numAlpha(1, true) + '.'
           } else {
-            texte += ' à l\'aide des questions ' + numAlpha(0) + 'et ' + numAlpha(1) + '.'
+            texte += ' à l\'aide des questions ' + numAlpha(0) + 'et ' + numAlpha(1, true) + '.'
           };
           texteCorr += '<br>' + numAlpha(2) + ` $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}} = `
           texteCorr += '\\dfrac{'
@@ -235,9 +235,9 @@ export default function FractionsIrreductibles () {
           // case 4 : // reduction de B sur A
           texte += '<br>' + numAlpha(3) + ` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$ irréductible`
           if (context.isHtml) {
-            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + 'et au ' + numAlpha(1) + '.'
+            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + 'et au ' + numAlpha(1, true) + '.'
           } else {
-            texte += ' à l\'aide des questions ' + numAlpha(0) + 'et ' + numAlpha(1) + '.'
+            texte += ' à l\'aide des questions ' + numAlpha(0) + 'et ' + numAlpha(1, true) + '.'
           };
           texteCorr += '<br>' + numAlpha(3) + ` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}} = `
           texteCorr += '\\dfrac{'
