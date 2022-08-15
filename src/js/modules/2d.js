@@ -835,7 +835,7 @@ export function labelLatexPoint ({ points, color = 'black', taille = 8, largeur 
  * @author Jean-Claude Lhote
  * @return {Point}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function barycentre (p, nom = '', positionLabel = 'above') {
   let sommex = 0
   let sommey = 0
@@ -1281,12 +1281,14 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
  * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
  * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
  * @param {boolean} [mil=true] Trace ou nom le point du milieu.
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example CodageMilieu(M,N) // Code, en noir, le milieu du segment[MN] avec les marques 'x', en plaçant le milieu
  * @example CodageMilieu(M,N,'red','oo',false) // Code, en rouge, le milieu du segment[MN] avec les marques 'oo', sans placer le milieu.
  * @author Jean-Claude Lhote
  * @private
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
   if (longueur(A, B) < 0.1) window.notify('CodageMilieu : Points trop rapprochés pour créer ce codage', { A, B })
   ObjetMathalea2D.call(this)
@@ -1315,12 +1317,14 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
  * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
  * @param {boolean} [mil=true] Trace ou nom le point du milieu.
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example codageMilieu(M,N) // Code, en noir, le milieu du segment[MN] avec les marques 'x', en plaçant le milieu
  * @example codageMilieu(M,N,'red','oo',false) // Code, en rouge, le milieu du segment[MN] avec les marques 'oo', sans placer le milieu.
  * @author Jean-Claude Lhote
  * @return {CodageMilieu}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function codageMilieu (A, B, color = 'black', mark = '×', mil = true) {
   return new CodageMilieu(A, B, color, mark, mil)
 }
@@ -1340,6 +1344,10 @@ export function codageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * @param {number} [epaisseurMediatrice = 1] Epaisseur de la médiatrice
  * @param {number} [opaciteMediatrice = 1] Taux d'opacité de la médiatrice
  * @param {number} [pointillesMediatrice = 0] Si cette valeur est entre 1 et 5, la médiatrice est en pointillés
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example Mediatrice(M,N)
  * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1, avec une opacité de 100 % sans autre option
  * @example Mediatrice(M,N,'d','blue')
@@ -1350,7 +1358,7 @@ export function codageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * @author Rémi Angot {amendée par Eric Elter en juin 2022}
  * @private
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function Mediatrice (
   A,
   B,
@@ -1462,6 +1470,10 @@ function Mediatrice (
  * @param {number} [epaisseurMediatrice = 1] Epaisseur de la médiatrice
  * @param {number} [opaciteMediatrice = 1] Taux d'opacité de la médiatrice
  * @param {number} [pointillesMediatrice = 0] Si cette valeur est entre 1 et 5, la médiatrice est en pointillés
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example mediatrice(M,N)
  * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1, avec une opacité de 100 % sans autre option
  * @example mediatrice(M,N,'d','blue')
@@ -1472,7 +1484,7 @@ function Mediatrice (
  * @author Rémi Angot {amendée par Eric Elter en juin 2022}
  * @return {Mediatrice}
 */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function mediatrice (A, B, nom = '', couleurMediatrice = 'red', color = 'blue', couleurConstruction = 'black', construction = false, detail = false, markmilieu = '×', markrayons = '||', epaisseurMediatrice = 1, opaciteMediatrice = 1, pointillesMediatrice = 0) {
   if (arguments.length < 5) return new Mediatrice(A, B, nom, couleurMediatrice)
   else return new Mediatrice(A, B, nom, couleurMediatrice, color, couleurConstruction, construction, detail, markmilieu, markrayons, epaisseurMediatrice, opaciteMediatrice, pointillesMediatrice)
@@ -1484,12 +1496,16 @@ export function mediatrice (A, B, nom = '', couleurMediatrice = 'red', color = '
  * @param {Point} B Seconde extrémité du segment
  * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
  * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example CodageMediatrice(M,N) // Code, en noir, la médiatrice du segment[MN] avec les marques 'x'
  * @example CodageMediatrice(M,N,'red','oo') // Code, en rouge, la médiatrice du segment[MN] avec les marques 'oo'
  * @author  Rémi Angot
  * @private
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function CodageMediatrice (A, B, color = 'black', mark = '×') {
   if (longueur(A, B) < 0.1) window.notify('CodageMediatrice : Points trop rapprochés pour créer ce codage', { A, B })
   ObjetMathalea2D.call(this)
@@ -1521,12 +1537,16 @@ function CodageMediatrice (A, B, color = 'black', mark = '×') {
  * @param {Point} B Seconde extrémité du segment
  * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
  * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example codageMediatrice(M,N) // Code, en noir, la médiatrice du segment[MN] avec les marques 'x'
  * @example codageMediatrice(M,N,'red','oo') // Code, en rouge, la médiatrice du segment[MN] avec les marques 'oo'
  * @author  Rémi Angot
  * @return {CodageMediatrice}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function codageMediatrice (...args) {
   return new CodageMediatrice(...args)
 }
@@ -1546,6 +1566,8 @@ export function codageMediatrice (...args) {
  * @param {number} [epaisseurBissectrice = 1] Epaisseur de la bissectrice
  * @param {number} [opaciteBissectrice = 1] Taux d'opacité de la bissectrice
  * @param {number} [pointillesBissectrice = 0] Si cette valeur est entre 1 et 5, la bissectrice est en pointillés
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example Bissectrice(N,R,J)
  * // Trace, en rouge, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %, sans autre option
  * @example Bissectrice(N,R,J,'blue')
@@ -1555,7 +1577,7 @@ export function codageMediatrice (...args) {
  * @author Rémi Angot (amendée par Eric Elter en juin 2022)
  * @private
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function Bissectrice (
   A,
   O,
@@ -1658,6 +1680,8 @@ function Bissectrice (
  * @param {number} [epaisseurBissectrice = 1] Epaisseur de la bissectrice
  * @param {number} [opaciteBissectrice = 1] Taux d'opacité de la bissectrice
  * @param {number} [pointillesBissectrice = 0] Si cette valeur est entre 1 et 5, la bissectrice est en pointillés
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example bissectrice(N,R,J)
  * // Trace, en rouge, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %, sans autre option
  * @example bissectrice(N,R,J,'blue')
@@ -1667,7 +1691,7 @@ function Bissectrice (
  * @author Rémi Angot (amendée par Eric Elter en juin 2022)
  * @return {Bissectrice}
  */
-// JSDOC Validee Eric Elter Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function bissectrice (A, O, B, couleurBissectrice = 'red', color = 'blue', couleurConstruction = 'black', construction = false, detail = false, mark = '×', tailleLosange = 5, epaisseurBissectrice = 1, opaciteBissectrice = 1, pointillesBissectrice = '') {
   return new Bissectrice(A, O, B, couleurBissectrice, color, couleurConstruction, construction, detail, mark, tailleLosange, epaisseurBissectrice, opaciteBissectrice, pointillesBissectrice)
 }
@@ -1679,12 +1703,14 @@ export function bissectrice (A, O, B, couleurBissectrice = 'red', color = 'blue'
  * @param {Point} B Point sur l'autre côté de l'angle
  * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
  * @param {string} [mark='x'] Symbole posé sur les arcs
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example Codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
  * @example Codagebissectrice(M,N,P,'red','oo') // Code, en rouge, la bissectrice de l'angle MNP avec les marques 'oo'
  * @author Jean-Claude Lhote
  * @private
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
   ObjetMathalea2D.call(this)
   this.color = color
@@ -1719,12 +1745,14 @@ function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
  * @param {Point} B Point sur l'autre côté de l'angle
  * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
  * @param {string} [mark='x'] Symbole posé sur les arcs
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
  * @example codagebissectrice(M,N,P,'red','oo') // Code, en rouge, la bissectrice de l'angle MNP avec les marques 'oo'
  * @author Jean-Claude Lhote
  * @return {CodageBissectrice}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function codageBissectrice (A, O, B, color = 'black', mark = 'x') {
   return new CodageBissectrice(A, O, B, color, mark)
 }
@@ -3224,6 +3252,10 @@ export function aireTriangle (p) {
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
  * @param {number} [distanceDesHachures = 10] Distance des hachures si couleur de remplissage choisie.
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example Cercle (A,5)
  * // Construit un cercle c1 noir de centre A et de rayon 5
  * @example Cercle (A,5,'red','blue','#f15929',3,2,0.3,0.8)
@@ -3233,7 +3265,7 @@ export function aireTriangle (p) {
  * @author Rémi Angot
  * @private
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = '', opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
   ObjetMathalea2D.call(this)
   this.color = colorToLatexOrHTML(color)
@@ -3409,6 +3441,10 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
  * @param {number} [distanceDesHachures = 10] Distance des hachures si couleur de remplissage choisie.
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example cercle (A,5)
  * // Construit un cercle c1 noir de centre A et de rayon 5
  * @example cercle (A,5,'red','blue','#f15929',3,2,0.3,0.8)
@@ -3418,7 +3454,7 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
  * @returns {Cercle}
  * @author Rémi Angot
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = '', opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
   return new Cercle(O, r, color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
 }
@@ -3686,7 +3722,7 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
     }
   }
 }
-
+/* EE : fonction inutile avec lettre initiale majuscule car elle fait appel à une fonction existante
 /**
  * Construit le cercle (ou le disque) de centre O, passant par M
  * @param {Point} O Centre du cercle
@@ -3708,11 +3744,11 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
  * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 2 d'épaisseur et avec 12 d'écart entre deux hachures
  * @author Rémi Angot
  * @private
- */
-// JSDOC Validee EE Juin 2022
+
+// JSDOC Validee par EE Juin 2022
 function CercleCentrePoint (O, M, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = '', opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
   Cercle.call(this, O, longueur(O, M), color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
-}
+} */
 
 /**
  * Construit le cercle (ou le disque) de centre O, passant par M
@@ -3733,12 +3769,13 @@ function CercleCentrePoint (O, M, color = 'black', couleurDeRemplissage = 'none'
  * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 1 d'épaisseur et avec 10 d'écart entre deux hachures
  * @example cercleCentrePoint (A,B,'red','blue','#f15929',3,2,0.3,0.8,2,12)
  * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 2 d'épaisseur et avec 12 d'écart entre deux hachures
- * @returns {CercleCentrePoint}
+ * @returns {cercle}
  * @author Rémi Angot
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = '', opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
-  return new CercleCentrePoint(O, M, color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
+  // return new CercleCentrePoint(O, M, color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
+  return cercle(O, longueur(O, M), color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
 }
 
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
@@ -3750,10 +3787,18 @@ export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage =
  * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @example Arc(M,0,35)
+  // Trace l'arc en noir de centre 0, d'extrémité M et d'angle orienté 35° (sans remplissage et sans hachures)
+ * @example Arc(M,O,true,-40,'red','green',0.8,'white')
+  // Trace l'arc en vert de centre 0, d'extrémité M et d'angle orienté -40°, rempli en rouge à 80 %, avec des hachures blanches
  * @author Jean-Claude Lhote
  * @private
  **/
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
   ObjetMathalea2D.call(this)
   this.color = colorToLatexOrHTML(color)
@@ -3981,6 +4026,10 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
  * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example arc(M,0,35)
   // Trace l'arc en noir de centre 0, d'extrémité M et d'angle orienté 35° (sans remplissage et sans hachures)
  * @example arc(M,O,true,-40,'red','green',0.8,'white')
@@ -3988,7 +4037,7 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
  * @return {Arc}
  * @author Jean-Claude Lhote
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
   return new Arc(M, Omega, angle, rayon, couleurDeRemplissage, color, opaciteDeRemplissage, couleurDesHachures)
 }
@@ -4005,7 +4054,7 @@ export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
  * @author Jean-Claude Lhote
  * @private
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function ArcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
@@ -4038,9 +4087,8 @@ function ArcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplissage = 
   // Trace l'arc en vert d'extrémités A et B (dans cet ordre) et d'angle orienté -40°, rempli en rouge à 80 %, avec des hachures blanches
  * @return {ArcPointPointAngle}
  * @author Jean-Claude Lhote
- * @private
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function arcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
   return new ArcPointPointAngle(M, N, angle, rayon, couleurDeRemplissage, color, opaciteDeRemplissage, couleurDesHachures)
 }
@@ -4440,7 +4488,7 @@ export function dansLaCibleRonde (x, y, rang, taille, cellule) {
  * @author Jean-Claude Lhote
  * @private
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this)
   this.x = x
@@ -4516,7 +4564,7 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
  * @author Jean-Claude Lhote
  * @return {CibleCarree}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
   return new CibleCarree({ x, y, rang, num, taille, color, opacite })
 }
@@ -4536,7 +4584,7 @@ export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color 
  * @author Jean-Claude Lhote
  * @private
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this)
   this.x = x
@@ -4600,7 +4648,7 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray'
  * @author Jean-Claude Lhote
  * @return {CibleRonde}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, color = 'gray', opacite = 0.5 }) {
   return new CibleRonde({ x, y, rang, num, taille, color, opacite })
 }
@@ -4626,7 +4674,7 @@ export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, col
  * @author Jean-Claude Lhote
  * @private
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true, color = 'gray', opacite = 0.5 }) {
   ObjetMathalea2D.call(this)
   this.x = x
@@ -4712,7 +4760,7 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbD
  * @author Jean-Claude Lhote
  * @return {CibleCouronne}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function cibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true, color = 'gray', opacite = 0.5 }) {
   return new CibleCouronne({ x, y, taille, taille2, depart, nbDivisions, nbSubDivisions, semi, label, color, opacite })
 }
@@ -10013,7 +10061,7 @@ export function intervalle (A, B, color = 'blue', h = 0) {
  * @author Eric Elter
  * @return {number[]}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function convertHexToRGB (couleur = '000000') {
   const hexDecoupe = couleur.match(/.{1,2}/g)
   const hexToRGB = [
@@ -10038,7 +10086,7 @@ function convertHexToRGB (couleur = '000000') {
  * @return {string[]}
  * @private
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 function ColorToLatexOrHTML (couleur) {
   const tabCouleur = []
   let rgb = []
@@ -10070,7 +10118,7 @@ function ColorToLatexOrHTML (couleur) {
  * @author Eric Elter
  * @return {string[]}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function colorToLatexOrHTML (couleur) {
   return new ColorToLatexOrHTML(couleur)
 }
@@ -10544,7 +10592,7 @@ export function norme (v) {
  * // x contient la mesure en degré de l'angle HET, arrondi à l'unité
  * @author Rémi Angot
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function angle (A, O, B, precision = 2) {
   const OA = longueur(O, A)
   const OB = longueur(O, B)
@@ -10576,7 +10624,7 @@ export function angle (A, O, B, precision = 2) {
  * @example x = angleModulo(-180)
  * // x contient 180
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function angleModulo (a) {
   while (a <= -180) a = a + 360
   while (a > 180) a = a - 360
@@ -10596,7 +10644,7 @@ export function angleModulo (a) {
  * @example x = angleOriente(H,E,T,0)
  * // x contient la valeur de la mesure de l'angle orienté HET, arrondie à l'unité
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function angleOriente (A, O, B, precision = 2) {
   const A2 = rotation(A, O, 90)
   const v = vecteur(O, B); const u = vecteur(O, A2)
@@ -10616,7 +10664,7 @@ export function angleOriente (A, O, B, precision = 2) {
  * @example x = angleradian(H,E,T,0)
  * // x contient la valeur de la mesure de l'angle HET en radians, arrondie à l'unité
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function angleradian (A, O, B, precision = 2) {
   const OA = longueur(O, A)
   const OB = longueur(O, B)
@@ -10640,7 +10688,7 @@ export function angleradian (A, O, B, precision = 2) {
  * @example x=angleScratchTo2d(-120) // x=-150
  * @return {angleModulo}
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function angleScratchTo2d (x) {
   const angle2d = 90 - x
   return angleModulo(angle2d)
@@ -10748,7 +10796,7 @@ export function creerLutin (...args) {
  * @example avance(5, lutin) // Fait avancer le lutin de 5 unités
  * @author Jean-Claude Lhote
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function avance (d, lutin = context.lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
   const xdepart = lutin.x
   const ydepart = lutin.y
@@ -10813,7 +10861,7 @@ export function tournerD (a, lutin = context.lutin) {
  * @param {ObjetLutin} lutin Lutin
  * @example allerA(10,-5,lutin) // Le lutin prend pour coordonnées (10 ; -5).
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function allerA (x, y, lutin = context.lutin) {
   const xdepart = lutin.x
   const ydepart = lutin.y
@@ -10902,7 +10950,7 @@ export function ajouterAy (y, lutin = context.lutin) {
  * @example attendre(5, lutin) // Fait "vibrer" 5 fois le lutin
  * @author Jean-Claude Lhote
  */
-// JSDOC Validee EE Juin 2022
+// JSDOC Validee par EE Juin 2022
 export function attendre (tempo, lutin = context.lutin) {
   const x = lutin.x; const y = lutin.y
   lutin.listeTraces.push([x, y, x + 0.08, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
