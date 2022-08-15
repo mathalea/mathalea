@@ -1,5 +1,5 @@
 import { ExoRose } from './_Roses.js'
-export const titre = 'Rose multiplicative'
+export const titre = 'Rose additive'
 export { interactifReady, interactifType } from './_Roses.js'
 export const dateDePublication = '12/08/2022'
 /**
@@ -10,4 +10,5 @@ export const dateDePublication = '12/08/2022'
 
 export default function RoseMultiplicative () { // c'est l'ExoRose zéro contenu dans _Roses.js
   ExoRose.call(this) // Héritage de la classe Exercice()
+  this.operation = 'addition'
 }

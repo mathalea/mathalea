@@ -5,9 +5,10 @@ import { listeQuestionsToContenu, egal, randint, shuffle, shuffle2tableaux, comb
 export const titre = 'Comprendre le vocabulaire : division euclidienne, diviseurs, multiples'
 
 /**
- * 3A10 - Division Euclidienne; diviseurs, multiples, critères de divisibilité
+ * Division Euclidienne; diviseurs, multiples, critères de divisibilité
  * Exercice bilan
  * @author Sébastien Lozano
+ * Référence 3A10
  */
 export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
   'use strict'
