@@ -1,4 +1,4 @@
-import { randint, texNombre, combinaisonListes, contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
+import { randint, texNombre, combinaisonListes, contraindreValeur, listeQuestionsToContenu, shuffle2tableaux } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 import Decimal from 'decimal.js/decimal.mjs'
@@ -33,26 +33,33 @@ export default function RecomposerEntierC3 () {
     const nombreDeChiffresMax = contraindreValeur(nombreDeChiffresMin, 7, this.sup2, 6)
     this.nombreDeChamps = []
     this.premierChamp = []
+    this.morceaux = []
+    this.exposantMorceaux = []
     for (let i = 0, cpt = 0, texte, texteCorr, indexChamp = 0; i < this.nbQuestions && cpt < 50;) {
       texte = ''
       texteCorr = ''
       const nombre = new Decimal(randint(10 ** nombreDeChiffresMin - 1, 10), randint(10 ** nombreDeChiffresMax - 1))
       const nombreStr = nombre.toString()
       const nbChiffres = nombreStr.length
+      this.morceaux[i] = []
+      this.exposantMorceaux[i] = []
       switch (listeTypeDeQuestions[i]) {
         case 1: // décomposition chiffre par chiffre
           texte += `Décomposer le nombre $${texNombre(nombre)}$ comme dans cet exemple : $203=100\\times 2+10\\times 0+3$.<br>`
           texte += `$${texNombre(nombre)}=`
+          for (let k = 0; k < nbChiffres; k++) {
+            this.morceaux[i][k] = nombreStr[k]
+            this.exposantMorceaux[i][k] = nbChiffres - 1 - k
+          }
+          shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
           if (this.interactif) {
             this.premierChamp[i] = indexChamp
-            for (let k = 0; k < nbChiffres - 1; k++) {
-              texte += `${10 ** (nbChiffres - 1 - k)}\\times $${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })} $+`
-              setReponse(this, indexChamp, nombreStr[k])
+            for (let k = 0; k < nbChiffres; k++) {
+              texte += `${10 ** this.exposantMorceaux[i][k]}\\times $${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })} $+`
+              setReponse(this, indexChamp, this.morceaux[i][k])
               indexChamp++
             }
-            texte += `$${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })}`
-            setReponse(this, indexChamp, nombreStr[nbChiffres - 1])
-            indexChamp++
+            texte = texte.substring(0, texte.length - 2)
             this.nombreDeChamps[i] = nbChiffres
           } else {
             texte += '\\ldots\\ldots\\ldots$'
