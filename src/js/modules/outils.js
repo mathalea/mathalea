@@ -361,7 +361,9 @@ export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
 * @example
 * // Renvoie -1 ou 1
 * randint(-1,1,[0])
-*
+* @example
+* Renvoie 0 ou 1 ou 4 ou 6 ou 8 ou 9
+* randint(0,9, '2357') // même résultat avec randint(0,9, ['2','3','5','7']) ou randint(0,9, [2,3,5,7])
 * @author Rémi Angot
 * @Source https://gist.github.com/pc035860/6546661
 */
@@ -369,9 +371,13 @@ export function randint (min, max, listeAEviter = []) {
   // Source : https://gist.github.com/pc035860/6546661
   const range = max - min
   let rand = Math.floor(Math.random() * (range + 1))
+  if (typeof listeAEviter === 'string') {
+    listeAEviter = listeAEviter.split('')
+  }
   if (Number.isInteger(listeAEviter)) {
     listeAEviter = [listeAEviter]
   }
+  listeAEviter = listeAEviter.map(Number)
   if (listeAEviter.length > 0) {
     while (listeAEviter.indexOf(min + rand) !== -1) {
       rand = Math.floor(Math.random() * (range + 1))
