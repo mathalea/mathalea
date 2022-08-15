@@ -91,7 +91,7 @@ export default function StabilisationFrequence () {
               texteCorr += ' $\\dfrac{1}{12} \\approx 8.3\\%$ '
               break
           }
-          texteCorr += 'd\'apparaitre. <br>'
+          texteCorr += 'd\'apparaître. <br>'
           texteCorr += `Comme le dé a été lancé ${nombreAvecEspace(nbLancers)} fois, les fréquences doivent se stabiliser autour de la probabilité. `
           texteCorr += 'Les valeurs du tableau de fréquences sont toutes proches de cette probabilité. <br>'
           texteCorr += texteEnCouleurEtGras('Conclusion : les résultats semblent respecter le principe de stabilisation des fréquences ; le tableau est bien compatible avec un lancer aléatoire de dé. ')
@@ -132,7 +132,7 @@ export default function StabilisationFrequence () {
               texteCorr += ' $\\dfrac{1}{12} \\approx 8.3\\%$ '
               break
           }
-          texteCorr += 'd\'apparaitre. <br>'
+          texteCorr += 'd\'apparaître. <br>'
           texteCorr += `Comme le dé a été lancé ${nombreAvecEspace(nbLancers)} fois, les fréquences devraient se stabiliser autour de la probabilité. `
           texteCorr += 'Cependant, une valeur du tableau de fréquences est éloignée de cette probabilité. <br>'
           texteCorr += `Il s'agit de la fréquence d'apparition du ${tabValeur[face]}. <br>`
