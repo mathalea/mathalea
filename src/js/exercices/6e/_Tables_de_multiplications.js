@@ -7,7 +7,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 /**
- * Tables de multiplications classiques, à trou ou un mélange des deux.
+ * Tables de multiplication classiques, à trou ou un mélange des deux.
  *
  * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
  * @author Rémi Angot (ES6: Loïc Geeraerts)
@@ -18,7 +18,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
   Exercice.call(this)
   this.sup = tablesParDefaut
   this.sup2 = 1 // classique|a_trous|melange
-  this.titre = 'Tables de multiplications'
+  this.titre = 'Tables de multiplication'
   this.consigne = 'Calculer : '
   this.spacing = 2
 

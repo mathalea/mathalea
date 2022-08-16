@@ -2577,7 +2577,7 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
-:: Mathalea - Utiliser tables de multiplications pour effectuer produits avec multiple de 10 (6C10-2) ::
+:: Mathalea - Utiliser tables de multiplication pour effectuer produits avec multiple de 10 (6C10-2) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6C10-2" />
 {
@@ -2588,7 +2588,7 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
-:: Mathalea - Utiliser tables de multiplications pour effectuer produits avec décimaux (6C10-3) ::
+:: Mathalea - Utiliser tables de multiplication pour effectuer produits avec décimaux (6C10-3) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6C10-3" />
 {
@@ -3897,7 +3897,7 @@ $CATEGORY: Mathalea/CM
 
 $CATEGORY: Mathalea/CM
 
-:: Mathalea - Tables de multiplications et de divisions (CM003) ::
+:: Mathalea - Tables de multiplication et de divisions (CM003) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="CM003" />
 {
@@ -4282,7 +4282,7 @@ $CATEGORY: Mathalea/beta
 
 $CATEGORY: Mathalea/c3
 
-:: Mathalea - Tables de multiplications (c3C10-1) ::
+:: Mathalea - Tables de multiplication (c3C10-1) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="c3C10-1" />
 {

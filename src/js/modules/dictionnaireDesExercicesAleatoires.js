@@ -7349,7 +7349,7 @@ export default {
     }
   },
   "6C10-2": {
-    "titre": "Utiliser tables de multiplications pour effectuer produits avec multiple de 10",
+    "titre": "Utiliser tables de multiplication pour effectuer produits avec multiple de 10",
     "url": "/exercices/6e/6C10-2.js",
     "amcReady": true,
     "amcType": {
@@ -7371,7 +7371,7 @@ export default {
     }
   },
   "6C10-3": {
-    "titre": "Utiliser tables de multiplications pour effectuer produits avec décimaux",
+    "titre": "Utiliser tables de multiplication pour effectuer produits avec décimaux",
     "url": "/exercices/6e/6C10-3.js",
     "amcReady": true,
     "amcType": {
@@ -10312,7 +10312,7 @@ export default {
     }
   },
   "CM003": {
-    "titre": "Tables de multiplications et de divisions",
+    "titre": "Tables de multiplication et de divisions",
     "url": "/exercices/CM/CM003.js",
     "amcReady": true,
     "amcType": {
@@ -12056,7 +12056,7 @@ export default {
     }
   },
   "c3C10-1": {
-    "titre": "Tables de multiplications",
+    "titre": "Tables de multiplication",
     "url": "/exercices/c3/c3C10-1.js",
     "amcReady": true,
     "amcType": {

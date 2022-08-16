@@ -9,7 +9,7 @@ export const interactifType = 'mathLive'
 /**
 * Effectuer une division entre 2 nombres relatifs écrite sous la forme d'une fraction.
 *
-* * On peut choisir de n'avoir que des tables de multiplications, par défaut il y a aussi des divisions simples par 2, 3 ou 4
+* * On peut choisir de n'avoir que des tables de multiplication, par défaut il y a aussi des divisions simples par 2, 3 ou 4
 * @author Rémi Angot
 * 4C10-4
 */
@@ -65,5 +65,5 @@ export default function ExerciceQuotientsRelatifs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ['Utiliser seulement les tables de multiplications de 2 à 9']
+  this.besoinFormulaireCaseACocher = ['Utiliser seulement les tables de multiplication de 2 à 9']
 }

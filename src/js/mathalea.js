@@ -1634,7 +1634,7 @@ async function miseAJourDeLaListeDesExercices (preview) {
     }
     if (besoinXCas) {
       // On charge le javascript de XCas
-      let div // le div dans lequel on fera apparaitre le cercle de chargement
+      let div // le div dans lequel on fera apparaître le cercle de chargement
       if (context.isHtml) {
         div = document.getElementById('exercices')
       } else {
@@ -2878,7 +2878,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         items = '<span contenteditable="true" class="choix_exercices"><br></span>'
       }
-      return `<div class="evalelem"><input type="checkbox" class="checkeval"><i class="sign-in icon ajoutexoligne"></i><input type="text" style="width:70px" data-tooltip="Nom qui apparaitra sur la copie." value="${nomCopie}">
+      return `<div class="evalelem"><input type="checkbox" class="checkeval"><i class="sign-in icon ajoutexoligne"></i><input type="text" style="width:70px" data-tooltip="Nom qui apparaîtra sur la copie." value="${nomCopie}">
       <div id="choix_exercices_div" style="width:65%" data-tooltip="Identifiants des exercices" ><div class="choix_exo sortable">${items}</div></div><i class="trash alternate outline icon supprexoligne"></i></div>`
     }
 

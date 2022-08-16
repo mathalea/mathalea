@@ -682,7 +682,7 @@ export default function ExerciceInequationProduit () {
         if (i === 0) {
           texte += lampeMessage({
             titre: 'Quelques commandes pratiques pour le clavier : ',
-            texte: `Taper '${texteGras('union')}' pour faire apparaitre $\\bigcup$, '${texteGras('inf')}' pour $\\infty$ et '${texteGras('singleton')}' pour $\\left\\{\\right\\}$.`,
+            texte: `Taper '${texteGras('union')}' pour faire apparaître $\\bigcup$, '${texteGras('inf')}' pour $\\infty$ et '${texteGras('singleton')}' pour $\\left\\{\\right\\}$.`,
             couleur: 'nombres'
           })
         }
