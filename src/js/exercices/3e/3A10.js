@@ -62,11 +62,34 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
       typeDeQuestion = listeTypeDeQuestions[i]
 
       switch (typeDeQuestion) {
-        case 1: // plus grand reste dans une division euclidienne
+        case 1: { // plus grand reste dans une division euclidienne
           diviseur = randint(2, 99)
-          texte = `Dire quel est le plus grand reste possible dans une division euclidienne par ${diviseur}.`
-          texteCorr = `Si on divise par ${diviseur}, il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`
+          const myTexte = {
+            enonce:[
+              `Dire quel est le plus grand reste possible dans une division euclidienne par ${diviseur}.`,
+              'Énoncé avec dividende',
+              'Énoncé avec quotient',
+              'Énoncé avec diviseur'
+            ],
+            correction:[
+              `Si on divise par ${diviseur}, il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`,
+              'Correction dividence',
+              'Correction quotient',
+              'Correction diviseur'
+            ]
+          }
+          texte = '<br> - '
+          texte += myTexte.enonce[0] + '<br> - '
+          texte += myTexte.enonce[1] + '<br> - '
+          texte += myTexte.enonce[2] + '<br> - '
+          texte += myTexte.enonce[3] + '<br>'
+          texteCorr = '<br> - '
+          texteCorr += myTexte.correction[0] + '<br> - '
+          texteCorr += myTexte.correction[1] + '<br> - '
+          texteCorr += myTexte.correction[2] + '<br> - '
+          texteCorr += myTexte.correction[3] + '<br>'
           break
+        }
         case 2: // quotient et reste d'une division euclidienne donnée
           diviseur = randint(2, 99)
           dividende = randint(1001, 99999)
