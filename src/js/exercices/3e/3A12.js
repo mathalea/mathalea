@@ -171,9 +171,15 @@ export default function ppcmEngrenages () {
           if (this.sup) {
             nbDentsr1 = randint(51, 100)
             nbDentsr2 = randint(51, 100, nbDentsr1)
+            while (nbDentsr2 % nbDentsr1 === 0 || nbDentsr1 % nbDentsr2 === 0) {
+              nbDentsr2 = randint(51, 100, nbDentsr1)
+            }
           } else {
             nbDentsr1 = randint(31, 80)
             nbDentsr2 = randint(31, 80, nbDentsr1)
+            while (nbDentsr2 % nbDentsr1 === 0 || nbDentsr1 % nbDentsr2 === 0) {
+              nbDentsr2 = randint(51, 100, nbDentsr1)
+            }
           }
 
           texte = `La roue n$\\degree$1 possède $${nbDentsr1}$ dents et la roue n$\\degree$2 a $${nbDentsr2}$ dents.`
