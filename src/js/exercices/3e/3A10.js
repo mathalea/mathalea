@@ -78,16 +78,18 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
               'Correction diviseur'
             ]
           }
-          texte = '<br> - '
-          texte += myTexte.enonce[0] + '<br> - '
-          texte += myTexte.enonce[1] + '<br> - '
-          texte += myTexte.enonce[2] + '<br> - '
-          texte += myTexte.enonce[3] + '<br>'
-          texteCorr = '<br> - '
-          texteCorr += myTexte.correction[0] + '<br> - '
-          texteCorr += myTexte.correction[1] + '<br> - '
-          texteCorr += myTexte.correction[2] + '<br> - '
-          texteCorr += myTexte.correction[3] + '<br>'
+          texte = myTexte.enonce[0]
+          texteCorr = myTexte.correction[0]
+          // texte = '<br> - '
+          // texte += myTexte.enonce[0] + '<br> - '
+          // texte += myTexte.enonce[1] + '<br> - '
+          // texte += myTexte.enonce[2] + '<br> - '
+          // texte += myTexte.enonce[3] + '<br>'
+          // texteCorr = '<br> - '
+          // texteCorr += myTexte.correction[0] + '<br> - '
+          // texteCorr += myTexte.correction[1] + '<br> - '
+          // texteCorr += myTexte.correction[2] + '<br> - '
+          // texteCorr += myTexte.correction[3] + '<br>'
           break
         }
         case 2: // quotient et reste d'une division euclidienne donnée
