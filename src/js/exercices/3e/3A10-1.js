@@ -242,9 +242,10 @@ export default function PremierOuPas () {
           } else {
             texteCorr += 'les nombres '
             texteCorr += tabPremiersATester[0]
-            for (let k = 1; k < tabPremiersATester.length; k++) {
+            for (let k = 1; k < tabPremiersATester.length - 1; k++) {
               texteCorr += ', ' + tabPremiersATester[k]
             };
+            texteCorr += ' et ' + tabPremiersATester[tabPremiersATester.length - 1]
             texteCorr += ', le reste n\'est jamais nul,'
           }
           texteCorr += ' ' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
@@ -268,9 +269,10 @@ export default function PremierOuPas () {
           } else {
             texteCorr += 'les nombres '
             texteCorr += tabPremiersATester[0]
-            for (let k = 1; k < tabPremiersATester.length; k++) {
+            for (let k = 1; k < tabPremiersATester.length - 1; k++) {
               texteCorr += ', ' + tabPremiersATester[k]
             };
+            texteCorr += ' et ' + tabPremiersATester[tabPremiersATester.length - 1]
             texteCorr += ', le reste n\'est jamais nul,'
           }
           texteCorr += ' ' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
