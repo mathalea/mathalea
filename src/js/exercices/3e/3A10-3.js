@@ -137,9 +137,9 @@ export default function decompositionFacteursPremiers () {
             texteCorr += `$${texNombre(nombreTodecompose)}$ en commençant par 2, 3, 5, 7, ...<br>`
             texteCorr = `Il est suffisant de tester la divisibilité de $${texNombre(nombreTodecompose)}$ par tous les nombres premiers inférieurs ou égaux à $\\sqrt{${texNombre(nombreTodecompose)}}$, c'est-à-dire inférieurs à $${texNombre(racinePremier1)}$.<br>`
             texteCorr += 'Ce sont les nombres de la liste : <br>'
-            texteCorr += cribleEratostheneN(racinePremier1)[0] + ' ; '
+            texteCorr += '$' + cribleEratostheneN(racinePremier1)[0] + '$ ; '
             for (let k = 1; k < cribleEratostheneN(racinePremier1).length; k++) {
-              texteCorr += cribleEratostheneN(racinePremier1)[k]
+              texteCorr += '$' + cribleEratostheneN(racinePremier1)[k] + '$'
               if (k !== cribleEratostheneN(racinePremier1).length - 1) {
                 texteCorr += ' ; '
               } else {
