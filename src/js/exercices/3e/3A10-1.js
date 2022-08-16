@@ -19,7 +19,10 @@ export const amcType = 'qcmMono'
 export default function PremierOuPas () {
   Exercice.call(this) // Héritage de la classe Exercice()
   // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = 'Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.'
+  this.consigne = `Justifier que les nombres suivants sont premiers ou pas.
+  <br> Pour les nombres premiers inférieurs à 100, aucune justification n'est attendue.
+  <br>  Penser aux critères de divisibilité.
+   `
   context.isHtml ? this.spacing = 1 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
 
@@ -27,7 +30,7 @@ export default function PremierOuPas () {
   this.nbCols = 2
   this.nbColsCorr = 1
   this.sup = 1
-  this.sup2 = true
+  this.sup2 = false // Par défaut on n'affiche pas la liste des nombres premiers
   this.nbQuestionsModifiable = false
   this.listePackages = 'bclogo'
   const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
@@ -66,10 +69,6 @@ export default function PremierOuPas () {
     };
     stringRappel += '.'
 
-    if (this.sup2) {
-      this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
-    } else this.introduction = ''
-
     for (let i = 0, texte, texteCorr, r1, r2, prime1, prime2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
@@ -86,6 +85,9 @@ export default function PremierOuPas () {
       let evenSum // pour la somme des chiffres de rang impair
       let oddSum // pour la somme des chiffres de rang pair
       let bonneReponse
+      if (this.sup2) {
+        this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
+      } else this.introduction = ''
       switch (typesDeQuestions) {
         case 1: // nombre pair
           N = 2 * randint(51, 4999)
@@ -217,10 +219,16 @@ export default function PremierOuPas () {
           texteCorr += texteEnCouleurEtGras(`${N} = ` + nombreAvecEspace(prime1 * prime2) + ' n\'est donc pas premier.')
           bonneReponse = 'non'
           break
-        case 7: // nombre premier inférieur à 529
+        case 7: // nombre premier inférieur à 529, si le nombre premier dépasse 100 on affiche le coup de pouce
           // rang du nombre premier choisi
           r = randint(0, prems.length - 1)
           N = prems[r] // on choisit un nombre premier inférieur à 529
+
+          if (N > 100) {
+            this.sup2 = true
+          } else {
+            this.sup2 = false
+          }
           texte = N + ''
           r = 0
           tabPremiersATester = []
@@ -230,16 +238,17 @@ export default function PremierOuPas () {
           }
           texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par `
           if (N === 2 || N === 3) {
-            texteCorr += 'aucun nombre dans le cas présent, le reste n\'est jamais nul !'
+            texteCorr += 'aucun nombre dans le cas présent, le reste n\'est jamais nul,'
           } else {
             texteCorr += 'les nombres '
             texteCorr += tabPremiersATester[0]
-            for (let k = 1; k < tabPremiersATester.length; k++) {
+            for (let k = 1; k < tabPremiersATester.length - 1; k++) {
               texteCorr += ', ' + tabPremiersATester[k]
             };
-            texteCorr += ', le reste n\'est jamais nul.'
+            texteCorr += ' et ' + tabPremiersATester[tabPremiersATester.length - 1]
+            texteCorr += ', le reste n\'est jamais nul,'
           }
-          texteCorr += '<br>' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
+          texteCorr += ' ' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
 
           bonneReponse = 'oui'
           break
@@ -256,16 +265,17 @@ export default function PremierOuPas () {
           }
           texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par `
           if (N === 2 || N === 3) {
-            texteCorr += 'aucun nombre dans le cas présent, le reste n\'est jamais nul !'
+            texteCorr += 'aucun nombre dans le cas présent, le reste n\'est jamais nul,'
           } else {
             texteCorr += 'les nombres '
             texteCorr += tabPremiersATester[0]
-            for (let k = 1; k < tabPremiersATester.length; k++) {
+            for (let k = 1; k < tabPremiersATester.length - 1; k++) {
               texteCorr += ', ' + tabPremiersATester[k]
             };
-            texteCorr += ', le reste n\'est jamais nul.'
+            texteCorr += ' et ' + tabPremiersATester[tabPremiersATester.length - 1]
+            texteCorr += ', le reste n\'est jamais nul,'
           }
-          texteCorr += '<br>' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
+          texteCorr += ' ' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
           bonneReponse = 'oui'
           break
       };
