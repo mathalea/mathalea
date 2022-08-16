@@ -19,8 +19,7 @@ export const amcType = 'qcmMono'
 export default function PremierOuPas () {
   Exercice.call(this) // Héritage de la classe Exercice()
   // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = `Justifier que les nombres suivants sont premiers ou pas.
-  <br> Pour les nombres premiers inférieurs à 100, aucune justification n'est attendue.
+  this.consigne = `Justifier que les nombres suivants sont premiers ou pas.  
   <br>  Penser aux critères de divisibilité.
    `
   context.isHtml ? this.spacing = 1 : this.spacing = 2
@@ -221,7 +220,7 @@ export default function PremierOuPas () {
           break
         case 7: // nombre premier inférieur à 529, si le nombre premier dépasse 100 on affiche le coup de pouce
           // rang du nombre premier choisi
-          r = randint(0, prems.length - 1)
+          r = randint(6, prems.length - 1)
           N = prems[r] // on choisit un nombre premier inférieur à 529
 
           if (N > 100) {
@@ -254,7 +253,7 @@ export default function PremierOuPas () {
           break
         case 8: // nombre premier inférieur à 100 pour permettre les tests de divisibilité sans calculatrice
           // rang du nombre premier choisi
-          r = randint(0, 24)
+          r = randint(6, 24)
           N = prems[r] // on choisit un nombre premier inférieur à 100
           texte = N + ''
           r = 0
