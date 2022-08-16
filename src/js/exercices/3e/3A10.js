@@ -202,6 +202,7 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
             texteCorr += `Donc il est bien suffisant d'arrêter la recherche lorsque le carré de p dépasse ${M}.`
             context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
           }
+          context.isHtml ? texteCorr += '<br>' : texteCorr += '\\par'
           if (listeDiviseursM.length % 2 === 0) { // si il y a un nombre pair de diviseurs
             for (let m = 0; m < (listeDiviseursM.length / 2); m++) {
               texteCorr += '' + listeDiviseursM[m] + '$\\times$' + listeDiviseursM[(listeDiviseursM.length - m - 1)] + ` = ${M}<br>`
