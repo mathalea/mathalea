@@ -216,7 +216,7 @@ export default function PremierOuPasCriterePar7Par11 () {
           if (prime1 === prime2) {
             texteCorr += `trois divisieurs qui sont 1, ${prime1} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)}, `
           } else {
-            texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)}, `
+            texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même, `
           };
           texteCorr += texteEnCouleurEtGras(`${N} = ` + nombreAvecEspace(prime1 * prime2) + ' n\'est donc pas premier.')
           bonneReponse = 'non'
