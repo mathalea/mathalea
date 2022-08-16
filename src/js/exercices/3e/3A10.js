@@ -65,13 +65,13 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
         case 1: { // plus grand reste dans une division euclidienne
           diviseur = randint(2, 99)
           const myTexte = {
-            enonce:[
+            enonce: [
               `Dire quel est le plus grand reste possible dans une division euclidienne par ${diviseur}.`,
               'Énoncé avec dividende',
               'Énoncé avec quotient',
               'Énoncé avec diviseur'
             ],
-            correction:[
+            correction: [
               `Si on divise par ${diviseur}, il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`,
               'Correction dividence',
               'Correction quotient',
