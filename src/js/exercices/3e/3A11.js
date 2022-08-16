@@ -252,6 +252,11 @@ export default function FractionsIrreductibles () {
           };
           texteCorr += `\\times ${nb1Dist}} = `
           texteCorr += `\\dfrac{${nb2Dist}}{${nb1Dist}}$.`
+          context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
+          texteCorr += `On peut judicieusement remarquer que $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$
+          donc que rendre la fraction $\\dfrac{B}{A}$ irreductible revient à inverser la fraction irreductible
+          obtenue pour $\\dfrac{A}{B}$ au ${numAlpha(2, true)}.`
+          context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
           // break;
           // case 5 : // calculer le produit A/B x B/A et réduire. Remarque?
           // texte += `<br>`+numAlpha(4)+` Combien alculer le produit de $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ et de $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$.`;
