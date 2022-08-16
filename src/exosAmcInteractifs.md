@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 485 
-- nombre d'exos interactifReady 757 
+- nombre d'exos amcReady 487 
+- nombre d'exos interactifReady 759 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -129,7 +129,7 @@
 |4A10|Nombre premier ou pas|OK|qcmMono|OK|qcm|
 |4A11-0|Décomposer un nombre entier en produit de (petits) facteurs premiers|KO|KO|OK|mathLive|
 |4A11-1|Décomposer un nombre entier en produit de facteurs premiers|KO|KO|OK|mathLive|
-|4A12|Problèmes d'évenements récurrents|OK|AMCNum|OK|mathLive|
+|4A12|Résoudre des problèmes de conjonction de phénomènes|OK|AMCNum|OK|mathLive|
 |4C10-0|Signe d'un produit ou d'un quotient de nombres relatifs|OK|qcmMono|OK|qcm|
 |4C10-1|Signe d'un produit de nombres relatifs|OK|qcmMono|OK|qcm|
 |4C10-2|Signe d'un quotient de nombres relatifs|OK|qcmMono|OK|qcm|
@@ -247,8 +247,8 @@
 |5S14|Calculer des moyennes|OK|AMCHybride|OK|mathLive|
 |6C10-0|Rose additive|KO|KO|OK|custom|
 |6C10-1|Réviser les tables de multiplication|OK|AMCNum|OK|mathLive|
-|6C10-2|Utiliser tables de multiplications pour effectuer produits avec multiple de 10|OK|qcmMono|OK|qcm,mathLive|
-|6C10-3|Utiliser tables de multiplications pour effectuer produits avec décimaux|OK|qcmMono|OK|qcm|
+|6C10-2|Utiliser tables de multiplication pour effectuer produits avec multiple de 10|OK|qcmMono|OK|qcm,mathLive|
+|6C10-3|Utiliser tables de multiplication pour effectuer produits avec décimaux|OK|qcmMono|OK|qcm|
 |6C10-4|Effectuer addition de deux entiers|OK|AMCNum|OK|mathLive|
 |6C10-5|Parcourir un labyrinthe de multiples|OK|AMCOpen|KO|KO|
 |6C10-6|Rose multiplicative|KO|KO|OK|custom|
@@ -384,7 +384,7 @@
 |CM000|Additions et de soustractions|OK|AMCNum|OK|mathLive|
 |CM001|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |CM002|Tables de divisions|OK|AMCNum|OK|mathLive|
-|CM003|Tables de multiplications et de divisions|OK|AMCNum|OK|mathLive|
+|CM003|Tables de multiplication et de divisions|OK|AMCNum|OK|mathLive|
 |CM004|Les quatre opérations|OK|AMCNum|OK|mathLive|
 |CM005|Ajouter 9|OK|AMCNum|OK|mathLive|
 |CM006|Soustraire 9|OK|AMCNum|OK|mathLive|
@@ -420,7 +420,8 @@
 |betaTestcanPredef6_10qN1|CAN 6ième 10 questions (niveau 1)|KO|KO|OK|mathLive|
 |betaTestcanPredef6_10qN2|CAN 6ième 10 questions (niveau 2)|KO|KO|OK|mathLive|
 |betaTexNombre|Somme de deux entier|KO|KO|OK|mathLive|
-|c3C10-1|Tables de multiplications|OK|AMCNum|OK|mathLive|
+|betac3N10-1|Recomposer un entier|OK|AMCNum|OK|custom|
+|c3C10-1|Tables de multiplication|OK|AMCNum|OK|mathLive|
 |c3C10-3|Multiplier un nombre entier (ou décimal) par 10, 100 ou 1 000|OK|AMCNum|OK|mathLive|
 |c3C10-4|Tables d'addition|OK|AMCNum|OK|mathLive|
 |c3C10|Additions, soustractions et multiplications posées de nombres entiers|OK|AMCHybride|OK|mathLive|
@@ -742,6 +743,7 @@
 |can6N12|Passer d’un calcul de fractions décimales à une écriture décimale*|OK|AMCNum|OK|mathLive|
 |can6N13|Passer d’un calcul de fractions décimales à une écriture décimale**|OK|AMCNum|OK|mathLive|
 |can6N14|Déterminer un nombre à partir de son nombre de dixièmes, centièmes, millièmes (QCM)|KO|KO|OK|qcm|
+|can6N15|Lire et écrire des nombres|OK|AMCNum|OK|mathLive|
 |can6P01|Utiliser une proportionnalité|OK|AMCNum|OK|mathLive|
 |can6P02|Utiliser une proportionnalité*|OK|AMCNum|OK|mathLive|
 |can6P03|Déterminer le nombre de km avec une vitesse|OK|AMCNum|OK|mathLive|
