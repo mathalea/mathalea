@@ -19,7 +19,10 @@ export const amcType = 'qcmMono'
 export default function PremierOuPas () {
   Exercice.call(this) // Héritage de la classe Exercice()
   // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = 'Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.'
+  this.consigne = `Justifier que les nombres suivants sont premiers ou pas.
+  <br> Pour les nombres premiers inférieurs à 100, aucune justification n'est attendue.
+  <br>  Penser aux critères de divisibilité.
+   `
   context.isHtml ? this.spacing = 1 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
 
