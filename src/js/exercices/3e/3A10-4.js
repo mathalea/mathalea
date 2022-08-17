@@ -99,7 +99,7 @@ export default function listerDiviseursParDecompositionFacteursPremiers () {
           texte += `\\times ${tabPremiersb[k]}^{${tabMultiplicitesb[k]}}`
         };
       };
-      texte += '$, <br>'
+      texte += '$. <br>'
       texte += numAlpha(0) + ' Compléter le tableau ci-dessous.'
       if (!context.isHtml) {
         texte += '$\\medskip$'
@@ -158,7 +158,7 @@ export default function listerDiviseursParDecompositionFacteursPremiers () {
           texteCorr += `\\times ${tabPremiersb[k]}^{${tabMultiplicitesb[k]}}`
         };
       };
-      texteCorr += '$, <br>'
+      texteCorr += '$ : <br>'
       texteCorr += numAlpha(0) + ' Le tableau donne :'
       // on crée le tableau des entetes de lignes et des colonnes
       let entLignesCorr = []

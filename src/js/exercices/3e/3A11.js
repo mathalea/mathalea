@@ -214,9 +214,9 @@ export default function FractionsIrreductibles () {
           // case 3 : // reduction de A sur B
           texte += '<br>' + numAlpha(2) + ` Rendre la fraction $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ irréductible `
           if (context.isHtml) {
-            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + 'et au ' + numAlpha(1) + '.'
+            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + 'et au ' + numAlpha(1, true) + '.'
           } else {
-            texte += ' à l\'aide des questions ' + numAlpha(0) + 'et ' + numAlpha(1) + '.'
+            texte += ' à l\'aide des questions ' + numAlpha(0) + 'et ' + numAlpha(1, true) + '.'
           };
           texteCorr += '<br>' + numAlpha(2) + ` $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}} = `
           texteCorr += '\\dfrac{'
@@ -235,9 +235,9 @@ export default function FractionsIrreductibles () {
           // case 4 : // reduction de B sur A
           texte += '<br>' + numAlpha(3) + ` Rendre la fraction $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$ irréductible`
           if (context.isHtml) {
-            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + 'et au ' + numAlpha(1) + '.'
+            texte += ' à l\'aide des décompositions obtenues au ' + numAlpha(0) + 'et au ' + numAlpha(1, true) + '.'
           } else {
-            texte += ' à l\'aide des questions ' + numAlpha(0) + 'et ' + numAlpha(1) + '.'
+            texte += ' à l\'aide des questions ' + numAlpha(0) + 'et ' + numAlpha(1, true) + '.'
           };
           texteCorr += '<br>' + numAlpha(3) + ` $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$ donc $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}} = `
           texteCorr += '\\dfrac{'
@@ -252,6 +252,11 @@ export default function FractionsIrreductibles () {
           };
           texteCorr += `\\times ${nb1Dist}} = `
           texteCorr += `\\dfrac{${nb2Dist}}{${nb1Dist}}$.`
+          context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
+          texteCorr += `On peut judicieusement remarquer que $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$
+          donc que rendre la fraction $\\dfrac{B}{A}$ irreductible revient à inverser la fraction irreductible
+          obtenue pour $\\dfrac{A}{B}$ au ${numAlpha(2, true)}.`
+          context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
           // break;
           // case 5 : // calculer le produit A/B x B/A et réduire. Remarque?
           // texte += `<br>`+numAlpha(4)+` Combien alculer le produit de $\\dfrac{A}{B} = \\dfrac{${texNombre(nb1)}}{${texNombre(nb2)}}$ et de $\\dfrac{B}{A} = \\dfrac{${texNombre(nb2)}}{${texNombre(nb1)}}$.`;

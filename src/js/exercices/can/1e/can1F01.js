@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { randint, reduireAxPlusB, texteCentre, ecritureAlgebrique, sp, listeQuestionsToContenuSansNumero } from '../../../modules/outils.js'
+import { randint, listeQuestionsToContenu, reduireAxPlusB, texteCentre, ecritureAlgebrique, sp } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 export const titre = 'Déterminer les coordonnées sommet parabole à partir de la forme canonique'
@@ -20,51 +20,64 @@ export default function CoordonneesSommetParabole () {
   this.formatChampTexte = 'largeur15 inline'
 
   this.nouvelleVersion = function () {
-    const a = randint(-10, 10, [0, -1, 1])
-    const b = randint(-5, 5, 0)
-    const c = randint(-5, 5)
-    if (c === 0) {
-      this.listeQuestions = [`Les coordonnées du sommet de la parabole représentant 
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+
+    let texte, texteCorr, a, b, c
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      a = randint(-10, 10, [0, -1, 1])
+      b = randint(-5, 5, 0)
+      c = randint(-5, 5)
+      if (c === 0) {
+        texte = `Les coordonnées du sommet de la parabole représentant 
     la fonction $f$ définie sur $\\mathbb{R}$ 
     par $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2$ sont  :
-    ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(5)} ;
-    ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`]
-      if (b > 0) {
-        this.listeCorrections = [`On reconnaît la forme canonique d'une fonction polynôme du second degré : 
+    ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + sp(2) : sp(5)} ;
+    ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`
+        if (b > 0) {
+          texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré : 
         ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')}Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont : 
     $(\\alpha;\\beta)$.
     ${texteCentre(` $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2=${reduireAxPlusB(0, a)}(x-(\\underbrace{-${b}}_{\\alpha}))^2+0$`)}.
-     Ainsi, $\\alpha=-${b}$ et $\\beta=${c}$ et on en déduit que les coordonnées du sommet de la parabole sont : $(-${b};${c})$.`]
-      } else {
-        this.listeCorrections = [`On reconnaît la forme canonique d'une fonction polynôme du second degré : 
+     Ainsi, $\\alpha=-${b}$ et $\\beta=${c}$ et on en déduit que les coordonnées du sommet de la parabole sont : $(-${b};${c})$.`
+        } else {
+          texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré : 
         ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')} Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont : 
   $(\\alpha;\\beta)$.
   ${texteCentre(`$f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2$`)}
-     Puisque $\\alpha=${-b}$ et $\\beta=${c}$, on en déduit que les coordonnées du sommet de la parabole sont : $(${-b};${c})$.`]
-      }
-    } else {
-      this.listeQuestions = [`Les coordonnées du sommet de la parabole représentant 
+     Puisque $\\alpha=${-b}$ et $\\beta=${c}$, on en déduit que les coordonnées du sommet de la parabole sont : $(${-b};${c})$.`
+        }
+      } else {
+        texte = `Les coordonnées du sommet de la parabole représentant 
     la fonction $f$ définie sur $\\mathbb{R}$ 
     par     $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$ sont  :
-    ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(5)} ;
-    ${this.interactif ? ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`]
-      if (b > 0) {
-        this.listeCorrections = [`On reconnaît la forme canonique d'une fonction polynôme du second degré : 
+    ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + sp(2) : sp(5)} ;
+    ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`
+        if (b > 0) {
+          texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré : 
         ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')} Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont : 
         $(\\alpha;\\beta)$.
         ${texteCentre(`$f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}
         =${reduireAxPlusB(0, a)}(x-(\\underbrace{-${b}}_{\\alpha}))^2${ecritureAlgebrique(c)}$`)}
-        Ainsi, $\\alpha=-${b}$ et $\\beta=${c}$ et on en déduit que les coordonnées du sommet de la parabole sont : $(${-b};${c})$.`]
-      } else {
-        this.listeCorrections = [`On reconnaît la forme canonique d'une fonction polynôme du second degré : 
+        Ainsi, $\\alpha=-${b}$ et $\\beta=${c}$ et on en déduit que les coordonnées du sommet de la parabole sont : $(${-b};${c})$.`
+        } else {
+          texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré : 
         ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')}  Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont : 
         $(\\alpha;\\beta)$.
         ${texteCentre(`$f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$`)}
-         Puisque $\\alpha=${-b}$ et $\\beta=${c}$, on en déduit que les coordonnées du sommet de la parabole sont : $(${-b};${c})$.`]
+         Puisque $\\alpha=${-b}$ et $\\beta=${c}$, on en déduit que les coordonnées du sommet de la parabole sont : $(${-b};${c})$.`
+        }
       }
+      setReponse(this, 2 * i, -b)
+      setReponse(this, 2 * i + 1, c)
+
+      if (this.questionJamaisPosee(i, a, b, c)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
     }
-    setReponse(this, 0, -b)
-    setReponse(this, 1, c)
-    listeQuestionsToContenuSansNumero(this)
+    listeQuestionsToContenu(this)
   }
 }

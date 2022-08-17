@@ -425,9 +425,9 @@ function contenuExerciceHtml (obj, numeroExercice) {
 
       if (obj.questionJamaisPosee(numQuestion, obj.question)) {
         if (obj.nbQuestions === 1) {
-          contenuUnExercice += `<div><div class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question}</div></div>`
+          contenuUnExercice += `<div><div class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}</div></div>`
         } else {
-          contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question}`
+          contenuUnExercice += `<li class="question" id="exercice${numeroExercice - 1}Q${numQuestion}" ${dataTailleDiaporama(obj)}>${obj.question.replace(/\\dotfill/g, '..............................').replace(/\\not=/g, '≠').replace(/\\ldots/g, '....')}`
         }
         if (obj.interactif && obj.interactifReady) {
           if (obj.formatChampTexte) {
