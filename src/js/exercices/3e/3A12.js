@@ -206,12 +206,12 @@ export default function ppcmEngrenages () {
           texteCorr += `<br> Décomposition de $${nbDentsr2}$ en produit de facteurs premiers :  $${nbDentsr2} = ${decompositionFacteursPremiers(nbDentsr2)}$.`
           texteCorr += '<br>'
           if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
-            texteCorr += '<b>Proposition de trois corrections valables :</b> <br>'
+            texteCorr += '<b>Proposition de trois corrections valables pour la déduction :</b> <br>'
             texteCorr += '<b>Proposition de correction 1 :</b> <br>'
 
             texteCorr += `D'après les calculs précédents, $ppcm(${nbDentsr1},${nbDentsr2})= ${decompositionFacteursPremiers(ppcm(nbDentsr1, nbDentsr2))}$.<br>`
 
-            texteCorr += 'Le $ppcm(' + nbDentsr1 + ';' + nbDentsr2 + ')=' + nbDentsr1 + '\\times' + nbDentsr2 + `$ donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
+            texteCorr += `Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
             texteCorr += katexPopup2(
               numeroExercice + 4,
               1,
@@ -223,8 +223,8 @@ export default function ppcmEngrenages () {
           if (pgcd(nbDentsr1, nbDentsr2) === 1) {
             texteCorr += '<br><b>Proposition de correction 2 :</b> <br>'
 
-            texteCorr += `D'après les calculs précédents, $pgcd(${nbDentsr1},${nbDentsr2})= ${pgcd(nbDentsr1, nbDentsr2) === 1 ? 1 : ''} ${decompositionFacteursPremiers(pgcd(nbDentsr1, nbDentsr2))}$.<br>`  
-            texteCorr += `Le $pgcd(${nbDentsr1};${nbDentsr2})=1$ donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
+            texteCorr += `D'après les calculs précédents, $pgcd(${nbDentsr1},${nbDentsr2})= ${pgcd(nbDentsr1, nbDentsr2) === 1 ? 1 : ''} ${decompositionFacteursPremiers(pgcd(nbDentsr1, nbDentsr2))}$.<br>`
+            texteCorr += `Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
             texteCorr += katexPopup2(
               numeroExercice + 5,
               1,
@@ -236,17 +236,17 @@ export default function ppcmEngrenages () {
           if (pgcd(nbDentsr1, nbDentsr2) === 1) {
             texteCorr += '<br><b>Proposition de correction 3 :</b> <br>'
 
-            texteCorr += `D'après les calculs précédents, le seul divseur commun à $${nbDentsr1}$ et $${nbDentsr2}$ vaut $1$.`
+            texteCorr += `D'après les calculs précédents, le seul diviseur commun à $${nbDentsr1}$ et $${nbDentsr2}$ vaut $1$.<br> `
+            texteCorr += `Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
             texteCorr += katexPopup2(
-              numeroExercice + 5,
+              numeroExercice + 6,
               1,
               'nombres premiers entre eux.',
               'Définition : Nombres premiers entre eux',
               txtPopupTer
             )
-            texteCorr += `<br> Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des nombnres pemiers entre eux.<br>`
           };
-
+          texteCorr += '<br>'
           texteCorr += numAlpha(1) + ` Pour retrouver la position initiale,
           chaque roue doit tourner de façon à ce que le nombre total de dents utilisé soit un multiple de son nombre
           de dents.<br>
