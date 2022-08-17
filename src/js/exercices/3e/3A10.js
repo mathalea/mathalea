@@ -44,7 +44,7 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
 
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
       // this.boutonAide = '';
-      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A10.pdf', 'Aide mémoire sur la division euclidienne (Sébastien Lozano)', 'Aide mémoire')
+      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A10.pdf', 'Aide-mémoire sur la division euclidienne (Sébastien Lozano)', 'Aide-mémoire')
       // this.boutonAide += modalVideo('conteMathsNombresPremiers','https://coopmaths.fr/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
     } else { // sortie LaTeX
     };
@@ -65,31 +65,34 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
         case 1: { // plus grand reste dans une division euclidienne
           diviseur = randint(2, 99)
           const myTexte = {
-            enonce: [
-              `Dire quel est le plus grand reste possible dans une division euclidienne par ${diviseur}.`,
-              'Énoncé avec dividende',
-              'Énoncé avec quotient',
-              'Énoncé avec diviseur'
+            vocabulaire: [
+              'reste',
+              'dividende',
+              'quotient',
+              'diviseur'
             ],
             correction: [
-              `Si on divise par ${diviseur}, il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`,
-              'Correction dividence',
-              'Correction quotient',
-              'Correction diviseur'
+              `il ne peut pas rester plus de ${diviseur - 1}, sinon c'est qu'on peut encore ajouter au moins 1 fois ${diviseur} dans le dividende et donc 1 au quotient.`,
+              'le dividende peut être quelconque, donc on peut le choisir aussi grand que l\'on veut.',
+              'le quotient dépendra du dividende, donc il sera d\'autant plus grand que le dividende l\'est.',
+              'c\'est que le diviseur est fixé, donc le plus grand c\'est lui-même !'
             ]
           }
-          texte = myTexte.enonce[0]
-          texteCorr = myTexte.correction[0]
-          // texte = '<br> - '
-          // texte += myTexte.enonce[0] + '<br> - '
-          // texte += myTexte.enonce[1] + '<br> - '
-          // texte += myTexte.enonce[2] + '<br> - '
-          // texte += myTexte.enonce[3] + '<br>'
-          // texteCorr = '<br> - '
-          // texteCorr += myTexte.correction[0] + '<br> - '
-          // texteCorr += myTexte.correction[1] + '<br> - '
-          // texteCorr += myTexte.correction[2] + '<br> - '
-          // texteCorr += myTexte.correction[3] + '<br>'
+
+          const myChoice = randint(0, 3)
+          texte = `Quel est le plus grand ${myTexte.vocabulaire[myChoice]} possible dans une division euclidienne par ${diviseur}.`
+          texteCorr = `Si on divise par ${diviseur}, `
+          texteCorr += myTexte.correction[myChoice]
+
+          // texte += '<hr>'
+          // texteCorr += '<hr>'
+          // for (let j = 0; j<4; j++) {
+          //   texte += `- Quel est le plus grand ${myTexte.vocabulaire[j]} possible dans une division euclidienne par ${diviseur}.`
+          //   texte += '<br>'
+          //   texteCorr += `Si on divise par ${diviseur}, `
+          //   texteCorr += myTexte.correction[j]
+          //   texteCorr += '<br>'
+          // }
           break
         }
         case 2: // quotient et reste d'une division euclidienne donnée
