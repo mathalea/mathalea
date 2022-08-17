@@ -1283,10 +1283,8 @@ export function droiteParPointEtPente (A, k, nom = '', color = 'black') {
  * @param {boolean} [mil=true] Trace ou nom le point du milieu.
  * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example CodageMilieu(M,N) // Code, en noir, le milieu du segment[MN] avec les marques 'x', en plaçant le milieu
- * @example CodageMilieu(M,N,'red','oo',false) // Code, en rouge, le milieu du segment[MN] avec les marques 'oo', sans placer le milieu.
  * @author Jean-Claude Lhote
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
@@ -1317,8 +1315,6 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
  * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
  * @param {boolean} [mil=true] Trace ou nom le point du milieu.
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example codageMilieu(M,N) // Code, en noir, le milieu du segment[MN] avec les marques 'x', en plaçant le milieu
  * @example codageMilieu(M,N,'red','oo',false) // Code, en rouge, le milieu du segment[MN] avec les marques 'oo', sans placer le milieu.
  * @author Jean-Claude Lhote
@@ -1348,15 +1344,8 @@ export function codageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example Mediatrice(M,N)
- * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1, avec une opacité de 100 % sans autre option
- * @example Mediatrice(M,N,'d','blue')
- * // Trace, en bleu, la médiatrice du segment[MN], d'épaisseur 1, avec une opacité de 100 % et qui s'appelle 'd'
- * @example Mediatrice(M,N,'','blue','red','green',true,true,'OO','XX',2,0.5,3)
- * // Trace, en bleu, la médiatrice du segment[MN], d'épaisseur 2, avec une opacité de 50 % sans nom
- * // Les traits de construction sont dessinés en vert avec la marque 'OO' pour le segment initial et la marque 'XX' pour les rayons, toutes ces marques étant rouge.
  * @author Rémi Angot {amendée par Eric Elter en juin 2022}
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function Mediatrice (
@@ -1470,10 +1459,6 @@ function Mediatrice (
  * @param {number} [epaisseurMediatrice = 1] Epaisseur de la médiatrice
  * @param {number} [opaciteMediatrice = 1] Taux d'opacité de la médiatrice
  * @param {number} [pointillesMediatrice = 0] Si cette valeur est entre 1 et 5, la médiatrice est en pointillés
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example mediatrice(M,N)
  * // Trace, en rouge, la médiatrice du segment[MN], d'épaisseur 1, avec une opacité de 100 % sans autre option
  * @example mediatrice(M,N,'d','blue')
@@ -1500,10 +1485,8 @@ export function mediatrice (A, B, nom = '', couleurMediatrice = 'red', color = '
  * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example CodageMediatrice(M,N) // Code, en noir, la médiatrice du segment[MN] avec les marques 'x'
- * @example CodageMediatrice(M,N,'red','oo') // Code, en rouge, la médiatrice du segment[MN] avec les marques 'oo'
  * @author  Rémi Angot
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function CodageMediatrice (A, B, color = 'black', mark = '×') {
@@ -1537,18 +1520,14 @@ function CodageMediatrice (A, B, color = 'black', mark = '×') {
  * @param {Point} B Seconde extrémité du segment
  * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
  * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example codageMediatrice(M,N) // Code, en noir, la médiatrice du segment[MN] avec les marques 'x'
  * @example codageMediatrice(M,N,'red','oo') // Code, en rouge, la médiatrice du segment[MN] avec les marques 'oo'
  * @author  Rémi Angot
  * @return {CodageMediatrice}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageMediatrice (...args) {
-  return new CodageMediatrice(...args)
+export function codageMediatrice (A, B, color = 'black', mark = '×') {
+  return new CodageMediatrice(A, B, color, mark)
 }
 
 /**
@@ -1568,14 +1547,8 @@ export function codageMediatrice (...args) {
  * @param {number} [pointillesBissectrice = 0] Si cette valeur est entre 1 et 5, la bissectrice est en pointillés
  * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example Bissectrice(N,R,J)
- * // Trace, en rouge, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %, sans autre option
- * @example Bissectrice(N,R,J,'blue')
- * // Trace, en bleu, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %, sans autre option
- * @example Bissectrice(N,R,J,'blue','red','green',true,true,'||',6,2,0.5,3)
- * // Trace, en rouge, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %. Les traits de construction sont dessinés en vert avec les marques '||' en rouge.
  * @author Rémi Angot (amendée par Eric Elter en juin 2022)
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function Bissectrice (
@@ -1680,8 +1653,6 @@ function Bissectrice (
  * @param {number} [epaisseurBissectrice = 1] Epaisseur de la bissectrice
  * @param {number} [opaciteBissectrice = 1] Taux d'opacité de la bissectrice
  * @param {number} [pointillesBissectrice = 0] Si cette valeur est entre 1 et 5, la bissectrice est en pointillés
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example bissectrice(N,R,J)
  * // Trace, en rouge, la bissectrice de l'angle NRJ, d'épaisseur 1 et d'opacité 100 %, sans autre option
  * @example bissectrice(N,R,J,'blue')
@@ -1705,10 +1676,8 @@ export function bissectrice (A, O, B, couleurBissectrice = 'red', color = 'blue'
  * @param {string} [mark='x'] Symbole posé sur les arcs
  * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example Codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
- * @example Codagebissectrice(M,N,P,'red','oo') // Code, en rouge, la bissectrice de l'angle MNP avec les marques 'oo'
  * @author Jean-Claude Lhote
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
@@ -1745,8 +1714,6 @@ function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
  * @param {Point} B Point sur l'autre côté de l'angle
  * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
  * @param {string} [mark='x'] Symbole posé sur les arcs
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
  * @example codagebissectrice(M,N,P,'red','oo') // Code, en rouge, la bissectrice de l'angle MNP avec les marques 'oo'
  * @author Jean-Claude Lhote
@@ -2739,7 +2706,7 @@ export function polygoneRegulier (A, B, n, color = 'black') {
       -180 + 360 / n
     )
   }
-  return polygone(listePoints, color)
+  return new Polygone(listePoints, color)
 }
 
 /**
@@ -3256,14 +3223,8 @@ export function aireTriangle (p) {
  * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example Cercle (A,5)
- * // Construit un cercle c1 noir de centre A et de rayon 5
- * @example Cercle (A,5,'red','blue','#f15929',3,2,0.3,0.8)
- * // Construit un disque de centre A et de rayon 5, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 1 d'épaisseur et avec 10 d'écart entre deux hachures
- * @example Cercle (A,5,'red','blue','#f15929',3,2,0.3,0.8,2,12)
- * // Construit un disque de centre A et de rayon 5, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 2 d'épaisseur et avec 12 d'écart entre deux hachures
  * @author Rémi Angot
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = '', opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
@@ -3441,10 +3402,6 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
  * @param {number} [distanceDesHachures = 10] Distance des hachures si couleur de remplissage choisie.
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example cercle (A,5)
  * // Construit un cercle c1 noir de centre A et de rayon 5
  * @example cercle (A,5,'red','blue','#f15929',3,2,0.3,0.8)
@@ -3742,13 +3699,12 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
  * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 1 d'épaisseur et avec 10 d'écart entre deux hachures
  * @example cercleCentrePoint (A,B,'red','blue','#f15929',3,2,0.3,0.8,2,12)
  * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 2 d'épaisseur et avec 12 d'écart entre deux hachures
- * @returns {cercle}
+ * @returns {Cercle}
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
 export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = '', opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
-  // return new CercleCentrePoint(O, M, color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
-  return cercle(O, longueur(O, M), color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
+  return new Cercle(O, longueur(O, M), color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
 }
 
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
@@ -3764,12 +3720,8 @@ export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage =
  * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example Arc(M,0,35)
-  // Trace l'arc en noir de centre 0, d'extrémité M et d'angle orienté 35° (sans remplissage et sans hachures)
- * @example Arc(M,O,true,-40,'red','green',0.8,'white')
-  // Trace l'arc en vert de centre 0, d'extrémité M et d'angle orienté -40°, rempli en rouge à 80 %, avec des hachures blanches
  * @author Jean-Claude Lhote
- * @private
+ * @class
  **/
 // JSDOC Validee par EE Juin 2022
 function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
@@ -3999,10 +3951,6 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
  * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example arc(M,0,35)
   // Trace l'arc en noir de centre 0, d'extrémité M et d'angle orienté 35° (sans remplissage et sans hachures)
  * @example arc(M,O,true,-40,'red','green',0.8,'white')
@@ -4024,10 +3972,6 @@ export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
  * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example arcPointPointAngle(A,B,35)
   // Trace l'arc en noir d'extrémités A et B (dans cet ordre) et d'angle orienté 35° (sans remplissage et sans hachures)
  * @example arcPointPointAngle(A,B,true,-40,'red','green',0.8,'white')
@@ -4443,12 +4387,8 @@ export function dansLaCibleRonde (x, y, rang, taille, cellule) {
  * @param {number} [opacite=0.5] Opacité de la cible
  * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example CibleCarree({})
- * // Crée une cible Carree, de centre (0,0), avec 4 carrés en largeur dont chacune a pour côté 0.6, de couleur grise avec une opacité de 50 %
- * @example CibleCarree({ x: 2, y: -1, rang: 5, num: 17, taille: 0.5, color: 'blue', opacite: 0.8 })
- * // Crée une cible Carree, de centre (2,-1), avec 5 carrés en largeur dont chacune a pour côté 0.5, de couleur bleue avec une opacité de 80 %, portant le numéro 17
  * @author Jean-Claude Lhote
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
@@ -4519,8 +4459,6 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
  * @param {number} [taille=0.6] Taille des cases
  * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
  * @param {number} [opacite=0.5] Opacité de la cible
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example cibleCarree({})
  * // Crée une cible Carree, de centre (0,0), avec 4 carrés en largeur dont chacune a pour côté 0.6, de couleur grise avec une opacité de 50 %
  * @example cibleCarree({ x: 2, y: -1, rang: 5, num: 17, taille: 0.5, color: 'blue', opacite: 0.8 })
@@ -4543,12 +4481,8 @@ export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color 
  * @param {number} [opacite=0.5] Opacité de la cible
  * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example CibleRonde({})
- * // Crée une cible ronde, de centre (0,0), possédant 3 cercles, avec une distance de 0,3 entre chaque cercle consécutifu cercle intérieur est 5, de couleur grise avec une opacité de 50 %.
- * @example CibleRonde({ x: 2, y: -1, rang: 10, taille: 1, color: 'blue', opacite: 0.8 })
- * // Crée une cible ronde, de centre (2,-1), possédant 10 cercles, avec une distance de 1 entre chaque cercle consécutifu cercle intérieur est 5, de couleur bleue avec une opacité de 80 %.
  * @author Jean-Claude Lhote
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray', opacite = 0.5 }) {
@@ -4607,8 +4541,6 @@ function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color = 'gray'
  * @param {number} [taille=0.3] Distance entre le centre de la cible et le premier cercle (et entre chaque cercle consécutif)
  * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
  * @param {number} [opacite=0.5] Opacité de la cible
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example cibleRonde({})
  * // Crée une cible ronde, de centre (0,0), possédant 3 cercles, avec une distance de 0,3 entre chaque cercle consécutifu cercle intérieur est 5, de couleur grise avec une opacité de 50 %.
  * @example cibleRonde({ x: 2, y: -1, rang: 10, taille: 1, color: 'blue', opacite: 0.8 })
@@ -4635,14 +4567,8 @@ export function cibleRonde ({ x = 0, y = 0, rang = 3, num = 1, taille = 0.3, col
  * @param {number} [opacite=0.5] Opacité de la cible
  * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example CibleCouronne({})
- * // Crée une cible couronne circulaire, de centre (0,0), dont le rayon du cercle intérieur est 5, la longueur des segments est 1, la première lettre démarre à 0°,
- * //    le nombre de divisions de la couronne est 18, le nombre de subdivisions est 3, leur opacité est 50 %, avec les lettres apparentes, de couleur grise
- * @example CibleCouronne({ x: 2, y: -1, taille: 4, taille2: 2, depart: 35, nbDivisions: 12, nbSubDivisions: 2, semi: true, label: false, color: 'blue', opacite: 0.8 })
- * // Crée une cible couronne semi-circulaire, de centre (2,-1), dont le rayon du cercle intérieur est 4, la longueur des segments est 2, la première lettre démarre à 35°,
- * //    le nombre de divisions de la couronne est 12, le nombre de subdivisions est 2, leur opacité est 80 %, avec les lettres non apparentes, de couleur bleue
  * @author Jean-Claude Lhote
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbDivisions = 18, nbSubDivisions = 3, semi = false, label = true, color = 'gray', opacite = 0.5 }) {
@@ -4721,8 +4647,6 @@ function CibleCouronne ({ x = 0, y = 0, taille = 5, taille2 = 1, depart = 0, nbD
  * @param {boolean} [label=true] Pour faire apparaître ou disparaître les lettres dans la couronne
  * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
  * @param {number} [opacite=0.5] Opacité des segments de divisions et subdivisions
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example cibleCouronne({})
  * // Crée une cible couronne circulaire, de centre (0,0), dont le rayon du cercle intérieur est 5, la longueur des segments est 1, la première lettre démarre à 0°,
  * //    le nombre de divisions de la couronne est 18, le nombre de subdivisions est 3, leur opacité est 50 %, avec les lettres apparentes, de couleur grise
@@ -5220,7 +5144,7 @@ export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above', color
       x = q * (b * b * A.x - a * b * A.y - a * c) * (1 - k) + k * A.x
       y = q * (a * a * A.y - a * b * A.x + (a * a * c) / b) * (1 - k) + (k * c) / b + k * A.y - c / b
     }
-    return point(x, y, nom, positionLabel)
+    return new Point(x, y, nom, positionLabel)
   }
   if (A.constructor === Polygone) {
     const p2 = []
@@ -5228,12 +5152,12 @@ export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above', color
       p2[i] = affiniteOrtho(A.listePoints[i], d, k)
       p2[i].nom = A.listePoints[i].nom + '\''
     }
-    return polygone(p2, color)
+    return new Polygone(p2, color)
   }
   if (A.constructor === Droite) {
     const M = affiniteOrtho(point(A.x1, A.y1), d, k)
     const N = affiniteOrtho(point(A.x2, A.y2), d, k)
-    return droite(M, N, color)
+    return new Droite(M, N, color)
   }
   if (A.constructor === Segment) {
     const M = affiniteOrtho(A.extremite1, d, k)
@@ -5249,8 +5173,7 @@ export function affiniteOrtho (A, d, k, nom = '', positionLabel = 'above', color
     } else O = point(0, -c / b)
     const M = translation(O, A)
     const N = affiniteOrtho(M, d, k)
-    const v = vecteur(O, N)
-    return v
+    return new Vecteur(O, N)
   }
 }
 /**
@@ -5693,7 +5616,7 @@ export function centreGraviteTriangle (A, B, C, nom = '', positionLabel = 'above
   const p = pointIntersectionDD(d, e)
   const x = p.x
   const y = p.y
-  return point(x, y, nom, positionLabel)
+  return new Point(x, y, nom, positionLabel)
 }
 
 /**
@@ -5814,7 +5737,7 @@ export function centreCercleCirconscrit (A, B, C, nom = '', positionLabel = 'abo
   const p = pointIntersectionDD(d, e)
   const x = p.x
   const y = p.y
-  return point(x, y, nom, positionLabel)
+  return new Point(x, y, nom, positionLabel)
 }
 
 /*
@@ -5838,12 +5761,8 @@ export function centreCercleCirconscrit (A, B, C, nom = '', positionLabel = 'abo
  * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example CodageAngleDroit(A,J,T)
- * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur noire, de taille 0,4, d'épaisseur 0,5 avec une opacité de 100 %, sans remplissage
- * @example CodageAngleDroit(A,J,T,'pink',1,0.2,0.6,'blue',0.2)
- * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur rose, de taille 1, d'épaisseur 0,2 avec une opacité de 60 %, rempli en bleu avec une opacité de 20%.
  * @author Rémi Angot
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 1) {
@@ -5934,10 +5853,6 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
  * @param {number} [opacite=1] Opacité du trait
  * @param {string} [couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
  * @param {number} [opaciteDeRemplissage=1] Taux d'opacité du remplissage
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example CodageAngleDroit(A,J,T)
  * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur noire, de taille 0,4, d'épaisseur 0,5 avec une opacité de 100 %, sans remplissage
  * @example CodageAngleDroit(A,J,T,'pink',1,0.2,0.6,'blue',0.2)
@@ -5960,12 +5875,8 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
  * @param  {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
  * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example  AfficheLongueurSegment(A,B)
- * // Affiche la longueur du segment [AB] (en noir, à 0,5 "cm" du segment, complétée par l'unité cm et parallèlement au segment).
- * @example  AfficheLongueurSegment(A,B,'blue',1,'mm',true)
- * // Affiche la longueur du segment [AB], en bleu, à 1 "cm" du segment, complétée par l'unité mm et horizontalement.
  * @author Rémi Angot
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', horizontal = false) {
@@ -6004,8 +5915,6 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', h
  * @param  {number} [d=0.5] Distance entre l'affichage de la longueur et le segment.
  * @param  {string} [unite='cm'] Affiche cette unité après la valeur numérique de la longueur.
  * @param  {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example  afficheLongueurSegment(A,B)
  * // Affiche la longueur du segment [AB] (en noir, à 0,5 "cm" du segment, complétée par l'unité cm et parallèlement au segment).
  * @example  afficheLongueurSegment(A,B,'blue',1,'mm',true)
@@ -6159,7 +6068,7 @@ export function texteSurArc (texte, A, B, angle, color = 'black', d = 0.5, horiz
  * @param {boolean} [mesureEnGras=false] True pour mettre en gras la mesure affichée.
  * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.5, arcEpaisseur = 1 } = {}) {
@@ -6220,8 +6129,6 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
  * @param {number} [opaciteDeRemplissage=0.5] Taux d'opacité du remplissage.
  * @param {number} [arcEpaisseur=1] Epaisseur de l'arc.
  * @param {boolean} [mesureEnGras=false] True pour mettre en gras la mesure affichée.
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example afficheMesureAngle(M,N,O)
  * // Affiche la mesure de l'angle MNO (en noir, avec un arc de rayon 1,5 "cm").
  * @example afficheMesureAngle(M,N,O,'red',2,'pop',{ecart:1,saillant:false,colorArc:'blue',rayon:true,couleurDeRemplissage:'#f15929',opaciteDeRemplissage:0.8,arcEpaisseur:2,mesureEnGras:true})
@@ -6245,12 +6152,8 @@ export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
  * @param {boolean} [horizontal=false]  Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
  * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example AfficheCoteSegment(s)
- * // Affiche la côte du segment s (avec une flèche noire d\'épaisseur 1 "cm", placée 0.5 "cm" sous le segment, avec la longueur du segment, en cm, écrite en noir, 0,5 "cm" au-dessus, et parallèle au segment.
- * @example AfficheCoteSegment(s,'x',-1,'red',2,1,'blue',true)
- * // Affiche la côte du segment s, avec une flèche rouge d\'épaisseur 2 "cm", placée 1 "cm" sous le segment, avec le texte 'x' écrit en bleu, 1 "cm" au-dessus, et horizontalement.
  * @author Jean-Claude Lhote
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function AfficheCoteSegment (
@@ -6339,8 +6242,6 @@ function AfficheCoteSegment (
  * @param {number} [positionValeur=0.5] Position de la valeur par rapport à la flèche. Valeur négative ou positive selon la position voulue.
  * @param {string} [couleurValeur='black']  Couleur de la valeur indiquée : du type 'blue' ou du type '#f15929'.
  * @param {boolean} [horizontal=false]  Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example afficheCoteSegment(s)
  * // Affiche la côte du segment s (avec une flèche noire d\'épaisseur 1 "cm", placée 0.5 "cm" sous le segment, avec la longueur du segment, en cm, écrite en noir, 0,5 "cm" au-dessus, et parallèle au segment.
  * @example afficheCoteSegment(s,'x',-1,'red',2,1,'blue',true)
@@ -6982,13 +6883,8 @@ export function droiteGraduee2 (...args) {
  * @param {number} [tailleExtremites=4] Taille des flèches à l'extrémité des axes.
  * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example Axes()
- * // Trace un repère orthonormé dont les axes des abscisses et des ordonnées ont pour minimum -30, maximum -30, épaisseur 2, avec un pas de 1 et de couleur noire. Le tiret de chaque graduation mesure 0,4.
- * @example Axes(-10,-5,20,3,0.25,2,0.5,1,'red',2)
- * // Trace un repère orthonormé rouge dont les axes des abscisses et des ordonnées ont pour épaisseur 1 et dont le tiret de chaque graduation mesure 0,5.
- * // L'axe des abscisses va de -10 à 20 avec un pas de 2. L'axe des ordonnées va de -5 à 3 avec un pas de 0,5. Les flèches des axes mesurent 2.
  * @author Rémi Angot
- * @private
+ * @class
 */
 // JSDOC Validee par EE Juin 2022
 function Axes (
@@ -7056,8 +6952,6 @@ function Axes (
  * @param {number} [ystep=1] Pas sur l'axe des ordonnées
  * @param {number} [epaisseur=2] Epaisseur des deux axes
  * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example axes()
  * // Trace un repère orthonormé dont les axes des abscisses et des ordonnées ont pour minimum -30, maximum -30, épaisseur 2, avec un pas de 1 et de couleur noire. Le tiret de chaque graduation mesure 0,4.
  * @example axes(-10,-5,20,3,0.25,2,0.5,1,'red')
@@ -7093,12 +6987,8 @@ export function axes (
  * @param {string} [titre=''] Titre de l'axe
  * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
- * @example AxeY()
- * // Trace un axe noir vertical gradué de -2 à 5, de 1 en 1, avec une petite graduation entre deux graduations principales (de longueur 0.2 et d'épaisseur 2), et sans titre
- * @example AxeY(0,10,0.25,2,1,'red',5,'titre')
- * // Trace un axe rouge vertical gradué de 0 à 10, de 2 en 2, avec quatre petites graduations entre deux graduations principales (de longueur 0.25 et d'épaisseur 1), et avec comme titre de l'axe : titre
  * @author Frédéric Piou
- * @private
+ * @class
 */
 // JSDOC Validee par EE Juin 2022
 function AxeY (
@@ -7160,8 +7050,6 @@ function AxeY (
  * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
  * @param {number} [ytick=2] Nombre de partage entre deux graduations principales
  * @param {string} [titre=''] Titre de l'axe
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @example axeY()
  * // Trace un axe noir vertical gradué de -2 à 5, de 1 en 1, avec une petite graduation entre deux graduations principales (de longueur 0.2 et d'épaisseur 2), et sans titre
  * @example axeY(0,10,0.25,2,1,'red',5,'titre')
@@ -9483,21 +9371,23 @@ export function lectureAntecedent (...args) {
 
 /**
  * Trace la courbe d'une fonction dans un repère
- * @param {string} [color='black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
- * @param {number} [epaisseur=2]  Epaisseur du tracé de la courbe
- * @param {number} [xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
- * @param {number} [xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
- * @param {number} [yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
- * @param {number} [yMax = repere.yMax]  Ordonnée maximale du tracé de la courbe
- * @param {number} [step=0.2 / repere.xUnite]  Pas entre deux abscisses du tracé de la fonction
- * courbe(f,{repere,color,epaisseur,step,xMin,xMax,yMin,yMax,xUnite,yUnite}) // Trace la courbe de f
- *
+ * @param {function} f fonction à tracer comme par exemple : const f = x => a * x ** 2 + b * x + c
+ * @param {Object} parametres A saisir entre accolades
+ * @param {Repere} parametres.repere
+ * @param {string} [parametres.color='black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur=2]  Epaisseur du tracé de la courbe
+ * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
+ * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
+ * @param {number} [parametres.yMax = repere.yMax]  Ordonnée maximale du tracé de la courbe
+ * @param {number} [parametres.step=0.2 / repere.xUnite]  Pas entre deux abscisses du tracé de la fonction
+ * @example courbe(f,{repere,color,epaisseur,step,xMin,xMax,yMin,yMax,xUnite,yUnite}) // Trace la courbe de f
  * @author Rémi Angot
  */
 
 function Courbe (f, {
-  repere = {},
-  // repere,
+  // repere = {},
+  repere,
   color = 'black',
   epaisseur = 2,
   step = false,
@@ -9784,6 +9674,7 @@ export function courbeSpline (...args) {
 
 /**
  * @SOURCE : https://gist.github.com/ericelliott/80905b159e1f3b28634ce0a690682957
+ * @private
  */
 // y1: start value
 // y2: end value
@@ -11337,7 +11228,7 @@ export function scratchblock (stringLatex) {
  * Affiche (en HTML) un crayon avec la mine sur le point A
  * @param {point} A
  * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @private
+ * @class
  */
 // JSDOC Validee par EE Juin 2022
 function AfficherCrayon (A) {
