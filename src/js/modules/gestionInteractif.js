@@ -70,7 +70,6 @@ export function setReponse (exercice, i, valeurs, { digits = 0, decimals = 0, si
   }
   let laReponseDemandee
   let test
-  console.log(ComputeEngine)
 
   const engine = new ComputeEngine()
   switch (formatInteractif) {

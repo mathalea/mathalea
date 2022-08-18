@@ -1,5 +1,5 @@
 import TablesDeMultiplications from '../6e/_Tables_de_multiplications.js'
-export const titre = 'Tables de multiplications'
+export const titre = 'Tables de multiplication'
 export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Tables_de_multiplications.js'
 
 /**

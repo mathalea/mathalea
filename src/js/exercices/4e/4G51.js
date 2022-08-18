@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, tracePoint, milieu, labelPoint, segment, translation2Points, similitude, grille, seyes, mathalea2d, cone, longueur, codageAngleDroit, semiEllipse, colorToLatexOrHTML } from '../../modules/2d.js'
+import { point, tracePoint, milieu, labelPoint, segment, translation2Points, similitude, grille, seyes, mathalea2d, cone, longueur, codageAngleDroit, semiEllipse } from '../../modules/2d.js'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Compléter une représentation en perspective cavalière'
 
@@ -135,19 +136,19 @@ export default function RepresenterUnSolide4e () {
       matrace.opacite = 0.9
       matrace.epaisseur = 5
       matrace.style = 'x'
-      AB = segment(A, B)
-      BC = segment(B, C)
-      CD = segment(C, D)
-      DA = segment(D, A)
-      EF = segment(E, F)
-      FG = segment(F, G)
-      GH = segment(G, H)
-      HE = segment(H, E)
-      AE = segment(A, E)
-      BF = segment(B, F)
-      CG = segment(C, G)
-      DH = segment(D, H)
-      IA = segment(A, I)
+      AB = segment(A, B, 'black')
+      BC = segment(B, C, 'black')
+      CD = segment(C, D, 'black')
+      DA = segment(D, A, 'black')
+      EF = segment(E, F, 'black')
+      FG = segment(F, G, 'black')
+      GH = segment(G, H, 'black')
+      HE = segment(H, E, 'black')
+      AE = segment(A, E, 'black')
+      BF = segment(B, F, 'black')
+      CG = segment(C, G, 'black')
+      DH = segment(D, H, 'black')
+      IA = segment(A, I, 'black')
       IB = segment(B, I)
       IE = segment(E, I)
       IF = segment(F, I)
@@ -171,18 +172,6 @@ export default function RepresenterUnSolide4e () {
       IF.epaisseur = 1
       BD.epaisseur = 2
       FH.epaisseur = 2
-      AB.color = colorToLatexOrHTML('black')
-      BC.color = colorToLatexOrHTML('black')
-      CD.color = colorToLatexOrHTML('black')
-      DA.color = colorToLatexOrHTML('black')
-      EF.color = colorToLatexOrHTML('black')
-      FG.color = colorToLatexOrHTML('black')
-      GH.color = colorToLatexOrHTML('black')
-      HE.color = colorToLatexOrHTML('black')
-      AE.color = colorToLatexOrHTML('black')
-      BF.color = colorToLatexOrHTML('black')
-      CG.color = colorToLatexOrHTML('black')
-      IA.color = colorToLatexOrHTML('black')
 
       if (G.y < C.y && G.x < C.x) {
         CG.pointilles = 5

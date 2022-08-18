@@ -4,7 +4,7 @@ export const titre = 'Tables de multiplication'
 export { interactifReady, interactifType, amcReady, amcType } from '../6e/_Tables_de_multiplications.js'
 
 /**
- * Tables de multiplications classiques, à trou ou un mélange des deux.
+ * Tables de multiplication classiques, à trou ou un mélange des deux.
  *
  * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
  * @author Rémi Angot

@@ -275,7 +275,7 @@ Le code est libre, AGPL, vous pouvez donc télécharger les sources sur [GitHub]
 
 #### 04/18
 
-- Paramétrage des tables de multiplications (à trou ou classique).
+- Paramétrage des tables de multiplication (à trou ou classique).
 - Exercice de conversions d'aires (6 paramètres différents).
 - Possibilité d'ajouter du code LaTeX statique dans l'énoncé et la correction.
 - Possibilité de faire un exercice où la consigne, le nombre de question, l'espacement ou le nombre de colonnes n'est pas modifiable.

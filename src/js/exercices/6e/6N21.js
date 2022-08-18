@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, lettreIndiceeDepuisChiffre, randint, texFraction } from '../../modules/outils.js'
-import { mathalea2d, droiteGraduee2, point, tracePoint, labelPoint, colorToLatexOrHTML } from '../../modules/2d.js'
+import { mathalea2d, droiteGraduee2, point, tracePoint, labelPoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les abscisses fractionnaires'
@@ -97,8 +97,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
       } else {
         A = point(((num / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i + 1))
       }
-      traceA = tracePoint(A)
-      traceA.color = colorToLatexOrHTML('blue')
+      traceA = tracePoint(A, 'blue')
       traceA.epaisseur = this.interactif ? 3 : 2
       traceA.taille = this.interactif ? 5 : 3
       labels = labelPoint(A)
@@ -110,8 +109,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
           A.nom = lettreIndiceeDepuisChiffre(i * 3 + 1)
           B = point(((num2 / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i * 3 + 2))
         }
-        traceB = tracePoint(B)
-        traceB.color = colorToLatexOrHTML('blue')
+        traceB = tracePoint(B, 'blue')
         traceB.epaisseur = 2
         traceB.taille = 3
         if (context.isHtml) {
@@ -119,8 +117,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
         } else {
           C = point(((num3 / den) - origine) * tailleUnite, 0, lettreIndiceeDepuisChiffre(i * 3 + 3))
         }
-        traceC = tracePoint(C)
-        traceC.color = colorToLatexOrHTML('blue')
+        traceC = tracePoint(C, 'blue')
         traceC.epaisseur = 2
         traceC.taille = 3
         labels = labelPoint(A, B, C)

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
-import { afficheLongueurSegment, colorToLatexOrHTML, mathalea2d, point, polygone, segment } from '../../modules/2d.js'
+import { afficheLongueurSegment, mathalea2d, point, polygone, segment } from '../../modules/2d.js'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 export const titre = 'Aire d\'assemblages de rectangles'
 export const interactifReady = true
 export const interactifType = 'mathLive'

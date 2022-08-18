@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, choisitLettresDifferentes } from '../../modules/outils.js'
-import { mathalea2d, point, rotation, codageSegments, segment, polygoneAvecNom, codageAngleDroit, labelPoint, similitude, colorToLatexOrHTML } from '../../modules/2d.js'
+import { mathalea2d, point, rotation, codageSegments, segment, polygoneAvecNom, codageAngleDroit, labelPoint, similitude } from '../../modules/2d.js'
 export const titre = 'Nature de parallélogrammes'
 
 /**
@@ -34,16 +34,12 @@ export default function demonstrationsParallelogrammes () {
       C = similitude(A, O, 180, 0.9 + randint(1, 20) / 100, noms[2])
       D = similitude(B, O, 180, 0.9 + randint(1, 20) / 100, noms[3])
       p = polygoneAvecNom(A, B, C, D)
-      s1 = segment(A, B)
-      s2 = segment(B, C)
-      s3 = segment(C, D)
-      s4 = segment(D, A)
+      s1 = segment(A, B, 'blue')
+      s2 = segment(B, C, 'red')
+      s3 = segment(C, D, 'blue')
+      s4 = segment(D, A, 'red')
       d1 = segment(A, C)
       d2 = segment(B, D)
-      s1.color = colorToLatexOrHTML('blue')
-      s3.color = colorToLatexOrHTML('blue')
-      s2.color = colorToLatexOrHTML('red')
-      s4.color = colorToLatexOrHTML('red')
       objets.push(s1, s2, s3, s4, p[1])
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent

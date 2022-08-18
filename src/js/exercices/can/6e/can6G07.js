@@ -1,9 +1,10 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, shuffle } from '../../../modules/outils.js'
-import { colorToLatexOrHTML, droite, longueur, mathalea2d, papierPointe, point, symetrieAxiale, tracePoint } from '../../../modules/2d.js'
+import { droite, longueur, mathalea2d, papierPointe, point, symetrieAxiale, tracePoint } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
+import { colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 export const titre = 'Compter les points symétriques manquant'
 export const dateDePublication = '18/12/2021'
 export const interactifReady = true

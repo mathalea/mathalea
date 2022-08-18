@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, modalTexteLong } from '../../modules/outils.js'
-import { point, segment, repere, courbe, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
+import { point, segment, repere, courbe, mathalea2d } from '../../modules/2d.js'
 
 export const titre = 'Calcul du discriminant d\'une équation du second degré'
 
@@ -96,9 +96,8 @@ export default function CalculDiscriminant () {
       }
       if (context.isHtml) {
         const f = x => a * x ** 2 + b * x + c
-        const s = segment(point(-10, 0), point(10, 0))
+        const s = segment(point(-10, 0), point(10, 0), 'red')
         s.epaisseur = 3
-        s.color = colorToLatexOrHTML('red')
         const r = repere({ afficheLabels: false, xLabelListe: [], yLabelListe: [] })
         const graphique = courbe(f, { repere: r, color: 'blue' })
         let correctionComplementaire = `Notons $f : x \\mapsto ${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`

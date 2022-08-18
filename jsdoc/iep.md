@@ -53,7 +53,7 @@ texteCorr += anim.htmlBouton()
 
 # Recadrer une animation
 
-La commande `anim.recadre(xMin, yMax)` doit apparaitre avant toutes les autres animations pour être prise en compte.
+La commande `anim.recadre(xMin, yMax)` doit apparaître avant toutes les autres animations pour être prise en compte.
 
 ```js
 const xMin = Math.min(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) - 1

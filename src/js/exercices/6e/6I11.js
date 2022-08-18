@@ -1,9 +1,12 @@
 /* eslint-disable camelcase */
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, combinaisonListes, stringNombre } from '../../modules/outils.js'
-import { attendre, angleScratchTo2d, clone, orienter, mathalea2d, scratchblock, creerLutin, baisseCrayon, allerA, point, texteParPositionEchelle, colorToLatexOrHTML } from '../../modules/2d.js'
+import { mathalea2d, scratchblock, point, texteParPositionEchelle } from '../../modules/2d.js'
+import { allerA, angleScratchTo2d, attendre, baisseCrayon, creerLutin, orienter } from '../../modules/2dLutin.js'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
+import { choice, combinaisonListes, contraindreValeur, listeQuestionsToContenu, modalPdf, modalUrl, randint, stringNombre, texteGras } from '../../modules/outils.js'
+import { clone } from 'mathjs'
 export const titre = 'Note la couleur (scratch)'
 
 /**

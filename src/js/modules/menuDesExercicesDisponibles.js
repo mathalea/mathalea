@@ -155,7 +155,7 @@ function listeHtmlDesExercicesCrpeTheme (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     liste += aCrpe(id, dictionnaire, 'theme')
@@ -177,7 +177,7 @@ function listeHtmlDesExercicesDNBTheme (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     liste += aDnb(id, dictionnaire, 'theme')
@@ -199,7 +199,7 @@ function listeHtmlDesExercicesBACTheme (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     liste += aBac(id, dictionnaire, 'theme')
@@ -221,7 +221,7 @@ function listeHtmlDesExercicesE3CTheme (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     liste += aE3c(id, dictionnaire, 'theme')
@@ -452,7 +452,7 @@ export function apparenceExerciceActif () {
       const elemListe = $(`a.lien_id_exercice[data-id_exercice='${listeExercicesSelectionnes[i]}']:not([data-mode])`)
       // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
       if (compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i]) > 1) {
-      // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
+      // Ajout de first() car un exercice de DNB peut apparaître à plusieurs endroits
         if (document.getElementById(`count¤${listeExercicesSelectionnes[i]}`)) {
           document.getElementById(`count¤${listeExercicesSelectionnes[i]}`).innerText = ` ✖︎ ${compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i])}`
         } else {
@@ -1191,7 +1191,7 @@ export function menuThemeDNB (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     codeHTML +=

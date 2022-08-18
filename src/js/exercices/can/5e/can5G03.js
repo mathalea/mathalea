@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, shuffle } from '../../../modules/outils.js'
-import { colorToLatexOrHTML, labelPoint, longueur, mathalea2d, papierPointe, point, rotation, tracePoint } from '../../../modules/2d.js'
+import { labelPoint, longueur, mathalea2d, papierPointe, point, rotation, tracePoint } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
@@ -49,10 +49,10 @@ export default function CompterlesSymetriquesCan5e () {
       papier = papierPointe({ xmin: 0, ymin: 0, xmax: 6, ymax: 6, type: 'quad' })
       objetsEnonce.push(papier)
       const O = point(3, 3, 'O')
-      d = tracePoint(O)
+      d = tracePoint(O, context.isHtml ? 'blue' : 'black')
       d.epaisseur = 2
       d.style = '+'
-      d.color = context.isHtml ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('black')
+      d.color =
       objetsEnonce.push(d)
       pointsPossibles = papier.listeCoords.slice()
       while (pointsPossibles.length > 1) { // si il n'en reste qu'un, on ne peut pas trouver de symétrique
