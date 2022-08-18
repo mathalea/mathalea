@@ -1,14 +1,14 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, creerCouples, choice, combinaisonListes, randint, contraindreValeur } from '../../modules/outils.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
-export const titre = 'Tables de multiplications et de divisions'
+export const titre = 'Tables de multiplication et de divisions'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Tables de multiplications et de divisions classiques, à trou ou un mélange des deux.
+ * Tables de multiplication et de divisions classiques, à trou ou un mélange des deux.
  *
  * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
  * @author Rémi Angot

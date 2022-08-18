@@ -155,7 +155,7 @@ function listeHtmlDesExercicesCrpeTheme (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     liste += aCrpe(id, dictionnaire, 'theme')
@@ -177,7 +177,7 @@ function listeHtmlDesExercicesDNBTheme (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     liste += aDnb(id, dictionnaire, 'theme')
@@ -199,7 +199,7 @@ function listeHtmlDesExercicesBACTheme (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     liste += aBac(id, dictionnaire, 'theme')
@@ -221,7 +221,7 @@ function listeHtmlDesExercicesE3CTheme (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     liste += aE3c(id, dictionnaire, 'theme')
@@ -452,7 +452,7 @@ export function apparenceExerciceActif () {
       const elemListe = $(`a.lien_id_exercice[data-id_exercice='${listeExercicesSelectionnes[i]}']:not([data-mode])`)
       // Si un exercice a été mis plus d'une fois, on affiche le nombre de fois où il est demandé
       if (compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i]) > 1) {
-      // Ajout de first() car un exercice de DNB peut apparaitre à plusieurs endroits
+      // Ajout de first() car un exercice de DNB peut apparaître à plusieurs endroits
         if (document.getElementById(`count¤${listeExercicesSelectionnes[i]}`)) {
           document.getElementById(`count¤${listeExercicesSelectionnes[i]}`).innerText = ` ✖︎ ${compteOccurences(listeExercicesSelectionnes, listeExercicesSelectionnes[i])}`
         } else {
@@ -554,7 +554,7 @@ export function menuDesExercicesDisponibles () {
   const listeThemesCan = [
     ['canc3', 'canc3 - Course aux nombres niveau CM1-CM2', 'canc3C - Calculs', 'canc3D - Durées', 'canc3M - Mesures', 'canc3N - Numération'],
     ['can6', 'can6 - Course aux nombres niveau 6e', 'can6a - Annales aléatoires', 'can6C - Calculs', 'can6D - Durées', 'can6G - Géométrie', 'can6I - Algorithmique', 'can6M - Mesures', 'can6N - Numération', 'can6P - Proportionnalité', 'can6S - Statistiques'],
-    ['can5', 'can5 - Course aux nombres niveau 5e', 'can5a - Annales aléatoires', 'can5A - Algorithmes', 'can5C - Calculs', 'can5D - Durées', 'can5G - Géométrie', 'can5N - Numération', 'can5P - Proportionnalité'],
+    ['can5', 'can5 - Course aux nombres niveau 5e', 'can5a - Annales aléatoires', 'can5A - Algorithmes', 'can5C - Calculs', 'can5D - Durées', 'can5G - Géométrie', 'can5L - Calcul littéral', 'can5N - Numération', 'can5P - Proportionnalité'],
     ['can4', 'can4 - Course aux nombres niveau 4e', 'can4a - Annales aléatoires', 'can4C - Calculs', 'can4G - Géométrie', 'can4L - Calcul littéral', 'can4P - Proportionnalité'],
     ['can3', 'can3 - Course aux nombres niveau 3e', 'can3a - Annales aléatoires', 'can3C - Calculs', 'can3F - Fonctions', 'can3G - Géométrie', 'can3L - Calcul littéral', 'can3M - Mesures', 'can3P - Proportionnalité', 'can3S - Statistiques & probabilités'],
     ['can2', 'can2 - Course aux nombres niveau 2e', 'can2a - Annales aléatoires', 'can2C - Calculs', 'can2F - Fonctions', 'can2G - Géométrie', 'can2L - Calcul littéral', 'can2N - Numération', 'can2P - Probabilités'],
@@ -1191,7 +1191,7 @@ export function menuThemeDNB (theme) {
   for (const id in dictionnaire) {
     tableauDesExercices.push(id)
   }
-  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaitre les exercices les plus récents
+  // On créé un tableau "copie" du dictionnaire pour pouvoir le trier dans l'inverse de l'ordre alphabétique et faire ainsi apparaître les exercices les plus récents
   tableauDesExercices = tableauDesExercices.sort().reverse()
   for (const id of tableauDesExercices) {
     codeHTML +=

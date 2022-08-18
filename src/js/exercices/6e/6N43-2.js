@@ -112,7 +112,6 @@ export default function TableauCriteresDeDivisibilite () {
       283,
       293
     ]
-    console.log(listeDeFacteurs.length)
     texteCorr = ''
     texte = ''
     for (let i = 0; i < this.nbQuestions; i++) {

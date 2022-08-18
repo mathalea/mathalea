@@ -5237,7 +5237,7 @@ export function similitude (A, O, a, k, nom = '', positionLabel = 'above', color
 
 /**
  * Fait apparaître une liste d'objets de façon animée.
- * @param {ObjetMathalea2D[]} liste liste d'objets à faire apparaitre
+ * @param {ObjetMathalea2D[]} liste liste d'objets à faire apparaître
  * @param {number} [dur = 2] Durée de l'animation en secondes
  * @param {number} [pourcentage = 0.5] Pourcentage de la durée à partir de laquelle les objets sont visibles
  * @param {number|string} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier.
@@ -5271,7 +5271,7 @@ function ApparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefini
 }
 /**
  * Fait apparaître une liste d'objets de façon animée
- * @param {ObjetMathalea2D[]} liste liste d'objets à faire apparaitre
+ * @param {ObjetMathalea2D[]} liste liste d'objets à faire apparaître
  * @param {number} [dur = 2] Durée de l'animation en secondes
  * @param {number} [pourcentage = 0.5] Pourcentage de la durée à partir de laquelle les objets sont visibles
  * @param {number|string} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier

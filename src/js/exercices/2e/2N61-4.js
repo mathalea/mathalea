@@ -53,7 +53,7 @@ export default function ExerciceInequationQuotient () {
     let correctionInteractifDroite // Pour récupérer l'intervalle solution à saisir dans certains cas
     let correctionInteractifGauche // Pour récupérer l'intervalle solution à saisir dans certains cas
     if (this.interactif && !context.isAmc) {
-      this.consigne = `${debutConsigne}<br> Saisir uniquement l'intervalle dans le champ de réponse<br>Taper 'union' pour faire apparaitre $\\bigcup$, 'inf' pour $\\infty$ et 'sauf' pour $\\backslash\\{\\}$`
+      this.consigne = `${debutConsigne}<br> Saisir uniquement l'intervalle dans le champ de réponse<br>Taper 'union' pour faire apparaître $\\bigcup$, 'inf' pour $\\infty$ et 'sauf' pour $\\backslash\\{\\}$`
     } else {
       this.consigne = debutConsigne
     }

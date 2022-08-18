@@ -250,7 +250,7 @@ export default class Alea2iep {
    * @param {objet} options - { tempo : 10 }
    */
   montrer (objet, A, { tempo = this.tempo, vitesse = this.vitesse } = {}) {
-    if (!this[objet].visibilite || this[objet].position !== A) { // On ajoute une ligne xml que si l'objet est caché ou doit apparaitre à un autre endroit
+    if (!this[objet].visibilite || this[objet].position !== A) { // On ajoute une ligne xml que si l'objet est caché ou doit apparaître à un autre endroit
       let codeXML = ''
       let A1
       if (typeof A === 'undefined') { // A1 est une copie de A ou (0,0) si A n'est pas défini
@@ -752,7 +752,7 @@ export default class Alea2iep {
   }
 
   /**
-* Fais apparaitre la règle à l'horizontale, met le compas vertical et écarte le compas le long de la règle pour lire son écartement
+* Fais apparaître la règle à l'horizontale, met le compas vertical et écarte le compas le long de la règle pour lire son écartement
 * @param {int} longueur
 * @param {*} options Défaut : { tempo: this.tempo, vitesse: this.vitesse, sens : this.vitesse / 2 }
 */

@@ -74,4 +74,4 @@ export default function ResoudreDesEquationsCarreeDansC () {
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }
 
-// python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
+// python3 list-to-js.py pour faire apparaître l'exercice dans le menu

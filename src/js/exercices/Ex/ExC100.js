@@ -43,7 +43,7 @@ export default function EquationDuPremierDegreDansC () {
       texteCorr = 'Passons le terme constant du côté droit de l\'équation :'
       texteCorr += `<br>$(${z1})z=${z2n}$`
       texteCorr += `<br>Ce qui donne : $z = \\dfrac{${z2n}}{${z1}}$`
-      texteCorr += `<br>Pour faire disparaitre le $i$ du dénominateur, utilisons le conjugué $\\overline{${z1}}=${z1c}$ du dénominateur :`
+      texteCorr += `<br>Pour faire disparaître le $i$ du dénominateur, utilisons le conjugué $\\overline{${z1}}=${z1c}$ du dénominateur :`
       texteCorr += `<br>$z = ${texFraction(z2n, z1)}\\times ${miseEnEvidence(texFraction(z1c, z1c))}$`
       texteCorr += `<br>Or $(${z1})(${z1c})=${z1m}$ `
       texteCorr += `et $(${z2n})(${z1c})=${z2m}$`
@@ -63,4 +63,4 @@ export default function EquationDuPremierDegreDansC () {
   // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }
 
-// python3 list-to-js.py pour faire apparaitre l'exercice dans le menu
+// python3 list-to-js.py pour faire apparaître l'exercice dans le menu

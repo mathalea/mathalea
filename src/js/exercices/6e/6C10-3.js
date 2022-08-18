@@ -7,7 +7,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcType = 'qcmMono' // type de question AMC
 
-export const titre = 'Utiliser tables de multiplications pour effectuer produits avec décimaux'
+export const titre = 'Utiliser tables de multiplication pour effectuer produits avec décimaux'
 
 /**
  * Multiplier deux nombres décimaux
