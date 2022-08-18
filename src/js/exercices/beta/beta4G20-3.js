@@ -2,7 +2,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, combinaisonListes, randint } from '../../modules/outils.js'
-import { afficheLongueurSegment, barycentre, carre, colorToLatexOrHTML, latexParPoint, mathalea2d, point, polygone, rotation } from '../../modules/2d.js'
+import { afficheLongueurSegment, barycentre, carre, latexParPoint, mathalea2d, point, polygone, rotation } from '../../modules/2d.js'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Calculer une valeur manquante avec l\'égalité de Pythagore'
 

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel, texNombre } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, segment, dansLaCibleCarree, cibleCarree, homothetie, longueur, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, segment, dansLaCibleCarree, cibleCarree, homothetie, longueur, mathalea2d } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Construire l\'image d\'un point par une homothetie avec cible auto-corrective'
@@ -74,9 +74,8 @@ export default function ConstruireHomothetiePoint3e () {
     for (let i = 0; i < nbpoints; i++) {
       cellules.push(celluleAlea(4))
       result = dansLaCibleCarree(N[i].x, N[i].y, 4, 0.6, cellules[i])
-      cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6 })
+      cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6, color: 'orange' })
       cible.taille = 0.6
-      cible.color = colorToLatexOrHTML('orange')
       cible.opacite = 0.7
       cibles.push(cible)
     }

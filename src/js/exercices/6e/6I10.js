@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
-import { point, polygone, grille, texteParPosition, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
+import { point, polygone, grille, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'

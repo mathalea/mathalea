@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calcul, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, droite, codageMediatrice, segment, traceCompas, dansLaCibleCarree, cibleCarree, translation, homothetie, symetrieAxiale, distancePointDroite, longueur, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, droite, codageMediatrice, segment, traceCompas, dansLaCibleCarree, cibleCarree, translation, homothetie, symetrieAxiale, distancePointDroite, longueur, mathalea2d } from '../../modules/2d.js'
 export const titre = 'Construire le symétrique d\'un point avec cible auto-corrective'
 
 /**
@@ -72,9 +72,8 @@ export default function ConstruireSymetriquePoint6e () {
     for (let i = 0; i < nbpoints; i++) {
       cellules.push(celluleAlea(4))
       result = dansLaCibleCarree(N[i].x, N[i].y, 4, 0.6, cellules[i])
-      cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6 })
+      cible = cibleCarree({ x: result[0], y: result[1], rang: 4, num: i + 1, taille: 0.6, color: 'orange' })
       cible.taille = 0.6
-      cible.color = colorToLatexOrHTML('orange')
       cible.opacite = 0.7
       cibles.push(cible)
     }

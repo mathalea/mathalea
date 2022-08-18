@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, contraindreValeur, randint, choice, shuffle } from '../../modules/outils.js'
-import { colorToLatexOrHTML, droite, longueur, mathalea2d, papierPointe, point, symetrieAxiale, tracePoint } from '../../modules/2d.js'
+import { droite, longueur, mathalea2d, papierPointe, point, symetrieAxiale, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 export const titre = 'Compléter un nuage de points symétriques'
 export const dateDePublication = '18/12/2021'
 export const interactifReady = true

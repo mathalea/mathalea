@@ -5,6 +5,7 @@ import { fraction, Fraction, max, ceil, isNumeric, floor, random, round, abs } f
 import earcut from 'earcut'
 import FractionX from './FractionEtendue.js'
 import Decimal from 'decimal.js'
+import { colorToLatexOrHTML } from './2dGeneralites.js'
 
 /*
   MathALEA2D
@@ -312,7 +313,7 @@ function TracePoint (...points) {
   let ymax = -1000
   let lePoint
   if (typeof points[points.length - 1] === 'string') {
-    this.color = points[points.length - 1]
+    this.color = colorToLatexOrHTML(points[points.length - 1])
     points.length--
   } else this.color = colorToLatexOrHTML('black')
   for (const unPoint of points) {
@@ -335,9 +336,9 @@ function TracePoint (...points) {
       if (A.constructor === Point) {
         if (this.style === 'x') {
           s1 = segment(point(A.x - this.taille / coeff, A.y + this.taille / coeff),
-            point(A.x + this.taille / coeff, A.y - this.taille / coeff), this.color)
+            point(A.x + this.taille / coeff, A.y - this.taille / coeff), this.color[0])
           s2 = segment(point(A.x - this.taille / coeff, A.y - this.taille / coeff),
-            point(A.x + this.taille / coeff, A.y + this.taille / coeff), this.color)
+            point(A.x + this.taille / coeff, A.y + this.taille / coeff), this.color[0])
           s1.epaisseur = this.epaisseur
           s2.epaisseur = this.epaisseur
           s1.opacite = this.opacite
@@ -347,28 +348,28 @@ function TracePoint (...points) {
           s2.isVisible = false
         } else if (this.style === 'o') {
           p1 = point(A.x, A.y)
-          c = cercle(p1, this.taille / coeff, this.color)
+          c = cercle(p1, this.taille / coeff, this.color[0])
           c.isVisible = false
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[0]
+          c.couleurDeRemplissage = this.color[0]
           c.opaciteDeRemplissage = this.opacite / 2
           objetssvg.push(c)
         } else if (this.style === '#') {
           p1 = point(A.x - this.taille / coeff, A.y - this.taille / coeff)
           p2 = point(A.x + this.taille / coeff, A.y - this.taille / coeff)
-          c = carre(p1, p2, this.color)
+          c = carre(p1, p2, this.color[0])
           c.isVisible = false
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[0]
+          c.couleurDeRemplissage = this.color[0]
           c.opaciteDeRemplissage = this.opacite / 2
           objetssvg.push(c)
         } else if (this.style === '+') {
           s1 = segment(point(A.x, A.y + this.taille / coeff),
-            point(A.x, A.y - this.taille / coeff), this.color)
+            point(A.x, A.y - this.taille / coeff), this.color[0])
           s2 = segment(point(A.x - this.taille / coeff, A.y),
-            point(A.x + this.taille / coeff, A.y), this.color)
+            point(A.x + this.taille / coeff, A.y), this.color[0])
           s1.epaisseur = this.epaisseur
           s2.epaisseur = this.epaisseur
           s1.opacite = this.opacite
@@ -376,12 +377,12 @@ function TracePoint (...points) {
           objetssvg.push(s1, s2)
         } else if (this.style === '|') {
           s1 = segment(point(A.x, A.y + this.taille / coeff),
-            point(A.x, A.y - this.taille / coeff), this.color)
+            point(A.x, A.y - this.taille / coeff), this.color[0])
           s1.epaisseur = this.epaisseur
           s1.opacite = this.opacite
           objetssvg.push(s1)
         } else if (this.style === '.') {
-          s1 = plot(A.x, A.y, { couleur: this.color, rayon: this.epaisseur * 0.05, couleurDeRemplissage: this.color })
+          s1 = plot(A.x, A.y, { couleur: this.color[0], rayon: this.epaisseur * 0.05, couleurDeRemplissage: this.color[0] })
         }
       }
     }
@@ -404,9 +405,9 @@ function TracePoint (...points) {
       if (A.constructor === Point) {
         if (this.style === 'x') {
           s1 = segment(point(A.x - this.tailleTikz, A.y + this.tailleTikz),
-            point(A.x + this.tailleTikz, A.y - this.tailleTikz), this.color)
+            point(A.x + this.tailleTikz, A.y - this.tailleTikz), this.color[1])
           s2 = segment(point(A.x - this.tailleTikz, A.y - this.tailleTikz),
-            point(A.x + this.tailleTikz, A.y + this.tailleTikz), this.color)
+            point(A.x + this.tailleTikz, A.y + this.tailleTikz), this.color[1])
           s1.epaisseur = this.epaisseur
           s2.epaisseur = this.epaisseur
           s1.opacite = this.opacite
@@ -414,26 +415,26 @@ function TracePoint (...points) {
           objetstikz.push(s1, s2)
         } else if (this.style === 'o') {
           p1 = point(A.x, A.y)
-          c = cercle(p1, this.tailleTikz, this.color)
+          c = cercle(p1, this.tailleTikz, this.color[1])
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[1]
+          c.couleurDeRemplissage = this.color[1]
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '#') {
           p1 = point(A.x - this.tailleTikz, A.y - this.tailleTikz)
           p2 = point(A.x + this.tailleTikz, A.y - this.tailleTikz)
-          c = carre(p2, p1, this.color)
+          c = carre(p2, p1, this.color[1])
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = colorToLatexOrHTML(this.color)[1]
+          c.couleurDeRemplissage = this.color[1]
           c.opaciteDeRemplissage = this.opacite / 2
           objetstikz.push(c)
         } else if (this.style === '+') {
           s1 = segment(point(A.x, A.y + this.tailleTikz),
-            point(A.x, A.y - this.tailleTikz), this.color)
+            point(A.x, A.y - this.tailleTikz), this.color[1])
           s2 = segment(point(A.x - this.tailleTikz, A.y),
-            point(A.x + this.tailleTikz, A.y), this.color)
+            point(A.x + this.tailleTikz, A.y), this.color[1])
           s1.epaisseur = this.epaisseur
           s2.epaisseur = this.epaisseur
           s1.opacite = this.opacite
@@ -441,12 +442,12 @@ function TracePoint (...points) {
           objetstikz.push(s1, s2)
         } else if (this.style === '|') {
           s1 = segment(point(A.x, A.y + this.tailleTikz),
-            point(A.x, A.y - this.tailleTikz), this.color)
+            point(A.x, A.y - this.tailleTikz), this.color[1])
           s1.epaisseur = this.epaisseur
           s1.opacite = this.opacite
           objetstikz.push(s1)
         } else if (this.style === '.') {
-          s1 = plot(A.x, A.y, { couleur: this.color, rayon: this.epaisseur * 0.05, couleurDeRemplissage: this.color })
+          s1 = plot(A.x, A.y, { couleur: this.color[1], rayon: this.epaisseur * 0.05, couleurDeRemplissage: this.color[1] })
         }
       }
     }
@@ -2123,7 +2124,7 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
       this.x2 = arg2.x
       this.y2 = arg2.y
       this.color = colorToLatexOrHTML(arg3)
-      this.styleExtremites = arg4
+      this.styleExtremites = styleExtremites
     } else {
       if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3) || isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', { arg1, arg2 })
       this.x1 = arg1
@@ -2139,7 +2140,7 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     this.x2 = arg3
     this.y2 = arg4
     this.color = colorToLatexOrHTML(color)
-    this.styleExtremites = arg4
+    this.styleExtremites = styleExtremites
   }
   this.bordures = [Math.min(this.x1, this.x2) - 0.2, Math.min(this.y1, this.y2) - 0.2, Math.max(this.x1, this.x2) + 0.2, Math.max(this.y1, this.y2) + 0.2]
   this.extremite1 = point(this.x1, this.y1)
@@ -5439,139 +5440,6 @@ function AffiniteOrthoAnimee (
 }
 export function affiniteOrthoAnimee (...args) {
   return new AffiniteOrthoAnimee(...args)
-}
-
-/**
- * Rend visible un element d'après son id
- * @param {number} id id propre à un objet MathALEA2d
- * @example montrerParDiv(s2.id) // Affiche l'objet s2
- * @author Rémi Angot
- */
-// JSDOC Validee par EE Juin 2022
-export function montrerParDiv (id) {
-  if (document.getElementById(id)) {
-    document.getElementById(id).style.visibility = 'visible'
-  } else {
-    console.log(id + ' n\'existe pas et ne peut pas être rendu visible.')
-  }
-}
-
-/**
- * Rend invisible un element d'après son id
- * @param {number} id id propre à un objet MathALEA2d
- * @example cacherParDiv(s2.id) // Cache l'objet s2
- * @author Rémi Angot
- */
-// JSDOC Validee par EE Juin 2022
-export function cacherParDiv (id) {
-  if (document.getElementById(id)) {
-    document.getElementById(id).style.visibility = 'hidden'
-  } else {
-    console.log(id + ' n\'existe pas et ne peut pas être caché.')
-  }
-}
-
-/**
- * Masque un objet pendant t0 secondes puis l'affiche pendant (t-t0) secondes avant de recommencer r fois ce cycle en tout
- * @param {ObjetMathalea2D} objet Objet MathALEA2d masqué puis affiché
- * @param {number} [t0=1] Temps en secondes avant l'apparition.
- * @param {number} [t=5] Temps à partir duquel l'animation recommence.
- * @param {string} [r='Infinity'] Nombre de répétitions (infini si ce n'est pas un nombre).
- * @example afficherTempo(ob1)
- * // Affiche ob1 au bout de 1 seconde, pendant 4 secondes puis le masque. Ce cycle est répété indéfiniment.
- * @example afficherTempo(ob1,2,9,10)
- * // Sur un cycle de 9 secondes, affiche ob1 au bout de 2 seconde puis le masque en fin de cycle. Ce cycle est répété 10 fois.
- */
-// JSDOC Validee par EE Juin 2022
-export function afficherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
-  let compteur = 1 // Nombre d'animations
-  const checkExist = setInterval(function () {
-    if (document.getElementById(objet.id)) {
-      clearInterval(checkExist)
-      cacherParDiv(objet.id)
-      if (r === 1) { // On le montre au bout de t0 et on ne le cache plus
-        setTimeout(function () { montrerParDiv(objet.id) }, t0 * 1000)
-      } else {
-        const cacheRepete = setInterval(function () { cacherParDiv(objet.id) }, t * 1000) // On cache tous les t s
-        setTimeout(function () {
-          montrerParDiv(objet.id) // On attend t0 pour montrer
-          const montreRepete = setInterval(function () {
-            montrerParDiv(objet.id)
-            compteur++
-            if (typeof r === 'number') {
-              if (compteur >= r) {
-                clearInterval(cacheRepete)
-                clearInterval(montreRepete)
-              }
-            }
-          }, t * 1000) // On montre tous les t s (vu qu'on a décalé de t0)
-        }, t0 * 1000) // Fin de l'animation en boucle
-      }
-    }
-  }, 100) // vérifie toutes les  100ms que le div existe
-}
-
-/**
- * Affiche un objet pendant t0 secondes puis le cache pendant (t-t0) secondes avant de recommencer r fois ce cycle en tout
- * @param {ObjetMathalea2D} objet Objet MathALEA2d affiché puis masqué
- * @param {number} [t0=1] Temps en secondes avant l'apparition
- * @param {number} [t=5] Temps à partir duquel l'animation recommence
- * @param {string} [r='Infinity'] Nombre de répétitions (infini si ce n'est pas un nombre)
- * @example cacherTempo(figure1)
- * // Affiche figure1 pendant 1 seconde, puis le cache pendant 4 secondes et recommence ce cycle indéfiniment.
- * @example cacherTempo(figure1,2,8,3)
- * // Affiche figure1 pendant 2 secondes, puis le cache pendant 6 secondes et recommence ce cycle 3 fois en tout.
- * @author Eric Elter
- */
-// JSDOC Validee par EE Juin 2022
-export function cacherTempo (objet, t0 = 1, t = 5, r = 'Infinity') {
-  let compteur = 1 // Nombre d'animations
-  const checkExist = setInterval(function () {
-    if (document.getElementById(objet.id)) {
-      clearInterval(checkExist)
-      montrerParDiv(objet.id)
-      if (r === 1) { // On le cache au bout de t0 et on ne le montre plus
-        setTimeout(function () { cacherParDiv(objet.id) }, t0 * 1000)
-      } else {
-        const montreRepete = setInterval(function () { montrerParDiv(objet.id) }, t * 1000) // On cache tous les t s
-        setTimeout(function () {
-          cacherParDiv(objet.id) // On attend t0 pour montrer
-          const cacheRepete = setInterval(function () {
-            cacherParDiv(objet.id)
-            compteur++
-            if (typeof r === 'number') {
-              if (compteur >= r) {
-                clearInterval(cacheRepete)
-                clearInterval(montreRepete)
-              }
-            }
-          }, t * 1000) // On montre tous les t s (vu qu'on a décalé de t0)
-        }, t0 * 1000) // Fin de l'animation en boucle
-      }
-    }
-  }, 100) // vérifie toutes les  100ms que le div existe
-}
-
-/**
- * Masque une suite d'objets puis les affiche un par un, de t secondes en t secondes avant de recommencer r fois, tApresDernier secondes après l'affichage de tous les objets
- * @param {ObjetMathalea2D[]} objets Liste d'objets MathALEA2d masqués puis affichés
- * @param {number} [t = 1] Temps en secondes entre l'apparition de chaque objet
- * @param {string} [r = 'Infinity'] Nombre de répétitions (infini si ce n'est pas un nombre).
- * @param {number} [tApresDernier = 5] Temps, après l'affichage du dernier objet, à partir duquel l'animation recommence.
- * @example afficherUnParUn([s1,s2])
- * // Affiche s1 au bout de 1 seconde, puis s2 après 1 nouvelle seconde, puis les masque après 5 secondes. Ce cycle est répété indéfiniment.
- * @example afficherUnParUn([s1,s2],2,9,10)
- * // Affiche s1 au bout de 2 secondes, puis s2 après 2 nouvelles secondes, puis les masque après 10 secondes. Ce cycle est répété en tout 9 fois.
- * @author Rémi Angot
- */
-// JSDOC Validee par EE Juin 2022
-export function afficherUnParUn (objets, t = 1, r = 'Infinity', tApresDernier = 5) {
-  let t0 = t
-  const tf = objets.length * t + tApresDernier
-  for (const objet of objets) {
-    afficherTempo(objet, t0, tf, r)
-    t0 += t
-  }
 }
 
 /*
@@ -9949,57 +9817,8 @@ export function intervalle (A, B, color = 'blue', h = 0) {
   return s
 }
 
-/**
- * convertHexToRGB convertit une couleur en héxadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
- * @param {string} [Couleur='000000'] Code couleur HTML sans le #
- * @example convertHexToRGB('f15929')=[241,89,41]
- * @author Eric Elter
- * @return {number[]}
- */
-// JSDOC Validee par EE Juin 2022
-function convertHexToRGB (couleur = '000000') {
-  const hexDecoupe = couleur.match(/.{1,2}/g)
-  const hexToRGB = [
-    parseInt(hexDecoupe[0], 16),
-    parseInt(hexDecoupe[1], 16),
-    parseInt(hexDecoupe[2], 16)
-  ]
-  return hexToRGB
-}
-
-/**
- * colorToLatexOrHTML prend en paramètre une couleur sous forme prédéfinie ('red','yellow',...) ou sous forme HTML en hexadécimal (avec #, genre '#f15929')
- * La sortie de cette fonction est un tableau où :
- * - le premier élément est cette couleur exploitable en SVG, donc en HTML.
- * - le second élément est cette couleur exploitable en TikZ, donc en Latex.
- * @param {string} couleur Une couleur du type 'blue' ou du type '#f15929'
- * @example colorToLatexOrHTML('red')=['red','{red}']
- * @example colorToLatexOrHTML('#f15929')=['#f15929','{rgb,255:red,241;green,89;blue,41}']
- * @example colorToLatexOrHTML('')=''
- * @example colorToLatexOrHTML('none')=['none','none']
- * @author Eric Elter
- * @return {string[]}
- */
-// JSDOC Validee par EE Juin 2022
-export function colorToLatexOrHTML (couleur) {
-  const tabCouleur = []
-  let rgb = []
-  if (Array.isArray(couleur)) return couleur // Si jamais une fonction rappelle une couleur qui aurait déjà été transformée par cette même fonction
-  else if (couleur === '') return ''
-  else if (couleur === 'none') return ['none', 'none']
-  else {
-    tabCouleur[0] = couleur
-    if (couleur[0] === '#') {
-      rgb = convertHexToRGB(couleur.replace('#', ''))
-      tabCouleur[1] = '{rgb,255:red,' + rgb[0] + ';green,' + rgb[1] + ';blue,' + rgb[2] + '}'
-    } else {
-      tabCouleur[1] = '{' + couleur + '}'
-    }
-    return tabCouleur
-  }
-}
-
 /*
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% LES TEXTES %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -10548,299 +10367,6 @@ export function angleradian (A, O, B, precision = 2) {
   return calcul(Math.acos(arrondi((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB), 12)), precision)
 }
 
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%% LES LUTINS %%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
-
-/**
- * Renvoie la mesure d'angle (entre -180° et 180°) dans le cercle trigonométrique à partir d'une mesure d'angle donnée en degrés, qu'utilise Scratch.
- * Parce que le 0 angulaire de Scratch est dirigé vers le Nord et qu'il croît dans le sens indirect
- * @param {number} x Angle Scratch
- * @example x=angleScratchTo2d(0) // x=90
- * @example x=angleScratchTo2d(90) // x=0
- * @example x=angleScratchTo2d(-90) // x=180
- * @example x=angleScratchTo2d(-120) // x=-150
- * @return {angleModulo}
- */
-// JSDOC Validee par EE Juin 2022
-export function angleScratchTo2d (x) {
-  const angle2d = 90 - x
-  return angleModulo(angle2d)
-}
-
-function ObjetLutin () {
-  ObjetMathalea2D.call(this)
-  this.x = 0
-  this.y = 0
-  this.xMin = 0
-  this.xMax = 0
-  this.yMin = 0
-  this.yMax = 0
-  this.xSVG = function (coeff) {
-    return this.x * coeff
-  }
-  this.ySVG = function (coeff) {
-    return -this.y * coeff
-  }
-  this.orientation = 0
-  this.historiquePositions = []
-  this.crayonBaisse = false
-  this.isVisible = true
-  this.costume = ''
-  this.listeTraces = [] // [[x0,y0,x1,y1,style]...]
-  this.color = colorToLatexOrHTML('black')
-  this.epaisseur = 2
-  this.pointilles = ''
-  this.opacite = 1
-  this.style = ''
-  this.animation = ''
-  this.svg = function (coeff) {
-    let code = ''
-    for (const trace of this.listeTraces) {
-      const A = point(trace[0], trace[1])
-      const B = point(trace[2], trace[3])
-      const color = colorToLatexOrHTML(trace[4])
-      const epaisseur = trace[5]
-      const pointilles = trace[6]
-      const opacite = trace[7]
-      let style = ''
-      if (epaisseur !== 1) {
-        style += ` stroke-width="${epaisseur}" `
-      }
-      if (pointilles) {
-        style += ' stroke-dasharray="4 3" '
-      }
-      if (opacite !== 1) {
-        style += ` stroke-opacity="${opacite}" `
-      }
-      code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(
-        coeff
-      )}" x2="${B.xSVG(coeff)}" y2="${B.ySVG(coeff)}" stroke="${color[0]}" ${style}  />`
-    }
-    if (this.isVisible && this.animation !== '') {
-      code += '\n <g>' + this.animation + '</g>'
-    }
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    for (const trace of this.listeTraces) {
-      const A = point(trace[0], trace[1])
-      const B = point(trace[2], trace[3])
-      const color = colorToLatexOrHTML(trace[4])
-      const epaisseur = trace[5]
-      const pointilles = trace[6]
-      const opacite = trace[7]
-      let optionsDraw = []
-      const tableauOptions = []
-      if (color[1].length > 1 && color[1] !== 'black') {
-        tableauOptions.push(`color =${color[1]}`)
-      }
-      if ((!isNaN(epaisseur)) && epaisseur !== 1) {
-        tableauOptions.push(`line width = ${epaisseur}`)
-      }
-      if ((!isNaN(opacite)) && opacite !== 1) {
-        tableauOptions.push(`opacity = ${opacite}`)
-      }
-      if (pointilles) {
-        tableauOptions.push('dashed')
-      }
-      if (tableauOptions.length > 0) {
-        optionsDraw = '[' + tableauOptions.join(',') + ']'
-      }
-      code += `\n\t\\draw${optionsDraw} (${A.x},${A.y})--(${B.x},${B.y});`
-    };
-    return code
-  }
-}
-/**
- * Crée une nouvelle instance de l'objet lutin
- * @param  {...any} args En fait, il n'y a pas d'argument... il faudra les renseigner après la création de l'objet.
- * Voire l'objet lutin pour la liste de ses attributs (lutin.x, lutin.y, lutin.orientation, ...)
- * @returns {object} Instance d'un lutin
- */
-export function creerLutin (...args) {
-  return new ObjetLutin(...args)
-}
-
-/**
- * Fait avancer le lutin de d unités de lutin dans la direction de son orientation
- * @param {number} d Nombre d'unités choisi pour avancer
- * @param {ObjetLutin} lutin Lutin
- * @example avance(5, lutin) // Fait avancer le lutin de 5 unités
- * @author Jean-Claude Lhote
- */
-// JSDOC Validee par EE Juin 2022
-export function avance (d, lutin = context.lutin) { // A faire avec pointSurCercle pour tenir compte de l'orientation
-  const xdepart = lutin.x
-  const ydepart = lutin.y
-  lutin.x = lutin.x + d / context.unitesLutinParCm * Math.cos(radians(lutin.orientation))
-  lutin.y = lutin.y + d / context.unitesLutinParCm * Math.sin(radians(lutin.orientation))
-  lutin.historiquePositions.push([lutin.x, lutin.y])
-  if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  }
-  lutin.xMin = Math.min(lutin.xMin, lutin.x)
-  lutin.yMin = Math.min(lutin.yMin, lutin.y)
-  lutin.xMax = Math.max(lutin.xMax, lutin.x)
-  lutin.yMax = Math.max(lutin.yMax, lutin.y)
-}
-
-/**
- * Fait entrer le lutin dans le mode "trace"
- * @param {ObjetLutin} lutin
- * @example baisseCrayon(lutin) // Met lutin en mode "trace"
- */
-export function baisseCrayon (lutin = context.lutin) {
-  lutin.crayonBaisse = true
-}
-/**
- * Fait sortir le lutin du mode "trace"
- * @param {ObjetLutin} lutin
- * @example leveCrayon(lutin) // Sort lutin du mode "trace"
- */
-// JSDOC Validee par EE Juin 2022
-export function leveCrayon (lutin = context.lutin) {
-  lutin.crayonBaisse = false
-}
-/**
- * Fixe l'orientation du lutin à a degrés (au sens Mathalea2d=trigo)
- * Voire la fonction angleScratchTo2d(angle_scratch) pour la conversion
- * @param {number} a
- * @param {ObjetLutin} lutin
- */
-export function orienter (a, lutin = context.lutin) {
-  lutin.orientation = angleModulo(a)
-}
-/**
- * Fait tourner de a degrés le lutin dans le sens direct
- * @param {number} a
- * @param {ObjetLutin} lutin
- */
-export function tournerG (a, lutin = context.lutin) {
-  lutin.orientation = angleModulo(lutin.orientation + a)
-}
-/**
- * Fait tourner de a degrés le lutin dans le sens indirect
- * @param {number} a
- * @param {ObjetLutin} lutin
- */
-export function tournerD (a, lutin = context.lutin) {
-  lutin.orientation = angleModulo(lutin.orientation - a)
-}
-/**
- * Déplace le lutin de sa position courante à (x;y)
- * @param {number} x Nouvelle abscisse
- * @param {number} y Nouvelle ordonnée
- * @param {ObjetLutin} lutin Lutin
- * @example allerA(10,-5,lutin) // Le lutin prend pour coordonnées (10 ; -5).
- */
-// JSDOC Validee par EE Juin 2022
-export function allerA (x, y, lutin = context.lutin) {
-  const xdepart = lutin.x
-  const ydepart = lutin.y
-  lutin.x = x / context.unitesLutinParCm
-  lutin.y = y / context.unitesLutinParCm
-  lutin.historiquePositions.push([lutin.x, lutin.y])
-  if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  }
-  lutin.xMin = Math.min(lutin.xMin, lutin.x)
-  lutin.yMin = Math.min(lutin.yMin, lutin.y)
-  lutin.xMax = Math.max(lutin.xMax, lutin.x)
-  lutin.yMax = Math.max(lutin.yMax, lutin.y)
-}
-/**
- * Change en x à l'abscisse du lutin
- * @param {number} x Nouvelle abscisse
- * @param {ObjetLutin} lutin Lutin
- * @example mettrexA(10,lutin) // L'abscisse de lutin devient 10.
- */
-export function mettrexA (x, lutin = context.lutin) {
-  const xdepart = lutin.x
-  lutin.x = x / context.unitesLutinParCm
-  lutin.historiquePositions.push([lutin.x, lutin.y])
-  if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  }
-  lutin.xMin = Math.min(lutin.xMin, lutin.x)
-  lutin.xMax = Math.max(lutin.xMax, lutin.x)
-}
-/**
- * change en y l'ordonnée du lutin
- * @param {number} y Nouvelle ordonnée
- * @param {ObjetLutin} lutin Lutin
- * @example mettreyA(10,lutin) // L'ordonnée de lutin devient 10.
- */
-export function mettreyA (y, lutin = context.lutin) {
-  const ydepart = lutin.y
-  lutin.y = y / context.unitesLutinParCm
-  lutin.historiquePositions.push([lutin.x, lutin.y])
-  if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  }
-  lutin.yMin = Math.min(lutin.yMin, lutin.y)
-  lutin.yMax = Math.max(lutin.yMax, lutin.y)
-}
-/**
- * Ajoute x à l'abscisse du lutin
- * @param {number} x Valeur à ajouter à l'abscisse
- * @param {ObjetLutin} lutin Lutin
- * @example ajouterAx(10,lutin) // L'abscisse de lutin est augmentée de 10.
- */
-// JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
-export function ajouterAx (x, lutin = context.lutin) {
-  const xdepart = lutin.x
-  lutin.x += x / context.unitesLutinParCm
-  lutin.historiquePositions.push([lutin.x, lutin.y])
-  if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([xdepart, lutin.y, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  }
-  lutin.xMin = Math.min(lutin.xMin, lutin.x)
-  lutin.xMax = Math.max(lutin.xMax, lutin.x)
-}
-/**
- * Ajoute y à l'ordonnée du lutin
- * @param {number} y Valeur à ajouter à l'ordonnée
- * @param {ObjetLutin} lutin Lutin
- * @example ajouterAy(10,lutin) // L'ordonnée de lutin est augmentée de 10.
- */
-// JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
-export function ajouterAy (y, lutin = context.lutin) {
-  const ydepart = lutin.y
-  lutin.y += y / context.unitesLutinParCm
-  lutin.historiquePositions.push([lutin.x, lutin.y])
-  if (lutin.crayonBaisse) {
-    lutin.listeTraces.push([lutin.x, ydepart, lutin.x, lutin.y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  }
-  lutin.yMin = Math.min(lutin.yMin, lutin.y)
-  lutin.yMax = Math.max(lutin.yMax, lutin.y)
-}
-
-/**
- * Fait "vibrer" le lutin, tempo fois autour de sa position courante
- * @param {number} tempo Nombre de vibrations
- * @param {ObjetLutin} lutin Lutin
- * @example attendre(5, lutin) // Fait "vibrer" 5 fois le lutin
- * @author Jean-Claude Lhote
- */
-// JSDOC Validee par EE Juin 2022
-export function attendre (tempo, lutin = context.lutin) {
-  const x = lutin.x; const y = lutin.y
-  lutin.listeTraces.push([x, y, x + 0.08, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  for (let i = 0; i < tempo; i++) {
-    lutin.listeTraces.push([x + 0.08, y, x + 0.08, y + 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x + 0.08, y + 0.08, x - 0.08, y + 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x + 0.08, y + 0.08, x - 0.08, y + 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x - 0.08, y + 0.08, x - 0.08, y - 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x - 0.08, y - 0.08, x + 0.08, y - 0.08, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-    lutin.listeTraces.push([x + 0.08, y - 0.08, x + 0.08, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-  }
-  lutin.listeTraces.push([x + 0.03, y, x, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
-}
-
 /**
  * Traducteur scratch3 (Latex) -> scratchblocks
  * On lui passe une chaine de caractères contenant une série de commande Latex du package Latex Scratch3
@@ -11216,149 +10742,6 @@ export function scratchblock (stringLatex) {
     codeScratch += '</pre>\n'
   }
   return codeScratch
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%% LES INSTRUMENTS %%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
-
-/**
- * Affiche (en HTML) un crayon avec la mine sur le point A
- * @param {point} A
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @class
- */
-// JSDOC Validee par EE Juin 2022
-function AfficherCrayon (A) {
-  ObjetMathalea2D.call(this)
-  this.x = A.x
-  this.y = A.y
-  this.svg = function () {
-    const code = `<g id="${this.id}" stroke="#000000" fill="none" transform="translate(${(this.x - 0.2) * context.pixelsParCm},${-60 - (this.y - 0.2) * context.pixelsParCm}) scale(.1) ">
-   <path id="rect2990" d="m70.064 422.35 374.27-374.26 107.58 107.58-374.26 374.27-129.56 21.97z" stroke-width="30"/>
-   <path id="path3771" d="m70.569 417.81 110.61 110.61" stroke-width="25"/>
-   <path id="path3777" d="m491.47 108.37-366.69 366.68" stroke-width="25"/>
-   <path id="path3763" d="m54.222 507.26 40.975 39.546" stroke-width="25"/>
-  </g>`
-    return code
-  }
-}
-
-/**
- * Afficher (en HTML) un crayon avec la mine sur le point A
- * @param {point} A
- * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @return {AfficherCrayon}
- */
-// JSDOC Validee par EE Juin 2022
-export function afficherCrayon (A) {
-  return new AfficherCrayon(A)
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%% LES FONCTIONS - FORMATAGE %%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
-
-/**
- * codeSvg(segment(A,B),polygone(D,E,F),labelPoints(A,B))
- *
- * @author Rémi Angot
- * @private
- */
-// JSDOC Validee par EE Juin 2022
-export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
-  let code = ''
-  const fenetrexmin = fenetreMathalea2d[0]
-  const fenetreymin = fenetreMathalea2d[3] * -(1)
-  const fenetrexmax = fenetreMathalea2d[2]
-  const fenetreymax = fenetreMathalea2d[1] * (-1)
-
-  code = `<svg width="${(fenetrexmax - fenetrexmin) * pixelsParCm}" height="${(fenetreymax - fenetreymin) * pixelsParCm}" viewBox="${fenetrexmin * pixelsParCm} ${fenetreymin * pixelsParCm} ${(fenetrexmax - fenetrexmin) * pixelsParCm} ${(fenetreymax - fenetreymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg">\n`
-  for (const objet of objets) {
-    if (Array.isArray(objet)) {
-      for (let i = 0; i < objet.length; i++) {
-        try {
-          if (objet[i].isVisible) {
-            if (!mainlevee || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
-            else {
-              code += '\t' + objet[i].svgml(pixelsParCm, context.amplitude) + '\n'
-            }
-          }
-        } catch (error) { }
-      }
-    }
-    try {
-      if (objet.isVisible) {
-        if (!mainlevee || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
-        else code += '\t' + objet.svgml(pixelsParCm, context.amplitude) + '\n'
-      }
-    } catch (error) { }
-  }
-  code += '</svg>'
-  return code
-}
-
-/**
- * codeTikz(segment(A,B),polygone(D,E,F),labelPoints(A,B))
- *
- * @author Rémi Angot
- * @private
- */
-// JSDOC Validee par EE Juin 2022
-export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
-  let code = ''
-  const fenetrexmin = fenetreMathalea2d[0]
-  const fenetreymin = fenetreMathalea2d[3] * -(1)
-  const fenetrexmax = fenetreMathalea2d[2]
-  const fenetreymax = fenetreMathalea2d[1] * (-1)
-  const sortie = context.isHtml
-  // eslint-disable-next-line no-global-assign
-  context.isHtml = false
-  if (scale === 1) {
-    code += '\\begin{tikzpicture}[baseline]\n'
-  } else {
-    code += `\\begin{tikzpicture}[baseline,scale = ${scale}]\n`
-  }
-  code += `\\tikzset{
-    point/.style={
-      thick,
-      draw,
-      cross out,
-      inner sep=0pt,
-      minimum width=5pt,
-      minimum height=5pt,
-    },
-  }
-  \\clip (${fenetrexmin},${fenetreymin}) rectangle (${fenetrexmax},${fenetreymax});
-
-  \n\n`
-
-  for (const objet of objets) {
-    if (Array.isArray(objet)) {
-      for (let i = 0; i < objet.length; i++) {
-        try {
-          if (objet[i].isVisible) {
-            if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz(scale) + '\n'
-            else code += '\t' + objet[i].tikzml(context.amplitude) + '\n'
-          }
-        } catch (error) { }
-      }
-    }
-    try {
-      if (objet.isVisible) {
-        if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz(scale) + '\n'
-        else code += '\t' + objet.tikzml(context.amplitude) + '\n'
-      }
-    } catch (error) { }
-  }
-  code += '\\end{tikzpicture}\n'
-  // eslint-disable-next-line no-global-assign
-  context.isHtml = sortie
-  return code
 }
 
 /**

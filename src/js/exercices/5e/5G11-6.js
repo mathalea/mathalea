@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, contraindreValeur, randint, choice, shuffle } from '../../modules/outils.js'
-import { colorToLatexOrHTML, labelPoint, longueur, mathalea2d, papierPointe, point, rotation, tracePoint } from '../../modules/2d.js'
+import { labelPoint, longueur, mathalea2d, papierPointe, point, rotation, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const titre = 'Compléter un nuage de points symétriques'
@@ -60,10 +60,9 @@ export default function CompleterParSymetrie5e () {
       } else {
         O = point(4.33, 4.5, 'O')
       }
-      d = tracePoint(O)
+      d = tracePoint(O, context.isHtml ? 'blue' : 'black')
       d.epaisseur = 2
       d.style = '+'
-      d.color = context.isHtml ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('black')
       objetsEnonce.push(d)
       pointsPossibles = papier.listeCoords.slice()
       // on prépare les points cliquables pour la version interactive

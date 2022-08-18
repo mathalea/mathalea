@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
 import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, deuxColonnes, centrage, texteEnCouleur, contraindreValeur, enleveElement, compteOccurences, miseEnEvidence, calcul } from '../../modules/outils.js'
-import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle, colorToLatexOrHTML } from '../../modules/2d.js'
+import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { mod } from 'mathjs'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Trouver une série de transformations'
 export const interactifReady = true

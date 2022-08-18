@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, prenomF } from '../../modules/outils.js'
-import { point, polyline, grille, courbeInterpolee, texteParPosition, mathalea2d, repere, courbe, vide2d, colorToLatexOrHTML } from '../../modules/2d.js'
+import { point, polyline, grille, courbeInterpolee, texteParPosition, mathalea2d, repere, courbe, vide2d } from '../../modules/2d.js'
 export const titre = 'Problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -182,8 +182,7 @@ export default function ExploiterRepresentationGraphique () {
           grilleSecondaireYMin: 0,
           grilleSecondaireYMax: v3 + 1
         })
-        g1 = grille(-1, -1, 6, 8)
-        g1.color = colorToLatexOrHTML('black')
+        g1 = grille(-1, -1, 6, 8, 'black')
         g1.opacite = 1
         texte1 = texteParPosition('distance (en km)', 0.2, v3 + 1.5, 'droite')
         texte2 = texteParPosition('temps (en min)', 6.5, 0.4, 'droite')
@@ -191,22 +190,21 @@ export default function ExploiterRepresentationGraphique () {
         zero = texteParPosition('0', -0.7, 0, 'milieu', 'black', 1, 'middle', true)
 
         if (situation === 1) {
-          l = polyline(point(0, 0), point(1, v1), point(2, v3), point(3, v3), point(4, 0))
+          l = polyline([point(0, 0), point(1, v1), point(2, v3), point(3, v3), point(4, 0)], 'blue')
           tempsPause = 20
           periodeRapide = 'de la 20e à la 30e minute'
         }
         if (situation === 2) {
-          l = polyline(point(0, 0), point(1, v3), point(2, v3), point(3, v2), point(4, 0))
+          l = polyline([point(0, 0), point(1, v3), point(2, v3), point(3, v2), point(4, 0)], 'blue')
           tempsPause = 10
           periodeRapide = 'durant les 10 premières minutes'
         }
         if (situation === 3) {
-          l = polyline(point(0, 0), point(1, v3), point(2, v2), point(3, v2), point(4, 0))
+          l = polyline([point(0, 0), point(1, v3), point(2, v2), point(3, v2), point(4, 0)], 'blue')
           tempsPause = 20
           periodeRapide = 'durant les 10 premières minutes'
         }
         l.epaisseur = 2
-        l.color = colorToLatexOrHTML('blue')
 
         fille = prenomF()
         this.introduction = `${fille} fait du vélo avec son smartphone sur une voie-verte rectiligne qui part de chez elle. Une application lui permet de voir à quelle distance de chez elle, elle se trouve.`

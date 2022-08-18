@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { point, mathalea2d, tracePoint, segment, colorToLatexOrHTML, droite, polygone, cercle, labelPoint, codageAngleDroit, codeSegment, texteParPoint, codageMediatrice, codageMilieu, codageAngle, codageBissectrice, nomVecteurParPosition, ellipse, arc, constructionBissectrice, codageHauteurTriangle, codageMedianeTriangle, afficheLongueurSegment, texteSurSegment, vecteur, pointIntersectionLC, texteSurArc, grilleVerticale, grilleHorizontale, lectureImage, constructionMediatrice, rapporteur } from '../../modules/2d.js'
+import { point, mathalea2d, tracePoint, segment, droite, polygone, cercle, labelPoint, codageAngleDroit, codeSegment, texteParPoint, codageMediatrice, codageMilieu, codageAngle, codageBissectrice, nomVecteurParPosition, ellipse, arc, constructionBissectrice, codageHauteurTriangle, codageMedianeTriangle, afficheLongueurSegment, texteSurSegment, vecteur, pointIntersectionLC, texteSurArc, grilleVerticale, grilleHorizontale, lectureImage, constructionMediatrice, rapporteur } from '../../modules/2d.js'
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const interactifType = 'mathLive'
 export const interactifReady = true
