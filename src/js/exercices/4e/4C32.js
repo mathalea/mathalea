@@ -63,7 +63,7 @@ export default function NotationScientifique () {
           break
         case 2:
           if (choice([false, true])) mantisse = new Decimal(randint(111, 999)).div(100)
-          else mantisse = new Decimal(randint(1, 9)).div(100).plus(randint(1, 9) * 100)
+          else mantisse = new Decimal(randint(1, 9)).plus(randint(1, 9) * 100).div(100)
           if (!context.isAmc) {
             exp = randint(1, 7) * choice([-1, 1])
           } else {
@@ -71,7 +71,7 @@ export default function NotationScientifique () {
           }
           break
         case 3:
-          if (choice([true, false])) mantisse = new Decimal(randint(1, 19) * 5).div(1000).plus(randint(1, 9) * 1000)
+          if (choice([true, false])) mantisse = new Decimal(randint(1, 19) * 5).plus(randint(1, 9) * 1000).div(1000)
           else mantisse = new Decimal(randint(1111, 9999)).div(1000)
           if (!context.isAmc) {
             exp = randint(1, 7) * choice([-1, 1])
