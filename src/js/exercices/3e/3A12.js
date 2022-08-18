@@ -69,17 +69,23 @@ export default function ppcmEngrenages () {
 
       let nbDentsr1
       let nbDentsr2
-      let txtPopup = 'Étant donnés deux nombres entiers a et b, lorsque le plus petit multiple commun à $a$ et $b$ vaut $a \\times b$ ( $ppcm(a,b)=a\\times b$ ), on dit que '
+      let txtPopup = '- Définition 1 : Étant donnés deux nombres entiers a et b, lorsque le plus petit multiple commun à $a$ et $b$ vaut $a \\times b$ ( $ppcm(a,b)=a\\times b$ ), on dit que '
       if (context.isHtml) {
         txtPopup += '<b>les nombres a et b sont premiers entre eux</b>.'
       } else {
         txtPopup += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
       };
-      let txtPopupBis = 'Étant donnés deux nombres entiers a et b, lorsque le plus grang diviseur commun à $a$ et $b$ vaut $1$ ( $pgcd(a,b)=1$ ), on dit que '
+      let txtPopupBis = '- Définition 2 : Étant donnés deux nombres entiers a et b, lorsque le plus grang diviseur commun à $a$ et $b$ vaut $1$ ( $pgcd(a,b)=1$ ), on dit que '
       if (context.isHtml) {
         txtPopupBis += '<b>les nombres a et b sont premiers entre eux</b>.'
       } else {
         txtPopupBis += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
+      };
+      let txtPopupTer = '- Définition 3 : Étant donnés deux nombres entiers a et b, lorsque $a$ et $b$ n\'ont pas d\'autre diviseur commun que $1$, on dit que '
+      if (context.isHtml) {
+        txtPopupTer += '<b>les nombres a et b sont premiers entre eux</b>.'
+      } else {
+        txtPopupTer += '$\\textbf{les nombres a et b sont premiers entre eux}$.'
       };
 
       switch (typesDeQuestions) {
@@ -88,7 +94,7 @@ export default function ppcmEngrenages () {
             nbDentsr1 = randint(5, 30)
             nbDentsr2 = randint(5, 30, nbDentsr1)
             texte = `La roue n$\\degree$1 possède $${nbDentsr1}$ dents et la roue n$\\degree$2 a $${nbDentsr2}$ dents.`
-            texte += '<br>' + numAlpha(0) + ` Écrire la liste des multiples de $${nbDentsr1}$ et de $${nbDentsr2}$.`
+            texte += '<br>' + numAlpha(0) + ` Écrire la liste des multiples de $${nbDentsr1}$ et de $${nbDentsr2}$ jusqu'à trouver un multiple commun.`
             if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
               texte += `<br>Pourquoi peut-on en déduire que ${nbDentsr1} et ${nbDentsr2} sont des `
               texte += katexPopup2(
@@ -118,7 +124,7 @@ export default function ppcmEngrenages () {
             };
             texteCorr += '$\\ldots$ '
             texteCorr += '<br>'
-            texteCorr += ` Liste des premiers multiples de ${nbDentsr2} : <br>`
+            texteCorr += ` Liste des premiers multiples de $${nbDentsr2}$ : <br>`
             // on va faire en sorte de toujours avoir un nombre de multiples multiple de 5
             nbMarge = 5 - (ppcm(nbDentsr1, nbDentsr2) / nbDentsr2) % 5
             kMax = (ppcm(nbDentsr1, nbDentsr2) / nbDentsr2 + nbMarge)
@@ -136,8 +142,6 @@ export default function ppcmEngrenages () {
             };
             texteCorr += '$\\ldots$ '
             texteCorr += '<br>'
-            texteCorr += `Le plus petit multiple commun à $${nbDentsr1}$ et $${nbDentsr2}$ vaut donc $ppcm(${nbDentsr1},${nbDentsr2}) = ${ppcm(nbDentsr1, nbDentsr2)}$.`
-            texteCorr += '<br>'
             if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
               texteCorr += '$ppcm(' + nbDentsr1 + ';' + nbDentsr2 + ')=' + nbDentsr1 + '\\times' + nbDentsr2 + `$ donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
               texteCorr += katexPopup2(
@@ -148,9 +152,11 @@ export default function ppcmEngrenages () {
                 txtPopup
               )
             };
-            texteCorr += numAlpha(1) + ` Pour retrouver la position initiale,
-            chaque roue doit tourner de façon à ce que le nombre total de dents utilisé soit un multiple de son nombre
-            de dents soit au minimum de $ppcm(${nbDentsr1},${nbDentsr2})=${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents.`
+            texteCorr += '<br>'
+            texteCorr += numAlpha(1) + ` Le plus petit multiple commun à $${nbDentsr1}$ et $${nbDentsr2}$ vaut donc $${ppcm(nbDentsr1, nbDentsr2)}$.<br>
+            Il suffit donc que chaque roue tourne de $${ppcm(nbDentsr1, nbDentsr2)}$ dents pour faire un nombre entier de tours et ainsi revenir dans sa position initiale.<br>
+            En effet, chaque roue doit tourner de façon à ce que le nombre total de dents utilisé soit un multiple de son nombre
+            de dents soit au minimum de $${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents.`
             texteCorr += `<br> Cela correspond à $(${ppcm(nbDentsr1, nbDentsr2)}\\text{ dents})\\div (${nbDentsr1}\\text{ dents/tour}) = ${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$`
             if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
               texteCorr += ' tour '
@@ -191,20 +197,21 @@ export default function ppcmEngrenages () {
               1,
               'nombres premiers entre eux ?',
               'Définition : Nombres premiers entre eux',
-              txtPopup + '<br>' + txtPopupBis
+              txtPopup + '<br>' + txtPopupBis + '<br>' + txtPopupTer
             )
           };
           texte += '<br>' + numAlpha(1) + ' En déduire le nombre de tours de chaque roue avant le retour à leur position initiale.'
           texteCorr = 'Pour un nombre de dents plus élevé, il est plus commode d\'utiliser les décompositions en produit de facteurs premiers.'
           texteCorr += '<br>' + numAlpha(0) + ` Décomposition de $${nbDentsr1}$ en produit de facteurs premiers :  $${nbDentsr1} = ${decompositionFacteursPremiers(nbDentsr1)}$.`
           texteCorr += `<br> Décomposition de $${nbDentsr2}$ en produit de facteurs premiers :  $${nbDentsr2} = ${decompositionFacteursPremiers(nbDentsr2)}$.`
-
-          texteCorr += '<br><b>Proposition de deux corrections valables :</b> <br>'
-          texteCorr += '<b>Proposition de correction 1 :</b> <br>'
-
-          texteCorr += `D'après les calculs précédents, $ppcm(${nbDentsr1},${nbDentsr2})= ${decompositionFacteursPremiers(ppcm(nbDentsr1, nbDentsr2))}$.<br>`
+          texteCorr += '<br>'
           if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
-            texteCorr += 'Le $ppcm(' + nbDentsr1 + ';' + nbDentsr2 + ')=' + nbDentsr1 + '\\times' + nbDentsr2 + `$ donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
+            texteCorr += '<b>Proposition de trois corrections valables pour la déduction :</b> <br>'
+            texteCorr += '<b>Proposition de correction 1 :</b> <br>'
+
+            texteCorr += `D'après les calculs précédents, $ppcm(${nbDentsr1},${nbDentsr2})= ${decompositionFacteursPremiers(ppcm(nbDentsr1, nbDentsr2))}$.<br>`
+
+            texteCorr += `Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
             texteCorr += katexPopup2(
               numeroExercice + 4,
               1,
@@ -213,11 +220,11 @@ export default function ppcmEngrenages () {
               txtPopup
             )
           };
-          texteCorr += '<b>Proposition de correction 2 :</b> <br>'
-
-          texteCorr += `D'après les calculs précédents, $pgcd(${nbDentsr1},${nbDentsr2})= ${pgcd(nbDentsr1, nbDentsr2) === 1 ? 1 : ''} ${decompositionFacteursPremiers(pgcd(nbDentsr1, nbDentsr2))}$.<br>`
           if (pgcd(nbDentsr1, nbDentsr2) === 1) {
-            texteCorr += `Le $pgcd(${nbDentsr1};${nbDentsr2})=1$ donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
+            texteCorr += '<br><b>Proposition de correction 2 :</b> <br>'
+
+            texteCorr += `D'après les calculs précédents, $pgcd(${nbDentsr1},${nbDentsr2})= ${pgcd(nbDentsr1, nbDentsr2) === 1 ? 1 : ''} ${decompositionFacteursPremiers(pgcd(nbDentsr1, nbDentsr2))}$.<br>`
+            texteCorr += `Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
             texteCorr += katexPopup2(
               numeroExercice + 5,
               1,
@@ -226,10 +233,24 @@ export default function ppcmEngrenages () {
               txtPopupBis
             )
           };
+          if (pgcd(nbDentsr1, nbDentsr2) === 1) {
+            texteCorr += '<br><b>Proposition de correction 3 :</b> <br>'
 
+            texteCorr += `D'après les calculs précédents, le seul diviseur commun à $${nbDentsr1}$ et $${nbDentsr2}$ vaut $1$.<br> `
+            texteCorr += `Donc $${nbDentsr1}$ et $${nbDentsr2}$ sont des `
+            texteCorr += katexPopup2(
+              numeroExercice + 6,
+              1,
+              'nombres premiers entre eux.',
+              'Définition : Nombres premiers entre eux',
+              txtPopupTer
+            )
+          };
+          texteCorr += '<br>'
           texteCorr += numAlpha(1) + ` Pour retrouver la position initiale,
           chaque roue doit tourner de façon à ce que le nombre total de dents utilisé soit un multiple de son nombre
-          de dents soit au minimum de $ppcm(${nbDentsr1},${nbDentsr2})=${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents.`
+          de dents.<br>
+          Soit, grâce aux décompositions précédentes, au minimum de $${decompositionFacteursPremiers(ppcm(nbDentsr1, nbDentsr2))} = ${ppcm(nbDentsr1, nbDentsr2)}$ dents.`
           texteCorr += `<br> Cela correspond à $(${texNombre(ppcm(nbDentsr1, nbDentsr2))}\\text{ dents})\\div (${nbDentsr1}\\text{ dents/tour}) = ${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$`
           if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
             texteCorr += ' tour '
