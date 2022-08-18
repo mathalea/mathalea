@@ -1,4 +1,5 @@
-import { cercle, colorToLatexOrHTML, mathalea2d, point, rotation, segment, texteParPosition } from '../../../modules/2d.js'
+import { cercle, mathalea2d, point, rotation, segment, texteParPosition } from '../../../modules/2d.js'
+import { colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'
 import { calcul, choice, personne, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'

@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, shuffle, cesar } from '../../modules/outils.js'
-import { point, polygoneRegulier, repere, graphiqueInterpole, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
+import { point, polygoneRegulier, repere, graphiqueInterpole, mathalea2d } from '../../modules/2d.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 export const titre = 'Spécial escape game'
 export const interactifReady = true
 export const interactifType = 'mathLive'

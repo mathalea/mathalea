@@ -520,9 +520,6 @@ export default function SujetCAN2022quatrieme () {
             axeYStyle: '->'
           })
 
-          // C.color = colorToLatexOrHTML('red')
-          // C.epaisseur = 2
-
           A = point(a, b)
           o = latexParCoordonnees('\\text{O}', -0.3, -0.4, 'black', 15, 10, '', 7)
           lA = latexParCoordonnees('A', a + 0.2, b + 0.2, 'red', 15, 10, '', 10)

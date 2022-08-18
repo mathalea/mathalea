@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, creerNomDePolygone, texNombre, choice } from '../../modules/outils.js'
-import { point, labelPoint, polygone, similitude, codageAngleDroit, codageAngle, mathalea2d, afficheMesureAngle, afficheLongueurSegment, longueur, angle, texteSurSegment, colorToLatexOrHTML } from '../../modules/2d.js'
+import { point, labelPoint, polygone, similitude, codageAngleDroit, codageAngle, mathalea2d, afficheMesureAngle, afficheLongueurSegment, longueur, angle, texteSurSegment } from '../../modules/2d.js'
 import { radians, degres } from '../../modules/fonctionsMaths.js'
 
 export const titre = 'Calculer toutes les mesures d\'angle d\'une figure complexe'
@@ -37,15 +37,13 @@ export default function CalculDAngleFigureComplexe () {
     const B = point(0, 0, '', 'below')
     const A = point(randint(4, 7), 0, '', 'below')
     const C = point(0, randint(3, 7, longueur(A, B)), '', 'above') // On exclue AB pour ne pas avoir un triangle isocèle
-    const t1 = polygone(A, B, C)
-    const t1c = polygone(A, B, C)
-    t1c.color = colorToLatexOrHTML('blue')
+    const t1 = polygone([A, B, C])
+    const t1c = polygone([A, B, C], 'blue')
     t1c.epaisseur = 3
     const c1 = codageAngleDroit(A, B, C)
     const D = similitude(C, A, -90, randint(7, 12, 10) / 10, '', 'right') // On exclue 10 pour ne pas avoir un triangle isocèle
-    const t2 = polygone(C, A, D)
-    const t2c = polygone(C, A, D)
-    t2c.color = colorToLatexOrHTML('blue')
+    const t2 = polygone([C, A, D])
+    const t2c = polygone([C, A, D], 'blue')
     t2c.epaisseur = 3
     const c2 = codageAngleDroit(C, A, D)
     const nom = creerNomDePolygone(4, 'QD')

@@ -12,7 +12,8 @@
  * this.testSequence([...code]) est une méthode qui retourne true si la séquence d'instructions est valide.
  */
 
-import { avance, boite, ObjetMathalea2D, segment, texteParPositionEchelle, tournerD, tournerG } from './2d.js'
+import { boite, ObjetMathalea2D, segment, texteParPositionEchelle } from './2d.js'
+import { avance, tournerD, tournerG } from './2dLutin.js'
 import { randint } from './outils.js'
 
 class NoteLaCouleur {

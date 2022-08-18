@@ -1,6 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, shuffle, calcul, texteEnCouleur, combinaisonListes } from '../../modules/outils.js'
-import { creerLutin, avance, baisseCrayon, leveCrayon, tournerD, allerA, mathalea2d, scratchblock, colorToLatexOrHTML } from '../../modules/2d.js'
+import { mathalea2d, scratchblock } from '../../modules/2d.js'
+import { allerA, avance, baisseCrayon, creerLutin, leveCrayon, tournerD } from '../../modules/2dLutin.js'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Dessiner avec scratch'
 

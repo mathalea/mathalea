@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { numAlpha, combinaisonListes, randint, choisitLettresDifferentes, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { mathalea2d, tracePoint, labelPoint, colorToLatexOrHTML } from '../../modules/2d.js'
+import { mathalea2d, tracePoint, labelPoint } from '../../modules/2d.js'
 import { point3d, droite3d, vecteur3d, arete3d, sphere3d, rotation3d, rotationV3d, demicercle3d, sensDeRotation3d } from '../../modules/3d.js'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Repérage sur la sphère'
 
@@ -37,13 +38,11 @@ export default function ReperageSurLaSphere () {
     const PoleNord = point3d(0, 0, 11, false, 'N')
     const PoleSud = point3d(0, 0, -11, false, 'S')
     PoleNord.c2d.positionLabel = 'above'
-    const Pn = labelPoint(PoleNord.c2d)
+    const Pn = labelPoint(PoleNord.c2d, 'brown')
     PoleSud.c2d.positionLabel = 'below'
-    const Ps = labelPoint(PoleSud.c2d)
+    const Ps = labelPoint(PoleSud.c2d, 'brown')
     Pn.taille = 3
     Ps.taille = 3
-    Pn.color = colorToLatexOrHTML('brown')
-    Ps.color = colorToLatexOrHTML('brown')
 
     const Axe = arete3d(PoleSud, PoleNord)
     Axe.c2d.epaisseur = 2

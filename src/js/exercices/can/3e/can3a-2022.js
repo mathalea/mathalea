@@ -9,6 +9,7 @@ import { listeQuestionsToContenu, randint, texNombre, shuffle, simplificationDeF
 import { setReponse } from '../../../modules/gestionInteractif.js'
 
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
+import { colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 export const titre = 'CAN 3ième sujet 2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice.js'
-import { randint, calcul, texFraction, miseEnEvidence, reduireAxPlusB, texteCentre } from '../../../modules/outils.js'
-import { courbe, mathalea2d, point, repere, tracePoint, texteParPosition, segment, colorToLatexOrHTML } from '../../../modules/2d.js'
+import { randint, texFraction, miseEnEvidence, reduireAxPlusB, texteCentre } from '../../../modules/outils.js'
+import { courbe, mathalea2d, repere, texteParPosition, segment } from '../../../modules/2d.js'
 export const titre = 'Lire graphiquement une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,15 +24,6 @@ export default function LectureGraphiqueFonctionAffine1 () {
     let s1, s2
     const a = randint(-4, 4, 0)
     const b = randint(-4, 4, 0)
-    const xA = randint(-3, 3, [-1, 0])
-    const yA = calcul(a * xA + b)
-    const xB = xA + 1
-    const yB = calcul(b + a * xB)
-    const tA = tracePoint(point(xA, yA))
-    const tB = tracePoint(point(xB, yB))
-
-    tA.color = colorToLatexOrHTML('red')
-    tB.color = colorToLatexOrHTML('red')
 
     const rep = repere({ xMin: -8, yMin: -8, xMax: 8, yMax: 8 })
     this.formatInteractif = 'calcul'
