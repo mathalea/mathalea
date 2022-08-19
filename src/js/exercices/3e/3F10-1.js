@@ -92,7 +92,7 @@ export default function VocabulaireNotationsFonctions () {
             case 3:
               A = point(x, y)
               d = droiteParPointEtPente(A, randint(-4, 4, 0) / 2, '', 'red')
-              enonce = 'La fonction $f$ est représentée par la droite rouge ci-dessous<br>'
+              enonce = 'La fonction $f$ est représentée par la droite rouge ci-dessous.<br>'
               enonce += mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 15, scale: 0.5 }, r, d, tracePoint(A)) + '<br>Alors pour la fonction $f$ :'
               reponses[i] = [[`$${x}$ est un antécédent de $${y}$`, true], [`$${x}$ est l'image de $${y}$`, false], [`$${y}$ est un antécédent de $${x}$`, false], [`$${y}$ est l'image de $${x}$`, true]]
               break
