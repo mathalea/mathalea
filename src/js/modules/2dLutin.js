@@ -26,7 +26,7 @@ export function angleScratchTo2d (x) {
 }
 
 function ObjetLutin () {
-  ObjetMathalea2D.call(this)
+   ObjetMathalea2D.call(this, { })
   this.x = 0
   this.y = 0
   this.xMin = 0
