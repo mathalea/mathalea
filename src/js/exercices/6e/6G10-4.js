@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, combinaisonListes, choisitLettresDifferentes, texteEnCouleurEtGras, shuffle, premiereLettreEnMajuscule } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, mathalea2d, pointAdistance, cercle, segment, pointIntersectionLC, droite, longueur, polygoneAvecNom } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-export const interactifReady = false
+export const interactifReady = true
 export const interactifType = 'qcm'
 export const titre = 'Connaître le vocabulaire du cercle'
 
@@ -14,23 +14,21 @@ export const dateDePublication = '19/08/2022'
  * @author Guillaume Valmont
  * Référence 6G10-4
 */
-export default class VocabulaireDuCercle extends Exercice {
-  constructor () {
-    super()
-    this.titre = titre
-    this.nbQuestions = 1
+export default function VocabulaireDuCercle () {
+  Exercice.call(this)
+  this.titre = titre
+  this.nbQuestions = 1
 
-    this.besoinFormulaireNumerique = ['Sens des questions', 3, '1 : Un rayon est...\n2 : [AB] est ...\n3 : Mélange']
-    this.sup = 3
-    this.besoinFormulaire2CaseACocher = ['QCM']
-    this.sup2 = true
-    this.correctionDetailleeDisponible = true
+  this.besoinFormulaireNumerique = ['Sens des questions', 3, '1 : Un rayon est...\n2 : [AB] est ...\n3 : Mélange']
+  this.sup = 3
+  this.besoinFormulaire2CaseACocher = ['QCM']
+  this.sup2 = true
+  this.correctionDetailleeDisponible = true
 
-    this.spacing = 1.5 // Interligne des questions
-    this.spacingCorr = 1.5 // Interligne des réponses
-  }
+  this.spacing = 1.5 // Interligne des questions
+  this.spacingCorr = 1.5 // Interligne des réponses
 
-  nouvelleVersion (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -128,7 +126,7 @@ export default class VocabulaireDuCercle extends Exercice {
       }
       let j = 0
       for (const question of questions) {
-        let enonce
+        let enonce; const propositionsEE = []
         if (sensDesQuestions[i] === 'Un rayon est ...') {
           enonce = `${premiereLettreEnMajuscule(question.nature)} est ...<br>`
           texte += enonce
@@ -140,22 +138,25 @@ export default class VocabulaireDuCercle extends Exercice {
           texteCorr += `${premiereLettreEnMajuscule(question.nom)} est ${texteEnCouleurEtGras(question.nature)}.<br>`
         }
         if (this.correctionDetaillee && question.commentaire !== '') texteCorr += question.commentaire + '<br>'
-        if (this.sup2) {
-          for (const proposition of propositions) {
-            if (proposition.texte === question.nom) proposition.statut = true
-            else proposition.statut = false
+        if (this.interactif || this.sup2) {
+          for (let ee = 0; ee < propositions.length; ee++) {
+            propositionsEE.push({
+              texte: propositions[ee].texte,
+              statut: propositions[ee].texte === question.nom,
+              feedback: propositions[ee].feedback
+            })
           }
           this.autoCorrection[i * questions.length + j] = {
             enonce,
-            options: { ordered: true },
-            propositions
+            options: { ordered: false },
+            propositions: propositionsEE
           }
           texte += propositionsQcm(this, i * questions.length + j).texte + '<br>'
         }
         j++
       }
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, objetsEnonce)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, nomsDesPoints, objetsEnonce)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Dans cet exercice, on n'utilise pas a, b, c et d mais A, B, C et D alors remplace-les !
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
