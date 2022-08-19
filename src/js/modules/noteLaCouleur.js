@@ -253,7 +253,7 @@ class Plateau2dNLC {
     ]
 
   } = {}) {
-    ObjetMathalea2D.call(this)
+     ObjetMathalea2D.call(this, { })
     this.relatif = relatif
     this.pas = pas
     this.type = 1
