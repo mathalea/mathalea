@@ -15,7 +15,7 @@ import { context } from './context'
  */
 // JSDOC Validee par EE Juin 2022
 function AfficherCrayon (A) {
-  ObjetMathalea2D.call(this)
+  ObjetMathalea2D.call(this, { })
   this.x = A.x
   this.y = A.y
   this.svg = function () {

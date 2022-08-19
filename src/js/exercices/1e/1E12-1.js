@@ -2,7 +2,6 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, lettreMinusculeDepuisChiffre, premierMultipleInferieur, premierMultipleSuperieur } from '../../modules/outils.js'
 import { mathalea2d, repere, courbe } from '../../modules/2d.js'
 import { calcule } from '../../modules/fonctionsMaths.js'
-import { min, max } from 'mathjs'
 
 export const titre = 'Lecture graphique d\'éléments caractéristiques d\'un trinôme'
 
