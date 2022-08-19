@@ -21,7 +21,7 @@ export default function CoeffDirecteurDroite () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let xA, yA, xB, yB, n, d, a, b, rep
-    switch (choice([1])) { //, 2, 3, 4
+    switch (choice([1, 2, 3, 4])) {
       case 1:// coefficient directeur droite
         xA = randint(0, 7)
         yA = randint(0, 7)
