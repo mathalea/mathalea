@@ -1,4 +1,4 @@
-import { codageSegments, colorToLatexOrHTML, droite, labelPoint, mathalea2d, point, segment, segmentAvecExtremites, texteSurSegment, tracePointSurDroite } from '../../../modules/2d.js'
+import { codageSegments, droite, labelPoint, mathalea2d, point, segment, segmentAvecExtremites, texteSurSegment, tracePointSurDroite } from '../../../modules/2d.js'
 import { calcul, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Résoudre un problème de longueurs'
@@ -49,12 +49,10 @@ export default function ProblemesDeLongueurs () {
       pointsSurDE.push(point(x + i * l / a, 2), point(x + i * l / a, 2))
       objets.push(tracePointSurDroite(pointsSurDE[2 * (i - 1)], d))
     }
-    const s1 = segment(pointsSurAB[pointsSurAB.length - 1], D)
-    const s2 = segment(B, E)
+    const s1 = segment(pointsSurAB[pointsSurAB.length - 1], D, 'green')
+    const s2 = segment(B, E, 'green')
     s1.pointilles = 2
-    s1.color = colorToLatexOrHTML('green')
     s2.pointilles = 2
-    s2.color = colorToLatexOrHTML('green')
     const abc = calcul(a * b * c)
     objets.push(texteSurSegment(c, F, E), labelPoint(F), codageSegments('O', 'blue', D, ...pointsSurDE, E), s1, s2)
     this.question = `Sachant que $FE=${c}$ cm et que $CB=DE$, détermine $AB$.<br>` + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 16.5, ymax: 3.5, scale: 0.5, style: 'margin: auto' }, objets)

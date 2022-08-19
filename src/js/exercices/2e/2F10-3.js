@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, choice, ecritureAlgebrique, ecritureParentheseSiNegatif, texFractionReduite } from '../../modules/outils.js'
-import { repere, droite, mathalea2d, point, tracePoint, labelPoint, texteParPosition, colorToLatexOrHTML } from '../../modules/2d.js'
+import { repere, droite, mathalea2d, point, tracePoint, labelPoint, texteParPosition } from '../../modules/2d.js'
 import { min, max } from 'mathjs'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Représentation graphique d\'une fonction affine'
 

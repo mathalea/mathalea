@@ -1,10 +1,11 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, abs, reduireAxPlusB, texFractionReduite, ecritureAlgebrique, pgcd } from '../../modules/outils.js'
-import { repere, droite, segment, tracePoint, labelPoint, point, mathalea2d, colorToLatexOrHTML } from '../../modules/2d.js'
+import { repere, droite, segment, tracePoint, labelPoint, point, mathalea2d } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js/decimal.mjs'
+import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 export const titre = "Lecture graphique des coefficients d'une équation réduite "
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -83,8 +84,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           s2.epaisseur = 4
           const A = point(0, b, 'A')
           t = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
-          l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = colorToLatexOrHTML('blue')
+          l = labelPoint(A, 'blue')// Variable qui trace les nom s A et B
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -8,
@@ -102,8 +102,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           s2.epaisseur = 4
           const A = point(0, b, 'A')
           t = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
-          l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = colorToLatexOrHTML('blue')
+          l = labelPoint(A, 'blue')// Variable qui trace les nom s A et B
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -8,
@@ -227,8 +226,7 @@ export default function lecturegraphiquedeaetb (numeroExercice) {
           s2.epaisseur = 4
           const A = point(0, b, 'A')
           t = tracePoint(A, 'red') // Variable qui trace les points avec une croix
-          l = labelPoint(A)// Variable qui trace les nom s A et B
-          l.color = colorToLatexOrHTML('red')
+          l = labelPoint(A, 'red')// Variable qui trace les nom s A et B
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -6,

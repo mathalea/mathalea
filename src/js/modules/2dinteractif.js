@@ -1,4 +1,5 @@
-import { colorToLatexOrHTML, ObjetMathalea2D, point, polygone, tracePoint } from './2d.js'
+import { ObjetMathalea2D, point, polygone, tracePoint } from './2d.js'
+import { colorToLatexOrHTML } from './2dGeneralites.js'
 import { context } from './context.js'
 
 /**
