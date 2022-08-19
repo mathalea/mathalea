@@ -12055,25 +12055,6 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betac3N10-1": {
-    "titre": "Recomposer un entier",
-    "url": "/exercices/c3/betac3N10-1.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCNum"
-    },
-    "interactifReady": true,
-    "interactifType": "custom",
-    "name": "betac3N10-1",
-    "newEx": {
-      "isNew": true,
-      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
-    },
-    "updateEx": {
-      "isNewFeat": false,
-      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
-    }
-  },
   "c3C10-1": {
     "titre": "Tables de multiplication",
     "url": "/exercices/c3/c3C10-1.js",
@@ -12322,6 +12303,25 @@ export default {
     "name": "c3I11",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "c3N10-1": {
+    "titre": "Recomposer un entier",
+    "url": "/exercices/c3/c3N10-1.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "c3N10-1",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -16345,7 +16345,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5P07",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -16364,7 +16364,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can5P08",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
