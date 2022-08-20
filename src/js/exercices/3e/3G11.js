@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel, texNombre } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, segment, dansLaCibleCarree, cibleCarree, homothetie, longueur, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, segment, dansLaCibleCarree, cibleCarree, homothetie, longueur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Construire l\'image d\'un point par une homothetie avec cible auto-corrective'

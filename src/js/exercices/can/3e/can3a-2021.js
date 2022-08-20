@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codageSegment
+  point, polygoneAvecNom, codageAngleDroit, labelPoint, segment, milieu, texteParPosition, demiDroite, ellipse, codageSegment
 } from '../../../modules/2d.js'
 import { listeQuestionsToContenu, randint, texNombre, shuffle, printlatex, stringNombre, texFraction, miseEnEvidence, simplificationDeFractionAvecEtapes, choice, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'

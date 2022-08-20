@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, texNombre } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, labelPoint, afficheLongueurSegment, codageAngleDroit, afficheMesureAngle, codageSegment, pointAdistance, polygone, milieu, segment
+  point, labelPoint, afficheLongueurSegment, codageAngleDroit, afficheMesureAngle, codageSegment, pointAdistance, polygone, milieu, segment
 } from '../../../modules/2d.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import FractionX from '../../../modules/FractionEtendue.js'

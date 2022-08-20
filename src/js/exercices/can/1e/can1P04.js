@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { number } from 'mathjs'
 import { Arbre, texProba } from '../../../modules/arbres.js'
-import { mathalea2d } from '../../../modules/2d.js'
+
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import { context } from '../../../modules/context.js'

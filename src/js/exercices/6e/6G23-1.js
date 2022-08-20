@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, lettreDepuisChiffre, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
-import { point, labelPoint, rotation, mathalea2d, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
+import { point, labelPoint, rotation, afficheMesureAngle, homothetie, demiDroite, texteParPoint, similitude, pointSurSegment } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 
 export const amcReady = true

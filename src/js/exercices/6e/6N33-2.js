@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes } from '../../modules/outils.js'
-import { point, pointSurSegment, rotation, codageAngle, texteParPoint, mathalea2d } from '../../modules/2d.js'
+import { point, pointSurSegment, rotation, codageAngle, texteParPoint } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 export const titre = 'Résoudre des problèmes de calcul de pourcentage par complément à 100%'

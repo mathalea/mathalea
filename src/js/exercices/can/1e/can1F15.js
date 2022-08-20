@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice } from '../../../modules/outils.js'
 import FractionX from '../../../modules/FractionEtendue.js'
-import { repere, courbe, mathalea2d, texteParPosition } from '../../../modules/2d.js'
+import { repere, courbe, texteParPosition } from '../../../modules/2d.js'
 import { calcule } from '../../../modules/fonctionsMaths.js'
 export const titre = 'Lire graphiquement un nombre dérivé'
 export const interactifReady = true

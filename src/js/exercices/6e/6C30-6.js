@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { calcul, listeQuestionsToContenu, combinaisonListes, choice, range, rangeMinMax, texNombre3, texteEnCouleurEtGras, enleveElement, numAlpha, abs, randint, lampeMessage } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { min } from 'mathjs'
 import { context } from '../../modules/context.js'
-import { glisseNombre, mathalea2d } from '../../modules/2d.js'
+import { glisseNombre } from '../../modules/2d.js'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../modules/outils.js'
-import { repere, mathalea2d, point, tracePoint, labelPoint, segment, nomVecteurParPosition } from '../../modules/2d.js'
+import { repere, point, tracePoint, labelPoint, segment, nomVecteurParPosition } from '../../modules/2d.js'
 
 export const titre = 'Déterminer les coordonnées d\'un vecteur à partir des coordonnées de deux points'
 

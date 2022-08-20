@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { tableauDeVariation, mathalea2d } from '../../modules/2d.js'
+import { tableauDeVariation } from '../../modules/2d.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint, abs, sp } from '../../modules/outils.js'
 export const titre = 'Utiliser les variations des fonctions de référence pour comparer ou encadrer'
 export const dateDePublication = '31/01/2022'

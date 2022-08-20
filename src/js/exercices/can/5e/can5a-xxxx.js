@@ -1,10 +1,11 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calcul, texNombrec, choice, texNombre, sp, shuffle, texPrix, combinaisonListesSansChangerOrdre } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Grandeur from '../../../modules/Grandeur.js'
-import { droiteGraduee2, mathalea2d } from '../../../modules/2d.js'
+import { droiteGraduee2 } from '../../../modules/2d.js'
 export const titre = 'Course aux nombres début de 5e'
 export const interactifReady = true
 export const interactifType = 'mathLive'

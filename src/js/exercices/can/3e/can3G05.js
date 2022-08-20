@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { choice, creerNomDePolygone, randint } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, segment, polygoneAvecNom, codageAngleDroit, rotation, afficheLongueurSegment, pointAdistance, similitude
+  point, segment, polygoneAvecNom, codageAngleDroit, rotation, afficheLongueurSegment, pointAdistance, similitude
 } from '../../../modules/2d.js'
 export const titre = 'Utiliser la trigonométrie'
 export const interactifReady = true

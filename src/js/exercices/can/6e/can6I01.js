@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 import Exercice from '../../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'
 import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, stringNombre } from '../../../modules/outils.js'
-import { mathalea2d, scratchblock, point, texteParPositionEchelle, tracePoint } from '../../../modules/2d.js'
+import { scratchblock, point, texteParPositionEchelle, tracePoint } from '../../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../../modules/noteLaCouleur.js'
-import { colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, creerLutin, orienter } from '../../../modules/2dLutin.js'
 import { clone } from 'mathjs'
 export const titre = 'Noter la couleur (scratch)'

@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { texcolors, choice, lettreDepuisChiffre, listeQuestionsToContenu, texteEnCouleurEtGras, sp, randint, deuxColonnes, contraindreValeur } from '../../modules/outils.js'
-import { grille, mathalea2d, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle, symetrieAnimee, translationAnimee, rotationAnimee } from '../../modules/2d.js'
+import { grille, point, segment, tracePoint, homothetie, polygone, symetrieAxiale, translation, droite, vecteur, rotation, milieu, texteParPointEchelle, symetrieAnimee, translationAnimee, rotationAnimee } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { choixDeroulant } from '../../modules/interactif/questionListeDeroulante.js'
@@ -237,8 +237,8 @@ export default function TrouverLaTransformations () {
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
-    this.contenu = deuxColonnes(this.contenu, mathalea2d(paramsEnonce, objetsEnonce), 50)
-    this.contenuCorrection = deuxColonnes(this.contenuCorrection, mathalea2d(paramsCorrection, objetsCorrection), 50)
+    this.contenu = deuxColonnes(this.contenu(paramsEnonce, objetsEnonce), 50)
+    this.contenuCorrection = deuxColonnes(this.contenuCorrection(paramsCorrection, objetsCorrection), 50)
   }
   this.besoinFormulaireNumerique = ['Types de transformations possibles', 3, '1 : Symétries axiales et centrales\n2 : Symétries et translations\n3 : Symétries, translations et quarts de tour']
 }

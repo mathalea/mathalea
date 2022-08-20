@@ -1,10 +1,10 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, shuffle } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-import { cercle, cercleCentrePoint, codageAngle, latexParPoint, mathalea2d, point, pointSurCercle, segment } from '../../modules/2d.js'
+import { cercle, cercleCentrePoint, codageAngle, latexParPoint, point, pointSurCercle, segment } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
-import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 export const titre = 'Valeurs remarquables du cosinus et sinus'
 export const interactifReady = true
 export const interactifType = 'mathLive'

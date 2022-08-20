@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombrec, lettreDepuisChiffre, htmlConsigne, egal } from '../../modules/outils.js'
-import { droiteGraduee2, labelPoint, mathalea2d, point, tracePoint } from '../../modules/2d.js'
+import { droiteGraduee2, labelPoint, point, tracePoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const interactifReady = true
 export const interactifType = 'custom'

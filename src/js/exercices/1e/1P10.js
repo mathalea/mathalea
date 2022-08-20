@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, texFraction, arrondi, contraindreValeur, egalOuApprox } from '../../modules/outils.js'
-import { latexParCoordonnees, mathalea2d, point, segment } from '../../modules/2d.js'
+import { latexParCoordonnees, point, segment } from '../../modules/2d.js'
 import { number, fraction } from 'mathjs'
 export const titre = 'Probabilités conditionnelles'
 

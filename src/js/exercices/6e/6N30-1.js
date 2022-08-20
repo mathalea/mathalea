@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { calcul, arrondi, htmlConsigne, lettreDepuisChiffre, combinaisonListes, listeQuestionsToContenu, randint, stringNombre, contraindreValeur } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { droiteGraduee2 } from '../../modules/2d.js'
 
 export const titre = 'Lire l\'abscisse décimale d\'un point (niveau 2)'
 export const interactifReady = true

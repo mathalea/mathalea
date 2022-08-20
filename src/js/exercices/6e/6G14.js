@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, range, rangeMinMax, shuffle, combinaisonListes, contraindreValeur, choice } from '../../modules/outils.js'
-import { point, pointIntersectionDD, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteParPointEtPente, rotation, codageAngleDroit, mathalea2d } from '../../modules/2d.js'
+import { point, pointIntersectionDD, droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire, droiteParPointEtPente, rotation, codageAngleDroit } from '../../modules/2d.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC
 export const titre = 'Utiliser les propriétés des droites perpendiculaires'

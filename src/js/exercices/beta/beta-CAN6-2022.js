@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { fraction } from '../../modules/fractions.js'
 import {
-  mathalea2d, point, grille, droiteGraduee2, segment, milieu, labelPoint, texteParPosition, codageAngleDroit
+  point, grille, droiteGraduee2, segment, milieu, labelPoint, texteParPosition, codageAngleDroit
 } from '../../modules/2d.js'
 import { round, min } from 'mathjs'
 
@@ -9,6 +9,7 @@ import { listeQuestionsToContenu, miseEnEvidence, randint, texNombre, shuffle, c
 import { setReponse } from '../../modules/gestionInteractif.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'CAN Sixième sujet 2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'

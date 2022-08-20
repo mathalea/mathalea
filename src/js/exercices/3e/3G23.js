@@ -2,9 +2,9 @@
 /* eslint-disable prefer-const */
 /* eslint-disable no-case-declarations */
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, texteEnCouleur, texteGras } from '../../modules/outils.js'
-import { point, tracePoint, milieu, pointSurSegment, pointIntersectionDD, labelPoint, barycentre, droite, vecteur, segment, polygone, nommePolygone, aireTriangle, arc, rotation, translationAnimee, rotationAnimee, codageSegments, grille, angleOriente, mathalea2d } from '../../modules/2d.js'
-import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { point, tracePoint, milieu, pointSurSegment, pointIntersectionDD, labelPoint, barycentre, droite, vecteur, segment, polygone, nommePolygone, aireTriangle, arc, rotation, translationAnimee, rotationAnimee, codageSegments, grille, angleOriente } from '../../modules/2d.js'
 export const titre = 'Reconnaître des triangles égaux dans différentes configurations'
 
 /**

@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { point, pointAdistance, rotation, similitude, translation, vecteur, barycentre, codageSegment, codageAngle, nommePolygone, mathalea2d, triangle2points2longueurs, longueur, angle, polygone } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { point, pointAdistance, rotation, similitude, translation, vecteur, barycentre, codageSegment, codageAngle, nommePolygone, triangle2points2longueurs, longueur, angle, polygone } from '../../modules/2d.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, choisitLettresDifferentes, shuffleLettres } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Triangles égaux et côtés homologues'

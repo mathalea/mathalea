@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, premiereLettreEnMajuscule, numAlpha, calcul, sp } from '../../modules/outils.js'
-import { repere, traceBarre, mathalea2d } from '../../modules/2d.js'
+import { repere, traceBarre } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

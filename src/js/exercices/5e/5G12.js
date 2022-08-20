@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, choice, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
-import { tracePoint, labelPoint, codageMilieu, segment, rotation, rotationAnimee, texteParPosition, mathalea2d, pavage } from '../../modules/2d.js'
-import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { tracePoint, labelPoint, codageMilieu, segment, rotation, rotationAnimee, texteParPosition, pavage } from '../../modules/2d.js'
 
 export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans un pavage'
 

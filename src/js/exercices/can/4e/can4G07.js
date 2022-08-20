@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, calcul, choice, texNombrec, creerNomDePolygone } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, labelPoint, segment, codageSegments
+  point, labelPoint, segment, codageSegments
 } from '../../../modules/2d.js'
 export const titre = 'Calculer une longueur avec le théorème de Thalès (milieu)'
 export const interactifReady = true

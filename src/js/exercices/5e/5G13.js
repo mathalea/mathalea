@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texNombre } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, mathalea2d, symetrieAxiale, translation, vecteur, triangle2points2longueurs, droite, pointAdistance, rotation, afficheLongueurSegment, segment, afficheMesureAngle, longueur, droiteParPointEtParallele, angle, polygoneAvecNom, texteParPoint, positionLabelDroite, distancePointDroite, translation2Points } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, symetrieAxiale, translation, vecteur, triangle2points2longueurs, droite, pointAdistance, rotation, afficheLongueurSegment, segment, afficheMesureAngle, longueur, droiteParPointEtParallele, angle, polygoneAvecNom, texteParPoint, positionLabelDroite, distancePointDroite, translation2Points } from '../../modules/2d.js'
 import { getVueFromUrl } from '../../modules/gestionUrl.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles'

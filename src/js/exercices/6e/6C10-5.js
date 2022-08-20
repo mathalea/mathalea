@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, choice, contraindreValeur, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
-import { mathalea2d, labyrinthe } from '../../modules/2d.js'
+import { labyrinthe } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true
 export const amcType = 'AMCOpen' // type de question AMC

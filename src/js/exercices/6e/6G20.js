@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, barycentre, vecteur, polygone, carre, nommePolygone, translation, rotation, homothetie, similitude, codageAngleDroit, codageSegments, codageAngle, grille, seyes, mathalea2d } from '../../modules/2d.js'
+import { point, barycentre, vecteur, polygone, carre, nommePolygone, translation, rotation, homothetie, similitude, codageAngleDroit, codageSegments, codageAngle, grille, seyes } from '../../modules/2d.js'
 export const titre = 'Nommer et coder des polygones'
 
 /**

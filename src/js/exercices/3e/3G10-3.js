@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choisitLettresDifferentes, lettreDepuisChiffre, arcenciel } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, arcPointPointAngle, dansLaCibleCarree, cibleCarree, rotation, longueur, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, arcPointPointAngle, dansLaCibleCarree, cibleCarree, rotation, longueur } from '../../modules/2d.js'
 export const titre = 'Construire l\'image d\'un point par une rotation avec cible auto-corrective'
 
 /**

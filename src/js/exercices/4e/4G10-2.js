@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, choisitLettresDifferentes } from '../../modules/outils.js'
-import { afficheLongueurSegment, codageAngleDroit, droite, droiteParPointEtPerpendiculaire, labelPoint, mathalea2d, point, pointAdistance, pointIntersectionDD, pointSurDroite, polygoneAvecNom, segment, translation2Points, triangle2points2longueurs, vecteur } from '../../modules/2d.js'
+import { afficheLongueurSegment, codageAngleDroit, droite, droiteParPointEtPerpendiculaire, labelPoint, point, pointAdistance, pointIntersectionDD, pointSurDroite, polygoneAvecNom, segment, translation2Points, triangle2points2longueurs, vecteur } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Transformer une figure par translation'
 

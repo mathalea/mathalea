@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, creerNomDePolygone, texNombre, choice } from '../../modules/outils.js'
-import { point, labelPoint, polygone, similitude, codageAngleDroit, codageAngle, mathalea2d, afficheMesureAngle, afficheLongueurSegment, longueur, angle, texteSurSegment } from '../../modules/2d.js'
+import { point, labelPoint, polygone, similitude, codageAngleDroit, codageAngle, afficheMesureAngle, afficheLongueurSegment, longueur, angle, texteSurSegment } from '../../modules/2d.js'
 import { radians, degres } from '../../modules/fonctionsMaths.js'
 
 export const titre = 'Calculer toutes les mesures d\'angle d\'une figure complexe'

@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { courbe, repere, mathalea2d } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { courbe, repere } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite, ecritureAlgebrique, texRacineCarree, ecritureParentheseSiNegatif, calcul, lettreMinusculeDepuisChiffre, texNombre } from '../../modules/outils.js'
 import { simplify, floor } from 'mathjs'
