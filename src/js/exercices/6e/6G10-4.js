@@ -1,9 +1,11 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, combinaisonListes, choisitLettresDifferentes, texteEnCouleurEtGras, shuffle, premiereLettreEnMajuscule } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, choisitLettresDifferentes, texteEnCouleurEtGras, shuffle, premiereLettreEnMajuscule, numAlpha } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, mathalea2d, pointAdistance, cercle, segment, pointIntersectionLC, droite, longueur, polygoneAvecNom } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
+import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 export const interactifReady = true
-export const interactifType = 'qcm'
+export const interactifType = ['qcm', 'mathLive']
 export const titre = 'Connaître le vocabulaire du cercle'
 
 export const dateDePublication = '19/08/2022'
@@ -32,6 +34,7 @@ export default function VocabulaireDuCercle () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
+    this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
 
     let sensDesQuestionsDisponibles
     switch (Number(this.sup)) {
@@ -127,22 +130,24 @@ export default function VocabulaireDuCercle () {
       let j = 0
       for (const question of questions) {
         let enonce; const propositionsEE = []
+        texte += numAlpha(j)
+        texteCorr += numAlpha(j)
         if (sensDesQuestions[i] === 'Un rayon est ...') {
-          enonce = `${premiereLettreEnMajuscule(question.nature)} est ...<br>`
+          enonce = `${premiereLettreEnMajuscule(question.nature)} est ${this.interactifType === 'mathLive' ? '' : '...'}`
           texte += enonce
           texteCorr += `${premiereLettreEnMajuscule(question.nature)} est ${texteEnCouleurEtGras(question.nom)}.<br>`
         }
         if (sensDesQuestions[i] === '[AB] est ...') {
-          enonce = `${question.nom} est ...<br>`
+          enonce = `${question.nom} est ${this.interactifType === 'mathLive' ? '' : '...'}`
           texte += enonce
           texteCorr += `${premiereLettreEnMajuscule(question.nom)} est ${texteEnCouleurEtGras(question.nature)}.<br>`
         }
         if (this.correctionDetaillee && question.commentaire !== '') texteCorr += question.commentaire + '<br>'
-        if (this.interactif || this.sup2) {
+        if (this.sup2) {
           for (let ee = 0; ee < propositions.length; ee++) {
             propositionsEE.push({
               texte: propositions[ee].texte,
-              statut: propositions[ee].texte === question.nom,
+              statut: propositions[ee].texte === question.nom || propositions[ee].texte === question.nature,
               feedback: propositions[ee].feedback
             })
           }
@@ -152,7 +157,65 @@ export default function VocabulaireDuCercle () {
             propositions: propositionsEE
           }
           texte += propositionsQcm(this, i * questions.length + j).texte + '<br>'
+        } else {
+          let reponses
+          if (sensDesQuestions[i] === 'Un rayon est ...') {
+            reponses = [question.nom.replace(/\$/g, '')]
+            switch (question.nature) {
+              case 'le rayon':
+                reponses.push(O.nom + B.nom, O.nom + C.nom, O.nom + D.nom, O.nom + E.nom)
+                reponses = ajouterAlternatives(longueurAlternative, reponses)
+                break
+              case 'le diamètre':
+                reponses.push(longueurAlternative(reponses[0]))
+                break
+              case 'un rayon':
+                reponses.push('[' + O.nom + B.nom + ']', '[' + O.nom + C.nom + ']', '[' + O.nom + D.nom + ']', '[' + O.nom + E.nom + ']')
+                reponses = ajouterAlternatives(segmentAlternatif, reponses)
+                break
+              case 'un diamètre':
+                reponses.push(segmentAlternatif(reponses[0]))
+                break
+              case 'une corde':
+                for (const point1 of [A, B, C, D, E]) {
+                  for (const point2 of [A, B, C, D, E]) {
+                    if (point1.nom !== point2.nom) {
+                      reponses.push('[' + point1.nom + point2.nom + ']')
+                    }
+                  }
+                }
+                reponses = ajouterAlternatives(segmentAlternatif, reponses)
+                break
+            }
+            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur25 nospacebefore')
+            setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'texte' })
+          }
+          if (sensDesQuestions[i] === '[AB] est ...') {
+            reponses = [question.nature]
+            texte += ajouteChampTexte(this, i * questions.length + j, 'inline largeur25 nospacebefore')
+            setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'ignorerCasse' })
+          }
+          console.log(reponses)
+
+          function ajouterAlternatives (fonction, reponses) {
+            const copieReponses = []
+            for (const reponse of reponses) {
+              copieReponses.push(reponse)
+            }
+            for (const reponse of copieReponses) {
+              reponses.push(fonction(reponse))
+            }
+            return reponses
+          }
+          function longueurAlternative (longueur) {
+            return longueur.slice(1) + longueur.slice(0, 1)
+          }
+          function segmentAlternatif (segment) {
+            return '[' + reponses[0].slice(2, 3) + reponses[0].slice(1, 2) + ']'
+          }
         }
+        texte += '<br>'
+        if (this.correctionDetaillee) texteCorr += '<br>'
         j++
       }
       // Si la question n'a jamais été posée, on l'enregistre
