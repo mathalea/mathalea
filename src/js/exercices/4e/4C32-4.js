@@ -1,7 +1,6 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, listeDiviseurs, texFactorisation, texNombre, miseEnEvidence } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import Decimal from 'decimal.js'
 
 export const amcReady = true // tant qu'il n'a pas été adapté à la version 2.6
 export const amcType = 'qcmMono' // QCM
@@ -9,6 +8,7 @@ export const interactifType = 'qcm'
 export const interactifReady = true
 
 export const titre = 'Calculs avec des multiplications et des puissances de 10'
+export const dateDePublication = '20/08/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Calculs avec des multiplications et des puissances de 10
@@ -34,7 +34,7 @@ export default function CalculsPuissancesDe10 () {
     this.sup = parseInt(this.sup)
     this.autoCorrection = []
 
-    this.consigne = 'Donner l\'écriture scientifique'
+    this.consigne = 'Donner l\'écriture scientifique.'
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -53,7 +53,6 @@ export default function CalculsPuissancesDe10 () {
       for (let k = 0; k < facteurs.length; k++) {
         c = c * facteurs[k]
       }
-      // c = randint(2, 99)
       cexp = randint(1, 5) * choice([-1, 1])
 
       facteurs = []
@@ -64,7 +63,6 @@ export default function CalculsPuissancesDe10 () {
       for (let k = 0; k < facteurs.length; k++) {
         d = d * facteurs[k]
       }
-      // d = randint(2, 49)
       dexp = randint(1, 5) * choice([-1, 1])
       diviseurs = listeDiviseurs(mantisse * c * d)
       a = diviseurs[randint(1, diviseurs.length - 2)]
@@ -74,13 +72,13 @@ export default function CalculsPuissancesDe10 () {
       exp = aexp + bexp - cexp - dexp
       scientifiquestring = `${texNombre(mantisse)} \\times 10^{${exp}}`
 
-      texte = `$\\dfrac{${texNombre(a)}\\times 10^{${aexp}}}{${texNombre(c)}\\times 10^{${cexp}}} \\times \\dfrac{${b}\\times 10^{${bexp}}}{${d}\\times 10^{${dexp}}} =$`
-      texteCorr = `$\\dfrac{ ${miseEnEvidence(`${a}\\times 10^{${aexp}}`, 'blue')}  }{ ${miseEnEvidence(`${c}\\times 10^{${cexp}}`, 'blueviolet')} } \\times \\dfrac{ ${miseEnEvidence(`${b}\\times 10^{${bexp}}`, 'deeppink')} }{ ${miseEnEvidence(`${d}\\times 10^{${dexp}}`, 'seagreen')} } =$`
+      texte = `$\\dfrac{${texNombre(a)}\\times 10^{${aexp}}}{${texNombre(c)}\\times 10^{${cexp}}} \\times \\dfrac{${texNombre(b)}\\times 10^{${bexp}}}{${texNombre(d)}\\times 10^{${dexp}}} =$`
+      texteCorr = `$\\dfrac{ ${miseEnEvidence(`${texNombre(a)}\\times 10^{${aexp}}`, 'blue')}  }{ ${miseEnEvidence(`${texNombre(c)}\\times 10^{${cexp}}`, 'blueviolet')} } \\times \\dfrac{ ${miseEnEvidence(`${texNombre(b)}\\times 10^{${bexp}}`, 'deeppink')} }{ ${miseEnEvidence(`${texNombre(d)}\\times 10^{${dexp}}`, 'seagreen')} } =$`
       if (this.correctionDetaillee) {
         texteCorr += `$ \\dfrac{${miseEnEvidence(texFactorisation(a), 'blue')} \\times ${miseEnEvidence(texFactorisation(b), 'deeppink')}}{${miseEnEvidence(texFactorisation(c), 'blueviolet')} \\times ${miseEnEvidence(texFactorisation(d), 'seagreen')}} $`
         texteCorr += `$ \\times \\dfrac{${miseEnEvidence(`10^{${aexp}}`, 'blue')} \\times ${miseEnEvidence(`10^{${bexp}}`, 'deeppink')}}{${miseEnEvidence(`10^{${cexp}}`, 'blueviolet')} \\times ${miseEnEvidence(`10^{${dexp}}`, 'seagreen')}} =$`
       }
-      texteCorr += `$ ${scientifiquestring}$`
+      texteCorr += ` $ ${scientifiquestring}$`
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].options = {
