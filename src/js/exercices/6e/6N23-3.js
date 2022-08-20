@@ -525,7 +525,7 @@ export default function LireUneAbscisseAvecZoom () {
       setReponse(this, 2, reponse2B, { formatInteractif: 'fraction' })
       setReponse(this, 3, reponse3, { formatInteractif: 'fraction' })
       texte += ajouteChampTexteMathLive(this, 0, 'largeur25 inline nospacebefore', { tailleExtensible: true, texte: `Abscisse de ${noms[1]} en écriture décimale : ` })
-      texte += '<br><br>' + ajouteChampTexteMathLive(this, 1, 'largeur25 inline nospacebefore', { tailleExtensible: true, texte: `Abscisse de ${noms[1]} comme somme d\'un nombre entier et d\'une fraction décimale : ` }) + ajouteChampTexteMathLive(this, 2, 'largeur25 inline nospacebefore', { formatInteractif: 'fraction', tailleExtensible: true, texte: '+' })
+      texte += '<br><br>' + ajouteChampTexteMathLive(this, 1, 'largeur25 inline nospacebefore', { tailleExtensible: true, texte: `Abscisse de ${noms[1]} comme somme d'un nombre entier et d'une fraction décimale : ` }) + ajouteChampTexteMathLive(this, 2, 'largeur25 inline nospacebefore', { formatInteractif: 'fraction', tailleExtensible: true, texte: '+' })
       texte += '<br><br>' + ajouteChampTexteMathLive(this, 3, 'largeur25 inline nospacebefore', { formatInteractif: 'fraction', tailleExtensible: true, texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : ` })
     } else if (context.isAmc) {
       this.autoCorrection[0] = {

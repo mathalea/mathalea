@@ -15,7 +15,7 @@ export const titre = 'Calculs algébriques'
 export const dateDePublication = '02/01/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 function TraceSchemaBarre (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
-   ObjetMathalea2D.call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.bordures = [x, 0, x + epaisseur, y * unite]
   const p = polygone(
     point(x, 0),

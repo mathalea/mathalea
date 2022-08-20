@@ -18,7 +18,7 @@ export const interactifType = 'qcm'
  * Publié le 08/06/2022
  */
 function TranslationPuisRotationAnimee (numId, figure1, v, figure2, O, angle, t1 = 5, t2 = 2) {
-   ObjetMathalea2D.call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.svg = function (coeff) {
     afficherTempo(figure2, t1, t1 + t2, 1)
     let code = '<g> '

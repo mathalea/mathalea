@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, choice, arrondi } from '../../modules/outils.js'
-import { number, fraction, add, subtract } from 'mathjs'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { number, fraction } from 'mathjs'
 import { Arbre, texProba } from '../../modules/arbres.js'
 import { mathalea2d } from '../../modules/2d.js'
 export const titre = 'Probabilités simples'
