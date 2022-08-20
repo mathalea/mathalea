@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { randint, choice, ecritureParentheseSiNegatif, calcul, reduireAxPlusB } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
+import FractionX from '../../../modules/FractionEtendue.js'
 import { courbe, mathalea2d, repere } from '../../../modules/2d.js'
 export const titre = 'Déterminer le coefficient directeur d\'une droite'
 export const interactifReady = true
@@ -20,7 +21,7 @@ export default function CoeffDirecteurDroite () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let xA, yA, xB, yB, n, d, a, b, rep
-    switch (choice([1, 2, 3, 4])) { //
+    switch (choice([1, 2, 3, 4])) {
       case 1:// coefficient directeur droite
         xA = randint(0, 7)
         yA = randint(0, 7)
@@ -28,20 +29,20 @@ export default function CoeffDirecteurDroite () {
         yB = randint(0, 7)
         n = yB - yA
         d = xB - xA
-        this.reponse = fraction(n, d)
+
+        this.reponse = new FractionX(n, d)
         this.formatInteractif = 'fractionEgale'
         this.question = `Dans un repère du plan, on considère les points $A(${xA};${yA})$ et $B(${xB};${yB})$.<br>
-          Calculer le coefficient directeur de la droite $(AB)$.<br>
-          Donner le résultat sous la forme d'une fraction irréductible ou d'un entier le cas échéant.`
+          Calculer le coefficient directeur de la droite $(AB)$.
+         `
         this.correction = 'On observe que $ x_B\\neq x_A$.'
         this.correction += '<br>La droite $(AB)$ n\'est donc pas verticale.'
         this.correction += '<br>On peut donc calculer le coefficient directeur de la droite.'
         this.correction += '<br>On sait d\'après le cours : $m=\\dfrac{y_B-y_A}{x_B-x_A}$.'
-        this.correction += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${this.reponse.texFraction}`
-        if (!this.reponse.estIrreductible()) {
-          this.correction += `=${this.reponse.simplifie().texFraction}`
-        }
-        this.correction += '$'
+        this.correction += `<br>On applique avec les données de l'énoncé : 
+        $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=
+        ${this.reponse.texFraction}${this.reponse.texSimplificationAvecEtapes()}$.`
+
         break
       case 2:// coefficient directeur droite
         a = randint(-4, 4, 0)

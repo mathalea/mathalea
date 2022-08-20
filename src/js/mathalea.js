@@ -760,19 +760,19 @@ function miseAJourDuCode () {
           // si on n'a plus la liste des exercices il ne faut plus pouvoir en supprimer (pour v=l)
           if (listeDesExercices.length === 1) {
             // si on a q'un seul exercice, uniquement l'icone poubelle
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i>${contenu.contenu_un_exercice} </div>`
+            contenuDesExercices += `<div id="exercice${i}" style="margin-top: 20px"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i>${contenu.contenu_un_exercice} </div>`
           } else if (i === 0) {
             // si c'est le premier exercice icone poubelle plus fleche vers le bas
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i>${contenu.contenu_un_exercice} </div>`
+            contenuDesExercices += `<div id="exercice${i}" style="margin-top: 20px"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i>${contenu.contenu_un_exercice} </div>`
           } else if (i === listeDesExercices.length - 1) {
             // Pour le dernier exercice pas de fleche vers le bas
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
+            contenuDesExercices += `<div id="exercice${i}" style="margin-top: 20px"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
           } else {
             // pour les autres exercices affichage de l'icone poubelle et des deux flèches (haut et bas)
-            contenuDesExercices += `<div id="exercice${i}"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
+            contenuDesExercices += `<div id="exercice${i}" style="margin-top: 20px"> <h3 class="ui dividing header"><i id="${i}" class="trash alternate icon icone_moins"></i><i id="${i}" class="arrow circle down icon icone_down"></i><i id="${i}" class="arrow circle up icon icone_up"></i>${contenu.contenu_un_exercice} </div>`
           }
         } else {
-          contenuDesExercices += `<div id="exercice${i}" class="titreExercice"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
+          contenuDesExercices += `<div id="exercice${i}" class="titreExercice" style="margin-top: 20px"> <h3 class="ui dividing header">${contenu.contenu_un_exercice} </div>`
         }
         contenuDesCorrections += `<div id="divexcorr${i}" class="titreExercice"> ${contenu.contenu_une_correction} </div>`
       }
