@@ -196,7 +196,6 @@ export default function VocabulaireDuCercle () {
             texte += ajouteChampTexte(this, i * questions.length + j, 'inline largeur25 nospacebefore')
             setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'ignorerCasse' })
           }
-          console.log(reponses)
 
           function ajouterAlternatives (fonction, reponses) {
             const copieReponses = []
