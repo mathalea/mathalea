@@ -19,9 +19,7 @@ export const amcType = 'qcmMono'
 export default function PremierOuPas () {
   Exercice.call(this) // Héritage de la classe Exercice()
   // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = `Justifier que les nombres suivants sont premiers ou pas.  
-  <br>  Penser aux critères de divisibilité.
-   `
+  this.consigne = 'Justifier que les nombres suivants sont premiers ou pas.'
   context.isHtml ? this.spacing = 1 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
 
@@ -84,9 +82,10 @@ export default function PremierOuPas () {
       let evenSum // pour la somme des chiffres de rang impair
       let oddSum // pour la somme des chiffres de rang pair
       let bonneReponse
+      this.introduction = warnMessage('Penser aux critères de divisibilité.', 'nombres', 'Coup de pouce')
       if (this.sup2) {
-        this.introduction = warnMessage(stringRappel, 'nombres', 'Coup de pouce')
-      } else this.introduction = ''
+        this.introduction += warnMessage(stringRappel, 'nombres', 'Coup de pouce')
+      } else this.introduction += ''
       switch (typesDeQuestions) {
         case 1: // nombre pair
           N = 2 * randint(51, 4999)
