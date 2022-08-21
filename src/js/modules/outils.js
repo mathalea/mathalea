@@ -2713,7 +2713,7 @@ export function nombreAvecEspace (nb) {
 export const scientifiqueToDecimal = (mantisse, exp) => {
   if (exp < -6) Decimal.toExpNeg = exp - 1
   else if (exp > 20) Decimal.toExpPos = exp + 1
-  return texNombre(new Decimal(mantisse).mul(Decimal.pow(10, exp)))
+  return texNombre(new Decimal(mantisse).mul(Decimal.pow(10, exp)), 10)
 }
 
 /**
