@@ -1312,9 +1312,9 @@ function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * Code le milieu d'un segment
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
- * @param {string} [color='black'] Couleur du codage. Code couleur HTML accepté aussi.
- * @param {string} [mark='x'] Symbole posé sur les deux parties du segment
- * @param {boolean} [mil=true] Trace ou nom le point du milieu.
+ * @param {string} [color = 'black'] Couleur du codage. Code couleur HTML accepté aussi.
+ * @param {string} [mark = 'x'] Symbole posé de part et d'autre du milieu du segment
+ * @param {boolean} [mil = true] Trace ou nom le point du milieu.
  * @example codageMilieu(M,N) // Code, en noir, le milieu du segment[MN] avec les marques 'x', en plaçant le milieu
  * @example codageMilieu(M,N,'red','oo',false) // Code, en rouge, le milieu du segment[MN] avec les marques 'oo', sans placer le milieu.
  * @author Jean-Claude Lhote
@@ -1330,7 +1330,7 @@ export function codageMilieu (A, B, color = 'black', mark = '×', mil = true) {
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
  * @param {string} [nom=''] Nom de la droite qui s'affiche
- * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée.
+ * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929'
  * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
  * @param {string} [couleurConstruction='black'] Couleur des traits de construction. Code couleur HTML accepté aussi.
  * @param {boolean} [construction=false] Si construction est true, alors on affiche le codage et aussi les coups de compas utiles à la construction.
@@ -1449,7 +1449,7 @@ function Mediatrice (
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
  * @param {string} [nom=''] Nom de la droite qui s'affiche
- * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée.
+ * @param {string} [couleurMediatrice = 'red'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929'
  * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
  * @param {string} [couleurConstruction='black'] Couleur des traits de construction. Code couleur HTML accepté aussi.
  * @param {boolean} [construction=false] Si construction est true, alors on affiche le codage et aussi les coups de compas utiles à la construction.
@@ -1535,9 +1535,9 @@ export function codageMediatrice (A, B, color = 'black', mark = '×') {
  * @param {Point} A Point sur un côté de l'angle
  * @param {Point} O Sommet de l'angle
  * @param {Point} B Point sur l'autre côté de l'angle
- * @param {string} [couleurBissectrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {string} [couleurBissectrice = 'red'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
- * @param {string} [couleurConstruction = 'black'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {string} [couleurConstruction = 'black'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {boolean} [construction=false] Si construction est true, alors on affiche le codage et aussi les coups de compas utiles à la construction.
  * @param {boolean} [detail=false] Si detail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
  * @param {string} [mark='×'] Symbole posé sur les arcs
@@ -1643,9 +1643,9 @@ function Bissectrice (
  * @param {Point} A Point sur un côté de l'angle
  * @param {Point} O Sommet de l'angle
  * @param {Point} B Point sur l'autre côté de l'angle
- * @param {string} [couleurBissectrice = 'red'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {string} [couleurBissectrice = 'red'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {string} [color='blue'] Couleur du codage. Code couleur HTML accepté aussi.
- * @param {string} [couleurConstruction = 'black'] Couleur de la médiatrice. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {string} [couleurConstruction = 'black'] Couleur de la médiatrice : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {boolean} [construction=false] Si construction est true, alors on affiche le codage et aussi les coups de compas utiles à la construction.
  * @param {boolean} [detail=false] Si detail est true, alors on affiche aussi en pointillés les rayons utiles à la construction.
  * @param {string} [mark='×'] Symbole posé sur les arcs
@@ -1672,7 +1672,7 @@ export function bissectrice (A, O, B, couleurBissectrice = 'red', color = 'blue'
  * @param {Point} A Point sur un côté de l'angle
  * @param {Point} O Sommet de l'angle
  * @param {Point} B Point sur l'autre côté de l'angle
- * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
+ * @param {string} [color = 'black'] Couleur de la bissectrice : du type 'blue' ou du type '#f15929'
  * @param {string} [mark='x'] Symbole posé sur les arcs
  * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
@@ -1712,7 +1712,7 @@ function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
  * @param {Point} A Point sur un côté de l'angle
  * @param {Point} O Sommet de l'angle
  * @param {Point} B Point sur l'autre côté de l'angle
- * @param {string} [color = 'black'] Couleur de la bissectrice. Code couleur HTML acceptée.
+ * @param {string} [color = 'black'] Couleur de la bissectrice : du type 'blue' ou du type '#f15929'
  * @param {string} [mark='x'] Symbole posé sur les arcs
  * @example codagebissectrice(M,N,P) // Code, en noir, la bissectrice de l'angle MNP avec les marques 'x'
  * @example codagebissectrice(M,N,P,'red','oo') // Code, en rouge, la bissectrice de l'angle MNP avec les marques 'oo'
@@ -2694,7 +2694,7 @@ export function renommePolygone (p, noms) {
  * @param {Point} A
  * @param {Point} B
  * @param {integer} n Nombre de côtés
- * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @author Rémi Angot
  **/
 export function polygoneRegulier (A, B, n, color = 'black') {
@@ -2713,7 +2713,7 @@ export function polygoneRegulier (A, B, n, color = 'black') {
  * Trace un carré
  * @param {Point} A Un sommet du carré
  * @param {Point} B Un sommet du carré, consécutif au précédent
- * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @example carre(M,N)
  *  // Trace le carré noir de sommets consécutifs M et N dans le sens direct
  * @example carre(N,M)
@@ -2728,6 +2728,16 @@ export function carre (A, B, color = 'black') {
   return polygoneRegulier(A, B, 4, color)
 }
 
+/**
+ * Code un carré
+ * @param {Polygone} c Carré à coder
+ * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
+ * @param {string} [mark='x'] Symbole posé sur les côtés
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @class
+ */
+// JSDOC Validee par EE Juin 2022
 function CodageCarre (c, color = 'black', mark = '×') {
   const objets = []
   objets.push(codageSegments(mark, color, c.listePoints))
@@ -2780,8 +2790,20 @@ function CodageCarre (c, color = 'black', mark = '×') {
   }
 }
 
-export function codageCarre (...args) {
-  return new CodageCarre(...args)
+/**
+ * Met un codage complet sur un carré
+ * @param {Polygone} c Carré à coder
+ * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
+ * @param {string} [mark='x'] Symbole posé sur les côtés
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @example codageCarre(carre) // Code, en noir, le carré carre.
+ * @example codageCarre(carre,'red','||') // Code, en rouge, le carré carre avec la marque || sur les côtés
+ * @return {CodageCarre}
+*/
+// JSDOC Validee par EE Juin 2022
+export function codageCarre (c, color = 'black', mark = '×') {
+  return new CodageCarre(c, color, mark)
 }
 
 /**
@@ -3210,9 +3232,9 @@ export function aireTriangle (p) {
  * Construit le cercle (ou le disque) de centre O, de rayon r
  * @param {Point} O Centre du cercle
  * @param {number} r Rayon du cercle
- * @param {string} [color = 'black'] Couleur du cercle ou 'none'. Code couleur HTML acceptée.
- * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none'. Code couleur HTML acceptée.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {string} [color = 'black'] Couleur du cercle ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
  * @param {number} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
  * @param {number} [opacite = 1] Opacité du cercle
@@ -3393,9 +3415,9 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
  * Construit le cercle (ou le disque) de centre O, de rayon r
  * @param {Point} O Centre du cercle
  * @param {number} r Rayon du cercle
- * @param {string} [color = 'black'] Couleur du cercle ou 'none'. Code couleur HTML acceptée.
- * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none'. Code couleur HTML acceptée.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {string} [color = 'black'] Couleur du cercle ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
  * @param {number} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
  * @param {number} [opacite = 1] Opacité du cercle
@@ -3684,9 +3706,9 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
  * Construit le cercle (ou le disque) de centre O, passant par M
  * @param {Point} O Centre du cercle
  * @param {number} M Point du cercle
- * @param {string} [color = 'black'] Couleur du cercle ou 'none'. Code couleur HTML acceptée.
- * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none'. Code couleur HTML acceptée.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none' ou '', pas de hachures.
+ * @param {string} [color = 'black'] Couleur du cercle ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
  * @param {number} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
  * @param {number} [opacite = 1] Opacité du cercle
@@ -3712,10 +3734,10 @@ export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage =
  * @param {Point} Omega Centre de l'arc
  * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
  * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
- * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none'. Code couleur HTML acceptée.
- * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none', pas de hachures.
  * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
@@ -3947,10 +3969,10 @@ function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', col
  * @param {Point} Omega Centre de l'arc
  * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
  * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
- * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none'. Code couleur HTML acceptée.
- * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {string} [couleurDeRemplissage = 'none'] Couleur ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none', pas de hachures.
  * @example arc(M,0,35)
   // Trace l'arc en noir de centre 0, d'extrémité M et d'angle orienté 35° (sans remplissage et sans hachures)
  * @example arc(M,O,true,-40,'red','green',0.8,'white')
@@ -3968,10 +3990,10 @@ export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
  * @param {Point} N Deuxième extrémité de l'arc
  * @param {number} angle Mesure de l'angle compris entre -360 et 360 (valeur négative = sens indirect)
  * @param {boolean} [rayon = false] Booléen. Si true, les rayons délimitant l'arc sont ajoutés.
- * @param {boolean} [couleurDeRemplissage = 'none'] Couleur ou 'none'. Code couleur HTML acceptée.
- * @param {string} [color = 'black'] Couleur de l'arc ou 'none'. Code couleur HTML acceptée.
+ * @param {boolean} [couleurDeRemplissage = 'none'] Couleur ou 'none' : du type 'blue' ou du type '#f15929'
+ * @param {string} [color = 'black'] Couleur de l'arc ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {number} [opaciteDeRemplissage = 0.2] Opacité de remplissage de 0 à 1.
- * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none'. Code couleur HTML acceptée. Si 'none', pas de hachures.
+ * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none', pas de hachures.
  * @example arcPointPointAngle(A,B,35)
   // Trace l'arc en noir d'extrémités A et B (dans cet ordre) et d'angle orienté 35° (sans remplissage et sans hachures)
  * @example arcPointPointAngle(A,B,true,-40,'red','green',0.8,'white')
@@ -5500,6 +5522,18 @@ export function hauteurTriangle (A, B, C, color = 'black') {
   const p = projectionOrtho(A, d)
   return droite(p, A, '', color)
 }
+
+/**
+ * Code la hauteur d'un triangle
+ * @param {Point} A Premier sommet d'un triangle
+ * @param {Point} B Deuxième sommet d'un triangle
+ * @param {Point} C Troisième sommet d'un triangle
+ * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @class
+ */
+// JSDOC Validee par EE Juin 2022
 export function CodageHauteurTriangle (A, B, C, color = 'black') {
   ObjetMathalea2D.call(this, { })
   this.color = color
@@ -5543,23 +5577,37 @@ export function CodageHauteurTriangle (A, B, C, color = 'black') {
     }
   }
 }
-export function codageHauteurTriangle (...args) {
-  return new CodageHauteurTriangle(...args)
+
+/**
+ * Code la hauteur d'un triangle
+ * @param {Point} A Premier sommet d'un triangle
+ * @param {Point} B Deuxième sommet d'un triangle
+ * @param {Point} C Troisième sommet d'un triangle
+ * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
+ * @example codageHauteurTriangle(M,N,P) // Code, en noir, la hauteur du triangle MNP.
+ * @example codageHauteurTriangle(M,N,P,'red') // Code, en rouge, la hauteur du triangle MNP.
+ * @return {CodageHauteurTriangle}
+ */
+// JSDOC Validee par EE Juin 2022
+export function codageHauteurTriangle (A, B, C, color = 'black') {
+  return new CodageHauteurTriangle(A, B, C, color)
 }
-function CodageMedianeTriangle (B, C, color = 'black', mark = '//') {
-  ObjetMathalea2D.call(this, { })
-  this.color = color
-  const O = milieu(B, C)
-  const c = codageSegments(mark, this.color, B, O, O, C)
-  this.svg = function (coeff) {
-    return c.svg(coeff)
-  }
-  this.tikz = function (coeff) {
-    return c.tikz(coeff)
-  }
-}
-export function codageMedianeTriangle (...args) {
-  return new CodageMedianeTriangle(...args)
+
+/**
+ * Code la médiane d'un triangle
+ * @param {Point} B Première extrémité du segment dont la médiane est relative
+ * @param {Point} C Seconde extrémité du segment dont la médiane est relative
+ * @param {string} [color = 'black'] Couleur des codages : du type 'blue' ou du type '#f15929'
+ * @param {string} [mark = '//'] Symbole posé de part et d'autre du milieu du segment
+ * @param {boolean} [mil = false] Trace ou nom le point du milieu.
+ * @example codageMedianeTriangle(M,N) // Code, en noir, la médiane d'un triangle relative au côté [MN], avec les symboles //
+ * @example codageMedianeTriangle(M,N,P,'red','oo') // Code, en rouge, la médiane d'un triangle relative au côté [MN], avec les symboles oo
+ * @return {CodageSegments}
+ */
+// JSDOC Validee par EE Juin 2022
+export function codageMedianeTriangle (A, B, color = 'black', mark = '×', mil = false) {
+  // const O = milieu(B, C)
+  return new CodageMilieu(A, B, color, mark, mil)
 }
 
 /**
@@ -5720,9 +5768,9 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
  * @param {number} [opacite=1] Opacité du trait
  * @param {string} [couleurDeRemplissage='none'] 'none' si on ne veut pas de remplissage, sinon une couleur du type 'blue' ou du type '#f15929'
  * @param {number} [opaciteDeRemplissage=1] Taux d'opacité du remplissage
- * @example CodageAngleDroit(A,J,T)
+ * @example codageAngleDroit(A,J,T)
  * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur noire, de taille 0,4, d'épaisseur 0,5 avec une opacité de 100 %, sans remplissage
- * @example CodageAngleDroit(A,J,T,'pink',1,0.2,0.6,'blue',0.2)
+ * @example codageAngleDroit(A,J,T,'pink',1,0.2,0.6,'blue',0.2)
  * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur rose, de taille 1, d'épaisseur 0,2 avec une opacité de 60 %, rempli en bleu avec une opacité de 20%.
  * @returns {CodageAngleDroit}
  * @author Rémi Angot
@@ -5736,7 +5784,7 @@ export function codageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
  * Affiche la longueur de [AB] au dessus si A est le point le plus à gauche sinon au dessous.
  * @param  {Point} A Première extrémité du segment
  * @param  {Point} B Seconde extrémité du segment
- * @param  {string} [color='black'] Couleur affichée de la longueur affichée : du type 'blue' ou du type '#f15929'.
+ * @param  {string} [color='black'] Couleur de la longueur affichée : du type 'blue' ou du type '#f15929'.
  * @param  {number} [d=0.5] Distance entre l'affichage de la longueur et le segment.
  * @param  {string} [unite='cm'] Affiche cette unité après la valeur numérique de la longueur.
  * @param  {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
@@ -6127,16 +6175,14 @@ export function afficheCoteSegment (s, Cote = '', positionCote = 0.5, couleurCot
  * @param {Point} A Première extrémité du segment
  * @param {Point} B Seconde extrémité du segment
  * @param {string} [mark='||'] Symbole posé sur le segment
- * @param {string} [color='black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
- * @example CodageSegment(H,K) // Code le segment [HK] avec la marque noire '||'
- * @example CodageAngle(H,K,'x','green') // Code le segment [HK] avec la marque verte 'x'
+ * @param {string} [color='black'] Couleur du symbole : du type 'blue' ou du type '#f15929'
+ * @example codageSegment(H,K) // Code le segment [HK] avec la marque noire '||'
+ * @example codageAngle(H,K,'x','green') // Code le segment [HK] avec la marque verte 'x'
  * @author Rémi Angot
- * @returns {texteParPoint}
- * @private
+ * @returns {TexteParPoint}
  */
-function CodageSegment (A, B, mark = '||', color = 'black') {
-  ObjetMathalea2D.call(this, { })
-  this.color = color
+// JSDOC Validee par EE Juin 2022
+export function codageSegment (A, B, mark = '||', color = 'black') {
   const O = milieu(A, B)
   const s = segment(A, B)
   s.isVisible = false
@@ -6146,36 +6192,20 @@ function CodageSegment (A, B, mark = '||', color = 'black') {
   } else {
     angle = -parseInt(s.angleAvecHorizontale) + 180
   }
-  return texteParPoint(mark, O, angle, this.color)
-}
-
-/**
- * Code un segment
- * @param {Point} A Première extrémité du segment
- * @param {Point} B Seconde extrémité du segment
- * @param {string} [mark='||'] Symbole posé sur le segment
- * @param {string} [color='black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
- * @example codageSegment(H,K) // Code le segment [HK] avec la marque noire '||'
- * @example codageAngle(H,K,'x','green') // Code le segment [HK] avec la marque verte 'x'
- * @author Rémi Angot
- * @returns {CodageSegment}
- */
-export function codageSegment (A, B, mark = '||', color = 'black') {
-  return new CodageSegment(A, B, mark, color)
+  return new TexteParPoint(mark, O, angle, color)
 }
 
 /**
  * Code plusieurs segments de la même façon
- * @param {string} [mark='||'] Symbole posé sur le segment
- * @param {string} [color='black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
- * @param  {Point|Point[]|Segment} args Les segments différement codés. Voir exemples.
- * @example CodageSegments('×','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
- * @example CodageSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé, pratique pour des polygones pas pour des lignes brisées)
- * @example CodageSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
- * @example CodageSegments('×','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
+ * @param {string} [mark = '||'] Symbole posé sur le segment
+ * @param {string} [color = 'black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
+ * @param  {Point|Point[]|Segment} args Les segments différement codés.
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @author Rémi Angot
- * @private
+ * @class
  */
+// JSDOC Validee par EE Juin 2022
 function CodageSegments (mark = '||', color = 'black', ...args) {
   ObjetMathalea2D.call(this, { })
   this.svg = function (coeff) {
@@ -6247,8 +6277,8 @@ function CodageSegments (mark = '||', color = 'black', ...args) {
 
 /**
  * Code plusieurs segments de la même façon
- * @param {string} [mark='||'] Symbole posé sur le segment
- * @param {string} [color='black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
+ * @param {string} [mark = '||'] Symbole posé sur le segment
+ * @param {string} [color = 'black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
  * @param  {Points|Array.Point|Segments} args Les segments différement codés. Voir exemples.
  * @example codageSegments('×','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
  * @example codageSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé, pratique pour des polygones pas pour des lignes brisées)
@@ -6257,6 +6287,7 @@ function CodageSegments (mark = '||', color = 'black', ...args) {
  * @author Rémi Angot
  * @returns {CodageSegments}
  */
+// JSDOC Validee par EE Juin 2022
 export function codageSegments (mark = '||', color = 'black', ...args) {
   return new CodageSegments(mark, color, ...args)
 }
@@ -6277,20 +6308,14 @@ export function codageSegments (mark = '||', color = 'black', ...args) {
  * @param {boolean} [noAngleDroit=false] Pour choisir si on veut que l'angle droit soit marqué par un carré ou pas
  * @param {string} [texteACote=''] Pour mettre un texte à côté de l'angle à la place de la mesure de l'angle
  * @param {number} [tailleTexte=1] Pour choisir la taille du texte à côté de l'angle
- * @example CodageAngle(H,K,30)
- * // Code l'angle de centre K, avec H sur un côté de l'angle et avec 30° comme mesure d'angle orienté,
- * // en noir, avec une épaisseur de 1, une opacité de 100 %, un rayon d'arc de 0,8, sans autre option.
- * @example CodageAngle(H,K,G)
- * // Code l'angle HKG, en noir, avec une épaisseur de 1, une opacité de 100 %, un rayon d'arc de 0,8, sans autre option.
- * @example CodageAngle(H,K,G,2,'x','red',0.5,0.2,'blue',0.8,true,true)
- * // Code l'angle HKG, en rouge, avec une épaisseur de 0.5 et une opacité de 20 %, rempli en bleu avec une opacité de 80 %
- * // avec un arc de cercle de rayon 2, avec une marque 'x' sur l'angle, en affichant la mesure de l'angle et sans faire apparaître d'angle droit le cas échéant.
- * @example CodageAngle(H,K,G,2,'x','red',0.5,0.2,'blue',0.8,true,true,'?',2)
- * // Code l'angle HKG, en rouge, avec une épaisseur de 0.5 et une opacité de 20 %, rempli en bleu avec une opacité de 80 %
- * // avec un arc de cercle de rayon 2, avec une marque 'x' sur l'angle, en affichant le texte '?' d'une taille de 2 et sans faire apparaître d'angle droit le cas échéant.
+ * @property {string} svg sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @author Jean-Claude Lhote
- * @private
+ * @class
  */
+// JSDOC Validee par EE Juin 2022
 function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1) {
   ObjetMathalea2D.call(this, { })
   this.color = color
@@ -6427,7 +6452,7 @@ function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'bl
  * // Code l'angle HKG, en rouge, avec une épaisseur de 0.5 et une opacité de 20 %, rempli en bleu avec une opacité de 80 %
  * // avec un arc de cercle de rayon 2, avec une marque 'x' sur l'angle, en affichant le texte '?' d'une taille de 2 et sans faire apparaître d'angle droit le cas échéant.
  * @author Jean-Claude Lhote
- * @returns {CodageAngle|codageAngleDroit}
+ * @returns {CodageAngle|CodageAngleDroit}
  */
 export function codageAngle (A, O, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
   if (typeof (angle) !== 'number') {
