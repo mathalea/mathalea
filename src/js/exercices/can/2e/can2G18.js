@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu, sp } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
-import { repere, mathalea2d, texteParPosition, point, segment, vecteur } from '../../../modules/2d.js'
+import { repere, texteParPosition, point, segment, vecteur } from '../../../modules/2d.js'
 export const titre = 'Déterminer les coordonnées d’un vecteur à partir d’un graphique'
 export const interactifReady = true
 export const interactifType = 'mathLive'

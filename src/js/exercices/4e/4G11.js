@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, shuffle, nombreAvecEspace, texcolors } from '../../modules/outils.js'
-import { tracePoint, vecteur, segment, translation, translationAnimee, codageSegment, texteParPosition, mathalea2d, pavage } from '../../modules/2d.js'
-import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { tracePoint, vecteur, segment, translation, translationAnimee, codageSegment, texteParPosition, pavage } from '../../modules/2d.js'
 export const titre = 'Trouver l\'image d\'une figure par une translation dans un pavage'
 
 /**

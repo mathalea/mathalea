@@ -1,9 +1,9 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { numAlpha, combinaisonListes, randint, choisitLettresDifferentes, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { mathalea2d, tracePoint, labelPoint } from '../../modules/2d.js'
+import { tracePoint, labelPoint } from '../../modules/2d.js'
 import { point3d, droite3d, vecteur3d, arete3d, sphere3d, rotation3d, rotationV3d, demicercle3d, sensDeRotation3d } from '../../modules/3d.js'
-import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Repérage sur la sphère'
 

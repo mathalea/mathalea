@@ -1,5 +1,6 @@
-import { point, polygone, segment, milieu, nommePolygone, codageSegment, codageAngle, mathalea2d, latexParPoint } from '../../modules/2d.js'
+import { point, polygone, segment, milieu, nommePolygone, codageSegment, codageAngle, latexParPoint } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { creerNomDePolygone, listeQuestionsToContenu, combinaisonListes } from '../../modules/outils.js'
 export const titre = 'Reconnaître un parallélogramme à partir du codage d\'une figure'
 

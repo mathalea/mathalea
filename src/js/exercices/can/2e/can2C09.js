@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { choice, texFraction, texFractionReduite, simplificationDeFractionAvecEtapes, texteEnCouleur } from '../../../modules/outils.js'
-import { mathalea2d, point, segmentAvecExtremites, codageSegments, labelPoint, texteParPosition, fractionParPosition } from '../../../modules/2d.js'
+import { point, segmentAvecExtremites, codageSegments, labelPoint, texteParPosition, fractionParPosition } from '../../../modules/2d.js'
 export const titre = 'Calculer le "milieu" entre 1 et une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'

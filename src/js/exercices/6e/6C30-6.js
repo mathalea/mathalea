@@ -1,9 +1,10 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { calcul, listeQuestionsToContenu, combinaisonListes, choice, range, rangeMinMax, texNombre3, texteEnCouleurEtGras, enleveElement, numAlpha, abs, randint, lampeMessage } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { min } from 'mathjs'
 import { context } from '../../modules/context.js'
-import { glisseNombre, mathalea2d } from '../../modules/2d.js'
+import { glisseNombre } from '../../modules/2d.js'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -69,11 +70,11 @@ export default function MultiplierUnNombreParPuissanceDeDix () {
         texte = `Voici un nombre : $${texNombre3(exemple)}$.<br>`
         texte += `${numAlpha(0)} Entourer le chiffre des unités de ce nombre.<br>`
         texte += `${numAlpha(1)} Compléter les phrases suivantes.<br>`
-        texte += `Multiplier $${texNombre3(exemple)}$ par $${texNombre3(calcul(10 ** (choixAlea - 3)))}$, c\'est trouver le nombre $\\ldots\\ldots\\ldots$ fois plus $\\ldots\\ldots\\ldots$ que $${texNombre3(exemple)}$.<br>`
+        texte += `Multiplier $${texNombre3(exemple)}$ par $${texNombre3(calcul(10 ** (choixAlea - 3)))}$, c'est trouver le nombre $\\ldots\\ldots\\ldots$ fois plus $\\ldots\\ldots\\ldots$ que $${texNombre3(exemple)}$.<br>`
         texte += `Le chiffre des unités de $${texNombre3(exemple)}$ devient, alors, le chiffre des $\\ldots\\ldots\\ldots\\ldots\\ldots$ et donc $${texNombre3(exemple)} \\times ${texNombre3(calcul(10 ** (choixAlea - 3)))} =\\ldots\\ldots\\ldots\\ldots$<br>`
 
         texteCorr = `${numAlpha(0)} $${unite}$ est le chiffre des unités de $${texNombre3(exemple)}$.<br>`
-        texteCorr += `${numAlpha(1)} Multiplier $${texNombre3(exemple)}$ par $${texNombre3(calcul(10 ** (choixAlea - 3)))}$, c\'est trouver le nombre ${texteEnCouleurEtGras(texNombre3(calcul(10 ** abs(choixAlea - 3))))} fois plus `
+        texteCorr += `${numAlpha(1)} Multiplier $${texNombre3(exemple)}$ par $${texNombre3(calcul(10 ** (choixAlea - 3)))}$, c'est trouver le nombre ${texteEnCouleurEtGras(texNombre3(calcul(10 ** abs(choixAlea - 3))))} fois plus `
         texteCorr += choixAlea - 3 > 0 ? `${texteEnCouleurEtGras('grand')} ` : `${texteEnCouleurEtGras('petit')} `
         texteCorr += `que $${texNombre3(exemple)}$.<br>`
         texteCorr += `Le chiffre des unités de $${texNombre3(exemple)}$ devient, alors, le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])} et donc $${texNombre3(exemple)} \\times ${texNombre3(calcul(10 ** (choixAlea - 3)))} =$ ${texteEnCouleurEtGras(texNombre3(exemple * calcul(10 ** (choixAlea - 3))))}.<br>`

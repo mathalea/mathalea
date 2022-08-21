@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenuSansNumero, randint, shuffle, combinaisonListes, lettreDepuisChiffre, texcolors, texteGras, numAlpha } from '../../modules/outils.js'
-import { point, tracePoint, labelPoint, droite, segment, demiDroite, polygone, codageAngle, texteParPosition, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, labelPoint, droite, segment, demiDroite, polygone, codageAngle, texteParPosition } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Appliquer les propriétés de conservation de la symétrie axiale'
 

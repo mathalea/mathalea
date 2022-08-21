@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { diagrammeCirculaire, fixeBordures, mathalea2d } from '../../modules/2d.js'
+import { diagrammeCirculaire, fixeBordures } from '../../modules/2d.js'
 import FractionX from '../../modules/FractionEtendue.js'
 
 export const titre = 'Exo zéro Mathalea2d'

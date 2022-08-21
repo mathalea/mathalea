@@ -1,10 +1,10 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, choice } from '../../modules/outils.js'
-import { labelPoint, texteSurArc, homothetie, point, rotation, mathalea2d, fixeBordures, droite, translation, vecteur, arcPointPointAngle } from '../../modules/2d.js'
+import { labelPoint, texteSurArc, homothetie, point, rotation, fixeBordures, droite, translation, vecteur, arcPointPointAngle } from '../../modules/2d.js'
 import { pickRandom } from 'mathjs'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
-import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 export const titre = 'Angles et parallèles'
 // eslint-disable-next-line no-debugger
 // debugger

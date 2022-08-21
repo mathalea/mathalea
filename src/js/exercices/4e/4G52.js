@@ -1,9 +1,10 @@
-import { labelPoint, mathalea2d, tracePoint } from '../../modules/2d.js'
+import { labelPoint, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { lettreDepuisChiffre, listeQuestionsToContenu, miseEnEvidence, randint } from '../../modules/outils.js'
 import { radians, sin } from '../../modules/fonctionsMaths.js'
 import { point3d, arete3d } from '../../modules/3d.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Exercice de repérage dans un pavé droit'
 
 /**

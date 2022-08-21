@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, creerNomDePolygone, texteEnCouleur, texNombrec } from '../../../modules/outils.js'
-import { afficheLongueurSegment, codageAngle, mathalea2d, point, pointAdistance, polygoneAvecNom } from '../../../modules/2d.js'
+import { afficheLongueurSegment, codageAngle, point, pointAdistance, polygoneAvecNom } from '../../../modules/2d.js'
 export const titre = 'Déterminer une longueur avec des triangles semblables'
 export const interactifReady = true
 export const interactifType = 'mathLive'

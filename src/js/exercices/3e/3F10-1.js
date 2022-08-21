@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, rangeMinMax } from '../../modules/outils.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
-import { droiteParPointEtPente, mathalea2d, point, repere, tracePoint } from '../../modules/2d.js'
+import { droiteParPointEtPente, point, repere, tracePoint } from '../../modules/2d.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true

@@ -1,6 +1,7 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, texNombrec, calcul, texNum } from '../../../modules/outils.js'
-import { mathalea2d, point, segmentAvecExtremites, codageSegments, labelPoint, texteParPosition } from '../../../modules/2d.js'
+import { point, segmentAvecExtremites, codageSegments, labelPoint, texteParPosition } from '../../../modules/2d.js'
 export const titre = 'Calculer l’abscisse d’un milieu'
 export const interactifReady = true
 export const interactifType = 'mathLive'

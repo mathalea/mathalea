@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, shuffle, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { point, tracePoint, segment, texteParPosition, fractionParPosition, mathalea2d } from '../../modules/2d.js'
+import { point, tracePoint, segment, texteParPosition, fractionParPosition } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 
 export const titre = 'Placer un événement sur une échelle de probabilités'

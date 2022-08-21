@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, choice, randint } from '../../modules/outils.js'
-import { courbe, droite, mathalea2d, repere } from '../../modules/2d.js'
+import { courbe, droite, repere } from '../../modules/2d.js'
 export const titre = 'Croissance de fonction ?'
 
 /**

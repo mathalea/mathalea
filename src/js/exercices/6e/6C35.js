@@ -1,8 +1,9 @@
 /* eslint-disable camelcase */
 
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { rangeMinMax, choice, randint, objet, jour, listeQuestionsToContenu, prenomF, prenomM, objetF, objetM, sp, shuffle, range, deuxColonnes, texteEnCouleurEtGras } from '../../modules/outils.js'
-import { point, polygone, segment, mathalea2d, texteParPosition } from '../../modules/2d.js'
+import { point, polygone, segment, texteParPosition } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
