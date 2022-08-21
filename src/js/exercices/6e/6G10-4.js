@@ -79,7 +79,7 @@ export default function VocabulaireDuCercle () {
       objetsEnonce.push(leCercle, labelPoint(O), tracePoint(O), OA, BC, DE, polygon)
       const params = { xmin: -4, ymin: -4, xmax: 4, ymax: 4, pixelsParCm: 20, scale: 1 }
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
-      texte += mathalea2d(params, objetsEnonce)
+      texte += mathalea2d(params, objetsEnonce) + '<br>'
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr += texte
 
