@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, combinaisonListes, choisitLettresDifferentes, texteEnCouleurEtGras, shuffle, premiereLettreEnMajuscule } from '../../modules/outils.js'
+import { listeQuestionsToContenu, combinaisonListes, choisitLettresDifferentes, texteEnCouleurEtGras, shuffle, premiereLettreEnMajuscule, numAlpha } from '../../modules/outils.js'
 import { point, tracePoint, labelPoint, pointAdistance, cercle, segment, pointIntersectionLC, droite, longueur, polygoneAvecNom } from '../../modules/2d.js'
 import { propositionsQcm } from '../../modules/interactif/questionQcm.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -196,7 +196,6 @@ export default function VocabulaireDuCercle () {
             texte += ajouteChampTexte(this, i * questions.length + j, 'inline largeur25 nospacebefore')
             setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'ignorerCasse' })
           }
-          console.log(reponses)
 
           function ajouterAlternatives (fonction, reponses) {
             const copieReponses = []
