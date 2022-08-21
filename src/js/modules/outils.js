@@ -2787,24 +2787,33 @@ function afficherNombre (nb, precision, fonction, force = false) {
    * @param {number} precision nombre de décimales demandé
    * @returns string avec le nombre dans le format français
    */
-  function insereEspacesNombre (nb, maximumSignificantDigits = 15, fonction) {
+  function insereEspacesNombre (nb, nbChiffresPartieEntiere, precision, fonction) {
     let signe
     let nombre
+    const maximumSignificantDigits = nbChiffresPartieEntiere + precision
     if (nb instanceof Decimal) {
       signe = nb.isNeg()
-      if (force) {
-        nombre = nb.toPrecision(maximumSignificantDigits).replace('.', ',')
+      if (nb.abs().gte(1)) {
+        if (force) {
+          nombre = nb.toFixed(precision).replace('.', ',')
+        } else {
+          nombre = nb.toDP(precision).toString().replace('.', ',')
+        }
       } else {
-        nombre = nb.toSD(maximumSignificantDigits).toString().replace('.', ',')
+        if (force) {
+          nombre = nb.toFixed(precision).replace('.', ',')
+        } else {
+          nombre = nb.toDP(precision).toString().replace('.', ',')
+        }
       }
     } else {
       signe = nb < 0
       // let nombre = math.format(nb, { notation: 'fixed', lowerExp: -precision, upperExp: precision, precision: precision }).replace('.', ',')
       if (Math.abs(nb) < 1) {
         if (force) {
-          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits, minimumFractionDigits: maximumSignificantDigits }).format(nb)
+          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision, minimumFractionDigits: precision }).format(nb)
         } else {
-          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: maximumSignificantDigits }).format(nb)
+          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision }).format(nb)
         }
       } else {
         if (force) {
@@ -2857,7 +2866,6 @@ function afficherNombre (nb, precision, fonction, force = false) {
   if (nb instanceof Decimal) {
     if (nb.abs().lt(1)) {
       nbChiffresPartieEntiere = 0
-      precision = Decimal.max(nb.abs().log().mul(-1).ceil(), precision).toNumber()
     } else {
       nbChiffresPartieEntiere = nb.abs().toFixed(0).length
     }
@@ -2872,7 +2880,6 @@ function afficherNombre (nb, precision, fonction, force = false) {
   } else {
     if (Math.abs(nb) < 1) {
       nbChiffresPartieEntiere = 0
-      precision = Math.max(precision, Math.ceil(-Math.log10(Math.abs(nb))))
     } else {
       nbChiffresPartieEntiere = Math.abs(nb).toFixed(0).length
     }
@@ -2889,9 +2896,9 @@ function afficherNombre (nb, precision, fonction, force = false) {
   const maximumSignificantDigits = nbChiffresPartieEntiere + precision
   if (maximumSignificantDigits > 15 && !(nb instanceof Decimal)) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
     window.notify(fonction + ' : Trop de chiffres', { nb, precision })
-    return insereEspacesNombre(nb, 15, fonction, force)
+    return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
   } else {
-    return insereEspacesNombre(nb, maximumSignificantDigits, fonction, force)
+    return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
   }
 }
 /**
