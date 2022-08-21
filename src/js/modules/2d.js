@@ -78,30 +78,6 @@ function FondEcran (url, x, y, largeur, hauteur) {
 export function fondEcran (url, x = 0, y = 0, largeur = context.fenetreMathalea2d.xMax - context.fenetreMathalea2d.xMin, hauteur = context.fenetreMathalea2d.yMax - context.fenetreMathalea2d.yMin) {
   return new FondEcran(url, x, y, largeur, hauteur)
 }
-/**
- * fork de https://javascript.developpez.com/actu/94357/JavaScript-moins-Realiser-une-copie-parfaite-d-objet/
- * Ne fonctionne pas complètement : ne copie pas les méthodes svg et tikz...
- * @param {ObjetMathalea2D} originalObject
- * @returns {object} copie de cet objet.
- */
-export function clone (obj) {
-  if (obj === null || typeof obj !== 'object') return obj
-  if (obj instanceof Array) {
-    const copy = []
-    for (let i = 0, len = obj.length; i < len; i++) {
-      copy[i] = clone(obj[i])
-    }
-    return copy
-  }
-  if (obj instanceof Object) {
-    const copy = {}
-    for (const attr in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, attr)) copy[attr] = clone(obj[attr])
-    }
-    return copy
-  }
-  throw new Error('Unable to copy obj this object.')
-}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%% LES POINTS %%%%%%%%%%%%%%

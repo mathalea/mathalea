@@ -26,7 +26,7 @@ export function angleScratchTo2d (x) {
 }
 
 function ObjetLutin () {
-   ObjetMathalea2D.call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.x = 0
   this.y = 0
   this.xMin = 0
@@ -294,4 +294,29 @@ export function attendre (tempo, lutin = context.lutin) {
     lutin.listeTraces.push([x + 0.08, y - 0.08, x + 0.08, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
   }
   lutin.listeTraces.push([x + 0.03, y, x, y, lutin.color, lutin.epaisseur, lutin.pointilles, lutin.opacite])
+}
+
+/**
+ * fork de https://javascript.developpez.com/actu/94357/JavaScript-moins-Realiser-une-copie-parfaite-d-objet/
+ * Ne fonctionne pas complètement : ne copie pas les méthodes svg et tikz...
+ * @param {ObjetMathalea2D} originalObject
+ * @returns {object} copie de cet objet.
+ */
+export function clone (obj) {
+  if (obj === null || typeof obj !== 'object') return obj
+  if (obj instanceof Array) {
+    const copy = []
+    for (let i = 0, len = obj.length; i < len; i++) {
+      copy[i] = clone(obj[i])
+    }
+    return copy
+  }
+  if (obj instanceof Object) {
+    const copy = {}
+    for (const attr in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, attr)) copy[attr] = clone(obj[attr])
+    }
+    return copy
+  }
+  throw new Error('Unable to copy obj this object.')
 }
