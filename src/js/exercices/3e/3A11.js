@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, te
 export const titre = 'Rendre irréductible une fraction'
 
 /**
- * Fractions irreductibles
+ * Fractions irréductibles
  * @author Sébastien Lozano
  * Référence 3A11
  */
@@ -253,8 +253,8 @@ export default function FractionsIrreductibles () {
           texteCorr += `\\times ${nb1Dist}} = `
           texteCorr += `\\dfrac{${nb2Dist}}{${nb1Dist}}$.`
           context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
-          texteCorr += `On peut judicieusement remarquer que $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$
-          donc que rendre la fraction $\\dfrac{B}{A}$ irreductible revient à inverser la fraction irreductible
+          texteCorr += ` On peut judicieusement remarquer que $\\dfrac{B}{A}$ est l'inverse de $\\dfrac{A}{B}$
+          donc que rendre la fraction $\\dfrac{B}{A}$ irréductible revient à inverser la fraction irréductible
           obtenue pour $\\dfrac{A}{B}$ au ${numAlpha(2, true)}.`
           context.isHtml ? texteCorr += '<hr>' : texteCorr += '\\par \\hrulefill \\par'
           // break;
