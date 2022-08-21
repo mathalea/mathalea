@@ -1,8 +1,9 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { choice, listeQuestionsToContenu, numAlpha, premiereLettreEnMajuscule, randint, shuffle, tableauColonneLigne } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { Arbre, texProba } from '../../modules/arbres.js'
-import { mathalea2d } from '../../modules/2d.js'
+
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import FractionX from '../../modules/FractionEtendue.js'

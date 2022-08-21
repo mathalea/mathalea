@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { homothetie, codageAngle, longueur, barycentre, milieu, latexParPoint, mathalea2d, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
+import { homothetie, codageAngle, longueur, barycentre, milieu, latexParPoint, point, polygone, rotation, codageAngleDroit, nommePolygone, segment } from '../../modules/2d.js'
 import { texFraction, arrondi, texNombre2, listeQuestionsToContenu, randint, creerNomDePolygone, choice } from '../../modules/outils.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

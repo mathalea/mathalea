@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, calcul, creerNomDePolygone, texNombrec } from '../../../modules/outils.js'
 import {
-  mathalea2d, point, texteParPosition, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit, similitude
+  point, texteParPosition, pointAdistance, polygoneAvecNom, milieu, codageAngleDroit, similitude
 } from '../../../modules/2d.js'
 export const titre = 'Calculer l’hypoténuse avec le théorème de Pythagore'
 export const interactifReady = true

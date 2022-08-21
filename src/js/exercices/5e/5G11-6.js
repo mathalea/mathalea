@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, contraindreValeur, randint, choice, shuffle } from '../../modules/outils.js'
-import { labelPoint, longueur, mathalea2d, papierPointe, point, rotation, tracePoint } from '../../modules/2d.js'
+import { labelPoint, longueur, papierPointe, point, rotation, tracePoint } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const titre = 'Compléter un nuage de points symétriques'

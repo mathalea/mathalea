@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, calcul, texNombrec, prenomF } from '../../modules/outils.js'
-import { point, polyline, grille, courbeInterpolee, texteParPosition, mathalea2d, repere, courbe, vide2d } from '../../modules/2d.js'
+import { point, polyline, grille, courbeInterpolee, texteParPosition, repere, courbe, vide2d } from '../../modules/2d.js'
 export const titre = 'Problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const amcReady = true
 export const amcType = 'AMCHybride'

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, choice, calcul, shuffle, tableauColonneLigne, texNombre, contraindreValeur, numAlpha, combinaisonListes, arrondi, egalOuApprox } from '../../modules/outils.js'
-import { mathalea2d, fixeBordures, diagrammeBarres } from '../../modules/2d.js'
+import { fixeBordures, diagrammeBarres } from '../../modules/2d.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

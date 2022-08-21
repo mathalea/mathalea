@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { combinaisonListes, listeQuestionsToContenu, randint, choice, creerNomDePolygone, calcul } from '../../modules/outils.js'
-import { mathalea2d, point, tracePointSurDroite, droite, demiDroite, labelPoint, segment } from '../../modules/2d.js'
+import { point, tracePointSurDroite, droite, demiDroite, labelPoint, segment } from '../../modules/2d.js'
 
 export const titre = 'Donner description et notation de droites, segments et demi-droites'
 

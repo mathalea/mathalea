@@ -1,6 +1,7 @@
-import { mathalea2d, pointAdistance, point, parallelogramme2points1hauteur, afficheLongueurSegment, projectionOrtho, milieu, droite, segment, codageAngleDroit } from '../../modules/2d.js'
+import { pointAdistance, point, parallelogramme2points1hauteur, afficheLongueurSegment, projectionOrtho, milieu, droite, segment, codageAngleDroit } from '../../modules/2d.js'
 import { combinaisonListes, creerNomDePolygone, listeQuestionsToContenu, randint, texteEnCouleurEtGras } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Aire du parallélogramme'
 

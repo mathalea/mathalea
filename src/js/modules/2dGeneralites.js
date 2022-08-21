@@ -1,3 +1,129 @@
+
+import { context } from './context'
+/**
+ * mathalea2d(xmin,xmax,ymin,ymax,objets)
+ *
+ * @author Rémi Angot
+ *
+ *
+ * Le paramètre optionsTikz est un tableau de strings contenant exclusivement des options Tikz à ajouter
+ */
+export function mathalea2d (
+  { xmin = 0, ymin = 0, xmax = 15, ymax = 6, pixelsParCm = 20, scale = 1, zoom = 1, optionsTikz, mainlevee = false, amplitude = 1, style = 'display: block', id = '' } = {},
+  ...objets
+) {
+  let code = ''
+  if (context.isHtml) {
+    code = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
+      }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
+      } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" ${style ? `style="${style}"` : ''}>\n`
+    for (const objet of objets) {
+      if (Array.isArray(objet)) {
+        for (let i = 0; i < objet.length; i++) {
+          if (Array.isArray(objet[i])) { // EE : Test nécessaire pour les cubes 3d
+            for (let j = 0; j < objet[i].length; j++) {
+              try {
+                if (objet[i][j].isVisible) {
+                  if ((!mainlevee) || typeof (objet[i][j].svgml) === 'undefined') code += '\t' + objet[i][j].svg(pixelsParCm) + '\n'
+                  else { code += '\t' + objet[i][j].svgml(pixelsParCm, amplitude) + '\n' }
+                }
+              } catch (error) { }
+            }
+          } else {
+            try {
+              if (objet[i].isVisible) {
+                if ((!mainlevee) || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
+                else { code += '\t' + objet[i].svgml(pixelsParCm, amplitude) + '\n' }
+              }
+            } catch (error) { }// console.log('premiere boucle', error.message, objet[i], i) }
+          }
+        }
+      } else {
+        try {
+          if (objet.isVisible) {
+            if ((!mainlevee) || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
+            else { code += '\t' + objet.svgml(pixelsParCm, amplitude) + '\n' }
+          }
+        } catch (error) { console.log('le try tout seul', error.message, objet) }
+      }
+    }
+    code += '\n</svg>'
+    code = code.replace(/\\thickspace/gm, ' ')
+    //  pixelsParCm = 20;
+  } else {
+    // si scale existe autre que 1 il faut que le code reste comme avant
+    // sinon on ajoute scale quoi qu'il en soit quitte à ce que xscale et yscale viennent s'ajouter
+    // de cette manière d'autres options Tikz pourront aussi être ajoutées
+    // si il n'y a qu'une optionsTikz on peut passer un string
+    const listeOptionsTikz = []
+    if (optionsTikz !== undefined) {
+      if (typeof optionsTikz === 'string') {
+        listeOptionsTikz.push(optionsTikz)
+      } else {
+        optionsTikz.forEach(e => listeOptionsTikz.push(e))
+      };
+    }
+    if (scale === 1) {
+      // if (listeOptionsTikz.length==0) {
+      //   code = `\\begin{tikzpicture}[baseline]\n`;
+      // } else {
+      code = '\\begin{tikzpicture}[baseline'
+      for (let l = 0; l < listeOptionsTikz.length; l++) {
+        code += `,${listeOptionsTikz[l]}`
+      }
+      code += ']\n'
+      // }
+    } else {
+      // if (listeOptionsTikz.length==0) {
+      //   code = `\\begin{tikzpicture}[baseline,scale = ${scale}]\n`;
+      // } else {
+      code = `\\begin{tikzpicture}[baseline,scale = ${scale}`
+      for (let l = 0; l < listeOptionsTikz.length; l++) {
+        code += `,${listeOptionsTikz[l]}`
+      }
+      code += ']\n'
+      // }
+    }
+
+    code += `
+    \\tikzset{
+      point/.style={
+        thick,
+        draw,
+        cross out,
+        inner sep=0pt,
+        minimum width=5pt,
+        minimum height=5pt,
+      },
+    }
+    \\clip (${xmin},${ymin}) rectangle (${xmax},${ymax});
+
+
+    `
+    // code += codeTikz(...objets)
+    for (const objet of objets) {
+      if (Array.isArray(objet)) {
+        for (let i = 0; i < objet.length; i++) {
+          try {
+            if (objet[i].isVisible) {
+              if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz(scale) + '\n'
+              else code += '\t' + objet[i].tikzml(amplitude, scale) + '\n'
+            }
+          } catch (error) { }
+        }
+      }
+      try {
+        if (objet.isVisible) {
+          if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz(scale) + '\n'
+          else code += '\t' + objet.tikzml(amplitude, scale) + '\n'
+        }
+      } catch (error) { }
+    }
+    code += '\n\\end{tikzpicture}'
+  }
+  return code
+}
+
 /**
  * convertHexToRGB convertit une couleur en héxadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
  * @param {string} [Couleur='000000'] Code couleur HTML sans le #
@@ -5,9 +131,6 @@
  * @author Eric Elter
  * @return {number[]}
  */
-
-import { context } from './context'
-
 // JSDOC Validee par EE Juin 2022
 function convertHexToRGB (couleur = '000000') {
   const hexDecoupe = couleur.match(/.{1,2}/g)

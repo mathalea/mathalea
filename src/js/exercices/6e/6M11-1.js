@@ -1,5 +1,6 @@
-import { mathalea2d, codageAngleDroit, codageSegments, pointAdistance, polygoneAvecNom, point, translation, vecteur, rotation, similitude, afficheLongueurSegment } from '../../modules/2d.js'
+import { codageAngleDroit, codageSegments, pointAdistance, polygoneAvecNom, point, translation, vecteur, rotation, similitude, afficheLongueurSegment } from '../../modules/2d.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, texNombre, creerNomDePolygone, calcul, texteExposant } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur.js'

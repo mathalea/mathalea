@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texFractionReduite } from '../../modules/outils.js'
-import { courbe, latexParCoordonnees, mathalea2d, point, repere, segment, tracePoint } from '../../modules/2d.js'
+import { courbe, latexParCoordonnees, point, repere, segment, tracePoint } from '../../modules/2d.js'
 import { abs } from 'mathjs'
 
 export const titre = 'Propriétés graphiques de la parité d\'une fonction.'

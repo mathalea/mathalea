@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { symetrieAnimee, rotationAnimee, translationAnimee, polygone, mathalea2d, point, milieu, pointSurSegment, droite, mediatrice, translation, similitude, rotation, pointAdistance, longueur, symetrieAxiale, vecteur, latexParPoint, tracePoint, labelPoint, polygoneAvecNom, renommePolygone, nommePolygone } from '../../modules/2d.js'
+import { symetrieAnimee, rotationAnimee, translationAnimee, polygone, point, milieu, pointSurSegment, droite, mediatrice, translation, similitude, rotation, pointAdistance, longueur, symetrieAxiale, vecteur, latexParPoint, tracePoint, labelPoint, polygoneAvecNom, renommePolygone, nommePolygone } from '../../modules/2d.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Tranformations de triangle'

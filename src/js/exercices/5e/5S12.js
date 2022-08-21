@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { egalOuApprox, premiereLettreEnMajuscule, listeQuestionsToContenuSansNumero, texcolors, texNombre, texFraction, combinaisonListes, tableauColonneLigne, choice, randint, rangeMinMax } from '../../modules/outils.js'
-import { traceGraphiqueCartesien, segment, mathalea2d, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere, traceBarre, cercleCentrePoint } from '../../modules/2d.js'
-import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { traceGraphiqueCartesien, segment, arc, point, rotation, motifs, tracePoint, vecteur, translation, carre, texteParPosition, repere, traceBarre, cercleCentrePoint } from '../../modules/2d.js'
 
 export const dateDePublication = '20/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModificationImportante = '17/04/2022'

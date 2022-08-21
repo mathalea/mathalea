@@ -1,6 +1,7 @@
-import { longueur, segment, mathalea2d, afficheLongueurSegment, afficheCoteSegment, codageAngleDroit, polygoneAvecNom, triangle2points1hauteur, point, rotation } from '../../modules/2d.js'
+import { longueur, segment, afficheLongueurSegment, afficheCoteSegment, codageAngleDroit, polygoneAvecNom, triangle2points1hauteur, point, rotation } from '../../modules/2d.js'
 import { combinaisonListesSansChangerOrdre, creerNomDePolygone, listeQuestionsToContenu, randint, shuffle, texNombre, calcul, arrondi, combinaisonListes } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

@@ -1,9 +1,10 @@
-import { mathalea2d, fixeBordures, segment, point, texteParPosition, tracePoint, latexParCoordonnees } from '../../modules/2d.js'
+import { fixeBordures, segment, point, texteParPosition, tracePoint, latexParCoordonnees } from '../../modules/2d.js'
 import { choice, contraindreValeur, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint, sp, stringNombre } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { calculer } from '../../modules/outilsMathjs.js'
 import { create, all } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Générateur de Yohaku'
 export const interactifReady = true
 export const interactifType = 'custom'

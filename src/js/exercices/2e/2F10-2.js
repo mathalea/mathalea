@@ -1,10 +1,10 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, reduireAxPlusB, abs, pgcd, texteEnCouleurEtGras, texFraction, miseEnEvidence, ecritureAlgebrique, texFractionReduite } from '../../modules/outils.js'
-import { repere, droite, mathalea2d, point, tracePoint, segment, texteParPosition, latexParPoint, vecteur, translation, homothetie } from '../../modules/2d.js'
+import { repere, droite, point, tracePoint, segment, texteParPosition, latexParPoint, vecteur, translation, homothetie } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Lecture graphique d\'une fonction affine'
 export const interactifReady = true

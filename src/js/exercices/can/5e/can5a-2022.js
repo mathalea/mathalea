@@ -1,7 +1,8 @@
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  mathalea2d, point, labelPoint, droiteGraduee2, grille, segment, milieu, arc, droite, texteParPosition, tracePoint, polygone, codageAngleDroit, fixeBordures, pointSurSegment, angleModulo, rotation, rapporteur, codageAngle
+  point, labelPoint, droiteGraduee2, grille, segment, milieu, arc, droite, texteParPosition, tracePoint, polygone, codageAngleDroit, fixeBordures, pointSurSegment, angleModulo, rotation, rapporteur, codageAngle
 } from '../../../modules/2d.js'
 import { round, min, max } from 'mathjs'
 import Grandeur from '../../../modules/Grandeur.js'

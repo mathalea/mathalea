@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, creerNomDePolygone } from '../../modules/outils.js'
-import { point, labelPoint, segment, polygone, translation2Points, similitude, codageSegments, grille, seyes, mathalea2d } from '../../modules/2d.js'
-import { colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { point, labelPoint, segment, polygone, translation2Points, similitude, codageSegments, grille, seyes } from '../../modules/2d.js'
 /**
  * fonction servant à plusieurs exercice autour du cube et du pavé droit
  * références : 6G42 et 6G43

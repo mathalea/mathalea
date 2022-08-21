@@ -1,7 +1,8 @@
-import { courbeSpline, mathalea2d, repere } from '../../../modules/2d.js'
+import { courbeSpline, repere } from '../../../modules/2d.js'
 import { splineCatmullRom } from '../../../modules/fonctionsMaths.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

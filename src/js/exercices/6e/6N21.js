@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, lettreIndiceeDepuisChiffre, randint, texFraction } from '../../modules/outils.js'
-import { mathalea2d, droiteGraduee2, point, tracePoint, labelPoint } from '../../modules/2d.js'
+import { droiteGraduee2, point, tracePoint, labelPoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les abscisses fractionnaires'

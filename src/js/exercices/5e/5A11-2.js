@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, texteEnCouleurEtGras, shuffle, combinaisonListesSansChangerOrdre } from '../../modules/outils.js'
-import { mathalea2d, labyrinthe } from '../../modules/2d.js'
+import { labyrinthe } from '../../modules/2d.js'
 export const dateDePublication = '16/11/2021'
 export const titre = 'Labyrinthe de multiples avec critères choisis équilibrés '
 

@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenuSansNumero, randint, arrondi, texNombrec, texNombre, texTexte } from '../../modules/outils.js'
-import { afficheLongueurSegment, codageAngleDroit, codageSegments, fixeBordures, mathalea2d, point, polygoneAvecNom, segment } from '../../modules/2d.js'
+import { afficheLongueurSegment, codageAngleDroit, codageSegments, fixeBordures, point, polygoneAvecNom, segment } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'

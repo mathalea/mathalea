@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { droiteGraduee2, mathalea2d } from '../../modules/2d.js'
+import { droiteGraduee2 } from '../../modules/2d.js'
 
 export const titre = 'Tracer des droites graduées'
 

@@ -1,9 +1,10 @@
-import { codageSegments, homothetie, mathalea2d, point, polygone, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d.js'
+import { codageSegments, homothetie, point, polygone, polygoneAvecNom, segment, texteParPosition } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { arrondi, choice, combinaisonListes, ecritureAlgebrique, listeQuestionsToContenu, prenom, texNombre, texPrix } from '../../modules/outils.js'
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Problèmes à mettre en équation et à résoudre'
 export const interactifReady = true
 export const interactifType = 'mathLive'

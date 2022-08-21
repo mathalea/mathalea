@@ -1,8 +1,9 @@
 import { texteEnCouleurEtGras, listeQuestionsToContenu, combinaisonListesSansChangerOrdre, randint, modalYoutube, lampeMessage, enumerateSansPuceSansNumero, texteGras } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 
-import { mathalea2d, repere, traceGraphiqueCartesien, point, segment, texteParPosition } from '../../modules/2d.js'
+import { repere, traceGraphiqueCartesien, point, segment, texteParPosition } from '../../modules/2d.js'
 
 export const titre = 'Conjecture de Syracuse'
 

@@ -1,5 +1,6 @@
 import Exercice from '../Exercice.js'
-import { point, pointAdistance, rotation, translation, vecteur, barycentre, codageSegment, codageAngle, nommePolygone, mathalea2d, triangle2points2longueurs } from '../../modules/2d.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { point, pointAdistance, rotation, translation, vecteur, barycentre, codageSegment, codageAngle, nommePolygone, triangle2points2longueurs } from '../../modules/2d.js'
 import { listeQuestionsToContenu, combinaisonListes, randint, creerNomDePolygone, texteEnCouleur } from '../../modules/outils.js'
 export const titre = 'Justifier que deux triangles sont égaux'
 

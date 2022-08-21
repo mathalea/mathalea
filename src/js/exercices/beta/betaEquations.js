@@ -1,6 +1,7 @@
 import Exercice from '../Exercice.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { polygone, segment, ObjetMathalea2D, point, mathalea2d, texteParPosition, fixeBordures } from '../../modules/2d.js'
+import { polygone, segment, ObjetMathalea2D, point, texteParPosition, fixeBordures } from '../../modules/2d.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { parse, simplify, compare, evaluate } from 'mathjs'
 import { aleaName, aleaExpression, resoudre, toTex, calculer, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../modules/outilsMathjs.js'
@@ -15,7 +16,7 @@ export const titre = 'Calculs algébriques'
 export const dateDePublication = '02/01/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 function TraceSchemaBarre (x, y, legende = '', { epaisseur = 0.6, couleurDeRemplissage = 'blue', color = 'black', opaciteDeRemplissage = 0.3, angle = 66, unite = 1, hachures = false } = {}) {
-   ObjetMathalea2D.call(this, { })
+  ObjetMathalea2D.call(this, { })
   this.bordures = [x, 0, x + epaisseur, y * unite]
   const p = polygone(
     point(x, 0),
