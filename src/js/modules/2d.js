@@ -6160,8 +6160,8 @@ function CodageSegment (A, B, mark = '||', color = 'black') {
  * @author Rémi Angot
  * @returns {CodageSegment}
  */
-export function codageSegment (...args) {
-  return new CodageSegment(...args)
+export function codageSegment (A, B, mark = '||', color = 'black') {
+  return new CodageSegment(A, B, mark, color)
 }
 
 /**
