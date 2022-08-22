@@ -76,7 +76,7 @@ export default function CalculerDesMoyennes () {
         for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '|c' }
         texte += '}\\hline  \\text{Jour}'
         for (let j = 0; j < Math.round(temperatures.length / 2); j++) { texte += '&' + texNombre(j + 1) }
-        texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}'
+        texte += '\\\\\\hline \\text{Température en} ^\\circ\\text{C}'
         for (let j = 0; j < Math.round(temperatures.length / 2); j++) {
           texte += '&' + temperatures[j]
           somme += temperatures[j]
@@ -87,7 +87,7 @@ export default function CalculerDesMoyennes () {
         for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '|c' }
         texte += '}\\hline  \\text{Jour}'
         for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) { texte += '&' + texNombre(j + 1) }
-        texte += '\\\\\\hline \\text{Température\\thickspace en} \\thickspace ^\\circ\\text{C}'
+        texte += '\\\\\\hline \\text{Température en} ^\\circ\\text{C}'
         for (let j = Math.round(temperatures.length / 2); j < temperatures.length; j++) {
           texte += '&' + temperatures[j]
           somme += temperatures[j]
