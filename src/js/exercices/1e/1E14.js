@@ -1,7 +1,8 @@
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, choice, combinaisonListes, rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif } from '../../modules/outils.js'
 // import { setReponse } from '../../modules/gestionInteractif.js'
-import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'// import { courbeSpline } from '../../modules/2d.js'
+// import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
+// import { courbeSpline } from '../../modules/2d.js'
 // export const interactifReady = true
 // export const interactifType = 'mathLive'
 export const titre = 'Factoriser un polynôme du second degré avec racines entières'

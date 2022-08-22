@@ -5943,7 +5943,7 @@ export function texteSurArc (texte, A, B, angle, color = 'black', d = 0.5, horiz
  * @param {string} [color='black'] Couleur de la mesure de l'angle : du type 'blue' ou du type '#f15929'.
  * @param {number} [distance=1.5] Taille de l'angle
  * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
- * @param {Object} parametres A saisir entre accolades
+ * @param {Object} parametres À saisir entre accolades
  * @param {number} [parametres.ecart=0.5] Distance entre l'arc et sa mesure
  * @param {boolean} [parametres.saillant=true] True si on veut l'angle saillant, false si on veut l'angle rentrant.
  * @param {string} [parametres.colorArc='black']  Couleur de l'arc  : du type 'blue' ou du type '#f15929'.
@@ -6015,7 +6015,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
  * @param {string} [color='black'] Couleur de la mesure de l'angle : du type 'blue' ou du type '#f15929'.
  * @param {number} [distance=1.5] Rayon de l'arc de cercle.
  * @param {string} [label=''] Si vide, alors affiche la mesure de l'angle sinon affiche ce label.
- * @param {Object} parametres A saisir entre accolades
+ * @param {Object} parametres À saisir entre accolades
  * @param {number} [parametres.ecart=0.5] Distance entre l'arc et sa mesure
  * @param {boolean} [parametres.saillant=true] True si on veut l'angle saillant, false si on veut l'angle rentrant.
  * @param {string} [parametres.colorArc='black']  Couleur de l'arc  : du type 'blue' ou du type '#f15929'.
@@ -6256,7 +6256,7 @@ function CodageSegments (mark = '||', color = 'black', ...args) {
  * Code plusieurs segments de la même façon
  * @param {string} [mark = '||'] Symbole posé sur le segment
  * @param {string} [color = 'black'] Couleur du symbole : : du type 'blue' ou du type '#f15929'
- * @param  {Points|Array.Point|Segments} args Les segments différement codés. Voir exemples.
+ * @param  {Points|Point[]|Segments} args Les segments différement codés. Voir exemples.
  * @example codageSegments('×','blue',A,B, B,C, C,D) // Code les segments [AB], [BC] et [CD] avec une croix bleue
  * @example codageSegments('×','blue',[A,B,C,D]) // Code les segments [AB], [BC], [CD] et [DA] (attention, chemin fermé, pratique pour des polygones pas pour des lignes brisées)
  * @example codageSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
@@ -9253,48 +9253,41 @@ export function lectureAntecedent (...args) {
 /**
  * Trace la courbe d'une fonction dans un repère
  * @param {function} f fonction à tracer comme par exemple : const f = x => a * x ** 2 + b * x + c
- * @param {Object} parametres A saisir entre accolades
- * @param {Repere} parametres.repere
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} parametres.repere Repère dans lequel le tracé de la fonction se fait
  * @param {string} [parametres.color='black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
  * @param {number} [parametres.epaisseur=2]  Epaisseur du tracé de la courbe
  * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
  * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
  * @param {number} [parametres.yMax = repere.yMax]  Ordonnée maximale du tracé de la courbe
- * @param {number} [parametres.step=0.2 / repere.xUnite]  Pas entre deux abscisses du tracé de la fonction
- * @example courbe(f,{repere,color,epaisseur,step,xMin,xMax,yMin,yMax,xUnite,yUnite}) // Trace la courbe de f
+ * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
+ * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur du tracé de la courbe. À associer obligatoirement à colorToLatexOrHTML().
  * @author Rémi Angot
+ * @class
  */
-
+// JSDOC Validee par EE Juin 2022
 function Courbe (f, {
-  // repere = {},
   repere,
   color = 'black',
   epaisseur = 2,
   step = false,
-  xMin,
-  xMax,
-  yMin,
-  yMax,
+  xMin = repere.xMin,
+  xMax = repere.xMax,
+  yMin = repere.yMin,
+  yMax = repere.yMax,
   xUnite = 1,
   yUnite = 1
-} = {}) {
+}) {
   ObjetMathalea2D.call(this, { })
   this.color = color
-  let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
-  if (typeof xMin === 'undefined') {
-    xmin = repere.xMin
-  } else xmin = xMin
-  if (typeof yMin === 'undefined') {
-    ymin = repere.yMin
-  } else ymin = yMin
-  if (typeof xMax === 'undefined') {
-    xmax = repere.xMax
-  } else xmax = xMax
-  if (typeof yMax === 'undefined') {
-    ymax = repere.yMax
-  } else ymax = yMax
-
+  let xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
   xunite = repere.xUnite
   yunite = repere.yUnite
 
@@ -9309,10 +9302,10 @@ function Courbe (f, {
   } else {
     pas = step
   }
-  for (let x = xmin; inferieurouegal(x, xmax); x += pas
+  for (let x = xMin; inferieurouegal(x, xMax); x += pas
   ) {
     if (isFinite(f(x))) {
-      if (f(x) < ymax + 1 && f(x) > ymin - 1) {
+      if (f(x) < yMax + 1 && f(x) > yMin - 1) {
         points.push(point(x * xunite, f(x) * yunite))
       } else {
         p = polyline([...points], this.color)
@@ -9360,8 +9353,30 @@ function Courbe (f, {
   }
 }
 
-export function courbe (...args) {
-  return new Courbe(...args)
+/**
+ * Trace la courbe d'une fonction dans un repère
+ * @param {function} f Fonction à tracer comme par exemple : const f = x => a * x ** 2 + b * x + c
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} parametres.repere Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color='black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur=2]  Epaisseur du tracé de la courbe
+ * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
+ * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
+ * @param {number} [parametres.yMax = repere.yMax]  Ordonnée maximale du tracé de la courbe
+ * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
+ * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
+ * @example courbe(g, {repere: r})
+ * // Trace, en noir avec une épaisseur de 2, la courbe g dans le repère r, tous deux précédemment définis.
+ * @example courbe(g, {repere: r, epaisseur: 5, color: 'blue'})
+ * // Trace la courbe g dans le repère r, tous deux précédemment définis, en bleu, avec une épaisseur de 5.
+ * @author Rémi Angot
+ * @return {Courbe}
+ */
+// JSDOC Validee par EE Juin 2022
+export function courbe (f, { repere, color = 'black', epaisseur = 2, step = false, xMin, xMax, yMin, yMax, xUnite = 1, yUnite = 1 }) {
+  return new Courbe(f, { repere: repere, color: color, epaisseur: epaisseur, step: step, xMin: xMin, xMax: xMax, yMin: yMin, yMax: yMax, xUnite: xUnite, yUnite: yUnite })
 }
 
 /**
@@ -9454,41 +9469,35 @@ function Integrale (f, {
 export function integrale (...args) {
   return new Integrale(...args)
 }
+
 /**
- * crée un objet correspondant au tracé de la fonction f de la classe Spline
- * f devra être définie avant...
+ * Trace la courbe d'une fonction, précédemment définie comme Spline, dans un repère
+ * @param {function} f fonction à tracer défine, au préalable, avec splineCatmullRom()
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} parametres.repere Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color='black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur=2]  Epaisseur du tracé de la courbe
+ * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
+ * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
+ * @param {number} [parametres.yMax = repere.yMax]  Ordonnée maximale du tracé de la courbe
+ * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
+ * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
+ * @param {boolean} [parametres.traceNoeuds = true]  Place (ou pas ?) les points définis dans le paramètre f.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur du tracé de la courbe. À associer obligatoirement à colorToLatexOrHTML().
  * @author Jean-Claude Lhote
+ * @class
  */
-function CourbeSpline (f, {
-  repere = {},
-  color = 'black',
-  epaisseur = 2,
-  step = false,
-  xMin,
-  xMax,
-  yMin,
-  yMax,
-  xUnite = 1,
-  yUnite = 1,
-  traceNoeuds = true
-} = {}) {
+// JSDOC Validee par EE Juin 2022
+function CourbeSpline (f, { repere, color = 'black', epaisseur = 2, step = false, xMin = repere.xMin, xMax = repere.xMax, yMin = repere.yMin, yMax = repere.yMax, xUnite = 1, yUnite = 1, traceNoeuds = true }) {
   ObjetMathalea2D.call(this, { })
+  this.color = color
   const noeuds = []
   let points = []
-  let xmin, ymin, xmax, ymax, xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
-  if (typeof xMin === 'undefined') {
-    xmin = repere.xMin
-  } else xmin = xMin
-  if (typeof yMin === 'undefined') {
-    ymin = repere.yMin
-  } else ymin = yMin
-  if (typeof xMax === 'undefined') {
-    xmax = repere.xMax
-  } else xmax = xMax
-  if (typeof yMax === 'undefined') {
-    ymax = repere.yMax
-  } else ymax = yMax
-
+  let xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
   xunite = repere.xUnite
   yunite = repere.yUnite
 
@@ -9512,13 +9521,13 @@ function CourbeSpline (f, {
   } else {
     pas = step
   }
-  for (let x = xmin; inferieurouegal(x, xmax); x = x + pas) {
+  for (let x = xMin; inferieurouegal(x, xMax); x = x + pas) {
     y = f.image(x)
     if (!isNaN(y)) {
-      if (y < ymax + 1 && y > ymin - 1) {
+      if (y < yMax + 1 && y > yMin - 1) {
         points.push(point(x * xunite, y * yunite))
-      } else {
-        p = polyline([...points], color)
+      } else if (points.length > 0) {
+        p = polyline([...points], this.color)
         p.epaisseur = epaisseur
         p.opacite = 0.7
         objets.push(p)
@@ -9528,7 +9537,7 @@ function CourbeSpline (f, {
       x += 0.05
     }
   }
-  p = polyline([...points], color)
+  p = polyline([...points], this.color)
   p.epaisseur = epaisseur
   p.opacite = 0.7
   objets.push(p)
@@ -9549,8 +9558,31 @@ function CourbeSpline (f, {
   }
 }
 
-export function courbeSpline (...args) {
-  return new CourbeSpline(...args)
+/**
+ * Trace la courbe d'une fonction, précédemment définie comme Spline, dans un repère
+ * @param {function} f fonction à tracer défine, au préalable, avec splineCatmullRom()
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} parametres.repere Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color='black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur=2]  Epaisseur du tracé de la courbe
+ * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
+ * @param {number} [parametres.yMin = repere.yMin]  Ordonnée minimale du tracé de la courbe
+ * @param {number} [parametres.yMax = repere.yMax]  Ordonnée maximale du tracé de la courbe
+ * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
+ * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
+ * @param {boolean} [parametres.traceNoeuds = true]  Place (ou pas ?) les points définis dans le paramètre f.
+ * @example courbeSpline(g, {repere: r})
+ * // Trace, en noir avec une épaisseur de 2, la courbe spline g dans le repère r, tous deux précédemment définis.
+ * @example courbeSpline(g, {repere: r, epaisseur: 5, color: 'blue'})
+ * // Trace la courbe spline g dans le repère r, tous deux précédemment définis, en bleu, avec une épaisseur de 5.
+ * @author Jean-Claude Lhote
+ * @return {CourbeSpline}
+ */
+// JSDOC Validee par EE Juin 2022
+export function courbeSpline (f, { repere, color = 'black', epaisseur = 2, step = false, xMin = repere.xMin, xMax = repere.xMax, yMin = repere.yMin, yMax = repere.yMax, xUnite = 1, yUnite = 1, traceNoeuds = true }) {
+  return new CourbeSpline(f, { repere: repere, color: color, epaisseur: epaisseur, step: step, xMin: xMin, xMax: xMax, yMin: yMin, yMax: yMax, xUnite: xUnite, yUnite: yUnite, traceNoeuds: traceNoeuds })
 }
 
 /**
@@ -9565,23 +9597,30 @@ const cosineInterpolate = (y1, y2, mu) => {
   const mu2 = (1 - Math.cos(mu * Math.PI)) / 2
   return y1 * (1 - mu2) + y2 * mu2
 }
+
 /**
- *
- * @param {*} tableau
- * @param {*} color
- * @param {*} epaisseur
- * @param {Repere} r
- * @param {*} xmin
- * @param {*} xmax
+ * Trace la courbe d'une fonction interpolée, linéaire par parties, dans un repère
+ * @param {Array.number[]} tableau Ce tableau de tableaux contient les coordonnées des points à rejoindre comme par exemple : [[-5,2],[-1,-7],[2,5],[3,-1]]
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} parametres.repere Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du tracé de la courbe
+ * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @author Rémi Angot
+ * @class
  */
+// JSDOC Validee par EE Juin 2022
 function CourbeInterpolee (
   tableau,
   {
     color = 'black',
     epaisseur = 2,
     repere = { xMin: -1, yMin: 1 },
-    xMin,
-    xmax
+    xMin = repere.xMin,
+    xMax = repere.xMax
   }) {
   ObjetMathalea2D.call(this, { })
   const mesCourbes = []
@@ -9593,7 +9632,7 @@ function CourbeInterpolee (
     const f = (x) => cosineInterpolate(y0, y1, (x - x0) / (x1 - x0))
     let depart, fin
     xMin > x0 ? (depart = xMin) : (depart = x0)
-    xmax < x1 ? (fin = xmax) : (fin = x1)
+    xMax < x1 ? (fin = xMax) : (fin = x1)
     const c = courbe(f, { repere, xMin: depart, xMax: fin, color, epaisseur })
     mesCourbes.push(c)
     this.svg = function (coeff) {
@@ -9613,18 +9652,24 @@ function CourbeInterpolee (
   }
 }
 /**
- *
- * @param {array} tableau de coordonnées [x,y]
- * @param {string} color
- * @param {number} epaisseur
- * @param {objet} repere (ou tableau [xscale,yscale])
- * @param {number} xmin (ceux de la courbe, pas ceux du repère)
- * @param {number} xmax
- *
+ * Trace la courbe d'une fonction interpolée, linéaire par parties, dans un repère
+ * @param {Array.number[]} tableau Ce tableau de tableaux contient les coordonnées des points à rejoindre comme par exemple : [[-5,2],[-1,-7],[2,5],[3,-1]]
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} parametres.repere Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color='black']  Couleur du tracé de la courbe : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur=2]  Epaisseur du tracé de la courbe
+ * @param {number} [parametres.xMin = repere.xMin]  Abscisse minimale du tracé de la courbe
+ * @param {number} [parametres.xMax = repere.xMax]  Abscisse maximale du tracé de la courbe
+ * @example courbeInterpolee(tab, {repere: r})
+ * // Trace, en noir avec une épaisseur de 2, la courbe de la fonction interpolée sur les intervalles définis dans tab, dans le repère r, tous deux précédemment définis.
+ * @example courbeInterpolee(tab, {repere: r, epaisseur: 5, color: 'blue'})
+ * // Trace la courbe de la fonction interpolée sur les intervalles définis dans tab, dans le repère r, tous deux précédemment définis, en bleu avec une épaisseur de 5.
  * @author Rémi Angot
+ * @return {CourbeInterpolee}
  */
+// JSDOC Validee par EE Juin 2022
 export function courbeInterpolee (tableau, { color = 'black', epaisseur = 1, repere, xMin = -10, xMax = 10 }) {
-  return new CourbeInterpolee(tableau, { color, epaisseur, repere, xMin, xMax })
+  return new CourbeInterpolee(tableau, { color: color, epaisseur: epaisseur, repere: repere, xMin: xMin, xMax: xMax })
 }
 
 function GraphiqueInterpole (
