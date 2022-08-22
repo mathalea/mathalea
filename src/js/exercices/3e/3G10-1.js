@@ -65,10 +65,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
     const yO = randint(-3, 3, [0, -1])
     const pointO = point(0, 0, 'O', 'above right')
     const O = point(xO, yO, "O'", 'above left') // on crée le point O'
-    const droited1 = droiteParPointEtPente(O, 1, '(d_1)') // et les trois axes passant par O'
-    const droited = droiteHorizontaleParPoint(O, '(d)')
-    const droited2 = droiteParPointEtPente(O, -1, '(d_2)')
-    const droitedprime = droiteVerticaleParPoint(O, "(d')")
+    const droited1 = droiteParPointEtPente(O, 1, '$(d_1)$') // et les trois axes passant par O'
+    const droited = droiteHorizontaleParPoint(O, '$(d)$')
+    const droited2 = droiteParPointEtPente(O, -1, '$(d_2)$')
+    const droitedprime = droiteVerticaleParPoint(O, "$(d')$")
     droited1.isVisible = true
     droited2.isVisible = true
     droited.isVisible = true
@@ -82,7 +82,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
     droited.color = colorToLatexOrHTML('green')
     droitedprime.color = colorToLatexOrHTML('green')
     droited1.opacite = 0.5
-    droited1.nom = '(d_1)'
+    droited1.nom = '$(d_1)$'
     droited2.opacite = 0.5
     droited.opacite = 0.5
     droitedprime.opacite = 0.5
