@@ -3,10 +3,9 @@ import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { scratchblock, point, texteParPositionEchelle } from '../../modules/2d.js'
-import { allerA, angleScratchTo2d, attendre, baisseCrayon, creerLutin, orienter } from '../../modules/2dLutin.js'
+import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 import { choice, combinaisonListes, contraindreValeur, listeQuestionsToContenu, modalPdf, modalUrl, randint, stringNombre, texteGras } from '../../modules/outils.js'
-import { clone } from 'mathjs'
 export const titre = 'Note la couleur (scratch)'
 
 /**

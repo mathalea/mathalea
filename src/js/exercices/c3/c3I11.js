@@ -5,8 +5,7 @@ import { context } from '../../modules/context.js'
 import { randint, choice, texteGras, modalUrl, modalPdf, contraindreValeur, listeQuestionsToContenu, stringNombre } from '../../modules/outils.js'
 import { scratchblock, point, texteParPositionEchelle, tracePoint } from '../../modules/2d.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
-import { allerA, angleScratchTo2d, attendre, baisseCrayon, creerLutin, orienter } from '../../modules/2dLutin.js'
-import { clone } from 'mathjs'
+import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin.js'
 export const titre = 'Note la couleur (scratch)'
 
 /**
