@@ -123,7 +123,7 @@ export default function TransformationsDeTriangle () {
     anim.textePoint('(d)', milieu(B, B1))
     anim.symetrieAxialePolygone(triangle0, med, ['A_1', 'B_1', 'C_1'], { couleur: 'blue', couleurCodage: 'lightblue' })
     anim.demiTourPolygone(triangle2, D, ['A_2', 'B_2', 'C_2'], { couleur: 'red', couleurCodage: 'pink' })
-    anim.translationPolygone(triangle3, D, F, ['A_3', 'B_3', 'C_3'], { couleur: 'brown', couleurCodage: 'orange' })
+    anim.translationPolygone(triangle3, D, F, ['A_3', 'B_3', 'C_3'], { couleur: 'brown', couleurCodage: '#f15929' })
     anim.rotationPolygone(triangle4, F, alpha, ['A_4', 'B_4', 'C_4'], { couleur: 'green', couleurCodage: 'lightgreen' })
     anim.crayonMasquer()
 

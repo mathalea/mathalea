@@ -290,7 +290,7 @@ class Plateau2dNLC {
         case 'Vert':
           return 'green'
         case 'Orange':
-          return 'orange'
+          return '#f15929'
         case 'Gris':
           return 'gray'
       }
