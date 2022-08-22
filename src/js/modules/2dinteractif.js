@@ -1,5 +1,5 @@
-import { ObjetMathalea2D, point, polygone, tracePoint } from './2d.js'
-import { colorToLatexOrHTML } from './2dGeneralites.js'
+import { point, polygone, tracePoint } from './2d.js'
+import { colorToLatexOrHTML, ObjetMathalea2D } from './2dGeneralites.js'
 import { context } from './context.js'
 
 /**
@@ -9,7 +9,7 @@ import { context } from './context.js'
  * @param {object} options over, out et click sont des objets pour le style css des évènements de la souris, radius, width, color, opacite, size, style sont les paramètres possibles pour la trace du point
  */
 function PointCliquable (x, y, options) {
-   ObjetMathalea2D.call(this, { })
+  ObjetMathalea2D.call(this, { })
   const A = point(x, y)
   this.point = A
   if (!options) options = {}
@@ -101,7 +101,7 @@ export function pointCliquable (...args) {
  * @param {object} options over, out et click sont des ojets pour le style css des évènements de la souris, radius, width, color, size, style sont les paramètres possibles pour la trace du point
  */
 function RectangleCliquable (x1, y1, x2, y2, options) {
-   ObjetMathalea2D.call(this, { })
+  ObjetMathalea2D.call(this, { })
   const A = point(x1, y1)
   const B = point(x2, y1)
   const C = point(x2, y2)
