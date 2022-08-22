@@ -4436,7 +4436,7 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
  */
 // JSDOC Validee par EE Juin 2022
 export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
-  return new CibleCarree({ x, y, rang, num, taille, color, opacite })
+  return new CibleCarree({ x: x, y: y, rang: rang, num: num, taille: taille, color: color, opacite: opacite })
 }
 
 /**  Retourne un couple de coordonnées correspondant au centre d'une cible, connaissant les coordonnées du point réponse et de la cellule dans laquelle on veut qu'il soit
@@ -6337,7 +6337,6 @@ function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'bl
   this.couleurDeRemplissage = couleurDeRemplissage
   this.opaciteDeRemplissage = opaciteDeRemplissage
   this.angle = angle
-
   this.svg = function (coeff) {
     let code = ''
     const objets = []

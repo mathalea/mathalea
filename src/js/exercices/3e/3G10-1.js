@@ -489,20 +489,20 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (i === 0) {
             objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
             objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-              segment(O, A, 'blue'), segment(O, Aprime, 'orange'))
+              segment(O, A, 'blue'), segment(O, Aprime, '#f15929'))
             xP[9] = xA
             yP[9] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
             objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-              segment(O, B, 'blue'), segment(O, Bprime, 'orange'))
+              segment(O, B, 'blue'), segment(O, Bprime, '#f15929'))
 
             xP[9] = xB
             yP[9] = yB
           } else {
             objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
             objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-              segment(O, C, 'blue'), segment(O, Cprime, 'orange'))
+              segment(O, C, 'blue'), segment(O, Cprime, '#f15929'))
 
             xP[9] = xC
             yP[9] = yC
@@ -520,19 +520,19 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (i === 0) {
             objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
             objetsCorrection.push(tracePoint(A, Aprime, O), labelPoint(A, Aprime, O),
-              segment(O, A, 'blue'), segment(O, Aprime, 'orange'))
+              segment(O, A, 'blue'), segment(O, Aprime, '#f15929'))
             xP[10] = xA
             yP[10] = yA
           } else if (i === 1) {
             objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
             objetsCorrection.push(tracePoint(B, Bprime, A), labelPoint(B, Bprime, A),
-              segment(A, B, 'blue'), segment(A, Bprime, 'orange'))
+              segment(A, B, 'blue'), segment(A, Bprime, '#f15929'))
             xP[10] = xB
             yP[10] = yB
           } else {
             objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
             objetsCorrection.push(tracePoint(C, Cprime, B), labelPoint(C, Cprime, B),
-              segment(B, C, 'blue'), segment(B, Cprime, 'orange'))
+              segment(B, C, 'blue'), segment(B, Cprime, '#f15929'))
             xP[10] = xC
             yP[10] = yC
           }
