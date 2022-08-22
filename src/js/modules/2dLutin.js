@@ -4,8 +4,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
-import { angleModulo, ObjetMathalea2D, point } from './2d.js'
-import { colorToLatexOrHTML } from './2dGeneralites.js'
+import { angleModulo, point } from './2d.js'
+import { colorToLatexOrHTML, ObjetMathalea2D } from './2dGeneralites.js'
 import { context } from './context.js'
 import { radians } from './fonctionsMaths.js'
 

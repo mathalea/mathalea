@@ -5,79 +5,8 @@ import { fraction, Fraction, max, ceil, isNumeric, floor, random, round, abs } f
 import earcut from 'earcut'
 import FractionX from './FractionEtendue.js'
 import Decimal from 'decimal.js'
-import { colorToLatexOrHTML } from './2dGeneralites.js'
+import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from './2dGeneralites.js'
 
-/*
-  MathALEA2D
- @name      mathalea2d.js
- @author    Rémi Angot et Jean-Claude Lhote
- @license   MIT License - CC-BY-SA
- @homepage  https://coopmaths.fr/mathalea2d.html
- */
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%% OBJET PARENT %%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
-
-let numId = 0 // Créer un identifiant numérique unique par objet SVG
-
-/*
- * Classe parente de tous les objets de MathALEA2D
- *
- * @author Rémi Angot
- */
-export function ObjetMathalea2D ({ classe = true }) {
-  this.positionLabel = 'above'
-  this.isVisible = true
-  this.color = colorToLatexOrHTML('black')
-  this.style = '' // stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
-  // this.styleTikz = ''
-  this.epaisseur = 1
-  this.opacite = 1
-  this.pointilles = ''
-  this.id = numId
-  numId++
-  if (classe) context.objets2D.push(this)
-}
-
-class Vide2d {
-  constructor (x, y) {
-    this.bordures = [x, y, x, y]
-    this.tikz = function () {
-      return ''
-    }
-    this.svg = function () {
-      return ''
-    }
-  }
-}
-export function vide2d (x = 0, y = 0) {
-  return new Vide2d(x, y)
-}
-/**
- *
- * @param {url} url de l'image
- * @param {number} x tous ces nombres sont en pixels
- * @param {number} y Attention à l'orientation de l'axe SVG
- * @param {number} largeur
- * @param {number} hauteur
- */
-function FondEcran (url, x, y, largeur, hauteur) {
-  ObjetMathalea2D.call(this, { })
-  this.svg = function (coeff) {
-    return `<image xlink:href="${url}" x="${x}" y="${y}" height="${hauteur}" width="${largeur}" />`
-  }
-  this.tikz = function () {
-    return `\\node[inner sep=0pt] at (${x},${y})
-    {\\includegraphics[width= 15 cm]{${url}};`
-  }
-}
-
-export function fondEcran (url, x = 0, y = 0, largeur = context.fenetreMathalea2d.xMax - context.fenetreMathalea2d.xMin, hauteur = context.fenetreMathalea2d.yMax - context.fenetreMathalea2d.yMin) {
-  return new FondEcran(url, x, y, largeur, hauteur)
-}
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%% LES POINTS %%%%%%%%%%%%%%

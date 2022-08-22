@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 import { choice, contraindreValeur, lettreMinusculeDepuisChiffre, listeQuestionsToContenu, randint, sp } from '../../modules/outils.js'
-import { point, rotation, similitude, texteParPoint, longueur, segment, homothetie, polygoneRegulierParCentreEtRayon, vide2d, fixeBordures, latexParPoint } from '../../modules/2d.js'
+import { point, rotation, similitude, texteParPoint, longueur, segment, homothetie, polygoneRegulierParCentreEtRayon, fixeBordures, latexParPoint } from '../../modules/2d.js'
 import { create, all } from 'mathjs'
 import { calculer } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import * as pkg from '@cortex-js/compute-engine'
 const { ComputeEngine } = pkg

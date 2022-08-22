@@ -12,7 +12,8 @@
  * this.testSequence([...code]) est une méthode qui retourne true si la séquence d'instructions est valide.
  */
 
-import { boite, ObjetMathalea2D, segment, texteParPositionEchelle } from './2d.js'
+import { boite, segment, texteParPositionEchelle } from './2d.js'
+import { ObjetMathalea2D } from './2dGeneralites.js'
 import { avance, tournerD, tournerG } from './2dLutin.js'
 import { randint } from './outils.js'
 
@@ -253,7 +254,7 @@ class Plateau2dNLC {
     ]
 
   } = {}) {
-     ObjetMathalea2D.call(this, { })
+    ObjetMathalea2D.call(this, { })
     this.relatif = relatif
     this.pas = pas
     this.type = 1
