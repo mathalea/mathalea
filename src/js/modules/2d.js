@@ -7493,6 +7493,8 @@ function Repere ({
   this.yMin = yMin
   this.yMax = yMax
 
+  this.bordures = [this.xMin * this.xUnite - 1, this.yMin * this.yUnite - 1, this.xMax * this.xUnite + 1, this.yMax * this.yUnite + 1]
+
   const objets = []
   // LES AXES
   const OrdonneeAxe = Math.max(0, yMin)

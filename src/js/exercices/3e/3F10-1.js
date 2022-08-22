@@ -79,28 +79,28 @@ export default function VocabulaireNotationsFonctions () {
         case 'notations':
           switch (sousChoix[i]) {
             case 0:
-              enonce = `On sait que $f(${x})=${y}$, alors pour la fonction $f$ :`
-              reponses[i] = [[`$${x}$ est un antécédent de $${y}$`, true], [`$${x}$ est l'image de $${y}$`, false], [`$${y}$ est un antécédent de $${x}$`, false], [`$${y}$ est l'image de $${x}$`, true]]
+              enonce = `On sait que $f(${x})=${y}$, alors pour la fonction $f$ : (plusieurs réponses peuvent être correctes)`
+              reponses[i] = [[`$${x}$ est un antécédent de $${y}$.`, true], [`$${x}$ est l'image de $${y}$.`, false], [`$${y}$ est un antécédent de $${x}$.`, false], [`$${y}$ est l'image de $${x}$.`, true]]
               break
             case 1:
-              enonce = `$f : ${x} \\longmapsto ${y}$, alors pour la fonction $f$ :`
-              reponses[i] = [[`$${x}$ est un antécédent de $${y}$`, true], [`$${x}$ est l'image de $${y}$`, false], [`$${y}$ est un antécédent de $${x}$`, false], [`$${y}$ est l'image de $${x}$`, true]]
+              enonce = `$f : ${x} \\longmapsto ${y}$, alors pour la fonction $f$ : (plusieurs réponses peuvent être correctes)`
+              reponses[i] = [[`$${x}$ est un antécédent de $${y}$.`, true], [`$${x}$ est l'image de $${y}$.`, false], [`$${y}$ est un antécédent de $${x}$.`, false], [`$${y}$ est l'image de $${x}$.`, true]]
               break
             case 2:
-              enonce = `Pour $x=${x}$, $f(x)=${y}$, alors pour la fonction $f$ :`
-              reponses[i] = [[`$${x}$ est un antécédent de $${y}$`, true], [`$${x}$ est l'image de $${y}$`, false], [`$${y}$ est un antécédent de $${x}$`, false], [`$${y}$ est l'image de $${x}$`, true]]
+              enonce = `Pour $x=${x}$, $f(x)=${y}$, alors pour la fonction $f$ : (plusieurs réponses peuvent être correctes)`
+              reponses[i] = [[`$${x}$ est un antécédent de $${y}$.`, true], [`$${x}$ est l'image de $${y}$.`, false], [`$${y}$ est un antécédent de $${x}$.`, false], [`$${y}$ est l'image de $${x}$.`, true]]
               break
             case 3:
               A = point(x, y)
               d = droiteParPointEtPente(A, randint(-4, 4, 0) / 2, '', 'red')
-              enonce = 'La fonction $f$ est représentée par la droite rouge ci-dessous.<br>'
+              enonce = 'La fonction $f$ est représentée par la droite rouge ci-dessous (plusieurs réponses peuvent être correctes).<br>'
               enonce += mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 15, scale: 0.5 }, r, d, tracePoint(A)) + '<br>Alors pour la fonction $f$ :'
-              reponses[i] = [[`$${x}$ est un antécédent de $${y}$`, true], [`$${x}$ est l'image de $${y}$`, false], [`$${y}$ est un antécédent de $${x}$`, false], [`$${y}$ est l'image de $${x}$`, true]]
+              reponses[i] = [[`$${x}$ est un antécédent de $${y}$.`, true], [`$${x}$ est l'image de $${y}$.`, false], [`$${y}$ est un antécédent de $${x}$.`, false], [`$${y}$ est l'image de $${x}$.`, true]]
               break
             case 4:
               m = randint(-9, 9, [x, y])
-              enonce = `On sait que $f(${x})=f(${y})=${m}$, alors pour la fonction $f$ :`
-              reponses[i] = [[`$${x}$ et $${y}$ sont des antécédents de $${m}$`, true], [`$${m}$ est l'image de $${x}$ et de $${y}$`, true], [`$${x}$ et $${y}$ sont des images de $${m}$`, false], [`$${m}$ est un antécédent de $${x}$ et $${y}$`, false]]
+              enonce = `On sait que $f(${x})=f(${y})=${m}$, alors pour la fonction $f$ : (plusieurs réponses peuvent être correctes)`
+              reponses[i] = [[`$${x}$ et $${y}$ sont des antécédents de $${m}$.`, true], [`$${m}$ est l'image de $${x}$ et de $${y}$.`, true], [`$${x}$ et $${y}$ sont des images de $${m}$.`, false], [`$${m}$ est un antécédent de $${x}$ et $${y}$.`, false]]
               break
           }
           break
