@@ -5,7 +5,7 @@ import { repere, traceBarre } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Lire un diagramme en barre'
+export const titre = 'Lire un diagramme en barres'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
@@ -27,6 +27,8 @@ export default function LectureDiagrammeBarre () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 1
+  this.spacing = 2
+  this.spacingCorr = 2
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // vide la liste de questions
     this.listeCorrections = [] // vide la liste de questions corrigées
@@ -90,20 +92,20 @@ export default function LectureDiagrammeBarre () {
     switch (parseInt(this.sup2)) {
       case 1:
         if (!context.isAmc) {
-          texte += numAlpha(2) + ' Donner un encadrement à la dizaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
-          texte += ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { texte: sp(5) }) + sp(10) + `< nombre de ${lstAnimauxExo[numAnimal]} < `
+          texte += numAlpha(2) + ' Donner un encadrement, à la dizaine, du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { texte: sp(5) }) + sp(10) + `< nombre de ${lstAnimauxExo[numAnimal]} < `
           texte += ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { texte: sp(5) })
         } else {
-          texte += '3) Donner un encadrement à la dizaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
+          texte += '3) Donner un encadrement, à la dizaine, du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
         }
         break
       case 2:
         if (!context.isAmc) {
-          texte += numAlpha(2) + ' Donner un encadrement à la centaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
-          texte += ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { texte: sp(5) }) + sp(10) + `< nombre de ${lstAnimauxExo[numAnimal]} < `
+          texte += numAlpha(2) + ' Donner un encadrement, à la centaine, du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, 2, 'largeur10 inline', { texte: sp(5) }) + sp(10) + `< nombre de ${lstAnimauxExo[numAnimal]} < `
           texte += ajouteChampTexteMathLive(this, 3, 'largeur10 inline', { texte: sp(5) })
         } else {
-          texte += '3)  Donner un encadrement à la centaine du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
+          texte += '3)  Donner un encadrement, à la centaine, du nombre de ' + lstAnimauxExo[numAnimal] + ' ?<br>'
         }
         break
     }
@@ -127,7 +129,7 @@ export default function LectureDiagrammeBarre () {
       xLabelListe: [],
       yUnite: 0.1 / coef,
       yThickDistance: 10 * coef,
-      yMax: 110 * coef,
+      yMax: 100 * coef,
       xMin: 0,
       xMax: 10,
       yMin: 0,
