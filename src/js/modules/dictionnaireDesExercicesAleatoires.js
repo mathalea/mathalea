@@ -1010,14 +1010,10 @@ export default {
     }
   },
   "2N10-2": {
-    "titre": "Placer un point d'abscisse décimale",
+    "titre": "Placer un point d\\",
     "url": "/exercices/2e/2N10-2.js",
-    "amcReady": true,
-    "amcType": {
-      "text": "AMCOpen"
-    },
-    "interactifReady": true,
-    "interactifType": "custom",
+    "amcReady": false,
+    "interactifReady": false,
     "name": "2N10-2",
     "newEx": {
       "isNew": false,
@@ -4394,6 +4390,25 @@ export default {
     "name": "4C32-3",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "4C32-4": {
+    "titre": "Calculs avec des multiplications et des puissances de 10",
+    "url": "/exercices/4e/4C32-4.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "4C32-4",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -8144,6 +8159,25 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
+  "6G10-4": {
+    "titre": "Connaître le vocabulaire du cercle",
+    "url": "/exercices/6e/6G10-4.js",
+    "amcReady": false,
+    "interactifReady": true,
+    "interactifType": [
+      "qcm",
+      "mathLive"
+    ],
+    "name": "6G10-4",
+    "newEx": {
+      "isNew": true,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
   "6G10": {
     "titre": "Utiliser la notation de droites, segments et demi-droites",
     "url": "/exercices/6e/6G10.js",
@@ -9145,6 +9179,25 @@ export default {
     "name": "6N10-6",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "6N10-7": {
+    "titre": "Recomposer un entier",
+    "url": "/exercices/6e/6N10-7.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCNum"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
+    "name": "6N10-7",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -13025,7 +13078,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can1P01",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -17621,7 +17674,7 @@ export default {
     }
   },
   "can6N04": {
-    "titre": "Trouver une abscisse fractionnaire",
+    "titre": "Lire une abscisse sur une droite graduée",
     "url": "/exercices/can/6e/can6N04.js",
     "amcReady": true,
     "amcType": {
@@ -18227,7 +18280,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3C09",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -18246,7 +18299,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3C10",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {

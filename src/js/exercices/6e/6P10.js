@@ -189,7 +189,7 @@ export default function ProportionnalitePasProportionnalite () {
             y = randint(2, 5)
             somme = pu.mul(y)
             p = y * randint(2, 5)
-            z = pu.sub(0.1).pul(p).toDP(2)
+            z = pu.sub(0.1).mul(p).toDP(2)
             texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}. `
             texte += `Elle a obtenu ${y} ${objet} pour $${texPrix(somme)}${sp()}$€. ${prenoms[1]} achète quant à lui, au même endroit ${p}${sp()}${objet} pour $${texPrix(z)}$€.<br>`
             texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
