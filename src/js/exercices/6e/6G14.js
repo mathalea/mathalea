@@ -68,7 +68,7 @@ export default function ProprietesParallelesPerpendiculaires () {
     const d = []; const P = []; const objets = []; const couleurd = []; let droiteP; let PP; let Inter
     const droitecolor = function (num) {
       let couleurs
-      context.isHtml ? couleurs = ['red', 'blue', 'green', 'black', 'magenta', 'orange'] : couleurs = ['black', 'black', 'black', 'black', 'black', 'black']
+      context.isHtml ? couleurs = ['red', 'blue', 'green', 'black', 'magenta', '#f15929'] : couleurs = ['black', 'black', 'black', 'black', 'black', 'black']
       return couleurs[num]
     }
 

@@ -28,7 +28,7 @@ export default function FonctionsProbabilite2 () {
     const listeIndex = combinaisonListes(indexDisponibles, this.nbQuestions)
     const qualites = [[]]
     const Initiale = []
-    const Couleurs = ['red', 'green', 'blue', 'gray', 'brown', 'orange', 'magenta', 'pink', 'black', 'lightgray']
+    const Couleurs = ['red', 'green', 'blue', 'gray', 'brown', '#f15929', 'magenta', 'pink', 'black', 'lightgray']
     qualites[0] = ['à la fraise', 'à la vanille', 'à l\'abricot', 'à la cerise', 'à la banane']
     qualites[1] = ['trèfle', 'carreau', 'coeur', 'pique']
     qualites[2] = ['rouges', 'vertes', 'bleues', 'noires', 'blanches']

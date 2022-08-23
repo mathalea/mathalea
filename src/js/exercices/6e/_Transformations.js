@@ -182,7 +182,7 @@ export default function Transformations () {
       traceAnt.opacite = 1
       traceIm.opacite = 1
       traceIm.epaisseur = 2
-      traceIm.color = colorToLatexOrHTML('orange')
+      traceIm.color = colorToLatexOrHTML('#f15929')
       traceO = tracePoint(O)
       traceO.epaisseur = 2
       traceO.opacite = 1
@@ -358,7 +358,7 @@ export default function Transformations () {
           (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) +
             ` L'image du point ${antecedents[i]} par l'homothétie de centre O et de rapport ${k[i]} est le point ${images[i]}.<br>`
           objetsEnonce.push(traceAnt, traceO, labO)
-          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'orange'))
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, '#f15929'))
           break
 
         case 10:
@@ -375,7 +375,7 @@ export default function Transformations () {
               k[i]
             )}$ est le point ${images[i]}.<br>`
           objetsEnonce.push(traceAnt, traceO, labO)
-          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, 'orange'))
+          objetsCorrection.push(traceAnt, traceIm, traceO, labO, segment(M[i], O, 'blue'), segment(N[i], O, '#f15929'))
           break
       }
 

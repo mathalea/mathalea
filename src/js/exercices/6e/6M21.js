@@ -96,7 +96,7 @@ export default function compareAireEtPerimetreAvecRectangle () {
 
     typesDeProblemes = combinaisonListes(typesDeProblemes, this.nbQuestions)
 
-    const color = combinaisonListes(['red', 'blue', 'green', 'gray', 'pink', 'orange'], this.nbQuestions)
+    const color = combinaisonListes(['red', 'blue', 'green', 'gray', 'pink', '#f15929'], this.nbQuestions)
 
     let aireOuPerimetre = 'Les deux'
     if (this.sup2 === 1) aireOuPerimetre = 'Perimetre'

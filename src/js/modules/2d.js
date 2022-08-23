@@ -2321,21 +2321,32 @@ export function segmentAvecExtremites (...args) {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
 
+/**  Trace la demi-droite d'origine A passant par B
+ * @param {Point} A
+ * @param {Point} B
+ * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @property {string} color Couleur de la demi-droite. À associer obligatoirement à colorToLatexOrHTML().
+ * @author Rémi Angot
+ * @class
+ */
+// JSDOC Validee par EE Aout 2022
 function DemiDroite (A, B, color = 'black') {
   ObjetMathalea2D.call(this, { })
   const B1 = pointSurSegment(B, A, -10)
   this.color = color
-  return segment(A, B1, this.color)
+  return new Segment(A, B1, this.color)
 }
 
-/**
- * Trace la demi-droite d'origine A passant par B et de couleur color
+/**  Trace la demi-droite d'origine A passant par B
  * @param {Point} A
  * @param {Point} B
  * @param {string} [color='black'] Facultatif, 'black' par défaut
- * @example demiDroite(A,B,'blue') // Demi-droite d'origine A passant par B et de couleur bleue
+ * @example demiDroite(M, N) // Trace la demi-droite d'origine M passant par N et de couleur noire
+ * @example demiDroite(M, N, 'blue') // Trace la demi-droite d'origine M passant par N et de couleur bleue
  * @author Rémi Angot
+ * @return {DemiDroite}
  */
+// JSDOC Validee par EE Aout 2022
 export function demiDroite (A, B, color = 'black') {
   return new DemiDroite(A, B, color)
 }
@@ -4300,47 +4311,30 @@ export function courbeDeBezier (...args) {
 %%%%%%%%%% LES TRANSFORMATIONS %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
-/**
- * retourne un couple de coordonnées correspondant au centre d'une cible
- * afin que le point (x,y) se trouve dans la case correspondante à cellule
- * cellule est une chaine comme 'A1' ou 'B3'
+
+/**  Retourne un couple de coordonnées correspondant au centre d'une cible, connaissant les coordonnées du point réponse et de la cellule dans laquelle on veut qu'il soit
+ * @param {number} x Abscisse du point réponse
+ * @param {number} y Ordonnée du point réponse
+ * @param {number} rang Nombre de cases en largeur
+ * @param {number} taille Taille des cases
+ * @param {string} cellule Cellule de la réponse, chaine définie par exemple comme 'A1' ou 'B3'
+ * @example dansLaCibleCarree(-1, -3, 4, 0.6, 'B2')
+  // Retourne les coordonnées du centre d'une cible carrée de rang 4 et de taille 0.6 dont la réponse est le point (-1;-3) dans la cellule B2
+  * @return {number[]|string} Ce sont les coordonnées du centre de la cible ou bien 'Cette cellule n'existe pas dans la cible'
  * @author Jean-Claude Lhote
  */
+// JSDOC Validee par EE Aout 2022
 export function dansLaCibleCarree (x, y, rang, taille, cellule) {
   const lettre = cellule[0]; const chiffrelettre = lettre.charCodeAt(0) - 64
-  // const Taille = Math.floor(3 * taille)
   const chiffre = parseInt(cellule[1])
   // dx et dy étaient utilisés pour décentrer le point dans la cellule... cela pouvait entrainer des points très proches des cellules voisines
   // en recentrant les points dans les cellules, on tolère une plus grande marge d'erreur.
-  const dx = 0 // randint(-Taille, Taille) / 10
-  const dy = 0 // randint(-Taille, Taille) / 10
+  const dx = 0 // Devenu inutile
+  const dy = 0 // Devenu inutile
   const delta = taille / 2
   if (chiffre > rang || chiffrelettre > rang) return 'Cette cellule n\'existe pas dans la cible'
   else {
     return [x + dx - chiffrelettre * taille + delta + rang * delta, y + dy - chiffre * 2 * delta + (rang + 1) * delta]
-  }
-}
-/**
- * Comme dansLaCibleCarree mais pour un cible ronde. (voir ci-dessus)
- * Cellule va de A1 à Hn où n est le rang de la cible.
- * taille c'est la différence entre deux rayons successifs.
- * x et y sont les coordonnées du point à cibler.
- * @author Jean-Claude Lhote
- */
-export function dansLaCibleRonde (x, y, rang, taille, cellule) {
-  const lettre = cellule[0]; const chiffrelettre = lettre.charCodeAt(0) - 64
-  // const Taille = Math.floor(4 * taille)
-  const chiffre = parseInt(cellule[1])
-  const drayon = 0 // randint(-Taille, Taille) / 10
-  const dangle = randint(-7, 7)
-  const angle = (chiffrelettre - 1) * 45 - 157.5 + dangle
-  const rayon = taille / 2 + (chiffre - 1) * taille + drayon
-  const P = similitude(point(1, 0), point(0, 0), angle, rayon)
-  P.x += x
-  P.y += y
-  if (chiffre > rang || chiffrelettre > 8) return 'Cette cellule n\'existe pas dans la cible'
-  else {
-    return [P.x, P.y]
   }
 }
 
@@ -4426,13 +4420,13 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
 
 /**
  * Crée une cible carrée pour l'auto-correction
- * @param {number} [x=0] Abscisse du point au centre de la cible
- * @param {number} [y=0] Ordonnée du point au centre de la cible
- * @param {number} [rang=4] Nombre de cases en largeur
+ * @param {number} [x = 0] Abscisse du point au centre de la cible
+ * @param {number} [y = 0] Ordonnée du point au centre de la cible
+ * @param {number} [rang = 4] Nombre de cases en largeur
  * @param {number} [num] Numéro (ou rien) pour identifier la cible (quand il y en a plusieurs)
- * @param {number} [taille=0.6] Taille des cases
- * @param {string} [color='gray'] Couleur de la cible. Code couleur HTML acceptée
- * @param {number} [opacite=0.5] Opacité de la cible
+ * @param {number} [taille = 0.6] Taille des cases
+ * @param {string} [color = 'gray'] Couleur de la cible. Code couleur HTML acceptée
+ * @param {number} [opacite = 0.5] Opacité de la cible
  * @example cibleCarree({})
  * // Crée une cible Carree, de centre (0,0), avec 4 carrés en largeur dont chacune a pour côté 0.6, de couleur grise avec une opacité de 50 %
  * @example cibleCarree({ x: 2, y: -1, rang: 5, num: 17, taille: 0.5, color: 'blue', opacite: 0.8 })
@@ -4442,7 +4436,35 @@ function CibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray
  */
 // JSDOC Validee par EE Juin 2022
 export function cibleCarree ({ x = 0, y = 0, rang = 4, num, taille = 0.6, color = 'gray', opacite = 0.5 }) {
-  return new CibleCarree({ x, y, rang, num, taille, color, opacite })
+  return new CibleCarree({ x: x, y: y, rang: rang, num: num, taille: taille, color: color, opacite: opacite })
+}
+
+/**  Retourne un couple de coordonnées correspondant au centre d'une cible, connaissant les coordonnées du point réponse et de la cellule dans laquelle on veut qu'il soit
+ * @param {number} x Abscisse du point réponse
+ * @param {number} y Ordonnée du point réponse
+ * @param {number} rang Nombre de cases sur une couronne
+ * @param {number} taille Différence entre deux rayons successifs
+ * @param {string} cellule Cellule de la réponse, chaine définie par exemple comme 'A1' ou 'B3'
+ * @example dansLaCibleCarree(-1, -3, 4, 0.6, 'B2')
+  // Retourne les coordonnées du centre d'une cible ronde de rang 4 et de taille 0.6 dont la réponse est le point (-1;-3) dans la cellule B2
+ * @return {number[]|string} Ce sont les coordonnées du centre de la cible ou bien 'Cette cellule n'existe pas dans la cible'
+ * @author Jean-Claude Lhote
+ */
+// JSDOC Validee par EE Aout 2022
+export function dansLaCibleRonde (x, y, rang, taille, cellule) {
+  const lettre = cellule[0]; const chiffrelettre = lettre.charCodeAt(0) - 64
+  const chiffre = parseInt(cellule[1])
+  const drayon = 0
+  const dangle = randint(-7, 7)
+  const angle = (chiffrelettre - 1) * 45 - 157.5 + dangle
+  const rayon = taille / 2 + (chiffre - 1) * taille + drayon
+  const P = similitude(point(1, 0), point(0, 0), angle, rayon)
+  P.x += x
+  P.y += y
+  if (chiffre > rang || chiffrelettre > 8) return 'Cette cellule n\'existe pas dans la cible'
+  else {
+    return [P.x, P.y]
+  }
 }
 
 /**
@@ -6315,7 +6337,6 @@ function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'bl
   this.couleurDeRemplissage = couleurDeRemplissage
   this.opaciteDeRemplissage = opaciteDeRemplissage
   this.angle = angle
-
   this.svg = function (coeff) {
     let code = ''
     const objets = []
