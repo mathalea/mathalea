@@ -2046,7 +2046,7 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
       this.x2 = arg2.x
       this.y2 = arg2.y
       this.color = colorToLatexOrHTML(arg3)
-      this.styleExtremites = styleExtremites
+      this.styleExtremites = arg4
     } else {
       if (isNaN(arg1) || isNaN(arg2) || isNaN(arg3) || isNaN(arg4)) window.notify('Segment : (attendus : x1, y1, x2 et y2) les arguments de sont pas des nombres valides', { arg1, arg2 })
       this.x1 = arg1
@@ -2195,11 +2195,13 @@ function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     code += `\n\t<line x1="${A.xSVG(coeff)}" y1="${A.ySVG(coeff)}" x2="${B.xSVG(
       coeff
     )}" y2="${B.ySVG(coeff)}" stroke="${this.color[0]}" ${this.style} />`
+
     if (this.styleExtremites.length > 0) {
       code = `<g id="${this.id}">${code}</g>`
     } else {
       code = code.replace('/>', `id="${this.id}" />`)
     }
+
     return code
   }
 
@@ -2322,19 +2324,21 @@ export function segmentAvecExtremites (...args) {
 */
 
 /**  Trace la demi-droite d'origine A passant par B
- * @param {Point} A
- * @param {Point} B
- * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @param {Point} A Origine de la droite
+ * @param {Point} B Point de la demi-droite, autre que l'origine
+ * @param {string} [color = 'black'] Couleur de la demi-droite : du type 'blue' ou du type '#f15929'
+ * @param {boolean} [extremites = false] Trace (ou pas) l'origine de la demi-droite
  * @property {string} color Couleur de la demi-droite. À associer obligatoirement à colorToLatexOrHTML().
  * @author Rémi Angot
  * @class
  */
 // JSDOC Validee par EE Aout 2022
-function DemiDroite (A, B, color = 'black') {
+function DemiDroite (A, B, color = 'black', extremites = false) {
   ObjetMathalea2D.call(this, { })
   const B1 = pointSurSegment(B, A, -10)
   this.color = color
-  return new Segment(A, B1, this.color)
+  if (extremites) return new Segment(A, B1, this.color, '|-')
+  else return new Segment(A, B1, this.color)
 }
 
 /**  Trace la demi-droite d'origine A passant par B
@@ -2342,28 +2346,13 @@ function DemiDroite (A, B, color = 'black') {
  * @param {Point} B
  * @param {string} [color='black'] Facultatif, 'black' par défaut
  * @example demiDroite(M, N) // Trace la demi-droite d'origine M passant par N et de couleur noire
- * @example demiDroite(M, N, 'blue') // Trace la demi-droite d'origine M passant par N et de couleur bleue
+ * @example demiDroite(M, N, 'blue', true) // Trace la demi-droite d'origine M passant par N et de couleur bleue, en traçant le trait signifiant l'origine de la demi-droite
  * @author Rémi Angot
  * @return {DemiDroite}
  */
 // JSDOC Validee par EE Aout 2022
-export function demiDroite (A, B, color = 'black') {
-  return new DemiDroite(A, B, color)
-}
-
-/**
- * Trace la demi-droite d'origine A passant par B avec l'origine marquée
- * @param {Point} A
- * @param {Point} B
- * @param {string} [color='black'] Facultatif, 'black' par défaut
- * @example demiDroite(A,B,'blue') // Demi-droite d'origine A passant par B et de couleur bleue
- * @author Rémi Angot
- */
-export function demiDroiteAvecExtremite (A, B, color = 'black') {
-  const B1 = pointSurSegment(B, A, -10)
-  const s = segment(A, B1, color)
-  s.styleExtremites = '|-'
-  return s
+export function demiDroite (A, B, color = 'black', extremites = false) {
+  return new DemiDroite(A, B, color, extremites)
 }
 
 /*
@@ -7513,6 +7502,8 @@ function Repere ({
   this.xMax = xMax
   this.yMin = yMin
   this.yMax = yMax
+
+  this.bordures = [this.xMin * this.xUnite - 1, this.yMin * this.yUnite - 1, this.xMax * this.xUnite + 1, this.yMax * this.yUnite + 1]
 
   const objets = []
   // LES AXES

@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, lettreDepuisChiffre, texNombre, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
-import { point, labelPoint, rotation, afficheMesureAngle, sensDeRotation, homothetie, demiDroiteAvecExtremite, cibleCouronne, texteParPoint, similitude, segment, fixeBordures } from '../../modules/2d.js'
+import { point, labelPoint, rotation, afficheMesureAngle, sensDeRotation, homothetie, cibleCouronne, texteParPoint, similitude, segment, fixeBordures, demiDroite } from '../../modules/2d.js'
 
 export const titre = 'Construire un angle de mesure donnée'
 export const amcReady = true
@@ -69,7 +69,7 @@ export default function ConstruireUnAngle () {
       C = rotation(B, A, angle)
       Cpos = texteParPoint(p[2], similitude(A, homothetie(C, A, 0.9), -signe[i] * 90, 0.1), 'milieu')
       fleche = sensDeRotation(B, A, signe[i])
-      s2 = demiDroiteAvecExtremite(A, C)
+      s2 = demiDroite(A, C, 'black', '|-')
       labels = labelPoint(A, B)
       labels2 = labelPoint(A, B, C)
       secteur = afficheMesureAngle(B, A, C)
