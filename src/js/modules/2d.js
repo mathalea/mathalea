@@ -136,11 +136,11 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
  * @param {number} x abscisse
  * @param {number} y ordonnée
  * @param {string} A son nom qui apparaîtra
- * @param {string} labelPosition Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @param {string} positionLabel Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
  * @returns {Point}
  */
-export function point (x, y, A, labelPosition = 'above') {
-  return new Point(x, y, A, labelPosition)
+export function point (x, y, A, positionLabel = 'above') {
+  return new Point(x, y, A, positionLabel)
 }
 /**
  * @author Jean-Claude Lhote
@@ -1028,12 +1028,16 @@ function Droite (arg1, arg2, arg3, arg4) {
 export function droite (...args) {
   return new Droite(...args)
 }
-/**
- * fonction qui analyse si le point A est au-dessus ou en dessous de la droite d
- * retourne 'sur', 'dessus', 'dessous' ou 'gauche' ou 'droite" si la droite est verticale.
+
+/**  Donne la position du point A par rapport à la droite d
  * @param {droite} d
  * @param {point} A
+ * @param {number} [tolerance = 0.0001] Seuil de tolérance pour évaluer la proximité entre d et A.
+ * @example dessousDessus(d1, M) // Renvoie la position de M par rapport à d1 parmi ces 5 possibilités : 'sur', 'droite', 'gauche', 'dessous', 'dessus'
+ * @example dessousDessus(d1, M, 0.005) // Renvoie la position de M par rapport à d1 parmi ces 5 possibilités : 'sur', 'droite', 'gauche', 'dessous', 'dessus' (avec une tolérance de 0,005)
+ * @return {'sur' | 'droite' | 'gauche' | 'dessous' | 'dessus'}
  */
+// JSDOC Validee par EE Aout 2022
 export function dessousDessus (d, A, tolerance = 0.0001) {
   if (egal(d.a * A.x + d.b * A.y + d.c, 0, tolerance)) return 'sur'
   if (egal(d.b, 0)) {
@@ -2345,6 +2349,7 @@ function DemiDroite (A, B, color = 'black', extremites = false) {
  * @param {Point} A
  * @param {Point} B
  * @param {string} [color='black'] Facultatif, 'black' par défaut
+ * @param {boolean} [extremites = false] Trace (ou pas) l'origine de la demi-droite
  * @example demiDroite(M, N) // Trace la demi-droite d'origine M passant par N et de couleur noire
  * @example demiDroite(M, N, 'blue', true) // Trace la demi-droite d'origine M passant par N et de couleur bleue, en traçant le trait signifiant l'origine de la demi-droite
  * @author Rémi Angot
@@ -3111,10 +3116,15 @@ export function nommePolygone (...args) {
   return new NommePolygone(...args)
 }
 
-/**
- * deplaceLabel(p1,'AB','below') // S'il y a un point nommé 'A' ou 'B' dans le polygone, son nom sera mis en dessous du point.
+/**  Déplace les labels des sommets d'un polygone s'ils sont mal placés nativement
+ * @param {Polygone} p Polygone sur lequel les labels de ses sommets sont mal placés
+ * @param {string} nom Points mal placés sous la forme, par exemple, 'AB'. Chaque point doit être représenté par un SEUL caractère.
+ * @param {string} positionLabel Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @example deplaceLabel(p1,'MNP','below') // S'il y a des points nommés 'M', 'N' ou 'P' dans le polygone p1, leur nom sera mis en dessous du point.
+ * // Ne fonctionne pas avec les points du type A1 ou A_1.
  * @author Rémi Angot
  */
+// JSDOC Validee par EE Aout 2022
 export function deplaceLabel (p, nom, positionLabel) {
   for (let i = 0; i < p.listePoints.length; i++) {
     for (const lettre in nom) {
@@ -8982,7 +8992,30 @@ export function diagrammeBarres (...args) {
   return new DiagrammeBarres(...args)
 }
 
-function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalites = [], semi = false, legende = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
+/** Trace un diagramme circulaire
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number[]} parametres.effectifs Liste des effectifs à donner impérativement
+ * @param {number} [parametres.x = 0] Abscisse du point en bas à gauche
+ * @param {number} [parametres.y = 0] Ordonnée du point en bas à gauche
+ * @param {number} [parametres.rayon = 4] Rayon du diagramme circulaire
+ * @param {string[]} [parametres.labels = []] Labels associés aux effectifs respectifs. Tableau de même taille que effectifs.
+ * @param {boolean} [parametres.semi = false] True pour un semi-circulaire, false pour un circulaire
+ * @param {boolean} [parametres.legende = true] Présence (ou non) de la légende
+ * @param {string} [parametres.legendePosition = 'droite'] Position de la légende à choisir parmi : 'droite', 'dessus' ou 'dessous'
+ * @param {boolean[]} [parametres.mesures = []] Présence (ou non) de la mesure de chaque secteur. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.visibles = []] Découpe (ou non) du secteur (pour créer des diagrammes à compléter). Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.pourcents = []] Présence (ou non) du pourcentage de l'effectif total associé au secteur. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.valeurs = []] Présence (ou non) de des valeurs de l'effectif. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.hachures = []] Présence (ou non) de hachures dans le secteur associé. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.remplissage = []] Présence (ou non) d'une couleur de remplissage dans le secteur associé. Tableau de même taille que effectifs.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {number} x Abscisse du point en bas à gauche
+ * @property {number} y Ordonnée du point en bas à gauche
+ * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
+ * @class
+ */
+function DiagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [], semi = false, legende = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
   ObjetMathalea2D.call(this, { })
   const objets = []
   const listeHachuresDisponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -9046,14 +9079,14 @@ function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalit
     switch (legendePosition) {
       case 'droite':
         legende = carre(translation(T, vecteur(0, 1.5 * i)), translation(T, vecteur(1, 1.5 * i)), 'black')
-        textelegende = texteParPoint(modalites[i], translation(T, vecteur(1.2, i * 1.5 + 0.5)), 0, 'black', 1.5, 'gauche', false)
-        legendeMax = Math.max(legendeMax, modalites[i].length * 0.6)
+        textelegende = texteParPoint(labels[i], translation(T, vecteur(1.2, i * 1.5 + 0.5)), 0, 'black', 1.5, 'gauche', false)
+        legendeMax = Math.max(legendeMax, labels[i].length * 0.6)
         break
       default:
         legende = carre(T, translation(T, vecteur(1, 0)), 'black')
-        textelegende = texteParPoint(modalites[i], translation(T, vecteur(1.2, 0.5)), 0, 'black', 1.5, 'gauche', false)
-        T = translation(T, vecteur(modalites[i].length * 0.6 + 1, 0))
-        legendeMax = legendeMax + modalites[i].length * 0.6 + 2.2
+        textelegende = texteParPoint(labels[i], translation(T, vecteur(1.2, 0.5)), 0, 'black', 1.5, 'gauche', false)
+        T = translation(T, vecteur(labels[i].length * 0.6 + 1, 0))
+        legendeMax = legendeMax + labels[i].length * 0.6 + 2.2
         break
     }
 
@@ -9087,25 +9120,28 @@ function DiagrammeCirculaire ({ effectifs = [], x = 0, y = 0, rayon = 4, modalit
     return code
   }
 }
-/**
- *
- * @param {number[]} effectifs liste des effectifs à donner impérativement
- * @param {number} x abscisse du point en bas à gauche (défaut 0)
- * @param {number} y ordonnée du point en bas à gauche (defaut 0)
- * @param {number} rayon 4 par défaut
- * @param {string[]} modalites les modalités associées aux effectifs respectifs
- * @param {boolean} semi true pour un semi-circulaire, false pour un circulaire false par défaut
- * @param {boolean} legende true pour présence de la légende
- * @param {string} legendePosition 'droite' (défaut) 'dessus' ou 'dessous'
- * @param {boolean[]} mesures présence ou non de la mesure de chaque secteur
- * @param {boolean[]} visibles découpe ou non du secteur (pour créer des diagrammes à compléter)
- * @param {boolean[]} pourcents présence ou non du pourcentage de l'effectif total associé au secteur
- * @param {boolean[]} valeurs présence ou non de l'effectif
- * @param {boolean[]} présence ou non de hachures dans le secteur associé
- * @param {boolean[]} présence ou non d'une couleur de remplissage dans le secteur associé
+
+/** Trace un diagramme circulaire
+ * @param {Object} parametres À saisir entre accolades
+ * @param {number[]} parametres.effectifs Liste des effectifs à donner impérativement
+ * @param {number} [parametres.x = 0] Abscisse du point en bas à gauche
+ * @param {number} [parametres.y = 0] Ordonnée du point en bas à gauche
+ * @param {number} [parametres.rayon = 4] Rayon du diagramme circulaire
+ * @param {string[]} [parametres.labels = []] Labels associés aux effectifs respectifs. Tableau de même taille que effectifs.
+ * @param {boolean} [parametres.semi = false] True pour un semi-circulaire, false pour un circulaire
+ * @param {boolean} [parametres.legende = true] Présence (ou non) de la légende
+ * @param {string} [parametres.legendePosition = 'droite'] Position de la légende à choisir parmi : 'droite', 'dessus' ou 'dessous'
+ * @param {boolean[]} [parametres.mesures = []] Présence (ou non) de la mesure de chaque secteur. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.visibles = []] Découpe (ou non) du secteur (pour créer des diagrammes à compléter). Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.pourcents = []] Présence (ou non) du pourcentage de l'effectif total associé au secteur. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.valeurs = []] Présence (ou non) de des valeurs de l'effectif. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.hachures = []] Présence (ou non) de hachures dans le secteur associé. Tableau de même taille que effectifs.
+ * @param {boolean[]} [parametres.remplissage = []] Présence (ou non) d'une couleur de remplissage dans le secteur associé. Tableau de même taille que effectifs.
+ * @example diagrammeCirculaire({ rayon: 7, semi: false, legendePosition: 'dessous', effectifs: [15, 25, 30, 10, 20], modalites, mesures, visibles, pourcents, valeurs, hachures, remplissage })
+ * @return {DiagrammeCirculaire}
  */
-export function diagrammeCirculaire ({ effectifs = [100], x = 0, y = 0, rayon = 4, modalites = ['tout'], semi = false, legende = true, legendePosition = 'droite', mesures = [false], visibles = [true], pourcents = [true], valeurs = [false], hachures = [true], remplissage = [false] }) {
-  return new DiagrammeCirculaire({ effectifs, x, y, rayon, modalites, semi, legende, legendePosition, mesures, visibles, pourcents, valeurs, hachures, remplissage })
+export function diagrammeCirculaire ({ effectifs = [100], x = 0, y = 0, rayon = 4, labels = ['tout'], semi = false, legende = true, legendePosition = 'droite', mesures = [false], visibles = [true], pourcents = [true], valeurs = [false], hachures = [true], remplissage = [false] }) {
+  return new DiagrammeCirculaire({ effectifs: effectifs, x: x, y: y, rayon: rayon, labels: labels, semi: semi, legende: legende, legendePosition: legendePosition, mesures: mesures, visibles: visibles, pourcents: pourcents, valeurs: valeurs, hachures: hachures, remplissage: remplissage })
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -9494,7 +9530,7 @@ export function integrale (...args) {
  * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
  * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
- * @param {boolean} [parametres.traceNoeuds = true]  Place (ou pas ?) les points définis dans le paramètre f.
+ * @param {boolean} [parametres.traceNoeuds = true]  Place (ou non) les points définis dans le paramètre f.
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} color Couleur du tracé de la courbe. À associer obligatoirement à colorToLatexOrHTML().
@@ -9582,7 +9618,7 @@ function CourbeSpline (f, { repere, color = 'black', epaisseur = 2, step = false
  * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses du tracé de la fonction est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
  * @param {number} [parametres.xUnite = 1]  Abscisse minimale du tracé de la courbe
  * @param {number} [parametres.yUnite = 1]  Abscisse maximale du tracé de la courbe
- * @param {boolean} [parametres.traceNoeuds = true]  Place (ou pas ?) les points définis dans le paramètre f.
+ * @param {boolean} [parametres.traceNoeuds = true]  Place (ou non) les points définis dans le paramètre f.
  * @example courbeSpline(g, {repere: r})
  * // Trace, en noir avec une épaisseur de 2, la courbe spline g dans le repère r, tous deux précédemment définis.
  * @example courbeSpline(g, {repere: r, epaisseur: 5, color: 'blue'})
