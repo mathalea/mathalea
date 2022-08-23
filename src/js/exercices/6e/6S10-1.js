@@ -332,7 +332,7 @@ export default function LireUnDiagramme () {
         texte += `<br>${numAlpha(2)} L'espèce la plus nombreuse représente ...` + monQcm3.texte
         texteCorr = `<br>${numAlpha(0)} L'animal le moins nombreux parmi ces espèces est : ` + monQcm1.texteCorr
         texteCorr += `<br>${numAlpha(1)} L'animal le plus nombreux parmi ces espèces est : ` + monQcm2.texteCorr
-        texteCorr += `<br>${numAlpha(2)} L'animal le plus nombreux parmi ces espèces est : ` + monQcm3.texteCorr
+        texteCorr += `<br>${numAlpha(2)} L'animal le plus nombreux parmi ces espèces représente : ` + monQcm3.texteCorr
       }
 
       if (this.questionJamaisPosee(q, effectiftotal)) {

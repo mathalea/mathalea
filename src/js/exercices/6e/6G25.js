@@ -67,9 +67,7 @@ export default function ConstruireMediatrices6e () {
 
     const cellule = celluleAlea(6)
     result = dansLaCibleCarree(I.x, I.y, 6, 0.6, cellule)
-    const cible = cibleCarree({ x: result[0], y: result[1], rang: 6, taille: 0.6 })
-    cible.taille = 0.6
-    cible.color = colorToLatexOrHTML('orange')
+    const cible = cibleCarree({ x: result[0], y: result[1], rang: 6, taille: 0.6, color: '#f15929' })
     cible.opacite = 0.7
 
     objetsEnonce.push(cible, sA, sB, nomA1, nomA2, nomB1, nomB2)

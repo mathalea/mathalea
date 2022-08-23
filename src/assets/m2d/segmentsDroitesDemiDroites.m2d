@@ -9,4 +9,3 @@ let e = demiDroite(A,D)
 let s2 = segmentAvecExtremites(A,C) // permet de repérer les points A et C sur la droite (AC)
 s.styleExtremites = '-|' // ajoute une extrémité en B
 d.epaisseur = 2 // change l'épaisseur de (AC)
-e.color = colorToLatexOrHTML('green') // change la couleur de [AD)
