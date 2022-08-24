@@ -112,7 +112,7 @@ export default function calculEffectifFrequence () {
     for (let i = 0; i < nbAnimaux; i++) {
       lstElementGraph.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], premiereLettreEnMajuscule(lstAnimauxExo[i]), { unite: 1 / coef }))
     }
-    texte += '<br>' + mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 11, pixelsParCm: 30, scale: 1 }, r, lstElementGraph)
+    texte += '<br>' + mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 12, pixelsParCm: 30, scale: 1 }, r, lstElementGraph)
 
     // début de la correction
     // question 1
