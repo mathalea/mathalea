@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, troncature, calcul, choisitLettresDifferentes, texNombre, texFraction, nombreDeChiffresDe, stringNombre } from '../../modules/outils.js'
-import { point, segment, droiteGraduee2 } from '../../modules/2d.js'
+import { point, segment, droiteGraduee } from '../../modules/2d.js'
 import FractionX from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
@@ -60,7 +60,7 @@ export default function LireUneAbscisseAvecZoom () {
       if (xmin === 0) extremite = '|->'
       else extremite = '->'
 
-      d1 = droiteGraduee2({
+      d1 = droiteGraduee({
         x: 0,
         y: 3,
         Min: xmin,
@@ -83,7 +83,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d2 = droiteGraduee2({
+      d2 = droiteGraduee({
         x: Math.floor(x1) - xmin + 1.5,
         y: 0,
         Min: Math.floor(x1),
@@ -105,7 +105,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d1Corr = droiteGraduee2({
+      d1Corr = droiteGraduee({
         x: 0,
         y: 3,
         Min: xmin,
@@ -128,7 +128,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d2Corr = droiteGraduee2({
+      d2Corr = droiteGraduee({
         x: Math.floor(x1) - xmin + 1.5,
         y: 0,
         Min: Math.floor(x1),
@@ -187,7 +187,7 @@ export default function LireUneAbscisseAvecZoom () {
       //      xmax=calcul(xmin+1.7)
       if (xmin === 0) extremite = '|->'
       else extremite = '->'
-      d1 = droiteGraduee2({
+      d1 = droiteGraduee({
         x: 0,
         y: 3,
         Min: xmin,
@@ -213,7 +213,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d2 = droiteGraduee2({
+      d2 = droiteGraduee({
         x: (x2 - xmin) + 6,
         y: 0,
         Min: x2,
@@ -238,7 +238,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d1Corr = droiteGraduee2({
+      d1Corr = droiteGraduee({
         x: 0,
         y: 3,
         Min: xmin,
@@ -264,7 +264,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d2Corr = droiteGraduee2({
+      d2Corr = droiteGraduee({
         x: (x2 - xmin) + 6,
         y: 0,
         Min: x2,
@@ -334,7 +334,7 @@ export default function LireUneAbscisseAvecZoom () {
       }
       if (xmin === 0) extremite = '|->'
       else extremite = '->'
-      d1 = droiteGraduee2({
+      d1 = droiteGraduee({
         x: 0,
         y: 6,
         Min: xmin,
@@ -360,7 +360,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 3,
         axeStyle: extremite
       })
-      d2 = droiteGraduee2({
+      d2 = droiteGraduee({
         x: 6.5,
         y: 3,
         Min: x2,
@@ -385,7 +385,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d3 = droiteGraduee2({
+      d3 = droiteGraduee({
         x: 6.5,
         y: 0,
         Min: x21,
@@ -408,7 +408,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d1Corr = droiteGraduee2({
+      d1Corr = droiteGraduee({
         x: 0,
         y: 6,
         Min: xmin,
@@ -435,7 +435,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 3,
         axeStyle: extremite
       })
-      d2Corr = droiteGraduee2({
+      d2Corr = droiteGraduee({
         x: 6.5,
         y: 3,
         Min: x2,
@@ -462,7 +462,7 @@ export default function LireUneAbscisseAvecZoom () {
         pointEpaisseur: 2,
         axeStyle: extremite
       })
-      d3Corr = droiteGraduee2({
+      d3Corr = droiteGraduee({
         x: 6.5,
         y: 0,
         Min: x21,

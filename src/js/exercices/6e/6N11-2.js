@@ -3,7 +3,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, calcul, lettreDepuisChiffre, htmlConsigne, texNombre, egal, shuffle, stringNombre } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { afficheScore } from '../../modules/gestionInteractif.js'
-import { droiteGraduee2, labelPoint, point, tracePoint } from '../../modules/2d.js'
+import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
 
 export const titre = 'Placer un point d\'abscisse entière (grands nombres)'
 export const interactifReady = true
@@ -81,7 +81,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
       x22 = abs0 + x2 * pas1
       x33 = abs0 + x3 * pas1
       abscisse = shuffle([[x1, x11], [x2, x22], [x3, x33]])
-      d[2 * i] = droiteGraduee2({
+      d[2 * i] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,
@@ -93,7 +93,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
         step1: 10,
         labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(calcul(abs0 + pas1))}`]]
       })
-      d[2 * i + 1] = droiteGraduee2({
+      d[2 * i + 1] = droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 7.1,

@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombrec, lettreDepuisChiffre, htmlConsigne, egal } from '../../modules/outils.js'
-import { droiteGraduee2, labelPoint, point, tracePoint } from '../../modules/2d.js'
+import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -90,7 +90,7 @@ export default function PlacerPointsSurAxeRelatifs () {
       A = point(changeCoord(abs1, abs0, pas1), 0, l1, 'above')
       B = point(changeCoord(abs2, abs0, pas1), 0, l2, 'above')
       C = point(changeCoord(abs3, abs0, pas1), 0, l3, 'above')
-      objets.push(droiteGraduee2({
+      objets.push(droiteGraduee({
         Unite: 3 * pas1,
         Min: abs0,
         Max: abs0 + 6.9 / pas1,
@@ -100,8 +100,9 @@ export default function PlacerPointsSurAxeRelatifs () {
         thickSec: true,
         labelsPrincipaux: true,
         thickDistance: 1 / pas1
+        // thickOffset: 2
       }))
-      objetsCorr.push(droiteGraduee2({
+      objetsCorr.push(droiteGraduee({
         Unite: 3 * pas1,
         Min: abs0,
         Max: abs0 + 6.9 / pas1,
@@ -124,7 +125,7 @@ export default function PlacerPointsSurAxeRelatifs () {
           }
         }
       }
-      const axeGradue = droiteGraduee2({
+      const axeGradue = droiteGraduee({
         Unite: 3 * pas1,
         Min: abs0,
         Max: abs0 + 6.9 / pas1,

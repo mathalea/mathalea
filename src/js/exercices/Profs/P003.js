@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
-import { droiteGraduee2 } from '../../modules/2d.js'
+import { droiteGraduee } from '../../modules/2d.js'
 
 export const titre = 'Tracer des droites graduées'
 
@@ -39,7 +39,7 @@ export default function feuilleDAxesGradues () {
     this.contenuCorrection = '' // Liste de questions corrigées
 
     for (let i = 0, texte; i < 14; i++) {
-      texte = mathalea2d({ xmin: -0.5, ymin: -1, xmax: 20, ymax: 1 }, droiteGraduee2({
+      texte = mathalea2d({ xmin: -0.5, ymin: -1, xmax: 20, ymax: 1 }, droiteGraduee({
         Unite: 4,
         Min: 0,
         Max: 4.7,

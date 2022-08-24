@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import { point, labelPoint, codageSegment, codageAngle, droiteGraduee2, segment, milieu, texteParPosition } from '../../../modules/2d.js'
+import { point, labelPoint, codageSegment, codageAngle, droiteGraduee, segment, milieu, texteParPosition } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 import { listeQuestionsToContenu, printlatex, randint, simplificationDeFractionAvecEtapes, texNombre, tableauColonneLigne, miseEnEvidence, shuffle, choice, calcul, sp, arrondi } from '../../../modules/outils.js'
 import { setReponse } from '../../../modules/gestionInteractif.js'
@@ -508,7 +508,7 @@ export default function SujetCAN20215ieme () {
           a = randint(3, 6)
           b = choice([-1, -a + 1])
           reponse = fraction(b, a)// .simplifie()
-          texte = 'Quelle est la fraction repérée par le point d’interrogation ?<br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 8, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+          texte = 'Quelle est la fraction repérée par le point d’interrogation ?<br>' + mathalea2d({ xmin: -2, ymin: -1, xmax: 8, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
             Unite: 3,
             Min: -1,
             Max: 1,
