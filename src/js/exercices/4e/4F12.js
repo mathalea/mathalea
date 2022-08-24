@@ -56,9 +56,7 @@ export default function ExploiterRepresentationGraphique () {
         t1 = Math.round(Math.sqrt(2) * V0 / 10)
         xscale = 9 / t1
         f = (x) => Math.max(-5 * x ** 2 + V0 * Math.sqrt(2) * x / 2, 0)
-        console.log(V0, f(t1 / 2))
-        console.log(xscale)
-        repeRe = repere({ yLegende: 'hauteur (en m)', xLegende: 'temps (en s)', xUnite: 1 * xscale, yUnite: 0.1 * xscale, xMin: 0, yMin: 0, xMax: t1 + 1, yMax: f(t1 / 2), xThickDistance: 1, yThickDistance: 10, grilleSecondaireY: true, grilleSecondaireYDistance: 2, grilleSecondaireYMin: 0, grilleSecondaireYMax: f(t1 / 2) + 5 }) // ()
+        repeRe = repere({ yLegende: 'hauteur (en m)', xLegende: 'temps (en s)', xUnite: 1 * xscale, yUnite: 0.1 * xscale, xMin: 0, yMin: 0, xMax: t1 + 1, yMax: f(t1 / 2) + 20, xThickDistance: 1, yThickDistance: 10, grilleSecondaireY: true, grilleSecondaireYDistance: 2, grilleSecondaireYMin: 0, grilleSecondaireYMax: f(t1 / 2) + 5 }) // ()
         graphique = courbe(f, { repere: repeRe, xMax: t1 + 1, step: 0.2 })
         zero = texteParPosition('0', -0.5, 0, 'milieu', 'black', 1, 'middle', true)
         this.introduction =
@@ -255,7 +253,7 @@ export default function ExploiterRepresentationGraphique () {
         this.introduction +=
           '<br><br>' +
           mathalea2d(
-            Object.assign({}, fixeBordures([r, graphique, zero]), {
+            Object.assign({}, fixeBordures([r, graphique]), {
               pixelsParCm: 30,
               scale: 1
             })
