@@ -131,9 +131,9 @@ export function propositionsQcm (exercice, i) {
         }
       }
       if (exercice.autoCorrection[i].propositions[rep].statut) {
-        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       } else {
-        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       }
     } else {
       texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
@@ -141,9 +141,9 @@ export function propositionsQcm (exercice, i) {
         texte += '\\\\\n\t'
       }
       if (exercice.autoCorrection[i].propositions[rep].statut) {
-        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+        texteCorr += `$\\blacksquare\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       } else {
-        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace
+        texteCorr += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}` + espace + '<br>'
       }
     }
   }
