@@ -9000,9 +9000,9 @@ export function diagrammeBarres (...args) {
  * @param {number} [parametres.x = 0] Abscisse du point en bas à gauche
  * @param {number} [parametres.y = 0] Ordonnée du point en bas à gauche
  * @param {number} [parametres.rayon = 4] Rayon du diagramme circulaire
- * @param {string[]} [parametres.labels = []] Labels associés aux effectifs respectifs. Tableau de même taille que effectifs.
  * @param {boolean} [parametres.semi = false] True pour un semi-circulaire, false pour un circulaire
- * @param {boolean} [parametres.legendeAffichage = true] Présence (ou non) de la légende
+ * @param {boolean} [parametres.legendeAffichage = true] Présence (ou non) de la légende (ensemble des labels)
+ * @param {string[]} [parametres.labels = []] Labels associés aux effectifs respectifs. Tableau de même taille que effectifs.
  * @param {string} [parametres.legendePosition = 'droite'] Position de la légende à choisir parmi : 'droite', 'dessus' ou 'dessous'
  * @param {boolean[]} [parametres.mesures = []] Présence (ou non) de la mesure de chaque secteur. Tableau de même taille que effectifs.
  * @param {boolean[]} [parametres.visibles = []] Découpe (ou non) du secteur (pour créer des diagrammes à compléter). Tableau de même taille que effectifs.
@@ -9129,9 +9129,9 @@ function DiagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [],
  * @param {number} [parametres.x = 0] Abscisse du point en bas à gauche
  * @param {number} [parametres.y = 0] Ordonnée du point en bas à gauche
  * @param {number} [parametres.rayon = 4] Rayon du diagramme circulaire
- * @param {string[]} [parametres.labels = []] Labels associés aux effectifs respectifs. Tableau de même taille que effectifs.
  * @param {boolean} [parametres.semi = false] True pour un semi-circulaire, false pour un circulaire
- * @param {boolean} [parametres.legendeAffichage = true] Présence (ou non) de la légende
+ * @param {boolean} [parametres.legendeAffichage = true] Présence (ou non) de la légende (ensemble des labels)
+ * @param {string[]} [parametres.labels = []] Labels associés aux effectifs respectifs. Tableau de même taille que effectifs.
  * @param {string} [parametres.legendePosition = 'droite'] Position de la légende à choisir parmi : 'droite', 'dessus' ou 'dessous'
  * @param {boolean[]} [parametres.mesures = []] Présence (ou non) de la mesure de chaque secteur. Tableau de même taille que effectifs.
  * @param {boolean[]} [parametres.visibles = []] Découpe (ou non) du secteur (pour créer des diagrammes à compléter). Tableau de même taille que effectifs.
