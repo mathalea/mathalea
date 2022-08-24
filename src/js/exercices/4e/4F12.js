@@ -49,17 +49,17 @@ export default function ExploiterRepresentationGraphique () {
     if (this.sup === 4) {
       typeDeProbleme = choice(['temperature', 'projectile', 'projectile2', 'velo'])
     }
-    let f, t1, l, g1, r, graphique, texte1, texte2, fille, hmin, hmax, tmin, tmax
+    let f, t1, l, g1, r, graphique, fille, hmin, hmax, tmin, tmax
     switch (typeDeProbleme) {
       case 'projectile': // Courbe de l'altitude de vol en fonction du temps
         V0 = choice(vitessesInitiales)
         t1 = Math.round(Math.sqrt(2) * V0 / 10)
         xscale = 9 / t1
         f = (x) => Math.max(-5 * x ** 2 + V0 * Math.sqrt(2) * x / 2, 0)
-        repeRe = repere({ xUnite: 1 * xscale, yUnite: 0.1 * xscale, xMin: 0, yMin: 0, xMax: t1 + 1, yMax: f(t1 / 2), xThickDistance: 1, yThickDistance: 10, grilleSecondaireY: true, grilleSecondaireYDistance: 2, grilleSecondaireYMin: 0, grilleSecondaireYMax: f(t1 / 2) + 5 }) // ()
-        texte1 = texteParPosition('hauteur (en m)', 0.2, (f(t1 / 2) / 10 + 1.5) * xscale, 'droite')
+        console.log(V0, f(t1 / 2))
+        console.log(xscale)
+        repeRe = repere({ yLegende: 'hauteur (en m)', xLegende: 'temps (en s)', xUnite: 1 * xscale, yUnite: 0.1 * xscale, xMin: 0, yMin: 0, xMax: t1 + 1, yMax: f(t1 / 2), xThickDistance: 1, yThickDistance: 10, grilleSecondaireY: true, grilleSecondaireYDistance: 2, grilleSecondaireYMin: 0, grilleSecondaireYMax: f(t1 / 2) + 5 }) // ()
         graphique = courbe(f, { repere: repeRe, xMax: t1 + 1, step: 0.2 })
-        texte2 = texteParPosition('temps (en s)', (t1 + 1) * xscale, 0.4, 'droite')
         zero = texteParPosition('0', -0.5, 0, 'milieu', 'black', 1, 'middle', true)
         this.introduction =
           'On a représenté ci-dessous l\'évolution de la hauteur d\'un projectile lancé depuis le sol (en ms) en fonction du temps (en secondes).'
@@ -67,15 +67,14 @@ export default function ExploiterRepresentationGraphique () {
         this.introduction +=
           '<br><br>' +
           mathalea2d(
-            Object.assign({}, fixeBordures([repeRe, graphique, texte1, texte2, zero]), {
+            Object.assign({}, fixeBordures([repeRe, graphique, zero]), {
               pixelsParCm: 30,
               scale: 1
             })
             ,
             repeRe,
             graphique,
-            texte1,
-            texte2, zero
+            zero
           )
 
         this.introduction +=
@@ -108,10 +107,8 @@ export default function ExploiterRepresentationGraphique () {
         t1 = Math.round(V0 ** 2 / 10)
         xscale = 52 / t1
         f = (x) => Math.max(-10 * x ** 2 / (V0 ** 2) + x, 0)
-        repeRe = repere({ xUnite: 0.25 * xscale, yUnite: 0.5 * xscale, xMin: 0, yMin: 0, xMax: t1 + 4, yMax: f(t1 / 2) + 2.1, xThickDistance: 4, yThickDistance: 1, grilleSecondaireY: true, grilleSecondaireYDistance: 0.25, grilleSecondaireYMin: 0, grilleSecondaireYMax: f(t1 / 2) + 1 }) // ()
-        texte1 = texteParPosition('hauteur (en m)', 0.2, xscale * (f(t1 / 2) / 2 + 1), 'droite')
+        repeRe = repere({ yLegende: 'hauteur (en m)', xLegende: 'distance (en m)', xUnite: 0.25 * xscale, yUnite: 0.5 * xscale, xMin: 0, yMin: 0, xMax: t1 + 4, yMax: f(t1 / 2) + 2.1, xThickDistance: 4, yThickDistance: 1, grilleSecondaireY: true, grilleSecondaireYDistance: 0.25, grilleSecondaireYMin: 0, grilleSecondaireYMax: f(t1 / 2) + 1 }) // ()
         graphique = courbe(f, { repere: repeRe, step: 0.5 })
-        texte2 = texteParPosition('distance (en m)', xscale * ((t1 + 2) / 4), 0.4, 'droite')
         zero = texteParPosition('0', -0.5, 0, 'milieu', 'black', 1, 'middle', true)
 
         this.introduction =
@@ -120,15 +117,14 @@ export default function ExploiterRepresentationGraphique () {
         this.introduction +=
             '<br><br>' +
             mathalea2d(
-              Object.assign({}, fixeBordures([repeRe, graphique, texte1, texte2, zero]), {
+              Object.assign({}, fixeBordures([repeRe, graphique, zero]), {
                 pixelsParCm: 30,
                 scale: 1
               })
               ,
               repeRe,
-              texte1,
               graphique,
-              texte2, zero
+              zero
             )
 
         this.introduction +=
@@ -158,6 +154,8 @@ export default function ExploiterRepresentationGraphique () {
         v2 = randint(1, 3, v1)
         v3 = v1 + v2
         r = repere({
+          yLegende: 'distance (en km)',
+          xLegende: 'temps (en min)',
           xMin: 0,
           yMin: 0,
           xMax: 60,
@@ -177,8 +175,6 @@ export default function ExploiterRepresentationGraphique () {
         })
         g1 = grille(-1, -1, 6, 8, 'black')
         g1.opacite = 1
-        texte1 = texteParPosition('distance (en km)', 0.2, v3 + 1.5, 'droite')
-        texte2 = texteParPosition('temps (en min)', 6.5, 0.4, 'droite')
         situation = randint(1, 3)
         zero = texteParPosition('0', -0.7, 0, 'milieu', 'black', 1, 'middle', true)
 
@@ -203,11 +199,11 @@ export default function ExploiterRepresentationGraphique () {
         this.introduction = `${fille} fait du vélo avec son smartphone sur une voie-verte rectiligne qui part de chez elle. Une application lui permet de voir à quelle distance de chez elle, elle se trouve.`
 
         this.introduction += '<br><br>' + mathalea2d(
-          Object.assign({}, fixeBordures([r, l, texte1, texte2, zero]), {
+          Object.assign({}, fixeBordures([r, l, zero]), {
             pixelsParCm: 30,
             scale: 1
           })
-          , zero, r, l, texte1, texte2)
+          , zero, r, l)
 
         this.introduction += '<br><br>' + 'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
