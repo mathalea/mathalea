@@ -9002,7 +9002,7 @@ export function diagrammeBarres (...args) {
  * @param {number} [parametres.rayon = 4] Rayon du diagramme circulaire
  * @param {string[]} [parametres.labels = []] Labels associés aux effectifs respectifs. Tableau de même taille que effectifs.
  * @param {boolean} [parametres.semi = false] True pour un semi-circulaire, false pour un circulaire
- * @param {boolean} [parametres.legende = true] Présence (ou non) de la légende
+ * @param {boolean} [parametres.legendeAffichage = true] Présence (ou non) de la légende
  * @param {string} [parametres.legendePosition = 'droite'] Position de la légende à choisir parmi : 'droite', 'dessus' ou 'dessous'
  * @param {boolean[]} [parametres.mesures = []] Présence (ou non) de la mesure de chaque secteur. Tableau de même taille que effectifs.
  * @param {boolean[]} [parametres.visibles = []] Découpe (ou non) du secteur (pour créer des diagrammes à compléter). Tableau de même taille que effectifs.
@@ -9017,7 +9017,7 @@ export function diagrammeBarres (...args) {
  * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
  * @class
  */
-function DiagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [], semi = false, legende = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
+function DiagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [], semi = false, legendeAffichage = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
   ObjetMathalea2D.call(this, { })
   const objets = []
   const listeHachuresDisponibles = [0, 1, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -9100,13 +9100,13 @@ function DiagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [],
   }
   objets.push(contour)
   objets.push(...secteurs)
-  if (legende) objets.push(...legendes)
+  if (legendeAffichage) objets.push(...legendes)
   objets.push(...etiquettes, ...etiquettes2, ...etiquettes3)
   // calcul des bordures
   this.bordures[0] = this.x - 0.5
-  this.bordures[1] = this.y - 0.5 - (legende ? (legendePosition === 'dessous' ? 2 : 0) : 0)
-  this.bordures[2] = this.x + rayon * 2 + 1 + (legende ? (legendePosition === 'droite' ? legendeMax : (Math.max(legendeMax, this.x + rayon * 2 + 1) - (this.x + rayon * 2 + 1))) : 0)
-  this.bordures[3] = this.y + (semi ? rayon : rayon * 2) + (legende ? (legendePosition === 'dessus' ? 2 : (legendePosition === 'droite' ? Math.max(this.y + (semi ? rayon : rayon * 2), effectifs.length * 1.5) - (this.y + (semi ? rayon : rayon * 2)) : 0)) : 0)
+  this.bordures[1] = this.y - 0.5 - (legendeAffichage ? (legendePosition === 'dessous' ? 2 : 0) : 0)
+  this.bordures[2] = this.x + rayon * 2 + 1 + (legendeAffichage ? (legendePosition === 'droite' ? legendeMax : (Math.max(legendeMax, this.x + rayon * 2 + 1) - (this.x + rayon * 2 + 1))) : 0)
+  this.bordures[3] = this.y + (semi ? rayon : rayon * 2) + (legendeAffichage ? (legendePosition === 'dessus' ? 2 : (legendePosition === 'droite' ? Math.max(this.y + (semi ? rayon : rayon * 2), effectifs.length * 1.5) - (this.y + (semi ? rayon : rayon * 2)) : 0)) : 0)
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -9131,7 +9131,7 @@ function DiagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [],
  * @param {number} [parametres.rayon = 4] Rayon du diagramme circulaire
  * @param {string[]} [parametres.labels = []] Labels associés aux effectifs respectifs. Tableau de même taille que effectifs.
  * @param {boolean} [parametres.semi = false] True pour un semi-circulaire, false pour un circulaire
- * @param {boolean} [parametres.legende = true] Présence (ou non) de la légende
+ * @param {boolean} [parametres.legendeAffichage = true] Présence (ou non) de la légende
  * @param {string} [parametres.legendePosition = 'droite'] Position de la légende à choisir parmi : 'droite', 'dessus' ou 'dessous'
  * @param {boolean[]} [parametres.mesures = []] Présence (ou non) de la mesure de chaque secteur. Tableau de même taille que effectifs.
  * @param {boolean[]} [parametres.visibles = []] Découpe (ou non) du secteur (pour créer des diagrammes à compléter). Tableau de même taille que effectifs.
@@ -9139,11 +9139,20 @@ function DiagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [],
  * @param {boolean[]} [parametres.valeurs = []] Présence (ou non) de des valeurs de l'effectif. Tableau de même taille que effectifs.
  * @param {boolean[]} [parametres.hachures = []] Présence (ou non) de hachures dans le secteur associé. Tableau de même taille que effectifs.
  * @param {boolean[]} [parametres.remplissage = []] Présence (ou non) d'une couleur de remplissage dans le secteur associé. Tableau de même taille que effectifs.
- * @example diagrammeCirculaire({ rayon: 7, semi: false, legendePosition: 'dessous', effectifs: [15, 25, 30, 10, 20], modalites, mesures, visibles, pourcents, valeurs, hachures, remplissage })
+ * @example diagrammeCirculaire({ rayon: 7, semi: false, legendePosition: 'dessous',
+ * effectifs: [15, 25, 30, 10, 20],
+ * labels: ['Compas', 'Rapporteur', 'Règle', 'Crayon', 'Gomme'],
+ * mesures: [true, true, true, false, true],
+ * visibles: [true, false, true, true, true],
+ * pourcents: [true, true, true, false, true],
+ * valeurs: [true, false, true, true, false],
+ * hachures: [true, true, true, false, true],
+ * remplissage: [false, true, true, true, true] })
+ * // Trace un diagramme semi-circulaire de rayon 7 avec différentes options
  * @return {DiagrammeCirculaire}
  */
-export function diagrammeCirculaire ({ effectifs = [100], x = 0, y = 0, rayon = 4, labels = ['tout'], semi = false, legende = true, legendePosition = 'droite', mesures = [false], visibles = [true], pourcents = [true], valeurs = [false], hachures = [true], remplissage = [false] }) {
-  return new DiagrammeCirculaire({ effectifs: effectifs, x: x, y: y, rayon: rayon, labels: labels, semi: semi, legende: legende, legendePosition: legendePosition, mesures: mesures, visibles: visibles, pourcents: pourcents, valeurs: valeurs, hachures: hachures, remplissage: remplissage })
+export function diagrammeCirculaire ({ effectifs, x = 0, y = 0, rayon = 4, labels = [], semi = false, legendeAffichage = true, legendePosition = 'droite', mesures = [], visibles = [], pourcents = [], valeurs = [], hachures = [], remplissage = [] }) {
+  return new DiagrammeCirculaire({ effectifs: effectifs, x: x, y: y, rayon: rayon, labels: labels, semi: semi, legendeAffichage: legendeAffichage, legendePosition: legendePosition, mesures: mesures, visibles: visibles, pourcents: pourcents, valeurs: valeurs, hachures: hachures, remplissage: remplissage })
 }
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
