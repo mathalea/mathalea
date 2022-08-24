@@ -8932,7 +8932,25 @@ export function traceBarreHorizontale (...args) {
   return new TraceBarreHorizontale(...args)
 }
 
-function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false } = {}) {
+/** Trace un diagramme en barres
+ * @param {number[]} hauteursBarres Tableau des effectifs
+ * @param {string[]} etiquettes Tableau des labels pour chaque effectif
+ * @param {Object} parametres À saisir entre accolades
+ * @param {boolean} [parametres.reperageTraitPointille = false] Présence (ou non) du trait en pointillés, reliant le haut de chaque barre à l'axe des ordonnées
+ * @param {string} [parametres.couleurDeRemplissage = 'blue'] Couleur de remplissage de toutes les barres : du type 'blue' ou du type '#f15929'.
+ * @param {number} [parametres.titreAxeVertical = ''] Titre de l'axe des ordonnées
+ * @param {boolean} [parametres.titre = ''] Titre du diagramme
+ * @param {boolean} [parametres.hauteurDiagramme = 5] Hauteur du diagramme
+ * @param {string[]} [parametres.coeff = 2] Largeur entre deux barres
+ * @param {string} [parametres.axeVertical = true] Présence (ou non) de l'axe vertical
+ * @param {boolean[]} [parametres.etiquetteValeur = true] Présence (ou non) de l'effectif sur chaque barre
+ * @param {boolean[]} [parametres.labelAxeVert = true] Présence (ou non) des labels numériques sur l'axe vertical
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
+ * @class
+ */
+function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false }) {
   ObjetMathalea2D.call(this, { })
   const diagramme = []
   for (let j = 0; j < hauteursBarres.length; j++) {
@@ -8990,8 +9008,29 @@ function DiagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille =
     return code
   }
 }
-export function diagrammeBarres (...args) {
-  return new DiagrammeBarres(...args)
+/** Trace un diagramme en barres
+ * @param {number[]} hauteursBarres Tableau des effectifs
+ * @param {string[]} etiquettes Tableau des labels pour chaque effectif
+ * @param {Object} parametres À saisir entre accolades
+ * @param {boolean} [parametres.reperageTraitPointille = false] Présence (ou non) du trait en pointillés, reliant le haut de chaque barre à l'axe des ordonnées
+ * @param {string} [parametres.couleurDeRemplissage = 'blue'] Couleur de remplissage de toutes les barres : du type 'blue' ou du type '#f15929'.
+ * @param {number} [parametres.titreAxeVertical = ''] Titre de l'axe des ordonnées
+ * @param {boolean} [parametres.titre = ''] Titre du diagramme
+ * @param {boolean} [parametres.hauteurDiagramme = 5] Hauteur du diagramme
+ * @param {string[]} [parametres.coeff = 2] Largeur entre deux barres
+ * @param {string} [parametres.axeVertical = true] Présence (ou non) de l'axe vertical
+ * @param {boolean[]} [parametres.etiquetteValeur = true] Présence (ou non) de l'effectif sur chaque barre
+ * @param {boolean[]} [parametres.labelAxeVert = true] Présence (ou non) des labels numériques sur l'axe vertical
+ * @example diagrammeBarres([15, 25, 30, 10, 20], ['Compas', 'Rapporteur', 'Règle', 'Crayon', 'Gomme'])
+ * // Trace un diagramme en barres avec les options par défaut
+ * @example diagrammeBarres([15, 25, 30, 10, 20], ['Compas', 'Rapporteur', 'Règle', 'Crayon', 'Gomme'],{
+ * reperageTraitPointille: true, couleurDeRemplissage: 'red', titreAxeVertical: 'Nombre de réponses',
+ * titre = 'Matériel mathématique dans sa trousse', * hauteurDiagramme: 10, coeff: 3, etiquetteValeur: false }})
+ * // Trace un diagramme en barres avec modification de quelques options par défaut
+ * @return {DiagrammeBarres}
+ */
+export function diagrammeBarres (hauteursBarres, etiquettes, { reperageTraitPointille = false, couleurDeRemplissage = 'blue', titreAxeVertical = '', titre = '', hauteurDiagramme = 5, coeff = 2, axeVertical = false, etiquetteValeur = true, labelAxeVert = false }) {
+  return new DiagrammeBarres(hauteursBarres, etiquettes, { reperageTraitPointille: reperageTraitPointille, couleurDeRemplissage: couleurDeRemplissage, titreAxeVertical: titreAxeVertical, titre: titre, hauteurDiagramme: hauteurDiagramme, coeff: coeff, axeVertical: axeVertical, etiquetteValeur: etiquetteValeur, labelAxeVert: labelAxeVert })
 }
 
 /** Trace un diagramme circulaire

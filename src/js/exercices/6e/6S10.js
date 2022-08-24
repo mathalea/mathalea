@@ -5,14 +5,14 @@ import { repere, traceBarre } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexte, setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
-export const titre = 'Lire un diagramme en barre'
+export const titre = 'Lire un diagramme en barres'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Lire un diagramme en barre
+ * Lire un diagramme en barres
  * @author Erwan Duplessy
  * Conversion Amc et interactif par Jean-Claude Lhote
  * Référence 6S10
