@@ -4,7 +4,7 @@ import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-export const titre = 'Recomposer un décimal'
+export const titre = 'Recomposer un décimal ou un entier'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
