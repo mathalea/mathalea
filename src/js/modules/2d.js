@@ -1086,7 +1086,19 @@ export function droite (...args) {
   return new Droite(...args)
 }
 
-/**  Donne la position du point A par rapport à la dNom de la droite
+/**  Donne la position du point A par rapport à la droite d
+ * @param {droite} d
+ * @param {point} A
+ * @param {number} [tolerance = 0.0001] Seuil de tolérance pour évaluer la proximité entre d et A.
+ * @example dessousDessus(d1, M) // Renvoie la position de M par rapport à d1 parmi ces 5 possibilités : 'sur', 'droite', 'gauche', 'dessous', 'dessus'
+ * @example dessousDessus(d1, M, 0.005) // Renvoie la position de M par rapport à d1 parmi ces 5 possibilités : 'sur', 'droite', 'gauche', 'dessous', 'dessus' (avec une tolérance de 0,005)
+ * @return {'sur' | 'droite' | 'gauche' | 'dessous' | 'dessus'}
+ */
+// JSDOC Validee par EE Aout 2022
+
+export function dessousDessus (d, A, tolerance = 0.0001) {
+  if (egal(d.a * A.x + d.b * A.y + d.c, 0, tolerance)) return 'sur'
+  if (egal(d.b, 0)) {
     if (A.x < -d.c / d.a) return 'gauche'
     else return 'droite'
   } else {
