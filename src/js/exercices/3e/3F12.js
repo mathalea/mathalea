@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListesSansChangerOrdre, texEnumerate, miseEnEvidence, itemize, tikzMachineDiag, numAlpha, texCadreParOrange } from '../../modules/outils.js'
 import { SvgMachineDiag3F12 } from '../../modules/macroSvgJs.js'
-export const titre = 'Fonctions : Calculs d\'images'
+export const titre = 'Calculer, de manières différentes, des images par une fonction'
 
 /**
  * 3F12 Notion de fonction - Vocabulaire
@@ -17,7 +17,7 @@ export default function fonctionsCalculsDImages () {
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = ''
   // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne += 'Calcule les images avec la méthode demandée.'
+  this.consigne += 'Calculer les images avec la méthode demandée.'
 
   context.isHtml ? this.spacing = 2 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
