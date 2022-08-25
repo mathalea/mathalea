@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import {
-  point, grille, droiteGraduee2, segment, milieu, labelPoint, texteParPosition, codageAngleDroit
+  point, grille, droiteGraduee, segment, milieu, labelPoint, texteParPosition, codageAngleDroit
 } from '../../../modules/2d.js'
 import { round, min } from 'mathjs'
 
@@ -122,7 +122,7 @@ export default function SujetCAN2022Sixieme () {
         case 6:
           a = randint(84, 100) // choix de la table = écart entre deux graduations
 
-          d = droiteGraduee2({
+          d = droiteGraduee({
             Unite: 0.5,
             Min: 81,
             Max: 105,
@@ -611,7 +611,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           if (choice([true, false])) {
             a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
             reponse = arrondi(a / 5, 1)
-            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
               Unite: 3,
               Min: 0,
               Max: 3.2,
@@ -632,7 +632,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           } else {
             a = choice([1, 3, 5, 7, 9]) // numérateur
             reponse = arrondi(a / 4, 2)
-            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee2({
+            texte = 'Determine l\'abscisse du point A  :<br> On donnera le résultat sous  forme décimale.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.8, style: 'margin: auto' }, droiteGraduee({
               Unite: 3,
               Min: 0,
               Max: 3.2,

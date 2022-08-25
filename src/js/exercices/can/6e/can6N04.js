@@ -1,4 +1,4 @@
-import { droiteGraduee2 } from '../../../modules/2d.js'
+import { droiteGraduee } from '../../../modules/2d.js'
 import { context } from '../../../modules/context.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { pgcd, randint, texFractionReduite } from '../../../modules/outils.js'
@@ -31,7 +31,7 @@ export default function AbscisseFractionnaire () {
     } while (b % a === 0)
     const c = new FractionEtendue(b, a)
     this.reponse = c
-    this.question = 'Determiner l\'abscisse du point $A$.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee2({
+    this.question = 'Determiner l\'abscisse du point $A$.<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5, style: 'margin: auto' }, droiteGraduee({
       Unite: 3,
       Min: 0,
       Max: 4.2,

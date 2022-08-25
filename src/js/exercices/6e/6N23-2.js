@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint, shuffle, calcul, choisitLettresDifferentes, texNombre, texFraction, numAlpha, nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../modules/outils.js'
-import { droiteGraduee2 } from '../../modules/2d.js'
+import { droiteGraduee } from '../../modules/2d.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
@@ -64,7 +64,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
       x2 = tableau[1]
       x3 = tableau[2]
 
-      d1 = droiteGraduee2({
+      d1 = droiteGraduee({
         x: 0,
         y: 0,
         Min: xmin,
@@ -200,7 +200,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
       x2 = tableau[1]
       x3 = tableau[2]
 
-      d1 = droiteGraduee2({
+      d1 = droiteGraduee({
         x: 0,
         y: 0,
         Min: xmin,
@@ -335,7 +335,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
       x1 = tableau[0]
       x2 = tableau[1]
       x3 = tableau[2]
-      d1 = droiteGraduee2({
+      d1 = droiteGraduee({
         x: 0,
         y: 0,
         Min: xmin,

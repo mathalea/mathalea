@@ -1,8 +1,20 @@
 fenetreMathalea2d = [-3,-1,27,9]
 pixelsParCm=20
-droiteGraduee(0,0,'H','d',5,4,25,-2,-1,'-2','-1',true,['A',-0.5],['B',1.25],['C',2.75])
-// (Xorigine,Yorigine,'H' ou 'V'=direction,'d' ou 'dd'=type,longueur Unité en cm,nombre de parts/unité, longeur totale en cm,
-// abscisse 1ère graduation, abscisse 2ème graduation,label 1ère,label 2ème,true=compléter les graduations principales,
-// liste de points à placer au format ['Nom',abscisse])
-droiteGraduee(0,1.5,'H','dd',10,10,22)
-droiteGraduee(3,2.5,'V','dd',2,3,6)
+droiteGraduee({
+        x: 0,
+        y: 3,
+        Min: -2.7,
+        Max: 12 + 0.2,
+        thickSec: true,
+        Unite: 3,
+        thickCouleur: 'red',
+        axeCouleur: 'blue',
+        axeHauteur: 4,
+        labelsPrincipaux: false,
+        labelListe: [[0, 'O'], [1, 'I']],
+        pointListe: [[-1, 'A'], [5, 'B'], [7.2, 'C']],
+        pointTaille: 6,
+        pointCouleur: 'gray',
+        pointStyle: '|',
+        pointEpaisseur: 3
+      })
