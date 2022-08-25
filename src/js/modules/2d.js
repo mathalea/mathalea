@@ -18,8 +18,8 @@ import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from './2dGeneralites.js'
  * A = point(x,y) //ses coordonnées
  * A = point(x,y,'A') //ses coordonnées et son nom
  * A = point(x,y,'A',below') //ses coordonnées,son nom et la position de son label
- *
  * @author Rémi Angot
+ * @class
  */
 function Point (arg1, arg2, arg3, positionLabel = 'above') {
   this.typeObjet = 'point'
@@ -48,31 +48,35 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
     this.nom = ' ' // Le nom d'un point est par défaut un espace
     // On pourra chercher tous les objets qui ont ce nom pour les nommer automatiquement
   }
+
   /**
- * Permet de déterminer si le point sur lequel la méthode est appliquée appartient au polygone passé en argument
- * fonctionne avec tout type de polygone
- * la fonction utilise une triangulation du polygone réalisée par la librairie earcut Copyright (c) 2016, Mapbox.
- *
- * @param {Polygone} lePolygone
- * @return {boolean} true si le Point est à l'intérieur de lePolygone
- * @author Jean-Claude Lhote
- */
-  this.estDansPolygoneNonConvexe = function (lePolygone) {
-    const listeTriangles = earcut(polygoneToFlatArray(lePolygone))
+   * Teste l'appartenance d'un point à tout type de polygone (non convexe ou convexe). Pour info, la fonction utilise une triangulation du polygone réalisée par la librairie earcut Copyright (c) 2016, Mapbox.
+   * @memberof Point
+   * @param {Polygone} p Polygone dont on veut tester l'appartenance avec le point
+   * @example M.estDansPolygone(p1) // Renvoie true si M appartient au polygone p1, false sinon
+   * @author Jean-Claude Lhote
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
+  this.estDansPolygone = function (p) {
+    const listeTriangles = earcut(polygoneToFlatArray(p))
     for (let i = 0; i < listeTriangles.length; i += 3) {
-      if (this.estDansTriangle(lePolygone.listePoints[listeTriangles[i]], lePolygone.listePoints[listeTriangles[i + 1]], lePolygone.listePoints[listeTriangles[i + 2]])) return true
+      if (this.estDansTriangle(p.listePoints[listeTriangles[i]], p.listePoints[listeTriangles[i + 1]], p.listePoints[listeTriangles[i + 2]])) return true
     }
     return false
   }
 
   /**
- * fonction qui teste l'appartenance à un triangle
- * @param {Point} A
- * @param {Point} B
- * @param {Point} C
- * @returns true si le point est dans le triangle ABC
- * @author Eric Elter et Jean-Claude Lhote
- */
+   * Teste l'appartenance d'un point dans un triangle
+   * @memberof Point
+   * @param {Point} A Premier sommet du triangle
+   * @param {Point} B Deuxième sommet du triangle
+   * @param {Point} C Troisième sommet du triangle
+   * @example M.estDansTriangle(V, S, T) // Renvoie true si M appartient au triangle VST, false sinon
+   * @author Eric Elter
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
   this.estDansTriangle = function (A, B, C) {
     const vMA = vecteur(this, A)
     const vMB = vecteur(this, B)
@@ -82,37 +86,54 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
     const x3 = vMA.x * vMB.y - vMA.y * vMB.x
     return (superieurouegal(x1, 0) && superieurouegal(x2, 0) && superieurouegal(x3, 0)) || (inferieurouegal(x1, 0) && inferieurouegal(x2, 0) && inferieurouegal(x3, 0))
   }
+
   /**
-   * fonction qui teste l'appartenance à un polygone convexe
-   * @param {Polygone} P
-   * @returns true si le point appartient au polygone
+   * Teste l'appartenance d'un point à un polygone convexe
+   * @memberof Point
+   * @param {Polygone} p Polygone dont on veut tester l'appartenance avec le point
+   * @example M.estDansPolygoneConvexe(p1) // Renvoie true si M appartient au polygone convexe p1, false sinon
    * @author Jean-Claude Lhote
+   * @return {boolean}
    */
-  this.estDansPolygoneConvexe = function (P) {
-    const l = P.listePoints.length
+  // JSDOC Validee par EE Aout 2022
+  this.estDansPolygoneConvexe = function (p) {
+    const l = p.listePoints.length
     if (l === 3) {
-      return this.estDansTriangle(...P.listePoints)
+      return this.estDansTriangle(...p.listePoints)
     } else {
-      const A = P.listePoints[0]
-      const B = P.listePoints[1]
-      const C = P.listePoints[l - 1]
-      const P2 = polygone(...P.listePoints.slice(1))
+      const A = p.listePoints[0]
+      const B = p.listePoints[1]
+      const C = p.listePoints[l - 1]
+      const p2 = polygone(...p.listePoints.slice(1))
       if (this.estDansTriangle(A, B, C)) return true
-      else return this.estDansPolygoneConvexe(P2)
+      else return this.estDansPolygoneConvexe(p2)
     }
   }
+
   /**
- * @author Eric Elter
- * @returns {boolean}
- */
+   * Teste l'appartenance d'un point dans un quadrilatère
+   * @memberof Point
+   * @param {Point} A Premier sommet du quadrilatère
+   * @param {Point} B Deuxième sommet du quadrilatère
+   * @param {Point} C Troisième sommet du quadrilatère
+   * @param {Point} D Quatrième sommet du quadrilatère
+   * @example M.estDansQuadrilatere(F, G, H, I) // Renvoie true si M appartient au quadrilatère FGHI, false sinon
+   * @author Eric Elter
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
   this.estDansQuadrilatere = function (A, B, C, D) {
     return this.estDansTriangle(A, B, C) || this.estDansTriangle(A, C, D)
   }
+
   /**
- *
- * @param {Segment | Cercle | Droite | DemiDroite} objet
- * @returns {boolean} true si le point est sur l'objet
- */
+   * Teste l'appartenance d'un point sur un segment, un cercle, une droite ou une demi-droite
+   * @memberof Point
+   * @param {Segment | Cercle | Droite | DemiDroite} objet Objet géométrique dont on veut tester si le point en fait partie
+   * @example M.estSur(s) // Renvoie true si M appartient au segment s (au préalablement défini), false sinon
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
   this.estSur = function (objet) {
     if (objet instanceof Droite) return (egal(objet.a * this.x + objet.b * this.y + objet.c, 0, 0.000001))
     if (objet instanceof Segment) {
@@ -137,7 +158,7 @@ function Point (arg1, arg2, arg3, positionLabel = 'above') {
  * @param {number} y ordonnée
  * @param {string} A son nom qui apparaîtra
  * @param {string} positionLabel Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
- * @returns {Point}
+ * @return {Point}
  */
 export function point (x, y, A, positionLabel = 'above') {
   return new Point(x, y, A, positionLabel)
@@ -364,7 +385,7 @@ function TracePoint (...points) {
 }
 /**
  * @param  {Point} args Points précédemment créés. Si le dernier argument est une chaîne de caractère, définit la couleur des points tracés.
- * @returns  {TracePoint} TracePoint
+ * @return  {TracePoint} TracePoint
  * @example tracePoint(A,B,C,'red) // Trace les points A,B,C précédemment créés en rouge
  * @example tracePoint(A).style = '|' // Le style du point A sera '|' et non 'x' par défaut.
  * @example tracePoint(A).epaisseur = 5 // L'épaisseur du style du point sera 5 et non 1 par défaut.
@@ -629,7 +650,7 @@ function LabelPoint (...points) {
  * Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
  * @param  {...any} args Points
  * @param {string} [color='black']
- * @returns {LabelPoint} LabelPoint
+ * @return {LabelPoint} LabelPoint
  * @example labelPoint(A,B,C) // Retourne le nom des points A, B et C en noir
  * @example labelPoint(A,B,C,'red') // Retourne le nom des points A, B et C en rouge
  * @example labelPoint(A,B,C,'#f15929') // Retourne le nom des points A, B et C en orange (code couleur HTML : #f15929)
@@ -723,7 +744,7 @@ function LabelLatexPoint ({ points = [], color = 'black', taille = 8, largeur = 
  * largeur: la largeur en pixels du label (par défaut 10) a des fins de centrage
  * hauteur: la hauteur en pixels du label à des fins de centrage
  * background: transparent si '' sinon une couleur
- * @returns {LabelLatexPoint} LabelLatexPoint
+ * @return {LabelLatexPoint} LabelLatexPoint
  * @author Rémi Angot et Jean-Claude Lhote
  */
 export function labelLatexPoint ({ points, color = 'black', taille = 8, largeur = 10, hauteur = 10, background = '' }) {
@@ -1117,7 +1138,7 @@ export function dessousDessus (d, A, tolerance = 0.0001) {
  * Les objets affichables doivent avoir un attribut this.bordures = [xmin, ymin, xmax, ymax] 4 nombres dans cet ordre.
  * Si this.bordures n'est pas défini ou n'est pas un tableau de 4 éléments, l'objet est ignoré
  * Si aucun objet passé en argument n'a de "bordures" alors la fonction retourne une zone inaffichable et un message d'erreur est créé
- * @returns {object} {xmin, ymin, xmax, ymax}
+ * @return {object} {xmin, ymin, xmax, ymax}
  */
 export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = undefined, rymax = undefined, rzoom = 1 } = {}) {
   let xmin = 1000; let ymin = 1000; let xmax = -1000; let ymax = -1000
@@ -1143,7 +1164,7 @@ export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rx
  *
  * @param {droite} d
  * @param {number} param1 les bordures de la fenêtre
- * @returns {Point} le point qui servira à placer le label.
+ * @return {Point} le point qui servira à placer le label.
  */
 export function positionLabelDroite (d, { xmin = 0, ymin = 0, xmax = 10, ymax = 10 }) {
   let xLab, yLab
@@ -2095,17 +2116,21 @@ export function nomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
  * s = segment(A,B,'blue') //Segment d'extrémités A et B et de couleur bleue
  * s = segment(x1,y1,x2,y2) //Segment défini par les coordonnées des deux extrémités
  * s = segment(x1,y1,x2,y2,'blue') //Segment défini par les coordonnées des deux extrémités et de couleur bleue
- *
+ * @class
  * @author Rémi Angot
  */
 function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
   ObjetMathalea2D.call(this, { })
+
   /**
- * Détermine si un segment sur lequel est appliqué la méthode coupe l'objet passé en argument (dont le type est parmi ceux qui suivent)
- * @param {Segment | Droite | DemiDroite | Cercle} objet
- * @return {boolean} true si les segments sont sécants
- * @author Jean-Claude Lhote
- */
+   * Teste si un segment coupe un cercle, une droite, une demi-cercle ou un autre segment
+   * @memberof Segment
+   * @param {Segment | Droite | DemiDroite | Cercle} objet Objet géométrique dont on veut tester l'intersection avec le segment
+   * @example s1.estSecant(d1) // Renvoie true si s1 est sécant avec d1, false sinon
+   * @author Jean-Claude Lhote
+   * @return {boolean}
+   */
+  // JSDOC Validee par EE Aout 2022
   this.estSecant = function (objet) {
     const ab = droite(this.extremite1, this.extremite2)
     if (objet instanceof Cercle) {
@@ -2466,7 +2491,8 @@ export function demiDroite (A, B, color = 'black', extremites = false) {
  * polygone(A,B,C,D,E) //Trace ABCDE
  * polygone([A,B,C,D],"blue") // Trace ABCD en bleu
  * polygone([A,B,C,D],"blue","red","green") // Trace ABCD en bleu, rempli en rouge et hachuré en vert.
- * @author Rémi Angot
+ * @author Rémi Angot*
+ * @class
  */
 function Polygone (...points) {
   ObjetMathalea2D.call(this, { })
@@ -2677,7 +2703,7 @@ function Polygone (...points) {
 }
 /**
  * Propriétés possibles : .color, .opacite, .epaisseur, .couleurDeRemplissage, .opaciteDeRemplissage, .hachures (true or false), .distanceDesHachures, .epaisseurDesHachures,.couleurDesHachures
- * @returns {Polygone} objet Polygone
+ * @return {Polygone} objet Polygone
  * @example polygone(A,B,C,D,E) //Trace ABCDE
  * @example polygone([A,B,C,D],"blue") // Trace ABCD en bleu
  * @example polygone([A,B,C,D],"#f15929") // Trace ABCD en orange (code couleur HTML : #f15929)
@@ -2689,7 +2715,7 @@ export function polygone (...args) {
 /**
  * Crée un groupe d'objets contenant le polygone et ses sommets
  * @param  {...any} args
- * @returns {array} [p, p.sommets]
+ * @return {array} [p, p.sommets]
  */
 export function polygoneAvecNom (...args) {
   const p = polygone(...args)
@@ -2893,7 +2919,7 @@ export function boite ({ Xmin = 0, Ymin = 0, Xmax = 1, Ymax = 1, color = 'black'
 
 /**
  * @param {Polygone} P
- * @returns {number[]} retourne la liste des coordonnées des sommets de P dans un seul tableau.
+ * @return {number[]} retourne la liste des coordonnées des sommets de P dans un seul tableau.
  * @author Jean-Claude Lhote
  */
 export function polygoneToFlatArray (P) {
@@ -2908,7 +2934,7 @@ export function polygoneToFlatArray (P) {
  * Cette fonction permet de créer un polygone rapidement à partir d'une liste des coordonnées de ses sommets et éventuellement de leur noms
  * @param {array} flat
  * @param {string} noms
- * @returns {Polygone}
+ * @return {Polygone}
  * @author Jean-Claude Lhote
  */
 export function flatArrayToPolygone (flat, noms) {
@@ -3007,7 +3033,7 @@ function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', co
  * @param {string} color est la couleur des bords
  * @param {string} couleurDeRemplissage est la couleur de la surface
  * @param {string} couleurDeFond est la couleur de remplissage des trous
- * @returns {ObjetMathalea2D} un polygone à trous (ou pas : il peut ne pas y avoir de trou !)
+ * @return {ObjetMathalea2D} un polygone à trous (ou pas : il peut ne pas y avoir de trou !)
  */
 export function polygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', couleurDeFond = 'white' }) {
   return new PolygoneATrous({ data, holes, noms, color, couleurDeRemplissage, couleurDeFond })
@@ -3024,7 +3050,7 @@ export function polygoneATrous ({ data = [], holes = [], noms = '', color = 'bla
  * @param {number} d valeur algébrique de AH où H est le pied de la hauteur
  * @param {*} n = 1 ou 2 permet de choisir le côté pour C.
  * @author Jean-Claude Lhote
- * @returns {objet} {triangle, pied}
+ * @return {objet} {triangle, pied}
  */
 export function triangle2points1hauteur (A, B, h, d, n = 1, color = 'black') {
   if (d === undefined) {
@@ -3041,7 +3067,7 @@ export function triangle2points1hauteur (A, B, h, d, n = 1, color = 'black') {
  * @param {number} l1
  * @param {number} l2
  * @param {number} [n=1] Si n = 1 (défaut), C a la plus grande ordonnée possible, si n = 2, C a la plus petite ordonnée possible
- * @returns {Polygone} objet Polygone ABC
+ * @return {Polygone} objet Polygone ABC
  * @example t = triangle2points2longueurs(A,B,4,7,2) // Récupère t le triangle ABC tel que AC = 4 cm et BC = 7 cm avec C qui a l'ordonnée la plus petite possible
  * @example C = t.listePoints[2] // Récupère le 3e sommet dans la variable C
  * @author Rémi Angot
@@ -3143,7 +3169,7 @@ export function triangle2points1angle1longueurOppose (A, B, a, l, n = 1, color =
  * @param {objet} A
  * @param {objet} B
  * @param {objet} C
- * @returns {polygoneAvecNom}
+ * @return {polygoneAvecNom}
  */
 export function parallelogramme3points (NOM, A, B, C, color = 'black') {
   const D = translation(A, vecteur(B, C), NOM[3])
@@ -3160,7 +3186,7 @@ export function parallelogramme3points (NOM, A, B, C, color = 'black') {
  * @param {objet} A
  * @param {objet} B
  * @param {number} h
- * @returns {polygoneAvecNom}
+ * @return {polygoneAvecNom}
  */
 export function parallelogramme2points1hauteur (NOM, A, B, h, color = 'black') {
   if (typeof B === 'number') {
@@ -3473,7 +3499,7 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
  * // Construit un disque de centre A et de rayon 5, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 1 d'épaisseur et avec 10 d'écart entre deux hachures
  * @example cercle (A,5,'red','blue','#f15929',3,2,0.3,0.8,2,12)
  * // Construit un disque de centre A et de rayon 5, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 2 d'épaisseur et avec 12 d'écart entre deux hachures
- * @returns {Cercle}
+ * @return {Cercle}
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
@@ -3481,10 +3507,26 @@ export function cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
   return new Cercle(O, r, color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
 }
 
-/**
- * c = ellipse(O,rx,ry) //Ellipse de centre O et de rayon rx et ry
+/**  Trace l'ellipse de centre O et de rayon rx et ry (la construction, dite “par réduction d’ordonnée”, montre que l'ellipse est la transformée de Newton de 2 cercles concentriques)
+ * @param {Point} O Centre de l'ellipse
+ * @param {number} rx Premier rayon de l'ellipse
+ * @param {number} ry Second rayon de l'ellipse
+ * @param {string} [color = 'black'] Couleur de l'ellipse : du type 'blue' ou du type '#f15929'
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {Point} centre Centre du cercle
+ * @property {number} rx Premier rayon de l'ellipse
+ * @property {number} ry Second rayon de l'ellipse
+ * @property {string} color Couleur de l'ellipse. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {string} couleurDeRemplissage Couleur de remplissage. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} opaciteDeRemplissage Opacité de l'ellipse si couleur de remplissage choisie.
+ * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
  * @author Rémi Angot
+ * @class
  */
+// JSDOC Validee par EE Aout 2022
 function Ellipse (O, rx, ry, color = 'black') {
   ObjetMathalea2D.call(this, { })
   this.color = colorToLatexOrHTML(color)
@@ -3609,8 +3651,20 @@ function Ellipse (O, rx, ry, color = 'black') {
     return code
   }
 }
-export function ellipse (...args) {
-  return new Ellipse(...args)
+
+/**  Trace l'ellipse de centre O et de rayon rx et ry (la construction, dite “par réduction d’ordonnée”, montre que l'ellipse est la transformée de Newton de 2 cercles concentriques)
+ * @param {Point} O Centre de l'ellipse
+ * @param {number} rx Premier rayon de l'ellipse
+ * @param {number} ry Second rayon de l'ellipse
+ * @param {string} [color = 'black'] Couleur de l'ellipse : du type 'blue' ou du type '#f15929'
+ * @example ellipse(M, 1, 3) // Trace, en noir, l'ellipse de centre M et de rayons 1 et 3
+ * @example ellipse(M, 1, 3, 'red') // Trace, en rouge, l'ellipse de centre M et de rayons 1 et 3
+ * @author Rémi Angot
+ * @return {Ellipse}
+ */
+// JSDOC Validee par EE Aout 2022
+export function ellipse (O, rx, ry, color = 'black') {
+  return new Ellipse(O, rx, ry, color)
 }
 
 /**
@@ -3764,7 +3818,7 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
  * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 1 d'épaisseur et avec 10 d'écart entre deux hachures
  * @example cercleCentrePoint (A,B,'red','blue','#f15929',3,2,0.3,0.8,2,12)
  * // Construit un disque de centre A, passant par B, de bord rouge à 30 % d'opacité et en pointillés, rempli en bleu à 80 % d'opacité, et avec des hachures orange de 2 d'épaisseur et avec 12 d'écart entre deux hachures
- * @returns {Cercle}
+ * @return {Cercle}
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
@@ -4884,7 +4938,7 @@ function Rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecN
  * @param {number} stepGraduation est un multiple de 10 qui divise 180 (c'est mieux) donc 10 (par défaut), ou 20, ou 30, ou 60 ou 90.
  * @param {boolean} rayonsVisibles = false permet de supprimer les rayons et le cercle central
  * @param {object} param0 = {x: 'number', y: 'number', taille: 'number', semi: boolean, avecNombre: string}
- * @returns {Rapporteur} // crée un instance de l'objet 2d Rapporteur
+ * @return {Rapporteur} // crée un instance de l'objet 2d Rapporteur
  */
 export function rapporteur ({ x = 0, y = 0, taille = 7, depart = 0, semi = false, avecNombre = 'deuxSens', precisionAuDegre = 1, stepGraduation = 10, rayonsVisibles = true, color = 'gray' }) {
   return new Rapporteur({ x, y, taille, depart, semi, avecNombre, precisionAuDegre, stepGraduation, rayonsVisibles, color })
@@ -5859,7 +5913,7 @@ function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur = 0.5, o
  * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur noire, de taille 0,4, d'épaisseur 0,5 avec une opacité de 100 %, sans remplissage
  * @example codageAngleDroit(A,J,T,'pink',1,0.2,0.6,'blue',0.2)
  * // Trace un codage d'angle droit pour l'angle direct AJT, de couleur rose, de taille 1, d'épaisseur 0,2 avec une opacité de 60 %, rempli en bleu avec une opacité de 20%.
- * @returns {CodageAngleDroit}
+ * @return {CodageAngleDroit}
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
@@ -5922,7 +5976,7 @@ function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 'cm', h
  * // Affiche la longueur du segment [AB] (en noir, à 0,5 "cm" du segment, complétée par l'unité cm et parallèlement au segment).
  * @example  afficheLongueurSegment(A,B,'blue',1,'mm',true)
  * // Affiche la longueur du segment [AB], en bleu, à 1 "cm" du segment, complétée par l'unité mm et horizontalement.
- * @returns {AfficheLongueurSegment}
+ * @return {AfficheLongueurSegment}
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
@@ -6146,7 +6200,7 @@ function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '
  * // Affiche la mesure de l'angle MNO (en noir, avec un arc de rayon 1,5 "cm").
  * @example afficheMesureAngle(M,N,O,'red',2,'pop',{ecart:1,saillant:false,colorArc:'blue',rayon:true,couleurDeRemplissage:'#f15929',opaciteDeRemplissage:0.8,arcEpaisseur:2,mesureEnGras:true})
  * // Affiche le label pop en gras et rouge, sur l'angle rentrant MNO, avec un arc bleu, epais de 2 et de rayon 2 "cm", à 1 "cm" de l'arc rempli en orange avec une opacité de 80%, cerné par ses rayons.
- * @returns {AfficheMesureAngle}
+ * @return {AfficheMesureAngle}
  */
 // JSDOC Validee par EE Juin 2022
 export function afficheMesureAngle (A, B, C, color = 'black', distance = 1.5, label = '', { ecart = 0.5, mesureEnGras = false, saillant = true, colorArc = 'black', rayon = false, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.5, arcEpaisseur = 1 } = {}) {
@@ -6256,7 +6310,7 @@ function AfficheCoteSegment (
  * // Affiche la côte du segment s (avec une flèche noire d\'épaisseur 1 "cm", placée 0.5 "cm" sous le segment, avec la longueur du segment, en cm, écrite en noir, 0,5 "cm" au-dessus, et parallèle au segment.
  * @example afficheCoteSegment(s,'x',-1,'red',2,1,'blue',true)
  * // Affiche la côte du segment s, avec une flèche rouge d\'épaisseur 2 "cm", placée 1 "cm" sous le segment, avec le texte 'x' écrit en bleu, 1 "cm" au-dessus, et horizontalement.
- * @returns {AfficheCoteSegment}
+ * @return {AfficheCoteSegment}
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
@@ -6274,7 +6328,7 @@ export function afficheCoteSegment (s, Cote = '', positionCote = 0.5, couleurCot
  * @example codageSegment(H,K) // Code le segment [HK] avec la marque noire '||'
  * @example codageAngle(H,K,'x','green') // Code le segment [HK] avec la marque verte 'x'
  * @author Rémi Angot
- * @returns {TexteParPoint}
+ * @return {TexteParPoint}
  */
 // JSDOC Validee par EE Juin 2022
 export function codageSegment (A, B, mark = '||', color = 'black') {
@@ -6380,7 +6434,7 @@ function CodageSegments (mark = '||', color = 'black', ...args) {
  * @example codageSegments('×','blue',s1,s2,s3) // Code les segments s1, s2 et s3 avec une croix bleue
  * @example codageSegments('×','blue',p.listePoints) // Code tous les segments du polygone avec une croix bleue
  * @author Rémi Angot
- * @returns {CodageSegments}
+ * @return {CodageSegments}
  */
 // JSDOC Validee par EE Juin 2022
 export function codageSegments (mark = '||', color = 'black', ...args) {
@@ -6556,7 +6610,7 @@ function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'bl
  * // Code l'angle HKG, en rouge, avec une épaisseur de 0.5 et une opacité de 20 %, rempli en bleu avec une opacité de 80 %
  * // avec un arc de cercle de rayon 2, avec une marque 'x' sur l'angle, en affichant le texte '?' d'une taille de 2 et sans faire apparaître d'angle droit le cas échéant.
  * @author Jean-Claude Lhote
- * @returns {CodageAngle|CodageAngleDroit}
+ * @return {CodageAngle|CodageAngleDroit}
  */
 // JSDOC Validee par EE Juin 2022
 export function codageAngle (A, O, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, noAngleDroit = false, texteACote = '', tailleTexte = 1) {
@@ -6982,7 +7036,7 @@ function Axes (
  * @example axes(-10,-5,20,3,0.25,2,0.5,1,'red')
  * // Trace un repère orthonormé rouge dont les axes des abscisses et des ordonnées ont pour épaisseur 1 et dont le tiret de chaque graduation mesure 0,5.
  * // L'axe des abscisses va de -10 à 20 avec un pas de 2. L'axe des ordonnées va de -5 à 3 avec un pas de 0,5.
- * @returns {Axes}
+ * @return {Axes}
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
@@ -7081,7 +7135,7 @@ function AxeY (
  * @example axeY(0,10,0.25,2,1,'red',5,'titre')
  * // Trace un axe rouge vertical gradué de 0 à 10, de 2 en 2, avec quatre petites graduations entre deux graduations principales (de longueur 0.25 et d'épaisseur 1), et avec comme titre de l'axe : titre
  * @author Frédéric Piou
- * @returns {AxeY}
+ * @return {AxeY}
 */
 // JSDOC Validee par EE Juin 2022
 export function axeY (
@@ -7861,7 +7915,7 @@ function Repere ({
 /**
  *
  * @param {object} param0
- * @returns {object}
+ * @return {object}
  */
 export function repere ({
   xUnite = 1,
