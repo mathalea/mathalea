@@ -1082,8 +1082,8 @@ function Droite (arg1, arg2, arg3, arg4, arg5) {
  * @author Jean-Claude Lhote
  * @return {Droite}
  */
-export function droite (arg1, arg2, arg3, arg4, arg5) {
-  return new Droite(arg1, arg2, arg3, arg4, arg5)
+export function droite (...args) {
+  return new Droite(...args)
 }
 
 /**  Donne la position du point A par rapport à la dNom de la droite
