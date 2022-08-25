@@ -4,7 +4,7 @@ import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
 import { ajouteChampTexteMathLive } from '../../modules/interactif/questionMathLive.js'
 import { setReponse } from '../../modules/gestionInteractif.js'
-export const titre = 'Recomposer un entier'
+export const titre = 'Recomposer un décimal'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
@@ -41,8 +41,8 @@ export default function RecomposerEntierC3 () {
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(listeTypeDeQuestionsDemandees, this.nbQuestions)
     const nombreDeChiffresDec = contraindreValeur(1, 3, this.sup4, 2)
     this.nombreDeChamps = []
-    const nombreDeChiffresMin = contraindreValeur(nombreDeChiffresDec + 1, 6, this.sup, 5)
-    const nombreDeChiffresMax = contraindreValeur(nombreDeChiffresMin, 7, this.sup2, 6)
+    const nombreDeChiffresMin = contraindreValeur(nombreDeChiffresDec + 3, 6, this.sup, 5)
+    const nombreDeChiffresMax = contraindreValeur(nombreDeChiffresMin, 7, this.sup2, nombreDeChiffresMin + 1)
 
     this.premierChamp = []
     this.morceaux = []
@@ -377,11 +377,16 @@ export default function RecomposerEntierC3 () {
           texteCorr = '$'
           this.premierChamp[i] = indexChamp
           for (let k = 0, j, index = 0; index < nbChiffres; k++) { // on prépare la correction pour l'exo non interactif
+            let testeur = 0
             do {
               j = randint(1, 3)
+              testeur++
               this.morceaux[i][k] = nombreStr.substring(index, Math.min(index + j, nbChiffres)).replace(/^0+/g, '')
               this.exposantMorceaux[i][k] = nbChiffres - Math.min(index + j, nbChiffres) - nombreDeChiffresDec
-            } while (this.morceaux[i][k] === '')
+            } while (this.morceaux[i][k] === '' && testeur < 100)
+            if (testeur === 100) {
+              window.notify('boucle sans fin detectée case 9 6N10-7', { nombreStr })
+            }
             index += j
           }
           for (let k = 0; k < this.morceaux[i].length; k++) {
@@ -403,9 +408,10 @@ export default function RecomposerEntierC3 () {
           this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
           break
         case 10: // trouver le nombre avec groupement en ordre avec zéros
-          for (let k = 0; k < nbChiffres; k++) {
+          for (let k = 0, nombreDeZero = 0; k < nbChiffres; k++) {
             if (k === 0) nombreStr = randint(1, 9).toString()
-            else nombreStr += randint(0, 9).toString()
+            else nombreStr += randint(nombreDeZero > 1 || k === nbChiffres - 1 ? 1 : 0, 9).toString()
+            if (nombreStr[nombreStr.length - 1] === '0') nombreDeZero++
           }
           if (nombreStr.indexOf('0') === -1) {
             nombreStr = remplaceParZero(nombreStr, randint(1, nombreStr.length - 1))
@@ -415,11 +421,16 @@ export default function RecomposerEntierC3 () {
           texteCorr = '$'
           this.premierChamp[i] = indexChamp
           for (let k = 0, j, index = 0; index < nbChiffres; k++) { // on prépare la correction pour l'exo non interactif
+            let testeur = 0
             do {
               j = randint(1, 3)
+              testeur++
               this.morceaux[i][k] = nombreStr.substring(index, Math.min(index + j, nbChiffres)).replace(/^0+/g, '')
               this.exposantMorceaux[i][k] = nbChiffres - Math.min(index + j, nbChiffres) - nombreDeChiffresDec
-            } while (this.morceaux[i][k] === '')
+            } while (this.morceaux[i][k] === '' && testeur < 100)
+            if (testeur === 100) {
+              window.notify('boucle sans fin detectée case 10 6N10-7', { nombreStr })
+            }
             index += j
           }
           for (let k = 0; k < this.morceaux[i].length; k++) {
@@ -520,7 +531,7 @@ export default function RecomposerEntierC3 () {
           for (let k = 0; k < nbChiffres; k++) {
             nombreStr += randint(1, 9, nombreStr).toString()
           }
-          place = randint(2, nbChiffres - 1)
+          place = randint(2, nbChiffres - 2)
           nombreStr = remplaceParZero(nombreStr, place)
           nombreStr = remplaceParZero(nombreStr, place + 1)
           nombre = new Decimal(nombreStr)
@@ -529,10 +540,15 @@ export default function RecomposerEntierC3 () {
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec), nombreDeChiffresDec)}=`
           this.premierChamp[i] = indexChamp
           for (let k = 0, j, index = 0; index < nbChiffres; k++) { // on prépare la correction pour l'exo non interactif
+            let testeur = 0
             do {
+              testeur++
               j = randint(1, 3)
               this.morceaux[i][k] = nombreStr.substring(index, Math.min(index + j, nbChiffres)).replace(/^0+/g, '')
-            } while (this.morceaux[i][k] === '')
+            } while (this.morceaux[i][k] === '' && testeur < 100)
+            if (testeur === 100) {
+              window.notify('boucle sans fin detectée case 13 6N10-7', { nombreStr })
+            }
             this.exposantMorceaux[i][k] = nbChiffres - Math.min(index + j, nbChiffres) - nombreDeChiffresDec
             index += j
           }
