@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, combinaisonListes, lettreIndiceeDepuisChiffre, randint, texFraction } from '../../modules/outils.js'
-import { droiteGraduee2, point, tracePoint, labelPoint } from '../../modules/2d.js'
+import { droiteGraduee, point, tracePoint, labelPoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les abscisses fractionnaires'
@@ -68,7 +68,7 @@ export default function PlacerPointsAbscissesFractionnaires () {
         texte = `Placer les points $${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${texFraction(num, den)}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${texFraction(num2, den)}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${texFraction(num3, den)}\\right)$.`
       }
       const tailleUnite = 4
-      const d = droiteGraduee2({
+      const d = droiteGraduee({
         Min: origine,
         Max: origine + 4 * tailleUnite,
         Unite: tailleUnite,

@@ -5,7 +5,7 @@ import { ajouteChampTexteMathLive } from '../../../modules/interactif/questionMa
 import { setReponse } from '../../../modules/gestionInteractif.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Grandeur from '../../../modules/Grandeur.js'
-import { droiteGraduee2 } from '../../../modules/2d.js'
+import { droiteGraduee } from '../../../modules/2d.js'
 export const titre = 'Course aux nombres début de 5e'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -360,7 +360,7 @@ export default function CourseAuxNombres5e (numeroExercice) {
           c = new FractionEtendue(b, a)
           resultat = calcul(b / a)
 
-          texte = 'Determiner l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee2({
+          texte = 'Determiner l\'abscisse du point A situé ci-dessous :<br>' + mathalea2d({ xmin: -1, ymin: -1, xmax: 14, ymax: 1.5, scale: 0.5 }, droiteGraduee({
             Unite: 3,
             Min: 0,
             Max: 4.2,

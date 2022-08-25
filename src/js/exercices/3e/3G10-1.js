@@ -50,9 +50,9 @@ export default function TransformationsDuPlanEtCoordonnees () {
     const transformation = parseInt(this.sup) - 1
     let listeTypeDeQuestions
     if (this.sup2) {
-      listeTypeDeQuestions = [[1, 2, 3, 4], [7], [8], [5, 6, 9, 10]]
+      listeTypeDeQuestions = [[1, 2, 3, 4], [7], [8], [5, 6], [9, 10]]
     } else {
-      listeTypeDeQuestions = [[1, 2, 3, 4], [3, 4, 7, 7], [1, 3, 7, 8, 7, 8], [1, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]]
+      listeTypeDeQuestions = [[1, 2, 3, 4], [3, 4, 7, 7], [1, 3, 7, 8, 7, 8], [1, 4, 5, 5, 6, 6, 7, 7, 8, 8], [1, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10]]
     }
     const choixTransformation = combinaisonListes(listeTypeDeQuestions[transformation], 3)
     for (let j = 0; j < 3; j++) {
@@ -668,6 +668,6 @@ export default function TransformationsDuPlanEtCoordonnees () {
     this.listeCorrections.push(texteCorr + '<br>' + mathalea2d({ xmin: -10, ymin: -10, xmax: 10, ymax: 10, pixelsParCm: 20, scale: 0.4, mainlevee: false }, objetsCorrection))
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Transformations', 4, ' 1 : Symétrie axiale\n 2 : On ajoute la symétrie centrale\n 3 : On ajoute la translation\n 4 : On ajoute la rotation et l\'homothétie']
-  this.besoinFormulaire2CaseACocher = ['Transofrmations du niveau seulement', false]
+  this.besoinFormulaireNumerique = ['Transformations', 5, ' 1 : Symétrie axiale\n 2 : On ajoute la symétrie centrale\n 3 : On ajoute la translation\n 4 : On ajoute la rotation\n 5 : On ajoute l\'homothétie']
+  this.besoinFormulaire2CaseACocher = ['Transformations du niveau seulement', false]
 }

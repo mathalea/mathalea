@@ -1,11 +1,11 @@
 import LectureDiagrammeBarre from '../6e/6S10.js'
-export const titre = 'Lire un diagramme en barre'
+export const titre = 'Lire un diagramme en barres'
 
 export { interactifReady, interactifType } from '../6e/6S10.js'
 export { amcReady, amcType } from '../6e/6S10.js'
 
 /**
- * Lire un diagramme en barre
+ * Lire un diagramme en barres
  * @author Guillaume Valmont
  * reference 5S11
  * Publié le 08/08/2021

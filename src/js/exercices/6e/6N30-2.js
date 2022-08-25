@@ -2,7 +2,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, combinaisonListes, arrondi, texNombrec, lettreDepuisChiffre, htmlConsigne, egal, calcul } from '../../modules/outils.js'
-import { droiteGraduee2, labelPoint, point, tracePoint } from '../../modules/2d.js'
+import { droiteGraduee, labelPoint, point, tracePoint } from '../../modules/2d.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 export const titre = 'Placer un point d\'abscisse décimale'
 export const interactifReady = true
@@ -134,7 +134,7 @@ export default function PlacerPointsSurAxe () {
         }
       }
 
-      const droite = droiteGraduee2({
+      const droite = droiteGraduee({
         Unite: 3 * pas1,
         Min: abs0,
         Max: abs0 + 6.9 / pas1,

@@ -308,7 +308,6 @@ export default function ExerciceConversionsVolumes (niveau = 1) {
         texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, 'longueur inline largeur25')}$`)
         setReponse(this, i, resultat)
       }
-
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n`a jamais été posée, on en crée une autre
         if (context.vue === 'diap') {
