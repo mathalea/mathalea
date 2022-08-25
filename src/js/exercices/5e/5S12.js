@@ -294,7 +294,7 @@ export default function ConstruireUnDiagramme () {
         objetsCorrection.push(r, g)
 
         paramsEnonce = { xmin: -6.5, ymin: 0, xmax: 6.5, ymax: 0, pixelsParCm: 20, scale: 1, mainlevee: false }
-        paramsCorrection = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7, pixelsParCm: 20, scale: 1, mainlevee: false }
+        paramsCorrection = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 8, pixelsParCm: 20, scale: 1, mainlevee: false }
 
         break
     }

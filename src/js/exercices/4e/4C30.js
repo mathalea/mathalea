@@ -91,14 +91,13 @@ export default function PuissancesDeDix () {
             )} \\times ${eclatePuissance(10, exp[1], coul1)}$`
           }
           texteCorr += '<br>'
-          texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $10$`
+          texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $10$.`
           texteCorr += '<br>'
-          texteCorr += `$${lettre}=10^{${exp[0]}+${exp[1]}} = 10^{${exp[0] + exp[1]
-            }}`
+          texteCorr += `$${lettre}=10^{${exp[0]}+${exp[1]}} = 10^{${exp[0] + exp[1]}}`
           // attention la base est de type str alors que la fonction switch sur un type number
-          if ((exp[1] + exp[0]) % 2 === 0) {
-            texteCorr += `=${simpNotPuissance(10, exp[0] + exp[1])}`
-          }
+          // if ((exp[1] + exp[0]) % 2 === 0) {
+          //  texteCorr += `=${simpNotPuissance(10, exp[0] + exp[1])}`
+          // }
           texteCorr += '$'
           texteCorr += '<br>'
           reponseInteractive = `10^{${exp[0] + exp[1]}}`
@@ -209,7 +208,7 @@ export default function PuissancesDeDix () {
               }}\\thickspace\\color{black}{\\text{facteurs}}}}$`
           }
           texteCorr += '<br>'
-          texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $10$`
+          texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $10$.`
           texteCorr += '<br>'
           texteCorr += `$${lettre}=10^{${exp[0]}\\times${exp[1]}} = 10^{${exp[0] * exp[1]
             }}`
