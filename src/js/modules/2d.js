@@ -7615,7 +7615,7 @@ function Repere ({
   grilleSecondaireYMax = false,
   grilleSecondaireYCouleur = grilleSecondaireCouleur,
   grilleSecondaireYOpacite = grilleSecondaireOpacite
-} = {}) {
+}) {
   ObjetMathalea2D.call(this, { })
 
   // Les propriétés exportables
@@ -9599,7 +9599,7 @@ export function courbe (f, { repere, color = 'black', epaisseur = 2, step = fals
  */
 
 function Integrale (f, {
-  repere = {},
+  repere,
   color = 'black',
   couleurDeRemplissage = 'blue',
   epaisseur = 2,
@@ -9887,7 +9887,7 @@ function GraphiqueInterpole (
   tableau, {
     color = 'black',
     epaisseur = 1,
-    repere = {},
+    repere = {}, // repère par défaut : le laisser...
     step = 0.2
   } = {}
 
@@ -9903,7 +9903,7 @@ function GraphiqueInterpole (
     let depart, fin
     repere.xMin > x0 ? (depart = repere.xMin) : (depart = x0)
     repere.xMax < x1 ? (fin = repere.xMax) : (fin = x1)
-    const c = courbe(f, { step: step, xMin: depart, xMax: fin, color: color, epaisseur: epaisseur, xUnite: repere.xUnite, yUnite: repere.yUnite, yMin: repere.yMin, yMax: repere.yMax })
+    const c = courbe(f, { repere: repere, step: step, xMin: depart, xMax: fin, color: color, epaisseur: epaisseur, xUnite: repere.xUnite, yUnite: repere.yUnite, yMin: repere.yMin, yMax: repere.yMax })
     mesCourbes.push(c)
   }
   this.svg = function (coeff) {
