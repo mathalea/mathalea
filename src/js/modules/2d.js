@@ -1763,10 +1763,10 @@ function Polyline (...points) {
   let ymax = -1000
   for (const unPoint of this.listePoints) {
     if (unPoint.typeObjet !== 'point') window.notify('Polyline : argument invalide', { ...points })
-    xmin = Math.min(xmin, unPoint.x - this.taille / context.pixelsParCm)
-    xmax = Math.max(xmax, unPoint.x + this.taille / context.pixelsParCm)
-    ymin = Math.min(ymin, unPoint.y - this.taille / context.pixelsParCm)
-    ymax = Math.max(ymax, unPoint.y + this.taille / context.pixelsParCm)
+    xmin = Math.min(xmin, unPoint.x)
+    xmax = Math.max(xmax, unPoint.x)
+    ymin = Math.min(ymin, unPoint.y)
+    ymax = Math.max(ymax, unPoint.y)
   }
   this.bordures = [xmin, ymin, xmax, ymax]
   this.nom = ''
@@ -7626,15 +7626,17 @@ function Repere ({
   this.yMin = yMin
   this.yMax = yMax
 
-  this.bordures = [this.xMin * this.xUnite - 1, this.yMin * this.yUnite - 1, this.xMax * this.xUnite + 1, this.yMax * this.yUnite + 1]
+  this.bordures = [xMin * xUnite - 1, yMin * yUnite - 1, xMax * xUnite + 1 + xLegende.length / 3, yMax * yUnite + 1]
 
   const objets = []
   // LES AXES
-  const OrdonneeAxe = Math.max(0, yMin)
-  const axeX = segment(xMin * xUnite, OrdonneeAxe * yUnite, xMax * xUnite, OrdonneeAxe * yUnite, axesCouleur)
+  const ordonneeAxe = Math.max(0, yMin)
+  xLegendePosition = [xMax * xUnite + 0.5, 0.5 + ordonneeAxe]
+  const axeX = segment(xMin * xUnite, ordonneeAxe * yUnite, xMax * xUnite, ordonneeAxe * yUnite, axesCouleur)
   axeX.epaisseur = axesEpaisseur
   axeX.styleExtremites = axeXStyle
   const abscisseAxe = Math.max(0, xMin)
+  yLegendePosition = [0.5 + abscisseAxe, yMax * yUnite + 0.5]
   const axeY = segment(abscisseAxe * xUnite, yMin * yUnite, abscisseAxe * xUnite, yMax * yUnite, axesCouleur)
   axeY.epaisseur = axesEpaisseur
   axeY.styleExtremites = axeYStyle
@@ -7766,7 +7768,7 @@ function Repere ({
       xThickListe = rangeMinMax(xThickMin, xThickMax, [0], xThickDistance)
     }
     for (const x of xThickListe) {
-      const thick = segment(x * xUnite, OrdonneeAxe * yUnite - thickHauteur, x * xUnite, OrdonneeAxe * yUnite + thickHauteur, thickCouleur)
+      const thick = segment(x * xUnite, ordonneeAxe * yUnite - thickHauteur, x * xUnite, ordonneeAxe * yUnite + thickHauteur, thickCouleur)
       thick.isVisible = false
       thick.epaisseur = thickEpaisseur
       objets.push(thick)
@@ -7789,7 +7791,7 @@ function Repere ({
       xLabelListe = rangeMinMax(xLabelMin, xLabelMax, [0], xLabelDistance)
     }
     for (const x of xLabelListe) {
-      const l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, OrdonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+      const l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
       l.isVisible = false
       objets.push(l)
     }
