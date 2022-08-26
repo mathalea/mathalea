@@ -2898,27 +2898,6 @@ export function polygoneToFlatArray (P) {
   return flatArray
 }
 
-/**
- * Cette fonction permet de créer un polygone rapidement à partir d'une liste des coordonnées de ses sommets et éventuellement de leur noms
- * @param {array} flat
- * @param {string} noms
- * @return {Polygone}
- * @author Jean-Claude Lhote
- */
-export function flatArrayToPolygone (flat, noms) {
-  const sommets = []
-  for (let i = 0; i < flat.length; i += 2) {
-    sommets.push(point(flat[i], flat[i + 1]))
-  }
-  const pol = polygone(...sommets)
-  if (typeof noms === 'string') {
-    if (noms.length >= sommets.length) {
-      nommePolygone(pol, noms)
-    }
-  }
-  return pol
-}
-
 function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', couleurDeFond = 'white' }) {
   ObjetMathalea2D.call(this, { })
   const triangles = earcut(data, holes) // on crée le pavage de triangles grâce à Mapbox/earcut
