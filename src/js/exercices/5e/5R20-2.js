@@ -40,12 +40,17 @@ export default function ExerciceAdditionsRelatifsATrou (max = 20) {
       k = choice([[-1, -1], [-1, 1], [1, -1]]) // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
       a = a * k[0]
       b = b * k[1]
+      let termes
+      const rang1 = randint(0, 1)
+      const rang2 = 1 - rang1
       if (this.sup2) {
-        texte = '$ ' + a + ' + ' + '\\ldots\\ldots\\ldots' + ' = ' + (a + b) + ' $'
-        texteCorr = '$ ' + a + ecritureAlgebrique(b) + ' = ' + (a + b) + ' $'
+        termes = [a, '\\ldots\\ldots\\ldots', a, ecritureAlgebrique(b)]
+        texte = '$ ' + termes[rang1] + ' + ' + termes[rang2] + ' = ' + (a + b) + ' $'
+        texteCorr = '$ ' + termes[rang1 + 2] + termes[rang2 + 2] + ' = ' + (a + b) + ' $'
       } else {
-        texte = '$ ' + ecritureNombreRelatif(a) + ' + ' + '\\ldots\\ldots\\ldots' + ' = ' + ecritureNombreRelatif(a + b) + ' $'
-        texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a + b) + ' $'
+        termes = [ecritureNombreRelatif(a), '\\ldots\\ldots\\ldots', ecritureNombreRelatifc(a), ecritureNombreRelatifc(b)]
+        texte = '$ ' + termes[rang1] + ' + ' + termes[rang2] + ' = ' + ecritureNombreRelatif(a + b) + ' $'
+        texteCorr = '$ ' + termes[rang1 + 2] + ' + ' + termes[rang2 + 2] + ' = ' + ecritureNombreRelatifc(a + b) + ' $'
       }
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
