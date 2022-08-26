@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, fixeBordures, texteSurSegment, texteSurArc, rotation, homothetie } from '../../modules/2d.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { point, segmentAvecExtremites, labelPoint, arcPointPointAngle, texteSurSegment, texteSurArc, rotation, homothetie } from '../../modules/2d.js'
 import { context } from '../../modules/context.js'
 import { choice, randint, listeQuestionsToContenu, choisitLettresDifferentes, texNum, combinaisonListes } from '../../modules/outils.js'
 import { fraction, abs, multiply, evaluate, divide, isInteger, pow, round, subtract, max } from 'mathjs'

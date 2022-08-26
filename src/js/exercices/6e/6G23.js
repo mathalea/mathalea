@@ -1,8 +1,8 @@
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, lettreDepuisChiffre, texNombre, contraindreValeur, combinaisonListes } from '../../modules/outils.js'
-import { point, labelPoint, rotation, afficheMesureAngle, sensDeRotation, homothetie, cibleCouronne, texteParPoint, similitude, segment, fixeBordures, demiDroite } from '../../modules/2d.js'
+import { point, labelPoint, rotation, afficheMesureAngle, sensDeRotation, homothetie, cibleCouronne, texteParPoint, similitude, segment, demiDroite } from '../../modules/2d.js'
 
 export const titre = 'Construire un angle de mesure donnée'
 export const amcReady = true

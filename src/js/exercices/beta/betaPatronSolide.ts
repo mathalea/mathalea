@@ -1,7 +1,7 @@
 import Exercice from '../ExerciceTs'
 import { listeQuestionsToContenu, randint, range, shuffle } from '../../modules/outils.js'
-import { boite, fixeBordures } from '../../modules/2d.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { boite } from '../../modules/2d.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 export const titre = 'Compléter des patrons de solides'
 export const interactifReady = true
 export const interactifType = 'mathLive'
