@@ -1129,38 +1129,6 @@ export function dessousDessus (d, A, tolerance = 0.0001) {
 }
 
 /**
- * @param {number} rxmin marge à gauche 0.5 par défaut (peut être fixée à 0 si on veut)
- * @param {number} rxmax marge à droite 0.5 par défaut
- * @param {number} rymin marge en bas 0.5 par défaut (peut être fixée à 0 si on veut)
- * @param {number} rymax marge en haut 0.5 par défaut
- * @param {number} rzoom facteur multiplicatif des marges... implémenté en cas de problème avec le zoom ?
- * @param {object} objets // tableau contenant les objets à afficher
- * Les objets affichables doivent avoir un attribut this.bordures = [xmin, ymin, xmax, ymax] 4 nombres dans cet ordre.
- * Si this.bordures n'est pas défini ou n'est pas un tableau de 4 éléments, l'objet est ignoré
- * Si aucun objet passé en argument n'a de "bordures" alors la fonction retourne une zone inaffichable et un message d'erreur est créé
- * @return {object} {xmin, ymin, xmax, ymax}
- */
-export function fixeBordures (objets, { rxmin = undefined, rymin = undefined, rxmax = undefined, rymax = undefined, rzoom = 1 } = {}) {
-  let xmin = 1000; let ymin = 1000; let xmax = -1000; let ymax = -1000
-  let bordures = false
-  rxmin = rxmin !== undefined ? rxmin : -0.5
-  rymin = rymin !== undefined ? rymin : -0.5
-  rxmax = rxmax !== undefined ? rxmax : 0.5
-  rymax = rymax !== undefined ? rymax : 0.5
-  for (const objet of objets) {
-    if (Array.isArray(objet.bordures) && objet.bordures.length === 4) {
-      xmin = Math.min(xmin, objet.bordures[0])
-      xmax = Math.max(xmax, objet.bordures[2])
-      ymin = Math.min(ymin, objet.bordures[1])
-      ymax = Math.max(ymax, objet.bordures[3])
-      bordures = true
-    }
-  }
-  if (!bordures) window.notify('fixeBordures : aucun objet ne définit de bordures valides', { ...objets })
-  return { xmin: xmin + rxmin * rzoom, xmax: xmax + rxmax * rzoom, ymin: ymin + rymin * rzoom, ymax: ymax + rymax * rzoom }
-}
-
-/**
  *
  * @param {droite} d
  * @param {number} param1 les bordures de la fenêtre
