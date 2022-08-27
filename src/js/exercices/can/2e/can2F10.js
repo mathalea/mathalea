@@ -13,6 +13,8 @@ export const dateDePublication = '27/12/2021' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
+export const uuid = '1380f'
+export const ref = 'can2F10'
 export default function ResoudreEquationsFonctionDeReference2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

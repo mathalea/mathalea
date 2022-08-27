@@ -16,6 +16,8 @@ export const titre = 'Vocabulaire et notations des fonctions (généralités)'
 * @author Jean-Claude Lhote
 * 3F10-1
 */
+export const uuid = '0eecd'
+export const ref = '3F10-1'
 export default function VocabulaireNotationsFonctions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 2

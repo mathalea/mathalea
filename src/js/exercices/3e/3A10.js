@@ -10,6 +10,8 @@ export const titre = 'Comprendre le vocabulaire : division euclidienne, diviseur
  * @author Sébastien Lozano
  * Référence 3A10
  */
+export const uuid = '5b60d'
+export const ref = '3A10'
 export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

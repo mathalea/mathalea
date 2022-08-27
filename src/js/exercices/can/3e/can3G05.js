@@ -14,6 +14,8 @@ export const interactifType = 'mathLive'
  * Référence can3G05
  * Date de publication
 */
+export const uuid = 'c6b9c'
+export const ref = 'can3G05'
 export default function Trigo () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

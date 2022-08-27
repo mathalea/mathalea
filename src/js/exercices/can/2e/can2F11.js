@@ -13,6 +13,8 @@ export const dateDePublication = '30/12/2021' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
+export const uuid = '991c2'
+export const ref = 'can2F11'
 export default function ComparerAvecFctCarre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

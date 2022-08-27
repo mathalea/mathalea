@@ -18,6 +18,8 @@ export const dateDePublication = '26/08/2022'
 * @author Sébastien LOZANO
 * 4C10-10
 */
+export const uuid = '857c1'
+export const ref = '4C10-10'
 export default function ExerciceMultiplicationsRelatifsATrou (max = 10) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max

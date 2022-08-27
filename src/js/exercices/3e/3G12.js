@@ -11,6 +11,8 @@ export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pa
  * Trouver l'image par sune rotation d'une figure dans un pavage
  * Ref 3G12
  */
+export const uuid = '442e0'
+export const ref = '3G12'
 export default function PavageEtRotation2D () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

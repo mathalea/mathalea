@@ -16,6 +16,8 @@ export const dateDePublication = '26/06/2022'
  * Référence can1G04
  *
 */
+export const uuid = 'df08a'
+export const ref = 'can1G04'
 export default function ProduitScalaireNormesAngles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

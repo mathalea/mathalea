@@ -13,6 +13,8 @@ export const interactifType = 'mathLive'
  * publié le  15/11/2020
  * ref 3F13-2
  */
+export const uuid = 'be398'
+export const ref = '3F13-2'
 export default function PremierEscapeGameMathalea () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

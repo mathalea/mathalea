@@ -7,6 +7,8 @@ export const dateDeModifImportante = '27/10/2021'
  *
  * @author Jean-Claude Lhote
  */
+export const uuid = '8164e'
+export const ref = '2N10-2'
 export default function PlacerPointsSurAxe2nde () {
   PlacerPointsSurAxe.call(this)
   this.sup = 5

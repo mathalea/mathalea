@@ -12,6 +12,8 @@ export const titre = 'Montrer qu\'un point appartient ou non à une courbe'
 * @author Gilles Mora
 * 3F10-1
 */
+export const uuid = '36795'
+export const ref = '2F20-1'
 export default function PointSurCourbe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1

@@ -19,6 +19,8 @@ export const dateDePublication = '03/05/2022'
  * @author Eric Elter
  * Publié le 03/05/2022
  */
+export const uuid = '329fe'
+export const ref = '6G23-5'
 export default function CalculerUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

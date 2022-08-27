@@ -16,6 +16,8 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author Stéphane Guyon rendu interactif par JC Lhote + utilisation de decimal.js
  * Référence
 */
+export const uuid = 'a0ad1'
+export const ref = '3G22-1'
 export default function agrandissement () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

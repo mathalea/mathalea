@@ -13,6 +13,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6S01
  */
+export const uuid = '1957a'
+export const ref = 'can6S01'
 export default function LectureDiagrammeBarre () {
   Exercice.call(this)
   this.typeExercice = 'simple'

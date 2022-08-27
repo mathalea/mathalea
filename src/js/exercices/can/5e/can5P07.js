@@ -14,6 +14,8 @@ export const dateDePublication = '19/07/2022'
  * Référence can5P08
  * Date de publication
 */
+export const uuid = 'afbda'
+export const ref = 'can5P07'
 export default function Proportionnalite2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

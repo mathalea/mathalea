@@ -1,5 +1,5 @@
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { codageSegments, milieu, texteParPosition, point, segment, codageAngleDroit } from '../../../modules/2d.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une longueur/un périmètre/une aire (avec des entiers)'
@@ -13,6 +13,8 @@ export const amcType = 'AMCNum'
  * Créé le 03/08/2022
  * Référence canc3M02
  */
+export const uuid = 'cb91f'
+export const ref = 'canc3M02'
 export default function ProblemesDeLongueursEtPerimetreCM () {
   Exercice.call(this)
   this.nbQuestions = 1

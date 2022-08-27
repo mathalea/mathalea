@@ -10,6 +10,8 @@ export const titre = 'Traduire des phrases en calculs et réciproquement'
  * Référence 6C13
  * Relecture : Novembre 2021 par EE
  */
+export const uuid = 'ed0ea'
+export const ref = '6C13'
 export default function VocabulaireEtOperations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

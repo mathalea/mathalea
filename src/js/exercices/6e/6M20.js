@@ -23,6 +23,8 @@ export const dateDeModifImportante = '08/05/2022'
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  * Référence 6M20
  */
+export const uuid = '06b1a'
+export const ref = '6M20'
 export default function AireDeTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.interactifReady = interactifReady

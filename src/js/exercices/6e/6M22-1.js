@@ -22,6 +22,8 @@ export const amcType = 'AMCHybride'
  * @author Rémi Angot (AMC par EE)
  * Référence 6M22-1
  */
+export const uuid = 'f9a02'
+export const ref = '6M22-1'
 export default function PerimetreAireDisques (pa = 3) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -1,5 +1,5 @@
-import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { codageSegments, milieu, texteParPosition, point, segment, codageAngleDroit } from '../../../modules/2d.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, stringNombre, texNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
@@ -14,6 +14,8 @@ export const amcType = 'AMCNum'
  * Créé le 03/08/2022
  * Référence can6M12
  */
+export const uuid = '08764'
+export const ref = 'can6M12'
 export default function ProblemesDeLongueursEtPerimetre () {
   Exercice.call(this)
   this.nbQuestions = 1

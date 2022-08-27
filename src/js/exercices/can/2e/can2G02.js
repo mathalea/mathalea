@@ -14,6 +14,8 @@ export const interactifType = 'mathLive'
  * Référence can2G02
  * Date de publication septembre 2021
 */
+export const uuid = '31f61'
+export const ref = 'can2G02'
 export default function CalculCotePythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

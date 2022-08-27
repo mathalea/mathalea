@@ -21,6 +21,8 @@ export const dateDeModifImportante = '15/01/2022' // Ajout de paramètres
  * Référence 6N23-4
  * Ajout de paramètres, Interactivité et AMC : Janvier 2022 par EE
  */
+export const uuid = 'e8e24'
+export const ref = '6N23-4'
 export default function NombreDecimalOraliseDeDifferentesManieres () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Donner l'écriture décimale de chaque nombre."

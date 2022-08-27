@@ -10,6 +10,8 @@ export const dateDePublication = '25/10/2021'
  * Référence can2F04
  * Date de publication
 */
+export const uuid = '6f13a'
+export const ref = 'can2F04'
 export default function ValeurInterdite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

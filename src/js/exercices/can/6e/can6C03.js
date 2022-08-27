@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6C03
  */
+export const uuid = '2e274'
+export const ref = 'can6C03'
 export default function AdditionATrou () {
   Exercice.call(this)
   this.typeExercice = 'simple'

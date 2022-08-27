@@ -24,6 +24,8 @@ export const titre = 'Résoudre une inéquation quotient'
  * 2N61-4, ex 2L14-2
  * 17/07/2021
  */
+export const uuid = '0716b'
+export const ref = '2N61-4'
 export default function ExerciceInequationQuotient () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.spacing = 2 // Espace entre deux lignes

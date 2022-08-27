@@ -11,6 +11,8 @@ export const titre = 'Déterminer le signe d\'une fonction affine'
 * @author Stéphane Guyon
 * 2F10-3
 */
+export const uuid = '03b71'
+export const ref = '2F10-5'
 export default function signefonctionaffine () {
   Exercice.call(this)
   this.titre = titre

@@ -8,6 +8,8 @@ export const titre = 'Natures de parallélogrammes'
  *
  * @author Sébastien LOZANO
  */
+export const uuid = '86a65'
+export const ref = '2G10-2'
 export default function demonstrationsParallelogrammes2nde () {
   demonstrationsParallelogrammes.call(this)
 }

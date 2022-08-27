@@ -15,6 +15,8 @@ export const dateDeModifImportante = '16/05/2022'
  * Date de publication 05/08/2021
  * Ajout de la translation par Guillaume Valmont le 16/05/2022
 */
+export const uuid = '07d1a'
+export const ref = '5G13'
 export default function ConservationTransformation () {
   Exercice.call(this)
   this.consigne = ''

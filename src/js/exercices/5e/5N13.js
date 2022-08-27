@@ -17,6 +17,8 @@ export const titre = 'Simplification de fractions'
  * @author Rémi Angot
  *  5N13
  */
+export const uuid = 'f8f4e'
+export const ref = '5N13'
 export default function Exercice_fractions_simplifier (max = 11) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max // Correspond au facteur commun

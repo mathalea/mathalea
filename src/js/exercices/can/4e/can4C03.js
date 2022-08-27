@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can4C03
  */
+export const uuid = '22c4c'
+export const ref = 'can4C03'
 export default function QuotientEntierQuiVaBienParFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -25,6 +25,8 @@ export const dateDeModifImportante = '15/03/2022'
  * Date de Publication : 23/07/2021
  * Relecture : Novembre 2021 par EE
 */
+export const uuid = '064ce'
+export const ref = '6P13'
 export default function AugmenterEtReduireDunPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

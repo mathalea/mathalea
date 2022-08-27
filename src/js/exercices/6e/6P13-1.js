@@ -9,6 +9,8 @@ export const titre = 'Remplir une facture'
  * Référence 6P13-1
  * publié le
 */
+export const uuid = '837cd'
+export const ref = '6P13-1'
 export default function CompleterUneFacture () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

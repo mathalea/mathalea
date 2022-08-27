@@ -7,6 +7,8 @@ export const titre = 'Trouver le symétrique d’un point'
  * Créé pendant l'été 2021
  * Référence can6G01
  */
+export const uuid = '135d4'
+export const ref = 'can6G01'
 export default function SymetriqueD1Point () {
   Transformations.call(this)
   this.nbQuestions = 1

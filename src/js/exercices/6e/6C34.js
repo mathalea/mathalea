@@ -16,6 +16,8 @@ export const amcType = 'AMCNum' // Question numérique
 * 6C34
 */
 
+export const uuid = 'b3843'
+export const ref = '6C34'
 export default function DernierChiffre () {
   Exercice.call(this)
   this.sup = 3

@@ -9,6 +9,8 @@ export const titre = 'Déterminer la nature d\'une droite remarquable'
  * @author Jean-Claude Lhote
  * Les droites remarquables du triangle : hauteurs médiatrices....médianes et bissectrices
  */
+export const uuid = '796f3'
+export const ref = '5G22'
 export default function DroiteRemarquableDuTriangle () {
   Exercice.call(this) // Héritage de la classe Exercice()
 

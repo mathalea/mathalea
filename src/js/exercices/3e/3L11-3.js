@@ -13,6 +13,8 @@ export const interactifType = 'mathLive'
 * @author Rémi Angot
 * 3L11-3
 */
+export const uuid = '82313'
+export const ref = '3L11-3'
 export default function DistributiviteSimpleDoubleReduction () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

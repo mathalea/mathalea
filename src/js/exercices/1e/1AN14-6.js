@@ -11,6 +11,8 @@ export const titre = 'Dérivée d\'une composée affine'
  * Référence 1AN14-6
  */
 
+export const uuid = '3391d'
+export const ref = '1AN14-6'
 export default function DeriveeComposee () {
   Exercice.call(this)
   this.titre = titre

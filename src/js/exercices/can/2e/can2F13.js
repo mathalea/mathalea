@@ -10,6 +10,8 @@ export const dateDePublication = '18/01/2022' // La date de publication initiale
 /*!
  * @author Degrange Mathieu
  */
+export const uuid = '1afde'
+export const ref = 'can2F13'
 export default function CANImageFonctionsRefs () {
   ImageFonctionsRefs.call(this)
   this.can = true

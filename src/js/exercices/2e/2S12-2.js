@@ -19,6 +19,8 @@ export const dateDePublication = '06/01/2022'
 * 2S12-1
 */
 
+export const uuid = '018f3'
+export const ref = '2S12-2'
 export default function EvolutionsSuccesives () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -8,6 +8,8 @@ export const titre = 'Compter et lister les diviseurs d\'un entier à partir de 
  * @author Sébastien Lozano
  * Référence 3A10-4
  */
+export const uuid = '4117b'
+export const ref = '3A10-4'
 export default function listerDiviseursParDecompositionFacteursPremiers () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()
