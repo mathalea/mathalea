@@ -26,7 +26,7 @@ function remplaceParZero (chaine, place) {
  */
 export default function RecomposerEntierC3 () {
   Exercice.call(this)
-  this.nbQuestions = 14
+  this.nbQuestions = 4
   this.sup = 5 // nombre de chiffres minimum du nombre à décomposer
   this.sup2 = 7 // nombre de chiffres maximum du nombre à décomposer
   this.sup3 = '0-1-2-3-4-5-6-7-8-9-10-11-12-13'

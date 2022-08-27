@@ -1,6 +1,6 @@
 # Liste des exos AMC et INTERACTIFS
-- nombre d'exos amcReady 488 
-- nombre d'exos interactifReady 761 
+- nombre d'exos amcReady 492 
+- nombre d'exos interactifReady 765 
 
 |id|titre|amcReady|amcType|interactifReady|interactifType|
 |:-:|:-:|:-:|:-:|:-:|:-:|
@@ -21,6 +21,7 @@
 |2G30-1|Déterminer le coefficient directeur d'une droite.|OK|AMCHybride|OK|mathLive|
 |2G35-7|Lecture graphique des coefficients d'une équation réduite |OK|AMCHybride|OK|mathLive|
 |2N10-1|Lire l’abscisse décimale d’un point repéré par une fraction|OK|AMCHybride|OK|mathLive|
+|2N10-2|Placer un point d'abscisse décimale|OK|AMCOpen|OK|custom|
 |2N10-3|Utiliser les abscisses fractionnaires|KO|KO|OK|custom|
 |2N12-1|Encadrer une fraction entre deux nombres entiers|OK|AMCHybride|OK|mathLive|
 |2N12-2|Encadrer avec des puissances de 10|KO|KO|OK|mathLive|
@@ -131,6 +132,7 @@
 |4A12|Résoudre des problèmes de conjonction de phénomènes|OK|AMCNum|OK|mathLive|
 |4C10-0|Signe d'un produit ou d'un quotient de nombres relatifs|OK|qcmMono|OK|qcm|
 |4C10-1|Signe d'un produit de nombres relatifs|OK|qcmMono|OK|qcm|
+|4C10-10|Multiplication à trou de deux entiers relatifs|OK|qcmMono|OK|qcm|
 |4C10-2|Signe d'un quotient de nombres relatifs|OK|qcmMono|OK|qcm|
 |4C10-3|Multiplication de deux entiers relatifs|KO|KO|OK|mathLive|
 |4C10-4|Quotient de deux entiers relatifs|KO|KO|OK|mathLive|
@@ -241,7 +243,7 @@
 |5R20|Addition de deux entiers relatifs|OK|qcmMono|OK|qcm,mathLive|
 |5R21|Soustraction de deux entiers relatifs|OK|AMCNum|OK|mathLive|
 |5R22|Additions et soustractions de nombres relatifs|OK|AMCOpenNum|OK|mathLive|
-|5S11|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
+|5S11|Lire un diagramme en barres|OK|AMCHybride|OK|mathLive|
 |5S13-2|Calculs de fréquences|OK|AMCHybride|OK|mathLive|
 |5S13|Calculer des fréquences|OK|AMCHybride|OK|mathLive|
 |5S14|Calculer des moyennes|OK|AMCHybride|OK|mathLive|
@@ -332,7 +334,7 @@
 |6N10-3|Décomposer un nombre entier (nombre de ..., chiffres des ...)|OK|AMCNum|OK|mathLive|
 |6N10-5|Parcourir un labyrinthe de numération décimale|OK|AMCOpen|KO|KO|
 |6N10-6|Donner l'écriture (décimale ou en fraction décimale) d'une somme (ou différence) de nombres avec fractions décimales|OK|AMCNum|OK|mathLive|
-|6N10-7|Recomposer un entier|OK|AMCNum|OK|custom|
+|6N10-7|Recomposer un décimal ou un entier|OK|AMCNum|OK|custom|
 |6N10|Écrire un nombre entier en chiffres ou en lettres|KO|KO|OK|mathLive|
 |6N11-2|Placer un point d'abscisse entière (grands nombres)|OK|AMCOpen|OK|custom|
 |6N11|Lire l'abscisse entière d'un point (grands nombres)|OK|AMCOpen|OK|mathLive|
@@ -380,7 +382,7 @@
 |6P13|Augmenter ou diminuer d'un pourcentage|OK|AMCHybride|OK|mathLive|
 |6P14|Agrandir ou réduire des figures, d'après une situation de proportionnalité|OK|AMCHybride|OK|mathLive|
 |6S10-1|Représenter des données par un diagramme|OK|AMCHybride|OK|qcm|
-|6S10|Lire un diagramme en barre|OK|AMCHybride|OK|mathLive|
+|6S10|Lire un diagramme en barres|OK|AMCHybride|OK|mathLive|
 |FichierDeTests|Calculer un angle, déduit de figures simples|KO|KO|OK|mathLive|
 |Yohaku|Générateur de Yohaku|KO|KO|OK|custom|
 |CM000|Additions et de soustractions|OK|AMCNum|OK|mathLive|
@@ -697,7 +699,7 @@
 |can6C24|Multiplier par 0,1 ou 0,01 ou 0,001|OK|AMCNum|OK|mathLive|
 |can6C25|Rechercher un prix unitaire|KO|KO|OK|mathLive|
 |can6C26|Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01|OK|AMCNum|OK|mathLive|
-|can6C27|Résoudre un problème concret|KO|KO|OK|mathLive|
+|can6C27|Résoudre un problème de rendu de monnaie|KO|KO|OK|mathLive|
 |can6C28|Résoudre un problème de fraction|KO|KO|OK|mathLive|
 |can6C29|Résoudre un problème de partage|OK|AMCNum|OK|mathLive|
 |can6C30|Multiplier deux décimaux|OK|AMCNum|OK|mathLive|
@@ -731,6 +733,7 @@
 |can6M09|Calculer des longueurs à partir des périmètres|KO|KO|OK|mathLive|
 |can6M10|Volume de pavé droit|OK|AMCNum|OK|mathLive|
 |can6M11|Volume de pavé droit par dénombrement de cubes unités|OK|AMCNum|OK|mathLive|
+|can6M12|Calculer une longueur/un périmètre (avec des décimaux)|OK|AMCNum|OK|mathLive|
 |can6N01|Recomposer un entier|OK|AMCNum|OK|mathLive|
 |can6N02|Recomposer un entier (bis)|OK|AMCNum|OK|mathLive|
 |can6N03|Recomposer un entier*|OK|AMCNum|OK|mathLive|
@@ -772,6 +775,7 @@
 |canc3D02|Lire une durée|KO|KO|OK|mathLive|
 |canc3D03|Ajouter des durées|KO|KO|OK|mathLive|
 |canc3M01|Trouver la bonne unité|OK|AMCOpen|OK|mathLive|
+|canc3M02|Calculer une longueur/un périmètre/une aire (avec des entiers)|OK|AMCNum|OK|mathLive|
 |canc3N01|Écrire en lettres un nombre entier (QCM)|OK|qcmMono|OK|qcm|
 |canc3N02|Trouver un nombre sur une droite graduée|OK|AMCNum|OK|mathLive|
 |canc3N03|Trouver le plus grand nombre entier|OK|AMCNum|OK|mathLive|
