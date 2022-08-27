@@ -533,7 +533,7 @@ function miseAJourDuCode () {
   // Active ou désactive l'icone de la course aux nombres
   let tousLesExercicesSontInteractifs = true
   for (const exercice of listeObjetsExercice) {
-    if (!exercice.interactifReady) {
+    if (exercice.interactifReady === undefined || !exercice.interactifReady) {
       tousLesExercicesSontInteractifs = false
       if (document.getElementById('btnCan') && document.getElementById('btnEval')) {
         document.getElementById('btnCan').classList.add('disabled')
