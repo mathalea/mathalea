@@ -7198,14 +7198,14 @@ export function labelY (...args) {
 }
 /**
  * grille(xmin,ymin,xmax,ymax,color,opacite,step,pointilles) // Trace les axes des abscisses et des ordonnées
- * @param {number} [xmin=-30]
- * @param {number} [ymin=-30]
- * @param {number} [xmax=30]
- * @param {number} [ymax=30]
- * @param {string} [color='gray']
- * @param {number} [opacite=0.4]
- * @param {number} [step=1]
- * @param {boolean} [pointilles=false]
+ * @param {number} [xmin = -30]
+ * @param {number} [ymin = -30]
+ * @param {number} [xmax = 30]
+ * @param {number} [ymax = 30]
+ * @param {string} [color = 'gray']
+ * @param {number} [opacite = 0.4]
+ * @param {number} [step = 1]
+ * @param {boolean} [pointilles = false]
  * @return Une grille quadrillée dont le coin en bas à gauche est (xmin,ymin) et celui à droite est au maximum (xmax,ymax), de couleur et opacité choisie, avec un pas choisi et avec ou sans pointillés
  * @author Rémi Angot
  */
