@@ -7196,19 +7196,26 @@ function LabelY (
 export function labelY (...args) {
   return new LabelY(...args)
 }
-/**
- * grille(xmin,ymin,xmax,ymax,color,opacite,step,pointilles) // Trace les axes des abscisses et des ordonnées
- * @param {number} [xmin = -30]
- * @param {number} [ymin = -30]
- * @param {number} [xmax = 30]
- * @param {number} [ymax = 30]
- * @param {string} [color = 'gray']
- * @param {number} [opacite = 0.4]
- * @param {number} [step = 1]
- * @param {boolean} [pointilles = false]
- * @return Une grille quadrillée dont le coin en bas à gauche est (xmin,ymin) et celui à droite est au maximum (xmax,ymax), de couleur et opacité choisie, avec un pas choisi et avec ou sans pointillés
+
+/**  Trace Une grille quadrillée dont le coin en bas à gauche est (xmin, ymin) et celui à droite est au maximum (xmax, ymax), de couleur et opacité choisie, avec un pas choisi et avec ou sans pointillés
+ * @param {number} [xmin = -30] Abscisse du coin en bas à gauche de la grille
+ * @param {number} [ymin = -30] Ordonnée du coin en bas à gauche de la grille
+ * @param {number} [xmax = 30] Abscisse du coin en haut à droite de la grille
+ * @param {number} [ymax = 30] Ordonnée du coin en haut à droite de la grille
+ * @param {string} [color = 'gray'] Couleur de la grille : du type 'blue' ou du type '#f15929'
+ * @param {number} [opacite = 0.4] Opacité de la grille : entre 0 et 1
+ * @param {number} [step = 1] Pas de la grille
+ * @param {boolean} [pointilles = false] Présence (ou non) de pointillés
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur de la grille. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {Vecteur} opacite Opacité de la grille : entre 0 et 1
  * @author Rémi Angot
+ * @class
  */
+// JSDOC Validee par EE Aout 2022
 function Grille (
   xmin = -30,
   ymin = -30,
@@ -7239,7 +7246,7 @@ function Grille (
     }
     objets.push(s)
   }
-  this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${this.color}, opacite = ${this.opacite}, pas = ${step})`
+  // this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${this.color}, opacite = ${this.opacite}, pas = ${step})`
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
