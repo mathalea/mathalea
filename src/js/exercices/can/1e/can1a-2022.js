@@ -540,7 +540,6 @@ export default function SujetCAN2022Premiere () {
           texteCorr = `Multiplier par $${texNombre(a, 2)}$ revient à multiplier par $1-\\dfrac{${texNombre(100 - a * 100, 0)}}{100}$. <br>
           Cela revient donc à baisser de $${texNombre(100 - a * 100)} \\%$. `
           reponse = new Decimal(a).mul(-1).add(1).mul(100)
-          console.log(reponse)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) { texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '$\\%$' } else { texte += ' $\\ldots$ $\\%$' }
           nbChamps = 1

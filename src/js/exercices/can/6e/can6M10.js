@@ -26,11 +26,9 @@ export default function VolumePaveSimple () {
     const l = randint(2, 5)
     const L = randint(2, 4)
     const h = randint(2, 6, [l, L])
-    console.log(l, L, h)
     const pav = pave(L, l, h)
     this.question = `L'unité de longueur est le centimètre. Quel est le volume du pavé droit ci-dessous ?<br>
   ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: h + l * 0.5 }, pav)}`
-    console.log(pav.svg(30))
     this.reponse = L * l * h
     this.correction = `Le volume de ce pavé droit est : $${L}\\text{cm}\\times ${l}\\text{cm}\\times ${h}\\text{cm}=${this.reponse}\\text{cm}^3$`
   }

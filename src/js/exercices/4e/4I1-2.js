@@ -543,7 +543,6 @@ export default function AlgoTortue () { // √ßa c'est la classe qui permet de cr√
     texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}`
     if (this.interactif && context.isHtml) {
       texte += `<span id="resultatCheckEx${this.numeroExercice}Q0"></span>`
-      console.log(this.numeroExercice)
     }
     this.figures[0] = [{ id: `figure0Ex${this.numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 0) },
       { id: `figure1Ex${numeroExercice}Q0`, solution: (ordreLutins.indexOf(bonneReponse) === 1) },

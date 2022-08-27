@@ -21,8 +21,6 @@ export class Yohaku {
     this.solution = solution
     this.type = type
     this.cellulesPreremplies = cellulesPreremplies
-    console.log(this.type, this.valeurMax)
-
     // Si les cellules ne sont pas données, on en calcule le contenu aléatoirement.
     if (cellules === undefined || cellules.length === 0) {
       const den = randint(2, this.valeurMax)

@@ -151,7 +151,6 @@ export default function LecturesGraphiques () {
             if (k < noeuds.length) antecedentTrouve = true
           }
           x0 = antecedentInterpole([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], y0)
-          console.log(y0)
           texte = `Lire graphiquement le plus petit antécédent de $${texNombre(y0, 1)}$ par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
           if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
           reponses[i] = arrondi(x0, 1)

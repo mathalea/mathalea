@@ -37,7 +37,6 @@ export default function EncadrerFractionEntre2Entiers () {
     this.autoCorrection = []
     this.liste_de_denominateurs = this.lycee ? combinaisonListes([2, 3, 4, 5, 6, 7, 8, 9], this.nbQuestions) : combinaisonListes([2, 3, 4, 5, 10], this.nbQuestions)
     this.liste_de_k = this.lycee ? combinaisonListes(rangeMinMax(-5, 5), this.nbQuestions) : combinaisonListes([0, 1, 2, 3, 4, 5], this.nbQuestions)
-    console.log(this.lycee)
     for (let i = 0, texte, texteCorr, n, d, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       d = this.liste_de_denominateurs[i]
       k = this.liste_de_k[i]

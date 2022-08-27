@@ -48,8 +48,6 @@ export default function RecomposerEntierC3 () {
     listeNombresDemandes[0] = contraindreValeur(0, 4, listeNombresDemandes[0], 4)
     if (listeNombresDemandes[0] === 4) listeNombresDemandes = rangeMinMax(0, 3)
     const nombreDeChiffresDec = combinaisonListes(listeNombresDemandes, this.nbQuestions)
-    console.log(nombreDeChiffresDec)
-    console.log(listeTypeDeQuestions)
     this.nombreDeChamps = []
 
     this.premierChamp = []

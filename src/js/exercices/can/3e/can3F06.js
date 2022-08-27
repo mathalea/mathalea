@@ -32,7 +32,6 @@ export default function CoefficientFonctionAffine () {
     On en déduit $ ${c}a=${d}-${ecritureParentheseSiNegatif(b)}$, d'où $a=\\dfrac{${d}-${ecritureParentheseSiNegatif(b)}}{${c}}=\\dfrac{${d - b}}{${c}}=${texFractionReduite(d - b, c)}$.`
 
       this.reponse = (d - b) / c
-      console.log(this.reponse)
     } else {
       this.question = `$f$ est une fonction affine telle que $f(x)=ax-${abs(b)}$ et $f(${c})=${d}$.<br>
       La valeur de $a$ est :
@@ -41,7 +40,6 @@ export default function CoefficientFonctionAffine () {
     On en déduit $${c}a=${d}-${ecritureParentheseSiNegatif(b)}$, d'où $a=\\dfrac{${d}-${ecritureParentheseSiNegatif(b)}}{${c}}=\\dfrac{${d - b}}{${c}}=${texFractionReduite(d - b, c)}$.`
 
       this.reponse = (d - b) / c
-      console.log(this.reponse)
     }
   }
 }

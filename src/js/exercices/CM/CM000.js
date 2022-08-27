@@ -137,7 +137,6 @@ export default function TablesAdditionsSoustractions () {
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
-    console.log(this.autoCorrection)
   }
   this.besoinFormulaireNumerique = ['Valeur maximale', 9999] // Texte, tooltip
   this.besoinFormulaire2Numerique = [

@@ -24,7 +24,6 @@ export default function YohakuCan6b () {
     this.question = 'Les nombres en bout de ligne ou de colonne sont les produits des nombres contenus dans la ligne ou la colonne.<br>'
     this.question += `Donner la valeur de la case ${yohaku1.cellulesPreremplies[indexReponse]}<br>${yohaku1.representation()}`
     this.reponse = yohaku1.cellules[indexReponse]
-    console.log(indexReponse, yohaku1)
     yohaku1.solution = true
     this.correction = `la valeur de la case ${yohaku1.cellulesPreremplies[indexReponse]} est : ${this.reponse}<br>`
     this.correction += yohaku1.representation()

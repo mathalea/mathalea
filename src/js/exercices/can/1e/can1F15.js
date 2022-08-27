@@ -222,7 +222,6 @@ export default function LectureGraphiqueNombreDerivee () {
 
         this.formatInteractif = 'fractionEgale'
         this.reponse = frac
-        console.log(this.reponse)
         break
 
       case 5:// exp(ax) avec a<0
