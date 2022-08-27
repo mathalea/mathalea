@@ -1,8 +1,8 @@
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
-import { choice, texFraction, texFractionReduite, simplificationDeFractionAvecEtapes, texteEnCouleur } from '../../../modules/outils.js'
-import { point, segmentAvecExtremites, codageSegments, labelPoint, texteParPosition, fractionParPosition } from '../../../modules/2d.js'
+import { choice, texFraction, texFractionReduite, simplificationDeFractionAvecEtapes, texteEnCouleur, randint } from '../../../modules/outils.js'
+import { point, segmentAvecExtremites, codageSegments, labelPoint, texteParPosition, latexParCoordonnees, milieu } from '../../../modules/2d.js'
 export const titre = 'Calculer le "milieu" entre 1 et une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,18 +26,20 @@ export default function MilieuEntre1EtFraction () {
     const n = fractionR[0]
     const d = fractionR[1]
     const A = point(0, 0, '1', 'below')
-    const B = point(4, 0, 'M', 'below')
-    const C = point(8, 0)
+    const C = point(randint(8, 12), 0)
+    const B = milieu(A, C, 'M', 'below')
     const objets = []
     objets.push(segmentAvecExtremites(A, B), segmentAvecExtremites(B, C), labelPoint(B), codageSegments('||', 'blue', A, B, B, C))
     objets.push(texteParPosition('1', 0, -0.6, 'milieu', 'black', 1, 'middle', true)
     )
-    objets.push(fractionParPosition({ x: 8, y: -1, fraction: fraction(n, d), couleur: 'black' }))
+    // objets.push(fractionParPosition({ x: 8, y: -1, fraction: fraction(n, d), couleur: 'black' }))
+    objets.push(latexParCoordonnees(fraction(n, d).texFraction, C.x, -1, 'black', 20, 20, 'white', 6))
+
     this.question = 'Donner l\'abscisse du point $M$ sous forme d’une fraction irréductible.<br>'
     this.question += mathalea2d({
       xmin: -1,
       ymin: -2,
-      xmax: 10,
+      xmax: C.x + 1,
       ymax: 1,
       pixelsParCm: 20,
       mainlevee: false,
@@ -56,5 +58,3 @@ export default function MilieuEntre1EtFraction () {
     this.reponse = texFractionReduite(d + n, 2 * d)
   }
 }
-// fractionParPosition({ x: 8, y: -0.5, fraction: fraction(n, d) })
-// ${texFraction(n, d)}

@@ -2898,27 +2898,6 @@ export function polygoneToFlatArray (P) {
   return flatArray
 }
 
-/**
- * Cette fonction permet de créer un polygone rapidement à partir d'une liste des coordonnées de ses sommets et éventuellement de leur noms
- * @param {array} flat
- * @param {string} noms
- * @return {Polygone}
- * @author Jean-Claude Lhote
- */
-export function flatArrayToPolygone (flat, noms) {
-  const sommets = []
-  for (let i = 0; i < flat.length; i += 2) {
-    sommets.push(point(flat[i], flat[i + 1]))
-  }
-  const pol = polygone(...sommets)
-  if (typeof noms === 'string') {
-    if (noms.length >= sommets.length) {
-      nommePolygone(pol, noms)
-    }
-  }
-  return pol
-}
-
 function PolygoneATrous ({ data = [], holes = [], noms = '', color = 'black', couleurDeRemplissage = 'blue', couleurDeFond = 'white' }) {
   ObjetMathalea2D.call(this, { })
   const triangles = earcut(data, holes) // on crée le pavage de triangles grâce à Mapbox/earcut
@@ -10496,57 +10475,6 @@ export function latexParCoordonnees (texte, x, y, color = 'black', largeur = 50,
   else return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
 }
 
-/**
- * Fonction dépréciée depuis que latexParCoordonnees() est au point.
- * x,y sont les coordonnées du début du trait de fraction, 0;0 par défaut
- * num et den sont les numérateurs et dénominateurs (1 et 2) par défaut
- * On peut changer la couleur (noir par défaut)
- * permet d'afficher une fraction à une position donnée en SVG et Latex
- * Les nombres ne sont pas en mode Maths
- *
- * @author Jean-Claude Lhote
- */
-
-function FractionParPosition ({ x = 0, y = 0, fraction = { num: 1, den: 2 }, couleur = 'black' } = {}) {
-  ObjetMathalea2D.call(this, { })
-  const num = Math.abs(fraction.num)
-  const den = Math.abs(fraction.den)
-  const signe = fraction.signe
-  const longueur = Math.max(Math.floor(Math.log10(num)) + 1, Math.floor(Math.log10(den)) + 1) * 10
-  const offset = 10
-
-  this.svg = function (coeff) {
-    const s = segment(x - longueur / coeff / 2, y, x + longueur / coeff / 2, y, couleur)
-    s.isVisible = false
-    let code = s.svg(coeff)
-    if (signe === -1) {
-      code += segment(x - ((longueur + 15) / coeff / 2), y, x - ((longueur + 5) / coeff / 2), y, couleur).svg(coeff)
-    }
-    const t1 = texteParPosition(nombreAvecEspace(num), x, y + offset / coeff, 'milieu', couleur)
-    code += t1.svg(coeff)
-    const t2 = texteParPosition(nombreAvecEspace(den), x, y - offset / coeff, 'milieu', couleur)
-    code += t2.svg(coeff)
-    t1.isVisible = false
-    t2.isVisible = false
-    code = `<g id="${this.id}">${code}</g>`
-    return code
-  }
-
-  this.tikz = function () {
-    let code = segment(x, y, x + longueur / 30 / context.scale, y, couleur).tikz()
-    if (signe === -1) {
-      code += segment(x - ((longueur / 30 + 0.785) / context.scale / 2), y, x - ((longueur / 30 + 0.25) / context.scale / 2), y, couleur).tikz()
-    }
-    code += texteParPosition(nombreAvecEspace(num), x + longueur / 60 / context.scale, y + offset / 30 / context.scale, 'milieu', couleur).tikz()
-    code += texteParPosition(nombreAvecEspace(den), x + longueur / 60 / context.scale, y - offset / 30 / context.scale, 'milieu', couleur).tikz()
-    return code
-  }
-}
-
-export function fractionParPosition (arg) {
-  return new FractionParPosition(arg)
-}
-
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% LES FONCTIONS - CALCULS %%%%%%%%
@@ -11494,7 +11422,7 @@ function Labyrinthe (
         } else if (typeof (nombres[a - 1][b]) === 'string') { // écriture mode Maths
           objets.push(texteParPosition(nombres[a - 1][b], -1.5 + a * 3, 2.5 + b * 3, 'milieu', 'black', taille, 0, true))
         } else {
-          objets.push(fractionParPosition({ x: -1.5 + a * 3, y: 2.5 + b * 3, fraction: nombres[a - 1][b] }))
+          objets.push(latexParCoordonnees(nombres[a - 1][b].texFraction, -1.5 + a * 3, 2.5 + b * 3, 'black', 20, 20, 'white', 6))
         }
       }
     }

@@ -50,5 +50,3 @@ export default function MilieuEntre1EtFraction () {
     this.reponse = (a + b) / 2
   }
 }
-// fractionParPosition({ x: 8, y: -0.5, fraction: fraction(n, d) })
-// ${texFraction(n, d)}
