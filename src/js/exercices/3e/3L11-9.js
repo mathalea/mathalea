@@ -13,4 +13,6 @@ export default function RoseAdditive4L () { // c'est l'ExoRose zéro contenu dan
   ExoRose.call(this) // Héritage de la classe Exercice()
   this.operation = 'multiplication'
   this.typeDonnees = 'littéraux'
+  this.besoinFormulaireNumerique = ['Valeur maximale (entre 10 et 30) des facteurs', 30]
+  this.besoinFormulaire2Numerique = ['Nombre de facteur entre 3 et 5', 5]
 }
