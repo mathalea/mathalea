@@ -1,5 +1,5 @@
 import FabriqueAYohaku from './Yohaku.js'
-export const titre = 'Yahoku additif niveau 1'
+export const titre = 'Yohaku additif niveau 1'
 export const dateDePublication = '10/08/2022'
 export { interactifReady, interactifType } from '../6e/Yohaku.js'
 

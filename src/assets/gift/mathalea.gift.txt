@@ -1147,7 +1147,7 @@ $CATEGORY: Mathalea/3e
 
 $CATEGORY: Mathalea/3e
 
-:: Mathalea - Yahoku multiplicatif expressions littérales niveau 1 (3L11-8) ::
+:: Mathalea - Yohaku multiplicatif expressions littérales niveau 1 (3L11-8) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="3L11-8" />
 {
@@ -1466,7 +1466,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Yahoku multiplicatif nombres relatifs niveau 1 (4C10-8) ::
+:: Mathalea - Yohaku multiplicatif nombres relatifs niveau 1 (4C10-8) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4C10-8" />
 {
@@ -1532,7 +1532,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Yahoku additif fractions niveau 1 (4C21-2) ::
+:: Mathalea - Yohaku additif fractions niveau 1 (4C21-2) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4C21-2" />
 {
@@ -1587,7 +1587,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Yahoku multiplicatif fractions niveau 1 (4C22-3) ::
+:: Mathalea - Yohaku multiplicatif fractions niveau 1 (4C22-3) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4C22-3" />
 {
@@ -2005,7 +2005,7 @@ $CATEGORY: Mathalea/4e
 
 $CATEGORY: Mathalea/4e
 
-:: Mathalea - Yahoku additif expressions littérales niveau 1 (4L10-3) ::
+:: Mathalea - Yohaku additif expressions littérales niveau 1 (4L10-3) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="4L10-3" />
 {
@@ -2555,7 +2555,7 @@ $CATEGORY: Mathalea/5e
 
 $CATEGORY: Mathalea/5e
 
-:: Mathalea - Yahoku additif nombres relatifs niveau 1 (5R20-6) ::
+:: Mathalea - Yohaku additif nombres relatifs niveau 1 (5R20-6) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="5R20-6" />
 {
@@ -2720,7 +2720,7 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
-:: Mathalea - Yahoku additif niveau 1 (6C10-7a) ::
+:: Mathalea - Yohaku additif niveau 1 (6C10-7a) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6C10-7a" />
 {
@@ -2731,7 +2731,7 @@ $CATEGORY: Mathalea/6e
 
 $CATEGORY: Mathalea/6e
 
-:: Mathalea - Yahoku multiplicatif niveau 1 (6C10-7b) ::
+:: Mathalea - Yohaku multiplicatif niveau 1 (6C10-7b) ::
 <script src\="https\://coopmaths.fr/assets/externalJs/moodle.js" type\="module"></script>
 <mathalea-moodle ex\="6C10-7b" />
 {
