@@ -3240,7 +3240,7 @@ export function aireTriangle (p) {
  * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
- * @param {number} [pointilles = 0] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de pointillés.
  * @param {number} [opacite = 1] Opacité du cercle
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
@@ -3254,7 +3254,7 @@ export function aireTriangle (p) {
  * @property {string} color Couleur du cercle ou 'none'. À associer obligatoirement à colorToLatexOrHTML().
  * @property {string} couleurDeRemplissage Couleur de remplissage ou 'none'. À associer obligatoirement à colorToLatexOrHTML().
  * @property {number} epaisseur Epaisseur du cercle
- * @property {number} pointilles Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @property {number} pointilles Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de pointillés.
  * @property {number} opacite Opacité du cercle
  * @property {number} opaciteDeRemplissage Opacité du disque si couleur de remplissage choisie.
  * @property {string} hachures Hachures ou pas ?
@@ -3436,7 +3436,7 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
  * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
- * @param {number} [pointilles = 0] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de pointillés.
  * @param {number} [opacite = 1] Opacité du cercle
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
@@ -3755,7 +3755,7 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
  * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
- * @param {number} [pointilles = 0] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de pointillés.
  * @param {number} [opacite = 1] Opacité du cercle
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
@@ -6997,7 +6997,7 @@ export function labelY (...args) {
  * @param {string} [color = 'gray'] Couleur de la grille : du type 'blue' ou du type '#f15929'
  * @param {number} [opacite = 0.4] Opacité de la grille : entre 0 et 1
  * @param {number} [step = 1] Pas de la grille
- * @param {number} [pointilles = 0] Style des pointillés de la grille (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés de la grille (entier entre 1 et 5). Si autre chose, pas de pointillés.
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
@@ -7068,7 +7068,7 @@ function Grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', o
  * @param {string} [color = 'gray'] Couleur de la grille : du type 'blue' ou du type '#f15929'
  * @param {number} [opacite = 0.4] Opacité de la grille : entre 0 et 1
  * @param {number} [step = 1] Pas de la grille
- * @param {number} [pointilles = 0] Style des pointillés de la grille (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés de la grille (entier entre 1 et 5). Si autre chose, pas de pointillés.
  * @example grid = grille() // Trace une grille avec toutes les options par défaut
  * @example grid = grille(-3, -3, 27, 18, 'red', 0.2, 0.5, true) // Trace une grille avec toutes les options différentes de celles par défaut
  * @author Rémi Angot
@@ -7087,7 +7087,7 @@ export function grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'g
  * @param {string} [color = 'gray'] Couleur de ces parallèles : du type 'blue' ou du type '#f15929'
  * @param {number} [opacite = 0.4] Opacité de ces parallèles : entre 0 et 1
  * @param {number} [step = 1] Pas de ces parallèles
- * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de pointillés.
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
@@ -7144,7 +7144,7 @@ function LignesHorizontales (
  * @param {string} [color = 'gray'] Couleur de ces parallèles : du type 'blue' ou du type '#f15929'
  * @param {number} [opacite = 0.4] Opacité de ces parallèles : entre 0 et 1
  * @param {number} [step = 1] Pas de ces parallèles
- * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de pointillés.
  * @example grid = lignesHorizontales() // Trace des parallèles à l'axe des abscisses avec toutes les options par défaut
  * @example grid = lignesHorizontales(-3, -3, 27, 18, 'red', 0.2, 0.5, true) // Trace des parallèles à l'axe des abscisses avec toutes les options différentes de celles par défaut
  * @author Rémi Angot
@@ -7163,7 +7163,7 @@ export function lignesHorizontales (xmin = -30, ymin = -30, xmax = 30, ymax = 30
  * @param {string} [color = 'gray'] Couleur de ces parallèles : du type 'blue' ou du type '#f15929'
  * @param {number} [opacite = 0.4] Opacité de ces parallèles : entre 0 et 1
  * @param {number} [step = 1] Pas de ces parallèles
- * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de pointillés.
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
@@ -7216,7 +7216,7 @@ function LignesVerticales (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color =
  * @param {string} [color = 'gray'] Couleur de ces parallèles : du type 'blue' ou du type '#f15929'
  * @param {number} [opacite = 0.4] Opacité de ces parallèles : entre 0 et 1
  * @param {number} [step = 1] Pas de ces parallèles
- * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de pointillés.
  * @example grid = lignesHorizontales() // Trace des parallèles à l'axe des ordonnées avec toutes les options par défaut
  * @example grid = lignesHorizontales(-3, -3, 27, 18, 'red', 0.2, 0.5, true) // Trace des parallèles à l'axe des ordonnées avec toutes les options différentes de celles par défaut
  * @author Rémi Angot
@@ -9346,7 +9346,7 @@ export function lectureAntecedent (...args) {
  * @author Rémi Angot
  * @class
  */
-// JSDOC Validee par EE Juin 2022
+// JSDOC Validee par EE Aout 2022
 function Courbe (f, {
   repere = {},
   color = 'black',
@@ -9448,30 +9448,39 @@ function Courbe (f, {
  * @author Rémi Angot
  * @return {Courbe}
  */
-// JSDOC Validee par EE Juin 2022
+// JSDOC Validee par EE Aout 2022
 export function courbe (f, { repere = {}, color = 'black', epaisseur = 2, step = false, xMin, xMax, yMin, yMax, xUnite = 1, yUnite = 1 }) {
   return new Courbe(f, { repere: repere, color: color, epaisseur: epaisseur, step: step, xMin: xMin, xMax: xMax, yMin: yMin, yMax: yMax, xUnite: xUnite, yUnite: yUnite })
 }
 
 /**
- * Integrale(f,{repere,color,couleurDeRemplissage,epaisseur,step,a,b,opacite,hachures}) // Trace la courbe de f
- * a et b sont les bornes (dans l'ordre croissant a<b)
- * opacite = 0.5 par défaut
- * hachures = 0 par défaut (= 'northeastlines')
- * @author Jean-Claude Lhote
+ * Trace l'aire entre la courbe d'une fonction et l'axe des abscisses
+ * @param {function} f fonction dont on veut tracer l'aire entre sa courbe et l'axe des abscisses comme par exemple : const f = x => a * x ** 2 + b * x + c
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} [parametres.repere  = {}]  Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du contour de l'aire : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du contour de l'aire
+ * @param {string} [parametres.couleurDeRemplissage = 'blue']  Couleur de l'intérieur de l'aire : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.opacite = 0.5] Taux d'opacité du remplissage entre 0 et 1
+ * @param {number} [parametres.hachures = 0] Style des hachures dans cette aire (entier entre 0 et 10).
+ * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses pour tracer l'aire est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
+ * @param {number} [parametres.a = 0]  Abscisse minimale du tracé de la courbe avec a < b
+ * @param {number} [parametres.b = 1]  Abscisse maximale du tracé de la courbe avec a < b
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur du contour de l'aire. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {string} couleurDeRemplissage Couleur de l'intérieur de l'aire. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} xUnite Unité des abscisses du repère
+ * @property {number} yUnite Unité des ordonnées du repère
+ * @property {number} ymin Ordonnée minimale du repère
+ * @property {number} ymax Ordonnée maximale du repère
+ * @author Rémi Angot
+ * @class
  */
-
-function Integrale (f, {
-  repere = {},
-  color = 'black',
-  couleurDeRemplissage = 'blue',
-  epaisseur = 2,
-  step = false,
-  a = 0,
-  b = 1,
-  opacite = 0.5,
-  hachures = 0
-} = {}) {
+// JSDOC Validee par EE Juin 2022
+function Integrale (f, { repere = {}, color = 'black', couleurDeRemplissage = 'blue', epaisseur = 2, step = false, a = 0, b = 1, opacite = 0.5, hachures = 0 }) {
   ObjetMathalea2D.call(this, { })
   this.color = color
   this.couleurDeRemplissage = couleurDeRemplissage
@@ -9540,8 +9549,29 @@ function Integrale (f, {
   }
 }
 
-export function integrale (...args) {
-  return new Integrale(...args)
+/**
+ * Trace l'aire entre la courbe d'une fonction et l'axe des abscisses
+ * @param {function} f fonction dont on veut tracer l'aire entre sa courbe et l'axe des abscisses comme par exemple : const f = x => a * x ** 2 + b * x + c
+ * @param {Object} parametres À saisir entre accolades
+ * @param {Repere} [parametres.repere  = {}]  Repère dans lequel le tracé de la fonction se fait
+ * @param {string} [parametres.color = 'black']  Couleur du contour de l'aire : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.epaisseur = 2]  Epaisseur du contour de l'aire
+ * @param {string} [parametres.couleurDeRemplissage = 'blue']  Couleur de l'intérieur de l'aire : du type 'blue' ou du type '#f15929'
+ * @param {number} [parametres.opacite = 0.5] Taux d'opacité du remplissage entre 0 et 1
+ * @param {number} [parametres.hachures = 0] Style des hachures dans cette aire (entier entre 0 et 10).
+ * @param {boolean|number} [parametres.step = false] Si false, le pas entre deux abscisses pour tracer l'aire est 0.2/xUnite. Sinon, ce pas vaut la valeur indiquée.
+ * @param {number} [parametres.a = 0]  Abscisse minimale du tracé de la courbe avec a < b
+ * @param {number} [parametres.b = 1]  Abscisse maximale du tracé de la courbe avec a < b
+ * @example integrale(g, {repere: r})
+ * // Trace avec une épaisseur de 2, l'aire entre la courbe de la fonction g et l'axe des abscisses dans le repère r, tous deux précédemment définis.
+ * @example integrale(g,  {repere: r, epaisseur: 5, color: 'blue', couleurDeRemplissage: 'red'})
+ * // Trace avec une épaisseur de 5, l'aire entre la courbe de la fonction g et l'axe des abscisses dans le repère r, tous deux précédemment définis. L'aire est entourée de bleu et remplie de rouge.
+ * @author Rémi Angot
+ * @return {Integrale}
+ */
+// JSDOC Validee par EE Juin 2022
+export function integrale (f, { repere = {}, color = 'black', couleurDeRemplissage = 'blue', epaisseur = 2, step = false, a = 0, b = 1, opacite = 0.5, hachures = 0 }) {
+  return new Integrale(f, { repere: repere, color: color, couleurDeRemplissage: couleurDeRemplissage, epaisseur: epaisseur, step: step, a: a, b: b, opacite: opacite, hachures: hachures })
 }
 
 /**
