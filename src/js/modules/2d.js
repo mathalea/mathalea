@@ -6,6 +6,7 @@ import earcut from 'earcut'
 import FractionX from './FractionEtendue.js'
 import Decimal from 'decimal.js'
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from './2dGeneralites.js'
+import { apparitionAnimee, translationAnimee } from './2dAnimation.js'
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2080,7 +2081,7 @@ export function nomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
 */
 
 /**
- * s = segment(A,B) //Segment d'extrémités A et B
+ * s = segment(A, B) //Segment d'extrémités A et B
  * s = segment(A,B,'blue') //Segment d'extrémités A et B et de couleur bleue
  * s = segment(x1,y1,x2,y2) //Segment défini par les coordonnées des deux extrémités
  * s = segment(x1,y1,x2,y2,'blue') //Segment défini par les coordonnées des deux extrémités et de couleur bleue
@@ -3239,7 +3240,7 @@ export function aireTriangle (p) {
  * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
- * @param {number} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
  * @param {number} [opacite = 1] Opacité du cercle
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
@@ -3265,7 +3266,7 @@ export function aireTriangle (p) {
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = '', opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
+function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = 0, opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
   ObjetMathalea2D.call(this, { })
   this.color = colorToLatexOrHTML(color)
   this.centre = O
@@ -3435,7 +3436,7 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
  * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
- * @param {number} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
  * @param {number} [opacite = 1] Opacité du cercle
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
@@ -3450,7 +3451,7 @@ function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDe
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = '', opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
+export function cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = 0, opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
   return new Cercle(O, r, color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
 }
 
@@ -3754,7 +3755,7 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
  * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
  * @param {number} [epaisseur = 1] Epaisseur du cercle
- * @param {number} [pointilles = ''] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @param {number} [pointilles = 0] Style des pointillés du cercle (entier entre 1 et 5). Si autre chose, pas de hachures.
  * @param {number} [opacite = 1] Opacité du cercle
  * @param {number} [opaciteDeRemplissage = 1.1] Opacité du disque si couleur de remplissage choisie.
  * @param {number} [epaisseurDesHachures = 1] Epaisseur des hachures si couleur de hachures choisie.
@@ -3769,7 +3770,7 @@ export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = '', opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
+export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = 0, opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
   return new Cercle(O, longueur(O, M), color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
 }
 
@@ -5058,50 +5059,51 @@ function SensDeRotation (A1, centre, sens, color = 'black') {
 export function sensDeRotation (A, O, sens, color = 'black') {
   return new SensDeRotation(A, O, sens, color)
 }
-/**
- * M = homothetie(A,O,k) //M est l'image de A dans l'homothétie de centre O et de rapport k
- *
- * M = homothetie(A,O,k,'M') //M est l'image de A dans l'homothétie de centre O et de rapport k et se nomme M
- *
- * M = homothetie(A,O,k,'M') //M est l'image de A dans l'homothétie de centre O et de rapport k, se nomme M et le nom est en dessous du point
- *
- * @param {point} A Point-antécédent de l'homothétie
- * @param {point} O Centre de l'homothétie
+/** Construit l'image d'un objet par homothétie
+ * @param {Point|Segment|Droite|Polygone|Vecteur} Objet Objet MathAlea2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
+ * @param {oint} O Centre de l'homothétie
  * @param {number} k Rapport de l'homothétie
  * @param {string} [nom = ''] Nom du point-image
- * @param {string} [color = 'black']
- * @param {string} [positionLabel = 'above'] Position du point-image
+ * @param {string} [positionLabel = 'above'] Position du point-image. Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @param {string} [color='black']  Couleur de l'image : du type 'blue' ou du type '#f15929' (non valable pour un point et pour un vecteur)
+ * @example p2 = homothetie(p1 ,I ,2)
+ * // p2 est l'image de p1 par une homothétie de centre I et de rapport 2
+ * @example N = homothetie(M, I, 0.5, 'point N', 'right')
+ * // N est l'image de M par une homothétie de centre I et de rapport 0.5.  Le point sera affiché comme "point N" et ce nom sera écrit à droite de sa position.
+ * @example s = homothetie(segment(A, B), I, -0.5, '', '','blue')
+ * // s est l'image du segment [AB] par une homothétie de centre I et de rapport -0.5.  s sera en bleu.
  * @author Rémi Angot
+ * @return {Point|Segment|Droite|Polygone|Vecteur}
  */
-export function homothetie (A, O, k, nom = '', positionLabel = 'above', color = 'black') {
-  if (A.constructor === Point) {
-    const x = O.x + k * (A.x - O.x)
-    const y = O.y + k * (A.y - O.y)
+export function homothetie (Objet, O, k, nom = '', positionLabel = 'above', color = 'black') {
+  if (Objet.constructor === Point) {
+    const x = O.x + k * (Objet.x - O.x)
+    const y = O.y + k * (Objet.y - O.y)
     return new Point(x, y, nom, positionLabel)
   }
-  if (A.constructor === Polygone) {
+  if (Objet.constructor === Polygone) {
     const p2 = []
-    for (let i = 0; i < A.listePoints.length; i++) {
-      p2[i] = homothetie(A.listePoints[i], O, k)
-      p2[i].nom = A.listePoints[i].nom + '\''
+    for (let i = 0; i < Objet.listePoints.length; i++) {
+      p2[i] = homothetie(Objet.listePoints[i], O, k)
+      p2[i].nom = Objet.listePoints[i].nom + '\''
     }
     return polygone(p2, color)
   }
-  if (A.constructor === Droite) {
-    const M = homothetie(point(A.x1, A.y1), O, k)
-    const N = homothetie(point(A.x2, A.y2), O, k)
+  if (Objet.constructor === Droite) {
+    const M = homothetie(point(Objet.x1, Objet.y1), O, k)
+    const N = homothetie(point(Objet.x2, Objet.y2), O, k)
     return droite(M, N, '', color)
   }
-  if (A.constructor === Segment) {
-    const M = homothetie(A.extremite1, O, k)
-    const N = homothetie(A.extremite2, O, k)
+  if (Objet.constructor === Segment) {
+    const M = homothetie(Objet.extremite1, O, k)
+    const N = homothetie(Objet.extremite2, O, k)
     const s = segment(M, N, color)
-    s.styleExtremites = A.styleExtremites
+    s.styleExtremites = Objet.styleExtremites
     return s
   }
-  if (A.constructor === Vecteur) {
-    const x = A.x
-    const y = A.y
+  if (Objet.constructor === Vecteur) {
+    const x = Objet.x
+    const y = Objet.y
     const v = vecteur(x * k, y * k)
     return v
   }
@@ -5217,7 +5219,7 @@ export function projectionOrtho (M, d, nom = '', positionLabel = 'above') {
 
 /**
  * Construit l'image d'un objet par affinité orthogonale
- * @param {Point|Segment|Droite|Polygone|Vecteur} Objet Objet MathALEA2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
+ * @param {Point|Segment|Droite|Polygone|Vecteur} Objet Objet MathAlea2d choisi parmi un point, un segment, une droite, un polygone ou un vecteur
  * @param {number} d Direction de l'affinité
  * @param {number} k Rapport de l'affinité
  * @param {string} [nom=''] Nom de l'image (uniquement valable pour un point)
@@ -5227,9 +5229,9 @@ export function projectionOrtho (M, d, nom = '', positionLabel = 'above') {
  * @example p2 = affiniteOrtho(p1,droite(B, C),k)
  * // p2 est l'image de p1 par une affinité orthogonale dont la direction est la droite (BC) et de rapport k
  * @example N = affiniteOrtho(M,d,0.5,'point N','right')
- * // N est l'image du point M par une affinité orthogonale de direction d et de rapport 0.5. Le point sera affiché comme "point N" et ce nom sera écrit à droite de sa position
- * @example s = affiniteOrtho(segment(A,B),d,0.1,'','','red')
- * // s est l'image du segment [AB] par une affinité orthogonale de direction d et de rapport 0.1. s sera rouge
+ * // N est l'image du point M par une affinité orthogonale de direction d et de rapport 0.5. Le point sera affiché comme "point N" et ce nom sera écrit à droite de sa position.
+ * @example s = affiniteOrtho(segment(A, B),d,0.1,'','','red')
+ * // s est l'image du segment [AB] par une affinité orthogonale de direction d et de rapport 0.1. s sera rouge.
  * @return {Point|Segment|Droite|Polygone|Vecteur} Retourne un objet du même type que le paramètre objet de la fonction
  */
 // JSDOC Validee par EE Juin 2022
@@ -5334,219 +5336,6 @@ export function similitude (A, O, a, k, nom = '', positionLabel = 'above', color
 
 /*
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%% LES TRANSFORMATIONS ANIMÉES %%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
-
-/**
- * Fait apparaître une liste d'objets de façon animée.
- * @param {ObjetMathalea2D[]} liste liste d'objets à faire apparaître
- * @param {number} [dur = 2] Durée de l'animation en secondes
- * @param {number} [pourcentage = 0.5] Pourcentage de la durée à partir de laquelle les objets sont visibles
- * @param {number|string} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier.
- * @author Rémi Angot
- * @private
- */
-// JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
-function ApparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefinite') {
-  ObjetMathalea2D.call(this, { })
-  this.svg = function (coeff) {
-    let code = '<g> '
-    if (Array.isArray(liste)) {
-      for (const objet of liste) {
-        code += '\n' + objet.svg(coeff)
-      }
-    } else {
-      // si ce n'est pas une liste
-      code += '\n' + liste.svg(coeff)
-    }
-    code += `<animate attributeType="CSS"
-    attributeName="visibility"
-    from="hidden" 
-    to="hidden"
-    values="hidden;visible;hidden"
-    keyTimes="0; ${pourcentage}; 1"
-    dur="${dur}"
-    repeatCount="${repeat}"/>`
-    code += '</g>'
-    return code
-  }
-}
-/**
- * Fait apparaître une liste d'objets de façon animée
- * @param {ObjetMathalea2D[]} liste liste d'objets à faire apparaître
- * @param {number} [dur = 2] Durée de l'animation en secondes
- * @param {number} [pourcentage = 0.5] Pourcentage de la durée à partir de laquelle les objets sont visibles
- * @param {number|string} [repeat = 'indefinite'] Nombre de répétitions de l'animation, peut être un entier
- * @return {ApparitionAnimee}
- * @example Fonction non utilisée donc pas d'exemple, fonction non testée, peut être bugguée
- * @author Rémi Angot
- */
-// JSDOC Non Validee EE Juin 2022 (impossible à tester car non utilisée)
-export function apparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefinite') {
-  return new ApparitionAnimee(liste, dur, pourcentage, repeat)
-}
-/**
- * translationAnimee(s,v) //Animation de la translation de vecteur v pour s
- * translationAnimee([a,b,c],v) //Animation de la translation de vecteur v pour les objets a, b et v
- *
- * @author Rémi Angot
- */
-function TranslationAnimee (liste, v, animation = 'begin="0s" dur="2s" repeatCount="indefinite"') {
-  ObjetMathalea2D.call(this, { })
-  this.svg = function (coeff) {
-    let code = '<g> '
-    if (Array.isArray(liste)) {
-      for (const objet of liste) {
-        code += '\n' + objet.svg(coeff)
-      }
-    } else {
-      // si ce n'est pas une liste
-      code += '\n' + liste.svg(coeff)
-    }
-    if (Array.isArray(v)) {
-      code += '<animateMotion path="M 0 0 l'
-      for (const vecteur of v) {
-        code += ` ${vecteur.xSVG(coeff)} ${vecteur.ySVG(coeff)} `
-      }
-      code += `${animation} />`
-    } else {
-      code += `<animateMotion path="M 0 0 l ${v.xSVG(coeff)} ${v.ySVG(coeff)} " ${animation} />`
-    }
-    code += '</g>'
-    return code
-  }
-}
-export function translationAnimee (...args) {
-  return new TranslationAnimee(...args)
-}
-
-/**
- * rotationAnimee(s,O,a) //Animation de la rotation de centre O et d'angle a pour s
- * rotationAnimee([a,b,c],O,a) //Animation de la rotation de centre O et d'angle a pour les objets a, b et c
- *
- * @author Rémi Angot
- */
-function RotationAnimee (
-  liste,
-  O,
-  angle,
-  animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
-) {
-  ObjetMathalea2D.call(this, { })
-  this.svg = function (coeff) {
-    let code = '<g> '
-    if (Array.isArray(liste)) {
-      for (const objet of liste) {
-        code += '\n' + objet.svg(coeff)
-      }
-    } else {
-      // si ce n'est pas une liste
-      code += '\n' + liste.svg(coeff)
-    }
-
-    code += `<animateTransform
-  attributeName="transform"
-  type="rotate"
-  from="0 ${O.xSVG(coeff)} ${O.ySVG(coeff)}"
-  to="${-angle} ${O.xSVG(coeff)} ${O.ySVG(coeff)}"
-  ${animation}
-  />`
-    code += '</g>'
-    return code
-  }
-}
-export function rotationAnimee (...args) {
-  return new RotationAnimee(...args)
-}
-/**
- * homothetieAnimee(s,O,k) //Animation de la homothetie de centre O et de rapport k pour s
- * homothetieAnimee([a,b,c],O,k) //Animation de la homothetie de centre O et de rapport k pour les objets a, b et v
- *
- * @author Rémi Angot
- */
-function HomothetieAnimee (
-  p,
-  O,
-  k,
-  animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
-) {
-  ObjetMathalea2D.call(this, { })
-  this.svg = function (coeff) {
-    const binomesXY1 = p.binomesXY(coeff)
-    const p2 = homothetie(p, O, k)
-    p2.isVisible = false
-    const binomesXY2 = p2.binomesXY(coeff)
-    const code = `<polygon stroke="${p.color[0]}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage[0]}" >
-  <animate attributeName="points" ${animation}
-  from="${binomesXY1}"
-  to="${binomesXY2}"
-  />
-  </polygon>`
-    return code
-  }
-}
-export function homothetieAnimee (...args) {
-  return new HomothetieAnimee(...args)
-}
-
-/**
- * symetrieAnimee(s,d) //Animation de la symetrie d'axe (d) pour s
- * symetrieAnimee([a,b,c],d) //Animation de la symetrie d'axe (d) pour les objets a, b et v
- *
- * @author Rémi Angot
- */
-function SymetrieAnimee (
-  p,
-  d,
-  animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
-) {
-  ObjetMathalea2D.call(this, { })
-  this.svg = function (coeff) {
-    const binomesXY1 = p.binomesXY(coeff)
-    const p2 = symetrieAxiale(p, d)
-    p2.isVisible = false
-    const binomesXY2 = p2.binomesXY(coeff)
-    const code = `<polygon stroke="${p.color[0]}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage[0]}" >
-    <animate attributeName="points" ${animation}
-    from="${binomesXY1}"
-    to="${binomesXY2}"
-    />
-    </polygon>`
-    return code
-  }
-}
-export function symetrieAnimee (...args) {
-  return new SymetrieAnimee(...args)
-}
-
-function AffiniteOrthoAnimee (
-  p,
-  d,
-  k,
-  animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
-) {
-  ObjetMathalea2D.call(this, { })
-  this.svg = function (coeff) {
-    const binomesXY1 = p.binomesXY(coeff)
-    const p2 = affiniteOrtho(p, d, k)
-    p2.isVisible = false
-    const binomesXY2 = p2.binomesXY(coeff)
-    const code = `<polygon stroke="${p.color[0]}" stroke-width="${p.epaisseur}" fill="${p.couleurDeRemplissage[0]}" >
-    <animate attributeName="points" ${animation}
-    from="${binomesXY1}"
-    to="${binomesXY2}"
-    />
-    </polygon>`
-    return code
-  }
-}
-export function affiniteOrthoAnimee (...args) {
-  return new AffiniteOrthoAnimee(...args)
-}
-
-/*
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% LE TRIANGLE %%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
@@ -5590,19 +5379,22 @@ export function centreGraviteTriangle (A, B, C, nom = '', positionLabel = 'above
   return new Point(x, y, nom, positionLabel)
 }
 
-/**
- * Hauteur issue de A relative à [BC]
+/**  Trace la hauteur issue de A relative à [BC]
+ * @param {Point} A Point dont est issue la hauteur
+ * @param {Point} B Première extrémité du segment dont est relative la hauteur
+ * @param {Point} C Seconde extrémité du segment dont est relative la hauteur
+ * @param {string} [color = 'black'] Couleur de cette hauteur : du type 'blue' ou du type '#f15929'
+ * @example hauteurTriangle (M, N, P) // Trace, en noir, la hauteur issue de M relative à [NP]
+ * @example hauteurTriangle (M, N, P, 'red') // Trace, en rouge, la hauteur issue de M relative à [NP]
  * @author Jean-Claude Lhote
- * @param {Point} A
- * @param {Point} B
- * @param {Point} C
- * @param {string} color
+ * @return {Droite}
  */
+// JSDOC Validee par EE Aout 2022
 export function hauteurTriangle (A, B, C, color = 'black') {
   const d = droite(B, C)
   d.isVisible = false
   const p = projectionOrtho(A, d)
-  return droite(p, A, '', color)
+  return new Droite(p, A, '', color)
 }
 
 /**
@@ -7205,18 +6997,18 @@ export function labelY (...args) {
  * @param {string} [color = 'gray'] Couleur de la grille : du type 'blue' ou du type '#f15929'
  * @param {number} [opacite = 0.4] Opacité de la grille : entre 0 et 1
  * @param {number} [step = 1] Pas de la grille
- * @param {boolean} [pointilles = false] Présence (ou non) de pointillés
+ * @param {number} [pointilles = 0] Style des pointillés de la grille (entier entre 1 et 5). Si autre chose, pas de hachures.
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} color Couleur de la grille. À associer obligatoirement à colorToLatexOrHTML().
- * @property {Vecteur} opacite Opacité de la grille : entre 0 et 1
+ * @property {number} opacite Opacité de la grille : entre 0 et 1
  * @author Rémi Angot
  * @class
  */
 // JSDOC Validee par EE Aout 2022
-function Grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = '') {
+function Grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = 0) {
   ObjetMathalea2D.call(this, { })
   this.color = color
   this.opacite = opacite
@@ -7276,22 +7068,37 @@ function Grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', o
  * @param {string} [color = 'gray'] Couleur de la grille : du type 'blue' ou du type '#f15929'
  * @param {number} [opacite = 0.4] Opacité de la grille : entre 0 et 1
  * @param {number} [step = 1] Pas de la grille
- * @param {boolean} [pointilles = false] Présence (ou non) de pointillés
- * @example grid = grille(-3, -3, 27, 18, 'gray', 0.4, 1) // Trace une grille avec différentes options
+ * @param {number} [pointilles = 0] Style des pointillés de la grille (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @example grid = grille() // Trace une grille avec toutes les options par défaut
+ * @example grid = grille(-3, -3, 27, 18, 'red', 0.2, 0.5, true) // Trace une grille avec toutes les options différentes de celles par défaut
+ * @author Rémi Angot
+ * @return {Grille}
+ */
+// JSDOC Validee par EE Aout 2022
+export function grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = 0) {
+  return new Grille(xmin, ymin, xmax, ymax, color, opacite, step, pointilles)
+}
+
+/**  Trace des parallèles à l'axe des abscisses
+ * @param {number} [xmin = -30] Abscisse du coin en bas à gauche de ces parallèles
+ * @param {number} [ymin = -30] Ordonnée du coin en bas à gauche de ces parallèles
+ * @param {number} [xmax = 30] Abscisse du coin en haut à droite de ces parallèles
+ * @param {number} [ymax = 30] Ordonnée du coin en haut à droite de ces parallèles
+ * @param {string} [color = 'gray'] Couleur de ces parallèles : du type 'blue' ou du type '#f15929'
+ * @param {number} [opacite = 0.4] Opacité de ces parallèles : entre 0 et 1
+ * @param {number} [step = 1] Pas de ces parallèles
+ * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur de ces parallèles. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} opacite Opacité de ces parallèles : entre 0 et 1
  * @author Rémi Angot
  * @class
  */
 // JSDOC Validee par EE Aout 2022
-export function grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = '') {
-  return new Grille(xmin, ymin, xmax, ymax, color, opacite, step, pointilles)
-}
-
-/**
- * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace des parallèles à l'axe des ordonnées
- *
- * @author Rémi Angot
- */
-function GrilleHorizontale (
+function LignesHorizontales (
   xmin = -30,
   ymin = -30,
   xmax = 30,
@@ -7329,24 +7136,45 @@ function GrilleHorizontale (
   }
 }
 
-/**
- * grilleHorizontale(xmin,ymin,xmax,ymax,color,opacite,pas) // Trace des parallèles à l'axe des ordonnées
- *
+/**  Trace des parallèles à l'axe des abscisses
+ * @param {number} [xmin = -30] Abscisse du coin en bas à gauche de ces parallèles
+ * @param {number} [ymin = -30] Ordonnée du coin en bas à gauche de ces parallèles
+ * @param {number} [xmax = 30] Abscisse du coin en haut à droite de ces parallèles
+ * @param {number} [ymax = 30] Ordonnée du coin en haut à droite de ces parallèles
+ * @param {string} [color = 'gray'] Couleur de ces parallèles : du type 'blue' ou du type '#f15929'
+ * @param {number} [opacite = 0.4] Opacité de ces parallèles : entre 0 et 1
+ * @param {number} [step = 1] Pas de ces parallèles
+ * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @example grid = lignesHorizontales() // Trace des parallèles à l'axe des abscisses avec toutes les options par défaut
+ * @example grid = lignesHorizontales(-3, -3, 27, 18, 'red', 0.2, 0.5, true) // Trace des parallèles à l'axe des abscisses avec toutes les options différentes de celles par défaut
  * @author Rémi Angot
+ * @return {LignesHorizontales}
  */
-export function grilleHorizontale (...args) {
-  return new GrilleHorizontale(...args)
+// JSDOC Validee par EE Aout 2022
+export function lignesHorizontales (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = '') {
+  return new LignesHorizontales(xmin, ymin, xmax, ymax, color, opacite, step, pointilles)
 }
-function GrilleVerticale (
-  xmin = -30,
-  ymin = -30,
-  xmax = 30,
-  ymax = 30,
-  color = 'gray',
-  opacite = 0.4,
-  step = 1,
-  pointilles = ''
-) {
+
+/**  Trace des verticales à l'axe des ordonnées
+ * @param {number} [xmin = -30] Abscisse du coin en bas à gauche de ces parallèles
+ * @param {number} [ymin = -30] Ordonnée du coin en bas à gauche de ces parallèles
+ * @param {number} [xmax = 30] Abscisse du coin en haut à droite de ces parallèles
+ * @param {number} [ymax = 30] Ordonnée du coin en haut à droite de ces parallèles
+ * @param {string} [color = 'gray'] Couleur de ces parallèles : du type 'blue' ou du type '#f15929'
+ * @param {number} [opacite = 0.4] Opacité de ces parallèles : entre 0 et 1
+ * @param {number} [step = 1] Pas de ces parallèles
+ * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} svgml Sortie, à main levée, au format vectoriel (SVG) que l’on peut afficher dans un navigateur
+ * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} tikzml Sortie, à main levée, au format TikZ que l’on peut utiliser dans un fichier LaTeX
+ * @property {string} color Couleur de ces parallèles. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} opacite Opacité de ces parallèles : entre 0 et 1
+ * @author Rémi Angot
+ * @class
+ */
+// JSDOC Validee par EE Aout 2022
+function LignesVerticales (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = '') {
   ObjetMathalea2D.call(this, { })
   this.color = color
   this.opacite = opacite
@@ -7376,12 +7204,27 @@ function GrilleVerticale (
 }
 
 /**
- * grilleVerticale(xmin,ymin,xmax,ymax,color,opacite,pas)
+ * LignesVerticales(xmin,ymin,xmax,ymax,color,opacite,pas)
  *
  * @author Rémi Angot
  */
-export function grilleVerticale (...args) {
-  return new GrilleVerticale(...args)
+/**  Trace des parallèles à l'axe des ordonnées
+ * @param {number} [xmin = -30] Abscisse du coin en bas à gauche de ces parallèles
+ * @param {number} [ymin = -30] Ordonnée du coin en bas à gauche de ces parallèles
+ * @param {number} [xmax = 30] Abscisse du coin en haut à droite de ces parallèles
+ * @param {number} [ymax = 30] Ordonnée du coin en haut à droite de ces parallèles
+ * @param {string} [color = 'gray'] Couleur de ces parallèles : du type 'blue' ou du type '#f15929'
+ * @param {number} [opacite = 0.4] Opacité de ces parallèles : entre 0 et 1
+ * @param {number} [step = 1] Pas de ces parallèles
+ * @param {number} [pointilles = 0] Style des pointillés de ces parallèles (entier entre 1 et 5). Si autre chose, pas de hachures.
+ * @example grid = lignesHorizontales() // Trace des parallèles à l'axe des ordonnées avec toutes les options par défaut
+ * @example grid = lignesHorizontales(-3, -3, 27, 18, 'red', 0.2, 0.5, true) // Trace des parallèles à l'axe des ordonnées avec toutes les options différentes de celles par défaut
+ * @author Rémi Angot
+ * @return {LignesVerticales}
+ */
+// JSDOC Validee par EE Aout 2022
+export function lignesVerticales (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = '') {
+  return new LignesVerticales(xmin, ymin, xmax, ymax, color, opacite, step, pointilles)
 }
 
 function Seyes (xmin = 0, ymin = 0, xmax = 15, ymax = 15, opacite1 = 0.5, opacite2 = 0.2) {
