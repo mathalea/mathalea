@@ -533,7 +533,13 @@ function miseAJourDuCode () {
   // Active ou désactive l'icone de la course aux nombres
   let tousLesExercicesSontInteractifs = true
   for (const exercice of listeObjetsExercice) {
-    if (exercice.interactifReady === undefined || !exercice.interactifReady) {
+    if (exercice.interactifReady === undefined) { // Rajout EE : Parfois, certains exos n'ont pas de propriété interactifReady définie
+      tousLesExercicesSontInteractifs = false
+      if (document.getElementById('btnCan') && document.getElementById('btnEval')) {
+        document.getElementById('btnCan').classList.add('disabled')
+        document.getElementById('btnEval').classList.add('disabled')
+      }
+    } else if (!exercice.interactifReady) {
       tousLesExercicesSontInteractifs = false
       if (document.getElementById('btnCan') && document.getElementById('btnEval')) {
         document.getElementById('btnCan').classList.add('disabled')
@@ -560,8 +566,10 @@ function miseAJourDuCode () {
   if (btnTousInteractifs !== null) {
     btnTousInteractifs.addEventListener('click', () => {
       for (let i = 0; i < listeObjetsExercice.length; i++) {
-        if (listeObjetsExercice[i].interactifReady) {
-          listeObjetsExercice[i].interactif = true
+        if (listeObjetsExercice[i] !== undefined) {
+          if (listeObjetsExercice[i].interactifReady) {
+            listeObjetsExercice[i].interactif = true
+          }
         }
       }
       miseAJourDuCode()
