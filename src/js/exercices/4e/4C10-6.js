@@ -17,6 +17,8 @@ export const titre = 'Multiplications et quotients de relatifs : signe avec une 
 * @author Cédric GROLLEAU
 * 4C10-6
 */
+export const uuid = '73187'
+export const ref = '4C10-6'
 export default function ExerciceTableauMultiplicationsRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 3

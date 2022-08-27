@@ -14,6 +14,8 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
  * @author Gilles Mora (2F10-02)
  * Référence can3F07
 */
+export const uuid = '82f73'
+export const ref = 'can3F07'
 export default function LectureGraphiqueFonctionAffine1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

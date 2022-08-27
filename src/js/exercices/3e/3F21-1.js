@@ -17,6 +17,8 @@ export const interactifType = 'mathLive'
  * @author Jean-Claude Lhote
  * Référence : 3F21-1
  */
+export const uuid = 'e5ddd'
+export const ref = '3F21-1'
 export default function LectureExpressionFonctionsAffines () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -10,6 +10,8 @@ export const dateDePublication = '21/10/2021'
  * Référence can2L07
  * Date de publication
 */
+export const uuid = '55c60'
+export const ref = 'can2L07'
 export default function Factoriser () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

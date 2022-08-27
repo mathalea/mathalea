@@ -16,6 +16,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can6M06
  */
+export const uuid = 'e52ba'
+export const ref = 'can6M06'
 export default function Perimetre () {
   Exercice.call(this)
   this.typeExercice = 'simple'

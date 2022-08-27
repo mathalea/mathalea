@@ -18,6 +18,8 @@ export const interactifType = 'mathLive'
  * Référence 6S10
  */
 
+export const uuid = '17bce'
+export const ref = '6S10'
 export default function LectureDiagrammeBarre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Répondre aux questions à l'aide du graphique."

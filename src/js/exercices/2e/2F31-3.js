@@ -12,6 +12,8 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * @author Stéphane Guyon
  * Référence 2F31-3
  */
+export const uuid = 'c705b'
+export const ref = '2F31-3'
 export default function Variationsapartirtableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'On donne ci-dessous, le tableau de variations d\'une fonction $f$.'

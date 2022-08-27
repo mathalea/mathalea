@@ -8,6 +8,8 @@ export const dateDePublication = '4/12/2021'
  * Créé le 4/12/2021
  * Référence 6G26 clone Symétrie axiale de 4G12
  */
+export const uuid = 'd7da5'
+export const ref = '6G26'
 export default function SerieDeTransformations6e () {
   SerieDeTransformations.call(this)
   this.titre = titre

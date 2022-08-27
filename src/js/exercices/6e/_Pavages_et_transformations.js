@@ -59,7 +59,6 @@ export default function PavagesEtTransformations () {
         break
       case 2:
         choixPave = randint(0, 7)// pavages adaptés à symétrie centrale (tous)
-        console.log(choixPave)
         break
       case 3:
         choixPave = randint(0, 7) // pavages adaptés à translation (tous)

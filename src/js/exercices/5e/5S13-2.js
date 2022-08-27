@@ -167,6 +167,8 @@ class Population {
  * @author Eve & Sylvain CHAMBON
  * Référence 5S13-2
 */
+export const uuid = 'ff67d'
+export const ref = '5S13-2'
 export default function CalculerDesFrequences () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

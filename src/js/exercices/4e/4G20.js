@@ -19,6 +19,8 @@ export const interactifType = 'mathLive'
  * @author Rémi Angot
  * 4G20
  */
+export const uuid = 'bd660'
+export const ref = '4G20'
 export default function Pythagore2D () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

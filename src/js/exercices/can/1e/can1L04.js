@@ -14,6 +14,8 @@ export const dateDePublication = '04/06/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence can1L04
 */
+export const uuid = '7a950'
+export const ref = 'can1L04'
 export default function ResoudreEquationSecondDegre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

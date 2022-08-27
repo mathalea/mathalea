@@ -13,6 +13,8 @@ export const titre = 'Calculer toutes les mesures d\'angle d\'une figure complex
  * 3G31-1
  * Février 2021
 */
+export const uuid = '35e0b'
+export const ref = '3G31-1'
 export default function CalculDAngleFigureComplexe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

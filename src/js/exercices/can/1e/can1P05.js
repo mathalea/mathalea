@@ -18,6 +18,8 @@ export const amcType = 'AMCNum'
  * @author Gilles Mora
 
 */
+export const uuid = 'ee478'
+export const ref = 'can1P05'
 export default function CalculProbaFormuleProbaTotale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = true

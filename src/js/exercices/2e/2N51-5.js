@@ -8,6 +8,8 @@ export { interactifReady, interactifType } from '../3e/3L13-1.js'
  *
  * @author Sébastien LOZANO
  */
+export const uuid = '3b3d9'
+export const ref = '2N51-5'
 export default function ExerciceEquation1Tiret22nde () {
   ExerciceEquation1Tiret2.call(this)
 }

@@ -12,6 +12,8 @@ export const dateDeModifImportante = '08/05/2022'
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
  * Publié le 5/4/2021
 */
+export const uuid = '588fe'
+export const ref = '5G40-2'
 export default function ParallelogrammeAPartirDUneFigure () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

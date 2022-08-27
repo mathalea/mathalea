@@ -11,6 +11,8 @@ import FractionsIrreductibles from '../3e/3A12.js'
  *
  * @author Sébastien LOZANO
  */
+export const uuid = 'c1561'
+export const ref = '2N30-6'
 export default function FractionsIrreductibles2nde () {
   FractionsIrreductibles.call(this)
 }

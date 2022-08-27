@@ -14,6 +14,8 @@ export const dateDePublication = '14/12/2020'
  * Réf : 6G25-3
  * Relecture : Novembre 2021 par EE
  */
+export const uuid = '328b1'
+export const ref = '6G25-3'
 export default function PavageEtReflexion2d () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
   * Créé pendant l'été 2021
  * Référence can3C02
 */
+export const uuid = 'debe7'
+export const ref = 'can3C02'
 export default function MoyenneEntiereDeDecimaux () {
   Exercice.call(this)
   this.typeExercice = 'simple'

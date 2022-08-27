@@ -1,7 +1,7 @@
-import Exercice from '../Exercice.js'
+import { arc, cercle, codageAngle, labelPoint, point, polygone, rapporteur, tracePoint } from '../../modules/2d.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { point, tracePoint, segment, droite, polygone, cercle, labelPoint, codageAngleDroit, codeSegment, texteParPoint, codageMediatrice, codageMilieu, codageAngle, codageBissectrice, nomVecteurParPosition, ellipse, arc, constructionBissectrice, codageHauteurTriangle, codageMedianeTriangle, afficheLongueurSegment, texteSurSegment, vecteur, pointIntersectionLC, texteSurArc, grilleVerticale, grilleHorizontale, lectureImage, constructionMediatrice, rapporteur } from '../../modules/2d.js'
+import Exercice from '../Exercice.js'
 export const titre = 'Calculer un angle, déduit de figures simples'
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -15,6 +15,8 @@ export const dateDePublication = '03/05/2022'
  * @author Eric Elter
  * Publié le 03/05/2021
  */
+export const uuid = '8f5f5'
+export const ref = 'FichierDeTests'
 export default function CalculedddrUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

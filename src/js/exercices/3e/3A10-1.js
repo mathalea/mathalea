@@ -16,6 +16,8 @@ export const amcType = 'qcmMono'
  * @author Sébastien Lozano + Jean-Claude Lhote pour l'interactivité.
  * Référence 3A10-1
  */
+export const uuid = 'bba55'
+export const ref = '3A10-1'
 export default function PremierOuPas () {
   Exercice.call(this) // Héritage de la classe Exercice()
   // pas de différence entre la version html et la version latex pour la consigne

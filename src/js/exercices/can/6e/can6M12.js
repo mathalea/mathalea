@@ -4,7 +4,7 @@ import { randint, choice, stringNombre, texNombre } from '../../../modules/outil
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
 export const titre = 'Calculer une longueur/un périmètre (avec des décimaux)'
-export const dateDePublication = '03/08/2022'
+export const dateDePublication = '27/08/2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -14,6 +14,8 @@ export const amcType = 'AMCNum'
  * Créé le 03/08/2022
  * Référence can6M12
  */
+export const uuid = '08764'
+export const ref = 'can6M12'
 export default function ProblemesDeLongueursEtPerimetre () {
   Exercice.call(this)
   this.nbQuestions = 1

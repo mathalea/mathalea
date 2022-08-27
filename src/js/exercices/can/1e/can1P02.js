@@ -18,6 +18,8 @@ export const amcType = 'AMCNum'
  * @author Gilles Mora
 
 */
+export const uuid = '32394'
+export const ref = 'can1P02'
 export default function LectureProbabilite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = true

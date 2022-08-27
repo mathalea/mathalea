@@ -17,6 +17,8 @@ export const interactifType = 'mathLive'
  * @author Jean-Claude Lhote
  * Référence 4C23
  */
+export const uuid = '18ddd'
+export const ref = '4C23-1'
 export default function ExerciceAdditionnerFractionProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 3

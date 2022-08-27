@@ -6,6 +6,8 @@ import { symetrieAnimee, rotationAnimee, translationAnimee, polygone, point, mil
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Tranformations de triangle'
+export const uuid = '0da6a'
+export const ref = '4G15'
 export default function TransformationsDeTriangle () {
   'use strict'
   Exercice.call(this)

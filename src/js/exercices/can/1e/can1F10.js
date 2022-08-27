@@ -10,6 +10,8 @@ export const dateDePublication = '20/06/2022'
  * @author Gilles Mora
 
 */
+export const uuid = 'a3e7a'
+export const ref = 'can1F10'
 export default function DeriveePoly2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

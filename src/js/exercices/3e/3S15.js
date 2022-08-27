@@ -11,6 +11,8 @@ export const interactifType = 'mathLive'
 * @author Jean-Claude Lhote
 * Référence 3S15
 */
+export const uuid = '36e68'
+export const ref = '3S15'
 export default function CalculerEtendues () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Date de publication septembre 2021
  * Référence canc3C01
  */
+export const uuid = '385b7'
+export const ref = 'canc3C01'
 export default function CalculsAutomatiques () {
   Exercice.call(this)
   this.typeExercice = 'simple'

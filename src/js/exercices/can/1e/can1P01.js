@@ -15,6 +15,8 @@ export const amcType = 'AMCNum'
  * @author Gilles Mora
  *
 */
+export const uuid = '15f6d'
+export const ref = 'can1P01'
 export default function ProbabilitesNotation () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = true

@@ -1,5 +1,5 @@
 
-import { context } from './context'
+import { context } from './context.js'
 
 /*
   MathALEA2D

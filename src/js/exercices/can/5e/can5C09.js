@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can5C09
  */
+export const uuid = '1a593'
+export const ref = 'can5C09'
 export default function MutliplierParN0N () {
   Exercice.call(this)
   this.nbQuestions = 1

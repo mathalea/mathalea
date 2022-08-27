@@ -11,7 +11,7 @@ const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
 const math = create(all)
-const engine = new ComputeEngine()
+const engine = ComputeEngine
 /**
  * Travailler les tables de multiplication autrement
  * @author Jean-Claude Lhote
@@ -393,8 +393,6 @@ export function ExoRose () {
           }
         } else {
           if (this.roses[question].typeDonnees.substring(0, 4) === 'frac') {
-            console.log(engine.parse(`${saisies[i]}${this.roses[question].operation === 'addition' ? '+' : '\\times'}${saisies[(i + 1) % this.nombreDeValeurs]}`).canonical)
-            console.log(engine.parse(this.roses[question].resultats[i].toLatex()))
             resultatOK = resultatOK && engine.parse(`${saisies[i]}${this.roses[question].operation === 'addition' ? '+' : '\\times'}${saisies[(i + 1) % this.nombreDeValeurs]}`).canonical.isEqual(engine.parse(this.roses[question].resultats[i].toLatex()))
           } else {
             resultatOK = resultatOK && engine.parse(this.roses[question].operate(saisies[i], saisies[(i + 1) % this.nombreDeValeurs])).canonical.isEqual(engine.parse(this.roses[question].resultats[i]).canonical)

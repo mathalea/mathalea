@@ -15,6 +15,8 @@ export const amcType = 'AMCHybride'
 * Relecture : Novembre 2021 par EE
 */
 
+export const uuid = '49cb2'
+export const ref = '6G25-1'
 export default function SymetrieAxialePavageTriangulaire () {
   'use strict'
   Exercice.call(this)
@@ -144,7 +146,6 @@ export default function SymetrieAxialePavageTriangulaire () {
           antecedent = randint(rangA * 2 + 1 + rangM * 14, rangM * 14 + (rangA + 1) * 2)
         }
         deltaRang = rangA - ((antecedent % 14 - antecedent % 2) >> 1)
-        // console.log('delta : ', deltaRang, ' rangM : ', rangM, ' rangA : ', rangA)
         // l'axe est à droite de l'antécédent
         image = antecedent - 10 * deltaRang - 1 + 12 * (antecedent % 2) // ne me demandez pas d'où je sors ça !!!
         distracteurs.push(image - 1)

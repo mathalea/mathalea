@@ -13,6 +13,8 @@ export const dateDePublication = '24/06/2022' // La date de publication initiale
      * @author Gilles Mora
      * Référence
     */
+export const uuid = '12089'
+export const ref = 'can1F17'
 export default function CalculFonctionDeriveeUnsurU () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
@@ -56,7 +58,6 @@ export default function CalculFonctionDeriveeUnsurU () {
         if (m < 0) { this.correction += `$=\\dfrac{${-m}}{(${reduireAxPlusB(m, p)})^2}$.` } else { this.correction += '.' }
 
         this.reponse = [`\\dfrac{${-m}}{(${-m}x+${-p})^2}`, `\\dfrac{${-m}}{(${m}x+${p})^2}`, `-\\dfrac{${m}}{(${m}x+${p})^2}`, `${-m}\\times\\dfrac{1}{(${m}x+${p})^2}`, `${m}\\times\\dfrac{-1}{(${m}x+${p})^2}`]
-        console.log(this.reponse)
         break
       case 3:// //1/(mx^2+p)
         m = randint(-10, 10, 0)

@@ -12,6 +12,8 @@ export const dateDePublication = '15/06/2022'
  * @author Gilles Mora
  * Référence can1F07
 */
+export const uuid = '5b203'
+export const ref = 'can1F07'
 export default function AxeSymetrieParabole () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

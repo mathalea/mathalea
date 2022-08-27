@@ -8,6 +8,8 @@ export { interactifReady, interactifType, amcReady, amcType } from '../3e/3A10-1
  * @author Jean-Claude Lhote
  */
 
+export const uuid = 'c04cc'
+export const ref = '2N20-4'
 export default function PremierOuPas2nde () {
   PremierOuPas.call(this)
   this.sup = 1

@@ -14,6 +14,8 @@ export const dateDePublication = '21/06/2022' // La date de publication initiale
      * @author Gilles Mora
      * Référence
     */
+export const uuid = 'e794b'
+export const ref = 'can1F12'
 export default function CalculFonctionDeriveeFctRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

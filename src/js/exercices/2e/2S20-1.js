@@ -8,6 +8,8 @@ export { interactifReady, interactifType } from '../3e/3S12.js'
  *
  * @author Sébastien LOZANO
  */
+export const uuid = 'dc3d2'
+export const ref = '2S20-1'
 export default function calculEffectifFrequence2nde () {
   calculEffectifFrequence.call(this)
 }

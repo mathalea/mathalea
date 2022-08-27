@@ -17,6 +17,8 @@ export const dateDePublication = '19/08/2022'
  * @author Guillaume Valmont
  * Référence 6G10-4
 */
+export const uuid = '03b49'
+export const ref = '6G10-4'
 export default function VocabulaireDuCercle () {
   Exercice.call(this)
   this.titre = titre

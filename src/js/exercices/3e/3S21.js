@@ -17,6 +17,8 @@ export const interactifType = 'mathLive'
  * @author Jean-Claude Lhote
  * Référence 3S21
 */
+export const uuid = '76230'
+export const ref = '3S21'
 export default function CalculProbaExperience2Epreuves3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
@@ -498,7 +500,6 @@ function urneDeuxTiragesSansRemise (exercice, NoQuestion, sup, sup2, niveau) { /
   texteCorr += `On peut donc calculer la probabilité de cet événement en calculant : $1 -${proba1et2.texFractionSimplifiee} = ${proba4.texFractionSimplifiee}$.`
   if (!context.isAMC) setReponse(exercice, NoQuestion, probaChoix, { formatInteractif: 'fractionEgale' })
   if (!context.isAMC) setReponse(exercice, NoQuestion + 1, proba1et2, { formatInteractif: 'fractionEgale' })
-  console.log(proba4)
   if (!context.isAMC) setReponse(exercice, NoQuestion + 2, proba4, { formatInteractif: 'fractionEgale' })
   return { texte: texte, texteCorr: texteCorr, alea: [nbBoule1, nbBoule2, b1Char, b2Char], NoQuestion: NoQuestion + 3 }
 }

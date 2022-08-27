@@ -9,6 +9,8 @@ export const titre = 'Calculer, de manières différentes, des images par une fo
  * Déterminer à partir de plusieurs modes de représentation l'image d'un nombre
  * @author Sébastien LOZANO
  */
+export const uuid = '02116'
+export const ref = '3F12'
 export default function fonctionsCalculsDImages () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

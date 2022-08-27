@@ -16,6 +16,8 @@ export const dateDeModifImportante = '29/10/2021'
  * Référence 6N31-4
  * Ajout AMC : Janvier 2022 par EE
 */
+export const uuid = 'b86b9'
+export const ref = '6N31-4'
 export default function IntercalerDecimalEntre2Decimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Compléter avec un nombre décimal.'

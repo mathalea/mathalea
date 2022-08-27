@@ -21,6 +21,8 @@ export const dateDeModifImportante = '' // Une date de modification importante a
  * @author Olivier Mimeau
  * Référence 5A12-2
 */
+export const uuid = '03d65'
+export const ref = '5A12-2'
 export default class PremierOuPas extends Exercice {
   constructor () {
     super()

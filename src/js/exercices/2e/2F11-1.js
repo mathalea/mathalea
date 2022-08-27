@@ -18,6 +18,8 @@ export const dateDePublication = '18/01/2022' // La date de publication initiale
  * @author Degrange Mathieu
  *
 */
+export const uuid = 'b6cc0'
+export const ref = '2F11-1'
 export default function ImageFonctionsRefs () {
   Exercice.call(this)
   this.nbQuestions = 8

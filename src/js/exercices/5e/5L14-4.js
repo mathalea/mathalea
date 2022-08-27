@@ -9,6 +9,8 @@ export const titre = 'Déterminer la dernière opération à effectuer dans une 
  * @author Sébastien Lozano fork Jean-Claude Lhote
  * Rendu paramétrable et ajout de la structure d'une expression le 14/08/2021 : Guillaume Valmont
  */
+export const uuid = '97f1a'
+export const ref = '5L14-4'
 export default function DeterminerDerniereOperationExpressionLitterale () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

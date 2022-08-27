@@ -12,6 +12,8 @@ export const interactifType = 'mathLive'
 * @author Rémi Angot
 * 5L13
 */
+export const uuid = '1bce3'
+export const ref = '5L13'
 export default function Reductionaxbx () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

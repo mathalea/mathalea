@@ -19,6 +19,8 @@ export const titre = 'Signe d\'un produit ou d\'un quotient de nombres relatifs'
 
  * @author Sébastien Lozano
  */
+export const uuid = '450ae'
+export const ref = '4C10-0'
 export default function SigneProduitQuotientRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Donner le signe des expressions numériques.'

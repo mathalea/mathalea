@@ -9,6 +9,8 @@ export const titre = 'Utiliser le cosinus pour calculer la mesure d\'un angle da
  * Le niveau 1 se limite à l'utilisation de Arccos
  * Le niveau 2 utilise la fonction trigo la plus pertinente pour un calcul direct
  */
+export const uuid = '22810'
+export const ref = '4G41'
 export default function CalculDAngle4e () {
   CalculDAngle.call(this)
   this.level = 4

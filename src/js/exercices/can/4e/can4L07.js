@@ -13,6 +13,8 @@ export const dateDePublication = '23/02/2022' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
+export const uuid = '97664'
+export const ref = 'can4L07'
 export default function ReduireExp () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

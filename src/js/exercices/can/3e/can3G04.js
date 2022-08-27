@@ -14,6 +14,8 @@ export const interactifType = 'mathLive'
  * Référence can3G04
  * Date de publication sptembre 2021
 */
+export const uuid = '85416'
+export const ref = 'can3G04'
 export default function RechercheValeurPythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

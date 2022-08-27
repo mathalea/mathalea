@@ -12,6 +12,8 @@ export const amcType = 'AMCNum'
  * Référence can4C06
  * Date de publication
 */
+export const uuid = '11f3c'
+export const ref = 'can4C06'
 export default function NombreDeNombresEntiersEntreDeuxValeurs () {
   Exercice.call(this)
   this.typeExercice = 'simple'

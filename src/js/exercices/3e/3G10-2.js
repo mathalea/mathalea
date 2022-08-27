@@ -7,6 +7,8 @@ export const titre = 'Trouver l\'image d\'un point par une transformation choisi
  * référence 3G10-2
  */
 
+export const uuid = 'd5f34'
+export const ref = '3G10-2'
 export default function Transformations3e () {
   Transformations.call(this)
   this.sup = 4

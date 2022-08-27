@@ -12,6 +12,8 @@ export const titre = 'Déterminer des angles en utilisant les cas d\'égalité'
  * publié le 14/11/2020
  * @author Jean-Claude Lhote Inspiré d'exercices du manuel sésamath.
  */
+export const uuid = 'd12db'
+export const ref = '5G30-1'
 export default function EgaliteDAngles () {
   'use strict'
   Exercice.call(this)
