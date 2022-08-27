@@ -31,11 +31,9 @@ export default function VocabulaireDesTriangles () {
       if (this.sup === 1) {
         this.nbQuestions = 4
       } else {
-        // this.nbQuestions = 9;
         this.nbQuestions = 5
       }
     } else if (this.classe === 5) {
-      // this.nbQuestions = 11;
       this.nbQuestions = 5
     }
 
