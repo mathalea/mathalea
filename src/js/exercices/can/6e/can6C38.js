@@ -1,7 +1,7 @@
 import { randint } from '../../../modules/outils.js'
 import { Yohaku } from '../../6e/Yohaku.js'
 import Exercice from '../../Exercice.js'
-export const titre = 'Addition à trou Yohaku'
+export const titre = 'Trouver une valeur dans un Yohaku (additif)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

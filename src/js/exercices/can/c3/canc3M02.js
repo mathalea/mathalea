@@ -3,7 +3,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une longueur/un périmètre/une aire (avec des entiers)'
-export const dateDePublication = '03/08/2022'
+export const dateDePublication = '25/08/2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
