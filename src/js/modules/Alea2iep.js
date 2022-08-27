@@ -1,4 +1,4 @@
-// Le premier import est à commenter pour que le build:dicos fonctionne dans la v3
+// Le premier import et l'utilisation de iepLoadPromise est à commenter pour que le build:dicos fonctionne dans la v3
 import iepLoadPromise from 'instrumenpoche'
 import { angleOriente, droite, homothetie, longueur, milieu, norme, point, pointAdistance, pointSurSegment, rotation, segment, translation, translation2Points, vecteur } from './2d.js'
 import { context } from './context.js'
@@ -200,11 +200,11 @@ export default class Alea2iep {
               // On ajoute une regle css max-width pour éviter le débordement
               element.style.maxWidth = '95%'
               elementBtn.innerHTML = '<i class="large stop circle outline icon"></i>Masquer animation'
-              // iepLoadPromise(element, xml, { zoom: true, autostart: true }).then(iepApp => {
-              //   // la figure est chargée
-              //   // On surcharge la propriété CSS min-width après que la promesse ait été satisfaite sinon ça marche pas !
-              //   element.style.minWidth = '90%'
-              // }).catch(error => { console.log(error) })
+              iepLoadPromise(element, xml, { zoom: true, autostart: true }).then(iepApp => {
+                // la figure est chargée
+                // On surcharge la propriété CSS min-width après que la promesse ait été satisfaite sinon ça marche pas !
+                element.style.minWidth = '90%'
+              }).catch(error => { console.log(error) })
             } else {
               element.style.display = 'none'
               elementBtn.innerHTML = '<i class="large play circle outline icon"></i>Voir animation'
