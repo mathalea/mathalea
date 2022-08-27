@@ -1010,10 +1010,14 @@ export default {
     }
   },
   "2N10-2": {
-    "titre": "Placer un point d\\",
+    "titre": "Placer un point d'abscisse décimale",
     "url": "/exercices/2e/2N10-2.js",
-    "amcReady": false,
-    "interactifReady": false,
+    "amcReady": true,
+    "amcType": {
+      "text": "AMCOpen"
+    },
+    "interactifReady": true,
+    "interactifType": "custom",
     "name": "2N10-2",
     "newEx": {
       "isNew": false,
@@ -2572,7 +2576,7 @@ export default {
     }
   },
   "3F12": {
-    "titre": "Fonctions : Calculs d'images",
+    "titre": "Calculer, de manières différentes, des images par une fonction",
     "url": "/exercices/3e/3F12.js",
     "amcReady": false,
     "interactifReady": false,
@@ -3816,6 +3820,25 @@ export default {
     "name": "4C10-1",
     "newEx": {
       "isNew": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
+    },
+    "updateEx": {
+      "isNewFeat": false,
+      "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
+    }
+  },
+  "4C10-10": {
+    "titre": "Multiplication à trou de deux entiers relatifs",
+    "url": "/exercices/4e/4C10-10.js",
+    "amcReady": true,
+    "amcType": {
+      "text": "qcmMono"
+    },
+    "interactifReady": true,
+    "interactifType": "qcm",
+    "name": "4C10-10",
+    "newEx": {
+      "isNew": true,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -7163,7 +7186,7 @@ export default {
     }
   },
   "5S11": {
-    "titre": "Lire un diagramme en barre",
+    "titre": "Lire un diagramme en barres",
     "url": "/exercices/5e/5S11.js",
     "amcReady": true,
     "amcType": {
@@ -9187,7 +9210,7 @@ export default {
     }
   },
   "6N10-7": {
-    "titre": "Recomposer un entier",
+    "titre": "Recomposer un décimal ou un entier",
     "url": "/exercices/6e/6N10-7.js",
     "amcReady": true,
     "amcType": {
@@ -10242,7 +10265,7 @@ export default {
     }
   },
   "6S10": {
-    "titre": "Lire un diagramme en barre",
+    "titre": "Lire un diagramme en barres",
     "url": "/exercices/6e/6S10.js",
     "amcReady": true,
     "amcType": {
@@ -11726,12 +11749,12 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
-  "betaModele30_constructions_géométriques": {
+  "betaModele30_constructions_géométriques": {
     "titre": "Nom de l'exercice",
-    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
+    "url": "/exercices/beta/betaModele30_constructions_géométriques.js",
     "amcReady": false,
     "interactifReady": false,
-    "name": "betaModele30_constructions_géométriques",
+    "name": "betaModele30_constructions_géométriques",
     "newEx": {
       "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
@@ -16968,7 +16991,7 @@ export default {
     }
   },
   "can6C27": {
-    "titre": "Résoudre un problème concret",
+    "titre": "Résoudre un problème de rendu de monnaie",
     "url": "/exercices/can/6e/can6C27.js",
     "amcReady": false,
     "interactifReady": true,
@@ -16979,7 +17002,7 @@ export default {
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
-      "isNewFeat": false,
+      "isNewFeat": true,
       "tag": "<span class=\"ui mini orange label transition visible\">MAJ</span>"
     }
   },
@@ -17124,7 +17147,7 @@ export default {
     "interactifType": "mathLive",
     "name": "can6C35",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -18242,7 +18265,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3C07",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
@@ -18261,7 +18284,7 @@ export default {
     "interactifType": "mathLive",
     "name": "canc3C08",
     "newEx": {
-      "isNew": true,
+      "isNew": false,
       "tag": "<span class=\"ui mini orange label transition visible\">NEW</span>"
     },
     "updateEx": {
