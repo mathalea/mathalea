@@ -12,6 +12,8 @@ export const interactifType = 'qcm'
  * Référence can2F03
  * Date de publication 24/10/2021
 */
+export const uuid = '03b1d'
+export const ref = 'can2F03'
 export default function SigneFonctionAffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.date = 1635094684684

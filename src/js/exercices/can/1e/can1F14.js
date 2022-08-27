@@ -10,6 +10,8 @@ export const dateDePublication = '20/06/2022'
  * @author Gilles Mora
 
 */
+export const uuid = 'a1ba2'
+export const ref = 'can1F14'
 export default function NombreDerivee () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

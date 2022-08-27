@@ -11,6 +11,8 @@ export const amcType = 'AMCOpen'
  * @author Jean-Claude Lhote (Ajout AMC par Eric Elter)
  * Publié le 30/11/2020
  */
+export const uuid = 'd7052'
+export const ref = '6G25'
 export default function ConstruireMediatrices6e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

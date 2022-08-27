@@ -18,6 +18,8 @@ export const interactifType = ['qcm', 'mathLive']
  * référence 6M30
  */
 
+export const uuid = '04b0d'
+export const ref = '6M30'
 export default function CalculDeVolumes () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

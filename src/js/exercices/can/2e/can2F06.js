@@ -15,6 +15,8 @@ export const dateDePublication = '15/12/2021' // La date de publication initiale
  * @author Gilles Mora
  * Référence
 */
+export const uuid = '73ab4'
+export const ref = 'can2F06'
 export default function TableauSignes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

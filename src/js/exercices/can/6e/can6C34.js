@@ -13,6 +13,8 @@ export const dateDePublication = '09/05/2022'
  *
  *
  */
+export const uuid = '7a19d'
+export const ref = 'can6C34'
 export default function PyramideAdd3EtagesBaseInconnue () {
   Exercice.call(this)
   this.nbQuestions = 1

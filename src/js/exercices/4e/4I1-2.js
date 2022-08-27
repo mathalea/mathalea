@@ -18,6 +18,8 @@ export const titre = 'Tortue Scratch avec répétitions'
  * @author Jean-Claude Lhote
  * Géné
  */
+export const uuid = '8ded2'
+export const ref = '4I1-2'
 export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
   'use strict'
   Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices

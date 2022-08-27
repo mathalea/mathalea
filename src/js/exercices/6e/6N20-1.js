@@ -18,6 +18,8 @@ export const amcType = 'AMCHybride'
  * Référence 6N20-1
  * Relecture : Novembre 2021 par EE
 */
+export const uuid = '1f5de'
+export const ref = '6N20-1'
 export default function EncadrerFractionEntre2Entiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Compléter avec deux nombres entiers consécutifs.' + modalTexteCourt(1, 'Nombres entiers consécutifs : Ce sont deux nombres entiers qui se suivent comme 4 et 5.', 'Consécutifs')

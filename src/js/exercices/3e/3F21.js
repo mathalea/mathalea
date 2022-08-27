@@ -6,6 +6,8 @@ export const titre = 'Déterminer une fonction linéaire'
  * @author Jean-Claude Lhote
  * Référence : 3F21-1
  */
+export const uuid = 'b4c0d'
+export const ref = '3F21'
 export default function LectureExpressionFonctionsLineaires () {
   LectureExpressionFonctionsAffines.call(this)
   this.titre = titre

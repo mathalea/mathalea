@@ -13,6 +13,8 @@ export const amcType = 'AMCNum'
  * Publié le 11 / 09 / 2021
  * Référence can6N07
  */
+export const uuid = '34d01'
+export const ref = 'can6N07'
 export default function LireAbscisseDecimaleDeFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -18,6 +18,8 @@ export const dateDeModificationImportante = '5/08/2022'
  * @author Jean-Claude Lhote
  * Référence 2F32-2
 */
+export const uuid = '573f2'
+export const ref = '2F32-2'
 export default function LecturesGraphiques () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

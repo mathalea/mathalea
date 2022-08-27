@@ -9,6 +9,8 @@ export const dateDePublication = '20/01/2022'
  * Créé le 20/01/2022
  * Référence can6N13
  */
+export const uuid = 'ce3da'
+export const ref = 'can6N13'
 export default function sommmeFractionsDecimalesCAN () {
   sommmeFractionsDecimales.call(this)
   this.nbQuestions = 1

@@ -25,6 +25,8 @@ export const dateDePublication = '05/04/2022' // La date de publication initiale
 function compareNombres (a, b) {
   return a - b
 }
+export const uuid = '1f0cd'
+export const ref = 'can2a-2021'
 export default function SujetCAN2021Seconde () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

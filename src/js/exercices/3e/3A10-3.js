@@ -17,6 +17,8 @@ export const titre = 'Décomposer un entier en facteurs premiers'
  * @author Sébastien Lozano (Rajout par EE du this.sup2)
  * Référence 3A10-3
  */
+export const uuid = '32f33'
+export const ref = '3A10-3'
 export default function decompositionFacteursPremiers () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

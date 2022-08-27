@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
 * Référence
 * Date de publication
 */
+export const uuid = 'a66ad'
+export const ref = 'techno1P2-1'
 export default function Proportion () {
   Exercice.call(this)
   this.typeExercice = 'simple'

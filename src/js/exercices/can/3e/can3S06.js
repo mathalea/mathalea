@@ -10,6 +10,8 @@ export const interactifType = 'mathLive'
  * Référence
  * Date de publication
 */
+export const uuid = '87ceb'
+export const ref = 'can3S06'
 export default function Mediane () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

@@ -11,6 +11,8 @@ export const dateDePublication = '25/10/2021'
  * Référence can3F06
 */
 
+export const uuid = '17987'
+export const ref = 'can3F06'
 export default function CoefficientFonctionAffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !

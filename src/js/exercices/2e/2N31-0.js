@@ -8,6 +8,8 @@ export { interactifReady, interactifType } from '../4e/4C35.js'
  * @author Rémi Angot
  */
 
+export const uuid = '53fbb'
+export const ref = '2N31-0'
 export default function PuissanceDunNombre2e () {
   PuissanceDunNombre.call(this)
   this.sup = true

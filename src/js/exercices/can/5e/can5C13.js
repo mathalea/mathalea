@@ -13,6 +13,8 @@ export const amcType = 'AMCNum'
  * Référence can5C13
  * Date de publication
 */
+export const uuid = 'ca4ce'
+export const ref = 'can5C13'
 export default function CalculAstucieux1 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

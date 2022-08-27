@@ -9,6 +9,8 @@ export { interactifReady, interactifType, amcReady, amcType } from '../6e/6C10-4
  *
  * @author Jean-Claude Lhote
  */
+export const uuid = 'ed7fc'
+export const ref = 'c3C10-4'
 export default function TablesAdditionsCycle3 () {
   ExerciceTablesAdditions.call(this, 10)
 }

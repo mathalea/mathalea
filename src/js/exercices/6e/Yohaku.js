@@ -200,6 +200,8 @@ export class Yohaku {
   }
 }
 
+export const uuid = '3a377'
+export const ref = 'Yohaku'
 export default function FabriqueAYohaku () {
   Exercice.call(this)
   this.nbQuestions = 3

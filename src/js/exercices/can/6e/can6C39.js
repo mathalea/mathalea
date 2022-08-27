@@ -8,6 +8,8 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '10/08/2022'
 
+export const uuid = '892f2'
+export const ref = 'can6C39'
 export default function YohakuCan6b () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -3,6 +3,8 @@ export const titre = 'Yahoku additif fractions niveau 1'
 export const dateDePublication = '10/08/2022'
 export { interactifReady, interactifType } from '../6e/Yohaku.js'
 
+export const uuid = '1a61d'
+export const ref = '4C21-2'
 export default function FabriqueAYohaku4CF2 () {
   FabriqueAYohaku.call(this)
   this.sup = 10

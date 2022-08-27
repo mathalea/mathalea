@@ -11,6 +11,8 @@ export const titre = 'Produire une formule à partir d\'un tableau'
  * @author Sébastien Lozano
  */
 
+export const uuid = '7aba6'
+export const ref = '5L10-4'
 export default function TableauxEtFonction () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

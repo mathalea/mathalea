@@ -7,6 +7,8 @@ export const titre = 'Résoudre une équation x+a=b ou ax=b'
  * Créé pendant l'été 2021
  * Référence can4L01
  */
+export const uuid = '0641c'
+export const ref = 'can4L01'
 export default function UneEquationSimple () {
   ExerciceEquationASolutionEntiere.call(this)
   this.nbQuestions = 1

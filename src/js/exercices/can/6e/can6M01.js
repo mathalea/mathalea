@@ -13,6 +13,8 @@ export const amcType = 'qcmMono'
  * Créé pendant l'été 2021
  * Référence can6M01
  */
+export const uuid = '79035'
+export const ref = 'can6M01'
 export default function QuestionDePerimetres () {
   Exercice.call(this)
   this.nbQuestions = 1

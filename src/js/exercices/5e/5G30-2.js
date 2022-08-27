@@ -60,6 +60,8 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
  * @author Frédéric PIOU
  * Référence
 */
+export const uuid = '19812'
+export const ref = '5G30-2'
 export default function exercicesAnglesAIC () {
   Exercice.call(this)
   const formulaire = [

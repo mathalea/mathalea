@@ -21,6 +21,8 @@ export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèle
  * 18/10/21 passage de MG32 à MathALEA2D par Rémi Angot
  * 3G21
  */
+export const uuid = '3451c'
+export const ref = '3G21'
 export default function ReciproqueThales () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

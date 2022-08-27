@@ -11,6 +11,8 @@ export { interactifReady, interactifType } from '../6e/6N20-2.js'
  *
  * @author Sébastien LOZANO
  */
+export const uuid = '45726'
+export const ref = '2N30-1'
 export default function ExerciceFractionsDifferentesEcritures2nde () {
   ExerciceFractionsDifferentesEcritures.call(this)
 }

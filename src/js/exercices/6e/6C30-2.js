@@ -16,6 +16,8 @@ export const titre = 'Calculer le produit de deux décimaux connaissant le produ
  * @author Sébastien Lozano
  */
 
+export const uuid = '625c0'
+export const ref = '6C30-2'
 export default function ProduitDeDecimauxAPartirProduitConnu () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false

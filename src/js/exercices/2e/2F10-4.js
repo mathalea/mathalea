@@ -10,6 +10,8 @@ export const titre = 'Déterminer une fonction affine à partir de deux images.'
 * @author Stéphane Guyon
 * 2F20
 */
+export const uuid = 'ef897'
+export const ref = '2F10-4'
 export default function Determinerfonctionaffine () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

@@ -13,6 +13,8 @@ export const titre = 'Additionner des durées'
  * @author Rémi Angot
  * Référence 6D11
  */
+export const uuid = '5f315'
+export const ref = '6D11'
 export default function SommeDeDurees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

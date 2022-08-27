@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Créé pendant l'été 2021
  * Référence can4P02
  */
+export const uuid = '7374f'
+export const ref = 'can4P02'
 export default function ProblemesDeVitesse () {
   Exercice.call(this)
   this.typeExercice = 'simple'

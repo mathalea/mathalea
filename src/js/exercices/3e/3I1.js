@@ -9,6 +9,8 @@ export const titre = 'Instruction conditionelle (scratch)'
  * * publié le  24/11/2020
  * @author Erwan Duplessy
  */
+export const uuid = '8cbd6'
+export const ref = '3I1'
 export default function InstructionConditionelle () {
   'use strict'
   Exercice.call(this) // Héritage de la classe Exercice()

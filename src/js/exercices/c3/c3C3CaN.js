@@ -15,6 +15,8 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote
  * Référence
 */
+export const uuid = '32a0f'
+export const ref = 'c3C3CaN'
 export default function CourseAuxNombresCM (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 30

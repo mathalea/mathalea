@@ -24,6 +24,8 @@ function remplaceParZero (chaine, place) {
  * @author Jean-Claude Lhote
  * Référence c3N10-1
  */
+export const uuid = 'f899b'
+export const ref = '6N10-7'
 export default function RecomposerEntierC3 () {
   Exercice.call(this)
   this.nbQuestions = 4

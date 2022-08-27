@@ -8,6 +8,8 @@ export { amcReady, amcType } from '../5e/5L10.js'
  * @author Sébastien Lozano
  */
 
+export const uuid = 'a16a0'
+export const ref = '2N40-3'
 export default function EcrireUneExpressionLitterale2e () {
   EcrireUneExpressionLitterale.call(this)
 }

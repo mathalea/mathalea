@@ -11,6 +11,8 @@ export const amcType = 'AMCNum'
  * Publié le 11 / 09 / 2021
  * Référence can6N06
  */
+export const uuid = 'cc882'
+export const ref = 'can6N09'
 export default function PositionDesChiffres () {
   Exercice.call(this)
   this.typeExercice = 'simple'

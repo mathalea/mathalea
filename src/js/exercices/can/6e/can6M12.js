@@ -14,6 +14,8 @@ export const amcType = 'AMCNum'
  * Créé le 03/08/2022
  * Référence can6M12
  */
+export const uuid = '08764'
+export const ref = 'can6M12'
 export default function ProblemesDeLongueursEtPerimetre () {
   Exercice.call(this)
   this.nbQuestions = 1

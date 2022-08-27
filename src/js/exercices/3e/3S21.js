@@ -17,6 +17,8 @@ export const interactifType = 'mathLive'
  * @author Jean-Claude Lhote
  * Référence 3S21
 */
+export const uuid = '76230'
+export const ref = '3S21'
 export default function CalculProbaExperience2Epreuves3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
 

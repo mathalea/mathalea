@@ -12,6 +12,8 @@ export const amcType = 'AMCOpen'
  * référence CM019
  */
 
+export const uuid = '1e528'
+export const ref = 'CM019'
 export default function LeCompteEstBonV3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne =

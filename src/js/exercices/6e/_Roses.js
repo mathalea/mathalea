@@ -11,7 +11,7 @@ const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
 const math = create(all)
-const engine = new ComputeEngine()
+const engine = ComputeEngine
 /**
  * Travailler les tables de multiplication autrement
  * @author Jean-Claude Lhote

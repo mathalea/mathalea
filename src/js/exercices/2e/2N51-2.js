@@ -8,6 +8,8 @@ export const titre = 'Trouver l\'erreur dans une résolution d\'équation du pre
  *
  * @author Sébastien LOZANO
  */
+export const uuid = 'ad208'
+export const ref = '2N51-2'
 export default function TrouverErreurResolEqDeg12nde () {
   TrouverErreurResolEqDeg1.call(this)
 }

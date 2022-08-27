@@ -11,6 +11,8 @@ export const titre = 'Reconnaître des triangles égaux dans différentes config
  * 3G23 reconnaître des triangles égaux
  * @author Jean-Claude Lhote et Sébastien Lozano
  */
+export const uuid = '91513'
+export const ref = '3G23'
 export default function TrianglesEgaux () {
   Exercice.call(this)
   this.debug = false

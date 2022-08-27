@@ -463,6 +463,8 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
 
 // _______ Fin des fonctions correspondants aux situations problèmes _____
 
+export const uuid = 'b0f4e'
+export const ref = '6P12'
 export default function ProportionnaliteParCoefDeProportionnalite () {
   'use strict'
   let question

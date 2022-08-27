@@ -13,6 +13,8 @@ export const amcType = 'AMCNum'
  * Créé le 03/08/2022
  * Référence canc3M02
  */
+export const uuid = 'cb91f'
+export const ref = 'canc3M02'
 export default function ProblemesDeLongueursEtPerimetreCM () {
   Exercice.call(this)
   this.nbQuestions = 1
