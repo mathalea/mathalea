@@ -1,4 +1,5 @@
-import { codageSegments, milieu, texteParPosition, mathalea2d, point, segment, codageAngleDroit } from '../../../modules/2d.js'
+import { codageSegments, milieu, texteParPosition, point, segment, codageAngleDroit } from '../../../modules/2d.js'
+import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, choice, stringNombre, texNombre } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js/decimal.mjs'
