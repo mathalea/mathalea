@@ -1,5 +1,5 @@
 import { randint } from '../../../modules/outils.js'
-import Yohaku from '../../6e/Yohaku.js'
+import { Yohaku } from '../../6e/Yohaku.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Multiplication à trou Yohaku'
 export const interactifReady = true
